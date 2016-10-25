@@ -1,0 +1,136 @@
+---
+en:
+  common:
+    and: and
+  actions:
+    send: Send
+    create: Create
+    update: Update
+    confirm: Are you sure?
+    edit: Edit
+    delete: Delete
+    see_page: View page
+  layout:
+    council_of: "Council of %{name}"
+    transparency_and_participation: Transparency and Engagement
+    login_or_signup: Login or signup
+    your_account: Your Account
+    cta_login: Already has an account? Login
+    your_email: Your email
+    your_password: Your password
+    cta_signup: New user? Signup
+    login: Login
+    signup: Signup
+    gobierto: The platform for Transparency, Open Government and Engagement for Public Administration
+    your_account: Your account
+    logout: Logout
+    your_notifications: Your notifications
+    your_notifications_temp: In this section you'll be able to check your personal notifications so its easier for you to follow everything that interests you in this site
+    news: News
+    add: Add
+    edit: Edit
+    remove: Remove
+    admin: Administration
+    pages: Pages
+    users: Users
+    configuration: Configuration
+    sections: Sections
+    search: Search
+    news: News
+  admin:
+    registered_users:
+      one: 1 registered user
+      other: "%{count} registered users"
+    user_name: Name
+    user_email: Email
+    user_signed_up_date: Signed up
+    user_last_activity: Last activity
+    users_edit: Edit user information
+    users_impersonate: Login as the user
+    users_soft_delete: "Delete the user: she won't be able to login and publish content, her activity will disappear (it will be visible for administratos)"
+    users_restore: "Restore user"
+  users:
+    your_account: Your account
+    your_account_description: Manage your personal information
+    email_tip: This is your verified email. At a later time you'll be able to update it if you need it
+    want_to_update_password: Do you want to update your password?
+    current_password: Current password
+    password_tip: Only if you want to update your password
+    document_tip: Needed to update your identity in the future. It won't be displayed ever
+    complete_signup: Complete your signup
+    confirm_filling_fields: Confirm your signup by filling the following fields
+    accept: I accept the
+    terms_and_conditions: Terms and conditions
+    privacy: Privacy
+    email_notification_successful: An extra step
+    email_notification_message: We have just sent you an email with a link to finish the signup.
+    signup_successful: Fantastic, you are now a user
+    welcome_message_1: You are ready to use and take part of the tools provided by the Transparency and Engagement from the %{name} Council
+    welcome_message_2: "<strong>Take part</strong>: in the consultations from the Council, send ideas and reports."
+    welcome_message_3: "<strong>Support</strong>: join other people requests."
+    welcome_message_4: "<strong>Track</strong> the information you are interested on. Each page has an icon to follow any change on that page. You'll receive automatically an email."
+  gobierto_participation:
+    participation: Participation
+    ideas: Ideas
+    ideas_description: Do you have ideas to improve your city? Share them
+    latest_ideas: Latest ideas published
+    sent_by: Sent by
+    idea_sent_by: Idea sent by %{name}
+    comments_count:
+      one: 1 comment
+      other: '%{count} comments'
+    cta_comment: Send your comment
+    comments_note: The comment will be published with your name
+    idea_note: The idea will be published with your name
+    idea_title: Your idea
+    comment_sent_by: Comment sent by
+    idea_sent_by_no_name: Idea sent by
+    to_take_part: to take part
+    send_your_idea: Send your idea
+    contribute_with_ideas: Contribute with ideas to improve %{name}
+    idea_cta: Send a new idea
+    edit_idea_cta: Edit the idea
+    idea_desc_p1: Use this space to send your ideas o debates about topics related with %{name}
+    idea_desc_p2: ''
+    consultations: Consultations
+    consultation_cta: Create a new consultation
+    edit_consultation_cta: Edit the consultation
+    consultations_description: Your council asks for you to contribute with your opinion
+    latest_consultations: Latest consultations published
+    voting_until: Voting until
+    voting_closed: Voting closed
+    in_n_days:
+      one: in 1 day
+      other: in %{count} days
+    consultation_sent_by: Consultation proposed by %{name}
+    answer_sent_by: Proposal sent by
+    answer_note: This proposal will be published with your name
+    argue_answer: "Optional: Argue your answer"
+    answers_count:
+      one: 1 proposal
+      other: '%{count} proposals'
+    add_yours: Add yours
+    response_count: 
+      one: 1 response
+      other: '%{count} responses' 
+    open_answers_consultation: Open consultation
+    open_answers_consultation_desc: Create a consultation and let open questions (free text created by the neighbours). You'll be able to close the consultation when you want.
+    closed_answers_consultation: Closed consultation
+    closed_answers_consultation_desc: Create a consultation with closed answers to let neighbours choose one. You'll be able to close the consultation when you want.
+    options: Options
+    add_option: Add option
+    remove_option: Remove option
+    consultation_open_until: Consultation open until
+    consultation_limit_date: Limit date to receive answers
+  gobierto_cms:
+    pages_root: Home
+    information: Information
+    children_pages: In this section
+    attachments: Attached files
+    no_pages: There are no pages created yet
+    create_the_first_page: Create the first page
+    all_the_pages: All the pages
+    new_page: New page
+    attach_file: Attach a file
+    uploading: Uploading...
+    edit_page: Edit %{title}

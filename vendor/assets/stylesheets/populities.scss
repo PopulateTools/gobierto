@@ -1,0 +1,384 @@
+ /* 
+  * Populities
+  * CSS and JS utilities by Populate
+  *
+  * https://github.com/PopulateTools/populities
+  * Version: 0.3
+  * 
+  * TODO: Create and index, document...
+  * 
+  */
+
+.clearfix, %clearfix {
+
+  &:after, &:before {
+    content: '';
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+.col-1-2, .col-2-2 {
+  width: 48%;
+  float: left;
+  margin: 0 4% 0 0;
+  text-align: center;
+}
+.col-2-2 {
+  float: right; 
+  margin: 0;
+}
+.col-1-3, .col-2-3, .col-3-3 {
+  width: 32%;
+  float: left;
+  margin: 0 2% 0 0;
+  text-align: center;
+}
+.col-3-3 {
+  float: right;
+  margin: 0;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}
+.center {
+  text-align: center;
+}
+.ib {
+  display: inline-block;
+}
+.f_left {
+  float: left;
+}
+.f_right {
+  float: right;
+}
+.hidden {
+  display: none;
+}
+.fixed {
+  position: fixed;
+}
+.soft {
+  opacity: .5;
+}
+
+
+
+.p_1 {
+  padding: 1em;
+}
+.p_2 {
+  padding: 2em;
+}
+.p_3 {
+  padding: 3em;
+}
+.p_4 {
+  padding: 4em;
+}
+.m_0 {
+  margin: 0;
+}
+.m_1 {
+  margin: 1em;
+}
+.m_2 {
+  margin: 2em;
+}
+.m_3 {
+  margin: 3em;
+}
+.m_4 {
+  margin: 4em;
+}
+.p_h_1 {
+  padding: 0 1em;
+  box-sizing: border-box;  
+}
+.p_h_2 {
+  padding: 0 2em;
+  box-sizing: border-box;  
+}
+.p_h_3 {
+  padding: 0 3em;
+  box-sizing: border-box;  
+}
+.p_h_4 {
+  padding: 0 4em;
+  box-sizing: border-box;  
+}
+.p_v_1 {
+  padding: 1em 0;
+  box-sizing: border-box;  
+}
+.p_v_2 {
+  padding: 2em 0;
+  box-sizing: border-box;  
+}
+.p_v_3 {
+  padding: 3em 0;
+  box-sizing: border-box;  
+}
+.p_v_4 {
+  padding: 4em 0;
+  box-sizing: border-box;  
+}
+.m_v_1 {
+  margin: 1em 0;
+}
+.m_v_2 {
+  margin: 2em 0;
+}
+.m_v_3 {
+  margin: 3em 0;
+}
+.m_v_4 {
+  margin: 4em 0;
+}
+
+
+
+/*
+
+Mixins
+------
+
+Chunks of code to help us along the way. If you need to perform some calculation
+place that in the `generic/_functions.scss` file, mixins is more for CSS
+properties.
+
+*/
+
+@mixin reset_ul_li {
+  ul, li {
+    margin: 0; 
+    padding: 0;
+    list-style: none;
+  }
+  li { 
+    display: inline-block;
+  }
+}
+
+@mixin after_separator($separator, $margin_after: 0) {
+  ul {
+    li:not(:last-child):after {
+      content: $separator; 
+      @if $margin_after != false { margin-right: $margin_after}
+    }  
+    @if $margin_after != false { 
+      li a {
+        padding-right: $margin_after
+      }
+    }
+  }
+}
+
+@mixin size($width, $height: $width) {
+  @if $width  != false { width: $width; }
+  @if $height != false { height: $height; }
+}
+
+@mixin position($top, $right, $bottom, $left) {
+  position: absolute;
+  @if $top    != false { top: $top; }
+  @if $right  != false { right: $right; }
+  @if $bottom != false { bottom: $bottom; }
+  @if $left   != false { left: $left; }
+}
+
+@mixin placeholder($color) {
+  &::-webkit-input-placeholder       { color: $color; }
+  &:-moz-placeholder                 { color: $color; }
+  &:focus::-webkit-input-placeholder { color: lighten($color, 20%); }
+  &:focus:-moz-placeholder           { color: lighten($color, 20%); }
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+
+@mixin keyframes( $animationName ) {
+    @-webkit-keyframes $animationName {
+        @content;
+    }
+    @-moz-keyframes $animationName {
+        @content;
+    }
+    @-o-keyframes $animationName {
+        @content;
+    }
+    @keyframes $animationName {
+        @content;
+    }
+}
+
+
+/*
+* @include triangle within a pseudo element and add positioning properties (ie. top, left)
+* $direction: up, down, left, right
+*/
+@mixin triangle($direction, $size: 8px, $color: #222) {
+  content: '';
+  display: block;
+  position: absolute;
+  height: 0; width: 0;
+  @if ($direction == 'up'){
+    border-bottom: $size solid $color;
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+  }
+  @else if ($direction == 'down'){
+    border-top: $size solid $color;
+    border-left: $size solid transparent;
+    border-right: $size solid transparent;
+  }
+  @else if ($direction == 'left'){
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-right: $size solid $color;
+  }
+  @else if ($direction == 'right'){
+    border-top: $size solid transparent;
+    border-bottom: $size solid transparent;
+    border-left: $size solid $color;
+  }
+}
+
+/* Responsive mixin 
+   ----------------
+  @include screen(768, 1280) { 
+    background: black; 
+  }
+  @include min-screen(320) { 
+    width: 300px; 
+  }
+*/
+
+$units: 1px !default;
+
+@mixin screen($res-first, $res-last: $res-first) {
+  @if $res-first == $res-last {
+    @media screen and ( max-width: if(unitless($res-first), $res-first*$units, $res-first) ) {
+      @content;
+    }
+  } @else if $res-first < $res-last {
+    @media screen and ( min-width: if(unitless($res-first), $res-first*$units, $res-first) ) and ( max-width: if(unitless($res-last), $res-last*$units, $res-last) ) {
+      @content;
+    }
+  }
+}
+
+@mixin min-screen($res) {
+  @media screen and ( min-width: if(unitless($res), $res*$units, $res) ) {
+    @content;
+  }
+}
+
+// border radius; https://github.com/akorman/border-radius-sass/
+@mixin border-radius($a: false, $b: false, $c: false, $d: false, $top-left: 0, $top-right: 0, $bottom-right: 0, $bottom-left: 0, $top: false, $bottom: false, $right: false, $left: false, $radius: false) {
+
+  // Handle shorthand notation like CSS3 would
+  // You shouldn't explictly set these variables when calling the mixin
+  @if $d { $radius: $a $b $c $d; }
+  @else if $c { $radius: $a $b $c; }
+  @else if $b { $radius: $a $b; }
+  @else if $a { $radius: $a; }
+
+  @else {
+
+    // Target individual corners (or groups) instead of using CSS3 shorthand
+    @if $top { $top-left: $top; $top-right: $top; }
+    @if $bottom { $bottom-right: $bottom; $bottom-left: $bottom; }
+    @if $left { $top-left: $left; $bottom-left: $left; }
+    @if $right { $top-right: $right; $bottom-right: $right; }
+
+    // Set the radius
+    $radius: $top-left $top-right $bottom-right $bottom-left;
+  }
+
+  // Webkit, Mozilla, KHTML and standard CSS3
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -khtml-border-radius: $radius;
+  border-radius: $radius; 
+
+}
+
+// https://github.com/matthieua/sass-css3-mixins/blob/master/css3-mixins.scss
+@mixin css3-prefix($property, $value) {
+  -webkit-#{$property}: #{$value};
+   -khtml-#{$property}: #{$value};
+     -moz-#{$property}: #{$value};
+      -ms-#{$property}: #{$value};
+       -o-#{$property}: #{$value};
+          #{$property}: #{$value};
+}
+
+@mixin box-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4), $inset: "") {
+  @if ($inset != "") {
+    @include css3-prefix('box-shadow', $inset $x $y $blur $color);
+  } @else {
+    @include css3-prefix('box-shadow', $x $y $blur $color);
+  }
+}
+
+
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}  
+}
+
+
+@mixin tabs($border: #DFDFDF, $background: #CCC, $text: #999, $text_on_background: #FFF) {
+  ul, li {
+    margin: 0; 
+    padding: 0;
+    list-style: none;
+  }
+  li { 
+    display: inline-block;
+  }
+  ul {
+    border-bottom: 1px solid $border;
+    padding: 0 10px;
+  }
+  li {
+    height: 25px;
+    a {
+      display: block;
+      @include border-radius(6px, 6px, 0, 0); 
+      border: 1px solid $border;
+      margin: 0 10px 0 0;
+      padding: 6px 10px 4px;
+      text-transform: uppercase;
+      text-decoration: none;
+      @include transition;
+    }
+    a:hover {
+      background: $background;
+      color: $text_on_background;  
+    }
+  }
+  li.active a {
+    background: $background;
+    color: $text_on_background;
+  }
+  .tab {
+    display: none;
+  }
+  .tab.active {
+    display: block;
+  }
+}

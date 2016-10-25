@@ -1,0 +1,110 @@
+
+<div class="column">
+<div class="block explore_detail">
+	
+	<div class="tabs m_v_2">
+		<ul>
+			<li class="active"><%= link_to 'Ingresos', '', data: { "tab-target": 'incomes' } %></li>
+			<li><%= link_to 'Gastos', '', data: { "tab-target": 'expenses' } %></li>
+		</ul>
+	</div>
+
+	<div class="pure-g " data-tab="incomes">
+
+		<div class="pure-u-1 pure-u-md-2-3 table p_h_r_3">
+			
+			<p class="m_2">Texto de introducción sobre cómo se estructuran los gastos que de acceso a la guía sobre el presupuesto que algún día, más pronto que tarde, deberemos escribir.</p>
+
+			<div class="filter m_2">
+				<%= link_to 'En qué se gasta', '', class:'active' %>
+				<%= link_to 'Para qué se gasta' %>
+				<%= link_to '?', '', class:'help tipsit', title:'El presupuesto organiza los gastos en dos categorías. Consulta nuestra guía' %>
+			</div>
+			
+			<div class="table_cont_round">
+				<table>
+				<tr>
+					<th class="budget_line"><span>Partida</span></th>
+					<th class="qty">Importe</th>
+					<th class="qty">Por habitante</th>
+					<th class="qty">%</th>
+					<th class="qty">%</th>
+				</tr>
+
+				</tr>
+				<tr>
+					<td><%= link_to 'Impuestos directos', 'budget_line' %></td>
+					<td class="qty"> 18.345.678€</td>
+					<td class="qty"> 105€</td>
+					<td class="qty"> 19,28%</td>
+					<td class="bar"> </td>
+				</tr>
+				<tr>
+					<td><%= link_to 'Impuestos indirectos', 'budget_line' %></td>
+					<td class="qty"> 18.345.678€</td>
+					<td class="qty"> 105€</td>
+					<td class="qty"> 19,28%</td>
+					<td class="bar"> </td>
+				</tr>
+				<tr>
+					<td><%= link_to 'Transferencias corrientes', 'budget_line' %></td>
+					<td class="qty"> 18.345.678€</td>
+					<td class="qty"> 105€</td>
+					<td class="qty"> 19,28%</td>
+					<td class="bar"> </td>
+				</tr>
+				<tr>
+					<td><%= link_to 'Ingresos patrimoniales', 'budget_line' %></td>
+					<td class="qty"> 18.345.678€</td>
+					<td class="qty"> 105€</td>
+					<td class="qty"> 19,28%</td>
+					<td class="bar"> </td>
+				</tr>
+				<tr>
+					<td><%= link_to 'Enajenación de inv. reales', 'budget_line' %></td>
+					<td class="qty"> 18.345.678€</td>
+					<td class="qty"> 105€</td>
+					<td class="qty"> 19,28%</td>
+					<td class="bar"> </td>
+				</tr>
+				<tr>
+					<td><%= link_to 'Transferencias de capital', 'budget_line' %></td>
+					<td class="qty"> 18.345.678€</td>
+					<td class="qty"> 105€</td>
+					<td class="qty"> 19,28%</td>
+					<td class="bar"> </td>
+				</tr>
+				</table>
+			</div>
+
+		</div>
+
+		<div class="pure-u-1 pure-u-md-1-3">
+			
+			<p class="m_v_2 tip">Consulta la Guía sobre el Presupuesto Municipal para saber más</p>
+
+			<h3>Busca una partida específica</h3>
+
+			<form>
+				<input type="text">
+				<button>Buscar</button>
+			</form>
+
+			<div class="small m_v_3">
+				<p>Ejemplos:</p>
+				<ul>
+					<li><%= link_to 'Servicio de recogida de basuras', 'budget_line' %></li>
+					<li><%= link_to 'Servicios deportivos', 'budget_line' %></li>
+					<li><%= link_to 'Promoción cultural', 'budget_line' %></li>
+				</ul>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="pure-g " data-tab="expenses">
+	
+</div>
+</div>

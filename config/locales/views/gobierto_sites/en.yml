@@ -1,0 +1,67 @@
+en:
+  gobierto_sites:
+    budgets:
+      index:
+        in_year: In
+        per_person: Per person
+        we_spend: we spent
+        we_will_spend: we will spend
+        totally: A grand total of
+        previous_year_we_spent: That year we spent
+        that_year_we_spent: That year we spent
+        than_planned: than planned
+        previous_year_data_we_owe: According to the previous year's data, we owed
+        that_year_data_we_owe: According to the year's data, we owed
+        less: less
+        more: more
+        than_two_years_ago: than the year before
+        than_last_year: than the previous year
+        at_years_end: "* at the end of %{year}"
+        data_of_year: "* as of %{year}"
+        summary: Summary
+        twitter_text: "From @gobierto: Municipality budgets from %{name} in %{year}"
+        main_budget_lines: Main income and expenses from your council
+        income: Income
+        expenses: Gastos
+        see_all: see all
+        at_a_glance: At a glance
+        context: Context
+        note_about_the_data: Note about the data
+        note_about_the_data_title: "The database we use doesn't include 100% of the municipalities, and the avegages are calculated only with the data that exists (which is most of it). More information in our FAQ"
+        in_total: Total
+    budget_lines:
+      explorer:
+        explore_the_detail: Explore the detail
+        search_budget_line: Search for a specific budget line
+        examples: Examples
+        search: Search
+        income: Income
+        expenses: Gastos
+      index:
+        budget_line: Budget line
+        amount: Amount
+        per_inhabitant: Per inhabitant
+        expense_in_what: In what is spent
+        expense_to_do_what: To do what is spent
+        income_from_what: Where does the income come from
+        help: The budget is organized in two categories. Checkout our guide
+      show:
+        context: Context
+        evolution: Evolution
+        budget_lines_distribution: Expense budget lines distribution
+        no_distribution: There are related budget lines.
+        sub_budget_lines: In this budget line
+        no_more_descendants: There are no more descendants
+        back_to_parent: Back to parent budget line
+        we_expend: we spend
+        we_income: we income
+        expended: spent
+        income: income
+        we_have: We have
+        last_year: Last year
+        this_year: This year
+        in_total: In total they are
+        from_planned: from planned
+        per_inhabitant: Per inhabitant
+        twitter_text_expense: "In @gobierto: Municipal expense on %{name} in %{budget_line_name} for year %{year}"
+        twitter_text_income: "In @gobierto: Municipal income on %{name} in %{budget_line_name} for year %{year}"

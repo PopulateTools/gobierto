@@ -1,0 +1,9 @@
+<tr class="child_group" id="level_<%= @level %>">
+  <td colspan="5">
+    <div class="child_tb_cont">
+      <table>
+        <%= render partial: 'gobierto_sites/budget_lines/budget_line_row', collection: budget_lines, as: :budget_line, locals: { year: year, place: place, area_name: area_name, kind: kind } %>
+      </table>
+    </div>
+  </td>
+</tr>

@@ -1,0 +1,2 @@
+class SiteConfiguration < OpenStruct
+end

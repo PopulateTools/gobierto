@@ -1,0 +1,65 @@
+/*main css*/
+body {
+  font-size: 10px;
+  font-family: 'Raleway', sans-serif;
+}
+
+#main {
+  overflow: hidden;
+  margin-top: 100px;
+}
+
+
+#widget_title {
+  width: 50%;
+  float: left;
+}
+
+#bars_legend_fun {
+ // width: 50%;
+  overflow:hidden;
+  height: 20px;
+}
+
+#bars_legend_econ {
+ // width: 50%;
+  overflow:hidden;
+  height: 20px;
+}
+
+#bars_vis_fun {
+  width: 100%;
+}
+
+#bars_vis_eco {
+  width: 100%;
+  overflow: hidden;
+}
+
+.x.axis path {
+  fill: none;
+  stroke: #B87570;
+}
+
+.axis text {
+  font-size: 0.7em;
+}
+
+/*Tooltip*/
+
+.vis_bars_tooltip {
+  top: 0;
+  right: 0;
+  position: absolute;
+  padding: 5px;
+  line-height: 140%;
+  width: 160px;
+  height: 50px;
+  font-size: 12px;
+  background: #FAF7F5;
+  border: 1px solid #424242;
+  border-radius: 5px;
+  pointer-events: none;
+  text-align: right;
+}
+

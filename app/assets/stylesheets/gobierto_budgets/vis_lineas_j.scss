@@ -1,0 +1,80 @@
+/*main css*/
+body {
+  font-size: 12px;
+  font-family: 'Work Sans', sans-serif;
+}
+
+#main {
+  overflow: hidden;
+  margin-top: 100px;
+}
+
+#vis_lineas_j {
+  width: 70%;
+  float: left;
+  background-color: #FFDED4;
+}
+
+#density_vis_per {
+  width: 50%;
+  overflow: hidden;
+}
+
+.axis path {
+  fill: none;
+  stroke-width: 1px;
+}
+
+.axis line {
+  stroke-width: 1px;
+  /*shape-rendering: crispEdges;*/
+}
+
+.evolution_line {
+  fill: none;
+}
+
+
+/*Tooltip*/
+
+.vis_lineas_j_tooltip {
+  top: 0;
+  right: 0;
+  position: absolute;
+  padding: 5px;
+  line-height: 140%;
+  width: 180px;
+  height: 70px;
+  font-size: 12px;
+  background: #FAF7F5;
+  border: 1px solid #424242;
+  border-radius: 5px;
+  pointer-events: none;
+  text-align: right;
+}
+
+/*
+ * Legends
+ *
+ */
+.le {
+  display: inline-block;
+  @include border-radius(10px);
+  height: 10px;
+  width: 10px;
+  margin: 0 10px 0 0;
+}
+.le-place {
+  background: $color_vis_place;
+}
+.le-province {
+  background: $color_vis_province;
+}
+.le-com {
+  background: $color_vis_com;
+}
+.le-country {
+  background: $color_vis_country;
+}
+
+

@@ -1,0 +1,6 @@
+<% if Settings.google_analytics_sites_key.present? %>
+  <script type="text/javascript">
+    ga('create', '<%= Settings.google_analytics_sites_key %>', 'auto');
+    ga('send', 'pageview');
+  </script>
+<% end %>

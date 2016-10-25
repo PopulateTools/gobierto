@@ -1,0 +1,49 @@
+/*main css*/
+body {
+  font-size: 10px;
+  font-family: 'Raleway', sans-serif;
+}
+
+#main {
+  overflow: hidden;
+  margin-top: 100px;
+}
+
+#vis_distribution {
+  width: 100%;
+  float: left;
+}
+
+
+.x.axis path {
+  fill: none;
+  // stroke: #DEE5E7; /*customGrey*/
+  stroke-width: 1px;
+}
+
+.x.axis line {
+
+  stroke: #DEE5E7; /*customGrey*/
+  stroke-width: 1px;
+  /*shape-rendering: crispEdges;*/
+}
+
+
+/*Tooltip*/
+
+.vis_distribution_tooltip {
+  top: 0;
+  right: 0;
+  position: absolute;
+  padding: 5px;
+  line-height: 140%;
+  width: 150px;
+  height: 50px;
+  font-size: 12px;
+  background: #FAF7F5;
+  border: 1px solid #424242;
+  border-radius: 5px;
+  pointer-events: none;
+  text-align: right;
+}
+

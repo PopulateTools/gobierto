@@ -1,0 +1,69 @@
+---
+es:
+  activerecord:
+    models:
+      user: Usuario
+      site: Sitio
+      gobierto_participation/idea: Idea
+      gobierto_participation/comment:
+        one: Comentario
+        other: Comentarios
+      gobierto_participation/consultation: Consulta
+      gobierto_cms/page: Página
+    attributes:
+      user:
+        first_name: Nombre
+        last_name: Apellidos
+        email: E-mail
+        password: Contraseña
+        password_confirmation: Confirmación de la contraseña
+        current_password: Contraseña actual
+        document_type: Tipo de documento
+        document_number: Número de documento
+      site:
+        name: Nombre
+        subdomain: Subdominio
+        config: Configuración
+        location_name: Nombre del lugar
+        institution_type: Tipo de lugar
+        name: Nombre del sitio
+        subdomain: Subdominio
+        institution_url: URL del site principal
+        institution_email: Email de la institución
+        institution_address: Dirección de la institución
+        institution_document_number: NIF
+      gobierto_participation/idea:
+        title: Título
+        body: Descripción
+      gobierto_participation/comment:
+        body: Comentario
+      gobierto_participation/consultation:
+        title: Título
+        body: Contenido
+        options: Opciones
+        open_until_date: Fecha límite
+        open_until_time: Hora límite
+      gobierto_participation/consultation_answer:
+        answer: Respuesta
+        comment: Argumento
+      gobierto_cms/page:
+        title: Título
+        body: Descripción
+        parent_id: Página padre
+    errors:
+      models:
+        gobierto_participation_consultation:
+          attributes:
+            options:
+              minimum: 'Debes de añadir al menos dos opciones con la consulta'
+        gobierto_participation_consultation_answer:
+          attributes:
+            consultation:
+              closed: 'La consulta ya está cerrada'
+        user:
+          attributes:
+            document_number:
+              invalid_letter: 'La letra del documento no es válida'
+              invalid_dni_format: 'El formato del documento no es válido. Tiene que componerse de 8 números y una letra, sin espacios'
+            current_password:
+              invalid_current_password: 'La contraseña actual no es correcta'

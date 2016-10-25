@@ -1,0 +1,352 @@
+
+<%= render 'place_header.html.erb' %>
+
+<div style="display: none" class="main_metrics clearfix">
+
+  <div class="metric" data-graph-show="1">
+    <div class="label">Gasto total</div>
+    <div class="main">128,4M€</div>
+    <div class="secondary">
+      <div class="percentage_change up">3,23%</div>
+      <div class="ranking"><strong>#12</strong>/8.234</div>
+    </div>
+  </div>
+
+  <div class="metric selected" data-graph-show="2">
+    <div class="label">Habitantes</div>
+    <div class="main">1.234</div>
+    <div class="secondary">
+      <div class="percentage_change down">1,23%</div>
+      <div class="ranking"><strong>#12</strong>/8.234</div>
+    </div>
+  </div>
+
+  <div class="metric" data-graph-show="3">
+    <div class="label">Wadus</div>
+    <div class="main">1.234</div>
+    <div class="secondary">
+      <div class="percentage_change down">1,23%</div>
+      <div class="ranking"><strong>#12</strong>/8.234</div>
+    </div>
+  </div>
+
+  <div class="metric" data-graph-show="4">
+    <div class="label">Wadus</div>
+    <div class="main">1.234</div>
+    <div class="secondary">
+      <div class="percentage_change down">1,23%</div>
+      <div class="ranking"><strong>#12</strong>/8.234</div>
+    </div>
+  </div>
+
+  <div class="metric" data-graph-show="5">
+    <div class="label">Gasto por habitante</div>
+    <div class="main">1.234€</div>
+    <div class="secondary">
+      <div class="percentage_change down">1,23%</div>
+      <div class="ranking"><strong>#12</strong>/8.234</div>
+    </div>
+  </div>
+
+</div>
+
+<div style="display: none" class="metric_graphs">
+
+  <div class="graph" data-graph-cont="1">
+
+    graph gasto total
+
+  </div>
+
+  <div class="graph" data-graph-cont="2">
+
+    graph habitantes 
+
+  </div>
+
+  <div class="graph" data-graph-cont="3">
+
+    graph wadus
+
+  </div>
+
+  <div class="graph" data-graph-cont="5">
+
+    graph gasto por habitante
+
+  </div>
+
+</div>
+
+
+<header class="cat">
+  <div class="form_filters">
+    <ul>
+      <li><%= link_to 'Funcional', '', class: 'buttonSelected' %></li>
+      <li><%= link_to 'Económica' %></li>
+    </ul>
+  </div>
+  <div class="qty">Total gastos: 4.678.987.123 €</div>
+</header>
+
+<div class="graph_treemap graph_placeholder">TREEMAP</div>
+
+<div class="about_item">
+  <h2></h2>
+</div>
+
+
+
+<div class="items">
+  <table>
+  <tr>
+    <th>
+      <input type="text" placeholder="Busca partidas" class="search_items">
+    </th>
+    <th class="right ">Gasto total</th>
+    <th class="right ">Gasto por hab.</th>
+    <th class="right ">% s/ total</th>
+    <th></th>
+  </tr>
+  <tr>
+    <td class="item_name">
+      <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+      <%= link_to 'Impuestos directos', 'municipio_cat_level' %>
+    </td>
+    <td class="right total">2.034.123.456 €</td>
+    <td class="right per_hab">234,56 €</td>
+    <td class="right percentage"><strong>9%</strong></td>
+    <td class="bar_cont"><div class="bar" style="width: 9%"></div></td>
+  </tr>
+
+  <!-- second level -->
+    <tr class="child_group" id="level_2">
+      <td colspan="5">
+
+        <div class="child_tb_cont">
+          <table>
+          <tr>
+            <td class="item_name">
+              <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+              <%= link_to 'Impuesto sobre la renta' %>
+            </td>
+            <td class="right total">100.971.275,00 €</td>
+            <td class="right per_hab">234,56 €</td>
+            <td class="right percentage"><strong>95%</strong></td>
+            <td class="bar_cont"><div class="bar" style="width: 95%"></div></td>
+          </tr>
+          <tr>
+            <td class="item_name">
+              <div>
+                <%= link_to '<i class="fa fa-minus-square-o"></i>'.html_safe %> 
+                <%= link_to 'Impuestos sobre el capital' %>
+              </div>
+            </td>
+            <td class="right">1.800.971.275,00 €</td>
+            <td class="right">234,56 €</td>
+            <td class="right"><strong>5%</strong></td>
+            <td class="bar_cont"><div class="bar" style="width: 5%"></div></td>
+          </tr>
+
+          <!-- third level -->
+          <tr class="child_group" id="level_3">
+            <td colspan="5">
+
+              <div class="child_tb_cont">
+                <table>
+                <tr>
+                  <td class="item_name">
+                    <%= link_to 'Impuesto sobre la renta de las personas físicas' %>
+                  </td>
+                  <td class="right total">100.971.275,00 €</td>
+                  <td class="right per_hab">234,56 €</td>
+                  <td class="right percentage"><strong>33%</strong></td>
+                  <td class="bar_cont"><div class="bar" style="width: 33%"></div></td>
+                </tr>
+                <tr>
+                  <td class="item_name">
+                    <%= link_to 'Impuestos sobre sociedades' %>
+                  </td>
+                  <td class="right">1.800.971.275,00 €</td>
+                  <td class="right">234,56 €</td>
+                  <td class="right"><strong>33%</strong></td>
+                  <td class="bar_cont"><div class="bar" style="width: 33%"></div></td>
+                </tr>
+                <tr>
+                  <td class="item_name">
+                    <%= link_to 'Impuestos sobre la renta de no residentes' %>
+                  </td>
+                  <td class="right">1.800.971.275,00 €</td>
+                  <td class="right">234,56 €</td>
+                  <td class="right"><strong>33%</strong></td>
+                  <td class="bar_cont"><div class="bar" style="width: 33%"></div></td>
+                </tr>
+                </table>
+              </div>
+
+            </td>
+          </tr>
+          <!-- /third level -->
+
+
+          <tr>
+            <td class="item_name">
+              <div>
+                <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+                <%= link_to 'Impuesto sobre las actividades económicas' %>
+              </div>
+            </td>
+            <td class="right">113.971.275,00 €</td>
+            <td class="right">234,56 €</td>
+            <td class="right"><strong>65%</strong></td>
+            <td class="bar_cont"><div class="bar" style="width: 65%"></div></td>
+          </tr>
+          <tr>
+            <td class="item_name">
+              <div>
+                <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+                <%= link_to 'Recargos sobre impuestos directos del Estado y de la Comunidad Autónoma ' %>
+              </div>
+            </td>
+            <td class="right">0 €</td>
+            <td class="right">0 €</td>
+            <td class="right"><strong>5%</strong></td>
+            <td class="bar_cont"><div class="bar" style="width: 5%"></div></td>
+          </tr>
+          <tr>
+            <td class="item_name">
+              <div>
+                <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+                <%= link_to 'Impuesto sobre la renta' %>
+              </div>
+            </td>
+            <td class="right">100.971.275,00 €</td>
+            <td class="right">234,56 €</td>
+            <td class="right"><strong>10%</strong></td>
+            <td class="bar_cont"><div class="bar" style="width: 10%"></div></td>
+          </tr>
+          <tr>
+            <td class="item_name">
+              <div>
+                <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+                <%= link_to 'Impuestos sobre el capital' %>
+              </div>
+            </td>
+            <td class="right">1.800.971.275,00 €</td>
+            <td class="right">234,56 €</td>
+            <td class="right"><strong>20%</strong></td>
+            <td class="bar_cont"><div class="bar" style="width: 20%"></div></td>
+          </tr>
+          <tr>
+            <td class="item_name">
+              <div>
+                <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+                <%= link_to 'Impuesto sobre las actividades económicas' %>
+              </div>
+            </td>
+            <td class="right">113.971.275,00 €</td>
+            <td class="right">234,56 €</td>
+            <td class="right"><strong>5,6%</strong></td>
+            <td class="bar_cont"><div class="bar" style="width: 5%"></div></td>
+          </tr>
+          <tr>
+            <td class="item_name">
+              <div>
+                <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+                <%= link_to 'Recargos sobre impuestos directos del Estado y de la Comunidad Autónoma ' %>
+              </div>
+            </td>
+            <td class="right">0 €</td>
+            <td class="right">0 €</td>
+            <td class="right"><strong>100%</strong></td>
+            <td class="bar_cont"><div class="bar" style="width: 100%"></div></td>
+          </tr> 
+          </table>
+        </div>
+
+      </td>
+    </tr>
+  <!-- /second level -->  
+
+  <tr>
+    <td class="item_name">
+      <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+      <%= link_to 'Impuestos indirectos' %>
+    </td>
+    <td class="right">110.123.456 €</td>
+    <td class="right">234,56 €</td>
+    <td class="right"><strong>3,23%</strong></td>
+    <td class="bar_cont"><div class="bar" style="width: 43%"></div></td>
+  </tr>
+  <tr>
+    <td class="item_name">
+      <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+      <%= link_to 'Tasas y otros ingresos' %>
+    </td>
+    <td class="right">110.123.456 €</td>
+    <td class="right">234,56 €</td>
+    <td class="right"><strong>3,23%</strong></td>
+    <td class="bars"><div class="bar percent-2"></div></td>
+  </tr>
+  <tr>
+    <td class="item_name">
+      <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+      <%= link_to 'Transferencias y otros ingresos' %>
+    </td>
+    <td class="right">110.123.456 €</td>
+    <td class="right">234,56 €</td>
+    <td class="right"><strong>3,23%</strong></td>
+    <td class="bars"><div class="bar percent-2"></div></td>
+  </tr>
+  <tr>
+    <td class="item_name">
+      <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+      <%= link_to 'Ingresos patrimoniales' %>
+    </td>
+    <td class="right">110.123.456 €</td>
+    <td class="right">234,56 €</td>
+    <td class="right"><strong>3,23%</strong></td>
+    <td class="bars"><div class="bar percent-2"></div></td>
+  </tr>
+  <tr>
+    <td class="item_name">
+      <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+      <%= link_to 'Enajenación de inversiones reales' %>
+    </td>
+    <td class="right">110.123.456 €</td>
+    <td class="right">234,56 €</td>
+    <td class="right"><strong>3,23%</strong></td>
+    <td class="bars"><div class="bar percent-2"></div></td>
+  </tr>
+  <tr>
+    <td class="item_name">
+      <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+      <%= link_to 'Transferencias de capital' %>
+    </td>
+    <td class="right">110.123.456 €</td>
+    <td class="right">234,56 €</td>
+    <td class="right"><strong>3,23%</strong></td>
+    <td class="bars"><div class="bar percent-2"></div></td>
+  </tr>
+  <tr>
+    <td class="item_name">
+      <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+      <%= link_to 'Activos financieros' %>
+    </td>
+    <td class="right">110.123.456 €</td>
+    <td class="right">234,56 €</td>
+    <td class="right"><strong>3,23%</strong></td>
+    <td class="bars"><div class="bar percent-2"></div></td>
+  </tr>
+  <tr>
+    <td class="item_name">
+      <%= link_to '<i class="fa fa-plus-square-o"></i>'.html_safe %> 
+      <%= link_to 'Pasivos financieros' %>
+    </td>
+    <td class="right">110.123.456 €</td>
+    <td class="right">234,56 €</td>
+    <td class="right"><strong>3,23%</strong></td>
+    <td class="bars"><div class="bar percent-2"></div></td>
+  </tr>
+  </table>
+</div>

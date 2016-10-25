@@ -1,0 +1,63 @@
+---
+es:
+  controllers:
+    users:
+      update:
+        notice: '¡Bien! Los datos se han actualizado correctamente'
+        alert: Ha habido un problema actualizando tus datos
+      create:
+        alert: "Ha habido un problema creando tu usuario: %{messages}"
+    sessions_management:
+      admin_user:
+        alert: Hace falta ser administrador para visitar esta página
+    sessions:
+      create:
+        alert: Credenciales inválidos
+    admin/sites:
+      update:
+        notice: Datos del sitio actualizados correctamente
+        alert: Ha habido un error actualizando los datos del sitio
+    admin/users:
+      update:
+        notice: Datos del usuario actualizados correctamente
+        alert: Ha habido un problema actualizando los datos del usuario
+      destroy:
+        notice: Usuario bloqueado correctamente
+      restore:
+        notice: Usuario restaurado correctamente
+    gobierto_participation/comments:
+      create:
+        notice: Comentario creado correctamente
+        alert: Ha habido un problema creando el comentario
+    gobierto_participation/ideas:
+      create:
+        notice: Idea creada correctamente
+        alert: Ha habido un problema creando la idea
+      update:
+        notice: Idea actualizada correctamente
+        alert: Ha habido un problema actualizando la idea
+      destroy:
+        notice: Idea eliminada correctamente
+    gobierto_participation/consultation_answers:
+      create:
+        notice: Propuesta enviada correctamente
+        alert: Hubo un problema enviando la propuesta
+    gobierto_participation/consultations:
+      create:
+        notice: Consulta creada correctamente
+        alert: Ha habido un problema creando la consulta
+      update:
+        notice: Consulta actualizada correctamente
+        alert: Ha habido un problema actualizando la consulta
+      destroy:
+        notice: Consulta eliminada correctamente
+    gobierto_cms/pages:
+      create:
+        notice: Página creada correctamente
+        alert: Hubo un problema creando una página
+      update:
+        notice: Página actualizada correctamente
+        alert: Hubo un problema actualizando una página
+      destroy:
+        notice: Página eliminada correctamente
+

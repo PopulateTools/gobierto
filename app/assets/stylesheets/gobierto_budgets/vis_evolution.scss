@@ -1,0 +1,55 @@
+/*main css*/
+body {
+  font-size: 12px;
+  font-family: 'Work Sans', sans-serif;
+}
+
+#main {
+  overflow: hidden;
+  margin-top: 100px;
+}
+
+#vis_evolution {
+  width: 50%;
+  float: left;
+  background-color: #FFDED4;
+}
+
+#density_vis_per {
+  width: 50%;
+  overflow: hidden;
+}
+
+.axis path {
+  fill: none;
+  stroke-width: 1px;
+}
+
+.axis line {
+  stroke-width: 1px;
+  /*shape-rendering: crispEdges;*/
+}
+
+.evolution_line {
+  fill: none;
+}
+
+
+/*Tooltip*/
+
+.vis_evolution_tooltip {
+  top: 0;
+  right: 0;
+  position: absolute;
+  padding: 5px;
+  line-height: 140%;
+  width: 150px;
+  height: 50px;
+  font-size: 12px;
+  background: #FAF7F5;
+  border: 1px solid #424242;
+  border-radius: 5px;
+  pointer-events: none;
+  text-align: right;
+}
+

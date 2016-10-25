@@ -1,0 +1,203 @@
+
+<header class="table">
+  <div class="breadcrumb">
+    <%= link_to 'Ranking' %>
+  </div>
+  <h1>
+    <span>
+      <div class="switcher kind_switcher">
+        <%= link_to "Gastos <i class='fa fa-angle-down'></i>".html_safe, '', class: 'current' %>
+        <ul>
+          <li><%= link_to 'Gastos' %></li>
+          <li><%= link_to 'Ingresos' %></li>
+        </ul>
+      </div>
+      <span class="sep"> » </span>
+    </span>
+    <span>
+      <div class="switcher kind_switcher">
+        <%= link_to "Gastos corrientes <i class='fa fa-angle-down'></i>".html_safe, '', class: 'current' %>
+        <ul>
+          <li><%= link_to 'Gastos de personal' %></li>
+          <li class="active"><%= link_to 'Gastos corrientes' %></li>
+          <li><%= link_to 'Gastos financieros' %></li>
+          <li><%= link_to 'Transferencias corrientes' %></li>
+          <li><%= link_to 'Fondo de contingencia y otros imprevistos' %></li>
+          <li><%= link_to 'Inversiones reales' %></li>
+          <li><%= link_to 'Transferencias de capital' %></li>
+          <li><%= link_to 'Activos financieros' %></li>
+          <li><%= link_to 'Pasivos financieros' %></li>
+        </ul>
+      </div>
+      <span class="sep"> » </span>
+    </span>
+    <span>
+      <div class="switcher kind_switcher">
+        <%= link_to "Material, suministros y otros <i class='fa fa-angle-down'></i>".html_safe, '', class: 'current' %>
+        <ul>
+          <li><%= link_to 'Arrendamientos y cánones' %></li>
+          <li><%= link_to 'Reparaciones, mantenimiento y conservación' %></li>
+          <li class="active"><%= link_to 'Material, suministros y otros' %></li>
+          <li><%= link_to 'Indeminizaciones por razón de servicio' %></li>
+        </ul>
+      </div>
+      <span class="sep"> » </span>
+    </span>
+    <span>
+      <div class="switcher kind_switcher">
+        <%= link_to "Material de oficina <i class='fa fa-angle-down'></i>".html_safe, '', class: 'current' %>
+        <ul>
+          <li class="active"><%= link_to 'Material de oficina' %></li>
+          <li><%= link_to 'Suministros' %></li>
+          <li><%= link_to 'Comunicaciones' %></li>
+          <li><%= link_to 'Transportes' %></li>
+          <li><%= link_to 'Primas de seguros' %></li>
+          <li><%= link_to 'Tributos' %></li>
+          <li><%= link_to 'Gastos diversos' %></li>
+          <li><%= link_to 'Trabajos realizados por otras empresas y profesionales' %></li>
+        </ul>
+      </div>
+      <span class="sep"> » </span>
+    </span>
+    <span>Total</span>
+  </h1>
+  
+  <div class="form_filters">
+    <ul>
+      <li><%= link_to 'Económica', '' %></li>
+      <li><%= link_to 'Funcional' %></li>
+    </ul>
+  </div>
+
+  
+
+</header>
+
+<div class="">
+  <table class="data_table">
+  <thead>
+    <th class="r_pos">#</th>
+    <th class="location">Municipio</th>
+    <th class="population">Habitantes</th>
+    <th class="expense_per" title="Gasto por habitante">Gasto/hab</th> 
+    <th class="relative_pos"></th>
+    <th class="expense">Gasto total</th>
+    <th class="percentage">% s/ Total</th> 
+    <th class="relative_pos"></th>
+    <th class="compare">Compara</th>
+
+  </thead>
+  <tbody>
+    <tr>
+      <td class="r_pos">1.</td>
+      <td class="location"><a href="#">Madrid</a> (Madrid)</td>
+      <td class="population">3.123.456</td>
+      <td class="expense_per">345€</td>
+      <td class="relative_pos tipsit" title="98%"><div class="relative"><span style="left:98%"></span></div></td>
+      <td class="expense">1.234.567,87€</td>
+      <td class="percentage">23,4%</td>
+      <td class="relative_pos tipsit" title="50%"><div class="relative"><span style="left:50%"></span></div></td>
+      <td class="compare">Compara</td>
+    </tr>
+    <tr>
+      <td class="r_pos">2.</td>
+      <td class="location"><a href="#">Barcelona</a> (Barcelona)</td>
+      <td class="population">1.845.345</td>
+      <td class="expense_per">345€</td>
+      <td class="relative_pos tipsit" title="1%"><div class="relative"><span style="left:1%"></span></div></td>
+      <td class="expense">1.234.567,87€</td>
+      <td class="percentage">23,4%</td>
+      <td class="relative_pos tipsit" title="50%"><div class="relative"><span style="left:50%"></span></div></td>
+      <td class="compare">Compara</td>
+    </tr>
+    <tr>
+      <td class="r_pos">3.</td>
+      <td class="location"><a href="#">Valencia</a> (Valencia)</td>
+      <td class="population">534.567</td>
+      <td class="expense_per">345€</td>
+      <td class="relative_pos tipsit" title="10%"><div class="relative"><span style="left:10%"></span></div></td>
+      <td class="expense">1.234.567,87€</td>
+      <td class="percentage">23,4%</td>
+      <td class="relative_pos tipsit" title="50%"><div class="relative"><span style="left:50%"></span></div></td>
+      <td class="compare">Compara</td>
+    </tr>
+    <tr>
+      <td class="r_pos">4.</td>
+      <td class="location"><a href="#">Bilbao</a> (Bizkaia)</td>
+      <td class="population">534.567</td>
+      <td class="expense_per">345€</td>
+      <td class="relative_pos tipsit" title="20%"><div class="relative"><span style="left:20%"></span></div></td>
+      <td class="expense">1.234.567,87€</td>
+      <td class="percentage">23,4%</td>
+      <td class="relative_pos tipsit" title="50%"><div class="relative"><span style="left:50%"></span></div></td>
+      <td class="compare">Compara</td>
+    </tr>
+    <tr>
+      <td class="r_pos">5.</td>
+      <td class="location"><a href="#">Madrid</a> (Madrid)</td>
+      <td class="population">534.567</td>
+      <td class="expense_per">345€</td>
+      <td class="relative_pos tipsit" title="30%"><div class="relative"><span style="left:30%"></span></div></td>
+      <td class="expense">1.234.567,87€</td>
+      <td class="percentage">23,4%</td>
+      <td class="relative_pos tipsit" title="50%"><div class="relative"><span style="left:50%"></span></div></td>
+      <td class="compare">Compara</td>
+    </tr>
+    <tr class="selected">
+      <td class="r_pos">6.</td>
+      <td class="location"><a href="#">Barcelona</a> (Barcelona)</td>
+      <td class="population">534.567</td>
+      <td class="expense_per">345€</td>
+      <td class="relative_pos tipsit" title="40%"><div class="relative"><span style="left:40%"></span></div></td>
+      <td class="expense">1.234.567,87€</td>
+      <td class="percentage">23,4%</td>
+      <td class="relative_pos tipsit" title="50%"><div class="relative"><span style="left:50%"></span></div></td>
+      <td class="compare">Compara</td>
+    </tr>
+    <tr>
+      <td class="r_pos">7.</td>
+      <td class="location"><a href="#">Almunia de Doña Godina, La</a> (Zaragoza)</td>
+      <td class="population">534.567</td>
+      <td class="expense_per">345€</td>
+      <td class="relative_pos tipsit" title="50%"><div class="relative"><span style="left:50%"></span></div></td>
+      <td class="expense">1.234.567,87€</td>
+      <td class="percentage">23,4%</td>
+      <td class="relative_pos tipsit" title="50%"><div class="relative"><span style="left:50%"></span></div></td>
+      <td class="compare">Compara</td>
+    </tr>
+    <tr>
+      <td class="r_pos">8.</td>
+      <td class="location"><a href="#">Bilbao</a> (Madrid)</td>
+      <td class="population">534.567</td>
+      <td class="expense_per">345€</td>
+      <td class="relative_pos tipsit" title="60%"><div class="relative"><span style="left:60%"></span></div></td>
+      <td class="expense">1.234.567,87€</td>
+      <td class="percentage">23,4%</td>
+      <td class="relative_pos tipsit" title="50%"><div class="relative"><span style="left:50%"></span></div></td>
+      <td class="compare">Compara</td>
+    </tr>
+    <tr>
+      <td class="r_pos">9.</td>
+      <td class="location"><a href="#">Madrid</a> (Madrid)</td>
+      <td class="population">534.567</td>
+      <td class="expense_per">345€</td>
+      <td class="relative_pos tipsit" title="70%"><div class="relative"><span style="left:70%"></span></div></td>
+      <td class="expense">1.234.567,87€</td>
+      <td class="percentage">23,4%</td>
+      <td class="relative_pos tipsit" title="50%"><div class="relative"><span style="left:50%"></span></div></td>
+      <td class="compare">Compara</td>
+    </tr>
+    <tr>
+      <td class="r_pos">10.</td>
+      <td class="location"><a href="#">Barcelona</a> (Madrid)</td>
+      <td class="population">534.567</td>
+      <td class="expense_per">345€</td>
+      <td class="relative_pos tipsit" title="80%"><div class="relative"><span style="left:80%"></span></div></td>
+      <td class="expense">1.234.567,87€</td>
+      <td class="percentage">23,4%</td>
+      <td class="relative_pos tipsit" title="50%"><div class="relative"><span style="left:50%"></span></div></td>
+      <td class="compare">Compara</td>
+    </tr>
+  </tbody>
+  </table>
+</div>

@@ -1,0 +1,57 @@
+@import "gobierto_sites/vendor/tipsy";
+
+text {
+  stroke: #ACACAC;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #E3E3E3;
+  shape-rendering: crispEdges;
+  stroke-width: 2px;
+}
+
+.line {
+  fill: none;
+  stroke: #BCC41A;
+  stroke-width: 5px;
+}
+
+.line-subcategory {
+  fill: none;
+  stroke-width: 3px;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.tip1 {
+  font-size: 14pt;
+  text-align: center; 
+  margin-bottom:-12px; 
+  margin-top:0px;
+}
+
+.tip2 {
+  font-size: 10pt;
+  text-align: center; 
+  margin-bottom:-12px; 
+}	
+.tip3 {
+  font-size: 10pt;
+  text-align: center; 
+  margin-bottom:0px; 
+}
+
+.node {
+  border: solid 1px white;
+  font: 10px sans-serif;
+  line-height: 12px;
+  overflow: hidden;
+  position: absolute;
+  text-indent: 2px;
+  color: #000;
+}

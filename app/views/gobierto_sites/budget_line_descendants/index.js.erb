@@ -1,0 +1,14 @@
+var $el = $('[data-budget-line="<%= @parent_code %>"]');
+$el.after('<%=j render partial: 'gobierto_sites/budget_line_descendants/nested_budget_line', locals: { budget_lines: @budget_lines, kind: @kind, area_name: @area_name, place: @place, year: @year } %>');
+$('[data-budget-line="<%= @parent_code %>"] td').find('.fa').toggleClass('fa-plus-square-o fa-minus-square-o');
+
+/* Collapses branch - Prevents resending the form when extended */
+$el.on('ajax:beforeSend', 'a', function(event, xhr, settings) {
+  xhr.abort();
+  $(this).removeClass('extended');
+  $(this).find('.fa').toggleClass('fa-plus-square-o fa-minus-square-o');
+  $(this).parents('tr').next('.child_group').remove();
+
+  // Remove event to allow Ajax again
+  $el.off('ajax:beforeSend', 'a');
+});

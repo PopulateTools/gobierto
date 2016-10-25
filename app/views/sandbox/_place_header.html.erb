@@ -1,0 +1,83 @@
+<header class="place">
+  <div class="breadcrumb">
+    <%= link_to 'Andalucía' %> <span class="sep">»</span>
+    <%= link_to 'Almería' %>
+  </div>
+  <h1>
+    <%= link_to 'El Puerto de Santa María', 'municipio' %> 
+    <!-- <span><span class="sep">»</span> Presupuesto <span class="sep">»</span> Gastos</span> -->
+  </h1>
+  <menu>
+    <ul>
+      <li><%= link_to 'Presupuesto' %></li>
+      <li><%= link_to 'Ejecución' %></li>
+      <li><%= link_to 'Indicadores' %></li>
+      <li><%= link_to 'Rankings' %></li>
+      <li><%= link_to 'Contexto' %></li>
+    </ul>
+  </menu>
+
+  <div class="tools">
+    <div class="modal_widget">
+      <%= link_to '<span>123</span> <i class="fa fa-star-o"></i>'.html_safe, '', class: 'tool_button' %>
+      <div class="inner">
+        wadus follow
+      </div>
+    </div>
+    <div class="modal_widget">
+      <%= link_to '<span>Compara</span> <i class="fa fa-compass"></i>'.html_safe, '', class: 'tool_button' %>
+      <div class="inner widget_compare">
+        
+        <%= link_to 'Añade <strong>El Puerto de Santa María</strong> a tu lista y compara'.html_safe, '', class: 'button' %>
+        
+        <div class="sep"></div>
+
+        <p>Tu lista de comparación</p>
+        <ul>
+          <li><%= link_to 'Talaván' %> <span class="del_item"><%= link_to 'X' %></span></li>
+          <li><%= link_to 'El Puerto de Santa María' %> <span class="del_item"><%= link_to 'X' %></span></li>
+          <li><%= link_to 'Madrid' %> <span class="del_item"><%= link_to 'X' %></span></li>
+          <li><%= link_to 'La Puebla de Don Pimpón' %> <span class="del_item"><%= link_to 'X' %></span></li>
+          <li><%= link_to 'Galapagar' %> <span class="del_item"><%= link_to 'X' %></span></li>
+          <li><%= link_to 'Talaván' %> <span class="del_item"><%= link_to 'X' %></span></li>
+        </ul>
+
+        <div class="center">
+          <%= link_to 'Ver comparación'.html_safe, '', class: 'button' %>
+          <span class="soft">(sin El Puerto de Santa María)</span>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal_widget">
+      <%= link_to '<span>Comparte</span> <i class="fa fa-share"></i>'.html_safe, '', class: 'tool_button' %>
+      <div class="inner widget_share" >
+        
+        <p><strong>Comparte esta URL</strong></p>
+
+        <p>
+          <%= link_to 'Twitter', '', class: 'small_button' %>
+          <%= link_to 'Facebook', '', class: 'small_button' %>
+          <input type="text" class="small_input">
+        </p>
+
+        <div class="sep"></div>
+
+        <p><strong>Incluye un widget en otra web</strong></p>
+
+        <textarea></textarea>
+        <p>Copia y pega este código en la web de destino</p>
+
+        <div class="sep"></div>
+
+        <div class="cta_claim">
+          <h3>¿Eres responsable de este municipio?</h3>
+          <p>Gobierto te permite hacer una integración personalizada de estas visualizaciones en tu web.</p>
+          <%= link_to 'Solicita información', '', class: 'button' %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</header>

@@ -1,0 +1,45 @@
+
+  
+  
+  
+
+
+    <div id="selectors">
+        <ul id="measure_selector" class="measure buttons">
+           <li><a href="javascript:void(null)" id="per_person" class ="measure button buttonSelected">por habitante</a></li><!--
+        --><li><a href="javascript:void(null)" id="percentage" class ="measure button">% sobre el total</a></li>
+        </ul>
+        <ul id="context_selector" class="context buttons">
+           <li><a href="javascript:void(null)" id="mean_national" class ="context button buttonSelected">País</a></li><!--
+        --><li><a href="javascript:void(null)" id="mean_autonomy" class ="context button">CCAA</a></li><!--
+        --><li><a href="javascript:void(null)" id="mean_province" class ="context button">Provincia</a></li>
+        </ul>
+    </div>
+
+    <div id="bars_vis_fun"></div>
+    
+  <script type="text/javascript">
+    var barsVis = new BarsVis('#bars_vis_fun', 'per_person', 'mean_national');
+    barsVis.render('http://localhost:3000/api/data/28079/2015/functional.json');
+
+    d3.selectAll('.measure.button')
+      .on('click', function(d) {
+        d3.selectAll(".measure.button.buttonSelected").classed("buttonSelected", false);
+        d3.select(this).classed("buttonSelected", true);
+        barsVis.measure = this.id;
+
+        barsVis.updateRender();
+      });
+
+    d3.selectAll('.context.button')
+
+      .on('click', function(d) {
+        d3.selectAll(".context.button.buttonSelected").classed("buttonSelected", false);
+        d3.select(this).classed("buttonSelected", true);
+        barsVis.context = this.id;
+
+        barsVis.updateRender();
+      });
+
+
+  </script>

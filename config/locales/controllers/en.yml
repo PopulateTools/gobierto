@@ -1,0 +1,63 @@
+---
+en:
+  controllers:
+    users:
+      update:
+        notice: Your data has been updated successfully
+        alert: There was a problem updating your data
+      create:
+        alert: "There was a problem creating your user: %{messages}"
+    sessions_management:
+      admin_user:
+        alert: Admin required
+    sessions:
+      create:
+        alert: Invalid credentials
+    admin/sites:
+      update:
+        notice: Site data updated successfully
+        alert: Site data couldn't be updated
+    admin/users:
+      update:
+        notice: User data updated successfully
+        alert: There was a problem updating user data
+      destroy:
+        notice: User blocked successfully
+      restore:
+        notice: User restored successfully
+    gobierto_participation/comments:
+      create:
+        notice: Comment created successfully
+        alert: There was a problem creating the comment
+    gobierto_participation/ideas:
+      create:
+        notice: Idea created successfully
+        alert: There was a problem creating the idea
+      update:
+        notice: Idea updated successfully
+        alert: There was a problem updating the idea
+      destroy:
+        notice: Idea removed successfully
+    gobierto_participation/consultation_answers:
+      create:
+        notice: Answer created successfully
+        alert: There was a problem creating the answer
+    gobierto_participation/consultations:
+      create:
+        notice: Consultation created successfully
+        alert: There was a problem creating the consultation
+      update:
+        notice: Consultation updated successfully
+        alert: There was a problem updating the consultation
+      destroy:
+        notice: Consultation removed successfully
+    gobierto_cms/pages:
+      create:
+        notice: Page created successfully
+        alert: There was a problem creating the page
+      update:
+        notice: Page udpated successfully
+        alert: There was a problem udpating the page
+      destroy:
+        notice: Page removed successfully
+

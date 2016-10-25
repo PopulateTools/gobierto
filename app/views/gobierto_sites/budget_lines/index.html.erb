@@ -1,0 +1,6 @@
+<% title t('.title', year: @year) %>
+
+<div class="column">
+	<%= render partial: 'gobierto_sites/budgets/year_breadcrumb', locals: {path_calculation_method: :gobierto_sites_budgets_path} %>
+  <%= render partial: 'gobierto_sites/budget_lines/explorer' %>
+</div>

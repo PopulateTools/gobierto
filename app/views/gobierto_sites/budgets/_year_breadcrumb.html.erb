@@ -1,0 +1,25 @@
+<div class="breadcrumb year_only">
+  <div class="bread_hover">
+    <div class="bread_links">
+      <%= link_to @year, send(path_calculation_method, @year) %>
+      <i class="fa fa-sort-down"></i>
+    </div>
+
+    <div class="line_browser clearfix">
+      <div class="bread_links clearfix">
+        <%= link_to @year, send(path_calculation_method, @year) %>
+        <i class="fa fa-sort-down"></i>
+      </div>
+
+      <div class="col" data-level="0">
+        <table  class="med_bg">
+          <% GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year| %>
+            <tr >
+              <td data-code="<%= year %>"><%= link_to year, url_for(current_parameters_with_year(year)) %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

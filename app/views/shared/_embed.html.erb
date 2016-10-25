@@ -1,0 +1,8 @@
+<div id="embed-graph-code" class="modal mfp-hide">
+  <p><%= t('.title_embed') %></p>
+  <textarea rows="4" cols="60">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.3/iframeResizer.min.js"></script>
+    <iframe src="<%= request.original_url %>?e=true" scrolling="no" style="border: 0; padding: 0; margin: 0;  width: 100%;"></iframe>
+    <script type="text/javascript">var iframes = iFrameResize( {heightCalculationMethod: 'documentElementOffset', checkOrigin:false}, 'iframe' );</script>
+  </textarea>
+</div>

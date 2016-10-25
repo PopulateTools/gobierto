@@ -1,0 +1,155 @@
+---
+es:
+  common:
+    and: y
+  actions:
+    send: Enviar
+    create: Crear
+    update: Actualizar
+    confirm: "¿Estás seguro?"
+    edit: Editar
+    delete: Borrar
+    see_page: Ver página
+  layout:
+    council_of: "Ayuntamiento de %{name}"
+    transparency_and_participation: Transparencia y Participación
+    login_or_signup: Haz login o regístrate
+    your_account: Tu Cuenta
+    cta_login: ¿Ya tienes cuenta? Haz login
+    your_email: Tu correo-e
+    your_password: Tu password
+    cta_signup: ¿Eres nuevo? Regístrate
+    login: Login
+    signup: Regístrate
+    gobierto: La plataforma web para Transparencia, Gobierno Abierto y Participación para Administraciones Públicas
+    logout: Desconectar
+    your_notifications: Tus notificaciones
+    your_notifications_temp: En esta sección podrás consultar tus notificaciones personales para que te resulte sencillo realizar seguimiento de todo lo que ocurre en esta web
+    news: Novedades
+    add: Añadir
+    edit: Editar
+    remove: Eliminar
+    admin: Administración
+    pages: Páginas
+    users: Usuarios
+    configuration: Configuración
+    sections: Secciones
+    search: Buscar
+    news: Novedades
+  admin:
+    registered_users:
+      one: 1 usuario registrado
+      other: "%{count} usuarios registrados"
+    user_name: Nombre
+    user_email: Correo-e
+    user_signed_up_date: Registrado
+    user_last_activity: Última actividad
+    users_edit: Editar información del usuario
+    users_impersonate: Loguearse como el usuario
+    users_soft_delete: "Eliminar usuario: no podrá hacer login ni publicar contenido; su actividad desaparecerá (seguirá visible para administradores)"
+    users_restore: "Restaurar usuario: volverá a poder hacer login y a publicar; su actividad volverá a ser pública"
+  users:
+    your_account: Tu cuenta
+    your_account_description: Gestiona tus datos personales
+    email_tip: Este es tu correo-e verificado. Más adelante podrás cambiarlo si lo necesitas
+    want_to_update_password: '¿Quieres cambiar tu contraseña?'
+    current_password: Contraseña actual
+    password_tip: Sólo si quieres actualizar tu contraseña
+    document_tip: Necesario para verificar tu identidad más adelante. No aparecerá de forma pública
+    complete_signup: Completa tu registro
+    confirm_filling_fields: Confirma tu registro rellenando estos campos
+    accept: Acepto las
+    terms_and_conditions: Condiciones de Uso
+    privacy: Política de Privacidad
+    email_notification_successful: Un pasito más
+    email_notification_message: Te hemos enviado un email con un enlace para que completes el registro.
+    signup_successful: Genial, ya estás registrado.
+    welcome_message_1: Estás listo para participar y usar las distintas herramientas que te proporciona la página de Transparencia y Participación del Ayuntamiento de %{name}
+    welcome_message_2: "<strong>Participa</strong>: en las consultas que te plantea el Ayuntamiento, envía ideas o reportes."
+    welcome_message_3: "<strong>Apoya peticiones</strong>: súmate a las peticiones iniciadas por otros vecinos."
+    welcome_message_4: "<strong>Haz seguimiento</strong> de la información que te interesa. En cada página tienes un icono para hacer seguimiento. Cuando esa información se actualice, recibirás automaticamente un email."
+  gobierto_participation:
+    participation: Participación
+    ideas: Ideas
+    ideas_description: ¿Tienes ideas para mejorar tu pueblo? Compártelas aquí
+    latest_ideas: 'Últimas ideas publicadas'
+    sent_by: Enviado por
+    idea_sent_by: Idea enviada por %{name}
+    comments_count:
+      one: 1 comentario
+      other: '%{count} comentarios'
+    cta_comment: Envía tu comentario
+    comments_note: Aparecerá publicamente que has enviado este comentario
+    idea_note: Aparecerá publicamente que has enviado este comentario
+    idea_title: Título de tu idea
+    comment_sent_by: Comentario enviado por
+    idea_sent_by_no_name: Idea enviada por
+    to_take_part: para participar
+    send_your_idea: Envía tu idea
+    contribute_with_ideas: Contribuye con ideas para mejorar %{name}
+    idea_cta: Envía una nueva idea
+    edit_idea_cta: Edita la idea
+    idea_desc_p1: Utiliza este espacio para enviar ideas o plantear debates sobre temas relacionados con %{name}
+    idea_desc_p2: ''
+    consultations: Consultas
+    consultation_cta: Crea una nueva consulta
+    edit_consultation_cta: Edita la consulta
+    latest_consultations: 'Últimas consultas publicadas'
+    consultations_description: Tu Ayuntamiento te pregunta para que contribuyas con tus opiniones
+    voting_until: Votaciones hasta
+    voting_closed: Votaciones cerradas
+    in_n_days:
+      one: dentro de 1 día
+      other: dentro de %{count} días
+    consultation_sent_by: Consulta propuesta por %{name}
+    answer_sent_by: Propuesta enviada por
+    answer_note: Aparecerá publicamente que has enviado esta propuesta
+    argue_answer: "Opcional: Argumenta tu propuesta"
+    answers_count:
+      one: 1 propuesta
+      other: '%{count} propuestas'
+    add_yours: Añade el tuyo
+    response_count: 
+      one: 1 respuesta
+      other: '%{count} respuestas' 
+    open_answers_consultation: Consulta abierta
+    open_answers_consultation_desc: Crea una pregunta y permite respuestas abiertas (texto libre por parte de los vecinos). Podrás cerrar la consulta para no aceptar más respuestas cuando desees.
+    closed_answers_consultation: Consulta cerrada
+    closed_answers_consultation_desc: Crea una encuesta con opciones cerradas, entre las que los vecinos podrán elegir una. Podrás cerrar la consulta para no aceptar más respuestas cuando desees.
+    options: Options
+    add_option: Añadir opción
+    remove_option: Eliminar opción
+    consultation_open_until: Consulta abierta hasta
+    consultation_limit_date: Fecha límite para recibir aportaciones
+  legal:
+    privacy_policy_title: Política de Privacidad
+    legal_title: Aviso legal
+    cookie_warning_title: Política de Cookies
+  views:
+    pagination:
+        first: "&laquo; Primera"
+        last: "Última &raquo;"
+        previous: "&lsaquo; Anterior"
+        next: "Siguiente &rsaquo;"
+        truncate: "&hellip;"
+    helpers:
+      page_entries_info:
+        one_page:
+          display_entries:
+            zero: "No hay %{entry_name}"
+            one: "Mostrando <b>1</b> %{entry_name}"
+            other: "Mostrando <b>%{count}</b> %{entry_name}"
+        more_pages:
+          display_entries: "Mostrando %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> de <b>%{total}</b> en total"
+  gobierto_cms:
+    pages_root: Inicio
+    information: Información
+    children_pages: En esta sección
+    attachments: Ficheros adjuntos
+    no_pages: No hay ninguna página creada
+    create_the_first_page: Crea la primera página
+    all_the_pages: Todas las páginas
+    new_page: Nueva página
+    attach_file: Adjuntar un fichero
+    uploading: Subiendo...
+    edit_page: Editar %{title}

@@ -1,0 +1,3 @@
+# Update the server host or IP
+# More information http://capistranorb.com/documentation/getting-started/configuration/
+server '<server host or ip>', user: 'ubuntu', roles: %w{app db web}

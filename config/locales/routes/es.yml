@@ -1,0 +1,23 @@
+---
+es:
+  routes:
+    users: usuarios
+    confirm: confirmar
+    user: usuario
+    verify: verificar
+    after_signup: post-registro
+    participation: participacion
+    ideas: ideas
+    comments: comentarios
+    consultations: consultas
+    privacy: privacidad
+    legal: legal
+    cookie_warning: aviso-cookies
+    edit: editar
+    new: crear
+    pages: paginas
+    budgets: presupuestos
+    budget_lines: partidas
+    budget_line: partida
+    summary: resumen
+    execution: ejecucion

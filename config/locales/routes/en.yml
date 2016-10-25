@@ -1,0 +1,23 @@
+---
+en:
+  routes:
+    users: users
+    confirm: confirm
+    user: user
+    verify: verify
+    after_signup: after-signup
+    participation: participation
+    ideas: ideas
+    comments: comments
+    consultations: consultations
+    privacy: privacy
+    legal: legal
+    cookie_warning: cookie-warning
+    edit: edit
+    new: new
+    pages: pages
+    budgets: budgets
+    budget_lines: budget_lines
+    budget_line: budget_line
+    summary: summary
+    execution: execution

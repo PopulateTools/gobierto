@@ -1,0 +1,245 @@
+/*
+ * Budgets Module
+ *
+ */
+
+header {
+  text-align: left;
+  
+  h2 {
+    display: inline-block;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .qty {  
+    display: inline-block;
+    text-align: right;
+    float: right;
+    font-size: 2em;
+  }
+}
+
+.budgets {
+
+  .income {
+    border: red;
+  } 
+  .year_nav {
+    position: relative;
+    background: $color_3_soft;
+    min-height: 50px;
+    @include border-radius(4px);
+
+    .year {
+      padding: 1em;
+      font-weight: bold;
+      font-size: 1.2em;
+      padding-top: 1em;
+      a {
+        text-decoration: none;
+        padding: .2em 0 0 1em;
+      }
+      .fa {
+        position: relative;
+        padding: 0 .5em;
+      }
+    }
+    .past_years {
+      display: none;
+      position: absolute;
+      padding: 0 0 .5em 0;
+      width: 100%;
+      @include border-radius(4px);
+      margin: 2em 0 0 0;
+      left: 0;
+      background: $color_3_soft;
+      z-index: 10;
+      a {
+        position: relative;
+        display: block;
+        padding: .75em 0 .55em 2em;
+      }
+      a:hover {
+        background: darken($color_3_soft, 10%);
+
+      }
+    }
+  }
+  .breadcrumb .item .past_years a {
+    position: relative;
+  }
+
+
+  .budget {
+    table {
+      width: 100%;
+      td, th {
+        padding: .5em 0 .4em;
+        border-top: 1px solid $color_1_soft;
+        background: none;
+        font-size: .85em;
+        td, th {
+          font-size: 1em;
+        }
+        .fa {
+          padding: 0;
+        }
+      }
+      tr:nth-child(odd) td {
+        background: none;
+      } 
+      th {
+        text-align: left;
+        width: 60%;
+        a {
+          text-decoration: none;
+        }
+        span {
+          text-decoration: underline;
+          padding: 0 6px;
+        }
+      }
+      td.qty, td.percentage {
+        text-align: right;
+      }
+      td.qty { 
+        opacity: .7;
+      }
+      td.percentage {
+        font-weight: bold;
+        width: 11%;
+      }
+      .help {
+        display: none;
+      }
+      // tr:hover {
+      //   .help {
+      //     display: inline-block;
+      //   }
+      //   tr {
+      //     .help {
+      //       display: none;
+      //     } 
+      //   }
+      // }
+    }
+    .child_group {
+      td {
+        padding: 0 0 0 25px;
+      }
+      > td {
+        border: none;
+      }
+      table {
+      }
+    }
+    .view_type {
+      min-height: 30px;
+      margin: 20px 0 10px 0;
+      @include reset_ul_li;
+      text-align: right;
+      font-size: .85em;
+      ul {
+        display: inline-block;
+      }
+      a {
+        text-decoration: none;
+        
+        background: none;
+        border: 1px solid $color_1_soft;
+        padding: 4px 8px 3px;
+        @include border-radius(3px);
+        margin: 0 0 0 10px;
+      }
+      a.selected {
+        background: $color_1_soft;
+        border: none;
+      }
+      a:hover {
+        background: darken($color_1_soft, 20%);
+      }
+    }
+  }
+
+  .budget_item {
+    .item_info {
+      width: 45%;
+      float: left;
+      h1 {
+        font-size: 1.3em;
+      }
+      .qty, .percentage {
+        float: none;
+      }
+
+    }
+    .lines {
+      width: 50%;
+      float: right;
+      h2 {
+        font-size: 1.1em;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .placeholder_graph {
+    opacity: .6;
+    border: 1px solid #DFDFDF;
+    background: #EFEFEF;
+    width: 100%;
+    height: 300px;
+    padding: 0;
+    text-align: center;
+  }
+
+  .graph {
+    width: 100%;
+    height: 300px;
+    padding: 0;
+    text-align: center;
+  }
+  .graph.line, .graph.treemap {
+    display: none;
+  } 
+  .graph_selector {
+    text-align: right;
+    margin: -4em 0 4em 0;
+    font-size: .85em; 
+    position: relative;
+    z-index: 1000;
+  }
+
+  .breadcrumb {
+    border-bottom: 2px solid $color_3_soft;
+    padding: 0 0 1em 0;
+    margin: 0 0 1em 0;
+    font-size: .85em;
+    line-height: 1.2em;
+
+    .item {
+      position: relative;
+      width: 260px; 
+      float: left; 
+      border-right: 1px solid $color_3_soft;
+      padding: 0 2em 0 0;
+      margin: 0 1em 0 0 ;
+      .line {
+        font-weight: bold;
+      }
+      .percentage {
+        opacity: .6;
+      }
+      a {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+      }
+      a:hover {
+        // background: $color_1_soft;
+        // opacity: .5;
+      }
+    }
+  }
+}

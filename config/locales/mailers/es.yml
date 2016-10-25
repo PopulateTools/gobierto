@@ -1,0 +1,12 @@
+---
+es:
+  mailers:
+    user:
+      confirm_account:
+        subject: Confirma tu cuenta en la página de %{site_name} de %{location_name}
+        body:
+          p1: Hola,
+          p2: Bienvenido a la página de %{site_name} de %{location_name}
+          p3: "Para verificar tu dirección de email y confirmar tu cuenta, por favor haz click en el siguiente enlace:"
+          p4: Que tengas un buen día,
+          p5: El equipo de %{site_name}

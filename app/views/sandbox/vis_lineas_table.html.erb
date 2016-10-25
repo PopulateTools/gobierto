@@ -1,0 +1,45 @@
+  <div class="main">
+    <div id="selectors">
+        <ul id="measure_selector" class="measure buttons">
+           <li><a href="javascript:void(null)" id="per_person" class ="measure button buttonSelected">por habitante</a></li><!--
+        --><li><a href="javascript:void(null)" id="percentage" class ="measure button">% sobre el total</a></li>
+        </ul>
+        <ul id="context_selector" class="context buttons">
+           <li><a href="javascript:void(null)" id="mean_national" class ="context button buttonSelected">País</a></li><!--
+        --><li><a href="javascript:void(null)" id="mean_autonomy" class ="context button">CCAA</a></li><!--
+        --><li><a href="javascript:void(null)" id="mean_province" class ="context button">Provincia</a></li>
+        </ul>
+    </div>
+    <div id="lines_container">
+      <div id="lines_chart"></div>
+      <div id="lines_tooltip"></div>
+    </div>
+    
+  </div>
+    
+
+
+ <!-- <script src="assets/js/vis_lineas_tabla.js"></script> -->
+
+  <script type="text/javascript">
+    var visLineasJ = new VisLineasJ('#lines_chart', '#lines_tooltip','per_person');
+    visLineasJ.render('/data_lineas_tabla.json');
+
+    d3.selectAll('.measure.button')
+      .on('click', function(d) {
+        d3.selectAll(".measure.button.buttonSelected").classed("buttonSelected", false);
+        d3.select(this).classed("buttonSelected", true);
+        visLineasJ.measure = this.id;
+        
+        visLineasJ.updateRender();
+      });
+
+    d3.selectAll('.context.button')
+      .on('click', function(d) {
+        d3.selectAll(".context.button.buttonSelected").classed("buttonSelected", false);
+        d3.select(this).classed("buttonSelected", true);
+        visLineasJ.mean = this.id;
+
+        visLineasJ.updateRender();
+      });
+  </script>

@@ -8,6 +8,7 @@ require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
 require "sprockets/railtie"
+
 require "ostruct"
 require "pp"
 require "digest"
@@ -42,12 +43,9 @@ module RailsTemplate
     # Autoloading
     config.autoload_paths += [
       "#{config.root}/lib",
+      "#{config.root}/lib/modules",
       "#{config.root}/lib/validators",
       "#{config.root}/lib/constraints"
     ]
-
   end
 end
-
-require Rails.root.join('app', 'models', 'gobierto_budgets')
-require Rails.root.join('app', 'models', 'gobierto_budgets', 'search_engine_configuration')

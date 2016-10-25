@@ -1,4 +1,4 @@
-module GobiertoBudgets
+module GobiertoSites
   module Api
     class CategoriesController < ApplicationController
       # TODO: this is a comment to remember this cache

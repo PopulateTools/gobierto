@@ -28,7 +28,7 @@
 
       <h3><%= t('.search_budget_line') %></h3>
 
-      <input type="text" placeholder="<%= t('.search') %>..." data-autocomplete="<%= gobierto_budgets_search_all_categories_url(@place.slug, @year, host: Site.budgets_host, format: :json) %>">
+      <input type="text" placeholder="<%= t('.search') %>..." data-autocomplete="<%= gobierto_sites_search_all_categories_path(@place.slug, @year, format: :json) %>">
 
       <div class="small m_v_3">
         <p><%= t('.examples') %>:</p>

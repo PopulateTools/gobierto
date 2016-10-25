@@ -4,24 +4,6 @@ module GobiertoHelper
     yield if controller_name == 'sandbox'
   end
 
-  def flush_the_flash(entity = nil)
-    if flash[:notice]
-      css_class = 'notice success'
-      msg = flash[:notice]
-      icon_class = 'fa-check-circle-o'
-    elsif flash[:alert]
-      css_class = 'notice error'
-      msg = flash[:alert]
-      icon_class = 'fa-times'
-    else
-      return
-    end
-
-    content_tag :div, class: css_class do
-      content_tag(:p, content_tag(:i, '', class: 'fa ' + icon_class) + ' ' + msg) + error_messages_for(entity)
-    end
-  end
-
   def markdown(text)
     return if text.blank?
 

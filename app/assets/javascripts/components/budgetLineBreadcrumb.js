@@ -198,7 +198,7 @@ function limit_length(input, length) {
     };
   });
 
-  $(function() {
+  $( document ).on('turbolinks:load', function() {
     window.budgetLineBreadcrumb.attachTo('[data-budget-line-breadcrumb]');
   });
 

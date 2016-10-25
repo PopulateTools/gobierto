@@ -93,7 +93,6 @@ var VisEvoLine = Class.extend({
       .attr("d", line);
 
     if (this.currentYear != null) {
-      console.log(this.svg.select('.year_marker'))
       this.svg.selectAll('.year_marker')
         .attr('x1', function(d) {
           return this.xScale(d); }.bind(this))

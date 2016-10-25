@@ -6,7 +6,7 @@ class GobiertoSites::BudgetsController < GobiertoSites::ApplicationController
     @area_name = GobiertoBudgets::BudgetLine::ECONOMIC
     @interesting_area = GobiertoBudgets::BudgetLine::FUNCTIONAL
 
-    @site_stats = SiteStats.new site: @site, year: @year
+    @site_stats = GobiertoBudgets::SiteStats.new site: @site, year: @year
 
     @top_income_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(year: @year, place: @site.place, kind: GobiertoBudgets::BudgetLine::INCOME).all
     @top_expense_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(year: @year, place: @site.place, kind: GobiertoBudgets::BudgetLine::EXPENSE).all

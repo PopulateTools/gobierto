@@ -64,7 +64,6 @@ module GobiertoBudgets
         kind_what = kind == 'I' ? 'ingresos' : 'gastos'
 
         "Esta partida comprende los #{kind_what} en #{description.downcase}. Si quieres saber más sobre esta partida puedes consultar la partida padre: #{link_to(budget_line_denomination(area_name, code[0..-2], kind), gobierto_sites_budget_line_path(code[0..-2], params[:year], area_name, kind))}"
-
       end
     end
 
@@ -79,7 +78,7 @@ module GobiertoBudgets
     def data_attributes
       attrs = []
       if @place
-        attrs << %Q{data-track-url="#{gobierto_budgets_place_path(@place.slug, @year || GobiertoBudgets::SearchEngineConfiguration::Year.last)}"}
+        attrs << %Q{data-track-url="#{gobierto_sites_budgets_path(@year || GobiertoBudgets::SearchEngineConfiguration::Year.last)}"}
         attrs << %Q{data-place-slug="#{@place.slug}"}
         attrs << %Q{data-place-name="#{@place.name}"}
       end

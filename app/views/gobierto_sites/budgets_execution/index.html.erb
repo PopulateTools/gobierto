@@ -19,7 +19,7 @@
 				<div class="deviation_widget"
 					data-widget-template="#widget-template-deviation"
 	    		data-widget-type="budget_execution_deviation"
-	    		data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_deviation_path(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, format: :json) %>"
+	    		data-widget-data-url="<%= gobierto_sites_api_data_budget_execution_deviation_path(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, format: :json) %>"
 	    		data-callback="render_evo_line">
 				</div>
 			</div>
@@ -28,7 +28,7 @@
 				<div class="deviation_widget"
 					data-widget-template="#widget-template-deviation"
 	    		data-widget-type="budget_execution_deviation"
-	    		data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_deviation_path(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, format: :json) %>"
+	    		data-widget-data-url="<%= gobierto_sites_api_data_budget_execution_deviation_path(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, format: :json) %>"
 	    		data-callback="render_evo_line">
 				</div>
 			</div>

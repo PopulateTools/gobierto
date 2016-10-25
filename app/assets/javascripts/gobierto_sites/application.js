@@ -34,7 +34,7 @@ function isDesktop(){
   return $(window).width() > 740;
 }
 
-$(function(){
+$(document).on('turbolinks:load', function() {
 
   if(isDesktop()) {
     rebindAll();

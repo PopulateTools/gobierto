@@ -1,12 +1,12 @@
-module GobiertoBudgets
-  class FeaturedBudgetLinesController < GobiertoBudgets::ApplicationController
+module GobiertoSites
+  class FeaturedBudgetLinesController < GobiertoSites::ApplicationController
     def show
       @place = INE::Places::Place.find_by_slug(params[:id])
       @year = params[:year].to_i
       @area_name = 'functional'
 
       @kind = GobiertoBudgets::BudgetLine::EXPENSE
-      results = BudgetLine.search({
+      results = GobiertoBudgets::BudgetLine.search({
           kind: @kind, year: @year, ine_code: @place.id,
           type: @area_name, range_hash: {
             level: {ge: 3},

@@ -21,7 +21,7 @@
     };
   });
 
-  $(function() {
+  $( document ).on('turbolinks:load', function() {
     window.featuredBudgetLine.attachTo('[data-featured-budget-line]');
   });
 })(window);

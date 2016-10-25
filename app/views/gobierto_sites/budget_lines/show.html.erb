@@ -1,5 +1,5 @@
 <div class="breadcrumb stick_ip" data-budget-line-breadcrumb="<%= ([@year, @kind].concat(@code.length.downto(1).map{|i| @code[0..-i]})).join('/') %>"
-                                 data-budget-line-area="<%= @area_name %>" data-budget-line-categories="<%= gobierto_budgets_api_categories_url(host: Site.budgets_host, format: :json) %>">
+                                 data-budget-line-area="<%= @area_name %>" data-budget-line-categories="<%= gobierto_sites_api_categories_path(format: :json) %>">
   <div class="column">
     <div class="clearfix">
       <span class="open_line_browser"><i class="fa fa-chevron-circle-down"></i></span>
@@ -188,8 +188,8 @@
 
       <div class="pure-u-1">
         <div class="filter m_v_2">
-          <%= link_to t('gobierto_sites.budgets.index.per_person'), '#', class:'active',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_budget_line_path(@place.id, @year, "per_person", @kind, @code.parameterize, @area_name, format: :json ), "line-widget-type" => "per_person" } %>
-          <%= link_to t('gobierto_sites.budgets.index.in_total'), '#', class:'',  data: {"line-widget-series" => "means", "line-widget-url" =>gobierto_budgets_api_data_lines_budget_line_path(@place.id, @year, "total_budget", @kind, @code.parameterize, @area_name, format: :json ), "line-widget-type" => "total_budget" } %>
+          <%= link_to t('gobierto_sites.budgets.index.per_person'), '#', class:'active',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_sites_api_data_lines_budget_line_path(@place.id, @year, "per_person", @kind, @code.parameterize, @area_name, format: :json ), "line-widget-type" => "per_person" } %>
+          <%= link_to t('gobierto_sites.budgets.index.in_total'), '#', class:'',  data: {"line-widget-series" => "means", "line-widget-url" =>gobierto_sites_api_data_lines_budget_line_path(@place.id, @year, "total_budget", @kind, @code.parameterize, @area_name, format: :json ), "line-widget-type" => "total_budget" } %>
         </div>
       </div>
     </div>

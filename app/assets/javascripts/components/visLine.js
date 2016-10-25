@@ -21,7 +21,7 @@
     });
   });
 
-  $(function() {
+  $( document ).on('turbolinks:load', function() {
     window.visLine.attachTo('[data-line-widget-url].active');
   });
 

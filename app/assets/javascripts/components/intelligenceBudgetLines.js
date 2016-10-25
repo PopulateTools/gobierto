@@ -117,7 +117,7 @@
     }
   });
 
-  $(function() {
+  $( document ).on('turbolinks:load', function() {
     window.intelligenceBudgetLines.attachTo('[data-intelligence-budget-lines]');
   });
 

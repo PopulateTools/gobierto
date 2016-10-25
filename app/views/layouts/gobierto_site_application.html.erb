@@ -3,8 +3,8 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
-  <%= stylesheet_link_tag    'gobierto_sites/application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'gobierto_sites/application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'gobierto_budgets/application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'gobierto_budgets/application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <% if Rails.env.production? %>
     <%= render 'layouts/analytics_header_site' %>
@@ -35,7 +35,7 @@
             <li><%= link_to url_host(link), link, target: '_blank' %></li>
           <% end %>
           <% if @site.gobierto_budgets_enabled? %>
-            <li><%= link_to 'Presupuestos', gobierto_sites_budgets_path %></li>
+            <li><%= link_to 'Presupuestos', gobierto_budgets_budgets_path %></li>
           <% end %>
         </ul>
       </div>
@@ -48,7 +48,7 @@
         <div class="logo"><%= image_tag @site.configuration.logo %></div>
       <% end %>
       <div class="site_title">
-        <strong><%= link_to @site.name, gobierto_sites_site_path %></strong> / <%= link_to 'Presupuestos', gobierto_sites_budgets_path %>
+        <strong><%= link_to @site.name, gobierto_budgets_site_path %></strong> / <%= link_to 'Presupuestos', gobierto_budgets_budgets_path %>
       </div>
     </div>
   </div>
@@ -56,9 +56,9 @@
   <menu class="sub_sections">
     <div class="column">
     <ul>
-      <li><%= link_to 'Resumen', gobierto_sites_budgets_path, class: class_if('active', controller_name == 'budgets') %></li>
-      <li><%= link_to 'Presupuesto', gobierto_sites_budget_lines_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::BudgetLine::ECONOMIC, level: 1), class: class_if('active', controller_name == 'budget_lines') %></li>
-      <li><%= link_to 'Ejecución', gobierto_sites_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), class: class_if('active', controller_name == 'budgets_execution')  %></li>
+      <li><%= link_to 'Resumen', gobierto_budgets_budgets_path, class: class_if('active', controller_name == 'budgets') %></li>
+      <li><%= link_to 'Presupuesto', gobierto_budgets_budget_lines_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::BudgetLine::ECONOMIC, level: 1), class: class_if('active', controller_name == 'budget_lines') %></li>
+      <li><%= link_to 'Ejecución', gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), class: class_if('active', controller_name == 'budgets_execution')  %></li>
       <% pending do %>
         <li><%= link_to 'Consultas', '' %></li>
         <li><%= link_to 'Historias', '' %></li>
@@ -89,7 +89,7 @@
               <% end %>
             <% end %>
             <% if @site.gobierto_budgets_enabled? %>
-              <li><%= link_to 'Presupuestos', gobierto_sites_budgets_path %></li>
+              <li><%= link_to 'Presupuestos', gobierto_budgets_budgets_path %></li>
             <% end %>
           </ul>
         </div>

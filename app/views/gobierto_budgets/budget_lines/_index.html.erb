@@ -1,0 +1,25 @@
+<p class="m_2"></p>
+
+<div class="filter m_2">
+  <% if kind == GobiertoBudgets::BudgetLine::EXPENSE %>
+    <%= link_to t('.expense_in_what'), gobierto_budgets_budget_lines_path(year: year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::BudgetLine::FUNCTIONAL), data: {remote: true}, class: class_if('active', area_name == GobiertoBudgets::BudgetLine::FUNCTIONAL) %>
+    <%= link_to t('.expense_to_do_what'), gobierto_budgets_budget_lines_path(year: year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::BudgetLine::ECONOMIC), data: {remote: true}, class: class_if('active', area_name == GobiertoBudgets::BudgetLine::ECONOMIC) %>
+  <% else %>
+    <%= link_to t('.income_from_what'), '', class:'active' %>
+  <% end %>
+  <%= link_to '?', '', class:'help tipsit', title: t('.help') %>
+</div>
+
+<div class="table_cont_round">
+  <table class="med_bg">
+    <tr>
+      <th class="budget_line"><span><%= t('.budget_line') %></span></th>
+      <th class="qty big_qty"><%= t('.amount') %></th>
+      <th class="qty"><%= t('.per_inhabitant') %></th>
+      <th class="qty">%</th>
+      <th class="qty bar"></th>
+    </tr>
+
+    <%= render partial: 'gobierto_budgets/budget_lines/budget_line_row', collection: place_budget_lines, as: :budget_line, locals: { year: year, place: place, area_name: area_name, kind: kind } %>
+  </table>
+</div>

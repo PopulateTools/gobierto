@@ -1,0 +1,24 @@
+<table class="execution_vs_budget_table">
+  <thead>
+    <tr>
+      <th></th>
+      <th title="Ejecutado">Ejecutado</th>
+      <th title="Presupuestado">Pres.</th>
+      <th>Desviación</th>
+      <!-- <td>Diferencia €</td> -->
+    </tr>
+  </thead>
+  <tbody>
+    <% data.each do |code, values| %>
+      <tr>
+        <td class="title" title="<%= code %>"><%= link_to(budget_line_denomination(area, code, kind), gobierto_budgets_budget_line_path(code.parameterize, @year, area, kind)) %></td>
+        <td><%= format_currency(values[1]) %></td>
+        <td><%= format_currency(values[0]) %></td>
+        <td><%= delta_percentage(values[1], values[0]) %></td>
+        <!-- <td><%= format_currency(values[1] - values[0]) %></td> -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Ver más', '', class:'button_light more', data: {more_literal: 'Ver más', less_literal: 'Ver menos'} %>

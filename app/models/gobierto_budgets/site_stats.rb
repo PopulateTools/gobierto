@@ -86,10 +86,10 @@ module GobiertoBudgets
       end
 
       if(diff < 0)
-        direction = I18n.t('.gobierto_sites.budgets.index.less')
+        direction = I18n.t('.gobierto_budgets.budgets.index.less')
         diff = diff*-1
       else
-        direction = I18n.t('gobierto_sites.budgets.index.more')
+        direction = I18n.t('gobierto_budgets.budgets.index.more')
       end
 
       "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)}% #{direction}"

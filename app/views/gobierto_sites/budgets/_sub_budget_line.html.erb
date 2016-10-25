@@ -1,4 +1,0 @@
-<td><%= link_to sub_budget_line.name, gobierto_sites_budget_line_path(sub_budget_line.to_param) %></td>
-<td class="qty big_qty"><%= number_to_currency sub_budget_line.amount, precision:0 %></td>
-<td class="qty"><%= sub_budget_line.percentage_of_total %>%</td>
-<td class="bar"><div class="bar" style="width:<%= sub_budget_line.percentage_of_total %>%"></div></td>

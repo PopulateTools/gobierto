@@ -1,0 +1,197 @@
+<div class="breadcrumb stick_ip" data-budget-line-breadcrumb="<%= ([@year, @kind].concat(@code.length.downto(1).map{|i| @code[0..-i]})).join('/') %>"
+                                 data-budget-line-area="<%= @area_name %>" data-budget-line-categories="<%= gobierto_budgets_api_categories_path(format: :json) %>">
+  <div class="column">
+    <div class="clearfix">
+      <span class="open_line_browser"><i class="fa fa-chevron-circle-down"></i></span>
+      <div class="bread_links" data-line-breadcrumb></div>
+    </div>
+
+
+    <div class="line_browser clearfix">
+      <div class="clearfix">
+        <span class="close_line_browser"><i class="fa fa-chevron-circle-up"></i></span>
+        <div class="bread_links clearfix" data-line-breadcrumb></div>
+      </div>
+
+      <div class="col" data-level="0">
+        <table  class="med_bg">
+          <% GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year| %>
+            <tr >
+              <td data-code="<%= year %>"><%= link_to year, gobierto_budgets_budgets_path %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+
+      <div class="col" data-level="1">
+        <table class="med_bg" data-current-code=""></table>
+      </div>
+
+      <div class="col" data-level="2">
+        <table class="med_bg" data-current-code=""></table>
+      </div>
+
+      <div class="col" data-level="3">
+        <table class="med_bg" data-current-code=""></table>
+      </div>
+
+      <div class="col" data-level="4">
+        <table class="med_bg" data-current-code=""></table>
+      </div>
+
+      <div class="col" data-level="5">
+        <table class="med_bg" data-current-code=""></table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="column">
+  <div class="budget_line">
+
+    <header data-share>
+      <h1><%= title @budget_line.name %></h1>
+
+      <div class="social_links_container" data-share-text="<%= t(@area_name == GobiertoBudgets::BudgetLine::EXPENSE ? '.twitter_text_expense' : '.twitter_text_income', name: @site.place.name, budget_line_name: @budget_line.name, year: @year) %>">
+        <a href="#" class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|XXX"><i class="fa fa-twitter"></i></a>
+        <a href="#" class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|XXX"><i class="fa fa-facebook"></i></a>
+        <% pending do %>
+          <a href="#embed-graph-code" class="code open_modal"><i class="fa fa-code"></i></a>
+        <% end %>
+      </div>
+
+      <% pending do %>
+        <%= render partial: 'shared/embed' %>
+      <% end %>
+    </header>
+
+
+    <div class="pure-g metric_boxes">
+
+      <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
+        <div class="inner">
+          <h3><%= kind_literal(@kind, false).capitalize %> pres. / hab.</h3>
+          <div class="metric"><%= number_to_currency @budget_line_stats.amount_per_inhabitant, precision: 2 %></div>
+        </div>
+      </div>
+
+      <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
+        <div class="inner">
+          <h3><%= kind_literal(@kind, false).capitalize %> presupuestado </h3>
+          <div class="metric"><%= format_currency @budget_line_stats.amount %></div>
+        </div>
+      </div>
+
+      <% planned_executed = @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_planned, year: @year) %>
+      <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
+        <div class="inner">
+          <h3><%= kind_literal(@kind, false).capitalize %> real vs. pres.</h3>
+          <% if planned_executed %>
+            <div class="metric"><%= planned_executed %></div>
+            <div class="explanation">
+              El <%= kind_literal(@kind, false) %> real son <%= format_currency @budget_line_stats.amount_executed %>
+            </div>
+          <% else %>
+            <% planned_executed = @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_planned, year: @year-1) %>
+            <div class="metric"><span class="not_av">No disp.</span></div>
+            <div class="explanation">
+              En <%= @year - 1 %> fue un <%= planned_executed %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
+        <div class="inner">
+          <h3>% sobre el total del pres.</h3>
+          <div class="metric"><%= @budget_line_stats.percentage_of_total %></div>
+        </div>
+      </div>
+
+      <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
+        <div class="inner">
+          <h3>Media <%= kind_literal(@kind, false) %> provincial</h3>
+          <div class="metric"><%= format_currency @budget_line_stats.mean_province %></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pure-g block">
+
+      <div class="pure-u-1 pure-u-md-9-24 line_description">
+
+        <h2><%= t('.about_this_line') %></h2>
+        <%= simple_format budget_line_description(@area_name, @code, @kind) %>
+
+      </div>
+
+      <div class="pure-u-md-3-24"></div>
+
+      <div class="pure-u-1 pure-u-md-1-2">
+
+        <h2><%= t('.sub_budget_lines') %></h2>
+
+        <% if @budget_line_descendants.any? %>
+
+          <table>
+            <% @budget_line_descendants.each do |budget_line| %>
+              <tr>
+                <td><%= link_to truncate(budget_line.name, length: 75), gobierto_budgets_budget_line_path(budget_line.to_param), title: budget_line.name %></td>
+                <td class="qty"><%= number_with_precision(budget_line.percentage_compared_with(@budget_line.amount) * 100, precision: 2) + '%' %></td>
+                <td class="amount"><%= format_currency(budget_line.amount) %></td>
+              </tr>
+            <% end %>
+          </table>
+
+        <% else %>
+
+          <p><%= t('.no_more_descendants') %>. <% if @parent_budget_line %><%= t('.back_to_parent') %>: <a href="<%= gobierto_budgets_budget_line_path(@parent_budget_line.to_param) %>"><%= @parent_budget_line.name %></a>.<% end %></p>
+
+        <% end %>
+
+        <% if @kind != GobiertoBudgets::BudgetLine::INCOME %>
+          <h2><%= t('.budget_lines_distribution') %></h2>
+          <% if @budget_line_composition.any? %>
+            <table>
+              <% @budget_line_composition.each do |budget_line| %>
+                <tr>
+                  <td><%= link_to truncate(budget_line.name, length: 75), gobierto_budgets_budget_line_path(budget_line.to_param), title: budget_line.name %></td>
+                  <td class="qty"><%= number_with_precision(budget_line.percentage_compared_with(@budget_line.amount) * 100, precision: 2) + '%' %></td>
+                  <td class="amount"><%= format_currency(budget_line.amount) %></td>
+                </tr>
+              <% end %>
+            </table>
+          <% else %>
+            <p><%= t('.no_distribution') %></p>
+          <% end %>
+        <% end %>
+
+      </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="pure-g block" data-vis-lines>
+      <div class="pure-u-1 pure-u-md-1-2 p_h_l_1">
+        <h2><%= t('.evolution') %></h2>
+        <div id="lines_chart"></div>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
+        <h2><%= t('gobierto_budgets.budgets.index.context') %></h2>
+        <div id="lines_tooltip"></div>
+        <div class="help">
+          <%= link_to t('gobierto_budgets.budgets.index.note_about_the_data'), Settings.data_note_url, title: t('gobierto_budgets.budgets.index.note_about_the_data_title'), class: 'tipsit' %>
+        </div>
+      </div>
+
+      <div class="pure-u-1">
+        <div class="filter m_v_2">
+          <%= link_to t('gobierto_budgets.budgets.index.per_person'), '#', class:'active',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_budget_line_path(@place.id, @year, "per_person", @kind, @code.parameterize, @area_name, format: :json ), "line-widget-type" => "per_person" } %>
+          <%= link_to t('gobierto_budgets.budgets.index.in_total'), '#', class:'',  data: {"line-widget-series" => "means", "line-widget-url" =>gobierto_budgets_api_data_lines_budget_line_path(@place.id, @year, "total_budget", @kind, @code.parameterize, @area_name, format: :json ), "line-widget-type" => "total_budget" } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

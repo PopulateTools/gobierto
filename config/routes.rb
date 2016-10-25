@@ -9,8 +9,8 @@ Rails.application.routes.draw do
 
   localized do
 
-    # Gobierto Sites module
-    namespace :gobierto_sites, path: '', module: 'gobierto_sites' do
+    # Gobierto Budgets module
+    namespace :gobierto_budgets, path: '', module: 'gobierto_budgets' do
       constraints GobiertoSiteConstraint.new do
         get 'site' => redirect('/presupuestos/resumen')
 

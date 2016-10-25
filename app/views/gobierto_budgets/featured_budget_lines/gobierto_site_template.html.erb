@@ -1,0 +1,46 @@
+<div class="separator"></div>
+
+<h2>Algunas partidas destacadas</h2>
+
+<div class="cont pure-g">
+  <div class="pure-u-1 pure-u-md-1-2 title">
+    ¿Cuánto se gasta <%= @place.name %> en...
+    <strong class="wadus"><%= link_to budget_line_denomination(@area_name, @code, @kind), gobierto_budgets_budget_line_path(@code.parameterize, @year, @area_name, @kind) %>?</strong>
+  </div>
+
+  <div class="pure-u-1 pure-u-md-1-6" data-widget-template="#widget-template"
+                             data-widget-type="per_person"
+                             data-widget-data-url="<%= gobierto_budgets_api_data_budget_per_inhabitant_path(ine_code: @place.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>"
+                             title="Por habitante">
+  </div>
+
+  <div class="pure-u-1 pure-u-md-1-6" data-widget-template="#widget-template"
+                             data-widget-type="budget"
+                             data-widget-data-url="<%= gobierto_budgets_api_data_budget_path(ine_code: @place.id, year: @year, kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>"
+                             title="Gasto total">
+  </div>
+
+  <div class="pure-u-1 pure-u-md-1-6" data-widget-template="#widget-template-small"
+                             data-widget-type="budget"
+                             data-widget-data-url="<%= gobierto_budgets_api_data_budget_path(ine_code: @place.id, year: (@year - 1), kind: @kind, code: @code.parameterize, area: @area_name, format: :json) %>"
+                             title="El año pasado gastamos">
+  </div>
+</div>
+
+<div class="show_me_another">
+  <%= link_to '<i class="fa fa-refresh"></i> Muéstrame otra'.html_safe, '#', class: 'show_me_another', data: { 'featured-budget-line-load-more' => true }%>
+</div>
+
+<script type="text/html" id="widget-template">
+  <div class="ic">
+    <label>{{title}}</label>
+    <span class="highlight"><strong>{{value}}</strong></span>
+  </div>
+</script>
+
+<script type="text/html" id="widget-template-small">
+  <div class="ic">
+    <label><small>{{title}}</small></label>
+    <span class="highlight"><strong>{{value}}</strong></span>
+  </div>
+</script>

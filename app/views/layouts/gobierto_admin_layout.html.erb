@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
+  <%= stylesheet_link_tag    'gobierto_budgets/application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'gobierto_budgets/application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <% if Rails.env.production? %>
+    <%= render 'layouts/analytics_header_site' %>
+  <% end %>
+</head>
+
+<body <%= data_attributes %>>
+
+<header class="meta color_main">
+
+  header
+
+</header>
+
+<div class="container">
+
+  <%= yield %>
+
+</div>
+
+<footer>
+
+  footer
+
+</footer>
+
+<% if Rails.env.production? %>
+  <%= render 'layouts/analytics_footer_site' %>
+<% end %>
+
+</body>
+</html>

@@ -2,10 +2,9 @@
   <thead>
     <tr>
       <th></th>
-      <th title="Ejecutado">Ejecutado</th>
-      <th title="Presupuestado">Pres.</th>
-      <th>Desviación</th>
-      <!-- <td>Diferencia €</td> -->
+      <th title="Ejecutado"><%= t('.executed') %></th>
+      <th title="Presupuestado"><%= t('.planned') %></th>
+      <th><%= t('.deviation') %></th>
     </tr>
   </thead>
   <tbody>
@@ -15,10 +14,9 @@
         <td><%= format_currency(values[1]) %></td>
         <td><%= format_currency(values[0]) %></td>
         <td><%= delta_percentage(values[1], values[0]) %></td>
-        <!-- <td><%= format_currency(values[1] - values[0]) %></td> -->
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'Ver más', '', class:'button_light more', data: {more_literal: 'Ver más', less_literal: 'Ver menos'} %>
+<%= link_to t('.view_more'), '', class:'button_light more', data: {more_literal: t('.view_more'), less_literal: t('.view_less')} %>

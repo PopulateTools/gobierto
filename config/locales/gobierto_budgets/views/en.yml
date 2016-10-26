@@ -2,6 +2,14 @@ en:
   gobierto_budgets:
     budgets:
       index:
+        header: Relevant data from your municipality
+        expenses_per_inhabitant: Expenses per inhabitant
+        total_expenses: Total expenses
+        planned_vs_executed: Real expenses vs the plan
+        not_available_short: Not avail.
+        inhabitants: Inhabitants
+        debt: Deuda
+        planned_vs_executed_other_year_html: "In %{year} it was %{link}"
         in_year: In
         per_person: Per person
         we_spend: we spent
@@ -21,6 +29,9 @@ en:
         summary: Summary
         twitter_text: "From @gobierto: Municipality budgets from %{name} in %{year}"
         main_budget_lines: Main income and expenses from your council
+        main_budget_lines_description: These are the 5 main income and expense budget lines in your municipality.
+        most_interesting_budget_lines: Most interesting budget lines
+        most_interesting_budget_lines_description: Some of the budget lines you are most affected in a daily basis as a citizien. You can also check the complete explorer.
         income: Income
         expenses: Gastos
         see_all: see all
@@ -29,6 +40,14 @@ en:
         note_about_the_data: Note about the data
         note_about_the_data_title: "The database we use doesn't include 100% of the municipalities, and the avegages are calculated only with the data that exists (which is most of it). More information in our FAQ"
         in_total: Total
+    featured_budget_lines:
+      gobierto_site_template:
+        title: Some important budget lines
+        how_much_place_in: "How much does %{place} expend on..."
+        show_me_another: Show me another
+        per_person: Per inhabitant
+        total: Total expenses
+        last_year: Last year we spent
     budget_lines:
       explorer:
         explore_the_detail: Explore the detail

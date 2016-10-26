@@ -1,7 +1,6 @@
 <%
-  @title = "Ejecución del presupuesto municipal de #{@place.name} del #{@year}"
-  set_meta_tags title: @title
-  set_meta_tags description: "Detalle sobre la ejecución del presupuesto municipal de #{@place.name} del #{@year}. Consulta la diferencia entre lo presupuestado y lo ejecutado."
+  set_meta_tags title: t('.title', place: @place.name, year: @year)
+  set_meta_tags description: t('.description', place: @place.name, year: @year)
 %>
 
 <div class="column">
@@ -37,23 +36,22 @@
 		<div class="m_v_4">
 			<div class="section_separator" name="separator">
 			  <div class="sep"></div>
-			  	<p><strong>La ejecución es la cantidad que finalmente se ha gastado sobre lo presupuestado inicialmente.</strong></p>
-					<p>Es normal que haya desviaciones ya que es imposible preveer todos los gastos con precisión absoluta.</p>
+        <p><strong><%= t('.execution_help') %></strong></p>
+        <p><%= t('.execution_disclaimer') %></p>
 			  <div class="sep"></div>
 			</div>
 		</div>
 
-
 		<div class="pure-g">
 			<div class="pure-u-1 pure-u-lg-11-24 deviation_table_container">
 
-				<h2 class="lite">Partidas de ingresos muy superiores al presupuesto</h2>
+        <h2 class="lite"><%= t('.budget_lines_income_higher') %></h2>
 
 				<%= render partial: 'execution_table', locals: {data: @top_possitive_difference_income, kind: GobiertoBudgets::BudgetLine::INCOME, area: 'economic'} %>
 
 				<div class="separator"></div>
 
-				<h2 class="lite">Partidas de ingresos muy inferiores al presupuesto</h2>
+        <h2 class="lite"><%= t('.budget_lines_income_lower') %></h2>
 
 				<%= render partial: 'execution_table', locals: {data: @top_negative_difference_income, kind: GobiertoBudgets::BudgetLine::INCOME, area: 'economic'} %>
 
@@ -61,12 +59,12 @@
 			<div class="pure-u-1 pure-u-lg-2-24"></div>
 			<div class="pure-u-1 pure-u-lg-11-24 deviation_table_container">
 
-				<h2 class="lite">Partidas de gastos muy superiores al presupuesto</h2>
+        <h2 class="lite"><%= t('.budget_lines_expense_higher') %></h2>
 
 				<div class="form_filters">
 	        <ul>
-	          <li><%= link_to 'Económica', '', class: 'toggle', "data-tab-target": 'economic' %></li>
-	          <li><%= link_to 'Funcional', '', class: 'toggle active', "data-tab-target": 'functional' %></li>
+	          <li><%= link_to t('.economic'), '', class: 'toggle', "data-tab-target": 'economic' %></li>
+	          <li><%= link_to t('.functional'), '', class: 'toggle active', "data-tab-target": 'functional' %></li>
 	        </ul>
 	      </div>
 
@@ -76,7 +74,7 @@
 
 					<div class="separator"></div>
 
-					<h2 class="lite">Partidas de gastos muy inferiores al presupuesto</h2>
+          <h2 class="lite"><%= t('.budget_lines_expense_lower') %></h2>
 
 					<%= render partial: 'execution_table', locals: {data: @top_negative_difference_expending_economic, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: 'economic'} %>
 
@@ -88,16 +86,14 @@
 
 					<div class="separator"></div>
 
-					<h2 class="lite">Partidas de gastos muy inferiores al presupuesto</h2>
+          <h2 class="lite"><%= t('.budget_lines_expense_lower') %></h2>
 
 					<%= render partial: 'execution_table', locals: {data: @top_negative_difference_expending_functional, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: 'functional'} %>
 				</div>
 
 			</div>
 		</div>
-
 	</div>
-
 </div>
 
 <%= render partial: 'shared/widget_template_deviation' %>

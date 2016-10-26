@@ -3,6 +3,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
+  <%# TODO: load assets depending on the modules %>
   <%= stylesheet_link_tag    'gobierto_budgets/application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'gobierto_budgets/application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -23,7 +24,6 @@
     </div>
   </div>
 <% end %>
-
 
 <header class="meta color_main">
 

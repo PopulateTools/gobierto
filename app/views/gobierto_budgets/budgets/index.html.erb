@@ -23,7 +23,10 @@
         <%= render partial: 'gobierto_budgets/budgets/year_breadcrumb', locals: {path_calculation_method: :gobierto_budgets_budgets_path} %>
       </div>
       <div class="pure-u-1 pure-u-md-12-24">
-        <h2>Los datos clave de tu municipio</h2>
+        <h2>
+          <%= t('.header') %>
+        <%#%>
+        </h2>
       </div>
       <div class="pure-u-1 pure-u-md-10-24 right slim_search">
         <label><%= t('.search_for_a_budget_line') %></label>
@@ -35,14 +38,14 @@
 
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
         <div class="inner">
-          <h3>Gasto por habitante</h3>
+          <h3><%= t('.expenses_per_inhabitant') %></h3>
           <div class="metric"><%= number_to_currency @site_stats.total_budget_per_inhabitant, precision: 0 %></div>
         </div>
       </div>
 
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
         <div class="inner">
-          <h3>Gasto total</h3>
+          <h3><%= t('.total_expenses') %></h3>
           <div class="metric"><%= format_currency @site_stats.total_budget %></div>
         </div>
       </div>
@@ -50,14 +53,14 @@
       <% planned_executed = @site_stats.percentage_difference(variable1: :total_budget_executed, variable2: :total_budget_planned, year: @year) %>
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
         <div class="inner">
-          <h3>Gasto real vs. el plan</h3>
+          <h3><%= t('.planned_vs_executed') %></h3>
           <% if planned_executed %>
             <div class="metric"><%= link_to planned_executed, gobierto_budgets_budgets_execution_path %></div>
           <% else %>
             <% planned_executed = @site_stats.percentage_difference(variable1: :total_budget_executed, variable2: :total_budget_planned, year: @year - 1) %>
-            <div class="metric"><span class="not_av">No disp.</span></div>
+            <div class="metric"><span class="not_av"><%= t('.not_available_short') %></span></div>
             <div class="explanation">
-              En <%= @year - 1 %> fue un <%= link_to planned_executed, gobierto_budgets_budgets_execution_path %>
+              <%= t('.planned_vs_executed_other_year_html', year: @year - 1, link: link_to(planned_executed, gobierto_budgets_budgets_execution_path)) %>
             </div>
           <% end %>
         </div>
@@ -65,7 +68,7 @@
 
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
         <div class="inner">
-          <h3>Habitantes</h3>
+          <h3><%= t('.inhabitants') %></h3>
           <div class="metric"><%= number_with_precision @site_stats.latest_available(:population, @year)[:value], precision: 0, delimiter: '.' %></div>
           <% if @site_stats.latest_available(:population, @year)[:year] != @year %>
             <div class="explanation">
@@ -77,7 +80,7 @@
 
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
         <div class="inner">
-          <h3>Deuda</h3>
+          <h3><%= t('.debt') %></h3>
           <div class="metric"><%= format_currency @site_stats.latest_available(:debt, @year)[:value] %></div>
           <% if @site_stats.latest_available(:debt, @year)[:year] != @year %>
             <div class="explanation">
@@ -97,7 +100,7 @@
   <div class="block">
 
     <h2 class="with_description"><%= t('.main_budget_lines') %></h2>
-    <p class="description">Estos son los 5 principales ingresos y gastos de tu municipio.</p>
+    <p class="description"><%= t('.main_budget_lines_description') %></p>
 
     <% pending do %>
       <div class="tip">
@@ -150,8 +153,8 @@
   <div class="separator"></div>
 
   <div class="block">
-    <h2 class="with_description">Partidas que más te interesan</h2>
-    <p class="description">Te mostramos algunas de las partidas que más nos afectan directamente en nuestro día a día como ciudadanos. También puedes consultar el explorador completo.</p>
+    <h2 class="with_description"><%= t('.most_interesting_budget_lines') %></h2>
+    <p class="description"><%= t('.most_interesting_budget_lines_description') %></p>
 
     <div class="graph" id="expense-treemap"
                        data-functional-url="<%= gobierto_budgets_budget_lines_treemap_path(@year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: 'functional', level: 2, format: :json) %>"
@@ -215,32 +218,7 @@
     </div>
   </div>
 
-
   <div class="separator"></div>
-
-  <% pending do %>
-    <div class="pure-g" data-vis-treemap>
-      <div class="pure-u-1 block">
-        <h2>Distribución</h2>
-
-        <div id="treemap"></div>
-      </div>
-
-      <div class="pure-u-1">
-        <div class="filter m_v_2">
-          <%= link_to 'Por habitante', '#', class:'active',  data: {"treemap-widget-series" => "means", "treemap-widget-url" => gobierto_budgets_api_data_treemaps_path(ine_code: @place.id, year: @year, what: 'per_person', format: :json), "treemap-widget-type" => "per_person" } %>
-          <%= link_to 'En total', '#', class:'',  data: {"treemap-widget-series" => "means", "treemap-widget-url" => gobierto_budgets_api_data_treemaps_path(ine_code: @place.id, year: @year, what: 'total_budget', format: :json), "treemap-widget-type" => "total_budget" } %>
-
-          <span class="separator_v"></span>
-
-          <span class="label">Visualizar:</span>
-
-          <%= link_to 'Evolución', '#', class:'', data: { "switch_viz_to" => "lines" } %>
-          <%= link_to 'Distribución', '#', class: 'active', data: { "switch_viz_to" => "treemap" } %>
-        </div>
-      </div>
-    </div>
-  <% end %>
 
   <%= render partial: 'gobierto_budgets/budget_lines/explorer' %>
 

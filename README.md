@@ -92,8 +92,7 @@ curl get.pow.cx | sh
 Después, configura el servidor así:
 
 ```
-cd ~/.pow
-ln -s DIRECTORIO/gobierto gobierto
+echo "3000" > ~/.pow/gobierto
 ```
 
 Y simplemente navega a http://presupuestos.gobierto.dev/ para cargar la aplicación.

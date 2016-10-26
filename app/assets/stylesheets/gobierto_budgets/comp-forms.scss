@@ -1,0 +1,157 @@
+/*
+ * Forms
+ *
+ */
+input[type=text], input[type=email], input[type=submit], .button, button, .option, select, option {
+  box-sizing: border-box;
+  height: 54px;
+  padding: 0 1em; 
+  margin: 0 .5em 0 0;
+  display: inline-block;
+  vertical-align: middle;
+  @include border-radius(6px);
+  border: 1px solid $color_separator;
+}
+input[type=submit], .button, button {
+  @include transition;
+  border: 0;
+  background: $color_main;
+  color: #FFF;
+  padding: 0 2em;
+  text-transform: uppercase;
+  font-style: 700;
+  cursor: pointer;
+}
+input[type=submit]:hover, .button:hover, button:hover {
+  background: darken($color_main, 10%);
+}
+option, select {
+  font-weight: 400;
+  font-size: .8em;
+  // border: 1px solid #CCC;
+  padding: 18px;
+  background: #F1F1F1;
+}
+.option {
+	padding: 0;
+}
+.button, button {
+  text-decoration: none;
+  padding: 1em 2em;
+  font-weight: 700;
+}
+.button:hover, button {
+  color: #FFF;
+}
+button.light, .button.light {
+	background: $color_main_negative;
+	border: 1px solid $color_separator;
+	color: $color_main;
+}
+button.light:hover, .button.light:hover {
+	background: rgba($color_main, .2);
+}
+input[type="checkbox"], input[type="radio"] {
+  display: none;
+}
+input[type="checkbox"] + label, input[type="radio"] + label {
+  cursor: pointer;
+  display: block;
+  padding: 14px;
+  @include transition;
+}
+input[type="checkbox"] + label span, input[type="radio"] + label span {
+  display: inline-block;
+  width: 19px;
+  height: 19px;
+  border: 1px solid $color_main;
+  background: #FFF;
+  @include border-radius(3px);
+  margin: -4px 11px 0 0;
+  vertical-align: middle;
+  cursor: pointer;
+}
+input[type="checkbox"] + label:hover, input[type="radio"] + label:hover {
+  background: rgba($color_main, .1);
+}
+input[type="checkbox"]:checked + label, input[type="radio"]:checked + label {
+  background: rgba($color_main, .2);
+}
+input[type="checkbox"]:checked + label span, input[type="radio"]:checked + label span {
+  background: $color_main;
+}
+input[type="radio"] + label span {
+	@include border-radius(13px);
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  cursor: pointer;
+}
+select::-ms-expand { /* for IE 11 */
+  display: none;
+}
+.disclaimer {
+	font-size: .75em;
+	opacity: .5;
+}
+.button_light {
+  background: rgba($color_1, .2);
+  @include transition;
+  font-size: .75em;
+  text-decoration: none;
+  padding: .5em 1.5em;
+  line-height: 1.2em;
+  @include border-radius(20px);
+  margin: 1em 0;
+  display: inline-block;
+}
+.button_light:hover {
+  background: rgba($color_1, .3);
+  text-decoration: none;
+}
+
+.slim_search {
+	label {
+		font-weight: 200;
+		padding: 0 1em 0 0;	
+	}
+	input[type=text] {
+		height: 40px;
+		width: 300px;
+	}
+	margin-top: .8em;
+}
+
+
+/*
+ * Autocomplete
+ *
+ */
+.autocomplete-suggestions { 
+  border: 1px solid #999; 
+  font-size: 12px;
+  background: #FFF; 
+  cursor: default; 
+  overflow: auto; 
+  -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); 
+  -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); 
+  box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); 
+}
+.autocomplete-suggestion { padding: 2px 10px; white-space: nowrap; overflow: hidden; }
+.autocomplete-no-suggestion { padding: 2px 10px;}
+.autocomplete-selected { background: $color_main; color: #FFF; }
+.autocomplete-suggestions strong { font-weight: bold; color: #000; }
+.autocomplete-group { }
+.autocomplete-group strong { 
+  font-weight: bold; 
+  font-size: 14px; 
+  color: #999; 
+  background: $separator;
+  padding: 2px 10px;
+  text-transform: uppercase;
+  display: block; 
+  border-bottom: 1px solid $separator; 
+}

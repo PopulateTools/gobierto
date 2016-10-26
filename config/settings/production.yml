@@ -1,6 +1,5 @@
 ---
 gobierto_host: gobierto.es
-mailchimp_list: 'https://us11.api.mailchimp.com/3.0/lists/c5ae573572/members/'
 google_analytics_key: 'UA-69636046-2'
 mixpanel_key: '846fad87149cef36298ce1a22b0003cf'
 google_analytics_sites_key: 'UA-69636046-4'

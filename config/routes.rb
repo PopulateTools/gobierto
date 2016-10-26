@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     # Gobierto Budgets module
     namespace :gobierto_budgets, path: '', module: 'gobierto_budgets' do
       constraints GobiertoSiteConstraint.new do
+        # FIXME: hardcoded translated URL
         get 'site' => redirect('/presupuestos/resumen')
 
         # legal pages (TODO: we should merge them)

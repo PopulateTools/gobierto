@@ -1,0 +1,153 @@
+/*
+ * Site Header
+ *
+ */
+header.meta {
+	color: $color_main_negative;
+	padding: 0;
+	margin: 0 0 2em 0;
+	.client_links {
+		padding: .75em 0 .6em;
+		margin: 0 0 1em 0;
+		background: $color_secondary;
+		font-size: .85em;
+		ul {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+			li {
+				margin: 0 1em 0 0;
+				display: inline-block;
+			}
+		}
+		a {
+			color: $color_text;
+			text-decoration: none;
+		}
+		
+	}
+	.site_header {
+		padding: 5em 0 .5em 0;
+		a {
+			text-decoration: none; 
+			color: $color_main_negative;
+		}
+		a:hover {
+			color: rgba($color_main_negative, .8);
+		}
+	}
+	.logo {
+		border: 1px solid #FFF;
+		display: inline-block;
+		margin: 0 2em 1em 0;
+		display: none;
+	}
+	.site_title {
+		display: inline-block;
+		font-size: 2em;
+		font-weight: 200;
+	}
+	menu.sub_sections {
+		background: darken($color_main, 10%);
+		margin: 1em 0 0 0;
+		padding: 0;
+		ul {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+			li {
+				display: inline-block;
+				a {
+					text-transform: uppercase;
+					text-decoration: none;
+					font-size: .85em;
+					color: $color_main_negative;
+					padding: .5em 1.75em .4em;
+					display: inline-block;
+					opacity: .5;
+				}
+				a:hover {
+					background: darken($color_main, 14%);
+					color: $color_main;
+					opacity: .5;
+				}
+				a.active {
+					background: darken($color_main, 18%);
+					// color: $color_main;
+					// opacity: .5;
+				}
+			}
+			li:first-child {
+				a {
+					margin-left: 0;
+					// padding-left: 0;
+				}
+			}
+		}
+	}
+}
+header.section {
+	border-bottom: 1px solid $color_separator;
+	padding: 0 0 1em 0;
+	margin: 2em 0 1em 0;
+	h1 {
+		border-bottom: 1px solid $color_separator;
+		padding: 0 0 1em 0;
+		margin: 0 0 1em 0;
+	}
+	.social_links_container {
+		float: right;
+	}
+	.description {
+		padding: 0 2em 2em 0;
+		box-sizing: border-box;
+		p {
+			font-size: 1.3em;
+			font-weight: 200;
+			line-height: 1.5em;	
+		}
+		@include reset_ul_li;
+		ul {
+			a {
+				display: inline-block;
+				text-transform: uppercase;
+				margin: 0 1em 0 0;
+			}
+		}
+	}
+}
+
+
+/*
+ * Demo Bar
+ *
+ */
+.demo_bar {
+	/*
+	position: fixed;
+	bottom: 0;
+	*/
+	border-bottom: 2px solid transparentize(#B18300, .5);
+	background-color: #FEF1D5;
+	min-height: 55px;
+	width: 100%;
+	@include box-shadow(0,0,20px,rgba(0, 0, 0, 0.3));
+
+	> div {
+		margin-top: 15px;
+		margin-bottom: 8px;
+		color: #B18300;
+
+		> a {
+			margin-left: 20px;
+			color: #B18300;
+		}
+	}
+
+	div:last-child {
+		text-align: right;
+		> a {
+			margin-right: 15px;
+		}
+	}
+}

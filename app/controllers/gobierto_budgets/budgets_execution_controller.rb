@@ -4,9 +4,8 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
   def index
     @top_possitive_difference_income, @top_negative_difference_income = GobiertoBudgets::BudgetLine.top_differences(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, type: 'economic')
 
-    # FIXME
     if @top_possitive_difference_income.empty?
-      flash[:alert] = "No hay datos disponibles en #{@year} así que te mostramos el primer año con datos"
+      flash[:alert] = t('controllers.gobierto_budgets.budgets_execution.index.alert', year: @year)
       redirect_to gobierto_budgets_budgets_execution_path(@year -1) and return
     end
 

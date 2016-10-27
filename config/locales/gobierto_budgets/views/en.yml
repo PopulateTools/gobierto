@@ -1,5 +1,10 @@
 en:
   gobierto_budgets:
+    layouts:
+      menu_subsections:
+        summary: Summary
+        budget: Budget
+        execution: Execution
     budgets:
       index:
         header: Relevant data from your municipality
@@ -33,8 +38,8 @@ en:
         most_interesting_budget_lines: Most interesting budget lines
         most_interesting_budget_lines_description: Some of the budget lines you are most affected in a daily basis as a citizien. You can also check the complete explorer.
         income: Income
-        expenses: Gastos
-        see_all: see all
+        expenses: Expenses
+        see_all: view all
         at_a_glance: At a glance
         context: Context
         note_about_the_data: Note about the data
@@ -55,7 +60,7 @@ en:
         examples: Examples
         search: Search
         income: Income
-        expenses: Gastos
+        expenses: Expenses
       index:
         budget_line: Budget line
         amount: Amount

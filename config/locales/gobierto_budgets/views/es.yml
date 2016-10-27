@@ -1,5 +1,10 @@
 es:
   gobierto_budgets:
+    layouts:
+      menu_subsections:
+        summary: Resumen
+        budget: Presupuesto
+        execution: Ejecución
     budgets:
       index:
         header: Los datos clave de tu municipio
@@ -106,5 +111,3 @@ es:
         deviation: Desviación
         view_more: Ver más
         view_less: Ver menos
-
-

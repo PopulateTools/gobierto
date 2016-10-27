@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require i18n/translations
 //= require jquery.magnific-popup.min
 //= require sticky-kit.min
 //= require tipsy

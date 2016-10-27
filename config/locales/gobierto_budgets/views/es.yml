@@ -1,5 +1,11 @@
 es:
   gobierto_budgets:
+    common:
+      income: ingreso
+      incomes: ingresos
+      expense: gasto
+      expenses: gastos
+      budget_line_description_html: "Esta partida comprende los %{kind_what} en %{description}. Si quieres saber más sobre esta partida puedes consultar la partida padre: %{link}"
     layouts:
       menu_subsections:
         summary: Resumen
@@ -73,6 +79,14 @@ es:
         income_from_what: En qué se ingresa
         help: El presupuesto organiza los gastos en dos categorías. Consulta nuestra guía
       show:
+        planned_per_inhabitant: "pres. / hab."
+        planned: presupuestado
+        real_vs_planned: "real vs. pres."
+        real_value: "El %{kind} real son %{value}"
+        last_year: "En %{year} fue un %{value}"
+        percentage: "% sobre el total del pres."
+        avg_province: "Media %{kind} provincial"
+        not_available: "No disp."
         context: Contexto
         evolution: Evolución
         budget_lines_distribution: Distribución de los gastos de esta partida
@@ -111,3 +125,17 @@ es:
         deviation: Desviación
         view_more: Ver más
         view_less: Ver menos
+      widget_template_deviation:
+        income: Ingresos
+        expense: Gastos
+        planned: presupuestados
+        real: reales
+    visualizations:
+      total_expenses: Gasto total
+      expenses_per_inhabitant: Gasto por habitante
+      category_per_inhabitant: "%{category} por habitante"
+      previous_year_diff: Cambio año anterior
+      inhabitant_short: hab
+      mean_national: Media nacional
+      mean_autonomy: Media autonómica
+      mean_province: Media provincial

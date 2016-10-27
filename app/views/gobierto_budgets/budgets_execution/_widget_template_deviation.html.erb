@@ -18,11 +18,11 @@
     <div class="totals">
       <table>
         <tr>
-          <th>{{#I}}Ingresos{{/I}}{{#G}}Gastos{{/G}} presupuestados</th>
+          <th>{{#I}}<%= t('.income') %>{{/I}}{{#G}}<%= t('.expense') %>{{/G}} <%= t('.planned') %></th>
           <td>{{#I}}{{total_budgeted}}{{/I}}{{#G}}{{total_budgeted}}{{/G}}</td>
         </tr>
         <tr>
-          <th>{{#I}}Ingresos{{/I}}{{#G}}Gastos{{/G}} reales</th>
+          <th>{{#I}}<%= t('.income') %>{{/I}}{{#G}}<%= t('.expense') %>{{/G}} <%= t('.real') %></th>
           <td>{{#I}}{{total_executed}}{{/I}}{{#G}}{{total_executed}}{{/G}}</td>
         </tr>
       </table>

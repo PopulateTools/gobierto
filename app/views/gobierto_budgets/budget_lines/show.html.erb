@@ -6,7 +6,6 @@
       <div class="bread_links" data-line-breadcrumb></div>
     </div>
 
-
     <div class="line_browser clearfix">
       <div class="clearfix">
         <span class="close_line_browser"><i class="fa fa-chevron-circle-up"></i></span>
@@ -71,14 +70,14 @@
 
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
         <div class="inner">
-          <h3><%= kind_literal(@kind, false).capitalize %> pres. / hab.</h3>
+          <h3><%= kind_literal(@kind, false).capitalize %> <%= t('.planned_per_inhabitant') %></h3>
           <div class="metric"><%= number_to_currency @budget_line_stats.amount_per_inhabitant, precision: 2 %></div>
         </div>
       </div>
 
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
         <div class="inner">
-          <h3><%= kind_literal(@kind, false).capitalize %> presupuestado </h3>
+          <h3><%= kind_literal(@kind, false).capitalize %> <%= t('.planned') %> </h3>
           <div class="metric"><%= format_currency @budget_line_stats.amount %></div>
         </div>
       </div>
@@ -86,17 +85,17 @@
       <% planned_executed = @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_planned, year: @year) %>
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
         <div class="inner">
-          <h3><%= kind_literal(@kind, false).capitalize %> real vs. pres.</h3>
+          <h3><%= kind_literal(@kind, false).capitalize %> <%= t('.real_vs_planned') %></h3>
           <% if planned_executed %>
             <div class="metric"><%= planned_executed %></div>
             <div class="explanation">
-              El <%= kind_literal(@kind, false) %> real son <%= format_currency @budget_line_stats.amount_executed %>
+              <%= t('.real_value', kind: kind_literal(@kind, false), value: format_currency(@budget_line_stats.amount_executed)) %>
             </div>
           <% else %>
             <% planned_executed = @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_planned, year: @year-1) %>
-            <div class="metric"><span class="not_av">No disp.</span></div>
+            <div class="metric"><span class="not_av"><%= t('.not_available') %></span></div>
             <div class="explanation">
-              En <%= @year - 1 %> fue un <%= planned_executed %>
+              <%= t('.last_year', year: @year - 1, value: planned_executed) %>
             </div>
           <% end %>
         </div>
@@ -104,14 +103,14 @@
 
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
         <div class="inner">
-          <h3>% sobre el total del pres.</h3>
+          <h3><%= t('.percentage') %></h3>
           <div class="metric"><%= @budget_line_stats.percentage_of_total %></div>
         </div>
       </div>
 
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
         <div class="inner">
-          <h3>Media <%= kind_literal(@kind, false) %> provincial</h3>
+          <h3><%= t('.avg_province', kind: kind_literal(@kind, false)) %></h3>
           <div class="metric"><%= format_currency @budget_line_stats.mean_province %></div>
         </div>
       </div>

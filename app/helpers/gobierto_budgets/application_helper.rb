@@ -61,17 +61,15 @@ module GobiertoBudgets
       if description != name
         return description
       else
-        kind_what = kind == 'I' ? 'ingresos' : 'gastos'
-
-        "Esta partida comprende los #{kind_what} en #{description.downcase}. Si quieres saber más sobre esta partida puedes consultar la partida padre: #{link_to(budget_line_denomination(area_name, code[0..-2], kind), gobierto_budgets_budget_line_path(code[0..-2], params[:year], area_name, kind))}"
+        I18n.t('gobierto_budgets.common.budget_line_description_html', kind_what: kind_literal(kind), description: description.downcase, link: link_to(budget_line_denomination(area_name, code[0..-2], kind), gobierto_budgets_budget_line_path(code[0..-2], params[:year], area_name, kind)))
       end
     end
 
     def kind_literal(kind, plural = true)
       if kind == 'I'
-        plural ? 'ingresos' : 'ingreso'
+        plural ? I18n.t('gobierto_budgets.common.incomes') : I18n.t('gobierto_budgets.common.income')
       else
-        plural ? 'gastos' : 'gasto'
+        plural ? I18n.t('gobierto_budgets.common.expenses') : I18n.t('gobierto_budgets.common.expense')
       end
     end
 

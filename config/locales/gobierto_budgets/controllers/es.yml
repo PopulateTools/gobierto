@@ -5,3 +5,13 @@ es:
       budgets_execution:
         index:
           alert: "No hay datos disponibles en %{year} así que te mostramos el primer año con datos"
+      api:
+        data:
+          budgets_execution_header: "Desviación de los %{kind} en %{year}"
+          income: Ingreso
+          expense: Gasto
+          income_up: "Se ha ingresado un %{percentage}% (%{diff}) más de lo planeado"
+          income_down: "Se ha ingresado un %{percentage}% (%{diff}) menos de lo planeado"
+          expense_up: "Se ha gastado un %{percentage}% (%{diff}) más de lo planeado"
+          expense_down: "Se ha gastado un %{percentage}% (%{diff}) menos de lo planeado"
+

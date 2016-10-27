@@ -23,6 +23,7 @@ gem 'turbolinks'
 gem 'therubyracer'
 gem 'flight-for-rails'
 gem 'cocoon'
+gem 'i18n-js', '>= 3.0.0.rc11'
 
 # Elastic search
 gem 'elasticsearch'

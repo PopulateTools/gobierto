@@ -1,5 +1,11 @@
 en:
   gobierto_budgets:
+    common:
+      income: income
+      incomes: incomes
+      expense: expense
+      expenses: expenses
+      budget_line_description_html: "This budget line is composed of %{kind_what} in %{description}. If you want to understand more about it, check its parent budget line: %{link}"
     layouts:
       menu_subsections:
         summary: Summary
@@ -70,6 +76,14 @@ en:
         income_from_what: Where does the income come from
         help: The budget is organized in two categories. Checkout our guide
       show:
+        planned_per_inhabitant: "plan. / inh."
+        planned: planned
+        real_vs_planned: "real vs. plan."
+        real_value: "Real %{kind} is %{value}"
+        last_year: "In %{year} was a %{value}"
+        percentage: "% over the total"
+        avg_province: "Avg. %{kind} in the province"
+        not_available: "Not avail."
         context: Context
         evolution: Evolution
         budget_lines_distribution: Expense budget lines distribution
@@ -89,3 +103,35 @@ en:
         per_inhabitant: Per inhabitant
         twitter_text_expense: "In @gobierto: Municipal expense on %{name} in %{budget_line_name} for year %{year}"
         twitter_text_income: "In @gobierto: Municipal income on %{name} in %{budget_line_name} for year %{year}"
+    budgets_execution:
+      index:
+        title: "Local budget execution from %{place} in %{year}"
+        description: "Local budget detailed execution from %{place} in %{year}. Check the differences between the planned and the executed."
+        execution_help: The execution is the amount spent based on the planned budget.
+        execution_disclaimer: It's very common to have deviatiatons, due to the difficulty of foreseeing the expenses.
+        budget_lines_income_higher: Income budget lines higher than planned
+        budget_lines_income_lower: Income budget lines lower than planned
+        budget_lines_expense_higher: Expense budget lines higher than planned
+        budget_lines_expense_lower: Expense budget lines lower than planned
+        economic: economic
+        functional: functional
+      execution_table:
+        planned: Plann.
+        executed: Execution
+        deviation: Diff
+        view_more: View more
+        view_less: View less
+      widget_template_deviation:
+        income: Income
+        expense: Expense
+        planned: planned
+        real: real
+    visualizations:
+      total_expenses: Total expenses
+      expenses_per_inhabitant: Expenses per inhabitant
+      category_per_inhabitant: "%{category} per inhabitant"
+      previous_year_diff: Previous year diff
+      inhabitant_short: inh
+      mean_national: National mean
+      mean_autonomy: Autonomy mean
+      mean_province: Province mean

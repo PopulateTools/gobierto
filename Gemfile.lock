@@ -102,6 +102,8 @@ GEM
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
+    i18n-js (3.0.0.rc14)
+      i18n (~> 0.6, >= 0.6.6)
     ine-places (0.1.6)
       activesupport (>= 4.2, <= 5.1)
     jquery-rails (4.2.1)
@@ -242,6 +244,7 @@ DEPENDENCIES
   elasticsearch
   elasticsearch-extensions
   flight-for-rails
+  i18n-js (>= 3.0.0.rc11)
   ine-places
   jquery-rails
   meta-tags

@@ -46,7 +46,7 @@ module GobiertoBudgets
     def budget_line_denomination(area, code, kind, capped = -1)
       area = area_class area, kind
       if area.all_items[kind][code].nil?
-        res = " - "
+        return " - "
       else
         res = area.all_items[kind][code][0..capped]
         res += "..." if capped < res.length && capped > -1
@@ -66,7 +66,7 @@ module GobiertoBudgets
     end
 
     def kind_literal(kind, plural = true)
-      if kind == 'I'
+      if kind == GobiertoBudgets::BudgetLine::INCOME
         plural ? I18n.t('gobierto_budgets.common.incomes') : I18n.t('gobierto_budgets.common.income')
       else
         plural ? I18n.t('gobierto_budgets.common.expenses') : I18n.t('gobierto_budgets.common.expense')

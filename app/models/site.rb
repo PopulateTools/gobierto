@@ -12,18 +12,10 @@ class Site < ApplicationRecord
 
   validates :domain, presence: true, uniqueness: true, domain: true
 
-  def self.budgets_host
-    @budgets_host ||= "presupuestos." + Settings.gobierto_host
-  end
-
   def self.reserved_domain?(domain)
     RESERVED_SUBDOMAINS.map do |subdomain|
       "#{subdomain}." + Settings.gobierto_host
     end.any?{ |reserved_domain| domain == reserved_domain }
-  end
-
-  def self.budgets_domain?(domain)
-    domain == budgets_host
   end
 
   def subdomain

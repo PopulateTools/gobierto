@@ -38,6 +38,7 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.4.0)
     airbrussh (1.1.1)
       sshkit (>= 1.6.1, != 1.7.0)
     ansi (1.5.0)
@@ -71,6 +72,14 @@ GEM
     capistrano-rbenv (2.0.4)
       capistrano (~> 3.1)
       sshkit (~> 1.3)
+    capybara (2.10.1)
+      addressable
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
+    cliver (0.3.2)
     cocoon (1.2.9)
     concurrent-ruby (1.0.2)
     config (1.3.0)
@@ -78,7 +87,10 @@ GEM
       deep_merge (~> 1.1.1)
     cookies_eu (1.6.0)
       js_cookie_rails
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     dalli (2.7.6)
+    database_cleaner (1.5.3)
     deep_merge (1.1.1)
     elasticsearch (2.0.0)
       elasticsearch-api (= 2.0.0)
@@ -101,6 +113,7 @@ GEM
       rails (>= 3.1.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    hashdiff (0.3.0)
     i18n (0.7.0)
     i18n-js (3.0.0.rc14)
       i18n (~> 0.6, >= 0.6.6)
@@ -112,6 +125,8 @@ GEM
       thor (>= 0.14, < 2.0)
     js_cookie_rails (2.1.3)
       railties (>= 3.1)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     libv8 (3.16.14.15)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -129,6 +144,26 @@ GEM
     mime-types-data (3.2016.0521)
     mini_portile2 (2.1.0)
     minitest (5.9.1)
+    minitest-capybara (0.8.2)
+      capybara (~> 2.2)
+      minitest (~> 5.0)
+      rake
+    minitest-metadata (0.6.0)
+      minitest (>= 4.7, < 6.0)
+    minitest-rails (3.0.0)
+      minitest (~> 5.8)
+      railties (~> 5.0)
+    minitest-rails-capybara (3.0.0)
+      capybara (~> 2.7)
+      minitest-capybara (~> 0.8)
+      minitest-metadata (~> 0.6)
+      minitest-rails (~> 3.0)
+    minitest-reporters (1.1.12)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
+    minitest-stub_any_instance (1.0.1)
     multi_json (1.12.1)
     multipart-post (2.0.0)
     net-scp (1.2.1)
@@ -138,6 +173,10 @@ GEM
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
     pg (0.19.0)
+    poltergeist (1.11.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      websocket-driver (>= 0.2.0)
     puma (3.6.0)
     rack (2.0.1)
     rack-test (0.6.3)
@@ -179,9 +218,11 @@ GEM
       actionpack (>= 5.0.0, < 5.1)
       activesupport (>= 5.0.0, < 5.1)
     ruby-prof (0.16.2)
+    ruby-progressbar (1.8.1)
     ruby_dep (1.5.0)
     ruby_px (0.3.0)
       activesupport (>= 4.2.5)
+    safe_yaml (1.0.4)
     sass (3.4.22)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -219,9 +260,15 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.3)
       execjs (>= 0.3.0, < 3)
+    webmock (2.1.0)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+      hashdiff
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
@@ -237,18 +284,26 @@ DEPENDENCIES
   capistrano-rails-console
   capistrano-rails-log
   capistrano-rbenv
+  capybara
   cocoon
   config
   cookies_eu
   dalli
+  database_cleaner
   elasticsearch
   elasticsearch-extensions
   flight-for-rails
   i18n-js (>= 3.0.0.rc11)
   ine-places
   jquery-rails
+  launchy
   meta-tags
+  minitest-rails
+  minitest-rails-capybara
+  minitest-reporters
+  minitest-stub_any_instance
   pg (~> 0.19)
+  poltergeist
   puma
   rails (~> 5.0.0, >= 5.0.0.1)
   redcarpet
@@ -262,6 +317,7 @@ DEPENDENCIES
   therubyracer
   turbolinks
   uglifier (>= 1.3.0)
+  webmock
 
 BUNDLED WITH
    1.13.3

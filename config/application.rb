@@ -10,8 +10,6 @@ require "action_view/railtie"
 require "sprockets/railtie"
 
 require "ostruct"
-require "pp"
-require "digest"
 
 Bundler.require(*Rails.groups)
 
@@ -24,11 +22,7 @@ module RailsTemplate
     config.active_record.raise_in_transactional_callbacks = true
 
     config.generators do |g|
-      g.orm             :active_record
-      g.template_engine :erb
-      g.test_framework  :rspec, fixtures: false, view_spec: false,
-                                helper_specs: false, routing_specs: false,
-                                controller_specs: false, request_specs: false
+      g.test_framework :minitest, spec: false, fixture: true
     end
 
     config.action_dispatch.default_headers.merge!({

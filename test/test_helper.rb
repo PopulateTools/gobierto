@@ -4,41 +4,22 @@ ENV["DOMAIN"] = "127.0.0.1"
 require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
 require "minitest/rails"
-require "minitest/rails/capybara"
 require "minitest/mock"
 require "minitest/reporters"
-require "capybara/poltergeist"
-require "sidekiq/testing"
-require "webmock/minitest"
+require "database_cleaner"
 
-Capybara.register_driver :poltergeist_custom do |app|
-  Capybara::Poltergeist::Driver.new(
-    app,
-    timeout: 300,
-    debug: ENV["CAPYBARA_DEBUG"] == "true")
-end
-
-Capybara.javascript_driver = :poltergeist_custom
+I18n.locale = I18n.default_locale = :en
+Time.zone = "UTC"
 
 DatabaseCleaner.strategy = :transaction
 DatabaseCleaner.clean_with :truncation
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
-I18n.locale = I18n.default_locale = :en
+ActiveRecord::Migration.check_pending!
 
 class ActiveSupport::TestCase
-  include ActiveJob::TestHelper
-  include TenancyHelpers
-  include SmsClientHelpers
-  include BitlyClientHelpers
-
   fixtures :all
-
-  ActiveRecord::Migration.check_pending!
-  WebMock.disable_net_connect!(
-    allow_localhost: true
-  )
 
   def setup
     DatabaseCleaner.start
@@ -49,26 +30,28 @@ class ActiveSupport::TestCase
   end
 end
 
-class ActionController::TestCase
-  include Devise::TestHelpers
-end
-
 class ActionDispatch::IntegrationTest
+  require "minitest/rails/capybara"
+  require "capybara/poltergeist"
+
   include Capybara::DSL
-  include Warden::Test::Helpers
-  include SessionHelpers
 
-  Warden.test_mode!
+  Capybara.register_driver :poltergeist_custom do |app|
+    Capybara::Poltergeist::Driver.new(
+      app,
+      timeout: 300,
+      inspector: ENV["INTEGRATION_INSPECTOR"] == "true",
+      debug: ENV["INTEGRATION_DEBUG"] == "true"
+    )
+  end
 
-  self.use_transactional_fixtures = false
+  Capybara.javascript_driver = :poltergeist_custom
 
   def setup
-    super
+    DatabaseCleaner.start
   end
 
   def teardown
-    super
-
-    Warden.test_reset!
+    DatabaseCleaner.clean
   end
 end

@@ -1,0 +1,12 @@
+acme:
+  external_id: 28079
+  name: Acme Corp.
+  domain: acme.gobierto.dev
+  configuration_data: <%= {:links=>["http://www.acmecorp.com"], :logo=>"https://upload.wikimedia.org/wikipedia/commons/6/6e/Acme-corp.png", :modules=>["GobiertoBudgets"]}.to_yaml.inspect %>
+  location_name: Madrid
+  location_type: INE::Places::Place
+  institution_url: http://www.acmecorp.com
+  institution_type: Corp.
+  institution_email: contact@acmecorp.com
+  institution_address: Fake St., 123
+  institution_document_number: 0123456789A

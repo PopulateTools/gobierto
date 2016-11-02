@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :helpers, :load_current_module_sub_sections
 
-  before_action :load_site, :authenticate_user_in_site
+  before_action :set_current_site, :authenticate_user_in_site
 
   def render_404
     render file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]
@@ -33,6 +33,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def current_site
+    request.env['gobierto_site'] unless Site.reserved_domain?(domain)
+  end
+
   private
 
   def current_module?
@@ -45,6 +49,10 @@ class ApplicationController < ActionController::Base
                         end
   end
 
+  def set_current_site
+    @site = current_site
+  end
+
   def authenticate_user_in_site
     if Rails.env.production? && @site && @site.password_protected?
       authenticate_or_request_with_http_basic('Gobierto Site') do |username, password|
@@ -54,12 +62,6 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-
-  def load_site
-    unless Site.reserved_domain?(domain)
-      @site = request.env['gobierto_site']
-    end
-  end
 
   def remote_ip
     env['action_dispatch.remote_ip'].calculate_ip

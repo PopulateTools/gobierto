@@ -25,14 +25,12 @@ gem "flight-for-rails"
 gem "cocoon"
 gem "i18n-js", ">= 3.0.0.rc11"
 
-# Elastic search
+# Elasticsearch
 gem "elasticsearch"
 gem "elasticsearch-extensions"
 
 group :development, :test do
-  gem "spring"
-  gem "spring-watcher-listen", "~> 2.0.0"
-  gem "byebug"
+  gem "byebug", platform: :mri
 end
 
 group :test do
@@ -43,11 +41,11 @@ group :test do
   gem "capybara"
   gem "poltergeist"
   gem "database_cleaner"
-  gem "launchy"
-  gem "webmock"
 end
 
 group :development do
+  gem "spring"
+  gem "spring-watcher-listen", "~> 2.0.0"
   gem "puma"
   gem "capistrano"
   gem "capistrano-rbenv"

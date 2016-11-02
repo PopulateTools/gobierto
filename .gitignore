@@ -25,6 +25,9 @@ public/assets
 # Ruby version
 .ruby-version
 
+# Environment
+.env
+
 config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml

@@ -24,8 +24,6 @@ module RailsTemplate
     config.i18n.default_locale = :es
     config.i18n.available_locales = [:es, :en]
 
-    config.active_record.raise_in_transactional_callbacks = true
-
     config.generators do |g|
       g.test_framework :minitest, spec: false, fixture: true
     end

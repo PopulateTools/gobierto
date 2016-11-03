@@ -122,6 +122,8 @@ GEM
       thor (>= 0.14, < 2.0)
     js_cookie_rails (2.1.3)
       railties (>= 3.1)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     libv8 (3.16.14.15)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -286,6 +288,7 @@ DEPENDENCIES
   i18n-js (>= 3.0.0.rc11)
   ine-places
   jquery-rails
+  launchy
   meta-tags
   minitest-rails
   minitest-rails-capybara

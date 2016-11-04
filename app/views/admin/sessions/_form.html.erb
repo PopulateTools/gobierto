@@ -1,0 +1,21 @@
+<%= form_for :session, url: admin_sessions_path, html: {id: 'new_session'} do |f| %>
+  <div class="form_item">
+    <div class="form_item_cont">
+      <%= f.label :email, 'Email' %>
+      <%= f.email_field :email, class: 'i_text', autofocus: true %>
+    </div>
+  </div>
+
+  <div class="form_item">
+    <div class="form_item_cont">
+      <%= f.label :password, 'Contraseña' %>
+      <%= f.password_field :password,  class: 'i_text' %>
+    </div>
+  </div>
+
+  <div class="form_item full submit_item">
+    <div class="form_item_cont clearfix">
+      <%= f.submit "Log in" %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,19 @@
+tony:
+  email: tony@gobierto.dev
+  name: Tony Stark
+  password_digest: <%= BCrypt::Password.create("gobierto", cost: 4) %>
+  confirmation_token:
+  reset_password_token:
+  authorization_level: <%= Admin.authorization_levels["regular"] %>
+  created_at: 2016-11-01 00:00:00
+  updated_at: 2016-11-01 00:00:00
+
+steve:
+  email: steve@gobierto.dev
+  name: Steve Rogers
+  password_digest: <%= BCrypt::Password.create("gobierto", cost: 4) %>
+  confirmation_token: wadus
+  reset_password_token: wadus
+  authorization_level: <%= Admin.authorization_levels["manager"] %>
+  created_at: 2016-11-01 00:01:00
+  updated_at: 2016-11-01 00:01:00

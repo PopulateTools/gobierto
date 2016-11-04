@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <%= display_meta_tags site: ['Admin', 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
+  <%= stylesheet_link_tag    'gobierto_budgets/application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'gobierto_budgets/application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+
+<body <%= data_attributes %>>
+
+<header class="meta color_main">
+
+  <div class="site_header">
+    <div class="column">
+      <div class="site_title">
+        Gobierto Admin
+      </div>
+      <% if admin_signed_in? %>
+        Hey, <%= current_admin.name %>
+        <%= link_to 'Sign out', admin_sessions_path, method: :delete %>
+      <% end %>
+    </div>
+  </div>
+
+</header>
+
+<div class="container">
+
+  <%= render "admin/shared/flash_messages" %>
+  <%= yield %>
+
+</div>
+
+<footer>
+
+  <div class="center p_v_4">
+    <p><%= link_to 'Gobierto', 'https://gobierto.es' %> <%= t('.is_open_source') %></p>
+    <%= link_to image_tag('logo-populate-tools.png', size: '100x31'), 'http://populate.tools' %>
+  </div>
+
+</footer>
+
+</body>
+</html>

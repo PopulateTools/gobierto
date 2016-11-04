@@ -7,6 +7,12 @@ Rails.application.routes.draw do
     get '/sandbox/*template' => 'sandbox#show'
   end
 
+  namespace :admin do
+    get '/' => 'welcome#index', as: :root
+
+    resource :sessions, only: [:new, :create, :destroy]
+  end
+
   localized do
     # Gobierto Budgets module
     namespace :gobierto_budgets, path: '', module: 'gobierto_budgets' do

@@ -11,25 +11,106 @@
   <% end %>
 </head>
 
-<body <%= data_attributes %>>
+<body <%= data_attributes %> class="gobierto_admin">
 
-<header class="meta color_main">
+<header class="main clearfix">
 
-  header
+    <div class="pure-menu-link logo">
+      <%= image_tag 'Gobierto-Avatar@2x.png' %>
+    </div>
+
+    <div class="pure-menu pure-menu-horizontal">
+      <ul class="pure-menu-list">
+        <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+          <a href="#" id="menuLink1" class="pure-menu-link">Red</a>
+          <ul class="pure-menu-children">
+            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Ayuntamiento de Burjassot</a></li>
+            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Ayuntamiento de Alzira</a></li>
+            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Ayuntamiento de Valencia</a></li>
+            <li class="pure-menu-item"><a href="admin_sites" class="pure-menu-link">Administrar</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="pure-menu-link">
+      Ayuntamiento de Burjassot
+    </div>
+
+    <div class="right pure-menu pure-menu-horizontal">
+      <ul class="pure-menu-list left">
+        <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+          <a href="#" id="menuLink1" class="pure-menu-link">Hey, Fernando</a>
+          <ul class="pure-menu-children">
+            <li class="pure-menu-item"><a href="#" class="pure-menu-link"><i class="fa fa-th"></i> Tu cuenta</a></li>
+            <li class="pure-menu-item"><a href="#" class="pure-menu-link"><i class="fa fa-sign-out"></i> Desconectar</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="right pure-menu-link">
+      Notificaciones
+    </div>
+
+    <div class="right pure-menu-link">
+      Ver site
+    </div>
+
+  </div>
+  
 
 </header>
 
-<div class="container">
+<div class="container admin_content_column_with_menu_opened">
 
-  <%= yield %>
+  <menu class="main" data-menu-status="open">
+
+    <div class="menu_content">
+      
+      <ul >
+        <li><a href="">Visualización presupuestos</a></li>
+        <li><a href="">Consultas presupuestos</a></li>
+        <li><a href="">Inteligencia</a></li>
+        <li><a href="">Personas</a>
+          <ul>
+            <li><a href="">Todas</a></li>
+            <li><a href="">Agendas</a></li>
+            <li><a href="">Declaraciones</a></li>
+            <li><a href="">Blogs</a></li>
+          </ul>
+        </li>
+        <li><a href="">Tu entidad en cifras</a></li>
+        <li><a href="">Cuadro de mando</a></li>
+        <li><a href="">Mapas</a></li>
+        <li><a href="">Participación</a></li>
+        <li class="sep"><a href="admin_users">Usuarios</a></li>
+        <li><a href="admin_sites_site">Personalizar sitio</a></li>
+      </ul>
+
+    </div>
+
+    <div class="collapse_menu"><a href="#" class="js-collapse-menu"><i class="fa fa-caret-square-o-left"></i> <span>Colapsar menú</span></a></div>
+
+  </menu>
+
+  <div class="admin_content_column">
+
+    <div class="admin_content">
+      <%= yield %>
+    </div>
+
+    <footer>
+      footer
+    </footer>
+
+  </div>
+
+
 
 </div>
 
-<footer>
 
-  footer
-
-</footer>
 
 <% if Rails.env.production? %>
   <%= render 'layouts/analytics_footer_site' %>

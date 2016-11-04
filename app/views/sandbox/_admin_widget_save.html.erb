@@ -1,0 +1,39 @@
+<div class="widget_save">
+	
+	<div class="form_item">
+
+		<div class="options compact">
+
+			<div class="option">
+        <input type="radio" id="opt_1" name="opt" value="1" checked />
+        <label for="opt_1">
+          <span></span>
+          Borrador
+          <div class="password_protected">
+          	<p>Usuario: <strong>gobierto</strong></p>
+          	<p>Contraseña: 
+          		<input type="text" name="password">
+          	</p>
+          </div>
+        </label>
+      </div>
+
+      <div class="option">
+        <input type="radio" id="opt_2" name="opt" value="2"/>
+        <label for="opt_2">
+          <span></span>
+          Activo
+        </label>
+      </div>
+
+	  </div>
+
+	</div>
+
+  <div class="action_view sep_top_bot">
+  	<%= link_to '<i class="fa fa-eye"></i> Ver usuario'.html_safe, '' %>
+  </div>
+
+  <input type="submit" value="Guardar" class="button">
+
+</div>

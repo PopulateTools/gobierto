@@ -19,6 +19,7 @@
 //= require gobierto_budgets/vis_lineas_tabla
 //= require gobierto_budgets/vis_evo_line
 //= require gobierto_budgets/execution
+//= require module-admin
 //= require flight-for-rails
 //= require_directory ../components/
 

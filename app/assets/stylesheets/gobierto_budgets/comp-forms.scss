@@ -2,7 +2,7 @@
  * Forms
  *
  */
-input[type=text], input[type=email], input[type=submit], .button, button, .option, select, option {
+input[type=text], input[type=email], input[type=submit], .button, button, .option, select, option, textarea {
   box-sizing: border-box;
   height: 54px;
   padding: 0 1em; 
@@ -34,6 +34,72 @@ option, select {
 }
 .option {
 	padding: 0;
+}
+.option.separate {
+  margin-top: 1em;
+  padding-top: 1em;
+}
+.form_item.input_text, .form_item.textarea {
+  position: relative;
+  margin: 0 0 1em 0;
+  label {
+    position: absolute;
+    top: .5rem;
+    left: 1rem;
+    text-transform: uppercase;
+    font-size: .75em;
+    font-weight: 700;
+  }
+  input, textarea {
+    padding: 2.75rem 1rem 1.35rem .95rem;
+    width: 100%;
+    outline: none;
+  }
+  textarea {
+    box-sizing: border-box;
+    height: 300px;
+  }
+}
+.form_item.textarea.code {
+  background: none;
+  textarea {
+    font-size: .75em;
+  }
+}
+
+.form_item {
+  .options {
+    .option {
+      display: block;
+      margin: 0 0 1em 0;
+    }
+  }
+  .options.compact {
+    font-size: .85em;
+    .option {
+      height: 40px;
+      border: none;
+      margin-bottom: .5em;
+    }
+    input[type="checkbox"] + label, input[type="radio"] + label {
+      padding: 5px 9px;
+      margin: -9px 0 0 -9px;
+      @include border-radius(3px);
+    }
+    input[type="checkbox"] + label span, input[type="radio"] + label span {
+      height: 14px;
+      width: 14px;
+    }
+  }
+}
+.widget_save {
+  .form_item {
+    .options.compact {
+      .option {
+        height: initial;  
+      }
+    }  
+  }
 }
 .button, button {
   text-decoration: none;
@@ -71,11 +137,31 @@ input[type="checkbox"] + label span, input[type="radio"] + label span {
   vertical-align: middle;
   cursor: pointer;
 }
+.password_protected {
+  display: none;
+}
 input[type="checkbox"] + label:hover, input[type="radio"] + label:hover {
   background: rgba($color_main, .1);
 }
 input[type="checkbox"]:checked + label, input[type="radio"]:checked + label {
   background: rgba($color_main, .2);
+  .password_protected {
+    margin: .5em 0;
+    font-size: .85em;
+    line-height: 1.2em;
+    display: block;
+    padding: 0 0 0 29px;
+    p {
+      margin: 0 0 .5em 0;
+    }
+    input {
+      padding: 5px;
+      @include border-radius(3px);
+      height: initial;
+      width: 100%;
+      margin: .25em 0;
+    }
+  }
 }
 input[type="checkbox"]:checked + label span, input[type="radio"]:checked + label span {
   background: $color_main;

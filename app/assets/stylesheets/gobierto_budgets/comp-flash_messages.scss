@@ -1,0 +1,45 @@
+/*
+ * Flash messages
+ *
+ */
+.success, .error, .alert, .notice {
+  padding: 20px 30px;
+  @include border-radius(6px);
+  margin-bottom: 2em;
+
+  .fa {
+    font-size: 1.5em;
+    margin: 0 1em 0 0;
+    vertical-align: top;
+  }
+}
+
+.success {
+  background: #CCCC00;
+  color: #FFF;
+}
+.error {
+  background: #FF9966;
+  color: #FFF;
+}
+.alert {
+  background: #FFEBE0;
+  color: #AE5D3B;
+}
+.notice {
+  background: #F5F5CC;
+  color: #787A03;
+}
+.field_with_errors {
+  input {
+    border: 1px solid #FF9966;
+  }
+}
+.disclaimer {
+  font-size: .8em;
+  text-align: center;
+  line-height: 1.4em;
+  width: 70%;
+  margin: 2em auto;
+  opacity: .8;
+}

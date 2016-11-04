@@ -136,7 +136,7 @@
 
   <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
     
-    <%= render "admin_widget_save.html.erb" %>
+    <%= render partial: "admin_widget_save", locals: { password_protected: true }  %>
 
     <div class="proto_note">
       <p>Opciones:</p>

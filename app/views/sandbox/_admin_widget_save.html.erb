@@ -1,6 +1,6 @@
 <div class="widget_save">
-	
-	<div class="form_item">
+  
+  <div class="form_item">
 
 		<div class="options compact">
 
@@ -9,12 +9,17 @@
         <label for="opt_1">
           <span></span>
           Borrador
-          <div class="password_protected">
-          	<p>Usuario: <strong>gobierto</strong></p>
-          	<p>Contraseña: 
-          		<input type="text" name="password">
-          	</p>
-          </div>
+
+          <!-- this only applies to the draft status for Site -->
+          <% if local_assigns[:password_protected] %>
+            <div class="password_protected">
+            	<p>Usuario: <strong>gobierto</strong></p>
+            	<p>Contraseña: 
+            		<input type="text" name="password">
+            	</p>
+            </div>
+          <% end %>
+
         </label>
       </div>
 

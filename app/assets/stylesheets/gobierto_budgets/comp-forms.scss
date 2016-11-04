@@ -5,7 +5,7 @@
 input[type=text], input[type=email], input[type=submit], .button, button, .option, select, option, textarea {
   box-sizing: border-box;
   height: 54px;
-  padding: 0 1em; 
+  padding: 0 1em;
   margin: 0 .5em 0 0;
   display: inline-block;
   vertical-align: middle;
@@ -27,10 +27,10 @@ input[type=submit]:hover, .button:hover, button:hover {
 }
 option, select {
   font-weight: 400;
-  font-size: .8em;
-  // border: 1px solid #CCC;
   padding: 18px;
-  background: #F1F1F1;
+  // font-size: .8em;
+  // border: 1px solid #CCC;
+  // background: #F1F1F1;
 }
 .option {
 	padding: 0;
@@ -39,7 +39,7 @@ option, select {
   margin-top: 1em;
   padding-top: 1em;
 }
-.form_item.input_text, .form_item.textarea {
+.form_item.input_text, .form_item.textarea, .select_control {
   position: relative;
   margin: 0 0 1em 0;
   label {
@@ -60,6 +60,15 @@ option, select {
     height: 300px;
   }
 }
+.select_control {
+  box-sizing: border-box;
+  border: 1px solid $color_separator;
+  @include border-radius(6px);
+  select {
+    margin: 1.75rem 0 0 0;
+  }
+}
+
 .form_item.textarea.code {
   background: none;
   textarea {

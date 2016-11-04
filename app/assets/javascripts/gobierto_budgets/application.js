@@ -15,6 +15,8 @@
 //= require autocomplete_settings
 //= require klass
 //= require slick.min
+//= require air-datepicker/datepicker.min
+//= require air-datepicker/i18n/datepicker.es
 
 //= require gobierto_budgets/vis_treemap
 //= require gobierto_budgets/vis_lineas_tabla
@@ -61,8 +63,8 @@ $(document).on('turbolinks:load', function() {
     $('[data-tab-target]').parent().removeClass('active');
     $('[data-tab-target="' + target + '"]').parent().addClass('active');
 
-    $('[data-tab]').hide();
-    $('[data-tab="' + target + '"]').show();
+    $('[data-tab]').removeClass('active');
+    $('[data-tab="' + target + '"]').addClass('active');
   });
 
   $(".stick_ip").stick_in_parent()
@@ -137,7 +139,9 @@ $(document).on('turbolinks:load', function() {
     $('.carousel').slick('slickNext');
   });
 
-  
+  $('.air-datepicker').datepicker({
+    language: 'es'
+  });
 
   if($('#expense-treemap').length > 0){
     window.expenseTreemap = new TreemapVis('#expense-treemap', 'big', true);

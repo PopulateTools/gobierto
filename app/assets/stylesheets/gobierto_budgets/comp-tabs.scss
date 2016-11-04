@@ -2,8 +2,14 @@
  * Tabs
  *
  */
+.tab {
+  display: none;
+}
+.tab.active {
+  display: block;
+}
 .tabs {
-	@include tabs;
+	@include tabs;	
 	ul {
 		border-color: rgba($color_main, .41);
 		li {

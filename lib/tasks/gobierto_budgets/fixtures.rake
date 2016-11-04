@@ -19,15 +19,22 @@ namespace :gobierto_budgets do
 
     def import_gobierto_budgets_data_for_place(place, year)
       index = GobiertoBudgets::SearchEngineConfiguration::Data.index
-      [GobiertoBudgets::SearchEngineConfiguration::Data.type_population, GobiertoBudgets::SearchEngineConfiguration::Data.type_debt].each do |type|
-        id = [place.id, year].join('/')
-        data = {
-          ine_code: place.id, province_id: place.province_id,
-          autonomy_id: place.province.autonomous_region_id,
-          year: year, value: rand(1_000_000)
+      data_for_place = [GobiertoBudgets::SearchEngineConfiguration::Data.type_population, GobiertoBudgets::SearchEngineConfiguration::Data.type_debt].map do |type|
+        {
+          index: {
+            _index: index,
+            _id: [place.id, year].join('/'),
+            _type: type,
+            data: {
+              ine_code: place.id, province_id: place.province_id,
+              autonomy_id: place.province.autonomous_region_id,
+              year: year, value: rand(1_000_000)
+            }
+          }
         }
-        GobiertoBudgets::SearchEngine.client.index index: index, type: type, id: id, body: data
       end
+
+      GobiertoBudgets::SearchEngine.client.bulk(body: data_for_place)
     end
 
     def import_gobierto_budgets_for_place(place, year)
@@ -38,35 +45,49 @@ namespace :gobierto_budgets do
         population: rand(1_000_000)
       }
 
-      BUDGETS_INDEXES.each do |index|
+      budgets_for_place = BUDGETS_INDEXES.map do |index|
         categories_fixtures do |category|
-          id = [place.id, year, category['code'], category['kind']].join('/')
-          budget_line = base_data.merge({
-            amount: rand(1_000_000), code: category['code'],
-            level: category['level'], kind: category['kind'],
-            amount_per_inhabitant: (rand(1_000)/2.0).round(2),
-            parent_code: category['parent_code']
-          })
-          GobiertoBudgets::SearchEngine.client.index index: index, type: category['area'], id: id, body: budget_line
+          {
+            index: {
+              _index: index,
+              _id: [place.id, year, category['code'], category['kind']].join('/'),
+              _type: category['area'],
+              data: base_data.merge({
+                amount: rand(1_000_000), code: category['code'],
+                level: category['level'], kind: category['kind'],
+                amount_per_inhabitant: (rand(1_000)/2.0).round(2),
+                parent_code: category['parent_code']
+              })
+            }
+          }
         end
+      end.flatten
 
+      total_budgets = BUDGETS_INDEXES.map do |index|
         type = GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type
         categories_fixtures do |category|
-          id = [place.id, year, category['kind']].join("/")
-          budget_line = {
-            ine_code: place.id.to_i, province_id: place.province.id.to_i,
-            autonomy_id: place.province.autonomous_region.id.to_i, year: year,
-            kind: category['kind'],
-            total_budget: rand(1_000_000),
-            total_budget_per_inhabitant: rand(1_000_000)
+          {
+            index: {
+              _index: index,
+              _id: [place.id, year, category['kind']].join("/"),
+              _type: type,
+              data: {
+                ine_code: place.id.to_i, province_id: place.province.id.to_i,
+                autonomy_id: place.province.autonomous_region.id.to_i, year: year,
+                kind: category['kind'],
+                total_budget: rand(1_000_000),
+                total_budget_per_inhabitant: rand(1_000_000)
+              }
+            }
           }
-          GobiertoBudgets::SearchEngine.client.index index: index, type: type, id: id, body: budget_line
         end
-      end
+      end.flatten
+
+      GobiertoBudgets::SearchEngine.client.bulk(body: budgets_for_place + total_budgets)
     end
 
     def categories_fixtures(&block)
-      YAML.load(File.read(File.expand_path('categories.yml', __dir__))).each do |_, category|
+      YAML.load(File.read(File.expand_path('categories.yml', __dir__))).map do |_, category|
         yield(category)
       end
     end
@@ -92,13 +113,18 @@ namespace :gobierto_budgets do
 
     def import_categories
       puts "== Importing categories =="
-      categories_fixtures do |category|
-        id = category.slice('area', 'code', 'kind').values.join('/')
-        GobiertoBudgets::SearchEngine.client.index index: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index,
-                                                   type: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type,
-                                                   id: id,
-                                                   body: category
+      categories = categories_fixtures do |category|
+        {
+          index: {
+            _index: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index,
+            _id: category.slice('area', 'code', 'kind').values.join('/'),
+            _type: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type,
+            data: category
+          }
+        }
       end
+
+      GobiertoBudgets::SearchEngine.client.bulk(body: categories)
     end
 
     def create_budgets_mapping

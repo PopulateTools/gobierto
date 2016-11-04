@@ -1,9 +1,9 @@
 require "test_helper"
 
-class HomePageTest < ActionDispatch::IntegrationTest
+class GobiertoBudgets::HomePageTest < ActionDispatch::IntegrationTest
   def setup
     super
-    @path = root_path
+    @path = gobierto_budgets_site_path
   end
 
   def site
@@ -12,7 +12,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
 
   def test_greeting
     with_current_site(site) do
-      visit @root_path
+      visit gobierto_budgets_budgets_path
 
       assert has_content?("Acme Corp. / Budgets")
       assert has_content?("Main income and expenses from your council")

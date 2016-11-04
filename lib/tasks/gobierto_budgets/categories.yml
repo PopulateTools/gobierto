@@ -1,0 +1,137 @@
+---
+economic_1_g:
+  area: economic
+  code: '1'
+  name: Gastos de personal
+  parent_code:
+  level: 1
+  kind: G
+
+economic_10_g:
+  area: economic
+  code: '10'
+  name: "Órganos de gobierno y personal directivo"
+  parent_code: 1
+  level: 2
+  kind: G
+
+economic_2_g:
+  area: economic
+  code: '2'
+  name: Gastos en bienes corrientes y servicios
+  parent_code:
+  level: 1
+  kind: G
+
+economic_20_g:
+  area: economic
+  code: '20'
+  name: "Arrendamientos y cánones"
+  parent_code: 2
+  level: 2
+  kind: G
+
+economic_3_g:
+  area: economic
+  code: '3'
+  name: Gastos financieros
+  parent_code:
+  level: 1
+  kind: G
+
+economic_1_i:
+  area: economic
+  code: '1'
+  name: Impuestos directos
+  parent_code:
+  level: 1
+  kind: I
+
+economic_10_i:
+  area: economic
+  code: '10'
+  name: Impuesto sobre la renta
+  parent_code: 1
+  level: 2
+  kind: I
+
+economic_2_i:
+  area: economic
+  code: '2'
+  name: Impuestos indirectos
+  parent_code:
+  level: 1
+  kind: I
+
+economic_21_i:
+  area: economic
+  code: '21'
+  name: "Impuesto sobre el Valor Añadido"
+  parent_code: 2
+  level: 2
+  kind: I
+
+economic_210_i:
+  area: economic
+  code: '210'
+  name: Impuesto sobre el Valor Añadido
+  parent_code: 21
+  level: 3
+  kind: I
+
+functional_0_g:
+  area: functional
+  code: '0'
+  name: Deuda pública
+  parent_code:
+  level: 1
+  kind: G
+
+functional_1_g:
+  area: functional
+  code: '1'
+  name: Servicios públicos básicos
+  parent_code:
+  level: 1
+  kind: G
+
+functional_13_g:
+  area: functional
+  code: '13'
+  name: Seguridad y movilidad ciudadana
+  parent_code: 1
+  level: 2
+  kind: G
+
+functional_130_g:
+  area: functional
+  code: '130'
+  name: "Administración General de la Seguridad y Protección Civil"
+  parent_code: 13
+  level: 3
+  kind: G
+
+functional_2_g:
+  area: functional
+  code: '2'
+  name: "Actuaciones de protección y promoción social"
+  parent_code:
+  level: 1
+  kind: G
+
+functional_22_g:
+  area: functional
+  code: '22'
+  name: "Otras prestaciones económicas a favor de empleados"
+  parent_code: 2
+  level: 2
+  kind: G
+
+functional_3_g:
+  area: functional
+  code: '3'
+  name: "Producción de bienes públicos de carácter preferente"
+  parent_code:
+  level: 1
+  kind: G
+

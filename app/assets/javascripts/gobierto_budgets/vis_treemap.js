@@ -31,7 +31,7 @@ var TreemapVis = Class.extend({
     this.containerWidth = parseInt(d3.select(this.containerId).style('width'), 10);
     this.width = this.containerWidth - this.margin.left - this.margin.right;
     this.height = (this.containerWidth / this.sizeFactor) - this.margin.top - this.margin.bottom;
-    
+
     this.container = d3.select(this.containerId)
       .style("position", "relative")
       .style("width", (this.width + this.margin.left + this.margin.right) + "px")
@@ -65,10 +65,10 @@ var TreemapVis = Class.extend({
               return "tipsit-treemap treemap_node";
             }
           }.bind(this))
-        .attr("title", function(d){ 
-          return "<strong>" + d.name + "</strong><br>" + accounting.formatMoney(d.budget, "€", 0, '.') + "<br>" + accounting.formatMoney(d.budget_per_inhabitant, "€", 0, ',') + " /hab";
+        .attr("title", function(d){
+          return "<strong>" + d.name + "</strong><br>" + accounting.formatMoney(d.budget, "€", 0, '.') + "<br>" + accounting.formatMoney(d.budget_per_inhabitant, "€", 0, ',') + " /" + I18n.t("gobierto_budgets.visualizations.inhabitant_short");
         }.bind(this))
-        .attr("data-url", function(d){ 
+        .attr("data-url", function(d){
           if(this.clickable){
             return d.children ? null : urlData.split('?')[0] + "?parent_code=" + d.code;
           }
@@ -81,7 +81,7 @@ var TreemapVis = Class.extend({
           } else {
             // If the square is small, don't add the text
             if(d.dx > 70 && d.dy > 90) {
-              return "<p><strong>" + d.name + "</strong></p><p>" + accounting.formatMoney(d.budget_per_inhabitant, "€", 0) + "/hab</p>";
+              return "<p><strong>" + d.name + "</strong></p><p>" + accounting.formatMoney(d.budget_per_inhabitant, "€", 0) + "/" + I18n.t("gobierto_budgets.visualizations.inhabitant_short") + "</p>";
             }
           }
         })

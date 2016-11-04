@@ -112,15 +112,9 @@ var VisLineasJ = Class.extend({
 
     // Set nice category
     this.niceCategory = {
-      "Actuaciones de carácter general": "Actuaciones Generales",
-      "Actuaciones de carácter económico": "Actuaciones Económicas",
-      "Producción de bienes públicos de carácter preferente": "Bienes Públicos",
-      "Actuaciones de protección y promoción social": "Protección Social",
-      "Servicios públicos básicos": "Servicios Públicos",
-      "Deuda pública": "Deuda Pública",
-      "mean_national": "Media Nacional",
-      "mean_autonomy": "Media Autonómica",
-      "mean_province": "Media Provincial",
+      "mean_national": I18n.t("gobierto_budgets.visualizations.mean_national"),
+      "mean_autonomy": I18n.t("gobierto_budgets.visualizations.mean_autonomy"),
+      "mean_province": I18n.t("gobierto_budgets.visualizations.mean_province"),
       "G": "Gasto/habitante",
       "I": "Ingreso/habitante",
       "percentage": "% sobre el total"
@@ -139,21 +133,11 @@ var VisLineasJ = Class.extend({
         }.bind(this));
       }.bind(this));
 
-      // TODO
-      //this.data.budgets.percentage.forEach(function(d) {
-        //d.values.forEach(function(v) {
-          //v.date = this.parseDate(v.date);
-          //v.name = d.name;
-        //}.bind(this));
-      //}.bind(this));
-
       this.dataChart = this.data.budgets[this.measure];
       this.kind = this.data.kind;
       this.dataYear = this.parseDate(this.data.year);
       this.lastYear = this.parseDate(this.data.year).getFullYear(); // For the mouseover interaction
       this.dataTitle = this.data.title;
-
-
 
       ////// Complete the dataTable.
       // Get all the years
@@ -383,7 +367,7 @@ var VisLineasJ = Class.extend({
           }.bind(this))
           .text(function(column) {
             if (column == 'dif') {
-              return 'Cambio año anterior'
+              return I18n.t("gobierto_budgets.visualizations.previous_year_diff");
             } else if (column == 'value') {
               return this.dataYear.getFullYear();
             } else {

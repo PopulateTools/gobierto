@@ -1,23 +1,13 @@
 ---
 en:
   routes:
-    users: users
-    confirm: confirm
-    user: user
-    verify: verify
-    after_signup: after-signup
-    participation: participation
-    ideas: ideas
-    comments: comments
-    consultations: consultations
+    # gobierto budgets
     privacy: privacy
     legal: legal
-    cookie_warning: cookie-warning
-    edit: edit
-    new: new
-    pages: pages
+    cookie_warning: cookie_warning
     budgets: budgets
+    summary: summary
     budget_lines: budget_lines
     budget_line: budget_line
-    summary: summary
     execution: execution
+    # add your new module here...

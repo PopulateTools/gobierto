@@ -264,9 +264,9 @@ module GobiertoBudgets
 
       def lines_title
         if @code.nil?
-          @what == 'total_budget' ? "Gasto total" : "Gasto por habitante"
+          @what == 'total_budget' ? I18n.t("gobierto_budgets.visualizations.total_expenses") : I18n.t("gobierto_budgets.visualizations.expenses_per_inhabitant")
         else
-          @what == 'total_budget' ? "#{@category_name}" : "#{@category_name} por habitante"
+          @what == 'total_budget' ? "#{@category_name}" : I18n.t("gobierto_budgets.visualizations.category_per_inhabitant", category: @category_name)
         end
       end
 

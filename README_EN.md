@@ -89,8 +89,7 @@ curl get.pow.cx | sh
 Then, configure the host like this:
 
 ```
-cd ~/.pow
-ln -s DIRECTORY/gobierto gobierto
+echo "3000" > ~/.pow/gobierto
 ```
 
 Then just browse to http://presupuestos.gobierto.dev/ and the app should load.

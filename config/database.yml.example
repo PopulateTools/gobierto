@@ -1,9 +1,11 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: 5
-  username: postgres
-  password: 
+  username: <%= ENV["PG_USERNAME"] %>
+  password: <%= ENV["PG_PASSWORD"] %>
+  host: <%= ENV["PG_HOST"] %>
+  url: <%= ENV["DATABASE_URL"] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
@@ -12,3 +14,11 @@ development:
 test:
   <<: *default
   database: gobierto_test
+
+staging:
+  <<: *default
+  database: gobierto_staging
+
+production:
+  <<: *default
+  database: gobierto_production

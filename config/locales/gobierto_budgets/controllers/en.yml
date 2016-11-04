@@ -1,0 +1,17 @@
+---
+en:
+  controllers:
+    gobierto_budgets:
+      budgets_execution:
+        index:
+          alert: "There's no data for %{year} so we are showing you the first year with data"
+      api:
+        data:
+          budgets_execution_header: "Deviation of %{kind} in %{year}"
+          income: Income
+          expense: Expense
+          income_up: "It was earnt %{percentage}% (%{diff}) more than planned"
+          income_down: "It was earnt %{percentage}% (%{diff}) less than planned"
+          expense_up: "It was spent %{percentage}% (%{diff}) more than planned"
+          expense_down: "It was spent %{percentage}% (%{diff}) less than planned"
+

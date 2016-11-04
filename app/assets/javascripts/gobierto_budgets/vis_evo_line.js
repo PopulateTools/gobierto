@@ -5,7 +5,6 @@ var VisEvoLine = Class.extend({
     this.container = divId;
     this.data = series;
     this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null;
-    //this.data = [{"year":2010,"deviation":0},{"year":2011,"deviation":-3.19},{"year":2012,"deviation":-6.37},{"year":2013,"deviation":-10},{"year":2014,"deviation":10},{"year":2015,"deviation":-7.87}];
     this.dataUrl = null;
     this.classed = "evoline"
 

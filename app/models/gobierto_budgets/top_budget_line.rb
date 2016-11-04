@@ -35,10 +35,10 @@ module GobiertoBudgets
       }
 
       if @conditions[:kind] == GobiertoBudgets::BudgetLine::INCOME
-        type = 'economic'
+        type = GobiertoBudgets::BudgetLine::ECONOMIC
         area = GobiertoBudgets::EconomicArea
       else
-        type = 'functional'
+        type = GobiertoBudgets::BudgetLine::FUNCTIONAL
         area = GobiertoBudgets::FunctionalArea
       end
 

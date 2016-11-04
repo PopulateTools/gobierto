@@ -1,5 +1,4 @@
 ---
 gobierto_host: gobierto.dev
-mailchimp_list: ''
-google_analytics_key: 'UA-69636046-3'
-mixpanel_key: 'a22a372d8b32aee7752b0f1a6094b6d8'
+google_analytics_key: ''
+mixpanel_key: ''

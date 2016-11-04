@@ -8,11 +8,10 @@ Rails.application.routes.draw do
   end
 
   localized do
-
     # Gobierto Budgets module
     namespace :gobierto_budgets, path: '', module: 'gobierto_budgets' do
       constraints GobiertoSiteConstraint.new do
-        get 'site' => redirect('/presupuestos/resumen')
+        get 'site' => 'sites#show'
 
         # legal pages (TODO: we should merge them)
         get 'privacy' => 'pages#privacy'
@@ -32,16 +31,15 @@ Rails.application.routes.draw do
         get 'all_categories/:slug/:year' => 'search#all_categories', as: :search_all_categories
 
         namespace :api do
+          get '/categories' => 'categories#index'
+          get '/categories/:area/:kind' => 'categories#index'
           get '/data/widget/budget/:ine_code/:year/:code/:area/:kind' => 'data#budget', as: :data_budget
           get '/data/widget/budget_per_inhabitant/:ine_code/:year/:code/:area/:kind' => 'data#budget_per_inhabitant', as: :data_budget_per_inhabitant
           get '/data/lines/:ine_code/:year/:what' => 'data#lines', as: :data_lines
           get '/data/lines/budget_line/:ine_code/:year/:what/:kind/:code/:area' => 'data#lines', as: :data_lines_budget_line
-          get '/categories' => 'categories#index'
-          get '/categories/:area/:kind' => 'categories#index'
           get '/data/widget/budget_execution_deviation/:ine_code/:year/:kind' => 'data#budget_execution_deviation', as: :data_budget_execution_deviation
         end
       end
     end
-
   end
 end

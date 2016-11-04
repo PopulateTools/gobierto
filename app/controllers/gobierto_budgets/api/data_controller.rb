@@ -14,7 +14,7 @@ module GobiertoBudgets
         @kind = params[:kind]
         @code = params[:code]
 
-        @category_name = @kind == 'G' ? 'Gasto' : 'Ingreso'
+        @category_name = @kind == 'G' ? I18n.t("controllers.gobierto_budgets.api.data.expense") : I18n.t("controllers.gobierto_budgets.api.data.income")
 
         budget_data = budget_data(@year, 'amount')
         budget_data_previous_year = budget_data(@year - 1, 'amount', false)
@@ -42,7 +42,7 @@ module GobiertoBudgets
         @kind = params[:kind]
         @code = params[:code]
 
-        @category_name = @kind == 'G' ? 'Gasto' : 'Ingreso'
+        @category_name = @kind == 'G' ? I18n.t("controllers.gobierto_budgets.api.data.expense") : I18n.t("controllers.gobierto_budgets.api.data.income")
         budget_data = budget_data(@year, 'amount_per_inhabitant')
         budget_data_previous_year = budget_data(@year - 1, 'amount_per_inhabitant', false)
         position = budget_data[:position].to_i
@@ -81,7 +81,7 @@ module GobiertoBudgets
         up_or_down = sign(total_executed, total_budgeted)
         evolution = deviation_evolution(ine_code, kind)
 
-        heading = "Desviación de los #{kind_literal(kind)} en #{year.to_s}"
+        heading = I18n.t("controllers.gobierto_budgets.api.data.budgets_execution_header", kind: kind_literal(kind), year: year)
         respond_to do |format|
           format.json do
             render json: {
@@ -110,15 +110,6 @@ module GobiertoBudgets
           value['_source']['value'] * 1000
         rescue Elasticsearch::Transport::Transport::Errors::NotFound
         end
-      end
-
-      def ranking_title(variable, year, kind, code, area_name)
-        title = ["Top"]
-        title << ((kind == 'G') ? 'gastos' : 'ingresos')
-        title << ((variable == 'total_budget' or variable == 'amount') ? 'totales' : 'por habitante')
-        title << "en #{budget_line_denomination(area_name, code, kind)}" if code.present?
-        title << "en el #{year}"
-        title.join(' ')
       end
 
       def budget_data(year, field, ranking = true)
@@ -228,16 +219,10 @@ module GobiertoBudgets
       def deviation_message(kind, up_or_down, percentage, diff)
         percentage = percentage.to_s.gsub('-', '')
         diff = format_currency(diff, true)
-        messages = {
-          income_up:   "Se ha ingresado un #{percentage}% (#{diff}) más de lo planeado",
-          income_down: "Se ha ingresado un #{percentage}% (#{diff}) menos de lo planeado",
-          expense_up:  "Se ha gastado un #{percentage}% (#{diff}) más de lo planeado",
-          expense_down:"Se ha gastado un #{percentage}% (#{diff}) menos de lo planeado"
-        }
         final_message = if (kind == GobiertoBudgets::BudgetLine::INCOME)
-          up_or_down == "sign-up" ? messages[:income_up] : messages[:income_down]
+          up_or_down == "sign-up" ? I18n.t("controllers.gobierto_budgets.api.data.income_up", percentage: percentage, diff: diff) : I18n.t("controllers.gobierto_budgets.api.data.income_down", percentage: percentage, diff: diff)
         else
-          up_or_down == "sign-up" ? messages[:expense_up] : messages[:expense_down]
+          up_or_down == "sign-up" ? I18n.t("controllers.gobierto_budgets.api.data.expense_up", percentage: percentage, diff: diff) : I18n.t("controllers.gobierto_budgets.api.data.expense_down", percentage: percentage, diff: diff)
         end
         final_message
       end

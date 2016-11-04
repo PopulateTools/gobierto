@@ -52,6 +52,9 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  # Poll for changes instead of using the ActiveSupport::EventedFileUpdateChecker
+  config.file_watcher = ActiveSupport::FileUpdateChecker
+
   # ActionMailer host options & delivery through Mailcatcher
   app_host = ENV.fetch("HOST") { "gobierto.dev" }
 

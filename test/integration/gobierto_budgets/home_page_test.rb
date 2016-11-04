@@ -3,7 +3,7 @@ require "test_helper"
 class GobiertoBudgets::HomePageTest < ActionDispatch::IntegrationTest
   def setup
     super
-    @path = root_path
+    @path = gobierto_budgets_site_path
   end
 
   def site

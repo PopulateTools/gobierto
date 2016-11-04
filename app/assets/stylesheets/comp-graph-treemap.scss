@@ -1,0 +1,18 @@
+.treemap_node {
+  // font: 13px Work Sans;
+  font-size: .8em;
+  line-height: 1.2em;
+  overflow: hidden;
+  position: absolute;
+  color: white;
+  padding: 0px;
+}
+
+.treemap_node.clickable {
+  cursor: pointer;
+}
+
+.treemap_node p {
+  margin: 0;
+  padding: 8px 8px 0 8px;
+} 

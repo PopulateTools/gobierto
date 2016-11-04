@@ -1,0 +1,34 @@
+/*
+ * Modals
+ *
+ */
+.modal {
+  position: relative;
+  background: #FFF;
+  padding: 3em 4em 4em;
+  width: auto;
+  max-width: 750px;
+  margin: 20px auto;
+  @include border-radius(5px);
+  color: $color_headers;
+
+  &#read_later {
+    input[type=submit], .button {
+      padding: 0 1em;
+    }
+  }
+  
+.disclaimer {
+    font-size: .8em;
+    text-align: center;
+    margin: 2em 0;
+    opacity: .6;
+  }
+}
+.mfp-bg {
+	opacity: .6;
+}
+.mfp-close-btn-in .mfp-close:hover {
+	color: #FFF;
+	border-radius: 0;
+}

@@ -1,6 +1,6 @@
 class Admin < ApplicationRecord
-  include Authenticable
-  include Confirmable
+  include Authentication::Authenticable
+  include Authentication::Confirmable
 
   EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/
 

@@ -13,6 +13,12 @@ class AdminTest < ActiveSupport::TestCase
     assert admin.valid?
   end
 
+  # -- Authentication::Authenticable
+  def test_password_authentication
+    assert admin.authenticate("gobierto")
+  end
+
+  # -- Authentication::Confirmable
   def test_confirmed_scope
     subject = Admin.confirmed
 

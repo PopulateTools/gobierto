@@ -19,7 +19,7 @@ en:
         planned_vs_executed: Real expenses vs the plan
         not_available_short: Not avail.
         inhabitants: Inhabitants
-        debt: Deuda
+        debt: Debt
         planned_vs_executed_other_year_html: "In %{year} it was %{link}"
         in_year: In
         per_person: Per person

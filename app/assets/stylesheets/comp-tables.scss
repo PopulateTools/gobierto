@@ -2,10 +2,22 @@
  * Tables
  *
  */
-.table_cont_round {
-	background: transparentize($color_main, .94); // rgba($color_main, .06);
-	@include border-radius(6px);
-	padding: .5em 0;
+table {
+	width: 100%;
+	td, th {
+		border-top: 1px solid transparentize($color_main, .85);
+		padding: .7em 1em .4em;
+		font-size: .85em;
+		a {
+			display: inline-block;
+		}
+	}
+	td.qty {
+		text-align: right;
+	}
+}
+tr {
+	vertical-align: top;
 }
 td.bar {
 	padding-right: 0;
@@ -14,6 +26,11 @@ td.bar {
 		height: 18px;
 		@include border-radius(3px);
 	}
+}
+.table_cont_round {
+	background: transparentize($color_main, .94); // rgba($color_main, .06);
+	@include border-radius(6px);
+	padding: .5em 0;
 }
 table.explore_slow {
 	font-size: 1.2rem;
@@ -100,19 +117,5 @@ table.med_bg {
 			padding: 0;
 			margin: 0 0 1em 0;
 		}
-	}
-}
-table {
-	width: 100%;
-	td, th {
-		border-top: 1px solid transparentize($color_main, .85);
-		padding: .7em 1em .4em;
-		font-size: .85em;
-		a {
-			display: inline-block;
-		}
-	}
-	td.qty {
-		text-align: right;
 	}
 }

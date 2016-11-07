@@ -1,0 +1,133 @@
+<div class="admin_breadcrumb">
+   <%= link_to 'Inicio', 'admin' %> »
+   <%= link_to 'Consultas sobre presupuestos', 'admin_consultations' %> »
+   Editar consulta
+</div>
+
+<h1>Consulta sobre los presupuestos de Burjassot 2016</h1>
+
+<div class="tabs">
+  <ul>
+    <li class="active"><a href="" data-tab-target="consultation_meta">Consulta</a></li>
+    <li><a href="" data-tab-target="consultation_lines">Partidas</a></li>
+  </ul>
+</div>
+
+<div class="pure-g" >
+
+  <div class="pure-u-1 pure-u-md-16-24 tab active" data-tab="consultation_meta">
+    
+    <form>
+      
+      <div class="form_item input_text">
+        <label for="name">Título</label>
+        <input type="text" id="name" value="Consulta sobre los presupuestos de Burjassot 2016">
+        <div class="inline_help">
+          Te recomendamos poner un título concreto y que identifique la consulta del año en cuestión.
+        </div>
+      </div>
+
+      <div class="form_block">
+      
+        <div class="form_item textarea">
+          <label for="entity">Descripción</label>
+          <textarea></textarea>
+          <div class="inline_help">
+            Te recomendamos poner un título concreto y que identifique la consulta del año en cuestión.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form_block ">
+
+        <div class="form_item input_text">
+          <label for="start_date">Fecha inicio - fin</label>
+          <input type="text"
+            data-range="true"
+            data-multiple-dates-separator=" - "
+            data-language="es"
+            class="air-datepicker"
+            placeholder="Selecciona fecha de inicio y fin" />
+        </div>
+
+      </div>
+
+    </form>
+
+
+  </div>
+
+  <div class="pure-u-1 pure-u-md-16-24 tab " data-tab="consultation_lines">
+
+    <ul class="block_list">
+      <li>
+        <%= link_to '<i class="fa fa-edit"></i> 1. <span>Instalaciones deportivas</span> <i class="fa fa-bars f_right"></i>'.html_safe, '#budget_line_1', class: 'open_modal'  %>
+      </li>
+      <li>
+        <%= link_to '<i class="fa fa-edit"></i> 2. <span>Pavimentación de vías públicas</span> <i class="fa fa-bars f_right"></i>'.html_safe %>
+      </li>
+      <li>
+        <%= link_to '<i class="fa fa-edit"></i> 3. <span>Museos y artes plásticas</span> <i class="fa fa-bars f_right"></i>'.html_safe %>
+      </li>
+      <li>
+        <%= link_to '<i class="fa fa-edit"></i> 4. <span>Bomberos y protección civil</span> <i class="fa fa-bars f_right"></i>'.html_safe %>
+      </li>
+      <li>
+        <%= link_to '<i class="fa fa-edit"></i> 1. <span>Instalaciones deportivas</span> <i class="fa fa-bars f_right"></i>'.html_safe %>
+      </li>
+
+      <li class="sep">
+        <%= link_to '<i class="fa fa-add"></i> <span>Añadir nueva partida</span>'.html_safe %>
+      </li>
+    </ul>
+
+  </div>
+
+  <div class="pure-u-1 pure-u-md-2-24"></div>
+
+  <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
+    
+    <%= render "admin_widget_save.html.erb" %>
+
+    <div class="proto_note">
+      <p>Opciones:</p>
+      <p>- Protegido</p>
+      <p>- Público</p>
+
+    </div>
+
+  </div>
+
+  <div class="modal mfp-hide" id="budget_line_1">
+    
+    <h2>Editar partida</h2>
+
+    <form>
+      
+      <div class="form_item input_text">
+        <label for="name">Partida</label>
+        <input type="text" id="name" value="Bienestar comunitario > Cultura > Deporte > Instalaciones deportivas">
+      </div>
+
+      <div class="form_item input_text">
+        <label for="email">Titulo a mostrar</label>
+        <input type="email" id="email" value="Instalaciones deportivas">
+      </div>
+
+      <div class="form_item textarea">
+        <label for="entity">Descripción</label>
+        <textarea>Esta política de gasto comprende los originados por los servicios a que se refiere su denominación, tales como promoción y difusión deportiva, gastos de creación, conservación y funcionamiento de los edificios destinados a piscinas, instalaciones deportivas de todo tipo o cualquier otra actuación directamente relacionada con el deporte o la política deportiva de la respectiva Entidad local. Los gastos incluidos en el grupo de programas de Administración General corresponderán a actividades dirigidas a la planificación, coordinación, control, organización, gestión administrativa y desarrollo de funciones de apoyo de los distintos centros directivos que integran la política de gasto.</textarea>
+      </div>
+
+      <div class="actions right">
+        <button class="light">Cancelar</button>
+        <input type="submit" value="Guardar">
+      </div>
+
+    </form>
+
+  </div>
+
+
+</div>

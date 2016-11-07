@@ -41,11 +41,11 @@ $color_vis_com: #AAC44B;
 $color_vis_country: #008998;
 
 /* logo colors */
-$color_logo_yellow: #E9AD00;
+$color_logo_yellow: #F8B206 /* #E9AD00 */;
 $color_logo_pink: #F39B95;
 $color_logo_blue: #388F9C;
 
-
+$test_color: transparentize($color_logo_yellow, .8);
 
 .color_main {
 	background: $color_main;

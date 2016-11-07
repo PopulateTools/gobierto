@@ -27,7 +27,13 @@ h2.lite {
 	margin: 0 0 .5em 0;
 	font-size: 1em;
 }
-
+h1, h2 {
+	span.element_title {
+		font-size: .9rem;
+		font-weight: normal;
+		padding-left: 1em;
+	}
+}
 
 /*
  * Content Boxes

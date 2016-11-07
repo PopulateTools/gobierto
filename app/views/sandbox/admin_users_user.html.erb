@@ -1,0 +1,202 @@
+
+<h1>Editar usuario</h1>
+
+<div class="pure-g">
+
+  <div class="pure-u-1 pure-u-md-16-24">
+    
+    <form>
+      
+      <div class="form_item input_text">
+        <label for="name">Nombre</label>
+        <input type="text" id="name" value="Fernando Blat">
+      </div>
+
+      <div class="form_item input_text">
+        <label for="email">Correo-e</label>
+        <input type="email" id="email" value="fernando@blat.es">
+      </div>
+
+      <div class="form_block">
+
+        <h2>Permisos</h2>
+
+        <div class="form_item">
+          
+          <p>Este usuario puede acceder a administrar:</p>
+
+          <div class="options compact">
+
+            <div class="option">
+              <input type="hidden" name="permission_1" value="0"/>
+              <input type="checkbox" id="permission_1" name="permission_1" value="1"/>
+              <label for="permission_1">
+                <span></span>
+                Visualización presupuestos
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="hidden" name="permission_1" value="0"/>
+              <input type="checkbox" id="permission_2" name="permission_1" value="1"/>
+              <label for="permission_2">
+                <span></span>
+                Consultas presupuestos
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="hidden" name="permissions" value="0"/>
+              <input type="checkbox" id="permission_3" name="permission_1" value="1"/>
+              <label for="permission_3">
+                <span></span>
+                Inteligencia
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="hidden" name="permissions" value="0"/>
+              <input type="checkbox" id="permission_4" name="permission_1" value="1"/>
+              <label for="permission_4">
+                <span></span>
+                Personas
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="hidden" name="permissions" value="0"/>
+              <input type="checkbox" id="permission_5" name="permission_1" value="1"/>
+              <label for="permission_5">
+                <span></span>
+                Tu entidad en cifras
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="hidden" name="permissions" value="0"/>
+              <input type="checkbox" id="permission_6" name="permission_1" value="1"/>
+              <label for="permission_6">
+                <span></span>
+                Consultas presupuestos
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="hidden" name="permissions" value="0"/>
+              <input type="checkbox" id="permission_7" name="permission_1" value="1"/>
+              <label for="permission_7">
+                <span></span>
+                Cuadro de mando
+              </label>
+            </div>
+
+            <div class="option separate">
+              <input type="hidden" name="permissions" value="0"/>
+              <input type="checkbox" id="permission_8" name="permission_1" value="1"/>
+              <label for="permission_8">
+                <span></span>
+                Usuarios
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="hidden" name="permissions" value="0"/>
+              <input type="checkbox" id="permission_9" name="permission_1" value="1"/>
+              <label for="permission_9">
+                <span></span>
+                Personalizar sitio
+              </label>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="form_block">
+
+        <h2>Sitios con acceso</h2>
+
+        <div class="form_item">
+          
+          <p>Este usuario puede acceder a administrar:</p>
+
+          <div class="options compact">
+
+            <div class="option">
+              <input type="hidden" name="sites" value="0"/>
+              <input type="checkbox" id="site_1" name="permission_1" value="1"/>
+              <label for="site_1">
+                <span></span>
+                burjassot.gobierto.es
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="hidden" name="sites" value="0"/>
+              <input type="checkbox" id="site_2" name="permission_1" value="1"/>
+              <label for="site_2">
+                <span></span>
+                valencia.gobierto.es
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="hidden" name="sites" value="0"/>
+              <input type="checkbox" id="site_3" name="permission_1" value="1"/>
+              <label for="site_3">
+                <span></span>
+                transparencia.dival.es
+              </label>
+            </div>
+
+            
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="form_block">
+
+        <h2>Contraseña</h2>
+
+        <div class="pure-g">
+          <div class="pure-u-1 pure-u-md-1-2">
+            <button>Cambiar contraseña</button>
+          </div>
+          <div class="pure-u-1 pure-u-md-1-2">
+            <button>Reenviar mail de bienvenida</button> 
+            <p><small>(con enlace para cambiar establecer nueva contraseña)</small></p>
+          </div>
+        </div>
+
+        <p><strong>Último login</strong>: hace 2 horas <span class="soft">123.456.789.12</span></p>
+        <p><strong>Creado</strong>: 12 sep 2016 <span class="soft">123.456.789.12</span></p>
+
+      </div>
+
+      <div class="form_block">
+
+        <h2>Log actividad</h2>
+
+        LOG
+
+      </div>
+
+    </form>
+
+
+  </div>
+
+  <div class="pure-u-1 pure-u-md-2-24"></div>
+
+  <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
+    
+    <%= render "admin_widget_save.html.erb" %>
+
+  </div>
+
+</div>

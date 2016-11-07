@@ -1,6 +1,6 @@
 class SandboxController < ApplicationController
   before_action :set_working_variables
-  layout 'gobierto_site_application'
+  layout :set_layout 
 
   def index
     @templates = Dir.glob(Rails.root.join('app/views/sandbox/*.html.erb').to_s).map do |filename|
@@ -27,6 +27,14 @@ class SandboxController < ApplicationController
   end
 
   private
+
+  def set_layout
+    if params[:template].start_with?('admin')
+      'gobierto_admin_layout'  
+    else
+      'gobierto_site_application'
+    end
+  end 
 
   def set_working_variables
     @site ||= Site.first

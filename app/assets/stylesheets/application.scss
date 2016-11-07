@@ -19,6 +19,7 @@
 @import "tipsy";
 @import "magnific-popup";
 @import "slick";
+@import "datepicker.min";
 // @import "slick-theme";
 
 
@@ -35,11 +36,14 @@
  */
 @import "css-conf";
 @import "comp-breadcrumbs";
+@import "comp-flash_messages";
 @import "comp-filters";
 @import "comp-forms";
 @import "comp-headings_blocks";
 @import "comp-layout";
+@import "comp-lists";
 @import "comp-metric_boxes";
+@import "comp-modals";
 @import "comp-site_header";
 @import "comp-social_buttons";
 @import "comp-tables";
@@ -51,6 +55,7 @@
 @import "module-budget_vis";
 @import "module-participation";
 
+@import "module-admin";
 
 
 
@@ -192,48 +197,6 @@ a.soft_cta:hover {
     visibility: hidden
 }
 
-
-
-/*
- * Modals
- *
- */
-.modal {
-  position: relative;
-  background: #FFF;
-  padding: 3em 4em 4em;
-  width: auto;
-  max-width: 750px;
-  margin: 20px auto;
-  @include border-radius(5px);
-
-  &#read_later {
-    input[type=submit], .button {
-      padding: 0 1em;
-    }
-  }
-  color: $color_headers;
-
-  input[type=text], input[type=email] {
-    border: 1px solid $color_meta_text;
-  }
-  input[type=email] {
-    width: 50%;
-  }
-  input[type=email].short {
-    width: 32%;
-  }
-  h2 {
-    margin: 0 0 .15em 0;
-    font-size: 2em;
-  }
-  .disclaimer {
-    font-size: .8em;
-    text-align: center;
-    margin: 2em 0;
-    opacity: .6;
-  }
-}
 
 
 

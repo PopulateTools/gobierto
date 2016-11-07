@@ -25,7 +25,7 @@ namespace :gobierto_budgets do
     end
 
     def allowed?
-      Rails.env.development? || Rails.env.testing?
+      Rails.env.development? || Rails.env.test?
     end
 
     def indices

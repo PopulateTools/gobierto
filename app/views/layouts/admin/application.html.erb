@@ -23,19 +23,29 @@
       <ul class="pure-menu-list">
         <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
           <a href="#" id="menuLink1" class="pure-menu-link">Red</a>
-          <ul class="pure-menu-children">
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Ayuntamiento de Burjassot</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Ayuntamiento de Alzira</a></li>
-            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Ayuntamiento de Valencia</a></li>
-            <li class="pure-menu-item"><a href="admin_sites" class="pure-menu-link">Administrar</a></li>
+          <ul id="managed-sites-list" class="pure-menu-children">
+            <% managed_sites.each do |site| %>
+              <li class="pure-menu-item">
+                <%= button_to(
+                  site.name,
+                  admin_sites_sessions_path,
+                  params: { site_id: site.id },
+                  class: "pure-menu-link") %>
+              </li>
+            <% end %>
+            <li class="pure-menu-item">
+              <a href="admin_sites" class="pure-menu-link">Administrar</a>
+            </li>
           </ul>
         </li>
       </ul>
     </div>
 
-    <div class="pure-menu-link">
-      Ayuntamiento de Burjassot
-    </div>
+    <% if managing_site? %>
+      <div id="current-site-name" class="pure-menu-link">
+        <%= current_site.name %>
+      </div>
+    <% end %>
 
     <% if admin_signed_in? %>
       <div class="right pure-menu pure-menu-horizontal">
@@ -60,7 +70,7 @@
         </ul>
       </div>
     <% end %>
-    
+
     <div class="right pure-menu-link">
       Notificaciones
     </div>
@@ -68,9 +78,6 @@
     <div class="right pure-menu-link">
       Ver site
     </div>
-
-  </div>
-  
 
 </header>
 

@@ -1,4 +1,4 @@
-<%= form_for :session, url: admin_sessions_path do |f| %>
+<%= form_for :session, url: admin_sessions_path, html: { id: 'admin-session-form' } do |f| %>
   <div class="form_item input_text">
     <%= f.label :email %>
     <%= f.email_field :email, autofocus: true %>

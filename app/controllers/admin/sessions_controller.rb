@@ -1,6 +1,8 @@
 class Admin::SessionsController < Admin::BaseController
   skip_before_action :authenticate_admin!
 
+  layout "admin/sessions"
+
   def new; end
 
   def create
@@ -8,7 +10,7 @@ class Admin::SessionsController < Admin::BaseController
 
     if admin.try(:authenticate, session_params[:password])
       sign_in_admin(admin.id)
-      redirect_to(after_sign_in_path, alert: "Signed in successfully.")
+      redirect_to(after_sign_in_path, notice: "Signed in successfully.")
     else
       flash.now[:alert] = "The data you entered doesn't seem to be valid. Please try again."
       render :new
@@ -17,7 +19,7 @@ class Admin::SessionsController < Admin::BaseController
 
   def destroy
     sign_out_admin
-    redirect_to(after_sign_out_path, alert: "Signed out successfully.")
+    redirect_to(after_sign_out_path, notice: "Signed out successfully.")
   end
 
   private

@@ -1,10 +1,12 @@
 ---
 en:
   layouts:
-    gobierto_site_application:
+    application: &application
       disclaimer: This is a demo of Gobierto, transparency and participation software
       more_information: More info in gobierto.es
       budgets: Budgets
       is_open_source: is open source created by
       about_the_data: About the data
-
+    sandbox:
+      application:
+        <<: *application

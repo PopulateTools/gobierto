@@ -11,6 +11,10 @@ Rails.application.routes.draw do
     get '/' => 'welcome#index', as: :root
 
     resource :sessions, only: [:new, :create, :destroy]
+
+    namespace :sites do
+      resource :sessions, only: [:create, :destroy]
+    end
   end
 
   localized do

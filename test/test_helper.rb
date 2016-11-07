@@ -36,8 +36,10 @@ end
 class ActionDispatch::IntegrationTest
   require "minitest/rails/capybara"
   require "capybara/poltergeist"
+  require "support/authentication_helper"
 
   include Capybara::DSL
+  include AuthenticationHelper
 
   Capybara.register_driver :poltergeist_custom do |app|
     Capybara::Poltergeist::Driver.new(

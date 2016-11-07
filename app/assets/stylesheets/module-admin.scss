@@ -4,7 +4,7 @@ header.main, menu.main {
 	a {
 		color: darken($color_logo_yellow, 20%);
 	}
-	a:hover, a.pure-menu-link:hover {
+	a:hover, a.pure-menu-link:hover, input.pure-menu-link:hover {
 		background: lighten($color_logo_yellow, 35%);
 	}
 }
@@ -43,6 +43,25 @@ header.main {
 	.pure-menu-link:hover {
 		background: initial;
 	}
+
+  input.pure-menu-link {
+    display: block;
+    width: 100%;
+    text-align: left;
+    border-radius: 0;
+    text-transform: none;
+    color: #946b04;
+    background: inherit;
+    font-size: inherit;
+    padding: .8em 1.5em;
+    margin: 0;
+    height: auto;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
 	.logo {
 		height: 26px;
 		overflow: hidden;

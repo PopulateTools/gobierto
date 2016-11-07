@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <% if Rails.env.production? %>
+    <%= render 'layouts/analytics_header_site' %>
+  <% end %>
+</head>
+
+<body <%= data_attributes %> class="gobierto_admin ">
+
+<header class="main clearfix">
+
+  <div class="pure-menu-link logo">
+    <%= image_tag 'Gobierto-Avatar@2x.png' %>
+  </div>
+
+</header>
+
+<div class="container admin_content_column_with_menu_opened">
+
+  <div class="admin_content_column">
+
+    <div class="admin_content">
+      <%= render "admin/shared/flash_messages" %>
+      <%= yield %>
+    </div>
+
+    <footer>
+      footer
+    </footer>
+
+  </div>
+
+</div>
+
+<% if Rails.env.production? %>
+  <%= render 'layouts/analytics_footer_site' %>
+<% end %>
+
+</body>
+</html>

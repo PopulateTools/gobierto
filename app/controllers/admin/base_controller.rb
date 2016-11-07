@@ -3,7 +3,7 @@ class Admin::BaseController < ApplicationController
 
   helper_method :current_admin, :current_site, :admin_signed_in?
 
-  layout "admin"
+  layout "admin/application"
 
   private
 

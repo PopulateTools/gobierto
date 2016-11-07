@@ -1,3 +1,3 @@
 class GobiertoBudgets::ApplicationController < ApplicationController
-  layout 'gobierto_site_application'
+  layout "gobierto_budgets/application"
 end

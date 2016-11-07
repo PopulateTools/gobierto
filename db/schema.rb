@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161103165835) do
+ActiveRecord::Schema.define(version: 20161107174757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admin_sites", force: :cascade do |t|
+    t.integer "admin_id"
+    t.integer "site_id"
+    t.index ["admin_id", "site_id"], name: "index_admin_sites_on_admin_id_and_site_id", using: :btree
+    t.index ["admin_id"], name: "index_admin_sites_on_admin_id", using: :btree
+    t.index ["site_id"], name: "index_admin_sites_on_site_id", using: :btree
+  end
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                             null: false

@@ -65,8 +65,8 @@ class SiteForm
 
   protected
 
-  def promote_errors(errors)
-    errors.each do |attribute, message|
+  def promote_errors(errors_hash)
+    errors_hash.each do |attribute, message|
       errors.add(attribute, message)
     end
   end

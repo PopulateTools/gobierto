@@ -19,7 +19,7 @@ class Admin::SessionTest < ActionDispatch::IntegrationTest
 
     assert has_content?("Signed in successfully.")
 
-    click_on "Sign out"
+    click_on "Sign Out"
 
     assert has_content?("We need you to sign in to continue.")
   end

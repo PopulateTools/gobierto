@@ -11,7 +11,7 @@ class Admin::SiteSessionTest < ActionDispatch::IntegrationTest
   end
 
   def site
-    @site ||= sites(:acme)
+    @site ||= sites(:madrid)
   end
 
   def test_site_switch

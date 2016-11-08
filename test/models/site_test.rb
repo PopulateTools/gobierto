@@ -2,7 +2,7 @@ require "test_helper"
 
 class SiteTest < ActiveSupport::TestCase
   def site
-    @site ||= sites(:acme)
+    @site ||= sites(:madrid)
   end
 
   def test_valid

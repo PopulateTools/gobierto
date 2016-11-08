@@ -19,6 +19,7 @@ class Admin::SessionsController < Admin::BaseController
 
   def destroy
     sign_out_admin
+    leave_site
     redirect_to(after_sign_out_path, notice: "Signed out successfully.")
   end
 

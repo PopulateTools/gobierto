@@ -4,7 +4,7 @@ class Admin < ApplicationRecord
 
   EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/
 
-  has_many :admin_sites
+  has_many :admin_sites, dependent: :destroy
   has_many :sites, through: :admin_sites
 
   validates :name, presence: true

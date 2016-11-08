@@ -4,7 +4,13 @@ module Admin::SiteSessionHelper
   private
 
   def current_site
-    @current_site ||= Site.find_by(id: session[:site_id]) if session[:site_id]
+    return unless session[:site_id]
+
+    @current_site ||= begin
+      if (matched_site = Site.find_by(id: session[:site_id]))
+        SiteDecorator.new(matched_site)
+      end
+    end
   end
 
   def managing_site?

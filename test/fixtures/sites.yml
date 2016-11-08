@@ -1,12 +1,25 @@
-acme:
-  external_id: 28079
-  name: Acme Corp.
-  domain: acme.gobierto.dev
-  configuration_data: <%= {:links=>["http://www.acmecorp.com"], :logo=>"https://upload.wikimedia.org/wikipedia/commons/6/6e/Acme-corp.png", :modules=>["GobiertoBudgets"]}.to_yaml.inspect %>
+madrid:
+  name: Madrid
+  domain: madrid.gobierto.dev
+  configuration_data: <%= {:links=>["http://www.madrid.es"], :logo=>"http://www.madrid.es/assets/images/logo-madrid.png", :modules=>["GobiertoBudgets"]}.to_yaml.inspect %>
   location_name: Madrid
   location_type: INE::Places::Place
-  institution_url: http://www.acmecorp.com
-  institution_type: Corp.
-  institution_email: contact@acmecorp.com
+  external_id: <%= INE::Places::Place.find_by_slug("madrid").id %>
+  institution_url: http://www.madrid.es
+  institution_type: Ayuntamiento
+  institution_email: contact@madrid.es
+  institution_address: Fake St., 123
+  institution_document_number: 0123456789A
+
+santander:
+  name: Santander
+  domain: santander.gobierto.dev
+  configuration_data: <%= {:links=>["http://www.santander.es"], :logo=>"http://santander.es/sites/default/themes/custom/ayuntamiento/img/logo-ayto-santander.png", :modules=>["GobiertoBudgets"]}.to_yaml.inspect %>
+  location_name: Santander
+  location_type: INE::Places::Place
+  external_id: <%= INE::Places::Place.find_by_slug("santander").id %>
+  institution_url: http://www.santander.es
+  institution_type: Ayuntamiento
+  institution_email: contact@santander.es
   institution_address: Fake St., 123
   institution_document_number: 0123456789A

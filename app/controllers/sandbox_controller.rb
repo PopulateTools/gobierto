@@ -2,6 +2,8 @@ class SandboxController < ApplicationController
   before_action :set_working_variables
   layout :set_layout
 
+  helper_method :current_site
+
   def index
     @templates = Dir.glob(Rails.root.join('app/views/sandbox/*.html.erb').to_s).map do |filename|
       filename = File.basename(filename, File.extname(filename))
@@ -37,8 +39,11 @@ class SandboxController < ApplicationController
   end
 
   def set_working_variables
-    @site ||= Site.first
-    @place = @site.place
+    @place = current_site.place
     @year = GobiertoBudgets::SearchEngineConfiguration::Year.last
+  end
+
+  def current_site
+    Site.first
   end
 end

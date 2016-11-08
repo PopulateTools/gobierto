@@ -7,7 +7,7 @@ class GobiertoBudgets::BudgetLinesTest < ActionDispatch::IntegrationTest
   end
 
   def site
-    @site ||= sites(:acme)
+    @site ||= sites(:madrid)
   end
 
   def last_year

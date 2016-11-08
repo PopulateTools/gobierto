@@ -1,16 +1,16 @@
 module SiteHelper
 
   def site_name
-    if @site
-      @site.institution_type + ' de ' + @site.location_name
+    if current_site
+      current_site.institution_type + ' de ' + current_site.location_name
     else
       'Gobierto Presupuestos Municipales'
     end
   end
 
   def site_url
-    if @site
-      @site.domain
+    if current_site
+      current_site.domain
     else
       'presupuestos.gobierto.es'
     end

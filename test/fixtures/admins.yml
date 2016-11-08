@@ -7,6 +7,7 @@ tony:
   authorization_level: <%= Admin.authorization_levels["regular"] %>
   created_at: 2016-11-01 00:00:00
   updated_at: 2016-11-01 00:00:00
+  sites: madrid, santander
 
 steve:
   email: steve@gobierto.dev
@@ -17,3 +18,4 @@ steve:
   authorization_level: <%= Admin.authorization_levels["manager"] %>
   created_at: 2016-11-01 00:01:00
   updated_at: 2016-11-01 00:01:00
+  sites:

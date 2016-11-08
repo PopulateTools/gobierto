@@ -7,14 +7,14 @@ class HomePageTest < ActionDispatch::IntegrationTest
   end
 
   def site
-    @site ||= sites(:acme)
+    @site ||= sites(:madrid)
   end
 
   def test_greeting
     with_current_site(site) do
       visit @root_path
 
-      assert has_content?("Acme Corp. / Budgets")
+      assert has_content?("Madrid / Budgets")
       assert has_content?("Main income and expenses from your council")
     end
   end

@@ -1,0 +1,55 @@
+<h1>Sitios</h1>
+
+<div class="admin_tools right">
+  <%= link_to "#" do %>
+    <i class="fa fa-cog"></i>
+    <%= t(".configuration") %>
+  <% end %>
+  <%= link_to t(".new"), new_admin_site_path, class: "button" %>
+</div>
+
+<table>
+<tr>
+  <th></th>
+  <th>Sitio</th>
+  <th>Dominio</th>
+  <th>Creado</th>
+  <th>Estado</th>
+  <th></th>
+</tr>
+
+<tbody>
+  <% @sites.each do |site| %>
+    <tr class="<%= cycle("odd", "even") %>">
+      <td>
+        <%= link_to edit_admin_site_path(site) do %>
+          <i class="fa fa-edit"></i>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to "#" do %>
+          <strong><%= site.institution_type %></strong>
+          <%= site.name %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to site.domain, site.domain_url, target: "_blank" %>
+      </td>
+      <td>
+        <%= l(site.created_at, format: :short) %>
+        <span class="soft ip">222.111.222.11</span>
+      </td>
+      <td>
+        <i class="fa fa-lock"></i> Borrador
+        <i class="fa fa-unlock"></i> Activo
+      </td>
+      <td>
+        <%= link_to [:admin, site], class: "view_item" do %>
+          <i class="fa fa-eye"></i>
+          <%= link_to t(".go_to_site"), site.domain_url, target: "_blank" %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+</table>

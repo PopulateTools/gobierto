@@ -34,7 +34,10 @@
               </li>
             <% end %>
             <li class="pure-menu-item">
-              <a href="admin_sites" class="pure-menu-link">Administrar</a>
+              <%= link_to(
+                t(".manage_sites"),
+                admin_sites_path,
+                class: "pure-menu-link") %>
             </li>
           </ul>
         </li>
@@ -62,7 +65,8 @@
               </li>
               <li class="pure-menu-item">
                 <%= link_to admin_sessions_path, method: :delete, class: "pure-menu-link" do %>
-                  <i class="fa fa-sign-out"></i> Sign out
+                  <i class="fa fa-sign-out"></i>
+                  <%= t(".sign_out") %>
                 <% end %>
               </li>
             </ul>
@@ -76,7 +80,9 @@
     </div>
 
     <div class="right pure-menu-link">
-      Ver site
+      <% if managing_site? %>
+        <%= link_to t(".go_to_site"), current_site.domain_url, target: "_blank" %>
+      <% end %>
     </div>
 
 </header>

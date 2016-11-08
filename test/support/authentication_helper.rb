@@ -18,6 +18,6 @@ module AuthenticationHelper
   end
 
   def sign_out_admin
-    within("header") { click_link "Sign out" }
+    within("header") { click_link "Sign Out" }
   end
 end

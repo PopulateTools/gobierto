@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :render_404
   rescue_from ActionController::UnknownFormat, with: :render_404
 
-  helper_method :helpers, :load_current_module_sub_sections
+  helper_method :helpers, :load_current_module_sub_sections, :current_site
 
   before_action :set_current_site, :authenticate_user_in_site
 

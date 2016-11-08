@@ -8,7 +8,6 @@ class Site < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates :location_name, presence: true
-  validates :institution_url, presence: true
 
   validates :domain, presence: true, uniqueness: true, domain: true
 

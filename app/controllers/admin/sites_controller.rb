@@ -11,6 +11,7 @@ class Admin::SitesController < Admin::BaseController
     @site_form = SiteForm.new
     @site_modules = get_site_modules
     @site_visibility_levels = get_site_visibility_levels
+    @dns_config = get_dns_config
   end
 
   def edit
@@ -18,12 +19,14 @@ class Admin::SitesController < Admin::BaseController
     @site_form = SiteForm.new(@site.attributes)
     @site_modules = get_site_modules
     @site_visibility_levels = get_site_visibility_levels
+    @dns_config = get_dns_config
   end
 
   def create
     @site_form = SiteForm.new(site_params.merge(creation_ip: remote_ip))
     @site_modules = get_site_modules
     @site_visibility_levels = get_site_visibility_levels
+    @dns_config = get_dns_config
 
     if @site_form.save
       redirect_to admin_sites_path, notice: 'Site was successfully created.'
@@ -36,6 +39,7 @@ class Admin::SitesController < Admin::BaseController
     @site_form = SiteForm.new(site_params.merge(id: params[:id]))
     @site_modules = get_site_modules
     @site_visibility_levels = get_site_visibility_levels
+    @dns_config = get_dns_config
 
     if @site_form.save
       redirect_to admin_sites_path, notice: 'Site was successfully updated.'
@@ -60,6 +64,10 @@ class Admin::SitesController < Admin::BaseController
 
   def get_site_modules
     APP_CONFIG["site_modules"].map { |site_module| OpenStruct.new(site_module) }
+  end
+
+  def get_dns_config
+    OpenStruct.new(APP_CONFIG["dns_config"])
   end
 
   def get_site_visibility_levels

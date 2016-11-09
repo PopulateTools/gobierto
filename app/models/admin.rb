@@ -12,4 +12,10 @@ class Admin < ApplicationRecord
     format: { with: EMAIL_ADDRESS_REGEXP }
 
   enum authorization_level: { regular: 0, manager: 1 }
+
+  def sites
+    return Site.all if manager?
+
+    super
+  end
 end

@@ -13,6 +13,8 @@ class Site < ApplicationRecord
 
   scope :sorted, -> { order(created_at: :desc) }
 
+  enum visibility_level: { draft: 0, active: 1 }
+
   def self.reserved_domain?(domain)
     RESERVED_SUBDOMAINS.map do |subdomain|
       "#{subdomain}." + Settings.gobierto_host

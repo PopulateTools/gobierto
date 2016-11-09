@@ -25,6 +25,7 @@ class Admin::SiteUpdateTest < ActionDispatch::IntegrationTest
         fill_in "Domain", with: "test.gobierto.dev"
         fill_in "Head markup", with: "Site Head markup"
         fill_in "Foot markup", with: "Site Foot markup"
+        fill_in "Google analytics", with: "UA-000000-01"
 
         within ".site-module-check-boxes" do
           check "Gobierto Development"

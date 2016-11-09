@@ -27,7 +27,7 @@
         <% end %>
       </td>
       <td>
-        <%= link_to "#" do %>
+        <%= link_to edit_admin_site_path(site) do %>
           <strong><%= site.title %></strong>
           <%= site.name %>
         <% end %>
@@ -37,7 +37,7 @@
       </td>
       <td>
         <%= l(site.created_at, format: :short) %>
-        <span class="soft ip">222.111.222.11</span>
+        <span class="soft ip"><%= site.creation_ip %></span>
       </td>
       <td>
         <%= site_visibility_level_badge_for(site) %>
@@ -45,7 +45,7 @@
       <td>
         <%= link_to [:admin, site], class: "view_item" do %>
           <i class="fa fa-eye"></i>
-          <%= link_to t(".go_to_site"), site.domain_url, target: "_blank" %>
+          <%= link_to t(".go_to_site"), site.domain_url, class: "view_item", target: "_blank" %>
         <% end %>
       </td>
     </tr>

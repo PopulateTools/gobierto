@@ -1,6 +1,6 @@
 class Admin::SitesController < Admin::BaseController
   def index
-    @sites = SiteCollectionDecorator.new(current_admin.sites)
+    @sites = SiteCollectionDecorator.new(current_admin.sites.sorted)
   end
 
   def show
@@ -9,15 +9,18 @@ class Admin::SitesController < Admin::BaseController
 
   def new
     @site_form = SiteForm.new
+    @site_modules = get_site_modules
   end
 
   def edit
     @site = find_site
     @site_form = SiteForm.new(@site.attributes)
+    @site_modules = get_site_modules
   end
 
   def create
     @site_form = SiteForm.new(site_params)
+    @site_modules = get_site_modules
 
     if @site_form.save
       redirect_to admin_sites_path, notice: 'Site was successfully created.'
@@ -28,6 +31,7 @@ class Admin::SitesController < Admin::BaseController
 
   def update
     @site_form = SiteForm.new(site_params.merge(id: params[:id]))
+    @site_modules = get_site_modules
 
     if @site_form.save
       redirect_to admin_sites_path, notice: 'Site was successfully updated.'
@@ -47,14 +51,18 @@ class Admin::SitesController < Admin::BaseController
   private
 
   def find_site
-    Site.find(params[:id])
+    current_admin.sites.find(params[:id])
+  end
+
+  def get_site_modules
+    APP_CONFIG["site_modules"].map { |site_module| OpenStruct.new(site_module) }
   end
 
   def site_params
     params.require(:site_form).permit(
+      :title,
       :name,
       :domain,
-      :configuration_data,
       :location_name,
       :location_type,
       :institution_url,
@@ -63,7 +71,8 @@ class Admin::SitesController < Admin::BaseController
       :institution_address,
       :institution_document_number,
       :head_markup,
-      :foot_markup
+      :foot_markup,
+      site_modules: []
     )
   end
 end

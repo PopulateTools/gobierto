@@ -55,6 +55,12 @@ Rails.application.configure do
   # Poll for changes instead of using the ActiveSupport::EventedFileUpdateChecker
   config.file_watcher = ActiveSupport::FileUpdateChecker
 
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger = ActiveSupport::TaggedLogging.new(logger)
+  end
+
   # ActionMailer host options & delivery through Mailcatcher
   app_host = ENV.fetch("HOST") { "gobierto.dev" }
 

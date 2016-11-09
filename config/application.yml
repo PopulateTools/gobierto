@@ -1,0 +1,20 @@
+default: &default
+  site_modules:
+    -
+      name: Gobierto Development
+      namespace: GobiertoDevelopment
+    -
+      name: Gobierto Budgets
+      namespace: GobiertoBudgets
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+staging:
+  <<: *default
+
+production:
+  <<: *default

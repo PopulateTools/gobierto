@@ -1,5 +1,6 @@
 madrid:
-  name: Madrid
+  title: Transparencia y Participción
+  name: Ayuntamiento de Madrid
   domain: madrid.gobierto.dev
   configuration_data: <%= {:links=>["http://www.madrid.es"], :logo=>"http://www.madrid.es/assets/images/logo-madrid.png", :modules=>["GobiertoBudgets"]}.to_yaml.inspect %>
   location_name: Madrid
@@ -12,7 +13,8 @@ madrid:
   institution_document_number: 0123456789A
 
 santander:
-  name: Santander
+  title: Transparencia Ciudadana
+  name: Ayuntamiento de Santander
   domain: santander.gobierto.dev
   configuration_data: <%= {:links=>["http://www.santander.es"], :logo=>"http://santander.es/sites/default/themes/custom/ayuntamiento/img/logo-ayto-santander.png", :modules=>["GobiertoBudgets"]}.to_yaml.inspect %>
   location_name: Santander

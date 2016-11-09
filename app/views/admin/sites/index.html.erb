@@ -8,7 +8,7 @@
   <%= link_to t(".new"), new_admin_site_path, class: "button" %>
 </div>
 
-<table>
+<table class="site-list">
 <tr>
   <th></th>
   <th>Sitio</th>
@@ -28,7 +28,7 @@
       </td>
       <td>
         <%= link_to "#" do %>
-          <strong><%= site.institution_type %></strong>
+          <strong><%= site.title %></strong>
           <%= site.name %>
         <% end %>
       </td>

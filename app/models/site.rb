@@ -6,10 +6,12 @@ class Site < ApplicationRecord
 
   before_save :store_configuration
 
+  validates :title, presence: true
   validates :name, presence: true, uniqueness: true
   validates :location_name, presence: true
-
   validates :domain, presence: true, uniqueness: true, domain: true
+
+  scope :sorted, -> { order(created_at: :desc) }
 
   def self.reserved_domain?(domain)
     RESERVED_SUBDOMAINS.map do |subdomain|

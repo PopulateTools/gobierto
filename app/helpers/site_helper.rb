@@ -2,7 +2,7 @@ module SiteHelper
 
   def site_name
     if current_site
-      current_site.institution_type + ' de ' + current_site.location_name
+      "#{current_site.title} de #{current_site.name}"
     else
       'Gobierto Presupuestos Municipales'
     end

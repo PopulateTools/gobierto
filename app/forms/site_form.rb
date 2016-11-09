@@ -4,6 +4,7 @@ class SiteForm
   attr_accessor(
     :id,
     :external_id,
+    :title,
     :name,
     :domain,
     :configuration_data,
@@ -16,13 +17,10 @@ class SiteForm
     :institution_document_number,
     :head_markup,
     :foot_markup,
+    :site_modules,
     :created_at,
     :updated_at
   )
-
-  validates :name, presence: true
-  validates :location_name, presence: true
-  validates :domain, presence: true, domain: true
 
   delegate :persisted?, to: :site
 
@@ -34,6 +32,18 @@ class SiteForm
     @site ||= Site.find_by(id: id).presence || build_site
   end
 
+  def site_modules
+    @site_modules ||= site.configuration.modules
+  end
+
+  def head_markup
+    @head_markup ||= site.configuration.head_markup
+  end
+
+  def foot_markup
+    @foot_markup ||= site.configuration.foot_markup
+  end
+
   private
 
   def build_site
@@ -42,9 +52,9 @@ class SiteForm
 
   def save_site
     @site = site.tap do |site_attributes|
+      site_attributes.title                       = title
       site_attributes.name                        = name
       site_attributes.domain                      = domain
-      site_attributes.configuration_data          = configuration_data
       site_attributes.location_name               = location_name
       site_attributes.location_type               = location_type
       site_attributes.institution_url             = institution_url
@@ -52,6 +62,9 @@ class SiteForm
       site_attributes.institution_email           = institution_email
       site_attributes.institution_address         = institution_address
       site_attributes.institution_document_number = institution_document_number
+      site_attributes.configuration.modules       = site_modules
+      site_attributes.configuration.head_markup   = head_markup
+      site_attributes.configuration.foot_markup   = foot_markup
     end
 
     if @site.valid?

@@ -37,7 +37,7 @@
       </td>
       <td>
         <%= l(site.created_at, format: :short) %>
-        <span class="soft ip">222.111.222.11</span>
+        <span class="soft ip"><%= site.creation_ip %></span>
       </td>
       <td>
         <%= site_visibility_level_badge_for(site) %>

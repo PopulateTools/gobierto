@@ -21,7 +21,7 @@ class Admin::SitesController < Admin::BaseController
   end
 
   def create
-    @site_form = SiteForm.new(site_params)
+    @site_form = SiteForm.new(site_params.merge(creation_ip: remote_ip))
     @site_modules = get_site_modules
     @site_visibility_levels = get_site_visibility_levels
 

@@ -20,7 +20,8 @@ class SiteForm
     :site_modules,
     :visibility_level,
     :created_at,
-    :updated_at
+    :updated_at,
+    :creation_ip
   )
 
   delegate :persisted?, to: :site
@@ -64,6 +65,7 @@ class SiteForm
       site_attributes.institution_address         = institution_address
       site_attributes.institution_document_number = institution_document_number
       site_attributes.visibility_level            = visibility_level if visibility_level
+      site_attributes.creation_ip                 = creation_ip
       site_attributes.configuration.modules       = site_modules
       site_attributes.configuration.head_markup   = head_markup
       site_attributes.configuration.foot_markup   = foot_markup

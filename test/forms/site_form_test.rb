@@ -19,6 +19,18 @@ class SiteFormTest < ActiveSupport::TestCase
     )
   end
 
+  def valid_google_analytics_id_site_form
+    @valid_google_analytics_id_site_form ||= SiteForm.new(
+      google_analytics_id: "UA-000000-01"
+    )
+  end
+
+  def invalid_google_analytics_id_site_form
+    @invalid_google_analytics_id_site_form ||= SiteForm.new(
+      google_analytics_id: "UA-WADUS"
+    )
+  end
+
   def site
     @site ||= sites(:madrid)
   end
@@ -29,6 +41,15 @@ class SiteFormTest < ActiveSupport::TestCase
 
   def new_site_domain
     "wadus.gobierto.dev"
+  end
+
+  def test_validation
+    assert valid_site_form.valid?
+  end
+
+  def test_google_analytics_id_validation
+    assert valid_google_analytics_id_site_form.valid?
+    refute invalid_google_analytics_id_site_form.valid?
   end
 
   def test_save_with_valid_attributes

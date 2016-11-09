@@ -7,7 +7,8 @@ require "minitest/rails"
 require "minitest/mock"
 require "minitest/reporters"
 require "database_cleaner"
-require "support/site_helpers"
+require "support/session_helpers"
+require "support/site_session_helpers"
 
 I18n.locale = I18n.default_locale = :en
 Time.zone = "UTC"
@@ -20,7 +21,8 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 ActiveRecord::Migration.check_pending!
 
 class ActiveSupport::TestCase
-  include SiteHelpers
+  include SessionHelpers
+  include SiteSessionHelpers
 
   fixtures :all
 

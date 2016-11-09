@@ -26,6 +26,10 @@ class Admin::SiteCreateTest < ActionDispatch::IntegrationTest
           check "Gobierto Development"
         end
 
+        within ".site-visibility-level-radio-buttons" do
+          choose "Active"
+        end
+
         click_button "Save"
       end
 
@@ -34,6 +38,7 @@ class Admin::SiteCreateTest < ActionDispatch::IntegrationTest
       within "table.site-list tbody tr", match: :first do
         assert has_content?("Site Title")
         assert has_content?("Site Name")
+        assert has_content?("Active")
       end
     end
   end

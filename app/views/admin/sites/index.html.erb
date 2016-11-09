@@ -20,7 +20,7 @@
 
 <tbody>
   <% @sites.each do |site| %>
-    <tr class="<%= cycle("odd", "even") %>">
+    <tr id="site-item-<%= site.id %>" class="<%= cycle("odd", "even") %>">
       <td>
         <%= link_to edit_admin_site_path(site) do %>
           <i class="fa fa-edit"></i>
@@ -40,8 +40,7 @@
         <span class="soft ip">222.111.222.11</span>
       </td>
       <td>
-        <i class="fa fa-lock"></i> Borrador
-        <i class="fa fa-unlock"></i> Activo
+        <%= site_visibility_level_badge_for(site) %>
       </td>
       <td>
         <%= link_to [:admin, site], class: "view_item" do %>

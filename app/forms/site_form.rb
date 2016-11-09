@@ -18,6 +18,7 @@ class SiteForm
     :head_markup,
     :foot_markup,
     :site_modules,
+    :visibility_level,
     :created_at,
     :updated_at
   )
@@ -62,6 +63,7 @@ class SiteForm
       site_attributes.institution_email           = institution_email
       site_attributes.institution_address         = institution_address
       site_attributes.institution_document_number = institution_document_number
+      site_attributes.visibility_level            = visibility_level if visibility_level
       site_attributes.configuration.modules       = site_modules
       site_attributes.configuration.head_markup   = head_markup
       site_attributes.configuration.foot_markup   = foot_markup

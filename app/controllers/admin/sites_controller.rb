@@ -10,17 +10,20 @@ class Admin::SitesController < Admin::BaseController
   def new
     @site_form = SiteForm.new
     @site_modules = get_site_modules
+    @site_visibility_levels = get_site_visibility_levels
   end
 
   def edit
     @site = find_site
     @site_form = SiteForm.new(@site.attributes)
     @site_modules = get_site_modules
+    @site_visibility_levels = get_site_visibility_levels
   end
 
   def create
     @site_form = SiteForm.new(site_params)
     @site_modules = get_site_modules
+    @site_visibility_levels = get_site_visibility_levels
 
     if @site_form.save
       redirect_to admin_sites_path, notice: 'Site was successfully created.'
@@ -32,6 +35,7 @@ class Admin::SitesController < Admin::BaseController
   def update
     @site_form = SiteForm.new(site_params.merge(id: params[:id]))
     @site_modules = get_site_modules
+    @site_visibility_levels = get_site_visibility_levels
 
     if @site_form.save
       redirect_to admin_sites_path, notice: 'Site was successfully updated.'
@@ -58,6 +62,10 @@ class Admin::SitesController < Admin::BaseController
     APP_CONFIG["site_modules"].map { |site_module| OpenStruct.new(site_module) }
   end
 
+  def get_site_visibility_levels
+    Site.visibility_levels
+  end
+
   def site_params
     params.require(:site_form).permit(
       :title,
@@ -72,6 +80,7 @@ class Admin::SitesController < Admin::BaseController
       :institution_document_number,
       :head_markup,
       :foot_markup,
+      :visibility_level,
       site_modules: []
     )
   end

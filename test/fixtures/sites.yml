@@ -11,6 +11,7 @@ madrid:
   institution_email: contact@madrid.es
   institution_address: Fake St., 123
   institution_document_number: 0123456789A
+  visibility_level: <%= Site.visibility_levels["active"] %>
 
 santander:
   title: Transparencia Ciudadana
@@ -25,3 +26,4 @@ santander:
   institution_email: contact@santander.es
   institution_address: Fake St., 123
   institution_document_number: 0123456789A
+  visibility_level: <%= Site.visibility_levels["draft"] %>

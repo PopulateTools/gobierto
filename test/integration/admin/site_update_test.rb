@@ -30,6 +30,10 @@ class Admin::SiteUpdateTest < ActionDispatch::IntegrationTest
           check "Gobierto Development"
         end
 
+        within ".site-visibility-level-radio-buttons" do
+          choose "Active"
+        end
+
         click_button "Save"
       end
 
@@ -38,6 +42,30 @@ class Admin::SiteUpdateTest < ActionDispatch::IntegrationTest
       within "table.site-list tbody" do
         assert has_content?("Site Title")
         assert has_content?("Site Name")
+      end
+    end
+  end
+
+  def test_change_site_visibility_level
+    with_signed_in_admin(admin) do
+      visit admin_sites_path
+
+      within "table.site-list tbody tr#site-item-#{site.id}" do
+        assert has_content?("Active")
+      end
+
+      visit @path
+
+      within "form.edit_site_form" do
+        within ".site-visibility-level-radio-buttons" do
+          choose "Draft"
+        end
+
+        click_button "Save"
+      end
+
+      within "table.site-list tbody tr#site-item-#{site.id}" do
+        assert has_content?("Draft")
       end
     end
   end

@@ -40,7 +40,7 @@ class Admin::SiteUpdateTest < ActionDispatch::IntegrationTest
 
       assert has_content?("Site was successfully updated.")
 
-      within "table.site-list tbody" do
+      within "table.site-list tbody tr#site-item-#{site.id}" do
         assert has_content?("Site Title")
         assert has_content?("Site Name")
       end

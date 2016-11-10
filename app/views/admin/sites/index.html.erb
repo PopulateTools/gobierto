@@ -43,9 +43,9 @@
         <%= site_visibility_level_badge_for(site) %>
       </td>
       <td>
-        <%= link_to [:admin, site], class: "view_item" do %>
+        <%= link_to site.domain_url, class: "view_item", target: "_blank" do %>
           <i class="fa fa-eye"></i>
-          <%= link_to t(".go_to_site"), site.domain_url, class: "view_item", target: "_blank" %>
+          <%= t(".go_to_site") %>
         <% end %>
       </td>
     </tr>

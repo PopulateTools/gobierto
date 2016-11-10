@@ -1,4 +1,8 @@
 class Admin::SitesController < Admin::BaseController
+  after_action :track_create_activity, only: [:create]
+  after_action :track_update_activity, only: [:update]
+  after_action :track_destroy_activity, only: [:destroy]
+
   def index
     @sites = SiteCollectionDecorator.new(current_admin.sites.sorted)
   end
@@ -92,5 +96,21 @@ class Admin::SitesController < Admin::BaseController
       :google_analytics_id,
       site_modules: []
     )
+  end
+
+  def track_create_activity
+    Publishers::SiteActivity.broadcast_event("site_created", default_activity_params.merge({subject: @site_form.site}))
+  end
+
+  def track_update_activity
+    Publishers::SiteActivity.broadcast_event("site_updated", default_activity_params.merge({subject: @site_form.site, changes: @site_form.site.previous_changes.except(:updated_at)}))
+  end
+
+  def track_destroy_activity
+    Publishers::SiteActivity.broadcast_event("site_deleted", default_activity_params.merge({subject: @site}))
+  end
+
+  def default_activity_params
+    { ip: remote_ip, author: current_admin }
   end
 end

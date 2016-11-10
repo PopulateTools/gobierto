@@ -38,6 +38,7 @@ group :test do
   gem "minitest-rails-capybara"
   gem "minitest-reporters"
   gem "minitest-stub_any_instance"
+  gem "spy"
   gem "capybara"
   gem "poltergeist"
   gem "database_cleaner"

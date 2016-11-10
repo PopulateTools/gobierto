@@ -9,6 +9,7 @@ require "minitest/reporters"
 require "database_cleaner"
 require "support/session_helpers"
 require "support/site_session_helpers"
+require "spy/integration"
 
 I18n.locale = I18n.default_locale = :en
 Time.zone = "UTC"

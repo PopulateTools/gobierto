@@ -28,8 +28,4 @@ module Admin::SiteSessionHelper
   def managed_sites
     @managed_sites ||= current_admin.sites
   end
-
-  def allowed_site?(site_id)
-    site_id.to_i.in?(managed_sites.map(&:id))
-  end
 end

@@ -3,10 +3,6 @@ class Admin::SitesController < Admin::BaseController
     @sites = SiteCollectionDecorator.new(current_admin.sites.sorted)
   end
 
-  def show
-    @site = find_site
-  end
-
   def new
     @site_form = Admin::SiteForm.new
     @site_modules = get_site_modules

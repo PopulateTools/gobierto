@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     get '/' => 'welcome#index', as: :root
 
     resource :sessions, only: [:new, :create, :destroy]
-    resources :sites
+    resources :sites, only: [:index, :new, :create, :edit, :update, :destroy]
 
     namespace :sites do
       resource :sessions, only: [:create, :destroy]

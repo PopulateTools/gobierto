@@ -1,8 +1,8 @@
 require "test_helper"
 
-class SiteFormTest < ActiveSupport::TestCase
+class Admin::SiteFormTest < ActiveSupport::TestCase
   def valid_site_form
-    @valid_site_form ||= SiteForm.new(
+    @valid_site_form ||= Admin::SiteForm.new(
       title: site.title,
       name: new_site_name, # To ensure uniqueness
       domain: new_site_domain, # To ensure uniqueness
@@ -11,7 +11,7 @@ class SiteFormTest < ActiveSupport::TestCase
   end
 
   def invalid_site_form
-    @invalid_site_form ||= SiteForm.new(
+    @invalid_site_form ||= Admin::SiteForm.new(
       title: nil,
       name: nil,
       domain: site.domain,
@@ -20,13 +20,13 @@ class SiteFormTest < ActiveSupport::TestCase
   end
 
   def valid_google_analytics_id_site_form
-    @valid_google_analytics_id_site_form ||= SiteForm.new(
+    @valid_google_analytics_id_site_form ||= Admin::SiteForm.new(
       google_analytics_id: "UA-000000-01"
     )
   end
 
   def invalid_google_analytics_id_site_form
-    @invalid_google_analytics_id_site_form ||= SiteForm.new(
+    @invalid_google_analytics_id_site_form ||= Admin::SiteForm.new(
       google_analytics_id: "UA-WADUS"
     )
   end

@@ -1,4 +1,4 @@
-class SiteForm
+class Admin::SiteForm
   include ActiveModel::Model
 
   GOOGLE_ANALYTICS_ID_REGEXP = /\AUA-\d{4,10}-\d{1,4}\z/
@@ -27,10 +27,12 @@ class SiteForm
     :creation_ip
   )
 
-  delegate :persisted?, to: :site
+  delegate :persisted?, :to_model, to: :site
 
-  validates :google_analytics_id, format: { with: GOOGLE_ANALYTICS_ID_REGEXP },
-    allow_nil: true
+  validates :google_analytics_id,
+    format: { with: GOOGLE_ANALYTICS_ID_REGEXP },
+    allow_nil: true,
+    allow_blank: true
 
   def save
     save_site if valid?

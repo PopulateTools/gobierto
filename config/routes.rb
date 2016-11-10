@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     namespace :sites do
       resource :sessions, only: [:create, :destroy]
     end
+
+    resources :admins, only: [:index, :show, :new, :create, :edit, :update]
   end
 
   localized do

@@ -27,17 +27,14 @@ $ cp config/secrets.yml.example config/secrets.yml
 ```shell
 $ docker-compose up -d
 $ docker-compose run web bundle install
-$ docker-compose run web bundle exec rails db:setup db:test:prepare
 $ docker-compose restart
 ```
 
-### Seeding the database
+### Seeding the databases
 
-TODO
-
-### Seeding the Elasticsearch indices
-
-TODO
+```shell
+$ docker-compose run web script/setup
+```
 
 ### Accessing the Docker host
 

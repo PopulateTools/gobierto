@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20161110071134) do
     t.string  "recipient_type"
     t.integer "recipient_id"
     t.inet    "subject_ip",     null: false
-    t.boolean "admin_activity"
+    t.boolean "admin_activity", null: false
     t.integer "site_id"
     t.index ["admin_activity"], name: "index_activities_on_admin_activity", using: :btree
     t.index ["author_type", "author_id"], name: "index_activities_on_author_type_and_author_id", using: :btree

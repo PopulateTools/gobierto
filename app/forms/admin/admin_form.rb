@@ -39,11 +39,11 @@ class Admin::AdminForm
   end
 
   def sites
-    @sites ||= admin.sites || Site.where(id: site_ids)
+    @sites ||= Site.where(id: site_ids)
   end
 
   def site_ids
-    @site_ids ||= sites.map(&:id)
+    @site_ids ||= admin.sites.map(&:id)
   end
 
   private
@@ -58,12 +58,14 @@ class Admin::AdminForm
       admin_attributes.email = email
       admin_attributes.password = password if password
       admin_attributes.authorization_level = authorization_level
-      admin_attributes.sites = sites
       admin_attributes.creation_ip = creation_ip
     end
 
     if @admin.valid?
-      @admin.save
+      ActiveRecord::Base.transaction do
+        @admin.save
+        @admin.sites = sites
+      end
     else
       promote_errors(@admin.errors)
 

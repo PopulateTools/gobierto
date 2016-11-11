@@ -23,7 +23,7 @@ class Admin::AdminsController < Admin::BaseController
   end
 
   def create
-    @admin_form = Admin::AdminForm.new(admin_params)
+    @admin_form = Admin::AdminForm.new(admin_params.merge(creation_ip: remote_ip))
     @site_modules = get_site_modules
     @sites = get_sites
     @admin_authorization_levels = get_admin_authorization_levels

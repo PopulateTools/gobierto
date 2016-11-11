@@ -14,7 +14,8 @@ class Admin::AdminForm
     :site_ids,
     :site_modules,
     :created_at,
-    :updated_at
+    :updated_at,
+    :creation_ip,
   )
 
   delegate :persisted?, :to_model, to: :admin
@@ -56,6 +57,7 @@ class Admin::AdminForm
       admin_attributes.password = password if password
       admin_attributes.authorization_level = authorization_level
       admin_attributes.sites = sites
+      admin_attributes.creation_ip = creation_ip
     end
 
     if @admin.valid?

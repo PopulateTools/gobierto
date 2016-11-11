@@ -46,8 +46,8 @@
         <span class="soft ip">IPADDR</span>
       </td>
       <td>
-        <%= l(admin.created_at, format: :short) %>
-        <span class="soft ip">IPADDR</span>
+        <%= time_ago_in_words(admin.created_at) %>
+        <span class="soft ip"><%= admin.creation_ip %></span>
       </td>
       <td>
         <%= link_to [:admin, admin], class: "view_item" do %>

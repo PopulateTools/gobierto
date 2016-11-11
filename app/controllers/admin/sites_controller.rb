@@ -7,12 +7,8 @@ class Admin::SitesController < Admin::BaseController
     @sites = SiteCollectionDecorator.new(current_admin.sites.sorted)
   end
 
-  def show
-    @site = find_site
-  end
-
   def new
-    @site_form = SiteForm.new
+    @site_form = Admin::SiteForm.new
     @site_modules = get_site_modules
     @site_visibility_levels = get_site_visibility_levels
     @dns_config = get_dns_config
@@ -20,14 +16,14 @@ class Admin::SitesController < Admin::BaseController
 
   def edit
     @site = find_site
-    @site_form = SiteForm.new(@site.attributes)
+    @site_form = Admin::SiteForm.new(@site.attributes)
     @site_modules = get_site_modules
     @site_visibility_levels = get_site_visibility_levels
     @dns_config = get_dns_config
   end
 
   def create
-    @site_form = SiteForm.new(site_params.merge(creation_ip: remote_ip))
+    @site_form = Admin::SiteForm.new(site_params.merge(creation_ip: remote_ip))
     @site_modules = get_site_modules
     @site_visibility_levels = get_site_visibility_levels
     @dns_config = get_dns_config
@@ -40,7 +36,7 @@ class Admin::SitesController < Admin::BaseController
   end
 
   def update
-    @site_form = SiteForm.new(site_params.merge(id: params[:id]))
+    @site_form = Admin::SiteForm.new(site_params.merge(id: params[:id]))
     @site_modules = get_site_modules
     @site_visibility_levels = get_site_visibility_levels
     @dns_config = get_dns_config
@@ -79,7 +75,7 @@ class Admin::SitesController < Admin::BaseController
   end
 
   def site_params
-    params.require(:site_form).permit(
+    params.require(:site).permit(
       :title,
       :name,
       :domain,

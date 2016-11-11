@@ -18,14 +18,14 @@ class Admin::SiteUpdateTest < ActionDispatch::IntegrationTest
     with_signed_in_admin(admin) do
       visit @path
 
-      within "form.edit_site_form" do
-        fill_in "Title", with: "Site Title"
-        fill_in "Name", with: "Site Name"
-        fill_in "Location name", with: "Site Location"
-        fill_in "Domain", with: "test.gobierto.dev"
-        fill_in "Head markup", with: "Site Head markup"
-        fill_in "Foot markup", with: "Site Foot markup"
-        fill_in "Google analytics", with: "UA-000000-01"
+      within "form.edit_site" do
+        fill_in "site_title", with: "Site Title"
+        fill_in "site_name", with: "Site Name"
+        fill_in "site_location_name", with: "Site Location"
+        fill_in "site_domain", with: "test.gobierto.dev"
+        fill_in "site_head_markup", with: "Site Head markup"
+        fill_in "site_foot_markup", with: "Site Foot markup"
+        fill_in "site_google_analytics_id", with: "UA-000000-01"
 
         within ".site-module-check-boxes" do
           check "Gobierto Development"
@@ -35,12 +35,12 @@ class Admin::SiteUpdateTest < ActionDispatch::IntegrationTest
           choose "Active"
         end
 
-        click_button "Save"
+        click_button "Update Site"
       end
 
       assert has_content?("Site was successfully updated.")
 
-      within "table.site-list tbody" do
+      within "table.site-list tbody tr#site-item-#{site.id}" do
         assert has_content?("Site Title")
         assert has_content?("Site Name")
       end
@@ -57,12 +57,12 @@ class Admin::SiteUpdateTest < ActionDispatch::IntegrationTest
 
       visit @path
 
-      within "form.edit_site_form" do
+      within "form.edit_site" do
         within ".site-visibility-level-radio-buttons" do
           choose "Draft"
         end
 
-        click_button "Save"
+        click_button "Update Site"
       end
 
       within "table.site-list tbody tr#site-item-#{site.id}" do

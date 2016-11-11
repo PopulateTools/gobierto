@@ -12,4 +12,10 @@ class Admin::Sites::SessionsController < Admin::BaseController
     leave_site
     redirect_to(request.referrer)
   end
+
+  private
+
+  def allowed_site?(site_id)
+    site_id.to_i.in?(managed_sites.map(&:id))
+  end
 end

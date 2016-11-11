@@ -1,6 +1,6 @@
 <%= render "admin/shared/validation_errors", resource: @site_form %>
 
-<%= form_for(@site_form, url: @site_form.persisted? ? admin_site_path(@site_form) : :admin_sites) do |f| %>
+<%= form_for(@site_form, as: :site, url: @site_form.persisted? ? admin_site_path(@site_form) : :admin_sites) do |f| %>
 
   <div class="pure-g">
 
@@ -107,7 +107,7 @@
 
         </div>
 
-        <%= f.submit "Save", class: "button" %>
+        <%= f.submit class: "button" %>
       </div>
 
     </div>

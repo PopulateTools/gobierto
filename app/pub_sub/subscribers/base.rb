@@ -1,6 +1,5 @@
 module Subscribers
   class Base
-    class_attribute :subscriptions_enabled
     attr_reader :namespace
 
     def initialize(namespace)

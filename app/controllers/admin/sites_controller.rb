@@ -1,8 +1,4 @@
 class Admin::SitesController < Admin::BaseController
-  after_action :track_create_activity, only: [:create]
-  after_action :track_update_activity, only: [:update]
-  after_action :track_destroy_activity, only: [:destroy]
-
   def index
     @sites = SiteCollectionDecorator.new(current_admin.sites.sorted)
   end
@@ -29,6 +25,7 @@ class Admin::SitesController < Admin::BaseController
     @dns_config = get_dns_config
 
     if @site_form.save
+      track_create_activity
       redirect_to admin_sites_path, notice: 'Site was successfully created.'
     else
       render :new
@@ -42,6 +39,7 @@ class Admin::SitesController < Admin::BaseController
     @dns_config = get_dns_config
 
     if @site_form.save
+      track_update_activity
       redirect_to admin_sites_path, notice: 'Site was successfully updated.'
     else
       render :edit
@@ -52,6 +50,7 @@ class Admin::SitesController < Admin::BaseController
     @site = find_site
 
     @site.destroy
+    track_destroy_activity
 
     redirect_to admin_sites_path, notice: 'Site was successfully destroyed.'
   end

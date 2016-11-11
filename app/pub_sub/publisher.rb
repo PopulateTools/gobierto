@@ -30,7 +30,6 @@ module Publisher
         Rails.logger.info [event_name, self.pub_sub_namespace].join(' - ')
         ActiveSupport::Notifications.instrument(event_name, payload)
       end
-      return true
     end
   end
 end

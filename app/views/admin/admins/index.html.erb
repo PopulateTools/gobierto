@@ -42,8 +42,8 @@
         <%= mail_to admin.email %>
       </td>
       <td>
-        <%= time_ago_in_words(admin.created_at) %>
-        <span class="soft ip">IPADDR</span>
+        <%= l(admin.last_sign_in_at, format: :short) if admin.last_sign_in_at %>
+        <span class="soft ip"><%= admin.last_sign_in_ip %></span>
       </td>
       <td>
         <%= time_ago_in_words(admin.created_at) %>

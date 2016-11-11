@@ -16,6 +16,8 @@ class Admin::AdminForm
     :created_at,
     :updated_at,
     :creation_ip,
+    :last_sign_in_at,
+    :last_sign_in_ip
   )
 
   delegate :persisted?, :to_model, to: :admin

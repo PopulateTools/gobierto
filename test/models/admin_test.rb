@@ -50,4 +50,17 @@ class AdminTest < ActiveSupport::TestCase
   def test_sites_bypass_for_manager_authorization_level
     assert_equal Site.count, manager_admin.sites.count
   end
+
+  # -- Session
+  def test_update_session_data
+    remote_ip = IPAddr.new("0.0.0.0")
+    timestamp = Time.zone.now
+
+    assert_nil admin.last_sign_in_ip
+    assert_nil admin.last_sign_in_at
+
+    admin.update_session_data(remote_ip, timestamp)
+    assert_equal remote_ip, admin.last_sign_in_ip
+    assert_equal timestamp, admin.last_sign_in_at
+  end
 end

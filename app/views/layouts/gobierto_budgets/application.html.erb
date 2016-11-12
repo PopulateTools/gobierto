@@ -14,7 +14,7 @@
 
 <body <%= data_attributes %>>
 
-<% if @site.configuration.demo && @site.configuration.demo == true %>
+<% if @site.configuration.demo? %>
   <div class="demo_bar pure-g">
     <div class="pure-u-lg-4-24 pure-u-1-5">
     <%= link_to image_tag('LogoGobierto.png', width: '100'), 'http://gobierto.es' %></div>
@@ -34,7 +34,7 @@
           <% @site.configuration.links.each do |link| %>
             <li><%= link_to url_host(link), link, target: '_blank' %></li>
           <% end %>
-          <% if @site.gobierto_budgets_enabled? %>
+          <% if @site.configuration.gobierto_budgets_enabled? %>
             <li><%= link_to t('.budgets'), gobierto_budgets_budgets_path %></li>
           <% end %>
         </ul>
@@ -75,7 +75,7 @@
                 <li><%= link_to url_host(link), link, target: '_blank' %></li>
               <% end %>
             <% end %>
-            <% if @site.gobierto_budgets_enabled? %>
+            <% if @site.configuration.gobierto_budgets_enabled? %>
               <li><%= link_to t('.budgets'), gobierto_budgets_budgets_path %></li>
             <% end %>
           </ul>

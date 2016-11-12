@@ -35,10 +35,6 @@ class Site < ApplicationRecord
     @configuration ||= SiteConfiguration.new(read_attribute(:configuration_data))
   end
 
-  def gobierto_budgets_enabled?
-    configuration.modules && configuration.modules.include?('GobiertoBudgets')
-  end
-
   def password_protected?
     configuration.password_protected
   end
@@ -46,6 +42,6 @@ class Site < ApplicationRecord
   private
 
   def store_configuration
-    self.configuration_data = self.configuration.to_h
+    self.configuration_data = self.configuration.instance_values
   end
 end

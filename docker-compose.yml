@@ -13,6 +13,7 @@ web:
     - ELASTICSEARCH_URL=http://elasticsearch:9200
     - MAILCATCHER_HOST=mailcatcher
     - BUNDLE_PATH=/bundle
+    - PYTHONUNBUFFERED=1
   volumes:
     - .:/app
   volumes_from:
@@ -38,6 +39,7 @@ test:
     - PG_USERNAME=postgres
     - ELASTICSEARCH_URL=http://elasticsearch:9200
     - BUNDLE_PATH=/bundle
+    - PYTHONUNBUFFERED=1
   volumes_from:
     - web
   links:

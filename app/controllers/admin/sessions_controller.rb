@@ -9,6 +9,7 @@ class Admin::SessionsController < Admin::BaseController
     admin = Admin.find_by(email: session_params[:email].downcase)
 
     if admin.try(:authenticate, session_params[:password])
+      admin.update_session_data(remote_ip)
       sign_in_admin(admin.id)
       redirect_to(after_sign_in_path, notice: "Signed in successfully.")
     else

@@ -26,6 +26,7 @@ class ActiveSupport::TestCase
   include SiteSessionHelpers
 
   fixtures :all
+  set_fixture_class admin_global_permissions: Admin::Permission::Global
 
   def setup
     DatabaseCleaner.start

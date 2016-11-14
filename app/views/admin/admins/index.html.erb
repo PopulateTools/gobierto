@@ -1,0 +1,61 @@
+<h1>Administradores</h1>
+
+<div class="tabs">
+  <ul>
+    <li><a href="">Ciudadanos</a></li>
+    <li class="active"><a href="">Administradores</a></li>
+  </ul>
+</div>
+
+<div class="admin_tools right">
+  <%= link_to "#" do %>
+    <i class="fa fa-cog"></i>
+    <%= t(".configuration") %>
+  <% end %>
+  <%= link_to t(".new"), new_admin_admin_path, class: "button" %>
+</div>
+
+<table class="admin-list">
+<tr>
+  <th></th>
+  <th>Usuario</th>
+  <th>Correo-e</th>
+  <th>Último login</th>
+  <th>Creado</th>
+  <th></th>
+</tr>
+
+<tbody>
+  <% @admins.each do |admin| %>
+    <tr id="admin-item-<%= admin.id %>" class="<%= cycle("odd", "even") %>">
+      <td>
+        <%= link_to edit_admin_admin_path(admin) do %>
+          <i class="fa fa-edit"></i>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to edit_admin_admin_path(admin) do %>
+          <%= admin.name %>
+        <% end %>
+      </td>
+      <td>
+        <%= mail_to admin.email %>
+      </td>
+      <td>
+        <%= l(admin.last_sign_in_at, format: :short) if admin.last_sign_in_at %>
+        <span class="soft ip"><%= admin.last_sign_in_ip %></span>
+      </td>
+      <td>
+        <%= time_ago_in_words(admin.created_at) %>
+        <span class="soft ip"><%= admin.creation_ip %></span>
+      </td>
+      <td>
+        <%= link_to [:admin, admin], class: "view_item" do %>
+          <i class="fa fa-eye"></i>
+          <%= t(".view_user") %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+</table>

@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def remote_ip
-    request.env['action_dispatch.remote_ip'].calculate_ip
+    request.env['action_dispatch.remote_ip'].try(:calculate_ip) || request.remote_ip
   end
 
   def domain

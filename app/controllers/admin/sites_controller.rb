@@ -25,6 +25,7 @@ class Admin::SitesController < Admin::BaseController
     @dns_config = get_dns_config
 
     if @site_form.save
+      track_create_activity
       redirect_to admin_sites_path, notice: 'Site was successfully created.'
     else
       render :new
@@ -38,6 +39,7 @@ class Admin::SitesController < Admin::BaseController
     @dns_config = get_dns_config
 
     if @site_form.save
+      track_update_activity
       redirect_to admin_sites_path, notice: 'Site was successfully updated.'
     else
       render :edit
@@ -48,6 +50,7 @@ class Admin::SitesController < Admin::BaseController
     @site = find_site
 
     @site.destroy
+    track_destroy_activity
 
     redirect_to admin_sites_path, notice: 'Site was successfully destroyed.'
   end
@@ -88,5 +91,21 @@ class Admin::SitesController < Admin::BaseController
       :google_analytics_id,
       site_modules: []
     )
+  end
+
+  def track_create_activity
+    Publishers::SiteActivity.broadcast_event("site_created", default_activity_params.merge({subject: @site_form.site}))
+  end
+
+  def track_update_activity
+    Publishers::SiteActivity.broadcast_event("site_updated", default_activity_params.merge({subject: @site_form.site, changes: @site_form.site.previous_changes.except(:updated_at)}))
+  end
+
+  def track_destroy_activity
+    Publishers::SiteActivity.broadcast_event("site_deleted", default_activity_params.merge({subject: @site}))
+  end
+
+  def default_activity_params
+    { ip: remote_ip, author: current_admin }
   end
 end

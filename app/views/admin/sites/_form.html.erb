@@ -100,6 +100,19 @@
                 <%= b.label do %>
                   <span></span>
                   <%= b.text.capitalize %>
+
+                  <% if b.text == "draft" %>
+                    <div class="password_protected">
+                      <p>
+                        Usuario:
+                        <%= f.text_field :username %>
+                      </p>
+                      <p>
+                        Contraseña:
+                        <%= f.text_field :password %>
+                      </p>
+                    </div>
+                  <% end %>
                 <% end %>
               </div>
             <% end %>

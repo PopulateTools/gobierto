@@ -22,6 +22,8 @@ class Admin::SiteForm
     :site_modules,
     :visibility_level,
     :google_analytics_id,
+    :username,
+    :password,
     :created_at,
     :updated_at,
     :creation_ip
@@ -33,6 +35,8 @@ class Admin::SiteForm
     format: { with: GOOGLE_ANALYTICS_ID_REGEXP },
     allow_nil: true,
     allow_blank: true
+
+  validates :username, :password, presence: true, if: :draft_visibility?
 
   def save
     save_site if valid?
@@ -56,6 +60,14 @@ class Admin::SiteForm
 
   def google_analytics_id
     @google_analytics_id ||= site.configuration.google_analytics_id
+  end
+
+  def username
+    @username ||= site.configuration.password_protection_username
+  end
+
+  def password
+    @password ||= site.configuration.password_protection_password
   end
 
   def visibility_level
@@ -86,6 +98,8 @@ class Admin::SiteForm
       site_attributes.configuration.head_markup = head_markup
       site_attributes.configuration.foot_markup = foot_markup
       site_attributes.configuration.google_analytics_id = google_analytics_id
+      site_attributes.configuration.password_protection_username = username
+      site_attributes.configuration.password_protection_password = password
     end
 
     if @site.valid?
@@ -95,6 +109,10 @@ class Admin::SiteForm
 
       false
     end
+  end
+
+  def draft_visibility?
+    visibility_level == "draft"
   end
 
   protected

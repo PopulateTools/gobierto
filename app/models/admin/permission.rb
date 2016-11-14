@@ -8,7 +8,7 @@ class Admin::Permission < ApplicationRecord
   validates :namespace, uniqueness: { scope: [:admin_id, :resource_name, :action_name] }
 
   def self.by_namespace(namespace)
-    unscoped.where(namespace: namespace)
+    where(namespace: namespace)
   end
 
   def self.by_resource(resource_name)

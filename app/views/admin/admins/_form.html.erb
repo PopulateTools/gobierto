@@ -23,49 +23,53 @@
         </div>
       <% end %>
 
-      <div class="form_block">
+      <% if @site_modules.present? %>
+        <div class="form_block">
 
-        <h2>PERMISOS</h2>
+          <h2>PERMISOS</h2>
 
-        <div class="form_item site-module-check-boxes">
+          <div class="form_item site-module-check-boxes">
 
-          <div class="options compact">
-            <%= f.collection_check_boxes(:site_modules, @site_modules, :namespace, :name) do |b| %>
-              <div class="option">
-                <%= b.check_box %>
-                <%= b.label do %>
-                  <span></span>
-                  <%= b.text %>
-                <% end %>
-              </div>
-            <% end %>
+            <div class="options compact">
+              <%= f.collection_check_boxes(:site_modules, Array(@site_modules), :namespace, :name) do |b| %>
+                <div class="option">
+                  <%= b.check_box %>
+                  <%= b.label do %>
+                    <span></span>
+                    <%= b.text %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+
           </div>
 
         </div>
+      <% end %>
 
-      </div>
+      <% if @sites.present? %>
+        <div class="form_block">
 
-      <div class="form_block">
+          <h2>SITIOS CON ACCESO</h2>
 
-        <h2>SITIOS CON ACCESO</h2>
+          <div class="form_item site-check-boxes">
 
-        <div class="form_item site-check-boxes">
+            <div class="options compact">
+              <%= f.collection_check_boxes(:site_ids, Array(@sites), :id, :domain) do |b| %>
+                <div class="option">
+                  <%= b.check_box %>
+                  <%= b.label do %>
+                    <span></span>
+                    <%= b.text %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
 
-          <div class="options compact">
-            <%= f.collection_check_boxes(:site_ids, @sites, :id, :domain) do |b| %>
-              <div class="option">
-                <%= b.check_box %>
-                <%= b.label do %>
-                  <span></span>
-                  <%= b.text %>
-                <% end %>
-              </div>
-            <% end %>
           </div>
 
         </div>
-
-      </div>
+      <% end %>
 
     </div>
 
@@ -75,21 +79,23 @@
 
       <div class="widget_save">
 
-        <div class="form_item admin-authorization-level-radio-buttons">
+        <% if @admin_authorization_levels.present? %>
+          <div class="form_item admin-authorization-level-radio-buttons">
 
-          <div class="options compact">
-            <%= f.collection_radio_buttons(:authorization_level, @admin_authorization_levels, :first, :first) do |b| %>
-              <div class="option">
-                <%= b.radio_button %>
-                <%= b.label do %>
-                  <span></span>
-                  <%= b.text.capitalize %>
-                <% end %>
-              </div>
-            <% end %>
+            <div class="options compact">
+              <%= f.collection_radio_buttons(:authorization_level, Array(@admin_authorization_levels), :first, :first) do |b| %>
+                <div class="option">
+                  <%= b.radio_button %>
+                  <%= b.label do %>
+                    <span></span>
+                    <%= b.text.capitalize %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+
           </div>
-
-        </div>
+        <% end %>
 
         <%= f.submit class: "button" %>
       </div>

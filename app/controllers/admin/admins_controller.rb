@@ -4,29 +4,33 @@ class Admin::AdminsController < Admin::BaseController
   end
 
   def show
-    @admin = find_admin
+    set_admin
   end
 
   def new
     @admin_form = Admin::AdminForm.new
-    @site_modules = get_site_modules
-    @sites = get_sites
-    @admin_authorization_levels = get_admin_authorization_levels
+
+    set_site_modules
+    set_sites
+    set_authorization_levels
   end
 
   def edit
     @admin = find_admin
-    @admin_form = Admin::AdminForm.new(@admin.attributes)
-    @site_modules = get_site_modules
-    @sites = get_sites
-    @admin_authorization_levels = get_admin_authorization_levels
+    @admin_form = Admin::AdminForm.new(@admin.attributes.except(*ignored_admin_attributes))
+
+    set_admin_policy
+    set_site_modules
+    set_sites
+    set_authorization_levels
   end
 
   def create
     @admin_form = Admin::AdminForm.new(admin_params.merge(creation_ip: remote_ip))
-    @site_modules = get_site_modules
-    @sites = get_sites
-    @admin_authorization_levels = get_admin_authorization_levels
+
+    set_site_modules
+    set_sites
+    set_authorization_levels
 
     if @admin_form.save
       redirect_to admin_admins_path, notice: 'Admin was successfully created.'
@@ -36,10 +40,13 @@ class Admin::AdminsController < Admin::BaseController
   end
 
   def update
+    @admin = find_admin
     @admin_form = Admin::AdminForm.new(admin_params.merge(id: params[:id]))
-    @site_modules = get_site_modules
-    @sites = get_sites
-    @admin_authorization_levels = get_admin_authorization_levels
+
+    set_admin_policy
+    set_site_modules
+    set_sites
+    set_authorization_levels
 
     if @admin_form.save
       redirect_to admin_admins_path, notice: 'Admin was successfully updated.'
@@ -54,18 +61,6 @@ class Admin::AdminsController < Admin::BaseController
     Admin.find(params[:id])
   end
 
-  def get_site_modules
-    APP_CONFIG["site_modules"].map { |site_module| OpenStruct.new(site_module) }
-  end
-
-  def get_sites
-    Site.select(:id, :domain).all
-  end
-
-  def get_admin_authorization_levels
-    Admin.authorization_levels
-  end
-
   def admin_params
     params.require(:admin).permit(
       :email,
@@ -76,5 +71,33 @@ class Admin::AdminsController < Admin::BaseController
       site_modules: [],
       site_ids: []
     )
+  end
+
+  def ignored_admin_attributes
+    %w(god created_at updated_at)
+  end
+
+  def set_admin_policy
+    @admin_policy = Admin::AdminPolicy.new(current_admin, @admin)
+  end
+
+  def set_site_modules
+    return if @admin_policy && !@admin_policy.manage_permissions?
+
+    @site_modules = APP_CONFIG["site_modules"].map do |site_module|
+      OpenStruct.new(site_module)
+    end
+  end
+
+  def set_sites
+    return if @admin_policy && !@admin_policy.manage_sites?
+
+    @sites = Site.select(:id, :domain).all
+  end
+
+  def set_authorization_levels
+    return if @admin_policy && !@admin_policy.manage_authorization_levels?
+
+    @admin_authorization_levels = Admin.authorization_levels
   end
 end

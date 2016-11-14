@@ -13,8 +13,42 @@ class AdminTest < ActiveSupport::TestCase
     @manager_admin ||= admins(:nick)
   end
 
+  def god_admin
+    @god_admin ||= admins(:natasha)
+  end
+
+  def test_preset_scope_when_god_admin_is_present
+    assert_equal god_admin, Admin.preset
+  end
+
+  def test_preset_scope_when_god_admin_is_not_present
+    Admin.god.delete_all
+
+    preset_admin = Admin.preset
+
+    expected_admin = Admin.new(
+      email: "admin@gobierto.dev",
+      name: "Gobierto Admin"
+    )
+
+    assert_equal expected_admin.email, preset_admin.email
+    assert_equal expected_admin.name, preset_admin.name
+  end
+
   def test_valid
     assert admin.valid?
+  end
+
+  # -- Initialization
+  def test_god_flag_initialization_when_it_is_already_present
+    assert_send [admin, :set_god_flag]
+    refute admin.god
+  end
+
+  def test_god_flag_initialization_when_it_is_not_already_present
+    Admin.god.delete_all
+    assert_send [admin, :set_god_flag]
+    assert admin.god
   end
 
   # -- Authentication::Authenticable
@@ -49,6 +83,10 @@ class AdminTest < ActiveSupport::TestCase
 
   def test_sites_bypass_for_manager_authorization_level
     assert_equal Site.count, manager_admin.sites.count
+  end
+
+  def test_sites_bypass_for_god_admin
+    assert_equal Site.count, god_admin.sites.count
   end
 
   # -- Session

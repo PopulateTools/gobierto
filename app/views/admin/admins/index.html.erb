@@ -34,6 +34,9 @@
         <% end %>
       </td>
       <td>
+        <% if admin.god? %>
+          <i class="fa fa-lock"></i>
+        <% end %>
         <%= link_to edit_admin_admin_path(admin) do %>
           <%= admin.name %>
         <% end %>

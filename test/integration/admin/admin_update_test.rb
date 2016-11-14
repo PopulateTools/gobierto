@@ -1,22 +1,25 @@
 require "test_helper"
 
 class Admin::AdminUpdateTest < ActionDispatch::IntegrationTest
-  def setup
-    super
-    @path = edit_admin_admin_path(managed_admin)
+  def signed_in_admin
+    @signed_in_admin ||= admins(:nick)
   end
 
-  def admin
-    @admin ||= admins(:nick)
+  def regular_admin
+    @regular_admin ||= admins(:tony)
   end
 
-  def managed_admin
-    @managed_admin ||= admins(:steve)
+  def manager_admin
+    @manager_admin ||= admins(:nick)
+  end
+
+  def god_admin
+    @god_admin ||= admins(:natasha)
   end
 
   def test_admin_update
-    with_signed_in_admin(admin) do
-      visit @path
+    with_signed_in_admin(signed_in_admin) do
+      visit edit_admin_admin_path(regular_admin)
 
       within "form.edit_admin" do
         fill_in "admin_name", with: "Admin Name"
@@ -38,9 +41,9 @@ class Admin::AdminUpdateTest < ActionDispatch::IntegrationTest
 
       assert has_content?("Admin was successfully updated.")
 
-      within "table.admin-list tbody tr#admin-item-#{managed_admin.id}" do
+      within "table.admin-list tbody tr#admin-item-#{regular_admin.id}" do
         assert has_content?("Admin Name")
-        assert has_content?(managed_admin.email) # The email field can't be updated this way
+        assert has_content?(regular_admin.email) # The email field can't be updated this way
 
         click_link "Admin Name"
       end
@@ -57,6 +60,64 @@ class Admin::AdminUpdateTest < ActionDispatch::IntegrationTest
 
       within ".admin-authorization-level-radio-buttons" do
         assert has_checked_field?("Regular")
+      end
+    end
+  end
+
+  def test_manager_admin_update
+    with_signed_in_admin(signed_in_admin) do
+      visit edit_admin_admin_path(manager_admin)
+
+      within "form.edit_admin" do
+        fill_in "admin_name", with: "Admin Name"
+
+        within ".site-module-check-boxes" do
+          check "Gobierto Development"
+        end
+
+        refute has_selector?(".site-check-boxes")
+
+        within ".admin-authorization-level-radio-buttons" do
+          choose "Manager"
+        end
+
+        click_button "Update Admin"
+      end
+
+      assert has_content?("Admin was successfully updated.")
+
+      within "table.admin-list tbody tr#admin-item-#{manager_admin.id}" do
+        assert has_content?("Admin Name")
+        assert has_content?(manager_admin.email)
+
+        click_link "Admin Name"
+      end
+
+      within ".admin-authorization-level-radio-buttons" do
+        assert has_checked_field?("Manager")
+      end
+    end
+  end
+
+  def test_god_admin_update
+    with_signed_in_admin(signed_in_admin) do
+      visit edit_admin_admin_path(god_admin)
+
+      within "form.edit_admin" do
+        fill_in "admin_name", with: "Admin Name"
+
+        refute has_selector?(".site-module-check-boxes")
+        refute has_selector?(".site-check-boxes")
+        refute has_selector?(".admin-authorization-level-radio-buttons")
+
+        click_button "Update Admin"
+      end
+
+      assert has_content?("Admin was successfully updated.")
+
+      within "table.admin-list tbody tr#admin-item-#{god_admin.id}" do
+        assert has_content?("Admin Name")
+        assert has_content?(god_admin.email)
       end
     end
   end

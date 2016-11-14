@@ -13,12 +13,22 @@ class SiteTest < ActiveSupport::TestCase
     assert site.valid?
   end
 
+  # -- Initialization
+  def test_admins_initialization
+    site.admin_sites.delete_all
+
+    assert_difference "site.admin_sites.size", 1 do
+      assert_send [site, :initialize_admins]
+    end
+  end
+
+  # -- Configuration
+  def test_configuration
+    assert_kind_of SiteConfiguration, site.configuration
+  end
+
   def test_password_protected?
     refute site.password_protected?
     assert draft_site.password_protected?
-  end
-
-  def test_configuration
-    assert_kind_of SiteConfiguration, site.configuration
   end
 end

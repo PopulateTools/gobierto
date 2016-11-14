@@ -2,9 +2,13 @@ class Site < ApplicationRecord
 
   RESERVED_SUBDOMAINS = %W(presupuestos)
 
+  has_many :admin_sites, dependent: :destroy
+  has_many :admins, through: :admin_sites
+
   serialize :configuration_data
 
   before_save :store_configuration
+  before_create :initialize_admins
 
   validates :title, presence: true
   validates :name, presence: true, uniqueness: true
@@ -43,5 +47,9 @@ class Site < ApplicationRecord
 
   def store_configuration
     self.configuration_data = self.configuration.instance_values
+  end
+
+  def initialize_admins
+    self.admins = Array(Admin.preset)
   end
 end

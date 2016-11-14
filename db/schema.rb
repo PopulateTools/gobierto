@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161111060751) do
+ActiveRecord::Schema.define(version: 20161111111116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(version: 20161111060751) do
     t.index ["site_id"], name: "index_activities_on_site_id", using: :btree
     t.index ["subject_id", "subject_type"], name: "index_activities_on_subject_id_and_subject_type", using: :btree
     t.index ["subject_type", "subject_id"], name: "index_activities_on_subject_type_and_subject_id", using: :btree
+  end
+
+  create_table "admin_permissions", force: :cascade do |t|
+    t.integer "admin_id"
+    t.string  "namespace",     default: "", null: false
+    t.string  "resource_name", default: "", null: false
+    t.string  "action_name",   default: "", null: false
+    t.index ["admin_id", "namespace", "resource_name", "action_name"], name: "index_admin_permissions_on_admin_id_and_fields", using: :btree
+    t.index ["admin_id"], name: "index_admin_permissions_on_admin_id", using: :btree
   end
 
   create_table "admin_sites", force: :cascade do |t|

@@ -7,6 +7,13 @@ class Admin < ApplicationRecord
   has_many :admin_sites, dependent: :destroy
   has_many :sites, through: :admin_sites
 
+  has_many :permissions, dependent: :destroy
+  has_many :global_permissions, class_name: "Admin::Permission::Global"
+
+  # TODO. Build these associations dynamically.
+  has_many :gobierto_development_permissions, class_name: "Admin::Permission::GobiertoDevelopment"
+  has_many :gobierto_budgets_permissions, class_name: "Admin::Permission::GobiertoBudgets"
+
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true,
     format: { with: EMAIL_ADDRESS_REGEXP }

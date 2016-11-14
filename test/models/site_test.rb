@@ -17,4 +17,8 @@ class SiteTest < ActiveSupport::TestCase
     refute site.password_protected?
     assert draft_site.password_protected?
   end
+
+  def test_configuration
+    assert_kind_of SiteConfiguration, site.configuration
+  end
 end

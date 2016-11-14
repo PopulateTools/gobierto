@@ -40,7 +40,7 @@ class Site < ApplicationRecord
   end
 
   def password_protected?
-    configuration.password_protected
+    draft?
   end
 
   private

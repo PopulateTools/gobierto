@@ -8,4 +8,8 @@ class SiteTest < ActiveSupport::TestCase
   def test_valid
     assert site.valid?
   end
+
+  def test_configuration
+    assert_kind_of SiteConfiguration, site.configuration
+  end
 end

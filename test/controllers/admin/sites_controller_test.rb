@@ -25,7 +25,7 @@ class Admin::SitesControllerTest < ActionController::TestCase
   end
 
   def test_create_site_broadcasts_event
-    post :create, params: { site: { title: 'Title', name: 'Foo', location_name: 'Madrid', domain: 'test2.gobierto.dev' } },  session: admin_session
+    post :create, params: { site: { title: 'Title', name: 'Foo', location_name: 'Madrid', domain: 'test2.gobierto.dev', visibility_level: 'active' } },  session: admin_session
     assert_response :redirect
 
     assert notification_service_spy.has_been_called?
@@ -37,7 +37,7 @@ class Admin::SitesControllerTest < ActionController::TestCase
   end
 
   def test_update_site_broadcasts_event
-    patch :update, params: { id: site.id, site: { title: 'Title', name: 'Foo', location_name: 'Madrid', domain: 'test2.gobierto.dev' } },  session: admin_session
+    patch :update, params: { id: site.id, site: { title: 'Title', name: 'Foo', location_name: 'Madrid', domain: 'test2.gobierto.dev', visibility_level: 'active' } },  session: admin_session
     assert_response :redirect
 
     assert notification_service_spy.has_been_called?

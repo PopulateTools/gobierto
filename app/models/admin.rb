@@ -25,6 +25,14 @@ class Admin < ApplicationRecord
 
   enum authorization_level: { regular: 0, manager: 1, disabled: 2 }
 
+  def self.preset
+    god.first || god.new(
+      email: APP_CONFIG["admins"]["preset_admin_email"],
+      name: APP_CONFIG["admins"]["preset_admin_name"],
+      password: APP_CONFIG["admins"]["preset_admin_password"]
+    )
+  end
+
   def sites
     managing_user? ? Site.all : super
   end

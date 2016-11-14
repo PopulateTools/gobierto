@@ -17,6 +17,24 @@ class AdminTest < ActiveSupport::TestCase
     @god_admin ||= admins(:natasha)
   end
 
+  def test_preset_scope_when_god_admin_is_present
+    assert_equal god_admin, Admin.preset
+  end
+
+  def test_preset_scope_when_god_admin_is_not_present
+    Admin.god.delete_all
+
+    preset_admin = Admin.preset
+
+    expected_admin = Admin.new(
+      email: "admin@gobierto.dev",
+      name: "Gobierto Admin"
+    )
+
+    assert_equal expected_admin.email, preset_admin.email
+    assert_equal expected_admin.name, preset_admin.name
+  end
+
   def test_valid
     assert admin.valid?
   end

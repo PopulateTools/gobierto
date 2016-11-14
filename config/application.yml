@@ -9,6 +9,10 @@ default: &default
   dns_config:
     cname_record_target: site.gobierto.dev
     a_record_target: 222.111.222.11
+  admins:
+    preset_admin_email: <%= ENV.fetch("PRESET_ADMIN_EMAIL") { "admin@gobierto.dev" } %>
+    preset_admin_name: <%= ENV.fetch("PRESET_ADMIN_NAME") { "Gobierto Admin" } %>
+    preset_admin_password: <%= ENV.fetch("PRESET_ADMIN_PASSWORD") { "gobierto" } %>
 
 development:
   <<: *default

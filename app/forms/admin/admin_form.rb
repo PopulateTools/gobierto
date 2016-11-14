@@ -13,8 +13,6 @@ class Admin::AdminForm
     :sites,
     :site_ids,
     :site_modules,
-    :created_at,
-    :updated_at,
     :creation_ip,
     :last_sign_in_at,
     :last_sign_in_ip
@@ -71,7 +69,7 @@ class Admin::AdminForm
       admin_attributes.name = name
       admin_attributes.email = email
       admin_attributes.password = password if password
-      admin_attributes.authorization_level = authorization_level
+      admin_attributes.authorization_level = authorization_level if authorization_level.present?
       admin_attributes.creation_ip = creation_ip
     end
 

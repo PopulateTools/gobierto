@@ -1,0 +1,5 @@
+tony_create:
+  admin: tony
+  namespace: global
+  resource_name: global
+  action_name: create

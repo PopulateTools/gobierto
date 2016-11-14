@@ -35,7 +35,9 @@ class Admin::AdminForm
   end
 
   def site_modules
-    @site_modules ||= []
+    @site_modules ||= begin
+      admin.permissions.by_namespace("site_module").resource_names.map(&:camelize)
+    end
   end
 
   def sites
@@ -52,6 +54,16 @@ class Admin::AdminForm
     Admin.new
   end
 
+  def build_permissions
+    site_modules.map do |site_module|
+      next unless site_module.present?
+
+      admin.send("#{site_module.underscore}_permissions").new(
+        action_name: "manage"
+      )
+    end.compact
+  end
+
   def save_admin
     @admin = admin.tap do |admin_attributes|
       admin_attributes.name = name
@@ -63,8 +75,10 @@ class Admin::AdminForm
 
     if @admin.valid?
       ActiveRecord::Base.transaction do
+        @admin.save unless persisted?
+        @admin.sites = sites # This is a has_many through association
+        @admin.permissions = build_permissions
         @admin.save
-        @admin.sites = sites
       end
     else
       promote_errors(@admin.errors)

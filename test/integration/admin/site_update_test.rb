@@ -60,6 +60,8 @@ class Admin::SiteUpdateTest < ActionDispatch::IntegrationTest
       within "form.edit_site" do
         within ".site-visibility-level-radio-buttons" do
           choose "Draft"
+          fill_in "site_username", with: "wadus"
+          fill_in "site_password", with: "wadus"
         end
 
         click_button "Update Site"
@@ -68,6 +70,29 @@ class Admin::SiteUpdateTest < ActionDispatch::IntegrationTest
       within "table.site-list tbody tr#site-item-#{site.id}" do
         assert has_content?("Draft")
       end
+    end
+  end
+
+  def test_change_site_visibility_level_without_credentials
+    with_signed_in_admin(admin) do
+      visit admin_sites_path
+
+      within "table.site-list tbody tr#site-item-#{site.id}" do
+        assert has_content?("Active")
+      end
+
+      visit @path
+
+      within "form.edit_site" do
+        within ".site-visibility-level-radio-buttons" do
+          choose "Draft"
+        end
+
+        click_button "Update Site"
+      end
+
+      assert has_content?("Username can't be blank")
+      assert has_content?("Password can't be blank")
     end
   end
 end

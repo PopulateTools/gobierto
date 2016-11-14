@@ -89,6 +89,8 @@ class Admin::SitesController < Admin::BaseController
       :foot_markup,
       :visibility_level,
       :google_analytics_id,
+      :username,
+      :password,
       site_modules: []
     )
   end

@@ -23,6 +23,7 @@ class Admin::AdminsController < Admin::BaseController
     set_site_modules
     set_sites
     set_authorization_levels
+    set_activities
   end
 
   def create
@@ -47,6 +48,7 @@ class Admin::AdminsController < Admin::BaseController
     set_site_modules
     set_sites
     set_authorization_levels
+    set_activities
 
     if @admin_form.save
       redirect_to admin_admins_path, notice: 'Admin was successfully updated.'
@@ -99,5 +101,9 @@ class Admin::AdminsController < Admin::BaseController
     return if @admin_policy && !@admin_policy.manage_authorization_levels?
 
     @admin_authorization_levels = Admin.authorization_levels
+  end
+
+  def set_activities
+    @activities = ActivityCollectionDecorator.new(Activity.admin_activities(@admin))
   end
 end

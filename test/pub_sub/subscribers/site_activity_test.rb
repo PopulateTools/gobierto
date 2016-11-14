@@ -22,13 +22,12 @@ class Subscribers::SiteActivityTest < ActiveSupport::TestCase
   end
 
   def test_site_created_event_handling
-    assert_equal 0, Activity.count
+    assert_difference 'Activity.count' do
+      subject.site_created Event.new(name: "activities/sites.site_created", payload: {
+        subject: site, author: admin, ip: IP
+      })
+    end
 
-    subject.site_created Event.new(name: "activities/sites.site_created", payload: {
-      subject: site, author: admin, ip: IP
-    })
-
-    assert_equal 1, Activity.count
     activity = Activity.last
     assert_equal site, activity.subject
     assert_equal admin, activity.author
@@ -39,14 +38,13 @@ class Subscribers::SiteActivityTest < ActiveSupport::TestCase
   end
 
   def test_site_updated_event_handling
-    assert_equal 0, Activity.count
+    assert_difference 'Activity.count' do
+      subject.site_updated Event.new(name: "activities/sites.site_updated", payload: {
+        subject: site, author: admin, ip: IP,
+        changes: {"name"=>["Ayuntamiento de Madrid", "Ayuntamiento de los Madriles"]}
+      })
+    end
 
-    subject.site_updated Event.new(name: "activities/sites.site_updated", payload: {
-      subject: site, author: admin, ip: IP,
-      changes: {"name"=>["Ayuntamiento de Madrid", "Ayuntamiento de los Madriles"]}
-    })
-
-    assert_equal 1, Activity.count
     activity = Activity.last
     assert_equal site, activity.subject
     assert_equal admin, activity.author
@@ -57,15 +55,14 @@ class Subscribers::SiteActivityTest < ActiveSupport::TestCase
   end
 
   def test_site_deleted_event_handling
-    assert_equal 0, Activity.count
+    assert_difference 'Activity.count' do
+      site.destroy
 
-    site.destroy
+      subject.site_deleted Event.new(name: "activities/sites.site_destroyed", payload: {
+        subject: site, author: admin, ip: IP
+      })
+    end
 
-    subject.site_deleted Event.new(name: "activities/sites.site_destroyed", payload: {
-      subject: site, author: admin, ip: IP
-    })
-
-    assert_equal 1, Activity.count
     activity = Activity.last
     assert_nil activity.subject
     assert_equal admin, activity.author

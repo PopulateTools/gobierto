@@ -71,6 +71,16 @@
         </div>
       <% end %>
 
+      <% if @admin_form.persisted? %>
+        <div class="form_block">
+
+          <h2>LOG ACTIVIDAD</h2>
+
+          <%= render 'admin/activities/activities_list' %>
+
+        </div>
+      <% end %>
+
     </div>
 
     <div class="pure-u-1 pure-u-md-2-24"></div>

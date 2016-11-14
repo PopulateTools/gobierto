@@ -35,6 +35,8 @@ class Admin::AdminForm
   end
 
   def site_modules
+    return [] unless persisted?
+
     @site_modules ||= begin
       admin.permissions.by_namespace("site_module").resource_names.map(&:camelize)
     end

@@ -36,4 +36,8 @@ class Admin::AdminFormTest < ActiveSupport::TestCase
     assert_equal 2, invalid_admin_form.errors.messages[:email].size
     assert_equal 1, invalid_admin_form.errors.messages[:password].size
   end
+
+  def test_site_modules_initialization
+    assert_equal [], Admin::AdminForm.new.site_modules
+  end
 end

@@ -19,6 +19,12 @@ Rails.application.routes.draw do
 
     resources :admins, only: [:index, :show, :new, :create, :edit, :update]
 
+    namespace :admin do
+      resource :invitations, only: [:new, :create]
+      resource :confirmations, only: [:show]
+      resource :invitation_acceptances, only: [:show]
+    end
+
     resources :activities, only: [:index]
   end
 

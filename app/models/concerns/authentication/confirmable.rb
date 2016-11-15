@@ -4,7 +4,7 @@ module Authentication::Confirmable
   included do
     has_secure_token :confirmation_token
 
-    after_commit :send_confirmation_email, on: :create
+    after_commit :deliver_confirmation_email, on: :create
 
     scope :confirmed, -> { where(confirmation_token: nil) }
   end
@@ -21,9 +21,9 @@ module Authentication::Confirmable
 
   private
 
-  def send_confirmation_email
-    # TODO. Implement confirmation email delivery logic.
+  def deliver_confirmation_email
+    return true if respond_to?(:invitation?) && invitation?
 
-    true
+    Admin::AdminMailer.confirmation_instructions(self).deliver_later
   end
 end

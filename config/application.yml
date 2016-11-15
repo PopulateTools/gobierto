@@ -13,6 +13,9 @@ default: &default
     preset_admin_email: <%= ENV.fetch("PRESET_ADMIN_EMAIL") { "admin@gobierto.dev" } %>
     preset_admin_name: <%= ENV.fetch("PRESET_ADMIN_NAME") { "Gobierto Admin" } %>
     preset_admin_password: <%= ENV.fetch("PRESET_ADMIN_PASSWORD") { "gobierto" } %>
+  email_config:
+    default_from: <%= ENV.fetch("EMAIL_DEFAULT_FROM") { "Gobierto <admin@gobierto.dev>" } %>
+    default_reply_to: <%= ENV.fetch("EMAIL_DEFAULT_REPLY_TO") { "Gobierto <admin@gobierto.dev>" } %>
 
 development:
   <<: *default

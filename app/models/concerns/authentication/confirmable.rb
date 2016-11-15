@@ -22,6 +22,8 @@ module Authentication::Confirmable
   private
 
   def deliver_confirmation_email
+    return true if respond_to?(:invitation?) && invitation?
+
     Admin::AdminMailer.confirmation_instructions(self).deliver_later
   end
 end

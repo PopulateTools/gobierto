@@ -86,6 +86,12 @@ class AdminTest < ActiveSupport::TestCase
     end
   end
 
+  def test_confirmation_email_delivery_when_invited
+    assert_no_difference "ActionMailer::Base.deliveries.size" do
+      assert_send [invited_admin, :deliver_confirmation_email]
+    end
+  end
+
   # -- Authentication::Invitable
   def test_invitations_scope
     subject = Admin.invitation

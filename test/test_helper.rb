@@ -20,6 +20,7 @@ DatabaseCleaner.clean_with :truncation
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
+ActiveRecord::Migration.maintain_test_schema!
 ActiveRecord::Migration.check_pending!
 
 class ActiveSupport::TestCase

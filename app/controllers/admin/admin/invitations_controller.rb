@@ -5,9 +5,7 @@ class Admin::Admin::InvitationsController < Admin::BaseController
   end
 
   def create
-    @admin_invitation_form = Admin::AdminInvitationForm.new(
-      admin_invitation_params.merge(admin_id: current_admin.id)
-    )
+    @admin_invitation_form = Admin::AdminInvitationForm.new(admin_invitation_params)
     @sites = get_sites
 
     if @admin_invitation_form.process

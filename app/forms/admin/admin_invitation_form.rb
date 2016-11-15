@@ -3,16 +3,12 @@ class Admin::AdminInvitationForm
 
   EMAIL_LIST_DELIMITER = ",".freeze
 
-  attr_accessor :admin_id, :emails, :site_ids
+  attr_accessor :emails, :site_ids
 
-  validates :admin, :email_list, presence: true
+  validates :email_list, presence: true
 
   def process
     build_invitations if valid?
-  end
-
-  def admin
-    @admin ||= Admin.find_by(id: admin_id)
   end
 
   def site_ids

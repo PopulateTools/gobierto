@@ -27,7 +27,6 @@ module Publisher
           yield
         end
       else
-        Rails.logger.info [event_name, self.pub_sub_namespace].join(' - ')
         ActiveSupport::Notifications.instrument(event_name, payload)
       end
     end

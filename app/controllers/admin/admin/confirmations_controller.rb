@@ -3,6 +3,22 @@ class Admin::Admin::ConfirmationsController < Admin::BaseController
 
   layout "admin/sessions"
 
+  def new
+    @admin_confirmation_form = Admin::AdminConfirmationForm.new
+  end
+
+  def create
+    @admin_confirmation_form = Admin::AdminConfirmationForm.new(admin_confirmation_params)
+
+    if @admin_confirmation_form.save
+      flash.now[:notice] = "Please check your inbox to get instructions."
+    else
+      flash.now[:alert] = "The email address specified doesn't seem to be valid."
+    end
+
+    render :new
+  end
+
   def show
     admin = Admin.find_by(confirmation_token: params[:confirmation_token])
 
@@ -15,5 +31,11 @@ class Admin::Admin::ConfirmationsController < Admin::BaseController
     end
 
     redirect_to admin_root_path
+  end
+
+  private
+
+  def admin_confirmation_params
+    params.require(:admin_confirmation).permit(:email)
   end
 end

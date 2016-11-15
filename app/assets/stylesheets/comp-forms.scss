@@ -59,6 +59,10 @@ option, select {
     box-sizing: border-box;
     height: 300px;
   }
+  input[type=password] {
+    height: 67px;
+    padding: 1.5rem 1rem .25rem 1rem;
+  }
 }
 .select_control {
   box-sizing: border-box;

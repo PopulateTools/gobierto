@@ -33,4 +33,16 @@ class Admin::SessionTest < ActionDispatch::IntegrationTest
 
     assert has_content?("The data you entered doesn't seem to be valid. Please try again.")
   end
+
+  def test_disabled_sign_in
+    visit @sign_in_path
+
+    admin.disabled!
+
+    fill_in :session_email, with: admin.email
+    fill_in :session_password, with: "gobierto"
+    click_on "Log in"
+
+    assert has_content?("The data you entered doesn't seem to be valid. Please try again.")
+  end
 end

@@ -6,7 +6,7 @@ class Admin::SessionsController < Admin::BaseController
   def new; end
 
   def create
-    admin = Admin.find_by(email: session_params[:email].downcase)
+    admin = Admin.active.find_by(email: session_params[:email].downcase)
 
     if admin.try(:authenticate, session_params[:password])
       admin.update_session_data(remote_ip)

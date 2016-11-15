@@ -1,0 +1,37 @@
+<% if @activities && @activities.any? %>
+<table class="admin-list">
+  <tr>
+    <th></th>
+    <th>Acción</th>
+    <th>Sujeto</th>
+    <th>Usuario</th>
+    <th>Receptor</th>
+    <th>IP</th>
+    <th>Fecha</th>
+  </tr>
+
+  <tbody>
+    <% @activities.each do |activity| %>
+      <tr id="activity-<%= activity.id %>" class="<%= cycle("odd", "even") %>">
+        <td>#<%= activity.id %></td>
+        <td><%= activity.action %></td>
+        <td>
+          <%= activity.subject_name %>
+        </td>
+        <td>
+          <%= activity.author_name %>
+        </td>
+        <td>
+          <%= activity.recipient_name %>
+        </td>
+        <td>
+          <span class="soft ip"><%= activity.subject_ip %></span>
+        </td>
+        <td>
+          <%= time_ago_in_words(activity.created_at) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>

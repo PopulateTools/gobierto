@@ -1,0 +1,46 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Usuarios', 'admin_users' %> »
+  Configuración de censo
+</div>
+
+<h1>Configuración de censo</h1>
+
+<div class="pure-g">
+
+  <div class="pure-u-1 pure-u-md-16-24">
+
+    <p>Cualquier usuario se puede registrar en la web. Solo los usuarios verificados pueden participar en aquellas áreas reservadas para usuarios verficados. </p>
+
+    <p>En estos momentos no se ha añadido ningún archivo de censo. Una vez que se añada un archivo de censo, Gobierto pedirá que los usuarios se verifiquen contra este archivo para poder realizar determinado tipo de acciones.</p>
+
+    <p>La verificación consistirá en que el usuario complete de forma correcta algunos datos (DNI, fecha de nacimiento…); el sistema dara al usuario por verificado si los datos están presentes en este archivo y no han sido verificados para otro usuario. </p>
+
+    <p>El archivo a cargar debe ser un CSV, sin fila de cabecera, con las columnas de datos que queramos que el usuario deba verficiar. Por ejemplo, si queremos que valide DNI, fecha de nacimiento y código postal, deberemos preparar un fichero como este:</p>
+
+    <pre><code>51000000W,12-05-1975,08001
+49000000W,25-01-1985,08002
+34000000W,04-12-1995,08003
+...</code></pre>
+
+    <button>Cargar archivo de censo</button>
+
+
+
+    <!-- si ya hay archivo cargado: -->
+    <div class="separator"></div>
+
+    <p>La verificación de los usuarios se realiza contra el archivo de censo actualizado por última vez el 14 nov 2016 por Fernando Blat (fernando@blat.es). El archivo tiene 123.456 registros.</p>
+
+    <button>Cargar archivo de censo</button>
+
+    <p>(se sustituirán todos los registros, y si algún DNI de usuario verificado deja de estar presente, el usuario dejará de tener acceso)</p>
+
+
+  </div>
+
+  <div class="pure-u-1 pure-u-md-2-24"></div>
+
+  <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent"></div>
+
+</div>

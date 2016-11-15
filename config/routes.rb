@@ -24,6 +24,8 @@ Rails.application.routes.draw do
       resource :confirmations, only: [:show]
       resource :invitation_acceptances, only: [:show]
     end
+
+    resources :activities, only: [:index]
   end
 
   localized do

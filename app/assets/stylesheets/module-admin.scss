@@ -342,3 +342,13 @@ body.gobierto_admin {
 .fa {
 	margin: 0 .25em 0 0;
 }
+
+pre {
+	font-size: .85em;
+	background: $color_separator;
+	padding: .5em 1em;
+	margin: 1em 0 2em 0;
+	code {
+
+	}
+}

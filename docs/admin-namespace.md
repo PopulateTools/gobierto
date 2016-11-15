@@ -8,11 +8,12 @@ URL: http://gobierto.dev/admin/
 
 Available admins:
 
-| Email              | Password | Notes                      |
-| ---                | ---      | ---                        |
-| tony@gobierto.dev  | gobierto | regular admin              |
-| steve@gobierto.dev | gobierto | regular admin, unconfirmed |
-| nick@gobierto.dev  | gobierto | manager admin              |
+| Email                 | Password | Notes                      |
+| ---                   | ---      | ---                        |
+| tony@gobierto.dev     | gobierto | regular admin              |
+| steve@gobierto.dev    | gobierto | regular admin, unconfirmed |
+| nick@gobierto.dev     | gobierto | manager admin              |
+| natasha@gobierto.dev  | gobierto | god manager admin          |
 
 Available sites:
 

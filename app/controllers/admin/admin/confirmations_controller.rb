@@ -1,6 +1,8 @@
 class Admin::Admin::ConfirmationsController < Admin::BaseController
   skip_before_action :authenticate_admin!
 
+  layout "admin/sessions"
+
   def show
     admin = Admin.find_by(confirmation_token: params[:confirmation_token])
 

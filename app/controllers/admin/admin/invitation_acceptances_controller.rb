@@ -1,6 +1,8 @@
 class Admin::Admin::InvitationAcceptancesController < Admin::BaseController
   skip_before_action :authenticate_admin!
 
+  layout "admin/sessions"
+
   def show
     admin = Admin.find_by(invitation_token: params[:invitation_token])
 

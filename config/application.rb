@@ -40,7 +40,6 @@ module RailsTemplate
     # Autoloading
     config.autoload_paths += [
       "#{config.root}/lib",
-      "#{config.root}/lib/modules",
       "#{config.root}/lib/validators",
       "#{config.root}/lib/constraints"
     ]

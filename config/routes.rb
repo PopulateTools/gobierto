@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     end
 
     resources :admins, only: [:index, :show, :new, :create, :edit, :update]
+
+    namespace :admin do
+      resource :invitations, only: [:new, :create]
+    end
   end
 
   localized do

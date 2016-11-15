@@ -17,6 +17,10 @@ class AdminTest < ActiveSupport::TestCase
     @god_admin ||= admins(:natasha)
   end
 
+  def invited_admin
+    @invited_admin ||= admins(:steve)
+  end
+
   def test_preset_scope_when_god_admin_is_present
     assert_equal god_admin, Admin.preset
   end
@@ -74,6 +78,62 @@ class AdminTest < ActiveSupport::TestCase
 
     unconfirmed_admin.confirm!
     assert unconfirmed_admin.confirmed?
+  end
+
+  def test_confirmation_email_delivery
+    assert_difference "ActionMailer::Base.deliveries.size", 1 do
+      assert_send [admin, :deliver_confirmation_email]
+    end
+  end
+
+  # -- Authentication::Invitable
+  def test_invitations_scope
+    subject = Admin.invitation
+
+    assert_includes subject, invited_admin
+    refute_includes subject, admin
+  end
+
+  def test_invitation_pending_scope
+    subject = Admin.invitation_pending
+
+    assert_includes subject, invited_admin
+    refute_includes subject, admin
+  end
+
+  def test_invitation_accepted_scope
+    invited_admin.update_columns(invitation_token: nil)
+
+    subject = Admin.invitation_accepted
+
+    assert_includes subject, invited_admin
+    refute_includes subject, admin
+  end
+
+  def test_invitation?
+    assert invited_admin.invitation?
+    refute admin.invitation?
+  end
+
+  def test_invitation_pending?
+    assert invited_admin.invitation_pending?
+    refute admin.invitation_pending?
+  end
+
+  def test_invitation_accepted?
+    assert invited_admin.invitation_pending?
+    refute admin.invitation_pending?
+
+    invited_admin.invitation_token = nil
+    refute invited_admin.invitation_pending?
+    refute admin.invitation_pending?
+  end
+
+  def test_accept_invitation!
+    refute invited_admin.invitation_accepted?
+
+    invited_admin.accept_invitation!
+    assert invited_admin.invitation_accepted?
   end
 
   # -- Authorization levels

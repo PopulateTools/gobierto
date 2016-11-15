@@ -10,6 +10,7 @@ require "database_cleaner"
 require "support/session_helpers"
 require "support/site_session_helpers"
 require "spy/integration"
+require "support/message_delivery_helpers"
 
 I18n.locale = I18n.default_locale = :en
 Time.zone = "UTC"
@@ -24,6 +25,7 @@ ActiveRecord::Migration.check_pending!
 class ActiveSupport::TestCase
   include SessionHelpers
   include SiteSessionHelpers
+  include ActiveJob::TestHelper
 
   fixtures :all
   set_fixture_class admin_global_permissions: Admin::Permission::Global

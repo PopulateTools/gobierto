@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
     namespace :admin do
       resource :invitations, only: [:new, :create]
+      resource :confirmations, only: [:show]
+      resource :invitation_acceptances, only: [:show]
     end
   end
 

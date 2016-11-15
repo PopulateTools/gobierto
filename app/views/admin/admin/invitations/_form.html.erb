@@ -1,0 +1,54 @@
+<%= render "admin/shared/validation_errors", resource: @admin_invitation_form %>
+
+<%= form_for(@admin_invitation_form, as: :admin_invitation, url: :admin_admin_invitations) do |f| %>
+
+  <div class="pure-g">
+
+    <div class="pure-u-1 pure-u-md-16-24">
+
+      <div class="form_item input_text">
+        <%= f.label :emails %>
+        <%= f.text_area :emails, placeholder: "maria@hotmail.com, felipe@gmail.com" %>
+      </div>
+
+      <% if @sites.present? %>
+        <div class="form_block">
+
+          <h2>SITIOS CON ACCESO</h2>
+
+          <div class="form_item site-check-boxes">
+
+            <div class="options compact">
+              <%= f.collection_check_boxes(:site_ids, Array(@sites), :id, :domain) do |b| %>
+                <div class="option">
+                  <%= b.check_box %>
+                  <%= b.label do %>
+                    <span></span>
+                    <%= b.text %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+
+          </div>
+
+        </div>
+      <% end %>
+
+    </div>
+
+    <div class="pure-u-1 pure-u-md-2-24"></div>
+
+    <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
+
+      <div class="widget_save">
+
+      <%= f.submit "Send", class: "button" %>
+
+      </div>
+
+    </div>
+
+  </div>
+
+<% end %>

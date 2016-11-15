@@ -8,9 +8,9 @@
 </div>
 
 <div class="admin_tools right">
-  <%= link_to "#" do %>
-    <i class="fa fa-cog"></i>
-    <%= t(".configuration") %>
+  <%= link_to new_admin_admin_invitations_path do %>
+    <i class="fa fa-envelope"></i>
+    <%= t(".send_invitations") %>
   <% end %>
   <%= link_to t(".new"), new_admin_admin_path, class: "button" %>
 </div>

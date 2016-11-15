@@ -74,7 +74,11 @@ class Admin::AdminsController < Admin::BaseController
   end
 
   def ignored_admin_attributes
-    %w(god created_at updated_at)
+    %w(
+      created_at updated_at password_digest god
+      confirmation_token reset_password_token
+      invitation_token invitation_sent_at
+    )
   end
 
   def set_admin_policy

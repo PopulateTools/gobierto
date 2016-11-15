@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     end
 
     resources :admins, only: [:index, :show, :new, :create, :edit, :update]
+
+    resources :activities, only: [:index]
   end
 
   localized do

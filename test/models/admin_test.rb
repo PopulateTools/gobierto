@@ -1,13 +1,26 @@
 require "test_helper"
+require "support/concerns/authentication/authenticable_test"
+require "support/concerns/authentication/confirmable_test"
+require "support/concerns/authentication/invitable_test"
+require "support/concerns/authentication/recoverable_test"
+require "support/concerns/session/trackable_test"
 
 class AdminTest < ActiveSupport::TestCase
+  include Authentication::AuthenticableTest
+  include Authentication::ConfirmableTest
+  include Authentication::InvitableTest
+  include Authentication::RecoverableTest
+  include Session::TrackableTest
+
   def admin
     @admin ||= admins(:tony)
   end
+  alias user admin
 
   def unconfirmed_admin
     @unconfirmed_admin ||= admins(:steve)
   end
+  alias unconfirmed_user unconfirmed_admin
 
   def manager_admin
     @manager_admin ||= admins(:nick)
@@ -20,6 +33,12 @@ class AdminTest < ActiveSupport::TestCase
   def invited_admin
     @invited_admin ||= admins(:steve)
   end
+  alias invited_user invited_admin
+
+  def recoverable_admin
+    @recoverable_admin ||= admins(:steve)
+  end
+  alias recoverable_user recoverable_admin
 
   def test_preset_scope_when_god_admin_is_present
     assert_equal god_admin, Admin.preset
@@ -55,93 +74,6 @@ class AdminTest < ActiveSupport::TestCase
     assert admin.god
   end
 
-  # -- Authentication::Authenticable
-  def test_password_authentication
-    assert admin.authenticate("gobierto")
-  end
-
-  # -- Authentication::Confirmable
-  def test_confirmed_scope
-    subject = Admin.confirmed
-
-    assert_includes subject, admin
-    refute_includes subject, unconfirmed_admin
-  end
-
-  def test_confirmed?
-    assert admin.confirmed?
-    refute unconfirmed_admin.confirmed?
-  end
-
-  def test_confirm!
-    refute unconfirmed_admin.confirmed?
-
-    unconfirmed_admin.confirm!
-    assert unconfirmed_admin.confirmed?
-  end
-
-  def test_confirmation_email_delivery
-    assert_difference "ActionMailer::Base.deliveries.size", 1 do
-      assert_send [admin, :deliver_confirmation_email]
-    end
-  end
-
-  def test_confirmation_email_delivery_when_invited
-    assert_no_difference "ActionMailer::Base.deliveries.size" do
-      assert_send [invited_admin, :deliver_confirmation_email]
-    end
-  end
-
-  # -- Authentication::Invitable
-  def test_invitations_scope
-    subject = Admin.invitation
-
-    assert_includes subject, invited_admin
-    refute_includes subject, admin
-  end
-
-  def test_invitation_pending_scope
-    subject = Admin.invitation_pending
-
-    assert_includes subject, invited_admin
-    refute_includes subject, admin
-  end
-
-  def test_invitation_accepted_scope
-    invited_admin.update_columns(invitation_token: nil)
-
-    subject = Admin.invitation_accepted
-
-    assert_includes subject, invited_admin
-    refute_includes subject, admin
-  end
-
-  def test_invitation?
-    assert invited_admin.invitation?
-    refute admin.invitation?
-  end
-
-  def test_invitation_pending?
-    assert invited_admin.invitation_pending?
-    refute admin.invitation_pending?
-  end
-
-  def test_invitation_accepted?
-    assert invited_admin.invitation_pending?
-    refute admin.invitation_pending?
-
-    invited_admin.invitation_token = nil
-    refute invited_admin.invitation_pending?
-    refute admin.invitation_pending?
-  end
-
-  def test_accept_invitation!
-    refute invited_admin.invitation_accepted?
-
-    invited_admin.accept_invitation!
-    assert invited_admin.invitation_accepted?
-  end
-
   # -- Authorization levels
   def test_sites_for_regular_authorization_level
     assert_equal 1, admin.sites.count
@@ -153,18 +85,5 @@ class AdminTest < ActiveSupport::TestCase
 
   def test_sites_bypass_for_god_admin
     assert_equal Site.count, god_admin.sites.count
-  end
-
-  # -- Session
-  def test_update_session_data
-    remote_ip = IPAddr.new("0.0.0.0")
-    timestamp = Time.zone.now
-
-    assert_nil admin.last_sign_in_ip
-    assert_nil admin.last_sign_in_at
-
-    admin.update_session_data(remote_ip, timestamp)
-    assert_equal remote_ip, admin.last_sign_in_ip
-    assert_equal timestamp, admin.last_sign_in_at
   end
 end

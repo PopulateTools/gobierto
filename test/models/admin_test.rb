@@ -80,18 +80,6 @@ class AdminTest < ActiveSupport::TestCase
     assert unconfirmed_admin.confirmed?
   end
 
-  def test_confirmation_email_delivery
-    assert_difference "ActionMailer::Base.deliveries.size", 1 do
-      assert_send [admin, :deliver_confirmation_email]
-    end
-  end
-
-  def test_confirmation_email_delivery_when_invited
-    assert_no_difference "ActionMailer::Base.deliveries.size" do
-      assert_send [invited_admin, :deliver_confirmation_email]
-    end
-  end
-
   # -- Authentication::Invitable
   def test_invitations_scope
     subject = Admin.invitation

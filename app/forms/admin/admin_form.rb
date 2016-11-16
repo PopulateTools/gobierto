@@ -18,7 +18,15 @@ class Admin::AdminForm
   delegate :persisted?, :to_model, to: :admin
 
   def save
-    save_admin if valid?
+    return false unless valid?
+
+    new_record = admin.new_record?
+
+    if save_admin
+      send_confirmation_instructions if new_record
+
+      admin
+    end
   end
 
   def admin
@@ -77,11 +85,18 @@ class Admin::AdminForm
         @admin.permissions = build_permissions
         @admin.save
       end
+
+      @admin
     else
       promote_errors(@admin.errors)
 
       false
     end
+  end
+
+  def send_confirmation_instructions
+    admin.regenerate_confirmation_token
+    deliver_confirmation_email
   end
 
   protected
@@ -90,5 +105,9 @@ class Admin::AdminForm
     errors_hash.each do |attribute, message|
       errors.add(attribute, message)
     end
+  end
+
+  def deliver_confirmation_email
+    Admin::AdminMailer.confirmation_instructions(admin).deliver_later
   end
 end

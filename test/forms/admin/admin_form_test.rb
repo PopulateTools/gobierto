@@ -40,4 +40,18 @@ class Admin::AdminFormTest < ActiveSupport::TestCase
   def test_site_modules_initialization
     assert_equal [], Admin::AdminForm.new.site_modules
   end
+
+  def test_confirmation_email_delivery
+    assert_difference "ActionMailer::Base.deliveries.size", 1 do
+      valid_admin_form.save
+    end
+  end
+
+  def test_confirmation_email_delivery_for_existing_record
+    admin_edit_form = Admin::AdminForm.new(id: admin.id)
+
+    assert_no_difference "ActionMailer::Base.deliveries.size" do
+      admin_edit_form.save
+    end
+  end
 end

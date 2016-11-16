@@ -3,6 +3,7 @@ class Admin < ApplicationRecord
   include Authentication::Confirmable
   include Authentication::Invitable
   include Authentication::Recoverable
+  include Session::Trackable
 
   EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/
 
@@ -38,10 +39,6 @@ class Admin < ApplicationRecord
 
   def sites
     managing_user? ? Site.all : super
-  end
-
-  def update_session_data(remote_ip, timestamp = Time.zone.now)
-    update_columns(last_sign_in_ip: remote_ip, last_sign_in_at: timestamp)
   end
 
   def destroy

@@ -2,7 +2,7 @@ require "test_helper"
 
 class Admin::AdminConfirmationFormTest < ActiveSupport::TestCase
   def valid_admin_confirmation_form
-    @valid_admin_confirmation_form ||= Admin::AdminNewPasswordForm.new(
+    @valid_admin_confirmation_form ||= Admin::AdminConfirmationForm.new(
       email: admin.email
     )
   end
@@ -17,5 +17,11 @@ class Admin::AdminConfirmationFormTest < ActiveSupport::TestCase
 
   def test_save
     assert valid_admin_confirmation_form.save
+  end
+
+  def test_confirmation_email_delivery
+    assert_difference "ActionMailer::Base.deliveries.size", 1 do
+      valid_admin_confirmation_form.save
+    end
   end
 end

@@ -15,14 +15,6 @@ class User::EditPasswordForm
     @user ||= User.find_by(id: user_id)
   end
 
-  def password
-    @password || ""
-  end
-
-  def password_confirmation
-    @password_confirmation || ""
-  end
-
   private
 
   def update_password

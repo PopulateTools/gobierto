@@ -44,7 +44,8 @@ class Admin::Admin::PasswordsController < Admin::BaseController
 
       redirect_to(after_sign_in_path, notice: "Signed in successfully.")
     else
-      flash[:notice] = "There was a problem sending the invitations."
+      flash[:notice] = "There was a problem changing your password."
+      render :edit
     end
   end
 

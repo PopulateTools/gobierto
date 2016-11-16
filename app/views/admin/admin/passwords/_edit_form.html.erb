@@ -1,6 +1,6 @@
 <%= render "admin/shared/validation_errors", resource: @admin_password_form %>
 
-<%= form_for(@admin_password_form, as: :admin_password, url: admin_admin_passwords_path, method: :patch) do |f| %>
+<%= form_for(@admin_password_form, as: :admin_password, url: :admin_admin_passwords, method: :patch) do |f| %>
 
   <%= f.hidden_field :admin_id %>
 

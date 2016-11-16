@@ -1,5 +1,4 @@
 ENV["RAILS_ENV"] = "test"
-ENV["DOMAIN"] = "127.0.0.1"
 
 require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
@@ -58,6 +57,7 @@ class ActionDispatch::IntegrationTest
   end
 
   Capybara.javascript_driver = :poltergeist_custom
+  Capybara.default_host = "http://gobierto.dev"
 
   def setup
     DatabaseCleaner.start

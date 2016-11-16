@@ -6,7 +6,7 @@ header.meta {
 	color: $color_main_negative;
 	padding: 0;
 	margin: 0 0 2em 0;
-	.client_links {
+	.client_links, .user-session-navbar {
 		padding: .75em 0 .6em;
 		margin: 0 0 1em 0;
 		background: $color_secondary;
@@ -26,6 +26,16 @@ header.meta {
 		}
 		
 	}
+  .user-session-navbar {
+    background: white;
+    text-align: right;
+    color: $color_text;
+    margin-bottom: 0;
+
+    a {
+      text-decoration: underline;
+    }
+  }
 	.site_header {
 		padding: 5em 0 .5em 0;
 		a {

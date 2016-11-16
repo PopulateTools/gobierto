@@ -27,6 +27,8 @@
 
 <header class="meta color_main">
 
+  <%= render "user/shared/session_navbar" %>
+
   <% if @site.configuration.links.any? %>
     <div class="client_links">
       <div class="column">
@@ -59,6 +61,7 @@
 
 <div class="container">
 
+  <%= render "user/shared/flash_messages" %>
   <%= yield %>
 
 </div>

@@ -1,0 +1,29 @@
+<%= render "user/shared/validation_errors", resource: @user_registration_form %>
+
+<%= form_for(@user_registration_form, as: :user_registration, url: :user_registrations) do |f| %>
+
+  <div class="form_item input_text">
+    <%= f.label :name %>
+    <%= f.text_field :name, placeholder: "Fernando González" %>
+  </div>
+
+  <div class="form_item input_text">
+    <%= f.label :email %>
+    <%= f.email_field :email, placeholder: "fgonzalez@gmail.com" %>
+  </div>
+
+  <div class="form_item input_text">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div class="form_item input_text">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div class="widget_save">
+    <%= f.submit "Sign up", class: "button" %>
+  </div>
+
+<% end %>

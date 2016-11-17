@@ -61,9 +61,10 @@
             </a>
             <ul class="pure-menu-children">
               <li class="pure-menu-item">
-                <a href="#" class="pure-menu-link">
-                  <i class="fa fa-th"></i> Tu cuenta
-                </a>
+                <%= link_to admin_root_path, class: "pure-menu-link" do %>
+                  <i class="fa fa-th"></i>
+                  <%= t(".account") %>
+                <% end %>
               </li>
               <li class="pure-menu-item">
                 <%= link_to admin_sessions_path, method: :delete, class: "pure-menu-link" do %>
@@ -112,7 +113,7 @@
         <li><a href="">Mapas</a></li>
         <li><a href="">Participación</a></li>
         <li class="sep">
-          <%= link_to t(".users"), admin_admins_path %>
+          <%= link_to t(".users"), admin_users_path %>
         </li>
         <li><a href="admin_sites_site">Personalizar sitio</a></li>
       </ul>

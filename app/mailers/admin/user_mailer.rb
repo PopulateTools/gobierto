@@ -1,4 +1,4 @@
-class User::UserMailer < ApplicationMailer
+class Admin::UserMailer < ApplicationMailer
   def confirmation_instructions(user, site)
     @user = user
     @site = site
@@ -7,7 +7,7 @@ class User::UserMailer < ApplicationMailer
       from: default_from,
       reply_to: default_reply_to,
       to: @user.email,
-      subject: "Confirmation instructions"
+      subject: "[Admin] Confirmation instructions"
     )
   end
 
@@ -19,7 +19,7 @@ class User::UserMailer < ApplicationMailer
       from: default_from,
       reply_to: default_reply_to,
       to: @user.email,
-      subject: "Reset password instructions"
+      subject: "[Admin] Reset password instructions"
     )
   end
 
@@ -31,7 +31,7 @@ class User::UserMailer < ApplicationMailer
       from: default_from,
       reply_to: default_reply_to,
       to: @user.email,
-      subject: "Welcome to Gobierto"
+      subject: "[Admin] Welcome to Gobierto"
     )
   end
 end

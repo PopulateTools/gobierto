@@ -30,6 +30,7 @@ class User::RegistrationForm
       user_attributes.name = name
       user_attributes.email = email
       user_attributes.password = password
+      user_attributes.source_site = site
       user_attributes.creation_ip = creation_ip
     end
 

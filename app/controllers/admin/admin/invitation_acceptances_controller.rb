@@ -4,6 +4,8 @@ class Admin::Admin::InvitationAcceptancesController < Admin::BaseController
   layout "admin/sessions"
 
   def show
+    # TODO. Consider extracting this logic into a service object.
+    #
     admin = Admin.find_by(invitation_token: params[:invitation_token])
 
     if admin

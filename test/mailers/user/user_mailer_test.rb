@@ -30,4 +30,15 @@ class User::UserMailerTest < ActionMailer::TestCase
     assert_equal [user.email], email.to
     assert_equal "Reset password instructions", email.subject
   end
+
+  def test_welcome
+    email = User::UserMailer.welcome(user, site).deliver_now
+
+    refute ActionMailer::Base.deliveries.empty?
+
+    assert_equal ["admin@gobierto.dev"], email.from
+    assert_equal ["admin@gobierto.dev"], email.reply_to
+    assert_equal [user.email], email.to
+    assert_equal "Welcome to Gobierto", email.subject
+  end
 end

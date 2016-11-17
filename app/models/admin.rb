@@ -25,7 +25,7 @@ class Admin < ApplicationRecord
 
   scope :sorted, -> { order(created_at: :desc) }
   scope :god,    -> { where(god: true) }
-  scope :active, -> { where.not(authorization_level: authorization_levels[:disabled]) }
+  scope :active, -> { confirmed.where.not(authorization_level: authorization_levels[:disabled]) }
 
   enum authorization_level: { regular: 0, manager: 1, disabled: 2 }
 

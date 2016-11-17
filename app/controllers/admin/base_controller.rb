@@ -1,6 +1,6 @@
 class Admin::BaseController < ApplicationController
-  include SessionHelper
-  include SiteSessionHelper
+  include Admin::SessionHelper
+  include Admin::SiteSessionHelper
 
   before_action :authenticate_admin!
 

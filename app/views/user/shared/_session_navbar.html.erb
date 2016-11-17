@@ -1,0 +1,23 @@
+<% if user_signed_in? %>
+  <div class="user-session-navbar block_color">
+    <div class="column">
+      <ul>
+        <li>
+          Hey, <%= current_user.name %>
+        </li>
+        <li>
+          <%= link_to user_root_path do %>
+            <i class="fa fa-user"></i>
+            <%= t(".account") %>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to user_sessions_path, method: :delete do %>
+            <i class="fa fa-sign-out"></i>
+            <%= t(".sign_out") %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+<% end %>

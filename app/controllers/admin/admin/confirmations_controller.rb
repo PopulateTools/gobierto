@@ -26,11 +26,12 @@ class Admin::Admin::ConfirmationsController < Admin::BaseController
       admin.confirm!
       admin.update_session_data(remote_ip)
       sign_in_admin(admin.id)
+
+      redirect_to(after_sign_in_path, notice: "Signed in successfully.")
     else
       flash.now[:alert] = "This URL doesn't seem to be valid."
+      redirect_to admin_root_path
     end
-
-    redirect_to admin_root_path
   end
 
   private

@@ -1,0 +1,21 @@
+<%= render "user/shared/validation_errors", resource: @user_password_form %>
+
+<%= form_for(@user_password_form, as: :user_password, url: :user_passwords, method: :patch) do |f| %>
+
+  <%= f.hidden_field :user_id %>
+
+  <div class="form_item input_text">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div class="form_item input_text">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div class="widget_save">
+    <%= f.submit "Send", class: "button" %>
+  </div>
+
+<% end %>

@@ -4,7 +4,7 @@ class Admin::AdminsController < Admin::BaseController
   end
 
   def show
-    set_admin
+    @admin = find_admin
   end
 
   def new
@@ -17,7 +17,9 @@ class Admin::AdminsController < Admin::BaseController
 
   def edit
     @admin = find_admin
-    @admin_form = Admin::AdminForm.new(@admin.attributes.except(*ignored_admin_attributes))
+    @admin_form = Admin::AdminForm.new(
+      @admin.attributes.except(*ignored_admin_attributes)
+    )
 
     set_admin_policy
     set_site_modules
@@ -34,7 +36,7 @@ class Admin::AdminsController < Admin::BaseController
     set_authorization_levels
 
     if @admin_form.save
-      redirect_to admin_admins_path, notice: 'Admin was successfully created.'
+      redirect_to admin_admins_path, notice: "Admin was successfully created."
     else
       render :new
     end
@@ -51,7 +53,7 @@ class Admin::AdminsController < Admin::BaseController
     set_activities
 
     if @admin_form.save
-      redirect_to admin_admins_path, notice: 'Admin was successfully updated.'
+      redirect_to admin_admins_path, notice: "Admin was successfully updated."
     else
       render :edit
     end

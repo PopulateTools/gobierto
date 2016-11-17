@@ -11,4 +11,11 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true,
     format: { with: EMAIL_ADDRESS_REGEXP }
+
+  scope :sorted, -> { order(created_at: :desc) }
+
+  # TODO. Implement this behavior.
+  def verified?
+    false
+  end
 end

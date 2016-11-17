@@ -1,0 +1,6 @@
+<h1><%= @user.name %></h1>
+
+<p>
+  <%= mail_to @user.email %>
+  <%= render "session_information", user: @user %>
+</p>

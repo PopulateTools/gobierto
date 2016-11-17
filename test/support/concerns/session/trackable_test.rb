@@ -3,6 +3,8 @@ module Session::TrackableTest
     remote_ip = IPAddr.new("0.0.0.0")
     timestamp = Time.zone.now
 
+    user.last_sign_in_ip = user.last_sign_in_at = nil
+
     assert_nil user.last_sign_in_ip
     assert_nil user.last_sign_in_at
 

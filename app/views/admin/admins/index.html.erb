@@ -2,8 +2,16 @@
 
 <div class="tabs">
   <ul>
-    <li><a href="">Ciudadanos</a></li>
-    <li class="active"><a href="">Administradores</a></li>
+    <li>
+      <%= link_to admin_users_path do %>
+        <%= t(".users") %>
+      <% end %>
+    </li>
+    <li class="active">
+      <%= link_to admin_admins_path do %>
+        <%= t(".administrators") %>
+      <% end %>
+    </li>
   </ul>
 </div>
 
@@ -45,17 +53,17 @@
         <%= mail_to admin.email %>
       </td>
       <td>
-        <%= l(admin.last_sign_in_at, format: :short) if admin.last_sign_in_at %>
+        <%= time_ago_in_words(admin.last_sign_in_at) if admin.last_sign_in_at %>
         <span class="soft ip"><%= admin.last_sign_in_ip %></span>
       </td>
       <td>
-        <%= time_ago_in_words(admin.created_at) %>
+        <%= l(admin.created_at, format: :short) if admin.created_at %>
         <span class="soft ip"><%= admin.creation_ip %></span>
       </td>
       <td>
         <%= link_to [:admin, admin], class: "view_item" do %>
           <i class="fa fa-eye"></i>
-          <%= t(".view_user") %>
+          <%= t(".view_admin") %>
         <% end %>
       </td>
     </tr>

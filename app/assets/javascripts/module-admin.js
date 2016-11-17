@@ -24,15 +24,6 @@ $(document).on('turbolinks:load', function() {
 
 	});
 
-	$('.tabs li a').click(function(e) {
-    e.preventDefault();
-    $(this).parent().parent().find('li a').removeClass('active');
-    $(this).addClass('active');
-    var tab = $(this).data("tab-target");
-    $('.tab_content').hide();
-    $('.tab_content[data-tab="'+tab+'"]').show();
-  });
-
   $(".stick_in_parent, #stick_in_parent, stick_in_parent").stick_in_parent();
 
 

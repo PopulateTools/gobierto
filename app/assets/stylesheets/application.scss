@@ -54,6 +54,7 @@
 
 @import "module-budget_vis";
 @import "module-participation";
+@import "module-indicators";
 
 @import "module-admin";
 
@@ -64,7 +65,7 @@
  *
  */
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
-@import "//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css";        
+@import "//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css";
 
 
 
@@ -75,7 +76,7 @@
  *
  */
 html {
-  margin: 0; 
+  margin: 0;
   padding: 0;
 }
 body {

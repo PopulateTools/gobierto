@@ -10,8 +10,11 @@
 //= require mustache.min
 //= require velocity.min
 //= require velocity.ui.min
+//= require lodash.min.js
 //= require d3.min
 //= require d3-legend.min
+//= require d3-locale-es
+//= require d3-distance-limited-voronoi
 //= require accounting.min
 //= require jquery.autocomplete
 //= require klass
@@ -21,6 +24,12 @@
 //= require air-datepicker/i18n/datepicker.en
 //= require_directory ./settings/
 
+//= require vis_treemap
+//= require vis_lineas_tabla
+//= require vis_evo_line
+//= require vis_age_distribution
+//= require execution
+//= require indicators
 //= require module-admin
 //= require module-sessions
 //= require module-site_header
@@ -28,6 +37,13 @@
 //= require flight-for-rails
 //= require components/shareContent
 
+// TODO: move to its module
+//= require indicators
+//= require vis_card_indicators
+//= require vis_age_distribution
+//= require vis_unemployment_age
+//= require vis_unemployment_sectors
+//= require vis_rent_distribution
 
 // Global util functions
 function rebindAll() {

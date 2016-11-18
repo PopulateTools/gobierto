@@ -1,0 +1,203 @@
+/*
+ * Indicators
+ *
+ */
+
+// Intro
+.intro_section {
+	padding: 5em 0 4em 0;
+	background: $color_main_negative;
+	margin-top: -2em;
+}
+.intro_headline {
+	margin-bottom: 0;
+}
+.intro_desc {
+	// max-width: 350px;
+	font-size: 1.2em;
+}
+
+
+// Sections
+.section_headline {
+	margin-bottom: 0.5em;
+	padding-bottom: 0.2em;
+	text-transform: none;
+}
+.section_desc {
+	margin-top: 0;
+}
+.main_graphic {
+	// height: 500px;
+}
+.small_graphic {
+	// height: 250px;
+}
+
+/* Graphics */
+#age_distribution {
+	position: relative;
+}
+#age_distribution .axis {
+	font-family: $font_text;
+	font-size: 0.75em;
+}
+#age_distribution .y.axis .domain {
+	display: none;
+}
+#age_distribution .y.axis line {
+	stroke: $color_main_negative;
+	stroke-dasharray: 1, 2;
+}
+#age_distribution .chart_headline {
+	font-weight: 600;
+	margin-top: 0;
+}
+
+#rent_distribution .annotations {
+	position: relative;
+}
+#rent_distribution .annotations .arrow {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+#rent_distribution .pop-anno {
+	font-size: 0.75em;
+	position: absolute;
+	left: 0;
+	top: 110px;
+}
+#rent_distribution .rent-anno {
+	font-size: 0.75em;
+	position: absolute;
+	right: 74px;
+	top: 14px;
+}
+#rent_distribution .axis {
+	font-family: $font_text;
+	font-size: 0.75em;
+}
+#rent_distribution .y.axis .domain {
+	display: none;
+}
+#rent_distribution .y.axis .tick line {
+	stroke: #eee;
+}
+#rent_distribution .circles .selected-city {
+	stroke: $color_text;
+}
+#rent_distribution .text-label {
+	font-size: 0.85em;
+	font-weight: 700;
+	text-shadow: 0 0 5px white;
+	fill: $color_text;
+}
+#rent_distribution circle {
+	pointer-events: none;
+}
+#rent_distribution .tooltip {
+  border-radius: 2px;
+  padding: 0.5rem;
+  min-height: 90px;
+  width: 200px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0px 3px rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.98);
+  font-size: 14px;
+  color: #111;
+  text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 99;
+  position: absolute;
+}
+#rent_distribution .tooltip-city {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+	color: $color_text;
+}
+#rent_distribution .tooltip-table {
+  line-height: 1.4;
+}
+#rent_distribution .table-t {
+	color: $color_text;
+	font-weight: 600;
+	padding: .7em 0 .4em;
+}
+#rent_distribution .tooltip-table td {
+	border-top: 1px solid $color_separator;
+}
+
+#unemployment_age .axis {
+	font-family: $font_text;
+	font-size: 0.75em;
+}
+#unemployment_age .line {
+  fill: none;
+  stroke-width: 2.5px;
+}
+#unemployment_age .y.axis .tick line {
+	stroke-dasharray: 2,2;
+	stroke: #ccc;
+}
+#unemployment_age .y.axis .domain {
+	display: none;
+}
+#unemployment_age .voronoi path {
+	fill: none;
+	pointer-events: all;
+}
+#unemployment_age .focus text {
+	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+#unemployment_age .focus circle {
+	stroke-width: 2px;
+}
+
+#unemployment_sectors .axis {
+	font-family: $font_text;
+	font-size: 0.75em;
+}
+#unemployment_sectors .line {
+  fill: none;
+  stroke-width: 2.5px;
+}
+#unemployment_sectors .y.axis .tick line {
+	stroke-dasharray: 2,2;
+	stroke: #ccc;
+}
+#unemployment_sectors .y.axis .domain {
+	display: none;
+}
+#unemployment_sectors .voronoi path {
+	fill: none;
+	pointer-events: all;
+}
+#unemployment_sectors .focus text {
+	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+#unemployment_sectors .focus circle {
+	stroke-width: 2px;
+}
+
+// Desktop
+@media (min-width: 768px) {
+	.indicators_header {
+		min-height: 55px;
+	}
+	.indicators_sections {
+		margin-top: 1em;
+	}
+	.indicators_section {
+		font-size: 1em;
+		margin-left: 20px;
+	}
+	.r_mr {
+		margin-right: 1.5em;
+	}
+	#age_distribution .chart_headline {
+		margin-top: 2rem;
+		position: absolute;
+		left: 2em;
+	}
+}

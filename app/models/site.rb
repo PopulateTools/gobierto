@@ -16,6 +16,7 @@ class Site < ApplicationRecord
   validates :domain, presence: true, uniqueness: true, domain: true
 
   scope :sorted, -> { order(created_at: :desc) }
+  scope :alphabetically_sorted, -> { order(name: :asc) }
 
   enum visibility_level: { draft: 0, active: 1 }
 

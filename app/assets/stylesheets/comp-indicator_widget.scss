@@ -1,0 +1,36 @@
+/* Widget */
+.indicator_widget {
+	border-radius: 8px;
+	margin-bottom: 10px;
+}
+.widget_headline {
+	border-top-right-radius: 8px;
+	border-top-left-radius: 8px;
+	background: $color_1;
+	padding: 1em;
+	color: $color_main_negative;
+	font-weight: 700;
+}
+.widget_body {
+	height: 200px;
+	border: 1px solid #ccc;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+.widget_info {
+	text-align: center;
+	border: 2px solid #fff;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	font-family: $font_serif;
+	font-style: italic;
+}
+
+
+@media (min-width: 768px) {
+	.mr_widget {
+		margin-right: 1em;
+	}
+}
+

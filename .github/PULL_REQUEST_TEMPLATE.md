@@ -1,4 +1,4 @@
-This PR implements #N
+Connects to #N
 
 ### What does this PR do?
 

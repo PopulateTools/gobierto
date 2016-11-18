@@ -22,6 +22,25 @@ class UserTest < ActiveSupport::TestCase
     @recoverable_user ||= users(:reed)
   end
 
+  def madrid_site
+    @madrid_site ||= sites(:madrid)
+  end
+
+  def madrid_user
+    @madrid_user ||= users(:dennis)
+  end
+
+  def santander_user
+    @santander_user ||= users(:susan)
+  end
+
+  def test_by_user_site_scope
+    subject = User.by_source_site(madrid_site)
+
+    assert_includes subject, madrid_user
+    refute_includes subject, santander_user
+  end
+
   def test_valid
     assert user.valid?
   end

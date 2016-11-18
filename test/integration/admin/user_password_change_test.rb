@@ -9,18 +9,24 @@ class Admin::UserPasswordChangeTest < ActionDispatch::IntegrationTest
     @user ||= users(:reed)
   end
 
+  def site
+    @site ||= user.source_site
+  end
+
   def test_user_password_change
     with_signed_in_admin(signed_in_admin) do
-      visit new_admin_user_passwords_path(user)
+      with_selected_site(site) do
+        visit new_admin_user_passwords_path(user)
 
-      within "form.new_user_password" do
-        fill_in "user_password_password", with: "wadus"
-        fill_in "user_password_password_confirmation", with: "wadus"
+        within "form.new_user_password" do
+          fill_in "user_password_password", with: "wadus"
+          fill_in "user_password_password_confirmation", with: "wadus"
 
-        click_button "Send"
+          click_button "Send"
+        end
+
+        assert has_content?("User password was successfully updated.")
       end
-
-      assert has_content?("User password was successfully updated.")
     end
   end
 

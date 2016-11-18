@@ -1,6 +1,6 @@
 class Admin::UsersController < Admin::BaseController
   def index
-    @users = User.sorted.all
+    @users = get_users_in_current_site.sorted
   end
 
   def show
@@ -26,8 +26,12 @@ class Admin::UsersController < Admin::BaseController
 
   private
 
+  def get_users_in_current_site
+    User.by_source_site(current_site)
+  end
+
   def find_user
-    User.find(params[:id])
+    get_users_in_current_site.find(params[:id])
   end
 
   def user_params

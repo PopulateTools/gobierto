@@ -14,13 +14,19 @@ class Admin::UserShowTest < ActionDispatch::IntegrationTest
     @user ||= users(:reed)
   end
 
+  def site
+    @site ||= user.source_site
+  end
+
   def test_user_show
     with_signed_in_admin(admin) do
-      visit @path
+      with_selected_site(site) do
+        visit @path
 
-      within ".admin_content" do
-        assert has_content?(user.name)
-        assert has_link?(user.email)
+        within ".admin_content" do
+          assert has_content?(user.name)
+          assert has_link?(user.email)
+        end
       end
     end
   end

@@ -4,11 +4,11 @@ module Admin::SiteSessionHelper
   private
 
   def current_site
-    return unless session[:site_id]
-
     @current_site ||= begin
-      if (matched_site = Site.find_by(id: session[:site_id]))
+      if session[:site_id] && (matched_site = Site.find_by(id: session[:site_id]))
         SiteDecorator.new(matched_site)
+      else
+        SiteDecorator.new(managed_sites.first) if managed_sites.present?
       end
     end
   end
@@ -26,6 +26,8 @@ module Admin::SiteSessionHelper
   end
 
   def managed_sites
-    @managed_sites ||= current_admin.sites
+    @managed_sites ||= begin
+      current_admin.sites.alphabetically_sorted if admin_signed_in?
+    end
   end
 end

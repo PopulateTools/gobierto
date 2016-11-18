@@ -1,9 +1,15 @@
 class Admin::SitesController < Admin::BaseController
   def index
+    site_policy = Admin::SitePolicy.new(current_admin)
+    raise Errors::NotAuthorized unless site_policy.view?
+
     @sites = SiteCollectionDecorator.new(current_admin.sites.sorted)
   end
 
   def new
+    site_policy = Admin::SitePolicy.new(current_admin)
+    raise Errors::NotAuthorized unless site_policy.create?
+
     @site_form = Admin::SiteForm.new
     @site_modules = get_site_modules
     @site_visibility_levels = get_site_visibility_levels
@@ -12,6 +18,10 @@ class Admin::SitesController < Admin::BaseController
 
   def edit
     @site = find_site
+
+    site_policy = Admin::SitePolicy.new(current_admin, @site)
+    raise Errors::NotAuthorized unless site_policy.update?
+
     @site_form = Admin::SiteForm.new(@site.attributes)
     @site_modules = get_site_modules
     @site_visibility_levels = get_site_visibility_levels
@@ -20,6 +30,10 @@ class Admin::SitesController < Admin::BaseController
 
   def create
     @site_form = Admin::SiteForm.new(site_params.merge(creation_ip: remote_ip))
+
+    site_policy = Admin::SitePolicy.new(current_admin, @site_form.site)
+    raise Errors::NotAuthorized unless site_policy.create?
+
     @site_modules = get_site_modules
     @site_visibility_levels = get_site_visibility_levels
     @dns_config = get_dns_config
@@ -34,6 +48,10 @@ class Admin::SitesController < Admin::BaseController
 
   def update
     @site_form = Admin::SiteForm.new(site_params.merge(id: params[:id]))
+
+    site_policy = Admin::SitePolicy.new(current_admin, @site_form.site)
+    raise Errors::NotAuthorized unless site_policy.update?
+
     @site_modules = get_site_modules
     @site_visibility_levels = get_site_visibility_levels
     @dns_config = get_dns_config
@@ -48,6 +66,9 @@ class Admin::SitesController < Admin::BaseController
 
   def destroy
     @site = find_site
+
+    site_policy = Admin::SitePolicy.new(current_admin, @site)
+    raise Errors::NotAuthorized unless site_policy.delete?
 
     @site.destroy
     track_destroy_activity

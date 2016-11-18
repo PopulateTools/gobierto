@@ -10,5 +10,7 @@ class Admin::BaseController < ApplicationController
   helper_method :managed_sites
   helper_method :can_manage_sites?
 
+  rescue_from Errors::NotAuthorized, with: :raise_admin_not_authorized
+
   layout "admin/application"
 end

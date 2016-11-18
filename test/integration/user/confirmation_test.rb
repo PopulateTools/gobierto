@@ -37,4 +37,14 @@ class User::ConfirmationTest < ActionDispatch::IntegrationTest
       assert has_content?("The email address specified doesn't seem to be valid.")
     end
   end
+
+  def test_confirmation_request_when_already_signed_in
+    with_current_user(user) do
+      with_current_site(site) do
+        visit @confirmation_path
+
+        assert has_content?("You are already signed in.")
+      end
+    end
+  end
 end

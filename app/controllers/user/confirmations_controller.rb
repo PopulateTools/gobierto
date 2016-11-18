@@ -1,4 +1,6 @@
 class User::ConfirmationsController < User::BaseController
+  before_action :require_no_authentication
+
   def new
     @user_confirmation_form = User::ConfirmationForm.new
   end

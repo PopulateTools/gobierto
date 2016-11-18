@@ -1,4 +1,6 @@
 class User::RegistrationsController < User::BaseController
+  before_action :require_no_authentication
+
   def new
     @user_registration_form = User::RegistrationForm.new
   end

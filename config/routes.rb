@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   # Admin module
   namespace :admin do
     get '/' => 'welcome#index', as: :root
+    get '/login' => 'sessions#new'
 
     resource :sessions, only: [:new, :create, :destroy]
     resources :sites, only: [:index, :new, :create, :edit, :update, :destroy]

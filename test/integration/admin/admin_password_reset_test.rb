@@ -31,6 +31,14 @@ class Admin::AdminPasswordResetTest < ActionDispatch::IntegrationTest
     assert has_content?("The email address specified doesn't seem to be valid.")
   end
 
+  def test_password_reset_request_when_already_signed_in
+    with_signed_in_admin(admin) do
+      visit @password_request_path
+
+      assert has_content?("You are already signed in.")
+    end
+  end
+
   def test_password_change
     visit @password_change_path
 
@@ -51,5 +59,13 @@ class Admin::AdminPasswordResetTest < ActionDispatch::IntegrationTest
     click_on "Send"
 
     assert has_content?("There was a problem changing your password.")
+  end
+
+  def test_password_change_when_already_signed_in
+    with_signed_in_admin(admin) do
+      visit @password_change_path
+
+      assert has_content?("You are already signed in.")
+    end
   end
 end

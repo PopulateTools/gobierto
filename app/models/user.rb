@@ -13,6 +13,7 @@ class User < ApplicationRecord
     format: { with: EMAIL_ADDRESS_REGEXP }
 
   scope :sorted, -> { order(created_at: :desc) }
+  scope :by_source_site, ->(source_site) { where(source_site: source_site) }
 
   # TODO. Implement this behavior.
   def verified?

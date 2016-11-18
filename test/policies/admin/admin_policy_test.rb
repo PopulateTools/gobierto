@@ -1,10 +1,6 @@
 require 'test_helper'
 
 class Admin::AdminPolicyTest < ActiveSupport::TestCase
-  def user
-    @user ||= admins(:tony)
-  end
-
   def regular_admin
     @regular_admin ||= admins(:tony)
   end
@@ -18,20 +14,44 @@ class Admin::AdminPolicyTest < ActiveSupport::TestCase
   end
 
   def test_manage_permissions?
-    assert Admin::AdminPolicy.new(user, regular_admin).manage_permissions?
-    assert Admin::AdminPolicy.new(user, manager_admin).manage_permissions?
-    refute Admin::AdminPolicy.new(user, god_admin).manage_permissions?
+    assert Admin::AdminPolicy.new(god_admin, god_admin).manage_permissions?
+    assert Admin::AdminPolicy.new(god_admin, manager_admin).manage_permissions?
+    assert Admin::AdminPolicy.new(god_admin, regular_admin).manage_permissions?
+
+    refute Admin::AdminPolicy.new(manager_admin, god_admin).manage_permissions?
+    assert Admin::AdminPolicy.new(manager_admin, manager_admin).manage_permissions?
+    assert Admin::AdminPolicy.new(manager_admin, regular_admin).manage_permissions?
+
+    refute Admin::AdminPolicy.new(regular_admin, god_admin).manage_permissions?
+    refute Admin::AdminPolicy.new(regular_admin, manager_admin).manage_permissions?
+    refute Admin::AdminPolicy.new(regular_admin, regular_admin).manage_permissions?
   end
 
   def test_manage_sites?
-    assert Admin::AdminPolicy.new(user, regular_admin).manage_sites?
-    refute Admin::AdminPolicy.new(user, manager_admin).manage_sites?
-    refute Admin::AdminPolicy.new(user, god_admin).manage_sites?
+    refute Admin::AdminPolicy.new(god_admin, god_admin).manage_sites?
+    refute Admin::AdminPolicy.new(god_admin, manager_admin).manage_sites?
+    assert Admin::AdminPolicy.new(god_admin, regular_admin).manage_sites?
+
+    refute Admin::AdminPolicy.new(manager_admin, god_admin).manage_sites?
+    refute Admin::AdminPolicy.new(manager_admin, manager_admin).manage_sites?
+    assert Admin::AdminPolicy.new(manager_admin, regular_admin).manage_sites?
+
+    refute Admin::AdminPolicy.new(regular_admin, god_admin).manage_sites?
+    refute Admin::AdminPolicy.new(regular_admin, manager_admin).manage_sites?
+    refute Admin::AdminPolicy.new(regular_admin, regular_admin).manage_sites?
   end
 
-  def test_manage_authorization_levels?
-    assert Admin::AdminPolicy.new(user, regular_admin).manage_authorization_levels?
-    assert Admin::AdminPolicy.new(user, manager_admin).manage_authorization_levels?
-    refute Admin::AdminPolicy.new(user, god_admin).manage_authorization_levels?
+  def manage_authorization_levels?
+    assert Admin::AdminPolicy.new(god_admin, god_admin).manage_authorization_levels?
+    assert Admin::AdminPolicy.new(god_admin, manager_admin).manage_authorization_levels?
+    assert Admin::AdminPolicy.new(god_admin, regular_admin).manage_authorization_levels?
+
+    refute Admin::AdminPolicy.new(manager_admin, god_admin).manage_authorization_levels?
+    assert Admin::AdminPolicy.new(manager_admin, manager_admin).manage_authorization_levels?
+    assert Admin::AdminPolicy.new(manager_admin, regular_admin).manage_authorization_levels?
+
+    refute Admin::AdminPolicy.new(regular_admin, god_admin).manage_authorization_levels?
+    refute Admin::AdminPolicy.new(regular_admin, manager_admin).manage_authorization_levels?
+    refute Admin::AdminPolicy.new(regular_admin, regular_admin).manage_authorization_levels?
   end
 end

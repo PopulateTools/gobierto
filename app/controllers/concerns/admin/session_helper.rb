@@ -23,6 +23,10 @@ module Admin::SessionHelper
     raise_admin_not_signed_in unless admin_signed_in?
   end
 
+  def require_no_authentication
+    raise_admin_already_authenticated if admin_signed_in?
+  end
+
   def find_current_admin
     Admin.confirmed.find_by(id: session[:admin_id])
   end
@@ -46,6 +50,13 @@ module Admin::SessionHelper
     redirect_to(
       request.referrer || admin_root_path,
       alert: "You are not authorized to perform this action."
+    )
+  end
+
+  def raise_admin_already_authenticated
+    redirect_to(
+      after_sign_in_path,
+      alert: "You are already signed in."
     )
   end
 end

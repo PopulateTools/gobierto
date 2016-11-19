@@ -43,4 +43,14 @@ class User::RegistrationTest < ActionDispatch::IntegrationTest
       assert has_content?("The data you entered doesn't seem to be valid. Please try again.")
     end
   end
+
+  def test_registration_when_already_signed_in
+    with_current_user(user) do
+      with_current_site(site) do
+        visit @registration_path
+
+        assert has_content?("You are already signed in.")
+      end
+    end
+  end
 end

@@ -1,4 +1,7 @@
 class User::SessionsController < User::BaseController
+  before_action :authenticate_user!, only: [:destroy]
+  before_action :require_no_authentication, only: [:new, :create]
+
   def new; end
 
   def create

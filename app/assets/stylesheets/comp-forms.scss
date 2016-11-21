@@ -25,12 +25,18 @@ input[type=submit], .button, button {
 input[type=submit]:hover, .button:hover, button:hover {
   background: darken($color_main, 10%);
 }
+button a {
+  color: #FFF;
+  text-decoration: none;
+}
 option, select {
   font-weight: 400;
   padding: 18px;
-  // font-size: .8em;
-  // border: 1px solid #CCC;
-  // background: #F1F1F1;
+  width: 100%;
+  /*font-size: .8em;
+  border: 1px solid #CCC;
+  background: #F1F1F1;
+  */
 }
 .option {
 	padding: 0;
@@ -64,12 +70,22 @@ option, select {
     padding: 1.5rem 1rem .25rem 1rem;
   }
 }
-.select_control {
+.select_control, .options_cont {
   box-sizing: border-box;
   border: 1px solid $color_separator;
   @include border-radius(6px);
   select {
     margin: 1.75rem 0 0 0;
+  }
+}
+.options_cont {
+  margin: 0 0 1em 0;
+  > label {
+    margin: .5rem 1rem;
+    display: block;
+    text-transform: uppercase;
+    font-size: .75em;
+    font-weight: 700;  
   }
 }
 
@@ -81,10 +97,18 @@ option, select {
 }
 
 .form_item {
+  position: relative;
   .options {
     .option {
       display: block;
       margin: 0 0 1em 0;
+    }
+  }
+  .options.options_cont {
+    .option {
+      margin: 0 1em 1em 1em;
+      font-size: .85em;
+      box-sizing: border-box;
     }
   }
   .options.compact {
@@ -103,6 +127,15 @@ option, select {
       height: 14px;
       width: 14px;
     }
+  }
+  .fa {
+    margin: 0 .5em;
+    opacity: .5;
+  }
+  .fa-question-circle {
+    position: absolute;
+    top: .5rem;
+    right: 0;
   }
 }
 .widget_save {
@@ -126,6 +159,21 @@ button.light, .button.light {
 	background: $color_main_negative;
 	border: 1px solid $color_separator;
 	color: $color_main;
+}
+button.gigantic {
+  font-size: 1.3em;
+  height: initial;
+  padding: 1.4em 4em 1.2em;
+  margin: 1em 0;
+  @include border-radius(2em);
+}
+button.small {
+  font-size: .95em;
+  padding: .45em 2em .3em;
+  height: initial;
+  line-height: 1.2em;
+  font-weight: 200;
+  @include border-radius(2em);
 }
 button.light:hover, .button.light:hover {
 	background: rgba($color_main, .2);

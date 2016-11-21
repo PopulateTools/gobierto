@@ -200,6 +200,17 @@ a.soft_cta:hover {
 	padding-bottom: 4em;
 }
 
+// Hidden utilities
+.hidden-xs {
+    display: none;
+}
+@media (min-width: 768px) {
+    .hidden-xs {
+        display: block;
+    }
+}
+
+
 /*
  * Tips
  *

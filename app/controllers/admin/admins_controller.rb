@@ -4,12 +4,13 @@ class Admin::AdminsController < Admin::BaseController
   end
 
   def show
-    set_admin
+    @admin = find_admin
   end
 
   def new
     @admin_form = Admin::AdminForm.new
 
+    set_admin_policy
     set_site_modules
     set_sites
     set_authorization_levels
@@ -17,7 +18,9 @@ class Admin::AdminsController < Admin::BaseController
 
   def edit
     @admin = find_admin
-    @admin_form = Admin::AdminForm.new(@admin.attributes.except(*ignored_admin_attributes))
+    @admin_form = Admin::AdminForm.new(
+      @admin.attributes.except(*ignored_admin_attributes)
+    )
 
     set_admin_policy
     set_site_modules
@@ -29,12 +32,13 @@ class Admin::AdminsController < Admin::BaseController
   def create
     @admin_form = Admin::AdminForm.new(admin_params.merge(creation_ip: remote_ip))
 
+    set_admin_policy
     set_site_modules
     set_sites
     set_authorization_levels
 
     if @admin_form.save
-      redirect_to admin_admins_path, notice: 'Admin was successfully created.'
+      redirect_to admin_admins_path, notice: "Admin was successfully created."
     else
       render :new
     end
@@ -42,16 +46,19 @@ class Admin::AdminsController < Admin::BaseController
 
   def update
     @admin = find_admin
-    @admin_form = Admin::AdminForm.new(admin_params.merge(id: params[:id]))
 
     set_admin_policy
+    raise Errors::NotAuthorized unless @admin_policy.update?
+
+    @admin_form = Admin::AdminForm.new(admin_params.merge(id: params[:id]))
+
     set_site_modules
     set_sites
     set_authorization_levels
     set_activities
 
     if @admin_form.save
-      redirect_to admin_admins_path, notice: 'Admin was successfully updated.'
+      redirect_to admin_admins_path, notice: "Admin was successfully updated."
     else
       render :edit
     end
@@ -88,7 +95,7 @@ class Admin::AdminsController < Admin::BaseController
   end
 
   def set_site_modules
-    return if @admin_policy && !@admin_policy.manage_permissions?
+    return unless @admin_policy.manage_permissions?
 
     @site_modules = APP_CONFIG["site_modules"].map do |site_module|
       OpenStruct.new(site_module)
@@ -96,13 +103,13 @@ class Admin::AdminsController < Admin::BaseController
   end
 
   def set_sites
-    return if @admin_policy && !@admin_policy.manage_sites?
+    return unless @admin_policy.manage_sites?
 
     @sites = Site.select(:id, :domain).all
   end
 
   def set_authorization_levels
-    return if @admin_policy && !@admin_policy.manage_authorization_levels?
+    return unless @admin_policy.manage_authorization_levels?
 
     @admin_authorization_levels = Admin.authorization_levels
   end

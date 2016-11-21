@@ -1,0 +1,11 @@
+<p>
+  <strong>Último login</strong>:
+  <%= time_ago_in_words(admin.last_sign_in_at) if admin.last_sign_in_at %>
+  <span class="soft ip"><%= admin.last_sign_in_ip %></span>
+</p>
+
+<p>
+  <strong>Creado</strong>:
+  <%= l(admin.created_at, format: :short) if admin.created_at %>
+  <span class="soft ip"><%= admin.creation_ip %></span>
+</p>

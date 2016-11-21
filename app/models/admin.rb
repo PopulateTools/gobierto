@@ -3,6 +3,7 @@ class Admin < ApplicationRecord
   include Authentication::Confirmable
   include Authentication::Invitable
   include Authentication::Recoverable
+  include Session::Trackable
 
   EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/
 
@@ -24,7 +25,7 @@ class Admin < ApplicationRecord
 
   scope :sorted, -> { order(created_at: :desc) }
   scope :god,    -> { where(god: true) }
-  scope :active, -> { where.not(authorization_level: authorization_levels[:disabled]) }
+  scope :active, -> { confirmed.where.not(authorization_level: authorization_levels[:disabled]) }
 
   enum authorization_level: { regular: 0, manager: 1, disabled: 2 }
 
@@ -40,10 +41,6 @@ class Admin < ApplicationRecord
     managing_user? ? Site.all : super
   end
 
-  def update_session_data(remote_ip, timestamp = Time.zone.now)
-    update_columns(last_sign_in_ip: remote_ip, last_sign_in_at: timestamp)
-  end
-
   def destroy
     return super unless god?
 
@@ -53,11 +50,11 @@ class Admin < ApplicationRecord
     super
   end
 
-  private
-
   def managing_user?
     god? || manager?
   end
+
+  private
 
   def set_god_flag
     self.god = true unless self.class.unscoped.god.exists?

@@ -6,6 +6,7 @@ class Admin::AdminForm
     :name,
     :email,
     :password,
+    :password_confirmation,
     :authorization_level,
     :sites,
     :site_ids,
@@ -17,8 +18,18 @@ class Admin::AdminForm
 
   delegate :persisted?, :to_model, to: :admin
 
+  validates :password, confirmation: true
+
   def save
-    save_admin if valid?
+    return false unless valid?
+
+    @new_record = admin.new_record?
+
+    if save_admin
+      send_confirmation_instructions if send_confirmation_instructions?
+
+      admin
+    end
   end
 
   def admin
@@ -51,6 +62,14 @@ class Admin::AdminForm
     Admin.new
   end
 
+  def email_changed?
+    @email_changed
+  end
+
+  def new_record?
+    @new_record
+  end
+
   def build_permissions
     site_modules.map do |site_module|
       next unless site_module.present?
@@ -70,6 +89,9 @@ class Admin::AdminForm
       admin_attributes.creation_ip = creation_ip
     end
 
+    # Check changes
+    @email_changed = @admin.email_changed?
+
     if @admin.valid?
       ActiveRecord::Base.transaction do
         @admin.save unless persisted?
@@ -77,11 +99,22 @@ class Admin::AdminForm
         @admin.permissions = build_permissions
         @admin.save
       end
+
+      @admin
     else
       promote_errors(@admin.errors)
 
       false
     end
+  end
+
+  def send_confirmation_instructions?
+    new_record? || email_changed?
+  end
+
+  def send_confirmation_instructions
+    admin.regenerate_confirmation_token
+    deliver_confirmation_email
   end
 
   protected
@@ -90,5 +123,9 @@ class Admin::AdminForm
     errors_hash.each do |attribute, message|
       errors.add(attribute, message)
     end
+  end
+
+  def deliver_confirmation_email
+    Admin::AdminMailer.confirmation_instructions(admin).deliver_later
   end
 end

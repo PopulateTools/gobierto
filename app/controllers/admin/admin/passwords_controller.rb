@@ -1,5 +1,6 @@
 class Admin::Admin::PasswordsController < Admin::BaseController
   skip_before_action :authenticate_admin!
+  before_action :require_no_authentication
 
   layout "admin/sessions"
 
@@ -44,7 +45,8 @@ class Admin::Admin::PasswordsController < Admin::BaseController
 
       redirect_to(after_sign_in_path, notice: "Signed in successfully.")
     else
-      flash[:notice] = "There was a problem sending the invitations."
+      flash[:notice] = "There was a problem changing your password."
+      render :edit
     end
   end
 

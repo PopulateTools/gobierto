@@ -7,8 +7,10 @@ Rails.application.routes.draw do
     get '/sandbox/*template' => 'sandbox#show'
   end
 
+  # Admin module
   namespace :admin do
     get '/' => 'welcome#index', as: :root
+    get '/login' => 'sessions#new'
 
     resource :sessions, only: [:new, :create, :destroy]
     resources :sites, only: [:index, :new, :create, :edit, :update, :destroy]
@@ -26,10 +28,29 @@ Rails.application.routes.draw do
       resource :passwords, only: [:new, :create, :edit, :update]
     end
 
+    resources :users, only: [:index, :show, :edit, :update] do
+      resource :welcome_messages, only: [:create], controller: "users/welcome_messages"
+      resource :passwords, only: [:new, :create], controller: "users/passwords"
+    end
+
     resources :activities, only: [:index]
   end
 
   localized do
+    # User module
+    namespace :user do
+      constraints GobiertoSiteConstraint.new do
+        get '/' => 'welcome#index', as: :root
+        get '/login' => 'sessions#new'
+        get '/signup' => 'registrations#new'
+
+        resource :sessions, only: [:new, :create, :destroy]
+        resource :registrations, only: [:new, :create]
+        resource :confirmations, only: [:new, :create, :show]
+        resource :passwords, only: [:new, :create, :edit, :update]
+      end
+    end
+
     # Gobierto Budgets module
     namespace :gobierto_budgets, path: '', module: 'gobierto_budgets' do
       constraints GobiertoSiteConstraint.new do

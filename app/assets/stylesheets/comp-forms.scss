@@ -29,6 +29,10 @@ button a {
   color: #FFF;
   text-decoration: none;
 }
+input[type=submit]:disabled, .button:disabled, button:disabled {
+  background: darken($color_main, 20%);
+  color: darken(#fff, 20%);
+}
 option, select {
   font-weight: 400;
   padding: 18px;

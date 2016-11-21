@@ -1,0 +1,14 @@
+<%= render "user/shared/validation_errors", resource: @user_password_form %>
+
+<%= form_for(@user_password_form, as: :user_password, url: :user_passwords) do |f| %>
+
+  <div class="form_item input_text">
+    <%= f.label :email %>
+    <%= f.text_field :email, placeholder: "felipe@gmail.com" %>
+  </div>
+
+  <div class="widget_save">
+    <%= f.submit "Send", class: "button" %>
+  </div>
+
+<% end %>

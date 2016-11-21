@@ -2,11 +2,11 @@ module Authentication::Confirmable
   extend ActiveSupport::Concern
 
   included do
-    has_secure_token :confirmation_token
-
-    after_commit :deliver_confirmation_email, on: :create
-
     scope :confirmed, -> { where(confirmation_token: nil) }
+  end
+
+  def regenerate_confirmation_token
+    update_columns(confirmation_token: self.class.generate_unique_secure_token)
   end
 
   def confirmed?
@@ -17,13 +17,5 @@ module Authentication::Confirmable
     return true if confirmed?
 
     update_columns(confirmation_token: nil)
-  end
-
-  private
-
-  def deliver_confirmation_email
-    return true if respond_to?(:invitation?) && invitation?
-
-    Admin::AdminMailer.confirmation_instructions(self).deliver_later
   end
 end

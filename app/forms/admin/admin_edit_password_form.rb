@@ -15,14 +15,6 @@ class Admin::AdminEditPasswordForm
     @admin ||= Admin.find_by(id: admin_id)
   end
 
-  def password
-    @password || ""
-  end
-
-  def password_confirmation
-    @password_confirmation || ""
-  end
-
   private
 
   def update_password

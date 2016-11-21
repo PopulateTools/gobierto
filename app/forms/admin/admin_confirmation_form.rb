@@ -7,10 +7,7 @@ class Admin::AdminConfirmationForm
   validates :email, :admin, presence: true
 
   def save
-    return false unless valid?
-
-    admin.regenerate_confirmation_token
-    deliver_confirmation_email
+    send_confirmation_email if valid?
   end
 
   def admin
@@ -18,6 +15,13 @@ class Admin::AdminConfirmationForm
   end
 
   private
+
+  def send_confirmation_email
+    admin.regenerate_confirmation_token
+    deliver_confirmation_email
+  end
+
+  protected
 
   def deliver_confirmation_email
     Admin::AdminMailer.confirmation_instructions(admin).deliver_later

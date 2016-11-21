@@ -153,6 +153,54 @@ a.soft_cta:hover {
 }
 
 /*
+ * Utils
+ *
+ */
+.b {
+	border: 1px solid #111;
+}
+.img-fluid {
+	max-width: 100%;
+	height: auto;
+}
+.m1 {
+	margin: 1em;
+}
+.mb1 {
+	margin-bottom:  1em
+}
+.mb2 {
+	margin-bottom:  2em
+}
+.mb3 {
+	margin-bottom:  3em
+}
+.mb4 {
+	margin-bottom:  4em
+}
+.ml1 {
+	margin-left: 1em;
+}
+.p1 {
+	padding: 1em;
+}
+.pb0 {
+ 	padding-bottom: 0;
+}
+.pb1 {
+	padding-bottom: 1em;
+}
+.pb2 {
+	padding-bottom: 2em;
+}
+.pb3 {
+	padding-bottom: 3em;
+}
+.pb4 {
+	padding-bottom: 4em;
+}
+
+/*
  * Tips
  *
  */

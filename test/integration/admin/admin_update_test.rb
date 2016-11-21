@@ -19,6 +19,7 @@ class Admin::AdminUpdateTest < ActionDispatch::IntegrationTest
 
       within "form.edit_admin" do
         fill_in "admin_name", with: "Admin Name"
+        fill_in "admin_email", with: "wadus@gobierto.dev"
 
         within ".site-module-check-boxes" do
           check "Gobierto Development"

@@ -37,13 +37,13 @@ class Admin::UserFormTest < ActiveSupport::TestCase
   end
 
   def test_confirmation_email_delivery_when_changing_email
-    password_changing_form = Admin::UserForm.new(
+    email_changing_form = Admin::UserForm.new(
       id: user.id,
       email: "wadus@gobierto.dev"
     )
 
     assert_difference "ActionMailer::Base.deliveries.size", 1 do
-      password_changing_form.save
+      email_changing_form.save
     end
   end
 

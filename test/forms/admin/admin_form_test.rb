@@ -41,7 +41,7 @@ class Admin::AdminFormTest < ActiveSupport::TestCase
     assert_equal [], Admin::AdminForm.new.site_modules
   end
 
-  def test_confirmation_email_delivery
+  def test_confirmation_email_delivery_for_new_record
     assert_difference "ActionMailer::Base.deliveries.size", 1 do
       valid_admin_form.save
     end
@@ -52,6 +52,30 @@ class Admin::AdminFormTest < ActiveSupport::TestCase
 
     assert_no_difference "ActionMailer::Base.deliveries.size" do
       admin_edit_form.save
+    end
+  end
+
+  def test_confirmation_email_delivery_when_changing_email
+    email_changing_form = Admin::AdminForm.new(
+      id: admin.id,
+      name: admin.name,
+      email: "wadus@gobierto.dev"
+    )
+
+    assert_difference "ActionMailer::Base.deliveries.size", 1 do
+      email_changing_form.save
+    end
+  end
+
+  def test_confirmation_email_delivery_when_not_changing_email
+    not_changing_form = Admin::AdminForm.new(
+      id: admin.id,
+      name: admin.name,
+      email: admin.name
+    )
+
+    assert_difference "ActionMailer::Base.deliveries.size", 0 do
+      not_changing_form.save
     end
   end
 end

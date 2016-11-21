@@ -8,12 +8,12 @@
 
       <div class="form_item input_text">
         <%= f.label :name %>
-        <%= f.text_field :name, placeholder: "Fernando González" %>
+        <%= f.text_field :name, placeholder: "Fernando González", disabled: !@admin_policy.update? %>
       </div>
 
       <div class="form_item input_text">
         <%= f.label :email %>
-        <%= f.email_field :email, placeholder: "fgonzalez@gmail.com", readonly: @admin_form.persisted? %>
+        <%= f.email_field :email, placeholder: "fgonzalez@gmail.com", disabled: !@admin_policy.update? %>
       </div>
 
       <% if !@admin_form.persisted? %>

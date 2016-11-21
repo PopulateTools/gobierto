@@ -20,10 +20,10 @@ class Admin::AdminForm
   def save
     return false unless valid?
 
-    new_record = admin.new_record?
+    @new_record = admin.new_record?
 
     if save_admin
-      send_confirmation_instructions if new_record
+      send_confirmation_instructions if send_confirmation_instructions?
 
       admin
     end
@@ -59,6 +59,14 @@ class Admin::AdminForm
     Admin.new
   end
 
+  def email_changed?
+    @email_changed
+  end
+
+  def new_record?
+    @new_record
+  end
+
   def build_permissions
     site_modules.map do |site_module|
       next unless site_module.present?
@@ -78,6 +86,9 @@ class Admin::AdminForm
       admin_attributes.creation_ip = creation_ip
     end
 
+    # Check changes
+    @email_changed = @admin.email_changed?
+
     if @admin.valid?
       ActiveRecord::Base.transaction do
         @admin.save unless persisted?
@@ -92,6 +103,10 @@ class Admin::AdminForm
 
       false
     end
+  end
+
+  def send_confirmation_instructions?
+    new_record? || email_changed?
   end
 
   def send_confirmation_instructions

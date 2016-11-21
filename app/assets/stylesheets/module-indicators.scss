@@ -39,10 +39,15 @@
 }
 
 /* Page */
+.indicators_nav {
+	// position: fixed;
+	// top: 0;
+	// width: 100%;
+	// z-index: 1;
+}
 .indicators_header {
 	background: $color_1;
 	min-height: 55px;
-	position: relative;
 	.indicators_sections {
 		list-style: none;
 		float: left;
@@ -87,7 +92,7 @@
 	}
 }
 .indicators_subheader {
-	background: $color_1_soft;
+	background: #F0F9F9;
 	min-height: 40px;
 	position: relative;
 	margin-bottom: 10px;

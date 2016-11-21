@@ -110,10 +110,8 @@ class Admin::AdminUpdateTest < ActionDispatch::IntegrationTest
         refute has_selector?(".site-check-boxes")
         refute has_selector?(".admin-authorization-level-radio-buttons")
 
-        click_button "Update Admin"
+        assert has_button?("Update Admin", disabled: true)
       end
-
-      assert has_content?("You are not authorized to perform this action.")
     end
   end
 end

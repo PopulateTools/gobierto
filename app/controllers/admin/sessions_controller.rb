@@ -1,5 +1,6 @@
 class Admin::SessionsController < Admin::BaseController
-  skip_before_action :authenticate_admin!
+  skip_before_action :authenticate_admin!, only: [:new, :create]
+  before_action :require_no_authentication, only: [:new, :create]
 
   layout "admin/sessions"
 

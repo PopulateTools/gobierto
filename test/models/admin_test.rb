@@ -86,4 +86,10 @@ class AdminTest < ActiveSupport::TestCase
   def test_sites_bypass_for_god_admin
     assert_equal Site.count, god_admin.sites.count
   end
+
+  def test_managing_user?
+    assert god_admin.managing_user?
+    assert manager_admin.managing_user?
+    refute admin.managing_user?
+  end
 end

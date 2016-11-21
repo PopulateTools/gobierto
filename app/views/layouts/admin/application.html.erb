@@ -35,12 +35,15 @@
                   class: "pure-menu-link") %>
               </li>
             <% end %>
-            <li class="pure-menu-item">
-              <%= link_to(
-                t(".manage_sites"),
-                admin_sites_path,
-                class: "pure-menu-link") %>
-            </li>
+
+            <% if can_manage_sites? %>
+              <li class="pure-menu-item">
+                <%= link_to(
+                  t(".manage_sites"),
+                  admin_sites_path,
+                  class: "pure-menu-link") %>
+              </li>
+            <% end %>
           </ul>
         </li>
       </ul>

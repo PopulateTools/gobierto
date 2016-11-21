@@ -18,7 +18,7 @@ $(document).on('turbolinks:load', function() {
 		deficitEnter();
 	});
 	$('.consultation_marker .reduce').click(function(e) {
-		e.preventDefault();
+		// e.preventDefault();
 		deficitExit();
 	});
 

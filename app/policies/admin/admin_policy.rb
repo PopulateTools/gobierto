@@ -6,6 +6,12 @@ class Admin::AdminPolicy
     @admin = admin
   end
 
+  def update?
+    return true unless admin.present?
+
+    god_or_manager_skipping_god
+  end
+
   def manage_permissions?
     return true unless admin.present?
 

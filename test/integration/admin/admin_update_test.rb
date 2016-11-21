@@ -1,10 +1,6 @@
 require "test_helper"
 
 class Admin::AdminUpdateTest < ActionDispatch::IntegrationTest
-  def signed_in_admin
-    @signed_in_admin ||= admins(:nick)
-  end
-
   def regular_admin
     @regular_admin ||= admins(:tony)
   end
@@ -17,8 +13,8 @@ class Admin::AdminUpdateTest < ActionDispatch::IntegrationTest
     @god_admin ||= admins(:natasha)
   end
 
-  def test_admin_update
-    with_signed_in_admin(signed_in_admin) do
+  def test_regular_admin_update
+    with_signed_in_admin(manager_admin) do
       visit edit_admin_admin_path(regular_admin)
 
       within "form.edit_admin" do
@@ -43,7 +39,7 @@ class Admin::AdminUpdateTest < ActionDispatch::IntegrationTest
 
       within "table.admin-list tbody tr#admin-item-#{regular_admin.id}" do
         assert has_content?("Admin Name")
-        assert has_content?(regular_admin.email) # The email field can't be updated this way
+        assert has_content?("wadus@gobierto.dev")
 
         click_link "Admin Name"
       end
@@ -65,7 +61,7 @@ class Admin::AdminUpdateTest < ActionDispatch::IntegrationTest
   end
 
   def test_manager_admin_update
-    with_signed_in_admin(signed_in_admin) do
+    with_signed_in_admin(manager_admin) do
       visit edit_admin_admin_path(manager_admin)
 
       within "form.edit_admin" do
@@ -100,11 +96,12 @@ class Admin::AdminUpdateTest < ActionDispatch::IntegrationTest
   end
 
   def test_god_admin_update
-    with_signed_in_admin(signed_in_admin) do
+    with_signed_in_admin(manager_admin) do
       visit edit_admin_admin_path(god_admin)
 
       within "form.edit_admin" do
-        fill_in "admin_name", with: "Admin Name"
+        assert has_field?("admin_name", disabled: true)
+        assert has_field?("admin_email", disabled: true)
 
         refute has_selector?(".site-module-check-boxes")
         refute has_selector?(".site-check-boxes")
@@ -113,12 +110,7 @@ class Admin::AdminUpdateTest < ActionDispatch::IntegrationTest
         click_button "Update Admin"
       end
 
-      assert has_content?("Admin was successfully updated.")
-
-      within "table.admin-list tbody tr#admin-item-#{god_admin.id}" do
-        assert has_content?("Admin Name")
-        assert has_content?(god_admin.email)
-      end
+      assert has_content?("You are not authorized to perform this action.")
     end
   end
 end

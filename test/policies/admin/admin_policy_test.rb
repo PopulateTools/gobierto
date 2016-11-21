@@ -13,6 +13,20 @@ class Admin::AdminPolicyTest < ActiveSupport::TestCase
     @god_admin ||= admins(:natasha)
   end
 
+  def test_update?
+    assert Admin::AdminPolicy.new(god_admin, god_admin).update?
+    assert Admin::AdminPolicy.new(god_admin, manager_admin).update?
+    assert Admin::AdminPolicy.new(god_admin, regular_admin).update?
+
+    refute Admin::AdminPolicy.new(manager_admin, god_admin).update?
+    assert Admin::AdminPolicy.new(manager_admin, manager_admin).update?
+    assert Admin::AdminPolicy.new(manager_admin, regular_admin).update?
+
+    refute Admin::AdminPolicy.new(regular_admin, god_admin).update?
+    refute Admin::AdminPolicy.new(regular_admin, manager_admin).update?
+    refute Admin::AdminPolicy.new(regular_admin, regular_admin).update?
+  end
+
   def test_manage_permissions?
     assert Admin::AdminPolicy.new(god_admin, god_admin).manage_permissions?
     assert Admin::AdminPolicy.new(god_admin, manager_admin).manage_permissions?

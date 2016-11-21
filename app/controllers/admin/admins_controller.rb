@@ -46,9 +46,12 @@ class Admin::AdminsController < Admin::BaseController
 
   def update
     @admin = find_admin
-    @admin_form = Admin::AdminForm.new(admin_params.merge(id: params[:id]))
 
     set_admin_policy
+    raise Errors::NotAuthorized unless @admin_policy.update?
+
+    @admin_form = Admin::AdminForm.new(admin_params.merge(id: params[:id]))
+
     set_site_modules
     set_sites
     set_authorization_levels

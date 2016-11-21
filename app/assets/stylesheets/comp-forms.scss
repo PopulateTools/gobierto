@@ -25,6 +25,10 @@ input[type=submit], .button, button {
 input[type=submit]:hover, .button:hover, button:hover {
   background: darken($color_main, 10%);
 }
+input[type=submit]:disabled, .button:disabled, button:disabled {
+  background: darken($color_main, 20%);
+  color: darken(#fff, 20%);
+}
 option, select {
   font-weight: 400;
   padding: 18px;

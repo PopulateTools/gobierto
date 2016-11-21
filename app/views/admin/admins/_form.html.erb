@@ -8,18 +8,29 @@
 
       <div class="form_item input_text">
         <%= f.label :name %>
-        <%= f.text_field :name, placeholder: "Fernando González" %>
+        <%= f.text_field :name, placeholder: "Fernando González", disabled: !@admin_policy.update? %>
       </div>
 
       <div class="form_item input_text">
         <%= f.label :email %>
-        <%= f.email_field :email, placeholder: "fgonzalez@gmail.com", readonly: @admin_form.persisted? %>
+        <%= f.email_field :email, placeholder: "fgonzalez@gmail.com", disabled: !@admin_policy.update? %>
       </div>
 
-      <% if !@admin_form.persisted? %>
-        <div class="form_item input_text">
-          <%= f.label :password %>
-          <%= f.password_field :password %>
+      <% if @admin_policy.update? %>
+        <div class="form_block">
+
+          <h2>CONTRASEÑA</h2>
+
+          <div class="form_item input_text">
+            <%= f.label :password %>
+            <%= f.password_field :password %>
+          </div>
+
+          <div class="form_item input_text">
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation %>
+          </div>
+
         </div>
       <% end %>
 
@@ -107,7 +118,7 @@
           </div>
         <% end %>
 
-        <%= f.submit class: "button" %>
+        <%= f.submit class: "button", disabled: !@admin_policy.update? %>
       </div>
 
     </div>

@@ -20,12 +20,18 @@
 }
 .widget_info {
 	text-align: center;
-	border: 2px solid #fff;
+	border: 2px solid $color_main_negative;;
 	border-radius: 50%;
 	width: 20px;
 	height: 20px;
 	font-family: $font_serif;
 	font-style: italic;
+	cursor: pointer;
+	transition: 0.2s;
+}
+.widget_info:hover {
+	background: $color_main_negative;
+	color: $color_1;
 }
 
 

@@ -16,10 +16,21 @@
         <%= f.email_field :email, placeholder: "fgonzalez@gmail.com", disabled: !@admin_policy.update? %>
       </div>
 
-      <% if !@admin_form.persisted? %>
-        <div class="form_item input_text">
-          <%= f.label :password %>
-          <%= f.password_field :password %>
+      <% if @admin_policy.update? %>
+        <div class="form_block">
+
+          <h2>CONTRASEÑA</h2>
+
+          <div class="form_item input_text">
+            <%= f.label :password %>
+            <%= f.password_field :password %>
+          </div>
+
+          <div class="form_item input_text">
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation %>
+          </div>
+
         </div>
       <% end %>
 

@@ -20,6 +20,8 @@ class Admin::AdminUpdateTest < ActionDispatch::IntegrationTest
       within "form.edit_admin" do
         fill_in "admin_name", with: "Admin Name"
         fill_in "admin_email", with: "wadus@gobierto.dev"
+        fill_in "admin_password", with: "adminpassword"
+        fill_in "admin_password_confirmation", with: "adminpassword"
 
         within ".site-module-check-boxes" do
           check "Gobierto Development"

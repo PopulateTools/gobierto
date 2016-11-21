@@ -6,6 +6,7 @@ class Admin::AdminForm
     :name,
     :email,
     :password,
+    :password_confirmation,
     :authorization_level,
     :sites,
     :site_ids,
@@ -16,6 +17,8 @@ class Admin::AdminForm
   )
 
   delegate :persisted?, :to_model, to: :admin
+
+  validates :password, confirmation: true
 
   def save
     return false unless valid?

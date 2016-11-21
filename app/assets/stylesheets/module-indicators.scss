@@ -46,7 +46,7 @@
 .indicators_section a:hover {
 	text-decoration: none;
 }
-.header_active {
+.indicators_section .active {
 	border-bottom: 2px solid $color_main_negative;
 }
 .indicators_section:nth-child(1) {
@@ -97,7 +97,7 @@
 	color: $color_main;
 	text-decoration: none;
 }
-.header_active {
+.indicators_subsection .active {
 	border-bottom: 2px solid $color_main;
 }
 .indicators_subsection:nth-child(1) {

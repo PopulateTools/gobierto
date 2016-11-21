@@ -7,12 +7,13 @@
 	border-top-right-radius: 8px;
 	border-top-left-radius: 8px;
 	background: $color_1;
-	padding: 1em;
+	padding: 0.5em 0.5em 0.5em 1em;
 	color: $color_main_negative;
 	font-weight: 700;
+	font-size: 0.9em;
 }
 .widget_body {
-	height: 200px;
+	height: 175px;
 	border: 1px solid #ccc;
 	border-bottom-left-radius: 8px;
 	border-bottom-right-radius: 8px;

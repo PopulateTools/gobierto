@@ -30,6 +30,7 @@ class ActiveSupport::TestCase
   fixtures :all
   set_fixture_class admin_global_permissions: Admin::Permission::Global
   set_fixture_class admin_census_imports: Admin::CensusImport
+  set_fixture_class user_census_verifications: User::Verification::CensusVerification
 
   def setup
     DatabaseCleaner.start

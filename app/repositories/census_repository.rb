@@ -20,10 +20,10 @@ class CensusRepository
     @document_number = document_number.to_s
     @document_number_digest = SecretAttribute.digest(@document_number)
 
-    begin
-      @date_of_birth = Date.parse(date_of_birth.to_s).to_s
+    @date_of_birth = begin
+      Date.parse(date_of_birth.to_s).to_s
     rescue ArgumentError
-      @date_of_birth = nil
+      nil
     end
 
     @import_reference = import_reference

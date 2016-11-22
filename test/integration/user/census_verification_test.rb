@@ -10,6 +10,10 @@ class User::CensusVerificationTest < ActionDispatch::IntegrationTest
     @user ||= users(:dennis)
   end
 
+  def verified_user
+    @user ||= users(:susan)
+  end
+
   def site
     @site ||= sites(:madrid)
   end
@@ -41,6 +45,16 @@ class User::CensusVerificationTest < ActionDispatch::IntegrationTest
         click_on "Request"
 
         assert has_content?("The data you entered doesn't seem to be valid. Please check the messages below.")
+      end
+    end
+  end
+
+  def test_verification_when_already_verified
+    with_current_site(site) do
+      with_signed_in_user(verified_user) do
+        visit @verification_path
+
+        assert has_content?("You are already verified.")
       end
     end
   end

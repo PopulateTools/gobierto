@@ -1,0 +1,24 @@
+<%= render "user/shared/validation_errors", resource: @user_verification_form %>
+
+<%= form_for(@user_verification_form, as: :user_verification, url: :user_census_verifications) do |f| %>
+
+  <div class="form_item input_text">
+    <%= f.label :document_number %>
+    <%= f.text_field :document_number, placeholder: "11111111A" %>
+  </div>
+
+  <div class="form_item input_text">
+    <%= f.label :date_of_birth %>
+    <%= f.text_field :date_of_birth, placeholder: "1992-01-01" %>
+  </div>
+
+  <div class="form_item select_control">
+    <%= f.label :site_id %>
+    <%= f.select :site_id, options_from_collection_for_select(@sites, :id, :name) %>
+  </div>
+
+  <div class="widget_save">
+    <%= f.submit "Request", class: "button" %>
+  </div>
+
+<% end %>

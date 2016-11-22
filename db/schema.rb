@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161117070200) do
+ActiveRecord::Schema.define(version: 20161121133131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(version: 20161117070200) do
     t.index ["site_id"], name: "index_activities_on_site_id", using: :btree
     t.index ["subject_id", "subject_type"], name: "index_activities_on_subject_id_and_subject_type", using: :btree
     t.index ["subject_type", "subject_id"], name: "index_activities_on_subject_type_and_subject_id", using: :btree
+  end
+
+  create_table "admin_census_imports", force: :cascade do |t|
+    t.integer  "admin_id"
+    t.integer  "site_id"
+    t.integer  "imported_records", default: 0,     null: false
+    t.boolean  "completed",        default: false, null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.index ["admin_id"], name: "index_admin_census_imports_on_admin_id", using: :btree
+    t.index ["site_id"], name: "index_admin_census_imports_on_site_id", using: :btree
   end
 
   create_table "admin_permissions", force: :cascade do |t|
@@ -71,6 +82,18 @@ ActiveRecord::Schema.define(version: 20161117070200) do
     t.index ["email"], name: "index_admins_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_admins_on_invitation_token", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
+  end
+
+  create_table "census_items", force: :cascade do |t|
+    t.integer "site_id"
+    t.string  "document_number_digest", default: "",    null: false
+    t.string  "date_of_birth",          default: "",    null: false
+    t.integer "import_reference"
+    t.boolean "verified",               default: false, null: false
+    t.index ["site_id", "document_number_digest", "date_of_birth", "verified"], name: "index_census_items_on_site_id_and_doc_number_and_birth_verified", using: :btree
+    t.index ["site_id", "document_number_digest", "date_of_birth"], name: "index_census_items_on_site_id_and_doc_number_and_date_of_birth", using: :btree
+    t.index ["site_id", "import_reference"], name: "index_census_items_on_site_id_and_import_reference", using: :btree
+    t.index ["site_id"], name: "index_census_items_on_site_id", using: :btree
   end
 
   create_table "sites", force: :cascade do |t|

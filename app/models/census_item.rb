@@ -1,0 +1,2 @@
+class CensusItem < ApplicationRecord
+end

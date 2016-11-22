@@ -17,6 +17,8 @@ class Admin < ApplicationRecord
   has_many :gobierto_development_permissions, class_name: "Admin::Permission::GobiertoDevelopment"
   has_many :gobierto_budgets_permissions, class_name: "Admin::Permission::GobiertoBudgets"
 
+  has_many :census_imports, class_name: "Admin::CensusImport"
+
   before_create :set_god_flag
 
   validates :name, presence: true

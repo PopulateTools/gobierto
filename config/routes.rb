@@ -33,6 +33,10 @@ Rails.application.routes.draw do
       resource :passwords, only: [:new, :create], controller: "users/passwords"
     end
 
+    namespace :census do
+      resource :imports, only: [:new, :create]
+    end
+
     resources :activities, only: [:index]
   end
 

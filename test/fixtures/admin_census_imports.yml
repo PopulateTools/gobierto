@@ -1,0 +1,9 @@
+tony_madrid:
+  site: madrid
+  admin: tony
+  imported_records: 100
+
+nick_madrid:
+  site: madrid
+  admin: nick
+  imported_records: 10_000

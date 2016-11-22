@@ -4,6 +4,7 @@ class Site < ApplicationRecord
 
   has_many :admin_sites, dependent: :destroy
   has_many :admins, through: :admin_sites
+  has_many :census_imports, dependent: :destroy, class_name: "Admin::CensusImport"
 
   serialize :configuration_data
 

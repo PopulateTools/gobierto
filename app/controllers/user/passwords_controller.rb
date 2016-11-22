@@ -1,4 +1,6 @@
 class User::PasswordsController < User::BaseController
+  before_action :require_no_authentication
+
   def new
     @user_password_form = User::NewPasswordForm.new
   end

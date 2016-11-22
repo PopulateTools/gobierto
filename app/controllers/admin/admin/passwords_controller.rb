@@ -1,5 +1,6 @@
 class Admin::Admin::PasswordsController < Admin::BaseController
   skip_before_action :authenticate_admin!
+  before_action :require_no_authentication
 
   layout "admin/sessions"
 

@@ -67,5 +67,6 @@ class ActionDispatch::IntegrationTest
 
   def teardown
     DatabaseCleaner.clean
+    Capybara.reset_session!
   end
 end

@@ -50,11 +50,11 @@ class Admin < ApplicationRecord
     super
   end
 
-  private
-
   def managing_user?
     god? || manager?
   end
+
+  private
 
   def set_god_flag
     self.god = true unless self.class.unscoped.god.exists?

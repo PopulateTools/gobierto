@@ -23,6 +23,10 @@ module User::SessionHelper
     raise_user_not_signed_in unless user_signed_in?
   end
 
+  def require_no_authentication
+    raise_user_already_authenticated if user_signed_in?
+  end
+
   def find_current_user
     User.confirmed.find_by(id: session[:user_id])
   end
@@ -46,6 +50,13 @@ module User::SessionHelper
     redirect_to(
       request.referrer || user_root_path,
       alert: "You are not authorized to perform this action."
+    )
+  end
+
+  def raise_user_already_authenticated
+    redirect_to(
+      after_sign_in_path,
+      alert: "You are already signed in."
     )
   end
 end

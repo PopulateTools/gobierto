@@ -5,6 +5,10 @@ class User::Verification::CensusVerificationTest < ActiveSupport::TestCase
     @user_verification ||= user_census_verifications(:dennis_verified)
   end
 
+  def unverified_user_verification
+    @unverified_user_verification ||= user_census_verifications(:reed_unverified)
+  end
+
   def test_valid
     assert user_verification.valid?
   end
@@ -22,11 +26,16 @@ class User::Verification::CensusVerificationTest < ActiveSupport::TestCase
   end
 
   def test_verify!
-    user_verification.stub(:will_verify?, true) do
-      user_verification.verify!
+    refute unverified_user_verification.verified?
+    refute unverified_user_verification.user.census_verified?
+    refute_equal user_verification.user.source_site, unverified_user_verification.site
 
-      assert user_verification.verified?
-      assert user_verification.user.census_verified?
+    unverified_user_verification.stub(:will_verify?, true) do
+      unverified_user_verification.verify!
+
+      assert unverified_user_verification.reload.verified?
+      assert unverified_user_verification.user.reload.census_verified?
+      assert_equal unverified_user_verification.user.source_site, unverified_user_verification.site
     end
   end
 end

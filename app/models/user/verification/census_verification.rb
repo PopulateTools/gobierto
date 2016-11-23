@@ -22,12 +22,13 @@ class User::Verification::CensusVerification < User::Verification
   end
 
   def will_verify?
-    census_repository.exists?
+    @will_verify ||= census_repository.exists?
   end
 
   def verify!
     ActiveRecord::Base.transaction do
       update_columns(verified: will_verify?)
+      user.update_columns(source_site_id: site_id) if will_verify?
       user.update_columns(census_verified: will_verify?)
     end
   end

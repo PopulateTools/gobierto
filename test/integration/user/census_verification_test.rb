@@ -12,7 +12,7 @@ class User::CensusVerificationTest < ActionDispatch::IntegrationTest
   end
 
   def verified_user
-    @user ||= users(:susan)
+    @verified_user ||= users(:susan)
   end
 
   def site

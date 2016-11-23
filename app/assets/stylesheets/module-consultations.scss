@@ -105,6 +105,7 @@ img.side_50 {
 			display: none;
 			color: #AC3E3E;
 			margin: 1em 0;
+			max-width: 12em;
 			h4, p {
 				margin: 0;
 				font-size: .85em;
@@ -162,5 +163,55 @@ img.side_50 {
 			margin: 0 0 0 1em;
 		}
 	}
-
+	.button_marker {
+		display: inline-block;
+		background: #D8D8D8;
+		padding: .25em .4em;
+		@include border-radius(3px);
+		text-transform: uppercase;
+		font-size: .85em;
+		line-height: 1.2em;
+		width: 5em;
+		text-align: center;
+	}
+	.button_marker.active {
+		font-weight: bold;
+		background: darken(#D8D8D8, 25%);
+		color: #FFF;
+	}
+	.button_marker.reduce {
+		background: #CFE4C5;
+	}
+	.button_marker.augment {
+		background: #F5D7D7;
+	}
+	.button_marker.reduce.active {
+		background: darken(#CFE4C5, 25%);
+	}
+	.button_marker.augment.active {
+		background: darken(#F5D7D7, 25%);;
+	}
+	.budget-line_list {
+		margin: 2em 0;
+		td {
+			font-size: 1.15em;
+			padding: 1em 0;
+			font-weight: 300;
+		}
+		td.budget-line_title {
+			width: 60%;
+		}
+		.consultation_marker {
+			margin: 0;
+			.qty {
+				display: inline-block;	
+			}
+			
+		}
+		tr.summary_row {
+			> td {
+				padding: 2em 0 1em;
+			}
+		}
+	}
 }

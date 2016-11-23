@@ -25,7 +25,11 @@ class User::CensusVerificationTest < ActionDispatch::IntegrationTest
         visit @verification_path
 
         fill_in :user_verification_document_number, with: "00000000P"
-        fill_in :user_verification_date_of_birth, with: "2000-01-01"
+
+        select "1990", from: :user_verification_date_of_birth_1i
+        select "October", from: :user_verification_date_of_birth_2i
+        select "19", from: :user_verification_date_of_birth_3i
+
         select site.name, from: :user_verification_site_id
 
         click_on "Request"
@@ -41,7 +45,6 @@ class User::CensusVerificationTest < ActionDispatch::IntegrationTest
         visit @verification_path
 
         fill_in :user_verification_document_number, with: nil
-        fill_in :user_verification_date_of_birth, with: nil
 
         click_on "Request"
 

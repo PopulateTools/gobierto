@@ -7,7 +7,9 @@ class User::CensusVerificationForm
     :site_id,
     :user_id,
     :document_number,
-    :date_of_birth,
+    :date_of_birth_year,
+    :date_of_birth_month,
+    :date_of_birth_day,
     :creation_ip
   )
 
@@ -33,12 +35,20 @@ class User::CensusVerificationForm
     @site ||= Site.find_by(id: site_id)
   end
 
-  def census_verification
-    @census_verification ||= User::Verification::CensusVerification.new
+  def date_of_birth
+    if date_of_birth_year && date_of_birth_month && date_of_birth_day
+      Date.new(
+        date_of_birth_year.to_i,
+        date_of_birth_month.to_i,
+        date_of_birth_day.to_i
+      )
+    end
+  rescue ArgumentError
+    nil
   end
 
-  def verified?
-    census_repository.exists?
+  def census_verification
+    @census_verification ||= User::Verification::CensusVerification.new
   end
 
   private

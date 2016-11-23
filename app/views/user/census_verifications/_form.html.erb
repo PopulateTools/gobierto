@@ -7,9 +7,13 @@
     <%= f.text_field :document_number, placeholder: "11111111A" %>
   </div>
 
-  <div class="form_item input_text">
+  <div class="form_item select_control">
     <%= f.label :date_of_birth %>
-    <%= f.text_field :date_of_birth, placeholder: "1992-01-01" %>
+    <%= f.date_select(
+      :date_of_birth,
+      prompt: true,
+      end_year: 100.years.ago.year,
+      start_year: Date.current.year) %>
   </div>
 
   <div class="form_item select_control">

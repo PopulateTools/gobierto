@@ -6,9 +6,15 @@ class User::CensusVerificationFormTest < ActiveSupport::TestCase
       site_id: site.id,
       user_id: user.id,
       document_number: user_verification.document_number,
-      date_of_birth: user_verification.date_of_birth,
+      date_of_birth_year: date_of_birth.year,
+      date_of_birth_month: date_of_birth.month,
+      date_of_birth_day: date_of_birth.day,
       creation_ip: IPAddr.new("0.0.0.0")
     )
+  end
+
+  def date_of_birth
+    @date_of_birth ||= Date.parse(user_verification.date_of_birth)
   end
 
   def user

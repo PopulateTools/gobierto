@@ -13,7 +13,10 @@ class User::CensusVerificationsController < User::BaseController
 
   def create
     @user_verification_form = User::CensusVerificationForm.new(
-      user_verification_params.merge(
+      user_verification_params.except(*ignored_user_verification_params).merge(
+        date_of_birth_year: user_verification_params["date_of_birth(1i)"],
+        date_of_birth_month: user_verification_params["date_of_birth(2i)"],
+        date_of_birth_day: user_verification_params["date_of_birth(3i)"],
         user_id: current_user.id,
         creation_ip: remote_ip
       )
@@ -44,5 +47,9 @@ class User::CensusVerificationsController < User::BaseController
 
   def find_sites
     Site.select(:id, :name).active
+  end
+
+  def ignored_user_verification_params
+    ["date_of_birth(1i)", "date_of_birth(2i)", "date_of_birth(3i)"]
   end
 end

@@ -4,6 +4,7 @@ class User::CensusVerificationTest < ActionDispatch::IntegrationTest
   def setup
     super
     @verification_path = new_user_census_verifications_path
+    @verification_summary_path = user_census_verifications_path
   end
 
   def user
@@ -55,6 +56,18 @@ class User::CensusVerificationTest < ActionDispatch::IntegrationTest
         visit @verification_path
 
         assert has_content?("You are already verified.")
+      end
+    end
+  end
+
+  def test_verification_summary
+    with_current_site(site) do
+      with_signed_in_user(verified_user) do
+        visit @verification_summary_path
+
+        within "table.user-verification tbody" do
+          assert has_selector?("tr", count: 1)
+        end
       end
     end
   end

@@ -3,7 +3,7 @@ class User::CensusVerificationsController < User::BaseController
   before_action :require_no_verified_user, only: [:new, :create]
 
   def show
-    @user_verification = current_user.census_verifications.sorted.first
+    @user_verifications = current_user.census_verifications.sorted
   end
 
   def new

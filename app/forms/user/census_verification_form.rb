@@ -21,7 +21,7 @@ class User::CensusVerificationForm
 
     ActiveRecord::Base.transaction do
       save_census_verification
-      save_user
+      perform_verification
     end
   end
 
@@ -50,7 +50,6 @@ class User::CensusVerificationForm
       census_verification_attributes.creation_ip = creation_ip
       census_verification_attributes.document_number = document_number
       census_verification_attributes.date_of_birth = date_of_birth
-      census_verification_attributes.verified = verified?
     end
 
     if @census_verification.valid?
@@ -64,16 +63,8 @@ class User::CensusVerificationForm
     end
   end
 
-  def save_user
-    user.update_columns(census_verified: verified?)
-  end
-
-  def census_repository
-    @census_repository ||= CensusRepository.new(
-      site_id: site_id,
-      document_number: document_number,
-      date_of_birth: date_of_birth
-    )
+  def perform_verification
+    census_verification.verify!
   end
 
   protected

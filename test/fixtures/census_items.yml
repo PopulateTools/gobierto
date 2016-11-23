@@ -1,11 +1,11 @@
 madrid_92:
-  site_id: madrid (Site)
-  document_number_digest: <%= SecretAttribute.digest("madrid_92") %>
+  site: madrid
+  document_number_digest: <%= SecretAttribute.digest("00000000A") %>
   date_of_birth: 1992-01-01
   verified: false
 
 madrid_96:
-  site_id: madrid (Site)
-  document_number_digest: <%= SecretAttribute.digest("madrid_96") %>
+  site: madrid
+  document_number_digest: <%= SecretAttribute.digest("00000000B") %>
   date_of_birth: 1996-01-01
   verified: false

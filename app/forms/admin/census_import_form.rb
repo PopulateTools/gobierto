@@ -20,7 +20,11 @@ class Admin::CensusImportForm
       complete_import
     end
 
-    census_import.reload.completed?
+    if (result = census_import.reload.completed?)
+      recalculate_user_verifications
+    end
+
+    result
   end
 
   def record_count
@@ -71,6 +75,12 @@ class Admin::CensusImportForm
       imported_records: census_items.size,
       completed: true
     )
+  end
+
+  def recalculate_user_verifications
+    User::Verification::CensusVerification
+      .where(site_id: site_id)
+      .find_each(&:verify_later!)
   end
 
   def file_is_present

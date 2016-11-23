@@ -81,6 +81,9 @@ p.intro {
 	margin-left: auto;
 	margin-right: auto;
 }
+.separator_blue_medium {
+	border-top: 3px solid transparentize($color_main, .65);
+}
 .block_color {
 	background: transparentize($color_main, .94);
 	border-top: 4px solid $color_main;

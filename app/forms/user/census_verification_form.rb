@@ -65,9 +65,7 @@ class User::CensusVerificationForm
   end
 
   def save_user
-    return true unless verified?
-
-    user.update_columns(census_verified: true)
+    user.update_columns(census_verified: verified?)
   end
 
   def census_repository

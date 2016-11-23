@@ -3,9 +3,11 @@ madrid_92:
   document_number_digest: <%= SecretAttribute.digest("00000000A") %>
   date_of_birth: 1992-01-01
   verified: false
+  import_reference: 0
 
 madrid_96:
   site: madrid
   document_number_digest: <%= SecretAttribute.digest("00000000B") %>
   date_of_birth: 1996-01-01
   verified: false
+  import_reference: 0

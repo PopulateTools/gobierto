@@ -26,6 +26,10 @@ class Admin::CensusImportFormTest < ActiveSupport::TestCase
     @site ||= sites(:madrid)
   end
 
+  def user_verification
+    @user_verification ||= user_census_verifications(:dennis_verified)
+  end
+
   def test_save_with_valid_attributes
     with_valid_csv do
       assert valid_user_census_import_form.save
@@ -40,7 +44,7 @@ class Admin::CensusImportFormTest < ActiveSupport::TestCase
 
   def test_items_creation
     with_valid_csv do
-      assert_difference "CensusItem.count", 3 do
+      assert_difference "CensusItem.count", 1 do
         valid_user_census_import_form.save
       end
     end
@@ -52,6 +56,18 @@ class Admin::CensusImportFormTest < ActiveSupport::TestCase
         valid_user_census_import_form.save
       end
     end
+  end
+
+  def test_user_verifications_recalculation
+    assert user_verification.verified
+
+    with_empty_csv do
+      assert_performed_jobs 1 do
+        valid_user_census_import_form.save
+      end
+    end
+
+    refute user_verification.reload.verified
   end
 
   def test_record_count
@@ -76,6 +92,12 @@ class Admin::CensusImportFormTest < ActiveSupport::TestCase
 
   def with_valid_csv
     CSV.stub :read, csv_for(csv_content) do
+      yield
+    end
+  end
+
+  def with_empty_csv
+    CSV.stub :read, [] do
       yield
     end
   end

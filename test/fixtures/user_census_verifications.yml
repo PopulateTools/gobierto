@@ -8,8 +8,8 @@ dennis_verified:
   version: 0
   verified: true
 
-susan_unverified:
-  user: susan
+reed_unverified:
+  user: reed
   site: santander
   verification_type: <%= User::Verification.verification_types["census"] %>
   verification_data: <%= {
@@ -17,3 +17,13 @@ susan_unverified:
     "date_of_birth" => "1996-01-01" }.to_yaml.inspect %>
   version: 0
   verified: false
+
+susan_verified:
+  user: susan
+  site: santander
+  verification_type: <%= User::Verification.verification_types["census"] %>
+  verification_data: <%= {
+    "document_number" => "00000000C",
+    "date_of_birth" => "1992-01-01" }.to_yaml.inspect %>
+  version: 0
+  verified: true

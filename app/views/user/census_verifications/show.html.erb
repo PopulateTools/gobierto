@@ -1,0 +1,47 @@
+<div class="column">
+
+  <div class="pure-g">
+
+    <div class="pure-u-1 pure-u-md-18-24">
+
+      <h1><%= title "Estado de tu verificación" %></h1>
+
+      <table class="user-verification">
+      <tr>
+        <th>Solicitada</th>
+        <th>Sitio</th>
+        <th>Número de documento</th>
+        <th>Fecha de nacimiento</th>
+        <th>Verificada</th>
+      </tr>
+
+      <tbody>
+
+        <% @user_verifications.each do |user_verification| %>
+          <tr>
+            <td>
+              <%= l(user_verification.created_at, format: :short) %>
+            </td>
+            <td>
+              <%= user_verification.site.name %>
+            </td>
+            <td>
+              <%= user_verification.document_number %>
+            </td>
+            <td>
+              <%= user_verification.date_of_birth %>
+            </td>
+            <td>
+              <%= user_verification.verified? %>
+            </td>
+          </tr>
+        <% end %>
+
+      </tbody>
+      </table>
+
+    </div>
+
+  </div>
+
+</div>

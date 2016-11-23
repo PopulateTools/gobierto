@@ -52,7 +52,7 @@ class CensusRepositoryTest < ActiveSupport::TestCase
 
     existing_census_repository =  CensusRepository.new(
       site_id: census_item.site_id,
-      document_number: "madrid_92",
+      document_number: "00000000A",
       date_of_birth: census_item.date_of_birth
     )
 

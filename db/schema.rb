@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161121133131) do
+ActiveRecord::Schema.define(version: 20161122115920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,19 +115,34 @@ ActiveRecord::Schema.define(version: 20161121133131) do
     t.inet     "creation_ip"
   end
 
+  create_table "user_verifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "site_id"
+    t.integer  "verification_type", default: 0,     null: false
+    t.string   "verification_data"
+    t.inet     "creation_ip"
+    t.integer  "version",           default: 0,     null: false
+    t.boolean  "verified",          default: false, null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.index ["site_id"], name: "index_user_verifications_on_site_id", using: :btree
+    t.index ["user_id"], name: "index_user_verifications_on_user_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
-    t.string   "email",                             null: false
-    t.string   "name",                              null: false
+    t.string   "email",                                null: false
+    t.string   "name",                                 null: false
     t.string   "bio"
-    t.string   "password_digest",      default: "", null: false
+    t.string   "password_digest",      default: "",    null: false
     t.string   "confirmation_token"
     t.string   "reset_password_token"
     t.inet     "creation_ip"
     t.datetime "last_sign_in_at"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "source_site_id"
+    t.boolean  "census_verified",      default: false, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree

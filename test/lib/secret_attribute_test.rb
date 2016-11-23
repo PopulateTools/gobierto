@@ -1,6 +1,6 @@
 require "test_helper"
 
-class SecretAttributeTest < MiniTest::Unit::TestCase
+class SecretAttributeTest < Minitest::Test
   def test_digest
     subject = SecretAttribute.digest("wadus")
 

@@ -26,7 +26,8 @@ class Admin::SiteForm
     :password,
     :created_at,
     :updated_at,
-    :creation_ip
+    :creation_ip,
+    :municipality_id
   )
 
   delegate :persisted?, :to_model, to: :site
@@ -37,6 +38,10 @@ class Admin::SiteForm
     allow_blank: true
 
   validates :username, :password, presence: true, if: :draft_visibility?
+  validates :title, presence: true
+  validates :name, presence: true
+  validates :location_name, presence: true
+  validates :municipality_id, presence: true
 
   def save
     save_site if valid?
@@ -86,6 +91,7 @@ class Admin::SiteForm
       site_attributes.name = name
       site_attributes.domain = domain
       site_attributes.location_name = location_name
+      site_attributes.municipality_id = municipality_id
       site_attributes.location_type = location_type
       site_attributes.institution_url = institution_url
       site_attributes.institution_type = institution_type

@@ -7,6 +7,7 @@ class Admin::SiteFormTest < ActiveSupport::TestCase
       name: new_site_name, # To ensure uniqueness
       domain: new_site_domain, # To ensure uniqueness
       location_name: site.location_name,
+      municipality_id: 1,
       visibility_level: "active"
     )
   end
@@ -17,21 +18,24 @@ class Admin::SiteFormTest < ActiveSupport::TestCase
       name: nil,
       domain: site.domain,
       location_name: site.location_name,
+      municipality_id: nil,
       visibility_level: "active"
     )
   end
 
   def valid_google_analytics_id_site_form
     @valid_google_analytics_id_site_form ||= Admin::SiteForm.new(
-      google_analytics_id: "UA-000000-01",
-      visibility_level: "active"
+      valid_site_form.instance_values.merge({
+        google_analytics_id: "UA-000000-01"
+      })
     )
   end
 
   def invalid_google_analytics_id_site_form
     @invalid_google_analytics_id_site_form ||= Admin::SiteForm.new(
-      google_analytics_id: "UA-WADUS",
-      visibility_level: "active"
+      valid_site_form.instance_values.merge({
+        google_analytics_id: "UA-WADUS"
+      })
     )
   end
 
@@ -65,5 +69,6 @@ class Admin::SiteFormTest < ActiveSupport::TestCase
 
     assert invalid_site_form.errors.messages[:title].one?
     assert invalid_site_form.errors.messages[:name].one?
+    assert invalid_site_form.errors.messages[:municipality_id].one?
   end
 end

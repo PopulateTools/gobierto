@@ -18,7 +18,10 @@
 
       <div class="form_item input_text">
         <%= f.label :location_name %>
-        <%= f.text_field :location_name, placeholder: "Burjassot" %>
+        <%= f.text_field(:location_name, placeholder: "Burjassot", data: {
+          autocomplete_url: @services_config.municipalities_suggestions_endpoint
+        }) %>
+        <%= f.hidden_field :municipality_id %>
       </div>
 
       <div class="form_item input_text">
@@ -127,4 +130,10 @@
 
   </div>
 
+<% end %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.App.sites_controller.edit("<%= Rails.application.secrets.tbi_api_token %>");
+  <% end %>
 <% end %>

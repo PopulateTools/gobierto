@@ -8,6 +8,7 @@ madrid:
     "modules" => ["GobiertoBudgets"],
     "google_analytics_id" => "UA-000000-01" }.to_yaml.inspect %>
   location_name: Madrid
+  municipality_id: 1
   location_type: INE::Places::Place
   external_id: <%= INE::Places::Place.find_by_slug("madrid").id %>
   institution_url: http://www.madrid.es
@@ -27,6 +28,7 @@ santander:
     "google_analytics_id" => "UA-000000-02",
     "modules" =>["GobiertoBudgets"]}.to_yaml.inspect %>
   location_name: Santander
+  municipality_id: 1
   location_type: INE::Places::Place
   external_id: <%= INE::Places::Place.find_by_slug("santander").id %>
   institution_url: http://www.santander.es

@@ -14,6 +14,7 @@ class Admin::SitesController < Admin::BaseController
     @site_modules = get_site_modules
     @site_visibility_levels = get_site_visibility_levels
     @dns_config = get_dns_config
+    @services_config = get_services_config
   end
 
   def edit
@@ -26,6 +27,7 @@ class Admin::SitesController < Admin::BaseController
     @site_modules = get_site_modules
     @site_visibility_levels = get_site_visibility_levels
     @dns_config = get_dns_config
+    @services_config = get_services_config
   end
 
   def create
@@ -37,6 +39,7 @@ class Admin::SitesController < Admin::BaseController
     @site_modules = get_site_modules
     @site_visibility_levels = get_site_visibility_levels
     @dns_config = get_dns_config
+    @services_config = get_services_config
 
     if @site_form.save
       track_create_activity
@@ -55,6 +58,7 @@ class Admin::SitesController < Admin::BaseController
     @site_modules = get_site_modules
     @site_visibility_levels = get_site_visibility_levels
     @dns_config = get_dns_config
+    @services_config = get_services_config
 
     if @site_form.save
       track_update_activity
@@ -90,6 +94,10 @@ class Admin::SitesController < Admin::BaseController
     OpenStruct.new(APP_CONFIG["dns_config"])
   end
 
+  def get_services_config
+    OpenStruct.new(APP_CONFIG["services"])
+  end
+
   def get_site_visibility_levels
     Site.visibility_levels
   end
@@ -112,6 +120,7 @@ class Admin::SitesController < Admin::BaseController
       :google_analytics_id,
       :username,
       :password,
+      :municipality_id,
       site_modules: []
     )
   end

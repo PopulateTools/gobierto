@@ -33,6 +33,7 @@ class Admin::SitesControllerTest < ActionController::TestCase
       title: 'Title',
       name: 'Foo',
       location_name: 'Madrid',
+      municipality_id: 1,
       domain: 'test2.gobierto.dev',
       visibility_level: 'active'
     }

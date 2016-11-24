@@ -25,98 +25,9 @@ input[type=submit], .button, button {
 input[type=submit]:hover, .button:hover, button:hover {
   background: darken($color_main, 10%);
 }
-input[type=submit]:disabled, .button:disabled, button:disabled {
-  background: darken($color_main, 20%);
-  color: darken(#fff, 20%);
-}
-option, select {
-  font-weight: 400;
-  padding: 18px;
-  // font-size: .8em;
-  // border: 1px solid #CCC;
-  // background: #F1F1F1;
-}
-.option {
-	padding: 0;
-}
-.option.separate {
-  margin-top: 1em;
-  padding-top: 1em;
-}
-.form_item.input_text, .form_item.textarea, .select_control, .file_field {
-  position: relative;
-  margin: 0 0 1em 0;
-  label {
-    position: absolute;
-    top: .5rem;
-    left: 1rem;
-    text-transform: uppercase;
-    font-size: .75em;
-    font-weight: 700;
-  }
-  input, textarea {
-    padding: 2.75rem 1rem 1.35rem .95rem;
-    width: 100%;
-    outline: none;
-  }
-  textarea {
-    box-sizing: border-box;
-    height: 300px;
-  }
-  input[type=password] {
-    height: 67px;
-    padding: 1.5rem 1rem .25rem 1rem;
-  }
-}
-.select_control {
-  box-sizing: border-box;
-  border: 1px solid $color_separator;
-  @include border-radius(6px);
-  select {
-    margin: 1.75rem 0 0 0;
-  }
-}
-
-.form_item.textarea.code {
-  background: none;
-  textarea {
-    font-size: .75em;
-  }
-}
-
-.form_item {
-  .options {
-    .option {
-      display: block;
-      margin: 0 0 1em 0;
-    }
-  }
-  .options.compact {
-    font-size: .85em;
-    .option {
-      height: 40px;
-      border: none;
-      margin-bottom: .5em;
-    }
-    input[type="checkbox"] + label, input[type="radio"] + label {
-      padding: 5px 9px;
-      margin: -9px 0 0 -9px;
-      @include border-radius(3px);
-    }
-    input[type="checkbox"] + label span, input[type="radio"] + label span {
-      height: 14px;
-      width: 14px;
-    }
-  }
-}
-.widget_save {
-  .form_item {
-    .options.compact {
-      .option {
-        height: initial;  
-      }
-    }  
-  }
+button a {
+  color: #FFF;
+  text-decoration: none;
 }
 .button, button {
   text-decoration: none;
@@ -126,13 +37,46 @@ option, select {
 .button:hover, button {
   color: #FFF;
 }
+button.soft, .button.soft {
+  background: transparentize($color_main, .35);
+}
 button.light, .button.light {
-	background: $color_main_negative;
-	border: 1px solid $color_separator;
-	color: $color_main;
+  background: $color_main_negative;
+  border: 1px solid $color_separator;
+  color: $color_main;
+}
+button.gigantic {
+  font-size: 1.3em;
+  height: initial;
+  padding: 1.4em 4em 1.2em;
+  margin: 1em 0;
+  @include border-radius(2em);
+}
+button.small {
+  font-size: .95em;
+  padding: .45em 2em .3em;
+  height: initial;
+  line-height: 1.2em;
+  font-weight: 200;
+  @include border-radius(2em);
 }
 button.light:hover, .button.light:hover {
-	background: rgba($color_main, .2);
+  background: rgba($color_main, .2);
+}
+.button_light {
+  background: rgba($color_1, .2);
+  @include transition;
+  font-size: .75em;
+  text-decoration: none;
+  padding: .5em 1.5em;
+  line-height: 1.2em;
+  @include border-radius(20px);
+  margin: 1em 0;
+  display: inline-block;
+}
+.button_light:hover {
+  background: rgba($color_1, .3);
+  text-decoration: none;
 }
 input[type="checkbox"], input[type="radio"] {
   display: none;
@@ -184,7 +128,7 @@ input[type="checkbox"]:checked + label span, input[type="radio"]:checked + label
   background: $color_main;
 }
 input[type="radio"] + label span {
-	@include border-radius(13px);
+  @include border-radius(13px);
 }
 select {
   -webkit-appearance: none;
@@ -196,24 +140,129 @@ select {
 select::-ms-expand { /* for IE 11 */
   display: none;
 }
+input[type=submit]:disabled, .button:disabled, button:disabled {
+  background: darken($color_main, 20%);
+  color: darken(#fff, 20%);
+}
+option, select {
+  font-weight: 400;
+  padding: 18px;
+  width: 100%;
+  /*font-size: .8em;
+  border: 1px solid #CCC;
+  background: #F1F1F1;
+  */
+}
+.option {
+	padding: 0;
+}
+.option.separate {
+  margin-top: 1em;
+  padding-top: 1em;
+}
+.form_item.input_text, .form_item.textarea, .select_control, .file_field {
+  position: relative;
+  margin: 0 0 1em 0;
+  label {
+    position: absolute;
+    top: .5rem;
+    left: 1rem;
+    text-transform: uppercase;
+    font-size: .75em;
+    font-weight: 700;
+  }
+  input, textarea {
+    padding: 2.75rem 1rem 1.35rem .95rem;
+    width: 100%;
+    outline: none;
+  }
+  textarea {
+    box-sizing: border-box;
+    height: 300px;
+  }
+  input[type=password] {
+    height: 67px;
+    padding: 1.5rem 1rem .25rem 1rem;
+  }
+}
+.select_control, .options_cont {
+  box-sizing: border-box;
+  border: 1px solid $color_separator;
+  @include border-radius(6px);
+  select {
+    margin: 1.75rem 0 0 0;
+  }
+}
+.options_cont {
+  margin: 0 0 1em 0;
+  > label {
+    margin: .5rem 1rem;
+    display: block;
+    text-transform: uppercase;
+    font-size: .75em;
+    font-weight: 700;  
+  }
+}
+.form_item.textarea.code {
+  background: none;
+  textarea {
+    font-size: .75em;
+  }
+}
+.form_item {
+  position: relative;
+  .options {
+    .option {
+      display: block;
+      margin: 0 0 1em 0;
+    }
+  }
+  .options.options_cont {
+    .option {
+      margin: 0 1em 1em 1em;
+      font-size: .85em;
+      box-sizing: border-box;
+    }
+  }
+  .options.compact {
+    font-size: .85em;
+    .option {
+      height: 40px;
+      border: none;
+      margin-bottom: .5em;
+    }
+    input[type="checkbox"] + label, input[type="radio"] + label {
+      padding: 5px 9px;
+      margin: -9px 0 0 -9px;
+      @include border-radius(3px);
+    }
+    input[type="checkbox"] + label span, input[type="radio"] + label span {
+      height: 14px;
+      width: 14px;
+    }
+  }
+  .fa {
+    margin: 0 .5em;
+    opacity: .5;
+  }
+  .fa-question-circle {
+    position: absolute;
+    top: .5rem;
+    right: 0;
+  }
+}
+.widget_save {
+  .form_item {
+    .options.compact {
+      .option {
+        height: initial;  
+      }
+    }  
+  }
+}
 .disclaimer {
 	font-size: .75em;
 	opacity: .5;
-}
-.button_light {
-  background: rgba($color_1, .2);
-  @include transition;
-  font-size: .75em;
-  text-decoration: none;
-  padding: .5em 1.5em;
-  line-height: 1.2em;
-  @include border-radius(20px);
-  margin: 1em 0;
-  display: inline-block;
-}
-.button_light:hover {
-  background: rgba($color_1, .3);
-  text-decoration: none;
 }
 
 .slim_search {

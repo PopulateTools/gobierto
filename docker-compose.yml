@@ -14,6 +14,7 @@ web:
     - MAILCATCHER_HOST=mailcatcher
     - BUNDLE_PATH=/bundle
     - PYTHONUNBUFFERED=1
+    - REDIS_URL=redis://redis:6379
   volumes:
     - .:/app
   volumes_from:
@@ -24,6 +25,7 @@ web:
     - postgres
     - elasticsearch
     - mailcatcher
+    - redis
 
 test:
   build: .
@@ -45,6 +47,30 @@ test:
   links:
     - postgres
     - elasticsearch
+
+sidekiq:
+  image: gobiertodev_web
+  command: ./script/sidekiq_server
+  env_file: .env
+  environment:
+    - RAILS_ENV=development
+    - RACK_ENV=development
+    - DISABLE_SPRING=true
+    - RAILS_LOG_TO_STDOUT=true
+    - PG_HOST=postgres
+    - PG_USERNAME=postgres
+    - ELASTICSEARCH_URL=http://elasticsearch:9200
+    - MAILCATCHER_HOST=mailcatcher
+    - BUNDLE_PATH=/bundle
+    - PYTHONUNBUFFERED=1
+    - REDIS_URL=redis://redis:6379
+  volumes_from:
+    - web
+  links:
+    - postgres
+    - elasticsearch
+    - mailcatcher
+    - redis
 
 bundle:
   image: busybox
@@ -68,3 +94,8 @@ mailcatcher:
   ports:
     - "1025"
     - "1080:1080"
+
+redis:
+  image: redis:3.0
+  ports:
+    - "6379"

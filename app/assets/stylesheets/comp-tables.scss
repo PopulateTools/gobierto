@@ -15,6 +15,24 @@ table {
 	td.qty {
 		text-align: right;
 	}
+	tr.summary_row {
+		td {
+			border-top: 3px solid transparentize($color_main, .65);
+			padding-top: 1em;
+		}
+	}
+	tr.no_border {
+		td {
+			border: none;
+		}
+	}
+	tr.summary_row_end {
+		td {
+			border-bottom: 3px solid transparentize($color_main, .65);
+			padding-bottom: 1em;
+		}
+	}
+
 }
 tr {
 	vertical-align: top;

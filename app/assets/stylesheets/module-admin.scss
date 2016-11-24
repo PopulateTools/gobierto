@@ -187,13 +187,16 @@ menu.main {
 
 
 /* Headings */
-h1 {
-	font-size: 1.8em;
-	margin: 0 0 1em 0;
+body.gobierto_admin {
+	h1 {
+		font-size: 1.8em;
+		margin: 0 0 1em 0;
+	}
+	h2 {
+		text-transform: uppercase;
+	}
 }
-h2 {
-	text-transform: uppercase;
-}
+
 
 .form_block {
 	margin: 3em 0;

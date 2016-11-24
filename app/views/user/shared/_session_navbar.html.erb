@@ -12,6 +12,12 @@
           <% end %>
         </li>
         <li>
+          <%= link_to new_user_census_verifications_path do %>
+            <i class="fa fa-check"></i>
+            <%= t(".verify_your_account") %>
+          <% end %>
+        </li>
+        <li>
           <%= link_to user_sessions_path, method: :delete do %>
             <i class="fa fa-sign-out"></i>
             <%= t(".sign_out") %>

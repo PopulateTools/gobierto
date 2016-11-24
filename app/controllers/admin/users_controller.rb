@@ -50,6 +50,7 @@ class Admin::UsersController < Admin::BaseController
       creation_ip last_sign_in_ip
       last_sign_in_at
       source_site_id
+      census_verified
     )
   end
 end

@@ -23,6 +23,9 @@ class Admin::SiteCreateTest < ActionDispatch::IntegrationTest
         fill_in "site_foot_markup", with: "Site Foot markup"
         fill_in "site_google_analytics_id", with: "UA-000000-01"
 
+        # Simulate Location selection in user control
+        find("#site_municipality_id", visible: false).set("1")
+
         within ".site-module-check-boxes" do
           check "Gobierto Development"
         end

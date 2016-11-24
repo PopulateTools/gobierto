@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161117070200) do
+ActiveRecord::Schema.define(version: 20161124065317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,17 @@ ActiveRecord::Schema.define(version: 20161117070200) do
     t.index ["site_id"], name: "index_activities_on_site_id", using: :btree
     t.index ["subject_id", "subject_type"], name: "index_activities_on_subject_id_and_subject_type", using: :btree
     t.index ["subject_type", "subject_id"], name: "index_activities_on_subject_type_and_subject_id", using: :btree
+  end
+
+  create_table "admin_census_imports", force: :cascade do |t|
+    t.integer  "admin_id"
+    t.integer  "site_id"
+    t.integer  "imported_records", default: 0,     null: false
+    t.boolean  "completed",        default: false, null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.index ["admin_id"], name: "index_admin_census_imports_on_admin_id", using: :btree
+    t.index ["site_id"], name: "index_admin_census_imports_on_site_id", using: :btree
   end
 
   create_table "admin_permissions", force: :cascade do |t|
@@ -73,6 +84,18 @@ ActiveRecord::Schema.define(version: 20161117070200) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
   end
 
+  create_table "census_items", force: :cascade do |t|
+    t.integer "site_id"
+    t.string  "document_number_digest", default: "",    null: false
+    t.string  "date_of_birth",          default: "",    null: false
+    t.integer "import_reference"
+    t.boolean "verified",               default: false, null: false
+    t.index ["site_id", "document_number_digest", "date_of_birth", "verified"], name: "index_census_items_on_site_id_and_doc_number_and_birth_verified", using: :btree
+    t.index ["site_id", "document_number_digest", "date_of_birth"], name: "index_census_items_on_site_id_and_doc_number_and_date_of_birth", using: :btree
+    t.index ["site_id", "import_reference"], name: "index_census_items_on_site_id_and_import_reference", using: :btree
+    t.index ["site_id"], name: "index_census_items_on_site_id", using: :btree
+  end
+
   create_table "sites", force: :cascade do |t|
     t.string   "external_id"
     t.string   "name"
@@ -90,21 +113,37 @@ ActiveRecord::Schema.define(version: 20161117070200) do
     t.string   "title",                       default: "", null: false
     t.integer  "visibility_level",            default: 0,  null: false
     t.inet     "creation_ip"
+    t.integer  "municipality_id"
+  end
+
+  create_table "user_verifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "site_id"
+    t.integer  "verification_type", default: 0,     null: false
+    t.string   "verification_data"
+    t.inet     "creation_ip"
+    t.integer  "version",           default: 0,     null: false
+    t.boolean  "verified",          default: false, null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.index ["site_id"], name: "index_user_verifications_on_site_id", using: :btree
+    t.index ["user_id"], name: "index_user_verifications_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                             null: false
-    t.string   "name",                              null: false
+    t.string   "email",                                null: false
+    t.string   "name",                                 null: false
     t.string   "bio"
-    t.string   "password_digest",      default: "", null: false
+    t.string   "password_digest",      default: "",    null: false
     t.string   "confirmation_token"
     t.string   "reset_password_token"
     t.inet     "creation_ip"
     t.datetime "last_sign_in_at"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.integer  "source_site_id"
+    t.boolean  "census_verified",      default: false, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree

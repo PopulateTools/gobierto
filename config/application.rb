@@ -35,7 +35,7 @@ module RailsTemplate
 
     config.action_mailer.default_url_options = { host: 'gobierto.es', protocol: 'https' }
 
-    config.active_job.queue_adapter = nil
+    config.active_job.queue_adapter = :async
 
     # Autoloading
     config.autoload_paths += [

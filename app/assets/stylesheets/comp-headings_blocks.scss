@@ -3,7 +3,7 @@
  *
  */
 h1, h2, h3, h4 {
-
+	line-height: 1.2em;
 }
 .block {
 	h2 {
@@ -22,6 +22,9 @@ h1, h2, h3, h4 {
 		line-height: 1.3em;
 		opacity: .6;
 	}
+}
+h1.light {
+	font-weight: 200;
 }
 h2.lite {
 	margin: 0 0 .5em 0;
@@ -77,6 +80,9 @@ p.intro {
 	width: 25%;
 	margin-left: auto;
 	margin-right: auto;
+}
+.separator_blue_medium {
+	border-top: 3px solid transparentize($color_main, .65);
 }
 .block_color {
 	background: transparentize($color_main, .94);

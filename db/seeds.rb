@@ -1,7 +1,7 @@
 fixtures_to_load = [
   "sites",
-  "admins",
-  "users"
+  "users",
+  "gobierto_admin/admins"
 ]
 
 ENV["FIXTURES"] = fixtures_to_load.join(",")

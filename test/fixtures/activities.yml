@@ -1,7 +1,7 @@
 site_updated_by_admin:
   action: 'sites.site_updated'
   subject: madrid (Site)
-  author: tony (Admin)
+  author: tony (GobiertoAdmin::Admin)
   recipient: nil
   subject_ip: '1.2.3.4'
   admin_activity: true

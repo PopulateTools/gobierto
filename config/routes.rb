@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   # Admin module
-  namespace :admin do
+  namespace :gobierto_admin, as: :admin do
     get '/' => 'welcome#index', as: :root
     get '/login' => 'sessions#new'
 

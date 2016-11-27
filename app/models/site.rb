@@ -2,9 +2,9 @@ class Site < ApplicationRecord
 
   RESERVED_SUBDOMAINS = %W(presupuestos)
 
-  has_many :admin_sites, dependent: :destroy
-  has_many :admins, through: :admin_sites
-  has_many :census_imports, dependent: :destroy, class_name: "Admin::CensusImport"
+  has_many :admin_sites, dependent: :destroy, class_name: "GobiertoAdmin::AdminSite"
+  has_many :admins, through: :admin_sites, class_name: "GobiertoAdmin::Admin"
+  has_many :census_imports, dependent: :destroy, class_name: "GobiertoAdmin::CensusImport"
 
   serialize :configuration_data
 
@@ -52,6 +52,6 @@ class Site < ApplicationRecord
   end
 
   def initialize_admins
-    self.admins = Array(Admin.preset)
+    self.admins = Array(GobiertoAdmin::Admin.preset)
   end
 end

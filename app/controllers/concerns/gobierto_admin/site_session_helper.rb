@@ -6,7 +6,7 @@ module GobiertoAdmin
 
     def current_site
       @current_site ||= begin
-        if session[:site_id] && (matched_site = Site.find_by(id: session[:site_id]))
+        if session[:admin_site_id] && (matched_site = Site.find_by(id: session[:admin_site_id]))
           SiteDecorator.new(matched_site)
         else
           SiteDecorator.new(managed_sites.first) if managed_sites.present?
@@ -19,11 +19,11 @@ module GobiertoAdmin
     end
 
     def leave_site
-      @current_site = session[:site_id] = nil
+      @current_site = session[:admin_site_id] = nil
     end
 
     def enter_site(site_id)
-      session[:site_id] = site_id
+      session[:admin_site_id] = site_id
     end
 
     def managed_sites

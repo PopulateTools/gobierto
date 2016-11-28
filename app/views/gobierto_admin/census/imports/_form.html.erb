@@ -1,0 +1,9 @@
+<%= render "gobierto_admin/shared/validation_errors", resource: @census_import_form %>
+
+<%= form_for(@census_import_form, as: :census_import, url: :admin_census_imports, html: { multipart: true }) do |f| %>
+  <div class="form_item file_field">
+    <%= f.file_field :file %>
+  </div>
+
+  <%= f.submit "Cargar archivo de censo", class: "button", data: { disable_with: "Cargando..." } %>
+<% end %>

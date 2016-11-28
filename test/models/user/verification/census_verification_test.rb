@@ -2,11 +2,11 @@ require "test_helper"
 
 class User::Verification::CensusVerificationTest < ActiveSupport::TestCase
   def user_verification
-    @user_verification ||= user_census_verifications(:dennis_verified)
+    @user_verification ||= user_verification_census_verifications(:dennis_verified)
   end
 
   def unverified_user_verification
-    @unverified_user_verification ||= user_census_verifications(:reed_unverified)
+    @unverified_user_verification ||= user_verification_census_verifications(:reed_unverified)
   end
 
   def test_valid

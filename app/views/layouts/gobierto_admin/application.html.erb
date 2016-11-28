@@ -102,7 +102,12 @@
 
         <ul >
           <li><a href="">Visualización presupuestos</a></li>
-          <li><a href="admin_consultations">Consultas presupuestos</a></li>
+          <li>
+            <%= link_to t(".budget_consultations"), admin_gobierto_budget_consultations_consultations_path %>
+          </li>
+
+          <li class="sep"></li>
+
           <li><a href="">Inteligencia</a></li>
           <li><a href="">Personas</a>
             <ul>
@@ -116,9 +121,10 @@
           <li><a href="">Cuadro de mando</a></li>
           <li><a href="">Mapas</a></li>
           <li><a href="">Participación</a></li>
-          <li class="sep">
-            <%= link_to t(".users"), admin_users_path %>
-          </li>
+
+          <li class="sep"></li>
+
+          <li><%= link_to t(".users"), admin_users_path %></li>
           <li><a href="admin_sites_site">Personalizar sitio</a></li>
         </ul>
 

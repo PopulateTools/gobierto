@@ -6,6 +6,9 @@ default: &default
     -
       name: Gobierto Budgets
       namespace: GobiertoBudgets
+    -
+      name: Gobierto Budget Consultations
+      namespace: GobiertoBudgetConsultations
   dns_config:
     cname_record_target: site.gobierto.dev
     a_record_target: 222.111.222.11

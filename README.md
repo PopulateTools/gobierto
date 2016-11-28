@@ -1,4 +1,5 @@
 [![CircleCI](https://circleci.com/gh/PopulateTools/gobierto-dev.svg?style=svg)](https://circleci.com/gh/PopulateTools/gobierto-dev)
+[![codecov](https://img.shields.io/codecov/c/github/PopulateTools/gobierto-dev.svg)](https://codecov.io/gh/PopulateTools/gobierto-dev)
 [![Stories in Ready](https://badge.waffle.io/PopulateTools/gobierto-dev.svg?label=ready&title=Ready)](http://waffle.io/PopulateTools/gobierto-dev)
 
 ![Gobierto](https://gobierto.es/assets/logo_gobierto.png)

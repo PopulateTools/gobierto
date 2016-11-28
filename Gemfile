@@ -46,6 +46,7 @@ group :test do
   gem "poltergeist"
   gem "database_cleaner"
   gem "launchy"
+  gem "codecov", "~> 0.1.9", require: false
 end
 
 group :development do

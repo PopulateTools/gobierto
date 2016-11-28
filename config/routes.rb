@@ -39,7 +39,7 @@ Rails.application.routes.draw do
 
     resources :activities, only: [:index]
 
-    namespace :gobierto_budget_consultations, path: nil do
+    namespace :gobierto_budget_consultations, as: :budget, path: :budgets do
       resources :consultations, only: [:index, :show, :new, :create, :edit, :update] do
         resources :consultation_items
         resources :consultation_responses, only: [:index, :show]
@@ -65,7 +65,7 @@ Rails.application.routes.draw do
     end
 
     # Gobierto Budget Consultations module
-    namespace :gobierto_budget_consultations, path: :budgets do
+    namespace :gobierto_budget_consultations, as: :budget, path: :budgets do
       constraints GobiertoSiteConstraint.new do
         resources :consultations, only: [:index, :show] do
           resource :consultation_responses, only: [:new, :create, :edit, :update], path: :participate

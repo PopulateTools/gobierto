@@ -1,0 +1,9 @@
+dennis_madrid_open:
+  consultation: madrid_open
+  user: dennis
+  consultation_items: <%= {
+    "0" => "0",
+    "1" => "0",
+    "2" => "1" }.to_yaml.inspect %>
+  budget_amount: 9.99
+  visibility_level: <%= GobiertoBudgetConsultations::ConsultationResponse.visibility_levels["active"] %>

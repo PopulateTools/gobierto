@@ -1,7 +1,10 @@
 fixtures_to_load = [
   "sites",
   "users",
-  "gobierto_admin/admins"
+  "gobierto_admin/admins",
+  "gobierto_budget_consultations/consultations",
+  "gobierto_budget_consultations/consultation_items",
+  "gobierto_budget_consultations/consultation_responses"
 ]
 
 ENV["FIXTURES"] = fixtures_to_load.join(",")

@@ -1,0 +1,15 @@
+madrid_open:
+  site: madrid
+  admin: tony
+  title: Consulta sobre los presupuestos de Madrid
+  description: |
+    Esta política de gasto comprende los originados por los servicios a que se
+    refiere su denominación, tales como promoción y difusión deportiva, gastos
+    de creación, conservación y funcionamiento de los edificios destinados a
+    piscinas, instalaciones deportivas de todo tipo o cualquier otra actuación
+    directamente relacionada con el deporte o la política deportiva de la
+    respectiva Entidad local.
+  opens_on: <%= Date.today %>
+  closes_on: <%= 1.year.from_now %>
+  budget_amount: 9.99
+  visibility_level: <%= GobiertoBudgetConsultations::Consultation.visibility_levels["active"] %>

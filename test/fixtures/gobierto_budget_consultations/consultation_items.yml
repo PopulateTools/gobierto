@@ -1,0 +1,13 @@
+madrid_sports_facilities:
+  consultation: madrid_open
+  title: Inversión en Instalaciones Deportivas
+  description: |
+    Comentario editorial sobre el estado de las inversiones en deportes.
+    Se podría reutilizar lo que se genere para una Historia. Se acompañaría
+    de gráficas y métricas generadas automaticamente y que se podrían
+    seleccionar.
+  budget_line_name: Bienestar comunitario > Cultura > Deporte > Instalaciones deportivas
+  budget_line_code: 40-42
+  budget_line_entity_id: 4042.0
+  budget_line_amount: 9.99
+  position: 1

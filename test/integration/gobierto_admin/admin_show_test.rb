@@ -8,7 +8,7 @@ module GobiertoAdmin
     end
 
     def admin
-      @admin ||= admins(:nick)
+      @admin ||= gobierto_admin_admins(:nick)
     end
 
     def test_admin_show

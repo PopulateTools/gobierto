@@ -10,11 +10,11 @@ module GobiertoAdmin
     attr_reader :notification_service_spy
 
     def admin
-      @admin ||= admins(:nick)
+      @admin ||= gobierto_admin_admins(:nick)
     end
 
     def regular_admin
-      @regular_admin ||= admins(:tony)
+      @regular_admin ||= gobierto_admin_admins(:tony)
     end
 
     def site

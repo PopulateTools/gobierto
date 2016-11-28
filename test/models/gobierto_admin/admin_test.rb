@@ -14,30 +14,30 @@ module GobiertoAdmin
     include Session::TrackableTest
 
     def admin
-      @admin ||= admins(:tony)
+      @admin ||= gobierto_admin_admins(:tony)
     end
     alias user admin
 
     def unconfirmed_admin
-      @unconfirmed_admin ||= admins(:steve)
+      @unconfirmed_admin ||= gobierto_admin_admins(:steve)
     end
     alias unconfirmed_user unconfirmed_admin
 
     def manager_admin
-      @manager_admin ||= admins(:nick)
+      @manager_admin ||= gobierto_admin_admins(:nick)
     end
 
     def god_admin
-      @god_admin ||= admins(:natasha)
+      @god_admin ||= gobierto_admin_admins(:natasha)
     end
 
     def invited_admin
-      @invited_admin ||= admins(:steve)
+      @invited_admin ||= gobierto_admin_admins(:steve)
     end
     alias invited_user invited_admin
 
     def recoverable_admin
-      @recoverable_admin ||= admins(:steve)
+      @recoverable_admin ||= gobierto_admin_admins(:steve)
     end
     alias recoverable_user recoverable_admin
 

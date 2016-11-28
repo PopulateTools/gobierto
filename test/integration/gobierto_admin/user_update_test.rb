@@ -3,7 +3,7 @@ require "test_helper"
 module GobiertoAdmin
   class UserUpdateTest < ActionDispatch::IntegrationTest
     def signed_in_admin
-      @signed_in_admin ||= admins(:nick)
+      @signed_in_admin ||= gobierto_admin_admins(:nick)
     end
 
     def user

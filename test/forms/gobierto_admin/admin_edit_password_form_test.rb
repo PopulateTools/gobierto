@@ -11,7 +11,7 @@ module GobiertoAdmin
     end
 
     def admin
-      @admin ||= admins(:tony)
+      @admin ||= gobierto_admin_admins(:tony)
     end
 
     def test_validation

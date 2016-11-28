@@ -3,11 +3,11 @@ require "test_helper"
 module GobiertoAdmin
   class SitePolicyTest < ActiveSupport::TestCase
     def regular_admin
-      @regular_admin ||= admins(:tony)
+      @regular_admin ||= gobierto_admin_admins(:tony)
     end
 
     def manager_admin
-      @manager_admin ||= admins(:nick)
+      @manager_admin ||= gobierto_admin_admins(:nick)
     end
 
     def site

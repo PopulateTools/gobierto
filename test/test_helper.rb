@@ -28,7 +28,6 @@ class ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
   fixtures :all
-  set_fixture_class admins: GobiertoAdmin::Admin
 
   def setup
     DatabaseCleaner.start

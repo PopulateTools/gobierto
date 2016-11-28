@@ -3,7 +3,7 @@ require "test_helper"
 module GobiertoAdmin
   class PermissionTest < ActiveSupport::TestCase
     def admin
-      @admin ||= admins(:tony)
+      @admin ||= gobierto_admin_admins(:tony)
     end
 
     def admin_permission

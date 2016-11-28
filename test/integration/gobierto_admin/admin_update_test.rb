@@ -3,15 +3,15 @@ require "test_helper"
 module GobiertoAdmin
   class AdminUpdateTest < ActionDispatch::IntegrationTest
     def regular_admin
-      @regular_admin ||= admins(:tony)
+      @regular_admin ||= gobierto_admin_admins(:tony)
     end
 
     def manager_admin
-      @manager_admin ||= admins(:nick)
+      @manager_admin ||= gobierto_admin_admins(:nick)
     end
 
     def god_admin
-      @god_admin ||= admins(:natasha)
+      @god_admin ||= gobierto_admin_admins(:natasha)
     end
 
     def test_regular_admin_update

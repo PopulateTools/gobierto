@@ -14,7 +14,7 @@ class Subscribers::SiteActivityTest < ActiveSupport::TestCase
   end
 
   def admin
-    @admin ||= admins(:tony)
+    @admin ||= gobierto_admin_admins(:tony)
   end
 
   def ip_address

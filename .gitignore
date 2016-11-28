@@ -31,3 +31,6 @@ config/environments/*.local.yml
 
 # Deploy
 config/deploy/production.rb
+
+# Coverage reports
+/coverage

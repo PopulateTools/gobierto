@@ -11,6 +11,33 @@ require "support/site_session_helpers"
 require "spy/integration"
 require "support/message_delivery_helpers"
 
+if ENV["CI"] || ENV["RUN_COVERAGE"]
+  require "simplecov"
+  SimpleCov.start "rails" do
+    add_filter "app/models/concerns"
+    add_filter "app/controllers/concerns"
+
+    add_group "Controllers", "app/controllers"
+    add_group "Models", "app/models"
+    add_group "Forms", "app/forms"
+    add_group "Services", "app/services"
+    add_group "Decorators", "app/decorators"
+    add_group "Presenters", "app/presenters"
+    add_group "Repositories", "app/repositories"
+    add_group "PubSub", "app/pub_sub"
+    add_group "Jobs", "app/jobs"
+    add_group "Policies", "app/policies"
+    add_group "Helpers", "app/helpers"
+    add_group "Mailers", "app/mailers"
+    add_group "Views", "app/views"
+  end
+end
+
+if ENV["CI"]
+  require "codecov"
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
+end
+
 I18n.locale = I18n.default_locale = :en
 Time.zone = "UTC"
 

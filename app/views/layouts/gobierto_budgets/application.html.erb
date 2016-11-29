@@ -10,6 +10,10 @@
   <% if Rails.env.production? %>
     <%= render 'layouts/analytics_header_site' %>
   <% end %>
+  <script type="text/javascript">
+    I18n.defaultLocale = "<%= I18n.default_locale %>";
+    I18n.locale = "<%= I18n.locale %>";
+  </script>
 </head>
 
 <body <%= data_attributes %>>

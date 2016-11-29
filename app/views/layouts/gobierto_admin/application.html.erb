@@ -12,7 +12,7 @@
   <% end %>
 </head>
 
-<body <%= data_attributes %> class="gobierto_admin ">
+<body <%= yield(:body_attributes) %> class="gobierto_admin">
 
   <header class="main clearfix">
 
@@ -103,7 +103,7 @@
         <ul >
           <li><a href="">Visualización presupuestos</a></li>
           <li>
-            <%= link_to t(".budget_consultations"), admin_gobierto_budget_consultations_consultations_path %>
+            <%= link_to t(".budget_consultations"), admin_budget_consultations_path %>
           </li>
 
           <li class="sep"></li>

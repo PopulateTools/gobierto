@@ -1,0 +1,22 @@
+<div class="admin_breadcrumb">
+   <%= link_to 'Inicio', admin_root_path %> »
+   <%= link_to 'Consultas sobre presupuestos', admin_budget_consultations_path %> »
+   Editar consulta
+</div>
+
+<h1>
+  <%= @consultation_form.title %>
+</h1>
+
+<div class="tabs">
+  <ul>
+    <li class="active">
+      <%= link_to "Consulta", "#" %>
+    </li>
+    <li>
+      <%= link_to "Partidas", "#" %>
+    </li>
+  </ul>
+</div>
+
+<%= render "form" %>

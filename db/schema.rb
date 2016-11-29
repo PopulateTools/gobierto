@@ -97,16 +97,14 @@ ActiveRecord::Schema.define(version: 20161127123102) do
   end
 
   create_table "gbc_consultation_items", force: :cascade do |t|
-    t.string   "title",                                         default: "",    null: false
+    t.string   "title",                                      default: "",    null: false
     t.text     "description"
-    t.string   "budget_line_name",                              default: "",    null: false
-    t.string   "budget_line_code",                              default: "",    null: false
-    t.string   "budget_line_entity_id",                         default: "",    null: false
-    t.decimal  "budget_line_amount",    precision: 8, scale: 2, default: "0.0", null: false
-    t.integer  "position",                                      default: 0,     null: false
+    t.string   "budget_line_id",                             default: "",    null: false
+    t.decimal  "budget_line_amount", precision: 8, scale: 2, default: "0.0", null: false
+    t.integer  "position",                                   default: 0,     null: false
     t.integer  "consultation_id"
-    t.datetime "created_at",                                                    null: false
-    t.datetime "updated_at",                                                    null: false
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
     t.index ["consultation_id"], name: "index_gbc_consultation_items_on_consultation_id", using: :btree
   end
 

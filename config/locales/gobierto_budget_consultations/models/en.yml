@@ -1,0 +1,15 @@
+---
+en:
+  activerecord:
+    models:
+      gobierto_budget_consultations/consultation: Consultation
+      gobierto_budget_consultations/consultation_item: Budget line
+    attributes:
+      gobierto_budget_consultations/consultation:
+        title: Title
+        description: Description
+        opening_date_range: Start and end dates
+      gobierto_budget_consultations/consultation_item:
+        title: Title
+        description: Description
+        budget_line_id: Budget line

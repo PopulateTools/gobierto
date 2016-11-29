@@ -1,0 +1,15 @@
+---
+es:
+  activerecord:
+    models:
+      gobierto_budget_consultations/consultation: Consulta
+      gobierto_budget_consultations/consultation_item: Partida
+    attributes:
+      gobierto_budget_consultations/consultation:
+        title: Título
+        description: Descripción
+        opening_date_range: Fecha de inicio - fin
+      gobierto_budget_consultations/consultation_item:
+        title: Título
+        description: Descripción
+        budget_line_id: Partida

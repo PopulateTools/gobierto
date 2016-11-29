@@ -41,9 +41,9 @@ Rails.application.routes.draw do
 
     namespace :gobierto_budget_consultations, as: :budget, path: :budgets do
       resources :consultations, only: [:index, :show, :new, :create, :edit, :update] do
-        resources :consultation_items
-        resources :consultation_responses, only: [:index, :show]
-        resource :consultation_reports, only: [:show]
+        resources :consultation_items, controller: "consultations/consultation_items", path: :items
+        resources :consultation_responses, only: [:index, :show], controller: "consultations/consultation_responses", path: :responses
+        resource :consultation_reports, only: [:show], controller: "consultations/consultation_reports", path: :reports
       end
     end
   end
@@ -68,7 +68,7 @@ Rails.application.routes.draw do
     namespace :gobierto_budget_consultations, as: :budget, path: :budgets do
       constraints GobiertoSiteConstraint.new do
         resources :consultations, only: [:index, :show] do
-          resource :consultation_responses, only: [:new, :create, :edit, :update], path: :participate
+          resource :consultation_responses, only: [:new, :create, :edit, :update], controller: "consultations/consultation_responses", path: :participate
         end
       end
     end

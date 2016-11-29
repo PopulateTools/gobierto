@@ -24,7 +24,6 @@ module GobiertoAdmin
             within "form.new_consultation" do
               fill_in "consultation_title", with: "Consultation Title"
               fill_in "consultation_description", with: "Consultation Description"
-
               fill_in "consultation_opening_date_range", with: "2016-01-01 - 2016-12-01"
 
               within ".consultation-visibility-level-radio-buttons" do
@@ -35,17 +34,8 @@ module GobiertoAdmin
             end
 
             assert has_content?("Consultation was successfully created.")
-
-            within "table.consultations-list tbody tr", match: :first do
-              assert has_content?("Consultation Title")
-              assert has_content?("Active")
-
-              click_link "Consultation Title"
-            end
-
-            within ".consultation-visibility-level-radio-buttons" do
-              assert has_checked_field?("Active")
-            end
+            assert has_selector?("h1", text: "Consultation Title")
+            assert has_selector?(".consultation-items-list")
           end
         end
       end

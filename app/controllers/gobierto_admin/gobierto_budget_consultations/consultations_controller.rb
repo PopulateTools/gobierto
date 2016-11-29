@@ -33,7 +33,10 @@ module GobiertoAdmin
         )
 
         if @consultation_form.save
-          redirect_to admin_budget_consultations_path, notice: "Consultation was successfully created."
+          redirect_to(
+            admin_budget_consultation_consultation_items_path(@consultation_form.consultation),
+            notice: "Consultation was successfully created."
+          )
         else
           @consultation_visibility_levels = get_consultation_visibility_levels
           @opening_date_range_separator = get_opening_date_range_separator
@@ -48,7 +51,10 @@ module GobiertoAdmin
         )
 
         if @consultation_form.save
-          redirect_to admin_budget_consultations_path, notice: "Consultation was successfully updated."
+          redirect_to(
+            admin_budget_consultations_path,
+            notice: "Consultation was successfully updated."
+          )
         else
           @consultation_visibility_levels = get_consultation_visibility_levels
           @opening_date_range_separator = get_opening_date_range_separator

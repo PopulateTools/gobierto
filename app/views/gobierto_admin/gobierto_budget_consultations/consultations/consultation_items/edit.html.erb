@@ -5,16 +5,19 @@
 </div>
 
 <h1>
-  <%= @consultation_form.title %>
+  <%= @consultation.title %>
+  <small>
+    » Editar partida
+  </small>
 </h1>
 
 <div class="tabs">
   <ul>
-    <li class="active">
-      <%= link_to "Consulta", "#" %>
-    </li>
     <li>
-      <%= link_to "Partidas", admin_budget_consultation_consultation_items_path(@consultation) %>
+      <%= link_to "Consulta", edit_admin_budget_consultation_path(@consultation) %>
+    </li>
+    <li class="active">
+      <%= link_to "Partidas", "#" %>
     </li>
   </ul>
 </div>

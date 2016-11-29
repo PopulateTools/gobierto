@@ -12,6 +12,8 @@ module GobiertoBudgetConsultations
 
     validates :title, presence: true
 
+    scope :sorted, -> { order(position: :asc, created_at: :desc) }
+
     def available_responses
       AVAILABLE_RESPONSES
     end

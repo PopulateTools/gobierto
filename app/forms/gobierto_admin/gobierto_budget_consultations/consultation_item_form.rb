@@ -1,0 +1,88 @@
+module GobiertoAdmin
+  module GobiertoBudgetConsultations
+    class ConsultationItemForm
+      include ActiveModel::Model
+
+      attr_accessor(
+        :id,
+        :consultation_id,
+        :title,
+        :description,
+        :position,
+        :budget_line_id,
+        :budget_line_amount
+      )
+
+      delegate :to_model, :persisted?, to: :consultation_item
+
+      validates :title, presence: true
+      validates :budget_line_id, presence: true
+      validates :budget_line_amount, presence: true
+      validates :consultation, presence: true
+
+      def save
+        save_consultation_item if valid?
+      end
+
+      def consultation_item
+        @consultation_item ||= consultation_item_class.find_by(id: id).presence || build_consultation_item
+      end
+
+      def consultation_id
+        @consultation_id ||= consultation_item.consultation_id
+      end
+
+      def consultation
+        @consultation ||= consultation_class.find(consultation_id)
+      end
+
+      def budget_line_amount
+        # TODO. This attribute should depend on `budget_line_id`.
+        #
+        @budget_line_amount ||= 0.0
+      end
+
+      private
+
+      def build_consultation_item
+        consultation_item_class.new
+      end
+
+      def consultation_item_class
+        ::GobiertoBudgetConsultations::ConsultationItem
+      end
+
+      def consultation_class
+        ::GobiertoBudgetConsultations::Consultation
+      end
+
+      def save_consultation_item
+        @consultation_item = consultation_item.tap do |consultation_item_attributes|
+          consultation_item_attributes.consultation_id = consultation_id
+          consultation_item_attributes.title = title
+          consultation_item_attributes.description = description
+          consultation_item_attributes.budget_line_id = budget_line_id
+          consultation_item_attributes.budget_line_amount = budget_line_amount
+        end
+
+        if @consultation_item.valid?
+          @consultation_item.save
+
+          @consultation_item
+        else
+          promote_errors(@consultation_item.errors)
+
+          false
+        end
+      end
+
+      protected
+
+      def promote_errors(errors_hash)
+        errors_hash.each do |attribute, message|
+          errors.add(attribute, message)
+        end
+      end
+    end
+  end
+end

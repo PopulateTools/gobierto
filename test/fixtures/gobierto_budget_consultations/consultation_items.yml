@@ -6,8 +6,6 @@ madrid_sports_facilities:
     Se podría reutilizar lo que se genere para una Historia. Se acompañaría
     de gráficas y métricas generadas automaticamente y que se podrían
     seleccionar.
-  budget_line_name: Bienestar comunitario > Cultura > Deporte > Instalaciones deportivas
-  budget_line_code: 40-42
-  budget_line_entity_id: 4042.0
+  budget_line_id: "9208.0/2016-01-01/p/e/f/151"
   budget_line_amount: 9.99
   position: 1

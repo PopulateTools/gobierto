@@ -224,6 +224,12 @@ body.gobierto_admin {
 					margin-bottom: -1px;
 				}
 			}
+      li.disabled {
+        a {
+          cursor: not-allowed;
+          color: white;
+        }
+      }
 		}
 	}
 }

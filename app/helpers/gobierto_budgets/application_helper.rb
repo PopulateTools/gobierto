@@ -61,7 +61,7 @@ module GobiertoBudgets
       if description != name
         return description
       else
-        I18n.t('gobierto_budgets.common.budget_line_description_html', kind_what: kind_literal(kind), description: description.downcase, link: link_to(budget_line_denomination(area_name, code[0..-2], kind), gobierto_budgets_budget_line_path(code[0..-2], params[:year], area_name, kind)))
+        I18n.t('gobierto_budgets.common.budget_line_description_html', kind_what: kind_literal(kind), description: description.try(:downcase), link: link_to(budget_line_denomination(area_name, code[0..-2], kind), gobierto_budgets_budget_line_path(code[0..-2], params[:year], area_name, kind)))
       end
     end
 

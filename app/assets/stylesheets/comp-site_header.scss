@@ -162,3 +162,34 @@ header.section {
 	}
 }
 
+
+@include screen(740) {
+	header.meta {
+		margin: 0 0 1em 0;
+		.site_header {
+			padding: 1em 0 .5em 0;
+			line-height: 1.4em;
+			.site_title {
+				font-size: 1.2em;
+			}
+		}
+		menu.sub_sections {
+			ul {
+				li {
+					a {
+						padding: .5em 1em .4em;
+					}
+				}
+				li:first {
+					a {
+						margin-left: -1em;
+					}
+				}
+			}
+		}
+	}
+	.pure-menu-horizontal.pure-menu-scrollable {
+		padding: 0;
+	}
+}
+

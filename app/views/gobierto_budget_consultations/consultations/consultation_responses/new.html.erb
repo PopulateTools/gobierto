@@ -1,0 +1,126 @@
+<div class="column">
+
+  <div class="consultation_cont">
+
+    <div class="pure-g">
+
+      <div class="pure-u-1 pure-u-md-18-24">
+
+        <%= render "user/shared/validation_errors", resource: @consultation_response_form %>
+
+        <%= form_for(@consultation_response_form, as: :consultation_response, url: :budget_consultation_response) do |f| %>
+
+          <% @consultation_items.each_with_index do |consultation_item, index| %>
+
+            <header class="consultation" id="consultation_box_<%= index %>">
+              <h1>
+                <div class="bl_counter">
+                  <%= consultation_item.position + 1 %>/<%= @consultation_items.size %>
+                </div>
+                <%= consultation_item.title %>
+              </h1>
+              <p><small><%= consultation_item.description %></small></p>
+            </header>
+
+            <div class="tabs">
+              <ul>
+                <li class="active"><%= link_to 'Contexto', '', "data-tab-target": 'context' %></li>
+                <li><%= link_to 'Opina', '', "data-tab-target": 'give_opinion' %></li>
+              </ul>
+            </div>
+
+            <div class="pure-g tab active" data-tab="context">
+
+              <div class="pure-u-1 pure-u-md-2-3 bl_content" >
+
+                <p>Context A</p>
+
+              </div>
+
+              <div class="pure-u-1 pure-u-md-1-3 bl_context">
+
+                <p>Context B</p>
+
+              </div>
+
+              <div class="pure-u-1 continue center">
+
+                <%= link_to 'Opina <i class="fa fa-arrow-right"></i>'.html_safe, "#consultation_box_#{index}", "data-tab-target": 'give_opinion', class: 'button' %>
+
+              </div>
+
+            </div>
+
+            <div class="bl_content tab" data-tab="give_opinion" >
+
+              <div class="consultation_marker">
+                <h3>Planificado para esta partida <i class="fa fa-question-circle tipsit" title="La cantidad que el Ayuntamiento propone como inversión para esta partida, basado en la inversión realizada en los últimos ejercicios y que contempla las iniciativas que se quieren llevar a cabo"></i></h3>
+                <div class="qty"><%= number_to_currency(consultation_item.budget_line_amount) %></div>
+              </div>
+
+              <div class="consultation_marker">
+
+                <h3>Tu propuesta <i class="fa fa-question-circle tipsit" title="Para cada partida puedes proponer si para ti esta partida debe aumentar o reducir el gasto"></i></h3>
+
+                <div class="pure-g">
+
+                  <% Array(consultation_item.available_responses).each do |available_response| %>
+                    <div class="pure-u-1-3 <%= available_response[1] %>">
+                      <div class="option">
+                        <%= radio_button_tag "consultation_response[selected_responses][#{consultation_item.id}]", available_response[0] %>
+                        <%= label_tag "consultation_response[selected_responses][#{consultation_item.id}]_#{available_response[0]}" do %>
+                          <span></span>
+                          <%= available_response[1].capitalize %>
+                        <% end %>
+                      </div>
+                    </div>
+                  <% end %>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          <% end %>
+
+          <div class="pure-u-1 submit center">
+
+            <%= f.submit "Enviar", class: "button" %>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+      <div class="pure-u-1 pure-u-md-6-24 consultation_sidebar">
+
+        <i class="fa fa-help"><%= link_to '' %></i>
+
+        <div class="consultation_marker">
+          <h3>Inversión total planificada <i class="fa fa-question-circle tipsit" title="La suma de los importes inicialmente propuestos para las partidas de esta simulación. Recuerda que es solo una selección de partidas, por lo que esta cifra no coincide con el presupuesto total del municipio"></i></h3>
+          <div class="qty">
+            <%= number_to_currency(@consultation.budget_amount) %>
+          </div>
+        </div>
+
+        <div class="consultation_marker debt_marker ">
+          <h3>Con tus decisiones <i class="fa fa-question-circle tipsit" title="Esta es la suma de los importes de las partidas teniendo en cuenta tus preferencias en cuanto a incrementos, disiminución o mantenimiento de los importes propuestos. Si con tus propuestas se pasa el total planificado, te indicaremos que entras en déficit."></i></h3>
+          <div class="qty">
+            <%= number_to_currency(@consultation.budget_amount) %>
+          </div>
+
+          <div class="warning_text">
+            <h4>Estás en déficit </h4>
+            <p>Deberás recortar en otras partidas o aumentar tu endeudamiento</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

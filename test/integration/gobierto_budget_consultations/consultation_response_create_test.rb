@@ -48,7 +48,7 @@ module GobiertoBudgetConsultations
 
     def test_consultation_response_creation_when_consultation_is_closed
       with_current_site(site) do
-        with_signed_in_user(unverified_user) do
+        with_signed_in_user(user) do
           visit @closed_path
 
           assert has_content?("This consultation doesn't allow participations.")

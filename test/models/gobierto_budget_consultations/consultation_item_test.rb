@@ -9,5 +9,9 @@ module GobiertoBudgetConsultations
     def test_valid
       assert consultation_item.valid?
     end
+
+    def test_available_responses
+      assert_equal ConsultationItem::AVAILABLE_RESPONSES, consultation_item.available_responses
+    end
   end
 end

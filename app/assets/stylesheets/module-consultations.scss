@@ -128,7 +128,7 @@ img.side_50 {
 			  }
 			}
 		}
-		.augment {
+		.increase {
 			.option {
 				background: #F5D7D7;	
 			}
@@ -183,13 +183,13 @@ img.side_50 {
 	.button_marker.reduce {
 		background: #CFE4C5;
 	}
-	.button_marker.augment {
+	.button_marker.increase {
 		background: #F5D7D7;
 	}
 	.button_marker.reduce.active {
 		background: darken(#CFE4C5, 25%);
 	}
-	.button_marker.augment.active {
+	.button_marker.increase.active {
 		background: darken(#F5D7D7, 25%);;
 	}
 	.budget-line_list {

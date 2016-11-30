@@ -1,9 +1,26 @@
 dennis_madrid_open:
   consultation: madrid_open
   user: dennis
-  consultation_items: <%= {
-    "0" => "0",
-    "1" => "0",
-    "2" => "1" }.to_yaml.inspect %>
+  consultation_items: <%= [
+    {
+      "id"=>0,
+      "item_id"=>26213347,
+      "item_title"=>"Pavimentación de vías públicas",
+      "item_budget_line_amount"=>"0.0",
+      "item_available_responses"=>{"0"=>"reduce", "1"=>"keep", "2"=>"increase"},
+      "selected_response_id"=>0,
+      "selected_response_label"=>"reduce",
+      "budget_line_amount"=>"0.0"
+    },
+    {
+      "id"=>1,
+      "item_id"=>26213346,
+      "item_title"=>"Inversión en Instalaciones Deportivas",
+      "item_budget_line_amount"=>"9.99",
+      "item_available_responses"=>{"0"=>"reduce", "1"=>"keep", "2"=>"increase"},
+      "selected_response_id"=>2,
+      "selected_response_label"=>"increase",
+      "budget_line_amount"=>"10.989"
+    }].to_json.inspect %>
   budget_amount: 9.99
   visibility_level: <%= GobiertoBudgetConsultations::ConsultationResponse.visibility_levels["active"] %>

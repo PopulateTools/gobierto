@@ -9,13 +9,13 @@ class User::VerificationServiceTest < ActiveSupport::TestCase
     @site ||= sites(:madrid)
   end
 
-  def verification_type
+  def valid_verification_type
     "census"
   end
 
   def test_call
     assert User::VerificationService.new(user, site).call
-    assert User::VerificationService.new(user, site, "census").call
+    assert User::VerificationService.new(user, site, valid_verification_type).call
     refute User::VerificationService.new(user, site, "wadus").call
   end
 end

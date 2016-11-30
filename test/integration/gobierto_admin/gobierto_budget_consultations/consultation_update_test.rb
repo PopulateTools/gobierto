@@ -39,7 +39,7 @@ module GobiertoAdmin
 
             assert has_content?("Consultation was successfully updated.")
 
-            within "table.consultations-list tbody tr", match: :first do
+            within "table.consultations-list tbody tr#consultation-item-#{consultation.id}" do
               assert has_content?("Consultation Title")
               assert has_content?("Draft")
 

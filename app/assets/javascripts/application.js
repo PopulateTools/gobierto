@@ -23,9 +23,12 @@
 //= require vis_lineas_tabla
 //= require vis_evo_line
 //= require execution
+
 //= require module-admin
 //= require module-consultations
+// require module-ui_menu
 //= require module-sessions
+
 //= require flight-for-rails
 //= require_directory ./components/
 

@@ -76,6 +76,7 @@ img.side_50 {
 	}
 	.continue {
 		padding: 2em;
+		box-sizing: border-box;
 	}
 	.consultation_sidebar {
 		border-left: 1px solid transparentize($color_meta_text, .5);
@@ -212,6 +213,90 @@ img.side_50 {
 			> td {
 				padding: 2em 0 1em;
 			}
+		}
+	}
+}
+
+@include screen(740) {
+	.consultation_cont {
+		margin: -1rem;
+		header.consultation {
+			padding: 1em; 
+			h1 {
+				font-size: 1.2em;
+			}
+			p {
+				padding: 0;
+				line-height: 1.2em;
+			}
+		}
+		.tabs {
+			padding-top: 1em;
+			ul {
+				padding-left: 1rem;
+				li {
+					a {
+						padding: .5em 1.5em .25em;
+					}
+				}
+			}
+		}
+		.bl_content {
+			padding: 1rem 1rem 0 1rem;
+			font-size: .9em;
+			line-height: 1.2rem;
+		}
+		.bl_context {
+			padding: 0 1em;
+		}
+		.consultation_sidebar {
+			padding: 0 1em;
+			border: none;
+		}
+		.consultation_marker {
+			margin: 0 0 2em 0;
+			.qty {
+				font-size: 1.2em;
+			}
+		}
+		.option input[type="radio"] + label {
+			height: 120px;
+		}
+		h1 {
+			font-size: 1.2em;
+		}
+		.p_3 {
+			padding: .25em 1em;
+		}
+		.button_marker {
+			font-size: .75em;
+		}
+		.budget-line_list {
+			td:first-child {
+				font-size: 1em;
+			}
+			td:first-child {
+				padding: 1em 1em 1em 0;
+			}
+		}
+		.confirmation_actions {
+			p {
+				font-size: .85em;
+			}
+			.p_h_2 {
+				padding: 0;
+				text-align: center;
+				.button {
+					margin: 0 0 2em 0;
+				}
+			}
+		}
+	}
+	.consultation_thanks {
+		img {
+			width: 75%;
+			height: auto;
+			float: left;
 		}
 	}
 }

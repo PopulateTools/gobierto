@@ -5,7 +5,7 @@ economic_1_g:
   name: Gastos de personal
   parent_code:
   level: 1
-  kind: G
+  kind: expense
 
 economic_10_g:
   area: economic
@@ -13,7 +13,7 @@ economic_10_g:
   name: "Órganos de gobierno y personal directivo"
   parent_code: 1
   level: 2
-  kind: G
+  kind: expense
 
 economic_2_g:
   area: economic
@@ -21,7 +21,7 @@ economic_2_g:
   name: Gastos en bienes corrientes y servicios
   parent_code:
   level: 1
-  kind: G
+  kind: expense
 
 economic_20_g:
   area: economic
@@ -29,7 +29,7 @@ economic_20_g:
   name: "Arrendamientos y cánones"
   parent_code: 2
   level: 2
-  kind: G
+  kind: expense
 
 economic_3_g:
   area: economic
@@ -37,7 +37,7 @@ economic_3_g:
   name: Gastos financieros
   parent_code:
   level: 1
-  kind: G
+  kind: expense
 
 economic_1_i:
   area: economic
@@ -45,7 +45,7 @@ economic_1_i:
   name: Impuestos directos
   parent_code:
   level: 1
-  kind: I
+  kind: income
 
 economic_10_i:
   area: economic
@@ -53,7 +53,7 @@ economic_10_i:
   name: Impuesto sobre la renta
   parent_code: 1
   level: 2
-  kind: I
+  kind: income
 
 economic_2_i:
   area: economic
@@ -61,7 +61,7 @@ economic_2_i:
   name: Impuestos indirectos
   parent_code:
   level: 1
-  kind: I
+  kind: income
 
 economic_21_i:
   area: economic
@@ -69,7 +69,7 @@ economic_21_i:
   name: "Impuesto sobre el Valor Añadido"
   parent_code: 2
   level: 2
-  kind: I
+  kind: income
 
 economic_210_i:
   area: economic
@@ -77,7 +77,7 @@ economic_210_i:
   name: Impuesto sobre el Valor Añadido
   parent_code: 21
   level: 3
-  kind: I
+  kind: income
 
 functional_0_g:
   area: functional
@@ -85,7 +85,7 @@ functional_0_g:
   name: Deuda pública
   parent_code:
   level: 1
-  kind: G
+  kind: expense
 
 functional_1_g:
   area: functional
@@ -93,7 +93,7 @@ functional_1_g:
   name: Servicios públicos básicos
   parent_code:
   level: 1
-  kind: G
+  kind: expense
 
 functional_13_g:
   area: functional
@@ -101,7 +101,7 @@ functional_13_g:
   name: Seguridad y movilidad ciudadana
   parent_code: 1
   level: 2
-  kind: G
+  kind: expense
 
 functional_130_g:
   area: functional
@@ -109,7 +109,7 @@ functional_130_g:
   name: "Administración General de la Seguridad y Protección Civil"
   parent_code: 13
   level: 3
-  kind: G
+  kind: expense
 
 functional_2_g:
   area: functional
@@ -117,7 +117,7 @@ functional_2_g:
   name: "Actuaciones de protección y promoción social"
   parent_code:
   level: 1
-  kind: G
+  kind: expense
 
 functional_22_g:
   area: functional
@@ -125,7 +125,7 @@ functional_22_g:
   name: "Otras prestaciones económicas a favor de empleados"
   parent_code: 2
   level: 2
-  kind: G
+  kind: expense
 
 functional_3_g:
   area: functional
@@ -133,5 +133,5 @@ functional_3_g:
   name: "Producción de bienes públicos de carácter preferente"
   parent_code:
   level: 1
-  kind: G
+  kind: expense
 

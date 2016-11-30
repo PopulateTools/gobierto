@@ -9,8 +9,14 @@ module GobiertoBudgets
     end
 
     class BudgetCategories
-      def self.index; 'budget-categories' end
-      def self.type; 'categories' end
+      def self.index; 'tbi-collections' end
+      def self.type
+        if I18n.locale == :ca
+          'c-categorias-presupuestos-municipales-cat'
+        else
+          'c-categorias-presupuestos-municipales'
+        end
+      end
     end
 
     class BudgetLine

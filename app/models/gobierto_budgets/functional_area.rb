@@ -26,6 +26,7 @@ module GobiertoBudgets
 
         response['hits']['hits'].each do |h|
           source = h['_source']
+          source['kind'] = source['kind'] == 'income' ? 'I' : 'G'
           all_items[source['kind']][source['code']] = source['name']
         end
 

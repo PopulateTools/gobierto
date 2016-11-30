@@ -47,6 +47,7 @@ namespace :gobierto_budgets do
 
       budgets_for_place = BUDGETS_INDEXES.map do |index|
         categories_fixtures do |category|
+          category.merge!('kind' => category['kind'] == 'income' ? 'I' : 'G')
           {
             index: {
               _index: index,
@@ -66,6 +67,7 @@ namespace :gobierto_budgets do
       total_budgets = BUDGETS_INDEXES.map do |index|
         type = GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type
         categories_fixtures do |category|
+          category.merge!('kind' => category['kind'] == 'income' ? 'I' : 'G')
           {
             index: {
               _index: index,

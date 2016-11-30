@@ -6,14 +6,6 @@ function limit_length(input, length) {
   'use strict';
 
   window.budgetLineBreadcrumb = flight.component(function(){
-    this.attributes({
-      areaNamesDict: {
-        'G-economic': 'En qué se gasta',
-        'G-functional': 'Para qué se gasta',
-        'I-economic': 'En qué se ingresa'
-      }
-    });
-
     this.after('initialize', function() {
       this.areaName = this.$node.data('budget-line-area');
       this.state = this.$node.data('budget-line-breadcrumb');
@@ -47,8 +39,8 @@ function limit_length(input, length) {
       var html = "";
       html += '<a href="/presupuestos/partidas/'+this.currentYear+'/'+this.areaName+'/' + this.states[1] + '">' + this.currentYear + '</a> »';
       this.selectedCategories.push(this.currentYear);
-      html += '<a href="/presupuestos/partidas/'+this.currentYear+'/'+this.areaName+'/' + this.states[1] + '">' + this.attr.areaNamesDict[this.currentKind + '-' + this.areaName] + '</a> »';
-      this.selectedCategories.push(this.attr.areaNamesDict[this.currentKind + '-' + this.areaName]);
+      html += '<a href="/presupuestos/partidas/'+this.currentYear+'/'+this.areaName+'/' + this.states[1] + '">' + I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName) + '</a> »';
+      this.selectedCategories.push(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName));
 
       this.states.slice(2, this.states.length - 1).forEach(function(segment){
         if(segment.indexOf('-') === -1 || segment.length == 6) {
@@ -65,16 +57,16 @@ function limit_length(input, length) {
       var $el = $('[data-level="1"] table');
       var selectedItem;
 
-      if(this.selectedCategories.indexOf(this.attr.areaNamesDict['I-economic']) !== -1){ selectedItem = 'class="selected"'; }
-      html += '<tr><td data-area-name="economic" data-kind="I" '+selectedItem+'><a href="#">' + this.attr.areaNamesDict['I-economic'] + '</a></td></tr>';
+      if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
+      html += '<tr><td data-area-name="economic" data-kind="I" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName) + '</a></td></tr>';
       selectedItem = '';
 
-      if(this.selectedCategories.indexOf(this.attr.areaNamesDict['G-economic']) !== -1){ selectedItem = 'class="selected"'; }
-      html += '<tr><td data-area-name="economic" data-kind="G" '+selectedItem+'><a href="#">' + this.attr.areaNamesDict['G-economic'] + '</a></td></tr>';
+      if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
+      html += '<tr><td data-area-name="economic" data-kind="G" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName) + '</a></td></tr>';
       selectedItem = '';
 
-      if(this.selectedCategories.indexOf(this.attr.areaNamesDict['G-functional']) !== -1){ selectedItem = 'class="selected"'; }
-      html += '<tr><td data-area-name="functional" data-kind="G" '+selectedItem+'><a href="#">' + this.attr.areaNamesDict['G-functional'] + '</a></td></tr>';
+      if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
+      html += '<tr><td data-area-name="functional" data-kind="G" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName) + '</a></td></tr>';
 
       $el.html(html);
       $el.data('current-code', this.currentKind);

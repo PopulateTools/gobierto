@@ -15,7 +15,12 @@
 
     <div class="inner center">
 
-      <p><strong>Sólo te llevará 10 minutos</strong></p>
+      <p>
+        <strong>
+          Sólo te llevará
+          <%= distance_of_time_in_words(@consultation.estimated_completion_time_in_seconds) %>
+        </strong>
+      </p>
 
       <button class="gigantic">
         <%= link_to budget_consultation_new_response_path(@consultation) do %>
@@ -30,7 +35,9 @@
 
       <% unless user_signed_in? %>
         <p>
-          <%= link_to "Identificarse", new_user_session_path %>
+          <%= link_to new_user_sessions_path do %>
+            Necesitas estar identificado y verificado para participar
+          <% end %>
         </p>
       <% end %>
 

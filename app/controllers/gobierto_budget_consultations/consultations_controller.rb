@@ -8,7 +8,7 @@ module GobiertoBudgetConsultations
     end
 
     def show
-      @consultation = find_consultation
+      @consultation = ConsultationDecorator.new(find_consultation)
     end
 
     private

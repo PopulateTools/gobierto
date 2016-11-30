@@ -10,9 +10,9 @@ Available users:
 
 | Email               | Password | Notes                                                                                      |
 | ---                 | ---      | ---                                                                                        |
-| dennis@gobierto.dev | gobierto | regular user, madrid.gobierto.dev as source site, not verified against census              |
+| dennis@gobierto.dev | gobierto | regular user, madrid.gobierto.dev as source site, verified against census                  |
 | reed@gobierto.dev   | gobierto | regular user, unconfirmed, madrid.gobierto.dev as source site, not verified against census |
-| susan@gobierto.dev  | gobierto | regular user, santander.gobierto.dev as source site, verified against census               |
+| susan@gobierto.dev  | gobierto | regular user, santander.gobierto.dev as source site, not verified against census           |
 
 Available sites:
 

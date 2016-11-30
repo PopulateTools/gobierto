@@ -1,3 +1,4 @@
+---
 en:
   gobierto_budgets:
     common:
@@ -135,3 +136,7 @@ en:
       mean_national: National mean
       mean_autonomy: Autonomy mean
       mean_province: Province mean
+      G_economic: 'In what'
+      G_functional: 'How'
+      I_economic: "How"
+

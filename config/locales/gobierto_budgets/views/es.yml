@@ -1,3 +1,4 @@
+---
 es:
   gobierto_budgets:
     common:
@@ -139,3 +140,7 @@ es:
       mean_national: Media nacional
       mean_autonomy: Media autonómica
       mean_province: Media provincial
+      G_economic: 'En qué se gasta'
+      G_functional: 'Para qué se gasta'
+      I_economic: 'En qué se ingresa'
+

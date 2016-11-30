@@ -68,7 +68,8 @@ Rails.application.routes.draw do
     namespace :gobierto_budget_consultations, as: :budget, path: :budgets do
       constraints GobiertoSiteConstraint.new do
         resources :consultations, only: [:index, :show] do
-          resource :consultation_responses, only: [:new, :create, :edit, :update], controller: "consultations/consultation_responses", path: :participate
+          get 'participate', to: 'consultations/consultation_responses#new', as: :new_response
+          post 'participate', to: 'consultations/consultation_responses#create', as: :response
         end
       end
     end

@@ -22,5 +22,5 @@ dennis_madrid_open:
       "selected_response_label"=>"increase",
       "budget_line_amount"=>"10.989"
     }].to_json.inspect %>
-  budget_amount: 9.99
+  budget_amount: 29.99
   visibility_level: <%= GobiertoBudgetConsultations::ConsultationResponse.visibility_levels["active"] %>

@@ -58,7 +58,7 @@ module GobiertoBudgetConsultations
       assert_equal 1, invalid_consultation_response_form.errors.messages[:selected_responses].size
     end
 
-    def test_consultation_items
+    def test_consultation_response_items
       consultation_response = valid_consultation_response_form.save
 
       expected_consultation_items = [

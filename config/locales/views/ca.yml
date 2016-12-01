@@ -1,13 +1,18 @@
 ---
 ca:
   layouts:
+    application: &application
+      disclaimer: Aquesta web es una demostració de Gobierto, software de transparència i participació
+      more_information: Més informació en gobierto.es
+      budgets: Pressupostos
+      is_open_source: es software lliure creat per
+      about_the_data: Sobre les dades
     gobierto_budgets:
-      application: &application
-        disclaimer: Aquesta web es una demostració de Gobierto, software de transparència i participació
-        more_information: Més informació en gobierto.es
-        budgets: Pressupostos
-        is_open_source: es software lliure creat per
-        about_the_data: Sobre les dades
+      application:
+        <<: *application
+    gobierto_budget_consultations:
+      application:
+        <<: *application
     sandbox:
       application:
         <<: *application

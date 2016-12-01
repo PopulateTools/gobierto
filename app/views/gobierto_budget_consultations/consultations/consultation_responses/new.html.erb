@@ -10,71 +10,82 @@
 
         <%= form_for(@consultation_response_form, as: :consultation_response, url: :budget_consultation_response) do |f| %>
 
-          <% @consultation_items.each_with_index do |consultation_item, index| %>
+          <% @consultation_items.each_with_index do |consultation_item, consultation_item_index| %>
 
-            <header class="consultation" id="consultation_box_<%= index %>">
-              <h1>
-                <div class="bl_counter">
-                  <%= consultation_item.position + 1 %>/<%= @consultation_items.size %>
+            <div class="consultation_item_<%= consultation_item_index %>" data-tab-scope>
+
+              <header class="consultation" id="consultation_box_<%= consultation_item_index %>">
+                <h1>
+                  <div class="bl_counter">
+                    <%= consultation_item.position + 1 %>/<%= @consultation_items.size %>
+                  </div>
+                  <%= consultation_item.title %>
+                </h1>
+                <p><small><%= consultation_item.description %></small></p>
+              </header>
+
+              <div class="tabs">
+                <ul>
+                  <li class="active">
+                    <%= link_to '#', "data-tab-target": "context_#{consultation_item_index}" do %>
+                      Contexto
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to '#', "data-tab-target": "give_opinion_#{consultation_item_index}" do %>
+                      Opina
+                    <% end %>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="pure-g tab active" data-tab="context_<%= consultation_item_index %>">
+
+                <div class="pure-u-1 pure-u-md-2-3 bl_content" >
+                  <p>Context A</p>
                 </div>
-                <%= consultation_item.title %>
-              </h1>
-              <p><small><%= consultation_item.description %></small></p>
-            </header>
 
-            <div class="tabs">
-              <ul>
-                <li class="active"><%= link_to 'Contexto', '', "data-tab-target": 'context' %></li>
-                <li><%= link_to 'Opina', '', "data-tab-target": 'give_opinion' %></li>
-              </ul>
-            </div>
+                <div class="pure-u-1 pure-u-md-1-3 bl_context">
+                  <p>Context B</p>
+                </div>
 
-            <div class="pure-g tab active" data-tab="context">
-
-              <div class="pure-u-1 pure-u-md-2-3 bl_content" >
-
-                <p>Context A</p>
-
-              </div>
-
-              <div class="pure-u-1 pure-u-md-1-3 bl_context">
-
-                <p>Context B</p>
-
-              </div>
-
-              <div class="pure-u-1 continue center">
-
-                <%= link_to 'Opina <i class="fa fa-arrow-right"></i>'.html_safe, "#consultation_box_#{index}", "data-tab-target": 'give_opinion', class: 'button' %>
-
-              </div>
-
-            </div>
-
-            <div class="bl_content tab" data-tab="give_opinion" >
-
-              <div class="consultation_marker">
-                <h3>Planificado para esta partida <i class="fa fa-question-circle tipsit" title="La cantidad que el Ayuntamiento propone como inversión para esta partida, basado en la inversión realizada en los últimos ejercicios y que contempla las iniciativas que se quieren llevar a cabo"></i></h3>
-                <div class="qty"><%= number_to_currency(consultation_item.budget_line_amount) %></div>
-              </div>
-
-              <div class="consultation_marker">
-
-                <h3>Tu propuesta <i class="fa fa-question-circle tipsit" title="Para cada partida puedes proponer si para ti esta partida debe aumentar o reducir el gasto"></i></h3>
-
-                <div class="pure-g">
-
-                  <% Array(consultation_item.available_responses).each do |available_response| %>
-                    <div class="pure-u-1-3 <%= available_response[1] %>">
-                      <div class="option">
-                        <%= radio_button_tag "consultation_response[selected_responses][#{consultation_item.id}]", available_response[0] %>
-                        <%= label_tag "consultation_response[selected_responses][#{consultation_item.id}]_#{available_response[0]}" do %>
-                          <span></span>
-                          <%= available_response[1].capitalize %>
-                        <% end %>
-                      </div>
-                    </div>
+                <div class="pure-u-1 continue center">
+                  <%= link_to "#consultation_box_#{consultation_item_index}", "data-tab-target": "give_opinion_#{consultation_item_index}", class: 'button' do %>
+                    Opina
+                    <i class="fa fa-arrow-right"></i>
                   <% end %>
+                </div>
+
+              </div>
+
+              <div class="bl_content tab" data-tab="give_opinion_<%= consultation_item_index %>">
+
+                <div class="consultation_marker">
+                  <h3>Planificado para esta partida <i class="fa fa-question-circle tipsit" title="La cantidad que el Ayuntamiento propone como inversión para esta partida, basado en la inversión realizada en los últimos ejercicios y que contempla las iniciativas que se quieren llevar a cabo"></i></h3>
+                  <div class="qty"><%= number_to_currency(consultation_item.budget_line_amount) %></div>
+                </div>
+
+                <div class="consultation_marker">
+
+                  <h3>Tu propuesta <i class="fa fa-question-circle tipsit" title="Para cada partida puedes proponer si para ti esta partida debe aumentar o reducir el gasto"></i></h3>
+
+                  <div class="pure-g">
+
+                    <% Array(consultation_item.available_responses).each do |available_response| %>
+
+                      <div class="pure-u-1-3 <%= available_response[1] %>">
+                        <div class="option">
+                          <%= radio_button_tag "consultation_response[selected_responses][#{consultation_item.id}]", available_response[0] %>
+                          <%= label_tag "consultation_response[selected_responses][#{consultation_item.id}]_#{available_response[0]}" do %>
+                            <span></span>
+                            <%= available_response[1].capitalize %>
+                          <% end %>
+                        </div>
+                      </div>
+
+                    <% end %>
+
+                  </div>
 
                 </div>
 

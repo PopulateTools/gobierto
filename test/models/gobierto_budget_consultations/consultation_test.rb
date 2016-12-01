@@ -33,5 +33,16 @@ module GobiertoBudgetConsultations
 
       refute consultation.open?
     end
+
+    def test_calculate_budget_amount
+      consultation.budget_amount = 0.0
+      assert_equal 0.0, consultation.budget_amount
+
+      consultation_items_total_amount = consultation.consultation_items.sum(:budget_line_amount)
+
+      assert_difference "consultation.budget_amount", consultation_items_total_amount do
+        consultation.calculate_budget_amount
+      end
+    end
   end
 end

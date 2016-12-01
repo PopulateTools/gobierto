@@ -22,6 +22,10 @@ module GobiertoBudgetConsultations
       visibility_level == "active" && opening_range.include?(Date.current)
     end
 
+    def calculate_budget_amount
+      update_columns(budget_amount: consultation_items.sum(:budget_line_amount))
+    end
+
     private
 
     def opening_range

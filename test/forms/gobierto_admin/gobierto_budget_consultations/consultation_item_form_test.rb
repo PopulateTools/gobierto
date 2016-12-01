@@ -31,6 +31,12 @@ module GobiertoAdmin
         @consultation ||= consultation_item.consultation
       end
 
+      def budget_line_amount
+        # TODO. This is a static value for now.
+        #
+        10.0
+      end
+
       def test_save_with_valid_attributes
         assert valid_consultation_item_form.save
       end
@@ -40,6 +46,12 @@ module GobiertoAdmin
 
         assert_equal 1, invalid_consultation_item_form.errors.messages[:title].size
         assert_equal 1, invalid_consultation_item_form.errors.messages[:budget_line_id].size
+      end
+
+      def test_calculate_consultation_budget_amount
+        assert_difference "consultation.reload.budget_amount", budget_line_amount do
+          valid_consultation_item_form.save
+        end
       end
     end
   end

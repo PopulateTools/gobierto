@@ -21,7 +21,12 @@ module GobiertoAdmin
       validates :consultation, presence: true
 
       def save
-        save_consultation_item if valid?
+        return false unless valid?
+
+        ActiveRecord::Base.transaction do
+          save_consultation_item
+          consultation.calculate_budget_amount
+        end
       end
 
       def consultation_item
@@ -39,7 +44,7 @@ module GobiertoAdmin
       def budget_line_amount
         # TODO. This attribute should depend on `budget_line_id`.
         #
-        @budget_line_amount ||= 0.0
+        @budget_line_amount ||= 10.0
       end
 
       private

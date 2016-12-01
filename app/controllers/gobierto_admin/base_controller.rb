@@ -3,6 +3,7 @@ module GobiertoAdmin
     include SessionHelper
     include SiteSessionHelper
     include LayoutPolicyHelper
+    include ModuleHelper
 
     before_action :authenticate_admin!
 

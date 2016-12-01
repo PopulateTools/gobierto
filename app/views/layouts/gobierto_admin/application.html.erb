@@ -100,11 +100,13 @@
 
       <div class="menu_content">
 
-        <ul >
+        <ul>
           <li><a href="">Visualización presupuestos</a></li>
+          <% if current_site.configuration.gobierto_budget_consultations_enabled? %>
           <li>
             <%= link_to t(".budget_consultations"), admin_budget_consultations_path %>
           </li>
+          <% end %>
 
           <li class="sep"></li>
 

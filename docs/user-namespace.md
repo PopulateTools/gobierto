@@ -19,4 +19,4 @@ Available sites:
 | Domain                 | Title                        | Name                      | Notes                    | Modules                      |
 | ---                    | ---                          | ---                       | ---                      | ---                          |
 | madrid.gobierto.dev    | Transparencia y Participción | Ayuntamiento de Madrid    | visibility level: active | Budgets, BudgetConsultations |
-| santander.gobierto.dev | Transparencia Ciudadana      | Ayuntamiento de Santander | visibility level: draft  | Budgets, BudgetConsultations |
+| santander.gobierto.dev | Transparencia Ciudadana      | Ayuntamiento de Santander | visibility level: draft  | Budgets                      |

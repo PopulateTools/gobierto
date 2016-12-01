@@ -9,6 +9,8 @@ module GobiertoBudgetConsultations
 
     enum visibility_level: { draft: 0, active: 1 }
 
+    scope :sorted, -> { order(created_at: :desc) }
+
     def consultation_items
       @consultation_items ||= Array(read_attribute(:consultation_items)).map do |consultation_response_item_attributes|
         ConsultationResponseItem.new(consultation_response_item_attributes.symbolize_keys)

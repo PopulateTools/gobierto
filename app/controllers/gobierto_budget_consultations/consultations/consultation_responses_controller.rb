@@ -33,7 +33,7 @@ module GobiertoBudgetConsultations
       private
 
       def find_consultation_response
-        @consultation.consultation_responses.find_by!(user_id: current_user.id)
+        @consultation.consultation_responses.sorted.find_by!(user_id: current_user.id)
       end
 
       def consultation_response_params

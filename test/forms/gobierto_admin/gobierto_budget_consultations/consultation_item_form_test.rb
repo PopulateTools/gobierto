@@ -28,7 +28,7 @@ module GobiertoAdmin
       end
 
       def latest_consultation_item
-        @latest_consultation_item ||= gobierto_budget_consultations_consultation_items(:madrid_sports_facilities)
+        @latest_consultation_item ||= gobierto_budget_consultations_consultation_items(:madrid_civil_protection)
       end
 
       def consultation

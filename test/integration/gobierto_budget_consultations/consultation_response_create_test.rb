@@ -55,5 +55,35 @@ module GobiertoBudgetConsultations
         end
       end
     end
+
+    def test_consultation_response_creation
+      with_current_site(site) do
+        with_signed_in_user(user) do
+          visit @path
+
+          consultation.consultation_items.each_with_index do |consultation_item, consultation_item_index|
+            within ".consultation_item_#{consultation_item_index}" do
+              consultation_item.response_options.each do |response_option|
+                assert has_selector?(".response-option.#{response_option.label}")
+              end
+
+              choose I18n.t("gobierto_budget_consultations.consultation_items.options.#{consultation_item.response_options.first.label}")
+            end
+          end
+
+          click_button "Enviar"
+
+          within "table.budget-line_list" do
+            consultation.consultation_items.each do |consultation_item|
+              assert has_selector?("td.budget-line_title", text: consultation_item.title)
+              assert has_selector?(
+                ".button_marker.active",
+                text: I18n.t("gobierto_budget_consultations.consultation_items.options.short.#{consultation_item.response_options.first.label}")
+              )
+            end
+          end
+        end
+      end
+    end
   end
 end

@@ -16,7 +16,8 @@ module GobiertoBudgetConsultations
         assert_equal 0, @subject.estimated_completion_time_in_seconds
       end
 
-      assert_equal 90, @subject.estimated_completion_time_in_seconds
+      assert_equal consultation.consultation_items.count * ConsultationDecorator::CONSULTATION_ITEM_COMPLETION_TIME_IN_SECONDS,
+        @subject.estimated_completion_time_in_seconds
     end
   end
 end

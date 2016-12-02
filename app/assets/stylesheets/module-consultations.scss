@@ -13,7 +13,7 @@ img.side_50 {
 	@include border-radius(6px);
 	background: $color_1_soft;
 
-	header.consultation {
+	.header.consultation {
 		padding: 2em 2em;
 		.bl_counter {
 			opacity: .4;

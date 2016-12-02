@@ -11,7 +11,7 @@ madrid_open:
     respectiva Entidad local.
   opens_on: <%= Date.today %>
   closes_on: <%= 1.year.from_now.to_date %>
-  budget_amount: 9.99
+  budget_amount: 50.0
   visibility_level: <%= GobiertoBudgetConsultations::Consultation.visibility_levels["active"] %>
 
 madrid_past:

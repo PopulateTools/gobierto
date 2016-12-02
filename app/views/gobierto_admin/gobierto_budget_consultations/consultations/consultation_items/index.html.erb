@@ -29,7 +29,7 @@
           <li>
             <%= link_to edit_admin_budget_consultation_consultation_item_path(@consultation, consultation_item) do %>
               <i class="fa fa-edit"></i>
-              <%= consultation_item.position %>.
+              <%= consultation_item.position + 1 %>.
               <span><%= consultation_item.title %></span>
               <i class="fa fa-bars f_right"></i>
             <% end %>

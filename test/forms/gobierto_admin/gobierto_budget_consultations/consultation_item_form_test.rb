@@ -27,6 +27,10 @@ module GobiertoAdmin
         @consultation_item ||= gobierto_budget_consultations_consultation_items(:madrid_sports_facilities)
       end
 
+      def latest_consultation_item
+        @latest_consultation_item ||= gobierto_budget_consultations_consultation_items(:madrid_sports_facilities)
+      end
+
       def consultation
         @consultation ||= consultation_item.consultation
       end
@@ -52,6 +56,14 @@ module GobiertoAdmin
         assert_difference "consultation.reload.budget_amount", budget_line_amount do
           valid_consultation_item_form.save
         end
+      end
+
+      def test_current_consultation_item_position
+        assert_equal 0, valid_consultation_item_form.consultation_item.position
+
+        valid_consultation_item_form.save
+        assert_equal latest_consultation_item.position + 1,
+          valid_consultation_item_form.consultation_item.position
       end
     end
   end

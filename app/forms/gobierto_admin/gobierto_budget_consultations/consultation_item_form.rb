@@ -13,6 +13,8 @@ module GobiertoAdmin
         :budget_line_amount
       )
 
+      attr_reader :consultation_item
+
       delegate :to_model, :persisted?, to: :consultation_item
 
       validates :title, presence: true
@@ -38,7 +40,7 @@ module GobiertoAdmin
       end
 
       def consultation
-        @consultation ||= consultation_class.find(consultation_id)
+        @consultation ||= consultation_class.includes(:consultation_items).find(consultation_id)
       end
 
       def budget_line_amount
@@ -68,6 +70,7 @@ module GobiertoAdmin
           consultation_item_attributes.description = description
           consultation_item_attributes.budget_line_id = budget_line_id
           consultation_item_attributes.budget_line_amount = budget_line_amount
+          consultation_item_attributes.position = current_consultation_item_position
         end
 
         if @consultation_item.valid?
@@ -82,6 +85,10 @@ module GobiertoAdmin
       end
 
       protected
+
+      def current_consultation_item_position
+        consultation.consultation_items.map(&:position).max.to_i + 1
+      end
 
       def promote_errors(errors_hash)
         errors_hash.each do |attribute, message|

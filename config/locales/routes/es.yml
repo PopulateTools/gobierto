@@ -13,3 +13,5 @@ es:
     # gobierto budget consultations
     consultations: consultas
     participate: participar
+    confirm: confirmar
+    done: terminado

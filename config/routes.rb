@@ -69,8 +69,11 @@ Rails.application.routes.draw do
       constraints GobiertoSiteConstraint.new do
         resources :consultations, only: [:index, :show] do
           get :participate, to: 'consultations/consultation_responses#new', as: :new_response
-          get :summary, to: 'consultations/consultation_responses#show', as: :show_response
           post :participate, to: 'consultations/consultation_responses#create', as: :response
+
+          get :summary, to: 'consultations/consultation_confirmations#new', as: :new_confirmation
+          post :confirm, to: 'consultations/consultation_confirmations#create', as: :confirmation
+          get :done, to: 'consultations/consultation_confirmations#show', as: :show_confirmation
         end
       end
     end

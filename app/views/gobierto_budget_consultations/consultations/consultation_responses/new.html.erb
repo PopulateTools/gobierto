@@ -13,8 +13,9 @@
           <% @consultation_items.each_with_index do |consultation_item, consultation_item_index| %>
 
             <div class="consultation_item_<%= consultation_item_index %>" data-tab-scope>
+              <a name="consultation_box_<%= consultation_item_index %>"></a>
 
-              <header class="consultation" id="consultation_box_<%= consultation_item_index %>">
+              <header class="consultation">
                 <h1>
                   <div class="bl_counter">
                     <%= consultation_item_index + 1 %>/<%= @consultation_items.size %>
@@ -50,7 +51,7 @@
                 </div>
 
                 <div class="pure-u-1 continue center">
-                  <%= link_to "#consultation_box_#{consultation_item_index}", "data-tab-target": "give_opinion_#{consultation_item_index}", class: 'button' do %>
+                  <%= link_to "#", "data-tab-target": "give_opinion_#{consultation_item_index}", class: 'button' do %>
                     Opina
                     <i class="fa fa-arrow-right"></i>
                   <% end %>
@@ -75,13 +76,33 @@
 
                       <div class="pure-u-1-3 <%= available_response[1] %>">
                         <div class="option">
-                          <%= radio_button_tag "consultation_response[selected_responses][#{consultation_item.id}]", available_response[0] %>
+                          <%= radio_button_tag "consultation_response[selected_responses][#{consultation_item.id}]", available_response[0], available_response[1] == "keep" %>
                           <%= label_tag "consultation_response[selected_responses][#{consultation_item.id}]_#{available_response[0]}" do %>
                             <span></span>
-                            <%= available_response[1].capitalize %>
+                            <%= t("gobierto_budget_consultations.consultation_items.responses.#{available_response[1]}") %>
                           <% end %>
                         </div>
                       </div>
+
+                    <% end %>
+
+                  </div>
+
+                  <div class="continue center">
+
+                    <% if consultation_item_index == (@consultation_items.size - 1) %>
+
+                      <%= button_tag type: "submit", class: "button" do %>
+                        Enviar
+                        <i class="fa fa-check"></i>
+                      <% end %>
+
+                    <% else %>
+
+                      <%= link_to "#consultation_box_#{consultation_item_index + 1}", class: "button", data: { turbolinks: false } do %>
+                        Siguiente
+                        <i class="fa fa-arrow-right"></i>
+                      <% end %>
 
                     <% end %>
 
@@ -95,11 +116,6 @@
 
           <% end %>
 
-          <div class="pure-u-1 submit center">
-
-            <%= f.submit "Enviar", class: "button" %>
-
-          </div>
 
         <% end %>
 

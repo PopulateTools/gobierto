@@ -4,3 +4,8 @@ es:
     layouts:
       menu_subsections:
         consultations: Consultas
+    consultation_items:
+      responses:
+        increase: Aumentar el gasto un 10%
+        keep: Mantener el gasto
+        reduce: Reducir el gasto un 10%

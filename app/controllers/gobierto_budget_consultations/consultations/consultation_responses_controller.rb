@@ -6,7 +6,11 @@ module GobiertoBudgetConsultations
       before_action :check_consultation_status
 
       def new
-        @consultation_response_form = ConsultationResponseForm.new
+        @consultation_response_form = ConsultationResponseForm.new(
+          user_id: current_user.id,
+          consultation_id: @consultation.id
+        )
+
         @consultation_items = @consultation.consultation_items.sorted
       end
 

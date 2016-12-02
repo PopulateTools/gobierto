@@ -76,7 +76,10 @@
 
                       <div class="pure-u-1-3 response-option <%= response_option.label %>">
                         <div class="option">
-                          <%= radio_button_tag "consultation_response[selected_options][#{consultation_item.id}]", response_option.id, response_option.selected? %>
+                          <%= radio_button_tag(
+                            "consultation_response[selected_options][#{consultation_item.id}]", response_option.id,
+                            @consultation_response_form.selected_option?(consultation_item, response_option)
+                          ) %>
                           <%= label_tag "consultation_response[selected_options][#{consultation_item.id}]_#{response_option.id}" do %>
                             <span></span>
                             <%= t("gobierto_budget_consultations.consultation_items.options.#{response_option.label}") %>

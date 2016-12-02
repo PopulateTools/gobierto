@@ -16,7 +16,10 @@
         </div>
 
         <div class="pure-u-2-3">
-          <p>La consulta está abierta hasta el 10 de enero. Anima a tus vecinos a participar para que su opiniones también estén reflejadas, y decidamos entre todos.</p>
+          <p>
+            La consulta está abierta hasta el <%= l(@consultation.closes_on, format: :short) %>.
+            Anima a tus vecinos a participar para que su opiniones también estén reflejadas, y decidamos entre todos.
+          </p>
           <%= render 'sandbox/share_links_extended' %>
         </div>
 

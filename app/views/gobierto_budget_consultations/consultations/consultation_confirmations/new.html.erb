@@ -49,15 +49,15 @@
 
         <div class="pure-u-1-2 p_h_2 right">
           <p>Mmm... mejor lo repaso</p>
-          <a href="#" class="button soft">Revisar</a>
+          <%= link_to budget_consultation_new_response_path, class: "button soft" do %>
+            Revisar
+          <% end %>
         </div>
 
         <div class="pure-u-1-2 p_h_2">
           <p>Perfecto, lo tengo claro</p>
-          <%= form_for(:consultation_response, as: :consultation_response, url: :budget_consultation_confirmation) do |f| %>
-            <%= button_tag type: "submit", class: "button" do %>
-              Confirmar
-            <% end %>
+          <%= button_to budget_consultation_confirmation_path do %>
+            Confirmar
           <% end %>
         </div>
 

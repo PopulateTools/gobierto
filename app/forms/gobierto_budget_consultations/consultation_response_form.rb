@@ -18,7 +18,7 @@ module GobiertoBudgetConsultations
     end
 
     def consultation_response
-      @consultation_response ||= build_consultation_response
+      @consultation_response ||= find_consultation_response || build_consultation_response
     end
 
     def consultation
@@ -27,6 +27,14 @@ module GobiertoBudgetConsultations
 
     def user
       @user ||= User.find_by(id: user_id)
+    end
+
+    def selected_option?(consultation_item, response_option)
+      return response_option.selected? unless persisted?
+
+      consultation_response.consultation_items.detect do |response_ci|
+        response_ci.item_id == consultation_item.id
+      end.try(:selected_option_id) == response_option.id
     end
 
     private
@@ -66,6 +74,10 @@ module GobiertoBudgetConsultations
           )
         end.compact
       end
+    end
+
+    def find_consultation_response
+      consultation.consultation_responses.sorted.find_by(user_id: user_id)
     end
 
     def build_consultation_response

@@ -2,8 +2,6 @@ module GobiertoAdmin
   module GobiertoBudgetConsultations
     module Consultations
       class ConsultationItemsController < Consultations::BaseController
-        before_action :set_consultation, only: [:index, :show, :new, :edit, :create, :update]
-
         def index
           @consultation_items = @consultation.consultation_items.sorted
 

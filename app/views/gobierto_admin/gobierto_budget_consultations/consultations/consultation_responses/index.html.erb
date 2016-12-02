@@ -1,0 +1,44 @@
+<div class="admin_breadcrumb">
+   <%= link_to 'Inicio', admin_root_path %> »
+   <%= link_to 'Consultas sobre presupuestos', admin_budget_consultations_path %> »
+   Participaciones
+</div>
+
+<h1>
+  <%= @consultation.title %>
+</h1>
+
+<table class="consultations-list">
+<tr>
+  <th>Fecha</th>
+  <th>Inversión inicial planificada</th>
+  <th>Inversión propuesta</th>
+  <th></th>
+</tr>
+
+<tbody>
+  <% @consultation_responses.each do |consultation_response| %>
+    <tr id="consultation-response_item-<%= consultation_response.id %>" class="<%= cycle("odd", "even") %>">
+      <td>
+        <div class="soft">
+          <%= link_to admin_budget_consultation_consultation_response_path(@consultation, consultation_response) do %>
+            <%= l(consultation_response.updated_at, format: :long) %>
+          <% end %>
+        </div>
+      </td>
+      <td>
+        <%= number_to_currency(@consultation.budget_amount) %>
+      </td>
+      <td>
+        <%= number_to_currency(consultation_response.budget_amount) %>
+      </td>
+      <td>
+        <%= link_to admin_budget_consultation_consultation_response_path(@consultation, consultation_response) do %>
+          <i class="fa fa-eye"></i>
+          <%= t(".view_response") %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+</table>

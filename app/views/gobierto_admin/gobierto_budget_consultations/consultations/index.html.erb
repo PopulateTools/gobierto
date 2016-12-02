@@ -38,7 +38,10 @@
         </div>
       </td>
       <td>
-        <i class="fa fa-stats"></i> 123 participaciones
+        <%= link_to admin_budget_consultation_consultation_responses_path(consultation) do %>
+          <%= consultation.consultation_responses.active.count %>
+          participaciones
+        <% end %>
       </td>
       <td>
         <% if consultation.draft? %>

@@ -7,9 +7,9 @@ dennis_madrid_open:
       "item_id"=>26213347,
       "item_title"=>"Pavimentación de vías públicas",
       "item_budget_line_amount"=>"0.0",
-      "item_available_responses"=>{"0"=>"reduce", "1"=>"keep", "2"=>"increase"},
-      "selected_response_id"=>0,
-      "selected_response_label"=>"reduce",
+      "item_response_options"=>{"0"=>"reduce", "1"=>"keep", "2"=>"increase"},
+      "selected_option_id"=>0,
+      "selected_option_label"=>"reduce",
       "budget_line_amount"=>"0.0"
     },
     {
@@ -17,9 +17,9 @@ dennis_madrid_open:
       "item_id"=>26213346,
       "item_title"=>"Inversión en Instalaciones Deportivas",
       "item_budget_line_amount"=>"9.99",
-      "item_available_responses"=>{"0"=>"reduce", "1"=>"keep", "2"=>"increase"},
-      "selected_response_id"=>2,
-      "selected_response_label"=>"increase",
+      "item_response_options"=>{"0"=>"reduce", "1"=>"keep", "2"=>"increase"},
+      "selected_option_id"=>2,
+      "selected_option_label"=>"increase",
       "budget_line_amount"=>"10.989"
     }].to_json.inspect %>
   budget_amount: 29.99

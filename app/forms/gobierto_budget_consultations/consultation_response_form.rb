@@ -5,12 +5,12 @@ module GobiertoBudgetConsultations
     attr_accessor(
       :user_id,
       :consultation_id,
-      :selected_responses
+      :selected_options
     )
 
     delegate :to_model, :persisted?, to: :consultation_response
 
-    validates :selected_responses, presence: true
+    validates :selected_options, presence: true
     validates :user, :consultation, presence: true
 
     def save
@@ -32,10 +32,10 @@ module GobiertoBudgetConsultations
     private
 
     def consultation_response_items
-      # `selected_responses` format.
+      # `selected_options` format.
       #
       # The following structure represents a mapping between a
-      # `ConsultationItem` id and a selected response:
+      # `ConsultationItem` id and a response option id:
       #
       # {
       #   "26213347" => "1",
@@ -44,9 +44,8 @@ module GobiertoBudgetConsultations
       # }
       #
       @consultation_response_items ||= begin
-        selected_responses.map do |selected_response|
-          consultation_item_id = selected_response[0].to_i
-          selected_response_id = selected_response[1].to_i
+        selected_options.map do |selected_option_pair|
+          consultation_item_id, selected_option_id = selected_option_pair.map(&:to_i)
 
           consultation_item = consultation_items.detect do |item|
             item.id == consultation_item_id
@@ -54,16 +53,16 @@ module GobiertoBudgetConsultations
 
           next unless consultation_item.present?
 
-          available_responses = consultation_item.available_responses
-          selected_response_label = available_responses[selected_response_id]
+          response_options = consultation_item.raw_response_options
+          selected_option_label = response_options[selected_option_id]
 
           consultation_response_item_class.new(
             item_id: consultation_item_id,
             item_title: consultation_item.title,
             item_budget_line_amount: consultation_item.budget_line_amount,
-            item_available_responses: available_responses,
-            selected_response_id: selected_response_id,
-            selected_response_label: selected_response_label
+            item_response_options: response_options,
+            selected_option_id: selected_option_id,
+            selected_option_label: selected_option_label
           )
         end.compact
       end

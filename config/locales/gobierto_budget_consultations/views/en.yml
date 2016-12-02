@@ -5,7 +5,11 @@ en:
       menu_subsections:
         consultations: Consultations
     consultation_items:
-      responses:
+      options:
         increase: Increase budget by 10%
         keep: Keep the budget
         reduce: Reduce budget by 10%
+        short:
+          increase: Increase
+          keep: Keep
+          reduce: Reduce

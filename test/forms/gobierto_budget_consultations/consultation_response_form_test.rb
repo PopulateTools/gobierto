@@ -6,7 +6,7 @@ module GobiertoBudgetConsultations
       @valid_consultation_response_form ||= ConsultationResponseForm.new(
         user_id: user.id,
         consultation_id: consultation.id,
-        selected_responses: selected_responses_params
+        selected_options: selected_options_params
       )
     end
 
@@ -14,24 +14,20 @@ module GobiertoBudgetConsultations
       @invalid_consultation_response_form ||= ConsultationResponseForm.new(
         user_id: nil,
         consultation_id: nil,
-        selected_responses: nil
+        selected_options: nil
       )
     end
 
-    def selected_responses_params
-      @selected_responses_params ||= {
-        consultation_item.id => selected_response_id,
+    def selected_options_params
+      @selected_options_params ||= {
+        consultation_item.id => selected_option.id,
         "wadus" => "2",
         "foo" => "2"
       }
     end
 
-    def selected_response_id
-      @selected_response_id ||= consultation_item.available_responses.first[0]
-    end
-
-    def selected_response_label
-      @selected_response_label ||= consultation_item.available_responses.first[1]
+    def selected_option
+      @selected_option ||= consultation_item.response_options.first
     end
 
     def user
@@ -55,7 +51,7 @@ module GobiertoBudgetConsultations
 
       assert_equal 1, invalid_consultation_response_form.errors.messages[:user].size
       assert_equal 1, invalid_consultation_response_form.errors.messages[:consultation].size
-      assert_equal 1, invalid_consultation_response_form.errors.messages[:selected_responses].size
+      assert_equal 1, invalid_consultation_response_form.errors.messages[:selected_options].size
     end
 
     def test_consultation_response_items
@@ -63,12 +59,12 @@ module GobiertoBudgetConsultations
 
       expected_consultation_items = [
         {
-          "item_id"                  => consultation_item.id,
-          "item_title"               => consultation_item.title,
-          "item_budget_line_amount"  => consultation_item.budget_line_amount,
-          "item_available_responses" => consultation_item.available_responses,
-          "selected_response_id"     => selected_response_id,
-          "selected_response_label"  => selected_response_label
+          "item_id"                 => consultation_item.id,
+          "item_title"              => consultation_item.title,
+          "item_budget_line_amount" => consultation_item.budget_line_amount,
+          "item_response_options"   => consultation_item.raw_response_options,
+          "selected_option_id"      => selected_option.id,
+          "selected_option_label"   => selected_option.label
         }
       ]
 

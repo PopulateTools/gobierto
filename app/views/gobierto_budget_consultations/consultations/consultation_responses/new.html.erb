@@ -72,14 +72,14 @@
 
                   <div class="pure-g">
 
-                    <% Array(consultation_item.available_responses).each do |available_response| %>
+                    <% Array(consultation_item.response_options).each do |response_option| %>
 
-                      <div class="pure-u-1-3 <%= available_response[1] %>">
+                      <div class="pure-u-1-3 <%= response_option.label %>">
                         <div class="option">
-                          <%= radio_button_tag "consultation_response[selected_responses][#{consultation_item.id}]", available_response[0], available_response[1] == "keep" %>
-                          <%= label_tag "consultation_response[selected_responses][#{consultation_item.id}]_#{available_response[0]}" do %>
+                          <%= radio_button_tag "consultation_response[selected_options][#{consultation_item.id}]", response_option.id, response_option.selected? %>
+                          <%= label_tag "consultation_response[selected_options][#{consultation_item.id}]_#{response_option.id}" do %>
                             <span></span>
-                            <%= t("gobierto_budget_consultations.consultation_items.responses.#{available_response[1]}") %>
+                            <%= t("gobierto_budget_consultations.consultation_items.options.#{response_option.label}") %>
                           <% end %>
                         </div>
                       </div>

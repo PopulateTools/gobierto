@@ -13,9 +13,9 @@
           <tr>
             <td class="budget-line_title"><%= consultation_response_item.item_title %></td>
             <td class="left">
-              <% consultation_response_item.item_available_responses.each do |available_response| %>
-                <div class="button_marker <%= available_response[1] %> <%= "active" if consultation_response_item.selected_response_id == available_response[0].to_i %>">
-                  <%= available_response[1].capitalize %>
+              <% consultation_response_item.response_options.each do |response_option| %>
+                <div class="button_marker <%= response_option.label %> <%= "active" if consultation_response_item.selected_option_id == response_option.id %>">
+                  <%= t("gobierto_budget_consultations.consultation_items.options.short.#{response_option.label}") %>
                 </div>
               <% end %>
             </td>

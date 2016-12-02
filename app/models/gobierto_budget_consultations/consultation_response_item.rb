@@ -7,9 +7,9 @@ module GobiertoBudgetConsultations
       :item_id,
       :item_title,
       :item_budget_line_amount,
-      :item_available_responses,
-      :selected_response_id,
-      :selected_response_label,
+      :item_response_options,
+      :selected_option_id,
+      :selected_option_label,
       :budget_line_amount
     ]
 
@@ -26,6 +26,15 @@ module GobiertoBudgetConsultations
       @budget_line_amount ||= calculate_budget_line_amount
     end
 
+    def response_options
+      item_response_options.map do |option_id, option_label|
+        OpenStruct.new(
+          id: option_id.to_i,
+          label: option_label
+        )
+      end
+    end
+
     private
 
     def generate_id
@@ -33,7 +42,7 @@ module GobiertoBudgetConsultations
     end
 
     def calculate_budget_line_amount
-      case selected_response_label
+      case selected_option_label
       when "reduce"   then item_budget_line_amount.to_f / 1.10
       when "keep"     then item_budget_line_amount.to_f
       when "increase" then item_budget_line_amount.to_f * 1.10

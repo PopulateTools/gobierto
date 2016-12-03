@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161127123102) do
+ActiveRecord::Schema.define(version: 20161203085646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,14 +97,14 @@ ActiveRecord::Schema.define(version: 20161127123102) do
   end
 
   create_table "gbc_consultation_items", force: :cascade do |t|
-    t.string   "title",                                      default: "",    null: false
+    t.string   "title",                                       default: "",    null: false
     t.text     "description"
-    t.string   "budget_line_id",                             default: "",    null: false
-    t.decimal  "budget_line_amount", precision: 8, scale: 2, default: "0.0", null: false
-    t.integer  "position",                                   default: 0,     null: false
+    t.string   "budget_line_id",                              default: "",    null: false
+    t.decimal  "budget_line_amount", precision: 12, scale: 2, default: "0.0", null: false
+    t.integer  "position",                                    default: 0,     null: false
     t.integer  "consultation_id"
-    t.datetime "created_at",                                                 null: false
-    t.datetime "updated_at",                                                 null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
     t.index ["consultation_id"], name: "index_gbc_consultation_items_on_consultation_id", using: :btree
   end
 
@@ -112,25 +112,25 @@ ActiveRecord::Schema.define(version: 20161127123102) do
     t.integer  "consultation_id"
     t.integer  "user_id"
     t.text     "consultation_items"
-    t.decimal  "budget_amount",      precision: 8, scale: 2
-    t.integer  "visibility_level",                           default: 0, null: false
-    t.datetime "created_at",                                             null: false
-    t.datetime "updated_at",                                             null: false
+    t.decimal  "budget_amount",      precision: 12, scale: 2, default: "0.0", null: false
+    t.integer  "visibility_level",                            default: 0,     null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
     t.index ["consultation_id"], name: "index_gbc_consultation_responses_on_consultation_id", using: :btree
     t.index ["user_id"], name: "index_gbc_consultation_responses_on_user_id", using: :btree
   end
 
   create_table "gbc_consultations", force: :cascade do |t|
-    t.string   "title",                                    default: "",    null: false
-    t.text     "description",                              default: "",    null: false
+    t.string   "title",                                     default: "",    null: false
+    t.text     "description",                               default: "",    null: false
     t.date     "opens_on"
     t.date     "closes_on"
-    t.integer  "visibility_level",                         default: 0,     null: false
-    t.decimal  "budget_amount",    precision: 8, scale: 2, default: "0.0", null: false
+    t.integer  "visibility_level",                          default: 0,     null: false
+    t.decimal  "budget_amount",    precision: 12, scale: 2, default: "0.0", null: false
     t.integer  "admin_id"
     t.integer  "site_id"
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
     t.index ["admin_id"], name: "index_gbc_consultations_on_admin_id", using: :btree
     t.index ["site_id"], name: "index_gbc_consultations_on_site_id", using: :btree
   end

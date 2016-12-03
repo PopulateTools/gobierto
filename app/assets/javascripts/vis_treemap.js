@@ -16,9 +16,8 @@ var TreemapVis = Class.extend({
     this.treemap = null;
     this.container = null;
 
-    // var colors = ['#FFD100', '#FE7000', '#ED2F00', '#940099', '#487304', '#4A73B0', '#1B4145', '#444300', '#24190E'];
     var colors = ['#FFBCC8', '#FF6181', '#EE2657', '#8C3044', '#516773', '#427991', '#1F3F4F', '#473D3F', '#24191B'];
-    this.colorScale = d3.scale.ordinal().range(colors);
+    this.colorScale = d3.scaleOrdinal().range(colors);
 
     this.opacity = 1;
     this.duration = 1;
@@ -39,60 +38,54 @@ var TreemapVis = Class.extend({
       .style("left", this.margin.left + "px")
       .style("top", this.margin.top + "px");
 
-    this.treemap = d3.layout.treemap()
-      .size([this.width, this.height])
-      .sticky(true)
-      .sort(function comparator(b, a){
-        return b.budget - a.budget;
-      })
-      .value(function(d) { return d.budget; });
+    this.treemap = d3.treemap()
+      .size([this.width, this.height]);
 
-    d3.json(urlData)
-      .mimeType('application/json')
-      .get(function(error, root){
-        if (error) throw error;
+    d3.json(urlData).mimeType('application/json').get(function(error, data){
+      if (error) throw error;
 
-        this.colorScale
-          .domain(root.children.map(function(d) { return d.name; }));
+      var root = d3.hierarchy(data)
+        .eachBefore(function(d) { d.data.id = d.data.code; })
+        .sum(function(d) { return d.budget; })
+        .sort(function(a, b) { return b.budget - a.budget});
 
-        var node = this.container.datum(root).selectAll(".treemap_node")
-          .data(this.treemap.nodes)
-          .enter().append("div")
-          .attr("class", function(d){
-            if(this.clickable){
-              return "tipsit-treemap treemap_node clickable";
-            } else {
-              return "tipsit-treemap treemap_node";
-            }
-          }.bind(this))
+      this.colorScale
+        .domain(root.children.map(function(d) { return d.code; }));
+
+      this.container.selectAll(".treemap_node")
+        .data(this.treemap(root).leaves())
+        .enter().append("div")
+        .attr("class", function(d){
+          if(this.clickable){
+            return "tipsit-treemap treemap_node clickable";
+          } else {
+            return "tipsit-treemap treemap_node";
+          }
+        }.bind(this))
         .attr("title", function(d){
-          return "<strong>" + d.name + "</strong><br>" + accounting.formatMoney(d.budget, "€", 0, '.') + "<br>" + accounting.formatMoney(d.budget_per_inhabitant, "€", 0, ',') + " /" + I18n.t("gobierto_budgets.visualizations.inhabitant_short");
+          return "<strong>" + d.data.name + "</strong><br>" + accounting.formatMoney(d.data.budget, "€", 0, '.') + "<br>" + accounting.formatMoney(d.data.budget_per_inhabitant, "€", 0, ',') + " /" + I18n.t("gobierto_budgets.visualizations.inhabitant_short");
         }.bind(this))
         .attr("data-url", function(d){
           if(this.clickable){
-            return d.children ? null : urlData.split('?')[0] + "?parent_code=" + d.code;
+            return d.children ? null : urlData.split('?')[0] + "?parent_code=" + d.data.code;
           }
         }.bind(this))
-        .call(this._position)
-        .style("background", function(d) { return this.colorScale(d.name); }.bind(this))
+        .style("left", function(d) { console.log(d); return d.x0 + "px"; })
+        .style("top", function(d) { return d.y0 + "px"; })
+        .style("width", function(d) { return (d.x1 - d.x0) + "px"; })
+        .style("height", function(d) { return (d.y1 - d.y0) + "px"; })
+        .style("background", function(d) { return this.colorScale(d.data.code); }.bind(this))
         .html(function(d) {
           if(d.children) {
             return null;
           } else {
             // If the square is small, don't add the text
-            if(d.dx > 70 && d.dy > 90) {
-              return "<p><strong>" + d.name + "</strong></p><p>" + accounting.formatMoney(d.budget_per_inhabitant, "€", 0) + "/" + I18n.t("gobierto_budgets.visualizations.inhabitant_short") + "</p>";
+            if((d.x1 - d.x0) > 70 && (d.y1 - d.y0) > 90) {
+              return "<p><strong>" + d.data.name + "</strong></p><p>" + accounting.formatMoney(d.data.budget_per_inhabitant, "€", 0) + "/" + I18n.t("gobierto_budgets.visualizations.inhabitant_short") + "</p>";
             }
           }
         })
-        .call(rebindAll)
-      }.bind(this));
-  },
-
-  _position: function() {
-    this.style("left", function(d) { return d.x + "px"; })
-      .style("top", function(d) { return d.y + "px"; })
-      .style("width", function(d) { return Math.max(0, d.dx) + "px"; })
-      .style("height", function(d) { return Math.max(0, d.dy) + "px"; });
-  },
+       .call(rebindAll)
+    }.bind(this));
+  }
 });

@@ -43,12 +43,6 @@ module GobiertoAdmin
         @consultation ||= consultation_class.includes(:consultation_items).find(consultation_id)
       end
 
-      def budget_line_amount
-        # TODO. This attribute should depend on `budget_line_id`.
-        #
-        @budget_line_amount ||= 10.0
-      end
-
       private
 
       def build_consultation_item
@@ -69,7 +63,7 @@ module GobiertoAdmin
           consultation_item_attributes.title = title
           consultation_item_attributes.description = description
           consultation_item_attributes.budget_line_id = budget_line_id
-          consultation_item_attributes.budget_line_amount = budget_line_amount
+          consultation_item_attributes.budget_line_amount = budget_line_amount.to_f
           consultation_item_attributes.position = current_consultation_item_position
         end
 

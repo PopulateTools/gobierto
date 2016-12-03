@@ -10,12 +10,17 @@
 
       <div class="form_item select_control">
         <%= f.label :budget_line_id %>
-        <%= f.select :budget_line_id, @budget_lines %>
+        <%= f.select :budget_line_id, consultation_item_budget_lines_options_for_select(@budget_lines), prompt: true %>
       </div>
 
       <div class="form_item input_text">
         <%= f.label :title %>
         <%= f.text_field :title, placeholder: "Pavimentación de vías públicas" %>
+      </div>
+
+      <div class="form_item input_text">
+        <%= f.label :budget_line_amount %>
+        <%= f.text_field :budget_line_amount, placeholder: "25000" %>
       </div>
 
       <div class="form_item input_text">
@@ -39,4 +44,10 @@
 
   </div>
 
+<% end %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.App.consultation_items_controller.edit();
+  <% end %>
 <% end %>

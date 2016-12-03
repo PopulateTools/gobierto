@@ -13,3 +13,4 @@ en:
         title: Title
         description: Description
         budget_line_id: Budget line
+        budget_line_amount: Budget line amount

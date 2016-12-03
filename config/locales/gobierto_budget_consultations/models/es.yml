@@ -13,3 +13,4 @@ es:
         title: Título
         description: Descripción
         budget_line_id: Partida
+        budget_line_amount: Importe de la partida

@@ -77,9 +77,20 @@ module GobiertoAdmin
         def get_budget_lines
           # TODO. Build this collection through TBI API.
           #
-          {
-            "Pavimentación de vías públicas (10.000 EUR)" => "9208.0/2016-01-01/p/e/f/151"
-          }
+          [
+            {
+              id: "9208.0/2016-01-01/p/e/f/151",
+              name: "Pavimentación de vías públicas",
+              amount: "100000"
+            },
+            {
+              id: "9208.0/2016-01-01/p/e/f/153",
+              name: "Fuerzas y cuerpos de seguridad",
+              amount: "1160000"
+            },
+          ].map do |budget_line_attributes|
+            OpenStruct.new(budget_line_attributes)
+          end
         end
 
         def consultation_item_params
@@ -87,7 +98,8 @@ module GobiertoAdmin
             :title,
             :description,
             :position,
-            :budget_line_id
+            :budget_line_id,
+            :budget_line_amount
           )
         end
 

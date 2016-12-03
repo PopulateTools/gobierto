@@ -24,8 +24,14 @@ module GobiertoAdmin
         @site ||= consultation.site
       end
 
-      def budget_line_label
-        "Pavimentación de vías públicas (10.000 EUR)"
+      def budget_line
+        # TODO. Mock this response.
+        #
+        OpenStruct.new(
+          id: "9208.0/2016-01-01/p/e/f/153",
+          name: "Fuerzas y cuerpos de seguridad",
+          amount: "1160000"
+        )
       end
 
       def test_consultation_item_update
@@ -34,9 +40,10 @@ module GobiertoAdmin
             visit @path
 
             within "form.edit_consultation_item" do
-              select budget_line_label, from: "consultation_item_budget_line_id"
+              select budget_line.name, from: "consultation_item_budget_line_id"
 
-              fill_in "consultation_item_title", with: "ConsultationItem Title"
+              fill_in "consultation_item_title", with: budget_line.name
+              fill_in "consultation_item_budget_line_amount", with: budget_line.amount
               fill_in "consultation_item_description", with: "ConsultationItem Description"
 
               click_button "Update Budget line"

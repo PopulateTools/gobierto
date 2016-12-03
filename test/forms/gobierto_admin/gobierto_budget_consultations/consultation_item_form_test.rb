@@ -9,7 +9,8 @@ module GobiertoAdmin
           title: consultation_item.title,
           description: consultation_item.description,
           position: consultation_item.position,
-          budget_line_id: "Wadus"
+          budget_line_id: "Wadus",
+          budget_line_amount: 10.0
         )
       end
 
@@ -19,7 +20,8 @@ module GobiertoAdmin
           title: nil,
           description: nil,
           position: nil,
-          budget_line_id: nil
+          budget_line_id: nil,
+          budget_line_amount: nil
         )
       end
 
@@ -35,12 +37,6 @@ module GobiertoAdmin
         @consultation ||= consultation_item.consultation
       end
 
-      def budget_line_amount
-        # TODO. This is a static value for now.
-        #
-        10.0
-      end
-
       def test_save_with_valid_attributes
         assert valid_consultation_item_form.save
       end
@@ -50,10 +46,11 @@ module GobiertoAdmin
 
         assert_equal 1, invalid_consultation_item_form.errors.messages[:title].size
         assert_equal 1, invalid_consultation_item_form.errors.messages[:budget_line_id].size
+        assert_equal 1, invalid_consultation_item_form.errors.messages[:budget_line_amount].size
       end
 
       def test_calculate_consultation_budget_amount
-        assert_difference "consultation.reload.budget_amount", budget_line_amount do
+        assert_difference "consultation.reload.budget_amount", 10.0 do
           valid_consultation_item_form.save
         end
       end

@@ -30,15 +30,15 @@ var VisLineasJ = Class.extend({
     this.series = series;
 
     // Scales
-    this.xScale = d3.time.scale();
-    this.yScale = d3.scale.linear();
-    this.colorScale = d3.scale.ordinal();
-    this.yScaleTable = d3.scale.ordinal();
-    this.xScaleTable = d3.scale.linear();
+    this.xScale = d3.scaleTime();
+    this.yScale = d3.scaleLinear();
+    this.colorScale = d3.scaleOrdinal();
+    this.yScaleTable = d3.scaleBand();
+    this.xScaleTable = d3.scaleLinear();
 
     // Axis
-    this.xAxis = d3.svg.axis();
-    this.yAxis = d3.svg.axis();
+    this.xAxis = d3.axisBottom();
+    this.yAxis = d3.axisRight();
 
     // Data
     this.data = null;
@@ -50,13 +50,13 @@ var VisLineasJ = Class.extend({
     this.lastYear = null;
 
     // Legend
-    this.legendEvolution = d3.legend.color();
+    this.legendEvolution = d3.legendColor();
 
     // Objects
     this.tooltip = null;
     this.formatPercent = this.measure == 'percentage' ? d3.format('%') : d3.format(".0f");
-    this.parseDate = d3.time.format("%Y").parse;
-    this.line = d3.svg.line();
+    this.parseDate = d3.timeParse("%Y");
+    this.line = d3.line();
 
     // Chart objects
     this.svgLines = null;
@@ -212,20 +212,18 @@ var VisLineasJ = Class.extend({
       // Define the axis
       this.xAxis
           .tickValues(this._xTickValues(years))
-          .scale(this.xScale)
-          .orient("bottom");
+          .scale(this.xScale);
 
       this.yAxis
           .scale(this.yScale)
           .tickValues(this._tickValues(this.yScale))
           .tickFormat(function(d) { return accounting.formatMoney(d, "€", 0, ".", ","); })
-          .tickSize(-(this.width - (this.margin.right + this.margin.left - 20)))
-          .orient("right");
+          .tickSize(-(this.width - (this.margin.right + this.margin.left - 20)));
 
 
       // Define the line
       this.line
-        .interpolate("cardinal")
+        .curve(d3.curveCardinal)
         .x(function(d) { return this.xScale(d.date); }.bind(this))
         .y(function(d) { return this.yScale(d.value); }.bind(this));
 
@@ -343,7 +341,7 @@ var VisLineasJ = Class.extend({
       }
       // Set scales
 
-      this.yScaleTable.domain(rows).rangeRoundBands([this.height, 0]);
+      this.yScaleTable.domain(rows).rangeRound([this.height, 0]);
       this.xScaleTable.domain([0,1]).range([0, this.tableWidth]);
 
       var table = d3.select(this.tableContainer).append('table'),
@@ -437,121 +435,12 @@ var VisLineasJ = Class.extend({
 
           var bulletsColors = this.colorScale.range();
 
-          d3.selectAll('.le').forEach(function(v) {
-            v.forEach(function(d,i) {
-              d3.select(v[i])
-                .style('background', this.series == 'means' ? bulletsColors[(bulletsColors.length - 1) - i] : bulletsColors[i])
-            }.bind(this));
+          $('.le').each(function(i, v){
+            $(v).css('background', this.series == 'means' ? bulletsColors[(bulletsColors.length - 1) - i] : bulletsColors[i]);
           }.bind(this));
 
     }.bind(this)); // end load data
   }, // end render
-
-  // updateRender: function () {
-  //   // re-define format percent
-  //   this.formatPercent = this.measure == 'percentage' ? d3.format('%') : d3.format(".0f");
-
-  //   // re-map the data
-  //   this.dataChart = this.data.budgets[this.measure];
-  //   this.kind = this.data.kind;
-  //   this.dataYear = this.parseDate(this.data.year);
-
-  //   this.dataDomain = [d3.min(this.dataChart.map(function(d) { return d3.min(d.values.map(function(v) { return v.value; })); })),
-  //             d3.max(this.dataChart.map(function(d) { return d3.max(d.values.map(function(v) { return v.value; })); }))];
-
-  //   // Update the scales
-  //   this.xScale
-  //     .domain(d3.extent(this.dataChart[0].values, function(d) { return d.date; }));
-
-  //   this.yScale
-  //     .domain([this.dataDomain[0] * .3, this.dataDomain[1] * 1.2]);
-
-  //   this.colorScale
-  //     .domain(this.dataChart.map(function(d) { return d.name; }));
-
-  //   // Update the axis
-  //   this.xAxis.scale(this.xScale);
-
-  //   this.yAxis
-  //       .scale(this.yScale)
-  //       .tickValues(this._tickValues(this.yScale))
-  //       .tickFormat(this.formatPercent)
-
-  //   this.svgLines.select(".x.axis")
-  //     .transition()
-  //     .duration(this.duration)
-  //     .delay(this.duration/2)
-  //     .ease("sin-in-out")
-  //     .call(this.xAxis);
-
-  //   this.svgLines.select(".y.axis")
-  //     .transition()
-  //     .duration(this.duration)
-  //     .delay(this.duration/2)
-  //     .ease("sin-in-out")
-  //     .call(this.yAxis);
-
-  //   // Change ticks color
-  //   d3.selectAll('.axis').selectAll('text')
-  //     .attr('fill', this.darkGrey);
-
-  //   d3.selectAll('.axis').selectAll('path')
-  //     .attr('stroke', this.darkGrey);
-
-  //   // Update lines
-  //   this.svgLines.selectAll('.evolution_line')
-  //     .data(this.dataChart)
-  //     .transition()
-  //     .duration(this.duration)
-  //     .attr('d', function(d) { return this.line(d.values); }.bind(this))
-  //     .style('stroke', function(d) { return this.colorScale(d.name); }.bind(this));
-
-  //   // Update the points
-  //   this.svgLines.selectAll(".dots")
-  //       .data(this.dataChart)
-  //     .selectAll(".dot_line")
-  //       .data(function(d) { return d.values; })
-  //       .transition()
-  //       .duration(this.duration)
-  //       .attr('cx', function(d) { return this.xScale(d.date); }.bind(this))
-  //       .attr('cy', function(d) { return this.yScale(d.value); }.bind(this));
-
-  //   // Update table figures
-  //   this.svgTable.selectAll('.legend_value')
-  //       .data(this.dataChart)
-  //       .text(function(d) {
-  //         var dataChartFiltered = d.values.filter(function(v) {
-  //           return v.date.getFullYear() == this.dataYear.getFullYear();
-  //         }.bind(this));
-  //         return this.formatPercent(dataChartFiltered[0].value) + this._units();
-  //       }.bind(this))
-  //       .transition()
-  //         .duration(this.duration/4)
-  //         .style('font-size', '12px')
-  //         .style('font-weight', '600')
-  //       .transition()
-  //         .duration(this.duration/4)
-  //         .style('font-size', '10px')
-  //         .style('font-weight', '300');
-
-
-  //    this.svgTable.selectAll('.legend_dif')
-  //       .data(this.dataChart)
-  //       .text(function(d) {
-  //         var dataChartFiltered = d.values.filter(function(v) {
-  //           return v.date.getFullYear() == this.dataYear.getFullYear();
-  //         }.bind(this));
-  //         return dataChartFiltered[0].dif > 0 ? '+' + this.formatPercent(dataChartFiltered[0].dif) + this._units() : this.formatPercent(dataChartFiltered[0].dif) + this._units();
-  //       }.bind(this))
-  //       .transition()
-  //         .duration(this.duration/4)
-  //         .style('font-size', '12px')
-  //         .style('font-weight', '600')
-  //       .transition()
-  //         .duration(this.duration/4)
-  //         .style('font-size', '10px')
-  //         .style('font-weight', '300');
-  // },
 
   //PRIVATE
   _tickValues:  function (scale) {
@@ -742,11 +631,3 @@ var VisLineasJ = Class.extend({
   })()
 
 }); // End object
-
-
-
-
-
-
-
-

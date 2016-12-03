@@ -97,6 +97,8 @@ GEM
       js_cookie_rails
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
+    d3-rails (4.3.0)
+      railties (>= 3.1)
     dalli (2.7.6)
     database_cleaner (1.5.3)
     deep_merge (1.1.1)
@@ -233,7 +235,7 @@ GEM
     ruby-prof (0.16.2)
     ruby-progressbar (1.8.1)
     ruby_dep (1.5.0)
-    ruby_px (0.3.0)
+    ruby_px (0.4.0)
       activesupport (>= 4.2.5)
     safe_yaml (1.0.4)
     sass (3.4.22)
@@ -315,6 +317,7 @@ DEPENDENCIES
   codecov (~> 0.1.9)
   config
   cookies_eu
+  d3-rails (~> 4.3)
   dalli
   database_cleaner
   elasticsearch

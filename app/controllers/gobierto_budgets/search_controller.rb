@@ -13,12 +13,11 @@ module GobiertoBudgets
 
           this_year_codes = get_year_codes(place, area, kind, year)
           klass_name = area == 'economic' ? GobiertoBudgets::EconomicArea : GobiertoBudgets::FunctionalArea
-          site = Site.find_by external_id: place.id
           suggestions += klass_name.all_items[kind].select{|k,v| this_year_codes.include?(k) && v.downcase.include?(query) }.map do |k,v|
             {
               value: v,
               data: {
-                url: gobierto_budgets_budget_line_url(year: year, id: k, kind: kind, area_name: area, host: site.domain)
+                url: gobierto_budgets_budget_line_url(year: year, id: k, kind: kind, area_name: area, host: @site.domain)
               }
             }
           end

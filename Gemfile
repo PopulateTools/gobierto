@@ -60,4 +60,5 @@ group :development do
   gem "capistrano-passenger"
   gem "capistrano-rails-console"
   gem "capistrano-rails-log"
+  gem "capistrano-sidekiq"
 end

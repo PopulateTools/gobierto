@@ -3,7 +3,7 @@ lock '3.6.1'
 set :pty,  false
 set :application, 'gobierto'
 set :repo_url, 'git@github.com:PopulateTools/gobierto-dev.git'
-set :linked_files, fetch(:linked_files, []).push('config/database.yml', '.rbenv-vars')
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', '.rbenv-vars', "config/settings/#{fetch(:stage)}.yml")
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/cache')
 set :rbenv_type, :user
 set :rbenv_ruby, '2.3.1'

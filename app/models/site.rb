@@ -34,7 +34,7 @@ class Site < ApplicationRecord
   end
 
   def place
-    @place ||= INE::Places::Place.find self.external_id
+    @place ||= INE::Places::Place.find self.municipality_id
   end
 
   def configuration

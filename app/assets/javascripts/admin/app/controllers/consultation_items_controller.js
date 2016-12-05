@@ -8,7 +8,7 @@ this.App.ConsultationItemsController = (function() {
 
     $(budgetLineSelectHandler).on("change", function() {
       $(budgetLineAmountHandler).val($(this).find(":selected").data("amount"));
-      $(consultationItemTitleHandler).val($(this).find(":selected").text());
+      $(consultationItemTitleHandler).val($(this).find(":selected").data("name"));
     });
   }
 

@@ -13,7 +13,7 @@ $(document).on('turbolinks:load', function() {
 		$('.debt_marker .qty').velocity({backgroundColor: '#F0F0F0'});
 		$('.warning_text').velocity("transition.slideUpBigOut");
 	}
-	$('.consultation_marker .augment').click(function(e) {
+	$('.consultation_marker .increase').click(function(e) {
 		// e.preventDefault();
 		deficitEnter();
 	});

@@ -5,8 +5,16 @@ class User::VerificationTest < ActiveSupport::TestCase
     @user_verification ||= user_verification_census_verifications(:dennis_verified)
   end
 
+  def site
+    @site ||= sites(:madrid)
+  end
+
   def test_valid
     assert user_verification.valid?
+  end
+
+  def test_current_by_site
+    assert_equal user_verification.id, User::Verification.current_by_site(site).id
   end
 
   def test_verify!

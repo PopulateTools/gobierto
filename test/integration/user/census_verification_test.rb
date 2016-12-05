@@ -7,12 +7,12 @@ class User::CensusVerificationTest < ActionDispatch::IntegrationTest
     @verification_summary_path = user_census_verifications_path
   end
 
-  def user
-    @user ||= users(:dennis)
+  def unverified_user
+    @unverified_user ||= users(:susan)
   end
 
   def verified_user
-    @verified_user ||= users(:susan)
+    @verified_user ||= users(:dennis)
   end
 
   def site
@@ -21,7 +21,7 @@ class User::CensusVerificationTest < ActionDispatch::IntegrationTest
 
   def test_verification
     with_current_site(site) do
-      with_signed_in_user(user) do
+      with_signed_in_user(unverified_user) do
         visit @verification_path
 
         fill_in :user_verification_document_number, with: "00000000P"
@@ -41,7 +41,7 @@ class User::CensusVerificationTest < ActionDispatch::IntegrationTest
 
   def test_invalid_verification
     with_current_site(site) do
-      with_signed_in_user(user) do
+      with_signed_in_user(unverified_user) do
         visit @verification_path
 
         fill_in :user_verification_document_number, with: nil

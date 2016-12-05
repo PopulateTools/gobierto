@@ -6,6 +6,9 @@ class Site < ApplicationRecord
   has_many :admins, through: :admin_sites, class_name: "GobiertoAdmin::Admin"
   has_many :census_imports, dependent: :destroy, class_name: "GobiertoAdmin::CensusImport"
 
+  # TODO. Build these associations dynamically.
+  has_many :budget_consultations, dependent: :destroy, class_name: "GobiertoBudgetConsultations::Consultation"
+
   serialize :configuration_data
 
   before_save :store_configuration

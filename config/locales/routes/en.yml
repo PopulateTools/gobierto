@@ -10,4 +10,8 @@ en:
     budget_lines: budget_lines
     budget_line: budget_line
     execution: execution
-    # add your new module here...
+    # gobierto budget consultations
+    consultations: consultations
+    participate: participate
+    confirm: confirm
+    done: done

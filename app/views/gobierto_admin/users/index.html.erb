@@ -61,7 +61,7 @@
         <span class="soft ip"><%= user.creation_ip %></span>
       </td>
       <td>
-        <%= t(user.verified? ? ".yes" : ".no") %>
+        <%= t(user.census_verified? ? ".yes" : ".no") %>
       </td>
       <td>
         <%= link_to [:admin, user], class: "view_item" do %>

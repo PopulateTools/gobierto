@@ -3,10 +3,15 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
-  <%# TODO: load assets depending on the modules %>
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+  <%= yield(:stylesheet_link) %>
+  <%= yield(:javascript_include) %>
+
   <%= csrf_meta_tags %>
+
   <% if Rails.env.production? %>
     <%= render 'layouts/analytics_header_site' %>
   <% end %>
@@ -62,7 +67,7 @@
 <div class="container">
 
   <%= render "user/shared/flash_messages" %>
-  <%= yield %>
+  <%= content_for?(:content) ? yield(:content) : yield %></div>
 
 </div>
 

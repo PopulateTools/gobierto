@@ -10,4 +10,8 @@ es:
     budget_lines: partidas
     budget_line: partida
     execution: ejecucion
-    # add your new module here...
+    # gobierto budget consultations
+    consultations: consultas
+    participate: participar
+    confirm: confirmar
+    done: terminado

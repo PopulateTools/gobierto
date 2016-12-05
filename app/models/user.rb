@@ -17,8 +17,4 @@ class User < ApplicationRecord
 
   scope :sorted, -> { order(created_at: :desc) }
   scope :by_source_site, ->(source_site) { where(source_site: source_site) }
-
-  def verified?
-    census_verified?
-  end
 end

@@ -1,6 +1,6 @@
 class User::CensusVerificationsController < User::BaseController
   before_action :authenticate_user!
-  before_action :require_no_verified_user, only: [:new, :create]
+  before_action(only: [:new, :create]) { require_not_verified_user_in(current_site) }
 
   def show
     @user_verifications = current_user.census_verifications.sorted

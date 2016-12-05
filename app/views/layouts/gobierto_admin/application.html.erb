@@ -12,7 +12,7 @@
   <% end %>
 </head>
 
-<body <%= data_attributes %> class="gobierto_admin ">
+<body <%= yield(:body_attributes) %> class="gobierto_admin">
 
   <header class="main clearfix">
 
@@ -100,9 +100,16 @@
 
       <div class="menu_content">
 
-        <ul >
+        <ul>
           <li><a href="">Visualización presupuestos</a></li>
-          <li><a href="admin_consultations">Consultas presupuestos</a></li>
+          <% if current_site.configuration.gobierto_budget_consultations_enabled? %>
+          <li>
+            <%= link_to t(".budget_consultations"), admin_budget_consultations_path %>
+          </li>
+          <% end %>
+
+          <li class="sep"></li>
+
           <li><a href="">Inteligencia</a></li>
           <li><a href="">Personas</a>
             <ul>
@@ -116,9 +123,10 @@
           <li><a href="">Cuadro de mando</a></li>
           <li><a href="">Mapas</a></li>
           <li><a href="">Participación</a></li>
-          <li class="sep">
-            <%= link_to t(".users"), admin_users_path %>
-          </li>
+
+          <li class="sep"></li>
+
+          <li><%= link_to t(".users"), admin_users_path %></li>
           <li><a href="admin_sites_site">Personalizar sitio</a></li>
         </ul>
 

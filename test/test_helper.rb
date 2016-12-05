@@ -6,9 +6,10 @@ require "minitest/rails"
 require "minitest/mock"
 require "minitest/reporters"
 require "database_cleaner"
+require "spy/integration"
+require "webmock/minitest"
 require "support/session_helpers"
 require "support/site_session_helpers"
-require "spy/integration"
 require "support/message_delivery_helpers"
 
 if ENV["CI"] || ENV["RUN_COVERAGE"]
@@ -45,6 +46,11 @@ DatabaseCleaner.strategy = :transaction
 DatabaseCleaner.clean_with :truncation
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
+
+WebMock.disable_net_connect!(
+  allow_localhost: true,
+  allow: "elasticsearch"
+)
 
 ActiveRecord::Migration.maintain_test_schema!
 ActiveRecord::Migration.check_pending!

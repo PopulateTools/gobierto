@@ -1,5 +1,7 @@
 module GobiertoBudgets
   class FunctionalArea
+    include Describable
+
     EXPENSE = 'G'
 
     def self.all_items
@@ -31,12 +33,6 @@ module GobiertoBudgets
         end
 
         all_items
-      end
-    end
-
-    def self.all_descriptions
-      @all_descriptions ||= begin
-        YAML.load_file('./db/data/budget_line_descriptions.yml')['functional']
       end
     end
   end

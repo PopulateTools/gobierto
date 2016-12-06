@@ -8,7 +8,8 @@ class SiteConfiguration
     :password_protection_password,
     :google_analytics_id,
     :head_markup,
-    :foot_markup
+    :foot_markup,
+    :locale
   ]
 
   attr_accessor *PROPERTIES
@@ -31,6 +32,10 @@ class SiteConfiguration
 
   def links
     @links || []
+  end
+
+  def locale
+    @locale || I18n.default_locale
   end
 
   # Define question mark instance methods for each property.

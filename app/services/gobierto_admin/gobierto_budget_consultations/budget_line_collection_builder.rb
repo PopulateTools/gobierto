@@ -44,8 +44,7 @@ module GobiertoAdmin
 
       def entities
         @entities ||= PopulateData::Gobierto::Entity.new(
-          municipality_id: @municipality_id,
-          location_name: @location_name
+          municipality_id: @municipality_id
         ).fetch
       end
 

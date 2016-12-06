@@ -75,6 +75,8 @@ Rails.application.routes.draw do
           post :confirm, to: 'consultations/consultation_confirmations#create', as: :confirmation
           get :done, to: 'consultations/consultation_confirmations#show', as: :show_confirmation
         end
+
+        resources :consultation_participations, only: [:show], path: :participations
       end
     end
 

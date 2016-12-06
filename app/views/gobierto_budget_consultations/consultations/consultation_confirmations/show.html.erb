@@ -20,7 +20,15 @@
             La consulta está abierta hasta el <%= l(@consultation.closes_on, format: :short) %>.
             Anima a tus vecinos a participar para que su opiniones también estén reflejadas, y decidamos entre todos.
           </p>
-          <%= render 'sandbox/share_links_extended' %>
+
+          <%= render("user/shared/sharing_buttons",
+                     text: "He participado en una consulta sobre presupuestos en #{current_site.name}",
+                     url: budget_consultation_participation_url(@consultation_response.sharing_token)) %>
+
+          <p>
+            También puedes compartir esta URL con quien prefieras:<br/>
+            <%= link_to budget_consultation_participation_url(@consultation_response.sharing_token) %>
+          </p>
         </div>
 
       </div>

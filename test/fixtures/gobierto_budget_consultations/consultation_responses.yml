@@ -24,3 +24,4 @@ dennis_madrid_open:
     }].to_json.inspect %>
   budget_amount: 29.99
   visibility_level: <%= GobiertoBudgetConsultations::ConsultationResponse.visibility_levels["active"] %>
+  sharing_token: dennismadridopentoken

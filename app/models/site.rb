@@ -8,6 +8,7 @@ class Site < ApplicationRecord
 
   # TODO. Build these associations dynamically.
   has_many :budget_consultations, dependent: :destroy, class_name: "GobiertoBudgetConsultations::Consultation"
+  has_many :budget_consultation_responses, through: :budget_consultations, source: :consultation_responses, class_name: "GobiertoBudgetConsultations::ConsultationResponse"
 
   serialize :configuration_data
 

@@ -12,6 +12,7 @@ es:
     execution: ejecucion
     # gobierto budget consultations
     consultations: consultas
+    participations: participaciones
     participate: participar
     confirm: confirmar
     done: terminado

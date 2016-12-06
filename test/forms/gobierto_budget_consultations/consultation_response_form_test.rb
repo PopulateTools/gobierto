@@ -74,5 +74,18 @@ module GobiertoBudgetConsultations
 
       assert_equal expected_consultation_items, consultation_items
     end
+
+    def test_sharing_token_generation
+      consultation_response = valid_consultation_response_form.save
+
+      assert_not_nil consultation_response.sharing_token
+    end
+
+    def test_sharing_token_does_not_change_on_update
+      sharing_token = valid_consultation_response_form.save.sharing_token
+      consultation_response = valid_consultation_response_form.save
+
+      assert_equal sharing_token, consultation_response.sharing_token
+    end
   end
 end

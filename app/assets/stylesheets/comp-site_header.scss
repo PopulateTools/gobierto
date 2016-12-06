@@ -44,6 +44,14 @@ header.meta {
       }
       text-align: center;
     }
+    @include screen(740) {
+      .logo {
+        margin: .5em 0;
+        img {
+          max-width: 200px;
+        }
+      }
+    }
     a {
       text-decoration: none; 
     }
@@ -105,6 +113,20 @@ header.meta {
           }
         }
       }
+      @include screen(740) {
+        .global_breadcrumb {
+          font-size: 1em;  
+        }
+        menu.sub_sections {
+          ul {
+            li {
+              a {
+                padding: .5em 1em .4em;
+              }
+            }
+          } 
+        }
+      }
     }
     menu.complete {
       display: none;
@@ -159,6 +181,19 @@ header.meta {
         }
         a:hover {
           background: darken($color_main, 10%);
+        }
+      }
+      @include screen(740) {
+        padding: 1em 0;
+        .section {
+          width: 46%;
+          h2, a {
+            font-size: 1em;
+          }
+        }
+        .close {
+          font-size: 1em;
+          height: 1em;
         }
       }
       
@@ -234,14 +269,6 @@ header.section {
 
 @include screen(740) {
   header.meta {
-    margin: 0 0 1em 0;
-    .site_header {
-      padding: 1em 0 .5em 0;
-      line-height: 1.4em;
-      .site_title {
-        font-size: 1.2em;
-      }
-    }
     menu.sub_sections {
       ul {
         li {

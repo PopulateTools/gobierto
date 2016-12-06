@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :helpers, :load_current_module_sub_sections, :current_site
 
-  before_action :set_current_site, :authenticate_user_in_site
+  before_action :set_current_site, :authenticate_user_in_site, :set_site_locale
 
   def render_404
     render file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]
@@ -58,6 +58,12 @@ class ApplicationController < ActionController::Base
       authenticate_or_request_with_http_basic('Gobierto') do |username, password|
         username == @site.configuration.password_protection_username && password == @site.configuration.password_protection_password
       end
+    end
+  end
+
+  def set_site_locale
+    if @site
+      I18n.locale = @site.configuration.locale
     end
   end
 

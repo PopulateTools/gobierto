@@ -48,6 +48,14 @@ class SiteConfigurationTest < ActiveSupport::TestCase
     assert site_configuration.demo?
   end
 
+  def test_locale
+    assert_equal site_configuration_params["locale"], site_configuration.locale
+  end
+
+  def test_locale?
+    assert site_configuration.locale?
+  end
+
   private
 
   def site_configuration_params
@@ -57,7 +65,8 @@ class SiteConfigurationTest < ActiveSupport::TestCase
         "logo"    => "gobierto_development.png",
         "links"   => ["http://gobierto.dev/wadus"],
         "demo"    => true,
-        "wadus"   => "wadus" # Note that this is not a whitelisted property
+        "wadus"   => "wadus", # Note that this is not a whitelisted property
+        "locale"  => :ca
       }
     end
   end

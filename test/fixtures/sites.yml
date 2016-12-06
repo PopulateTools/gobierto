@@ -6,6 +6,7 @@ madrid:
     "links" => ["http://www.madrid.es"],
     "logo" => "http://www.madrid.es/assets/images/logo-madrid.png",
     "modules" => ["GobiertoBudgets", "GobiertoBudgetConsultations"],
+    "locale" => "en",
     "google_analytics_id" => "UA-000000-01" }.to_yaml.inspect %>
   location_name: Madrid
   municipality_id: <%= INE::Places::Place.find_by_slug("madrid").id %>
@@ -26,6 +27,7 @@ santander:
     "links" => ["http://www.santander.es"],
     "logo" => "http://santander.es/sites/default/themes/custom/ayuntamiento/img/logo-ayto-santander.png",
     "modules" => ["GobiertoBudgets"],
+    "locale" => "en",
     "google_analytics_id" => "UA-000000-02" }.to_yaml.inspect %>
   location_name: Santander
   municipality_id: <%= INE::Places::Place.find_by_slug("santander").id %>

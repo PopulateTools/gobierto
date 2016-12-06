@@ -56,7 +56,7 @@ module GobiertoBudgets
 
     def budget_line_description(area_name, code, kind)
       area = area_class area_name, kind
-      description = area.all_descriptions[kind][code.to_s]
+      description = area.all_descriptions[I18n.locale][area_name][kind][code.to_s]
       name = area.all_items[kind][code]
       if description != name
         return description

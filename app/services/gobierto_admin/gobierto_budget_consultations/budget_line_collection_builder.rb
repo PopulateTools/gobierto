@@ -3,7 +3,6 @@ module GobiertoAdmin
     class BudgetLineCollectionBuilder
       def initialize(site, options = {})
         @municipality_id = site.municipality_id
-        @location_name = site.location_name
         @year = options.fetch(:year) { Date.current.year }
       end
 

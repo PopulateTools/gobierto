@@ -20,6 +20,14 @@ module PopulateData
         end
       end
 
+      private
+
+      def request_body
+        {
+          municipality_id: @municipality_id
+        }.to_json
+      end
+
     end
   end
 end

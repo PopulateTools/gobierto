@@ -28,6 +28,7 @@
 //= require module-consultations
 // require module-ui_menu
 //= require module-sessions
+//= require module-site_header
 
 //= require flight-for-rails
 //= require_directory ./components/

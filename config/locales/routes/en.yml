@@ -12,6 +12,7 @@ en:
     execution: execution
     # gobierto budget consultations
     consultations: consultations
+    participations: participations
     participate: participate
     confirm: confirm
     done: done

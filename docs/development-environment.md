@@ -19,8 +19,15 @@ $ docker-compose version
 ```shell
 $ cp config/database.yml.example config/database.yml
 $ cp config/secrets.yml.example config/secrets.yml
-
+$ cp .env.example .env
 ```
+
+Fill all the values of the new `.env` file.
+
+If you are using **rbenv** you should:
+
+1 - check you have [rbenv-vars](https://github.com/rbenv/rbenv-vars) plugin installed
+2 - symlink `.env` to `.rbenv-vars` file: `ln -s .env .rbenv-vars`
 
 ### Set up
 

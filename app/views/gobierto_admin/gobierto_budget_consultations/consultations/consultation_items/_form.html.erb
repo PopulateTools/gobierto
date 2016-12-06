@@ -10,7 +10,7 @@
 
       <div class="form_item select_control">
         <%= f.label :budget_line_id %>
-        <%= f.select :budget_line_id, consultation_item_budget_lines_options_for_select(@budget_lines), prompt: true %>
+        <%= f.select :budget_line_id, consultation_item_budget_lines_options_for_select(@budget_lines, @consultation_item_form.budget_line_id), prompt: true %>
       </div>
 
       <div class="form_item input_text">

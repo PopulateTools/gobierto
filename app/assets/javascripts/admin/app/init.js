@@ -1,9 +1,9 @@
-this.App = {
+this.GobiertoAdmin = {
   init: function() {
-    return console.log("App.init");
+    return console.log("GobiertoAdmin.init");
   }
 };
 
 $(document).ready(function() {
-  return App.init();
+  return GobiertoAdmin.init();
 });

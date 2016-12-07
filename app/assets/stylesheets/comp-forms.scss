@@ -45,12 +45,13 @@ button.light, .button.light {
   border: 1px solid $color_separator;
   color: $color_main;
 }
-button.gigantic {
+button.gigantic, .button.gigantic {
   font-size: 1.3em;
   height: initial;
   padding: 1.4em 4em 1.2em;
   margin: 1em 0;
   @include border-radius(2em);
+  text-decoration: none;
 }
 button.small {
   font-size: .95em;

@@ -14,14 +14,14 @@ var VisEvoLine = Class.extend({
     this.height = 60 + this.margin.top + this.margin.bottom;
 
     // Scales & Ranges
-    this.xScale = d3.scale.linear();
-    this.yScale = d3.scale.linear();
+    this.xScale = d3.scaleLinear();
+    this.yScale = d3.scaleLinear();
 
     this.defaultYDomain = [10,-10];
 
     // Axis
-    this.xAxis = d3.svg.axis().orient('bottom');
-    this.yAxis = d3.svg.axis().orient('right');
+    this.xAxis = d3.axisBottom();
+    this.yAxis = d3.axisRight();
 
     // Chart objects
     this.svg = null;
@@ -84,7 +84,7 @@ var VisEvoLine = Class.extend({
 
     this._renderAxis();
 
-    var line = d3.svg.line()
+    var line = d3.line()
       .x(function(d) { return this.xScale(d.year); }.bind(this))
       .y(function(d) { return this.yScale(d.deviation); }.bind(this));
 
@@ -150,7 +150,7 @@ var VisEvoLine = Class.extend({
   _formatNumberX: function(d) {
     //replace with whatever format you want
     //examples here: http://koaning.s3-website-us-west-2.amazonaws.com/html/d3format.html
-    return d3.format()(d)
+    return d3.format('')(d)
   },
   _formatNumberY: function(d) {
     //replace with whatever format you want

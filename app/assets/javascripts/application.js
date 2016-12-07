@@ -8,7 +8,7 @@
 //= require mustache.min
 //= require velocity.min
 //= require velocity.ui.min
-//= require d3.v3.min
+//= require d3.min
 //= require d3-legend.min
 //= require accounting.min
 //= require accounting_settings

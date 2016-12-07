@@ -43,9 +43,9 @@ module GobiertoBudgetConsultations
 
     def calculate_budget_line_amount
       case selected_option_label
-      when "reduce"   then item_budget_line_amount.to_f / 1.10
+      when "increase" then item_budget_line_amount.to_f * 1.1 # Increase by 10%
       when "keep"     then item_budget_line_amount.to_f
-      when "increase" then item_budget_line_amount.to_f * 1.10
+      when "reduce"   then item_budget_line_amount.to_f * 0.9 # Reduce by 10%
       else item_budget_line_amount.to_f
       end
     end

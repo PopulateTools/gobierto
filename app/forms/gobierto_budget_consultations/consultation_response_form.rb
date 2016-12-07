@@ -29,6 +29,12 @@ module GobiertoBudgetConsultations
       @user ||= User.find_by(id: user_id)
     end
 
+    def budget_amount
+      @budget_amount ||= begin
+        consultation_response.budget_amount.zero? ? consultation.budget_amount : consultation_response.budget_amount
+      end
+    end
+
     def selected_option?(consultation_item, response_option)
       return response_option.selected? unless persisted?
 

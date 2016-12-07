@@ -22,14 +22,14 @@ module GobiertoBudgetConsultations
       assert_not_nil consultation_response_item.budget_line_amount
     end
 
-    def test_budget_line_amount_on_reduce_operation
-      consultation_response_item_params[:selected_option_label] = "reduce"
-      assert_equal (10.0 / 1.10), consultation_response_item.budget_line_amount
-    end
-
     def test_budget_line_amount_on_increase_operation
       consultation_response_item_params[:selected_option_label] = "increase"
-      assert_equal (10.0 * 1.10), consultation_response_item.budget_line_amount
+      assert_equal 11.0, consultation_response_item.budget_line_amount
+    end
+
+    def test_budget_line_amount_on_reduce_operation
+      consultation_response_item_params[:selected_option_label] = "reduce"
+      assert_equal 9.0, consultation_response_item.budget_line_amount
     end
 
     def test_budget_line_amount_on_keep_operation

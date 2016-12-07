@@ -30,61 +30,75 @@
   <div class="slim_nav_bar">
 
     <div class="column pure-g">
-      <% if @site.configuration.links.any? %>
-      <div class="client_links pure-u-md-1-2">
-        <ul>
-          <% @site.configuration.links.each do |link| %>
-            <li><%= link_to url_host(link), link, target: '_blank' %></li>
-          <% end %>
-          <% if @site.configuration.gobierto_budgets_enabled? %>
-            <li><%= link_to t('.budgets'), gobierto_budgets_budgets_path %></li>
-          <% end %>
-        </ul>
-      </div>
-      <% end %>
+      <div class="desktop_only">
+        <% if @site.configuration.links.any? %>
+        <div class="pure-u-md-1-2">
+          <ul>
+            <% @site.configuration.links.each do |link| %>
+              <li><%= link_to url_host(link), link, target: '_blank' %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
 
-      <div class=" pure-u-md-1-2 right">
-      
-        <div class="user_links">
-          
-          <a href="#">Novedades</a>
-          
-          <!-- mismo lista de opciones que en el admin. mismo marcado (practicamente). reutilizar partial? -->
-          <div class="pure-menu pure-menu-horizontal">
-            <ul class="pure-menu-list left">
-              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                <a href="#" id="xxx" class="pure-menu-link">
-                  Tu cuenta
-                </a>
-                <ul class="pure-menu-children">
-                  <li class="pure-menu-item">
-                    <%= link_to admin_root_path, class: "pure-menu-link" do %>
-                      <i class="fa fa-th"></i>
-                      <%= t(".account") %>
-                    <% end %>
-                  </li>
-                  <li class="pure-menu-item">
-                    <%= link_to admin_sessions_path, method: :delete, class: "pure-menu-link" do %>
-                      <i class="fa fa-sign-out"></i>
-                      <%= t(".sign_out") %>
-                    <% end %>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+        <div class="pure-u-md-1-2 right">
+        
+          <div class="user_links">
+            
+            <!-- <a href="#">Novedades</a> -->
+            
+            <!-- mismo lista de opciones que en el admin. mismo marcado (practicamente). reutilizar partial? -->
+            <div class="pure-menu pure-menu-horizontal">
+              <ul class="pure-menu-list left">
+                <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                  <a href="#" id="xxx" class="pure-menu-link">
+                    Tu cuenta
+                  </a>
+                  <ul class="pure-menu-children">
+                    <li class="pure-menu-item">
+                      <%= link_to '', class: "pure-menu-link" do %>
+                        <i class="fa fa-th"></i>
+                        <%= t(".account") %>
+                      <% end %>
+                    </li>
+                    <li class="pure-menu-item">
+                      <%= link_to '', class: "pure-menu-link" do %>
+                        <i class="fa fa-envelope-o"></i>
+                        Tus alertas
+                      <% end %>
+                    </li>
+                    <li class="pure-menu-item">
+                      <%= link_to '', class: "pure-menu-link" do %>
+                        <i class="fa fa-ship"></i>
+                        Administración
+                      <% end %>
+                    </li>
+                    <li class="pure-menu-item">
+                      <%= link_to admin_sessions_path, method: :delete, class: "pure-menu-link" do %>
+                        <i class="fa fa-sign-out"></i>
+                        <%= t(".sign_out") %>
+                      <% end %>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
+            <!-- <a href="#">Sigue a tu municipio</a> -->
+            
           </div>
 
-          <a href="#">Sigue a tu municipio</a>
-          
-        </div>
+          <div class="language_selector">
+            · <strong>ES</strong>
+            <a href="#">CA</a>
+            <a href="#">GA</a>
+            <a href="#">EU</a>
+          </div>
 
-        <div class="language_selector">
-          · <strong>ES</strong>
-          <a href="#">CA</a>
-          <a href="#">GA</a>
-          <a href="#">EU</a>
         </div>
-
+      </div>
+      <div class="mobile_only right">
+        <%= link_to '<i class="fa fa-bars"></i>'.html_safe, '', class:'menu_control'  %>
       </div>
     </div>
   </div>
@@ -143,11 +157,21 @@
             <%= link_to 'Instalacioens' %>
           </div>
 
-          <div class="pure-u-1 pure-u-md-1-4 section">
+          <div class="pure-u-1 pure-u-md-1-4 section personal_menu">
+
+            <!-- these are the same links from .user_links -->
             <h2>Tu cuenta</h2>
             <%= link_to 'Perfil' %>
             <%= link_to 'Alertas' %>
             <%= link_to 'Desconectar' %>
+
+            <div class="language_selector">
+              · <strong>ES</strong>
+              <a href="#">CA</a>
+              <a href="#">GA</a>
+              <a href="#">EU</a>
+            </div>
+
           </div>
 
         </div>
@@ -190,15 +214,17 @@
                 <li><%= link_to url_host(link), link, target: '_blank' %></li>
               <% end %>
             <% end %>
-            <% if @site.configuration.gobierto_budgets_enabled? %>
-              <li><%= link_to t('.budgets'), gobierto_budgets_budgets_path %></li>
-            <% end %>
           </ul>
         </div>
 
-        <div class="pure-u-1 pure-u-md-1-2 right">
+        <div class="pure-u-1 pure-u-md-1-2">
           <%= link_to t('.about_the_data'), Settings.data_note_url, target: '_blank' %>
         </div>
+
+        <div class="pure-u-1 mobile_only">
+          <%= link_to '<i class="fa fa-bars"></i> Menú'.html_safe, '', class:'menu_control'  %>
+        </div>
+
       </div>
     </div>
   </div>

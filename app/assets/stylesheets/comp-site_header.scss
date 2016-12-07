@@ -51,8 +51,10 @@ header.meta {
         a.pure-menu-link:hover {
           background: darken($color_secondary, 7.5%);
         }
-
       }
+    }
+    .menu_control {
+      padding: .75em 1.5em .6em;
     }
   }
   .user-session-navbar {
@@ -215,10 +217,31 @@ header.meta {
       }
       @include screen(740) {
         padding: 1em 0;
+        .pure-g {
+          display: initial;
+        }
         .section {
-          width: 46%;
+          width: 42%;
+          display: block;
+          clear: both;
+          margin: 0 0 1em 0;
+          float: none;
           h2, a {
             font-size: 1em;
+          }
+        }
+        .section.personal_menu {
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          width: 42%;
+          .language_selector {
+            a {
+              display: inline-block;
+            }
+            strong {
+              padding: .75em .5em .6em;
+            }
           }
         }
         .close {
@@ -226,7 +249,6 @@ header.meta {
           height: 1em;
         }
       }
-      
     }
   }
 }
@@ -260,7 +282,10 @@ header.section {
     }
   }
 }
-
+.mobile_only .menu_control .fa {
+  font-size: 1.2em;
+  line-height: 1em;
+}
 
 /*
  * Demo Bar

@@ -5,8 +5,10 @@
 header.meta {
   padding: 0;
   margin: 0 0 2em 0;
-  .client_links, .user-session-navbar {
-    padding: .75em 0 .6em;
+  // .client_links, .user-session-navbar, 
+  .slim_nav_bar {
+    text-transform: uppercase;
+    font-weight: 200;
     margin: 0 0 1em 0;
     background: $color_secondary;
     font-size: .85em;
@@ -15,15 +17,43 @@ header.meta {
       padding: 0;
       list-style-type: none;
       li {
-        margin: 0 1em 0 0;
+        margin: 0;
         display: inline-block;
       }
     }
-    a {
+    a, strong {
+      display: inline-block;
       color: $color_text;
+      padding: .75em .5em .6em;
       text-decoration: none;
+      margin: 0;
     }
-    
+    a:hover {
+      background: darken($color_secondary, 7.5%);
+    }
+    .user_links, .language_selector, .pure-menu {
+      display: inline-block;
+      width: initial;
+    }
+    .pure-menu {
+      li.pure-menu-item {
+        display: block;
+      } 
+      .pure-menu-children {
+        @include box-shadow(0, 5px, 10px);
+        background: $color_secondary;
+        min-width: 150px;
+        // padding: 1em;
+        a.pure-menu-link {
+          display: block;
+          padding: .5em 1em;
+        }
+        a.pure-menu-link:hover {
+          background: darken($color_secondary, 7.5%);
+        }
+
+      }
+    }
   }
   .user-session-navbar {
     background: white;

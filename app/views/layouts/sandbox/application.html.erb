@@ -27,9 +27,11 @@
 
 <header class="meta">
 
-  <% if @site.configuration.links.any? %>
-    <div class="client_links">
-      <div class="column">
+  <div class="slim_nav_bar">
+
+    <div class="column pure-g">
+      <% if @site.configuration.links.any? %>
+      <div class="client_links pure-u-md-1-2">
         <ul>
           <% @site.configuration.links.each do |link| %>
             <li><%= link_to url_host(link), link, target: '_blank' %></li>
@@ -39,8 +41,53 @@
           <% end %>
         </ul>
       </div>
+      <% end %>
+
+      <div class=" pure-u-md-1-2 right">
+      
+        <div class="user_links">
+          
+          <a href="#">Novedades</a>
+          
+          <!-- mismo lista de opciones que en el admin. mismo marcado (practicamente). reutilizar partial? -->
+          <div class="pure-menu pure-menu-horizontal">
+            <ul class="pure-menu-list left">
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                <a href="#" id="xxx" class="pure-menu-link">
+                  Tu cuenta
+                </a>
+                <ul class="pure-menu-children">
+                  <li class="pure-menu-item">
+                    <%= link_to admin_root_path, class: "pure-menu-link" do %>
+                      <i class="fa fa-th"></i>
+                      <%= t(".account") %>
+                    <% end %>
+                  </li>
+                  <li class="pure-menu-item">
+                    <%= link_to admin_sessions_path, method: :delete, class: "pure-menu-link" do %>
+                      <i class="fa fa-sign-out"></i>
+                      <%= t(".sign_out") %>
+                    <% end %>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <a href="#">Sigue a tu municipio</a>
+          
+        </div>
+
+        <div class="language_selector">
+          · <strong>ES</strong>
+          <a href="#">CA</a>
+          <a href="#">GA</a>
+          <a href="#">EU</a>
+        </div>
+
+      </div>
     </div>
-  <% end %>
+  </div>
 
   <div class="site_header">
     

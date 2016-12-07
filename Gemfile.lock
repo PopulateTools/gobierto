@@ -227,9 +227,6 @@ GEM
       railties (>= 4.2.0, < 5.1)
     rollbar (2.13.3)
       multi_json
-    route_translator (5.0.2)
-      actionpack (>= 5.0.0, < 5.1)
-      activesupport (>= 5.0.0, < 5.1)
     ruby-prof (0.16.2)
     ruby-progressbar (1.8.1)
     ruby_dep (1.5.0)
@@ -336,7 +333,6 @@ DEPENDENCIES
   redcarpet
   responders
   rollbar
-  route_translator
   ruby_px
   sass-rails (~> 5.0.0)
   sidekiq (~> 4.2.6)

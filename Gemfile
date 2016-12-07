@@ -11,7 +11,6 @@ gem "ruby_px"
 gem "responders"
 gem "config"
 gem "dalli"
-gem "route_translator"
 gem "cookies_eu"
 
 # Frontend

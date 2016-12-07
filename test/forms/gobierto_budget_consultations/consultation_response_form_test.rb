@@ -75,6 +75,16 @@ module GobiertoBudgetConsultations
       assert_equal expected_consultation_items, consultation_items
     end
 
+    def test_budget_amount
+      valid_consultation_response_form.consultation_response.stub(:budget_amount, 0.0) do
+        assert_equal consultation.budget_amount, valid_consultation_response_form.budget_amount
+      end
+
+      valid_consultation_response_form.consultation_response.stub(:budget_amount, 50.0) do
+        assert_equal 50.0, valid_consultation_response_form.budget_amount
+      end
+    end
+
     def test_sharing_token_generation
       consultation_response = valid_consultation_response_form.save
 

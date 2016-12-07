@@ -22,11 +22,9 @@
         </strong>
       </p>
 
-      <button class="gigantic">
-        <%= link_to budget_consultation_new_response_path(@consultation) do %>
-          Participa en la consulta
-        <% end %>
-      </button>
+      <%= link_to budget_consultation_new_response_path(@consultation), class: "button gigantic" do %>
+        Participa en la consulta
+      <% end %>
 
       <p>
         Destinado a cualquier ciudadano de

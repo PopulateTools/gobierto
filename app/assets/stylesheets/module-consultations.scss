@@ -3,300 +3,308 @@
  *
  */
 img.side_50 {
-	width: 100%;
-	height: auto;
+  width: 100%;
+  height: auto;
 }
 .consultation_cont {
-	margin: 3em 0;
-	/*width: 85%;*/
-	margin: auto;
-	@include border-radius(6px);
-	background: $color_1_soft;
+  margin: 3em 0;
+  /*width: 85%;*/
+  margin: auto;
+  @include border-radius(6px);
+  background: $color_1_soft;
 
-	.header.consultation {
-		padding: 2em 2em;
-		.bl_counter {
-			opacity: .4;
-			width: 3.5rem;
-			display: inline-block;
-		}
-		h1 {
-			font-size: 1.6em;
-			margin: 0;
-		}
-		p {
-			padding-left: 3.5rem;
-			margin: 0;
-			opacity: .5;
-		}
-	}
-	.tabs {
-		padding: 2em 0 0 0;
-		background: transparentize($color_main, .5);
-		ul {
-			padding-left: 5.5rem;	
-			li {
-				a {
-					margin-left: 0;
-					background: $color_main;
-					color: #FFF;
-					font-weight: bold;
-				}
-			}
-			li:hover {
-				a {
-					background: transparentize($color_main, .5);
-				}
-			}
-			li.active {
-				a {
-					background: #F4F9F9;
-					color: $color_main;
-					border-color: #F4F9F9;
-				}
-			}
-		}
-	}
-	.bl_content {
-		box-sizing: border-box;
-		padding: 2em 2em 2em 5.5rem;
-		.qty {
-			display: inline-block;
-		}
-	}
-	.bl_context {
-		box-sizing: border-box;
-		padding: 2em 2em 2em 1em;
-		p {
-			background: #FFF;
-			padding: 1em;
-			font-size: .85em;
-			line-height: 1.2em;
-		}
-	}
-	.continue {
-		padding: 2em;
-		box-sizing: border-box;
-	}
-	.consultation_sidebar {
-		border-left: 1px solid transparentize($color_meta_text, .5);
-		box-sizing: border-box;
-		padding: 12.2em 1.5em 0 1.5em;
-	}
-	.consultation_marker {
-		margin: 2em 0;
-		h3 {
-			font-size: 1em;
-			margin: 0 0 .25em;
-		}
-		.qty {
-			background: $color_secondary;
-			padding: .35em .45em;
-			@include border-radius(3px);
-			font-size: 1.6em;
-			font-weight: 200;
-		}
-		&.debt_warning {
-			.qty {
-				background: #AC3E3E;	
-				color: #FFF;
-			}
-		}
-		.warning_text {
-			display: none;
-			color: #AC3E3E;
-			margin: 1em 0;
-			max-width: 12em;
-			h4, p {
-				margin: 0;
-				font-size: .85em;
-				line-height: 1.2em;
-			}
-		}
+  .header.consultation {
+    padding: 2em 2em;
+    .bl_counter {
+      opacity: .4;
+      width: 3.5rem;
+      display: inline-block;
+    }
+    h1 {
+      font-size: 1.6em;
+      margin: 0;
+    }
+    p {
+      padding-left: 3.5rem;
+      margin: 0;
+      opacity: .5;
+    }
+  }
+  .tabs {
+    padding: 2em 0 0 0;
+    background: transparentize($color_main, .5);
+    ul {
+      padding-left: 5.5rem;	
+      li {
+        a {
+          margin-left: 0;
+          background: $color_main;
+          color: #FFF;
+          font-weight: bold;
+        }
+      }
+      li:hover {
+        a {
+          background: transparentize($color_main, .5);
+        }
+      }
+      li.active {
+        a {
+          background: #F4F9F9;
+          color: $color_main;
+          border-color: #F4F9F9;
+        }
+      }
+    }
+  }
+  .bl_content {
+    box-sizing: border-box;
+    padding: 2em 2em 2em 5.5rem;
+    .qty {
+      display: inline-block;
+    }
+  }
+  .bl_context {
+    box-sizing: border-box;
+    padding: 2em 2em 2em 1em;
+    p {
+      background: #FFF;
+      padding: 1em;
+      font-size: .85em;
+      line-height: 1.2em;
+    }
+  }
+  .continue {
+    padding: 2em;
+    box-sizing: border-box;
+  }
+  .consultation_sidebar {
+    border-left: 1px solid transparentize($color_meta_text, .5);
+    box-sizing: border-box;
+    padding: 12.2em 1.5em 0 1.5em;
+  }
+  .consultation_marker {
+    margin: 2em 0;
+    h3 {
+      font-size: 1em;
+      margin: 0 0 .25em;
+    }
+    .qty {
+      background: $color_secondary;
+      padding: .35em .45em;
+      @include border-radius(3px);
+      font-size: 1.6em;
+      font-weight: 200;
+    }
+    &.debt_warning {
+      .qty {
+        background: #AC3E3E;	
+        color: #FFF;
+      }
+    }
+    .warning_text {
+      display: none;
+      color: #AC3E3E;
+      margin: 1em 0;
+      max-width: 12em;
+      h4, p {
+        margin: 0;
+        font-size: .85em;
+        line-height: 1.2em;
+      }
+    }
 
-		.reduce {
-			.option {
-				background: #CFE4C5;	
-			}
-			input[type="checkbox"]:checked + label, 
-			input[type="radio"]:checked + label,
-			input[type="checkbox"] + label:hover, 
-			input[type="radio"] + label:hover {
-			  background: darken(#CFE4C5, 10%);
-			  span {
-			  	background: darken(#CFE4C5, 25%);
-			  }
-			}
-		}
-		.increase {
-			.option {
-				background: #F5D7D7;	
-			}
-			input[type="checkbox"]:checked + label, 
-			input[type="radio"]:checked + label,
-			input[type="checkbox"] + label:hover, 
-			input[type="radio"] + label:hover {
-			  background: darken(#F5D7D7, 10%);
-			  span {
-			  	background: darken(#F5D7D7, 25%);
-			  	border-color: #F5D7D7;
-			  }
-			}
-		}
+    .reduce {
+      .option {
+        background: #CFE4C5;	
+      }
+      input[type="checkbox"]:checked + label, 
+      input[type="radio"]:checked + label,
+      input[type="checkbox"] + label:hover, 
+      input[type="radio"] + label:hover {
+        background: darken(#CFE4C5, 10%);
+        span {
+          background: darken(#CFE4C5, 25%);
+        }
+      }
+    }
+    .increase {
+      .option {
+        background: #F5D7D7;	
+      }
+      input[type="checkbox"]:checked + label, 
+      input[type="radio"]:checked + label,
+      input[type="checkbox"] + label:hover, 
+      input[type="radio"] + label:hover {
+        background: darken(#F5D7D7, 10%);
+        span {
+          background: darken(#F5D7D7, 25%);
+          border-color: #F5D7D7;
+        }
+      }
+    }
 
-		
-	}
-	.option {
-		height: initial;
-		width: 90%;
-		box-sizing: border-box;
-		input[type="radio"] + label {
-			height: 160px;
-			box-sizing: border-box;
-			span {
-				display: block;
-				margin: .25em 0 .5em 0;
-			}
-		}
-	}
-	button {
-		.fa {
-			margin: 0 0 0 1em;
-		}
-	}
-	.button_marker {
-		display: inline-block;
-		background: #D8D8D8;
-		padding: .25em .4em;
-		@include border-radius(3px);
-		text-transform: uppercase;
-		font-size: .85em;
-		line-height: 1.2em;
-		width: 5em;
-		text-align: center;
-	}
-	.button_marker.active {
-		font-weight: bold;
-		background: darken(#D8D8D8, 25%);
-		color: #FFF;
-	}
-	.button_marker.reduce {
-		background: #CFE4C5;
-	}
-	.button_marker.increase {
-		background: #F5D7D7;
-	}
-	.button_marker.reduce.active {
-		background: darken(#CFE4C5, 25%);
-	}
-	.button_marker.increase.active {
-		background: darken(#F5D7D7, 25%);;
-	}
-	.budget-line_list {
-		margin: 2em 0;
-		td {
-			font-size: 1.15em;
-			padding: 1em 0;
-			font-weight: 300;
-		}
-		td.budget-line_title {
-			width: 60%;
-		}
-		.consultation_marker {
-			margin: 0;
-			.qty {
-				display: inline-block;	
-			}
-			
-		}
-		tr.summary_row {
-			> td {
-				padding: 2em 0 1em;
-			}
-		}
-	}
+
+  }
+  .option {
+    height: initial;
+    width: 90%;
+    box-sizing: border-box;
+    input[type="radio"] + label {
+      height: 160px;
+      box-sizing: border-box;
+      span {
+        display: block;
+        margin: .25em 0 .5em 0;
+      }
+    }
+  }
+  button {
+    .fa {
+      margin: 0 0 0 1em;
+    }
+  }
+  .button_marker {
+    display: inline-block;
+    background: #D8D8D8;
+    padding: .25em .4em;
+    @include border-radius(3px);
+    text-transform: uppercase;
+    font-size: .85em;
+    line-height: 1.2em;
+    width: 5em;
+    text-align: center;
+  }
+  .button_marker.active {
+    font-weight: bold;
+    background: darken(#D8D8D8, 25%);
+    color: #FFF;
+  }
+  .button_marker.reduce {
+    background: #CFE4C5;
+  }
+  .button_marker.increase {
+    background: #F5D7D7;
+  }
+  .button_marker.reduce.active {
+    background: darken(#CFE4C5, 25%);
+  }
+  .button_marker.increase.active {
+    background: darken(#F5D7D7, 25%);;
+  }
+  .budget-line_list {
+    margin: 2em 0;
+    td {
+      font-size: 1.15em;
+      padding: 1em 0;
+      font-weight: 300;
+    }
+    td.budget-line_title {
+      width: 60%;
+    }
+    .consultation_marker {
+      margin: 0;
+      .qty {
+        display: inline-block;	
+      }
+
+    }
+    tr.summary_row {
+      > td {
+        padding: 2em 0 1em;
+      }
+    }
+  }
 }
 
 @include screen(740) {
-	.consultation_cont {
-		margin: -1rem;
-		header.consultation {
-			padding: 1em; 
-			h1 {
-				font-size: 1.2em;
-			}
-			p {
-				padding: 0;
-				line-height: 1.2em;
-			}
-		}
-		.tabs {
-			padding-top: 1em;
-			ul {
-				padding-left: 1rem;
-				li {
-					a {
-						padding: .5em 1.5em .25em;
-					}
-				}
-			}
-		}
-		.bl_content {
-			padding: 1rem 1rem 0 1rem;
-			font-size: .9em;
-			line-height: 1.2rem;
-		}
-		.bl_context {
-			padding: 0 1em;
-		}
-		.consultation_sidebar {
-			padding: 0 1em;
-			border: none;
-		}
-		.consultation_marker {
-			margin: 0 0 2em 0;
-			.qty {
-				font-size: 1.2em;
-			}
-		}
-		.option input[type="radio"] + label {
-			height: 120px;
-		}
-		h1 {
-			font-size: 1.2em;
-		}
-		.p_3 {
-			padding: .25em 1em;
-		}
-		.button_marker {
-			font-size: .75em;
-		}
-		.budget-line_list {
-			td:first-child {
-				font-size: 1em;
-			}
-			td:first-child {
-				padding: 1em 1em 1em 0;
-			}
-		}
-		.confirmation_actions {
-			p {
-				font-size: .85em;
-			}
-			.p_h_2 {
-				padding: 0;
-				text-align: center;
-				.button {
-					margin: 0 0 2em 0;
-				}
-			}
-		}
-	}
-	.consultation_thanks {
-		img {
-			width: 75%;
-			height: auto;
-			float: left;
-		}
-	}
+  .consultation_cont {
+    margin: -1rem;
+    header.consultation {
+      padding: 1em; 
+      h1 {
+        font-size: 1.2em;
+      }
+      p {
+        padding: 0;
+        line-height: 1.2em;
+      }
+    }
+    .tabs {
+      padding-top: 1em;
+      ul {
+        padding-left: 1rem;
+        li {
+          a {
+            padding: .5em 1.5em .25em;
+          }
+        }
+      }
+    }
+    .bl_content {
+      padding: 1rem 1rem 0 1rem;
+      font-size: .9em;
+      line-height: 1.2rem;
+    }
+    .bl_context {
+      padding: 0 1em;
+    }
+    .consultation_sidebar {
+      padding: 0 1em;
+      border: none;
+    }
+    .consultation_marker {
+      margin: 0 0 2em 0;
+      .qty {
+        font-size: 1.2em;
+      }
+    }
+    .option input[type="radio"] + label {
+      height: 120px;
+    }
+    h1 {
+      font-size: 1.2em;
+    }
+    .p_3 {
+      padding: .25em 1em;
+    }
+    .button_marker {
+      font-size: .75em;
+    }
+    .budget-line_list {
+      td:first-child {
+        font-size: 1em;
+      }
+      td:first-child {
+        padding: 1em 1em 1em 0;
+      }
+    }
+    .confirmation_actions {
+      p {
+        font-size: .85em;
+      }
+      .p_h_2 {
+        padding: 0;
+        text-align: center;
+        .button {
+          margin: 0 0 2em 0;
+        }
+      }
+    }
+  }
+  .consultation_thanks {
+    img {
+      width: 75%;
+      height: auto;
+      float: left;
+    }
+  }
+}
+
+.consultation_stage {
+  display: none;
+
+  &.active {
+    display: block;
+  }
 }

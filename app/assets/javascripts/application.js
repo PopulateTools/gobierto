@@ -25,7 +25,6 @@
 //= require execution
 
 //= require module-admin
-//= require module-consultations
 // require module-ui_menu
 //= require module-sessions
 

@@ -24,5 +24,9 @@ module GobiertoBudgetConsultations
 
       write_attribute(:consultation_items, @consultation_items)
     end
+
+    def budget_deficit?
+      budget_amount > consultation.budget_amount
+    end
   end
 end

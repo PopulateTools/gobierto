@@ -27,7 +27,9 @@
 
           <p>
             También puedes compartir esta URL con quien prefieras:<br/>
-            <%= link_to budget_consultation_participation_url(@consultation_response.sharing_token) %>
+            <%= link_to(
+              budget_consultation_participation_url(@consultation_response.sharing_token),
+              budget_consultation_participation_url(@consultation_response.sharing_token)) %>
           </p>
         </div>
 

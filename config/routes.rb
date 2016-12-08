@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     namespace :gobierto_budget_consultations, as: :budget, path: :budgets do
       resources :consultations, only: [:index, :show, :new, :create, :edit, :update] do
         resources :consultation_items, controller: "consultations/consultation_items", path: :items
+        resource :consultation_items_sort, only: [:create], controller: "consultations/consultation_items_sort", path: :items_sort
         resources :consultation_responses, only: [:index, :show], controller: "consultations/consultation_responses", path: :responses
         resource :consultation_reports, only: [:show], controller: "consultations/consultation_reports", path: :reports
       end

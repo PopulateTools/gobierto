@@ -134,6 +134,6 @@
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
-    window.App.sites_controller.edit("<%= Rails.application.secrets.tbi_api_token %>");
+    window.GobiertoAdmin.sites_controller.edit("<%= Rails.application.secrets.tbi_api_token %>");
   <% end %>
 <% end %>

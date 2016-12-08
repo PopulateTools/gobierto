@@ -1,13 +1,21 @@
 require "test_helper"
+require "support/concerns/gobierto_common/sortable_test"
 
 module GobiertoBudgetConsultations
   class ConsultationItemTest < ActiveSupport::TestCase
+    include GobiertoCommon::SortableTest
+
     def consultation_item
       @consultation_item ||= gobierto_budget_consultations_consultation_items(:madrid_sports_facilities)
     end
+    alias sortable_object consultation_item
 
     def response_option
       @response_option ||= consultation_item.response_options[0]
+    end
+
+    def subject_class
+      ConsultationItem
     end
 
     def test_valid

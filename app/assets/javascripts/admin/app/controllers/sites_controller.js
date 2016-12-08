@@ -1,4 +1,4 @@
-this.App.SitesController = (function() {
+this.GobiertoAdmin.SitesController = (function() {
   function SitesController() {}
 
   function _handleSiteLocationAutocomplete(api_token) {
@@ -35,4 +35,4 @@ this.App.SitesController = (function() {
   return SitesController;
 })();
 
-this.App.sites_controller = new App.SitesController;
+this.GobiertoAdmin.sites_controller = new GobiertoAdmin.SitesController;

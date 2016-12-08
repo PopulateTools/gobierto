@@ -2,6 +2,8 @@ require_dependency "gobierto_budget_consultations"
 
 module GobiertoBudgetConsultations
   class ConsultationItem < ApplicationRecord
+    include GobiertoCommon::Sortable
+
     RESPONSE_OPTIONS = {
       0 => "reduce",
       1 => "keep",

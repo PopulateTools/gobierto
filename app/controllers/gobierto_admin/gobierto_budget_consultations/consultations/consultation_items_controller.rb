@@ -66,14 +66,6 @@ module GobiertoAdmin
           @consultation.consultation_items.find(params[:id])
         end
 
-        def set_consultation
-          @consultation = find_consultation
-        end
-
-        def find_consultation
-          current_site.budget_consultations.find(params[:consultation_id])
-        end
-
         def get_budget_lines
           BudgetLineCollectionBuilder.new(current_site).call
         end

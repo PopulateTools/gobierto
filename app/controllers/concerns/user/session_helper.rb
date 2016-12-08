@@ -1,6 +1,12 @@
 module User::SessionHelper
   extend ActiveSupport::Concern
 
+  included do
+    if respond_to?(:helper_method)
+      helper_method :current_user, :user_signed_in?
+    end
+  end
+
   private
 
   def current_user

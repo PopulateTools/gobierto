@@ -31,4 +31,9 @@ class SiteTest < ActiveSupport::TestCase
     refute site.password_protected?
     assert draft_site.password_protected?
   end
+
+  def test_place
+    assert_kind_of INE::Places::Place, site.place
+    assert site.place.present?
+  end
 end

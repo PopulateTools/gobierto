@@ -6,6 +6,10 @@ class Site < ApplicationRecord
   has_many :admins, through: :admin_sites, class_name: "GobiertoAdmin::Admin"
   has_many :census_imports, dependent: :destroy, class_name: "GobiertoAdmin::CensusImport"
 
+  # TODO. Build these associations dynamically.
+  has_many :budget_consultations, dependent: :destroy, class_name: "GobiertoBudgetConsultations::Consultation"
+  has_many :budget_consultation_responses, through: :budget_consultations, source: :consultation_responses, class_name: "GobiertoBudgetConsultations::ConsultationResponse"
+
   serialize :configuration_data
 
   before_save :store_configuration
@@ -34,7 +38,7 @@ class Site < ApplicationRecord
   end
 
   def place
-    @place ||= INE::Places::Place.find self.external_id
+    @place ||= INE::Places::Place.find self.municipality_id
   end
 
   def configuration

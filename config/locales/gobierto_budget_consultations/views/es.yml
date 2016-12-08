@@ -1,0 +1,15 @@
+---
+es:
+  gobierto_budget_consultations:
+    layouts:
+      menu_subsections:
+        consultations: Consultas
+    consultation_items:
+      options:
+        increase: Aumentar el gasto un 10%
+        keep: Mantener el gasto
+        reduce: Reducir el gasto un 10%
+        short:
+          increase: Aumentar
+          keep: Mantener
+          reduce: Reducir

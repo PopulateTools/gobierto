@@ -38,55 +38,78 @@ Rails.application.routes.draw do
     end
 
     resources :activities, only: [:index]
-  end
 
-  localized do
-    # User module
-    namespace :user do
-      constraints GobiertoSiteConstraint.new do
-        get '/' => 'welcome#index', as: :root
-        get '/login' => 'sessions#new'
-        get '/signup' => 'registrations#new'
-
-        resource :sessions, only: [:new, :create, :destroy]
-        resource :registrations, only: [:new, :create]
-        resource :confirmations, only: [:new, :create, :show]
-        resource :passwords, only: [:new, :create, :edit, :update]
-        resource :census_verifications, only: [:show, :new, :create], path: :verifications
+    namespace :gobierto_budget_consultations, as: :budget, path: :budgets do
+      resources :consultations, only: [:index, :show, :new, :create, :edit, :update] do
+        resources :consultation_items, controller: "consultations/consultation_items", path: :items
+        resource :consultation_items_sort, only: [:create], controller: "consultations/consultation_items_sort", path: :items_sort
+        resources :consultation_responses, only: [:index, :show], controller: "consultations/consultation_responses", path: :responses
+        resource :consultation_reports, only: [:show], controller: "consultations/consultation_reports", path: :reports
       end
     end
+  end
 
-    # Gobierto Budgets module
-    namespace :gobierto_budgets, path: '', module: 'gobierto_budgets' do
-      constraints GobiertoSiteConstraint.new do
-        get 'site' => 'sites#show'
+  # User module
+  namespace :user do
+    constraints GobiertoSiteConstraint.new do
+      get '/' => 'welcome#index', as: :root
+      get '/login' => 'sessions#new'
+      get '/signup' => 'registrations#new'
 
-        # legal pages (TODO: we should merge them)
-        get 'privacy' => 'pages#privacy'
-        get 'legal' => 'pages#legal'
-        get 'cookie_warning' => 'pages#cookie_warning'
+      resource :sessions, only: [:new, :create, :destroy]
+      resource :registrations, only: [:new, :create]
+      resource :confirmations, only: [:new, :create, :show]
+      resource :passwords, only: [:new, :create, :edit, :update]
+      resource :census_verifications, only: [:show, :new, :create], path: :verifications
+    end
+  end
 
-        resources :featured_budget_lines, only: [:show]
+  # Gobierto Budget Consultations module
+  namespace :gobierto_budget_consultations, as: :budget, path: 'presupuestos' do
+    constraints GobiertoSiteConstraint.new do
+      resources :consultations, only: [:index, :show], path: 'consultas' do
+        get 'participa', to: 'consultations/consultation_responses#new', as: :new_response
+        match :participate, to: 'consultations/consultation_responses#create', as: :response, via: [:post, :patch]
 
-        get 'budgets/summary(/:year)' => 'budgets#index', as: :budgets
-        get 'budgets/budget_lines/:year/:area_name/:kind' => 'budget_lines#index', as: :budget_lines
-        get 'budgets/budget_lines/:id/:year/:area_name/:kind' => 'budget_lines#show', as: :budget_line
-        get 'budget_line_descendants/:year/:area_name/:kind' => 'budget_line_descendants#index', as: :budget_line_descendants
-        get 'budgets/execution(/:year)' => 'budgets_execution#index', as: :budgets_execution
-        get 'budgets/treemap(/:year)' => 'budget_lines#treemap', as: :budget_lines_treemap
+        get 'resumen', to: 'consultations/consultation_confirmations#new', as: :new_confirmation
+        post 'confirma', to: 'consultations/consultation_confirmations#create', as: :confirmation
+        get 'terminado', to: 'consultations/consultation_confirmations#show', as: :show_confirmation
+      end
 
-        # TODO: move to an API > move to the big indexer
-        get 'all_categories/:slug/:year' => 'search#all_categories', as: :search_all_categories
+      resources :consultation_participations, only: [:show], path: :participations
+    end
+  end
 
-        namespace :api do
-          get '/categories' => 'categories#index'
-          get '/categories/:area/:kind' => 'categories#index'
-          get '/data/widget/budget/:ine_code/:year/:code/:area/:kind' => 'data#budget', as: :data_budget
-          get '/data/widget/budget_per_inhabitant/:ine_code/:year/:code/:area/:kind' => 'data#budget_per_inhabitant', as: :data_budget_per_inhabitant
-          get '/data/lines/:ine_code/:year/:what' => 'data#lines', as: :data_lines
-          get '/data/lines/budget_line/:ine_code/:year/:what/:kind/:code/:area' => 'data#lines', as: :data_lines_budget_line
-          get '/data/widget/budget_execution_deviation/:ine_code/:year/:kind' => 'data#budget_execution_deviation', as: :data_budget_execution_deviation
-        end
+  # Gobierto Budgets module
+  namespace :gobierto_budgets, path: nil do
+    constraints GobiertoSiteConstraint.new do
+      get 'site' => 'sites#show'
+
+      # legal pages (TODO: we should merge them)
+      get 'privacy' => 'pages#privacy'
+      get 'legal' => 'pages#legal'
+      get 'cookie_warning' => 'pages#cookie_warning'
+
+      resources :featured_budget_lines, only: [:show]
+
+      get 'presupuestos/resumen(/:year)' => 'budgets#index', as: :budgets
+      get 'presupuestos/partidas/:year/:area_name/:kind' => 'budget_lines#index', as: :budget_lines
+      get 'presupuestos/partidas/:id/:year/:area_name/:kind' => 'budget_lines#show', as: :budget_line
+      get 'budget_line_descendants/:year/:area_name/:kind' => 'budget_line_descendants#index', as: :budget_line_descendants
+      get 'presupuestos/ejecucion(/:year)' => 'budgets_execution#index', as: :budgets_execution
+      get 'budgets/treemap(/:year)' => 'budget_lines#treemap', as: :budget_lines_treemap
+
+      # TODO: move to an API > move to the big indexer
+      get 'all_categories/:slug/:year' => 'search#all_categories', as: :search_all_categories
+
+      namespace :api do
+        get '/categories' => 'categories#index'
+        get '/categories/:area/:kind' => 'categories#index'
+        get '/data/widget/budget/:ine_code/:year/:code/:area/:kind' => 'data#budget', as: :data_budget
+        get '/data/widget/budget_per_inhabitant/:ine_code/:year/:code/:area/:kind' => 'data#budget_per_inhabitant', as: :data_budget_per_inhabitant
+        get '/data/lines/:ine_code/:year/:what' => 'data#lines', as: :data_lines
+        get '/data/lines/budget_line/:ine_code/:year/:what/:kind/:code/:area' => 'data#lines', as: :data_lines_budget_line
+        get '/data/widget/budget_execution_deviation/:ine_code/:year/:kind' => 'data#budget_execution_deviation', as: :data_budget_execution_deviation
       end
     end
   end

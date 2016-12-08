@@ -8,7 +8,7 @@
 //= require mustache.min
 //= require velocity.min
 //= require velocity.ui.min
-//= require d3.v3.min
+//= require d3.min
 //= require d3-legend.min
 //= require accounting.min
 //= require accounting_settings
@@ -25,7 +25,6 @@
 //= require execution
 
 //= require module-admin
-//= require module-consultations
 // require module-ui_menu
 //= require module-sessions
 //= require module-site_header
@@ -67,11 +66,12 @@ $(document).on('turbolinks:load', function() {
   $('[data-tab-target]').on('click', function(e){
     e.preventDefault();
     var target = $(this).data('tab-target');
-    $('[data-tab-target]').parent().removeClass('active');
-    $('[data-tab-target="' + target + '"]').parent().addClass('active');
+    var scope = $('[data-tab-scope]').length ? $(this).closest('[data-tab-scope]') : $('body');
 
-    $('[data-tab]').removeClass('active');
-    $('[data-tab="' + target + '"]').addClass('active');
+    scope.find('[data-tab-target]').parent().removeClass('active');
+    scope.find('[data-tab-target="' + target + '"]').parent().addClass('active');
+    scope.find('[data-tab]').removeClass('active');
+    scope.find('[data-tab="' + target + '"]').addClass('active');
   });
 
   $(".stick_ip").stick_in_parent()

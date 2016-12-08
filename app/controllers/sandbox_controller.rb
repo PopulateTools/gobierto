@@ -2,7 +2,16 @@ class SandboxController < ApplicationController
   before_action :set_working_variables
   layout :set_layout
 
-  helper_method :current_site
+  helper_method(
+    :current_site,
+    :user_signed_in?,
+    :current_user,
+    :managed_sites,
+    :can_manage_sites?,
+    :managing_site?,
+    :admin_signed_in?,
+    :current_admin
+  )
 
   def index
     @templates = Dir.glob(Rails.root.join('app/views/sandbox/*.html.erb').to_s).map do |filename|
@@ -31,10 +40,12 @@ class SandboxController < ApplicationController
   private
 
   def set_layout
-    if params[:template] && params[:template].starts_with?('admin')
-      "sandbox/admin/application"
-    else
-      "sandbox/application"
+    return "sandbox/application" unless params[:template]
+
+    case params[:template].split("_").first
+    when "admin"        then "sandbox/gobierto_admin/application"
+    when "consultation" then "sandbox/gobierto_budget_consultations/application"
+    else "sandbox/application"
     end
   end
 
@@ -44,6 +55,34 @@ class SandboxController < ApplicationController
   end
 
   def current_site
-    Site.first
+    SiteDecorator.new(Site.first)
+  end
+
+  def user_signed_in?
+    true
+  end
+
+  def current_user
+    User.first
+  end
+
+  def managed_sites
+    [Site.first]
+  end
+
+  def can_manage_sites?
+    true
+  end
+
+  def managing_site?
+    true
+  end
+
+  def admin_signed_in?
+    true
+  end
+
+  def current_admin
+    GobiertoAdmin::Admin.first
   end
 end

@@ -1,0 +1,164 @@
+<div class="column">
+
+  <div class="consultation_cont">
+
+    <div class="pure-g">
+
+      <div class="pure-u-1 pure-u-md-18-24">
+
+        <%= render "user/shared/validation_errors", resource: @consultation_response_form %>
+
+        <%= form_for(@consultation_response_form, as: :consultation_response, url: :budget_consultation_response) do |f| %>
+
+          <% @consultation_items.each_with_index do |consultation_item, consultation_item_index| %>
+
+            <div class="consultation_stage">
+              <div class="consultation_item_<%= consultation_item_index %>" data-tab-scope>
+
+                <div class="header consultation">
+                  <h1>
+                    <div class="bl_counter">
+                      <%= consultation_item_index + 1 %>/<%= @consultation_items.size %>
+                    </div>
+                    <%= consultation_item.title %>
+                  </h1>
+                  <p><small><%= consultation_item.description %></small></p>
+                </div>
+
+                <div class="tabs">
+                  <ul>
+                    <li class="active">
+                      <%= link_to '#', "data-tab-target": "context_#{consultation_item_index}" do %>
+                        Contexto
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= link_to '#', "data-tab-target": "give_opinion_#{consultation_item_index}" do %>
+                        Opina
+                      <% end %>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="pure-g tab active" data-tab="context_<%= consultation_item_index %>">
+
+                  <div class="pure-u-1 pure-u-md-2-3 bl_content" >
+                    <p>Context A</p>
+                  </div>
+
+                  <div class="pure-u-1 pure-u-md-1-3 bl_context">
+                    <p>Context B</p>
+                  </div>
+
+                  <div class="pure-u-1 continue center">
+                    <%= link_to "#", "data-tab-target": "give_opinion_#{consultation_item_index}", class: 'button' do %>
+                      Opina
+                      <i class="fa fa-arrow-right"></i>
+                    <% end %>
+                  </div>
+
+                </div>
+
+                <div class="bl_content tab" data-tab="give_opinion_<%= consultation_item_index %>">
+
+                  <div class="consultation_marker" data-budget-line-amount=<%= consultation_item.budget_line_amount %>>
+                    <h3>Planificado para esta partida <i class="fa fa-question-circle tipsit" title="La cantidad que el Ayuntamiento propone como inversión para esta partida, basado en la inversión realizada en los últimos ejercicios y que contempla las iniciativas que se quieren llevar a cabo"></i></h3>
+                    <div class="qty"><%= number_to_currency(consultation_item.budget_line_amount) %></div>
+                  </div>
+
+                  <div class="consultation_marker">
+
+                    <h3>Tu propuesta <i class="fa fa-question-circle tipsit" title="Para cada partida puedes proponer si para ti esta partida debe aumentar o reducir el gasto"></i></h3>
+
+                    <div class="pure-g">
+
+                      <% Array(consultation_item.response_options).each do |response_option| %>
+
+                        <div class="pure-u-1-3 response-option <%= response_option.label %>">
+                          <div class="option">
+                            <%= radio_button_tag(
+                              "consultation_response[selected_options][#{consultation_item.id}]", response_option.id,
+                              @consultation_response_form.selected_option?(consultation_item, response_option),
+                              data: { label: response_option.label }
+                            ) %>
+                            <%= label_tag "consultation_response[selected_options][#{consultation_item.id}]_#{response_option.id}" do %>
+                              <span></span>
+                              <%= t("gobierto_budget_consultations.consultation_items.options.#{response_option.label}") %>
+                            <% end %>
+                          </div>
+                        </div>
+
+                      <% end %>
+
+                    </div>
+
+                    <div class="continue center">
+
+                      <% if consultation_item_index == (@consultation_items.size - 1) %>
+
+                        <%= button_tag type: "submit", class: "button" do %>
+                          Enviar
+                          <i class="fa fa-check"></i>
+                        <% end %>
+
+                      <% else %>
+
+                        <%= link_to "#", class: "button", data: { navigation: "next", turbolinks: false } do %>
+                          Siguiente
+                          <i class="fa fa-arrow-right"></i>
+                        <% end %>
+
+                      <% end %>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          <% end %>
+
+        <% end %>
+
+      </div>
+
+      <div class="pure-u-1 pure-u-md-6-24 consultation_sidebar">
+
+        <i class="fa fa-help"><%= link_to '' %></i>
+
+        <div class="consultation_marker" data-budget-amount=<%= @consultation.budget_amount %>>
+          <h3>Inversión total planificada <i class="fa fa-question-circle tipsit" title="La suma de los importes inicialmente propuestos para las partidas de esta simulación. Recuerda que es solo una selección de partidas, por lo que esta cifra no coincide con el presupuesto total del municipio"></i></h3>
+          <div class="qty">
+            <%= number_to_currency(@consultation.budget_amount) %>
+          </div>
+        </div>
+
+        <div class="consultation_marker debt_marker" data-current-budget-amount=<%= @consultation_response_form.budget_amount %>>
+          <h3>Con tus decisiones <i class="fa fa-question-circle tipsit" title="Esta es la suma de los importes de las partidas teniendo en cuenta tus preferencias en cuanto a incrementos, disiminución o mantenimiento de los importes propuestos. Si con tus propuestas se pasa el total planificado, te indicaremos que entras en déficit."></i></h3>
+          <div class="qty">
+            <%= number_to_currency(@consultation_response_form.budget_amount) %>
+          </div>
+
+          <div class="warning_text">
+            <h4>Estás en déficit </h4>
+            <p>Deberás recortar en otras partidas o aumentar tu endeudamiento</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoBudgetConsultations.consultation_responses_controller.new("<%= I18n.locale %>");
+  <% end %>
+<% end %>

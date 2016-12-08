@@ -9,7 +9,7 @@ dennis:
   updated_at: 2016-11-02 00:00:00
   last_sign_in_at: 2016-12-01 00:00:00
   last_sign_in_ip: 0.0.0.0
-  census_verified: false
+  census_verified: true
 
 reed:
   email: reed@gobierto.dev
@@ -35,4 +35,4 @@ susan:
   updated_at: 2016-11-02 00:02:00
   last_sign_in_at: 2016-12-01 00:02:00
   last_sign_in_ip: 0.0.0.0
-  census_verified: true
+  census_verified: false

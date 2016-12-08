@@ -1,5 +1,7 @@
 module GobiertoBudgets
   class EconomicArea
+    include Describable
+
     EXPENSE = 'G'
     INCOME  = 'I'
 
@@ -33,12 +35,6 @@ module GobiertoBudgets
         end
 
         all_items
-      end
-    end
-
-    def self.all_descriptions
-      @all_descriptions ||= begin
-        YAML.load_file('./db/data/budget_line_descriptions.yml')['economic']
       end
     end
   end

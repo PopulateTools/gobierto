@@ -18,7 +18,7 @@ reed_unverified:
   version: 0
   verified: false
 
-susan_verified:
+susan_unverified:
   user: susan
   site: santander
   verification_type: <%= User::Verification.verification_types["census"] %>
@@ -26,4 +26,4 @@ susan_verified:
     "document_number" => "00000000C",
     "date_of_birth" => "1992-01-01" }.to_yaml.inspect %>
   version: 0
-  verified: true
+  verified: false

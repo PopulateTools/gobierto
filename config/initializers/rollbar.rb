@@ -3,8 +3,7 @@ require 'rollbar/rails'
 Rollbar.configure do |config|
   config.access_token = Rails.application.secrets.rollbar_access_token
 
-  # Here we'll disable in 'test':
-  unless Rails.env.production?
+  if Rails.env.development? || Rails.env.test?
     config.enabled = false
   end
 

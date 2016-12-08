@@ -3,10 +3,15 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
-  <%# TODO: load assets depending on the modules %>
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+  <%= yield(:stylesheet_link) %>
+  <%= yield(:javascript_include) %>
+
   <%= csrf_meta_tags %>
+
   <% if Rails.env.production? %>
     <%= render 'layouts/analytics_header_site' %>
   <% end %>
@@ -14,93 +19,96 @@
 
 <body <%= data_attributes %>>
 
-<% if @site.configuration.demo? %>
-  <div class="demo_bar pure-g">
-    <div class="pure-u-lg-4-24 pure-u-1-5">
-    <%= link_to image_tag('LogoGobierto.png', width: '100'), 'http://gobierto.es' %></div>
-    <div class="pure-u-lg-12-24 pure-u-2-5"><%= t('.disclaimer') %></div>
-    <div class="pure-u-lg-8-24 pure-u-2-5">
-      <%= link_to t('.more_information'), 'http://gobierto.es' %></div>
-    </div>
-  </div>
-<% end %>
-
-<header class="meta color_main">
-
-  <%= render "user/shared/session_navbar" %>
-
-  <% if @site.configuration.links.any? %>
-    <div class="client_links">
-      <div class="column">
-        <ul>
-          <% @site.configuration.links.each do |link| %>
-            <li><%= link_to url_host(link), link, target: '_blank' %></li>
-          <% end %>
-          <% if @site.configuration.gobierto_budgets_enabled? %>
-            <li><%= link_to t('.budgets'), gobierto_budgets_budgets_path %></li>
-          <% end %>
-        </ul>
+  <% if @site.configuration.demo? %>
+    <div class="demo_bar pure-g">
+      <div class="pure-u-lg-4-24 pure-u-1-5">
+      <%= link_to image_tag('LogoGobierto.png', width: '100'), 'http://gobierto.es' %></div>
+      <div class="pure-u-lg-12-24 pure-u-2-5"><%= t('.disclaimer') %></div>
+      <div class="pure-u-lg-8-24 pure-u-2-5">
+        <%= link_to t('.more_information'), 'http://gobierto.es' %></div>
       </div>
     </div>
   <% end %>
 
-  <div class="site_header">
-    <div class="column">
-      <% if @site.configuration.logo %>
-        <div class="logo"><%= image_tag @site.configuration.logo %></div>
-      <% end %>
-      <div class="site_title">
-        <% #TODO: the link to budgets should be dynamic depending on the module %>
-        <strong><%= link_to @site.name, root_path %></strong> / <%= link_to t('.budgets'), gobierto_budgets_budgets_path %>
-      </div>
-    </div>
-  </div>
+  <header class="meta color_main">
 
-  <%= load_current_module_sub_sections %>
-</header>
+    <%= render "user/shared/session_navbar" %>
 
-<div class="container">
-
-  <%= render "user/shared/flash_messages" %>
-  <%= yield %>
-
-</div>
-
-<footer>
-
-  <div class="block_color p_v_4">
-    <div class="column">
-      <div class="pure-g">
-        <div class="pure-u-1 pure-u-md-1-2">
+    <% if @site.configuration.links.any? %>
+      <div class="client_links">
+        <div class="column">
           <ul>
-            <% if @site.configuration.links.any? %>
-              <% @site.configuration.links.each do |link| %>
-                <li><%= link_to url_host(link), link, target: '_blank' %></li>
-              <% end %>
+            <% @site.configuration.links.each do |link| %>
+              <li><%= link_to url_host(link), link, target: '_blank' %></li>
             <% end %>
             <% if @site.configuration.gobierto_budgets_enabled? %>
               <li><%= link_to t('.budgets'), gobierto_budgets_budgets_path %></li>
             <% end %>
           </ul>
         </div>
+      </div>
+    <% end %>
 
-        <div class="pure-u-1 pure-u-md-1-2 right">
-          <%= link_to t('.about_the_data'), Settings.data_note_url, target: '_blank' %>
+    <div class="site_header">
+      <div class="column">
+        <% if @site.configuration.logo %>
+          <div class="logo"><%= image_tag @site.configuration.logo %></div>
+        <% end %>
+        <div class="site_title">
+          <% #TODO: the link to budgets should be dynamic depending on the module %>
+          <strong><%= link_to @site.name, root_path %></strong> / <%= link_to t('.budgets'), gobierto_budgets_budgets_path %>
         </div>
       </div>
     </div>
+
+    <%= load_current_module_sub_sections %>
+
+  </header>
+
+  <div class="container">
+
+    <%= render "user/shared/flash_messages" %>
+    <%= content_for?(:content) ? yield(:content) : yield %></div>
+
   </div>
 
-  <div class="center p_v_4">
-    <p><%= link_to 'Gobierto', 'https://gobierto.es' %> <%= t('.is_open_source') %></p>
-    <%= link_to image_tag('logo-populate-tools.png', size: '100x31'), 'http://populate.tools' %>
-  </div>
+  <footer>
 
-</footer>
+    <div class="block_color p_v_4">
+      <div class="column">
+        <div class="pure-g">
+          <div class="pure-u-1 pure-u-md-1-2">
+            <ul>
+              <% if @site.configuration.links.any? %>
+                <% @site.configuration.links.each do |link| %>
+                  <li><%= link_to url_host(link), link, target: '_blank' %></li>
+                <% end %>
+              <% end %>
+              <% if @site.configuration.gobierto_budgets_enabled? %>
+                <li><%= link_to t('.budgets'), gobierto_budgets_budgets_path %></li>
+              <% end %>
+            </ul>
+          </div>
 
-<% if Rails.env.production? %>
-  <%= render 'layouts/analytics_footer_site' %>
-<% end %>
+          <div class="pure-u-1 pure-u-md-1-2 right">
+            <%= link_to t('.about_the_data'), Settings.data_note_url, target: '_blank' %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="center p_v_4">
+      <p><%= link_to 'Gobierto', 'https://gobierto.es' %> <%= t('.is_open_source') %></p>
+      <%= link_to image_tag('logo-populate-tools.png', size: '100x31'), 'http://populate.tools' %>
+    </div>
+
+  </footer>
+
+  <% if Rails.env.production? %>
+    <%= render 'layouts/analytics_footer_site' %>
+  <% end %>
+
+  <%= yield :javascript_hook %>
 
 </body>
 </html>

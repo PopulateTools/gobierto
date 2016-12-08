@@ -11,7 +11,6 @@ gem "ruby_px"
 gem "responders"
 gem "config"
 gem "dalli"
-gem "route_translator"
 gem "cookies_eu"
 
 # Frontend
@@ -24,6 +23,7 @@ gem "therubyracer"
 gem "flight-for-rails"
 gem "cocoon"
 gem "i18n-js", ">= 3.0.0.rc11"
+gem "d3-rails", "~> 4.3"
 
 # Elasticsearch
 gem "elasticsearch"
@@ -47,6 +47,7 @@ group :test do
   gem "database_cleaner"
   gem "launchy"
   gem "codecov", "~> 0.1.9", require: false
+  gem "webmock"
 end
 
 group :development do
@@ -60,4 +61,5 @@ group :development do
   gem "capistrano-passenger"
   gem "capistrano-rails-console"
   gem "capistrano-rails-log"
+  gem "capistrano-sidekiq"
 end

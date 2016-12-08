@@ -4,6 +4,9 @@
 //= require jquery.magnific-popup.min
 //= require ./vendor/jquery-ui
 //= require ./vendor/sticky-kit.min
+//= require ./vendor/html5sortable
+//= require air-datepicker/datepicker.min
+//= require air-datepicker/i18n/datepicker.es
 //= require module-admin
 //= require ./app/init
 //= require_tree ./app
@@ -30,6 +33,11 @@ $(document).on('turbolinks:load', function() {
 
   $('.close_modal').click(function(e) {
     $.magnificPopup.close();
+  });
+
+  // Datepicker
+  $('.air-datepicker').datepicker({
+    autoClose: true
   });
 
 });

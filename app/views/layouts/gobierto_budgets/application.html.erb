@@ -4,4 +4,7 @@
     I18n.locale = "<%= I18n.locale %>";
   </script>
 <% end %>
+<% content_for :body_attributes do %>
+  <%= data_attributes %>
+<% end %>
 <%= render template: "layouts/application" %>

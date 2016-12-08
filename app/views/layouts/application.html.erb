@@ -17,7 +17,7 @@
   <% end %>
 </head>
 
-<body <%= data_attributes %>>
+<body <%= yield(:body_attributes) %>>
 
   <% if @site.configuration.demo? %>
     <div class="demo_bar pure-g">

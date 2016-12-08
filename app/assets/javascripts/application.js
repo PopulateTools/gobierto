@@ -65,7 +65,7 @@ $(document).on('turbolinks:load', function() {
   $('[data-tab-target]').on('click', function(e){
     e.preventDefault();
     var target = $(this).data('tab-target');
-    var scope = $('[data-tab-scope]').length ? $(this).closest('[data-tab-scope]') : $(body);
+    var scope = $('[data-tab-scope]').length ? $(this).closest('[data-tab-scope]') : $('body');
 
     scope.find('[data-tab-target]').parent().removeClass('active');
     scope.find('[data-tab-target="' + target + '"]').parent().addClass('active');

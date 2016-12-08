@@ -43,6 +43,12 @@ module GobiertoAdmin
         @consultation ||= consultation_class.includes(:consultation_items).find(consultation_id)
       end
 
+      def position
+        @position ||= begin
+          consultation_item.position.zero? ? next_consultation_item_position : consultation_item.position
+        end
+      end
+
       private
 
       def build_consultation_item
@@ -64,7 +70,7 @@ module GobiertoAdmin
           consultation_item_attributes.description = description
           consultation_item_attributes.budget_line_id = budget_line_id
           consultation_item_attributes.budget_line_amount = budget_line_amount.to_f
-          consultation_item_attributes.position = current_consultation_item_position
+          consultation_item_attributes.position = position
         end
 
         if @consultation_item.valid?
@@ -80,7 +86,7 @@ module GobiertoAdmin
 
       protected
 
-      def current_consultation_item_position
+      def next_consultation_item_position
         consultation.consultation_items.map(&:position).max.to_i + 1
       end
 

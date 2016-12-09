@@ -6,8 +6,34 @@ module GobiertoBudgetConsultations
       @consultation ||= gobierto_budget_consultations_consultations(:madrid_open)
     end
 
+    def past_consultation
+      @past_consultation ||= gobierto_budget_consultations_consultations(:madrid_past)
+    end
+
+    def upcoming_consultation
+      @upcoming_consultation ||= gobierto_budget_consultations_consultations(:madrid_upcoming)
+    end
+
     def test_valid
       assert consultation.valid?
+    end
+
+    def test_open?
+      assert consultation.open?
+      refute past_consultation.open?
+      refute upcoming_consultation.open?
+    end
+
+    def test_past?
+      assert past_consultation.past?
+      refute consultation.past?
+      refute upcoming_consultation.past?
+    end
+
+    def test_upcoming?
+      assert upcoming_consultation.upcoming?
+      refute past_consultation.upcoming?
+      refute consultation.upcoming?
     end
 
     def test_open_in_range

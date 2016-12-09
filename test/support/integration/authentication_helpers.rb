@@ -39,7 +39,7 @@ module Integration
     end
 
     def sign_out_user
-      within("header .user_links") { click_link "Sign Out" }
+      within("header .user_links") { click_link "Sign out" }
     end
   end
 end

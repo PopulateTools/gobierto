@@ -6,6 +6,8 @@ en:
       more_information: More info in gobierto.es
       is_open_source: is open source created by
       about_the_data: About the data
+      account: Profile
+      sign_out: Sign out
     gobierto_budgets:
       application:
         <<: *application

@@ -3,7 +3,7 @@ module GobiertoAdmin
     skip_before_action :authenticate_admin!
     before_action :require_no_authentication
 
-    layout "gobierto_admin/sessions"
+    layout "gobierto_admin/layouts/sessions"
 
     def show
       # TODO. Consider extracting this logic into a service object.

@@ -3,7 +3,7 @@ module GobiertoAdmin
     skip_before_action :authenticate_admin!
     before_action :require_no_authentication
 
-    layout "gobierto_admin/sessions"
+    layout "gobierto_admin/layouts/sessions"
 
     def new
       @admin_password_form = AdminNewPasswordForm.new

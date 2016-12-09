@@ -3,7 +3,7 @@ module GobiertoAdmin
     skip_before_action :authenticate_admin!, only: [:new, :create]
     before_action :require_no_authentication, only: [:new, :create]
 
-    layout "gobierto_admin/sessions"
+    layout "gobierto_admin/layouts/sessions"
 
     def new; end
 

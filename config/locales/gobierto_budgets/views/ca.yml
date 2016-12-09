@@ -8,6 +8,8 @@ ca:
       expenses: despeses
       budget_line_description_html: "Aquesta partida compren les %{kind_what} en %{description}. Si vols saber més sobre aquesta partida pots consultar la partida pare: %{link}"
     layouts:
+      application:
+        budgets: Pressupostos
       menu_subsections:
         summary: Resumen
         budget: Pressupost

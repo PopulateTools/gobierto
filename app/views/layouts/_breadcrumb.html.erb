@@ -1,0 +1,8 @@
+<div class="global_breadcrumb">
+  <%= link_to "#", class: "menu_control" do %>
+    <i class="fa fa-bars"></i>
+    Inicio
+  <% end %>
+  <span>/</span>
+  <%= yield(:breadcrumb_items) %>
+</div>

@@ -1,0 +1,7 @@
+<% available_locales.each do |locale| %>
+  <% if I18n.locale == locale %>
+    <strong><%= locale %></strong>
+  <% else %>
+    <%= link_to locale, locale: locale %>
+  <% end %>
+<% end %>

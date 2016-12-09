@@ -24,7 +24,9 @@ class User::SessionTest < ActionDispatch::IntegrationTest
 
       assert has_content?("Signed in successfully.")
 
-      click_on "Sign Out"
+      within "header .user_links" do
+        click_on "Sign Out"
+      end
 
       assert has_content?("Signed out successfully.")
     end

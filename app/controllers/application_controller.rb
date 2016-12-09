@@ -25,14 +25,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def load_current_module_sub_sections
-    if current_module?
-      if lookup_context.exists?("#{current_module}/layouts/_menu_subsections.html.erb")
-        render partial: "#{current_module}/layouts/menu_subsections"
-      end
-    end
-  end
-
   def current_site
     request.env['gobierto_site'] unless Site.reserved_domain?(domain)
   end

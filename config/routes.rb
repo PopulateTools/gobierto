@@ -65,7 +65,7 @@ Rails.application.routes.draw do
   end
 
   # Gobierto Budget Consultations module
-  namespace :gobierto_budget_consultations, as: :budget, path: 'presupuestos' do
+  namespace :gobierto_budget_consultations, path: 'presupuestos' do
     constraints GobiertoSiteConstraint.new do
       resources :consultations, only: [:index, :show], path: 'consultas' do
         get 'participa', to: 'consultations/consultation_responses#new', as: :new_response

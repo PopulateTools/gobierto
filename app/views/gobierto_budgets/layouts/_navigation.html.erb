@@ -6,7 +6,7 @@
   <%= link_to t('gobierto_budgets.layouts.menu_subsections.execution'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), class: class_if('active', controller_name == 'budgets_execution')  %>
 
   <% if @site.configuration.gobierto_budget_consultations_enabled? %>
-    <%= link_to t('gobierto_budget_consultations.layouts.menu_subsections.consultations'), budget_consultations_path, class: class_if('active', controller_name == 'consultations')  %></li>
+    <%= link_to t('gobierto_budget_consultations.layouts.menu_subsections.consultations'), gobierto_budget_consultations_consultations_path, class: class_if('active', controller_name == 'consultations')  %></li>
   <% end %>
 
   <% pending do %>

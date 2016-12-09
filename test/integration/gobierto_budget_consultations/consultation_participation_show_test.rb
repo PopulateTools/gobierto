@@ -4,7 +4,7 @@ module GobiertoBudgetConsultations
   class ConsultationParticipationShowTest < ActionDispatch::IntegrationTest
     def setup
       super
-      @path = budget_consultation_participation_path(consultation_response.sharing_token)
+      @path = gobierto_budget_consultations_consultation_participation_path(consultation_response.sharing_token)
     end
 
     def consultation_response

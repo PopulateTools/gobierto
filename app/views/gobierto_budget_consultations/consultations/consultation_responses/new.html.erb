@@ -8,7 +8,7 @@
 
         <%= render "user/shared/validation_errors", resource: @consultation_response_form %>
 
-        <%= form_for(@consultation_response_form, as: :consultation_response, url: :budget_consultation_response) do |f| %>
+        <%= form_for(@consultation_response_form, as: :consultation_response, url: :gobierto_budget_consultations_consultation_response) do |f| %>
 
           <% @consultation_items.each_with_index do |consultation_item, consultation_item_index| %>
 

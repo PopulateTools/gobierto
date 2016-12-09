@@ -17,7 +17,7 @@ module GobiertoBudgetConsultations
         @consultation_response = find_consultation_response
 
         if @consultation_response.active!
-          redirect_to budget_consultation_show_confirmation_path(@consultation)
+          redirect_to [@consultation, :show_confirmation]
         else
           @consultation_response = find_consultation_response
           render :new

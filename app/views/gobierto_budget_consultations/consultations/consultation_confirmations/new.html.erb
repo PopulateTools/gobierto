@@ -55,14 +55,14 @@
 
         <div class="pure-u-1-2 p_h_2 right">
           <p>Mmm... mejor lo repaso</p>
-          <%= link_to budget_consultation_new_response_path, class: "button soft" do %>
+          <%= link_to [@consultation, :new_response], class: "button soft" do %>
             Revisar
           <% end %>
         </div>
 
         <div class="pure-u-1-2 p_h_2">
           <p>Perfecto, lo tengo claro</p>
-          <%= button_to budget_consultation_confirmation_path do %>
+          <%= button_to [@consultation, :confirmation] do %>
             Confirmar
           <% end %>
         </div>

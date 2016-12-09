@@ -55,7 +55,7 @@ class SandboxController < ApplicationController
   end
 
   def current_site
-    SiteDecorator.new(Site.first)
+    SiteDecorator.new(Site.find_by(domain: "madrid.gobierto.dev"))
   end
 
   def user_signed_in?
@@ -67,7 +67,7 @@ class SandboxController < ApplicationController
   end
 
   def managed_sites
-    [Site.first]
+    [current_site]
   end
 
   def can_manage_sites?

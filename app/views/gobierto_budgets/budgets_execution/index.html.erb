@@ -3,6 +3,12 @@
   set_meta_tags description: t('.description', place: @place.name, year: @year)
 %>
 
+<% content_for :breadcrumb_current_item do %>
+  <strong>
+    <%= link_to t('gobierto_budgets.layouts.menu_subsections.execution'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last) %>
+  </strong>
+<% end %>
+
 <div class="column">
 
 	<%= render partial: 'gobierto_budgets/budgets/year_breadcrumb', locals: {path_calculation_method: :gobierto_budgets_budgets_execution_path} %>

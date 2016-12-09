@@ -148,7 +148,6 @@
 }
 
 
-
 /*
 
 Mixins
@@ -387,3 +386,26 @@ $units: 1px !default;
     display: block;
   }
 }
+
+
+
+
+@include screen(740) {
+  .desktop_only {
+    display: none;
+  }
+  .mobile_only {
+    display: block;
+    width: 100%;
+  }
+}
+@include min-screen(741) {
+  .desktop_only {
+    width: 100%;
+    display: block;
+  }
+  .mobile_only {
+    display: none;
+  }
+}
+

@@ -3,6 +3,6 @@ module GobiertoBudgetConsultations
     include User::SessionHelper
     include User::VerificationHelper
 
-    layout "gobierto_budget_consultations/application"
+    layout "gobierto_budget_consultations/layouts/application"
   end
 end

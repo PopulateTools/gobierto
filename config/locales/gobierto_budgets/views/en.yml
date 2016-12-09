@@ -8,6 +8,8 @@ en:
       expenses: expenses
       budget_line_description_html: "This budget line is composed of %{kind_what} in %{description}. If you want to understand more about it, check its parent budget line: %{link}"
     layouts:
+      application:
+        budgets: Budgets
       menu_subsections:
         summary: Summary
         budget: Budget

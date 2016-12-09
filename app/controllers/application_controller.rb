@@ -4,9 +4,9 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :render_404
   rescue_from ActionController::UnknownFormat, with: :render_404
 
-  helper_method :helpers, :load_current_module_sub_sections, :current_site
+  helper_method :helpers, :load_current_module_sub_sections, :current_site, :current_module, :available_locales
 
-  before_action :set_current_site, :authenticate_user_in_site, :set_site_locale
+  before_action :set_current_site, :authenticate_user_in_site, :set_locale
 
   def render_404
     render file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]
@@ -22,14 +22,6 @@ class ApplicationController < ActionController::Base
       { e: true }
     else
       {}
-    end
-  end
-
-  def load_current_module_sub_sections
-    if current_module?
-      if lookup_context.exists?("#{current_module}/layouts/_menu_subsections.html.erb")
-        render partial: "#{current_module}/layouts/menu_subsections"
-      end
     end
   end
 
@@ -61,10 +53,20 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def set_site_locale
-    if @site
-      I18n.locale = @site.configuration.locale
+  def set_locale
+    locale_param = params[:locale]
+    locale_cookie = cookies.signed[:locale]
+    site_locale = current_site.configuration.locale if current_site.present?
+
+    preferred_locale = (locale_param || locale_cookie || site_locale || I18n.default_locale).to_sym
+
+    if available_locales.include?(preferred_locale)
+      I18n.locale = cookies.permanent.signed[:locale] = preferred_locale
     end
+  end
+
+  def available_locales
+    @available_locales ||= I18n.available_locales - [:en]
   end
 
   protected

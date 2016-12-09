@@ -4,9 +4,10 @@ es:
     application: &application
       disclaimer: Esta web es una demostración de Gobierto, software de transparencia y participación
       more_information: Más información en gobierto.es
-      budgets: Presupuestos
       is_open_source: es software libre creado por
       about_the_data: Sobre los datos
+      account: Perfil
+      sign_out: Cerrar sesión
     gobierto_budgets:
       application:
         <<: *application

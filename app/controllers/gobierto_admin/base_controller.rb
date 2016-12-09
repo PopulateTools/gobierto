@@ -14,6 +14,6 @@ module GobiertoAdmin
 
     rescue_from Errors::NotAuthorized, with: :raise_admin_not_authorized
 
-    layout "gobierto_admin/application"
+    layout "gobierto_admin/layouts/application"
   end
 end

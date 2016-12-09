@@ -19,96 +19,232 @@
 
 <body <%= data_attributes %>>
 
-  <% if @site.configuration.demo? %>
-    <div class="demo_bar pure-g">
-      <div class="pure-u-lg-4-24 pure-u-1-5">
-      <%= link_to image_tag('LogoGobierto.png', width: '100'), 'http://gobierto.es' %></div>
-      <div class="pure-u-lg-12-24 pure-u-2-5"><%= t('.disclaimer') %></div>
-      <div class="pure-u-lg-8-24 pure-u-2-5">
-        <%= link_to t('.more_information'), 'http://gobierto.es' %></div>
-      </div>
+<% if @site.configuration.demo? %>
+  <div class="demo_bar pure-g">
+    <div class="pure-u-lg-4-24 pure-u-1-5">
+    <%= link_to image_tag('LogoGobierto.png', width: '100'), 'http://gobierto.es' %></div>
+    <div class="pure-u-lg-12-24 pure-u-2-5"><%= t('.disclaimer') %></div>
+    <div class="pure-u-lg-8-24 pure-u-2-5">
+      <%= link_to t('.more_information'), 'http://gobierto.es' %></div>
     </div>
-  <% end %>
+  </div>
+<% end %>
 
-  <header class="meta color_main">
+<header class="meta">
 
-    <%= render "user/shared/session_navbar" %>
+  <div class="slim_nav_bar">
 
-    <% if @site.configuration.links.any? %>
-      <div class="client_links">
-        <div class="column">
+    <div class="column pure-g">
+      <div class="desktop_only">
+        <% if @site.configuration.links.any? %>
+        <div class="pure-u-md-1-2">
           <ul>
             <% @site.configuration.links.each do |link| %>
               <li><%= link_to url_host(link), link, target: '_blank' %></li>
             <% end %>
-            <% if @site.configuration.gobierto_budgets_enabled? %>
-              <li><%= link_to t('.budgets'), gobierto_budgets_budgets_path %></li>
+          </ul>
+        </div>
+        <% end %>
+
+        <div class="pure-u-md-1-2 right">
+        
+          <div class="user_links">
+            
+            <!-- <a href="#">Novedades</a> -->
+            
+            <!-- mismo lista de opciones que en el admin. mismo marcado (practicamente). reutilizar partial? -->
+            <div class="pure-menu pure-menu-horizontal">
+              <ul class="pure-menu-list left">
+                <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+                  <a href="#" id="xxx" class="pure-menu-link">
+                    Tu cuenta
+                  </a>
+                  <ul class="pure-menu-children">
+                    <li class="pure-menu-item">
+                      <%= link_to '', class: "pure-menu-link" do %>
+                        <i class="fa fa-th"></i>
+                        <%= t(".account") %>
+                      <% end %>
+                    </li>
+                    <li class="pure-menu-item">
+                      <%= link_to '', class: "pure-menu-link" do %>
+                        <i class="fa fa-envelope-o"></i>
+                        Tus alertas
+                      <% end %>
+                    </li>
+                    <li class="pure-menu-item">
+                      <%= link_to '', class: "pure-menu-link" do %>
+                        <i class="fa fa-ship"></i>
+                        Administración
+                      <% end %>
+                    </li>
+                    <li class="pure-menu-item">
+                      <%= link_to admin_sessions_path, method: :delete, class: "pure-menu-link" do %>
+                        <i class="fa fa-sign-out"></i>
+                        <%= t(".sign_out") %>
+                      <% end %>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
+            <!-- <a href="#">Sigue a tu municipio</a> -->
+            
+          </div>
+
+          <div class="language_selector">
+            <strong>ES</strong>
+            <a href="#">CA</a>
+            <a href="#">GA</a>
+            <a href="#">EU</a>
+          </div>
+
+        </div>
+      </div>
+      <div class="mobile_only right">
+        <%= link_to '<i class="fa fa-bars"></i>'.html_safe, '', class:'menu_control'  %>
+      </div>
+    </div>
+  </div>
+
+  <div class="site_header">
+    
+    <% if @site.configuration.logo %>
+    <div class="column">
+      <div class="logo">
+        <%= image_tag @site.configuration.logo %>
+      </div>
+    </div>
+    <% end %>
+
+    <menu class="complete color_main">
+      <div class="column">
+      
+        <div class="close ">
+          <%= link_to '<i class="fa fa-close"></i>'.html_safe, '', class: 'color_main' %>
+        </div>
+
+        <div class="pure-g">
+
+          <div class="pure-u-1 pure-u-md-1-4 section">
+            <h2>Presupuestos</h2>
+            <%= link_to 'Visualización' %>              
+            <%= link_to 'Consultas' %>
+          </div>
+
+          <div class="pure-u-1 pure-u-md-1-4 section">
+            <h2>Personas</h2>
+            <%= link_to 'Cargos' %>              
+            <%= link_to 'Agendas' %>
+          </div>
+
+          <div class="pure-u-1 pure-u-md-1-4 section">
+            <h2>Indicadores</h2>
+            <%= link_to 'Tu municipio en cifras' %>              
+            <%= link_to 'Cuadro de mando' %>
+            <%= link_to 'Objetivos' %>
+          </div>
+
+          <div class="pure-u-1 pure-u-md-1-4 section">
+            <h2>Participación</h2>
+            <%= link_to 'Propuestas' %>              
+            <%= link_to 'Preguntas' %>
+            <%= link_to 'Consultas' %>
+            <%= link_to 'Legislación colaborativa' %>
+          </div>
+
+          <div class="pure-u-1 pure-u-md-1-4 section">
+            <h2>Mapas</h2>
+            <%= link_to 'Inversiones' %>              
+            <%= link_to 'Recursos' %>
+            <%= link_to 'Instalacioens' %>
+          </div>
+
+          <div class="pure-u-1 pure-u-md-1-4 section personal_menu mobile_only">
+
+            <!-- these are the same links from .user_links -->
+            <h2>Tu cuenta</h2>
+            <%= link_to 'Perfil' %>
+            <%= link_to 'Alertas' %>
+            <%= link_to 'Desconectar' %>
+
+            <div class="language_selector">
+              · <strong>ES</strong>
+              <a href="#">CA</a>
+              <a href="#">GA</a>
+              <a href="#">EU</a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </menu>
+
+    <div class="column">
+      <menu class="nav">
+        <div class="global_breadcrumb">
+          <%= link_to '<i class="fa fa-bars"></i> Inicio'.html_safe, '', class:'menu_control'  %> <span>/</span>
+          <strong><%= link_to 'Presupuestos' %></strong> <span>/</span>
+          <strong><%= link_to 'Visualización' %></strong>
+        </div>
+        <%= render 'sandbox/layouts/menu_subsections' %>
+      </menu>
+    </div>
+
+  </div>
+  <%# load_current_module_sub_sections %>
+  
+</header>
+
+<div class="container">
+
+  <%= render "user/shared/flash_messages" %>
+  <%= content_for?(:content) ? yield(:content) : yield %></div>  
+
+</div>
+
+<footer>
+
+  <div class="block_color p_v_4">
+    <div class="column">
+      <div class="pure-g">
+        <div class="pure-u-1 pure-u-md-1-2">
+          <ul>
+            <% if @site.configuration.links.any? %>
+              <% @site.configuration.links.each do |link| %>
+                <li><%= link_to url_host(link), link, target: '_blank' %></li>
+              <% end %>
             <% end %>
           </ul>
         </div>
-      </div>
-    <% end %>
 
-    <div class="site_header">
-      <div class="column">
-        <% if @site.configuration.logo %>
-          <div class="logo"><%= image_tag @site.configuration.logo %></div>
-        <% end %>
-        <div class="site_title">
-          <% #TODO: the link to budgets should be dynamic depending on the module %>
-          <strong><%= link_to @site.name, root_path %></strong> / <%= link_to t('.budgets'), gobierto_budgets_budgets_path %>
+        <div class="pure-u-1 pure-u-md-1-2">
+          <%= link_to t('.about_the_data'), Settings.data_note_url, target: '_blank' %>
         </div>
+
+        <div class="pure-u-1 mobile_only">
+          <%= link_to '<i class="fa fa-bars"></i> Menú'.html_safe, '', class:'menu_control'  %>
+        </div>
+
       </div>
     </div>
-
-    <%= load_current_module_sub_sections %>
-
-  </header>
-
-  <div class="container">
-
-    <%= render "user/shared/flash_messages" %>
-    <%= content_for?(:content) ? yield(:content) : yield %></div>
-
   </div>
 
-  <footer>
+  <div class="center p_v_4">
+    <p><%= link_to 'Gobierto', 'https://gobierto.es' %> <%= t('.is_open_source') %></p>
+    <%= link_to image_tag('logo-populate-tools.png', size: '100x31'), 'http://populate.tools' %>
+  </div>
 
-    <div class="block_color p_v_4">
-      <div class="column">
-        <div class="pure-g">
-          <div class="pure-u-1 pure-u-md-1-2">
-            <ul>
-              <% if @site.configuration.links.any? %>
-                <% @site.configuration.links.each do |link| %>
-                  <li><%= link_to url_host(link), link, target: '_blank' %></li>
-                <% end %>
-              <% end %>
-              <% if @site.configuration.gobierto_budgets_enabled? %>
-                <li><%= link_to t('.budgets'), gobierto_budgets_budgets_path %></li>
-              <% end %>
-            </ul>
-          </div>
+</footer>
 
-          <div class="pure-u-1 pure-u-md-1-2 right">
-            <%= link_to t('.about_the_data'), Settings.data_note_url, target: '_blank' %>
-          </div>
-        </div>
-      </div>
-    </div>
+<% if Rails.env.production? %>
+  <%= render 'layouts/analytics_footer_site' %>
+<% end %>
 
-    <div class="center p_v_4">
-      <p><%= link_to 'Gobierto', 'https://gobierto.es' %> <%= t('.is_open_source') %></p>
-      <%= link_to image_tag('logo-populate-tools.png', size: '100x31'), 'http://populate.tools' %>
-    </div>
-
-  </footer>
-
-  <% if Rails.env.production? %>
-    <%= render 'layouts/analytics_footer_site' %>
-  <% end %>
-
-  <%= yield :javascript_hook %>
+<%= yield :javascript_hook %>
 
 </body>
 </html>

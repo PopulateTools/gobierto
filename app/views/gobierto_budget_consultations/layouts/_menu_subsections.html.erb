@@ -1,5 +1,5 @@
 <menu class="sub_sections">
-  <div class="column pure-menu pure-menu-horizontal pure-menu-scrollable">
+  <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
     <ul>
       <% if @site.configuration.gobierto_budgets_enabled? %>
         <li><%= link_to t('gobierto_budgets.layouts.menu_subsections.summary'), gobierto_budgets_budgets_path, class: class_if('active', controller_name == 'budgets') %></li>

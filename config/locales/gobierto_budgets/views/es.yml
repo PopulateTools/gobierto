@@ -8,6 +8,8 @@ es:
       expenses: gastos
       budget_line_description_html: "Esta partida comprende los %{kind_what} en %{description}. Si quieres saber más sobre esta partida puedes consultar la partida padre: %{link}"
     layouts:
+      application:
+        budgets: Presupuestos
       menu_subsections:
         summary: Resumen
         budget: Presupuesto

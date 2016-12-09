@@ -14,7 +14,6 @@ class HomePageTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @root_path
 
-      assert has_content?("Madrid / Budgets")
       assert has_content?("Main income and expenses from your council")
     end
   end

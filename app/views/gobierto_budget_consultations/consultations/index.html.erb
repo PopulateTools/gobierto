@@ -1,47 +1,24 @@
 <div class="column">
 
-  <h1>Consultas activas</h1>
+  <% if @active_consultations.any? %>
 
-  <div class="active-consultations">
+    <h1>Consultas activas</h1>
 
-    <% @active_consultations.each do |consultation| %>
+    <div class="active-consultations">
 
-      <div class="box p_v_2">
+      <% @active_consultations.each do |consultation| %>
 
-        <div class="inner center">
+        <div class="box p_v_2">
 
-          <%= link_to consultation.title, consultation %>
-          <div class="soft">
-            <%= l(consultation.opens_on, format: :short) %>
-            -
-            <%= l(consultation.closes_on, format: :short) %>
-          </div>
+          <div class="inner center">
 
-        </div>
-
-      </div>
-
-    <% end %>
-
-  </div>
-
-  <div class="m_v_4">
-
-    <h2>Consultas anteriores</h2>
-
-    <div class="past-consultations">
-
-      <% @past_consultations.each do |consultation| %>
-
-        <div class="pure-u-1 pure-u-md-1-3">
-
-          <div class="p_h_2">
             <%= link_to consultation.title, consultation %>
             <div class="soft">
               <%= l(consultation.opens_on, format: :short) %>
               -
               <%= l(consultation.closes_on, format: :short) %>
             </div>
+
           </div>
 
         </div>
@@ -50,6 +27,37 @@
 
     </div>
 
-  </div>
+  <% end %>
+
+  <% if @past_consultations.any? %>
+
+    <div class="m_v_4">
+
+      <h2>Consultas anteriores</h2>
+
+      <div class="past-consultations">
+
+        <% @past_consultations.each do |consultation| %>
+
+          <div class="pure-u-1 pure-u-md-1-3">
+
+            <div class="p_h_2">
+              <%= link_to consultation.title, consultation %>
+              <div class="soft">
+                <%= l(consultation.opens_on, format: :short) %>
+                -
+                <%= l(consultation.closes_on, format: :short) %>
+              </div>
+            </div>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+    </div>
+
+  <% end %>
 
 </div>

@@ -76,7 +76,7 @@ Rails.application.routes.draw do
         get 'terminado', to: 'consultations/consultation_confirmations#show', as: :show_confirmation
       end
 
-      resources :consultation_participations, only: [:show], path: :participations
+      resources :consultation_participations, only: [:show], path: 'participaciones'
     end
   end
 

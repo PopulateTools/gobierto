@@ -38,9 +38,13 @@ module GobiertoBudgetConsultations
     def selected_option?(consultation_item, response_option)
       return response_option.selected? unless persisted?
 
-      consultation_response.consultation_items.detect do |response_ci|
+      matching_response_ci = consultation_response.consultation_items.detect do |response_ci|
         response_ci.item_id == consultation_item.id
-      end.try(:selected_option_id) == response_option.id
+      end
+
+      return response_option.selected? unless matching_response_ci
+
+      matching_response_ci.selected_option_id == response_option.id
     end
 
     private

@@ -8,7 +8,7 @@ madrid_sports_facilities:
     seleccionar.
   budget_line_id: "9208.0/2016-01-01/p/e/f/151"
   budget_line_amount: 10.0
-  position: 0
+  position: 1
 
 madrid_civil_protection:
   consultation: madrid_open
@@ -21,4 +21,4 @@ madrid_civil_protection:
     seleccionar.
   budget_line_id: "9208.0/2016-01-01/p/e/f/153"
   budget_line_amount: 40.0
-  position: 1
+  position: 2

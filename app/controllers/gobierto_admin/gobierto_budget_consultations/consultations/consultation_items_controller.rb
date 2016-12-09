@@ -83,6 +83,7 @@ module GobiertoAdmin
             :description,
             :position,
             :budget_line_id,
+            :budget_line_name,
             :budget_line_amount
           )
         end

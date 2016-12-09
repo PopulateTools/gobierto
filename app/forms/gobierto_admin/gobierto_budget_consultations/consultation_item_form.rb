@@ -10,6 +10,7 @@ module GobiertoAdmin
         :description,
         :position,
         :budget_line_id,
+        :budget_line_name,
         :budget_line_amount
       )
 
@@ -18,7 +19,7 @@ module GobiertoAdmin
       delegate :to_model, :persisted?, to: :consultation_item
 
       validates :title, presence: true
-      validates :budget_line_id, presence: true
+      validates :budget_line_id, :budget_line_name, presence: true
       validates :budget_line_amount, presence: true
       validates :consultation, presence: true
 
@@ -69,6 +70,7 @@ module GobiertoAdmin
           consultation_item_attributes.title = title
           consultation_item_attributes.description = description
           consultation_item_attributes.budget_line_id = budget_line_id
+          consultation_item_attributes.budget_line_name = budget_line_name
           consultation_item_attributes.budget_line_amount = budget_line_amount.to_f
           consultation_item_attributes.position = position
         end

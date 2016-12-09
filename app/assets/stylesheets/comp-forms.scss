@@ -308,3 +308,6 @@ option, select {
   display: block; 
   border-bottom: 1px solid $separator; 
 }
+.ui-autocomplete {
+  z-index: 1500;
+}

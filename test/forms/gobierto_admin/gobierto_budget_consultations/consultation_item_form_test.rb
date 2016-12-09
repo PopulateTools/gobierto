@@ -9,6 +9,7 @@ module GobiertoAdmin
           title: consultation_item.title,
           description: consultation_item.description,
           budget_line_id: "Wadus",
+          budget_line_name: "Foo",
           budget_line_amount: 10.0
         )
       end
@@ -20,6 +21,7 @@ module GobiertoAdmin
           description: consultation_item.description,
           position: consultation_item.position,
           budget_line_id: "Wadus",
+          budget_line_name: "Foo",
           budget_line_amount: 10.0
         )
       end
@@ -30,6 +32,7 @@ module GobiertoAdmin
           title: nil,
           description: nil,
           budget_line_id: nil,
+          budget_line_name: nil,
           budget_line_amount: nil
         )
       end
@@ -55,6 +58,7 @@ module GobiertoAdmin
 
         assert_equal 1, invalid_consultation_item_form.errors.messages[:title].size
         assert_equal 1, invalid_consultation_item_form.errors.messages[:budget_line_id].size
+        assert_equal 1, invalid_consultation_item_form.errors.messages[:budget_line_name].size
         assert_equal 1, invalid_consultation_item_form.errors.messages[:budget_line_amount].size
       end
 

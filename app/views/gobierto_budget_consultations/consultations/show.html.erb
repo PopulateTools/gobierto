@@ -13,30 +13,50 @@
 
   <div class="box p_v_2">
 
-    <div class="inner center">
+    <div class="inner center feedback-block">
 
-      <p>
-        <strong>
-          Sólo te llevará
-          <%= distance_of_time_in_words(@consultation.estimated_completion_time_in_seconds) %>
-        </strong>
-      </p>
+      <% if @consultation.open? %>
 
-      <%= link_to [@consultation, :new_response], class: "button gigantic" do %>
-        Participa en la consulta
-      <% end %>
-
-      <p>
-        Destinado a cualquier ciudadano de
-        <%= current_site.location_name %>
-      </p>
-
-      <% unless user_signed_in? %>
         <p>
-          <%= link_to new_user_sessions_path do %>
-            Necesitas estar identificado y verificado para participar
-          <% end %>
+          <strong>
+            Sólo te llevará
+            <%= distance_of_time_in_words(@consultation.estimated_completion_time_in_seconds) %>
+          </strong>
         </p>
+
+        <%= link_to [@consultation, :new_response], class: "button gigantic" do %>
+          Participa en la consulta
+        <% end %>
+
+        <p>
+          Destinado a cualquier ciudadano de
+          <%= current_site.location_name %>
+        </p>
+
+        <% unless user_signed_in? %>
+          <p>
+            <%= link_to new_user_sessions_path do %>
+              Necesitas estar identificado y verificado para participar
+            <% end %>
+          </p>
+        <% end %>
+
+      <% else %>
+
+        <% if @consultation.upcoming? %>
+
+          <p>
+            Podrás participar en esta consulta a partir del <%= l(@consultation.opens_on, format: :short) %>
+          </p>
+
+        <% else %>
+
+          <p>
+            Lo sentimos, esta consulta está cerrada
+          </p>
+
+        <% end %>
+
       <% end %>
 
     </div>

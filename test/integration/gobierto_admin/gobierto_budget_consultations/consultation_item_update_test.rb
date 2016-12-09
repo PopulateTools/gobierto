@@ -34,11 +34,13 @@ module GobiertoAdmin
               visit @path
 
               within "form.edit_consultation_item" do
-                select populate_data_budget_line_summary[:name], from: "consultation_item_budget_line_id"
-
+                fill_in "consultation_item_budget_line_name", with: populate_data_budget_line_summary[:name]
                 fill_in "consultation_item_title", with: populate_data_budget_line_summary[:name]
                 fill_in "consultation_item_budget_line_amount", with: populate_data_budget_line_summary[:amount]
                 fill_in "consultation_item_description", with: "ConsultationItem Description"
+
+                # Simulate Budget line selection in user control
+                find("#consultation_item_budget_line_id", visible: false).set(populate_data_budget_line_summary[:name])
 
                 click_button "Update Budget line"
               end

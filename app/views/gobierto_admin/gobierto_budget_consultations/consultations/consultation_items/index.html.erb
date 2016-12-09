@@ -27,7 +27,7 @@
       <ul class="block_list" data-behavior="sortable" data-sortable-target="<%= admin_budget_consultation_consultation_items_sort_path %>">
         <% @consultation_items.each do |consultation_item| %>
           <li data-id="<%= consultation_item.id %>">
-            <%= link_to edit_admin_budget_consultation_consultation_item_path(@consultation, consultation_item) do %>
+            <%= link_to edit_admin_budget_consultation_consultation_item_path(@consultation, consultation_item), class: "open_remote_modal" do %>
               <i class="fa fa-edit"></i>
               <span><%= consultation_item.title %></span>
               <i class="sort-handler fa fa-bars f_right"></i>
@@ -38,7 +38,7 @@
 
       <ul class="block_list">
         <li class="sep">
-          <%= link_to new_admin_budget_consultation_consultation_item_path(@consultation) do %>
+          <%= link_to new_admin_budget_consultation_consultation_item_path(@consultation), class: "open_remote_modal" do %>
             <i class="fa fa-add"></i>
             <span>Añadir nueva partida</span>
           <% end %>

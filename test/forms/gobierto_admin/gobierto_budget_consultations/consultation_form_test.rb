@@ -59,8 +59,7 @@ module GobiertoAdmin
         invalid_consultation_form.save
 
         assert_equal 1, invalid_consultation_form.errors.messages[:title].size
-        assert_equal 1, invalid_consultation_form.errors.messages[:opens_on].size
-        assert_equal 1, invalid_consultation_form.errors.messages[:closes_on].size
+        assert_equal 1, invalid_consultation_form.errors.messages[:opening_date_range].size
       end
 
       def test_opening_date_range

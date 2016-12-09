@@ -2,22 +2,29 @@ this.GobiertoAdmin.ConsultationItemsController = (function() {
   function ConsultationItemsController() {}
 
   ConsultationItemsController.prototype.edit = function() {
-    _handleBudgetLineChange();
+    _handleBudgetLineAutocomplete();
   };
 
   ConsultationItemsController.prototype.index = function() {
     _handleSortableList();
   };
 
-  function _handleBudgetLineChange() {
-    var budgetLineSelectHandler = "#consultation_item_budget_line_id";
-    var budgetLineAmountHandler = "#consultation_item_budget_line_amount";
+  function _handleBudgetLineAutocomplete() {
+    var budgetLineAutocompleteHandler = "#consultation_item_budget_line_name";
+    var budgetLineIdHandler = "#consultation_item_budget_line_id";
     var consultationItemTitleHandler = "#consultation_item_title";
+    var budgetLineAmountHandler = "#consultation_item_budget_line_amount";
 
-    $(budgetLineSelectHandler).on("change", function() {
-      $(budgetLineAmountHandler).val($(this).find(":selected").data("amount"));
-      $(consultationItemTitleHandler).val($(this).find(":selected").data("name"));
-    });
+    var autocompleteOptions = {
+      source: $(budgetLineAutocompleteHandler).data("source"),
+      select: function(event, ui) {
+        $(budgetLineIdHandler).val(ui.item.id);
+        $(consultationItemTitleHandler).val(ui.item.name);
+        $(budgetLineAmountHandler).val(ui.item.amount);
+      }
+    };
+
+    $(budgetLineAutocompleteHandler).autocomplete(autocompleteOptions);
   }
 
   function _handleSortableList() {

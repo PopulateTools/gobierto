@@ -19,8 +19,8 @@ module GobiertoAdmin
 
       delegate :to_model, :persisted?, to: :consultation
 
-      validates :title, presence: true
-      validates :opens_on, :closes_on, presence: true
+      validates :title, :description, presence: true
+      validates :opening_date_range, presence: true
       validates :admin, :site, presence: true
 
       def save

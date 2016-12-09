@@ -1,5 +1,9 @@
 <%= form_for(@consultation_form, as: :consultation, url: admin_budget_consultation_path(@consultation_form)) do |f| %>
 
+  <%= f.hidden_field :title %>
+  <%= f.hidden_field :description %>
+  <%= f.hidden_field :opening_date_range %>
+
   <div class="widget_save">
 
     <div class="form_item consultation-visibility-level-radio-buttons">

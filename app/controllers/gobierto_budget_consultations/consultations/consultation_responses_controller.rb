@@ -23,7 +23,7 @@ module GobiertoBudgetConsultations
         )
 
         if @consultation_response_form.save
-          redirect_to budget_consultation_new_confirmation_path(@consultation)
+          redirect_to [@consultation, :new_confirmation]
         else
           @consultation_items = @consultation.consultation_items.sorted
           render :new

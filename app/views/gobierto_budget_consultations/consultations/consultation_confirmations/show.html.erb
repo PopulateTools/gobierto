@@ -23,13 +23,13 @@
 
           <%= render("user/shared/sharing_buttons",
                      text: "He participado en una consulta sobre presupuestos en #{current_site.name}",
-                     url: budget_consultation_participation_url(@consultation_response.sharing_token)) %>
+                     url: gobierto_budget_consultations_consultation_participation_url(@consultation_response.sharing_token)) %>
 
           <p>
             También puedes compartir esta URL con quien prefieras:<br/>
             <%= link_to(
-              budget_consultation_participation_url(@consultation_response.sharing_token),
-              budget_consultation_participation_url(@consultation_response.sharing_token)) %>
+              gobierto_budget_consultations_consultation_participation_url(@consultation_response.sharing_token),
+              gobierto_budget_consultations_consultation_participation_url(@consultation_response.sharing_token)) %>
           </p>
         </div>
 

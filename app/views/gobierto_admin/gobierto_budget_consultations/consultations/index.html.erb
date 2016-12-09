@@ -52,7 +52,7 @@
         <%= consultation.visibility_level.capitalize %>
       </td>
       <td>
-        <%= link_to budget_consultation_url(consultation, domain: current_site.domain), target: "_blank", class: "view_item" do %>
+        <%= link_to gobierto_budget_consultations_consultation_url(consultation, domain: current_site.domain), target: "_blank", class: "view_item" do %>
           <i class="fa fa-eye"></i>
           <%= t(".view_consultation") %>
         <% end %>

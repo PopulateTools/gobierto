@@ -6,8 +6,8 @@ module GobiertoBudgetConsultations
 
     def setup
       super
-      @path = budget_consultation_new_response_path(consultation)
-      @closed_path = budget_consultation_new_response_path(closed_consultation)
+      @path = gobierto_budget_consultations_consultation_new_response_path(consultation)
+      @closed_path = gobierto_budget_consultations_consultation_new_response_path(closed_consultation)
     end
 
     def consultation

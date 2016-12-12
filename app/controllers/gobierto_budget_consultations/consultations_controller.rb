@@ -1,5 +1,7 @@
 module GobiertoBudgetConsultations
   class ConsultationsController < GobiertoBudgetConsultations::ApplicationController
+    before_action :set_consultation, :check_consultation_status, only: :show
+
     def index
       consultations = current_site.budget_consultations
 
@@ -11,11 +13,19 @@ module GobiertoBudgetConsultations
       @past_consultations = consultations.past
     end
 
-    def show
+    def show; end
+
+    private
+
+    def set_consultation
       @consultation = ConsultationDecorator.new(find_consultation)
     end
 
-    private
+    def check_consultation_status
+      raise_user_not_authorized if @consultation.draft?
+    end
+
+    protected
 
     def find_consultation
       current_site.budget_consultations.find(params[:id])

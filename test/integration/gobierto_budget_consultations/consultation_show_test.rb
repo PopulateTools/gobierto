@@ -27,6 +27,10 @@ module GobiertoBudgetConsultations
       @site ||= consultation.site
     end
 
+    def user
+      @user ||= users(:dennis)
+    end
+
     def test_consultation_show
       with_current_site(site) do
         visit @path
@@ -58,6 +62,19 @@ module GobiertoBudgetConsultations
           ".feedback-block",
           text: "Podrás participar en esta consulta a partir del #{l(upcoming_consultation.opens_on, format: :short)}"
         )
+      end
+    end
+
+    def test_draft_consultation_show
+      consultation.draft!
+
+      with_current_site(site) do
+        with_signed_in_user(user) do
+          visit @path
+
+          refute has_link?("Participa en la consulta")
+          assert has_content?("You are not authorized to perform this action.")
+        end
       end
     end
   end

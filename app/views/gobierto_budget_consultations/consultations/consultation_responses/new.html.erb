@@ -63,7 +63,7 @@
 
                   <div class="consultation_marker" data-budget-line-amount=<%= consultation_item.budget_line_amount %>>
                     <h3>Planificado para esta partida <i class="fa fa-question-circle tipsit" title="La cantidad que el Ayuntamiento propone como inversión para esta partida, basado en la inversión realizada en los últimos ejercicios y que contempla las iniciativas que se quieren llevar a cabo"></i></h3>
-                    <div class="qty"><%= number_to_currency(consultation_item.budget_line_amount) %></div>
+                    <div class="qty"><%= number_to_currency(budget_amount_to_human(consultation_item.budget_line_amount)) %></div>
                   </div>
 
                   <div class="consultation_marker">
@@ -133,14 +133,14 @@
         <div class="consultation_marker" data-budget-amount=<%= @consultation.budget_amount %>>
           <h3>Inversión total planificada <i class="fa fa-question-circle tipsit" title="La suma de los importes inicialmente propuestos para las partidas de esta simulación. Recuerda que es solo una selección de partidas, por lo que esta cifra no coincide con el presupuesto total del municipio"></i></h3>
           <div class="qty">
-            <%= number_to_currency(@consultation.budget_amount) %>
+            <%= number_to_currency(budget_amount_to_human(@consultation.budget_amount)) %>
           </div>
         </div>
 
         <div class="consultation_marker debt_marker" data-current-budget-amount=<%= @consultation_response_form.budget_amount %>>
           <h3>Con tus decisiones <i class="fa fa-question-circle tipsit" title="Esta es la suma de los importes de las partidas teniendo en cuenta tus preferencias en cuanto a incrementos, disiminución o mantenimiento de los importes propuestos. Si con tus propuestas se pasa el total planificado, te indicaremos que entras en déficit."></i></h3>
           <div class="qty">
-            <%= number_to_currency(@consultation_response_form.budget_amount) %>
+            <%= number_to_currency(budget_amount_to_human(@consultation_response_form.budget_amount)) %>
           </div>
 
           <div class="warning_text">

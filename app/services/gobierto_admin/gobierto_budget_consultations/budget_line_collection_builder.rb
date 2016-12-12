@@ -1,3 +1,5 @@
+require "populate_data"
+
 module GobiertoAdmin
   module GobiertoBudgetConsultations
     class BudgetLineCollectionBuilder

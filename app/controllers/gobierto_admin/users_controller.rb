@@ -16,10 +16,11 @@ module GobiertoAdmin
     end
 
     def update
+      @user = find_user
       @user_form = UserForm.new(user_params.merge(id: params[:id]))
 
       if @user_form.save
-        redirect_to admin_users_path, notice: "User was successfully updated."
+        redirect_to edit_admin_user_path(@user), notice: "User was successfully updated."
       else
         render :edit
       end

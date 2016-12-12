@@ -51,6 +51,7 @@ module GobiertoAdmin
     end
 
     def update
+      @site = find_site
       @site_form = SiteForm.new(site_params.merge(id: params[:id]))
 
       site_policy = SitePolicy.new(current_admin, @site_form.site)
@@ -63,7 +64,7 @@ module GobiertoAdmin
 
       if @site_form.save
         track_update_activity
-        redirect_to admin_sites_path, notice: 'Site was successfully updated.'
+        redirect_to edit_admin_site_path(@site), notice: 'Site was successfully updated.'
       else
         render :edit
       end

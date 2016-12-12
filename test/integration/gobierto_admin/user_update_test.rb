@@ -28,9 +28,9 @@ module GobiertoAdmin
 
           assert has_content?("User was successfully updated.")
 
-          within "table.user-list tbody tr#user-item-#{user.id}" do
-            assert has_content?("User Name")
-            assert has_content?("user@email.dev")
+          within "form.edit_user" do
+            assert has_field?("user_name", with: "User Name")
+            assert has_field?("user_email", with: "user@email.dev")
           end
         end
       end

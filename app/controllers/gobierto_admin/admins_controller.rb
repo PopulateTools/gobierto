@@ -59,7 +59,7 @@ module GobiertoAdmin
       set_activities
 
       if @admin_form.save
-        redirect_to admin_admins_path, notice: "Admin was successfully updated."
+        redirect_to edit_admin_admin_path(@admin), notice: "Admin was successfully updated."
       else
         render :edit
       end

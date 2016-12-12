@@ -41,9 +41,22 @@ module GobiertoAdmin
 
         assert has_content?("Site was successfully updated.")
 
-        within "table.site-list tbody tr#site-item-#{site.id}" do
-          assert has_content?("Site Title")
-          assert has_content?("Site Name")
+        within "form.edit_site" do
+          assert has_field?("site_name", with: "Site Name")
+          assert has_field?("site_title", with: "Site Title")
+          assert has_field?("site_location_name", with: "Site Location")
+          assert has_field?("site_domain", with: "test.gobierto.dev")
+          assert has_field?("site_head_markup", with: "Site Head markup")
+          assert has_field?("site_foot_markup", with: "Site Foot markup")
+          assert has_field?("site_google_analytics_id", with: "UA-000000-01")
+
+          within ".site-module-check-boxes" do
+            assert has_checked_field?("Gobierto Development")
+          end
+
+          within ".site-visibility-level-radio-buttons" do
+            assert has_checked_field?("Active")
+          end
         end
       end
     end
@@ -68,8 +81,10 @@ module GobiertoAdmin
           click_button "Update Site"
         end
 
-        within "table.site-list tbody tr#site-item-#{site.id}" do
-          assert has_content?("Draft")
+        within "form.edit_site" do
+          within ".site-visibility-level-radio-buttons" do
+            assert has_checked_field?("Draft")
+          end
         end
       end
     end

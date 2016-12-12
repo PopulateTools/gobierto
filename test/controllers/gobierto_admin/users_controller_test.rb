@@ -1,9 +1,13 @@
 require "test_helper"
 
 module GobiertoAdmin
-  class AdminsControllerTest < GobiertoControllerTest
+  class UsersControllerTest < GobiertoControllerTest
     def admin
       @admin ||= gobierto_admin_admins(:nick)
+    end
+
+    def user
+      @user ||= users(:dennis)
     end
 
     def setup
@@ -16,23 +20,23 @@ module GobiertoAdmin
       sign_out_admin
     end
 
-    def valid_admin_params
+    def valid_user_params
       {
-        admin: {
-          name: admin.name,
-          email: admin.email
+        user: {
+          name: user.name,
+          email: user.email
         }
       }
     end
 
     def test_edit
-      get edit_admin_admin_url(admin)
+      get edit_admin_user_url(user)
       assert_response :success
     end
 
     def test_update
-      patch admin_admin_url(admin), params: valid_admin_params
-      assert_redirected_to edit_admin_admin_path(admin)
+      patch admin_user_url(user), params: valid_user_params
+      assert_redirected_to edit_admin_user_path(user)
     end
   end
 end

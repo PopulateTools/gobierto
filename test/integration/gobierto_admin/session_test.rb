@@ -20,7 +20,7 @@ module GobiertoAdmin
 
       assert has_content?("Signed in successfully.")
 
-      click_on "Sign Out"
+      click_link "admin-sign-out"
 
       assert has_content?("We need you to sign in to continue.")
     end

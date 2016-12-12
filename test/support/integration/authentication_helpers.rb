@@ -25,7 +25,7 @@ module Integration
     end
 
     def sign_out_admin
-      within("header") { click_link "Sign Out" }
+      within("header") { click_link "admin-sign-out" }
     end
 
     def sign_in_user(user)

@@ -54,7 +54,7 @@ module GobiertoAdmin
 
         if @consultation_form.save
           redirect_to(
-            admin_budget_consultations_path,
+            edit_admin_budget_consultation_path(@consultation),
             notice: "Consultation was successfully updated."
           )
         else

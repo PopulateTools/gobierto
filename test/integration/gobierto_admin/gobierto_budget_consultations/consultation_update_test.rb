@@ -39,15 +39,14 @@ module GobiertoAdmin
 
             assert has_content?("Consultation was successfully updated.")
 
-            within "table.consultations-list tbody tr#consultation-item-#{consultation.id}" do
-              assert has_content?("Consultation Title")
-              assert has_content?("Draft")
+            within "form.edit_consultation" do
+              assert has_field?("consultation_title", with: "Consultation Title")
+              assert has_field?("consultation_description", with: "Consultation Description")
+              assert has_field?("consultation_opening_date_range", with: "2016-01-01 - 2016-12-01")
 
-              click_link "Consultation Title"
-            end
-
-            within ".consultation-visibility-level-radio-buttons" do
-              assert has_checked_field?("Draft")
+              within ".consultation-visibility-level-radio-buttons" do
+                assert has_checked_field?("Draft")
+              end
             end
           end
         end

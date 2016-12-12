@@ -70,15 +70,22 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
     var currentBudgetWrapper = "[data-current-budget-amount]";
 
     $(currentBudgetWrapper).data("budget-line-amount", amount);
-    $(currentBudgetWrapper).find(".qty").html(
-      Number(amount).toLocaleString(locale, { style: "currency", currency: "EUR" })
-    );
+    $(currentBudgetWrapper).find(".qty").html(_formatAmount(amount, locale));
 
     if (amount > budgetAmount) {
       _setCurrentBudgetWarning();
     } else {
       _unsetCurrentBudgetWarning();
     }
+  }
+
+  function _formatAmount(amount, locale) {
+    var amountFormat = amount >= 1e6 ? "0,0.0 a $" : "0,0.00 $";
+    var limitedAmountPrecision = parseFloat(Number(amount).toPrecision(3));
+
+    numeral.locale(locale);
+
+    return numeral(limitedAmountPrecision).format(amountFormat);
   }
 
   function _setCurrentBudgetWarning() {

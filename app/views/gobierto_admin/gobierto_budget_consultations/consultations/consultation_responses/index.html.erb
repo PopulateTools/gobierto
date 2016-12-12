@@ -34,10 +34,10 @@
         </div>
       </td>
       <td>
-        <%= number_to_currency(@consultation.budget_amount) %>
+        <%= number_to_currency(budget_amount_to_human(@consultation.budget_amount)) %>
       </td>
       <td>
-        <%= number_to_currency(consultation_response.budget_amount) %>
+        <%= number_to_currency(budget_amount_to_human(consultation_response.budget_amount)) %>
       </td>
       <td>
         <%= link_to admin_budget_consultation_consultation_response_path(@consultation, consultation_response), class: "view_item" do %>

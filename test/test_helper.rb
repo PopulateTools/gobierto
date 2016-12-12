@@ -102,3 +102,9 @@ class ActionDispatch::IntegrationTest
     Capybara.reset_session!
   end
 end
+
+class GobiertoControllerTest < ActionDispatch::IntegrationTest
+  require "support/integration/request_authentication_helpers"
+
+  include Integration::RequestAuthenticationHelpers
+end

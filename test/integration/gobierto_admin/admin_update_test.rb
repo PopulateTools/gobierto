@@ -41,25 +41,23 @@ module GobiertoAdmin
 
         assert has_content?("Admin was successfully updated.")
 
-        within "table.admin-list tbody tr#admin-item-#{regular_admin.id}" do
-          assert has_content?("Admin Name")
-          assert has_content?("wadus@gobierto.dev")
+        within "form.edit_admin" do
+          assert has_field?("admin_email", with: "wadus@gobierto.dev")
+          assert has_field?("admin_name", with: "Admin Name")
 
-          click_link "Admin Name"
-        end
+          within ".site-module-check-boxes" do
+            assert has_checked_field?("Gobierto Development")
+            refute has_checked_field?("Gobierto Budgets")
+          end
 
-        within ".site-module-check-boxes" do
-          assert has_checked_field?("Gobierto Development")
-          refute has_checked_field?("Gobierto Budgets")
-        end
+          within ".site-check-boxes" do
+            assert has_checked_field?("madrid.gobierto.dev")
+            refute has_checked_field?("santander.gobierto.dev")
+          end
 
-        within ".site-check-boxes" do
-          assert has_checked_field?("madrid.gobierto.dev")
-          refute has_checked_field?("santander.gobierto.dev")
-        end
-
-        within ".admin-authorization-level-radio-buttons" do
-          assert has_checked_field?("Regular")
+          within ".admin-authorization-level-radio-buttons" do
+            assert has_checked_field?("Regular")
+          end
         end
       end
     end
@@ -86,15 +84,13 @@ module GobiertoAdmin
 
         assert has_content?("Admin was successfully updated.")
 
-        within "table.admin-list tbody tr#admin-item-#{manager_admin.id}" do
-          assert has_content?("Admin Name")
-          assert has_content?(manager_admin.email)
+        within "form.edit_admin" do
+          assert has_field?("admin_name", with: "Admin Name")
+          assert has_field?("admin_email", with: manager_admin.email)
 
-          click_link "Admin Name"
-        end
-
-        within ".admin-authorization-level-radio-buttons" do
-          assert has_checked_field?("Manager")
+          within ".admin-authorization-level-radio-buttons" do
+            assert has_checked_field?("Manager")
+          end
         end
       end
     end

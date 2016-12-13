@@ -23,7 +23,7 @@ module GobiertoAdmin
 
         click_on "Send"
 
-        assert has_content?("The invitations have been successfully sent.")
+        assert has_message?("The invitations have been successfully sent")
       end
     end
   end

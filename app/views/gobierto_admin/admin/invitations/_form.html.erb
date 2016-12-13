@@ -8,13 +8,13 @@
 
       <div class="form_item input_text">
         <%= f.label :emails %>
-        <%= f.text_area :emails, placeholder: "maria@hotmail.com, felipe@gmail.com" %>
+        <%= f.text_area :emails, placeholder: t(".placeholders.emails") %>
       </div>
 
       <% if @sites.present? %>
         <div class="form_block">
 
-          <h2>SITIOS CON ACCESO</h2>
+          <h2><%= t(".sites") %></h2>
 
           <div class="form_item site-check-boxes">
 
@@ -43,7 +43,7 @@
 
       <div class="widget_save">
 
-      <%= f.submit "Send", class: "button" %>
+      <%= f.submit t(".submit"), class: "button" %>
 
       </div>
 

@@ -17,10 +17,10 @@ module GobiertoAdmin
         sign_in_admin(admin.id)
 
         # TODO. Redirect to Edit Profile URL to set a new password.
-        redirect_to(after_sign_in_path, notice: "Signed in successfully.")
+        #
+        redirect_to after_sign_in_path, notice: t(".success")
       else
-        flash[:alert] = "This URL doesn't seem to be valid."
-        redirect_to new_admin_sessions_path
+        redirect_to new_admin_sessions_path, notice: t(".error")
       end
     end
   end

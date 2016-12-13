@@ -10,9 +10,9 @@ module GobiertoAdmin
       @sites = get_sites
 
       if @admin_invitation_form.process
-        flash[:notice] = "The invitations have been successfully sent."
+        flash[:notice] = t(".success")
       else
-        flash[:notice] = "There was a problem sending the invitations."
+        flash[:notice] = t(".error")
       end
 
       render :new

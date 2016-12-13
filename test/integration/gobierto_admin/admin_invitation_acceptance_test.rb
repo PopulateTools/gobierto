@@ -20,7 +20,7 @@ module GobiertoAdmin
     def test_invalid_invitation_acceptance
       visit admin_admin_invitation_acceptances_path(invitation_token: "foo")
 
-      assert has_message?("This URL doesn't seem to be valid.")
+      assert has_message?("This URL doesn't seem to be valid")
     end
 
     def test_invitation_acceptance_when_already_signed_in

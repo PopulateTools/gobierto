@@ -1,0 +1,8 @@
+---
+en:
+  gobierto_admin:
+    admin:
+      invitation_acceptances:
+        show:
+          success: Signed in successfully
+          error: This URL doesn't seem to be valid

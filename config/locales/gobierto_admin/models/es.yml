@@ -5,6 +5,7 @@ es:
       gobierto_admin/admin_confirmation_form: Confirmación
       gobierto_admin/admin_new_password_form: Recuperación de contraseña
       gobierto_admin/admin_edit_password_form: Cambio de contraseña
+      gobierto_admin/admin_invitation_form: Invitación
     attributes:
       gobierto_admin/admin_confirmation_form:
         email: Email
@@ -13,3 +14,5 @@ es:
       gobierto_admin/admin_edit_password_form:
         password: Contraseña
         password_confirmation: Confirmación de contraseña
+      gobierto_admin/admin_invitation_form:
+        emails: Emails

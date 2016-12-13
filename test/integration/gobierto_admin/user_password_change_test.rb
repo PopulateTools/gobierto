@@ -26,7 +26,7 @@ module GobiertoAdmin
             click_button "Send"
           end
 
-          assert has_content?("User password was successfully updated.")
+          assert has_message?("User password was successfully updated")
         end
       end
     end
@@ -42,7 +42,7 @@ module GobiertoAdmin
           click_button "Send"
         end
 
-        refute has_content?("User password was successfully updated.")
+        assert has_message?("There was a problem changing your password")
       end
     end
   end

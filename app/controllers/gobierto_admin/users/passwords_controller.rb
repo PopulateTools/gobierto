@@ -12,8 +12,9 @@ module GobiertoAdmin
       )
 
       if @user_password_form.save
-        redirect_to edit_admin_user_path(@user), notice: "User password was successfully updated."
+        redirect_to edit_admin_user_path(@user), notice: t(".success")
       else
+        flash.now[:alert] = t(".error")
         render :new
       end
     end

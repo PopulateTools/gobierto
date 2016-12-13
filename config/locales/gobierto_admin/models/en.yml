@@ -6,6 +6,7 @@ en:
       gobierto_admin/admin_new_password_form: Password recovery
       gobierto_admin/admin_edit_password_form: Password change
       gobierto_admin/admin_invitation_form: Invitation
+      gobierto_admin/user_password_form: Password change
     attributes:
       gobierto_admin/admin_confirmation_form:
         email: Email
@@ -16,3 +17,6 @@ en:
         password_confirmation: Password confirmation
       gobierto_admin/admin_invitation_form:
         emails: Emails
+      gobierto_admin/user_password_form:
+        password: Password
+        password_confirmation: Password confirmation

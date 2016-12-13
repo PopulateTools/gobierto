@@ -10,4 +10,4 @@ en:
           error: This URL doesn't seem to be valid
         update:
           success: Signed in successfully
-          error: There was a problem changing your password:w
+          error: There was a problem changing your password

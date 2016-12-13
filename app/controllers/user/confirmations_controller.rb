@@ -22,7 +22,7 @@ class User::ConfirmationsController < User::BaseController
   def show
     # TODO. Consider extracting this logic into a service object.
     #
-    user = User.find_by(confirmation_token: params[:confirmation_token])
+    user = User.find_by_confirmation_token(params[:confirmation_token])
 
     if user
       user.confirm!

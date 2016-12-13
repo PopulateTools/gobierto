@@ -4,11 +4,15 @@ class User::PasswordResetTest < ActionDispatch::IntegrationTest
   def setup
     super
     @password_request_path = new_user_passwords_path
-    @password_change_path = edit_user_passwords_path(reset_password_token: user.reset_password_token)
+    @password_change_path = edit_user_passwords_path(reset_password_token: recoverable_user.reset_password_token)
   end
 
   def user
     @user ||= users(:dennis)
+  end
+
+  def recoverable_user
+    @recoverable_user ||= users(:reed)
   end
 
   def site

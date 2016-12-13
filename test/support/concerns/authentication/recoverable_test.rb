@@ -6,6 +6,17 @@ module Authentication::RecoverableTest
     refute_includes subject, user
   end
 
+  def test_find_by_reset_password_token
+    reset_password_token = recoverable_user.reset_password_token
+    subject = recoverable_user.class.find_by_reset_password_token(reset_password_token)
+
+    assert_equal recoverable_user, subject
+
+    subject = recoverable_user.class.find_by_reset_password_token(nil)
+
+    assert_nil subject
+  end
+
   def test_recoverable?
     assert recoverable_user.recoverable?
     refute user.recoverable?

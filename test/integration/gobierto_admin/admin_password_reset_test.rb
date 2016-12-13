@@ -5,11 +5,15 @@ module GobiertoAdmin
     def setup
       super
       @password_request_path = new_admin_admin_passwords_path
-      @password_change_path = edit_admin_admin_passwords_path(reset_password_token: admin.reset_password_token)
+      @password_change_path = edit_admin_admin_passwords_path(reset_password_token: recoverable_admin.reset_password_token)
     end
 
     def admin
       @admin ||= gobierto_admin_admins(:tony)
+    end
+
+    def recoverable_admin
+      @recoverable_admin ||= gobierto_admin_admins(:steve)
     end
 
     def test_password_reset_request

@@ -14,17 +14,11 @@ module PopulateData
         super(options)
       end
 
-      def fetch
-        super.select do |entity|
-          entity["municipality_id"] == @municipality_id
-        end
-      end
-
       private
 
       def request_body
         {
-          municipality_id: @municipality_id
+          filter_by_municipality_id: @municipality_id
         }.to_json
       end
 

@@ -24,7 +24,7 @@ module GobiertoAdmin
     def show
       # TODO. Consider extracting this whole action into a service object.
       #
-      admin = Admin.find_by(confirmation_token: params[:confirmation_token])
+      admin = Admin.find_by_confirmation_token(params[:confirmation_token])
 
       if admin
         admin.confirm!

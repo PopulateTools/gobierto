@@ -1,0 +1,13 @@
+---
+en:
+  gobierto_admin:
+    admin:
+      passwords:
+        create:
+          success: Please, check your inbox to get instructions
+          error: The email address specified doesn't seem to be valid
+        edit:
+          error: This URL doesn't seem to be valid
+        update:
+          success: Signed in successfully
+          error: There was a problem changing your password:w

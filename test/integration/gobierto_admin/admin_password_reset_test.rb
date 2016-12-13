@@ -17,9 +17,9 @@ module GobiertoAdmin
 
       fill_in :admin_password_email, with: admin.email
 
-      click_on "Send"
+      click_button "Request recovery"
 
-      assert has_message?("Please check your inbox to get instructions.")
+      assert has_message?("Please, check your inbox to get instructions")
     end
 
     def test_invalid_password_reset_request
@@ -27,9 +27,9 @@ module GobiertoAdmin
 
       fill_in :admin_password_email, with: "wadus@gobierto.dev"
 
-      click_on "Send"
+      click_button "Request recovery"
 
-      assert has_message?("The email address specified doesn't seem to be valid.")
+      assert has_message?("The email address specified doesn't seem to be valid")
     end
 
     def test_password_reset_request_when_already_signed_in
@@ -46,7 +46,7 @@ module GobiertoAdmin
       fill_in :admin_password_password, with: "wadus"
       fill_in :admin_password_password_confirmation, with: "wadus"
 
-      click_on "Send"
+      click_button "Change password"
 
       assert has_message?("Signed in successfully")
     end
@@ -57,9 +57,9 @@ module GobiertoAdmin
       fill_in :admin_password_password, with: "wadus"
       fill_in :admin_password_password_confirmation, with: "foo"
 
-      click_on "Send"
+      click_button "Change password"
 
-      assert has_message?("There was a problem changing your password.")
+      assert has_message?("There was a problem changing your password")
     end
 
     def test_password_change_when_already_signed_in

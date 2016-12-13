@@ -13,9 +13,9 @@ module GobiertoAdmin
       @admin_password_form = AdminNewPasswordForm.new(admin_new_password_params)
 
       if @admin_password_form.save
-        flash.now[:notice] = "Please check your inbox to get instructions."
+        flash.now[:notice] = t(".success")
       else
-        flash.now[:alert] = "The email address specified doesn't seem to be valid."
+        flash.now[:alert] = t(".error")
       end
 
       render :new
@@ -27,8 +27,7 @@ module GobiertoAdmin
       if admin
         @admin_password_form = AdminEditPasswordForm.new(admin_id: admin.id)
       else
-        flash.now[:alert] = "This URL doesn't seem to be valid."
-        redirect_to admin_root_path
+        redirect_to admin_root_path, alert: t(".error")
       end
     end
 
@@ -44,9 +43,9 @@ module GobiertoAdmin
         admin.update_session_data(remote_ip)
         sign_in_admin(admin.id)
 
-        redirect_to(after_sign_in_path, notice: "Signed in successfully.")
+        redirect_to after_sign_in_path, notice: t(".success")
       else
-        flash[:notice] = "There was a problem changing your password."
+        flash[:notice] = t(".error")
         render :edit
       end
     end

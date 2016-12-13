@@ -1,0 +1,5 @@
+---
+en:
+  gobierto_admin:
+    module_helper:
+      not_enabled: You are not authorized to perform this action

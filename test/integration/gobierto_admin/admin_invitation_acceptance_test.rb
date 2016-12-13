@@ -14,20 +14,20 @@ module GobiertoAdmin
     def test_invitation_acceptance
       visit @invitation_acceptance_path
 
-      assert has_content?("Signed in successfully.")
+      assert has_message?("Signed in successfully")
     end
 
     def test_invalid_invitation_acceptance
       visit admin_admin_invitation_acceptances_path(invitation_token: "foo")
 
-      assert has_content?("This URL doesn't seem to be valid.")
+      assert has_message?("This URL doesn't seem to be valid.")
     end
 
     def test_invitation_acceptance_when_already_signed_in
       with_signed_in_admin(admin) do
         visit @invitation_acceptance_path
 
-        assert has_content?("You are already signed in.")
+        assert has_message?("You are already signed in")
       end
     end
   end

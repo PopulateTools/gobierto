@@ -19,7 +19,7 @@ module GobiertoAdmin
 
       click_on "Send"
 
-      assert has_content?("Please check your inbox to get instructions.")
+      assert has_message?("Please check your inbox to get instructions.")
     end
 
     def test_invalid_password_reset_request
@@ -29,14 +29,14 @@ module GobiertoAdmin
 
       click_on "Send"
 
-      assert has_content?("The email address specified doesn't seem to be valid.")
+      assert has_message?("The email address specified doesn't seem to be valid.")
     end
 
     def test_password_reset_request_when_already_signed_in
       with_signed_in_admin(admin) do
         visit @password_request_path
 
-        assert has_content?("You are already signed in.")
+        assert has_message?("You are already signed in")
       end
     end
 
@@ -48,7 +48,7 @@ module GobiertoAdmin
 
       click_on "Send"
 
-      assert has_content?("Signed in successfully.")
+      assert has_message?("Signed in successfully")
     end
 
     def test_invalid_password_change
@@ -59,14 +59,14 @@ module GobiertoAdmin
 
       click_on "Send"
 
-      assert has_content?("There was a problem changing your password.")
+      assert has_message?("There was a problem changing your password.")
     end
 
     def test_password_change_when_already_signed_in
       with_signed_in_admin(admin) do
         visit @password_change_path
 
-        assert has_content?("You are already signed in.")
+        assert has_message?("You are already signed in")
       end
     end
   end

@@ -36,7 +36,7 @@ module GobiertoBudgetConsultations
         visit @path
 
         assert has_selector?("h1", text: consultation.title)
-        assert has_selector?(".intro", text: consultation.description.gsub("\n", " ").strip)
+        assert has_content?(consultation.description.gsub("\n", " ").strip)
         assert has_link?("Participa en la consulta")
       end
     end

@@ -58,7 +58,7 @@ module GobiertoBudgetConsultations
         visit @path
 
         assert has_selector?("h1", text: remaining_consultation.title)
-        assert has_selector?(".intro", text: remaining_consultation.description.gsub("\n", " ").strip)
+        assert has_content?(remaining_consultation.description.gsub("\n", " ").strip)
       end
     end
   end

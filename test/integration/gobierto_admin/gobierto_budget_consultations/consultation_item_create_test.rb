@@ -41,7 +41,7 @@ module GobiertoAdmin
                 click_button "Create Budget line"
               end
 
-              assert has_content?("Consultation item was successfully created.")
+              assert has_message?("Consultation item was successfully created")
             end
           end
         end

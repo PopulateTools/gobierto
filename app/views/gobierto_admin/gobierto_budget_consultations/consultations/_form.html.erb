@@ -12,9 +12,9 @@
 
       <div class="form_item input_text">
         <%= f.label :title %>
-        <%= f.text_field :title, placeholder: "Consulta sobre los presupuestos de Burjassot 2016" %>
+        <%= f.text_field :title, placeholder: t(".placeholders.title") %>
         <div class="inline_help">
-          Te recomendamos poner un título concreto y que identifique la consulta del año en cuestión.
+          <%= t(".hints.title") %>
         </div>
       </div>
 
@@ -22,7 +22,7 @@
         <%= f.label :description %>
         <%= f.text_area :description %>
         <div class="inline_help">
-          Te recomendamos describir claramente el tipo de consulta.
+          <%= t(".hints.description") %>
         </div>
       </div>
 
@@ -33,12 +33,12 @@
           <%= f.text_field :opening_date_range, data: {
               "range": "true",
               "multiple-dates-separator": @opening_date_range_separator,
-              "language": "es",
+              "language": I18n.locale,
               "date-format": "yyyy-mm-dd"
             },
             class: "air-datepicker",
             readonly: !Rails.env.test?,
-            placeholder: "Selecciona fecha de inicio y fin"
+            placeholder: t(".placeholders.opening_date_range")
           %>
         </div>
 
@@ -60,7 +60,7 @@
                 <%= b.radio_button %>
                 <%= b.label do %>
                   <span></span>
-                  <%= b.text.capitalize %>
+                  <%= t(".visibility_level.#{b.text}") %>
                 <% end %>
               </div>
             <% end %>

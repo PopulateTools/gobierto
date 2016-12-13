@@ -40,7 +40,7 @@ module GobiertoAdmin
           if @consultation_item_form.save
             redirect_to(
               admin_budget_consultation_consultation_items_path(@consultation),
-              notice: "Consultation item was successfully created."
+              notice: t(".success")
             )
           else
             @budget_lines = get_budget_lines
@@ -58,7 +58,7 @@ module GobiertoAdmin
           if @consultation_item_form.save
             redirect_to(
               admin_budget_consultation_consultation_items_path(@consultation),
-              notice: "Consultation item was successfully updated."
+              notice: t(".success")
             )
           else
             @budget_lines = get_budget_lines

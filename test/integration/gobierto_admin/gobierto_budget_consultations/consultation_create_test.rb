@@ -33,7 +33,8 @@ module GobiertoAdmin
               click_button "Create Consultation"
             end
 
-            assert has_content?("Consultation was successfully created.")
+            assert has_message?("Consultation was successfully created")
+
             assert has_selector?("h1", text: "Consultation Title")
             assert has_selector?(".consultation-items-list")
           end

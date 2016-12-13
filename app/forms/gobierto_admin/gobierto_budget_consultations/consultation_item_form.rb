@@ -16,7 +16,7 @@ module GobiertoAdmin
 
       attr_reader :consultation_item
 
-      delegate :to_model, :persisted?, to: :consultation_item
+      delegate :persisted?, to: :consultation_item
 
       validates :title, presence: true
       validates :budget_line_id, :budget_line_name, presence: true

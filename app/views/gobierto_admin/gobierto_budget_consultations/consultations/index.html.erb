@@ -1,9 +1,9 @@
 <div class="admin_breadcrumb">
-  <%= link_to "Inicio", admin_root_path %> »
-  Consultas sobre presupuestos
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= t(".title") %>
 </div>
 
-<h1>Consultas sobre presupuestos</h1>
+<h1><%= t(".title") %></h1>
 
 <div class="admin_tools right">
   <%= link_to t(".new"), new_admin_budget_consultation_path, class: "button" %>
@@ -12,9 +12,9 @@
 <table class="consultations-list">
 <tr>
   <th></th>
-  <th>Consulta</th>
-  <th>Resultados</th>
-  <th>Estado</th>
+  <th><%= t(".header.consultation") %></th>
+  <th><%= t(".header.results") %></th>
+  <th><%= t(".header.status") %></th>
   <th></th>
 </tr>
 
@@ -31,16 +31,15 @@
           <%= consultation.title %>
         <% end %>
         <div class="soft">
-          Inicio
+          <%= t(".opens_on") %>
           <strong><%= l(consultation.opens_on, format: :short) %></strong>
-          Fin
+          <%= t(".closes_on") %>
           <strong><%= l(consultation.closes_on, format: :short) %></strong>
         </div>
       </td>
       <td>
         <%= link_to admin_budget_consultation_consultation_responses_path(consultation) do %>
-          <%= consultation.consultation_responses.active.count %>
-          participaciones
+          <%= t(".participations_count", count: consultation.consultation_responses.active.count) %>
         <% end %>
       </td>
       <td>
@@ -49,7 +48,7 @@
         <% else %>
           <i class="fa fa-check"></i>
         <% end %>
-        <%= consultation.visibility_level.capitalize %>
+        <%= t(".visibility_level.#{consultation.visibility_level}") %>
       </td>
       <td>
         <%= link_to gobierto_budget_consultations_consultation_url(consultation, domain: current_site.domain), target: "_blank", class: "view_item" do %>

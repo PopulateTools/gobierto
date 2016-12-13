@@ -8,18 +8,18 @@
 
       <div class="form_item input_text">
         <%= f.label :name %>
-        <%= f.text_field :name, placeholder: "Fernando González", disabled: !@admin_policy.update? %>
+        <%= f.text_field :name, placeholder: t(".placeholders.name"), disabled: !@admin_policy.update? %>
       </div>
 
       <div class="form_item input_text">
         <%= f.label :email %>
-        <%= f.email_field :email, placeholder: "fgonzalez@gmail.com", disabled: !@admin_policy.update? %>
+        <%= f.email_field :email, placeholder: t(".placeholders.email"), disabled: !@admin_policy.update? %>
       </div>
 
       <% if @admin_policy.update? %>
         <div class="form_block">
 
-          <h2>CONTRASEÑA</h2>
+          <h2><%= t(".password_block") %></h2>
 
           <div class="form_item input_text">
             <%= f.label :password %>
@@ -37,7 +37,7 @@
       <% if @site_modules.present? %>
         <div class="form_block">
 
-          <h2>PERMISOS</h2>
+          <h2><%= t(".permissions_block") %></h2>
 
           <div class="form_item site-module-check-boxes">
 
@@ -61,7 +61,7 @@
       <% if @sites.present? %>
         <div class="form_block">
 
-          <h2>SITIOS CON ACCESO</h2>
+          <h2><%= t(".sites_block") %></h2>
 
           <div class="form_item site-check-boxes">
 
@@ -85,7 +85,7 @@
       <% if @admin_form.persisted? %>
         <div class="form_block">
 
-          <h2>LOG ACTIVIDAD</h2>
+          <h2><%= t(".activity_block") %></h2>
 
           <%= render "gobierto_admin/activities/activities_list" %>
 
@@ -109,7 +109,7 @@
                   <%= b.radio_button %>
                   <%= b.label do %>
                     <span></span>
-                    <%= b.text.capitalize %>
+                    <%= t(".authorization_level.#{b.text}") %>
                   <% end %>
                 </div>
               <% end %>

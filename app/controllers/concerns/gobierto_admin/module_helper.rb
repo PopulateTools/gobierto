@@ -13,7 +13,7 @@ module GobiertoAdmin
     def raise_module_not_enabled
       redirect_to(
         admin_root_path,
-        alert: "You are not authorized to perform this action."
+        alert: t("gobierto_admin.module_helper.not_enabled")
       )
     end
   end

@@ -5,5 +5,5 @@
     <%= f.file_field :file %>
   </div>
 
-  <%= f.submit "Cargar archivo de censo", class: "button", data: { disable_with: "Cargando..." } %>
+  <%= f.submit t(".submit"), class: "button", data: { disable_with: t(".disable_with") } %>
 <% end %>

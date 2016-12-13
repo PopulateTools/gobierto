@@ -16,12 +16,12 @@ module GobiertoAdmin
       if @census_import_form.save
         redirect_to(
           new_admin_census_imports_path,
-          notice: "#{@census_import_form.record_count} valid records have been imported."
+          notice: t(".success", record_count: @census_import_form.record_count)
         )
       else
         @latest_import = CensusImport.latest_by_site(current_site)
 
-        flash.now[:alert] = "There was an error when importing your file. Please try again."
+        flash.now[:alert] = t(".error")
         render :new
       end
     end

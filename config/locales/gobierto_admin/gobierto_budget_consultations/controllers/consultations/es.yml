@@ -1,0 +1,9 @@
+---
+es:
+  gobierto_admin:
+    gobierto_budget_consultations:
+      consultations:
+        create:
+          success: La consulta ha sido creada correctamente
+        update:
+          success: La consulta ha sido actualizada

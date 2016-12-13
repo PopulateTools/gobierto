@@ -1,0 +1,23 @@
+---
+en:
+  gobierto_admin:
+    gobierto_budget_consultations:
+      consultations:
+        consultation_items:
+          index:
+            title: Budget lines
+            new: Add budget line
+            consultation_section: Consultation
+            consultation_items_section: Budget lines
+          new:
+            title: New budget line
+            consultation_section: Consultation
+            consultation_items_section: Budget lines
+          edit:
+            title: Edit budget line
+            consultation_section: Consultation
+            consultation_items_section: Budget lines
+          form:
+            placeholders:
+              title:
+              budget_line_amount: 250000

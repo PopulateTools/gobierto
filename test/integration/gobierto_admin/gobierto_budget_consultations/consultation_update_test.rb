@@ -37,7 +37,7 @@ module GobiertoAdmin
               click_button "Update Consultation"
             end
 
-            assert has_content?("Consultation was successfully updated.")
+            assert has_message?("Consultation was successfully updated")
 
             within "form.edit_consultation" do
               assert has_field?("consultation_title", with: "Consultation Title")

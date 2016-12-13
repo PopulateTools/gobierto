@@ -1,0 +1,9 @@
+---
+en:
+  gobierto_admin:
+    sessions:
+      create:
+        success: Signed in successfully
+        error: The data you entered doesn't seem to be valid. Please try again.
+      delete:
+        success: Signed out successfully

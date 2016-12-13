@@ -17,7 +17,7 @@ module GobiertoAdmin
         :visibility_level
       )
 
-      delegate :to_model, :persisted?, to: :consultation
+      delegate :persisted?, to: :consultation
 
       validates :title, :description, presence: true
       validates :opening_date_range, presence: true

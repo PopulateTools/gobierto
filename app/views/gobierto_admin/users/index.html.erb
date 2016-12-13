@@ -1,15 +1,15 @@
-<h1>Usuarios</h1>
+<h1><%= t(".title") %></h1>
 
 <div class="tabs">
   <ul>
     <li class="active">
       <%= link_to admin_users_path do %>
-        <%= t(".users") %>
+        <%= t(".title") %>
       <% end %>
     </li>
     <li>
       <%= link_to admin_admins_path do %>
-        <%= t(".administrators") %>
+        <%= t(".admins_section") %>
       <% end %>
     </li>
   </ul>
@@ -25,11 +25,11 @@
 <table class="user-list">
 <tr>
   <th></th>
-  <th>Usuario</th>
-  <th>Correo-e</th>
-  <th>Último login</th>
-  <th>Creado</th>
-  <th>Verificado</th>
+  <th><%= t(".header.user") %></th>
+  <th><%= t(".header.email") %></th>
+  <th><%= t(".header.last_sign_in_at") %></th>
+  <th><%= t(".header.created_at") %></th>
+  <th><%= t(".header.verified") %></th>
   <th></th>
 </tr>
 
@@ -61,7 +61,11 @@
         <span class="soft ip"><%= user.creation_ip %></span>
       </td>
       <td>
-        <%= t(user.census_verified? ? ".yes" : ".no") %>
+        <% if user.census_verified? %>
+          <i class="fa fa-check"></i>
+        <% else %>
+          <i class="fa fa-close"></i>
+        <% end %>
       </td>
       <td>
         <%= link_to [:admin, user], class: "view_item" do %>

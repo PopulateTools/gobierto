@@ -1,0 +1,33 @@
+---
+en:
+  activemodel:
+    models:
+      gobierto_admin/admin_confirmation_form: Confirmation
+      gobierto_admin/admin_new_password_form: Password recovery
+      gobierto_admin/admin_edit_password_form: Password change
+      gobierto_admin/admin_invitation_form: Invitation
+      gobierto_admin/user_password_form: Password change
+      gobierto_admin/user_welcome_message_form: Welcome message
+      gobierto_admin/admin_form: Admin
+      gobierto_admin/user_form: User
+    attributes:
+      gobierto_admin/admin_confirmation_form:
+        email: Email
+      gobierto_admin/admin_new_password_form:
+        email: Email
+      gobierto_admin/admin_edit_password_form:
+        password: Password
+        password_confirmation: Password confirmation
+      gobierto_admin/admin_invitation_form:
+        emails: Emails
+      gobierto_admin/user_password_form:
+        password: Password
+        password_confirmation: Password confirmation
+      gobierto_admin/admin_form:
+        name: Name
+        email: Email
+        password: Password
+        password_confirmation: Password confirmation
+      gobierto_admin/user_form:
+        name: Name
+        email: Email

@@ -25,7 +25,9 @@
     <div class="pure-menu pure-menu-horizontal">
       <ul class="pure-menu-list">
         <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-          <a href="#" id="menuLink1" class="pure-menu-link">Red</a>
+          <%= link_to "#", id: "menuLink1", class: "pure-menu-link" do %>
+            <%= t(".site_network") %>
+          <% end %>
           <ul id="managed-sites-list" class="pure-menu-children">
             <% managed_sites.each do |site| %>
               <li class="pure-menu-item">
@@ -60,20 +62,21 @@
       <div class="right pure-menu pure-menu-horizontal">
         <ul class="pure-menu-list left">
           <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-            <a href="#" id="menuLink1" class="pure-menu-link">
-              Hey, <%= current_admin_label %>
-            </a>
+            <%= link_to "#", id: "menuLink1", class: "pure-menu-link" do %>
+              <%= t(".hey_admin", admin_name: current_admin_label) %>
+            <% end %>
+
             <ul class="pure-menu-children">
               <li class="pure-menu-item">
                 <%= link_to admin_root_path, class: "pure-menu-link" do %>
                   <i class="fa fa-th"></i>
-                  <%= t(".account") %>
+                  <%= t(".admin_dropdown.account") %>
                 <% end %>
               </li>
               <li class="pure-menu-item">
-                <%= link_to admin_sessions_path, method: :delete, class: "pure-menu-link" do %>
+                <%= link_to admin_sessions_path, method: :delete, id: "admin-sign-out", class: "pure-menu-link" do %>
                   <i class="fa fa-sign-out"></i>
-                  <%= t(".sign_out") %>
+                  <%= t(".admin_dropdown.sign_out") %>
                 <% end %>
               </li>
             </ul>
@@ -83,12 +86,12 @@
     <% end %>
 
     <div class="right pure-menu-link">
-      Notificaciones
+      <%= t(".notifications") %>
     </div>
 
     <div class="right pure-menu-link">
       <% if managing_site? %>
-        <%= link_to t(".go_to_site"), current_site.domain_url, target: "_blank" %>
+        <%= link_to t(".view_site"), current_site.domain_url, target: "_blank" %>
       <% end %>
     </div>
 
@@ -101,7 +104,6 @@
       <div class="menu_content">
 
         <ul>
-          <li><a href="">Visualización presupuestos</a></li>
           <% if current_site.configuration.gobierto_budget_consultations_enabled? %>
           <li>
             <%= link_to t(".budget_consultations"), admin_budget_consultations_path %>
@@ -110,29 +112,23 @@
 
           <li class="sep"></li>
 
-          <li><a href="">Inteligencia</a></li>
-          <li><a href="">Personas</a>
-            <ul>
-              <li><a href="">Todas</a></li>
-              <li><a href="">Agendas</a></li>
-              <li><a href="">Declaraciones</a></li>
-              <li><a href="">Blogs</a></li>
-            </ul>
-          </li>
-          <li><a href="">Tu entidad en cifras</a></li>
-          <li><a href="">Cuadro de mando</a></li>
-          <li><a href="">Mapas</a></li>
-          <li><a href="">Participación</a></li>
-
-          <li class="sep"></li>
-
           <li><%= link_to t(".users"), admin_users_path %></li>
-          <li><a href="admin_sites_site">Personalizar sitio</a></li>
+
+          <% if managing_site? %>
+            <li>
+              <%= link_to t(".edit_site"), edit_admin_site_path(current_site) %>
+            </li>
+          <% end %>
         </ul>
 
       </div>
 
-      <div class="collapse_menu"><a href="#" class="js-collapse-menu"><i class="fa fa-caret-square-o-left"></i> <span>Colapsar menú</span></a></div>
+      <div class="collapse_menu">
+        <a href="#" class="js-collapse-menu">
+          <i class="fa fa-caret-square-o-left"></i>
+          <span><%= t(".collapse_menu") %></span>
+        </a>
+      </div>
 
     </menu>
 
@@ -142,10 +138,6 @@
         <%= render "gobierto_admin/shared/flash_messages" %>
         <%= yield %>
       </div>
-
-      <footer>
-        footer
-      </footer>
 
     </div>
 

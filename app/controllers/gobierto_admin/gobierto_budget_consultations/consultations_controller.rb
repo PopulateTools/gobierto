@@ -37,7 +37,7 @@ module GobiertoAdmin
         if @consultation_form.save
           redirect_to(
             admin_budget_consultation_consultation_items_path(@consultation_form.consultation),
-            notice: "Consultation was successfully created."
+            notice: t(".success")
           )
         else
           @consultation_visibility_levels = get_consultation_visibility_levels
@@ -55,7 +55,7 @@ module GobiertoAdmin
         if @consultation_form.save
           redirect_to(
             edit_admin_budget_consultation_path(@consultation),
-            notice: "Consultation was successfully updated."
+            notice: t(".success")
           )
         else
           @consultation_visibility_levels = get_consultation_visibility_levels

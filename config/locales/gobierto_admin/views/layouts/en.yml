@@ -1,0 +1,17 @@
+---
+en:
+  gobierto_admin:
+    layouts:
+      application:
+        budget_consultations: Budget consultations
+        manage_sites: Manage sites
+        site_network: Network
+        view_site: View site
+        users: Users
+        edit_site: Customize site
+        collapse_menu: Collapse menu
+        notifications: Notifications
+        hey_admin: Hey, %{admin_name}
+        admin_dropdown:
+          account: Account
+          sign_out: Sign out

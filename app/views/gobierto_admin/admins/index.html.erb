@@ -1,15 +1,15 @@
-<h1>Administradores</h1>
+<h1><%= t(".title") %></h1>
 
 <div class="tabs">
   <ul>
     <li>
       <%= link_to admin_users_path do %>
-        <%= t(".users") %>
+        <%= t(".users_section") %>
       <% end %>
     </li>
     <li class="active">
       <%= link_to admin_admins_path do %>
-        <%= t(".administrators") %>
+        <%= t(".title") %>
       <% end %>
     </li>
   </ul>
@@ -26,10 +26,10 @@
 <table class="admin-list">
 <tr>
   <th></th>
-  <th>Usuario</th>
-  <th>Correo-e</th>
-  <th>Último login</th>
-  <th>Creado</th>
+  <th><%= t(".header.admin") %></th>
+  <th><%= t(".header.email") %></th>
+  <th><%= t(".header.last_sign_in_at") %></th>
+  <th><%= t(".header.created_at") %></th>
   <th></th>
 </tr>
 

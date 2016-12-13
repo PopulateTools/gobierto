@@ -13,9 +13,9 @@ module GobiertoAdmin
       if admin.try(:authenticate, session_params[:password])
         admin.update_session_data(remote_ip)
         sign_in_admin(admin.id)
-        redirect_to(after_sign_in_path, notice: "Signed in successfully.")
+        redirect_to after_sign_in_path, notice: t(".success")
       else
-        flash.now[:alert] = "The data you entered doesn't seem to be valid. Please try again."
+        flash.now[:alert] = t(".error")
         render :new
       end
     end
@@ -23,7 +23,7 @@ module GobiertoAdmin
     def destroy
       sign_out_admin
       leave_site
-      redirect_to(after_sign_out_path, notice: "Signed out successfully.")
+      redirect_to after_sign_out_path, notice: t(".success")
     end
 
     private

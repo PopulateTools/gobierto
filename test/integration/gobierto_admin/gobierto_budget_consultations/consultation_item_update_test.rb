@@ -45,7 +45,7 @@ module GobiertoAdmin
                 click_button "Update Budget line"
               end
 
-              assert has_content?("Consultation item was successfully updated.")
+              assert has_message?("Consultation item was successfully updated")
             end
           end
         end

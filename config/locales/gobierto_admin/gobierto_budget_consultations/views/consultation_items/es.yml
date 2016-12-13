@@ -1,0 +1,23 @@
+---
+es:
+  gobierto_admin:
+    gobierto_budget_consultations:
+      consultations:
+        consultation_items:
+          index:
+            title: Partidas
+            new: Agregar partida
+            consultation_section: Consulta
+            consultation_items_section: Partidas
+          new:
+            title: Nueva partida
+            consultation_section: Consulta
+            consultation_items_section: Partidas
+          edit:
+            title: Editar partida
+            consultation_section: Consulta
+            consultation_items_section: Partidas
+          form:
+            placeholders:
+              title: Pavimentación de vías públicas
+              budget_line_amount: 250000

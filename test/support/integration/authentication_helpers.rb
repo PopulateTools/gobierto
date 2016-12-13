@@ -20,12 +20,13 @@ module Integration
       within("#admin-session-form") do
         fill_in :session_email, with: admin.email
         fill_in :session_password, with: "gobierto"
-        click_on "Log in"
+
+        click_button "Send"
       end
     end
 
     def sign_out_admin
-      within("header") { click_link "Sign Out" }
+      within("header") { click_link "admin-sign-out" }
     end
 
     def sign_in_user(user)
@@ -34,7 +35,8 @@ module Integration
       within("#user-session-form") do
         fill_in :session_email, with: user.email
         fill_in :session_password, with: "gobierto"
-        click_on "Log in"
+
+        click_button "Log in"
       end
     end
 

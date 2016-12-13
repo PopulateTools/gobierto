@@ -1,0 +1,38 @@
+---
+en:
+  gobierto_admin:
+    sites:
+      index:
+        title: Sites
+        configuration: Configuration
+        new: New site
+        view_site: View site
+        header:
+          site: Site
+          domain: Domain
+          created_at: Created
+          status: Status
+      edit:
+        title: Customize site
+      new:
+        title: New site
+      form:
+        placeholders:
+          title: Transparencia y Participción
+          name: Ayuntamiento de Burjassot
+          location_name: Burjassot
+          domain: gobierto.burjassot.es
+          google_analytics_id: UA-000000-01
+        hints:
+          domain:
+            instructions: "Important: this domain must be created to ensure the site works perfectly."
+            if_domain: If it is a domain
+            if_subdomain: If it is a subdomain
+            a_record: "A record to %{target}"
+            cname_record: "CNAME record to %{target}"
+        modules_enabled: Modules enabled for this site
+        username: Username
+        password: Password
+        visibility_level:
+          draft: Draft
+          active: Active

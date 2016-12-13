@@ -1,0 +1,25 @@
+---
+es:
+  gobierto_admin:
+    users:
+      index:
+        title: Usuarios
+        admins_section: Administradores
+        census_configuration: Configuración de censo
+        view_user: Ver Usuario
+        header:
+          user: Usuario
+          email: Email
+          last_sign_in_at: Último login
+          created_at: Creado
+          verified: Verificado
+      edit:
+        title: Editar Usuario
+      form:
+        password_block: Contraseña
+        change_password: Cambiar contraseña
+        resend_welcome_email: Reenviar Email de bienvenida
+        resend_welcome_email_notes: con enlace para cambiar establecer nueva contraseña
+        placeholders:
+          name: Fernando González
+          email: fgonzalez@gmail.com

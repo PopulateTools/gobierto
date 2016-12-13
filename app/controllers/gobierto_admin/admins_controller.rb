@@ -39,7 +39,7 @@ module GobiertoAdmin
       set_authorization_levels
 
       if @admin_form.save
-        redirect_to admin_admins_path, notice: "Admin was successfully created."
+        redirect_to admin_admins_path, notice: t(".success")
       else
         render :new
       end
@@ -59,7 +59,7 @@ module GobiertoAdmin
       set_activities
 
       if @admin_form.save
-        redirect_to edit_admin_admin_path(@admin), notice: "Admin was successfully updated."
+        redirect_to edit_admin_admin_path(@admin), notice: t(".success")
       else
         render :edit
       end

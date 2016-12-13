@@ -5,14 +5,10 @@ en:
       site: Site
     attributes:
       site:
-        name: Name
-        subdomain: Subdomain
-        config: Configuration
-        location_name: Location name
-        institution_type: Location type
-        name: Site name
-        subdomain: Subdomain
-        institution_url: Main site url
-        institution_email: Institution email
-        institution_address: Institution address
-        institution_document_number: NIF
+        title: Site name
+        name: Entity ame
+        location_name: Associated entity
+        domain: Domain
+        head_markup: Head HTML
+        foot_markup: Foot HTML
+        google_analytics_id: Google Analytics code

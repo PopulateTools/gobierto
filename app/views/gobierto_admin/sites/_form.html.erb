@@ -8,17 +8,17 @@
 
       <div class="form_item input_text">
         <%= f.label :title %>
-        <%= f.text_field :title, placeholder: "Transparencia y Participción" %>
+        <%= f.text_field :title, placeholder: t(".placeholders.title") %>
       </div>
 
       <div class="form_item input_text">
         <%= f.label :name %>
-        <%= f.text_field :name, placeholder: "Ayuntamiento de Burjassot" %>
+        <%= f.text_field :name, placeholder: t(".placeholders.name") %>
       </div>
 
       <div class="form_item input_text">
         <%= f.label :location_name %>
-        <%= f.text_field(:location_name, placeholder: "Burjassot", data: {
+        <%= f.text_field(:location_name, placeholder: t(".placeholders.location_name"), data: {
           autocomplete_url: @services_config.municipalities_suggestions_endpoint
         }) %>
         <%= f.hidden_field :municipality_id %>
@@ -26,17 +26,17 @@
 
       <div class="form_item input_text">
         <%= f.label :domain %>
-        <%= f.text_field :domain, placeholder: "gobierto.burjassot.es" %>
+        <%= f.text_field :domain, placeholder: t(".placeholders.domain") %>
 
         <div class="inline_help">
-          Importante: este dominio deberá estar creado previamente para que el site funcione correctamente. Instrucciones: 
+          <%= t(".hints.domain.instructions") %>
           <p>
-            <strong>Si es un dominio</strong>:
-            Entrada A a <%= @dns_config.a_record_target %>
+            <strong><%= t(".hints.domain.if_domain") %></strong>:
+            <%= t(".hints.domain.a_record", target: @dns_config.a_record_target) %>
           </p>
           <p>
-            <strong>Si es un subdominio</strong>:
-            Entrada CNAME a <%= @dns_config.cname_record_target %>
+            <strong><%= t(".hints.domain.if_subdomain") %></strong>:
+            <%= t(".hints.domain.cname_record", target: @dns_config.cname_record_target) %>
           </p>
         </div>
       </div>
@@ -59,14 +59,14 @@
 
         <div class="form_item input_text">
           <%= f.label :google_analytics_id %>
-          <%= f.text_field :google_analytics_id, placeholder: "UA-000000-01" %>
+          <%= f.text_field :google_analytics_id, placeholder: t(".placeholders.google_analytics_id") %>
         </div>
 
       </div>
 
       <div class="form_block">
 
-        <h2>Módulos activados para este sitio</h2>
+        <h2><%= t(".modules_enabled") %></h2>
 
         <div class="form_item site-module-check-boxes">
 
@@ -102,17 +102,16 @@
                 <%= b.radio_button %>
                 <%= b.label do %>
                   <span></span>
-                  <%= b.text.capitalize %>
-
+                  <%= t(".visibility_level.#{b.text}") %>
                   <% if b.text == "draft" %>
                     <div class="password_protected">
                       <p>
-                        Usuario:
+                        <%= t(".username") %>
                         <%= f.text_field :username %>
                       </p>
                       <p>
-                        Contraseña:
-                        <%= f.text_field :password %>
+                        <%= t(".password") %>
+                        <%= f.password_field :password %>
                       </p>
                     </div>
                   <% end %>

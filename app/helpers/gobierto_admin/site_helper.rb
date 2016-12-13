@@ -6,14 +6,14 @@ module GobiertoAdmin
         content_tag :span do
           capture do
             concat content_tag(:i, nil, class: "fa fa-lock")
-            concat "Draft"
+            concat t("gobierto_admin.sites.form.visibility_level.draft")
           end
         end
       when "active" then
         content_tag :span do
           capture do
             concat content_tag(:i, nil, class: "fa fa-unlock")
-            concat "Active"
+            concat t("gobierto_admin.sites.form.visibility_level.active")
           end
         end
       end

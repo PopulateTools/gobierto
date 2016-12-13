@@ -43,21 +43,21 @@ module GobiertoAdmin
     def raise_admin_not_signed_in
       redirect_to(
         new_admin_sessions_path,
-        alert: "We need you to sign in to continue."
+        alert: t("gobierto_admin.session_helper.not_signed_in")
       )
     end
 
     def raise_admin_not_authorized
       redirect_to(
         request.referrer || admin_root_path,
-        alert: "You are not authorized to perform this action."
+        alert: t("gobierto_admin.session_helper.not_authorized")
       )
     end
 
     def raise_admin_already_authenticated
       redirect_to(
         after_sign_in_path,
-        alert: "You are already signed in."
+        alert: t("gobierto_admin.session_helper.already_signed_in")
       )
     end
   end

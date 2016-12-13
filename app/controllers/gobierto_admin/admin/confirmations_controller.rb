@@ -13,9 +13,9 @@ module GobiertoAdmin
       @admin_confirmation_form = AdminConfirmationForm.new(admin_confirmation_params)
 
       if @admin_confirmation_form.save
-        flash.now[:notice] = "Please check your inbox to get instructions."
+        flash.now[:notice] = t(".success")
       else
-        flash.now[:alert] = "The email address specified doesn't seem to be valid."
+        flash.now[:alert] = t(".error")
       end
 
       render :new
@@ -31,10 +31,9 @@ module GobiertoAdmin
         admin.update_session_data(remote_ip)
         sign_in_admin(admin.id)
 
-        redirect_to(after_sign_in_path, notice: "Signed in successfully.")
+        redirect_to after_sign_in_path, notice: t(".success")
       else
-        flash.now[:alert] = "This URL doesn't seem to be valid."
-        redirect_to admin_root_path
+        redirect_to admin_root_path, alert: t(".error")
       end
     end
 

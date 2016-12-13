@@ -1,0 +1,10 @@
+---
+es:
+  gobierto_admin:
+    sites:
+      create:
+        success: El site se ha creado correctamente
+      update:
+        success: El site se ha actualizado correctamente
+      delete:
+        success: El site se ha eliminado correctamente

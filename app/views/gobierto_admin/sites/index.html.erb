@@ -1,4 +1,4 @@
-<h1>Sitios</h1>
+<h1><%= t(".title") %></h1>
 
 <div class="admin_tools right">
   <%= link_to "#" do %>
@@ -11,10 +11,10 @@
 <table class="site-list">
 <tr>
   <th></th>
-  <th>Sitio</th>
-  <th>Dominio</th>
-  <th>Creado</th>
-  <th>Estado</th>
+  <th><%= t(".header.site") %></th>
+  <th><%= t(".header.domain") %></th>
+  <th><%= t(".header.created_at") %></th>
+  <th><%= t(".header.status") %></th>
   <th></th>
 </tr>
 
@@ -45,7 +45,7 @@
       <td>
         <%= link_to site.domain_url, class: "view_item", target: "_blank" do %>
           <i class="fa fa-eye"></i>
-          <%= t(".go_to_site") %>
+          <%= t(".view_site") %>
         <% end %>
       </td>
     </tr>

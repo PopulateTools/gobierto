@@ -5,14 +5,10 @@ es:
       site: Sitio
     attributes:
       site:
-        name: Nombre
-        subdomain: Subdominio
-        config: Configuración
-        location_name: Nombre del lugar
-        institution_type: Tipo de lugar
-        name: Nombre del sitio
-        subdomain: Subdominio
-        institution_url: URL del site principal
-        institution_email: Email de la institución
-        institution_address: Dirección de la institución
-        institution_document_number: NIF
+        title: Nombre del site
+        name: Nombre de la entidad
+        location_name: Entidad relacionada
+        domain: Dominio
+        head_markup: HTML de Cabecera
+        foot_markup: HTML de Pie
+        google_analytics_id: Código de Google Analytics

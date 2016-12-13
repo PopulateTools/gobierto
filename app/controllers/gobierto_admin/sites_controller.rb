@@ -44,7 +44,7 @@ module GobiertoAdmin
 
       if @site_form.save
         track_create_activity
-        redirect_to admin_sites_path, notice: 'Site was successfully created.'
+        redirect_to admin_sites_path, notice: t(".success")
       else
         render :new
       end
@@ -64,7 +64,7 @@ module GobiertoAdmin
 
       if @site_form.save
         track_update_activity
-        redirect_to edit_admin_site_path(@site), notice: 'Site was successfully updated.'
+        redirect_to edit_admin_site_path(@site), notice: t(".success")
       else
         render :edit
       end
@@ -79,7 +79,7 @@ module GobiertoAdmin
       @site.destroy
       track_destroy_activity
 
-      redirect_to admin_sites_path, notice: 'Site was successfully destroyed.'
+      redirect_to admin_sites_path, notice: t(".success")
     end
 
     private

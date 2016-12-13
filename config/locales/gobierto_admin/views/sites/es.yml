@@ -1,0 +1,31 @@
+---
+es:
+  gobierto_admin:
+    sites:
+      index:
+        title: Sites
+        configuration: Configuración
+        new: Crear site
+        view_site: Ver site
+        header:
+          site: Site
+          domain: Dominio
+          created_at: Creado
+          status: Estado
+      edit:
+        title: Personalizar site
+      new:
+        title: Crear site
+      form:
+        placeholders:
+          title: Transparencia y Participción
+          name: Ayuntamiento de Burjassot
+          location_name: Burjassot
+          domain: gobierto.burjassot.es
+          google_analytics_id: UA-000000-01
+        modules_enabled: Módulos activados para este site
+        username: Nombre de usuario
+        password: Contraseña
+        visibility_level:
+          draft: Borrador
+          active: Activo

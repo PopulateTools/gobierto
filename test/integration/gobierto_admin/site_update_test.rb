@@ -39,7 +39,7 @@ module GobiertoAdmin
           click_button "Update Site"
         end
 
-        assert has_content?("Site was successfully updated.")
+        assert has_message?("Site was successfully updated")
 
         within "form.edit_site" do
           assert has_field?("site_name", with: "Site Name")

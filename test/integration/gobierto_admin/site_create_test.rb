@@ -38,7 +38,7 @@ module GobiertoAdmin
           click_button "Create Site"
         end
 
-        assert has_content?("Site was successfully created.")
+        assert has_message?("Site was successfully created")
 
         within "table.site-list tbody tr", match: :first do
           assert has_content?("Site Title")

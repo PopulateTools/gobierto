@@ -76,10 +76,12 @@ class ActionDispatch::IntegrationTest
   require "capybara/poltergeist"
   require "support/integration/authentication_helpers"
   require "support/integration/site_session_helpers"
+  require "support/integration/matcher_helpers"
 
   include Capybara::DSL
   include Integration::AuthenticationHelpers
   include Integration::SiteSessionHelpers
+  include Integration::MatcherHelpers
 
   Capybara.register_driver :poltergeist_custom do |app|
     Capybara::Poltergeist::Driver.new(

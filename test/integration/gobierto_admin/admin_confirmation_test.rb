@@ -16,9 +16,9 @@ module GobiertoAdmin
 
       fill_in :admin_confirmation_email, with: admin.email
 
-      click_on "Send"
+      click_button "Request instructions"
 
-      assert has_message?("Please check your inbox to get instructions.")
+      assert has_message?("Please, check your inbox to get instructions")
     end
 
     def test_invalid_confirmation_request
@@ -26,9 +26,9 @@ module GobiertoAdmin
 
       fill_in :admin_confirmation_email, with: "wadus@gobierto.dev"
 
-      click_on "Send"
+      click_button "Request instructions"
 
-      assert has_message?("The email address specified doesn't seem to be valid.")
+      assert has_message?("The email address specified doesn't seem to be valid")
     end
 
     def test_confirmation_request_when_already_signed_in

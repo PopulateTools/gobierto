@@ -1,0 +1,15 @@
+---
+en:
+  activemodel:
+    models:
+      gobierto_admin/admin_confirmation_form: Confirmation
+      gobierto_admin/admin_new_password_form: Password recovery
+      gobierto_admin/admin_edit_password_form: Password change
+    attributes:
+      gobierto_admin/admin_confirmation_form:
+        email: Email
+      gobierto_admin/admin_new_password_form:
+        email: Email
+      gobierto_admin/admin_edit_password_form:
+        password: Password
+        password_confirmation: Password confirmation

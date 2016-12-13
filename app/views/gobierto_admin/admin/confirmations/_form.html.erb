@@ -8,7 +8,7 @@
 
       <div class="form_item input_text">
         <%= f.label :email %>
-        <%= f.text_field :email, placeholder: "felipe@gmail.com" %>
+        <%= f.text_field :email, placeholder: t(".placeholders.email") %>
       </div>
 
     </div>
@@ -19,7 +19,7 @@
 
       <div class="widget_save">
 
-      <%= f.submit "Send", class: "button" %>
+      <%= f.submit t(".submit"), class: "button" %>
 
       </div>
 

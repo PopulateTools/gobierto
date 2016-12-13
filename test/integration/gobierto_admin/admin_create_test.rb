@@ -36,7 +36,7 @@ module GobiertoAdmin
           click_button "Create Admin"
         end
 
-        assert has_content?("Admin was successfully created.")
+        assert has_message?("Admin was successfully created")
 
         within "table.admin-list tbody tr", match: :first do
           assert has_content?("Admin Name")

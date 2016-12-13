@@ -17,7 +17,7 @@ module GobiertoAdmin
       :last_sign_in_ip
     )
 
-    delegate :persisted?, :to_model, to: :admin
+    delegate :persisted?, to: :admin
 
     validates :password, confirmation: true
 

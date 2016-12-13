@@ -39,7 +39,7 @@ module GobiertoAdmin
           click_button "Update Admin"
         end
 
-        assert has_content?("Admin was successfully updated.")
+        assert has_message?("Admin was successfully updated")
 
         within "form.edit_admin" do
           assert has_field?("admin_email", with: "wadus@gobierto.dev")
@@ -82,7 +82,7 @@ module GobiertoAdmin
           click_button "Update Admin"
         end
 
-        assert has_content?("Admin was successfully updated.")
+        assert has_message?("Admin was successfully updated")
 
         within "form.edit_admin" do
           assert has_field?("admin_name", with: "Admin Name")

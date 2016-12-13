@@ -8,7 +8,7 @@ module GobiertoAdmin
     def show
       # TODO. Consider extracting this logic into a service object.
       #
-      admin = Admin.find_by(invitation_token: params[:invitation_token])
+      admin = Admin.find_by_invitation_token(params[:invitation_token])
 
       if admin
         admin.accept_invitation!

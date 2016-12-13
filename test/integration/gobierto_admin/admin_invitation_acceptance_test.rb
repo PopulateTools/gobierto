@@ -4,11 +4,15 @@ module GobiertoAdmin
   class AdminInvitationAcceptanceTest < ActionDispatch::IntegrationTest
     def setup
       super
-      @invitation_acceptance_path = admin_admin_invitation_acceptances_path(invitation_token: admin.invitation_token)
+      @invitation_acceptance_path = admin_admin_invitation_acceptances_path(invitation_token: invited_admin.invitation_token)
     end
 
     def admin
       @admin ||= gobierto_admin_admins(:tony)
+    end
+
+    def invited_admin
+      @invited_admin ||= gobierto_admin_admins(:steve)
     end
 
     def test_invitation_acceptance

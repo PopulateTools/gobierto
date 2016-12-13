@@ -8,12 +8,12 @@
 
       <div class="form_item input_text">
         <%= f.label :name %>
-        <%= f.text_field :name, placeholder: t(".placeholders..name"), disabled: !@admin_policy.update? %>
+        <%= f.text_field :name, placeholder: t(".placeholders.name"), disabled: !@admin_policy.update? %>
       </div>
 
       <div class="form_item input_text">
         <%= f.label :email %>
-        <%= f.email_field :email, placeholder: t("placeholders.email"), disabled: !@admin_policy.update? %>
+        <%= f.email_field :email, placeholder: t(".placeholders.email"), disabled: !@admin_policy.update? %>
       </div>
 
       <% if @admin_policy.update? %>

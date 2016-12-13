@@ -29,15 +29,14 @@
         <%= f.text_field :domain, placeholder: t(".placeholders.domain") %>
 
         <div class="inline_help">
-          Importante: este dominio deberá estar creado previamente para que el site funcione correctamente.
-          Instrucciones:
+          <%= t(".hints.domain.instructions") %>
           <p>
-            <strong>Si es un dominio</strong>:
-            Entrada A a <%= @dns_config.a_record_target %>
+            <strong><%= t(".hints.domain.if_domain") %></strong>:
+            <%= t(".hints.domain.a_record", target: @dns_config.a_record_target) %>
           </p>
           <p>
-            <strong>Si es un subdominio</strong>:
-            Entrada CNAME a <%= @dns_config.cname_record_target %>
+            <strong><%= t(".hints.domain.if_subdomain") %></strong>:
+            <%= t(".hints.domain.cname_record", target: @dns_config.cname_record_target) %>
           </p>
         </div>
       </div>

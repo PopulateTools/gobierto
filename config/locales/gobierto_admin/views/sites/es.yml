@@ -23,6 +23,13 @@ es:
           location_name: Burjassot
           domain: gobierto.burjassot.es
           google_analytics_id: UA-000000-01
+        hints:
+          domain:
+            instructions: "Importante: este dominio deberá estar creado previamente para que el site funcione correctamente."
+            if_domain: Si es un dominio
+            if_subdomain: Si es un subdominio
+            a_record: "Entrada A a %{target}"
+            cname_record: "Entrada CNAME a %{target}"
         modules_enabled: Módulos activados para este site
         username: Nombre de usuario
         password: Contraseña

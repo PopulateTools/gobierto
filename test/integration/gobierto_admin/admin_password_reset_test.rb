@@ -13,7 +13,7 @@ module GobiertoAdmin
     end
 
     def recoverable_admin
-      @recoverable_admin ||= gobierto_admin_admins(:steve)
+      @recoverable_admin ||= gobierto_admin_admins(:tony)
     end
 
     def test_password_reset_request

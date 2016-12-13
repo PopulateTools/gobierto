@@ -12,7 +12,7 @@ class User::PasswordResetTest < ActionDispatch::IntegrationTest
   end
 
   def recoverable_user
-    @recoverable_user ||= users(:reed)
+    @recoverable_user ||= users(:dennis)
   end
 
   def site

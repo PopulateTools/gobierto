@@ -1,25 +1,18 @@
 <div class="admin_breadcrumb">
-   <%= link_to 'Inicio', admin_root_path %> »
-   <%= link_to 'Consultas sobre presupuestos', admin_budget_consultations_path %> »
-   Participaciones
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= link_to t("gobierto_admin.gobierto_budget_consultations.consultations.index.title"), admin_budget_consultations_path %> »
+  <%= t(".title") %>
 </div>
 
 <h1>
   <%= @consultation.title %>
 </h1>
 
-<div class="admin_tools right">
-  <%= link_to "#" do %>
-    <i class="fa fa-table"></i>
-    <%= t(".get_reports") %>
-  <% end %>
-</div>
-
 <table class="consultations-list">
 <tr>
-  <th>Fecha</th>
-  <th>Inversión inicial planificada</th>
-  <th>Inversión propuesta</th>
+  <th><%= t(".header.date") %></th>
+  <th><%= t(".header.consultation_budget_amount") %></th>
+  <th><%= t(".header.budget_amount") %></th>
   <th></th>
 </tr>
 

@@ -20,7 +20,7 @@ class User::PasswordsController < User::BaseController
   end
 
   def edit
-    user = User.find_by(reset_password_token: params[:reset_password_token])
+    user = User.confirmed.find_by_reset_password_token(params[:reset_password_token])
 
     if user
       @user_password_form = User::EditPasswordForm.new(user_id: user.id)

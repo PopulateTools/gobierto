@@ -19,7 +19,11 @@ class UserTest < ActiveSupport::TestCase
   end
 
   def recoverable_user
-    @recoverable_user ||= users(:reed)
+    @recoverable_user ||= users(:dennis)
+  end
+
+  def not_recoverable_user
+    @not_recoverable_user ||= users(:susan)
   end
 
   def madrid_site

@@ -37,9 +37,14 @@ module GobiertoAdmin
     alias invited_user invited_admin
 
     def recoverable_admin
-      @recoverable_admin ||= gobierto_admin_admins(:steve)
+      @recoverable_admin ||= gobierto_admin_admins(:tony)
     end
     alias recoverable_user recoverable_admin
+
+    def not_recoverable_admin
+      @not_recoverable_admin ||= gobierto_admin_admins(:nick)
+    end
+    alias not_recoverable_user not_recoverable_admin
 
     def test_preset_scope_when_god_admin_is_present
       assert_equal god_admin, Admin.preset

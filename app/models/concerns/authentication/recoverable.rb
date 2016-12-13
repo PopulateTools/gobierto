@@ -3,6 +3,10 @@ module Authentication::Recoverable
 
   included do
     scope :recoverable, -> { where.not(reset_password_token: nil) }
+
+    def self.find_by_reset_password_token(reset_password_token)
+      recoverable.find_by(reset_password_token: reset_password_token)
+    end
   end
 
   def regenerate_reset_password_token

@@ -3,7 +3,7 @@ tony:
   name: Tony Stark
   password_digest: <%= BCrypt::Password.create("gobierto", cost: 4) %>
   confirmation_token:
-  reset_password_token:
+  reset_password_token: wadus
   authorization_level: <%= GobiertoAdmin::Admin.authorization_levels["regular"] %>
   created_at: 2016-11-01 00:00:00
   updated_at: 2016-11-01 00:00:00
@@ -16,7 +16,7 @@ steve:
   name: Steve Rogers
   password_digest: <%= BCrypt::Password.create("gobierto", cost: 4) %>
   confirmation_token: wadus
-  reset_password_token: wadus
+  reset_password_token:
   invitation_token: wadus
   invitation_sent_at: 2016-11-01 00:01:00
   authorization_level: <%= GobiertoAdmin::Admin.authorization_levels["regular"] %>

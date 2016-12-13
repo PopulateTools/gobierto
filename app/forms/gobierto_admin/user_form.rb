@@ -9,7 +9,7 @@ module GobiertoAdmin
       :email
     )
 
-    delegate :persisted?, :to_model, to: :user
+    delegate :persisted?, to: :user
 
     validates :user, presence: true
 

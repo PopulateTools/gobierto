@@ -26,7 +26,7 @@ module GobiertoAdmin
             click_button "Update User"
           end
 
-          assert has_content?("User was successfully updated.")
+          assert has_message?("User was successfully updated")
 
           within "form.edit_user" do
             assert has_field?("user_name", with: "User Name")

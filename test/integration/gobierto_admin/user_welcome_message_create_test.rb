@@ -19,7 +19,7 @@ module GobiertoAdmin
         with_selected_site(site) do
           visit edit_admin_user_path(user)
 
-          click_link "Reenviar mail de bienvenida"
+          click_link "Resend welcome email"
 
           assert has_message?("The welcome message has been sent")
         end

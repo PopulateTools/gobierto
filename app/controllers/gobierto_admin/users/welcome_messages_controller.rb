@@ -6,9 +6,9 @@ module GobiertoAdmin
       )
 
       if @user_welcome_message_form.save
-        flash[:notice] = "The message has been sent."
+        flash[:notice] = t(".success")
       else
-        flash[:alert] = "The message could not be sent. Please try again."
+        flash[:alert] = t(".error")
       end
 
       redirect_to request.referrer

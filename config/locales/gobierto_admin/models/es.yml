@@ -7,6 +7,7 @@ es:
       gobierto_admin/admin_edit_password_form: Cambio de contraseña
       gobierto_admin/admin_invitation_form: Invitación
       gobierto_admin/user_password_form: Cambio de contraseña
+      gobierto_admin/user_welcome_message_form: Email de bienvenida
     attributes:
       gobierto_admin/admin_confirmation_form:
         email: Email

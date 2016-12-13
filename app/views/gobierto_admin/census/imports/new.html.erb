@@ -1,10 +1,10 @@
 <div class="admin_breadcrumb">
-  <%= link_to 'Inicio', admin_root_path %> »
-  <%= link_to 'Usuarios', admin_users_path %> »
-  Configuración de censo
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= link_to t("gobierto_admin.users.index.title"), admin_users_path %> »
+  <%= t(".title") %>
 </div>
 
-<h1>Configuración de censo</h1>
+<h1><%= t(".title") %></h1>
 
 <div class="pure-g">
 
@@ -12,20 +12,19 @@
 
     <% if @latest_import.present? %>
 
-      <p>
-        La verificación de los usuarios se realiza contra el archivo de censo
-        actualizado por última vez el
-        <%= l(@latest_import.created_at, format: :short) %>
-        por
-        <%= @latest_import.admin.name %> (<%= @latest_import.admin.email %>).
-        El archivo tiene <%= number_with_delimiter(@latest_import.imported_records) %> registros.
-      </p>
+      <%= t(
+        ".import_status",
+        created_at: l(@latest_import.created_at, format: :short),
+        admin_name: @latest_import.admin.name,
+        admin_email: @latest_import.admin.email,
+        imported_records: @latest_import.imported_records
+      ) %>
 
       <%= render "file_format_notes" %>
 
       <%= render "form" %>
 
-      <p>(se sustituirán todos los registros, y si algún DNI de usuario verificado deja de estar presente, el usuario dejará de tener acceso)</p>
+      <p>(<%= t(".final_notes") %>)</p>
 
     <% else %>
 

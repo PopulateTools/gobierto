@@ -3,7 +3,7 @@ ca:
   user:
     confirmations:
       new:
-        error: La URL no parece ser correcta
+        error: La URL no pareix correcta
       create:
-        success: Sesión iniciada correctamente
-        error: Los datos que has introducido no parecen ser correctos. Por favor, inténtalo de nuevo.
+        success: Sessió iniciada correctament
+        error: Les dades que has introduit no pareixen ser correctes. Per favor, intenta-ho de nou.

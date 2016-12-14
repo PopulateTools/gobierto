@@ -2,22 +2,22 @@
 ca:
   activemodel:
     models:
-      user/session_form: Sesión
-      user/registration_form: Registro
-      user/new_password_form: Recuperar contraseña
-      user/confirmation_form: Confirmación
+      user/session_form: Sessió
+      user/registration_form: Registre
+      user/new_password_form: Recuperar contrasena
+      user/confirmation_form: Confirmació
     attributes:
       user/session_form:
-        email: Tu Correo-e
-        password: Tu contraseña
+        email: El teu Correo-e
+        password: La teva Contrasenya
       user/registration_form:
-        email: Tu Correo-e
+        email: El teu Correo-e
       user/new_password_form:
-        email: Tu Correo-e
+        email: El teu Correo-e
       user/confirmation_form:
-        email: Tu Correo-e
-        name: Tu nombre
-        password: Tu contraseña
-        password_confirmation: Tu contraseña, otra vez
-        year_of_birth: Año de nacimiento
+        email: El teu Correo-e
+        name: El teu Nom
+        password: La teva contraseña
+        password_confirmation: La teva contraseña, de nou
+        year_of_birth: Any de naiximent
         gender: Eres...

@@ -3,13 +3,13 @@ ca:
   user:
     confirmations:
       new:
-        title: "Confirmemos tus datos:"
+        title: "Confirmem les teues dades:"
       form:
         hints:
-          email: Tu dirección de correo-e será privada en todo momento. Solo lo utilizaremos para enviarte comunicaciones.
-          year_of_birth: Esta información será privada, y nunca se identificará con tu perfil. El dato será anonimizado, y te lo pedimos para poder obtener información segmentada para entender mejor las opiniones y preferencias de los ciudadanos.
-          gender: Esta información será privada, y nunca se identificará con tu perfil. El dato será anonimizado, y te lo pedimos para poder obtener información segmentada para entender mejor las opiniones y preferencias de los ciudadanos.
+          email: La teva direcció de correu-e serà privada en tot moment. Només l'utilitzarem per enviar-te comunicacions.
+          year_of_birth: Aquesta informació serà privada, i nunca s'identificarà amb el teu perfil. La dada serà anonimitzada, i te la demanem només per a poder obtindre informació segmentada i entendre millor les opinions i preferències dels ciutadans.
+          gender: Aquesta informació serà privada, i nunca s'identificarà amb el teu perfil. La dada serà anonimitzada, i te la demanem només per a poder obtindre informació segmentada i entendre millor les opinions i preferències dels ciutadans.
         gender:
-          male: Hombre
-          female: Mujer
+          male: Home
+          female: Dona
         submit: Guardar

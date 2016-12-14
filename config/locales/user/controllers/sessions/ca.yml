@@ -3,7 +3,7 @@ ca:
   user:
     sessions:
       create:
-        success: Sesión iniciada correctamente
-        error: Los datos que has introducido no parecen ser válidos. Por favor, inténtalo de nuevo.
+        success: Sessió iniciada correctament
+        error: Les dades que has introduit no pareixen ser vàlides. Per favor, intenta-ho de nou.
       destroy:
-        success: Sesión terminada correctamente
+        success: Sessió terminada correctament

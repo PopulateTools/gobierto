@@ -3,10 +3,10 @@ ca:
   user:
     passwords:
       create:
-        success: Por favor, comprueba tu email para recibir las instrucciones
-        error: La dirección de email que has indicado no parece ser válida
+        success: Per favor, comprova el teu email per a rebre les instruccions
+        error: La direcció d'email que has indicat no pareix ser vàlida
       edit:
-        error: Esta URL no parece ser válida
+        error: Aquesta URL no pareix ser vàlida
       update:
-        success: Sesión iniciada correctamente
-        error: Ha habido un problema al cambiar tu contraseña
+        success: Sessió iniciada correctament
+        error: Hi ha hagut un problema al canviar la teva contrasenya

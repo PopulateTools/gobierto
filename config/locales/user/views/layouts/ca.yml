@@ -7,11 +7,11 @@ ca:
       is_open_source: es software lliure creat per
       about_the_data: Sobre les dades
       session:
-        sign_in: Iniciar sesió
+        sign_in: Iniciar sessió
         sign_out: Tancar sessió
-        title: Teva conta
+        title: El teu compte
         profile: Perfil
-        alerts: Teves alertes
+        alerts: Les teves alertes
         admin: Administració
     gobierto_budgets:
       application:

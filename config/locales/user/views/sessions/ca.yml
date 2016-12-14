@@ -3,14 +3,14 @@ ca:
   user:
     sessions:
       new:
-        session_title: ¿Ya tienes cuenta? Haz login
-        password_title: "¿No recuerdas tu contraseña? Te ayudamos:"
-        registration_title: "¿Nuevo por aquí? Crea una cuenta gratis:"
+        session_title: Ja tens compte? Fes login
+        password_title: "No recordes la teva contrasenya? T'ajudem:"
+        registration_title: "Nou por aquí? Crea un compte gratis:"
       session_form:
-        password_section: ¿Contraseña?
-        submit: Conectarse
+        password_section: Contrasenya?
+        submit: Conectar-se
       registration_form:
-        submit: Vamos
+        submit: Anem
       new_password_form:
-        session_section: ¿Te acuerdas de la contraseña? Haz login
+        session_section: Te'n recordes de la contrasenya? Fes login
         submit: Recuperar

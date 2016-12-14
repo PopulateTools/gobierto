@@ -1,0 +1,16 @@
+---
+ca:
+  user:
+    sessions:
+      new:
+        session_title: ¿Ya tienes cuenta? Haz login
+        password_title: "¿No recuerdas tu contraseña? Te ayudamos:"
+        registration_title: "¿Nuevo por aquí? Crea una cuenta gratis:"
+      session_form:
+        password_section: ¿Contraseña?
+        submit: Conectarse
+      registration_form:
+        submit: Vamos
+      new_password_form:
+        session_section: ¿Te acuerdas de la contraseña? Haz login
+        submit: Recuperar

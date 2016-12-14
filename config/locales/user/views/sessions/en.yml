@@ -1,0 +1,16 @@
+---
+en:
+  user:
+    sessions:
+      new:
+        session_title: Are you already registered? Log in
+        password_title: "Can't remember your password? We help you out:"
+        registration_title: "New here? Create your account:"
+      session_form:
+        password_section: Password?
+        submit: Log in
+      registration_form:
+        submit: Let's go
+      new_password_form:
+        session_section: Just remembered your password? Log in here
+        submit: Recover

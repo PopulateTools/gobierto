@@ -1,0 +1,9 @@
+---
+ca:
+  user:
+    confirmations:
+      new:
+        error: La URL no parece ser correcta
+      create:
+        success: Sesión iniciada correctamente
+        error: Los datos que has introducido no parecen ser correctos. Por favor, inténtalo de nuevo.

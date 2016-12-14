@@ -53,12 +53,12 @@ Rails.application.routes.draw do
   namespace :user do
     constraints GobiertoSiteConstraint.new do
       get '/' => 'welcome#index', as: :root
-      get '/login' => 'sessions#new'
-      get '/signup' => 'registrations#new'
+      get '/login' => 'sessions#new', as: :signin
 
       resource :sessions, only: [:new, :create, :destroy]
-      resource :registrations, only: [:new, :create]
-      resource :confirmations, only: [:new, :create, :show]
+      resource :registrations, only: [:create]
+      resource :confirmations, only: [:new, :create]
+      resource :confirmation_requests, only: [:new, :create]
       resource :passwords, only: [:new, :create, :edit, :update]
       resource :census_verifications, only: [:show, :new, :create], path: :verifications
     end

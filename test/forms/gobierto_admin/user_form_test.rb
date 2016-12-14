@@ -34,13 +34,14 @@ module GobiertoAdmin
       invalid_user_form.save
 
       assert_equal 1, invalid_user_form.errors.messages[:name].size
-      assert_equal 2, invalid_user_form.errors.messages[:email].size
+      assert_equal 1, invalid_user_form.errors.messages[:email].size
     end
 
     def test_confirmation_email_delivery_when_changing_email
       email_changing_form = UserForm.new(
         id: user.id,
-        email: "wadus@gobierto.dev"
+        email: "wadus@gobierto.dev",
+        name: "Wadus"
       )
 
       assert_difference "ActionMailer::Base.deliveries.size", 1 do

@@ -18,17 +18,17 @@ class User::SessionTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @sign_in_path
 
-      fill_in :session_email, with: user.email
-      fill_in :session_password, with: "gobierto"
+      fill_in :user_session_email, with: user.email
+      fill_in :user_session_password, with: "gobierto"
       click_on "Log in"
 
-      assert has_content?("Signed in successfully.")
+      assert has_message?("Signed in successfully")
 
       within "header .user_links" do
         click_on "Sign out"
       end
 
-      assert has_content?("Signed out successfully.")
+      assert has_message?("Signed out successfully")
     end
   end
 
@@ -36,11 +36,11 @@ class User::SessionTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @sign_in_path
 
-      fill_in :session_email, with: user.email
-      fill_in :session_password, with: "wadus"
+      fill_in :user_session_email, with: user.email
+      fill_in :user_session_password, with: "wadus"
       click_on "Log in"
 
-      assert has_content?("The data you entered doesn't seem to be valid. Please try again.")
+      assert has_message?("The data you entered doesn't seem to be valid. Please try again.")
     end
   end
 
@@ -49,7 +49,7 @@ class User::SessionTest < ActionDispatch::IntegrationTest
       with_current_site(site) do
         visit @sign_in_path
 
-        assert has_content?("You are already signed in.")
+        assert has_message?("You are already signed in.")
       end
     end
   end

@@ -12,6 +12,7 @@ module GobiertoAdmin
     delegate :persisted?, to: :user
 
     validates :user, presence: true
+    validates :name, :email, presence: true
 
     def save
       return false unless valid?

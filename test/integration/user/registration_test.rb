@@ -3,7 +3,7 @@ require "test_helper"
 class User::RegistrationTest < ActionDispatch::IntegrationTest
   def setup
     super
-    @registration_path = new_user_registrations_path
+    @registration_path = new_user_sessions_path
   end
 
   def user
@@ -19,13 +19,10 @@ class User::RegistrationTest < ActionDispatch::IntegrationTest
       visit @registration_path
 
       fill_in :user_registration_email, with: "user@email.dev"
-      fill_in :user_registration_name, with: "User Name"
-      fill_in :user_registration_password, with: "gobierto"
-      fill_in :user_registration_password_confirmation, with: "gobierto"
 
-      click_on "Sign up"
+      click_on "Let's go"
 
-      assert has_content?("Please check your inbox for confirmation.")
+      assert has_message?("Please check your inbox to confirm your email address")
     end
   end
 
@@ -34,13 +31,10 @@ class User::RegistrationTest < ActionDispatch::IntegrationTest
       visit @registration_path
 
       fill_in :user_registration_email, with: nil
-      fill_in :user_registration_name, with: nil
-      fill_in :user_registration_password, with: "gobierto"
-      fill_in :user_registration_password_confirmation, with: "wadus"
 
-      click_on "Sign up"
+      click_on "Let's go"
 
-      assert has_content?("The data you entered doesn't seem to be valid. Please try again.")
+      assert has_message?("The data you entered doesn't seem to be valid. Please try again.")
     end
   end
 
@@ -49,7 +43,7 @@ class User::RegistrationTest < ActionDispatch::IntegrationTest
       with_current_site(site) do
         visit @registration_path
 
-        assert has_content?("You are already signed in.")
+        assert has_message?("You are already signed in.")
       end
     end
   end

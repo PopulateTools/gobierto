@@ -6,8 +6,13 @@ ca:
       more_information: Més informació en gobierto.es
       is_open_source: es software lliure creat per
       about_the_data: Sobre les dades
-      account: Perfil
-      sign_out: Tancar sessió
+      session:
+        sign_in: Iniciar sesió
+        sign_out: Tancar sessió
+        title: Teva conta
+        profile: Perfil
+        alerts: Teves alertes
+        admin: Administració
     gobierto_budgets:
       application:
         <<: *application

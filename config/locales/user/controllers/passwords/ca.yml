@@ -1,0 +1,12 @@
+---
+ca:
+  user:
+    passwords:
+      create:
+        success: Por favor, comprueba tu email para recibir las instrucciones
+        error: La dirección de email que has indicado no parece ser válida
+      edit:
+        error: Esta URL no parece ser válida
+      update:
+        success: Sesión iniciada correctamente
+        error: Ha habido un problema al cambiar tu contraseña

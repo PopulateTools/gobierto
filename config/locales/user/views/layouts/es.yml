@@ -6,8 +6,13 @@ es:
       more_information: Más información en gobierto.es
       is_open_source: es software libre creado por
       about_the_data: Sobre los datos
-      account: Perfil
-      sign_out: Cerrar sesión
+      session:
+        sign_in: Iniciar sesión
+        sign_out: Cerrar sesión
+        title: Tu cuenta
+        profile: Perfil
+        alerts: Tus alertas
+        admin: Administración
     gobierto_budgets:
       application:
         <<: *application

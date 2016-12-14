@@ -1,0 +1,23 @@
+---
+es:
+  activemodel:
+    models:
+      user/session_form: Sesión
+      user/registration_form: Registro
+      user/new_password_form: Recuperar contraseña
+      user/confirmation_form: Confirmación
+    attributes:
+      user/session_form:
+        email: Tu Correo-e
+        password: Tu contraseña
+      user/registration_form:
+        email: Tu Correo-e
+      user/new_password_form:
+        email: Tu Correo-e
+      user/confirmation_form:
+        email: Tu Correo-e
+        name: Tu nombre
+        password: Tu contraseña
+        password_confirmation: Tu contraseña, otra vez
+        year_of_birth: Año de nacimiento
+        gender: Eres...

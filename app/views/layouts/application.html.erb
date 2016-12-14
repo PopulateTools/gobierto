@@ -56,31 +56,31 @@
                   <ul class="pure-menu-list left">
                     <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
                       <a href="#" class="pure-menu-link">
-                        Tu cuenta
+                        <%= t(".session.title") %>
                       </a>
                       <ul class="pure-menu-children">
                         <li class="pure-menu-item">
                           <%= link_to user_root_path, class: "pure-menu-link" do %>
                             <i class="fa fa-th"></i>
-                            <%= t(".account") %>
+                            <%= t(".session.profile") %>
                           <% end %>
                         </li>
                         <li class="pure-menu-item">
                           <%= link_to "#", class: "pure-menu-link" do %>
                             <i class="fa fa-envelope-o"></i>
-                            Tus alertas
+                            <%= t(".session.alerts") %>
                           <% end %>
                         </li>
                         <li class="pure-menu-item">
                           <%= link_to "#", class: "pure-menu-link" do %>
                             <i class="fa fa-ship"></i>
-                            Administración
+                            <%= t(".session.admin") %>
                           <% end %>
                         </li>
                         <li class="pure-menu-item">
                           <%= link_to user_sessions_path, method: :delete, class: "pure-menu-link" do %>
                             <i class="fa fa-sign-out"></i>
-                            <%= t(".sign_out") %>
+                            <%= t(".session.sign_out") %>
                           <% end %>
                         </li>
                       </ul>
@@ -91,7 +91,7 @@
                     <li class="pure-menu-item">
                       <%= link_to new_user_sessions_path, class: "pure-menu-link" do %>
                         <i class="fa fa-sign-in"></i>
-                        <%= t(".sign_in") %>
+                        <%= t(".session.sign_in") %>
                       <% end %>
                     </li>
                   </ul>

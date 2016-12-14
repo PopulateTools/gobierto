@@ -52,6 +52,6 @@ class User::ConfirmationsController < User::BaseController
   end
 
   def get_user_years_of_birth
-    (18.years.ago.year..Date.current.year)
+    (100.years.ago.year..10.years.ago.year).to_a.reverse
   end
 end

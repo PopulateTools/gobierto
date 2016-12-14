@@ -12,7 +12,7 @@ class User::RegistrationsController < User::BaseController
       flash[:alert] = t(".error")
     end
 
-    redirect_to user_signin_path
+    redirect_to new_user_sessions_path
   end
 
   private

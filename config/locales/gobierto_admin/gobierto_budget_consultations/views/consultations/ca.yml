@@ -1,0 +1,39 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_budget_consultations:
+      consultations:
+        index:
+          title: Consultes sobre pressupostos
+          new: Nova consulta
+          view_consultation: Veure consulta
+          header:
+            consultation: Consulta
+            results: Resultats
+            status: Estat
+          opens_on: Data de apertura
+          closes_on: Data de tancament
+          participations_count:
+            one: Una participació
+            other: "%{count} participacions"
+          visibility_level:
+            draft: Borrador
+            active: Activa
+        edit:
+          title: Editar consulta
+          consultation_section: Consulta
+          consultation_items_section: Partides
+        new:
+          title: Nova consulta
+          consultation_section: Consulta
+          consultation_items_section: Partides
+        form:
+          placeholders:
+            title: Consulta sobre els pressupostos de Burjassot 2016
+            opening_date_range: Selecciona data d'inicio i fi
+          hints:
+            title: Te recomanem fichar un títol concret i que identifique la consulta de l'any en cuestió.
+            description: Te recomanem descriure clarament el tipus de consulta.
+          visibility_level:
+            draft: Borrador
+            active: Activa

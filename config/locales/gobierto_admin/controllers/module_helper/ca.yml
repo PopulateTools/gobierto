@@ -1,0 +1,5 @@
+---
+ca:
+  gobierto_admin:
+    module_helper:
+      not_enabled: No estàs autoritzat a realitzar esta acció

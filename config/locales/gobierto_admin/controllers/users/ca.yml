@@ -1,0 +1,6 @@
+---
+ca:
+  gobierto_admin:
+    users:
+      update:
+        success: El Usuari s'ha actualitzat correctament

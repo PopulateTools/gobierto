@@ -1,0 +1,10 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_budget_consultations:
+      consultations:
+        consultation_items:
+          create:
+            success: La partida s'ha creat correctament
+          update:
+            success: La partida s'ha actualitzat correctament

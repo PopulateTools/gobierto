@@ -13,3 +13,4 @@ es:
           male: Hombre
           female: Mujer
         submit: Guardar
+        your_gender_is: "Eres..."

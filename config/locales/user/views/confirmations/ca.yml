@@ -13,3 +13,4 @@ ca:
           male: Home
           female: Dona
         submit: Guardar
+        your_gender_is: "Eres..."

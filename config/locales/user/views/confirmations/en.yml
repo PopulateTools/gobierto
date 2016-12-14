@@ -13,3 +13,4 @@ en:
           male: Male
           female: Female
         submit: Save
+        your_gender_is: "You are..."

@@ -25,7 +25,7 @@ class User::ConfirmationTest < ActionDispatch::IntegrationTest
       fill_in :user_confirmation_name, with: "user@email.dev"
       fill_in :user_confirmation_password, with: "wadus"
       fill_in :user_confirmation_password_confirmation, with: "wadus"
-      select Date.current.year, from: :user_confirmation_year_of_birth
+      select 20.years.ago.year, from: :user_confirmation_year_of_birth
       choose "Male"
 
       click_on "Save"

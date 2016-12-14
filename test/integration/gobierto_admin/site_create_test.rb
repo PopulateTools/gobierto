@@ -22,6 +22,7 @@ module GobiertoAdmin
           fill_in "site_domain", with: "test.gobierto.dev"
           fill_in "site_head_markup", with: "Site Head markup"
           fill_in "site_foot_markup", with: "Site Foot markup"
+          fill_in "site_links_markup", with: "Site Links markup"
           fill_in "site_google_analytics_id", with: "UA-000000-01"
 
           # Simulate Location selection in user control

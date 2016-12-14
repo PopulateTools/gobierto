@@ -11,4 +11,5 @@ es:
         domain: Dominio
         head_markup: HTML de Cabecera
         foot_markup: HTML de Pie
+        foot_markup: HTML de Enlaces
         google_analytics_id: Código de Google Analytics

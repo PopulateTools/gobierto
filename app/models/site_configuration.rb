@@ -2,13 +2,13 @@ class SiteConfiguration
   PROPERTIES = [
     :modules,
     :logo,
-    :links,
     :demo,
     :password_protection_username,
     :password_protection_password,
     :google_analytics_id,
     :head_markup,
     :foot_markup,
+    :links_markup,
     :locale
   ]
 
@@ -28,10 +28,6 @@ class SiteConfiguration
     return [] unless @modules.present?
 
     @modules.select { |site_module| SITE_MODULES.include?(site_module) }
-  end
-
-  def links
-    @links || []
   end
 
   def locale

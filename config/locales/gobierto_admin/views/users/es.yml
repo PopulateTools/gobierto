@@ -19,7 +19,7 @@ es:
         password_block: Contraseña
         change_password: Cambiar contraseña
         resend_welcome_email: Reenviar Email de bienvenida
-        resend_welcome_email_notes: con enlace para cambiar establecer nueva contraseña
+        resend_welcome_email_notes: con enlace para cambiar la contraseña
         placeholders:
           name: Fernando González
           email: fgonzalez@gmail.com

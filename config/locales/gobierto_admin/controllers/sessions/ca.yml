@@ -1,0 +1,9 @@
+---
+ca:
+  gobierto_admin:
+    sessions:
+      create:
+        success: Sessió iniciada correctament
+        error: Les dades que has introduit no pareixen ser vàlids. Per favor, inténta-ho de nou.
+      delete:
+        success: Sessió tancada correctament

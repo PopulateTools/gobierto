@@ -1,0 +1,15 @@
+---
+ca:
+  gobierto_admin:
+    admin:
+      passwords:
+        new:
+          title: Recuperar la teva contrasenya
+        edit:
+          title: Establir una nueva contrasenya
+        new_form:
+          placeholders:
+            email: fsanchez@gmail.com
+          submit: Solicitar recuperació
+        edit_form:
+          submit: Canviar contrasenya

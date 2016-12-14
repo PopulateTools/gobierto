@@ -1,0 +1,23 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_budget_consultations:
+      consultations:
+        consultation_items:
+          index:
+            title: Partides
+            new: Agregar partida
+            consultation_section: Consulta
+            consultation_items_section: Partides
+          new:
+            title: Nova partida
+            consultation_section: Consulta
+            consultation_items_section: Partides
+          edit:
+            title: Editar partida
+            consultation_section: Consulta
+            consultation_items_section: Partides
+          form:
+            placeholders:
+              title: Pavimentació de vies públiques
+              budget_line_amount: 250000

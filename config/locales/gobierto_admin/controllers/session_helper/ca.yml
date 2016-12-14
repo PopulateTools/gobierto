@@ -1,0 +1,7 @@
+---
+ca:
+  gobierto_admin:
+    session_helper:
+      not_signed_in: Necesites estar identificat per continuar
+      not_authorized: No estàs autorizat a realitzar esta acció
+      already_signed_in: Ja estás identificat

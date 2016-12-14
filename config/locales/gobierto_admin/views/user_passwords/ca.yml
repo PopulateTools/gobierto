@@ -1,0 +1,9 @@
+---
+ca:
+  gobierto_admin:
+    users:
+      passwords:
+        new:
+          title: Canviar contrasenya d'usuario
+        form:
+          submit: Enviar

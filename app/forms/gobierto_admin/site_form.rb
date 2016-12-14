@@ -20,6 +20,7 @@ module GobiertoAdmin
       :institution_document_number,
       :head_markup,
       :foot_markup,
+      :links_markup,
       :site_modules,
       :visibility_level,
       :google_analytics_id,
@@ -64,6 +65,10 @@ module GobiertoAdmin
       @foot_markup ||= site.configuration.foot_markup
     end
 
+    def links_markup
+      @links_markup ||= site.configuration.links_markup
+    end
+
     def google_analytics_id
       @google_analytics_id ||= site.configuration.google_analytics_id
     end
@@ -104,6 +109,7 @@ module GobiertoAdmin
         site_attributes.configuration.modules = site_modules
         site_attributes.configuration.head_markup = head_markup
         site_attributes.configuration.foot_markup = foot_markup
+        site_attributes.configuration.links_markup = links_markup
         site_attributes.configuration.google_analytics_id = google_analytics_id
         site_attributes.configuration.password_protection_username = username
         site_attributes.configuration.password_protection_password = password

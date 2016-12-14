@@ -118,6 +118,7 @@ module GobiertoAdmin
         :institution_document_number,
         :head_markup,
         :foot_markup,
+        :links_markup,
         :visibility_level,
         :google_analytics_id,
         :username,

@@ -11,4 +11,5 @@ en:
         domain: Domain
         head_markup: Head HTML
         foot_markup: Foot HTML
+        links_markup: Links HTML
         google_analytics_id: Google Analytics code

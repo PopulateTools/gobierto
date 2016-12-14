@@ -11,7 +11,7 @@ ca:
       application:
         budgets: Pressupostos
       menu_subsections:
-        summary: Resumen
+        summary: Resum
         budget: Pressupost
         execution: Execució
     budgets:
@@ -40,7 +40,7 @@ ca:
         than_last_year: que l'any anterior
         at_years_end: "* a final del %{year}"
         data_of_year: "* dades del %{year}"
-        summary: Resumen
+        summary: Resum
         title: "Pressupostos municipals el %{year}"
         twitter_text: "En @gobierto: Pressupostos municipals de %{name} del %{year}"
         main_budget_lines: Les principals despeses i ingressos del teu ajuntament

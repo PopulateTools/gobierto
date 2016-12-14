@@ -3,15 +3,11 @@ class User::RegistrationForm
 
   attr_accessor(
     :email,
-    :name,
-    :password,
-    :password_confirmation,
     :site,
     :creation_ip
   )
 
-  validates :email, :name, :password, :site, presence: true
-  validates :password, confirmation: true
+  validates :email, :site, presence: true
 
   def save
     return false unless valid?
@@ -27,9 +23,7 @@ class User::RegistrationForm
 
   def save_user
     @user = user.tap do |user_attributes|
-      user_attributes.name = name
       user_attributes.email = email
-      user_attributes.password = password
       user_attributes.source_site = site
       user_attributes.creation_ip = creation_ip
     end

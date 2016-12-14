@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   # Admin module
   namespace :gobierto_admin, as: :admin, path: :admin do
     get '/' => 'welcome#index', as: :root
-    get '/login' => 'sessions#new'
 
     resource :sessions, only: [:new, :create, :destroy]
     resources :sites, only: [:index, :new, :create, :edit, :update, :destroy]
@@ -53,12 +52,11 @@ Rails.application.routes.draw do
   namespace :user do
     constraints GobiertoSiteConstraint.new do
       get '/' => 'welcome#index', as: :root
-      get '/login' => 'sessions#new'
-      get '/signup' => 'registrations#new'
 
       resource :sessions, only: [:new, :create, :destroy]
-      resource :registrations, only: [:new, :create]
-      resource :confirmations, only: [:new, :create, :show]
+      resource :registrations, only: [:create]
+      resource :confirmations, only: [:new, :create]
+      resource :confirmation_requests, only: [:new, :create]
       resource :passwords, only: [:new, :create, :edit, :update]
       resource :census_verifications, only: [:show, :new, :create], path: :verifications
     end

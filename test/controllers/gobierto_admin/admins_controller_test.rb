@@ -20,7 +20,8 @@ module GobiertoAdmin
       {
         admin: {
           name: admin.name,
-          email: admin.email
+          email: admin.email,
+          password: "wadus"
         }
       }
     end

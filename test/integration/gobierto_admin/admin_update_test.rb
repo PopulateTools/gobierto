@@ -68,6 +68,8 @@ module GobiertoAdmin
 
         within "form.edit_admin" do
           fill_in "admin_name", with: "Admin Name"
+          fill_in "admin_password", with: "wadus"
+          fill_in "admin_password_confirmation", with: "wadus"
 
           within ".site-module-check-boxes" do
             check "Gobierto Development"

@@ -2,48 +2,56 @@ class User::ConfirmationsController < User::BaseController
   before_action :require_no_authentication
 
   def new
-    @user_confirmation_form = User::ConfirmationForm.new
+    @user_confirmation_form = User::ConfirmationForm.new(
+      confirmation_token: params[:confirmation_token]
+    )
+    @user_genders = get_user_genders
+    @user_years_of_birth = get_user_years_of_birth
+
+    unless @user_confirmation_form.user
+      redirect_to root_path, alert: t(".error")
+    end
   end
 
   def create
     @user_confirmation_form = User::ConfirmationForm.new(
-      user_confirmation_params.merge(site: current_site)
+      user_confirmation_params
     )
 
     if @user_confirmation_form.save
-      flash.now[:notice] = "Please check your inbox to get instructions."
-    else
-      flash.now[:alert] = "The email address specified doesn't seem to be valid."
-    end
+      user = @user_confirmation_form.user
 
-    render :new
-  end
-
-  def show
-    # TODO. Consider extracting this logic into a service object.
-    #
-    user = User.find_by_confirmation_token(params[:confirmation_token])
-
-    if user
-      user.confirm!
       user.update_session_data(remote_ip)
-      deliver_welcome_email
       sign_in_user(user.id)
 
-      redirect_to(after_sign_in_path, notice: "Signed in successfully.")
+      redirect_to after_sign_in_path, notice: t(".success")
     else
-      flash.now[:alert] = "This URL doesn't seem to be valid."
-      redirect_to root_path
+      @user_genders = get_user_genders
+      @user_years_of_birth = get_user_years_of_birth
+
+      flash.now[:alert] = t(".error")
+      render :new
     end
   end
 
   private
 
   def user_confirmation_params
-    params.require(:user_confirmation).permit(:email)
+    params.require(:user_confirmation).permit(
+      :confirmation_token,
+      :name,
+      :password,
+      :password_confirmation,
+      :year_of_birth,
+      :gender
+    )
   end
 
-  def deliver_welcome_email
-    User::UserMailer.welcome(user, current_site).deliver_later
+  def get_user_genders
+    User.genders
+  end
+
+  def get_user_years_of_birth
+    (100.years.ago.year..10.years.ago.year).to_a.reverse
   end
 end

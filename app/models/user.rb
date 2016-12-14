@@ -11,10 +11,10 @@ class User < ApplicationRecord
   has_many :verifications, class_name: "User::Verification", dependent: :destroy
   has_many :census_verifications, class_name: "User::Verification::CensusVerification"
 
-  validates :name, presence: true
-  validates :email, presence: true, uniqueness: true,
-    format: { with: EMAIL_ADDRESS_REGEXP }
+  validates :email, presence: true, uniqueness: true, format: { with: EMAIL_ADDRESS_REGEXP }
 
   scope :sorted, -> { order(created_at: :desc) }
   scope :by_source_site, ->(source_site) { where(source_site: source_site) }
+
+  enum gender: { male: 0, female: 1 }
 end

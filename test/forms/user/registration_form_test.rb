@@ -4,11 +4,15 @@ class User::RegistrationFormTest < ActiveSupport::TestCase
   def valid_user_registration_form
     @valid_user_registration_form ||= User::RegistrationForm.new(
       email: new_user_email, # To ensure uniqueness
-      name: user.name,
-      password: "wadus",
-      password_confirmation: "wadus",
       site: site,
       creation_ip: IPAddr.new("0.0.0.0")
+    )
+  end
+
+  def invalid_user_registration_form
+    @invalid_user_registration_form ||= User::RegistrationForm.new(
+      email: nil,
+      site: nil
     )
   end
 
@@ -30,6 +34,13 @@ class User::RegistrationFormTest < ActiveSupport::TestCase
 
   def test_save
     assert valid_user_registration_form.save
+  end
+
+  def test_error_messages_with_invalid_attributes
+    invalid_user_registration_form.save
+
+    assert_equal 1, invalid_user_registration_form.errors.messages[:email].size
+    assert_equal 1, invalid_user_registration_form.errors.messages[:site].size
   end
 
   def test_confirmation_email_delivery

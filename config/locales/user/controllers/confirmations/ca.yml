@@ -1,0 +1,9 @@
+---
+ca:
+  user:
+    confirmations:
+      new:
+        error: La URL no pareix correcta
+      create:
+        success: Sessió iniciada correctament
+        error: Les dades que has introduit no pareixen ser correctes. Per favor, intenta-ho de nou.

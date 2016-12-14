@@ -19,7 +19,8 @@ module GobiertoAdmin
 
     delegate :persisted?, to: :admin
 
-    validates :password, confirmation: true
+    validates :name, :email, presence: true
+    validates :password, presence: true, confirmation: true
 
     def save
       return false unless valid?

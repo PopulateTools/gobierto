@@ -1,0 +1,8 @@
+<%= form_for(@user_registration_form, as: :user_registration, url: :user_registrations, html: { id: "user-registration-form" }) do |f| %>
+  <div class="form_item input_text">
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+
+  <%= f.submit t(".submit"), class: "button" %>
+<% end %>

@@ -33,9 +33,9 @@ module GobiertoAdmin
     def test_error_messages_with_invalid_attributes
       invalid_admin_form.save
 
-      assert_equal 1, invalid_admin_form.errors.messages[:name].size
-      assert_equal 2, invalid_admin_form.errors.messages[:email].size
       assert_equal 1, invalid_admin_form.errors.messages[:password].size
+      assert_equal 1, invalid_admin_form.errors.messages[:name].size
+      assert_equal 1, invalid_admin_form.errors.messages[:email].size
     end
 
     def test_site_modules_initialization
@@ -60,7 +60,8 @@ module GobiertoAdmin
       email_changing_form = AdminForm.new(
         id: admin.id,
         name: admin.name,
-        email: "wadus@gobierto.dev"
+        email: "wadus@gobierto.dev",
+        password: "wadus"
       )
 
       assert_difference "ActionMailer::Base.deliveries.size", 1 do

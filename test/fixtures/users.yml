@@ -10,6 +10,8 @@ dennis:
   last_sign_in_at: 2016-12-01 00:00:00
   last_sign_in_ip: 0.0.0.0
   census_verified: true
+  year_of_birth: 1990
+  gender: <%= User.genders["female"] %>
 
 reed:
   email: reed@gobierto.dev
@@ -23,6 +25,8 @@ reed:
   last_sign_in_at: 2016-12-01 00:01:00
   last_sign_in_ip: 0.0.0.0
   census_verified: false
+  year_of_birth: 1980
+  gender: <%= User.genders["male"] %>
 
 susan:
   email: susan@gobierto.dev
@@ -36,3 +40,5 @@ susan:
   last_sign_in_at: 2016-12-01 00:02:00
   last_sign_in_ip: 0.0.0.0
   census_verified: false
+  year_of_birth: 1970
+  gender: <%= User.genders["female"] %>

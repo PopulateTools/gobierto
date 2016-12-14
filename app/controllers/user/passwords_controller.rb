@@ -11,12 +11,12 @@ class User::PasswordsController < User::BaseController
     )
 
     if @user_password_form.save
-      flash.now[:notice] = "Please check your inbox to get instructions."
+      flash[:notice] = t(".success")
     else
-      flash.now[:alert] = "The email address specified doesn't seem to be valid."
+      flash[:alert] = t(".error")
     end
 
-    render :new
+    redirect_to new_user_sessions_path
   end
 
   def edit
@@ -25,8 +25,7 @@ class User::PasswordsController < User::BaseController
     if user
       @user_password_form = User::EditPasswordForm.new(user_id: user.id)
     else
-      flash.now[:alert] = "This URL doesn't seem to be valid."
-      redirect_to user_root_path
+      redirect_to user_root_path, alert: t(".error")
     end
   end
 
@@ -42,9 +41,9 @@ class User::PasswordsController < User::BaseController
       user.update_session_data(remote_ip)
       sign_in_user(user.id)
 
-      redirect_to(after_sign_in_path, notice: "Signed in successfully.")
+      redirect_to after_sign_in_path, notice: t(".success")
     else
-      flash[:notice] = "There was a problem changing your password."
+      flash.now[:notice] = t(".error")
       render :edit
     end
   end

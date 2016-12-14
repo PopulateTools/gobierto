@@ -1,0 +1,23 @@
+---
+ca:
+  activemodel:
+    models:
+      user/session_form: Sessió
+      user/registration_form: Registre
+      user/new_password_form: Recuperar contrasena
+      user/confirmation_form: Confirmació
+    attributes:
+      user/session_form:
+        email: El teu Correo-e
+        password: La teva Contrasenya
+      user/registration_form:
+        email: El teu Correo-e
+      user/new_password_form:
+        email: El teu Correo-e
+      user/confirmation_form:
+        email: El teu Correo-e
+        name: El teu Nom
+        password: La teva contraseña
+        password_confirmation: La teva contraseña, de nou
+        year_of_birth: Any de naiximent
+        gender: Genre

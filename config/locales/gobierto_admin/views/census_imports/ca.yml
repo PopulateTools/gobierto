@@ -1,0 +1,14 @@
+---
+ca:
+  gobierto_admin:
+    census:
+      imports:
+        new:
+          title: Configuració de cens
+          import_status: "La verificació dels usuaris se realitza contra el archiu de cens actualitzat per última volta el %{created_at} per %{admin_name} (%{admin_email}). El arcxiu te %{imported_records} registres."
+          final_notes: "es sustituiràn tots els registres, i si algún DNI d'usuari verificat deixa d'estar present, el usuari deixará de tindre accés"
+        file_format_notes:
+          instructions: "El archiu a carregar deu ser un CSV, snese fila de capcalera, amb les columnes de dades que vullguem que el usuari haja de verificar. Per exemple, si volver que valide DNI, data de naiximent i codi postal, deurem preparar un arxiu com aquest:"
+        form:
+          submit: Carregant archiu de cens
+          disable_with: Carregant...

@@ -1,0 +1,12 @@
+---
+ca:
+  gobierto_admin:
+    sessions:
+      new:
+        title: Iniciar sessió
+        forgot_your_password: Ovlidares la contrasenya
+        didnt_receive_confirmation_instructions: No has rebut les instrucciones de confirmació?
+      form:
+        submit: Enviar
+        email: Email
+        password: Contrasenya

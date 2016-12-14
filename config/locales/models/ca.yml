@@ -1,0 +1,15 @@
+---
+ca:
+  activerecord:
+    models:
+      site: Lloc
+    attributes:
+      site:
+        title: Nom del site
+        name: Nom de l'entitat
+        location_name: Entitat relacionada
+        domain: Domini
+        head_markup: HTML de Capçalera
+        foot_markup: HTML de Peu
+        foot_markup: HTML de Enllaços
+        google_analytics_id: Codi de Google Analytics

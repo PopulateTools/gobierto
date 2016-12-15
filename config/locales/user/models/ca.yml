@@ -5,6 +5,7 @@ ca:
       user/session_form: Sessió
       user/registration_form: Registre
       user/new_password_form: Recuperar contrasena
+      user/edit_password_form: Cambiar contraseña
       user/confirmation_form: Confirmació
       user/confirmation_request_form: Solicitud de confirmación
     attributes:
@@ -15,6 +16,9 @@ ca:
         email: El teu Correo-e
       user/new_password_form:
         email: El teu Correo-e
+      user/edit_password_form:
+        password: La teva contraseña
+        password_confirmation: La teva contraseña, de nou
       user/confirmation_form:
         email: El teu Correo-e
         name: El teu Nom

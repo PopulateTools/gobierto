@@ -1,0 +1,8 @@
+---
+ca:
+  user:
+    passwords:
+      edit:
+        title: "Establece tu nueva contraseña:"
+      edit_form:
+        submit: Cambiar

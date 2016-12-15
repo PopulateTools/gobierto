@@ -5,6 +5,7 @@ en:
       user/session_form: Session
       user/registration_form: Registration
       user/new_password_form: Recover password
+      user/edit_password_form: Change password
       user/confirmation_form: Confirmation
       user/confirmation_request_form: Confirmation request
     attributes:
@@ -15,6 +16,9 @@ en:
         email: Your e-mail
       user/new_password_form:
         email: Your e-mail
+      user/edit_password_form:
+        password: Your password
+        password_confirmation: Your password, one more time
       user/confirmation_form:
         email: Your e-mail
         name: Your name

@@ -60,7 +60,7 @@ class User::PasswordResetTest < ActionDispatch::IntegrationTest
       fill_in :user_password_password, with: "wadus"
       fill_in :user_password_password_confirmation, with: "wadus"
 
-      click_button "Send"
+      click_button "Change"
 
       assert has_message?("Signed in successfully")
     end
@@ -73,7 +73,7 @@ class User::PasswordResetTest < ActionDispatch::IntegrationTest
       fill_in :user_password_password, with: "wadus"
       fill_in :user_password_password_confirmation, with: "foo"
 
-      click_button "Send"
+      click_button "Change"
 
       assert has_message?("There was a problem changing your password")
     end

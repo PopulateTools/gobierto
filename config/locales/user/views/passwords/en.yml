@@ -1,0 +1,8 @@
+---
+en:
+  user:
+    passwords:
+      edit:
+        title: "Set your new password:"
+      edit_form:
+        submit: Change

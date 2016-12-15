@@ -1,10 +1,6 @@
 class User::PasswordsController < User::BaseController
   before_action :require_no_authentication
 
-  def new
-    @user_password_form = User::NewPasswordForm.new
-  end
-
   def create
     @user_password_form = User::NewPasswordForm.new(
       user_new_password_params.merge(site: current_site)
@@ -25,7 +21,7 @@ class User::PasswordsController < User::BaseController
     if user
       @user_password_form = User::EditPasswordForm.new(user_id: user.id)
     else
-      redirect_to user_root_path, alert: t(".error")
+      redirect_to new_user_sessions_path, alert: t(".error")
     end
   end
 

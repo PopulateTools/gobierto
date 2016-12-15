@@ -3,6 +3,6 @@ ca:
   user:
     passwords:
       edit:
-        title: "Establece tu nueva contraseña:"
+        title: "Estableix la teva nova contrasenya:"
       edit_form:
-        submit: Cambiar
+        submit: Canviar

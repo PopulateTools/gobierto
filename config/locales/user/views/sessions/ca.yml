@@ -6,10 +6,10 @@ ca:
         session_title: Ja tens compte? Fes login
         password_title: "No recordes la teva contrasenya? T'ajudem:"
         registration_title: "Nou por aquí? Crea un compte gratis:"
-        confirmation_request_title: Reenviar instrucciones de confirmación
+        confirmation_request_title: Reenviar instruccions de confirmació
       session_form:
         password_section: Contrasenya?
-        confirmation_request_section: ¿Instrucciones de confirmación?
+        confirmation_request_section: Instruccions de confirmació?
         submit: Conectar-se
       registration_form:
         submit: Anem
@@ -17,5 +17,5 @@ ca:
         session_section: Te'n recordes de la contrasenya? Fes login
         submit: Recuperar
       confirmation_request_form:
-        session_section: ¿Ya has confirmado tu cuenta? Haz login
-        submit: Solicitar
+        session_section: Ja has confirmat le teu compte? Fes login
+        submit: Sol·licitar

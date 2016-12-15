@@ -4,27 +4,27 @@ ca:
     models:
       user/session_form: Sessió
       user/registration_form: Registre
-      user/new_password_form: Recuperar contrasena
-      user/edit_password_form: Cambiar contraseña
+      user/new_password_form: Recuperar contrasenya
+      user/edit_password_form: Canviar contrasenya
       user/confirmation_form: Confirmació
-      user/confirmation_request_form: Solicitud de confirmación
+      user/confirmation_request_form: Sol·licitud de confirmació
     attributes:
       user/session_form:
-        email: El teu Correo-e
+        email: El teu Correu-e
         password: La teva Contrasenya
       user/registration_form:
-        email: El teu Correo-e
+        email: El teu Correu-e
       user/new_password_form:
-        email: El teu Correo-e
+        email: El teu Correu-e
       user/edit_password_form:
         password: La teva contraseña
         password_confirmation: La teva contraseña, de nou
       user/confirmation_form:
-        email: El teu Correo-e
+        email: El teu Correu-e
         name: El teu Nom
-        password: La teva contraseña
-        password_confirmation: La teva contraseña, de nou
+        password: La teva contrasenya
+        password_confirmation: La teva contrasenya, de nou
         year_of_birth: Any de naiximent
         gender: Genre
       user/confirmation_request_form:
-        email: El teu Correo-e
+        email: El teu Correu-e

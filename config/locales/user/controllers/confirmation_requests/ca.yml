@@ -3,5 +3,5 @@ ca:
   user:
     confirmation_requests:
       create:
-        success: Por favor, comprueba tu email para recibir las instrucciones
-        error: La dirección de e-mail especificada no parece ser válida
+        success: Per favor, comprova el teu email per a rebre les instruccions
+        error: La direcció de e-mail especificada no pareix ser vàlida

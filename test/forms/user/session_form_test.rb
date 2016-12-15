@@ -5,6 +5,7 @@ class User::SessionFormTest < ActiveSupport::TestCase
     @valid_user_session_form ||= User::SessionForm.new(
       email: confirmed_user.email,
       password: "gobierto",
+      referrer_url: "http://example.com/home"
     )
   end
 

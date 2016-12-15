@@ -37,8 +37,8 @@ module User::SessionHelper
     User.confirmed.find_by(id: session[:user_id])
   end
 
-  def after_sign_in_path
-    root_path
+  def after_sign_in_path(referrer_url = nil)
+    referrer_url.presence || user_root_path
   end
 
   def after_sign_out_path

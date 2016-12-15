@@ -3,7 +3,8 @@ class User::SessionForm
 
   attr_accessor(
     :email,
-    :password
+    :password,
+    :referrer_url
   )
 
   attr_reader :user

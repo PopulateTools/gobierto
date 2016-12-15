@@ -3,7 +3,7 @@ class User::SessionsController < User::BaseController
   before_action :require_no_authentication, only: [:new, :create]
 
   def new
-    @user_session_form = User::SessionForm.new
+    @user_session_form = User::SessionForm.new(referrer_url: request.referrer)
     @user_registration_form = User::RegistrationForm.new
     @user_password_form = User::NewPasswordForm.new
   end
@@ -16,7 +16,11 @@ class User::SessionsController < User::BaseController
 
       user.update_session_data(remote_ip)
       sign_in_user(user.id)
-      redirect_to after_sign_in_path, notice: t(".success")
+
+      redirect_to(
+        after_sign_in_path(@user_session_form.referrer_url),
+        notice: t(".success")
+      )
     else
       @user_registration_form = User::RegistrationForm.new
       @user_password_form = User::NewPasswordForm.new
@@ -34,6 +38,6 @@ class User::SessionsController < User::BaseController
   private
 
   def user_session_params
-    params.require(:user_session).permit(:email, :password)
+    params.require(:user_session).permit(:email, :password, :referrer_url)
   end
 end

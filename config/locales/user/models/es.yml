@@ -6,6 +6,7 @@ es:
       user/registration_form: Registro
       user/new_password_form: Recuperar contraseña
       user/confirmation_form: Confirmación
+      user/confirmation_request_form: Solicitud de confirmación
     attributes:
       user/session_form:
         email: Tu Correo-e
@@ -21,3 +22,5 @@ es:
         password_confirmation: Tu contraseña, otra vez
         year_of_birth: Año de nacimiento
         gender: Género
+      user/confirmation_request_form:
+        email: Tu Correo-e

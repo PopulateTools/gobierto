@@ -3,7 +3,7 @@ require "test_helper"
 class User::ConfirmationRequestTest < ActionDispatch::IntegrationTest
   def setup
     super
-    @confirmation_request_path = new_user_confirmation_requests_path
+    @confirmation_request_path = new_user_sessions_path
   end
 
   def user
@@ -20,9 +20,9 @@ class User::ConfirmationRequestTest < ActionDispatch::IntegrationTest
 
       fill_in :user_confirmation_request_email, with: user.email
 
-      click_on "Send"
+      click_on "Request"
 
-      assert has_content?("Please check your inbox to get instructions.")
+      assert has_message?("Please check your inbox to get instructions")
     end
   end
 
@@ -32,9 +32,9 @@ class User::ConfirmationRequestTest < ActionDispatch::IntegrationTest
 
       fill_in :user_confirmation_request_email, with: "wadus@gobierto.dev"
 
-      click_on "Send"
+      click_on "Request"
 
-      assert has_content?("The email address specified doesn't seem to be valid.")
+      assert has_message?("The email address specified doesn't seem to be valid")
     end
   end
 
@@ -43,7 +43,7 @@ class User::ConfirmationRequestTest < ActionDispatch::IntegrationTest
       with_current_site(site) do
         visit @confirmation_request_path
 
-        assert has_content?("You are already signed in.")
+        assert has_message?("You are already signed in.")
       end
     end
   end

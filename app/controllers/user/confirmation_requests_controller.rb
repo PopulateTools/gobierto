@@ -1,22 +1,18 @@
 class User::ConfirmationRequestsController < User::BaseController
   before_action :require_no_authentication
 
-  def new
-    @user_confirmation_request_form = User::ConfirmationRequestForm.new
-  end
-
   def create
     @user_confirmation_request_form = User::ConfirmationRequestForm.new(
       user_confirmation_request_params.merge(site: current_site)
     )
 
     if @user_confirmation_request_form.save
-      flash.now[:notice] = "Please check your inbox to get instructions."
+      flash[:notice] = t(".success")
     else
-      flash.now[:alert] = "The email address specified doesn't seem to be valid."
+      flash[:alert] = t(".error")
     end
 
-    render :new
+    redirect_to new_user_sessions_path
   end
 
   private

@@ -6,6 +6,7 @@ ca:
       user/registration_form: Registre
       user/new_password_form: Recuperar contrasena
       user/confirmation_form: Confirmació
+      user/confirmation_request_form: Solicitud de confirmación
     attributes:
       user/session_form:
         email: El teu Correo-e
@@ -21,3 +22,5 @@ ca:
         password_confirmation: La teva contraseña, de nou
         year_of_birth: Any de naiximent
         gender: Genre
+      user/confirmation_request_form:
+        email: El teu Correo-e

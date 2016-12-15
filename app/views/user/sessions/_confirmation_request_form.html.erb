@@ -1,0 +1,10 @@
+<%= form_for(@user_confirmation_request_form, as: :user_confirmation_request, url: :user_confirmation_requests, html: { id: "user-confirmation-request-form" }) do |f| %>
+  <div class="form_item input_text">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+
+  <%= f.submit t(".submit"), class: "button" %>
+
+  <%= link_to t(".session_section"), "#", class: "show_login_box" %>
+<% end %>

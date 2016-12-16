@@ -124,6 +124,7 @@ module GobiertoAdmin
         :username,
         :password,
         :municipality_id,
+        :logo_file,
         site_modules: []
       )
     end

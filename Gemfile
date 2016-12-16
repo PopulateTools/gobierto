@@ -32,6 +32,9 @@ gem "elasticsearch-extensions"
 # Background processing
 gem "sidekiq", "~> 4.2.6"
 
+# AWS SDK client
+gem "aws-sdk", "~> 2.6", require: false
+
 group :development, :test do
   gem "byebug", platform: :mri
 end

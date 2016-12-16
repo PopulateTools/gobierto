@@ -1,3 +1,5 @@
+require "file_uploader/s3"
+
 module GobiertoAdmin
   class SiteForm
     include ActiveModel::Model
@@ -29,10 +31,13 @@ module GobiertoAdmin
       :created_at,
       :updated_at,
       :creation_ip,
-      :municipality_id
+      :municipality_id,
+      :logo_file
     )
 
-    delegate :persisted?, :to_model, to: :site
+    attr_reader :logo_url
+
+    delegate :persisted?, to: :site
 
     validates :google_analytics_id,
       format: { with: GOOGLE_ANALYTICS_ID_REGEXP },
@@ -85,6 +90,17 @@ module GobiertoAdmin
       @visibility_level ||= "draft"
     end
 
+    def logo_url
+      @logo_url ||= begin
+        return site.configuration.logo unless logo_file.present?
+
+        FileUploader::S3.new(
+          file: logo_file,
+          file_name: "sites/logo-#{SecureRandom.uuid}"
+        ).call
+      end
+    end
+
     private
 
     def build_site
@@ -107,6 +123,7 @@ module GobiertoAdmin
         site_attributes.visibility_level = visibility_level
         site_attributes.creation_ip = creation_ip
         site_attributes.configuration.modules = site_modules
+        site_attributes.configuration.logo = logo_url
         site_attributes.configuration.head_markup = head_markup
         site_attributes.configuration.foot_markup = foot_markup
         site_attributes.configuration.links_markup = links_markup

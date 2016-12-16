@@ -1,7 +1,10 @@
 require "test_helper"
+require "support/file_uploader_helpers"
 
 module GobiertoAdmin
   class SiteUpdateTest < ActionDispatch::IntegrationTest
+    include FileUploaderHelpers
+
     def setup
       super
       @path = edit_admin_site_path(site)
@@ -29,6 +32,8 @@ module GobiertoAdmin
           fill_in "site_links_markup", with: "Site Links markup"
           fill_in "site_google_analytics_id", with: "UA-000000-01"
 
+          attach_file "site_logo_file", "test/fixtures/files/sites/logo-madrid.png"
+
           within ".site-module-check-boxes" do
             check "Gobierto Development"
           end
@@ -37,7 +42,9 @@ module GobiertoAdmin
             choose "Active"
           end
 
-          click_button "Update Site"
+          with_stubbed_s3_file_upload do
+            click_button "Update Site"
+          end
         end
 
         assert has_message?("Site was successfully updated")

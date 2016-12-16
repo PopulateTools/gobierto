@@ -42,6 +42,18 @@
       </div>
 
       <div class="form_block">
+        <% if f.object.logo_url.present? %>
+          <%= image_tag f.object.logo_url %>
+        <% end %>
+
+        <div class="form_item file_field">
+          <%= f.label :logo_file %>
+          <%= f.file_field :logo_file %>
+        </div>
+
+      </div>
+
+      <div class="form_block">
 
         <div class="form_item textarea code">
           <%= f.label :head_markup %>

@@ -1,7 +1,10 @@
 require "test_helper"
+require "support/file_uploader_helpers"
 
 module GobiertoAdmin
   class SiteCreateTest < ActionDispatch::IntegrationTest
+    include FileUploaderHelpers
+
     def setup
       super
       @path = new_admin_site_path
@@ -28,6 +31,8 @@ module GobiertoAdmin
           # Simulate Location selection in user control
           find("#site_municipality_id", visible: false).set("1")
 
+          attach_file "site_logo_file", "test/fixtures/files/sites/logo-madrid.png"
+
           within ".site-module-check-boxes" do
             check "Gobierto Development"
           end
@@ -36,7 +41,9 @@ module GobiertoAdmin
             choose "Active"
           end
 
-          click_button "Create Site"
+          with_stubbed_s3_file_upload do
+            click_button "Create Site"
+          end
         end
 
         assert has_message?("Site was successfully created")

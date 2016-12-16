@@ -10,6 +10,7 @@ ca:
       gobierto_admin/user_welcome_message_form: Email de benvinguda
       gobierto_admin/admin_form: Administrador
       gobierto_admin/user_form: Usuari
+      gobierto_admin/site_form: Lloc
     attributes:
       gobierto_admin/admin_confirmation_form:
         email: Email
@@ -31,3 +32,13 @@ ca:
       gobierto_admin/user_form:
         name: Nom
         email: Email
+      gobierto_admin/site_form:
+        title: Nom del site
+        name: Nom de l'entitat
+        location_name: Entitat relacionada
+        domain: Domini
+        head_markup: HTML de Capçalera
+        foot_markup: HTML de Peu
+        foot_markup: HTML de Enllaços
+        google_analytics_id: Codi de Google Analytics
+        logo_file: Logotip

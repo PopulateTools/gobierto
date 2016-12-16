@@ -14,7 +14,7 @@ module FileUploader
       object = resource.bucket(bucket_name).object(file_name)
 
       File.open(file.tempfile, "rb") do |file_body|
-        object.put(body: file_body)
+        object.put(body: file_body, acl: 'public-read')
       end
 
       object.public_url

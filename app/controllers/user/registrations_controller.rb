@@ -1,6 +1,8 @@
 class User::RegistrationsController < User::BaseController
   before_action :require_no_authentication
 
+  layout "user/layouts/sessions"
+
   def create
     @user_registration_form = User::RegistrationForm.new(
       user_registration_params.merge(site: current_site, creation_ip: remote_ip)

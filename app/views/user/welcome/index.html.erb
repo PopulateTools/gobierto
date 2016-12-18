@@ -1,1 +1,7 @@
-<h2 class="center">Here goes the User dashboard</h2>
+<% title t(".title") %>
+
+<% content_for :breadcrumb_current_item do %>
+  <strong>
+    <%= link_to t("user.layouts.menu_subsections.profile"), user_root_path %>
+  </strong>
+<% end %>

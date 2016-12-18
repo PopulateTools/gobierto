@@ -2,5 +2,5 @@ class User::BaseController < ApplicationController
   include User::SessionHelper
   include User::VerificationHelper
 
-  layout "application"
+  layout "user/layouts/application"
 end

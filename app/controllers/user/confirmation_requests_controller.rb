@@ -1,6 +1,8 @@
 class User::ConfirmationRequestsController < User::BaseController
   before_action :require_no_authentication
 
+  layout "user/layouts/sessions"
+
   def create
     @user_confirmation_request_form = User::ConfirmationRequestForm.new(
       user_confirmation_request_params.merge(site: current_site)

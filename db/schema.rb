@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161214104508) do
+ActiveRecord::Schema.define(version: 20161216132408) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,6 +156,21 @@ ActiveRecord::Schema.define(version: 20161214104508) do
     t.integer  "visibility_level",            default: 0,  null: false
     t.inet     "creation_ip"
     t.integer  "municipality_id"
+  end
+
+  create_table "user_subscriptions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "site_id"
+    t.string   "subscribable_type"
+    t.integer  "subscribable_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["site_id"], name: "index_user_subscriptions_on_site_id", using: :btree
+    t.index ["subscribable_type", "site_id"], name: "index_user_subscriptions_on_subscribable_type_and_site_id", using: :btree
+    t.index ["subscribable_type", "subscribable_id", "site_id", "user_id"], name: "index_user_subscriptions_on_type_and_id_and_user_id", unique: true, using: :btree
+    t.index ["subscribable_type", "subscribable_id", "site_id"], name: "index_user_subscriptions_on_type_and_id", using: :btree
+    t.index ["user_id", "site_id"], name: "index_user_subscriptions_on_user_id_and_site_id", using: :btree
+    t.index ["user_id"], name: "index_user_subscriptions_on_user_id", using: :btree
   end
 
   create_table "user_verifications", force: :cascade do |t|

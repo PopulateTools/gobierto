@@ -4,6 +4,13 @@ en:
     layouts:
       menu_subsections:
         consultations: Consultations
+    consultations:
+      show:
+        subscribable_box:
+          title: Receive updates in your inbox on this consultation
+      index:
+        subscribable_box:
+          title: Receive alerts in your inbox when there are any other processes underway
     consultation_items:
       options:
         increase: Increase budget by 10%

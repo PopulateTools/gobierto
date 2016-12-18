@@ -60,4 +60,8 @@
 
   <% end %>
 
+  <%= render("user/subscriptions/subscribable_box",
+             subscribable: GobiertoBudgetConsultations::Consultation,
+             title: t(".subscribable_box.title")) %>
+
 </div>

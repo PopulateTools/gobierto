@@ -8,6 +8,7 @@ en:
       user/edit_password_form: Change password
       user/confirmation_form: Confirmation
       user/confirmation_request_form: Confirmation request
+      user/subscription_form: Subscription
     attributes:
       user/session_form:
         email: Your e-mail
@@ -28,3 +29,7 @@ en:
         gender: Gender
       user/confirmation_request_form:
         email: Your e-mail
+      user/subscription_form:
+        user: User
+        user_email: E-mail
+        subscribable: Resource

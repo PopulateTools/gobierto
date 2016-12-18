@@ -1,0 +1,7 @@
+---
+en:
+  user:
+    subscriptions:
+      subscribable_box:
+        subscribe: Subscribe
+        submit: Subscribe

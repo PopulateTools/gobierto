@@ -67,4 +67,8 @@
 
   <%= @consultation.description.html_safe %>
 
+  <%= render("user/subscriptions/subscribable_box",
+             subscribable: @consultation,
+             title: t(".subscribable_box.title")) %>
+
 </div>

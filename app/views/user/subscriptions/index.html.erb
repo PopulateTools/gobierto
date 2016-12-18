@@ -1,0 +1,30 @@
+<% title t(".title") %>
+
+<% content_for :breadcrumb_current_item do %>
+  <strong>
+    <%= link_to t("user.layouts.menu_subsections.admin"), user_subscriptions_path %>
+  </strong>
+<% end %>
+
+<div class="column">
+  <table class="med_bg">
+    <tr>
+      <th><%= t(".headers.name") %></th>
+      <th></th>
+    </tr>
+    <tbody>
+      <% @user_subscriptions.each do |user_subscription| %>
+        <tr>
+          <td>
+            <% if user_subscription.specific? %>
+              <%= link_to user_subscription.subscribable_label, user_subscription.subscribable %>
+            <% elsif user_subscription.generic? %>
+              <%= user_subscription.subscribable_label %>
+            <% end %>
+          </td>
+          <td><%= link_to t(".cancel"), user_subscription, method: :delete, data: { confirm: "Are you sure?" } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

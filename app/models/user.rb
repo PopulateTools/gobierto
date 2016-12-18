@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_many :census_verifications, class_name: "User::Verification::CensusVerification"
   has_many :subscriptions, dependent: :destroy
 
-  validates :email, presence: true, uniqueness: true, format: { with: EMAIL_ADDRESS_REGEXP }
+  validates :email, uniqueness: true
 
   scope :sorted, -> { order(created_at: :desc) }
   scope :by_source_site, ->(source_site) { where(source_site: source_site) }

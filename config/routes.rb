@@ -59,6 +59,8 @@ Rails.application.routes.draw do
       resource :confirmation_requests, only: [:create]
       resource :passwords, only: [:create, :edit, :update]
       resource :census_verifications, only: [:show, :new, :create], path: :verifications
+
+      resources :subscriptions, only: [:index, :create, :destroy]
     end
   end
 

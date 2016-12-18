@@ -35,7 +35,7 @@ module GobiertoAdmin
 
       assert_equal 1, invalid_admin_form.errors.messages[:password].size
       assert_equal 1, invalid_admin_form.errors.messages[:name].size
-      assert_equal 1, invalid_admin_form.errors.messages[:email].size
+      assert_equal 2, invalid_admin_form.errors.messages[:email].size
     end
 
     def test_site_modules_initialization

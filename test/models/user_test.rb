@@ -3,16 +3,19 @@ require "support/concerns/authentication/authenticable_test"
 require "support/concerns/authentication/confirmable_test"
 require "support/concerns/authentication/recoverable_test"
 require "support/concerns/session/trackable_test"
+require "support/concerns/user/subscriber_test"
 
 class UserTest < ActiveSupport::TestCase
   include Authentication::AuthenticableTest
   include Authentication::ConfirmableTest
   include Authentication::RecoverableTest
   include Session::TrackableTest
+  include User::SubscriberTest
 
   def user
     @user ||= users(:dennis)
   end
+  alias subscribed_user user
 
   def unconfirmed_user
     @unconfirmed_user ||= users(:reed)

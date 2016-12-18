@@ -3,36 +3,8 @@ module User::Subscribable
 
   included do
     def self.subscribable_label
-      model_name.human
+      model_name.human.pluralize
     end
-  end
-
-  def subscribed?(subscriber, site)
-    User::Subscription.exists?(
-      user: subscriber,
-      site: site,
-      subscribable: self
-    )
-  end
-
-  def subscribe!(subscriber, site)
-    return true if subscribed?(subscriber, site)
-
-    User::Subscription.create!(
-      user: subscriber,
-      site: site,
-      subscribable: self
-    )
-  end
-
-  def unsubscribe!(subscriber, site)
-    return true unless subscribed?(subscriber, site)
-
-    User::Subscription.find_by(
-      user: subscriber,
-      site: site,
-      subscribable: self
-    ).delete
   end
 
   def subscribable_label

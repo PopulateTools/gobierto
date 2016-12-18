@@ -3,6 +3,7 @@ class User < ApplicationRecord
   include Authentication::Confirmable
   include Authentication::Recoverable
   include Session::Trackable
+  include User::Subscriber
 
   EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/
 
@@ -10,6 +11,7 @@ class User < ApplicationRecord
 
   has_many :verifications, class_name: "User::Verification", dependent: :destroy
   has_many :census_verifications, class_name: "User::Verification::CensusVerification"
+  has_many :subscriptions, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true, format: { with: EMAIL_ADDRESS_REGEXP }
 

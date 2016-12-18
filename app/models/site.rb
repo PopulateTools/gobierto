@@ -2,11 +2,15 @@ class Site < ApplicationRecord
 
   RESERVED_SUBDOMAINS = %W(presupuestos)
 
+  # GobiertoAdmin integrations
   has_many :admin_sites, dependent: :destroy, class_name: "GobiertoAdmin::AdminSite"
   has_many :admins, through: :admin_sites, class_name: "GobiertoAdmin::Admin"
   has_many :census_imports, dependent: :destroy, class_name: "GobiertoAdmin::CensusImport"
 
-  # TODO. Build these associations dynamically.
+  # User integrations
+  has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"
+
+  # GobiertoBudgetConsultations integration
   has_many :budget_consultations, dependent: :destroy, class_name: "GobiertoBudgetConsultations::Consultation"
   has_many :budget_consultation_responses, through: :budget_consultations, source: :consultation_responses, class_name: "GobiertoBudgetConsultations::ConsultationResponse"
 

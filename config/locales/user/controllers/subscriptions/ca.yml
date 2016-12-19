@@ -3,7 +3,7 @@ ca:
   user:
     subscriptions:
       create:
-        success: Se ha realizado la suscripción
-        error: "Ha ocurrido un problema al suscribirte: %{details}. Si ya estás registrado, identifícate <a href=\"%{sign_in_path}\">aquí</a>."
+        success: S'ha realitzat la suscripció
+        error: "Ha ocurregut un problema al suscribir-te: %{details}. Si ja estàs registrat, identifica't <a href=\"%{sign_in_path}\">açí</a>."
       destroy:
-        success: Se ha cancelado esta suscripción
+        success: S'ha cancelat aquesta suscripció

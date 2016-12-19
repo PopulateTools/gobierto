@@ -3,14 +3,14 @@ ca:
   user:
     subscriptions:
       index:
-        title: Tus suscripciones
+        title: Les teves suscripcions
         headers:
-          title: Título
-        cancel: Cancelar suscripción
+          title: Títol
+        cancel: Cancelar suscripció
       subscribable_box:
-        subscribe: Suscribirme
-        disclaimer: No spam. Date de baja cuando quieras.
+        subscribe: Suscriurem
+        disclaimer: No spam. Dona't de baixa quan vullgues.
         form:
           placeholders:
-            user_email: Tu correo-e
-          submit: Suscribirme
+            user_email: El teu correu-e
+          submit: Suscriurem

@@ -7,10 +7,10 @@ ca:
     consultations:
       show:
         subscribable_box:
-          title: Recibe actualizaciones en tu correo-e sobre cambios en esta consulta
+          title: Rebeix actualitzacions al teu correu-e sobre canvis en aquesta consulta
       index:
         subscribable_box:
-          title: Recibe una alerta en tu correo-e sobre los procesos que se pongan en marcha
+          title: Rebeix una alerta al tu correu-e sobre els processos que es fiquen en marxa
     consultation_items:
       options:
         increase: Aumentar la despesa un 10%

@@ -2,4 +2,4 @@
 ca:
   activerecord:
     models:
-      gobierto_budget_consultations/consultation: Consulte
+      gobierto_budget_consultations/consultation: Consulta

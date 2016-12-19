@@ -2,6 +2,7 @@ module GobiertoAdmin
   module GobiertoBudgetConsultations
     class ConsultationForm
       include ActiveModel::Model
+      prepend GobiertoCommon::Trackable
 
       OPENING_DATE_RANGE_SEPARATOR = " - ".freeze
 
@@ -22,6 +23,13 @@ module GobiertoAdmin
       validates :title, :description, presence: true
       validates :opening_date_range, presence: true
       validates :admin, :site, presence: true
+
+      trackable_on :consultation
+
+      notify_changed :title
+      notify_changed :visibility_level
+      notify_changed :opens_on
+      notify_changed :closes_on
 
       def save
         save_consultation if valid?
@@ -67,6 +75,10 @@ module GobiertoAdmin
         @closes_on ||= opening_date_range.split(OPENING_DATE_RANGE_SEPARATOR)[1]
       end
 
+      def notify?
+        consultation.active?
+      end
+
       private
 
       def build_consultation
@@ -89,7 +101,9 @@ module GobiertoAdmin
         end
 
         if @consultation.valid?
-          @consultation.save
+          run_callbacks(:save) do
+            @consultation.save
+          end
 
           @consultation
         else

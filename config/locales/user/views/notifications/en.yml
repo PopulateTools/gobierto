@@ -1,0 +1,9 @@
+---
+en:
+  user:
+    notifications:
+      index:
+        title: Your Alertas
+        headers:
+          created: Created
+          subject: Subject

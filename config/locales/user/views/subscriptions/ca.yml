@@ -2,6 +2,10 @@
 ca:
   user:
     subscriptions:
+      index:
+        headers:
+          title: Título
+        cancel: Cancelar suscripción
       subscribable_box:
         subscribe: Suscribirme
         submit: Suscribirme

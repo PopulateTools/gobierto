@@ -2,6 +2,10 @@
 en:
   user:
     subscriptions:
+      index:
+        headers:
+          title: Title
+        cancel: Cancel subscription
       subscribable_box:
         subscribe: Subscribe
         submit: Subscribe

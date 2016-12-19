@@ -70,7 +70,7 @@
                           <% end %>
                         </li>
                         <li class="pure-menu-item">
-                          <%= link_to "#", class: "pure-menu-link" do %>
+                          <%= link_to user_subscriptions_path, class: "pure-menu-link" do %>
                             <i class="fa fa-ship"></i>
                             <%= t(".session.admin") %>
                           <% end %>
@@ -128,7 +128,7 @@
       <menu class="nav">
         <div class="column">
           <%= render "layouts/breadcrumb" %>
-          <%= load_module_sub_sections(current_module) %>
+          <%= content_for?(:module_sub_sections) ? yield(:module_sub_sections) : load_module_sub_sections(current_module) %>
         </div>
       </menu>
 

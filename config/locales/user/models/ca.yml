@@ -8,6 +8,7 @@ ca:
       user/edit_password_form: Canviar contrasenya
       user/confirmation_form: Confirmació
       user/confirmation_request_form: Sol·licitud de confirmació
+      user/subscription_form: Subscripció
     attributes:
       user/session_form:
         email: El teu Correu-e
@@ -28,3 +29,7 @@ ca:
         gender: Genre
       user/confirmation_request_form:
         email: El teu Correu-e
+      user/subscription_form:
+        user: Usuari
+        user_email: Correu-e
+        subscribable: Recurs

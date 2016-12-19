@@ -25,9 +25,7 @@ module GobiertoAdmin
 
     before_create :set_god_flag
 
-    validates :name, presence: true
-    validates :email, presence: true, uniqueness: true,
-      format: { with: EMAIL_ADDRESS_REGEXP }
+    validates :email, uniqueness: true
 
     scope :sorted, -> { order(created_at: :desc) }
     scope :god,    -> { where(god: true) }

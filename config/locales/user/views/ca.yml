@@ -1,0 +1,10 @@
+---
+ca:
+  user:
+    layouts:
+      application:
+        account: Le teu compte
+      menu_subsections:
+        profile: Perfil
+        alerts: Las teves alertes
+        admin: Administració

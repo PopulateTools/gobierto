@@ -2,6 +2,8 @@ module GobiertoAdmin
   class AdminForm
     include ActiveModel::Model
 
+    EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/
+
     attr_accessor(
       :id,
       :name,
@@ -20,6 +22,7 @@ module GobiertoAdmin
     delegate :persisted?, to: :admin
 
     validates :name, :email, presence: true
+    validates :email, format: { with: Admin::EMAIL_ADDRESS_REGEXP }
     validates :password, presence: true, confirmation: true
 
     def save

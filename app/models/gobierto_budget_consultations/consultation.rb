@@ -2,6 +2,8 @@ require_dependency "gobierto_budget_consultations"
 
 module GobiertoBudgetConsultations
   class Consultation < ApplicationRecord
+    include User::Subscribable
+
     belongs_to :admin, class_name: "GobiertoAdmin::Admin"
     belongs_to :site
 

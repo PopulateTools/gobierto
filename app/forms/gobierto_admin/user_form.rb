@@ -11,8 +11,8 @@ module GobiertoAdmin
 
     delegate :persisted?, to: :user
 
-    validates :user, presence: true
-    validates :name, :email, presence: true
+    validates :user, :name, presence: true
+    validates :email, format: { with: User::EMAIL_ADDRESS_REGEXP }
 
     def save
       return false unless valid?

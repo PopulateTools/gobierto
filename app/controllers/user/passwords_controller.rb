@@ -1,6 +1,8 @@
 class User::PasswordsController < User::BaseController
   before_action :require_no_authentication
 
+  layout "user/layouts/sessions"
+
   def create
     @user_password_form = User::NewPasswordForm.new(
       user_new_password_params.merge(site: current_site)

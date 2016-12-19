@@ -2,6 +2,8 @@ class User::SessionsController < User::BaseController
   before_action :authenticate_user!, only: [:destroy]
   before_action :require_no_authentication, only: [:new, :create]
 
+  layout "user/layouts/sessions"
+
   def new
     @user_session_form = User::SessionForm.new(referrer_url: request.referrer)
     @user_registration_form = User::RegistrationForm.new

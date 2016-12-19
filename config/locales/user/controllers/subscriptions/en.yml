@@ -1,0 +1,9 @@
+---
+en:
+  user:
+    subscriptions:
+      create:
+        success: Subscription was successfully created
+        error: "There was a problem when subscribing to this resource: %{details}. If you are already registered, sign in <a href=\"%{sign_in_path}\">here</a>."
+      destroy:
+        success: Subscription was successfully canceled

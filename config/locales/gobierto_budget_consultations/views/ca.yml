@@ -4,6 +4,13 @@ ca:
     layouts:
       menu_subsections:
         consultations: Consultes
+    consultations:
+      show:
+        subscribable_box:
+          title: Rebeix actualitzacions al teu correu-e sobre canvis en aquesta consulta
+      index:
+        subscribable_box:
+          title: Rebeix una alerta al tu correu-e sobre els processos que es fiquen en marxa
     consultation_items:
       options:
         increase: Aumentar la despesa un 10%

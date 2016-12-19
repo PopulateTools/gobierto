@@ -1,0 +1,16 @@
+---
+en:
+  user:
+    subscriptions:
+      index:
+        title: Your subscriptions
+        headers:
+          title: Title
+        cancel: Cancel subscription
+      subscribable_box:
+        subscribe: Subscribe
+        disclaimer: No spam. Cancel anytime.
+        form:
+          placeholders:
+            user_email: Your e-mail
+          submit: Subscribe

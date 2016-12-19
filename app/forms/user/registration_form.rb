@@ -7,7 +7,8 @@ class User::RegistrationForm
     :creation_ip
   )
 
-  validates :email, :site, presence: true
+  validates :site, presence: true
+  validates :email, format: { with: User::EMAIL_ADDRESS_REGEXP }
 
   def save
     return false unless valid?

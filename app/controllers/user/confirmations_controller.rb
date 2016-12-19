@@ -1,6 +1,8 @@
 class User::ConfirmationsController < User::BaseController
   before_action :require_no_authentication
 
+  layout "user/layouts/sessions"
+
   def new
     @user_confirmation_form = User::ConfirmationForm.new(
       confirmation_token: params[:confirmation_token]

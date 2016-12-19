@@ -1,12 +1,13 @@
-<% title t(".title") %>
-
 <% content_for :breadcrumb_current_item do %>
   <strong>
     <%= link_to t("user.layouts.menu_subsections.admin"), user_subscriptions_path %>
   </strong>
 <% end %>
 
-<div class="column ">
+<div class="column">
+
+  <h3><%= title t(".title") %></h3>
+
   <table class="user-subscription-list">
     <tr>
       <th><%= t(".headers.title") %></th>
@@ -27,4 +28,5 @@
       <% end %>
     </tbody>
   </table>
+
 </div>

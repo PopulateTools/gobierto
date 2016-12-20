@@ -4,10 +4,10 @@ class User::Subscription::NotificationBuilderTest < ActiveSupport::TestCase
   def setup
     super
     @subject = User::Subscription::NotificationBuilder.new(
-      event_name,
-      subscribable.model_name.to_s,
-      subscribable.id,
-      site.id
+      event_name: event_name,
+      model_name: subscribable.model_name.to_s,
+      model_id: subscribable.id,
+      site_id: site.id
     )
   end
 

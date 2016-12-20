@@ -3,7 +3,7 @@ class User::Subscription::NotificationBuilder
 
   attr_reader :event_name, :model_name, :model_id, :site_id
 
-  def initialize(event_name, model_name, model_id, site_id)
+  def initialize(event_name:, model_name:, model_id:, site_id:)
     @event_name = event_name
     @model_name = model_name
     @model_id = model_id

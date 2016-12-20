@@ -11,6 +11,10 @@ input[type=text], input[type=email], input[type=submit], input[type=password], .
   vertical-align: middle;
   @include border-radius(6px);
   border: 1px solid $color_separator;
+  @include screen(740) {
+    width: 100%;
+    margin: 0 0 1em 0;
+  }
 }
 input[type=submit], .button, button {
   @include transition;

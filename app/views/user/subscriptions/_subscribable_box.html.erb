@@ -1,33 +1,36 @@
 <% user_subscription_form = User::SubscriptionForm.new(subscribable: subscribable) %>
 
-<div class="subscribable_box">
-  <h3><%= title %></h3>
+<div class="box">
+  <div class="inner">
+    <h3><%= title %></h3>
 
-  <% if user_signed_in? %>
+    <% if user_signed_in? %>
 
-    <%= button_to(
-      t(".subscribe"),
-      user_subscriptions_path,
-      params: {
-        user_subscription: {
-          subscribable_type: user_subscription_form.subscribable_type,
-          subscribable_id: user_subscription_form.subscribable_id
-        }
-      },
-      class: "pure-menu-link")
-    %>
+      <%= button_to(
+        t(".subscribe"),
+        user_subscriptions_path,
+        params: {
+          user_subscription: {
+            subscribable_type: user_subscription_form.subscribable_type,
+            subscribable_id: user_subscription_form.subscribable_id
+          }
+        },
+        class: "pure-menu-link")
+      %>
 
-  <% else %>
+    <% else %>
 
-    <%= form_for(user_subscription_form, as: :user_subscription, url: :user_subscriptions) do |f| %>
-      <%= f.hidden_field :subscribable_type %>
-      <%= f.hidden_field :subscribable_id %>
-      <%= f.email_field :user_email, placeholder: t(".form.placeholders.user_email") %>
+      <%= form_for(user_subscription_form, as: :user_subscription, url: :user_subscriptions) do |f| %>
+        <%= f.hidden_field :subscribable_type %>
+        <%= f.hidden_field :subscribable_id %>
+        <%= f.email_field :user_email, placeholder: t(".form.placeholders.user_email") %>
 
-      <%= f.submit t(".form.submit") %>
+        <%= f.submit t(".form.submit") %>
+      <% end %>
+
     <% end %>
 
-  <% end %>
+    <div class="disclaimer"><%= t(".disclaimer") %></div>
 
-  <div class="disclaimer"><%= t(".disclaimer") %></div>
+  </div>
 </div>

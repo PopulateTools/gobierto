@@ -249,7 +249,8 @@ body.gobierto_admin {
 		td {
 			border: none;
 		}
-		tr.even {
+		// tr.even {
+		tr:nth-child(2n-1) {
 			td {
 				background: transparentize($color_main, .95);	
 			}

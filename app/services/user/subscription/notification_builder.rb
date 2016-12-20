@@ -1,4 +1,4 @@
-class User::NotificationBuilder
+class User::Subscription::NotificationBuilder
   GENERIC_EVENT_NAMES = %w(created)
 
   attr_reader :event_name, :model_name, :model_id, :site_id
@@ -24,8 +24,8 @@ class User::NotificationBuilder
         .find_each do |user_subscription|
           user_notification = build_user_notification_for(user_subscription.user_id)
 
-          if user_notification.save(validate: false)
-            user_notifications << user_notification
+          if user_notification.save
+            user_notifications << user_notification.record
           end
         end
     end
@@ -36,7 +36,7 @@ class User::NotificationBuilder
   private
 
   def build_user_notification_for(user_id)
-    User::Notification.new(
+    User::NotificationForm.new(
       user_id: user_id,
       site_id: site_id,
       action: event_name,

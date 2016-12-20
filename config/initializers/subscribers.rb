@@ -12,5 +12,5 @@ ActiveSupport::Notifications.subscribe(/trackable/) do |*args|
 
   # TODO. Perform asynchronously.
   #
-  User::NotificationBuilder.new(event_name, model_name, model_id, site_id).call
+  User::Subscription::NotificationBuilder.new(event_name, model_name, model_id, site_id).call
 end

@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :verifications, class_name: "User::Verification", dependent: :destroy
   has_many :census_verifications, class_name: "User::Verification::CensusVerification"
   has_many :subscriptions, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   validates :email, uniqueness: true
 

@@ -1,0 +1,9 @@
+---
+ca:
+  user:
+    notifications:
+      index:
+        title: Les teves Alertes
+        headers:
+          created: Creat
+          subject: Asumpte

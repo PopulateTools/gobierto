@@ -61,6 +61,7 @@ Rails.application.routes.draw do
       resource :census_verifications, only: [:show, :new, :create], path: :verifications
 
       resources :subscriptions, only: [:index, :create, :destroy]
+      resources :notifications, only: [:index]
     end
   end
 

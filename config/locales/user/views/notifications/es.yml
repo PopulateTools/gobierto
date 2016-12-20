@@ -1,0 +1,9 @@
+---
+es:
+  user:
+    notifications:
+      index:
+        title: Tus Alertas
+        headers:
+          created: Creado
+          subject: Asunto

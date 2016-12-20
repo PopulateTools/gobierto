@@ -1,0 +1,15 @@
+<p>
+  Hey,
+</p>
+
+<p>
+  Here is the recent activity in your municipality:
+</p>
+
+<ul>
+  <% @user_notifications.each do |user_notification| %>
+    <li>
+      <%= render_notification_item(user_notification, true) %>
+    </li>
+  <% end %>
+</ul>

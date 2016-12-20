@@ -60,4 +60,10 @@ class User::NotificationFormTest < ActiveSupport::TestCase
       valid_user_notification_form.save
     end
   end
+
+  def test_notification_email_delivery
+    assert_difference "ActionMailer::Base.deliveries.size", 1 do
+      valid_user_notification_form.save
+    end
+  end
 end

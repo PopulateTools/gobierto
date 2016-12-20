@@ -28,7 +28,7 @@ class User::NotificationForm
   end
 
   def run_callbacks
-    true
+    deliver_notification_email
   end
 
   def create_notification
@@ -41,5 +41,11 @@ class User::NotificationForm
     end
 
     @notification.save(validate: false)
+  end
+
+  protected
+
+  def deliver_notification_email
+    User::NotificationMailer.single_notification(user_notification).deliver_later
   end
 end

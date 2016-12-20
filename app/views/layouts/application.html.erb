@@ -36,14 +36,13 @@
 
       <div class="column pure-g">
         <div class="desktop_only">
-          <% if @site.configuration.links_markup.present? %>
-            <div class="pure-u-md-1-2">
-              <ul>
-                <%= raw @site.configuration.links_markup %>
-              </ul>
-            </div>
-          <% end %>
-
+          
+          <div class="pure-u-md-1-2">
+            <% if @site.configuration.links_markup.present? %>
+              <%= raw @site.configuration.links_markup %>
+            <% end %>
+          </div>
+          
           <div class="pure-u-md-1-2 right">
 
             <div class="user_links">
@@ -118,7 +117,7 @@
       <% if @site.configuration.logo %>
         <div class="column">
           <div class="logo">
-            <%= image_tag @site.configuration.logo %>
+            <%= link_to (image_tag @site.configuration.logo), root_url %>
           </div>
         </div>
       <% end %>

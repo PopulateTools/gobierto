@@ -3,7 +3,10 @@ $(document).on('turbolinks:load', function() {
 	$('.menu_control, menu.complete .close').click(function(e) {
 		e.preventDefault();
 		if( $('menu.complete').css('display') == 'none' ) {
-			$('menu.complete').velocity("slideDown").velocity("scroll");
+			$('menu.complete').velocity("slideDown");
+			if(($(window).width() < 740)) {
+				$('menu.complete').velocity("scroll", { offset: -30});
+			}
 			$('menu.complete .close').velocity({
 				display: 'block', 
 				top: '-2em',

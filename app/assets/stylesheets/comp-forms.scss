@@ -2,15 +2,19 @@
  * Forms
  *
  */
-input[type=text], input[type=email], input[type=submit], input[type=password], .button, button, .option, select, option, textarea {
+input[type=text], input[type=email], input[type=submit], input[type=password], input[type=file], .button, button, .option, select, option, textarea {
   box-sizing: border-box;
-  height: 54px;
+  height: 74px;
   padding: 0 1em;
   margin: 0 .5em 0 0;
   display: inline-block;
   vertical-align: middle;
   @include border-radius(6px);
   border: 1px solid $color_separator;
+  @include screen(740) {
+    width: 100%;
+    margin: 0 0 1em 0;
+  }
 }
 input[type=submit], .button, button {
   @include transition;
@@ -25,6 +29,32 @@ input[type=submit], .button, button {
 }
 input[type=submit]:hover, .button:hover, button:hover {
   background: darken($color_main, 10%);
+}
+.form_item.input_text, .form_item.textarea, .select_control, .file_field {
+  position: relative;
+  margin: 0 0 1em 0;
+  label {
+    position: absolute;
+    top: .5rem;
+    left: 1rem;
+    text-transform: uppercase;
+    font-size: .75em;
+    font-weight: 700;
+  }
+  input, textarea {
+    padding: 1.9rem 1rem .25rem 1rem;
+    width: 100%;
+    outline: none;
+  }
+  textarea {
+    box-sizing: border-box;
+    height: 300px;
+  }
+}
+.file_field {
+  input {
+    padding-top: 2.2em;
+  }
 }
 button a {
   color: #FFF;
@@ -161,31 +191,6 @@ option, select {
 .option.separate {
   margin-top: 1em;
   padding-top: 1em;
-}
-.form_item.input_text, .form_item.textarea, .select_control, .file_field {
-  position: relative;
-  margin: 0 0 1em 0;
-  label {
-    position: absolute;
-    top: .5rem;
-    left: 1rem;
-    text-transform: uppercase;
-    font-size: .75em;
-    font-weight: 700;
-  }
-  input, textarea {
-    padding: 2.75rem 1rem 1.35rem .95rem;
-    width: 100%;
-    outline: none;
-  }
-  textarea {
-    box-sizing: border-box;
-    height: 300px;
-  }
-  input[type=password] {
-    height: 67px;
-    padding: 1.5rem 1rem .25rem 1rem;
-  }
 }
 .select_control, .options_cont {
   box-sizing: border-box;

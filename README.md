@@ -15,6 +15,7 @@ ___this is a development version, not ready for production___
 - [Setting up the development environment](docs/development-environment.md)
 - [Accessing the Admin namespace](docs/admin-namespace.md)
 - [Accessing the User namespace](docs/user-namespace.md)
+- [Integrating the Trackable extension](docs/trackable-extension.md)
 
 ## License
 

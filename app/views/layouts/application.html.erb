@@ -39,9 +39,7 @@
           
           <div class="pure-u-md-1-2">
             <% if @site.configuration.links_markup.present? %>
-              <ul>
-                <%= raw @site.configuration.links_markup %>
-              </ul>
+              <%= raw @site.configuration.links_markup %>
             <% end %>
           </div>
           
@@ -123,7 +121,7 @@
           </div>
         </div>
       <% end %>
-      
+
       <%= render "layouts/main_menu" %>
 
       <menu class="nav">

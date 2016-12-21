@@ -36,12 +36,6 @@ class Site < ApplicationRecord
     end
   end
 
-  def subdomain
-    if domain.present? and domain.include?('.')
-      domain.split('.').first
-    end
-  end
-
   def place
     @place ||= INE::Places::Place.find self.municipality_id
   end

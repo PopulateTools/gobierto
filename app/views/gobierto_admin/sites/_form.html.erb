@@ -124,7 +124,7 @@
                       </p>
                       <p>
                         <%= t(".password") %>
-                        <%= f.password_field :password %>
+                        <%= f.password_field :password, value: f.object.password %>
                       </p>
                     </div>
                   <% end %>

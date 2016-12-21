@@ -9,6 +9,7 @@ ca:
       user/confirmation_form: Confirmació
       user/confirmation_request_form: Sol·licitud de confirmació
       user/subscription_form: Subscripció
+      user/settings_form: Ajusts
     attributes:
       user/session_form:
         email: El teu Correu-e
@@ -33,3 +34,5 @@ ca:
         user: Usuari
         user_email: Correu-e
         subscribable: Recurs
+      user/settings_form:
+        notification_frequency: Freqüència de notificacions

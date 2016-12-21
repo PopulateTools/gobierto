@@ -3,7 +3,7 @@ es:
   user:
     subscriptions:
       index:
-        title: Tus suscripciones
+        title: Tus alertas
         headers:
           title: Título
         cancel: Cancelar suscripción

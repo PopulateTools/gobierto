@@ -3,7 +3,7 @@ ca:
   user:
     subscriptions:
       index:
-        title: Les teves suscripcions
+        title: Les teves alertes
         headers:
           title: Títol
         cancel: Cancelar suscripció

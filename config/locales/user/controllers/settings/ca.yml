@@ -1,0 +1,7 @@
+---
+ca:
+  user:
+    settings:
+      update:
+        success: Ajusts guardats amb éxit
+        error: Hi ha hagut un error al guardar els teus ajusts

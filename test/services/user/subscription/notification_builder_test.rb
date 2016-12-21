@@ -1,13 +1,13 @@
 require "test_helper"
 
-class User::NotificationBuilderTest < ActiveSupport::TestCase
+class User::Subscription::NotificationBuilderTest < ActiveSupport::TestCase
   def setup
     super
-    @subject = User::NotificationBuilder.new(
-      event_name,
-      subscribable.model_name.to_s,
-      subscribable.id,
-      site.id
+    @subject = User::Subscription::NotificationBuilder.new(
+      event_name: event_name,
+      model_name: subscribable.model_name.to_s,
+      model_id: subscribable.id,
+      site_id: site.id
     )
   end
 

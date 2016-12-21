@@ -16,15 +16,6 @@ class ApplicationController < ActionController::Base
     ActionController::Base.helpers
   end
 
-  # TODO: check if we still need this
-  def default_url_options(options={})
-    if params[:e].present?
-      { e: true }
-    else
-      {}
-    end
-  end
-
   def current_site
     request.env['gobierto_site'] unless Site.reserved_domain?(domain)
   end

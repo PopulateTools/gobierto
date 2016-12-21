@@ -1,0 +1,21 @@
+<% content_for :breadcrumb_current_item do %>
+  <strong>
+    <%= link_to t("user.layouts.menu_subsections.admin"), user_settings_path %>
+  </strong>
+<% end %>
+
+<div class="column">
+
+  <div class="pure-g">
+
+    <div class="pure-u-1 pure-u-md-1-2 padded_line_box m_v_2">
+
+      <h1><%= t(".title") %></h1>
+
+      <%= render "form" %>
+
+    </div>
+
+  </div>
+
+</div>

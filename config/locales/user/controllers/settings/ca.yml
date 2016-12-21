@@ -1,0 +1,7 @@
+---
+ca:
+  user:
+    settings:
+      update:
+        success: Ajustes guardados con éxito
+        error: Ha habido un error al guardar tus ajustes

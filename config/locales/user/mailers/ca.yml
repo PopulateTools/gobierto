@@ -3,4 +3,4 @@ ca:
   user:
     notification_mailer:
       notification_digest:
-        subject: "Actividad reciente en tu municipio"
+        subject: "Activitat recent al teu municipi"

@@ -3,8 +3,8 @@ ca:
   gobierto_budget_consultations/consultation:
     notifications:
       subject:
-        created: "Se ha añadido una consulta"
-        visibility_level_changed: "Se ha abierto una consulta"
-        title_changed: "Se ha actualizado una consulta"
-        opens_on_changed: "Se ha actualizado una consulta"
-        closes_on_changed: "Se ha actualizado una consulta"
+        created: "S'ha afeggit una consulta"
+        visibility_level_changed: "S'ha obert una consulta"
+        title_changed: "S'ha actualitzat una consulta"
+        opens_on_changed: "S'ha actualitzat una consulta"
+        closes_on_changed: "S'ha actualitzat una consulta"

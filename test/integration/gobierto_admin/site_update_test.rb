@@ -90,11 +90,18 @@ module GobiertoAdmin
           click_button "Update Site"
         end
 
+        assert has_message?("Site was successfully updated")
+
         within "form.edit_site" do
           within ".site-visibility-level-radio-buttons" do
             assert has_checked_field?("Draft")
           end
+
+          fill_in "site_title", with: "New Site Title"
+          click_button "Update Site"
         end
+
+        assert has_message?("Site was successfully updated")
       end
     end
 

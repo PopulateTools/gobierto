@@ -1,0 +1,362 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Personas', 'admin_people' %> »
+  Persona
+</div>
+
+<h1>Rafa García García</h1>
+
+<div class="tabs">
+  <ul>
+    <li class="active"><%= link_to 'Persona', '', "data-tab-target": 'person' %></li>
+    <li><%= link_to 'Agenda', 'admin_people_person_agenda' %></li>
+    <li><%= link_to 'Declaraciones', 'admin_people_person_declarations' %></li>
+    <li><%= link_to 'Blog', 'admin_people_person_blog' %></li>
+  </ul>
+</div>
+
+<div class="pure-g">
+
+  <div class="pure-u-1 pure-u-md-16-24">
+    
+    <form>
+      
+      <div class="form_item input_text">
+        <label for="name">Nombre</label>
+        <input type="text" id="name" value="Rafa García García">
+      </div>
+
+      <div class="form_item input_text">
+        <label for="entity">Cargo</label>
+        <input type="text" id="entity" value="Alcalde">
+      </div>
+
+      <div class="form_item textarea code">
+        <label for="entity">Biografía</label>
+        <textarea></textarea>
+      </div>
+
+
+      <div class="dyna_block">
+        <label>Contacto</label>
+        <table>
+        <tr>
+          <th>Red</th>
+          <th>Usuario</th>
+          <th>URL</th>
+          <th class="edit_cell"></th>
+        </tr>
+        <tr>
+          <td>Twitter</td>
+          <td>@esperanzzzita</td>
+          <td>twitter.com/esperantiza</td>
+          <td class="edit_cell">
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
+          </td>
+        </tr>
+        <tr>
+          <td>Facebook</td>
+          <td>EsperanzaAguirre
+          <td>facebook.com/esperantiza</td>
+          <td class="edit_cell">
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
+          </td>
+        </tr>
+        <tr>
+          <td>Telegram</td>
+          <td>@esperanzzzita</td>
+          <td>telegram.com/esperantiza</td>
+          <td class="edit_cell">
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
+          </td>
+        </tr>
+        <tr class="new_row_add">
+          <td colspan="4">
+            <%= link_to '', class: "open-new_row_content" do %>
+              <i class="fa fa-plus-circle"></i>
+              Añadir nuevo registro
+            <% end %>
+          </td>
+        </tr>
+        <tr class="new_row_content">
+          <td><input type="text" placeholder="Red"></td>
+          <td><input type="text" placeholder="Usuario"></td>
+          <td><input type="text" placeholder="URL"></td>
+          <td class="edit_cell">
+            <button>Añadir</button> 
+            <%= link_to '<i class="fa fa-trash"></i> Cancelar'.html_safe, '', class: 'close-new_row_content' %>
+          </td>
+        </tr>
+        </table>
+      </div>
+
+      <div class="dyna_block">
+        <label>Títulos</label>
+        <table>
+        <tr>
+          <th>Título</th>
+          <th>Centro</th>
+          <th>Fecha inicio</th>
+          <th>Fecha fin</th>
+          <th class="edit_cell"></th>
+        </tr>
+        <tr>
+          <td>Licenciada en Derecho</td>
+          <td>Universidad Complutense de Madrid</td>
+          <td>1969</td>
+          <td>1974</td>
+          <td class="edit_cell">
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
+          </td>
+        </tr>
+        
+        <tr class="new_row_add">
+          <td colspan="4">
+            <%= link_to '', class: "open-new_row_content" do %>
+              <i class="fa fa-plus-circle"></i>
+              Añadir nuevo registro
+            <% end %>
+          </td>
+        </tr>
+        <tr class="new_row_content">
+          <td colspan="4" class="">
+            <h4>Añadir nuevo registro</h4>
+            <input type="text" placeholder="Título">
+            <input type="text" placeholder="Centro">
+            <input type="text" placeholder="Fecha de inicio">
+            <input type="text" placeholder="Fecha de fin">
+            <button>Añadir</button> 
+            <%= link_to '<i class="fa fa-trash"></i> Cancelar'.html_safe, '', class: 'close-new_row_content' %>
+          </td>
+        </tr>
+        </table>
+      </div>
+
+      <div class="dyna_block">
+        <label>Carrera profesional</label>
+        <table>
+        <tr>
+          <th>Puesto</th>
+          <th>Organización</th>
+          <th>Desde</th>
+          <th>Hasta</th>
+          <th class="edit_cell"></th>
+        </tr>
+        <tr>
+          <td>Jefa de Sección de Publicidad de Turismo</td>
+          <td>Secretaria de Turismo, Ministro de Industria</td>
+          <td>1976</td>
+          <td>1982</td>
+          <td class="edit_cell">
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
+          </td>
+        </tr>
+        <tr>
+          <td>Jefa de Sección de Publicidad de Turismo</td>
+          <td>Secretaria de Turismo, Ministro de Industria</td>
+          <td>1982</td>
+          <td>1983</td>
+          <td class="edit_cell">
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
+          </td>
+        </tr>
+        <tr>
+          <td>Jefa Gabinete Director General del Libro y Cinematografía</td>
+          <td>Ministerio de Cultura</td>
+          <td>1983</td>
+          <td>1984</td>
+          <td class="edit_cell">
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
+          </td>
+        </tr>
+        <tr>
+          <td>Subdirectora General de Fundaciones e Instituciones Culturales</td>
+          <td>Ministerio de Cultura</td>
+          <td>1976</td>
+          <td>1982</td>
+          <td class="edit_cell">
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
+          </td>
+        </tr>
+        <tr>
+          <td>Concejal Oposición Unión Liberal Coalición AP-PDP-UL</td>
+          <td>Ayuntamiento de Madrid</td>
+          <td>1976</td>
+          <td>1982</td>
+          <td class="edit_cell">
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
+          </td>
+        </tr>
+        <tr>
+          <td>Concejal-Delegada Medio Ambiente</td>
+          <td>Ayuntamiento de Madrid</td>
+          <td>1976</td>
+          <td>1982</td>
+          <td class="edit_cell">
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
+          </td>
+        </tr>
+        <tr>
+          <td>Tercer Teniente de Alcade</td>
+          <td>Ayuntamiento de Madrid</td>
+          <td>1976</td>
+          <td>1982</td>
+          <td class="edit_cell">
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
+          </td>
+        </tr>
+        <tr>
+          <td>Presidenta Consejo Asesor</td>
+          <td>Ayuntamiento de Madrid</td>
+          <td>1976</td>
+          <td>1982</td>
+          <td class="edit_cell">
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
+          </td>
+        </tr>
+        <tr>
+          <td>Conferenciante</td>
+          <td>Thinking Heads</td>
+          <td>1976</td>
+          <td>1982</td>
+          <td class="edit_cell">
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
+          </td>
+        </tr>
+
+        <tr class="new_row_add">
+          <td colspan="4">
+            <%= link_to '', class: "open-new_row_content" do %>
+              <i class="fa fa-plus-circle"></i>
+              Añadir nuevo registro
+            <% end %>
+          </td>
+        </tr>
+        <tr class="new_row_content">
+          <td colspan="4" class="">
+            <h4>Añadir nuevo registro</h4>
+            <input type="text" placeholder="Título">
+            <input type="text" placeholder="Centro">
+            <input type="text" placeholder="Fecha de inicio">
+            <input type="text" placeholder="Fecha de fin">
+            <button>Añadir</button> 
+            <%= link_to '<i class="fa fa-trash"></i> Cancelar'.html_safe, '', class: 'close-new_row_content' %>
+          </td>
+        </tr>
+        </table>
+      </div>
+
+      
+
+
+      <div class="form_block">
+
+        <h2>Módulos activados para este sitio</h2>
+
+        <div class="form_item">
+          
+          <div class="options compact">
+
+            <div class="option">
+              <input type="hidden" name="permission_1" value="0"/>
+              <input type="checkbox" id="permission_1" name="permission_1" value="1"/>
+              <label for="permission_1">
+                <span></span>
+                Visualización presupuestos
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="hidden" name="permission_1" value="0"/>
+              <input type="checkbox" id="permission_2" name="permission_1" value="1"/>
+              <label for="permission_2">
+                <span></span>
+                Consultas presupuestos
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="hidden" name="permissions" value="0"/>
+              <input type="checkbox" id="permission_3" name="permission_1" value="1"/>
+              <label for="permission_3">
+                <span></span>
+                Inteligencia
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="hidden" name="permissions" value="0"/>
+              <input type="checkbox" id="permission_4" name="permission_1" value="1"/>
+              <label for="permission_4">
+                <span></span>
+                Personas
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="hidden" name="permissions" value="0"/>
+              <input type="checkbox" id="permission_5" name="permission_1" value="1"/>
+              <label for="permission_5">
+                <span></span>
+                Tu entidad en cifras
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="hidden" name="permissions" value="0"/>
+              <input type="checkbox" id="permission_6" name="permission_1" value="1"/>
+              <label for="permission_6">
+                <span></span>
+                Consultas presupuestos
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="hidden" name="permissions" value="0"/>
+              <input type="checkbox" id="permission_7" name="permission_1" value="1"/>
+              <label for="permission_7">
+                <span></span>
+                Cuadro de mando
+              </label>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </form>
+
+
+  </div>
+
+  <div class="pure-u-1 pure-u-md-2-24"></div>
+
+  <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
+    
+    <%= render partial: "admin_widget_save", locals: { password_protected: true }  %>
+
+    <div class="proto_note">
+      <p>Opciones:</p>
+      <p>- Protegido</p>
+      <p>- Público</p>
+
+    </div>
+
+  </div>
+
+</div>

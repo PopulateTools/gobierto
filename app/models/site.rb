@@ -1,6 +1,6 @@
 class Site < ApplicationRecord
 
-  RESERVED_SUBDOMAINS = %W(presupuestos)
+  RESERVED_SUBDOMAINS = %W(presupuestos hosted)
 
   # GobiertoAdmin integrations
   has_many :admin_sites, dependent: :destroy, class_name: "GobiertoAdmin::AdminSite"
@@ -30,10 +30,10 @@ class Site < ApplicationRecord
 
   enum visibility_level: { draft: 0, active: 1 }
 
-  def self.reserved_domain?(domain)
-    RESERVED_SUBDOMAINS.map do |subdomain|
-      "#{subdomain}." + Settings.gobierto_host
-    end.any?{ |reserved_domain| domain == reserved_domain }
+  def self.find_by_allowed_domain(domain)
+    unless reserved_domains.include?(domain)
+      find_by(domain: domain)
+    end
   end
 
   def subdomain
@@ -55,6 +55,13 @@ class Site < ApplicationRecord
   end
 
   private
+
+  def self.reserved_domains
+    @reserved_domains ||= RESERVED_SUBDOMAINS.map do |subdomain|
+      "#{subdomain}." + Settings.gobierto_host
+    end
+  end
+  private_class_method :reserved_domains
 
   def store_configuration
     self.configuration_data = self.configuration.instance_values

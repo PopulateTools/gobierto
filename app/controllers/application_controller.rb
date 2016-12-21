@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_site
-    request.env['gobierto_site'] unless Site.reserved_domain?(domain)
+    request.env['gobierto_site']
   end
 
   private
@@ -64,9 +64,5 @@ class ApplicationController < ActionController::Base
 
   def remote_ip
     request.env['action_dispatch.remote_ip'].try(:calculate_ip) || request.remote_ip
-  end
-
-  def domain
-    @domain ||= (request.env['HTTP_HOST'] || request.env['SERVER_NAME'] || request.env['SERVER_ADDR']).split(':').first
   end
 end

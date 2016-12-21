@@ -55,6 +55,7 @@ module GobiertoAdmin
       census_verified
       year_of_birth
       gender
+      notification_frequency
       )
     end
   end

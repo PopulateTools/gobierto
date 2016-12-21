@@ -3,7 +3,7 @@ en:
   user:
     notifications:
       index:
-        title: Your Alertas
+        title: Recent activity
         headers:
           created: Created
           subject: Subject

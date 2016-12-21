@@ -3,7 +3,7 @@ es:
   user:
     notifications:
       index:
-        title: Tus Alertas
+        title: Actividad reciente
         headers:
           created: Creado
           subject: Asunto

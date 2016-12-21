@@ -11,6 +11,16 @@ class User::NotificationFormTest < ActiveSupport::TestCase
     )
   end
 
+  def valid_delayed_user_notification_form
+    @valid_delayed_user_notification_form ||= User::NotificationForm.new(
+      user_id: delayed_notifications_user.id,
+      site_id: site.id,
+      action: action,
+      subject_type: subject.model_name.to_s,
+      subject_id: subject.id
+    )
+  end
+
   def invalid_user_notification_form
     @invalid_user_notification_form ||= User::NotificationForm.new(
       user_id: nil,
@@ -26,7 +36,11 @@ class User::NotificationFormTest < ActiveSupport::TestCase
   end
 
   def user
-    @user ||= users(:dennis)
+    @user ||= users(:susan)
+  end
+
+  def delayed_notifications_user
+    @delayed_notifications_user ||= users(:dennis)
   end
 
   def site
@@ -61,9 +75,15 @@ class User::NotificationFormTest < ActiveSupport::TestCase
     end
   end
 
-  def test_notification_email_delivery
+  def test_immediate_notification_email_delivery
     assert_difference "ActionMailer::Base.deliveries.size", 1 do
       valid_user_notification_form.save
+    end
+  end
+
+  def test_delayed_notification_email_delivery
+    assert_no_difference "ActionMailer::Base.deliveries.size" do
+      valid_delayed_user_notification_form.save
     end
   end
 end

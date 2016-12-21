@@ -181,6 +181,7 @@ option, select {
   textarea {
     box-sizing: border-box;
     height: 300px;
+    font-size: 1em;
   }
   input[type=password] {
     height: 67px;
@@ -208,7 +209,7 @@ option, select {
 .form_item.textarea.code {
   background: none;
   textarea {
-    font-size: .75em;
+    font-size: .85em;
   }
 }
 .form_item {

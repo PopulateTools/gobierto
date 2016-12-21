@@ -31,9 +31,15 @@
         <input type="text" id="entity" value="Alcalde">
       </div>
 
-      <div class="form_item textarea code">
+      <!-- warning, this is not code, do not add the code class to the .form_item -->
+      <div class="form_item textarea">
         <label for="entity">Biografía</label>
         <textarea></textarea>
+      </div>
+
+      <div class="form_item file_field">
+        <label for="site_logo_file">Adjuntar fichero (PDF)</label>
+        <input type="file" name="site[logo_file]" id="site_logo_file">
       </div>
 
 
@@ -349,13 +355,6 @@
   <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
     
     <%= render partial: "admin_widget_save", locals: { password_protected: true }  %>
-
-    <div class="proto_note">
-      <p>Opciones:</p>
-      <p>- Protegido</p>
-      <p>- Público</p>
-
-    </div>
 
   </div>
 

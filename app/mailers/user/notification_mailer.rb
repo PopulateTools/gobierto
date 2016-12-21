@@ -19,7 +19,7 @@ class User::NotificationMailer < ApplicationMailer
     )
   end
 
-  def notification_digest(user, user_notifications, periodicity)
+  def notification_digest(user, user_notifications, frequency)
     @user = user
     @user_notifications = user_notifications
 
@@ -27,7 +27,7 @@ class User::NotificationMailer < ApplicationMailer
       from: default_from,
       reply_to: default_reply_to,
       to: @user.email,
-      subject: default_i18n_subject(periodicity: periodicity)
+      subject: default_i18n_subject(frequency: frequency)
     )
   end
 end

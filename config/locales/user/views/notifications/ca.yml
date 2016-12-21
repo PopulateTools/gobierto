@@ -1,0 +1,9 @@
+---
+ca:
+  user:
+    notifications:
+      index:
+        title: Activitat recent
+        headers:
+          created: Creat
+          subject: Asumpte

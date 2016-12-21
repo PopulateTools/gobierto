@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :verifications, class_name: "User::Verification", dependent: :destroy
   has_many :census_verifications, class_name: "User::Verification::CensusVerification"
   has_many :subscriptions, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   validates :email, uniqueness: true
 
@@ -19,4 +20,7 @@ class User < ApplicationRecord
   scope :by_source_site, ->(source_site) { where(source_site: source_site) }
 
   enum gender: { male: 0, female: 1 }
+  enum notification_frequency: {
+    disabled: 0, immediate: 1, hourly: 2, daily: 3, weekly: 4
+  }, _suffix: :notifications
 end

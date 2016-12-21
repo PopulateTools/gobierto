@@ -36,14 +36,13 @@
 
       <div class="column pure-g">
         <div class="desktop_only">
-          <% if @site.configuration.links_markup.present? %>
-            <div class="pure-u-md-1-2">
-              <ul>
-                <%= raw @site.configuration.links_markup %>
-              </ul>
-            </div>
-          <% end %>
-
+          
+          <div class="pure-u-md-1-2">
+            <% if @site.configuration.links_markup.present? %>
+              <%= raw @site.configuration.links_markup %>
+            <% end %>
+          </div>
+          
           <div class="pure-u-md-1-2 right">
 
             <div class="user_links">
@@ -58,19 +57,19 @@
                       </a>
                       <ul class="pure-menu-children">
                         <li class="pure-menu-item">
-                          <%= link_to user_root_path, class: "pure-menu-link" do %>
+                          <%= link_to user_notifications_path, class: "pure-menu-link" do %>
                             <i class="fa fa-th"></i>
                             <%= t(".session.profile") %>
                           <% end %>
                         </li>
                         <li class="pure-menu-item">
-                          <%= link_to "#", class: "pure-menu-link" do %>
+                          <%= link_to user_subscriptions_path, class: "pure-menu-link" do %>
                             <i class="fa fa-envelope-o"></i>
                             <%= t(".session.alerts") %>
                           <% end %>
                         </li>
                         <li class="pure-menu-item">
-                          <%= link_to user_subscriptions_path, class: "pure-menu-link" do %>
+                          <%= link_to user_settings_path, class: "pure-menu-link" do %>
                             <i class="fa fa-ship"></i>
                             <%= t(".session.admin") %>
                           <% end %>
@@ -118,7 +117,7 @@
       <% if @site.configuration.logo %>
         <div class="column">
           <div class="logo">
-            <%= image_tag @site.configuration.logo %>
+            <%= link_to (image_tag @site.configuration.logo), root_url %>
           </div>
         </div>
       <% end %>

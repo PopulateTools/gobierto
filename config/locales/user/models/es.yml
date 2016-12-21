@@ -9,6 +9,7 @@ es:
       user/confirmation_form: Confirmación
       user/confirmation_request_form: Solicitud de confirmación
       user/subscription_form: Suscripción
+      user/settings_form: Ajustes
     attributes:
       user/session_form:
         email: Tu Correo-e
@@ -33,3 +34,5 @@ es:
         user: Usuario
         user_email: Correo-e
         subscribable: Recurso
+      user/settings_form:
+        notification_frequency: Frecuencia de notificaciones

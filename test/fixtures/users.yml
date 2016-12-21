@@ -12,6 +12,7 @@ dennis:
   census_verified: true
   year_of_birth: 1990
   gender: <%= User.genders["female"] %>
+  notification_frequency: <%= User.notification_frequencies["immediate"] %>
 
 reed:
   email: reed@gobierto.dev
@@ -27,6 +28,7 @@ reed:
   census_verified: false
   year_of_birth: 1980
   gender: <%= User.genders["male"] %>
+  notification_frequency: <%= User.notification_frequencies["disabled"] %>
 
 susan:
   email: susan@gobierto.dev
@@ -42,3 +44,4 @@ susan:
   census_verified: false
   year_of_birth: 1970
   gender: <%= User.genders["female"] %>
+  notification_frequency: <%= User.notification_frequencies["weekly"] %>

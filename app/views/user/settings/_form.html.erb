@@ -1,0 +1,31 @@
+<%= render "user/shared/validation_errors", resource: @user_settings_form %>
+
+<%= form_for(@user_settings_form, as: :user_settings, url: :user_settings, method: :patch) do |f| %>
+
+  <div class="form_item">
+
+    <div class="options options_cont">
+
+      <%= f.label :notification_frequency %>
+
+      <div class="pure-g">
+        <%= f.collection_radio_buttons(:notification_frequency, @user_notification_frequencies, :first, :first) do |b| %>
+          <div class="pure-u-md-1-2">
+            <div class="option ">
+              <%= b.radio_button %>
+              <%= b.label do %>
+                <span></span>
+                <%= t(".notification_frequency.#{b.text}") %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+
+  </div>
+
+  <%= f.submit t(".submit"), class: "button" %>
+
+<% end %>

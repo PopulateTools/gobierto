@@ -1,0 +1,9 @@
+---
+es:
+  user:
+    notifications:
+      index:
+        title: Actividad reciente
+        headers:
+          created: Creado
+          subject: Asunto

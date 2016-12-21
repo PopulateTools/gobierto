@@ -1,8 +1,15 @@
 require "test_helper"
+require "support/extensions/gobierto_common/trackable_test"
 
 module GobiertoAdmin
   module GobiertoBudgetConsultations
     class ConsultationFormTest < ActiveSupport::TestCase
+      include GobiertoCommon::TrackableTest
+
+      def subject_class
+        ConsultationForm
+      end
+
       def valid_consultation_form
         @valid_consultation_form ||= ConsultationForm.new(
           admin_id: admin.id,
@@ -10,9 +17,11 @@ module GobiertoAdmin
           title: consultation.title,
           description: consultation.description,
           opens_on: consultation.opens_on,
-          closes_on: consultation.closes_on
+          closes_on: consultation.closes_on,
+          visibility_level: consultation.visibility_level
         )
       end
+      alias trackable valid_consultation_form
 
       def valid_consultation_with_opening_date_range_form
         @valid_consultation_with_opening_date_range_form ||= ConsultationForm.new(

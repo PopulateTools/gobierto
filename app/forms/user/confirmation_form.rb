@@ -53,6 +53,7 @@ class User::ConfirmationForm
   def confirm_user
     user.confirm!
     deliver_welcome_email
+    enable_notifications
   end
 
   protected
@@ -65,5 +66,9 @@ class User::ConfirmationForm
 
   def deliver_welcome_email
     User::UserMailer.welcome(user, user.source_site).deliver_later
+  end
+
+  def enable_notifications
+    user.immediate_notifications!
   end
 end

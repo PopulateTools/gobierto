@@ -1,0 +1,9 @@
+---
+en:
+  user:
+    notifications:
+      index:
+        title: Recent activity
+        headers:
+          created: Created
+          subject: Subject

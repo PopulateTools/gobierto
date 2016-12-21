@@ -9,6 +9,7 @@ class Site < ApplicationRecord
 
   # User integrations
   has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"
+  has_many :notifications, dependent: :destroy, class_name: "User::Notification"
 
   # GobiertoBudgetConsultations integration
   has_many :budget_consultations, dependent: :destroy, class_name: "GobiertoBudgetConsultations::Consultation"

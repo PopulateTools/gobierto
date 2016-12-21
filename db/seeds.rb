@@ -4,6 +4,7 @@ fixtures_to_load = [
   "gobierto_admin/admins",
   "user/verification/census_verifications",
   "user/subscriptions",
+  "user/notifications",
   "gobierto_budget_consultations/consultations",
   "gobierto_budget_consultations/consultation_items",
   "gobierto_budget_consultations/consultation_responses"

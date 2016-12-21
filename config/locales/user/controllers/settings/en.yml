@@ -1,0 +1,7 @@
+---
+en:
+  user:
+    settings:
+      update:
+        success: Settings saved successfully
+        error: There was a problem when saving your settings

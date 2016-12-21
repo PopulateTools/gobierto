@@ -52,6 +52,13 @@ class User::ConfirmationFormTest < ActiveSupport::TestCase
     assert unconfirmed_user.reload.confirmed?
   end
 
+  def test_user_notifications_set_up
+    assert unconfirmed_user.disabled_notifications?
+
+    valid_user_confirmation_form.save
+    assert unconfirmed_user.reload.immediate_notifications?
+  end
+
   def test_welcome_email_delivery
     assert_difference "ActionMailer::Base.deliveries.size", 1 do
       valid_user_confirmation_form.save

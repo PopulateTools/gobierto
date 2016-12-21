@@ -112,7 +112,9 @@ menu.main {
 			// background: transparentize($color_logo_yellow, .7);
 		}
 	}
-
+}
+.language_selector {
+	text-transform: uppercase;
 }
 .collapse_menu {
 	font-size: .85em;

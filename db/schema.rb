@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216132408) do
+ActiveRecord::Schema.define(version: 20161221062928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,6 +158,21 @@ ActiveRecord::Schema.define(version: 20161216132408) do
     t.integer  "municipality_id"
   end
 
+  create_table "user_notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "site_id"
+    t.string   "action"
+    t.string   "subject_type"
+    t.integer  "subject_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["site_id"], name: "index_user_notifications_on_site_id", using: :btree
+    t.index ["subject_type", "subject_id", "site_id", "user_id"], name: "index_user_notifications_on_subject_and_site_id_and_user_id", using: :btree
+    t.index ["subject_type", "subject_id", "site_id"], name: "index_user_notifications_on_subject_and_site_id", using: :btree
+    t.index ["user_id", "site_id"], name: "index_user_notifications_on_user_id_and_site_id", using: :btree
+    t.index ["user_id"], name: "index_user_notifications_on_user_id", using: :btree
+  end
+
   create_table "user_subscriptions", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "site_id"
@@ -188,7 +203,7 @@ ActiveRecord::Schema.define(version: 20161216132408) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                                null: false
+    t.string   "email",                                  null: false
     t.string   "name"
     t.string   "bio"
     t.string   "password_digest"
@@ -197,14 +212,16 @@ ActiveRecord::Schema.define(version: 20161216132408) do
     t.inet     "creation_ip"
     t.datetime "last_sign_in_at"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "source_site_id"
-    t.boolean  "census_verified",      default: false, null: false
+    t.boolean  "census_verified",        default: false, null: false
     t.integer  "year_of_birth"
     t.integer  "gender"
+    t.integer  "notification_frequency", default: 0,     null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["notification_frequency"], name: "index_users_on_notification_frequency", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["source_site_id"], name: "index_users_on_source_site_id", using: :btree
   end

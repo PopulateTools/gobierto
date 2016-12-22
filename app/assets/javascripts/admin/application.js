@@ -24,6 +24,13 @@ $(document).on('turbolinks:load', function() {
     $('[data-tab="' + target + '"]').addClass('active');
   });
 
+  // Triangle indication
+  $('.sub_filter li').on('click', function(e){
+    e.preventDefault();
+    $(this).siblings().removeClass('active');
+    $(this).addClass('active');
+  });
+
   // Modals
   $('.open_modal').magnificPopup({
     type: 'inline',

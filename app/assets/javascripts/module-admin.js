@@ -37,6 +37,6 @@ $(document).on('turbolinks:load', function() {
 
   $(".stick_in_parent, #stick_in_parent, stick_in_parent").stick_in_parent();
 
-
+  
 
 });

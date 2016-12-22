@@ -4,6 +4,7 @@ es:
     notifications:
       index:
         title: Actividad reciente
+        no_new_notifications: No hay notificaciones nuevas
         headers:
           created: Creado
           subject: Asunto

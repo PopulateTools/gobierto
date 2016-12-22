@@ -13,13 +13,19 @@ module User::NotificationsHelper
         concat(
           link_to(
             user_notification.subject.subscribable_label,
-            polymorphic_url(
-              user_notification.subject,
-              domain: (user_notification.site.domain if absolute_url)
-            )
+            notification_subject_url(user_notification, absolute_url)
           )
         )
       end
     end
+  end
+
+  def notification_subject_url(user_notification, absolute_url = false)
+    return url_for(user_notification.subject) unless absolute_url
+
+    polymorphic_url(
+      user_notification.subject,
+      domain: (user_notification.site.domain if absolute_url)
+    )
   end
 end

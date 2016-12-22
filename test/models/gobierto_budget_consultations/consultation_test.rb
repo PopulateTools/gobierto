@@ -54,6 +54,30 @@ module GobiertoBudgetConsultations
       refute_includes subject, past_consultation
     end
 
+    def test_opening_today_scope
+      consultation.update_columns(opens_on: Date.today)
+      subject = Consultation.opening_today
+
+      assert_includes subject, consultation
+      refute_includes subject, past_consultation
+    end
+
+    def test_closing_today_scope
+      consultation.update_columns(closes_on: Date.today)
+      subject = Consultation.closing_today
+
+      assert_includes subject, consultation
+      refute_includes subject, past_consultation
+    end
+
+    def test_about_to_close_scope
+      consultation.update_columns(closes_on: 2.days.from_now.to_date)
+      subject = Consultation.about_to_close
+
+      assert_includes subject, consultation
+      refute_includes subject, past_consultation
+    end
+
     def test_open?
       assert consultation.open?
       refute past_consultation.open?

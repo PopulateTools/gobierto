@@ -1,5 +1,5 @@
 /*
- * Tabs
+ * Tabs and filters
  *
  */
 .tab {
@@ -37,4 +37,27 @@
 			}
 		}
 	}
+}
+
+.sub_filter {
+	font-size: .85em;
+}
+
+.triangle {
+	position: relative;
+}
+.triangle:after {
+	top: 140%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: white;
+	border-top-color: $color_main;
+	border-width: 10px;
+	margin-left: -10px;
+	@include border-radius(2px);
 }

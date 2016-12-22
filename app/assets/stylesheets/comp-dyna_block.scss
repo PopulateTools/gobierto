@@ -2,88 +2,110 @@
  * Dynamic Content Blocks
  *
  */
-.dyna_block {
-  margin: 0 0 1em 0;
-	border: 1px solid $color_separator;
-	@include border-radius(6px);
-  line-height: 1.2em;
+body.gobierto_admin {
+  .dyna_block {
+    margin: 0 0 1em 0;
+    border: 1px solid $color_separator;
+    @include border-radius(6px);
+    overflow-x: auto;
+    line-height: 1.2em;
 
-	label {
-    padding: .5em 1.25em;
-    display: block;
-    text-transform: uppercase;
-    font-size: .75em;
-    font-weight: 700;
-  }
-  .new_row_add {
-  	td {
-  		border-top: 1px solid $color_separator;
-  		a {
-  			display: block;
-  		}
-  	}
-  }
-  .new_row_content {
-    display: none;
-    td {
-      background: transparentize($color_main, .95); 
-      padding: .7em .5em .4em;
-
-    }
-    .edit_cell {
+    label {
+      padding: .5em 1.25em;
       display: block;
-      margin-left: 1px;
-      padding-bottom: .4em;
-      a:hover {
-        background: initial;
+      text-transform: uppercase;
+      font-size: .75em;
+      font-weight: 700;
+    }
+    label + .dyna_block_description {
+      margin: -.5em 0 .5em 1.25em;
+      display: block;
+      font-size: .75em;
+      opacity: .5;
+    }
+    .new_row_add {
+      td {
+        border-top: 1px solid $color_separator;
+        a {
+          display: block;
+        }
       }
     }
-    input[type=text] {
-      width: 100%;
-      padding: .5em;
-      margin: 0 0 .5em 0;
-      height: initial;
-      @include border-radius(3px);
+    .new_row_content {
+      display: none;
+      td {
+        background: transparentize($color_main, .95); 
+        padding: .7em .5em .4em;
+
+      }
+      .edit_cell {
+        display: block;
+        margin-left: 1px;
+        padding-bottom: .4em;
+        a:hover {
+          background: initial;
+        }
+      }
+      input[type=text] {
+        width: 100%;
+        padding: .5em;
+        margin: 0 0 .5em 0;
+        height: initial;
+        @include border-radius(3px);
+      }
+      h4 {
+        margin: .5em 0 1em 0;
+      }
+      button, input[type=submit] {
+        padding: .5em .75em;
+        height: initial;
+        margin: .7em 1em .7em 0;
+        line-height: 1.4em;
+        @include border-radius(3px);
+      }
     }
-    h4 {
-      margin: .5em 0 1em 0;
+    .new_row_content:hover {
+      .edit_cell {
+        display: block;
+      }
     }
-    button, input[type=submit] {
-      padding: .5em .75em;
-      height: initial;
-      margin: .7em 1em .7em 0;
-      line-height: 1.4em;
-      @include border-radius(3px);
-    }
-  }
-  .new_row_content:hover {
     .edit_cell {
-      display: block;
+      display: none;
+      position: absolute;
+      margin-left: 1px;
+      padding: 0;
+      a {
+        display: inline-block;
+        padding: .5em .75em .5em 1em;
+      }
+      a:hover {
+        background: transparentize($color_main, .9);
+      }
     }
+    tr {
+      position: relative;
+      @include transition();
+    }
+    tr:hover {
+      td.edit_cell {
+        display: block;
+      }
+    }
+    th:first-child, td:first-child {
+      padding-left: 1.25em;
+    }
+    th {
+      font-size: .75em;
+      line-height: 1.3em;
+    }
+    table {
+      td, th {
+        padding: .4em .5em .45em;
+      }  
+    }    
   }
-  .edit_cell {
-  	display: none;
-  	position: absolute;
-  	margin-left: 1px;
-  	padding: 0;
-  	a {
-  		display: inline-block;
-  		padding: .5em .75em .5em 1em;
-  	}
-  	a:hover {
-  		background: transparentize($color_main, .9);
-  	}
-  }
-  tr {
-  	position: relative;
-  	@include transition();
-  }
-  tr:hover {
-  	td.edit_cell {
-  		display: block;
-  	}
-  }
-  th:first-child, td:first-child {
-  	padding-left: 1.25em;
+  .warn, a.warn {
+    color: $color_warn;
+    font-weight: 600;
   }
 }

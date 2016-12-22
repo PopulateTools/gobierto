@@ -1,0 +1,169 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Personas', 'admin_people' %> »
+  <%= link_to 'Rafa García García', 'admin_people_person' %> »
+  <%= link_to 'Declaraciones', 'admin_people_person_declarations' %> »
+  Declaración de bienes 2016
+</div>
+
+<h1>Rafa García García</h1>
+
+<div class="tabs">
+  <ul>
+    <li><%= link_to 'Persona', 'admin_people_person' %></li>
+    <li><%= link_to 'Agenda', 'admin_people_person_agenda' %></li>
+    <li class="active"><%= link_to 'Declaraciones', 'admin_people_person_declarations' %></li>
+    <li><%= link_to 'Blog', 'admin_people_person_blog' %></li>
+  </ul>
+</div>
+
+<div class="pure-g">
+
+  <div class="pure-u-1 pure-u-md-16-24">
+    
+    <form>
+      
+      <div class="dyna_block">
+        <label>Patrimonio inmobiliario</label>
+        <table>
+        <tr>
+          <th>Clase</th>
+          <th>Tipo de derecho</th>
+          <th>Título de adquisición</th>
+          <th>Municipio</th>
+          <th>Participación %</th>
+          <th>Valor catastral €</th>
+          <th>Fecha adquisición</th>
+          <th>Observaciones</th>
+          <th class="edit_cell"></th>
+        </tr>
+        <tr>
+          <td>Urbano</td>
+          <td></td>
+          <td></td>
+          <td>Madrid</td>
+          <td>50%</td>
+          <td>119.159,00€</td>
+          <td>9 nov 1993</td>
+          <td></td>
+          <td class="edit_cell">
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
+          </td>
+        </tr>
+        <tr>
+          <td>Urbano</td>
+          <td></td>
+          <td></td>
+          <td>Cubells, Lleida</td>
+          <td>50%</td>
+          <td>23.000€</td>
+          <td>9 nov 1993</td>
+          <td></td>
+          <td class="edit_cell">
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
+          </td>
+        </tr>
+
+        <tr class="new_row_add">
+          <td colspan="9">
+            <%= link_to '', class: "open-new_row_content" do %>
+              <i class="fa fa-plus-circle"></i>
+              Añadir nuevo registro
+            <% end %>
+          </td>
+        </tr>
+        <tr class="new_row_content">
+          <td colspan="9" class="">
+            <h4>Añadir nuevo registro</h4>
+            <input type="text" placeholder="Clase">
+            <input type="text" placeholder="Tipo de derecho">
+            <input type="text" placeholder="Título de adquisición">
+            <input type="text" placeholder="Municipio">
+            <input type="text" placeholder="Participación %">
+            <input type="text" placeholder="Valor catastral %">
+            <input type="text" placeholder="Fecha adquisición">
+            <input type="text" placeholder="Observaciones">
+            <button>Añadir</button> 
+            <%= link_to '<i class="fa fa-trash"></i> Cancelar'.html_safe, '', class: 'close-new_row_content' %>
+          </td>
+        </tr>
+        </table>
+      </div>
+
+
+      <div class="dyna_block">
+        <label>Activos</label>
+        <div class="dyna_block_description">
+          Depósitos en cuenta corriente, de ahorro, y otros tipos de imposiciones en cuenta
+        </div>
+        <table>
+        <tr>
+          <th>Clase</th>
+          <th>Entidad</th>
+          <th>Saldo medio anual o valor en €</th>
+          <th class="edit_cell"></th>
+        </tr>
+        <tr>
+          <td>Cuenta naranja</td>
+          <td>ING</td>
+          <td>119.159,00€</td>
+          <td class="edit_cell">
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
+          </td>
+        </tr>
+        <tr>
+          <td>Cuenta nómina</td>
+          <td>ING</td>
+          <td>23.000€</td>
+          <td class="edit_cell">
+            <%= link_to '<i class="fa fa-edit"></i>'.html_safe %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
+          </td>
+        </tr>
+        
+
+        <tr class="new_row_add">
+          <td colspan="9">
+            <%= link_to '', class: "open-new_row_content" do %>
+              <i class="fa fa-plus-circle"></i>
+              Añadir nuevo registro
+            <% end %>
+          </td>
+        </tr>
+        <tr class="new_row_content">
+          <td colspan="9" class="">
+            <h4>Añadir nuevo registro</h4>
+            <input type="text" placeholder="Clase">
+            <input type="text" placeholder="Entidad">
+            <input type="text" placeholder="Saldo medio anual o valor en €">
+            <button>Añadir</button> 
+            <%= link_to '<i class="fa fa-trash"></i> Cancelar'.html_safe, '', class: 'close-new_row_content' %>
+          </td>
+        </tr>
+        </table>
+      </div>
+
+      <div class="form_item file_field">
+        <label for="site_logo_file">Adjuntar declaraciónes en PDF</label>
+        <input type="file" name="site[logo_file]" id="site_logo_file">
+      </div>
+
+
+      
+    </form>
+
+
+  </div>
+
+  <div class="pure-u-1 pure-u-md-2-24"></div>
+
+  <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
+    
+    <%= render partial: "admin_widget_save", locals: { password_protected: true }  %>
+
+  </div>
+
+</div>

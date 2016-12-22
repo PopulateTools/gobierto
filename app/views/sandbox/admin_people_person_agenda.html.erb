@@ -1,0 +1,73 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Personas', 'admin_people' %> »
+  <%= link_to 'Rafa García García', 'admin_people_person' %> »
+  Agenda
+</div>
+
+<h1>Rafa García García</h1>
+
+<div class="tabs">
+  <ul>
+    <li><%= link_to 'Persona', 'admin_people_person' %></li>
+    <li class="active"><%= link_to 'Agenda', 'admin_people_person_agenda' %></li>
+    <li><%= link_to 'Declaraciones', 'admin_people_person_declarations' %></li>
+    <li><%= link_to 'Blog', 'admin_people_person_blog' %></li>
+  </ul>
+</div>
+
+<div class="pure-g">
+  
+  <div class="pure-u-1 pure-u-md-3-5 sub_filter">
+    <span><%= link_to 'Pendientes de moderar', '', class: 'warn active triangle' %> (1)</span> |
+    <span><%= link_to 'Eventos publicados' %> (12)</span> |
+    <span><%= link_to 'Eventos pasados' %> (123)</span>
+  </div>
+
+  <div class="pure-u-1 pure-u-md-2-5">
+    <div class="admin_tools right">
+      <%= link_to '<i class="fa fa-cog"></i> Configuración'.html_safe, '' %>
+      <button class="btn">Nuevo evento</button>
+    </div>
+  </div>
+
+</div>
+
+<table>
+<tr>
+  <th></th>
+  <th>Evento</th>
+  <th>Fecha</th>
+  <th>Lugar</th>
+  <th></th>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_people_person_agenda_event' %></td>
+  <td><%= link_to 'Reunión del Alcalde con la Asociación de Vecinos MAS Burjassot', 'admin_people_person_agenda_event' %></td>
+  <td>12 oct 2016</td>
+  <td>Salón de Plenos, Ayuntamiento de Burjassot</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver evento'.html_safe, '#FRONT_PERSON_EVENT', class: 'view_item' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_people_person_agenda_event' %></td>
+  <td><%= link_to 'Reunión del Alcalde con la Asociación de Vecinos MAS Burjassot', 'admin_people_person_agenda_event' %></td>
+  <td>12 oct 2016</td>
+  <td>Salón de Plenos, Ayuntamiento de Burjassot</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver evento'.html_safe, '#FRONT_PERSON_EVENT', class: 'view_item' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_people_person_agenda_event' %></td>
+  <td><%= link_to 'Reunión del Alcalde con la Asociación de Vecinos MAS Burjassot', 'admin_people_person_agenda_event' %></td>
+  <td>12 oct 2016</td>
+  <td>Salón de Plenos, Ayuntamiento de Burjassot</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver evento'.html_safe, '#FRONT_PERSON_EVENT', class: 'view_item' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_people_person_agenda_event' %></td>
+  <td><%= link_to 'Reunión del Alcalde con la Asociación de Vecinos MAS Burjassot', 'admin_people_person_agenda_event' %></td>
+  <td>12 oct 2016</td>
+  <td>Salón de Plenos, Ayuntamiento de Burjassot</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver evento'.html_safe, '#FRONT_PERSON_EVENT', class: 'view_item' %></td>
+</tr>
+
+</table>

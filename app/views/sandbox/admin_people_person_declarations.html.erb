@@ -1,0 +1,56 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Personas', 'admin_people' %> »
+  <%= link_to 'Rafa García García', 'admin_people_person' %> »
+  Declaraciones
+</div>
+
+<h1>Rafa García García</h1>
+
+<div class="tabs">
+  <ul>
+    <li class="active"><%= link_to 'Persona', '' %></li>
+    <li><%= link_to 'Agenda', 'admin_people_person_agenda' %></li>
+    <li><%= link_to 'Declaraciones', 'admin_people_person_declarations' %></li>
+    <li><%= link_to 'Blog', 'admin_people_person_blog' %></li>
+  </ul>
+</div>
+
+<div class="admin_tools right">
+  <!--<%= link_to '<i class="fa fa-cog"></i> Configuración'.html_safe, '' %>-->
+  <button class="btn">Nueva</button>
+</div>
+
+<table>
+<tr>
+  <th></th>
+  <th>Declaración</th>
+  <th>Fecha</th>
+  <th></th>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_people_person_declarations_declaration' %></td>
+  <td><%= link_to 'Declaración de Bienes y Actividades 2016', 'admin_people_person_declarations_declaration' %></td>
+  <td>12 oct 2016</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver declaración'.html_safe, '#FRONT_PERSON_PROFILE', class: 'view_item' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_people_person_declarations_declaration' %></td>
+  <td><%= link_to 'Declaración de Bienes y Actividades 2016', 'admin_people_person_declarations_declaration' %></td>
+  <td>12 oct 2016</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver declaración'.html_safe, '#FRONT_PERSON_PROFILE', class: 'view_item' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_people_person_declarations_declaration' %></td>
+  <td><%= link_to 'Declaración de Bienes y Actividades 2016', 'admin_people_person_declarations_declaration' %></td>
+  <td>12 oct 2016</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver declaración'.html_safe, '#FRONT_PERSON_PROFILE', class: 'view_item' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_people_person_declarations_declaration' %></td>
+  <td><%= link_to 'Declaración de Bienes y Actividades 2016', 'admin_people_person_declarations_declaration' %></td>
+  <td>12 oct 2016</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver declaración'.html_safe, '#FRONT_PERSON_PROFILE', class: 'view_item' %></td>
+</tr>
+
+</table>

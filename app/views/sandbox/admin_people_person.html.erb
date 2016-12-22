@@ -21,6 +21,12 @@
     
     <form>
       
+      <div class="form_item file_field">
+        <img src="https://pbs.twimg.com/profile_images/305246290/Foto_2_400x400.jpg" width="150" height="150">
+        <label for="site_logo_file">Avatar del usuario (fichero de 500x500)</label>
+        <input type="file" name="site[logo_file]" id="site_logo_file">
+      </div>
+
       <div class="form_item input_text">
         <label for="name">Nombre</label>
         <input type="text" id="name" value="Rafa García García">
@@ -88,10 +94,11 @@
           </td>
         </tr>
         <tr class="new_row_content">
-          <td><input type="text" placeholder="Red"></td>
-          <td><input type="text" placeholder="Usuario"></td>
-          <td><input type="text" placeholder="URL"></td>
-          <td class="edit_cell">
+          <td colspan="4" class="">
+            <h4>Añadir nuevo registro</h4>
+            <input type="text" placeholder="Red">
+            <input type="text" placeholder="Usuario">
+            <input type="text" placeholder="URL">
             <button>Añadir</button> 
             <%= link_to '<i class="fa fa-trash"></i> Cancelar'.html_safe, '', class: 'close-new_row_content' %>
           </td>

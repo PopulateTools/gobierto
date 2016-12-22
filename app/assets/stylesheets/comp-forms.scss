@@ -52,8 +52,13 @@ input[type=submit]:hover, .button:hover, button:hover {
   }
 }
 .file_field {
-  input {
-    padding-top: 2.2em;
+  border: 1px solid $color_separator;
+  @include border-radius(6px);
+  padding: 2.5em 1em 1em 1em;
+  input[type=file] {
+    padding: 0;
+    border: none;
+    height: initial;
   }
 }
 button a {

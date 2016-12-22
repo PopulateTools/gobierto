@@ -3,7 +3,7 @@ dennis_consultation_created:
   site: madrid
   action: created
   subject: madrid_open (GobiertoBudgetConsultations::Consultation)
-  sent: true
+  is_sent: true
   is_seen: true
 
 dennis_consultation_title_changed:
@@ -11,7 +11,7 @@ dennis_consultation_title_changed:
   site: madrid
   action: title_changed
   subject: madrid_open (GobiertoBudgetConsultations::Consultation)
-  sent: false
+  is_sent: false
   is_seen: false
 
 dennis_consultation_visibility_level_changed:
@@ -19,5 +19,5 @@ dennis_consultation_visibility_level_changed:
   site: madrid
   action: visibility_level_changed
   subject: madrid_open (GobiertoBudgetConsultations::Consultation)
-  sent: false
+  is_sent: false
   is_seen: false

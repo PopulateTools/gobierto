@@ -63,18 +63,23 @@ class User::NotificationTest < ActiveSupport::TestCase
     refute User::Notification.seen.any?
   end
 
-  def test_sent!
+  def test_sent?
+    assert sent_user_notification.sent?
     refute unsent_user_notification.sent?
+  end
+
+  def test_sent!
+    refute unsent_user_notification.is_sent
 
     unsent_user_notification.sent!
-    assert unsent_user_notification.sent?
+    assert unsent_user_notification.is_sent
   end
 
   def test_unsent!
-    assert sent_user_notification.sent?
+    assert sent_user_notification.is_sent
 
     sent_user_notification.unsent!
-    refute sent_user_notification.sent?
+    refute sent_user_notification.is_sent
   end
 
   def test_seen?

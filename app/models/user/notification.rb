@@ -4,17 +4,17 @@ class User::Notification < ApplicationRecord
   belongs_to :subject, polymorphic: true
 
   scope :sorted, -> { order(created_at: :desc) }
-  scope :sent,   -> { where(sent: true) }
-  scope :unsent, -> { where(sent: false) }
+  scope :sent,   -> { where(is_sent: true) }
+  scope :unsent, -> { where(is_sent: false) }
   scope :seen,   -> { where(is_seen: true) }
   scope :unseen, -> { where(is_seen: false) }
 
   def self.sent!
-    update_all(sent: true)
+    update_all(is_sent: true)
   end
 
   def self.unsent!
-    update_all(sent: false)
+    update_all(is_sent: false)
   end
 
   def self.seen!
@@ -25,12 +25,16 @@ class User::Notification < ApplicationRecord
     update_all(is_seen: false)
   end
 
+  def sent?
+    is_sent
+  end
+
   def sent!
-    update_columns(sent: true)
+    update_columns(is_sent: true)
   end
 
   def unsent!
-    update_columns(sent: false)
+    update_columns(is_sent: false)
   end
 
   def seen?

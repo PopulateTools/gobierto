@@ -4,6 +4,8 @@
 //= require i18n/translations
 //= require jquery.magnific-popup.min
 //= require sticky-kit.min
+//= require jquery-ui
+//= require html5sortable
 //= require tipsy
 //= require mustache.min
 //= require velocity.min
@@ -61,6 +63,13 @@ $(document).on('turbolinks:load', function() {
     removalDelay: 300,
     mainClass: 'mfp-fade'
   });
+
+  $('.open_remote_modal').magnificPopup({
+    type: 'ajax',
+    removalDelay: 300,
+    mainClass: 'mfp-fade'
+  });
+
 
   $('.close_modal').click(function(e) {
     $.magnificPopup.close();

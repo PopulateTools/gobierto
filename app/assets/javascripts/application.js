@@ -23,8 +23,10 @@
 //= require module-site_header
 
 //= require flight-for-rails
-//= require_directory ./components/
+//= require components/shareContent
 
+
+// Global util functions
 function rebindAll() {
   $('.tipsit').tipsy({fade: true, gravity: 's', html: true});
   $('.tipsit-n').tipsy({fade: true, gravity: 'n', html: true});
@@ -39,21 +41,7 @@ function isDesktop(){
 
 $(document).on('turbolinks:load', function() {
 
-  if(isDesktop()) {
-    rebindAll();
-  } else {
-    $('.open_line_browser').hide();
-  }
-
-  // check if this is being used on top of the next
-  // $('.tabs li a').click(function(e) {
-  //   e.preventDefault();
-  //   $(this).parent().parent().find('li').removeClass('active');
-  //   $(this).parent().addClass('active');
-  //   var tab = $(this).data("tab-target");
-  //   $('.tab_content').hide();
-  //   $('.tab_content[data-tab="'+tab+'"]').show();
-  // });
+  // Include here common callbacks and behaviours
 
   // Tabs navigation
   $('[data-tab-target]').on('click', function(e){
@@ -67,45 +55,7 @@ $(document).on('turbolinks:load', function() {
     scope.find('[data-tab="' + target + '"]').addClass('active');
   });
 
-  $(".stick_ip").stick_in_parent()
-    .on("sticky_kit:stick", function(e) {
-      if($('.bread_links span').length)
-        return;
-      var title = $('h1').text();
-      var breadLinksHtml = $('.bread_links').html();
-      $('.bread_links').html(breadLinksHtml + ' <span>' + title + '</span>');
-    })
-    .on("sticky_kit:unstick", function(e) {
-      var sep = ' » ';
-      var title = $('h1').text();
-      var breadLinksHtml = $('.bread_links').html();
-      var arr = breadLinksHtml.split(sep);
-      arr.pop();
-      $('.bread_links').html(arr.join(sep) + sep);
-    });
-
-  $('.bread_hover').hover(function(e) {
-    $('.line_browser').velocity("fadeIn", { duration: 50 });
-  }, function(e) {
-    $('.line_browser').velocity("fadeOut", { duration: 50 });
-  });
-
-  $('.open_line_browser').click(function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    $('.line_browser').velocity("fadeIn", { duration: 250 });
-  });
-
-  $('.close_line_browser').click(function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    $('.line_browser').velocity("fadeOut", { duration: 150 });
-  });
-
-  $(window).click(function(){
-    $('.line_browser').velocity("fadeOut", { duration: 150 });
-  });
-
+  // Modal windows
   $('.open_modal').magnificPopup({
     type: 'inline',
     removalDelay: 300,
@@ -116,18 +66,7 @@ $(document).on('turbolinks:load', function() {
     $.magnificPopup.close();
   });
 
-  var $autocomplete = $('[data-autocomplete]');
-
-  var searchOptions = {
-    serviceUrl: $autocomplete.data('autocomplete'),
-    onSelect: function(suggestion) {
-      Turbolinks.visit(suggestion.data.url);
-    },
-    groupBy: 'category'
-  };
-
-  $autocomplete.autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS, searchOptions));
-
+  // TODO: move to gobierto budget consultations
   $('.carousel').slick({
     dots: true,
     arrows: false,
@@ -138,14 +77,6 @@ $(document).on('turbolinks:load', function() {
   $('.slick_next').click(function(e) {
     $('.carousel').slick('slickNext');
   });
-
-  $('.air-datepicker').datepicker({
-    language: 'es'
-  });
-
-  if($('#expense-treemap').length > 0){
-    window.expenseTreemap = new TreemapVis('#expense-treemap', 'big', true);
-    window.expenseTreemap.render($('#expense-treemap').data('functional-url'));
-  }
+  // End TODO
 
 });

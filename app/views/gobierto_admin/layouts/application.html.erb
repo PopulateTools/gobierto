@@ -116,6 +116,12 @@
           </li>
           <% end %>
 
+          <% if current_site.configuration.gobierto_people_enabled? %>
+          <li>
+            <%= link_to t(".people"), admin_people_people_path %>
+          </li>
+          <% end %>
+
           <li class="sep"></li>
 
           <li><%= link_to t(".users"), admin_users_path %></li>

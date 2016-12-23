@@ -16,10 +16,10 @@ module GobiertoAdmin
     has_many :permissions, dependent: :destroy
     has_many :global_permissions, class_name: "Permission::Global"
 
-    # TODO. Build these associations dynamically.
     has_many :gobierto_development_permissions, class_name: "Permission::GobiertoDevelopment"
     has_many :gobierto_budgets_permissions, class_name: "Permission::GobiertoBudgets"
     has_many :gobierto_budget_consultations_permissions, class_name: "Permission::GobiertoBudgetConsultations"
+    has_many :gobierto_people, class_name: "Permission::GobiertoPeople"
 
     has_many :census_imports
 

@@ -46,6 +46,10 @@ Rails.application.routes.draw do
         resource :consultation_reports, only: [:show], controller: "consultations/consultation_reports", path: :reports
       end
     end
+
+    namespace :gobierto_people, as: :people, path: :people do
+      resources :people, only: [:index, :new, :create, :edit, :update]
+    end
   end
 
   # User module

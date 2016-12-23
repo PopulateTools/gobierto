@@ -1,5 +1,7 @@
 module GobiertoPeople
   class Person < ApplicationRecord
+    include GobiertoCommon::DynamicContent
+
     belongs_to :admin, class_name: "GobiertoAdmin::Admin"
     belongs_to :site
 

@@ -98,28 +98,31 @@ ActiveRecord::Schema.define(version: 20161222193212) do
 
   create_table "content_block_fields", force: :cascade do |t|
     t.integer "content_block_id"
-    t.integer "field_type",       default: 0,     null: false
-    t.string  "name",             default: "",    null: false
+    t.integer "field_type",       default: 0,  null: false
+    t.string  "name",             default: "", null: false
     t.text    "label"
-    t.text    "placeholder"
-    t.text    "hint"
-    t.string  "default"
-    t.boolean "required",         default: false, null: false
+    t.integer "position",         default: 0,  null: false
     t.index ["content_block_id"], name: "index_content_block_fields_on_content_block_id", using: :btree
   end
 
   create_table "content_block_records", force: :cascade do |t|
-    t.integer "content_block_id"
-    t.jsonb   "payload",          default: "{}", null: false
+    t.integer  "content_block_id"
+    t.string   "content_context_type"
+    t.integer  "content_context_id"
+    t.jsonb    "payload"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.index ["content_block_id"], name: "index_content_block_records_on_content_block_id", using: :btree
+    t.index ["content_context_type", "content_context_id"], name: "index_content_block_records_on_content_context", using: :btree
     t.index ["payload"], name: "index_content_block_records_on_payload", using: :gin
   end
 
   create_table "content_blocks", force: :cascade do |t|
-    t.string  "content_context_type"
-    t.integer "content_context_id"
-    t.string  "title",                default: "", null: false
-    t.index ["content_context_type", "content_context_id"], name: "index_common_content_blocks_on_content_context", using: :btree
+    t.integer "site_id"
+    t.string  "content_model_name", default: "", null: false
+    t.text    "title"
+    t.index ["content_model_name"], name: "index_content_blocks_on_content_model_name", using: :btree
+    t.index ["site_id"], name: "index_content_blocks_on_site_id", using: :btree
   end
 
   create_table "gbc_consultation_items", force: :cascade do |t|

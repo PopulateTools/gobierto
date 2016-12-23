@@ -1,0 +1,9 @@
+contact_method_twitter:
+  content_context: richard (GobiertoPeople::Person)
+  content_block: contact_methods
+  payload: <%= { "service_name" => "Twitter", "service_url" => "https://twitter.com/wadus", "service_notes" => "Corporate account" }.to_json %>
+
+accomplishment_nobel_prize:
+  content_context: richard (GobiertoPeople::Person)
+  content_block: accomplishments
+  payload: <%= { "title" => "Nobel Prize in Chemistry", "year" => "2016" }.to_json %>

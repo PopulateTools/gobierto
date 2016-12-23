@@ -1,22 +1,16 @@
 /* Widget */
 .indicator_widget {
+	padding: 1.5em;
 	border-radius: 8px;
-	margin-bottom: 10px;
+	margin-bottom: 2em;
+	background: #f0f9f9;
 }
 .widget_headline {
-	border-top-right-radius: 8px;
-	border-top-left-radius: 8px;
-	background: $color_1;
-	padding: 0.5em 0.5em 0.5em 1em;
-	color: $color_main_negative;
 	font-weight: 700;
-	font-size: 0.9em;
 }
 .widget_body {
-	height: 175px;
-	border: 1px solid #ccc;
-	border-bottom-left-radius: 8px;
-	border-bottom-right-radius: 8px;
+	height: 150px;
+	line-height: 150px;
 }
 .widget_info {
 	text-align: center;
@@ -33,11 +27,26 @@
 	background: $color_main_negative;
 	color: $color_1;
 }
-
-
-@media (min-width: 768px) {
-	.mr_widget {
-		margin-right: 1em;
-	}
+.indicator_widget .fa-question-circle {
+	color: #b1b8b8;
+	margin: 0.25em .25em 0 0;
+	transition: all 0.25s;
+	cursor: pointer;
+}
+.indicator_widget .fa-question-circle:focus,
+.indicator_widget .fa-question-circle:active,
+.indicator_widget .fa-question-circle:hover, {
+	color: $color_text;
 }
 
+.widget_figure {
+	font-weight: 300;
+	font-size: 4em;
+	color: $color_1;
+}
+.widget_pct {
+	font-weight: 300;
+}
+.indicator_widget .fa-caret-up {
+	color: $color_vis_com;
+}

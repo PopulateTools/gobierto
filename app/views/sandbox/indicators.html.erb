@@ -1,81 +1,63 @@
 <div class="intro_section clearfix">
 	<div class="column">
 		<div class="pure-g">
-			<div class="pure-u-1 pure-u-md-1-3">
-				<%= image_tag('illustrations/cuentas.png', class: 'img-fluid side_50 pb1') %>
-				<h1 class="intro_headline">Tu municipio en cifras</h1>
-				<p class="intro_desc">Explora los datos de Santander por categoría: economía, empleo, educación, sociedad.</p>
+			<div class="pure-u-1 pure-u-md-2-5">
+				<p class="intro_desc">Conoce Santander a través de sus principales cifras: nuestra población, economía, empleo, sociedad.</p>
 			</div>
-			<div class="pure-u-1 pure-u-md-2-3">
-				<div class="b small_graphic"></div>
+			<div class="pure-u-1 pure-u-md-3-5">
+				<%= image_tag('illustrations/integra.jpg', class: 'img-fluid side_50 pb1') %>
 			</div>
 		</div>
 	</div>
 </div>
 
-<nav class="indicators_nav">
-	<div class="indicators_header">
-		<div class="column">
-			<ul class="indicators_sections">
-				<li class="indicators_section"><a href="#economia" class="active">Economía</a></li>
-				<li class="indicators_section"><a href="#empleo">Empleo</a></li>
-				<li class="indicators_section"><a href="#poblacion">Población</a></li>
-				<li class="indicators_section"><a href="#sociedad">Sociedad</a></li>
-				<li class="indicators_section"><a href="#presupuestos">Presupuestos</a></li>
-			</ul>
-			<ul class="pull-right indicators_social hidden-xs">
-				<li class="indicators_section social_section"><a class="follow_button" href="#">Seguir <i class="indicator_icon fa fa-check-circle"></i></a></li>
-				<li class="indicators_section social_section"><a class="social_button" href="https://facebook.com"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-				<li class="indicators_section social_section"><a class="social_button" href="https://twitter.com"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-			</ul>
-		</div>
-	</div>
-	<div class="indicators_subheader">
-		<div class="column">
-			<ul class="indicators_subsections">
-				<li class="indicators_subsection"><a href="#">Presupuestos</a></li>
-				<li class="indicators_subsection"><a href="#">Deuda</a></li>
-				<li class="indicators_subsection"><a href="#">Empresas</a></li>
-				<li class="indicators_subsection"><a href="#">Empleo</a></li>
-			</ul>
-		</div>
-	</div>
-</nav>
-
 <div class="column">
-	<section id="economia" class="mb4">
+	
+	<section id="poblacion" class="mb4">
 		<div class="pure-g mb2">
-			<div class="pure-u-1 pure-u-md-1-3">
-				<h2 class="section_headline">Economía</h2>
-				<p class="section_desc">Santander es el municipio de la provincia con la renta bruta más alta. Su deuda está en niveles similares a otros municipios de su tamaño, y el PIB de la región es el 14º de España.</p>
-				<p class="section_desc">Santander es el municipio de la provincia con la renta bruta más alta. Su deuda está en niveles similares a otros municipios de su tamaño, y el PIB de la región es el 14º de España.</p>
-			</div>
+			<div class="separator"></div>
 			<div class="pure-u-1 pure-u-md-2-3">
-				<div class="main_graphic b"></div>
+				<h2 class="section_headline">Población</h2>
+				<p class="section_desc">La edad media del municipio es de 30,2 años, es una ciudad joven. Santander tiene menos población extranjera que la media española (10% frente a un 30%).</p>
+			</div>
+		</div>
+		<div class="pure-g mb2">
+			<div class="pure-u-1 pure-u-md-3-3">
+				<div id="age_distribution" class="main_graphic"></div>
 			</div>
 		</div>
 		<div class="pure-g">
 			<div class="pure-u-1 pure-u-md-1-3">
-				<div class="mr_widget indicator_widget">
-					<div class="widget_headline">Número de empresas <span class="widget_info pull-right">i</span></div>
-					<div class="widget_body"></div>
+				<div class="r_mr indicator_widget">
+					<div class="widget_headline">Población <i class="fa fa-question-circle pull-right" aria-hidden="true"></i></div>
+					<div class="widget_body">
+						<span class="widget_figure">330.212</span>
+						<span class="pull-right widget_pct">1,5% <i class="fa fa-caret-up positive" aria-hidden="true"></i></span>
+					</div>
 				</div>
 			</div>
 			<div class="pure-u-1 pure-u-md-1-3">
-				<div class="mr_widget indicator_widget">
-					<div class="widget_headline">Evolución de la deuda viva <span class="widget_info pull-right">i</span></div>
-					<div class="widget_body"></div>
+				<div class="r_mr indicator_widget">
+					<div class="widget_headline">Nacimientos <i class="fa fa-question-circle pull-right" aria-hidden="true"></i></div>
+					<div class="widget_body">
+						<span class="widget_figure">2.341</span>
+						<span class="pull-right widget_pct">0,2% <i class="fa fa-caret-up positive" aria-hidden="true"></i></span>
+					</div>
 				</div>
 			</div>
 			<div class="pure-u-1 pure-u-md-1-3">
 				<div class="indicator_widget">
-					<div class="widget_headline">La renta, comparada <span class="widget_info pull-right">i</span></div>
-					<div class="widget_body"></div>
+					<div class="widget_headline">Defunciones <i class="fa fa-question-circle pull-right" aria-hidden="true"></i></div>
+					<div class="widget_body">
+						<span class="widget_figure">2.132</span>
+						<span class="pull-right widget_pct">0,3% <i class="fa fa-caret-up positive" aria-hidden="true"></i></span>
+					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-
+	
+	
 	<section id="empleo" class="mb4">
 		<div class="pure-g mb2">
 			<div class="pure-u-1 pure-u-md-2-3">
@@ -85,10 +67,10 @@
 		</div>
 		<div class="pure-g mb2">
 			<div class="pure-u-1 pure-u-md-1-3">
-				<div class="mr_widget small_graphic b"></div>
+				<div class="r_mr small_graphic b"></div>
 			</div>
 			<div class="pure-u-1 pure-u-md-1-3">
-				<div class="mr_widget small_graphic b"></div>
+				<div class="r_mr small_graphic b"></div>
 			</div>
 			<div class="pure-u-1 pure-u-md-1-3">
 				<div class="small_graphic b"></div>
@@ -96,94 +78,66 @@
 		</div>
 		<div class="pure-g">
 			<div class="pure-u-1 pure-u-md-1-3">
-				<div class="mr_widget indicator_widget">
-					<div class="widget_headline">Parados por rango de edad <span class="widget_info pull-right">i</span></div>
+				<div class="r_mr indicator_widget">
+					<div class="widget_headline">Parados por rango de edad <i class="fa fa-question-circle pull-right" aria-hidden="true"></i></div>
 					<div class="widget_body"></div>
 				</div>
 			</div>
 			<div class="pure-u-1 pure-u-md-1-3">
-				<div class="mr_widget indicator_widget">
-					<div class="widget_headline">Contratos por tipo <span class="widget_info pull-right">i</span></div>
-					<div class="widget_body"></div>
-				</div>
-			</div>
-			<div class="pure-u-1 pure-u-md-1-3">
-				<div class="indicator_widget">
-					<div class="widget_headline">La tasa de paro en Cantabria <span class="widget_info pull-right">i</span></div>
-					<div class="widget_body"></div>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<section id="poblacion" class="mb4">
-		<div class="pure-g mb2">
-			<div class="pure-u-1 pure-u-md-2-3">
-				<h2 class="section_headline">Población</h2>
-				<p class="section_desc">La edad media del municipio es de 30,2 años, es una ciudad joven. Santander tiene menos población extranjera que la media española (10% frente a un 30%).</p>
-			</div>
-		</div>
-		<div class="pure-g mb2">
-			<div class="pure-u-1 pure-u-md-3-3">
-				<div class="main_graphic b"></div>
-			</div>
-		</div>
-		<div class="pure-g">
-			<div class="pure-u-1 pure-u-md-1-3">
-				<div class="mr_widget indicator_widget">
-					<div class="widget_headline">Nacimientos <span class="widget_info pull-right">i</span></div>
-					<div class="widget_body"></div>
-				</div>
-			</div>
-			<div class="pure-u-1 pure-u-md-1-3">
-				<div class="mr_widget indicator_widget">
-					<div class="widget_headline">Defunciones <span class="widget_info pull-right">i</span></div>
+				<div class="r_mr indicator_widget">
+					<div class="widget_headline">Contratos por tipo <i class="fa fa-question-circle pull-right" aria-hidden="true"></i></div>
 					<div class="widget_body"></div>
 				</div>
 			</div>
 			<div class="pure-u-1 pure-u-md-1-3">
 				<div class="indicator_widget">
-					<div class="widget_headline">Población por nacionalidad <span class="widget_info pull-right">i</span></div>
+					<div class="widget_headline">La tasa de paro en Cantabria <i class="fa fa-question-circle pull-right" aria-hidden="true"></i></div>
 					<div class="widget_body"></div>
 				</div>
 			</div>
 		</div>
 	</section>
-
-	<section id="sociedad" class="mb4">
+	
+	
+	<section id="economia" class="mb4">
 		<div class="pure-g mb2">
 			<div class="pure-u-1 pure-u-md-1-3">
-				<h2 class="section_headline">Sociedad</h2>
-				<p class="section_desc">La edad media del municipio es de 30,2 años, es una ciudad joven. Santander tiene menos población extranjera que la media española (10% frente a un 30%).</p>
-				<p class="section_desc">Santander es el municipio de la provincia con la renta bruta más alta. Su deuda está en niveles similares a otros municipios de su tamaño, y el PIB de la región es el 14º de España.</p>
+				<div class="r_mr">
+					<h2 class="section_headline">Economía</h2>
+					<p class="section_desc">Santander es el municipio de la provincia con la renta bruta más alta. Su deuda está en niveles similares a otros municipios de su tamaño, y el PIB de la región es el 14º de España.</p>
+					<p class="section_desc">Santander es el municipio de la provincia con la renta bruta más alta. Su deuda está en niveles similares a otros municipios de su tamaño, y el PIB de la región es el 14º de España.</p>
+				</div>
 			</div>
 			<div class="pure-u-1 pure-u-md-2-3">
 				<div class="main_graphic b"></div>
 			</div>
 		</div>
 		<div class="pure-g">
-			<div class="pure-u-1 pure-u-md-1-4">
-				<div class="mr_widget indicator_widget">
-					<div class="widget_headline">Número de colegios <span class="widget_info pull-right">i</span></div>
-					<div class="widget_body"></div>
+			<div class="pure-u-1 pure-u-md-1-3">
+				<div class="r_mr indicator_widget">
+					<div class="widget_headline">Número de empresas <i class="fa fa-question-circle pull-right" aria-hidden="true"></i></div>
+					<div class="widget_body">
+						<span class="widget_figure">1.345€</span>
+						<span class="pull-right widget_pct">4,5% <i class="fa fa-caret-up positive" aria-hidden="true"></i></span>
+					</div>
 				</div>
 			</div>
-			<div class="pure-u-1 pure-u-md-1-4">
-				<div class="mr_widget indicator_widget">
-					<div class="widget_headline">Número de hospitales <span class="widget_info pull-right">i</span></div>
-					<div class="widget_body"></div>
+			<div class="pure-u-1 pure-u-md-1-3">
+				<div class="r_mr indicator_widget">
+					<div class="widget_headline">Evolución de la deuda viva <i class="fa fa-question-circle pull-right" aria-hidden="true"></i></div>
+					<div class="widget_body">
+						<span class="widget_figure">1.345€</span>
+						<span class="pull-right widget_pct">4,5% <i class="fa fa-caret-up positive" aria-hidden="true"></i></span>
+					</div>
 				</div>
 			</div>
-			<div class="pure-u-1 pure-u-md-1-4">
-				<div class="mr_widget indicator_widget">
-					<div class="widget_headline">Número de vehículos <span class="widget_info pull-right">i</span></div>
-					<div class="widget_body"></div>
-				</div>
-			</div>
-			<div class="pure-u-1 pure-u-md-1-4">
+			<div class="pure-u-1 pure-u-md-1-3">
 				<div class="indicator_widget">
-					<div class="widget_headline">Viviendas <span class="widget_info pull-right">i</span></div>
-					<div class="widget_body"></div>
+					<div class="widget_headline">La renta, comparada <i class="fa fa-question-circle pull-right" aria-hidden="true"></i></div>
+					<div class="widget_body">
+						<span class="widget_figure">1.345€</span>
+						<span class="pull-right widget_pct">4,5% <i class="fa fa-caret-up positive" aria-hidden="true"></i></span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -196,30 +150,45 @@
 				<p class="section_desc">La edad media del municipio es de 30,2 años, es una ciudad joven. Santander tiene menos población extranjera que la media española (10% frente a un 30%).</p>
 			</div>
 		</div>
-		<div class="pure-g mb2">
-			<div class="pure-u-1 pure-u-md-3-3">
-				<div class="main_graphic b"></div>
-			</div>
-		</div>
 		<div class="pure-g">
 			<div class="pure-u-1 pure-u-md-1-3">
-				<div class="mr_widget indicator_widget">
-					<div class="widget_headline">Inversión por habitante <span class="widget_info pull-right">i</span></div>
+				<div class="r_mr indicator_widget">
+					<div class="widget_headline">Inversión por habitante <i class="fa fa-question-circle pull-right" aria-hidden="true"></i></div>
 					<div class="widget_body"></div>
 				</div>
 			</div>
 			<div class="pure-u-1 pure-u-md-1-3">
-				<div class="mr_widget indicator_widget">
-					<div class="widget_headline">Coste de la deuda <span class="widget_info pull-right">i</span></div>
+				<div class="r_mr indicator_widget">
+					<div class="widget_headline">Coste de la deuda <i class="fa fa-question-circle pull-right" aria-hidden="true"></i></div>
 					<div class="widget_body"></div>
 				</div>
 			</div>
 			<div class="pure-u-1 pure-u-md-1-3">
 				<div class="indicator_widget">
-					<div class="widget_headline">Presión fiscal comparada <span class="widget_info pull-right">i</span></div>
+					<div class="widget_headline">Presión fiscal comparada <i class="fa fa-question-circle pull-right" aria-hidden="true"></i></div>
+					<div class="widget_body"></div>
+				</div>
+			</div>
+			
+			<div class="pure-u-1 pure-u-md-1-3">
+				<div class="r_mr indicator_widget">
+					<div class="widget_headline">Inversión por habitante <i class="fa fa-question-circle pull-right" aria-hidden="true"></i></div>
+					<div class="widget_body"></div>
+				</div>
+			</div>
+			<div class="pure-u-1 pure-u-md-1-3">
+				<div class="r_mr indicator_widget">
+					<div class="widget_headline">Coste de la deuda <i class="fa fa-question-circle pull-right" aria-hidden="true"></i></div>
+					<div class="widget_body"></div>
+				</div>
+			</div>
+			<div class="pure-u-1 pure-u-md-1-3">
+				<div class="indicator_widget">
+					<div class="widget_headline">Presión fiscal comparada <i class="fa fa-question-circle pull-right" aria-hidden="true"></i></div>
 					<div class="widget_body"></div>
 				</div>
 			</div>
 		</div>
 	</section>
+	
 </div>

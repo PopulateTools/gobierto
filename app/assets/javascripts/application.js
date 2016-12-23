@@ -22,7 +22,9 @@
 //= require vis_treemap
 //= require vis_lineas_tabla
 //= require vis_evo_line
+//= require vis_age_distribution
 //= require execution
+//= require indicators
 //= require module-admin
 //= require module-consultations
 //= require module-sessions

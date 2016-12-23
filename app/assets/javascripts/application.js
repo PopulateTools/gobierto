@@ -11,21 +11,14 @@
 //= require d3.min
 //= require d3-legend.min
 //= require accounting.min
-//= require accounting_settings
 //= require jquery.autocomplete
-//= require autocomplete_settings
 //= require klass
 //= require slick.min
 //= require air-datepicker/datepicker.min
 //= require air-datepicker/i18n/datepicker.es
-
-//= require vis_treemap
-//= require vis_lineas_tabla
-//= require vis_evo_line
-//= require execution
+//= require_directory ./settings/
 
 //= require module-admin
-// require module-ui_menu
 //= require module-sessions
 //= require module-site_header
 

@@ -1,0 +1,17 @@
+---
+es:
+  gobierto_admin:
+    layouts:
+      application:
+        budget_consultations: Consultas de presupuestos
+        manage_sites: Gestionar sites
+        site_network: Red
+        view_site: Ver site
+        users: Usuarios
+        edit_site: Personalizar sitio
+        collapse_menu: Colapsar menú
+        notifications: Notificaciones
+        hey_admin: Hola, %{admin_name}
+        admin_dropdown:
+          account: Tu cuenta
+          sign_out: Cerrar sesión

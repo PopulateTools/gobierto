@@ -22,6 +22,17 @@ module Authentication::InvitableTest
     refute_includes subject, user
   end
 
+  def test_find_by_invitation_token
+    invitation_token = invited_user.invitation_token
+    subject = invited_user.class.find_by_invitation_token(invitation_token)
+
+    assert_equal invited_user, subject
+
+    subject = invited_user.class.find_by_invitation_token(nil)
+
+    assert_nil subject
+  end
+
   def test_invitation?
     assert invited_user.invitation?
     refute user.invitation?

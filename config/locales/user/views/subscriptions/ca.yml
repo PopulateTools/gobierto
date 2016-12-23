@@ -1,0 +1,16 @@
+---
+ca:
+  user:
+    subscriptions:
+      index:
+        title: Les teves alertes
+        headers:
+          title: Títol
+        cancel: Cancelar suscripció
+      subscribable_box:
+        subscribe: Suscriurem
+        disclaimer: No spam. Dona't de baixa quan vullgues.
+        form:
+          placeholders:
+            user_email: El teu correu-e
+          submit: Suscriurem

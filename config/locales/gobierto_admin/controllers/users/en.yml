@@ -1,0 +1,6 @@
+---
+en:
+  gobierto_admin:
+    users:
+      update:
+        success: User was successfully updated

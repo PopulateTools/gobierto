@@ -1,0 +1,9 @@
+---
+es:
+  gobierto_admin:
+    users:
+      passwords:
+        new:
+          title: Cambiar contraseña de usuario
+        form:
+          submit: Enviar

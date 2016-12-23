@@ -1,0 +1,18 @@
+<%= form_for(@user_session_form, as: :user_session, url: :user_sessions, html: { id: "user-session-form" }) do |f| %>
+  <%= f.hidden_field :referrer_url %>
+
+  <div class="form_item input_text">
+    <%= f.label :email %>
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+
+  <div class="form_item input_text">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <%= f.submit t(".submit"), class: "button" %>
+
+  <%= link_to t(".password_section"), "#", class: "show_password_recovery_box" %>
+  <%= link_to t(".confirmation_request_section"), "#", class: "show_confirmation_request_box" %>
+<% end %>

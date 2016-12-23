@@ -1,0 +1,79 @@
+<h1><%= t(".title") %></h1>
+
+<div class="tabs">
+  <ul>
+    <li class="active">
+      <%= link_to admin_users_path do %>
+        <%= t(".title") %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to admin_admins_path do %>
+        <%= t(".admins_section") %>
+      <% end %>
+    </li>
+  </ul>
+</div>
+
+<div class="admin_tools right">
+  <%= link_to new_admin_census_imports_path do %>
+    <i class="fa fa-table"></i>
+    <%= t(".census_configuration") %>
+  <% end %>
+</div>
+
+<table class="user-list">
+<tr>
+  <th></th>
+  <th><%= t(".header.user") %></th>
+  <th><%= t(".header.email") %></th>
+  <th><%= t(".header.last_sign_in_at") %></th>
+  <th><%= t(".header.created_at") %></th>
+  <th><%= t(".header.verified") %></th>
+  <th></th>
+</tr>
+
+<tbody>
+  <% @users.each do |user| %>
+    <tr id="user-item-<%= user.id %>" class="<%= cycle("odd", "even") %>">
+      <td>
+        <%= link_to edit_admin_user_path(user) do %>
+          <i class="fa fa-edit"></i>
+        <% end %>
+      </td>
+      <td>
+        <% if !user.confirmed? %>
+          <i class="fa fa-eye-slash"></i>
+        <% end %>
+        <%= link_to edit_admin_user_path(user) do %>
+          <%= user.name %>
+        <% end %>
+      </td>
+      <td>
+        <%= mail_to user.email %>
+      </td>
+      <td>
+        <%= time_ago_in_words(user.last_sign_in_at) if user.last_sign_in_at %>
+        <span class="soft ip"><%= user.last_sign_in_ip %></span>
+      </td>
+      <td>
+        <%= l(user.created_at, format: :short) if user.created_at %>
+        <span class="soft ip"><%= user.creation_ip %></span>
+      </td>
+      <td>
+        <% if user.census_verified? %>
+          <i class="fa fa-check"></i>
+        <% else %>
+          <i class="fa fa-close"></i>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to [:admin, user], class: "view_item" do %>
+          <i class="fa fa-eye"></i>
+          <%= t(".view_user") %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+</table>

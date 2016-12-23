@@ -1,0 +1,11 @@
+<div class="cont clearfix">
+  <div class="form clearfix">
+    <h1><%= t(".title") %></h1>
+    <%= render "form" %>
+  </div>
+</div>
+
+<p>
+  <%= link_to t(".forgot_your_password"), new_admin_admin_passwords_path %>
+  <%= link_to t(".didnt_receive_confirmation_instructions"), new_admin_admin_confirmations_path %>
+</p>

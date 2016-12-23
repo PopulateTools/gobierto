@@ -1,0 +1,13 @@
+---
+en:
+  gobierto_admin:
+    gobierto_budget_consultations:
+      consultations:
+        consultation_responses:
+          index:
+            title: Participations
+            view_response: View participation
+            header:
+              date: Date
+              consultation_budget_amount: Budget amount
+              budget_amount: Proposed budget amount

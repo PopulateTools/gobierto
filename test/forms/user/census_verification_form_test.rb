@@ -26,7 +26,7 @@ class User::CensusVerificationFormTest < ActiveSupport::TestCase
   end
 
   def user_verification
-    @user_verification ||= user_census_verifications(:dennis_verified)
+    @user_verification ||= user_verification_census_verifications(:dennis_verified)
   end
 
   def test_validation

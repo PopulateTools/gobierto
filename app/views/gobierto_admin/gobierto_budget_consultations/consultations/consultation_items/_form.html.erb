@@ -1,0 +1,39 @@
+<%= render "gobierto_admin/shared/validation_errors", resource: @consultation_item_form %>
+
+<%= form_for(
+  @consultation_item_form, as: :consultation_item,
+  url: @consultation_item_form.persisted? ? admin_budget_consultation_consultation_item_path(@consultation, @consultation_item) : admin_budget_consultation_consultation_items_path(@consultation)) do |f| %>
+
+    <%= f.hidden_field :budget_line_id %>
+
+    <div class="form_item input_text">
+      <%= f.label :budget_line_name %>
+      <%= f.text_field :budget_line_name, data: { source: consultation_item_budget_lines_options(@budget_lines) } %>
+    </div>
+
+    <div class="form_item input_text">
+      <%= f.label :title %>
+      <%= f.text_field :title, placeholder: t(".placeholders.title") %>
+    </div>
+
+    <div class="form_item input_text">
+      <%= f.label :budget_line_amount %>
+      <%= f.text_field :budget_line_amount, placeholder: t(".placeholders.budget_line_amount") %>
+    </div>
+
+    <div class="form_item input_text">
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+    </div>
+
+    <div class="actions right">
+      <%= f.submit %>
+    </div>
+
+  </div>
+
+<% end %>
+
+<%= javascript_tag do %>
+  window.GobiertoAdmin.consultation_items_controller.edit();
+<% end %>

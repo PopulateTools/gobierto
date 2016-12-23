@@ -116,4 +116,9 @@ p.intro {
 	box-sizing: border-box;
 	margin-left: auto;
 	margin-right: auto;
+  @include screen(740) {
+    padding: 0 1em;
+    margin: 0 0 1em 0;
+  }
 }
+

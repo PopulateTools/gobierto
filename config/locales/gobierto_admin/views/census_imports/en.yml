@@ -1,0 +1,14 @@
+---
+en:
+  gobierto_admin:
+    census:
+      imports:
+        new:
+          title: Census configuration
+          import_status: "La verificación de los usuarios se realiza contra el archivo de censo actualizado por última vez el %{created_at} por %{admin_name} (%{admin_email}). El archivo tiene %{imported_records} registros."
+          final_notes: "se sustituirán todos los registros, y si algún DNI de usuario verificado deja de estar presente, el usuario dejará de tener acceso"
+        file_format_notes:
+          instructions: "El archivo a cargar debe ser un CSV, sin fila de cabecera, con las columnas de datos que queramos que el usuario deba verficiar. Por ejemplo, si queremos que valide DNI, fecha de nacimiento y código postal, deberemos preparar un fichero como este:"
+        form:
+          submit: Load census file
+          disable_with: Loading...

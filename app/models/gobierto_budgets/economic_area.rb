@@ -1,5 +1,7 @@
 module GobiertoBudgets
   class EconomicArea
+    include Describable
+
     EXPENSE = 'G'
     INCOME  = 'I'
 
@@ -28,16 +30,11 @@ module GobiertoBudgets
 
         response['hits']['hits'].each do |h|
           source = h['_source']
+          source['kind'] = source['kind'] == 'income' ? 'I' : 'G'
           all_items[source['kind']][source['code']] = source['name']
         end
 
         all_items
-      end
-    end
-
-    def self.all_descriptions
-      @all_descriptions ||= begin
-        YAML.load_file('./db/data/budget_line_descriptions.yml')['economic']
       end
     end
   end

@@ -1,0 +1,16 @@
+---
+ca:
+  user:
+    confirmations:
+      new:
+        title: "Confirmem les teues dades:"
+      form:
+        hints:
+          email: La teva direcció de correu-e serà privada en tot moment. Només l'utilitzarem per enviar-te comunicacions.
+          year_of_birth: Aquesta informació serà privada, i nunca s'identificarà amb el teu perfil. La dada serà anonimitzada, i te la demanem només per a poder obtindre informació segmentada i entendre millor les opinions i preferències dels ciutadans.
+          gender: Aquesta informació serà privada, i nunca s'identificarà amb el teu perfil. La dada serà anonimitzada, i te la demanem només per a poder obtindre informació segmentada i entendre millor les opinions i preferències dels ciutadans.
+        gender:
+          male: Home
+          female: Dona
+        submit: Guardar
+        your_gender_is: "Eres..."

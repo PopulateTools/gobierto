@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161124065317) do
+ActiveRecord::Schema.define(version: 20161222064233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,35 @@ ActiveRecord::Schema.define(version: 20161124065317) do
     t.index ["subject_type", "subject_id"], name: "index_activities_on_subject_type_and_subject_id", using: :btree
   end
 
+  create_table "admin_admin_sites", force: :cascade do |t|
+    t.integer "admin_id"
+    t.integer "site_id"
+    t.index ["admin_id", "site_id"], name: "index_admin_admin_sites_on_admin_id_and_site_id", using: :btree
+    t.index ["admin_id"], name: "index_admin_admin_sites_on_admin_id", using: :btree
+    t.index ["site_id"], name: "index_admin_admin_sites_on_site_id", using: :btree
+  end
+
+  create_table "admin_admins", force: :cascade do |t|
+    t.string   "email",                                null: false
+    t.string   "name",                 default: "",    null: false
+    t.string   "password_digest",      default: "",    null: false
+    t.string   "confirmation_token"
+    t.string   "reset_password_token"
+    t.integer  "authorization_level",  default: 0,     null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.datetime "last_sign_in_at"
+    t.inet     "last_sign_in_ip"
+    t.inet     "creation_ip"
+    t.boolean  "god",                  default: false, null: false
+    t.string   "invitation_token"
+    t.datetime "invitation_sent_at"
+    t.index ["confirmation_token"], name: "index_admin_admins_on_confirmation_token", unique: true, using: :btree
+    t.index ["email"], name: "index_admin_admins_on_email", unique: true, using: :btree
+    t.index ["invitation_token"], name: "index_admin_admins_on_invitation_token", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_admin_admins_on_reset_password_token", unique: true, using: :btree
+  end
+
   create_table "admin_census_imports", force: :cascade do |t|
     t.integer  "admin_id"
     t.integer  "site_id"
@@ -55,35 +84,6 @@ ActiveRecord::Schema.define(version: 20161124065317) do
     t.index ["admin_id"], name: "index_admin_permissions_on_admin_id", using: :btree
   end
 
-  create_table "admin_sites", force: :cascade do |t|
-    t.integer "admin_id"
-    t.integer "site_id"
-    t.index ["admin_id", "site_id"], name: "index_admin_sites_on_admin_id_and_site_id", using: :btree
-    t.index ["admin_id"], name: "index_admin_sites_on_admin_id", using: :btree
-    t.index ["site_id"], name: "index_admin_sites_on_site_id", using: :btree
-  end
-
-  create_table "admins", force: :cascade do |t|
-    t.string   "email",                                null: false
-    t.string   "name",                 default: "",    null: false
-    t.string   "password_digest",      default: "",    null: false
-    t.string   "confirmation_token"
-    t.string   "reset_password_token"
-    t.integer  "authorization_level",  default: 0,     null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.datetime "last_sign_in_at"
-    t.inet     "last_sign_in_ip"
-    t.inet     "creation_ip"
-    t.boolean  "god",                  default: false, null: false
-    t.string   "invitation_token"
-    t.datetime "invitation_sent_at"
-    t.index ["confirmation_token"], name: "index_admins_on_confirmation_token", unique: true, using: :btree
-    t.index ["email"], name: "index_admins_on_email", unique: true, using: :btree
-    t.index ["invitation_token"], name: "index_admins_on_invitation_token", unique: true, using: :btree
-    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
-  end
-
   create_table "census_items", force: :cascade do |t|
     t.integer "site_id"
     t.string  "document_number_digest", default: "",    null: false
@@ -94,6 +94,48 @@ ActiveRecord::Schema.define(version: 20161124065317) do
     t.index ["site_id", "document_number_digest", "date_of_birth"], name: "index_census_items_on_site_id_and_doc_number_and_date_of_birth", using: :btree
     t.index ["site_id", "import_reference"], name: "index_census_items_on_site_id_and_import_reference", using: :btree
     t.index ["site_id"], name: "index_census_items_on_site_id", using: :btree
+  end
+
+  create_table "gbc_consultation_items", force: :cascade do |t|
+    t.string   "title",                                       default: "",    null: false
+    t.text     "description"
+    t.string   "budget_line_id",                              default: "",    null: false
+    t.decimal  "budget_line_amount", precision: 12, scale: 2, default: "0.0", null: false
+    t.integer  "position",                                    default: 0,     null: false
+    t.integer  "consultation_id"
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
+    t.string   "budget_line_name",                            default: "",    null: false
+    t.index ["consultation_id"], name: "index_gbc_consultation_items_on_consultation_id", using: :btree
+  end
+
+  create_table "gbc_consultation_responses", force: :cascade do |t|
+    t.integer  "consultation_id"
+    t.integer  "user_id"
+    t.text     "consultation_items"
+    t.decimal  "budget_amount",      precision: 12, scale: 2, default: "0.0", null: false
+    t.integer  "visibility_level",                            default: 0,     null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
+    t.string   "sharing_token"
+    t.index ["consultation_id"], name: "index_gbc_consultation_responses_on_consultation_id", using: :btree
+    t.index ["sharing_token"], name: "index_gbc_consultation_responses_on_sharing_token", unique: true, using: :btree
+    t.index ["user_id"], name: "index_gbc_consultation_responses_on_user_id", using: :btree
+  end
+
+  create_table "gbc_consultations", force: :cascade do |t|
+    t.string   "title",                                     default: "",    null: false
+    t.text     "description",                               default: "",    null: false
+    t.date     "opens_on"
+    t.date     "closes_on"
+    t.integer  "visibility_level",                          default: 0,     null: false
+    t.decimal  "budget_amount",    precision: 12, scale: 2, default: "0.0", null: false
+    t.integer  "admin_id"
+    t.integer  "site_id"
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
+    t.index ["admin_id"], name: "index_gbc_consultations_on_admin_id", using: :btree
+    t.index ["site_id"], name: "index_gbc_consultations_on_site_id", using: :btree
   end
 
   create_table "sites", force: :cascade do |t|
@@ -116,6 +158,40 @@ ActiveRecord::Schema.define(version: 20161124065317) do
     t.integer  "municipality_id"
   end
 
+  create_table "user_notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "site_id"
+    t.string   "action"
+    t.string   "subject_type"
+    t.integer  "subject_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "is_sent",      default: false, null: false
+    t.boolean  "is_seen",      default: false, null: false
+    t.index ["is_seen"], name: "index_user_notifications_on_is_seen", using: :btree
+    t.index ["is_sent"], name: "index_user_notifications_on_is_sent", using: :btree
+    t.index ["site_id"], name: "index_user_notifications_on_site_id", using: :btree
+    t.index ["subject_type", "subject_id", "site_id", "user_id"], name: "index_user_notifications_on_subject_and_site_id_and_user_id", using: :btree
+    t.index ["subject_type", "subject_id", "site_id"], name: "index_user_notifications_on_subject_and_site_id", using: :btree
+    t.index ["user_id", "site_id"], name: "index_user_notifications_on_user_id_and_site_id", using: :btree
+    t.index ["user_id"], name: "index_user_notifications_on_user_id", using: :btree
+  end
+
+  create_table "user_subscriptions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "site_id"
+    t.string   "subscribable_type"
+    t.integer  "subscribable_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["site_id"], name: "index_user_subscriptions_on_site_id", using: :btree
+    t.index ["subscribable_type", "site_id"], name: "index_user_subscriptions_on_subscribable_type_and_site_id", using: :btree
+    t.index ["subscribable_type", "subscribable_id", "site_id", "user_id"], name: "index_user_subscriptions_on_type_and_id_and_user_id", unique: true, using: :btree
+    t.index ["subscribable_type", "subscribable_id", "site_id"], name: "index_user_subscriptions_on_type_and_id", using: :btree
+    t.index ["user_id", "site_id"], name: "index_user_subscriptions_on_user_id_and_site_id", using: :btree
+    t.index ["user_id"], name: "index_user_subscriptions_on_user_id", using: :btree
+  end
+
   create_table "user_verifications", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "site_id"
@@ -131,21 +207,25 @@ ActiveRecord::Schema.define(version: 20161124065317) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                                null: false
-    t.string   "name",                                 null: false
+    t.string   "email",                                  null: false
+    t.string   "name"
     t.string   "bio"
-    t.string   "password_digest",      default: "",    null: false
+    t.string   "password_digest"
     t.string   "confirmation_token"
     t.string   "reset_password_token"
     t.inet     "creation_ip"
     t.datetime "last_sign_in_at"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "source_site_id"
-    t.boolean  "census_verified",      default: false, null: false
+    t.boolean  "census_verified",        default: false, null: false
+    t.integer  "year_of_birth"
+    t.integer  "gender"
+    t.integer  "notification_frequency", default: 0,     null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["notification_frequency"], name: "index_users_on_notification_frequency", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["source_site_id"], name: "index_users_on_source_site_id", using: :btree
   end

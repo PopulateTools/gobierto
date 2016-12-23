@@ -1,0 +1,13 @@
+---
+es:
+  gobierto_admin:
+    gobierto_budget_consultations:
+      consultations:
+        consultation_responses:
+          index:
+            title: Participaciones
+            view_response: Ver Particpiación
+            header:
+              date: Fecha
+              consultation_budget_amount: Inversión inicial planificada
+              budget_amount: Inversión propuesta

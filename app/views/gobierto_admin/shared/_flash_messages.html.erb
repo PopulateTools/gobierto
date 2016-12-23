@@ -1,0 +1,9 @@
+<% flash.select { |key, _| key.in?(%w(notice alert)) }.each do |key, value| %>
+  <div class="flash-message <%= key %>">
+    <ul>
+      <li>
+        <%= value %>
+      </li>
+    </ul>
+  </div>
+<% end %>

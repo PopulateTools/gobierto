@@ -1,0 +1,10 @@
+dennis_consultation_madrid_open:
+  user: dennis
+  site: madrid
+  subscribable: madrid_open (GobiertoBudgetConsultations::Consultation)
+
+dennis_consultations:
+  user: dennis
+  site: madrid
+  subscribable_type: GobiertoBudgetConsultations::Consultation
+  subscribable_id:

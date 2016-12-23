@@ -1,0 +1,151 @@
+<%= render "gobierto_admin/shared/validation_errors", resource: @site_form %>
+
+<%= form_for(@site_form, as: :site, url: @site_form.persisted? ? admin_site_path(@site_form) : :admin_sites) do |f| %>
+
+  <div class="pure-g">
+
+    <div class="pure-u-1 pure-u-md-16-24">
+
+      <div class="form_item input_text">
+        <%= f.label :title %>
+        <%= f.text_field :title, placeholder: t(".placeholders.title") %>
+      </div>
+
+      <div class="form_item input_text">
+        <%= f.label :name %>
+        <%= f.text_field :name, placeholder: t(".placeholders.name") %>
+      </div>
+
+      <div class="form_item input_text">
+        <%= f.label :location_name %>
+        <%= f.text_field(:location_name, placeholder: t(".placeholders.location_name"), data: {
+          autocomplete_url: @services_config.municipalities_suggestions_endpoint
+        }) %>
+        <%= f.hidden_field :municipality_id %>
+      </div>
+
+      <div class="form_item input_text">
+        <%= f.label :domain %>
+        <%= f.text_field :domain, placeholder: t(".placeholders.domain") %>
+
+        <div class="inline_help">
+          <%= t(".hints.domain.instructions") %>
+          <p>
+            <strong><%= t(".hints.domain.if_domain") %></strong>:
+            <%= t(".hints.domain.a_record", target: @dns_config.a_record_target) %>
+          </p>
+          <p>
+            <strong><%= t(".hints.domain.if_subdomain") %></strong>:
+            <%= t(".hints.domain.cname_record", target: @dns_config.cname_record_target) %>
+          </p>
+        </div>
+      </div>
+
+      <div class="form_block">
+
+        <% if f.object.logo_url.present? %>
+          <%= image_tag f.object.logo_url %>
+        <% end %>
+
+        <div class="form_item file_field">
+          <%= f.label :logo_file %>
+          <%= f.file_field :logo_file %>
+        </div>
+
+        <div class="form_item textarea code">
+          <%= f.label :head_markup %>
+          <%= f.text_area :head_markup %>
+        </div>
+
+        <div class="form_item textarea code">
+          <%= f.label :foot_markup %>
+          <%= f.text_area :foot_markup %>
+        </div>
+
+        <div class="form_item textarea code">
+          <%= f.label :links_markup %>
+          <%= f.text_area :links_markup %>
+        </div>
+      </div>
+
+      <div class="form_block">
+
+        <div class="form_item input_text">
+          <%= f.label :google_analytics_id %>
+          <%= f.text_field :google_analytics_id, placeholder: t(".placeholders.google_analytics_id") %>
+        </div>
+
+      </div>
+
+      <div class="form_block">
+
+        <h2><%= t(".modules_enabled") %></h2>
+
+        <div class="form_item site-module-check-boxes">
+
+          <div class="options compact">
+            <%= f.collection_check_boxes(:site_modules, @site_modules, :namespace, :name) do |b| %>
+              <div class="option">
+                <%= b.check_box %>
+                <%= b.label do %>
+                  <span></span>
+                  <%= b.text %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="pure-u-1 pure-u-md-2-24"></div>
+
+    <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
+
+      <div class="widget_save">
+
+        <div class="form_item site-visibility-level-radio-buttons">
+
+          <div class="options compact">
+            <%= f.collection_radio_buttons(:visibility_level, @site_visibility_levels, :first, :first) do |b| %>
+              <div class="option">
+                <%= b.radio_button %>
+                <%= b.label do %>
+                  <span></span>
+                  <%= t(".visibility_level.#{b.text}") %>
+                  <% if b.text == "draft" %>
+                    <div class="password_protected">
+                      <p>
+                        <%= t(".username") %>
+                        <%= f.text_field :username %>
+                      </p>
+                      <p>
+                        <%= t(".password") %>
+                        <%= f.password_field :password, value: f.object.password %>
+                      </p>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+
+        </div>
+
+        <%= f.submit class: "button" %>
+      </div>
+
+    </div>
+
+  </div>
+
+<% end %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.sites_controller.edit("<%= Rails.application.secrets.tbi_api_token %>");
+  <% end %>
+<% end %>

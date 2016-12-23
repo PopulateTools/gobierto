@@ -1,3 +1,4 @@
+---
 es:
   gobierto_budgets:
     common:
@@ -7,6 +8,8 @@ es:
       expenses: gastos
       budget_line_description_html: "Esta partida comprende los %{kind_what} en %{description}. Si quieres saber más sobre esta partida puedes consultar la partida padre: %{link}"
     layouts:
+      application:
+        budgets: Presupuestos
       menu_subsections:
         summary: Resumen
         budget: Presupuesto
@@ -139,3 +142,7 @@ es:
       mean_national: Media nacional
       mean_autonomy: Media autonómica
       mean_province: Media provincial
+      G_economic: 'En qué se gasta'
+      G_functional: 'Para qué se gasta'
+      I_economic: 'En qué se ingresa'
+

@@ -1,0 +1,8 @@
+---
+ca:
+  user:
+    passwords:
+      edit:
+        title: "Estableix la teva nova contrasenya:"
+      edit_form:
+        submit: Canviar

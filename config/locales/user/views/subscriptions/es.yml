@@ -1,0 +1,16 @@
+---
+es:
+  user:
+    subscriptions:
+      index:
+        title: Tus alertas
+        headers:
+          title: Título
+        cancel: Cancelar suscripción
+      subscribable_box:
+        subscribe: Suscribirme
+        disclaimer: No spam. Date de baja cuando quieras.
+        form:
+          placeholders:
+            user_email: Tu correo-e
+          submit: Suscribirme

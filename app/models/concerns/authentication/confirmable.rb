@@ -2,7 +2,12 @@ module Authentication::Confirmable
   extend ActiveSupport::Concern
 
   included do
-    scope :confirmed, -> { where(confirmation_token: nil) }
+    scope :confirmed,   -> { where(confirmation_token: nil) }
+    scope :unconfirmed, -> { where.not(confirmation_token: nil) }
+
+    def self.find_by_confirmation_token(confirmation_token)
+      unconfirmed.find_by(confirmation_token: confirmation_token)
+    end
   end
 
   def regenerate_confirmation_token

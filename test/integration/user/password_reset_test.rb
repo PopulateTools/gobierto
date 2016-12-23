@@ -3,12 +3,16 @@ require "test_helper"
 class User::PasswordResetTest < ActionDispatch::IntegrationTest
   def setup
     super
-    @password_request_path = new_user_passwords_path
-    @password_change_path = edit_user_passwords_path(reset_password_token: user.reset_password_token)
+    @password_request_path = new_user_sessions_path
+    @password_change_path = edit_user_passwords_path(reset_password_token: recoverable_user.reset_password_token)
   end
 
   def user
     @user ||= users(:dennis)
+  end
+
+  def recoverable_user
+    @recoverable_user ||= users(:dennis)
   end
 
   def site
@@ -21,9 +25,9 @@ class User::PasswordResetTest < ActionDispatch::IntegrationTest
 
       fill_in :user_password_email, with: user.email
 
-      click_on "Send"
+      click_button "Recover"
 
-      assert has_content?("Please check your inbox to get instructions.")
+      assert has_message?("Please check your inbox to get instructions")
     end
   end
 
@@ -33,9 +37,9 @@ class User::PasswordResetTest < ActionDispatch::IntegrationTest
 
       fill_in :user_password_email, with: "wadus@gobierto.dev"
 
-      click_on "Send"
+      click_button "Recover"
 
-      assert has_content?("The email address specified doesn't seem to be valid.")
+      assert has_message?("The email address specified doesn't seem to be valid")
     end
   end
 
@@ -44,7 +48,7 @@ class User::PasswordResetTest < ActionDispatch::IntegrationTest
       with_current_site(site) do
         visit @password_request_path
 
-        assert has_content?("You are already signed in.")
+        assert has_message?("You are already signed in.")
       end
     end
   end
@@ -56,9 +60,9 @@ class User::PasswordResetTest < ActionDispatch::IntegrationTest
       fill_in :user_password_password, with: "wadus"
       fill_in :user_password_password_confirmation, with: "wadus"
 
-      click_on "Send"
+      click_button "Change"
 
-      assert has_content?("Signed in successfully.")
+      assert has_message?("Signed in successfully")
     end
   end
 
@@ -69,9 +73,9 @@ class User::PasswordResetTest < ActionDispatch::IntegrationTest
       fill_in :user_password_password, with: "wadus"
       fill_in :user_password_password_confirmation, with: "foo"
 
-      click_on "Send"
+      click_button "Change"
 
-      assert has_content?("There was a problem changing your password.")
+      assert has_message?("There was a problem changing your password")
     end
   end
 
@@ -80,7 +84,7 @@ class User::PasswordResetTest < ActionDispatch::IntegrationTest
       with_current_site(site) do
         visit @password_change_path
 
-        assert has_content?("You are already signed in.")
+        assert has_message?("You are already signed in.")
       end
     end
   end

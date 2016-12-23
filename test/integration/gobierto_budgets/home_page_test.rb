@@ -18,7 +18,6 @@ class GobiertoBudgets::HomePageTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @path
 
-      assert has_content?("Madrid")
       assert has_content?("Relevant data from your municipality")
       assert has_content?(last_year)
     end

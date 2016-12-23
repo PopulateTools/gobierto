@@ -1,0 +1,17 @@
+---
+ca:
+  controllers:
+    gobierto_budgets:
+      budgets_execution:
+        index:
+          alert: "No hi ha dades disponibles el %{year} així que et mostrem el primer any amb dades"
+      api:
+        data:
+          budgets_execution_header: "Desviació de les %{kind} el %{year}"
+          income: Ingrés
+          expense: Despesa
+          income_up: "S'ha ingressat un %{percentage}% (%{diff}) més del planejat"
+          income_down: "S'ha ingressat un %{percentage}% (%{diff}) menys del planejat"
+          expense_up: "S'ha gastat un %{percentage}% (%{diff}) més del planejat"
+          expense_down: "S'ha gastat un %{percentage}% (%{diff}) menys del planejat"
+

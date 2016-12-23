@@ -5,6 +5,10 @@ module Authentication::Invitable
     scope :invitation, -> { where.not(invitation_sent_at: nil) }
     scope :invitation_pending, -> { invitation.where.not(invitation_token: nil) }
     scope :invitation_accepted, -> { invitation.where(invitation_token: nil) }
+
+    def self.find_by_invitation_token(invitation_token)
+      invitation_pending.find_by(invitation_token: invitation_token)
+    end
   end
 
   def invitation?

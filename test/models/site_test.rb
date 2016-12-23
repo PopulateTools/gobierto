@@ -31,4 +31,15 @@ class SiteTest < ActiveSupport::TestCase
     refute site.password_protected?
     assert draft_site.password_protected?
   end
+
+  def test_place
+    assert_kind_of INE::Places::Place, site.place
+    assert site.place.present?
+  end
+
+  def test_find_by_allowed_domain
+    assert_equal site, Site.find_by_allowed_domain(site.domain)
+    refute Site.find_by_allowed_domain('presupuestos.' + Settings.gobierto_host)
+    refute Site.find_by_allowed_domain('foo')
+  end
 end

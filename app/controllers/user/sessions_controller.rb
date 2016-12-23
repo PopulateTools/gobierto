@@ -2,29 +2,46 @@ class User::SessionsController < User::BaseController
   before_action :authenticate_user!, only: [:destroy]
   before_action :require_no_authentication, only: [:new, :create]
 
-  def new; end
+  layout "user/layouts/sessions"
+
+  def new
+    @user_session_form = User::SessionForm.new(referrer_url: request.referrer)
+    @user_registration_form = User::RegistrationForm.new
+    @user_password_form = User::NewPasswordForm.new
+    @user_confirmation_request_form = User::ConfirmationRequestForm.new
+  end
 
   def create
-    user = User.confirmed.find_by(email: session_params[:email].downcase)
+    @user_session_form = User::SessionForm.new(user_session_params)
 
-    if user.try(:authenticate, session_params[:password])
+    if @user_session_form.save
+      user = @user_session_form.user
+
       user.update_session_data(remote_ip)
       sign_in_user(user.id)
-      redirect_to(after_sign_in_path, notice: "Signed in successfully.")
+
+      redirect_to(
+        after_sign_in_path(@user_session_form.referrer_url),
+        notice: t(".success")
+      )
     else
-      flash.now[:alert] = "The data you entered doesn't seem to be valid. Please try again."
+      @user_registration_form = User::RegistrationForm.new
+      @user_password_form = User::NewPasswordForm.new
+      @user_confirmation_request_form = User::ConfirmationRequestForm.new
+
+      flash.now[:alert] = t(".error")
       render :new
     end
   end
 
   def destroy
     sign_out_user
-    redirect_to(after_sign_out_path, notice: "Signed out successfully.")
+    redirect_to after_sign_out_path, notice: t(".success")
   end
 
   private
 
-  def session_params
-    params.require(:session).permit(:email, :password)
+  def user_session_params
+    params.require(:user_session).permit(:email, :password, :referrer_url)
   end
 end

@@ -3,6 +3,7 @@ class User < ApplicationRecord
   include Authentication::Confirmable
   include Authentication::Recoverable
   include Session::Trackable
+  include User::Subscriber
 
   EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/
 
@@ -10,15 +11,16 @@ class User < ApplicationRecord
 
   has_many :verifications, class_name: "User::Verification", dependent: :destroy
   has_many :census_verifications, class_name: "User::Verification::CensusVerification"
+  has_many :subscriptions, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
-  validates :name, presence: true
-  validates :email, presence: true, uniqueness: true,
-    format: { with: EMAIL_ADDRESS_REGEXP }
+  validates :email, uniqueness: true
 
   scope :sorted, -> { order(created_at: :desc) }
   scope :by_source_site, ->(source_site) { where(source_site: source_site) }
 
-  def verified?
-    census_verified?
-  end
+  enum gender: { male: 0, female: 1 }
+  enum notification_frequency: {
+    disabled: 0, immediate: 1, hourly: 2, daily: 3, weekly: 4
+  }, _suffix: :notifications
 end

@@ -11,15 +11,6 @@
 }
 
 @include screen(740) {
-	header.meta {
-		.site_header {
-			padding: 2em 0 .5em 0;
-			line-height: 2em;
-			.site_title {
-				font-size: 1.6em;
-			}
-		}
-	}
 	.column {
 		width: initial;
 		margin: auto 1em;

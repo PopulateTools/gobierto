@@ -1,0 +1,13 @@
+---
+es:
+  gobierto_budget_consultations/consultation:
+    notifications:
+      subject:
+        created: "Se ha agregado una consulta"
+        visibility_level_changed: "Se ha abierto una consulta"
+        title_changed: "Se ha actualizado una consulta"
+        opens_on_changed: "Se ha actualizado una consulta"
+        closes_on_changed: "Se ha actualizado una consulta"
+        opened: "Se ha abierto una consulta"
+        closed: "Se ha cerrado una consulta"
+        about_to_close: "Esta consulta se cerrará pronto"

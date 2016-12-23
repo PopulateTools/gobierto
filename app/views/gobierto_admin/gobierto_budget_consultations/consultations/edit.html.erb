@@ -1,0 +1,22 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= link_to t("gobierto_admin.gobierto_budget_consultations.consultations.index.title"), admin_budget_consultations_path %> »
+  <%= t(".title") %>
+</div>
+
+<h1>
+  <%= @consultation_form.title %>
+</h1>
+
+<div class="tabs">
+  <ul>
+    <li class="active">
+      <%= link_to t(".consultation_section"), "#" %>
+    </li>
+    <li>
+      <%= link_to t(".consultation_items_section"), admin_budget_consultation_consultation_items_path(@consultation) %>
+    </li>
+  </ul>
+</div>
+
+<%= render "form" %>

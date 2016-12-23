@@ -1,6 +1,12 @@
 module User::SessionHelper
   extend ActiveSupport::Concern
 
+  included do
+    if respond_to?(:helper_method)
+      helper_method :current_user, :user_signed_in?
+    end
+  end
+
   private
 
   def current_user
@@ -31,8 +37,8 @@ module User::SessionHelper
     User.confirmed.find_by(id: session[:user_id])
   end
 
-  def after_sign_in_path
-    root_path
+  def after_sign_in_path(referrer_url = nil)
+    referrer_url.presence || user_root_path
   end
 
   def after_sign_out_path

@@ -4,9 +4,21 @@ en:
     application: &application
       disclaimer: This is a demo of Gobierto, transparency and participation software
       more_information: More info in gobierto.es
-      budgets: Budgets
       is_open_source: is open source created by
       about_the_data: About the data
+      session:
+        sign_in: Sign in
+        sign_out: Sign out
+        title: Your account
+        profile: Profile
+        alerts: Your alerts
+        admin: Administration
+    gobierto_budgets:
+      application:
+        <<: *application
+    gobierto_budget_consultations:
+      application:
+        <<: *application
     sandbox:
       application:
         <<: *application

@@ -2,4 +2,4 @@ Hey,
 
 Use the following URL to confirm your email address:
 
-<%= user_confirmations_url(confirmation_token: @user.confirmation_token, domain: @site.domain) %>
+<%= new_user_confirmations_url(confirmation_token: @user.confirmation_token, domain: @site.domain) %>

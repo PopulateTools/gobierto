@@ -1,0 +1,13 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_budget_consultations:
+      consultations:
+        consultation_responses:
+          index:
+            title: Participacions
+            view_response: Vore Particpiació
+            header:
+              date: Data
+              consultation_budget_amount: Inversió inicial planificada
+              budget_amount: Inversió proposta

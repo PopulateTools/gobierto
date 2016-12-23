@@ -112,7 +112,9 @@ menu.main {
 			// background: transparentize($color_logo_yellow, .7);
 		}
 	}
-
+}
+.language_selector {
+	text-transform: uppercase;
 }
 .collapse_menu {
 	font-size: .85em;
@@ -224,6 +226,12 @@ body.gobierto_admin {
 					margin-bottom: -1px;
 				}
 			}
+      li.disabled {
+        a {
+          cursor: not-allowed;
+          color: white;
+        }
+      }
 		}
 	}
 }

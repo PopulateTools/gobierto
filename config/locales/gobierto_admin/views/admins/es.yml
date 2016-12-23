@@ -1,0 +1,31 @@
+---
+es:
+  gobierto_admin:
+    admins:
+      index:
+        title: Administradores
+        users_section: Usuarios
+        send_invitations: Enviar invitaciones
+        new: Nuevo Administrador
+        view_admin: Ver Administrador
+        header:
+          admin: Administrador
+          email: Email
+          last_sign_in_at: Último login
+          created_at: Creado
+      edit:
+        title: Editar Administrador
+      new:
+        title: Nuevo Administrador
+      form:
+        password_block: Contraseña
+        permissions_block: Permisos
+        sites_block: Sites con acceso
+        activity_block: Log de actividad
+        authorization_level:
+          regular: Regular
+          manager: Manager
+          disabled: Deshabilitado
+        placeholders:
+          name: Fernando González
+          email: fgonzalez@gmail.com

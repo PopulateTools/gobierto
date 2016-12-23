@@ -1,0 +1,38 @@
+---
+es:
+  activemodel:
+    models:
+      user/session_form: Sesión
+      user/registration_form: Registro
+      user/new_password_form: Recuperar contraseña
+      user/edit_password_form: Cambiar contraseña
+      user/confirmation_form: Confirmación
+      user/confirmation_request_form: Solicitud de confirmación
+      user/subscription_form: Suscripción
+      user/settings_form: Ajustes
+    attributes:
+      user/session_form:
+        email: Tu Correo-e
+        password: Tu contraseña
+      user/registration_form:
+        email: Tu Correo-e
+      user/new_password_form:
+        email: Tu Correo-e
+      user/edit_password_form:
+        password: Tu contraseña
+        password_confirmation: Tu contraseña, otra vez
+      user/confirmation_form:
+        email: Tu Correo-e
+        name: Tu nombre
+        password: Tu contraseña
+        password_confirmation: Tu contraseña, otra vez
+        year_of_birth: Año de nacimiento
+        gender: Género
+      user/confirmation_request_form:
+        email: Tu Correo-e
+      user/subscription_form:
+        user: Usuario
+        user_email: Correo-e
+        subscribable: Recurso
+      user/settings_form:
+        notification_frequency: Frecuencia de notificaciones

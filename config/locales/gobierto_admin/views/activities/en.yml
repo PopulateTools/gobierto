@@ -1,0 +1,14 @@
+---
+en:
+  gobierto_admin:
+    activities:
+      index:
+        title: Activity log
+      activities_list:
+        header:
+          action: Action
+          subject: Subject
+          user: User
+          recipient: Recipient
+          ip: IP
+          date: Date

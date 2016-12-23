@@ -1,0 +1,10 @@
+---
+en:
+  user:
+    notifications:
+      index:
+        title: Recent activity
+        no_new_notifications: There are no new notifications
+        headers:
+          created: Created
+          subject: Subject

@@ -1,0 +1,8 @@
+---
+es:
+  gobierto_admin:
+    admins:
+      create:
+        success: El Admin se ha creado correctamente
+      update:
+        success: El Admin se ha actualizado correctamente

@@ -1,0 +1,14 @@
+---
+es:
+  user:
+    settings:
+      show:
+        title: Ajustes de tu cuenta
+      form:
+        notification_frequency:
+          disabled: Deshabilitadas
+          immediate: Inmediatas
+          hourly: Digest horario
+          daily: Digest diario
+          weekly: Digest semanal
+        submit: Guardar

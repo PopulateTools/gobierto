@@ -1,0 +1,8 @@
+---
+es:
+  gobierto_admin:
+    admin:
+      invitations:
+        create:
+          success: Las invitaciones se han enviado correctamente
+          error: Hubo un problema al enviar las invitaciones

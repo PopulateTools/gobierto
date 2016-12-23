@@ -8,16 +8,16 @@ URL: http://gobierto.dev/admin/
 
 Available admins:
 
-| Email                 | Password | Notes                      |
-| ---                   | ---      | ---                        |
-| tony@gobierto.dev     | gobierto | regular admin              |
-| steve@gobierto.dev    | gobierto | regular admin, unconfirmed |
-| nick@gobierto.dev     | gobierto | manager admin              |
-| natasha@gobierto.dev  | gobierto | god manager admin          |
+| Email                | Password | Notes                               |
+| ---                  | ---      | ---                                 |
+| tony@gobierto.dev    | gobierto | regular admin, password recoverable |
+| steve@gobierto.dev   | gobierto | regular admin, unconfirmed          |
+| nick@gobierto.dev    | gobierto | manager admin                       |
+| natasha@gobierto.dev | gobierto | god manager admin                   |
 
 Available sites:
 
-| Domain                 | Title                        | Name                      | Notes                    |
-| ---                    | ---                          | ---                       | ---                      |
-| madrid.gobierto.dev    | Transparencia y Participción | Ayuntamiento de Madrid    | visibility level: active |
-| santander.gobierto.dev | Transparencia Ciudadana      | Ayuntamiento de Santander | visibility level: draft  |
+| Domain                 | Title                        | Name                      | Notes                    | Modules                      |
+| ---                    | ---                          | ---                       | ---                      | ---                          |
+| madrid.gobierto.dev    | Transparencia y Participción | Ayuntamiento de Madrid    | visibility level: active | Budgets, BudgetConsultations |
+| santander.gobierto.dev | Transparencia Ciudadana      | Ayuntamiento de Santander | visibility level: draft  | Budgets                      |

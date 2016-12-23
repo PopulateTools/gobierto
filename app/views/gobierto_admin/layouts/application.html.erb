@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
+  <%= stylesheet_link_tag 'admin/application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'admin/application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+  <% if Rails.env.production? %>
+    <%= render 'layouts/analytics_header_site' %>
+  <% end %>
+</head>
+
+<body <%= yield(:body_attributes) %> class="gobierto_admin">
+
+  <header class="main clearfix">
+
+    <div class="pure-menu-link logo">
+      <%= link_to admin_root_path do %>
+        <%= image_tag 'Gobierto-Avatar@2x.png' %>
+      <% end %>
+    </div>
+
+    <div class="pure-menu pure-menu-horizontal">
+      <ul class="pure-menu-list">
+        <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+          <%= link_to "#", id: "menuLink1", class: "pure-menu-link" do %>
+            <%= t(".site_network") %>
+          <% end %>
+          <ul id="managed-sites-list" class="pure-menu-children">
+            <% managed_sites.each do |site| %>
+              <li class="pure-menu-item">
+                <%= button_to(
+                  site.name,
+                  admin_sites_sessions_path,
+                  params: { site_id: site.id },
+                  class: "pure-menu-link") %>
+              </li>
+            <% end %>
+
+            <% if can_manage_sites? %>
+              <li class="pure-menu-item">
+                <%= link_to(
+                  t(".manage_sites"),
+                  admin_sites_path,
+                  class: "pure-menu-link") %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <% if managing_site? %>
+      <div id="current-site-name" class="pure-menu-link">
+        <%= current_site.name %>
+      </div>
+    <% end %>
+
+    <% if admin_signed_in? %>
+      <div class="right pure-menu pure-menu-horizontal">
+        <ul class="pure-menu-list left">
+          <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            <%= link_to "#", id: "menuLink1", class: "pure-menu-link" do %>
+              <%= t(".hey_admin", admin_name: current_admin_label) %>
+            <% end %>
+
+            <ul class="pure-menu-children">
+              <li class="pure-menu-item">
+                <%= link_to admin_root_path, class: "pure-menu-link" do %>
+                  <i class="fa fa-th"></i>
+                  <%= t(".admin_dropdown.account") %>
+                <% end %>
+              </li>
+              <li class="pure-menu-item">
+                <%= link_to admin_sessions_path, method: :delete, id: "admin-sign-out", class: "pure-menu-link" do %>
+                  <i class="fa fa-sign-out"></i>
+                  <%= t(".admin_dropdown.sign_out") %>
+                <% end %>
+              </li>
+              <li class="pure-menu-item">
+                <span class="pure-menu-link language_selector">
+                  <i class="fa fa-globe"></i>
+                  <%= render "layouts/locale_selector" %>
+                </span>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="right pure-menu-link">
+      <%= t(".notifications") %>
+    </div>
+
+    <div class="right pure-menu-link">
+      <% if managing_site? %>
+        <%= link_to t(".view_site"), current_site.domain_url, target: "_blank" %>
+      <% end %>
+    </div>
+
+  </header>
+
+  <div class="container admin_content_column_with_menu_opened">
+
+    <menu class="main" data-menu-status="open">
+
+      <div class="menu_content">
+
+        <ul>
+          <% if current_site.configuration.gobierto_budget_consultations_enabled? %>
+          <li>
+            <%= link_to t(".budget_consultations"), admin_budget_consultations_path %>
+          </li>
+          <% end %>
+
+          <li class="sep"></li>
+
+          <li><%= link_to t(".users"), admin_users_path %></li>
+
+          <% if managing_site? %>
+            <li>
+              <%= link_to t(".edit_site"), edit_admin_site_path(current_site) %>
+            </li>
+          <% end %>
+        </ul>
+
+      </div>
+
+      <div class="collapse_menu">
+        <a href="#" class="js-collapse-menu">
+          <i class="fa fa-caret-square-o-left"></i>
+          <span><%= t(".collapse_menu") %></span>
+        </a>
+      </div>
+
+    </menu>
+
+    <div class="admin_content_column">
+
+      <div class="admin_content">
+        <%= render "gobierto_admin/shared/flash_messages" %>
+        <%= yield %>
+      </div>
+
+    </div>
+
+  </div>
+
+  <% if Rails.env.production? %>
+    <%= render 'layouts/analytics_footer_site' %>
+  <% end %>
+
+  <%= yield :javascript_hook %>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+---
+ca:
+  user:
+    sessions:
+      create:
+        success: Sessió iniciada correctament
+        error: Les dades que has introduit no pareixen ser vàlides. Per favor, intenta-ho de nou.
+      destroy:
+        success: Sessió terminada correctament

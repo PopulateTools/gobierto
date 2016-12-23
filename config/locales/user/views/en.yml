@@ -1,0 +1,10 @@
+---
+en:
+  user:
+    layouts:
+      application:
+        account: Your account
+      menu_subsections:
+        profile: Profile
+        alerts: Alerts
+        admin: Administration

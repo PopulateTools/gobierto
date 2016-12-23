@@ -1,3 +1,4 @@
+---
 en:
   gobierto_budgets:
     common:
@@ -7,6 +8,8 @@ en:
       expenses: expenses
       budget_line_description_html: "This budget line is composed of %{kind_what} in %{description}. If you want to understand more about it, check its parent budget line: %{link}"
     layouts:
+      application:
+        budgets: Budgets
       menu_subsections:
         summary: Summary
         budget: Budget
@@ -135,3 +138,7 @@ en:
       mean_national: National mean
       mean_autonomy: Autonomy mean
       mean_province: Province mean
+      G_economic: 'In what'
+      G_functional: 'How'
+      I_economic: "How"
+

@@ -1,0 +1,62 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= t(".title") %>
+</div>
+
+<h1><%= t(".title") %></h1>
+
+<div class="admin_tools right">
+  <%= link_to t(".new"), new_admin_budget_consultation_path, class: "button" %>
+</div>
+
+<table class="consultations-list">
+<tr>
+  <th></th>
+  <th><%= t(".header.consultation") %></th>
+  <th><%= t(".header.results") %></th>
+  <th><%= t(".header.status") %></th>
+  <th></th>
+</tr>
+
+<tbody>
+  <% @consultations.each do |consultation| %>
+    <tr id="consultation-item-<%= consultation.id %>" class="<%= cycle("odd", "even") %>">
+      <td>
+        <%= link_to edit_admin_budget_consultation_path(consultation) do %>
+          <i class="fa fa-edit"></i>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to edit_admin_budget_consultation_path(consultation) do %>
+          <%= consultation.title %>
+        <% end %>
+        <div class="soft">
+          <%= t(".opens_on") %>
+          <strong><%= l(consultation.opens_on, format: :short) %></strong>
+          <%= t(".closes_on") %>
+          <strong><%= l(consultation.closes_on, format: :short) %></strong>
+        </div>
+      </td>
+      <td>
+        <%= link_to admin_budget_consultation_consultation_responses_path(consultation) do %>
+          <%= t(".participations_count", count: consultation.consultation_responses.active.count) %>
+        <% end %>
+      </td>
+      <td>
+        <% if consultation.draft? %>
+          <i class="fa fa-lock"></i>
+        <% else %>
+          <i class="fa fa-check"></i>
+        <% end %>
+        <%= t(".visibility_level.#{consultation.visibility_level}") %>
+      </td>
+      <td>
+        <%= link_to gobierto_budget_consultations_consultation_url(consultation, domain: current_site.domain), target: "_blank", class: "view_item" do %>
+          <i class="fa fa-eye"></i>
+          <%= t(".view_consultation") %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+</table>

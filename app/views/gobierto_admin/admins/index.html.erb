@@ -1,0 +1,72 @@
+<h1><%= t(".title") %></h1>
+
+<div class="tabs">
+  <ul>
+    <li>
+      <%= link_to admin_users_path do %>
+        <%= t(".users_section") %>
+      <% end %>
+    </li>
+    <li class="active">
+      <%= link_to admin_admins_path do %>
+        <%= t(".title") %>
+      <% end %>
+    </li>
+  </ul>
+</div>
+
+<div class="admin_tools right">
+  <%= link_to new_admin_admin_invitations_path do %>
+    <i class="fa fa-envelope"></i>
+    <%= t(".send_invitations") %>
+  <% end %>
+  <%= link_to t(".new"), new_admin_admin_path, class: "button" %>
+</div>
+
+<table class="admin-list">
+<tr>
+  <th></th>
+  <th><%= t(".header.admin") %></th>
+  <th><%= t(".header.email") %></th>
+  <th><%= t(".header.last_sign_in_at") %></th>
+  <th><%= t(".header.created_at") %></th>
+  <th></th>
+</tr>
+
+<tbody>
+  <% @admins.each do |admin| %>
+    <tr id="admin-item-<%= admin.id %>" class="<%= cycle("odd", "even") %>">
+      <td>
+        <%= link_to edit_admin_admin_path(admin) do %>
+          <i class="fa fa-edit"></i>
+        <% end %>
+      </td>
+      <td>
+        <% if admin.god? %>
+          <i class="fa fa-lock"></i>
+        <% end %>
+        <%= link_to edit_admin_admin_path(admin) do %>
+          <%= admin.name %>
+        <% end %>
+      </td>
+      <td>
+        <%= mail_to admin.email %>
+      </td>
+      <td>
+        <%= time_ago_in_words(admin.last_sign_in_at) if admin.last_sign_in_at %>
+        <span class="soft ip"><%= admin.last_sign_in_ip %></span>
+      </td>
+      <td>
+        <%= l(admin.created_at, format: :short) if admin.created_at %>
+        <span class="soft ip"><%= admin.creation_ip %></span>
+      </td>
+      <td>
+        <%= link_to admin_admin_path(admin), class: "view_item" do %>
+          <i class="fa fa-eye"></i>
+          <%= t(".view_admin") %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+</table>

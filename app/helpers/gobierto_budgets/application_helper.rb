@@ -56,12 +56,12 @@ module GobiertoBudgets
 
     def budget_line_description(area_name, code, kind)
       area = area_class area_name, kind
-      description = area.all_descriptions[kind][code.to_s]
+      description = area.all_descriptions[I18n.locale][area_name][kind][code.to_s]
       name = area.all_items[kind][code]
       if description != name
         return description
       else
-        I18n.t('gobierto_budgets.common.budget_line_description_html', kind_what: kind_literal(kind), description: description.downcase, link: link_to(budget_line_denomination(area_name, code[0..-2], kind), gobierto_budgets_budget_line_path(code[0..-2], params[:year], area_name, kind)))
+        I18n.t('gobierto_budgets.common.budget_line_description_html', kind_what: kind_literal(kind), description: description.try(:downcase), link: link_to(budget_line_denomination(area_name, code[0..-2], kind), gobierto_budgets_budget_line_path(code[0..-2], params[:year], area_name, kind)))
       end
     end
 

@@ -1,0 +1,6 @@
+---
+en:
+  user:
+    notification_mailer:
+      notification_digest:
+        subject: "Recent activity in your municipality"

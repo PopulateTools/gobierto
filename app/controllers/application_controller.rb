@@ -4,9 +4,9 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :render_404
   rescue_from ActionController::UnknownFormat, with: :render_404
 
-  helper_method :helpers, :load_current_module_sub_sections, :current_site
+  helper_method :helpers, :load_current_module_sub_sections, :current_site, :current_module, :available_locales
 
-  before_action :set_current_site, :authenticate_user_in_site
+  before_action :set_current_site, :authenticate_user_in_site, :set_locale
 
   def render_404
     render file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]
@@ -16,25 +16,8 @@ class ApplicationController < ActionController::Base
     ActionController::Base.helpers
   end
 
-  # TODO: check if we still need this
-  def default_url_options(options={})
-    if params[:e].present?
-      { e: true }
-    else
-      {}
-    end
-  end
-
-  def load_current_module_sub_sections
-    if current_module?
-      if lookup_context.exists?("#{current_module}/layouts/_menu_subsections.html.erb")
-        render partial: "#{current_module}/layouts/menu_subsections"
-      end
-    end
-  end
-
   def current_site
-    request.env['gobierto_site'] unless Site.reserved_domain?(domain)
+    request.env['gobierto_site']
   end
 
   private
@@ -54,20 +37,32 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user_in_site
-    if Rails.env.production? && @site && @site.password_protected?
-      authenticate_or_request_with_http_basic('Gobierto Site') do |username, password|
+    if (Rails.env.production? || Rails.env.staging?) && @site && @site.password_protected?
+      authenticate_or_request_with_http_basic('Gobierto') do |username, password|
         username == @site.configuration.password_protection_username && password == @site.configuration.password_protection_password
       end
     end
+  end
+
+  def set_locale
+    locale_param = params[:locale]
+    locale_cookie = cookies.signed[:locale]
+    site_locale = current_site.configuration.locale if current_site.present?
+
+    preferred_locale = (locale_param || locale_cookie || site_locale || I18n.default_locale).to_sym
+
+    if available_locales.include?(preferred_locale)
+      I18n.locale = cookies.permanent.signed[:locale] = preferred_locale
+    end
+  end
+
+  def available_locales
+    @available_locales ||= I18n.available_locales - [:en]
   end
 
   protected
 
   def remote_ip
     request.env['action_dispatch.remote_ip'].try(:calculate_ip) || request.remote_ip
-  end
-
-  def domain
-    @domain ||= (request.env['HTTP_HOST'] || request.env['SERVER_NAME'] || request.env['SERVER_ADDR']).split(':').first
   end
 end

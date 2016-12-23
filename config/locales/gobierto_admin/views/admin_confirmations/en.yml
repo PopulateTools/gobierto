@@ -1,0 +1,11 @@
+---
+en:
+  gobierto_admin:
+    admin:
+      confirmations:
+        new:
+          title: Resend confirmation instructions
+        form:
+          placeholders:
+            email: fsanchez@gmail.com
+          submit: Request instructions

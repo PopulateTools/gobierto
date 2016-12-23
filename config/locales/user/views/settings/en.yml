@@ -1,0 +1,14 @@
+---
+en:
+  user:
+    settings:
+      show:
+        title: Settings
+      form:
+        notification_frequency:
+          disabled: Disabled
+          immediate: Immediate
+          hourly: Hourly digest
+          daily: Daily digest
+          weekly: Weekly digest
+        submit: Save

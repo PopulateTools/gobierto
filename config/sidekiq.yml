@@ -6,3 +6,4 @@ production:
 :queues:
   - default
   - user_verifications
+  - mailers

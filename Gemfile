@@ -35,6 +35,9 @@ gem "sidekiq", "~> 4.2.6"
 # AWS SDK client
 gem "aws-sdk", "~> 2.6", require: false
 
+# AWS SES client
+gem "aws-ses", "~> 0.6.0"
+
 group :development, :test do
   gem "byebug", platform: :mri
 end

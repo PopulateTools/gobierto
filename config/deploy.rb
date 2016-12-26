@@ -9,7 +9,7 @@ set :rbenv_type, :user
 set :rbenv_ruby, '2.3.1'
 set :rbenv_path, '/home/ubuntu/.rbenv'
 set :passenger_restart_with_touch, true
-set :sidekiq_options_per_process, ["-q default -q user_verifications"]
+set :sidekiq_options_per_process, ["-q default -q user_verifications -q mailers"]
 
 
 namespace :deploy do

@@ -105,7 +105,7 @@ var VisAgeDistribution = Class.extend({
   },
   _renderAxis: function() {
 
-    // x axis
+    // X axis
     this.svg.select('.x.axis')
       .attr('transform', 'translate(0,' + this.height + ')');
 
@@ -115,35 +115,36 @@ var VisAgeDistribution = Class.extend({
     this.xAxis.tickFormat(this._formatNumberX.bind(this));
     this.svg.select('.x.axis').call(this.xAxis);
     
-    // y axis
+    // We only want multiples of 10 in the x axis
+    this.svg.selectAll(".x.axis .tick")
+      .filter(function (d) { return d % 10 !== 0;  })
+      .remove();
+    
+    // Y axis
     this.svg.select('.y.axis')
       .attr('transform', 'translate(' + (this.width - 35) + ' ,0)');
       
     this.yAxis.tickSize(-this.width);
     this.yAxis.scale(this.yScale);
-    this.yAxis.tickValues([0.5, 1, 1.5]);
+    this.yAxis.ticks(3);
     this.yAxis.tickFormat(this._formatNumberY.bind(this));
     this.svg.select('.y.axis').call(this.yAxis);
-  },
-  _axisRendered: function() {
-    return this.svg.selectAll('.axis').size() > 0;
+    
+    // Remove the zero
+    this.svg.selectAll(".y.axis .tick")
+      .filter(function (d) { return d === 0;  })
+      .remove();
   },
   _formatNumberX: function(d) {
-    // Show ages just in steps of 10
-    // FIXME: There should be a way to clean this mess
-    if (d % 10 === 0) {
-      // Age 100 is aggregated
-      if (d === 100) {
-        return d + '+';
-      } else {
-        return d;
-      }
+    // 'Age 100' is aggregated
+    if (d === 100) {
+      return d + '+';
     } else {
-      return '';
+      return d;
     }
   },
   _formatNumberY: function(d) {
-    // Show selected percentages    
+    // Show percentages
     return accounting.formatNumber(d) + '%';
   },
   _width: function() {

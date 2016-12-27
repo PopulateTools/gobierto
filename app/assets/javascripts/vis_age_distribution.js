@@ -5,25 +5,27 @@ var VisAgeDistribution = Class.extend({
     this.container = divId;
     this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null;
     this.data = null;
-    this.classed = 'agedb';
-    this.city = city_id;
-    this.dataUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal-edad.json?sort_asc_by=date&filter_by_year=2015&filter_by_location_id=39075'
+    this.tbiToken = 'XXX';
+    this.dataUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal-edad.json?sort_asc_by=date&filter_by_year=' + current_year + '&filter_by_location_id=' + city_id;
     
     // Chart dimensions
     this.margin = {top: 5, right: 0, bottom: 25, left: 0};
-    this.width = this._width();
-    this.height = 560 + this.margin.top + this.margin.bottom;
+    this.width = this._width() - this.margin.left - this.margin.right;
+    this.height = this._height() - this.margin.top - this.margin.bottom;
 
     // Scales & Ranges
     this.xScale = d3.scaleBand()
-        .rangeRound([0, this.width])
-        .padding(0.1);
+      .padding(0.1);;
         
-    this.yScale = d3.scaleLinear()
-        .range([this.height, 0]);
+    this.yScale = d3.scaleLinear();
+        
+    this.color = d3.scaleLinear()
+      .range(['#FFE4C4', '#d52a59'])
+      .interpolate(d3.interpolateHcl);
 
-    // Axis
-    this.xAxis = d3.axisBottom()
+    // Create axes
+    this.xAxis = d3.axisBottom();
+    this.yAxis = d3.axisRight();
 
     // Chart objects
     this.svg = null;
@@ -32,30 +34,35 @@ var VisAgeDistribution = Class.extend({
     // Create main elements
     this.svg = d3.select(this.container)
       .append('svg')
-      .classed(this.classed,true)
-      .attr('width',this.width)
-      .attr('height',this.height)
-      .append("g")
-      .attr("transform", "translate(" + this.margin.left + "," + this.margin.top + ")");
-
-    //xAxis
-    this.svg.append('g')
-      .attr('class','x axis');
-
-    //yAxis
-    this.svg.append('g')
-      .attr('class','y axis');
+      .attr('width', this.width + this.margin.left + this.margin.right)
+      .attr('height', this.height + this.margin.top + this.margin.bottom)
+      .append('g')
+      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
   },
   getData: function() {
     d3.json(this.dataUrl)
-      .header('authorization', 'Bearer WxVwwI-uTEVzvP6RF8FiFg')
-      .header('origin', 'http://localhost')
+      .header('authorization', 'Bearer ' + this.tbiToken)
       .get(function(error, jsonData) {
         if (error) throw error;
-
+        
         this.data = jsonData;
+        
+        // Get the city total population
+        var population = d3.sum(this.data, function(d) { return d.value; });
+        
+        // Calculate and round the percentage of each age
+        this.data.forEach(function(d) {
+          // Handle +100 age group string
+          isNaN(+d.age) ? d.age =+ 100 : d.age;
+          
+          d.age = +d.age;
+          d.pct = d.value / population * 100;
+        });
+        
+        this.data.sort(function(a, b) { return a.age - b.age; });
+                        
         this.updateRender();
       }.bind(this));
   },
@@ -66,59 +73,90 @@ var VisAgeDistribution = Class.extend({
       this.updateRender();
     }
   },
-  updateRender: function(callback) {
-    // this.xScale.domain(this.data.map(function(d) {return d.age}))
-    // this.yScale.domain([0, d3.max(this.data, function(d) {return d.value})])
-
-    this.xScale.domain(["1", "10", "54"])
-    this.yScale.domain([0, 3000])
-
-    this._renderAxis();
-        
-    var bars = this.svg.append("g")
-        .attr("class", "bars")
-        .selectAll("rect")
-        .data(this.data)
-        .enter()
-        .append("g")
-        .attr("class", "bar");
-
-    // Append bars
-    bars.append("rect")
-        .attr("x", function(d) { return this.xScale(d.age) }.bind(this))
-        .attr("y", function(d) { return this.yScale(d.value) }.bind(this))
-        .attr("width", this.xScale.bandwidth())
-        .attr("height", function(d) { return this.height - this.yScale(d.value) }.bind(this));
+  updateRender: function(callback) {    
+    this.xScale
+      .rangeRound([0, this.width])
+      .domain(this.data.map(function(d) {return d.age}));
     
+    this.yScale
+      .range([this.height, 0])
+      .domain([0, d3.max(this.data, function(d) {return d.pct})]);
+    
+    this.color.domain([0, d3.max(this.data, function(d) {return d.pct})]);
+            
+    var bars = this.svg.append('g')
+      .attr('class', 'bars')
+      .selectAll('rect')
+      .data(this.data)
+      .enter()
+    
+    bars.append('rect')
+      .attr('x', function(d) { return this.xScale(d.age) }.bind(this))
+      .attr('y', function(d) { return this.yScale(d.pct) }.bind(this))
+      .attr('width', this.xScale.bandwidth())
+      .attr('height', function(d) { return this.height - this.yScale(d.pct) }.bind(this))
+      .attr('fill', function(d) { return this.color(d.pct) }.bind(this));
+    
+    // Append axes containers
+    this.svg.append('g').attr('class','x axis');
+    this.svg.append('g').attr('class','y axis');
+      
+    this._renderAxis();
   },
   _renderAxis: function() {
 
-    //position axis
+    // x axis
     this.svg.select('.x.axis')
-      .attr("transform", "translate("+ this.margin.left + "," + (this.height - this.margin.bottom + 10) + ")");
+      .attr('transform', 'translate(0,' + this.height + ')')
 
-    this.xAxis.tickSize(0,0);
-    this.xAxis.tickFormat(this._formatNumberX.bind(this));
+    this.xAxis.tickPadding(5);
+    this.xAxis.tickSize(0, 0);
     this.xAxis.scale(this.xScale);
-    this.svg.select(".x.axis").call(this.xAxis);
+    this.xAxis.tickFormat(this._formatNumberX.bind(this));
+    this.svg.select('.x.axis').call(this.xAxis);
+    
+    // y axis
+    this.svg.select('.y.axis')
+      .attr('transform', 'translate(' + (this.width - 35) + ' ,0)');
+      
+    this.yAxis.tickSize(-this.width);
+    this.yAxis.scale(this.yScale);
+    this.yAxis.tickValues([0.5, 1, 1.5]);
+    this.yAxis.tickFormat(this._formatNumberY.bind(this));
+    this.svg.select('.y.axis').call(this.yAxis)
   },
   _axisRendered: function() {
     return this.svg.selectAll('.axis').size() > 0;
   },
   _formatNumberX: function(d) {
-    //replace with whatever format you want
-    //examples here: http://koaning.s3-website-us-west-2.amazonaws.com/html/d3format.html
-    return d3.format(",")(d)
+    // Show ages just in steps of 10
+    if (d % 10 === 0) {
+      return d;
+    } else {
+      return '';
+    }
+  },
+  _formatNumberY: function(d) {
+    // Show selected percentages    
+    return accounting.formatNumber(d) + '%';
   },
   _width: function() {
     return parseInt(d3.select(this.container).style('width'));
   },
-  _resize: function() {
+  _height: function() {
+    return this._width() * 0.4;
+  },
+  _resize: function() {    
     this.width = this._width();
-    // this.height = this._width();
-    this.svg.attr('width',this.width)
-      .attr('height',this.height);
-
+    this.height = this._height();
+    
+    this.svg
+      .attr('width', this.width + this.margin.left + this.margin.right)
+      .attr('height', this.height + this.margin.top + this.margin.bottom)
+      
+    this.svg.select('g')
+      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+    
     this.updateRender();
   }
 });

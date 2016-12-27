@@ -34,6 +34,19 @@
 	height: 250px;
 }
 
+/* Graphics */
+#age_distribution .axis {
+	font-family: $font_text;
+	font-size: 0.75em;
+}
+#age_distribution .y.axis .domain {
+	display: none;
+}
+#age_distribution .y.axis line {
+	stroke: $color_main_negative;
+	stroke-dasharray: 2, 2;
+}
+
 // Bigger phones
 @media (min-width: 375px) {
 	.indicators_section {

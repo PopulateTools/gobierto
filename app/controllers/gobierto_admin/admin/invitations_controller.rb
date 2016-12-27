@@ -10,9 +10,16 @@ module GobiertoAdmin
       @sites = get_sites
 
       if @admin_invitation_form.process
-        flash[:notice] = t(".success")
+        if @admin_invitation_form.not_delivered_email_addresses.any?
+          flash.now[:alert] = t(
+            ".success_with_errors",
+            email_addresses: @admin_invitation_form.not_delivered_email_addresses.to_sentence
+          )
+        else
+          flash.now[:notice] = t(".success")
+        end
       else
-        flash[:notice] = t(".error")
+        flash.now[:alert] = t(".error")
       end
 
       render :new

@@ -49,7 +49,7 @@ test:
     - elasticsearch
 
 sidekiq:
-  image: gobiertodev_web
+  image: gobierto_web
   command: ./script/sidekiq_server
   env_file: .env
   environment:

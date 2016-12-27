@@ -30,14 +30,18 @@
 
         <div class="inline_help">
           <%= t(".hints.domain.instructions") %>
-          <p>
-            <strong><%= t(".hints.domain.if_domain") %></strong>:
-            <%= t(".hints.domain.a_record", target: @dns_config.a_record_target) %>
-          </p>
-          <p>
-            <strong><%= t(".hints.domain.if_subdomain") %></strong>:
-            <%= t(".hints.domain.cname_record", target: @dns_config.cname_record_target) %>
-          </p>
+          <% if @dns_config.a_record_target.present? %>
+            <p>
+              <strong><%= t(".hints.domain.if_domain") %></strong>:
+              <%= t(".hints.domain.a_record", target: @dns_config.a_record_target) %>
+            </p>
+          <% end %>
+          <% if @dns_config.cname_record_target.present? %>
+            <p>
+              <strong><%= t(".hints.domain.if_subdomain") %></strong>:
+              <%= t(".hints.domain.cname_record", target: @dns_config.cname_record_target) %>
+            </p>
+          <% end %>
         </div>
       </div>
 

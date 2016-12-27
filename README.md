@@ -1,6 +1,6 @@
-[![CircleCI](https://circleci.com/gh/PopulateTools/gobierto-dev.svg?style=svg)](https://circleci.com/gh/PopulateTools/gobierto-dev)
-[![codecov](https://img.shields.io/codecov/c/github/PopulateTools/gobierto-dev.svg)](https://codecov.io/gh/PopulateTools/gobierto-dev)
-[![Stories in Ready](https://badge.waffle.io/PopulateTools/gobierto-dev.svg?label=ready&title=Ready)](http://waffle.io/PopulateTools/gobierto-dev)
+[![CircleCI](https://circleci.com/gh/PopulateTools/gobierto.svg?style=svg)](https://circleci.com/gh/PopulateTools/gobierto)
+[![codecov](https://img.shields.io/codecov/c/github/PopulateTools/gobierto.svg)](https://codecov.io/gh/PopulateTools/gobierto)
+[![Stories in Ready](https://badge.waffle.io/PopulateTools/gobierto.svg?label=ready&title=Ready)](http://waffle.io/PopulateTools/gobierto)
 
 ![Gobierto](https://gobierto.es/assets/logo_gobierto.png)
 

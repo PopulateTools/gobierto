@@ -43,11 +43,11 @@
         </div>
 
         <div class="pure-u-md-1-2 right">
-        
+
           <div class="user_links">
-            
+
             <!-- <a href="#">Novedades</a> -->
-            
+
             <!-- mismo lista de opciones que en el admin. mismo marcado (practicamente). reutilizar partial? -->
             <div class="pure-menu pure-menu-horizontal">
               <ul class="pure-menu-list left">
@@ -86,7 +86,7 @@
             </div>
 
             <!-- <a href="#">Sigue a tu municipio</a> -->
-            
+
           </div>
 
           <div class="language_selector">
@@ -105,7 +105,7 @@
   </div>
 
   <div class="site_header">
-    
+
     <% if @site.configuration.logo %>
     <div class="column">
       <div class="logo">
@@ -116,7 +116,7 @@
 
     <menu class="complete color_main">
       <div class="column">
-      
+
         <div class="close ">
           <%= link_to '<i class="fa fa-close"></i>'.html_safe, '', class: 'color_main' %>
         </div>
@@ -125,26 +125,26 @@
 
           <div class="pure-u-1 pure-u-md-1-4 section">
             <h2>Presupuestos</h2>
-            <%= link_to 'Visualización' %>              
+            <%= link_to 'Visualización' %>
             <%= link_to 'Consultas' %>
           </div>
 
           <div class="pure-u-1 pure-u-md-1-4 section">
             <h2>Personas</h2>
-            <%= link_to 'Cargos' %>              
+            <%= link_to 'Cargos' %>
             <%= link_to 'Agendas' %>
           </div>
 
           <div class="pure-u-1 pure-u-md-1-4 section">
             <h2>Indicadores</h2>
-            <%= link_to 'Tu municipio en cifras' %>              
+            <%= link_to 'Tu municipio en cifras' %>
             <%= link_to 'Cuadro de mando' %>
             <%= link_to 'Objetivos' %>
           </div>
 
           <div class="pure-u-1 pure-u-md-1-4 section">
             <h2>Participación</h2>
-            <%= link_to 'Propuestas' %>              
+            <%= link_to 'Propuestas' %>
             <%= link_to 'Preguntas' %>
             <%= link_to 'Consultas' %>
             <%= link_to 'Legislación colaborativa' %>
@@ -152,7 +152,7 @@
 
           <div class="pure-u-1 pure-u-md-1-4 section">
             <h2>Mapas</h2>
-            <%= link_to 'Inversiones' %>              
+            <%= link_to 'Inversiones' %>
             <%= link_to 'Recursos' %>
             <%= link_to 'Instalacioens' %>
           </div>
@@ -192,13 +192,13 @@
 
   </div>
   <%# load_current_module_sub_sections %>
-  
+
 </header>
 
 <div class="container">
 
   <%= render "user/shared/flash_messages" %>
-  <%= content_for?(:content) ? yield(:content) : yield %></div>  
+  <%= content_for?(:content) ? yield(:content) : yield %></div>
 
 </div>
 
@@ -214,7 +214,7 @@
         </div>
 
         <div class="pure-u-1 pure-u-md-1-2">
-          <%= link_to t('.about_the_data'), Settings.data_note_url, target: '_blank' %>
+          <%= link_to t('.about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], target: '_blank' %>
         </div>
 
         <div class="pure-u-1 mobile_only">

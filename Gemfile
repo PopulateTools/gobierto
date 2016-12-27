@@ -9,7 +9,6 @@ gem "meta-tags"
 gem "ine-places"
 gem "ruby_px"
 gem "responders"
-gem "config"
 gem "dalli"
 gem "cookies_eu"
 

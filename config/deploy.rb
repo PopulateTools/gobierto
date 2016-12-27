@@ -15,12 +15,16 @@ set :sidekiq_options_per_process, ["-q default -q user_verifications -q mailers"
 namespace :deploy do
   desc "Copy example secrets"
   task :copy_secrets_file do
-    execute "cp #{release_path}/config/secrets.yml.example #{release_path}/config/secrets.yml"
+    on roles(:all) do
+      execute "cp #{release_path}/config/secrets.yml.example #{release_path}/config/secrets.yml"
+    end
   end
 
   desc "Copy application configuration"
   task :copy_application_configuration do
-    execute "cp #{shared_path}/config/application.yml #{release_path}/config/application.yml"
+    on roles(:all) do
+      execute "cp #{shared_path}/config/application.yml #{release_path}/config/application.yml"
+    end
   end
 end
 

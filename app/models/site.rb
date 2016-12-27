@@ -52,7 +52,7 @@ class Site < ApplicationRecord
 
   def self.reserved_domains
     @reserved_domains ||= RESERVED_SUBDOMAINS.map do |subdomain|
-      "#{subdomain}." + Settings.gobierto_host
+      "#{subdomain}." + APP_CONFIG["site"]["host"]
     end
   end
   private_class_method :reserved_domains

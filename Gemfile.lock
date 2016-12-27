@@ -102,9 +102,6 @@ GEM
       simplecov
       url
     concurrent-ruby (1.0.3)
-    config (1.3.0)
-      activesupport (>= 3.0)
-      deep_merge (~> 1.1.1)
     connection_pool (2.2.1)
     cookies_eu (1.6.0)
       js_cookie_rails
@@ -114,7 +111,6 @@ GEM
       railties (>= 3.1)
     dalli (2.7.6)
     database_cleaner (1.5.3)
-    deep_merge (1.1.1)
     docile (1.1.5)
     elasticsearch (2.0.0)
       elasticsearch-api (= 2.0.0)
@@ -329,7 +325,6 @@ DEPENDENCIES
   capybara
   cocoon
   codecov (~> 0.1.9)
-  config
   cookies_eu
   d3-rails (~> 4.3)
   dalli

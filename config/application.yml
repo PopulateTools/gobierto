@@ -24,7 +24,6 @@ default: &default
   gobierto_budgets:
     data_note_url: https://presupuestos.gobierto.es/about#method
   site:
-    host: gobierto.dev
     mixpanel_key: ''
     google_analytics_key: ''
 

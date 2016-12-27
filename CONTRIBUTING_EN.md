@@ -1,7 +1,6 @@
 ## Team members
 
 * Fernando Blat [github](https://github.com/ferblape) | [twitter](https://twitter.com/ferblape)
-* Jorge Gómez Sancha [github](https://github.com/jorgesancha) | [twitter](https://twitter.com/jorgesancha)
 * Álvaro Ortiz [github](https://github.com/furilo) | [twitter](https://twitter.com/furilo)
 
 ## Code of conduct

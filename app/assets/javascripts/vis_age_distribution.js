@@ -15,7 +15,7 @@ var VisAgeDistribution = Class.extend({
 
     // Scales & Ranges
     this.xScale = d3.scaleBand()
-      .padding(0.1);;
+      .padding(0.1);
         
     this.yScale = d3.scaleLinear();
         
@@ -55,14 +55,14 @@ var VisAgeDistribution = Class.extend({
         // Calculate and round the percentage of each age
         this.data.forEach(function(d) {
           // Handle +100 age group string
-          isNaN(+d.age) ? d.age =+ 100 : d.age;
+          isNaN(d.age) ? d.age =+ 100 : d.age;
           
           d.age = +d.age;
-          d.pct = d.value / population * 100;
+          d.pct = d3.format(',.3')(d.value / population * 100);
         });
         
         this.data.sort(function(a, b) { return a.age - b.age; });
-                        
+
         this.updateRender();
       }.bind(this));
   },
@@ -88,7 +88,7 @@ var VisAgeDistribution = Class.extend({
       .attr('class', 'bars')
       .selectAll('rect')
       .data(this.data)
-      .enter()
+      .enter();
     
     bars.append('rect')
       .attr('x', function(d) { return this.xScale(d.age) }.bind(this))
@@ -107,7 +107,7 @@ var VisAgeDistribution = Class.extend({
 
     // x axis
     this.svg.select('.x.axis')
-      .attr('transform', 'translate(0,' + this.height + ')')
+      .attr('transform', 'translate(0,' + this.height + ')');
 
     this.xAxis.tickPadding(5);
     this.xAxis.tickSize(0, 0);
@@ -123,15 +123,21 @@ var VisAgeDistribution = Class.extend({
     this.yAxis.scale(this.yScale);
     this.yAxis.tickValues([0.5, 1, 1.5]);
     this.yAxis.tickFormat(this._formatNumberY.bind(this));
-    this.svg.select('.y.axis').call(this.yAxis)
+    this.svg.select('.y.axis').call(this.yAxis);
   },
   _axisRendered: function() {
     return this.svg.selectAll('.axis').size() > 0;
   },
   _formatNumberX: function(d) {
     // Show ages just in steps of 10
+    // FIXME: There should be a way to clean this mess
     if (d % 10 === 0) {
-      return d;
+      // Age 100 is aggregated
+      if (d === 100) {
+        return d + '+';
+      } else {
+        return d;
+      }
     } else {
       return '';
     }
@@ -144,7 +150,7 @@ var VisAgeDistribution = Class.extend({
     return parseInt(d3.select(this.container).style('width'));
   },
   _height: function() {
-    return this._width() * 0.4;
+    return this._width() * 0.25;
   },
   _resize: function() {    
     this.width = this._width();

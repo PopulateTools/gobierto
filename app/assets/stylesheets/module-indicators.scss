@@ -35,6 +35,9 @@
 }
 
 /* Graphics */
+#age_distribution {
+	position: relative;
+}
 #age_distribution .axis {
 	font-family: $font_text;
 	font-size: 0.75em;
@@ -44,7 +47,12 @@
 }
 #age_distribution .y.axis line {
 	stroke: $color_main_negative;
-	stroke-dasharray: 2, 2;
+	stroke-dasharray: 1, 2;
+}
+#age_distribution .chart_headline {
+	position: absolute;
+	left: 2em;
+	font-weight: 600;
 }
 
 // Bigger phones

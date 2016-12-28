@@ -28,7 +28,7 @@
 //= require components/shareContent
 
 // TODO: move to its module
-//= indicators
+//= require indicators
 //= require vis_age_distribution
 
 // Global util functions

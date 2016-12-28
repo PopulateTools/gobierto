@@ -272,6 +272,56 @@
         </table>
       </div>
 
+      <div class="dyna_block new_block">
+        <label>
+          <%= link_to '', class: "open-new_block" do %>
+            <i class="fa fa-plus-circle"></i>
+            Añadir nuevo bloque
+          <% end %>
+        </label>
+      </div>
+
+      <div class="new_block_content">
+
+        <div class="form_item input_text">
+          <label for="name">Nombre del bloque</label>
+          <input type="text" id="name" value="Datos personales">
+        </div>
+
+        <h4>Columnas</h4>
+
+        <div class="block_column_field">
+          <select>
+            <option>Campo de texto</option>
+            <option>Campo de fecha</option>
+            <option>Campo de moneda</option>
+          </select>
+          <input type="text" placeholder="Título"> 
+          <%= link_to '<i class="fa fa-trash"></i>'.html_safe, '', class: 'delete-new_block_row' %>
+        </div>
+
+        <div class="block_column_field">
+          <select>
+            <option>Campo de texto</option>
+            <option>Campo de fecha</option>
+            <option>Campo de moneda</option>
+          </select>
+          <input type="text" placeholder="Título"> 
+          <%= link_to '<i class="fa fa-trash"></i>'.html_safe, '', class: 'delete-new_block_row' %>
+        </div>
+
+        <div class="block_column_field">
+          <%= link_to '', class: "open-new_block" do %>
+            <i class="fa fa-plus-circle"></i>
+            Añadir columna
+          <% end %>
+        </div>
+
+        <button>Guardar</button> 
+        
+
+      </div>
+
     </form>
 
   </div>

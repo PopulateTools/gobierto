@@ -35,6 +35,11 @@ $(document).on('turbolinks:load', function() {
 		$('.new_row_content').hide();
 	});	
 
+	$('.open-new_block').click(function(e) {
+		e.preventDefault();
+		$('.new_block_content').show();
+	});	
+
   $(".stick_in_parent, #stick_in_parent, stick_in_parent").stick_in_parent();
 
   

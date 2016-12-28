@@ -4,7 +4,7 @@
  */
 body.gobierto_admin {
   .dyna_block {
-    margin: 0 0 1em 0;
+    margin: 0 0 2em 0;
     border: 1px solid $color_separator;
     @include border-radius(6px);
     overflow-x: auto;
@@ -107,5 +107,40 @@ body.gobierto_admin {
   .warn, a.warn, .warn a {
     color: $color_warn;
     font-weight: 600;
+  }
+  .dyna_block.new_block {
+    a, label {
+      display: block;
+      padding: 0;
+    }
+    a {
+      padding: 1em 1.25em;
+    }
+    a:hover {
+      background: transparentize($color_main, .9);
+    }
+  }
+  .new_block_content {
+    display: none;
+    padding: 1em;
+    @include border-radius(6px);
+    background: transparentize($color_main, .9);
+    .block_column_field {
+      margin: 0 0 1em 0;
+      select, input {
+        height: initial;
+        padding: .25em;
+        width: initial;
+        display: inline-block;
+      }
+      select, option {
+        -webkit-appearance: menulist;
+        moz-appearance: menulist;
+        appearance: menulist;
+      }
+      input {
+
+      }
+    }
   }
 }

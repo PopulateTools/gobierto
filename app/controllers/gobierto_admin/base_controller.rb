@@ -5,6 +5,7 @@ module GobiertoAdmin
     include LayoutPolicyHelper
     include ModuleHelper
 
+    skip_before_action :authenticate_user_in_site
     before_action :authenticate_admin!
 
     helper_method :current_admin, :admin_signed_in?

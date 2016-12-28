@@ -8,3 +8,6 @@ en:
         title_changed: "A consultation has been updated"
         opens_on_changed: "A consultation has been updated"
         closes_on_changed: "A consultation has been updated"
+        opened: "A consultation has been open"
+        closed: "A consultation has been closed"
+        about_to_close: "A consultation is about to close"

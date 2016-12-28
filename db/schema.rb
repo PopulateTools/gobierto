@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221062928) do
+ActiveRecord::Schema.define(version: 20161222064233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -164,8 +164,12 @@ ActiveRecord::Schema.define(version: 20161221062928) do
     t.string   "action"
     t.string   "subject_type"
     t.integer  "subject_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.boolean  "is_sent",      default: false, null: false
+    t.boolean  "is_seen",      default: false, null: false
+    t.index ["is_seen"], name: "index_user_notifications_on_is_seen", using: :btree
+    t.index ["is_sent"], name: "index_user_notifications_on_is_sent", using: :btree
     t.index ["site_id"], name: "index_user_notifications_on_site_id", using: :btree
     t.index ["subject_type", "subject_id", "site_id", "user_id"], name: "index_user_notifications_on_subject_and_site_id_and_user_id", using: :btree
     t.index ["subject_type", "subject_id", "site_id"], name: "index_user_notifications_on_subject_and_site_id", using: :btree

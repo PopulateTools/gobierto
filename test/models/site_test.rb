@@ -36,4 +36,10 @@ class SiteTest < ActiveSupport::TestCase
     assert_kind_of INE::Places::Place, site.place
     assert site.place.present?
   end
+
+  def test_find_by_allowed_domain
+    assert_equal site, Site.find_by_allowed_domain(site.domain)
+    refute Site.find_by_allowed_domain('presupuestos.' + ENV.fetch("HOST"))
+    refute Site.find_by_allowed_domain('foo')
+  end
 end

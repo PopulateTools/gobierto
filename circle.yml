@@ -1,6 +1,7 @@
 machine:
   environment:
     CI: true
+    HOST: gobierto.dev
   ruby:
     version: 2.3.1
 

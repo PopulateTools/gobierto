@@ -5,4 +5,5 @@ es:
       invitations:
         create:
           success: Las invitaciones se han enviado correctamente
+          success_with_errors: "Algunas invitaciones no han podido ser enviadas: %{email_addresses}."
           error: Hubo un problema al enviar las invitaciones

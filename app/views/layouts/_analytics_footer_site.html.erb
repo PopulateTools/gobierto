@@ -1,6 +1,6 @@
-<% if Settings.google_analytics_sites_key.present? %>
+<% if APP_CONFIG["site"]["google_analytics_key"].present? %>
   <script type="text/javascript">
-    ga('create', '<%= Settings.google_analytics_sites_key %>', 'auto');
+    ga('create', '<%= APP_CONFIG["site"]["google_analytics_key"] %>', 'auto');
     ga('send', 'pageview');
   </script>
 <% end %>

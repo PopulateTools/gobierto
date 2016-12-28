@@ -8,3 +8,6 @@ ca:
         title_changed: "S'ha actualitzat una consulta"
         opens_on_changed: "S'ha actualitzat una consulta"
         closes_on_changed: "S'ha actualitzat una consulta"
+        opened: "S'ha obert una consulta"
+        closed: "S'ha tancat una consulta"
+        about_to_close: "Aquesta consulta es tancarà aviat"

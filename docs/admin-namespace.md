@@ -1,6 +1,6 @@
 ![Gobierto](https://gobierto.es/assets/logo_gobierto.png)
 
-# Gobierto (dev)
+# Gobierto
 
 ## Accessing the Admin namespace
 

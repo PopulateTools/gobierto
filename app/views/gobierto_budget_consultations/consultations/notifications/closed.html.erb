@@ -1,0 +1,7 @@
+<p>
+  A Consultation has been closed:
+</p>
+
+<p>
+  <%= link_to @subject.title, polymorphic_url(@subject, domain: @site.domain) %>
+</p>

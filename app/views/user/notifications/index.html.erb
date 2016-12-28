@@ -8,24 +8,32 @@
 
   <h3><%= title t(".title") %></h3>
 
-  <table class="user-notification-list">
-    <tr>
-      <th><%= t(".headers.created") %></th>
-      <th><%= t(".headers.subject") %></th>
-      <th></th>
-    </tr>
-    <tbody>
-      <% @user_notifications.each do |user_notification| %>
-        <tr id="user-notification-item-<%= user_notification.id %>">
-          <td>
-            <%= l(user_notification.created_at, format: :long) %>
-          </td>
-          <td>
-            <%= render_notification_item(user_notification) %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <% if @user_notifications.any? %>
+
+    <table class="user-notification-list">
+      <tr>
+        <th><%= t(".headers.created") %></th>
+        <th><%= t(".headers.subject") %></th>
+        <th></th>
+      </tr>
+      <tbody>
+        <% @user_notifications.each do |user_notification| %>
+          <tr id="user-notification-item-<%= user_notification.id %>">
+            <td>
+              <%= l(user_notification.created_at, format: :long) %>
+            </td>
+            <td>
+              <%= render_notification_item(user_notification) %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  <% else %>
+
+    <%= t(".no_new_notifications") %>
+
+  <% end %>
 
 </div>

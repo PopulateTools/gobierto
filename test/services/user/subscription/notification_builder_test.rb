@@ -35,7 +35,9 @@ class User::Subscription::NotificationBuilderTest < ActiveSupport::TestCase
     assert_difference "User::Notification.count", 1 do
       @subject.call
     end
+  end
 
+  def test_user_notification_format
     user_notifications = @subject.call
     first_user_notification = user_notifications.first
 

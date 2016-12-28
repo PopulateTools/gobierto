@@ -1,6 +1,7 @@
 machine:
   environment:
     CI: true
+    HOST: gobierto.dev
   ruby:
     version: 2.3.1
 
@@ -20,3 +21,9 @@ dependencies:
 test:
   override:
     - script/test
+
+deployment:
+  staging:
+    branch: master
+    commands:
+      - bundle exec cap staging deploy

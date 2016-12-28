@@ -14,7 +14,7 @@ module GobiertoAdmin
     private
 
     def create_admin
-      @admin = Admin.create(
+      @admin = Admin.create!(
         email: email_address,
         name: get_username_from_email(email_address),
         password: generate_random_password,
@@ -24,6 +24,8 @@ module GobiertoAdmin
       @admin.sites = sites
 
       @admin
+    rescue ActiveRecord::RecordInvalid
+      false
     end
 
     def deliver_invitation_email

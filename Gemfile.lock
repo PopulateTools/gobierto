@@ -50,6 +50,11 @@ GEM
       jmespath (~> 1.0)
     aws-sdk-resources (2.6.38)
       aws-sdk-core (= 2.6.38)
+    aws-ses (0.6.0)
+      builder
+      mail (> 2.2.5)
+      mime-types
+      xml-simple
     aws-sigv4 (1.0.0)
     bcrypt (3.1.11)
     bourbon (4.2.7)
@@ -97,9 +102,6 @@ GEM
       simplecov
       url
     concurrent-ruby (1.0.3)
-    config (1.3.0)
-      activesupport (>= 3.0)
-      deep_merge (~> 1.1.1)
     connection_pool (2.2.1)
     cookies_eu (1.6.0)
       js_cookie_rails
@@ -109,7 +111,6 @@ GEM
       railties (>= 3.1)
     dalli (2.7.6)
     database_cleaner (1.5.3)
-    deep_merge (1.1.1)
     docile (1.1.5)
     elasticsearch (2.0.0)
       elasticsearch-api (= 2.0.0)
@@ -300,6 +301,7 @@ GEM
     websocket-driver (0.6.4)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
+    xml-simple (1.1.5)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -308,6 +310,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk (~> 2.6)
+  aws-ses (~> 0.6.0)
   bcrypt (~> 3.1.0)
   bourbon
   byebug
@@ -322,7 +325,6 @@ DEPENDENCIES
   capybara
   cocoon
   codecov (~> 0.1.9)
-  config
   cookies_eu
   d3-rails (~> 4.3)
   dalli

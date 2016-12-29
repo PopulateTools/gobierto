@@ -1,6 +1,8 @@
 module GobiertoAdmin
   module GobiertoPeople
     class PeopleController < BaseController
+      include ::GobiertoCommon::DynamicContentHelper
+
       before_action { module_enabled!(current_site, "GobiertoPeople") }
 
       def index
@@ -8,7 +10,7 @@ module GobiertoAdmin
       end
 
       def new
-        @person_form = PersonForm.new
+        @person_form = PersonForm.new(site_id: current_site.id)
         @person_visibility_levels = get_person_visibility_levels
       end
 
@@ -73,7 +75,8 @@ module GobiertoAdmin
           :charge,
           :bio,
           :bio_url,
-          :visibility_level
+          :visibility_level,
+          dynamic_content_attributes
         )
       end
 

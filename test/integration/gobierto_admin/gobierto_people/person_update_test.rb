@@ -1,8 +1,11 @@
 require "test_helper"
+require "support/integration/dynamic_content_helpers"
 
 module GobiertoAdmin
   module GobiertoPeople
     class PersonUpdateTest < ActionDispatch::IntegrationTest
+      include Integration::DynamicContentHelpers
+
       def setup
         super
         @path = edit_admin_people_person_path(person)
@@ -11,6 +14,7 @@ module GobiertoAdmin
       def person
         @person ||= gobierto_people_people(:richard)
       end
+      alias content_context person
 
       def admin
         @admin ||= person.admin
@@ -35,6 +39,8 @@ module GobiertoAdmin
                 choose "Draft"
               end
 
+              fill_in_content_blocks
+
               click_button "Update Person"
             end
 
@@ -49,6 +55,8 @@ module GobiertoAdmin
               within ".person-visibility-level-radio-buttons" do
                 assert has_checked_field?("Draft")
               end
+
+              assert_content_blocks_have_the_right_values
             end
           end
         end

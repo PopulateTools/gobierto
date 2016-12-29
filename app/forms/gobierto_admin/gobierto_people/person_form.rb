@@ -2,6 +2,7 @@ module GobiertoAdmin
   module GobiertoPeople
     class PersonForm
       include ActiveModel::Model
+      include ::GobiertoCommon::DynamicContentFormHelper
 
       attr_accessor(
         :id,
@@ -26,6 +27,7 @@ module GobiertoAdmin
       def person
         @person ||= person_class.find_by(id: id).presence || build_person
       end
+      alias content_context person
 
       def admin_id
         @admin_id ||= person.admin_id
@@ -66,6 +68,7 @@ module GobiertoAdmin
           person_attributes.bio = bio
           person_attributes.bio_url = bio_url
           person_attributes.visibility_level = visibility_level
+          person_attributes.content_block_records = content_block_records
         end
 
         if @person.valid?

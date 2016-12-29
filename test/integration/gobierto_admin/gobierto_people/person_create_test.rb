@@ -1,8 +1,11 @@
 require "test_helper"
+require "support/integration/dynamic_content_helpers"
 
 module GobiertoAdmin
   module GobiertoPeople
     class PersonCreateTest < ActionDispatch::IntegrationTest
+      include Integration::DynamicContentHelpers
+
       def setup
         super
         @path = new_admin_people_person_path
@@ -14,6 +17,10 @@ module GobiertoAdmin
 
       def site
         @site ||= sites(:madrid)
+      end
+
+      def content_context
+        ::GobiertoPeople::Person.new
       end
 
       def test_person_create
@@ -31,12 +38,15 @@ module GobiertoAdmin
                 choose "Active"
               end
 
+              fill_in_content_blocks
+
               click_button "Create Person"
             end
 
             assert has_message?("Person was successfully created")
-
             assert has_selector?("h1", text: "Person Name")
+
+            assert_content_blocks_have_the_right_values
           end
         end
       end

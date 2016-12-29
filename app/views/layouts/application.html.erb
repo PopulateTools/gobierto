@@ -10,6 +10,11 @@
   <%= yield(:stylesheet_link) %>
   <%= yield(:javascript_include) %>
 
+  <script type="text/javascript">
+    I18n.defaultLocale = "<%= I18n.default_locale %>";
+    I18n.locale = "<%= I18n.locale %>";
+  </script>
+
   <%= csrf_meta_tags %>
 
   <% if Rails.env.production? %>
@@ -36,13 +41,13 @@
 
       <div class="column pure-g">
         <div class="desktop_only">
-          
+
           <div class="pure-u-md-1-2">
             <% if @site.configuration.links_markup.present? %>
               <%= raw @site.configuration.links_markup %>
             <% end %>
           </div>
-          
+
           <div class="pure-u-md-1-2 right">
 
             <div class="user_links">
@@ -156,7 +161,7 @@
           </div>
 
           <div class="pure-u-1 pure-u-md-1-2">
-            <%= link_to t('.about_the_data'), Settings.data_note_url, target: '_blank' %>
+            <%= link_to t('.about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], target: '_blank' %>
           </div>
 
           <div class="pure-u-1 mobile_only">

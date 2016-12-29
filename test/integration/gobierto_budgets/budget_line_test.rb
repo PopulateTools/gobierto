@@ -35,4 +35,12 @@ class GobiertoBudgets::BudgetLineTest < ActionDispatch::IntegrationTest
       assert page.all(".metric_box .metric").all?{ |e| e.text =~ /\d{2}/}
     end
   end
+
+  def test_invalid_budget_line_url
+    with_current_site(site) do
+      visit gobierto_budgets_budget_line_path('1', last_year, GobiertoBudgets::BudgetLine::ECONOMIC, 'foo')
+
+      assert_equal 400, status_code
+    end
+  end
 end

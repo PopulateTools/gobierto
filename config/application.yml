@@ -24,6 +24,11 @@ default: &default
     default_reply_to: <%= ENV.fetch("EMAIL_DEFAULT_REPLY_TO") { "Gobierto <admin@gobierto.dev>" } %>
   services:
     municipalities_suggestions_endpoint: <%= ENV["MUNICIPALITIES_SUGGESTIONS_ENDPOINT"] %>
+  gobierto_budgets:
+    data_note_url: https://presupuestos.gobierto.es/about#method
+  site:
+    mixpanel_key: ''
+    google_analytics_key: ''
 
 development:
   <<: *default

@@ -1,0 +1,73 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Personas', 'admin_people' %> »
+  <%= link_to 'Rafa García García', 'admin_people_person' %> »
+  Blog
+</div>
+
+<h1>Rafa García García</h1>
+
+<div class="tabs">
+  <ul>
+    <li><%= link_to 'Persona', 'admin_people_person' %></li>
+    <li ><%= link_to 'Agenda', 'admin_people_person_agenda' %></li>
+    <li><%= link_to 'Declaraciones', 'admin_people_person_declarations' %></li>
+    <li class="active"><%= link_to 'Blog', 'admin_people_person_blog' %></li>
+  </ul>
+</div>
+
+<div class="pure-g">
+  
+  <div class="pure-u-1">
+    <div class="admin_tools right">
+      <button class="btn">Nuevo post</button>
+    </div>
+  </div>
+
+</div>
+
+<table>
+<tr>
+  <th></th>
+  <th>Título</th>
+  <th>Fecha</th>
+  <th>Tags</th>
+  <th></th>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_people_person_blog_post' %></td>
+  <td><%= link_to 'Inauguramos nueva etapa', 'admin_people_person_blog_post' %></td>
+  <td>12 oct 2016</td>
+  <td>novedades, noticias, impresiones</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver post'.html_safe, '#FRONT_POST', class: 'view_item' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_people_person_blog_post' %></td>
+  <td><%= link_to 'Inauguramos nueva etapa', 'admin_people_person_blog_post' %></td>
+  <td>12 oct 2016</td>
+  <td>novedades, noticias, impresiones</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver post'.html_safe, '#FRONT_POST', class: 'view_item' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_people_person_blog_post' %></td>
+  <td><%= link_to 'Inauguramos nueva etapa', 'admin_people_person_blog_post' %></td>
+  <td>12 oct 2016</td>
+  <td>novedades, noticias, impresiones</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver post'.html_safe, '#FRONT_POST', class: 'view_item' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_people_person_blog_post' %></td>
+  <td><%= link_to 'Inauguramos nueva etapa', 'admin_people_person_blog_post' %></td>
+  <td>12 oct 2016</td>
+  <td>novedades, noticias, impresiones</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver post'.html_safe, '#FRONT_POST', class: 'view_item' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_people_person_blog_post' %></td>
+  <td><%= link_to 'Inauguramos nueva etapa', 'admin_people_person_blog_post' %></td>
+  <td>12 oct 2016</td>
+  <td>novedades, noticias, impresiones</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver post'.html_safe, '#FRONT_POST', class: 'view_item' %></td>
+</tr>
+
+</table>

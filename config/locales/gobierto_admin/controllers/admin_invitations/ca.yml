@@ -5,4 +5,5 @@ ca:
       invitations:
         create:
           success: Les invitacions s'han enviat correctament
+          success_with_errors: "Algunes invitacions no han pogut ser enviades: %{email_addresses}."
           error: Hi hagué un problema al enviar les invitacions

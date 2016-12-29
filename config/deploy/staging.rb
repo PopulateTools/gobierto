@@ -1,2 +1,2 @@
-server 'staging01', user: 'ubuntu', roles: %w{app db web}
+server 'gobify.net', user: 'ubuntu', roles: %w{app db web}
 set :application, 'gobierto_staging'

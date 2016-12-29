@@ -33,7 +33,6 @@ In this tutorial we are going to show you how to install Gobierto in a simple Li
 **External requirements:**
 
 - Amazon AWS S3 keys
-- Mailchimp API credentials (only if you want to integrate with Mailchimp)
 - Rollbar, as exception notification tool (you can replace it easily)
 
 We recommend you to prepare the credentials from these services before you continue with this

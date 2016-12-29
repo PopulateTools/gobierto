@@ -16,6 +16,14 @@ module GobiertoAdmin
       @site_ids ||= []
     end
 
+    def delivered_email_addresses
+      @delivered_email_addresses ||= []
+    end
+
+    def not_delivered_email_addresses
+      Array(email_list) - delivered_email_addresses
+    end
+
     private
 
     def email_list
@@ -27,7 +35,11 @@ module GobiertoAdmin
 
     def build_invitations
       email_list.each do |email_address|
-        AdminInvitationBuilder.new(email_address, site_ids).call
+        invitation_builder = AdminInvitationBuilder.new(email_address, site_ids)
+
+        if invitation_builder.call
+          delivered_email_addresses.push(invitation_builder.email_address)
+        end
       end
     end
   end

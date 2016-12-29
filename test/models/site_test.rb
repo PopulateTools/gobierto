@@ -39,7 +39,7 @@ class SiteTest < ActiveSupport::TestCase
 
   def test_find_by_allowed_domain
     assert_equal site, Site.find_by_allowed_domain(site.domain)
-    refute Site.find_by_allowed_domain('presupuestos.' + Settings.gobierto_host)
+    refute Site.find_by_allowed_domain('presupuestos.' + ENV.fetch("HOST"))
     refute Site.find_by_allowed_domain('foo')
   end
 end

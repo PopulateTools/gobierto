@@ -50,20 +50,8 @@
 	stroke-dasharray: 1, 2;
 }
 #age_distribution .chart_headline {
-	position: absolute;
-	left: 2em;
 	font-weight: 600;
-}
-
-// Bigger phones
-@media (min-width: 375px) {
-	.indicators_section {
-		font-size: 0.8em;
-	}
-	.indicators_subsection {
-		font-size: 0.8em;
-		margin-left: 20px;
-	}
+	margin-top: 0;
 }
 
 // Desktop
@@ -80,5 +68,10 @@
 	}
 	.r_mr {
 		margin-right: 2.5em;
+	}
+	#age_distribution .chart_headline {
+		margin-top: 2rem;
+		position: absolute;
+		left: 2em;
 	}
 }

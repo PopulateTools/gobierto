@@ -6,7 +6,7 @@ var VisAgeDistribution = Class.extend({
     this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null;
     this.data = null;
     this.tbiToken = window.tbiToken;
-    this.dataUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal-edad.json?sort_asc_by=date&filter_by_year=' + current_year + '&filter_by_location_id=' + city_id;
+    this.dataUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal-edad.json?include=municipality&filter_by_year=' + current_year + '&filter_by_location_id=' + city_id;
 
     // Chart dimensions
     this.margin = {top: 5, right: 0, bottom: 25, left: 0};
@@ -38,6 +38,9 @@ var VisAgeDistribution = Class.extend({
       .attr('height', this.height + this.margin.top + this.margin.bottom)
       .append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+    
+    // Create city name selector
+    this.city = d3.selectAll('.js-city-name');
 
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
   },
@@ -62,8 +65,10 @@ var VisAgeDistribution = Class.extend({
         });
 
         this.data.sort(function(a, b) { return a.age - b.age; });
-
+        
         this.updateRender();
+        this._renderBars();
+        this._renderCityData();
       }.bind(this));
   },
   render: function() {
@@ -79,29 +84,36 @@ var VisAgeDistribution = Class.extend({
       .domain(this.data.map(function(d) {return d.age}));
 
     this.yScale
-      .range([this.height, 0])
+      .rangeRound([this.height, 0])
       .domain([0, d3.max(this.data, function(d) {return d.pct})]);
 
     this.color.domain([0, d3.max(this.data, function(d) {return d.pct})]);
-
-    var bars = this.svg.append('g')
-      .attr('class', 'bars')
-      .selectAll('rect')
-      .data(this.data)
-      .enter();
-
-    bars.append('rect')
-      .attr('x', function(d) { return this.xScale(d.age) }.bind(this))
-      .attr('y', function(d) { return this.yScale(d.pct) }.bind(this))
-      .attr('width', this.xScale.bandwidth())
-      .attr('height', function(d) { return this.height - this.yScale(d.pct) }.bind(this))
-      .attr('fill', function(d) { return this.color(d.pct) }.bind(this));
 
     // Append axes containers
     this.svg.append('g').attr('class','x axis');
     this.svg.append('g').attr('class','y axis');
 
     this._renderAxis();
+  },
+  _renderBars: function() {
+    // We keep this separate to not create them after every resize
+    var bars = this.svg.append('g')
+      .attr('class', 'bars')
+      .selectAll('rect')
+      .data(this.data)
+      .enter();
+    
+    bars.append('rect')
+      .attr('x', function(d) { return this.xScale(d.age) }.bind(this))
+      .attr('y', function(d) { return this.yScale(d.pct) }.bind(this))
+      .attr('width', this.xScale.bandwidth())
+      .attr('height', function(d) { return this.height - this.yScale(d.pct) }.bind(this))
+      .attr('fill', function(d) { return this.color(d.pct) }.bind(this));
+  },
+  _renderCityData: function() {
+    this.city
+      .datum(this.data)
+      .text(function(d) {return d[0].municipality_name;});
   },
   _renderAxis: function() {
 
@@ -157,12 +169,19 @@ var VisAgeDistribution = Class.extend({
     this.width = this._width();
     this.height = this._height();
 
-    this.svg
+    d3.select(this.container + ' svg')
       .attr('width', this.width + this.margin.left + this.margin.right)
       .attr('height', this.height + this.margin.top + this.margin.bottom)
 
     this.svg.select('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+    
+    // Update bars
+    d3.select('#age_distribution .bars').selectAll('rect')
+      .attr('x', function(d) { return this.xScale(d.age) }.bind(this))
+      .attr('y', function(d) { return this.yScale(d.pct) }.bind(this))
+      .attr('width', this.xScale.bandwidth())
+      .attr('height', function(d) { return this.height - this.yScale(d.pct) }.bind(this));
 
     this.updateRender();
   }

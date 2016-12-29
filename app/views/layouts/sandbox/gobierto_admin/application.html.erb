@@ -4,6 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
   <%= stylesheet_link_tag 'admin/application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'admin/application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 
@@ -111,7 +112,7 @@
           <li class="sep"></li>
 
           <li><a href="">Inteligencia</a></li>
-          <li><a href="">Personas</a>
+          <li><a href="admin_people">Personas</a>
             <ul>
               <li><a href="">Todas</a></li>
               <li><a href="">Agendas</a></li>

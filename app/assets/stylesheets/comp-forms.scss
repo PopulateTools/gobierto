@@ -16,20 +16,6 @@ input[type=text], input[type=email], input[type=submit], input[type=password], i
     margin: 0 0 1em 0;
   }
 }
-input[type=submit], .button, button {
-  @include transition;
-  border: 0;
-  background: $color_main;
-  color: #FFF;
-  padding: 0 2em;
-  text-align: center;
-  text-transform: uppercase;
-  font-style: 700;
-  cursor: pointer;
-}
-input[type=submit]:hover, .button:hover, button:hover {
-  background: darken($color_main, 10%);
-}
 .form_item.input_text, .form_item.textarea, .select_control, .file_field {
   position: relative;
   margin: 0 0 1em 0;
@@ -52,18 +38,34 @@ input[type=submit]:hover, .button:hover, button:hover {
   }
 }
 .file_field {
-  input {
-    padding-top: 2.2em;
+  border: 1px solid $color_separator;
+  @include border-radius(6px);
+  padding: 2.5em 1em 1em 1em;
+  input[type=file] {
+    padding: 0;
+    border: none;
+    height: initial;
   }
+}
+input[type=submit], .button, button {
+  @include transition;
+  border: 0;
+  height: initial;
+  background: $color_main;
+  color: #FFF;
+  padding: 1em 2em;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+}
+input[type=submit]:hover, .button:hover, button:hover {
+  background: darken($color_main, 10%);
 }
 button a {
   color: #FFF;
   text-decoration: none;
-}
-.button, button {
-  text-decoration: none;
-  padding: 1em 2em;
-  font-weight: 700;
 }
 .button:hover, button {
   color: #FFF;
@@ -192,6 +194,32 @@ option, select {
   margin-top: 1em;
   padding-top: 1em;
 }
+.form_item.input_text, .form_item.textarea, .select_control, .file_field {
+  position: relative;
+  margin: 0 0 1em 0;
+  label {
+    position: absolute;
+    top: .5rem;
+    left: 1rem;
+    text-transform: uppercase;
+    font-size: .75em;
+    font-weight: 700;
+  }
+  input, textarea {
+    padding: 2.75rem 1rem 1.35rem .95rem;
+    width: 100%;
+    outline: none;
+  }
+  textarea {
+    box-sizing: border-box;
+    height: 300px;
+    font-size: 1em;
+  }
+  input[type=password] {
+    height: 67px;
+    padding: 1.5rem 1rem .25rem 1rem;
+  }
+}
 .select_control, .options_cont {
   box-sizing: border-box;
   border: 1px solid $color_separator;
@@ -213,7 +241,7 @@ option, select {
 .form_item.textarea.code {
   background: none;
   textarea {
-    font-size: .75em;
+    font-size: .85em;
   }
 }
 .form_item {

@@ -21,10 +21,27 @@ $(document).on('turbolinks:load', function() {
 			$('.container').removeClass('admin_content_column_with_menu_closed');	
 		}
 		
+	});	
 
-	});
+	$('.open-new_row_content').click(function(e) {
+		e.preventDefault();
+		$('.new_row_add').hide();
+		$('.new_row_content').show();
+	});	
+
+	$('.close-new_row_content').click(function(e) {
+		e.preventDefault();
+		$('.new_row_add').show();
+		$('.new_row_content').hide();
+	});	
+
+	$('.open-new_block').click(function(e) {
+		e.preventDefault();
+		$('.new_block_content').show();
+	});	
 
   $(".stick_in_parent, #stick_in_parent, stick_in_parent").stick_in_parent();
 
+  
 
 });

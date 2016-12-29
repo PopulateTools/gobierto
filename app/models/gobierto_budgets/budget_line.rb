@@ -1,5 +1,8 @@
 module GobiertoBudgets
   class BudgetLine < OpenStruct
+    class RecordNotFound < StandardError; end
+    class InvalidSearchConditions < StandardError; end
+
     INCOME = 'I'
     EXPENSE = 'G'
     ECONOMIC = 'economic'
@@ -9,6 +12,7 @@ module GobiertoBudgets
     @sort_order ||= 'asc'
 
     def self.where(conditions)
+      validate_conditions(conditions)
       @conditions = conditions
       self
     end
@@ -47,6 +51,7 @@ module GobiertoBudgets
       response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
                                                              type: @conditions[:area_name], body: query
 
+      raise GobiertoBudgets::BudgetLine::RecordNotFound if response['hits']['hits'].empty?
       BudgetLinePresenter.new response['hits']['hits'].first['_source'].merge({kind: @conditions[:kind], area_name: @conditions[:area_name], area: area})
     end
 
@@ -364,5 +369,16 @@ module GobiertoBudgets
       area = area_name == 'economic' ? EconomicArea : FunctionalArea
       area.all_items[self.kind][self.code]
     end
+
+    def self.validate_conditions(conditions)
+      if conditions.has_key?(:kind)
+        raise GobiertoBudgets::BudgetLine::InvalidSearchConditions unless [INCOME, EXPENSE].include?(conditions[:kind])
+      end
+      if conditions.has_key?(:area_name)
+        raise GobiertoBudgets::BudgetLine::InvalidSearchConditions unless [ECONOMIC, FUNCTIONAL].include?(conditions[:area_name])
+      end
+    end
+    private_class_method :validate_conditions
+
   end
 end

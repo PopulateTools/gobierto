@@ -12,12 +12,16 @@ es:
             charge: Cargo
             events: Eventos
             statements: Declaraciones
+            posts: Posts
           events_count:
             one: Un evento
             other: "%{count} eventos"
           statements_count:
             one: Una declaración
             other: "%{count} declaraciones"
+          posts_count:
+            one: Un post
+            other: "%{count} posts"
         edit:
           title: Editar persona
         new:

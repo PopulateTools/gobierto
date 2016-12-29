@@ -12,12 +12,16 @@ en:
             charge: Charge
             events: Events
             statements: Statements
+            posts: Posts
           events_count:
             one: One event
             other: "%{count} events"
           statements_count:
             one: One statement
             other: "%{count} statements"
+          posts_count:
+            one: One post
+            other: "%{count} posts"
         edit:
           title: Edit person
         new:

@@ -27,6 +27,8 @@ ca:
         new:
           title: Nova persona
         form:
+          avatar_file_constraints: Avatar de usuario (fichero de 500x500)
+          bio_file_constraints: Adjuntar fichero (PDF)
           placeholders:
             name: Rafael García
             charge: Alcalde

@@ -27,6 +27,8 @@ en:
         new:
           title: New person
         form:
+          avatar_file_constraints: User avatar (500x500 file)
+          bio_file_constraints: Attach file (PDF)
           placeholders:
             name: Rafael García
             charge: Alcalde

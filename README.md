@@ -56,6 +56,7 @@ Si quieres instalarte Gobierto en tu propio entorno o desarrollar algún módulo
 - [Acceder como Administrador](docs/admin-namespace.md)
 - [Acceder como Usuario](docs/user-namespace.md)
 - [Integrar la extensión Trackable](docs/trackable-extension.md)
+- [Integrar el componente DynamicContent](docs/dynamic-content-component.md)
 
 ## Contribuir
 

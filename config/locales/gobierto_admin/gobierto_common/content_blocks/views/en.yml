@@ -1,0 +1,14 @@
+---
+en:
+  gobierto_admin:
+    gobierto_common:
+      content_blocks:
+        edit:
+          title: Edit block
+        new:
+          title: Add block
+        form:
+          title: Title
+          fields: Fields
+          delete_field: Delete field
+          add_child: Add new field

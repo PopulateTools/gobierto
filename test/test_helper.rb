@@ -63,6 +63,8 @@ class ActiveSupport::TestCase
 
   fixtures :all
 
+  AVAILABLE_LOCALES = I18n.available_locales - [:en]
+
   def setup
     DatabaseCleaner.start
   end

@@ -11,4 +11,14 @@ module ApplicationHelper
 
     render_if_exists("#{module_name.underscore}/layouts/menu_subsections")
   end
+
+  def localized_enum(class_name, enum_name)
+    return {} unless class_name.respond_to?(enum_name.to_s.pluralize)
+
+    class_name.send(enum_name.to_s.pluralize).reduce({}) do |enum_options, (key, _)|
+      enum_options.merge!(
+        { I18n.t("activerecord.attributes.#{class_name.model_name.i18n_key}.#{enum_name.to_s.pluralize}.#{key}", default: key.capitalize) => key }
+      )
+    end
+  end
 end

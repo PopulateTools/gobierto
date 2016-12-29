@@ -50,6 +50,10 @@ Rails.application.routes.draw do
     namespace :gobierto_people, as: :people, path: :people do
       resources :people, only: [:index, :new, :create, :edit, :update]
     end
+
+    namespace :gobierto_common, as: :common, path: nil do
+      resources :content_blocks, only: [:new, :create, :edit, :update, :destroy]
+    end
   end
 
   # User module

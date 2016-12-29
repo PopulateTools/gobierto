@@ -2,7 +2,24 @@
 
   <div class="form_block">
 
-    <h3><%= content_block.title %></h3>
+    <p>
+      <strong><%= content_block.title %></strong>
+      &nbsp;
+
+      <small>
+        <%= link_to edit_admin_common_content_block_path(content_block.id) do %>
+          <i class="fa fa-edit"></i>
+          <%= t(".edit_content_block") %>
+        <% end %>
+      </small>
+
+      <small>
+        <%= link_to admin_common_content_block_path(content_block.id), method: :delete, data: { confirm: t(".delete_content_block_confirm") } do %>
+          <i class="fa fa-trash"></i>
+          <%= t(".delete_content_block") %>
+        <% end %>
+      </small>
+    </p>
 
     <table id="content-block-<%= content_block.id %>" class="dynamic-content-wrapper">
       <tr>
@@ -16,7 +33,7 @@
       </tr>
 
       <%= form_builder.fields_for :content_block_records, content_block.records do |content_block_record_form| %>
-        <tr class="content-block-record-wrapper content-block-record-<%= content_block_record_form.object.id || "new" %>">
+        <tr class="dynamic-content-record-wrapper content-block-record-<%= content_block_record_form.object.id || "new" %>">
           <td class="meta">
             <%= content_block_record_form.hidden_field :content_block_id %>
           </td>
@@ -57,8 +74,13 @@
 
 <% end %>
 
+<%= link_to new_admin_common_content_block_path(content_context: form_builder.object.content_context.model_name.name), class: "button" do %>
+  <i class="fa fa-plus"></i>
+  <%= t(".add_content_block") %>
+<% end %>
+
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
-    window.GobiertoAdmin.dynamic_content_component.handle();
+    window.GobiertoAdmin.dynamic_content_component.handle("content_block_records_attributes");
   <% end %>
 <% end %>

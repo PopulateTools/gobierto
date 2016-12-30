@@ -8,7 +8,7 @@ ca:
       gobierto_common/content_block_field: Camp
     attributes:
       gobierto_common/content_block_field:
-        field_type: Tipo de campo
+        field_type: Tipus de camp
         field_types:
           text: Tipus de camp
           date: Data

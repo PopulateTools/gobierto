@@ -4,7 +4,7 @@ ca:
     gobierto_common:
       content_blocks:
         edit:
-          title: Edit bloc
+          title: Editar bloc
         edit:
           title: Afegir bloc
         form:

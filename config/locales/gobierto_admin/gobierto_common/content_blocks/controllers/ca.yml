@@ -7,6 +7,6 @@ ca:
           create:
             success: El bloc s'ha creat correctament
           update:
-            success: El bloc s'ha actualizat correctament
+            success: El bloc s'ha actualitzat correctament
           destroy:
             success: El bloc s'ha eliminat correctament

@@ -31,7 +31,7 @@ body.gobierto_admin {
         }
       }
     }
-    .new_row_content {
+    .new_row_content, .dynamic-content-record-form {
       display: none;
       td {
         background: transparentize($color_main, .95); 
@@ -56,7 +56,7 @@ body.gobierto_admin {
       h4 {
         margin: .5em 0 1em 0;
       }
-      button, input[type=submit] {
+      button, a.button, input[type=submit] {
         padding: .5em .75em;
         height: initial;
         margin: .7em 1em .7em 0;
@@ -64,7 +64,7 @@ body.gobierto_admin {
         @include border-radius(3px);
       }
     }
-    .new_row_content:hover {
+    .new_row_content:hover, .dynamic-content-record-form:hover {
       .edit_cell {
         display: block;
       }

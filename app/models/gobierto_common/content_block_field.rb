@@ -35,7 +35,9 @@ module GobiertoCommon
     end
 
     def set_position
-      self.position = self.class.maximum(:position) + 1
+      self.position = begin
+        self.class.where(content_block_id: content_block_id).maximum(:position).to_i + 1
+      end
     end
   end
 end

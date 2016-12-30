@@ -10,6 +10,7 @@
 //= require mustache.min
 //= require velocity.min
 //= require velocity.ui.min
+//= require underscore-min
 //= require d3.min
 //= require d3-legend.min
 //= require accounting.min
@@ -30,6 +31,7 @@
 // TODO: move to its module
 //= require indicators
 //= require vis_age_distribution
+//= require vis_unemployment_age
 
 // Global util functions
 function rebindAll() {

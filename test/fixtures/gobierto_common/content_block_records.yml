@@ -6,4 +6,4 @@ contact_method_twitter:
 accomplishment_nobel_prize:
   content_context: richard (GobiertoPeople::Person)
   content_block: accomplishments
-  payload: <%= { "title" => "Nobel Prize in Chemistry", "year" => "2016" }.to_json %>
+  payload: <%= { "title" => "Nobel Prize in Chemistry", "date" => "2016" }.to_json %>

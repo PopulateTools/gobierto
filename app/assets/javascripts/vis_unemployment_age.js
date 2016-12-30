@@ -30,7 +30,8 @@ var VisUnemploymentAge = Class.extend({
             return a + b.value
           }, 0);
           
-        console.log(less_25)
+        // console.log(jsonData)
+        // console.log(less_25)
         
       }.bind(this));
   },

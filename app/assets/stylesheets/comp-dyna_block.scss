@@ -121,7 +121,6 @@ body.gobierto_admin {
     }
   }
   .new_block_content {
-    display: none;
     padding: 1em;
     @include border-radius(6px);
     background: transparentize($color_main, .9);

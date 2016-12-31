@@ -36,7 +36,7 @@
             <td class="edit_cell">
               <%= content_block_record_form.hidden_field :id %>
               <%= content_block_record_form.hidden_field :content_block_id %>
-              <%= content_block_record_form.check_box :_destroy, class: "destroy-content-block-record" %>
+              <%= content_block_record_form.check_box :_destroy, class: "hidden destroy-content-block-record" %>
 
               <%= link_to "#", data: { behavior: "edit_record" } do %>
                 <i class="fa fa-edit"></i>

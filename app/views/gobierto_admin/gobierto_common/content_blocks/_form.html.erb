@@ -9,70 +9,60 @@
 
     <div class="pure-u-1 pure-u-md-16-24">
 
-      <h3><%= t(".title") %></h3>
+      <div class="new_block_content">
 
-      <div class="form_item input_text title_components">
-        <%= f.fields_for :title_components do |title_form| %>
-          <div class="form_item input_text">
-            <%= title_form.label :value, title_form.object.locale %>
-            <%= title_form.hidden_field :locale %>
-            <%= title_form.text_field :value %>
-          </div>
-        <% end %>
-      </div>
+        <h3><%= t(".title") %></h3>
 
-      <h3><%= t(".fields") %></h3>
-
-      <div class="dynamic-content-wrapper">
-
-        <%= f.fields_for :fields do |field_form| %>
-          <div class="dynamic-content-record-wrapper form_block widget_save content-block-field-record-<%= field_form.object.id || "new" %>">
-
-            <div class="form_item select_control">
-              <%= field_form.label :field_type %>
-              <%= field_form.select :field_type do %>
-                <%= options_for_select(localized_enum(::GobiertoCommon::ContentBlockField, :field_type), field_form.object.field_type) %>
-              <% end %>
+        <div class="form_item input_text title_components">
+          <%= f.fields_for :title_components do |title_form| %>
+            <div class="form_item input_text">
+              <%= title_form.label :value, title_form.object.locale %>
+              <%= title_form.hidden_field :locale %>
+              <%= title_form.text_field :value %>
             </div>
+          <% end %>
+        </div>
 
-            <%= field_form.fields_for :label_components do |field_components_form| %>
-              <div class="form_item input_text">
-                <%= field_components_form.label :value, field_components_form.object.locale %>
-                <%= field_components_form.hidden_field :locale %>
-                <%= field_components_form.text_field :value %>
+        <h3><%= t(".fields") %></h3>
+
+        <div class="dynamic-content-wrapper">
+
+          <%= f.fields_for :fields do |field_form| %>
+            <div class="dynamic-content-record-wrapper content-block-field-record-<%= field_form.object.id || "new" %>">
+
+              <div class="block_column_field">
+                <%= field_form.check_box :_destroy, class: "hidden destroy-content-block-record" %>
+
+                <%= field_form.label :field_type, class: "hidden" %>
+                <%= field_form.select :field_type do %>
+                  <%= options_for_select(localized_enum(::GobiertoCommon::ContentBlockField, :field_type), field_form.object.field_type) %>
+                <% end %>
+
+                <%= field_form.fields_for :label_components do |field_components_form| %>
+                  <%= field_components_form.label :value, field_components_form.object.locale %>
+                  <%= field_components_form.hidden_field :locale %>
+                  <%= field_components_form.text_field :value %>
+                <% end %>
+
+                <%= link_to "#", data: { behavior: "delete_record" } do %>
+                  <i class="fa fa-trash"></i>
+                <% end %>
               </div>
+
+            </div>
+          <% end %>
+
+          <div class="block_column_field">
+            <%= link_to "#", data: { behavior: "add_child" } do %>
+              <i class="fa fa-plus-circle"></i>
+              <%= t(".add_child") %>
             <% end %>
-
-            <div class="form_item">
-              <div class="options compact">
-                <div class="option">
-                  <%= field_form.check_box :_destroy %>
-                  <%= field_form.label :_destroy do %>
-                    <span></span>
-                    <i class="fa fa-trash"></i>
-                    <%= t(".delete_field") %>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-
           </div>
-        <% end %>
 
-        <%= link_to "#", data: { behavior: "add_child" } do %>
-          <i class="fa fa-plus"></i>
-          <%= t(".add_child") %>
-        <% end %>
+        </div>
 
-      </div>
-    </div>
-
-    <div class="pure-u-1 pure-u-md-2-24"></div>
-
-    <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
-
-      <div class="widget_save">
         <%= f.submit class: "button" %>
+
       </div>
 
     </div>

@@ -120,3 +120,6 @@ The `fill_in_content_blocks` method pre-fills any Dynamic
 Content-related fields as a preparatory step to make the
 final assertions in `assert_content_blocks_have_the_right_values`.
 
+There is also a helper method that can be used to check every single
+action regarding Content block record management:
+`assert_content_blocks_can_be_managed`.

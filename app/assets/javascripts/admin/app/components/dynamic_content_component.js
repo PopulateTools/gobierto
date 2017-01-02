@@ -18,24 +18,39 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
       var eventWrapper = $(this).closest(".dynamic-content-wrapper");
       var recordTemplate = eventWrapper.find(".dynamic-content-record-wrapper:visible:last");
 
-      var fieldNameRegex = new RegExp("\\[" + recordNamespace + "\\]\\[\\d+\\]", "i");
-      var fieldIdRegex = new RegExp("_" + recordNamespace + "_\\d+", "i");
+      var fieldNameRegExp = new RegExp("\\[" + recordNamespace + "\\]\\[\\d+\\]", "i");
+      var fieldIdRegExp = new RegExp("_" + recordNamespace + "_\\d+", "i");
+      var contentBlockRecordRegExp = new RegExp("content-block-record-\\d+", "i");
       var randomId = new Date().getTime();
       var uniqueFieldName = "[" + recordNamespace + "][" + randomId + "]";
       var uniqueFieldId = "_" + recordNamespace + "_" + randomId;
 
-      var clonedField = $(recordTemplate).clone().addClass("cloned-dynamic-content-record-wrapper");
+      var clonedField = $(recordTemplate)
+        .clone()
+        .addClass("cloned-dynamic-content-record-wrapper")
+        .removeClass(function() {
+          var contentBlockRecordClass;
+
+          $.each($(this).attr("class").split(" "), function(_, value) {
+            if (contentBlockRecordRegExp.test(value)) {
+              contentBlockRecordClass = value;
+              return false;
+            }
+          });
+
+          return contentBlockRecordClass;
+        });
 
       clonedField.find("input, textarea, select").each(function() {
         var fieldName = $(this).attr("name");
         var fieldId = $(this).attr("id");
 
         if (fieldName !== undefined) {
-          $(this).attr("name", fieldName.replace(fieldNameRegex, uniqueFieldName));
+          $(this).attr("name", fieldName.replace(fieldNameRegExp, uniqueFieldName));
         }
 
         if (fieldId !== undefined) {
-          $(this).attr("id", fieldId.replace(fieldIdRegex, uniqueFieldId));
+          $(this).attr("id", fieldId.replace(fieldIdRegExp, uniqueFieldId));
         }
 
         if ($(this).attr("type") === "text") {
@@ -46,7 +61,7 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
       clonedField.find("label").each(function() {
         var labelFor = $(this).attr("for");
 
-        $(this).attr("for", labelFor.replace(fieldIdRegex, uniqueFieldId));
+        $(this).attr("for", labelFor.replace(fieldIdRegExp, uniqueFieldId));
       });
 
       _switchToRecordForm(clonedField);

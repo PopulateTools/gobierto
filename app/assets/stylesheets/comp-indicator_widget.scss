@@ -47,6 +47,12 @@
 .widget_pct {
 	font-weight: 300;
 }
-.indicator_widget .fa-caret-up {
+.widget_pct i {
+	margin-left: 0.25rem;
+}
+.widget_pct .fa-caret-up {
 	color: $color_vis_com;
+}
+.widget_pct .fa-caret-down {
+	color: $color_warn;
 }

@@ -16,7 +16,7 @@
         <div class="form_item input_text title_components">
           <%= f.fields_for :title_components do |title_form| %>
             <div class="form_item input_text">
-              <%= title_form.label :value, title_form.object.locale %>
+              <%= title_form.label :value, t("locales.#{title_form.object.locale}") %>
               <%= title_form.hidden_field :locale %>
               <%= title_form.text_field :value %>
             </div>
@@ -39,7 +39,7 @@
                 <% end %>
 
                 <%= field_form.fields_for :label_components do |field_components_form| %>
-                  <%= field_components_form.label :value, field_components_form.object.locale %>
+                  <%= field_components_form.label :value, t("locales.#{field_components_form.object.locale}") %>
                   <%= field_components_form.hidden_field :locale %>
                   <%= field_components_form.text_field :value %>
                 <% end %>

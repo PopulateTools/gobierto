@@ -30,6 +30,7 @@
 
 // TODO: move to its module
 //= require indicators
+//= require vis_card_indicators
 //= require vis_age_distribution
 //= require vis_unemployment_age
 

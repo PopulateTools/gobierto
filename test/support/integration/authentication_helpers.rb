@@ -26,7 +26,15 @@ module Integration
     end
 
     def sign_out_admin
-      within("header") { click_link "admin-sign-out" }
+      within("header") do
+        if (javascript_driver?)
+          with_hidden_elements do
+            find("#admin-sign-out").trigger("click")
+          end
+        else
+          click_link "admin-sign-out"
+        end
+      end
     end
 
     def sign_in_user(user)

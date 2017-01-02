@@ -106,6 +106,26 @@ class ActionDispatch::IntegrationTest
     DatabaseCleaner.clean
     Capybara.reset_session!
   end
+
+  def with_javascript
+    Capybara.current_driver = Capybara.javascript_driver
+    yield
+    Capybara.current_driver = Capybara.default_driver
+  end
+
+  def with_hidden_elements
+    Capybara.ignore_hidden_elements = false
+    yield
+    Capybara.ignore_hidden_elements = true
+  end
+
+  def javascript_driver?
+    Capybara.current_driver == Capybara.javascript_driver
+  end
+
+  def default_driver?
+    Capybara.current_driver == Capybara.default_driver
+  end
 end
 
 class GobiertoControllerTest < ActionDispatch::IntegrationTest

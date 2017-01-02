@@ -5,14 +5,18 @@
       <%= content_block.title %>
       &nbsp;
 
-      <%= link_to edit_admin_common_content_block_path(content_block.id) do %>
-        <i class="fa fa-edit"></i>
-        <%= t(".edit_content_block") %>
+      <% if GobiertoAdmin::GobiertoCommon::ContentBlockPolicy.new(current_admin, content_block).update? %>
+        <%= link_to edit_admin_common_content_block_path(content_block.id) do %>
+          <i class="fa fa-edit"></i>
+          <%= t(".edit_content_block") %>
+        <% end %>
       <% end %>
 
-      <%= link_to admin_common_content_block_path(content_block.id), method: :delete, data: { confirm: t(".delete_content_block_confirm") } do %>
-        <i class="fa fa-trash"></i>
-        <%= t(".delete_content_block") %>
+      <% if GobiertoAdmin::GobiertoCommon::ContentBlockPolicy.new(current_admin, content_block).delete? %>
+        <%= link_to admin_common_content_block_path(content_block.id), method: :delete, data: { confirm: t(".delete_content_block_confirm") } do %>
+          <i class="fa fa-trash"></i>
+          <%= t(".delete_content_block") %>
+        <% end %>
       <% end %>
     </label>
 
@@ -83,14 +87,16 @@
 
 <% end %>
 
-<div class="dyna_block new_block">
-  <label>
-    <%= link_to new_admin_common_content_block_path(content_context: form_builder.object.content_context.model_name.name) do %>
-      <i class="fa fa-plus-circle"></i>
-      <%= t(".add_content_block") %>
-    <% end %>
-  </label>
-</div>
+<% if GobiertoAdmin::GobiertoCommon::ContentBlockPolicy.new(current_admin).create? %>
+  <div class="dyna_block new_block">
+    <label>
+      <%= link_to new_admin_common_content_block_path(content_context: form_builder.object.content_context.model_name.name) do %>
+        <i class="fa fa-plus-circle"></i>
+        <%= t(".add_content_block") %>
+      <% end %>
+    </label>
+  </div>
+<% end %>
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>

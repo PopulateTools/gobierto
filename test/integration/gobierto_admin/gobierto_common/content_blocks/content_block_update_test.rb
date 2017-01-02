@@ -13,6 +13,10 @@ module GobiertoAdmin
           @admin ||= gobierto_admin_admins(:nick)
         end
 
+        def regular_admin
+          @regular_admin ||= gobierto_admin_admins(:tony)
+        end
+
         def site
           @site ||= sites(:madrid)
         end
@@ -77,6 +81,16 @@ module GobiertoAdmin
                   end
                 end
               end
+            end
+          end
+        end
+
+        def test_content_block_update_for_regular_admin
+          with_signed_in_admin(regular_admin) do
+            with_current_site(site) do
+              visit @path
+
+              assert has_message?("You are not authorized to perform this action")
             end
           end
         end

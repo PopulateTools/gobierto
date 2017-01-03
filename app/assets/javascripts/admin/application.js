@@ -1,4 +1,5 @@
 //= require trix
+//= require ./trix_events
 //= require ./app/init
 //= require_tree ./app
 

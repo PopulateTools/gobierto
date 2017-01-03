@@ -39,7 +39,9 @@ module GobiertoAdmin
 
                 fill_in "person_name", with: "Person Name"
                 fill_in "person_charge", with: "Person Charge"
-                fill_in "person_bio", with: "Person Bio"
+
+                # Simulate Bio rich text area
+                find("#person_bio", visible: false).set("Person Bio")
 
                 within ".bio_file_field" do
                   refute has_selector?("a")
@@ -67,7 +69,11 @@ module GobiertoAdmin
 
                 assert has_field?("person_name", with: "Person Name")
                 assert has_field?("person_charge", with: "Person Charge")
-                assert has_field?("person_bio", with: "Person Bio")
+
+                assert_equal(
+                  "<div>Person Bio</div>",
+                  find("#person_bio", visible: false).value
+                )
 
                 within ".bio_file_field" do
                   assert has_selector?("a")

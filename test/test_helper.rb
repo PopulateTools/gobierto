@@ -82,7 +82,8 @@ class ActionDispatch::IntegrationTest
       app,
       timeout: 300,
       inspector: ENV["INTEGRATION_INSPECTOR"] == "true",
-      debug: ENV["INTEGRATION_DEBUG"] == "true"
+      debug: ENV["INTEGRATION_DEBUG"] == "true",
+      window_size: [1440, 900]
     )
   end
 

@@ -25,9 +25,9 @@
         <%= f.text_field :charge, placeholder: t(".placeholders.charge") %>
       </div>
 
-      <div class="form_item input_text">
+      <div class="form_item textarea">
         <%= f.label :bio %>
-        <%= f.text_area :bio %>
+        <%= f.rich_text_area :bio, attachment_path: admin_people_file_attachments_path %>
       </div>
 
       <div class="form_item file_field bio_file_field">

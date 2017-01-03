@@ -1,5 +1,5 @@
 /*
- * Tabs
+ * Tabs and filters
  *
  */
 .tab {
@@ -38,3 +38,41 @@
 		}
 	}
 }
+
+.sub_filter {
+	font-size: .85em;
+	ul, li {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+	li {
+		display: inline-block;
+		margin-right: 1em;
+		font-weight: normal;
+	}	
+	li.active {
+		position: relative;
+		font-weight: bold;
+	}
+	li.active:after {
+		top: 110%;
+		left: 50%;
+		border: solid transparent;
+		content: "";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+		border-color: white;
+		border-top-color: $color_main;
+		border-width: 10px;
+		margin-left: -10px;
+		@include border-radius(2px);
+	}
+	li:hover a {
+		background: transparentize($color_main, .8);
+	} 
+}
+
+

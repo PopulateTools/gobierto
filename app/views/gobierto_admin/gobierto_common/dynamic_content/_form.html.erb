@@ -1,0 +1,86 @@
+<% form_builder.object.content_blocks.each do |content_block| %>
+
+  <div class="form_block">
+
+    <p>
+      <strong><%= content_block.title %></strong>
+      &nbsp;
+
+      <small>
+        <%= link_to edit_admin_common_content_block_path(content_block.id) do %>
+          <i class="fa fa-edit"></i>
+          <%= t(".edit_content_block") %>
+        <% end %>
+      </small>
+
+      <small>
+        <%= link_to admin_common_content_block_path(content_block.id), method: :delete, data: { confirm: t(".delete_content_block_confirm") } do %>
+          <i class="fa fa-trash"></i>
+          <%= t(".delete_content_block") %>
+        <% end %>
+      </small>
+    </p>
+
+    <table id="content-block-<%= content_block.id %>" class="dynamic-content-wrapper">
+      <tr>
+        <th class="meta"></th>
+        <% content_block.header.each do |content_block_header| %>
+          <th><%= content_block_header %></th>
+        <% end %>
+        <th>
+          <i class="fa fa-trash"></i>
+        </th>
+      </tr>
+
+      <%= form_builder.fields_for :content_block_records, content_block.records do |content_block_record_form| %>
+        <tr class="dynamic-content-record-wrapper content-block-record-<%= content_block_record_form.object.id || "new" %>">
+          <td class="meta">
+            <%= content_block_record_form.hidden_field :content_block_id %>
+          </td>
+          <%= content_block_record_form.fields_for :fields do |record_field_form| %>
+            <td>
+              <div class="form_item input_text content-block-field-<%= record_field_form.object.name.parameterize %>">
+                <%= record_field_form.hidden_field :name %>
+                <%= record_field_form.text_field :value, placeholder: record_field_form.object.label, data: { type: record_field_form.object.field_type } %>
+              </div>
+            </td>
+          <% end %>
+          <td>
+            <div class="form_item">
+              <div class="options compact">
+                <div class="option">
+                  <%= content_block_record_form.check_box :_destroy %>
+                  <%= content_block_record_form.label :_destroy do %>
+                    <span></span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+      <tr>
+        <td class="meta"></td>
+        <td colspan="<%= content_block.header.size + 1 %>">
+          <%= link_to "#", data: { behavior: "add_child" } do %>
+            <i class="fa fa-plus"></i>
+            <%= t(".add_child") %>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+<% end %>
+
+<%= link_to new_admin_common_content_block_path(content_context: form_builder.object.content_context.model_name.name), class: "button" do %>
+  <i class="fa fa-plus"></i>
+  <%= t(".add_content_block") %>
+<% end %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.dynamic_content_component.handle("content_block_records_attributes");
+  <% end %>
+<% end %>

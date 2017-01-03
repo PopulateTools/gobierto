@@ -7,6 +7,9 @@ class Site < ApplicationRecord
   has_many :admins, through: :admin_sites, class_name: "GobiertoAdmin::Admin"
   has_many :census_imports, dependent: :destroy, class_name: "GobiertoAdmin::CensusImport"
 
+  # GobiertoCommon integration
+  has_many :content_blocks, dependent: :destroy, class_name: "GobiertoCommon::ContentBlock"
+
   # User integrations
   has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"
   has_many :notifications, dependent: :destroy, class_name: "User::Notification"
@@ -14,6 +17,9 @@ class Site < ApplicationRecord
   # GobiertoBudgetConsultations integration
   has_many :budget_consultations, dependent: :destroy, class_name: "GobiertoBudgetConsultations::Consultation"
   has_many :budget_consultation_responses, through: :budget_consultations, source: :consultation_responses, class_name: "GobiertoBudgetConsultations::ConsultationResponse"
+
+  # GobiertoPeople integration
+  has_many :people, dependent: :destroy, class_name: "GobiertoPeople::Person"
 
   serialize :configuration_data
 

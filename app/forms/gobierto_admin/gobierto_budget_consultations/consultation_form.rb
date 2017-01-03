@@ -2,7 +2,7 @@ module GobiertoAdmin
   module GobiertoBudgetConsultations
     class ConsultationForm
       include ActiveModel::Model
-      prepend GobiertoCommon::Trackable
+      prepend ::GobiertoCommon::Trackable
 
       OPENING_DATE_RANGE_SEPARATOR = " - ".freeze
 

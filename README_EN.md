@@ -55,6 +55,7 @@ If you want to install Gobierto in your local environment, or develop a new modu
 - [Access Admin namespace](docs/admin-namespace.md)
 - [Access User namespace](docs/user-namespace.md)
 - [Integrate Trackable extension](docs/trackable-extension.md)
+- [Integrate DynamicContent component](docs/dynamic-content-component.md)
 
 ## Contributing
 

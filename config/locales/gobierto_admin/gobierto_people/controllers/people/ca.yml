@@ -1,0 +1,9 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        create:
+          success: El perfil s'ha creat correctament
+        update:
+          success: El perfil s'ha actualitzat correctament

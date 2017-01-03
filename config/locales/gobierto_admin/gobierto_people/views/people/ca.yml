@@ -15,7 +15,7 @@ ca:
             posts: Posts
           events_count:
             one: Un event
-            other: "%{count} evento"
+            other: "%{count} events"
           statements_count:
             one: Una declaració
             other: "%{count} declaracions"
@@ -27,8 +27,8 @@ ca:
         new:
           title: Nova persona
         form:
-          avatar_file_constraints: Avatar de usuario (fichero de 500x500)
-          bio_file_constraints: Adjuntar fichero (PDF)
+          avatar_file_constraints: Avatar de usuari (fitxer de 500x500)
+          bio_file_constraints: Adjuntar fitxer (PDF)
           placeholders:
             name: Rafael García
             charge: Alcalde

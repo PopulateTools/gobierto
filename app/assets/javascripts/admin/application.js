@@ -1,3 +1,4 @@
+//= require trix
 //= require ./app/init
 //= require_tree ./app
 

@@ -252,7 +252,12 @@ body.gobierto_admin {
 			border: none;
 		}
 		// tr.even {
-		tr:nth-child(2n-1) {
+		tr:visible:nth-child(2n-1) {
+			td {
+				background: transparentize($color_main, .95);	
+			}
+		}
+		tr.even {
 			td {
 				background: transparentize($color_main, .95);	
 			}

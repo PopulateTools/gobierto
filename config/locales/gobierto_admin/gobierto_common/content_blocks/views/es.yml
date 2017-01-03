@@ -8,7 +8,7 @@ es:
         new:
           title: Agregar bloque
         form:
-          title: Título
-          fields: Campos
-          delete_field: Eliminar campo
-          add_child: Añadir nuevo campo
+          title: Nombre del bloque
+          fields: Columnas
+          delete_field: Eliminar columna
+          add_child: Añadir columna

@@ -43,9 +43,6 @@ end
 I18n.locale = I18n.default_locale = :en
 Time.zone = "UTC"
 
-DatabaseCleaner.strategy = :transaction
-DatabaseCleaner.clean_with :truncation
-
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 WebMock.disable_net_connect!(
@@ -65,13 +62,7 @@ class ActiveSupport::TestCase
 
   AVAILABLE_LOCALES = I18n.available_locales - [:en]
 
-  def setup
-    DatabaseCleaner.start
-  end
-
-  def teardown
-    DatabaseCleaner.clean
-  end
+  self.use_transactional_tests = true
 end
 
 class ActionDispatch::IntegrationTest
@@ -91,20 +82,49 @@ class ActionDispatch::IntegrationTest
       app,
       timeout: 300,
       inspector: ENV["INTEGRATION_INSPECTOR"] == "true",
-      debug: ENV["INTEGRATION_DEBUG"] == "true"
+      debug: ENV["INTEGRATION_DEBUG"] == "true",
+      window_size: [1440, 900]
     )
   end
 
   Capybara.javascript_driver = :poltergeist_custom
   Capybara.default_host = "http://gobierto.dev"
 
+  self.use_transactional_tests = false
+
+  DatabaseCleaner.strategy = :transaction
+  DatabaseCleaner.clean_with :truncation
+
   def setup
     DatabaseCleaner.start
+    Capybara.current_driver = Capybara.default_driver
   end
 
   def teardown
     DatabaseCleaner.clean
     Capybara.reset_session!
+  end
+
+  def with_javascript
+    Capybara.current_driver = Capybara.javascript_driver
+    yield
+  ensure
+    Capybara.current_driver = Capybara.default_driver
+  end
+
+  def with_hidden_elements
+    Capybara.ignore_hidden_elements = false
+    yield
+  ensure
+    Capybara.ignore_hidden_elements = true
+  end
+
+  def javascript_driver?
+    Capybara.current_driver == Capybara.javascript_driver
+  end
+
+  def default_driver?
+    Capybara.current_driver == Capybara.default_driver
   end
 end
 

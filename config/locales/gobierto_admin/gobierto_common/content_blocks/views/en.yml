@@ -8,7 +8,7 @@ en:
         new:
           title: Add block
         form:
-          title: Title
-          fields: Fields
-          delete_field: Delete field
-          add_child: Add new field
+          title: Block name
+          fields: Columns
+          delete_field: Delete column
+          add_child: Add column

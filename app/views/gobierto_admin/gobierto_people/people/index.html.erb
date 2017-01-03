@@ -16,6 +16,7 @@
   <th><%= t(".header.charge") %></th>
   <th><%= t(".header.events") %></th>
   <th><%= t(".header.statements") %></th>
+  <th><%= t(".header.posts") %></th>
   <th></th>
 </tr>
 
@@ -40,6 +41,9 @@
       </td>
       <td>
         <%= t(".statements_count", count: 5) %>
+      </td>
+      <td>
+        <%= t(".posts_count", count: 5) %>
       </td>
       <td>
         <%= link_to "#", class: "view_item" do %>

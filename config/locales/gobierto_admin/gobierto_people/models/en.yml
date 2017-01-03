@@ -8,4 +8,5 @@ en:
         name: Name
         charge: Charge
         bio: Bio
-        bio_url: External bio
+        bio_url: Attached file
+        avatar_url: Avatar

@@ -12,17 +12,23 @@ es:
             charge: Cargo
             events: Eventos
             statements: Declaraciones
+            posts: Posts
           events_count:
             one: Un evento
             other: "%{count} eventos"
           statements_count:
             one: Una declaración
             other: "%{count} declaraciones"
+          posts_count:
+            one: Un post
+            other: "%{count} posts"
         edit:
           title: Editar persona
         new:
           title: Nueva persona
         form:
+          avatar_file_constraints: Avatar de usuario (fichero de 500x500)
+          bio_file_constraints: Adjuntar fichero (PDF)
           placeholders:
             name: Rafael García
             charge: Alcalde

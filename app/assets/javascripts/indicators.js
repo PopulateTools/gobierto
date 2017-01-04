@@ -12,6 +12,18 @@ $(document).on('turbolinks:load', function() {
   // Render indicator cards info
   if ($('.indicator_widget').length > 0) {
     new CardIndicators('.indicator_widget', '39075');
+    
+    // $('.fa-question-circle').hover(
+    //   function() {
+    //     console.log('hover')
+    //     $(this).parents().find('.widget_info').css('display', 'block');
+    //     $(this).parents().find('.widget_body').css('display', 'none');
+    //   }, function() {
+    //     console.log('leaving')
+    //     $(this).parents().find('.widget_info').css('display', 'none');
+    //     $(this).parents().find('.widget_body').css('display', 'block');
+    //   }
+    // );
   }
   
 });

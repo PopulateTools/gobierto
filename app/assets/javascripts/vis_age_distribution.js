@@ -62,6 +62,7 @@ var VisAgeDistribution = Class.extend({
 
           d.age = +d.age;
           d.pct = d3.format(',.3')(d.value / population * 100);
+          d.years = +d.age * d.value;
         });
 
         this.data.sort(function(a, b) { return a.age - b.age; });
@@ -111,9 +112,11 @@ var VisAgeDistribution = Class.extend({
       .attr('fill', function(d) { return this.color(d.pct) }.bind(this));
   },
   _renderCityData: function() {
-    this.city
-      .datum(this.data)
-      .text(function(d) {return d[0].municipality_name;});
+    // Calculate means and stuff
+    var avgAge = d3.sum(this.data, function(d) { return d.years }) / d3.sum(this.data, function(d) { return d.value });
+    
+    d3.select('.js-avg-age')
+      .text(accounting.formatNumber(avgAge, 1));
   },
   _renderAxis: function() {
 
@@ -159,7 +162,7 @@ var VisAgeDistribution = Class.extend({
   },
   _formatNumberY: function(d) {
     // Show percentages
-    return accounting.formatNumber(d) + '%';
+    return accounting.formatNumber(d, 0) + '%';
   },
   _width: function() {
     return parseInt(d3.select(this.container).style('width'));

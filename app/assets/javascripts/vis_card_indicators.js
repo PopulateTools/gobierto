@@ -33,7 +33,7 @@ var CardIndicators = Class.extend({
         .get(function(error, json) {
           if (error) throw error;
           
-          console.log(json)
+          // console.log(json)
           
           var parsedDate = parseDate(json.data[0].date);
           

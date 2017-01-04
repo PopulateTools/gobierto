@@ -1,20 +1,20 @@
 $(document).on('turbolinks:load', function() {
-  var city_id = '39075';
+  var city = '300428';
   var year = '2015';
   
   if ($('#age_distribution').length > 0) {
-    var vis_agedb = new VisAgeDistribution('#age_distribution', city_id, year);
+    var vis_agedb = new VisAgeDistribution('#age_distribution', city, year);
     vis_agedb.render();
   }
   
   if ($('#unemployment_age').length > 0) {
-    var vis_unempl = new VisUnemploymentAge('#unemployment_age', city_id, year);
+    var vis_unempl = new VisUnemploymentAge('#unemployment_age', city, year);
     vis_unempl.render();
   }
   
   // Render indicator cards info
   if ($('.indicator_widget').length > 0) {
-    new CardIndicators('.indicator_widget', city_id);
+    new CardIndicators('.indicator_widget', city);
     
     // $('.fa-question-circle').hover(
     //   function() {

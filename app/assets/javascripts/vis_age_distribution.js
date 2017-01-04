@@ -149,7 +149,9 @@ var VisAgeDistribution = Class.extend({
   },
   _formatNumberX: function(d) {
     // 'Age 100' is aggregated
-    if (d === 100) {
+    if (d === 0) {
+      return d + ' años';
+    } else if (d === 100) {
       return d + '+';
     } else {
       return d;

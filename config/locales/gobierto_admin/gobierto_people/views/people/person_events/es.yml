@@ -1,0 +1,22 @@
+---
+es:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_events:
+          index:
+            title: Agenda
+            new: Nuevo evento
+            view_event: Ver evento
+            header:
+              event: Evento
+              date: Fecha
+              location: Localización
+          edit:
+            title: Editar evento
+          new:
+            title: Nuevo evento
+          form:
+            attachment_file_constraints: Adjuntar fichero (PDF)
+            placeholders:
+              title: Reunión con los vecinos del distrito centro

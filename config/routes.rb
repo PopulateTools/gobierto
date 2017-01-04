@@ -48,7 +48,9 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_people, as: :people, path: :people do
-      resources :people, only: [:index, :new, :create, :edit, :update]
+      resources :people, only: [:index, :new, :create, :edit, :update] do
+        resources :person_events, controller: "people/person_events", only: [:index, :new, :create, :edit, :update], as: :events, path: :events
+      end
       resource :file_attachments, only: [:create]
     end
 

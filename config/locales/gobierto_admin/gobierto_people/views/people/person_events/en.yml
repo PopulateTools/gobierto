@@ -1,0 +1,22 @@
+---
+en:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_events:
+          index:
+            title: Agenda
+            new: New event
+            view_event: View event
+            header:
+              event: Event
+              date: Date
+              location: Location
+          edit:
+            title: Edit evento
+          new:
+            title: New evento
+          form:
+            attachment_file_constraints: Attach file (PDF)
+            placeholders:
+              title: Meeting with neighbors of the center district

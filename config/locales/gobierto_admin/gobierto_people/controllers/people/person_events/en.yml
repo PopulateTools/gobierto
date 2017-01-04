@@ -1,0 +1,10 @@
+---
+en:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_events:
+          create:
+            success: Event was successfully created
+          update:
+            success: Event was successfully updated

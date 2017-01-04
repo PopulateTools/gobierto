@@ -1,0 +1,22 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_events:
+          index:
+            title: Agenda
+            new: Nou esdeveniment
+            view_event: Veure esdeveniment
+            header:
+              event: Dsdeveniment
+              date: Data
+              location: Localització
+          edit:
+            title: Editar esdeveniment
+          new:
+            title: Nou esdeveniment
+          form:
+            attachment_file_constraints: adjuntar fitxer (PDF)
+            placeholders:
+              title: Reunió amb els veïns del districte centre

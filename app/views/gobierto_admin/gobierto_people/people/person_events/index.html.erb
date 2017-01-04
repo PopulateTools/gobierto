@@ -1,0 +1,52 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= link_to t("gobierto_admin.gobierto_people.people.index.title"), admin_people_people_path %> »
+  <%= link_to @person.name, edit_admin_people_person_path(@person) %> »
+  <%= t(".title") %>
+</div>
+
+<h1><%= @person.name %></h1>
+
+<%= render "gobierto_admin/gobierto_people/people/navigation" %>
+
+<div class="admin_tools right">
+  <%= link_to t(".new"), new_admin_people_person_event_path(@person), class: "button" %>
+</div>
+
+<table class="person-events-list">
+<tr>
+  <th></th>
+  <th><%= t(".header.event") %></th>
+  <th><%= t(".header.date") %></th>
+  <th><%= t(".header.location") %></th>
+  <th></th>
+</tr>
+
+<tbody>
+  <% @person_events.each do |person_event| %>
+    <tr id="person-event-item-<%= person_event.id %>" class="<%= cycle("odd", "even") %>">
+      <td>
+        <%= link_to edit_admin_people_person_event_path(@person, person_event) do %>
+          <i class="fa fa-edit"></i>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to edit_admin_people_person_event_path(@person, person_event) do %>
+          <%= person_event.title %>
+        <% end %>
+      </td>
+      <td>
+        <%= l(person_event.starts_at, format: :short) %>
+      </td>
+      <td>
+      </td>
+      <td>
+        <%= link_to "#", class: "view_item" do %>
+          <i class="fa fa-eye"></i>
+          <%= t(".view_event") %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+</table>

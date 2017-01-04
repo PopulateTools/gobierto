@@ -3,6 +3,9 @@ ca:
   gobierto_admin:
     gobierto_people:
       people:
+        navigation:
+          person: Persona
+          agenda: Agenda
         index:
           title: Persones
           new: Nova persona

@@ -1,0 +1,26 @@
+richard_pending:
+  person: richard
+  title: Reunión con los vecinos del distrito centro
+  description: Reunión con los vecinos del distrito centro para comentar la posibilidad de reubicar el centro de salud de Universidad en el nuevo edificio de Bomberos.
+  starts_at: <%= 1.month.from_now %>
+  ends_at: <%= 1.month.from_now + 1.hour %>
+  attachment_url: https://bit.ly/12345
+  state: <%= GobiertoPeople::PersonEvent.states["pending"] %>
+
+richard_approved:
+  person: richard
+  title: Junta de Gobierno
+  description: El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.
+  starts_at: <%= 1.month.from_now %>
+  ends_at: <%= 1.month.from_now + 1.hour %>
+  attachment_url: https://bit.ly/67890
+  state: <%= GobiertoPeople::PersonEvent.states["approved"] %>
+
+richard_approved_past:
+  person: richard
+  title: Junta de Gobierno
+  description: El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.
+  starts_at: <%= 1.month.ago %>
+  ends_at: <%= 1.month.ago + 1.hour %>
+  attachment_url: https://bit.ly/67890
+  state: <%= GobiertoPeople::PersonEvent.states["approved"] %>

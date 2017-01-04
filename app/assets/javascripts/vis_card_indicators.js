@@ -46,7 +46,7 @@ var CardIndicators = Class.extend({
                   return accounting.formatNumber(json.data[0].value, 1) + '%';
                   break;
                 case 'currency':
-                  return accounting.formatNumber(json.data[0].value, 0) + '€';
+                  return accounting.formatNumber(json.data[0].value, 1) + '€';
                   break;
                 default:
                   return accounting.formatNumber(json.data[0].value, 0);

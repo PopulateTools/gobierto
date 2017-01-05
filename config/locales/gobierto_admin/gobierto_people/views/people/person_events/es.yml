@@ -8,6 +8,9 @@ es:
             title: Agenda
             new: Nuevo evento
             view_event: Ver evento
+            pending_events: Pendientes de moderar
+            published_events: Eventos publicados
+            past_events: Eventos pasados
             header:
               event: Evento
               date: Fecha

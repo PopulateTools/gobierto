@@ -4,6 +4,7 @@ module GobiertoAdmin
       class PersonEventsController < People::BaseController
         def index
           @person_events = @person.events.sorted
+          @person_events_presenter = PersonEventsPresenter.new(@person)
         end
 
         def new

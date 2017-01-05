@@ -18,6 +18,10 @@ ca:
             title: Nou esdeveniment
           form:
             attachment_file_constraints: adjuntar fitxer (PDF)
-            locations: Localitzacions
             placeholders:
               title: Reunió amb els veïns del districte centre
+          locations_form:
+            title: Localitzacions
+            header:
+              place: Lloc
+              address: Direcció

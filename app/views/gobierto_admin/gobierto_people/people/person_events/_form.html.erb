@@ -36,21 +36,7 @@
         <%= f.file_field :attachment_file %>
       </div>
 
-      <h3><%= t(".locations") %></h3>
-
-      <%= f.fields_for :locations do |location_form| %>
-        <%= location_form.check_box :_destroy, class: "hidden" %>
-
-        <div class="form_item input_text">
-          <%= location_form.label :name %>
-          <%= location_form.text_field :name %>
-        </div>
-
-        <div class="form_item input_text">
-          <%= location_form.label :address %>
-          <%= location_form.text_field :address %>
-        </div>
-      <% end %>
+      <%= render "locations_form", form_builder: f %>
 
     </div>
 

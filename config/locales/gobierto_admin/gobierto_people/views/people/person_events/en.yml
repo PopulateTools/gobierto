@@ -18,6 +18,10 @@ en:
             title: New evento
           form:
             attachment_file_constraints: Attach file (PDF)
-            locations: Locations
             placeholders:
               title: Meeting with neighbors of the center district
+          locations_form:
+            title: Locations
+            header:
+              place: Place
+              address: Address

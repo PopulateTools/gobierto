@@ -30,7 +30,7 @@ module GobiertoAdmin
       end
 
       def person_event
-        @person_event ||= gobierto_people_person_events(:richard_approved)
+        @person_event ||= gobierto_people_person_events(:richard_published)
       end
 
       def person

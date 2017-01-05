@@ -3,11 +3,11 @@ require "test_helper"
 module GobiertoPeople
   class PersonEventTest < ActiveSupport::TestCase
     def person_event
-      @person_event ||= gobierto_people_person_events(:richard_approved)
+      @person_event ||= gobierto_people_person_events(:richard_published)
     end
 
     def past_person_event
-      @past_person_event ||= gobierto_people_person_events(:richard_approved_past)
+      @past_person_event ||= gobierto_people_person_events(:richard_published_past)
     end
 
     def test_valid

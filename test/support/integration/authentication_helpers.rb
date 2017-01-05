@@ -3,12 +3,14 @@ module Integration
     def with_signed_in_admin(admin)
       sign_in_admin(admin)
       yield
+    ensure
       sign_out_admin
     end
 
     def with_signed_in_user(user)
       sign_in_user(user)
       yield
+    ensure
       sign_out_user
     end
 

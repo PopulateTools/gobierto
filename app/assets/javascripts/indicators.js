@@ -12,33 +12,32 @@ $(document).on('turbolinks:load', function() {
     vis_unempl.render();
   }
   
+  // Paint the city name
   if ($('.js-city').length > 0) {
     d3.json('https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal.json?include=municipality&limit=1&filter_by_location_id=' + city)
       .header('authorization', 'Bearer ' + window.tbiToken)
       .get(function(error, json) {
         if (error) throw error;
         
-        // Paint the city name
         d3.selectAll('.js-city')
-          .text(json[0].municipality_name)
-      })
+          .text(json[0].municipality_name);
+      });
   }
   
   // Render indicator cards info
   if ($('.indicator_widget').length > 0) {
     new CardIndicators('.indicator_widget', city);
     
-    // $('.fa-question-circle').hover(
-    //   function() {
-    //     console.log('hover')
-    //     $(this).parents().find('.widget_info').css('display', 'block');
-    //     $(this).parents().find('.widget_body').css('display', 'none');
-    //   }, function() {
-    //     console.log('leaving')
-    //     $(this).parents().find('.widget_info').css('display', 'none');
-    //     $(this).parents().find('.widget_body').css('display', 'block');
-    //   }
-    // );
+    // Show dataset info while hovering in circles
+    $('.fa-question-circle').hover(
+      function() {
+        $(this).parents('.pure-u-md-1-3').find('.widget_body').hide();
+        $(this).parents('.pure-u-md-1-3').find('.widget_info').show();
+      }, function(e) {
+        $(this).parents('.pure-u-md-1-3').find('.widget_body').show();
+        $(this).parents('.pure-u-md-1-3').find('.widget_info').hide();
+      }
+    );
   }
   
 });

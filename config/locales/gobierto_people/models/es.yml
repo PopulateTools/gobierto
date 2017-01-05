@@ -1,0 +1,9 @@
+---
+es:
+  activerecord:
+    models:
+      gobierto_people/person_event_location: Localización
+    attributes:
+      gobierto_people/person_event_location:
+        name: Nombre
+        address: Dirección

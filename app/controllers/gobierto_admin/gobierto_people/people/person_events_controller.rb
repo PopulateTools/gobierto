@@ -61,7 +61,8 @@ module GobiertoAdmin
             :description,
             :starts_at,
             :ends_at,
-            :attachment_file
+            :attachment_file,
+            locations_attributes: [:name, :address, :_destroy]
           )
         end
 

@@ -1,0 +1,9 @@
+---
+en:
+  activerecord:
+    models:
+      gobierto_people/person_event_location: Location
+    attributes:
+      gobierto_people/person_event_location:
+        name: Name
+        address: Address

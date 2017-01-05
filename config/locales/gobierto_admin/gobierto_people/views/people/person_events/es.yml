@@ -18,5 +18,6 @@ es:
             title: Nuevo evento
           form:
             attachment_file_constraints: Adjuntar fichero (PDF)
+            locations: Localizaciones
             placeholders:
               title: Reunión con los vecinos del distrito centro

@@ -13,7 +13,8 @@ module GobiertoAdmin
         :starts_at,
         :ends_at,
         :attachment_file,
-        :attachment_url
+        :attachment_url,
+        :locations
       )
 
       delegate :persisted?, to: :person_event
@@ -49,14 +50,41 @@ module GobiertoAdmin
         end
       end
 
+      def locations
+        @locations ||= person_event.locations.presence || [build_person_event_location]
+      end
+
+      def locations_attributes=(attributes)
+        @locations ||= []
+
+        attributes.each do |_, location_attributes|
+          next if location_attributes["_destroy"] == "1"
+
+          location = person_event_location_class.new(
+            name: location_attributes[:name],
+            address: location_attributes[:address]
+          )
+
+          @locations.push(location) if location.valid?
+        end
+      end
+
       private
 
       def build_person_event
         person_event_class.new
       end
 
+      def build_person_event_location
+        person_event.locations.build
+      end
+
       def person_event_class
         ::GobiertoPeople::PersonEvent
+      end
+
+      def person_event_location_class
+        ::GobiertoPeople::PersonEventLocation
       end
 
       def person_class
@@ -71,6 +99,7 @@ module GobiertoAdmin
           person_event_attributes.starts_at = starts_at
           person_event_attributes.ends_at = ends_at
           person_event_attributes.attachment_url = attachment_url
+          person_event_attributes.locations = locations
         end
 
         if @person_event.valid?

@@ -34,18 +34,18 @@ var VisUnemploymentAge = Class.extend({
           .entries(jsonData);
         
         // FIXME: calculate the values only when the dates are the same, e.g.
-        // if (d.date.slice(0, 4) === k.key)
+        // FIXME: Investigate why only 2015 seems to work...
         unemployed.forEach(function(d) {
           nested.forEach(function(k) {
             switch (d.age_range) {
               case '<25':
-                d.pct = d.value / k.value['<25'] * 100;
+                d.pct = d.date.slice(0, 4) === k.key ? d.value / k.value['<25'] * 100 : null;
                 break;
               case '25-44':
-                d.pct = d.value / k.value['25-44'] * 100;
+                d.pct = d.date.slice(0, 4) === k.key ? d.value / k.value['25-44'] * 100 : null;
                 break;
               case '>=45':
-                d.pct = d.value / k.value['>=45'] * 100;
+                d.pct = d.date.slice(0, 4) === k.key ? d.value / k.value['>=45'] * 100 : null;
             };
           });
         });

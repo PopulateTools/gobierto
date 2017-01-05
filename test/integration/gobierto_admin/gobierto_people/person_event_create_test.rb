@@ -15,6 +15,10 @@ module GobiertoAdmin
         @person ||= gobierto_people_people(:richard)
       end
 
+      def attendee
+        @attendee ||= gobierto_people_people(:tamara)
+      end
+
       def admin
         @admin ||= gobierto_admin_admins(:nick)
       end
@@ -51,6 +55,18 @@ module GobiertoAdmin
                   end
                 end
 
+                within "#person-event-attendees" do
+                  find("a[data-behavior=add_child]").click
+
+                  within ".cloned-dynamic-content-record-wrapper" do
+                    select attendee.name, from: "Person"
+                    fill_in "Name", with: ""
+                    fill_in "Charge", with: ""
+
+                    find("a[data-behavior=add_record]").click
+                  end
+                end
+
                 with_stubbed_s3_file_upload do
                   click_button "Create Event"
                 end
@@ -72,6 +88,10 @@ module GobiertoAdmin
                 within "#person-event-locations .dynamic-content-record-view" do
                   assert has_selector?(".content-block-record-value", text: "Location Place")
                   assert has_selector?(".content-block-record-value", text: "Location Address")
+                end
+
+                within "#person-event-attendees .dynamic-content-record-view" do
+                  assert has_selector?(".content-block-record-value", text: attendee.name)
                 end
               end
             end

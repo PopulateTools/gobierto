@@ -12,7 +12,7 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   function handleAddChild(recordNamespace) {
     var componentWrapper = $(".dynamic-content-wrapper");
 
-    componentWrapper.on("click", "[data-behavior=add_child]", function(e) {
+    componentWrapper.off("click").on("click", "[data-behavior=add_child]", function(e) {
       e.preventDefault();
 
       var eventWrapper = $(this).closest(".dynamic-content-wrapper");
@@ -56,6 +56,8 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
         if ($(this).attr("type") === "text") {
           $(this).val("");
         }
+
+        $(this).find("option:selected").prop("selected", false);
       });
 
       clonedField.find("label").each(function() {
@@ -135,8 +137,8 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   }
 
   function _setRecordViewState(wrapper) {
-    var formState = wrapper.find(".content-block-field input").map(function() {
-      return $(this).val();
+    var formState = wrapper.find(".content-block-field input, select option:selected").map(function() {
+      return $(this).text() || $(this).val();
     });
 
     wrapper.find(".dynamic-content-record-view .content-block-record-value").each(function(index) {

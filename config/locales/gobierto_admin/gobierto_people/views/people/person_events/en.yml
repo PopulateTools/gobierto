@@ -25,3 +25,9 @@ en:
             header:
               place: Place
               address: Address
+          attendees_form:
+            title: Attendees
+            header:
+              person: Person
+              name: Name
+              charge: Charge

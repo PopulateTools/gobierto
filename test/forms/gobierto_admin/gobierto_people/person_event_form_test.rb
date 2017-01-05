@@ -11,7 +11,8 @@ module GobiertoAdmin
           attachment_url: person_event.attachment_url,
           starts_at: person_event.starts_at,
           ends_at: person_event.ends_at,
-          locations: []
+          locations: [],
+          attendees: []
         )
       end
 
@@ -23,7 +24,8 @@ module GobiertoAdmin
           attachment_url: person_event.attachment_url,
           starts_at: nil,
           ends_at: nil,
-          locations: []
+          locations: [],
+          attendees: []
         )
       end
 

@@ -25,3 +25,9 @@ es:
             header:
               place: Lugar
               address: Dirección
+          attendees_form:
+            title: Asistentes
+            header:
+              person: Persona
+              name: Nombre
+              charge: Cargo

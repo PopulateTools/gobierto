@@ -1,0 +1,11 @@
+tamara:
+  person_event: richard_approved
+  person: tamara
+  name:
+  charge:
+
+custom:
+  person_event: richard_approved
+  person:
+  name: John Custom
+  charge: President

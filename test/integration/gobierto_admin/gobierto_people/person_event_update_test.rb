@@ -59,6 +59,22 @@ module GobiertoAdmin
                   end
                 end
 
+                within "#person-event-attendees" do
+                  person_event.attendees.each do |attendee|
+                    within ".dynamic-content-record-wrapper.content-block-record-#{attendee.id}" do
+                      with_hidden_elements do
+                        find("a[data-behavior=edit_record]").trigger("click")
+                      end
+
+                      select "", from: "Person"
+                      fill_in "Name", with: "Attendee Name"
+                      fill_in "Charge", with: "Attendee Charge"
+
+                      find("a[data-behavior=add_record]").click
+                    end
+                  end
+                end
+
                 with_stubbed_s3_file_upload do
                   click_button "Update Event"
                 end
@@ -80,6 +96,11 @@ module GobiertoAdmin
                 within "#person-event-locations .dynamic-content-record-view", match: :first do
                   assert has_selector?(".content-block-record-value", text: "Location Place")
                   assert has_selector?(".content-block-record-value", text: "Location Address")
+                end
+
+                within "#person-event-attendees .dynamic-content-record-view", match: :first do
+                  assert has_selector?(".content-block-record-value", text: "Attendee Name")
+                  assert has_selector?(".content-block-record-value", text: "Attendee Charge")
                 end
               end
             end

@@ -25,3 +25,9 @@ ca:
             header:
               place: Lloc
               address: Direcció
+          attendees_form:
+            title: Assistents
+            header:
+              person: Persona
+              name: Nom
+              charge: Càrrec

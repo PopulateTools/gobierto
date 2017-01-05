@@ -8,6 +8,7 @@ module GobiertoAdmin
 
         def new
           @person_event_form = PersonEventForm.new
+          @attendees = get_attendees
         end
 
         def edit
@@ -16,6 +17,7 @@ module GobiertoAdmin
           @person_event_form = PersonEventForm.new(
             @person_event.attributes.except(*ignored_person_event_attributes)
           )
+          @attendees = get_attendees
         end
 
         def create
@@ -29,6 +31,7 @@ module GobiertoAdmin
               notice: t(".success")
             )
           else
+            @attendees = get_attendees
             render :new
           end
         end
@@ -45,6 +48,7 @@ module GobiertoAdmin
               notice: t(".success")
             )
           else
+            @attendees = get_attendees
             render :edit
           end
         end
@@ -55,6 +59,13 @@ module GobiertoAdmin
           @person.events.find(params[:id])
         end
 
+        def get_attendees
+          current_site.people
+            .where.not(id: @person.id)
+            .active
+            .select(:id, :name)
+        end
+
         def person_event_params
           params.require(:person_event).permit(
             :title,
@@ -63,6 +74,7 @@ module GobiertoAdmin
             :ends_at,
             :attachment_file,
             locations_attributes: [:id, :name, :address, :_destroy],
+            attendees_attributes: [:id, :person_id, :name, :charge, :_destroy]
           )
         end
 

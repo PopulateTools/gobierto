@@ -1,0 +1,78 @@
+<div class="dyna_block">
+  <label><%= t(".title") %></label>
+
+  <table id="person-event-attendees" class="dynamic-content-wrapper">
+    <tr>
+      <th><%= t(".header.person") %></th>
+      <th><%= t(".header.name") %></th>
+      <th><%= t(".header.charge") %></th>
+      <th class="edit_cell">
+        <i class="fa fa-trash"></i>
+      </th>
+    </tr>
+
+    <%= form_builder.fields_for :attendees do |attendee_form| %>
+      <tbody class="dynamic-content-record-wrapper content-block-record-<%= attendee_form.object.id || "new" %>">
+        <tr class="dynamic-content-record-view <%= cycle("odd", "even") %>">
+          <td class="content-block-record-value"><%= attendee_form.object.person.try(:name) %></td>
+          <td class="content-block-record-value"><%= attendee_form.object.name %></td>
+          <td class="content-block-record-value"><%= attendee_form.object.charge %></td>
+
+          <td class="edit_cell">
+            <%= attendee_form.check_box :_destroy, class: "hidden destroy-content-block-record" %>
+
+            <%= link_to "#", data: { behavior: "edit_record" } do %>
+              <i class="fa fa-edit"></i>
+            <% end %>
+
+            <%= link_to "#", data: { behavior: "delete_record" } do %>
+              <i class="fa fa-trash"></i>
+            <% end %>
+          </td>
+        </tr>
+        <tr class="dynamic-content-record-form">
+          <td colspan="4">
+            <div class="content-block-field content-block-field-person">
+              <%= attendee_form.label :person_id, t(".header.person") %>
+              <%= attendee_form.select :person_id,
+                options_from_collection_for_select(@attendees, :id, :name, attendee_form.object.person_id),
+                include_blank: true %>
+            </div>
+
+            <div class="content-block-field content-block-field-place">
+              <%= attendee_form.text_field :name, placeholder: t(".header.name") %>
+            </div>
+
+            <div class="content-block-field content-block-field-charge">
+              <%= attendee_form.text_field :charge, placeholder: t(".header.charge") %>
+            </div>
+
+            <%= link_to "#", class: "button", data: { behavior: "add_record" } do %>
+              <%= t("gobierto_admin.gobierto_common.dynamic_content.form.add_record") %>
+            <% end %>
+
+            <%= link_to "#", data: { behavior: "cancel_record" } do %>
+              <i class="fa fa-trash"></i>
+              <%= t("gobierto_admin.gobierto_common.dynamic_content.form.cancel_record") %>
+            <% end %>
+          </td>
+        </tr>
+      </tbody>
+    <% end %>
+
+    <tr class="new_row_add">
+      <td colspan="4">
+        <%= link_to "#", data: { behavior: "add_child" } do %>
+          <i class="fa fa-plus-circle"></i>
+          <%= t("gobierto_admin.gobierto_common.dynamic_content.form.add_child") %>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.person_events_controller.edit("attendees_attributes");
+  <% end %>
+<% end %>

@@ -29,15 +29,11 @@ $(document).on('turbolinks:load', function() {
     new CardIndicators('.indicator_widget', city);
     
     // Show dataset info while hovering in circles
-    $('.fa-question-circle').hover(
-      function() {
-        $(this).parents('.pure-u-md-1-3').find('.widget_body').hide();
-        $(this).parents('.pure-u-md-1-3').find('.widget_info').show();
-      }, function(e) {
-        $(this).parents('.pure-u-md-1-3').find('.widget_body').show();
-        $(this).parents('.pure-u-md-1-3').find('.widget_info').hide();
-      }
-    );
+    $('.indicator_widget').click(function() {
+      $(this).find('.widget_headline i').toggleClass('fa-question-circle fa-times');
+      $(this).find('.widget_body').toggle();
+      $(this).find('.widget_info').toggle();
+    });
   }
   
 });

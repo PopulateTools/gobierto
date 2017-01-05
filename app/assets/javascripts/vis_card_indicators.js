@@ -54,7 +54,7 @@ var CardIndicators = Class.extend({
             });
           
           // Append source 
-          div.select('.widget_src')
+          div.selectAll('.widget_src')
             .append('a')
             .attr('href', json.metadata.indicator['source url'])
             .text(json.metadata.indicator['source name']);
@@ -62,6 +62,31 @@ var CardIndicators = Class.extend({
           // Append date of last data point
           div.select('.widget_updated')
             .text(formatDate(parsedDate));
+            
+          // Append metadata
+          div.selectAll('.js-data-desc')
+            .text(json.metadata.indicator.name);
+            
+          div.selectAll('.js-data-freq')
+            .text(function() {
+              // Switch between different figure types
+              switch (json.metadata.frequency_type) {
+                case 'yearly':
+                  return 'anualmente'
+                  break;
+                case 'monthly':
+                  return 'mensualmente'
+                  break;
+                case 'weekly':
+                  return 'semanalmente'
+                  break;
+                case 'daily':
+                  return 'diariamente'
+                  break;
+                default:
+                  return ''
+              }
+            });
             
           if (typeof json.data[1] !== 'undefined') {
             var pctChange = (json.data[0].value / json.data[1].value * 100) - 100;

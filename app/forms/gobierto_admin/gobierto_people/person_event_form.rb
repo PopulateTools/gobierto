@@ -92,6 +92,22 @@ module GobiertoAdmin
         end
       end
 
+      def starts_at
+        if @starts_at.respond_to?(:strftime)
+          return @starts_at.strftime("%Y-%m-%d %H:%M")
+        end
+
+        @starts_at
+      end
+
+      def ends_at
+        if @ends_at.respond_to?(:strftime)
+          return @ends_at.strftime("%Y-%m-%d %H:%M")
+        end
+
+        @ends_at
+      end
+
       private
 
       def build_person_event

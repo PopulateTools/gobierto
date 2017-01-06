@@ -35,8 +35,8 @@ module GobiertoAdmin
 
               within "form.new_person_event" do
                 fill_in "person_event_title", with: "Event Title"
-                fill_in "person_event_starts_at", with: "2017-01-01 00:00:01"
-                fill_in "person_event_ends_at", with: "2017-01-01 00:01:01"
+                fill_in "person_event_starts_at", with: "2017-01-01 00:00"
+                fill_in "person_event_ends_at", with: "2017-01-01 00:01"
                 fill_in "person_event_description", with: "Event Description"
 
                 within ".attachment_file_field" do
@@ -77,8 +77,8 @@ module GobiertoAdmin
               within "form.edit_person_event" do
                 assert has_field?("person_event_title", with: "Event Title")
 
-                assert has_field?("person_event_starts_at", with: "2017-01-01T00:00:01")
-                assert has_field?("person_event_ends_at", with: "2017-01-01T00:01:01")
+                assert has_field?("person_event_starts_at", with: "2017-01-01 00:00")
+                assert has_field?("person_event_ends_at", with: "2017-01-01 00:01")
                 assert has_field?("person_event_description", with: "Event Description")
 
                 within ".attachment_file_field" do

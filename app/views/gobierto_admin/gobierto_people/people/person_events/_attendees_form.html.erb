@@ -14,7 +14,15 @@
     <%= form_builder.fields_for :attendees do |attendee_form| %>
       <tbody class="dynamic-content-record-wrapper content-block-record-<%= attendee_form.object.id || "new" %>">
         <tr class="dynamic-content-record-view <%= cycle("odd", "even") %>">
-          <td class="content-block-record-value"><%= attendee_form.object.person.try(:name) %></td>
+          <td class="content-block-record-value">
+            <% if attendee_form.object.person.present? %>
+              <%= attendee_form.object.person.name %>
+              <%= link_to "#", class: "view_item" do %>
+                <i class="fa fa-eye"></i>
+                <%= t(".view_person") %>
+              <% end %>
+            <% end %>
+          </td>
           <td class="content-block-record-value"><%= attendee_form.object.name %></td>
           <td class="content-block-record-value"><%= attendee_form.object.charge %></td>
 

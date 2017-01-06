@@ -30,6 +30,7 @@ ca:
               address: Direcció
           attendees_form:
             title: Assistents
+            view_person: Veure persona
             header:
               person: Persona
               name: Nom

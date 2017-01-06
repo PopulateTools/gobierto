@@ -30,6 +30,7 @@ en:
               address: Address
           attendees_form:
             title: Attendees
+            view_person: View person
             header:
               person: Person
               name: Name

@@ -30,6 +30,7 @@ es:
               address: Dirección
           attendees_form:
             title: Asistentes
+            view_person: Ver persona
             header:
               person: Persona
               name: Nombre

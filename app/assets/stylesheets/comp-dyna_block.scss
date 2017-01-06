@@ -53,6 +53,10 @@ body.gobierto_admin {
         height: initial;
         @include border-radius(3px);
       }
+      select {
+        background: white;
+        border: 1px solid $color_separator;
+      }
       h4 {
         margin: .5em 0 1em 0;
       }

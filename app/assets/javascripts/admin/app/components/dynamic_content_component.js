@@ -58,6 +58,13 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
         }
 
         $(this).find("option:selected").prop("selected", false);
+
+        if ($(this).data("behavior") === "geocomplete") {
+          $(this).geocomplete({
+            details: ".content-block-field",
+            detailsAttribute: "data-geo"
+          });
+        }
       });
 
       clonedField.find("label").each(function() {

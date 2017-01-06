@@ -74,7 +74,7 @@ module GobiertoAdmin
             :starts_at,
             :ends_at,
             :attachment_file,
-            locations_attributes: [:id, :name, :address, :_destroy],
+            locations_attributes: [:id, :name, :address, :lat, :lng, :_destroy],
             attendees_attributes: [:id, :person_id, :name, :charge, :_destroy]
           )
         end

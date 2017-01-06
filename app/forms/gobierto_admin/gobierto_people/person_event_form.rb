@@ -63,7 +63,9 @@ module GobiertoAdmin
 
           location = person_event_location_class.new(
             name: location_attributes[:name],
-            address: location_attributes[:address]
+            address: location_attributes[:address],
+            lat: location_attributes[:lat],
+            lng: location_attributes[:lng]
           )
 
           @locations.push(location) if location.valid?

@@ -3,7 +3,7 @@
   <%= link_to t("gobierto_admin.gobierto_people.people.index.title"), admin_people_people_path %> »
   <%= link_to @person.name, edit_admin_people_person_path(@person) %> »
   <%= link_to t("gobierto_admin.gobierto_people.people.person_events.index.title"), admin_people_person_events_path(@person) %> »
-  <%= link_to @person_event.title, edit_admin_people_person_event_path(@person, @person_event) %> »
+  <%= link_to @person_event.title, edit_admin_people_person_event_path(@person, @person_event), data: { turbolinks: false } %> »
   <%= t(".title") %>
 </div>
 

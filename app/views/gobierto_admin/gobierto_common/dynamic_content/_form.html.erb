@@ -100,6 +100,6 @@
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
-    window.GobiertoAdmin.dynamic_content_component.handle("content_block_records_attributes");
+    window.GobiertoAdmin.dynamic_content_component.handle(".dynamic-content-wrapper", "content_block_records_attributes");
   <% end %>
 <% end %>

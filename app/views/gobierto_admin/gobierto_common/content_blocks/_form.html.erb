@@ -25,7 +25,7 @@
 
         <h3><%= t(".fields") %></h3>
 
-        <div class="dynamic-content-wrapper">
+        <div id="content-block-fields" class="dynamic-content-wrapper">
 
           <%= f.fields_for :fields do |field_form| %>
             <div class="dynamic-content-record-wrapper content-block-field-record-<%= field_form.object.id || "new" %>">
@@ -73,6 +73,6 @@
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
-    window.GobiertoAdmin.content_blocks_controller.edit("fields_attributes");
+    window.GobiertoAdmin.content_blocks_controller.edit("#content-block-fields", "fields_attributes");
   <% end %>
 <% end %>

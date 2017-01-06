@@ -1,29 +1,29 @@
 this.GobiertoAdmin.DynamicContentComponent = (function() {
   function DynamicContentComponent() {}
 
-  DynamicContentComponent.prototype.handle = function(recordNamespace) {
-    handleAddChild(recordNamespace);
+  DynamicContentComponent.prototype.handle = function(wrapper, namespace) {
+    handleAddChild(wrapper, namespace);
     handleAddRecord();
     handleCancelRecord();
     handleEditRecord();
     handleDeleteRecord();
   };
 
-  function handleAddChild(recordNamespace) {
-    var componentWrapper = $(".dynamic-content-wrapper");
+  function handleAddChild(wrapper, namespace) {
+    var componentWrapper = $(wrapper || ".dynamic-content-wrapper");
 
-    componentWrapper.off("click").on("click", "[data-behavior=add_child]", function(e) {
+    componentWrapper.on("click", "[data-behavior=add_child]", function(e) {
       e.preventDefault();
 
       var eventWrapper = $(this).closest(".dynamic-content-wrapper");
       var recordTemplate = eventWrapper.find(".dynamic-content-record-wrapper:visible:last");
 
-      var fieldNameRegExp = new RegExp("\\[" + recordNamespace + "\\]\\[\\d+\\]", "i");
-      var fieldIdRegExp = new RegExp("_" + recordNamespace + "_\\d+", "i");
+      var fieldNameRegExp = new RegExp("\\[" + namespace + "\\]\\[\\d+\\]", "i");
+      var fieldIdRegExp = new RegExp("_" + namespace + "_\\d+", "i");
       var contentBlockRecordRegExp = new RegExp("content-block-record-\\d+", "i");
       var randomId = new Date().getTime();
-      var uniqueFieldName = "[" + recordNamespace + "][" + randomId + "]";
-      var uniqueFieldId = "_" + recordNamespace + "_" + randomId;
+      var uniqueFieldName = "[" + namespace + "][" + randomId + "]";
+      var uniqueFieldId = "_" + namespace + "_" + randomId;
 
       var clonedField = $(recordTemplate)
         .clone()

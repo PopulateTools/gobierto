@@ -2,14 +2,23 @@ module GobiertoAdmin
   module GobiertoCommon
     class ContentBlocksController < BaseController
       def index
+        content_block_policy = ContentBlockPolicy.new(current_admin)
+        raise Errors::NotAuthorized unless content_block_policy.view?
+
         @content_blocks = current_site.content_blocks.sorted
       end
 
       def show
         @content_block = find_content_block
+
+        content_block_policy = ContentBlockPolicy.new(current_admin, @content_block)
+        raise Errors::NotAuthorized unless content_block_policy.view?
       end
 
       def new
+        content_block_policy = ContentBlockPolicy.new(current_admin)
+        raise Errors::NotAuthorized unless content_block_policy.create?
+
         @content_block_form = ContentBlockForm.new(
           content_model_name: get_content_model_name_from_params,
           referrer_url: request.referrer,
@@ -19,6 +28,10 @@ module GobiertoAdmin
 
       def edit
         @content_block = find_content_block
+
+        content_block_policy = ContentBlockPolicy.new(current_admin, @content_block)
+        raise Errors::NotAuthorized unless content_block_policy.update?
+
         @content_block_form = ContentBlockForm.new(
           @content_block.attributes
             .except(*ignored_content_block_attributes)
@@ -30,6 +43,9 @@ module GobiertoAdmin
       end
 
       def create
+        content_block_policy = ContentBlockPolicy.new(current_admin)
+        raise Errors::NotAuthorized unless content_block_policy.create?
+
         @content_block_form = ContentBlockForm.new(
           content_block_params.merge(
             site_id: current_site.id,
@@ -49,6 +65,10 @@ module GobiertoAdmin
 
       def update
         @content_block = find_content_block
+
+        content_block_policy = ContentBlockPolicy.new(current_admin, @content_block)
+        raise Errors::NotAuthorized unless content_block_policy.update?
+
         @content_block_form = ContentBlockForm.new(
           content_block_params.merge(
             id: params[:id],
@@ -68,6 +88,9 @@ module GobiertoAdmin
 
     def destroy
       @content_block = find_content_block
+
+      content_block_policy = ContentBlockPolicy.new(current_admin, @content_block)
+      raise Errors::NotAuthorized unless content_block_policy.delete?
 
       @content_block.destroy
 

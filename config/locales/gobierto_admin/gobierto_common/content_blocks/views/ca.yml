@@ -8,7 +8,7 @@ ca:
         edit:
           title: Afegir bloc
         form:
-          title: Títol
-          fields: Camps
-          delete_field: Eliminar camp
-          add_child: Afegir nou camp
+          title: Nom del bloc
+          fields: Columnes
+          delete_field: Eliminar columna
+          add_child: Afegir columna

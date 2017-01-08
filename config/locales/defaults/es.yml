@@ -196,3 +196,7 @@ es:
       long: "%d de %B de %Y %H:%M"
       short: "%d de %b %H:%M"
     pm: pm
+  locales:
+    en: Inglés
+    es: Castellano
+    ca: Catalán

@@ -1,3 +1,5 @@
+require "file_uploader/s3"
+
 module GobiertoAdmin
   module GobiertoPeople
     class PersonForm
@@ -11,7 +13,10 @@ module GobiertoAdmin
         :name,
         :charge,
         :bio,
+        :bio_file,
         :bio_url,
+        :avatar_file,
+        :avatar_url,
         :visibility_level
       )
 
@@ -49,6 +54,28 @@ module GobiertoAdmin
         @visibility_level ||= "draft"
       end
 
+      def bio_url
+        @bio_url ||= begin
+          return person.bio_url unless bio_file.present?
+
+          FileUploader::S3.new(
+            file: bio_file,
+            file_name: "gobierto_people/people/bio-#{SecureRandom.uuid}"
+          ).call
+        end
+      end
+
+      def avatar_url
+        @avatar_url ||= begin
+          return person.avatar_url unless avatar_file.present?
+
+          FileUploader::S3.new(
+            file: avatar_file,
+            file_name: "gobierto_people/people/avatar-#{SecureRandom.uuid}"
+          ).call
+        end
+      end
+
       private
 
       def build_person
@@ -67,6 +94,7 @@ module GobiertoAdmin
           person_attributes.charge = charge
           person_attributes.bio = bio
           person_attributes.bio_url = bio_url
+          person_attributes.avatar_url = avatar_url
           person_attributes.visibility_level = visibility_level
           person_attributes.content_block_records = content_block_records
         end

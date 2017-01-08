@@ -9,3 +9,5 @@ ca:
           delete_content_block_confirm: Estàs segur de voler eliminar aquest bloc?
           add_content_block: Afegir nou bloc
           add_child: Afegir nou registre
+          add_record: Afegir
+          cancel_record: Cancelar

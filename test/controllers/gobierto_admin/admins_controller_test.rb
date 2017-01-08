@@ -21,7 +21,8 @@ module GobiertoAdmin
         admin: {
           name: admin.name,
           email: admin.email,
-          password: "wadus"
+          password: "wadus",
+          site_modules: ["GobiertoBudgetConsultations", "GobiertoPeople"]
         }
       }
     end

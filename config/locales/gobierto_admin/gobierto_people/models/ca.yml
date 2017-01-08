@@ -8,4 +8,5 @@ ca:
         name: Nom
         charge: Càrrec
         bio: Biografia
-        bio_url: Biografia externa
+        bio_url: Fichero adjunto
+        avatar_url: Avatar

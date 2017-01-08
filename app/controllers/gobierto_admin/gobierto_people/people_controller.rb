@@ -74,7 +74,8 @@ module GobiertoAdmin
           :name,
           :charge,
           :bio,
-          :bio_url,
+          :bio_file,
+          :avatar_file,
           :visibility_level,
           dynamic_content_attributes
         )

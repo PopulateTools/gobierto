@@ -1,0 +1,15 @@
+---
+ca:
+  activemodel:
+    models:
+      gobierto_admin/gobierto_common/content_block_form: Bloc de contingut
+  activerecord:
+    models:
+      gobierto_common/content_block_field: Camp
+    attributes:
+      gobierto_common/content_block_field:
+        field_type: Tipus de camp
+        field_types:
+          text: Tipus de camp
+          date: Data
+          currency: Moneda

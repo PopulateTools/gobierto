@@ -30,7 +30,7 @@ module GobiertoAdmin
     class ConsultationForm
       ...
 
-      prepend GobiertoCommon::Trackable
+      prepend ::GobiertoCommon::Trackable
     end
   end
 end

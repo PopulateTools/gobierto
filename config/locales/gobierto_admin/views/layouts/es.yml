@@ -4,6 +4,7 @@ es:
     layouts:
       application:
         budget_consultations: Consultas de presupuestos
+        people: Altos cargos y Agendas
         manage_sites: Gestionar sites
         site_network: Red
         view_site: Ver site

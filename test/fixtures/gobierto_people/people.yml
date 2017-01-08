@@ -1,0 +1,8 @@
+richard:
+  site: madrid
+  admin: tony
+  name: Richard Rider
+  charge: Avenger
+  bio: Left the Secret Avengers, to participate in The Thanos Imperative. Presumed killed in The Thanos Imperative.
+  bio_url: https://en.wikipedia.org/wiki/Nova_(Richard_Rider)
+  visibility_level: <%= GobiertoPeople::Person.visibility_levels["active"] %>

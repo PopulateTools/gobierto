@@ -1,0 +1,53 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= t(".title") %>
+</div>
+
+<h1><%= t(".title") %></h1>
+
+<div class="admin_tools right">
+  <%= link_to t(".new"), new_admin_people_person_path, class: "button" %>
+</div>
+
+<table class="people-list">
+<tr>
+  <th></th>
+  <th><%= t(".header.person") %></th>
+  <th><%= t(".header.charge") %></th>
+  <th><%= t(".header.events") %></th>
+  <th><%= t(".header.statements") %></th>
+  <th></th>
+</tr>
+
+<tbody>
+  <% @people.each do |person| %>
+    <tr id="person-item-<%= person.id %>" class="<%= cycle("odd", "even") %>">
+      <td>
+        <%= link_to edit_admin_people_person_path(person) do %>
+          <i class="fa fa-edit"></i>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to edit_admin_people_person_path(person) do %>
+          <%= person.name %>
+        <% end %>
+      </td>
+      <td>
+        <%= person.charge %>
+      </td>
+      <td>
+        <%= t(".events_count", count: 5) %>
+      </td>
+      <td>
+        <%= t(".statements_count", count: 5) %>
+      </td>
+      <td>
+        <%= link_to "#", class: "view_item" do %>
+          <i class="fa fa-eye"></i>
+          <%= t(".view_person") %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+</table>

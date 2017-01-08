@@ -1,0 +1,31 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        index:
+          title: Persones
+          new: Nova persona
+          view_person: Veure persona
+          header:
+            person: Persona
+            charge: Càrrec
+            events: Events
+            statements: Declaracions
+          events_count:
+            one: Un event
+            other: "%{count} evento"
+          statements_count:
+            one: Una declaració
+            other: "%{count} declaracions"
+        edit:
+          title: Editar persona
+        new:
+          title: Nova persona
+        form:
+          placeholders:
+            name: Rafael García
+            charge: Alcalde
+          visibility_level:
+            draft: Borrador
+            active: Activa

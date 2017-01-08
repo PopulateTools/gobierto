@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161222064233) do
+ActiveRecord::Schema.define(version: 20161222193212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,35 @@ ActiveRecord::Schema.define(version: 20161222064233) do
     t.index ["site_id"], name: "index_census_items_on_site_id", using: :btree
   end
 
+  create_table "content_block_fields", force: :cascade do |t|
+    t.integer "content_block_id"
+    t.integer "field_type",       default: 0,  null: false
+    t.string  "name",             default: "", null: false
+    t.text    "label"
+    t.integer "position",         default: 0,  null: false
+    t.index ["content_block_id"], name: "index_content_block_fields_on_content_block_id", using: :btree
+  end
+
+  create_table "content_block_records", force: :cascade do |t|
+    t.integer  "content_block_id"
+    t.string   "content_context_type"
+    t.integer  "content_context_id"
+    t.jsonb    "payload"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["content_block_id"], name: "index_content_block_records_on_content_block_id", using: :btree
+    t.index ["content_context_type", "content_context_id"], name: "index_content_block_records_on_content_context", using: :btree
+    t.index ["payload"], name: "index_content_block_records_on_payload", using: :gin
+  end
+
+  create_table "content_blocks", force: :cascade do |t|
+    t.integer "site_id"
+    t.string  "content_model_name", default: "", null: false
+    t.text    "title"
+    t.index ["content_model_name"], name: "index_content_blocks_on_content_model_name", using: :btree
+    t.index ["site_id"], name: "index_content_blocks_on_site_id", using: :btree
+  end
+
   create_table "gbc_consultation_items", force: :cascade do |t|
     t.string   "title",                                       default: "",    null: false
     t.text     "description"
@@ -136,6 +165,20 @@ ActiveRecord::Schema.define(version: 20161222064233) do
     t.datetime "updated_at",                                                null: false
     t.index ["admin_id"], name: "index_gbc_consultations_on_admin_id", using: :btree
     t.index ["site_id"], name: "index_gbc_consultations_on_site_id", using: :btree
+  end
+
+  create_table "gp_people", force: :cascade do |t|
+    t.integer  "site_id"
+    t.integer  "admin_id"
+    t.string   "name",             default: "", null: false
+    t.string   "charge"
+    t.text     "bio"
+    t.string   "bio_url"
+    t.integer  "visibility_level", default: 0,  null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["admin_id"], name: "index_gp_people_on_admin_id", using: :btree
+    t.index ["site_id"], name: "index_gp_people_on_site_id", using: :btree
   end
 
   create_table "sites", force: :cascade do |t|

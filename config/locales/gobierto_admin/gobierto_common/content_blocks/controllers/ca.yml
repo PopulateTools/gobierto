@@ -1,0 +1,12 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_common:
+      content_blocks:
+        admins:
+          create:
+            success: El bloc s'ha creat correctament
+          update:
+            success: El bloc s'ha actualitzat correctament
+          destroy:
+            success: El bloc s'ha eliminat correctament

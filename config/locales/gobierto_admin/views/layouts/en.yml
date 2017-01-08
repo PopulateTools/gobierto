@@ -4,6 +4,7 @@ en:
     layouts:
       application:
         budget_consultations: Budget consultations
+        people: Officiers and Agendas
         manage_sites: Manage sites
         site_network: Network
         view_site: View site

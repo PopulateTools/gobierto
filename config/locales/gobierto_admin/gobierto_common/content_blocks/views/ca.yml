@@ -1,0 +1,14 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_common:
+      content_blocks:
+        edit:
+          title: Editar bloc
+        edit:
+          title: Afegir bloc
+        form:
+          title: Títol
+          fields: Camps
+          delete_field: Eliminar camp
+          add_child: Afegir nou camp

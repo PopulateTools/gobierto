@@ -66,7 +66,7 @@ var VisAgeDistribution = Class.extend({
           isNaN(d.age) ? d.age =+ 100 : d.age;
 
           d.age = +d.age;
-          d.pct = d3.format(',.3')(d.value / population * 100);
+          d.pct = +d.value / population * 100;
           d.years = +d.age * d.value;
         });
 

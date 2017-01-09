@@ -12,16 +12,16 @@ var VisUnemploymentAge = Class.extend({
   getData: function() {
     var pop = d3.json(this.popUrl)
       .header('authorization', 'Bearer ' + this.tbiToken)
-      
+
     var unemployed = d3.json(this.unemplUrl)
       .header('authorization', 'Bearer ' + this.tbiToken)
-      
+
     d3.queue()
       .defer(pop.get)
       .defer(unemployed.get)
       .await(function (error, jsonData, unemployed) {
         if (error) throw error;
-        
+
         // Get population for each group & year
         var nested = d3.nest()
           .key(function(d) { return d.date; })
@@ -32,27 +32,22 @@ var VisUnemploymentAge = Class.extend({
             };
           })
           .entries(jsonData);
-        
-        // FIXME: calculate the values only when the dates are the same, e.g.
-        // FIXME: Investigate why only 2015 seems to work...
+
+        var temp = {};
+        nested.forEach(function(k) {
+          temp[k.key] = k.value
+        });
+        nested = temp;
+
         unemployed.forEach(function(d) {
-          nested.forEach(function(k) {
-            switch (d.age_range) {
-              case '<25':
-                d.pct = d.date.slice(0, 4) === k.key ? d.value / k.value['<25'] * 100 : null;
-                break;
-              case '25-44':
-                d.pct = d.date.slice(0, 4) === k.key ? d.value / k.value['25-44'] * 100 : null;
-                break;
-              case '>=45':
-                d.pct = d.date.slice(0, 4) === k.key ? d.value / k.value['>=45'] * 100 : null;
-            };
-          });
+          var year = d.date.slice(0,4);
+          if(nested.hasOwnProperty(year)) {
+            d.pct = d.value / nested[year][d.age_range];
+          } else {
+            d.pct = null;
+          }
         });
 
-        console.log(nested);
-        console.log(unemployed);
-        
       }.bind(this));
   },
   render: function() {

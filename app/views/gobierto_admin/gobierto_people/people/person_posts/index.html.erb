@@ -39,7 +39,9 @@
         <%= l(person_post.created_at, format: :short) %>
       </td>
       <td>
-        <%= person_post.tags.to_sentence %>
+        <% if person_post.tags.present? %>
+          <%= person_post.tags.to_sentence %>
+        <% end %>
       </td>
       <td>
         <%= link_to "#", class: "view_item" do %>

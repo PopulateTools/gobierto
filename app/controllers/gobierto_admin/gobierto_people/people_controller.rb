@@ -6,7 +6,7 @@ module GobiertoAdmin
       before_action { module_enabled!(current_site, "GobiertoPeople") }
 
       def index
-        @people = current_site.people.includes(:events, :statements, :posts).sorted
+        @people = current_site.people.sorted
       end
 
       def new

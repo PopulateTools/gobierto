@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170109110351) do
+ActiveRecord::Schema.define(version: 20170109162309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,6 +178,9 @@ ActiveRecord::Schema.define(version: 20170109110351) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.string   "avatar_url"
+    t.integer  "events_count",     default: 0,  null: false
+    t.integer  "statements_count", default: 0,  null: false
+    t.integer  "posts_count",      default: 0,  null: false
     t.index ["admin_id"], name: "index_gp_people_on_admin_id", using: :btree
     t.index ["site_id"], name: "index_gp_people_on_site_id", using: :btree
   end

@@ -2,7 +2,7 @@ require_dependency "gobierto_people"
 
 module GobiertoPeople
   class PersonPost < ApplicationRecord
-    belongs_to :person
+    belongs_to :person, counter_cache: :posts_count
 
     scope :sorted, -> { order(created_at: :desc) }
     scope :by_tag, ->(*tags) { where("tags @> ARRAY[?]::varchar[]", tags) }

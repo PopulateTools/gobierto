@@ -1,16 +1,16 @@
 this.GobiertoAdmin.DynamicContentComponent = (function() {
   function DynamicContentComponent() {}
 
-  DynamicContentComponent.prototype.handle = function(recordNamespace) {
-    handleAddChild(recordNamespace);
+  DynamicContentComponent.prototype.handle = function(wrapper, namespace) {
+    handleAddChild(wrapper, namespace);
     handleAddRecord();
     handleCancelRecord();
     handleEditRecord();
     handleDeleteRecord();
   };
 
-  function handleAddChild(recordNamespace) {
-    var componentWrapper = $(".dynamic-content-wrapper");
+  function handleAddChild(wrapper, namespace) {
+    var componentWrapper = $(wrapper || ".dynamic-content-wrapper");
 
     componentWrapper.on("click", "[data-behavior=add_child]", function(e) {
       e.preventDefault();
@@ -18,12 +18,12 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
       var eventWrapper = $(this).closest(".dynamic-content-wrapper");
       var recordTemplate = eventWrapper.find(".dynamic-content-record-wrapper:visible:last");
 
-      var fieldNameRegExp = new RegExp("\\[" + recordNamespace + "\\]\\[\\d+\\]", "i");
-      var fieldIdRegExp = new RegExp("_" + recordNamespace + "_\\d+", "i");
+      var fieldNameRegExp = new RegExp("\\[" + namespace + "\\]\\[\\d+\\]", "i");
+      var fieldIdRegExp = new RegExp("_" + namespace + "_\\d+", "i");
       var contentBlockRecordRegExp = new RegExp("content-block-record-\\d+", "i");
       var randomId = new Date().getTime();
-      var uniqueFieldName = "[" + recordNamespace + "][" + randomId + "]";
-      var uniqueFieldId = "_" + recordNamespace + "_" + randomId;
+      var uniqueFieldName = "[" + namespace + "][" + randomId + "]";
+      var uniqueFieldId = "_" + namespace + "_" + randomId;
 
       var clonedField = $(recordTemplate)
         .clone()
@@ -55,6 +55,15 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
 
         if ($(this).attr("type") === "text") {
           $(this).val("");
+        }
+
+        $(this).find("option:selected").prop("selected", false);
+
+        if ($(this).data("behavior") === "geocomplete") {
+          $(this).geocomplete({
+            details: ".content-block-field",
+            detailsAttribute: "data-geo"
+          });
         }
       });
 
@@ -135,8 +144,8 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   }
 
   function _setRecordViewState(wrapper) {
-    var formState = wrapper.find(".content-block-field input").map(function() {
-      return $(this).val();
+    var formState = wrapper.find(".content-block-field input, select option:selected").map(function() {
+      return $(this).text() || $(this).val();
     });
 
     wrapper.find(".dynamic-content-record-view .content-block-record-value").each(function(index) {

@@ -3,6 +3,7 @@ en:
   activemodel:
     models:
       gobierto_admin/gobierto_people/person_form: Person
+      gobierto_admin/gobierto_people/person_event_form: Event
     attributes:
       gobierto_admin/gobierto_people/person_form:
         name: Name
@@ -10,3 +11,9 @@ en:
         bio: Bio
         bio_url: Attached file
         avatar_url: Avatar
+      gobierto_admin/gobierto_people/person_event_form:
+        title: Title
+        description: Description
+        starts_at: Start date
+        ends_at: End date
+        attachment_url: Attached file

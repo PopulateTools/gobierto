@@ -3,6 +3,9 @@ en:
   gobierto_admin:
     gobierto_people:
       people:
+        navigation:
+          person: Person
+          agenda: Agenda
         index:
           title: Persons
           new: New person

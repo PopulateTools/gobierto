@@ -4,6 +4,8 @@ en:
     models:
       gobierto_admin/gobierto_people/person_form: Person
       gobierto_admin/gobierto_people/person_event_form: Event
+      gobierto_admin/gobierto_people/person_statement_form: Statement
+      gobierto_admin/gobierto_people/person_post_form: Post
     attributes:
       gobierto_admin/gobierto_people/person_form:
         name: Name
@@ -17,3 +19,10 @@ en:
         starts_at: Start date
         ends_at: End date
         attachment_url: Attached file
+      gobierto_admin/gobierto_people/person_statement_form:
+        title: Title
+        published_on: Publishing date
+      gobierto_admin/gobierto_people/person_post_form:
+        title: Title
+        body: Body
+        tags: Tags

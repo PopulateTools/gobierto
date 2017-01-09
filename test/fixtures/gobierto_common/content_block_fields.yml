@@ -32,3 +32,45 @@ accomplishment_date:
   name: date
   label: <%= { "en" => "Date", "es" => "Fecha" }.to_yaml.inspect %>
   position: 1
+
+income_statement_concept:
+  content_block: income_statements
+  field_type: <%= ::GobiertoCommon::ContentBlockField.field_types["text"] %>
+  name: concept
+  label: <%= { "en" => "Concept", "es" => "Concepto" }.to_yaml.inspect %>
+  position: 0
+
+income_statement_description:
+  content_block: income_statements
+  field_type: <%= ::GobiertoCommon::ContentBlockField.field_types["text"] %>
+  name: description
+  label: <%= { "en" => "Description", "es" => "Descripción" }.to_yaml.inspect %>
+  position: 1
+
+income_statement_amount:
+  content_block: income_statements
+  field_type: <%= ::GobiertoCommon::ContentBlockField.field_types["currency"] %>
+  name: amount
+  label: <%= { "en" => "Amount", "es" => "Importe" }.to_yaml.inspect %>
+  position: 2
+
+asset_statement_class:
+  content_block: asset_statements
+  field_type: <%= ::GobiertoCommon::ContentBlockField.field_types["text"] %>
+  name: class
+  label: <%= { "en" => "Class", "es" => "Clase" }.to_yaml.inspect %>
+  position: 0
+
+asset_statement_branch:
+  content_block: asset_statements
+  field_type: <%= ::GobiertoCommon::ContentBlockField.field_types["text"] %>
+  name: branch
+  label: <%= { "en" => "Branch", "es" => "Entidad bancaria" }.to_yaml.inspect %>
+  position: 1
+
+asset_statement_balance:
+  content_block: asset_statements
+  field_type: <%= ::GobiertoCommon::ContentBlockField.field_types["currency"] %>
+  name: balance
+  label: <%= { "en" => "Average balance", "es" => "Saldo medio" }.to_yaml.inspect %>
+  position: 2

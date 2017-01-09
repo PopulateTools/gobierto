@@ -6,6 +6,8 @@ ca:
         navigation:
           person: Persona
           agenda: Agenda
+          statements: Declaracions
+          posts: Blog
         index:
           title: Persones
           new: Nova persona

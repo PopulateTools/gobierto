@@ -6,6 +6,8 @@ en:
         navigation:
           person: Person
           agenda: Agenda
+          statements: Statements
+          posts: Blog
         index:
           title: Persons
           new: New person

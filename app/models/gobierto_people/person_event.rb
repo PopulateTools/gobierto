@@ -2,7 +2,7 @@ require_dependency "gobierto_people"
 
 module GobiertoPeople
   class PersonEvent < ApplicationRecord
-    belongs_to :person
+    belongs_to :person, counter_cache: :events_count
 
     has_many :locations, class_name: "PersonEventLocation", dependent: :destroy
     has_many :attendees, class_name: "PersonEventAttendee", dependent: :destroy

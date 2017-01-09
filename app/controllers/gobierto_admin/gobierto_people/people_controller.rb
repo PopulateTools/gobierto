@@ -84,6 +84,7 @@ module GobiertoAdmin
       def ignored_person_attributes
         %w(
         created_at updated_at
+        events_count statements_count posts_count
         )
       end
     end

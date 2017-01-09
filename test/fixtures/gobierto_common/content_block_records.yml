@@ -7,3 +7,13 @@ accomplishment_nobel_prize:
   content_context: richard (GobiertoPeople::Person)
   content_block: accomplishments
   payload: <%= { "title" => "Nobel Prize in Chemistry", "date" => "2016" }.to_json %>
+
+income_statements_dividends:
+  content_context: richard_current (GobiertoPeople::PersonStatement)
+  content_block: income_statements
+  payload: <%= { "concept" => "Dividends", "description" => "Fixed amount per share", "amount" => "12000" }.to_json %>
+
+asset_statements_regular_account:
+  content_context: richard_current (GobiertoPeople::PersonStatement)
+  content_block: asset_statements
+  payload: <%= { "class" => "Regular account", "branch" => "Wadus", "balance" => "150000" }.to_json %>

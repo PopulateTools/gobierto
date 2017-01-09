@@ -13,6 +13,7 @@
 //= require lodash.min.js
 //= require d3.min
 //= require d3-legend.min
+//= require d3-locale-es
 //= require accounting.min
 //= require jquery.autocomplete
 //= require klass

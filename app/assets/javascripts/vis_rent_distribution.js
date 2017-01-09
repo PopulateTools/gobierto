@@ -23,7 +23,7 @@ var VisRentDistribution = Class.extend({
     this.xScale = d3.scaleLog();
     this.yScale = d3.scaleLinear();
 
-    this.color = d3.scaleSequential(d3.interpolateInferno);
+    this.color = d3.scaleSequential(d3.interpolatePlasma);
 
     // Create axes
     this.xAxis = d3.axisBottom();
@@ -98,7 +98,7 @@ var VisRentDistribution = Class.extend({
       .rangeRound([this.height, 0])
       .domain(d3.extent(this.data, function(d) {return d.rent }));
 
-    this.color.domain(d3.extent(this.data, function(d) {return d.rent }));
+    this.color.domain(d3.extent(this.data, function(d) {return d.rent }).reverse());
 
     this._renderAxis();
   },

@@ -1,0 +1,23 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_statements:
+          index:
+            title: Declaracions
+            new: Nova declaració
+            view_statement: Veure declaració
+            header:
+              statement: Declaració
+              date: Data
+          edit:
+            title: Editar declaració
+          new:
+            title: Nou declaració
+          form:
+            placeholders:
+              title: Declaració de béns i activitats
+            visibility_level:
+              draft: Borrador
+              active: Activa

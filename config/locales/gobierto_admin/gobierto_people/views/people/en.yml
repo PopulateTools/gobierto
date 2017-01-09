@@ -6,6 +6,7 @@ en:
         navigation:
           person: Person
           agenda: Agenda
+          statements: Statements
         index:
           title: Persons
           new: New person

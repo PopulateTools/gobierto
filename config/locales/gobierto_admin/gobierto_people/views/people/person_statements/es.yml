@@ -1,0 +1,23 @@
+---
+es:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_statements:
+          index:
+            title: Declaraciones
+            new: Nueva declaración
+            view_statement: Ver declaración
+            header:
+              statement: Declaración
+              date: Fecha
+          edit:
+            title: Editar declaración
+          new:
+            title: Nueva declaración
+          form:
+            placeholders:
+              title: Declaración de Bienes y Actividades
+            visibility_level:
+              draft: Borrador
+              active: Activa

@@ -9,6 +9,7 @@ module GobiertoPeople
 
     has_many :events, class_name: "PersonEvent"
     has_many :statements, class_name: "PersonStatement"
+    has_many :posts, class_name: "PersonPost"
 
     scope :sorted, -> { order(created_at: :desc) }
 

@@ -72,6 +72,13 @@
 	font-weight: 700;
 	text-shadow: 0 0 5px white;
 }
+#rent_distribution .axis-annotation {
+	font-size: 0.75em;
+}
+#rent_distribution .axis-annotation.halo {
+	stroke: white;
+	stroke-width: 3px;
+}
 
 // Desktop
 @media (min-width: 768px) {

@@ -130,6 +130,21 @@ var VisRentDistribution = Class.extend({
       .attr('dx', -10)
       .attr('text-anchor', 'end')
       .text(function(d) { return d.municipality_name });
+    
+    this._axisAnnotations('Habitantes →', 0, 100);
+  },
+  _axisAnnotations: function(text, x, y) {
+    this.svg.append('text')
+      .attr('class', 'axis-annotation halo')
+      .attr('x', x)
+      .attr('y', y)
+      .text(text);
+      
+    this.svg.append('text')
+      .attr('class', 'axis-annotation')
+      .attr('x', x)
+      .attr('y', y)
+      .text(text);
   },
   _renderAxis: function() {
     // X axis
@@ -159,7 +174,7 @@ var VisRentDistribution = Class.extend({
       .attr('dy', '-0.55em');
     
     // Remove the zero on the y axis
-    this.svg.selectAll(".y.axis .tick")
+    this.svg.selectAll('.y.axis .tick')
       .filter(function (d) { return d === 0;  })
       .remove();
   },

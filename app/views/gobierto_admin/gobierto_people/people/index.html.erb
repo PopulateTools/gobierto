@@ -37,13 +37,13 @@
         <%= person.charge %>
       </td>
       <td>
-        <%= t(".events_count", count: 5) %>
+        <%= t(".events_count", count: person.events.size) %>
       </td>
       <td>
-        <%= t(".statements_count", count: 5) %>
+        <%= t(".statements_count", count: person.statements.size) %>
       </td>
       <td>
-        <%= t(".posts_count", count: 5) %>
+        <%= t(".posts_count", count: person.posts.size) %>
       </td>
       <td>
         <%= link_to "#", class: "view_item" do %>

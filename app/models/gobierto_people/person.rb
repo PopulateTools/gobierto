@@ -8,6 +8,7 @@ module GobiertoPeople
     belongs_to :site
 
     has_many :events, class_name: "PersonEvent"
+    has_many :statements, class_name: "PersonStatement"
 
     scope :sorted, -> { order(created_at: :desc) }
 

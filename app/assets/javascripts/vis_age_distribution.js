@@ -37,10 +37,15 @@ var VisAgeDistribution = Class.extend({
       .attr('width', this.width + this.margin.left + this.margin.right)
       .attr('height', this.height + this.margin.top + this.margin.bottom)
       .append('g')
+      .attr('class', 'chart-container')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
     
     // Create city name selector
     this.city = d3.selectAll('.js-city-name');
+    
+    // Append axes containers
+    this.svg.append('g').attr('class','x axis');
+    this.svg.append('g').attr('class','y axis');
 
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
   },
@@ -89,10 +94,6 @@ var VisAgeDistribution = Class.extend({
       .domain([0, d3.max(this.data, function(d) {return d.pct})]);
 
     this.color.domain([0, d3.max(this.data, function(d) {return d.pct})]);
-
-    // Append axes containers
-    this.svg.append('g').attr('class','x axis');
-    this.svg.append('g').attr('class','y axis');
 
     this._renderAxis();
   },
@@ -174,11 +175,13 @@ var VisAgeDistribution = Class.extend({
     this.width = this._width();
     this.height = this._height();
 
+    this.updateRender();
+
     d3.select(this.container + ' svg')
       .attr('width', this.width + this.margin.left + this.margin.right)
       .attr('height', this.height + this.margin.top + this.margin.bottom)
 
-    this.svg.select('g')
+    this.svg.select('.chart-container')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
     
     // Update bars
@@ -187,7 +190,5 @@ var VisAgeDistribution = Class.extend({
       .attr('y', function(d) { return this.yScale(d.pct) }.bind(this))
       .attr('width', this.xScale.bandwidth())
       .attr('height', function(d) { return this.height - this.yScale(d.pct) }.bind(this));
-
-    this.updateRender();
   }
 });

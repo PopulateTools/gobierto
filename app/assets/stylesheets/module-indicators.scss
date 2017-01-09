@@ -54,6 +54,13 @@
 	margin-top: 0;
 }
 
+#rent_distribution .y.axis .domain {
+	display: none;
+}
+#rent_distribution .y.axis .tick line {
+	stroke: #eee;
+}
+
 // Desktop
 @media (min-width: 768px) {
 	.indicators_header {

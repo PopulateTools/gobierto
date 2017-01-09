@@ -10,7 +10,7 @@ var VisRentDistribution = Class.extend({
     this.popUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal.json?filter_by_year=' + current_year + '&filter_by_province_id=' + city_id.slice(0, 2);
 
     // Chart dimensions
-    this.margin = {top: 5, right: 0, bottom: 30, left: 50};
+    this.margin = {top: 5, right: 10, bottom: 30, left: 5};
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -18,13 +18,11 @@ var VisRentDistribution = Class.extend({
     this.xScale = d3.scaleLog();
     this.yScale = d3.scaleLinear();
 
-    this.color = d3.scaleLinear()
-      .range(['#FFE4C4', '#d52a59'])
-      .interpolate(d3.interpolateHcl);
+    this.color = d3.scaleSequential(d3.interpolateInferno);
 
     // Create axes
     this.xAxis = d3.axisBottom();
-    this.yAxis = d3.axisLeft();
+    this.yAxis = d3.axisRight();
 
     // Chart objects
     this.svg = null;
@@ -36,8 +34,13 @@ var VisRentDistribution = Class.extend({
       .attr('width', this.width + this.margin.left + this.margin.right)
       .attr('height', this.height + this.margin.top + this.margin.bottom)
       .append('g')
+      .attr('class', 'chart-container')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
-    
+      
+    // Append axes containers
+    this.svg.append('g').attr('class','x axis');
+    this.svg.append('g').attr('class','y axis');
+
     // Create city name selector
     this.city = d3.selectAll('.js-city-name');
 
@@ -69,8 +72,6 @@ var VisRentDistribution = Class.extend({
           .filter('rent')
           .value();
 
-        console.log(this.data);
-
         this.updateRender();
         this._renderCircles();
         // this._renderCityData();
@@ -86,17 +87,13 @@ var VisRentDistribution = Class.extend({
   updateRender: function(callback) {
     this.xScale
       .rangeRound([0, this.width])
-      .domain([0, d3.max(this.data, function(d) {return d.value})]);
+      .domain(d3.extent(this.data, function(d) {return d.value}));
 
     this.yScale
       .rangeRound([this.height, 0])
       .domain(d3.extent(this.data, function(d) {return d.rent }));
 
-    this.color.domain([0, d3.max(this.data, function(d) { return d.rent })]);
-
-    // Append axes containers
-    this.svg.append('g').attr('class','x axis');
-    this.svg.append('g').attr('class','y axis');
+    this.color.domain(d3.extent(this.data, function(d) {return d.rent }));
 
     this._renderAxis();
   },
@@ -111,8 +108,8 @@ var VisRentDistribution = Class.extend({
     circles.append('circle')
       .attr('cx', function(d) { return this.xScale(d.value) }.bind(this))
       .attr('cy', function(d) { return this.yScale(d.rent) }.bind(this))
-      .attr('r', 4)
-      .attr('fill', function(d) { return this.color(d.rent) }.bind(this));
+      .attr('fill', function(d) { return this.color(d.rent) }.bind(this))
+      .attr('r', 4);
   },
   _renderCityData: function() {
     // Calculate means and stuff
@@ -128,16 +125,25 @@ var VisRentDistribution = Class.extend({
 
     this.xAxis.tickPadding(5);
     this.xAxis.tickSize(0, 0);
+    this.xAxis.ticks(5, ",.1s");
     this.xAxis.scale(this.xScale);
     // this.xAxis.tickFormat(this._formatNumberX.bind(this));
     this.svg.select('.x.axis').call(this.xAxis);
 
     // Y axis
+    this.svg.select('.y.axis')
+      .attr('transform', 'translate(' + this.width + ' ,0)');
+    
     this.yAxis.scale(this.yScale);
-    this.yAxis.ticks(5);
+    this.yAxis.ticks(4);
+    this.yAxis.tickSize(-this.width);
     this.yAxis.tickFormat(this._formatNumberY.bind(this));
     this.svg.select('.y.axis').call(this.yAxis);
-
+    
+    this.svg.selectAll('.y.axis .tick text')
+      .attr('dx', '-4.5em')
+      .attr('dy', '-0.55em');
+    
     // Remove the zero
     this.svg.selectAll(".y.axis .tick")
       .filter(function (d) { return d === 0;  })
@@ -160,18 +166,18 @@ var VisRentDistribution = Class.extend({
     this.width = this._width();
     this.height = this._height();
 
+    this.updateRender();
+
     d3.select(this.container + ' svg')
       .attr('width', this.width + this.margin.left + this.margin.right)
-      .attr('height', this.height + this.margin.top + this.margin.bottom)
+      .attr('height', this.height + this.margin.top + this.margin.bottom);
 
-    this.svg.select('g')
-      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
-    
+    this.svg.select('.chart-container')
+      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');    
+    // 
     // Update bars
     d3.select('#rent_distribution .circles').selectAll('circle')
       .attr('cx', function(d) { return this.xScale(d.value) }.bind(this))
-      .attr('cy', function(d) { return this.yScale(d.rent) }.bind(this))
-
-    this.updateRender();
+      .attr('cy', function(d) { return this.yScale(d.rent) }.bind(this));
   }
 });

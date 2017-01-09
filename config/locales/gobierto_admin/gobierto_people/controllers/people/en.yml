@@ -1,0 +1,9 @@
+---
+en:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        create:
+          success: Person was successfully created
+        update:
+          success: Person was successfully updated

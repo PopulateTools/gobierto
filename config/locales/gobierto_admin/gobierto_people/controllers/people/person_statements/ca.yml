@@ -1,0 +1,10 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_statements:
+          create:
+            success: La declaració s'ha creat correctament
+          update:
+            success: La declaració s'ha actualitzat correctament

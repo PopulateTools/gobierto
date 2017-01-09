@@ -6,6 +6,7 @@ es:
         navigation:
           person: Persona
           agenda: Agenda
+          statements: Declaraciones
         index:
           title: Personas
           new: Nueva persona

@@ -1,0 +1,10 @@
+---
+es:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_statements:
+          create:
+            success: La declaración ha sido creada correctamente
+          update:
+            success: La declaración ha sido actualizada

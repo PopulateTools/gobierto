@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170109052231) do
+ActiveRecord::Schema.define(version: 20170109162309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,6 +178,9 @@ ActiveRecord::Schema.define(version: 20170109052231) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.string   "avatar_url"
+    t.integer  "events_count",     default: 0,  null: false
+    t.integer  "statements_count", default: 0,  null: false
+    t.integer  "posts_count",      default: 0,  null: false
     t.index ["admin_id"], name: "index_gp_people_on_admin_id", using: :btree
     t.index ["site_id"], name: "index_gp_people_on_site_id", using: :btree
   end
@@ -215,6 +218,18 @@ ActiveRecord::Schema.define(version: 20170109052231) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.index ["person_id"], name: "index_gp_person_events_on_person_id", using: :btree
+  end
+
+  create_table "gp_person_posts", force: :cascade do |t|
+    t.string   "title",            default: "", null: false
+    t.text     "body"
+    t.string   "tags",                                       array: true
+    t.integer  "visibility_level", default: 0,  null: false
+    t.integer  "person_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["person_id"], name: "index_gp_person_posts_on_person_id", using: :btree
+    t.index ["tags"], name: "index_gp_person_posts_on_tags", using: :gin
   end
 
   create_table "gp_person_statements", force: :cascade do |t|

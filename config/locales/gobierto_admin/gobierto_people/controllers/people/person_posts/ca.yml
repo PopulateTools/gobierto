@@ -1,0 +1,10 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_posts:
+          create:
+            success: El post s'ha creat correctament
+          update:
+            success: El post s'ha actualitzat correctament

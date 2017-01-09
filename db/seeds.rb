@@ -7,7 +7,11 @@ fixtures_to_load = [
   "user/notifications",
   "gobierto_budget_consultations/consultations",
   "gobierto_budget_consultations/consultation_items",
-  "gobierto_budget_consultations/consultation_responses"
+  "gobierto_budget_consultations/consultation_responses",
+  "gobierto_people/people",
+  "gobierto_common/content_blocks",
+  "gobierto_common/content_block_fields",
+  "gobierto_common/content_block_records"
 ]
 
 ENV["FIXTURES"] = fixtures_to_load.join(",")

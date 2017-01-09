@@ -1,0 +1,34 @@
+contact_method_service_name:
+  content_block: contact_methods
+  field_type: <%= ::GobiertoCommon::ContentBlockField.field_types["text"] %>
+  name: service_name
+  label: <%= { "en" => "Service", "es" => "Servicio" }.to_yaml.inspect %>
+  position: 0
+
+contact_method_service_url:
+  content_block: contact_methods
+  field_type: <%= ::GobiertoCommon::ContentBlockField.field_types["text"] %>
+  name: service_url
+  label: <%= { "en" => "URL", "es" => "URL" }.to_yaml.inspect %>
+  position: 1
+
+contact_method_service_notes:
+  content_block: contact_methods
+  field_type: <%= ::GobiertoCommon::ContentBlockField.field_types["text"] %>
+  name: service_notes
+  label: <%= { "en" => "Notes", "es" => "Notas" }.to_yaml.inspect %>
+  position: 2
+
+accomplishment_title:
+  content_block: accomplishments
+  field_type: <%= ::GobiertoCommon::ContentBlockField.field_types["text"] %>
+  name: title
+  label: <%= { "en" => "Title", "es" => "Título" }.to_yaml.inspect %>
+  position: 0
+
+accomplishment_date:
+  content_block: accomplishments
+  field_type: <%= ::GobiertoCommon::ContentBlockField.field_types["date"] %>
+  name: date
+  label: <%= { "en" => "Date", "es" => "Fecha" }.to_yaml.inspect %>
+  position: 1

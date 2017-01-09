@@ -1,0 +1,12 @@
+---
+ca:
+  activemodel:
+    models:
+      gobierto_admin/gobierto_people/person_form: Perfil
+    attributes:
+      gobierto_admin/gobierto_people/person_form:
+        name: Nom
+        charge: Càrrec
+        bio: Biografia
+        bio_url: Fichero adjunto
+        avatar_url: Avatar

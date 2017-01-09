@@ -1,0 +1,12 @@
+---
+en:
+  activemodel:
+    models:
+      gobierto_admin/gobierto_people/person_form: Person
+    attributes:
+      gobierto_admin/gobierto_people/person_form:
+        name: Name
+        charge: Charge
+        bio: Bio
+        bio_url: Attached file
+        avatar_url: Avatar

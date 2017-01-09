@@ -1,0 +1,37 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        index:
+          title: Persones
+          new: Nova persona
+          view_person: Veure persona
+          header:
+            person: Persona
+            charge: Càrrec
+            events: Events
+            statements: Declaracions
+            posts: Posts
+          events_count:
+            one: Un event
+            other: "%{count} events"
+          statements_count:
+            one: Una declaració
+            other: "%{count} declaracions"
+          posts_count:
+            one: Un post
+            other: "%{count} posts"
+        edit:
+          title: Editar persona
+        new:
+          title: Nova persona
+        form:
+          avatar_file_constraints: Avatar de usuari (fitxer de 500x500)
+          bio_file_constraints: Adjuntar fitxer (PDF)
+          placeholders:
+            name: Rafael García
+            charge: Alcalde
+          visibility_level:
+            draft: Borrador
+            active: Activa

@@ -1,0 +1,13 @@
+---
+es:
+  gobierto_admin:
+    gobierto_common:
+      dynamic_content:
+        form:
+          edit_content_block: Editar
+          delete_content_block: Eliminar bloque
+          delete_content_block_confirm: ¿Estás seguro de querer eliminar este bloque?
+          add_content_block: Añadir nuevo bloque
+          add_child: Añadir nuevo registro
+          add_record: Añadir
+          cancel_record: Cancelar

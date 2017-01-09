@@ -1,0 +1,15 @@
+---
+es:
+  activemodel:
+    models:
+      gobierto_admin/gobierto_common/content_block_form: Bloque de contenido
+  activerecord:
+    models:
+      gobierto_common/content_block_field: Campo
+    attributes:
+      gobierto_common/content_block_field:
+        field_type: Tipo de campo
+        field_types:
+          text: Texto
+          date: Fecha
+          currency: Moneda

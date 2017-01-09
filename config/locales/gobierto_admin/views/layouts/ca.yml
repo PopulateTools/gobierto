@@ -4,6 +4,7 @@ ca:
     layouts:
       application:
         budget_consultations: Consultes de pressupostos
+        people: Alts càrrecs i Agendes
         manage_sites: Gestionar sites
         site_network: Red
         view_site: Veure site

@@ -1,0 +1,9 @@
+contact_methods:
+  site: madrid
+  content_model_name: GobiertoPeople::Person
+  title: <%= { "en" => "Contact methods", "es" => "Formas de contacto" }.to_yaml.inspect %>
+
+accomplishments:
+  site: madrid
+  content_model_name: GobiertoPeople::Person
+  title: <%= { "en" => "Accomplishments", "es" => "Logros" }.to_yaml.inspect %>

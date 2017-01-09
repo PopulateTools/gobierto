@@ -8,7 +8,11 @@ var VisRentDistribution = Class.extend({
     this.tbiToken = window.tbiToken;
     this.rentUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-renta-bruta-media-municipal.json?filter_by_province_id=' + city_id.slice(0, 2);
     this.popUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal.json?filter_by_year=' + current_year + '&filter_by_province_id=' + city_id.slice(0, 2);
+    this.formatThousand = d3.format(',.0f');
 
+    // Set default locale
+    d3.formatDefaultLocale(es_ES);
+    
     // Chart dimensions
     this.margin = {top: 5, right: 10, bottom: 30, left: 5};
     this.width = this._width() - this.margin.left - this.margin.right;
@@ -109,14 +113,7 @@ var VisRentDistribution = Class.extend({
       .attr('cx', function(d) { return this.xScale(d.value) }.bind(this))
       .attr('cy', function(d) { return this.yScale(d.rent) }.bind(this))
       .attr('fill', function(d) { return this.color(d.rent) }.bind(this))
-      .attr('r', 4);
-  },
-  _renderCityData: function() {
-    // Calculate means and stuff
-    var avgAge = d3.sum(this.data, function(d) { return d.years }) / d3.sum(this.data, function(d) { return d.value });
-    
-    d3.select('.js-avg-age')
-      .text(accounting.formatNumber(avgAge, 1));
+      .attr('r', 5);
   },
   _renderAxis: function() {
     // X axis
@@ -125,9 +122,9 @@ var VisRentDistribution = Class.extend({
 
     this.xAxis.tickPadding(5);
     this.xAxis.tickSize(0, 0);
-    this.xAxis.ticks(5, ",.1s");
+    this.xAxis.ticks(2); // FIXME: ticks(3) creates 15 ticks
     this.xAxis.scale(this.xScale);
-    // this.xAxis.tickFormat(this._formatNumberX.bind(this));
+    this.xAxis.tickFormat(this._formatNumberX.bind(this));
     this.svg.select('.x.axis').call(this.xAxis);
 
     // Y axis
@@ -139,18 +136,28 @@ var VisRentDistribution = Class.extend({
     this.yAxis.tickSize(-this.width);
     this.yAxis.tickFormat(this._formatNumberY.bind(this));
     this.svg.select('.y.axis').call(this.yAxis);
-    
+
+    // Place y axis labels on top of ticks
     this.svg.selectAll('.y.axis .tick text')
       .attr('dx', '-4.5em')
       .attr('dy', '-0.55em');
     
-    // Remove the zero
+    // Remove the zero on the y axis
     this.svg.selectAll(".y.axis .tick")
       .filter(function (d) { return d === 0;  })
       .remove();
   },
+  _formatThousandAbbr: function(x) {
+    return d3.format('.0f')(x / 1e3) + ' mil';
+  },
+  _formatAbbreviation: function(x) {
+    var v = Math.abs(x);
+
+    return (v >= .9995e4 ? this._formatThousandAbbr : this.formatThousand)(x);
+  },
   _formatNumberX: function(d) {
-    // 'Age 100' is aggregated
+    // Spanish custom thousand separator
+    return this._formatAbbreviation(d);
   },
   _formatNumberY: function(d) {
     // Show percentages

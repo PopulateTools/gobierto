@@ -12,6 +12,11 @@ $(document).on('turbolinks:load', function() {
     vis_unempl.render();
   }
   
+  if ($('#rent_distribution').length > 0) {
+    var vis_rent = new VisRentDistribution('#rent_distribution', city, year);
+    vis_rent.render();
+  }
+  
   // Paint the city name
   if ($('.js-city').length > 0) {
     d3.json('https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal.json?include=municipality&limit=1&filter_by_location_id=' + city)

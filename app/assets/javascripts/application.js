@@ -10,7 +10,7 @@
 //= require mustache.min
 //= require velocity.min
 //= require velocity.ui.min
-//= require underscore-min
+//= require lodash.min.js
 //= require d3.min
 //= require d3-legend.min
 //= require accounting.min
@@ -33,6 +33,7 @@
 //= require vis_card_indicators
 //= require vis_age_distribution
 //= require vis_unemployment_age
+//= require vis_rent_distribution
 
 // Global util functions
 function rebindAll() {

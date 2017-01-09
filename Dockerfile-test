@@ -1,4 +1,4 @@
-FROM gobiertodev_web
+FROM gobierto_web
 MAINTAINER Populate <lets@populate.tools>
 
 ENV PHANTOMJS_VERSION=2.1.1

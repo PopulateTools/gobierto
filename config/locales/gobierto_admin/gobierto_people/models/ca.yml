@@ -3,6 +3,7 @@ ca:
   activemodel:
     models:
       gobierto_admin/gobierto_people/person_form: Perfil
+      gobierto_admin/gobierto_people/person_event_form: Esdeveniment
     attributes:
       gobierto_admin/gobierto_people/person_form:
         name: Nom
@@ -10,3 +11,9 @@ ca:
         bio: Biografia
         bio_url: Fichero adjunto
         avatar_url: Avatar
+      gobierto_admin/gobierto_people/person_event_form:
+        title: Títol
+        description: Descripción
+        starts_at: Data de començament
+        ends_at: Data de finalització
+        attachment_url: Fitxer adjunt

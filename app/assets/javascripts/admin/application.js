@@ -1,4 +1,5 @@
 //= require trix
+//= require jquery.geocomplete
 //= require ./trix_events
 //= require ./app/init
 //= require_tree ./app

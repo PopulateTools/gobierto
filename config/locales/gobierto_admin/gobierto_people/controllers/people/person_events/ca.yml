@@ -1,0 +1,10 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_events:
+          create:
+            success: El esdeveniment s'ha creat correctament
+          update:
+            success: El esdeveniment s'ha actualitzat correctament

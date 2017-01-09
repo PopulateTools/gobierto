@@ -48,7 +48,12 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_people, as: :people, path: :people do
-      resources :people, only: [:index, :new, :create, :edit, :update]
+      resources :people, only: [:index, :new, :create, :edit, :update] do
+        resources :person_events, only: [:index, :new, :create, :edit, :update], controller: "people/person_events", as: :events, path: :events
+        resources :published_person_events, only: [:index], controller: "people/published_person_events", as: :published_events, path: "events/published"
+        resources :pending_person_events, only: [:index], controller: "people/pending_person_events", as: :pending_events, path: "events/pending"
+        resources :past_person_events, only: [:index], controller: "people/past_person_events", as: :past_events, path: "events/past"
+      end
       resource :file_attachments, only: [:create]
     end
 

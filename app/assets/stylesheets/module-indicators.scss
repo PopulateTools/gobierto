@@ -54,11 +54,23 @@
 	margin-top: 0;
 }
 
+#rent_distribution .axis {
+	font-family: $font_text;
+	font-size: 0.75em;
+}
 #rent_distribution .y.axis .domain {
 	display: none;
 }
 #rent_distribution .y.axis .tick line {
 	stroke: #eee;
+}
+#rent_distribution .circles .selected-city {
+	stroke: black;
+}
+#rent_distribution .text-label {
+	font-size: 0.85em;
+	font-weight: 700;
+	text-shadow: 0 0 5px white;
 }
 
 // Desktop

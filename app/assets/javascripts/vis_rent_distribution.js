@@ -3,11 +3,12 @@
 var VisRentDistribution = Class.extend({
   init: function(divId, city_id, current_year) {
     this.container = divId;
+    this.cityId = city_id;
     this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null;
     this.data = null;
     this.tbiToken = window.tbiToken;
-    this.rentUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-renta-bruta-media-municipal.json?filter_by_province_id=' + city_id.slice(0, 2);
-    this.popUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal.json?filter_by_year=' + current_year + '&filter_by_province_id=' + city_id.slice(0, 2);
+    this.rentUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-renta-bruta-media-municipal.json?include=municipality&filter_by_province_id=' + this.cityId.slice(0, 2);
+    this.popUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal.json?filter_by_year=' + this.currentYear + '&filter_by_province_id=' + this.cityId.slice(0, 2);
     this.formatThousand = d3.format(',.0f');
 
     // Set default locale
@@ -110,10 +111,25 @@ var VisRentDistribution = Class.extend({
       .enter();
     
     circles.append('circle')
+      .attr('class', function(d) { return d.location_id === +this.cityId ?  'selected-city' : ''; }.bind(this))
       .attr('cx', function(d) { return this.xScale(d.value) }.bind(this))
       .attr('cy', function(d) { return this.yScale(d.rent) }.bind(this))
       .attr('fill', function(d) { return this.color(d.rent) }.bind(this))
       .attr('r', 5);
+    
+    // Add name of the current city
+    this.svg.selectAll('.text-label')
+      .data(this.data)
+      .enter()
+      .filter(function(d) { return d.location_id === +this.cityId; }.bind(this))
+      .append('text')
+      .attr('class', 'text-label')
+      .attr('x', function(d) { return this.xScale(d.value) }.bind(this))
+      .attr('y', function(d) { return this.yScale(d.rent) }.bind(this))
+      .attr('dy', 4)
+      .attr('dx', -10)
+      .attr('text-anchor', 'end')
+      .text(function(d) { return d.municipality_name });
   },
   _renderAxis: function() {
     // X axis
@@ -181,10 +197,13 @@ var VisRentDistribution = Class.extend({
 
     this.svg.select('.chart-container')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');    
-    // 
-    // Update bars
-    d3.select('#rent_distribution .circles').selectAll('circle')
+    
+    this.svg.selectAll('circle')
       .attr('cx', function(d) { return this.xScale(d.value) }.bind(this))
       .attr('cy', function(d) { return this.yScale(d.rent) }.bind(this));
+      
+    this.svg.select('.text-label')
+      .attr('x', function(d) { return this.xScale(d.value) }.bind(this))
+      .attr('y', function(d) { return this.yScale(d.rent) }.bind(this));
   }
 });

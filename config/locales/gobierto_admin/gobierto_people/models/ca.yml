@@ -5,6 +5,7 @@ ca:
       gobierto_admin/gobierto_people/person_form: Perfil
       gobierto_admin/gobierto_people/person_event_form: Esdeveniment
       gobierto_admin/gobierto_people/person_statement_form: Declaració
+      gobierto_admin/gobierto_people/person_post_form: Post
     attributes:
       gobierto_admin/gobierto_people/person_form:
         name: Nom
@@ -21,3 +22,7 @@ ca:
       gobierto_admin/gobierto_people/person_statement_form:
         title: Títol
         published_on: Data de publicació
+      gobierto_admin/gobierto_people/person_post_form:
+        title: Títol
+        body: Contingut
+        tags: Tags

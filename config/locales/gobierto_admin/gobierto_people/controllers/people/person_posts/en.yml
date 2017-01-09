@@ -1,0 +1,10 @@
+---
+en:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_posts:
+          create:
+            success: Post was successfully created
+          update:
+            success: Post was successfully updated

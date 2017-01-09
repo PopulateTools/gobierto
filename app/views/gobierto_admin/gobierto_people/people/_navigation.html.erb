@@ -9,5 +9,8 @@
     <li class="<%= class_if("active", controller_name == "person_statements") %>">
       <%= link_to t(".statements"), admin_people_person_statements_path(@person) %>
     </li>
+    <li class="<%= class_if("active", controller_name == "person_posts") %>">
+      <%= link_to t(".posts"), admin_people_person_posts_path(@person) %>
+    </li>
   </ul>
 </div>

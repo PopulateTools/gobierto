@@ -5,6 +5,7 @@ es:
       gobierto_admin/gobierto_people/person_form: Perfil
       gobierto_admin/gobierto_people/person_event_form: Evento
       gobierto_admin/gobierto_people/person_statement_form: Declaración
+      gobierto_admin/gobierto_people/person_post_form: Post
     attributes:
       gobierto_admin/gobierto_people/person_form:
         name: Nombre
@@ -21,3 +22,7 @@ es:
       gobierto_admin/gobierto_people/person_statement_form:
         title: Título
         published_on: Fecha de publicación
+      gobierto_admin/gobierto_people/person_post_form:
+        title: Título
+        body: Contenido
+        tags: Tags

@@ -8,6 +8,39 @@ var VisUnemploymentAge = Class.extend({
     this.tbiToken = window.tbiToken;
     this.popUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
     this.unemplUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-personas-paradas-municipio-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
+  
+    // Chart dimensions
+    this.margin = {top: 5, right: 0, bottom: 25, left: 0};
+    this.width = this._width() - this.margin.left - this.margin.right;
+    this.height = this._height() - this.margin.top - this.margin.bottom;
+
+    // Scales & Ranges
+    this.xScale = d3.scaleTime();
+    this.yScale = d3.scaleLinear();
+    this.color = d3.scaleOrdinal();
+
+    // Create axes
+    this.xAxis = d3.axisBottom();
+    this.yAxis = d3.axisLeft();
+
+    // Chart objects
+    this.svg = null;
+    this.chart = null;
+
+    // Create main elements
+    this.svg = d3.select(this.container)
+      .append('svg')
+      .attr('width', this.width + this.margin.left + this.margin.right)
+      .attr('height', this.height + this.margin.top + this.margin.bottom)
+      .append('g')
+      .attr('class', 'chart-container')
+      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+    
+    // Append axes containers
+    this.svg.append('g').attr('class','x axis');
+    this.svg.append('g').attr('class','y axis');
+
+    d3.select(window).on('resize.' + this.container, this._resize.bind(this));
   },
   getData: function() {
     var pop = d3.json(this.popUrl)
@@ -46,7 +79,17 @@ var VisUnemploymentAge = Class.extend({
           } else {
             d.pct = null;
           }
+          d.date = d3.timeParse('%Y-%m')(d.date);
         });
+
+        this.data = unemployed;
+        
+        this.nest = d3.nest()
+          .key(function(d) { return d.age_range; })
+          .entries(unemployed);
+        
+        this.updateRender();
+        this._renderLines();
 
       }.bind(this));
   },
@@ -58,17 +101,81 @@ var VisUnemploymentAge = Class.extend({
     }
   },
   updateRender: function(callback) {
+    this.xScale
+      .rangeRound([0, this.width])
+      .domain([d3.timeParse('%Y-%m')('2010-12'), d3.max(this.data, function(d) { return d.date})]);
+
+    this.yScale
+      .rangeRound([this.height, 0])
+      .domain([0, d3.max(this.data, function(d) { return d.pct})]);
+      
+    this.color
+      .domain(['<25', '25-44', '>=45'])
+      .range(['#66c2a5', '#fc8d62', '#8da0cb']);
+
+    this._renderAxis();
   },
-  _renderAxis: function() {
+  _renderLines: function() {
+    this.nest.filter(function(d) { return d.date >= d3.timeParse('%Y-%m')('2011-01') })
+
+    this.line = d3.line()
+      .x(function(d) { return this.xScale(d.date); }.bind(this))
+      .y(function(d) { return this.yScale(d.pct); }.bind(this));
+      
+    this.svg.append('g')
+      .attr('class', 'lines')
+      .selectAll('path')
+      .data(this.nest, function(d) { return d.key; })
+      .enter()
+      .append('path')
+      .attr('class', 'line')
+      .attr('d', function(d) { d.line = this; return this.line(d.values); }.bind(this))
+      // .attr('stroke', function(d) { return this.color(d.values.age_range); }.bind(this));
+  },
+  _renderAxis: function() {    
+    // X axis
+    this.svg.select('.x.axis')
+      .attr('transform', 'translate(0,' + this.height + ')');
+
+    this.xAxis.tickPadding(5);
+    this.xAxis.tickSize(0, 0);
+    this.xAxis.scale(this.xScale);
+    // this.xAxis.tickFormat(this._formatNumberX.bind(this));
+    this.svg.select('.x.axis').call(this.xAxis);
+
+    // Y axis
+    this.yAxis.tickSize(-this.width);
+    this.yAxis.scale(this.yScale);
+    this.yAxis.ticks(3);
+    // this.yAxis.tickFormat(this._formatNumberY.bind(this));
+    this.svg.select('.y.axis').call(this.yAxis);
+
+    // Remove the zero
+    this.svg.selectAll(".y.axis .tick")
+      .filter(function (d) { return d === 0;  })
+      .remove();
   },
   _formatNumberX: function(d) {
   },
   _formatNumberY: function(d) {
   },
   _width: function() {
+    return parseInt(d3.select(this.container).style('width'));
   },
   _height: function() {
+    return this._width() * 0.45;
   },
   _resize: function() {
+    this.width = this._width();
+    this.height = this._height();
+
+    this.updateRender();
+
+    d3.select(this.container + ' svg')
+      .attr('width', this.width + this.margin.left + this.margin.right)
+      .attr('height', this.height + this.margin.top + this.margin.bottom)
+
+    this.svg.select('.chart-container')
+      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
   }
 });

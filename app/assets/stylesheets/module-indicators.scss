@@ -31,7 +31,7 @@
 	// height: 500px;
 }
 .small_graphic {
-	height: 250px;
+	// height: 250px;
 }
 
 /* Graphics */
@@ -84,6 +84,19 @@
 	stroke: rgba(0,0,0,0.2);
 	stroke-width: 1;
 	fill-opacity: 0.8;
+}
+
+#unemployment_age .line {
+  fill: none;
+  stroke-width: 1.5px;
+	stroke: steelblue;
+}
+#unemployment_age .y.axis .tick line {
+	stroke-dasharray: 2,2;
+	stroke: #ccc;
+}
+#unemployment_age .y.axis .domain {
+	display: none;
 }
 
 // Desktop

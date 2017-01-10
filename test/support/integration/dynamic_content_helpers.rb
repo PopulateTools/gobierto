@@ -16,7 +16,11 @@ module Integration
 
                 content_block.fields.each do |content_block_field|
                   within ".content-block-field-#{content_block_field.name.parameterize}" do
-                    fill_in content_block_field.label[I18n.locale], with: "Value for #{content_block_field.name}"
+                    if content_block_field.currency?
+                      fill_in content_block_field.label[I18n.locale], with: "42.0"
+                    else
+                      fill_in content_block_field.label[I18n.locale], with: "Value for #{content_block_field.name}"
+                    end
                   end
                 end
 
@@ -29,7 +33,11 @@ module Integration
             within ".cloned-dynamic-content-record-wrapper" do
               content_block.fields.each do |content_block_field|
                 within ".content-block-field-#{content_block_field.name.parameterize}" do
-                  fill_in content_block_field.label[I18n.locale], with: "Value for #{content_block_field.name}"
+                  if content_block_field.currency?
+                    fill_in content_block_field.label[I18n.locale], with: "42.0"
+                  else
+                    fill_in content_block_field.label[I18n.locale], with: "Value for #{content_block_field.name}"
+                  end
                 end
               end
 
@@ -44,7 +52,11 @@ module Integration
       content_blocks.each do |content_block|
         within "#content-block-#{content_block.id} .dynamic-content-record-view" do
           content_block.fields.each do |content_block_field|
-            assert has_selector?(".content-block-record-value", text: "Value for #{content_block_field.name}")
+            if content_block_field.currency?
+              assert has_selector?(".content-block-record-value", text: "42.0")
+            else
+              assert has_selector?(".content-block-record-value", text: "Value for #{content_block_field.name}")
+            end
           end
         end
       end
@@ -68,14 +80,22 @@ module Integration
         within ".cloned-dynamic-content-record-wrapper" do
           content_block.fields.each do |content_block_field|
             within ".content-block-field-#{content_block_field.name.parameterize}" do
-              fill_in content_block_field.label[I18n.locale], with: "Added value for #{content_block_field.name}"
+              if content_block_field.currency?
+                fill_in content_block_field.label[I18n.locale], with: "43.0"
+              else
+                fill_in content_block_field.label[I18n.locale], with: "Added value for #{content_block_field.name}"
+              end
             end
           end
 
           find("a[data-behavior=add_record]").click
 
           content_block.fields.each do |content_block_field|
-            assert has_selector?(".content-block-record-value", text: "Added value for #{content_block_field.name}")
+            if content_block_field.currency?
+              assert has_selector?(".content-block-record-value", text: "43.0")
+            else
+              assert has_selector?(".content-block-record-value", text: "Added value for #{content_block_field.name}")
+            end
           end
         end
       end
@@ -93,14 +113,22 @@ module Integration
 
           content_block.fields.each do |content_block_field|
             within ".content-block-field-#{content_block_field.name.parameterize}" do
-              fill_in content_block_field.label[I18n.locale], with: "Updated value for #{content_block_field.name}"
+              if content_block_field.currency?
+                fill_in content_block_field.label[I18n.locale], with: "44.0"
+              else
+                fill_in content_block_field.label[I18n.locale], with: "Updated value for #{content_block_field.name}"
+              end
             end
           end
 
           find("a[data-behavior=add_record]").click
 
           content_block.fields.each do |content_block_field|
-            assert has_selector?(".content-block-record-value", text: "Updated value for #{content_block_field.name}")
+            if content_block_field.currency?
+              assert has_selector?(".content-block-record-value", text: "44.0")
+            else
+              assert has_selector?(".content-block-record-value", text: "Updated value for #{content_block_field.name}")
+            end
           end
         end
       end
@@ -118,14 +146,22 @@ module Integration
 
           content_block.fields.each do |content_block_field|
             within ".content-block-field-#{content_block_field.name.parameterize}" do
-              fill_in content_block_field.label[I18n.locale], with: "Discarded value for #{content_block_field.name}"
+              if content_block_field.currency?
+                fill_in content_block_field.label[I18n.locale], with: "45.0"
+              else
+                fill_in content_block_field.label[I18n.locale], with: "Discarded value for #{content_block_field.name}"
+              end
             end
           end
 
           find("a[data-behavior=cancel_record]").click
 
           content_block.fields.each do |content_block_field|
-            assert has_selector?(".content-block-record-value", text: "Updated value for #{content_block_field.name}")
+            if content_block_field.currency?
+              assert has_selector?(".content-block-record-value", text: "44.0")
+            else
+              assert has_selector?(".content-block-record-value", text: "Updated value for #{content_block_field.name}")
+            end
           end
         end
       end

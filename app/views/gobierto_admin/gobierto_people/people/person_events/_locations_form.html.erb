@@ -67,13 +67,6 @@
 <% content_for :javascript_hook do %>
   <%= javascript_include_tag "http://maps.googleapis.com/maps/api/js?key=#{Rails.application.secrets.google_places_api_key}&libraries=places" %>
   <%= javascript_tag do %>
-    $("input[data-behavior=geocomplete]").geocomplete({
-      details: ".content-block-field",
-      detailsAttribute: "data-geo"
-    });
-  <% end %>
-
-  <%= javascript_tag do %>
     window.GobiertoAdmin.person_events_controller.edit("#person-event-locations", "locations_attributes");
   <% end %>
 <% end %>

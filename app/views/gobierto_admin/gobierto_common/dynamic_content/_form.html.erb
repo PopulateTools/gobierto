@@ -20,7 +20,7 @@
       <% end %>
     </label>
 
-    <table id="content-block-<%= content_block.id %>" class="dynamic-content-wrapper">
+    <table id="content-block-<%= content_block.id %>" class="dynamic-content-wrapper" data-locale="<%= I18n.locale %>">
       <tr>
         <% content_block.header.each do |content_block_header| %>
           <th><%= content_block_header %></th>

@@ -2,6 +2,7 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   function DynamicContentComponent() {}
 
   DynamicContentComponent.prototype.handle = function(wrapper, namespace) {
+    initializeRecordFields(wrapper);
     handleAddChild(wrapper, namespace);
     handleAddRecord();
     handleCancelRecord();
@@ -9,8 +10,18 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
     handleDeleteRecord();
   };
 
+  function initializeRecordFields(wrapper) {
+    var componentWrapper = $(wrapper || ".dynamic-content-wrapper");
+    var componentLocale = componentWrapper.data("locale");
+
+    _handleGeocompleteBehavior(componentWrapper.find("input[data-behavior=geocomplete]"));
+    _handleDateType(componentWrapper.find("input[data-type=date]"), componentLocale);
+    _handleCurrencyType(componentWrapper.find("input[data-type=currency]"));
+  }
+
   function handleAddChild(wrapper, namespace) {
     var componentWrapper = $(wrapper || ".dynamic-content-wrapper");
+    var componentLocale = componentWrapper.data("locale");
 
     componentWrapper.on("click", "[data-behavior=add_child]", function(e) {
       e.preventDefault();
@@ -53,18 +64,8 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
           $(this).attr("id", fieldId.replace(fieldIdRegExp, uniqueFieldId));
         }
 
-        if ($(this).attr("type") === "text") {
-          $(this).val("");
-        }
-
-        $(this).find("option:selected").prop("selected", false);
-
-        if ($(this).data("behavior") === "geocomplete") {
-          $(this).geocomplete({
-            details: ".content-block-field",
-            detailsAttribute: "data-geo"
-          });
-        }
+        _cleanupRecordField($(this));
+        _initializeRecordField($(this), componentLocale);
       });
 
       clonedField.find("label").each(function() {
@@ -131,6 +132,47 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
       _setRecordViewState(eventWrapper);
       _switchToRecordView(eventWrapper);
     });
+  }
+
+  function _cleanupRecordField(selector) {
+    if (selector.attr("type") === "text") {
+      selector.val("");
+    } else if (selector.attr("type") === "select") {
+      selector.find("option:selected").prop("selected", false);
+    }
+  }
+
+  function _initializeRecordField(selector, locale) {
+    if (selector.data("behavior") === "geocomplete") {
+      _handleGeocompleteBehavior(selector);
+    }
+
+    if (selector.data("type") === "date") {
+      _handleDateType(selector, locale);
+    }
+
+    if (selector.data("type") === "currency") {
+      _handleCurrencyType(selector);
+    }
+  }
+
+  function _handleGeocompleteBehavior(selector) {
+    selector.geocomplete({
+      details: ".content-block-field",
+      detailsAttribute: "data-geo",
+      componentRestrictions: { country: "es" }
+    });
+  }
+
+  function _handleDateType(selector, locale) {
+    selector.datepicker({
+      language: locale,
+      autoClose: true
+    });
+  }
+
+  function _handleCurrencyType(selector) {
+    selector.attr("type", "number");
   }
 
   function _switchToRecordForm(wrapper) {

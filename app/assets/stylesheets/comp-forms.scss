@@ -37,6 +37,12 @@ input[type=text], input[type=email], input[type=submit], input[type=password], i
     height: 300px;
   }
 }
+.select_control {
+  select {
+    padding: 0 15px;
+    height: 47px;
+  }
+}
 .file_field {
   border: 1px solid $color_separator;
   @include border-radius(6px);

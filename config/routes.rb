@@ -103,6 +103,24 @@ Rails.application.routes.draw do
     end
   end
 
+  # Gobierto People module
+  namespace :gobierto_people, path: 'cargos-y-agendas' do
+    constraints GobiertoSiteConstraint.new do
+      get '/' => 'welcome#index', as: :root
+
+      resources :person_events, only: [:index], as: :events, path: 'agendas'
+      resources :person_posts, only: [:index], as: :posts, path: 'blogs'
+      resources :person_statements, only: [:index], as: :statements, path: 'bienes-y-actividades'
+
+      resources :people, only: [:index, :show], path: 'cargos' do
+        resource :person_bio, controller: "people/person_bio", only: [:show], as: :bio, path: 'biografia'
+        resources :person_events, controller: "people/person_events", only: [:index, :show], as: :events, path: 'agenda'
+        resources :person_posts, controller: "people/person_posts", only: [:index, :show], as: :posts, path: 'blog'
+        resources :person_statements, controller: "people/person_statements", only: [:index, :show], as: :statements, path: 'bienes-y-actividades'
+      end
+    end
+  end
+
   # Gobierto Budgets module
   namespace :gobierto_budgets, path: nil do
     constraints GobiertoSiteConstraint.new do

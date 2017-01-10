@@ -3,6 +3,7 @@ require_dependency "gobierto_people"
 module GobiertoPeople
   class Person < ApplicationRecord
     include ::GobiertoCommon::DynamicContent
+    include User::Subscribable
 
     belongs_to :admin, class_name: "GobiertoAdmin::Admin"
     belongs_to :site

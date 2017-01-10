@@ -14,6 +14,7 @@
 //= require d3.min
 //= require d3-legend.min
 //= require d3-locale-es
+//= require d3-distance-limited-voronoi
 //= require accounting.min
 //= require jquery.autocomplete
 //= require klass

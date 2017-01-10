@@ -45,9 +45,10 @@ var VisRentDistribution = Class.extend({
     // Append axes containers
     this.svg.append('g').attr('class','x axis');
     this.svg.append('g').attr('class','y axis');
-
-    // Create city name selector
-    this.city = d3.selectAll('.js-city-name');
+    
+    this.tooltip = d3.select(this.container)
+      .append('div')
+      .attr('class', 'tooltip');
 
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
   },
@@ -78,6 +79,7 @@ var VisRentDistribution = Class.extend({
           .value();
 
         this.updateRender();
+        this._renderVoronoi();
         this._renderCircles();
         // this._renderCityData();
       }.bind(this));
@@ -132,6 +134,86 @@ var VisRentDistribution = Class.extend({
       .text(function(d) { return d.municipality_name });
     
     this._axisAnnotations('Habitantes →', 0, 100);
+  },
+  _renderVoronoi: function() {    
+    // Create voronoi
+    this.voronoi = d3.distanceLimitedVoronoi()
+      .x(function(d) { return this.xScale(d.value); }.bind(this))
+      .y(function(d) { return this.yScale(d.rent); }.bind(this))
+      .limit(50)
+      .extent([[0, 0], [this.width, this.height]]);
+    
+    var voronoiGroup = this.svg.append('g')
+      .attr('class', 'voronoi');
+    
+    voronoiGroup.selectAll('path')
+      .data(this.voronoi(this.data))
+      .enter()
+      .append('path')
+      .style('fill', 'none')
+      // .style('stroke', 'black')
+      .attr('d', function(d) { return d.path; })
+      .datum(function(d) { return d.point })
+      .style('pointer-events', 'all')
+      // .on('mousemove', this._showTooltip)
+      // .on('mouseout', this._hideTooltip);
+    
+    // Attach hover circle
+    // this.svg.append('circle')
+    //   .style('pointer-events', 'none')
+    //   .attr('class', 'hover')
+    //   .attr('fill', 'none')
+    //   .attr('r', 6);
+  },
+  _showTooltip: function() {
+    d3.selectAll('.hover')
+        .attr('stroke', '#111')
+        .attr('stroke-width', 1.5)
+        .attr('cx', function(d) { return this.xScale(d.value); }.bind(this))
+        .attr('cy', function(d) { return this.yScale(d.rent); }.bind(this));
+
+    // Fill the tooltip
+    this.tooltip.html('<div class="tooltip-city">' + d.municipality_name + '</div>' +
+        '<table class="tooltip-table">' +
+            '<tr class="first-row">' +
+                '<td><span class="table-n">'+ accounting.formatNumber(d.rent, 0) +'</span> habitantes</td>' +
+            '</tr>' +
+            '<tr class="second-row">' +
+                '<td>' + accounting.formatNumber(d.value, 0) + '</td>' +
+            '</tr>' +
+        '</table>')
+        .style('opacity', 1);
+        
+      // Tooltip position
+      if (window.innerWidth <= 768) {
+          this.tooltip.style({
+              'position': 'fixed',
+              'bottom': 0,
+              'width': '89.5vw',
+              'min-height': '90px',
+              'z-index': 1
+          });
+      } else {
+          var tooltipX = (window.innerWidth / d3.event.pageX) / 2;
+  
+          this.tooltip.style('top', (d3.event.pageY + 23) + 'px');
+  
+          // Ugly tooltip hack
+          if (tooltipX < 0.65) {
+              return tooltip.style('left', (d3.event.pageX - 200) + 'px');
+          } else if (tooltipX > 2.5) {
+              return tooltip.style('left', (d3.event.pageX - 20) + 'px');
+          } else {
+              return tooltip.style('left', (d3.event.pageX - 95) + 'px');
+          }
+      }
+  },
+  _hideTooltip: function(d) {
+    d3.select('.hover')
+        .attr('stroke', 'none');
+    
+    // Hide tooltip
+    this.tooltip.style('opacity', 0).bind(this);
   },
   _axisAnnotations: function(text, x, y) {
     this.svg.append('text')
@@ -220,5 +302,21 @@ var VisRentDistribution = Class.extend({
     this.svg.select('.text-label')
       .attr('x', function(d) { return this.xScale(d.value) }.bind(this))
       .attr('y', function(d) { return this.yScale(d.rent) }.bind(this));
+      
+      // this.voronoi = d3.distanceLimitedVoronoi()
+      //     .x(function(d) {
+      //         return scattX(d[value])
+      //     })
+      //     .y(function(d) {
+      //         return scattY(d.rent)
+      //     })
+      //     .clipExtent([[0, 0], [this.width, this.height].bind(this)])
+      // 
+      // voronoiGroup.selectAll("path")
+      //     .data(limitedVoronoi(this.data).bind(this)) 
+      //     .attr("d", function(d, i) {
+      //         return d.path
+      //     })
+      //     .datum(function(d, i) { return d.point })
   }
 });

@@ -134,9 +134,6 @@ var VisRentDistribution = Class.extend({
       .attr('dx', -15)
       .attr('text-anchor', 'end')
       .text(function(d) { return d.municipality_name });
-    
-    // this._axisAnnotations('Habitantes →', 0, 100, 'start', 'pop-anno');
-    // this._axisAnnotations('Renta bruta ↑', (this.width - 65), 5, 'end', 'rent-anno');
   },
   _renderVoronoi: function() {    
     // Create voronoi
@@ -217,21 +214,6 @@ var VisRentDistribution = Class.extend({
         .attr('stroke', 'none');
     
     this.tooltip.style('opacity', 0);
-  },
-  _axisAnnotations: function(text, x, y, anchor, className) {
-    this.svg.append('text')
-      .attr('class', 'axis-annotation halo ' + className)
-      .attr('x', x)
-      .attr('y', y)
-      .attr('text-anchor', anchor)
-      .text(text);
-      
-    this.svg.append('text')
-      .attr('class', 'axis-annotation ' + className)
-      .attr('x', x)
-      .attr('y', y)
-      .attr('text-anchor', anchor)
-      .text(text);
   },
   _renderAxis: function() {
     // X axis

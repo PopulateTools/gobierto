@@ -35,6 +35,7 @@
 //= require vis_card_indicators
 //= require vis_age_distribution
 //= require vis_unemployment_age
+//= require vis_unemployment_sectors
 //= require vis_rent_distribution
 
 // Global util functions

@@ -102,6 +102,22 @@
 	display: none;
 }
 
+#unemployment_sectors .axis {
+	font-family: $font_text;
+	font-size: 0.75em;
+}
+#unemployment_sectors .line {
+  fill: none;
+  stroke-width: 2.5px;
+}
+#unemployment_sectors .y.axis .tick line {
+	stroke-dasharray: 2,2;
+	stroke: #ccc;
+}
+#unemployment_sectors .y.axis .domain {
+	display: none;
+}
+
 // Desktop
 @media (min-width: 768px) {
 	.indicators_header {

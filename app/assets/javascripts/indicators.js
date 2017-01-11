@@ -12,6 +12,11 @@ $(document).on('turbolinks:load', function() {
     vis_unempl.render();
   }
   
+  if ($('#unemployment_sectors').length > 0) {
+    var vis_unemplSec = new VisUnemploymentSectors('#unemployment_sectors', city, year);
+    vis_unemplSec.render();
+  }
+  
   if ($('#rent_distribution').length > 0) {
     var vis_rent = new VisRentDistribution('#rent_distribution', city, year);
     vis_rent.render();

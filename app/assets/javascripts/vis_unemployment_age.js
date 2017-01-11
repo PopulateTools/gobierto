@@ -8,9 +8,11 @@ var VisUnemploymentAge = Class.extend({
     this.tbiToken = window.tbiToken;
     this.popUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
     this.unemplUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-personas-paradas-municipio-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
-  
+    this.timeFormat = d3.timeParse('%Y-%m');
+    this.pctFormat = d3.format('.1%');
+    
     // Chart dimensions
-    this.margin = {top: 15, right: 0, bottom: 25, left: 0};
+    this.margin = {top: 25, right: 10, bottom: 25, left: 0};
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -86,11 +88,11 @@ var VisUnemploymentAge = Class.extend({
           } else {
             d.pct = null;
           }
-          d.date = d3.timeParse('%Y-%m')(d.date);
-        })
+          d.date = this.timeFormat(d.date);
+        }.bind(this));
         
         // Filtering values to start from the first data points
-        this.data = unemployed.filter(function(d) { return d.date >= d3.timeParse('%Y-%m')('2011-01') });
+        this.data = unemployed.filter(function(d) { return d.date >=this.timeFormat('2011-01') }.bind(this));
         
         this.nest = d3.nest()
           .key(function(d) { return d.age_range; })
@@ -98,6 +100,7 @@ var VisUnemploymentAge = Class.extend({
         
         this.updateRender();
         this._renderLines();
+        this._renderVoronoi();
 
       }.bind(this));
   },
@@ -137,6 +140,60 @@ var VisUnemploymentAge = Class.extend({
       .attr('class', 'line')
       .attr('d', function(d) { d.line = this; return this.line(d.values); }.bind(this))
       .attr('stroke', function(d) { return this.color(d.key); }.bind(this));
+  },
+  _renderVoronoi: function() {
+    // Voronoi
+    this.focus = this.svg.append('g')
+        .attr('transform', 'translate(-100,-100)')
+        .attr('class', 'focus');
+        
+    this.focus.append('circle')
+        .attr('fill', 'white')
+        .attr('r', 5);
+
+    this.text = this.focus
+      .append('text');
+    
+    this.text.append('tspan')
+        .attr('y', -10)
+        .attr('x', 0);
+    
+    this.voronoi = d3.voronoi()
+        .x(function(d) {return this.xScale(d.date); }.bind(this))
+        .y(function(d) {return this.yScale(d.pct); }.bind(this))
+        .extent([[0, 0], [this.width, this.height]]);
+
+    this.voronoiGroup = this.svg.append('g')
+        .attr('class', 'voronoi');
+        
+    this.voronoiGroup.selectAll('path')
+        .data(this.voronoi.polygons(d3.merge(this.nest.map(function(d) { return d.values; }))))
+        .enter().append('path')
+        .attr('d', function(d) { return d ? 'M' + d.join('L') + 'Z' : null; })
+        .on('mouseover', this._mouseover.bind(this))
+        .on('mouseout', this._mouseout.bind(this));
+  },
+  _mouseover: function(d) {
+    this.focus.select('circle').attr('stroke', this.color(d.data.age_range));
+      
+    this.focus.attr('transform', 'translate(' + this.xScale(d.data.date) + ',' + this.yScale(d.data.pct) + ')');
+    this.focus.select('text').attr('text-anchor', d.data.date >= this.timeFormat('2014-01') ? 'end' : 'start');
+    this.focus.select('tspan').text(this._getAgeRange(d.data.age_range) + ': ' + this.pctFormat(d.data.pct));
+  },
+  _mouseout: function(d) {
+    this.focus.attr('transform', 'translate(-100,-100)');
+  },
+  _getAgeRange: function(age) {
+    switch (age) {
+      case '<25':
+        return 'Menores de 25'
+        break;
+      case '25-44':
+        return 'De 25 a 44'
+        break;
+      case '>=45':
+        return 'Mayores de 44'
+    }
   },
   _renderAxis: function() {    
     // X axis
@@ -191,6 +248,13 @@ var VisUnemploymentAge = Class.extend({
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
       
     this.svg.selectAll('.lines path')
-      .attr('d', function(d) { d.line = this; return this.line(d.values); }.bind(this))
+      .attr('d', function(d) { d.line = this; return this.line(d.values); }.bind(this));
+      
+    this.voronoi
+    .extent([[0, 0], [this.width, this.height]]);
+
+    this.voronoiGroup.selectAll("path")
+      .data(this.voronoi.polygons(d3.merge(this.nest.map(function(d) { return d.values; }))))
+      .attr('d', function(d) { return d ? 'M' + d.join('L') + 'Z' : null; });
   }
 });

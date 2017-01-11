@@ -101,6 +101,16 @@
 #unemployment_age .y.axis .domain {
 	display: none;
 }
+#unemployment_age .voronoi path {
+	fill: none;
+	pointer-events: all;
+}
+#unemployment_age .focus text {
+	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+#unemployment_age .focus circle {
+	stroke-width: 2px;
+}
 
 #unemployment_sectors .axis {
 	font-family: $font_text;
@@ -116,6 +126,16 @@
 }
 #unemployment_sectors .y.axis .domain {
 	display: none;
+}
+#unemployment_sectors .voronoi path {
+	fill: none;
+	pointer-events: all;
+}
+#unemployment_sectors .focus text {
+	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+#unemployment_sectors .focus circle {
+	stroke-width: 2px;
 }
 
 // Desktop

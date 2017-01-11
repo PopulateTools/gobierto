@@ -1,5 +1,5 @@
 $(document).on('turbolinks:load', function() {
-  var city = '39075';
+  var city = '28079';
   var year = '2015';
   
   if ($('#age_distribution').length > 0) {

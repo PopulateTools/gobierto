@@ -47,7 +47,7 @@ var VisAgeDistribution = Class.extend({
     this.svg.append('g').attr('class','x axis');
     this.svg.append('g').attr('class','y axis');
 
-    d3.select(window).on('resize.' + this.container, this._resize.bind(this));
+    d3.select(window).on('resize#' + this.container, this._resize.bind(this));
   },
   getData: function() {
     d3.json(this.dataUrl)

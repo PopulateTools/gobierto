@@ -10,12 +10,13 @@ var VisRentDistribution = Class.extend({
     this.rentUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-renta-bruta-media-municipal.json?include=municipality&filter_by_province_id=' + this.cityId.slice(0, 2);
     this.popUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal.json?filter_by_year=' + this.currentYear + '&filter_by_province_id=' + this.cityId.slice(0, 2);
     this.formatThousand = d3.format(',.0f');
-
+    this.isMobile = window.innerWidth <= 768;
+    
     // Set default locale
     d3.formatDefaultLocale(es_ES);
     
     // Chart dimensions
-    this.margin = {top: 25, right: 10, bottom: 30, left: 5};
+    this.margin = {top: 25, right: 10, bottom: 30, left: 10};
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -50,7 +51,7 @@ var VisRentDistribution = Class.extend({
       .append('div')
       .attr('class', 'tooltip');
 
-    d3.select(window).on('resize.' + this.container, this._resize.bind(this));
+    d3.select(window).on('resize#' + this.container, this._resize.bind(this));
   },
   getData: function() {
     var rent = d3.json(this.rentUrl)
@@ -79,8 +80,8 @@ var VisRentDistribution = Class.extend({
           .value();
 
         this.updateRender();
-        this._renderVoronoi();
         this._renderCircles();
+        this._renderVoronoi();
         // this._renderCityData();
       }.bind(this));
   },
@@ -113,11 +114,12 @@ var VisRentDistribution = Class.extend({
       .enter();
     
     circles.append('circle')
-      .attr('class', function(d) { return d.location_id === +this.cityId ?  'selected-city' : ''; }.bind(this))
+      .attr('class', function(d, i) { return d.location_id === +this.cityId ? 'circle' + i + ' selected-city' : 'circle' + i; }.bind(this))
       .attr('cx', function(d) { return this.xScale(d.value) }.bind(this))
       .attr('cy', function(d) { return this.yScale(d.rent) }.bind(this))
       .attr('fill', function(d) { return this.color(d.rent) }.bind(this))
-      .attr('r', 5);
+      .attr('stroke', 'white')
+      .attr('r', this.isMobile ? 4 : 8);
     
     // Add name of the current city
     this.svg.selectAll('.text-label')
@@ -128,12 +130,13 @@ var VisRentDistribution = Class.extend({
       .attr('class', 'text-label')
       .attr('x', function(d) { return this.xScale(d.value) }.bind(this))
       .attr('y', function(d) { return this.yScale(d.rent) }.bind(this))
-      .attr('dy', 4)
-      .attr('dx', -10)
+      .attr('dy', 6)
+      .attr('dx', -15)
       .attr('text-anchor', 'end')
       .text(function(d) { return d.municipality_name });
     
-    this._axisAnnotations('Habitantes →', 0, 100);
+    this._axisAnnotations('Habitantes →', 0, 100, 'start');
+    this._axisAnnotations('Renta bruta ↑', (this.width - 65), 5, 'end');
   },
   _renderVoronoi: function() {    
     // Create voronoi
@@ -143,89 +146,90 @@ var VisRentDistribution = Class.extend({
       .limit(50)
       .extent([[0, 0], [this.width, this.height]]);
     
-    var voronoiGroup = this.svg.append('g')
+    this.voronoiGroup = this.svg.append('g')
       .attr('class', 'voronoi');
     
-    voronoiGroup.selectAll('path')
+    this.voronoiGroup.selectAll('path')
       .data(this.voronoi(this.data))
       .enter()
       .append('path')
       .style('fill', 'none')
-      // .style('stroke', 'black')
       .attr('d', function(d) { return d.path; })
-      .datum(function(d) { return d.point })
       .style('pointer-events', 'all')
-      // .on('mousemove', this._showTooltip)
-      // .on('mouseout', this._hideTooltip);
+      .on('mouseover', this._mousemove.bind(this))
+      .on('mouseout', this._mouseout.bind(this));
     
     // Attach hover circle
-    // this.svg.append('circle')
-    //   .style('pointer-events', 'none')
-    //   .attr('class', 'hover')
-    //   .attr('fill', 'none')
-    //   .attr('r', 6);
+    this.svg.append('circle')
+      .style('pointer-events', 'none')
+      .attr('class', 'hover')
+      .attr('fill', 'none')
+      .attr('transform', 'translate(-100,-100)')
+      .attr('r', this.isMobile ? 4: 8);
   },
-  _showTooltip: function() {
+  _mousemove: function(d, i) {
+    d3.select('.circle' + i).attr('stroke', 'none')
+    
     d3.selectAll('.hover')
         .attr('stroke', '#111')
         .attr('stroke-width', 1.5)
-        .attr('cx', function(d) { return this.xScale(d.value); }.bind(this))
-        .attr('cy', function(d) { return this.yScale(d.rent); }.bind(this));
-
-    // Fill the tooltip
-    this.tooltip.html('<div class="tooltip-city">' + d.municipality_name + '</div>' +
-        '<table class="tooltip-table">' +
-            '<tr class="first-row">' +
-                '<td><span class="table-n">'+ accounting.formatNumber(d.rent, 0) +'</span> habitantes</td>' +
-            '</tr>' +
-            '<tr class="second-row">' +
-                '<td>' + accounting.formatNumber(d.value, 0) + '</td>' +
-            '</tr>' +
-        '</table>')
-        .style('opacity', 1);
+        .attr('cx', this.xScale(d.datum.value))
+        .attr('cy', this.yScale(d.datum.rent))
+        .attr('transform', 'translate(0,0)');
         
-      // Tooltip position
-      if (window.innerWidth <= 768) {
-          this.tooltip.style({
-              'position': 'fixed',
-              'bottom': 0,
-              'width': '89.5vw',
-              'min-height': '90px',
-              'z-index': 1
-          });
+    // // Fill the tooltip
+    this.tooltip.html('<div class="tooltip-city">' + d.datum.municipality_name + '</div>' +
+      '<table class="tooltip-table">' +
+          '<tr class="first-row">' +
+              '<td class="table-t">Habitantes</td>' +
+              '<td><span class="table-n">'+ accounting.formatNumber(d.datum.value, 0) +'</span></td>' +
+          '</tr>' +
+          '<tr class="second-row">' +
+              '<td class="table-t">Renta bruta</td>' +
+              '<td>' + accounting.formatNumber(d.datum.rent, 0) + '€</td>' +
+          '</tr>' +
+      '</table>')
+      .style('opacity', 1);
+        
+    // Tooltip position
+    if (this.isMobile) {
+      this.tooltip.style('opacity', 0);
+    } else {
+      var tooltipX = (window.innerWidth / d3.event.pageX) / 2;
+
+      this.tooltip.style('top', (d3.event.pageY + 23) + 'px');
+
+      // Ugly tooltip hack
+      if (tooltipX < 0.65) {
+          return this.tooltip.style('left', (d3.event.pageX - 200) + 'px');
+      } else if (tooltipX > 2.5) {
+          return this.tooltip.style('left', (d3.event.pageX - 20) + 'px');
       } else {
-          var tooltipX = (window.innerWidth / d3.event.pageX) / 2;
-  
-          this.tooltip.style('top', (d3.event.pageY + 23) + 'px');
-  
-          // Ugly tooltip hack
-          if (tooltipX < 0.65) {
-              return tooltip.style('left', (d3.event.pageX - 200) + 'px');
-          } else if (tooltipX > 2.5) {
-              return tooltip.style('left', (d3.event.pageX - 20) + 'px');
-          } else {
-              return tooltip.style('left', (d3.event.pageX - 95) + 'px');
-          }
+          return this.tooltip.style('left', (d3.event.pageX - 95) + 'px');
       }
+    }
   },
-  _hideTooltip: function(d) {
+  _mouseout: function(d, i) {
+    d3.selectAll('.circle' + i).attr('stroke', 'white');
+
     d3.select('.hover')
         .attr('stroke', 'none');
     
-    // Hide tooltip
-    this.tooltip.style('opacity', 0).bind(this);
+    this.tooltip.style('opacity', 0);
   },
-  _axisAnnotations: function(text, x, y) {
+  _axisAnnotations: function(text, x, y, anchor) {
     this.svg.append('text')
       .attr('class', 'axis-annotation halo')
       .attr('x', x)
       .attr('y', y)
+      .attr('text-anchor', anchor)
       .text(text);
       
     this.svg.append('text')
       .attr('class', 'axis-annotation')
       .attr('x', x)
       .attr('y', y)
+      .attr('text-anchor', anchor)
       .text(text);
   },
   _renderAxis: function() {
@@ -301,22 +305,13 @@ var VisRentDistribution = Class.extend({
       
     this.svg.select('.text-label')
       .attr('x', function(d) { return this.xScale(d.value) }.bind(this))
-      .attr('y', function(d) { return this.yScale(d.rent) }.bind(this));
-      
-      // this.voronoi = d3.distanceLimitedVoronoi()
-      //     .x(function(d) {
-      //         return scattX(d[value])
-      //     })
-      //     .y(function(d) {
-      //         return scattY(d.rent)
-      //     })
-      //     .clipExtent([[0, 0], [this.width, this.height].bind(this)])
-      // 
-      // voronoiGroup.selectAll("path")
-      //     .data(limitedVoronoi(this.data).bind(this)) 
-      //     .attr("d", function(d, i) {
-      //         return d.path
-      //     })
-      //     .datum(function(d, i) { return d.point })
+      .attr('y', function(d) { return this.yScale(d.rent) }.bind(this));  
+        
+    this.voronoi
+    .extent([[0, 0], [this.width, this.height]]);
+
+    this.voronoiGroup.selectAll('path')
+      .data(this.voronoi(this.data))
+      .attr("d", function(d, i) { return d.path; });
   }
 });

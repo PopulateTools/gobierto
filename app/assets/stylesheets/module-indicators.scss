@@ -54,6 +54,24 @@
 	margin-top: 0;
 }
 
+#rent_distribution .annotations {
+	position: relative;
+}
+#rent_distribution .annotations .arrow {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+#rent_distribution .pop-anno {
+	font-size: 0.75em;
+	position: absolute;
+	left: 0;
+	top: 110px;
+}
+#rent_distribution .rent-anno {
+	font-size: 0.75em;
+	position: absolute;
+	right: 74px;
+	top: 14px;
+}
 #rent_distribution .axis {
 	font-family: $font_text;
 	font-size: 0.75em;
@@ -65,19 +83,13 @@
 	stroke: #eee;
 }
 #rent_distribution .circles .selected-city {
-	stroke: black;
+	stroke: #111;
 }
 #rent_distribution .text-label {
 	font-size: 0.85em;
 	font-weight: 700;
 	text-shadow: 0 0 5px white;
-}
-#rent_distribution .axis-annotation {
-	font-size: 0.75em;
-}
-#rent_distribution .axis-annotation.halo {
-	stroke: white;
-	stroke-width: 3px;
+	fill: $color_text;
 }
 #rent_distribution circle {
 	pointer-events: none;
@@ -96,7 +108,7 @@
   pointer-events: none;
   opacity: 0;
   z-index: 99;
-  position: absolute;;
+  position: absolute;
 }
 #rent_distribution .tooltip-city {
   font-weight: 600;
@@ -111,6 +123,9 @@
 	color: $color_text;
 	font-weight: 600;
 	padding: .7em 0 .4em;
+}
+#rent_distribution .tooltip-table td {
+	border-top: 1px solid $color_separator;
 }
 
 #unemployment_age .axis {

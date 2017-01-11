@@ -135,8 +135,8 @@ var VisRentDistribution = Class.extend({
       .attr('text-anchor', 'end')
       .text(function(d) { return d.municipality_name });
     
-    this._axisAnnotations('Habitantes →', 0, 100, 'start', 'pop-anno');
-    this._axisAnnotations('Renta bruta ↑', (this.width - 65), 5, 'end', 'rent-anno');
+    // this._axisAnnotations('Habitantes →', 0, 100, 'start', 'pop-anno');
+    // this._axisAnnotations('Renta bruta ↑', (this.width - 65), 5, 'end', 'rent-anno');
   },
   _renderVoronoi: function() {    
     // Create voronoi

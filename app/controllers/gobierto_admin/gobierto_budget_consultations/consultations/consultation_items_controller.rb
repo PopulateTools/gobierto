@@ -19,7 +19,7 @@ module GobiertoAdmin
           @consultation_item_form = ConsultationItemForm.new
           @budget_lines = get_budget_lines
 
-          render formats: :xhr, layout: false and return if request.xhr?
+          render :new_modal, layout: false and return if request.xhr?
         end
 
         def edit
@@ -29,7 +29,7 @@ module GobiertoAdmin
           )
           @budget_lines = get_budget_lines
 
-          render formats: :xhr, layout: false and return if request.xhr?
+          render :edit_modal, layout: false and return if request.xhr?
         end
 
         def create
@@ -44,7 +44,7 @@ module GobiertoAdmin
             )
           else
             @budget_lines = get_budget_lines
-            render :new, formats: :xhr, layout: false and return if request.xhr?
+            render :new_modal, layout: false and return if request.xhr?
             render :new
           end
         end
@@ -62,7 +62,7 @@ module GobiertoAdmin
             )
           else
             @budget_lines = get_budget_lines
-            render :edit, formats: :xhr, layout: false and return if request.xhr?
+            render :edit_modal, layout: false and return if request.xhr?
             render :edit
           end
         end

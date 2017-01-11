@@ -71,7 +71,7 @@ var VisUnemploymentAge = Class.extend({
           temp[k.key] = k.value
         });
         nested = temp;
-        
+                
         // Get the last year from the array
         var lastYear = unemployed[unemployed.length - 1].date.slice(0,4);
 
@@ -189,5 +189,8 @@ var VisUnemploymentAge = Class.extend({
 
     this.svg.select('.chart-container')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+      
+    this.svg.selectAll('.lines path')
+      .attr('d', function(d) { d.line = this; return this.line(d.values); }.bind(this))
   }
 });

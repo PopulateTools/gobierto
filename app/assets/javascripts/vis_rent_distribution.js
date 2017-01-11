@@ -224,9 +224,9 @@ var VisRentDistribution = Class.extend({
     this.xAxis.tickSize(0, 0);
     this.xAxis.ticks(2); // FIXME: ticks(3) creates 15 ticks
     this.xAxis.scale(this.xScale);
-    this.xAxis.tickFormat(this._formatNumberX.bind(this));
+    this.xAxis.tickFormat(this._formatNumberX.bind(this))
     this.svg.select('.x.axis').call(this.xAxis);
-
+    
     // Y axis
     this.svg.select('.y.axis')
       .attr('transform', 'translate(' + this.width + ' ,0)');
@@ -247,13 +247,16 @@ var VisRentDistribution = Class.extend({
       .filter(function (d) { return d === 0;  })
       .remove();
   },
+  _formatMillionAbbr: function(x) {
+    return d3.format('.0f')(x / 1e6) + ' millón';
+  },
   _formatThousandAbbr: function(x) {
     return d3.format('.0f')(x / 1e3) + ' mil';
   },
   _formatAbbreviation: function(x) {
     var v = Math.abs(x);
 
-    return (v >= .9995e4 ? this._formatThousandAbbr : this.formatThousand)(x);
+    return (v >= .9995e6 ? this._formatMillionAbbr : v >= .9995e4 ? this._formatThousandAbbr : this.formatThousand)(x);
   },
   _formatNumberX: function(d) {
     // Spanish custom thousand separator

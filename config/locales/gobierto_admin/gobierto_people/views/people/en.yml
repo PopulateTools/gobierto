@@ -3,6 +3,11 @@ en:
   gobierto_admin:
     gobierto_people:
       people:
+        navigation:
+          person: Person
+          agenda: Agenda
+          statements: Statements
+          posts: Blog
         index:
           title: Persons
           new: New person

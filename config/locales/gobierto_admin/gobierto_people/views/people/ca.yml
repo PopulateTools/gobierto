@@ -3,6 +3,11 @@ ca:
   gobierto_admin:
     gobierto_people:
       people:
+        navigation:
+          person: Persona
+          agenda: Agenda
+          statements: Declaracions
+          posts: Blog
         index:
           title: Persones
           new: Nova persona

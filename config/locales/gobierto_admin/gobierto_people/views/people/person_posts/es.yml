@@ -1,0 +1,25 @@
+---
+es:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_posts:
+          index:
+            title: Blog
+            new: Nuevo post
+            view_post: Ver post
+            header:
+              title: Título
+              date: Fecha
+              tags: Tags
+          edit:
+            title: Editar post
+          new:
+            title: Nuevo post
+          form:
+            placeholders:
+              title: Sobre mí
+              tags: personal, sobre mi, mi carrera
+            visibility_level:
+              draft: Borrador
+              active: Activa

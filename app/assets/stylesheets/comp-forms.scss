@@ -2,7 +2,7 @@
  * Forms
  *
  */
-input[type=text], input[type=email], input[type=submit], input[type=password], input[type=file], .button, button, select, option, textarea {
+input[type=text], input[type=email], input[type=number], input[type=submit], input[type=password], input[type=file], .button, button, select, option, textarea {
   box-sizing: border-box;
   height: 74px;
   padding: 0 1em;
@@ -39,9 +39,9 @@ input[type=text]:focus, input[type=email]:focus, input[type=submit]:focus, input
     width: 100%;
     outline: none;
   }
-  textarea {
+  textarea, .rich-text-area trix-editor {
     box-sizing: border-box;
-    height: 300px;
+    min-height: 300px;
   }
 }
 .select_control {

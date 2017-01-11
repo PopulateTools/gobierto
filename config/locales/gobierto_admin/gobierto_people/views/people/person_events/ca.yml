@@ -1,0 +1,37 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_events:
+          index:
+            title: Agenda
+            new: Nou esdeveniment
+            view_event: Veure esdeveniment
+            pending_events: Pendents de moderar
+            published_events: Esdeveniments publicats
+            past_events: Esdeveniments passats
+            header:
+              event: Dsdeveniment
+              date: Data
+              location: Localització
+          edit:
+            title: Editar esdeveniment
+          new:
+            title: Nou esdeveniment
+          form:
+            attachment_file_constraints: adjuntar fitxer (PDF)
+            placeholders:
+              title: Reunió amb els veïns del districte centre
+          locations_form:
+            title: Localitzacions
+            header:
+              place: Lloc
+              address: Direcció
+          attendees_form:
+            title: Assistents
+            view_person: Veure persona
+            header:
+              person: Persona
+              name: Nom
+              charge: Càrrec

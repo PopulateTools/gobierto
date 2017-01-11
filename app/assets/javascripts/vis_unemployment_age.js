@@ -10,7 +10,7 @@ var VisUnemploymentAge = Class.extend({
     this.unemplUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-personas-paradas-municipio-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
   
     // Chart dimensions
-    this.margin = {top: 5, right: 0, bottom: 25, left: 0};
+    this.margin = {top: 15, right: 0, bottom: 25, left: 0};
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -21,7 +21,7 @@ var VisUnemploymentAge = Class.extend({
 
     // Create axes
     this.xAxis = d3.axisBottom();
-    this.yAxis = d3.axisLeft();
+    this.yAxis = d3.axisRight();
 
     // Chart objects
     this.svg = null;
@@ -71,22 +71,30 @@ var VisUnemploymentAge = Class.extend({
           temp[k.key] = k.value
         });
         nested = temp;
+        
+        // Get the last year from the array
+        var lastYear = unemployed[unemployed.length - 1].date.slice(0,4);
 
         unemployed.forEach(function(d) {
           var year = d.date.slice(0,4);
+          
           if(nested.hasOwnProperty(year)) {
             d.pct = d.value / nested[year][d.age_range];
+          } else if(year === lastYear) {
+            // If we are in the last year, divide the unemployment by last year's population
+            d.pct = d.value / nested[year - 1][d.age_range];
           } else {
             d.pct = null;
           }
           d.date = d3.timeParse('%Y-%m')(d.date);
-        });
-
-        this.data = unemployed;
+        })
+        
+        // Filtering values to start from the first data points
+        this.data = unemployed.filter(function(d) { return d.date >= d3.timeParse('%Y-%m')('2011-01') });
         
         this.nest = d3.nest()
           .key(function(d) { return d.age_range; })
-          .entries(unemployed);
+          .entries(this.data);
         
         this.updateRender();
         this._renderLines();
@@ -103,7 +111,7 @@ var VisUnemploymentAge = Class.extend({
   updateRender: function(callback) {
     this.xScale
       .rangeRound([0, this.width])
-      .domain([d3.timeParse('%Y-%m')('2010-12'), d3.max(this.data, function(d) { return d.date})]);
+      .domain([d3.timeParse('%Y-%m')('2010-11'), d3.max(this.data, function(d) { return d.date})]);
 
     this.yScale
       .rangeRound([this.height, 0])
@@ -116,8 +124,6 @@ var VisUnemploymentAge = Class.extend({
     this._renderAxis();
   },
   _renderLines: function() {
-    this.nest.filter(function(d) { return d.date >= d3.timeParse('%Y-%m')('2011-01') })
-
     this.line = d3.line()
       .x(function(d) { return this.xScale(d.date); }.bind(this))
       .y(function(d) { return this.yScale(d.pct); }.bind(this));
@@ -130,7 +136,7 @@ var VisUnemploymentAge = Class.extend({
       .append('path')
       .attr('class', 'line')
       .attr('d', function(d) { d.line = this; return this.line(d.values); }.bind(this))
-      // .attr('stroke', function(d) { return this.color(d.values.age_range); }.bind(this));
+      .attr('stroke', function(d) { return this.color(d.key); }.bind(this));
   },
   _renderAxis: function() {    
     // X axis
@@ -144,9 +150,12 @@ var VisUnemploymentAge = Class.extend({
     this.svg.select('.x.axis').call(this.xAxis);
 
     // Y axis
+    this.svg.select('.y.axis')
+      .attr('transform', 'translate(' + this.width + ' ,0)');
+      
     this.yAxis.tickSize(-this.width);
     this.yAxis.scale(this.yScale);
-    this.yAxis.ticks(3);
+    this.yAxis.ticks(3, '%');
     // this.yAxis.tickFormat(this._formatNumberY.bind(this));
     this.svg.select('.y.axis').call(this.yAxis);
 
@@ -154,6 +163,11 @@ var VisUnemploymentAge = Class.extend({
     this.svg.selectAll(".y.axis .tick")
       .filter(function (d) { return d === 0;  })
       .remove();
+    
+    // Move y axis ticks on top of the chart
+    this.svg.selectAll('.y.axis .tick text')
+      .attr('dx', '-2.25em')
+      .attr('dy', '-0.55em');
   },
   _formatNumberX: function(d) {
   },

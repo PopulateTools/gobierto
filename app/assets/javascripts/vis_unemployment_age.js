@@ -21,7 +21,7 @@ var VisUnemploymentAge = Class.extend({
 
     // Create axes
     this.xAxis = d3.axisBottom();
-    this.yAxis = d3.axisRight();
+    this.yAxis = d3.axisLeft();
 
     // Chart objects
     this.svg = null;
@@ -149,10 +149,7 @@ var VisUnemploymentAge = Class.extend({
     // this.xAxis.tickFormat(this._formatNumberX.bind(this));
     this.svg.select('.x.axis').call(this.xAxis);
 
-    // Y axis
-    this.svg.select('.y.axis')
-      .attr('transform', 'translate(' + this.width + ' ,0)');
-      
+    // Y axis      
     this.yAxis.tickSize(-this.width);
     this.yAxis.scale(this.yScale);
     this.yAxis.ticks(3, '%');
@@ -166,7 +163,8 @@ var VisUnemploymentAge = Class.extend({
     
     // Move y axis ticks on top of the chart
     this.svg.selectAll('.y.axis .tick text')
-      .attr('dx', '-2.25em')
+      .attr('text-anchor', 'start')
+      .attr('dx', '0.25em')
       .attr('dy', '-0.55em');
   },
   _formatNumberX: function(d) {

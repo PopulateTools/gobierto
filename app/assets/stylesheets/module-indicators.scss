@@ -81,9 +81,36 @@
 }
 #rent_distribution circle {
 	pointer-events: none;
-	stroke: rgba(0,0,0,0.2);
-	stroke-width: 1;
-	fill-opacity: 0.8;
+}
+#rent_distribution .tooltip {
+  border-radius: 2px;
+  padding: 0.5rem;
+  min-height: 90px;
+  width: 200px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0px 3px rgba(0,0,0,0.2);
+  background: rgba(255,255,255,0.98);
+  font-size: 14px;
+  color: #111;
+  text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 99;
+  position: absolute;;
+}
+#rent_distribution .tooltip-city {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+	color: $color_text;
+}
+#rent_distribution .tooltip-table {
+  line-height: 1.4;
+}
+#rent_distribution .table-t {
+	color: $color_text;
+	font-weight: 600;
+	padding: .7em 0 .4em;
 }
 
 #unemployment_age .axis {

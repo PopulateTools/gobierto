@@ -24,7 +24,7 @@ this.GobiertoAdmin.ConsultationItemsController = (function() {
       }
     };
 
-    $(budgetLineAutocompleteHandler).autocomplete(autocompleteOptions);
+    $.ui.autocomplete(autocompleteOptions, $(budgetLineAutocompleteHandler));
   }
 
   function _handleSortableList() {

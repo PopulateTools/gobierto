@@ -7,7 +7,7 @@ module Integration
     def fill_in_content_blocks
       content_blocks.each do |content_block|
         within "#content-block-#{content_block.id}" do
-          if content_context.content_block_records.any?
+          if content_block.records.any?
             content_block.records.each do |content_block_record|
               within ".dynamic-content-record-wrapper.content-block-record-#{content_block_record.id}" do
                 with_hidden_elements do

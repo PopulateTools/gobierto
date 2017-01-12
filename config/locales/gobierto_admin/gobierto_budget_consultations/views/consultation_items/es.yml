@@ -13,7 +13,15 @@ es:
             title: Nueva partida
             consultation_section: Consulta
             consultation_items_section: Partidas
+          new_modal:
+            title: Nueva partida
+            consultation_section: Consulta
+            consultation_items_section: Partidas
           edit:
+            title: Editar partida
+            consultation_section: Consulta
+            consultation_items_section: Partidas
+          edit_modal:
             title: Editar partida
             consultation_section: Consulta
             consultation_items_section: Partidas

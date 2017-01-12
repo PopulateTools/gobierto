@@ -25,7 +25,7 @@ this.GobiertoAdmin.SitesController = (function() {
       minLength: 3
     }
 
-    $(locationFieldHandler).autocomplete(autocompleteOptions);
+    $.ui.autocomplete(autocompleteOptions, $(locationFieldHandler));
   }
 
   SitesController.prototype.edit = function(api_token) {

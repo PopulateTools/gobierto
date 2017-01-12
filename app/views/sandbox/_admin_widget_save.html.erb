@@ -1,5 +1,6 @@
 <div class="widget_save">
   
+  <% unless local_assigns[:only_save_button] %>
   <div class="form_item">
 
 		<div class="options compact">
@@ -38,7 +39,8 @@
   <div class="action_view sep_top_bot">
   	<%= link_to '<i class="fa fa-eye"></i> Ver usuario'.html_safe, '' %>
   </div>
-
+  <% end %>
+  
   <input type="submit" value="Guardar" class="button">
 
 </div>

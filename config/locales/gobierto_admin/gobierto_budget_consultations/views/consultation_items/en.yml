@@ -13,7 +13,15 @@ en:
             title: New budget line
             consultation_section: Consultation
             consultation_items_section: Budget lines
+          new_modal:
+            title: New budget line
+            consultation_section: Consultation
+            consultation_items_section: Budget lines
           edit:
+            title: Edit budget line
+            consultation_section: Consultation
+            consultation_items_section: Budget lines
+          edit_modal:
             title: Edit budget line
             consultation_section: Consultation
             consultation_items_section: Budget lines

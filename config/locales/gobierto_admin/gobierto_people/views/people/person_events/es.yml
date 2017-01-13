@@ -1,0 +1,37 @@
+---
+es:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_events:
+          index:
+            title: Agenda
+            new: Nuevo evento
+            view_event: Ver evento
+            pending_events: Pendientes de moderar
+            published_events: Eventos publicados
+            past_events: Eventos pasados
+            header:
+              event: Evento
+              date: Fecha
+              location: Localización
+          edit:
+            title: Editar evento
+          new:
+            title: Nuevo evento
+          form:
+            attachment_file_constraints: Adjuntar fichero (PDF)
+            placeholders:
+              title: Reunión con los vecinos del distrito centro
+          locations_form:
+            title: Localizaciones
+            header:
+              place: Lugar
+              address: Dirección
+          attendees_form:
+            title: Asistentes
+            view_person: Ver persona
+            header:
+              person: Persona
+              name: Nombre
+              charge: Cargo

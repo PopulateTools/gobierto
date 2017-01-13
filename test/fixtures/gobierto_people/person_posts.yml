@@ -1,0 +1,6 @@
+richard_about_me:
+  person: richard
+  title: About me
+  body: Article about my professional career in politics.
+  tags: <%= ["Personal", "Career", "Richard Rider"] %>
+  visibility_level: <%= GobiertoPeople::PersonPost.visibility_levels["active"] %>

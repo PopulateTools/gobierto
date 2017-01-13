@@ -71,11 +71,13 @@ class ActionDispatch::IntegrationTest
   require "support/integration/authentication_helpers"
   require "support/integration/site_session_helpers"
   require "support/integration/matcher_helpers"
+  require "support/integration/page_helpers"
 
   include Capybara::DSL
   include Integration::AuthenticationHelpers
   include Integration::SiteSessionHelpers
   include Integration::MatcherHelpers
+  include Integration::PageHelpers
 
   Capybara.register_driver :poltergeist_custom do |app|
     Capybara::Poltergeist::Driver.new(
@@ -83,7 +85,7 @@ class ActionDispatch::IntegrationTest
       timeout: 300,
       inspector: ENV["INTEGRATION_INSPECTOR"] == "true",
       debug: ENV["INTEGRATION_DEBUG"] == "true",
-      window_size: [1440, 900]
+      window_size: [1920, 1080]
     )
   end
 

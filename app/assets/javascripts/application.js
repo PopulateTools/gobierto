@@ -21,6 +21,7 @@
 //= require slick.min
 //= require air-datepicker/datepicker.min
 //= require air-datepicker/i18n/datepicker.es
+//= require air-datepicker/i18n/datepicker.en
 //= require_directory ./settings/
 
 //= require module-admin

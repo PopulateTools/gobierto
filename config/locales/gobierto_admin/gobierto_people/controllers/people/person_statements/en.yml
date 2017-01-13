@@ -1,0 +1,10 @@
+---
+en:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_statements:
+          create:
+            success: Statement was successfully created
+          update:
+            success: Statement was successfully updated

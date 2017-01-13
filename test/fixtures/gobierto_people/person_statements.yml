@@ -1,0 +1,11 @@
+richard_current:
+  person: richard
+  title: Declaración de Bienes y Actividades
+  published_on: <%= Date.current %>
+  visibility_level: <%= GobiertoPeople::PersonStatement.visibility_levels["active"] %>
+
+richard_past:
+  person: richard
+  title: Declaración de Bienes y Actividades (pasada)
+  published_on: <%= 1.year.ago.to_date %>
+  visibility_level: <%= GobiertoPeople::PersonStatement.visibility_levels["active"] %>

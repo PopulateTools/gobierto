@@ -46,12 +46,16 @@ body.gobierto_admin {
           background: initial;
         }
       }
-      input[type=text] {
+      input[type=text], input[type=number], select {
         width: 100%;
         padding: .5em;
         margin: 0 0 .5em 0;
         height: initial;
         @include border-radius(3px);
+      }
+      select {
+        background: white;
+        border: 1px solid $color_separator;
       }
       h4 {
         margin: .5em 0 1em 0;

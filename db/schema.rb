@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161229184441) do
+ActiveRecord::Schema.define(version: 20170109162309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,8 +178,68 @@ ActiveRecord::Schema.define(version: 20161229184441) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.string   "avatar_url"
+    t.integer  "events_count",     default: 0,  null: false
+    t.integer  "statements_count", default: 0,  null: false
+    t.integer  "posts_count",      default: 0,  null: false
     t.index ["admin_id"], name: "index_gp_people_on_admin_id", using: :btree
     t.index ["site_id"], name: "index_gp_people_on_site_id", using: :btree
+  end
+
+  create_table "gp_person_event_attendees", force: :cascade do |t|
+    t.string   "name"
+    t.string   "charge"
+    t.integer  "person_id"
+    t.integer  "person_event_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["person_event_id"], name: "index_gp_person_event_attendees_on_person_event_id", using: :btree
+    t.index ["person_id"], name: "index_gp_person_event_attendees_on_person_id", using: :btree
+  end
+
+  create_table "gp_person_event_locations", force: :cascade do |t|
+    t.string   "name",                                     default: "", null: false
+    t.string   "address"
+    t.decimal  "lat",             precision: 10, scale: 6
+    t.decimal  "lng",             precision: 10, scale: 6
+    t.integer  "person_event_id"
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+    t.index ["person_event_id"], name: "index_gp_person_event_locations_on_person_event_id", using: :btree
+  end
+
+  create_table "gp_person_events", force: :cascade do |t|
+    t.string   "title",          default: "", null: false
+    t.text     "description"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.string   "attachment_url"
+    t.integer  "state",          default: 0,  null: false
+    t.integer  "person_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["person_id"], name: "index_gp_person_events_on_person_id", using: :btree
+  end
+
+  create_table "gp_person_posts", force: :cascade do |t|
+    t.string   "title",            default: "", null: false
+    t.text     "body"
+    t.string   "tags",                                       array: true
+    t.integer  "visibility_level", default: 0,  null: false
+    t.integer  "person_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["person_id"], name: "index_gp_person_posts_on_person_id", using: :btree
+    t.index ["tags"], name: "index_gp_person_posts_on_tags", using: :gin
+  end
+
+  create_table "gp_person_statements", force: :cascade do |t|
+    t.string   "title",            default: "", null: false
+    t.date     "published_on"
+    t.integer  "person_id"
+    t.integer  "visibility_level", default: 0,  null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["person_id"], name: "index_gp_person_statements_on_person_id", using: :btree
   end
 
   create_table "sites", force: :cascade do |t|

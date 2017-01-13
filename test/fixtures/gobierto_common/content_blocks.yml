@@ -7,3 +7,13 @@ accomplishments:
   site: madrid
   content_model_name: GobiertoPeople::Person
   title: <%= { "en" => "Accomplishments", "es" => "Logros" }.to_yaml.inspect %>
+
+income_statements:
+  site: madrid
+  content_model_name: GobiertoPeople::PersonStatement
+  title: <%= { "en" => "Income", "es" => "Ingresos" }.to_yaml.inspect %>
+
+asset_statements:
+  site: madrid
+  content_model_name: GobiertoPeople::PersonStatement
+  title: <%= { "en" => "Asset", "es" => "Activos" }.to_yaml.inspect %>

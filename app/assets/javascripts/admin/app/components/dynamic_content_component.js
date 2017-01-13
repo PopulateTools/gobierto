@@ -1,16 +1,27 @@
 this.GobiertoAdmin.DynamicContentComponent = (function() {
   function DynamicContentComponent() {}
 
-  DynamicContentComponent.prototype.handle = function(recordNamespace) {
-    handleAddChild(recordNamespace);
+  DynamicContentComponent.prototype.handle = function(wrapper, namespace) {
+    initializeRecordFields(wrapper);
+    handleAddChild(wrapper, namespace);
     handleAddRecord();
     handleCancelRecord();
     handleEditRecord();
     handleDeleteRecord();
   };
 
-  function handleAddChild(recordNamespace) {
-    var componentWrapper = $(".dynamic-content-wrapper");
+  function initializeRecordFields(wrapper) {
+    var componentWrapper = $(wrapper || ".dynamic-content-wrapper");
+    var componentLocale = componentWrapper.data("locale");
+
+    _handleGeocompleteBehavior(componentWrapper.find("input[data-behavior=geocomplete]"));
+    _handleDateType(componentWrapper.find("input[data-type=date]"), componentLocale);
+    _handleCurrencyType(componentWrapper.find("input[data-type=currency]"));
+  }
+
+  function handleAddChild(wrapper, namespace) {
+    var componentWrapper = $(wrapper || ".dynamic-content-wrapper");
+    var componentLocale = componentWrapper.data("locale");
 
     componentWrapper.on("click", "[data-behavior=add_child]", function(e) {
       e.preventDefault();
@@ -18,12 +29,12 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
       var eventWrapper = $(this).closest(".dynamic-content-wrapper");
       var recordTemplate = eventWrapper.find(".dynamic-content-record-wrapper:visible:last");
 
-      var fieldNameRegExp = new RegExp("\\[" + recordNamespace + "\\]\\[\\d+\\]", "i");
-      var fieldIdRegExp = new RegExp("_" + recordNamespace + "_\\d+", "i");
+      var fieldNameRegExp = new RegExp("\\[" + namespace + "\\]\\[\\d+\\]", "i");
+      var fieldIdRegExp = new RegExp("_" + namespace + "_\\d+", "i");
       var contentBlockRecordRegExp = new RegExp("content-block-record-\\d+", "i");
       var randomId = new Date().getTime();
-      var uniqueFieldName = "[" + recordNamespace + "][" + randomId + "]";
-      var uniqueFieldId = "_" + recordNamespace + "_" + randomId;
+      var uniqueFieldName = "[" + namespace + "][" + randomId + "]";
+      var uniqueFieldId = "_" + namespace + "_" + randomId;
 
       var clonedField = $(recordTemplate)
         .clone()
@@ -53,9 +64,8 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
           $(this).attr("id", fieldId.replace(fieldIdRegExp, uniqueFieldId));
         }
 
-        if ($(this).attr("type") === "text") {
-          $(this).val("");
-        }
+        _cleanupRecordField($(this));
+        _initializeRecordField($(this), componentLocale);
       });
 
       clonedField.find("label").each(function() {
@@ -124,6 +134,47 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
     });
   }
 
+  function _cleanupRecordField(selector) {
+    if (selector.attr("type") === "text") {
+      selector.val("");
+    } else if (selector.attr("type") === "select") {
+      selector.find("option:selected").prop("selected", false);
+    }
+  }
+
+  function _initializeRecordField(selector, locale) {
+    if (selector.data("behavior") === "geocomplete") {
+      _handleGeocompleteBehavior(selector);
+    }
+
+    if (selector.data("type") === "date") {
+      _handleDateType(selector, locale);
+    }
+
+    if (selector.data("type") === "currency") {
+      _handleCurrencyType(selector);
+    }
+  }
+
+  function _handleGeocompleteBehavior(selector) {
+    selector.geocomplete({
+      details: ".content-block-field",
+      detailsAttribute: "data-geo",
+      componentRestrictions: { country: "es" }
+    });
+  }
+
+  function _handleDateType(selector, locale) {
+    selector.datepicker({
+      language: locale,
+      autoClose: true
+    });
+  }
+
+  function _handleCurrencyType(selector) {
+    selector.attr("type", "number");
+  }
+
   function _switchToRecordForm(wrapper) {
     wrapper.find(".dynamic-content-record-view").hide();
     wrapper.find(".dynamic-content-record-form").show();
@@ -135,8 +186,8 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   }
 
   function _setRecordViewState(wrapper) {
-    var formState = wrapper.find(".content-block-field input").map(function() {
-      return $(this).val();
+    var formState = wrapper.find(".content-block-field input, select option:selected").map(function() {
+      return $(this).text() || $(this).val();
     });
 
     wrapper.find(".dynamic-content-record-view .content-block-record-value").each(function(index) {

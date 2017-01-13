@@ -1,0 +1,14 @@
+---
+en:
+  activerecord:
+    models:
+      gobierto_people/person_event_location: Location
+      gobierto_people/person_event_attendee: Attendee
+    attributes:
+      gobierto_people/person_event_location:
+        name: Name
+        address: Address
+      gobierto_people/person_event_attendee:
+        person: Person
+        name: Name
+        charge: Charge

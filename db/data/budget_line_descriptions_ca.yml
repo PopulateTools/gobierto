@@ -2,33 +2,33 @@
 economic:
   I:
     '1': En aquest capítol s'inclouran els recursos exigits sense contraprestació
-      el fet imposable estigui constituït per negocis, actes o fets de naturalesa
+      quan el fet imposable estigui constituït per negocis, actes o fets de naturalesa
       jurídica o econòmica, que posin de manifest la capacitat contributiva del subjecte
       passiu, com a conseqüència de la possessió d'un patrimoni o l'obtenció de renda.
     '10': Recull els ingressos que, si escau, es poden derivar dels impostos sobre
       la renda de les persones físiques o jurídiques.
     '100': S'inclouran els derivats de la cessió de l'Impost sobre la Renda de les
-      Persones Físiques a favor de les entitats locals quan la Llei reguladora de
+      Persones Físiques a favor de les entitats locals quan la llei reguladora de
       les hisendes locals estableixi aquest recurs.
     '11': Recull els ingressos derivats dels impostos que graven la titularitat d'un
       patrimoni o increments de valor posats de manifest per la transmissió d'elements
-      integrants del mateix.
-    '13': Inclou els ingressos derivats de l'impost el fet imposable estigui constituït
+      integrants d'aquest.
+    '13': Inclou els ingressos derivats de l'impost quan el fet imposable estigui constituït
       per l'exercici en territori nacional d'activitats empresarials, professionals
-      o artístiques, d'acord amb el que, si escau, disposi la Llei reguladora de les
+      o artístiques, d'acord amb el que, si escau, disposi la llei reguladora de les
       hisendes locals.
     '18': Inclou el rendiment d'aquells impostos locals directes que se suprimeixin
-      per la Llei Reguladora de les Hisendes Locales.Las entitats locals podran incloure
+      per la llei reguladora de les hisendes locals. Les entitats locals podran incloure
       en el seu pressupost els recursos assenyalats de manera conjunta, o establir
       un desenvolupament per conceptes o subconceptes, per recollir de forma individualitzada
       el producte de cadascun dels tributs que s'extingeixin.
     '21': Recull els ingressos que, si escau, es puguin derivar de l'Impost sobre
       el Valor Afegit. S'inclouran els que resultin de la cessió d'aquest impost a
-      favor de les entitats locals quan la Llei reguladora de les hisendes locals
+      favor de les entitats locals quan la llei reguladora de les hisendes locals
       estableixi aquest recurs.
     '22': Recull els ingressos que, si escau, es puguin derivar dels impostos especials
       sobre fabricació i consums específics. S'inclouran els que resultin de la cessió
-      d'aquests impostos quan la Llei reguladora de les hisendes locals estableixi
+      d'aquests impostos quan la llei reguladora de les hisendes locals estableixi
       aquest recurs.
     '220': 'Es defineixen subconceptes corresponents a cada un dels impostos especials
       sobre fabricació i consum específics, pels quals les entitats locals perceben
@@ -37,10 +37,10 @@ economic:
       determinats mitjans de transport, sobre productes intermedis, sobre l''energia,
       sobre vendes minoristes d''hidrocarburs i sobre la gasolina.'
     '26': Recàrrecs sobre impostos indirectes de l'Estat, de les Comunitats Autònomes.
-    '27': Recursos sobre impostos indirectes l'exacció correspongui a altres entitats
+    '27': Recursos sobre impostos indirectes quan l'exacció correspongui a altres entitats
       locals.
-    '28': Impostos indirectes locals que se suprimeixin per la Llei Reguladora de
-      les Hisendes Locals, i recàrrecs sobre impostos indirectes municipals, autonòmics
+    '28': Impostos indirectes locals que se suprimeixin per la llei reguladora de
+      les hisendes locals, i recàrrecs sobre impostos indirectes municipals, autonòmics
       o estatals que s'extingeixin. Les entitats locals podran incloure en el seu
       pressupost els recursos assenyalats de manera conjunta, o establir un desenvolupament
       per conceptes o subconceptes, per recollir de forma individualitzada el producte
@@ -130,10 +130,10 @@ economic:
       de no vida.
     '399': Recull els ingressos propis d'aquest article, no inclosos en els conceptes
       anteriors. Entre d'altres, es trobarien els ingressos esporàdicament rebuts
-      per l'entitat local, procedents de deutes pressupostàries o extrapressupostàries,
+      per l'entitat local, procedents de deutes pressupostaris o extrapressupostàries,
       els ingressos derivats d'expedients de responsabilitat comptable.
     '4': Ingressos de naturalesa no tributària, percebuts per les entitats locals
-      sense contraprestació directa per part de les mateixes, destinats a finançar
+      sense contraprestació directa per part d'aquestes, destinats a finançar
       operacions corrents. Per conceptes i subconceptes, es diferenciaran les transferències
       en funció dels agents que les concedeixen. Així mateix, es diferenciaran les
       que tinguin caràcter finalista.
@@ -144,9 +144,9 @@ economic:
     '420': S'inclouran les transferències a favor de les entitats locals corresponents
       a la participació en tributs de l'Estat de les entitats excloses del model de
       cessió d'impostos estatals, a la participació en el fons complementari de finançament
-      establert per la Llei Reguladora de les Hisendes Locals a favor de les entitats
+      establert per la llei reguladora de les hisendes locals a favor de les entitats
       locals incloses en l'esmentat model de cessió. Així mateix, es recolliran els
-      imports reconeguts per l'Administració General de l'Estat a favor de les entitats
+      imports reconeguts per l'administració general de l'estat a favor de les entitats
       locals en concepte de compensacions per beneficis fiscals en tributs locals
       concedits per normes estatals amb rang de llei.
     '421': 'Transferències corrents procedents d''organismes autònoms de l''Estat.
@@ -197,8 +197,8 @@ economic:
       o societat mercantil integrants o dependents de l''entitat local o participats
       per aquesta, tingui dret a nomenar oa destituir la majoria dels membres dels
       òrgans de govern de la societat, bé directament, bé mitjançant acords amb altres
-      socis d''aquesta última; d) Que l''administrador únic o algun dels membres del
-      Consell d''Administració de la societat, hagin estat designats en qualitat de
+      socis d''aquesta última; d) que l''administrador únic o algun dels membres del
+      Consell d''administració de la societat, hagin estat designats en qualitat de
       membres o consellers per l''entitat local, organisme o societat mercantil dependents
       de l''entitat local o participats per aquesta.'
     '54': Ingressos derivats de l'aprofitament, ús o gaudi per tercers dels béns immobles
@@ -207,8 +207,8 @@ economic:
     '542': Ingressos derivats de l'arrendament de finques rústiques propietat de l'entitat
       local.
     '544': Ingressos en concepte de pensions anuals i d'altres drets econòmics derivats
-      de contractes de censos emfitèutics, o de qualssevol altra naturalesa, per la
-      cessió del domini útil de béns immobles de l'entitat local, reservant aquesta
+      de contractes de censos emfitèutics, o de qualsevol altra naturalesa, per la
+      cessió del domini útil de béns immobles de l'entitat local, reservant aquesta el
       seu domini directe.
     '549': Recull els ingressos d'aquesta naturalesa no inclosos en els anteriors
       conceptes.
@@ -252,7 +252,7 @@ economic:
       i gestió del risc del tipus d'interès i tipus de canvi .
     '599': Recull els ingressos patrimonials no inclosos en els conceptes anteriors.
     '6': 'Ingressos provinents de transaccions amb sortida o lliurament de béns de
-      capital propietat de les entitats locals o dels seus organismes autònoms: De
+      capital propietat de les entitats locals o dels seus organismes autònoms: de
       solars, de finques rústiques, de parcel·les sobrants de la via pública, habitatges
       i locals de negoci, etc.'
     '60': Comprèn els ingressos derivats de la venda de solars, finques rústiques
@@ -260,8 +260,8 @@ economic:
     '600': Ingressos derivats de la venda de solars sense edificar.
     '601': Ingressos derivats de la venda de finques rústiques.
     '602': Ingressos derivats de la venda de parcel·les sobrants de la via pública,
-      conceptuades com a tals d'acord amb l'article 7 del Reglament de Béns de les
-      Entitats Locals.
+      conceptuades com a tals d'acord amb l'article 7 del Reglament de béns de les
+      entitats locals.
     '603': Ingressos derivats de la venda de béns integrants del patrimoni públic
       de sòl.
     '609': Ingressos derivats de la venda de terrenys sense edificar, no compresos
@@ -301,8 +301,8 @@ economic:
       Seguretat Social.
     '74': 'S''estableixen dos conceptes atenent l''entitat de la qual procedeixen
       les transferències de capital:'
-    '750': Dins d'aquest concepte, es distingir, mitjançant un subconcepte, les subvencions
-      que perceben les entitats locals de l'Administració General de la Comunitat
+    '750': Dins d'aquest concepte, es distingeixen, mitjançant un subconcepte, les subvencions
+      que perceben les entitats locals de l'administració general de la Comunitat
       Autònoma i que estiguin afectades a l'amortització de préstecs i altres operacions
       financeres a curt o a llarg termini concertats per aquelles entitats.
     '79': Es recullen, detallats, els ingressos per transferències de capital rebuts
@@ -322,7 +322,7 @@ economic:
       amb venciment superior a 12 mesos. Es distingeixen els subconceptes atenent
       l''agent emissor:'
     '81': Comprèn els ingressos procedents de la venda de tota classe d'obligacions
-      i bons, a curt (amb termini de venciment no superior a un any) ia llarg termini
+      i bons, a curt (amb termini de venciment no superior a un any) i a llarg termini
       (venciment superior a un any), emesos per agents externs al sector públic, i
       documentats en títols-valors.
     '810': Comprèn els ingressos obtinguts per alienació de deute de fora del sector
@@ -356,7 +356,7 @@ economic:
       la propietat del capital d'entitats no pertanyents al sector públic.
     '87': S'inclourà la part del romanent de tresoreria que s'utilitzi com a mitjà
       de finançament de modificacions de crèdit.
-    '870': Es diferenciaran, per subconceptes, la part destinada a despeses amb finançament
+    '870': Es diferenciarà, per subconceptes, la part destinada a despeses amb finançament
       afectat de la destinada a despeses generals.
     '9': Recull el finançament de les entitats locals i els seus organismes autònoms
       procedent de l'emissió de deute, préstecs rebuts, dipòsits i fiances rebuts.
@@ -387,7 +387,7 @@ economic:
   G:
     '1': Tot tipus de retribucions fixes i variables i indemnitzacions, en diners
       i en espècie, a satisfer per les entitats locals i els seus organismes autònoms
-      al personal que presti els seus serveis en les mateixes. Cotitzacions obligatòries
+      al personal que hi presti els seus serveis. Cotitzacions obligatòries
       de les entitats locals i dels seus organismes autònoms als diferents règims
       de Seguretat Social del personal al seu servei. Prestacions socials, que comprenen
       tota classe de pensions i les remuneracions a concedir per raó de les càrregues
@@ -395,14 +395,14 @@ economic:
       i disposicions vigents, per les entitats locals i els seus organismes autònoms
       per al seu personal.
     '10': Comprèn els conceptes retributius dels membres dels òrgans de govern, així
-      com del personal directiu
+      com del personal directiu.
     '11': Comprèn les retribucions bàsiques i altres remuneracions del personal eventual
       nomenat per l'òrgan competent de l'entitat local, d'acord amb les disposicions
       vigents, i que cessa automàticament quan ho fa l'autoritat que va efectuar el
       nomenament.
     '12': S'imputaran a aquest article els conceptes retributius del personal funcionari
       (retribucions bàsiques, complementàries i en espècie), inclòs el que estigui
-      realitzant pràctiques, dins d'un procés selectiu
+      realitzant pràctiques, dins d'un procés selectiu.
     '13': Aquest article comprèn retribucions i indemnitzacions a satisfer al personal
       laboral al servei de les entitats locals i els seus organismes autònoms en virtut
       dels convenis col·lectius o normes laborals que els siguin aplicables.
@@ -429,8 +429,8 @@ economic:
     '213': Despeses destinades a reparacions, manteniment i conservació de maquinària,
       entesa aquesta com el conjunt de màquines de l'entitat local, incloent-se els
       elements de transport intern destinats al transport de personal, animals, materials
-      i mercaderies dins de tallers o instal·lacions anàlogues, sense sortir a l'
-      exterior. Així mateix, s'inclouran les despeses de reparacions, manteniment
+      i mercaderies dins de tallers o instal·lacions anàlogues, sense sortir a l'exterior.
+      Així mateix, s'inclouran les despeses de reparacions, manteniment
       i conservació d'instal·lacions tècniques de l'entitat local, enteses com a unitats
       complexes d'ús especialitzat que comprenen edificacions, maquinària, elements,
       inclosos els sistemes informàtics, que tot i ser separables per naturalesa,
@@ -453,15 +453,15 @@ economic:
     '219': Despeses de reparacions, manteniment i conservació d'altres elements no
       inclosos en els conceptes anteriors.
     '221': Despeses d'aigua, gas, electricitat i altres serveis o proveïments que
-      no siguin susceptibles de ser emmagatzemats
+      no siguin susceptibles de ser emmagatzemats.
     '222': Detallat en subconceptes, inclou les despeses per serveis telefònics, serveis
       postals i telegràfics, així com qualsevol altre tipus de comunicació.
     '223': Despeses de transports de tot tipus, excepte de personal.
     '224': Despeses per assegurances de vehicles, de béns immobles, d'un altre immobilitzat
       i de qualsevol element material, sigui quina sigui la naturalesa dels riscos
       objecte de cobertura, excepte les assegurances de vida o accident del personal
-      que s'inclouran en el capítol 1, «Despeses de personal », concepte 162,« Despeses
-      socials del personal ».
+      que s'inclouran en el capítol 1, «Despeses de personal », concepte 162, «Despeses
+      socials del personal».
     '225': S'inclouran en aquest concepte les despeses destinades a satisfer taxes,
       contribucions i impostos, siguin estatals, autonòmics o locals.
     '226': S'inclouran totes aquelles despeses de naturalesa corrent que no tenen
@@ -472,7 +472,7 @@ economic:
     227-06: Estudis i treballs tècnics. Despeses d'estudi, treballs tècnics, estadístics
       o d'un altre caràcter que es derivin de tasques encomanades a empreses especialitzades,
       professionals independents o experts, que no siguin aplicats a plans, programes,
-      avantprojectes i projectes d'inversió, en el cas figurar en el capítol 6 , «Inversions
+      avantprojectes i projectes d'inversió, en el cas figurar en el capítol 6, «Inversions
       reals». També s'inclouran en aquest subconcepte, la dotació de premis d'investigació
       i estudi de concursos d'idees, de treballs, publicacions, edicions, exposicions
       i participacions de caràcter cultural, artístic, científic, tècnic, jurídic
@@ -482,7 +482,7 @@ economic:
     227-08: Despeses derivades de la recaptació dels drets econòmics de l'entitat
       local o dels seus organismes autònoms quan aquella s'efectuï per altres entitats
       locals o ens públics dependents d'altres administracions públiques, així com
-      les despeses derivades dels contractes que, en aquesta matèria, es subscriguin
+      les despeses derivades dels contractes que, en aquesta matèria, se subscriguin
       amb entitats col·laboradores.
     227-99: S'inclouen despeses originades per treballs realitzats per altres empreses
       no esmentats en els subconceptes anteriors.
@@ -500,11 +500,11 @@ economic:
     '3': Aquest capítol comprèn els interessos, inclosos els implícits, i altres despeses
       derivades de tot tipus d'operacions financeres i de deutes contrets o assumits
       per l'entitat local o els seus organismes autònoms, així com les despeses d'emissió
-      o formalització, modificació i cancel·lació de les mateixes , diferències de
+      o formalització, modificació i cancel·lació d'aquestes, diferències de
       canvi i altres rendiments implícits.
     '30': Interessos de tot tipus de deute emès o assumit per l'entitat local o els
       seus organismes autònoms en euros, així com les despeses derivades de qualsevol
-      operació relacionada amb les mateixes, en particular els relatius a rendiments
+      operació relacionada amb aquestes, en particular els relatius a rendiments
       implícits.
     '300': Imports dels interessos, inclosos els implícits, derivats d'emissions de
       títols de deute públic nominats en euros, sigui quin sigui el seu termini d'amortització.
@@ -516,7 +516,7 @@ economic:
       els conceptes anteriors.
     '31': Interessos de tot tipus de préstecs contractats o assumits per l'entitat
       local o els seus organismes autònoms en euros, així com els rendiments implícits
-      i despeses derivades de qualsevol operació relacionada amb els mateixos.
+      i despeses derivades de qualsevol operació relacionada amb aquests.
     '310': Imports dels interessos corresponents a préstecs rebuts i altres operacions
       financeres, pendents d'amortitzar, nominats en euros, sigui quin sigui el termini
       i la manera en què s'instrumentin aquests interessos.
@@ -529,7 +529,7 @@ economic:
     '32': Interessos de tot tipus de deutes, emesos o assumits per l'entitat local
       o els seus organismes autònoms en moneda diferent de l'euro, així com els rendiments
       implícits i diferències de canvi, derivades de la cancel·lació del deute, i
-      despeses produïdes per qualsevol operació relacionada amb les mateixes.
+      despeses produïdes per qualsevol operació relacionada amb aquestes.
     '320': Imports dels interessos, inclosos els implícits, derivats de títols de
       deute públic emès o assumit per l'entitat local o els seus organismes autònoms
       nominats en moneda diferent de l'euro, qualsevol que sigui el termini d'amortització.
@@ -599,16 +599,16 @@ economic:
     '49': Transferències per despeses corrents destinades a cooperació al desenvolupament
       i a agents econòmics situats fora del territori nacional, o amb estatut d'extraterritorialitat,
       o quan s'hagin de fer en moneda diferent de l'euro.
-    '5': Comprèn aquest capítol la dotació al Fons de Contingència a què es refereix
+    '5': Aquest capítol comprèn la dotació al Fons de Contingència a què es refereix
       l'article 31 de la Llei Orgànica 2/2012, de 27 d'abril, d'Estabilitat Pressupostària
       i Sostenibilitat Financera, que obligatòriament han d'incloure en els seus pressupostos
       les entitats locals de l'àmbit subjectiu dels articles 111 i 135 del text refós
-      de la Llei reguladora de les hisendes locals, per a l'atenció de necessitats
+      de la llei reguladora de les hisendes locals, per a l'atenció de necessitats
       imprevistes, inajornables i no discrecionals, per a les que no existeixi crèdit
       pressupostari o el previst resulti insuficient. Les entitats locals no incloses
       en aquell àmbit subjectiu d'aplicar aquest mateix criteri en el cas que aprovin
       la dotació d'un Fons de contingència amb la mateixa finalitat esmentada.
-    '6': Comprèn aquest capítol les despeses a realitzar directament per les entitats
+    '6': Aquest capítol comprèn  les despeses a realitzar directament per les entitats
       locals o els seus organismes autònoms destinats a la creació d'infraestructures
       i a la creació o adquisició de béns de naturalesa inventariable necessaris per
       al funcionament dels serveis i aquelles altres despeses que tinguin caràcter
@@ -671,11 +671,11 @@ economic:
     '64': Despeses realitzades en un exercici, no materialitzades en actius, susceptibles
       de produir els seus efectes en diversos exercicis futurs, campanyes de promoció
       de turisme, fires, exposicions, estudis i treballs tècnics, investigació i similars,
-      així com aquelles inversions en actius immobilitzats intangibles, com com concessions
+      així com aquelles inversions en actius immobilitzats intangibles, com concessions
       administratives, propietat industrial, obtenció de patents, marques i propietat
-      intel·lectual, o qualssevol altres d'aquesta naturalesa, relacionats amb l'activitat
+      intel·lectual, o qualsevol altres d'aquesta naturalesa, relacionats amb l'activitat
       de l'entitat local o els seus organismes autònoms. S'inclouen els contractes
-      de «leasing» quan s'hagi d'exercir l'opció de compra en els termes que, a continuació,
+      de leasing quan s'hagi d'exercir l'opció de compra en els termes que, a continuació,
       s'especifiquen.
     '641': S'inclourà en aquest concepte l'import satisfet per la propietat o el dret
       a l'ús de programes informàtics, o bé, el cost de producció dels elaborats per
@@ -685,7 +685,7 @@ economic:
       financer quan s'hagi d'exercir l'opció de compra, corresponents a la recuperació
       del cost del bé i l'exercici pressupostari. La resta, és a dir, els interessos,
       s'aplicarà al concepte 358, «Interessos per operacions d'arrendament financer
-      (« leasing »)». Es presumeix que hi ha voluntat d'exercir l'opció de compra
+      (leasing)». Es presumeix que hi ha voluntat d'exercir l'opció de compra
       quan es doni alguna de les condicions especificades en l'esmentat concepte 358.
       En el cas que no es donés cap d'aquestes condicions, es tractaria d'una operació
       de «leasing» operatiu o d'arrendament pur, i, per tant, s'inclouria en el concepte
@@ -695,7 +695,7 @@ economic:
       públics, amb independència que aquests participin o no en el seu finançament.
     '650': Despeses en inversions gestionades per a altres ens públics.
     '68': Recollir les despeses d'aquells projectes d'inversió que afectin els béns
-      a què es refereix l'article 6 del Reglament de Béns de les Entitats Locals,
+      a què es refereix l'article 6 del Reglament de béns de les entitats locals,
       aprovat per Reial Decret 1372/1986, de 13 de juny, és a dir els que, sent propietat
       de l'entitat local, no estiguin destinats a ús públic ni afectats a algun servei
       públic i puguin constituir fonts d'ingressos per a aquella.
@@ -710,7 +710,7 @@ economic:
     '7': Comprèn els crèdits per aportacions per part de l'entitat local o dels seus
       organismes autònoms, sense contrapartida directa dels agents perceptors i amb
       destinació a finançar operacions de capital. En la seva majoria es destinen
-      a Empreses municipals o organismes autònoms del propi municipi, per finançar
+      a empreses municipals o organismes autònoms del propi municipi, per finançar
       part de les seves inversions.
     '70': Aquest article només és aplicable en els pressupostos dels organismes autònoms
       de l'entitat local.
@@ -733,7 +733,7 @@ economic:
       quan s'hagin d'efectuar en moneda diferent de l'euro.
     '8': Aquest capítol recull la despesa que realitzen les entitats locals i els
       seus organismes autònoms en l'adquisició d'actius financers (adquisició de títols
-      valors, concessió de préstecs ...) tant de l'interior com de l'exterior, sigui
+      valors, concessió de préstecs...) tant de l'interior com de l'exterior, sigui
       quina sigui la forma d'instrumentació, amb venciment a curt, mitjà i llarg termini,
       incloent les bestretes de pagues i altres préstecs al personal, consignant igualment
       en aquest capítol la constitució de dipòsits i fiances que els siguin exigides
@@ -746,7 +746,7 @@ economic:
       termini de venciment superior a 12 mesos.
     '81': Adquisició d'obligacions i bons, a curt (de venciment no superior a un any)
       i a llarg termini (de venciment superior a un any), documentada en títols-valors
-      i els emissors dels són agents aliens al sector públic.
+      i els emissors dels quals són agents aliens al sector públic.
     '810': Compra d'efectes, bons i altres títols emesos per entitats alienes al sector
       públic, amb un venciment no superior a 12 mesos.
     '811': Adquisició d'obligacions i bons fora del sector públic a llarg termini.
@@ -755,9 +755,9 @@ economic:
     '82': Préstecs i bestretes amb o sense interès, amb termini de reemborsament a
       curt (no superior a un any) i a llarg termini (superior a un any) concedits
       al sector públic.
-    '820': Bestretes i préstecs amb o sense, el termini de reemborsament i cancel·lació
+    '820': Bestretes i préstecs amb o sense, quan el termini de reemborsament i cancel·lació
       no sigui superior a 12 mesos.
-    '821': Bestretes i préstecs amb o sense, el termini de reemborsament i cancel·lació
+    '821': Bestretes i préstecs amb o sense, quan el termini de reemborsament i cancel·lació
       sigui superior a 12 mesos.
     '83': Préstecs concedits fora del sector públic amb o sense interès amb termini
       de reemborsament a curt (no superior a un any) i a llarg termini (superior a
@@ -781,10 +781,10 @@ economic:
       d''una obligació. S''estableixen dos subconceptes atenent el termini pel qual
       es constitueixin les fiances: a llarg termini, quan ho siguin per un termini
       superior a un any, i a curt termini, en cas contrari.'
-    '85': Es recollir la compra de títols representatius de la propietat del capital.
+    '85': S'hi recull la compra de títols representatius de la propietat del capital.
     '850': Despeses corresponents a adquisicions d'accions i participacions en ens
       pertanyents al sector públic.
-    '86': Es recollir la compra de títols representatius de la propietat de capital.
+    '86': S'hi recull la compra de títols representatius de la propietat de capital.
     '860': Despeses corresponents a adquisicions d'accions i participacions d'ens
       no pertanyents al sector públic.
     '87': Aportacions d'aquesta naturalesa realitzades per les entitats locals o els
@@ -793,26 +793,26 @@ economic:
       de les aportacions. En un altre cas, hauran de considerar-se com transferències
       de capital.
     '9': Recull la despesa que realitzen les entitats locals i els seus organismes
-      autònoms destinat a l'amortització de passius financers (préstecs i crèdits).
-      Així mateix, aquest capítol és el destinat per recollir les previsions per a
+      autònoms destinada a l'amortització de passius financers (préstecs i crèdits).
+      Així mateix, aquest capítol és el destinat per a recollir les previsions per a
       la devolució dels dipòsits i fiances que s'hagin constituït a favor de l'entitat
       local.
     '90': Cancel·lació de tot tipus de deute en euros, a curt (amb termini de venciment
-      no superior a un any) ia llarg termini (amb venciment superior a un any), documentada
+      no superior a un any) i a llarg termini (amb venciment superior a un any), documentada
       en títols valors, anotacions en compte o qualsevol altre document que formalment
       el reconegui , exclosos els préstecs.
-    '900': Cancel·lació del deute abans esmentada el termini de venciment i extinció
+    '900': Cancel·lació del deute abans esmentat quan el termini de venciment i extinció
       no sigui superior a 12 mesos.
-    '901': Cancel·lació del deute esmentat a l'article el termini de venciment i extinció
+    '901': Cancel·lació del deute esmentat a l'article quan el termini de venciment i extinció
       sigui superior a 12 mesos.
     '91': Cancel·lació de préstecs i operacions anàlogues en euros concertats o assumits
       per les entitats locals i els seus organismes autònoms.
-    '910': Cancel·lació de les operacions abans esmentades el termini de venciment
+    '910': Cancel·lació de les operacions abans esmentades quan el termini de venciment
       no sigui superior a 12 mesos.
     '911': Cancel·lació de les operacions esmentades a l'article quan el termini de
       venciment sigui superior a 12 mesos.
     '912': Cancel·lació de préstecs en euros concertats o assumits per les entitats
-      locals i els seus organismes autònoms obtinguts fora del sector públic, el termini
+      locals i els seus organismes autònoms obtinguts fora del sector públic, quan el termini
       de venciment no sigui superior a 12 mesos.
     '913': Cancel·lació de deutes esmentats en el concepte 912 quan el termini de
       venciment sigui superior a 12 mesos.
@@ -829,10 +829,10 @@ economic:
       venciment no superior a un any) i a llarg termini (amb venciment superior a
       un any).
     '930': Cancel·lació de préstecs en moneda diferent de l'euro concertats o assumits
-      per les entitats locals i els seus organismes autònoms el termini de venciment
+      per les entitats locals i els seus organismes autònoms quan el termini de venciment
       no sigui superior a 12 mesos.
     '931': Cancel·lació de préstecs en moneda diferent de l'euro concertats o assumits
-      per les entitats locals o els seus organismes autònoms el termini de venciment
+      per les entitats locals o els seus organismes autònoms quan el termini de venciment
       sigui superior a 12 mesos.
     '94': Operacions de devolució de dipòsits constituïts o de fiances ingressades
       en la tresoreria de l'entitat local o dels seus organismes autònoms.
@@ -842,7 +842,7 @@ functional:
       constitueixen el règim de previsió; pensions de funcionaris, atencions de caràcter
       benèfic-assistencial; atencions a grups amb necessitats especials, com joves,
       gent gran, minusvàlids físics i tercera edat; mesures de foment de l'ocupació.
-    '3': Aquesta àrea o grup totes les despeses que realitzi l'entitat local en relació
+    '3': Corresponen a aquesta àrea o grup totes les despeses que realitzi l'entitat local en relació
       amb la sanitat, educació, cultura, amb l'oci i el temps lliure, esport, i, en
       general, tots aquells tendents a l'elevació o millora de la qualitat de vida.
     '4': S'integren en aquesta àrea les despeses d'activitats, serveis i transferències
@@ -856,118 +856,117 @@ functional:
       amb caràcter general, a l'entitat local, i que consisteixin en l'exercici de
       funcions de govern o de suport administratiu i de suport lògic i tècnic a tota
       l'organització. Recollir les despeses generals de l'entitat, que no puguin ser
-      imputats ni aplicats directament a una altra àrea de les previstes en aquesta
+      imputades ni aplicades directament a una altra àrea de les previstes en aquesta
       classificació per programes. S'han d'incloure en aquesta àrea les transferències
       de caràcter general que no puguin ser aplicades a cap altre epígraf d'aquesta
       classificació per programes, ja que en cas contrari s'han d'imputar en la política
       de despesa específica que correspongui.
     '0': Comprèn les despeses d'interessos i amortització del deute i altres operacions
       financeres de naturalesa anàloga, amb exclusió de les despeses que ocasioni
-      la formalització dels mateixos.
+      la formalització d'aquests.
     '01': Comprèn les despeses d'interessos i amortització del deute i altres operacions
       financeres de naturalesa anàloga, amb exclusió de les despeses que ocasioni
-      la formalització dels mateixos.
+      la formalització d'aquests.
     '011': Comprèn les despeses d'interessos i amortització del deute i altres operacions
       financeres de naturalesa anàloga, amb exclusió de les despeses que ocasioni
-      la formalització dels mateixos.
-    '1': 'Aquesta àrea totes les despeses originades pels serveis públics bàsics que,
+      la formalització d'aquests.
+    '1': 'Corresponen a aquesta àrea totes les despeses originades pels serveis públics bàsics que,
       amb caràcter obligatori, han de prestar els municipis, per si o associats, d''acord
       amb l''article 26.1 de la Llei 7/1985, de 2 d''abril, reguladora de les Bases
       del règim local, o, si escau, les províncies d''acord amb l''article 31.2 de
       la mateixa Llei, atenent la seva funció de cooperació i assistència als municipis.
-      A aquests efectes, s''inclouen, en els termes que s''exposen per a cadascuna
-      d''elles, quatre polítiques de despesa bàsiques: seguretat i mobilitat ciutadana,
+      A aquests efectes, s''inclouen, en els termes que s''exposen per a cadascunes,
+      quatre polítiques de despesa bàsiques: seguretat i mobilitat ciutadana,
       habitatge i urbanisme, benestar comunitari i medi ambient.'
     '13': Comprèn totes les despeses dels serveis relacionats amb la seguretat i mobilitat
       ciutadana i aquells que hagi de realitzar l'entitat local per col·laborar amb
-      l'Administració General de l'Estat o de la comunitat autònoma en suport dels
+      l'administració general de l'Estat o de la comunitat autònoma en suport dels
       serveis de protecció i defensa civil, actuacions en cas de calamitats o catàstrofes,
       prevenció i extinció d'incendis i accions en general destinades a la protecció
       dels béns de l'entitat local o dels particulars, així com les que facin referència
       a l'ordenació del trànsit i de l'estacionament de vehicles. Es tipifiquen cinc
       grups de programes, es distingeixen els que tenen per finalitat la cobertura
       de despeses generals d'administració associades directament als serveis de seguretat
-      ciutadana i protecció civil. A aquests efectes, s'entén per Administració General
+      ciutadana i protecció civil. A aquests efectes, s'entén per administració general
       les activitats dirigides a la planificació, coordinació, control, organització,
       gestió administrativa i desenvolupament de funcions de suport dels diferents
       centres directius que integren la política de despesa.
-    '130': Comprèn les despeses en les àrees d'Administració General de la Seguretat
-      i Protecció Civil
-    '132': Comprèn les despeses en les àrees de Seguretat i Ordre Públic
-    '133': Comprèn les despeses en les àrees d'Ordenació del trànsit i de l'estacionament
-    '134': Comprèn les despeses destinades a Protecció civil del municipi
-    '135': Inclou totes les despeses destinats al Servei d'extinció d'incendis dins
-      el municipi
-    '136': Inclou totes les despeses destinats al Servei de prevenció i extinció d'incendis
-      del municipi
+    '130': Comprèn les despeses en les àrees d'administració general de la Seguretat
+      i Protecció Civil.
+    '132': Comprèn les despeses en les àrees de Seguretat i Ordre Públic.
+    '133': Comprèn les despeses en les àrees d'Ordenació del trànsit i de l'estacionament.
+    '134': Comprèn les despeses destinades a Protecció civil del municipi.
+    '135': Inclou totes les despeses destinades al Servei d'extinció d'incendis dins
+      el municipi.
+    '136': Inclou totes les despeses destinades al Servei de prevenció i extinció d'incendis
+      del municipi.
     '15': |-
       S'inclouen totes les despeses dels serveis relacionats amb l'habitatge i l'urbanisme, així com dels complementaris d'aquests.
-       Així, doncs, s'imputaran a ella les despeses referents a la construcció, millora i conservació d'habitatges i albergs, inclosa l'adquisició de terrenys; els derivats del planejament i règim urbanístic del sòl; vials urbans i altres de naturalesa anàloga.
+       Així, doncs, s'hi imputaran les despeses referents a la construcció, millora i conservació d'habitatges i albergs, inclosa l'adquisició de terrenys; els derivats del planejament i règim urbanístic del sòl; vials urbans i altres de naturalesa anàloga.
        S'imputen a aquesta política de despesa les duts a terme en concepte d'ajudes que possibiliten l'accés a l'habitatge en qualsevol règim, en accions pròpies o en col·laboració amb altres administracions públiques. També s'inclouen les despeses derivades de foment de la promoció pública d'habitatges.
-       Es tipifiquen quatre grups de programes es distingeixen els que tenen per finalitat la cobertura de despeses generals d'administració associades directament al desenvolupament de la política de l'habitatge i de l'urbanisme
-    '150': Aquesta partida inclou les despeses en l'Administració General d'Habitatge
-      i urbanisme
-    '151': S'inclouen les despeses en urbanisme
+       Es tipifiquen quatre grups de programes es distingeixen els que tenen per finalitat la cobertura de despeses generals d'administració associades directament al desenvolupament de la política de l'habitatge i de l'urbanisme.
+    '150': Aquesta partida inclou les despeses en l'administració general d'habitatge i urbanisme.
+    '151': S'inclouen les despeses en urbanisme.
     '152': Dins el grup de programes d'Habitatge es tipifiquen dos programes, relatius
       a la Promoció i gestió d'habitatge de protecció pública i als Conservació i
       rehabilitació de l'edificació.
-    '1521': Promoció i gestió d'habitatge de protecció pública
-    '1522': Conservació i rehabilitació de l'edificació
+    '1521': Promoció i gestió d'habitatge de protecció pública.
+    '1522': Conservació i rehabilitació de l'edificació.
     '153': Dins el grup de programes de vies públiques es tipifiquen dos programes,
       relatius a l'accés als nuclis de població i a la pavimentació de les vies públiques.
-    '1531': Accés als nuclis de població
-    '1532': Pavimentació de vies públiques
-    '154': Foment de l'edificació protegida
-    '155': vies públiques
+    '1531': Accés als nuclis de població.
+    '1532': Pavimentació de vies públiques.
+    '154': Foment de l'edificació protegida.
+    '155': vies públiques.
     '16': |-
       Comprèn totes les despeses relatives a actuacions i serveis la finalitat és la millora de la qualitat de vida en general.
        S'imputaran a ella els derivats de la construcció, manteniment, conservació i funcionament dels serveis de clavegueram, proveïment domiciliari d'aigua potable; recollida, eliminació o tractament d'escombraries; neteja viària; cementiris i serveis funeraris; i altres serveis de benestar comunitari.
-    '160': clavegueram
-    '161': Sanejament, proveïment i distribució d'aigües
+    '160': clavegueram.
+    '161': Sanejament, proveïment i distribució d'aigües.
     '162': Dins el grup de programes Recollida, gestió i tractament de residus es
       tipifiquen tres programes, relatius a recollida de residus, gestió de residus
       sòlids urbans i tractament de residus.
-    '1621': Recollida de residus
-    '1622': Gestió de residus sòlids urbans
-    '1623': Tractament de residus
-    '163': neteja viària
-    '164': Cementiris i serveis funeraris
-    '165': enllumenat públic
-    '169': Altres serveis de benestar comunitari
-    '17': S'inclouran en aquesta política de despesa inclou totes les despeses relatives
+    '1621': Recollida de residus.
+    '1622': Gestió de residus sòlids urbans.
+    '1623': Tractament de residus.
+    '163': neteja viària.
+    '164': Cementiris i serveis funeraris.
+    '165': enllumenat públic.
+    '169': Altres serveis de benestar comunitari.
+    '17': S'inclouran en aquesta política de despesa totes les despeses relatives
       a la protecció i millora del medi ambient així com les d'inversió i funcionament
       dels serveis de protecció del medi natural; repoblació forestal, realitzada
       per la mateixa entitat o en consorci amb altres administracions públiques; defensa
       contra incendis forestals, delimitació i fitació o lluita contra la desertització;
       manteniment de platges i altres de naturalesa anàloga.
-    '170': Administració general del medi ambient
-    '171': Parcs i jardins
-    '172': Protecció i millora del medi ambient
+    '170': Administració general del medi ambient.
+    '171': Parcs i jardins.
+    '172': Protecció i millora del medi ambient.
     '1721': Protecció contra la contaminació acústica, lumínica i atmosfèrica a les
-      zones urbanes
-    '179': Altres actuacions relacionades amb el medi ambient
+      zones urbanes.
+    '179': Altres actuacions relacionades amb el medi ambient.
     '21': Pensions graciables, millores de pensions i pensions extraordinàries a càrrec
       de l'entitat local de funcionaris i personal laboral o els seus drethavents
       i altres despeses de naturalesa similar.
-    '211': pensions
+    '211': Pensions.
     '22': Comprèn totes les despeses d'aquest tipus, així com els derivats de l'acció
       social a favor dels empleats, excepte les quotes a càrrec de l'ocupador de mutualitats
       i Seguretat Social.
-    '221': Altres prestacions econòmiques a favor d'empleats
+    '221': Altres prestacions econòmiques a favor d'empleats.
     '23': |-
-      Es imputar a aquesta política de despesa els duts a terme per l'entitat local per a desenvolupar l'assistència social primària: la promoció de la igualtat de gènere, promoció i reinserció social de marginats, així com per a la gestió dels serveis socials; prestació de serveis a persones dependents i d'assistència social, residències de gent gran i altres de naturalesa anàloga; l'avaluació i informació de situacions de necessitat social i l'atenció immediata a persones en situació o risc d'exclusió social. També s'inclouran les transferències finalistes a entitats i famílies que col·laborin en la consecució d'aquests fins.
-       S'inclouran les despeses corresponents a l'Administració general, que correspondran a les activitats dirigides a la planificació, coordinació, control, organització, gestió administrativa i desenvolupament de funcions de suport dels diferents centres directius que integren la política de despesa.
-    '230': Administració General de serveis socials
+      S'imputen a aquesta política de despesa els duts a terme per l'entitat local per a desenvolupar l'assistència social primària: la promoció de la igualtat de gènere, promoció i reinserció social de marginats, així com per a la gestió dels serveis socials; prestació de serveis a persones dependents i d'assistència social, residències de gent gran i altres de naturalesa anàloga; l'avaluació i informació de situacions de necessitat social i l'atenció immediata a persones en situació o risc d'exclusió social. També s'inclouran les transferències finalistes a entitats i famílies que col·laborin en la consecució d'aquests fins.
+       S'inclouran les despeses corresponents a l'administració general, que correspondran a les activitats dirigides a la planificació, coordinació, control, organització, gestió administrativa i desenvolupament de funcions de suport dels diferents centres directius que integren la política de despesa.
+    '230': Administració general de serveis socials
     '231': acció social
     '232': promoció social
     '233': Assistència a persones dependents
-    '24': S'imputen a aquesta política de despesa aquells que tenen per objecte el
+    '24': S'imputen a aquesta política de despesa aquelles que tenen per objecte el
       foment i promoció de l'ocupació en accions pròpies o en col·laboració amb altres
-      administracions públiques.
-    '241': Foment de l'Ocupació
+      administracions públiques
+    '241': Foment de l'ocupació.
     '31': En aquesta política de despesa s'inclouen les despeses que tenen per objecte
       la prevenció i curació de malalties, així com el manteniment d'un estat d'immunitat
-      sanitari en la població. Queden compreses les despeses destinades a la creació,
+      sanitària en la població. Queden compreses les despeses destinades a la creació,
       construcció, equipament i funcionament d'hospitals, clíniques i sanatoris de
       qualsevol naturalesa, cases de socors, dispensaris, farmacioles d'urgència,
       balnearis, laboratoris d'anàlisi, així com els seus serveis complementaris,
@@ -975,46 +974,46 @@ functional:
       de medicaments i productes sanitaris; higiene pública; laboratoris d'anàlisis
       agroalimentaris; actuacions de seguretat alimentària; campanyes de desinfecció,
       desinsectació o desratització, i altres de naturalesa anàloga.
-    '311': Protecció de la salubritat pública
-    '312': Hospitals, serveis assistencials i centres de salut
-    '313': Accions públiques relatives a la salut
+    '311': Protecció de la salubritat pública.
+    '312': Hospitals, serveis assistencials i centres de salut.
+    '313': Accions públiques relatives a la salut.
     '32': |-
       Aquesta política de despesa inclou totes les despeses derivades de la creació, conservació i funcionament de centres i institucions d'ensenyaments de tot tipus i els seus serveis complementaris, així com les transferències a altres ens o famílies per a ajuda i foment de la mateixa.
-       Les despeses incloses en el grup de programes d'Administració General correspondran a activitats dirigides a la planificació, coordinació, control, organització, gestió administrativa i desenvolupament de funcions de suport dels diferents centres directius que integren la política de despesa.
-       Així, s'han d'imputar a aquesta política de despesa les despeses de construcció, dotació i funcionament de centres d'ensenyament, distribuint-se de acord amb els diferents nivells educatius a què es refereixen. També s'inclouran les despeses de centres beneficoassistencials quan en ells predomini el caràcter educatiu.
+       Les despeses incloses en el grup de programes d'administració general correspondran a activitats dirigides a la planificació, coordinació, control, organització, gestió administrativa i desenvolupament de funcions de suport dels diferents centres directius que integren la política de despesa.
+       Així, s'han d'imputar a aquesta política de despesa les despeses de construcció, dotació i funcionament de centres d'ensenyament, distribuint-se d'acord amb els diferents nivells educatius a què es refereixen. També s'inclouran les despeses de centres beneficoassistencials quan en ells predomini el caràcter educatiu.
        Les despeses en concepte de transport escolar, beques, ajudes, es consideren serveis complementaris d'educació.
        Així mateix, s'inclouen les despeses que tinguin per objecte la millora del nivell educatiu dels ciutadans.
-    '320': Administració general d'educació
-    '321': Ensenyament preescolar i primària
-    '322': ensenyament secundari
-    '323': promoció educativa
-    '324': Serveis complementaris d'educació
-    '325': Vigilància del compliment de l'escolaritat obligatòria
-    '326': Serveis complementaris d'educació
-    '327': Foment de la convivència ciutadana
+    '320': Administració general d'educació.
+    '321': Ensenyament preescolar i primària.
+    '322': ensenyament secundari.
+    '323': promoció educativa.
+    '324': Serveis complementaris d'educació.
+    '325': Vigilància del compliment de l'escolaritat obligatòria.
+    '326': Serveis complementaris d'educació.
+    '327': Foment de la convivència ciutadana.
     '33': |-
       Aquesta política de despesa inclou les originades pels serveis a què es refereix la seva denominació, fins i tot els de caràcter recreatiu.
-       Les despeses incloses en el grup de programes d'Administració General correspondran a activitats dirigides a la planificació, coordinació, control, organització, gestió administrativa i desenvolupament de funcions de suport dels diferents centres directius que integren la política de despesa.
+       Les despeses incloses en el grup de programes d'administració general correspondran a activitats dirigides a la planificació, coordinació, control, organització, gestió administrativa i desenvolupament de funcions de suport dels diferents centres directius que integren la política de despesa.
        S'inclouen les despeses de creació, conservació i funcionament dels edificis destinats a biblioteques, museus, arxius, cases de la cultura, activitats culturals, d'esplai i temps lliure com llars del jubilat o cases de la joventut; sales d'exposicions, palaus de congressos, parcs zoològics, bandes de música i agrupacions musicals, festes locals de caràcter popular, activitats recreatives en platges, actuacions amb vista a la conservació, promoció i gestió del patrimoni històric-artístic i altres despeses recreatius i culturals ; comunicació, autorització, inspecció i sanció dels espectacles públics; així com les transferències a entitats o famílies que col·laborin en el foment d'aquestes activitats.
-    '330': Administració general de Cultura
-    '332': Biblioteques i Arxius
-    '3321': Biblioteques Públiques
-    '3322': arxius
-    '333': Museus i Arts Plàstiques
-    '334': promoció cultural
-    '335': Arts escèniques
-    '336': Arqueologia i protecció del patrimoni historicoartístic
-    '337': Oci i temps lliure
-    '338': Festes populars i celebracions
+    '330': Administració general de Cultura.
+    '332': Biblioteques i Arxius.
+    '3321': Biblioteques Públiques.
+    '3322': Arxius.
+    '333': Museus i Arts Plàstiques.
+    '334': promoció cultural.
+    '335': Arts escèniques.
+    '336': Arqueologia i protecció del patrimoni historicoartístic.
+    '337': Oci i temps lliure.
+    '338': Festes populars i celebracions.
     '34': |-
       Aquesta política de despesa inclou les originades pels serveis a què es refereix la seva denominació, com ara promoció i difusió esportiva, despeses de creació, conservació i funcionament dels edificis destinats a piscines, instal·lacions esportives de tot tipus o qualsevol altra actuació directament relacionada amb l'esport o la política esportiva de la respectiva entitat local.
-       Les despeses incloses en el grup de programes d'Administració General correspondran a activitats dirigides a la planificació, coordinació, control, organització, gestió administrativa i desenvolupament de funcions de suport dels diferents centres directius que integren la política de despesa.
-    '340': Administració General d'Esports
-    '341': Promoció i foment de l'esport
-    '342': instal·lacions esportives
+       Les despeses incloses en el grup de programes d'administració general correspondran a activitats dirigides a la planificació, coordinació, control, organització, gestió administrativa i desenvolupament de funcions de suport dels diferents centres directius que integren la política de despesa.
+    '340': Administració General d'Esports.
+    '341': Promoció i foment de l'esport.
+    '342': Instal·lacions esportives.
     '41': |-
       Comprèn les despeses de tota índole destinats a la millora, foment i ordenació de les activitats agrícoles, ramaderes i piscícoles.
-       Les despeses incloses en el grup de programes d'Administració General correspondran a activitats dirigides a la planificació, coordinació, control, organització, gestió administrativa i desenvolupament de funcions de suport dels diferents centres directius que integren la política de despesa.
+       Les despeses incloses en el grup de programes d'administració general correspondran a activitats dirigides a la planificació, coordinació, control, organització, gestió administrativa i desenvolupament de funcions de suport dels diferents centres directius que integren la política de despesa.
        S'imputaran les despeses relatives a plans d'ordenació del sector; colonització i concentració parcel·lària; foment del moviment cooperatiu i promoció de l'associacionisme; foment de la industrialització agroalimentària; formació de joves empresaris; centres d'extensió agrària i altres de la mateixa naturalesa.
        S'inclouran, a més, les despeses relacionades amb el control i eradicació de plagues; millora i selecció de llavors i de bestiars, centres de biotecnologia; explotacions experimentals agrícoles i altres de naturalesa similar.
        Així mateix comprèn les despeses relacionades amb la creació, millora i manteniment d'infraestructures bàsiques en activitats agrícoles, ramaderes, piscícoles o cinegètiques; regadius; modificació i millora de les estructures; conservació i sanejament de sòls i altres de naturalesa similar.
@@ -1027,7 +1026,7 @@ functional:
     '42': |-
       Comprèn les despeses de tot tipus destinats a la promoció, suport i desenvolupament de la indústria en l'àmbit d'acció de l'entitat local.
        Les despeses incloses en el grup de programes d'administració general corresponen a activitats dirigides a la planificació, coordinació, control, organització, gestió administrativa i desenvolupament de funcions de suport dels diferents centres directius que integren la política de despesa.
-       Es imputar a aquesta política de despesa les ocasionades amb motiu d'inversió en capital d'empreses; foment de l'acció empresarial; ajudes per a la reconversió i reindustrialització; foment de l'associacionisme d'empreses industrials, i tot tipus de transferències amb destinació a aquests fins i d'incentius a la localització industrial.
+       S'imputen a aquesta política de despesa les ocasionades amb motiu d'inversió en capital d'empreses; foment de l'acció empresarial; ajudes per a la reconversió i reindustrialització; foment de l'associacionisme d'empreses industrials, i tot tipus de transferències amb destinació a aquests fins i d'incentius a la localització industrial.
        S'inclouran, a més, les despeses relacionades amb el suport a la mineria, investigació, preparació, comercialització i altres activitats de la producció minera.
        Així mateix comprèn les despeses relacionades amb la producció, transmissió i distribució d'energia, especialment de gas i electricitat. També s'han d'imputar a aquesta política de despesa les transferències a altres agents per tal específic propi de les activitats que es contemplen en la mateixa.
     '420': Administració General d'Indústria i energia
@@ -1036,8 +1035,8 @@ functional:
     '425': energia
     '43': |-
       S'inclouran les despeses de qualsevol naturalesa dels serveis de l'Entitat relacionats amb el comerç o l'activitat comercial.
-       Les despeses incloses en el grup de programes d'Administració General correspondran a activitats dirigides a la planificació, coordinació, control, organització, gestió administrativa i desenvolupament de funcions de suport dels diferents centres directius que integren la política de despesa.
-       Comprendrà, les despeses corresponents a mercats centrals o de minoristes, llotges i a qualssevol altres instal·lacions similars; actuacions en defensa de la competència; control de pesos i mesures i altres de naturalesa anàloga; inspecció i sanció d'establiments.
+       Les despeses incloses en el grup de programes d'administració general correspondran a activitats dirigides a la planificació, coordinació, control, organització, gestió administrativa i desenvolupament de funcions de suport dels diferents centres directius que integren la política de despesa.
+       Comprendrà, les despeses corresponents a mercats centrals o de minoristes, llotges i a qualsevol altres instal·lacions similars; actuacions en defensa de la competència; control de pesos i mesures i altres de naturalesa anàloga; inspecció i sanció d'establiments.
        S'inclouran també les despeses de qualsevol naturalesa associades al desenvolupament i foment del turisme.
        S'imputaran les despeses de construcció, millora, conservació i funcionament d'establiments hotelers, càmpings, oficines de turisme, edició de fullets, cartells i llibres i campanyes publicitàries. Es recullen també les transferències que es concedeixen a altres entitats públiques o privades, amb destinació al compliment d'aquests fins.
        Finalment, s'inclouran en aquesta política de despesa els destinats al desenvolupament de les petites i mitjanes empreses.
@@ -1051,7 +1050,7 @@ functional:
     '439': Altres actuacions sectorials
     '44': |-
       S'inclouran les despeses a càrrec de les entitats locals destinats al manteniment, desenvolupament i finançament del servei de transport públic.
-       Les despeses incloses en el grup de programes d'Administració General correspondran a activitats dirigides a la planificació, coordinació, control, organització, gestió administrativa i desenvolupament de funcions de suport dels diferents centres directius que integren la política de despesa.
+       Les despeses incloses en el grup de programes d'administració general correspondran a activitats dirigides a la planificació, coordinació, control, organització, gestió administrativa i desenvolupament de funcions de suport dels diferents centres directius que integren la política de despesa.
        S'han d'aplicar a aquesta política de despeses totes les d'inversió destinats a l'adquisició de mitjans de transport; i a la creació, millora i manteniment d'infraestructures, com estacions d'autobusos, ports, aeroports i altres de naturalesa anàloga.
     '440': Administració general del transport
     '441': Promoció, manteniment i desenvolupament del transport
@@ -1061,7 +1060,7 @@ functional:
     '443': Transport de mercaderies
     '45': |-
       Comprèn les despeses de tota índole tendents a la creació, millora i manteniment de les infraestructures bàsiques no incloses en polítiques de despesa anteriors.
-       Les despeses incloses en el grup de programes d'Administració General correspondran a activitats dirigides a la planificació, coordinació, control, organització, gestió administrativa i desenvolupament de funcions de suport dels diferents centres directius que integren la política de despesa.
+       Les despeses incloses en el grup de programes d'administració general correspondran a activitats dirigides a la planificació, coordinació, control, organització, gestió administrativa i desenvolupament de funcions de suport dels diferents centres directius que integren la política de despesa.
        S'han d'aplicar a aquesta política de despesa totes les d'inversió destinats a la construcció i millora de carreteres i camins veïnals a càrrec de l'entitat local i altres despeses complementàries dels anteriors, com ponts, viaductes, senyalització o abalisament, així com despeses relatives a estudis i serveis d'assistència tècnica que resultin necessaris. Pel que fa a recursos hidràulics s'inclouran despeses en obres de captació, acumulació i canalització fins a l'inici de la xarxa de distribució urbana i altres de similar naturalesa.
     '450': Administració general d'Infraestructures
     '452': recursos Hidràulics
@@ -1070,7 +1069,7 @@ functional:
     '459': altres infraestructures
     '46': |-
       Comprèn les despeses d'administració, infraestructures, funcionament i suport destinats a la investigació bàsica i aplicada, fins i tot les transferències a altres agents amb aquesta finalitat.
-       Es imputar a aquesta política de despesa les relatives a activitats dirigides al foment dels coneixements científics purs i aquells amb objectius pràctics, específics o concrets i que no es puguin aplicar a cap altra política de despesa.
+       S'imputen a aquesta política de despesa les relatives a activitats dirigides al foment dels coneixements científics purs i aquells amb objectius pràctics, específics o concrets i que no es puguin aplicar a cap altra política de despesa.
     '462': Recerca i estudis relacionats amb els serveis públics
     '463': Investigació científica, tècnica i aplicada
     '49': Comprèn les despeses de gestió, funcionament, suport, subministrament i
@@ -1079,28 +1078,28 @@ functional:
       producció i difusió de programes audiovisuals, administració electrònica, oficines
       d'atenció i defensa al consumidor; així com les transferències a altres agents
       per al compliment d'aquests fins.
-    '491': Societat de la informació
-    '492': Gestió del coneixement
-    '493': Oficines de defensa al consumidor
+    '491': Societat de la informació.
+    '492': Gestió del coneixement.
+    '493': Oficines de defensa al consumidor.
     '91': Comprèn les despeses relatives a la constitució i funcionament dels òrgans
       de govern de l'entitat local i de representació dels mateixos. S'inclouran,
       per tant, les assignacions i indemnitzacions del president i membres de la corporació;
       secretaries particulars de la presidència; dietes i despeses de viatge i altres
       de naturalesa anàloga. També s'han d'imputar a aquesta política de despesa les
-      de material i els necessaris per a l'atenció dels òrgans de govern.
-    '912': Òrgans de govern
+      de material i les necessaries per a l'atenció dels òrgans de govern.
+    '912': Òrgans de govern.
     '92': |-
       Comprèn les despeses d'aquells serveis que serveixen o donen suport a tots els altres de l'entitat local.
        S'imputaran, per tant, a aquesta política de despesa les d'oficina i dependències generals; informació, publicacions, registre i relacions; desenvolupaments i suports informàtics de caràcter intern; coordinació i control general: arxiu, organització i mètodes, racionalització i mecanització; administració de personal; eleccions; atenció i participació ciutadana, parc mòbil, amb exclusió dels vehicles afectats a serveis determinats que s'imputaran a la corresponent rúbrica i despeses d'assessorament i defensa dels interessos de l'entitat.
-       Aquesta política de despesa integrarà els derivats d'activitats relacionades amb l'elaboració d'informació bàsica de caràcter general i sèries estadístiques sobre els diferents serveis de l'entitat local.
+       Aquesta política de despesa integrarà les derivades d'activitats relacionades amb l'elaboració d'informació bàsica de caràcter general i sèries estadístiques sobre els diferents serveis de l'entitat local.
        S'imputaran, així mateix, les despeses referents a gabinets d'estudi i informació i documentació de caràcter general.
-    '920': Administració General
-    '922': Coordinació i organització institucional de les entitats locals
-    '923': Informació bàsica i estadística
+    '920': Administració general.
+    '922': Coordinació i organització institucional de les entitats locals.
+    '923': Informació bàsica i estadística.
     '9231': En compliment del que disposa l'article 31 de la Llei Orgànica 2/2012,
       de 27 d'abril, d'Estabilitat Pressupostària i Sostenibilitat Financera, les
       entitats locals incloses en l'àmbit subjectiu dels articles 111 i 135 del text
-      refós de la Llei reguladora de les Hisendes Locals, aprovat per Reial Decret
+      refós de la Llei reguladora de les hisendes locals, aprovat per Reial Decret
       Legislatiu 2/2004, de 5 de març, han d'incloure dins el grup de programes 929
       «Imprevistos, situacions transitòries i contingències d'execució» una dotació
       diferenciada de crèdits pressupostaris en concepte de Fons de Contingència d'execució
@@ -1109,26 +1108,26 @@ functional:
       Les entitats locals no incloses en aquell àmbit subjectiu d'aplicar aquest mateix
       criteri en el cas que aprovin la dotació d'un Fons de contingència amb la mateixa
       finalitat esmentada.
-    '924': participació ciutadana
-    '925': Atenció als ciutadans
-    '926': comunicacions internes
-    '929': Imprevistos i funcions no classificades
+    '924': participació ciutadana.
+    '925': Atenció als ciutadans.
+    '926': comunicacions internes.
+    '929': Imprevistos i funcions no classificades.
     '93': |-
       Aquesta política de despesa inclou totes les despeses corresponents a l'administració financera de l'entitat local.
        S'imputaran les despeses generals dels serveis d'economia i hisenda; planificació i pressupostos i fiscalitat; control intern i comptabilitat i comptes generals; gestió de la tresoreria; gestió del patrimoni, comptabilitat patrimonial i rendició de comptes; gestió, inspecció i recaptació de tributs, formació i actualització de padrons fiscals; òrgans de resolució de reclamacions economicoadministratives i de defensa al contribuent i altres despeses relacionades amb l'activitat econòmica i financera de l'entitat.
        Així mateix s'inclouen les despeses referents a la construcció, millora i conservació, inclosa l'adquisició de terrenys, d'edificis oficials d'ús múltiple.
-    '931': Política econòmica i fiscal
-    '932': Gestió del sistema tributari
-    '933': Gestió del patrimoni
-    '934': Gestió del deute i de la tresoreria
+    '931': Política econòmica i fiscal.
+    '932': Gestió del sistema tributari.
+    '933': Gestió del patrimoni.
+    '934': Gestió del deute i de la tresoreria.
     '94': |-
-      Es imputar a aquesta política de despesa les transferències genèriques que ordeni l'entitat local cap a l'Estat o la Comunitat Autònoma o a favor d'altres ens locals, com són les participacions en ingressos, quotes de mancomunitats o consorcis i qualssevol altres de naturalesa similar. Es distingeixen, a aquests efectes les entitats locals territorials (article 3.1 de la Llei 7/1985, de 2 d'abril, de la Llei reguladora de les Bases del Règim Local) i la resta d'entitats locals.
+      S'imputaen a aquesta política de despesa les transferències genèriques que ordeni l'entitat local cap a l'Estat o la Comunitat Autònoma o a favor d'altres ens locals, com són les participacions en ingressos, quotes de mancomunitats o consorcis i qualsevol altres de naturalesa similar. Es distingeixen, a aquests efectes les entitats locals territorials (article 3.1 de la Llei 7/1985, de 2 d'abril, de la Llei reguladora de les Bases del Règim Local) i la resta d'entitats locals.
        Es tipifiquen quatre grups de programes en raó de l'agent receptor de la mateixa.
     '941': En aquesta partida s'inclouen les despeses en transferències a Comunitats
-      Autònomes
+      Autònomes.
     '942': En aquesta partida s'inclouen les despeses en transferències a entitats
-      locals territorials
+      locals territorials.
     '943': En aquesta partida s'inclouen les despeses en transferències a altres entitats
-      locals
-    '944': En aquesta partida s'inclouen les despeses en transferències a l'Administració
-      General de l'Estat
+      locals.
+    '944': En aquesta partida s'inclouen les despeses en transferències a l'administració
+      general de l'estat.

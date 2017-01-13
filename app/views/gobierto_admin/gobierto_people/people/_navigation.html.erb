@@ -1,0 +1,16 @@
+<div class="tabs">
+  <ul>
+    <li class="<%= class_if("active", controller_name == "people") %>">
+      <%= link_to t(".person"), edit_admin_people_person_path(@person) %>
+    </li>
+    <li class="<%= class_if("active", controller_name.include?("person_events")) %>">
+      <%= link_to t(".agenda"), admin_people_person_events_path(@person) %>
+    </li>
+    <li class="<%= class_if("active", controller_name == "person_statements") %>">
+      <%= link_to t(".statements"), admin_people_person_statements_path(@person) %>
+    </li>
+    <li class="<%= class_if("active", controller_name == "person_posts") %>">
+      <%= link_to t(".posts"), admin_people_person_posts_path(@person) %>
+    </li>
+  </ul>
+</div>

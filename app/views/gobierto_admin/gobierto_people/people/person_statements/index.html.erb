@@ -1,0 +1,49 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= link_to t("gobierto_admin.gobierto_people.people.index.title"), admin_people_people_path %> »
+  <%= link_to @person.name, edit_admin_people_person_path(@person) %> »
+  <%= t(".title") %>
+</div>
+
+<h1><%= @person.name %></h1>
+
+<%= render "gobierto_admin/gobierto_people/people/navigation" %>
+
+<div class="admin_tools right">
+  <%= link_to t(".new"), new_admin_people_person_statement_path(@person), class: "button", data: { turbolinks: false } %>
+</div>
+
+<table class="person-statements-list">
+<tr>
+  <th></th>
+  <th><%= t(".header.statement") %></th>
+  <th><%= t(".header.date") %></th>
+  <th></th>
+</tr>
+
+<tbody>
+  <% @person_statements.each do |person_statement| %>
+    <tr id="person-statement-item-<%= person_statement.id %>" class="<%= cycle("odd", "even") %>">
+      <td>
+        <%= link_to edit_admin_people_person_statement_path(@person, person_statement), data: { turbolinks: false } do %>
+          <i class="fa fa-edit"></i>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to edit_admin_people_person_statement_path(@person, person_statement), data: { turbolinks: false } do %>
+          <%= person_statement.title %>
+        <% end %>
+      </td>
+      <td>
+        <%= l(person_statement.published_on, format: :short) %>
+      </td>
+      <td>
+        <%= link_to "#", class: "view_item" do %>
+          <i class="fa fa-eye"></i>
+          <%= t(".view_statement") %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+</table>

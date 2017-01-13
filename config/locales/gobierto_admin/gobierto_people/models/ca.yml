@@ -6,13 +6,19 @@ ca:
       gobierto_admin/gobierto_people/person_event_form: Esdeveniment
       gobierto_admin/gobierto_people/person_statement_form: Declaració
       gobierto_admin/gobierto_people/person_post_form: Post
+      gobierto_admin/gobierto_people/political_group_form: Agrupació política
     attributes:
       gobierto_admin/gobierto_people/person_form:
         name: Nom
         charge: Càrrec
         bio: Biografia
+        bio_url: Fichero adjunto
         bio_file: Fitxer adjunt
+        avatar_url: Avatar
         avatar_file: Avatar
+        category: Categoria
+        party: Posició
+        political_group_id: Grup polític
       gobierto_admin/gobierto_people/person_event_form:
         title: Títol
         description: Descripció
@@ -27,3 +33,5 @@ ca:
         title: Títol
         body: Contingut
         tags: Tags
+      gobierto_admin/gobierto_people/political_group_form:
+        name: Nom de l'grupació

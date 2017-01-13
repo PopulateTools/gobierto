@@ -12,6 +12,7 @@ en:
           title: Persons
           new: New person
           view_person: View person
+          configuration: Configuration
           header:
             person: Person
             charge: Charge
@@ -40,3 +41,9 @@ en:
           visibility_level:
             draft: Draft
             active: Active
+          category:
+            politician: Politician
+            executive: Executive
+          party:
+            government: Government
+            opposition: Opposition

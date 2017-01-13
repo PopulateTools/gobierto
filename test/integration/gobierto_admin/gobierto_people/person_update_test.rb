@@ -26,6 +26,10 @@ module GobiertoAdmin
         @site ||= person.site
       end
 
+      def political_group
+        @political_group ||= gobierto_people_political_groups(:marvel)
+      end
+
       def test_person_update
         with_javascript do
           with_signed_in_admin(admin) do
@@ -39,6 +43,16 @@ module GobiertoAdmin
 
                 fill_in "person_name", with: "Person Name"
                 fill_in "person_charge", with: "Person Charge"
+
+                within ".person-category-radio-buttons" do
+                  find("label", text: "Politician").click
+                end
+
+                within ".person-party-radio-buttons" do
+                  find("label", text: "Government").click
+                end
+
+                select political_group.name, from: "Political group"
 
                 # Simulate Bio rich text area
                 find("#person_bio", visible: false).set("Person Bio")
@@ -67,6 +81,20 @@ module GobiertoAdmin
 
                 assert has_field?("person_name", with: "Person Name")
                 assert has_field?("person_charge", with: "Person Charge")
+
+                within ".person-category-radio-buttons" do
+                  with_hidden_elements do
+                    assert has_checked_field?("Politician")
+                  end
+                end
+
+                within ".person-party-radio-buttons" do
+                  with_hidden_elements do
+                    assert has_checked_field?("Government")
+                  end
+                end
+
+                assert has_select?("Political group", selected: political_group.name)
 
                 assert_equal(
                   "<div>Person Bio</div>",

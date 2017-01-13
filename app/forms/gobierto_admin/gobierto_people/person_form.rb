@@ -17,7 +17,10 @@ module GobiertoAdmin
         :bio_url,
         :avatar_file,
         :avatar_url,
-        :visibility_level
+        :visibility_level,
+        :category,
+        :political_group_id,
+        :party
       )
 
       delegate :persisted?, to: :person
@@ -52,6 +55,22 @@ module GobiertoAdmin
 
       def visibility_level
         @visibility_level ||= "draft"
+      end
+
+      def category
+        @category ||= "politician"
+      end
+
+      def party
+        return if category == "executive"
+
+        @party ||= person.party
+      end
+
+      def political_group_id
+        return if category == "executive"
+
+        @political_group_id ||= person.political_group_id
       end
 
       def bio_url
@@ -96,6 +115,9 @@ module GobiertoAdmin
           person_attributes.bio_url = bio_url
           person_attributes.avatar_url = avatar_url
           person_attributes.visibility_level = visibility_level
+          person_attributes.category = category
+          person_attributes.party = party
+          person_attributes.political_group_id = political_group_id
           person_attributes.content_block_records = content_block_records
         end
 

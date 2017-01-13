@@ -12,6 +12,7 @@ ca:
           title: Persones
           new: Nova persona
           view_person: Veure persona
+          configuration: Configuració
           header:
             person: Persona
             charge: Càrrec
@@ -40,3 +41,9 @@ ca:
           visibility_level:
             draft: Borrador
             active: Activa
+          category:
+            politician: Polític
+            executive: Directiu
+          party:
+            government: Gobierno
+            opposition: Oposició

@@ -12,6 +12,7 @@ en:
           title: Persons
           new: New person
           view_person: View person
+          configuration: Configuration
           header:
             person: Person
             charge: Charge

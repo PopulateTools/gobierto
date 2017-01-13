@@ -12,6 +12,7 @@ ca:
           title: Persones
           new: Nova persona
           view_person: Veure persona
+          configuration: Configuració
           header:
             person: Persona
             charge: Càrrec

@@ -6,6 +6,7 @@ ca:
       gobierto_admin/gobierto_people/person_event_form: Esdeveniment
       gobierto_admin/gobierto_people/person_statement_form: Declaració
       gobierto_admin/gobierto_people/person_post_form: Post
+      gobierto_admin/gobierto_people/political_group_form: Agrupació política
     attributes:
       gobierto_admin/gobierto_people/person_form:
         name: Nom
@@ -29,3 +30,5 @@ ca:
         title: Títol
         body: Contingut
         tags: Tags
+      gobierto_admin/gobierto_people/political_group_form:
+        name: Nom de l'grupació

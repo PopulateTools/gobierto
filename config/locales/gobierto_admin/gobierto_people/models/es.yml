@@ -6,6 +6,7 @@ es:
       gobierto_admin/gobierto_people/person_event_form: Evento
       gobierto_admin/gobierto_people/person_statement_form: Declaración
       gobierto_admin/gobierto_people/person_post_form: Post
+      gobierto_admin/gobierto_people/political_group_form: Agrupación política
     attributes:
       gobierto_admin/gobierto_people/person_form:
         name: Nombre
@@ -29,3 +30,5 @@ es:
         title: Título
         body: Contenido
         tags: Tags
+      gobierto_admin/gobierto_people/political_group_form:
+        name: Nombre de la agrupación

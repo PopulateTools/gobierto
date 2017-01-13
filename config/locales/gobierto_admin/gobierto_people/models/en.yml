@@ -6,6 +6,7 @@ en:
       gobierto_admin/gobierto_people/person_event_form: Event
       gobierto_admin/gobierto_people/person_statement_form: Statement
       gobierto_admin/gobierto_people/person_post_form: Post
+      gobierto_admin/gobierto_people/political_group_form: Political group
     attributes:
       gobierto_admin/gobierto_people/person_form:
         name: Name
@@ -29,3 +30,5 @@ en:
         title: Title
         body: Body
         tags: Tags
+      gobierto_admin/gobierto_people/political_group_form:
+        name: Group name

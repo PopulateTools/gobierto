@@ -13,6 +13,9 @@ es:
         bio: Biografía
         bio_url: Fichero adjunto
         avatar_url: Avatar
+        category: Categoría
+        party: Posición
+        political_group_id: Grupo político
       gobierto_admin/gobierto_people/person_event_form:
         title: Título
         description: Descripción

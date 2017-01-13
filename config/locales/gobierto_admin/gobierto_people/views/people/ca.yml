@@ -40,3 +40,9 @@ ca:
           visibility_level:
             draft: Borrador
             active: Activa
+          category:
+            politician: Polític
+            executive: Directiu
+          party:
+            government: Gobierno
+            opposition: Oposició

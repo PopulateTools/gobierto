@@ -13,6 +13,9 @@ en:
         bio: Bio
         bio_url: Attached file
         avatar_url: Avatar
+        category: Category
+        party: Party
+        political_group_id: Political group
       gobierto_admin/gobierto_people/person_event_form:
         title: Title
         description: Description

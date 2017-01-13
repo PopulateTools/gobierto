@@ -40,3 +40,9 @@ es:
           visibility_level:
             draft: Borrador
             active: Activa
+          category:
+            politician: Político
+            executive: Directivo
+          party:
+            government: Gobierno
+            opposition: Oposición

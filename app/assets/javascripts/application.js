@@ -10,8 +10,11 @@
 //= require mustache.min
 //= require velocity.min
 //= require velocity.ui.min
+//= require lodash.min.js
 //= require d3.min
 //= require d3-legend.min
+//= require d3-locale-es
+//= require d3-distance-limited-voronoi
 //= require accounting.min
 //= require jquery.autocomplete
 //= require klass
@@ -27,7 +30,6 @@
 
 //= require flight-for-rails
 //= require components/shareContent
-
 
 // Global util functions
 function rebindAll() {

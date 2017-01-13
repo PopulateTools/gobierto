@@ -7,6 +7,9 @@ richard:
   bio_url: https://en.wikipedia.org/wiki/Nova_(Richard_Rider)
   avatar_url: https://upload.wikimedia.org/wikipedia/en/2/26/Nova1adigranov.jpg
   visibility_level: <%= GobiertoPeople::Person.visibility_levels["active"] %>
+  category: <%= GobiertoPeople::Person.categories["politician"] %>
+  party: <%= GobiertoPeople::Person.parties["government"] %>
+  political_group: marvel
 
 tamara:
   site: madrid
@@ -17,3 +20,6 @@ tamara:
   bio_url: https://en.wikipedia.org/wiki/Captain_Universe
   avatar_url: https://upload.wikimedia.org/wikipedia/en/thumb/1/11/Captain_Universe.jpg/381px-Captain_Universe.jpg
   visibility_level: <%= GobiertoPeople::Person.visibility_levels["active"] %>
+  category: <%= GobiertoPeople::Person.categories["executive"] %>
+  party:
+  political_group:

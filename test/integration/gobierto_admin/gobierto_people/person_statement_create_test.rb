@@ -1,10 +1,12 @@
 require "test_helper"
 require "support/integration/dynamic_content_helpers"
+require "support/file_uploader_helpers"
 
 module GobiertoAdmin
   module GobiertoPeople
     class PersonStatementCreateTest < ActionDispatch::IntegrationTest
       include Integration::DynamicContentHelpers
+      include FileUploaderHelpers
 
       def setup
         super
@@ -37,13 +39,20 @@ module GobiertoAdmin
                 fill_in "person_statement_title", with: "Statement Title"
                 fill_in "person_statement_published_on", with: "2017-01-01"
 
+                within ".attachment_file_field" do
+                  refute has_selector?("a")
+                  attach_file "person_statement_attachment_file", "test/fixtures/files/gobierto_people/people/person_statement/attachment.pdf"
+                end
+
                 within ".person-statement-visibility-level-radio-buttons" do
                   find("label", text: "Active").click
                 end
 
                 fill_in_content_blocks
 
-                click_button "Create Statement"
+                with_stubbed_s3_file_upload do
+                  click_button "Create Statement"
+                end
               end
 
               assert has_message?("Statement was successfully created")
@@ -51,6 +60,10 @@ module GobiertoAdmin
               within "form.edit_person_statement" do
                 assert has_field?("person_statement_title", with: "Statement Title")
                 assert has_field?("person_statement_published_on", with: "2017-01-01")
+
+                within ".attachment_file_field" do
+                  assert has_selector?("a")
+                end
 
                 within ".person-statement-visibility-level-radio-buttons" do
                   with_hidden_elements do

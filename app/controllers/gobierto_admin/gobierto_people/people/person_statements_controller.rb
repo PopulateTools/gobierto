@@ -69,6 +69,7 @@ module GobiertoAdmin
           params.require(:person_statement).permit(
             :title,
             :published_on,
+            :attachment_file,
             :visibility_level,
             dynamic_content_attributes
           )

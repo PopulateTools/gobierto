@@ -11,17 +11,18 @@ es:
         name: Nombre
         charge: Cargo
         bio: Biografía
-        bio_url: Fichero adjunto
-        avatar_url: Avatar
+        bio_file: Fichero adjunto
+        avatar_file: Avatar
       gobierto_admin/gobierto_people/person_event_form:
         title: Título
         description: Descripción
         starts_at: Fecha de comienzo
         ends_at: Fecha de finalización
-        attachment_url: Fichero adjunto
+        attachment_file: Fichero adjunto
       gobierto_admin/gobierto_people/person_statement_form:
         title: Título
         published_on: Fecha de publicación
+        attachment_file: Fichero adjunto
       gobierto_admin/gobierto_people/person_post_form:
         title: Título
         body: Contenido

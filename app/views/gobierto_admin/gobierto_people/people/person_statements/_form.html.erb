@@ -22,6 +22,17 @@
         %>
       </div>
 
+      <div class="form_item file_field attachment_file_field">
+        <%= f.label :attachment_file %>
+
+        <% if f.object.attachment_url.present? %>
+          <%= link_to f.object.attachment_url, f.object.attachment_url %>
+          (<%= number_to_human_size(f.object.attachment_size || 0) %>)
+        <% end %>
+
+        <%= f.file_field :attachment_file %>
+      </div>
+
       <%= render "gobierto_admin/gobierto_common/dynamic_content/form", form_builder: f %>
 
     </div>

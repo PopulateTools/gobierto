@@ -9,6 +9,9 @@ module GobiertoAdmin
         :person_id,
         :title,
         :published_on,
+        :attachment_file,
+        :attachment_url,
+        :attachment_size,
         :visibility_level
       )
 
@@ -47,6 +50,25 @@ module GobiertoAdmin
         @published_on
       end
 
+      def attachment_url
+        @attachment_url ||= begin
+          return person_statement.attachment_url unless attachment_file.present?
+
+          FileUploader::S3.new(
+            file: attachment_file,
+            file_name: "gobierto_people/people/#{person_id}/statements/attachment-#{SecureRandom.uuid}"
+          ).call
+        end
+      end
+
+      def attachment_size
+        @attachment_size ||= begin
+          return person_statement.attachment_size unless attachment_file.present?
+
+          attachment_file.size
+        end
+      end
+
       def visibility_level
         @visibility_level ||= "draft"
       end
@@ -70,6 +92,8 @@ module GobiertoAdmin
           person_statement_attributes.person_id = person_id
           person_statement_attributes.title = title
           person_statement_attributes.published_on = published_on
+          person_statement_attributes.attachment_url = attachment_url
+          person_statement_attributes.attachment_size = attachment_size
           person_statement_attributes.visibility_level = visibility_level
           person_statement_attributes.content_block_records = content_block_records
         end

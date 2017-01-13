@@ -1,9 +1,8 @@
 'use strict';
 
 var VisUnemploymentAge = Class.extend({
-  init: function(divId, city_id, current_year) {
+  init: function(divId, city_id) {
     this.container = divId;
-    this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null;
     this.data = null;
     this.tbiToken = window.populateData.token;
     this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;

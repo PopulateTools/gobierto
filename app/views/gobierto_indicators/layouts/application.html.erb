@@ -3,7 +3,7 @@
     window.populateData = {
       token: "<%= Rails.application.secrets.tbi_api_token %>",
       municipalityId: "<%= @site.place.id %>",
-      year: 2015,
+      year: <%= APP_CONFIG["gobierto_indicators"]["year"] %>,
       endpoint: "<%= APP_CONFIG["populate_data"]["endpoint"] %>"
     }
   <% end %>

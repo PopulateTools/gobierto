@@ -2,22 +2,22 @@
 
 $(document).on('turbolinks:load', function() {
   if ($('#age_distribution').length > 0) {
-    var vis_agedb = new VisAgeDistribution('#age_distribution', window.populateData.municipalityId, window.populateData.year);
+    var vis_agedb = new VisAgeDistribution('#age_distribution', window.populateData.municipalityId, window.populateData.year - 1);
     vis_agedb.render();
   }
 
   if ($('#unemployment_age').length > 0) {
-    var vis_unempl = new VisUnemploymentAge('#unemployment_age', window.populateData.municipalityId, window.populateData.year);
+    var vis_unempl = new VisUnemploymentAge('#unemployment_age', window.populateData.municipalityId);
     vis_unempl.render();
   }
 
   if ($('#unemployment_sectors').length > 0) {
-    var vis_unemplSec = new VisUnemploymentSectors('#unemployment_sectors', window.populateData.municipalityId, window.populateData.year);
+    var vis_unemplSec = new VisUnemploymentSectors('#unemployment_sectors', window.populateData.municipalityId);
     vis_unemplSec.render();
   }
 
   if ($('#rent_distribution').length > 0) {
-    var vis_rent = new VisRentDistribution('#rent_distribution', window.populateData.municipalityId, window.populateData.year);
+    var vis_rent = new VisRentDistribution('#rent_distribution', window.populateData.municipalityId, window.populateData.year - 1);
     vis_rent.render();
   }
 

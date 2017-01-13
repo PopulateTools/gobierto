@@ -34,6 +34,8 @@ default: &default
     google_analytics_key: ''
   populate_data:
     endpoint: <%= ENV.fetch("POPULATE_DATA_ENDPOINT") %>
+  gobierto_indicators:
+    year: 2015
 
 development:
   <<: *default

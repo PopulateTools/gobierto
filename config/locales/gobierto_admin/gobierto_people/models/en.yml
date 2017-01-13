@@ -13,7 +13,9 @@ en:
         charge: Charge
         bio: Bio
         bio_url: Attached file
+        bio_file: Attached file
         avatar_url: Avatar
+        avatar_file: Avatar
         category: Category
         party: Party
         political_group_id: Political group
@@ -22,10 +24,11 @@ en:
         description: Description
         starts_at: Start date
         ends_at: End date
-        attachment_url: Attached file
+        attachment_file: Attached file
       gobierto_admin/gobierto_people/person_statement_form:
         title: Title
         published_on: Publishing date
+        attachment_file: Attached file
       gobierto_admin/gobierto_people/person_post_form:
         title: Title
         body: Body

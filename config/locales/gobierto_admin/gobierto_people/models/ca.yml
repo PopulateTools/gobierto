@@ -13,19 +13,22 @@ ca:
         charge: Càrrec
         bio: Biografia
         bio_url: Fichero adjunto
+        bio_file: Fitxer adjunt
         avatar_url: Avatar
+        avatar_file: Avatar
         category: Categoria
         party: Posició
         political_group_id: Grup polític
       gobierto_admin/gobierto_people/person_event_form:
         title: Títol
-        description: Descripción
+        description: Descripció
         starts_at: Data de començament
         ends_at: Data de finalització
-        attachment_url: Fitxer adjunt
+        attachment_file: Fitxer adjunt
       gobierto_admin/gobierto_people/person_statement_form:
         title: Títol
         published_on: Data de publicació
+        attachment_file: Fitxer adjunt
       gobierto_admin/gobierto_people/person_post_form:
         title: Títol
         body: Contingut

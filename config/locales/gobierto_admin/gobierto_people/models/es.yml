@@ -13,7 +13,9 @@ es:
         charge: Cargo
         bio: Biografía
         bio_url: Fichero adjunto
+        bio_file: Fichero adjunto
         avatar_url: Avatar
+        avatar_file: Avatar
         category: Categoría
         party: Posición
         political_group_id: Grupo político
@@ -22,10 +24,11 @@ es:
         description: Descripción
         starts_at: Fecha de comienzo
         ends_at: Fecha de finalización
-        attachment_url: Fichero adjunto
+        attachment_file: Fichero adjunto
       gobierto_admin/gobierto_people/person_statement_form:
         title: Título
         published_on: Fecha de publicación
+        attachment_file: Fichero adjunto
       gobierto_admin/gobierto_people/person_post_form:
         title: Título
         body: Contenido

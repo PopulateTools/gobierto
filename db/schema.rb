@@ -243,6 +243,8 @@ ActiveRecord::Schema.define(version: 20170113111816) do
     t.integer  "visibility_level", default: 0,  null: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.string   "attachment_url"
+    t.integer  "attachment_size"
     t.index ["person_id"], name: "index_gp_person_statements_on_person_id", using: :btree
   end
 

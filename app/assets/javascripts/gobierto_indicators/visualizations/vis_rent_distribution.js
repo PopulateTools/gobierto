@@ -6,15 +6,15 @@ var VisRentDistribution = Class.extend({
     this.cityId = city_id;
     this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null;
     this.data = null;
-    this.tbiToken = window.tbiToken;
+    this.tbiToken = window.populateData.token;
     this.rentUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-renta-bruta-media-municipal.json?include=municipality&filter_by_province_id=' + this.cityId.slice(0, 2);
     this.popUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal.json?filter_by_year=' + this.currentYear + '&filter_by_province_id=' + this.cityId.slice(0, 2);
     this.formatThousand = d3.format(',.0f');
     this.isMobile = window.innerWidth <= 768;
-    
+
     // Set default locale
     d3.formatDefaultLocale(es_ES);
-    
+
     // Chart dimensions
     this.margin = {top: 25, right: 10, bottom: 30, left: 10};
     this.width = this._width() - this.margin.left - this.margin.right;
@@ -42,11 +42,11 @@ var VisRentDistribution = Class.extend({
       .append('g')
       .attr('class', 'chart-container')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
-      
+
     // Append axes containers
     this.svg.append('g').attr('class','x axis');
     this.svg.append('g').attr('class','y axis');
-    
+
     this.tooltip = d3.select(this.container)
       .append('div')
       .attr('class', 'tooltip');
@@ -56,22 +56,22 @@ var VisRentDistribution = Class.extend({
   getData: function() {
     var rent = d3.json(this.rentUrl)
       .header('authorization', 'Bearer ' + this.tbiToken)
-    
+
     var pop = d3.json(this.popUrl)
       .header('authorization', 'Bearer ' + this.tbiToken)
-      
+
     d3.queue()
       .defer(rent.get)
       .defer(pop.get)
       .await(function (error, rent, pop) {
         if (error) throw error;
-        
+
         rent.forEach(function(d) {
           d.rent = d.value
-          
+
           delete d.value;
         });
-        
+
         this.data = _(rent)
           .concat(rent, pop)
           .groupBy('location_id')
@@ -112,7 +112,7 @@ var VisRentDistribution = Class.extend({
       .selectAll('circle')
       .data(this.data)
       .enter();
-    
+
     circles.append('circle')
       .attr('class', function(d, i) { return d.location_id === +this.cityId ? 'circle' + i + ' selected-city' : 'circle' + i; }.bind(this))
       .attr('cx', function(d) { return this.xScale(d.value) }.bind(this))
@@ -120,7 +120,7 @@ var VisRentDistribution = Class.extend({
       .attr('fill', function(d) { return this.color(d.rent) }.bind(this))
       .attr('stroke', 'white')
       .attr('r', this.isMobile ? 4 : 8);
-    
+
     // Add name of the current city
     this.svg.selectAll('.text-label')
       .data(this.data)
@@ -135,17 +135,17 @@ var VisRentDistribution = Class.extend({
       .attr('text-anchor', 'end')
       .text(function(d) { return d.municipality_name });
   },
-  _renderVoronoi: function() {    
+  _renderVoronoi: function() {
     // Create voronoi
     this.voronoi = d3.distanceLimitedVoronoi()
       .x(function(d) { return this.xScale(d.value); }.bind(this))
       .y(function(d) { return this.yScale(d.rent); }.bind(this))
       .limit(50)
       .extent([[0, 0], [this.width, this.height]]);
-    
+
     this.voronoiGroup = this.svg.append('g')
       .attr('class', 'voronoi');
-    
+
     this.voronoiGroup.selectAll('path')
       .data(this.voronoi(this.data))
       .enter()
@@ -156,7 +156,7 @@ var VisRentDistribution = Class.extend({
       .style('pointer-events', 'all')
       .on('mouseover', this._mousemove.bind(this))
       .on('mouseout', this._mouseout.bind(this));
-    
+
     // Attach hover circle
     this.svg.append('circle')
       .style('pointer-events', 'none')
@@ -167,14 +167,14 @@ var VisRentDistribution = Class.extend({
   },
   _mousemove: function(d, i) {
     d3.select('.circle' + i).attr('stroke', 'none')
-    
+
     d3.selectAll('.hover')
         .attr('stroke', '#111')
         .attr('stroke-width', 1.5)
         .attr('cx', this.xScale(d.datum.value))
         .attr('cy', this.yScale(d.datum.rent))
         .attr('transform', 'translate(0,0)');
-        
+
     // // Fill the tooltip
     this.tooltip.html('<div class="tooltip-city">' + d.datum.municipality_name + '</div>' +
       '<table class="tooltip-table">' +
@@ -188,7 +188,7 @@ var VisRentDistribution = Class.extend({
           '</tr>' +
       '</table>')
       .style('opacity', 1);
-        
+
     // Tooltip position
     if (this.isMobile) {
       this.tooltip.style('opacity', 0);
@@ -212,7 +212,7 @@ var VisRentDistribution = Class.extend({
 
     d3.select('.hover')
         .attr('stroke', 'none');
-    
+
     this.tooltip.style('opacity', 0);
   },
   _renderAxis: function() {
@@ -226,11 +226,11 @@ var VisRentDistribution = Class.extend({
     this.xAxis.scale(this.xScale);
     this.xAxis.tickFormat(this._formatNumberX.bind(this))
     this.svg.select('.x.axis').call(this.xAxis);
-    
+
     // Y axis
     this.svg.select('.y.axis')
       .attr('transform', 'translate(' + this.width + ' ,0)');
-    
+
     this.yAxis.scale(this.yScale);
     this.yAxis.ticks(4);
     this.yAxis.tickSize(-this.width);
@@ -241,7 +241,7 @@ var VisRentDistribution = Class.extend({
     this.svg.selectAll('.y.axis .tick text')
       .attr('dx', '-4.5em')
       .attr('dy', '-0.55em');
-    
+
     // Remove the zero on the y axis
     this.svg.selectAll('.y.axis .tick')
       .filter(function (d) { return d === 0;  })
@@ -283,19 +283,19 @@ var VisRentDistribution = Class.extend({
       .attr('height', this.height + this.margin.top + this.margin.bottom);
 
     this.svg.select('.chart-container')
-      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');    
-    
+      .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
+
     this.svg.selectAll('.circles circle')
       .attr('cx', function(d) { return this.xScale(d.value) }.bind(this))
       .attr('cy', function(d) { return this.yScale(d.rent) }.bind(this));
-      
+
     this.svg.select('.text-label')
       .attr('x', function(d) { return this.xScale(d.value) }.bind(this))
-      .attr('y', function(d) { return this.yScale(d.rent) }.bind(this));  
-        
+      .attr('y', function(d) { return this.yScale(d.rent) }.bind(this));
+
     this.voronoi
       .extent([[0, 0], [this.width, this.height]]);
-      
+
     this.svg.selectAll('.rent-anno')
       .attr('x', this.width - 65);
 

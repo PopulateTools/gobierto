@@ -131,4 +131,10 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  namespace :gobierto_indicators, path: 'indicadores' do
+    constraints GobiertoSiteConstraint.new do
+      root 'indicators#index'
+    end
+  end
 end

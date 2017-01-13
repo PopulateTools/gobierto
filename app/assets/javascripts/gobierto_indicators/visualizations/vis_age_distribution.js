@@ -5,7 +5,7 @@ var VisAgeDistribution = Class.extend({
     this.container = divId;
     this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null;
     this.data = null;
-    this.tbiToken = window.tbiToken;
+    this.tbiToken = window.populateData.token;
     this.dataUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal-edad.json?include=municipality&filter_by_year=' + current_year + '&filter_by_location_id=' + city_id;
 
     // Chart dimensions
@@ -39,10 +39,10 @@ var VisAgeDistribution = Class.extend({
       .append('g')
       .attr('class', 'chart-container')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
-    
+
     // Create city name selector
     this.city = d3.selectAll('.js-city-name');
-    
+
     // Append axes containers
     this.svg.append('g').attr('class','x axis');
     this.svg.append('g').attr('class','y axis');
@@ -71,7 +71,7 @@ var VisAgeDistribution = Class.extend({
         });
 
         this.data.sort(function(a, b) { return a.age - b.age; });
-        
+
         this.updateRender();
         this._renderBars();
         this._renderCityData();
@@ -104,7 +104,7 @@ var VisAgeDistribution = Class.extend({
       .selectAll('rect')
       .data(this.data)
       .enter();
-    
+
     bars.append('rect')
       .attr('x', function(d) { return this.xScale(d.age) }.bind(this))
       .attr('y', function(d) { return this.yScale(d.pct) }.bind(this))
@@ -115,7 +115,7 @@ var VisAgeDistribution = Class.extend({
   _renderCityData: function() {
     // Calculate means and stuff
     var avgAge = d3.sum(this.data, function(d) { return d.years }) / d3.sum(this.data, function(d) { return d.value });
-    
+
     d3.select('.js-avg-age')
       .text(accounting.formatNumber(avgAge, 1));
   },
@@ -183,7 +183,7 @@ var VisAgeDistribution = Class.extend({
 
     this.svg.select('.chart-container')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
-    
+
     // Update bars
     d3.select('#age_distribution .bars').selectAll('rect')
       .attr('x', function(d) { return this.xScale(d.age) }.bind(this))

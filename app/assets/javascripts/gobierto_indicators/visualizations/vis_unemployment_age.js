@@ -1,16 +1,16 @@
 'use strict';
 
-var VisUnemploymentSectors = Class.extend({
+var VisUnemploymentAge = Class.extend({
   init: function(divId, city_id, current_year) {
     this.container = divId;
     this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null;
     this.data = null;
-    this.tbiToken = window.tbiToken;
+    this.tbiToken = window.populateData.token;
     this.popUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
-    this.sectorsUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-personas-paradas-municipio-sector.json?sort_asc_by=date&filter_by_location_id=' + city_id;
+    this.unemplUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-personas-paradas-municipio-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
     this.timeFormat = d3.timeParse('%Y-%m');
     this.pctFormat = d3.format('.1%');
-    
+
     // Chart dimensions
     this.margin = {top: 25, right: 10, bottom: 25, left: 0};
     this.width = this._width() - this.margin.left - this.margin.right;
@@ -37,7 +37,7 @@ var VisUnemploymentSectors = Class.extend({
       .append('g')
       .attr('class', 'chart-container')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
-    
+
     // Append axes containers
     this.svg.append('g').attr('class','x axis');
     this.svg.append('g').attr('class','y axis');
@@ -48,50 +48,56 @@ var VisUnemploymentSectors = Class.extend({
     var pop = d3.json(this.popUrl)
       .header('authorization', 'Bearer ' + this.tbiToken)
 
-    var sectors = d3.json(this.sectorsUrl)
+    var unemployed = d3.json(this.unemplUrl)
       .header('authorization', 'Bearer ' + this.tbiToken)
 
     d3.queue()
       .defer(pop.get)
-      .defer(sectors.get)
-      .await(function (error, jsonData, sectors) {
+      .defer(unemployed.get)
+      .await(function (error, jsonData, unemployed) {
         if (error) throw error;
-        
+
+        // Get population for each group & year
         var nested = d3.nest()
           .key(function(d) { return d.date; })
-          .rollup(function(v) { return d3.sum(v, function(d) { return d.value; }); })
+          .rollup(function(v) { return {
+              '<25': d3.sum(v.filter(function(d) {return d.age >= 16 && d.age < 25}), function(d) { return d.value; }),
+              '25-44': d3.sum(v.filter(function(d) {return d.age >= 25 && d.age < 45}), function(d) { return d.value; }),
+              '>=45': d3.sum(v.filter(function(d) {return d.age >= 45 && d.age < 65}), function(d) { return d.value; }),
+            };
+          })
           .entries(jsonData);
-          
+
         var temp = {};
         nested.forEach(function(k) {
           temp[k.key] = k.value
         });
         nested = temp;
-                
+
         // Get the last year from the array
-        var lastYear = sectors[sectors.length - 1].date.slice(0,4);
-        
-        sectors.forEach(function(d) {
+        var lastYear = unemployed[unemployed.length - 1].date.slice(0,4);
+
+        unemployed.forEach(function(d) {
           var year = d.date.slice(0,4);
 
           if(nested.hasOwnProperty(year)) {
-            d.pct = d.value / nested[year]
+            d.pct = d.value / nested[year][d.age_range];
           } else if(year === lastYear) {
             // If we are in the last year, divide the unemployment by last year's population
-            d.pct = d.value / nested[year - 1]
+            d.pct = d.value / nested[year - 1][d.age_range];
           } else {
             d.pct = null;
           }
           d.date = this.timeFormat(d.date);
         }.bind(this));
-        
+
         // Filtering values to start from the first data points
-        this.data = sectors.filter(function(d) { return d.date >= this.timeFormat('2011-01') }.bind(this));
-        
+        this.data = unemployed.filter(function(d) { return d.date >=this.timeFormat('2011-01') }.bind(this));
+
         this.nest = d3.nest()
-          .key(function(d) { return d.sector; })
+          .key(function(d) { return d.age_range; })
           .entries(this.data);
-        
+
         this.updateRender();
         this._renderLines();
         this._renderVoronoi();
@@ -108,15 +114,15 @@ var VisUnemploymentSectors = Class.extend({
   updateRender: function(callback) {
     this.xScale
       .rangeRound([0, this.width])
-      .domain([d3.timeParse('%Y-%m')('2010-11'), d3.max(this.data, function(d) { return d.date; })]);
+      .domain([d3.timeParse('%Y-%m')('2010-11'), d3.max(this.data, function(d) { return d.date})]);
 
     this.yScale
       .rangeRound([this.height, 0])
       .domain([0, d3.max(this.data, function(d) { return d.pct})]);
-      
+
     this.color
-      .domain(['Agricultura', 'Industria', 'Construcción', 'Servicios', 'Sin empleo anterior'])
-      .range(['#66c2a5','#fc8d62','#8da0cb','#e78ac3','#a6d854']);
+      .domain(['<25', '25-44', '>=45'])
+      .range(['#66c2a5', '#fc8d62', '#8da0cb']);
 
     this._renderAxis();
   },
@@ -124,7 +130,7 @@ var VisUnemploymentSectors = Class.extend({
     this.line = d3.line()
       .x(function(d) { return this.xScale(d.date); }.bind(this))
       .y(function(d) { return this.yScale(d.pct); }.bind(this));
-      
+
     this.svg.append('g')
       .attr('class', 'lines')
       .selectAll('path')
@@ -140,18 +146,18 @@ var VisUnemploymentSectors = Class.extend({
     this.focus = this.svg.append('g')
         .attr('transform', 'translate(-100,-100)')
         .attr('class', 'focus');
-        
+
     this.focus.append('circle')
         .attr('fill', 'white')
         .attr('r', 5);
 
     this.text = this.focus
-      .append('text')
-    
+      .append('text');
+
     this.text.append('tspan')
         .attr('y', -10)
         .attr('x', 0);
-    
+
     this.voronoi = d3.voronoi()
         .x(function(d) {return this.xScale(d.date); }.bind(this))
         .y(function(d) {return this.yScale(d.pct); }.bind(this))
@@ -159,7 +165,7 @@ var VisUnemploymentSectors = Class.extend({
 
     this.voronoiGroup = this.svg.append('g')
         .attr('class', 'voronoi');
-        
+
     this.voronoiGroup.selectAll('path')
         .data(this.voronoi.polygons(d3.merge(this.nest.map(function(d) { return d.values; }))))
         .enter().append('path')
@@ -168,15 +174,28 @@ var VisUnemploymentSectors = Class.extend({
         .on('mouseout', this._mouseout.bind(this));
   },
   _mouseover: function(d) {
-    this.focus.select('circle').attr('stroke', this.color(d.data.sector));
+    this.focus.select('circle').attr('stroke', this.color(d.data.age_range));
+
     this.focus.attr('transform', 'translate(' + this.xScale(d.data.date) + ',' + this.yScale(d.data.pct) + ')');
     this.focus.select('text').attr('text-anchor', d.data.date >= this.timeFormat('2014-01') ? 'end' : 'start');
-    this.focus.select('tspan').text(d.data.sector + ': ' + this.pctFormat(d.data.pct));
+    this.focus.select('tspan').text(this._getAgeRange(d.data.age_range) + ': ' + this.pctFormat(d.data.pct));
   },
   _mouseout: function(d) {
     this.focus.attr('transform', 'translate(-100,-100)');
   },
-  _renderAxis: function() {    
+  _getAgeRange: function(age) {
+    switch (age) {
+      case '<25':
+        return 'Menores de 25'
+        break;
+      case '25-44':
+        return 'De 25 a 44'
+        break;
+      case '>=45':
+        return 'Mayores de 44'
+    }
+  },
+  _renderAxis: function() {
     // X axis
     this.svg.select('.x.axis')
       .attr('transform', 'translate(0,' + this.height + ')');
@@ -187,7 +206,7 @@ var VisUnemploymentSectors = Class.extend({
     // this.xAxis.tickFormat(this._formatNumberX.bind(this));
     this.svg.select('.x.axis').call(this.xAxis);
 
-    // Y axis      
+    // Y axis
     this.yAxis.tickSize(-this.width);
     this.yAxis.scale(this.yScale);
     this.yAxis.ticks(3, '%');
@@ -198,7 +217,7 @@ var VisUnemploymentSectors = Class.extend({
     this.svg.selectAll(".y.axis .tick")
       .filter(function (d) { return d === 0;  })
       .remove();
-    
+
     // Move y axis ticks on top of the chart
     this.svg.selectAll('.y.axis .tick text')
       .attr('text-anchor', 'start')
@@ -213,7 +232,7 @@ var VisUnemploymentSectors = Class.extend({
     return parseInt(d3.select(this.container).style('width'));
   },
   _height: function() {
-    return this._width() * 0.43;
+    return this._width() * 0.45;
   },
   _resize: function() {
     this.width = this._width();
@@ -227,10 +246,10 @@ var VisUnemploymentSectors = Class.extend({
 
     this.svg.select('.chart-container')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
-      
+
     this.svg.selectAll('.lines path')
       .attr('d', function(d) { d.line = this; return this.line(d.values); }.bind(this));
-    
+
     this.voronoi
     .extent([[0, 0], [this.width, this.height]]);
 

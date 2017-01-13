@@ -12,6 +12,9 @@ default: &default
     -
       name: Gobierto People
       namespace: GobiertoPeople
+    -
+      name: Gobierto Indicators
+      namespace: GobiertoIndicators
   dns_config:
     cname_record_target: site.gobierto.dev
     a_record_target: 222.111.222.11

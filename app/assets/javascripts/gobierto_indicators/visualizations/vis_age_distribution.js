@@ -6,7 +6,7 @@ var VisAgeDistribution = Class.extend({
     this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null;
     this.data = null;
     this.tbiToken = window.populateData.token;
-    this.dataUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal-edad.json?include=municipality&filter_by_year=' + current_year + '&filter_by_location_id=' + city_id;
+    this.dataUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal-edad.json?include=municipality&filter_by_year=' + current_year + '&filter_by_location_id=' + city_id;
 
     // Chart dimensions
     this.margin = {top: 5, right: 0, bottom: 25, left: 0};

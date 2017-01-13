@@ -32,6 +32,8 @@ default: &default
   site:
     mixpanel_key: ''
     google_analytics_key: ''
+  populate_data:
+    endpoint: <%= ENV.fetch("POPULATE_DATA_ENDPOINT") %>
 
 development:
   <<: *default

@@ -6,8 +6,8 @@ var VisUnemploymentSectors = Class.extend({
     this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null;
     this.data = null;
     this.tbiToken = window.populateData.token;
-    this.popUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-poblacion-municipal-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
-    this.sectorsUrl = 'https://tbi.populate.tools/gobierto/datasets/ds-personas-paradas-municipio-sector.json?sort_asc_by=date&filter_by_location_id=' + city_id;
+    this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
+    this.sectorsUrl = window.populateData.endpoint + '/datasets/ds-personas-paradas-municipio-sector.json?sort_asc_by=date&filter_by_location_id=' + city_id;
     this.timeFormat = d3.timeParse('%Y-%m');
     this.pctFormat = d3.format('.1%');
 

@@ -3,7 +3,8 @@
     window.populateData = {
       token: "<%= Rails.application.secrets.tbi_api_token %>",
       municipalityId: "<%= @site.place.id %>",
-      year: 2015
+      year: 2015,
+      endpoint: "<%= APP_CONFIG["populate_data"]["endpoint"] %>"
     }
   <% end %>
   <%= javascript_include_tag 'gobierto_indicators/application', 'data-turbolinks-track' => true %>

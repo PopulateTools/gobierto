@@ -7,7 +7,7 @@ module PopulateData
     class Client
       include Logging
 
-      BASE_URI = APP_CONFIG["populate_data"]["endpoint"] %>
+      BASE_URI = APP_CONFIG["populate_data"]["endpoint"]
 
       def initialize(options = {})
         Client.logger.debug("Initializing #{self.class.name} with options #{options}")

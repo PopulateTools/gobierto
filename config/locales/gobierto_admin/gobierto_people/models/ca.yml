@@ -11,11 +11,11 @@ ca:
         name: Nom
         charge: Càrrec
         bio: Biografia
-        bio_file: Fichero adjunto
+        bio_file: Fitxer adjunt
         avatar_file: Avatar
       gobierto_admin/gobierto_people/person_event_form:
         title: Títol
-        description: Descripción
+        description: Descripció
         starts_at: Data de començament
         ends_at: Data de finalització
         attachment_file: Fitxer adjunt

@@ -26,15 +26,24 @@ default: &default
     municipalities_suggestions_endpoint: <%= ENV["MUNICIPALITIES_SUGGESTIONS_ENDPOINT"] %>
   gobierto_budgets:
     data_note_url: https://presupuestos.gobierto.es/about#method
+  gobierto_people:
+    gifts_service_url: <%= ENV["PEOPLE_GIFTS_SERVICE_URL"] %>
+    travels_service_url: <%= ENV["PEOPLE_TRAVELS_SERVICE_URL"] %>
   site:
     mixpanel_key: ''
     google_analytics_key: ''
 
 development:
   <<: *default
+  gobierto_people:
+    gifts_service_url: http://populate.tools/
+    travels_service_url: http://populate.tools/
 
 test:
   <<: *default
+  gobierto_people:
+    gifts_service_url: http://populate.tools/
+    travels_service_url: http://populate.tools/
 
 staging:
   <<: *default

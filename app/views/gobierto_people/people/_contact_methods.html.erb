@@ -1,0 +1,26 @@
+<div class="contact-methods">
+  <%= mail_to @person.contact_methods[:email] do %>
+   <i class="fa fa-envelope"></i>
+  <% end %>
+
+  <% if @person.contact_methods[:twitter] %>
+    <%= link_to @person.contact_methods[:twitter][:url] do %>
+     <i class="fa fa-twitter"></i>
+     <%= @person.contact_methods[:twitter][:handle] %>
+    <% end %>
+  <% end %>
+
+  <% if @person.contact_methods[:facebook] %>
+    <%= link_to @person.contact_methods[:facebook][:url] do %>
+     <i class="fa fa-facebook"></i>
+     <%= @person.contact_methods[:facebook][:handle] %>
+    <% end %>
+  <% end %>
+
+  <% if @person.contact_methods[:linkedin] %>
+    <%= link_to @person.contact_methods[:linkedin][:url] do %>
+     <i class="fa fa-linkedin"></i>
+     <%= @person.contact_methods[:linkedin][:handle] %>
+    <% end %>
+  <% end %>
+</div>

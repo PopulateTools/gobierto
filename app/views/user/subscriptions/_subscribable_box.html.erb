@@ -4,6 +4,10 @@
   <div class="inner">
     <h3><%= title %></h3>
 
+    <% if defined?(subtitle) %>
+      <h4><%= subtitle %></h4>
+    <% end %>
+
     <% if user_signed_in? %>
 
       <%= button_to(

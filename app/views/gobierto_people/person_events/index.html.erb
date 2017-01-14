@@ -1,0 +1,76 @@
+<% content_for :breadcrumb_current_item do %>
+  <strong>
+    <%= link_to t('gobierto_people.layouts.menu_subsections.agendas'), gobierto_people_events_path %>
+  </strong>
+<% end %>
+
+<div class="column">
+
+  <div class="pure-g">
+
+    <div class="pure-u-1 pure-u-md-1-3">
+
+      <div class="p_h_2">
+
+        <div class="calendar-component"></div>
+
+        <%= render("user/subscriptions/subscribable_box",
+                   subscribable: GobiertoPeople::PersonEvent,
+                   title: t(".subscribable_box.title")) %>
+
+       <div class="separator"></div>
+
+       <div class="agenda-switcher">
+
+         <div><strong><%= t(".agenda_switcher.title") %></strong></div>
+         <div><%= t(".agenda_switcher.subtitle") %></div>
+
+         <ul>
+           <% @people.each do |person| %>
+             <li><%= link_to person.name, gobierto_people_person_events_path(person) %></li>
+           <% end %>
+         </ul>
+
+       </div>
+
+      </div>
+
+    </div>
+
+    <div class="pure-u-1 pure-u-md-2-3">
+
+      <div class="events-filter">
+
+        <div class="pure-g">
+
+          <div class="pure-u-1 pure-u-md-1-2">
+
+            <h3 class="filter-option <%= class_if("active", controller_name == "person_events") %>">
+              <%= link_to t(".upcoming_events"), gobierto_people_events_path %>
+            </h3>
+
+          </div>
+
+          <div class="pure-u-1 pure-u-md-1-2">
+
+            <h3 class="filter-option <%= class_if("active", controller_name == "past_person_events") %>">
+              <%= link_to t(".past_events"), gobierto_people_past_events_path %>
+            </h3>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="events-summary">
+
+        <%= render @events %>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

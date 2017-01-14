@@ -1,0 +1,16 @@
+<%= render "gobierto_people/people/content_for_breadcrumb" %>
+
+<h3 class="center">
+  <%= t("gobierto_people.people.person_posts.index.title", person_name: @person.name, person_charge: @person.charge) %>
+</h3>
+
+<h4 class="center">
+  <%= t(".filtering_by_tag", tag: @tag) %>
+  <%= link_to t(".go_back"), gobierto_people_person_posts_path(@person) %>
+</h4>
+
+<div class="posts-summary">
+
+  <%= render partial: "gobierto_people/person_posts/person_post_excerpt", collection: @posts, as: :person_post %>
+
+</div>

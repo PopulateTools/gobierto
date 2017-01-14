@@ -1,0 +1,35 @@
+<div class="person-post-excerpt">
+
+  <h2 class="person_post-title center">
+    <%= link_to person_post.title, gobierto_people_person_post_path(person_post.person, person_post) %>
+  </h2>
+
+  <div class="person_post-data center">
+    <% unless @person %>
+      <%= link_to person_post.person.name, gobierto_people_person_posts_path(person_post.person) %>
+      &middot;
+    <% end %>
+
+    <span class="person_post-date">
+      <%= l(person_post.created_at, format: :short) %>
+    </span>
+
+    <% if person_post.tags.any? %>
+      &middot;
+      <span class="person_post-tags">
+        <%= render "gobierto_people/person_posts/person_post_tags", person_post: person_post %>
+      </span>
+    <% end %>
+  </div>
+
+  <div class="person_post-body">
+    <%= truncate(person_post.body, length: 255, escape: false) %>
+  </div>
+
+  <div class="person_post-continue center">
+    <%= link_to t(".continue"), gobierto_people_person_post_path(person_post.person, person_post) %>
+  </div>
+
+  <div class="separator"></div>
+
+</div>

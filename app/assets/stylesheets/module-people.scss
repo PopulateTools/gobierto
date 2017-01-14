@@ -1,0 +1,66 @@
+/*
+ * People
+ *
+ */
+
+body.gobierto_people {
+
+  img.avatar {
+    object-fit: cover;
+  }
+
+  .media-left {
+    float: left;
+    margin-right: 1em;
+  }
+
+  .item-list {
+    padding: 1em 0;
+    margin: 1em 0;
+    border-top: 1px solid $color_separator;
+
+    .person-item {
+      border-bottom: 1px solid $color_separator;
+    }
+  }
+
+  .people-grid {
+    .person-item {
+      border: 1px solid $color_separator;
+      padding: 1.5em;
+      margin-right: 1.5em;
+      margin-bottom: 1.5em;
+
+      &:nth-child(3n) {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .person-item {
+    padding: 1em 0;
+
+    &:after {
+      @extend .clearfix;
+    }
+  }
+
+  .person_event-item {
+    .calendar {
+      height: 80px;
+      width: 80px;
+      line-height: 40px;
+      background-color: $color_main;
+      text-align: center;
+      color: #fff;
+      @include border-radius(6px);
+    }
+  }
+
+  .events-filter {
+    .filter-option:not(.active) {
+      @extend .soft;
+    }
+  }
+
+}

@@ -1,17 +1,17 @@
 <div class="dynamic-content table-component">
 
-  <% content_blocks.find_each do |content_block| %>
+  <% Array(content_blocks).each do |content_block| %>
     <h3><%= content_block.localized_title %></h3>
     <table class="explore_slow">
       <tr>
-        <% content_block.fields.each do |content_block_field| %>
+        <% Array(content_block.fields).each do |content_block_field| %>
           <th><%= content_block_field.localized_label %></th>
         <% end %>
       </tr>
       <tbody>
-        <% content_block.records.find_each do |content_block_record| %>
+        <% Array(content_block.records).each do |content_block_record| %>
           <tr>
-            <% content_block_record.fields.each do |content_block_record_field| %>
+            <% Array(content_block_record.fields).each do |content_block_record_field| %>
               <td><%= content_block_record_field.value %></td>
             <% end %>
           </tr>

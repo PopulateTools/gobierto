@@ -108,15 +108,21 @@ Rails.application.routes.draw do
     constraints GobiertoSiteConstraint.new do
       get '/' => 'welcome#index', as: :root
 
-      resources :person_events, only: [:index], as: :events, path: 'agendas'
-      resources :person_posts, only: [:index], as: :posts, path: 'blogs'
+      resources :person_events, only: [:index], as: :events, path: 'agendas/eventos'
+      resources :past_person_events, only: [:index], as: :past_events, path: 'agendas/eventos-pasados'
+      resources :person_posts, only: [:index], as: :posts, path: 'blog/posts'
+      resources :person_post_tags, only: [:show], as: :post_tags, path: 'blog/tags'
       resources :person_statements, only: [:index], as: :statements, path: 'bienes-y-actividades'
+      resources :person_gifts, only: [:index], as: :gifts, path: 'obsequios-y-regalos'
+      resources :person_travels, only: [:index], as: :travels, path: 'viajes-y-desplazamientos'
 
       resources :people, only: [:index, :show], path: 'cargos' do
-        resource :person_bio, controller: "people/person_bio", only: [:show], as: :bio, path: 'biografia'
-        resources :person_events, controller: "people/person_events", only: [:index, :show], as: :events, path: 'agenda'
-        resources :person_posts, controller: "people/person_posts", only: [:index, :show], as: :posts, path: 'blog'
-        resources :person_statements, controller: "people/person_statements", only: [:index, :show], as: :statements, path: 'bienes-y-actividades'
+        resource :person_bio, only: [:show], controller: "people/person_bio", as: :bio, path: 'biografia'
+        resources :person_events, only: [:index, :show], controller: "people/person_events", as: :events, path: 'agenda/eventos'
+        resources :past_person_events, only: [:index], controller: "people/past_person_events", as: :past_events, path: 'agenda/eventos-pasados'
+        resources :person_posts, only: [:index, :show], controller: "people/person_posts", as: :posts, path: 'blog/posts'
+        resources :person_post_tags, only: [:show], controller: "people/person_post_tags", as: :post_tags, path: 'blog/tags'
+        resources :person_statements, only: [:index, :show], controller: "people/person_statements", as: :statements, path: 'bienes-y-actividades'
       end
     end
   end

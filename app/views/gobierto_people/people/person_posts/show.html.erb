@@ -1,0 +1,34 @@
+<% content_for :breadcrumb_current_item do %>
+  <strong>
+    <%= link_to t('gobierto_people.layouts.menu_subsections.blogs'), gobierto_people_posts_path %>
+  </strong>
+<% end %>
+
+<h3 class="center">
+  <%= t(".title", person_name: @person.name, person_charge: @person.charge) %>
+</h3>
+
+<h1 class="person_post-title center"><%= @post.title %></h1>
+
+<div class="person_post-data center">
+  <span class="person_post-date">
+    <%= l(@post.created_at, format: :short) %>
+  </span>
+
+  <% if @post.tags.any? %>
+    &middot;
+    <span class="person_post-tags">
+      <%= render "gobierto_people/person_posts/person_post_tags", person_post: @post %>
+    </span>
+  <% end %>
+</div>
+
+<p class="person_post-body">
+  <%= raw @post.body %>
+</p>
+
+<div class="separator"></div>
+
+<%= render("user/subscriptions/subscribable_box",
+           subscribable: @post,
+           title: t(".subscribable_box.title")) %>

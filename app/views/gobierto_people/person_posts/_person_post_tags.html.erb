@@ -1,0 +1,7 @@
+<% person_post.tags.each do |post_tag| %>
+  <% if @person %>
+    <%= link_to "##{post_tag}", gobierto_people_person_post_tag_path(@person, post_tag) %>
+  <% else %>
+    <%= link_to "##{post_tag}", gobierto_people_post_tag_path(post_tag) %>
+  <% end %>
+<% end %>

@@ -5,8 +5,6 @@ module GobiertoCommon
     has_many :fields, dependent: :destroy, class_name: "ContentBlockField"
     has_many :records, dependent: :destroy, class_name: "ContentBlockRecord"
 
-    serialize :title, Hash
-
     cattr_accessor :content_context
 
     def self.set_content_context(content_context)

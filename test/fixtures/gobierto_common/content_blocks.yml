@@ -1,19 +1,19 @@
 contact_methods:
   site: madrid
   content_model_name: GobiertoPeople::Person
-  title: <%= { "en" => "Contact methods", "es" => "Formas de contacto" }.to_yaml.inspect %>
+  title: <%= { "en" => "Contact methods", "es" => "Formas de contacto" }.to_json %>
 
 accomplishments:
   site: madrid
   content_model_name: GobiertoPeople::Person
-  title: <%= { "en" => "Accomplishments", "es" => "Logros" }.to_yaml.inspect %>
+  title: <%= { "en" => "Accomplishments", "es" => "Logros" }.to_json %>
 
 income_statements:
   site: madrid
   content_model_name: GobiertoPeople::PersonStatement
-  title: <%= { "en" => "Income", "es" => "Ingresos" }.to_yaml.inspect %>
+  title: <%= { "en" => "Income", "es" => "Ingresos" }.to_json %>
 
 asset_statements:
   site: madrid
   content_model_name: GobiertoPeople::PersonStatement
-  title: <%= { "en" => "Asset", "es" => "Activos" }.to_yaml.inspect %>
+  title: <%= { "en" => "Asset", "es" => "Activos" }.to_json %>

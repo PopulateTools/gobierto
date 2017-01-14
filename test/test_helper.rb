@@ -1,4 +1,5 @@
 ENV["RAILS_ENV"] = "test"
+ENV["DISABLE_DATABASE_ENVIRONMENT_CHECK"] = "1"
 
 require File.expand_path("../../config/environment", __FILE__)
 require "rails/test_help"
@@ -51,7 +52,6 @@ WebMock.disable_net_connect!(
 )
 
 ActiveRecord::Migration.maintain_test_schema!
-ActiveRecord::Migration.check_pending!
 
 class ActiveSupport::TestCase
   include SessionHelpers

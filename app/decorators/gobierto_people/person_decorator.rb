@@ -4,64 +4,52 @@ module GobiertoPeople
       @object = person
     end
 
-    def contact_methods
-      {
-        email: contact_email,
-        twitter: { handle: twitter_handle, url: twitter_url },
-        facebook: { handle: facebook_handle, url: facebook_url },
-        linkedin: { handle: linkedin_handle, url: linkedin_url }
-      }
+    def contact_email
+      person_contact_method_for("Email", "service_url")
+    end
+
+    def twitter_handle
+      person_contact_method_for("Twitter", "service_handle")
+    end
+
+    def twitter_url
+      person_contact_method_for("Twitter", "service_url")
+    end
+
+    def facebook_handle
+      person_contact_method_for("Facebook", "service_handle")
+    end
+
+    def facebook_url
+      person_contact_method_for("Facebook", "service_url")
+    end
+
+    def linkedin_handle
+      person_contact_method_for("LinkedIn", "service_handle")
+    end
+
+    def linkedin_url
+      person_contact_method_for("LinkedIn", "service_url")
     end
 
     private
 
-    def contact_email
-      # TODO. Retrieve actual Person's contact methods.
-      #
-
-      ""
+    def person_contact_method_for(service_name, attribute_name)
+      person_contact_methods.detect do |contact_method|
+        contact_method["service_name"] == service_name
+      end.try(:[], attribute_name)
     end
 
-    def twitter_handle
-      # TODO. Retrieve actual Person's contact methods.
-      #
+    protected
 
-      ""
-    end
-
-    def twitter_url
-      # TODO. Retrieve actual Person's contact methods.
-      #
-
-      ""
-    end
-
-    def facebook_handle
-      # TODO. Retrieve actual Person's contact methods.
-      #
-
-      ""
-    end
-
-    def facebook_url
-      # TODO. Retrieve actual Person's contact methods.
-      #
-
-      ""
-    end
-
-    def linkedin_handle
-      # TODO. Retrieve actual Person's contact methods.
-      #
-
-      ""
-    end
-
-    def linkedin_url
-      # TODO. Retrieve actual Person's contact methods.
-      #
-
-      ""
+    def person_contact_methods
+      @person_contact_methods ||= begin
+        object
+          .content_blocks
+          .find_by("title->'en' = ?", "Contact methods")
+          .records
+          .pluck(:payload)
+      end
     end
   end
 end

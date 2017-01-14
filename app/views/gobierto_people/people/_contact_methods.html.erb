@@ -1,26 +1,28 @@
 <div class="contact-methods">
-  <%= mail_to @person.contact_methods[:email] do %>
-   <i class="fa fa-envelope"></i>
+  <% if @person.contact_email %>
+    <%= mail_to @person.contact_email do %>
+     <i class="fa fa-envelope"></i>
+    <% end %>
   <% end %>
 
-  <% if @person.contact_methods[:twitter] %>
-    <%= link_to @person.contact_methods[:twitter][:url] do %>
+  <% if @person.twitter_url %>
+    <%= link_to @person.twitter_url do %>
      <i class="fa fa-twitter"></i>
-     <%= @person.contact_methods[:twitter][:handle] %>
+     <%= @person.twitter_handle %>
     <% end %>
   <% end %>
 
-  <% if @person.contact_methods[:facebook] %>
-    <%= link_to @person.contact_methods[:facebook][:url] do %>
+  <% if @person.facebook_url %>
+    <%= link_to @person.facebook_url do %>
      <i class="fa fa-facebook"></i>
-     <%= @person.contact_methods[:facebook][:handle] %>
+     <%= @person.facebook_handle %>
     <% end %>
   <% end %>
 
-  <% if @person.contact_methods[:linkedin] %>
-    <%= link_to @person.contact_methods[:linkedin][:url] do %>
+  <% if @person.linkedin_url %>
+    <%= link_to @person.linkedin_url do %>
      <i class="fa fa-linkedin"></i>
-     <%= @person.contact_methods[:linkedin][:handle] %>
+     <%= @person.linkedin_handle %>
     <% end %>
   <% end %>
 </div>

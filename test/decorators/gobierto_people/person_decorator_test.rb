@@ -11,15 +11,32 @@ module GobiertoPeople
       @person ||= gobierto_people_people(:richard)
     end
 
-    def test_contact_methods
-      expected_contact_methods = {
-        email: "",
-        twitter: { handle: "", url: "" },
-        facebook: { handle: "", url: "" },
-        linkedin: { handle: "", url: "" }
-      }
+    def test_contact_email
+      assert_nil @subject.contact_email
+    end
 
-      assert_equal expected_contact_methods, @subject.contact_methods
+    def test_twitter_handle
+      assert_nil @subject.twitter_handle
+    end
+
+    def test_twitter_url
+      assert_equal "https://twitter.com/richard", @subject.twitter_url
+    end
+
+    def test_facebook_handle
+      assert_nil @subject.facebook_handle
+    end
+
+    def test_facebook_url
+      assert_nil @subject.facebook_url
+    end
+
+    def test_linkedin_handle
+      assert_nil @subject.linkedin_handle
+    end
+
+    def test_linkedin_url
+      assert_nil @subject.linkedin_url
     end
   end
 end

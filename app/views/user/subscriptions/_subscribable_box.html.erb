@@ -11,7 +11,7 @@
     <% if user_signed_in? %>
 
       <%= button_to(
-        t(".subscribe"),
+        current_user.subscribed_to?(subscribable, current_site) ? t(".cancel") : t(".subscribe"),
         user_subscriptions_path,
         params: {
           user_subscription: {

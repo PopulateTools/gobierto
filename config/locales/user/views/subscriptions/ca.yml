@@ -9,6 +9,7 @@ ca:
         cancel: Cancelar suscripció
       subscribable_box:
         subscribe: Suscriurem
+        cancel: Ja estàs subscrits. ¿cancellar?
         disclaimer: No spam. Dona't de baixa quan vullgues.
         form:
           placeholders:

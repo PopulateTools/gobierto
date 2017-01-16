@@ -18,7 +18,7 @@
         <tr id="user-subscription-item-<%= user_subscription.id %>">
           <td>
             <% if user_subscription.specific? %>
-              <%= link_to user_subscription.subscribable_label, user_subscription.subscribable %>
+              <%= link_to user_subscription.subscribable_label, user_subscription.subscribable.to_path %>
             <% elsif user_subscription.generic? %>
               <%= user_subscription.subscribable_label %>
             <% end %>

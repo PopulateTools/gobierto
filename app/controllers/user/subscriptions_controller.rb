@@ -14,8 +14,10 @@ class User::SubscriptionsController < User::BaseController
       )
     )
 
-    if @user_subscription_form.save
-      flash[:notice] = t(".success")
+    subscription_operation, subscription_result = @user_subscription_form.save
+
+    if subscription_result
+      flash[:notice] = t(".#{subscription_operation}_success")
     else
       flash[:alert] = t(
         ".error",

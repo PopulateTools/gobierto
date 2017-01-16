@@ -9,6 +9,7 @@ es:
         cancel: Cancelar suscripción
       subscribable_box:
         subscribe: Suscribirme
+        cancel: Ya estás suscrito. ¿Cancelar?
         disclaimer: No spam. Date de baja cuando quieras.
         form:
           placeholders:

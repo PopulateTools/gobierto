@@ -3,7 +3,8 @@ en:
   user:
     subscriptions:
       create:
-        success: Subscription was successfully created
+        create_success: Subscription was successfully created
+        delete_success: Subscription was successfully canceled
         error: "There was a problem when subscribing to this resource: %{details}. If you are already registered, sign in <a href=\"%{sign_in_path}\">here</a>."
       destroy:
         success: Subscription was successfully canceled

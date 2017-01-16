@@ -10,6 +10,7 @@ module GobiertoPeople
     scope :past,     -> { published.where("starts_at <= ?", Time.zone.now) }
     scope :upcoming, -> { published.where("starts_at > ?", Time.zone.now) }
     scope :sorted,   -> { order(starts_at: :asc) }
+    scope :by_date,  ->(date) { where("starts_at::date = ?", date) }
 
     scope :by_site, ->(site) do
       joins(:person).where(Person.table_name => { site_id: site.id })

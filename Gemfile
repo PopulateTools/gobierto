@@ -37,6 +37,9 @@ gem "aws-sdk", "~> 2.6", require: false
 # AWS SES client
 gem "aws-ses", "~> 0.6.0"
 
+# Calendar view component
+gem "simple_calendar", "~> 2.2"
+
 group :development, :test do
   gem "byebug", platform: :mri
 end

@@ -73,7 +73,7 @@ es:
       person_post_tags:
         show:
           filtering_by_tag: "Filtrando por \"%{tag}\""
-          go_back: "Volver al blog"
+          go_back: Volver al blog
       person_statements:
         index:
           title: "Bienes y Actividades de %{person_name}"
@@ -103,6 +103,8 @@ es:
         title: "Agendas de los miembros de %{site_name}"
         upcoming_events: Próximos eventos
         past_events: Eventos pasados
+        displaying_events_of: "Mostrando eventos del %{date}"
+        go_back: Volver
         agenda_switcher:
           title: Consulta la agenda de...
           subtitle: Filtra por miembros de la comunidad
@@ -118,7 +120,7 @@ es:
     person_post_tags:
       show:
         filtering_by_tag: "Filtrando por \"%{tag}\""
-        go_back: "Volver"
+        go_back: Volver
     person_statements:
       index:
         title: Declaraciones

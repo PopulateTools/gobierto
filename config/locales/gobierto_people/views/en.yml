@@ -73,7 +73,7 @@ en:
       person_post_tags:
         show:
           filtering_by_tag: "Filtering by \"%{tag}\""
-          go_back: "Back to blog"
+          go_back: Back to blog
       person_statements:
         index:
           title: "%{person_name}'s goods and Activities"
@@ -103,6 +103,8 @@ en:
         title: "%{site_name}'s member agendas"
         upcoming_events: Upcoming events
         past_events: Past events
+        displaying_events_of: "Displaying events of %{date}"
+        go_back: Go back
         agenda_switcher:
           title: Check the agenda of...
           subtitle: Filter by community members
@@ -118,7 +120,7 @@ en:
     person_post_tags:
       show:
         filtering_by_tag: "Filtering by \"%{tag}\""
-        go_back: "Go back"
+        go_back: Go back
     person_statements:
       index:
         title: Statements

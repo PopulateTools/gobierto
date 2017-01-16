@@ -58,6 +58,13 @@ module GobiertoPeople
       assert_includes subject, past_person_event
     end
 
+    def test_by_date_scope
+      subject = PersonEvent.by_date(person_event.starts_at.to_date)
+
+      assert_includes subject, person_event
+      refute_includes subject, past_person_event
+    end
+
     def test_past?
       assert past_person_event.past?
       refute person_event.past?

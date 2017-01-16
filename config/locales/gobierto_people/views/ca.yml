@@ -73,7 +73,7 @@ ca:
       person_post_tags:
         show:
           filtering_by_tag: "Filtrant per \"%{tag}\""
-          go_back: "Tornar al blog"
+          go_back: Tornar al blog
       person_statements:
         index:
           title: "Béns i activitats de %{person_name}"
@@ -103,6 +103,8 @@ ca:
         title: "Agendes de %{site_name}"
         upcoming_events: Pròxims esdeveniments
         past_events: Esdeveniments passats
+        displaying_events_of: "Mostrant esdeveniments del %{date}"
+        go_back: Tornar
         agenda_switcher:
           title: Consulta l'agenda de...
           subtitle: Filtra per membres de la comunitat
@@ -118,7 +120,7 @@ ca:
     person_post_tags:
       show:
         filtering_by_tag: "Filtrant per \"%{tag}\""
-        go_back: "Tornar"
+        go_back: Tornar
     person_statements:
       index:
         title: Declaracions

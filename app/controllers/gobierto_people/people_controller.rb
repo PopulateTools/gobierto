@@ -1,7 +1,10 @@
 module GobiertoPeople
   class PeopleController < GobiertoPeople::ApplicationController
+    include PoliticalGroupsHelper
+
     def index
       @people = current_site.people.active.sorted
+      @political_groups = get_political_groups
     end
 
     def show

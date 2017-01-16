@@ -14,6 +14,7 @@ module GobiertoPeople
     has_many :posts, class_name: "PersonPost", dependent: :destroy
 
     scope :sorted, -> { order(created_at: :desc) }
+    scope :by_site, ->(site) { where(site_id: site.id) }
 
     enum visibility_level: { draft: 0, active: 1 }
     enum category: { politician: 0, executive: 1 }

@@ -15,7 +15,7 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("h1", text: "Organization chart")
+        assert has_selector?("h1", text: "#{site.name}'s organization chart")
         assert has_selector?(".people-summary")
       end
     end

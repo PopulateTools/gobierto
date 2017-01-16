@@ -2,8 +2,8 @@
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
     <ul>
       <li><%= link_to t('gobierto_people.layouts.menu_subsections.home'), gobierto_people_root_path, class: class_if('active', controller_name == 'welcome') %></li>
-      <li><%= link_to t('gobierto_people.layouts.menu_subsections.people'), gobierto_people_people_path, class: class_if('active', controller_name == 'people') %></li>
-      <li><%= link_to t('gobierto_people.layouts.menu_subsections.agendas'), gobierto_people_events_path, class: class_if('active', controller_name == 'events') %></li>
+      <li><%= link_to t('gobierto_people.layouts.menu_subsections.people'), gobierto_people_government_party_people_path, class: class_if('active', controller_name == 'people') %></li>
+      <li><%= link_to t('gobierto_people.layouts.menu_subsections.agendas'), gobierto_people_government_party_events_path, class: class_if('active', controller_name == 'events') %></li>
       <li><%= link_to t('gobierto_people.layouts.menu_subsections.blogs'), gobierto_people_posts_path, class: class_if('active', controller_name == 'posts') %></li>
       <li><%= link_to t('gobierto_people.layouts.menu_subsections.statements'), gobierto_people_statements_path, class: class_if('active', controller_name == 'statements') %></li>
     </ul>

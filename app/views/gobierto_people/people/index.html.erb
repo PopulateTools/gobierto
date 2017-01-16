@@ -6,7 +6,9 @@
 
 <div class="column">
 
-  <h1><%= t(".title") %></h1>
+  <h1><%= t(".title", site_name: current_site.name) %></h1>
+
+  <%= render "gobierto_people/people/people_filter" %>
 
   <div class="people-summary people-grid pure-g">
 

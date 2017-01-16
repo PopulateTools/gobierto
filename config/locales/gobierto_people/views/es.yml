@@ -17,7 +17,7 @@ es:
         gifts: Obsequios y regalos
         travels: Viajes y desplazamientos
         people_summary:
-          title: Organigrama de la diputación
+          title: "Organigrama de %{site_name}"
           view_all: Ver todos
         events_summary:
           upcoming_events: Próximos eventos
@@ -30,7 +30,7 @@ es:
           title: Recibe un resumen semanal de las agendas de tus representantes
     people:
       index:
-        title: Organigrama de la diputación
+        title: "Organigrama de %{site_name}"
         subscribable_box:
           title: Recibe alertas en tu correo-e
       navigation:
@@ -89,8 +89,18 @@ es:
           title: "Perfil de %{person_name}"
           subtitle: Biografía y CV
           download: Descargar CV
+    people_filter:
+      parties:
+        government: Gobierno
+        opposition: Oposición
+      categories:
+        executive: Directivos
+      all: Todos
+      political_groups:
+        title: Grupos políticos
     person_events:
       index:
+        title: "Agendas de los miembros de %{site_name}"
         upcoming_events: Próximos eventos
         past_events: Eventos pasados
         agenda_switcher:

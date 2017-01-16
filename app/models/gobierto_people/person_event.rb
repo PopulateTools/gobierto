@@ -11,6 +11,18 @@ module GobiertoPeople
     scope :upcoming, -> { published.where("starts_at > ?", Time.zone.now) }
     scope :sorted,   -> { order(starts_at: :asc) }
 
+    scope :by_site, ->(site) do
+      joins(:person).where(Person.table_name => { site_id: site.id })
+    end
+
+    scope :by_person_category, ->(category) do
+      joins(:person).where(Person.table_name => { category: category })
+    end
+
+    scope :by_person_party, ->(party) do
+      joins(:person).where(Person.table_name => { party: party })
+    end
+
     enum state: { pending: 0, published: 1 }
 
     def past?

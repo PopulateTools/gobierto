@@ -17,7 +17,7 @@ en:
         gifts: Gifts
         travels: Travels
         people_summary:
-          title: Organization chart
+          title: "%{site_name}'s organization chart"
           view_all: View all
         events_summary:
           upcoming_events: Upcoming events
@@ -30,7 +30,7 @@ en:
           title: Receive updates in your inbox
     people:
       index:
-        title: Organization chart
+        title: "%{site_name}'s organization chart"
         subscribable_box:
           title: Receive alerts in your inbox
       navigation:
@@ -89,8 +89,18 @@ en:
           title: "%{person_name}'s profile"
           subtitle: Biography and CV
           download: Download CV
+    people_filter:
+      parties:
+        government: Government
+        opposition: Opposition
+      categories:
+        executive: Executive
+      all: All
+      political_groups:
+        title: Political groups
     person_events:
       index:
+        title: "%{site_name}'s member agendas"
         upcoming_events: Upcoming events
         past_events: Past events
         agenda_switcher:

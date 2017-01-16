@@ -17,7 +17,7 @@ ca:
         gifts: Obsequis i regals
         travels: Viatges i desplaçaments
         people_summary:
-          title: Organigrama de la diputació
+          title: "Organigrama de %{site_name}"
           view_all: Veure tots
         events_summary:
           upcoming_events: Pròxims esdeveniments
@@ -30,7 +30,7 @@ ca:
           title: Rebeix actualitzacions al teu correu-e
     people:
       index:
-        title: Organigrama de la diputació
+        title: "Organigrama de %{site_name}"
         subscribable_box:
           title: Rebeix una alerta al tu correu-e
       navigation:
@@ -89,8 +89,18 @@ ca:
           title: "Perfil de %{person_name}"
           subtitle: Biografia i cv
           download: Descarregar CV
+    people_filter:
+      parties:
+        government: Gobierno
+        opposition: Oposició
+      categories:
+        executive: Directiu
+      all: tots
+      political_groups:
+        title: Grup polític
     person_events:
       index:
+        title: "Agendes de %{site_name}"
         upcoming_events: Pròxims esdeveniments
         past_events: Esdeveniments passats
         agenda_switcher:

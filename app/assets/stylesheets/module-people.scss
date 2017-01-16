@@ -63,4 +63,38 @@ body.gobierto_people {
     }
   }
 
+  menu.people-filter, menu.person-events-filter {
+    padding: 0;
+    margin: 0;
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+
+      li {
+        display: inline-block;
+
+        a {
+          text-transform: uppercase;
+          text-decoration: none;
+          padding: .5em 1em .4em;
+          display: inline-block;
+          border: 1px solid $color_separator;
+          color: $color_separator;
+
+          &.active {
+            border-color: $color_main;
+            color: $color_main;
+          }
+        }
+
+        &:first-child {
+          a {
+            margin-left: 0;
+          }
+        }
+      }
+    }
+  }
+
 }

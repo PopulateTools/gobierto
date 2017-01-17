@@ -12,7 +12,7 @@ module GobiertoPeople
       def show
         @statement = find_statement
         @other_statements = find_statements - [@statement]
-        @statement_content_blocks = @statement.content_blocks(@person.site_id)
+        @statement_content_blocks = @statement.content_blocks(@person.site_id).sorted
       end
 
       private

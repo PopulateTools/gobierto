@@ -33,7 +33,8 @@ module GobiertoPeople
 
     def latest_posts
       @latest_posts ||= [
-        gobierto_people_person_posts(:richard_about_me)
+        gobierto_people_person_posts(:richard_about_me),
+        gobierto_people_person_posts(:richard_achievements)
       ]
     end
 

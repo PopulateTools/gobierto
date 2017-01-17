@@ -71,21 +71,25 @@
 
       <div class="events-summary">
 
-        <div class="pure-g">
+        <div class="events-filter">
 
-          <div class="pure-u-1 pure-u-md-1-2">
+          <div class="pure-g">
 
-            <h3 class="filter-option <%= class_if("active", !controller_name.include?("past_person_events")) %>">
-              <%= link_to t(".upcoming_events"), [:gobierto_people, @person_event_scope, :events] %>
-            </h3>
+            <div class="pure-u-1 pure-u-md-1-2">
 
-          </div>
+              <h3 class="filter-option <%= class_if("active", !controller_name.include?("past_person_events")) %>">
+                <%= link_to t(".upcoming_events"), [:gobierto_people, @person_event_scope, :events] %>
+              </h3>
 
-          <div class="pure-u-1 pure-u-md-1-2">
+            </div>
 
-            <h3 class="filter-option <%= class_if("active", controller_name.include?("past_person_events")) %>">
-              <%= link_to t(".past_events"), [:gobierto_people, @person_event_scope, :past_events] %>
-            </h3>
+            <div class="pure-u-1 pure-u-md-1-2">
+
+              <h3 class="filter-option <%= class_if("active", controller_name.include?("past_person_events")) %>">
+                <%= link_to t(".past_events"), [:gobierto_people, @person_event_scope, :past_events] %>
+              </h3>
+
+            </div>
 
           </div>
 

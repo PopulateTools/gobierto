@@ -7,6 +7,7 @@ en:
         name_changed: "A person has been updated"
         charge_changed: "A person has been updated"
         bio_changed: "A person has been updated"
+        visibility_level_changed: "A person has been updated"
   gobierto_people/person_event:
     notifications:
       subject:

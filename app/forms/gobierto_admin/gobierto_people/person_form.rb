@@ -34,6 +34,7 @@ module GobiertoAdmin
       notify_changed :name
       notify_changed :charge
       notify_changed :bio
+      notify_changed :visibility_level
 
       def save
         save_person if valid?

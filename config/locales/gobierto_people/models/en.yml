@@ -2,6 +2,10 @@
 en:
   activerecord:
     models:
+      gobierto_people/person: Officer
+      gobierto_people/person_event: Event
+      gobierto_people/person_post: Post
+      gobierto_people/person_statement: Statement
       gobierto_people/person_event_location: Location
       gobierto_people/person_event_attendee: Attendee
     attributes:

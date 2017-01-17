@@ -1,10 +1,14 @@
 require "test_helper"
+require "support/concerns/user/subscribable_test"
 
 module GobiertoBudgetConsultations
   class ConsultationTest < ActiveSupport::TestCase
+    include User::SubscribableTest
+
     def consultation
       @consultation ||= gobierto_budget_consultations_consultations(:madrid_open)
     end
+    alias subscribable consultation
 
     def past_consultation
       @past_consultation ||= gobierto_budget_consultations_consultations(:madrid_past)

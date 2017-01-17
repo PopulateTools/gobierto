@@ -1,10 +1,14 @@
 require "test_helper"
+require "support/concerns/user/subscribable_test"
 
 module GobiertoPeople
   class PersonEventTest < ActiveSupport::TestCase
+    include User::SubscribableTest
+
     def person_event
       @person_event ||= gobierto_people_person_events(:richard_published)
     end
+    alias subscribable person_event
 
     def past_person_event
       @past_person_event ||= gobierto_people_person_events(:richard_published_past)

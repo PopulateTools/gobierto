@@ -2,6 +2,8 @@ require_dependency "gobierto_people"
 
 module GobiertoPeople
   class PersonEvent < ApplicationRecord
+    include User::Subscribable
+
     belongs_to :person, counter_cache: :events_count
 
     has_many :locations, class_name: "PersonEventLocation", dependent: :destroy
@@ -24,7 +26,13 @@ module GobiertoPeople
       joins(:person).where(Person.table_name => { party: party })
     end
 
+    delegate :site_id, to: :person
+
     enum state: { pending: 0, published: 1 }
+
+    def parameterize
+      { person_id: person, id: self }
+    end
 
     def past?
       starts_at <= Time.zone.now

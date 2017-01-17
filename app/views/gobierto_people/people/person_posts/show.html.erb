@@ -15,7 +15,7 @@
     <%= l(@post.created_at, format: :short) %>
   </span>
 
-  <% if @post.tags.any? %>
+  <% if @post.tags.present? %>
     &middot;
     <span class="person_post-tags">
       <%= render "gobierto_people/person_posts/person_post_tags", person_post: @post %>

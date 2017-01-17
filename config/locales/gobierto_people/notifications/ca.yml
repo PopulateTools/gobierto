@@ -14,3 +14,10 @@ ca:
         title_changed: "S'ha actualitzat un esdeveniment"
         starts_at_changed: "S'ha actualitzat un esdeveniment"
         ends_at_changed: "S'ha actualitzat un esdeveniment"
+  gobierto_people/person_post:
+    notifications:
+      subject:
+        created: "S'ha afeggit un post"
+        title_changed: "S'ha actualitzat un post"
+        body_changed: "S'ha actualitzat un post"
+        visibility_level_changed: "S'ha actualitzat un post"

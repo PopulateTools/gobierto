@@ -14,3 +14,10 @@ en:
         title_changed: "An event has been updated"
         starts_at_changed: "An event has been updated"
         ends_at_changed: "An event has been updated"
+  gobierto_people/person_post:
+    notifications:
+      subject:
+        created: "A post has been added"
+        title_changed: "A post has been updated"
+        body_changed: "A post has been updated"
+        visibility_level_changed: "A post has been updated"

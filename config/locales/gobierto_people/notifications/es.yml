@@ -14,3 +14,10 @@ es:
         title_changed: "Se ha actualizado un evento"
         starts_at_changed: "Se ha actualizado un evento"
         ends_at_changed: "Se ha actualizado un evento"
+  gobierto_people/person_post:
+    notifications:
+      subject:
+        created: "Se ha agregado un post"
+        title_changed: "Se ha actualizado un post"
+        body_changed: "Se ha actualizado un post"
+        visibility_level_changed: "Se ha actualizado un post"

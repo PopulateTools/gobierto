@@ -7,3 +7,10 @@ en:
         name_changed: "A person has been updated"
         charge_changed: "A person has been updated"
         bio_changed: "A person has been updated"
+  gobierto_people/person_event:
+    notifications:
+      subject:
+        created: "An event has been added"
+        title_changed: "An event has been updated"
+        starts_at_changed: "An event has been updated"
+        ends_at_changed: "An event has been updated"

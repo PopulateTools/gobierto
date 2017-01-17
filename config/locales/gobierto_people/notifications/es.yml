@@ -7,3 +7,10 @@ es:
         name_changed: "Se ha actualizado una persona"
         charge_changed: "Se ha actualizado una persona"
         bio_changed: "Se ha actualizado una persona"
+  gobierto_people/person_event:
+    notifications:
+      subject:
+        created: "Se ha creado un evento"
+        title_changed: "Se ha actualizado un evento"
+        starts_at_changed: "Se ha actualizado un evento"
+        ends_at_changed: "Se ha actualizado un evento"

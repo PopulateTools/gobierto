@@ -4,6 +4,7 @@ module GobiertoAdmin
   module GobiertoPeople
     class PersonEventForm
       include ActiveModel::Model
+      prepend ::GobiertoCommon::Trackable
 
       attr_accessor(
         :id,
@@ -23,6 +24,12 @@ module GobiertoAdmin
       validates :title, presence: true
       validates :starts_at, :ends_at, presence: true
       validates :person, presence: true
+
+      trackable_on :person_event
+
+      notify_changed :title
+      notify_changed :starts_at
+      notify_changed :ends_at
 
       def save
         save_person_event if valid?
@@ -108,6 +115,14 @@ module GobiertoAdmin
         @ends_at
       end
 
+      def state
+        @state ||= "published"
+      end
+
+      def notify?
+        person_event.published?
+      end
+
       private
 
       def build_person_event
@@ -141,6 +156,7 @@ module GobiertoAdmin
       def save_person_event
         @person_event = person_event.tap do |person_event_attributes|
           person_event_attributes.person_id = person_id
+          person_event_attributes.state = state
           person_event_attributes.title = title
           person_event_attributes.description = description
           person_event_attributes.starts_at = starts_at
@@ -151,7 +167,9 @@ module GobiertoAdmin
         end
 
         if @person_event.valid?
-          @person_event.save
+          run_callbacks(:save) do
+            @person_event.save
+          end
 
           @person_event
         else

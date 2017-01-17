@@ -1,0 +1,9 @@
+---
+ca:
+  gobierto_people/person:
+    notifications:
+      subject:
+        created: "S'ha afeggit una persona"
+        name_changed: "S'ha actualitzat una consulta"
+        charge_changed: "S'ha actualitzat una consulta"
+        bio_changed: "S'ha actualitzat una consulta"

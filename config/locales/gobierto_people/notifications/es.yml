@@ -1,0 +1,9 @@
+---
+es:
+  gobierto_people/person:
+    notifications:
+      subject:
+        created: "Se ha agregado una persona"
+        name_changed: "Se ha actualizado una persona"
+        charge_changed: "Se ha actualizado una persona"
+        bio_changed: "Se ha actualizado una persona"

@@ -1,0 +1,9 @@
+---
+en:
+  gobierto_people/person:
+    notifications:
+      subject:
+        created: "A person has been added"
+        name_changed: "A person has been updated"
+        charge_changed: "A person has been updated"
+        bio_changed: "A person has been updated"

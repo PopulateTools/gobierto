@@ -16,11 +16,13 @@ body.gobierto_people {
 
   .item-list {
     padding: 1em 0;
-    margin: 1em 0;
-    border-top: 1px solid $color_separator;
 
     .person-item {
       border-bottom: 1px solid $color_separator;
+
+      &:last-of-type {
+        border-bottom: 0;
+      }
     }
   }
 

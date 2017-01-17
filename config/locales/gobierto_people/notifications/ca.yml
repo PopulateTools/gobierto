@@ -14,6 +14,13 @@ ca:
         title_changed: "S'ha actualitzat un esdeveniment"
         starts_at_changed: "S'ha actualitzat un esdeveniment"
         ends_at_changed: "S'ha actualitzat un esdeveniment"
+  gobierto_people/person_statement:
+    notifications:
+      subject:
+        created: "S'ha afeggit una declaració"
+        title_changed: "S'ha actualitzat una declaració"
+        published_on_changed: "S'ha actualitzat una declaració"
+        visibility_level_changed: "S'ha actualitzat una declaració"
   gobierto_people/person_post:
     notifications:
       subject:

@@ -14,6 +14,13 @@ es:
         title_changed: "Se ha actualizado un evento"
         starts_at_changed: "Se ha actualizado un evento"
         ends_at_changed: "Se ha actualizado un evento"
+  gobierto_people/person_statement:
+    notifications:
+      subject:
+        created: "Se ha agregado una declaración"
+        title_changed: "Se ha actualizado una declaración"
+        published_on_changed: "Se ha actualizado una declaración"
+        visibility_level_changed: "Se ha actualizado una declaración"
   gobierto_people/person_post:
     notifications:
       subject:

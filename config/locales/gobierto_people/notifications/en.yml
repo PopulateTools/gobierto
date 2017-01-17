@@ -14,6 +14,13 @@ en:
         title_changed: "An event has been updated"
         starts_at_changed: "An event has been updated"
         ends_at_changed: "An event has been updated"
+  gobierto_people/person_statement:
+    notifications:
+      subject:
+        created: "A statement has been added"
+        title_changed: "A statement has been updated"
+        published_on_changed: "A statement has been updated"
+        visibility_level_changed: "A statement has been updated"
   gobierto_people/person_post:
     notifications:
       subject:

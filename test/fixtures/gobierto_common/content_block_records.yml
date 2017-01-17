@@ -1,12 +1,12 @@
 contact_method_twitter:
   content_context: richard (GobiertoPeople::Person)
   content_block: contact_methods
-  payload: <%= { "service_name" => "Twitter", "service_url" => "https://twitter.com/richard", "service_notes" => "Richard's Twitter account" }.to_json %>
+  payload: <%= { "service_name" => "Twitter", "service_handle" => "@richard", "service_url" => "https://twitter.com/richard", "service_notes" => "Richard's Twitter account" }.to_json %>
 
 contact_method_twitter_alternative:
   content_context: tamara (GobiertoPeople::Person)
   content_block: contact_methods
-  payload: <%= { "service_name" => "Twitter", "service_url" => "https://twitter.com/tamara", "service_notes" => "Tamara's Twitter account" }.to_json %>
+  payload: <%= { "service_name" => "Twitter", "service_handle" => "@tamara", "service_url" => "https://twitter.com/tamara", "service_notes" => "Tamara's Twitter account" }.to_json %>
 
 accomplishment_nobel_prize:
   content_context: richard (GobiertoPeople::Person)

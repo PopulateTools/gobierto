@@ -16,7 +16,7 @@ module GobiertoPeople
     end
 
     def test_twitter_handle
-      assert_nil @subject.twitter_handle
+      assert_equal "@richard", @subject.twitter_handle
     end
 
     def test_twitter_url

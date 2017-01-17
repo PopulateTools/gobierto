@@ -7,6 +7,8 @@ module GobiertoCommon
 
     cattr_accessor :content_context
 
+    scope :sorted, -> { order(id: :asc) }
+
     def self.set_content_context(content_context)
       self.tap do |content_block_class|
         content_block_class.content_context = content_context

@@ -12,6 +12,10 @@ module GobiertoAdmin
         @person ||= gobierto_people_people(:richard)
       end
 
+      def test_events_count
+        assert_equal person.events.count, @subject.events_count
+      end
+
       def test_pending_events_count
         assert_equal person.events.pending.count, @subject.pending_events_count
       end

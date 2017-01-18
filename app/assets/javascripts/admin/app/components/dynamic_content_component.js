@@ -142,10 +142,14 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   }
 
   function _cleanupRecordField(selector) {
-    if (selector.attr("type") === "text") {
-      selector.val("");
-    } else if (selector.attr("type") === "select") {
+    if (selector.attr("type") === "hidden") {
+      return true;
+    }
+
+    if (selector.attr("type") === "select") {
       selector.find("option:selected").prop("selected", false);
+    } else {
+      selector.val("");
     }
   }
 

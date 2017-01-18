@@ -78,7 +78,7 @@ module GobiertoAdmin
                 scroll_to_top
 
                 with_stubbed_s3_file_upload do
-                  click_button "Update Event"
+                  click_button "Update"
                 end
               end
 

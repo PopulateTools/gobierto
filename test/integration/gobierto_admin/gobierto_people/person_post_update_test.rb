@@ -42,7 +42,7 @@ module GobiertoAdmin
                   find("label", text: "Draft").click
                 end
 
-                click_button "Update Post"
+                click_button "Update"
               end
 
               assert has_message?("Post was successfully updated")

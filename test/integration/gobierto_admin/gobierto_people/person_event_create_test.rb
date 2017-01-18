@@ -68,7 +68,7 @@ module GobiertoAdmin
                 end
 
                 with_stubbed_s3_file_upload do
-                  click_button "Create Event"
+                  click_button "Create"
                 end
               end
 

@@ -30,7 +30,7 @@ module GobiertoAdmin
                 choose "Active"
               end
 
-              click_button "Create Consultation"
+              click_button "Create"
             end
 
             assert has_message?("Consultation was successfully created")

@@ -38,7 +38,7 @@ module GobiertoAdmin
                 # Simulate Budget line selection in user control
                 find("#consultation_item_budget_line_id", visible: false).set(populate_data_budget_line_summary[:name])
 
-                click_button "Create Budget line"
+                click_button "Create"
               end
 
               assert has_message?("Consultation item was successfully created")

@@ -28,7 +28,7 @@ module GobiertoAdmin
             within "form.edit_political_group" do
               fill_in "political_group_name", with: "Political group name"
 
-              click_button "Update Political group"
+              click_button "Update"
             end
 
             assert has_message?("Political group was successfully update")

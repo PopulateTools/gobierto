@@ -43,7 +43,7 @@ module GobiertoAdmin
           end
 
           with_stubbed_s3_file_upload do
-            click_button "Update Site"
+            click_button "Update"
           end
         end
 
@@ -87,7 +87,7 @@ module GobiertoAdmin
             fill_in "site_password", with: "wadus"
           end
 
-          click_button "Update Site"
+          click_button "Update"
         end
 
         assert has_message?("Site was successfully updated")
@@ -98,7 +98,7 @@ module GobiertoAdmin
           end
 
           fill_in "site_title", with: "New Site Title"
-          click_button "Update Site"
+          click_button "Update"
         end
 
         assert has_message?("Site was successfully updated")
@@ -120,7 +120,7 @@ module GobiertoAdmin
             choose "Draft"
           end
 
-          click_button "Update Site"
+          click_button "Update"
         end
 
         assert has_content?("Username can't be blank")

@@ -38,7 +38,7 @@ module GobiertoAdmin
                   find("label", text: "Active").click
                 end
 
-                click_button "Create Post"
+                click_button "Create"
               end
 
               assert has_message?("Post was successfully created")

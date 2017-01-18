@@ -27,7 +27,7 @@ module GobiertoAdmin
               fill_in "consultation_opening_date_range", with: "2016-01-01 - 2016-12-01"
 
               within ".consultation-visibility-level-radio-buttons" do
-                choose "Active"
+                choose "Published"
               end
 
               click_button "Create Consultation"

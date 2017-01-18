@@ -39,7 +39,7 @@ module GobiertoAdmin
           end
 
           within ".site-visibility-level-radio-buttons" do
-            choose "Active"
+            choose "Published"
           end
 
           with_stubbed_s3_file_upload do
@@ -64,7 +64,7 @@ module GobiertoAdmin
           end
 
           within ".site-visibility-level-radio-buttons" do
-            assert has_checked_field?("Active")
+            assert has_checked_field?("Published")
           end
         end
       end
@@ -75,7 +75,7 @@ module GobiertoAdmin
         visit admin_sites_path
 
         within "table.site-list tbody tr#site-item-#{site.id}" do
-          assert has_content?("Active")
+          assert has_content?("Published")
         end
 
         visit @path
@@ -110,7 +110,7 @@ module GobiertoAdmin
         visit admin_sites_path
 
         within "table.site-list tbody tr#site-item-#{site.id}" do
-          assert has_content?("Active")
+          assert has_content?("Published")
         end
 
         visit @path

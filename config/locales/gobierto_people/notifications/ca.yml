@@ -4,10 +4,10 @@ ca:
     notifications:
       subject:
         created: "S'ha afeggit una persona"
-        name_changed: "S'ha actualitzat una consulta"
-        charge_changed: "S'ha actualitzat una consulta"
-        bio_changed: "S'ha actualitzat una consulta"
-        visibility_level_changed: "S'ha actualitzat una consulta"
+        name_changed: "S'ha actualitzat una persona"
+        charge_changed: "S'ha actualitzat una persona"
+        bio_changed: "S'ha actualitzat una persona"
+        visibility_level_changed: "S'ha actualitzat una persona"
   gobierto_people/person_event:
     notifications:
       subject:

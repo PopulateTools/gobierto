@@ -77,6 +77,8 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
       _switchToRecordForm(clonedField);
 
       $(recordTemplate).after(clonedField);
+
+      clonedField.find("input:visible:first").focus();
     });
   }
 
@@ -178,6 +180,7 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   function _switchToRecordForm(wrapper) {
     wrapper.find(".dynamic-content-record-view").hide();
     wrapper.find(".dynamic-content-record-form").show();
+    wrapper.find(".dynamic-content-record-form input:visible:first").focus();
   }
 
   function _switchToRecordView(wrapper) {

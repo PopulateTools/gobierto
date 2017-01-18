@@ -30,7 +30,7 @@ module Integration
           else
             find("a[data-behavior=add_child]").click
 
-            within ".cloned-dynamic-content-record-wrapper" do
+            within ".cloned-dynamic-content-record-wrapper", match: :first do
               content_block.fields.each do |content_block_field|
                 within ".content-block-field-#{content_block_field.name.parameterize}" do
                   if content_block_field.currency?
@@ -50,7 +50,7 @@ module Integration
 
     def assert_content_blocks_have_the_right_values
       content_blocks.each do |content_block|
-        within "#content-block-#{content_block.id} .dynamic-content-record-view" do
+        within "#content-block-#{content_block.id} .dynamic-content-record-view", match: :first do
           content_block.fields.each do |content_block_field|
             if content_block_field.currency?
               assert has_selector?(".content-block-record-value", text: "42.0")

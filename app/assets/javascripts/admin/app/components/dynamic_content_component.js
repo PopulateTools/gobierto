@@ -4,10 +4,10 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   DynamicContentComponent.prototype.handle = function(wrapper, namespace) {
     initializeRecordFields(wrapper);
     handleAddChild(wrapper, namespace);
-    handleAddRecord();
-    handleCancelRecord();
-    handleEditRecord();
-    handleDeleteRecord();
+    handleAddRecord(wrapper);
+    handleCancelRecord(wrapper);
+    handleEditRecord(wrapper);
+    handleDeleteRecord(wrapper);
   };
 
   function initializeRecordFields(wrapper) {
@@ -82,8 +82,8 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
     });
   }
 
-  function handleCancelRecord() {
-    var componentWrapper = $(".dynamic-content-wrapper");
+  function handleCancelRecord(wrapper) {
+    var componentWrapper = $(wrapper || ".dynamic-content-wrapper");
 
     componentWrapper.on("click", "[data-behavior=cancel_record]", function(e) {
       e.preventDefault();
@@ -97,8 +97,8 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
     });
   }
 
-  function handleEditRecord() {
-    var componentWrapper = $(".dynamic-content-wrapper");
+  function handleEditRecord(wrapper) {
+    var componentWrapper = $(wrapper || ".dynamic-content-wrapper");
 
     componentWrapper.on("click", "[data-behavior=edit_record]", function(e) {
       e.preventDefault();
@@ -109,8 +109,8 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
     });
   }
 
-  function handleDeleteRecord() {
-    var componentWrapper = $(".dynamic-content-wrapper");
+  function handleDeleteRecord(wrapper) {
+    var componentWrapper = $(wrapper || ".dynamic-content-wrapper");
 
     componentWrapper.on("click", "[data-behavior=delete_record]", function(e) {
       e.preventDefault();
@@ -123,8 +123,8 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
     });
   }
 
-  function handleAddRecord() {
-    var componentWrapper = $(".dynamic-content-wrapper");
+  function handleAddRecord(wrapper) {
+    var componentWrapper = $(wrapper || ".dynamic-content-wrapper");
 
     componentWrapper.on("click", "[data-behavior=add_record]", function(e) {
       e.preventDefault();
@@ -133,7 +133,12 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
 
       _setRecordViewState(eventWrapper);
       _switchToRecordView(eventWrapper);
+      _addChild($(this).closest(".dynamic-content-wrapper"));
     });
+  }
+
+  function _addChild(wrapper) {
+    wrapper.find("[data-behavior=add_child]").trigger("click");
   }
 
   function _cleanupRecordField(selector) {

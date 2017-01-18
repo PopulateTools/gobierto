@@ -190,11 +190,16 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   }
 
   function _handleCurrencyType(selector) {
-    selector.attr("type", "number");
     if (!selector.length) {
       return true;
     }
 
+    var cleaveCurrency = new Cleave(selector, {
+      numeral: true,
+      numeralThousandsGroupStyle: "thousand",
+      numeralDecimalMark: ",",
+      delimiter: "."
+    });
   }
 
   function _switchToRecordForm(wrapper) {

@@ -45,7 +45,7 @@ module GobiertoAdmin
                 end
 
                 within ".person-statement-visibility-level-radio-buttons" do
-                  find("label", text: "Active").click
+                  find("label", text: "Published").click
                 end
 
                 fill_in_content_blocks
@@ -67,7 +67,7 @@ module GobiertoAdmin
 
                 within ".person-statement-visibility-level-radio-buttons" do
                   with_hidden_elements do
-                    assert has_checked_field?("Active")
+                    assert has_checked_field?("Published")
                   end
                 end
 

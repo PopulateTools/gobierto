@@ -42,7 +42,7 @@ module GobiertoAdmin
           end
 
           with_stubbed_s3_file_upload do
-            click_button "Create Site"
+            click_button "Create"
           end
         end
 

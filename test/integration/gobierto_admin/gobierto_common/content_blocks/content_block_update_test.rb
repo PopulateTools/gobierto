@@ -58,7 +58,7 @@ module GobiertoAdmin
                     end
                   end
 
-                  click_button "Update Content block"
+                  click_button "Update"
                 end
 
                 assert has_message?("Content block was successfully updated")

@@ -73,7 +73,7 @@ module GobiertoAdmin
                 fill_in_content_blocks
 
                 with_stubbed_s3_file_upload do
-                  click_button "Create Person"
+                  click_button "Create"
                 end
               end
 

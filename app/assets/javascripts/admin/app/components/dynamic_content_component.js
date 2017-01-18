@@ -2,7 +2,6 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   function DynamicContentComponent() {}
 
   DynamicContentComponent.prototype.handle = function(wrapper, namespace) {
-    initializeRecordFields(wrapper);
     handleAddChild(wrapper, namespace);
     handleAddRecord(wrapper);
     handleCancelRecord(wrapper);
@@ -168,6 +167,10 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   }
 
   function _handleGeocompleteBehavior(selector) {
+    if (!selector.length) {
+      return true;
+    }
+
     selector.geocomplete({
       details: ".content-block-field",
       detailsAttribute: "data-geo",
@@ -176,6 +179,10 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   }
 
   function _handleDateType(selector, locale) {
+    if (!selector.length) {
+      return true;
+    }
+
     selector.datepicker({
       language: locale,
       autoClose: true
@@ -184,9 +191,15 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
 
   function _handleCurrencyType(selector) {
     selector.attr("type", "number");
+    if (!selector.length) {
+      return true;
+    }
+
   }
 
   function _switchToRecordForm(wrapper) {
+    initializeRecordFields(wrapper);
+
     wrapper.find(".dynamic-content-record-view").hide();
     wrapper.find(".dynamic-content-record-form").show();
     wrapper.find(".dynamic-content-record-form input:visible:first").focus();

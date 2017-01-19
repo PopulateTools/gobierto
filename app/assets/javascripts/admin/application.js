@@ -10,7 +10,10 @@ $(document).on('turbolinks:load', function() {
 
   // Datepicker
   $('.air-datepicker').datepicker({
-    autoClose: true
+    autoClose: true,
+    onSelect: function onSelect(_, _, instance) {
+      $(instance.el).trigger("datepicker-change");
+    }
   });
 
 });

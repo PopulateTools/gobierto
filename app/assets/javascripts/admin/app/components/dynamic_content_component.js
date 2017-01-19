@@ -167,7 +167,10 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   function _handleDateType(selector, locale) {
     selector.datepicker({
       language: locale,
-      autoClose: true
+      autoClose: true,
+      onSelect: function onSelect(_, _, instance) {
+        $(instance.el).trigger("datepicker-change");
+      }
     });
   }
 

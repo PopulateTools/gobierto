@@ -54,9 +54,12 @@ module GobiertoAdmin
         @attachment_url ||= begin
           return person_statement.attachment_url unless attachment_file.present?
 
-          FileUploader::S3.new(
-            file: attachment_file,
-            file_name: "gobierto_people/people/#{person_id}/statements/attachment-#{SecureRandom.uuid}"
+          FileUploadService.new(
+            adapter: :s3,
+            site: person.site,
+            collection: person_statement.model_name.collection,
+            attribute_name: :attachment,
+            file: attachment_file
           ).call
         end
       end

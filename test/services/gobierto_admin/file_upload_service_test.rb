@@ -6,15 +6,13 @@ module GobiertoAdmin
     include FileUploaderHelpers
 
     def file_upload_service
-      @file_upload_service ||= begin
-        FileUploadService.new(
-          adapter: :s3,
-          site: site,
-          collection: :test_collection,
-          attribute_name: :test_attribute,
-          file: file
-        )
-      end
+      @file_upload_service ||= FileUploadService.new(
+        adapter: :s3,
+        site: site,
+        collection: :test_collection,
+        attribute_name: :test_attribute,
+        file: file
+      )
     end
 
     def site

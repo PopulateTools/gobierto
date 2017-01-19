@@ -197,8 +197,8 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
     var cleaveCurrency = new Cleave(selector, {
       numeral: true,
       numeralThousandsGroupStyle: "thousand",
-      numeralDecimalMark: ",",
-      delimiter: "."
+      numeralDecimalMark: I18n.t('number.currency.format.separator'),
+      delimiter: I18n.t('number.currency.format.delimiter')
     });
   }
 

@@ -103,6 +103,50 @@ Rails.application.routes.draw do
     end
   end
 
+  # Gobierto People module
+  namespace :gobierto_people, path: 'cargos-y-agendas' do
+    constraints GobiertoSiteConstraint.new do
+      get '/' => 'welcome#index', as: :root
+
+      resources :person_events, only: [:index], as: :events, path: 'todos-los-cargos/agendas/eventos'
+      resources :government_party_person_events, only: [:index], as: :government_party_events, path: 'agendas/eventos'
+      resources :opposition_party_person_events, only: [:index], as: :opposition_party_events, path: 'cargos-en-oposicion/agendas/eventos'
+      resources :executive_category_person_events, only: [:index], as: :executive_category_events, path: 'cargos-directivos/agendas/eventos'
+
+      resources :past_person_events, only: [:index], as: :past_events, path: 'todos-los-cargos/agendas/eventos-pasados'
+      resources :government_party_past_person_events, only: [:index], as: :government_party_past_events, path: 'agendas/eventos-pasados'
+      resources :opposition_party_past_person_events, only: [:index], as: :opposition_party_past_events, path: 'cargos-en-oposicion/agendas/eventos-pasados'
+      resources :executive_category_past_person_events, only: [:index], as: :executive_category_past_events, path: 'cargos-directivos/agendas/eventos-pasados'
+
+      resources :person_posts, only: [:index], as: :posts, path: 'blog/posts'
+      resources :person_post_tags, only: [:show], as: :post_tags, path: 'blog/tags'
+
+      resources :person_statements, only: [:index], as: :statements, path: 'bienes-y-actividades'
+      resources :person_gifts, only: [:index], as: :gifts, path: 'obsequios-y-regalos'
+      resources :person_travels, only: [:index], as: :travels, path: 'viajes-y-desplazamientos'
+
+      resources :people, only: [:show], path: 'cargos' do
+        resource :person_bio, only: [:show], controller: "people/person_bio", as: :bio, path: 'biografia'
+        resources :person_events, only: [:index, :show], controller: "people/person_events", as: :events, path: 'agenda/eventos'
+        resources :past_person_events, only: [:index], controller: "people/past_person_events", as: :past_events, path: 'agenda/eventos-pasados'
+        resources :person_posts, only: [:index, :show], controller: "people/person_posts", as: :posts, path: 'blog/posts'
+        resources :person_post_tags, only: [:show], controller: "people/person_post_tags", as: :post_tags, path: 'blog/tags'
+        resources :person_statements, only: [:index, :show], controller: "people/person_statements", as: :statements, path: 'bienes-y-actividades'
+      end
+
+      resources :people, only: [:index], path: 'todos-los-cargos'
+      resources :government_party_people, only: [:index], path: 'cargos'
+      resources :opposition_party_people, only: [:index], path: 'cargos-en-oposicion'
+      resources :executive_category_people, only: [:index], path: 'cargos-directivos'
+
+      resources :political_groups, only: [:show], path: 'grupos-politicos' do
+        resources :people, only: [:index], controller: "political_groups/people", path: 'cargos'
+        resources :person_events, only: [:index], controller: "political_groups/person_events", as: :events, path: 'agendas/eventos'
+        resources :past_person_events, only: [:index], controller: "political_groups/past_person_events", as: :past_events, path: 'agendas/eventos-pasados'
+      end
+    end
+  end
+
   # Gobierto Budgets module
   namespace :gobierto_budgets, path: nil do
     constraints GobiertoSiteConstraint.new do

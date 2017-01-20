@@ -76,7 +76,7 @@ module GobiertoAdmin
         available_locales.map do |locale|
           OpenStruct.new(
             locale: locale.to_s,
-            value: title[locale.to_s]
+            value: (title[locale.to_s] if title)
           )
         end
       end

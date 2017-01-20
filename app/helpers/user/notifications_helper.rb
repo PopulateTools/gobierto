@@ -21,10 +21,9 @@ module User::NotificationsHelper
   end
 
   def notification_subject_url(user_notification, absolute_url = false)
-    return url_for(user_notification.subject) unless absolute_url
+    return url_for(user_notification.subject.to_path) unless absolute_url
 
-    polymorphic_url(
-      user_notification.subject,
+    user_notification.subject.to_url(
       domain: (user_notification.site.domain if absolute_url)
     )
   end

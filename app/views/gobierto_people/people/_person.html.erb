@@ -1,0 +1,17 @@
+<div class="person-item">
+  <%= link_to person do %>
+    <% if person.avatar_url.present? %>
+      <div class="media-left">
+        <%= image_tag person.avatar_url, height: 80, width: 80, class: "avatar" %>
+      </div>
+    <% end %>
+
+    <strong>
+      <%= person.name %>
+    </strong>
+  <% end %>
+
+  <div class="soft">
+    <%= person.charge %>
+  </div>
+</div>

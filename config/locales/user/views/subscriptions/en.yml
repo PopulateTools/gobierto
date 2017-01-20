@@ -9,6 +9,7 @@ en:
         cancel: Cancel subscription
       subscribable_box:
         subscribe: Subscribe
+        cancel: Already subscribed. Cancel?
         disclaimer: No spam. Cancel anytime.
         form:
           placeholders:

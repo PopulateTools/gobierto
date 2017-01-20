@@ -75,6 +75,10 @@ module GobiertoAdmin
                   end
                 end
 
+                within ".person-event-state-radio-buttons" do
+                  find("label", text: "Pending").click
+                end
+
                 scroll_to_top
 
                 with_stubbed_s3_file_upload do
@@ -103,6 +107,12 @@ module GobiertoAdmin
                 within "#person-event-attendees .dynamic-content-record-view", match: :first do
                   assert has_selector?(".content-block-record-value", text: "Attendee Name")
                   assert has_selector?(".content-block-record-value", text: "Attendee Charge")
+                end
+
+                within ".person-event-state-radio-buttons" do
+                  with_hidden_elements do
+                    assert has_checked_field?("Pending")
+                  end
                 end
               end
             end

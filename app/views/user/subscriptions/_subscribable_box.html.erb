@@ -1,13 +1,17 @@
 <% user_subscription_form = User::SubscriptionForm.new(subscribable: subscribable) %>
 
-<div class="box">
+<div class="subscribable-box box">
   <div class="inner">
     <h3><%= title %></h3>
+
+    <% if defined?(subtitle) %>
+      <h4><%= subtitle %></h4>
+    <% end %>
 
     <% if user_signed_in? %>
 
       <%= button_to(
-        t(".subscribe"),
+        current_user.subscribed_to?(subscribable, current_site) ? t(".cancel") : t(".subscribe"),
         user_subscriptions_path,
         params: {
           user_subscription: {

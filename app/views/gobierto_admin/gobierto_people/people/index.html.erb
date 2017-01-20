@@ -50,9 +50,16 @@
         <%= t(".posts_count", count: person.posts_count) %>
       </td>
       <td>
-        <%= link_to "#", class: "view_item" do %>
-          <i class="fa fa-eye"></i>
-          <%= t(".view_person") %>
+        <% if person.active? %>
+          <%= link_to gobierto_people_person_url(person, domain: current_site.domain), target: "_blank", class: "view_item" do %>
+            <i class="fa fa-eye"></i>
+            <%= t(".view_person") %>
+          <% end %>
+        <% else %>
+          <div class="view_item">
+            <i class="fa fa-eye"></i>
+            <%= t(".view_person") %>
+          </div>
         <% end %>
       </td>
     </tr>

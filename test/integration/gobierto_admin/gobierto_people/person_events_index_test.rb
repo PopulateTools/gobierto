@@ -65,6 +65,14 @@ module GobiertoAdmin
 
               person.events.published.each do |event|
                 assert has_selector?("tr#person-event-item-#{event.id}")
+
+                within "tr#person-event-item-#{event.id}" do
+                  if event.published?
+                    assert has_link?("View event")
+                  else
+                    assert has_selector?(".view_item", text: "View event")
+                  end
+                end
               end
             end
           end

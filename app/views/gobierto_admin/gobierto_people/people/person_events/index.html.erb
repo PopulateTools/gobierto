@@ -68,9 +68,16 @@
       <td>
       </td>
       <td>
-        <%= link_to "#", class: "view_item" do %>
-          <i class="fa fa-eye"></i>
-          <%= t(".view_event") %>
+        <% if person_event.published? %>
+          <%= link_to gobierto_people_person_event_url(@person, person_event, domain: current_site.domain), target: "_blank", class: "view_item" do %>
+            <i class="fa fa-eye"></i>
+            <%= t(".view_event") %>
+          <% end %>
+        <% else %>
+          <div class="view_item">
+            <i class="fa fa-eye"></i>
+            <%= t(".view_event") %>
+          </div>
         <% end %>
       </td>
     </tr>

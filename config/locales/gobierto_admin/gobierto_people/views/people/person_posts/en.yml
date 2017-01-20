@@ -7,7 +7,7 @@ en:
           index:
             title: Blog
             new: New post
-            view_post: view post
+            view_post: View post
             header:
               title: Title
               date: Date

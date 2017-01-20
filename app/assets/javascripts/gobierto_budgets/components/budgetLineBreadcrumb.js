@@ -58,19 +58,18 @@ function limit_length(input, length) {
       var selectedItem;
 
       if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
-      html += '<tr><td data-area-name="economic" data-kind="I" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName) + '</a></td></tr>';
+      html += '<tr><td data-area-name="economic" data-kind="I" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.I_economic') + '</a></td></tr>';
       selectedItem = '';
 
       if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
-      html += '<tr><td data-area-name="economic" data-kind="G" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName) + '</a></td></tr>';
+      html += '<tr><td data-area-name="economic" data-kind="G" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.G_economic') + '</a></td></tr>';
       selectedItem = '';
 
       if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
-      html += '<tr><td data-area-name="functional" data-kind="G" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName) + '</a></td></tr>';
+      html += '<tr><td data-area-name="functional" data-kind="G" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.G_functional') + '</a></td></tr>';
 
       $el.html(html);
       $el.data('current-code', this.currentKind);
-      // $el.parent().velocity('fadeIn', {duration: 250});
       $el.parent().show();
       this.assignHandlersLevel1();
     };
@@ -123,7 +122,6 @@ function limit_length(input, length) {
 
         timeout = setTimeout(function(){
           for(var i=(level+2); i < 5; i++){
-            //$('[data-level="' + i + '"]').velocity('fadeOut', {duration: 100});
             $('[data-level="' + i + '"]').hide();
           }
 
@@ -141,7 +139,6 @@ function limit_length(input, length) {
                 $('[data-level="' + level + '"] [data-code="'+currentCode+'"]').addClass('selected');
             });
           } else {
-            // $('[data-level=' + nextLevel + ']').velocity("fadeIn", { duration: 250 });
             $('[data-level=' + nextLevel + ']').show();
           }
         }, 200);
@@ -176,7 +173,6 @@ function limit_length(input, length) {
           $el.html(html);
           $el.data('current-code', currentCode);
 
-          // $('[data-level=' + level + ']').velocity("fadeIn", { duration: 250 });
           $('[data-level=' + level + ']').show();
           this.assignHandlers(level);
           if(callback !== undefined)
@@ -184,7 +180,6 @@ function limit_length(input, length) {
         }.bind(this));
       } else {
         if(!$el.parent().is(':visible'))
-          // $el.parent().velocity('fadeIn', {duration: 250});
           $el.parent().show();
       }
     };

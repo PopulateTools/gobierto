@@ -18,7 +18,7 @@ en:
             other: "%{count} participations"
           visibility_level:
             draft: Draft
-            active: Active
+            active: Published
         edit:
           title: Edit consultation
           consultation_section: Consultation
@@ -36,4 +36,4 @@ en:
             description:
           visibility_level:
             draft: Draft
-            active: Active
+            active: Published

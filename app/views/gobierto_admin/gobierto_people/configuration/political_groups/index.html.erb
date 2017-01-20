@@ -1,0 +1,47 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= link_to t("gobierto_admin.gobierto_people.people.index.title"), admin_people_people_path %> »
+  <%= link_to t("gobierto_admin.gobierto_people.configuration.title"), admin_people_configuration_political_groups_path %>
+</div>
+
+<h1><%= t("gobierto_admin.gobierto_people.configuration.title") %></h1>
+
+<div class="tabs">
+  <ul>
+    <li class="active">
+      <%= link_to t(".title"), "#" %>
+    </li>
+  </ul>
+</div>
+
+<div class="admin_tools right">
+  <%= link_to t(".new"), new_admin_people_configuration_political_group_path, class: "button" %>
+</div>
+
+<table class="people-list">
+<tr>
+  <th class="icon_col"></th>
+  <th><%= t(".header.political_group") %></th>
+  <th><%= t(".header.created") %></th>
+</tr>
+
+<tbody>
+  <% @political_groups.each do |political_group| %>
+    <tr id="political_group-item-<%= political_group.id %>" class="<%= cycle("odd", "even") %>">
+      <td>
+        <%= link_to edit_admin_people_configuration_political_group_path(political_group) do %>
+          <i class="fa fa-edit"></i>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to edit_admin_people_configuration_political_group_path(political_group) do %>
+          <%= political_group.name %>
+        <% end %>
+      </td>
+      <td>
+        <%= l(political_group.created_at, format: :short) %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>
+</table>

@@ -34,7 +34,7 @@ module GobiertoAdmin
                 choose "Draft"
               end
 
-              click_button "Update Consultation"
+              click_button "Update"
             end
 
             assert has_message?("Consultation was successfully updated")

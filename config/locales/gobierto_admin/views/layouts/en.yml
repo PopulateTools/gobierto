@@ -16,3 +16,5 @@ en:
         admin_dropdown:
           account: Account
           sign_out: Sign out
+        dirty_forms:
+          message: You have unsaved changes. Are you sure you want to leave this page?

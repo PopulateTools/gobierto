@@ -1,0 +1,10 @@
+---
+en:
+  gobierto_admin:
+    gobierto_people:
+      configuration:
+        political_groups:
+          create:
+            success: Political group was successfully created
+          update:
+            success: Political group was successfully updated

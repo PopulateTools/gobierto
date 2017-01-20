@@ -106,6 +106,7 @@ en:
         per_inhabitant: Per inhabitant
         twitter_text_expense: "In @gobierto: Municipal expense on %{name} in %{budget_line_name} for year %{year}"
         twitter_text_income: "In @gobierto: Municipal income on %{name} in %{budget_line_name} for year %{year}"
+        about_this_line: "About this budget line"
     budgets_execution:
       index:
         title: "Local budget execution from %{place} in %{year}"

@@ -18,7 +18,7 @@ ca:
             other: "%{count} participacions"
           visibility_level:
             draft: Borrador
-            active: Activa
+            active: Publicada
         edit:
           title: Editar consulta
           consultation_section: Consulta
@@ -36,4 +36,4 @@ ca:
             description: Te recomanem descriure clarament el tipus de consulta.
           visibility_level:
             draft: Borrador
-            active: Activa
+            active: Publicada

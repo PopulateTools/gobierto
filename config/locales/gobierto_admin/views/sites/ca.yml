@@ -35,4 +35,4 @@ ca:
         password: Contrasenya
         visibility_level:
           draft: Borrador
-          active: Actiu
+          active: Publicat

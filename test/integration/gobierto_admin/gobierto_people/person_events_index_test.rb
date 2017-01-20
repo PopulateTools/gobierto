@@ -94,6 +94,11 @@ module GobiertoAdmin
 
             within ".sub_filter ul", match: :first do
               assert has_selector?(
+                ".all-events-filter",
+                text: "All (#{person.events.count})"
+              )
+
+              assert has_selector?(
                 ".pending-events-filter",
                 text: "Moderation pending (#{person.events.pending.count})"
               )

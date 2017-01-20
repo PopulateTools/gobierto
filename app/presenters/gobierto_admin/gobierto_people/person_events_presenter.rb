@@ -5,6 +5,10 @@ module GobiertoAdmin
         @person = person
       end
 
+      def events_count
+        @events_count ||= @person.events.count
+      end
+
       def pending_events_count
         @pending_events_count ||= @person.events.pending.count
       end

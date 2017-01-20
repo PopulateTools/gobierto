@@ -1,0 +1,6 @@
+---
+en:
+  gobierto_admin:
+    form_helpers:
+      rich_text_area:
+        hints: Drag and drop an image to add it to your content.

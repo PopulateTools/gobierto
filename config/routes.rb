@@ -56,6 +56,11 @@ Rails.application.routes.draw do
         resources :person_statements, only: [:index, :new, :create, :edit, :update], controller: "people/person_statements", as: :statements, path: :statements
         resources :person_posts, only: [:index, :new, :create, :edit, :update], controller: "people/person_posts", as: :posts, path: :blog
       end
+
+      namespace :configuration do
+        resources :political_groups, only: [:index, :new, :create, :edit, :update], path: :groups
+      end
+
       resource :file_attachments, only: [:create]
     end
 

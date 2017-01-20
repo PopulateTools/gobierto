@@ -1,0 +1,10 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_people:
+      configuration:
+        political_groups:
+          create:
+            success: L'agrupació política s'ha creat correctament
+          update:
+            success: L'agrupació política s'ha actualitzat correctament

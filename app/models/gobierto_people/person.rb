@@ -6,6 +6,7 @@ module GobiertoPeople
 
     belongs_to :admin, class_name: "GobiertoAdmin::Admin"
     belongs_to :site
+    belongs_to :political_group
 
     has_many :events, class_name: "PersonEvent", dependent: :destroy
     has_many :statements, class_name: "PersonStatement", dependent: :destroy
@@ -14,5 +15,7 @@ module GobiertoPeople
     scope :sorted, -> { order(created_at: :desc) }
 
     enum visibility_level: { draft: 0, active: 1 }
+    enum category: { politician: 0, executive: 1 }
+    enum party: { government: 0, opposition: 1 }
   end
 end

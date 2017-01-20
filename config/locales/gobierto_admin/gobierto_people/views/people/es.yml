@@ -12,6 +12,7 @@ es:
           title: Personas
           new: Nueva persona
           view_person: Ver persona
+          configuration: Configuración
           header:
             person: Persona
             charge: Cargo
@@ -39,4 +40,10 @@ es:
             charge: Alcalde
           visibility_level:
             draft: Borrador
-            active: Activa
+            active: Publicada
+          category:
+            politician: Político
+            executive: Directivo
+          party:
+            government: Gobierno
+            opposition: Oposición

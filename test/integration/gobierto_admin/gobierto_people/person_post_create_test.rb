@@ -35,10 +35,10 @@ module GobiertoAdmin
                 fill_in "person_post_tags", with: "one, two, three"
 
                 within ".person-post-visibility-level-radio-buttons" do
-                  find("label", text: "Active").click
+                  find("label", text: "Published").click
                 end
 
-                click_button "Create Post"
+                click_button "Create"
               end
 
               assert has_message?("Post was successfully created")
@@ -55,7 +55,7 @@ module GobiertoAdmin
 
                 within ".person-post-visibility-level-radio-buttons" do
                   with_hidden_elements do
-                    assert has_checked_field?("Active")
+                    assert has_checked_field?("Published")
                   end
                 end
               end

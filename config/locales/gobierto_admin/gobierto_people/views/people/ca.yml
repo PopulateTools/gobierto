@@ -40,7 +40,7 @@ ca:
             charge: Alcalde
           visibility_level:
             draft: Borrador
-            active: Activa
+            active: Publicada
           category:
             politician: Polític
             executive: Directiu

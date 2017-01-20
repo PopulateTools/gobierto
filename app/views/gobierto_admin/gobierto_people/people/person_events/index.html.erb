@@ -13,6 +13,10 @@
 
   <div class="pure-u-1 pure-u-md-3-5 sub_filter">
     <ul>
+      <li class="all-events-filter <%= class_if("active", controller_name == "person_events") %>">
+        <%= link_to t(".all_events"), admin_people_person_events_path(@person) %>
+        (<%= @person_events_presenter.events_count %>)
+      </li>
       <li class="pending-events-filter <%= class_if("active", controller_name == "pending_person_events") %> <%= class_if("warn", @person_events_presenter.pending_events_count > 0) %>">
         <%= link_to t(".pending_events"), admin_people_person_pending_events_path(@person) %>
         (<%= @person_events_presenter.pending_events_count %>)

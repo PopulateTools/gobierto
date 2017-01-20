@@ -24,7 +24,7 @@ module GobiertoAdmin
             within "form.new_political_group" do
               fill_in "political_group_name", with: "Political group name"
 
-              click_button "Create Political group"
+              click_button "Create"
             end
 
             assert has_message?("Political group was successfully created")

@@ -8,6 +8,7 @@ ca:
             title: Agenda
             new: Nou esdeveniment
             view_event: Veure esdeveniment
+            all_events: Tots
             pending_events: Pendents de moderar
             published_events: Esdeveniments publicats
             past_events: Esdeveniments passats

@@ -36,7 +36,7 @@ module GobiertoAdmin
             choose "Regular"
           end
 
-          click_button "Update Admin"
+          click_button "Update"
         end
 
         assert has_message?("Admin was successfully updated")
@@ -81,7 +81,7 @@ module GobiertoAdmin
             choose "Manager"
           end
 
-          click_button "Update Admin"
+          click_button "Update"
         end
 
         assert has_message?("Admin was successfully updated")
@@ -109,7 +109,7 @@ module GobiertoAdmin
           refute has_selector?(".site-check-boxes")
           refute has_selector?(".admin-authorization-level-radio-buttons")
 
-          assert has_button?("Update Admin", disabled: true)
+          assert has_button?("Update", disabled: true)
         end
       end
     end

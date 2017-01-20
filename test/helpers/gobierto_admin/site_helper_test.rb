@@ -25,7 +25,7 @@ module GobiertoAdmin
       visibility_level_badge_markup =
         '<span>' \
           '<i class="fa fa-unlock"></i>' \
-          'Active' \
+          'Published' \
         '</span>'
 
       assert_equal visibility_level_badge_markup,

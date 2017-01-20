@@ -39,11 +39,11 @@ module GobiertoAdmin
           end
 
           within ".site-visibility-level-radio-buttons" do
-            choose "Active"
+            choose "Published"
           end
 
           with_stubbed_s3_file_upload do
-            click_button "Update Site"
+            click_button "Update"
           end
         end
 
@@ -64,7 +64,7 @@ module GobiertoAdmin
           end
 
           within ".site-visibility-level-radio-buttons" do
-            assert has_checked_field?("Active")
+            assert has_checked_field?("Published")
           end
         end
       end
@@ -75,7 +75,7 @@ module GobiertoAdmin
         visit admin_sites_path
 
         within "table.site-list tbody tr#site-item-#{site.id}" do
-          assert has_content?("Active")
+          assert has_content?("Published")
         end
 
         visit @path
@@ -87,7 +87,7 @@ module GobiertoAdmin
             fill_in "site_password", with: "wadus"
           end
 
-          click_button "Update Site"
+          click_button "Update"
         end
 
         assert has_message?("Site was successfully updated")
@@ -98,7 +98,7 @@ module GobiertoAdmin
           end
 
           fill_in "site_title", with: "New Site Title"
-          click_button "Update Site"
+          click_button "Update"
         end
 
         assert has_message?("Site was successfully updated")
@@ -110,7 +110,7 @@ module GobiertoAdmin
         visit admin_sites_path
 
         within "table.site-list tbody tr#site-item-#{site.id}" do
-          assert has_content?("Active")
+          assert has_content?("Published")
         end
 
         visit @path
@@ -120,7 +120,7 @@ module GobiertoAdmin
             choose "Draft"
           end
 
-          click_button "Update Site"
+          click_button "Update"
         end
 
         assert has_content?("Username can't be blank")

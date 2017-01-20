@@ -68,7 +68,7 @@ module GobiertoAdmin
                 fill_in_content_blocks
 
                 with_stubbed_s3_file_upload do
-                  click_button "Update Person"
+                  click_button "Update"
                 end
               end
 

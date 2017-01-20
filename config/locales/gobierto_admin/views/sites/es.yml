@@ -35,4 +35,4 @@ es:
         password: Contraseña
         visibility_level:
           draft: Borrador
-          active: Activo
+          active: Publicado

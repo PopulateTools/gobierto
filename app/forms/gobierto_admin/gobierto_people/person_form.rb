@@ -1,5 +1,3 @@
-require "file_uploader/s3"
-
 module GobiertoAdmin
   module GobiertoPeople
     class PersonForm
@@ -85,9 +83,12 @@ module GobiertoAdmin
         @bio_url ||= begin
           return person.bio_url unless bio_file.present?
 
-          FileUploader::S3.new(
-            file: bio_file,
-            file_name: "gobierto_people/people/bio-#{SecureRandom.uuid}"
+          FileUploadService.new(
+            adapter: :s3,
+            site: site,
+            collection: person.model_name.collection,
+            attribute_name: :bio,
+            file: bio_file
           ).call
         end
       end
@@ -96,9 +97,12 @@ module GobiertoAdmin
         @avatar_url ||= begin
           return person.avatar_url unless avatar_file.present?
 
-          FileUploader::S3.new(
-            file: avatar_file,
-            file_name: "gobierto_people/people/avatar-#{SecureRandom.uuid}"
+          FileUploadService.new(
+            adapter: :s3,
+            site: site,
+            collection: person.model_name.collection,
+            attribute_name: :avatar,
+            file: avatar_file
           ).call
         end
       end

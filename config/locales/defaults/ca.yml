@@ -135,9 +135,9 @@ ca:
     select:
       prompt: Si us plau tria
     submit:
-      create: Crear %{model}
-      submit: Guardar %{model}
-      update: Actualitzar %{model}
+      create: Crear
+      submit: Guardar
+      update: Actualitzar
   number:
     currency:
       format:

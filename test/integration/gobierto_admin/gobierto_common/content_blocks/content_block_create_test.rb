@@ -56,7 +56,7 @@ module GobiertoAdmin
                     end
                   end
 
-                  click_button "Create Content block"
+                  click_button "Create"
                 end
 
                 assert has_message?("Content block was successfully created")

@@ -38,9 +38,16 @@
         <%= l(person_statement.published_on, format: :short) %>
       </td>
       <td>
-        <%= link_to "#", class: "view_item" do %>
-          <i class="fa fa-eye"></i>
-          <%= t(".view_statement") %>
+        <% if person_statement.active? %>
+          <%= link_to gobierto_people_person_statement_url(@person, person_statement, domain: current_site.domain), target: "_blank", class: "view_item" do %>
+            <i class="fa fa-eye"></i>
+            <%= t(".view_statement") %>
+          <% end %>
+        <% else %>
+          <div class="view_item">
+            <i class="fa fa-eye"></i>
+            <%= t(".view_statement") %>
+          </div>
         <% end %>
       </td>
     </tr>

@@ -1,18 +1,18 @@
 /*
- * Master CSS file for Gobierto. In this file we include:
- *
- * - Vendor & Gobierto libraries
- * - Gobierto components
- * - CSS conf (fonts, colors)
- * - Fonts
- *
- */
+* Master CSS file for Gobierto. In this file we include:
+*
+* - Vendor & Gobierto libraries
+* - Gobierto components
+* - CSS conf (fonts, colors)
+* - Fonts
+*
+*/
 
 
 /*
- * Vendor libraries
- *
- */
+* Vendor libraries
+*
+*/
 @import "bourbon";
 @import "pure-min";
 @import "pure-grids-responsive-min";
@@ -20,20 +20,21 @@
 @import "magnific-popup";
 @import "slick";
 @import "datepicker.min";
+@import "simple_calendar";
 // @import "slick-theme";
 
 
 /*
- * Gobierto libraries
- *
- */
+* Gobierto libraries
+*
+*/
 @import "populities";
 
 
 /*
- * Gobierto components
- *
- */
+* Gobierto components
+*
+*/
 @import "css-conf";
 @import "comp-breadcrumbs";
 @import "comp-flash_messages";
@@ -56,6 +57,7 @@
 @import "module-budget_vis";
 @import "module-participation";
 @import "module-consultations";
+@import "module-people";
 @import "module-indicators";
 
 @import "module-admin";

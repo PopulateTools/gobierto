@@ -1,0 +1,123 @@
+/*
+ * People
+ *
+ */
+
+body.gobierto_people {
+
+  img.avatar {
+    object-fit: cover;
+  }
+
+  .media-left {
+    float: left;
+    margin-right: 1em;
+  }
+
+  .item-list {
+    padding: 1em 0;
+
+    .person-item {
+      border-bottom: 1px solid $color_separator;
+
+      &:last-of-type {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  .people-grid {
+    .person-item {
+      border: 1px solid $color_separator;
+      padding: 1.5em;
+      margin-right: 1.5em;
+      margin-bottom: 1.5em;
+
+      &:nth-child(3n) {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .person-item {
+    padding: 1em 0;
+
+    &:after {
+      @extend .clearfix;
+    }
+  }
+
+  .person_event-item {
+    .calendar {
+      height: 80px;
+      width: 80px;
+      line-height: 40px;
+      background-color: $color_main;
+      text-align: center;
+      color: #fff;
+      @include border-radius(6px);
+    }
+  }
+
+  .events-filter {
+    .filter-option:not(.active) {
+      @extend .soft;
+    }
+  }
+
+  menu.people-filter, menu.person-events-filter {
+    padding: 0;
+    margin: 0;
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+
+      li {
+        display: inline-block;
+
+        a {
+          text-transform: uppercase;
+          text-decoration: none;
+          padding: .5em 1em .4em;
+          display: inline-block;
+          border: 1px solid $color_separator;
+          color: $color_separator;
+
+          &.active {
+            border-color: $color_main;
+            color: $color_main;
+          }
+        }
+
+        &:first-child {
+          a {
+            margin-left: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .calendar-component {
+    padding: 1.5em;
+    margin: 1em 0;
+    text-align: center;
+    border: 1px solid $color_separator;
+
+    table {
+      border: 0;
+    }
+
+    th {
+      text-align: center;
+      border: 0;
+    }
+
+    td {
+      height: auto;
+      border: 0;
+    }
+  }
+
+}

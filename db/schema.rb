@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170113111816) do
+ActiveRecord::Schema.define(version: 20170116072555) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "activities", force: :cascade do |t|
     t.string   "action",         null: false
@@ -120,7 +121,7 @@ ActiveRecord::Schema.define(version: 20170113111816) do
   create_table "content_blocks", force: :cascade do |t|
     t.integer "site_id"
     t.string  "content_model_name", default: "", null: false
-    t.text    "title"
+    t.hstore  "title"
     t.index ["content_model_name"], name: "index_content_blocks_on_content_model_name", using: :btree
     t.index ["site_id"], name: "index_content_blocks_on_site_id", using: :btree
   end
@@ -185,6 +186,9 @@ ActiveRecord::Schema.define(version: 20170113111816) do
     t.integer  "category",           default: 0,  null: false
     t.integer  "party"
     t.index ["admin_id"], name: "index_gp_people_on_admin_id", using: :btree
+    t.index ["category", "party"], name: "index_gp_people_on_category_and_party", using: :btree
+    t.index ["category"], name: "index_gp_people_on_category", using: :btree
+    t.index ["party"], name: "index_gp_people_on_party", using: :btree
     t.index ["political_group_id"], name: "index_gp_people_on_political_group_id", using: :btree
     t.index ["site_id"], name: "index_gp_people_on_site_id", using: :btree
   end

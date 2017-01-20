@@ -63,6 +63,22 @@
 
       <div class="widget_save">
 
+        <div class="form_item person-event-state-radio-buttons">
+
+          <div class="options compact">
+            <%= f.collection_radio_buttons(:state, @person_event_states, :first, :first) do |b| %>
+              <div class="option">
+                <%= b.radio_button %>
+                <%= b.label do %>
+                  <span></span>
+                  <%= t(".state.#{b.text}") %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+
+        </div>
+
         <%= f.submit class: "button" %>
 
       </div>

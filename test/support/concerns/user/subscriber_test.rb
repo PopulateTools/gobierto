@@ -30,4 +30,20 @@ module User::SubscriberTest
 
     assert subscribed_user.unsubscribe_from!(user_subscription, user_subscription_site)
   end
+
+  def test_toggle_subscription_when_already_subscribed
+    assert_equal(
+      [:delete, true],
+      subscribed_user.toggle_subscription!(user_subscription, user_subscription_site)
+    )
+  end
+
+  def test_toggle_subscription_when_not_subscribed
+    User::Subscription.delete_all
+
+    assert_equal(
+      [:create, true],
+      subscribed_user.toggle_subscription!(user_subscription, user_subscription_site)
+    )
+  end
 end

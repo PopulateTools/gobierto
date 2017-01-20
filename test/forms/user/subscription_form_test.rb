@@ -58,9 +58,25 @@ class User::SubscriptionFormTest < ActiveSupport::TestCase
     assert valid_new_user_subscription_form.valid?
   end
 
-  def test_save
-    assert valid_user_subscription_form.save
-    assert valid_new_user_subscription_form.save
+  def test_save_when_not_created
+    assert_equal(
+      [:create, true],
+      valid_user_subscription_form.save
+    )
+
+    assert_equal(
+      [:create, true],
+      valid_new_user_subscription_form.save
+    )
+  end
+
+  def test_save_when_already_created
+    user.subscribe_to!(subscribable, site)
+
+    assert_equal(
+      [:delete, true],
+      valid_user_subscription_form.save
+    )
   end
 
   def test_error_messages_with_invalid_attributes

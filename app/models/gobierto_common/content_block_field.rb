@@ -28,6 +28,10 @@ module GobiertoCommon
       end
     end
 
+    def localized_label
+      label[I18n.locale.to_s]
+    end
+
     private
 
     def set_name

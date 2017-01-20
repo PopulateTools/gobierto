@@ -1,0 +1,28 @@
+<div class="contact-methods">
+  <% if @person.contact_email %>
+    <%= mail_to @person.contact_email do %>
+     <i class="fa fa-envelope"></i>
+    <% end %>
+  <% end %>
+
+  <% if @person.twitter_url %>
+    <%= link_to @person.twitter_url do %>
+     <i class="fa fa-twitter"></i>
+     <%= @person.twitter_handle %>
+    <% end %>
+  <% end %>
+
+  <% if @person.facebook_url %>
+    <%= link_to @person.facebook_url do %>
+     <i class="fa fa-facebook"></i>
+     <%= @person.facebook_handle %>
+    <% end %>
+  <% end %>
+
+  <% if @person.linkedin_url %>
+    <%= link_to @person.linkedin_url do %>
+     <i class="fa fa-linkedin"></i>
+     <%= @person.linkedin_handle %>
+    <% end %>
+  <% end %>
+</div>

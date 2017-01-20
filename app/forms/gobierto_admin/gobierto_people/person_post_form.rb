@@ -2,6 +2,7 @@ module GobiertoAdmin
   module GobiertoPeople
     class PersonPostForm
       include ActiveModel::Model
+      prepend ::GobiertoCommon::Trackable
 
       TAG_SEPARATOR = ","
 
@@ -18,6 +19,12 @@ module GobiertoAdmin
 
       validates :title, presence: true
       validates :person, presence: true
+
+      trackable_on :person_post
+
+      notify_changed :title
+      notify_changed :body
+      notify_changed :visibility_level
 
       def save
         save_person_post if valid?
@@ -53,6 +60,10 @@ module GobiertoAdmin
         end
       end
 
+      def notify?
+        person_post.active?
+      end
+
       private
 
       def build_person_post
@@ -77,7 +88,9 @@ module GobiertoAdmin
         end
 
         if @person_post.valid?
-          @person_post.save
+          run_callbacks(:save) do
+            @person_post.save
+          end
 
           @person_post
         else

@@ -1,0 +1,25 @@
+<div class="latest-activity">
+
+  <h3><%= t(".title") %></h3>
+
+  <% if @latest_activity.any? %>
+
+    <ul>
+      <% @latest_activity.each do |activity| %>
+        <li>
+          <span class="soft">
+            <%= l(activity.created_at, format: :short) %>
+          </span>
+          <%= activity.action %>
+          <%= activity.subject_name %>
+        </li>
+      <% end %>
+    </ul>
+
+  <% else %>
+
+    <%= t(".no_activity") %>
+
+  <% end %>
+
+</div>

@@ -15,7 +15,7 @@ class User::SubscriptionForm
   validates :user_email, format: { with: User::EMAIL_ADDRESS_REGEXP }, allow_nil: true
 
   def save
-    create_user_subscription if valid?
+    toggle_user_subscription if valid?
   end
 
   def user
@@ -56,8 +56,8 @@ class User::SubscriptionForm
     subscribable_type.try(:constantize)
   end
 
-  def create_user_subscription
-    user.subscribe_to!(subscribable, site)
+  def toggle_user_subscription
+    user.toggle_subscription!(subscribable, site)
   end
 
   def promote_errors(errors_hash)

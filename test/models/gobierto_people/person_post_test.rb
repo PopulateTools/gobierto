@@ -1,10 +1,14 @@
 require "test_helper"
+require "support/concerns/user/subscribable_test"
 
 module GobiertoPeople
   class PersonPostTest < ActiveSupport::TestCase
+    include User::SubscribableTest
+
     def person_post
       @person_post ||= gobierto_people_person_posts(:richard_about_me)
     end
+    alias subscribable person_post
 
     def subject_tags
       @subject_tags ||= person_post.tags

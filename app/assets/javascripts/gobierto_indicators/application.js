@@ -24,28 +24,28 @@ $(document).on('turbolinks:click', function (event) {
 })
 
 $(document).on('turbolinks:load', function() {
-  if ($('#age_distribution').length > 0) {
+  if ($('#age_distribution').length && !$('#age_distribution svg').length) {
     var vis_agedb = new VisAgeDistribution('#age_distribution', window.populateData.municipalityId, window.populateData.year - 1);
     vis_agedb.render();
   }
 
-  if ($('#unemployment_age').length > 0) {
+  if ($('#unemployment_age').length && !$('#unemployment_age svg').length) {
     var vis_unempl = new VisUnemploymentAge('#unemployment_age', window.populateData.municipalityId);
     vis_unempl.render();
   }
 
-  if ($('#unemployment_sectors').length > 0) {
+  if ($('#unemployment_sectors').length && !$('#unemployment_sectors svg').length) {
     var vis_unemplSec = new VisUnemploymentSectors('#unemployment_sectors', window.populateData.municipalityId);
     vis_unemplSec.render();
   }
 
-  if ($('#rent_distribution').length > 0) {
+  if ($('#rent_distribution').length && !$('#rent_distribution svg').length) {
     var vis_rent = new VisRentDistribution('#rent_distribution', window.populateData.municipalityId, window.populateData.year - 1);
     vis_rent.render();
   }
 
   // Render indicator cards info
-  if ($('.indicator_widget').length > 0) {
+  if ($('.indicator_widget').length) {
     new CardIndicators('.indicator_widget', window.populateData.municipalityId);
 
     // Show dataset info while hovering in circles

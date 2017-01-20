@@ -1,9 +1,7 @@
 module GobiertoBudgets
   module Api
     class CategoriesController < ApplicationController
-      # TODO: this is a comment to remember this cache
-      #       It's not compatible yet with Rails 5. See https://github.com/rails/actionpack-action_caching/pull/33
-      # caches_action :index
+      caches_action :index
 
       def index
         kind = params[:kind]

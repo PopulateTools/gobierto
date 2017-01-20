@@ -51,6 +51,17 @@ class SiteConfigurationTest < ActiveSupport::TestCase
     assert site_configuration.locale?
   end
 
+  def test_logo_with_fallback_when_logo_is_present
+    assert_equal site_configuration_params["logo"], site_configuration.logo_with_fallback
+  end
+
+  def test_logo_with_fallback_when_logo_is_not_present
+    site_configuration_params["logo"] = nil
+    site_configuration = SiteConfiguration.new(site_configuration_params)
+
+    assert_equal SiteConfiguration::DEFAULT_LOGO_PATH, site_configuration.logo_with_fallback
+  end
+
   private
 
   def site_configuration_params

@@ -96,7 +96,7 @@ module GobiertoPeople
                     <tr>
                         <td>Dividends</td>
                         <td>Fixed amount per share</td>
-                        <td>12000</td>
+                        <td>12.000</td>
                     </tr>
                 </tbody>
               </table>
@@ -111,7 +111,7 @@ module GobiertoPeople
                     <tr>
                         <td>Regular account</td>
                         <td>Wadus</td>
-                        <td>150000</td>
+                        <td>150.000</td>
                     </tr>
                 </tbody>
               </table>

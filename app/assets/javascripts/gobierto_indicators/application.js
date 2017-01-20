@@ -1,5 +1,28 @@
 //= require_directory ./visualizations/
 
+function selectSection(html){
+  var $el = $('[data-breadcrumb-sub-item]');
+  if($el.prev()[0].tagName !== "SPAN")
+    $('<span>/</span>').insertBefore($el);
+
+  if(html === undefined) {
+    $('.sub_sections li a').each(function(){
+      if($(this).attr('href').indexOf(window.location.hash) !== -1)
+        $el.html($(this).html());
+    });
+  } else {
+    $el.html(html);
+  }
+}
+
+$(document).on('turbolinks:click', function (event) {
+  if (event.target.getAttribute('href').indexOf('#') !== -1) {
+    event.preventDefault();
+    selectSection($(event.target).html());
+    return;
+  }
+})
+
 $(document).on('turbolinks:load', function() {
   if ($('#age_distribution').length > 0) {
     var vis_agedb = new VisAgeDistribution('#age_distribution', window.populateData.municipalityId, window.populateData.year - 1);
@@ -31,5 +54,9 @@ $(document).on('turbolinks:load', function() {
       $(this).find('.widget_body').toggle();
       $(this).find('.widget_info').toggle();
     });
+  }
+
+  if(window.location.hash !== ""){
+    selectSection();
   }
 });

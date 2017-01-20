@@ -1,0 +1,11 @@
+---
+ca:
+  gobierto_indicators:
+    layouts:
+      application:
+        indicators: Indicadors
+      menu_subsections:
+        population: 'Població'
+        employment: 'Ocupació'
+        economy: 'Economia'
+        budgets: 'Pressupostos'

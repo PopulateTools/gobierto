@@ -24,6 +24,9 @@ ca:
             attachment_file_constraints: adjuntar fitxer (PDF)
             placeholders:
               title: Reunió amb els veïns del districte centre
+            state:
+              pending: Pendent
+              published: Publicat
           locations_form:
             title: Localitzacions
             header:

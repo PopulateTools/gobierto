@@ -13,6 +13,7 @@ module GobiertoAdmin
         :ends_at,
         :attachment_file,
         :attachment_url,
+        :state,
         :locations,
         :attendees
       )
@@ -117,7 +118,7 @@ module GobiertoAdmin
       end
 
       def state
-        @state ||= "published"
+        @state ||= "pending"
       end
 
       def notify?

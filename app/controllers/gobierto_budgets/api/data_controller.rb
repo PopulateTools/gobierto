@@ -3,10 +3,8 @@ module GobiertoBudgets
     class DataController < ApplicationController
       include GobiertoBudgets::ApplicationHelper
 
-      # TODO: this is a comment to remember this cache
-      #       It's not compatible yet with Rails 5. See https://github.com/rails/actionpack-action_caching/pull/33
-      # caches_action :total_budget, :total_budget_execution, :population, :total_budget_per_inhabitant, :lines,
-      #               :budget, :budget_execution, :budget_per_inhabitant, :budget_percentage_over_total, :debt
+      caches_action :total_budget, :total_budget_execution, :population, :total_budget_per_inhabitant, :lines,
+                    :budget, :budget_execution, :budget_per_inhabitant, :budget_percentage_over_total, :debt
 
       def budget
         @year = params[:year].to_i

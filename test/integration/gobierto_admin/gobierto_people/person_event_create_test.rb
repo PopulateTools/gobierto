@@ -67,6 +67,10 @@ module GobiertoAdmin
                   end
                 end
 
+                within ".person-event-state-radio-buttons" do
+                  find("label", text: "Published").click
+                end
+
                 with_stubbed_s3_file_upload do
                   click_button "Create"
                 end
@@ -92,6 +96,12 @@ module GobiertoAdmin
 
                 within "#person-event-attendees .dynamic-content-record-view" do
                   assert has_selector?(".content-block-record-value", text: attendee.name)
+                end
+
+                within ".person-event-state-radio-buttons" do
+                  with_hidden_elements do
+                    assert has_checked_field?("Published")
+                  end
                 end
               end
             end

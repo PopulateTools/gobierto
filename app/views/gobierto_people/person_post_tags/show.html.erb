@@ -1,0 +1,36 @@
+<% content_for :breadcrumb_current_item do %>
+  <strong>
+    <%= link_to t('gobierto_people.layouts.menu_subsections.blogs'), gobierto_people_posts_path %>
+  </strong>
+<% end %>
+
+<div class="column">
+
+  <h1>
+    <%= t("gobierto_people.person_posts.index.title") %>
+  </h1>
+
+  <h4 class="center">
+    <%= t(".filtering_by_tag", tag: @tag) %>
+    <%= link_to t(".go_back"), gobierto_people_posts_path %>
+  </h4>
+
+  <div class="posts-summary person_post-list item-list">
+
+    <%= render partial: "gobierto_people/person_posts/person_post_excerpt", collection: @posts, as: :person_post %>
+
+  </div>
+
+  <div class="pure-g">
+
+    <div class="pure-u-1 pure-u-md-1-2 description">
+
+      <%= render("user/subscriptions/subscribable_box",
+                 subscribable: GobiertoPeople::PersonPost,
+                 title: t(".subscribable_box.title")) %>
+
+    </div>
+
+  </div>
+
+</div>

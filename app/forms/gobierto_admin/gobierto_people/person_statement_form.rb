@@ -3,6 +3,7 @@ module GobiertoAdmin
     class PersonStatementForm
       include ActiveModel::Model
       include ::GobiertoCommon::DynamicContentFormHelper
+      prepend ::GobiertoCommon::Trackable
 
       attr_accessor(
         :id,
@@ -20,6 +21,12 @@ module GobiertoAdmin
       validates :title, presence: true
       validates :published_on, presence: true
       validates :person, presence: true
+
+      trackable_on :person_statement
+
+      notify_changed :title
+      notify_changed :published_on
+      notify_changed :visibility_level
 
       def save
         save_person_statement if valid?
@@ -76,6 +83,10 @@ module GobiertoAdmin
         @visibility_level ||= "draft"
       end
 
+      def notify?
+        person_statement.active?
+      end
+
       private
 
       def build_person_statement
@@ -102,7 +113,9 @@ module GobiertoAdmin
         end
 
         if @person_statement.valid?
-          @person_statement.save
+          run_callbacks(:save) do
+            @person_statement.save
+          end
 
           @person_statement
         else

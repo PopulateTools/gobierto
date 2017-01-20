@@ -6,5 +6,6 @@ module GobiertoPeople
     belongs_to :site
 
     has_many :people
+    has_many :events, through: :people
   end
 end

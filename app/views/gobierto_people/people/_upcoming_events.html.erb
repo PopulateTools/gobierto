@@ -1,0 +1,22 @@
+<div class="upcoming-events box">
+
+  <div class="inner">
+
+    <h3><%= t(".title") %></h3>
+
+    <ul>
+      <% @upcoming_events.each do |event| %>
+        <li>
+          <span class="soft">
+            <%= l(event.starts_at, format: :short) %>
+          </span>
+          <%= link_to event.title, gobierto_people_person_event_path(@person, event) %>
+        </li>
+      <% end %>
+    </ul>
+
+    <%= link_to t(".view_all"), gobierto_people_person_events_path(@person) %>
+
+  </div>
+
+</div>

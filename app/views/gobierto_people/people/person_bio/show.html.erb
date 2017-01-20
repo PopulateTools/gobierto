@@ -1,0 +1,19 @@
+<%= render "gobierto_people/people/content_for_breadcrumb" %>
+
+<h1><%= t(".title", person_name: @person.name) %></h1>
+
+<h2><%= t(".subtitle") %></h2>
+
+<% if @person.bio_url.present? %>
+  <div class="right">
+    <%= link_to t(".download"), @person.bio_url, class: "button small right" %>
+  </div>
+<% end %>
+
+<p>
+  <%= raw @person.bio %>
+</p>
+
+<div class="separator"></div>
+
+<%= render "gobierto_common/dynamic_content/table_component", content_blocks: @person_bio_content_blocks %>

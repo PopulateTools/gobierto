@@ -24,6 +24,9 @@ es:
             attachment_file_constraints: Adjuntar fichero (PDF)
             placeholders:
               title: Reunión con los vecinos del distrito centro
+            state:
+              pending: Pendiente
+              published: Publicado
           locations_form:
             title: Localizaciones
             header:

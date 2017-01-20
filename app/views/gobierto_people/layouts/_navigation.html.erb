@@ -1,0 +1,9 @@
+<div class="pure-u-1 pure-u-md-1-4 section">
+  <h2><%= t("gobierto_people.layouts.application.title") %></h2>
+
+  <%= link_to t('gobierto_people.layouts.menu_subsections.home'), gobierto_people_root_path, class: class_if('active', controller_name == 'welcome') %>
+  <%= link_to t('gobierto_people.layouts.menu_subsections.people'), gobierto_people_government_party_people_path, class: class_if('active', controller_name == 'people') %>
+  <%= link_to t('gobierto_people.layouts.menu_subsections.agendas'), gobierto_people_government_party_events_path, class: class_if('active', controller_name == 'events') %>
+  <%= link_to t('gobierto_people.layouts.menu_subsections.blogs'), gobierto_people_posts_path, class: class_if('active', controller_name == 'posts') %>
+  <%= link_to t('gobierto_people.layouts.menu_subsections.statements'), gobierto_people_statements_path, class: class_if('active', controller_name == 'statements') %>
+</div>

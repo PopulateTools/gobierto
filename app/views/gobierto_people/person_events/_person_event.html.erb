@@ -1,0 +1,25 @@
+<div class="person_event-item person-item">
+  <div class="media-left">
+    <div class="calendar">
+      <%= l(person_event.starts_at, format: :short) %>
+    </div>
+  </div>
+
+  <strong>
+    <%= link_to person_event.title, gobierto_people_person_event_path(person_event.person, person_event) %>
+  </strong>
+
+  <div class="soft">
+    <div>
+      <%= link_to person_event.person.name, person_event.person %>
+      <%= person_event.person.charge %>
+    </div>
+
+    <% person_event.locations.each do |event_location| %>
+      <div>
+        <%= link_to event_location.name, external_location_service_url(event_location) %>
+        <%= event_location.address %>
+      </div>
+    <% end %>
+  </div>
+</div>

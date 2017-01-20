@@ -6,9 +6,10 @@ ca:
         title: Les teves alertes
         headers:
           title: Títol
-        cancel: Cancelar suscripció
+        cancel: Cancel·lar suscripció
       subscribable_box:
         subscribe: Suscriurem
+        cancel: Ja estàs subscrits. cancel·lar?
         disclaimer: No spam. Dona't de baixa quan vullgues.
         form:
           placeholders:

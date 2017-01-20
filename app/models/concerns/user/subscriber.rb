@@ -55,4 +55,12 @@ module User::Subscriber
       ).delete
     end
   end
+
+  def toggle_subscription!(subscribable, site)
+    if subscribed_to?(subscribable, site)
+      [:delete, unsubscribe_from!(subscribable, site).present?]
+    else
+      [:create, subscribe_to!(subscribable, site).present?]
+    end
+  end
 end

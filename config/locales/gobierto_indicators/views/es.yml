@@ -1,0 +1,11 @@
+---
+es:
+  gobierto_indicators:
+    layouts:
+      application:
+        indicators: Indicadores
+      menu_subsections:
+        population: 'Población'
+        employment: 'Empleo'
+        economy: 'Economía'
+        budgets: 'Presupuestos'

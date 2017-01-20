@@ -1,18 +1,18 @@
 /*
- * Master CSS file for Gobierto. In this file we include:
- *
- * - Vendor & Gobierto libraries
- * - Gobierto components
- * - CSS conf (fonts, colors)
- * - Fonts
- *
- */
+* Master CSS file for Gobierto. In this file we include:
+*
+* - Vendor & Gobierto libraries
+* - Gobierto components
+* - CSS conf (fonts, colors)
+* - Fonts
+*
+*/
 
 
 /*
- * Vendor libraries
- *
- */
+* Vendor libraries
+*
+*/
 @import "bourbon";
 @import "pure-min";
 @import "pure-grids-responsive-min";
@@ -25,16 +25,16 @@
 
 
 /*
- * Gobierto libraries
- *
- */
+* Gobierto libraries
+*
+*/
 @import "populities";
 
 
 /*
- * Gobierto components
- *
- */
+* Gobierto components
+*
+*/
 @import "css-conf";
 @import "comp-breadcrumbs";
 @import "comp-flash_messages";
@@ -49,6 +49,7 @@
 @import "comp-social_buttons";
 @import "comp-tables";
 @import "comp-tabs";
+@import "comp-indicator_widget";
 
 @import "comp-graph-treemap";
 @import "comp-graph-vis_lines_table";
@@ -57,6 +58,7 @@
 @import "module-participation";
 @import "module-consultations";
 @import "module-people";
+@import "module-indicators";
 
 @import "module-admin";
 
@@ -67,7 +69,7 @@
  *
  */
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
-@import "//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css";        
+@import "//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css";
 
 
 
@@ -78,7 +80,7 @@
  *
  */
 html {
-  margin: 0; 
+  margin: 0;
   padding: 0;
 }
 body {
@@ -152,6 +154,65 @@ a.soft_cta:hover {
     color: rgba($color_main, .5);
   }
 }
+
+/*
+ * Utils
+ *
+ */
+.b {
+	border: 1px solid #111;
+}
+.img-fluid {
+	max-width: 100%;
+	height: auto;
+}
+.m1 {
+	margin: 1em;
+}
+.mb1 {
+	margin-bottom:  1em
+}
+.mb2 {
+	margin-bottom:  2em
+}
+.mb3 {
+	margin-bottom:  3em
+}
+.mb4 {
+	margin-bottom:  4em
+}
+.ml1 {
+	margin-left: 1em;
+}
+.p1 {
+	padding: 1em;
+}
+.pb0 {
+ 	padding-bottom: 0;
+}
+.pb1 {
+	padding-bottom: 1em;
+}
+.pb2 {
+	padding-bottom: 2em;
+}
+.pb3 {
+	padding-bottom: 3em;
+}
+.pb4 {
+	padding-bottom: 4em;
+}
+
+// Hidden utilities
+.hidden-xs {
+    display: none;
+}
+@media (min-width: 768px) {
+    .hidden-xs {
+        display: block;
+    }
+}
+
 
 /*
  * Tips

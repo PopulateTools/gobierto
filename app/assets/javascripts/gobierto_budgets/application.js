@@ -10,7 +10,7 @@ $(document).on('turbolinks:load', function() {
     $('.open_line_browser').hide();
   }
 
-  if($('#expense-treemap').length > 0){
+  if($('#expense-treemap').length && !$('#expense-treemap svg').length){
     window.expenseTreemap = new TreemapVis('#expense-treemap', 'big', true);
     window.expenseTreemap.render($('#expense-treemap').data('functional-url'));
   }

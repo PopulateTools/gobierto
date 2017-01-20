@@ -1,0 +1,9 @@
+<menu class="sub_sections">
+  <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
+    <ul>
+      <% %W{ population employment economy budgets }.each do |subsection| %>
+        <li><%= link_to t("gobierto_indicators.layouts.menu_subsections.#{subsection}"), anchor: subsection %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

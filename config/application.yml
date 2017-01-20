@@ -12,6 +12,9 @@ default: &default
     -
       name: Gobierto People
       namespace: GobiertoPeople
+    -
+      name: Gobierto Indicators
+      namespace: GobiertoIndicators
   dns_config:
     cname_record_target: site.gobierto.dev
     a_record_target: 222.111.222.11
@@ -32,6 +35,10 @@ default: &default
   site:
     mixpanel_key: ''
     google_analytics_key: ''
+  populate_data:
+    endpoint: <%= ENV.fetch("POPULATE_DATA_ENDPOINT") { "https://tbi.populate.tools/gobierto" } %>
+  gobierto_indicators:
+    year: 2015
 
 development:
   <<: *default

@@ -1,3 +1,11 @@
+GIT
+  remote: git@github.com:rails/actionpack-action_caching.git
+  revision: 9044141824650138bf27741e8f0ed95ccd9ef26d
+  ref: 9044141824650138bf27741e8f0ed95ccd9ef26d
+  specs:
+    actionpack-action_caching (1.1.1)
+      actionpack (>= 4.0.0, < 6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -309,6 +317,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  actionpack-action_caching!
   aws-sdk (~> 2.6)
   aws-ses (~> 0.6.0)
   bcrypt (~> 3.1.0)
@@ -360,4 +369,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.13.6
+   1.13.7

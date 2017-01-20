@@ -1,5 +1,3 @@
-require "file_uploader/s3"
-
 module GobiertoAdmin
   module GobiertoPeople
     class PersonEventForm
@@ -44,9 +42,12 @@ module GobiertoAdmin
         @attachment_url ||= begin
           return person_event.attachment_url unless attachment_file.present?
 
-          FileUploader::S3.new(
-            file: attachment_file,
-            file_name: "gobierto_people/people/#{person_id}/events/attachment-#{SecureRandom.uuid}"
+          FileUploadService.new(
+            adapter: :s3,
+            site: person.site,
+            collection: person_event.model_name.collection,
+            attribute_name: :attachment,
+            file: attachment_file
           ).call
         end
       end

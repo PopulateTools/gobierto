@@ -5,7 +5,10 @@ module GobiertoAdmin
 
       def create
         @file_attachment_form = FileAttachmentForm.new(
-          file_attachment_params.merge(base_path: "gobierto_people")
+          file_attachment_params.merge(
+            site: current_site,
+            collection: "gobierto_people"
+          )
         )
 
         if @file_attachment_form.save

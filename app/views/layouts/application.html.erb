@@ -119,13 +119,11 @@
 
     <div class="site_header">
 
-      <% if @site.configuration.logo %>
-        <div class="column">
-          <div class="logo">
-            <%= link_to (image_tag @site.configuration.logo), root_url %>
-          </div>
+      <div class="column">
+        <div class="logo">
+          <%= link_to(image_tag(@site.configuration.logo_with_fallback), root_url) %>
         </div>
-      <% end %>
+      </div>
 
       <%= render "layouts/main_menu" %>
 

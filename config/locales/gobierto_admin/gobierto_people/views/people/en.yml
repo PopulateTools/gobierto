@@ -12,6 +12,7 @@ en:
           title: Persons
           new: New person
           view_person: View person
+          configuration: Configuration
           header:
             person: Person
             charge: Charge
@@ -39,4 +40,10 @@ en:
             charge: Alcalde
           visibility_level:
             draft: Draft
-            active: Active
+            active: Published
+          category:
+            politician: Politician
+            executive: Executive
+          party:
+            government: Government
+            opposition: Opposition

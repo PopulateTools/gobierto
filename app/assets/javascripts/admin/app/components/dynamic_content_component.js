@@ -2,12 +2,11 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   function DynamicContentComponent() {}
 
   DynamicContentComponent.prototype.handle = function(wrapper, namespace) {
-    initializeRecordFields(wrapper);
     handleAddChild(wrapper, namespace);
-    handleAddRecord();
-    handleCancelRecord();
-    handleEditRecord();
-    handleDeleteRecord();
+    handleAddRecord(wrapper);
+    handleCancelRecord(wrapper);
+    handleEditRecord(wrapper);
+    handleDeleteRecord(wrapper);
   };
 
   function initializeRecordFields(wrapper) {
@@ -77,11 +76,13 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
       _switchToRecordForm(clonedField);
 
       $(recordTemplate).after(clonedField);
+
+      clonedField.find("input:visible:first").focus();
     });
   }
 
-  function handleCancelRecord() {
-    var componentWrapper = $(".dynamic-content-wrapper");
+  function handleCancelRecord(wrapper) {
+    var componentWrapper = $(wrapper || ".dynamic-content-wrapper");
 
     componentWrapper.on("click", "[data-behavior=cancel_record]", function(e) {
       e.preventDefault();
@@ -95,8 +96,8 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
     });
   }
 
-  function handleEditRecord() {
-    var componentWrapper = $(".dynamic-content-wrapper");
+  function handleEditRecord(wrapper) {
+    var componentWrapper = $(wrapper || ".dynamic-content-wrapper");
 
     componentWrapper.on("click", "[data-behavior=edit_record]", function(e) {
       e.preventDefault();
@@ -107,8 +108,8 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
     });
   }
 
-  function handleDeleteRecord() {
-    var componentWrapper = $(".dynamic-content-wrapper");
+  function handleDeleteRecord(wrapper) {
+    var componentWrapper = $(wrapper || ".dynamic-content-wrapper");
 
     componentWrapper.on("click", "[data-behavior=delete_record]", function(e) {
       e.preventDefault();
@@ -121,8 +122,8 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
     });
   }
 
-  function handleAddRecord() {
-    var componentWrapper = $(".dynamic-content-wrapper");
+  function handleAddRecord(wrapper) {
+    var componentWrapper = $(wrapper || ".dynamic-content-wrapper");
 
     componentWrapper.on("click", "[data-behavior=add_record]", function(e) {
       e.preventDefault();
@@ -131,14 +132,23 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
 
       _setRecordViewState(eventWrapper);
       _switchToRecordView(eventWrapper);
+      _addChild($(this).closest(".dynamic-content-wrapper"));
     });
   }
 
+  function _addChild(wrapper) {
+    wrapper.find("[data-behavior=add_child]").trigger("click");
+  }
+
   function _cleanupRecordField(selector) {
-    if (selector.attr("type") === "text") {
-      selector.val("");
-    } else if (selector.attr("type") === "select") {
+    if (selector.attr("type") === "hidden") {
+      return true;
+    }
+
+    if (selector.attr("type") === "select") {
       selector.find("option:selected").prop("selected", false);
+    } else {
+      selector.val("");
     }
   }
 
@@ -157,6 +167,10 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   }
 
   function _handleGeocompleteBehavior(selector) {
+    if (!selector.length) {
+      return true;
+    }
+
     selector.geocomplete({
       details: ".content-block-field",
       detailsAttribute: "data-geo",
@@ -165,19 +179,38 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   }
 
   function _handleDateType(selector, locale) {
+    if (!selector.length) {
+      return true;
+    }
+
     selector.datepicker({
       language: locale,
-      autoClose: true
+      autoClose: true,
+      onSelect: function onSelect(_, _, instance) {
+        $(instance.el).trigger("datepicker-change");
+      }
     });
   }
 
   function _handleCurrencyType(selector) {
-    selector.attr("type", "number");
+    if (!selector.length) {
+      return true;
+    }
+
+    var cleaveCurrency = new Cleave(selector, {
+      numeral: true,
+      numeralThousandsGroupStyle: "thousand",
+      numeralDecimalMark: I18n.t('number.currency.format.separator'),
+      delimiter: I18n.t('number.currency.format.delimiter')
+    });
   }
 
   function _switchToRecordForm(wrapper) {
+    initializeRecordFields(wrapper);
+
     wrapper.find(".dynamic-content-record-view").hide();
     wrapper.find(".dynamic-content-record-form").show();
+    wrapper.find(".dynamic-content-record-form input:visible:first").focus();
   }
 
   function _switchToRecordView(wrapper) {

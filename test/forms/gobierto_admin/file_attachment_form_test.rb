@@ -10,7 +10,8 @@ module GobiertoAdmin
         file: Rack::Test::UploadedFile.new(
           Rails.root.join("test/fixtures/files/sites/logo-madrid.png")
         ),
-        base_path: "wadus"
+        site: site,
+        collection: "wadus"
       )
     end
 
@@ -18,6 +19,10 @@ module GobiertoAdmin
       @invalid_file_attachment_form ||= FileAttachmentForm.new(
         file: nil
       )
+    end
+
+    def site
+      @site ||= sites(:madrid)
     end
 
     def test_validation

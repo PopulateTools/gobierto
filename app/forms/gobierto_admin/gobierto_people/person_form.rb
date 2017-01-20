@@ -1,5 +1,3 @@
-require "file_uploader/s3"
-
 module GobiertoAdmin
   module GobiertoPeople
     class PersonForm
@@ -17,7 +15,10 @@ module GobiertoAdmin
         :bio_url,
         :avatar_file,
         :avatar_url,
-        :visibility_level
+        :visibility_level,
+        :category,
+        :political_group_id,
+        :party
       )
 
       delegate :persisted?, to: :person
@@ -54,13 +55,32 @@ module GobiertoAdmin
         @visibility_level ||= "draft"
       end
 
+      def category
+        @category ||= "politician"
+      end
+
+      def party
+        return if category == "executive"
+
+        @party ||= person.party
+      end
+
+      def political_group_id
+        return if category == "executive"
+
+        @political_group_id ||= person.political_group_id
+      end
+
       def bio_url
         @bio_url ||= begin
           return person.bio_url unless bio_file.present?
 
-          FileUploader::S3.new(
-            file: bio_file,
-            file_name: "gobierto_people/people/bio-#{SecureRandom.uuid}"
+          FileUploadService.new(
+            adapter: :s3,
+            site: site,
+            collection: person.model_name.collection,
+            attribute_name: :bio,
+            file: bio_file
           ).call
         end
       end
@@ -69,9 +89,12 @@ module GobiertoAdmin
         @avatar_url ||= begin
           return person.avatar_url unless avatar_file.present?
 
-          FileUploader::S3.new(
-            file: avatar_file,
-            file_name: "gobierto_people/people/avatar-#{SecureRandom.uuid}"
+          FileUploadService.new(
+            adapter: :s3,
+            site: site,
+            collection: person.model_name.collection,
+            attribute_name: :avatar,
+            file: avatar_file
           ).call
         end
       end
@@ -96,6 +119,9 @@ module GobiertoAdmin
           person_attributes.bio_url = bio_url
           person_attributes.avatar_url = avatar_url
           person_attributes.visibility_level = visibility_level
+          person_attributes.category = category
+          person_attributes.party = party
+          person_attributes.political_group_id = political_group_id
           person_attributes.content_block_records = content_block_records
         end
 

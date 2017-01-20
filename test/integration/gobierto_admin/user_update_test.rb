@@ -23,7 +23,7 @@ module GobiertoAdmin
             fill_in "user_name", with: "User Name"
             fill_in "user_email", with: "user@email.dev"
 
-            click_button "Update User"
+            click_button "Update"
           end
 
           assert has_message?("User was successfully updated")

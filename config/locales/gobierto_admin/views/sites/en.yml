@@ -35,4 +35,4 @@ en:
         password: Password
         visibility_level:
           draft: Draft
-          active: Active
+          active: Published

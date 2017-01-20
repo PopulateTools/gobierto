@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170109162309) do
+ActiveRecord::Schema.define(version: 20170113111816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -170,18 +170,22 @@ ActiveRecord::Schema.define(version: 20170109162309) do
   create_table "gp_people", force: :cascade do |t|
     t.integer  "site_id"
     t.integer  "admin_id"
-    t.string   "name",             default: "", null: false
+    t.string   "name",               default: "", null: false
     t.string   "charge"
     t.text     "bio"
     t.string   "bio_url"
-    t.integer  "visibility_level", default: 0,  null: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.integer  "visibility_level",   default: 0,  null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "avatar_url"
-    t.integer  "events_count",     default: 0,  null: false
-    t.integer  "statements_count", default: 0,  null: false
-    t.integer  "posts_count",      default: 0,  null: false
+    t.integer  "events_count",       default: 0,  null: false
+    t.integer  "statements_count",   default: 0,  null: false
+    t.integer  "posts_count",        default: 0,  null: false
+    t.integer  "political_group_id"
+    t.integer  "category",           default: 0,  null: false
+    t.integer  "party"
     t.index ["admin_id"], name: "index_gp_people_on_admin_id", using: :btree
+    t.index ["political_group_id"], name: "index_gp_people_on_political_group_id", using: :btree
     t.index ["site_id"], name: "index_gp_people_on_site_id", using: :btree
   end
 
@@ -239,7 +243,19 @@ ActiveRecord::Schema.define(version: 20170109162309) do
     t.integer  "visibility_level", default: 0,  null: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.string   "attachment_url"
+    t.integer  "attachment_size"
     t.index ["person_id"], name: "index_gp_person_statements_on_person_id", using: :btree
+  end
+
+  create_table "gp_political_groups", force: :cascade do |t|
+    t.string   "name",       default: "", null: false
+    t.integer  "site_id"
+    t.integer  "admin_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["admin_id"], name: "index_gp_political_groups_on_admin_id", using: :btree
+    t.index ["site_id"], name: "index_gp_political_groups_on_site_id", using: :btree
   end
 
   create_table "sites", force: :cascade do |t|

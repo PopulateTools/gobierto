@@ -10,7 +10,9 @@ class SiteConfiguration
     :foot_markup,
     :links_markup,
     :locale
-  ]
+  ].freeze
+
+  DEFAULT_LOGO_PATH = "sites/logo-default.png".freeze
 
   attr_accessor *PROPERTIES
 
@@ -32,6 +34,10 @@ class SiteConfiguration
 
   def locale
     @locale || I18n.default_locale
+  end
+
+  def logo_with_fallback
+    @logo || DEFAULT_LOGO_PATH
   end
 
   # Define question mark instance methods for each property.

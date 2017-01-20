@@ -1,5 +1,3 @@
-require "file_uploader/s3"
-
 module GobiertoAdmin
   class SiteForm
     include ActiveModel::Model
@@ -94,9 +92,12 @@ module GobiertoAdmin
       @logo_url ||= begin
         return site.configuration.logo unless logo_file.present?
 
-        FileUploader::S3.new(
-          file: logo_file,
-          file_name: "sites/logo-#{SecureRandom.uuid}"
+        FileUploadService.new(
+          adapter: :s3,
+          site: site,
+          collection: site.model_name.collection,
+          attribute_name: :logo,
+          file: logo_file
         ).call
       end
     end

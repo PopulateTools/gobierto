@@ -12,11 +12,17 @@ module GobiertoAdmin
       def new
         @person_form = PersonForm.new(site_id: current_site.id)
         @person_visibility_levels = get_person_visibility_levels
+        @person_categories = get_person_categories
+        @person_parties = get_person_parties
+        @political_groups = get_political_groups
       end
 
       def edit
         @person = find_person
         @person_visibility_levels = get_person_visibility_levels
+        @person_categories = get_person_categories
+        @person_parties = get_person_parties
+        @political_groups = get_political_groups
 
         @person_form = PersonForm.new(
           @person.attributes.except(*ignored_person_attributes)
@@ -38,6 +44,9 @@ module GobiertoAdmin
           )
         else
           @person_visibility_levels = get_person_visibility_levels
+          @person_categories = get_person_categories
+          @person_parties = get_person_parties
+          @political_groups = get_political_groups
           render :new
         end
       end
@@ -55,6 +64,9 @@ module GobiertoAdmin
           )
         else
           @person_visibility_levels = get_person_visibility_levels
+          @person_categories = get_person_categories
+          @person_parties = get_person_parties
+          @political_groups = get_political_groups
           render :edit
         end
       end
@@ -69,6 +81,18 @@ module GobiertoAdmin
         ::GobiertoPeople::Person.visibility_levels
       end
 
+      def get_person_categories
+        ::GobiertoPeople::Person.categories
+      end
+
+      def get_person_parties
+        ::GobiertoPeople::Person.parties
+      end
+
+      def get_political_groups
+        ::GobiertoPeople::PoliticalGroup.all
+      end
+
       def person_params
         params.require(:person).permit(
           :name,
@@ -77,6 +101,9 @@ module GobiertoAdmin
           :bio_file,
           :avatar_file,
           :visibility_level,
+          :category,
+          :party,
+          :political_group_id,
           dynamic_content_attributes
         )
       end

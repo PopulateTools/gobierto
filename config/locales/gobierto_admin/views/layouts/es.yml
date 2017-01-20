@@ -16,3 +16,5 @@ es:
         admin_dropdown:
           account: Tu cuenta
           sign_out: Cerrar sesión
+        dirty_forms:
+          message: Hay cambios sin guardar. ¿Estás seguro de querer continuar?

@@ -33,7 +33,7 @@ module GobiertoAdmin
             choose "Regular"
           end
 
-          click_button "Create Admin"
+          click_button "Create"
         end
 
         assert has_message?("Admin was successfully created")

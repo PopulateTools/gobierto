@@ -11,7 +11,10 @@ module GobiertoAdmin
           charge: person.charge,
           bio: person.bio,
           bio_url: person.bio_url,
-          visibility_level: person.visibility_level
+          visibility_level: person.visibility_level,
+          category: person.category,
+          party: person.party,
+          political_group_id: person.political_group_id
         )
       end
 
@@ -45,6 +48,26 @@ module GobiertoAdmin
         assert_equal 1, invalid_person_form.errors.messages[:admin].size
         assert_equal 1, invalid_person_form.errors.messages[:site].size
         assert_equal 1, invalid_person_form.errors.messages[:name].size
+      end
+
+      def test_party
+        assert_equal person.party, valid_person_form.party
+      end
+
+      def test_party_for_executive_category
+        valid_person_form.category = "executive"
+
+        assert_nil valid_person_form.party
+      end
+
+      def test_political_group_id
+        assert_equal person.political_group_id, valid_person_form.political_group_id
+      end
+
+      def test_political_group_id_for_executive_category
+        valid_person_form.category = "executive"
+
+        assert_nil valid_person_form.political_group_id
       end
     end
   end

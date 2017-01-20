@@ -16,3 +16,5 @@ ca:
         admin_dropdown:
           account: El teu compte
           sign_out: Tancar sessió
+        dirty_forms:
+          message: Hi ha canvis sense desar. Estàs segur de voler continuar?

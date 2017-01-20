@@ -1,11 +1,15 @@
 richard_current:
   person: richard
   title: Declaración de Bienes y Actividades
+  attachment_url: https://bit.ly/12345
+  attachment_size: <%= 100.kilobytes %>
   published_on: <%= Date.current %>
   visibility_level: <%= GobiertoPeople::PersonStatement.visibility_levels["active"] %>
 
 richard_past:
   person: richard
   title: Declaración de Bienes y Actividades (pasada)
+  attachment_url: https://bit.ly/67890
+  attachment_size: <%= 100.kilobytes %>
   published_on: <%= 1.year.ago.to_date %>
   visibility_level: <%= GobiertoPeople::PersonStatement.visibility_levels["active"] %>

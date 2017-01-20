@@ -8,6 +8,8 @@ module GobiertoAdmin
           person_id: person.id,
           title: person_statement.title,
           published_on: person_statement.published_on,
+          attachment_url: person_statement.attachment_url,
+          attachment_size: person_statement.attachment_size,
           visibility_level: person.visibility_level
         )
       end

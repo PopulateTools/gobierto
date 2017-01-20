@@ -38,11 +38,11 @@ module GobiertoAdmin
           end
 
           within ".site-visibility-level-radio-buttons" do
-            choose "Active"
+            choose "Published"
           end
 
           with_stubbed_s3_file_upload do
-            click_button "Create Site"
+            click_button "Create"
           end
         end
 
@@ -51,7 +51,7 @@ module GobiertoAdmin
         within "table.site-list tbody tr", match: :first do
           assert has_content?("Site Title")
           assert has_content?("Site Name")
-          assert has_content?("Active")
+          assert has_content?("Published")
         end
       end
     end

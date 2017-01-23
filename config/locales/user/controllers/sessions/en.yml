@@ -3,7 +3,7 @@ en:
   user:
     sessions:
       create:
-        success: Signed in successfully
         error: The data you entered doesn't seem to be valid. Please try again.
+        success: Signed in successfully
       destroy:
         success: Signed out successfully

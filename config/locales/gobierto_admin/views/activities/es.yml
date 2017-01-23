@@ -2,13 +2,13 @@
 es:
   gobierto_admin:
     activities:
-      index:
-        title: Log de actividades
       activities_list:
         header:
           action: Acción
+          date: Fecha
+          ip: IP
+          recipient: Receptor
           subject: Sujeto
           user: Usuario
-          recipient: Receptor
-          ip: IP
-          date: Fecha
+      index:
+        title: Log de actividades

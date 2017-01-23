@@ -4,22 +4,22 @@ en:
     gobierto_people:
       people:
         person_posts:
-          index:
-            title: Blog
-            new: New post
-            view_post: View post
-            header:
-              title: Title
-              date: Date
-              tags: Tags
           edit:
             title: Edit post
-          new:
-            title: New post
           form:
             placeholders:
-              title: About me
               tags: personal, about me, my career
+              title: About me
             visibility_level:
-              draft: Draft
               active: Published
+              draft: Draft
+          index:
+            header:
+              date: Date
+              tags: Tags
+              title: Title
+            new: New post
+            title: Blog
+            view_post: View post
+          new:
+            title: New post

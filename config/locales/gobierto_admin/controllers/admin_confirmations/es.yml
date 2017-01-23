@@ -4,8 +4,8 @@ es:
     admin:
       confirmations:
         create:
-          success: Por favor, revisa tu email para recibir instrucciones
           error: La dirección de e-mail que has indicado no parece ser válida
+          success: Por favor, revisa tu email para recibir instrucciones
         show:
-          success: Sesión iniciada correctamente
           error: Esta URL no parece ser válida
+          success: Sesión iniciada correctamente

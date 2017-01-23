@@ -3,18 +3,18 @@ ca:
   gobierto_admin:
     layouts:
       application:
-        budget_consultations: Consultes de pressupostos
-        people: Alts càrrecs i Agendes
-        manage_sites: Gestionar sites
-        site_network: Red
-        view_site: Veure site
-        users: Usuaris
-        edit_site: Personalitzar site
-        collapse_menu: Colapsar menú
-        notifications: Notificacions
-        hey_admin: Hola, %{admin_name}
         admin_dropdown:
           account: El teu compte
           sign_out: Tancar sessió
+        budget_consultations: Consultes de pressupostos
+        collapse_menu: Colapsar menú
         dirty_forms:
           message: Hi ha canvis sense desar. Estàs segur de voler continuar?
+        edit_site: Personalitzar site
+        hey_admin: Hola, %{admin_name}
+        manage_sites: Gestionar sites
+        notifications: Notificacions
+        people: Alts càrrecs i Agendes
+        site_network: Red
+        users: Usuaris
+        view_site: Veure site

@@ -3,18 +3,18 @@ en:
   gobierto_admin:
     layouts:
       application:
-        budget_consultations: Budget consultations
-        people: Officiers and Agendas
-        manage_sites: Manage sites
-        site_network: Network
-        view_site: View site
-        users: Users
-        edit_site: Customize site
-        collapse_menu: Collapse menu
-        notifications: Notifications
-        hey_admin: Hey, %{admin_name}
         admin_dropdown:
           account: Account
           sign_out: Sign out
+        budget_consultations: Budget consultations
+        collapse_menu: Collapse menu
         dirty_forms:
           message: You have unsaved changes. Are you sure you want to leave this page?
+        edit_site: Customize site
+        hey_admin: Hey, %{admin_name}
+        manage_sites: Manage sites
+        notifications: Notifications
+        people: Officiers and Agendas
+        site_network: Network
+        users: Users
+        view_site: View site

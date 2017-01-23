@@ -1,44 +1,44 @@
 ---
 es:
   activemodel:
-    models:
-      gobierto_admin/admin_confirmation_form: Confirmación
-      gobierto_admin/admin_new_password_form: Recuperación de contraseña
-      gobierto_admin/admin_edit_password_form: Cambio de contraseña
-      gobierto_admin/admin_invitation_form: Invitación
-      gobierto_admin/user_password_form: Cambio de contraseña
-      gobierto_admin/user_welcome_message_form: Email de bienvenida
-      gobierto_admin/admin_form: Administrador
-      gobierto_admin/user_form: Usuario
-      gobierto_admin/site_form: Site
     attributes:
       gobierto_admin/admin_confirmation_form:
-        email: Email
-      gobierto_admin/admin_new_password_form:
         email: Email
       gobierto_admin/admin_edit_password_form:
         password: Contraseña
         password_confirmation: Confirmación de contraseña
+      gobierto_admin/admin_form:
+        email: Email
+        name: Nombre
+        password: Contraseña
+        password_confirmation: Confirmación de contraseña
       gobierto_admin/admin_invitation_form:
         emails: Emails
+      gobierto_admin/admin_new_password_form:
+        email: Email
+      gobierto_admin/site_form:
+        domain: Dominio
+        foot_markup: HTML de Pie
+        google_analytics_id: Código de Google Analytics
+        head_markup: HTML de Cabecera
+        links_markup: HTML de Enlaces
+        location_name: Entidad relacionada
+        logo_file: Logotipo
+        name: Nombre de la entidad
+        title: Nombre del site
+      gobierto_admin/user_form:
+        email: Email
+        name: Nombre
       gobierto_admin/user_password_form:
         password: Contraseña
         password_confirmation: Confirmación de contraseña
-      gobierto_admin/admin_form:
-        name: Nombre
-        email: Email
-        password: Contraseña
-        password_confirmation: Confirmación de contraseña
-      gobierto_admin/user_form:
-        name: Nombre
-        email: Email
-      gobierto_admin/site_form:
-        title: Nombre del site
-        name: Nombre de la entidad
-        location_name: Entidad relacionada
-        domain: Dominio
-        head_markup: HTML de Cabecera
-        foot_markup: HTML de Pie
-        foot_markup: HTML de Enlaces
-        google_analytics_id: Código de Google Analytics
-        logo_file: Logotipo
+    models:
+      gobierto_admin/admin_confirmation_form: Confirmación
+      gobierto_admin/admin_edit_password_form: Cambio de contraseña
+      gobierto_admin/admin_form: Administrador
+      gobierto_admin/admin_invitation_form: Invitación
+      gobierto_admin/admin_new_password_form: Recuperación de contraseña
+      gobierto_admin/site_form: Site
+      gobierto_admin/user_form: Usuario
+      gobierto_admin/user_password_form: Cambio de contraseña
+      gobierto_admin/user_welcome_message_form: Email de bienvenida

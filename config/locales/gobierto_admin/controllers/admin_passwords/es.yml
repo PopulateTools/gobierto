@@ -4,10 +4,10 @@ es:
     admin:
       passwords:
         create:
-          success: Por favor, revisa tu email para recibir instrucciones
           error: La dirección de e-mail que has indicado no parece ser válida
+          success: Por favor, revisa tu email para recibir instrucciones
         edit:
           error: Esta URL no parece ser válida
         update:
-          success: Sesión iniciada correctamente
           error: Hubo un problema al cambiar tu contraseña
+          success: Sesión iniciada correctamente

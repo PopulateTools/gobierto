@@ -3,15 +3,15 @@ ca:
   gobierto_admin:
     gobierto_people:
       configuration:
-        title: Configuració
         political_groups:
-          index:
-            title: Agrupacions polítiques
-            new: Nova agrupació
-            header:
-              political_group: Agrupació
-              created: Creada
           edit:
             title: Editar agrupació
+          index:
+            header:
+              created: Creada
+              political_group: Agrupació
+            new: Nova agrupació
+            title: Agrupacions polítiques
           new:
             title: Nova agrupación
+        title: Configuració

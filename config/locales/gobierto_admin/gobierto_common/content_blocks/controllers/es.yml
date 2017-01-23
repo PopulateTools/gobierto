@@ -5,7 +5,7 @@ es:
       content_blocks:
         create:
           success: El bloque de contenido se ha creado correctamente
-        update:
-          success: El bloque de contenido se ha actualizado correctamente
         destroy:
           success: El bloque de contenido se ha eliminado correctamente
+        update:
+          success: El bloque de contenido se ha actualizado correctamente

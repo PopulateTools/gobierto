@@ -3,29 +3,29 @@ es:
   gobierto_people/person:
     notifications:
       subject:
-        created: "Se ha agregado una persona"
-        name_changed: "Se ha actualizado una persona"
-        charge_changed: "Se ha actualizado una persona"
-        bio_changed: "Se ha actualizado una persona"
-        visibility_level_changed: "Se ha actualizado una persona"
+        bio_changed: Se ha actualizado una persona
+        charge_changed: Se ha actualizado una persona
+        created: Se ha agregado una persona
+        name_changed: Se ha actualizado una persona
+        visibility_level_changed: Se ha actualizado una persona
   gobierto_people/person_event:
     notifications:
       subject:
-        created: "Se ha creado un evento"
-        title_changed: "Se ha actualizado un evento"
-        starts_at_changed: "Se ha actualizado un evento"
-        ends_at_changed: "Se ha actualizado un evento"
-  gobierto_people/person_statement:
-    notifications:
-      subject:
-        created: "Se ha agregado una declaración"
-        title_changed: "Se ha actualizado una declaración"
-        published_on_changed: "Se ha actualizado una declaración"
-        visibility_level_changed: "Se ha actualizado una declaración"
+        created: Se ha creado un evento
+        ends_at_changed: Se ha actualizado un evento
+        starts_at_changed: Se ha actualizado un evento
+        title_changed: Se ha actualizado un evento
   gobierto_people/person_post:
     notifications:
       subject:
-        created: "Se ha agregado un post"
-        title_changed: "Se ha actualizado un post"
-        body_changed: "Se ha actualizado un post"
-        visibility_level_changed: "Se ha actualizado un post"
+        body_changed: Se ha actualizado un post
+        created: Se ha agregado un post
+        title_changed: Se ha actualizado un post
+        visibility_level_changed: Se ha actualizado un post
+  gobierto_people/person_statement:
+    notifications:
+      subject:
+        created: Se ha agregado una declaración
+        published_on_changed: Se ha actualizado una declaración
+        title_changed: Se ha actualizado una declaración
+        visibility_level_changed: Se ha actualizado una declaración

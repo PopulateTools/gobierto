@@ -3,37 +3,37 @@ en:
   gobierto_admin:
     gobierto_budget_consultations:
       consultations:
+        edit:
+          consultation_items_section: Budget lines
+          consultation_section: Consultation
+          title: Edit consultation
+        form:
+          hints:
+            description: Write in a clearly way the type of consultation
+            title: You should write a concrete title to identify the budget line
+          placeholders:
+            opening_date_range: Select opening and close date
+            title: Consultation about 2016 budgets
+          visibility_level:
+            active: Published
+            draft: Draft
         index:
-          title: Budget consultations
-          new: New consultation
-          view_consultation: View consultation
+          closes_on: Close date
           header:
             consultation: Consultation
             results: Results
             status: Status
+          new: New consultation
           opens_on: Opening date
-          closes_on: Close date
           participations_count:
             one: One participation
             other: "%{count} participations"
+          title: Budget consultations
+          view_consultation: View consultation
           visibility_level:
-            draft: Draft
             active: Published
-        edit:
-          title: Edit consultation
-          consultation_section: Consultation
-          consultation_items_section: Budget lines
+            draft: Draft
         new:
-          title: New consultation
-          consultation_section: Consultation
           consultation_items_section: Budget lines
-        form:
-          placeholders:
-            title: Consultation about 2016 budgets
-            opening_date_range: Select opening and close date
-          hints:
-            title:
-            description:
-          visibility_level:
-            draft: Draft
-            active: Published
+          consultation_section: Consultation
+          title: New consultation

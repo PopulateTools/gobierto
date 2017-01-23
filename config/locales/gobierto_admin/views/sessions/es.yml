@@ -2,11 +2,12 @@
 es:
   gobierto_admin:
     sessions:
-      new:
-        title: Iniciar sesión
-        forgot_your_password: ¿Olvidaste tu contraseña?
-        didnt_receive_confirmation_instructions: ¿No has recibido las instrucciones de confirmación?
       form:
-        submit: Enviar
         email: Email
         password: Contraseña
+        submit: Enviar
+      new:
+        didnt_receive_confirmation_instructions: "¿No has recibido las instrucciones
+          de confirmación?"
+        forgot_your_password: "¿Olvidaste tu contraseña?"
+        title: Iniciar sesión

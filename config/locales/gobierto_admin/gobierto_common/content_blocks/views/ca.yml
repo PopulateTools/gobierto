@@ -5,10 +5,9 @@ ca:
       content_blocks:
         edit:
           title: Editar bloc
-        edit:
-          title: Afegir bloc
         form:
-          title: Nom del bloc
-          fields: Columnes
-          delete_field: Eliminar columna
           add_child: Afegir columna
+          fields: Columnes
+          title: Nom del bloc
+        new:
+          title: Afegir bloc

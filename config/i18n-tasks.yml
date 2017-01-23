@@ -1,0 +1,27 @@
+base_locale: es
+locales: [en, es, ca]
+data:
+  read:
+    - config/locales/**/%{locale}.yml
+    - config/locales/**/*/%{locale}.yml
+ignore_missing:
+  - 'gobierto_budgets.visualizations.*'
+  - 'layouts.sandbox.*'
+  - 'sandbox.*'
+
+ignore_unused:
+  - 'number.*'
+  - 'time.*'
+  - 'errors.*'
+  - 'datetime.*'
+  - 'date.*'
+  - 'activerecord.*'
+  - 'activemodel.*'
+  - 'helpers.*'
+  - 'support.*'
+  - 'layouts.sandbox.*'
+  - 'layouts.*.application.*'
+  - 'user.notification_mailer.notification_digest.subject'
+  - 'user.subscriptions.create.*_success'
+  - 'gobierto_admin.gobierto_budget_consultations.consultations.consultation_items.*_modal.*'
+  - 'gobierto_budgets.budget_lines.show.twitter_text_*'

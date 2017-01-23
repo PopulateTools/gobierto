@@ -3,13 +3,13 @@ en:
   gobierto_admin:
     admin:
       passwords:
-        new:
-          title: Recover your password
         edit:
           title: Set your new password
+        edit_form:
+          submit: Change password
+        new:
+          title: Recover your password
         new_form:
           placeholders:
             email: fsanchez@gmail.com
           submit: Request recovery
-        edit_form:
-          submit: Change password

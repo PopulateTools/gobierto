@@ -1,145 +1,135 @@
 ---
 en:
   gobierto_budgets:
+    budget_lines:
+      explorer:
+        examples: Examples
+        expenses: Expenses
+        explore_the_detail: Explore the detail
+        income: Income
+        search: Search
+        search_budget_line: Search for a specific budget line
+      index:
+        amount: Amount
+        budget_line: Budget line
+        expense_in_what: In what is spent
+        expense_to_do_what: To do what is spent
+        help: The budget is organized in two categories. Checkout our guide
+        income_from_what: Where does the income come from
+        per_inhabitant: Per inhabitant
+        title: Local municipality budgets in %{year}
+      show:
+        about_this_line: About this budget line
+        avg_province: Avg. %{kind} in the province
+        back_to_parent: Back to parent budget line
+        budget_lines_distribution: Expense budget lines distribution
+        evolution: Evolution
+        last_year: Last year
+        no_distribution: There are related budget lines.
+        no_more_descendants: There are no more descendants
+        not_available: Not avail.
+        percentage: "% over the total"
+        planned: planned
+        planned_per_inhabitant: plan. / inh.
+        real_value: Real %{kind} is %{value}
+        real_vs_planned: real vs. plan.
+        sub_budget_lines: In this budget line
+        twitter_text_expense: 'In @gobierto: Municipal expense on %{name} in %{budget_line_name}
+          for year %{year}'
+        twitter_text_income: 'In @gobierto: Municipal income on %{name} in %{budget_line_name}
+          for year %{year}'
+    budgets:
+      index:
+        at_a_glance: At a glance
+        at_years_end: "* at the end of %{year}"
+        context: Context
+        data_of_year: "* as of %{year}"
+        debt: Debt
+        expenses: Expenses
+        expenses_per_inhabitant: Expenses per inhabitant
+        header: Relevant data from your municipality
+        in_total: Total
+        income: Income
+        inhabitants: Inhabitants
+        less: less
+        main_budget_lines: Main income and expenses from your council
+        main_budget_lines_description: These are the 5 main income and expense budget
+          lines in your municipality.
+        more: more
+        most_interesting_budget_lines: Most interesting budget lines
+        most_interesting_budget_lines_description: Some of the budget lines you are
+          most affected in a daily basis as a citizien. You can also check the complete
+          explorer.
+        not_available_short: Not avail.
+        note_about_the_data: Note about the data
+        note_about_the_data_title: The database we use doesn't include 100% of the
+          municipalities, and the avegages are calculated only with the data that
+          exists (which is most of it). More information in our FAQ
+        per_person: Per person
+        planned_vs_executed: Real expenses vs the plan
+        planned_vs_executed_other_year_html: In %{year} it was %{link}
+        search_for_a_budget_line: Search a budget line
+        see_all: view all
+        title: Local municipality budgets in %{year}
+        total_expenses: Total expenses
+        twitter_text: 'From @gobierto: Municipality budgets from %{name} in %{year}'
+    budgets_execution:
+      execution_table:
+        deviation: Diff
+        executed: Execution
+        planned: Plann.
+        view_less: View less
+        view_more: View more
+      index:
+        budget_lines_expense_higher: Expense budget lines higher than planned
+        budget_lines_expense_lower: Expense budget lines lower than planned
+        budget_lines_income_higher: Income budget lines higher than planned
+        budget_lines_income_lower: Income budget lines lower than planned
+        description: Local budget detailed execution from %{place} in %{year}. Check
+          the differences between the planned and the executed.
+        economic: economic
+        execution_disclaimer: It's very common to have deviatiatons, due to the difficulty
+          of foreseeing the expenses.
+        execution_help: The execution is the amount spent based on the planned budget.
+        functional: functional
+        title: Local budget execution from %{place} in %{year}
+      widget_template_deviation:
+        expense: Expense
+        income: Income
+        planned: planned
+        real: real
     common:
-      income: income
-      incomes: incomes
+      budget_line_description_html: 'This budget line is composed of %{kind_what}
+        in %{description}. If you want to understand more about it, check its parent
+        budget line: %{link}'
       expense: expense
       expenses: expenses
-      budget_line_description_html: "This budget line is composed of %{kind_what} in %{description}. If you want to understand more about it, check its parent budget line: %{link}"
+      income: income
+      incomes: incomes
+    featured_budget_lines:
+      gobierto_site_template:
+        how_much_place_in: How much does %{place} expend on...
+        last_year: Last year we spent
+        per_person: Per inhabitant
+        show_me_another: Show me another
+        title: Some important budget lines
+        total: Total expenses
     layouts:
       application:
         budgets: Budgets
       menu_subsections:
-        summary: Summary
         budget: Budget
         execution: Execution
-    budgets:
-      index:
-        header: Relevant data from your municipality
-        expenses_per_inhabitant: Expenses per inhabitant
-        total_expenses: Total expenses
-        planned_vs_executed: Real expenses vs the plan
-        not_available_short: Not avail.
-        inhabitants: Inhabitants
-        debt: Debt
-        planned_vs_executed_other_year_html: "In %{year} it was %{link}"
-        in_year: In
-        per_person: Per person
-        we_spend: we spent
-        we_will_spend: we will spend
-        totally: A grand total of
-        previous_year_we_spent: That year we spent
-        that_year_we_spent: That year we spent
-        than_planned: than planned
-        previous_year_data_we_owe: According to the previous year's data, we owed
-        that_year_data_we_owe: According to the year's data, we owed
-        less: less
-        more: more
-        than_two_years_ago: than the year before
-        than_last_year: than the previous year
-        at_years_end: "* at the end of %{year}"
-        data_of_year: "* as of %{year}"
         summary: Summary
-        twitter_text: "From @gobierto: Municipality budgets from %{name} in %{year}"
-        main_budget_lines: Main income and expenses from your council
-        main_budget_lines_description: These are the 5 main income and expense budget lines in your municipality.
-        most_interesting_budget_lines: Most interesting budget lines
-        most_interesting_budget_lines_description: Some of the budget lines you are most affected in a daily basis as a citizien. You can also check the complete explorer.
-        income: Income
-        expenses: Expenses
-        see_all: view all
-        at_a_glance: At a glance
-        context: Context
-        note_about_the_data: Note about the data
-        note_about_the_data_title: "The database we use doesn't include 100% of the municipalities, and the avegages are calculated only with the data that exists (which is most of it). More information in our FAQ"
-        in_total: Total
-    featured_budget_lines:
-      gobierto_site_template:
-        title: Some important budget lines
-        how_much_place_in: "How much does %{place} expend on..."
-        show_me_another: Show me another
-        per_person: Per inhabitant
-        total: Total expenses
-        last_year: Last year we spent
-    budget_lines:
-      explorer:
-        explore_the_detail: Explore the detail
-        search_budget_line: Search for a specific budget line
-        examples: Examples
-        search: Search
-        income: Income
-        expenses: Expenses
-      index:
-        budget_line: Budget line
-        amount: Amount
-        per_inhabitant: Per inhabitant
-        expense_in_what: In what is spent
-        expense_to_do_what: To do what is spent
-        income_from_what: Where does the income come from
-        help: The budget is organized in two categories. Checkout our guide
-      show:
-        planned_per_inhabitant: "plan. / inh."
-        planned: planned
-        real_vs_planned: "real vs. plan."
-        real_value: "Real %{kind} is %{value}"
-        last_year: "In %{year} was a %{value}"
-        percentage: "% over the total"
-        avg_province: "Avg. %{kind} in the province"
-        not_available: "Not avail."
-        context: Context
-        evolution: Evolution
-        budget_lines_distribution: Expense budget lines distribution
-        no_distribution: There are related budget lines.
-        sub_budget_lines: In this budget line
-        no_more_descendants: There are no more descendants
-        back_to_parent: Back to parent budget line
-        we_expend: we spend
-        we_income: we income
-        expended: spent
-        income: income
-        we_have: We have
-        last_year: Last year
-        this_year: This year
-        in_total: In total they are
-        from_planned: from planned
-        per_inhabitant: Per inhabitant
-        twitter_text_expense: "In @gobierto: Municipal expense on %{name} in %{budget_line_name} for year %{year}"
-        twitter_text_income: "In @gobierto: Municipal income on %{name} in %{budget_line_name} for year %{year}"
-        about_this_line: "About this budget line"
-    budgets_execution:
-      index:
-        title: "Local budget execution from %{place} in %{year}"
-        description: "Local budget detailed execution from %{place} in %{year}. Check the differences between the planned and the executed."
-        execution_help: The execution is the amount spent based on the planned budget.
-        execution_disclaimer: It's very common to have deviatiatons, due to the difficulty of foreseeing the expenses.
-        budget_lines_income_higher: Income budget lines higher than planned
-        budget_lines_income_lower: Income budget lines lower than planned
-        budget_lines_expense_higher: Expense budget lines higher than planned
-        budget_lines_expense_lower: Expense budget lines lower than planned
-        economic: economic
-        functional: functional
-      execution_table:
-        planned: Plann.
-        executed: Execution
-        deviation: Diff
-        view_more: View more
-        view_less: View less
-      widget_template_deviation:
-        income: Income
-        expense: Expense
-        planned: planned
-        real: real
     visualizations:
-      total_expenses: Total expenses
-      expenses_per_inhabitant: Expenses per inhabitant
+      G_economic: In what
+      G_functional: How
+      I_economic: How
       category_per_inhabitant: "%{category} per inhabitant"
-      previous_year_diff: Previous year diff
+      expenses_per_inhabitant: Expenses per inhabitant
       inhabitant_short: inh
-      mean_national: National mean
       mean_autonomy: Autonomy mean
+      mean_national: National mean
       mean_province: Province mean
-      G_economic: 'In what'
-      G_functional: 'How'
-      I_economic: "How"
-
+      previous_year_diff: Previous year diff
+      total_expenses: Total expenses

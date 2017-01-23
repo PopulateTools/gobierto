@@ -1,16 +1,6 @@
 ---
 es:
   gobierto_budget_consultations:
-    layouts:
-      menu_subsections:
-        consultations: Consultas
-    consultations:
-      show:
-        subscribable_box:
-          title: Recibe actualizaciones en tu correo-e sobre cambios en esta consulta
-      index:
-        subscribable_box:
-          title: Recibe una alerta en tu correo-e sobre los procesos que se pongan en marcha
     consultation_items:
       options:
         increase: Aumentar el gasto un 10%
@@ -20,3 +10,14 @@ es:
           increase: Aumentar
           keep: Mantener
           reduce: Reducir
+    consultations:
+      index:
+        subscribable_box:
+          title: Recibe una alerta en tu correo-e sobre los procesos que se pongan
+            en marcha
+      show:
+        subscribable_box:
+          title: Recibe actualizaciones en tu correo-e sobre cambios en esta consulta
+    layouts:
+      menu_subsections:
+        consultations: Consultas

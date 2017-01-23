@@ -4,22 +4,15 @@ ca:
     gobierto_people:
       people:
         person_events:
-          index:
-            title: Agenda
-            new: Nou esdeveniment
-            view_event: Veure esdeveniment
-            all_events: Tots
-            pending_events: Pendents de moderar
-            published_events: Esdeveniments publicats
-            past_events: Esdeveniments passats
+          attendees_form:
             header:
-              event: Dsdeveniment
-              date: Data
-              location: Localització
+              charge: Càrrec
+              name: Nom
+              person: Persona
+            title: Assistents
+            view_person: Veure persona
           edit:
             title: Editar esdeveniment
-          new:
-            title: Nou esdeveniment
           form:
             attachment_file_constraints: adjuntar fitxer (PDF)
             placeholders:
@@ -27,15 +20,22 @@ ca:
             state:
               pending: Pendent
               published: Publicat
+          index:
+            all_events: Tots
+            header:
+              date: Data
+              event: Dsdeveniment
+              location: Localització
+            new: Nou esdeveniment
+            past_events: Esdeveniments passats
+            pending_events: Pendents de moderar
+            published_events: Esdeveniments publicats
+            title: Agenda
+            view_event: Veure esdeveniment
           locations_form:
-            title: Localitzacions
             header:
-              place: Lloc
               address: Direcció
-          attendees_form:
-            title: Assistents
-            view_person: Veure persona
-            header:
-              person: Persona
-              name: Nom
-              charge: Càrrec
+              place: Lloc
+            title: Localitzacions
+          new:
+            title: Nou esdeveniment

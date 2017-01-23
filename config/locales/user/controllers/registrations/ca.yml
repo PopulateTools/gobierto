@@ -3,5 +3,6 @@ ca:
   user:
     registrations:
       create:
+        error: Les dades que has introduit no pareixen ser vàlides. Per favor, inténta-ho
+          de nou.
         success: T'hem enviat un email per a que pugues confirmar el teu registre
-        error: Les dades que has introduit no pareixen ser vàlides. Per favor, inténta-ho de nou.

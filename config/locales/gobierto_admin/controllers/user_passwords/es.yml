@@ -4,5 +4,5 @@ es:
     users:
       passwords:
         create:
-          success: La contraseña del usuario fue cambiada con éxito
           error: Hubo un problema al cambiar la contraseña del usuario
+          success: La contraseña del usuario fue cambiada con éxito

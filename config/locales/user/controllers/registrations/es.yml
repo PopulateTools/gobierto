@@ -3,5 +3,6 @@ es:
   user:
     registrations:
       create:
+        error: Los datos que has introducido no parecen ser válidos. Por favor, inténtalo
+          de nuevo.
         success: Te hemos enviado un email para que puedas confirmar tu registro
-        error: Los datos que has introducido no parecen ser válidos. Por favor, inténtalo de nuevo.

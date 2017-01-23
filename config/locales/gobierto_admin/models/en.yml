@@ -1,44 +1,44 @@
 ---
 en:
   activemodel:
-    models:
-      gobierto_admin/admin_confirmation_form: Confirmation
-      gobierto_admin/admin_new_password_form: Password recovery
-      gobierto_admin/admin_edit_password_form: Password change
-      gobierto_admin/admin_invitation_form: Invitation
-      gobierto_admin/user_password_form: Password change
-      gobierto_admin/user_welcome_message_form: Welcome message
-      gobierto_admin/admin_form: Admin
-      gobierto_admin/user_form: User
-      gobierto_admin/site_form: Site
     attributes:
       gobierto_admin/admin_confirmation_form:
-        email: Email
-      gobierto_admin/admin_new_password_form:
         email: Email
       gobierto_admin/admin_edit_password_form:
         password: Password
         password_confirmation: Password confirmation
+      gobierto_admin/admin_form:
+        email: Email
+        name: Name
+        password: Password
+        password_confirmation: Password confirmation
       gobierto_admin/admin_invitation_form:
         emails: Emails
+      gobierto_admin/admin_new_password_form:
+        email: Email
+      gobierto_admin/site_form:
+        domain: Domain
+        foot_markup: Foot HTML
+        google_analytics_id: Google Analytics code
+        head_markup: Head HTML
+        links_markup: Links HTML
+        location_name: Associated entity
+        logo_file: Logo
+        name: Entity ame
+        title: Site name
+      gobierto_admin/user_form:
+        email: Email
+        name: Name
       gobierto_admin/user_password_form:
         password: Password
         password_confirmation: Password confirmation
-      gobierto_admin/admin_form:
-        name: Name
-        email: Email
-        password: Password
-        password_confirmation: Password confirmation
-      gobierto_admin/user_form:
-        name: Name
-        email: Email
-      gobierto_admin/site_form:
-        title: Site name
-        name: Entity ame
-        location_name: Associated entity
-        domain: Domain
-        head_markup: Head HTML
-        foot_markup: Foot HTML
-        links_markup: Links HTML
-        google_analytics_id: Google Analytics code
-        logo_file: Logo
+    models:
+      gobierto_admin/admin_confirmation_form: Confirmation
+      gobierto_admin/admin_edit_password_form: Password change
+      gobierto_admin/admin_form: Admin
+      gobierto_admin/admin_invitation_form: Invitation
+      gobierto_admin/admin_new_password_form: Password recovery
+      gobierto_admin/site_form: Site
+      gobierto_admin/user_form: User
+      gobierto_admin/user_password_form: Password change
+      gobierto_admin/user_welcome_message_form: Welcome message

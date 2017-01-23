@@ -5,10 +5,9 @@ es:
       content_blocks:
         edit:
           title: Editar bloque
+        form:
+          add_child: Añadir columna
+          fields: Columnas
+          title: Nombre del bloque
         new:
           title: Agregar bloque
-        form:
-          title: Nombre del bloque
-          fields: Columnas
-          delete_field: Eliminar columna
-          add_child: Añadir columna

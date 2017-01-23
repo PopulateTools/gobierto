@@ -3,18 +3,18 @@ es:
   gobierto_admin:
     layouts:
       application:
-        budget_consultations: Consultas de presupuestos
-        people: Altos cargos y Agendas
-        manage_sites: Gestionar sites
-        site_network: Red
-        view_site: Ver site
-        users: Usuarios
-        edit_site: Personalizar sitio
-        collapse_menu: Colapsar menú
-        notifications: Notificaciones
-        hey_admin: Hola, %{admin_name}
         admin_dropdown:
           account: Tu cuenta
           sign_out: Cerrar sesión
+        budget_consultations: Consultas de presupuestos
+        collapse_menu: Colapsar menú
         dirty_forms:
           message: Hay cambios sin guardar. ¿Estás seguro de querer continuar?
+        edit_site: Personalizar sitio
+        hey_admin: Hola, %{admin_name}
+        manage_sites: Gestionar sites
+        notifications: Notificaciones
+        people: Altos cargos y Agendas
+        site_network: Red
+        users: Usuarios
+        view_site: Ver site

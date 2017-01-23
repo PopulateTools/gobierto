@@ -2,37 +2,38 @@
 ca:
   gobierto_admin:
     sites:
-      index:
-        title: Sites
-        configuration: Configuració
-        new: Crear site
-        view_site: Veure site
-        header:
-          site: Site
-          domain: Domini
-          created_at: Creat
-          status: Estat
       edit:
         title: Personalitzar site
-      new:
-        title: Crear site
       form:
-        placeholders:
-          title: Transparencia i Participció
-          name: Ajuntament de Burjassot
-          location_name: Burjassot
-          domain: gobierto.burjassot.es
-          google_analytics_id: UA-000000-01
         hints:
           domain:
-            instructions: "Important: aquest domini deurà estar creant previament per a que el site funcione correctament."
+            a_record: Entrada A a %{target}
+            cname_record: Entrada CNAME a %{target}
             if_domain: Si es un domini
             if_subdomain: Si es un subdomini
-            a_record: "Entrada A a %{target}"
-            cname_record: "Entrada CNAME a %{target}"
+            instructions: 'Important: aquest domini deurà estar creant previament
+              per a que el site funcione correctament.'
         modules_enabled: Móduls actius para aquest site
-        username: Nome d'usuario
         password: Contrasenya
+        placeholders:
+          domain: gobierto.burjassot.es
+          google_analytics_id: UA-000000-01
+          location_name: Burjassot
+          name: Ajuntament de Burjassot
+          title: Transparencia i Participció
+        username: Nome d'usuario
         visibility_level:
-          draft: Borrador
           active: Publicat
+          draft: Borrador
+      index:
+        configuration: Configuració
+        header:
+          created_at: Creat
+          domain: Domini
+          site: Site
+          status: Estat
+        new: Crear site
+        title: Sites
+        view_site: Veure site
+      new:
+        title: Crear site

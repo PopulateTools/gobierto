@@ -4,8 +4,8 @@ ca:
     admin:
       confirmations:
         create:
-          success: Per favor, revisa el teu email per a rebre instruccions
           error: La direcció de e-mail que has indicat no pareix ser vàlida
+          success: Per favor, revisa el teu email per a rebre instruccions
         show:
-          success: Sessió iniciada correctament
           error: Esta URL no pareix ser vàlida
+          success: Sessió iniciada correctament

@@ -4,5 +4,5 @@ ca:
     users:
       passwords:
         create:
-          success: La contrasenya del usuari va ser canviada amb èxito
           error: Hi va haver un problema al canviar la contrasenya del usuari
+          success: La contrasenya del usuari va ser canviada amb èxito

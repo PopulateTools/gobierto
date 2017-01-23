@@ -48,7 +48,7 @@ var CardIndicators = Class.extend({
             .text(json.metadata.indicator['source name']);
 
           // Append date of last data point
-          div.select('.widget_updated')
+          div.selectAll('.widget_updated')
             .text(formatDate(parsedDate));
 
           // Append metadata

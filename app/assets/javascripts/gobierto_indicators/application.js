@@ -48,11 +48,9 @@ $(document).on('turbolinks:load', function() {
   if ($('.indicator_widget').length) {
     new CardIndicators('.indicator_widget', window.populateData.municipalityId);
 
-    // Show dataset info while hovering in circles
-    $('.indicator_widget').click(function() {
-      $(this).find('.widget_headline i').toggleClass('fa-question-circle fa-times');
-      $(this).find('.widget_body').toggle();
-      $(this).find('.widget_info').toggle();
+    // Show dataset info on click
+    $('.card_container').click(function() {
+      $(this).toggleClass('hover');
     });
   }
 

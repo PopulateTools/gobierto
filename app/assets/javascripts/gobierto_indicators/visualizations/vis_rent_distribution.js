@@ -154,7 +154,7 @@ var VisRentDistribution = Class.extend({
       .attr('class', 'voronoiPath')
       .attr('d', function(d) { return d.path; })
       .style('pointer-events', 'all')
-      .on('mouseover', this._mousemove.bind(this))
+      .on('mousemove', this._mousemove.bind(this))
       .on('mouseout', this._mouseout.bind(this));
 
     // Attach hover circle

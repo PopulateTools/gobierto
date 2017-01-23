@@ -212,7 +212,7 @@ var VisUnemploymentSectors = Class.extend({
     return parseInt(d3.select(this.container).style('width'));
   },
   _height: function() {
-    return this._width() * 0.43;
+    return this._width() * 0.15;
   },
   _resize: function() {
     this.width = this._width();

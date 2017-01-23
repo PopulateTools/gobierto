@@ -10,5 +10,4 @@ ca:
         form:
           title: Nom del bloc
           fields: Columnes
-          delete_field: Eliminar columna
           add_child: Afegir columna

@@ -24,23 +24,11 @@ ca:
         inhabitants: Habitants
         debt: Deute
         planned_vs_executed_other_year_html: "En %{year} va ser un %{link}"
-        in_year: En el
         per_person: Per habitant
-        we_spend: gastàrem
-        we_will_spend: gastarem
-        totally: Un total de
-        previous_year_we_spent: L'any anterior gastarem un
-        that_year_we_spent: Es va gastar
-        than_planned: de lo planejat
-        previous_year_data_we_owe: Al final de l'any anterior, debiem
-        that_year_data_we_owe: Al final de l'any, debiem
         less: menys
         more: més
-        than_two_years_ago: que l'any previ
-        than_last_year: que l'any anterior
         at_years_end: "* a final del %{year}"
         data_of_year: "* dades del %{year}"
-        summary: Resum
         title: "Pressupostos municipals el %{year}"
         twitter_text: "En @gobierto: Pressupostos municipals de %{name} del %{year}"
         main_budget_lines: Les principals despeses i ingressos del teu ajuntament
@@ -90,26 +78,16 @@ ca:
         percentage: "% sobre el total del press."
         avg_province: "Mitjana %{kind} provincial"
         not_available: "No disp."
-        context: Contexte
         evolution: Evolució
         budget_lines_distribution: Distribució de les despeses d'esta partida
         no_distribution: No hi ha distribució associada a aquesta partida.
         sub_budget_lines: Dins d'esta partida
         no_more_descendants: No hi ha més sub-partides
         back_to_parent: Tornar a la partida pare
-        we_expend: ens gastem
-        we_income: ingressarem
-        expended: gastat
-        income: ingressat
-        we_have: Hemo
         last_year: L'any passat
-        this_year: Enguany
-        in_total: En total són 
-        from_planned: de lo planejat
-        per_inhabitant: Per habitant
+        about_this_line: Acerca d'esta partida
         twitter_text_expense: "En @gobierto: Despesa municipal de %{name} en %{budget_line_name} al %{year}"
         twitter_text_income: "En @gobierto: Ingrés municipal de %{name} en %{budget_line_name} al %{year}"
-        about_this_line: Acerca d'esta partida
     budgets_execution:
       index:
         title: "Execució del pressupost municipal de %{place} el %{year}"

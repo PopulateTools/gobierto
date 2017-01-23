@@ -10,5 +10,4 @@ es:
         form:
           title: Nombre del bloque
           fields: Columnas
-          delete_field: Eliminar columna
           add_child: Añadir columna

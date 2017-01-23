@@ -9,3 +9,18 @@ ignore_missing:
   - 'layouts.sandbox.*'
   - 'sandbox.*'
 
+ignore_unused:
+  - 'number.*'
+  - 'time.*'
+  - 'errors.*'
+  - 'datetime.*'
+  - 'date.*'
+  - 'activerecord.*'
+  - 'activemodel.*'
+  - 'helpers.*'
+  - 'support.*'
+  - 'layouts.sandbox.*'
+  - 'layouts.*.application.*'
+  - 'user.notification_mailer.notification_digest.subject'
+  - 'user.subscriptions.create.*_success'
+  - 'gobierto_admin.gobierto_budget_consultations.consultations.consultation_items.*_modal.*'

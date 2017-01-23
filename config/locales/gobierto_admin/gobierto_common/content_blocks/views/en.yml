@@ -10,5 +10,4 @@ en:
         form:
           title: Block name
           fields: Columns
-          delete_field: Delete column
           add_child: Add column

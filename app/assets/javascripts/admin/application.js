@@ -11,6 +11,7 @@ $(document).on('turbolinks:load', function() {
   // Datepicker
   $('.air-datepicker').datepicker({
     autoClose: true,
+    minutesStep: 5,
     onSelect: function onSelect(_, _, instance) {
       $(instance.el).trigger("datepicker-change");
     }

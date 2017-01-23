@@ -15,14 +15,8 @@ body.gobierto_people {
   }
 
   .item-list {
-    padding: 1em 0;
-
     .person-item {
-      border-bottom: 1px solid $color_separator;
-
-      &:last-of-type {
-        border-bottom: 0;
-      }
+      border-top: 1px solid $color_separator;
     }
   }
 
@@ -40,7 +34,7 @@ body.gobierto_people {
   }
 
   .person-item {
-    padding: 1em 0;
+    padding: 2em 0;
 
     &:after {
       @extend .clearfix;
@@ -67,7 +61,7 @@ body.gobierto_people {
 
   menu.people-filter, menu.person-events-filter {
     padding: 0;
-    margin: 0;
+    margin: 0 0 1.5em 0;
 
     ul {
       list-style-type: none;
@@ -79,7 +73,8 @@ body.gobierto_people {
         a {
           text-transform: uppercase;
           text-decoration: none;
-          padding: .5em 1em .4em;
+          padding: .25em 1em .2em;
+          margin: 0 1em 0 0;
           display: inline-block;
           border: 1px solid $color_separator;
           color: $color_separator;

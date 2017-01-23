@@ -54,6 +54,29 @@ p.intro {
     padding: 1em 2em;
   }
 }
+.slim_box {
+  margin: 1em 0;
+  .inner {
+    padding: 1em;
+  }
+  h3 {
+    margin: 0 0 .75em 0;
+    font-size: 1.1em;
+    font-weight: 600;
+  }
+  .disclaimer {
+    text-align: left;
+    font-size: .75em;
+    margin: .5em 0 0 0;
+  }
+  input[type=text], input[type=email] {
+    width: 50%;
+  }
+  input[type=text], input[type=email], input[type=submit] {
+    height: 45px;
+    padding: .25em 1em;
+  }
+}
 
 
 .separator {

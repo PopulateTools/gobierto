@@ -32,8 +32,8 @@ en:
             title: Consultation about 2016 budgets
             opening_date_range: Select opening and close date
           hints:
-            title:
-            description:
+            title: You should write a concrete title to identify the budget line
+            description: Write in a clearly way the type of consultation
           visibility_level:
             draft: Draft
             active: Published

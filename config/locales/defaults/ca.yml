@@ -92,7 +92,7 @@ ca:
         other: "%{count} mesos"
       x_years:
         one: 1 year
-        other: "%{count} years" 
+        other: "%{count} anys"
       x_seconds:
         one: 1 segon
         other: "%{count} segons"
@@ -108,6 +108,7 @@ ca:
     messages:
       accepted: ha de ser acceptat
       blank: no pot estar en blanc
+      present: ha de ser blanc
       confirmation: no coincideix
       empty: no pot estar buit
       equal_to: ha de ser igual a %{count}
@@ -122,10 +123,15 @@ ca:
       not_a_number: no és un número
       not_an_integer: ha de ser un enter
       odd: ha de ser senar
+      record_invalid: 'La validació va fallar: %{errors}'
+      restrict_dependent_destroy:
+        one: No es pot eliminar el registre perque existeixen %{record} dependent
+        many: No es pot eliminar el registre perque existeixen %{record} dependents
       taken: no està disponible
       too_long: és massa llarg (%{count} caràcters màxim)
       too_short: és massa curt (%{count} caràcters mínim)
       wrong_length: no té la longitud correcta (%{count} caràcters exactament)
+      other_than: ha de ser distinti de %{count}
     template:
       body: 'Hi ha hagut problemes amb els següents camps:'
       header:
@@ -182,6 +188,7 @@ ca:
     percentage:
       format:
         delimiter: ''
+        format: "%n%"
     precision:
       format:
         delimiter: ''

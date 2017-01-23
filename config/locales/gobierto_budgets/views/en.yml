@@ -41,6 +41,7 @@ en:
         at_years_end: "* at the end of %{year}"
         data_of_year: "* as of %{year}"
         summary: Summary
+        title: "Local municipality budgets in %{year}"
         twitter_text: "From @gobierto: Municipality budgets from %{name} in %{year}"
         main_budget_lines: Main income and expenses from your council
         main_budget_lines_description: These are the 5 main income and expense budget lines in your municipality.
@@ -54,6 +55,7 @@ en:
         note_about_the_data: Note about the data
         note_about_the_data_title: "The database we use doesn't include 100% of the municipalities, and the avegages are calculated only with the data that exists (which is most of it). More information in our FAQ"
         in_total: Total
+        search_for_a_budget_line: Search a budget line
     featured_budget_lines:
       gobierto_site_template:
         title: Some important budget lines
@@ -71,6 +73,7 @@ en:
         income: Income
         expenses: Expenses
       index:
+        title: "Local municipality budgets in %{year}"
         budget_line: Budget line
         amount: Amount
         per_inhabitant: Per inhabitant

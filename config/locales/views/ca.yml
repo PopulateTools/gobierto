@@ -13,6 +13,10 @@ ca:
         profile: Perfil
         alerts: Les teves alertes
         admin: Administració
+    main_menu:
+      account: El teu compte
+      sign_in: Iniciar sessió
+      sign_out: Tancar sessió
     gobierto_budgets:
       application:
         <<: *application

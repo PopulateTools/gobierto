@@ -5,5 +5,5 @@ en:
       create:
         success: Signed in successfully
         error: The data you entered doesn't seem to be valid. Please try again.
-      delete:
+      destroy:
         success: Signed out successfully

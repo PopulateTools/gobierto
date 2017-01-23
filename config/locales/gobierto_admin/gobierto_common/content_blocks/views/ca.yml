@@ -5,7 +5,7 @@ ca:
       content_blocks:
         edit:
           title: Editar bloc
-        edit:
+        new:
           title: Afegir bloc
         form:
           title: Nom del bloc

@@ -152,11 +152,6 @@ Rails.application.routes.draw do
     constraints GobiertoSiteConstraint.new do
       get 'site' => 'sites#show'
 
-      # legal pages (TODO: we should merge them)
-      get 'privacy' => 'pages#privacy'
-      get 'legal' => 'pages#legal'
-      get 'cookie_warning' => 'pages#cookie_warning'
-
       resources :featured_budget_lines, only: [:show]
 
       get 'presupuestos/resumen(/:year)' => 'budgets#index', as: :budgets

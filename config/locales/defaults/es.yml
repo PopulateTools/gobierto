@@ -1,5 +1,9 @@
 ---
 es:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'La validación falló: %{errors}'
   date:
     abbr_day_names:
     - dom
@@ -86,6 +90,9 @@ es:
       x_months:
         one: 1 mes
         other: "%{count} meses"
+      x_years:
+        one: 1 año
+        other: "%{count} años"
       x_seconds:
         one: 1 segundo
         other: "%{count} segundos"
@@ -181,6 +188,7 @@ es:
     percentage:
       format:
         delimiter: ''
+        format: "%n%"
     precision:
       format:
         delimiter: ''

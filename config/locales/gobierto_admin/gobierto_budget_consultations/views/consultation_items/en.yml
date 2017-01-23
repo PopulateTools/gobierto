@@ -27,5 +27,5 @@ en:
             consultation_items_section: Budget lines
           form:
             placeholders:
-              title:
+              title: Repair streets
               budget_line_amount: 250000

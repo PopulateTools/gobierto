@@ -121,6 +121,8 @@ ca:
       show:
         filtering_by_tag: "Filtrant per \"%{tag}\""
         go_back: Tornar
+        subscribable_box:
+          title: Rebeix una alerta al tu correu-e
     person_statements:
       index:
         title: Declaracions

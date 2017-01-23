@@ -13,6 +13,10 @@ en:
         profile: Profile
         alerts: Your alerts
         admin: Administration
+    main_menu:
+      sign_in: Sign in
+      sign_out: Sign out
+      account: Your account
     gobierto_budgets:
       application:
         <<: *application

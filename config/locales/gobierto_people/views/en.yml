@@ -121,6 +121,8 @@ en:
       show:
         filtering_by_tag: "Filtering by \"%{tag}\""
         go_back: Go back
+        subscribable_box:
+          title: Receive alerts in your inbox
     person_statements:
       index:
         title: Statements

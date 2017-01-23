@@ -9,7 +9,7 @@ var VisAgeDistribution = Class.extend({
     this.dataUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal-edad.json?include=municipality&filter_by_year=' + current_year + '&filter_by_location_id=' + city_id;
 
     // Chart dimensions
-    this.margin = {top: 5, right: 0, bottom: 25, left: 0};
+    this.margin = {top: 25, right: 5, bottom: 25, left: 5};
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -19,9 +19,7 @@ var VisAgeDistribution = Class.extend({
 
     this.yScale = d3.scaleLinear();
 
-    this.color = d3.scaleLinear()
-      .range(['#FFE4C4', '#d52a59'])
-      .interpolate(d3.interpolateHcl);
+    // this.color = d3.scaleSequential(d3.interpolateWarm);
 
     // Create axes
     this.xAxis = d3.axisBottom();
@@ -46,7 +44,7 @@ var VisAgeDistribution = Class.extend({
     // Append axes containers
     this.svg.append('g').attr('class','x axis');
     this.svg.append('g').attr('class','y axis');
-
+    
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
   },
   getData: function() {
@@ -66,7 +64,6 @@ var VisAgeDistribution = Class.extend({
           isNaN(d.age) ? d.age =+ 100 : d.age;
 
           d.age = +d.age;
-          d.pct = +d.value / population * 100;
           d.years = +d.age * d.value;
         });
 
@@ -91,9 +88,9 @@ var VisAgeDistribution = Class.extend({
 
     this.yScale
       .rangeRound([this.height, 0])
-      .domain([0, d3.max(this.data, function(d) {return d.pct})]);
+      .domain([0, d3.max(this.data, function(d) {return d.value})]);
 
-    this.color.domain([0, d3.max(this.data, function(d) {return d.pct})]);
+    // this.color.domain([0, d3.max(this.data, function(d) {return d.pct})]);
 
     this._renderAxis();
   },
@@ -107,10 +104,30 @@ var VisAgeDistribution = Class.extend({
 
     bars.append('rect')
       .attr('x', function(d) { return this.xScale(d.age) }.bind(this))
-      .attr('y', function(d) { return this.yScale(d.pct) }.bind(this))
+      .attr('y', function(d) { return this.yScale(d.value) }.bind(this))
       .attr('width', this.xScale.bandwidth())
-      .attr('height', function(d) { return this.height - this.yScale(d.pct) }.bind(this))
-      .attr('fill', function(d) { return this.color(d.pct) }.bind(this));
+      .attr('height', function(d) { return this.height - this.yScale(d.value) }.bind(this))
+      .attr('fill', 'steelblue')
+      .on('mousemove', this._mousemove.bind(this))
+      .on('mouseout', this._mouseout.bind(this));
+      // .attr('fill', function(d) { return this.color(d.pct) }.bind(this));
+      
+    this.svg.append('text').attr('class', 'focus');
+  },
+  _mousemove: function(d, i) {
+    // Small tooltip
+    this.svg.select('.focus')
+      .attr('text-anchor', 'middle')
+      .attr('dy', -10)
+      .attr('x', this.xScale(d.age))
+      .attr('y', this.yScale(d.value))
+      .text(accounting.formatNumber(d.value, 0) + ' personas');
+  },
+  _mouseout: function(d) {
+    this.svg.select('.focus')
+      .attr('x', -100)
+      .attr('y', -100)
+      .text('');
   },
   _renderCityData: function() {
     // Calculate means and stuff
@@ -120,7 +137,6 @@ var VisAgeDistribution = Class.extend({
       .text(accounting.formatNumber(avgAge, 1));
   },
   _renderAxis: function() {
-
     // X axis
     this.svg.select('.x.axis')
       .attr('transform', 'translate(0,' + this.height + ')');
@@ -163,7 +179,7 @@ var VisAgeDistribution = Class.extend({
   },
   _formatNumberY: function(d) {
     // Show percentages
-    return accounting.formatNumber(d, 0) + '%';
+    return accounting.formatNumber(d, 0);
   },
   _width: function() {
     return parseInt(d3.select(this.container).style('width'));
@@ -187,8 +203,8 @@ var VisAgeDistribution = Class.extend({
     // Update bars
     d3.select('#age_distribution .bars').selectAll('rect')
       .attr('x', function(d) { return this.xScale(d.age) }.bind(this))
-      .attr('y', function(d) { return this.yScale(d.pct) }.bind(this))
+      .attr('y', function(d) { return this.yScale(d.value) }.bind(this))
       .attr('width', this.xScale.bandwidth())
-      .attr('height', function(d) { return this.height - this.yScale(d.pct) }.bind(this));
+      .attr('height', function(d) { return this.height - this.yScale(d.value) }.bind(this));
   }
 });

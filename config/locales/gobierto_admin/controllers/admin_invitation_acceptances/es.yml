@@ -4,5 +4,5 @@ es:
     admin:
       invitation_acceptances:
         show:
-          success: Sesión iniciada correctamente
           error: Esta URL no parece ser válida
+          success: Sesión iniciada correctamente

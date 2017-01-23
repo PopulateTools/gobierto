@@ -3,15 +3,15 @@ en:
   gobierto_admin:
     gobierto_people:
       configuration:
-        title: Configuration
         political_groups:
-          index:
-            title: Political groups
-            new: New group
-            header:
-              political_group: Group
-              created: Created
           edit:
             title: Edit group
+          index:
+            header:
+              created: Created
+              political_group: Group
+            new: New group
+            title: Political groups
           new:
             title: New group
+        title: Configuration

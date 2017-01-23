@@ -2,20 +2,20 @@
 ca:
   user:
     sessions:
-      new:
-        session_title: Ja tens compte? Fes login
-        password_title: "No recordes la teva contrasenya? T'ajudem:"
-        registration_title: "Nou por aquí? Crea un compte gratis:"
-        confirmation_request_title: Reenviar instruccions de confirmació
-      session_form:
-        password_section: Contrasenya?
-        confirmation_request_section: Instruccions de confirmació?
-        submit: Conectar-se
-      registration_form:
-        submit: Anem
-      new_password_form:
-        session_section: Te'n recordes de la contrasenya? Fes login
-        submit: Recuperar
       confirmation_request_form:
         session_section: Ja has confirmat le teu compte? Fes login
         submit: Sol·licitar
+      new:
+        confirmation_request_title: Reenviar instruccions de confirmació
+        password_title: 'No recordes la teva contrasenya? T''ajudem:'
+        registration_title: 'Nou por aquí? Crea un compte gratis:'
+        session_title: Ja tens compte? Fes login
+      new_password_form:
+        session_section: Te'n recordes de la contrasenya? Fes login
+        submit: Recuperar
+      registration_form:
+        submit: Anem
+      session_form:
+        confirmation_request_section: Instruccions de confirmació?
+        password_section: Contrasenya?
+        submit: Conectar-se

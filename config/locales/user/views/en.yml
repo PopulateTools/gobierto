@@ -5,6 +5,6 @@ en:
       application:
         account: Your account
       menu_subsections:
-        profile: Profile
-        alerts: Alerts
         admin: Administration
+        alerts: Alerts
+        profile: Profile

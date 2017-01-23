@@ -5,7 +5,7 @@ es:
       application:
         indicators: Indicadores
       menu_subsections:
-        population: 'Población'
-        employment: 'Empleo'
-        economy: 'Economía'
-        budgets: 'Presupuestos'
+        budgets: Presupuestos
+        economy: Economía
+        employment: Empleo
+        population: Población

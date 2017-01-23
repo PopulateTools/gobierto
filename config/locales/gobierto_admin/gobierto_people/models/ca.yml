@@ -1,37 +1,37 @@
 ---
 ca:
   activemodel:
-    models:
-      gobierto_admin/gobierto_people/person_form: Perfil
-      gobierto_admin/gobierto_people/person_event_form: Esdeveniment
-      gobierto_admin/gobierto_people/person_statement_form: Declaració
-      gobierto_admin/gobierto_people/person_post_form: Post
-      gobierto_admin/gobierto_people/political_group_form: Agrupació política
     attributes:
+      gobierto_admin/gobierto_people/person_event_form:
+        attachment_file: Fitxer adjunt
+        description: Descripció
+        ends_at: Data de finalització
+        starts_at: Data de començament
+        title: Títol
       gobierto_admin/gobierto_people/person_form:
-        name: Nom
-        charge: Càrrec
-        bio: Biografia
-        bio_url: Fichero adjunto
-        bio_file: Fitxer adjunt
-        avatar_url: Avatar
         avatar_file: Avatar
+        avatar_url: Avatar
+        bio: Biografia
+        bio_file: Fitxer adjunt
+        bio_url: Fichero adjunto
         category: Categoria
+        charge: Càrrec
+        name: Nom
         party: Posició
         political_group_id: Grup polític
-      gobierto_admin/gobierto_people/person_event_form:
-        title: Títol
-        description: Descripció
-        starts_at: Data de començament
-        ends_at: Data de finalització
-        attachment_file: Fitxer adjunt
-      gobierto_admin/gobierto_people/person_statement_form:
-        title: Títol
-        published_on: Data de publicació
-        attachment_file: Fitxer adjunt
       gobierto_admin/gobierto_people/person_post_form:
-        title: Títol
         body: Contingut
         tags: Tags
+        title: Títol
+      gobierto_admin/gobierto_people/person_statement_form:
+        attachment_file: Fitxer adjunt
+        published_on: Data de publicació
+        title: Títol
       gobierto_admin/gobierto_people/political_group_form:
         name: Nom de l'grupació
+    models:
+      gobierto_admin/gobierto_people/person_event_form: Esdeveniment
+      gobierto_admin/gobierto_people/person_form: Perfil
+      gobierto_admin/gobierto_people/person_post_form: Post
+      gobierto_admin/gobierto_people/person_statement_form: Declaració
+      gobierto_admin/gobierto_people/political_group_form: Agrupació política

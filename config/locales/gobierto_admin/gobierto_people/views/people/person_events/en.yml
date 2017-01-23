@@ -4,22 +4,15 @@ en:
     gobierto_people:
       people:
         person_events:
-          index:
-            title: Agenda
-            new: New event
-            view_event: View event
-            all_events: All
-            pending_events: Moderation pending
-            published_events: Published events
-            past_events: Past events
+          attendees_form:
             header:
-              event: Event
-              date: Date
-              location: Location
+              charge: Charge
+              name: Name
+              person: Person
+            title: Attendees
+            view_person: View person
           edit:
             title: Edit evento
-          new:
-            title: New evento
           form:
             attachment_file_constraints: Attach file (PDF)
             placeholders:
@@ -27,15 +20,22 @@ en:
             state:
               pending: Pending
               published: Published
+          index:
+            all_events: All
+            header:
+              date: Date
+              event: Event
+              location: Location
+            new: New event
+            past_events: Past events
+            pending_events: Moderation pending
+            published_events: Published events
+            title: Agenda
+            view_event: View event
           locations_form:
-            title: Locations
             header:
-              place: Place
               address: Address
-          attendees_form:
-            title: Attendees
-            view_person: View person
-            header:
-              person: Person
-              name: Name
-              charge: Charge
+              place: Place
+            title: Locations
+          new:
+            title: New evento

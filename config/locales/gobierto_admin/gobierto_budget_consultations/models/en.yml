@@ -1,16 +1,17 @@
 ---
 en:
   activemodel:
-    models:
-      gobierto_admin/gobierto_budget_consultations/consultation_form: Consultation
-      gobierto_admin/gobierto_budget_consultations/consultation_item_form: Budget line
     attributes:
       gobierto_admin/gobierto_budget_consultations/consultation_form:
-        title: Title
         description: Description
         opening_date_range: Start and end dates
-      gobierto_admin/gobierto_budget_consultations/consultation_item_form:
         title: Title
-        description: Description
-        budget_line_name: Budget line
+      gobierto_admin/gobierto_budget_consultations/consultation_item_form:
         budget_line_amount: Budget line amount
+        budget_line_name: Budget line
+        description: Description
+        title: Title
+    models:
+      gobierto_admin/gobierto_budget_consultations/consultation_form: Consultation
+      gobierto_admin/gobierto_budget_consultations/consultation_item_form: Budget
+        line

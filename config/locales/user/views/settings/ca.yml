@@ -2,13 +2,13 @@
 ca:
   user:
     settings:
-      show:
-        title: Ajusts del teu compte
       form:
         notification_frequency:
-          disabled: Deshabilitades
-          immediate: Inmediates
-          hourly: Resum horari
           daily: Resum diari
+          disabled: Deshabilitades
+          hourly: Resum horari
+          immediate: Inmediates
           weekly: Resum semanal
         submit: Guardar
+      show:
+        title: Ajusts del teu compte

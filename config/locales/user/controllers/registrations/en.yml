@@ -3,5 +3,5 @@ en:
   user:
     registrations:
       create:
-        success: Please check your inbox to confirm your email address
         error: The data you entered doesn't seem to be valid. Please try again.
+        success: Please check your inbox to confirm your email address

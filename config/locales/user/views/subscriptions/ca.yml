@@ -3,15 +3,15 @@ ca:
   user:
     subscriptions:
       index:
-        title: Les teves alertes
+        cancel: Cancel·lar suscripció
         headers:
           title: Títol
-        cancel: Cancel·lar suscripció
+        title: Les teves alertes
       subscribable_box:
-        subscribe: Suscriurem
         cancel: Ja estàs subscrits. cancel·lar?
         disclaimer: No spam. Dona't de baixa quan vullgues.
         form:
           placeholders:
             user_email: El teu correu-e
           submit: Suscriurem
+        subscribe: Suscriurem

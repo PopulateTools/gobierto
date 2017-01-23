@@ -4,20 +4,20 @@ es:
     gobierto_people:
       people:
         person_statements:
-          index:
-            title: Declaraciones
-            new: Nueva declaración
-            view_statement: Ver declaración
-            header:
-              statement: Declaración
-              date: Fecha
           edit:
             title: Editar declaración
-          new:
-            title: Nueva declaración
           form:
             placeholders:
               title: Declaración de Bienes y Actividades
             visibility_level:
-              draft: Borrador
               active: Publicada
+              draft: Borrador
+          index:
+            header:
+              date: Fecha
+              statement: Declaración
+            new: Nueva declaración
+            title: Declaraciones
+            view_statement: Ver declaración
+          new:
+            title: Nueva declaración

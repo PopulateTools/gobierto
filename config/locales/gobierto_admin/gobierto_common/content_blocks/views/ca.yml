@@ -5,9 +5,9 @@ ca:
       content_blocks:
         edit:
           title: Editar bloc
+        form:
+          add_child: Afegir columna
+          fields: Columnes
+          title: Nom del bloc
         new:
           title: Afegir bloc
-        form:
-          title: Nom del bloc
-          fields: Columnes
-          add_child: Afegir columna

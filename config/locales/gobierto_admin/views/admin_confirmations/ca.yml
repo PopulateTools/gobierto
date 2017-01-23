@@ -3,9 +3,9 @@ ca:
   gobierto_admin:
     admin:
       confirmations:
-        new:
-          title: Reenviar instruccions de confirmació
         form:
           placeholders:
             email: fsanchez@gmail.com
           submit: Solicitar instruccions
+        new:
+          title: Reenviar instruccions de confirmació

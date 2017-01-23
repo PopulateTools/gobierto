@@ -2,6 +2,6 @@
 en:
   gobierto_admin:
     session_helper:
-      not_signed_in: We need you to sign in to continue
-      not_authorized: You are not authorized to perform this action
       already_signed_in: You are already signed in
+      not_authorized: You are not authorized to perform this action
+      not_signed_in: We need you to sign in to continue

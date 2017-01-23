@@ -3,15 +3,15 @@ es:
   user:
     subscriptions:
       index:
-        title: Tus alertas
+        cancel: Cancelar suscripción
         headers:
           title: Título
-        cancel: Cancelar suscripción
+        title: Tus alertas
       subscribable_box:
-        subscribe: Suscribirme
         cancel: Ya estás suscrito. ¿Cancelar?
         disclaimer: No spam. Date de baja cuando quieras.
         form:
           placeholders:
             user_email: Tu correo-e
           submit: Suscribirme
+        subscribe: Suscribirme

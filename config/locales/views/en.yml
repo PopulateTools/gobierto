@@ -1,28 +1,58 @@
 ---
 en:
   layouts:
-    application: &application
-      disclaimer: This is a demo of Gobierto, transparency and participation software
-      more_information: More info in gobierto.es
-      is_open_source: is open source created by
+    application:
       about_the_data: About the data
+      disclaimer: This is a demo of Gobierto, transparency and participation software
+      is_open_source: is open source created by
+      more_information: More info in gobierto.es
       session:
+        admin: Administration
+        alerts: Your alerts
+        profile: Profile
         sign_in: Sign in
         sign_out: Sign out
         title: Your account
-        profile: Profile
-        alerts: Your alerts
-        admin: Administration
-    main_menu:
-      sign_in: Sign in
-      sign_out: Sign out
-      account: Your account
-    gobierto_budgets:
-      application:
-        <<: *application
     gobierto_budget_consultations:
       application:
-        <<: *application
+        about_the_data: About the data
+        disclaimer: This is a demo of Gobierto, transparency and participation software
+        is_open_source: is open source created by
+        more_information: More info in gobierto.es
+        session:
+          admin: Administration
+          alerts: Your alerts
+          profile: Profile
+          sign_in: Sign in
+          sign_out: Sign out
+          title: Your account
+    gobierto_budgets:
+      application:
+        about_the_data: About the data
+        disclaimer: This is a demo of Gobierto, transparency and participation software
+        is_open_source: is open source created by
+        more_information: More info in gobierto.es
+        session:
+          admin: Administration
+          alerts: Your alerts
+          profile: Profile
+          sign_in: Sign in
+          sign_out: Sign out
+          title: Your account
+    main_menu:
+      account: Your account
+      sign_in: Sign in
+      sign_out: Sign out
     sandbox:
       application:
-        <<: *application
+        about_the_data: About the data
+        disclaimer: This is a demo of Gobierto, transparency and participation software
+        is_open_source: is open source created by
+        more_information: More info in gobierto.es
+        session:
+          admin: Administration
+          alerts: Your alerts
+          profile: Profile
+          sign_in: Sign in
+          sign_out: Sign out
+          title: Your account

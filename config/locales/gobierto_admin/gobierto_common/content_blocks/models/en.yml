@@ -4,12 +4,12 @@ en:
     models:
       gobierto_admin/gobierto_common/content_block_form: Content block
   activerecord:
-    models:
-      gobierto_common/content_block_field: Field
     attributes:
       gobierto_common/content_block_field:
         field_type: Field type
         field_types:
-          text: Text
-          date: Date
           currency: Currency
+          date: Date
+          text: Text
+    models:
+      gobierto_common/content_block_field: Field

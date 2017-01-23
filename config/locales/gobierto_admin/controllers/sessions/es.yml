@@ -3,7 +3,8 @@ es:
   gobierto_admin:
     sessions:
       create:
+        error: Los datos que has introducido no parecen ser válidos. Por favor, inténtalo
+          de nuevo.
         success: Sesión iniciada correctamente
-        error: Los datos que has introducido no parecen ser válidos. Por favor, inténtalo de nuevo.
       destroy:
         success: Sesión cerrada correctamente

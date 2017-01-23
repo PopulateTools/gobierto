@@ -4,10 +4,10 @@ ca:
     admin:
       passwords:
         create:
-          success: Per favor, revisa el teu email per rebre instruccions
           error: La direcció de e-mail que has indicat no pareix ser vàlida
+          success: Per favor, revisa el teu email per rebre instruccions
         edit:
           error: Esta URL no pareix ser vàlida
         update:
-          success: Sessió iniciada correctament
           error: Hi va haver un problema al canviar la teua contrasenya
+          success: Sessió iniciada correctament

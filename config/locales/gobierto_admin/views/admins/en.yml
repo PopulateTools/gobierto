@@ -2,30 +2,30 @@
 en:
   gobierto_admin:
     admins:
-      index:
-        title: Administrators
-        users_section: Users
-        send_invitations: Send invitations
-        new: New Admin
-        view_admin: View Admin
-        header:
-          admin: Admin
-          email: Email
-          last_sign_in_at: Last sign in
-          created_at: Created
       edit:
         title: Edit Admin
-      new:
-        title: New Admin
       form:
-        password_block: Password
-        permissions_block: Permissions
-        sites_block: Allowed sites
         activity_block: Activity log
         authorization_level:
-          regular: Regular
-          manager: Manager
           disabled: Disabled
+          manager: Manager
+          regular: Regular
+        password_block: Password
+        permissions_block: Permissions
         placeholders:
-          name: Fernando González
           email: fgonzalez@gmail.com
+          name: Fernando González
+        sites_block: Allowed sites
+      index:
+        header:
+          admin: Admin
+          created_at: Created
+          email: Email
+          last_sign_in_at: Last sign in
+        new: New Admin
+        send_invitations: Send invitations
+        title: Administrators
+        users_section: Users
+        view_admin: View Admin
+      new:
+        title: New Admin

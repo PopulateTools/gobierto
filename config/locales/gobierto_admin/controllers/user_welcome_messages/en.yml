@@ -4,5 +4,5 @@ en:
     users:
       welcome_messages:
         create:
-          success: The welcome message has been sent
           error: The welcome message could not be sent. Please try again.
+          success: The welcome message has been sent

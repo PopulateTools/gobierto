@@ -1,28 +1,62 @@
 ---
 ca:
   layouts:
-    application: &application
-      disclaimer: Aquesta web es una demostració de Gobierto, software de transparència i participació
-      more_information: Més informació en gobierto.es
-      is_open_source: es software lliure creat per
+    application:
       about_the_data: Sobre les dades
+      disclaimer: Aquesta web es una demostració de Gobierto, software de transparència
+        i participació
+      is_open_source: es software lliure creat per
+      more_information: Més informació en gobierto.es
       session:
+        admin: Administració
+        alerts: Les teves alertes
+        profile: Perfil
         sign_in: Iniciar sessió
         sign_out: Tancar sessió
         title: El teu compte
-        profile: Perfil
-        alerts: Les teves alertes
-        admin: Administració
+    gobierto_budget_consultations:
+      application:
+        about_the_data: Sobre les dades
+        disclaimer: Aquesta web es una demostració de Gobierto, software de transparència
+          i participació
+        is_open_source: es software lliure creat per
+        more_information: Més informació en gobierto.es
+        session:
+          admin: Administració
+          alerts: Les teves alertes
+          profile: Perfil
+          sign_in: Iniciar sessió
+          sign_out: Tancar sessió
+          title: El teu compte
+    gobierto_budgets:
+      application:
+        about_the_data: Sobre les dades
+        disclaimer: Aquesta web es una demostració de Gobierto, software de transparència
+          i participació
+        is_open_source: es software lliure creat per
+        more_information: Més informació en gobierto.es
+        session:
+          admin: Administració
+          alerts: Les teves alertes
+          profile: Perfil
+          sign_in: Iniciar sessió
+          sign_out: Tancar sessió
+          title: El teu compte
     main_menu:
       account: El teu compte
       sign_in: Iniciar sessió
       sign_out: Tancar sessió
-    gobierto_budgets:
-      application:
-        <<: *application
-    gobierto_budget_consultations:
-      application:
-        <<: *application
     sandbox:
       application:
-        <<: *application
+        about_the_data: Sobre les dades
+        disclaimer: Aquesta web es una demostració de Gobierto, software de transparència
+          i participació
+        is_open_source: es software lliure creat per
+        more_information: Més informació en gobierto.es
+        session:
+          admin: Administració
+          alerts: Les teves alertes
+          profile: Perfil
+          sign_in: Iniciar sessió
+          sign_out: Tancar sessió
+          title: El teu compte

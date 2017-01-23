@@ -1,126 +1,138 @@
 ---
 es:
   gobierto_budgets:
+    budget_lines:
+      explorer:
+        examples: Ejemplos
+        expenses: Gastos
+        explore_the_detail: Explora el detalle
+        income: Ingresos
+        search: Busca
+        search_budget_line: Busca una partida específica
+      index:
+        amount: Cantidad
+        budget_line: Partida
+        expense_in_what: En qué se gasta
+        expense_to_do_what: Para qué se gasta
+        help: El presupuesto organiza los gastos en dos categorías. Consulta nuestra
+          guía
+        income_from_what: En qué se ingresa
+        per_inhabitant: Por habitante
+        title: Presupuestos municipales en %{year}
+      show:
+        about_this_line: Acerca de esta partida
+        avg_province: Media %{kind} provincial
+        back_to_parent: Volver a la partida padre
+        budget_lines_distribution: Distribución de los gastos de esta partida
+        evolution: Evolución
+        last_year: El año pasado
+        no_distribution: No hay distribución asociada a esta partida.
+        no_more_descendants: No hay más sub-partidas
+        not_available: No disp.
+        percentage: "% sobre el total del pres."
+        planned: presupuestado
+        planned_per_inhabitant: pres. / hab.
+        real_value: El %{kind} real son %{value}
+        real_vs_planned: real vs. pres.
+        sub_budget_lines: Dentro de esta partida
+        twitter_text_expense: 'En @gobierto: Gasto municipal de %{name} en %{budget_line_name}
+          para el %{year}'
+        twitter_text_income: 'En @gobierto: Ingreso municipal de %{name} en %{budget_line_name}
+          para el %{year}'
+    budgets:
+      index:
+        at_a_glance: Evolución del gasto y comparación
+        at_years_end: "* a cierre del %{year}"
+        context: Contexto
+        data_of_year: "* datos del %{year}"
+        debt: Deuda
+        expenses: Gastos
+        expenses_per_inhabitant: Gasto por habitante
+        header: Los datos clave de tu municipio
+        in_total: En total
+        income: Ingresos
+        inhabitants: Habitantes
+        less: menos
+        main_budget_lines: Los principales gastos e ingresos de tu ayuntamiento
+        main_budget_lines_description: Estos son los 5 principales ingresos y gastos
+          de tu municipio.
+        more: más
+        most_interesting_budget_lines: Partidas que más te interesan
+        most_interesting_budget_lines_description: Te mostramos algunas de las partidas
+          que más nos afectan directamente en nuestro día a día como ciudadanos. También
+          puedes consultar el explorador completo.
+        not_available_short: No disp.
+        note_about_the_data: Nota sobre los datos
+        note_about_the_data_title: La base de datos que utilizamos no incluye datos
+          para el 100% de los municipios, por lo que las medias están calculadas solo
+          con los datos que existen (que son la gran mayoría). Más información en
+          nuestras preguntas frecuentes
+        per_person: Por habitante
+        planned_vs_executed: Gasto real vs. el plan
+        planned_vs_executed_other_year_html: En %{year} fue un %{link}
+        search_for_a_budget_line: Busca una partida
+        see_all: ver todos
+        title: Presupuestos municipales en %{year}
+        total_expenses: Gasto total
+        twitter_text: 'En @gobierto: Presupuestos municipales de %{name} del %{year}'
+    budgets_execution:
+      execution_table:
+        deviation: Desviación
+        executed: Ejecutado
+        planned: Pres.
+        view_less: Ver menos
+        view_more: Ver más
+      index:
+        budget_lines_expense_higher: Partidas de gastos muy superiores al presupuesto
+        budget_lines_expense_lower: Partidas de gastos muy inferiores al presupuesto
+        budget_lines_income_higher: Partidas de ingresos muy superiores al presupuesto
+        budget_lines_income_lower: Partidas de ingresos muy inferiores al presupuesto
+        description: Detalle sobre la ejecución del presupuesto municipal de %{place}
+          del %{year}. Consulta la diferencia entre lo presupuestado y lo ejecutado.
+        economic: Económica
+        execution_disclaimer: Es normal que haya desviaciones ya que es imposible
+          preveer todos los gastos con precisión absoluta.
+        execution_help: La ejecución es la cantidad que finalmente se ha gastado sobre
+          lo presupuestado inicialmente.
+        functional: Functional
+        title: Ejecución del presupuesto municipal de %{place} del %{year}
+      widget_template_deviation:
+        expense: Gastos
+        income: Ingresos
+        planned: presupuestados
+        real: reales
     common:
-      income: ingreso
-      incomes: ingresos
+      budget_line_description_html: 'Esta partida comprende los %{kind_what} en %{description}.
+        Si quieres saber más sobre esta partida puedes consultar la partida padre:
+        %{link}'
       expense: gasto
       expenses: gastos
-      budget_line_description_html: "Esta partida comprende los %{kind_what} en %{description}. Si quieres saber más sobre esta partida puedes consultar la partida padre: %{link}"
+      income: ingreso
+      incomes: ingresos
+    featured_budget_lines:
+      gobierto_site_template:
+        how_much_place_in: "¿Cuánto se gasta %{place} en..."
+        last_year: El año pasado gastamos
+        per_person: Por habitante
+        show_me_another: Muéstrame otra
+        title: Algunas partidas destacadas
+        total: Gasto total
     layouts:
       application:
         budgets: Presupuestos
       menu_subsections:
-        summary: Resumen
         budget: Presupuesto
         execution: Ejecución
-    budgets:
-      index:
-        header: Los datos clave de tu municipio
-        expenses_per_inhabitant: Gasto por habitante
-        total_expenses: Gasto total
-        planned_vs_executed: Gasto real vs. el plan
-        not_available_short: No disp.
-        inhabitants: Habitantes
-        debt: Deuda
-        planned_vs_executed_other_year_html: "En %{year} fue un %{link}"
-        per_person: Por habitante
-        less: menos
-        more: más
-        at_years_end: "* a cierre del %{year}"
-        data_of_year: "* datos del %{year}"
-        title: "Presupuestos municipales en %{year}"
-        twitter_text: "En @gobierto: Presupuestos municipales de %{name} del %{year}"
-        main_budget_lines: Los principales gastos e ingresos de tu ayuntamiento
-        main_budget_lines_description: Estos son los 5 principales ingresos y gastos de tu municipio.
-        most_interesting_budget_lines: Partidas que más te interesan
-        most_interesting_budget_lines_description: Te mostramos algunas de las partidas que más nos afectan directamente en nuestro día a día como ciudadanos. También puedes consultar el explorador completo.
-        income: Ingresos
-        expenses: Gastos
-        see_all: ver todos
-        at_a_glance: Evolución del gasto y comparación
-        context: Contexto
-        note_about_the_data: Nota sobre los datos
-        note_about_the_data_title: 'La base de datos que utilizamos no incluye datos para el 100% de los municipios, por lo que las medias están calculadas solo con los datos que existen (que son la gran mayoría). Más información en nuestras preguntas frecuentes'
-        in_total: En total
-        search_for_a_budget_line: Busca una partida
-    featured_budget_lines:
-      gobierto_site_template:
-        title: Algunas partidas destacadas
-        how_much_place_in: "¿Cuánto se gasta %{place} en..."
-        show_me_another: Muéstrame otra
-        per_person: Por habitante
-        total: Gasto total
-        last_year: El año pasado gastamos
-    budget_lines:
-      explorer:
-        explore_the_detail: Explora el detalle
-        search_budget_line: Busca una partida específica
-        examples: Ejemplos
-        search: Busca
-        income: Ingresos
-        expenses: Gastos
-      index:
-        title: "Presupuestos municipales en %{year}"
-        budget_line: Partida
-        amount: Cantidad
-        per_inhabitant: Por habitante
-        expense_in_what: En qué se gasta
-        expense_to_do_what: Para qué se gasta
-        income_from_what: En qué se ingresa
-        help: El presupuesto organiza los gastos en dos categorías. Consulta nuestra guía
-      show:
-        planned_per_inhabitant: "pres. / hab."
-        planned: presupuestado
-        real_vs_planned: "real vs. pres."
-        real_value: "El %{kind} real son %{value}"
-        last_year: "En %{year} fue un %{value}"
-        percentage: "% sobre el total del pres."
-        avg_province: "Media %{kind} provincial"
-        not_available: "No disp."
-        evolution: Evolución
-        budget_lines_distribution: Distribución de los gastos de esta partida
-        no_distribution: No hay distribución asociada a esta partida.
-        sub_budget_lines: Dentro de esta partida
-        no_more_descendants: No hay más sub-partidas
-        back_to_parent: Volver a la partida padre
-        last_year: El año pasado 
-        about_this_line: Acerca de esta partida
-        twitter_text_expense: "En @gobierto: Gasto municipal de %{name} en %{budget_line_name} para el %{year}"
-        twitter_text_income: "En @gobierto: Ingreso municipal de %{name} en %{budget_line_name} para el %{year}"
-    budgets_execution:
-      index:
-        title: "Ejecución del presupuesto municipal de %{place} del %{year}"
-        description: "Detalle sobre la ejecución del presupuesto municipal de %{place} del %{year}. Consulta la diferencia entre lo presupuestado y lo ejecutado."
-        execution_help: La ejecución es la cantidad que finalmente se ha gastado sobre lo presupuestado inicialmente.
-        execution_disclaimer: Es normal que haya desviaciones ya que es imposible preveer todos los gastos con precisión absoluta.
-        budget_lines_income_higher: Partidas de ingresos muy superiores al presupuesto
-        budget_lines_income_lower: Partidas de ingresos muy inferiores al presupuesto
-        budget_lines_expense_higher: Partidas de gastos muy superiores al presupuesto
-        budget_lines_expense_lower: Partidas de gastos muy inferiores al presupuesto
-        economic: Económica
-        functional: Functional
-      execution_table:
-        planned: Pres.
-        executed: Ejecutado
-        deviation: Desviación
-        view_more: Ver más
-        view_less: Ver menos
-      widget_template_deviation:
-        income: Ingresos
-        expense: Gastos
-        planned: presupuestados
-        real: reales
+        summary: Resumen
     visualizations:
-      total_expenses: Gasto total
-      expenses_per_inhabitant: Gasto por habitante
+      G_economic: En qué se gasta
+      G_functional: Para qué se gasta
+      I_economic: En qué se ingresa
       category_per_inhabitant: "%{category} por habitante"
-      previous_year_diff: Cambio año anterior
+      expenses_per_inhabitant: Gasto por habitante
       inhabitant_short: hab
-      mean_national: Media nacional
       mean_autonomy: Media autonómica
+      mean_national: Media nacional
       mean_province: Media provincial
-      G_economic: 'En qué se gasta'
-      G_functional: 'Para qué se gasta'
-      I_economic: 'En qué se ingresa'
-
+      previous_year_diff: Cambio año anterior
+      total_expenses: Gasto total

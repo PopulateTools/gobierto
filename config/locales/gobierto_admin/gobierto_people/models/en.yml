@@ -1,37 +1,37 @@
 ---
 en:
   activemodel:
-    models:
-      gobierto_admin/gobierto_people/person_form: Person
-      gobierto_admin/gobierto_people/person_event_form: Event
-      gobierto_admin/gobierto_people/person_statement_form: Statement
-      gobierto_admin/gobierto_people/person_post_form: Post
-      gobierto_admin/gobierto_people/political_group_form: Political group
     attributes:
+      gobierto_admin/gobierto_people/person_event_form:
+        attachment_file: Attached file
+        description: Description
+        ends_at: End date
+        starts_at: Start date
+        title: Title
       gobierto_admin/gobierto_people/person_form:
-        name: Name
-        charge: Charge
-        bio: Bio
-        bio_url: Attached file
-        bio_file: Attached file
-        avatar_url: Avatar
         avatar_file: Avatar
+        avatar_url: Avatar
+        bio: Bio
+        bio_file: Attached file
+        bio_url: Attached file
         category: Category
+        charge: Charge
+        name: Name
         party: Party
         political_group_id: Political group
-      gobierto_admin/gobierto_people/person_event_form:
-        title: Title
-        description: Description
-        starts_at: Start date
-        ends_at: End date
-        attachment_file: Attached file
-      gobierto_admin/gobierto_people/person_statement_form:
-        title: Title
-        published_on: Publishing date
-        attachment_file: Attached file
       gobierto_admin/gobierto_people/person_post_form:
-        title: Title
         body: Body
         tags: Tags
+        title: Title
+      gobierto_admin/gobierto_people/person_statement_form:
+        attachment_file: Attached file
+        published_on: Publishing date
+        title: Title
       gobierto_admin/gobierto_people/political_group_form:
         name: Group name
+    models:
+      gobierto_admin/gobierto_people/person_event_form: Event
+      gobierto_admin/gobierto_people/person_form: Person
+      gobierto_admin/gobierto_people/person_post_form: Post
+      gobierto_admin/gobierto_people/person_statement_form: Statement
+      gobierto_admin/gobierto_people/political_group_form: Political group

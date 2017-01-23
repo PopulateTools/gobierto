@@ -4,5 +4,5 @@ en:
     census:
       imports:
         create:
-          success: "%{record_count} records have been imported"
           error: There was an error when importing your file. Please try again.
+          success: "%{record_count} records have been imported"

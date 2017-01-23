@@ -4,28 +4,28 @@ en:
     gobierto_budget_consultations:
       consultations:
         consultation_items:
-          index:
-            title: Budget lines
-            new: Add budget line
-            consultation_section: Consultation
-            consultation_items_section: Budget lines
-          new:
-            title: New budget line
-            consultation_section: Consultation
-            consultation_items_section: Budget lines
-          new_modal:
-            title: New budget line
-            consultation_section: Consultation
-            consultation_items_section: Budget lines
           edit:
-            title: Edit budget line
-            consultation_section: Consultation
             consultation_items_section: Budget lines
+            consultation_section: Consultation
+            title: Edit budget line
           edit_modal:
-            title: Edit budget line
-            consultation_section: Consultation
             consultation_items_section: Budget lines
+            consultation_section: Consultation
+            title: Edit budget line
           form:
             placeholders:
-              title: Repair streets
               budget_line_amount: 250000
+              title: Repair streets
+          index:
+            consultation_items_section: Budget lines
+            consultation_section: Consultation
+            new: Add budget line
+            title: Budget lines
+          new:
+            consultation_items_section: Budget lines
+            consultation_section: Consultation
+            title: New budget line
+          new_modal:
+            consultation_items_section: Budget lines
+            consultation_section: Consultation
+            title: New budget line

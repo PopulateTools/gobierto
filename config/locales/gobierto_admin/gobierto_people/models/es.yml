@@ -1,37 +1,37 @@
 ---
 es:
   activemodel:
-    models:
-      gobierto_admin/gobierto_people/person_form: Perfil
-      gobierto_admin/gobierto_people/person_event_form: Evento
-      gobierto_admin/gobierto_people/person_statement_form: Declaración
-      gobierto_admin/gobierto_people/person_post_form: Post
-      gobierto_admin/gobierto_people/political_group_form: Agrupación política
     attributes:
+      gobierto_admin/gobierto_people/person_event_form:
+        attachment_file: Fichero adjunto
+        description: Descripción
+        ends_at: Fecha de finalización
+        starts_at: Fecha de comienzo
+        title: Título
       gobierto_admin/gobierto_people/person_form:
-        name: Nombre
-        charge: Cargo
-        bio: Biografía
-        bio_url: Fichero adjunto
-        bio_file: Fichero adjunto
-        avatar_url: Avatar
         avatar_file: Avatar
+        avatar_url: Avatar
+        bio: Biografía
+        bio_file: Fichero adjunto
+        bio_url: Fichero adjunto
         category: Categoría
+        charge: Cargo
+        name: Nombre
         party: Posición
         political_group_id: Grupo político
-      gobierto_admin/gobierto_people/person_event_form:
-        title: Título
-        description: Descripción
-        starts_at: Fecha de comienzo
-        ends_at: Fecha de finalización
-        attachment_file: Fichero adjunto
-      gobierto_admin/gobierto_people/person_statement_form:
-        title: Título
-        published_on: Fecha de publicación
-        attachment_file: Fichero adjunto
       gobierto_admin/gobierto_people/person_post_form:
-        title: Título
         body: Contenido
         tags: Tags
+        title: Título
+      gobierto_admin/gobierto_people/person_statement_form:
+        attachment_file: Fichero adjunto
+        published_on: Fecha de publicación
+        title: Título
       gobierto_admin/gobierto_people/political_group_form:
         name: Nombre de la agrupación
+    models:
+      gobierto_admin/gobierto_people/person_event_form: Evento
+      gobierto_admin/gobierto_people/person_form: Perfil
+      gobierto_admin/gobierto_people/person_post_form: Post
+      gobierto_admin/gobierto_people/person_statement_form: Declaración
+      gobierto_admin/gobierto_people/political_group_form: Agrupación política

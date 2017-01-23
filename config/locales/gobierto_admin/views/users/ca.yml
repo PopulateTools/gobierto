@@ -2,24 +2,24 @@
 ca:
   gobierto_admin:
     users:
-      index:
-        title: Usuaris
-        admins_section: Administradors
-        census_configuration: Configuració de cens
-        view_user: Veure usuari
-        header:
-          user: Usuari
-          email: Email
-          last_sign_in_at: Últim login
-          created_at: Creat
-          verified: Verificat
       edit:
         title: Editar Usuari
       form:
-        password_block: Contrasenya
         change_password: Canviar contrasenya
+        password_block: Contrasenya
+        placeholders:
+          email: fgonzalez@gmail.com
+          name: Fernando González
         resend_welcome_email: Reenviar Email de benvinguda
         resend_welcome_email_notes: amb enllaç per a canviar la contrasenya
-        placeholders:
-          name: Fernando González
-          email: fgonzalez@gmail.com
+      index:
+        admins_section: Administradors
+        census_configuration: Configuració de cens
+        header:
+          created_at: Creat
+          email: Email
+          last_sign_in_at: Últim login
+          user: Usuari
+          verified: Verificat
+        title: Usuaris
+        view_user: Veure usuari

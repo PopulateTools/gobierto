@@ -4,5 +4,6 @@ ca:
     census:
       imports:
         create:
-          success: "S'ha importat %{record_count} registres"
-          error: Hi va haver un error al importar el teu arxiu. Per favor, inténta-ho de nou.
+          error: Hi va haver un error al importar el teu arxiu. Per favor, inténta-ho
+            de nou.
+          success: S'ha importat %{record_count} registres

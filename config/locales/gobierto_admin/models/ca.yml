@@ -1,44 +1,44 @@
 ---
 ca:
   activemodel:
-    models:
-      gobierto_admin/admin_confirmation_form: Confirmació
-      gobierto_admin/admin_new_password_form: Recuperació de contrasenya
-      gobierto_admin/admin_edit_password_form: Canvi de contrasenya
-      gobierto_admin/admin_invitation_form: Invitació
-      gobierto_admin/user_password_form: Canvi de contrasenya
-      gobierto_admin/user_welcome_message_form: Email de benvinguda
-      gobierto_admin/admin_form: Administrador
-      gobierto_admin/user_form: Usuari
-      gobierto_admin/site_form: Lloc
     attributes:
       gobierto_admin/admin_confirmation_form:
-        email: Email
-      gobierto_admin/admin_new_password_form:
         email: Email
       gobierto_admin/admin_edit_password_form:
         password: Contrasenya
         password_confirmation: Confirmació de contrasenya
+      gobierto_admin/admin_form:
+        email: Email
+        name: Nom
+        password: Contrasenya
+        password_confirmation: Confirmación de contrasenya
       gobierto_admin/admin_invitation_form:
         emails: Emails
+      gobierto_admin/admin_new_password_form:
+        email: Email
+      gobierto_admin/site_form:
+        domain: Domini
+        foot_markup: HTML de Peu
+        google_analytics_id: Codi de Google Analytics
+        head_markup: HTML de Capçalera
+        links_markup: HTML de Enllaços
+        location_name: Entitat relacionada
+        logo_file: Logotip
+        name: Nom de l'entitat
+        title: Nom del site
+      gobierto_admin/user_form:
+        email: Email
+        name: Nom
       gobierto_admin/user_password_form:
         password: Contrasenya
         password_confirmation: Confirmación de contrasenya
-      gobierto_admin/admin_form:
-        name: Nom
-        email: Email
-        password: Contrasenya
-        password_confirmation: Confirmación de contrasenya
-      gobierto_admin/user_form:
-        name: Nom
-        email: Email
-      gobierto_admin/site_form:
-        title: Nom del site
-        name: Nom de l'entitat
-        location_name: Entitat relacionada
-        domain: Domini
-        head_markup: HTML de Capçalera
-        foot_markup: HTML de Peu
-        links_markup: HTML de Enllaços
-        google_analytics_id: Codi de Google Analytics
-        logo_file: Logotip
+    models:
+      gobierto_admin/admin_confirmation_form: Confirmació
+      gobierto_admin/admin_edit_password_form: Canvi de contrasenya
+      gobierto_admin/admin_form: Administrador
+      gobierto_admin/admin_invitation_form: Invitació
+      gobierto_admin/admin_new_password_form: Recuperació de contrasenya
+      gobierto_admin/site_form: Lloc
+      gobierto_admin/user_form: Usuari
+      gobierto_admin/user_password_form: Canvi de contrasenya
+      gobierto_admin/user_welcome_message_form: Email de benvinguda

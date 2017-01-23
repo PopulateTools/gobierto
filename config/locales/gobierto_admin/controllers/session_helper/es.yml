@@ -2,6 +2,6 @@
 es:
   gobierto_admin:
     session_helper:
-      not_signed_in: Necesitas estar identificado para continuar
-      not_authorized: No estás autorizado a realizar esta acción
       already_signed_in: Ya estás identificado
+      not_authorized: No estás autorizado a realizar esta acción
+      not_signed_in: Necesitas estar identificado para continuar

@@ -107,7 +107,7 @@ var VisAgeDistribution = Class.extend({
       .attr('y', function(d) { return this.yScale(d.value) }.bind(this))
       .attr('width', this.xScale.bandwidth())
       .attr('height', function(d) { return this.height - this.yScale(d.value) }.bind(this))
-      .attr('fill', 'steelblue')
+      .attr('fill', '#8da0cb')
       .on('mousemove', this._mousemove.bind(this))
       .on('mouseout', this._mouseout.bind(this));
       // .attr('fill', function(d) { return this.color(d.pct) }.bind(this));

@@ -35,6 +35,9 @@
 }
 
 /* Graphics */
+.gobierto_indicators .axis path {
+	stroke: #BDBDBD;
+}
 #age_distribution {
 	position: relative;
 }
@@ -46,12 +49,18 @@
 	display: none;
 }
 #age_distribution .y.axis line {
-	stroke: $color_main_negative;
+	stroke: #ccc;
 	stroke-dasharray: 1, 2;
 }
 #age_distribution .chart_headline {
 	font-weight: 600;
 	margin-top: 0;
+}
+#age_distribution .focus {
+	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+#age_distribution rect:hover {
+	fill: tomato;
 }
 
 #rent_distribution .annotations {
@@ -93,6 +102,7 @@
 }
 #rent_distribution circle {
 	pointer-events: none;
+	fill-opacity: 0.8;
 }
 #rent_distribution .tooltip {
   border-radius: 2px;
@@ -196,8 +206,8 @@
 		margin-right: 1.5em;
 	}
 	#age_distribution .chart_headline {
-		margin-top: 2rem;
+		text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 		position: absolute;
-		left: 2em;
+		right: 0;
 	}
 }

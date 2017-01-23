@@ -4,6 +4,14 @@
  */
 
 // Intro
+.gobierto_indicators h4 {
+	font-weight: 400;
+	text-align: center;
+}
+.gobierto_indicators section {
+	padding-top: 2rem;
+	border-top: 1px solid #EBEBEB;
+}
 .intro_section {
 	padding: 5em 0 4em 0;
 	background: $color_main_negative;
@@ -17,12 +25,12 @@
 	font-size: 1.2em;
 }
 
-
 // Sections
 .section_headline {
+	font-weight: 400;
 	margin-bottom: 0.5em;
-	padding-bottom: 0.2em;
-	text-transform: none;
+	margin-left: 1.5rem;
+	font-size: 2rem;
 }
 .section_desc {
 	margin-top: 0;
@@ -53,14 +61,13 @@
 	stroke-dasharray: 1, 2;
 }
 #age_distribution .chart_headline {
-	font-weight: 600;
 	margin-top: 0;
 }
 #age_distribution .focus {
 	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 }
 #age_distribution rect:hover {
-	fill: tomato;
+	fill: #00909e;
 }
 
 #rent_distribution .annotations {
@@ -102,7 +109,7 @@
 }
 #rent_distribution circle {
 	pointer-events: none;
-	fill-opacity: 0.8;
+	fill-opacity: 0.7;
 }
 #rent_distribution .tooltip {
   border-radius: 2px;
@@ -209,5 +216,10 @@
 		text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 		position: absolute;
 		right: 0;
+	}
+	#rent_distribution .chart_headline {
+		margin-top: 0;
+		position: absolute;
+		left: 0;
 	}
 }

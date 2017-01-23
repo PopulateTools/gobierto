@@ -24,3 +24,4 @@ ignore_unused:
   - 'user.notification_mailer.notification_digest.subject'
   - 'user.subscriptions.create.*_success'
   - 'gobierto_admin.gobierto_budget_consultations.consultations.consultation_items.*_modal.*'
+  - 'gobierto_budgets.budget_lines.show.twitter_text_*'

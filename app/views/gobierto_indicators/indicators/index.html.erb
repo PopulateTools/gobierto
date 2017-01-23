@@ -16,17 +16,15 @@
 	<section id="poblacion" class="mb4">
 		<div class="pure-g">
 			<div class="separator"></div>
-			<div class="pure-u-1 pure-u-md-2-3">
+			<div class="pure-u-1 pure-u-md-1-3">
 				<h2 class="section_headline" id="population">Población</h2>
         <% pending do %>
           <p class="section_desc">La edad media del municipio es de <span class="js-avg-age"></span> años, <span class="js-avg-calc"></span>. <%= @site.place.name %> tiene menos población extranjera que la media española (10% frente a un 30%).</p>
         <% end %>
 			</div>
-		</div>
-		<div class="pure-g mb2">
-			<div class="pure-u-1 pure-u-md-3-3">
+			<div class="pure-u-1 pure-u-md-2-3">
 				<div id="age_distribution" class="main_graphic">
-          <h4 class="chart_headline">Distribución de la población en <%= @site.place.name %></h4>
+					<h4 class="chart_headline">Distribución de la población en <%= @site.place.name %></h4>
 				</div>
 			</div>
 		</div>

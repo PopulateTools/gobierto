@@ -286,18 +286,20 @@ var VisRentDistribution = Class.extend({
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
     this.svg.selectAll('.circles circle')
-      .attr('cx', function(d) { return this.xScale(d.value) }.bind(this))
-      .attr('cy', function(d) { return this.yScale(d.rent) }.bind(this));
+      .attr('cx', function(d) { return this.xScale(d.value); }.bind(this))
+      .attr('cy', function(d) { return this.yScale(d.rent); }.bind(this));
 
     this.svg.select('.text-label')
-      .attr('x', function(d) { return this.xScale(d.value) }.bind(this))
-      .attr('y', function(d) { return this.yScale(d.rent) }.bind(this));
-
-    this.voronoi
-      .extent([[0, 0], [this.width, this.height]]);
-
+      .attr('x', function(d) { return this.xScale(d.value); }.bind(this))
+      .attr('y', function(d) { return this.yScale(d.rent); }.bind(this));
+    
     this.svg.selectAll('.rent-anno')
       .attr('x', this.width - 65);
+
+    this.voronoi
+      .x(function(d) { return this.xScale(d.value); }.bind(this))
+      .y(function(d) { return this.yScale(d.rent); }.bind(this))
+      .extent([[0, 0], [this.width, this.height]]);
 
     this.voronoiGroup.selectAll('.voronoiPath')
       .data(this.voronoi(this.data))

@@ -7,9 +7,10 @@ var VisAgeDistribution = Class.extend({
     this.data = null;
     this.tbiToken = window.populateData.token;
     this.dataUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal-edad.json?include=municipality&filter_by_year=' + current_year + '&filter_by_location_id=' + city_id;
+    this.isMobile = window.innerWidth <= 768;
 
     // Chart dimensions
-    this.margin = {top: 25, right: 5, bottom: 25, left: 5};
+    this.margin = {top: 25, right: 10, bottom: 25, left: 15};
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -89,9 +90,7 @@ var VisAgeDistribution = Class.extend({
     this.yScale
       .rangeRound([this.height, 0])
       .domain([0, d3.max(this.data, function(d) {return d.value})]);
-
-    // this.color.domain([0, d3.max(this.data, function(d) {return d.pct})]);
-
+      
     this._renderAxis();
   },
   _renderBars: function() {
@@ -110,24 +109,32 @@ var VisAgeDistribution = Class.extend({
       .attr('fill', '#8da0cb')
       .on('mousemove', this._mousemove.bind(this))
       .on('mouseout', this._mouseout.bind(this));
-      // .attr('fill', function(d) { return this.color(d.pct) }.bind(this));
+    
+    // Append tooltip group & children
+    var focusG = this.svg.append('g')
+      .attr('class', 'focus');
       
-    this.svg.append('text').attr('class', 'focus');
+    focusG.append('text').attr('class', 'focus-halo');
+    focusG.append('text').attr('class', 'focus-text');
   },
   _mousemove: function(d, i) {
-    // Small tooltip
+    // Move the whole group
     this.svg.select('.focus')
       .attr('text-anchor', 'middle')
-      .attr('dy', -10)
-      .attr('x', this.xScale(d.age))
-      .attr('y', this.yScale(d.value))
+      .attr('transform', 'translate(' + this.xScale(d.age) + ',' + (this.yScale(d.value) -15) + ')')
+
+    // Fill the halo and the tooltip
+    this.svg.select('.focus-halo')
+      .attr('stroke', 'white')
+      .attr('stroke-width', '2px')
+      .text(accounting.formatNumber(d.value, 0) + ' personas');
+      
+    this.svg.select('.focus-text')
       .text(accounting.formatNumber(d.value, 0) + ' personas');
   },
   _mouseout: function(d) {
     this.svg.select('.focus')
-      .attr('x', -100)
-      .attr('y', -100)
-      .text('');
+      .attr('transform', 'translate(-100,-100)')
   },
   _renderCityData: function() {
     // Calculate means and stuff
@@ -148,9 +155,15 @@ var VisAgeDistribution = Class.extend({
     this.svg.select('.x.axis').call(this.xAxis);
 
     // We only want multiples of 10 in the x axis
-    this.svg.selectAll(".x.axis .tick")
-      .filter(function (d) { return d % 10 !== 0;  })
-      .remove();
+    if (this.isMobile) {
+      this.svg.selectAll(".x.axis .tick")
+        .filter(function (d) { return d % 20 !== 0;  })
+        .remove();
+    } else {
+      this.svg.selectAll(".x.axis .tick")
+        .filter(function (d) { return d % 10 !== 0;  })
+        .remove();
+    }
 
     // Y axis
     this.svg.select('.y.axis')
@@ -185,7 +198,7 @@ var VisAgeDistribution = Class.extend({
     return parseInt(d3.select(this.container).style('width'));
   },
   _height: function() {
-    return this._width() * 0.25;
+    return this.isMobile ? 200 : this._width() * 0.25;
   },
   _resize: function() {
     this.width = this._width();

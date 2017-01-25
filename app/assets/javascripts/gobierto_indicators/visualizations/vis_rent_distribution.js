@@ -81,8 +81,7 @@ var VisRentDistribution = Class.extend({
 
         this.updateRender();
         this._renderCircles();
-        this.isMobile ? '' : this._renderVoronoi();
-        // this._renderCityData();
+        this.isMobile ? null : this._renderVoronoi();
       }.bind(this));
   },
   render: function() {
@@ -95,13 +94,13 @@ var VisRentDistribution = Class.extend({
   updateRender: function(callback) {
     this.xScale
       .rangeRound([0, this.width])
-      .domain(d3.extent(this.data, function(d) {return d.value}));
+      .domain(d3.extent(this.data, function(d) { return d.value; }));
 
     this.yScale
       .rangeRound([this.height, 0])
-      .domain(d3.extent(this.data, function(d) {return d.rent }));
+      .domain(d3.extent(this.data, function(d) { return d.rent; }));
 
-    this.color.domain(d3.extent(this.data, function(d) {return d.rent }).reverse());
+    this.color.domain(d3.extent(this.data, function(d) { return d.rent; }).reverse());
 
     this._renderAxis();
   },
@@ -119,18 +118,22 @@ var VisRentDistribution = Class.extend({
       .attr('cy', function(d) { return this.yScale(d.rent) }.bind(this))
       .attr('fill', function(d) { return this.color(d.rent) }.bind(this))
       .attr('stroke', 'white')
-      .attr('r', this.isMobile ? 4 : 8);
+      .attr('r', this.isMobile ? 6 : 8);
 
     // Add name of the current city
-    this.svg.selectAll('.text-label')
+    var cityLabel = this.svg.append('g')
+      .attr('class', 'text-label');
+      
+    // cityLabel.append()
+    
+    cityLabel.selectAll('text')
       .data(this.data)
       .enter()
       .filter(function(d) { return d.location_id === +this.cityId; }.bind(this))
       .append('text')
-      .attr('class', 'text-label')
       .attr('x', function(d) { return this.xScale(d.value) }.bind(this))
       .attr('y', function(d) { return this.yScale(d.rent) }.bind(this))
-      .attr('dy', 6)
+      .attr('dy', 7)
       .attr('dx', -15)
       .attr('text-anchor', 'end')
       .text(function(d) { return d.municipality_name });
@@ -220,9 +223,9 @@ var VisRentDistribution = Class.extend({
     this.svg.select('.x.axis')
       .attr('transform', 'translate(0,' + this.height + ')');
 
-    this.xAxis.tickPadding(5);
-    this.xAxis.tickSize(0, 0);
+    this.xAxis.tickPadding(10);
     this.xAxis.ticks(2); // FIXME: ticks(3) creates 15 ticks
+    this.xAxis.tickSize(-this.height);
     this.xAxis.scale(this.xScale);
     this.xAxis.tickFormat(this._formatNumberX.bind(this))
     this.svg.select('.x.axis').call(this.xAxis);
@@ -232,14 +235,14 @@ var VisRentDistribution = Class.extend({
       .attr('transform', 'translate(' + this.width + ' ,0)');
 
     this.yAxis.scale(this.yScale);
-    this.yAxis.ticks(4);
+    this.yAxis.ticks(this.isMobile ? 3 : 4);
     this.yAxis.tickSize(-this.width);
     this.yAxis.tickFormat(this._formatNumberY.bind(this));
     this.svg.select('.y.axis').call(this.yAxis);
 
     // Place y axis labels on top of ticks
     this.svg.selectAll('.y.axis .tick text')
-      .attr('dx', '-4.5em')
+      .attr('dx', '-3.4em')
       .attr('dy', '-0.55em');
 
     // Remove the zero on the y axis
@@ -270,7 +273,7 @@ var VisRentDistribution = Class.extend({
     return parseInt(d3.select(this.container).style('width'));
   },
   _height: function() {
-    return this._width() * 0.5;
+    return this.isMobile ? 320 : this._width() * 0.5;
   },
   _resize: function() {
     this.width = this._width();
@@ -289,18 +292,20 @@ var VisRentDistribution = Class.extend({
       .attr('cx', function(d) { return this.xScale(d.value); }.bind(this))
       .attr('cy', function(d) { return this.yScale(d.rent); }.bind(this));
 
-    this.svg.select('.text-label')
+    this.svg.select('.text-label text')
       .attr('x', function(d) { return this.xScale(d.value); }.bind(this))
       .attr('y', function(d) { return this.yScale(d.rent); }.bind(this));
     
     this.svg.selectAll('.rent-anno')
       .attr('x', this.width - 65);
+    
+    if (this.voronoi) {
+      this.voronoi
+        .extent([[0, 0], [this.width, this.height]]);
 
-    this.voronoi
-      .extent([[0, 0], [this.width, this.height]]);
-
-    this.voronoiGroup.selectAll('.voronoiPath')
-      .data(this.voronoi(this.data))
-      .attr("d", function(d) { return d.path; });
+      this.voronoiGroup.selectAll('.voronoiPath')
+        .data(this.voronoi(this.data))
+        .attr("d", function(d) { return d.path; });
+    }
   }
 });

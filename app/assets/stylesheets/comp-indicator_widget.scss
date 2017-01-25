@@ -2,6 +2,7 @@
 .card_container {
 	position: relative;
 	perspective: 1000px;
+	-webkit-perspective: 1000px;
 	height: 200px;
 	border-radius: 8px;
 	margin-bottom: 1rem;
@@ -10,6 +11,8 @@
 	margin: 1rem 1.5rem;
 	cursor: pointer;
 	transition: 0.6s;
+	-webkit-transform-style: preserve-3d;
+	-ms-transform-style: preserve-3d;
 	transform-style: preserve-3d;
 	position: relative;
 }
@@ -21,6 +24,7 @@
 	width: 100%;
 	height: auto;
 	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -56,6 +60,20 @@
 .widget_headline .fa-times {
 	color: $color_text;
 }
+.back .fa-facebook,
+.back .fa-twitter {
+	color: $color_text;
+}
+.front .fa-facebook,
+.front .fa-twitter {
+	opacity: 0;
+	transition: 0.25s;
+}
+.front:hover .fa-facebook,
+.front:hover .fa-twitter {
+	opacity: 1;
+}
+
 
 .widget_figure {
 	font-weight: 300;
@@ -109,6 +127,8 @@
 
 /* Card flip */
 .card_container.hover .indicator_widget {
+	-webkit-transform: rotateY(180deg);
+	-ms-transform: rotateY(180deg);
 	transform: rotateY(180deg);
 }
 .card_container.hover .front,
@@ -117,9 +137,13 @@
 }
 .front {
 	z-index: 2;
+	-webkit-transform: rotateY(0deg);
+	-ms-transform: rotateY(0deg);
 	transform: rotateY(0deg);
 }
 .back {
 	left: -2rem;
+	-webkit-transform: rotateY(180deg);
+	-ms-transform: rotateY(180deg);
 	transform: rotateY(180deg);
 }

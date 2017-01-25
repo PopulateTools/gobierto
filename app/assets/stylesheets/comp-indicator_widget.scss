@@ -3,15 +3,18 @@
 	position: relative;
 	perspective: 1000px;
 	-webkit-perspective: 1000px;
-	height: 200px;
+	-moz-perspective: 1000px;
+	-ms-perspective: 1000px;
+	height: 180px;
 	border-radius: 8px;
 	margin-bottom: 1rem;
 }
 .indicator_widget {
-	margin: 1rem 1.5rem;
+	margin-right: 2rem;
 	cursor: pointer;
 	transition: 0.6s;
 	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
 	-ms-transform-style: preserve-3d;
 	transform-style: preserve-3d;
 	position: relative;
@@ -23,8 +26,10 @@
 	background: #f0f9f9;
 	width: 100%;
 	height: auto;
-	backface-visibility: hidden;
 	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	backface-visibility: hidden;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -39,11 +44,10 @@
 	box-shadow: 0 2px 5px rgba(0,0,0,0.2);	 
 }
 .widget_headline {
+	margin-bottom: 0.5rem;
 	font-weight: 600;
-	margin-bottom: 1rem;
 }
 .widget_body {
-	height: 100px;
 	line-height: 80px;
 }
 .widget_headline i {
@@ -74,10 +78,9 @@
 	opacity: 1;
 }
 
-
 .widget_figure {
 	font-weight: 300;
-	font-size: 3rem;
+	font-size: 2rem;
 	color: $color_1;
 }
 .widget_pct {
@@ -95,7 +98,7 @@
 
 // Widget additional info screen
 .widget_info {
-	height: 100px;
+	min-height: 80px;
 }
 
 // Widget metadata
@@ -128,6 +131,7 @@
 /* Card flip */
 .card_container.hover .indicator_widget {
 	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
 	-ms-transform: rotateY(180deg);
 	transform: rotateY(180deg);
 }
@@ -138,12 +142,35 @@
 .front {
 	z-index: 2;
 	-webkit-transform: rotateY(0deg);
+	-moz-transform: rotateY(0deg);
 	-ms-transform: rotateY(0deg);
 	transform: rotateY(0deg);
 }
 .back {
 	left: -2rem;
 	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
 	-ms-transform: rotateY(180deg);
 	transform: rotateY(180deg);
+}
+
+@media (min-width: 768px) {
+	.card_container {
+		height: 200px;
+	}
+	.indicator_widget {
+		margin: 1rem 1.5rem;
+	}
+	.widget_body {
+		height: 100px;
+	}
+	.widget_headline {
+		margin-bottom: 1rem;
+	}
+	.widget_figure {
+		font-size: 2.5rem;
+	}
+	.widget_info {
+		min-height: 100px;
+	}
 }

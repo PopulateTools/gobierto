@@ -26,8 +26,6 @@ var CardIndicators = Class.extend({
 
           // Append source
           div.selectAll('.widget_src')
-            .append('a')
-            .attr('href', json.metadata.indicator['source url'])
             .text(json.metadata.indicator['source name']);
 
           // Append date of last data point

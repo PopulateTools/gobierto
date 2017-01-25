@@ -81,7 +81,7 @@ var VisRentDistribution = Class.extend({
 
         this.updateRender();
         this._renderCircles();
-        this._renderVoronoi();
+        this.isMobile ? '' : this._renderVoronoi();
         // this._renderCityData();
       }.bind(this));
   },
@@ -297,8 +297,6 @@ var VisRentDistribution = Class.extend({
       .attr('x', this.width - 65);
 
     this.voronoi
-      .x(function(d) { return this.xScale(d.value); }.bind(this))
-      .y(function(d) { return this.yScale(d.rent); }.bind(this))
       .extent([[0, 0], [this.width, this.height]]);
 
     this.voronoiGroup.selectAll('.voronoiPath')

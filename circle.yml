@@ -20,9 +20,3 @@ dependencies:
 test:
   override:
     - script/test
-
-deployment:
-  staging:
-    branch: master
-    commands:
-      - bundle exec cap staging deploy

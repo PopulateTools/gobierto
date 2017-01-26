@@ -4,10 +4,10 @@ en:
     gobierto_common:
       dynamic_content:
         form:
-          edit_content_block: Edit
-          delete_content_block: Delete block
-          delete_content_block_confirm: Are you sure you want to delete this block?
-          add_content_block: Add new block
           add_child: Add new record
+          add_content_block: Add new block
           add_record: Add
           cancel_record: Cancel
+          delete_content_block: Delete block
+          delete_content_block_confirm: Are you sure you want to delete this block?
+          edit_content_block: Edit

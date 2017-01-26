@@ -4,7 +4,7 @@ es:
     sites:
       create:
         success: El site se ha creado correctamente
+      destroy:
+        success: El site se ha eliminado correctamente
       update:
         success: El site se ha actualizado correctamente
-      delete:
-        success: El site se ha eliminado correctamente

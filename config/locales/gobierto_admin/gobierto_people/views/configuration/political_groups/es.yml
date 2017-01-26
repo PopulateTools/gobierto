@@ -3,15 +3,15 @@ es:
   gobierto_admin:
     gobierto_people:
       configuration:
-        title: Configuración
         political_groups:
-          index:
-            title: Agrupaciones políticas
-            new: Nueva agrupación
-            header:
-              political_group: Agrupación
-              created: Creada
           edit:
             title: Editar agrupación
+          index:
+            header:
+              created: Creada
+              political_group: Agrupación
+            new: Nueva agrupación
+            title: Agrupaciones políticas
           new:
             title: Nueva agrupación
+        title: Configuración

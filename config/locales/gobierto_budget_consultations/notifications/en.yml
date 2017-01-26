@@ -3,11 +3,11 @@ en:
   gobierto_budget_consultations/consultation:
     notifications:
       subject:
-        created: "A consultation has been added"
-        visibility_level_changed: "A consultation has been open"
-        title_changed: "A consultation has been updated"
-        opens_on_changed: "A consultation has been updated"
-        closes_on_changed: "A consultation has been updated"
-        opened: "A consultation has been open"
-        closed: "A consultation has been closed"
-        about_to_close: "A consultation is about to close"
+        about_to_close: A consultation is about to close
+        closed: A consultation has been closed
+        closes_on_changed: A consultation has been updated
+        created: A consultation has been added
+        opened: A consultation has been open
+        opens_on_changed: A consultation has been updated
+        title_changed: A consultation has been updated
+        visibility_level_changed: A consultation has been open

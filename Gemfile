@@ -43,6 +43,7 @@ gem "simple_calendar", "~> 2.2"
 
 group :development, :test do
   gem "byebug", platform: :mri
+  gem "i18n-tasks"
 end
 
 group :test do

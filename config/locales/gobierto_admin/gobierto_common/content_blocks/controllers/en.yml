@@ -5,7 +5,7 @@ en:
       content_blocks:
         create:
           success: Content block was successfully created
-        update:
-          success: Content block was successfully updated
         destroy:
           success: Content block was successfully deleted
+        update:
+          success: Content block was successfully updated

@@ -4,22 +4,22 @@ ca:
     gobierto_people:
       people:
         person_posts:
-          index:
-            title: Blog
-            new: Nou post
-            view_post: Veure post
-            header:
-              title: Títol
-              date: Data
-              tags: Tags
           edit:
             title: Editar post
-          new:
-            title: Nou post
           form:
             placeholders:
-              title: Sobre mi
               tags: personal, la meva carrera, sobre mi
+              title: Sobre mi
             visibility_level:
-              draft: Borrador
               active: Publicat
+              draft: Borrador
+          index:
+            header:
+              date: Data
+              tags: Tags
+              title: Títol
+            new: Nou post
+            title: Blog
+            view_post: Veure post
+          new:
+            title: Nou post

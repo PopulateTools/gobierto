@@ -2,13 +2,13 @@
 en:
   user:
     settings:
-      show:
-        title: Settings
       form:
         notification_frequency:
-          disabled: Disabled
-          immediate: Immediate
-          hourly: Hourly digest
           daily: Daily digest
+          disabled: Disabled
+          hourly: Hourly digest
+          immediate: Immediate
           weekly: Weekly digest
         submit: Save
+      show:
+        title: Settings

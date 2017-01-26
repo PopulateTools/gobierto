@@ -1,16 +1,16 @@
 ---
 ca:
   activemodel:
+    attributes:
+      gobierto_admin/gobierto_budget_consultations/consultation_form:
+        description: Descripción
+        opening_date_range: Fecha de inicio - fin
+        title: Título
+      gobierto_admin/gobierto_budget_consultations/consultation_item_form:
+        budget_line_amount: Importe de la partida
+        budget_line_name: Partida
+        description: Descripción
+        title: Título
     models:
       gobierto_admin/gobierto_budget_consultations/consultation_form: Consulta
       gobierto_admin/gobierto_budget_consultations/consultation_item_form: Partida
-    attributes:
-      gobierto_admin/gobierto_budget_consultations/consultation_form:
-        title: Título
-        description: Descripción
-        opening_date_range: Fecha de inicio - fin
-      gobierto_admin/gobierto_budget_consultations/consultation_item_form:
-        title: Título
-        description: Descripción
-        budget_line_name: Partida
-        budget_line_amount: Importe de la partida

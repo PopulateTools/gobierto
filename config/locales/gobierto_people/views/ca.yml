@@ -5,124 +5,127 @@ ca:
       application:
         title: Alts càrrecs i agendes
       menu_subsections:
-        home: Inici
-        people: Càrrecs
         agendas: Agendes
         blogs: Blogs
+        home: Inici
+        people: Càrrecs
         statements: Declaracions
-    welcome:
-      index:
-        title: Coneix a les persones que treballen per fer de la teva ciutat un lloc millor on viure. Consulta seus perfils, les seves agendes i despeses.
-        statements: Salaris i retribucions
-        gifts: Obsequis i regals
-        travels: Viatges i desplaçaments
-        people_summary:
-          title: "Organigrama de %{site_name}"
-          view_all: Veure tots
-        events_summary:
-          upcoming_events: Pròxims esdeveniments
-          past_events: Esdeveniments passats
-          view_all: Veure tots
-        posts_summary:
-          title: Blogs
-          view_all: Veure tots
-        subscribable_box:
-          title: Rebeix actualitzacions al teu correu-e
     people:
       index:
-        title: "Organigrama de %{site_name}"
         subscribable_box:
           title: Rebeix una alerta al tu correu-e
-      navigation:
-        profile: Perfil
-        bio: Biografia i cv
-        agenda: Agenda
-        blog: Blog
-        statements: Béns i activitats
-      show:
-        subscribable_box:
-          title: "Rebeix actualitzacions al teu correu-e sobre %{person_name}"
-      upcoming_events:
-        title: Pròxims esdeveniments
-        view_all: Veure tots
+        title: Organigrama de %{site_name}
       latest_activity:
-        title: Darrera activitat
         no_activity: Aquest perfil encara no ha registrat cap activitat.
+        title: Darrera activitat
+      navigation:
+        agenda: Agenda
+        bio: Biografia i cv
+        blog: Blog
+        profile: Perfil
+        statements: Béns i activitats
+      person_bio:
+        show:
+          download: Descarregar CV
+          subtitle: Biografia i cv
+          title: Perfil de %{person_name}
       person_events:
         index:
-          title: "Agenda de %{person_name}"
-          upcoming_events: Pròxims esdeveniments
           past_events: Esdeveniments passats
           subscribable_box:
-            title: "Rebeix actualitzacions al teu correu-e sobre %{person_name}"
+            title: Rebeix actualitzacions al teu correu-e sobre %{person_name}
+          title: Agenda de %{person_name}
+          upcoming_events: Pròxims esdeveniments
         show:
-          title: "Agenda de %{person_name}"
           event_data:
             event_attendees: Assistents
             event_locations: Lloc
           subscribable_box:
-            title: Segueix aquest esdeveniment
             subtitle: Rep actualitzacions, preguntes i notícies
-      person_posts:
-        index:
-          title: "El blog de %{person_name}, %{person_charge}"
-        show:
-          title: "El blog de %{person_name}, %{person_charge}"
-          subscribable_box:
-            title: Rebeix actualitzacions al teu correu-e
+            title: Segueix aquest esdeveniment
+          title: Agenda de %{person_name}
       person_post_tags:
         show:
-          filtering_by_tag: "Filtrant per \"%{tag}\""
+          filtering_by_tag: Filtrant per "%{tag}"
           go_back: Tornar al blog
+      person_posts:
+        index:
+          title: El blog de %{person_name}, %{person_charge}
+        show:
+          subscribable_box:
+            title: Rebeix actualitzacions al teu correu-e
+          title: El blog de %{person_name}, %{person_charge}
       person_statements:
         index:
-          title: "Béns i activitats de %{person_name}"
+          title: Béns i activitats de %{person_name}
         show:
-          title: "Béns i activitats de %{person_name}"
-          download: "Descarregar declaració (%{file_size})"
+          download: Descarregar declaració (%{file_size})
           other_statements:
             title: Altres declaracions
           subscribable_box:
             title: Rebeix actualitzacions al teu correu-e
-      person_bio:
-        show:
-          title: "Perfil de %{person_name}"
-          subtitle: Biografia i cv
-          download: Descarregar CV
+          title: Béns i activitats de %{person_name}
+      show:
+        subscribable_box:
+          title: Rebeix actualitzacions al teu correu-e sobre %{person_name}
+      upcoming_events:
+        title: Pròxims esdeveniments
+        view_all: Veure tots
     people_filter:
+      all: tots
+      categories:
+        executive: Directiu
       parties:
         government: Gobierno
         opposition: Oposició
-      categories:
-        executive: Directiu
-      all: tots
       political_groups:
         title: Grup polític
     person_events:
       index:
-        title: "Agendes de %{site_name}"
-        upcoming_events: Pròxims esdeveniments
-        past_events: Esdeveniments passats
-        displaying_events_of: "Mostrant esdeveniments del %{date}"
-        go_back: Tornar
         agenda_switcher:
-          title: Consulta l'agenda de...
           subtitle: Filtra per membres de la comunitat
+          title: Consulta l'agenda de...
+        displaying_events_of: Mostrant esdeveniments del %{date}
+        go_back: Tornar
+        past_events: Esdeveniments passats
         subscribable_box:
           title: Rep un resum de les agendes dels teus representants
-    person_posts:
-      index:
-        title: Blogs
-        subscribable_box:
-          title: Rebeix una alerta al tu correu-e
-      person_post_excerpt:
-        continue: Seguir llegint
+        title: Agendes de %{site_name}
+        upcoming_events: Pròxims esdeveniments
     person_post_tags:
       show:
-        filtering_by_tag: "Filtrant per \"%{tag}\""
+        filtering_by_tag: Filtrant per "%{tag}"
         go_back: Tornar
-    person_statements:
-      index:
-        title: Declaracions
         subscribable_box:
           title: Rebeix una alerta al tu correu-e
+    person_posts:
+      index:
+        subscribable_box:
+          title: Rebeix una alerta al tu correu-e
+        title: Blogs
+      person_post_excerpt:
+        continue: Seguir llegint
+    person_statements:
+      index:
+        subscribable_box:
+          title: Rebeix una alerta al tu correu-e
+        title: Declaracions
+    welcome:
+      index:
+        events_summary:
+          past_events: Esdeveniments passats
+          upcoming_events: Pròxims esdeveniments
+          view_all: Veure tots
+        gifts: Obsequis i regals
+        people_summary:
+          title: Organigrama de %{site_name}
+          view_all: Veure tots
+        posts_summary:
+          title: Blogs
+          view_all: Veure tots
+        statements: Salaris i retribucions
+        subscribable_box:
+          title: Rebeix actualitzacions al teu correu-e
+        title: Coneix a les persones que treballen per fer de la teva ciutat un lloc
+          millor on viure. Consulta seus perfils, les seves agendes i despeses.
+        travels: Viatges i desplaçaments

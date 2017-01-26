@@ -52,10 +52,10 @@ module GobiertoBudgets
              end
 
       if(diff < 0)
-        direction = I18n.t('.gobierto_budgets.budgets.index.less')
+        direction = I18n.t('gobierto_budgets.budgets.index.less')
         diff = diff*-1
       else
-        direction = I18n.t('.gobierto_budgets.budgets.index.more')
+        direction = I18n.t('gobierto_budgets.budgets.index.more')
       end
 
       if diff == Float::INFINITY

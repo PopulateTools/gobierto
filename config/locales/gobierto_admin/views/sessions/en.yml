@@ -2,11 +2,11 @@
 en:
   gobierto_admin:
     sessions:
-      new:
-        title: Log in
-        forgot_your_password: Forgot your password?
-        didnt_receive_confirmation_instructions: Didn't receive confirmation instructions?
       form:
-        submit: Send
         email: Email
         password: Password
+        submit: Send
+      new:
+        didnt_receive_confirmation_instructions: Didn't receive confirmation instructions?
+        forgot_your_password: Forgot your password?
+        title: Log in

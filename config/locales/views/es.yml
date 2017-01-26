@@ -1,24 +1,62 @@
 ---
 es:
   layouts:
-    application: &application
-      disclaimer: Esta web es una demostración de Gobierto, software de transparencia y participación
-      more_information: Más información en gobierto.es
-      is_open_source: es software libre creado por
+    application:
       about_the_data: Sobre los datos
+      disclaimer: Esta web es una demostración de Gobierto, software de transparencia
+        y participación
+      is_open_source: es software libre creado por
+      more_information: Más información en gobierto.es
       session:
+        admin: Administración
+        alerts: Tus alertas
+        profile: Perfil
         sign_in: Iniciar sesión
         sign_out: Cerrar sesión
         title: Tu cuenta
-        profile: Perfil
-        alerts: Tus alertas
-        admin: Administración
-    gobierto_budgets:
-      application:
-        <<: *application
     gobierto_budget_consultations:
       application:
-        <<: *application
+        about_the_data: Sobre los datos
+        disclaimer: Esta web es una demostración de Gobierto, software de transparencia
+          y participación
+        is_open_source: es software libre creado por
+        more_information: Más información en gobierto.es
+        session:
+          admin: Administración
+          alerts: Tus alertas
+          profile: Perfil
+          sign_in: Iniciar sesión
+          sign_out: Cerrar sesión
+          title: Tu cuenta
+    gobierto_budgets:
+      application:
+        about_the_data: Sobre los datos
+        disclaimer: Esta web es una demostración de Gobierto, software de transparencia
+          y participación
+        is_open_source: es software libre creado por
+        more_information: Más información en gobierto.es
+        session:
+          admin: Administración
+          alerts: Tus alertas
+          profile: Perfil
+          sign_in: Iniciar sesión
+          sign_out: Cerrar sesión
+          title: Tu cuenta
+    main_menu:
+      account: Tu cuenta
+      sign_in: Iniciar sesión
+      sign_out: Cerrar sesión
     sandbox:
       application:
-        <<: *application
+        about_the_data: Sobre los datos
+        disclaimer: Esta web es una demostración de Gobierto, software de transparencia
+          y participación
+        is_open_source: es software libre creado por
+        more_information: Más información en gobierto.es
+        session:
+          admin: Administración
+          alerts: Tus alertas
+          profile: Perfil
+          sign_in: Iniciar sesión
+          sign_out: Cerrar sesión
+          title: Tu cuenta

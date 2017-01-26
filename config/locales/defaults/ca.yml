@@ -14,7 +14,7 @@ ca:
     - Dv
     - Ds
     abbr_month_names:
-    -
+    - 
     - Gen
     - Feb
     - Mar
@@ -40,7 +40,7 @@ ca:
       long: "%d de %B de %Y"
       short: "%d de %b"
     month_names:
-    -
+    - 
     - Gener
     - Febrer
     - Març
@@ -90,12 +90,12 @@ ca:
       x_months:
         one: 1 mes
         other: "%{count} mesos"
-      x_years:
-        one: 1 year
-        other: "%{count} years" 
       x_seconds:
         one: 1 segon
         other: "%{count} segons"
+      x_years:
+        one: 1 year
+        other: "%{count} anys"
     prompts:
       day: dia
       hour: hora
@@ -122,6 +122,12 @@ ca:
       not_a_number: no és un número
       not_an_integer: ha de ser un enter
       odd: ha de ser senar
+      other_than: ha de ser distinti de %{count}
+      present: ha de ser blanc
+      record_invalid: 'La validació va fallar: %{errors}'
+      restrict_dependent_destroy:
+        many: No es pot eliminar el registre perque existeixen %{record} dependents
+        one: No es pot eliminar el registre perque existeixen %{record} dependent
       taken: no està disponible
       too_long: és massa llarg (%{count} caràcters màxim)
       too_short: és massa curt (%{count} caràcters mínim)
@@ -138,6 +144,10 @@ ca:
       create: Crear
       submit: Guardar
       update: Actualitzar
+  locales:
+    ca: Català
+    en: Anglès
+    es: Castellà
   number:
     currency:
       format:
@@ -182,6 +192,7 @@ ca:
     percentage:
       format:
         delimiter: ''
+        format: "%n%"
     precision:
       format:
         delimiter: ''
@@ -197,7 +208,3 @@ ca:
       long: "%d de %B de %Y %H:%M"
       short: "%d de %b %H:%M"
     pm: pm
-  locales:
-    en: Anglès
-    es: Castellà
-    ca: Català

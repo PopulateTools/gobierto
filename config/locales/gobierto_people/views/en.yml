@@ -5,124 +5,126 @@ en:
       application:
         title: Officials and Agendas
       menu_subsections:
-        home: Home
-        people: Officials
         agendas: Agendas
         blogs: Blogs
+        home: Home
+        people: Officials
         statements: Statements
-    welcome:
-      index:
-        title: Know the people who work to make your city a better place to live.
-        statements: Salaries and retributions
-        gifts: Gifts
-        travels: Travels
-        people_summary:
-          title: "%{site_name}'s organization chart"
-          view_all: View all
-        events_summary:
-          upcoming_events: Upcoming events
-          past_events: Past events
-          view_all: View all
-        posts_summary:
-          title: Blogs
-          view_all: View all
-        subscribable_box:
-          title: Receive updates in your inbox
     people:
       index:
-        title: "%{site_name}'s organization chart"
         subscribable_box:
           title: Receive alerts in your inbox
-      navigation:
-        profile: Profile
-        bio: Biography and CV
-        agenda: Agenda
-        blog: Blog
-        statements: Goods and Activities
-      show:
-        subscribable_box:
-          title: "Receive %{person_name}'s updates in your inbox"
-      upcoming_events:
-        title: Upcoming events
-        view_all: View all
+        title: "%{site_name}'s organization chart"
       latest_activity:
-        title: Latest activity
         no_activity: This profile has not registered any activity yet.
+        title: Latest activity
+      navigation:
+        agenda: Agenda
+        bio: Biography and CV
+        blog: Blog
+        profile: Profile
+        statements: Goods and Activities
+      person_bio:
+        show:
+          download: Download CV
+          subtitle: Biography and CV
+          title: "%{person_name}'s profile"
       person_events:
         index:
-          title: "%{person_name}'s agenda"
-          upcoming_events: Upcoming events
           past_events: Past events
           subscribable_box:
-            title: "Receive %{person_name}'s updates in your inbox"
-        show:
+            title: Receive %{person_name}'s updates in your inbox
           title: "%{person_name}'s agenda"
+          upcoming_events: Upcoming events
+        show:
           event_data:
             event_attendees: Attendees
             event_locations: Location
           subscribable_box:
-            title: Follow this event
             subtitle: Get updates, questions and news
+            title: Follow this event
+          title: "%{person_name}'s agenda"
+      person_post_tags:
+        show:
+          filtering_by_tag: Filtering by "%{tag}"
+          go_back: Back to blog
       person_posts:
         index:
           title: "%{person_name}, %{person_charge}'s blog"
         show:
-          title: "%{person_name}, %{person_charge}'s blog"
           subscribable_box:
             title: Receive updates in your inbox
-      person_post_tags:
-        show:
-          filtering_by_tag: "Filtering by \"%{tag}\""
-          go_back: Back to blog
+          title: "%{person_name}, %{person_charge}'s blog"
       person_statements:
         index:
           title: "%{person_name}'s goods and Activities"
         show:
-          title: "%{person_name}'s goods and Activities"
-          download: "Download statement (%{file_size})"
+          download: Download statement (%{file_size})
           other_statements:
             title: Other statements
           subscribable_box:
             title: Receive updates in your inbox
-      person_bio:
-        show:
-          title: "%{person_name}'s profile"
-          subtitle: Biography and CV
-          download: Download CV
+          title: "%{person_name}'s goods and Activities"
+      show:
+        subscribable_box:
+          title: Receive %{person_name}'s updates in your inbox
+      upcoming_events:
+        title: Upcoming events
+        view_all: View all
     people_filter:
+      all: All
+      categories:
+        executive: Executive
       parties:
         government: Government
         opposition: Opposition
-      categories:
-        executive: Executive
-      all: All
       political_groups:
         title: Political groups
     person_events:
       index:
-        title: "%{site_name}'s member agendas"
-        upcoming_events: Upcoming events
-        past_events: Past events
-        displaying_events_of: "Displaying events of %{date}"
-        go_back: Go back
         agenda_switcher:
-          title: Check the agenda of...
           subtitle: Filter by community members
+          title: Check the agenda of...
+        displaying_events_of: Displaying events of %{date}
+        go_back: Go back
+        past_events: Past events
         subscribable_box:
           title: Receive a summary of the agendas of your representatives
-    person_posts:
-      index:
-        title: Blogs
-        subscribable_box:
-          title: Receive alerts in your inbox
-      person_post_excerpt:
-        continue: Continue reading
+        title: "%{site_name}'s member agendas"
+        upcoming_events: Upcoming events
     person_post_tags:
       show:
-        filtering_by_tag: "Filtering by \"%{tag}\""
+        filtering_by_tag: Filtering by "%{tag}"
         go_back: Go back
-    person_statements:
-      index:
-        title: Statements
         subscribable_box:
           title: Receive alerts in your inbox
+    person_posts:
+      index:
+        subscribable_box:
+          title: Receive alerts in your inbox
+        title: Blogs
+      person_post_excerpt:
+        continue: Continue reading
+    person_statements:
+      index:
+        subscribable_box:
+          title: Receive alerts in your inbox
+        title: Statements
+    welcome:
+      index:
+        events_summary:
+          past_events: Past events
+          upcoming_events: Upcoming events
+          view_all: View all
+        gifts: Gifts
+        people_summary:
+          title: "%{site_name}'s organization chart"
+          view_all: View all
+        posts_summary:
+          title: Blogs
+          view_all: View all
+        statements: Salaries and retributions
+        subscribable_box:
+          title: Receive updates in your inbox
+        title: Know the people who work to make your city a better place to live.
+        travels: Travels

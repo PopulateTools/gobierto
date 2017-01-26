@@ -5,124 +5,127 @@ es:
       application:
         title: Altos cargos y Agendas
       menu_subsections:
-        home: Inicio
-        people: Cargos
         agendas: Agendas
         blogs: Blogs
+        home: Inicio
+        people: Cargos
         statements: Declaraciones
-    welcome:
-      index:
-        title: Conoce a las personas que trabajan para hacer de tu ciudad un lugar mejor donde vivir. Consulta sus perfiles, sus agendas y gastos.
-        statements: Salarios y retribuciones
-        gifts: Obsequios y regalos
-        travels: Viajes y desplazamientos
-        people_summary:
-          title: "Organigrama de %{site_name}"
-          view_all: Ver todos
-        events_summary:
-          upcoming_events: Próximos eventos
-          past_events: Eventos pasados
-          view_all: Ver todos
-        posts_summary:
-          title: Blogs
-          view_all: Ver todos
-        subscribable_box:
-          title: Recibe un resumen semanal de las agendas de tus representantes
     people:
       index:
-        title: "Organigrama de %{site_name}"
         subscribable_box:
           title: Recibe alertas en tu correo-e
-      navigation:
-        profile: Perfil
-        bio: Biografía y CV
-        agenda: Agenda
-        blog: Blog
-        statements: Bienes y Actividades
-      show:
-        subscribable_box:
-          title: "Recibe actualizaciones en tu correo-e sobre la actividad de %{person_name}"
-      upcoming_events:
-        title: Próximos eventos
-        view_all: Ver todos
+        title: Organigrama de %{site_name}
       latest_activity:
-        title: Última actividad
         no_activity: Este perfil aún no ha registrado ninguna actividad.
+        title: Última actividad
+      navigation:
+        agenda: Agenda
+        bio: Biografía y CV
+        blog: Blog
+        profile: Perfil
+        statements: Bienes y Actividades
+      person_bio:
+        show:
+          download: Descargar CV
+          subtitle: Biografía y CV
+          title: Perfil de %{person_name}
       person_events:
         index:
-          title: "Agenda de %{person_name}"
-          upcoming_events: Próximos eventos
           past_events: Eventos pasados
           subscribable_box:
-            title: "Recibe actualizaciones en tu correo-e sobre la actividad de %{person_name}"
+            title: Recibe actualizaciones en tu correo-e sobre la actividad de %{person_name}
+          title: Agenda de %{person_name}
+          upcoming_events: Próximos eventos
         show:
-          title: "Agenda de %{person_name}"
           event_data:
             event_attendees: Asistentes
             event_locations: Lugar
           subscribable_box:
-            title: Sigue este evento
             subtitle: Recibe actualizaciones, preguntas y noticias
-      person_posts:
-        index:
-          title: "El blog de %{person_name}, %{person_charge}"
-        show:
-          title: "El blog de %{person_name}, %{person_charge}"
-          subscribable_box:
-            title: Recibe actualizaciones en tu correo-e
+            title: Sigue este evento
+          title: Agenda de %{person_name}
       person_post_tags:
         show:
-          filtering_by_tag: "Filtrando por \"%{tag}\""
+          filtering_by_tag: Filtrando por "%{tag}"
           go_back: Volver al blog
+      person_posts:
+        index:
+          title: El blog de %{person_name}, %{person_charge}
+        show:
+          subscribable_box:
+            title: Recibe actualizaciones en tu correo-e
+          title: El blog de %{person_name}, %{person_charge}
       person_statements:
         index:
-          title: "Bienes y Actividades de %{person_name}"
+          title: Bienes y Actividades de %{person_name}
         show:
-          title: "Bienes y Actividades de %{person_name}"
-          download: "Descargar declaración (%{file_size})"
+          download: Descargar declaración (%{file_size})
           other_statements:
             title: Otras declaraciones
           subscribable_box:
             title: Recibe actualizaciones en tu correo-e
-      person_bio:
-        show:
-          title: "Perfil de %{person_name}"
-          subtitle: Biografía y CV
-          download: Descargar CV
+          title: Bienes y Actividades de %{person_name}
+      show:
+        subscribable_box:
+          title: Recibe actualizaciones en tu correo-e sobre la actividad de %{person_name}
+      upcoming_events:
+        title: Próximos eventos
+        view_all: Ver todos
     people_filter:
+      all: Todos
+      categories:
+        executive: Directivos
       parties:
         government: Gobierno
         opposition: Oposición
-      categories:
-        executive: Directivos
-      all: Todos
       political_groups:
         title: Grupos políticos
     person_events:
       index:
-        title: "Agendas de los miembros de %{site_name}"
-        upcoming_events: Próximos eventos
-        past_events: Eventos pasados
-        displaying_events_of: "Mostrando eventos del %{date}"
-        go_back: Volver
         agenda_switcher:
-          title: Consulta la agenda de...
           subtitle: Filtra por miembros de la comunidad
+          title: Consulta la agenda de...
+        displaying_events_of: Mostrando eventos del %{date}
+        go_back: Volver
+        past_events: Eventos pasados
         subscribable_box:
           title: Recibe un resumen de las agendas de tus representantes
-    person_posts:
-      index:
-        title: Blogs
-        subscribable_box:
-          title: Recibe alertas en tu correo-e
-      person_post_excerpt:
-        continue: Seguir leyendo
+        title: Agendas de los miembros de %{site_name}
+        upcoming_events: Próximos eventos
     person_post_tags:
       show:
-        filtering_by_tag: "Filtrando por \"%{tag}\""
+        filtering_by_tag: Filtrando por "%{tag}"
         go_back: Volver
-    person_statements:
-      index:
-        title: Declaraciones
         subscribable_box:
           title: Recibe alertas en tu correo-e
+    person_posts:
+      index:
+        subscribable_box:
+          title: Recibe alertas en tu correo-e
+        title: Blogs
+      person_post_excerpt:
+        continue: Seguir leyendo
+    person_statements:
+      index:
+        subscribable_box:
+          title: Recibe alertas en tu correo-e
+        title: Declaraciones
+    welcome:
+      index:
+        events_summary:
+          past_events: Eventos pasados
+          upcoming_events: Próximos eventos
+          view_all: Ver todos
+        gifts: Obsequios y regalos
+        people_summary:
+          title: Organigrama de %{site_name}
+          view_all: Ver todos
+        posts_summary:
+          title: Blogs
+          view_all: Ver todos
+        statements: Salarios y retribuciones
+        subscribable_box:
+          title: Recibe un resumen semanal de las agendas de tus representantes
+        title: Conoce a las personas que trabajan para hacer de tu ciudad un lugar
+          mejor donde vivir. Consulta sus perfiles, sus agendas y gastos.
+        travels: Viajes y desplazamientos

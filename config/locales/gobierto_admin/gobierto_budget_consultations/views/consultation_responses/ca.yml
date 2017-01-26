@@ -5,9 +5,9 @@ ca:
       consultations:
         consultation_responses:
           index:
+            header:
+              budget_amount: Inversió proposta
+              consultation_budget_amount: Inversió inicial planificada
+              date: Data
             title: Participacions
             view_response: Vore Particpiació
-            header:
-              date: Data
-              consultation_budget_amount: Inversió inicial planificada
-              budget_amount: Inversió proposta

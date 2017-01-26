@@ -5,10 +5,9 @@ en:
       content_blocks:
         edit:
           title: Edit block
+        form:
+          add_child: Add column
+          fields: Columns
+          title: Block name
         new:
           title: Add block
-        form:
-          title: Block name
-          fields: Columns
-          delete_field: Delete column
-          add_child: Add column

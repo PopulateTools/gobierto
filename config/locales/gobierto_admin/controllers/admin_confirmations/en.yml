@@ -4,8 +4,8 @@ en:
     admin:
       confirmations:
         create:
-          success: Please, check your inbox to get instructions
           error: The email address specified doesn't seem to be valid
+          success: Please, check your inbox to get instructions
         show:
-          success: Signed in successfully
           error: This URL doesn't seem to be valid
+          success: Signed in successfully

@@ -1,18 +1,18 @@
 ---
 ca:
   activerecord:
+    attributes:
+      gobierto_people/person_event_attendee:
+        charge: Càrrec
+        name: Nom
+        person: Persona
+      gobierto_people/person_event_location:
+        address: Direcció
+        name: Nom
     models:
       gobierto_people/person: Càrrec
       gobierto_people/person_event: Esdeveniment
+      gobierto_people/person_event_attendee: Assistent
+      gobierto_people/person_event_location: Localització
       gobierto_people/person_post: Post
       gobierto_people/person_statement: Declaració
-      gobierto_people/person_event_location: Localització
-      gobierto_people/person_event_attendee: Assistent
-    attributes:
-      gobierto_people/person_event_location:
-        name: Nom
-        address: Direcció
-      gobierto_people/person_event_attendee:
-        person: Persona
-        name: Nom
-        charge: Càrrec

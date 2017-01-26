@@ -36,7 +36,7 @@ default: &default
     mixpanel_key: ''
     google_analytics_key: ''
   populate_data:
-    endpoint: <%= ENV.fetch("POPULATE_DATA_ENDPOINT") %>
+    endpoint: <%= ENV["POPULATE_DATA_ENDPOINT"] %>
   gobierto_indicators:
     year: 2015
 

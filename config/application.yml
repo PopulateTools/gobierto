@@ -19,41 +19,29 @@ default: &default
     cname_record_target: site.gobierto.dev
     a_record_target: 222.111.222.11
   admins:
-    preset_admin_email: <%= ENV.fetch("PRESET_ADMIN_EMAIL") { "admin@gobierto.dev" } %>
-    preset_admin_name: <%= ENV.fetch("PRESET_ADMIN_NAME") { "Gobierto Admin" } %>
-    preset_admin_password: <%= ENV.fetch("PRESET_ADMIN_PASSWORD") { "gobierto" } %>
+    preset_admin_email: "admin@gobierto.dev"
+    preset_admin_name: "Gobierto Admin"
+    preset_admin_password: "gobierto"
   email_config:
-    default_from: <%= ENV.fetch("EMAIL_DEFAULT_FROM") { "Gobierto <admin@gobierto.dev>" } %>
-    default_reply_to: <%= ENV.fetch("EMAIL_DEFAULT_REPLY_TO") { "Gobierto <admin@gobierto.dev>" } %>
+    default_from: "Gobierto <admin@gobierto.dev>"
+    default_reply_to: "Gobierto <admin@gobierto.dev>"
   services:
     municipalities_suggestions_endpoint: <%= ENV["MUNICIPALITIES_SUGGESTIONS_ENDPOINT"] %>
   gobierto_budgets:
     data_note_url: https://presupuestos.gobierto.es/about#method
   gobierto_people:
-    gifts_service_url: <%= ENV["PEOPLE_GIFTS_SERVICE_URL"] %>
-    travels_service_url: <%= ENV["PEOPLE_TRAVELS_SERVICE_URL"] %>
+    gifts_service_url: http://populate.tools/
+    travels_service_url: http://populate.tools/
   site:
     mixpanel_key: ''
     google_analytics_key: ''
   populate_data:
-    endpoint: <%= ENV.fetch("POPULATE_DATA_ENDPOINT") { "https://tbi.populate.tools/gobierto" } %>
+    endpoint: <%= ENV.fetch("POPULATE_DATA_ENDPOINT") %>
   gobierto_indicators:
     year: 2015
 
 development:
   <<: *default
-  gobierto_people:
-    gifts_service_url: http://populate.tools/
-    travels_service_url: http://populate.tools/
 
 test:
-  <<: *default
-  gobierto_people:
-    gifts_service_url: http://populate.tools/
-    travels_service_url: http://populate.tools/
-
-staging:
-  <<: *default
-
-production:
   <<: *default

@@ -7,7 +7,7 @@
 	-ms-perspective: 1000px;
 	height: 180px;
 	border-radius: 8px;
-	margin-bottom: 1rem;
+	margin-bottom: 2rem;
 }
 .indicator_widget {
 	margin-right: 2rem;
@@ -159,7 +159,18 @@
 		height: 200px;
 	}
 	.indicator_widget {
-		margin: 1rem 1.5rem;
+		margin-right: 4rem;
+	}
+	.widget_start {
+		margin-right: 4rem;
+	}
+	.widget_middle {
+		margin-right: 2rem;
+		margin-left: 0;
+	}
+	.widget_end {
+		margin-right: 0;
+		margin-left: 2rem;
 	}
 	.widget_body {
 		height: 100px;

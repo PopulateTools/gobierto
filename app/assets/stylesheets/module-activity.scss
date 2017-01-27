@@ -1,0 +1,52 @@
+/*
+ * Activities
+ *
+ */
+.activity_feed {
+	border-left: 1px solid $color_separator;
+	margin-left: 50px;
+	padding-left: 50px;
+	.activity_item {
+		margin: 0 0 1.5em 0;
+		h2 {
+			margin: 0;
+			font-size: 1.1em;
+			a {
+				padding: .25em;
+				display: block;
+				@include border-radius(3px);
+				text-decoration: initial;
+				span.secondary {
+					color: $text_soft;
+					display: block;
+					font-weight: 200;
+				}
+			}
+			a:hover {
+				background: $color_1_soft;
+			}
+		}
+		.date {
+			padding: .25em;
+			font-size: .85em;
+			color: $text_soft;
+			font-weight: 200;
+		}
+	}
+}
+
+/* activity types
+
+- presupuestos: 					money
+- cargos y agendas
+	- bio: 									street-view
+	- declaración:					id-card-o
+	- blog:									pencil-square
+	- agenda: 							calendar-o
+- indicadores
+	- datos: 								thermometer-3
+- participación
+	- idea: 								lightbulb-o
+	- consulta:							question-circle-o
+
+*/

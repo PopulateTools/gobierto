@@ -43,6 +43,12 @@ p.intro {
 	font-weight: 200;
 }
 
+.compact {
+  h3 {
+    margin: 0 0 1em 0;
+  }
+}
+
 /*
  * Content Boxes
  *
@@ -144,4 +150,6 @@ p.intro {
     margin: 0 0 1em 0;
   }
 }
-
+.padded_line_box.compact {
+  padding: 1em 1.5em;
+}

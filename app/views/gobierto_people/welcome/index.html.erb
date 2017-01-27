@@ -29,7 +29,7 @@
         <%= render "gobierto_people/people/people_filter" %>
         <%= render @people %>
 
-        <%= link_to t(".people_summary.view_all"), gobierto_people_people_path, class: "button small" %>
+        <%= link_to t(".people_summary.view_all"), gobierto_people_people_path, class: "see_more" %>
 
       </div>
 
@@ -41,12 +41,12 @@
 
         <div class="block">
           <h2><%= t(".events_summary.upcoming_events") %></h2>
-          <%= link_to t(".events_summary.past_events"), gobierto_people_past_events_path %>
+          <%= link_to t(".events_summary.past_events"), gobierto_people_past_events_path, class: 'to_r' %>
         </div>
 
         <%= render @events %>
 
-        <%= link_to t(".events_summary.view_all"), gobierto_people_events_path, class: "button small" %>
+        <%= link_to t(".events_summary.view_all"), gobierto_people_events_path, class: "see_more" %>
 
       </div>
 
@@ -54,37 +54,48 @@
 
   </div>
 
-  <div class="separator"></div>
+  <div class="m_v_4">
+    <div class="separator"></div>
+  </div>
 
   <div class="pure-g">
 
-    <div class="pure-u-1 pure-u-md-1-2">
+    <div class="pure-u-1 pure-u-md-1-2 site-references p_h_r_2">
 
-      <div class="p_h_2 box">
+      <div class="box fully_linked">
+        <%= link_to gobierto_people_statements_path do %>
+          <i class="fa fa-money"></i>
+          <%= t(".statements") %>
+        <% end %>
+      </div>
 
-        <ul class="site-references inner" data-turbolinks="false">
-          <li><%= link_to t(".statements"), gobierto_people_statements_path %></li>
-          <li><%= link_to t(".gifts"), gobierto_people_gifts_path %></li>
-          <li><%= link_to t(".travels"), gobierto_people_travels_path %></li>
-        </ul>
-
+      <div class="box fully_linked">
+        <%= link_to gobierto_people_gifts_path do %>
+          <i class="fa fa-gift"></i>
+          <%= t(".gifts") %>
+        <% end %>
+      </div>
+      
+      <div class="box fully_linked">
+        <%= link_to gobierto_people_travels_path do %>
+          <i class="fa fa-plane"></i>
+          <%= t(".travels") %>
+        <% end %>
       </div>
 
     </div>
 
-    <div class="pure-u-1 pure-u-md-1-2">
+    <div class="pure-u-1 pure-u-md-1-2 p_h_l_2">
 
-      <div class="p_h_2">
-
+      <div class="block"> 
         <h2><%= t(".posts_summary.title") %></h2>
+      </div>
 
-        <div class="posts-summary person_post-list item-list">
+      <div class="posts-summary person_post-list item-list">
 
-          <%= render @posts %>
+        <%= render @posts %>
 
-          <%= link_to t(".posts_summary.view_all"), gobierto_people_posts_path, class: "button small" %>
-
-        </div>
+        <%= link_to t(".posts_summary.view_all"), gobierto_people_posts_path, class: "see_more" %>
 
       </div>
 

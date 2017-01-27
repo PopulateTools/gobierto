@@ -6,6 +6,7 @@ h1, h2, h3, h4 {
 	line-height: 1.2em;
 }
 .block {
+  position: relative;
 	h2 {
 		font-weight: 200;
 		text-transform: uppercase;
@@ -22,6 +23,13 @@ h1, h2, h3, h4 {
 		line-height: 1.3em;
 		opacity: .6;
 	}
+}
+.block {
+  .to_r {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
 }
 h1.light {
 	font-weight: 200;
@@ -48,6 +56,7 @@ p.intro {
     margin: 0 0 1em 0;
   }
 }
+
 
 /*
  * Content Boxes
@@ -83,7 +92,24 @@ p.intro {
     padding: .25em 1em;
   }
 }
-
+.fully_linked {
+  margin: 0 0 1em 0;
+  font-size: 1.4em;
+  text-transform: uppercase;
+  font-weight: 200;
+  a {
+    display: block;
+    text-decoration: none;
+    padding: 1.5em;
+  }
+  a:hover {
+    text-decoration: none;
+    background: darken($color_1_soft, 15%);
+  }
+  .fa {
+    margin-right: 1em;
+  }
+}
 
 .separator {
 	border-top: 1px solid $text_soft;
@@ -134,9 +160,6 @@ p.intro {
     margin: 0;
   }
 }
-.separator {
-  
-}
 
 .padded_line_box {
 	@include border-radius(6px);
@@ -152,4 +175,20 @@ p.intro {
 }
 .padded_line_box.compact {
   padding: 1em 1.5em;
+}
+
+.see_more {
+  display: block;
+  padding: .75em 1em;
+  margin: 0 0 2em 0;
+  font-size: 1em;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 600;
+  background: $color_1_soft;
+}
+.see_more:hover {
+  text-decoration: none;
+  background: darken($color_1_soft, 15%); 
 }

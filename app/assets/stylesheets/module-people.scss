@@ -14,20 +14,13 @@ body.gobierto_people {
     height: auto;
   }
 
-  .item-list {
-    .person-item, .person_post-item, .item {
-      border-top: 1px solid $color_separator;
-      box-sizing: border-box;
-      padding: 2em 0;
-    }
-  }
-
   .people-grid {
     .person-item {
       border: 1px solid $color_separator;
       padding: 1.5em;
       margin-right: 1.5em;
       margin-bottom: 1.5em;
+      min-height: 150px;
 
       &:nth-child(3n) {
         margin-right: 0;
@@ -35,8 +28,18 @@ body.gobierto_people {
     }
   }
 
-  .item {
-    
+  .person-item, .item {
+    padding: 2em 0;
+    border-top: 1px solid $color_separator;
+    box-sizing: border-box;
+
+    .meta {
+      font-size: .85em;
+      img {
+        margin: 0 1em 0 0;
+        vertical-align: middle;
+      }  
+    }
     h2 {
       font-size: 1.2em;
       margin: 0 0 .25em 0;
@@ -45,20 +48,10 @@ body.gobierto_people {
       padding: 0 0 0 1.5em;
       box-sizing: border-box;
     }
-    .meta {
-      font-size: .85em;
-      img {
-        margin: 0 1em 0 0;
-        vertical-align: middle;
-      }  
-    }
-    
   }
-  .person_post-list {
-    .item {
-      h2 {
-        margin: 0 0 1em 0;
-      }
+  .post-item {
+    h2 {
+      margin: 0 0 1em 0;
     }
   }
 
@@ -98,41 +91,6 @@ body.gobierto_people {
   .events-filter {
     .filter-option:not(.active) {
       @extend .soft;
-    }
-  }
-
-  menu.people-filter, menu.person-events-filter {
-    padding: 0;
-    margin: 0 0 1.5em 0;
-
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-
-      li {
-        display: inline-block;
-
-        a {
-          text-transform: uppercase;
-          text-decoration: none;
-          padding: .25em 1em .2em;
-          margin: 0 1em 0 0;
-          display: inline-block;
-          border: 1px solid $color_separator;
-          color: $color_separator;
-
-          &.active {
-            border-color: $color_main;
-            color: $color_main;
-          }
-        }
-
-        &:first-child {
-          a {
-            margin-left: 0;
-          }
-        }
-      }
     }
   }
 

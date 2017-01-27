@@ -1,18 +1,18 @@
-<menu class="people-filter">
+<menu class="filter_boxed">
 
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
     <ul>
-      <li>
-        <%= link_to t("gobierto_people.people_filter.parties.government"), gobierto_people_government_party_people_path, class: class_if('active', controller_name == 'government_party_people') %>
+      <li class="<%= class_if('active', controller_name == 'government_party_people') %>" >
+        <%= link_to t("gobierto_people.people_filter.parties.government"), gobierto_people_government_party_people_path %>
       </li>
-      <li>
-        <%= link_to t("gobierto_people.people_filter.parties.opposition"), gobierto_people_opposition_party_people_path, class: class_if('active', controller_name == 'opposition_party_people') %>
+      <li class="<%= class_if('active', controller_name == 'opposition_party_people') %>">
+        <%= link_to t("gobierto_people.people_filter.parties.opposition"), gobierto_people_opposition_party_people_path %>
       </li>
-      <li>
-        <%= link_to t("gobierto_people.people_filter.categories.executive"), gobierto_people_executive_category_people_path, class: class_if('active', controller_name == 'executive_category_people') %>
+      <li class="<%= class_if('active', controller_name == 'executive_category_people') %>">
+        <%= link_to t("gobierto_people.people_filter.categories.executive"), gobierto_people_executive_category_people_path %>
       </li>
-      <li>
-        <%= link_to t("gobierto_people.people_filter.all"), gobierto_people_people_path, class: class_if('active', controller_name == 'people') %>
+      <li class="<%= class_if('active', controller_name == 'people') %>">
+        <%= link_to t("gobierto_people.people_filter.all"), gobierto_people_people_path %>
       </li>
     </ul>
 

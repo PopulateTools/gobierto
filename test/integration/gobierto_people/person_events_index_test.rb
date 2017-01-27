@@ -47,7 +47,7 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".person-events-filter" do
+        within ".filter_boxed" do
           assert has_link?("Government")
           assert has_link?("Opposition")
           assert has_link?("Executive")

@@ -6,7 +6,9 @@
 
 <div class="column">
 
-  <h1><%= t(".title", site_name: current_site.name) %></h1>
+  <div class="block">
+    <h1><%= t(".title", site_name: current_site.name) %></h1>
+  </div>
 
   <%= render "gobierto_people/person_events/person_events_filter" %>
 

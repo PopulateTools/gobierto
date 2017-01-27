@@ -7,16 +7,14 @@ body.gobierto_people {
 
   img.avatar {
     object-fit: cover;
-  }
-
-  .media-left {
-    float: left;
-    margin-right: 1em;
+    width: 100%;
+    height: auto;
   }
 
   .item-list {
     .person-item {
       border-top: 1px solid $color_separator;
+      box-sizing: border-box;
     }
   }
 
@@ -38,6 +36,14 @@ body.gobierto_people {
 
     &:after {
       @extend .clearfix;
+    }
+    h2 {
+      font-size: 1.2em;
+      margin: 0 0 .25em 0;
+    }
+    .person-name {
+      padding: 0 0 0 1.5em;
+      box-sizing: border-box;
     }
   }
 

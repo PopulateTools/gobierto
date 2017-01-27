@@ -26,7 +26,6 @@ input[type=text]:focus, input[type=email]:focus, input[type=submit]:focus, input
 .form_item.input_text, .form_item.textarea, .select_control, .file_field {
   position: relative;
   margin: 0 0 1em 0;
-  background: #fafafa;
   label {
     position: absolute;
     top: .5rem;
@@ -46,6 +45,7 @@ input[type=text]:focus, input[type=email]:focus, input[type=submit]:focus, input
   }
 }
 .select_control {
+  background: #fafafa;
   select {
     padding: 0 15px;
     height: 47px;

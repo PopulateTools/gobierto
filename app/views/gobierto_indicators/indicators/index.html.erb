@@ -16,13 +16,13 @@
 		<div class="pure-g mb2">			
 			<div class="pure-u-1 pure-u-md-1-3">
 				<h2 class="section_headline" id="population">Población</h2>
-        <% pending do %>
-          <p class="section_desc">La edad media del municipio es de <span class="js-avg-age"></span> años, <span class="js-avg-calc"></span>. <%= @site.place.name %> tiene menos población extranjera que la media española (10% frente a un 30%).</p>
-        <% end %>
+				<p class="section_desc">
+					Los datos de población municipales se recoge en el padrón, un indicador recopilado por los ayuntamientos y publicado por el INE anualmente. Son datos básicos, que se complementan con el censo, una foto fija del país que se elabora cada década. 
+				</p>
 			</div>
 			<div class="pure-u-1 pure-u-md-2-3">
 				<div id="age_distribution" class="main_graphic">
-					<h4 class="chart_headline">Distribución de la población en <%= @site.place.name %></h4>
+					<h4 class="chart_headline">La población por edades de <%= @site.place.name %></h4>
 				</div>
 			</div>
 		</div>
@@ -150,9 +150,9 @@
 		<div class="pure-g">
 			<div class="pure-u-1 pure-u-md-2-3">
 				<h2 class="section_headline" id="employment">Empleo</h2>
-        <% pending do %>
-          <p class="section_desc">El desempleo ha bajado un 10% en el último año, situándose en niveles similares a los 2009. Ocupa el puesto 19º de las ciudades con menor desempleo de la provincia.</p>
-        <% end %>
+          <p class="section_desc">
+						A nivel municipal hay varios indicadores sobre empleo, aunque no existe la tasa de paro: esta la calcula el INE en base a una encuesta trimestral (<a href="http://www.ine.es/prensa/epa_prensa.htm">la EPA</a>). En esta sección puedes consultar una aproximación a lo que sería una tasa de paro municipal, basada en los datos de población anuales y en los inscritos en el Servicio Público de Empleo, que son mensuales.
+					</p>
 			</div>
 		</div>
 		<div class="pure-g mb2">
@@ -406,15 +406,18 @@
 			<div class="pure-u-1 pure-u-md-1-3">
 				<div class="r_mr">
 					<h2 class="section_headline" id="economy">Economía</h2>
-          <% pending do %>
-            <p class="section_desc"><%= @site.place.name %> es el municipio de la provincia con la renta bruta más alta. Su deuda está en niveles similares a otros municipios de su tamaño, y el PIB de la región es el 14º de España.</p>
-          <% end %>
+            <p class="section_desc">
+							Este gráfico recoge la renta media antes de impuestos en <%= @site.place.name %> y provincia. Esta cifra (que hasta hace poco no era pública) la recopila la Agencia Tributaria.
+						</p>
+						<p class="section_desc">
+							A través de la comparación con el número de habitantes se puede distinguir si existe alguna relación entre el tamaño del municipio y su riqueza, aunque hay más variables que influyen en el indicador.
+						</p>
 				</div>
 			</div>
 			<div class="pure-u-1 pure-u-md-2-3">
 				<div id="rent_distribution" class="main_graphic">
 					<div class="annotations">
-						<h4 class="chart_headline">La renta por habitante de <%= @site.place.name %>, en perspectiva</h4>
+						<h4 class="chart_headline">La riqueza de <%= @site.place.name %>, en perspectiva</h4>
 						<div class="rent-anno">Renta bruta <span class="arrow">↑</span></div>
 						<div class="pop-anno">Habitantes <span class="arrow">→</span></div>
 					</div>
@@ -544,9 +547,9 @@
 		<div class="pure-g">
 			<div class="pure-u-1 pure-u-md-2-3 mb1">
 				<h2 class="section_headline" id="budgets">Presupuestos</h2>
-        <% pending do %>
-          <p class="section_desc">La edad media del municipio es de <span class="js-avg-age"></span> años, es una ciudad joven. <%= @site.place.name %> tiene menos población extranjera que la media española (10% frente a un 30%).</p>
-        <% end %>
+          <p class="section_desc">
+						El presupuesto municipal es el documento que explica cómo se gestiona el dinero público durante un año. El alcalde y los responsables de cada área de gobierno diseñan el presupuesto, lo redactan con las indicaciones de la concejalía de Hacienda y se somete a votación en el pleno. El presupuesto de un año tiene que quedar aprobado antes del 31 de diciembre del año anterior. Si no, se prorroga automáticamente.
+					</p>
 			</div>
 		</div>
 

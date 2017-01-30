@@ -38,7 +38,7 @@ var CardIndicators = Class.extend({
             
           div.selectAll('.tw-sharer')
             .attr('target', '_blank')
-            .attr('href', 'https://twitter.com/intent/tweet?text=' + 'En ' + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(json.metadata.name).toLowerCase() + ' en ' + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(printData())  + '&url=http://madrid.gobierto.dev&via=gobierto&source=webclient');
+            .attr('href', 'https://twitter.com/intent/tweet?text=' + 'En ' + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(json.metadata.name).toLowerCase() + ' en ' + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(printData())  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
 
           div.selectAll('.fb-sharer')
             .attr('target', '_blank')

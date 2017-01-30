@@ -64,12 +64,4 @@ group :development do
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
   gem "puma"
-  gem "capistrano"
-  gem "capistrano-rbenv"
-  gem "capistrano-bundler"
-  gem "capistrano-rails"
-  gem "capistrano-passenger"
-  gem "capistrano-rails-console"
-  gem "capistrano-rails-log"
-  gem "capistrano-sidekiq"
 end

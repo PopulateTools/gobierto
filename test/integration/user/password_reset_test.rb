@@ -15,6 +15,10 @@ class User::PasswordResetTest < ActionDispatch::IntegrationTest
     @recoverable_user ||= users(:dennis)
   end
 
+  def confirmable_user
+    @confirmable_user ||= users(:reed)
+  end
+
   def site
     @site ||= sites(:madrid)
   end
@@ -88,4 +92,17 @@ class User::PasswordResetTest < ActionDispatch::IntegrationTest
       end
     end
   end
+
+  def test_confirmation_request
+    with_current_site(site) do
+      visit @password_request_path
+
+      fill_in :user_password_email, with: confirmable_user.email
+
+      click_on "Recover"
+
+      assert has_message?("Please check your inbox to get instructions")
+    end
+  end
+
 end

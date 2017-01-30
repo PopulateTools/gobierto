@@ -1,7 +1,0 @@
----
-ca:
-  user:
-    confirmation_requests:
-      create:
-        error: La direcció de e-mail especificada no pareix ser vàlida
-        success: Per favor, comprova el teu email per a rebre les instruccions

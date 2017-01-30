@@ -8,7 +8,6 @@ class User::SessionsController < User::BaseController
     @user_session_form = User::SessionForm.new(referrer_url: request.referrer)
     @user_registration_form = User::RegistrationForm.new
     @user_password_form = User::NewPasswordForm.new
-    @user_confirmation_request_form = User::ConfirmationRequestForm.new
   end
 
   def create
@@ -27,7 +26,6 @@ class User::SessionsController < User::BaseController
     else
       @user_registration_form = User::RegistrationForm.new
       @user_password_form = User::NewPasswordForm.new
-      @user_confirmation_request_form = User::ConfirmationRequestForm.new
 
       flash.now[:alert] = t(".error")
       render :new

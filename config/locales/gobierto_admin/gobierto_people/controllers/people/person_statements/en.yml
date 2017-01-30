@@ -5,6 +5,6 @@ en:
       people:
         person_statements:
           create:
-            success: Statement was successfully created
+            success_html: "Statement was successfully created. <a href=\"%{link}\">See the statement</a>."
           update:
-            success: Statement was successfully updated
+            success_html: "Statement was successfully updated. <a href=\"%{link}\">See the statement</a>."

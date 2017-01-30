@@ -77,7 +77,7 @@ module GobiertoAdmin
                 end
               end
 
-              assert has_message?("Person was successfully created")
+              assert has_message?("Person was successfully created. See the person.")
               assert has_selector?("h1", text: "Person Name")
 
               within "form.edit_person" do

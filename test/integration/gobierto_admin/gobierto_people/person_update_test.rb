@@ -72,7 +72,7 @@ module GobiertoAdmin
                 end
               end
 
-              assert has_message?("Person was successfully updated")
+              assert has_message?("Person was successfully updated. See the person.")
 
               within "form.edit_person" do
                 within ".avatar_file_field" do

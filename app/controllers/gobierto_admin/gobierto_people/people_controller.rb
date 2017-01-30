@@ -40,7 +40,7 @@ module GobiertoAdmin
         if @person_form.save
           redirect_to(
             edit_admin_people_person_path(@person_form.person),
-            notice: t(".success")
+            notice: t(".success_html", link: gobierto_people_person_url(@person_form.person, domain: current_site.domain))
           )
         else
           @person_visibility_levels = get_person_visibility_levels
@@ -60,7 +60,7 @@ module GobiertoAdmin
         if @person_form.save
           redirect_to(
             edit_admin_people_person_path(@person),
-            notice: t(".success")
+            notice: t(".success_html", link: gobierto_people_person_url(@person_form.person, domain: current_site.domain))
           )
         else
           @person_visibility_levels = get_person_visibility_levels

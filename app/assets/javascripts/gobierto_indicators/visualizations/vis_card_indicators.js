@@ -18,63 +18,34 @@ var CardIndicators = Class.extend({
         .get(function(error, json) {
           if (error) throw error;
 
-          // console.log(json)
-
           var parsedDate = parseDate(json.data[0].date);
 
           // Paint the figure
           div.select('.widget_figure')
-            .text(function() {
-              // Switch between different figure types
-              switch (dataType) {
-                case 'percentage':
-                  return accounting.formatNumber(json.data[0].value, 1) + '%';
-                  break;
-                case 'currency':
-                  return accounting.formatNumber(json.data[0].value, 1) + '€';
-                  break;
-                case 'currency_per_person':
-                  return accounting.formatNumber(json.data[0].value, 1) + '€/hab';
-                  break;
-                default:
-                  return accounting.formatNumber(json.data[0].value, 0);
-              }
-            });
+            .text(printData);
 
           // Append source
           div.selectAll('.widget_src')
-            .append('a')
-            .attr('href', json.metadata.indicator['source url'])
             .text(json.metadata.indicator['source name']);
 
           // Append date of last data point
-          div.select('.widget_updated')
+          div.selectAll('.widget_updated')
             .text(formatDate(parsedDate));
 
           // Append metadata
           div.selectAll('.js-data-desc')
             .text(json.metadata.indicator.name);
+            
+          div.selectAll('.tw-sharer')
+            .attr('target', '_blank')
+            .attr('href', 'https://twitter.com/intent/tweet?text=' + 'En ' + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(json.metadata.name).toLowerCase() + ' en ' + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(printData())  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
+
+          div.selectAll('.fb-sharer')
+            .attr('target', '_blank')
+            .attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + window.location.href);
 
           div.selectAll('.js-data-freq')
-            .text(function() {
-              // Switch between different figure types
-              switch (json.metadata.frequency_type) {
-                case 'yearly':
-                  return 'anualmente'
-                  break;
-                case 'monthly':
-                  return 'mensualmente'
-                  break;
-                case 'weekly':
-                  return 'semanalmente'
-                  break;
-                case 'daily':
-                  return 'diariamente'
-                  break;
-                default:
-                  return ''
-              }
-            });
+            .text(printFreq);
 
           if (typeof json.data[1] !== 'undefined') {
             var pctChange = (json.data[0].value / json.data[1].value * 100) - 100;
@@ -93,6 +64,44 @@ var CardIndicators = Class.extend({
                 return isPositive ? 'fa fa-caret-up' : 'fa fa-caret-down';
               });
           }
+          
+          function printData() {
+            // Switch between different figure types
+            switch (dataType) {
+              case 'percentage':
+                return accounting.formatNumber(json.data[0].value, 1) + '%';
+                break;
+              case 'currency':
+                return accounting.formatNumber(json.data[0].value, 1) + '€';
+                break;
+              case 'currency_per_person':
+                return accounting.formatNumber(json.data[0].value, 1) + '€/hab';
+                break;
+              default:
+                return accounting.formatNumber(json.data[0].value, 0);
+            }
+          };
+          
+          function printFreq() {
+            // Switch between different figure types
+            switch (json.metadata.frequency_type) {
+              case 'yearly':
+                return 'anualmente'
+                break;
+              case 'monthly':
+                return 'mensualmente'
+                break;
+              case 'weekly':
+                return 'semanalmente'
+                break;
+              case 'daily':
+                return 'diariamente'
+                break;
+              default:
+                return ''
+            }
+          };
+          
         });
     });
   }

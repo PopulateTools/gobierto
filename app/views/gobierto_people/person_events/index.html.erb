@@ -16,6 +16,19 @@
 
       <div class="p_h_2">
 
+       <div class="agenda-switcher">
+
+         <div><strong><%= t(".agenda_switcher.title") %></strong></div>
+         <div><%= t(".agenda_switcher.subtitle") %></div>
+
+         <ul>
+           <% @people.each do |person| %>
+             <li><%= link_to person.name, gobierto_people_person_events_path(person) %></li>
+           <% end %>
+         </ul>
+
+       </div>
+
         <div class="calendar-component">
           <%= month_calendar(
             partial: "gobierto_people/person_events/calendar_template",
@@ -34,22 +47,6 @@
         <%= render("user/subscriptions/subscribable_box",
                    subscribable: GobiertoPeople::PersonEvent,
                    title: t(".subscribable_box.title")) %>
-
-       <div class="separator"></div>
-
-       <div class="agenda-switcher">
-
-         <div><strong><%= t(".agenda_switcher.title") %></strong></div>
-         <div><%= t(".agenda_switcher.subtitle") %></div>
-
-         <ul>
-           <% @people.each do |person| %>
-             <li><%= link_to person.name, gobierto_people_person_events_path(person) %></li>
-           <% end %>
-         </ul>
-
-       </div>
-
       </div>
 
     </div>

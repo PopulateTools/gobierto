@@ -35,7 +35,7 @@ ca:
           subscribable_box:
             title: Rebeix actualitzacions al teu correu-e sobre %{person_name}
           title: Agenda de %{person_name}
-          upcoming_events: Pròxims esdeveniments
+          upcoming_events: Agenda
         show:
           event_data:
             event_attendees: Assistents
@@ -69,14 +69,14 @@ ca:
         subscribable_box:
           title: Rebeix actualitzacions al teu correu-e sobre %{person_name}
       upcoming_events:
-        title: Pròxims esdeveniments
+        title: Agenda
         view_all: Veure tots
     people_filter:
       all: tots
       categories:
         executive: Directiu
       parties:
-        government: Gobierno
+        government: Equip de Govern
         opposition: Oposició
       political_groups:
         title: Grup polític
@@ -91,7 +91,7 @@ ca:
         subscribable_box:
           title: Rep un resum de les agendes dels teus representants
         title: Agendes de %{site_name}
-        upcoming_events: Pròxims esdeveniments
+        upcoming_events: Agenda
     person_post_tags:
       show:
         filtering_by_tag: Filtrant per "%{tag}"
@@ -114,7 +114,7 @@ ca:
       index:
         events_summary:
           past_events: Esdeveniments passats
-          upcoming_events: Pròxims esdeveniments
+          upcoming_events: Agenda
           view_all: Veure tots
         gifts: Obsequis i regals
         people_summary:

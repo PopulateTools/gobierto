@@ -2,11 +2,7 @@
 es:
   user:
     sessions:
-      confirmation_request_form:
-        session_section: "¿Ya has confirmado tu cuenta? Haz login"
-        submit: Solicitar
       new:
-        confirmation_request_title: Reenviar instrucciones de confirmación
         password_title: "¿No recuerdas tu contraseña? Te ayudamos:"
         registration_title: "¿Nuevo por aquí? Crea una cuenta gratis:"
         session_title: "¿Ya tienes cuenta? Haz login"
@@ -16,6 +12,5 @@ es:
       registration_form:
         submit: Vamos
       session_form:
-        confirmation_request_section: "¿Instrucciones de confirmación?"
         password_section: "¿Contraseña?"
         submit: Conectarse

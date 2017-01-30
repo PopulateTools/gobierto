@@ -1,7 +1,0 @@
----
-es:
-  user:
-    confirmation_requests:
-      create:
-        error: La dirección de e-mail especificada no parece ser válida
-        success: Por favor, comprueba tu email para recibir las instrucciones

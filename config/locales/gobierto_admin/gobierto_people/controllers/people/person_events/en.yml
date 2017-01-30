@@ -5,6 +5,7 @@ en:
       people:
         person_events:
           create:
-            success: Event was successfully created
+            success_html: "Event was successfully created. <a href=\"%{link}\">See the event</a>."
           update:
-            success: Event was successfully updated
+            success_html: "Event was successfully updated. <a href=\"%{link}\">See the event</a>."
+

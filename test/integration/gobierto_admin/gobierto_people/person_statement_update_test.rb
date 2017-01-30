@@ -56,7 +56,7 @@ module GobiertoAdmin
                 end
               end
 
-              assert has_message?("Statement was successfully updated")
+              assert has_message?("Statement was successfully updated. See the statement.")
 
               within "form.edit_person_statement" do
                 assert has_field?("person_statement_title", with: "Statement Title")

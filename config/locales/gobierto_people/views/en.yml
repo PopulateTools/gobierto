@@ -35,7 +35,7 @@ en:
           subscribable_box:
             title: Receive %{person_name}'s updates in your inbox
           title: "%{person_name}'s agenda"
-          upcoming_events: Upcoming events
+          upcoming_events: Agenda
         show:
           event_data:
             event_attendees: Attendees
@@ -69,7 +69,7 @@ en:
         subscribable_box:
           title: Receive %{person_name}'s updates in your inbox
       upcoming_events:
-        title: Upcoming events
+        title: Agenda
         view_all: View all
     people_filter:
       all: All
@@ -91,7 +91,7 @@ en:
         subscribable_box:
           title: Receive a summary of the agendas of your representatives
         title: "%{site_name}'s member agendas"
-        upcoming_events: Upcoming events
+        upcoming_events: Agenda
     person_post_tags:
       show:
         filtering_by_tag: Filtering by "%{tag}"
@@ -114,7 +114,7 @@ en:
       index:
         events_summary:
           past_events: Past events
-          upcoming_events: Upcoming events
+          upcoming_events: Agenda
           view_all: View all
         gifts: Gifts
         people_summary:

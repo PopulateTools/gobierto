@@ -35,7 +35,7 @@ es:
           subscribable_box:
             title: Recibe actualizaciones en tu correo-e sobre la actividad de %{person_name}
           title: Agenda de %{person_name}
-          upcoming_events: Próximos eventos
+          upcoming_events: Agenda
         show:
           event_data:
             event_attendees: Asistentes
@@ -69,7 +69,7 @@ es:
         subscribable_box:
           title: Recibe actualizaciones en tu correo-e sobre la actividad de %{person_name}
       upcoming_events:
-        title: Próximos eventos
+        title: Agenda
         view_all: Ver todos
     people_filter:
       all: Todos
@@ -91,7 +91,7 @@ es:
         subscribable_box:
           title: Recibe un resumen de las agendas de tus representantes
         title: Agendas de los miembros de %{site_name}
-        upcoming_events: Próximos eventos
+        upcoming_events: Agenda
     person_post_tags:
       show:
         filtering_by_tag: Filtrando por "%{tag}"
@@ -114,7 +114,7 @@ es:
       index:
         events_summary:
           past_events: Eventos pasados
-          upcoming_events: Próximos eventos
+          upcoming_events: Agenda
           view_all: Ver todos
         gifts: Obsequios y regalos
         people_summary:

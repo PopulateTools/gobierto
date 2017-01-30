@@ -26,12 +26,16 @@ ca:
               date: Data
               event: Dsdeveniment
               location: Localització
+              status: Estat
             new: Nou esdeveniment
             past_events: Esdeveniments passats
             pending_events: Pendents de moderar
             published_events: Esdeveniments publicats
             title: Agenda
             view_event: Veure esdeveniment
+            visibility_level:
+              pending: Borrador
+              published: Publicat
           locations_form:
             header:
               address: Direcció

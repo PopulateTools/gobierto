@@ -19,6 +19,7 @@
   <th><%= t(".header.title") %></th>
   <th><%= t(".header.date") %></th>
   <th><%= t(".header.tags") %></th>
+  <th><%= t(".header.status") %></th>
   <th></th>
 </tr>
 
@@ -44,16 +45,17 @@
         <% end %>
       </td>
       <td>
-        <% if person_post.active? %>
-          <%= link_to gobierto_people_person_post_url(@person, person_post, domain: current_site.domain), target: "_blank", class: "view_item" do %>
-            <i class="fa fa-eye"></i>
-            <%= t(".view_post") %>
-          <% end %>
+        <% if person_post.draft? %>
+          <i class="fa fa-lock"></i>
         <% else %>
-          <div class="view_item">
-            <i class="fa fa-eye"></i>
-            <%= t(".view_post") %>
-          </div>
+          <i class="fa fa-check"></i>
+        <% end %>
+        <%= t(".visibility_level.#{person_post.visibility_level}") %>
+      </td>
+      <td>
+        <%= link_to gobierto_people_person_post_url(@person, person_post, domain: current_site.domain), target: "_blank", class: "view_item" do %>
+          <i class="fa fa-eye"></i>
+          <%= t(".view_post") %>
         <% end %>
       </td>
     </tr>

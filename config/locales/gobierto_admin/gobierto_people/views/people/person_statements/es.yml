@@ -16,8 +16,12 @@ es:
             header:
               date: Fecha
               statement: Declaración
+              status: Estado
             new: Nueva declaración
             title: Declaraciones
             view_statement: Ver declaración
+            visibility_level:
+              draft: Borrador
+              active: Publicada
           new:
             title: Nueva declaración

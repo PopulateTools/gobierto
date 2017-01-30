@@ -16,8 +16,12 @@ ca:
             header:
               date: Data
               statement: Declaració
+              status: Estat
             new: Nova declaració
             title: Declaracions
             view_statement: Veure declaració
+            visibility_level:
+              draft: Borrador
+              active: Publicada
           new:
             title: Nou declaració

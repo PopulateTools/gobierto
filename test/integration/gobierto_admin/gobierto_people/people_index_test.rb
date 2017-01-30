@@ -33,10 +33,11 @@ module GobiertoAdmin
 
                 within "tr#person-item-#{person.id}" do
                   if person.active?
-                    assert has_link?("View person")
+                    assert has_content?("Published")
                   else
-                    assert has_selector?(".view_item", text: "View person")
+                    assert has_content?("Draft")
                   end
+                  assert has_link?("View person")
                 end
               end
             end

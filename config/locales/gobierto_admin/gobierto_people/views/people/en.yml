@@ -31,6 +31,7 @@ en:
             person: Person
             posts: Posts
             statements: Statements
+            status: Status
           new: New person
           posts_count:
             one: One post
@@ -40,6 +41,9 @@ en:
             other: "%{count} statements"
           title: Persons
           view_person: View person
+          visibility_level:
+            draft: Draft
+            active: Published
         navigation:
           agenda: Agenda
           person: Person

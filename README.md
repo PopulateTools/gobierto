@@ -42,11 +42,12 @@ Los módulos agrupan funcionalidad, por ejemplo, los módulos actualmente desarr
 
 - Visualización de Presupuestos
 - Consultas sobre Presupuestos
+- Indicadores
 
 En desarrollo ahora mismo:
 
-- Indicadores
 - Altos Cargos y Agendas
+- Participación Ciudadana
 
 ## Desarrollo
 
@@ -57,6 +58,7 @@ Si quieres instalarte Gobierto en tu propio entorno o desarrollar algún módulo
 - [Acceder como Usuario](docs/user-namespace.md)
 - [Integrar la extensión Trackable](docs/trackable-extension.md)
 - [Integrar el componente DynamicContent](docs/dynamic-content-component.md)
+- [Desarrollar un módulo](docs/developing-module.md)
 
 ## Contribuir
 

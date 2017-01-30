@@ -18,6 +18,7 @@
   <th></th>
   <th><%= t(".header.statement") %></th>
   <th><%= t(".header.date") %></th>
+  <th><%= t(".header.status") %></th>
   <th></th>
 </tr>
 
@@ -38,16 +39,17 @@
         <%= l(person_statement.published_on, format: :short) %>
       </td>
       <td>
-        <% if person_statement.active? %>
-          <%= link_to gobierto_people_person_statement_url(@person, person_statement, domain: current_site.domain), target: "_blank", class: "view_item" do %>
-            <i class="fa fa-eye"></i>
-            <%= t(".view_statement") %>
-          <% end %>
+        <% if person_statement.draft? %>
+          <i class="fa fa-lock"></i>
         <% else %>
-          <div class="view_item">
-            <i class="fa fa-eye"></i>
-            <%= t(".view_statement") %>
-          </div>
+          <i class="fa fa-check"></i>
+        <% end %>
+        <%= t(".visibility_level.#{person_statement.visibility_level}") %>
+      </td>
+      <td>
+        <%= link_to gobierto_people_person_statement_url(@person, person_statement, domain: current_site.domain), target: "_blank", class: "view_item" do %>
+          <i class="fa fa-eye"></i>
+          <%= t(".view_statement") %>
         <% end %>
       </td>
     </tr>

@@ -33,10 +33,11 @@ module GobiertoAdmin
 
                 within "tr#person-statement-item-#{statement.id}" do
                   if statement.active?
-                    assert has_link?("View statement")
+                    assert has_content?("Published")
                   else
-                    assert has_selector?(".view_item", text: "View statement")
+                    assert has_content?("Draft")
                   end
+                  assert has_link?("View statement")
                 end
               end
             end

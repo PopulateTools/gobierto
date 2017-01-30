@@ -31,6 +31,7 @@ ca:
             person: Persona
             posts: Posts
             statements: Declaracions
+            status: Estat
           new: Nova persona
           posts_count:
             one: Un post
@@ -40,6 +41,9 @@ ca:
             other: "%{count} declaracions"
           title: Persones
           view_person: Veure persona
+          visibility_level: 
+            draft: Borrador
+            active: Publicat
         navigation:
           agenda: Agenda
           person: Persona

@@ -26,12 +26,16 @@ es:
               date: Fecha
               event: Evento
               location: Localización
+              status: Estado
             new: Nuevo evento
             past_events: Eventos pasados
             pending_events: Pendientes de moderar
             published_events: Eventos publicados
             title: Agenda
             view_event: Ver evento
+            visibility_level:
+              pending: Borrador
+              published: Publicado
           locations_form:
             header:
               address: Dirección

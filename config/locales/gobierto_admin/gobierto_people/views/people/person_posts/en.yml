@@ -18,8 +18,12 @@ en:
               date: Date
               tags: Tags
               title: Title
+              status: Status
             new: New post
             title: Blog
             view_post: View post
+            visibility_level:
+              draft: Draft
+              active: Published
           new:
             title: New post

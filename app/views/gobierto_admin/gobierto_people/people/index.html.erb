@@ -21,6 +21,7 @@
   <th><%= t(".header.events") %></th>
   <th><%= t(".header.statements") %></th>
   <th><%= t(".header.posts") %></th>
+  <th><%= t(".header.status") %></th>
   <th></th>
 </tr>
 
@@ -50,16 +51,17 @@
         <%= t(".posts_count", count: person.posts_count) %>
       </td>
       <td>
-        <% if person.active? %>
-          <%= link_to gobierto_people_person_url(person, domain: current_site.domain), target: "_blank", class: "view_item" do %>
-            <i class="fa fa-eye"></i>
-            <%= t(".view_person") %>
-          <% end %>
+        <% if person.draft? %>
+          <i class="fa fa-lock"></i>
         <% else %>
-          <div class="view_item">
-            <i class="fa fa-eye"></i>
-            <%= t(".view_person") %>
-          </div>
+          <i class="fa fa-check"></i>
+        <% end %>
+        <%= t(".visibility_level.#{person.visibility_level}") %>
+      </td>
+      <td>
+        <%= link_to gobierto_people_person_url(person, domain: current_site.domain), target: "_blank", class: "view_item" do %>
+          <i class="fa fa-eye"></i>
+          <%= t(".view_person") %>
         <% end %>
       </td>
     </tr>

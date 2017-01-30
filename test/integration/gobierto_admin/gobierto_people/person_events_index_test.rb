@@ -68,10 +68,11 @@ module GobiertoAdmin
 
                 within "tr#person-event-item-#{event.id}" do
                   if event.published?
-                    assert has_link?("View event")
+                    assert has_content?("Published")
                   else
-                    assert has_selector?(".view_item", text: "View event")
+                    assert has_content?("Draft")
                   end
+                  assert has_link?("View event")
                 end
               end
             end

@@ -46,6 +46,7 @@
   <th><%= t(".header.event") %></th>
   <th><%= t(".header.date") %></th>
   <th><%= t(".header.location") %></th>
+  <th><%= t(".header.status") %></th>
   <th></th>
 </tr>
 
@@ -68,16 +69,17 @@
       <td>
       </td>
       <td>
-        <% if person_event.published? %>
-          <%= link_to gobierto_people_person_event_url(@person, person_event, domain: current_site.domain), target: "_blank", class: "view_item" do %>
-            <i class="fa fa-eye"></i>
-            <%= t(".view_event") %>
-          <% end %>
+        <% if person_event.pending? %>
+          <i class="fa fa-lock"></i>
         <% else %>
-          <div class="view_item">
-            <i class="fa fa-eye"></i>
-            <%= t(".view_event") %>
-          </div>
+          <i class="fa fa-check"></i>
+        <% end %>
+        <%= t(".visibility_level.#{person_event.state}") %>
+      </td>
+      <td>
+        <%= link_to gobierto_people_person_event_url(@person, person_event, domain: current_site.domain), target: "_blank", class: "view_item" do %>
+          <i class="fa fa-eye"></i>
+          <%= t(".view_event") %>
         <% end %>
       </td>
     </tr>

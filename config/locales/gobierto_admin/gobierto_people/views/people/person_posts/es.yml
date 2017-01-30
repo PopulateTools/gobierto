@@ -18,8 +18,12 @@ es:
               date: Fecha
               tags: Tags
               title: Título
+              status: Estado
             new: Nuevo post
             title: Blog
             view_post: Ver post
+            visibility_level:
+              draft: Borrador
+              active: Publicado
           new:
             title: Nuevo post

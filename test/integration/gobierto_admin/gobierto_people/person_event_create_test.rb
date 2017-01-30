@@ -76,7 +76,7 @@ module GobiertoAdmin
                 end
               end
 
-              assert has_message?("Event was successfully created")
+              assert has_message?("Event was successfully created. See the event.")
 
               within "form.edit_person_event" do
                 assert has_field?("person_event_title", with: "Event Title")

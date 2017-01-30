@@ -41,7 +41,7 @@ module GobiertoAdmin
                 click_button "Create"
               end
 
-              assert has_message?("Post was successfully created")
+              assert has_message?("Post was successfully created. See the post.")
 
               within "form.edit_person_post" do
                 assert has_field?("person_post_title", with: "Post Title")

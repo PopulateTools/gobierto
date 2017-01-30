@@ -18,8 +18,12 @@ ca:
               date: Data
               tags: Tags
               title: Títol
+              status: Estat
             new: Nou post
             title: Blog
             view_post: Veure post
+            visibility_level:
+              draft: Borrador
+              active: Publicat
           new:
             title: Nou post

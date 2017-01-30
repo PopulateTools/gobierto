@@ -31,6 +31,7 @@ es:
             person: Persona
             posts: Posts
             statements: Declaraciones
+            status: Estado
           new: Nueva persona
           posts_count:
             one: Un post
@@ -40,6 +41,9 @@ es:
             other: "%{count} declaraciones"
           title: Personas
           view_person: Ver persona
+          visibility_level:
+            draft: Borrador
+            active: Publicada
         navigation:
           agenda: Agenda
           person: Persona

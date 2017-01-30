@@ -12,7 +12,7 @@ en:
             executive: Executive
             politician: Politician
           party:
-            government: Government
+            government: Government Team
             opposition: Opposition
           placeholders:
             charge: Alcalde

@@ -52,7 +52,7 @@ module GobiertoPeople
 
         within ".people-summary" do
           within ".people-filter" do
-            assert has_link?("Government")
+            assert has_link?("Government Team")
             assert has_link?("Opposition")
             assert has_link?("Executive")
             assert has_link?("All")

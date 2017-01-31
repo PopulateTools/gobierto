@@ -39,10 +39,13 @@ module GobiertoPeople
     end
 
     def test_welcome_index
+      home_text = "This is the welcome message"
+      site.gobierto_people_settings.create! key: "home_text_#{I18n.locale}", value: home_text
+
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("h1", text: "Know the people who work to make your city a better place to live.")
+        assert has_selector?("h1", text: home_text)
       end
     end
 

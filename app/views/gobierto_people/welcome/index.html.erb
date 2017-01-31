@@ -6,7 +6,7 @@
 
       <div class="p_h_2">
 
-        <h1><%= t(".title") %></h1>
+        <h1><%= @home_text || t(".title") %></h1>
 
         <h2><%= t(".people_summary.title", site_name: current_site.name) %></h2>
 

@@ -23,6 +23,7 @@ class Site < ApplicationRecord
   has_many :person_events, through: :people, source: :events, class_name: "GobiertoPeople::PersonEvent"
   has_many :person_posts, through: :people, source: :posts, class_name: "GobiertoPeople::PersonPost"
   has_many :person_statements, through: :people, source: :statements, class_name: "GobiertoPeople::PersonStatement"
+  has_many :gobierto_people_settings, class_name: "GobiertoPeople::Setting"
 
   serialize :configuration_data
 

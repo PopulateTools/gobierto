@@ -1,0 +1,8 @@
+---
+en:
+  gobierto_admin:
+    gobierto_people:
+      configuration:
+        settings:
+          update:
+            success: Setting updated successfully

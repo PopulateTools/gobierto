@@ -17,7 +17,8 @@
             "language": I18n.locale,
             "timepicker": true,
             "date-format": "yyyy-mm-dd",
-            "time-format": "hh:ii"
+            "time-format": "hh:ii",
+            "startDate": format_time(f, :starts_at)
           },
           class: "air-datepicker",
           readonly: !Rails.env.test?
@@ -30,7 +31,8 @@
             "language": I18n.locale,
             "timepicker": true,
             "date-format": "yyyy-mm-dd",
-            "time-format": "hh:ii"
+            "time-format": "hh:ii",
+            "startDate": format_time(f, :ends_at, 2)
           },
           class: "air-datepicker",
           readonly: !Rails.env.test?

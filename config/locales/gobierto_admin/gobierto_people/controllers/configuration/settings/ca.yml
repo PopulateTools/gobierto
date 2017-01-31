@@ -1,0 +1,8 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_people:
+      configuration:
+        settings:
+          update:
+            success: Preferencia actualitzada correctament

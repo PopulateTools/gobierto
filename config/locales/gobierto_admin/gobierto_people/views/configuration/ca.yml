@@ -11,7 +11,15 @@ ca:
               created: Creada
               political_group: Agrupació
             new: Nova agrupació
-            title: Agrupacions polítiques
           new:
             title: Nova agrupación
+        settings:
+          index:
+            update: Actualitzar
+            header:
+              key: Nom
+              value: Valor
+            settings:
+              home_text_es: Text home espanyol
+              home_text_ca: Text home català
         title: Configuració

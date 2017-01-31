@@ -58,6 +58,7 @@ Rails.application.routes.draw do
       end
 
       namespace :configuration do
+        resources :settings, only: [:index, :update], path: :settings
         resources :political_groups, only: [:index, :new, :create, :edit, :update], path: :groups
       end
 

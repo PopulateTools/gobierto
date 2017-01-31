@@ -1,18 +1,4 @@
-<div class="admin_breadcrumb">
-  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
-  <%= link_to t("gobierto_admin.gobierto_people.people.index.title"), admin_people_people_path %> »
-  <%= link_to t("gobierto_admin.gobierto_people.configuration.title"), admin_people_configuration_political_groups_path %>
-</div>
-
-<h1><%= t("gobierto_admin.gobierto_people.configuration.title") %></h1>
-
-<div class="tabs">
-  <ul>
-    <li class="active">
-      <%= link_to t(".title"), "#" %>
-    </li>
-  </ul>
-</div>
+<%= render 'gobierto_admin/gobierto_people/configuration/navigation' %>
 
 <div class="admin_tools right">
   <%= link_to t(".new"), new_admin_people_configuration_political_group_path, class: "button" %>

@@ -17,6 +17,15 @@ $(document).on('turbolinks:load', function() {
     var $fromDatePicker = $('.air-datepicker:eq(0)');
     var $toDatePicker = $('.air-datepicker:eq(1)');
 
+    // Datepicker end time
+    $toDatePicker.datepicker({
+      autoClose: true,
+      startDate: start,
+      onSelect: function onSelect(_, _, instance) {
+        $(instance.el).trigger("datepicker-change");
+      }
+    });
+
     // Datepicker start time
     $fromDatePicker.datepicker({
       autoClose: true,
@@ -27,16 +36,8 @@ $(document).on('turbolinks:load', function() {
         $toDatePicker.data('datepicker').selectDate(selectedDate);
       }
     });
-    // Datepicker end time
-    $toDatePicker.datepicker({
-      autoClose: true,
-      startDate: start,
-      onSelect: function onSelect(_, _, instance) {
-        $(instance.el).trigger("datepicker-change");
-      }
-    });
 
-    var date = $fromDatePicker.data('datepicker').date
+    var date = $fromDatePicker.data('datepicker').date;
     $fromDatePicker.data('datepicker').selectDate(date);
   }
 

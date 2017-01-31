@@ -2,6 +2,6 @@
   <% if I18n.locale == locale %>
     <strong><%= locale %></strong>
   <% else %>
-    <%= link_to locale, locale: locale %>
+    <%= link_to locale, {locale: locale}, data: { turbolinks: false } %>
   <% end %>
 <% end %>

@@ -40,6 +40,6 @@ en:
             header:
               address: Address
               place: Place
-            title: Locations
+            title: Place
           new:
             title: New evento

@@ -51,11 +51,13 @@
 
           <% @event.locations.each do |location| %>
             <div>
-              <strong><%= link_to location.name, external_location_service_url(location) %></strong>
+              <strong><%= link_to_if location.address?, location.name, external_location_service_url(location) %></strong>
             </div>
-            <div>
-              <%= location.address %>
-            </div>
+            <% if location.address? %>
+              <div>
+                <%= location.address %>
+              </div>
+            <% end %>
           <% end %>
 
         </div>

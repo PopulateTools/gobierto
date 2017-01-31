@@ -4,6 +4,6 @@ module GobiertoPeople
   class PersonEventLocation < ApplicationRecord
     belongs_to :person_event
 
-    validates :name, :address, presence: true
+    validates :name, presence: true
   end
 end

@@ -40,6 +40,6 @@ ca:
             header:
               address: Direcció
               place: Lloc
-            title: Localitzacions
+            title: Lloc
           new:
             title: Nou esdeveniment

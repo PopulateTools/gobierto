@@ -40,6 +40,6 @@ es:
             header:
               address: Dirección
               place: Lugar
-            title: Localizaciones
+            title: Lugar
           new:
             title: Nuevo evento

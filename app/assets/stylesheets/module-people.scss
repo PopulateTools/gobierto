@@ -129,3 +129,74 @@ body.gobierto_people.welcome.index {
     }
   }
 }
+
+.main_people_content {
+  padding: 0 0 0 5em;
+  box-sizing: border-box;
+
+  .person_header {
+    margin: 0 0 2em 0;
+    h1 {
+      margin: 0 0 .25em 0;
+      font-size: 2em;
+      font-weight: bold;
+    }
+    .person_charge, .person_party, .political_group {
+      display: inline-block;
+    }
+    .person_charge {
+      font-size: 2em;
+      font-weight: 200;
+      vertical-align: top;
+      margin: 0 1em 0 0;
+    }
+    .person_party, .political_group {
+      background: $color_1_soft;
+      font-size: .75em;
+      padding: .45em .75em;
+      margin: 0 1em 0 0;
+      @include border-radius(3px);
+      text-transform: uppercase;
+      color: $color_main;
+      font-weight: 600;
+      line-height: 1.2em;
+    }
+
+  }
+}
+
+.people-navigation {
+  ul, li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  li {
+    a {
+      padding: .5em 1.5em;
+      font-size: 1.15em;
+      font-weight: bold;
+      display: block;
+    }
+    a:hover {
+      background: $color_1_soft;
+    }
+  }
+}
+.contact-methods {
+  ul, li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  li {
+    a {
+      padding: .5em 1.5em;
+      display: block;
+    }
+    a:hover {
+      background: $color_1_soft;
+    }
+  }
+}
+

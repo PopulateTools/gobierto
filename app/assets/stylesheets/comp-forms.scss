@@ -126,6 +126,15 @@ button.light:hover, .button.light:hover {
   background: rgba($color_1, .3);
   text-decoration: none;
 }
+button.outline, .button.outline {
+  background: #FFF;
+  border: 1px solid transparentize($color_1, .75);
+  color: $color_main;
+}
+button.outline:hover, .button.outline:hover {
+  background: $color_1_soft;
+  text-decoration: none;
+}
 input[type="checkbox"], input[type="radio"] {
   display: none;
 }
@@ -372,4 +381,12 @@ trix-toolbar .button_group button.attach::before {
   border-top: 1px solid $color_separator;
   padding: 2em 0 0 0;
   margin: 2em 0 0 0;
+}
+
+.follow_item {
+  button, .button {
+    width: 100%;
+    margin: .5em 0 1em 0;  
+  }
+  
 }

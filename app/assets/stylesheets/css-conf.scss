@@ -2,8 +2,8 @@
  * CSS Conf
  *
  */
-$font_headings: 'Source Sans Pro';
-$font_text: 'Source Sans Pro';
+$font_headings: 'Source Sans Pro', 'Helvetica Neue', 'Arial','sans-serif';
+$font_text: 'Source Sans Pro', 'Helvetica Neue', 'Arial', 'sans-serif';
 $font_serif: 'Georgia, serif';
 
 /*
@@ -17,6 +17,8 @@ $color_1_dark: #00909E;
 */
 $color_text: #767168;
 $color_main: #00909E;
+$color_dark: #005D67;
+$color_dark_sep: transparentize($color_dark, .9);
 $color_1: $color_main;
 $color_1_soft: transparentize($color_main, .94);
 $background: $color_1;

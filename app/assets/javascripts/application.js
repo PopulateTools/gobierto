@@ -3,6 +3,7 @@
 //= require turbolinks
 //= require i18n/translations
 //= require jquery.magnific-popup.min
+//= require jquery.visible
 //= require sticky-kit.min
 //= require jquery-ui
 //= require html5sortable
@@ -44,6 +45,10 @@ function rebindAll() {
 
 function isDesktop(){
   return $(window).width() > 740;
+}
+
+function isMobile() {
+  return !isDesktop();
 }
 
 $(document).on('turbolinks:load', function() {

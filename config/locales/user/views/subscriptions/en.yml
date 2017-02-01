@@ -3,15 +3,15 @@ en:
   user:
     subscriptions:
       index:
-        title: Your alerts
+        cancel: Cancel subscription
         headers:
           title: Title
-        cancel: Cancel subscription
+        title: Your alerts
       subscribable_box:
-        subscribe: Subscribe
         cancel: Already subscribed. Cancel?
         disclaimer: No spam. Cancel anytime.
         form:
           placeholders:
             user_email: Your e-mail
           submit: Subscribe
+        subscribe: Subscribe

@@ -5,7 +5,7 @@ ca:
       application:
         indicators: Indicadors
       menu_subsections:
-        population: 'Població'
-        employment: 'Ocupació'
-        economy: 'Economia'
-        budgets: 'Pressupostos'
+        budgets: Pressupostos
+        economy: Economia
+        employment: Ocupació
+        population: Població

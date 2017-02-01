@@ -49,6 +49,9 @@ Rails.application.routes.draw do
 
     namespace :gobierto_people, as: :people, path: :people do
       resources :people, only: [:index, :new, :create, :edit, :update] do
+        collection do
+          resource :people_sort, only: [:create], controller: "people/people_sort", path: :people_sort
+        end
         resources :person_events, only: [:index, :new, :create, :edit, :update], controller: "people/person_events", as: :events, path: :events
         resources :published_person_events, only: [:index], controller: "people/published_person_events", as: :published_events, path: "events/published"
         resources :pending_person_events, only: [:index], controller: "people/pending_person_events", as: :pending_events, path: "events/pending"
@@ -58,6 +61,7 @@ Rails.application.routes.draw do
       end
 
       namespace :configuration do
+        resources :settings, only: [:index, :update], path: :settings
         resources :political_groups, only: [:index, :new, :create, :edit, :update], path: :groups
       end
 
@@ -77,7 +81,6 @@ Rails.application.routes.draw do
       resource :sessions, only: [:new, :create, :destroy]
       resource :registrations, only: [:create]
       resource :confirmations, only: [:new, :create]
-      resource :confirmation_requests, only: [:create]
       resource :passwords, only: [:create, :edit, :update]
       resource :census_verifications, only: [:show, :new, :create], path: :verifications
       resource :settings, only: [:show, :update]
@@ -151,11 +154,6 @@ Rails.application.routes.draw do
   namespace :gobierto_budgets, path: nil do
     constraints GobiertoSiteConstraint.new do
       get 'site' => 'sites#show'
-
-      # legal pages (TODO: we should merge them)
-      get 'privacy' => 'pages#privacy'
-      get 'legal' => 'pages#legal'
-      get 'cookie_warning' => 'pages#cookie_warning'
 
       resources :featured_budget_lines, only: [:show]
 

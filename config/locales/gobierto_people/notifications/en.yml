@@ -3,29 +3,29 @@ en:
   gobierto_people/person:
     notifications:
       subject:
-        created: "A person has been added"
-        name_changed: "A person has been updated"
-        charge_changed: "A person has been updated"
-        bio_changed: "A person has been updated"
-        visibility_level_changed: "A person has been updated"
+        bio_changed: A person has been updated
+        charge_changed: A person has been updated
+        created: A person has been added
+        name_changed: A person has been updated
+        visibility_level_changed: A person has been updated
   gobierto_people/person_event:
     notifications:
       subject:
-        created: "An event has been added"
-        title_changed: "An event has been updated"
-        starts_at_changed: "An event has been updated"
-        ends_at_changed: "An event has been updated"
-  gobierto_people/person_statement:
-    notifications:
-      subject:
-        created: "A statement has been added"
-        title_changed: "A statement has been updated"
-        published_on_changed: "A statement has been updated"
-        visibility_level_changed: "A statement has been updated"
+        created: An event has been added
+        ends_at_changed: An event has been updated
+        starts_at_changed: An event has been updated
+        title_changed: An event has been updated
   gobierto_people/person_post:
     notifications:
       subject:
-        created: "A post has been added"
-        title_changed: "A post has been updated"
-        body_changed: "A post has been updated"
-        visibility_level_changed: "A post has been updated"
+        body_changed: A post has been updated
+        created: A post has been added
+        title_changed: A post has been updated
+        visibility_level_changed: A post has been updated
+  gobierto_people/person_statement:
+    notifications:
+      subject:
+        created: A statement has been added
+        published_on_changed: A statement has been updated
+        title_changed: A statement has been updated
+        visibility_level_changed: A statement has been updated

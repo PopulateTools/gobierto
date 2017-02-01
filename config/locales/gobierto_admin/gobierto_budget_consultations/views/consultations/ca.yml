@@ -3,37 +3,38 @@ ca:
   gobierto_admin:
     gobierto_budget_consultations:
       consultations:
+        edit:
+          consultation_items_section: Partides
+          consultation_section: Consulta
+          title: Editar consulta
+        form:
+          hints:
+            description: Te recomanem descriure clarament el tipus de consulta.
+            title: Te recomanem fichar un títol concret i que identifique la consulta
+              de l'any en cuestió.
+          placeholders:
+            opening_date_range: Selecciona data d'inicio i fi
+            title: Consulta sobre els pressupostos de Burjassot 2016
+          visibility_level:
+            active: Publicada
+            draft: Borrador
         index:
-          title: Consultes sobre pressupostos
-          new: Nova consulta
-          view_consultation: Veure consulta
+          closes_on: Data de tancament
           header:
             consultation: Consulta
             results: Resultats
             status: Estat
+          new: Nova consulta
           opens_on: Data de apertura
-          closes_on: Data de tancament
           participations_count:
             one: Una participació
             other: "%{count} participacions"
+          title: Consultes sobre pressupostos
+          view_consultation: Veure consulta
           visibility_level:
-            draft: Borrador
             active: Publicada
-        edit:
-          title: Editar consulta
-          consultation_section: Consulta
-          consultation_items_section: Partides
+            draft: Borrador
         new:
-          title: Nova consulta
-          consultation_section: Consulta
           consultation_items_section: Partides
-        form:
-          placeholders:
-            title: Consulta sobre els pressupostos de Burjassot 2016
-            opening_date_range: Selecciona data d'inicio i fi
-          hints:
-            title: Te recomanem fichar un títol concret i que identifique la consulta de l'any en cuestió.
-            description: Te recomanem descriure clarament el tipus de consulta.
-          visibility_level:
-            draft: Borrador
-            active: Publicada
+          consultation_section: Consulta
+          title: Nova consulta

@@ -4,22 +4,26 @@ es:
     gobierto_people:
       people:
         person_posts:
-          index:
-            title: Blog
-            new: Nuevo post
-            view_post: Ver post
-            header:
-              title: Título
-              date: Fecha
-              tags: Tags
           edit:
             title: Editar post
-          new:
-            title: Nuevo post
           form:
             placeholders:
-              title: Sobre mí
               tags: personal, sobre mi, mi carrera
+              title: Sobre mí
+            visibility_level:
+              active: Publicado
+              draft: Borrador
+          index:
+            header:
+              date: Fecha
+              tags: Tags
+              title: Título
+              status: Estado
+            new: Nuevo post
+            title: Blog
+            view_post: Ver post
             visibility_level:
               draft: Borrador
               active: Publicado
+          new:
+            title: Nuevo post

@@ -49,13 +49,13 @@ module GobiertoAdmin
                 end
 
                 within ".person-party-radio-buttons" do
-                  find("label", text: "Government").click
+                  find("label", text: "Government Team").click
                 end
 
                 select political_group.name, from: "Political group"
 
                 within ".person-party-radio-buttons" do
-                  find("label", text: "Government").click
+                  find("label", text: "Government Team").click
                 end
 
                 # Simulate Bio rich text area
@@ -77,7 +77,7 @@ module GobiertoAdmin
                 end
               end
 
-              assert has_message?("Person was successfully created")
+              assert has_message?("Person was successfully created. See the person.")
               assert has_selector?("h1", text: "Person Name")
 
               within "form.edit_person" do
@@ -96,7 +96,7 @@ module GobiertoAdmin
 
                 within ".person-party-radio-buttons" do
                   with_hidden_elements do
-                    assert has_checked_field?("Government")
+                    assert has_checked_field?("Government Team")
                   end
                 end
 

@@ -9,8 +9,12 @@ class User::NewPasswordForm
   def save
     return false unless valid?
 
-    user.regenerate_reset_password_token
-    deliver_reset_password_email
+    if user.confirmed?
+      user.regenerate_reset_password_token
+      deliver_reset_password_email
+    else
+      deliver_confirmation_email
+    end
   end
 
   def user
@@ -22,4 +26,9 @@ class User::NewPasswordForm
   def deliver_reset_password_email
     User::UserMailer.reset_password_instructions(user, site).deliver_later
   end
+
+  def deliver_confirmation_email
+    User::UserMailer.confirmation_instructions(user, site).deliver_later
+  end
+
 end

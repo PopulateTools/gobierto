@@ -4,5 +4,5 @@ ca:
     admin:
       invitation_acceptances:
         show:
-          success: Sessió iniciada correctament
           error: Esta URL no pareix ser vàlida
+          success: Sessió iniciada correctament

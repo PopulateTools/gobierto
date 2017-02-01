@@ -4,6 +4,7 @@ en:
     gobierto_people:
       people:
         create:
-          success: Person was successfully created
+          success_html: "Person was successfully created. <a href=\"%{link}\">See the person</a>."
         update:
-          success: Person was successfully updated
+          success_html: "Person was successfully updated. <a href=\"%{link}\">See the person</a>."
+

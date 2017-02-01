@@ -4,20 +4,25 @@ en:
     gobierto_people:
       people:
         person_statements:
-          index:
-            title: Statements
-            new: New statement
-            view_statement: View statement
-            header:
-              statement: Statement
-              date: Date
           edit:
             title: Edit statement
-          new:
-            title: New statement
           form:
             placeholders:
               title: Statement of assets and activities
             visibility_level:
+              active: Published
+              draft: Draft
+          index:
+            header:
+              date: Date
+              statement: Statement
+              status: Status
+              status: Estat
+            new: New statement
+            title: Statements
+            view_statement: View statement
+            visibility_level:
               draft: Draft
               active: Published
+          new:
+            title: New statement

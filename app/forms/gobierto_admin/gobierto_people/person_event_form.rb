@@ -102,6 +102,8 @@ module GobiertoAdmin
       end
 
       def starts_at
+        @starts_at ||= (1.hour.from_now.beginning_of_hour + 1.day).localtime
+
         if @starts_at.respond_to?(:strftime)
           return @starts_at.strftime("%Y-%m-%d %H:%M")
         end

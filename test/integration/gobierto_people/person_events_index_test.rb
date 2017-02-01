@@ -48,7 +48,7 @@ module GobiertoPeople
         visit @path
 
         within ".filter_boxed" do
-          assert has_link?("Government")
+          assert has_link?("Government Team")
           assert has_link?("Opposition")
           assert has_link?("Executive")
           assert has_link?("All")
@@ -67,7 +67,7 @@ module GobiertoPeople
         visit @path
 
         within ".events-summary" do
-          assert has_content?("Upcoming events")
+          assert has_content?("Agenda")
           assert has_link?("Past events")
 
           upcoming_events.each do |event|

@@ -2,30 +2,30 @@
 ca:
   gobierto_admin:
     admins:
-      index:
-        title: Administradors
-        users_section: Usuaris
-        send_invitations: Enviar invitacions
-        new: Nou Administrador
-        view_admin: Veure Administrador
-        header:
-          admin: Administrador
-          email: Email
-          last_sign_in_at: Últim login
-          created_at: Creat
       edit:
         title: Editar Administrador
-      new:
-        title: Nou Administrador
       form:
-        password_block: Contrasenya
-        permissions_block: Permisos
-        sites_block: Sites amb accés
         activity_block: Log d'actividad
         authorization_level:
-          regular: Regular
-          manager: Manager
           disabled: Deshabilitat
+          manager: Manager
+          regular: Regular
+        password_block: Contrasenya
+        permissions_block: Permisos
         placeholders:
-          name: Fernando González
           email: fgonzalez@gmail.com
+          name: Fernando González
+        sites_block: Sites amb accés
+      index:
+        header:
+          admin: Administrador
+          created_at: Creat
+          email: Email
+          last_sign_in_at: Últim login
+        new: Nou Administrador
+        send_invitations: Enviar invitacions
+        title: Administradors
+        users_section: Usuaris
+        view_admin: Veure Administrador
+      new:
+        title: Nou Administrador

@@ -2,24 +2,24 @@
 es:
   gobierto_admin:
     users:
-      index:
-        title: Usuarios
-        admins_section: Administradores
-        census_configuration: Configuración de censo
-        view_user: Ver Usuario
-        header:
-          user: Usuario
-          email: Email
-          last_sign_in_at: Último login
-          created_at: Creado
-          verified: Verificado
       edit:
         title: Editar Usuario
       form:
-        password_block: Contraseña
         change_password: Cambiar contraseña
+        password_block: Contraseña
+        placeholders:
+          email: fgonzalez@gmail.com
+          name: Fernando González
         resend_welcome_email: Reenviar Email de bienvenida
         resend_welcome_email_notes: con enlace para cambiar la contraseña
-        placeholders:
-          name: Fernando González
-          email: fgonzalez@gmail.com
+      index:
+        admins_section: Administradores
+        census_configuration: Configuración de censo
+        header:
+          created_at: Creado
+          email: Email
+          last_sign_in_at: Último login
+          user: Usuario
+          verified: Verificado
+        title: Usuarios
+        view_user: Ver Usuario

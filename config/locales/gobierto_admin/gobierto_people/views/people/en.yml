@@ -3,47 +3,51 @@ en:
   gobierto_admin:
     gobierto_people:
       people:
-        navigation:
-          person: Person
-          agenda: Agenda
-          statements: Statements
-          posts: Blog
-        index:
-          title: Persons
-          new: New person
-          view_person: View person
-          configuration: Configuration
-          header:
-            person: Person
-            charge: Charge
-            events: Events
-            statements: Statements
-            posts: Posts
-          events_count:
-            one: One event
-            other: "%{count} events"
-          statements_count:
-            one: One statement
-            other: "%{count} statements"
-          posts_count:
-            one: One post
-            other: "%{count} posts"
         edit:
           title: Edit person
-        new:
-          title: New person
         form:
           avatar_file_constraints: User avatar (500x500 file)
           bio_file_constraints: Attach file (PDF)
+          category:
+            executive: Executive
+            politician: Politician
+          party:
+            government: Government Team
+            opposition: Opposition
           placeholders:
-            name: Rafael García
             charge: Alcalde
+            name: Rafael García
+          visibility_level:
+            active: Published
+            draft: Draft
+        index:
+          configuration: Configuration
+          events_count:
+            one: One event
+            other: "%{count} events"
+          header:
+            charge: Charge
+            events: Events
+            person: Person
+            posts: Posts
+            statements: Statements
+            status: Status
+          new: New person
+          posts_count:
+            one: One post
+            other: "%{count} posts"
+          statements_count:
+            one: One statement
+            other: "%{count} statements"
+          title: Persons
+          view_person: View person
           visibility_level:
             draft: Draft
             active: Published
-          category:
-            politician: Politician
-            executive: Executive
-          party:
-            government: Government
-            opposition: Opposition
+        navigation:
+          agenda: Agenda
+          person: Person
+          posts: Blog
+          statements: Statements
+        new:
+          title: New person

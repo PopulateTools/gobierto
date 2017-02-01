@@ -48,7 +48,6 @@ module GobiertoAdmin
 
         assert_equal 1, invalid_person_event_form.errors.messages[:person].size
         assert_equal 1, invalid_person_event_form.errors.messages[:title].size
-        assert_equal 1, invalid_person_event_form.errors.messages[:starts_at].size
         assert_equal 1, invalid_person_event_form.errors.messages[:ends_at].size
       end
     end

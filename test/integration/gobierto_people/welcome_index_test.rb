@@ -39,10 +39,13 @@ module GobiertoPeople
     end
 
     def test_welcome_index
+      home_text = "This is the welcome message"
+      site.gobierto_people_settings.create! key: "home_text_#{I18n.locale}", value: home_text
+
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("h1", text: "Know the people who work to make your city a better place to live.")
+        assert has_selector?("h1", text: home_text)
       end
     end
 
@@ -52,7 +55,7 @@ module GobiertoPeople
 
         within ".people-summary" do
           within ".people-filter" do
-            assert has_link?("Government")
+            assert has_link?("Government Team")
             assert has_link?("Opposition")
             assert has_link?("Executive")
             assert has_link?("All")
@@ -79,7 +82,7 @@ module GobiertoPeople
         visit @path
 
         within ".events-summary" do
-          assert has_content?("Upcoming events")
+          assert has_content?("Agenda")
           assert has_link?("Past events")
 
           upcoming_events.each do |event|

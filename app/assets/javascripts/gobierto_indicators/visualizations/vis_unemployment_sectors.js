@@ -9,6 +9,7 @@ var VisUnemploymentSectors = Class.extend({
     this.sectorsUrl = window.populateData.endpoint + '/datasets/ds-personas-paradas-municipio-sector.json?sort_asc_by=date&filter_by_location_id=' + city_id;
     this.timeFormat = d3.timeParse('%Y-%m');
     this.pctFormat = d3.format('.1%');
+    this.isMobile = window.innerWidth <= 768;
 
     // Chart dimensions
     this.margin = {top: 25, right: 10, bottom: 25, left: 0};
@@ -212,7 +213,7 @@ var VisUnemploymentSectors = Class.extend({
     return parseInt(d3.select(this.container).style('width'));
   },
   _height: function() {
-    return this._width() * 0.43;
+    return this.isMobile ? 200 : this._width() * 0.4;
   },
   _resize: function() {
     this.width = this._width();

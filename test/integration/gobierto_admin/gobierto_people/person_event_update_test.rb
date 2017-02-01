@@ -37,7 +37,7 @@ module GobiertoAdmin
                 fill_in "person_event_title", with: "Event Title"
                 fill_in "person_event_starts_at", with: "2017-01-01 00:00"
                 fill_in "person_event_ends_at", with: "2017-01-01 00:01"
-                fill_in "person_event_description", with: "Event Description"
+                find("#person_event_description", visible: false).set("Event Description")
 
                 within ".attachment_file_field" do
                   assert has_selector?("a")
@@ -86,14 +86,17 @@ module GobiertoAdmin
                 end
               end
 
-              assert has_message?("Event was successfully updated")
+              assert has_message?("Event was successfully updated. See the event.")
 
               within "form.edit_person_event" do
                 assert has_field?("person_event_title", with: "Event Title")
 
                 assert has_field?("person_event_starts_at", with: "2017-01-01 00:00")
                 assert has_field?("person_event_ends_at", with: "2017-01-01 00:01")
-                assert has_field?("person_event_description", with: "Event Description")
+                assert_equal(
+                  "<div>Event Description</div>",
+                  find("#person_event_description", visible: false).value
+                )
 
                 within ".attachment_file_field" do
                   assert has_selector?("a")

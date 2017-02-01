@@ -45,7 +45,7 @@ module GobiertoAdmin
                 click_button "Update"
               end
 
-              assert has_message?("Post was successfully updated")
+              assert has_message?("Post was successfully updated. See the post.")
 
               within "form.edit_person_post" do
                 assert has_field?("person_post_title", with: "Post Title")

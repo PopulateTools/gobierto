@@ -4,10 +4,10 @@ ca:
     gobierto_common:
       dynamic_content:
         form:
-          edit_content_block: Editar
-          delete_content_block: Eliminar bloc
-          delete_content_block_confirm: Estàs segur de voler eliminar aquest bloc?
-          add_content_block: Afegir nou bloc
           add_child: Afegir nou registre
+          add_content_block: Afegir nou bloc
           add_record: Afegir
           cancel_record: Cancel·lar
+          delete_content_block: Eliminar bloc
+          delete_content_block_confirm: Estàs segur de voler eliminar aquest bloc?
+          edit_content_block: Editar

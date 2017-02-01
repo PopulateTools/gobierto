@@ -3,19 +3,14 @@ es:
   user:
     sessions:
       new:
-        session_title: ¿Ya tienes cuenta? Haz login
         password_title: "¿No recuerdas tu contraseña? Te ayudamos:"
         registration_title: "¿Nuevo por aquí? Crea una cuenta gratis:"
-        confirmation_request_title: Reenviar instrucciones de confirmación
-      session_form:
-        password_section: ¿Contraseña?
-        confirmation_request_section: ¿Instrucciones de confirmación?
-        submit: Conectarse
+        session_title: "¿Ya tienes cuenta? Haz login"
+      new_password_form:
+        session_section: "¿Te acuerdas de la contraseña? Haz login"
+        submit: Recuperar
       registration_form:
         submit: Vamos
-      new_password_form:
-        session_section: ¿Te acuerdas de la contraseña? Haz login
-        submit: Recuperar
-      confirmation_request_form:
-        session_section: ¿Ya has confirmado tu cuenta? Haz login
-        submit: Solicitar
+      session_form:
+        password_section: "¿Contraseña?"
+        submit: Conectarse

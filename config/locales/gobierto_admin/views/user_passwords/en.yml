@@ -3,7 +3,7 @@ en:
   gobierto_admin:
     users:
       passwords:
-        new:
-          title: Change user password
         form:
           submit: Send
+        new:
+          title: Change user password

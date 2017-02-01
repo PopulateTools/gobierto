@@ -4,5 +4,6 @@ ca:
     users:
       welcome_messages:
         create:
+          error: El missatge de benvinguda no es pogué enviar. Per favor, inténta-ho
+            de nou.
           success: El missatge de benvinguda s'ha enviat
-          error: El missatge de benvinguda no es pogué enviar. Per favor, inténta-ho de nou.

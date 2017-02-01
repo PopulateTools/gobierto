@@ -3,5 +3,6 @@ en:
   user:
     registrations:
       create:
-        success: Please check your inbox to confirm your email address
         error: The data you entered doesn't seem to be valid. Please try again.
+        success: Please check your inbox to confirm your email address
+        email_taken: That email is already registered. Try login in or recovering your password

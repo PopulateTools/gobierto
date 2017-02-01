@@ -3,29 +3,29 @@ ca:
   gobierto_people/person:
     notifications:
       subject:
-        created: "S'ha afegit una persona"
-        name_changed: "S'ha actualitzat una persona"
-        charge_changed: "S'ha actualitzat una persona"
-        bio_changed: "S'ha actualitzat una persona"
-        visibility_level_changed: "S'ha actualitzat una persona"
+        bio_changed: S'ha actualitzat una persona
+        charge_changed: S'ha actualitzat una persona
+        created: S'ha afegit una persona
+        name_changed: S'ha actualitzat una persona
+        visibility_level_changed: S'ha actualitzat una persona
   gobierto_people/person_event:
     notifications:
       subject:
-        created: "S'ha afegit un esdeveniment"
-        title_changed: "S'ha actualitzat un esdeveniment"
-        starts_at_changed: "S'ha actualitzat un esdeveniment"
-        ends_at_changed: "S'ha actualitzat un esdeveniment"
-  gobierto_people/person_statement:
-    notifications:
-      subject:
-        created: "S'ha afegit una declaració"
-        title_changed: "S'ha actualitzat una declaració"
-        published_on_changed: "S'ha actualitzat una declaració"
-        visibility_level_changed: "S'ha actualitzat una declaració"
+        created: S'ha afegit un esdeveniment
+        ends_at_changed: S'ha actualitzat un esdeveniment
+        starts_at_changed: S'ha actualitzat un esdeveniment
+        title_changed: S'ha actualitzat un esdeveniment
   gobierto_people/person_post:
     notifications:
       subject:
-        created: "S'ha afegit un post"
-        title_changed: "S'ha actualitzat un post"
-        body_changed: "S'ha actualitzat un post"
-        visibility_level_changed: "S'ha actualitzat un post"
+        body_changed: S'ha actualitzat un post
+        created: S'ha afegit un post
+        title_changed: S'ha actualitzat un post
+        visibility_level_changed: S'ha actualitzat un post
+  gobierto_people/person_statement:
+    notifications:
+      subject:
+        created: S'ha afegit una declaració
+        published_on_changed: S'ha actualitzat una declaració
+        title_changed: S'ha actualitzat una declaració
+        visibility_level_changed: S'ha actualitzat una declaració

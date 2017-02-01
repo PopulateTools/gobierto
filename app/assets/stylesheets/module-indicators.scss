@@ -4,6 +4,15 @@
  */
 
 // Intro
+.gobierto_indicators h4 {
+	font-weight: 400;
+	text-align: left;
+	color: $text_soft;
+}
+.gobierto_indicators section {
+	padding-top: 2rem;
+	border-top: 1px solid #EBEBEB;
+}
 .intro_section {
 	padding: 5em 0 4em 0;
 	background: $color_main_negative;
@@ -17,82 +26,102 @@
 	font-size: 1.2em;
 }
 
-
 // Sections
 .section_headline {
+	font-weight: 400;
 	margin-bottom: 0.5em;
-	padding-bottom: 0.2em;
-	text-transform: none;
+	font-size: 2rem;
 }
 .section_desc {
 	margin-top: 0;
 }
-.main_graphic {
-	// height: 500px;
-}
-.small_graphic {
-	// height: 250px;
-}
 
 /* Graphics */
+.gobierto_indicators .axis path {
+	stroke: #BDBDBD;
+}
 #age_distribution {
 	position: relative;
 }
 #age_distribution .axis {
 	font-family: $font_text;
-	font-size: 0.75em;
+	font-size: 0.9em;
+}
+#age_distribution .axis text {
+	fill: $text_soft;
 }
 #age_distribution .y.axis .domain {
 	display: none;
 }
 #age_distribution .y.axis line {
-	stroke: $color_main_negative;
+	stroke: #ccc;
 	stroke-dasharray: 1, 2;
 }
 #age_distribution .chart_headline {
-	font-weight: 600;
 	margin-top: 0;
 }
+#age_distribution .focus {
+	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+}
+#age_distribution rect:hover {
+	fill: #657eb8;
+}
 
+#rent_distribution .chart_headline {
+	margin-top: 0;
+	margin-bottom: 0;
+}
 #rent_distribution .annotations {
+	color: $text_soft;
+	font-weight: 300;
 	position: relative;
 }
 #rent_distribution .annotations .arrow {
+	color: $color_text;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 #rent_distribution .pop-anno {
-	font-size: 0.75em;
 	position: absolute;
-	left: 0;
-	top: 110px;
+	font-size: 1rem;
+	background: white;
+	left: 10px;
+	top: 75px;
 }
 #rent_distribution .rent-anno {
-	font-size: 0.75em;
 	position: absolute;
-	right: 74px;
-	top: 14px;
+	font-size: 1rem;
+	background: white;
+  right: 2%;
+  top: 75px;
 }
 #rent_distribution .axis {
 	font-family: $font_text;
-	font-size: 0.75em;
+	font-size: 0.9em;
 }
-#rent_distribution .y.axis .domain {
+#rent_distribution .axis .domain {
 	display: none;
 }
-#rent_distribution .y.axis .tick line {
-	stroke: #eee;
+#rent_distribution .axis .tick line {
+	stroke-dasharray: 2,2;
+	stroke: #dcdcdc;
+}
+#rent_distribution .axis .tick text {
+	fill: $text_soft;
+}
+#rent_distribution .x.axis .tick text {
+	font-weight: 600;
 }
 #rent_distribution .circles .selected-city {
-	stroke: $color_text;
+	stroke: #111;
 }
 #rent_distribution .text-label {
-	font-size: 0.85em;
-	font-weight: 700;
+	font-size: 1em;
+	font-weight: 600;
 	text-shadow: 0 0 5px white;
-	fill: $color_text;
 }
 #rent_distribution circle {
 	pointer-events: none;
+	fill-opacity: 0.7;
 }
 #rent_distribution .tooltip {
   border-radius: 2px;
@@ -102,7 +131,7 @@
   border: 1px solid #ccc;
   box-shadow: 0 0px 3px rgba(0,0,0,0.2);
   background: rgba(255,255,255,0.98);
-  font-size: 14px;
+  font-size: 1em;
   color: #111;
   text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff;
   pointer-events: none;
@@ -114,7 +143,6 @@
   font-weight: 600;
   margin-bottom: 0.5rem;
   font-size: 1.05rem;
-	color: $color_text;
 }
 #rent_distribution .tooltip-table {
   line-height: 1.4;
@@ -130,7 +158,10 @@
 
 #unemployment_age .axis {
 	font-family: $font_text;
-	font-size: 0.75em;
+	font-size: 0.9em;
+}
+#unemployment_age .axis .tick text {
+	fill: $text_soft;
 }
 #unemployment_age .line {
   fill: none;
@@ -156,7 +187,10 @@
 
 #unemployment_sectors .axis {
 	font-family: $font_text;
-	font-size: 0.75em;
+	font-size: 0.9em;
+}
+#unemployment_sectors .axis .tick text {
+	fill: $text_soft;
 }
 #unemployment_sectors .line {
   fill: none;
@@ -195,9 +229,31 @@
 	.r_mr {
 		margin-right: 1.5em;
 	}
+	.gobierto_indicators h4 {
+		text-align: center;
+	}
 	#age_distribution .chart_headline {
-		margin-top: 2rem;
+		text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
 		position: absolute;
-		left: 2em;
+		right: 0;
+	}
+	#rent_distribution {
+		margin-top: 2rem;
+	}
+	#rent_distribution .chart_headline {
+		margin-top: 0;
+		position: absolute;
+		left: 10px;
+	}
+	#rent_distribution .pop-anno,
+	#rent_distribution .rent-anno {
+		font-size: 1.25rem;
+	}
+	#rent_distribution .rent-anno {
+	  right: 8.75%;
+	  top: 50px;
+	}
+	#rent_distribution .text-label {
+		font-size: 1.25rem;
 	}
 }

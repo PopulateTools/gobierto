@@ -1,5 +1,9 @@
 ---
 es:
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'La validación falló: %{errors}'
   date:
     abbr_day_names:
     - dom
@@ -89,6 +93,9 @@ es:
       x_seconds:
         one: 1 segundo
         other: "%{count} segundos"
+      x_years:
+        one: 1 año
+        other: "%{count} años"
     prompts:
       day: Día
       hour: Hora
@@ -101,7 +108,6 @@ es:
     messages:
       accepted: debe ser aceptado
       blank: no puede estar en blanco
-      present: debe estar en blanco
       confirmation: no coincide
       empty: no puede estar vacío
       equal_to: debe ser igual a %{count}
@@ -116,15 +122,16 @@ es:
       not_a_number: no es un número
       not_an_integer: debe ser un entero
       odd: debe ser impar
+      other_than: debe ser distinto de %{count}
+      present: debe estar en blanco
       record_invalid: 'La validación falló: %{errors}'
       restrict_dependent_destroy:
-        one: No se puede eliminar el registro porque existe un %{record} dependiente
         many: No se puede eliminar el registro porque existen %{record} dependientes
+        one: No se puede eliminar el registro porque existe un %{record} dependiente
       taken: ya está en uso
       too_long: es demasiado largo (%{count} caracteres máximo)
       too_short: es demasiado corto (%{count} caracteres mínimo)
       wrong_length: no tiene la longitud correcta (%{count} caracteres exactos)
-      other_than: debe ser distinto de %{count}
     template:
       body: 'Se encontraron problemas con los siguientes campos:'
       header:
@@ -137,6 +144,10 @@ es:
       create: Crear
       submit: Guardar
       update: Actualizar
+  locales:
+    ca: Catalán
+    en: Inglés
+    es: Castellano
   number:
     currency:
       format:
@@ -181,6 +192,7 @@ es:
     percentage:
       format:
         delimiter: ''
+        format: "%n%"
     precision:
       format:
         delimiter: ''
@@ -196,7 +208,3 @@ es:
       long: "%d de %B de %Y %H:%M"
       short: "%d de %b %H:%M"
     pm: pm
-  locales:
-    en: Inglés
-    es: Castellano
-    ca: Catalán

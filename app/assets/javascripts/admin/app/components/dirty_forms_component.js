@@ -26,7 +26,8 @@ this.GobiertoAdmin.DirtyFormsComponent = (function() {
     checkingForm.on("datepicker-change", _setDirty);
   }
 
-  function _setDirty() {
+  function _setDirty(e) {
+    console.log('_setDirty', e);
     isDirty = true;
   }
 

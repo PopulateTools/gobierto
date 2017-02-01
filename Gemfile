@@ -43,6 +43,7 @@ gem "simple_calendar", "~> 2.2"
 
 group :development, :test do
   gem "byebug", platform: :mri
+  gem "i18n-tasks"
 end
 
 group :test do
@@ -63,12 +64,4 @@ group :development do
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
   gem "puma"
-  gem "capistrano"
-  gem "capistrano-rbenv"
-  gem "capistrano-bundler"
-  gem "capistrano-rails"
-  gem "capistrano-passenger"
-  gem "capistrano-rails-console"
-  gem "capistrano-rails-log"
-  gem "capistrano-sidekiq"
 end

@@ -2,15 +2,15 @@
 en:
   user:
     confirmations:
-      new:
-        title: "Let's confirm your data:"
       form:
+        gender:
+          female: Female
+          male: Male
         hints:
           email: Your email address will be considered private at all times.
-          year_of_birth: This information will be considered private at all times.
           gender: This information will be considered private at all times.
-        gender:
-          male: Male
-          female: Female
+          year_of_birth: This information will be considered private at all times.
         submit: Save
-        your_gender_is: "You are..."
+        your_gender_is: You are...
+      new:
+        title: 'Let''s confirm your data:'

@@ -4,5 +4,5 @@ en:
     users:
       passwords:
         create:
-          success: User password was successfully updated
           error: There was a problem changing your password
+          success: User password was successfully updated

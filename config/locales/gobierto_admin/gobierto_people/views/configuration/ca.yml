@@ -1,0 +1,25 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_people:
+      configuration:
+        political_groups:
+          edit:
+            title: Editar agrupació
+          index:
+            header:
+              created: Creada
+              political_group: Agrupació
+            new: Nova agrupació
+          new:
+            title: Nova agrupación
+        settings:
+          index:
+            update: Actualitzar
+            header:
+              key: Nom
+              value: Valor
+            settings:
+              home_text_es: Text home espanyol
+              home_text_ca: Text home català
+        title: Configuració

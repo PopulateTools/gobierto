@@ -2,24 +2,24 @@
 en:
   gobierto_admin:
     users:
-      index:
-        title: Users
-        admins_section: Administrators
-        census_configuration: Census configuration
-        view_user: View User
-        header:
-          user: User
-          email: Email
-          last_sign_in_at: Last sign in
-          created_at: Created
-          verified: Verified
       edit:
         title: Edit User
       form:
-        password_block: Password
         change_password: Change password
+        password_block: Password
+        placeholders:
+          email: fgonzalez@gmail.com
+          name: Fernando González
         resend_welcome_email: Resend welcome email
         resend_welcome_email_notes: including a link to set a new password
-        placeholders:
-          name: Fernando González
-          email: fgonzalez@gmail.com
+      index:
+        admins_section: Administrators
+        census_configuration: Census configuration
+        header:
+          created_at: Created
+          email: Email
+          last_sign_in_at: Last sign in
+          user: User
+          verified: Verified
+        title: Users
+        view_user: View User

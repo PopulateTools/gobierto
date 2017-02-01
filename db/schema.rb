@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170116072555) do
+ActiveRecord::Schema.define(version: 20170201120912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,6 +185,7 @@ ActiveRecord::Schema.define(version: 20170116072555) do
     t.integer  "political_group_id"
     t.integer  "category",           default: 0,  null: false
     t.integer  "party"
+    t.integer  "position",           default: 0,  null: false
     t.index ["admin_id"], name: "index_gp_people_on_admin_id", using: :btree
     t.index ["category", "party"], name: "index_gp_people_on_category_and_party", using: :btree
     t.index ["category"], name: "index_gp_people_on_category", using: :btree
@@ -260,6 +261,15 @@ ActiveRecord::Schema.define(version: 20170116072555) do
     t.datetime "updated_at",              null: false
     t.index ["admin_id"], name: "index_gp_political_groups_on_admin_id", using: :btree
     t.index ["site_id"], name: "index_gp_political_groups_on_site_id", using: :btree
+  end
+
+  create_table "gp_settings", force: :cascade do |t|
+    t.integer  "site_id"
+    t.string   "key",        default: "", null: false
+    t.string   "value",      default: "", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["site_id"], name: "index_gp_settings_on_site_id", using: :btree
   end
 
   create_table "sites", force: :cascade do |t|

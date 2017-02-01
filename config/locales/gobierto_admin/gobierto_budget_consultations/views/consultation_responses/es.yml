@@ -5,9 +5,9 @@ es:
       consultations:
         consultation_responses:
           index:
+            header:
+              budget_amount: Inversión propuesta
+              consultation_budget_amount: Inversión inicial planificada
+              date: Fecha
             title: Participaciones
             view_response: Ver Particpiación
-            header:
-              date: Fecha
-              consultation_budget_amount: Inversión inicial planificada
-              budget_amount: Inversión propuesta

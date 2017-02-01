@@ -20,7 +20,8 @@
                 "language": I18n.locale,
                 "timepicker": true,
                 "date-format": "yyyy-mm-dd",
-                "time-format": "hh:ii"
+                "time-format": "hh:ii",
+                "startDate": format_time(f, :starts_at)
               },
               class: "air-datepicker",
               readonly: !Rails.env.test?
@@ -35,7 +36,8 @@
                 "language": I18n.locale,
                 "timepicker": true,
                 "date-format": "yyyy-mm-dd",
-                "time-format": "hh:ii"
+                "time-format": "hh:ii",
+                "startDate": format_time(f, :ends_at, 2)
               },
               class: "air-datepicker",
               readonly: !Rails.env.test?
@@ -47,7 +49,7 @@
 
       <div class="form_item textarea">
         <%= f.label :description %>
-        <%= f.text_area :description %>
+        <%= f.rich_text_area :description %>
       </div>
 
       <div class="form_item file_field attachment_file_field">

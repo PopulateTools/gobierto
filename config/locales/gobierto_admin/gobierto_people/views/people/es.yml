@@ -3,47 +3,51 @@ es:
   gobierto_admin:
     gobierto_people:
       people:
-        navigation:
-          person: Persona
-          agenda: Agenda
-          statements: Declaraciones
-          posts: Blog
-        index:
-          title: Personas
-          new: Nueva persona
-          view_person: Ver persona
-          configuration: Configuración
-          header:
-            person: Persona
-            charge: Cargo
-            events: Eventos
-            statements: Declaraciones
-            posts: Posts
-          events_count:
-            one: Un evento
-            other: "%{count} eventos"
-          statements_count:
-            one: Una declaración
-            other: "%{count} declaraciones"
-          posts_count:
-            one: Un post
-            other: "%{count} posts"
         edit:
           title: Editar persona
-        new:
-          title: Nueva persona
         form:
           avatar_file_constraints: Avatar de usuario (fichero de 500x500)
           bio_file_constraints: Adjuntar fichero (PDF)
+          category:
+            executive: Directivo
+            politician: Político
+          party:
+            government: Equipo de Gobierno
+            opposition: Oposición
           placeholders:
-            name: Rafael García
             charge: Alcalde
+            name: Rafael García
+          visibility_level:
+            active: Publicada
+            draft: Borrador
+        index:
+          configuration: Configuración
+          events_count:
+            one: Un evento
+            other: "%{count} eventos"
+          header:
+            charge: Cargo
+            events: Eventos
+            person: Persona
+            posts: Posts
+            statements: Declaraciones
+            status: Estado
+          new: Nueva persona
+          posts_count:
+            one: Un post
+            other: "%{count} posts"
+          statements_count:
+            one: Una declaración
+            other: "%{count} declaraciones"
+          title: Personas
+          view_person: Ver persona
           visibility_level:
             draft: Borrador
             active: Publicada
-          category:
-            politician: Político
-            executive: Directivo
-          party:
-            government: Gobierno
-            opposition: Oposición
+        navigation:
+          agenda: Agenda
+          person: Persona
+          posts: Blog
+          statements: Declaraciones
+        new:
+          title: Nueva persona

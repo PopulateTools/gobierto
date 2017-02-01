@@ -49,6 +49,9 @@ Rails.application.routes.draw do
 
     namespace :gobierto_people, as: :people, path: :people do
       resources :people, only: [:index, :new, :create, :edit, :update] do
+        collection do
+          resource :people_sort, only: [:create], controller: "people/people_sort", path: :people_sort
+        end
         resources :person_events, only: [:index, :new, :create, :edit, :update], controller: "people/person_events", as: :events, path: :events
         resources :published_person_events, only: [:index], controller: "people/published_person_events", as: :published_events, path: "events/published"
         resources :pending_person_events, only: [:index], controller: "people/pending_person_events", as: :pending_events, path: "events/pending"

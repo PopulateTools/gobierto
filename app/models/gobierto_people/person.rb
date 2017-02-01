@@ -4,6 +4,7 @@ module GobiertoPeople
   class Person < ApplicationRecord
     include ::GobiertoCommon::DynamicContent
     include User::Subscribable
+    include GobiertoCommon::Sortable
 
     belongs_to :admin, class_name: "GobiertoAdmin::Admin"
     belongs_to :site
@@ -13,7 +14,7 @@ module GobiertoPeople
     has_many :statements, class_name: "PersonStatement", dependent: :destroy
     has_many :posts, class_name: "PersonPost", dependent: :destroy
 
-    scope :sorted, -> { order(created_at: :desc) }
+    scope :sorted, -> { order(position: :asc, created_at: :desc) }
     scope :by_site, ->(site) { where(site_id: site.id) }
 
     enum visibility_level: { draft: 0, active: 1 }

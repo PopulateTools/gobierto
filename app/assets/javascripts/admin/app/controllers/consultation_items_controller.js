@@ -28,7 +28,7 @@ this.GobiertoAdmin.ConsultationItemsController = (function() {
   }
 
   function _handleSortableList() {
-    var wrapper = "ul[data-behavior=sortable]"
+    var wrapper = "ul[data-behavior=sortable]";
     var positions = [];
 
     sortable(wrapper);

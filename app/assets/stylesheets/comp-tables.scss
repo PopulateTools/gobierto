@@ -141,3 +141,7 @@ th.icon_col {
 	width: 15px;
 }
 
+[data-behavior="sortable"] tr {
+  display: block;
+  width: 100%;
+}

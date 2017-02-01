@@ -10,6 +10,7 @@ richard:
   category: <%= GobiertoPeople::Person.categories["politician"] %>
   party: <%= GobiertoPeople::Person.parties["government"] %>
   political_group: marvel
+  position: 1
 
 tamara:
   site: madrid
@@ -23,3 +24,4 @@ tamara:
   category: <%= GobiertoPeople::Person.categories["executive"] %>
   party:
   political_group:
+  position: 2

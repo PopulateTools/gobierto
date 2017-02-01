@@ -112,6 +112,7 @@ module GobiertoAdmin
         %w(
         created_at updated_at
         events_count statements_count posts_count
+        position
         )
       end
     end

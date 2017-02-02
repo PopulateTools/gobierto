@@ -7,3 +7,4 @@ production:
   - default
   - user_verifications
   - mailers
+  - algoliasearch

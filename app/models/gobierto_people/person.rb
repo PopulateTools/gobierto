@@ -5,6 +5,14 @@ module GobiertoPeople
     include ::GobiertoCommon::DynamicContent
     include User::Subscribable
     include GobiertoCommon::Sortable
+    include AlgoliaSearch
+    include AlgoliaSearchGobierto
+    include Rails.application.routes.url_helpers
+
+    algoliasearch_gobierto do
+      attribute :site_id, :name, :charge, :bio
+      add_attribute :resource_path, :class_name
+    end
 
     belongs_to :admin, class_name: "GobiertoAdmin::Admin"
     belongs_to :site
@@ -20,5 +28,11 @@ module GobiertoPeople
     enum visibility_level: { draft: 0, active: 1 }
     enum category: { politician: 0, executive: 1 }
     enum party: { government: 0, opposition: 1 }
+
+    private
+
+    def resource_path
+      gobierto_people_person_path(self.id)
+    end
   end
 end

@@ -47,6 +47,12 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    algoliasearch (1.12.6)
+      httpclient (~> 2.8.3)
+      json (>= 1.5.1)
+    algoliasearch-rails (1.17.1)
+      algoliasearch (~> 1.12.4)
+      json (>= 1.5.1)
     ansi (1.5.0)
     arel (7.1.4)
     ast (2.3.0)
@@ -120,6 +126,7 @@ GEM
       activesupport (>= 4.1.0)
     hashdiff (0.3.0)
     highline (1.7.8)
+    httpclient (2.8.3)
     i18n (0.7.0)
     i18n-js (3.0.0.rc14)
       i18n (~> 0.6, >= 0.6.6)
@@ -309,6 +316,7 @@ PLATFORMS
 
 DEPENDENCIES
   actionpack-action_caching!
+  algoliasearch-rails (~> 1.17, >= 1.17.1)
   aws-sdk (~> 2.6)
   aws-ses (~> 0.6.0)
   bcrypt (~> 3.1.0)

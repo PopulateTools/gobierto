@@ -44,11 +44,11 @@ module GobiertoPeople
 
     def person_contact_methods
       @person_contact_methods ||= begin
-        object
-          .content_blocks
-          .find_by("title->'es' = ?", "Formas de contacto")
-          .records
-          .pluck(:payload)
+        if content_block = object.content_blocks.find_by("title->'es' = ?", "Formas de contacto")
+          content_block.records.pluck(:payload)
+        else
+          []
+        end
       end
     end
   end

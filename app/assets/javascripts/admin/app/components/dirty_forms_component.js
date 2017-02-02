@@ -1,5 +1,6 @@
 this.GobiertoAdmin.DirtyFormsComponent = (function() {
   var isDirty;
+  var t1, t2;
 
   function DirtyFormsComponent() {}
 
@@ -17,6 +18,8 @@ this.GobiertoAdmin.DirtyFormsComponent = (function() {
 
   function _handleDirtyFlag() {
     isDirty = false;
+    var date = new Date();
+    t1 = date.getTime();
 
     var checkingForm = $("form:not(.skip-dirty-check)");
 
@@ -27,8 +30,13 @@ this.GobiertoAdmin.DirtyFormsComponent = (function() {
   }
 
   function _setDirty(e) {
-    console.log('_setDirty', e);
-    isDirty = true;
+    var date = new Date();
+    t2 = date.getTime();
+    // For some reason, when the WYSIWYG has an image, it triggers a trix-change event.
+    // Here, we check if the time difference between the load and the event is big than 1 sec.
+    if(t2 - t1 > 1000) {
+      isDirty = true;
+    }
   }
 
   function _unsetDirty() {

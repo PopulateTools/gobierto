@@ -1,4 +1,8 @@
 default: &default
+  site:
+    name: 'gobierto_populate'
+    mixpanel_key: ''
+    google_analytics_key: ''
   site_modules:
     -
       name: Gobierto Development
@@ -32,9 +36,6 @@ default: &default
   gobierto_people:
     gifts_service_url: http://populate.tools/
     travels_service_url: http://populate.tools/
-  site:
-    mixpanel_key: ''
-    google_analytics_key: ''
   populate_data:
     endpoint: <%= ENV["POPULATE_DATA_ENDPOINT"] %>
   gobierto_indicators:

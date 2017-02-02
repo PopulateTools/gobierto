@@ -58,12 +58,14 @@ module GobiertoPeople
                 <tr>
                     <th>Service</th>
                     <th>URL</th>
+                    <th>Username</th>
                     <th>Notes</th>
                 </tr>
                 <tbody>
                     <tr>
                         <td>Twitter</td>
                         <td>https://twitter.com/richard</td>
+                        <td>@richard</td>
                         <td>Richard's Twitter account</td>
                     </tr>
                 </tbody>

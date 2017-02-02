@@ -171,21 +171,21 @@ ActiveRecord::Schema.define(version: 20170201120912) do
   create_table "gp_people", force: :cascade do |t|
     t.integer  "site_id"
     t.integer  "admin_id"
-    t.string   "name",               default: "", null: false
+    t.string   "name",               default: "",     null: false
     t.string   "charge"
     t.text     "bio"
     t.string   "bio_url"
-    t.integer  "visibility_level",   default: 0,  null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.integer  "visibility_level",   default: 0,      null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "avatar_url"
-    t.integer  "events_count",       default: 0,  null: false
-    t.integer  "statements_count",   default: 0,  null: false
-    t.integer  "posts_count",        default: 0,  null: false
+    t.integer  "events_count",       default: 0,      null: false
+    t.integer  "statements_count",   default: 0,      null: false
+    t.integer  "posts_count",        default: 0,      null: false
     t.integer  "political_group_id"
-    t.integer  "category",           default: 0,  null: false
+    t.integer  "category",           default: 0,      null: false
     t.integer  "party"
-    t.integer  "position",           default: 0,  null: false
+    t.integer  "position",           default: 999999, null: false
     t.index ["admin_id"], name: "index_gp_people_on_admin_id", using: :btree
     t.index ["category", "party"], name: "index_gp_people_on_category_and_party", using: :btree
     t.index ["category"], name: "index_gp_people_on_category", using: :btree

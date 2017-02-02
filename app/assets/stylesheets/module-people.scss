@@ -12,6 +12,7 @@ body.gobierto_people {
     object-fit: cover;
     width: 100%;
     height: auto;
+    display: block;
   }
 
   .people-grid {
@@ -115,6 +116,39 @@ body.gobierto_people {
     }
   }
 
+  .person_header_small {
+    .person-item {
+      border: none;
+      background: $color_neutral_soft;
+      padding: 0;
+
+      .person-name {
+        padding: 1em;
+      }
+    }
+    .contact-methods {
+      display: inline-block;
+      padding: .7em 0;
+      li {
+        display: inline-block;
+        a {
+          display: inline-block;  
+          padding: .25em;
+        }
+      }
+      span {
+        display: none;
+      }
+    }
+    .follow_item {
+      display: inline-block;
+      float: right;
+      .button {
+        padding: .5em 2em;
+      }
+    }
+  }
+
 }
 
 body.gobierto_people.welcome.index {
@@ -163,6 +197,7 @@ body.gobierto_people.welcome.index {
     }
 
   }
+
 }
 
 .people-navigation {
@@ -212,3 +247,4 @@ body.gobierto_people.welcome.index {
     margin: 1em 0 .5em 0;
   }
 }
+

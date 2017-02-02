@@ -3,25 +3,33 @@
   
   <% if @person.contact_email %>
     <li>
-      <%= mail_to '<i class="fa fa-envelope"></i>'.html_safe + @person.contact_email, @person.contact_email, target: 'blank' %>
+      <%= mail_to @person.contact_email, target: 'blank' do %>
+        <i class="fa fa-envelope"></i> <span><%= @person.contact_email %></span>
+      <% end %>
     </li>
   <% end %>
 
   <% if @person.twitter_url %>
     <li>
-      <%= link_to '<i class="fa fa-twitter"></i>'.html_safe + @person.twitter_handle, @person.twitter_url, target: 'blank' %>
+      <%= link_to @person.twitter_url, target: 'blank' do %>
+        <i class="fa fa-twitter"></i> <span><%= @person.twitter_handle %></span>
+      <% end %>
     </li>
   <% end %>
 
   <% if @person.facebook_url %>
     <li>
-      <%= link_to '<i class="fa fa-facebook"></i>'.html_safe + @person.facebook_handle, @person.facebook_url, target: 'blank' %>
+      <%= link_to @person.facebook_url, target: 'blank' do %>
+        <i class="fa fa-facebook"></i> <span><%= @person.facebook_handle %></span>
+      <% end %>
     </li>
   <% end %>
 
   <% if @person.twitter_url %>
     <li>
-      <%= link_to '<i class="fa fa-linkedin"></i>'.html_safe + @person.linkedin_handle, @person.linkedin_url, target: 'blank' %>
+      <%= link_to @person.linkedin_url, target: 'blank' do %>
+        <i class="fa fa-linkedin"></i> <span><%= @person.linkedin_handle %></span>
+      <% end %>
     </li>
   <% end %>
 

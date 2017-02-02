@@ -46,7 +46,7 @@ module GobiertoPeople
       @person_contact_methods ||= begin
         object
           .content_blocks
-          .find_by("title->'en' = ?", "Contact methods")
+          .find_by("title->'es' = ?", "Formas de contacto")
           .records
           .pluck(:payload)
       end

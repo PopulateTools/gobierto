@@ -49,6 +49,7 @@
 @import "comp-social_buttons";
 @import "comp-tables";
 @import "comp-tabs";
+@import "comp-text_content";
 @import "comp-indicator_widget";
 
 @import "comp-graph-treemap";
@@ -272,6 +273,21 @@ a.list_view_more {
 html.turbolinks-progress-bar::before {
   background-color: $color_main !important;
   height: 5px !important;
+}
+
+.download_file {
+  padding: .5em 1em;
+  @include border-radius(6px);
+  margin: 0 0 1em 1em;
+  display: inline-block;
+  border: 1px solid transparentize($color_main, .75);
+  text-decoration: none;
+  .fa {
+    opacity: .5;
+  }
+  .file_size {
+    opacity: .5;
+  }
 }
 
 @import "responsive";

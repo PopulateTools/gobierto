@@ -145,3 +145,33 @@ th.icon_col {
   display: block;
   width: 100%;
 }
+
+table.block_content {
+	th {
+		background: transparentize($color_main, .85);	
+		text-align: left; 
+		text-transform: uppercase;
+		color: transparentize($color_main, .5);
+		padding: .4em 1em .45em;
+		border: none;
+	}
+	td {
+		border: none;
+	}
+	// tr.even {
+	tr:visible:nth-child(2n-1) {
+		td {
+			background: transparentize($color_main, .95);	
+		}
+	}
+	tr:nth-child(2n-1) {
+		td {
+			background: transparentize($color_main, .95);	
+		}
+	}
+	tr:hover {
+		td {
+			background: transparentize($color_main, .9);	
+		}	
+	}
+}

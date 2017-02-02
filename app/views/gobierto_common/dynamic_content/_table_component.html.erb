@@ -2,7 +2,7 @@
 
   <% Array(content_blocks).each do |content_block| %>
     <h3><%= content_block.localized_title %></h3>
-    <table class="explore_slow">
+    <table class="block_content">
       <tr>
         <% Array(content_block.fields).each do |content_block_field| %>
           <th><%= content_block_field.localized_label %></th>

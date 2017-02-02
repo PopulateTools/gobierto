@@ -28,6 +28,8 @@ module GobiertoAdmin
             within "form.edit_user" do
               fill_in "user_name", with: "User Name"
 
+              sleep 2
+
               click_link "Change password"
 
               assert_equal(

@@ -51,7 +51,7 @@ es:
         index:
           past_events: Eventos pasados
           subscribable_box:
-            title: Recibe actualizaciones en tu correo-e sobre la actividad de %{person_name}
+            title: Recibe actualizaciones sobre la actividad de %{person_name}
           title: Agenda de %{person_name}
           upcoming_events: Agenda
         show:
@@ -71,7 +71,7 @@ es:
           title: El blog de %{person_name}, %{person_charge}
         show:
           subscribable_box:
-            title: Recibe actualizaciones en tu correo-e
+            title: Recibe actualizaciones
           title: El blog de %{person_name}, %{person_charge}
       person_statements:
         index:
@@ -81,11 +81,11 @@ es:
           other_statements:
             title: Otras declaraciones
           subscribable_box:
-            title: Recibe actualizaciones en tu correo-e
+            title: Recibe actualizaciones 
           title: Bienes y Actividades de %{person_name}
       show:
         subscribable_box:
-          title: Recibe actualizaciones en tu correo-e sobre la actividad de %{person_name}
+          title: Recibe actualizaciones sobre la actividad de %{person_name}
       upcoming_events:
         title: Agenda
         view_all: Ver todos

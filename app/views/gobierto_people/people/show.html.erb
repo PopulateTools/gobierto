@@ -35,13 +35,10 @@
       </div>
 
       <%= render "upcoming_events" %>
-      <%= render "latest_activity" %>
-
-      <div class="separator"></div>
-
       <%= render("user/subscriptions/subscribable_box",
                  subscribable: @person,
                  title: t(".subscribable_box.title", person_name: @person.name)) %>
+      <%= render "latest_activity" %>
 
     </div>
 

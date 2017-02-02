@@ -36,6 +36,9 @@ h1, h2, h3, h4 {
     top: 0;
   }
 }
+.block.slim {
+  font-size: .75em;
+}
 h1.light {
 	font-weight: 200;
 }
@@ -96,6 +99,9 @@ p.intro {
     height: 45px;
     padding: .25em 1em;
   }
+}
+.color_neutral_soft {
+  background: $color_neutral_soft;
 }
 .fully_linked {
   margin: 0 0 1em 0;

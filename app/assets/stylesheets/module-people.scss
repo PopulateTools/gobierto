@@ -200,3 +200,15 @@ body.gobierto_people.welcome.index {
   }
 }
 
+.upcoming-events {
+  padding: 1em;
+  box-sizing: border-box;
+  ul, li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  ul {
+    margin: 1em 0 .5em 0;
+  }
+}

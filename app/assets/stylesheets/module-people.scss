@@ -5,6 +5,11 @@
 
 body.gobierto_people {
 
+  h1, h2, h3 {
+    color: $color_main;
+  }
+
+
   .block + .person-item {
     margin-top: 2em;
   }
@@ -247,4 +252,3 @@ body.gobierto_people.welcome.index {
     margin: 1em 0 .5em 0;
   }
 }
-

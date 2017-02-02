@@ -3,6 +3,14 @@ require_dependency "gobierto_people"
 module GobiertoPeople
   class PersonEvent < ApplicationRecord
     include User::Subscribable
+    include AlgoliaSearch
+    include AlgoliaSearchGobierto
+    include Rails.application.routes.url_helpers
+
+    algoliasearch_gobierto do
+      attribute :site_id, :title, :description
+      add_attribute :resource_path, :class_name
+    end
 
     belongs_to :person, counter_cache: :events_count
 
@@ -40,6 +48,12 @@ module GobiertoPeople
 
     def upcoming?
       starts_at > Time.zone.now
+    end
+
+    private
+
+    def resource_path
+      gobierto_people_person_event_path(person.id, self.id)
     end
   end
 end

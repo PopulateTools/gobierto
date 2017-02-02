@@ -41,6 +41,9 @@ gem "aws-ses", "~> 0.6.0"
 # Calendar view component
 gem "simple_calendar", "~> 2.2"
 
+# Algolia client
+gem 'algoliasearch-rails', "~> 1.17", ">= 1.17.1"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"

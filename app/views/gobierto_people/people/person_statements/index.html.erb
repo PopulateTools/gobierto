@@ -1,9 +1,15 @@
 <%= render "gobierto_people/people/content_for_breadcrumb" %>
 
-<h1><%= t(".title", person_name: @person.name) %></h1>
+<div class="person_header">
+  <h1><%= t(".title", person_name: @person.name) %></h1>
+</div>
 
 <div class="statements-summary person_statement-list item-list">
 
-  <%= render @statements %>
+  <% if @statements.any? %>
+    <%= render @statements %>
+  <% else %>
+    <p>Todavía no se ha publicado ninguna declaración para esta persona.</p>
+  <% end %>
 
 </div>

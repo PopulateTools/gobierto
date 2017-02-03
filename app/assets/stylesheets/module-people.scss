@@ -117,7 +117,7 @@ body.gobierto_people {
         margin-top: 0;
       }
       .soft {
-        
+
       }
     }
   }
@@ -246,7 +246,7 @@ body.gobierto_people.welcome.index {
       font-weight: bold;
       display: block;
     }
-    a:hover {
+    a.active, a:hover {
       background: $color_1_soft;
     }
   }

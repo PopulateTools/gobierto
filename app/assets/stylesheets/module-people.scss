@@ -182,6 +182,29 @@ body.gobierto_people {
     }
   }
 
+  .person_post-data {
+    font-weight: 200;
+    color: $color_meta_text;
+    margin: 0 0 2em 0;
+
+    a {
+      opacity: .75;
+    }
+  }
+  .person_post-tags {
+    margin: 0 1em;
+    a {
+      margin: 0 .5em 0 0;
+    }
+  }
+  .blog_header {
+    font-size: .85em;
+    font-weight: bold;
+    margin: 0 0 2em 0;
+    text-transform: uppercase;
+    text-align: center;
+    color: $color_meta_text;
+  }
 }
 
 body.gobierto_people.welcome.index {

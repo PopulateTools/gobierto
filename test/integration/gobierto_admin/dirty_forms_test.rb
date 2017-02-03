@@ -26,6 +26,8 @@ module GobiertoAdmin
             visit @path
 
             within "form.edit_user" do
+              sleep 2
+
               fill_in "user_name", with: "User Name"
 
               click_link "Change password"

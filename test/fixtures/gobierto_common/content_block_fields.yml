@@ -12,12 +12,19 @@ contact_method_service_url:
   label: <%= { "en" => "URL", "es" => "URL" }.to_yaml.inspect %>
   position: 1
 
+contact_method_service_handle:
+  content_block: contact_methods
+  field_type: <%= ::GobiertoCommon::ContentBlockField.field_types["text"] %>
+  name: service_handle
+  label: <%= { "en" => "Username", "es" => "Nombre de usuario" }.to_yaml.inspect %>
+  position: 2
+
 contact_method_service_notes:
   content_block: contact_methods
   field_type: <%= ::GobiertoCommon::ContentBlockField.field_types["text"] %>
   name: service_notes
   label: <%= { "en" => "Notes", "es" => "Notas" }.to_yaml.inspect %>
-  position: 2
+  position: 3
 
 accomplishment_title:
   content_block: accomplishments

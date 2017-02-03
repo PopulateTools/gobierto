@@ -277,8 +277,8 @@ html.turbolinks-progress-bar::before {
 
 .download_file {
   padding: .5em 1em;
+  margin: -.5em 0 1em 1em;
   @include border-radius(6px);
-  margin: 0 0 1em 1em;
   display: inline-block;
   border: 1px solid transparentize($color_main, .75);
   text-decoration: none;

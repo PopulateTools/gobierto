@@ -8,35 +8,45 @@
   <h1><%= t(".title", person_name: @person.name) %></h1>
 </div>
 
-<h3>
-  <%= @statement.title %>
-  <small>(<%= l(@statement.published_on, format: :short) %>)</small>
-</h3>
+<div class="separator"></div>
 
-<% if @statement.attachment_url.present? %>
-  <div class="right">
-    <%= link_to @statement.attachment_url, class: "button small" do %>
-      <%= t(".download", file_size: number_to_human_size(@statement.attachment_size || 0)) %>
-    <% end %>
-  </div>
-<% end %>
+<div class="block">
 
-<div class="other-statements">
-  <div><%= t(".other_statements.title") %></div>
-
-  <div class="box">
-    <ul class="inner">
-      <% @other_statements.each do |statement| %>
-        <li>
-          <%= link_to statement.title, gobierto_people_person_statement_path(@person, statement) %>
-          (<%= l(statement.published_on, format: :short) %>)
-        </li>
+  <% if @statement.attachment_url.present? %>
+    <div class="download_file f_right">
+      <i class="fa fa-file-pdf-o"></i>
+      <%= link_to @statement.attachment_url do %>
+        <%= t(".download", file_size: number_to_human_size(@statement.attachment_size || 0)) %>
       <% end %>
-    </ul>
-  </div>
+    </div>
+  <% end %>
+
+  <h3 class="slim">
+    <%= @statement.title %>
+    <span class="soft">(<%= l(@statement.published_on, format: :short) %>)</span>
+  </h3>
+
+  <% if @other_statements.any? %>
+    <small><a href="#" class="open-other-statements">Ver anteriores</a></small>
+    <div class="other-statements">
+      <div class="box">
+        <ul class="inner">
+          <% @other_statements.each do |statement| %>
+            <li>
+              <%= link_to statement.title, gobierto_people_person_statement_path(@person, statement) %>
+              (<%= l(statement.published_on, format: :short) %>)
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
 </div>
 
-<div class="separator"></div>
+
+
+
 
 <%= render "gobierto_common/dynamic_content/table_component", content_blocks: @statement_content_blocks %>
 

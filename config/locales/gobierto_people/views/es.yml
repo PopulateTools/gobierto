@@ -53,7 +53,7 @@ es:
           subscribable_box:
             title: Recibe actualizaciones sobre la actividad de %{person_name}
           title: Agenda de %{person_name}
-          upcoming_events: Agenda
+          upcoming_events: Próximos eventos
         show:
           event_data:
             event_attendees: Asistentes

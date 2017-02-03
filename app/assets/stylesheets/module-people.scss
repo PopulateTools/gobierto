@@ -9,7 +9,6 @@ body.gobierto_people {
     color: $color_main;
   }
 
-
   .block + .person-item {
     margin-top: 2em;
   }
@@ -54,6 +53,9 @@ body.gobierto_people {
       padding: 0 0 0 1.5em;
       box-sizing: border-box;
     }
+    h4 {
+      margin: 0;
+    }
   }
   .post-item {
     h2 {
@@ -89,8 +91,26 @@ body.gobierto_people {
   .event-content {
     padding: 0 0 0 1.5em;
     box-sizing: border-box;
+    // border-bottom: 1px solid $color_separator;
     .meta {
       font-size: .85em;
+    }
+    h2 {
+      margin: .5em 0 .75em 0;
+    }
+    .event-data {
+      border-top: 1px solid $color_separator;
+    }
+    .event-description {
+      padding: 2em 0;
+    }
+    .person-item {
+      padding: 0 0 1em 0;
+      border: none;
+    }
+    .event-locations {
+      box-sizing: border-box;
+      padding: 0 0 0 2em;
     }
   }
 

@@ -1,5 +1,8 @@
 # Common subscribers (`Subscribers::Base` pattern)
 Subscribers::SiteActivity.attach_to('activities/sites')
+Subscribers::AdminActivity.attach_to('activities/admins')
+Subscribers::CensusActivity.attach_to('activities/census')
+Subscribers::UserActivity.attach_to('activities/users')
 
 # Custom subscribers
 ActiveSupport::Notifications.subscribe(/trackable/) do |*args|

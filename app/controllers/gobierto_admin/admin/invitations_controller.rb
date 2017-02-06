@@ -16,6 +16,7 @@ module GobiertoAdmin
             email_addresses: @admin_invitation_form.not_delivered_email_addresses.to_sentence
           )
         else
+          track_create_activity
           flash.now[:notice] = t(".success")
         end
       else
@@ -36,6 +37,14 @@ module GobiertoAdmin
 
     def get_sites
       Site.select(:id, :domain).all
+    end
+
+    def track_create_activity
+      Publishers::AdminActivity.broadcast_event("invitation_created", default_activity_params)
+    end
+
+    def default_activity_params
+      { ip: remote_ip, author: current_admin }
     end
   end
 end

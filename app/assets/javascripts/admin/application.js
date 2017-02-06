@@ -49,4 +49,9 @@ $(document).on('turbolinks:load', function() {
     }
   }
 
+  $('#site_visibility_level_active').on('click', function(e){
+    $('#site_username').val('');
+    $('#site_password').val('');
+  });
+
 });

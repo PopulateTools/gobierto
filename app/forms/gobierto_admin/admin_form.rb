@@ -23,7 +23,8 @@ module GobiertoAdmin
 
     validates :name, :email, presence: true
     validates :email, format: { with: Admin::EMAIL_ADDRESS_REGEXP }
-    validates :password, presence: true, confirmation: true
+    validates :password, presence: true, if: Proc.new { |f| f.admin.new_record? }
+    validates :password, confirmation: true, if: Proc.new { |f|  f.password != f.admin.password }
 
     def save
       return false unless valid?

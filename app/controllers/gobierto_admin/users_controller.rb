@@ -20,6 +20,7 @@ module GobiertoAdmin
       @user_form = UserForm.new(user_params.merge(id: params[:id]))
 
       if @user_form.save
+        track_update_activity
         redirect_to edit_admin_user_path(@user), notice: t(".success")
       else
         render :edit
@@ -57,6 +58,14 @@ module GobiertoAdmin
       gender
       notification_frequency
       )
+    end
+
+    def track_update_activity
+      Publishers::UserActivity.broadcast_event("user_updated", default_activity_params.merge({subject: @user_form.user, changes: @user_form.user.previous_changes.except(:updated_at)}))
+    end
+
+    def default_activity_params
+      { ip: remote_ip, author: current_admin }
     end
   end
 end

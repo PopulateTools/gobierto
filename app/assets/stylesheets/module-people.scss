@@ -128,27 +128,6 @@ body.gobierto_people {
     }
   }
 
-  .calendar-component {
-    padding: 1.5em;
-    margin: 1em 0;
-    text-align: center;
-    border: 1px solid $color_separator;
-
-    table {
-      border: 0;
-    }
-
-    th {
-      text-align: center;
-      border: 0;
-    }
-
-    td {
-      height: auto;
-      border: 0;
-    }
-  }
-
   .person_header_small {
     .person-item {
       border: none;
@@ -211,11 +190,23 @@ body.gobierto_people.welcome.index {
   .filter_boxed {
     ul {
       li {
+        margin: 0 .25em 1em 0;
         a {
-          padding: .25em 1em .2em;
-          margin: 0 .5em 0 0;
+          padding: .25em .5em .2em;
+          margin: 0;
         }
       }
+    }
+  }
+}
+body.gobierto_people {
+  .filter_boxed {
+    margin: 0;
+    .pure-menu-horizontal.pure-menu-scrollable {
+      padding: 0;
+    }
+    .sub_filter {
+      margin: 0 0 2em 0;
     }
   }
 }
@@ -303,3 +294,87 @@ body.gobierto_people.welcome.index {
     margin: 1em 0 .5em 0;
   }
 }
+
+.agenda-switcher {
+  @include border-radius(5px);
+  border: 2px solid transparentize($color_main, .8);
+  padding: 1em 1em .65em 1em;
+  box-sizing: border-box;
+  position: relative;
+  color: $color_main;
+  @include transition;
+
+  .hidden_options {
+    display: none;
+    z-index: 100;
+    @include box-shadow;
+    @include border-radius(5px);
+    border: 1px solid transparentize($color_main, .8);
+    position: absolute;
+    width: calc(100% + 2px);
+    padding: 1em;
+    background: #FFF;
+    left: -1px;
+    top: -1px;
+    box-sizing: border-box;
+    ul, li {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  p {
+    margin: 0;
+    opacity: .5;
+  }
+
+}
+.agenda-switcher:hover {
+  .hidden_options {
+    display: block;
+  }
+}
+
+// simple-calendar overrides
+.simple-calendar {
+  .next-month, .prev-month {
+    background: none;
+    opacity: .5;
+  }
+  .today {
+    background: $color_1;
+    color: #FFF;
+  }
+  th {
+    text-align: center;
+    font-weight: 200;
+    opacity: .5;
+  }
+  .day {
+    height: initial;
+  }
+
+}
+.calendar-component {
+  padding: 1.5em;
+  margin: 1em 0;
+  text-align: center;
+  border: 1px solid $color_separator;
+
+  table {
+    border: 0;
+  }
+
+  th {
+    text-align: center;
+    border: 0;
+  }
+
+  td {
+    height: auto;
+    border: 0;
+  }
+}
+
+
+  

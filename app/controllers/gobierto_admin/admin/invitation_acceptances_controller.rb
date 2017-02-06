@@ -15,6 +15,7 @@ module GobiertoAdmin
         admin.confirm!
         admin.update_session_data(remote_ip)
         sign_in_admin(admin.id)
+        track_accepted_activity
 
         # TODO. Redirect to Edit Profile URL to set a new password.
         #
@@ -22,6 +23,16 @@ module GobiertoAdmin
       else
         redirect_to new_admin_sessions_path, notice: t(".error")
       end
+    end
+
+    private
+
+    def track_accepted_activity
+      Publishers::AdminActivity.broadcast_event("invitation_accepted", default_activity_params.merge({subject: current_admin}))
+    end
+
+    def default_activity_params
+      { ip: remote_ip, author: current_admin }
     end
   end
 end

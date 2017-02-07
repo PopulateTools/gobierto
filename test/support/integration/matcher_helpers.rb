@@ -5,5 +5,11 @@ module Integration
         has_content?(text)
       end
     end
+
+    def has_alert?(text)
+      within ".alert" do
+        has_content?(text)
+      end
+    end
   end
 end

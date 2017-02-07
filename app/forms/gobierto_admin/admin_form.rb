@@ -2,8 +2,6 @@ module GobiertoAdmin
   class AdminForm
     include ActiveModel::Model
 
-    EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/
-
     attr_accessor(
       :id,
       :name,

@@ -24,7 +24,7 @@ module GobiertoAdmin
 
         def create
           @person_statement_form = PersonStatementForm.new(
-            person_statement_params.merge(person_id: @person.id)
+            person_statement_params.merge(person_id: @person.id, admin_id: current_admin.id, site_id: current_site.id)
           )
 
           if @person_statement_form.save
@@ -41,7 +41,7 @@ module GobiertoAdmin
         def update
           @person_statement = find_person_statement
           @person_statement_form = PersonStatementForm.new(
-            person_statement_params.merge(id: params[:id])
+            person_statement_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id)
           )
 
           if @person_statement_form.save

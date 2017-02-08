@@ -127,12 +127,22 @@
 
       <%= render "layouts/main_menu" %>
 
-      <menu class="nav">
-        <div class="column">
+      <div class="column">
+      
+        <menu class="nav">
+
           <%= render "layouts/breadcrumb" %>
           <%= content_for?(:module_sub_sections) ? yield(:module_sub_sections) : load_module_sub_sections(current_module) %>
-        </div>
-      </menu>
+
+          <div class="search_box slim_search">
+            <form>
+              <input type="text" placeholder="busca..." value="" >
+            </form>
+          </div>
+
+        </menu>
+
+      </div>
 
     </div>
 

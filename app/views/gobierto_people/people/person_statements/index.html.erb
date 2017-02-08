@@ -1,15 +1,29 @@
 <%= render "gobierto_people/people/content_for_breadcrumb" %>
 
-<div class="person_header">
-  <h1><%= t(".title", person_name: @person.name) %></h1>
-</div>
+<div class="pure-g">
 
-<div class="statements-summary person_statement-list item-list">
+  <div class="pure-u-1 pure-u-md-7-24">
 
-  <% if @statements.any? %>
-    <%= render @statements %>
-  <% else %>
-    <p>Todavía no se ha publicado ninguna declaración para esta persona.</p>
-  <% end %>
+    wadus 
+    
+  </div>
+
+  <div class="pure-u-1 pure-u-md-17-24 main_people_content">
+
+    <div class="person_header block">
+      <h2><%= t(".title", person_name: @person.name) %></h2>
+    </div>
+
+    <div class="statements-summary person_statement-list item-list">
+
+      <% if @statements.any? %>
+        <%= render @statements %>
+      <% else %>
+        <p>Todavía no se ha publicado ninguna declaración para esta persona.</p>
+      <% end %>
+
+    </div>
+
+  </div>
 
 </div>

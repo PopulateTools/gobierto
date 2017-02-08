@@ -26,10 +26,7 @@ module GobiertoAdmin
 
       trackable_on :consultation
 
-      notify_changed :title
       notify_changed :visibility_level
-      notify_changed :opens_on
-      notify_changed :closes_on
 
       def save
         save_consultation if valid?

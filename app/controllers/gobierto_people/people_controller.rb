@@ -11,9 +11,7 @@ module GobiertoPeople
       @person = PersonDecorator.new(find_person)
       @upcoming_events = @person.events.upcoming.sorted.first(3)
 
-      # TODO. Set up the Activty feature for Users and bind events.
-      #
-      @latest_activity = []
+      @latest_activity = ActivityCollectionDecorator.new(Activity.for_recipient(@person).limit(30))
     end
 
     private

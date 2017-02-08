@@ -29,6 +29,10 @@ module GobiertoPeople
     enum category: { politician: 0, executive: 1 }
     enum party: { government: 0, opposition: 1 }
 
+    def visible?
+      active?
+    end
+
     private
 
     def resource_path

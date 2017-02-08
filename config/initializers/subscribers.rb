@@ -3,6 +3,7 @@ Subscribers::SiteActivity.attach_to('activities/sites')
 Subscribers::AdminActivity.attach_to('activities/admins')
 Subscribers::CensusActivity.attach_to('activities/census')
 Subscribers::UserActivity.attach_to('activities/users')
+Subscribers::GobiertoPeopleActivity.attach_to('trackable')
 
 # Custom subscribers
 ActiveSupport::Notifications.subscribe(/trackable/) do |*args|

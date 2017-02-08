@@ -25,7 +25,7 @@ module GobiertoAdmin
 
         def create
           @person_event_form = PersonEventForm.new(
-            person_event_params.merge(person_id: @person.id)
+            person_event_params.merge(person_id: @person.id, admin_id: current_admin.id, site_id: current_site.id)
           )
 
           if @person_event_form.save
@@ -43,7 +43,7 @@ module GobiertoAdmin
         def update
           @person_event = find_person_event
           @person_event_form = PersonEventForm.new(
-            person_event_params.merge(id: params[:id])
+            person_event_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id)
           )
 
           if @person_event_form.save

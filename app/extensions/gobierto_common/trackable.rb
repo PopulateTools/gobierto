@@ -50,13 +50,12 @@ module GobiertoCommon
         return true
       end
 
-      if created?
-        publish_created
-        return true
-      end
-
       self.class.send(:changed_attributes_to_notify).each do |attribute_name|
         publish_changed(attribute_name)
+      end
+
+      if (@changed - self.class.send(:changed_attributes_to_notify)).any?
+        publish_updated
       end
 
       true
@@ -64,8 +63,8 @@ module GobiertoCommon
 
     protected
 
-    def publish_created
-      broadcast_event("created")
+    def publish_updated
+      broadcast_event("updated")
     end
 
     def publish_changed(attribute_name)
@@ -78,11 +77,11 @@ module GobiertoCommon
     end
 
     def event_payload
-      { gid: trackable.to_gid, site_id: trackable.site_id }
+      { gid: trackable.to_gid, site_id: trackable.site_id, admin_id: trackable.admin_id }
     end
 
     def store_changes
-      @changed   = trackable.changed
+      @changed   = trackable.changed.map(&:to_sym)
       @persisted = trackable.persisted?
 
       # Always return successfully to avoid halting execution.
@@ -90,15 +89,11 @@ module GobiertoCommon
     end
 
     def changed?(attribute_name)
-      Array(@changed).include?(attribute_name.to_s)
+      Array(@changed).include?(attribute_name.to_sym)
     end
 
     def updated?
       @persisted
-    end
-
-    def created?
-      !updated?
     end
   end
 end

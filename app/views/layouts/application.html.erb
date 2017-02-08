@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <% set_meta_tags twitter: { site: APP_CONFIG['site']['twitter_handle'] } %>
   <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -128,7 +129,6 @@
       <%= render "layouts/main_menu" %>
 
       <div class="column">
-      
         <menu class="nav">
 
           <%= render "layouts/breadcrumb" %>
@@ -140,20 +140,17 @@
             </form>
           </div>
 
-          <div class="social_links_container" data-share-text="">
+          <div class="social_links_container" data-share-text="" data-share>
             <a href="#" class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|XXX"><i class="fa fa-twitter"></i></a>
             <a href="#" class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|XXX"><i class="fa fa-facebook"></i></a>
             <% pending do %>
               <a href="#embed-graph-code" class="code open_modal"><i class="fa fa-code"></i></a>
             <% end %>
-          </div>  
+          </div>
 
         </menu>
-
       </div>
-
     </div>
-
   </header>
 
   <div class="container">

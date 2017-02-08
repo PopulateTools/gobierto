@@ -8,6 +8,8 @@ module GobiertoAdmin
 
       attr_accessor(
         :id,
+        :admin_id,
+        :site_id,
         :person_id,
         :title,
         :body,
@@ -22,8 +24,6 @@ module GobiertoAdmin
 
       trackable_on :person_post
 
-      notify_changed :title
-      notify_changed :body
       notify_changed :visibility_level
 
       def save
@@ -32,6 +32,22 @@ module GobiertoAdmin
 
       def person_post
         @person_post ||= person_post_class.find_by(id: id).presence || build_person_post
+      end
+
+      def admin_id
+        @admin_id ||= person.admin_id
+      end
+
+      def site_id
+        @site_id ||= person.site_id
+      end
+
+      def admin
+        @admin ||= Admin.find_by(id: admin_id)
+      end
+
+      def site
+        @site ||= Site.find_by(id: site_id)
       end
 
       def person_id

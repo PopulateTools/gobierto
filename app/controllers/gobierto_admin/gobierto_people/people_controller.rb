@@ -31,10 +31,7 @@ module GobiertoAdmin
 
       def create
         @person_form = PersonForm.new(
-          person_params.merge(
-            admin_id: current_admin.id,
-            site_id: current_site.id
-          )
+          person_params.merge(admin_id: current_admin.id, site_id: current_site.id)
         )
 
         if @person_form.save
@@ -54,7 +51,7 @@ module GobiertoAdmin
       def update
         @person = find_person
         @person_form = PersonForm.new(
-          person_params.merge(id: params[:id])
+          person_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id)
         )
 
         if @person_form.save

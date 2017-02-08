@@ -6,6 +6,8 @@ module GobiertoAdmin
 
       attr_accessor(
         :id,
+        :admin_id,
+        :site_id,
         :person_id,
         :title,
         :description,
@@ -26,12 +28,26 @@ module GobiertoAdmin
 
       trackable_on :person_event
 
-      notify_changed :title
-      notify_changed :starts_at
-      notify_changed :ends_at
+      notify_changed :state
 
       def save
         save_person_event if valid?
+      end
+
+      def admin_id
+        @admin_id ||= person_event.admin_id
+      end
+
+      def site_id
+        @site_id ||= person_event.site_id
+      end
+
+      def admin
+        @admin ||= Admin.find_by(id: admin_id)
+      end
+
+      def site
+        @site ||= Site.find_by(id: site_id)
       end
 
       def person_event

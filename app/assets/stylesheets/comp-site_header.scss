@@ -68,6 +68,7 @@ header.meta {
   }
   .site_header {
     padding: 0 0 1em 0;
+    position: relative;
     .logo {
       margin: 1.5em 0;
       img {
@@ -96,6 +97,19 @@ header.meta {
       border-top: 1px solid;
       border-bottom: 1px solid;
       border-color: transparentize($color_main, .8);
+      position: relative;
+      .search_box {
+        position: absolute;
+        right: 0;
+        top: 0;
+        text-align: right;
+        input {
+          width: 150px;
+          height: 34px;
+          padding: 0 .5em;
+          margin: 0;
+        }
+      }
       a {
         display: inline-block;
       }
@@ -162,7 +176,9 @@ header.meta {
     }
     menu.complete {
       display: none;
-      position: relative;
+      z-index: 100;
+      position: absolute;
+      width: 100%;
       margin: 0;
       padding: 3em 0 1em 0;
       color: #FFF;

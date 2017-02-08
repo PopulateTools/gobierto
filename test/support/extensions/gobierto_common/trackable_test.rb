@@ -13,16 +13,7 @@ module GobiertoCommon::TrackableTest
   def test_trackable_save
     assert trackable.save
     assert @trackable_publisher_spy.has_been_called?
-
-    event_payload = [
-      "created",
-      {
-        gid: trackable.trackable.to_gid,
-        site_id: trackable.site_id
-      }
-    ]
-
-    assert_trackable_publisher_call(event_payload)
+    assert_trackable_publisher_call
   end
 
   def test_trackable_notify?
@@ -41,11 +32,10 @@ module GobiertoCommon::TrackableTest
 
   private
 
-  def assert_trackable_publisher_call(event_payload)
+  def assert_trackable_publisher_call
     first_call = @trackable_publisher_spy.calls.first
 
     assert_equal Publishers::Trackable, first_call.object
-    assert_equal event_payload, first_call.args
     assert_nil first_call.result
   end
 end

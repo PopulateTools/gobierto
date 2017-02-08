@@ -29,9 +29,6 @@ module GobiertoAdmin
 
       trackable_on :person
 
-      notify_changed :name
-      notify_changed :charge
-      notify_changed :bio
       notify_changed :visibility_level
 
       def save

@@ -35,6 +35,7 @@ module GobiertoPeople
     end
 
     delegate :site_id, to: :person
+    delegate :admin_id, to: :person
 
     enum state: { pending: 0, published: 1 }
 
@@ -48,6 +49,10 @@ module GobiertoPeople
 
     def upcoming?
       starts_at > Time.zone.now
+    end
+
+    def visible?
+      published?
     end
 
     private

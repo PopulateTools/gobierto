@@ -130,7 +130,8 @@ module GobiertoAdmin
         assert_equal "site_created", event_name
         assert_includes event_payload, :ip
         assert_equal event_payload[:author], admin
-        assert_kind_of Site, event_payload[:subject]
+        assert_equal event_payload[:subject], Site.last
+        refute event_payload.include?(:changes)
       end
     end
 

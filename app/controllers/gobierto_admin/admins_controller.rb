@@ -39,6 +39,7 @@ module GobiertoAdmin
       set_authorization_levels
 
       if @admin_form.save
+        track_create_activity
         redirect_to admin_admins_path, notice: t(".success")
       else
         render :new
@@ -59,6 +60,7 @@ module GobiertoAdmin
       set_activities
 
       if @admin_form.save
+        track_update_activity
         redirect_to edit_admin_admin_path(@admin), notice: t(".success")
       else
         render :edit
@@ -117,6 +119,18 @@ module GobiertoAdmin
 
     def set_activities
       @activities = ActivityCollectionDecorator.new(Activity.admin_activities(@admin))
+    end
+
+    def track_create_activity
+      Publishers::AdminActivity.broadcast_event("admin_created", default_activity_params.merge({subject: @admin_form.admin}))
+    end
+
+    def track_update_activity
+      Publishers::AdminActivity.broadcast_event("admin_updated", default_activity_params.merge({subject: @admin_form.admin, changes: @admin_form.admin.previous_changes.except(:updated_at)}))
+    end
+
+    def default_activity_params
+      { ip: remote_ip, author: current_admin }
     end
   end
 end

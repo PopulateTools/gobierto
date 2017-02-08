@@ -21,8 +21,6 @@ module GobiertoAdmin
         within "form.edit_admin" do
           fill_in "admin_name", with: "Admin Name"
           fill_in "admin_email", with: "wadus@gobierto.dev"
-          fill_in "admin_password", with: "adminpassword"
-          fill_in "admin_password_confirmation", with: "adminpassword"
 
           within ".site-module-check-boxes" do
             check "Gobierto Development"
@@ -111,6 +109,63 @@ module GobiertoAdmin
 
           assert has_button?("Update", disabled: true)
         end
+      end
+    end
+
+    def test_admin_update_with_not_matching_passwords
+      with_signed_in_admin(manager_admin) do
+        visit edit_admin_admin_path(regular_admin)
+
+        within "form.edit_admin" do
+          fill_in "admin_name", with: "Admin Name"
+          fill_in "admin_email", with: "wadus@gobierto.dev"
+          fill_in "admin_password", with: "wadus"
+          fill_in "admin_password_confirmation", with: "foo"
+
+          within ".site-module-check-boxes" do
+            check "Gobierto Development"
+          end
+
+          within ".site-check-boxes" do
+            check "madrid.gobierto.dev"
+          end
+
+          within ".admin-authorization-level-radio-buttons" do
+            choose "Regular"
+          end
+
+          click_button "Update"
+        end
+
+        assert has_alert?("Password confirmation doesn't match Password")
+      end
+    end
+
+    def test_admin_update_with_no_password_confirmation
+      with_signed_in_admin(manager_admin) do
+        visit edit_admin_admin_path(regular_admin)
+
+        within "form.edit_admin" do
+          fill_in "admin_name", with: "Admin Name"
+          fill_in "admin_email", with: "wadus@gobierto.dev"
+          fill_in "admin_password", with: "wadus"
+
+          within ".site-module-check-boxes" do
+            check "Gobierto Development"
+          end
+
+          within ".site-check-boxes" do
+            check "madrid.gobierto.dev"
+          end
+
+          within ".admin-authorization-level-radio-buttons" do
+            choose "Regular"
+          end
+
+          click_button "Update"
+        end
+
+        assert has_alert?("Password confirmation doesn't match Password")
       end
     end
   end

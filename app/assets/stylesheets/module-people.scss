@@ -191,6 +191,7 @@ body.gobierto_people {
 
 body.gobierto_people.welcome.index {
   .filter_boxed {
+    margin: 0;
     ul {
       li {
         margin: 0 .25em 1em 0;
@@ -204,7 +205,6 @@ body.gobierto_people.welcome.index {
 }
 body.gobierto_people {
   .filter_boxed {
-    margin: 0;
     .pure-menu-horizontal.pure-menu-scrollable {
       padding: 0;
     }

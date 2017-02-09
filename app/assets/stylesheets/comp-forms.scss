@@ -77,8 +77,11 @@ input[type=submit], .button, button {
 input[type=submit]:hover, .button:hover, button:hover {
   background: darken($color_main, 10%);
 }
-button a {
+button a, a.button {
   color: #FFF;
+  text-decoration: none;
+}
+a.button:hover {
   text-decoration: none;
 }
 .button:hover, button {
@@ -100,13 +103,14 @@ button.gigantic, .button.gigantic {
   @include border-radius(2em);
   text-decoration: none;
 }
-button.small {
-  font-size: .95em;
-  padding: .45em 2em .3em;
+button.small, .button.small {
+  font-size: .85em;
+  padding: .45em 1em .3em;
   height: initial;
   line-height: 1.2em;
-  font-weight: 200;
-  @include border-radius(2em);
+  font-weight: 300;
+  @include border-radius(4px);
+  display: inline-block;
 }
 button.light:hover, .button.light:hover {
   background: rgba($color_main, .2);

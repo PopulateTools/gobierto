@@ -1,15 +1,15 @@
 
-<div class="column text_page">
+<div class="column text_page open_data">
 
 	<header class="text_page_header">
 
 		<h1>Tus notificaciones</h1>
-		<p>Desde esta página puedes descargar en formato reutilizable el contenido de este site. </p>
+		<p class="subtitle">Desde esta página puedes descargar en formato reutilizable el contenido de este site. </p>
 
 	</header>
 
 	<!-- si tenemos más de un módulo activado mostramos el navegador -->
-	<menu>
+	<menu class="inpage_section">
 	<ul>
 		<li><%= link_to 'Presupuestos', '', id: 'section-budgets' %></li>
 		<li><%= link_to 'Altos cargos y agendas', '', id: 'section-people' %></li>
@@ -18,6 +18,66 @@
 	</ul>
 	</menu>
 
-	<div class=""
+	<div class="pure-g data_block" id="section-budgets">
+		
+		<div class="pure-u-1 pure-u-md-7-24">
+			<h2>Presupuestos</h2>
+			<p></p>
+		</div>
+
+		<div class="pure-u-1 pure-u-md-17-24 main_content">
+
+			<div class="data_item">
+				<h3>Presupuesto</h3>
+				<%= link_to 'CSV', '', class: 'button small' %>
+				<p>Partidas de ingresos, gastos (económica y funcional).</p>
+			</div>
+
+			<div class="data_item">
+				<h3>Ejecución</h3>
+				<%= link_to 'CSV', '', class: 'button small' %>
+				<p>Partidas de ingresos, gastos (económica y funcional).</p>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="pure-g data_block" id="section-people">
+		
+		<div class="pure-u-1 pure-u-md-7-24">
+			<h2>Altos cargos y agendas</h2>
+			<p></p>
+		</div>
+
+		<div class="pure-u-1 pure-u-md-17-24 main_content">
+
+			<div class="data_item">
+				<h3>Cargos</h3>
+				<%= link_to 'CSV', '', class: 'button small' %> <%= link_to 'JSON', '', class: 'button small' %>
+				<p>Listado de los cargos, con sus datos de contacto, biografía, titulaciones, etc.</p>
+			</div>
+
+			<div class="data_item">
+				<h3>Agendas</h3>
+				<%= link_to 'CSV', '', class: 'button small' %> <%= link_to 'JSON', '', class: 'button small' %>
+				<p>Listado de los eventos (pasados y futuros) con título y descripción, asistentes, ubicación...</p>
+			</div>
+
+			<div class="data_item">
+				<h3>Declaraciones de bienes y actividades</h3>
+				<%= link_to 'CSV', '', class: 'button small' %> <%= link_to 'JSON', '', class: 'button small' %>
+				<p>Listado de las declaraciones de bienes y actividades y todos sus elementos.</p>
+			</div>
+
+			<div class="data_item">
+				<h3>Blogs</h3>
+				<%= link_to 'RSS', '', class: 'button small' %>
+				<p>Últimas entradas del conjunto de los blogs.</p>
+			</div>
+
+		</div>
+
+	</div>
 
 </div>

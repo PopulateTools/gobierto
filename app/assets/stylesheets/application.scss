@@ -309,5 +309,35 @@ html.turbolinks-progress-bar::before {
     margin: 0 .6em;
   }
 }
+.open_data {
+  h1 + .subtitle, h2 + .subtitle, h3 + .subtitle {
+    margin: -1em 0 2em 0;
+  }
+  .data_block {
+    border-top: 1px solid $color_separator;
+    padding: 2em 0;
+    margin: 2em 0;
+    h2, h3 {
+      margin-top: 0;
+    }
+    .data_item {
+      margin: 0 0 3em 0;
+      p {
+        margin: .5em 0;
+      }
+    }
+    h3 {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0;
+    }
+    h3 + .button.small {
+      margin-left: 1em;
+    }
+  }
+}
+
+
+
 
 @import "responsive";

@@ -214,3 +214,24 @@ p.intro {
   text-decoration: none;
   background: darken($color_1_soft, 15%); 
 }
+
+.inpage_section {
+  @include border-radius(4px);
+  text-align: center; 
+  background: $color_neutral_soft;
+  padding: 1em;
+  margin: 2em 0;
+  ul, li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  li {
+    display: inline-block;
+    a {
+      margin: 0 1em;
+    }
+  }
+
+}
+

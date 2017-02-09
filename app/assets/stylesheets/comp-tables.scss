@@ -141,11 +141,6 @@ th.icon_col {
 	width: 15px;
 }
 
-[data-behavior="sortable"] tr {
-  display: block;
-  width: 100%;
-}
-
 table.block_content {
 	th {
 		background: transparentize($color_main, .85);	

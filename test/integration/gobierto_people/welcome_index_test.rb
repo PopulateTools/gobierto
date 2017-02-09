@@ -45,7 +45,7 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("h1", text: home_text)
+        assert has_selector?("p", text: home_text)
       end
     end
 
@@ -54,7 +54,7 @@ module GobiertoPeople
         visit @path
 
         within ".people-summary" do
-          within ".people-filter" do
+          within ".filter_boxed" do
             assert has_link?("Government Team")
             assert has_link?("Opposition")
             assert has_link?("Executive")
@@ -95,30 +95,13 @@ module GobiertoPeople
       end
     end
 
-    def test_site_references_block
-      with_current_site(site) do
-        visit @path
-
-        within "ul.site-references" do
-          assert has_selector?("li", text: "Salaries and retributions")
-          assert has_link?("Salaries and retributions")
-
-          assert has_selector?("li", text: "Gifts")
-          assert has_link?("Gifts")
-
-          assert has_selector?("li", text: "Travels")
-          assert has_link?("Travels")
-        end
-      end
-    end
-
     def test_posts_block
       with_current_site(site) do
         visit @path
 
         within ".posts-summary" do
           latest_posts.each do |person_post|
-            assert has_selector?(".person_post-item", text: person_post.title)
+            assert has_selector?(".post-item", text: person_post.title)
             assert has_link?(person_post.title)
           end
 

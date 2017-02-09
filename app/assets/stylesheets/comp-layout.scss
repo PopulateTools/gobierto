@@ -3,46 +3,35 @@
  *
  */
 .column {
-	width: calc(100% - 6rem);
-	max-width: 1400px;
-	margin: auto;
+  width: calc(100% - 6rem);
+  max-width: 1400px;
+  margin: auto;
 }
 
+.main_content {
+  padding: 0 0 0 5em;
+  box-sizing: border-box;
+}
 
 /*
  * Footer
  *
  */
 footer {
-	padding: 5em 0;
-	font-size: .85em;
-	ul {
-	
-		margin: 0;
-		padding: 0;
-		list-style-type: none;
-		li {
-			margin: 0 1em 0 0;
-			display: inline-block;
-		}
-	}
-	a {
-		color: $color_text;
-		text-decoration: none;
-	}
-}
-
-
-/* test hack - column padding */
-.pure-g-ext-1-3 {
-	.pure-u-md-1-3:first-child {
-		margin-left: 0;
-	}
-	.pure-u-md-1-3:last-child {
-		margin-right: 0;
-	}
-	> .pure-u-md-1-3  {
-		width: 32%;
-		margin: 0 1%;
-	}
+  padding: 5em 0;
+  font-size: .85em;
+  ul {
+  
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    li {
+      margin: 0 1em 0 0;
+      display: inline-block;
+    }
+  }
+  a {
+    color: $color_text;
+    text-decoration: none;
+  }
 }

@@ -2,7 +2,7 @@
 
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
     <ul>
-      <li class="<%= class_if('active', controller_name == 'government_party_people') %>" >
+      <li class="<%= class_if('active', controller_name == 'government_party_people' || controller_name == 'welcome') %>" >
         <%= link_to t("gobierto_people.people_filter.parties.government"), gobierto_people_government_party_people_path %>
       </li>
       <li class="<%= class_if('active', controller_name == 'opposition_party_people') %>">

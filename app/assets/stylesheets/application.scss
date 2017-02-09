@@ -290,4 +290,24 @@ html.turbolinks-progress-bar::before {
   }
 }
 
+.download_open_data {
+  margin: 4em 0;
+  padding: 3em 0;
+  border-top: 1px solid $color_separator;
+  font-size: .75em;
+  a {
+    color: $color_meta_text;
+    width: 135px;
+    display: inline-block;
+    vertical-align: top;
+    line-height: 1.4em
+  }
+  a:hover {
+    color: darken($color_meta_text, 10%);
+  }
+  .fa {
+    margin: 0 .6em;
+  }
+}
+
 @import "responsive";

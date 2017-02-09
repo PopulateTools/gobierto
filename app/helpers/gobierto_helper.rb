@@ -25,18 +25,10 @@ module GobiertoHelper
     markdown = Redcarpet::Markdown.new(renderer, extensions)
 
     markdown.render(text).html_safe
+  end
 
-    def twitter_share(message, url)
-      short_url_length = 24
-      total_message_length = 140
-      signature = "En @gobierto: "
-      max_message_length = total_message_length - short_url_length - signature.length
-
-      to_share = signature
-      to_share += (message.length > max_message_length) ? message.slice(0, max_message_length - 3) + "..." : message
-      to_share += " "+url
-      to_share
-    end
+  def algolia_search_client
+    @algolia_search_client ||= GobiertoCommon::Search.new(current_site)
   end
 
   private

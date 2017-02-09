@@ -3,12 +3,12 @@ require_dependency "gobierto_people"
 module GobiertoPeople
   class PersonEvent < ApplicationRecord
     include User::Subscribable
-    include AlgoliaSearch
-    include AlgoliaSearchGobierto
-    include Rails.application.routes.url_helpers
+    include GobiertoCommon::Searchable
 
     algoliasearch_gobierto do
-      attribute :site_id, :title, :description
+      attribute :site_id, :title, :description, :updated_at
+      searchableAttributes ['title', 'description']
+      attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end
 
@@ -53,12 +53,6 @@ module GobiertoPeople
 
     def visible?
       published?
-    end
-
-    private
-
-    def resource_path
-      gobierto_people_person_event_path(person.id, self.id)
     end
   end
 end

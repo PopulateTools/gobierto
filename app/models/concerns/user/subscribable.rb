@@ -14,6 +14,7 @@ module User::Subscribable
   def to_path
     url_helpers.send("#{singular_route_key}_path", parameterize)
   end
+  alias_method :resource_path, :to_path
 
   def to_url(options = {})
     url_helpers.send(

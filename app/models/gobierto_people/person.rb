@@ -2,15 +2,15 @@ require_dependency "gobierto_people"
 
 module GobiertoPeople
   class Person < ApplicationRecord
-    include ::GobiertoCommon::DynamicContent
+    include GobiertoCommon::DynamicContent
     include User::Subscribable
     include GobiertoCommon::Sortable
-    include AlgoliaSearch
-    include AlgoliaSearchGobierto
-    include Rails.application.routes.url_helpers
+    include GobiertoCommon::Searchable
 
     algoliasearch_gobierto do
-      attribute :site_id, :name, :charge, :bio
+      attribute :site_id, :name, :charge, :bio, :updated_at
+      searchableAttributes ['name', 'charge', 'bio']
+      attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end
 
@@ -31,12 +31,6 @@ module GobiertoPeople
 
     def visible?
       active?
-    end
-
-    private
-
-    def resource_path
-      gobierto_people_person_path(self.id)
     end
   end
 end

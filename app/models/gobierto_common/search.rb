@@ -3,15 +3,17 @@ module GobiertoCommon
     def initialize(site)
       @site = site
     end
+    def search_in_indexes
+      add_quotes = -> x{"'#{x}'"}
 
-    def search(query)
-      results = Algolia.multiple_queries(build_queries(query))
-      results['results']
+      models_to_search.map do |model|
+        model.search_index_name
+      end.map(&add_quotes).join(',')
     end
 
-    private
-
     attr_reader :site
+
+    private
 
     def modules_to_search
       @modules_to_search ||= site.configuration.modules.map(&:constantize)
@@ -23,12 +25,6 @@ module GobiertoCommon
           gobierto_module.searchable_models
         end
       end.flatten.compact
-    end
-
-    def build_queries(query)
-      models_to_search.map do |model|
-        {index_name: model.search_index_name, query: query, filters: "site_id:#{site.id}"}
-      end
     end
   end
 end

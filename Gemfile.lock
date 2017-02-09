@@ -362,6 +362,7 @@ DEPENDENCIES
   poltergeist
   puma
   rails (~> 5.0, >= 5.0.1)
+  rails-html-sanitizer
   redcarpet
   responders
   rollbar

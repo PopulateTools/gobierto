@@ -10,7 +10,7 @@
 //= require mustache.min
 //= require velocity.min
 //= require velocity.ui.min
-//= require lodash.min.js
+//= require lodash.min
 //= require d3.min
 //= require d3-legend.min
 //= require d3-locale-es
@@ -22,11 +22,13 @@
 //= require air-datepicker/datepicker.min
 //= require air-datepicker/i18n/datepicker.es
 //= require air-datepicker/i18n/datepicker.en
+//= require algoliasearch.min
 //= require_directory ./settings/
 
 //= require module-admin
 //= require module-sessions
 //= require module-site_header
+//= require module-search
 
 //= require flight-for-rails
 //= require components/shareContent

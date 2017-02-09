@@ -110,7 +110,6 @@ Rails.application.routes.draw do
   namespace :gobierto_people, path: 'cargos-y-agendas' do
     constraints GobiertoSiteConstraint.new do
       get '/' => 'welcome#index', as: :root
-      get '/buscar' => 'search#index'
 
       resources :person_events, only: [:index], as: :events, path: 'todos-los-cargos/agendas/eventos'
       resources :government_party_person_events, only: [:index], as: :government_party_events, path: 'agendas/eventos'

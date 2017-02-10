@@ -54,11 +54,11 @@ $(document).on('turbolinks:load', function() {
     content.results.forEach(function(indexResults){
       indexResults.hits.forEach(function(d){
         var result = '<div class="result">' +
-					'<h2><a href="'+d.resource_path+'">' + (d['title'] || d['name']) + '</a>' +
+					'<h2><a href="'+d.resource_path+'">' + (d['title'] || d['name']) + '</a></h2>' +
 					'<div class="description">' +
             '<div>' + itemDescription(d) + '</div>' +
-						'<span class="item_type">' + itemType(d) + '</span>' +
-						'<span class="updated_at">' + itemUpdatedAt(d) + '</span>' +
+						'<span class="soft item_type">' + itemType(d) + '</span> · ' +
+						'<span class="soft updated_at">' + itemUpdatedAt(d) + '</span>' +
 					'</div>' +
 				'</div>';
 

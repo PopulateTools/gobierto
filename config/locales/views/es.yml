@@ -1,5 +1,6 @@
 ---
 es:
+  based_on: Web basada en 
   layouts:
     application:
       about_the_data: Sobre los datos

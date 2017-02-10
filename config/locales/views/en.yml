@@ -13,6 +13,7 @@ en:
         sign_in: Sign in
         sign_out: Sign out
         title: Your account
+      search: Search...
     gobierto_budget_consultations:
       application:
         about_the_data: About the data
@@ -56,3 +57,9 @@ en:
           sign_in: Sign in
           sign_out: Sign out
           title: Your account
+    search:
+      updated: Updated
+      person_item: Biography
+      person_post_item: Post
+      person_event_item: Event
+      person_statement_item: Statement

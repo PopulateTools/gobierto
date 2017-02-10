@@ -42,7 +42,12 @@ gem "aws-ses", "~> 0.6.0"
 gem "simple_calendar", "~> 2.2"
 
 # Algolia client
-gem 'algoliasearch-rails', "~> 1.17", ">= 1.17.1"
+gem "algoliasearch-rails", "~> 1.17"
+# Algolia client indexing sanitizer
+gem "rails-html-sanitizer"
+
+# Pagination
+gem "kaminari", "~> 1.0"
 
 group :development, :test do
   gem "byebug", platform: :mri

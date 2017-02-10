@@ -68,6 +68,7 @@ header.meta {
   }
   .site_header {
     padding: 0 0 1em 0;
+    position: relative;
     .logo {
       margin: 1.5em 0;
       img {
@@ -96,6 +97,36 @@ header.meta {
       border-top: 1px solid;
       border-bottom: 1px solid;
       border-color: transparentize($color_main, .8);
+      position: relative;
+      min-height: 4.85em;
+      .search_box {
+        position: absolute;
+        right: 0;
+        top: 10px;
+        margin-top: 0;
+        text-align: right;
+        input {
+          width: 150px;
+          height: 34px;
+          padding: 0 .5em;
+          margin: 0;
+        }
+      }
+      .social_links_container {
+        position: absolute;
+        right: 0;
+        bottom: 11px;
+        text-align: center;
+        font-size: .85em;
+        .fa {
+          margin: 0;
+        }
+        a {
+          padding: 0;
+          margin: 0 0 0 .5em;
+          width: 2.1em;
+        }
+      }
       a {
         display: inline-block;
       }
@@ -125,8 +156,9 @@ header.meta {
             a {
               text-transform: uppercase;
               text-decoration: none;
-              font-size: .85em;
-              padding: .5em 1.75em .4em;
+              font-size: 1em;
+              font-weight: 300;
+              padding: .5em 1.25em .4em;
               display: inline-block;
               opacity: .5;
             }
@@ -159,10 +191,35 @@ header.meta {
           } 
         }
       }
+      .search_result_list {
+        @include box-shadow(0, 0, 10px);
+        @include border-radius(4px);
+        // @mixin box-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4), $inset: "") {
+        width: 250px;
+        background: $color_neutral_soft;
+        position: absolute;
+        right: 0;
+        top: 3.5em;
+        z-index: 1000;
+        font-size: .85em;
+        line-height: 1.2em;
+        .result {
+          padding: 1em;
+          h2 {
+            margin: .25em 0;
+            font-size: 1rem;
+          }
+        }
+        .result:hover {
+          background: darken($color_neutral_soft, 2%);
+        }
+      }
     }
     menu.complete {
       display: none;
-      position: relative;
+      z-index: 100;
+      position: absolute;
+      width: 100%;
       margin: 0;
       padding: 3em 0 1em 0;
       color: #FFF;

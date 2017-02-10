@@ -24,6 +24,7 @@
       <th><%= t(".header.posts") %></th>
       <th><%= t(".header.status") %></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody data-behavior="sortable" data-sortable-target="<%= admin_people_people_sort_path %>">
@@ -43,15 +44,15 @@
         <%= person.charge %>
       </td>
       <td>
-        <%= t(".events_count", count: person.events_count) %>
+        <%= person.events_count %>
       </td>
       <td>
-        <%= t(".statements_count", count: person.statements_count) %>
+        <%= person.statements_count %>
       </td>
       <td>
-        <%= t(".posts_count", count: person.posts_count) %>
+        <%= person.posts_count %>
       </td>
-      <td>
+      <td class="visibility_level">
         <% if person.draft? %>
           <i class="fa fa-lock"></i>
         <% else %>
@@ -64,8 +65,8 @@
           <i class="fa fa-eye"></i>
           <%= t(".view_person") %>
         <% end %>
-        <i class="sort-handler fa fa-bars f_right"></i>
       </td>
+      <td><i class="sort-handler fa fa-bars f_right tipsit" title="Arrastra para reordenar"></i></td>
     </tr>
   <% end %>
   </tbody>

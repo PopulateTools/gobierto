@@ -6,11 +6,15 @@ table {
 	width: 100%;
 	td, th {
 		border-top: 1px solid transparentize($color_main, .85);
-		padding: .7em 1em .4em;
+		padding: .4em .5em .4em;
 		font-size: .85em;
+		line-height: 1.4em;
 		a {
 			display: inline-block;
 		}
+	}
+	th {
+		font-weight: 300;
 	}
 	td.qty {
 		text-align: right;
@@ -44,6 +48,9 @@ td.bar {
 		height: 18px;
 		@include border-radius(3px);
 	}
+}
+td.visibility_level {
+	white-space: nowrap;
 }
 .table_cont_round {
 	background: transparentize($color_main, .94); // rgba($color_main, .06);
@@ -147,7 +154,6 @@ table.block_content {
 		text-align: left; 
 		text-transform: uppercase;
 		color: transparentize($color_main, .5);
-		padding: .4em 1em .45em;
 		border: none;
 	}
 	td {
@@ -169,4 +175,7 @@ table.block_content {
 			background: transparentize($color_main, .9);	
 		}	
 	}
+}
+.sort-handler {
+	cursor: pointer;
 }

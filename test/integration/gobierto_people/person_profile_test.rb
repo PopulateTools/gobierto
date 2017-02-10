@@ -23,7 +23,7 @@ module GobiertoPeople
         visit @path
 
         assert has_selector?("h1", text: person.name)
-        assert has_selector?(".intro", text: person.charge)
+        assert has_selector?(".person_charge", text: person.charge)
       end
     end
 

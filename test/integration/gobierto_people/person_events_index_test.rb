@@ -52,9 +52,9 @@ module GobiertoPeople
           assert has_link?("Opposition")
           assert has_link?("Executive")
           assert has_link?("All")
+        end
 
-          assert has_content?("Political groups")
-
+        within ".sub_filter" do
           political_groups.each do |political_group|
             assert has_link?(political_group.name)
           end

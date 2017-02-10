@@ -11,10 +11,9 @@ module GobiertoPeople
       @site ||= sites(:madrid)
     end
 
-    def recent_people
-      @recent_people ||= [
-        gobierto_people_people(:richard),
-        gobierto_people_people(:tamara)
+    def government_people
+      @government_people ||= [
+        gobierto_people_people(:richard)
       ]
     end
 
@@ -67,7 +66,7 @@ module GobiertoPeople
             end
           end
 
-          recent_people.each do |person|
+          government_people.each do |person|
             assert has_selector?(".person-item", text: person.name)
             assert has_link?(person.name)
           end

@@ -27,7 +27,7 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          assert has_selector?("h3", text: "#{person.name}, #{person.charge}'s blog")
+          assert has_selector?(".blog_header", text: "#{person.name}, #{person.charge}'s blog")
           assert has_selector?("h1", text: person_post.title)
 
           Array(person_post.tags).each do |person_post_tag|

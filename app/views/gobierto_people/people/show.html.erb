@@ -30,8 +30,9 @@
 
         <div class="person_charge"><%= @person.charge %></div>
         <div class="person_party">Equipo de Gobierno</div>
-        <div class="political_group"><%= @person.political_group.name %></div>
-
+        <% if @person.political_group %>
+          <div class="political_group"><%= @person.political_group.name %></div>
+        <% end %>
       </div>
 
       <%= render "upcoming_events" %>

@@ -1,10 +1,9 @@
 <div class="person_event-item person-item pure-g">
-  
+
   <div class="date_badge pure-u-1 pure-u-md-1-6">
     <div class="day"><%= person_event.starts_at.day %></div>
-    <div class="month">XXX</div>
+    <div class="month"><%= l(person_event.starts_at, format: "%b").capitalize %></div>
     <div class="hour"><%= person_event.starts_at.strftime('%H:%M') %></div>
-    <%# l(person_event.starts_at, format: :short) %>
   </div>
 
   <div class="pure-u-1 pure-u-md-5-6 event-content">
@@ -13,8 +12,8 @@
 
     <div class="soft meta">
       <div>
-        <i class="fa fa-user"></i> 
-        <%= link_to person_event.person.name, person_event.person %> 
+        <i class="fa fa-user"></i>
+        <%= link_to person_event.person.name, person_event.person %>
         <%= person_event.person.charge %>
       </div>
 

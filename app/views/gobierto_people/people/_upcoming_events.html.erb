@@ -1,13 +1,13 @@
 <div class="upcoming-events box slim_box color_neutral_soft">
 
   <h3><i class="fa fa-calendar"></i> <%= t(".title") %></h3>
-  
+
   <% if @upcoming_events.any? %>
     <ul>
       <% @upcoming_events.each do |event| %>
         <li>
           <span class="soft">
-            <%= event.starts_at.day %> XXX [month] ·
+            <%= event.starts_at.day %> <%= l(event.starts_at, format: "%b").capitalize %> ·
           </span>
           <strong><%= link_to event.title, gobierto_people_person_event_path(@person, event) %></strong>
         </li>
@@ -15,7 +15,7 @@
     </ul>
     <small><%= link_to t(".view_all"), gobierto_people_person_events_path(@person) %></small>
   <% else %>
-    No hay eventos próximos en esta agenda.
-  <% end %>    
+    <%= t('.no_upcoming_events') %>
+  <% end %>
 
 </div>

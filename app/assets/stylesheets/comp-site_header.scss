@@ -98,6 +98,7 @@ header.meta {
       border-bottom: 1px solid;
       border-color: transparentize($color_main, .8);
       position: relative;
+      min-height: 4.85em;
       .search_box {
         position: absolute;
         right: 0;

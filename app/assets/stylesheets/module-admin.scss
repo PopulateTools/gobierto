@@ -206,6 +206,9 @@ body.gobierto_admin {
 
 /* Tabs modification */
 body.gobierto_admin {
+	.container {
+		max-width: 1800px;
+	}
 	.tabs {
 		margin: 0 0 2em 0;
 		ul {

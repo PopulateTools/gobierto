@@ -20,6 +20,8 @@ en:
         people: Officials
         statements: Statements
     people:
+      person:
+        picture: Picture of %{name}
       index:
         subscribable_box:
           title: Receive alerts in your inbox
@@ -45,6 +47,7 @@ en:
             title: Receive %{person_name}'s updates in your inbox
           title: "%{person_name}'s agenda"
           upcoming_events: Agenda
+          no_events: There are no events in this agenda
         show:
           event_data:
             event_attendees: Attendees
@@ -60,6 +63,7 @@ en:
       person_posts:
         index:
           title: "%{person_name}, %{person_charge}'s blog"
+          no_posts: There aren't posts published.
         show:
           subscribable_box:
             title: Receive updates in your inbox
@@ -67,6 +71,7 @@ en:
       person_statements:
         index:
           title: "%{person_name}'s goods and Activities"
+          no_statements: There aren't yet statems for this person.
         show:
           download: Download statement (%{file_size})
           other_statements:
@@ -74,12 +79,17 @@ en:
           subscribable_box:
             title: Receive updates in your inbox
           title: "%{person_name}'s goods and Activities"
+          view_previous: View previous
       show:
+        party:
+          government: Government
+          oposition: Oposition
         subscribable_box:
           title: Receive %{person_name}'s updates in your inbox
       upcoming_events:
         title: Agenda
         view_all: View all
+        no_upcoming_events: Ther eare no upcoming events
     people_filter:
       all: All
       categories:

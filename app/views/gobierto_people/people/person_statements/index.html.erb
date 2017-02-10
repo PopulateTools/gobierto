@@ -4,8 +4,8 @@
 
   <div class="pure-u-1 pure-u-md-7-24">
 
-    wadus 
-    
+    wadus
+
   </div>
 
   <div class="pure-u-1 pure-u-md-17-24 main_people_content">
@@ -19,7 +19,7 @@
       <% if @statements.any? %>
         <%= render @statements %>
       <% else %>
-        <p>Todavía no se ha publicado ninguna declaración para esta persona.</p>
+        <p><%= t('.no_statements') %></p>
       <% end %>
 
     </div>

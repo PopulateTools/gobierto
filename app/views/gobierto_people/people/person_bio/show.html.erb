@@ -3,7 +3,7 @@
 <div class="person_header">
 
   <h1><%= t(".title", person_name: @person.name) %></h1>
-  
+
 </div>
 
 <div class="separator"></div>
@@ -14,7 +14,6 @@
     <div class="download_file f_right">
       <i class="fa fa-file-pdf-o"></i>
       <strong><%= link_to t(".download"), @person.bio_url %></strong>
-      <span class="file_size">123 KB</span>
     </div>
   <% end %>
 

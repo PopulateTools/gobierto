@@ -38,6 +38,8 @@ es:
         subscribable_box:
           title: Recibe un resumen semanal de las agendas de tus representantes
     people:
+      person:
+        picture: Foto de %{name}
       index:
         subscribable_box:
           title: Recibe alertas en tu correo-e
@@ -63,6 +65,7 @@ es:
             title: Recibe actualizaciones sobre la actividad de %{person_name}
           title: Agenda de %{person_name}
           upcoming_events: Próximos eventos
+          no_events: No hay eventos en esta agenda.
         show:
           event_data:
             event_attendees: Asistentes
@@ -78,6 +81,7 @@ es:
       person_posts:
         index:
           title: El blog de %{person_name}, %{person_charge}
+          no_posts: Todavía no se ha publicado ningún post.
         show:
           subscribable_box:
             title: Recibe actualizaciones
@@ -85,6 +89,7 @@ es:
       person_statements:
         index:
           title: Bienes y Actividades de %{person_name}
+          no_statements: Todavía no se ha publicado ninguna declaración para esta persona.
         show:
           download: Descargar declaración (%{file_size})
           other_statements:
@@ -92,12 +97,17 @@ es:
           subscribable_box:
             title: Recibe actualizaciones 
           title: Bienes y Actividades de %{person_name}
+          view_previous: Ver anteriores
       show:
+        party:
+          government: Equipo de gobierno
+          oposition: Oposición
         subscribable_box:
           title: Recibe actualizaciones sobre la actividad de %{person_name}
       upcoming_events:
         title: Agenda
         view_all: Ver todos
+        no_upcoming_events: No hay eventos próximos en esta agenda
     people_filter:
       all: Todos
       categories:

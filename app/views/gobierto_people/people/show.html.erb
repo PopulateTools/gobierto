@@ -29,7 +29,7 @@
         <h1><%= @person.name %></h1>
 
         <div class="person_charge"><%= @person.charge %></div>
-        <div class="person_party">Equipo de Gobierno</div>
+        <div class="person_party"><%= t(".party.#{@person.party}") %></div>
         <% if @person.political_group %>
           <div class="political_group"><%= @person.political_group.name %></div>
         <% end %>

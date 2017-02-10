@@ -37,7 +37,7 @@
   <% if @events.any? %>
     <%= render @events %>
   <% else %>
-    No hay eventos en esta agenda.
-  <% end %>  
+    <%= t('.no_events') %>
+  <% end %>
 
 </div>

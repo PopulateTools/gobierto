@@ -48,6 +48,8 @@ function isDesktop(){
 
 $(document).on('turbolinks:load', function() {
 
+  rebindAll();
+
   // Include here common callbacks and behaviours
 
   // Tabs navigation

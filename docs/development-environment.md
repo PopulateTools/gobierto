@@ -25,8 +25,12 @@ Fill all the values of the new `.env` file.
 
 If you are using **rbenv** you should:
 
-1 - check you have [rbenv-vars](https://github.com/rbenv/rbenv-vars) plugin installed
-2 - symlink `.env` to `.rbenv-vars` file: `ln -s .env .rbenv-vars`
+1. Check you have [rbenv-vars](https://github.com/rbenv/rbenv-vars) plugin installed
+2. Symlink `.env` to `.rbenv-vars` file. Yo can do this by running:
+
+```shell
+$ ln -s .env .rbenv-vars
+```
 
 ### Set up
 
@@ -35,6 +39,8 @@ $ docker-compose up -d
 $ docker-compose run web bundle install
 $ docker-compose restart
 ```
+
+If you get a "*Couldn't connect to Docker daemon - you might need to run 'docker-machine start default'.*" error when running `docker-compose up -d`, but the docker machine is indeed running, you might want to take a look at [this issue](https://github.com/docker/compose/issues/2495#issuecomment-222230768).
 
 ### Seeding the databases
 

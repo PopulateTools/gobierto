@@ -10,24 +10,23 @@
 
     <div class="agenda-switcher m_v_2">
 
-      <div><strong>Consulta los blogs de...</strong></div>
-      <p><small><%= t(".agenda_switcher.subtitle") %></small></p>
+      <div><strong><%= t('.switcher.title') %></strong></div>
+      <p><small><%= t(".switcher.subtitle") %></small></p>
+
 
       <div class="hidden_options">
+        <% @people.each do |person| %>
         <ul>
-          <li><%= link_to 'Cargo 1' %></li>
-          <li><%= link_to 'Cargo 2' %></li>
-          <li><%= link_to 'Cargo 3' %></li>
-          <li><%= link_to 'Cargo 4' %></li>
+          <li><%= link_to person.name, gobierto_people_person_posts_path(person_id: person) %></li>
         </ul>
+        <% end %>
       </div>
 
-    </div> 
-    
+    </div>
+
     <%= render("user/subscriptions/subscribable_box",
                    subscribable: GobiertoPeople::PersonPost,
                    title: t(".subscribable_box.title")) %>
-                   
   </div>
 
   <div class="pure-u-1 pure-u-md-17-24 main_people_content">

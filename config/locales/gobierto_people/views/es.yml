@@ -51,7 +51,6 @@ es:
         agenda: Agenda
         bio: Biografía y CV
         blog: Blog
-        profile: Perfil
         statements: Bienes y Actividades
       person_bio:
         show:
@@ -92,8 +91,6 @@ es:
           no_statements: Todavía no se ha publicado ninguna declaración para esta persona.
         show:
           download: Descargar declaración (%{file_size})
-          other_statements:
-            title: Otras declaraciones
           subscribable_box:
             title: Recibe actualizaciones 
           title: Bienes y Actividades de %{person_name}
@@ -137,6 +134,8 @@ es:
           title: Recibe alertas en tu correo-e
     person_posts:
       index:
+        agenda_switcher:
+          subtitle: Filtra por miembros de la comunidad
         subscribable_box:
           title: Recibe alertas en tu correo-e
         title: Blogs
@@ -144,6 +143,8 @@ es:
         continue: Seguir leyendo
     person_statements:
       index:
+        agenda_switcher:
+          subtitle: Filtra por miembros de la comunidad
         subscribable_box:
           title: Recibe alertas en tu correo-e
         title: Declaraciones
@@ -163,6 +164,4 @@ es:
         statements: Salarios y retribuciones
         subscribable_box:
           title: Recibe un resumen semanal de las agendas de tus representantes
-        title: Conoce a las personas que trabajan para hacer de tu ciudad un lugar
-          mejor donde vivir. Consulta sus perfiles, sus agendas y gastos.
         travels: Viajes y desplazamientos

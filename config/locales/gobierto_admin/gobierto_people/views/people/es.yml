@@ -22,9 +22,6 @@ es:
             draft: Borrador
         index:
           configuration: Configuración
-          events_count:
-            one: Un evento
-            other: "%{count} eventos"
           header:
             charge: Cargo
             events: Eventos
@@ -33,12 +30,6 @@ es:
             statements: Declaraciones
             status: Estado
           new: Nueva persona
-          posts_count:
-            one: Un post
-            other: "%{count} posts"
-          statements_count:
-            one: Una declaración
-            other: "%{count} declaraciones"
           title: Personas
           view_person: Ver persona
           visibility_level:

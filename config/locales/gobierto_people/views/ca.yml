@@ -33,7 +33,6 @@ ca:
         agenda: Agenda
         bio: Biografia i cv
         blog: Blog
-        profile: Perfil
         statements: Béns i activitats
       person_bio:
         show:
@@ -74,8 +73,6 @@ ca:
           no_statements: Encara no hi ha declaracions publicades per aquesta persona.
         show:
           download: Descarregar declaració (%{file_size})
-          other_statements:
-            title: Altres declaracions
           subscribable_box:
             title: Rebeix actualitzacions al teu correu-e
           title: Béns i activitats de %{person_name}
@@ -119,6 +116,8 @@ ca:
           title: Rebeix una alerta al tu correu-e
     person_posts:
       index:
+        agenda_switcher:
+          subtitle: Filtra per membres de la comunitat
         subscribable_box:
           title: Rebeix una alerta al tu correu-e
         title: Blogs
@@ -126,6 +125,8 @@ ca:
         continue: Seguir llegint
     person_statements:
       index:
+        agenda_switcher:
+          subtitle: Filtra per membres de la comunitat
         subscribable_box:
           title: Rebeix una alerta al tu correu-e
         title: Declaracions
@@ -145,6 +146,4 @@ ca:
         statements: Salaris i retribucions
         subscribable_box:
           title: Rebeix actualitzacions al teu correu-e
-        title: Coneix a les persones que treballen per fer de la teva ciutat un lloc
-          millor on viure. Consulta seus perfils, les seves agendes i despeses.
         travels: Viatges i desplaçaments

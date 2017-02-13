@@ -33,7 +33,6 @@ en:
         agenda: Agenda
         bio: Biography and CV
         blog: Blog
-        profile: Profile
         statements: Goods and Activities
       person_bio:
         show:
@@ -74,8 +73,6 @@ en:
           no_statements: There aren't yet statems for this person.
         show:
           download: Download statement (%{file_size})
-          other_statements:
-            title: Other statements
           subscribable_box:
             title: Receive updates in your inbox
           title: "%{person_name}'s goods and Activities"
@@ -119,6 +116,8 @@ en:
           title: Receive alerts in your inbox
     person_posts:
       index:
+        agenda_switcher:
+          subtitle: Filter by community members
         subscribable_box:
           title: Receive alerts in your inbox
         title: Blogs
@@ -126,6 +125,8 @@ en:
         continue: Continue reading
     person_statements:
       index:
+        agenda_switcher:
+          subtitle: Filter by community members
         subscribable_box:
           title: Receive alerts in your inbox
         title: Statements
@@ -145,5 +146,4 @@ en:
         statements: Salaries and retributions
         subscribable_box:
           title: Receive updates in your inbox
-        title: Know the people who work to make your city a better place to live.
         travels: Travels

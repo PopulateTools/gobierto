@@ -69,7 +69,7 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".subscribable-box" do
+        within ".subscribable-box", match: :first do
           assert has_button?("Subscribe")
         end
       end

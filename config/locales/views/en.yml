@@ -3,9 +3,7 @@ en:
   based_on: Web based on
   layouts:
     application:
-      about_the_data: About the data
       disclaimer: This is a demo of Gobierto, transparency and participation software
-      is_open_source: is open source created by
       more_information: More info in gobierto.es
       session:
         admin: Administration

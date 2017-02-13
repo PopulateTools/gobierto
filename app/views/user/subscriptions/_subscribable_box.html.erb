@@ -1,12 +1,15 @@
 <% user_subscription_form = User::SubscriptionForm.new(subscribable: subscribable) %>
 
-<div class="subscribable-box box">
+<div class="subscribable-box slim_box box">
   <div class="inner">
-    <h3><%= title %></h3>
-
+    <h3><%= title %>
     <% if defined?(subtitle) %>
-      <h4><%= subtitle %></h4>
+      · <%= subtitle %>
     <% end %>
+    <% if defined?(placeholder) %>
+      · <%= placeholder %>
+    <% end %>
+    </h3>
 
     <% if user_signed_in? %>
 
@@ -27,7 +30,7 @@
       <%= form_for(user_subscription_form, as: :user_subscription, url: :user_subscriptions) do |f| %>
         <%= f.hidden_field :subscribable_type %>
         <%= f.hidden_field :subscribable_id %>
-        <%= f.email_field :user_email, placeholder: t(".form.placeholders.user_email") %>
+        <%= f.email_field :user_email, placeholder: defined?(placeholder) ? placeholder : t(".form.placeholders.user_email") %>
 
         <%= f.submit t(".form.submit") %>
       <% end %>

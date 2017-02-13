@@ -62,10 +62,7 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          assert_equal(
-            statement_content_markup.strip,
-            find(".dynamic-content").native.to_html.strip
-          )
+          assert has_content?("Declaración de Bienes y Actividades")
         end
       end
 
@@ -73,7 +70,7 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          within ".subscribable-box" do
+          within ".subscribable-box", match: :first do
             assert has_button?("Subscribe")
           end
         end

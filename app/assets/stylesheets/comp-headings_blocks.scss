@@ -4,13 +4,20 @@
  */
 h1, h2, h3, h4 {
 	line-height: 1.2em;
+  color: $color_main;
+  .soft {
+    color: $color_meta_text;
+    font-weight: normal;
+  }
 }
 .block {
-	h2 {
+  position: relative;
+  margin: 0 0 1em 0;
+	h1, h2 {
 		font-weight: 200;
 		text-transform: uppercase;
 		font-size: 1.6em;
-		margin: 2em 0;
+    margin: 2em 0;
 	}
 	h2.with_description {
 		margin-bottom: .35em;
@@ -22,6 +29,21 @@ h1, h2, h3, h4 {
 		line-height: 1.3em;
 		opacity: .6;
 	}
+}
+.block {
+  .slim {
+    margin: 0;
+  }
+}
+.block {
+  .to_r {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+.block.slim {
+  font-size: .75em;
 }
 h1.light {
 	font-weight: 200;
@@ -43,6 +65,18 @@ p.intro {
 	font-weight: 200;
 }
 
+.compact {
+  h3 {
+    margin: 0 0 1em 0;
+  }
+}
+.block_section {
+  text-transform: uppercase;
+  font-size: .85em;
+  color: $color_meta_text;
+}
+
+
 /*
  * Content Boxes
  *
@@ -54,7 +88,50 @@ p.intro {
     padding: 1em 2em;
   }
 }
-
+.slim_box {
+  margin: 1em 0;
+  .inner {
+    padding: 1em;
+  }
+  h3 {
+    margin: 0 0 .75em 0;
+    font-size: 1.1em;
+    font-weight: 600;
+  }
+  .disclaimer {
+    text-align: left;
+    font-size: .75em;
+    margin: .5em 0 0 0;
+  }
+  input[type=text], input[type=email] {
+    width: 50%;
+  }
+  input[type=text], input[type=email], input[type=submit] {
+    height: 45px;
+    padding: .25em 1em;
+  }
+}
+.color_neutral_soft {
+  background: $color_neutral_soft;
+}
+.fully_linked {
+  margin: 0 0 1em 0;
+  font-size: 1.4em;
+  text-transform: uppercase;
+  font-weight: 200;
+  a {
+    display: block;
+    text-decoration: none;
+    padding: 1.5em;
+  }
+  a:hover {
+    text-decoration: none;
+    background: darken($color_1_soft, 15%);
+  }
+  .fa {
+    margin-right: 1em;
+  }
+}
 
 .separator {
 	border-top: 1px solid $text_soft;
@@ -105,9 +182,6 @@ p.intro {
     margin: 0;
   }
 }
-.separator {
-  
-}
 
 .padded_line_box {
 	@include border-radius(6px);
@@ -120,5 +194,44 @@ p.intro {
     padding: 0 1em;
     margin: 0 0 1em 0;
   }
+}
+.padded_line_box.compact {
+  padding: 1em 1.5em;
+}
+
+.see_more {
+  display: block;
+  padding: .75em 1em;
+  margin: 0 0 2em 0;
+  font-size: 1em;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 600;
+  background: $color_1_soft;
+}
+.see_more:hover {
+  text-decoration: none;
+  background: darken($color_1_soft, 15%); 
+}
+
+.inpage_section {
+  @include border-radius(4px);
+  text-align: center; 
+  background: $color_neutral_soft;
+  padding: 1em;
+  margin: 2em 0;
+  ul, li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+  li {
+    display: inline-block;
+    a {
+      margin: 0 1em;
+    }
+  }
+
 }
 

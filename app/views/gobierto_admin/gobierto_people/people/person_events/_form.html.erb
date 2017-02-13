@@ -11,32 +11,40 @@
         <%= f.text_field :title, placeholder: t(".placeholders.title") %>
       </div>
 
-      <div class="form_item input_text">
-        <%= f.label :starts_at %>
-        <%= f.text_field :starts_at, data: {
-            "language": I18n.locale,
-            "timepicker": true,
-            "date-format": "yyyy-mm-dd",
-            "time-format": "hh:ii",
-            "startDate": format_time(f, :starts_at)
-          },
-          class: "air-datepicker",
-          readonly: !Rails.env.test?
-        %>
-      </div>
+      <div class="pure-g">
 
-      <div class="form_item input_text">
-        <%= f.label :ends_at %>
-        <%= f.text_field :ends_at, data: {
-            "language": I18n.locale,
-            "timepicker": true,
-            "date-format": "yyyy-mm-dd",
-            "time-format": "hh:ii",
-            "startDate": format_time(f, :ends_at, 2)
-          },
-          class: "air-datepicker",
-          readonly: !Rails.env.test?
-        %>
+        <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
+          <div class="form_item input_text">
+            <%= f.label :starts_at %>
+            <%= f.text_field :starts_at, data: {
+                "language": I18n.locale,
+                "timepicker": true,
+                "date-format": "yyyy-mm-dd",
+                "time-format": "hh:ii",
+                "startDate": format_time(f, :starts_at)
+              },
+              class: "air-datepicker",
+              readonly: !Rails.env.test?
+            %>
+          </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-2">
+          <div class="form_item input_text">
+            <%= f.label :ends_at %>
+            <%= f.text_field :ends_at, data: {
+                "language": I18n.locale,
+                "timepicker": true,
+                "date-format": "yyyy-mm-dd",
+                "time-format": "hh:ii",
+                "startDate": format_time(f, :ends_at, 2)
+              },
+              class: "air-datepicker",
+              readonly: !Rails.env.test?
+            %>
+          </div>
+        </div>
+
       </div>
 
       <div class="form_item textarea">

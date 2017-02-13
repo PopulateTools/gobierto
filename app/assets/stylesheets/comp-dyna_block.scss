@@ -3,6 +3,9 @@
  *
  */
 body.gobierto_admin {
+  table {
+    @extend table.block_content;  
+  }
   .dyna_block {
     margin: 0 0 2em 0;
     border: 1px solid $color_separator;

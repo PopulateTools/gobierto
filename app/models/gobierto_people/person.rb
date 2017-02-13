@@ -32,5 +32,11 @@ module GobiertoPeople
     def visible?
       active?
     end
+
+    private
+
+    def resource_path
+      gobierto_people_person_path(self.id)
+    end
   end
 end

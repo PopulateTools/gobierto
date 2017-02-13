@@ -23,7 +23,7 @@ module GobiertoPeople
         visit @path
 
         assert has_selector?("h1", text: person.name)
-        assert has_selector?(".intro", text: person.charge)
+        assert has_selector?(".person_charge", text: person.charge)
       end
     end
 
@@ -55,7 +55,7 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".subscribable-box" do
+        within ".subscribable-box", match: :first do
           assert has_button?("Subscribe")
         end
       end

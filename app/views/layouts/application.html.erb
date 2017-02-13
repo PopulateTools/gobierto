@@ -168,34 +168,72 @@
 
   <footer>
 
-    <div class="block_color p_v_4">
-      <div class="column">
-        <div class="pure-g">
-          <div class="pure-u-1 pure-u-md-1-2">
-            <% if @site.configuration.links_markup.present? %>
-              <ul>
-                <%= raw @site.configuration.links_markup %>
-              </ul>
-            <% end %>
-          </div>
+    <div class="column pure-g">
 
-          <div class="pure-u-1 pure-u-md-1-2">
-            <%= link_to t('.about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], target: '_blank' %>
-          </div>
-
-          <div class="pure-u-1 mobile_only">
-            <%= link_to "#", class: "menu_control" do %>
-              <i class="fa fa-bars"></i> Menú
-            <% end %>
-          </div>
-
-        </div>
+      <div class="pure-u-1 mobile_only">
+        <%= link_to "#", class: "menu_control" do %>
+          <i class="fa fa-bars"></i> Menú
+        <% end %>
       </div>
+
+      <div class="pure-u-1 pure-u-md-9-24">
+        <%= link_to_unless_current(image_tag(@site.configuration.logo_with_fallback), root_url) %>
+      </div>
+
+      <% if @site.configuration.links_markup.present? %>
+        <%= raw @site.configuration.foot_markup %>
+      <% end %>
+
+      <!--
+      <div class="pure-u-1 pure-u-md-5-24">
+        <ul>
+          <li><a href="">Acerca de esta página</a></li>
+          <li><a href="">Preguntas frecuentes</a></li>
+          <li><a href="">Contacto</a></li>
+          <li><a href="">Datos abiertos</a></li>
+        </ul>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-5-24">
+        <ul>
+          <li><a href="">Política de privacidad</a></li>
+          <li><a href="">Condiciones de uso</a></li>
+          <li><a href="">Accesibilidad</a></li>
+        </ul>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-5-24">
+        <ul>
+          <li><a href="http://madrid.es">Ayuntamiento de Madrid</a></li>
+          <li><a href="http://madrid.es">Portal de Transparencia</a></li>
+          <li><a href="http://madrid.es">Participación</a></li>
+        </ul>
+      </div>
+      -->
+
     </div>
 
-    <div class="center p_v_4">
-      <p><%= link_to 'Gobierto', 'https://gobierto.es' %> <%= t('.is_open_source') %></p>
-      <%= link_to image_tag('logo-populate-tools.png', size: '100x31'), 'http://populate.tools' %>
+    <div class="column pure-g footer_tools">
+
+      <div class="pure-u-1 pure-u-md-9-24 copyright_notice">
+        © 2017 <%= @site.name %>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-5-12">
+        <%= render("user/subscriptions/subscribable_box",
+                 subscribable: GobiertoPeople::PersonEvent,
+                 title: t("gobierto_people.people.index.subscribable_box.title"),
+                 placeholder: 'Recibe actualizaciones') %>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-5-24">
+
+      </div>
+
+    </div>
+
+    <div class="center gobierto_notice">
+      <p><small><%= t('based_on') %> <%= link_to 'Gobierto', 'https://gobierto.es' %></small></p>
     </div>
 
   </footer>

@@ -20,6 +20,8 @@ ca:
         people: Càrrecs
         statements: Declaracions
     people:
+      person:
+        picture: Foto de %{name}
       index:
         subscribable_box:
           title: Rebeix una alerta al tu correu-e
@@ -31,7 +33,6 @@ ca:
         agenda: Agenda
         bio: Biografia i cv
         blog: Blog
-        profile: Perfil
         statements: Béns i activitats
       person_bio:
         show:
@@ -45,6 +46,7 @@ ca:
             title: Rebeix actualitzacions al teu correu-e sobre %{person_name}
           title: Agenda de %{person_name}
           upcoming_events: Agenda
+          no_events: No hi ha esdeveniments en aquesta agenda
         show:
           event_data:
             event_attendees: Assistents
@@ -60,6 +62,7 @@ ca:
       person_posts:
         index:
           title: El blog de %{person_name}, %{person_charge}
+          no_posts: Encara no hi ha posts publicats.
         show:
           subscribable_box:
             title: Rebeix actualitzacions al teu correu-e
@@ -67,19 +70,23 @@ ca:
       person_statements:
         index:
           title: Béns i activitats de %{person_name}
+          no_statements: Encara no hi ha declaracions publicades per aquesta persona.
         show:
           download: Descarregar declaració (%{file_size})
-          other_statements:
-            title: Altres declaracions
           subscribable_box:
             title: Rebeix actualitzacions al teu correu-e
           title: Béns i activitats de %{person_name}
+          view_previous: Veure anteriors
       show:
+        party:
+          government: Equip de govern
+          oposition: Oposició
         subscribable_box:
           title: Rebeix actualitzacions al teu correu-e sobre %{person_name}
       upcoming_events:
         title: Agenda
         view_all: Veure tots
+        no_upcoming_events: No hi ha esdeveniments programats
     people_filter:
       all: tots
       categories:
@@ -109,6 +116,8 @@ ca:
           title: Rebeix una alerta al tu correu-e
     person_posts:
       index:
+        agenda_switcher:
+          subtitle: Filtra per membres de la comunitat
         subscribable_box:
           title: Rebeix una alerta al tu correu-e
         title: Blogs
@@ -116,6 +125,8 @@ ca:
         continue: Seguir llegint
     person_statements:
       index:
+        agenda_switcher:
+          subtitle: Filtra per membres de la comunitat
         subscribable_box:
           title: Rebeix una alerta al tu correu-e
         title: Declaracions
@@ -135,6 +146,4 @@ ca:
         statements: Salaris i retribucions
         subscribable_box:
           title: Rebeix actualitzacions al teu correu-e
-        title: Coneix a les persones que treballen per fer de la teva ciutat un lloc
-          millor on viure. Consulta seus perfils, les seves agendes i despeses.
         travels: Viatges i desplaçaments

@@ -9,15 +9,23 @@ this.GobiertoAdmin.PeopleController = (function() {
     var wrapper = "tbody[data-behavior=sortable]";
     var positions = [];
 
-    sortable(wrapper, {
+    $(wrapper).sortable({
       items: 'tr',
-      forcePlaceholderSize: true
+      forcePlaceholderSize: true,
+      placeholder: '<tr><td colspan="8">&nbsp;&nbsp;</td></tr>',
+      update: function(e, ui) {
+        _refreshPositions(wrapper);
+        _requestUpdate(wrapper, _buildPositions(wrapper));
+      },
+      helper: _fixWidthHelper
     });
+  }
 
-    $(wrapper).on("sortupdate", function(e) {
-      _refreshPositions(wrapper);
-      _requestUpdate(wrapper, _buildPositions(wrapper));
+  function _fixWidthHelper(e, ui) {
+    ui.children().each(function() {
+      $(this).width($(this).width());
     });
+    return ui;
   }
 
   function _refreshPositions(wrapper) {

@@ -31,6 +31,7 @@ $(document).on('turbolinks:load', function() {
     // Datepicker start time
     $fromDatePicker.datepicker({
       autoClose: true,
+      minutesStep: 5,
       startDate: new Date($toDatePicker.data('startdate')),
       onSelect: function onSelect(_, selectedDate, instance) {
         $(instance.el).trigger("datepicker-change");

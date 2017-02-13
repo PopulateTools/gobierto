@@ -206,6 +206,9 @@ body.gobierto_admin {
 
 /* Tabs modification */
 body.gobierto_admin {
+	.container {
+		max-width: 1800px;
+	}
 	.tabs {
 		margin: 0 0 2em 0;
 		ul {
@@ -232,40 +235,6 @@ body.gobierto_admin {
           color: white;
         }
       }
-		}
-	}
-}
-
-
-/* Tables modification */
-body.gobierto_admin {
-	table {
-		th {
-			background: $color_1_soft;
-			text-align: left; 
-			text-transform: uppercase;
-			color: transparentize($color_main, .5);
-			padding: .4em 1em .45em;
-			border: none;
-		}
-		td {
-			border: none;
-		}
-		// tr.even {
-		tr:visible:nth-child(2n-1) {
-			td {
-				background: transparentize($color_main, .95);	
-			}
-		}
-		tr.even {
-			td {
-				background: transparentize($color_main, .95);	
-			}
-		}
-		tr:hover {
-			td {
-				background: transparentize($color_main, .9);	
-			}	
 		}
 	}
 }
@@ -368,4 +337,10 @@ pre {
 	code {
 
 	}
+}
+
+/* Trix editor overrides */
+trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=button].icon {
+	width: 2em;
+	font-size: 14px;
 }

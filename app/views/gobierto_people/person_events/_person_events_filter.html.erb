@@ -1,6 +1,7 @@
-<menu class="person-events-filter">
+<menu class="filter_boxed">
 
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
+
     <ul>
       <li>
         <%= link_to t("gobierto_people.people_filter.parties.government"), gobierto_people_government_party_events_path, class: class_if('active', controller_name.in?(%w(government_party_person_events government_party_past_person_events))) %>
@@ -16,15 +17,20 @@
       </li>
     </ul>
 
-    <%= t("gobierto_people.people_filter.political_groups.title") %>
-
-    <ul>
-      <% @political_groups.each do |political_group| %>
-        <li>
-          <%= link_to political_group.name, gobierto_people_political_group_events_path(political_group), class: class_if('active', @political_group.try(:name) == political_group.name) %>
-        </li>
-      <% end %>
-    </ul>
   </div>
 
 </menu>
+
+<div class="sub_filter center">
+
+  <%= t("gobierto_people.people_filter.political_groups.title") %>
+
+  <ul>
+    <% @political_groups.each do |political_group| %>
+      <li>
+        <%= link_to political_group.name, gobierto_people_political_group_events_path(political_group), class: class_if('active', @political_group.try(:name) == political_group.name) %>
+      </li>
+    <% end %>
+  </ul>
+
+</div>

@@ -1,11 +1,15 @@
 <%= render "gobierto_people/people/content_for_breadcrumb" %>
 
-<h3 class="center">
+<div class="blog_header">
   <%= t(".title", person_name: @person.name, person_charge: @person.charge) %>
-</h3>
+</div>
 
 <div class="posts-summary">
 
-  <%= render partial: "gobierto_people/person_posts/person_post_excerpt", collection: @posts, as: :person_post %>
+  <% if @posts.any? %>
+    <%= render partial: "gobierto_people/person_posts/person_post_excerpt", collection: @posts, as: :person_post %>
+  <% else %>
+    <p><%= t('.no_posts') %></p>
+  <% end %>
 
 </div>

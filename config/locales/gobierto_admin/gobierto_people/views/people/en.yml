@@ -22,9 +22,6 @@ en:
             draft: Draft
         index:
           configuration: Configuration
-          events_count:
-            one: One event
-            other: "%{count} events"
           header:
             charge: Charge
             events: Events
@@ -33,12 +30,6 @@ en:
             statements: Statements
             status: Status
           new: New person
-          posts_count:
-            one: One post
-            other: "%{count} posts"
-          statements_count:
-            one: One statement
-            other: "%{count} statements"
           title: Persons
           view_person: View person
           visibility_level:

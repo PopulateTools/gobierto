@@ -4,40 +4,42 @@
 
   <div class="pure-g">
 
-    <div class="pure-u-1 pure-u-md-1-3">
+    <div class="pure-u-1 pure-u-md-7-24">
 
-      <div class="p_h_2">
+      <% if @person.avatar_url.present? %>
+        <%= image_tag @person.avatar_url, height: 250, width: 250, class: "avatar" %>
+      <% end %>
 
-        <% if @person.avatar_url.present? %>
-          <%= image_tag @person.avatar_url, height: 250, width: 250, class: "avatar" %>
-        <% end %>
-
-        <%= render "contact_methods" %>
-
-        <div class="separator"></div>
-
-        <%= render "gobierto_people/people/navigation" %>
-
+      <div class="follow_item">
+        <a href="#" class="button outline">Seguir</a>
       </div>
 
-    </div>
-
-    <div class="pure-u-1 pure-u-md-2-3">
-
-      <h1><%= @person.name %></h1>
-
-      <p class="intro">
-        <%= @person.charge %>
-      </p>
-
-      <%= render "upcoming_events" %>
-      <%= render "latest_activity" %>
+      <%= render "contact_methods" %>
 
       <div class="separator"></div>
 
+      <%= render "gobierto_people/people/navigation" %>
+
+    </div>
+
+    <div class="pure-u-1 pure-u-md-17-24 main_people_content">
+
+      <div class="person_header">
+
+        <h1><%= @person.name %></h1>
+
+        <div class="person_charge"><%= @person.charge %></div>
+        <div class="person_party"><%= t(".party.#{@person.party}") %></div>
+        <% if @person.political_group %>
+          <div class="political_group"><%= @person.political_group.name %></div>
+        <% end %>
+      </div>
+
+      <%= render "upcoming_events" %>
       <%= render("user/subscriptions/subscribable_box",
                  subscribable: @person,
                  title: t(".subscribable_box.title", person_name: @person.name)) %>
+      <%= render "latest_activity" %>
 
     </div>
 

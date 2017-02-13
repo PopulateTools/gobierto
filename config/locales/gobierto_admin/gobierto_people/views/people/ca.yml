@@ -22,9 +22,6 @@ ca:
             draft: Borrador
         index:
           configuration: Configuració
-          events_count:
-            one: Un event
-            other: "%{count} events"
           header:
             charge: Càrrec
             events: Events
@@ -33,12 +30,6 @@ ca:
             statements: Declaracions
             status: Estat
           new: Nova persona
-          posts_count:
-            one: Un post
-            other: "%{count} posts"
-          statements_count:
-            one: Una declaració
-            other: "%{count} declaracions"
           title: Persones
           view_person: Veure persona
           visibility_level: 

@@ -47,14 +47,14 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".person-events-filter" do
+        within ".filter_boxed" do
           assert has_link?("Government Team")
           assert has_link?("Opposition")
           assert has_link?("Executive")
           assert has_link?("All")
+        end
 
-          assert has_content?("Political groups")
-
+        within ".sub_filter" do
           political_groups.each do |political_group|
             assert has_link?(political_group.name)
           end
@@ -104,7 +104,7 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".subscribable-box" do
+        within ".subscribable-box", match: :first do
           assert has_button?("Subscribe")
         end
       end

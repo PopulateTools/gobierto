@@ -3,13 +3,13 @@
  *
  */
 .column {
-	width: calc(100% - 6rem);
-	max-width: 1400px;
-	margin: auto;
+  width: calc(100% - 6rem);
+  max-width: 1400px;
+  margin: auto;
 }
 
 .main_content {
-	padding: 0 0 0 5em;
+  padding: 0 0 0 5em;
   box-sizing: border-box;
 }
 
@@ -18,20 +18,41 @@
  *
  */
 footer {
-	padding: 5em 0;
-	font-size: .85em;
-	ul {
-	
-		margin: 0;
-		padding: 0;
-		list-style-type: none;
-		li {
-			margin: 0 1em 0 0;
-			display: inline-block;
-		}
-	}
-	a {
-		color: $color_text;
-		text-decoration: none;
-	}
+	background: $color_neutral_soft;
+  padding: 3em 0;
+  margin: 10em 0 0 0;
+  
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    li {
+      margin: 0 1em 0 0;
+      display: block;
+    }
+  }
+  a {
+    color: $color_main;
+    text-decoration: none;
+  }
+  .copyright_notice {
+    opacity: .5em;
+  }
+  .footer_tools {
+    margin-top: 3em;
+  }
+  .box {
+    background: none;
+    margin: 0;
+    .inner {
+      padding: 0;
+      h3 {
+        display: none;
+      }
+    }
+  }
+  .gobierto_notice {
+    opacity: .5;
+    margin-top: 5em;
+  }
 }

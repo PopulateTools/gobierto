@@ -1,0 +1,80 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  Personas
+</div>
+
+<h1>Personas</h1>
+
+<div class="admin_tools right">
+  <%= link_to '<i class="fa fa-cog"></i> Configuración'.html_safe, 'admin_people_conf' %>
+  <button class="btn">Nueva</button>
+</div>
+
+<table>
+<tr>
+  <th></th>
+  <th>Título</th>
+  <th>Creada</th>
+  <th>Actualizada</th>
+  <th>Pública</th>
+  <th></th>
+  <th></th>
+</tr>
+
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_cms_page_text' %></td>
+  <td><%= link_to 'Acerca de esta web', 'admin_cms_page_text' %></td>
+  <td>hace 10 minutos</td>
+  <td>hace 5 minutos</td>
+  <td class="visibility_level">
+    <i class="fa fa-lock"></i>
+    Borrador
+  </td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver página'.html_safe, '#', class: 'view_item' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_cms_page_text' %></td>
+  <td><%= link_to 'Política de Privacidad', 'admin_cms_page_text' %></td>
+  <td>hace 10 minutos</td>
+  <td>hace 5 minutos</td>
+  <td class="visibility_level">
+    <i class="fa fa-check"></i>
+    Publicada
+  </td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver página'.html_safe, '#', class: 'view_item' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_cms_page_text' %></td>
+  <td><%= link_to 'Condiciones de uso', 'admin_cms_page_text' %></td>
+  <td>hace 10 minutos</td>
+  <td>hace 5 minutos</td>
+  <td class="visibility_level">
+    <i class="fa fa-check"></i>
+    Publicada
+  </td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver página'.html_safe, '#', class: 'view_item' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_cms_page_text' %></td>
+  <td><%= link_to 'Accesibilidad', 'admin_cms_page_text' %></td>
+  <td>hace 10 minutos</td>
+  <td>hace 5 minutos</td>
+  <td class="visibility_level">
+    <i class="fa fa-check"></i>
+    Publicada
+  </td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver página'.html_safe, '#', class: 'view_item' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_cms_page_text' %></td>
+  <td><%= link_to 'Preguntas frecuentes', 'admin_cms_page_text' %></td>
+  <td>hace 10 minutos</td>
+  <td>hace 5 minutos</td>
+  <td class="visibility_level">
+    <i class="fa fa-check"></i>
+    Publicada
+  </td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver página'.html_safe, '#', class: 'view_item' %></td>
+</tr>
+
+</table>

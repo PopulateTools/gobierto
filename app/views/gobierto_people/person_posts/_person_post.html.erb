@@ -1,19 +1,12 @@
-<div class="person_post-item person-item">
-  <strong>
-    <%= link_to person_post.title, gobierto_people_person_post_path(person_post.person, person_post) %>
-  </strong>
-
-  <div class="soft">
-    <div>
-      <%= link_to person_post.person do %>
-        <% if person_post.person.avatar_url.present? %>
-          <div class="media-left">
-            <%= image_tag person_post.person.avatar_url, height: 30, width: 30 %>
-          </div>
-        <% end %>
-
-        <%= person_post.person.name %>
-      <% end %>
-    </div>
+<div class="item post-item">
+  
+  <h2><%= link_to person_post.title, gobierto_people_person_post_path(person_post.person, person_post) %></h2>
+  
+  <div class="meta">
+    <% if person_post.person.avatar_url.present? %>
+      <%= link_to (image_tag person_post.person.avatar_url, height: 30, width: 30), person_post.person %>
+    <% end %>
+    por <%= link_to person_post.person.name, person_post.person %>
   </div>
+    
 </div>

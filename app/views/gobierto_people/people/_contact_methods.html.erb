@@ -1,28 +1,37 @@
 <div class="contact-methods">
+  <ul>
+  
   <% if @person.contact_email %>
-    <%= mail_to @person.contact_email do %>
-     <i class="fa fa-envelope"></i>
-    <% end %>
+    <li>
+      <%= mail_to @person.contact_email, target: 'blank' do %>
+        <i class="fa fa-envelope"></i> <span><%= @person.contact_email %></span>
+      <% end %>
+    </li>
   <% end %>
 
   <% if @person.twitter_url %>
-    <%= link_to @person.twitter_url do %>
-     <i class="fa fa-twitter"></i>
-     <%= @person.twitter_handle %>
-    <% end %>
+    <li>
+      <%= link_to @person.twitter_url, target: 'blank' do %>
+        <i class="fa fa-twitter"></i> <span><%= @person.twitter_handle %></span>
+      <% end %>
+    </li>
   <% end %>
 
   <% if @person.facebook_url %>
-    <%= link_to @person.facebook_url do %>
-     <i class="fa fa-facebook"></i>
-     <%= @person.facebook_handle %>
-    <% end %>
+    <li>
+      <%= link_to @person.facebook_url, target: 'blank' do %>
+        <i class="fa fa-facebook"></i> <span><%= @person.facebook_handle %></span>
+      <% end %>
+    </li>
   <% end %>
 
-  <% if @person.linkedin_url %>
-    <%= link_to @person.linkedin_url do %>
-     <i class="fa fa-linkedin"></i>
-     <%= @person.linkedin_handle %>
-    <% end %>
+  <% if @person.twitter_url %>
+    <li>
+      <%= link_to @person.linkedin_url, target: 'blank' do %>
+        <i class="fa fa-linkedin"></i> <span><%= @person.linkedin_handle %></span>
+      <% end %>
+    </li>
   <% end %>
+
+  </ul>
 </div>

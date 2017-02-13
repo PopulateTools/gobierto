@@ -40,10 +40,11 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          assert_equal(
-            person_bio_content_markup.strip,
-            find(".dynamic-content").native.to_html.strip
-          )
+          skip "Pending to define the HTML markup"
+          # assert_equal(
+          #   person_bio_content_markup.strip,
+          #   find(".dynamic-content").native.to_html.strip
+          # )
         end
       end
 

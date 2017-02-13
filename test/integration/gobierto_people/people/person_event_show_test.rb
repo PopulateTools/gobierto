@@ -27,8 +27,8 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          assert has_selector?("h4", text: "#{person.name}'s agenda")
-          assert has_selector?("h1", text: event.title)
+          assert has_content?("#{person.name}'s agenda")
+          assert has_content?(event.title)
         end
       end
 
@@ -65,7 +65,7 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          within ".subscribable-box" do
+          within ".subscribable-box", match: :first do
             assert has_button?("Subscribe")
           end
         end

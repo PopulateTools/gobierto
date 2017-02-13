@@ -6,7 +6,6 @@ module GobiertoPeople
           visit @path
 
           within ".people-navigation" do
-            assert has_link?("Profile")
             assert has_link?("Biography and CV")
             assert has_link?("Agenda")
             assert has_link?("Blog")

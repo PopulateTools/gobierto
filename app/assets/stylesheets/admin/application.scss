@@ -46,6 +46,7 @@
 @import "comp-social_buttons";
 @import "comp-tables";
 @import "comp-tabs";
+@import "comp-text_content";
 @import "comp-sortable";
 @import "comp-dyna_block";
 
@@ -163,30 +164,7 @@ a.soft_cta:hover {
 	}
 }
 
-.p_h_r_1 {
-	padding: 0 1em 0 0;
-	box-sizing: border-box;
-}
-.p_h_r_2 {
-	padding: 0 2em 0 0;
-	box-sizing: border-box;
-}
-.p_h_r_3 {
-	padding: 0 3em 0 0;
-	box-sizing: border-box;
-}
-.p_h_l_1 {
-	padding: 0 1em 0 0;
-	box-sizing: border-box;
-}
-.p_h_l_2 {
-	padding: 0 2em 0 0;
-	box-sizing: border-box;
-}
-.p_h_l_3 {
-	padding: 0 3em 0 0;
-	box-sizing: border-box;
-}
+
 .invisible {
     visibility: hidden
 }

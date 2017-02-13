@@ -1,18 +1,29 @@
 <%= render "gobierto_people/people/content_for_breadcrumb" %>
 
-<h1><%= t(".title", person_name: @person.name) %></h1>
+<div class="person_header">
 
-<h2><%= t(".subtitle") %></h2>
+  <h1><%= t(".title", person_name: @person.name) %></h1>
 
-<% if @person.bio_url.present? %>
-  <div class="right">
-    <%= link_to t(".download"), @person.bio_url, class: "button small right" %>
-  </div>
-<% end %>
+</div>
 
-<p>
+<div class="separator"></div>
+
+<div class="section_header">
+
+  <% if @person.bio_url.present? %>
+    <div class="download_file f_right">
+      <i class="fa fa-file-pdf-o"></i>
+      <strong><%= link_to t(".download"), @person.bio_url %></strong>
+    </div>
+  <% end %>
+
+  <h2><%= t(".subtitle") %></h2>
+
+</div>
+
+<div class="article">
   <%= raw @person.bio %>
-</p>
+</div>
 
 <div class="separator"></div>
 

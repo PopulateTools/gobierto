@@ -58,7 +58,7 @@
 .f_right {
   float: right;
 }
-.hidden {
+.hidden, .soft_hidden {
   display: none;
 }
 .fixed {
@@ -67,7 +67,12 @@
 .soft {
   opacity: .5;
 }
-
+.v_top {
+  vertical-align: top;
+}
+.inline {
+  display: inline-block;
+}
 
 
 
@@ -146,14 +151,31 @@
 .m_v_4 {
   margin: 4em 0;
 }
-.p_h_l_1 {
-  padding: 0 1em 0 0;
-  box-sizing: border-box;  
-}
 .p_h_r_1 {
-  padding: 0 0 0 1em;
-  box-sizing: border-box;  
+  padding: 0 1em 0 0;
+  box-sizing: border-box;
 }
+.p_h_r_2 {
+  padding: 0 2em 0 0;
+  box-sizing: border-box;
+}
+.p_h_r_3 {
+  padding: 0 3em 0 0;
+  box-sizing: border-box;
+}
+.p_h_l_1 {
+  padding: 0 0 0 1em;
+  box-sizing: border-box;
+}
+.p_h_l_2 {
+  padding: 0 0 0 2em;
+  box-sizing: border-box;
+}
+.p_h_l_3 {
+  padding: 0 0 0 3em;
+  box-sizing: border-box;
+}
+
 
 /*
 
@@ -416,3 +438,32 @@ $units: 1px !default;
   }
 }
 
+
+
+/* Padded Cols hack */
+.padded_cols.pure-g {
+  width: calc(100% + 2em);
+}
+.padded_cols {
+  [class*="pure-u"] {
+    box-sizing: border-box;
+  }
+  .padded {
+    margin: 1em;  
+  }
+  [class*="pure-u"]:first-child {
+    margin-left: -1em;
+  }
+}
+.padded_cols.example {
+  background: transparentize(#CCC, .1);
+  [class*="pure-u"] {
+    background: #DFDFDF;
+  }
+  .padded {
+    background: green;
+    color: #FFF;
+    text-align: center;
+    padding: 2em;
+  }
+}

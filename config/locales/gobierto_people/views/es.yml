@@ -19,7 +19,27 @@ es:
         home: Inicio
         people: Cargos
         statements: Declaraciones
+    welcome:
+      index:
+        title: Conoce a las personas que trabajan para hacer de tu ciudad un lugar mejor donde vivir. Consulta sus perfiles, sus agendas y gastos.
+        statements: Declaraciones de bienes y actividades
+        gifts: Obsequios y regalos
+        travels: Viajes y desplazamientos
+        people_summary:
+          title: "Organigrama de %{site_name}"
+          view_all: Ver todos
+        events_summary:
+          upcoming_events: Próximos eventos
+          past_events: Eventos pasados
+          view_all: Ver todos
+        posts_summary:
+          title: Blogs
+          view_all: Ver todos
+        subscribable_box:
+          title: Recibe un resumen semanal de las agendas de tus representantes
     people:
+      person:
+        picture: Foto de %{name}
       index:
         subscribable_box:
           title: Recibe alertas en tu correo-e
@@ -31,7 +51,6 @@ es:
         agenda: Agenda
         bio: Biografía y CV
         blog: Blog
-        profile: Perfil
         statements: Bienes y Actividades
       person_bio:
         show:
@@ -42,9 +61,10 @@ es:
         index:
           past_events: Eventos pasados
           subscribable_box:
-            title: Recibe actualizaciones en tu correo-e sobre la actividad de %{person_name}
+            title: Recibe actualizaciones sobre la actividad de %{person_name}
           title: Agenda de %{person_name}
-          upcoming_events: Agenda
+          upcoming_events: Próximos eventos
+          no_events: No hay eventos en esta agenda.
         show:
           event_data:
             event_attendees: Asistentes
@@ -60,26 +80,31 @@ es:
       person_posts:
         index:
           title: El blog de %{person_name}, %{person_charge}
+          no_posts: Todavía no se ha publicado ningún post.
         show:
           subscribable_box:
-            title: Recibe actualizaciones en tu correo-e
+            title: Recibe actualizaciones
           title: El blog de %{person_name}, %{person_charge}
       person_statements:
         index:
           title: Bienes y Actividades de %{person_name}
+          no_statements: Todavía no se ha publicado ninguna declaración para esta persona.
         show:
           download: Descargar declaración (%{file_size})
-          other_statements:
-            title: Otras declaraciones
           subscribable_box:
-            title: Recibe actualizaciones en tu correo-e
+            title: Recibe actualizaciones 
           title: Bienes y Actividades de %{person_name}
+          view_previous: Ver anteriores
       show:
+        party:
+          government: Equipo de gobierno
+          oposition: Oposición
         subscribable_box:
-          title: Recibe actualizaciones en tu correo-e sobre la actividad de %{person_name}
+          title: Recibe actualizaciones sobre la actividad de %{person_name}
       upcoming_events:
         title: Agenda
         view_all: Ver todos
+        no_upcoming_events: No hay eventos próximos en esta agenda
     people_filter:
       all: Todos
       categories:
@@ -109,6 +134,8 @@ es:
           title: Recibe alertas en tu correo-e
     person_posts:
       index:
+        agenda_switcher:
+          subtitle: Filtra por miembros de la comunidad
         subscribable_box:
           title: Recibe alertas en tu correo-e
         title: Blogs
@@ -116,6 +143,8 @@ es:
         continue: Seguir leyendo
     person_statements:
       index:
+        agenda_switcher:
+          subtitle: Filtra por miembros de la comunidad
         subscribable_box:
           title: Recibe alertas en tu correo-e
         title: Declaraciones
@@ -135,6 +164,4 @@ es:
         statements: Salarios y retribuciones
         subscribable_box:
           title: Recibe un resumen semanal de las agendas de tus representantes
-        title: Conoce a las personas que trabajan para hacer de tu ciudad un lugar
-          mejor donde vivir. Consulta sus perfiles, sus agendas y gastos.
         travels: Viajes y desplazamientos

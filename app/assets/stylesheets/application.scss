@@ -50,16 +50,18 @@
 @import "comp-social_buttons";
 @import "comp-tables";
 @import "comp-tabs";
+@import "comp-text_content";
 @import "comp-indicator_widget";
 
 @import "comp-graph-treemap";
 @import "comp-graph-vis_lines_table";
 
+@import "module-activity";
 @import "module-budget_vis";
-@import "module-participation";
 @import "module-consultations";
-@import "module-people";
 @import "module-indicators";
+@import "module-participation";
+@import "module-people";
 
 @import "module-admin";
 
@@ -102,13 +104,6 @@ a {
 a:hover {
   text-decoration: underline;
 }
-footer {
-  clear: both;
-  margin: 5em 0 0 0;
-  padding: 5em 0 0 0;
-}
-
-
 
 
 
@@ -246,30 +241,6 @@ a.soft_cta:hover {
 	}
 }
 
-.p_h_r_1 {
-	padding: 0 1em 0 0;
-	box-sizing: border-box;
-}
-.p_h_r_2 {
-	padding: 0 2em 0 0;
-	box-sizing: border-box;
-}
-.p_h_r_3 {
-	padding: 0 3em 0 0;
-	box-sizing: border-box;
-}
-.p_h_l_1 {
-	padding: 0 1em 0 0;
-	box-sizing: border-box;
-}
-.p_h_l_2 {
-	padding: 0 2em 0 0;
-	box-sizing: border-box;
-}
-.p_h_l_3 {
-	padding: 0 3em 0 0;
-	box-sizing: border-box;
-}
 .invisible {
     visibility: hidden
 }
@@ -297,5 +268,70 @@ html.turbolinks-progress-bar::before {
   background-color: $color_main !important;
   height: 5px !important;
 }
+
+.download_file {
+  padding: .5em 1em;
+  margin: -.5em 0 1em 1em;
+  @include border-radius(6px);
+  display: inline-block;
+  border: 1px solid transparentize($color_main, .75);
+  text-decoration: none;
+  .fa {
+    opacity: .5;
+  }
+  .file_size {
+    opacity: .5;
+  }
+}
+
+.download_open_data {
+  margin: 4em 0;
+  padding: 3em 0;
+  border-top: 1px solid $color_separator;
+  font-size: .75em;
+  a {
+    color: $color_meta_text;
+    width: 135px;
+    display: inline-block;
+    vertical-align: top;
+    line-height: 1.4em
+  }
+  a:hover {
+    color: darken($color_meta_text, 10%);
+  }
+  .fa {
+    margin: 0 .6em;
+  }
+}
+.open_data {
+  h1 + .subtitle, h2 + .subtitle, h3 + .subtitle {
+    margin: -1em 0 2em 0;
+  }
+  .data_block {
+    border-top: 1px solid $color_separator;
+    padding: 2em 0;
+    margin: 2em 0;
+    h2, h3 {
+      margin-top: 0;
+    }
+    .data_item {
+      margin: 0 0 3em 0;
+      p {
+        margin: .5em 0;
+      }
+    }
+    h3 {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0;
+    }
+    h3 + .button.small {
+      margin-left: 1em;
+    }
+  }
+}
+
+
+
 
 @import "responsive";

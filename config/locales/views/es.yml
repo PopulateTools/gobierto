@@ -1,11 +1,10 @@
 ---
 es:
+  based_on: Web basada en 
   layouts:
     application:
-      about_the_data: Sobre los datos
       disclaimer: Esta web es una demostración de Gobierto, software de transparencia
         y participación
-      is_open_source: es software libre creado por
       more_information: Más información en gobierto.es
       session:
         admin: Administración

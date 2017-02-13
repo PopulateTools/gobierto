@@ -1,11 +1,17 @@
 <div class="people-navigation">
 
   <ul>
-    <li><%= link_to t(".profile"), gobierto_people_person_path(@person) %></li>
-    <li><%= link_to t(".bio"), gobierto_people_person_bio_path(@person) %></li>
-    <li><%= link_to t(".agenda"), gobierto_people_person_events_path(@person) %></li>
-    <li><%= link_to t(".blog"), gobierto_people_person_posts_path(@person) %></li>
-    <li><%= link_to t(".statements"), gobierto_people_person_statements_path(@person) %></li>
+    <li><%= link_to t(".bio"), gobierto_people_person_bio_path(@person), class: class_if("active", controller_name == "person_bio") %></li>
+    <li><%= link_to t(".agenda"), gobierto_people_person_events_path(@person), class: class_if("active", controller_name == "person_events")  %></li>
+    <li><%= link_to t(".blog"), gobierto_people_person_posts_path(@person), class: class_if("active", controller_name == "person_posts")  %></li>
+    <li><%= link_to t(".statements"), gobierto_people_person_statements_path(@person), class: class_if("active", controller_name == "person_statements")  %></li>
   </ul>
+
+</div>
+
+<div class="download_open_data">
+
+  <i class="fa fa-table"></i> 
+  <%= link_to 'Descarga los datos en formato reutilizable', '/sandbox/download_open_data' %>
 
 </div>

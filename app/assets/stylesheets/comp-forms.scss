@@ -45,6 +45,7 @@ input[type=text]:focus, input[type=email]:focus, input[type=submit]:focus, input
   }
 }
 .select_control {
+  background: #fafafa;
   select {
     padding: 0 15px;
     height: 47px;
@@ -76,8 +77,11 @@ input[type=submit], .button, button {
 input[type=submit]:hover, .button:hover, button:hover {
   background: darken($color_main, 10%);
 }
-button a {
+button a, a.button {
   color: #FFF;
+  text-decoration: none;
+}
+a.button:hover {
   text-decoration: none;
 }
 .button:hover, button {
@@ -99,13 +103,14 @@ button.gigantic, .button.gigantic {
   @include border-radius(2em);
   text-decoration: none;
 }
-button.small {
-  font-size: .95em;
-  padding: .45em 2em .3em;
+button.small, .button.small {
+  font-size: .85em;
+  padding: .45em 1em .3em;
   height: initial;
   line-height: 1.2em;
-  font-weight: 200;
-  @include border-radius(2em);
+  font-weight: 300;
+  @include border-radius(4px);
+  display: inline-block;
 }
 button.light:hover, .button.light:hover {
   background: rgba($color_main, .2);
@@ -123,6 +128,15 @@ button.light:hover, .button.light:hover {
 }
 .button_light:hover {
   background: rgba($color_1, .3);
+  text-decoration: none;
+}
+button.outline, .button.outline {
+  background: #FFF;
+  border: 1px solid transparentize($color_1, .75);
+  color: $color_main;
+}
+button.outline:hover, .button.outline:hover {
+  background: $color_1_soft;
   text-decoration: none;
 }
 input[type="checkbox"], input[type="radio"] {
@@ -202,6 +216,7 @@ option, select {
 }
 .option {
 	padding: 0;
+  position: relative;
 }
 .option.separate {
   margin-top: 1em;
@@ -275,16 +290,19 @@ option, select {
   .options.compact {
     font-size: .85em;
     .option {
-      height: 40px;
       border: none;
-      margin-bottom: .5em;
+      margin-bottom: 1em;
     }
     input[type="checkbox"] + label, input[type="radio"] + label {
-      padding: 5px 9px;
+      padding: 5px 9px 5px 2.6em;
       margin: -9px 0 0 -9px;
       @include border-radius(3px);
+
     }
     input[type="checkbox"] + label span, input[type="radio"] + label span {
+      position: absolute;
+      top: 1em;
+      left: 0;
       height: 14px;
       width: 14px;
     }
@@ -360,4 +378,19 @@ option, select {
 }
 trix-toolbar .button_group button.attach::before {
   background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA%2FPjxzdmcgaGVpZ2h0PSIxNnB4IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAyNCAxNiIgd2lkdGg9IjI0cHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6c2tldGNoPSJodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2gvbnMiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48dGl0bGUvPjxkZXNjLz48ZGVmcy8%2BPGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSI%2BPGcgZmlsbD0iIzAwMDAwMCIgaWQ9IkNvcmUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0xMjYuMDAwMDAwLCAtNDYuMDAwMDAwKSI%2BPGcgaWQ9ImJhY2t1cCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTI2LjAwMDAwMCwgNDYuMDAwMDAwKSI%2BPHBhdGggZD0iTTE5LjQsNiBDMTguNywyLjYgMTUuNywwIDEyLDAgQzkuMSwwIDYuNiwxLjYgNS40LDQgQzIuMyw0LjQgMCw2LjkgMCwxMCBDMCwxMy4zIDIuNywxNiA2LDE2IEwxOSwxNiBDMjEuOCwxNiAyNCwxMy44IDI0LDExIEMyNCw4LjQgMjEuOSw2LjIgMTkuNCw2IEwxOS40LDYgWiBNMTQsOSBMMTQsMTMgTDEwLDEzIEwxMCw5IEw3LDkgTDEyLDQgTDE3LDkgTDE0LDkgTDE0LDkgWiIgaWQ9IlNoYXBlIi8%2BPC9nPjwvZz48L2c%2BPC9zdmc%2B);
+}
+
+
+.actions_block {
+  border-top: 1px solid $color_separator;
+  padding: 2em 0 0 0;
+  margin: 2em 0 0 0;
+}
+
+.follow_item {
+  button, .button {
+    width: 100%;
+    margin: .5em 0 1em 0;  
+  }
+  
 }

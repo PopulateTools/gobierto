@@ -1,30 +1,32 @@
-<menu class="people-filter">
+<menu class="filter_boxed">
 
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
     <ul>
-      <li>
-        <%= link_to t("gobierto_people.people_filter.parties.government"), gobierto_people_government_party_people_path, class: class_if('active', controller_name == 'government_party_people') %>
+      <li class="<%= class_if('active', controller_name == 'government_party_people' || controller_name == 'welcome') %>" >
+        <%= link_to t("gobierto_people.people_filter.parties.government"), gobierto_people_government_party_people_path %>
       </li>
-      <li>
-        <%= link_to t("gobierto_people.people_filter.parties.opposition"), gobierto_people_opposition_party_people_path, class: class_if('active', controller_name == 'opposition_party_people') %>
+      <li class="<%= class_if('active', controller_name == 'opposition_party_people') %>">
+        <%= link_to t("gobierto_people.people_filter.parties.opposition"), gobierto_people_opposition_party_people_path %>
       </li>
-      <li>
-        <%= link_to t("gobierto_people.people_filter.categories.executive"), gobierto_people_executive_category_people_path, class: class_if('active', controller_name == 'executive_category_people') %>
+      <li class="<%= class_if('active', controller_name == 'executive_category_people') %>">
+        <%= link_to t("gobierto_people.people_filter.categories.executive"), gobierto_people_executive_category_people_path %>
       </li>
-      <li>
-        <%= link_to t("gobierto_people.people_filter.all"), gobierto_people_people_path, class: class_if('active', controller_name == 'people') %>
+      <li class="<%= class_if('active', controller_name == 'people') %>">
+        <%= link_to t("gobierto_people.people_filter.all"), gobierto_people_people_path %>
       </li>
     </ul>
 
-    <%= t("gobierto_people.people_filter.political_groups.title") %>
+    <div class="hidden">
+      <%= t("gobierto_people.people_filter.political_groups.title") %>
+      <ul>
+        <% @political_groups.each do |political_group| %>
+          <li>
+            <%= link_to political_group.name, gobierto_people_political_group_people_path(political_group), class: class_if('active', @political_group.try(:name) == political_group.name) %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
 
-    <ul>
-      <% @political_groups.each do |political_group| %>
-        <li>
-          <%= link_to political_group.name, gobierto_people_political_group_people_path(political_group), class: class_if('active', @political_group.try(:name) == political_group.name) %>
-        </li>
-      <% end %>
-    </ul>
   </div>
 
 </menu>

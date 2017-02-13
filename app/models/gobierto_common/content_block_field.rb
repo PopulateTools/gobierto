@@ -35,7 +35,7 @@ module GobiertoCommon
     private
 
     def set_name
-      self.name = SecureRandom.uuid
+      self.name ||= SecureRandom.uuid
     end
 
     def set_position

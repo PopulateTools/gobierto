@@ -15,6 +15,7 @@ es:
         sign_in: Iniciar sesión
         sign_out: Cerrar sesión
         title: Tu cuenta
+      search: Busca...
     gobierto_budget_consultations:
       application:
         about_the_data: Sobre los datos
@@ -61,3 +62,9 @@ es:
           sign_in: Iniciar sesión
           sign_out: Cerrar sesión
           title: Tu cuenta
+    search:
+      updated: Actualizado
+      person_item: Biografía
+      person_post_item: Post
+      person_event_item: Evento
+      person_statement_item: Declaración

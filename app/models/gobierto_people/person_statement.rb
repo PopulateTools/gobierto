@@ -4,6 +4,14 @@ module GobiertoPeople
   class PersonStatement < ApplicationRecord
     include ::GobiertoCommon::DynamicContent
     include User::Subscribable
+    include GobiertoCommon::Searchable
+
+    algoliasearch_gobierto do
+      attribute :site_id, :title, :updated_at
+      searchableAttributes ['title']
+      attributesForFaceting [:site_id]
+      add_attribute :resource_path, :class_name
+    end
 
     belongs_to :person, counter_cache: :statements_count
 

@@ -5,7 +5,6 @@ AlgoliaSearch.configuration = {
   receive_timeout: 30,
   send_timeout: 30,
   batch_timeout: 120,
-  search_timeout: 5
+  search_timeout: 5,
+  pagination_backend: :kaminari
 }
-
-require Rails.root.join('lib/algolia_search_gobierto')

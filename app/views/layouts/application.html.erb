@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <% set_meta_tags twitter: { site: APP_CONFIG['site']['twitter_handle'] } %>
   <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -13,6 +14,12 @@
   <script type="text/javascript">
     I18n.defaultLocale = "<%= I18n.default_locale %>";
     I18n.locale = "<%= I18n.locale %>";
+
+    window.searchClient = {
+      client: algoliasearch('<%= Rails.application.secrets.algolia_application_id %>', '<%= Rails.application.secrets.algolia_search_api_key %>'),
+      indexes: [<%= algolia_search_client.search_in_indexes.html_safe %>],
+      filters: "site_id:<%= algolia_search_client.site.id %>"
+    };
   </script>
 
   <%= csrf_meta_tags %>
@@ -127,15 +134,29 @@
 
       <%= render "layouts/main_menu" %>
 
-      <menu class="nav">
-        <div class="column">
+      <div class="column">
+        <menu class="nav">
+
           <%= render "layouts/breadcrumb" %>
           <%= content_for?(:module_sub_sections) ? yield(:module_sub_sections) : load_module_sub_sections(current_module) %>
-        </div>
-      </menu>
 
+          <div class="search_box slim_search">
+            <input type="text" placeholder="<%= t('.search') %>" name="q" id="gobierto_search" />
+          </div>
+
+          <div id="search_results" class="search_result_list"></div>
+
+          <div class="social_links_container" data-share-text="" data-share>
+            <a href="#" class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|XXX"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|XXX"><i class="fa fa-facebook"></i></a>
+            <% pending do %>
+              <a href="#embed-graph-code" class="code open_modal"><i class="fa fa-code"></i></a>
+            <% end %>
+          </div>
+
+        </menu>
+      </div>
     </div>
-
   </header>
 
   <div class="container">
@@ -222,6 +243,5 @@
   <% end %>
 
   <%= yield :javascript_hook %>
-
 </body>
 </html>

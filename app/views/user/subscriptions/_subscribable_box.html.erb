@@ -1,6 +1,6 @@
 <% user_subscription_form = User::SubscriptionForm.new(subscribable: subscribable) %>
 
-<% unless user_signed_in? & current_user.subscribed_to?(subscribable, current_site) %>
+<% if !user_signed_in? || !current_user.subscribed_to?(subscribable, current_site) %>
 
 <div class="subscribable-box slim_box box">
   <div class="inner">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170201120912) do
+ActiveRecord::Schema.define(version: 20170213134054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,7 +122,9 @@ ActiveRecord::Schema.define(version: 20170201120912) do
     t.integer "site_id"
     t.string  "content_model_name", default: "", null: false
     t.hstore  "title"
+    t.string  "internal_id"
     t.index ["content_model_name"], name: "index_content_blocks_on_content_model_name", using: :btree
+    t.index ["site_id", "internal_id"], name: "index_content_blocks_on_site_id_and_internal_id", unique: true, using: :btree
     t.index ["site_id"], name: "index_content_blocks_on_site_id", using: :btree
   end
 

@@ -54,11 +54,5 @@ module GobiertoPeople
     def visible?
       published?
     end
-
-    private
-
-    def resource_path
-      gobierto_people_person_event_path(person.id, self.id)
-    end
   end
 end

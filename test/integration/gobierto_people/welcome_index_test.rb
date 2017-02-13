@@ -57,13 +57,8 @@ module GobiertoPeople
             assert has_link?("Government Team")
             assert has_link?("Opposition")
             assert has_link?("Executive")
-            assert has_link?("All")
-
-            assert has_content?("Political groups")
-
-            political_groups.each do |political_group|
-              assert has_link?(political_group.name)
-            end
+            assert has_link?("Political groups")
+            refute has_link?("All")
           end
 
           government_people.each do |person|

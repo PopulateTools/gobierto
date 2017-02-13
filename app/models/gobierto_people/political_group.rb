@@ -7,5 +7,7 @@ module GobiertoPeople
 
     has_many :people
     has_many :events, through: :people
+
+    default_scope { order(id: :asc) }
   end
 end

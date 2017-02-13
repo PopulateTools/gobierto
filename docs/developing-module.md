@@ -213,3 +213,27 @@ module GobiertoAdmin
   end
 end
 ```
+
+## Seeds
+
+Sometimes module need some database data to exist. For example, a configuratio entry, a list of `DynamicContentBlocks` preconfigured. For that reason, we have created a seeds structure and two seeds runner classes:
+
+- `ModuleSeeder`: seeds a module
+- `ModuleSiteSeeder`: seeds a module for a specific Gobierto installation. It uses the attribute `site.name` from `config/application.yml`
+
+Both seed types can be found in `db/seeds/modules` and `db/seeds/sites`.
+
+These seeds are executed when a module is **activated** in a site. De-activating the module doesn't run the seeder. Keep this in mind in order to write idempotent scripts.
+
+Here's a template of the seed class:
+
+```ruby
+module GobiertoSeeds
+  class Recipe
+    def self.run(site)
+      # Your code goes here
+    end
+  end
+end
+```
+

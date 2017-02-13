@@ -6,7 +6,7 @@ module User::Subscriber
       User::Subscription.exists?(
         user: self,
         site: site,
-        subscribable_type: subscribable,
+        subscribable_type: subscribable.name,
         subscribable_id: nil
       )
     else
@@ -25,7 +25,7 @@ module User::Subscriber
       User::Subscription.create!(
         user: self,
         site: site,
-        subscribable_type: subscribable,
+        subscribable_type: subscribable.name,
         subscribable_id: nil
       )
     else
@@ -44,7 +44,7 @@ module User::Subscriber
       User::Subscription.find_by(
         user: self,
         site: site,
-        subscribable_type: subscribable,
+        subscribable_type: subscribable.name,
         subscribable_id: nil
       ).delete
     else

@@ -29,6 +29,7 @@ class Site < ApplicationRecord
 
   before_save :store_configuration
   before_create :initialize_admins
+  after_save :run_seeder
 
   validates :title, presence: true
   validates :name, presence: true, uniqueness: true
@@ -73,5 +74,28 @@ class Site < ApplicationRecord
 
   def initialize_admins
     self.admins = Array(GobiertoAdmin::Admin.preset)
+  end
+
+  def run_seeder
+    if self.configuration_data_changed? && added_modules_after_update.any?
+      added_modules_after_update.each do |module_name|
+        GobiertoCommon::GobiertoSeeder::ModuleSeeder.seed(module_name, self)
+        GobiertoCommon::GobiertoSeeder::ModuleSiteSeeder.seed(APP_CONFIG['site']['name'], module_name, self)
+      end
+    end
+  end
+
+  def added_modules_after_update
+    @added_modules_after_update ||= begin
+      if self.configuration_data.has_key?('modules')
+        if self.configuration_data_was && self.configuration_data_was.has_key?('modules')
+          self.configuration_data['modules'] - self.configuration_data_was['modules']
+        else
+          self.configuration_data['modules']
+        end
+      else
+        []
+      end
+    end
   end
 end

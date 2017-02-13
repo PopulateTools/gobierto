@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # The root page is kind of dynamic
-  root 'meta_welcome#index'
+  constraints GobiertoSiteConstraint.new do
+    root 'meta_welcome#index'
+  end
 
   if Rails.env.development?
     get '/sandbox' => 'sandbox#index'

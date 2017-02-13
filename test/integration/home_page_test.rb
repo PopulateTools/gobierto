@@ -10,11 +10,11 @@ class HomePageTest < ActionDispatch::IntegrationTest
     @site ||= sites(:madrid)
   end
 
-  def test_greeting
+  def test_greeting_to_first_active_module
     with_current_site(site) do
-      visit @root_path
+      visit @path
 
-      assert has_content?("Main income and expenses from your council")
+      assert_equal 200, page.status_code
     end
   end
 end

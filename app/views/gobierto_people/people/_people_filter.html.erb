@@ -14,9 +14,11 @@
       <li class="<%= class_if('active', controller_name == 'executive_category_people') %>">
         <%= link_to t("gobierto_people.people_filter.categories.executive"), gobierto_people_executive_category_people_path %>
       </li>
-      <li class="<%= class_if('active', @political_group.nil? && controller_name == 'people') %>">
-        <%= link_to t("gobierto_people.people_filter.all"), gobierto_people_people_path %>
-      </li>
+      <% if controller_name != 'welcome' %>
+        <li class="<%= class_if('active', @political_group.nil? && controller_name == 'people') %>">
+          <%= link_to t("gobierto_people.people_filter.all"), gobierto_people_people_path %>
+        </li>
+      <% end %>
     </ul>
 
     <% if @political_group %>

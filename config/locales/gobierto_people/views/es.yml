@@ -134,7 +134,8 @@ es:
           title: Recibe alertas en tu correo-e
     person_posts:
       index:
-        agenda_switcher:
+        switcher:
+          title: Filtra los blogs de...
           subtitle: Filtra por miembros de la comunidad
         subscribable_box:
           title: Recibe alertas en tu correo-e
@@ -143,7 +144,8 @@ es:
         continue: Seguir leyendo
     person_statements:
       index:
-        agenda_switcher:
+        switcher:
+          title: Filtra las declaraciones de...
           subtitle: Filtra por miembros de la comunidad
         subscribable_box:
           title: Recibe alertas en tu correo-e

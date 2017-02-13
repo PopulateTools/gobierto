@@ -86,4 +86,10 @@ class SiteTest < ActiveSupport::TestCase
     assert_equal ["gobierto_populate", "GobiertoIndicators", site], module_site_seeder_spy.calls.first.args
   end
 
+  def test_invalid_if_municipality_blank
+    site.municipality_id = nil
+    site.location_name = nil
+    site.save
+    assert site.errors.messages[:location_name].one?
+  end
 end

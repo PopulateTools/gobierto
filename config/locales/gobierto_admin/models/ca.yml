@@ -22,10 +22,11 @@ ca:
         google_analytics_id: Codi de Google Analytics
         head_markup: HTML de Capçalera
         links_markup: HTML de Enllaços
-        location_name: Entitat relacionada
+        location_name: Municipi
         logo_file: Logotip
         name: Nom de l'entitat
         title: Nom del site
+        municipality_id: Municipi
       gobierto_admin/user_form:
         email: Email
         name: Nom

@@ -15,6 +15,7 @@ this.GobiertoAdmin.SitesController = (function() {
           method: "GET",
           data: { query: request.term },
           success: function(data) {
+            $(municipalityFieldHandler).val('');
             response(data["suggestions"])
           },
         });

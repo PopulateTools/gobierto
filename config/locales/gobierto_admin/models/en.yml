@@ -22,10 +22,11 @@ en:
         google_analytics_id: Google Analytics code
         head_markup: Head HTML
         links_markup: Links HTML
-        location_name: Associated entity
+        location_name: Municipality
         logo_file: Logo
         name: Entity ame
         title: Site name
+        municipality_id: Municipality
       gobierto_admin/user_form:
         email: Email
         name: Name

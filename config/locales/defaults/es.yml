@@ -132,6 +132,7 @@ es:
       too_long: es demasiado largo (%{count} caracteres máximo)
       too_short: es demasiado corto (%{count} caracteres mínimo)
       wrong_length: no tiene la longitud correcta (%{count} caracteres exactos)
+      blank_for_modules: tiene que ser un municipio para que los módulos activos funcionen
     template:
       body: 'Se encontraron problemas con los siguientes campos:'
       header:

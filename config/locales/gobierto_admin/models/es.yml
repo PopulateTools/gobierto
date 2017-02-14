@@ -22,10 +22,11 @@ es:
         google_analytics_id: Código de Google Analytics
         head_markup: HTML de Cabecera
         links_markup: HTML de Enlaces
-        location_name: Entidad relacionada
+        location_name: Municipio
         logo_file: Logotipo
         name: Nombre de la entidad
         title: Nombre del site
+        municipality_id: Municipio
       gobierto_admin/user_form:
         email: Email
         name: Nombre

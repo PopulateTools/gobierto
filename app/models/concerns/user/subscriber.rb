@@ -2,7 +2,7 @@ module User::Subscriber
   extend ActiveSupport::Concern
 
   def subscribed_to?(subscribable, site)
-    if subscribable.is_a?(Class)
+    if subscribable.is_a?(Class) || subscribable.is_a?(Module)
       User::Subscription.exists?(
         user: self,
         site: site,
@@ -21,7 +21,7 @@ module User::Subscriber
   def subscribe_to!(subscribable, site)
     return true if subscribed_to?(subscribable, site)
 
-    if subscribable.is_a?(Class)
+    if subscribable.is_a?(Class) || subscribable.is_a?(Module)
       User::Subscription.create!(
         user: self,
         site: site,
@@ -40,7 +40,7 @@ module User::Subscriber
   def unsubscribe_from!(subscribable, site)
     return true unless subscribed_to?(subscribable, site)
 
-    if subscribable.is_a?(Class)
+    if subscribable.is_a?(Class) || subscribable.is_a?(Module)
       User::Subscription.find_by(
         user: self,
         site: site,

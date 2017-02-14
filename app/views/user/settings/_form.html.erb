@@ -2,20 +2,50 @@
 
 <%= form_for(@user_settings_form, as: :user_settings, url: :user_settings, method: :patch) do |f| %>
 
+  <div class="form_item input_text">
+    <%= f.label :email do %>
+      <%= t("activemodel.attributes.user/settings_form.email") %>
+      <i class="fa fa-lock tipsit" title="<%= t(".hints.email") %>"></i>
+    <% end %>
+    <%= f.text_field :email, disabled: true %>
+  </div>
+
+  <div class="form_item input_text">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="form_item input_text">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+
+  <div class="form_item input_text">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+
+  <div class="form_item select_control">
+    <%= f.label :year_of_birth %>
+    <i class="fa fa-question-circle tipsit" title="<%= t(".hints.year_of_birth") %>"></i>
+    <%= f.select :year_of_birth, @user_years_of_birth, prompt: true %>
+  </div>
+
   <div class="form_item">
 
     <div class="options options_cont">
 
-      <%= f.label :notification_frequency %>
+      <%= f.label :gender, t(".your_gender_is") %>
+      <i class="fa fa-question-circle tipsit" title="<%= t(".hints.gender") %>"></i>
 
       <div class="pure-g">
-        <%= f.collection_radio_buttons(:notification_frequency, @user_notification_frequencies, :first, :first) do |b| %>
+        <%= f.collection_radio_buttons(:gender, @user_genders, :first, :first) do |b| %>
           <div class="pure-u-md-1-2">
             <div class="option ">
               <%= b.radio_button %>
               <%= b.label do %>
                 <span></span>
-                <%= t(".notification_frequency.#{b.text}") %>
+                <%= t(".gender.#{b.text}") %>
               <% end %>
             </div>
           </div>

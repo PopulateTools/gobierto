@@ -9,6 +9,13 @@ es:
         password: Tu contraseña
         password_confirmation: Tu contraseña, otra vez
         year_of_birth: Año de nacimiento
+      user/settings_form:
+        email: Tu Correo-e
+        gender: Género
+        name: Tu nombre
+        password: Tu contraseña
+        password_confirmation: Tu contraseña, otra vez
+        year_of_birth: Año de nacimiento
       user/confirmation_request_form:
         email: Tu Correo-e
       user/edit_password_form:
@@ -21,8 +28,6 @@ es:
       user/session_form:
         email: Tu Correo-e
         password: Tu contraseña
-      user/settings_form:
-        notification_frequency: Frecuencia de notificaciones
       user/subscription_form:
         subscribable: Recurso
         user: Usuario

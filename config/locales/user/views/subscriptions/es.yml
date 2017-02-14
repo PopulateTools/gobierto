@@ -3,10 +3,23 @@ es:
   user:
     subscriptions:
       index:
-        cancel: Cancelar suscripción
-        headers:
-          title: Título
+        modules:
+          gobierto_people: Personas
+          gobierto_indicators: Indicadores
+          gobierto_budgets: Presupuestos
+          gobierto_budget_consultations: Consultas de presupuestos
+        notification_frequency:
+          daily: Resumen diario
+          disabled: Deshabilitadas
+          hourly: Resumen cada hora
+          immediate: Inmediatas
+          weekly: Resumen semanal
+          submit: Guardar
         title: Tus alertas
+        submit: Guardar
+        frequency: Cada cuánto
+        areas: Áreas
+        people: Personas
       subscribable_box:
         cancel: Ya estás suscrito. ¿Cancelar?
         disclaimer: No spam. Date de baja cuando quieras.

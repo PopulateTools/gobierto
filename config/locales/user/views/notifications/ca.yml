@@ -3,8 +3,5 @@ ca:
   user:
     notifications:
       index:
-        headers:
-          created: Creat
-          subject: Asumpte
         no_new_notifications: No hi ha notificacions noves
         title: Activitat recent

@@ -12,49 +12,35 @@
         <%= render_if_exists "#{site_module.underscore}/layouts/navigation" %>
       <% end %>
 
-      <% pending do %>
-        <div class="pure-u-1 pure-u-md-1-4 section">
-          <h2>Personas</h2>
-          <%= link_to 'Cargos' %>
-          <%= link_to 'Agendas' %>
-        </div>
-
-        <div class="pure-u-1 pure-u-md-1-4 section">
-          <h2>Participación</h2>
-          <%= link_to 'Propuestas' %>
-          <%= link_to 'Preguntas' %>
-          <%= link_to 'Consultas' %>
-          <%= link_to 'Legislación colaborativa' %>
-        </div>
-
-        <div class="pure-u-1 pure-u-md-1-4 section">
-          <h2>Mapas</h2>
-          <%= link_to 'Inversiones' %>
-          <%= link_to 'Recursos' %>
-          <%= link_to 'Instalacioens' %>
-        </div>
-      <% end %>
-
       <div class="pure-u-1 pure-u-md-1-4 section personal_menu mobile_only">
-
         <% if user_signed_in? %>
-          <h2>Tu cuenta</h2>
-          <%= link_to user_root_path, class: "pure-menu-link" do %>
-            <%= t(".account") %>
+          <h2>
+            <%= link_to user_settings_path, class: "pure-menu-link" do %>
+              <i class="fa fa-ship"></i>
+              <%= t("layouts.application.session.title") %>
+            <% end %>
+          </h2>
+          <%= link_to user_notifications_path, class: "pure-menu-link" do %>
+            <i class="fa fa-th"></i>
+            <%= t("layouts.application.session.notifications") %>
           <% end %>
-
-          <%= link_to "#" do %>
-            Alertas
+          <%= link_to user_subscriptions_path, class: "pure-menu-link" do %>
+            <i class="fa fa-envelope-o"></i>
+            <%= t("layouts.application.session.alerts") %>
           <% end %>
-
-          <%= link_to user_sessions_path, method: :delete do %>
-            <%= t(".sign_out") %>
+          <%= link_to user_sessions_path, method: :delete, class: "pure-menu-link" do %>
+            <i class="fa fa-sign-out"></i>
+            <%= t("layouts.application.session.sign_out") %>
           <% end %>
         <% else %>
-          <%= link_to new_user_sessions_path, class: "pure-menu-link" do %>
-            <i class="fa fa-sign-in"></i>
-            <%= t(".sign_in") %>
-          <% end %>
+          <ul class="pure-menu-list left">
+            <li class="pure-menu-item">
+              <%= link_to new_user_sessions_path, class: "pure-menu-link" do %>
+                <i class="fa fa-sign-in"></i>
+                <%= t("layouts.application.session.sign_in") %>
+              <% end %>
+            </li>
+          </ul>
         <% end %>
 
         <div class="language_selector">

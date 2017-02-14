@@ -3,10 +3,23 @@ en:
   user:
     subscriptions:
       index:
-        cancel: Cancel subscription
-        headers:
-          title: Title
+        modules:
+          gobierto_people: People
+          gobierto_indicators: Indicators
+          gobierto_budgets: Budgets
+          gobierto_budget_consultations: Budgets consultations
+        notification_frequency:
+          daily: Daily digest
+          disabled: Disabled
+          hourly: Hourly digest
+          immediate: Inmediate
+          weekly: Weekly digest
+          submit: Save
         title: Your alerts
+        submit: Save
+        frequency: Frequency
+        areas: Areas
+        people: People
       subscribable_box:
         cancel: Already subscribed. Cancel?
         disclaimer: No spam. Cancel anytime.

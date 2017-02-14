@@ -19,7 +19,6 @@ module GobiertoAdmin
       delegate :persisted?, to: :consultation_item
 
       validates :title, presence: true
-      validates :budget_line_id, :budget_line_name, presence: true
       validates :budget_line_amount, presence: true
       validates :consultation, presence: true
 

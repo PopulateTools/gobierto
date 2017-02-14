@@ -98,6 +98,7 @@ class ActionDispatch::IntegrationTest
   DatabaseCleaner.clean_with :truncation
 
   def setup
+    $redis.flushdb
     DatabaseCleaner.start
     Capybara.current_driver = Capybara.default_driver
   end

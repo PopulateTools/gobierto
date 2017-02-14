@@ -6,13 +6,9 @@ class GobiertoCommon::ActiveNotifier::DailyTest < ActiveSupport::TestCase
     @subject = GobiertoCommon::ActiveNotifier::Daily
   end
 
-  def test_call
-    assert @subject.call
-  end
-
   def test_notifications
     assert_difference "User::Notification.count", 1 do
-      @subject.call
+      assert @subject.call
     end
   end
 end

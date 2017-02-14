@@ -50,7 +50,7 @@ module GobiertoCommon
         return true
       end
 
-      self.class.send(:changed_attributes_to_notify).each do |attribute_name|
+      (self.class.send(:changed_attributes_to_notify) & @changed).each do |attribute_name|
         publish_changed(attribute_name)
         return true
       end

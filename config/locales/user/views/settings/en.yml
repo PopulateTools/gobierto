@@ -2,13 +2,15 @@
 en:
   user:
     settings:
-      form:
-        notification_frequency:
-          daily: Daily digest
-          disabled: Disabled
-          hourly: Hourly digest
-          immediate: Immediate
-          weekly: Weekly digest
-        submit: Save
       show:
-        title: Settings
+        title: Your account
+      form:
+        gender:
+          female: Female
+          male: Male
+        hints:
+          email: Your email address will be considered private at all times.
+          gender: This information will be considered private at all times.
+          year_of_birth: This information will be considered private at all times.
+        submit: Save
+        your_gender_is: You are...

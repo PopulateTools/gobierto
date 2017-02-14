@@ -2,13 +2,21 @@
 es:
   user:
     settings:
-      form:
-        notification_frequency:
-          daily: Digest diario
-          disabled: Deshabilitadas
-          hourly: Digest horario
-          immediate: Inmediatas
-          weekly: Digest semanal
-        submit: Guardar
       show:
-        title: Ajustes de tu cuenta
+        title: Tu cuenta
+      form:
+        gender:
+          female: Mujer
+          male: Hombre
+        hints:
+          email: Tu dirección de correo-e será privada en todo momento. Solo lo utilizaremos
+            para enviarte comunicaciones.
+          gender: Esta información será privada, y nunca se identificará con tu perfil.
+            El dato será anonimizado, y te lo pedimos para poder obtener información
+            segmentada para entender mejor las opiniones y preferencias de los ciudadanos.
+          year_of_birth: Esta información será privada, y nunca se identificará con
+            tu perfil. El dato será anonimizado, y te lo pedimos para poder obtener
+            información segmentada para entender mejor las opiniones y preferencias
+            de los ciudadanos.
+        submit: Guardar
+        your_gender_is: Eres...

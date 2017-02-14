@@ -3,8 +3,8 @@ ca:
   user:
     layouts:
       application:
-        account: Le teu compte
+        account: El teu compte
       menu_subsections:
-        admin: Administració
+        admin: Ajusts
         alerts: Las teves alertes
-        profile: Perfil
+        notifications: Notificacions

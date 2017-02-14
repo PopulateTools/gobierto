@@ -6,7 +6,6 @@
 //= require jquery.visible
 //= require sticky-kit.min
 //= require jquery-ui
-//= require html5sortable
 //= require tipsy
 //= require mustache.min
 //= require velocity.min

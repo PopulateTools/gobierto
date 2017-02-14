@@ -52,9 +52,10 @@ module GobiertoCommon
 
       self.class.send(:changed_attributes_to_notify).each do |attribute_name|
         publish_changed(attribute_name)
+        return true
       end
 
-      if (@changed - self.class.send(:changed_attributes_to_notify)).any?
+      if updated? && (@changed - self.class.send(:changed_attributes_to_notify)).any?
         publish_updated
       end
 

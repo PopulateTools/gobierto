@@ -1,0 +1,7 @@
+---
+ca:
+  user:
+    subscription_preferences:
+      update:
+        update_success: S'han actualitzat les dades correctament
+        error: "Ha ocurregut un problema al actualitzar: %{details}"

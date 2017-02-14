@@ -3,8 +3,5 @@ es:
   user:
     notifications:
       index:
-        headers:
-          created: Creado
-          subject: Asunto
         no_new_notifications: No hay notificaciones nuevas
         title: Actividad reciente

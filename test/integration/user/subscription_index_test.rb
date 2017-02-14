@@ -14,19 +14,27 @@ class User::SubscriptionIndexTest < ActionDispatch::IntegrationTest
     @site ||= sites(:madrid)
   end
 
-  def test_subscription_index
+  def person
+    @person ||= gobierto_people_people(:richard)
+  end
+
+  def test_subscription_management
     with_current_site(site) do
       with_signed_in_user(user) do
         visit @path
 
-        within ".user-subscription-list" do
-          user.subscriptions.each do |user_subscription|
-            assert has_selector?(
-              "tr#user-subscription-item-#{user_subscription.id}",
-              text: user_subscription.subscribable_label
-            )
-          end
-        end
+        assert has_content?("Your alerts")
+        assert has_checked_field?("user_subscription_preferences_notification_frequency_hourly")
+
+        check "People"
+        check person.name
+
+        click_button "Save"
+
+        assert has_message?("Preferences updated successfully")
+
+        assert has_checked_field?("user_subscription_preferences_modules_gobierto_people")
+        assert has_checked_field?("user_subscription_preferences_gobierto_people_people_#{person.id}")
       end
     end
   end

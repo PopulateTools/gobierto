@@ -1,0 +1,7 @@
+---
+es:
+  user:
+    subscription_preferences:
+      update:
+        update_success: Se han actualizado las preferencias correctamente
+        error: "Ha habido un problema al guardar los datos: %{details}"

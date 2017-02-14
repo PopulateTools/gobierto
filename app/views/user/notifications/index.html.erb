@@ -6,34 +6,26 @@
 
 <div class="column">
 
-  <h3><%= title t(".title") %></h3>
+  <div class="block">
+    <h2><%= title t(".title") %></h2>
+  </div>
 
-  <% if @user_notifications.any? %>
-
-    <table class="user-notification-list">
-      <tr>
-        <th><%= t(".headers.created") %></th>
-        <th><%= t(".headers.subject") %></th>
-        <th></th>
-      </tr>
-      <tbody>
-        <% @user_notifications.each do |user_notification| %>
-          <tr id="user-notification-item-<%= user_notification.id %>">
-            <td>
-              <%= l(user_notification.created_at, format: :long) %>
-            </td>
-            <td>
-              <%= render_notification_item(user_notification) %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-
-  <% else %>
-
-    <%= t(".no_new_notifications") %>
-
-  <% end %>
+	<div class="activity_feed">
+    <% if @user_notifications.any? %>
+      <% @user_notifications.each do |user_notification| %>
+        <div class="activity_item">
+          <h2>
+            <%= link_to(notification_subject_url(user_notification)) do %>
+              <%= I18n.t("#{user_notification.subject.model_name.i18n_key}.notifications.subject.#{user_notification.action}") %>
+              <span class="secondary"><%= user_notification.subject.subscribable_label %></span>
+            <% end %>
+          </h2>
+          <div class="date"><%= l(user_notification.created_at.to_date, format: :short) %></div>
+        </div>
+      <% end %>
+    <% else %>
+      <p><%= t(".no_new_notifications") %></p>
+    <% end %>
+  </div>
 
 </div>

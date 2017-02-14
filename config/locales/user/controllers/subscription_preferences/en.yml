@@ -1,0 +1,7 @@
+---
+en:
+  user:
+    subscription_preferences:
+      update:
+        update_success: Preferences updated successfully
+        error: "Preferences couldn't be updated: %{details}"

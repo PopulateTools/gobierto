@@ -10,7 +10,7 @@ module GobiertoCommon
       end
 
       def self.algoliasearch_gobierto(&block)
-        algoliasearch(enqueue: true, disable_indexing: Rails.env.test?, index_name: search_index_name, if: :visible?, sanitize: true, &block)
+        algoliasearch(enqueue: true, disable_indexing: Rails.env.test?, index_name: search_index_name, if: :active?, sanitize: true, &block)
       end
     end
 

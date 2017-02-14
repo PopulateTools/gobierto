@@ -7,7 +7,7 @@
     <ul>
       <% @latest_activity.each do |activity| %>
         <li>
-          <%= link_to_if activity.visible?, t(*activity.i18n_key), activity.subject.to_url(domain: @site.domain) %>
+          <%= link_to_if activity.active?, t(*activity.i18n_key), activity.subject.to_url(domain: @site.domain) %>
           <span class="soft">
             <%= l(activity.created_at.to_date, format: :short) %>
           </span>

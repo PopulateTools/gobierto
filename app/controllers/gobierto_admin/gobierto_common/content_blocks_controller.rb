@@ -123,7 +123,7 @@ module GobiertoAdmin
 
       def ignored_content_block_attributes
         %w(
-        created_at updated_at
+        created_at updated_at internal_id
         )
       end
     end

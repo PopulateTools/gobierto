@@ -44,7 +44,7 @@ module GobiertoPeople
 
     def person_contact_methods
       @person_contact_methods ||= begin
-        if content_block = object.content_blocks.find_by("title->'es' = ?", "Formas de contacto")
+        if content_block = object.content_blocks.find_by(internal_id: "gobierto_people_contact_block")
           content_block.records.pluck(:payload)
         else
           []

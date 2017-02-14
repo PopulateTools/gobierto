@@ -116,7 +116,8 @@ en:
           title: Receive alerts in your inbox
     person_posts:
       index:
-        agenda_switcher:
+        switcher:
+          title: Check posts from...
           subtitle: Filter by community members
         subscribable_box:
           title: Receive alerts in your inbox
@@ -125,7 +126,8 @@ en:
         continue: Continue reading
     person_statements:
       index:
-        agenda_switcher:
+        switcher:
+          title: Check statements from...
           subtitle: Filter by community members
         subscribable_box:
           title: Receive alerts in your inbox

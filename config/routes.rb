@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # The root page is kind of dynamic
-  root 'meta_welcome#index'
+  constraints GobiertoSiteConstraint.new do
+    root 'meta_welcome#index'
+  end
 
   if Rails.env.development?
     get '/sandbox' => 'sandbox#index'
@@ -111,8 +113,8 @@ Rails.application.routes.draw do
     constraints GobiertoSiteConstraint.new do
       get '/' => 'welcome#index', as: :root
 
-      resources :person_events, only: [:index], as: :events, path: 'todos-los-cargos/agendas/eventos'
-      resources :government_party_person_events, only: [:index], as: :government_party_events, path: 'agendas/eventos'
+      resources :person_events, only: [:index], as: :events, path: 'agendas/eventos'
+      resources :government_party_person_events, only: [:index], as: :government_party_events, path: 'equipo-gobierno/agendas/eventos'
       resources :opposition_party_person_events, only: [:index], as: :opposition_party_events, path: 'cargos-en-oposicion/agendas/eventos'
       resources :executive_category_person_events, only: [:index], as: :executive_category_events, path: 'cargos-directivos/agendas/eventos'
 

@@ -19,7 +19,6 @@ module GobiertoAdmin
         name: nil,
         domain: site.domain,
         location_name: site.location_name,
-        municipality_id: nil,
         visibility_level: "active"
       )
     end
@@ -70,7 +69,6 @@ module GobiertoAdmin
 
       assert invalid_site_form.errors.messages[:title].one?
       assert invalid_site_form.errors.messages[:name].one?
-      assert invalid_site_form.errors.messages[:municipality_id].one?
     end
   end
 end

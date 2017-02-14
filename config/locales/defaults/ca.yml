@@ -132,6 +132,7 @@ ca:
       too_long: és massa llarg (%{count} caràcters màxim)
       too_short: és massa curt (%{count} caràcters mínim)
       wrong_length: no té la longitud correcta (%{count} caràcters exactament)
+      blank_for_modules: ha de ser un municipi per a que els moduls actius funcionen
     template:
       body: 'Hi ha hagut problemes amb els següents camps:'
       header:

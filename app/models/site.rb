@@ -33,8 +33,8 @@ class Site < ApplicationRecord
 
   validates :title, presence: true
   validates :name, presence: true, uniqueness: true
-  validates :location_name, presence: true
   validates :domain, presence: true, uniqueness: true, domain: true
+  validate :location_required
 
   scope :sorted, -> { order(created_at: :desc) }
   scope :alphabetically_sorted, -> { order(name: :asc) }
@@ -48,7 +48,9 @@ class Site < ApplicationRecord
   end
 
   def place
-    @place ||= INE::Places::Place.find self.municipality_id
+    @place ||= if self.municipality_id && self.location_name
+                 INE::Places::Place.find self.municipality_id
+               end
   end
 
   def configuration
@@ -95,6 +97,14 @@ class Site < ApplicationRecord
         end
       else
         []
+      end
+    end
+  end
+
+  def location_required
+    if (self.configuration.modules & %W{ GobiertoBudgetConsultations GobiertoBudgets GobiertoIndicators} ).any?
+      if municipality_id.blank? || location_name.blank?
+        errors.add(:location_name, I18n.t('errors.messages.blank_for_modules'))
       end
     end
   end

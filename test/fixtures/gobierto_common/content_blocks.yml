@@ -2,6 +2,7 @@ contact_methods:
   site: madrid
   content_model_name: GobiertoPeople::Person
   title: <%= { "en" => "Contact methods", "es" => "Formas de contacto" }.to_json %>
+  internal_id: "gobierto_people_contact_block"
 
 accomplishments:
   site: madrid

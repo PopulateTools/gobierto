@@ -45,8 +45,6 @@ module GobiertoAdmin
     validates :username, :password, presence: true, if: :draft_visibility?
     validates :title, presence: true
     validates :name, presence: true
-    validates :location_name, presence: true
-    validates :municipality_id, presence: true
 
     def save
       save_site if valid?

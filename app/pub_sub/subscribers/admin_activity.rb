@@ -31,7 +31,6 @@ module Subscribers
                        subject_ip: event.payload[:ip],
                        action: action,
                        admin_activity: true
-
     end
   end
 end

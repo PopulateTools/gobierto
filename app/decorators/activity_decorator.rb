@@ -21,8 +21,8 @@ class ActivityDecorator < BaseDecorator
     ["#{object_module}.activities.#{@object.action.tr('.', '_')}", { subject_name: subject_name }]
   end
 
-  def visible?
-    @object.subject.present? && @object.subject.respond_to?(:visible?) && @object.subject.visible?
+  def active?
+    @object.subject.present? && @object.subject.respond_to?(:active?) && @object.subject.active?
   end
 
   private

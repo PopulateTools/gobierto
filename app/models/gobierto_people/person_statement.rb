@@ -22,10 +22,6 @@ module GobiertoPeople
     delegate :site_id, to: :person
     delegate :admin_id, to: :person
 
-    def visible?
-      active?
-    end
-
     def parameterize
       { person_id: person, id: self }
     end

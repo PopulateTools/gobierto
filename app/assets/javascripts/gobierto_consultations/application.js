@@ -1,9 +1,9 @@
 $(document).on('ready page:change', function() {
   $('.not-allowed').tipsy({offset: -40, className: 'tip-warning', live: true, fade: true, html: true, gravity: $.fn.tipsy.autoBounds(-18, 's'), opacity: 1});
   $('.budget-status').tipsy({offset: -20, className: 'tip-info', live: true, fade: true, html: true, gravity: 's', opacity: 1});
-  
+
   var bus = new Vue();
-  
+
   Vue.component('consultation-card', {
     props: ['card', 'active'],
     template: '#card',
@@ -11,13 +11,13 @@ $(document).on('ready page:change', function() {
       setActive: function(d, e) {
         // Send the active event to the bus
         bus.$emit('active');
-        
+
         // Save selected card
         var that = this;
-        
+
         // Set individual card state
         d.toggleDesc = !d.toggleDesc;
-        
+
         // Scroll to selected card
         // Set the description status
         $('body').animate({
@@ -31,7 +31,7 @@ $(document).on('ready page:change', function() {
             d.hidden = isVisible ? false : true;
           }
         });
-        
+
         // Reset value
         d.hidden = null;
       },
@@ -46,7 +46,7 @@ $(document).on('ready page:change', function() {
       }
     }
   });
-  
+
   Vue.component('budget-box', {
     props: ['card'],
     template: '#budget-box',
@@ -56,12 +56,12 @@ $(document).on('ready page:change', function() {
       }
     }
   });
-  
+
   Vue.component('budget-calculator', {
     props: ['active'],
     template: '#budget-calculator'
   });
-  
+
   Vue.component('description-modal', {
     props: ['current'],
     template: '#description-modal',
@@ -71,7 +71,7 @@ $(document).on('ready page:change', function() {
       }
     }
   });
-  
+
   var app = new Vue({
     el: "#app",
     data: {
@@ -90,20 +90,20 @@ $(document).on('ready page:change', function() {
         {hidden: false, toggleDesc: false, title: 'Cultura', figure: '83€', description: 'Este es el importe que se dedica cada año a devolver los créditos que se hayan pedido en el pasado (por tanto, solo refleja una parte de la deuda total del municipio, cuya devolución puede estar planteada para varios años - como cuando pides una hipoteca).'},
       ]
     },
-    created() {
+    created: function() {
       bus.$on('active', function() {
         // Not sure if this makes more sense
         //Vue.set(app, 'active', false) : Vue.set(app, 'active', true);
         Vue.set(app, 'active', true);
       });
-      
+
       bus.$on('open', function(d) {
         // Set current card data
         Vue.set(app, 'current', d);
-        
+
         Vue.set(app, 'modal', true);
       });
-      
+
       bus.$on('close', function() {
         Vue.set(app, 'modal', false);
       });

@@ -14,15 +14,11 @@ class User::Subscription::NotificationBuilder
   def call
     [].tap do |user_notifications|
       User::Notification.transaction do
-        User::Subscription
-          .select(:id, :user_id)
-          .where(
-            subscribable_type: subject.class.name,
-            subscribable_id: subject.id,
-            site_id: site_id
-          ).find_each do |user_subscription|
-            user_notification = build_user_notification_for(user_subscription.user_id)
-            user_notifications.push(user_notification.record) if user_notification.save
+        User::Subscription.find_users_for(subject.class.name, (subject.id unless subject.is_a?(Class) || subject.is_a?(Module)), site_id).each do |user_id|
+          user_notification = build_user_notification_for(user_id)
+          if user_notification.save
+            user_notifications.push(user_notification.record)
+          end
         end
       end
     end

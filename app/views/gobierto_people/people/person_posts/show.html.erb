@@ -32,3 +32,5 @@
 <%= render("user/subscriptions/subscribable_box",
            subscribable: @post,
            title: t(".subscribable_box.title")) %>
+
+<% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>

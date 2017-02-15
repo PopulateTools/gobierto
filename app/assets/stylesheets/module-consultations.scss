@@ -1,13 +1,9 @@
-/* Consultations */
+/* Consultation intro */
 .inline-block {
   display: inline-block;
 }
 .column.consultation {
   max-width: 960px;
-  margin: 0 auto;
-}
-.column.consultation.desktop {
-  max-width: 1200px;
   margin: 0 auto;
 }
 .consultation-intro-wrapper {
@@ -18,8 +14,6 @@
   }
 }
 .consultation-intro-wrapper p {
-  
-  
   @include min-screen(768) {
     font-weight: 300;
     font-size: 1.25rem;
@@ -101,12 +95,55 @@
 .consultation-faq-q {
   font-weight: 600;
 }
+.button-light {
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #cde9ec;
+  padding: .75rem;
+}
 
-/* Consultation cards */
+/* Budget preview (desktop only) */
+.column.consultation.desktop {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.consultation-img-side {
+  position: absolute;
+  left: 0;
+}
+.consultation-text,
+.bottom-info-small {
+  padding: 0 2rem;
+  position: relative;
+}
+.consultation-text p {
+  font-weight: 300;
+  padding: 0 2rem 0 4rem;
+  line-height: 1.2;
+  font-size: 1.5rem;
+}
+.bottom-info-small {
+  padding: 1rem 2rem;
+  background: $color_1;
+  color: $color_main_negative;
+  max-width: 25rem;
+  margin: 0 auto;
+}
+.consultation-group {
+  margin: 0 auto;
+  max-width: 30rem;
+}
+.intro-arrow {
+  text-align: right;
+}
+.card-header {
+  position: relative;
+}
+
+/* Cards */
 .consultation-box {
   margin: 0.75rem;
   margin-bottom: 6rem;
-  // box-shadow: 0 1px 15px 4px rgba(0, 0, 0, 0.2);
 }
 .consultation-card {
   position: relative;
@@ -114,9 +151,9 @@
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
   margin-top: -0.75rem;
-  // padding: 1rem;
   background: #dfeff0;
   
+  /* Desktop */
   @include min-screen(768) {
     box-shadow: none;
     border-top-right-radius: 0;
@@ -126,19 +163,23 @@
   }
 }
 .consultation-card.active {
+  /* Desktop */
   @include min-screen(768) {
     background-color: #0f5e66;
   }
 }
 .consultation-card.active::after {
-  font-family: "FontAwesome";
-  content: "\f061";
-  position: absolute;
-  z-index: 1;
-  right: -3rem;
-  top: 0.75rem;
-  color: #1d909d;
-  font-size: 2.5rem;
+  /* Desktop */
+  @include min-screen(768) {
+    font-family: "FontAwesome";
+    content: "\f061";
+    position: absolute;
+    z-index: 1;
+    right: -3rem;
+    top: 0.75rem;
+    color: #1d909d;
+    font-size: 2.5rem;
+  }
 }
 .consultation-card.active .card-title {
   padding: 2rem 1rem 0 1rem;
@@ -158,13 +199,29 @@
 .card-content {
   position: relative;
 }
-.card-title .title {
-  margin-bottom: 0.5rem;
-  line-height: 1.5;
+.consultation-title {
   font-weight: 600;
+  display: inline-block;
+  font-size: 1.15rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: $color_dark;
+  
+  @include min-screen(768) {
+    width: 22rem;
+  }
 }
-.consultation-card.active .title {
+.consultation-box .consultation-title {
+  @include min-screen(768) {
+    width: auto;
+  }
+}
+.consultation-figure {
+  font-weight: 300;
+  float: right;
+}
+.consultation-card.active .consultation-title {
   font-size: 1.25rem;
   
   @include min-screen(768) {
@@ -172,12 +229,7 @@
     color: $color_main_negative;
   }
 }
-.consultation-card .figure {
-  font-weight: 300;
-  color: $color_dark;
-  text-align: right;
-}
-.consultation-card.active .figure {
+.consultation-card.active .consultation-figure {
   font-size: 1.5rem;
   
   @include min-screen(768) {
@@ -186,7 +238,31 @@
   }
 }
 
-/* Card description */
+/* Card content (desktop only) */
+.card-wrapper {
+  padding: 0 15rem 0 5rem;
+}
+.card-header {
+  position: relative;
+}
+.card-headline {
+  margin-bottom: 3rem;
+}
+.card-figure {
+  text-align: right;
+  color: #9b9b9b;
+  position: absolute;
+  right: 0;
+  top: 0
+}
+.card-figure h2 {
+  margin: 0;
+}
+.card-figure p {
+  margin-top: 0;
+}
+
+/* Card content */
 .card-description .sep {
   border-top: 1px solid $color_dark_sep;
   margin-bottom: 1rem;
@@ -226,7 +302,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0089fff1', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
 }
 
-/* Consultation box */
+/* Budget change selector */
 .budget-ask {
   text-align: center;
   margin-bottom: 2rem;
@@ -375,6 +451,7 @@
 }
 .tip-warning .tip-headline,
 .tip-info .tip-headline {
+  color: $color_main_negative;
   font-weight: 600;
   text-align: left;
   margin: 0;
@@ -469,92 +546,4 @@
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
-}
-
-/* Desktop only classes */
-.consultation-text {
-  position: relative;
-  font-size: 1.25rem;
-  font-weight: 300;
-}
-.button-light {
-  border-radius: 6px;
-  font-size: 1rem;
-  background: #cde9ec;
-  padding: .75rem;
-}
-.consultation-intro-small {
-  padding: 2rem 2rem 2rem 6rem;
-}
-.consultation-text-small,
-.bottom-info-small {
-  padding: 0 2rem;
-  position: relative;
-}
-.consultation-text-small p {
-  font-weight: 300;
-  padding: 0 2rem 0 4rem;
-  line-height: 1.2;
-  font-size: 1.5rem;
-}
-.bottom-info-small {
-  padding: 1rem 2rem;
-  background: $color_1;
-  color: $color_main_negative;
-  max-width: 25rem;
-  margin: 0 auto;
-}
-
-.consultation-img-side {
-  position: absolute;
-  left: 0;
-}
-.consultation-preview {
-  background: #e0eff0;
-  padding: 0.75rem;
-  margin-bottom: 0.25rem;
-  color: #005D67;
-}
-.consultation-title {
-  font-weight: 600;
-  display: inline-block;
-  font-size: 1.15rem;
-  width: 22rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.consultation-figure {
-  font-weight: 300;
-  float: right;
-}
-.consultation-group {
-  margin: 0 auto;
-  max-width: 30rem;
-}
-.intro-arrow {
-  text-align: right;
-}
-
-.card-wrapper {
-  padding: 0 15rem 0 5rem;
-}
-.card-header {
-  position: relative;
-}
-.card-headline {
-  margin-bottom: 3rem;
-}
-.card-figure {
-  text-align: right;
-  color: #9b9b9b;
-  position: absolute;
-  right: 0;
-  top: 0
-}
-.card-figure h2 {
-  margin: 0;
-}
-.card-figure p {
-  margin-top: 0;
 }

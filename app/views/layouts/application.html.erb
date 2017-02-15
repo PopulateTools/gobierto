@@ -4,11 +4,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <% set_meta_tags og: {
        title:    :title,
+       description: :description,
        type:     'website',
        url:      request.url,
-       image:    @site.configuration.logo_with_fallback
+       image:    {
+         _: @site.configuration.logo_with_fallback
+       }
      },
-     twitter: { card: "summary", site: APP_CONFIG['site']['twitter_handle'] } %>
+     twitter: {
+       card: "summary",
+       site: APP_CONFIG['site']['twitter_handle'],
+       description: :description,
+       title: :title,
+       image: {
+         _: @site.configuration.logo_with_fallback
+       }
+     } %>
 
   <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>

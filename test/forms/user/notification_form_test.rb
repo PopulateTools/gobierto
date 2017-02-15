@@ -6,8 +6,7 @@ class User::NotificationFormTest < ActiveSupport::TestCase
       user_id: user.id,
       site_id: site.id,
       action: action,
-      subject_type: subject.model_name.to_s,
-      subject_id: subject.id
+      subject: subject
     )
   end
 
@@ -16,8 +15,7 @@ class User::NotificationFormTest < ActiveSupport::TestCase
       user_id: delayed_notifications_user.id,
       site_id: site.id,
       action: action,
-      subject_type: subject.model_name.to_s,
-      subject_id: subject.id
+      subject: subject
     )
   end
 
@@ -26,8 +24,7 @@ class User::NotificationFormTest < ActiveSupport::TestCase
       user_id: nil,
       site_id: nil,
       action: nil,
-      subject_type: nil,
-      subject_id: nil
+      subject: nil
     )
   end
 
@@ -61,8 +58,7 @@ class User::NotificationFormTest < ActiveSupport::TestCase
     assert_equal 1, invalid_user_notification_form.errors.messages[:user_id].size
     assert_equal 1, invalid_user_notification_form.errors.messages[:site_id].size
     assert_equal 1, invalid_user_notification_form.errors.messages[:action].size
-    assert_equal 1, invalid_user_notification_form.errors.messages[:subject_type].size
-    assert_equal 1, invalid_user_notification_form.errors.messages[:subject_id].size
+    assert_equal 1, invalid_user_notification_form.errors.messages[:subject].size
   end
 
   def test_save

@@ -5,11 +5,10 @@ class User::NotificationForm
     :user_id,
     :site_id,
     :action,
-    :subject_type,
-    :subject_id
+    :subject
   )
 
-  validates :user_id, :site_id, :action, :subject_type, :subject_id, presence: true
+  validates :user_id, :site_id, :action, :subject, presence: true
 
   def save
     return unless valid?
@@ -40,8 +39,7 @@ class User::NotificationForm
       user_notification_attributes.user_id = user_id
       user_notification_attributes.site_id = site_id
       user_notification_attributes.action = action
-      user_notification_attributes.subject_type = subject_type
-      user_notification_attributes.subject_id = subject_id
+      user_notification_attributes.subject = subject
     end
 
     @user_notification.save(validate: false)

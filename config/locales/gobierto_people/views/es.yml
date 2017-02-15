@@ -1,7 +1,7 @@
 ---
 es:
   gobierto_people:
-    activities:
+    events:
       gobierto_people_person_updated: Actualización de la información personal
       gobierto_people_person_published: "Creada nueva persona: %{subject_name}"
       gobierto_people_person_post_updated: "Actualización del post: %{subject_name}"

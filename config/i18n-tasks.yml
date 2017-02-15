@@ -26,3 +26,4 @@ ignore_unused:
   - 'gobierto_admin.gobierto_budget_consultations.consultations.consultation_items.*_modal.*'
   - 'gobierto_budgets.budget_lines.show.twitter_text_*'
   - 'gobierto_people.activities.gobierto_people_person*'
+  - 'invisible_captcha.*'

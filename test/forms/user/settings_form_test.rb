@@ -4,7 +4,10 @@ class User::SettingsFormTest < ActiveSupport::TestCase
   def valid_user_settings_form
     @valid_user_settings_form ||= User::SettingsForm.new(
       user_id: user.id,
-      notification_frequency: User.notification_frequencies["immediate"]
+      name: 'Fulano',
+      email: 'example@example.org',
+      year_of_birth: 1981,
+      gender: User.genders[:male]
     )
   end
 

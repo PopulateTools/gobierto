@@ -69,21 +69,21 @@
                       </a>
                       <ul class="pure-menu-children">
                         <li class="pure-menu-item">
+                          <%= link_to user_settings_path, class: "pure-menu-link" do %>
+                            <i class="fa fa-ship"></i>
+                            <%= t(".session.title") %>
+                          <% end %>
+                        </li>
+                        <li class="pure-menu-item">
                           <%= link_to user_notifications_path, class: "pure-menu-link" do %>
                             <i class="fa fa-th"></i>
-                            <%= t(".session.profile") %>
+                            <%= t(".session.notifications") %>
                           <% end %>
                         </li>
                         <li class="pure-menu-item">
                           <%= link_to user_subscriptions_path, class: "pure-menu-link" do %>
                             <i class="fa fa-envelope-o"></i>
                             <%= t(".session.alerts") %>
-                          <% end %>
-                        </li>
-                        <li class="pure-menu-item">
-                          <%= link_to user_settings_path, class: "pure-menu-link" do %>
-                            <i class="fa fa-ship"></i>
-                            <%= t(".session.admin") %>
                           <% end %>
                         </li>
                         <li class="pure-menu-item">

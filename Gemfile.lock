@@ -367,6 +367,7 @@ DEPENDENCIES
   rails (~> 5.0, >= 5.0.1)
   rails-html-sanitizer
   redcarpet
+  redis (~> 3.3)
   responders
   rollbar
   ruby_px

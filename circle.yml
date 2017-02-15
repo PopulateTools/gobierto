@@ -1,4 +1,6 @@
 machine:
+  services:
+    - redis
   environment:
     CI: true
     HOST: gobierto.dev

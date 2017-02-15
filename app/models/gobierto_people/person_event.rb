@@ -51,7 +51,7 @@ module GobiertoPeople
       starts_at > Time.zone.now
     end
 
-    def visible?
+    def active?
       published?
     end
   end

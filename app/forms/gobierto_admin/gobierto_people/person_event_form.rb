@@ -140,7 +140,7 @@ module GobiertoAdmin
       end
 
       def notify?
-        person_event.published?
+        person_event.active?
       end
 
       private

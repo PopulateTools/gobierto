@@ -52,6 +52,9 @@ gem "kaminari", "~> 1.0"
 # Captcha
 gem "invisible_captcha"
 
+# Redis
+gem "redis", "~> 3.3"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"

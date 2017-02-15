@@ -10,9 +10,8 @@ ca:
         i participació
       more_information: Més informació en gobierto.es
       session:
-        admin: Administració
         alerts: Les teves alertes
-        profile: Perfil
+        notifications: Notificacions
         sign_in: Iniciar sessió
         sign_out: Tancar sessió
         title: El teu compte
@@ -27,7 +26,7 @@ ca:
         session:
           admin: Administració
           alerts: Les teves alertes
-          profile: Perfil
+          notifications: Notificacions
           sign_in: Iniciar sessió
           sign_out: Tancar sessió
           title: El teu compte
@@ -41,14 +40,10 @@ ca:
         session:
           admin: Administració
           alerts: Les teves alertes
-          profile: Perfil
+          notifications: Notificacions
           sign_in: Iniciar sessió
           sign_out: Tancar sessió
           title: El teu compte
-    main_menu:
-      account: El teu compte
-      sign_in: Iniciar sessió
-      sign_out: Tancar sessió
     sandbox:
       application:
         about_the_data: Sobre les dades
@@ -59,7 +54,7 @@ ca:
         session:
           admin: Administració
           alerts: Les teves alertes
-          profile: Perfil
+          notifications: Notificacions
           sign_in: Iniciar sessió
           sign_out: Tancar sessió
           title: El teu compte

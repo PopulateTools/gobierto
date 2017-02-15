@@ -9,6 +9,13 @@ ca:
         password: La teva contrasenya
         password_confirmation: La teva contrasenya, de nou
         year_of_birth: Any de naiximent
+      user/settings_form:
+        email: El teu Correu-e
+        gender: Genre
+        name: El teu Nom
+        password: La teva contrasenya
+        password_confirmation: La teva contrasenya, de nou
+        year_of_birth: Any de naiximent
       user/confirmation_request_form:
         email: El teu Correu-e
       user/edit_password_form:
@@ -21,8 +28,6 @@ ca:
       user/session_form:
         email: El teu Correu-e
         password: La teva Contrasenya
-      user/settings_form:
-        notification_frequency: Freqüència de notificacions
       user/subscription_form:
         subscribable: Recurs
         user: Usuari

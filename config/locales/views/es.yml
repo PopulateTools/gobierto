@@ -10,9 +10,8 @@ es:
         y participación
       more_information: Más información en gobierto.es
       session:
-        admin: Administración
         alerts: Tus alertas
-        profile: Perfil
+        notifications: Notificaciones
         sign_in: Iniciar sesión
         sign_out: Cerrar sesión
         title: Tu cuenta
@@ -27,7 +26,7 @@ es:
         session:
           admin: Administración
           alerts: Tus alertas
-          profile: Perfil
+          notifications: Notificaciones
           sign_in: Iniciar sesión
           sign_out: Cerrar sesión
           title: Tu cuenta
@@ -41,14 +40,10 @@ es:
         session:
           admin: Administración
           alerts: Tus alertas
-          profile: Perfil
+          notifications: Notificaciones
           sign_in: Iniciar sesión
           sign_out: Cerrar sesión
           title: Tu cuenta
-    main_menu:
-      account: Tu cuenta
-      sign_in: Iniciar sesión
-      sign_out: Cerrar sesión
     sandbox:
       application:
         about_the_data: Sobre los datos
@@ -59,7 +54,7 @@ es:
         session:
           admin: Administración
           alerts: Tus alertas
-          profile: Perfil
+          notifications: Notificaciones
           sign_in: Iniciar sesión
           sign_out: Cerrar sesión
           title: Tu cuenta

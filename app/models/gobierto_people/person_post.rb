@@ -22,10 +22,6 @@ module GobiertoPeople
 
     enum visibility_level: { draft: 0, active: 1 }
 
-    def visible?
-      active?
-    end
-
     def parameterize
       { person_id: person, id: self }
     end

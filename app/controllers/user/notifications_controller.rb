@@ -9,7 +9,7 @@ class User::NotificationsController < User::BaseController
   private
 
   def find_user_notifications
-    User::Notification.unseen.where(user: current_user, site: current_site)
+    User::Notification.where(user: current_user, site: current_site)
   end
 
   def mark_as_seen

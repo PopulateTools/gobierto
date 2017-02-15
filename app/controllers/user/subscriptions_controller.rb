@@ -2,7 +2,16 @@ class User::SubscriptionsController < User::BaseController
   before_action :authenticate_user!, only: [:index, :destroy]
 
   def index
-    @user_subscriptions = find_user_subscriptions.sorted
+    @user_notification_frequencies = get_user_notification_frequencies
+    @user_notification_modules = get_user_notification_modules
+    @user_notification_gobierto_people_people = get_user_notification_gobierto_people_people
+    @user_subscription_preferences_form = User::SubscriptionPreferencesForm.new(
+      user: current_user,
+      site: current_site,
+      notification_frequency: current_user.notification_frequency,
+      modules: get_current_user_subscribed_modules,
+      gobierto_people_people: get_current_user_subscribed_gobierto_people_people
+    )
   end
 
   def create
@@ -56,5 +65,29 @@ class User::SubscriptionsController < User::BaseController
       :subscribable_id,
       :user_email
     )
+  end
+
+  def get_user_notification_frequencies
+    User.notification_frequencies
+  end
+
+  def get_user_notification_modules
+    current_site.configuration.modules.map{ |m| [m.underscore, m.underscore] }
+  end
+
+  def get_user_notification_gobierto_people_people
+    current_site.people.active.sorted
+  end
+
+  def get_current_user_subscribed_modules
+    current_site.configuration.modules.select do |module_name|
+      current_user.subscribed_to?(module_name.constantize, current_site)
+    end.map(&:underscore)
+  end
+
+  def get_current_user_subscribed_gobierto_people_people
+    current_site.people.active.select do |person|
+      current_user.subscribed_to?(person, current_site)
+    end.map(&:id)
   end
 end

@@ -9,9 +9,8 @@ en:
       disclaimer: This is a demo of Gobierto, transparency and participation software
       more_information: More info in gobierto.es
       session:
-        admin: Administration
         alerts: Your alerts
-        profile: Profile
+        notifications: Notifications
         sign_in: Sign in
         sign_out: Sign out
         title: Your account
@@ -25,7 +24,7 @@ en:
         session:
           admin: Administration
           alerts: Your alerts
-          profile: Profile
+          notifications: Notifications
           sign_in: Sign in
           sign_out: Sign out
           title: Your account
@@ -38,14 +37,10 @@ en:
         session:
           admin: Administration
           alerts: Your alerts
-          profile: Profile
+          notifications: Notifications
           sign_in: Sign in
           sign_out: Sign out
           title: Your account
-    main_menu:
-      account: Your account
-      sign_in: Sign in
-      sign_out: Sign out
     sandbox:
       application:
         about_the_data: About the data
@@ -55,7 +50,7 @@ en:
         session:
           admin: Administration
           alerts: Your alerts
-          profile: Profile
+          notifications: Notifications
           sign_in: Sign in
           sign_out: Sign out
           title: Your account

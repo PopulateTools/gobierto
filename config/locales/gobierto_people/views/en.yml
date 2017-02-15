@@ -1,7 +1,7 @@
 ---
 en:
   gobierto_people:
-    activities:
+    events:
       gobierto_people_person_updated: Personal information updated
       gobierto_people_person_published: "New person published: %{subject_name}"
       gobierto_people_person_post_updated: "Post updated: %{subject_name}"
@@ -20,6 +20,14 @@ en:
         people: Officials
         statements: Statements
     people:
+      person_messages:
+        new:
+          title: Send a message %{name}
+          placeholders:
+            name: Your name
+            email: Your email
+            body: Write a message
+          submit: Send
       person:
         picture: Picture of %{name}
       index:
@@ -29,6 +37,8 @@ en:
       latest_activity:
         no_activity: This profile has not registered any activity yet.
         title: Latest activity
+      contact_methods:
+        send_email: Send an email
       navigation:
         agenda: Agenda
         bio: Biography and CV

@@ -15,10 +15,8 @@ class ActivityDecorator < BaseDecorator
     fetch_relation(:recipient)
   end
 
-  def i18n_key
-    object_module = @object.action.split('.').first
-
-    ["#{object_module}.activities.#{@object.action.tr('.', '_')}", { subject_name: subject_name }]
+  def translated_action
+    I18n.t(*i18n_key)
   end
 
   def active?
@@ -37,5 +35,11 @@ class ActivityDecorator < BaseDecorator
         "-"
       end
     end
+  end
+
+  def i18n_key
+    object_module = @object.action.split('.').first
+
+    ["#{object_module}.events.#{@object.action.tr('.', '_')}", { subject_name: subject_name }]
   end
 end

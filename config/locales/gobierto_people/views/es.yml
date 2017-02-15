@@ -1,7 +1,7 @@
 ---
 es:
   gobierto_people:
-    activities:
+    events:
       gobierto_people_person_updated: Actualización de la información personal
       gobierto_people_person_published: "Creada nueva persona: %{subject_name}"
       gobierto_people_person_post_updated: "Actualización del post: %{subject_name}"
@@ -38,6 +38,14 @@ es:
         subscribable_box:
           title: Recibe un resumen semanal de las agendas de tus representantes
     people:
+      person_messages:
+        new:
+          title: Envía un mensaje a %{name}
+          placeholders:
+            name: Tu nombre
+            email: Tu correo-e
+            body: Escribe un mensaje
+          submit: Enviar
       person:
         picture: Foto de %{name}
       index:
@@ -47,6 +55,8 @@ es:
       latest_activity:
         no_activity: Este perfil aún no ha registrado ninguna actividad.
         title: Última actividad
+      contact_methods:
+        send_email: Envía un correo-e
       navigation:
         agenda: Agenda
         bio: Biografía y CV
@@ -167,3 +177,4 @@ es:
         subscribable_box:
           title: Recibe un resumen semanal de las agendas de tus representantes
         travels: Viajes y desplazamientos
+

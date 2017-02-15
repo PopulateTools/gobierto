@@ -15,7 +15,7 @@ module GobiertoAdmin
       with_signed_in_admin(admin) do
         visit @path
 
-        assert has_content?("sites.site_updated")
+        assert has_content?("Site updated")
         assert has_content?("Ayuntamiento de Madrid")
         assert has_content?("Tony Stark")
         assert has_content?("1.2.3.4")

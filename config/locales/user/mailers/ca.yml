@@ -2,5 +2,14 @@
 ca:
   user:
     notification_mailer:
+      single_notification:
+        subject: "Nova activitat en %{site_name}: %{action_name}"
+        hi: Hola
+        new_activity: Hi ha una nova activitat en %{site_name}
+        bye: Passa un bon dia
       notification_digest:
-        subject: "Activitat recent al teu municipi"
+        subject: Resum d'activitat en %{site_name}
+        hi: Hola
+        new_activity: Hi ha nova activitat en %{site_name}
+        bye: Passa un bon dia
+

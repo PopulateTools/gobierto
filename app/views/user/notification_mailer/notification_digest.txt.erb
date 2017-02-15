@@ -1,7 +1,10 @@
-Hey,
+<%= t('.hi') %>
 
-Here is the recent activity in your municipality:
+<%= t('.new_activity', site_name: @site.name) %>:
 
 <% @user_notifications.each do |user_notification| %>
-  <%= render_notification_item(user_notification, true) -%>
+  - <%= user_notification.subject_name %>: <%= user_notification.translated_action %>
 <% end %>
+
+<%= t('.bye') %>,
+<%= @site.name %>

@@ -49,6 +49,9 @@ gem "rails-html-sanitizer"
 # Pagination
 gem "kaminari", "~> 1.0"
 
+# Captcha
+gem "invisible_captcha"
+
 # Redis
 gem "redis", "~> 3.3"
 

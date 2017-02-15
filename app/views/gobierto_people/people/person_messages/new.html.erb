@@ -1,0 +1,30 @@
+<div class="pure-u-1 pure-u-md-17-24 main_people_content">
+
+  <div class="person_header">
+    <h1><%= title t('.title', name: @person.name) %></h1>
+  </div>
+
+  <%= render "user/shared/validation_errors", resource: @person_message %>
+
+  <%= form_for @person_message do |f| %>
+    <% unless user_signed_in? %>
+      <div class="form_item input_text">
+        <%= f.label :name %>
+        <%= f.text_field :name, placeholder: t('.placeholders.name') %>
+      </div>
+
+      <div class="form_item input_text">
+        <%= f.label :email %>
+        <%= f.email_field :email, placeholder: t('.placeholders.email') %>
+      </div>
+    <% end %>
+
+    <div class="form_item textarea">
+      <%= f.label :body %>
+      <%= f.text_area :body, placeholder: t('.placeholders.body') %>
+    </div>
+
+    <%= invisible_captcha %>
+    <%= f.submit t('.submit') %>
+  <% end %>
+</div>

@@ -14,7 +14,7 @@
     <% @activities.each do |activity| %>
       <tr id="activity-<%= activity.id %>" class="<%= cycle("odd", "even") %>">
         <td>#<%= activity.id %></td>
-        <td><%= activity.action %></td>
+        <td><%= activity.translated_action %></td>
         <td>
           <%= activity.subject_name %>
         </td>

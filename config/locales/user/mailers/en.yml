@@ -2,5 +2,14 @@
 en:
   user:
     notification_mailer:
+      single_notification:
+        subject: "New activity in %{site_name}: %{action_name}"
+        hi: Hi
+        new_activity: There's new activity in %{site_name}
+        bye: Have a nice day
       notification_digest:
-        subject: "Recent activity in your municipality"
+        subject: Activity summary from %{site_name}
+        hi: Hi
+        new_activity: There's new activity in %{site_name}
+        bye: Have a nice day
+

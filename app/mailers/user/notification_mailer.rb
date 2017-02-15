@@ -1,33 +1,29 @@
 class User::NotificationMailer < ApplicationMailer
-  helper User::NotificationsHelper
-
   def single_notification(user_notification)
     @user_notification = user_notification
+    @user_notification_decorated = UserNotificationDecorator.new(user_notification)
 
     @user = user_notification.user
     @site = user_notification.site
-    @subject = user_notification.subject
-    @action = user_notification.action
 
     mail(
       from: default_from,
       reply_to: default_reply_to,
       to: @user.email,
-      subject: I18n.t("#{user_notification.subject.model_name.i18n_key}.notifications.subject.#{user_notification.action}"),
-      template_path: "#{user_notification.subject.model_name.collection}/notifications",
-      template_name: user_notification.action
+      subject: t(".subject", site_name: @site.name, action_name: @user_notification_decorated.subject_name)
     )
   end
 
   def notification_digest(user, user_notifications, frequency)
     @user = user
-    @user_notifications = user_notifications
+    @user_notifications = UserNotificationCollectionDecorator.new(user_notifications)
+    @site = user_notifications.first.site
 
     mail(
       from: default_from,
       reply_to: default_reply_to,
       to: @user.email,
-      subject: default_i18n_subject(frequency: frequency)
+      subject: t(".subject", site_name: @site.name)
     )
   end
 end

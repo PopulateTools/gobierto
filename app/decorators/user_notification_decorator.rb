@@ -1,18 +1,12 @@
-class ActivityDecorator < BaseDecorator
-  def initialize(activity)
-    @object = activity
+class UserNotificationDecorator < BaseDecorator
+  def initialize(user_notification)
+    @object = user_notification
   end
+
+  delegate :seen!, to: :object
 
   def subject_name
     fetch_relation(:subject)
-  end
-
-  def author_name
-    fetch_relation(:author)
-  end
-
-  def recipient_name
-    fetch_relation(:recipient)
   end
 
   def translated_action
@@ -21,6 +15,10 @@ class ActivityDecorator < BaseDecorator
 
   def active?
     @object.subject.present? && @object.subject.respond_to?(:active?) && @object.subject.active?
+  end
+
+  def url
+    @object.subject.to_url(domain: @object.site.domain)
   end
 
   private

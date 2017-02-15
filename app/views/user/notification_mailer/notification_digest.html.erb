@@ -1,15 +1,20 @@
 <p>
-  Hey,
+  <%= t('.hi') %>
 </p>
 
 <p>
-  Here is the recent activity in your municipality:
+  <%= t('.new_activity', site_name: @site.name) %>:
 </p>
 
 <ul>
   <% @user_notifications.each do |user_notification| %>
     <li>
-      <%= render_notification_item(user_notification, true) %>
+      <%= user_notification.subject_name %>: <%= user_notification.translated_action %>
     </li>
   <% end %>
 </ul>
+
+<p>
+  <%= t('.bye') %>,<br>
+  <%= @site.name %>
+</p>

@@ -10,12 +10,5 @@ ActiveSupport::Notifications.subscribe(/trackable/) do |*args|
   event = ActiveSupport::Notifications::Event.new(*args)
   Rails.logger.debug("Consuming event \"#{event.name}\" with payload: #{event.payload}")
 
-  # TODO. Perform asynchronously.
-  #
-  User::Subscription::NotificationBuilder.new(
-    event_name: event.name.split(".").last,
-    model_name: event.payload[:gid].model_name,
-    model_id: event.payload[:gid].model_id,
-    site_id: event.payload[:site_id]
-  ).call
+  User::Subscription::NotificationBuilder.new(event).call
 end

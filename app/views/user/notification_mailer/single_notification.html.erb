@@ -1,0 +1,16 @@
+<p>
+  <%= t('.hi') %>,
+</p>
+
+<p>
+  <%= t('.new_activity', site_name: @site.name) %>:
+</p>
+
+<ul>
+  <li><%= @user_notification_decorated.subject_name %>: <%= @user_notification_decorated.translated_action %></li>
+</ul>
+
+<p>
+  <%= t('.bye') %>,<br>
+  <%= @site.name %>
+</p>

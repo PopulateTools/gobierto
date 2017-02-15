@@ -1,13 +1,14 @@
 class User::Subscription::NotificationBuilder
-  GENERIC_EVENT_NAMES = %w(created)
+  attr_reader :event_name, :site_id, :subject
 
-  attr_reader :event_name, :model_name, :model_id, :site_id
-
-  def initialize(event_name:, model_name:, model_id:, site_id:)
-    @event_name = event_name
-    @model_name = model_name
-    @model_id = model_id
-    @site_id = site_id
+  def initialize(event)
+    @subject = GlobalID::Locator.locate(event.payload[:gid])
+    event_name = event.name.split(".").last
+    if %W( visibility_level_changed state_changed ).include?(event_name)
+      event_name = 'published'
+    end
+    @event_name = subject.class.name.underscore.tr('/', '.') + '.' + event_name
+    @site_id = event.payload[:site_id]
   end
 
   def call
@@ -16,8 +17,8 @@ class User::Subscription::NotificationBuilder
         User::Subscription
           .select(:id, :user_id)
           .where(
-            subscribable_type: model_name,
-            subscribable_id: (model_id unless generic_event?),
+            subscribable_type: subject.class.name,
+            subscribable_id: subject.id,
             site_id: site_id
           ).find_each do |user_subscription|
             user_notification = build_user_notification_for(user_subscription.user_id)
@@ -34,12 +35,7 @@ class User::Subscription::NotificationBuilder
       user_id: user_id,
       site_id: site_id,
       action: event_name,
-      subject_type: model_name,
-      subject_id: model_id
+      subject: subject
     )
-  end
-
-  def generic_event?
-    GENERIC_EVENT_NAMES.include?(event_name)
   end
 end

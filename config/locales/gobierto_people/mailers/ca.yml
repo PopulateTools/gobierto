@@ -1,0 +1,8 @@
+---
+ca:
+  gobierto_people:
+    person_mailer:
+      new_message:
+        subject: "Has rebut un nou missatge des de %{name}"
+        hi: "Hola"
+        new_message: "Has rebut un nou missatge de %{name} (%{reply_to})"

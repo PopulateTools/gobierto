@@ -1,0 +1,8 @@
+---
+en:
+  gobierto_people:
+    person_mailer:
+      new_message:
+        subject: "You have received a new message from %{name}"
+        hi: Hi
+        new_message: You have a new message from %{name} (%{reply_to})

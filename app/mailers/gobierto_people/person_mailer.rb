@@ -1,0 +1,18 @@
+module GobiertoPeople
+  class PersonMailer < ApplicationMailer
+    def new_message(args)
+      @person = GobiertoPeople::Person.find(args[:person_id])
+      @reply_to = args[:reply_to]
+      @name = args[:name]
+      @body = args[:body]
+      @site = @person.site
+
+      mail(
+        from: default_from,
+        to: @person.email,
+        reply_to: @reply_to,
+        subject: t('.subject', name: @site.title)
+      )
+    end
+  end
+end

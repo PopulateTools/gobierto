@@ -20,6 +20,14 @@ en:
         people: Officials
         statements: Statements
     people:
+      person_messages:
+        new:
+          title: Send a message %{name}
+          placeholders:
+            name: Your name
+            email: Your email
+            body: Write a message
+          submit: Send
       person:
         picture: Picture of %{name}
       index:
@@ -29,6 +37,8 @@ en:
       latest_activity:
         no_activity: This profile has not registered any activity yet.
         title: Latest activity
+      contact_methods:
+        send_email: Send an email
       navigation:
         agenda: Agenda
         bio: Biography and CV

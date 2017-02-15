@@ -1,6 +1,9 @@
 ---
 ca:
   based_on: Web basat en
+  invisible_captcha:
+    sentence_for_humans: "Si ets humà, per favor, ignora este camp."
+    timestamp_error_message: "Disulpa, això ha sigut molt rapid. Torna a enviar el formulari."
   layouts:
     application:
       disclaimer: Aquesta web es una demostració de Gobierto, software de transparència

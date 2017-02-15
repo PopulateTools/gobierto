@@ -11,6 +11,7 @@ module GobiertoAdmin
         :site_id,
         :name,
         :charge,
+        :email,
         :bio,
         :bio_file,
         :bio_url,
@@ -124,6 +125,7 @@ module GobiertoAdmin
           person_attributes.site_id = site_id
           person_attributes.name = name
           person_attributes.charge = charge
+          person_attributes.email = email
           person_attributes.bio = bio
           person_attributes.bio_url = bio_url
           person_attributes.avatar_url = avatar_url

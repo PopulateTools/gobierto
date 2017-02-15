@@ -94,6 +94,7 @@ module GobiertoAdmin
         params.require(:person).permit(
           :name,
           :charge,
+          :email,
           :bio,
           :bio_file,
           :avatar_file,

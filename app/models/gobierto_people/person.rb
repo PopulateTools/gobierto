@@ -29,6 +29,8 @@ module GobiertoPeople
     enum category: { politician: 0, executive: 1 }
     enum party: { government: 0, opposition: 1 }
 
+    validates :email, format: { with: User::EMAIL_ADDRESS_REGEXP }, allow_blank: true
+
     def visible?
       active?
     end

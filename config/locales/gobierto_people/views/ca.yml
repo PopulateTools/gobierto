@@ -20,6 +20,14 @@ ca:
         people: Càrrecs
         statements: Declaracions
     people:
+      person_messages:
+        new:
+          title: Envia un missatge a %{name}
+          placeholders:
+            name: El teu nom
+            email: El teu correu-e
+            body: Escriu un missatge
+          submit: Enviar
       person:
         picture: Foto de %{name}
       index:
@@ -29,6 +37,8 @@ ca:
       latest_activity:
         no_activity: Aquest perfil encara no ha registrat cap activitat.
         title: Darrera activitat
+      contact_methods:
+        send_email: Envia un correu-e
       navigation:
         agenda: Agenda
         bio: Biografia i cv
@@ -149,3 +159,4 @@ ca:
         subscribable_box:
           title: Rebeix actualitzacions al teu correu-e
         travels: Viatges i desplaçaments
+

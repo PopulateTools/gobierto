@@ -49,6 +49,9 @@ gem "rails-html-sanitizer"
 # Pagination
 gem "kaminari", "~> 1.0"
 
+# Captcha
+gem "invisible_captcha"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"

@@ -68,6 +68,27 @@
     margin: 2rem 10rem;
   }
 }
+.consultation-faq {
+  padding: 0 1rem;
+  
+  @include min-screen(768) {
+    padding: 0;
+  }
+}
+.arrow-left {
+  padding: 1rem;
+  border-radius: 50%;
+  background: #cde9ec;
+  color: #1d909d;
+  
+  @include min-screen(768) {
+    position: absolute;
+    left: -5rem;
+  }
+}
+.consultation-faq-q {
+  font-weight: 600;
+}
 
 /* Consultation cards */
 .consultation-box {
@@ -507,18 +528,6 @@
 }
 .intro-arrow {
   text-align: right;
-}
-
-.arrow-left {
-  position: absolute;
-  left: 3rem;
-  padding: 1rem;
-  border-radius: 50%;
-  background: #cde9ec;
-  color: #1d909d;
-}
-.consultation-faq-q {
-  font-weight: 600;
 }
 
 .card-wrapper {

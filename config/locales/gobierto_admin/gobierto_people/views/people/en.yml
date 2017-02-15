@@ -17,6 +17,7 @@ en:
           placeholders:
             charge: Alcalde
             name: Rafael García
+            email: Email
           visibility_level:
             active: Published
             draft: Draft

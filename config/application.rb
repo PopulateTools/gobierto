@@ -37,7 +37,10 @@ module Gobierto
     config.autoload_paths += [
       "#{config.root}/lib",
       "#{config.root}/lib/validators",
-      "#{config.root}/lib/constraints"
+      "#{config.root}/lib/constraints",
+      "#{config.root}/app/pub_sub",
+      "#{config.root}/app/pub_sub/publishers",
+      "#{config.root}/app/pub_sub/subscribers"
     ]
 
     # Do not add wrapper .field_with_errors around form fields with validation errors

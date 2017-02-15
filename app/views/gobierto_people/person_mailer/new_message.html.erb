@@ -1,0 +1,9 @@
+<p>
+  <%= t('.hi') %>,
+</p>
+
+<p>
+  <%= t('.new_message', name: @name, reply_to: @reply_to) %>:
+</p>
+
+<%= simple_format @body %>

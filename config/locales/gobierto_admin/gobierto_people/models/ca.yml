@@ -16,6 +16,7 @@ ca:
         bio_url: Fichero adjunto
         category: Categoria
         charge: Càrrec
+        email: Correu-e
         name: Nom
         party: Posició
         political_group_id: Grup polític

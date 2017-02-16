@@ -49,7 +49,7 @@
 .center {
   text-align: center;
 }
-.ib {
+.ib, .inline {
   display: inline-block;
 }
 .f_left {
@@ -70,10 +70,9 @@
 .v_top {
   vertical-align: top;
 }
-.inline {
-  display: inline-block;
+.no_wrap {
+  white-space: nowrap;
 }
-
 
 
 .p_1 {

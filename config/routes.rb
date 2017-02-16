@@ -138,6 +138,11 @@ Rails.application.routes.draw do
         resources :person_posts, only: [:index, :show], controller: "people/person_posts", as: :posts, path: 'blog/posts'
         resources :person_post_tags, only: [:show], controller: "people/person_post_tags", as: :post_tags, path: 'blog/tags'
         resources :person_statements, only: [:index, :show], controller: "people/person_statements", as: :statements, path: 'bienes-y-actividades'
+        resources :person_messages, only: [:create], controller: "people/person_messages", as: :messages, path: 'contacto' do
+          collection do
+            get 'nuevo' => 'people/person_messages#new', as: :new
+          end
+        end
       end
 
       resources :people, only: [:index], path: 'todos-los-cargos'

@@ -15,8 +15,8 @@
       <% @user_notifications.each do |user_notification| %>
         <div class="activity_item">
           <h2>
-            <%= link_to(notification_subject_url(user_notification)) do %>
-              <%= I18n.t("#{user_notification.subject.model_name.i18n_key}.notifications.subject.#{user_notification.action}") %>
+            <%= link_to(user_notification.url) do %>
+              <%= user_notification.translated_action %>
               <span class="secondary"><%= user_notification.subject.subscribable_label %></span>
             <% end %>
           </h2>

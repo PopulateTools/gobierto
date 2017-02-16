@@ -11,6 +11,7 @@ richard:
   party: <%= GobiertoPeople::Person.parties["government"] %>
   political_group: marvel
   position: 1
+  email: richard@example.com
 
 tamara:
   site: madrid
@@ -25,3 +26,4 @@ tamara:
   party:
   political_group:
   position: 2
+  email: tamara@example.com

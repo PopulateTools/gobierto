@@ -16,6 +16,7 @@ en:
         bio_url: Attached file
         category: Category
         charge: Charge
+        email: Email
         name: Name
         party: Party
         political_group_id: Political group

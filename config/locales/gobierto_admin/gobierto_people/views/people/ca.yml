@@ -17,6 +17,7 @@ ca:
           placeholders:
             charge: Alcalde
             name: Rafael García
+            email: Correu-e
           visibility_level:
             active: Publicada
             draft: Borrador

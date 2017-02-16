@@ -1,0 +1,8 @@
+<%= t('.hi') %>,
+
+<%= t('.new_activity', site_name: @site.name) %>:
+
+- <%= @user_notification_decorated.subject_name %>: <%= @user_notification_decorated.translated_action %>
+
+<%= t('.bye') %>,
+<%= @site.name %>

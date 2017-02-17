@@ -133,6 +133,7 @@ ca:
       too_short: és massa curt (%{count} caràcters mínim)
       wrong_length: no té la longitud correcta (%{count} caràcters exactament)
       blank_for_modules: ha de ser un municipi per a que els moduls actius funcionen
+      invalid_consultation_response: No s'ha guardar la consulta. Per favor, revisa els valors i prova de nou.
     template:
       body: 'Hi ha hagut problemes amb els següents camps:'
       header:

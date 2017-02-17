@@ -4,6 +4,7 @@ gem "rails", "~> 5.0", ">= 5.0.1"
 gem "pg", "~> 0.19"
 gem "redcarpet", require: true
 gem "bcrypt", '~> 3.1.0'
+gem 'jbuilder', '~> 2.5'
 gem "rollbar"
 gem "meta-tags"
 gem "ine-places"
@@ -24,6 +25,7 @@ gem "flight-for-rails"
 gem "cocoon"
 gem "i18n-js", ">= 3.0.0.rc11"
 gem "d3-rails", "~> 4.3"
+gem "vuejs-rails"
 
 # Elasticsearch
 gem "elasticsearch"

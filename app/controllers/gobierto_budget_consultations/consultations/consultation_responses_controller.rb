@@ -23,21 +23,23 @@ module GobiertoBudgetConsultations
         )
 
         if @consultation_response_form.save
-          redirect_to [@consultation, :new_confirmation]
+          respond_to do |format|
+            format.html { redirect_to [@consultation, :show_confirmation] }
+            format.js
+          end
         else
           @consultation_items = @consultation.consultation_items.sorted
-          render :new
+          respond_to do |format|
+            format.html { render :new }
+            format.js
+          end
         end
       end
 
       private
 
       def consultation_response_params
-        # TODO. Implement support for arbitrary hashes in strong parameters.
-        # Take this commit as a reference:
-        # https://github.com/rails/rails/commit/e86524c0c5a26ceec92895c830d1355ae47a7034
-        #
-        params.require(:consultation_response).permit!
+        params.require(:consultation_response).permit(selected_options: [:item_id, :selected_option])
       end
     end
   end

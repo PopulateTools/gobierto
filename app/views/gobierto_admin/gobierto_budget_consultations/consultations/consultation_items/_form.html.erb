@@ -26,6 +26,18 @@
       <%= f.text_area :description, placeholder: t(".placeholders.description") %>
     </div>
 
+    <div class="form_item site-check-boxes">
+      <div class="options compact">
+        <div class="option">
+          <%= f.check_box :block_reduction %>
+          <%= f.label :block_reduction do %>
+            <span></span>
+            <%= f.object.class.human_attribute_name(:block_reduction) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
     <div class="actions right">
       <%= f.submit %>
     </div>

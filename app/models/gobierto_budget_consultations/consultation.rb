@@ -41,6 +41,10 @@ module GobiertoBudgetConsultations
       update_columns(budget_amount: consultation_items.sum(:budget_line_amount))
     end
 
+    def already_responded?(user)
+      user && consultation_responses.exists?(user_id: user.id)
+    end
+
     private
 
     def opening_range

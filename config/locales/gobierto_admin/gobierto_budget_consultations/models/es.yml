@@ -6,11 +6,14 @@ es:
         description: Descripción
         opening_date_range: Fecha de inicio - fin
         title: Título
+        force_responses_balance: Forzar equilibrio en las respuestas
+        show_figures: Mostrar valores de las partidas
       gobierto_admin/gobierto_budget_consultations/consultation_item_form:
         budget_line_amount: Importe de la partida
         budget_line_name: Partida
         description: Descripción
         title: Título
+        block_reduction: Bloquear reducción
     models:
       gobierto_admin/gobierto_budget_consultations/consultation_form: Consulta
       gobierto_admin/gobierto_budget_consultations/consultation_item_form: Partida

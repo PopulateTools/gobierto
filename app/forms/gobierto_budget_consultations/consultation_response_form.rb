@@ -18,7 +18,7 @@ module GobiertoBudgetConsultations
     end
 
     def consultation_response
-      @consultation_response ||= find_consultation_response || build_consultation_response
+      @consultation_response ||= build_consultation_response
     end
 
     def consultation
@@ -35,59 +35,29 @@ module GobiertoBudgetConsultations
       end
     end
 
-    def selected_option?(consultation_item, response_option)
-      return response_option.selected? unless persisted?
-
-      matching_response_ci = consultation_response.consultation_items.detect do |response_ci|
-        response_ci.item_id == consultation_item.id
-      end
-
-      return response_option.selected? unless matching_response_ci
-
-      matching_response_ci.selected_option_id == response_option.id
-    end
-
     private
 
     def consultation_response_items
-      # `selected_options` format.
-      #
-      # The following structure represents a mapping between a
-      # `ConsultationItem` id and a response option id:
-      #
-      # {
-      #   "26213347" => "1",
-      #   "26213346" => "2",
-      #   "26213345" => "2"
-      # }
-      #
       @consultation_response_items ||= begin
-        selected_options.map do |selected_option_pair|
-          consultation_item_id, selected_option_id = selected_option_pair.map(&:to_i)
+        selected_options.map do |_, selected_option_item|
+          consultation_item = consultation.consultation_items.find_by(id: selected_option_item['item_id'])
+          raise GobiertoBudgetConsultations::ConsultationResponseItem::MissingItem unless consultation_item.present?
 
-          consultation_item = consultation_items.detect do |item|
-            item.id == consultation_item_id
-          end
+          selected_option = selected_option_item['selected_option']
+          raise GobiertoBudgetConsultations::ConsultationResponseItem::EmptySelectedOption if selected_option.blank?
+          selected_option = selected_option.to_i
 
-          next unless consultation_item.present?
-
-          response_options = consultation_item.raw_response_options
-          selected_option_label = response_options[selected_option_id]
+          raise GobiertoBudgetConsultations::ConsultationResponseItem::NotAllowedToReduce if selected_option < 0 && consultation_item.block_reduction?
 
           consultation_response_item_class.new(
-            item_id: consultation_item_id,
+            item_id: consultation_item.id,
             item_title: consultation_item.title,
             item_budget_line_amount: consultation_item.budget_line_amount,
-            item_response_options: response_options,
-            selected_option_id: selected_option_id,
-            selected_option_label: selected_option_label
+            item_response_options: consultation_item.raw_response_options,
+            selected_option: selected_option,
           )
         end.compact
       end
-    end
-
-    def find_consultation_response
-      consultation.consultation_responses.sorted.find_by(user_id: user_id)
     end
 
     def build_consultation_response
@@ -105,6 +75,7 @@ module GobiertoBudgetConsultations
         consultation_response_attributes.consultation_items = consultation_response_items
         consultation_response_attributes.budget_amount = consultation_response_items.sum(&:budget_line_amount)
         consultation_response_attributes.sharing_token ||= consultation_response_class.generate_unique_secure_token
+        consultation_response_attributes.visibility_level = GobiertoBudgetConsultations::Consultation.visibility_levels[:active]
       end
 
       if @consultation_response.valid?
@@ -116,6 +87,18 @@ module GobiertoBudgetConsultations
 
         false
       end
+    rescue GobiertoBudgetConsultations::ConsultationResponseItem::MissingItem
+      Rails.logger.debug "[exception] #{$!}"
+      errors[:base] << I18n.t('errors.messages.invalid_consultation_response')
+      return false
+    rescue GobiertoBudgetConsultations::ConsultationResponseItem::EmptySelectedOption
+      Rails.logger.debug "[exception] #{$!}"
+      errors[:base] << I18n.t('errors.messages.invalid_consultation_response')
+      return false
+    rescue GobiertoBudgetConsultations::ConsultationResponseItem::NotAllowedToReduce
+      Rails.logger.debug "[exception] #{$!}"
+      errors[:base] << I18n.t('errors.messages.invalid_consultation_response')
+      return false
     end
 
     protected
@@ -126,14 +109,6 @@ module GobiertoBudgetConsultations
 
     def consultation_response_item_class
       ::GobiertoBudgetConsultations::ConsultationResponseItem
-    end
-
-    def consultation_items
-      @consultation_items ||= begin
-         consultation
-           .consultation_items
-           .select(:id, :title, :budget_line_amount)
-      end
     end
 
     def promote_errors(errors_hash)

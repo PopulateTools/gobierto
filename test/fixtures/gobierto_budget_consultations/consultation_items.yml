@@ -10,6 +10,7 @@ madrid_sports_facilities:
   budget_line_name: "Urbanismo"
   budget_line_amount: 10.0
   position: 1
+  block_reduction: false
 
 madrid_civil_protection:
   consultation: madrid_open
@@ -24,3 +25,4 @@ madrid_civil_protection:
   budget_line_name: "Seguridad"
   budget_line_amount: 40.0
   position: 2
+  block_reduction: false

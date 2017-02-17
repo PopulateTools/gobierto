@@ -1,23 +1,55 @@
 ---
 es:
   gobierto_budget_consultations:
+    consultation_statuses:
+      balance: Equilibrio
+      deficit: Déficit
+      surplus: Superávit
+    consultation_status_error: Tu respuesta no puede estar en déficit
     consultation_items:
       options:
-        increase: Aumentar el gasto un 10%
-        keep: Mantener el gasto
-        reduce: Reducir el gasto un 10%
         short:
           increase: Aumentar
           keep: Mantener
           reduce: Reducir
     consultations:
       index:
+        already_responded: Ya has participado
         subscribable_box:
           title: Recibe una alerta en tu correo-e sobre los procesos que se pongan
             en marcha
+        active: Consultas activas
+        previous: Consultas anteriores
       show:
-        subscribable_box:
-          title: Recibe actualizaciones en tu correo-e sobre cambios en esta consulta
+        want_to_opinate: "¿Quieres opiniar?"
+        explanation: Es sencillo y sólo te llevará unos minutos. Entre todos conseguiremos mejorar la eficiencia de nuestro Ayuntamiento.
+        open_until: Consulta abierta hasta el %{date}
+        opens_at: Podrás participar en esta consulta a partir del %{date}
+        closed: Lo sentimos, esta consulta está cerrada
+      budget_summary:
+        faq: Preguntas frecuentes
+        opinate: Opina sobre el presupuesto
+        call_to_action: Mira com es reparteix aquesta inversió, i opina sobre les prioritats
+      consultation_items:
+        index:
+          start: Comienza a opinar
+          p1: Estas son todas las partidas sobre las que queremos pedirte opinión.
+          p2: Puedes dar tu opinión diciendo si piensas que habría que destinar más, menos o los mismos recursos.
+      consultation_responses:
+        new:
+          reduce: Reducir
+          keep: Mantener
+          increase: Aumentar
+          what: Crees que se debería
+          balance_deficit: Equilibrio/Déficit
+          base_budget: Presupuesto base
+          title: Los %{amount} de gastos se reparten así - abre cada partida para opinar
+          reduction_not_allowed_html: "<h4 class='tip-headline'>Esta partida no se puede reducir</h4><p>Explicación de por qué</p>"
+          explain_html: "<h4 class='tip-headline'>¿Equilibri o superávit?</h4><p>Con tus decisiones entraríamos en déficit anual: gastaríamos más de lo que ingresamos en el ejercicio y la deuda pendiente aumentaría. Puedes reevaluar tus decisiones para entrar en equilibrio.</p>"
+          open_to_opinate: Abre cada partida para expresar tu preferencia
     layouts:
       menu_subsections:
         consultations: Consultas
+      errors:
+        already_responded: Ya has participado en esta consulta
+

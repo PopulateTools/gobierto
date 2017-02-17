@@ -6,12 +6,14 @@ en:
         description: Description
         opening_date_range: Start and end dates
         title: Title
+        force_responses_balance: Force responses balance
+        show_figures: Show figures
       gobierto_admin/gobierto_budget_consultations/consultation_item_form:
         budget_line_amount: Budget line amount
         budget_line_name: Budget line
         description: Description
         title: Title
+        block_reduction: Block reduction
     models:
       gobierto_admin/gobierto_budget_consultations/consultation_form: Consultation
-      gobierto_admin/gobierto_budget_consultations/consultation_item_form: Budget
-        line
+      gobierto_admin/gobierto_budget_consultations/consultation_item_form: Budget line

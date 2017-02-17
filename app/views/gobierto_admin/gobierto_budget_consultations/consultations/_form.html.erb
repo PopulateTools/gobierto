@@ -27,7 +27,6 @@
       </div>
 
       <div class="form_block">
-
         <div class="form_item input_text">
           <%= f.label :opening_date_range %>
           <%= f.text_field :opening_date_range, data: {
@@ -41,9 +40,26 @@
             placeholder: t(".placeholders.opening_date_range")
           %>
         </div>
-
       </div>
 
+      <div class="form_item site-check-boxes">
+        <div class="options compact">
+          <div class="option">
+            <%= f.check_box :show_figures %>
+            <%= f.label :show_figures do %>
+              <span></span>
+              <%= f.object.class.human_attribute_name(:show_figures) %>
+            <% end %>
+          </div>
+          <div class="option">
+            <%= f.check_box :force_responses_balance %>
+            <%= f.label :force_responses_balance do %>
+              <span></span>
+              <%= f.object.class.human_attribute_name(:force_responses_balance) %>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="pure-u-1 pure-u-md-2-24"></div>

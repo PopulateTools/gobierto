@@ -1,7 +1,7 @@
 <%= render "gobierto_people/people/content_for_breadcrumb" %>
 
 <h3 class="center">
-  <%= t("gobierto_people.people.person_posts.index.title", person_name: @person.name, person_charge: @person.charge) %>
+  <%= title t("gobierto_people.people.person_posts.index.title", person_name: @person.name, person_charge: @person.charge) %>
 </h3>
 
 <h4 class="center">
@@ -14,3 +14,5 @@
   <%= render partial: "gobierto_people/person_posts/person_post_excerpt", collection: @posts, as: :person_post %>
 
 </div>
+
+<% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>

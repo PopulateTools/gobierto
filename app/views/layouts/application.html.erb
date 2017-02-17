@@ -2,9 +2,26 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <% set_meta_tags twitter: { site: APP_CONFIG['site']['twitter_handle'] } %>
-  <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
+  <% set_meta_tags og: {
+       title:    :title,
+       description: :description,
+       type:     'website',
+       url:      request.url,
+       image:    {
+         _: @site.configuration.logo_with_fallback
+       }
+     },
+     twitter: {
+       card: "summary",
+       site: APP_CONFIG['site']['twitter_handle'],
+       description: :description,
+       title: :title,
+       image: {
+         _: @site.configuration.logo_with_fallback
+       }
+     } %>
 
+  <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 

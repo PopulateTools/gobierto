@@ -1,8 +1,9 @@
+<% description @person.bio %>
 <%= render "gobierto_people/people/content_for_breadcrumb" %>
 
 <div class="person_header">
 
-  <h1><%= t(".title", person_name: @person.name) %></h1>
+  <h1><%= title t(".title", person_name: @person.name) %></h1>
 
 </div>
 
@@ -28,3 +29,4 @@
 <div class="separator"></div>
 
 <%= render "gobierto_common/dynamic_content/table_component", content_blocks: @person_bio_content_blocks %>
+

@@ -47,7 +47,7 @@
 
         <div class="pure-u-1 pure-u-md-1-2">
 
-          <div class="form_item options_cont compact person-party-radio-buttons">
+          <div class="form_item options_cont compact person-party-radio-buttons" data-target>
 
             <%= f.collection_radio_buttons(:party, @person_parties, :first, :first) do |b| %>
               <div class="option">
@@ -125,4 +125,9 @@
 
   </div>
 
+<% end %>
+
+
+<%= javascript_tag do %>
+  window.GobiertoAdmin.person_controller.form();
 <% end %>

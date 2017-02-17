@@ -7,7 +7,7 @@
 <div class="column">
 
   <h1>
-    <%= t("gobierto_people.person_posts.index.title") %>
+    <%= title t("gobierto_people.person_posts.index.title") %>
   </h1>
 
   <h4 class="center">
@@ -34,3 +34,5 @@
   </div>
 
 </div>
+
+<% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>

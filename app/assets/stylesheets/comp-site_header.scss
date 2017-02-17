@@ -395,6 +395,13 @@ header.section {
         }
       }
     }
+    .site_header {
+      menu.nav {
+        .social_links_container {
+          position: fixed;
+        }
+      }
+    }
   }
   .pure-menu-horizontal.pure-menu-scrollable {
     padding: 0;

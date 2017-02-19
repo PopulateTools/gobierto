@@ -9,7 +9,9 @@ module GobiertoAdmin
         domain: new_site_domain, # To ensure uniqueness
         location_name: site.location_name,
         municipality_id: 1,
-        visibility_level: "active"
+        visibility_level: "active",
+        default_locale: 'es',
+        available_locales: ['es', 'ca']
       )
     end
 
@@ -19,7 +21,9 @@ module GobiertoAdmin
         name: nil,
         domain: site.domain,
         location_name: site.location_name,
-        visibility_level: "active"
+        visibility_level: "active",
+        default_locale: nil,
+        available_locales: []
       )
     end
 
@@ -69,6 +73,7 @@ module GobiertoAdmin
 
       assert invalid_site_form.errors.messages[:title].one?
       assert invalid_site_form.errors.messages[:name].one?
+      assert invalid_site_form.errors.messages[:available_locales].one?
     end
   end
 end

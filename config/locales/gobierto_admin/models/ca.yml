@@ -27,6 +27,8 @@ ca:
         name: Nom de l'entitat
         title: Nom del site
         municipality_id: Municipi
+        default_locale: Idioma per defecte
+        available_locales: Idiomes disponibles
       gobierto_admin/user_form:
         email: Email
         name: Nom

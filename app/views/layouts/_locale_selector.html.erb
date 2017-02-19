@@ -1,7 +1,9 @@
-<% available_locales.each do |locale| %>
-  <% if I18n.locale == locale %>
-    <strong><%= locale %></strong>
-  <% else %>
-    <%= link_to locale, {locale: locale}, data: { turbolinks: false } %>
+<% if available_locales.length > 1 %>
+  <% available_locales.each do |locale| %>
+    <% if I18n.locale == locale %>
+      <strong><%= locale %></strong>
+    <% else %>
+      <%= link_to locale, {locale: locale}, data: { turbolinks: false } %>
+    <% end %>
   <% end %>
 <% end %>

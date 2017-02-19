@@ -14,15 +14,20 @@ module GobiertoBudgetConsultations
       @invalid_consultation_response_form ||= ConsultationResponseForm.new(
         user_id: nil,
         consultation_id: nil,
-        selected_options: nil
+        selected_options: {}
       )
     end
 
     def selected_options_params
       @selected_options_params ||= {
-        consultation_item.id => selected_option.id,
-        "wadus" => "2",
-        "foo" => "2"
+        '0' => {
+          'item_id' => consultation_item_1.id,
+          'selected_option' => -5
+        },
+        '1' => {
+          'item_id' => consultation_item_2.id,
+          'selected_option' => 0
+        }
       }
     end
 
@@ -31,15 +36,19 @@ module GobiertoBudgetConsultations
     end
 
     def user
-      @user ||= users(:dennis)
+      @user ||= users(:susan)
     end
 
     def consultation
       @consultation ||= gobierto_budget_consultations_consultations(:madrid_open)
     end
 
-    def consultation_item
-      @consultation_item ||= gobierto_budget_consultations_consultation_items(:madrid_sports_facilities)
+    def consultation_item_1
+      @consultation_item_1 ||= gobierto_budget_consultations_consultation_items(:madrid_sports_facilities)
+    end
+
+    def consultation_item_2
+      @consultation_item_2 ||= gobierto_budget_consultations_consultation_items(:madrid_civil_protection)
     end
 
     def test_save_with_valid_attributes
@@ -59,20 +68,28 @@ module GobiertoBudgetConsultations
 
       expected_consultation_items = [
         {
-          "item_id"                 => consultation_item.id,
-          "item_title"              => consultation_item.title,
-          "item_budget_line_amount" => consultation_item.budget_line_amount,
-          "item_response_options"   => consultation_item.raw_response_options,
-          "selected_option_id"      => selected_option.id,
-          "selected_option_label"   => selected_option.label
+          "item_id"                 => consultation_item_1.id,
+          "item_title"              => consultation_item_1.title,
+          "item_budget_line_amount" => consultation_item_1.budget_line_amount.to_s,
+          "selected_option"         => -5
+        },
+        {
+          "item_id"                 => consultation_item_2.id,
+          "item_title"              => consultation_item_2.title,
+          "item_budget_line_amount" => consultation_item_2.budget_line_amount.to_s,
+          "selected_option"         => 0
         }
       ]
 
-      consultation_items = consultation_response.consultation_items.map do |consultation_item|
-        consultation_item.except(*%w(id budget_line_amount))
+      first_item = consultation_response.consultation_items.first
+      expected_consultation_items.first.each do |key, value|
+        assert_equal first_item.send(key), value
       end
 
-      assert_equal expected_consultation_items, consultation_items
+      second_item = consultation_response.consultation_items.second
+      expected_consultation_items.second.each do |key, value|
+        assert_equal second_item.send(key), value
+      end
     end
 
     def test_budget_amount

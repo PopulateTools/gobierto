@@ -84,14 +84,13 @@ module GobiertoAdmin
             :position,
             :budget_line_id,
             :budget_line_name,
-            :budget_line_amount
+            :budget_line_amount,
+            :block_reduction
           )
         end
 
         def ignored_consultation_item_attributes
-          %w(
-          created_at updated_at
-          )
+          %w( created_at updated_at)
         end
       end
     end

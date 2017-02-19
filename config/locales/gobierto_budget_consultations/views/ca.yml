@@ -1,23 +1,55 @@
 ---
 ca:
   gobierto_budget_consultations:
+    consultation_statuses:
+      balance: Equilibri
+      deficit: Dèficit
+      surplus: Superàvit
+    consultation_status_error: La teva resposta no pot estar en dèficit
     consultation_items:
       options:
-        increase: Aumentar la despesa un 10%
-        keep: Mantenir la despesa
-        reduce: Reduir la despesa un 10%
         short:
           increase: Aumentar
           keep: Mantenir
           reduce: Reduir
     consultations:
       index:
+        already_responded: Ja has participat
         subscribable_box:
           title: Rebeix una alerta al tu correu-e sobre els processos que es fiquen
             en marxa
+        active: Consultes actives
+        previous: Consultes anteriors
       show:
-        subscribable_box:
-          title: Rebeix actualitzacions al teu correu-e sobre canvis en aquesta consulta
+        want_to_opinate: Vols opinar?
+        explanation: És senzill, i només et portarà uns minuts. Entre tots conseguirem millorar la eficiència del nostre Ajuntament
+        open_until: Consulta oberta fins al %{date}
+        opens_at: Podràs participar en aquesta consulta a partir del %{date}
+        closed: Ho sentim, aquesta consulta està tancada
+      budget_summary:
+        faq: Preguntes freqüents
+        opinate: Opina sobre el pressupost
+        call_to_action: Mira cómo se reparte la inversión y opina sobre las prioridades
+      consultation_items:
+        index:
+          start: Comença a opinar
+          p1: Aquestes sòn totes les partides sobre las que te volem demanar la opinió.
+          p2: Pots donar la teva opinió dient si penses que s'hauria de destinar més, menys o els mateixos recursos.
+      consultation_responses:
+        new:
+          reduce: Reduir
+          keep: Mantindre
+          increase: Augmentar
+          what: Creus que s'hauria de
+          balance_deficit: Equilibri/Déficit
+          base_budget: Pressupost base
+          title: Els %{amount} de despesses es reparteixen així - obri cada partida per a opinar
+          reduction_not_allowed_html: "<h4 class='tip-headline'>Aquesta partida no es pot reduir</h4><p>Explicació de per què no es poden reduir algunes partides.</p>"
+          explain_html: "<h4 class='tip-headline'>¿Equilibri o superávit?</h4><p>Con tus decisiones entraríamos en déficit anual: gastaríamos más de lo que ingresamos en el ejercicio y la deuda pendiente aumentaría. Puedes reevaluar tus decisiones para entrar en equilibrio.</p>"
+          open_to_opinate: Obri cada partida per a expressar la teva preferència
     layouts:
       menu_subsections:
         consultations: Consultes
+      errors:
+        already_responded: Ja has participat en aquesta consulta
+

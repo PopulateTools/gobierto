@@ -63,7 +63,7 @@ module GobiertoAdmin
       assert user_verification.verified
 
       with_empty_csv do
-        assert_performed_jobs 1 do
+        assert_performed_jobs 2 do
           valid_user_census_import_form.save
         end
       end

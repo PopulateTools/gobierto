@@ -26,7 +26,7 @@ module GobiertoBudgetConsultations
     scope :about_to_close,    -> { active_visibility.where(closes_on: 2.days.from_now.to_date) }
 
     def open?
-      visibility_level == "active" && opening_range.include?(Date.current)
+      active? && opening_range.include?(Date.current)
     end
 
     def past?
@@ -39,6 +39,10 @@ module GobiertoBudgetConsultations
 
     def calculate_budget_amount
       update_columns(budget_amount: consultation_items.sum(:budget_line_amount))
+    end
+
+    def already_responded?(user)
+      user && consultation_responses.exists?(user_id: user.id)
     end
 
     private

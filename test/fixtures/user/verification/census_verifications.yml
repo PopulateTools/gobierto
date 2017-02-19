@@ -27,3 +27,15 @@ susan_unverified:
     "date_of_birth" => "1992-01-01" }.to_yaml.inspect %>
   version: 0
   verified: false
+
+peter_verified:
+  user: peter
+  site: madrid
+  verification_type: <%= User::Verification.verification_types["census"] %>
+  verification_data: <%= {
+    "document_number" => "00000000A",
+    "date_of_birth" => "1992-01-01" }.to_yaml.inspect %>
+  version: 0
+  verified: true
+
+

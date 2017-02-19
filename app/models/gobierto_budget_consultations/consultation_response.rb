@@ -9,10 +9,13 @@ module GobiertoBudgetConsultations
 
     enum visibility_level: { draft: 0, active: 1 }
 
+    validates :consultation_id, uniqueness: { scope: :user_id }
+    validate :responses_balance
+
     scope :sorted, -> { order(created_at: :desc) }
 
     def consultation_items
-      @consultation_items ||= Array(read_attribute(:consultation_items)).map do |consultation_response_item_attributes|
+      Array(read_attribute(:consultation_items)).map do |consultation_response_item_attributes|
         ConsultationResponseItem.new(consultation_response_item_attributes.symbolize_keys)
       end
     end
@@ -25,8 +28,20 @@ module GobiertoBudgetConsultations
       write_attribute(:consultation_items, @consultation_items)
     end
 
-    def budget_deficit?
-      budget_amount > consultation.budget_amount
+    private
+
+    def responses_balance
+      if consultation.force_responses_balance? && deficit_response?
+        Rails.logger.debug "[exception] Trying to save deficit response"
+
+        errors[:base] << I18n.t('errors.messages.invalid_consultation_response')
+      end
+    end
+
+    def deficit_response?
+      possitive_items = self.consultation_items.select{ |i| i.selected_option > 0 }
+      negative_items =self.consultation_items.select{ |i| i.selected_option < 0 }
+      possitive_items.length > negative_items.length
     end
   end
 end

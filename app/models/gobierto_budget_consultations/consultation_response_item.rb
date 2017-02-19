@@ -2,14 +2,17 @@ require_dependency "gobierto_budget_consultations"
 
 module GobiertoBudgetConsultations
   class ConsultationResponseItem
+    class MissingItem < StandardError; end
+    class EmptySelectedOption < StandardError; end
+    class NotAllowedToReduce < StandardError; end
+
     ATTRIBUTE_NAMES = [
       :id,
       :item_id,
       :item_title,
       :item_budget_line_amount,
       :item_response_options,
-      :selected_option_id,
-      :selected_option_label,
+      :selected_option,
       :budget_line_amount
     ]
 
@@ -42,12 +45,7 @@ module GobiertoBudgetConsultations
     end
 
     def calculate_budget_line_amount
-      case selected_option_label
-      when "increase" then item_budget_line_amount.to_f * 1.1 # Increase by 10%
-      when "keep"     then item_budget_line_amount.to_f
-      when "reduce"   then item_budget_line_amount.to_f * 0.9 # Reduce by 10%
-      else item_budget_line_amount.to_f
-      end
+      item_budget_line_amount.to_f * (1 + (selected_option.to_f / 100))
     end
   end
 end

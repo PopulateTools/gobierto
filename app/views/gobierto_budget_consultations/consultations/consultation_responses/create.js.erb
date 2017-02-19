@@ -1,0 +1,5 @@
+<% if @consultation_response_form.persisted? %>
+    Turbolinks.visit('<%= gobierto_budget_consultations_consultation_show_confirmation_path(@consultation) %>');
+<% else %>
+    $('#errors').html('<%= @consultation_response_form.errors.full_messages.to_sentence %>');
+<% end %>

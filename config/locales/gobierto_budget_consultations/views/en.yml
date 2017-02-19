@@ -1,22 +1,54 @@
 ---
 en:
   gobierto_budget_consultations:
+    consultation_statuses:
+      balance: Balanced
+      deficit: Deficit
+      surplus: Surplus
+    consultation_status_error: Your response can't be in deficit
     consultation_items:
       options:
-        increase: Increase budget by 10%
-        keep: Keep the budget
-        reduce: Reduce budget by 10%
         short:
           increase: Increase
           keep: Keep
           reduce: Reduce
     consultations:
       index:
+        already_responded: You already responded
         subscribable_box:
           title: Receive alerts in your inbox when there are any other processes underway
+        active: Active consultations
+        previous: Previous consultations
       show:
-        subscribable_box:
-          title: Receive updates in your inbox on this consultation
+        want_to_opinate: Do you want to opinate?
+        explanation: It's easy and it'll take you only a few minutes. Together we'll manage to improve the ephiciency of our Council.
+        open_until: Consultation open until %{date}
+        opens_at: You'll be able to participate since the %{date}
+        closed: Sorry, this consultation is closed
+      budget_summary:
+        faq: Frequently Asked Questions
+        opinate: Opinate about the budgets
+        call_to_action: See how is distributed the investment and opinate about the priorities
+      consultation_items:
+        index:
+          start: Start
+          p1: These are all the budget lines we want to ask your opinion.
+          p2: You can opinate telling if you think we should invest more, less or the same resources.
+      consultation_responses:
+        new:
+          reduce: Reduce
+          keep: Keep
+          increase: Increase
+          what: You think it should
+          balance_deficit: Balance/Deficit
+          base_budget: Base budget
+          title: The %{amount} in expenses are distributed this way - open each budget line to opinate
+          reduction_not_allowed_html: "<h4 class='tip-headline'>You can't reduce this budget line</h4><p>Explanation</p>"
+          explain_html: "<h4 class='tip-headline'>¿Equilibri o superávit?</h4><p>Con tus decisiones entraríamos en déficit anual: gastaríamos más de lo que ingresamos en el ejercicio y la deuda pendiente aumentaría. Puedes reevaluar tus decisiones para entrar en equilibrio.</p>"
+          open_to_opinate: Open each budget line to express your preference
     layouts:
       menu_subsections:
         consultations: Consultations
+      errors:
+        already_responded: You already replied to this consultation
+

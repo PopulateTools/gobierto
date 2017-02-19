@@ -61,10 +61,6 @@ class Site < ApplicationRecord
     draft?
   end
 
-  def gobierto_people_module_enabled?
-    configuration.modules.include?("GobiertoPeople")
-  end
-
   private
 
   def self.reserved_domains

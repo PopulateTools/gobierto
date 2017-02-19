@@ -16,6 +16,7 @@ module GobiertoAdmin
       @site_visibility_levels = get_site_visibility_levels
       @dns_config = get_dns_config
       @services_config = get_services_config
+      @available_locales_for_site = get_available_locales
     end
 
     def edit
@@ -29,6 +30,7 @@ module GobiertoAdmin
       @site_visibility_levels = get_site_visibility_levels
       @dns_config = get_dns_config
       @services_config = get_services_config
+      @available_locales_for_site = get_available_locales
     end
 
     def create
@@ -41,6 +43,7 @@ module GobiertoAdmin
       @site_visibility_levels = get_site_visibility_levels
       @dns_config = get_dns_config
       @services_config = get_services_config
+      @available_locales_for_site = get_available_locales
 
       if @site_form.save
         track_create_activity
@@ -61,6 +64,7 @@ module GobiertoAdmin
       @site_visibility_levels = get_site_visibility_levels
       @dns_config = get_dns_config
       @services_config = get_services_config
+      @available_locales_for_site = get_available_locales
 
       if @site_form.save
         track_update_activity
@@ -125,7 +129,9 @@ module GobiertoAdmin
         :password,
         :municipality_id,
         :logo_file,
-        site_modules: []
+        :default_locale,
+        site_modules: [],
+        available_locales: [],
       )
     end
 
@@ -143,6 +149,10 @@ module GobiertoAdmin
 
     def default_activity_params
       { ip: remote_ip, author: current_admin }
+    end
+
+    def get_available_locales
+      available_locales.map{ |l| [l.to_s, I18n.t("locales.#{l}")] }
     end
   end
 end

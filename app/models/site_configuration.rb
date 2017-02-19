@@ -9,7 +9,8 @@ class SiteConfiguration
     :head_markup,
     :foot_markup,
     :links_markup,
-    :locale
+    :available_locales,
+    :default_locale,
   ].freeze
 
   DEFAULT_LOGO_PATH = "sites/logo-default.png".freeze
@@ -32,12 +33,18 @@ class SiteConfiguration
     @modules.select { |site_module| SITE_MODULES.include?(site_module) }
   end
 
-  def locale
-    @locale || I18n.default_locale
-  end
-
   def logo_with_fallback
     @logo || DEFAULT_LOGO_PATH
+  end
+
+  def available_locales
+    return I18n.available_locales if @available_locales.nil? || @available_locales.empty?
+
+    @available_locales.select{ |l| l.present? }
+  end
+
+  def default_locale
+    @default_locale || I18n.default_locale
   end
 
   # Define question mark instance methods for each property.

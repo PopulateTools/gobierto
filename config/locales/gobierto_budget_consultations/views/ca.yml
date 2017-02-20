@@ -1,6 +1,9 @@
 ---
 ca:
   gobierto_budget_consultations:
+    events:
+      gobierto_budget_consultations_consultation_updated: Consulta actualitzada
+      gobierto_budget_consultations_consultation_published: Nova consulta publicada
     consultation_statuses:
       balance: Equilibri
       deficit: Dèficit

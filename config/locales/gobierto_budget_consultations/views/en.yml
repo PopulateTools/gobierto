@@ -1,6 +1,9 @@
 ---
 en:
   gobierto_budget_consultations:
+    events:
+      gobierto_budget_consultations_consultation_updated: Consultation updated
+      gobierto_budget_consultations_consultation_published: New consultation created
     consultation_statuses:
       balance: Balanced
       deficit: Deficit

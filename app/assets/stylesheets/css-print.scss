@@ -1,4 +1,4 @@
-// @media print {
+@media print {
   body {
     counter-reset: section;
   }
@@ -116,4 +116,4 @@
   .card-description .sep {
     display: none;
   }
-// }
+}

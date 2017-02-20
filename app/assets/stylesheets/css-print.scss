@@ -1,4 +1,7 @@
-@media print {
+// @media print {
+  body {
+    counter-reset: section;
+  }
   @page {
    margin: 1.5cm 0.7cm;
   }
@@ -8,7 +11,6 @@
   .column.consultation {
     max-width: none;
     float: left;
-    margin-bottom: 0.5cm;
   }
   .consultation-info {
     display: none;
@@ -21,57 +23,97 @@
   }
   .consultation-lead.mb2 {
     margin: 0;
-    margin-top: 0.5cm;
-    margin-bottom: 0;
+    margin-bottom: 0.25cm;
     color: #111;
     font-weight: 700;
+  }
+  .column.consultation p {
+    margin-top: 0;
   }
   .consultation-card {
     box-shadow: none;
     background: none;
-    margin-bottom: 0.75cm;
+    margin-bottom: 0.35cm;
+    padding-bottom: 0.35cm;
+    border-bottom: 1px solid #ccc;
     margin-top: 0;
     page-break-inside: avoid;
   }
   .card-title {
+    line-height: 1;
     margin-bottom: 0;
     padding: 0;
   }
   .consultation-title {
-    font-size: 14pt;
+    font-size: 12pt;
     color: #333;
   }
+  .consultation-title::before {
+    counter-increment: section;
+    content: counter(section) ". ";
+  }
   .consultation-figure {
+    float: none;
+    display: inline-block;
     color: #333;
     font-weight: 400;
+    vertical-align: top;
+  }
+  .consultation-figure .fa {
+    display: none;
+  }
+  .consultation-figure::before {
+    content: "(";
+  }
+  .consultation-figure::after {
+    content: ")";
   }
   .card-content {
     display: block !important;
   }
   .card-description {
     padding: 0;
-    font-size: 11pt;
-    margin-bottom: 0.5cm;
+    font-size: 9pt;
+    line-height: 1.5;
+    margin-bottom: 0;
     color: #333;
+    width: 83%;
+    display: inline-block;
+    vertical-align: top;
   }
   .budget-ask {
-    padding: 0;
     box-shadow: none;
+    width: 15%;
+    padding: 0;
+    margin-bottom: 0;
+    float: right;
   }
   .select-lead {
-    margin-bottom: 0.5cm;
+    display: none;
   }
   .pct {
+    padding: 0;
+    font-size: 11pt;
     background: none;
-    margin-bottom: 0.75cm;
+    margin-bottom: 0;
+    width: 105px;
+    position: relative;
+    text-align: left;
   }
   .pct::after {
+    position: absolute;
+    right: 0;
     content: "";
     border: 2px solid #111;
     margin-left: 0.5rem;
-    padding: 0.5cm 1cm;
+    padding: 0.25cm 0.4cm;
+  }
+  .select-pct {
+    padding: 0;
+    -webkit-flex-flow: column wrap;
+    -ms-flex-flow: column wrap;
   }
   .card-description .sep {
-    border-top: 1px solid #333;
+    display: none;
   }
-}
+// }

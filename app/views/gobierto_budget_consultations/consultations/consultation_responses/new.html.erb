@@ -23,15 +23,11 @@
 
     <transition name="card" v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave" v-bind:css="false">
       <div class="pure-u-5-5 card-content" v-show="card.toggleDesc">
-        <div class="pure-g">
-          <div class="pure-u-5-5">
-            <div class="card-description" :class="{ absolute: card.hidden }">
-              <div class="sep"></div>
-              <div>
-                {{card.description}}
-                <div v-if="card.hidden" class="overlay"></div>
-              </div>
-            </div>
+        <div class="card-description" :class="{ absolute: card.hidden }">
+          <div class="sep"></div>
+          <div>
+            {{card.description}}
+            <div v-if="card.hidden" class="overlay"></div>
           </div>
         </div>
 

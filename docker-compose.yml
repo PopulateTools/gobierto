@@ -42,11 +42,13 @@ test:
     - ELASTICSEARCH_URL=http://elasticsearch:9200
     - BUNDLE_PATH=/bundle
     - PYTHONUNBUFFERED=1
+    - REDIS_URL=redis://redis:6379
   volumes_from:
     - web
   links:
     - postgres
     - elasticsearch
+    - redis
 
 sidekiq:
   image: gobierto_web

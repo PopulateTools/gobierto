@@ -82,6 +82,36 @@
       </div>
 
       <div class="form_block">
+        <div class="form_item site-check-boxes">
+          <div class="options compact">
+            <h4><%= f.object.class.human_attribute_name(:available_locales) %></h4>
+            <%= f.collection_check_boxes(:available_locales, @available_locales_for_site, :first, :last) do |b| %>
+              <div class="option">
+                <%= b.check_box %>
+                <%= b.label do %>
+                  <span></span>
+                  <%= b.text %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="options compact">
+            <h4><%= f.object.class.human_attribute_name(:default_locale) %></h4>
+            <%= f.collection_radio_buttons(:default_locale, @available_locales_for_site, :first, :last) do |b| %>
+              <div class="option">
+                <%= b.radio_button %>
+                <%= b.label do %>
+                  <span></span>
+                  <%= b.text %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form_block">
 
         <h2><%= t(".modules_enabled") %></h2>
 

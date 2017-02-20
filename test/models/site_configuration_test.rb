@@ -43,13 +43,18 @@ class SiteConfigurationTest < ActiveSupport::TestCase
     assert site_configuration.demo?
   end
 
-  def test_locale
-    assert_equal site_configuration_params["locale"], site_configuration.locale
+  def test_default_locale
+    assert_equal site_configuration_params["default_locale"], site_configuration.default_locale
   end
 
-  def test_locale?
-    assert site_configuration.locale?
+  def test_default_locale?
+    assert site_configuration.default_locale?
   end
+
+  def test_available_locales
+    assert_equal site_configuration_params["available_locales"], site_configuration.available_locales
+  end
+
 
   def test_logo_with_fallback_when_logo_is_present
     assert_equal site_configuration_params["logo"], site_configuration.logo_with_fallback
@@ -67,12 +72,13 @@ class SiteConfigurationTest < ActiveSupport::TestCase
   def site_configuration_params
     @site_configuration_params ||= begin
       {
-        "modules"      => ["Wadus", "GobiertoDevelopment"], # Note that the "Wadus" module is not standard
-        "logo"         => "gobierto_development.png",
-        "links_markup" => %Q{<a href="http://madrid.es">Ayuntamiento de Madrid</a>},
-        "demo"         => true,
-        "wadus"        => "wadus", # Note that this is not a whitelisted property
-        "locale"       => :ca
+        "modules"           => ["Wadus", "GobiertoDevelopment"], # Note that the "Wadus" module is not standard
+        "logo"              => "gobierto_development.png",
+        "links_markup"      => %Q{<a href="http://madrid.es">Ayuntamiento de Madrid</a>},
+        "demo"              => true,
+        "wadus"             => "wadus", # Note that this is not a whitelisted property
+        "default_locale"    => "ca",
+        "available_locales" => ["ca", "es"]
       }
     end
   end

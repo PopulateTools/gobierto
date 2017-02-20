@@ -10,7 +10,7 @@ module FileUploader
     end
 
     def call
-      FileUtils.mkdir_p(file_base_path) unless File.exists?(file_base_path)
+      FileUtils.mkdir_p(file_base_path) unless File.exist?(file_base_path)
       FileUtils.mv(file.tempfile.path, file_path)
       ObjectSpace.undefine_finalizer(file.tempfile)
 

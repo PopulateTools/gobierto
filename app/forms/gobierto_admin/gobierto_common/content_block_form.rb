@@ -126,10 +126,6 @@ module GobiertoAdmin
         end
       end
 
-      def available_locales
-        @available_locales ||= I18n.available_locales
-      end
-
       protected
 
       def promote_errors(errors_hash)

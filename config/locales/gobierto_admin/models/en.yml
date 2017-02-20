@@ -27,6 +27,8 @@ en:
         name: Entity ame
         title: Site name
         municipality_id: Municipality
+        default_locale: Default locale
+        available_locales: Available locales
       gobierto_admin/user_form:
         email: Email
         name: Name

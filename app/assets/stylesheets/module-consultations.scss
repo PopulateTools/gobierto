@@ -207,6 +207,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   color: $color_dark;
+  width: 65%;
   
   @include min-screen(768) {
     width: 22rem;
@@ -223,6 +224,7 @@
 }
 .consultation-card.active .consultation-title {
   font-size: 1.25rem;
+  white-space: normal;
   
   @include min-screen(768) {
     font-size: 1rem;

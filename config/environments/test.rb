@@ -41,5 +41,5 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Increase log level to speed up the test suite
-  config.log_level = :fatal
+  config.log_level = ENV.fetch("TEST_LOG_LEVEL") { :fatal }.to_sym
 end

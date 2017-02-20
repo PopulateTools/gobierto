@@ -1,3 +1,5 @@
+require_dependency "secret_attribute"
+
 class CensusRepository
   attr_reader(
     :site_id,
@@ -18,13 +20,9 @@ class CensusRepository
     @site_id = site_id
 
     @document_number = document_number.to_s
-    @document_number_digest = SecretAttribute.digest(@document_number)
+    @document_number_digest = ::SecretAttribute.digest(@document_number)
 
-    @date_of_birth = begin
-      Date.parse(date_of_birth.to_s).to_s
-    rescue ArgumentError
-      nil
-    end
+    @date_of_birth = parse_date(date_of_birth)
 
     @import_reference = import_reference
   end
@@ -57,4 +55,23 @@ class CensusRepository
       import_reference: import_reference
     )
   end
+
+  def parse_date(date)
+    return nil if date.blank?
+    return date if date.is_a?(Date)
+
+    # Validate format
+    if date =~ /\A(\d{4})-(\d\d?)-(\d\d?)\z/
+      return Date.parse(date)
+    elsif date =~ /\A(\d\d?)-(\d\d?)-(\d+)\z/
+      day   = $1.to_i
+      month = $2.to_i
+      year  = $3.to_i
+      year  = "19#{year}".to_i if year <= 99
+      return Date.new year, month, day
+    end
+  rescue ArgumentError
+    nil
+  end
+
 end

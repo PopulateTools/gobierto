@@ -63,7 +63,7 @@ module GobiertoPeople
 ...
 ```
 
-In case your model implements a relationship with other model outside the module, you shouldn't include the module name in the name of the relationship for readibility reasons, unless there is a name conflict.
+In case your model implements a relationship with other model outside the module, you shouldn't include the module name in the name of the relationship for readability reasons, unless there is a name conflict.
 
 Example:
 
@@ -216,7 +216,7 @@ end
 
 ## Seeds
 
-Sometimes module need some database data to exist. For example, a configuratio entry, a list of `DynamicContentBlocks` preconfigured. For that reason, we have created a seeds structure and two seeds runner classes:
+Sometimes modules need some database data to exist. For example, a configuration entry, a list of `DynamicContentBlocks` preconfigured. For that reason, we have created a seeds structure and two seeds runner classes:
 
 - `ModuleSeeder`: seeds a module
 - `ModuleSiteSeeder`: seeds a module for a specific Gobierto installation. It uses the attribute `site.name` from `config/application.yml`
@@ -236,4 +236,3 @@ module GobiertoSeeds
   end
 end
 ```
-

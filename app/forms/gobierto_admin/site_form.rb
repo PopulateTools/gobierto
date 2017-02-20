@@ -30,7 +30,9 @@ module GobiertoAdmin
       :updated_at,
       :creation_ip,
       :municipality_id,
-      :logo_file
+      :logo_file,
+      :available_locales,
+      :default_locale
     )
 
     attr_reader :logo_url
@@ -45,6 +47,8 @@ module GobiertoAdmin
     validates :username, :password, presence: true, if: :draft_visibility?
     validates :title, presence: true
     validates :name, presence: true
+    validates :available_locales, length: { minimum: 1 }
+    validates :default_locale, presence: true
 
     def save
       save_site if valid?
@@ -80,6 +84,14 @@ module GobiertoAdmin
 
     def password
       @password ||= site.configuration.password_protection_password
+    end
+
+    def available_locales
+      @available_locales ||= site.configuration.available_locales
+    end
+
+    def default_locale
+      @default_locale ||= site.configuration.default_locale
     end
 
     def visibility_level
@@ -129,6 +141,8 @@ module GobiertoAdmin
         site_attributes.configuration.google_analytics_id = google_analytics_id
         site_attributes.configuration.password_protection_username = username
         site_attributes.configuration.password_protection_password = password
+        site_attributes.configuration.default_locale = default_locale
+        site_attributes.configuration.available_locales = (available_locales.select{ |l| l.present? } + [default_locale]).uniq
       end
 
       if @site.valid?

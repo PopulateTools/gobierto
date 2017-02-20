@@ -2,9 +2,26 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <% set_meta_tags twitter: { site: APP_CONFIG['site']['twitter_handle'] } %>
-  <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
+  <% set_meta_tags og: {
+       title:    :title,
+       description: :description,
+       type:     'website',
+       url:      request.url,
+       image:    {
+         _: @site.configuration.logo_with_fallback
+       }
+     },
+     twitter: {
+       card: "summary",
+       site: APP_CONFIG['site']['twitter_handle'],
+       description: :description,
+       title: :title,
+       image: {
+         _: @site.configuration.logo_with_fallback
+       }
+     } %>
 
+  <%= display_meta_tags site: [site_name, 'Gobierto'].join(' · '), reverse: true, separator: '·' %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
@@ -140,15 +157,15 @@
           <%= render "layouts/breadcrumb" %>
           <%= content_for?(:module_sub_sections) ? yield(:module_sub_sections) : load_module_sub_sections(current_module) %>
 
-          <div class="search_box slim_search">
+          <div class="search_box slim_search desktop_only">
             <input type="text" placeholder="<%= t('.search') %>" name="q" id="gobierto_search" />
           </div>
 
           <div id="search_results" class="search_result_list"></div>
 
           <div class="social_links_container" data-share-text="" data-share>
-            <a href="#" class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|XXX"><i class="fa fa-twitter"></i></a>
-            <a href="#" class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|XXX"><i class="fa fa-facebook"></i></a>
+            <a href="#" class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
             <% pending do %>
               <a href="#embed-graph-code" class="code open_modal"><i class="fa fa-code"></i></a>
             <% end %>
@@ -177,7 +194,7 @@
       </div>
 
       <div class="pure-u-1 pure-u-md-9-24">
-        <%= link_to_unless_current(image_tag(@site.configuration.logo_with_fallback), root_url) %>
+        <%= link_to_unless_current(image_tag(@site.configuration.logo_with_fallback, class: 'logo'), root_url) %>
       </div>
 
       <% if @site.configuration.links_markup.present? %>

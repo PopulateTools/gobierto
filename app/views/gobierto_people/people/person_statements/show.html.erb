@@ -5,7 +5,7 @@
 <% end %>
 
 <div class="person_header">
-  <h1><%= t(".title", person_name: @person.name) %></h1>
+  <h1><%= title t(".title", person_name: @person.name) %></h1>
 </div>
 
 <div class="separator"></div>
@@ -44,12 +44,10 @@
 
 </div>
 
-
-
-
-
 <%= render "gobierto_common/dynamic_content/table_component", content_blocks: @statement_content_blocks %>
 
 <%= render("user/subscriptions/subscribable_box",
            subscribable: @statement,
            title: t(".subscribable_box.title")) %>
+
+<% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>

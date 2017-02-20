@@ -238,6 +238,16 @@
   }
 }
 
+/* Warnings */
+#errors {
+  color: $color_main_negative;
+  background-color: $color_warn;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  margin: 1rem 1rem 2rem 1rem;
+  padding: 0.5rem;
+}
+
 /* Card content (desktop only) */
 .card-wrapper {
   padding: 0 15rem 0 5rem;

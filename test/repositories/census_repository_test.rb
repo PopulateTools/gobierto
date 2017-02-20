@@ -5,7 +5,7 @@ class CensusRepositoryTest < ActiveSupport::TestCase
     @census_repository ||= CensusRepository.new(
       site_id: site.id,
       document_number: "Wadus001",
-      date_of_birth: "2000-01-01",
+      date_of_birth: "1-1-2000",
       import_reference: 1
     )
   end

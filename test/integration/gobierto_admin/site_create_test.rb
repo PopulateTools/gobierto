@@ -28,6 +28,11 @@ module GobiertoAdmin
           fill_in "site_links_markup", with: "Site Links markup"
           fill_in "site_google_analytics_id", with: "UA-000000-01"
 
+          within ".site-check-boxes" do
+            check "site_available_locales_es"
+            choose "site_default_locale_es"
+          end
+
           # Simulate Location selection in user control
           find("#site_municipality_id", visible: false).set("1")
 

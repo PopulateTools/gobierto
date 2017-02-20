@@ -91,7 +91,16 @@ module GobiertoAdmin
     protected
 
     def file_content
-      @file_content ||= ::CSV.read(file.open, headers: false)
+      @file_content ||= begin
+                          content = ::CSV.read(file.open, headers: false)
+                          first_row = content.dup.first
+
+                          if first_row.is_a?(Array) && first_row.first.present? && first_row.first.include?(';') && !first_row.first.include?(',')
+                            ::CSV.read(file.open, headers: false, col_sep: ';')
+                          else
+                            content
+                          end
+                        end
     end
   end
 end

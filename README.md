@@ -13,12 +13,12 @@ Gobierto es una aplicación Rails que proporciona una serie de herramientas a la
 Gobierto está comenzando y es posible que algunas cosas cambien por el camino. El primer módulo disponible es el de Visualización de Presupuestos. Este es el tipo de cosas que puedes hacer:
 
 1. **Sitio único para una entidad pública (por ejemplo, un municipio)**: Monta un sitio web para un Municipio (por ejemplo, madrid.gobierto.es) para publicar sus presupuestos de una manera sencilla de comprender. Pronto añadiremos otros módulos tales como Consultas de Presupuestos, Indicadores, Historias...
-2. **Sitio múltiple para entidades públicas**: Como el punto 1, pero para dar servico a múltiples entidades públicas bajo la misma instalación de Software y con distintos subdominios (madrid.gobierto.es, barcelona.gobierto.es, etc).
+2. **Sitio múltiple para entidades públicas**: Como el punto 1, pero para dar servicio a múltiples entidades públicas bajo la misma instalación de Software y con distintos subdominios (madrid.gobierto.es, barcelona.gobierto.es, etc).
 3. **Comparador de presupuestos**: Una aplicación que permite visualizar y comparar los presupuestos de todo el país o una subregión, como puede ser una autonomía o una provincia. Puedes ver esta aplicación funcionando en [presupuestos.gobierto.es](https://presupuestos.gobierto.es). Esto es ahora mismo una aplicación separada que vive en otro repositorio: [Gobierto Comparador Presupuestos](https://github.com/PopulateTools/gobierto-comparador-presupuestos).
 
 Puedes usar cualquiera de los tres escenarios de forma independiente o todos a la vez bajo una única instalación. Y no tienes por qué ser una institución pública para usarlo.
 
-Gobierto es un proyecto abierto de [Populate](http://populate.tools), un estudio que diseña desde Madrid productos digitales alrededor de la Participación Ciudadana. Además de trabajar en Gobierto, también ofrecemos servicios en torno a datos abiertos, periodismo de datos, sostenibilidad, etc.
+Gobierto es un proyecto abierto de [Populate](http://populate.tools), un estudio que diseña desde Madrid productos digitales alrededor de la Participación Ciudadana. Además de trabajar en Gobierto, también ofrecemos servicios entorno a datos abiertos, periodismo de datos, sostenibilidad, etc.
 
 * #todo Por qué Gobierto y nuestra filosofía de Diseño
 

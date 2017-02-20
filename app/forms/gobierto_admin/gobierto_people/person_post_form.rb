@@ -58,10 +58,6 @@ module GobiertoAdmin
         @person ||= person_class.find_by(id: person_id)
       end
 
-      def site_id
-        @site_id ||= person.site_id
-      end
-
       def visibility_level
         @visibility_level ||= "draft"
       end

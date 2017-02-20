@@ -27,6 +27,8 @@ es:
         name: Nombre de la entidad
         title: Nombre del site
         municipality_id: Municipio
+        default_locale: Idioma por defecto
+        available_locales: Idiomas disponibles
       gobierto_admin/user_form:
         email: Email
         name: Nombre

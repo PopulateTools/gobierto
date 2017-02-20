@@ -88,4 +88,4 @@ To use `MailCatcher`, make sure the `mailcatcher` container is up and running:
 $ docker-compose up -d mailcatcher
 ```
 
-Having do this, the server should be available at `http://<your_docker_host>:1080`.
+Having done this, the server should be available at `http://<your_docker_host>:1080`.

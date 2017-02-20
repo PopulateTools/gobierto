@@ -19,7 +19,7 @@ class CensusRepository
   def initialize(site_id:, document_number:, date_of_birth:, import_reference: nil)
     @site_id = site_id
 
-    @document_number = document_number.strip.to_s
+    @document_number = document_number.to_s
     @document_number_digest = ::SecretAttribute.digest(@document_number)
 
     @date_of_birth = parse_date(date_of_birth)

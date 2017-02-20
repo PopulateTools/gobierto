@@ -1,0 +1,42 @@
+@media print {
+  @page {
+   margin: 1.5cm 0.7cm;
+  }
+  header.meta {
+    display: none;
+  }
+  .column.consultation {
+    max-width: none;
+    float: left;
+    margin-bottom: 0.5cm;
+  }
+  .consultation-info {
+    display: none;
+  }
+  footer {
+    display: none;
+  }
+  .consultation-box {
+    margin: 0;
+  }
+  .consultation-lead.mb2 {
+    margin: 0;
+    margin-top: 0.5cm;
+    margin-bottom: 0;
+  }
+  .consultation-card {
+    box-shadow: none;
+    background: none;
+    margin-bottom: 0.5cm;
+    margin-top: 0;
+  }
+  .card-title {
+    font-size: 14pt;
+    border-bottom: 1px solid $color_main;
+    margin-bottom: 0.75cm;
+    padding: 0;
+  }
+  .consultation-figure {
+    font-weight: 400;
+  }
+}

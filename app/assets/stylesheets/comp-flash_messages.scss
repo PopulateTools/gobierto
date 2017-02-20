@@ -4,8 +4,8 @@
  */
 .success, .error, .alert, .notice {
   padding: 20px 30px;
-  @include border-radius(6px);
   margin-bottom: 2em;
+  border-left: 10px solid;
 
   .fa {
     font-size: 1.5em;
@@ -16,18 +16,22 @@
 
 .success {
   background: #CCCC00;
+  border-color: darken(#CCCC00, 20%);
   color: #FFF;
 }
 .error {
   background: #FF9966;
+  border-color: darken(#FF9966, 20%);
   color: #FFF;
 }
 .alert {
   background: #FFEBE0;
+  border-color: darken(#FFEBE0, 20%);
   color: #AE5D3B;
 }
 .notice {
   background: #F5F5CC;
+  border-color: darken(#F5F5CC, 20%);
   color: #787A03;
 }
 .field_with_errors {

@@ -23,20 +23,55 @@
     margin: 0;
     margin-top: 0.5cm;
     margin-bottom: 0;
+    color: #111;
+    font-weight: 700;
   }
   .consultation-card {
     box-shadow: none;
     background: none;
-    margin-bottom: 0.5cm;
+    margin-bottom: 0.75cm;
     margin-top: 0;
+    page-break-inside: avoid;
   }
   .card-title {
-    font-size: 14pt;
-    border-bottom: 1px solid $color_main;
-    margin-bottom: 0.75cm;
+    margin-bottom: 0;
     padding: 0;
   }
+  .consultation-title {
+    font-size: 14pt;
+    color: #333;
+  }
   .consultation-figure {
+    color: #333;
     font-weight: 400;
+  }
+  .card-content {
+    display: block !important;
+  }
+  .card-description {
+    padding: 0;
+    font-size: 11pt;
+    margin-bottom: 0.5cm;
+    color: #333;
+  }
+  .budget-ask {
+    padding: 0;
+    box-shadow: none;
+  }
+  .select-lead {
+    margin-bottom: 0.5cm;
+  }
+  .pct {
+    background: none;
+    margin-bottom: 0.75cm;
+  }
+  .pct::after {
+    content: "";
+    border: 2px solid #111;
+    margin-left: 0.5rem;
+    padding: 0.5cm 1cm;
+  }
+  .card-description .sep {
+    border-top: 1px solid #333;
   }
 }

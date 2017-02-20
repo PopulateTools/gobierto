@@ -27,9 +27,8 @@ es:
         opens_at: Podrás participar en esta consulta a partir del %{date}
         closed: Lo sentimos, esta consulta está cerrada
       budget_summary:
-        faq: Preguntas frecuentes
         opinate: Opina sobre el presupuesto
-        call_to_action: Mira com es reparteix aquesta inversió, i opina sobre les prioritats
+        call_to_action: Mira cómo se reparte la inversión y opina sobre las prioridades
       consultation_items:
         index:
           start: Comienza a opinar

@@ -26,7 +26,6 @@ en:
         opens_at: You'll be able to participate since the %{date}
         closed: Sorry, this consultation is closed
       budget_summary:
-        faq: Frequently Asked Questions
         opinate: Opinate about the budgets
         call_to_action: See how is distributed the investment and opinate about the priorities
       consultation_items:

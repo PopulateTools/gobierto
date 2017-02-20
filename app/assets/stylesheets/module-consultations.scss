@@ -1,3 +1,11 @@
+/* Share buttons */
+.gobierto_budget_consultations header.meta .site_header menu.nav .social_links_container {
+  top: 11px;
+  right: 11px;
+  bottom: inherit;
+  left: inherit;
+}
+
 /* Consultation intro */
 .inline-block {
   display: inline-block;
@@ -19,9 +27,13 @@
     font-size: 1.25rem;
   }
 }
+.consultation-intro-wrapper img {
+  display: block;
+}
 .consultation-link {
   text-decoration: none;
   display: block;
+  margin-bottom: 1rem;
 }
 .consultation-link:hover,
 .consultation-link:active,
@@ -29,13 +41,15 @@
   text-decoration: none;
 }
 .consultation-lead {
-  margin: 0 1rem;
   font-weight: 400;
   line-height: 1.3;
   
   @include min-screen(768) {
     font-size: 2rem;
   }
+}
+.consultation_responses .consultation-lead {
+  margin: 0 1rem;
 }
 .bottom-info {
   padding: 1rem;

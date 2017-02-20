@@ -56,6 +56,7 @@ class CensusRepository
 
   def parse_date(date)
     return nil if date.blank?
+    return date if date.is_a?(Date)
 
     # Validate format
     if date =~ /\A(\d{4})-(\d\d?)-(\d\d?)\z/

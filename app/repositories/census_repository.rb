@@ -1,3 +1,5 @@
+require_dependency "secret_attribute"
+
 class CensusRepository
   attr_reader(
     :site_id,

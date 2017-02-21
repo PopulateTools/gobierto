@@ -4,7 +4,14 @@
   right: 11px;
   bottom: inherit;
   left: inherit;
+  
+  @include min-screen(768) {
+    top: inherit;
+    right: 11px;
+    bottom: 11px;
+  }
 }
+
 /*
  * Consultations
  *
@@ -53,7 +60,7 @@ img.side_50 {
 .consultation-link {
   text-decoration: none;
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 .consultation-link:hover,
 .consultation-link:active,
@@ -129,6 +136,15 @@ img.side_50 {
 .consultation-faq-q {
   font-weight: 600;
 }
+.consultation-faq-q.active {
+  text-decoration: none;
+}
+.consultation-faq .consultation-text {
+  padding: 0;
+}
+.consultation-faq .consultation-text p {
+  padding: 0;
+}
 .button-light {
   border-radius: 6px;
   font-size: 1rem;
@@ -173,6 +189,7 @@ img.side_50 {
 .card-header {
   position: relative;
 }
+
 
 /* Cards */
 .consultation-box {

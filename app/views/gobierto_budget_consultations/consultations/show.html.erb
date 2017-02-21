@@ -16,7 +16,7 @@
         <p><%= t('.explanation') %></p>
       </div>
     <% end %>
-    <a class="consultation-deadline" href="/sandbox/consultation-faq.html"><%= t('.open_until', date: l(@consultation.closes_on, format: :short)) %></a>
+    <a class="consultation-deadline" href="/sandbox/consultation_faq.html"><%= t('.open_until', date: l(@consultation.closes_on, format: :short)) %></a>
   <% else %>
     <% if @consultation.upcoming? %>
       <div class="bottom-info">

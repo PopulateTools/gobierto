@@ -24,7 +24,7 @@ es:
         active: Consultas activas
         previous: Consultas anteriores
       show:
-        want_to_opinate: "¿Quieres opiniar?"
+        want_to_opinate: "¿Quieres opinar?"
         explanation: Es sencillo y sólo te llevará unos minutos. Entre todos conseguiremos mejorar la eficiencia de nuestro Ayuntamiento.
         open_until: Consulta abierta hasta el %{date}
         opens_at: Podrás participar en esta consulta a partir del %{date}

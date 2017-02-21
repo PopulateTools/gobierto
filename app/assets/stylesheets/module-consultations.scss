@@ -13,6 +13,45 @@
     padding: 0;
   }
 }
+/*
+ * Consultations
+ *
+ */
+img.side_50 {
+  width: 100%;
+  height: auto;
+}
+.gobierto_admin {
+  #check_participation, #check_participation_results {
+    display: none;
+  }
+}
+.consultation_cont {
+  margin: 3em 0;
+  /*width: 85%;*/
+  margin: auto;
+  @include border-radius(6px);
+  background: $color_1_soft;
+
+  .header.consultation {
+    padding: 2em 2em;
+    .bl_counter {
+      opacity: .4;
+      width: 3.5rem;
+      display: inline-block;
+    }
+    h1 {
+      font-size: 1.6em;
+      margin: 0;
+    }
+    p {
+      padding-left: 3.5rem;
+      margin: 0;
+      opacity: .5;
+    }
+>>>>>>> stable
+  }
+}
 .consultation-intro-wrapper p {
   @include min-screen(768) {
     font-weight: 300;

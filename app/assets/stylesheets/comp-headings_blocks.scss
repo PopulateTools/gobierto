@@ -29,17 +29,18 @@ h1, h2, h3, h4 {
 		line-height: 1.3em;
 		opacity: .6;
 	}
-}
-.block {
   .slim {
     margin: 0;
   }
-}
-.block {
   .to_r {
     position: absolute;
     right: 0;
     top: 0;
+  }
+}
+.dynamic-content {
+  .block {
+    margin-bottom: 3em;
   }
 }
 .block.slim {

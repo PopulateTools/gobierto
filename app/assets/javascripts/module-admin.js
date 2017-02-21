@@ -42,6 +42,28 @@ $(document).on('turbolinks:load', function() {
 
   $(".stick_in_parent, #stick_in_parent, stick_in_parent").stick_in_parent();
 
-  
+
+  // module-budget_consultations
+  $('.check_participation_control').on('click', function(e){
+    e.preventDefault();
+    $('#check_participation').toggle();
+    $('#check_participation').find('input').first().focus();
+    $('#check_participation_start').toggle();
+  });
+  $('.check_participation_search').on('click', function(e){
+  	e.preventDefault();
+  	$('#check_participation').toggle();
+  	$('#check_participation_results').toggle();
+  });
+  $('.check_participation_start').on('click', function(e){
+  	e.preventDefault();
+  	$('#check_participation').toggle();
+    $('#check_participation').find('input').first().focus();
+  	$('#check_participation_results').toggle();
+  	$('#check_participation_start').toggle();
+
+  });
+
+
 
 });

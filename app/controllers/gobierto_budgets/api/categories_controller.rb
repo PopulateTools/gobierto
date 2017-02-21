@@ -5,7 +5,7 @@ module GobiertoBudgets
 
       def index
         kind = params[:kind]
-        area = area_klass_for(params[:area])
+        area = GobiertoBudgets::BudgetLine.budget_area_klass_for params[:area]
 
         if !valid_area_filter(params[:area]) || ( area && !area.valid_kinds.include?(kind) )
           render_404 and return
@@ -31,13 +31,6 @@ module GobiertoBudgets
       end
 
       private
-
-        def area_klass_for(area_name)
-          GobiertoBudgets::BudgetLine.budget_areas.each do |area|
-            return area if area.area_name == area_name
-          end
-          nil
-        end
 
         def valid_area_filter(area_name)
           are_name.nil? || area_klass_for(area_name)

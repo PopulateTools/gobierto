@@ -27,7 +27,7 @@ module GobiertoBudgets
 
         response['hits']['hits'].each do |h|
           source = h['_source']
-          source['kind'] = GobiertoBudgets::BudgetLine::BUDGET_KINDS[source['kind'].to_sym]
+          source['kind'] = GobiertoBudgets::BudgetLine.budget_kind_for source['kind']
           all_items[source['kind']][source['code']] = source['name']
         end
 

@@ -367,12 +367,20 @@ module GobiertoBudgets
       budget_areas.map { |area| area.area_name }
     end
 
+    def self.budget_area_klass_for(area_name)
+      BUDGET_AREAS[area_name.to_sym]
+    end
+
     def self.budget_kinds
       BUDGET_KINDS.keys
     end
 
     def self.budget_kinds_names
       BUDGET_KINDS.values
+    end
+
+    def self.budget_kind_for(budget_kind_name)
+      BUDGET_KINDS[budget_kind_name.to_sym]
     end
 
     def to_param

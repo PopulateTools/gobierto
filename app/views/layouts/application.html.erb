@@ -44,6 +44,11 @@
   <% if Rails.env.production? %>
     <%= render 'layouts/analytics_header_site' %>
   <% end %>
+
+  <% if @site.configuration.head_markup.present? %>
+    <%= raw @site.configuration.head_markup %>
+  <% end %>
+
 </head>
 
 <body class="<%= current_module %> <%= controller_name %> <%= action_name %>" <%= yield(:body_attributes) %>>
@@ -253,6 +258,10 @@
     </div>
 
   </footer>
+
+  <% if @site.configuration.foot_markup.present? %>
+    <%= raw @site.configuration.foot_markup %>
+  <% end %>
 
   <% if Rails.env.production? %>
     <%= render 'layouts/analytics_footer_site' %>

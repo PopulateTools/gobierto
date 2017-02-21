@@ -1,6 +1,7 @@
 <div class="column consultation">
-  <h2 class="consultation-lead"><%= t('.title', amount: '262.370€') %></h2>
-  <p id="errors">TODO: maquetar aquí un mensaje de error.</p>
+  <h2 class="consultation-lead"><%= t('.title', amount: budget_amount_to_human(@consultation.budget_amount)) %></h2>
+  <div data-errors-container>
+  </div>
 </div>
 
 <div id="consultation-mobile-app"
@@ -92,9 +93,9 @@
             </div>
           </div>
           <div class="pure-u-1-2">
-            <div class="budget-status" title="<%= t('.explain_html') %><button class='tip-button' data-tipsy-close>OK</button>">
+            <div class="budget-status">
               <div class="budget-lead"><%= t('.balance_deficit') %></div>
-              <div class="budget-figure">{{statusText}}</div>
+              <div class="budget-figure budget-status-figure" title="<%= t('.explain_html') %><button class='tip-button' data-tipsy-close>OK</button>">{{statusText}}</div>
             </div>
           </div>
         </div>

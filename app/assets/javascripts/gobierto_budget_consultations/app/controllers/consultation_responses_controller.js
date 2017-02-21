@@ -11,7 +11,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
       $(this).tipsy('show');
     });
 
-    $(document).on('mouseenter', '.budget-status', function(e){
+    $(document).on('mouseenter', '.budget-status-figure', function(e){
       $(this).tipsy({ offset: -20, className: 'tip-info', fade: true, html: true, gravity: 's', opacity: 1, trigger: 'manual' });
       $(this).tipsy('show');
     });
@@ -23,7 +23,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
 
     $(document).on('click', '[data-tipsy-close]', function(e){
       $('.not-allowed').tipsy('hide');
-      $('.budget-status').tipsy('hide');
+      $('.budget-status-figure').tipsy('hide');
       $('.consultation-status-error').tipsy('hide');
     });
 

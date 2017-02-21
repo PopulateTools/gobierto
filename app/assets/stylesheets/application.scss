@@ -214,6 +214,19 @@ a.soft_cta:hover {
 .pb4 {
 	padding-bottom: 4em;
 }
+.pl-xs {
+  padding-left: 0.75rem;
+  
+  @include min-screen(768) {
+    padding-left: 0;
+  }
+}
+.center-md {
+  @include min-screen(768) {
+    text-align: center;
+  }
+}
+
 
 // Hidden utilities
 .hidden-xs {

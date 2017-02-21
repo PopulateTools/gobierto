@@ -8,6 +8,14 @@ es:
           consultation_section: Consulta
           title: Editar consulta
         form:
+          check_id: Comprobar la participación de un ID
+          how_to_add: para añadir una nueva participación, busca si el ID ya ha participado
+          current_responses_html: "Participaciones hasta el momento: <strong>%{count}</strong>"
+          days_left_html:
+            one: "Quedan %{count} día. A este ritmo se pueden esperar: <strong>%{projected_count}</strong>"
+            other: "Quedan %{count} días. A este ritmo se pueden esperar: <strong>%{projected_count}</strong>"
+          no_response_html: 'Todavía no se ha recibido ninguna participación. <a href="%{url}" target="_blank">Promociona la consulta</a>.'
+          upcoming: La consulta todavía no está activa.
           hints:
             description: Te recomendamos describir claramente el tipo de consulta.
             title: Te recomendamos poner un título concreto y que identifique la consulta
@@ -38,3 +46,19 @@ es:
           consultation_items_section: Partidas
           consultation_section: Consulta
           title: Nueva consulta
+        consultation_responses:
+          check_participation:
+            search_id: Buscar ID
+            placeholder: DNI, tarjeta de residencia...
+            search: Buscar
+          participation_results:
+            no_responded: Este ID todavía no ha participado
+            add: Añade una participación para este ID
+            not_in_census: Este ID no aparece en el listado importado del censo
+            already_responded_html: "Este ID <strong>ya ha participado</strong>."
+            replace: '¿Quieres eliminar su participación para poder cargar otra?'
+            confirm: '¿Estás seguro que quieres borrar esta participación? Esta acción NO SE PUEDE DESHACER' 
+            search_another: Buscar otro
+          new:
+            title: Añadir respuesta
+            warning_html: "<strong>Atención</strong> Al añadir una nueva participación estás aceptando que tienes la autorización para hacerlo. Esta acción quedará registrada."

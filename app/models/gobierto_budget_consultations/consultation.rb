@@ -45,10 +45,28 @@ module GobiertoBudgetConsultations
       user && consultation_responses.exists?(user_id: user.id)
     end
 
+    def projected_responses
+      @projected_responses ||= begin
+        if open? && consultation_responses.any? && days_open > 0
+          ((consultation_responses.count / days_open.to_f) * days_left).ceil
+        else
+          nil
+        end
+      end
+    end
+
+    def days_left
+      (closes_on - Date.current ).to_i
+    end
+
     private
 
     def opening_range
       opens_on..closes_on
+    end
+
+    def days_open
+      (Date.current - opens_on).to_i
     end
   end
 end

@@ -75,7 +75,7 @@ module GobiertoBudgetConsultations
         consultation_response_attributes.consultation_items = consultation_response_items
         consultation_response_attributes.budget_amount = consultation_response_items.sum(&:budget_line_amount)
         consultation_response_attributes.sharing_token ||= consultation_response_class.generate_unique_secure_token
-        consultation_response_attributes.visibility_level = GobiertoBudgetConsultations::Consultation.visibility_levels[:active]
+        consultation_response_attributes.visibility_level = consultation_class.visibility_levels[:active]
       end
 
       if @consultation_response.valid?

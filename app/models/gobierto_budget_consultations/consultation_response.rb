@@ -14,6 +14,23 @@ module GobiertoBudgetConsultations
 
     scope :sorted, -> { order(created_at: :desc) }
 
+    def self.find_by_document_number(document_number, args)
+      consultation = args.fetch(:consultation)
+      site = args.fetch(:site)
+
+      user = nil
+      User::Verification.where(site_id: site.id, verified: true).each do |user_verification|
+        if user_verification.verification_data['document_number'] == document_number
+          if user = user_verification.user
+            if response = consultation.consultation_responses.where(user_id: user.id).first
+              return [response, user]
+            end
+          end
+        end
+      end
+      return [nil, user]
+    end
+
     def consultation_items
       Array(read_attribute(:consultation_items)).map do |consultation_response_item_attributes|
         ConsultationResponseItem.new(consultation_response_item_attributes.symbolize_keys)

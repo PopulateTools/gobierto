@@ -1,0 +1,10 @@
+---
+en:
+  gobierto_admin:
+    gobierto_budget_consultations:
+      consultations:
+        consultation_responses:
+          create:
+            success: Response created successfully
+            error: The response couldn't be created
+

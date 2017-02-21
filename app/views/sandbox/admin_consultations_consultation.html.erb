@@ -16,19 +16,74 @@
 <div class="pure-g" >
 
   <div class="pure-u-1 pure-u-md-16-24 tab active" data-tab="consultation_meta">
-    
-    <form>
-      
-      <div class="form_item input_text">
-        <label for="name">Título</label>
-        <input type="text" id="name" value="Consulta sobre los presupuestos de Burjassot 2016">
-        <div class="inline_help">
-          Te recomendamos poner un título concreto y que identifique la consulta del año en cuestión.
+
+    <div class="box">
+      <div class="inner">
+
+        <% # si la consulta está activa: %>
+          <div>Participaciones hasta el momento: <strong>123</strong></div>
+          <!-- num. participaciones / días que lleva activa la consulta * días totales -->
+          <div>Quedan 3 días. A este ritmo se pueden esperar: <strong>234</strong></div>
+        <% # elsif la consulta esta activa pero no hay participaciones todavía %>
+          <div>Todavía no se ha recibido ninguna participación. <%= link_to 'Promociona la consulta', '#FRONT_CONSULTA', target: '_blank' %>.</div>
+        <% # elsif la consulta esta activa pero no hay participaciones todavía %>
+          <div>La consulta todavía no está activa.</div>
+        <% # end %>
+
+      </div>
+    </div>
+
+    <% # si la consulta está activa y hay participaciones %>
+    <div class="box p_1 m_v_1">
+      <div id="check_participation_start">
+        <%= link_to 'Comprobar la participación de un ID', '#', class: 'check_participation_control'  %>
+        <div>(para añadir una nueva participación, busca si el ID ya ha participado)</div>
+      </div>
+
+      <div id="check_participation">
+
+        <div class="form_item input_text">
+          <label for="name">Buscar ID</label>
+          <input type="text" id="name" placeholder="DNI, tarjeta de residencia...">
         </div>
+
+        <input type="submit" name="commit" value="Buscar" class="check_participation_search">
+
+      </div>
+
+      <div id="check_participation_results">
+        <% # si no se encuentra participación para ese ID %>
+          <div>Este ID todavía no ha participado</div>
+          <p><%= link_to 'Añade una participación para este ID', 'admin_consultations_consultation_add' %></p>
+        <% # elsif la consulta esta activa pero no hay participaciones todavía %>
+          <div>Este ID <strong>ya ha participado</strong>.</div>
+
+          <!-- esta acción lanza un JS alert: "¿Estás seguro que quieres borrar esta participación? Esta acción NO SE PUEDE DESHACER" -->
+          <p><%= link_to '¿Quieres eliminar su participación para poder cargar otra?', 'admin_consultations_consultation_add' %></p>
+        <% # end %>
+        <p><%= link_to 'Buscar otro', '#', class: 'check_participation_start' %></p>
+
+      </div>
+
+    </div>
+
+
+    <form>
+
+      <div class="form_block">
+
+        <div class="form_item input_text">
+          <label for="name">Título</label>
+          <input type="text" id="name" value="Consulta sobre los presupuestos de Burjassot 2016">
+          <div class="inline_help">
+            Te recomendamos poner un título concreto y que identifique la consulta del año en cuestión.
+          </div>
+        </div>
+
       </div>
 
       <div class="form_block">
-      
+
         <div class="form_item textarea">
           <label for="entity">Descripción</label>
           <textarea></textarea>
@@ -43,12 +98,7 @@
 
         <div class="form_item input_text">
           <label for="start_date">Fecha inicio - fin</label>
-          <input type="text"
-            data-range="true"
-            data-multiple-dates-separator=" - "
-            data-language="es"
-            class="air-datepicker"
-            placeholder="Selecciona fecha de inicio y fin" />
+          DATEPICKER
         </div>
 
       </div>
@@ -87,24 +137,17 @@
   <div class="pure-u-1 pure-u-md-2-24"></div>
 
   <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
-    
+
     <%= render "admin_widget_save.html.erb" %>
-
-    <div class="proto_note">
-      <p>Opciones:</p>
-      <p>- Protegido</p>
-      <p>- Público</p>
-
-    </div>
 
   </div>
 
   <div class="modal mfp-hide" id="budget_line_1">
-    
+
     <h2>Editar partida</h2>
 
     <form>
-      
+
       <div class="form_item input_text">
         <label for="name">Partida</label>
         <input type="text" id="name" value="Bienestar comunitario > Cultura > Deporte > Instalaciones deportivas">

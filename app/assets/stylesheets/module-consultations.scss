@@ -5,6 +5,26 @@
   bottom: inherit;
   left: inherit;
 }
+/*
+ * Consultations
+ *
+ */
+img.side_50 {
+  width: 100%;
+  height: auto;
+}
+.gobierto_admin {
+  #check_participation, #check_participation_results {
+    display: none;
+  }
+}
+.consultation_cont {
+  margin: 3em 0;
+  /*width: 85%;*/
+  margin: auto;
+  @include border-radius(6px);
+  background: $color_1_soft;
+}
 
 /* Consultation intro */
 .inline-block {

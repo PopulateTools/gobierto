@@ -11,3 +11,10 @@ madrid_96:
   date_of_birth: 1996-01-01
   verified: false
   import_reference: 0
+
+madrid_93:
+  site: madrid
+  document_number_digest: <%= SecretAttribute.digest("00000000D") %>
+  date_of_birth: 1993-01-01
+  verified: false
+  import_reference: 0

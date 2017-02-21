@@ -22,9 +22,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
     });
 
     $(document).on('click', '[data-tipsy-close]', function(e){
-      $('.not-allowed').tipsy('hide');
-      $('.budget-status-figure').tipsy('hide');
-      $('.consultation-status-error').tipsy('hide');
+      $('.tipsy').remove();
     });
 
     var bus = new Vue();

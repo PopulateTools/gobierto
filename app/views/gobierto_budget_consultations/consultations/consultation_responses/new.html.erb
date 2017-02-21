@@ -16,7 +16,7 @@
 </div>
 
 <template id="card">
-  <div class="consultation-card" :class="{ active: card.toggleDesc }">
+  <div class="consultation-card" :class="{ active: card.toggleDesc }" :data-card-id="card.id">
     <div class="card-title" @click="setActive(card, $event)">
       <div class="consultation-title">{{card.title}}</div>
       <div class="consultation-figure"><i class="fa" :class="iconForChoice" aria-hidden="true"></i> {{card.figure}}</div>

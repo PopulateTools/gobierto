@@ -53,22 +53,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
           // Save selected card
           var self = this;
 
-          // Set individual card state
           card.toggleDesc = !card.toggleDesc;
-
-          // Scroll to selected card
-          // Set the description status
-          $('body').animate({
-            scrollTop: $(e.target).offset().top - 25
-          }, 500, function() {
-            // Once animation ends, check if the span is visible
-            var isVisible = $(self.$el).find('.visibilityCheck').visible();
-
-            if (isVisible !== 'undefined') {
-              // If is not visible, set hidden to true
-              card.hidden = isVisible ? false : true;
-            }
-          });
 
           // Reset value
           card.hidden = null;
@@ -207,6 +192,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
             if(!found && card.choice === null){
               card.toggleDesc = true;
               found = true;
+              bus.$emit('active', card);
             }
           });
         },
@@ -244,6 +230,26 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
             if(currentCard != card)
               card.toggleDesc = false;
           });
+
+          var $target = $('[data-card-id="'+currentCard.id+'"]');
+
+          window.setTimeout(function(){
+            // Scroll to selected card
+            // Set the description status
+            $('body').animate({
+              scrollTop: $target.offset().top - 25
+            }, 500, function() {
+              // Set individual card state
+
+              // Once animation ends, check if the span is visible
+              var isVisible = $target.find('.visibilityCheck').visible();
+
+              if (isVisible !== 'undefined') {
+                // If is not visible, set hidden to true
+                card.hidden = isVisible ? false : true;
+              }
+            });
+          }, 250);
         });
 
         bus.$on('open', function(d) {

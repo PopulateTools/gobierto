@@ -39,7 +39,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
           if(this.card.choice > 0) {
             return "fa-arrow-up";
           } else if (this.card.choice == 0){
-            return "fa-check";
+            return "fa-circle";
           } else if (this.card.choice < 0){
             return "fa-arrow-down";
           }

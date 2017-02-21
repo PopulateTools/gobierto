@@ -236,6 +236,15 @@
   font-weight: 300;
   float: right;
 }
+.consultation-figure .fa-arrow-up {
+  color: $color_success;
+}
+.consultation-figure .fa-arrow-down {
+  color: $color_warn;
+}
+.consultation-figure .fa-circle {
+  color: $color_1;
+}
 .consultation-card.active .consultation-title {
   font-size: 1.25rem;
   white-space: normal;

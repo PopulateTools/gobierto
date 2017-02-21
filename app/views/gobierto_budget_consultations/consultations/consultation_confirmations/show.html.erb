@@ -4,8 +4,8 @@
 
     <div class="wrapper">
 
-      <h1 class="light">Estupendo, muchas gracias por tu aportación</h1>
-      <h1>¿Qué ocurre ahora?</h1>
+      <h1 class="light"><%= t('.thanks') %></h1>
+      <h1><%= t('.next_steps') %></h1>
 
       <div class="separator_blue_medium"></div>
 
@@ -17,13 +17,12 @@
 
         <div class="pure-u-2-3">
           <p class="pl-xs">
-            La consulta está abierta hasta el <%= l(@consultation.closes_on, format: :short) %>.
-            Anima a tus vecinos a participar para que su opiniones también estén reflejadas, y decidamos entre todos.
+            <%= t('.p1', date: l(@consultation.closes_on, format: :short)) %>
           </p>
 
           <%= render("user/shared/sharing_buttons",
-                     text: "He participado en una consulta sobre presupuestos en #{current_site.name}",
-                     url: gobierto_budget_consultations_consultation_participation_url(@consultation_response.sharing_token)) %>
+                     text: t('.share_text', current_site_name: current_site.name),
+                     url: gobierto_budget_consultations_consultation_url(@consultation)) %>
         </div>
 
       </div>
@@ -38,7 +37,7 @@
         </div>
 
         <div class="pure-u-2-3">
-          <p class="pl-xs">Tu ayuntamiento recibirá un informe anonimizado con las respuestas, y el equipo municipal lo utilizará para comprobar cuales son las preferencias de los vecinos y tenerlas en cuenta en la elaboración de los presupuestos. </p>
+          <p class="pl-xs"><%= t('.p2') %></p>
         </div>
 
       </div>
@@ -52,7 +51,7 @@
         </div>
 
         <div class="pure-u-1 pure-u-md-2-3">
-          <p>Te enviaremos un aviso cuando se publiquen los resultados de la consulta, y podrás recibir otro aviso cuando el ayuntamiento publique su proyecto de presupuestos. </p>
+          <p><%= t('.p3') %></p>
         </div>
 
       </div>

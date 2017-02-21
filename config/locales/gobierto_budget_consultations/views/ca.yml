@@ -49,6 +49,14 @@ ca:
           reduction_not_allowed_html: "<h4 class='tip-headline'>Aquesta partida no es pot reduir</h4><p>Explicació de per què no es poden reduir algunes partides.</p>"
           explain_html: "<h4 class='tip-headline'>¿Equilibri o superávit?</h4><p>Con tus decisiones entraríamos en déficit anual: gastaríamos más de lo que ingresamos en el ejercicio y la deuda pendiente aumentaría. Puedes reevaluar tus decisiones para entrar en equilibrio.</p>"
           open_to_opinate: Obri cada partida per a expressar la teva preferència
+      consultation_confirmations:
+        show:
+          thanks: Molt bé, moltes gràcies per la teva aportació
+          next_steps: "Què passarà ara?"
+          p1: "La consulta està oberta fins al %{date}. Anima als teus veïns a participar per a que les seves opinions també estiguen reflectides i decidim entre tots."
+          share_text: "He participat a la consulta sobre pressupostos en %{current_site_name}"
+          p2: El teu ajuntament rebrà un informe anonimitzat amb les respostes, i el equip municipal l'utilitzarà per a comprovar quines son les preferències dels veïns i tindre-les amb compte en l'elaboració dels pressupostos.
+          p3: T'enviarem un avís quan es publiquen els resultats de la consulta, i podràs rebre un altre avís quan el ajuntament publique el seu projecte de pressupostos.
     layouts:
       menu_subsections:
         consultations: Consultes

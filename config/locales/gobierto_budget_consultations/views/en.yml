@@ -48,6 +48,14 @@ en:
           reduction_not_allowed_html: "<h4 class='tip-headline'>You can't reduce this budget line</h4><p>Explanation</p>"
           explain_html: "<h4 class='tip-headline'>¿Equilibri o superávit?</h4><p>Con tus decisiones entraríamos en déficit anual: gastaríamos más de lo que ingresamos en el ejercicio y la deuda pendiente aumentaría. Puedes reevaluar tus decisiones para entrar en equilibrio.</p>"
           open_to_opinate: Open each budget line to express your preference
+      consultation_confirmations:
+        show:
+          thanks: Thanks for your response
+          next_steps: "What happens now?"
+          p1: "The consultation is open until the %{date}. Encourage your neighbours to participate and let's all decide."
+          share_text: "I have participated in the budgets consultation in %{current_site_name}"
+          p2: Your city concul will receive an anonimized report with the responses and the stuff will use it to check which are your preferences and take them into account.
+          p3: We'll notify you when the results are published, and you'll be able to receive another alert when the city council published the projects of the budgets.
     layouts:
       menu_subsections:
         consultations: Consultations

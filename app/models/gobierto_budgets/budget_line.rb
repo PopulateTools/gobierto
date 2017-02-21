@@ -3,10 +3,15 @@ module GobiertoBudgets
     class RecordNotFound < StandardError; end
     class InvalidSearchConditions < StandardError; end
 
-    INCOME = 'I'
-    EXPENSE = 'G'
-    ECONOMIC = 'economic'
-    FUNCTIONAL = 'functional'
+    BUDGET_KINDS = {
+      income:  'I',
+      expense: 'G'
+    }
+
+    BUDGET_AREAS = {
+      functional: GobiertoBudgets::FunctionalArea,
+      economic:   GobiertoBudgets::EconomicArea
+    }
 
     @sort_attribute ||= 'code'
     @sort_order ||= 'asc'
@@ -273,7 +278,6 @@ module GobiertoBudgets
       GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: options[:area_name], body: query
     end
 
-
     def self.find(options)
       return self.search(options)['hits'].detect{|h| h['code'] == options[:code] }
     end
@@ -353,6 +357,22 @@ module GobiertoBudgets
       end
 
       return results.sort{ |b, a| a[1][2] <=> b[1][2] }[0..15], results.sort{ |a, b| a[1][2] <=> b[1][2] }[0..15]
+    end
+
+    def self.budget_areas
+      BUDGET_AREAS.values
+    end
+
+    def self.budget_areas_names
+      budget_areas.map { |area| area.area_name }
+    end
+
+    def self.budget_kinds
+      BUDGET_KINDS.keys
+    end
+
+    def self.budget_kinds_names
+      BUDGET_KINDS.values
     end
 
     def to_param

@@ -5,25 +5,23 @@ module GobiertoBudgets
 
       def index
         kind = params[:kind]
-        area = params[:area]
-        render_404 and return if area == 'functional' and kind == 'I'
+        area = area_klass_for(params[:area])
+
+        if !valid_area_filter(params[:area]) || ( area && !area.valid_kinds.include?(kind) )
+          render_404 and return
+        end
 
         if kind.nil? && area.nil?
           categories = {}
-          [GobiertoBudgets::EconomicArea, GobiertoBudgets::FunctionalArea].each do |klass|
-            area_name = (klass == GobiertoBudgets::EconomicArea) ? GobiertoBudgets::BudgetLine::ECONOMIC : GobiertoBudgets::BudgetLine::FUNCTIONAL
-            [GobiertoBudgets::BudgetLine::INCOME, GobiertoBudgets::BudgetLine::EXPENSE].each do |kind|
-              next if kind == GobiertoBudgets::BudgetLine::INCOME and klass == GobiertoBudgets::FunctionalArea
-
-              categories[area_name] ||= {}
-              categories[area_name][kind] = Hash[klass.all_items[kind].sort_by{ |k,v| k.to_f }]
+          GobiertoBudgets::BudgetLine.budget_areas.each do |area|
+            area.valid_kinds.each do |kind|
+              categories[area.area_name] ||= {}
+              categories[area.area_name][kind] = Hash[area.all_items[kind].sort_by { |k, v| k.to_f } ]
             end
           end
         else
-          klass = area == 'economic' ? GobiertoBudgets::EconomicArea : GobiertoBudgets::FunctionalArea
-          categories = Hash[klass.all_items[kind].sort_by{ |k,v| k.to_f }]
+          categories = Hash[area.all_items[kind].sort_by { |k, v| k.to_f } ]
         end
-
 
         respond_to do |format|
           format.json do
@@ -31,6 +29,19 @@ module GobiertoBudgets
           end
         end
       end
+
+      private
+
+        def area_klass_for(area_name)
+          GobiertoBudgets::BudgetLine.budget_areas.each do |area|
+            return area if area.area_name == area_name
+          end
+          nil
+        end
+
+        def valid_area_filter(area_name)
+          are_name.nil? || area_klass_for(area_name)
+        end
     end
   end
 end

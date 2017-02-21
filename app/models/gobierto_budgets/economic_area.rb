@@ -2,9 +2,6 @@ module GobiertoBudgets
   class EconomicArea
     include Describable
 
-    EXPENSE = 'G'
-    INCOME  = 'I'
-
     def self.all_items
       @all_items ||= begin
         all_items = {
@@ -30,12 +27,21 @@ module GobiertoBudgets
 
         response['hits']['hits'].each do |h|
           source = h['_source']
-          source['kind'] = source['kind'] == 'income' ? 'I' : 'G'
+          source['kind'] = GobiertoBudgets::BudgetLine::BUDGET_KINDS[source['kind'].to_sym]
           all_items[source['kind']][source['code']] = source['name']
         end
 
         all_items
       end
     end
+
+    def self.area_name
+      'economic'
+    end
+
+    def self.valid_kinds
+      [GobiertoBudgets::BudgetLine::BUDGET_KINDS[:income], GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense]]
+    end
+
   end
 end

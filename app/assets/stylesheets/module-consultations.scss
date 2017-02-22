@@ -13,6 +13,19 @@
     padding: 0;
   }
 }
+/* Share buttons */
+.gobierto_budget_consultations header.meta .site_header menu.nav .social_links_container {
+  top: 11px;
+  right: 11px;
+  bottom: inherit;
+  left: inherit;
+  
+  @include min-screen(768) {
+    top: inherit;
+    right: 11px;
+    bottom: 11px;
+  }
+}
 /*
  * Consultations
  *
@@ -32,23 +45,21 @@ img.side_50 {
   margin: auto;
   @include border-radius(6px);
   background: $color_1_soft;
+}
 
-  .header.consultation {
-    padding: 2em 2em;
-    .bl_counter {
-      opacity: .4;
-      width: 3.5rem;
-      display: inline-block;
-    }
-    h1 {
-      font-size: 1.6em;
-      margin: 0;
-    }
-    p {
-      padding-left: 3.5rem;
-      margin: 0;
-      opacity: .5;
-    }
+/* Consultation intro */
+.inline-block {
+  display: inline-block;
+}
+.column.consultation {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.consultation-intro-wrapper {
+  padding: 0 1rem;
+  
+  @include min-screen(768) {
+    padding: 0;
   }
 }
 .consultation-intro-wrapper p {
@@ -57,9 +68,13 @@ img.side_50 {
     font-size: 1.25rem;
   }
 }
+.consultation-intro-wrapper img {
+  display: block;
+}
 .consultation-link {
   text-decoration: none;
   display: block;
+  margin-bottom: 0.5rem;
 }
 .consultation-link:hover,
 .consultation-link:active,
@@ -67,13 +82,15 @@ img.side_50 {
   text-decoration: none;
 }
 .consultation-lead {
-  margin: 0 1rem;
   font-weight: 400;
   line-height: 1.3;
   
   @include min-screen(768) {
     font-size: 2rem;
   }
+}
+.consultation_responses .consultation-lead {
+  margin: 0 1rem;
 }
 .bottom-info {
   padding: 1rem;
@@ -104,6 +121,9 @@ img.side_50 {
   font-size: 2.5rem;
   float: right;
 }
+.arrow-right .fa {
+  margin: 0;
+}
 .consultation-deadline {
   text-decoration: none;
   margin: 0 1rem;
@@ -132,6 +152,15 @@ img.side_50 {
 }
 .consultation-faq-q {
   font-weight: 600;
+}
+.consultation-faq-q.active {
+  text-decoration: none;
+}
+.consultation-faq .consultation-text {
+  padding: 0;
+}
+.consultation-faq .consultation-text p {
+  padding: 0;
 }
 .button-light {
   border-radius: 6px;
@@ -177,6 +206,7 @@ img.side_50 {
 .card-header {
   position: relative;
 }
+
 
 /* Cards */
 .consultation-box {
@@ -245,6 +275,7 @@ img.side_50 {
   overflow: hidden;
   text-overflow: ellipsis;
   color: $color_dark;
+  width: 65%;
   
   @include min-screen(768) {
     width: 22rem;
@@ -259,8 +290,18 @@ img.side_50 {
   font-weight: 300;
   float: right;
 }
+.consultation-figure .fa-arrow-up {
+  color: $color_success;
+}
+.consultation-figure .fa-arrow-down {
+  color: $color_warn;
+}
+.consultation-figure .fa-circle {
+  color: $color_1;
+}
 .consultation-card.active .consultation-title {
   font-size: 1.25rem;
+  white-space: normal;
   
   @include min-screen(768) {
     font-size: 1rem;
@@ -274,6 +315,16 @@ img.side_50 {
     font-size: 1rem;
     color: $color_main_negative;
   }
+}
+
+/* Warnings */
+#errors {
+  color: $color_main_negative;
+  background-color: $color_warn;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  margin: 1rem 1rem 2rem 1rem;
+  padding: 0.5rem;
 }
 
 /* Card content (desktop only) */
@@ -348,6 +399,7 @@ img.side_50 {
   background: #6dbfc6;
 }
 .budget-ask.absolute {
+  margin-bottom: 0;
   position: absolute;
   bottom: 0;
 }
@@ -389,6 +441,7 @@ img.side_50 {
   }
 }
 .pct {
+  margin-bottom: 0;
   background: #6dbfc6;
   text-transform: capitalize;
   padding: 0.75rem 0;
@@ -560,6 +613,7 @@ img.side_50 {
   transition: all 0.3s ease;
 }
 .modal-header {
+  color: $color_main_negative;
   text-align: left;
   font-size: 1.15rem;
   margin-top: 0.25rem;
@@ -586,4 +640,16 @@ img.side_50 {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+/* Confirmation */
+.consultation_thanks .wrapper {
+  padding: 0.75rem;
+  
+  @include min-screen(768) {
+    padding: 3rem;
+  }
+}
+.consultation_thanks h1 {
+  margin-top: 0;
 }

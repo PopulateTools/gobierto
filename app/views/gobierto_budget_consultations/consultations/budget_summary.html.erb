@@ -1,14 +1,10 @@
 <div class="column consultation">
   <div class="consultation-intro-wrapper mb2">
     <%= image_tag 'illustrations/consultation_2.png', class: 'mt2 mb1' %>
-    <h2 class="consultation-lead">TODO: El teu Ajuntament invirteix 695€ per habitant. En total: 2.1 millons de €</h2>
-
-    <p>TODO: Rep ingressos d'impostos directes i taxes (habitatge, vehicles, llicències per a negocis ...), i també de l'estat (per repartir el que recapta d'IRPF i IVA) i d'altres administracions.</p>
-    <p class="mb2">TODO: En aquesta consulta volem que expresses la teva opinió sobre a què destinar una part del pressupost.</p>
-    <a class="button-light mb2" href="/sandbox/consultation_faq.html"><%= t('.faq') %></a>
+    <%= raw @consultation.description %>
   </div>
 
-  <%= link_to gobierto_budget_consultations_consultation_item_summary_path(@consultation), class: "consultation-link" do %>
+  <%= link_to gobierto_budget_consultations_consultation_item_summary_path(@consultation), class: "consultation-link", data:{ consultation_link: true } do %>
     <div class="bottom-info">
       <div class="teaser">
         <h2 class="consultation-q inline-block"><%= t('.opinate') %></h2>
@@ -19,3 +15,12 @@
     </div>
   <% end %>
 </div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoBudgetConsultations.consultation_items_controller.summary({
+      responseUrl: '<%= gobierto_budget_consultations_consultation_new_response_path(@consultation) %>',
+      summaryUrl: '<%= gobierto_budget_consultations_consultation_item_summary_path(@consultation) %>'
+    });
+  <% end %>
+<% end %>

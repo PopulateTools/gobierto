@@ -87,7 +87,6 @@ module GobiertoBudgetConsultations
 
         click_link "Do you want to opinate?"
         assert has_link?("Opinate about the budgets")
-        assert has_link?("Frequently Asked Questions")
 
         click_link "Opinate about the budgets"
         assert has_selector?(".consultation-title", text: "Inversión en Instalaciones Deportivas")
@@ -121,7 +120,6 @@ module GobiertoBudgetConsultations
 
           click_link "Do you want to opinate?"
           assert has_link?("Opinate about the budgets")
-          assert has_link?("Frequently Asked Questions")
 
           click_link "Opinate about the budgets"
           assert has_selector?(".consultation-title", text: "Inversión en Instalaciones Deportivas")
@@ -147,7 +145,6 @@ module GobiertoBudgetConsultations
 
             click_link "Do you want to opinate?"
             assert has_link?("Opinate about the budgets")
-            assert has_link?("Frequently Asked Questions")
 
             click_link "Opinate about the budgets"
             assert has_selector?(".consultation-title", text: "Inversión en Instalaciones Deportivas")

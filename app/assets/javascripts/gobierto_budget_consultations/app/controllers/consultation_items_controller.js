@@ -5,6 +5,17 @@ this.GobiertoBudgetConsultations.ConsultationItemsController = (function() {
     _redirectIfMobile(url);
   };
 
+  ConsultationItemsController.prototype.summary = function(urls){
+    var $target = $('[data-consultation-link]');
+    if($target.length){
+      if(isMobile()){
+        $target.attr('href', urls.responseUrl);
+      } else {
+        $target.attr('href', urls.summaryUrl);
+      }
+    }
+  };
+
   function _redirectIfMobile(url){
     if(isMobile()){
       Turbolinks.visit(url);

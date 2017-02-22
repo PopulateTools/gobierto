@@ -11,7 +11,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
       $(this).tipsy('show');
     });
 
-    $(document).on('mouseenter', '.budget-status', function(e){
+    $(document).on('mouseenter', '.budget-status-figure', function(e){
       $(this).tipsy({ offset: -20, className: 'tip-info', fade: true, html: true, gravity: 's', opacity: 1, trigger: 'manual' });
       $(this).tipsy('show');
     });
@@ -22,9 +22,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
     });
 
     $(document).on('click', '[data-tipsy-close]', function(e){
-      $('.not-allowed').tipsy('hide');
-      $('.budget-status').tipsy('hide');
-      $('.consultation-status-error').tipsy('hide');
+      $('.tipsy').remove();
     });
 
     var bus = new Vue();
@@ -39,7 +37,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
           if(this.card.choice > 0) {
             return "fa-arrow-up";
           } else if (this.card.choice == 0){
-            return "fa-check";
+            return "fa-circle";
           } else if (this.card.choice < 0){
             return "fa-arrow-down";
           }
@@ -53,22 +51,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
           // Save selected card
           var self = this;
 
-          // Set individual card state
           card.toggleDesc = !card.toggleDesc;
-
-          // Scroll to selected card
-          // Set the description status
-          $('body').animate({
-            scrollTop: $(e.target).offset().top - 25
-          }, 500, function() {
-            // Once animation ends, check if the span is visible
-            var isVisible = $(self.$el).find('.visibilityCheck').visible();
-
-            if (isVisible !== 'undefined') {
-              // If is not visible, set hidden to true
-              card.hidden = isVisible ? false : true;
-            }
-          });
 
           // Reset value
           card.hidden = null;
@@ -207,6 +190,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
             if(!found && card.choice === null){
               card.toggleDesc = true;
               found = true;
+              bus.$emit('active', card);
             }
           });
         },
@@ -244,6 +228,26 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
             if(currentCard != card)
               card.toggleDesc = false;
           });
+
+          var $target = $('[data-card-id="'+currentCard.id+'"]');
+
+          window.setTimeout(function(){
+            // Scroll to selected card
+            // Set the description status
+            $('body').animate({
+              scrollTop: $target.offset().top - 25
+            }, 500, function() {
+              // Set individual card state
+
+              // Once animation ends, check if the span is visible
+              var isVisible = $target.find('.visibilityCheck').visible();
+
+              if (isVisible !== 'undefined') {
+                // If is not visible, set hidden to true
+                card.hidden = isVisible ? false : true;
+              }
+            });
+          }, 250);
         });
 
         bus.$on('open', function(d) {

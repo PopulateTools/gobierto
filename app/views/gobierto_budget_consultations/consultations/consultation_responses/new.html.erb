@@ -1,6 +1,7 @@
 <div class="column consultation">
-  <h2 class="consultation-lead mb2"><%= t('.title', amount: '262.370€') %></h2>
-  <p id="errors">TODO: maquetar aquí un mensaje de error.</p>
+  <h2 class="consultation-lead"><%= t('.title', amount: budget_amount_to_human(@consultation.budget_amount)) %></h2>
+  <div data-errors-container>
+  </div>
 </div>
 
 <div id="consultation-mobile-app"
@@ -15,23 +16,19 @@
 </div>
 
 <template id="card">
-  <div class="consultation-card" :class="{ active: card.toggleDesc }">
+  <div class="consultation-card" :class="{ active: card.toggleDesc }" :data-card-id="card.id">
     <div class="card-title" @click="setActive(card, $event)">
       <div class="consultation-title">{{card.title}}</div>
       <div class="consultation-figure"><i class="fa" :class="iconForChoice" aria-hidden="true"></i> {{card.figure}}</div>
     </div>
 
     <transition name="card" v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave" v-bind:css="false">
-      <div class="pure-u-5-5 card-content" v-if="card.toggleDesc">
-        <div class="pure-g">
-          <div class="pure-u-5-5">
-            <div class="card-description" :class="{ absolute: card.hidden }">
-              <div class="sep"></div>
-              <div>
-                {{card.description}}
-                <div v-if="card.hidden" class="overlay"></div>
-              </div>
-            </div>
+      <div class="pure-u-5-5 card-content" v-show="card.toggleDesc">
+        <div class="card-description" :class="{ absolute: card.hidden }">
+          <div class="sep"></div>
+          <div>
+            {{card.description}}
+            <div v-if="card.hidden" class="overlay"></div>
           </div>
         </div>
 
@@ -96,9 +93,9 @@
             </div>
           </div>
           <div class="pure-u-1-2">
-            <div class="budget-status" title="<%= t('.explain_html') %><button class='tip-button' data-tipsy-close>OK</button>">
+            <div class="budget-status">
               <div class="budget-lead"><%= t('.balance_deficit') %></div>
-              <div class="budget-figure">{{statusText}}</div>
+              <div class="budget-figure budget-status-figure" title="<%= t('.explain_html') %><button class='tip-button' data-tipsy-close>OK</button>">{{statusText}}</div>
             </div>
           </div>
         </div>

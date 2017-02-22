@@ -33,7 +33,7 @@ peter_verified:
   site: madrid
   verification_type: <%= User::Verification.verification_types["census"] %>
   verification_data: <%= {
-    "document_number" => "00000000A",
+    "document_number" => "00000000D",
     "date_of_birth" => "1992-01-01" }.to_yaml.inspect %>
   version: 0
   verified: true

@@ -4,37 +4,36 @@
     <h2 class="consultation-lead mb2">
       <%= title @consultation.title %>
     </h2>
-
-    <% if @consultation.open? %>
-      <%= link_to budget_summary_gobierto_budget_consultations_consultation_path(@consultation), class: "consultation-link" do %>
-        <div class="bottom-info">
-          <div class="teaser">
-            <h2 class="consultation-q inline-block"><%= t('.want_to_opinate') %></h2>
-            <div class="arrow-right"><i class="fa fa-arrow-right" aria-hidden="true"></i></div>
-          </div>
-
-          <p><%= t('.explanation') %></p>
-        </div>
-      <% end %>
-      <a class="consultation-deadline" href="/sandbox/consultation-faq.html"><%= t('.open_until', date: l(@consultation.closes_on, format: :short)) %></a>
-    <% else %>
-      <% if @consultation.upcoming? %>
-        <div class="bottom-info">
-          <div class="teaser">
-            <h2 class="consultation-q inline-block">
-              <%= t('.opens_at', date: l(@consultation.opens_on, format: :short)) %>
-            </h2>
-          </div>
-        </div>
-      <% else %>
-        <div class="bottom-info">
-          <div class="teaser">
-            <h2 class="consultation-q inline-block">
-              <%= t('.closed') %>
-            </h2>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
   </div>
+  <% if @consultation.open? %>
+    <%= link_to budget_summary_gobierto_budget_consultations_consultation_path(@consultation), class: "consultation-link" do %>
+      <div class="bottom-info">
+        <div class="teaser">
+          <h2 class="consultation-q inline-block"><%= t('.want_to_opinate') %></h2>
+          <div class="arrow-right"><i class="fa fa-arrow-right" aria-hidden="true"></i></div>
+        </div>
+
+        <p><%= t('.explanation') %></p>
+      </div>
+    <% end %>
+    <a class="consultation-deadline" href="/sandbox/consultation_faq.html"><%= t('.open_until', date: l(@consultation.closes_on, format: :short)) %></a>
+  <% else %>
+    <% if @consultation.upcoming? %>
+      <div class="bottom-info">
+        <div class="teaser">
+          <h2 class="consultation-q inline-block">
+            <%= t('.opens_at', date: l(@consultation.opens_on, format: :short)) %>
+          </h2>
+        </div>
+      </div>
+    <% else %>
+      <div class="bottom-info">
+        <div class="teaser">
+          <h2 class="consultation-q inline-block">
+            <%= t('.closed') %>
+          </h2>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
 </div>

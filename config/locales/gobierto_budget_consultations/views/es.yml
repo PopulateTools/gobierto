@@ -1,6 +1,11 @@
 ---
 es:
   gobierto_budget_consultations:
+    events:
+      gobierto_budget_consultations_consultation_updated: Consulta actualizada
+      gobierto_budget_consultations_consultation_published: Nueva consulta publicada
+      gobierto_budget_consultations_consultation_response_deleted: Respuesta de consulta eliminada
+      gobierto_budget_consultations_consultation_response_created: Respuesta de consulta creada
     consultation_statuses:
       balance: Equilibrio
       deficit: Déficit
@@ -21,15 +26,14 @@ es:
         active: Consultas activas
         previous: Consultas anteriores
       show:
-        want_to_opinate: "¿Quieres opiniar?"
+        want_to_opinate: "¿Quieres opinar?"
         explanation: Es sencillo y sólo te llevará unos minutos. Entre todos conseguiremos mejorar la eficiencia de nuestro Ayuntamiento.
         open_until: Consulta abierta hasta el %{date}
         opens_at: Podrás participar en esta consulta a partir del %{date}
         closed: Lo sentimos, esta consulta está cerrada
       budget_summary:
-        faq: Preguntas frecuentes
         opinate: Opina sobre el presupuesto
-        call_to_action: Mira com es reparteix aquesta inversió, i opina sobre les prioritats
+        call_to_action: Mira cómo se reparte la inversión y opina sobre las prioridades
       consultation_items:
         index:
           start: Comienza a opinar
@@ -47,6 +51,14 @@ es:
           reduction_not_allowed_html: "<h4 class='tip-headline'>Esta partida no se puede reducir</h4><p>Explicación de por qué</p>"
           explain_html: "<h4 class='tip-headline'>¿Equilibri o superávit?</h4><p>Con tus decisiones entraríamos en déficit anual: gastaríamos más de lo que ingresamos en el ejercicio y la deuda pendiente aumentaría. Puedes reevaluar tus decisiones para entrar en equilibrio.</p>"
           open_to_opinate: Abre cada partida para expresar tu preferencia
+      consultation_confirmations:
+        show:
+          thanks: Estupendo, muchas gracias por tu aportación
+          next_steps: "¿Qué ocurre ahora?"
+          p1: "La consulta está abierta hasta el %{date}. Anima a tus vecinos a participar para que su opiniones también estén reflejadas, y decidamos entre todos."
+          share_text: "He participado en una consulta sobre presupuestos en %{current_site_name}"
+          p2: Tu ayuntamiento recibirá un informe anonimizado con las respuestas, y el equipo municipal lo utilizará para comprobar cuales son las preferencias de los vecinos y tenerlas en cuenta en la elaboración de los presupuestos. 
+          p3: Te enviaremos un aviso cuando se publiquen los resultados de la consulta, y podrás recibir otro aviso cuando el ayuntamiento publique su proyecto de presupuestos. 
     layouts:
       menu_subsections:
         consultations: Consultas

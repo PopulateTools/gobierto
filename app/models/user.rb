@@ -23,4 +23,14 @@ class User < ApplicationRecord
   enum notification_frequency: {
     disabled: 0, immediate: 1, hourly: 2, daily: 3, weekly: 4
   }, _suffix: :notifications
+
+  def verified_in_site?(site)
+    site_verification(site).present?
+  end
+
+  def site_verification(site)
+    @user_verifications ||= {}
+    @user_verifications[site] ||= census_verifications.find_by(site_id: site.id, user_id: self.id, verified: true)
+    @user_verifications[site]
+  end
 end

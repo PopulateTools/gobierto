@@ -3,15 +3,14 @@ module GobiertoBudgetConsultations
     include ActiveModel::Model
 
     attr_accessor(
-      :user_id,
+      :document_number_digest,
       :consultation_id,
       :selected_options
     )
 
     delegate :to_model, :persisted?, to: :consultation_response
 
-    validates :selected_options, presence: true
-    validates :user, :consultation, presence: true
+    validates :selected_options, :document_number_digest, :census_item, :consultation, presence: true
 
     def save
       save_consultation_response if valid?
@@ -25,8 +24,12 @@ module GobiertoBudgetConsultations
       @consultation ||= consultation_class.find_by(id: consultation_id)
     end
 
-    def user
-      @user ||= User.find_by(id: user_id)
+    def site
+      @site ||= consultation.site if consultation
+    end
+
+    def census_item
+      @census_item ||= CensusItem.find_by(site_id: site.id, document_number_digest: document_number_digest) if site
     end
 
     def budget_amount
@@ -71,11 +74,11 @@ module GobiertoBudgetConsultations
     def save_consultation_response
       @consultation_response = consultation_response.tap do |consultation_response_attributes|
         consultation_response_attributes.consultation_id = consultation_id
-        consultation_response_attributes.user_id = user_id
+        consultation_response_attributes.document_number_digest = document_number_digest
         consultation_response_attributes.consultation_items = consultation_response_items
         consultation_response_attributes.budget_amount = consultation_response_items.sum(&:budget_line_amount)
         consultation_response_attributes.sharing_token ||= consultation_response_class.generate_unique_secure_token
-        consultation_response_attributes.visibility_level = GobiertoBudgetConsultations::Consultation.visibility_levels[:active]
+        consultation_response_attributes.visibility_level = consultation_class.visibility_levels[:active]
       end
 
       if @consultation_response.valid?

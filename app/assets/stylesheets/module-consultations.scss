@@ -296,7 +296,7 @@ img.side_50 {
 }
 .consultation_responses .consultation-title {
   @include min-screen(768) {
-    width: 30rem;
+    width: 80%;
   }
 }
 .consultation-figure {
@@ -362,6 +362,8 @@ img.side_50 {
   top: 0
 }
 .card-figure h2 {
+  color: #9b9b9b;
+  font-weight: 400;
   margin: 0;
 }
 .card-figure p {

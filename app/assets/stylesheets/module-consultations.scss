@@ -251,10 +251,10 @@ img.side_50 {
   /* Desktop */
   @include min-screen(768) {
     font-family: "FontAwesome";
-    content: "\f061";
+    content: "\f105";
     position: absolute;
     z-index: 1;
-    right: -3rem;
+    right: -2rem;
     top: 0.75rem;
     color: #1d909d;
     font-size: 2.5rem;
@@ -332,8 +332,11 @@ img.side_50 {
   border-radius: 4px;
   margin: 1rem 1rem 2rem 1rem;
   padding: 0.5rem;
+  
+  @include min-screen(768) {
+    margin: 1rem 0 2rem 0;
+  }
 }
-
 #notice {
   color: #fff;
   background-color: $color_success;
@@ -341,11 +344,15 @@ img.side_50 {
   border-radius: 4px;
   margin: 1rem 1rem 2rem 1rem;
   padding: 0.5rem;
+  
+  @include min-screen(768) {
+    margin: 1rem 0 2rem 0;
+  }
 }
 
 /* Card content (desktop only) */
 .card-wrapper {
-  padding: 0 0 0 4rem;
+  padding: 0 0 0 3rem;
 }
 .card-header {
   position: relative;
@@ -494,6 +501,7 @@ img.side_50 {
   
   @include min-screen(768) {
     position: relative;
+    margin-bottom: 0.25rem;
   }
 }
 .consultation-info h4 {
@@ -534,6 +542,10 @@ img.side_50 {
   text-decoration: none;
   font-size: 2rem;
   line-height: 3.75rem;
+  
+  @include min-screen(768) {
+    line-height: 5.25rem;
+  }
 }
 .budget-next:hover,
 .budget-next:focus,
@@ -554,6 +566,7 @@ img.side_50 {
 .tip-warning .tipsy-inner {
   background: #D85B5B;
   overflow:hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .tip-warning .tipsy-arrow {
   position: absolute;
@@ -565,6 +578,7 @@ img.side_50 {
   left: 50%;
   margin-left: -4px;
   background-position: bottom left;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .tip-warning .tip-headline,
 .tip-info .tip-headline {
@@ -597,10 +611,12 @@ img.side_50 {
   left: 50%;
   margin-left: -4px;
   background-position: bottom left;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .tip-info .tipsy-inner {
   background: $color_main;
   overflow:hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .tip-info .tip-button {
   width: auto;

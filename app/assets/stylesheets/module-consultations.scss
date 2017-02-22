@@ -1,3 +1,28 @@
+/* Hide header and footer */
+.consultations.show,
+.consultations.budget_summary,
+.consultation_items.index,
+.consultation_responses.new {
+  header.meta {
+    margin: 0 0 0;
+  }
+  .header.meta .slim_nav_bar {
+    display: none;
+  }
+  menu.nav {
+    display: none;
+  }
+  header.meta .site_header .logo {
+    margin-top: 1.5rem;
+    padding-bottom: 1rem;
+    text-align: left;
+    border-bottom: 1px solid $separator;
+  }
+  footer {
+    display: none;
+  }
+}
+
 /* Share buttons */
 .gobierto_budget_consultations header.meta .site_header menu.nav .social_links_container {
   top: 11px;
@@ -75,7 +100,7 @@ img.side_50 {
     font-size: 2rem;
   }
 }
-.consultation_responses .consultation-lead {
+.mobile .consultation_responses .consultation-lead {
   margin: 0 1rem;
 }
 .bottom-info {
@@ -157,7 +182,7 @@ img.side_50 {
 
 /* Budget preview (desktop only) */
 .column.consultation.desktop {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
 }
 .consultation-img-side {
@@ -196,7 +221,7 @@ img.side_50 {
 
 /* Cards */
 .consultation-box {
-  margin: 0.75rem;
+  margin: 0.9375rem;
   margin-bottom: 6rem;
 }
 .consultation-card {
@@ -243,12 +268,14 @@ img.side_50 {
   }
 }
 .card-title {
-  cursor: pointer;
   padding: 1rem;
   
   @include min-screen(768) {
     padding: 0.5rem;
   }
+}
+.consultation_responses .card-title {
+  cursor: pointer;
 }
 .card-content {
   position: relative;
@@ -267,9 +294,9 @@ img.side_50 {
     width: 22rem;
   }
 }
-.consultation-box .consultation-title {
+.consultation_responses .consultation-title {
   @include min-screen(768) {
-    width: auto;
+    width: 30rem;
   }
 }
 .consultation-figure {
@@ -285,22 +312,16 @@ img.side_50 {
 .consultation-figure .fa-circle {
   color: $color_1;
 }
-.consultation-card.active .consultation-title {
+.desktop .consultation-card.active .consultation-title,
+.desktop .consultation-card.active .consultation-figure {
+  color: $color_main_negative;
+}
+.mobile .consultation-card.active .consultation-title {
   font-size: 1.25rem;
   white-space: normal;
-  
-  @include min-screen(768) {
-    font-size: 1rem;
-    color: $color_main_negative;
-  }
 }
-.consultation-card.active .consultation-figure {
+.mobile .consultation-card.active .consultation-figure {
   font-size: 1.5rem;
-  
-  @include min-screen(768) {
-    font-size: 1rem;
-    color: $color_main_negative;
-  }
 }
 
 /* Warnings */
@@ -324,13 +345,14 @@ img.side_50 {
 
 /* Card content (desktop only) */
 .card-wrapper {
-  padding: 0 15rem 0 5rem;
+  padding: 0 0 0 4rem;
 }
 .card-header {
   position: relative;
 }
 .card-headline {
-  margin-bottom: 3rem;
+  padding-right: 6rem;
+  margin-bottom: 1rem;
 }
 .card-figure {
   text-align: right;
@@ -363,7 +385,7 @@ img.side_50 {
   
   @include min-screen(768) {
     padding: 0;
-    padding-bottom: 4rem;
+    padding-bottom: 1rem;
   }
 }
 .card-description.absolute {
@@ -390,8 +412,10 @@ img.side_50 {
 .budget-ask {
   text-align: center;
   margin-bottom: 2rem;
-  box-shadow: 0 0 10px 0 rgba(0,0,0,0.3);
   background: #6dbfc6;
+}
+.mobile .budget-ask {
+  box-shadow: 0 0 10px 0 rgba(0,0,0,0.3);
 }
 .budget-ask.absolute {
   margin-bottom: 0;
@@ -444,6 +468,9 @@ img.side_50 {
   font-weight: 400;
   border-radius: 6px;
   border: 1px solid transparentize($color_main_negative, 0.5);
+}
+.desktop .pct {
+  padding: 0.75rem 1rem;
 }
 .pct-equal {
   font-size: 2rem;

@@ -10,7 +10,8 @@ es:
       balance: Equilibrio
       deficit: Déficit
       surplus: Superávit
-    consultation_status_error: Tu respuesta no puede estar en déficit
+    consultation_status_error: Tu respuesta está e déficit. Revisa tus respuestas para estar en equilibrio o superávit.
+    consultation_status_ready: ¡Gracias! Tu respuesta está lista. Revísala una última vez y envíala.
     consultation_items:
       options:
         short:

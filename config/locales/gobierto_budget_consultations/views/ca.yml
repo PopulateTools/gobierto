@@ -10,7 +10,8 @@ ca:
       balance: Equilibri
       deficit: Dèficit
       surplus: Superàvit
-    consultation_status_error: La teva resposta no pot estar en dèficit
+    consultation_status_error: La teva resposta està en dèficit. Revisa les teves respostes per a estar en superàvit o equilibri.
+    consultation_status_ready: Gràcies! La teva resposta està llista. Fes una última revisió i enviala.
     consultation_items:
       options:
         short:

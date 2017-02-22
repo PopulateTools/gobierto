@@ -61,6 +61,8 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
       },
       methods: {
         setActive: function(card, e) {
+          $('.tipsy').remove();
+
           // Send the active event to the bus
           bus.$emit('active', card);
 
@@ -84,6 +86,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
         },
         makeChoice: function(e) {
           e.preventDefault();
+          $('.tipsy').remove();
           bus.$emit('cardOptionChosen', $(e.target), this.card);
         }
       }
@@ -121,7 +124,6 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
       el: (isMobile() ? "#consultation-mobile-app" : "#consultation-desktop-app"),
       data: {
         figures: false,
-        balance: true,
         active: false,
         modal: false,
         next: false,
@@ -180,6 +182,9 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
 
           if(allSelected === true){
             Vue.set(app, 'next', true);
+            $('body').animate({
+              scrollTop: $(app.$el).offset().top - 25
+            }, 500);
           }
         },
         choiceCardAndOpenNext: function($el, currentCard){

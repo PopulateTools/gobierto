@@ -10,7 +10,8 @@ en:
       balance: Balanced
       deficit: Deficit
       surplus: Surplus
-    consultation_status_error: Your response can't be in deficit
+    consultation_status_error: Your response is in deficit. Please review it to be in surplus or balanced state
+    consultation_status_ready: Thank you! Your response is ready. Review it once more and submit it.
     consultation_items:
       options:
         short:

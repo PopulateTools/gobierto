@@ -100,8 +100,9 @@ img.side_50 {
     font-size: 2rem;
   }
 }
-.mobile .consultation_responses .consultation-lead {
-  margin: 0 1rem;
+.consultation_responses .mobile .consultation-lead {
+  margin: 1rem;
+  margin-bottom: 2rem;
 }
 .bottom-info {
   padding: 1rem;
@@ -503,6 +504,10 @@ img.side_50 {
     position: relative;
     margin-bottom: 0.25rem;
   }
+}
+.consultation-info.is_stuck {
+  height: 80px;
+  z-index: 100000001;
 }
 .consultation-info h4 {
   text-align: center;

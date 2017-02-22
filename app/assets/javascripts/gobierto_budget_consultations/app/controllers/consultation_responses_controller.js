@@ -73,6 +73,10 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
 
           // Reset value
           card.hidden = null;
+          
+          // Stick it
+          $(".desktop .consultation-info").stick_in_parent();
+          
         }
       }
     });

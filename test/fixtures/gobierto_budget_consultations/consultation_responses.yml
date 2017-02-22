@@ -1,6 +1,6 @@
 dennis_madrid_open:
   consultation: madrid_open
-  user: dennis
+  document_number_digest: <%= SecretAttribute.digest("00000000A") %>
   consultation_items: <%= [
     {
       "id"=>0,
@@ -26,7 +26,7 @@ dennis_madrid_open:
 
 reed_madrid_open_deficit:
   consultation: madrid_open
-  user: reed
+  document_number_digest: <%= SecretAttribute.digest("00000000B") %>
   consultation_items: <%= [
     {
       "id"=>0,
@@ -48,4 +48,4 @@ reed_madrid_open_deficit:
     }].to_json.inspect %>
   budget_amount: 29.99
   visibility_level: <%= GobiertoBudgetConsultations::ConsultationResponse.visibility_levels["active"] %>
-  sharing_token: dennismadridopentoken_deficit
+  sharing_token: reedmadridopentoken_deficit

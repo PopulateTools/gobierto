@@ -5,7 +5,7 @@ module GobiertoAdmin
     class ConsultationResponseFormTest < ActiveSupport::TestCase
       def valid_consultation_response_form
         @valid_consultation_response_form ||= ConsultationResponseForm.new(
-          user_id: user.id,
+          document_number_digest: document_number_digest,
           consultation_id: consultation.id,
           selected_options: Hash[consultation_items.map do |item|
             [item.id.to_s, nil]
@@ -15,7 +15,7 @@ module GobiertoAdmin
 
       def invalid_consultation_response_form
         @invalid_consultation_response_form ||= ConsultationResponseForm.new(
-          user_id: nil,
+          document_number_digest: nil,
           consultation_id: nil,
           selected_options: {}
         )
@@ -33,8 +33,8 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
-      def user
-        @user ||= users(:peter)
+      def document_number_digest
+        @document_number_digest ||= SecretAttribute.digest("00000000D")
       end
 
       def consultation_items
@@ -48,7 +48,8 @@ module GobiertoAdmin
       def test_error_messages_with_invalid_attributes
         refute invalid_consultation_response_form.save
 
-        assert_equal 1, invalid_consultation_response_form.errors.messages[:user].size
+        assert_equal 1, invalid_consultation_response_form.errors.messages[:document_number_digest].size
+        assert_equal 1, invalid_consultation_response_form.errors.messages[:census_item].size
         assert_equal 1, invalid_consultation_response_form.errors.messages[:consultation].size
         assert_equal 1, invalid_consultation_response_form.errors.messages[:site].size
         assert_equal 1, invalid_consultation_response_form.errors.messages[:selected_options].size

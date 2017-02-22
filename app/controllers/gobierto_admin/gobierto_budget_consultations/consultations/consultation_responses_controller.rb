@@ -13,7 +13,7 @@ module GobiertoAdmin
 
         def new
           @consultation_items = find_consultation_items
-          @consultation_response_form = ConsultationResponseForm.new(consultation_id: @consultation.id, user_id: params[:user_id])
+          @consultation_response_form = ConsultationResponseForm.new(consultation_id: @consultation.id, document_number_digest: params[:document_number_digest])
         end
 
         def create
@@ -35,7 +35,7 @@ module GobiertoAdmin
             end
             format.js do
               if @census_item = find_census_item
-                @consultation_response, @user = find_consultation_response_by_document_number
+                @consultation_response = find_consultation_response_by_document_number
               end
             end
           end
@@ -68,19 +68,13 @@ module GobiertoAdmin
         end
 
         def find_census_item
-          document_number = params[:id]
-
-          return nil if document_number.blank?
           site = @consultation.site
-
-          document_number_digest = ::SecretAttribute.digest(document_number)
+          document_number_digest = ::SecretAttribute.digest(params[:id])
           CensusItem.find_by(document_number_digest: document_number_digest, site_id: site.id)
         end
 
         def find_consultation_response_by_document_number
-          document_number = params[:id]
-
-          ::GobiertoBudgetConsultations::ConsultationResponse.find_by_document_number(document_number, site: @consultation.site, consultation: @consultation)
+          @consultation.consultation_responses.find_by_document_number(params[:id])
         end
       end
     end

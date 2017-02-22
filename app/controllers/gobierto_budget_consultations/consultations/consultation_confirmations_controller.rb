@@ -13,7 +13,7 @@ module GobiertoBudgetConsultations
       private
 
       def find_consultation_response
-        @consultation.consultation_responses.sorted.find_by!(user_id: current_user.id)
+        @consultation.consultation_responses.exists?(document_number_digest: current_user.site_verification(current_site).document_number_digest)
       end
     end
   end

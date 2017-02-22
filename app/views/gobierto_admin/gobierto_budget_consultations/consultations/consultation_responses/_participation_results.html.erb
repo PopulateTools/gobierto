@@ -1,7 +1,7 @@
 <% if @consultation_response.nil? %>
   <% if @census_item %>
     <div><%= t('.no_responded') %></div>
-    <p><%= link_to t('.add'), new_admin_budget_consultation_consultation_response_path(@consultation, user_id: @user.id) %></p>
+    <p><%= link_to t('.add'), new_admin_budget_consultation_consultation_response_path(@consultation, document_number_digest: @census_item.document_number_digest) %></p>
   <% else %>
     <div><%= t('.not_in_census') %></div>
   <% end %>

@@ -4,7 +4,7 @@ module GobiertoBudgetConsultations
   class ConsultationResponseFormTest < ActiveSupport::TestCase
     def valid_consultation_response_form
       @valid_consultation_response_form ||= ConsultationResponseForm.new(
-        user_id: user.id,
+        document_number_digest: SecretAttribute.digest("00000000D"),
         consultation_id: consultation.id,
         selected_options: selected_options_params
       )
@@ -12,7 +12,7 @@ module GobiertoBudgetConsultations
 
     def invalid_consultation_response_form
       @invalid_consultation_response_form ||= ConsultationResponseForm.new(
-        user_id: nil,
+        document_number_digest: nil,
         consultation_id: nil,
         selected_options: {}
       )
@@ -35,10 +35,6 @@ module GobiertoBudgetConsultations
       @selected_option ||= consultation_item.response_options.first
     end
 
-    def user
-      @user ||= users(:susan)
-    end
-
     def consultation
       @consultation ||= gobierto_budget_consultations_consultations(:madrid_open)
     end
@@ -58,7 +54,8 @@ module GobiertoBudgetConsultations
     def test_error_messages_with_invalid_attributes
       invalid_consultation_response_form.save
 
-      assert_equal 1, invalid_consultation_response_form.errors.messages[:user].size
+      assert_equal 1, invalid_consultation_response_form.errors.messages[:census_item].size
+      assert_equal 1, invalid_consultation_response_form.errors.messages[:document_number_digest].size
       assert_equal 1, invalid_consultation_response_form.errors.messages[:consultation].size
       assert_equal 1, invalid_consultation_response_form.errors.messages[:selected_options].size
     end

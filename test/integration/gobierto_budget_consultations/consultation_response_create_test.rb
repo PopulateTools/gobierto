@@ -74,7 +74,7 @@ module GobiertoBudgetConsultations
             assert page.find("a.budget-next i")['class'].include?("fa-check")
             page.find("a.budget-next").trigger('click')
 
-            assert has_content?("Estupendo, muchas gracias por tu aportación")
+            assert has_content?("Thanks for your response")
           end
         end
       end

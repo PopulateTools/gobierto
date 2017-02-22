@@ -5,14 +5,13 @@ module GobiertoAdmin
 
       attr_accessor(
         :consultation_id,
-        :user_id,
+        :document_number_digest,
         :selected_options
       )
 
       delegate :to_model, :persisted?, to: :consultation_response
 
-      validates :user, :consultation, :selected_options, :site, presence: true
-      validate :user_can_participate
+      validates :document_number_digest, :consultation, :selected_options, :site, :census_item, presence: true
 
       def save
         save_consultation_response if valid?
@@ -26,8 +25,10 @@ module GobiertoAdmin
         @consultation ||= consultation_class.find_by(id: consultation_id)
       end
 
-      def user
-        @user ||= User.find_by(id: user_id)
+      def census_item
+        @census_item ||= if site
+          CensusItem.find_by(site_id: site.id, document_number_digest: document_number_digest)
+        end
       end
 
       def selected_options
@@ -73,7 +74,7 @@ module GobiertoAdmin
       def save_consultation_response
         @consultation_response = consultation_response.tap do |consultation_response_attributes|
           consultation_response_attributes.consultation_id = consultation_id
-          consultation_response_attributes.user_id = user_id
+          consultation_response_attributes.document_number_digest = document_number_digest
           consultation_response_attributes.consultation_items = consultation_items
           consultation_response_attributes.budget_amount = consultation_items.sum(&:budget_line_amount)
           consultation_response_attributes.sharing_token ||= consultation_response_class.generate_unique_secure_token
@@ -88,18 +89,6 @@ module GobiertoAdmin
           promote_errors(@consultation_response.errors)
 
           false
-        end
-      end
-
-      def user_can_participate
-        if site
-          User::Verification.where(site_id: site.id, verified: true).each do |user_verification|
-            if user = user_verification.user
-              return true
-            end
-          end
-          errors.add(:user, :not_verified_in_site)
-          return false
         end
       end
 

@@ -42,7 +42,11 @@ module GobiertoBudgetConsultations
     end
 
     def already_responded?(user)
-      user && consultation_responses.exists?(user_id: user.id)
+      if user && user.verified_in_site?(site)
+        consultation_responses.exists?(document_number_digest: user.site_verification(site).document_number_digest)
+      else
+        false
+      end
     end
 
     def projected_responses

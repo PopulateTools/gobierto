@@ -1,34 +1,22 @@
 require_dependency "gobierto_budget_consultations"
+require_dependency "secret_attribute"
 
 module GobiertoBudgetConsultations
   class ConsultationResponse < ApplicationRecord
     belongs_to :consultation
-    belongs_to :user
 
     serialize :consultation_items, JSON
 
     enum visibility_level: { draft: 0, active: 1 }
 
-    validates :consultation_id, uniqueness: { scope: :user_id }
+    validates :document_number_digest, presence: true
+    validates :consultation_id, uniqueness: { scope: :document_number_digest }
     validate :responses_balance
 
     scope :sorted, -> { order(created_at: :desc) }
 
-    def self.find_by_document_number(document_number, args)
-      consultation = args.fetch(:consultation)
-      site = args.fetch(:site)
-
-      user = nil
-      User::Verification.where(site_id: site.id, verified: true).each do |user_verification|
-        if user_verification.verification_data['document_number'] == document_number
-          if user = user_verification.user
-            if response = consultation.consultation_responses.where(user_id: user.id).first
-              return [response, user]
-            end
-          end
-        end
-      end
-      return [nil, user]
+    def self.find_by_document_number(document_number)
+      find_by(document_number_digest: ::SecretAttribute.digest(document_number))
     end
 
     def consultation_items
@@ -57,7 +45,7 @@ module GobiertoBudgetConsultations
 
     def deficit_response?
       possitive_items = self.consultation_items.select{ |i| i.selected_option > 0 }
-      negative_items =self.consultation_items.select{ |i| i.selected_option < 0 }
+      negative_items  = self.consultation_items.select{ |i| i.selected_option < 0 }
       possitive_items.length > negative_items.length
     end
   end

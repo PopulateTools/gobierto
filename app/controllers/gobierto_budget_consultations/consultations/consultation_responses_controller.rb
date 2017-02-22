@@ -7,7 +7,7 @@ module GobiertoBudgetConsultations
 
       def new
         @consultation_response_form = ConsultationResponseForm.new(
-          user_id: current_user.id,
+          document_number_digest: document_number_digest,
           consultation_id: @consultation.id
         )
 
@@ -17,7 +17,7 @@ module GobiertoBudgetConsultations
       def create
         @consultation_response_form = ConsultationResponseForm.new(
           consultation_response_params.merge(
-            user_id: current_user.id,
+            document_number_digest: document_number_digest,
             consultation_id: @consultation.id
           )
         )
@@ -40,6 +40,14 @@ module GobiertoBudgetConsultations
 
       def consultation_response_params
         params.require(:consultation_response).permit(selected_options: [:item_id, :selected_option])
+      end
+
+      def document_number_digest
+        @document_number_digest ||= begin
+          if user_verification = current_user.site_verification(current_site)
+            SecretAttribute.digest(user_verification.verification_data['document_number'])
+          end
+        end
       end
     end
   end

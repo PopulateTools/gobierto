@@ -27,9 +27,25 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
 
     var bus = new Vue();
 
+    Vue.component('card-description', {
+      props: ['card', 'figures'],
+      template: (isMobile() ? '#card-description-mobile'  : '#card-description-desktop'),
+      methods: {
+        beforeEnter: function (el) {
+          el.style.opacity = 0
+        },
+        enter: function (el, done) {
+          $(el).velocity("transition.slideDownIn", {duration: 200, delay: 100, complete: done});
+        },
+        leave: function (el, done) {
+          $(el).velocity("transition.slideUpOut", {duration: 200, complete: done});
+        }
+      }
+    });
+
     Vue.component('consultation-card', {
       props: ['card', 'active', 'figures'],
-      template: '#card',
+      template: (isMobile() ? '#card-mobile'  : '#card-desktop'),
       computed: {
         iconForChoice: function(){
           if(this.card.choice === null) return;
@@ -55,17 +71,8 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
 
           // Reset value
           card.hidden = null;
-        },
-        beforeEnter: function (el) {
-          el.style.opacity = 0
-        },
-        enter: function (el, done) {
-          $(el).velocity("transition.slideDownIn", {duration: 200, delay: 100, complete: done});
-        },
-        leave: function (el, done) {
-          $(el).velocity("transition.slideUpOut", {duration: 200, complete: done});
         }
-      },
+      }
     });
 
     Vue.component('budget-box', {
@@ -96,7 +103,6 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
         },
         showConsultationStatusError: function(e){
           e.preventDefault();
-          console.log(e.target);
         }
       }
     });
@@ -112,7 +118,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
     });
 
     var app = new Vue({
-      el: "#consultation-mobile-app",
+      el: (isMobile() ? "#consultation-mobile-app" : "#consultation-desktop-app"),
       data: {
         figures: false,
         balance: true,
@@ -219,6 +225,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
         }
       },
       created: function() {
+        $(this.$options.el).show();
         this.fetchData();
 
         bus.$on('active', function(currentCard) {
@@ -230,6 +237,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
           });
 
           var $target = $('[data-card-id="'+currentCard.id+'"]');
+          var $targetDescription = $('[data-card-description-id="'+currentCard.id+'"]');
 
           window.setTimeout(function(){
             // Scroll to selected card
@@ -239,12 +247,19 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
             }, 500, function() {
               // Set individual card state
 
-              // Once animation ends, check if the span is visible
-              var isVisible = $target.find('.visibilityCheck').visible();
+              if(isMobile()){
+                // Once animation ends, check if the span is visible
+                var isVisible = $target.find('.visibilityCheck').visible();
 
-              if (isVisible !== 'undefined') {
-                // If is not visible, set hidden to true
-                card.hidden = isVisible ? false : true;
+                if (isVisible !== 'undefined') {
+                  // If is not visible, set hidden to true
+                  currentCard.hidden = isVisible ? false : true;
+                }
+              }
+
+              if($targetDescription.length){
+                var offset = $target.offset().top - 300;
+                $targetDescription.css({ top: offset + 'px' });
               }
             });
           }, 250);

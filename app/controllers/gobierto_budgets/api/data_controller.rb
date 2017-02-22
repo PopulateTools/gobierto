@@ -159,7 +159,7 @@ module GobiertoBudgets
                 bool: {
                   must: [
                     {term: { year: year }},
-                    {term: { kind: GobiertoBudgets::BudgetLine::EXPENSE }}
+                    {term: { kind: GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense] }}
                   ]
                 }
               }
@@ -169,7 +169,7 @@ module GobiertoBudgets
           _source: false
         }
 
-        id = "#{params[:ine_code]}/#{year}/#{GobiertoBudgets::BudgetLine::EXPENSE}"
+        id = "#{params[:ine_code]}/#{year}/#{GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense]}"
 
         if ranking
           response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, body: query
@@ -195,7 +195,7 @@ module GobiertoBudgets
       end
 
       def total_budget_data_executed(year, field)
-        id = "#{params[:ine_code]}/#{year}/#{GobiertoBudgets::BudgetLine::EXPENSE}"
+        id = "#{params[:ine_code]}/#{year}/#{GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense]}"
 
         begin
           value = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_executed, type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: id
@@ -217,7 +217,7 @@ module GobiertoBudgets
       def deviation_message(kind, up_or_down, percentage, diff)
         percentage = percentage.to_s.gsub('-', '')
         diff = format_currency(diff, true)
-        final_message = if (kind == GobiertoBudgets::BudgetLine::INCOME)
+        final_message = if (kind == GobiertoBudgets::BudgetLine::BUDGET_KINDS[:income])
           up_or_down == "sign-up" ? I18n.t("controllers.gobierto_budgets.api.data.income_up", percentage: percentage, diff: diff) : I18n.t("controllers.gobierto_budgets.api.data.income_down", percentage: percentage, diff: diff)
         else
           up_or_down == "sign-up" ? I18n.t("controllers.gobierto_budgets.api.data.expense_up", percentage: percentage, diff: diff) : I18n.t("controllers.gobierto_budgets.api.data.expense_down", percentage: percentage, diff: diff)

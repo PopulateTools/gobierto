@@ -66,7 +66,7 @@ module GobiertoBudgets
     end
 
     def kind_literal(kind, plural = true)
-      if kind == GobiertoBudgets::BudgetLine::INCOME
+      if kind == GobiertoBudgets::BudgetLine::BUDGET_KINDS[:income]
         plural ? I18n.t('gobierto_budgets.common.incomes') : I18n.t('gobierto_budgets.common.income')
       else
         plural ? I18n.t('gobierto_budgets.common.expenses') : I18n.t('gobierto_budgets.common.expense')

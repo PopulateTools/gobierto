@@ -3,7 +3,7 @@ require "test_helper"
 class GobiertoBudgets::BudgetLineTest < ActionDispatch::IntegrationTest
   def setup
     super
-    @path = gobierto_budgets_budget_line_path('1', last_year, GobiertoBudgets::BudgetLine::ECONOMIC, GobiertoBudgets::BudgetLine::EXPENSE)
+    @path = gobierto_budgets_budget_line_path('1', last_year, GobiertoBudgets::BudgetLine::BUDGET_AREAS[:economic].area_name, GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense])
   end
 
   def site
@@ -38,7 +38,7 @@ class GobiertoBudgets::BudgetLineTest < ActionDispatch::IntegrationTest
 
   def test_invalid_budget_line_url
     with_current_site(site) do
-      visit gobierto_budgets_budget_line_path('1', last_year, GobiertoBudgets::BudgetLine::ECONOMIC, 'foo')
+      visit gobierto_budgets_budget_line_path('1', last_year, GobiertoBudgets::BudgetLine::BUDGET_AREAS[:economic].area_name, 'foo')
 
       assert_equal 400, status_code
     end

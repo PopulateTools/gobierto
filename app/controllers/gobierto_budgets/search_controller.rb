@@ -7,9 +7,9 @@ module GobiertoBudgets
 
       query = params[:query].downcase
       suggestions = []
-      [GobiertoBudgets::BudgetLine::ECONOMIC, GobiertoBudgets::BudgetLine::FUNCTIONAL].each do |area|
-        [GobiertoBudgets::BudgetLine::EXPENSE, GobiertoBudgets::BudgetLine::INCOME].each do |kind|
-          next if area == GobiertoBudgets::BudgetLine::FUNCTIONAL and kind == GobiertoBudgets::BudgetLine::INCOME
+      [GobiertoBudgets::BudgetLine::BUDGET_AREAS[:economic].area_name, GobiertoBudgets::BudgetLine::BUDGET_AREAS[:functional].area_name].each do |area|
+        [GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense], GobiertoBudgets::BudgetLine::BUDGET_KINDS[:income]].each do |kind|
+          next if area == GobiertoBudgets::BudgetLine::BUDGET_AREAS[:functional].area_name and kind == GobiertoBudgets::BudgetLine::BUDGET_KINDS[:income]
 
           this_year_codes = get_year_codes(place, area, kind, year)
           klass_name = area == 'economic' ? GobiertoBudgets::EconomicArea : GobiertoBudgets::FunctionalArea

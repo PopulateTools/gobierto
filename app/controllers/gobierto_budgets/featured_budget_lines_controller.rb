@@ -5,7 +5,7 @@ module GobiertoBudgets
       @year = params[:year].to_i
       @area_name = 'functional'
 
-      @kind = GobiertoBudgets::BudgetLine::EXPENSE
+      @kind = GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense]
       results = GobiertoBudgets::BudgetLine.search({
           kind: @kind, year: @year, ine_code: @place.id,
           type: @area_name, range_hash: {

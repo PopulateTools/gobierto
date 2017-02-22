@@ -18,7 +18,7 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
     end
     @budget_line_stats = GobiertoBudgets::BudgetLineStats.new site: @site, budget_line: @budget_line
     @budget_line_descendants = GobiertoBudgets::BudgetLine.where(place: @place, parent_code: @code, year: @year, kind: @kind, area_name: @area_name).all
-    @budget_line_composition = if @area_name == GobiertoBudgets::BudgetLine::FUNCTIONAL
+    @budget_line_composition = if @area_name == GobiertoBudgets::BudgetLine::BUDGET_AREAS[:functional].area_name
                                  GobiertoBudgets::BudgetLine.where(place: @place, functional_code: @code, year: @year, kind: @kind, area_name: @area_name).all
                                else
                                  GobiertoBudgets::BudgetLine.where(place: @place, functional_code: @code, year: @year, kind: @kind, area_name: @area_name).all
@@ -47,8 +47,8 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
     render_404 and return if @place.nil?
 
     @year = params[:year].to_i
-    @kind = params[:kind] || GobiertoBudgets::BudgetLine::EXPENSE
-    @area_name = params[:area_name] || GobiertoBudgets::BudgetLine::FUNCTIONAL
+    @kind = params[:kind] || GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense]
+    @area_name = params[:area_name] || GobiertoBudgets::BudgetLine::BUDGET_AREAS[:functional].area_name
     @level = params[:level].present? ? params[:level].to_i : 1
     @code = params[:id]
   end

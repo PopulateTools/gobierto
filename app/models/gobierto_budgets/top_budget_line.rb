@@ -34,11 +34,11 @@ module GobiertoBudgets
         size: @limit
       }
 
-      if @conditions[:kind] == GobiertoBudgets::BudgetLine::INCOME
-        type = GobiertoBudgets::BudgetLine::ECONOMIC
+      if @conditions[:kind] == GobiertoBudgets::BudgetLine::BUDGET_KINDS[:income]
+        type = GobiertoBudgets::BudgetLine::BUDGET_AREAS[:economic].area_name
         area = GobiertoBudgets::EconomicArea
       else
-        type = GobiertoBudgets::BudgetLine::FUNCTIONAL
+        type = GobiertoBudgets::BudgetLine::BUDGET_AREAS[:functional].area_name
         area = GobiertoBudgets::FunctionalArea
       end
 

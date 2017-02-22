@@ -5,8 +5,8 @@ module GobiertoBudgets
     def self.all_items
       @all_items ||= begin
         all_items = {
-          EXPENSE => {},
-          INCOME => {}
+          GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense] => {},
+          GobiertoBudgets::BudgetLine::BUDGET_KINDS[:income] => {}
         }
 
         query = {

@@ -47,7 +47,7 @@ module GobiertoBudgets
         size: 10_000
       }
 
-      if @conditions[:area_name] == GobiertoBudgets::BudgetLine::ECONOMIC
+      if @conditions[:area_name] == GobiertoBudgets::BudgetLine::BUDGET_AREAS[:economic].area_name
         area = GobiertoBudgets::EconomicArea
       else
         area = GobiertoBudgets::FunctionalArea
@@ -90,14 +90,14 @@ module GobiertoBudgets
       }
 
       response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-                                                             type: ECONOMIC, body: query
+                                                             type: BUDGET_AREAS[:economic].area_name, body: query
 
       response['hits']['hits'].map{ |h| h['_source'] }.map do |row|
         next if row['functional_code'].length != 1
         area = GobiertoBudgets::FunctionalArea
         row['code'] = row['functional_code']
 
-        BudgetLinePresenter.new(row.merge({ kind: EXPENSE, area_name: FUNCTIONAL, area: area }))
+        BudgetLinePresenter.new(row.merge({ kind: BUDGET_KINDS[:expense], area_name: BUDGET_AREAS[:functional].area_name, area: area }))
       end.compact.sort{|b,a| a.amount <=> b.amount }
     end
 
@@ -111,11 +111,11 @@ module GobiertoBudgets
       terms.push({term: { level: @conditions[:level] }}) if @conditions[:level]
       terms.push({term: { parent_code: @conditions[:parent_code] }}) if @conditions[:parent_code]
       if @conditions[:functional_code]
-        if @conditions[:area_name] == FUNCTIONAL
-          @conditions[:area_name] = ECONOMIC
+        if @conditions[:area_name] == BUDGET_AREAS[:functional].area_name
+          @conditions[:area_name] = BUDGET_AREAS[:economic].area_name
           terms.push({term: { functional_code: @conditions[:functional_code] }})
         else
-          @conditions[:area_name] = FUNCTIONAL
+          @conditions[:area_name] = BUDGET_AREAS[:functional].area_name
           return functional_codes_for_economic_budget_line(@conditions)
         end
       else
@@ -142,7 +142,7 @@ module GobiertoBudgets
         size: 10_000
       }
 
-      if @conditions[:area_name] == ECONOMIC
+      if @conditions[:area_name] == BUDGET_AREAS[:economic].area_name
         area = GobiertoBudgets::EconomicArea
       else
         area = GobiertoBudgets::FunctionalArea
@@ -400,10 +400,10 @@ module GobiertoBudgets
 
     def self.validate_conditions(conditions)
       if conditions.has_key?(:kind)
-        raise GobiertoBudgets::BudgetLine::InvalidSearchConditions unless [INCOME, EXPENSE].include?(conditions[:kind])
+        raise GobiertoBudgets::BudgetLine::InvalidSearchConditions unless budget_kinds_names.include?(conditions[:kind])
       end
       if conditions.has_key?(:area_name)
-        raise GobiertoBudgets::BudgetLine::InvalidSearchConditions unless [ECONOMIC, FUNCTIONAL].include?(conditions[:area_name])
+        raise GobiertoBudgets::BudgetLine::InvalidSearchConditions unless budget_areas_names.include?(conditions[:area_name])
       end
     end
     private_class_method :validate_conditions

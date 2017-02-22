@@ -99,21 +99,21 @@ module GobiertoBudgets
 
     def total_budget_planned_query(year)
       GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast,
-        type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: [@place.id, year, GobiertoBudgets::BudgetLine::EXPENSE].join('/')
+        type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: [@place.id, year, GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense]].join('/')
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
     end
 
     def total_budget_executed_query(year)
       GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_executed,
-        type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: [@place.id, year, GobiertoBudgets::BudgetLine::EXPENSE].join('/')
+        type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: [@place.id, year, GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense]].join('/')
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
     end
 
     def total_budget_planned_income_query(year)
       GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast,
-        type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: [@place.id, year, GobiertoBudgets::BudgetLine::INCOME].join('/')
+        type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: [@place.id, year, GobiertoBudgets::BudgetLine::BUDGET_KINDS[:income]].join('/')
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
     end

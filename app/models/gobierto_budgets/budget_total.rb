@@ -7,15 +7,15 @@ module GobiertoBudgets
     BUDGETED = 'B'
     EXECUTED = 'E'
 
-    def self.budgeted_for(ine_code, year, kind = BudgetLine::EXPENSE)
+    def self.budgeted_for(ine_code, year, kind = BudgetLine::BUDGET_KINDS[:expense])
       return BudgetTotal.for(ine_code, year, BudgetTotal::BUDGETED, kind)
     end
 
-    def self.execution_for(ine_code, year, kind = BudgetLine::EXPENSE)
+    def self.execution_for(ine_code, year, kind = BudgetLine::BUDGET_KINDS[:expense])
       return BudgetTotal.for(ine_code, year, BudgetTotal::EXECUTED, kind)
     end
 
-    def self.for(ine_code, year, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
+    def self.for(ine_code, year, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::BUDGET_KINDS[:expense])
       return for_places(ine_code, year) if ine_code.is_a?(Array)
       index = (b_or_e == BudgetTotal::EXECUTED) ? SearchEngineConfiguration::TotalBudget.index_executed : SearchEngineConfiguration::TotalBudget.index_forecast
 
@@ -23,7 +23,7 @@ module GobiertoBudgets
       result['_source']['total_budget'].to_f
     end
 
-    def self.budget_evolution_for(ine_code, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
+    def self.budget_evolution_for(ine_code, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::BUDGET_KINDS[:expense])
       query = {
         sort: [
           { year: { order: 'asc' } }

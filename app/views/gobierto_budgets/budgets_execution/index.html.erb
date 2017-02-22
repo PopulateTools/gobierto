@@ -24,7 +24,7 @@
 				<div class="deviation_widget"
 					data-widget-template="#widget-template-deviation"
 	    		data-widget-type="budget_execution_deviation"
-	    		data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_deviation_path(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, format: :json) %>"
+	    		data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_deviation_path(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::BUDGET_KINDS[:income], format: :json) %>"
 	    		data-callback="render_evo_line">
 				</div>
 			</div>
@@ -33,7 +33,7 @@
 				<div class="deviation_widget"
 					data-widget-template="#widget-template-deviation"
 	    		data-widget-type="budget_execution_deviation"
-	    		data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_deviation_path(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, format: :json) %>"
+	    		data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_deviation_path(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense], format: :json) %>"
 	    		data-callback="render_evo_line">
 				</div>
 			</div>
@@ -53,13 +53,13 @@
 
         <h2 class="lite"><%= t('.budget_lines_income_higher') %></h2>
 
-				<%= render partial: 'execution_table', locals: {data: @top_possitive_difference_income, kind: GobiertoBudgets::BudgetLine::INCOME, area: 'economic'} %>
+				<%= render partial: 'execution_table', locals: {data: @top_possitive_difference_income, kind: GobiertoBudgets::BudgetLine::BUDGET_KINDS[:income], area: 'economic'} %>
 
 				<div class="separator"></div>
 
         <h2 class="lite"><%= t('.budget_lines_income_lower') %></h2>
 
-				<%= render partial: 'execution_table', locals: {data: @top_negative_difference_income, kind: GobiertoBudgets::BudgetLine::INCOME, area: 'economic'} %>
+				<%= render partial: 'execution_table', locals: {data: @top_negative_difference_income, kind: GobiertoBudgets::BudgetLine::BUDGET_KINDS[:income], area: 'economic'} %>
 
 			</div>
 			<div class="pure-u-1 pure-u-lg-2-24"></div>
@@ -76,25 +76,25 @@
 
 				<div class="tab_content" data-tab="economic" style="display: none">
 
-					<%= render partial: 'execution_table', locals: {data: @top_possitive_difference_expending_economic, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: 'economic'} %>
+					<%= render partial: 'execution_table', locals: {data: @top_possitive_difference_expending_economic, kind: GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense], area: 'economic'} %>
 
 					<div class="separator"></div>
 
           <h2 class="lite"><%= t('.budget_lines_expense_lower') %></h2>
 
-					<%= render partial: 'execution_table', locals: {data: @top_negative_difference_expending_economic, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: 'economic'} %>
+					<%= render partial: 'execution_table', locals: {data: @top_negative_difference_expending_economic, kind: GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense], area: 'economic'} %>
 
 				</div>
 
 				<div class="tab_content" data-tab="functional">
 
-					<%= render partial: 'execution_table', locals: {data: @top_possitive_difference_expending_functional, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: 'functional'} %>
+					<%= render partial: 'execution_table', locals: {data: @top_possitive_difference_expending_functional, kind: GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense], area: 'functional'} %>
 
 					<div class="separator"></div>
 
           <h2 class="lite"><%= t('.budget_lines_expense_lower') %></h2>
 
-					<%= render partial: 'execution_table', locals: {data: @top_negative_difference_expending_functional, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: 'functional'} %>
+					<%= render partial: 'execution_table', locals: {data: @top_negative_difference_expending_functional, kind: GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense], area: 'functional'} %>
 				</div>
 
 			</div>

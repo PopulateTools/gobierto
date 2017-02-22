@@ -24,8 +24,8 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
     render_404 and return if @place.nil?
 
     @year = params[:year]
-    @kind = params[:kind] || GobiertoBudgets::BudgetLine::EXPENSE
-    @area_name = params[:area_name] || GobiertoBudgets::BudgetLine::FUNCTIONAL
+    @kind = params[:kind] || GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense]
+    @area_name = params[:area_name] || GobiertoBudgets::BudgetLine::BUDGET_AREAS[:functional].area_name
     @parent_code = params[:parent_code]
   end
 

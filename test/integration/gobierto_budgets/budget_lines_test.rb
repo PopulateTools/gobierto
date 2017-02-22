@@ -3,7 +3,7 @@ require "test_helper"
 class GobiertoBudgets::BudgetLinesTest < ActionDispatch::IntegrationTest
   def setup
     super
-    @path = gobierto_budgets_budget_lines_path(last_year, GobiertoBudgets::BudgetLine::ECONOMIC, GobiertoBudgets::BudgetLine::INCOME)
+    @path = gobierto_budgets_budget_lines_path(last_year, GobiertoBudgets::BudgetLine::BUDGET_AREAS[:economic].area_name, GobiertoBudgets::BudgetLine::BUDGET_KINDS[:income])
   end
 
   def site

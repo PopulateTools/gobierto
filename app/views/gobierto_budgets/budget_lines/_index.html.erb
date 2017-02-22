@@ -1,9 +1,9 @@
 <p class="m_2"></p>
 
 <div class="filter m_2">
-  <% if kind == GobiertoBudgets::BudgetLine::EXPENSE %>
-    <%= link_to t('.expense_in_what'), gobierto_budgets_budget_lines_path(year: year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::BudgetLine::FUNCTIONAL), data: {remote: true}, class: class_if('active', area_name == GobiertoBudgets::BudgetLine::FUNCTIONAL) %>
-    <%= link_to t('.expense_to_do_what'), gobierto_budgets_budget_lines_path(year: year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::BudgetLine::ECONOMIC), data: {remote: true}, class: class_if('active', area_name == GobiertoBudgets::BudgetLine::ECONOMIC) %>
+  <% if kind == GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense] %>
+    <%= link_to t('.expense_in_what'), gobierto_budgets_budget_lines_path(year: year, kind: GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense], area_name: GobiertoBudgets::BudgetLine::BUDGET_AREAS[:functional].area_name), data: {remote: true}, class: class_if('active', area_name == GobiertoBudgets::BudgetLine::BUDGET_AREAS[:functional].area_name) %>
+    <%= link_to t('.expense_to_do_what'), gobierto_budgets_budget_lines_path(year: year, kind: GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense], area_name: GobiertoBudgets::BudgetLine::BUDGET_AREAS[:economic].area_name), data: {remote: true}, class: class_if('active', area_name == GobiertoBudgets::BudgetLine::BUDGET_AREAS[:economic].area_name) %>
   <% else %>
     <%= link_to t('.income_from_what'), '', class:'active' %>
   <% end %>

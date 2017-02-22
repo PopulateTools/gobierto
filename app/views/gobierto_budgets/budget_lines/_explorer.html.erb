@@ -4,11 +4,11 @@
 
   <div class="tabs m_v_2">
     <ul>
-      <li class="<%= class_if('active', @kind == GobiertoBudgets::BudgetLine::INCOME) %>">
-        <%= link_to t('.income'), gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::BudgetLine::ECONOMIC), data: { "budget-lines-tab": GobiertoBudgets::BudgetLine::INCOME, remote: true } %>
+      <li class="<%= class_if('active', @kind == GobiertoBudgets::BudgetLine::BUDGET_KINDS[:income]) %>">
+        <%= link_to t('.income'), gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::BUDGET_KINDS[:income], area_name: GobiertoBudgets::BudgetLine::BUDGET_AREAS[:economic].area_name), data: { "budget-lines-tab": GobiertoBudgets::BudgetLine::BUDGET_KINDS[:income], remote: true } %>
       </li>
-      <li class="<%= class_if('active', @kind == GobiertoBudgets::BudgetLine::EXPENSE) %>">
-        <%= link_to t('.expenses'), gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::BudgetLine::FUNCTIONAL), data: { "budget-lines-tab": GobiertoBudgets::BudgetLine::EXPENSE, remote: true } %>
+      <li class="<%= class_if('active', @kind == GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense]) %>">
+        <%= link_to t('.expenses'), gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense], area_name: GobiertoBudgets::BudgetLine::BUDGET_AREAS[:functional].area_name), data: { "budget-lines-tab": GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense], remote: true } %>
       </li>
     </ul>
   </div>

@@ -2,15 +2,15 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
   before_action :load_place, :load_year
 
   def index
-    @top_possitive_difference_income, @top_negative_difference_income = GobiertoBudgets::BudgetLine.top_differences(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, type: 'economic')
+    @top_possitive_difference_income, @top_negative_difference_income = GobiertoBudgets::BudgetLine.top_differences(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::BUDGET_KINDS[:income], type: 'economic')
 
     if @top_possitive_difference_income.empty?
       flash[:alert] = t('controllers.gobierto_budgets.budgets_execution.index.alert', year: @year)
       redirect_to gobierto_budgets_budgets_execution_path(@year -1) and return
     end
 
-    @top_possitive_difference_expending_economic, @top_negative_difference_expending_economic = GobiertoBudgets::BudgetLine.top_differences(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, type: 'economic')
-    @top_possitive_difference_expending_functional, @top_negative_difference_expending_functional = GobiertoBudgets::BudgetLine.top_differences(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, type: 'functional')
+    @top_possitive_difference_expending_economic, @top_negative_difference_expending_economic = GobiertoBudgets::BudgetLine.top_differences(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense], type: 'economic')
+    @top_possitive_difference_expending_functional, @top_negative_difference_expending_functional = GobiertoBudgets::BudgetLine.top_differences(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::BUDGET_KINDS[:expense], type: 'functional')
   end
 
   private

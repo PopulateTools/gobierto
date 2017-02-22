@@ -2,7 +2,7 @@
 
 <% content_for :breadcrumb_current_item do %>
   <strong>
-    <%= link_to t('gobierto_budgets.layouts.menu_subsections.budget'), gobierto_budgets_budget_lines_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::BudgetLine::ECONOMIC, level: 1) %>
+    <%= link_to t('gobierto_budgets.layouts.menu_subsections.budget'), gobierto_budgets_budget_lines_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last, kind: GobiertoBudgets::BudgetLine::BUDGET_KINDS[:income], area_name: GobiertoBudgets::BudgetLine::BUDGET_AREAS[:economic].area_name, level: 1) %>
   </strong>
 <% end %>
 

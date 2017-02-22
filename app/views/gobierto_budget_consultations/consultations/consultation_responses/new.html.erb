@@ -1,12 +1,13 @@
-<div class="column consultation">
-  <h2 class="consultation-lead"><%= t('.title', amount: budget_amount_to_human(@consultation.budget_amount)) %></h2>
-  <div data-errors-container>
-  </div>
-</div>
-
 <div id="consultation-mobile-app"
      data-data-url="<%= gobierto_budget_consultations_consultation_item_summary_path(@consultation, format: :json) %>"
-     data-submit-url="<%= gobierto_budget_consultations_consultation_response_path(@consultation) %>">
+     data-submit-url="<%= gobierto_budget_consultations_consultation_response_path(@consultation) %>" style="display:none">
+
+  <div class="column consultation">
+    <h2 class="consultation-lead"><%= t('.title', amount: budget_amount_to_human(@consultation.budget_amount)) %></h2>
+    <div data-errors-container>
+    </div>
+  </div>
+
   <div class="consultation-box">
     <consultation-card v-for="card in cards" :card="card" :active="active" :figures="figures"></consultation-card>
   </div>
@@ -15,26 +16,83 @@
   <description-modal v-if="modal" :current="current"></description-modal>
 </div>
 
-<template id="card">
+<div class="column consultation desktop" id="consultation-desktop-app"
+     data-data-url="<%= gobierto_budget_consultations_consultation_item_summary_path(@consultation, format: :json) %>"
+     data-submit-url="<%= gobierto_budget_consultations_consultation_response_path(@consultation) %>" style="display:none">
+  <div class="pure-g">
+    <div class="pure-u-1 pure-u-md-1-3">
+      <div class="consultation-box">
+        <budget-calculator :active="active" :next="next" :status-text="statusText" :status="status"></budget-calculator>
+        <consultation-card v-for="card in cards" :card="card" :active="active" :figures="figures"></consultation-card>
+      </div>
+    </div>
+
+    <div class="pure-u-1 pure-u-md-2-3">
+      <card-description v-for="card in cards" :card="card" :figures="figures"></card-description>
+    </div>
+  </div>
+</div>
+
+<template id="card-mobile">
   <div class="consultation-card" :class="{ active: card.toggleDesc }" :data-card-id="card.id">
     <div class="card-title" @click="setActive(card, $event)">
       <div class="consultation-title">{{card.title}}</div>
       <div class="consultation-figure"><i class="fa" :class="iconForChoice" aria-hidden="true"></i> {{card.figure}}</div>
     </div>
 
-    <transition name="card" v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave" v-bind:css="false">
-      <div class="pure-u-5-5 card-content" v-show="card.toggleDesc">
-        <div class="card-description" :class="{ absolute: card.hidden }">
-          <div class="sep"></div>
-          <div>
-            {{card.description}}
-            <div v-if="card.hidden" class="overlay"></div>
+    <card-description :card="card" :figures="figures"></card-description>
+  </div>
+</template>
+
+<template id="card-desktop">
+  <div class="consultation-card" :class="{ active: card.toggleDesc }" :data-card-id="card.id">
+    <div class="card-title" @click="setActive(card, $event)">
+      <div class="consultation-title">{{card.title}}</div>
+      <div class="consultation-figure"><i class="fa" :class="iconForChoice" aria-hidden="true"></i> {{card.figure}}</div>
+    </div>
+  </div>
+</template>
+
+<template id="card-description-mobile">
+  <transition name="card" v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave" v-bind:css="false">
+    <div class="pure-u-5-5 card-content" v-show="card.toggleDesc">
+      <div class="card-description" :class="{ absolute: card.hidden }">
+        <div class="sep"></div>
+        <div>
+          {{card.description}}
+          <div v-if="card.hidden" class="overlay"></div>
+        </div>
+      </div>
+
+      <budget-box :card="card" :figures="figures"></budget-box>
+    </div>
+  </transition>
+</template>
+
+<template id="card-description-desktop">
+  <div class="pure-u-5-5 card-content" v-show="card.toggleDesc" :data-card-description-id="card.id">
+    <div class="card-wrapper">
+      <div class="pure-g">
+        <div class="pure-u-5-5">
+          <div class="card-description" :class="{ absolute: card.hidden }">
+
+            <div class="card-header">
+              <h2 class="card-headline">{{card.title}}</h2>
+
+              <div class="card-figure">
+                <h2>{{card.figure}}</h2>
+              </div>
+            </div>
+
+            <div>
+              {{card.description}}
+            </div>
           </div>
         </div>
-
-        <budget-box :card="card" :figures="figures"></budget-box>
       </div>
-    </transition>
+
+      <budget-box :card="card" :figures="figures"></budget-box>
+    </div>
   </div>
 </template>
 

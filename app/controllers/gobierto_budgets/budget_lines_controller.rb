@@ -17,12 +17,8 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
       @parent_budget_line = GobiertoBudgets::BudgetLine.where(code: @budget_line.parent_code, place: @place, year: @year, kind: @kind, area_name: @area_name).first
     end
     @budget_line_stats = GobiertoBudgets::BudgetLineStats.new site: @site, budget_line: @budget_line
-    @budget_line_descendants = GobiertoBudgets::BudgetLine.where(place: @place, parent_code: @code, year: @year, kind: @kind, area_name: @area_name).all
-    @budget_line_composition = if @area_name == GobiertoBudgets::BudgetLine::BUDGET_AREAS[:functional].area_name
-                                 GobiertoBudgets::BudgetLine.where(place: @place, functional_code: @code, year: @year, kind: @kind, area_name: @area_name).all
-                               else
-                                 GobiertoBudgets::BudgetLine.where(place: @place, functional_code: @code, year: @year, kind: @kind, area_name: @area_name).all
-                               end
+    @budget_line_descendants = GobiertoBudgets::BudgetLine.where(place: @place, parent_code:     @code, year: @year, kind: @kind, area_name: @area_name).all
+    @budget_line_composition = GobiertoBudgets::BudgetLine.where(place: @place, functional_code: @code, year: @year, kind: @kind, area_name: @area_name).all
 
     respond_to do |format|
       format.html

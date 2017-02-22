@@ -20,6 +20,7 @@ module GobiertoAdmin
           @consultation_response_form = ConsultationResponseForm.new(consultation_response_params.merge(consultation_id: @consultation.id))
 
           if @consultation_response_form.save
+            track_create_activity
             redirect_to(edit_admin_budget_consultation_path(@consultation), notice: t(".success"))
           else
             flash[:error] = t(".error")
@@ -44,6 +45,7 @@ module GobiertoAdmin
         def destroy
           @consultation_response = find_consultation_response
           @consultation_response.destroy
+          track_destroy_activity
 
           respond_to do |format|
             format.html do
@@ -75,6 +77,18 @@ module GobiertoAdmin
 
         def find_consultation_response_by_document_number
           @consultation.consultation_responses.find_by_document_number(params[:id])
+        end
+
+        def track_create_activity
+          Publishers::GobiertoBudgetConsultationsConsultationResponseActivity.broadcast_event("consultation_response_created", default_activity_params.merge({subject: @consultation_response_form.consultation_response, recipient: @consultation}))
+        end
+
+        def track_destroy_activity
+          Publishers::GobiertoBudgetConsultationsConsultationResponseActivity.broadcast_event("consultation_response_deleted", default_activity_params.merge({subject: @consultation_response, recipient: @consultation}))
+        end
+
+        def default_activity_params
+          { ip: remote_ip, author: current_admin, site_id: current_site.id }
         end
       end
     end

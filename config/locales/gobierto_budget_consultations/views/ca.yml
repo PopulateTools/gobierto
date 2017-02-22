@@ -4,6 +4,8 @@ ca:
     events:
       gobierto_budget_consultations_consultation_updated: Consulta actualitzada
       gobierto_budget_consultations_consultation_published: Nova consulta publicada
+      gobierto_budget_consultations_consultation_response_deleted: Resposta de consulta eliminada
+      gobierto_budget_consultations_consultation_response_created: Resposta de consulta creada
     consultation_statuses:
       balance: Equilibri
       deficit: Dèficit

@@ -66,6 +66,14 @@ module GobiertoAdmin
                 click_link "Do you want to remove this participation and create a new one?"
               end
               assert has_content?("Responses until now: 1")
+
+              activity = Activity.last
+              assert_equal consultation, activity.recipient
+              assert_equal admin, activity.author
+              assert_equal "gobierto_budget_consultations.consultation_response_deleted", activity.action
+              assert_equal "GobiertoBudgetConsultations::ConsultationResponse", activity.subject_type
+              assert activity.admin_activity
+              assert_equal site.id, activity.site_id
             end
           end
         end
@@ -102,6 +110,15 @@ module GobiertoAdmin
 
               assert has_message?("Response created successfully")
               assert has_content?("Responses until now: 3")
+
+
+              activity = Activity.last
+              assert_equal consultation, activity.recipient
+              assert_equal admin, activity.author
+              assert_equal "gobierto_budget_consultations.consultation_response_created", activity.action
+              assert_equal "GobiertoBudgetConsultations::ConsultationResponse", activity.subject_type
+              assert activity.admin_activity
+              assert_equal site.id, activity.site_id
             end
           end
         end

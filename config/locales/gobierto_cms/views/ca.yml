@@ -1,0 +1,7 @@
+---
+ca:
+  gobierto_cms:
+    events:
+      gobierto_cms_page_created: Pàgina creada
+      gobierto_cms_page_updated: Pàgina actualitzada
+      gobierto_cms_page_deleted: Pàgina eliminada

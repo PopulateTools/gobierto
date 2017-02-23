@@ -73,6 +73,10 @@ Rails.application.routes.draw do
     namespace :gobierto_common, as: :common, path: nil do
       resources :content_blocks, only: [:new, :create, :edit, :update, :destroy]
     end
+
+    namespace :gobierto_cms, as: :cms, path: :cms do
+      resources :pages
+    end
   end
 
   # User module
@@ -187,9 +191,17 @@ Rails.application.routes.draw do
     end
   end
 
+  # Gobierto Indicators module
   namespace :gobierto_indicators, path: 'indicadores' do
     constraints GobiertoSiteConstraint.new do
       root 'indicators#index'
+    end
+  end
+
+  # Gobierto CMS module
+  namespace :gobierto_cms, path: 'paginas' do
+    constraints GobiertoSiteConstraint.new do
+      get ':id' => 'pages#show', as: :page
     end
   end
 end

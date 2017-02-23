@@ -1,0 +1,7 @@
+---
+es:
+  gobierto_cms:
+    events:
+      gobierto_cms_page_created: Página creada
+      gobierto_cms_page_updated: Página actualizada
+      gobierto_cms_page_deleted: Página eliminada

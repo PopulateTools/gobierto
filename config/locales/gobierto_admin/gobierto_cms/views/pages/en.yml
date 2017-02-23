@@ -1,0 +1,27 @@
+---
+en:
+  gobierto_admin:
+    gobierto_cms:
+      pages:
+        index:
+          title: Pages
+          new: New
+          created_at: Created at
+          updated_at: Updated at
+          public: Public
+          view: View page
+          visibility_level:
+            active: Published
+            draft: Draft
+        new:
+          title: New page
+        edit:
+          title: Edita page
+        form:
+          placeholders:
+            title: Page title
+            slug: about-this-web
+          visibility_level:
+            active: Published
+            draft: Draft
+

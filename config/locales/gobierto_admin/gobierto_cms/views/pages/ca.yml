@@ -1,0 +1,27 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_cms:
+      pages:
+        index:
+          title: Pàgines
+          new: Nova
+          created_at: Creada
+          updated_at: Actualitzada
+          public: Pública
+          view: Veure pàgina
+          visibility_level:
+            active: Publicada
+            draft: Borrador
+        new:
+          title: Nova pàgina
+        edit:
+          title: Editar pàgina
+        form:
+          placeholders:
+            title: Títol de la pàgina
+            slug: sobre-aquesta-web
+          visibility_level:
+            active: Publicada
+            draft: Borrador
+

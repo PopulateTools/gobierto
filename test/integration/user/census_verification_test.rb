@@ -30,11 +30,9 @@ class User::CensusVerificationTest < ActionDispatch::IntegrationTest
         select "October", from: :user_verification_date_of_birth_2i
         select "19", from: :user_verification_date_of_birth_3i
 
-        select site.name, from: :user_verification_site_id
+        click_on "Verify"
 
-        click_on "Request"
-
-        assert has_content?("Please check your inbox for more information.")
+        assert has_content?("Your identity has been verified successfully")
       end
     end
   end
@@ -46,9 +44,9 @@ class User::CensusVerificationTest < ActionDispatch::IntegrationTest
 
         fill_in :user_verification_document_number, with: nil
 
-        click_on "Request"
+        click_on "Verify"
 
-        assert has_content?("The data you entered doesn't seem to be valid. Please check the messages below.")
+        assert has_content?("We couldn't verify your identity. Please check your information and try again. If the problem persists, ask to your local adminsitration")
       end
     end
   end
@@ -58,7 +56,7 @@ class User::CensusVerificationTest < ActionDispatch::IntegrationTest
       with_signed_in_user(verified_user) do
         visit @verification_path
 
-        assert has_content?("You are already verified.")
+        assert has_content?("Your account is already verified")
       end
     end
   end

@@ -43,7 +43,7 @@ module GobiertoBudgetConsultations
         with_signed_in_user(unverified_user) do
           visit @path
 
-          assert has_content?("Your account is not yet verified.")
+          assert has_content?("We need to verify your identity to continue")
         end
       end
     end

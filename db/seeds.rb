@@ -1,6 +1,7 @@
 fixtures_to_load = [
   "sites",
   "users",
+  "census_items",
   "gobierto_admin/admins",
   "user/verification/census_verifications",
   "user/subscriptions",

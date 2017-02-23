@@ -8,5 +8,5 @@ en:
         update:
           success_html: "Page updated successfully. <a href=\"%{link}\">View the page</a>."
         destroy:
-          success_html: Page deleted successfully
+          success: Page deleted successfully
 

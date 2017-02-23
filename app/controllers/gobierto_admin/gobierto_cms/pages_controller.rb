@@ -24,6 +24,8 @@ module GobiertoAdmin
         @page_form = PageForm.new(page_params.merge(site_id: current_site.id))
 
         if @page_form.save
+          track_create_activity
+
           redirect_to(
             edit_admin_cms_page_path(@page_form.page.id),
             notice: t(".success_html", link: gobierto_cms_page_url(@page_form.page, domain: current_site.domain))
@@ -39,6 +41,8 @@ module GobiertoAdmin
         @page_form = PageForm.new(page_params.merge(id: @page.id, site_id: current_site.id))
 
         if @page_form.save
+          track_update_activity
+
           redirect_to(
             edit_admin_cms_page_path(@page_form.page.id),
             notice: t(".success_html", link: gobierto_cms_page_url(@page_form.page, domain: current_site.domain))
@@ -52,11 +56,28 @@ module GobiertoAdmin
       def destroy
         @page = find_page
         @page.destroy
+        track_destroy_activity
 
         redirect_to admin_cms_pages_path, notice: t(".success")
       end
 
       private
+
+      def track_create_activity
+        Publishers::GobiertoCmsPageActivity.broadcast_event("page_created", default_activity_params.merge({subject: @page_form.page}))
+      end
+
+      def track_update_activity
+        Publishers::GobiertoCmsPageActivity.broadcast_event("page_updated", default_activity_params.merge({subject: @page}))
+      end
+
+      def track_destroy_activity
+        Publishers::GobiertoCmsPageActivity.broadcast_event("page_deleted", default_activity_params.merge({subject: @page}))
+      end
+
+      def default_activity_params
+        { ip: remote_ip, author: current_admin, site_id: current_site.id }
+      end
 
       def get_page_visibility_levels
         ::GobiertoCms::Page.visibility_levels

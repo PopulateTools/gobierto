@@ -8,5 +8,5 @@ ca:
         update:
           success_html: "La pàgina ha sigut actualitzada correctament. <a href=\"%{link}\">Vore la pàgina</a>."
         destroy:
-          success_html: La pàgina ha sigut eliminada correctament
+          success: La pàgina ha sigut eliminada correctament
 

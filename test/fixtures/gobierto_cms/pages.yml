@@ -4,3 +4,17 @@ consultation_faq:
   slug: 'consultation-faq'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
+
+privacy:
+  title: 'Privacy'
+  body: 'These are the privacy terms'
+  slug: 'privacy'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:draft] %>
+  site: madrid
+
+about:
+  title: 'About'
+  body: 'About santander'
+  slug: 'about'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: santander

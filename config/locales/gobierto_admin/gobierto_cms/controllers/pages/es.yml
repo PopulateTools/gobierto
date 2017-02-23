@@ -1,0 +1,12 @@
+---
+es:
+  gobierto_admin:
+    gobierto_cms:
+      pages:
+        create:
+          success_html: "La página ha sido creada correctamente. <a href=\"%{link}\">Ver la página</a>."
+        update:
+          success_html: "La página ha sido actualizada correctamente. <a href=\"%{link}\">Ver la página</a>."
+        destroy:
+          success_html: La página ha sido eliminada correctamente
+

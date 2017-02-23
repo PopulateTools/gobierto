@@ -94,8 +94,8 @@ en:
         one: 1 second ago
         other: "%{count} seconds ago"
       x_years:
-        one: 1 year
-        other: "%{count} years"
+        one: 1 year ago
+        other: "%{count} years ago"
     prompts:
       day: Day
       hour: Hour

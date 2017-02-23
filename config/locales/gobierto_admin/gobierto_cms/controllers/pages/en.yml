@@ -1,0 +1,12 @@
+---
+en:
+  gobierto_admin:
+    gobierto_cms:
+      pages:
+        create:
+          success_html: "Page created successfully. <a href=\"%{link}\">View the page</a>."
+        update:
+          success_html: "Page updated successfully. <a href=\"%{link}\">View the page</a>."
+        destroy:
+          success_html: Page deleted successfully
+

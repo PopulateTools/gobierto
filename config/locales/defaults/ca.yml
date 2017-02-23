@@ -60,42 +60,42 @@ ca:
   datetime:
     distance_in_words:
       about_x_hours:
-        one: aproximadament 1 hora
-        other: aproximadament %{count} hores
+        one: fa aproximadament 1 hora
+        other: fa aproximadament %{count} hores
       about_x_months:
-        one: aproximadament 1 mes
-        other: aproximadament %{count} mesos
+        one: fa aproximadament 1 mes
+        other: fa aproximadament %{count} mesos
       about_x_years:
-        one: aproximadament 1 any
-        other: aproximadament %{count} anys
+        one: fa aproximadament 1 any
+        other: fa aproximadament %{count} anys
       almost_x_years:
-        one: quasi 1 any
-        other: quasi %{count} anys
-      half_a_minute: mig minut
+        one: fa quasi 1 any
+        other: fa quasi %{count} anys
+      half_a_minute: fa mig minut
       less_than_x_minutes:
-        one: menys d'1 minut
-        other: menys de %{count} minuts
+        one: fa menys d'1 minut
+        other: fa menys de %{count} minuts
       less_than_x_seconds:
-        one: menys d'1 segon
-        other: menys de %{count} segons
+        one: fa menys d'1 segon
+        other: fa menys de %{count} segons
       over_x_years:
-        one: més d'1 any
-        other: més de %{count} anys
+        one: fa més d'1 any
+        other: fa més de %{count} anys
       x_days:
-        one: 1 dia
-        other: "%{count} dies"
+        one: fa 1 dia
+        other: "fa %{count} dies"
       x_minutes:
-        one: 1 minut
-        other: "%{count} minuts"
+        one: fa 1 minut
+        other: "fa %{count} minuts"
       x_months:
-        one: 1 mes
-        other: "%{count} mesos"
+        one: fa 1 mes
+        other: "fa %{count} mesos"
       x_seconds:
-        one: 1 segon
-        other: "%{count} segons"
+        one: fa 1 segon
+        other: "fa %{count} segons"
       x_years:
-        one: 1 year
-        other: "%{count} anys"
+        one: fa 1 any
+        other: "fa %{count} anys"
     prompts:
       day: dia
       hour: hora

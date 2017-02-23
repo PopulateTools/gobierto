@@ -1,0 +1,6 @@
+consultation_faq:
+  title: 'Consultation page FAQ'
+  body: 'This is the body of the page'
+  slug: 'consultation-faq'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid

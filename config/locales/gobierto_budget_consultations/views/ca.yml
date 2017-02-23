@@ -21,3 +21,5 @@ ca:
     layouts:
       menu_subsections:
         consultations: Consultes
+      application:
+        participation: Participació

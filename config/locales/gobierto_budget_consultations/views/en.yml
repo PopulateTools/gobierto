@@ -20,3 +20,5 @@ en:
     layouts:
       menu_subsections:
         consultations: Consultations
+      application:
+        participation: Participation

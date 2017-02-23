@@ -32,6 +32,10 @@ en:
         subscribable: Resource
         user: User
         user_email: E-mail
+      user/census_verification_form:
+        document_number: Document number
+        date_of_birth: Date of birth
+        site: Site
     models:
       user/confirmation_form: Confirmation
       user/confirmation_request_form: Confirmation request
@@ -41,3 +45,4 @@ en:
       user/session_form: Session
       user/settings_form: Settings
       user/subscription_form: Subscription
+      user/census_verification_form: Census verification

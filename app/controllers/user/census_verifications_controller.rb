@@ -7,8 +7,7 @@ class User::CensusVerificationsController < User::BaseController
   end
 
   def new
-    @user_verification_form = User::CensusVerificationForm.new
-    @sites = find_sites
+    @user_verification_form = User::CensusVerificationForm.new(site_id: current_site.id)
   end
 
   def create
@@ -18,19 +17,18 @@ class User::CensusVerificationsController < User::BaseController
         date_of_birth_month: user_verification_params["date_of_birth(2i)"],
         date_of_birth_day: user_verification_params["date_of_birth(3i)"],
         user_id: current_user.id,
-        creation_ip: remote_ip
+        creation_ip: remote_ip,
+        site_id: current_site.id
       )
     )
 
     if @user_verification_form.save
       redirect_to(
         user_census_verifications_path,
-        notice: "Please check your inbox for more information."
+        notice: t('.notice')
       )
     else
-      @sites = find_sites
-
-      flash.now[:alert] = "The data you entered doesn't seem to be valid. Please check the messages below."
+      flash.now[:alert] = t('.error')
       render :new
     end
   end
@@ -43,10 +41,6 @@ class User::CensusVerificationsController < User::BaseController
       :date_of_birth,
       :site_id
     )
-  end
-
-  def find_sites
-    Site.select(:id, :name).active
   end
 
   def ignored_user_verification_params

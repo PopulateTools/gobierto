@@ -1,0 +1,10 @@
+---
+en:
+  activerecord:
+    attributes:
+      gobierto_cms/page:
+        title: Title
+        body: Body
+        slug: URL
+    models:
+      gobierto_cms/page: Page

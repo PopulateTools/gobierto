@@ -129,6 +129,12 @@
           </li>
           <% end %>
 
+          <% if current_site.configuration.gobierto_cms_enabled? %>
+          <li>
+            <%= link_to t(".cms"), admin_cms_pages_path %>
+          </li>
+          <% end %>
+
           <li class="sep"></li>
 
           <li><%= link_to t(".users"), admin_users_path %></li>

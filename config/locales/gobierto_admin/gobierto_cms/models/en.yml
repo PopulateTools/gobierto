@@ -1,0 +1,10 @@
+---
+en:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_cms/page_form:
+        title: Title
+        body: Body
+        slug: URL
+    models:
+      gobierto_admin/gobierto_cms/page_form: Page

@@ -1,0 +1,10 @@
+---
+ca:
+  activerecord:
+    attributes:
+      gobierto_cms/page:
+        title: Títol
+        body: Contingut
+        slug: URL
+    models:
+      gobierto_cms/page: Pàgina

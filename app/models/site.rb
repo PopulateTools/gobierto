@@ -27,6 +27,9 @@ class Site < ApplicationRecord
   has_many :person_statements, through: :people, source: :statements, class_name: "GobiertoPeople::PersonStatement"
   has_many :gobierto_people_settings, class_name: "GobiertoPeople::Setting"
 
+  # Gobierto CMS integration
+  has_many :pages, dependent: :destroy, class_name: "GobiertoCms::Page"
+
   serialize :configuration_data
 
   before_save :store_configuration

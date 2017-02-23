@@ -1,0 +1,10 @@
+---
+ca:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_cms/page_form:
+        title: Títol
+        body: Contingut
+        slug: URL
+    models:
+      gobierto_admin/gobierto_cms/page_form: Pàgina

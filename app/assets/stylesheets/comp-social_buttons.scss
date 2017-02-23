@@ -67,7 +67,7 @@ a.social_share {
 }
 .social_links_container {
   // width: 40px;
-  z-index: 90;
+  z-index: 1;
   
   a {
     @include border-radius(3em);

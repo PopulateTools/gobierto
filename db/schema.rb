@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222070916) do
+ActiveRecord::Schema.define(version: 20170222144905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -171,6 +171,18 @@ ActiveRecord::Schema.define(version: 20170222070916) do
     t.boolean  "force_responses_balance",                          default: false
     t.index ["admin_id"], name: "index_gbc_consultations_on_admin_id", using: :btree
     t.index ["site_id"], name: "index_gbc_consultations_on_site_id", using: :btree
+  end
+
+  create_table "gcms_pages", force: :cascade do |t|
+    t.string   "title",            default: "", null: false
+    t.text     "body",             default: "", null: false
+    t.string   "slug",             default: "", null: false
+    t.integer  "site_id"
+    t.integer  "visibility_level", default: 0,  null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.index ["site_id"], name: "index_gcms_pages_on_site_id", using: :btree
+    t.index ["slug", "site_id"], name: "index_gcms_pages_on_slug_and_site_id", unique: true, using: :btree
   end
 
   create_table "gp_people", force: :cascade do |t|

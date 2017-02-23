@@ -40,6 +40,8 @@ $(document).on('turbolinks:load', function() {
         return I18n.t("layouts.search.person_event_item");
       case 'GobiertoPeople::PersonStatement':
         return I18n.t("layouts.search.person_statement_item");
+      case 'GobiertoCms::Page':
+        return I18n.t("layouts.search.page_item");
     }
   }
 

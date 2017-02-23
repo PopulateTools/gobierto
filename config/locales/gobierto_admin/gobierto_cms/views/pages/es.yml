@@ -1,0 +1,27 @@
+---
+es:
+  gobierto_admin:
+    gobierto_cms:
+      pages:
+        index:
+          title: Páginas
+          new: Nueva
+          created_at: Creada
+          updated_at: Actualizada
+          public: Pública
+          view: Ver página
+          visibility_level:
+            active: Publicada
+            draft: Borrador
+        new:
+          title: Nueva página
+        edit:
+          title: Editar página
+        form:
+          placeholders:
+            title: Título de la página
+            slug: acerca-de-esta-web
+          visibility_level:
+            active: Publicada
+            draft: Borrador
+

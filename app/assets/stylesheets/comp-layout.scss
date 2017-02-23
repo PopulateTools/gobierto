@@ -13,6 +13,14 @@
   box-sizing: border-box;
 }
 
+.gobierto_cms.pages.show {
+  .container {
+    .column {
+      max-width: 800px;
+    }
+  }
+}
+
 /*
  * Footer
  *

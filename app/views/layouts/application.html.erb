@@ -226,9 +226,9 @@
 
       <div class="pure-u-1 pure-u-md-5-24">
         <ul>
-          <li><a href="http://madrid.es">Ayuntamiento de Madrid</a></li>
-          <li><a href="http://madrid.es">Portal de Transparencia</a></li>
-          <li><a href="http://madrid.es">Participación</a></li>
+          <li><a href="http://dival.es">Diputación de Valencia</a></li>
+          <li><a href="http://transparencia.dival.es">Portal de Transparencia</a></li>
+          <li><a href="http://participacion.madrid.es">Participación</a></li>
         </ul>
       </div>
       -->
@@ -258,10 +258,6 @@
     </div>
 
   </footer>
-
-  <% if @site.configuration.foot_markup.present? %>
-    <%= raw @site.configuration.foot_markup %>
-  <% end %>
 
   <% if Rails.env.production? %>
     <%= render 'layouts/analytics_footer_site' %>

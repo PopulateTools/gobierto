@@ -32,6 +32,10 @@ ca:
         subscribable: Recurs
         user: Usuari
         user_email: Correu-e
+      user/census_verification_form:
+        document_number: Nombre de document
+        date_of_birth: Data de naiximent
+        site: Lloc
     models:
       user/confirmation_form: Confirmació
       user/confirmation_request_form: Sol·licitud de confirmació
@@ -41,3 +45,4 @@ ca:
       user/session_form: Sessió
       user/settings_form: Ajusts
       user/subscription_form: Subscripció
+      user/census_verification_form: Verificació de la identitat

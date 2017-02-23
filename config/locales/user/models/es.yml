@@ -32,6 +32,10 @@ es:
         subscribable: Recurso
         user: Usuario
         user_email: Correo-e
+      user/census_verification_form:
+        document_number: Número de documento
+        date_of_birth: Fecha de nacimiento
+        site: Lugar
     models:
       user/confirmation_form: Confirmación
       user/confirmation_request_form: Solicitud de confirmación
@@ -41,3 +45,4 @@ es:
       user/session_form: Sesión
       user/settings_form: Ajustes
       user/subscription_form: Suscripción
+      user/census_verification_form: Verificación de la identidad

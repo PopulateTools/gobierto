@@ -19,6 +19,9 @@ module GobiertoAdmin
 
     private
 
+    def default_url_options
+      { host: ENV['HOST'] }
+    end
 
     def available_locales
       @available_locales ||= I18n.available_locales

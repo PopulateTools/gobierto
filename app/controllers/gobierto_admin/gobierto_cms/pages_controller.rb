@@ -28,7 +28,7 @@ module GobiertoAdmin
 
           redirect_to(
             edit_admin_cms_page_path(@page_form.page.id),
-            notice: t(".success_html", link: gobierto_cms_page_url(@page_form.page))
+            notice: t(".success_html", link: gobierto_cms_page_url(@page_form.page, domain: current_site.domain))
           )
         else
           @page_visibility_levels = get_page_visibility_levels
@@ -45,7 +45,7 @@ module GobiertoAdmin
 
           redirect_to(
             edit_admin_cms_page_path(@page_form.page.id),
-            notice: t(".success_html", link: gobierto_cms_page_url(@page_form.page))
+            notice: t(".success_html", link: gobierto_cms_page_url(@page_form.page, domain: current_site.domain))
           )
         else
           @page_visibility_levels = get_page_visibility_levels

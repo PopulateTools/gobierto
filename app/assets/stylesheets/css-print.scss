@@ -1,4 +1,5 @@
 @media print {
+  /* General reset */
   body {
     counter-reset: section;
   }
@@ -18,58 +19,68 @@
   footer {
     display: none;
   }
+  #consultation-desktop-app .pure-g {
+  -webkit-flex-flow: column wrap;
+  -ms-flex-flow: column wrap;
+  }
+  .consultation-info,
+  .consultation-card {
+    display: none;
+  }
   .consultation-box {
     margin: 0;
   }
-  .consultation-lead.mb2 {
-    margin: 0;
-    margin-bottom: 0.25cm;
+  .consultation-lead {
+    font-size: 16pt;
     color: #111;
-    font-weight: 700;
+    margin: 0;
+    margin-bottom: 5pt;
   }
-  .column.consultation p {
-    margin-top: 0;
-  }
-  .consultation-card {
-    box-shadow: none;
-    background: none;
+  
+  /* Cards */
+  .card-content {
+    padding: 0;
     margin-bottom: 0.25cm;
     padding-bottom: 0.25cm;
     border-bottom: 1px solid #ccc;
     margin-top: 0;
+    min-height: 80px;
     page-break-inside: avoid;
+    display: block !important;
   }
-  .card-title {
+  .card-headline {
     line-height: 1;
     margin-bottom: 0;
     padding: 0;
-  }
-  .consultation-title {
     font-size: 12pt;
+    margin-right: 5pt;
     color: #333;
+    display: inline-block;
   }
-  .consultation-title::before {
+  .card-headline::before {
     counter-increment: section;
     content: counter(section) ". ";
   }
-  .consultation-figure {
+  .card-figure {
+    position: relative;
     float: none;
     display: inline-block;
     color: #333;
     font-weight: 400;
-    vertical-align: top;
   }
-  .consultation-figure .fa {
-    display: none;
+  .card-figure h2 {
+    display: inline-block;
+    color: #333;
   }
-  .consultation-figure::before {
+  .card-figure::before {
     content: "(";
+    font-size: 1.5em;
+    color: #333;
   }
-  .consultation-figure::after {
+  .card-figure::after {
+    font-size: 1.5em;
+    color: #333;
     content: ")";
-  }
-  .card-content {
-    display: block !important;
   }
   .card-description {
     padding: 0;
@@ -79,7 +90,6 @@
     color: #333;
     width: 83%;
     display: inline-block;
-    vertical-align: top;
   }
   .budget-ask {
     box-shadow: none;
@@ -91,7 +101,10 @@
   .select-lead {
     display: none;
   }
-  .pct {
+  .select-pct {
+    background: white;
+  }
+  .desktop .pct {
     padding: 0;
     font-size: 11pt;
     background: none;
@@ -99,6 +112,9 @@
     width: 105px;
     position: relative;
     text-align: left;
+  }
+  .pct {
+    color: #111;
   }
   .pct::after {
     position: absolute;
@@ -113,7 +129,7 @@
     -webkit-flex-flow: column wrap;
     -ms-flex-flow: column wrap;
   }
-  .card-description .sep {
-    display: none;
+  .border {
+    margin: 0;
   }
 }

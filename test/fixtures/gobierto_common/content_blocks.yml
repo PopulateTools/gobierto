@@ -9,6 +9,11 @@ accomplishments:
   content_model_name: GobiertoPeople::Person
   title: <%= { "en" => "Accomplishments", "es" => "Logros" }.to_json %>
 
+associations:
+  site: madrid
+  content_model_name: GobiertoPeople::Person
+  title: <%= { "en" => "Associations", "es" => "Asociaciones" }.to_json %>
+
 income_statements:
   site: madrid
   content_model_name: GobiertoPeople::PersonStatement

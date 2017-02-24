@@ -43,6 +43,7 @@ module GobiertoPeople
           refute has_selector?("h3", text: "Contact methods")
           assert has_selector?("h3", text: "Accomplishments")
           assert has_content?("Nobel Prize in Chemistry")
+          refute has_selector?("h3", text: "Associations")
         end
       end
     end

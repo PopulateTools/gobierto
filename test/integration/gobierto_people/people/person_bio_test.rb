@@ -40,53 +40,10 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          skip "Pending to define the HTML markup"
-          # assert_equal(
-          #   person_bio_content_markup.strip,
-          #   find(".dynamic-content").native.to_html.strip
-          # )
+          refute has_selector?("h3", text: "Contact methods")
+          assert has_selector?("h3", text: "Accomplishments")
+          assert has_content?("Nobel Prize in Chemistry")
         end
-      end
-
-      private
-
-      def person_bio_content_markup
-        <<~HTML
-          <div class="dynamic-content table-component">
-
-              <h3>Contact methods</h3>
-              <table class="explore_slow">
-                <tr>
-                    <th>Service</th>
-                    <th>URL</th>
-                    <th>Username</th>
-                    <th>Notes</th>
-                </tr>
-                <tbody>
-                    <tr>
-                        <td>Twitter</td>
-                        <td>https://twitter.com/richard</td>
-                        <td>@richard</td>
-                        <td>Richard's Twitter account</td>
-                    </tr>
-                </tbody>
-              </table>
-              <h3>Accomplishments</h3>
-              <table class="explore_slow">
-                <tr>
-                    <th>Title</th>
-                    <th>Date</th>
-                </tr>
-                <tbody>
-                    <tr>
-                        <td>Nobel Prize in Chemistry</td>
-                        <td>2016</td>
-                    </tr>
-                </tbody>
-              </table>
-
-          </div>
-        HTML
       end
     end
   end

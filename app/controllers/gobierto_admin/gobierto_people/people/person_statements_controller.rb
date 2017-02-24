@@ -30,7 +30,7 @@ module GobiertoAdmin
           if @person_statement_form.save
             redirect_to(
               edit_admin_people_person_statement_path(@person, @person_statement_form.person_statement),
-              notice: t(".success_html", link: gobierto_people_person_statement_url(@person, @person_statement_form.person_statement, domain: current_site.domain))
+              notice: t(".success_html", link: gobierto_people_person_statement_url(@person, @person_statement_form.person_statement))
             )
           else
             @person_statement_visibility_levels = get_person_statement_visibility_levels
@@ -47,7 +47,7 @@ module GobiertoAdmin
           if @person_statement_form.save
             redirect_to(
               edit_admin_people_person_statement_path(@person, @person_statement),
-              notice: t(".success_html", link: gobierto_people_person_statement_url(@person, @person_statement_form.person_statement, domain: current_site.domain))
+              notice: t(".success_html", link: gobierto_people_person_statement_url(@person, @person_statement_form.person_statement))
             )
           else
             @person_statement_visibility_levels = get_person_statement_visibility_levels

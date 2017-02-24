@@ -129,7 +129,7 @@ module GobiertoBudgetConsultations
 
           click_link "Start"
 
-          assert has_message?("Your account is not yet verified.")
+          assert has_message?("We need to verify your identity to continue")
         end
       end
     end

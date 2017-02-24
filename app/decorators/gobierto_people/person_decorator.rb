@@ -32,6 +32,10 @@ module GobiertoPeople
       person_contact_method_for("LinkedIn", "service_url")
     end
 
+    def content_blocks_for_bio(site_id)
+      object.content_blocks(site_id).where.not(internal_id:  GobiertoCommon::DynamicContent::CONTACT_BLOCK_ID)
+    end
+
     private
 
     def person_contact_method_for(service_name, attribute_name)
@@ -44,7 +48,7 @@ module GobiertoPeople
 
     def person_contact_methods
       @person_contact_methods ||= begin
-        if content_block = object.content_blocks.find_by(internal_id: "gobierto_people_contact_block")
+        if content_block = object.content_blocks.find_by(internal_id: GobiertoCommon::DynamicContent::CONTACT_BLOCK_ID)
           content_block.records.pluck(:payload)
         else
           []

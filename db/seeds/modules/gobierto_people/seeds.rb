@@ -10,10 +10,10 @@ module GobiertoSeeds
       #
 
       ## Contact block
-      contact_block = GobiertoCommon::ContentBlock.find_by(site_id: site.id, internal_id: "gobierto_people_contact_block")
+      contact_block = GobiertoCommon::ContentBlock.find_by(site_id: site.id, internal_id: GobiertoCommon::DynamicContent::CONTACT_BLOCK_ID)
       if contact_block.nil?
         contact_block = GobiertoCommon::ContentBlock.create!({
-          internal_id: "gobierto_people_contact_block",
+          internal_id: GobiertoCommon::DynamicContent::CONTACT_BLOCK_ID,
           site: site,
           content_model_name: "GobiertoPeople::Person",
           title: { "ca" => "Formes de contacte", "es" => "Formas de contacto" }

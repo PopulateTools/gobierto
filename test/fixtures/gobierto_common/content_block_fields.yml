@@ -40,6 +40,13 @@ accomplishment_date:
   label: <%= { "en" => "Date", "es" => "Fecha" }.to_yaml.inspect %>
   position: 1
 
+association_name:
+  content_block: associations
+  field_type: <%= ::GobiertoCommon::ContentBlockField.field_types["text"] %>
+  name: name
+  label: <%= { "en" => "Name", "es" => "Nombre" }.to_yaml.inspect %>
+  position: 0
+
 income_statement_concept:
   content_block: income_statements
   field_type: <%= ::GobiertoCommon::ContentBlockField.field_types["text"] %>

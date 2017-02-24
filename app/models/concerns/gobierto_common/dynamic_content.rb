@@ -2,6 +2,8 @@ module GobiertoCommon
   module DynamicContent
     extend ActiveSupport::Concern
 
+    CONTACT_BLOCK_ID = "gobierto_people_contact_block"
+
     included do
       has_many :content_block_records, as: :content_context, dependent: :destroy, class_name: "GobiertoCommon::ContentBlockRecord"
 

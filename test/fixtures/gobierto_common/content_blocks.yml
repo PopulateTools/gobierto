@@ -2,12 +2,17 @@ contact_methods:
   site: madrid
   content_model_name: GobiertoPeople::Person
   title: <%= { "en" => "Contact methods", "es" => "Formas de contacto" }.to_json %>
-  internal_id: "gobierto_people_contact_block"
+  internal_id: <%= GobiertoCommon::DynamicContent::CONTACT_BLOCK_ID %>
 
 accomplishments:
   site: madrid
   content_model_name: GobiertoPeople::Person
   title: <%= { "en" => "Accomplishments", "es" => "Logros" }.to_json %>
+
+associations:
+  site: madrid
+  content_model_name: GobiertoPeople::Person
+  title: <%= { "en" => "Associations", "es" => "Asociaciones" }.to_json %>
 
 income_statements:
   site: madrid

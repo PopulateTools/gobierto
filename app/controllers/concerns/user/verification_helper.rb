@@ -20,14 +20,14 @@ module User::VerificationHelper
   def raise_user_already_verified
     redirect_to(
       request.referrer || user_root_path,
-      alert: "You are already verified."
+      alert: t('user.census_verifications.messages.already_verified')
     )
   end
 
   def raise_user_not_verified
     redirect_to(
       new_user_census_verifications_path || request.referrer || user_root_path,
-      alert: "Your account is not yet verified."
+      alert: t('user.census_verifications.messages.not_verified')
     )
   end
 end

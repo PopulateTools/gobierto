@@ -1,12 +1,6 @@
 <menu class="sub_sections">
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
     <ul>
-      <% if @site.configuration.gobierto_budgets_enabled? %>
-        <li><%= link_to t('gobierto_budgets.layouts.menu_subsections.summary'), gobierto_budgets_budgets_path, class: class_if('active', controller_name == 'budgets') %></li>
-        <li><%= link_to t('gobierto_budgets.layouts.menu_subsections.budget'), gobierto_budgets_budget_lines_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::BudgetLine::ECONOMIC, level: 1), class: class_if('active', controller_name == 'budget_lines') %></li>
-        <li><%= link_to t('gobierto_budgets.layouts.menu_subsections.execution'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), class: class_if('active', controller_name == 'budgets_execution')  %></li>
-      <% end %>
-
       <li><%= link_to t('.consultations'), gobierto_budget_consultations_consultations_path, class: class_if('active', controller_name == 'consultations')  %></li>
     </ul>
   </div>

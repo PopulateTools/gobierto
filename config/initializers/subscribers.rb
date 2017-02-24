@@ -1,11 +1,11 @@
-Subscribers::SiteActivity.attach_to('activities/sites')
-Subscribers::AdminActivity.attach_to('activities/admins')
-Subscribers::CensusActivity.attach_to('activities/census')
-Subscribers::UserActivity.attach_to('activities/users')
-Subscribers::GobiertoPeopleActivity.attach_to('trackable')
-Subscribers::GobiertoBudgetConsultationsActivity.attach_to('trackable')
-Subscribers::GobiertoBudgetConsultationsConsultationResponseActivity.attach_to('activities/gobierto_budget_consultations_consultation_response')
-Subscribers::GobiertoCmsPageActivity.attach_to('activities/gobierto_cms_pages')
+::Subscribers::SiteActivity.attach_to('activities/sites')
+::Subscribers::AdminActivity.attach_to('activities/admins')
+::Subscribers::CensusActivity.attach_to('activities/census')
+::Subscribers::UserActivity.attach_to('activities/users')
+::Subscribers::GobiertoPeopleActivity.attach_to('trackable')
+::Subscribers::GobiertoBudgetConsultationsActivity.attach_to('trackable')
+::Subscribers::GobiertoBudgetConsultationsConsultationResponseActivity.attach_to('activities/gobierto_budget_consultations_consultation_response')
+::Subscribers::GobiertoCmsPageActivity.attach_to('activities/gobierto_cms_pages')
 
 # Custom subscribers
 ActiveSupport::Notifications.subscribe(/trackable/) do |*args|

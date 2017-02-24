@@ -65,4 +65,5 @@ ca:
         consultations: Consultes
       errors:
         already_responded: Ja has participat en aquesta consulta
-
+      application:
+        participation: Participació

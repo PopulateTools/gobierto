@@ -64,4 +64,5 @@ en:
         consultations: Consultations
       errors:
         already_responded: You already replied to this consultation
-
+      application:
+        participation: Participation

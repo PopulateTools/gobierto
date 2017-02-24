@@ -7,11 +7,13 @@
         <%= t(".title") %>
       <% end %>
     </li>
-    <li>
-      <%= link_to admin_admins_path do %>
-        <%= t(".admins_section") %>
-      <% end %>
-    </li>
+    <% if current_admin.managing_user? %>
+      <li>
+        <%= link_to admin_admins_path do %>
+          <%= t(".admins_section") %>
+        <% end %>
+      </li>
+    <% end %>
   </ul>
 </div>
 

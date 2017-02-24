@@ -1,0 +1,11 @@
+---
+es:
+  user:
+    census_verifications:
+      messages:
+        already_verified: Tu cuenta ya está verificada
+        not_verified: Necesitamos verificar tu identidad para poder continuar
+      new:
+        title: Verifica tu identidad
+      form:
+        verify: Verificar

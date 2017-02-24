@@ -1,5 +1,7 @@
 module GobiertoAdmin
   class AdminsController < BaseController
+    before_action :managing_user
+
     def index
       @admins = Admin.sorted.all
     end
@@ -131,6 +133,10 @@ module GobiertoAdmin
 
     def default_activity_params
       { ip: remote_ip, author: current_admin }
+    end
+
+    def managing_user
+      redirect_to admin_users_path and return false unless current_admin.managing_user?
     end
   end
 end

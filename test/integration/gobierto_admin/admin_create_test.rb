@@ -11,6 +11,18 @@ module GobiertoAdmin
       @admin ||= gobierto_admin_admins(:nick)
     end
 
+    def regular_admin
+      @regular_admin ||= gobierto_admin_admins(:tony)
+    end
+
+    def test_regular_admin_create
+      with_signed_in_admin(regular_admin) do
+        visit @path
+
+        refute has_selector?("form.new_admin")
+      end
+    end
+
     def test_admin_create
       with_signed_in_admin(admin) do
         visit @path

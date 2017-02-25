@@ -22,7 +22,7 @@ Gobierto es un proyecto abierto de [Populate](http://populate.tools), un estudio
 
 * #todo Por qué Gobierto y nuestra filosofía de Diseño
 
-Más información: 
+Más información:
 
 * Website de Gobierto: [gobierto.es](http://gobierto.es)
 * Blog: [gobierto.es/blog](http://gobierto.es/blog)
@@ -53,7 +53,7 @@ En desarrollo ahora mismo:
 
 Si quieres instalarte Gobierto en tu propio entorno o desarrollar algún módulo nuevo, aquí tienes una serie de páginas enlazadas con toda la información que te hará falta.
 
-- [Configurar el entorno de desarrollo con Docker](docs/development-environment.md)
+- Configurar el entorno de desarrollo [con Docker](docs/development-environment-docker.md) o [sin Docker](docs/development-environment.md)
 - [Acceder como Administrador](docs/admin-namespace.md)
 - [Acceder como Usuario](docs/user-namespace.md)
 - [Integrar la extensión Trackable](docs/trackable-extension.md)

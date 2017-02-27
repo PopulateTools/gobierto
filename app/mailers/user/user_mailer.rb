@@ -7,7 +7,7 @@ class User::UserMailer < ApplicationMailer
       from: default_from,
       reply_to: default_reply_to,
       to: @user.email,
-      subject: "Confirmation instructions"
+      subject: t('.subject', site_name: @site.name)
     )
   end
 
@@ -19,7 +19,7 @@ class User::UserMailer < ApplicationMailer
       from: default_from,
       reply_to: default_reply_to,
       to: @user.email,
-      subject: "Reset password instructions"
+      subject: t('.subject')
     )
   end
 

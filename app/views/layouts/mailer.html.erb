@@ -1,5 +1,11 @@
 <html>
   <body>
     <%= yield %>
+
+<p>
+--<br>
+<%= @site.name %> <%= "· #{@site.location_name}" %><br>
+https://<%= @site.domain %>
+</p>
   </body>
 </html>

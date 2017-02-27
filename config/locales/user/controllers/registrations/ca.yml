@@ -5,5 +5,5 @@ ca:
       create:
         error: Les dades que has introduit no pareixen ser vàlides. Per favor, inténta-ho
           de nou.
-        success: T'hem enviat un email per a que pugues confirmar el teu registre
+        success: Genial. Revisa el teu correu-e i fes click en el ellaç de confirmació per a poder continuar amb el procés de registre.
         email_taken: El e-mail ja està en ús. Prova a fer login o a recuperar la contrasenya

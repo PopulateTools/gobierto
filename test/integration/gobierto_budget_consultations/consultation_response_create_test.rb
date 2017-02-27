@@ -43,7 +43,7 @@ module GobiertoBudgetConsultations
         with_signed_in_user(unverified_user) do
           visit @path
 
-          assert has_content?("We need to verify your identity to continue")
+          assert has_content?("The process in which you want to participate requires to verify your register in")
         end
       end
     end

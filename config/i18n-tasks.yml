@@ -29,3 +29,4 @@ ignore_unused:
   - 'invisible_captcha.*'
   - '*.events.*'
   - 'gobierto_budget_consultations.consultation_statuses.*'
+  - 'user.census_verifications.messages.not_verified'

@@ -129,7 +129,7 @@ module GobiertoBudgetConsultations
 
           click_link "Start"
 
-          assert has_message?("We need to verify your identity to continue")
+          assert has_message?("The process in which you want to participate requires to verify your register in")
         end
       end
     end

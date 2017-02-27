@@ -8,3 +8,6 @@ ca:
         success: Sessió iniciada correctament
       destroy:
         success: Sessió terminada correctament
+      user_not_signed_in: Registra't o fes login per a poder continuar.
+      user_already_authenticated: Ya estàs autenticat
+      user_not_authorized: No estàs autoritzat.

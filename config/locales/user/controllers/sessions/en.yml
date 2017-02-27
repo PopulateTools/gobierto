@@ -7,3 +7,6 @@ en:
         success: Signed in successfully
       destroy:
         success: Signed out successfully
+      user_not_signed_in: Regístrate o haz login si ya tienes cuenta para poder continuar.
+      user_already_authenticated: You are already signed in.
+      user_not_authorized: You are not authorized.

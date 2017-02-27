@@ -12,4 +12,15 @@ ca:
         hi: Hola
         new_activity: Hi ha nova activitat en %{site_name}
         bye: Passa un bon dia
-
+    user_mailer:
+      confirmation_instructions:
+        subject: Completa el teu registre en %{site_name}
+        hi: Hola
+        click_link: "Per confirmar el teu registre fes click en el següent enllaç:"
+        ignore_link: si no te estaves suscrivint en %{site_name}, pots ignorar este missatge
+        bye: Salutacions
+      reset_password_instructions:
+        subject: Restaura la teva contrasenya
+        hi: Hola
+        click_link: "Has solicitat restaurar la teva contrasenya. Pulsa en el següent enllaç i segueix les instrucciones:"
+        bye: Salutacions

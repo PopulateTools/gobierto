@@ -48,21 +48,27 @@ module User::SessionHelper
   def raise_user_not_signed_in
     redirect_to(
       new_user_sessions_path,
-      alert: "We need you to sign in to continue."
+      alert: I18n.t(i18n_key('user_not_signed_in_html'), place_name: current_site.location_name, default: t('user.sessions.user_not_signed_in'))
     )
   end
 
   def raise_user_not_authorized
     redirect_to(
       request.referrer || user_root_path,
-      alert: "You are not authorized to perform this action."
+      alert: t('user.sessions.user_not_authorized')
     )
   end
 
   def raise_user_already_authenticated
     redirect_to(
       after_sign_in_path,
-      alert: "You are already signed in."
+      alert: t('user.sessions.user_already_authenticated')
     )
+  end
+
+  private
+
+  def i18n_key(key)
+    "#{params[:controller].tr('/', '.')}.#{action_name}.#{key}"
   end
 end

@@ -12,3 +12,15 @@ es:
         hi: Hola
         new_activity: Hay nueva actividad en %{site_name}
         bye: Que pases un buen día
+    user_mailer:
+      confirmation_instructions:
+        subject: Completa tu registro en %{site_name}
+        hi: Hola
+        click_link: "Para confirmar tu registro haz click en el siguiente enlace:"
+        ignore_link: si no te estabas suscribiendo en %{site_name}, puedes ignorar este mensaje
+        bye: Saludos
+      reset_password_instructions:
+        subject: Restaura tu contraseña
+        hi: Hola
+        click_link: "Has solicitado restaurar tu contraseña. Pulsa en el siguiente enlace y sigue las instrucciones:"
+        bye: Saludos

@@ -79,6 +79,11 @@
           <%= f.text_field :google_analytics_id, placeholder: t(".placeholders.google_analytics_id") %>
         </div>
 
+        <div class="form_item input_text">
+          <%= f.label :privacy_page_id %>
+          <%= f.select :privacy_page_id, @available_pages.map{ |p| [p.title, p.id] }, { include_blank: true } %>
+        </div>
+
       </div>
 
       <div class="form_block">

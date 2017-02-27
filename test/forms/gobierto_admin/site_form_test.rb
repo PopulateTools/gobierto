@@ -11,7 +11,8 @@ module GobiertoAdmin
         municipality_id: 1,
         visibility_level: "active",
         default_locale: 'es',
-        available_locales: ['es', 'ca']
+        available_locales: ['es', 'ca'],
+        privacy_page_id: privacy_page.id
       )
     end
 
@@ -45,6 +46,10 @@ module GobiertoAdmin
 
     def site
       @site ||= sites(:madrid)
+    end
+
+    def privacy_page
+      @privacy_page ||= gobierto_cms_pages(:privacy)
     end
 
     def new_site_name

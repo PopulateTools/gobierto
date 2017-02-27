@@ -32,7 +32,8 @@ module GobiertoAdmin
       :municipality_id,
       :logo_file,
       :available_locales,
-      :default_locale
+      :default_locale,
+      :privacy_page_id
     )
 
     attr_reader :logo_url
@@ -98,6 +99,10 @@ module GobiertoAdmin
       @visibility_level ||= "draft"
     end
 
+    def privacy_page_id
+      @privacy_page_id ||= site.configuration.privacy_page_id
+    end
+
     def logo_url
       @logo_url ||= begin
         return site.configuration.logo unless logo_file.present?
@@ -143,6 +148,7 @@ module GobiertoAdmin
         site_attributes.configuration.password_protection_password = password
         site_attributes.configuration.default_locale = default_locale
         site_attributes.configuration.available_locales = (available_locales.select{ |l| l.present? } + [default_locale]).uniq
+        site_attributes.configuration.privacy_page_id = privacy_page_id
       end
 
       if @site.valid?

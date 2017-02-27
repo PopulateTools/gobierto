@@ -29,6 +29,7 @@ en:
         municipality_id: Municipality
         default_locale: Default locale
         available_locales: Available locales
+        privacy_page_id: Privacy page
       gobierto_admin/user_form:
         email: Email
         name: Name

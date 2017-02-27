@@ -83,15 +83,14 @@ module GobiertoAdmin
           :title,
           :description,
           :opening_date_range,
-          :visibility_level
+          :visibility_level,
+          :show_figures,
+          :force_responses_balance
         )
       end
 
       def ignored_consultation_attributes
-        %w(
-        created_at updated_at
-        budget_amount
-        )
+        %w( created_at updated_at budget_amount )
       end
     end
   end

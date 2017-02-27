@@ -1,0 +1,10 @@
+---
+es:
+  gobierto_admin:
+    gobierto_budget_consultations:
+      consultations:
+        consultation_responses:
+          create:
+            success: Respuesta creada correctamente
+            error: No se ha podido guardar la respuesta
+

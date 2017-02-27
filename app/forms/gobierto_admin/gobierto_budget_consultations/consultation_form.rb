@@ -15,7 +15,9 @@ module GobiertoAdmin
         :opens_on,
         :closes_on,
         :opening_date_range,
-        :visibility_level
+        :visibility_level,
+        :show_figures,
+        :force_responses_balance
       )
 
       delegate :persisted?, to: :consultation
@@ -95,6 +97,8 @@ module GobiertoAdmin
           consultation_attributes.visibility_level = visibility_level
           consultation_attributes.opens_on = opens_on
           consultation_attributes.closes_on = closes_on
+          consultation_attributes.show_figures = show_figures
+          consultation_attributes.force_responses_balance = force_responses_balance
         end
 
         if @consultation.valid?

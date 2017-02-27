@@ -38,7 +38,7 @@ module GobiertoAdmin
     end
 
     def default_activity_params
-      { ip: remote_ip, author: current_admin }
+      { ip: remote_ip, author: current_admin, site_id: current_site.id }
     end
   end
 end

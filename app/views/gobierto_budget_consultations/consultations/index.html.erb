@@ -2,7 +2,7 @@
 
   <% if @active_consultations.any? %>
 
-    <h1>Consultas activas</h1>
+    <h1><%= t('.active') %></h1>
 
     <div class="active-consultations">
 
@@ -12,7 +12,10 @@
 
           <div class="inner center">
 
-            <%= link_to consultation.title, consultation %>
+            <%= link_to consultation do %>
+              <%= consultation.title %>
+              <%= "(#{t('.already_responded')})" if consultation.already_responded?(current_user) %>
+            <% end %>
             <div class="soft">
               <%= l(consultation.opens_on, format: :short) %>
               -
@@ -33,7 +36,7 @@
 
     <div class="m_v_4">
 
-      <h2>Consultas anteriores</h2>
+      <h2><%= t('.previous') %></h2>
 
       <div class="past-consultations">
 
@@ -42,7 +45,10 @@
           <div class="pure-u-1 pure-u-md-1-3">
 
             <div class="p_h_2">
-              <%= link_to consultation.title, consultation %>
+              <%= link_to consultation do %>
+                <%= consultation.title %>
+                <%= "(#{t('.already_responded')})" if consultation.already_responded?(current_user) %>
+              <% end %>
               <div class="soft">
                 <%= l(consultation.opens_on, format: :short) %>
                 -

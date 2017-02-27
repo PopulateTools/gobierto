@@ -34,7 +34,7 @@ module GobiertoBudgetConsultations
       with_current_site(site) do
         visit @path
 
-        assert has_content?("We need you to sign in to continue.")
+        assert has_content?("The participation in this consultation is reserved to people registered in Madrid.")
       end
     end
 

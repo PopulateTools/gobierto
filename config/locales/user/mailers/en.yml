@@ -12,4 +12,15 @@ en:
         hi: Hi
         new_activity: There's new activity in %{site_name}
         bye: Have a nice day
-
+    user_mailer:
+      confirmation_instructions:
+        subject: Complete your registration in %{site_name}
+        hi: Hi
+        click_link: "To complete your signup click the following link:"
+        ignore_link: if you didn't register in %{site_name} you can ignore this message
+        bye: Cheers
+      reset_password_instructions:
+        subject: Reset your password
+        hi: Hi
+        click_link: "You have request to reset your password. Click the following link and follow the instructions:"
+        bye: Cheers

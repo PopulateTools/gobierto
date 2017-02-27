@@ -96,7 +96,7 @@ module GobiertoBudgetConsultations
 
         click_link "Start"
 
-        assert has_message?("We need you to sign in to continue.")
+        assert has_message?("The participation in this consultation is reserved to people registered in Madrid.")
       end
     end
 

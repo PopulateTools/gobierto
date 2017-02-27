@@ -57,8 +57,6 @@ module GobiertoAdmin
         invalid_consultation_item_form.save
 
         assert_equal 1, invalid_consultation_item_form.errors.messages[:title].size
-        assert_equal 1, invalid_consultation_item_form.errors.messages[:budget_line_id].size
-        assert_equal 1, invalid_consultation_item_form.errors.messages[:budget_line_name].size
         assert_equal 1, invalid_consultation_item_form.errors.messages[:budget_line_amount].size
       end
 

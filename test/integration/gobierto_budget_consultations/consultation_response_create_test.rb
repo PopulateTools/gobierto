@@ -23,7 +23,7 @@ module GobiertoBudgetConsultations
     end
 
     def user
-      @user ||= users(:dennis)
+      @user ||= users(:peter)
     end
 
     def unverified_user
@@ -59,57 +59,48 @@ module GobiertoBudgetConsultations
     end
 
     def test_consultation_response_creation_workflow
-      with_current_site(site) do
-        with_signed_in_user(user) do
-          visit @path
+      with_javascript do
+        with_current_site(site) do
+          with_signed_in_user(user) do
+            visit @path
 
-          consultation.consultation_items.each_with_index do |consultation_item, consultation_item_index|
-            within ".consultation_item_#{consultation_item_index}" do
-              consultation_item.response_options.each do |response_option|
-                assert has_selector?(".response-option.#{response_option.label}")
-              end
+            page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger('click')
+            page.find("button", text: "Reduce").trigger('click')
+            assert_equal "Surplus", page.all(".budget-figure").last.text
+            sleep 2
+            page.find("button", text: "Increase").trigger('click')
+            assert_equal "Balanced", page.all(".budget-figure").last.text
 
-              choose I18n.t("gobierto_budget_consultations.consultation_items.options.keep")
-            end
-          end
+            assert page.find("a.budget-next i")['class'].include?("fa-check")
+            page.find("a.budget-next").trigger('click')
 
-          click_button "Enviar"
-
-          within "table.budget-line_list" do
-            consultation.consultation_items.each do |consultation_item|
-              assert has_selector?("td.budget-line_title", text: consultation_item.title)
-              assert has_selector?(
-                ".button_marker.active",
-                text: I18n.t("gobierto_budget_consultations.consultation_items.options.short.keep")
-              )
-            end
-
-            assert has_selector?(
-              ".consultation_marker.consultation_budget_amount .qty",
-              text: number_to_currency(consultation.budget_amount)
-            )
-
-            assert has_selector?(
-              ".consultation_marker.consultation_response_budget_amount .qty",
-              text: number_to_currency(consultation.consultation_items.map(&:budget_line_amount).sum)
-            )
-          end
-
-          click_link "Revisar"
-
-          assert has_selector?("form#edit_consultation_response")
-
-          click_button "Enviar"
-
-          assert has_selector?("table.budget-line_list")
-
-          click_button "Confirmar"
-
-          within ".consultation_thanks" do
-            assert has_content?("Estupendo, muchas gracias por tu aportación")
+            assert has_content?("Thanks for your response")
           end
         end
       end
     end
+
+    def test_consultation_response_creation_workflow_deficit
+      with_javascript do
+        with_current_site(site) do
+          with_signed_in_user(user) do
+            visit @path
+
+            page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger('click')
+            page.find("button", text: "Increase").trigger('click')
+            assert_equal "Deficit", page.all(".budget-figure").last.text
+            sleep 2
+            page.find("button", text: "Increase").trigger('click')
+            assert_equal "Deficit", page.all(".budget-figure").last.text
+
+            assert page.find("a.budget-next i")['class'].include?("fa-times")
+            page.find("a.budget-next").trigger('click')
+
+            refute has_content?("Estupendo, muchas gracias por tu aportación")
+          end
+        end
+      end
+    end
+
   end
 end

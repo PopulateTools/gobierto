@@ -28,7 +28,6 @@ module GobiertoAdmin
     end
 
     def set_locale
-      Rails.logger.info "ADMIN SET LOCALE"
       locale_param = params[:locale]
       locale_cookie = cookies.signed[:locale]
 

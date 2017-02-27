@@ -13,6 +13,8 @@ madrid_open:
   closes_on: <%= 1.year.from_now.to_date %>
   budget_amount: 50.0
   visibility_level: <%= GobiertoBudgetConsultations::Consultation.visibility_levels["active"] %>
+  show_figures: true
+  force_responses_balance: true
 
 madrid_open_attached:
   site: madrid
@@ -29,6 +31,8 @@ madrid_open_attached:
   closes_on: <%= 1.year.from_now.to_date %>
   budget_amount: 90.0
   visibility_level: <%= GobiertoBudgetConsultations::Consultation.visibility_levels["active"] %>
+  show_figures: true
+  force_responses_balance: false
 
 madrid_past:
   site: madrid
@@ -45,6 +49,8 @@ madrid_past:
   closes_on: <%= Date.yesterday %>
   budget_amount: 19.99
   visibility_level: <%= GobiertoBudgetConsultations::Consultation.visibility_levels["active"] %>
+  show_figures: true
+  force_responses_balance: false
 
 madrid_upcoming:
   site: madrid
@@ -61,3 +67,6 @@ madrid_upcoming:
   closes_on: <%= 1.year.from_now.to_date %>
   budget_amount: 19.99
   visibility_level: <%= GobiertoBudgetConsultations::Consultation.visibility_levels["active"] %>
+  show_figures: true
+  force_responses_balance: false
+

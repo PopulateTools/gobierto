@@ -1,113 +1,290 @@
 this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
   function ConsultationResponsesController() {}
 
-  ConsultationResponsesController.prototype.new = function(locale) {
-    handleNavigation();
-    handleBudgetCalculation(locale);
+  ConsultationResponsesController.prototype.new = function() {
+    _runConsultationApplication();
   };
 
-  function handleNavigation() {
-    var navigationWrapper = ".continue";
-    var consultationStageWrapper = ".consultation_stage";
-
-    $(consultationStageWrapper + ":first").addClass("active");
-
-    $(navigationWrapper).on("click", "[data-navigation=next]", function(e) {
-      e.preventDefault();
-      _navigateNextStage();
+  function _runConsultationApplication() {
+    $(document).on('mouseenter', '.not-allowed', function(e){
+      $(this).tipsy({offset: -40, className: 'tip-warning', fade: true, html: true, gravity: $.fn.tipsy.autoBounds(-18, 's'), opacity: 1, trigger: 'manual' });
+      $(this).tipsy('show');
     });
-  }
 
-  function handleBudgetCalculation(locale) {
-    var consultationStageWrapper = ".consultation_stage";
-    var responseOptionWrapper = ".response-option input[type=radio]";
-    var budgetLineWrapper = "[data-budget-line-amount]";
-    var currentBudgetWrapper = "[data-current-budget-amount]";
-    var currentBudgetAmount = parseFloat($(currentBudgetWrapper).data("current-budget-amount"));
-
-    _updateCurrentBudgetAmount(currentBudgetAmount, locale);
-
-    $(responseOptionWrapper).on("click", function() {
-      currentBudgetAmount = 0.0;
-
-      $(consultationStageWrapper).each(function(_, consultationStage) {
-        var selectedOption = $(consultationStage).find(responseOptionWrapper + ":checked");
-        var budgetLineAmount = parseFloat($(consultationStage).find(budgetLineWrapper).data("budget-line-amount"));
-
-        currentBudgetAmount += _calculateBudgetAmount(selectedOption.data("label"), budgetLineAmount);
-      });
-
-      _updateCurrentBudgetAmount(currentBudgetAmount, locale);
+    $(document).on('mouseenter', '.budget-status-figure', function(e){
+      $(this).tipsy({ offset: -20, className: 'tip-info', fade: true, html: true, gravity: 's', opacity: 1, trigger: 'manual' });
+      $(this).tipsy('show');
     });
-  }
 
-  function _navigateNextStage() {
-    var consultationStageWrapper = ".consultation_stage";
-    var currentStage = $(consultationStageWrapper + ".active:first");
-    var nextStage = currentStage.next(consultationStageWrapper);
+    $(document).on('mouseenter', '.consultation-status-error', function(e){
+      $(this).tipsy({ className: 'tip-warning', fade: true, html: true, gravity: 's', opacity: 1, trigger: 'manual' });
+      $(this).tipsy('show');
+    });
 
-    currentStage.removeClass("active");
-    nextStage.addClass("active");
-  }
+    $(document).on('click', '[data-tipsy-close]', function(e){
+      $('.tipsy').remove();
+    });
 
-  function _calculateBudgetAmount(operation, amount) {
-    switch(operation) {
-      case "keep":
-        return amount; // Keep amount
-        break;
-      case "increase":
-        return amount * 1.1; // Increase amount by 10.0%
-        break;
-      case "reduce":
-        return amount * 0.9; // Reduce amount by 10.0%
-        break;
-    }
-  }
+    var bus = new Vue();
 
-  function _updateCurrentBudgetAmount(amount, locale) {
-    var budgetWrapper = "[data-budget-amount]";
-    var budgetAmount = parseFloat($(budgetWrapper).data("budget-amount"));
-    var currentBudgetWrapper = "[data-current-budget-amount]";
+    Vue.component('card-description', {
+      props: ['card', 'figures'],
+      template: (isMobile() ? '#card-description-mobile'  : '#card-description-desktop'),
+      methods: {
+        beforeEnter: function (el) {
+          el.style.opacity = 0
+        },
+        enter: function (el, done) {
+          $(el).velocity("transition.slideDownIn", {duration: 200, delay: 100, complete: done});
+        },
+        leave: function (el, done) {
+          $(el).velocity("transition.slideUpOut", {duration: 200, complete: done});
+        }
+      }
+    });
 
-    $(currentBudgetWrapper).data("budget-line-amount", amount);
-    $(currentBudgetWrapper).find(".qty").html(_formatAmount(amount, locale));
+    Vue.component('consultation-card', {
+      props: ['card', 'active', 'figures'],
+      template: (isMobile() ? '#card-mobile'  : '#card-desktop'),
+      computed: {
+        iconForChoice: function(){
+          if(this.card.choice === null) return;
 
-    if (amount > budgetAmount) {
-      _setCurrentBudgetWarning();
-    } else {
-      _unsetCurrentBudgetWarning();
-    }
-  }
+          if(this.card.choice > 0) {
+            return "fa-arrow-up";
+          } else if (this.card.choice == 0){
+            return "fa-circle";
+          } else if (this.card.choice < 0){
+            return "fa-arrow-down";
+          }
+        }
+      },
+      methods: {
+        setActive: function(card, e) {
+          $('.tipsy').remove();
 
-  function _formatAmount(amount, locale) {
-    var amountFormat = amount >= 1e6 ? "0,0.0 a $" : "0,0.00 $";
-    var limitedAmountPrecision = parseFloat(Number(amount).toPrecision(3));
+          // Send the active event to the bus
+          bus.$emit('active', card);
 
-    numeral.locale(locale);
+          // Save selected card
+          var self = this;
 
-    return numeral(limitedAmountPrecision).format(amountFormat);
-  }
+          card.toggleDesc = !card.toggleDesc;
 
-  function _setCurrentBudgetWarning() {
-    if ($(".debt_marker.debt_warning").length) {
-      return true;
-    }
+          // Reset value
+          card.hidden = null;
 
-    $(".debt_marker").addClass("debt_warning");
-    $(".debt_marker .qty")
-      .velocity({backgroundColor: "#AC3E3E"})
-      .velocity("callout.flash");
-    $(".warning_text").velocity("transition.slideDownBigIn");
-  }
+          // Stick it
+          $(".desktop .consultation-info").stick_in_parent();
+        }
+      }
+    });
 
-  function _unsetCurrentBudgetWarning() {
-    if (!$(".debt_marker.debt_warning").length) {
-      return true;
-    }
+    Vue.component('budget-box', {
+      props: ['card', 'figures'],
+      template: '#budget-box',
+      methods: {
+        showModal: function(d) {
+          bus.$emit('open', d);
+        },
+        makeChoice: function(e) {
+          e.preventDefault();
+          $('.tipsy').remove();
+          bus.$emit('cardOptionChosen', $(e.target), this.card);
+        }
+      }
+    });
 
-    $(".debt_marker").removeClass("debt_warning");
-    $(".debt_marker .qty").velocity({backgroundColor: "#F0F0F0"});
-    $(".warning_text").velocity("transition.slideUpBigOut");
+    Vue.component('budget-calculator', {
+      props: ['active', 'next', 'statusText', 'status'],
+      template: '#budget-calculator',
+      methods: {
+        nextScreen: function(e){
+          e.preventDefault();
+          bus.$emit('cardOptionChosen', null, null);
+        },
+        submitConsultation: function(e){
+          e.preventDefault();
+          bus.$emit('submitConsultation');
+        },
+        showConsultationStatusError: function(e){
+          e.preventDefault();
+        }
+      }
+    });
+
+    Vue.component('description-modal', {
+      props: ['current'],
+      template: '#description-modal',
+      methods: {
+        hideModal: function() {
+          bus.$emit('close');
+        }
+      }
+    });
+
+    var app = new Vue({
+      el: (isMobile() ? "#consultation-mobile-app" : "#consultation-desktop-app"),
+      data: {
+        figures: false,
+        active: false,
+        modal: false,
+        next: false,
+        current: null,
+        cards: [],
+      },
+      computed: {
+        statusText: function(){
+          return I18n.t('gobierto_budget_consultations.consultation_statuses.' + this.status);
+        },
+        status: function(){
+          var possitiveCards = 0, negativeCards = 0;
+
+          this.$data.cards.forEach(function(card){
+            if(card.choice > 0) {
+              possitiveCards++;
+            } else if (card.choice < 0) {
+              negativeCards++;
+            }
+          });
+          if(possitiveCards === negativeCards){
+            return 'balance';
+          } else if (possitiveCards > negativeCards){
+            return 'deficit';
+          } else {
+            return 'surplus';
+          }
+        }
+      },
+      methods: {
+        fetchData: function(){
+          var self = this;
+          var url = $(self.$options.el).data('data-url');
+          $.ajax({
+            url: url,
+            dataType: 'json',
+            beforeSend: function(xhr){
+              xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            },
+            success: function(response, textStatus, jqXHR){
+              if(jqXHR.status == 200){
+                Vue.set(self, 'cards', response);
+              } else {
+                // TODO: handle errors
+              }
+            },
+          });
+        },
+        cardOptionChosenHandler: function($el, currentCard){
+          this.choiceCardAndOpenNext($el, currentCard);
+          var allSelected = true;
+          app.$data.cards.forEach(function(card){
+            if(card.choice === null)
+              allSelected = false;
+          });
+
+          if(allSelected === true){
+            Vue.set(app, 'next', true);
+            $('body').animate({
+              scrollTop: $(app.$el).offset().top - 25
+            }, 500);
+          }
+        },
+        choiceCardAndOpenNext: function($el, currentCard){
+          if(currentCard !== null){
+            app.$data.cards.forEach(function(card){
+              if(currentCard === card) {
+                card.choice = $el.data('value');
+                card.toggleDesc = false;
+              }
+            });
+          }
+          var found = false;
+          app.$data.cards.forEach(function(card){
+            if(!found && card.choice === null){
+              card.toggleDesc = true;
+              found = true;
+              bus.$emit('active', card);
+            }
+          });
+        },
+        submitConsultation: function(){
+          var self = this;
+          var url = $(self.$options.el).data('submit-url');
+          var data = app.$data.cards.map(function(card){
+            return {
+              item_id: card.id,
+              selected_option: card.choice
+            }
+          });
+          $.ajax({
+            type: "POST",
+            data: {
+              consultation_response: {
+                selected_options: data
+              }
+            },
+            url: url,
+            dataType: 'script',
+            beforeSend: function(xhr){
+              xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+            }
+          });
+        }
+      },
+      created: function() {
+        $(this.$options.el).show();
+        this.fetchData();
+
+        bus.$on('active', function(currentCard) {
+          Vue.set(app, 'active', true);
+
+          app.$data.cards.forEach(function(card){
+            if(currentCard != card)
+              card.toggleDesc = false;
+          });
+
+          var $target = $('[data-card-id="'+currentCard.id+'"]');
+          var $targetDescription = $('[data-card-description-id="'+currentCard.id+'"]');
+          if($targetDescription.length){
+            var offset = $target.offset().top - 200;
+            $targetDescription.css({ top: offset + 'px' });
+          }
+
+          window.setTimeout(function(){
+            // Scroll to selected card
+            // Set the description status
+            $('body').animate({
+              scrollTop: $target.offset().top - (isMobile() ? 25 : 85)
+            }, 300, function() {
+              // Set individual card state
+              if(isMobile()){
+                // Once animation ends, check if the span is visible
+                var isVisible = $target.find('.visibilityCheck').visible();
+
+                if (isVisible !== 'undefined') {
+                  // If is not visible, set hidden to true
+                  currentCard.hidden = isVisible ? false : true;
+                }
+              }
+            });
+          }, (isMobile() ? 250 : 0));
+        });
+
+        bus.$on('open', function(d) {
+          Vue.set(app, 'current', d);
+          Vue.set(app, 'modal', true);
+        });
+
+        bus.$on('close', function() {
+          Vue.set(app, 'modal', false);
+        });
+
+        bus.$on('cardOptionChosen', this.cardOptionChosenHandler);
+
+        bus.$on('submitConsultation', this.submitConsultation);
+      },
+    });
   }
 
   return ConsultationResponsesController;

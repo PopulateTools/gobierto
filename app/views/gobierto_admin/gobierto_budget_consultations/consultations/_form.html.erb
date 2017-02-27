@@ -8,26 +8,61 @@
 
   <div class="pure-g">
 
-    <div class="pure-u-1 pure-u-md-16-24">
+    <div class="pure-u-1 pure-u-md-16-24 tab active" data-tab="consultation_meta">
+      <% if @consultation_form.persisted? %>
+        <% if !f.object.consultation.past? %>
+          <div class="box">
+            <div class="inner">
+              <% if f.object.consultation.open? %>
+                <% if f.object.consultation.consultation_responses.any? %>
+                  <div><%= t('.current_responses_html', count: f.object.consultation.consultation_responses.count) %></div>
+                  <% if f.object.consultation.projected_responses.present? %>
+                    <div><%= t('.days_left_html', count: f.object.consultation.days_left, projected_count: f.object.consultation.projected_responses )%></div>
+                  <% end %>
+                <% else %>
+                  <div><%= t('.no_response_html', url: f.object.consultation.to_url(domain: current_site.domain)) %></div>
+                <% end %>
+              <% elsif f.object.consultation.upcoming? %>
+                <div><%= t('.upcoming') %></div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
 
-      <div class="form_item input_text">
-        <%= f.label :title %>
-        <%= f.text_field :title, placeholder: t(".placeholders.title") %>
-        <div class="inline_help">
-          <%= t(".hints.title") %>
-        </div>
-      </div>
+        <% if f.object.consultation.open? %>
+          <div class="box p_1 m_v_1">
+            <div id="check_participation_start">
+              <%= link_to t('.check_id'), admin_budget_consultation_consultation_responses_path(f.object.consultation), class: 'check_participation_control', remote: true %>
+              <div>(<%= t('.how_to_add') %>)</div>
+            </div>
 
-      <div class="form_item input_text">
-        <%= f.label :description %>
-        <%= f.text_area :description %>
-        <div class="inline_help">
-          <%= t(".hints.description") %>
+            <div id="check_participation"></div>
+            <div id="check_participation_results"></div>
+          </div>
+        <% end %>
+      <% end %>
+
+      <div class="form_block">
+        <div class="form_item input_text">
+          <%= f.label :title %>
+          <%= f.text_field :title, placeholder: t(".placeholders.title"), autofocus: true %>
+          <div class="inline_help">
+            <%= t(".hints.title") %>
+          </div>
         </div>
       </div>
 
       <div class="form_block">
+        <div class="form_item input_text">
+          <%= f.label :description %>
+          <%= f.text_area :description %>
+          <div class="inline_help">
+            <%= t(".hints.description") %>
+          </div>
+        </div>
+      </div>
 
+      <div class="form_block">
         <div class="form_item input_text">
           <%= f.label :opening_date_range %>
           <%= f.text_field :opening_date_range, data: {
@@ -41,9 +76,28 @@
             placeholder: t(".placeholders.opening_date_range")
           %>
         </div>
-
       </div>
 
+      <div class="form_block ">
+        <div class="form_item site-check-boxes">
+          <div class="options compact">
+            <div class="option">
+              <%= f.check_box :show_figures %>
+              <%= f.label :show_figures do %>
+                <span></span>
+                <%= f.object.class.human_attribute_name(:show_figures) %>
+              <% end %>
+            </div>
+            <div class="option">
+              <%= f.check_box :force_responses_balance %>
+              <%= f.label :force_responses_balance do %>
+                <span></span>
+                <%= f.object.class.human_attribute_name(:force_responses_balance) %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="pure-u-1 pure-u-md-2-24"></div>

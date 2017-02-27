@@ -5,9 +5,9 @@ module GobiertoBudgetConsultations
     include GobiertoCommon::Sortable
 
     RESPONSE_OPTIONS = {
-      0 => "reduce",
-      1 => "keep",
-      2 => "increase"
+      "-5" => "reduce",
+      "0"  => "keep",
+      "5"  => "increase"
     }.freeze
 
     SELECTED_RESPONSE_OPTION_IDS = [1].freeze

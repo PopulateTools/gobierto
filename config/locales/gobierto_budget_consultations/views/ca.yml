@@ -1,25 +1,69 @@
 ---
 ca:
   gobierto_budget_consultations:
+    events:
+      gobierto_budget_consultations_consultation_updated: Consulta actualitzada
+      gobierto_budget_consultations_consultation_published: Nova consulta publicada
+      gobierto_budget_consultations_consultation_response_deleted: Resposta de consulta eliminada
+      gobierto_budget_consultations_consultation_response_created: Resposta de consulta creada
+    consultation_statuses:
+      balance: Equilibri
+      deficit: Dèficit
+      surplus: Superàvit
+    consultation_status_error: La teva resposta està en dèficit. Revisa les teves respostes per a estar en superàvit o equilibri.
+    consultation_status_ready: Gràcies! La teva resposta està llista. Fes una última revisió i enviala.
     consultation_items:
       options:
-        increase: Aumentar la despesa un 10%
-        keep: Mantenir la despesa
-        reduce: Reduir la despesa un 10%
         short:
           increase: Aumentar
-          keep: Mantenir
+          keep: Mantindre
           reduce: Reduir
     consultations:
       index:
+        already_responded: Ja has participat
         subscribable_box:
           title: Rebeix una alerta al tu correu-e sobre els processos que es fiquen
             en marxa
+        active: Consultes actives
+        previous: Consultes anteriors
       show:
-        subscribable_box:
-          title: Rebeix actualitzacions al teu correu-e sobre canvis en aquesta consulta
+        want_to_opinate: Vols opinar?
+        explanation: És senzill, i només et portarà uns minuts. Entre tots conseguirem millorar la eficiència del nostre Ajuntament
+        open_until: Consulta oberta fins al %{date}
+        opens_at: Podràs participar en aquesta consulta a partir del %{date}
+        closed: Ho sentim, aquesta consulta està tancada
+      budget_summary:
+        opinate: Opina sobre el pressupost
+        call_to_action: Mira còm es reparteix aquesta inversió, i opina sobre les prioritats
+      consultation_items:
+        index:
+          start: Comença a opinar
+          p1: Aquestes sòn totes les partides sobre las que te volem demanar la opinió.
+          p2: Pots donar la teva opinió dient si penses que s'hauria de destinar més, menys o els mateixos recursos.
+      consultation_responses:
+        new:
+          reduce: Reduir
+          keep: Mantindre
+          increase: Augmentar
+          what: Creus que s'hauria de
+          balance_deficit: Equilibri/Déficit
+          base_budget: Pressupost base
+          title: Els %{amount} de despesses es reparteixen així - obri cada partida per a opinar
+          reduction_not_allowed_html: "<h4 class='tip-headline'>Aquesta partida no es pot reduir</h4><p>Explicació de per què no es poden reduir algunes partides.</p>"
+          explain_html: "<h4 class='tip-headline'>¿Equilibri o superávit?</h4><p>Con tus decisiones entraríamos en déficit anual: gastaríamos más de lo que ingresamos en el ejercicio y la deuda pendiente aumentaría. Puedes reevaluar tus decisiones para entrar en equilibrio.</p>"
+          open_to_opinate: Obri cada partida per a expressar la teva preferència
+      consultation_confirmations:
+        show:
+          thanks: Molt bé, moltes gràcies per la teva aportació
+          next_steps: "Què passarà ara?"
+          p1: "La consulta està oberta fins al %{date}. Anima als teus veïns a participar per a que les seves opinions també estiguen reflectides i decidim entre tots."
+          share_text: "He participat a la consulta sobre pressupostos en %{current_site_name}"
+          p2: El teu ajuntament rebrà un informe anonimitzat amb les respostes, i el equip municipal l'utilitzarà per a comprovar quines son les preferències dels veïns i tindre-les amb compte en l'elaboració dels pressupostos.
+          p3: T'enviarem un avís quan es publiquen els resultats de la consulta, i podràs rebre un altre avís quan el ajuntament publique el seu projecte de pressupostos.
     layouts:
       menu_subsections:
         consultations: Consultes
+      errors:
+        already_responded: Ja has participat en aquesta consulta
       application:
         participation: Participació

@@ -18,6 +18,10 @@ module GobiertoAdmin
       @site ||= sites(:madrid)
     end
 
+    def privacy_page
+      @privacy_page ||= gobierto_cms_pages(:privacy)
+    end
+
     def test_site_update
       with_signed_in_admin(admin) do
         visit @path
@@ -42,6 +46,8 @@ module GobiertoAdmin
             choose "Published"
           end
 
+          select privacy_page.title, from: "site_privacy_page_id"
+
           with_stubbed_s3_file_upload do
             click_button "Update"
           end
@@ -58,6 +64,7 @@ module GobiertoAdmin
           assert has_field?("site_foot_markup", with: "Site Foot markup")
           assert has_field?("site_links_markup", with: "Site Links markup")
           assert has_field?("site_google_analytics_id", with: "UA-000000-01")
+          assert has_select?("Privacy page", selected: privacy_page.title)
 
           within ".site-module-check-boxes" do
             assert has_checked_field?("Gobierto Development")

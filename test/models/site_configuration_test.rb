@@ -5,6 +5,14 @@ class SiteConfigurationTest < ActiveSupport::TestCase
     @site_configuration ||= SiteConfiguration.new(site_configuration_params)
   end
 
+  def site
+    @site = sites(:madrid)
+  end
+
+  def page
+    @page ||= gobierto_cms_pages(:privacy)
+  end
+
   def test_not_whitelisted_properties
     assert_raises(NoMethodError) do
       site_configuration.wadus
@@ -55,7 +63,6 @@ class SiteConfigurationTest < ActiveSupport::TestCase
     assert_equal site_configuration_params["available_locales"], site_configuration.available_locales
   end
 
-
   def test_logo_with_fallback_when_logo_is_present
     assert_equal site_configuration_params["logo"], site_configuration.logo_with_fallback
   end
@@ -65,6 +72,11 @@ class SiteConfigurationTest < ActiveSupport::TestCase
     site_configuration = SiteConfiguration.new(site_configuration_params)
 
     assert_equal SiteConfiguration::DEFAULT_LOGO_PATH, site_configuration.logo_with_fallback
+  end
+
+  def test_privacy_page
+    assert_equal page, site_configuration.privacy_page
+    assert site_configuration.privacy_page?
   end
 
   private
@@ -78,7 +90,9 @@ class SiteConfigurationTest < ActiveSupport::TestCase
         "demo"              => true,
         "wadus"             => "wadus", # Note that this is not a whitelisted property
         "default_locale"    => "ca",
-        "available_locales" => ["ca", "es"]
+        "available_locales" => ["ca", "es"],
+        "site_id"           => site.id,
+        "privacy_page_id"   => page.id
       }
     end
   end

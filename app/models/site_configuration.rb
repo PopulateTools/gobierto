@@ -1,5 +1,6 @@
 class SiteConfiguration
   PROPERTIES = [
+    :site_id,
     :modules,
     :logo,
     :demo,
@@ -11,6 +12,7 @@ class SiteConfiguration
     :links_markup,
     :available_locales,
     :default_locale,
+    :privacy_page_id,
   ].freeze
 
   DEFAULT_LOGO_PATH = "sites/logo-default.png".freeze
@@ -45,6 +47,14 @@ class SiteConfiguration
 
   def default_locale
     @default_locale || I18n.default_locale
+  end
+
+  def privacy_page
+    @privacy_page ||= GobiertoCms::Page.find_by(site_id: site_id, id: privacy_page_id) if site_id.present? && privacy_page_id.present?
+  end
+
+  def privacy_page?
+    privacy_page.present?
   end
 
   # Define question mark instance methods for each property.

@@ -57,7 +57,7 @@ class Site < ApplicationRecord
   end
 
   def configuration
-    @configuration ||= SiteConfiguration.new(read_attribute(:configuration_data))
+    @configuration ||= SiteConfiguration.new(site_configuration_attributes)
   end
 
   def password_protected?
@@ -65,6 +65,14 @@ class Site < ApplicationRecord
   end
 
   private
+
+  def site_configuration_attributes
+    {}.tap do |attributes|
+      attributes.merge!(read_attribute(:configuration_data) || {})
+      attributes.merge!('site_id' => self.id) unless new_record?
+      attributes
+    end
+  end
 
   def self.reserved_domains
     @reserved_domains ||= RESERVED_SUBDOMAINS.map do |subdomain|

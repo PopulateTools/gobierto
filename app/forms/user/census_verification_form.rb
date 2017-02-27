@@ -8,7 +8,8 @@ class User::CensusVerificationForm
     :date_of_birth_year,
     :date_of_birth_month,
     :date_of_birth_day,
-    :creation_ip
+    :creation_ip,
+    :referrer_url
   )
 
   validates :site, :user, presence: true

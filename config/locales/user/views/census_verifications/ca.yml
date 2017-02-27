@@ -5,6 +5,8 @@ ca:
       messages:
         already_verified: El teu compte ja està verificat
         not_verified: Necessitem verificar la teva identitat per a poder continuar
+        consultation_responses:
+          not_verified: "El procés al que vols participar exigeix que verifiques que estàs empadronat/ada en %{site_name}. Confirma les teves dades per a continuar (seràn verificades contra el padró, si no estàs empadronat/ada, no te podrem verificar)"
       new:
         title: Verifica la teva identitat
       form:

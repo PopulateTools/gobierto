@@ -43,7 +43,21 @@ module GobiertoBudgetConsultations
         with_signed_in_user(unverified_user) do
           visit @path
 
-          assert has_content?("We need to verify your identity to continue")
+          assert has_content?("The process in which you want to participate requires to verify your register in")
+
+          assert has_content?("Confirm your identity")
+
+          fill_in :user_verification_document_number, with: "00000000A"
+
+          select "1992", from: :user_verification_date_of_birth_1i
+          select "January", from: :user_verification_date_of_birth_2i
+          select "1", from: :user_verification_date_of_birth_3i
+
+          click_on "Verify"
+
+          assert has_content?("Your identity has been verified successfully")
+
+          #TODO: verify she's redirected to the consultation
         end
       end
     end

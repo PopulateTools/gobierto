@@ -2,12 +2,8 @@ class User::CensusVerificationsController < User::BaseController
   before_action :authenticate_user!
   before_action(only: [:new, :create]) { require_not_verified_user_in(current_site) }
 
-  def show
-    @user_verifications = current_user.census_verifications.sorted
-  end
-
   def new
-    @user_verification_form = User::CensusVerificationForm.new(site_id: current_site.id)
+    @user_verification_form = User::CensusVerificationForm.new(site_id: current_site.id, referrer_url: request.referrer)
   end
 
   def create
@@ -22,9 +18,9 @@ class User::CensusVerificationsController < User::BaseController
       )
     )
 
-    if @user_verification_form.save
+    if @user_verification_form.save && @user_verification_form.user.census_verified?
       redirect_to(
-        user_census_verifications_path,
+        @user_verification_form.referrer_url.present? ?  @user_verification_form.referrer_url : user_settings_path,
         notice: t('.notice')
       )
     else
@@ -36,11 +32,7 @@ class User::CensusVerificationsController < User::BaseController
   private
 
   def user_verification_params
-    params.require(:user_verification).permit(
-      :document_number,
-      :date_of_birth,
-      :site_id
-    )
+    params.require(:user_verification).permit(:document_number, :date_of_birth, :site_id, :referrer_url)
   end
 
   def ignored_user_verification_params

@@ -29,6 +29,7 @@ ca:
         municipality_id: Municipi
         default_locale: Idioma per defecte
         available_locales: Idiomes disponibles
+        privacy_page_id: Pàgina privacitat
       gobierto_admin/user_form:
         email: Email
         name: Nom

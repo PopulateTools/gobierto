@@ -21,4 +21,10 @@ module ApplicationHelper
       )
     end
   end
+
+  def privacy_policy_page_link
+    if current_site.configuration.privacy_page?
+      link_to current_site.configuration.privacy_page.title, current_site.configuration.privacy_page
+    end
+  end
 end

@@ -24,7 +24,7 @@ module ApplicationHelper
 
   def privacy_policy_page_link
     if current_site.configuration.privacy_page?
-      link_to current_site.configuration.privacy_page.title, current_site.configuration.privacy_page
+      link_to t('layouts.accept_privacy_policy_signup'), current_site.configuration.privacy_page
     end
   end
 end

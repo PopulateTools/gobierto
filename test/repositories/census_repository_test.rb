@@ -25,7 +25,7 @@ class CensusRepositoryTest < ActiveSupport::TestCase
   def test_destroy_previous_by_reference
     census_repository.create
 
-    assert_difference "CensusItem.count", -2 do
+    assert_difference "CensusItem.count", -3 do
       CensusRepository.destroy_previous_by_reference(
         site_id: census_repository.site_id,
         import_reference: 1

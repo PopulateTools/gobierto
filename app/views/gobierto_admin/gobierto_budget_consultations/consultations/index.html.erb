@@ -38,9 +38,7 @@
         </div>
       </td>
       <td>
-        <%= link_to admin_budget_consultation_consultation_responses_path(consultation) do %>
-          <%= t(".participations_count", count: consultation.consultation_responses.active.count) %>
-        <% end %>
+        <%= t(".participations_count", count: consultation.consultation_responses.active.count) %>
       </td>
       <td>
         <% if consultation.draft? %>

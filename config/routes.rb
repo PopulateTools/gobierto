@@ -44,7 +44,7 @@ Rails.application.routes.draw do
       resources :consultations, only: [:index, :show, :new, :create, :edit, :update] do
         resources :consultation_items, controller: "consultations/consultation_items", path: :items
         resource :consultation_items_sort, only: [:create], controller: "consultations/consultation_items_sort", path: :items_sort
-        resources :consultation_responses, only: [:index, :show], controller: "consultations/consultation_responses", path: :responses
+        resources :consultation_responses, only: [:index, :show, :new, :create, :destroy], controller: "consultations/consultation_responses", path: :responses
         resource :consultation_reports, only: [:show], controller: "consultations/consultation_reports", path: :reports
       end
     end
@@ -101,11 +101,12 @@ Rails.application.routes.draw do
   namespace :gobierto_budget_consultations, path: 'consultas_presupuestos' do
     constraints GobiertoSiteConstraint.new do
       resources :consultations, only: [:index, :show], path: '' do
+        member do
+          get 'presupuesto', to: 'consultations#budget_summary', as: :budget_summary
+        end
+        get 'partidas', to: 'consultations/consultation_items#index', as: :item_summary
         get 'participa', to: 'consultations/consultation_responses#new', as: :new_response
-        match :participate, to: 'consultations/consultation_responses#create', as: :response, via: [:post, :patch]
-
-        get 'resumen', to: 'consultations/consultation_confirmations#new', as: :new_confirmation
-        post 'confirma', to: 'consultations/consultation_confirmations#create', as: :confirmation
+        post 'participa', to: 'consultations/consultation_responses#create', as: :response, via: [:post]
         get 'terminado', to: 'consultations/consultation_confirmations#show', as: :show_confirmation
       end
 

@@ -1,77 +1,39 @@
-<div class="column">
-
-  <div class="pure-g block m_v_3">
-    <div class="pure-u-1 pure-u-md-1-2">
-      <h1><%= @consultation.title %></h1>
-      <p class="intro">
-        Tu municipio quiere conocer tu opinión sobre en qué se debe emplear el dinero del Ayuntamiento, tu dinero
-      </p>
-    </div>
-    <div class="pure-u-1 pure-u-md-1-2">
-      <%= image_tag('illustrations/presupuestos.jpg', class: 'side_50') %>
-    </div>
-
+<div class="column consultation">
+  <div class="consultation-intro-wrapper">
+    <%= image_tag 'illustrations/consultation.png', class: 'mt2 mb1' %>
+    <h2 class="consultation-lead mb2">
+      <%= title @consultation.title %>
+    </h2>
   </div>
+  <% if @consultation.open? %>
+    <%= link_to budget_summary_gobierto_budget_consultations_consultation_path(@consultation), class: "consultation-link" do %>
+      <div class="bottom-info">
+        <div class="teaser">
+          <h2 class="consultation-q inline-block"><%= t('.want_to_opinate') %></h2>
+          <div class="arrow-right"><i class="fa fa-arrow-right" aria-hidden="true"></i></div>
+        </div>
 
-  <div class="box p_v_2">
-
-    <div class="inner center feedback-block">
-
-      <% if @consultation.open? %>
-
-        <p>
-          <strong>
-            Sólo te llevará
-            <%= distance_of_time_in_words(@consultation.estimated_completion_time_in_seconds) %>
-          </strong>
-        </p>
-
-        <%= link_to [@consultation, :new_response], class: "button gigantic" do %>
-          Participa en la consulta
-        <% end %>
-
-        <p>
-          Destinado a cualquier ciudadano de
-          <%= current_site.location_name %>
-        </p>
-
-        <% unless user_signed_in? %>
-          <p>
-            <%= link_to new_user_sessions_path do %>
-              Necesitas estar identificado y verificado para participar
-            <% end %>
-          </p>
-        <% end %>
-
-      <% else %>
-
-        <% if @consultation.upcoming? %>
-
-          <p>
-            Podrás participar en esta consulta a partir del <%= l(@consultation.opens_on, format: :short) %>
-          </p>
-
-        <% else %>
-
-          <p>
-            Lo sentimos, esta consulta está cerrada
-          </p>
-
-        <% end %>
-
-      <% end %>
-
-    </div>
-
-  </div>
-
-  <%= @consultation.description.html_safe %>
-
-  <div class="pure-g">
-    <div class="pure-u-1 pure-u-md-1-2 description">
-      <%= render("user/subscriptions/subscribable_box",
-                 subscribable: @consultation,
-                 title: t(".subscribable_box.title")) %>
-    </div>
-  </div>
+        <p><%= t('.explanation') %></p>
+      </div>
+    <% end %>
+    <a class="consultation-deadline" href="/sandbox/consultation_faq.html"><%= t('.open_until', date: l(@consultation.closes_on, format: :short)) %></a>
+  <% else %>
+    <% if @consultation.upcoming? %>
+      <div class="bottom-info">
+        <div class="teaser">
+          <h2 class="consultation-q inline-block">
+            <%= t('.opens_at', date: l(@consultation.opens_on, format: :short)) %>
+          </h2>
+        </div>
+      </div>
+    <% else %>
+      <div class="bottom-info">
+        <div class="teaser">
+          <h2 class="consultation-q inline-block">
+            <%= t('.closed') %>
+          </h2>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
 </div>

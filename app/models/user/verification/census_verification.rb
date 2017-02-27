@@ -25,6 +25,10 @@ class User::Verification::CensusVerification < User::Verification
     @will_verify ||= census_repository.exists?
   end
 
+  def document_number_digest
+    @document_number_digest ||= SecretAttribute.digest(verification_data["document_number"])
+  end
+
   def verify!
     ActiveRecord::Base.transaction do
       update_columns(verified: will_verify?)

@@ -6,7 +6,6 @@
 //= require jquery.visible
 //= require sticky-kit.min
 //= require jquery-ui
-//= require html5sortable
 //= require tipsy
 //= require mustache.min
 //= require velocity.min
@@ -18,15 +17,15 @@
 //= require d3-distance-limited-voronoi
 //= require accounting.min
 //= require jquery.autocomplete
+//= require vue
+//= require vue-resource
 //= require klass
-//= require slick.min
 //= require air-datepicker/datepicker.min
 //= require air-datepicker/i18n/datepicker.es
 //= require air-datepicker/i18n/datepicker.en
 //= require algoliasearch.min
 //= require_directory ./settings/
 
-//= require module-admin
 //= require module-sessions
 //= require module-site_header
 //= require module-search
@@ -82,22 +81,7 @@ $(document).on('turbolinks:load', function() {
     mainClass: 'mfp-fade'
   });
 
-
   $('.close_modal').click(function(e) {
     $.magnificPopup.close();
   });
-
-  // TODO: move to gobierto budget consultations
-  $('.carousel').slick({
-    dots: true,
-    arrows: false,
-    slidesToShow: 1,
-    adaptiveHeight: true
-  });
-
-  $('.slick_next').click(function(e) {
-    $('.carousel').slick('slickNext');
-  });
-  // End TODO
-
 });

@@ -2,6 +2,8 @@ class Site < ApplicationRecord
 
   RESERVED_SUBDOMAINS = %W(presupuestos hosted)
 
+  has_many :activities
+
   # GobiertoAdmin integrations
   has_many :admin_sites, dependent: :destroy, class_name: "GobiertoAdmin::AdminSite"
   has_many :admins, through: :admin_sites, class_name: "GobiertoAdmin::Admin"

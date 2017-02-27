@@ -53,7 +53,7 @@ module GobiertoAdmin
     end
 
     def test_items_creation
-      assert_difference "CensusItem.count", 2 do
+      assert_difference "CensusItem.count", 1 do
         valid_user_census_import_form.save
       end
     end
@@ -67,7 +67,7 @@ module GobiertoAdmin
     def test_user_verifications_recalculation
       assert user_verification.verified
 
-      assert_performed_jobs 1 do
+      assert_performed_jobs 2 do
         valid_user_census_import_form.save
       end
 

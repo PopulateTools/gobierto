@@ -14,8 +14,10 @@ es:
             title: Editar partida
           form:
             placeholders:
-              budget_line_amount: 250000
+              budget_line_amount: "250.000"
               title: Pavimentación de vías públicas
+              budget_line_name: (Opcional) Elige una partida de la clasificación oficial
+              description: Describe esta partida brevemente
           index:
             consultation_items_section: Partidas
             consultation_section: Consulta

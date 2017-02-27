@@ -133,6 +133,7 @@ es:
       too_short: es demasiado corto (%{count} caracteres mínimo)
       wrong_length: no tiene la longitud correcta (%{count} caracteres exactos)
       blank_for_modules: tiene que ser un municipio para que los módulos activos funcionen
+      invalid_consultation_response: No se ha podido guardar la consulta. Por favor, revisa los valores e inténtalo de nuevo.
     template:
       body: 'Se encontraron problemas con los siguientes campos:'
       header:

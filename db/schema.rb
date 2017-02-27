@@ -137,34 +137,37 @@ ActiveRecord::Schema.define(version: 20170224090622) do
     t.datetime "created_at",                                                  null: false
     t.datetime "updated_at",                                                  null: false
     t.string   "budget_line_name",                            default: "",    null: false
+    t.boolean  "block_reduction",                             default: false
     t.index ["consultation_id"], name: "index_gbc_consultation_items_on_consultation_id", using: :btree
   end
 
   create_table "gbc_consultation_responses", force: :cascade do |t|
     t.integer  "consultation_id"
-    t.integer  "user_id"
     t.text     "consultation_items"
-    t.decimal  "budget_amount",      precision: 12, scale: 2, default: "0.0", null: false
-    t.integer  "visibility_level",                            default: 0,     null: false
-    t.datetime "created_at",                                                  null: false
-    t.datetime "updated_at",                                                  null: false
+    t.decimal  "budget_amount",          precision: 12, scale: 2, default: "0.0", null: false
+    t.integer  "visibility_level",                                default: 0,     null: false
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
     t.string   "sharing_token"
+    t.string   "document_number_digest"
     t.index ["consultation_id"], name: "index_gbc_consultation_responses_on_consultation_id", using: :btree
+    t.index ["document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true, using: :btree
     t.index ["sharing_token"], name: "index_gbc_consultation_responses_on_sharing_token", unique: true, using: :btree
-    t.index ["user_id"], name: "index_gbc_consultation_responses_on_user_id", using: :btree
   end
 
   create_table "gbc_consultations", force: :cascade do |t|
-    t.string   "title",                                     default: "",    null: false
-    t.text     "description",                               default: "",    null: false
+    t.string   "title",                                            default: "",    null: false
+    t.text     "description",                                      default: "",    null: false
     t.date     "opens_on"
     t.date     "closes_on"
-    t.integer  "visibility_level",                          default: 0,     null: false
-    t.decimal  "budget_amount",    precision: 12, scale: 2, default: "0.0", null: false
+    t.integer  "visibility_level",                                 default: 0,     null: false
+    t.decimal  "budget_amount",           precision: 12, scale: 2, default: "0.0", null: false
     t.integer  "admin_id"
     t.integer  "site_id"
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
+    t.boolean  "show_figures",                                     default: true
+    t.boolean  "force_responses_balance",                          default: false
     t.index ["admin_id"], name: "index_gbc_consultations_on_admin_id", using: :btree
     t.index ["site_id"], name: "index_gbc_consultations_on_site_id", using: :btree
   end

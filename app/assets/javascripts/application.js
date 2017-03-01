@@ -20,9 +20,6 @@
 //= require vue
 //= require vue-resource
 //= require klass
-//= require air-datepicker/datepicker.min
-//= require air-datepicker/i18n/datepicker.es
-//= require air-datepicker/i18n/datepicker.en
 //= require algoliasearch.min
 //= require_directory ./settings/
 

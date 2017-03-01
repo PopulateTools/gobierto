@@ -506,22 +506,44 @@ img.side_50 {
   }
 }
 .consultation-info.surplus-1 {
-  background: lighten($color_success, 20%);
+  background: lighten($color_success, 40%);
 }
 .consultation-info.surplus-2 {
-  background: lighten($color_success, 10%);
+  background: lighten($color_success, 30%);
 }
 .consultation-info.surplus-3 {
+  background: lighten($color_success, 20%);
+}
+.consultation-info.surplus-4 {
+  background: lighten($color_success, 10%);
+}
+.consultation-info.surplus-5 {
   background: $color_success;
 }
 .consultation-info.deficit-1 {
-  background: lighten($color_warn, 20%);
+  background: lighten($color_warn, 40%);
 }
 .consultation-info.deficit-2 {
-  background: lighten($color_warn, 10%);
+  background: lighten($color_warn, 30%);
 }
 .consultation-info.deficit-3 {
+  background: lighten($color_warn, 20%);
+}
+.consultation-info.deficit-4 {
+  background: lighten($color_warn, 10%);
+}
+.consultation-info.deficit-5 {
   background: $color_warn;
+}
+.consultation-info.surplus-1 .wrapper,
+.consultation-info.surplus-2 .wrapper,
+.consultation-info.surplus-1 .budget-next,
+.consultation-info.surplus-2 .budget-next,
+.consultation-info.deficit-1 .wrapper,
+.consultation-info.deficit-2 .wrapper,
+.consultation-info.deficit-1 .budget-next,
+.consultation-info.deficit-2 .budget-next {
+  color: $color_dark;
 }
 .consultation-info.is_stuck {
   height: 80px;

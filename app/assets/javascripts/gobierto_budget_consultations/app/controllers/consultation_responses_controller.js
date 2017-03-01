@@ -145,6 +145,12 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
         status: function(){
           var possitiveCards = 0, negativeCards = 0;
 
+          // Calculate the intensity of the surplus or deficit
+          var budgetChange = d3.scaleLinear()
+            .range([0, 5])
+            .domain([0, this.cards.length / 5])
+            .clamp(true);
+
           this.$data.cards.forEach(function(card){
             if(card.choice > 0) {
               possitiveCards++;
@@ -155,9 +161,9 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
           if(possitiveCards === negativeCards){
             return 'balance';
           } else if (possitiveCards > negativeCards){
-            return 'deficit deficit-' + possitiveCards;
+            return 'deficit deficit-' + Math.round(budgetChange(possitiveCards));
           } else {
-            return 'surplus surplus-' + negativeCards;
+            return 'surplus surplus-' + Math.round(budgetChange(negativeCards));
           }
         }
       },

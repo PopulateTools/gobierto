@@ -16,8 +16,6 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
       $(this).tipsy('show');
     });
     
-    console.log(isMobile());
-    
     $(document).on('mouseenter', '.consultation-status-error', function(e){
       $(this).tipsy({ className: 'tip-warning', fade: true, html: true, gravity: 's', opacity: 1, trigger: 'manual' });
       $(this).tipsy('show');

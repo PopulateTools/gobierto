@@ -317,6 +317,10 @@ img.side_50 {
 .consultation-figure {
   font-weight: 300;
   float: right;
+  width: 5rem;
+}
+.consultation-figure span {
+  float: right;
 }
 .consultation-figure .fa-arrow-up {
   color: $color_1;

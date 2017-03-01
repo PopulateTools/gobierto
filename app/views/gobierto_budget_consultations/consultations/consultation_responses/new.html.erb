@@ -152,7 +152,7 @@
 </template>
 
 <template id="budget-calculator">
-  <div class="consultation-info" :class="getStatus">
+  <div class="consultation-info" :class="[{ active: active }, getStatus]">
     <div class="pure-g wrapper" v-if="active">
       <div class="pure-u-5-6">
         <div class="pure-g">

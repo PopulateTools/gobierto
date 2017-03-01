@@ -537,10 +537,6 @@ img.side_50 {
 .consultation-info.deficit-3 {
   background: $color_warn;
 }
-.consultation-info.is_stuck {
-  height: 80px;
-  z-index: 100000001;
-}
 .consultation-info h4 {
   text-align: center;
   font-size: 0.9rem;
@@ -550,6 +546,12 @@ img.side_50 {
   @include min-screen(768) {
     padding: 1rem;
     margin-bottom: 0;
+  }
+}
+.consultation-info.active {
+  @include min-screen(768) {
+    height: 84px;
+    z-index: 100000001;
   }
 }
 .consultation-info .wrapper {

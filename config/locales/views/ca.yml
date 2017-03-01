@@ -1,5 +1,24 @@
 ---
 ca:
+  census:
+    events:
+      census_census_imported: Cens importat
+  sites:
+    events:
+      sites_site_visibility_updated: Site publicat
+      sites_site_created: Site creat
+      sites_site_updated: Site actualitzat
+      sites_site_destroyed: Site eliminat
+  admins:
+    events:
+      admins_admin_authorization_level_updated: Nivel autorització admin actualitzat
+      admins_invitation_created: Admin invitat
+      admins_invitation_accepted: Invitació admin aceptada
+      admins_admin_created: Admin creat
+      admins_admin_updated: Admin actualitzat
+  users:
+    events:
+      users_user_updated: Usuari actualitzat
   based_on: Web basat en
   invisible_captcha:
     sentence_for_humans: "Si ets humà, per favor, ignora este camp."

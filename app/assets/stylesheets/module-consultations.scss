@@ -505,6 +505,24 @@ img.side_50 {
     margin-bottom: 0.25rem;
   }
 }
+.consultation-info.surplus-1 {
+  background: lighten($color_success, 20%);
+}
+.consultation-info.surplus-2 {
+  background: lighten($color_success, 10%);
+}
+.consultation-info.surplus-3 {
+  background: $color_success;
+}
+.consultation-info.deficit-1 {
+  background: lighten($color_warn, 20%);
+}
+.consultation-info.deficit-2 {
+  background: lighten($color_warn, 10%);
+}
+.consultation-info.deficit-3 {
+  background: $color_warn;
+}
 .consultation-info.is_stuck {
   height: 80px;
   z-index: 100000001;

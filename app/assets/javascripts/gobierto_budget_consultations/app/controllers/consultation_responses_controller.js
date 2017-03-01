@@ -98,6 +98,11 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
     Vue.component('budget-calculator', {
       props: ['active', 'next', 'statusText', 'status'],
       template: '#budget-calculator',
+      computed: {
+        getStatus: function(d) {
+          return this.status;
+        }
+      },
       methods: {
         nextScreen: function(e){
           e.preventDefault();
@@ -135,7 +140,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
       },
       computed: {
         statusText: function(){
-          return I18n.t('gobierto_budget_consultations.consultation_statuses.' + this.status);
+          return I18n.t('gobierto_budget_consultations.consultation_statuses.' + this.status.split(' ')[0]);
         },
         status: function(){
           var possitiveCards = 0, negativeCards = 0;
@@ -150,9 +155,9 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
           if(possitiveCards === negativeCards){
             return 'balance';
           } else if (possitiveCards > negativeCards){
-            return 'deficit';
+            return 'deficit deficit-' + possitiveCards;
           } else {
-            return 'surplus';
+            return 'surplus surplus-' + negativeCards;
           }
         }
       },

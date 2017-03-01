@@ -18,7 +18,7 @@ es:
       admins_admin_updated: Admin actualizado
   users:
     events:
-      users.user_updated: Usuario actualizado
+      users_user_updated: Usuario actualizado
   based_on: Web basada en 
   invisible_captcha:
     sentence_for_humans: "Si eres humano, por favor ignora este campo."

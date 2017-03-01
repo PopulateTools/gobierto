@@ -18,7 +18,7 @@ ca:
       admins_admin_updated: Admin actualitzat
   users:
     events:
-      users.user_updated: Usuari actualitzat
+      users_user_updated: Usuari actualitzat
   based_on: Web basat en
   invisible_captcha:
     sentence_for_humans: "Si ets humà, per favor, ignora este camp."

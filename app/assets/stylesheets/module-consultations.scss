@@ -611,12 +611,12 @@ img.side_50 {
   background: url(image_path('tipsy')) no-repeat top left;
   width: 9px;
   height: 5px;
+  transform: rotate(180deg);
   background: url(image_path('tipsy_info'));
   bottom: 0;
   left: 50%;
   margin-left: -4px;
   background-position: bottom left;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 .tip-info .tipsy-inner {
   background: $color_main;

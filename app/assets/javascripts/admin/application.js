@@ -10,6 +10,9 @@
 //= require ./app/init
 //= require_tree ./app
 
+//= require module-admin
+
+
 $(document).on('turbolinks:load', function() {
 
   if($('.air-datepicker').length){

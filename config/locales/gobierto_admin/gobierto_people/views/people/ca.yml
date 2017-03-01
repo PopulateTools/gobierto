@@ -36,6 +36,7 @@ ca:
           visibility_level: 
             draft: Borrador
             active: Publicat
+          drag_to_sort: Arrastra per a ordenar
         navigation:
           agenda: Agenda
           person: Persona

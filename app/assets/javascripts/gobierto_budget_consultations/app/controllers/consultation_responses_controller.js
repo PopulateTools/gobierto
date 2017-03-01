@@ -12,7 +12,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
     });
 
     $(document).on('mouseenter', '.budget-status-figure', function(e){
-      $(this).tipsy({ offset: 20, className: 'tip-info', fade: true, html: true, gravity: $.fn.tipsy.autoBounds(-20, 'n'), opacity: 1, trigger: 'manual' });
+      $(this).tipsy({ offset: isMobile ? -20 : 20, className: 'tip-info', fade: true, html: true, gravity: isMobile ? 's' : $.fn.tipsy.autoBounds(-20, 'n'), opacity: 1, trigger: 'manual' });
       $(this).tipsy('show');
     });
 

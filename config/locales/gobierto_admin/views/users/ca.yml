@@ -14,7 +14,7 @@ ca:
         resend_welcome_email_notes: amb enllaç per a canviar la contrasenya
       index:
         admins_section: Administradors
-        census_configuration: Configuració de cens
+        census_configuration: Cens
         header:
           created_at: Creat
           email: Email

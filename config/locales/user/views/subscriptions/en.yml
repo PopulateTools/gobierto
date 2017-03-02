@@ -22,7 +22,6 @@ en:
         people: People
       subscribable_box:
         cancel: Already subscribed. Cancel?
-        disclaimer: No spam. Cancel anytime.
         form:
           placeholders:
             user_email: Your e-mail

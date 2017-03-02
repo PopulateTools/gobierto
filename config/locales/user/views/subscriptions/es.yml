@@ -22,7 +22,6 @@ es:
         people: Personas
       subscribable_box:
         cancel: Ya estás suscrito. ¿Cancelar?
-        disclaimer: No spam. Date de baja cuando quieras.
         form:
           placeholders:
             user_email: Tu correo-e

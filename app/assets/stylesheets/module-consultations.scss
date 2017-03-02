@@ -576,6 +576,7 @@ img.side_50 {
 .consultation-info .wrapper .budget-base,
 .consultation-info .wrapper .budget-status {
   width: 40%;
+  margin-right: -3.5px;
   display: inline-block;
   padding: .25rem .75rem 0.5rem 0.75rem;
   border-right: 1px solid transparentize($color_main_negative, 0.2);

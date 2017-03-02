@@ -32,11 +32,12 @@
         <%= f.email_field :user_email, placeholder: defined?(placeholder) ? placeholder : t(".form.placeholders.user_email") %>
 
         <%= f.submit t(".form.submit") %>
+        <div class="disclaimer"><%= privacy_policy_page_link %></div>
+        
       <% end %>
 
     <% end %>
 
-    <div class="disclaimer"><%= privacy_policy_page_link %></div>
   </div>
 </div>
 

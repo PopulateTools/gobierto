@@ -24,7 +24,7 @@ es:
     sentence_for_humans: "Si eres humano, por favor ignora este campo."
     timestamp_error_message: "Lo siento, eso ha sido muy rápido. Por favor, vuelve a enviar el formulario."
   layouts:
-    accept_privacy_policy_signup: Si te registras estarás aceptando la política de privacidad
+    accept_privacy_policy_signup: Al registrarte estás aceptando la Política de Privacidad
     main_menu: 
       search: Busca...
     application:

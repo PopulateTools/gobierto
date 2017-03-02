@@ -19,7 +19,7 @@
     <consultation-card v-for="card in cards" :card="card" :active="active" :figures="figures"></consultation-card>
   </div>
 
-  <budget-calculator :active="active" :next="next" :status-text="statusText" :status="status"></budget-calculator>
+  <budget-calculator :active="active" :next="next" :status-text="statusText" :status="status" :status-class="statusClass"></budget-calculator>
   <description-modal v-if="modal" :current="current"></description-modal>
 </div>
 
@@ -40,7 +40,7 @@
           </div>
         </div>
 
-        <budget-calculator :active="active" :next="next" :status-text="statusText" :status="status"></budget-calculator>
+        <budget-calculator :active="active" :next="next" :status-text="statusText" :status="status" :status-class="statusClass"></budget-calculator>
         <consultation-card v-for="card in cards" :card="card" :active="active" :figures="figures"></consultation-card>
       </div>
     </div>
@@ -152,7 +152,7 @@
 </template>
 
 <template id="budget-calculator">
-  <div class="consultation-info" :class="[{ active: active }, getStatus]">
+  <div class="consultation-info" :class="[{ active: active }, statusClass]">
     <div class="pure-g wrapper" v-if="active">
       <div class="pure-u-5-6">
         <div class="budget-base">

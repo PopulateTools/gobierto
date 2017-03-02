@@ -15,7 +15,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
       $(this).tipsy({ offset: isMobile() ? -20 : 20, className: 'tip-info', fade: true, html: true, gravity: isMobile() ? 's' : 'n', opacity: 1, trigger: 'manual' });
       $(this).tipsy('show');
     });
-    
+
     $(document).on('click', '.consultation-status-error', function(e){
       $(this).tipsy({ className: 'tip-warning', fade: true, html: true, gravity: 's', opacity: 1, trigger: 'manual' });
       $(this).tipsy('show');
@@ -96,13 +96,8 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
     });
 
     Vue.component('budget-calculator', {
-      props: ['active', 'next', 'statusText', 'status'],
+      props: ['active', 'next', 'statusText', 'status', 'statusClass'],
       template: '#budget-calculator',
-      computed: {
-        getStatus: function(d) {
-          return this.status;
-        }
-      },
       methods: {
         nextScreen: function(e){
           e.preventDefault();
@@ -136,42 +131,40 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
         modal: false,
         next: false,
         current: null,
-        statusDifference: null,
+        statusDifference: 0,
         cards: [],
+        negativeCards: 0,
+        possitiveCards: 0
       },
       computed: {
         statusText: function(){
-          return I18n.t('gobierto_budget_consultations.consultation_statuses.' + this.status.split(' ')[0]);
+          return I18n.t('gobierto_budget_consultations.consultation_statuses.' + this.status);
         },
-        status: function(){
-          var possitiveCards = 0, negativeCards = 0;
-          var statusClass = 0;
-
-          this.$data.cards.forEach(function(card){
-            if(card.choice > 0) {
-              possitiveCards++;
-            } else if (card.choice < 0) {
-              negativeCards++;
-            }
-          });
-          
+        statusClass: function(){
+          var classId = 0;
           // Track difference between status
           // The status class variable maxes out at 4 to be applied to the card class
-          this.statusDifference = possitiveCards - negativeCards;
-          statusClass = this.statusDifference;
-          
+          classId = this.statusDifference;
+
           if (this.statusDifference > 4) {
-            statusClass = 4;
+            classId = 4;
           } else if (this.statusDifference < -4) {
-            statusClass = -4;
+            classId = -4;
           }
-          
+
+          if (this.statusDifference < 0){
+            return 'surplus surplus-' + Math.abs(classId);
+          } else if (this.statusDifference > 0) {
+            return 'deficit deficit-' + Math.abs(classId);
+          }
+        },
+        status: function(){
           if(this.statusDifference === 0){
             return 'balance';
           } else if (this.statusDifference < 0){
-            return 'surplus surplus-' + Math.abs(statusClass);
+            return 'surplus';
           } else {
-            return 'deficit deficit-' + Math.abs(statusClass);
+            return 'deficit';
           }
         }
       },
@@ -218,6 +211,15 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
               }
             });
           }
+
+          if(currentCard.choice > 0) {
+            this.possitiveCards++;
+          } else if (currentCard.choice < 0) {
+            this.negativeCards++;
+          }
+          this.statusDifference = this.possitiveCards - this.negativeCards;
+          // Vue.set(app, 'statusDifference', this.possitiveCards - this.negativeCards);
+
           var found = false;
           app.$data.cards.forEach(function(card){
             if(!found && card.choice === null){

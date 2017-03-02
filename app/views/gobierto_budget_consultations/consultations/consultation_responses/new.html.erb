@@ -45,7 +45,13 @@
       </div>
     </div>
 
-    <div class="pure-u-1 pure-u-md-1-2">
+    <div class="pure-u-1 pure-u-md-1-2 description">
+      <div v-if="next" class="consultation-confirm">
+        <%= image_tag 'illustrations/crm.jpg', class: 'pure-img' %>
+        
+        <h3>¡Muchas gracias! Por favor, envía tu respuesta</h3>
+        <button @click="submitConsultation">Enviar</button>
+      </div>
       <card-description v-for="card in cards" :card="card" :figures="figures"></card-description>
     </div>
   </div>

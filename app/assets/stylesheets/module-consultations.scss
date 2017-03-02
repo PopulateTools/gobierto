@@ -476,7 +476,7 @@ img.side_50 {
   padding: 0.5rem 0.25rem;
 }
 .border {
-  margin: 0;
+  margin: 0.15rem 0.1rem 0.15rem 0.1rem;
   
   @include min-screen(768) {
     margin: 0.15rem 1.1rem 0.15rem 1.1rem;

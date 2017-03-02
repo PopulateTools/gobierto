@@ -7,9 +7,9 @@ class User::ConfirmationsController < User::BaseController
     @user_confirmation_form = User::ConfirmationForm.new(
       confirmation_token: params[:confirmation_token]
     )
+
     @user_genders = get_user_genders
     @user_years_of_birth = get_user_years_of_birth
-
     unless @user_confirmation_form.user
       redirect_to root_path, alert: t(".error")
     end
@@ -39,14 +39,12 @@ class User::ConfirmationsController < User::BaseController
   private
 
   def user_confirmation_params
-    params.require(:user_confirmation).permit(
-      :confirmation_token,
-      :name,
-      :password,
-      :password_confirmation,
-      :year_of_birth,
-      :gender
-    )
+    permitted_params = [:confirmation_token, :name, :password, :password_confirmation, :year_of_birth, :gender]
+    if params[:user_confirmation] && params[:user_confirmation][:custom_records]
+      permitted_params << {custom_records: Hash[params[:user_confirmation][:custom_records].keys.map{ |k| [k, [:custom_user_field_id, :value]] }]}
+    end
+
+    params.require(:user_confirmation).permit(permitted_params)
   end
 
   def get_user_genders

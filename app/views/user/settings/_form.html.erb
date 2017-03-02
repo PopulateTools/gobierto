@@ -56,6 +56,8 @@
 
   </div>
 
+  <%= render partial: 'user/shared/custom_fields', locals: {custom_records: f.object.custom_records, form_name: "user_settings"} %>
+
   <%= f.submit t(".submit"), class: "button" %>
 
 <% end %>

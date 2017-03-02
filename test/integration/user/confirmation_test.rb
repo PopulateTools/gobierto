@@ -7,15 +7,15 @@ class User::ConfirmationTest < ActionDispatch::IntegrationTest
   end
 
   def user
-    @user ||= users(:dennis)
+    @user ||= users(:susan)
   end
 
   def unconfirmed_user
-    @unconfirmed_user ||= users(:reed)
+    @unconfirmed_user ||= users(:charles)
   end
 
   def site
-    @site ||= sites(:madrid)
+    @site ||= sites(:santander)
   end
 
   def test_confirmation

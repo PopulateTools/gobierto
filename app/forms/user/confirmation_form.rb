@@ -1,5 +1,6 @@
 class User::ConfirmationForm
   include ActiveModel::Model
+  include GobiertoCommon::CustomUserFieldsHelper
 
   attr_accessor(
     :confirmation_token,
@@ -11,9 +12,8 @@ class User::ConfirmationForm
   )
   attr_reader :user
 
-  validates :name, :year_of_birth, :gender, presence: true
+  validates :name, :year_of_birth, :gender, :user, presence: true
   validates :password, presence: true, confirmation: true
-  validates :user, presence: true
 
   def save
     return false unless valid?
@@ -29,6 +29,10 @@ class User::ConfirmationForm
     @email ||= user.email
   end
 
+  def site
+    @site ||= user.source_site
+  end
+
   private
 
   def save_user
@@ -37,6 +41,7 @@ class User::ConfirmationForm
       user_attributes.password = password
       user_attributes.year_of_birth = year_of_birth
       user_attributes.gender = gender
+      user_attributes.custom_records = custom_records
     end
 
     if @user.valid?

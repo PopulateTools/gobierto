@@ -12,9 +12,8 @@ class User::SettingsController < User::BaseController
   end
 
   def update
-    @user_settings_form = User::SettingsForm.new(
-      user_settings_params.merge(user_id: current_user.id)
-    )
+    @user_settings_form = User::SettingsForm.new(user_id: current_user.id)
+    @user_settings_form.assign_attributes(user_settings_params)
 
     if @user_settings_form.save
       flash[:notice] = t(".success")
@@ -30,13 +29,12 @@ class User::SettingsController < User::BaseController
   private
 
   def user_settings_params
-    params.require(:user_settings).permit(
-      :name,
-      :password,
-      :password_confirmation,
-      :year_of_birth,
-      :gender
-    )
+    permitted_params = [:name, :password, :password_confirmation, :year_of_birth, :gender]
+    if params[:user_settings] && params[:user_settings][:custom_records]
+      permitted_params << {custom_records: Hash[params[:user_settings][:custom_records].keys.map{ |k| [k, [:custom_user_field_id, :value]] }]}
+    end
+
+    params.require(:user_settings).permit(permitted_params)
   end
 
   def get_user_genders

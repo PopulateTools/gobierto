@@ -34,9 +34,7 @@
   </div>
 
   <div class="form_item">
-
     <div class="options options_cont">
-
       <%= f.label :gender, t(".your_gender_is") %>
       <i class="fa fa-question-circle tipsit" title="<%= t(".hints.gender") %>"></i>
 
@@ -53,10 +51,10 @@
           </div>
         <% end %>
       </div>
-
     </div>
-
   </div>
+
+  <%= render partial: 'user/shared/custom_fields', locals: {custom_records: f.object.custom_records, form_name: "user_confirmation"} %>
 
   <%= f.submit t(".submit"), class: "button" %>
 

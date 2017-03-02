@@ -1,5 +1,6 @@
 class User::SettingsForm
   include ActiveModel::Model
+  include GobiertoCommon::CustomUserFieldsHelper
 
   attr_accessor(
     :user_id,
@@ -13,9 +14,8 @@ class User::SettingsForm
 
   attr_reader :user
 
-  validates :name, :year_of_birth, :gender, presence: true
+  validates :name, :year_of_birth, :gender, :user, presence: true
   validates :password, confirmation: true
-  validates :user, presence: true
 
   def save
     save_user_settings if valid?
@@ -23,6 +23,10 @@ class User::SettingsForm
 
   def user
     @user ||= User.find_by(id: user_id)
+  end
+
+  def site
+    @site ||= user.source_site
   end
 
   private
@@ -33,6 +37,7 @@ class User::SettingsForm
       user_attributes.password = password if password
       user_attributes.year_of_birth = year_of_birth
       user_attributes.gender = gender
+      user_attributes.custom_records = custom_records
     end
 
     if @user.valid?

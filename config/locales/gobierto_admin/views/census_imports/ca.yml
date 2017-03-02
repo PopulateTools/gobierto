@@ -14,7 +14,6 @@ ca:
         new:
           final_notes: es sustituiràn tots els registres, i si algún DNI d'usuari
             verificat deixa d'estar present, el usuari deixará de tindre accés
-          import_status: La verificació dels usuaris se realitza contra el archiu
-            de cens actualitzat per última volta el %{created_at} per %{admin_name}
-            (%{admin_email}). El arcxiu te %{imported_records} registres.
+          import_status: El cens ha sigut actualitzat per última volta el %{created_at} per %{admin_name}
+            (%{admin_email}). El arxiu té %{imported_records} registres.
           title: Configuració de cens

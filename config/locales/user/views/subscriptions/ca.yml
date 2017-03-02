@@ -22,7 +22,6 @@ ca:
         people: Persones
       subscribable_box:
         cancel: Ja estàs subscrits. cancel·lar?
-        disclaimer: No spam. Dona't de baixa quan vullgues.
         form:
           placeholders:
             user_email: El teu correu-e

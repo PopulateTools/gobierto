@@ -24,7 +24,7 @@ ca:
     sentence_for_humans: "Si ets humà, per favor, ignora este camp."
     timestamp_error_message: "Disulpa, això ha sigut molt rapid. Torna a enviar el formulari."
   layouts:
-    accept_privacy_policy_signup: Si et registres estàs acceptant la política de privacitat
+    accept_privacy_policy_signup: Al registrar-te estàs acceptant la Política de Privacitat
     main_menu: 
       search: Cerca...
     application:

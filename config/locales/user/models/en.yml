@@ -8,14 +8,14 @@ en:
         name: Your name
         password: Your password
         password_confirmation: Your password, one more time
-        year_of_birth: Year of birth
+        date_of_birth: Date of birth
       user/settings_form:
         email: Your e-mail
         gender: Gender
         name: Your name
         password: Your password
         password_confirmation: Your password, one more time
-        year_of_birth: Year of birth
+        date_of_birth: Date of birth
       user/confirmation_request_form:
         email: Your e-mail
       user/edit_password_form:

@@ -7,8 +7,14 @@ class User::ConfirmationFormTest < ActiveSupport::TestCase
       name: unconfirmed_user.name,
       password: "wadus",
       password_confirmation: "wadus",
-      year_of_birth: unconfirmed_user.year_of_birth,
-      gender: unconfirmed_user.gender
+      date_of_birth_year: unconfirmed_user.date_of_birth.year,
+      date_of_birth_month: unconfirmed_user.date_of_birth.month,
+      date_of_birth_day: unconfirmed_user.date_of_birth.day,
+      gender: unconfirmed_user.gender,
+      custom_records: {
+        madrid_custom_user_field_district.name => { "custom_user_field_id" => madrid_custom_user_field_district.id, "value" => madrid_custom_user_field_district.options.keys.first },
+        madrid_custom_user_field_association.name => { "custom_user_field_id" => madrid_custom_user_field_association.id, "value" => "Foo" }
+      }
     )
   end
 
@@ -18,9 +24,19 @@ class User::ConfirmationFormTest < ActiveSupport::TestCase
       name: nil,
       password: nil,
       password_confirmation: nil,
-      year_of_birth: nil,
+      date_of_birth_year: nil,
+      date_of_birth_month: nil,
+      date_of_birth_day: nil,
       gender: nil
     )
+  end
+
+  def madrid_custom_user_field_district
+    madrid_custom_user_field_district ||= gobierto_common_custom_user_fields(:madrid_custom_user_field_district)
+  end
+
+  def madrid_custom_user_field_association
+    madrid_custom_user_field_association ||= gobierto_common_custom_user_fields(:madrid_custom_user_field_association)
   end
 
   def unconfirmed_user
@@ -41,7 +57,7 @@ class User::ConfirmationFormTest < ActiveSupport::TestCase
     assert_equal 1, invalid_user_confirmation_form.errors.messages[:user].size
     assert_equal 1, invalid_user_confirmation_form.errors.messages[:name].size
     assert_equal 1, invalid_user_confirmation_form.errors.messages[:password].size
-    assert_equal 1, invalid_user_confirmation_form.errors.messages[:year_of_birth].size
+    assert_equal 1, invalid_user_confirmation_form.errors.messages[:date_of_birth].size
     assert_equal 1, invalid_user_confirmation_form.errors.messages[:gender].size
   end
 

@@ -21,7 +21,9 @@ class User::ConfirmationWithCustomFieldsTest < ActionDispatch::IntegrationTest
       fill_in :user_confirmation_name, with: "user@email.dev"
       fill_in :user_confirmation_password, with: "wadus"
       fill_in :user_confirmation_password_confirmation, with: "wadus"
-      select 20.years.ago.year, from: :user_confirmation_year_of_birth
+      select "1992", from: :user_confirmation_date_of_birth_1i
+      select "January", from: :user_confirmation_date_of_birth_2i
+      select "1", from: :user_confirmation_date_of_birth_3i
       choose "Male"
       select "Center", from: "Districts"
       fill_in "Association", with: "Asociación Vecinos Arganzuela"
@@ -46,9 +48,10 @@ class User::ConfirmationWithCustomFieldsTest < ActionDispatch::IntegrationTest
       fill_in :user_confirmation_name, with: "user@email.dev"
       fill_in :user_confirmation_password, with: "wadus"
       fill_in :user_confirmation_password_confirmation, with: "wadus"
-      select 20.years.ago.year, from: :user_confirmation_year_of_birth
+      select "1992", from: :user_confirmation_date_of_birth_1i
+      select "January", from: :user_confirmation_date_of_birth_2i
+      select "1", from: :user_confirmation_date_of_birth_3i
       choose "Male"
-
       click_on "Save"
 
       assert has_message?("The data you entered doesn't seem to be valid. Please try again.")

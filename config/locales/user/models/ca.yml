@@ -8,14 +8,14 @@ ca:
         name: El teu Nom
         password: La teva contrasenya
         password_confirmation: La teva contrasenya, de nou
-        year_of_birth: Any de naiximent
+        date_of_birth: Data de naiximent
       user/settings_form:
         email: El teu Correu-e
         gender: Genre
         name: El teu Nom
         password: La teva contrasenya
         password_confirmation: La teva contrasenya, de nou
-        year_of_birth: Any de naiximent
+        date_of_birth: Data de naiximent
       user/confirmation_request_form:
         email: El teu Correu-e
       user/edit_password_form:

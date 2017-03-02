@@ -10,7 +10,7 @@ dennis:
   last_sign_in_at: 2016-12-01 00:00:00
   last_sign_in_ip: 0.0.0.0
   census_verified: true
-  year_of_birth: 1990
+  date_of_birth: <%= Date.parse("1990-01-01") %>
   gender: <%= User.genders["female"] %>
   notification_frequency: <%= User.notification_frequencies["hourly"] %>
 
@@ -26,7 +26,7 @@ reed:
   last_sign_in_at: 2016-12-01 00:01:00
   last_sign_in_ip: 0.0.0.0
   census_verified: false
-  year_of_birth: 1980
+  date_of_birth: <%= Date.parse("1996-01-01") %>
   gender: <%= User.genders["male"] %>
   notification_frequency: <%= User.notification_frequencies["disabled"] %>
 
@@ -42,7 +42,7 @@ susan:
   last_sign_in_at: 2016-12-01 00:02:00
   last_sign_in_ip: 0.0.0.0
   census_verified: false
-  year_of_birth: 1970
+  date_of_birth: <%= Date.parse("1992-01-01") %>
   gender: <%= User.genders["female"] %>
   notification_frequency: <%= User.notification_frequencies["immediate"] %>
 
@@ -58,7 +58,7 @@ peter:
   last_sign_in_at: 2016-12-01 00:02:00
   last_sign_in_ip: 0.0.0.0
   census_verified: true
-  year_of_birth: 1970
+  date_of_birth: <%= Date.parse("1992-01-01") %>
   gender: <%= User.genders["male"] %>
   notification_frequency: <%= User.notification_frequencies["immediate"] %>
 
@@ -74,7 +74,7 @@ charles:
   last_sign_in_at: 2016-12-01 00:02:00
   last_sign_in_ip: 0.0.0.0
   census_verified: false
-  year_of_birth: 1970
+  date_of_birth:
   gender: <%= User.genders["female"] %>
   notification_frequency: <%= User.notification_frequencies["immediate"] %>
 

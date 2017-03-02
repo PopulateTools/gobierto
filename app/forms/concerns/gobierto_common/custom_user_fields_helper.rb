@@ -8,7 +8,7 @@ module GobiertoCommon
 
     def custom_records
       @custom_records ||= if user.nil? || user.custom_records.empty?
-                            site.custom_user_fields.map{|custom_user_field| user.custom_records.build(custom_user_field: custom_user_field) }
+                            site.presence ? site.custom_user_fields.map{|custom_user_field| user.custom_records.build(custom_user_field: custom_user_field) } : []
                           else
                             user.custom_records
                           end

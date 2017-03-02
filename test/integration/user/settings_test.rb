@@ -20,7 +20,9 @@ class User::SettingsTest < ActionDispatch::IntegrationTest
         visit @path
 
         fill_in :user_settings_name, with: "New name"
-        select 20.years.ago.year, from: :user_settings_year_of_birth
+        select "1992", from: :user_settings_date_of_birth_1i
+        select "January", from: :user_settings_date_of_birth_2i
+        select "1", from: :user_settings_date_of_birth_3i
         choose "Male"
 
         click_on "Save"
@@ -36,7 +38,9 @@ class User::SettingsTest < ActionDispatch::IntegrationTest
         assert has_select?("Districts", selected: "Center")
 
         fill_in :user_settings_name, with: "New name"
-        select 20.years.ago.year, from: :user_settings_year_of_birth
+        select "1992", from: :user_settings_date_of_birth_1i
+        select "January", from: :user_settings_date_of_birth_2i
+        select "1", from: :user_settings_date_of_birth_3i
         choose "Male"
         select "Chamberi", from: "Districts"
 
@@ -47,5 +51,4 @@ class User::SettingsTest < ActionDispatch::IntegrationTest
       end
     end
   end
-
 end

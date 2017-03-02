@@ -1,0 +1,131 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Usuarios', 'admin_users' %> »
+  <%= link_to 'Campos personalizados', 'admin_users_fields' %> »
+</div>
+
+
+<h1>Editar campo</h1>
+
+<div class="pure-g">
+
+  <div class="pure-u-1 pure-u-md-16-24">
+
+    <div class="user_field_container pure-g">
+
+      <div class="pure-u-1 pure-u-md-1-4">
+        <span class="field_item">Nombre</span>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-3-4">
+        <div class="field_item_def_cont">
+
+          <div class="field_item_def field_locale">
+            <label>Castellano</label>
+            <input type="text">
+          </div>
+
+          <div class="field_item_def field_locale">
+            <label>Catalán</label>
+            <input type="text">
+          </div>
+
+          <div class="field_item_def field_locale">
+            <label>Inglés</label>
+            <input type="text">
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="user_field_container pure-g">
+
+      <div class="pure-u-1 pure-u-md-1-4">
+        <span class="field_item">Tipo</span>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-3-4">
+        <div class="field_item_def_cont">
+
+          <div class="field_item_def ">
+            <label><input type="radio" name="field_type"> Texto</label>
+          </div>
+
+          <div class="field_item_def ">
+            <label><input type="radio" name="field_type"> Párrafo</label>
+          </div>
+          
+          <div class="field_item_def ">
+            <label><input type="radio" name="field_type"> Opciones</label>
+
+            <div class="p_h_2">
+              <div><label><input type="radio" name="option_type"> Selección única</label></div>
+              <div><label><input type="radio" name="option_type"> Selección múltiple</label></div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+    <% for i in ['Opción 1', 'Opción 2', 'Opción 3'] %>
+
+      <div class="user_field_container pure-g">
+
+        <div class="pure-u-1 pure-u-md-1-4">
+          <span class="field_item">
+            <i class="fa fa-bars"></i> <%= i %>
+          </span>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-3-4">
+
+          <div class="f_right">
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe, '', title: 'Eliminar', class: 'tipsit' %>
+          </div>
+          
+          <div class="field_item_def_cont">
+
+            <div class="field_item_def field_locale">
+              <label>Castellano</label>
+              <input type="text">
+            </div>
+
+            <div class="field_item_def field_locale">
+              <label>Catalán</label>
+              <input type="text">
+            </div>
+
+            <div class="field_item_def field_locale">
+              <label>Inglés</label>
+              <input type="text">
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    <% end %>
+
+    <div class="m_2">
+      <%= link_to '<i class="fa fa-plus-circle"></i> Añadir otra opción'.html_safe, '' %>
+    </div>
+
+  </div>
+
+  <div class="pure-u-1 pure-u-md-2-24"></div>
+
+  <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
+    
+    <%= render partial: "admin_widget_save", locals: { only_save_button: true }  %>
+
+  </div>
+
+</div>

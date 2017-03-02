@@ -1,0 +1,19 @@
+dennis_custom_fields_district:
+  user: dennis
+  custom_user_field: madrid_custom_user_field_district
+  payload: <%= { "district" => "randomstring1" }.to_json %>
+
+dennis_custom_fields_association:
+  user: dennis
+  custom_user_field: madrid_custom_user_field_association
+  payload: <%= { "association" => "Asociación amigos perros" }.to_json %>
+
+dennis_custom_fields_bio:
+  user: dennis
+  custom_user_field: madrid_custom_user_field_bio
+  payload: <%= { "bio" => "This is my bio" }.to_json %>
+
+dennis_custom_fields_bio:
+  user: dennis
+  custom_user_field: madrid_custom_user_field_interests
+  payload: <%= { "interests" => ["randomstring1", "randomstring2"]}.to_json %>

@@ -13,6 +13,9 @@ class User < ApplicationRecord
   has_many :census_verifications, class_name: "User::Verification::CensusVerification"
   has_many :subscriptions, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :custom_records, dependent: :destroy, class_name: "GobiertoCommon::CustomUserFieldRecord"
+
+  accepts_nested_attributes_for :custom_records
 
   validates :email, uniqueness: true
 

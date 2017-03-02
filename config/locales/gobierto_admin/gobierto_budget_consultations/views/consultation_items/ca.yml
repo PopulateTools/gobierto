@@ -23,6 +23,7 @@ ca:
             consultation_section: Consulta
             new: Agregar partida
             title: Partides
+            drag_to_sort: Arraster per a ordenar
           new:
             consultation_items_section: Partides
             consultation_section: Consulta

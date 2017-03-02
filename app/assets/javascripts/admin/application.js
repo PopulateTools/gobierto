@@ -1,10 +1,17 @@
 //= require trix
 //= require jquery.geocomplete
 //= require cleave
+//= require tipsy
+//= require air-datepicker/datepicker.min
+//= require air-datepicker/i18n/datepicker.es
+//= require air-datepicker/i18n/datepicker.en
 //= require ./trix_events
 //= require ./trix_toolbar
 //= require ./app/init
 //= require_tree ./app
+
+//= require module-admin
+
 
 $(document).on('turbolinks:load', function() {
 

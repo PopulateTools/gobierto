@@ -54,7 +54,7 @@ module GobiertoAdmin
       last_sign_in_at
       source_site_id
       census_verified
-      year_of_birth
+      date_of_birth
       gender
       notification_frequency
       )

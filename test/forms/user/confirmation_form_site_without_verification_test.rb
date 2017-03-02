@@ -1,6 +1,6 @@
 require "test_helper"
 
-class User::ConfirmationFormTest < ActiveSupport::TestCase
+class User::ConfirmationFormSiteWithoutVerificationTest < ActiveSupport::TestCase
   def valid_user_confirmation_form
     @valid_user_confirmation_form ||= User::ConfirmationForm.new(
       confirmation_token: unconfirmed_user.confirmation_token,
@@ -10,12 +10,7 @@ class User::ConfirmationFormTest < ActiveSupport::TestCase
       date_of_birth_year: 1992,
       date_of_birth_month: 1,
       date_of_birth_day: 1,
-      gender: unconfirmed_user.gender,
-      custom_records: {
-        madrid_custom_user_field_district.name => { "custom_user_field_id" => madrid_custom_user_field_district.id, "value" => madrid_custom_user_field_district.options.keys.first },
-        madrid_custom_user_field_association.name => { "custom_user_field_id" => madrid_custom_user_field_association.id, "value" => "Foo" }
-      },
-      document_number: '00000000A'
+      gender: unconfirmed_user.gender
     )
   end
 
@@ -29,20 +24,11 @@ class User::ConfirmationFormTest < ActiveSupport::TestCase
       date_of_birth_month: nil,
       date_of_birth_day: nil,
       gender: nil,
-      document_number: nil
     )
   end
 
-  def madrid_custom_user_field_district
-    madrid_custom_user_field_district ||= gobierto_common_custom_user_fields(:madrid_custom_user_field_district)
-  end
-
-  def madrid_custom_user_field_association
-    madrid_custom_user_field_association ||= gobierto_common_custom_user_fields(:madrid_custom_user_field_association)
-  end
-
   def unconfirmed_user
-    @unconfirmed_user ||= users(:reed)
+    @unconfirmed_user ||= users(:charles)
   end
 
   def test_validation
@@ -68,7 +54,7 @@ class User::ConfirmationFormTest < ActiveSupport::TestCase
 
     valid_user_confirmation_form.save
     assert unconfirmed_user.reload.confirmed?
-    assert unconfirmed_user.census_verified?
+    refute unconfirmed_user.census_verified?
   end
 
   def test_user_notifications_set_up

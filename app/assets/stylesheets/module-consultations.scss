@@ -476,7 +476,7 @@ img.side_50 {
   padding: 0.5rem 0.25rem;
 }
 .border {
-  margin: 0.15rem 0.1rem 0.15rem 0.1rem;
+  margin: 0;
   
   @include min-screen(768) {
     margin: 0.15rem 1.1rem 0.15rem 1.1rem;
@@ -486,21 +486,16 @@ img.side_50 {
   margin-bottom: 0;
   background: #6dbfc6;
   text-transform: capitalize;
-  padding: 0.75rem 0;
+  padding: 0.75rem 0.25rem;
   font-size: 1rem;
   font-weight: 400;
   border-radius: 6px;
   border: 1px solid transparentize($color_main_negative, 0.5);
   
-  @include min-screen(768) {
+  @include min-screen(1024) {
     font-size: 1.25rem;
+    padding: 0.75rem 1rem;
   }
-}
-.desktop .pct {
-  padding: 0.75rem 1rem;
-}
-.pct-equal {
-  font-size: 2rem;
 }
 .border .active {
   border-radius: 6px;

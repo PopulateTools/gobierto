@@ -6,17 +6,17 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
   };
 
   function _runConsultationApplication() {
-    $(document).on('mouseenter', '.not-allowed', function(e){
+    $(document).on('click', '.not-allowed', function(e){
       $(this).tipsy({offset: -40, className: 'tip-warning', fade: true, html: true, gravity: $.fn.tipsy.autoBounds(-18, 's'), opacity: 1, trigger: 'manual' });
       $(this).tipsy('show');
     });
 
-    $(document).on('mouseenter', '.budget-status-figure', function(e){
-      $(this).tipsy({ offset: -20, className: 'tip-info', fade: true, html: true, gravity: 's', opacity: 1, trigger: 'manual' });
+    $(document).on('click', '.budget-status-figure', function(e){
+      $(this).tipsy({ offset: isMobile() ? -20 : 20, className: 'tip-info', fade: true, html: true, gravity: isMobile() ? 's' : 'n', opacity: 1, trigger: 'manual' });
       $(this).tipsy('show');
     });
-
-    $(document).on('mouseenter', '.consultation-status-error', function(e){
+    
+    $(document).on('click', '.consultation-status-error', function(e){
       $(this).tipsy({ className: 'tip-warning', fade: true, html: true, gravity: 's', opacity: 1, trigger: 'manual' });
       $(this).tipsy('show');
     });
@@ -247,7 +247,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
           var $target = $('[data-card-id="'+currentCard.id+'"]');
           var $targetDescription = $('[data-card-description-id="'+currentCard.id+'"]');
           if($targetDescription.length){
-            var offset = $target.offset().top - 200;
+            var offset = $target.offset().top - 250;
             $targetDescription.css({ top: offset + 'px' });
           }
 

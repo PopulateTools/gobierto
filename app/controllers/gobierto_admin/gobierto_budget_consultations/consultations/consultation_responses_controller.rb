@@ -13,17 +13,25 @@ module GobiertoAdmin
 
         def new
           @consultation_items = find_consultation_items
+          @user_genders = get_user_genders
           @consultation_response_form = ConsultationResponseForm.new(consultation_id: @consultation.id, document_number_digest: params[:document_number_digest])
         end
 
         def create
-          @consultation_response_form = ConsultationResponseForm.new(consultation_response_params.merge(consultation_id: @consultation.id))
+          @consultation_response_form = ConsultationResponseForm.new(consultation_id: @consultation.id).tap do |c|
+            c.assign_attributes(consultation_response_params.except(*ignored_consultation_response_params).merge(
+              date_of_birth_year: consultation_response_params["date_of_birth(1i)"],
+              date_of_birth_month: consultation_response_params["date_of_birth(2i)"],
+              date_of_birth_day: consultation_response_params["date_of_birth(3i)"],
+            ))
+          end
 
           if @consultation_response_form.save
             track_create_activity
             redirect_to(edit_admin_budget_consultation_path(@consultation), notice: t(".success"))
           else
             flash[:error] = t(".error")
+            @user_genders = get_user_genders
             @consultation_items = find_consultation_items
             render :new
           end
@@ -89,6 +97,14 @@ module GobiertoAdmin
 
         def default_activity_params
           { ip: remote_ip, author: current_admin, site_id: current_site.id }
+        end
+
+        def get_user_genders
+          User.genders
+        end
+
+        def ignored_consultation_response_params
+          ["date_of_birth(1i)", "date_of_birth(2i)", "date_of_birth(3i)"]
         end
       end
     end

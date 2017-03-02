@@ -98,6 +98,15 @@ module GobiertoAdmin
               item1 = gobierto_budget_consultations_consultation_items(:madrid_sports_facilities)
               item2 = gobierto_budget_consultations_consultation_items(:madrid_civil_protection)
 
+              # User information fields
+              select "1992", from: :consultation_response_date_of_birth_1i
+              select "January", from: :consultation_response_date_of_birth_2i
+              select "1", from: :consultation_response_date_of_birth_3i
+              page.find("#consultation_response_gender_male", visible: false).trigger('click')
+              select "Center", from: "Districts"
+              fill_in "Association", with: "Asociación Vecinos Arganzuela"
+              fill_in "Bio", with: "My short bio"
+
               page.find("#consultation_response_selected_options_#{item1.id}_5", visible: false).trigger('click')
               page.find("#consultation_response_selected_options_#{item2.id}_5", visible: false).trigger('click')
               click_button "Create"
@@ -106,11 +115,14 @@ module GobiertoAdmin
 
               page.find("#consultation_response_selected_options_#{item1.id}_0", visible: false).trigger('click')
               page.find("#consultation_response_selected_options_#{item2.id}_-5", visible: false).trigger('click')
+              select "Center", from: "Districts"
+              fill_in "Association", with: "Asociación Vecinos Arganzuela"
+              fill_in "Bio", with: "My short bio"
+
               click_button "Create"
 
               assert has_message?("Response created successfully")
               assert has_content?("Responses until now: 3")
-
 
               activity = Activity.last
               assert_equal consultation, activity.recipient

@@ -9,7 +9,11 @@ module GobiertoAdmin
           consultation_id: consultation.id,
           selected_options: Hash[consultation_items.map do |item|
             [item.id.to_s, nil]
-          end]
+          end],
+          date_of_birth_year: 1992,
+          date_of_birth_month: 1,
+          date_of_birth_day: 1,
+          gender: User.genders["male"]
         )
       end
 

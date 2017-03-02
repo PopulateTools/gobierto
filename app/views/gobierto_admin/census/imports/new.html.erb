@@ -12,14 +12,16 @@
 
     <% if @latest_import.present? %>
 
-      <%= t(
+      <strong><%= t(
         ".import_status",
         created_at: l(@latest_import.created_at, format: :short),
         admin_name: @latest_import.admin.name,
         admin_email: @latest_import.admin.email,
         imported_records: @latest_import.imported_records
-      ) %>
+      ) %></strong>
 
+      <div class="separator"></div>
+      
       <%= render "file_format_notes" %>
 
       <%= render "form" %>

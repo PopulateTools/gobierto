@@ -3,8 +3,9 @@
  *
  */
 .success, .error, .alert, .notice {
-  padding: 20px 30px;
+  padding: 2em;
   margin-bottom: 2em;
+  font-size: 1.2em;
   border-left: 10px solid;
 
   .fa {

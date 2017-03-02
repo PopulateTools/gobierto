@@ -42,7 +42,7 @@ module GobiertoAdmin
       end
 
       def fields
-        @fields ||= retrieve_conrent_block_fields.presence || [build_content_block_field]
+        @fields ||= retrieve_content_block_fields.presence || [build_content_block_field]
       end
 
       def fields_attributes=(attributes)
@@ -91,7 +91,7 @@ module GobiertoAdmin
         content_block.fields.build(available_locales: available_locales)
       end
 
-      def retrieve_conrent_block_fields
+      def retrieve_content_block_fields
         Array(content_block.fields).map do |content_block_field|
           content_block_field.tap do |content_block_field_attributes|
             content_block_field_attributes.available_locales = available_locales

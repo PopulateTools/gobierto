@@ -509,6 +509,36 @@ img.side_50 {
     margin-bottom: 0.25rem;
   }
 }
+.surplus-1 .budget-status {
+  background: #ddeecc;
+}
+.surplus-2 .budget-status {
+  background: #bbdc99;
+}
+.surplus-3 .budget-status {
+  background: #99cb66;
+}
+.surplus-4 .budget-status {
+  background: #55a900;
+}
+.deficit-1 .budget-status {
+  background: #eed1cc;
+}
+.deficit-2 .budget-status {
+  background: #dda399;
+}
+.deficit-3 .budget-status {
+  background: #cb7566;
+}
+.deficit-4 .budget-status {
+  background: #a91900;
+}
+.surplus-1 .budget-status {
+  color: #55A900;
+}
+.deficit-1 .budget-status {
+  color: #A91900;
+}
 .consultation-info h4 {
   text-align: center;
   font-size: 0.9rem;

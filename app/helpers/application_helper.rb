@@ -27,4 +27,5 @@ module ApplicationHelper
       link_to t('layouts.accept_privacy_policy_signup'), current_site.configuration.privacy_page
     end
   end
+
 end

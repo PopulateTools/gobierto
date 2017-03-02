@@ -14,7 +14,6 @@ es:
         new:
           final_notes: se sustituirán todos los registros, y si algún DNI de usuario
             verificado deja de estar presente, el usuario dejará de tener acceso
-          import_status: La verificación de los usuarios se realiza contra el archivo
-            de censo actualizado por última vez el %{created_at} por %{admin_name}
+          import_status: El censo ha sido cargado por última vez el %{created_at} por %{admin_name}
             (%{admin_email}). El archivo tiene %{imported_records} registros.
           title: Configuración de censo

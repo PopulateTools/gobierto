@@ -3,8 +3,9 @@
  *
  */
 .success, .error, .alert, .notice {
-  padding: 20px 30px;
+  padding: 2em;
   margin-bottom: 2em;
+  font-size: 1.2em;
   border-left: 10px solid;
 
   .fa {
@@ -39,11 +40,11 @@
     border: 1px solid #FF9966;
   }
 }
-.disclaimer {
+/*.disclaimer {
   font-size: .8em;
   text-align: center;
   line-height: 1.4em;
   width: 70%;
   margin: 2em auto;
   opacity: .8;
-}
+}*/

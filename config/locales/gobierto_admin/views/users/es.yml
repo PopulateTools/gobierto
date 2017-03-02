@@ -14,7 +14,7 @@ es:
         resend_welcome_email_notes: con enlace para cambiar la contraseña
       index:
         admins_section: Administradores
-        census_configuration: Configuración de censo
+        census_configuration: Censo
         header:
           created_at: Creado
           email: Email

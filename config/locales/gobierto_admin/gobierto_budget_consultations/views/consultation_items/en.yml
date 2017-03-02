@@ -23,6 +23,7 @@ en:
             consultation_section: Consultation
             new: Add budget line
             title: Budget lines
+            drag_to_sort: Drag to sort
           new:
             consultation_items_section: Budget lines
             consultation_section: Consultation

@@ -9,7 +9,7 @@ en:
         hints:
           email: Your email address will be considered private at all times.
           gender: This information will be considered private at all times.
-          year_of_birth: This information will be considered private at all times.
+          date_of_birth: This information will be considered private at all times.
         submit: Save
         your_gender_is: You are...
       new:

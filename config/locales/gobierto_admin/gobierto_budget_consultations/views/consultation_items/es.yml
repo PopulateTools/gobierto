@@ -23,6 +23,7 @@ es:
             consultation_section: Consulta
             new: Agregar partida
             title: Partidas
+            drag_to_sort: Arrastra para ordenar
           new:
             consultation_items_section: Partidas
             consultation_section: Consulta

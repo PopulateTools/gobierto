@@ -8,14 +8,15 @@ es:
         name: Tu nombre
         password: Tu contraseña
         password_confirmation: Tu contraseña, otra vez
-        year_of_birth: Año de nacimiento
+        date_of_birth: Fecha de nacimiento
+        document_number: Número de documento
       user/settings_form:
         email: Tu Correo-e
         gender: Género
         name: Tu nombre
         password: Tu contraseña
         password_confirmation: Tu contraseña, otra vez
-        year_of_birth: Año de nacimiento
+        date_of_birth: Fecha de nacimiento
       user/confirmation_request_form:
         email: Tu Correo-e
       user/edit_password_form:

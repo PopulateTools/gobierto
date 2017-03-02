@@ -46,7 +46,7 @@
     </div>
 
     <div class="pure-u-1 pure-u-md-1-2 description">
-      <div v-if="next" class="consultation-confirm">
+      <div v-if="next && status!='deficit'" class="consultation-confirm">
         <%= image_tag 'illustrations/crm.jpg', class: 'pure-img' %>
         
         <h3>¡Muchas gracias! Por favor, envía tu respuesta</h3>

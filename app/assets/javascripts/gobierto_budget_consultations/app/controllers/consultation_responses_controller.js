@@ -247,7 +247,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
           var $target = $('[data-card-id="'+currentCard.id+'"]');
           var $targetDescription = $('[data-card-description-id="'+currentCard.id+'"]');
           if($targetDescription.length){
-            var offset = $target.offset().top - 200;
+            var offset = $target.offset().top - 250;
             $targetDescription.css({ top: offset + 'px' });
           }
 

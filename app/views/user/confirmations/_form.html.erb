@@ -27,6 +27,13 @@
     <%= f.password_field :password_confirmation %>
   </div>
 
+  <% if @user_confirmation_form.require_user_verification? %>
+    <div class="form_item input_text">
+      <%= f.label :document_number %>
+      <%= f.text_field :document_number, placeholder: "11111111A" %>
+    </div>
+  <% end %>
+
   <div class="form_item select_control selects_inline">
     <%= f.label :date_of_birth %>
     <i class="fa fa-question-circle tipsit" title="<%= t(".hints.date_of_birth") %>"></i>

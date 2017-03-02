@@ -9,6 +9,7 @@ ca:
         password: La teva contrasenya
         password_confirmation: La teva contrasenya, de nou
         date_of_birth: Data de naiximent
+        document_number: Nombre de document
       user/settings_form:
         email: El teu Correu-e
         gender: Genre

@@ -9,6 +9,7 @@ en:
         password: Your password
         password_confirmation: Your password, one more time
         date_of_birth: Date of birth
+        document_number: Document number
       user/settings_form:
         email: Your e-mail
         gender: Gender

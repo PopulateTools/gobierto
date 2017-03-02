@@ -5,7 +5,8 @@ class User::ConfirmationsController < User::BaseController
 
   def new
     @user_confirmation_form = User::ConfirmationForm.new(
-      confirmation_token: params[:confirmation_token]
+      confirmation_token: params[:confirmation_token],
+      creation_ip: remote_ip,
     )
 
     @user_genders = get_user_genders
@@ -20,6 +21,7 @@ class User::ConfirmationsController < User::BaseController
         date_of_birth_year: user_confirmation_params["date_of_birth(1i)"],
         date_of_birth_month: user_confirmation_params["date_of_birth(2i)"],
         date_of_birth_day: user_confirmation_params["date_of_birth(3i)"],
+        creation_ip: remote_ip
       )
     )
 
@@ -41,7 +43,7 @@ class User::ConfirmationsController < User::BaseController
   private
 
   def user_confirmation_params
-    permitted_params = [:confirmation_token, :name, :password, :password_confirmation, :date_of_birth, :gender]
+    permitted_params = [:confirmation_token, :name, :password, :password_confirmation, :date_of_birth, :gender, :document_number]
     if params[:user_confirmation] && params[:user_confirmation][:custom_records]
       permitted_params << {custom_records: Hash[params[:user_confirmation][:custom_records].keys.map{ |k| [k, [:custom_user_field_id, :value]] }]}
     end

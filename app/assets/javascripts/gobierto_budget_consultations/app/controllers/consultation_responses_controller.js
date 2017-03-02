@@ -166,8 +166,6 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
             statusClass = -4;
           }
           
-          console.log(statusClass);
-          
           if(this.statusDifference === 0){
             return 'balance';
           } else if (this.statusDifference < 0){

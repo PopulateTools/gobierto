@@ -25,7 +25,6 @@ gem "flight-for-rails"
 gem "cocoon"
 gem "i18n-js", ">= 3.0.0.rc11"
 gem "d3-rails", "~> 4.3"
-gem "vuejs-rails"
 
 # Elasticsearch
 gem "elasticsearch"

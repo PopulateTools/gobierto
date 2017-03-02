@@ -17,8 +17,8 @@
 //= require d3-distance-limited-voronoi
 //= require accounting.min
 //= require jquery.autocomplete
-//= require vue
-//= require vue-resource
+//= require vue.min
+//= require vue-resource.min
 //= require klass
 //= require air-datepicker/datepicker.min
 //= require air-datepicker/i18n/datepicker.es

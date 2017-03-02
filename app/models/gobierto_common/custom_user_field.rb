@@ -13,10 +13,6 @@ module GobiertoCommon
       title[I18n.locale.to_s]
     end
 
-    def localized_options
-      options.map{|option| option[I18n.locale.to_s] }
-    end
-
     private
 
     def set_name

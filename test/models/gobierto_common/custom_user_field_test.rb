@@ -1,11 +1,12 @@
 require "test_helper"
 
 class GobiertoCommon::CustomUserFieldTest < ActiveSupport::TestCase
-  def custom_user_field
-    @custom_user_field ||= GobiertoCommon::CustomUserField.new
+  def subject
+    @subject ||= GobiertoCommon::CustomUserField.new
   end
 
-  def test_valid
-    assert custom_user_field.valid?
+  def test_localized_title
+    subject.title = { 'en' => 'title en', 'es' => 'title es' }
+    assert_equal 'title en', subject.localized_title
   end
 end

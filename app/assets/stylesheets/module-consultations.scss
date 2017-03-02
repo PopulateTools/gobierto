@@ -620,7 +620,10 @@ img.side_50 {
   left: 50%;
   margin-left: -4px;
   background-position: bottom left;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  
+  @include min-screen(768) {
+    transform: rotate(180deg);
+  }
 }
 .tip-info .tipsy-inner {
   background: $color_main;

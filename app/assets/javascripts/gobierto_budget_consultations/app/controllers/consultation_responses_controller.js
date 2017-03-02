@@ -7,7 +7,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
 
   function _runConsultationApplication() {
     $(document).on('click', '.not-allowed', function(e){
-      $(this).tipsy({offset: -40, className: 'tip-warning', fade: true, html: true, gravity: $.fn.tipsy.autoBounds(-18, 's'), opacity: 1, trigger: 'manual' });
+      $(this).tipsy({offset: -40, className: 'tip-warning', fade: true, html: true, gravity: isMobile() ? 'sw' : 's', opacity: 1, trigger: 'manual' });
       $(this).tipsy('show');
     });
 

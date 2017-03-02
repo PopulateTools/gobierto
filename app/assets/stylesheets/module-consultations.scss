@@ -276,7 +276,7 @@ img.side_50 {
   }
 }
 .consultation-card.active .card-title {
-  padding: 2rem 1rem 0 1rem;
+  padding: 1rem 1rem 0 1rem;
   
   @include min-screen(768) {
     padding: 0.5rem;
@@ -298,19 +298,27 @@ img.side_50 {
 .consultation-title {
   font-weight: 600;
   display: inline-block;
-  font-size: 1.15rem;
+  font-size: 1rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   color: $color_dark;
   width: 65%;
+  vertical-align: middle;
   
   @include min-screen(768) {
+    font-size: 1.15rem;
     width: 22rem;
   }
 }
+.active .consultation-title {
+  white-space: normal;
+}
 .consultation_responses .consultation-title {
   @include min-screen(768) {
+    width: 70%;
+  }
+  @include min-screen(1200) {
     width: 80%;
   }
 }
@@ -492,10 +500,14 @@ img.side_50 {
   background: #6dbfc6;
   text-transform: capitalize;
   padding: 0.75rem 0;
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 400;
   border-radius: 6px;
   border: 1px solid transparentize($color_main_negative, 0.5);
+  
+  @include min-screen(768) {
+    font-size: 1.25rem;
+  }
 }
 .desktop .pct {
   padding: 0.75rem 1rem;
@@ -582,8 +594,13 @@ img.side_50 {
   border-right: 1px solid transparentize($color_main_negative, 0.2);
   
   @include min-screen(768) {
-    width: 45%;
     padding: 1rem .75rem 1.25rem 0.75rem;
+  }
+  @include min-screen(1200) {
+    width: 44%;
+  }
+  @include min-screen(1400) {
+    width: 45%;
   }
 }
 .budget-lead {

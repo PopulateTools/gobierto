@@ -157,7 +157,7 @@
       <div class="pure-u-5-6">
         <div class="budget-base">
           <div class="budget-lead"><%= t('.base_budget') %></div>
-          <div class="budget-figure">TODO: 1.234€</div>
+          <div class="budget-figure"><%= budget_amount_to_human(@consultation.budget_amount) %></div>
         </div>
         <div class="budget-status">
           <div class="budget-lead"><%= t('.balance_deficit') %></div>

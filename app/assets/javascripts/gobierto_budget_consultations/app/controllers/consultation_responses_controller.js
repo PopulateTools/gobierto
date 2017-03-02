@@ -171,9 +171,9 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
           if(this.statusDifference === 0){
             return 'balance';
           } else if (this.statusDifference < 0){
-            return 'deficit deficit-' + Math.abs(statusClass);
-          } else {
             return 'surplus surplus-' + Math.abs(statusClass);
+          } else {
+            return 'deficit deficit-' + Math.abs(statusClass);
           }
         }
       },

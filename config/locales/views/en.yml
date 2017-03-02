@@ -1,5 +1,24 @@
 ---
 en:
+  census:
+    events:
+      census_census_imported: Census imported
+  sites:
+    events:
+      sites_site_visibility_updated: Site published
+      sites_site_created: Site created
+      sites_site_updated: Site updated
+      sites_site_destroyed: Site deleted
+  admins:
+    events:
+      admins_admin_authorization_level_updated: Admin authorization level updated
+      admins_invitation_created: Admin invited
+      admins_invitation_accepted: Admin invitation accepted
+      admins_admin_created: Admin created
+      admins_admin_updated: Admin updated
+  users:
+    events:
+      users_user_updated: User updated
   based_on: Web based on
   invisible_captcha:
     sentence_for_humans: "If you are human, ignore this field"

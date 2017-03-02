@@ -303,12 +303,16 @@ img.side_50 {
 .consultation-figure {
   font-weight: 300;
   float: right;
+  width: 5rem;
+}
+.consultation-figure span {
+  float: right;
 }
 .consultation-figure .fa-arrow-up {
-  color: $color_success;
+  color: $color_1;
 }
 .consultation-figure .fa-arrow-down {
-  color: $color_warn;
+  color: $color_1;
 }
 .consultation-figure .fa-circle {
   color: $color_1;
@@ -535,10 +539,6 @@ img.side_50 {
 .deficit-1 .budget-status {
   color: #A91900;
 }
-.consultation-info.is_stuck {
-  height: 80px;
-  z-index: 100000001;
-}
 .consultation-info h4 {
   text-align: center;
   font-size: 0.9rem;
@@ -550,20 +550,27 @@ img.side_50 {
     margin-bottom: 0;
   }
 }
+.consultation-info.active {
+  @include min-screen(768) {
+    height: 84px;
+    z-index: 100000001;
+  }
+}
 .consultation-info .wrapper {
   color: $color_main_negative;
 }
 .consultation-info .wrapper .budget-base,
 .consultation-info .wrapper .budget-status {
+  width: 40%;
+  margin-right: -3px;
+  display: inline-block;
   padding: .25rem .75rem 0.5rem 0.75rem;
   border-right: 1px solid transparentize($color_main_negative, 0.2);
   
   @include min-screen(768) {
+    width: 45%;
     padding: 1rem .75rem 1.25rem 0.75rem;
   }
-}
-.consultation-info.is_stuck .wrapper .budget-status {
-  padding: 1rem .75rem 1rem 0.75rem;
 }
 .budget-lead {
   font-size: 0.85rem;
@@ -649,7 +656,10 @@ img.side_50 {
   left: 50%;
   margin-left: -4px;
   background-position: bottom left;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  
+  @include min-screen(768) {
+    transform: rotate(180deg);
+  }
 }
 .tip-info .tipsy-inner {
   background: $color_main;

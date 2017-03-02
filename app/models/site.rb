@@ -11,6 +11,7 @@ class Site < ApplicationRecord
 
   # GobiertoCommon integration
   has_many :content_blocks, dependent: :destroy, class_name: "GobiertoCommon::ContentBlock"
+  has_many :custom_user_fields, dependent: :destroy, class_name: "GobiertoCommon::CustomUserField"
 
   # User integrations
   has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"

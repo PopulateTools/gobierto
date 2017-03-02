@@ -97,6 +97,7 @@ img.side_50 {
   line-height: 1.3;
   
   @include min-screen(768) {
+    margin-top: 0;
     font-size: 2rem;
   }
 }
@@ -750,6 +751,28 @@ img.side_50 {
 }
 
 /* Confirmation */
+.description {
+  position: relative;
+}
+.consultation-confirm {
+  width: 80%;
+  border: 1px solid $color_1;
+  border-radius: 4px;
+  padding: 0.9375rem;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 3rem;
+  right: 0;
+}
+.consultation-confirm button {
+  padding: 0.5rem 0.75rem;
+  float: right;
+}
+.consultation-confirm h3 {
+  display: inline-block;
+  margin-top: 0.5rem;
+}
 .consultation_thanks .wrapper {
   padding: 0.75rem;
   

@@ -136,6 +136,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
         modal: false,
         next: false,
         current: null,
+        statusDifference: null,
         cards: [],
       },
       computed: {
@@ -144,12 +145,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
         },
         status: function(){
           var possitiveCards = 0, negativeCards = 0;
-
-          // Calculate the intensity of the surplus or deficit
-          var budgetChange = d3.scaleLinear()
-            .range([0, 5])
-            .domain([0, this.cards.length / 5])
-            .clamp(true);
+          var statusClass = 0;
 
           this.$data.cards.forEach(function(card){
             if(card.choice > 0) {
@@ -158,12 +154,26 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
               negativeCards++;
             }
           });
-          if(possitiveCards === negativeCards){
+          
+          // Track difference between status
+          // The status class variable maxes out at 4 to be applied to the card class
+          this.statusDifference = possitiveCards - negativeCards;
+          statusClass = this.statusDifference;
+          
+          if (this.statusDifference > 4) {
+            statusClass = 4;
+          } else if (this.statusDifference < -4) {
+            statusClass = -4;
+          }
+          
+          console.log(statusClass);
+          
+          if(this.statusDifference === 0){
             return 'balance';
-          } else if (possitiveCards > negativeCards){
-            return 'deficit deficit-' + Math.round(budgetChange(possitiveCards));
+          } else if (this.statusDifference < 0){
+            return 'deficit deficit-' + Math.abs(statusClass);
           } else {
-            return 'surplus surplus-' + Math.round(budgetChange(negativeCards));
+            return 'surplus surplus-' + Math.abs(statusClass);
           }
         }
       },

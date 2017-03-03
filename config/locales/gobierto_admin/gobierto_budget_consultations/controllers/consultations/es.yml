@@ -4,6 +4,6 @@ es:
     gobierto_budget_consultations:
       consultations:
         create:
-          success: La consulta ha sido creada correctamente
+          success_html: "La consulta ha sido creada correctamente. <a href='%{link}'>Ver la consulta</a>"
         update:
-          success: La consulta ha sido actualizada
+          success_html: "La consulta ha sido actualizada. <a href='%{link}'>Ver la consulta</a>"

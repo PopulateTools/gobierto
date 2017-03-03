@@ -750,24 +750,53 @@ img.side_50 {
   position: relative;
 }
 .consultation-confirm {
-  width: 80%;
+  width: 320px;
   border: 1px solid $color_1;
   border-radius: 4px;
   padding: 0.9375rem;
   position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  left: 3rem;
-  right: 0;
-}
-.consultation-confirm button {
-  padding: 0.5rem 0.75rem;
-  float: right;
+  margin-left: 3rem;
+  text-align: center;
+  top: 20px;
 }
 .consultation-confirm h3 {
+  text-align: left;
   display: inline-block;
   margin-top: 0.5rem;
 }
+.consultation-confirm button {
+  display: block;
+  margin: 0 auto;
+  padding: 0.75rem 2rem;
+}
+.consultation-confirm.deficit {
+  background: #a91900;
+  border: none;
+  text-align: left;
+  top: 0;
+}
+.consultation-confirm.deficit h3 {
+  max-width: 400px;
+  color: white;
+  text-align: left;
+  font-weight: 400;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.consultation-confirm.deficit .fa {
+  color: white;
+}
+.consultation-confirm.slim {
+  text-align: left;
+  margin-bottom: 3rem;
+}
+.consultation-confirm.slim img {
+  display: none;
+}
+.consultation-confirm.slim button {
+  margin: initial;
+}
+
 .consultation_thanks .wrapper {
   padding: 0.75rem;
   

@@ -181,6 +181,8 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
 
           if(allSelected){
             Vue.set(app, 'next', true);
+            $('.consultation-confirm').css('width', $('.description').width() - 79);
+            
             $('body').animate({
               scrollTop: $(app.$el).offset().top - 25
             }, 500);
@@ -193,6 +195,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
             app.$data.cards.forEach(function(card){
               if(currentCard === card) {
                 card.choice = $el.data('value');
+                card.toggleDesc = false;
               }
               if(card.choice > 0) {
                 positiveCards++;
@@ -247,11 +250,20 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
             if(currentCard != card)
               card.toggleDesc = false;
           });
+          
+          if (app.$data.next) {
+            $('.consultation-confirm').addClass('slim');
+            $('.slim').css('top', 0);
+          }
 
           var $target = $('[data-card-id="'+currentCard.id+'"]');
           var $targetDescription = $('[data-card-description-id="'+currentCard.id+'"]');
           if($targetDescription.length){
-            var offset = $target.offset().top - 250;
+            if ($('.card-wrapper').css('top') === 'auto') {
+              var offset = $target.offset().top - 160;
+            } else {
+              var offset = $target.offset().top - 190;
+            }
             $targetDescription.css({ top: offset + 'px' });
           }
 

@@ -29,7 +29,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
 
     Vue.component('card-description', {
       props: ['card', 'figures'],
-      template: (isMobile() ? '#card-description-mobile'  : '#card-description-desktop'),
+      template: (isMobile() ? '#card-description-mobile' : '#card-description-desktop'),
       methods: {
         beforeEnter: function (el) {
           el.style.opacity = 0
@@ -45,7 +45,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
 
     Vue.component('consultation-card', {
       props: ['card', 'active', 'figures'],
-      template: (isMobile() ? '#card-mobile'  : '#card-desktop'),
+      template: (isMobile() ? '#card-mobile' : '#card-desktop'),
       computed: {
         iconForChoice: function(){
           if(this.card.choice === null) return;
@@ -65,9 +65,6 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
 
           // Send the active event to the bus
           bus.$emit('active', card);
-
-          // Save selected card
-          var self = this;
 
           card.toggleDesc = !card.toggleDesc;
 
@@ -133,8 +130,6 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
         current: null,
         statusDifference: 0,
         cards: [],
-        negativeCards: 0,
-        possitiveCards: 0
       },
       computed: {
         statusText: function(){
@@ -204,21 +199,21 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
         },
         choiceCardAndOpenNext: function($el, currentCard){
           if(currentCard !== null){
+            var possitiveCards = 0;
+            var negativeCards = 0;
             app.$data.cards.forEach(function(card){
               if(currentCard === card) {
                 card.choice = $el.data('value');
                 card.toggleDesc = false;
               }
+              if(card.choice > 0) {
+                possitiveCards++;
+              } else if (card.choice < 0) {
+                negativeCards++;
+              }
             });
           }
-
-          if(currentCard.choice > 0) {
-            this.possitiveCards++;
-          } else if (currentCard.choice < 0) {
-            this.negativeCards++;
-          }
-          this.statusDifference = this.possitiveCards - this.negativeCards;
-          // Vue.set(app, 'statusDifference', this.possitiveCards - this.negativeCards);
+          this.statusDifference = possitiveCards - negativeCards;
 
           var found = false;
           app.$data.cards.forEach(function(card){

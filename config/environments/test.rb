@@ -42,4 +42,9 @@ Rails.application.configure do
 
   # Increase log level to speed up the test suite
   config.log_level = ENV.fetch("TEST_LOG_LEVEL") { :fatal }.to_sym
+
+  # ActionMailer host options & delivery through Mailcatcher
+  app_host = ENV.fetch("HOST") { "gobierto.dev" }
+
+  config.action_mailer.default_url_options = { host: app_host }
 end

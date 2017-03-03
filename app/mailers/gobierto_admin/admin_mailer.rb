@@ -2,6 +2,7 @@ module GobiertoAdmin
   class AdminMailer < ApplicationMailer
     def confirmation_instructions(admin)
       @admin = admin
+      @site = admin.sites.first
 
       mail(
         from: default_from,
@@ -13,6 +14,7 @@ module GobiertoAdmin
 
     def invitation_instructions(admin)
       @admin = admin
+      @site = admin.sites.first
 
       mail(
         from: default_from,
@@ -24,6 +26,7 @@ module GobiertoAdmin
 
     def reset_password_instructions(admin)
       @admin = admin
+      @site = admin.sites.first
 
       mail(
         from: default_from,

@@ -2,6 +2,6 @@
 
 <%= t('.click_link') %>:
 
-<%= admin_admin_invitation_acceptances_url(invitation_token: @admin.invitation_token) %>
+<%= admin_admin_invitation_acceptances_url(invitation_token: @admin.invitation_token, host: @site.try(:domain) || ENV['HOST']) %>
 
 <%= t('.bye') %>

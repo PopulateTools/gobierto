@@ -43,7 +43,6 @@ module GobiertoBudgetConsultations
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("h2", text: consultation.title)
         assert has_link?("Do you want to opinate?")
       end
     end
@@ -82,13 +81,10 @@ module GobiertoBudgetConsultations
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("h2", text: consultation.title)
         assert has_link?("Do you want to opinate?")
 
         click_link "Do you want to opinate?"
-        assert has_link?("Opinate about the budgets")
 
-        click_link "Opinate about the budgets"
         assert has_selector?(".consultation-title", text: "Inversión en Instalaciones Deportivas")
         assert has_content?("10€")
         assert has_selector?(".consultation-title", text: "Inversión en Bomberos y Protección Civil")
@@ -115,13 +111,10 @@ module GobiertoBudgetConsultations
         with_signed_in_user(user_no_verified) do
           visit @path
 
-          assert has_selector?("h2", text: consultation.title)
           assert has_link?("Do you want to opinate?")
 
           click_link "Do you want to opinate?"
-          assert has_link?("Opinate about the budgets")
 
-          click_link "Opinate about the budgets"
           assert has_selector?(".consultation-title", text: "Inversión en Instalaciones Deportivas")
           assert has_content?("10€")
           assert has_selector?(".consultation-title", text: "Inversión en Bomberos y Protección Civil")
@@ -140,13 +133,10 @@ module GobiertoBudgetConsultations
           with_signed_in_user(user_verified) do
             visit @path
 
-            assert has_selector?("h2", text: consultation.title)
             assert has_link?("Do you want to opinate?")
 
             click_link "Do you want to opinate?"
-            assert has_link?("Opinate about the budgets")
 
-            click_link "Opinate about the budgets"
             assert has_selector?(".consultation-title", text: "Inversión en Instalaciones Deportivas")
             assert has_content?("10€")
             assert has_selector?(".consultation-title", text: "Inversión en Bomberos y Protección Civil")

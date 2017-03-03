@@ -199,7 +199,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
         },
         choiceCardAndOpenNext: function($el, currentCard){
           if(currentCard !== null){
-            var possitiveCards = 0;
+            var positiveCards = 0;
             var negativeCards = 0;
             app.$data.cards.forEach(function(card){
               if(currentCard === card) {
@@ -207,13 +207,13 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
                 card.toggleDesc = false;
               }
               if(card.choice > 0) {
-                possitiveCards++;
+                positiveCards++;
               } else if (card.choice < 0) {
                 negativeCards++;
               }
             });
           }
-          this.statusDifference = possitiveCards - negativeCards;
+          this.statusDifference = positiveCards - negativeCards;
 
           var found = false;
           app.$data.cards.forEach(function(card){

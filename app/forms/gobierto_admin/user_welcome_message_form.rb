@@ -29,7 +29,7 @@ module GobiertoAdmin
     end
 
     def deliver_welcome_email
-      UserMailer.welcome(user, site).deliver_later
+      ::User::UserMailer.welcome(user, site).deliver_later
     end
   end
 end

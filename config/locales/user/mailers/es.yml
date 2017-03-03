@@ -24,3 +24,9 @@ es:
         hi: Hola
         click_link: "Has solicitado restaurar tu contraseña. Pulsa en el siguiente enlace y sigue las instrucciones:"
         bye: Saludos
+      welcome:
+        subject: Bienvenido
+        hi: Hola
+        success: Tu registro se ha completado con éxito. Ahora puedes interactuar en %{site_url} como usuario registrado.
+        alerts: "Puedes gestionar tus alertas desde tu cuenta: %{notifications_url}"
+        bye: Saludos

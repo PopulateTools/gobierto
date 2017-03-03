@@ -14,7 +14,7 @@ module GobiertoAdmin
       assert_equal ["admin@gobierto.dev"], email.from
       assert_equal ["admin@gobierto.dev"], email.reply_to
       assert_equal [admin.email], email.to
-      assert_equal "[Admin] Confirmation instructions", email.subject
+      assert_equal "Activate your account at Gobierto", email.subject
     end
 
     def test_invitation_instructions
@@ -25,7 +25,7 @@ module GobiertoAdmin
       assert_equal ["admin@gobierto.dev"], email.from
       assert_equal ["admin@gobierto.dev"], email.reply_to
       assert_equal [admin.email], email.to
-      assert_equal "[Admin] Invitation instructions", email.subject
+      assert_equal "You have been invitited to collaborate in Gobierto", email.subject
     end
 
     def test_reset_password_instructions
@@ -36,7 +36,7 @@ module GobiertoAdmin
       assert_equal ["admin@gobierto.dev"], email.from
       assert_equal ["admin@gobierto.dev"], email.reply_to
       assert_equal [admin.email], email.to
-      assert_equal "[Admin] Reset password instructions", email.subject
+      assert_equal "Reset password instructions", email.subject
     end
   end
 end

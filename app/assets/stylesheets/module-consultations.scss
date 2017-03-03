@@ -64,29 +64,26 @@ img.side_50 {
 }
 .column.consultation {
   max-width: 960px;
-  margin: 0 auto;
   position: relative;
 }
 .consultation-intro-wrapper {
-  img.consultation-decoration {
-    position: absolute;
-    top: -1em;
-    left: 0;
-  }
   .consultation-intro-header {
     margin: 0 0 2em 0;
     h2 {
       font-size: 2.2em;
       margin: 0;
     } 
-    h2.soft {
-      
-    }
   }
   @include min-screen(768) {
     position: relative;
     padding: 0 10rem;
     margin-bottom: 3em;
+
+    img.consultation-decoration {
+      position: absolute;
+      top: -1em;
+      left: 0;
+    }
   }
 }
 .consultation-intro-wrapper p {

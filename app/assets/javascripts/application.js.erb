@@ -17,7 +17,6 @@
 //= require d3-distance-limited-voronoi
 //= require accounting.min
 //= require jquery.autocomplete
-//= require vue.min
 //= require vue-resource.min
 //= require klass
 //= require algoliasearch.min
@@ -29,6 +28,12 @@
 
 //= require flight-for-rails
 //= require components/shareContent
+
+<% if Rails.env.development? %>
+  <%= require_asset "vue" %>
+<% else %>
+  <%= require_asset "vue.min" %>
+<% end %>
 
 // Global util functions
 function rebindAll() {

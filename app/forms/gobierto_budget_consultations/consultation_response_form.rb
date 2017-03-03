@@ -5,12 +5,18 @@ module GobiertoBudgetConsultations
     attr_accessor(
       :document_number_digest,
       :consultation_id,
-      :selected_options
+      :selected_options,
+      :date_of_birth_year,
+      :date_of_birth_month,
+      :date_of_birth_day,
+      :gender,
+      :custom_records_attributes,
+      :user
     )
 
     delegate :to_model, :persisted?, to: :consultation_response
 
-    validates :selected_options, :document_number_digest, :census_item, :consultation, presence: true
+    validates :selected_options, :document_number_digest, :census_item, :consultation, :user, presence: true
 
     def save
       save_consultation_response if valid?
@@ -79,6 +85,10 @@ module GobiertoBudgetConsultations
         consultation_response_attributes.budget_amount = consultation_response_items.sum(&:budget_line_amount)
         consultation_response_attributes.sharing_token ||= consultation_response_class.generate_unique_secure_token
         consultation_response_attributes.visibility_level = consultation_class.visibility_levels[:active]
+        consultation_response_attributes.user_information = {
+          gender: user.gender,
+          date_of_birth: user.date_of_birth.to_s
+        }.merge(custom_records_for_user || {}) if user
       end
 
       if @consultation_response.valid?
@@ -102,6 +112,12 @@ module GobiertoBudgetConsultations
       Rails.logger.debug "[exception] #{$!}"
       errors[:base] << I18n.t('errors.messages.invalid_consultation_response')
       return false
+    end
+
+    def custom_records_for_user
+      @custom_records_for_user ||= Hash[Array(user.custom_records).map do |custom_record|
+        [custom_record.custom_user_field.name, {"raw_value" => custom_record.raw_value, "localized_value" => custom_record.value}]
+      end]
     end
 
     protected

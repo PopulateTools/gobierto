@@ -34,11 +34,11 @@ class User::ConfirmationFormTest < ActiveSupport::TestCase
   end
 
   def madrid_custom_user_field_district
-    madrid_custom_user_field_district ||= gobierto_common_custom_user_fields(:madrid_custom_user_field_district)
+    @madrid_custom_user_field_district ||= gobierto_common_custom_user_fields(:madrid_custom_user_field_district)
   end
 
   def madrid_custom_user_field_association
-    madrid_custom_user_field_association ||= gobierto_common_custom_user_fields(:madrid_custom_user_field_association)
+    @madrid_custom_user_field_association ||= gobierto_common_custom_user_fields(:madrid_custom_user_field_association)
   end
 
   def unconfirmed_user

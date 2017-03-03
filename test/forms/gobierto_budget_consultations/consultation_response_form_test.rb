@@ -6,7 +6,8 @@ module GobiertoBudgetConsultations
       @valid_consultation_response_form ||= ConsultationResponseForm.new(
         document_number_digest: SecretAttribute.digest("00000000D"),
         consultation_id: consultation.id,
-        selected_options: selected_options_params
+        selected_options: selected_options_params,
+        user: user
       )
     end
 
@@ -14,7 +15,8 @@ module GobiertoBudgetConsultations
       @invalid_consultation_response_form ||= ConsultationResponseForm.new(
         document_number_digest: nil,
         consultation_id: nil,
-        selected_options: {}
+        selected_options: {},
+        user: nil
       )
     end
 
@@ -33,6 +35,10 @@ module GobiertoBudgetConsultations
 
     def selected_option
       @selected_option ||= consultation_item.response_options.first
+    end
+
+    def user
+      @user ||= users(:dennis)
     end
 
     def consultation
@@ -110,6 +116,16 @@ module GobiertoBudgetConsultations
       consultation_response = valid_consultation_response_form.save
 
       assert_equal sharing_token, consultation_response.sharing_token
+    end
+
+    def test_user_information
+      valid_consultation_response_form.save
+
+      user_information = valid_consultation_response_form.consultation_response.user_information
+      assert_equal "female", user_information["gender"]
+      assert_equal "1990-01-01", user_information["date_of_birth"]
+      assert_equal user_information["district"], {"raw_value"=>"randomstring1", "localized_value"=>"Center"}
+      assert_equal user_information["association"], {"raw_value"=>"Asociación amigos perros", "localized_value"=>"Asociación amigos perros"}
     end
   end
 end

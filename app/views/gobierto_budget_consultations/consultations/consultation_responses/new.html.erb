@@ -31,21 +31,27 @@
       <div class="consultation-box">
 
         <h2 class="consultation-lead"><%= t('.title', amount: budget_amount_to_human(@consultation.budget_amount)) %></h2>
-        <div data-messages-container>
-          <div id="errors" v-if="next && status=='deficit'">
-            <%= I18n.t('gobierto_budget_consultations.consultation_status_error') %>
-          </div>
-          <div id="notice" v-if="next && status!='deficit'">
-            <%= I18n.t('gobierto_budget_consultations.consultation_status_ready') %>
-          </div>
-        </div>
 
         <budget-calculator :active="active" :next="next" :status-text="statusText" :status="status" :status-class="statusClass"></budget-calculator>
         <consultation-card v-for="card in cards" :card="card" :active="active" :figures="figures"></consultation-card>
       </div>
     </div>
 
-    <div class="pure-u-1 pure-u-md-1-2">
+    <div class="pure-u-1 pure-u-md-1-2 description">
+      
+      <div v-show="next && status!='deficit'" class="consultation-confirm">
+        <%= image_tag 'illustrations/crm.jpg', class: 'pure-img' %>
+        
+        <h3><%= I18n.t('gobierto_budget_consultations.consultation_status_ready') %></h3>
+        <button class="expanded" @click="submitConsultation">Enviar</button>
+      </div>
+      
+      <div v-show="next && status=='deficit'" class="consultation-confirm deficit">
+        <i class="fa fa-times fa-4x"></i>
+        
+        <h3><%= I18n.t('gobierto_budget_consultations.consultation_status_error') %></h3>
+      </div>
+
       <card-description v-for="card in cards" :card="card" :figures="figures"></card-description>
     </div>
   </div>

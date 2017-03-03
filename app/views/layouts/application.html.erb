@@ -45,10 +45,6 @@
     <%= render 'layouts/analytics_header_site' %>
   <% end %>
 
-  <% if @site.configuration.head_markup.present? %>
-    <%= raw @site.configuration.head_markup %>
-  <% end %>
-
 </head>
 
 <body class="<%= current_module %> <%= controller_name %> <%= action_name %>" <%= yield(:body_attributes) %>>
@@ -146,6 +142,10 @@
       </div>
     </div>
 
+    <% if @site.configuration.head_markup.present? %>
+      <%= raw @site.configuration.head_markup %>
+    <% end %>
+
     <div class="site_header">
 
       <div class="column">
@@ -202,9 +202,11 @@
         <%= link_to_unless_current(image_tag(@site.configuration.logo_with_fallback, class: 'logo'), root_url) %>
       </div>
 
+      <div class="custom_html_footer">
       <% if @site.configuration.links_markup.present? %>
         <%= raw @site.configuration.foot_markup %>
       <% end %>
+      </div>
 
       <!--
       <div class="pure-u-1 pure-u-md-5-24">

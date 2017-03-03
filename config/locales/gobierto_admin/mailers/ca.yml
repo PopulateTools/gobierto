@@ -1,0 +1,20 @@
+---
+ca:
+  gobierto_admin:
+    admin_mailer:
+      confirmation_instructions:
+        subject: "Instrucciones per activar el teu compte en Gobierto"
+        hi: Hola
+        click_link: Pintxa en el següent enllaç per a activiar el teu compte en Gobierto
+        bye: Salutacions
+      invitation_instructions:
+        subject: "Has sigut invitat a col·laborar en Gobierto"
+        click_link: "Has sigut invitat a col·laborar en Goberto. Pintxa en el següent enllaç per a crear el teu compte"
+        hi: Hola
+        bye: Salutacions
+      reset_password_instructions:
+        subject: "Instrucciones per activar el teu compte en Gobierto"
+        hi: Hola
+        click_link: "Pintxa en el següent enllaç per a restaurar la teva contrasenya"
+        bye: Salutacions
+

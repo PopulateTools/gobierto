@@ -7,7 +7,7 @@ module GobiertoAdmin
         from: default_from,
         reply_to: default_reply_to,
         to: @admin.email,
-        subject: "[Admin] Confirmation instructions"
+        subject: t('.subject')
       )
     end
 
@@ -18,7 +18,7 @@ module GobiertoAdmin
         from: default_from,
         reply_to: default_reply_to,
         to: @admin.email,
-        subject: "[Admin] Invitation instructions"
+        subject: t(".subject")
       )
     end
 
@@ -29,7 +29,7 @@ module GobiertoAdmin
         from: default_from,
         reply_to: default_reply_to,
         to: @admin.email,
-        subject: "[Admin] Reset password instructions"
+        subject: t('.subject')
       )
     end
   end

@@ -260,9 +260,9 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
           var $targetDescription = $('[data-card-description-id="'+currentCard.id+'"]');
           if($targetDescription.length){
             if ($('.card-wrapper').css('top') === 'auto') {
-              var offset = $target.offset().top - 160;
+              var offset = $target.offset().top - 220;
             } else {
-              var offset = $target.offset().top - 190;
+              var offset = $target.offset().top - 250;
             }
             $targetDescription.css({ top: offset + 'px' });
           }

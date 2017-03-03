@@ -61,7 +61,7 @@ module GobiertoBudgetConsultations
 
         visit @path
 
-        assert has_selector?("h2", text: remaining_consultation.title)
+        assert has_content?("Do you want to opinate?")
       end
     end
 

@@ -52,6 +52,7 @@ es:
           reduction_not_allowed_html: "<h4 class='tip-headline'>Esta partida no se puede reducir</h4><p>Explicación de por qué</p>"
           explain_html: "<h4 class='tip-headline'>¿Equilibri o superávit?</h4><p>Con tus decisiones entraríamos en déficit anual: gastaríamos más de lo que ingresamos en el ejercicio y la deuda pendiente aumentaría. Puedes reevaluar tus decisiones para entrar en equilibrio.</p>"
           open_to_opinate: Abre cada partida para expresar tu preferencia
+          submit: Enviar
       consultation_confirmations:
         show:
           thanks: Estupendo, muchas gracias por tu aportación

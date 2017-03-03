@@ -14,6 +14,10 @@ module GobiertoBudgetConsultations
       @consultation ||= gobierto_budget_consultations_consultations(:madrid_open)
     end
 
+    def consultation_not_requiring_balance
+      @consultation_not_requiring_balance ||= gobierto_budget_consultations_consultations(:madrid_open_no_balance)
+    end
+
     def closed_consultation
       @closed_consultation ||= gobierto_budget_consultations_consultations(:madrid_past)
     end
@@ -94,7 +98,7 @@ module GobiertoBudgetConsultations
       end
     end
 
-    def test_consultation_response_creation_workflow_deficit
+    def test_consultation_response_creation_workflow_deficit_and_balance_required
       with_javascript do
         with_current_site(site) do
           with_signed_in_user(user) do
@@ -116,5 +120,26 @@ module GobiertoBudgetConsultations
       end
     end
 
+    def test_consultation_response_creation_workflow_deficit_and_balance_not_required
+      with_javascript do
+        with_current_site(site) do
+          with_signed_in_user(user) do
+            visit gobierto_budget_consultations_consultation_new_response_path(consultation_not_requiring_balance)
+
+            page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger('click')
+            page.find("button", text: "Increase").trigger('click')
+            assert_equal "Deficit", page.all(".budget-figure").last.text
+            sleep 2
+            page.find("button", text: "Increase").trigger('click')
+            assert_equal "Deficit", page.all(".budget-figure").last.text
+            sleep 2
+            assert page.find("a.budget-next i")['class'].include?("fa-check")
+            page.find("a.budget-next").trigger('click')
+
+            assert has_content?("Thanks for your response")
+          end
+        end
+      end
+    end
   end
 end

@@ -51,6 +51,7 @@ en:
           reduction_not_allowed_html: "<h4 class='tip-headline'>You can't reduce this budget line</h4><p>Explanation</p>"
           explain_html: "<h4 class='tip-headline'>¿Equilibri o superávit?</h4><p>Con tus decisiones entraríamos en déficit anual: gastaríamos más de lo que ingresamos en el ejercicio y la deuda pendiente aumentaría. Puedes reevaluar tus decisiones para entrar en equilibrio.</p>"
           open_to_opinate: Open each budget line to express your preference
+          submit: Send
       consultation_confirmations:
         show:
           thanks: Thanks for your response

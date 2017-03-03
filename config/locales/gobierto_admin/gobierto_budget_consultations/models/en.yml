@@ -14,6 +14,10 @@ en:
         description: Description
         title: Title
         block_reduction: Block reduction
+      gobierto_admin/gobierto_budget_consultations/consultation_response_form:
+        date_of_birth: Date of birth
+        gender: Gender
     models:
       gobierto_admin/gobierto_budget_consultations/consultation_form: Consultation
       gobierto_admin/gobierto_budget_consultations/consultation_item_form: Budget line
+      gobierto_admin/gobierto_budget_consultations/consultation_response_form: Response

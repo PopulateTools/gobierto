@@ -2,16 +2,23 @@ module GobiertoAdmin
   module GobiertoBudgetConsultations
     class ConsultationResponseForm
       include ActiveModel::Model
+      include ::GobiertoCommon::CustomUserFieldsHelper
 
       attr_accessor(
         :consultation_id,
         :document_number_digest,
-        :selected_options
+        :selected_options,
+        :date_of_birth_year,
+        :date_of_birth_month,
+        :date_of_birth_day,
+        :gender,
+        :custom_records_attributes
       )
 
       delegate :to_model, :persisted?, to: :consultation_response
 
-      validates :document_number_digest, :consultation, :selected_options, :site, :census_item, presence: true
+      validates :document_number_digest, :consultation, :selected_options,
+                :site, :census_item, :date_of_birth, :gender, presence: true
 
       def save
         save_consultation_response if valid?
@@ -39,7 +46,43 @@ module GobiertoAdmin
         @site ||= consultation.site if consultation
       end
 
+      def user
+        nil
+      end
+
+      def date_of_birth
+        @date_of_birth ||= if date_of_birth_year && date_of_birth_month && date_of_birth_day
+          Date.new(
+            date_of_birth_year.to_i,
+            date_of_birth_month.to_i,
+            date_of_birth_day.to_i
+          )
+        end
+      rescue ArgumentError
+        nil
+      end
+
+      def custom_records=(attributes)
+        @custom_records_attributes ||= Hash[Array(attributes).map do |name, field_attributes|
+          custom_user_field = site.custom_user_fields.find(field_attributes["custom_user_field_id"])
+          custom_record = custom_user_field.records.new
+          custom_record.value = field_attributes["value"]
+          [name, {"raw_value" => custom_record.raw_value, "localized_value" => custom_record.value}]
+        end]
+      end
+
       private
+
+      def valid_custom_records
+        return if custom_records_attributes.nil? || custom_records_attributes.empty?
+
+        custom_records_attributes.each do |name, attributes|
+          custom_user_field = site.custom_user_fields.find_by(name: name)
+          if custom_user_field.mandatory? && attributes["raw_value"].blank?
+            errors[:base] << "#{custom_user_field.localized_title} #{I18n.t('errors.messages.blank')}"
+          end
+        end
+      end
 
       def consultation_class
         ::GobiertoBudgetConsultations::Consultation
@@ -79,6 +122,10 @@ module GobiertoAdmin
           consultation_response_attributes.budget_amount = consultation_items.sum(&:budget_line_amount)
           consultation_response_attributes.sharing_token ||= consultation_response_class.generate_unique_secure_token
           consultation_response_attributes.visibility_level = consultation_class.visibility_levels[:active]
+          consultation_response_attributes.user_information = {
+            gender: gender,
+            date_of_birth: date_of_birth.to_s
+          }.merge(custom_records_attributes || {})
         end
 
         if @consultation_response.valid?

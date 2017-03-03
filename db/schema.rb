@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170302100518) do
+ActiveRecord::Schema.define(version: 20170302154209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -175,9 +175,11 @@ ActiveRecord::Schema.define(version: 20170302100518) do
     t.datetime "updated_at",                                                      null: false
     t.string   "sharing_token"
     t.string   "document_number_digest"
+    t.jsonb    "user_information"
     t.index ["consultation_id", "document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true, using: :btree
     t.index ["consultation_id"], name: "index_gbc_consultation_responses_on_consultation_id", using: :btree
     t.index ["sharing_token"], name: "index_gbc_consultation_responses_on_sharing_token", unique: true, using: :btree
+    t.index ["user_information"], name: "index_gbc_consultation_responses_on_user_information", using: :gin
   end
 
   create_table "gbc_consultations", force: :cascade do |t|

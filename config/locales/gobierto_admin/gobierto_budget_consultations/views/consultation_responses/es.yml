@@ -11,3 +11,8 @@ es:
               date: Fecha
             title: Participaciones
             view_response: Ver Particpiación
+          new:
+            gender:
+              male: Hombre
+              female: Mujer
+            user_information: Información personal

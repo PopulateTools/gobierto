@@ -26,12 +26,14 @@ class User::UserMailer < ApplicationMailer
   def welcome(user, site)
     @user = user
     @site = site
+    @site_url = root_url(domain: @site.domain)
+    @notifications_url = user_notifications_url(domain: @site.domain)
 
     mail(
       from: default_from,
       reply_to: default_reply_to,
       to: @user.email,
-      subject: "Welcome to Gobierto"
+      subject: t('.subject')
     )
   end
 end

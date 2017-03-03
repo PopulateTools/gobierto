@@ -1,12 +1,15 @@
 <p>
-  Hey,
+<%= t('.hi') %>
 </p>
 
 <p>
-  Your registration has been successfully completed.
+<%= t('.success', site_url: @site_url) %>
 </p>
 
 <p>
-  Remember you can always change your current password at
-  <%= new_user_sessions_url(domain: @site.domain) %>.
+<%= t('.alerts', notifications_url: @notifications_url) %>
+</p>
+
+<p>
+<%= t('.bye') %>
 </p>

@@ -14,7 +14,7 @@
   <% if @person.bio_url.present? %>
     <div class="download_file f_right">
       <i class="fa fa-file-pdf-o"></i>
-      <strong><%= link_to t(".download"), @person.bio_url %></strong>
+      <strong><%= link_to t(".download"), @person.bio_url, download: "" %></strong>
     </div>
   <% end %>
 

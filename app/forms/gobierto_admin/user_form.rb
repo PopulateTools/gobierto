@@ -73,7 +73,7 @@ module GobiertoAdmin
     end
 
     def deliver_confirmation_email
-      UserMailer.confirmation_instructions(user, user.source_site).deliver_later
+      ::User::UserMailer.confirmation_instructions(user, user.source_site).deliver_later
     end
   end
 end

@@ -39,6 +39,6 @@ class User::UserMailerTest < ActionMailer::TestCase
     assert_equal ["admin@gobierto.dev"], email.from
     assert_equal ["admin@gobierto.dev"], email.reply_to
     assert_equal [user.email], email.to
-    assert_equal "Welcome to Gobierto", email.subject
+    assert_equal "Welcome", email.subject
   end
 end

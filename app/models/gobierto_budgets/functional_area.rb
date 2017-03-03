@@ -5,7 +5,8 @@ module GobiertoBudgets
     EXPENSE = 'G'
 
     def self.all_items
-      @all_items ||= begin
+      @all_items ||= {}
+      @all_items[I18n.locale] ||= begin
         all_items = {
           EXPENSE => {}
         }

@@ -21,7 +21,8 @@ module GobiertoAdmin
         site: site,
         collection: collection,
         attribute_name: :attachment,
-        file: file
+        file: file,
+        content_disposition: "attachment"
       ).call
     end
 

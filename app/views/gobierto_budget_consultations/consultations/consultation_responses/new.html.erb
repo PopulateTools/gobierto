@@ -6,12 +6,18 @@
 
     <h2 class="consultation-lead"><%= t('.title', amount: budget_amount_to_human(@consultation.budget_amount)) %></h2>
     <div data-messages-container>
-      <div id="errors" v-if="next && status=='deficit'">
-        <%= I18n.t('gobierto_budget_consultations.consultation_status_error') %>
-      </div>
-      <div id="notice" v-if="next && status!='deficit'">
-        <%= I18n.t('gobierto_budget_consultations.consultation_status_ready') %>
-      </div>
+      <% if @consultation.force_responses_balance? %>
+        <div id="errors" v-if="next && status=='deficit'">
+          <%= I18n.t('gobierto_budget_consultations.consultation_status_error') %>
+        </div>
+        <div id="notice" v-if="next && status!='deficit'">
+          <%= I18n.t('gobierto_budget_consultations.consultation_status_ready') %>
+        </div>
+      <% else %>
+        <div id="notice" v-if="next">
+          <%= I18n.t('gobierto_budget_consultations.consultation_status_ready') %>
+        </div>
+      <% end %>
     </div>
   </div>
 
@@ -38,19 +44,25 @@
     </div>
 
     <div class="pure-u-1 pure-u-md-1-2 description">
-      
-      <div v-show="next && status!='deficit'" class="consultation-confirm">
-        <%= image_tag 'illustrations/crm.jpg', class: 'pure-img' %>
-        
-        <h3><%= I18n.t('gobierto_budget_consultations.consultation_status_ready') %></h3>
-        <button class="expanded" @click="submitConsultation">Enviar</button>
-      </div>
-      
-      <div v-show="next && status=='deficit'" class="consultation-confirm deficit">
-        <i class="fa fa-times fa-4x"></i>
-        
-        <h3><%= I18n.t('gobierto_budget_consultations.consultation_status_error') %></h3>
-      </div>
+
+      <% if @consultation.force_responses_balance? %>
+        <div v-show="next && status!='deficit'" class="consultation-confirm">
+          <%= image_tag 'illustrations/crm.jpg', class: 'pure-img' %>
+          <h3><%= I18n.t('gobierto_budget_consultations.consultation_status_ready') %></h3>
+          <button class="expanded" @click="submitConsultation"><%= t('.submit') %></button>
+        </div>
+
+        <div v-show="next && status=='deficit'" class="consultation-confirm deficit">
+          <i class="fa fa-times fa-4x"></i>
+          <h3><%= I18n.t('gobierto_budget_consultations.consultation_status_error') %></h3>
+        </div>
+      <% else %>
+        <div v-show="next" class="consultation-confirm">
+          <%= image_tag 'illustrations/crm.jpg', class: 'pure-img' %>
+          <h3><%= I18n.t('gobierto_budget_consultations.consultation_status_ready') %></h3>
+          <button class="expanded" @click="submitConsultation"><%= t('.submit') %></button>
+        </div>
+      <% end %>
 
       <card-description v-for="card in cards" :card="card" :figures="figures"></card-description>
     </div>
@@ -172,7 +184,9 @@
       </div>
       <div class="pure-u-1-6">
         <a href="#" class="budget-next" @click="nextScreen" v-if="!next"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
-        <a href="#" class="budget-next consultation-status-error" @click="showConsultationStatusError" v-else-if="status=='deficit'" title="<p><%= I18n.t('gobierto_budget_consultations.consultation_status_error') %></p><button class='tip-button' data-tipsy-close>OK</button>"><i class="fa fa-times" aria-hidden="true"></i></a>
+        <% if @consultation.force_responses_balance? %>
+          <a href="#" class="budget-next consultation-status-error" @click="showConsultationStatusError" v-else-if="status=='deficit'" title="<p><%= I18n.t('gobierto_budget_consultations.consultation_status_error') %></p><button class='tip-button' data-tipsy-close>OK</button>"><i class="fa fa-times" aria-hidden="true"></i></a>
+        <% end %>
         <a href="#" class="budget-next" @click="submitConsultation" v-else><i class="fa fa-check" aria-hidden="true"></i></a>
       </div>
     </div>

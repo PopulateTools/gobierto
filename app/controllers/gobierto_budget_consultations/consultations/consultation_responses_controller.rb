@@ -8,7 +8,8 @@ module GobiertoBudgetConsultations
       def new
         @consultation_response_form = ConsultationResponseForm.new(
           document_number_digest: document_number_digest,
-          consultation_id: @consultation.id
+          consultation_id: @consultation.id,
+          user: current_user
         )
 
         @consultation_items = @consultation.consultation_items.sorted
@@ -18,7 +19,8 @@ module GobiertoBudgetConsultations
         @consultation_response_form = ConsultationResponseForm.new(
           consultation_response_params.merge(
             document_number_digest: document_number_digest,
-            consultation_id: @consultation.id
+            consultation_id: @consultation.id,
+            user: current_user
           )
         )
 

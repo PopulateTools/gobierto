@@ -65,13 +65,9 @@ module GobiertoAdmin
       def custom_records=(attributes)
         @custom_records_attributes ||= Hash[Array(attributes).map do |name, field_attributes|
           custom_user_field = site.custom_user_fields.find(field_attributes["custom_user_field_id"])
-          raw_value = field_attributes["value"]
-          localized_value = if custom_user_field.options.present? && custom_user_field.options[raw_value].present?
-                              custom_user_field.options[raw_value][I18n.locale.to_s]
-                            else
-                              raw_value
-                            end
-          [name, {"raw_value" => raw_value, "localized_value" => localized_value}]
+          custom_record = custom_user_field.records.new
+          custom_record.value = field_attributes["value"]
+          [name, {"raw_value" => custom_record.raw_value, "localized_value" => custom_record.value}]
         end]
       end
 
@@ -79,6 +75,7 @@ module GobiertoAdmin
 
       def valid_custom_records
         return if custom_records_attributes.nil? || custom_records_attributes.empty?
+
         custom_records_attributes.each do |name, attributes|
           custom_user_field = site.custom_user_fields.find_by(name: name)
           if custom_user_field.mandatory? && attributes["raw_value"].blank?

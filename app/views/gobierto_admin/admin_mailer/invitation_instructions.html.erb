@@ -7,7 +7,7 @@
 </p>
 
 <p>
-  <%= admin_admin_invitation_acceptances_url(invitation_token: @admin.invitation_token, host: @site.try(:domain) || ENV['HOST']) %>
+  <%= admin_admin_invitation_acceptances_url(invitation_token: @admin.invitation_token, domain: @site.try(:domain)) %>
 </p>
 
 <p>

@@ -14,6 +14,10 @@ es:
         description: Descripción
         title: Título
         block_reduction: Bloquear reducción
+      gobierto_admin/gobierto_budget_consultations/consultation_response_form:
+        date_of_birth: Fecha de nacimiento
+        gender: Género
     models:
       gobierto_admin/gobierto_budget_consultations/consultation_form: Consulta
       gobierto_admin/gobierto_budget_consultations/consultation_item_form: Partida
+      gobierto_admin/gobierto_budget_consultations/consultation_response_form: Respuesta

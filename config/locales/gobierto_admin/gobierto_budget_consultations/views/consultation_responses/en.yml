@@ -11,3 +11,8 @@ en:
               date: Date
             title: Participations
             view_response: View participation
+          new:
+            gender:
+              male: Male
+              female: Female
+            user_information: User information

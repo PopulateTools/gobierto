@@ -38,6 +38,41 @@
       </table>
     </div>
 
+    <div class="pure-u-1 pure-u-md-16-24">
+      <h3><%= t('.user_information') %></h3>
+
+      <div class="form_item select_control selects_inline">
+        <%= f.label :date_of_birth, f.object.class.human_attribute_name(:date_of_birth) %>
+        <%= f.date_select(
+          :date_of_birth,
+          prompt: true,
+          end_year: 100.years.ago.year,
+          start_year: Date.current.year) %>
+      </div>
+
+        <div class="form_item">
+          <div class="options options_cont">
+            <%= f.label :gender, f.object.class.human_attribute_name(:gender) %>
+
+            <div class="pure-g">
+              <%= f.collection_radio_buttons(:gender, @user_genders, :first, :first) do |b| %>
+                <div class="pure-u-md-1-2">
+                  <div class="option ">
+                    <%= b.radio_button %>
+                    <%= b.label do %>
+                      <span></span>
+                      <%= t(".gender.#{b.text}") %>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+      <%= render partial: 'user/shared/custom_fields', locals: {custom_records: f.object.custom_records, form_name: "consultation_response"} %>
+    </div>
+
     <div class="pure-u-1 pure-u-md-2-24"></div>
 
     <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">

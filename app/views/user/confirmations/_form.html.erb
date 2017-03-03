@@ -29,7 +29,7 @@
 
   <% if @user_confirmation_form.require_user_verification? %>
     <div class="form_item input_text">
-      <%= f.label :document_number %>
+      <%= f.label :document_number, t('.document_number_notice') %>
       <%= f.text_field :document_number, placeholder: "11111111A" %>
     </div>
   <% end %>

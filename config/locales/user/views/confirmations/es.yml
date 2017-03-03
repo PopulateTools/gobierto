@@ -3,6 +3,7 @@ es:
   user:
     confirmations:
       form:
+        document_number_notice: "Número de documento"
         gender:
           female: Mujer
           male: Hombre

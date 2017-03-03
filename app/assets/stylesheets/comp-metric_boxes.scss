@@ -7,7 +7,7 @@
 	.metric_box {
 		box-sizing: border-box;
 		.inner {
-			background: transparentize($color_main, .85);
+			background: $color_1_soft;
 			margin: 0 .5em;
 			padding: .8em 1em;
 			min-height: 100px;
@@ -21,7 +21,7 @@
 		}
 		.metric {
 			font-size: 2em;
-			font-weight: 600;
+			font-weight: 500;
 		}
 		.explanation {
 			font-size: .75em;

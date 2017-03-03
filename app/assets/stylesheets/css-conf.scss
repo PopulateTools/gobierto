@@ -16,18 +16,18 @@ $color_1_soft: #EFF8F9;
 $color_1_dark: #00909E;
 */
 $color_text: #767168;
-$color_main: #00909E;
+$color_main: #00909E; // #248a95
 $color_dark: #005D67;
 $color_dark_sep: transparentize($color_dark, .9);
 $color_1: $color_main;
-$color_1_soft: transparentize($color_main, .94);
+$color_1_soft: transparentize($color_main, .96);
 $background: $color_1;
-$color_secondary: #F0F0F0;
+$color_secondary: #F8F8F8;
 $color_main_negative: #FFF;
 $color_separator: #D6D6D6;
-$color_neutral_soft: #F5F4F4;
+$color_neutral_soft: #FCFCFC;
 $color_highlight: #F1F4BE;
-$color_meta_text: #A5A5A5;
+$color_meta_text: #737878;
 $text_soft: $color_meta_text;
 
 $color_facebook: #3A589A;

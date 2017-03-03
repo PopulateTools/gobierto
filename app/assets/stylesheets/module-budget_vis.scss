@@ -130,7 +130,7 @@
 	a {
 		text-decoration: none;
 		text-transform: uppercase;
-		color: rgba($color_main, .75);
+		color: $color_main;
 		display: inline-block;
 		padding: .5em 2em .25em;
 		@include border-radius(4px);

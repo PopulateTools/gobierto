@@ -37,7 +37,7 @@ body.gobierto_admin {
     .new_row_content, .dynamic-content-record-form {
       display: none;
       td {
-        background: transparentize($color_main, .95); 
+        background: $color_1_soft;
         padding: .7em .5em .4em;
 
       }

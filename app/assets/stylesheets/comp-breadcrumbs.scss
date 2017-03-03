@@ -29,7 +29,7 @@
 		display: inline-block;
 	}
 	.bread_links {
-		background: transparentize($color_main, .9);
+		background: $color_1_soft;
 		padding: .3em .75em;
 		@include border-radius(4px);
 		font-weight: 200;

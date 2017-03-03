@@ -5,7 +5,7 @@
 table {
 	width: 100%;
 	td, th {
-		border-top: 1px solid transparentize($color_main, .85);
+		border-top: 1px solid $color_1_soft;
 		padding: .4em .5em .4em;
 		font-size: .85em;
 		line-height: 1.4em;
@@ -21,7 +21,7 @@ table {
 	}
 	tr.summary_row {
 		td {
-			border-top: 3px solid transparentize($color_main, .65);
+			border-top: 3px solid $color_1_soft;
 			padding-top: 1em;
 		}
 	}
@@ -32,7 +32,7 @@ table {
 	}
 	tr.summary_row_end {
 		td {
-			border-bottom: 3px solid transparentize($color_main, .65);
+			border-bottom: 3px solid $color_1_soft;
 			padding-bottom: 1em;
 		}
 	}
@@ -53,7 +53,7 @@ td.visibility_level {
 	white-space: nowrap;
 }
 .table_cont_round {
-	background: transparentize($color_main, .94); // rgba($color_main, .06);
+	background: $color_1_soft; // rgba($color_main, .06);
 	@include border-radius(6px);
 	padding: .5em 0;
 }
@@ -61,7 +61,7 @@ table.explore_slow {
 	font-size: 1.2rem;
 	tr.group {
 		td {
-			border-top: 3px solid transparentize($color_main, .85);
+			border-top: 3px solid $color_1_soft;
 		}
 	}
 	tr:hover {
@@ -96,7 +96,7 @@ table.med_bg {
 	}*/
 	td, th {
 		border-top: 1px solid transparentize($color_main, .85);
-		background: transparentize($color_main, .94);
+		background: $color_1_soft;
 		padding: .7em 1em .4em 1em;
 		font-size: .85em;
 		a {
@@ -108,7 +108,7 @@ table.med_bg {
 		font-weight: normal;
 		font-size: .75em;
 		text-align: left;
-		opacity: .5;
+		opacity: .85;
 		border: none;
 		text-align: right;
 	}
@@ -150,10 +150,10 @@ th.icon_col {
 
 table.block_content {
 	th {
-		background: transparentize($color_main, .85);	
+		background: $color_1_soft;	
 		text-align: left; 
 		text-transform: uppercase;
-		color: transparentize($color_main, .5);
+		color: $color_main;
 		border: none;
 	}
 	td {
@@ -162,12 +162,12 @@ table.block_content {
 	// tr.even {
 	tr:visible:nth-child(2n-1) {
 		td {
-			background: transparentize($color_main, .95);	
+			background: $color_1_soft;	
 		}
 	}
 	tr:nth-child(2n-1) {
 		td {
-			background: transparentize($color_main, .95);	
+			background: $color_1_soft;	
 		}
 	}
 	tr:hover {

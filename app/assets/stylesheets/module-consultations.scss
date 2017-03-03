@@ -459,7 +459,7 @@ img.side_50 {
 .select-lead {
   padding: 0.25rem;
   color: $color_main_negative;
-  background: #1d9eab;
+  background: $color_1;
   font-weight: 600;
 }
 .select-info {
@@ -483,7 +483,7 @@ img.side_50 {
 }
 .pct {
   margin-bottom: 0;
-  background: #6dbfc6;
+  background: $color_1;
   text-transform: capitalize;
   padding: 0.75rem 0;
   font-size: 1rem;

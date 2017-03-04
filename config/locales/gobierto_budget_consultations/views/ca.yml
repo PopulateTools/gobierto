@@ -46,8 +46,10 @@ ca:
           balance_deficit: Equilibri/Déficit
           base_budget: Pressupost base
           title: Els %{amount} de despesses es reparteixen així - obri cada partida per a opinar
-          reduction_not_allowed_html: "<h4 class='tip-headline'>Aquesta partida no es pot reduir</h4><p>Explicació de per què no es poden reduir algunes partides.</p>"
-          explain_html: "<h4 class='tip-headline'>¿Equilibri o superávit?</h4><p>Con tus decisiones entraríamos en déficit anual: gastaríamos más de lo que ingresamos en el ejercicio y la deuda pendiente aumentaría. Puedes reevaluar tus decisiones para entrar en equilibrio.</p>"
+          reduction_not_allowed_html: "<h4 class='tip-headline'>Aquesta partida no es pot reduir</h4><p>La despesa en algunes partides no se pot reduir per compromissos adquirits (contractes ja firmats, per exemple). En altres exercicis si se podrà reduir.</p>"
+          explain_surplus_html: "<h4 class='tip-headline'>Superávit</h4><p>Amb les teves decisions gastariem menys de lo que ingresemo en aquest exercici. Això vol dir que podriem dedicar eixe extra a pagar més deute en cas que hi tingam, o a estalviar recursos per a anys veniders. Però a lo millor tè sentit gastar tot lo que hem recaptat, pensa-ho!</p>"
+          explain_deficit_html: "<h4 class='tip-headline'>Dèficit</h4><p>Amb les teves decisions estariem gastant més de lo que ingresem, per lo que estariem generant deute. Això no té que ser necessariament un problema, sempre que siga una quantitat que puguem afrontar sense complicacions. Però si el nostre ajuntament ja té deute, fariem que està fora més gran, i per tant pagariem més interesos.</p>"
+          explain_balance_html: "<h4 class='tip-headline'>Equilibri</h4><p>Fantàstic! Amb les teves decisions el pressupost quedaria equilibrat: els ingresos del ajuntament serian iguals a les despeses, per lo que gastariem el que tenim i no generariem deute.</p>"
           open_to_opinate: Obri cada partida per a expressar la teva preferència
           submit: Enviar
       consultation_confirmations:

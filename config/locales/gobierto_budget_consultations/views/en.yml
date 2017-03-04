@@ -31,9 +31,6 @@ en:
         open_until: Consultation open until %{date}
         opens_at: You'll be able to participate since the %{date}
         closed: Sorry, this consultation is closed
-      budget_summary:
-        opinate: Opinate about the budgets
-        call_to_action: See how is distributed the investment and opinate about the priorities
       consultation_items:
         index:
           start: Start

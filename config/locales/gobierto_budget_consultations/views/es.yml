@@ -32,9 +32,6 @@ es:
         open_until: Consulta abierta hasta el %{date}
         opens_at: Podrás participar en esta consulta a partir del %{date}
         closed: Lo sentimos, esta consulta está cerrada
-      budget_summary:
-        opinate: Opina sobre el presupuesto
-        call_to_action: Mira cómo se reparte la inversión y opina sobre las prioridades
       consultation_items:
         index:
           start: Comienza a opinar

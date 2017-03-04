@@ -162,5 +162,42 @@ module GobiertoBudgetConsultations
         assert_equal @path, page.current_path
       end
     end
+
+    def test_consultation_response_creation_with_signup_and_verification
+      with_current_site(site) do
+        # Force referer detection
+        Capybara.current_session.driver.header 'Referer', @path
+        visit @path
+
+        assert has_content?("The participation in this consultation is reserved to people registered in Madrid.")
+
+        fill_in :user_registration_email, with: "user@email.dev"
+
+        click_on "Let's go"
+
+        assert has_message?("Please check your inbox to confirm your email address")
+
+        unconfirmed_user = User.last
+        assert_equal "user@email.dev", unconfirmed_user.email
+
+        visit new_user_confirmations_path(confirmation_token: unconfirmed_user.confirmation_token)
+
+        fill_in :user_confirmation_name, with: "user@email.dev"
+        fill_in :user_confirmation_password, with: "wadus"
+        fill_in :user_confirmation_password_confirmation, with: "wadus"
+        select "1993", from: :user_confirmation_date_of_birth_1i
+        select "January", from: :user_confirmation_date_of_birth_2i
+        select "1", from: :user_confirmation_date_of_birth_3i
+        choose "Male"
+        fill_in :user_confirmation_document_number, with: "00000000D"
+        select "Center", from: "Districts"
+        fill_in "Association", with: "Asociación Vecinos Arganzuela"
+        fill_in "Bio", with: "My short bio"
+
+        click_on "Save"
+
+        assert_equal @path, page.current_path
+      end
+    end
   end
 end

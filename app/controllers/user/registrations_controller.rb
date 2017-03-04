@@ -24,6 +24,6 @@ class User::RegistrationsController < User::BaseController
   private
 
   def user_registration_params
-    params.require(:user_registration).permit(:email)
+    params.require(:user_registration).permit(:email, :referrer_url, :referrer_entity)
   end
 end

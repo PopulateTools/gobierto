@@ -21,7 +21,7 @@ class User::SessionsControllerTest < GobiertoControllerTest
       user_sessions_url,
       params: { user_session: valid_session_params }
     )
-    assert_redirected_to user_root_path
+    assert_redirected_to root_path
   end
 
   def test_create_with_referrer

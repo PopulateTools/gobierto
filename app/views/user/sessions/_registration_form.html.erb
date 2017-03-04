@@ -3,9 +3,10 @@
     <%= f.label :email %>
     <%= f.email_field :email %>
   </div>
-  
+
   <div class="disclaimer"><%= privacy_policy_page_link %></div>
 
+  <%= f.hidden_field :referrer_url %>
+  <%= f.hidden_field :referrer_entity %>
   <%= f.submit t(".submit"), class: "button" %>
-  
 <% end %>

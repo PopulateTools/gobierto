@@ -38,7 +38,7 @@ module User::SessionHelper
   end
 
   def after_sign_in_path(referrer_url = nil)
-    referrer_url.presence || user_root_path
+    referrer_url.presence || root_path
   end
 
   def after_sign_out_path

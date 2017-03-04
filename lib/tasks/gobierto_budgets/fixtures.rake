@@ -15,6 +15,12 @@ namespace :gobierto_budgets do
         import_gobierto_budgets_for_place(place, year)
         import_gobierto_budgets_data_for_place(place, year)
       end
+
+      place = INE::Places::Place.find_by_slug('santander')
+      (GobiertoBudgets::SearchEngineConfiguration::Year.last - 1..GobiertoBudgets::SearchEngineConfiguration::Year.last).each do |year|
+        import_gobierto_budgets_for_place(place, year)
+        import_gobierto_budgets_data_for_place(place, year)
+      end
     end
 
     def import_gobierto_budgets_data_for_place(place, year)

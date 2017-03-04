@@ -57,10 +57,6 @@ class SiteConfiguration
     privacy_page.present?
   end
 
-  def user_verification_required?
-    modules.include?("GobiertoBudgetConsultations")
-  end
-
   # Define question mark instance methods for each property.
   # i.e. `#demo?`.
   #

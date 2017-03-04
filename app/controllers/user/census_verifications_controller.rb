@@ -3,7 +3,12 @@ class User::CensusVerificationsController < User::BaseController
   before_action(only: [:new, :create]) { require_not_verified_user_in(current_site) }
 
   def new
-    @user_verification_form = User::CensusVerificationForm.new(site_id: current_site.id, referrer_url: request.referrer)
+    @user_verification_form = User::CensusVerificationForm.new(
+      site_id: current_site.id, referrer_url: request.referrer,
+      date_of_birth_year: current_user.date_of_birth.year,
+      date_of_birth_month: current_user.date_of_birth.month,
+      date_of_birth_day: current_user.date_of_birth.day
+    )
   end
 
   def create

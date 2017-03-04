@@ -22,7 +22,7 @@ class User::ConfirmationForm
   validate :user_verification
 
   def require_user_verification?
-    site.present? && site.configuration.user_verification_required?
+    user.present? && user.referrer_entity == "GobiertoBudgetConsultations::Consultation"
   end
 
   def save

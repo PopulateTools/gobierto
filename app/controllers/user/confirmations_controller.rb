@@ -31,7 +31,7 @@ class User::ConfirmationsController < User::BaseController
       user.update_session_data(remote_ip)
       sign_in_user(user.id)
 
-      redirect_to after_sign_in_path, notice: t(".success")
+      redirect_to after_sign_in_path(user.referrer_url), notice: t(".success")
     else
       @user_genders = get_user_genders
 

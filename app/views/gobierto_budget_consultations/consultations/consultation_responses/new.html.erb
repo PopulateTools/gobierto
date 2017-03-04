@@ -22,7 +22,7 @@
   </div>
 
   <div class="consultation-box">
-    <consultation-card v-for="card in cards" :card="card" :active="active" :figures="figures"></consultation-card>
+    <consultation-card v-for="card in cards" :key="card.id" :card="card" :active="active" :figures="figures"></consultation-card>
   </div>
 
   <budget-calculator :active="active" :next="next" :status-text="statusText" :status="status" :status-class="statusClass"></budget-calculator>
@@ -39,7 +39,7 @@
         <h2 class="consultation-lead"><%= t('.title', amount: budget_amount_to_human(@consultation.budget_amount)) %></h2>
 
         <budget-calculator :active="active" :next="next" :status-text="statusText" :status="status" :status-class="statusClass"></budget-calculator>
-        <consultation-card v-for="card in cards" :card="card" :active="active" :figures="figures"></consultation-card>
+        <consultation-card v-for="card in cards" :key="card.id" :card="card" :active="active" :figures="figures"></consultation-card>
       </div>
     </div>
 
@@ -64,7 +64,7 @@
         </div>
       <% end %>
 
-      <card-description v-for="card in cards" :card="card" :figures="figures"></card-description>
+      <card-description v-for="card in cards" :key="card.id" :card="card" :figures="figures"></card-description>
     </div>
   </div>
 </div>

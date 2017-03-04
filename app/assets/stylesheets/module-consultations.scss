@@ -64,13 +64,26 @@ img.side_50 {
 }
 .column.consultation {
   max-width: 960px;
-  margin: 0 auto;
+  position: relative;
 }
 .consultation-intro-wrapper {
-  padding: 0 1rem;
-  
+  .consultation-intro-header {
+    margin: 0 0 2em 0;
+    h2 {
+      font-size: 2.2em;
+      margin: 0;
+    } 
+  }
   @include min-screen(768) {
-    padding: 0;
+    position: relative;
+    padding: 0 10rem;
+    margin-bottom: 3em;
+
+    img.consultation-decoration {
+      position: absolute;
+      top: -1em;
+      left: 0;
+    }
   }
 }
 .consultation-intro-wrapper p {
@@ -175,12 +188,7 @@ img.side_50 {
 .consultation-faq .consultation-text p {
   padding: 0;
 }
-.button-light {
-  border-radius: 6px;
-  font-size: 1rem;
-  background: #cde9ec;
-  padding: .75rem;
-}
+
 
 /* Budget preview (desktop only) */
 .column.consultation.desktop {

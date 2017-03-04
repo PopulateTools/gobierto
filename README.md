@@ -54,6 +54,7 @@ En desarrollo ahora mismo:
 Si quieres instalarte Gobierto en tu propio entorno o desarrollar algún módulo nuevo, aquí tienes una serie de páginas enlazadas con toda la información que te hará falta.
 
 - [Configurar el entorno de desarrollo con Docker](docs/development-environment.md)
+- [Variables de entorno](docs/environment-variables.md)
 - [Acceder como Administrador](docs/admin-namespace.md)
 - [Acceder como Usuario](docs/user-namespace.md)
 - [Integrar la extensión Trackable](docs/trackable-extension.md)

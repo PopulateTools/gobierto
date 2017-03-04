@@ -4,7 +4,7 @@ class User::UserMailer < ApplicationMailer
     @site = site
 
     mail(
-      from: default_from,
+      from: from,
       reply_to: default_reply_to,
       to: @user.email,
       subject: t('.subject', site_name: @site.name)
@@ -16,7 +16,7 @@ class User::UserMailer < ApplicationMailer
     @site = site
 
     mail(
-      from: default_from,
+      from: from,
       reply_to: default_reply_to,
       to: @user.email,
       subject: t('.subject')
@@ -30,7 +30,7 @@ class User::UserMailer < ApplicationMailer
     @notifications_url = user_notifications_url(domain: @site.domain)
 
     mail(
-      from: default_from,
+      from: from,
       reply_to: default_reply_to,
       to: @user.email,
       subject: t('.subject')

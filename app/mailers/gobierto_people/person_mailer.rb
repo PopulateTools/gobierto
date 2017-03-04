@@ -8,7 +8,7 @@ module GobiertoPeople
       @site = @person.site
 
       mail(
-        from: default_from,
+        from: from,
         to: @person.email,
         reply_to: @reply_to,
         subject: t('.subject', name: @site.title)

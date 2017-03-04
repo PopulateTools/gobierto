@@ -25,10 +25,6 @@ class User::CensusVerificationTest < ActionDispatch::IntegrationTest
 
         fill_in :user_verification_document_number, with: "00000000A"
 
-        select "1992", from: :user_verification_date_of_birth_1i
-        select "January", from: :user_verification_date_of_birth_2i
-        select "1", from: :user_verification_date_of_birth_3i
-
         click_on "Verify"
 
         assert has_content?("Your identity has been verified successfully")

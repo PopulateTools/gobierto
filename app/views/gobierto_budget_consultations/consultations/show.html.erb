@@ -13,13 +13,13 @@
         <p><%= t('.explanation') %></p>
       </div>
     <% end %>
-    <a class="consultation-deadline" href="/sandbox/consultation_faq.html"><%= t('.open_until', date: l(@consultation.closes_on, format: :short)) %></a>
+    <a class="consultation-deadline" href="/sandbox/consultation_faq.html"><%= t('.open_until', date: l(@consultation.closes_on, format: :long)) %></a>
   <% else %>
     <% if @consultation.upcoming? %>
       <div class="bottom-info">
         <div class="teaser">
           <h2 class="consultation-q inline-block">
-            <%= t('.opens_at', date: l(@consultation.opens_on, format: :short)) %>
+            <%= t('.opens_at', date: l(@consultation.opens_on, format: :long)) %>
           </h2>
         </div>
       </div>

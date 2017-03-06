@@ -38,10 +38,9 @@
           <ul id="managed-sites-list" class="pure-menu-children">
             <% managed_sites.each do |site| %>
               <li class="pure-menu-item">
-                <%= button_to(
+                <%= link_to(
                   site.name,
-                  admin_sites_sessions_path,
-                  params: { site_id: site.id },
+                  admin_root_url(domain: site.domain),
                   class: "pure-menu-link") %>
               </li>
             <% end %>

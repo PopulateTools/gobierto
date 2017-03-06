@@ -28,7 +28,7 @@ module User::SubscriberTest
   def test_unsubscribe_from_when_not_subscribed
     User::Subscription.delete_all
 
-    assert subscribed_user.unsubscribe_from!(user_subscription, user_subscription_site)
+    assert_nil subscribed_user.unsubscribe_from!(user_subscription, user_subscription_site)
   end
 
   def test_toggle_subscription_when_already_subscribed

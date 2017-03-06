@@ -295,6 +295,7 @@ img.side_50 {
   position: relative;
 }
 .consultation-title {
+  margin: 0;
   font-weight: 600;
   display: inline-block;
   font-size: 1rem;
@@ -384,8 +385,10 @@ img.side_50 {
   position: relative;
 }
 .card-headline {
-  padding-right: 6rem;
+  font-size: 1.5em;
+  margin-top: 0;
   margin-bottom: 1rem;
+  padding-right: 6rem;
 }
 .card-figure {
   text-align: right;
@@ -394,10 +397,11 @@ img.side_50 {
   right: 0;
   top: 0
 }
-.card-figure h2 {
+.card-figure h4 {
   color: #9b9b9b;
   font-weight: 400;
   margin: 0;
+  margin-top: 0.35rem;
 }
 .card-figure p {
   margin-top: 0;
@@ -559,7 +563,7 @@ img.side_50 {
 .deficit-1 .budget-status {
   color: #A91900;
 }
-.consultation-info h4 {
+.consultation-info h3 {
   text-align: center;
   font-size: 0.9rem;
   font-weight: 400;

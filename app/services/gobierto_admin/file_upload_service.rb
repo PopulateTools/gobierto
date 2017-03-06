@@ -29,7 +29,7 @@ module GobiertoAdmin
 
     def file_name
       @file_name ||= begin
-        [site_id, collection, attribute_name].join("/")
+        [site_id, collection, attribute_name, file.original_filename].join("/")
       end
     end
 

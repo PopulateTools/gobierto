@@ -61,7 +61,7 @@ module GobiertoBudgetConsultations
         visit @upcoming_consultation_path
 
         refute has_link?("Do you want to opinate?")
-        assert has_content?("You'll be able to participate since the #{l(upcoming_consultation.opens_on, format: :short)}")
+        assert has_content?("You'll be able to participate since the #{l(upcoming_consultation.opens_on, format: :long).downcase}")
       end
     end
 

@@ -17,9 +17,9 @@
               <%= "(#{t('.already_responded')})" if consultation.already_responded?(current_user) %>
             <% end %>
             <div class="soft">
-              <%= l(consultation.opens_on, format: :short) %>
+              <%= l(consultation.opens_on, format: :long).downcase %>
               -
-              <%= l(consultation.closes_on, format: :short) %>
+              <%= l(consultation.closes_on, format: :long).downcase %>
             </div>
 
           </div>
@@ -50,9 +50,9 @@
                 <%= "(#{t('.already_responded')})" if consultation.already_responded?(current_user) %>
               <% end %>
               <div class="soft">
-                <%= l(consultation.opens_on, format: :short) %>
+                <%= l(consultation.opens_on, format: :long).downcase %>
                 -
-                <%= l(consultation.closes_on, format: :short) %>
+                <%= l(consultation.closes_on, format: :long).downcase %>
               </div>
             </div>
 

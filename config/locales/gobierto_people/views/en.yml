@@ -20,6 +20,9 @@ en:
         people: Officials
         statements: Statements
     people:
+      subscription_button:
+        follow: Follow
+        cancel: Cancel
       person_messages:
         new:
           title: Send a message %{name}

@@ -20,6 +20,9 @@ ca:
         people: Càrrecs
         statements: Declaracions
     people:
+      subscription_button:
+        follow: Seguir
+        cancel: Cancelar
       person_messages:
         new:
           title: Envia un missatge a %{name}

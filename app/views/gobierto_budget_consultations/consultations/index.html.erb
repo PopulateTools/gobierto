@@ -19,9 +19,9 @@
             <% end %>
             </h3>
             <div class="soft">
-              <%= l(consultation.opens_on, format: :short) %>
+              <%= l(consultation.opens_on, format: :long).downcase %>
               -
-              <%= l(consultation.closes_on, format: :short) %>
+              <%= l(consultation.closes_on, format: :long).downcase %>
             </div>
 
           </div>
@@ -54,9 +54,9 @@
               <% end %>
               </h3>
               <div class="soft">
-                <%= l(consultation.opens_on, format: :short) %>
+                <%= l(consultation.opens_on, format: :long).downcase %>
                 -
-                <%= l(consultation.closes_on, format: :short) %>
+                <%= l(consultation.closes_on, format: :long).downcase %>
               </div>
             </div>
 

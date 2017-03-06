@@ -3,6 +3,14 @@ class ApplicationMailer < ActionMailer::Base
 
   private
 
+  def from
+    site_from || default_from
+  end
+
+  def site_from
+    @site.presence && "#{@site.name} <#{APP_CONFIG["email_config"]["default_email"]}>"
+  end
+
   def default_from
     APP_CONFIG["email_config"]["default_from"]
   end

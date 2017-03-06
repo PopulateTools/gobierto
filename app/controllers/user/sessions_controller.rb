@@ -6,7 +6,7 @@ class User::SessionsController < User::BaseController
 
   def new
     @user_session_form = User::SessionForm.new(referrer_url: request.referrer)
-    @user_registration_form = User::RegistrationForm.new
+    @user_registration_form = User::RegistrationForm.new(referrer_url: request.referrer, referrer_entity: referrer_entity)
     @user_password_form = User::NewPasswordForm.new
   end
 
@@ -41,5 +41,13 @@ class User::SessionsController < User::BaseController
 
   def user_session_params
     params.require(:user_session).permit(:email, :password, :referrer_url)
+  end
+
+  def referrer_entity
+    if request.referrer.present?
+      if request.referrer.include?("consultas_presupuestos")
+        "GobiertoBudgetConsultations::Consultation"
+      end
+    end
   end
 end

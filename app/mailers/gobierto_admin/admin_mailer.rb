@@ -5,7 +5,7 @@ module GobiertoAdmin
       @site = admin.sites.first
 
       mail(
-        from: default_from,
+        from: from,
         reply_to: default_reply_to,
         to: @admin.email,
         subject: t('.subject')
@@ -17,7 +17,7 @@ module GobiertoAdmin
       @site = admin.sites.first
 
       mail(
-        from: default_from,
+        from: from,
         reply_to: default_reply_to,
         to: @admin.email,
         subject: t(".subject")
@@ -29,7 +29,7 @@ module GobiertoAdmin
       @site = admin.sites.first
 
       mail(
-        from: default_from,
+        from: from,
         reply_to: default_reply_to,
         to: @admin.email,
         subject: t('.subject')

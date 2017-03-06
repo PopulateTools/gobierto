@@ -31,6 +31,7 @@ default: &default
     preset_admin_name: "Gobierto Admin"
     preset_admin_password: "gobierto"
   email_config:
+    default_email: "admin@gobierto.dev"
     default_from: "Gobierto <admin@gobierto.dev>"
     default_reply_to: "Gobierto <admin@gobierto.dev>"
   services:

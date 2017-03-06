@@ -107,6 +107,10 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
         showConsultationStatusError: function(e){
           e.preventDefault();
         }
+      },
+      updated: function(){
+        var $el = $('[data-status-explanation]');
+        $el.attr('title', $el.attr('title_' + this.status));
       }
     });
 
@@ -182,7 +186,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
           if(allSelected){
             Vue.set(app, 'next', true);
             $('.consultation-confirm').css('width', $('.description').width() - 79);
-            
+
             $('body').animate({
               scrollTop: $(app.$el).offset().top - 25
             }, 500);
@@ -250,7 +254,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
             if(currentCard != card)
               card.toggleDesc = false;
           });
-          
+
           if (app.$data.next) {
             $('.consultation-confirm').addClass('slim');
             $('.slim').css('top', 0);

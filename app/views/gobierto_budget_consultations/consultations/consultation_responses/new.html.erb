@@ -22,7 +22,7 @@
   </div>
 
   <div class="consultation-box">
-    <consultation-card v-for="card in cards" :card="card" :active="active" :figures="figures"></consultation-card>
+    <consultation-card v-for="card in cards" :key="card.id" :card="card" :active="active" :figures="figures"></consultation-card>
   </div>
 
   <budget-calculator :active="active" :next="next" :status-text="statusText" :status="status" :status-class="statusClass"></budget-calculator>
@@ -39,7 +39,7 @@
         <h2 class="consultation-lead"><%= t('.title', amount: budget_amount_to_human(@consultation.budget_amount)) %></h2>
 
         <budget-calculator :active="active" :next="next" :status-text="statusText" :status="status" :status-class="statusClass"></budget-calculator>
-        <consultation-card v-for="card in cards" :card="card" :active="active" :figures="figures"></consultation-card>
+        <consultation-card v-for="card in cards" :key="card.id" :card="card" :active="active" :figures="figures"></consultation-card>
       </div>
     </div>
 
@@ -64,7 +64,7 @@
         </div>
       <% end %>
 
-      <card-description v-for="card in cards" :card="card" :figures="figures"></card-description>
+      <card-description v-for="card in cards" :key="card.id" :card="card" :figures="figures"></card-description>
     </div>
   </div>
 </div>
@@ -179,7 +179,12 @@
         </div>
         <div class="budget-status">
           <div class="budget-lead"><%= t('.balance_deficit') %></div>
-          <div class="budget-figure budget-status-figure" title="<%= t('.explain_html') %><button class='tip-button' data-tipsy-close>OK</button>">{{statusText}}</div>
+          <div data-status-explanation
+               class="budget-figure budget-status-figure" title=""
+               title_deficit="<%= t('.explain_deficit_html') %><button class='tip-button' data-tipsy-close>OK</button>"
+               title_balance="<%= t('.explain_balance_html') %><button class='tip-button' data-tipsy-close>OK</button>"
+               title_surplus="<%= t('.explain_surplus_html') %><button class='tip-button' data-tipsy-close>OK</button>"
+           >{{statusText}}</div>
         </div>
       </div>
       <div class="pure-u-1-6">

@@ -45,15 +45,17 @@ module GobiertoBudgetConsultations
     def test_consultation_response_creation_when_user_is_not_verified
       with_current_site(site) do
         with_signed_in_user(unverified_user) do
+          # Force referer detection
+          Capybara.current_session.driver.header 'Referer', @path
           visit @path
 
           assert has_content?("The process in which you want to participate requires to verify your register in")
 
           assert has_content?("Confirm your identity")
 
-          fill_in :user_verification_document_number, with: "00000000A"
+          fill_in :user_verification_document_number, with: "00000000D"
 
-          select "1992", from: :user_verification_date_of_birth_1i
+          select "1993", from: :user_verification_date_of_birth_1i
           select "January", from: :user_verification_date_of_birth_2i
           select "1", from: :user_verification_date_of_birth_3i
 
@@ -61,7 +63,7 @@ module GobiertoBudgetConsultations
 
           assert has_content?("Your identity has been verified successfully")
 
-          #TODO: verify she's redirected to the consultation
+          assert_equal @path, page.current_path
         end
       end
     end
@@ -139,6 +141,62 @@ module GobiertoBudgetConsultations
             assert has_content?("Thanks for your response")
           end
         end
+      end
+    end
+
+    def test_consultation_response_creation_with_login
+      with_current_site(site) do
+        # Force referer detection
+        Capybara.current_session.driver.header 'Referer', @path
+        visit @path
+
+        assert has_content?("The participation in this consultation is reserved to people registered in Madrid.")
+
+        within("#user-session-form") do
+          fill_in :user_session_email, with: user.email
+          fill_in :user_session_password, with: "gobierto"
+
+          click_button "Log in"
+        end
+
+        assert_equal @path, page.current_path
+      end
+    end
+
+    def test_consultation_response_creation_with_signup_and_verification
+      with_current_site(site) do
+        # Force referer detection
+        Capybara.current_session.driver.header 'Referer', @path
+        visit @path
+
+        assert has_content?("The participation in this consultation is reserved to people registered in Madrid.")
+
+        fill_in :user_registration_email, with: "user@email.dev"
+
+        click_on "Let's go"
+
+        assert has_message?("Please check your inbox to confirm your email address")
+
+        unconfirmed_user = User.last
+        assert_equal "user@email.dev", unconfirmed_user.email
+
+        visit new_user_confirmations_path(confirmation_token: unconfirmed_user.confirmation_token)
+
+        fill_in :user_confirmation_name, with: "user@email.dev"
+        fill_in :user_confirmation_password, with: "wadus"
+        fill_in :user_confirmation_password_confirmation, with: "wadus"
+        select "1993", from: :user_confirmation_date_of_birth_1i
+        select "January", from: :user_confirmation_date_of_birth_2i
+        select "1", from: :user_confirmation_date_of_birth_3i
+        choose "Male"
+        fill_in :user_confirmation_document_number, with: "00000000D"
+        select "Center", from: "Districts"
+        fill_in "Association", with: "Asociación Vecinos Arganzuela"
+        fill_in "Bio", with: "My short bio"
+
+        click_on "Save"
+
+        assert_equal @path, page.current_path
       end
     end
   end

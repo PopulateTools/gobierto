@@ -4,7 +4,9 @@ class User::RegistrationForm
   attr_accessor(
     :email,
     :site,
-    :creation_ip
+    :creation_ip,
+    :referrer_url,
+    :referrer_entity
   )
 
   validates :site, presence: true
@@ -27,6 +29,8 @@ class User::RegistrationForm
       user_attributes.email = email
       user_attributes.source_site = site
       user_attributes.creation_ip = creation_ip
+      user_attributes.referrer_entity = referrer_entity
+      user_attributes.referrer_url = referrer_url
     end
 
     if @user.valid?

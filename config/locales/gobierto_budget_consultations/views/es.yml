@@ -32,9 +32,6 @@ es:
         open_until: Consulta abierta hasta el %{date}
         opens_at: Podrás participar en esta consulta a partir del %{date}
         closed: Lo sentimos, esta consulta está cerrada
-      budget_summary:
-        opinate: Opina sobre el presupuesto
-        call_to_action: Mira cómo se reparte la inversión y opina sobre las prioridades
       consultation_items:
         index:
           start: Comienza a opinar
@@ -49,8 +46,10 @@ es:
           balance_deficit: Equilibrio/Déficit
           base_budget: Presupuesto base
           title: Los %{amount} de gastos se reparten así - abre cada partida para opinar
-          reduction_not_allowed_html: "<h4 class='tip-headline'>Esta partida no se puede reducir</h4><p>Explicación de por qué</p>"
-          explain_html: "<h4 class='tip-headline'>¿Equilibri o superávit?</h4><p>Con tus decisiones entraríamos en déficit anual: gastaríamos más de lo que ingresamos en el ejercicio y la deuda pendiente aumentaría. Puedes reevaluar tus decisiones para entrar en equilibrio.</p>"
+          reduction_not_allowed_html: "<h4 class='tip-headline'>Esta partida no se puede reducir</h4><p>El gasto en algunas partidas no se puede reducir por compromisos adquiridos (contratos ya firmados, por ejemplo). En otros ejercicios si se podrá reducir.</p>"
+          explain_surplus_html: "<h4 class='tip-headline'>Superávit</h4><p>Con tus decisiones gastaríamos menos de lo que ingresamos en este ejercicio. Eso quiere decir que podríamos dedicar ese extra a pagar más deuda en caso que de tengamos, o a guardar recursos para años posteriores. Pero a lo mejor tiene sentido gastar todo lo que hemos recaudado, ¡piénsalo!</p>"
+          explain_deficit_html: "<h4 class='tip-headline'>Déficit</h4><p>Con tus decisiones estaríamos gastando más de lo que ingresamos, por lo que estaríamos generando deuda. Esto no tiene por qué ser necesariamente un problema, siempre que sea una cantidad que vayamos a poder afrontar sin complicaciones. Pero si nuestro ayuntamiento ya tiene deuda, haríamos que esta creciese, y por tanto aumentaríamos lo que gastamos en pagar intereses.</p>"
+          explain_balance_html: "<h4 class='tip-headline'>Equilibrio</h4><p>¡Estupendo! Con tus decisiones el presupuesto quedaría equilibrado: los ingresos del ayuntamiento serían iguales a los gastos, por lo que gastaríamos justo lo que tenemos y no generaríamos deuda.</p>"
           open_to_opinate: Abre cada partida para expresar tu preferencia
           submit: Enviar
       consultation_confirmations:

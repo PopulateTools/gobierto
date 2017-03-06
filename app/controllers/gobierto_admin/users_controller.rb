@@ -57,6 +57,8 @@ module GobiertoAdmin
       date_of_birth
       gender
       notification_frequency
+      referrer_entity
+      referrer_url
       )
     end
 

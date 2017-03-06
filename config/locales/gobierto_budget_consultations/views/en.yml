@@ -31,9 +31,6 @@ en:
         open_until: Consultation open until %{date}
         opens_at: You'll be able to participate since the %{date}
         closed: Sorry, this consultation is closed
-      budget_summary:
-        opinate: Opinate about the budgets
-        call_to_action: See how is distributed the investment and opinate about the priorities
       consultation_items:
         index:
           start: Start
@@ -48,8 +45,10 @@ en:
           balance_deficit: Balance/Deficit
           base_budget: Base budget
           title: The %{amount} in expenses are distributed this way - open each budget line to opinate
-          reduction_not_allowed_html: "<h4 class='tip-headline'>You can't reduce this budget line</h4><p>Explanation</p>"
-          explain_html: "<h4 class='tip-headline'>¿Equilibri o superávit?</h4><p>Con tus decisiones entraríamos en déficit anual: gastaríamos más de lo que ingresamos en el ejercicio y la deuda pendiente aumentaría. Puedes reevaluar tus decisiones para entrar en equilibrio.</p>"
+          reduction_not_allowed_html: "<h4 class='tip-headline'>You can't reduce this budget line</h4><p>The amount spent in this budget line can't be reduced because of some made agreements (contracts, for example). Other years it'll be possible to reduce it.</p>"
+          explain_surplus_html: "<h4 class='tip-headline'>Surplus</h4><p>With your decisions will spend less than the income this year. That means we could invest that money in paying debt, in case the council has it. Or maybe it makes sense to spend more money. Think about it!</p>"
+          explain_deficit_html: "<h4 class='tip-headline'>Deficit or surplus?</h4><p>Wit your decisions will be spending more than the income, so we'll be generating new debt. This isn't bad necessarily, if the amount is reasonable for the city council to pay. But if it already has debt, we'll make it grow and we'll need to pay more interests.</p>"
+          explain_balance_html: "<h4 class='tip-headline'>Balance</h4><p>Fanstic! With your decisions the budget is balanced: The income and the expenses will be the same and we won't need to increase our debt.</p>"
           open_to_opinate: Open each budget line to express your preference
           submit: Send
       consultation_confirmations:

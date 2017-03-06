@@ -11,7 +11,7 @@ ca:
       deficit: Dèficit
       surplus: Superàvit
     consultation_status_error: La teva resposta està en dèficit. Revisa les teves respostes per a estar en superàvit o equilibri.
-    consultation_status_ready: Gràcies! La teva resposta està llista. Fes una última revisió i enviala.
+    consultation_status_ready: Gràcies! La teva resposta està llista. Fes una última revisió i envia-la.
     consultation_items:
       options:
         short:
@@ -32,14 +32,11 @@ ca:
         open_until: Consulta oberta fins al %{date}
         opens_at: Podràs participar en aquesta consulta a partir del %{date}
         closed: Ho sentim, aquesta consulta està tancada
-      budget_summary:
-        opinate: Opina sobre el pressupost
-        call_to_action: Mira còm es reparteix aquesta inversió, i opina sobre les prioritats
       consultation_items:
         index:
           start: Comença a opinar
-          p1: Aquestes sòn totes les partides sobre las que te volem demanar la opinió.
-          p2: Pots donar la teva opinió dient si penses que s'hauria de destinar més, menys o els mateixos recursos.
+          p1: Aquestes són totes les partides sobre les quals volem la teva opinió.
+          p2: Pots dir si penses que s’hi haurien de destinar més recursos, menys o els maitexos. Les partides amb un més (+) no es poden baixar, trobaràs els motius a la descripció
       consultation_responses:
         new:
           reduce: Reduir
@@ -49,18 +46,20 @@ ca:
           balance_deficit: Equilibri/Déficit
           base_budget: Pressupost base
           title: Els %{amount} de despesses es reparteixen així - obri cada partida per a opinar
-          reduction_not_allowed_html: "<h4 class='tip-headline'>Aquesta partida no es pot reduir</h4><p>Explicació de per què no es poden reduir algunes partides.</p>"
-          explain_html: "<h4 class='tip-headline'>¿Equilibri o superávit?</h4><p>Con tus decisiones entraríamos en déficit anual: gastaríamos más de lo que ingresamos en el ejercicio y la deuda pendiente aumentaría. Puedes reevaluar tus decisiones para entrar en equilibrio.</p>"
+          reduction_not_allowed_html: "<h4 class='tip-headline'>Aquesta partida no es pot reduir</h4><p>La despesa en algunes partides no se pot reduir per compromissos adquirits (contractes ja firmats, per exemple) o altres motius. El motiu està detallat en la descripció.</p>"
+          explain_surplus_html: "<h4 class='tip-headline'>Superávit</h4><p>Amb les teves decisions gastariem menys de lo que ingresemo en aquest exercici. Això vol dir que podriem dedicar eixe extra a pagar més deute en cas que hi tingam, o a estalviar recursos per a anys veniders. Però a lo millor tè sentit gastar tot lo que hem recaptat, pensa-ho!</p>"
+          explain_deficit_html: "<h4 class='tip-headline'>Dèficit</h4><p>Amb les teves decisions estariem gastant més de lo que ingresem, per lo que estariem generant deute. Això no té que ser necessariament un problema, sempre que siga una quantitat que puguem afrontar sense complicacions. Però si el nostre ajuntament ja té deute, fariem que està fora més gran, i per tant pagariem més interesos.</p>"
+          explain_balance_html: "<h4 class='tip-headline'>Equilibri</h4><p>Fantàstic! Amb les teves decisions el pressupost quedaria equilibrat: els ingresos del ajuntament serian iguals a les despeses, per lo que gastariem el que tenim i no generariem deute.</p>"
           open_to_opinate: Obri cada partida per a expressar la teva preferència
           submit: Enviar
       consultation_confirmations:
         show:
           thanks: Molt bé, moltes gràcies per la teva aportació
           next_steps: "Què passarà ara?"
-          p1: "La consulta està oberta fins al %{date}. Anima als teus veïns a participar per a que les seves opinions també estiguen reflectides i decidim entre tots."
+          p1: "La consulta està oberta fins al %{date}. Anima els teus veïnats a participar perquè les seves opinions també estiguin reflectides i decidim entre tots."
           share_text: "He participat a la consulta sobre pressupostos en %{current_site_name}"
           p2: El teu ajuntament rebrà un informe anonimitzat amb les respostes, i el equip municipal l'utilitzarà per a comprovar quines son les preferències dels veïns i tindre-les amb compte en l'elaboració dels pressupostos.
-          p3: T'enviarem un avís quan es publiquen els resultats de la consulta, i podràs rebre un altre avís quan el ajuntament publique el seu projecte de pressupostos.
+          p3: T’enviarem un avís quan es publiquin els resultats de la consulta i podràs rebre un altre avís quan l’Ajuntament publiqui el seu projecte de pressupostos.
     layouts:
       menu_subsections:
         consultations: Consultes

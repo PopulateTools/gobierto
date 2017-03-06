@@ -6,86 +6,134 @@
 
 ### Overview
 
-1. For Linux users, we need you to install [Docker engine](https://docs.docker.com/engine/installation/) and [Docker compose](https://docs.docker.com/compose/install/). Make sure you have Docker compose version 1.6 or higher by executing
+* This gide assumes you are using macOS and have [Homebrew](https://brew.sh/) installed.
+* Some of these steps might be incompatible with the [Docker setup approach](development-environment-docker.md).
+* The main dependencies are:
+ * *postgres*
+ * *redis*
+ * *elasticsearch*
+
+### Postgres
+
+First install postgres with:
 
 ```shell
-$ docker-compose version
+brew install postgres
 ```
 
-2. For PC and Mac users we need you to install [Docker toolbox for Mac and Windows](https://www.docker.com/products/docker-toolbox) and use [Docker Machine](https://docs.docker.com/machine/get-started/) to create a virtual machine to run your Docker containers. Once your machine is created and you have connected your shell to this new machine, you're ready to run Docker commands on this host. If you're using Linux you can skip to the next step.
-
-### Configuration
+Once installed, we need to *initialize* it:
 
 ```shell
-$ cp config/database.yml.example config/database.yml
-$ cp .env.example .env
+initdb /usr/local/var/postgres
 ```
 
-Fill all the values of the new `.env` file.
-
-If you are using **rbenv** you should:
-
-1. Check you have [rbenv-vars](https://github.com/rbenv/rbenv-vars) plugin installed
-2. Symlink `.env` to `.rbenv-vars` file. Yo can do this by running:
+Now we're going to configure some things related to the *default user*. First we start the postgres server with:
 
 ```shell
-$ ln -s .env .rbenv-vars
+postgres -D /usr/local/var/postgres
 ```
 
-### Set up
+At this point we're supposed to have postgres correctly installed and a default user will automatically be created (whose name will match our username). This user hasn't got a password yet.
+
+If we run `psql` we'll login into the postgres console with the default user. Probably it will fail since its required that a default database exists for that user. We can create it by typing:
 
 ```shell
-$ docker-compose up -d
-$ docker-compose run web bundle install
-$ docker-compose restart
+createdb 'your_username'
 ```
 
-If you get a "*Couldn't connect to Docker daemon - you might need to run 'docker-machine start default'.*" error when running `docker-compose up -d`, but the docker machine is indeed running, you might want to take a look at [this issue](https://github.com/docker/compose/issues/2495#issuecomment-222230768).
+If we run `psql` again we should now get access to postgres console. With `\du` you can see the current users list.
 
-### Seeding the databases
+Now create the gobierto database user with the `createuser` command (this is done **outside** the `psql` console):
 
 ```shell
-$ docker-compose run web script/setup
+createuser --createdb --login -P gobierto
+# => Password: gobierto
 ```
 
-### Accessing the Docker host
-
-If you are using Docker Machine, run this command to get your current Docker host's IP:
+You'll also need to chage this user's role to superuser:
 
 ```shell
-$ docker-machine ip <your_docker_machine_name>
+# Fist brig up the psql console with:
+psql
+
+# And then run:
+ALTER USER gobierto WITH SUPERUSER;
 ```
 
-### Application server
+Now fill `config/database.yml` with the corresponding database credentials:
 
-After having started all Docker containers via the `docker-compose`
-command, the application will be reachable at:
-[http://\<your_docker_host\>:3000/](http://your_docker_host:3000/)
+```yaml
+default: &default
+  username: gobierto
+  password: gobierto
+```
 
-### Tests
-
-To run the entire test suite:
+Now run:
 
 ```shell
-$ docker-compose run test
+bin/rails db:setup
 ```
 
-### Development top-level domain and port proxying
+### Redis
 
-The application server should be queried through the top-level domain `.gobierto.dev`. For this purpose you could use [Pow](http://pow.cx/)'s Port Proxying feature, as described on its [User's manual](http://pow.cx/manual.html#section_2.1.4):
+First install redis with:
 
 ```shell
-$ echo http://<your_docker_host>:3000 > ~/.pow/gobierto
+brew install redis
 ```
 
-So, since port `3000` is forwarded through the corresponding Docker containers, the app instance should be just reachable at [http://madrid.gobierto.dev](http://madrid.gobierto.dev).
-
-### Mailcatcher
-
-To use `MailCatcher`, make sure the `mailcatcher` container is up and running:
+Now start the redis server using a configuration file:
 
 ```shell
-$ docker-compose up -d mailcatcher
+redis-server /usr/local/etc/redis.conf
 ```
 
-Having done this, the server should be available at `http://<your_docker_host>:1080`.
+* The redis server will start to listen to connections on `127.0.0.1:6379`
+
+Complete the `REDIS_URL` line inside the `.env` file with the following value:
+
+```shell
+REDIS_URL=redis://redis:6379
+```
+
+* Useful resources - [Redis setup](https://medium.com/@petehouston/install-and-config-redis-on-mac-os-x-via-homebrew-eb8df9a4f298#.9sky45p09)
+
+
+### ElasticSearch
+
+First install elasticsearch **`2.4`** with:
+
+```shell
+brew install elasticsearch@2.4
+```
+
+* **NOTE**: elasticsearch `5.2.1` does not work right now.
+
+Then you can start it by typing:
+
+```shell
+brew services start elasticsearch@2.4
+```
+
+Complete the `ELASTICSEARCH_URL` line inside the `.env` file with the following value:
+
+```shell
+ELASTICSEARCH_URL=http://elasticsearch:9200
+```
+
+And the `elastic_url` key inside the `config/secrets.yml` file:
+
+```yaml
+default: &default
+  elastic_url: http://localhost:9200
+```
+
+### Run the tests!
+
+Now you can run the tests with:
+
+```shell
+./script/test
+```
+
+* **NOTE**: it is not enough to run `bin/rails test` since the test script contains a few more necessary steps.

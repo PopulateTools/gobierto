@@ -1,0 +1,271 @@
+---
+blocks:
+
+- internal_id: gobierto_people_previous_public_activities
+  content_model_name: GobiertoPeople::PersonStatement
+  title:
+    ca: Activitats públiques exercides durant els dos anys anteriors a la presa de possessió
+    es: Actividades públicas ejercidas durante los dos años anteriores a la toma de posesión
+  fields:
+  - name: entity
+    field_type: text
+    label:
+      ca: Entitat, organisme, empresa o societat
+      es: Entidad, organismo, empresa o sociedad
+  - name: activity
+    field_type: text
+    label:
+      ca: Activitat realitzada
+      es: Actividad desempeñada
+  - name: start_date
+    field_type: date
+    label:
+      ca: Data d'inici
+      es: Fecha de inicio
+  - name: end_date
+    field_type: date
+    label:
+      ca: Data fi
+      es: Fecha fin
+  - name: special_services
+    field_type: text
+    label:
+      ca: Feu constar si heu sol·licitat passar a la situació de serveis especials o equivalent, o a la que corresponga
+      es: Haga constar si ha solicitado el pase a la situación de servicios especiales o equivalente, o a la que corresponda
+
+- internal_id: gobierto_people_previous_private_activities
+  content_model_name: GobiertoPeople::PersonStatement
+  title:
+    ca: Activitats privades remunerades exercides durant els dos anys anteriors a la presa de possessió
+    es: Actividades privadas remuneradas ejercidas durante los dos años anteriores a la toma de posesión
+  fields:
+  - name: activity
+    field_type: text
+    label:
+      ca: Activitat
+      es: Actividad
+  - name: entity
+    field_type: text
+    label:
+      ca: Empresa o entitat
+      es: Empresa o entidad
+  - name: self_employed
+    field_type: text
+    label:
+      ca: Autònom / Autònoma
+      es: Autónomo / Autónoma
+  - name: start_date
+    field_type: date
+    label:
+      ca: Data d'inici
+      es: Fecha de inicio
+  - name: end_date
+    field_type: date
+    label:
+      ca: Data fi
+      es: Fecha fin
+
+- internal_id: gobierto_people_public_positions
+  content_model_name: GobiertoPeople::PersonStatement
+  title:
+    ca: Càrrecs públics, participació en òrgans col·legiats i activitats en representació de la generalitat
+    es: Cargos públicos, participación en órganos colegiados y actividades en representación de la generalitat
+  fields:
+  - name: entity
+    field_type: text
+    label:
+      ca: Entitat
+      es: Entidad
+  - name: position
+    field_type: text
+    label:
+      ca: Càrrec ocupat
+      es: Cargo desempeñado
+  - name: appointment_date
+    field_type: date
+    label:
+      ca: Data de nomenament
+      es: Fecha de nombramiento
+
+- internal_id: gobierto_people_other_positions
+  content_model_name: GobiertoPeople::PersonStatement
+  title:
+    ca: Altres activitats i carrecs no recollits al apartat anterior
+    es: Otras actividades y cargos no recogidas en el apartado anterior
+  fields:
+  - name: entity
+    field_type: text
+    label:
+      ca: Entitat
+      es: Entidad
+  - name: position
+    field_type: text
+    label:
+      ca: Càrrec ocupat
+      es: Cargo desempeñado
+  - name: appointment_date
+    field_type: date
+    label:
+      ca: Data de nomenament
+      es: Fecha de nombramiento
+
+- internal_id: gobierto_people_activity_after_position
+  content_model_name: GobiertoPeople::PersonStatement
+  title:
+    ca: Activitat a què va a dedicar-se al cessament
+    es: Actividad a la que va a dedicarse al cese
+  fields:
+  - name: activity
+    field_type: text
+    label:
+      ca: Activitat
+      es: Actividad
+  - name: entity
+    field_type: text
+    label:
+      ca: Empresa o entitat
+      es: Empresa o entidad
+  - name: self_employed
+    field_type: text
+    label:
+      ca: Autònom / Autònoma
+      es: Autónomo / Autónoma
+  - name: start_date
+    field_type: date
+    label:
+      ca: Data d'inici
+      es: Fecha de inicio
+
+- internal_id: gobierto_people_properties
+  content_model_name: GobiertoPeople::PersonStatement
+  title:
+    ca: Béns immobles urbans i rústics
+    es: Bienes inmuebles urbanos y rústicos
+  fields:
+  - name: property_key
+    field_type: text
+    label:
+      ca: Clau
+      es: Clave
+  - name: property_type
+    field_type: text
+    label:
+      ca: Tipus
+      es: Tipo
+  - name: property_percentage
+    field_type: text
+    label:
+      ca: "% en cas de Domini ple"
+      es: "% en caso de Dominio pleno"
+  - name: province
+    field_type: text
+    label:
+      ca: Província
+      es: Provincia
+  - name: value
+    field_type: text
+    label:
+      ca: Valor cadastral
+      es: Valor catastral
+
+- internal_id: gobierto_people_goods
+  content_model_name: GobiertoPeople::PersonStatement
+  title:
+    ca: Béns i drets de naturalesa no immobiliària
+    es: Bienes y derechos de naturaleza no inmobiliaria
+  fields:
+  - name: description
+    field_type: text
+    label:
+      ca: Descripció
+      es: Descripción
+  - name: value
+    field_type: currency
+    label:
+      ca: Valor (euros)
+      es: Valor (euros)
+
+- internal_id: gobierto_people_passive
+  content_model_name: GobiertoPeople::PersonStatement
+  title:
+    ca: Passiu
+    es: Pasivo
+  fields:
+  - name: description
+    field_type: text
+    label:
+      ca: Descripció
+      es: Descripción
+  - name: value
+    field_type: currency
+    label:
+      ca: Valor (euros)
+      es: Valor (euros)
+
+- internal_id: gobierto_people_income
+  content_model_name: GobiertoPeople::PersonStatement
+  title:
+    ca: Sous y honoraris anuals, aranzels i altres retribucions
+    es: Sueldos y honorarios anuales, aranceles y otras retribuciones
+  fields:
+  - name: concept
+    field_type: text
+    label:
+      ca: Concepte
+      es: Concepto
+  - name: amount
+    field_type: currency
+    label:
+      ca: Euros
+      es: Euros
+
+- internal_id: gobierto_people_dividends
+  content_model_name: GobiertoPeople::PersonStatementStatement
+  title:
+    ca: Dividends i participació en beneficis de societats, comunitats o entitats de qualsevol classe
+    es: Dividendos y participación en beneficios de sociedades, comunidades o entidades de cualquier clase
+  fields:
+  - name: concept
+    field_type: text
+    label:
+      ca: Concepte
+      es: Concepto
+  - name: amount
+    field_type: currency
+    label:
+      ca: Euros
+      es: Euros
+
+- internal_id: gobierto_people_financial_earnings
+  content_model_name: GobiertoPeople::PersonStatementStatement
+  title:
+    ca: Interessos o rendiments de comptes, dipòsits i actius financers
+    es: Intereses o rendimientos de cuentas, depósitos y activos financieros
+  fields:
+  - name: concept
+    field_type: text
+    label:
+      ca: Concepte
+      es: Concepto
+  - name: amount
+    field_type: currency
+    label:
+      ca: Euros
+      es: Euros
+
+- internal_id: gobierto_people_other_income
+  content_model_name: GobiertoPeople::PersonStatementStatement
+  title:
+    ca: Altres rendes o percepcions de qualsevol classe
+    es: Otras rentas o percepciones de cualquier clase
+  fields:
+  - name: concept
+    field_type: text
+    label:
+      ca: Concepte
+      es: Concepto
+  - name: amount
+    field_type: currency
+    label:
+      ca: Euros
+      es: Euros

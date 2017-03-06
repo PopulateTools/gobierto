@@ -79,11 +79,6 @@ class SiteConfigurationTest < ActiveSupport::TestCase
     assert site_configuration.privacy_page?
   end
 
-  def test_user_verification_required
-    assert sites(:madrid).configuration.user_verification_required?
-    refute sites(:santander).configuration.user_verification_required?
-  end
-
   private
 
   def site_configuration_params

@@ -1,15 +1,15 @@
 <p>
-  Hey,
+<%= t('.hi') %>,
 </p>
 
 <p>
-  You have been invited to collaborate in Gobierto.
+  <%= t('.click_link') %>:
 </p>
 
 <p>
-  Use the following URL to accept the invitation.
+  <%= admin_admin_invitation_acceptances_url(invitation_token: @admin.invitation_token, domain: @site.try(:domain)) %>
 </p>
 
 <p>
-  <%= admin_admin_invitation_acceptances_url(invitation_token: @admin.invitation_token) %>
+  <%= t('.bye') %>
 </p>

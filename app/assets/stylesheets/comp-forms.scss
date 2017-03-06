@@ -51,6 +51,12 @@ input[type=text]:focus, input[type=email]:focus, input[type=submit]:focus, input
     height: 47px;
   }
 }
+.select_control.selects_inline {
+  select {
+    width: initial;
+    display: inline-block;
+  }
+}
 .file_field {
   border: 1px solid $color_separator;
   @include border-radius(6px);

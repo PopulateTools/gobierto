@@ -37,7 +37,7 @@ module GobiertoAdmin
         if @consultation_form.save
           redirect_to(
             admin_budget_consultation_consultation_items_path(@consultation_form.consultation),
-            notice: t(".success")
+            notice: t(".success_html", link: gobierto_budget_consultations_consultation_url(@consultation_form.consultation, domain: current_site.domain))
           )
         else
           @consultation_visibility_levels = get_consultation_visibility_levels
@@ -55,7 +55,7 @@ module GobiertoAdmin
         if @consultation_form.save
           redirect_to(
             edit_admin_budget_consultation_path(@consultation),
-            notice: t(".success")
+            notice: t(".success_html", link: gobierto_budget_consultations_consultation_url(@consultation_form.consultation, domain: current_site.domain))
           )
         else
           @consultation_visibility_levels = get_consultation_visibility_levels
@@ -83,15 +83,14 @@ module GobiertoAdmin
           :title,
           :description,
           :opening_date_range,
-          :visibility_level
+          :visibility_level,
+          :show_figures,
+          :force_responses_balance
         )
       end
 
       def ignored_consultation_attributes
-        %w(
-        created_at updated_at
-        budget_amount
-        )
+        %w( created_at updated_at budget_amount )
       end
     end
   end

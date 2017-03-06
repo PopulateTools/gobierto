@@ -13,6 +13,7 @@ Gobierto modules implement well defined and isolated features of the application
 - Gobierto Budgets: municipalities budgets visualization
 - Gobierto Officials: senior officials official information and agenda publication
 - Gobierto Indicators: indicators and statics of a municipality
+- Gobierto CMS: small CMS system
 
 Modules can be activated or disabled by the **metadministrator**, but their code will be included in all the installations of Gobierto.
 

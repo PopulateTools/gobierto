@@ -7,25 +7,28 @@ class User::ConfirmationTest < ActionDispatch::IntegrationTest
   end
 
   def user
-    @user ||= users(:dennis)
+    @user ||= users(:susan)
   end
 
   def unconfirmed_user
-    @unconfirmed_user ||= users(:reed)
+    @unconfirmed_user ||= users(:charles)
   end
 
   def site
-    @site ||= sites(:madrid)
+    @site ||= sites(:santander)
   end
 
   def test_confirmation
     with_current_site(site) do
       visit @confirmation_path
 
-      fill_in :user_confirmation_name, with: "user@email.dev"
+      fill_in :user_confirmation_name, with: "User name"
       fill_in :user_confirmation_password, with: "wadus"
       fill_in :user_confirmation_password_confirmation, with: "wadus"
-      select 20.years.ago.year, from: :user_confirmation_year_of_birth
+      select "1992", from: :user_confirmation_date_of_birth_1i
+      select "January", from: :user_confirmation_date_of_birth_2i
+      select "1", from: :user_confirmation_date_of_birth_3i
+
       choose "Male"
 
       click_on "Save"

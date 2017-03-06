@@ -74,7 +74,7 @@ header.main {
 menu.main {
 	position: fixed;
 	overflow: auto;
-	top: 0;
+	top: 25px;
 	bottom: 0;
 	left: 0;
 	height: 100%;
@@ -98,7 +98,7 @@ menu.main {
 			}
 		}
 		li.sep {
-			border-top: 1px solid #DFDFDF;
+			border-top: 1px solid #FFF;
 			margin-top: 1em;
 			padding-top: 1em;
 		}
@@ -252,6 +252,7 @@ body.gobierto_admin {
 		border-radius: 2em;
 	}
 	a {
+		margin-right: 1em;
 		text-decoration: none;
 		.fa {
 			margin: 0 .25em 0 0;
@@ -338,6 +339,73 @@ pre {
 
 	}
 }
+
+.custom_fields_field {
+	margin: 0 0 .5em 0;
+	.fa-bars {
+		margin: 0 1em 0 0;
+	}
+	label.main {
+		display: inline-block;
+		background: $color_secondary;
+		padding: 4px 10px;
+		@include border-radius(4px);
+		margin: 0 1em 0 0;
+		width: 300px;
+		font-weight: 600;
+	}
+	.mandatory, .inline_notice, .tools {
+		display: inline-block;
+		margin: 0 1em 0 0;
+	}
+	.inline_notice {
+		font-style: italic; 
+		opacity: .5;
+	}
+	.tools {
+		.fa {
+			margin: 0 1em 0 0;
+		}
+	}
+	input[type="checkbox"], input[type="radio"] {
+		display: initial;
+		margin-right: .5em;
+	}
+}
+.custom_fields_field.disabled {
+	.fa-bars {
+		opacity: .25;
+	}
+	.mandatory {
+		opacity: .5;
+	}
+}
+
+.user_field_container {
+	margin: 0 0 1em 0;
+	@include border-radius(6px);
+	border: 1px solid lighten($color_separator, 5%);
+	padding: 1.5em 2em 1em 2em;
+	.field_item {
+		font-weight: 600;
+	}
+	.field_item_def {
+		input {
+			height: initial;
+			display: initial;
+			padding: .25em .5em;
+			margin: 0 0 .5em 0;
+		}
+		
+	}
+	.field_locale {
+		label {
+			float: left;
+			width: 125px;
+		}
+	}
+}
+
 
 /* Trix editor overrides */
 trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=button].icon {

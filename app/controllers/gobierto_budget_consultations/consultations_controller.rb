@@ -1,6 +1,7 @@
 module GobiertoBudgetConsultations
   class ConsultationsController < GobiertoBudgetConsultations::ApplicationController
-    before_action :set_consultation, :check_consultation_status, only: :show
+    before_action :set_consultation, only: [:show]
+    before_action :check_not_responded, only: [:show]
 
     def index
       consultations = current_site.budget_consultations
@@ -19,10 +20,6 @@ module GobiertoBudgetConsultations
 
     def set_consultation
       @consultation = ConsultationDecorator.new(find_consultation)
-    end
-
-    def check_consultation_status
-      raise_user_not_authorized if @consultation.draft?
     end
 
     protected

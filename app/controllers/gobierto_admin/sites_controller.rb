@@ -17,6 +17,7 @@ module GobiertoAdmin
       @dns_config = get_dns_config
       @services_config = get_services_config
       @available_locales_for_site = get_available_locales
+      @available_pages = get_available_pages
     end
 
     def edit
@@ -31,6 +32,7 @@ module GobiertoAdmin
       @dns_config = get_dns_config
       @services_config = get_services_config
       @available_locales_for_site = get_available_locales
+      @available_pages = get_available_pages
     end
 
     def create
@@ -44,6 +46,7 @@ module GobiertoAdmin
       @dns_config = get_dns_config
       @services_config = get_services_config
       @available_locales_for_site = get_available_locales
+      @available_pages = get_available_pages
 
       if @site_form.save
         track_create_activity
@@ -65,6 +68,7 @@ module GobiertoAdmin
       @dns_config = get_dns_config
       @services_config = get_services_config
       @available_locales_for_site = get_available_locales
+      @available_pages = get_available_pages
 
       if @site_form.save
         track_update_activity
@@ -130,6 +134,7 @@ module GobiertoAdmin
         :municipality_id,
         :logo_file,
         :default_locale,
+        :privacy_page_id,
         site_modules: [],
         available_locales: [],
       )
@@ -153,6 +158,10 @@ module GobiertoAdmin
 
     def get_available_locales
       available_locales.map{ |l| [l.to_s, I18n.t("locales.#{l}")] }
+    end
+
+    def get_available_pages
+      @site.pages.active.sorted
     end
   end
 end

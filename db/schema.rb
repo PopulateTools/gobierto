@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170224090622) do
+ActiveRecord::Schema.define(version: 20170304172933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,31 @@ ActiveRecord::Schema.define(version: 20170224090622) do
     t.index ["site_id"], name: "index_content_blocks_on_site_id", using: :btree
   end
 
+  create_table "custom_user_field_records", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "custom_user_field_id"
+    t.jsonb    "payload"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["custom_user_field_id"], name: "index_custom_user_field_records_on_custom_user_field_id", using: :btree
+    t.index ["payload"], name: "index_custom_user_field_records_on_payload", using: :gin
+    t.index ["user_id"], name: "index_custom_user_field_records_on_user_id", using: :btree
+  end
+
+  create_table "custom_user_fields", force: :cascade do |t|
+    t.integer  "site_id"
+    t.integer  "position",   default: 0,     null: false
+    t.hstore   "title"
+    t.boolean  "mandatory",  default: false
+    t.integer  "field_type", default: 0,     null: false
+    t.jsonb    "options"
+    t.string   "name",       default: "",    null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.index ["site_id", "name"], name: "index_custom_user_fields_on_site_id_and_name", unique: true, using: :btree
+    t.index ["site_id"], name: "index_custom_user_fields_on_site_id", using: :btree
+  end
+
   create_table "gbc_consultation_items", force: :cascade do |t|
     t.string   "title",                                       default: "",    null: false
     t.text     "description"
@@ -137,34 +162,39 @@ ActiveRecord::Schema.define(version: 20170224090622) do
     t.datetime "created_at",                                                  null: false
     t.datetime "updated_at",                                                  null: false
     t.string   "budget_line_name",                            default: "",    null: false
+    t.boolean  "block_reduction",                             default: false
     t.index ["consultation_id"], name: "index_gbc_consultation_items_on_consultation_id", using: :btree
   end
 
   create_table "gbc_consultation_responses", force: :cascade do |t|
     t.integer  "consultation_id"
-    t.integer  "user_id"
     t.text     "consultation_items"
-    t.decimal  "budget_amount",      precision: 12, scale: 2, default: "0.0", null: false
-    t.integer  "visibility_level",                            default: 0,     null: false
-    t.datetime "created_at",                                                  null: false
-    t.datetime "updated_at",                                                  null: false
+    t.decimal  "budget_amount",          precision: 12, scale: 2, default: "0.0", null: false
+    t.integer  "visibility_level",                                default: 0,     null: false
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
     t.string   "sharing_token"
+    t.string   "document_number_digest"
+    t.jsonb    "user_information"
+    t.index ["consultation_id", "document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true, using: :btree
     t.index ["consultation_id"], name: "index_gbc_consultation_responses_on_consultation_id", using: :btree
     t.index ["sharing_token"], name: "index_gbc_consultation_responses_on_sharing_token", unique: true, using: :btree
-    t.index ["user_id"], name: "index_gbc_consultation_responses_on_user_id", using: :btree
+    t.index ["user_information"], name: "index_gbc_consultation_responses_on_user_information", using: :gin
   end
 
   create_table "gbc_consultations", force: :cascade do |t|
-    t.string   "title",                                     default: "",    null: false
-    t.text     "description",                               default: "",    null: false
+    t.string   "title",                                            default: "",    null: false
+    t.text     "description",                                      default: "",    null: false
     t.date     "opens_on"
     t.date     "closes_on"
-    t.integer  "visibility_level",                          default: 0,     null: false
-    t.decimal  "budget_amount",    precision: 12, scale: 2, default: "0.0", null: false
+    t.integer  "visibility_level",                                 default: 0,     null: false
+    t.decimal  "budget_amount",           precision: 12, scale: 2, default: "0.0", null: false
     t.integer  "admin_id"
     t.integer  "site_id"
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
+    t.boolean  "show_figures",                                     default: true
+    t.boolean  "force_responses_balance",                          default: false
     t.index ["admin_id"], name: "index_gbc_consultations_on_admin_id", using: :btree
     t.index ["site_id"], name: "index_gbc_consultations_on_site_id", using: :btree
   end
@@ -368,9 +398,11 @@ ActiveRecord::Schema.define(version: 20170224090622) do
     t.datetime "updated_at",                             null: false
     t.integer  "source_site_id"
     t.boolean  "census_verified",        default: false, null: false
-    t.integer  "year_of_birth"
     t.integer  "gender"
     t.integer  "notification_frequency", default: 0,     null: false
+    t.date     "date_of_birth"
+    t.string   "referrer_url"
+    t.string   "referrer_entity"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["notification_frequency"], name: "index_users_on_notification_frequency", using: :btree

@@ -26,11 +26,15 @@ module GobiertoBudgetConsultations
       @site ||= sites(:madrid)
     end
 
+    def user
+      @user ||= users(:dennis)
+    end
+
     def test_consultation_index
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("h1", text: "Consultas activas")
+        assert has_selector?("h1", text: "Active consultations")
 
         within ".active-consultations" do
           active_consultations.each do |consultation|
@@ -38,7 +42,7 @@ module GobiertoBudgetConsultations
           end
         end
 
-        assert has_selector?("h2", text: "Consultas anteriores")
+        assert has_selector?("h2", text: "Previous consultations")
 
         within ".past-consultations" do
           past_consultations.each do |consultation|
@@ -57,8 +61,22 @@ module GobiertoBudgetConsultations
 
         visit @path
 
-        assert has_selector?("h1", text: remaining_consultation.title)
-        assert has_content?(remaining_consultation.description.gsub("\n", " ").strip)
+        assert has_content?("Do you want to opinate?")
+      end
+    end
+
+    def test_see_participated_consultations
+      with_current_site(site) do
+        with_signed_in_user(user) do
+          visit @path
+
+          assert has_selector?("h1", text: "Active consultations")
+
+          within ".active-consultations" do
+            assert has_link?("Consulta sobre los presupuestos de Madrid (You already responded)")
+            assert has_link?("Consulta adjunta sobre los presupuestos de Madrid")
+          end
+        end
       end
     end
   end

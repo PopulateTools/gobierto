@@ -23,22 +23,17 @@ module GobiertoBudgetConsultations
     end
 
     def test_budget_line_amount_on_increase_operation
-      consultation_response_item_params[:selected_option_label] = "increase"
-      assert_equal 11.0, consultation_response_item.budget_line_amount
+      consultation_response_item_params[:selected_option] = 5
+      assert_equal 10.5, consultation_response_item.budget_line_amount
     end
 
     def test_budget_line_amount_on_reduce_operation
-      consultation_response_item_params[:selected_option_label] = "reduce"
-      assert_equal 9.0, consultation_response_item.budget_line_amount
+      consultation_response_item_params[:selected_option] = -5
+      assert_equal 9.5, consultation_response_item.budget_line_amount
     end
 
     def test_budget_line_amount_on_keep_operation
-      consultation_response_item_params[:selected_option_label] = "keep"
-      assert_equal 10.0, consultation_response_item.budget_line_amount
-    end
-
-    def test_budget_line_amount_on_any_other_operation
-      consultation_response_item_params[:selected_option_label] = "wadus"
+      consultation_response_item_params[:selected_option] = 0
       assert_equal 10.0, consultation_response_item.budget_line_amount
     end
 
@@ -51,8 +46,6 @@ module GobiertoBudgetConsultations
           item_title: "Pavimentación de vías públicas",
           item_budget_line_amount: "10.0",
           item_response_options: {"0"=>"reduce", "1"=>"keep", "2"=>"increase"},
-          selected_option_id: 0,
-          selected_option_label: "reduce"
         }
       end
     end

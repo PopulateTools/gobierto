@@ -4,7 +4,7 @@ module User::VerificationHelper
   private
 
   def verify_user_in!(site)
-    raise_user_not_verified unless user_verified_in?(site)
+    raise_user_not_verified(site) unless user_verified_in?(site)
   end
 
   def require_not_verified_user_in(site)
@@ -24,10 +24,10 @@ module User::VerificationHelper
     )
   end
 
-  def raise_user_not_verified
+  def raise_user_not_verified(site)
     redirect_to(
       new_user_census_verifications_path || request.referrer || user_root_path,
-      alert: t('user.census_verifications.messages.not_verified')
+      alert: t("user.census_verifications.messages.#{controller_name}.not_verified", site_name: site.name, default: 'user.census_verifications.messages.not_verified')
     )
   end
 end

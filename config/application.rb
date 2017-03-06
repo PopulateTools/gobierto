@@ -29,8 +29,6 @@ module Gobierto
       'Access-Control-Request-Method' => '*'
     })
 
-    config.action_mailer.default_url_options = { host: 'gobierto.es', protocol: 'https' }
-
     config.active_job.queue_adapter = :async
 
     # Autoloading
@@ -38,6 +36,7 @@ module Gobierto
       "#{config.root}/lib",
       "#{config.root}/lib/validators",
       "#{config.root}/lib/constraints",
+      "#{config.root}/lib/errors",
       "#{config.root}/app/pub_sub",
       "#{config.root}/app/pub_sub/publishers",
       "#{config.root}/app/pub_sub/subscribers"

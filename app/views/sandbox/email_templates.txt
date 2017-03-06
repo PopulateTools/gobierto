@@ -1,0 +1,90 @@
+From: ??? 
+
+
+
+###############################################################################
+INVITACION A MANAGER/ADMIN
+Subject: Activate your ENTIDAD admin account
+
+Hola, 
+
+email@email.com te ha invitado a ser Manager en la web de SITE_NAME de SITE_ENTITY
+
+Para acceder, confirma tu cuenta haciendo click en este enlace:
+
+URL
+
+Saludos
+
+--
+Altos Cargos y Agendas · Diputación de Valencia
+dipvalencia.go.dival.es
+
+
+
+
+###############################################################################
+CONFIRMACION DE SUSCRIPCION
+Subject: Confirma tu registro
+
+Hola,
+
+Para confirmar tu registro haz click en el siguiente enlace:
+
+http://dival.gobify.net/user/confirmations/new?confirmation_token=NwozsggXHN2Hs14aAvptXkPR
+
+(si no te estabas suscribiendo en SITE_NAME, puedes ignorar este mensaje)
+
+Saludos
+
+-- 
+Altos Cargos y Agendas · Diputación de Valencia
+dipvalencia.go.dival.es
+
+
+
+
+
+###############################################################################
+ACTUALIZACION DE PERSONA
+Subject: 
+
+
+---ACTUAL---
+Hola,
+Hay una nueva actividad en Diputación de Valencia:
+Declaración Anual 2016: Publicada la declaración: Declaración Anual 2016
+Que pases un buen día,
+---ACTUAL---
+
+
+
+
+-- 
+Altos Cargos y Agendas · Diputación de Valencia
+dipvalencia.go.dival.es
+
+
+
+
+
+
+###############################################################################
+BIENVENIDO
+Subject: Bienvenido
+
+Hola,
+
+Tu registro se ha completado con éxito. Ahora puedes interactuar en SITE_URL como usuario registrado.
+
+Puedes gestionar tus alertas desde tu cuenta: ACCOUNT_URL
+
+Saludos
+
+-- 
+Altos Cargos y Agendas · Diputación de Valencia
+dipvalencia.go.dival.es
+
+
+
+

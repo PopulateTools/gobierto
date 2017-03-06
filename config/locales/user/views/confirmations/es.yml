@@ -3,6 +3,7 @@ es:
   user:
     confirmations:
       form:
+        document_number_notice: "Número de documento"
         gender:
           female: Mujer
           male: Hombre
@@ -12,7 +13,7 @@ es:
           gender: Esta información será privada, y nunca se identificará con tu perfil.
             El dato será anonimizado, y te lo pedimos para poder obtener información
             segmentada para entender mejor las opiniones y preferencias de los ciudadanos.
-          year_of_birth: Esta información será privada, y nunca se identificará con
+          date_of_birth: Esta información será privada, y nunca se identificará con
             tu perfil. El dato será anonimizado, y te lo pedimos para poder obtener
             información segmentada para entender mejor las opiniones y preferencias
             de los ciudadanos.

@@ -11,3 +11,8 @@ ca:
               date: Data
             title: Participacions
             view_response: Vore Particpiació
+          new:
+            gender:
+              male: Hombre
+              female: Mujer
+            user_information: Informació personal

@@ -99,11 +99,6 @@ p.intro {
     font-size: 1.1em;
     font-weight: 600;
   }
-  .disclaimer {
-    text-align: left;
-    font-size: .75em;
-    margin: .5em 0 0 0;
-  }
   input[type=text], input[type=email] {
     width: 50%;
   }
@@ -111,6 +106,12 @@ p.intro {
     height: 45px;
     padding: .25em 1em;
   }
+}
+.disclaimer {
+  text-align: left;
+  font-size: .85em;
+  margin: .5em 0 1.5em 0;
+  width: 70%;
 }
 .color_neutral_soft {
   background: $color_neutral_soft;

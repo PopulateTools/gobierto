@@ -2,6 +2,8 @@ class Site < ApplicationRecord
 
   RESERVED_SUBDOMAINS = %W(presupuestos hosted)
 
+  has_many :activities
+
   # GobiertoAdmin integrations
   has_many :admin_sites, dependent: :destroy, class_name: "GobiertoAdmin::AdminSite"
   has_many :admins, through: :admin_sites, class_name: "GobiertoAdmin::Admin"
@@ -9,6 +11,7 @@ class Site < ApplicationRecord
 
   # GobiertoCommon integration
   has_many :content_blocks, dependent: :destroy, class_name: "GobiertoCommon::ContentBlock"
+  has_many :custom_user_fields, dependent: :destroy, class_name: "GobiertoCommon::CustomUserField"
 
   # User integrations
   has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"
@@ -57,7 +60,7 @@ class Site < ApplicationRecord
   end
 
   def configuration
-    @configuration ||= SiteConfiguration.new(read_attribute(:configuration_data))
+    @configuration ||= SiteConfiguration.new(site_configuration_attributes)
   end
 
   def password_protected?
@@ -65,6 +68,14 @@ class Site < ApplicationRecord
   end
 
   private
+
+  def site_configuration_attributes
+    {}.tap do |attributes|
+      attributes.merge!(read_attribute(:configuration_data) || {})
+      attributes.merge!('site_id' => self.id) unless new_record?
+      attributes
+    end
+  end
 
   def self.reserved_domains
     @reserved_domains ||= RESERVED_SUBDOMAINS.map do |subdomain|

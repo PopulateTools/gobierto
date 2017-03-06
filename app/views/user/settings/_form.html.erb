@@ -25,10 +25,14 @@
     <%= f.password_field :password_confirmation %>
   </div>
 
-  <div class="form_item select_control">
-    <%= f.label :year_of_birth %>
-    <i class="fa fa-question-circle tipsit" title="<%= t(".hints.year_of_birth") %>"></i>
-    <%= f.select :year_of_birth, @user_years_of_birth, prompt: true %>
+  <div class="form_item select_control selects_inline">
+    <%= f.label :date_of_birth %>
+    <i class="fa fa-question-circle tipsit" title="<%= t(".hints.date_of_birth") %>"></i>
+    <%= f.date_select(
+      :date_of_birth,
+      prompt: true,
+      end_year: 100.years.ago.year,
+      start_year: Date.current.year) %>
   </div>
 
   <div class="form_item">
@@ -40,7 +44,7 @@
 
       <div class="pure-g">
         <%= f.collection_radio_buttons(:gender, @user_genders, :first, :first) do |b| %>
-          <div class="pure-u-md-1-2">
+          <div class="pure-u-1-2">
             <div class="option ">
               <%= b.radio_button %>
               <%= b.label do %>
@@ -55,6 +59,8 @@
     </div>
 
   </div>
+
+  <%= render partial: 'user/shared/custom_fields', locals: {custom_records: f.object.custom_records, form_name: "user_settings"} %>
 
   <%= f.submit t(".submit"), class: "button" %>
 

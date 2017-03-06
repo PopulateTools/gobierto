@@ -7,8 +7,9 @@ module GobiertoBudgetConsultations
 
       def new
         @consultation_response_form = ConsultationResponseForm.new(
-          user_id: current_user.id,
-          consultation_id: @consultation.id
+          document_number_digest: document_number_digest,
+          consultation_id: @consultation.id,
+          user: current_user
         )
 
         @consultation_items = @consultation.consultation_items.sorted
@@ -17,27 +18,38 @@ module GobiertoBudgetConsultations
       def create
         @consultation_response_form = ConsultationResponseForm.new(
           consultation_response_params.merge(
-            user_id: current_user.id,
-            consultation_id: @consultation.id
+            document_number_digest: document_number_digest,
+            consultation_id: @consultation.id,
+            user: current_user
           )
         )
 
         if @consultation_response_form.save
-          redirect_to [@consultation, :new_confirmation]
+          respond_to do |format|
+            format.html { redirect_to [@consultation, :show_confirmation] }
+            format.js
+          end
         else
           @consultation_items = @consultation.consultation_items.sorted
-          render :new
+          respond_to do |format|
+            format.html { render :new }
+            format.js
+          end
         end
       end
 
       private
 
       def consultation_response_params
-        # TODO. Implement support for arbitrary hashes in strong parameters.
-        # Take this commit as a reference:
-        # https://github.com/rails/rails/commit/e86524c0c5a26ceec92895c830d1355ae47a7034
-        #
-        params.require(:consultation_response).permit!
+        params.require(:consultation_response).permit(selected_options: [:item_id, :selected_option])
+      end
+
+      def document_number_digest
+        @document_number_digest ||= begin
+          if user_verification = current_user.site_verification(current_site)
+            SecretAttribute.digest(user_verification.verification_data['document_number'])
+          end
+        end
       end
     end
   end

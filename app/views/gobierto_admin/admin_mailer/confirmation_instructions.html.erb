@@ -1,11 +1,15 @@
 <p>
-  Hey,
+<%= t('.hi') %>,
 </p>
 
 <p>
-  Use the following URL to confirm your email address:
+  <%= t('.click_link') %>
 </p>
 
 <p>
-  <%= admin_admin_confirmations_url(confirmation_token: @admin.confirmation_token) %>
+  <%= admin_admin_confirmations_url(confirmation_token: @admin.confirmation_token, domain: @site.try(:domain)) %>
+</p>
+
+<p>
+  <%= t('.bye') %>
 </p>

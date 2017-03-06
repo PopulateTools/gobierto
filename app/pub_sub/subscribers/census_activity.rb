@@ -9,6 +9,7 @@ module Subscribers
     def create_activity_from_event(event, action)
       Activity.create! subject: event.payload[:subject],
                        author: event.payload[:author],
+                       site_id: event.payload[:site_id],
                        subject_ip: event.payload[:ip],
                        action: action,
                        admin_activity: true

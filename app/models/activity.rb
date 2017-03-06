@@ -3,6 +3,7 @@ class Activity < ApplicationRecord
   belongs_to :subject, polymorphic: true
   belongs_to :author, polymorphic: true
   belongs_to :recipient, polymorphic: true
+  belongs_to :site
 
   validates :action, presence: true
   validates :subject_ip, presence: true

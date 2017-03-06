@@ -51,7 +51,13 @@ module Integration
     end
 
     def sign_out_user
-      within("header .user_links") { click_link "Sign out" }
+      within("header .user_links") do
+        if Capybara.current_driver == Capybara.javascript_driver
+          find_link("Sign out", visible: false).trigger('click')
+        else
+          find_link("Sign out", visible: false).click
+        end
+      end
     end
   end
 end

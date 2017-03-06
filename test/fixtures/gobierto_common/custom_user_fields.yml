@@ -1,0 +1,41 @@
+madrid_custom_user_field_district:
+  site: madrid
+  position: 0
+  title: <%= { "en" => "Districts", "es" => "Distritos" }.to_json %>
+  mandatory: true
+  field_type: <%= GobiertoCommon::CustomUserField.field_types[:single_option] %>
+  name: district
+  options: <%= {
+    "randomstring1" => { "en" => "Center", "es" => "Centro" },
+    "randomstring2" => { "en" => "Chamberi", "es" => "Chamberí" }
+  }.to_json
+  %>
+
+madrid_custom_user_field_association:
+  site: madrid
+  position: 1
+  title: <%= { "en" => "Association", "es" => "Asociación" }.to_json %>
+  mandatory: true
+  field_type: <%= GobiertoCommon::CustomUserField.field_types[:string] %>
+  name: association
+
+madrid_custom_user_field_bio:
+  site: madrid
+  position: 1
+  title: <%= { "en" => "Bio", "es" => "Bio" }.to_json %>
+  mandatory: false
+  field_type: <%= GobiertoCommon::CustomUserField.field_types[:paragraph] %>
+  name: bio
+
+madrid_custom_user_field_interests:
+  site: madrid
+  position: 0
+  title: <%= { "en" => "Interests", "es" => "Intereses" }.to_json %>
+  mandatory: false
+  field_type: <%= GobiertoCommon::CustomUserField.field_types[:multiple_options] %>
+  name: interests
+  options: <%= {
+    "randomstring1" => { "en" => "Sports", "es" => "Deportes" },
+    "randomstring2" => { "en" => "Gardens", "es" => "Jardines" }
+  }.to_json
+  %>

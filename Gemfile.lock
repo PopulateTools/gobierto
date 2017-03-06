@@ -146,6 +146,9 @@ GEM
       activesupport (>= 4.2, <= 5.1)
     invisible_captcha (0.9.1)
       rails
+    jbuilder (2.6.1)
+      activesupport (>= 3.0.0, < 5.1)
+      multi_json (~> 1.2)
     jmespath (1.3.1)
     jquery-rails (4.2.2)
       rails-dom-testing (>= 1, < 3)
@@ -353,6 +356,7 @@ DEPENDENCIES
   i18n-tasks
   ine-places
   invisible_captcha
+  jbuilder (~> 2.5)
   jquery-rails
   kaminari (~> 1.0)
   launchy

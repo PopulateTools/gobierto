@@ -1,7 +1,7 @@
-Hey,
+<%= t('.hi') %>,
 
-You have been invited to collaborate in Gobierto.
+<%= t('.click_link') %>:
 
-Use the following URL to accept the invitation.
+<%= admin_admin_invitation_acceptances_url(invitation_token: @admin.invitation_token, domain: @site.try(:domain)) %>
 
-<%= admin_admin_invitation_acceptances_url(invitation_token: @admin.invitation_token) %>
+<%= t('.bye') %>

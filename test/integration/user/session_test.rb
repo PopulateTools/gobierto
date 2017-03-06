@@ -14,6 +14,20 @@ class User::SessionTest < ActionDispatch::IntegrationTest
     @site ||= sites(:madrid)
   end
 
+  def privacy_page
+    @privacy_page ||= gobierto_cms_pages(:privacy)
+  end
+
+  def test_sign_in_privacy_link
+    site.configuration.privacy_page_id = privacy_page.id
+    site.save!
+
+    with_current_site(site) do
+      visit @sign_in_path
+      assert has_link?(privacy_page.title)
+    end
+  end
+
   def test_sign_in
     with_current_site(site) do
       visit @sign_in_path

@@ -1,8 +1,6 @@
 class User::CensusVerificationForm
   include ActiveModel::Model
 
-  DOCUMENT_NUMBER_REGEXP = /\A(ES)?[0-9A-Z][0-9]{7}[0-9A-Z]\z/
-
   attr_accessor(
     :site_id,
     :user_id,
@@ -10,13 +8,13 @@ class User::CensusVerificationForm
     :date_of_birth_year,
     :date_of_birth_month,
     :date_of_birth_day,
-    :creation_ip
+    :creation_ip,
+    :referrer_url
   )
 
   validates :site, :user, presence: true
   validates :date_of_birth, presence: true
-  validates :document_number, presence: true,
-    format: { with: DOCUMENT_NUMBER_REGEXP }
+  validates :document_number, presence: true
 
   def save
     return false unless valid?

@@ -11,7 +11,8 @@ module GobiertoAdmin
         :position,
         :budget_line_id,
         :budget_line_name,
-        :budget_line_amount
+        :budget_line_amount,
+        :block_reduction
       )
 
       attr_reader :consultation_item
@@ -19,7 +20,6 @@ module GobiertoAdmin
       delegate :persisted?, to: :consultation_item
 
       validates :title, presence: true
-      validates :budget_line_id, :budget_line_name, presence: true
       validates :budget_line_amount, presence: true
       validates :consultation, presence: true
 
@@ -73,6 +73,7 @@ module GobiertoAdmin
           consultation_item_attributes.budget_line_name = budget_line_name
           consultation_item_attributes.budget_line_amount = budget_line_amount.to_f
           consultation_item_attributes.position = position
+          consultation_item_attributes.block_reduction = block_reduction
         end
 
         if @consultation_item.valid?

@@ -9,6 +9,13 @@ privacy:
   title: 'Privacy'
   body: 'These are the privacy terms'
   slug: 'privacy'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+
+cookies:
+  title: 'Cookies'
+  body: 'These are the cookies terms'
+  slug: 'cookies'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:draft] %>
   site: madrid
 

@@ -17,7 +17,7 @@ class User::UserMailerTest < ActionMailer::TestCase
     assert_equal ["admin@gobierto.dev"], email.from
     assert_equal ["admin@gobierto.dev"], email.reply_to
     assert_equal [user.email], email.to
-    assert_equal "Confirmation instructions", email.subject
+    assert_equal "Complete your registration in Ayuntamiento de Madrid", email.subject
   end
 
   def test_reset_password_instructions
@@ -28,7 +28,7 @@ class User::UserMailerTest < ActionMailer::TestCase
     assert_equal ["admin@gobierto.dev"], email.from
     assert_equal ["admin@gobierto.dev"], email.reply_to
     assert_equal [user.email], email.to
-    assert_equal "Reset password instructions", email.subject
+    assert_equal "Reset your password", email.subject
   end
 
   def test_welcome
@@ -39,6 +39,6 @@ class User::UserMailerTest < ActionMailer::TestCase
     assert_equal ["admin@gobierto.dev"], email.from
     assert_equal ["admin@gobierto.dev"], email.reply_to
     assert_equal [user.email], email.to
-    assert_equal "Welcome to Gobierto", email.subject
+    assert_equal "Welcome", email.subject
   end
 end

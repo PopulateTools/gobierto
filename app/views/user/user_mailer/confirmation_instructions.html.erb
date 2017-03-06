@@ -1,11 +1,19 @@
 <p>
-  Hey,
+<%= t('.hi') %>,
 </p>
 
 <p>
-  Use the following URL to confirm your email address:
+  <%= t('.click_link') %>
 </p>
 
 <p>
-<%= new_user_confirmations_url(confirmation_token: @user.confirmation_token, domain: @site.domain) %>
+  <%= new_user_confirmations_url(confirmation_token: @user.confirmation_token, domain: @site.domain) %>
+</p>
+
+<p>
+  (<%= t('.ignore_link', site_name: @site.name) %>)
+</p>
+
+<p>
+  <%= t('.bye') %>
 </p>

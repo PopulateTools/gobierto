@@ -4,10 +4,10 @@ class User::UserMailer < ApplicationMailer
     @site = site
 
     mail(
-      from: default_from,
+      from: from,
       reply_to: default_reply_to,
       to: @user.email,
-      subject: "Confirmation instructions"
+      subject: t('.subject', site_name: @site.name)
     )
   end
 
@@ -16,22 +16,24 @@ class User::UserMailer < ApplicationMailer
     @site = site
 
     mail(
-      from: default_from,
+      from: from,
       reply_to: default_reply_to,
       to: @user.email,
-      subject: "Reset password instructions"
+      subject: t('.subject')
     )
   end
 
   def welcome(user, site)
     @user = user
     @site = site
+    @site_url = root_url(domain: @site.domain)
+    @notifications_url = user_notifications_url(domain: @site.domain)
 
     mail(
-      from: default_from,
+      from: from,
       reply_to: default_reply_to,
       to: @user.email,
-      subject: "Welcome to Gobierto"
+      subject: t('.subject')
     )
   end
 end

@@ -36,6 +36,7 @@ en:
           visibility_level:
             draft: Draft
             active: Published
+          drag_to_sort: Drag to sort
         navigation:
           agenda: Agenda
           person: Person

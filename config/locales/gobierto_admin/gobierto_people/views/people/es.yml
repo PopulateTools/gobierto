@@ -36,6 +36,7 @@ es:
           visibility_level:
             draft: Borrador
             active: Publicada
+          drag_to_sort: Arrastra para ordenar
         navigation:
           agenda: Agenda
           person: Persona

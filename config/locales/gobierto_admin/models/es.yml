@@ -29,6 +29,7 @@ es:
         municipality_id: Municipio
         default_locale: Idioma por defecto
         available_locales: Idiomas disponibles
+        privacy_page_id: Página de privacidad
       gobierto_admin/user_form:
         email: Email
         name: Nombre

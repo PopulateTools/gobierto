@@ -31,12 +31,20 @@ this.GobiertoAdmin.ConsultationItemsController = (function() {
     var wrapper = "ul[data-behavior=sortable]";
     var positions = [];
 
-    sortable(wrapper);
-
-    $(wrapper).on("sortupdate", function(e) {
-      _refreshPositions(wrapper);
-      _requestUpdate(wrapper, _buildPositions(wrapper));
+    $(wrapper).sortable({
+      update: function(e, ui) {
+        _refreshPositions(wrapper);
+        _requestUpdate(wrapper, _buildPositions(wrapper));
+      },
+      helper: _fixWidthHelper
     });
+  }
+
+  function _fixWidthHelper(e, ui) {
+    ui.children().each(function() {
+      $(this).width($(this).width());
+    });
+    return ui;
   }
 
   function _refreshPositions(wrapper) {

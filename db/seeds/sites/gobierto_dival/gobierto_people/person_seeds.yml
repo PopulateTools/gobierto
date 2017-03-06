@@ -1,0 +1,184 @@
+---
+blocks:
+
+  ## Official degrees block
+- internal_id: gobierto_people_official_degrees
+  content_model_name: "GobiertoPeople::Person"
+  title:
+    ca: "Títols oficials d'educació i formació"
+    es: "Títulos oficiales de educación y formación"
+  fields:
+  - name: degree
+    field_type: text
+    label:
+      ca: "Títol"
+      es: "Título"
+  - name: center
+    field_type: text
+    label:
+      ca: Center
+      es: Centro
+  - name: date
+    field_type: date
+    label:
+      ca: Data
+      es: Fecha
+
+  ## Unofficial degrees block
+- internal_id: gobierto_people_unofficial_degrees
+  content_model_name: "GobiertoPeople::Person"
+  title:
+    ca: "Títols no oficials d'educació i formació"
+    es: "Títulos no oficiales de educación y formación"
+  fields:
+  - name: degree
+    field_type: text
+    label:
+      ca: "Títol"
+      es: "Título"
+  - name: center
+    field_type: text
+    label:
+      ca: Center
+      es: Centro
+  - name: date
+    field_type: date
+    label:
+      ca: Data
+      es: Fecha
+
+  ## Previous jobs
+- internal_id: gobierto_people_previous_jobs
+  content_model_name: "GobiertoPeople::Person"
+  title:
+    ca: Experiència laboral
+    es: Experiencia laboral
+  fields:
+  - name: organization
+    field_type: text
+    label:
+      ca: Organizació
+      es: Organización
+
+  - name: position
+    field_type: text
+    label:
+      ca: Càrrec
+      es: Cargo
+  - name: begin_date
+    field_type: date
+    label:
+      ca: Data inici
+      es: Fecha inicio
+  - name: end_date
+    field_type: date
+    label:
+      ca: Data fi
+      es: Fecha final
+
+  ## Languages
+- internal_id: gobierto_people_languages
+  content_model_name: "GobiertoPeople::Person"
+  title:
+    ca: Idiomes
+    es: Idiomas
+  fields:
+  - name: language
+    field_type: text
+    label:
+      ca: Idioma
+      es: Idioma
+  - name: level_speaking
+    field_type: text
+    label:
+      ca: Expressió oral - nivell
+      es: Expresión oral - nivel
+  - name: level_writing
+    field_type: text
+    label:
+      ca: Expressió escrita - nivell
+      es: Expresión escrita - nivel
+  - name: level_listening
+    field_type: text
+    label:
+      ca: Expressió lectura y compresió - nivell
+      es: Expresión lectura y compresión - nivel
+  - name: official_titles
+    field_type: text
+    label:
+      ca: Certificacions oficials
+      es: Certificaciones oficiales
+
+  ## Publications
+- internal_id: gobierto_people_publications
+  content_model_name: "GobiertoPeople::Person"
+  title:
+    ca: Publicacions
+    es: Publicaciones
+  fields:
+  - name: title
+    field_type: text
+    label:
+      ca: Títol de la publicació
+      es: Título de la publicación
+  - name: editorial
+    field_type: text
+    label:
+      ca: Editorial
+      es: Editorial
+  - name: date
+    field_type: date
+    label:
+      ca: Data
+      es: Fecha
+  - name: notes
+    field_type: text
+    label:
+      ca: Notes
+      es: Notas
+
+  ## Awards
+- internal_id: gobierto_people_awards
+  content_model_name: "GobiertoPeople::Person"
+  title:
+    ca: Premis i distincions
+    es: Premios y distinciones
+  fields:
+  - name: award
+    field_type: text
+    label:
+      ca: Premi/distinció
+      es: Premio/distinción
+  - name: institution
+    field_type: text
+    label:
+      ca: Institució
+      es: Institución
+  - name: notes
+    field_type: text
+    label:
+      ca: Notes
+      es: Notas
+
+  ## Groups
+- internal_id: gobierto_people_groups
+  content_model_name: "GobiertoPeople::Person"
+  title:
+    ca: Pertinença a grups/associacions
+    es: Pertenencia a grupos/asociaciones
+  fields:
+  - name: group
+    field_type: text
+    label:
+      ca: Grup/Associació
+      es: Grupo/Asociación
+  - name: position
+    field_type: text
+    label:
+      ca: Càrrec
+      es: Cargo
+  - name: notes
+    field_type: text
+    label:
+      ca: Notes
+      es: Notas

@@ -5,6 +5,21 @@
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    function gaCall(){
+      var args = arguments;
+      ga(function() {
+        var allTrackers = ga.getAll();
+        for(var i in allTrackers) {
+          new_args = [allTrackers[i].get('name')+'.'+args[0]];
+          for(var n = 1; n < args.length; n++){
+            new_args.push(args[n]);
+          }
+          ga.apply(this, new_args);
+
+        }
+      });
+    }
   <% end %>
 
   <% if APP_CONFIG["site"]["mixpanel_key"].present? %>

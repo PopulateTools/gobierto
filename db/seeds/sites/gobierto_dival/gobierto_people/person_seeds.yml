@@ -65,7 +65,7 @@ blocks:
     label:
       ca: Càrrec
       es: Cargo
-  - name: begin_date
+  - name: start_date
     field_type: date
     label:
       ca: Data inici

@@ -41,13 +41,13 @@ ca:
         send_email: Envia un correu-e
       navigation:
         agenda: Agenda
-        bio: Biografia i cv
+        bio: Biografia i CV
         blog: Blog
         statements: Béns i activitats
       person_bio:
         show:
           download: Descarregar CV
-          subtitle: Biografia i cv
+          subtitle: Biografia i CV
           title: Perfil de %{person_name}
       person_events:
         index:

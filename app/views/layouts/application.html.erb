@@ -150,7 +150,7 @@
 
       <div class="column">
         <h1 class="logo">
-          <%= link_to(image_tag(@site.configuration.logo_with_fallback), root_url) %>
+          <%= link_to(image_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
         </h1>
       </div>
 

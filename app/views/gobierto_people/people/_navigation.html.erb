@@ -1,10 +1,10 @@
 <div class="people-navigation">
 
   <ul>
-    <li><%= link_to t(".bio"), gobierto_people_person_bio_path(@person), class: class_if("active", controller_name == "person_bio") %></li>
-    <li><%= link_to t(".agenda"), gobierto_people_person_events_path(@person), class: class_if("active", controller_name == "person_events")  %></li>
-    <li><%= link_to t(".blog"), gobierto_people_person_posts_path(@person), class: class_if("active", controller_name == "person_posts")  %></li>
-    <li><%= link_to t(".statements"), gobierto_people_person_statements_path(@person), class: class_if("active", controller_name == "person_statements")  %></li>
+    <li><h3><%= link_to t(".bio"), gobierto_people_person_bio_path(@person), class: class_if("active", controller_name == "person_bio") %></h3></li>
+    <li><h3><%= link_to t(".agenda"), gobierto_people_person_events_path(@person), class: class_if("active", controller_name == "person_events")  %></h3></li>
+    <li><h3><%= link_to t(".blog"), gobierto_people_person_posts_path(@person), class: class_if("active", controller_name == "person_posts")  %></h3></li>
+    <li><h3><%= link_to t(".statements"), gobierto_people_person_statements_path(@person), class: class_if("active", controller_name == "person_statements")  %></h3></li>
   </ul>
 
 </div>

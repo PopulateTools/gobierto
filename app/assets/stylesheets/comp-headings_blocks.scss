@@ -121,6 +121,11 @@ p.intro {
   font-size: 1.4em;
   text-transform: uppercase;
   font-weight: 200;
+	.linked_headline {
+		font-size: 1em;
+		margin: 0;
+		font-weight: 300;
+	}
   a {
     display: block;
     text-decoration: none;
@@ -236,4 +241,3 @@ p.intro {
   }
 
 }
-

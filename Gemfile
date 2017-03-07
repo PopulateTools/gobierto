@@ -73,6 +73,7 @@ group :test do
   gem "launchy"
   gem "codecov", "~> 0.1.9", require: false
   gem "webmock"
+  gem "minitest-retry"
 end
 
 group :development do

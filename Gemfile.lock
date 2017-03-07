@@ -207,6 +207,8 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    minitest-retry (0.1.8)
+      minitest (>= 5.0)
     minitest-stub_any_instance (1.0.1)
     multi_json (1.12.1)
     multipart-post (2.0.0)
@@ -364,6 +366,7 @@ DEPENDENCIES
   minitest-rails
   minitest-rails-capybara
   minitest-reporters
+  minitest-retry
   minitest-stub_any_instance
   pg (~> 0.19)
   poltergeist

@@ -35,10 +35,14 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
           el.style.opacity = 0
         },
         enter: function (el, done) {
-          $(el).velocity("transition.slideDownIn", {duration: 200, delay: 100, complete: done});
+          $(el).velocity("transition.slideDownIn", {duration: 200, delay: 250, complete: function(){
+            $('body').animate({
+              scrollTop: $(el).offset().top - 85
+            }, 400);
+          }});
         },
         leave: function (el, done) {
-          $(el).velocity("transition.slideUpOut", {duration: 200, complete: done});
+          $(el).velocity("transition.slideUpOut", {duration: 200, complete: function(){}});
         }
       }
     });
@@ -270,25 +274,6 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
             }
             $targetDescription.css({ top: offset + 'px' });
           }
-
-          window.setTimeout(function(){
-            // Scroll to selected card
-            // Set the description status
-            $('body').animate({
-              scrollTop: $target.offset().top - (isMobile() ? 25 : 85)
-            }, 300, function() {
-              // Set individual card state
-              if(isMobile()){
-                // Once animation ends, check if the span is visible
-                var isVisible = $target.find('.visibilityCheck').visible();
-
-                if (isVisible !== 'undefined') {
-                  // If is not visible, set hidden to true
-                  currentCard.hidden = isVisible ? false : true;
-                }
-              }
-            });
-          }, (isMobile() ? 250 : 0));
         });
 
         bus.$on('open', function(d) {

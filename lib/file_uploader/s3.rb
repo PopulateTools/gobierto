@@ -4,17 +4,21 @@ module FileUploader
   class S3
     attr_reader :file, :file_name
 
-    def initialize(file:, file_name:, bucket_name: nil)
+    def initialize(file:, file_name:, content_disposition: nil, bucket_name: nil)
       @file = file
       @file_name = file_name
       @bucket_name = bucket_name
+      @content_disposition = content_disposition
     end
 
     def call
       object = resource.bucket(bucket_name).object(file_name)
 
       File.open(file.tempfile, "rb") do |file_body|
-        object.put(body: file_body)
+        options = { body: file_body }
+        options[:content_disposition] = @content_disposition if @content_disposition.present?
+
+        object.put(options)
       end
 
       object.public_url

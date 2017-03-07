@@ -7,6 +7,7 @@ class User::SubscriptionPreferencesForm
     :notification_frequency,
     :modules,
     :gobierto_people_people,
+    :gobierto_budget_consultations_consultations,
     :site_to_subscribe
   )
 
@@ -29,6 +30,7 @@ class User::SubscriptionPreferencesForm
       update_subscriptions_to_modules(modules)
       update_subscriptions_to_people(gobierto_people_people)
       update_subscription_to_site(site_to_subscribe)
+      update_subscriptions_to_consultations(gobierto_budget_consultations_consultations)
 
      @user
     else
@@ -71,7 +73,7 @@ class User::SubscriptionPreferencesForm
     (site.people.active.pluck(:id).map(&:to_s) - people).each do |person_id|
       next if person_id.blank?
 
-      person = GobiertoPeople::Person.find(person_id)
+      person = site.people.find(person_id)
       @user.unsubscribe_from!(person, site)
     end
   end
@@ -81,6 +83,22 @@ class User::SubscriptionPreferencesForm
       @user.subscribe_to!(site, site)
     else
       @user.unsubscribe_from!(site, site)
+    end
+  end
+
+  def update_subscriptions_to_consultations(budget_consultations)
+    budget_consultations.each do |consultation_id|
+      next if consultation_id.blank?
+
+      consultation = GobiertoBudgetConsultations::Consultation.find(consultation_id)
+      @user.subscribe_to!(consultation, site)
+    end
+
+    (site.budget_consultations.active.pluck(:id).map(&:to_s) - budget_consultations).each do |consultation_id|
+      next if consultation_id.blank?
+
+      consultation = site.budget_consultations.find(consultation_id)
+      @user.unsubscribe_from!(consultation, site)
     end
   end
 end

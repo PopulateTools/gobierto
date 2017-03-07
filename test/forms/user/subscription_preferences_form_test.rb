@@ -8,7 +8,8 @@ class User::SubscriptionPreferencesFormTest < ActiveSupport::TestCase
       notification_frequency: User.notification_frequencies["daily"],
       modules: ["", "gobierto_people"],
       gobierto_people_people: ["", person.id.to_s],
-      site_to_subscribe: site.id.to_s
+      site_to_subscribe: site.id.to_s,
+      gobierto_budget_consultations_consultations: ["", consultation.id.to_s]
     )
   end
 
@@ -18,10 +19,14 @@ class User::SubscriptionPreferencesFormTest < ActiveSupport::TestCase
       site: site,
       notification_frequency: nil,
       modules: [],
-      gobierto_people_people: []
+      gobierto_people_people: [],
+      gobierto_budget_consultations_consultations: []
     )
   end
 
+  def consultation
+    @consultation ||= gobierto_budget_consultations_consultations(:madrid_open)
+  end
 
   def user
     @user ||= users(:dennis)
@@ -53,6 +58,8 @@ class User::SubscriptionPreferencesFormTest < ActiveSupport::TestCase
 
     assert user.subscribed_to?(GobiertoPeople, site)
     assert user.subscribed_to?(person, site)
+
+    assert user.subscribed_to?(consultation, site)
 
     assert user.subscribed_to?(site, site)
   end

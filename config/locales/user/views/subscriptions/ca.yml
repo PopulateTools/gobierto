@@ -18,6 +18,7 @@ ca:
         title: Les teves alertes
         submit: Guardar
         frequency: Freqüència
+        whole_site: Tot el site
         areas: Àrees
         people: Persones
       subscribable_box:

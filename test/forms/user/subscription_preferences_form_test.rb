@@ -7,7 +7,8 @@ class User::SubscriptionPreferencesFormTest < ActiveSupport::TestCase
       site: site,
       notification_frequency: User.notification_frequencies["daily"],
       modules: ["", "gobierto_people"],
-      gobierto_people_people: ["", person.id.to_s]
+      gobierto_people_people: ["", person.id.to_s],
+      site_to_subscribe: site.id.to_s
     )
   end
 
@@ -52,5 +53,7 @@ class User::SubscriptionPreferencesFormTest < ActiveSupport::TestCase
 
     assert user.subscribed_to?(GobiertoPeople, site)
     assert user.subscribed_to?(person, site)
+
+    assert user.subscribed_to?(site, site)
   end
 end

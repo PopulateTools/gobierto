@@ -18,6 +18,7 @@ en:
         title: Your alerts
         submit: Save
         frequency: Frequency
+        whole_site: Whole site
         areas: Areas
         people: People
       subscribable_box:

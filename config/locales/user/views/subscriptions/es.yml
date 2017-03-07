@@ -18,6 +18,7 @@ es:
         title: Tus alertas
         submit: Guardar
         frequency: Cada cuánto
+        whole_site: Todo el site
         areas: Áreas
         people: Personas
       subscribable_box:

@@ -9,6 +9,7 @@ class User::SubscriptionsController < User::BaseController
       user: current_user,
       site: current_site,
       notification_frequency: current_user.notification_frequency,
+      site_to_subscribe: get_current_user_subsciption_to_site,
       modules: get_current_user_subscribed_modules,
       gobierto_people_people: get_current_user_subscribed_gobierto_people_people
     )
@@ -89,5 +90,11 @@ class User::SubscriptionsController < User::BaseController
     current_site.people.active.select do |person|
       current_user.subscribed_to?(person, current_site)
     end.map(&:id)
+  end
+
+  def get_current_user_subsciption_to_site
+    if current_user.subscribed_to?(current_site, current_site)
+      current_site.id
+    end
   end
 end

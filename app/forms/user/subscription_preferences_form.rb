@@ -6,7 +6,8 @@ class User::SubscriptionPreferencesForm
     :site,
     :notification_frequency,
     :modules,
-    :gobierto_people_people
+    :gobierto_people_people,
+    :site_to_subscribe
   )
 
   validates :user, :site, :notification_frequency, presence: true
@@ -27,6 +28,7 @@ class User::SubscriptionPreferencesForm
 
       update_subscriptions_to_modules(modules)
       update_subscriptions_to_people(gobierto_people_people)
+      update_subscription_to_site(site_to_subscribe)
 
      @user
     else
@@ -71,6 +73,14 @@ class User::SubscriptionPreferencesForm
 
       person = GobiertoPeople::Person.find(person_id)
       @user.unsubscribe_from!(person, site)
+    end
+  end
+
+  def update_subscription_to_site(site_to_subscribe_id)
+    if site_to_subscribe_id != "0"
+      @user.subscribe_to!(site, site)
+    else
+      @user.unsubscribe_from!(site, site)
     end
   end
 end

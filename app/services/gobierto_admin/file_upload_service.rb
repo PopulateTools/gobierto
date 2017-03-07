@@ -4,12 +4,13 @@ module GobiertoAdmin
   class FileUploadService
     attr_reader :file, :site, :collection
 
-    def initialize(adapter:, site:, collection:, attribute_name:, file:)
+    def initialize(adapter:, site:, collection:, attribute_name:, file:, content_disposition: nil)
       @adapter = adapter
       @site = site
       @collection = collection
       @attribute_name = attribute_name
       @file = file
+      @content_disposition = content_disposition
     end
 
     delegate :call, to: :adapter
@@ -20,7 +21,7 @@ module GobiertoAdmin
       end
 
       case @adapter
-      when :s3 then FileUploader::S3.new(file: file, file_name: file_name)
+      when :s3 then FileUploader::S3.new(file: file, file_name: file_name, content_disposition: @content_disposition)
       end
     end
 
@@ -28,7 +29,7 @@ module GobiertoAdmin
 
     def file_name
       @file_name ||= begin
-        [site_id, collection, attribute_name].join("/")
+        [site_id, collection, attribute_name, file.original_filename].join("/")
       end
     end
 

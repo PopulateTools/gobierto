@@ -56,7 +56,7 @@
         <%= f.label :attachment_file, t(".attachment_file_constraints") %>
 
         <% if f.object.attachment_url.present? %>
-          <%= link_to f.object.attachment_url, f.object.attachment_url %>
+          <%= link_to f.object.attachment_url, f.object.attachment_url, download: "" %>
         <% end %>
 
         <%= f.file_field :attachment_file %>

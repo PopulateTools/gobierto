@@ -14,6 +14,7 @@ require "support/session_helpers"
 require "support/site_session_helpers"
 require "support/message_delivery_helpers"
 require "support/gobierto_site_constraint_helpers"
+require 'minitest/retry'
 
 if ENV["CI"] || ENV["RUN_COVERAGE"]
   require "simplecov"
@@ -42,9 +43,11 @@ if ENV["CI"]
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
 end
 
+
 I18n.locale = I18n.default_locale = :en
 Time.zone = "UTC"
 
+Minitest::Retry.use!
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 WebMock.disable_net_connect!(

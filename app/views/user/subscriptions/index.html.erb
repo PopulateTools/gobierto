@@ -59,7 +59,7 @@
 
       <div class="pure-u-1 pure-u-md-1-3 ">
         <div class="padded padded_line_box compact">
-          <% if current_site.configuration.gobierto_budget_consultations_enabled? %>
+          <% if current_site.configuration.gobierto_budget_consultations_enabled? && @user_notification_gobierto_budget_consultations_consultations.any? %>
             <h3><%= t('.consultations') %></h3>
             <div class="form_item">
               <div class="options compact">
@@ -76,7 +76,7 @@
             </div>
           <% end %>
 
-          <% if current_site.configuration.gobierto_people_enabled? %>
+          <% if current_site.configuration.gobierto_people_enabled? && @user_notification_gobierto_people_people.any? %>
             <h3><%= t('.people') %></h3>
             <div class="form_item">
               <div class="options compact">

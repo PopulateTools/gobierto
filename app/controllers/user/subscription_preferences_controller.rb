@@ -22,7 +22,7 @@ class User::SubscriptionPreferencesController < User::BaseController
 
   def user_subscription_params
     params.require(:user_subscription_preferences).permit(
-      :notification_frequency, modules: [], gobierto_people_people: []
+      :notification_frequency, :site_to_subscribe, modules: [], gobierto_people_people: [], gobierto_budget_consultations_consultations: []
     )
   end
 end

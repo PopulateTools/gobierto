@@ -17,6 +17,8 @@ class SiteConfiguration
 
   DEFAULT_LOGO_PATH = "sites/logo-default.png".freeze
 
+  MODULES_WITH_NOTIFICATONS = ["GobiertoPeople", "GobiertoBudgetConsultations"]
+
   attr_accessor *PROPERTIES
 
   alias :site_modules :modules
@@ -55,6 +57,10 @@ class SiteConfiguration
 
   def privacy_page?
     privacy_page.present?
+  end
+
+  def modules_with_notifications
+    modules & MODULES_WITH_NOTIFICATONS
   end
 
   # Define question mark instance methods for each property.

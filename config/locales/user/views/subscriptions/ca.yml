@@ -18,8 +18,10 @@ ca:
         title: Les teves alertes
         submit: Guardar
         frequency: Freqüència
+        whole_site: Tot el site
         areas: Àrees
         people: Persones
+        consultations: Consultes pressupostos
       subscribable_box:
         cancel: Ja estàs subscrits. cancel·lar?
         form:

@@ -18,8 +18,10 @@ en:
         title: Your alerts
         submit: Save
         frequency: Frequency
+        whole_site: Whole site
         areas: Areas
         people: People
+        consultations: Budget consultations
       subscribable_box:
         cancel: Already subscribed. Cancel?
         form:

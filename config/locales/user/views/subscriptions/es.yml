@@ -18,8 +18,10 @@ es:
         title: Tus alertas
         submit: Guardar
         frequency: Cada cuánto
+        whole_site: Todo el site
         areas: Áreas
         people: Personas
+        consultations: Consultas presupuestos
       subscribable_box:
         cancel: Ya estás suscrito. ¿Cancelar?
         form:

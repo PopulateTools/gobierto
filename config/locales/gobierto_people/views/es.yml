@@ -19,25 +19,10 @@ es:
         home: Inicio
         people: Cargos
         statements: Declaraciones
-    welcome:
-      index:
-        title: Conoce a las personas que trabajan para hacer de tu ciudad un lugar mejor donde vivir. Consulta sus perfiles, sus agendas y gastos.
-        statements: Declaraciones de bienes y actividades
-        gifts: Obsequios y regalos
-        travels: Viajes y desplazamientos
-        people_summary:
-          title: "Organigrama de %{site_name}"
-          view_all: Ver todos
-        events_summary:
-          upcoming_events: Próximos eventos
-          past_events: Eventos pasados
-          view_all: Ver todos
-        posts_summary:
-          title: Blogs
-          view_all: Ver todos
-        subscribable_box:
-          title: Recibe un resumen semanal de las agendas de tus representantes
     people:
+      subscription_button:
+        follow: Seguir
+        cancel: Cancelar
       person_messages:
         new:
           title: Envía un mensaje a %{name}
@@ -177,4 +162,20 @@ es:
         subscribable_box:
           title: Recibe un resumen semanal de las agendas de tus representantes
         travels: Viajes y desplazamientos
-
+    welcome:
+      index:
+        events_summary:
+          upcoming_events: Próximos eventos
+          past_events: Eventos pasados
+          view_all: Ver todos
+        gifts: Obsequios y regalos
+        people_summary:
+          title: "Organigrama de %{site_name}"
+          view_all: Ver todos
+        posts_summary:
+          title: Blogs
+          view_all: Ver todos
+        statements: Declaraciones de bienes y actividades
+        subscribable_box:
+          title: Recibe un resumen semanal de las agendas de tus representantes
+        travels: Viajes y desplazamientos

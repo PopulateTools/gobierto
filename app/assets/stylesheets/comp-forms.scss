@@ -55,6 +55,7 @@ input[type=text]:focus, input[type=email]:focus, input[type=submit]:focus, input
   select {
     width: initial;
     display: inline-block;
+    max-width: 25%;
   }
 }
 .file_field {

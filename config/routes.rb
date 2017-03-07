@@ -76,6 +76,7 @@ Rails.application.routes.draw do
 
     namespace :gobierto_cms, as: :cms, path: :cms do
       resources :pages
+      resource :file_attachments, only: [:create]
     end
   end
 

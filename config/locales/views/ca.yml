@@ -87,3 +87,19 @@ ca:
       person_event_item: Event
       person_statement_item: Declaració
       page_item: Pàgina
+  views:
+    pagination:
+      first: "&laquo; Primera"
+      last: "Última &raquo;"
+      previous: "&lsaquo; Anterior"
+      next: "Següent &rsaquo;"
+      truncate: "&hellip;"
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "No hi ha %{entry_name}"
+          one: "Mostrant <b>1</b> %{entry_name}"
+          other: "Mostrant <b>%{count}</b> %{entry_name}"
+      more_pages:
+        display_entries: "Mostrant %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> de <b>%{total}</b> en total"

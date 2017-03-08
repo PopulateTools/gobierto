@@ -6,12 +6,16 @@ en:
         subject: "New activity in %{site_name}: %{action_name}"
         hi: Hi
         new_activity: There's new activity in %{site_name}
-        bye: Have a nice day
+        manage_notifications: Remember you can manage your notifications in %{url}
+        manage_notifications_html: "Remember you can manager your notifications in <a href='%{url}'>your notifications page</a>"
+        bye: Cheers
       notification_digest:
         subject: Activity summary from %{site_name}
         hi: Hi
         new_activity: There's new activity in %{site_name}
-        bye: Have a nice day
+        manage_notifications: Remember you can manage your notifications in %{url}
+        manage_notifications_html: "Remember you can manager your notifications in <a href='%{url}'>your notifications page</a>"
+        bye: Cheers
     user_mailer:
       confirmation_instructions:
         subject: Complete your registration in %{site_name}

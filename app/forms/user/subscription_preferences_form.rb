@@ -47,6 +47,7 @@ class User::SubscriptionPreferencesForm
   end
 
   def update_subscriptions_to_modules(modules)
+    modules = Array(modules)
     modules.each do |module_name|
       next if module_name.blank?
 
@@ -63,6 +64,8 @@ class User::SubscriptionPreferencesForm
   end
 
   def update_subscriptions_to_people(people)
+    people = Array(people)
+
     people.each do |person_id|
       next if person_id.blank?
 
@@ -87,6 +90,8 @@ class User::SubscriptionPreferencesForm
   end
 
   def update_subscriptions_to_consultations(budget_consultations)
+    budget_consultations = Array(budget_consultations)
+
     budget_consultations.each do |consultation_id|
       next if consultation_id.blank?
 

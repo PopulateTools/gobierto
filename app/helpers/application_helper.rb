@@ -30,7 +30,7 @@ module ApplicationHelper
   
   def tab_attributes(condition)
     {
-      role:'tab', 'tab-index' => condition ? 0 : -1, 'aria-selected' => condition
+      role:'tab', 'tabindex' => condition ? 0 : -1, 'aria-selected' => condition
     }
   end
 

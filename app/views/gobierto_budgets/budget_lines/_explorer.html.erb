@@ -6,7 +6,7 @@
     <ul role="tablist" aria-label="Explora el detalle de ingresos y gastos">
       
       <li role="presentation" class="active">
-        <%= link_to t('.income'), gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::BudgetLine::ECONOMIC), data: { "budget-lines-tab": GobiertoBudgets::BudgetLine::INCOME, remote: true }, id:"ingresos", "aria-controls" => "gastos-tab", role:"tab", tabindex:"0", "aria-selected" => "true"%>
+        <%= link_to t('.income'), gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::BudgetLine::ECONOMIC), data: { "budget-lines-tab": GobiertoBudgets::BudgetLine::INCOME, remote: true }, id:"ingresos", "aria-controls" => "ingresos-tab", role:"tab", tabindex:"0", "aria-selected" => "true"%>
       </li>
       <li role="presentation">
         <%= link_to t('.expenses'), gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::BudgetLine::FUNCTIONAL), data: { "budget-lines-tab": GobiertoBudgets::BudgetLine::EXPENSE, remote: true }, id:"gastos", "aria-controls" => "gastos-tab", role:"tab", tabindex:"-1", "aria-selected" => "false" %>

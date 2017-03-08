@@ -3,16 +3,16 @@
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
 
     <ul role="tablist" aria-label="Agenda de los miembros del <%= @site.name %>">
-      <li class="<%= class_if('active', controller_name.in?(%w(government_party_person_events government_party_past_person_events))) %>">
+      <li role="presentation" class="<%= class_if('active', controller_name.in?(%w(government_party_person_events government_party_past_person_events))) %>">
         <%= link_to t("gobierto_people.people_filter.parties.government"), gobierto_people_government_party_events_path, tab_attributes(controller_name.in?(%w(government_party_person_events government_party_past_person_events))) %>
       </li>
-      <li class="<%= class_if('active', controller_name.in?(%w(opposition_party_person_events opposition_party_past_person_events))) %>">
+      <li role="presentation" class="<%= class_if('active', controller_name.in?(%w(opposition_party_person_events opposition_party_past_person_events))) %>">
         <%= link_to t("gobierto_people.people_filter.parties.opposition"), gobierto_people_opposition_party_events_path, tab_attributes(controller_name.in?(%w(opposition_party_person_events opposition_party_past_person_events))) %>
       </li>
-      <li class="<%= class_if('active', controller_name.in?(%w(executive_category_person_events executive_category_past_person_events))) %>">
+      <li role="presentation" class="<%= class_if('active', controller_name.in?(%w(executive_category_person_events executive_category_past_person_events))) %>">
         <%= link_to t("gobierto_people.people_filter.categories.executive"), gobierto_people_executive_category_events_path, tab_attributes(controller_name.in?(%w(executive_category_person_events executive_category_past_person_events))) %>
       </li>
-      <li class="<%= class_if('active', controller_name.in?(%w(person_events past_person_events))) %>">
+      <li role="presentation" class="<%= class_if('active', controller_name.in?(%w(person_events past_person_events))) %>">
         <%= link_to t("gobierto_people.people_filter.all"), gobierto_people_events_path, tab_attributes(controller_name.in?(%w(person_events past_person_events))) %>
       </li>
     </ul>
@@ -28,7 +28,7 @@
 
   <ul role="tablist" aria-label="Listado de partidos políticos">
     <% @political_groups.each do |political_group| %>
-      <li class="<%= class_if('active', @political_group.try(:name) == political_group.name) %>">
+      <li role="presentation" class="<%= class_if('active', @political_group.try(:name) == political_group.name) %>">
         <%= link_to political_group.name, gobierto_people_political_group_events_path(political_group), tab_attributes(@political_group.try(:name) == political_group.name) %>
       </li>
     <% end %>

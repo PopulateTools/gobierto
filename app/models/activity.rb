@@ -1,4 +1,5 @@
 class Activity < ApplicationRecord
+  paginates_per 50
 
   belongs_to :subject, polymorphic: true
   belongs_to :author, polymorphic: true

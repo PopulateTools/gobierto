@@ -11,7 +11,7 @@ module GobiertoPeople
       @person = PersonDecorator.new(find_person)
       @upcoming_events = @person.events.upcoming.sorted.first(3)
 
-      @latest_activity = ActivityCollectionDecorator.new(Activity.for_recipient(@person).limit(30).sorted)
+      @latest_activity = ActivityCollectionDecorator.new(Activity.for_recipient(@person).limit(30).sorted.page(params[:page]))
     end
 
     private

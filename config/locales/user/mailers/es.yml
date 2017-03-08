@@ -6,15 +6,15 @@ es:
         subject: "Nueva actividad en %{site_name}: %{action_name}"
         hi: Hola
         new_activity: Hay una nueva actividad en %{site_name}
-        manage_notifications: Recorda que puedes cambiar tus notifications en %{url}
-        manage_notifications_html: "Recorda que puedes cambiar tus notifications en <a href='%{url}'>tu página de preferencias</a>"
+        manage_notifications: Recuerda que puedes cambiar tus notifications en %{url}
+        manage_notifications_html: "Recuerda que puedes cambiar tus notifications en <a href='%{url}'>tu página de preferencias</a>"
         bye: Saludos
       notification_digest:
         subject: Resumen de actividad en %{site_name}
         hi: Hola
         new_activity: Hay nueva actividad en %{site_name}
-        manage_notifications: Recorda que puedes cambiar tus notifications en %{url}
-        manage_notifications_html: "Recorda que puedes cambiar tus notifications en <a href='%{url}'>tu página de preferencias</a>"
+        manage_notifications: Recuerda que puedes cambiar tus notifications en %{url}
+        manage_notifications_html: "Recuerda que puedes cambiar tus notifications en <a href='%{url}'>tu página de preferencias</a>"
         bye: Saludos
     user_mailer:
       confirmation_instructions:

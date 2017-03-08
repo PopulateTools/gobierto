@@ -4,8 +4,6 @@ $(document).on('turbolinks:load', function() {
     var tabs;
     var panels;
 
-    console.log(tablist);
-
     generateArrays();
 
     function generateArrays () {

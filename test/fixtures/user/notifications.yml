@@ -1,23 +1,15 @@
 dennis_consultation_created:
   user: dennis
   site: madrid
-  action: created
+  action: gobierto_budget_consultations.consultation.published
   subject: madrid_open (GobiertoBudgetConsultations::Consultation)
   is_sent: true
   is_seen: true
 
-dennis_consultation_title_changed:
+dennis_consultation_updated:
   user: dennis
   site: madrid
-  action: title_changed
-  subject: madrid_open (GobiertoBudgetConsultations::Consultation)
-  is_sent: false
-  is_seen: false
-
-dennis_consultation_visibility_level_changed:
-  user: dennis
-  site: madrid
-  action: visibility_level_changed
+  action: gobierto_budget_consultations.consultation.updated
   subject: madrid_open (GobiertoBudgetConsultations::Consultation)
   is_sent: false
   is_seen: false

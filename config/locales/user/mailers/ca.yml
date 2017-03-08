@@ -6,12 +6,16 @@ ca:
         subject: "Nova activitat en %{site_name}: %{action_name}"
         hi: Hola
         new_activity: Hi ha una nova activitat en %{site_name}
-        bye: Passa un bon dia
+        manage_notifications: Recorda que pots canviar les teves notificacions a %{url}
+        manage_notifications_html: "Recorda que pots canviar les teves notificacions a <a href='%{url}'>la teva pàgina de preferencies</a>"
+        bye: Salutacions
       notification_digest:
         subject: Resum d'activitat en %{site_name}
         hi: Hola
         new_activity: Hi ha nova activitat en %{site_name}
-        bye: Passa un bon dia
+        manage_notifications: Recorda que pots canviar les teves notificacions a %{url}
+        manage_notifications_html: "Recorda que pots canviar les teves notificacions a <a href='%{url}'>la teva pàgina de preferencies</a>"
+        bye: Salutacions
     user_mailer:
       confirmation_instructions:
         subject: Completa el teu registre en %{site_name}

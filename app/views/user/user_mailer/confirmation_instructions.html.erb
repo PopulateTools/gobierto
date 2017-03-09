@@ -7,7 +7,8 @@
 </p>
 
 <p>
-  <%= new_user_confirmations_url(confirmation_token: @user.confirmation_token, domain: @site.domain) %>
+  <%= link_to new_user_confirmations_url(confirmation_token: @user.confirmation_token, domain: @site.domain),
+              new_user_confirmations_url(confirmation_token: @user.confirmation_token, domain: @site.domain) %>
 </p>
 
 <p>

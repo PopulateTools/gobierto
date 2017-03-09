@@ -6,12 +6,12 @@ ca:
         email: Email
       gobierto_admin/admin_edit_password_form:
         password: Contrasenya
-        password_confirmation: Confirmació de contrasenya
+        password_confirmation: Confirmació de la contrasenya
       gobierto_admin/admin_form:
         email: Email
         name: Nom
         password: Contrasenya
-        password_confirmation: Confirmación de contrasenya
+        password_confirmation: Confirmación de la contrasenya
       gobierto_admin/admin_invitation_form:
         emails: Emails
       gobierto_admin/admin_new_password_form:

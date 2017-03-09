@@ -6,5 +6,4 @@ ca:
         consultation_responses:
           create:
             success: Resposta creada correctament
-            error: No s'ha pogut guardar la resposta
-
+            error: No s'ha pogut desar la resposta

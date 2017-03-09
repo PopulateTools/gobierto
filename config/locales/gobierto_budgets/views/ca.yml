@@ -8,22 +8,22 @@ ca:
         explore_the_detail: Explora el detall
         income: Ingressos
         search: Busca
-        search_budget_line: Busca una partida específica
+        search_budget_line: Cerca una partida específica
       index:
         amount: Quantitat
         budget_line: Partida
         expense_in_what: En què es gasta
         expense_to_do_what: Per a què es gasta
-        help: El pressupuest organitza les despeses en dos categories. Consulta la
+        help: El pressupuest organitza les despeses en dues categories. Consulta la
           nostra guia.
         income_from_what: En què s'ingressa
         per_inhabitant: Per habitant
         title: Pressupostos municipals en %{year}
       show:
-        about_this_line: Acerca d'esta partida
+        about_this_line: Sobre aquesta partida
         avg_province: Mitjana %{kind} provincial
         back_to_parent: Tornar a la partida pare
-        budget_lines_distribution: Distribució de les despeses d'esta partida
+        budget_lines_distribution: Distribució de les despeses d'aquesta partida
         evolution: Evolució
         last_year: L'any passat
         no_distribution: No hi ha distribució associada a aquesta partida.
@@ -34,7 +34,7 @@ ca:
         planned_per_inhabitant: pres. / hab.
         real_value: El %{kind} reial són %{value}
         real_vs_planned: reial vs. pres.
-        sub_budget_lines: Dins d'esta partida
+        sub_budget_lines: Dins d'aquesta partida
         twitter_text_expense: 'En @gobierto: Despesa municipal de %{name} en %{budget_line_name}
           al %{year}'
         twitter_text_income: 'En @gobierto: Ingrés municipal de %{name} en %{budget_line_name}

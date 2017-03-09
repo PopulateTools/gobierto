@@ -4,4 +4,4 @@ ca:
     subscription_preferences:
       update:
         update_success: S'han actualitzat les dades correctament
-        error: "Ha ocurregut un problema al actualitzar: %{details}"
+        error: "Ha ocorregut un problema al actualitzar: %{details}"

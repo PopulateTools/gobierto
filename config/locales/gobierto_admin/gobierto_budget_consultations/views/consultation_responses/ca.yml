@@ -6,13 +6,13 @@ ca:
         consultation_responses:
           index:
             header:
-              budget_amount: Inversió proposta
+              budget_amount: Proposta d'inversió
               consultation_budget_amount: Inversió inicial planificada
               date: Data
             title: Participacions
-            view_response: Vore Particpiació
+            view_response: Veure Particpiació
           new:
             gender:
-              male: Hombre
-              female: Mujer
+              male: Home
+              female: Dona
             user_information: Informació personal

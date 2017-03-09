@@ -122,18 +122,18 @@ ca:
       not_a_number: no és un número
       not_an_integer: ha de ser un enter
       odd: ha de ser senar
-      other_than: ha de ser distinti de %{count}
+      other_than: ha de ser diferent de %{count}
       present: ha de ser blanc
       record_invalid: 'La validació va fallar: %{errors}'
       restrict_dependent_destroy:
-        many: No es pot eliminar el registre perque existeixen %{record} dependents
-        one: No es pot eliminar el registre perque existeixen %{record} dependent
+        many: No es pot eliminar el registre perque hi ha %{record} dependents
+        one: No es pot eliminar el registre perque existeix %{record} dependent
       taken: no està disponible
       too_long: és massa llarg (%{count} caràcters màxim)
       too_short: és massa curt (%{count} caràcters mínim)
       wrong_length: no té la longitud correcta (%{count} caràcters exactament)
-      blank_for_modules: ha de ser un municipi per a que els moduls actius funcionen
-      invalid_consultation_response: No s'ha guardar la consulta. Per favor, revisa els valors i prova de nou.
+      blank_for_modules: ha de ser un municipi per que els moduls actius funcionin
+      invalid_consultation_response: No s'ha desat la consulta. Per favor, revisa els valors i prova de nou.
     template:
       body: 'Hi ha hagut problemes amb els següents camps:'
       header:
@@ -144,7 +144,7 @@ ca:
       prompt: Si us plau tria
     submit:
       create: Crear
-      submit: Guardar
+      submit: Desar
       update: Actualitzar
   locales:
     ca: Català

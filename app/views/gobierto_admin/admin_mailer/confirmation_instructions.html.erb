@@ -7,7 +7,8 @@
 </p>
 
 <p>
-  <%= admin_admin_confirmations_url(confirmation_token: @admin.confirmation_token, domain: @site.try(:domain)) %>
+  <%= link_to admin_admin_confirmations_url(confirmation_token: @admin.confirmation_token, domain: @site.try(:domain)),
+              admin_admin_confirmations_url(confirmation_token: @admin.confirmation_token, domain: @site.try(:domain)) %>
 </p>
 
 <p>

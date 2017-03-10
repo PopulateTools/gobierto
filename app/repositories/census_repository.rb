@@ -20,6 +20,7 @@ class CensusRepository
     @site_id = site_id
 
     @document_number = document_number.to_s
+    @document_number_alternatives = build_alternatives(@document_number)
     @document_number_digest = ::SecretAttribute.digest(@document_number)
 
     @date_of_birth = parse_date(date_of_birth)
@@ -32,12 +33,19 @@ class CensusRepository
   end
 
   def exists?
-    CensusItem
+    census_items = CensusItem
       .where(verified: false)
       .where(site_id: site_id)
-      .where(document_number_digest: document_number_digest)
       .where(date_of_birth: date_of_birth)
-      .exists?
+      .where(document_number_digest: document_number_digest)
+
+    if @document_number_alternatives.any?
+      @document_number_alternatives.each do |alternative|
+        census_items = census_items.or(CensusItem.where(document_number_digest: ::SecretAttribute.digest(alternative)))
+      end
+    end
+
+    census_items.exists?
   end
 
   def create
@@ -72,6 +80,41 @@ class CensusRepository
     end
   rescue ArgumentError
     nil
+  end
+
+  def build_alternatives(document_number)
+    alternatives = []
+    document_number = document_number.upcase
+
+    if document_number =~ /\A\d+([a-z])\z/i
+      alternatives.push(document_number.tr($1, ''))
+      alternatives.push("X" + document_number)
+      alternatives.push("X" + document_number.tr($1, ''))
+    end
+
+    if document_number =~ /\AX0\d+([a-z])\z/i
+      letter = $1
+      alternatives.push(document_number.tr(letter, ''))
+      alternatives.push(document_number.tr('X0', 'X'))
+      alternatives.push(document_number.tr('X0', 'X').tr(letter, ''))
+      alternatives.push(document_number.tr('X0', '0'))
+      alternatives.push(document_number.tr('X0', '0').tr(letter, ''))
+      alternatives.push(document_number.tr('X0', ''))
+      alternatives.push(document_number.tr('X0', '').tr(letter, ''))
+    end
+
+    if document_number =~ /\AX\d+([a-z])\z/i
+      letter = $1
+      alternatives.push(document_number.tr(letter, ''))
+      alternatives.push(document_number.gsub('X', 'X0'))
+      alternatives.push(document_number.tr(letter, '').gsub('X', 'X0'))
+      alternatives.push(document_number.tr('X', '0'))
+      alternatives.push(document_number.tr(letter, '').tr('X', '0'))
+      alternatives.push(document_number.tr('X', ''))
+      alternatives.push(document_number.tr(letter, '').tr('X', ''))
+    end
+
+    return alternatives
   end
 
 end

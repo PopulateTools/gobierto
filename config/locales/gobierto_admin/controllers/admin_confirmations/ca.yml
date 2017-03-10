@@ -4,7 +4,7 @@ ca:
     admin:
       confirmations:
         create:
-          error: La direcció de e-mail que has indicat no pareix ser vàlida
+          error: L'adreça de e-mail que has indicat no pareix ser vàlida
           success: Per favor, revisa el teu email per a rebre instruccions
         show:
           error: Esta URL no pareix ser vàlida

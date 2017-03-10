@@ -9,5 +9,5 @@ ca:
           add_record: Afegir
           cancel_record: Cancel·lar
           delete_content_block: Eliminar bloc
-          delete_content_block_confirm: Estàs segur de voler eliminar aquest bloc?
+          delete_content_block_confirm: Estàs segur de suprimir aquest bloc?
           edit_content_block: Editar

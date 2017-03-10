@@ -4,6 +4,6 @@ ca:
     subscriptions:
       create:
         create_success: S'ha realitzat la suscripció
-        error: "Ha ocurregut un problema al suscribir-te: %{details}. Si ja estàs registrat, identifica't <a href=\"%{sign_in_path}\">açí</a>."
+        error: "Ha ocorregut un problema en subscriure't: %{details}. Si ja estàs registrat, identifica't <a href=\"%{sign_in_path}\">açí</a>."
       destroy:
         success: S'ha cancel·lat aquesta suscripció

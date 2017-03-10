@@ -11,7 +11,7 @@ ca:
         email: Email
         name: Nom
         password: Contrasenya
-        password_confirmation: Confirmación de la contrasenya
+        password_confirmation: Confirmació de la contrasenya
       gobierto_admin/admin_invitation_form:
         emails: Emails
       gobierto_admin/admin_new_password_form:

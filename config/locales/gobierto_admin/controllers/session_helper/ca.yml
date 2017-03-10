@@ -3,5 +3,5 @@ ca:
   gobierto_admin:
     session_helper:
       already_signed_in: Ja estás identificat
-      not_authorized: No estàs autorizat a realitzar aquesta acció
-      not_signed_in: Has d'estat identificat per continuar
+      not_authorized: No estàs autoritzat a realitzar aquesta acció
+      not_signed_in: Has d'estar identificat per continuar

@@ -3,7 +3,7 @@ ca:
   user:
     sessions:
       new:
-        password_title: 'No recordes la teva contrasenya? T'ajudem:'
+        password_title: "No recordes la teva contrasenya? T'ajudem:"
         registration_title: 'Nou per aquí? Crea un compte gratis:'
         session_title: Ja tens compte? Fes login
       new_password_form:

@@ -14,12 +14,11 @@ ca:
           days_left_html:
             one: "Queden %{count} dia. Amb aquest ritme, es poden esperar: <strong>%{projected_count}</strong>"
             other: "Queden %{count} dies. Amb aquest ritme, es poden esperar: <strong>%{projected_count}</strong>"
-          no_response_html: 'Encara no s'ha rebut cap participació. <a href="%{url}" target="_blank">Promociona la consulta</a>.'
+          no_response_html: "Encara no s'ha rebut cap participació. <a href=\"%{url}\" target=\"_blank\">Promociona la consulta</a>."
           upcoming: La consulta encara no està oberta.
           hints:
             description: Et recomanem descriure clarament el tipus de consulta.
-            title: Et recomanem escriure un títol concret i que identifiqui la consulta
-              de l'any en cuestió.
+            title: Et recomanem escriure un títol concret i que identifiqui la consulta de l'any en cuestió.
           placeholders:
             opening_date_range: Selecciona data d'inici i fi
             title: Consulta sobre els pressupostos de Burjassot 2016

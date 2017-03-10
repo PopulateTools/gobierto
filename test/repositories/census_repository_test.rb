@@ -25,7 +25,7 @@ class CensusRepositoryTest < ActiveSupport::TestCase
   def test_destroy_previous_by_reference
     census_repository.create
 
-    assert_difference "CensusItem.count", -3 do
+    assert_difference "CensusItem.count", -5 do
       CensusRepository.destroy_previous_by_reference(
         site_id: census_repository.site_id,
         import_reference: 1
@@ -54,6 +54,50 @@ class CensusRepositoryTest < ActiveSupport::TestCase
       site_id: census_item.site_id,
       document_number: "00000000A",
       date_of_birth: census_item.date_of_birth
+    )
+
+    assert existing_census_repository.exists?
+  end
+
+  def test_exists_with_no_letter?
+    existing_census_repository =  CensusRepository.new(
+      site_id: census_item.site_id,
+      document_number: "12345678",
+      date_of_birth: Date.parse("1998-01-01")
+    )
+
+    assert existing_census_repository.exists?
+
+    existing_census_repository =  CensusRepository.new(
+      site_id: census_item.site_id,
+      document_number: "12345678A",
+      date_of_birth: Date.parse("1998-01-01")
+    )
+
+    assert existing_census_repository.exists?
+  end
+
+  def test_exists_with_special_letters
+    existing_census_repository =  CensusRepository.new(
+      site_id: census_item.site_id,
+      document_number: "x5104959v",
+      date_of_birth: Date.parse("1998-01-01")
+    )
+
+    assert existing_census_repository.exists?
+
+    existing_census_repository =  CensusRepository.new(
+      site_id: census_item.site_id,
+      document_number: "x05104959v",
+      date_of_birth: Date.parse("1998-01-01")
+    )
+
+    assert existing_census_repository.exists?
+
+    existing_census_repository =  CensusRepository.new(
+      site_id: census_item.site_id,
+      document_number: "05104959v",
+      date_of_birth: Date.parse("1998-01-01")
     )
 
     assert existing_census_repository.exists?

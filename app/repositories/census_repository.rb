@@ -115,6 +115,18 @@ class CensusRepository
       alternatives.push(document_number.tr(letter, '').tr('X', ''))
     end
 
+    if document_number =~ /\AX0\d+\z/i
+      alternatives.push(document_number.tr('X0', 'X'))
+      alternatives.push(document_number.tr('X0', '0'))
+      alternatives.push(document_number.tr('X0', ''))
+    end
+
+    if document_number =~ /\AX\d+\z/i
+      alternatives.push(document_number.gsub('X', 'X0'))
+      alternatives.push(document_number.tr('X', '0'))
+      alternatives.push(document_number.tr('X', ''))
+    end
+
     return alternatives
   end
 

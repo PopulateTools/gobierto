@@ -60,7 +60,6 @@ module GobiertoBudgetConsultations
     def test_error_messages_with_invalid_attributes
       invalid_consultation_response_form.save
 
-      assert_equal 1, invalid_consultation_response_form.errors.messages[:census_item].size
       assert_equal 1, invalid_consultation_response_form.errors.messages[:document_number_digest].size
       assert_equal 1, invalid_consultation_response_form.errors.messages[:consultation].size
       assert_equal 1, invalid_consultation_response_form.errors.messages[:selected_options].size

@@ -85,6 +85,7 @@ class CensusRepository
   def build_alternatives(document_number)
     alternatives = []
     document_number = document_number.upcase
+    alternatives.push(document_number)
 
     if document_number =~ /\A\d+([a-z])\z/i
       alternatives.push(document_number.tr($1, ''))

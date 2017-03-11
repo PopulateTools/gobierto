@@ -101,6 +101,15 @@ class CensusRepositoryTest < ActiveSupport::TestCase
     )
 
     assert existing_census_repository.exists?
+
+    existing_census_repository =  CensusRepository.new(
+      site_id: census_item.site_id,
+      document_number: "x05104959",
+      date_of_birth: Date.parse("1998-01-01")
+    )
+
+    assert existing_census_repository.exists?
+
   end
 
   def test_create

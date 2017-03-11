@@ -16,7 +16,7 @@ module GobiertoBudgetConsultations
 
     delegate :to_model, :persisted?, to: :consultation_response
 
-    validates :selected_options, :document_number_digest, :census_item, :consultation, :user, presence: true
+    validates :selected_options, :document_number_digest, :consultation, :user, presence: true
 
     def save
       save_consultation_response if valid?
@@ -32,10 +32,6 @@ module GobiertoBudgetConsultations
 
     def site
       @site ||= consultation.site if consultation
-    end
-
-    def census_item
-      @census_item ||= CensusItem.find_by(site_id: site.id, document_number_digest: document_number_digest) if site
     end
 
     def budget_amount

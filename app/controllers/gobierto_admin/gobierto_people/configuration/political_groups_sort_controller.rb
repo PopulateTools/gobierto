@@ -1,17 +1,17 @@
 module GobiertoAdmin
   module GobiertoPeople
-    module People
-      class PeopleSortController < GobiertoAdmin::BaseController
+    module Configuration
+      class PoliticalGroupsSortController < BaseController
         before_action { module_enabled!(current_site, "GobiertoPeople") }
 
         def create
-          current_site.people.update_positions(people_sort_params)
+          ::GobiertoPeople::PoliticalGroup.update_positions(political_group_sort_params)
           head :no_content
         end
 
         private
 
-        def people_sort_params
+        def political_group_sort_params
           params.require(:positions).permit!
         end
       end

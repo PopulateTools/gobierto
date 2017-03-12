@@ -11,6 +11,7 @@ es:
               created: Creada
               political_group: Agrupación
             new: Nueva agrupación
+            drag_to_sort: Arrastra para ordenar
           new:
             title: Nueva agrupación
         settings:

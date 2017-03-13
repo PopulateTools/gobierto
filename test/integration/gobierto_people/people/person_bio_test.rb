@@ -23,8 +23,8 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          assert has_selector?("h1", text: "#{person.name}'s profile")
-          assert has_selector?("h2", text: "Biography and CV")
+          assert has_selector?("h2", text: "#{person.name}'s profile")
+          assert has_selector?("h3", text: "Biography and CV")
         end
       end
 

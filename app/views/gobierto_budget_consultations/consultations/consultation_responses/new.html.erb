@@ -72,7 +72,7 @@
 <template id="card-mobile">
   <div class="consultation-card" :class="{ active: card.toggleDesc }" :data-card-id="card.id">
     <div class="card-title" @click="setActive(card, $event)">
-      <div class="consultation-title">{{card.title}}</div>
+      <h3 class="consultation-title">{{card.title}}</h3>
       <div class="consultation-figure"><i class="fa" :class="iconForChoice" aria-hidden="true"></i> <span>{{card.figure}}</span></div>
     </div>
 
@@ -83,7 +83,7 @@
 <template id="card-desktop">
   <div class="consultation-card" :class="{ active: card.toggleDesc }" :data-card-id="card.id">
     <div class="card-title" @click="setActive(card, $event)">
-      <div class="consultation-title">{{card.title}}</div>
+      <h3 class="consultation-title">{{card.title}}</h3>
       <div class="consultation-figure"><i class="fa" :class="iconForChoice" aria-hidden="true"></i> <span>{{card.figure}}</span></div>
     </div>
   </div>
@@ -110,10 +110,10 @@
     <div class="card-description" :class="{ absolute: card.hidden }">
 
       <div class="card-header">
-        <h2 class="card-headline">{{card.title}}</h2>
+        <h3 class="card-headline">{{card.title}}</h3>
 
         <div class="card-figure">
-          <h2>{{card.figure}}</h2>
+          <h4>{{card.figure}}</h4>
         </div>
       </div>
 
@@ -196,7 +196,7 @@
       </div>
     </div>
 
-    <h4 v-else><%= t('.open_to_opinate') %></h4>
+    <h3 v-else><%= t('.open_to_opinate') %></h3>
   </div>
 </template>
 

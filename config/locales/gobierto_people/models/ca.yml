@@ -1,5 +1,13 @@
 ---
 ca:
+  activemodel:
+    attributes:
+      gobierto_people/person_message:
+        body: Missatge
+        email: El teu e-mail
+        name: El teu nom
+    models:
+      gobierto_people/person_message: Missatge
   activerecord:
     attributes:
       gobierto_people/person_event_attendee:
@@ -16,11 +24,3 @@ ca:
       gobierto_people/person_event_location: Localització
       gobierto_people/person_post: Post
       gobierto_people/person_statement: Declaració
-  activemodel:
-    attributes:
-      gobierto_people/person_message:
-        name: El teu nom
-        email: El teu e-mail
-        body: Missatge
-    models:
-      gobierto_people/person_message: Missatge

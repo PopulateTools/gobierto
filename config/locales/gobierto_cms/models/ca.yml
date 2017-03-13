@@ -3,8 +3,8 @@ ca:
   activerecord:
     attributes:
       gobierto_cms/page:
-        title: Títol
         body: Contingut
         slug: URL
+        title: Títol
     models:
       gobierto_cms/page: Pàgina

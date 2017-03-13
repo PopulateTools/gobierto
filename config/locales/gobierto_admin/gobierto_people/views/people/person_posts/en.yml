@@ -16,14 +16,14 @@ en:
           index:
             header:
               date: Date
+              status: Status
               tags: Tags
               title: Title
-              status: Status
             new: New post
             title: Blog
             view_post: View post
             visibility_level:
-              draft: Draft
               active: Published
+              draft: Draft
           new:
             title: New post

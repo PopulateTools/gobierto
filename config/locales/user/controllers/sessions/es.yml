@@ -8,6 +8,6 @@ es:
         success: Sesión iniciada correctamente
       destroy:
         success: Sesión terminada correctamente
-      user_not_signed_in: Regístrate o haz login si ya tienes cuenta para poder continuar.
       user_already_authenticated: Ya estás autenticado.
       user_not_authorized: No estás autorizado.
+      user_not_signed_in: Regístrate o haz login si ya tienes cuenta para poder continuar.

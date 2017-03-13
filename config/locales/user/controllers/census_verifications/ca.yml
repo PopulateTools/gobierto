@@ -3,5 +3,6 @@ ca:
   user:
     census_verifications:
       create:
+        error: No s'ha pogut verificar la teva identitat. Per favor, revisa les teves
+          dades i prova de nou. Si el problema continua, comunica't amb la teva administració
         notice: La teva identitat ha estat verificada correctament
-        error: "No s'ha pogut verificar la teva identitat. Per favor, revisa les teves dades i prova de nou. Si el problema continua, comunica't amb la teva administració"

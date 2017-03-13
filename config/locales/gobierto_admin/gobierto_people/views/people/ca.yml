@@ -16,13 +16,14 @@ ca:
             opposition: Oposició
           placeholders:
             charge: Alcalde
-            name: Rafael García
             email: Correu-e
+            name: Rafael García
           visibility_level:
             active: Publicada
             draft: Borrador
         index:
           configuration: Configuració
+          drag_to_sort: Arrastra per a ordenar
           header:
             charge: Càrrec
             events: Events
@@ -33,10 +34,9 @@ ca:
           new: Nova persona
           title: Persones
           view_person: Veure persona
-          visibility_level: 
-            draft: Borrador
+          visibility_level:
             active: Publicat
-          drag_to_sort: Arrastra per a ordenar
+            draft: Borrador
         navigation:
           agenda: Agenda
           person: Persona

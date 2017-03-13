@@ -3,18 +3,18 @@ es:
   gobierto_admin:
     admin_mailer:
       confirmation_instructions:
-        subject: "Instrucciones para activar tu cuenta en Gobierto"
-        hi: Hola
+        bye: Saludos
         click_link: Pincha en el siguiente enlace para activar tu cuenta en Gobierto
-        bye: Saludos
+        hi: Hola
+        subject: Instrucciones para activar tu cuenta en Gobierto
       invitation_instructions:
-        subject: "Has sido invitado a colaborar en Gobierto"
-        hi: Hola
-        click_link: Has sido invitado para colaborar en Gobierto. Pincha en el siguiente enlace para crear tu cuenta
         bye: Saludos
+        click_link: Has sido invitado para colaborar en Gobierto. Pincha en el siguiente
+          enlace para crear tu cuenta
+        hi: Hola
+        subject: Has sido invitado a colaborar en Gobierto
       reset_password_instructions:
-        subject: "Instrucciones para restaurar tu contraseña"
-        hi: Hola
-        click_link: Pincha en el siguiente enlace para restaurar tu contraseña
         bye: Saludos
-
+        click_link: Pincha en el siguiente enlace para restaurar tu contraseña
+        hi: Hola
+        subject: Instrucciones para restaurar tu contraseña

@@ -4,9 +4,8 @@ en:
     gobierto_cms:
       pages:
         create:
-          success_html: "Page created successfully. <a href=\"%{link}\">View the page</a>."
-        update:
-          success_html: "Page updated successfully. <a href=\"%{link}\">View the page</a>."
+          success_html: Page created successfully. <a href="%{link}">View the page</a>.
         destroy:
           success: Page deleted successfully
-
+        update:
+          success_html: Page updated successfully. <a href="%{link}">View the page</a>.

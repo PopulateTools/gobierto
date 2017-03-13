@@ -2,35 +2,42 @@
 es:
   user:
     notification_mailer:
-      single_notification:
-        subject: "Nueva actividad en %{site_name}: %{action_name}"
-        hi: Hola
-        new_activity: Hay una nueva actividad en %{site_name}
-        manage_notifications: Recuerda que puedes administrar tus notificaciones en %{url}
-        manage_notifications_html: "Recuerda que puedes administrar tus notificaciones en <a href='%{url}'>tu página de preferencias</a>"
-        bye: Saludos
       notification_digest:
-        subject: Resumen de actividad en %{site_name}
-        hi: Hola
-        new_activity: Hay nueva actividad en %{site_name}
-        manage_notifications: Recuerda que puedes administrar tus notificaciones en %{url}
-        manage_notifications_html: "Recuerda que puedes administrar tus notificaciones en <a href='%{url}'>tu página de preferencias</a>"
         bye: Saludos
+        hi: Hola
+        manage_notifications: Recuerda que puedes administrar tus notificaciones en
+          %{url}
+        manage_notifications_html: Recuerda que puedes administrar tus notificaciones
+          en <a href='%{url}'>tu página de preferencias</a>
+        new_activity: Hay nueva actividad en %{site_name}
+        subject: Resumen de actividad en %{site_name}
+      single_notification:
+        bye: Saludos
+        hi: Hola
+        manage_notifications: Recuerda que puedes administrar tus notificaciones en
+          %{url}
+        manage_notifications_html: Recuerda que puedes administrar tus notificaciones
+          en <a href='%{url}'>tu página de preferencias</a>
+        new_activity: Hay una nueva actividad en %{site_name}
+        subject: 'Nueva actividad en %{site_name}: %{action_name}'
     user_mailer:
       confirmation_instructions:
+        bye: Saludos
+        click_link: 'Para confirmar tu registro haz click en el siguiente enlace:'
+        hi: Hola
+        ignore_link: si no te estabas suscribiendo en %{site_name}, puedes ignorar
+          este mensaje
         subject: Completa tu registro en %{site_name}
-        hi: Hola
-        click_link: "Para confirmar tu registro haz click en el siguiente enlace:"
-        ignore_link: si no te estabas suscribiendo en %{site_name}, puedes ignorar este mensaje
-        bye: Saludos
       reset_password_instructions:
+        bye: Saludos
+        click_link: 'Has solicitado restaurar tu contraseña. Pulsa en el siguiente
+          enlace y sigue las instrucciones:'
+        hi: Hola
         subject: Restaura tu contraseña
-        hi: Hola
-        click_link: "Has solicitado restaurar tu contraseña. Pulsa en el siguiente enlace y sigue las instrucciones:"
-        bye: Saludos
       welcome:
-        subject: Bienvenido
-        hi: Hola
-        success: Tu registro se ha completado con éxito. Ahora puedes interactuar en %{site_url} como usuario registrado.
-        alerts: "Puedes gestionar tus alertas desde tu cuenta: %{notifications_url}"
+        alerts: 'Puedes gestionar tus alertas desde tu cuenta: %{notifications_url}'
         bye: Saludos
+        hi: Hola
+        subject: Bienvenido
+        success: Tu registro se ha completado con éxito. Ahora puedes interactuar
+          en %{site_url} como usuario registrado.

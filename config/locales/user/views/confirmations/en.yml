@@ -3,14 +3,14 @@ en:
   user:
     confirmations:
       form:
-        document_number_notice: "Document number"
+        document_number_notice: Document number
         gender:
           female: Female
           male: Male
         hints:
+          date_of_birth: This information will be considered private at all times.
           email: Your email address will be considered private at all times.
           gender: This information will be considered private at all times.
-          date_of_birth: This information will be considered private at all times.
         submit: Save
         your_gender_is: You are...
       new:

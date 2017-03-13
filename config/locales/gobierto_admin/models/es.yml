@@ -17,6 +17,8 @@ es:
       gobierto_admin/admin_new_password_form:
         email: Email
       gobierto_admin/site_form:
+        available_locales: Idiomas disponibles
+        default_locale: Idioma por defecto
         domain: Dominio
         foot_markup: HTML de Pie
         google_analytics_id: Código de Google Analytics
@@ -24,12 +26,10 @@ es:
         links_markup: HTML de Enlaces
         location_name: Municipio
         logo_file: Logotipo
-        name: Nombre de la entidad
-        title: Nombre del site
         municipality_id: Municipio
-        default_locale: Idioma por defecto
-        available_locales: Idiomas disponibles
+        name: Nombre de la entidad
         privacy_page_id: Página de privacidad
+        title: Nombre del site
       gobierto_admin/user_form:
         email: Email
         name: Nombre

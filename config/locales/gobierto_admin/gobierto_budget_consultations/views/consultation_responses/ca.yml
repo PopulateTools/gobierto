@@ -13,6 +13,6 @@ ca:
             view_response: Veure Particpiació
           new:
             gender:
-              male: Home
               female: Dona
+              male: Home
             user_information: Informació personal

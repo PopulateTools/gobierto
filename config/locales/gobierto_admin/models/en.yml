@@ -17,6 +17,8 @@ en:
       gobierto_admin/admin_new_password_form:
         email: Email
       gobierto_admin/site_form:
+        available_locales: Available locales
+        default_locale: Default locale
         domain: Domain
         foot_markup: Foot HTML
         google_analytics_id: Google Analytics code
@@ -24,12 +26,10 @@ en:
         links_markup: Links HTML
         location_name: Municipality
         logo_file: Logo
-        name: Entity ame
-        title: Site name
         municipality_id: Municipality
-        default_locale: Default locale
-        available_locales: Available locales
+        name: Entity ame
         privacy_page_id: Privacy page
+        title: Site name
       gobierto_admin/user_form:
         email: Email
         name: Name

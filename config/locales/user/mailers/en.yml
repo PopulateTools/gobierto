@@ -2,35 +2,39 @@
 en:
   user:
     notification_mailer:
-      single_notification:
-        subject: "New activity in %{site_name}: %{action_name}"
-        hi: Hi
-        new_activity: There's new activity in %{site_name}
-        manage_notifications: Remember you can manage your notifications in %{url}
-        manage_notifications_html: "Remember you can manager your notifications in <a href='%{url}'>your notifications page</a>"
-        bye: Cheers
       notification_digest:
-        subject: Activity summary from %{site_name}
-        hi: Hi
-        new_activity: There's new activity in %{site_name}
-        manage_notifications: Remember you can manage your notifications in %{url}
-        manage_notifications_html: "Remember you can manager your notifications in <a href='%{url}'>your notifications page</a>"
         bye: Cheers
+        hi: Hi
+        manage_notifications: Remember you can manage your notifications in %{url}
+        manage_notifications_html: Remember you can manager your notifications in
+          <a href='%{url}'>your notifications page</a>
+        new_activity: There's new activity in %{site_name}
+        subject: Activity summary from %{site_name}
+      single_notification:
+        bye: Cheers
+        hi: Hi
+        manage_notifications: Remember you can manage your notifications in %{url}
+        manage_notifications_html: Remember you can manager your notifications in
+          <a href='%{url}'>your notifications page</a>
+        new_activity: There's new activity in %{site_name}
+        subject: 'New activity in %{site_name}: %{action_name}'
     user_mailer:
       confirmation_instructions:
-        subject: Complete your registration in %{site_name}
+        bye: Cheers
+        click_link: 'To complete your signup click the following link:'
         hi: Hi
-        click_link: "To complete your signup click the following link:"
         ignore_link: if you didn't register in %{site_name} you can ignore this message
-        bye: Cheers
+        subject: Complete your registration in %{site_name}
       reset_password_instructions:
+        bye: Cheers
+        click_link: 'You have request to reset your password. Click the following
+          link and follow the instructions:'
+        hi: Hi
         subject: Reset your password
-        hi: Hi
-        click_link: "You have request to reset your password. Click the following link and follow the instructions:"
-        bye: Cheers
       welcome:
-        subject: Welcome
-        hi: Hi
-        success: Your registration was successfully completed. Now you can interact in %{site_url} as registered user.
-        alerts: "You can manage your notification preferences in this url: %{notifications_url}"
+        alerts: 'You can manage your notification preferences in this url: %{notifications_url}'
         bye: Cheers
+        hi: Hi
+        subject: Welcome
+        success: Your registration was successfully completed. Now you can interact
+          in %{site_url} as registered user.

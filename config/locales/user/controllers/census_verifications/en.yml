@@ -3,5 +3,6 @@ en:
   user:
     census_verifications:
       create:
+        error: We couldn't verify your identity. Please check your information and
+          try again. If the problem persists, ask to your local adminsitration
         notice: Your identity has been verified successfully
-        error: We couldn't verify your identity. Please check your information and try again. If the problem persists, ask to your local adminsitration

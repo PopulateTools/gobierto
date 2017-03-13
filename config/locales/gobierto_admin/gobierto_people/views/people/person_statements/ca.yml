@@ -21,7 +21,7 @@ ca:
             title: Declaracions
             view_statement: Veure declaració
             visibility_level:
-              draft: Borrador
               active: Publicada
+              draft: Borrador
           new:
             title: Nou declaració

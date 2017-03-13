@@ -43,14 +43,16 @@
                 <% end %>
               </div>
 
-              <%= f.collection_check_boxes(:modules, @user_notification_modules, :first, :first) do |b| %>
-                <div class="option ">
-                  <%= b.check_box({"data-selected" => f.object.modules.include?(b.value)}) %>
-                  <%= b.label do %>
-                    <span></span>
-                    <%= t(".modules.#{b.text}") %>
-                  <% end %>
-                </div>
+              <% if @user_notification_modules.length > 1 %>
+                <%= f.collection_check_boxes(:modules, @user_notification_modules, :first, :first) do |b| %>
+                  <div class="option ">
+                    <%= b.check_box({"data-selected" => f.object.modules.include?(b.value)}) %>
+                    <%= b.label do %>
+                      <span></span>
+                      <%= t(".modules.#{b.text}") %>
+                    <% end %>
+                  </div>
+                <% end %>
               <% end %>
             </div>
           </div>

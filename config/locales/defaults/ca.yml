@@ -83,19 +83,19 @@ ca:
         other: fa més de %{count} anys
       x_days:
         one: fa 1 dia
-        other: "fa %{count} dies"
+        other: fa %{count} dies
       x_minutes:
         one: fa 1 minut
-        other: "fa %{count} minuts"
+        other: fa %{count} minuts
       x_months:
         one: fa 1 mes
-        other: "fa %{count} mesos"
+        other: fa %{count} mesos
       x_seconds:
         one: fa 1 segon
-        other: "fa %{count} segons"
+        other: fa %{count} segons
       x_years:
         one: fa 1 any
-        other: "fa %{count} anys"
+        other: fa %{count} anys
     prompts:
       day: dia
       hour: hora
@@ -108,6 +108,7 @@ ca:
     messages:
       accepted: ha de ser acceptat
       blank: no pot estar en blanc
+      blank_for_modules: ha de ser un municipi per que els moduls actius funcionin
       confirmation: no coincideix
       empty: no pot estar buit
       equal_to: ha de ser igual a %{count}
@@ -117,6 +118,8 @@ ca:
       greater_than_or_equal_to: ha de ser més gran o igual a %{count}
       inclusion: no està inclós a la llista
       invalid: no és vàlid
+      invalid_consultation_response: No s'ha desat la consulta. Per favor, revisa
+        els valors i prova de nou.
       less_than: ha de ser menor que %{count}
       less_than_or_equal_to: ha de ser menor o igual a %{count}
       not_a_number: no és un número
@@ -132,8 +135,6 @@ ca:
       too_long: és massa llarg (%{count} caràcters màxim)
       too_short: és massa curt (%{count} caràcters mínim)
       wrong_length: no té la longitud correcta (%{count} caràcters exactament)
-      blank_for_modules: ha de ser un municipi per que els moduls actius funcionin
-      invalid_consultation_response: No s'ha desat la consulta. Per favor, revisa els valors i prova de nou.
     template:
       body: 'Hi ha hagut problemes amb els següents camps:'
       header:

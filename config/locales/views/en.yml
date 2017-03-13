@@ -1,42 +1,41 @@
 ---
 en:
-  census:
-    events:
-      census_census_imported: Census imported
-  sites:
-    events:
-      sites_site_visibility_updated: Site published
-      sites_site_created: Site created
-      sites_site_updated: Site updated
-      sites_site_destroyed: Site deleted
   admins:
     events:
       admins_admin_authorization_level_updated: Admin authorization level updated
-      admins_invitation_created: Admin invited
-      admins_invitation_accepted: Admin invitation accepted
       admins_admin_created: Admin created
       admins_admin_updated: Admin updated
-  users:
-    events:
-      users_user_updated: User updated
+      admins_invitation_accepted: Admin invitation accepted
+      admins_invitation_created: Admin invited
   based_on: Web based on
+  census:
+    events:
+      census_census_imported: Census imported
+  helpers:
+    page_entries_info:
+      more_pages:
+        display_entries: Displaying %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b>
+          of <b>%{total}</b> in total
+      one_page:
+        display_entries:
+          one: Displaying <b>1</b> %{entry_name}
+          other: Displaying <b>all %{count}</b> %{entry_name}
+          zero: No %{entry_name} found
   invisible_captcha:
-    sentence_for_humans: "If you are human, ignore this field"
-    timestamp_error_message: "Sorry, that was too quick! Please resubmit."
+    sentence_for_humans: If you are human, ignore this field
+    timestamp_error_message: Sorry, that was too quick! Please resubmit.
   layouts:
     accept_privacy_policy_signup: By signing up you agree to the Privacy Policy
-    main_menu: 
-      search: Search...
     application:
       disclaimer: This is a demo of Gobierto, transparency and participation software
       more_information: More info in gobierto.es
+      search: Search...
       session:
         alerts: Your alerts
         notifications: Notifications
         sign_in: Sign in
         sign_out: Sign out
         title: Your account
-      search: Search...
     gobierto_budget_consultations:
       application:
         about_the_data: About the data
@@ -63,6 +62,8 @@ en:
           sign_in: Sign in
           sign_out: Sign out
           title: Your account
+    main_menu:
+      search: Search...
     sandbox:
       application:
         about_the_data: About the data
@@ -77,25 +78,25 @@ en:
           sign_out: Sign out
           title: Your account
     search:
-      updated: Updated
+      page_item: Page
+      person_event_item: Event
       person_item: Biography
       person_post_item: Post
-      person_event_item: Event
       person_statement_item: Statement
-      page_item: Page
+      updated: Updated
+  sites:
+    events:
+      sites_site_created: Site created
+      sites_site_destroyed: Site deleted
+      sites_site_updated: Site updated
+      sites_site_visibility_updated: Site published
+  users:
+    events:
+      users_user_updated: User updated
   views:
     pagination:
       first: "&laquo; First"
-      last: "Last &raquo;"
+      last: Last &raquo;
+      next: Next &rsaquo;
       previous: "&lsaquo; Prev"
-      next: "Next &rsaquo;"
       truncate: "&hellip;"
-  helpers:
-    page_entries_info:
-      one_page:
-        display_entries:
-          zero: "No %{entry_name} found"
-          one: "Displaying <b>1</b> %{entry_name}"
-          other: "Displaying <b>all %{count}</b> %{entry_name}"
-      more_pages:
-        display_entries: "Displaying %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> of <b>%{total}</b> in total"

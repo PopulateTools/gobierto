@@ -2,21 +2,18 @@
 en:
   activemodel:
     attributes:
-      user/confirmation_form:
-        email: Your e-mail
-        gender: Gender
-        name: Your name
-        password: Your password
-        password_confirmation: Your password, one more time
+      user/census_verification_form:
         date_of_birth: Date of birth
         document_number: Document number
-      user/settings_form:
+        site: Site
+      user/confirmation_form:
+        date_of_birth: Date of birth
+        document_number: Document number
         email: Your e-mail
         gender: Gender
         name: Your name
         password: Your password
         password_confirmation: Your password, one more time
-        date_of_birth: Date of birth
       user/confirmation_request_form:
         email: Your e-mail
       user/edit_password_form:
@@ -29,15 +26,19 @@ en:
       user/session_form:
         email: Your e-mail
         password: Password
+      user/settings_form:
+        date_of_birth: Date of birth
+        email: Your e-mail
+        gender: Gender
+        name: Your name
+        password: Your password
+        password_confirmation: Your password, one more time
       user/subscription_form:
         subscribable: Resource
         user: User
         user_email: E-mail
-      user/census_verification_form:
-        document_number: Document number
-        date_of_birth: Date of birth
-        site: Site
     models:
+      user/census_verification_form: Census verification
       user/confirmation_form: Confirmation
       user/confirmation_request_form: Confirmation request
       user/edit_password_form: Change password
@@ -46,4 +47,3 @@ en:
       user/session_form: Session
       user/settings_form: Settings
       user/subscription_form: Subscription
-      user/census_verification_form: Census verification

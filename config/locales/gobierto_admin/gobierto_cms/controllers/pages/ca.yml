@@ -4,8 +4,10 @@ ca:
     gobierto_cms:
       pages:
         create:
-          success_html: "La pàgina ha estat creada correctament. <a href=\"%{link}\">Veure la pàgina</a>."
-        update:
-          success_html: "La pàgina ha estat actualitzada correctament. <a href=\"%{link}\">Veure la pàgina</a>."
+          success_html: La pàgina ha estat creada correctament. <a href="%{link}">Veure
+            la pàgina</a>.
         destroy:
           success: La pàgina ha estat eliminada correctament
+        update:
+          success_html: La pàgina ha estat actualitzada correctament. <a href="%{link}">Veure
+            la pàgina</a>.

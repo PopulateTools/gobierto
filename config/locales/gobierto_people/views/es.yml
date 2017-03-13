@@ -2,14 +2,15 @@
 es:
   gobierto_people:
     events:
+      gobierto_people_person_event_published: 'Agenda actualizada con un nuevo evento:
+        %{subject_name}'
+      gobierto_people_person_event_updated: 'Evento actualizado: %{subject_name}'
+      gobierto_people_person_post_published: 'Actualización del blog: %{subject_name}'
+      gobierto_people_person_post_updated: 'Actualización del post: %{subject_name}'
+      gobierto_people_person_published: 'Creada nueva persona: %{subject_name}'
+      gobierto_people_person_statement_published: 'Publicada la declaración: %{subject_name}'
+      gobierto_people_person_statement_updated: 'Actualizada la declaración: %{subject_name}'
       gobierto_people_person_updated: Actualización de la información personal
-      gobierto_people_person_published: "Creada nueva persona: %{subject_name}"
-      gobierto_people_person_post_updated: "Actualización del post: %{subject_name}"
-      gobierto_people_person_post_published: "Actualización del blog: %{subject_name}"
-      gobierto_people_person_event_updated: "Evento actualizado: %{subject_name}"
-      gobierto_people_person_event_published: "Agenda actualizada con un nuevo evento: %{subject_name}"
-      gobierto_people_person_statement_updated: "Actualizada la declaración: %{subject_name}"
-      gobierto_people_person_statement_published: "Publicada la declaración: %{subject_name}"
     layouts:
       application:
         title: Altos cargos y Agendas
@@ -20,19 +21,8 @@ es:
         people: Cargos
         statements: Declaraciones
     people:
-      subscription_button:
-        follow: Seguir
-        cancel: Cancelar
-      person_messages:
-        new:
-          title: Envía un mensaje a %{name}
-          placeholders:
-            name: Tu nombre
-            email: Tu correo-e
-            body: Escribe un mensaje
-          submit: Enviar
-      person:
-        picture: Foto de %{name}
+      contact_methods:
+        send_email: Envía un correo-e
       index:
         subscribable_box:
           title: Recibe alertas en tu correo-e
@@ -40,13 +30,13 @@ es:
       latest_activity:
         no_activity: Este perfil aún no ha registrado ninguna actividad.
         title: Última actividad
-      contact_methods:
-        send_email: Envía un correo-e
       navigation:
         agenda: Agenda
         bio: Biografía y CV
         blog: Blog
         statements: Bienes y Actividades
+      person:
+        picture: Foto de %{name}
       person_bio:
         show:
           download: Descargar CV
@@ -54,12 +44,12 @@ es:
           title: Perfil de %{person_name}
       person_events:
         index:
+          no_events: No hay eventos en esta agenda.
           past_events: Eventos pasados
           subscribable_box:
             title: Recibe actualizaciones sobre la actividad de %{person_name}
           title: Agenda de %{person_name}
           upcoming_events: Próximos eventos
-          no_events: No hay eventos en esta agenda.
         show:
           event_data:
             event_attendees: Asistentes
@@ -68,26 +58,35 @@ es:
             subtitle: Recibe actualizaciones, preguntas y noticias
             title: Sigue este evento
           title: Agenda de %{person_name}
+      person_messages:
+        new:
+          placeholders:
+            body: Escribe un mensaje
+            email: Tu correo-e
+            name: Tu nombre
+          submit: Enviar
+          title: Envía un mensaje a %{name}
       person_post_tags:
         show:
           filtering_by_tag: Filtrando por "%{tag}"
           go_back: Volver al blog
       person_posts:
         index:
-          title: El blog de %{person_name}, %{person_charge}
           no_posts: Todavía no se ha publicado ningún post.
+          title: El blog de %{person_name}, %{person_charge}
         show:
           subscribable_box:
             title: Recibe actualizaciones
           title: El blog de %{person_name}, %{person_charge}
       person_statements:
         index:
+          no_statements: Todavía no se ha publicado ninguna declaración para esta
+            persona.
           title: Bienes y Actividades de %{person_name}
-          no_statements: Todavía no se ha publicado ninguna declaración para esta persona.
         show:
           download: Descargar declaración (%{file_size})
           subscribable_box:
-            title: Recibe actualizaciones 
+            title: Recibe actualizaciones
           title: Bienes y Actividades de %{person_name}
           view_previous: Ver anteriores
       show:
@@ -96,10 +95,13 @@ es:
           oposition: Oposición
         subscribable_box:
           title: Recibe actualizaciones sobre la actividad de %{person_name}
+      subscription_button:
+        cancel: Cancelar
+        follow: Seguir
       upcoming_events:
+        no_upcoming_events: No hay eventos próximos en esta agenda
         title: Agenda
         view_all: Ver todos
-        no_upcoming_events: No hay eventos próximos en esta agenda
     people_filter:
       all: Todos
       categories:
@@ -129,48 +131,31 @@ es:
           title: Recibe alertas en tu correo-e
     person_posts:
       index:
-        switcher:
-          title: Filtra los blogs de...
-          subtitle: Filtra por miembros de la comunidad
         subscribable_box:
           title: Recibe alertas en tu correo-e
+        switcher:
+          subtitle: Filtra por miembros de la comunidad
+          title: Filtra los blogs de...
         title: Blogs
       person_post_excerpt:
         continue: Seguir leyendo
     person_statements:
       index:
-        switcher:
-          title: Filtra las declaraciones de...
-          subtitle: Filtra por miembros de la comunidad
         subscribable_box:
           title: Recibe alertas en tu correo-e
+        switcher:
+          subtitle: Filtra por miembros de la comunidad
+          title: Filtra las declaraciones de...
         title: Declaraciones
     welcome:
       index:
         events_summary:
           past_events: Eventos pasados
-          upcoming_events: Agenda
+          upcoming_events: Próximos eventos
           view_all: Ver todos
         gifts: Obsequios y regalos
         people_summary:
           title: Organigrama de %{site_name}
-          view_all: Ver todos
-        posts_summary:
-          title: Blogs
-          view_all: Ver todos
-        statements: Salarios y retribuciones
-        subscribable_box:
-          title: Recibe un resumen semanal de las agendas de tus representantes
-        travels: Viajes y desplazamientos
-    welcome:
-      index:
-        events_summary:
-          upcoming_events: Próximos eventos
-          past_events: Eventos pasados
-          view_all: Ver todos
-        gifts: Obsequios y regalos
-        people_summary:
-          title: "Organigrama de %{site_name}"
           view_all: Ver todos
         posts_summary:
           title: Blogs

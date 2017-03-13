@@ -4,16 +4,16 @@ es:
     attributes:
       gobierto_admin/gobierto_budget_consultations/consultation_form:
         description: Descripción
-        opening_date_range: Fecha de inicio - fin
-        title: Título
         force_responses_balance: Forzar equilibrio en las respuestas
+        opening_date_range: Fecha de inicio - fin
         show_figures: Mostrar valores de las partidas
+        title: Título
       gobierto_admin/gobierto_budget_consultations/consultation_item_form:
+        block_reduction: Bloquear reducción
         budget_line_amount: Importe de la partida
         budget_line_name: Partida
         description: Descripción
         title: Título
-        block_reduction: Bloquear reducción
       gobierto_admin/gobierto_budget_consultations/consultation_response_form:
         date_of_birth: Fecha de nacimiento
         gender: Género

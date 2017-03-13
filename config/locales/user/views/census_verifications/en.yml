@@ -2,12 +2,15 @@
 en:
   user:
     census_verifications:
-      messages:
-        already_verified: Your account is already verified
-        not_verified: We need to verify your identity to continue
-        consultation_responses:
-          not_verified: "The process in which you want to participate requires to verify your register in %{site_name}. Please, confirm your data to continue (they'll be verified against the register, if you are not registered we won't be abile to verify yourself)"
-      new:
-        title: Confirm your identity
       form:
         verify: Verify
+      messages:
+        already_verified: Your account is already verified
+        consultation_responses:
+          not_verified: The process in which you want to participate requires to verify
+            your register in %{site_name}. Please, confirm your data to continue (they'll
+            be verified against the register, if you are not registered we won't be
+            abile to verify yourself)
+        not_verified: We need to verify your identity to continue
+      new:
+        title: Confirm your identity

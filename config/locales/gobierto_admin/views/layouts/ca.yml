@@ -7,6 +7,7 @@ ca:
           account: El teu compte
           sign_out: Tancar sessió
         budget_consultations: Consultes de pressupostos
+        cms: Gestió de pàgines
         collapse_menu: Colapsar menú
         dirty_forms:
           message: Hi ha canvis sense desar. Estàs segur de voler continuar?
@@ -15,7 +16,6 @@ ca:
         manage_sites: Gestionar sites
         notifications: Notificacions
         people: Alts càrrecs i Agendes
-        cms: Gestió de pàgines
         site_network: Red
         users: Usuaris
         view_site: Veure site

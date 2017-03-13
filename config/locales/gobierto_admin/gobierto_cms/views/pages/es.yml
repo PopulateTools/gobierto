@@ -3,25 +3,24 @@ es:
   gobierto_admin:
     gobierto_cms:
       pages:
+        edit:
+          title: Editar página
+        form:
+          placeholders:
+            slug: acerca-de-esta-web
+            title: Título de la página
+          visibility_level:
+            active: Publicada
+            draft: Borrador
         index:
-          title: Páginas
-          new: Nueva
           created_at: Creada
-          updated_at: Actualizada
+          new: Nueva
           public: Pública
+          title: Páginas
+          updated_at: Actualizada
           view: Ver página
           visibility_level:
             active: Publicada
             draft: Borrador
         new:
           title: Nueva página
-        edit:
-          title: Editar página
-        form:
-          placeholders:
-            title: Título de la página
-            slug: acerca-de-esta-web
-          visibility_level:
-            active: Publicada
-            draft: Borrador
-

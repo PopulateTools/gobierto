@@ -2,21 +2,18 @@
 ca:
   activemodel:
     attributes:
-      user/confirmation_form:
-        email: El teu Correu-e
-        gender: Genre
-        name: El teu Nom
-        password: La teva contrasenya
-        password_confirmation: La teva contrasenya, de nou
+      user/census_verification_form:
         date_of_birth: Data de naixement
         document_number: Nombre de document
-      user/settings_form:
+        site: Lloc
+      user/confirmation_form:
+        date_of_birth: Data de naixement
+        document_number: Nombre de document
         email: El teu Correu-e
         gender: Genre
         name: El teu Nom
         password: La teva contrasenya
         password_confirmation: La teva contrasenya, de nou
-        date_of_birth: Data de naixement
       user/confirmation_request_form:
         email: El teu Correu-e
       user/edit_password_form:
@@ -29,15 +26,19 @@ ca:
       user/session_form:
         email: El teu Correu-e
         password: La teva Contrasenya
+      user/settings_form:
+        date_of_birth: Data de naixement
+        email: El teu Correu-e
+        gender: Genre
+        name: El teu Nom
+        password: La teva contrasenya
+        password_confirmation: La teva contrasenya, de nou
       user/subscription_form:
         subscribable: Recurs
         user: Usuari
         user_email: Correu-e
-      user/census_verification_form:
-        document_number: Nombre de document
-        date_of_birth: Data de naixement
-        site: Lloc
     models:
+      user/census_verification_form: Verificació de la identitat
       user/confirmation_form: Confirmació
       user/confirmation_request_form: Sol·licitud de confirmació
       user/edit_password_form: Canviar contrasenya
@@ -46,4 +47,3 @@ ca:
       user/session_form: Sessió
       user/settings_form: Ajusts
       user/subscription_form: Subscripció
-      user/census_verification_form: Verificació de la identitat

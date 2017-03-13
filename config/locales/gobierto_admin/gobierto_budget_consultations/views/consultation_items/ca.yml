@@ -14,16 +14,16 @@ ca:
             title: Editar partida
           form:
             placeholders:
-              budget_line_amount: "250.000"
-              title: Pavimentació de vies públiques
-              budget_line_name: (Opcional) Tria una partida de la classificació oficial
+              budget_line_amount: '250.000'
+              budget_line_name: "(Opcional) Tria una partida de la classificació oficial"
               description: Descriu aquesta partida breument
+              title: Pavimentació de vies públiques
           index:
             consultation_items_section: Partides
             consultation_section: Consulta
+            drag_to_sort: Arraster per a ordenar
             new: Agregar partida
             title: Partides
-            drag_to_sort: Arraster per a ordenar
           new:
             consultation_items_section: Partides
             consultation_section: Consulta

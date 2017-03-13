@@ -13,6 +13,6 @@ en:
             view_response: View participation
           new:
             gender:
-              male: Male
               female: Female
+              male: Male
             user_information: User information

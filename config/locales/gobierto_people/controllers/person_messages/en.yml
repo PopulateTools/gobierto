@@ -4,5 +4,5 @@ en:
     people:
       person_messages:
         create:
-          success: Message sent successfully
           error: Message couldn't be sent
+          success: Message sent successfully

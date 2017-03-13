@@ -7,6 +7,7 @@ en:
           account: Account
           sign_out: Sign out
         budget_consultations: Budget consultations
+        cms: CMS
         collapse_menu: Collapse menu
         dirty_forms:
           message: You have unsaved changes. Are you sure you want to leave this page?
@@ -15,7 +16,6 @@ en:
         manage_sites: Manage sites
         notifications: Notifications
         people: Officers and Agendas
-        cms: CMS
         site_network: Network
         users: Users
         view_site: View site

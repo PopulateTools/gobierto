@@ -16,13 +16,14 @@ es:
             opposition: Oposición
           placeholders:
             charge: Alcalde
-            name: Rafael García
             email: Correo-e
+            name: Rafael García
           visibility_level:
             active: Publicada
             draft: Borrador
         index:
           configuration: Configuración
+          drag_to_sort: Arrastra para ordenar
           header:
             charge: Cargo
             events: Eventos
@@ -34,9 +35,8 @@ es:
           title: Personas
           view_person: Ver persona
           visibility_level:
-            draft: Borrador
             active: Publicada
-          drag_to_sort: Arrastra para ordenar
+            draft: Borrador
         navigation:
           agenda: Agenda
           person: Persona

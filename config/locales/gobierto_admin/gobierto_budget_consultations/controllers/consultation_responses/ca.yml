@@ -5,5 +5,5 @@ ca:
       consultations:
         consultation_responses:
           create:
-            success: Resposta creada correctament
             error: No s'ha pogut desar la resposta
+            success: Resposta creada correctament

@@ -21,7 +21,7 @@ es:
             title: Declaraciones
             view_statement: Ver declaración
             visibility_level:
-              draft: Borrador
               active: Publicada
+              draft: Borrador
           new:
             title: Nueva declaración

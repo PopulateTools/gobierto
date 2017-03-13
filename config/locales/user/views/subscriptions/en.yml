@@ -3,25 +3,25 @@ en:
   user:
     subscriptions:
       index:
+        areas: Areas
+        consultations: Budget consultations
+        frequency: Frequency
         modules:
-          gobierto_people: People
-          gobierto_indicators: Indicators
-          gobierto_budgets: Budgets
           gobierto_budget_consultations: Budgets consultations
+          gobierto_budgets: Budgets
+          gobierto_indicators: Indicators
+          gobierto_people: People
         notification_frequency:
           daily: Daily digest
           disabled: Disabled
           hourly: Hourly digest
           immediate: Inmediate
-          weekly: Weekly digest
           submit: Save
-        title: Your alerts
-        submit: Save
-        frequency: Frequency
-        whole_site: Whole site
-        areas: Areas
+          weekly: Weekly digest
         people: People
-        consultations: Budget consultations
+        submit: Save
+        title: Your alerts
+        whole_site: Whole site
       subscribable_box:
         cancel: Already subscribed. Cancel?
         form:

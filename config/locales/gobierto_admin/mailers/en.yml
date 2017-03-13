@@ -3,18 +3,18 @@ en:
   gobierto_admin:
     admin_mailer:
       confirmation_instructions:
-        subject: "Activate your account at Gobierto"
-        hi: Hi
+        bye: Cheers
         click_link: Click in the following link to active your account in Gobierto
-        bye: Cheers
+        hi: Hi
+        subject: Activate your account at Gobierto
       invitation_instructions:
-        subject: "You have been invitited to collaborate in Gobierto"
-        hi: Hi
-        click_link: You have been invited to collaborate in Gobierto. Click the following link to create your account
         bye: Cheers
+        click_link: You have been invited to collaborate in Gobierto. Click the following
+          link to create your account
+        hi: Hi
+        subject: You have been invitited to collaborate in Gobierto
       reset_password_instructions:
-        subject: "Reset password instructions"
-        hi: Hi
-        click_link: Click in the following link to reset your password
         bye: Cheers
-
+        click_link: Click in the following link to reset your password
+        hi: Hi
+        subject: Reset password instructions

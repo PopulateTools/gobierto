@@ -3,25 +3,25 @@ es:
   user:
     subscriptions:
       index:
+        areas: Áreas
+        consultations: Consultas presupuestos
+        frequency: Cada cuánto
         modules:
-          gobierto_people: Personas
-          gobierto_indicators: Indicadores
-          gobierto_budgets: Presupuestos
           gobierto_budget_consultations: Consultas de presupuestos
+          gobierto_budgets: Presupuestos
+          gobierto_indicators: Indicadores
+          gobierto_people: Personas
         notification_frequency:
           daily: Resumen diario
           disabled: Deshabilitadas
           hourly: Resumen cada hora
           immediate: Inmediatas
-          weekly: Resumen semanal
           submit: Guardar
-        title: Tus alertas
-        submit: Guardar
-        frequency: Cada cuánto
-        whole_site: Todo el site
-        areas: Áreas
+          weekly: Resumen semanal
         people: Personas
-        consultations: Consultas presupuestos
+        submit: Guardar
+        title: Tus alertas
+        whole_site: Todo el site
       subscribable_box:
         cancel: Ya estás suscrito. ¿Cancelar?
         form:

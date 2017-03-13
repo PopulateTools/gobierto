@@ -32,8 +32,8 @@ ca:
         percentage: "% sobre el total del press."
         planned: pressupostat
         planned_per_inhabitant: pres. / hab.
-        real_value: El %{kind} reial són %{value}
-        real_vs_planned: reial vs. pres.
+        real_value: El %{kind} real són %{value}
+        real_vs_planned: real vs. pres.
         sub_budget_lines: Dins d'aquesta partida
         twitter_text_expense: 'En @gobierto: Despesa municipal de %{name} en %{budget_line_name}
           al %{year}'
@@ -55,7 +55,7 @@ ca:
         less: menys
         main_budget_lines: Les principals despeses i ingressos del teu ajuntament
         main_budget_lines_description: Estos són els 5 principals ingressos i despeses
-          del tu municipi.
+          del teu municipi.
         more: més
         most_interesting_budget_lines: Partides que més t'interessen
         most_interesting_budget_lines_description: Te mostrem algunes de les partides
@@ -64,11 +64,11 @@ ca:
         not_available_short: No disp.
         note_about_the_data: Nota sobre les dades
         note_about_the_data_title: La base de dades que utilitzem no inclou dades
-          per al 100% dels municipis, axí que les mitjanes estàn calculades només
-          amb les dades que existeixen (que són la gran majoria). Més informació en
+          pel 100% dels municipis, axí que les mitjanes estàn calculades només
+          amb les dades que existeixen (que són la gran majoria). Més informació a
           les nostres preguntes frequents
         per_person: Per habitant
-        planned_vs_executed: Despesa reial vs. el plà
+        planned_vs_executed: Despesa real vs. el plà
         planned_vs_executed_other_year_html: En %{year} va ser un %{link}
         search_for_a_budget_line: Busca una partida
         see_all: Veure tots
@@ -87,7 +87,7 @@ ca:
         budget_lines_expense_lower: Partides de despeses molt inferiors al pressupost
         budget_lines_income_higher: Partides d'ingressos molt superiors al pressupost
         budget_lines_income_lower: Partides d'ingressos molt inferiors al pressupost
-        description: Detall sobre la execució del pressupost municipal de %{place}
+        description: Detall sobre l'execució del pressupost municipal de %{place}
           el %{year}. Consulta la diferència entre lo pressupostat i lo executat.
         economic: Econòmica
         execution_disclaimer: Es normal que hi haja desviacions ja que és impossible
@@ -100,7 +100,7 @@ ca:
         expense: Despeses
         income: Ingressos
         planned: pressupostat
-        real: reials
+        real: reals
     common:
       budget_line_description_html: 'Aquesta partida comprén les %{kind_what} en %{description}.
         Si vols saber més sobre aquesta partida pots consultar la partida pare: %{link}'

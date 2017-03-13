@@ -16,11 +16,11 @@ fixtures_to_load = [
   "gobierto_people/person_statements",
   "gobierto_people/person_posts",
   "gobierto_people/political_groups",
-  "gobierto_cms/pages",
-  "gobierto_common/custom_user_fields",
-  "gobierto_common/custom_user_field_records"
+  "gobierto_cms/pages"
 ]
 
 ENV["FIXTURES"] = fixtures_to_load.join(",")
 Rake::Task["db:fixtures:load"].invoke
 Rake::Task["gobierto_people:counter_cache:reset"].invoke
+
+GobiertoPeople::PoliticalGroup.reset_position!

@@ -43,7 +43,11 @@ class User::SubscriptionForm
   end
 
   def subscribable_type
-    @subscribable_type ||= @subscribable.try(:model_name)
+    @subscribable_type ||= if @subscribable.is_a?(Module)
+                             @subscribable.to_s
+                           else
+                             @subscribable.try(:model_name)
+                           end
   end
 
   def subscribable_id
@@ -53,7 +57,11 @@ class User::SubscriptionForm
   private
 
   def subscribable_class
-    subscribable_type.try(:constantize)
+    if subscribable_type.is_a?(String)
+      subscribable_type.try(:constantize)
+    else
+      subscribable_type
+    end
   end
 
   def toggle_user_subscription

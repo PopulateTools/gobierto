@@ -2,7 +2,8 @@
 
 <%= t('.new_activity', site_name: @site.name) %>:
 
-- <%= @user_notification_decorated.subject_name %>: <%= @user_notification_decorated.translated_action %>
+- <%= @user_notification_decorated.translated_action %>: <%= @user_notification_decorated.subject_name %> (<%= @user_notification_decorated.url %>)
 
-<%= t('.bye') %>,
-<%= @site.name %>
+<%= t('.manage_notifications', url: user_subscriptions_url(domain: @site.domain)) %>.
+
+<%= t('.bye') %>

@@ -65,9 +65,7 @@ module GobiertoAdmin
         end
 
         def ignored_political_group_attributes
-          %w(
-          created_at updated_at
-          )
+          %w( created_at updated_at position )
         end
       end
     end

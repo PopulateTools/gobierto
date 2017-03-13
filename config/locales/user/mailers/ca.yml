@@ -3,30 +3,34 @@ ca:
   user:
     notification_mailer:
       single_notification:
-        subject: "Nova activitat en %{site_name}: %{action_name}"
+        subject: "Nova activitat a %{site_name}: %{action_name}"
         hi: Hola
-        new_activity: Hi ha una nova activitat en %{site_name}
-        bye: Passa un bon dia
+        new_activity: Hi ha una nova activitat a %{site_name}
+        manage_notifications: Recorda que pots administrar les teves notificacions a %{url}
+        manage_notifications_html: "Recorda que pots administrar les teves notificacions a <a href='%{url}'>la teva pàgina de configuració</a>"
+        bye: Salutacions
       notification_digest:
         subject: Resum d'activitat en %{site_name}
         hi: Hola
         new_activity: Hi ha nova activitat en %{site_name}
-        bye: Passa un bon dia
+        manage_notifications: Recorda que pots administrar les teves notificacions a %{url}
+        manage_notifications_html: "Recorda que pots administrar les teves notificacions a <a href='%{url}'>la teva pàgina de configuració</a>"
+        bye: Salutacions
     user_mailer:
       confirmation_instructions:
         subject: Completa el teu registre en %{site_name}
         hi: Hola
         click_link: "Per confirmar el teu registre fes click en el següent enllaç:"
-        ignore_link: si no te estaves suscrivint en %{site_name}, pots ignorar este missatge
+        ignore_link: si no t'estaves subscrivint a %{site_name}, pots ignorar este missatge
         bye: Salutacions
       reset_password_instructions:
         subject: Restaura la teva contrasenya
         hi: Hola
-        click_link: "Has solicitat restaurar la teva contrasenya. Pulsa en el següent enllaç i segueix les instrucciones:"
+        click_link: "Has solicitat restaurar la teva contrasenya. Pulsa en el següent enllaç i segueix les instruccions:"
         bye: Salutacions
       welcome:
         subject: Benvingut
         hi: Hola
-        success: El registre s'ha completat amb èxit. Ara pots interactuar en %{site_url} com usuari registrat.
-        alerts: "Pots gestionar les teves alerts des de el teu compte: %{notifications_url}"
+        success: El registre s'ha completat amb èxit. Ara pots interactuar a %{site_url} com usuari registrat.
+        alerts: "Pots gestionar les teves alertes des del teu compte: %{notifications_url}"
         bye: Salutacions

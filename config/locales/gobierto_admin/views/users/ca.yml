@@ -11,7 +11,7 @@ ca:
           email: fgonzalez@gmail.com
           name: Fernando González
         resend_welcome_email: Reenviar Email de benvinguda
-        resend_welcome_email_notes: amb enllaç per a canviar la contrasenya
+        resend_welcome_email_notes: amb enllaç per canviar la contrasenya
       index:
         admins_section: Administradors
         census_configuration: Cens

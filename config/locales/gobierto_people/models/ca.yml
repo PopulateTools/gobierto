@@ -7,7 +7,7 @@ ca:
         name: Nom
         person: Persona
       gobierto_people/person_event_location:
-        address: Direcció
+        address: Adreça
         name: Nom
     models:
       gobierto_people/person: Càrrec

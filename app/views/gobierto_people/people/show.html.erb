@@ -12,9 +12,7 @@
         <h2 class="avatar-title"><%= image_tag @person.avatar_url, height: 250, width: 250, alt: @person.name, class: "avatar" %></h2>
       <% end %>
 
-      <div class="follow_item">
-        <a href="#" class="button outline">Seguir</a>
-      </div>
+      <%= render("gobierto_people/people/subscription_button", person: @person) %>
 
       <%= render "contact_methods" %>
 

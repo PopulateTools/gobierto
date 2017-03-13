@@ -8,7 +8,7 @@ ca:
         name: El teu Nom
         password: La teva contrasenya
         password_confirmation: La teva contrasenya, de nou
-        date_of_birth: Data de naiximent
+        date_of_birth: Data de naixement
         document_number: Nombre de document
       user/settings_form:
         email: El teu Correu-e
@@ -16,12 +16,12 @@ ca:
         name: El teu Nom
         password: La teva contrasenya
         password_confirmation: La teva contrasenya, de nou
-        date_of_birth: Data de naiximent
+        date_of_birth: Data de naixement
       user/confirmation_request_form:
         email: El teu Correu-e
       user/edit_password_form:
-        password: La teva contraseña
-        password_confirmation: La teva contraseña, de nou
+        password: La teva contrasenya
+        password_confirmation: La teva contrasenya, de nou
       user/new_password_form:
         email: El teu Correu-e
       user/registration_form:
@@ -35,7 +35,7 @@ ca:
         user_email: Correu-e
       user/census_verification_form:
         document_number: Nombre de document
-        date_of_birth: Data de naiximent
+        date_of_birth: Data de naixement
         site: Lloc
     models:
       user/confirmation_form: Confirmació

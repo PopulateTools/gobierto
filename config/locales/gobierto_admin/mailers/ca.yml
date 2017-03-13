@@ -15,6 +15,5 @@ ca:
       reset_password_instructions:
         subject: "Instrucciones per activar el teu compte en Gobierto"
         hi: Hola
-        click_link: "Pintxa en el següent enllaç per a restaurar la teva contrasenya"
+        click_link: "Fes clic en el següent enllaç per restaurar la teva contrasenya"
         bye: Salutacions
-

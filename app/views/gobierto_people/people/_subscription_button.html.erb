@@ -1,0 +1,18 @@
+<% user_subscription_form = User::SubscriptionForm.new(subscribable: person) %>
+  <% if !user_signed_in? || !current_user.subscribed_to?(person, current_site) %>
+    <% if user_signed_in? %>
+      <div class="follow_item">
+        <%= button_to(
+          current_user.subscribed_to?(person, current_site) ? t(".cancel") : t(".follow"),
+          user_subscriptions_path,
+          params: {
+            user_subscription: {
+              subscribable_type: user_subscription_form.subscribable_type,
+              subscribable_id: user_subscription_form.subscribable_id
+            }
+          },
+          class: "button outline")
+        %>
+    </div>
+  <% end %>
+<% end %>

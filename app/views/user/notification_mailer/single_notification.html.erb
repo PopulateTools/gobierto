@@ -7,10 +7,13 @@
 </p>
 
 <ul>
-  <li><%= @user_notification_decorated.subject_name %>: <%= @user_notification_decorated.translated_action %></li>
+  <li><%= @user_notification_decorated.subject_name %>: <%= link_to @user_notification_decorated.translated_action, @user_notification_decorated.url %></li>
 </ul>
 
 <p>
-  <%= t('.bye') %>,<br>
-  <%= @site.name %>
+  <%= t('.manage_notifications_html', url: user_subscriptions_url(domain: @site.domain)) %>.
+</p>
+
+<p>
+  <%= t('.bye') %>
 </p>

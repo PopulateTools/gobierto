@@ -16,7 +16,7 @@
 
       <div class="form_item textarea">
         <%= f.label :body %>
-        <%= f.rich_text_area :body  %>
+        <%= f.rich_text_area :body, attachment_path: admin_cms_file_attachments_path %>
       </div>
     </div>
 

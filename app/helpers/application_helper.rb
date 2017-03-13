@@ -28,4 +28,8 @@ module ApplicationHelper
     end
   end
 
+  def show_social_links?
+    !params[:controller].include?('user/')
+  end
+
 end

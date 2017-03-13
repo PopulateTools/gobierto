@@ -38,7 +38,7 @@ ca:
               published: Publicat
           locations_form:
             header:
-              address: Direcció
+              address: Adreça
               place: Lloc
             title: Lloc
           new:

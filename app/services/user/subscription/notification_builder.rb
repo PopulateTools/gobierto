@@ -14,7 +14,7 @@ class User::Subscription::NotificationBuilder
   def call
     [].tap do |user_notifications|
       User::Notification.transaction do
-        User::Subscription.find_users_for(subject.class.name, (subject.id unless subject.is_a?(Class) || subject.is_a?(Module)), site_id).each do |user_id|
+        User::Subscription::Finder.subscriptions_for(subject.class.name, (subject.id unless subject.is_a?(Class) || subject.is_a?(Module)), site_id).each do |user_id|
           user_notification = build_user_notification_for(user_id)
           if user_notification.save
             user_notifications.push(user_notification.record)

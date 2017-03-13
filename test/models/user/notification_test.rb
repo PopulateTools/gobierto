@@ -10,7 +10,7 @@ class User::NotificationTest < ActiveSupport::TestCase
   end
 
   def unsent_user_notification
-    @unsent_user_notification ||= user_notifications(:dennis_consultation_title_changed)
+    @unsent_user_notification ||= user_notifications(:dennis_consultation_updated)
   end
 
   def seen_user_notification
@@ -18,7 +18,7 @@ class User::NotificationTest < ActiveSupport::TestCase
   end
 
   def unseen_user_notification
-    @unseen_user_notification ||= user_notifications(:dennis_consultation_title_changed)
+    @unseen_user_notification ||= user_notifications(:dennis_consultation_updated)
   end
 
   def test_valid

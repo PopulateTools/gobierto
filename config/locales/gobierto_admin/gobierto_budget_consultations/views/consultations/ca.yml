@@ -9,19 +9,18 @@ ca:
           title: Editar consulta
         form:
           check_id: Comprobar la participació d'un ID
-          how_to_add: per afegir una nova participació, busca si el ID ha participat
+          how_to_add: per afegir una nova participació, busca si l'ID ha participat
           current_responses_html: "Participacions fins ara: <strong>%{count}</strong>"
           days_left_html:
             one: "Queden %{count} dia. Amb aquest ritme, es poden esperar: <strong>%{projected_count}</strong>"
             other: "Queden %{count} dies. Amb aquest ritme, es poden esperar: <strong>%{projected_count}</strong>"
-          no_response_html: 'Encara no s''ha rebut ninguna participació. <a href="%{url}" target="_blank">Promociona la consulta</a>.'
+          no_response_html: "Encara no s'ha rebut cap participació. <a href=\"%{url}\" target=\"_blank\">Promociona la consulta</a>."
           upcoming: La consulta encara no està oberta.
           hints:
-            description: Te recomanem descriure clarament el tipus de consulta.
-            title: Te recomanem fichar un títol concret i que identifique la consulta
-              de l'any en cuestió.
+            description: Et recomanem descriure clarament el tipus de consulta.
+            title: Et recomanem escriure un títol concret i que identifiqui la consulta de l'any en cuestió.
           placeholders:
-            opening_date_range: Selecciona data d'inicio i fi
+            opening_date_range: Selecciona data d'inici i fi
             title: Consulta sobre els pressupostos de Burjassot 2016
           visibility_level:
             active: Publicada
@@ -33,7 +32,7 @@ ca:
             results: Resultats
             status: Estat
           new: Nova consulta
-          opens_on: Data de apertura
+          opens_on: Data d'apertura
           participations_count:
             one: Una participació
             other: "%{count} participacions"
@@ -49,18 +48,16 @@ ca:
         consultation_responses:
           check_participation:
             search_id: Cercar ID
-            placeholder: DNI, tarjeta de residència...
+            placeholder: DNI, targeta de residència...
             search: Cercar
           participation_results:
             no_responded: Aquest ID encara no ha participat
-            add: Afegeig una participació per a aquest ID
+            add: Afegeix una participació per aquest ID
             not_in_census: Aquest ID no apareix al llistat del cense
             already_responded_html: "Aquest ID <strong>ja ha participat</strong>."
-            replace: 'Vols eliminar la seva participació per afegir un altra?'
-            confirm: 'Estàs segur de borrar la participació? Aquesta acció NO ES POT DESFER' 
+            replace: 'Vols eliminar la seva participació per afegir altra?'
+            confirm: 'Estàs segur de suprimir la participació? Aquesta acció NO ES POT DESFER' 
             search_another: Cercar un altre
           new:
             title: Afegir resposta
-            warning_html: "<strong>Atenció</strong> Al afegir una nova resposta reconeixes que tens l'autorització per a fer-ho. Aquesta acció quedarà registrada."
-
-
+            warning_html: "<strong>Atenció</strong> Al afegir una nova resposta reconeixes que tens l'autorització per fer-ho. Aquesta acció quedarà registrada."

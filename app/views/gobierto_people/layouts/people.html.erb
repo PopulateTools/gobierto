@@ -10,11 +10,7 @@
 
           <%= render @person %>
           <%= render "gobierto_people/people/contact_methods" %>
-
-          <div class="follow_item">
-            <a href="#" class="button outline">Seguir</a>
-          </div>
-
+          <%= render("gobierto_people/people/subscription_button", person: @person) %>
         </div>
 
         <div class="separator"></div>

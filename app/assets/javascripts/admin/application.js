@@ -16,6 +16,11 @@
 
 $(document).on('turbolinks:load', function() {
 
+  if ($('#consultation_report').length) {
+    var vis_ageReport = new VisAgeReport('#consultation_report');
+    vis_ageReport.render();
+  };
+
   if($('.air-datepicker').length){
     var start = new Date();
     start.setDate(start.getDate() + 1);

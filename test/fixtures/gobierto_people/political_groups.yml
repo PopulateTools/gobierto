@@ -2,8 +2,10 @@ marvel:
   name: Marvel
   site: madrid
   admin: tony
+  position: 1
 
 dc:
   name: DC
   site: santander
   admin: nick
+  position: 2

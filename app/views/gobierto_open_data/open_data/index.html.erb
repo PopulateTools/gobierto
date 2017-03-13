@@ -1,0 +1,25 @@
+<div class="column text_page open_data">
+
+  <header class="text_page_header">
+
+    <h1><%= t(".title") %></h1>
+    <p class="subtitle"><%= t(".subtitle") %></p>
+
+  </header>
+
+  <%# si tenemos más de un módulo activado mostramos el navegador %>
+  <% if current_site.configuration.modules.size > 1 %>
+    <menu class="inpage_section">
+    <ul>
+      <% current_site.configuration.modules.each do |site_module| %>
+        <li><%= render_if_exists "#{site_module.underscore}/open_data/nav_item" %></li>
+      <% end %>
+    </ul>
+    </menu>
+  <% end %>
+
+  <% current_site.configuration.modules.each do |site_module| %>
+    <%= render_if_exists "#{site_module.underscore}/open_data/index" %>
+  <% end %>
+
+</div>

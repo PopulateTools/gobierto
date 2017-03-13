@@ -5,6 +5,12 @@ module GobiertoPeople
     def index
       @people = current_site.people.active.sorted
       @political_groups = get_political_groups
+
+      respond_to do |format|
+        format.html
+        format.json { render json: @people }
+        format.csv  { render csv: GobiertoOpenData::CSVRenderer.new(@people).to_csv }
+      end
     end
 
     def show

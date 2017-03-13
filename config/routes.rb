@@ -207,4 +207,11 @@ Rails.application.routes.draw do
       get ':id' => 'pages#show', as: :page
     end
   end
+
+  # Gobierto Open Data module
+  namespace :gobierto_open_data, path: 'open-data' do
+    constraints GobiertoSiteConstraint.new do
+      root 'open_data#index'
+    end
+  end
 end

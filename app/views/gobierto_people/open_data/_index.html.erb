@@ -1,0 +1,39 @@
+<div class="pure-g data_block" id="section-people">
+
+  <div class="pure-u-1 pure-u-md-7-24">
+    <h2><%= t("gobierto_people.layouts.application.title") %></h2>
+    <p></p>
+  </div>
+
+  <div class="pure-u-1 pure-u-md-17-24 main_content">
+
+    <div class="data_item">
+      <h3><%= t("gobierto_people.open_data.index.people.title") %></h3>
+      <%= link_to 'CSV', gobierto_people_people_path(format: :csv), class: 'button small' %>
+      <%= link_to 'JSON', gobierto_people_people_path(format: :json), class: 'button small' %>
+      <p><%= t("gobierto_people.open_data.index.people.description") %></p>
+    </div>
+
+    <div class="data_item">
+      <h3><%= t("gobierto_people.open_data.index.events.title") %></h3>
+      <%= link_to 'CSV', gobierto_people_events_path(format: :csv), class: 'button small' %>
+      <%= link_to 'JSON', gobierto_people_events_path(format: :json), class: 'button small' %>
+      <p><%= t("gobierto_people.open_data.index.events.description") %></p>
+    </div>
+
+    <div class="data_item">
+      <h3><%= t("gobierto_people.open_data.index.statements.title") %></h3>
+      <%= link_to 'CSV', gobierto_people_statements_path(format: :csv), class: 'button small' %>
+      <%= link_to 'JSON', gobierto_people_statements_path(format: :json), class: 'button small' %>
+      <p><%= t("gobierto_people.open_data.index.statements.description") %></p>
+    </div>
+
+    <div class="data_item">
+      <h3><%= t("gobierto_people.open_data.index.posts.title") %></h3>
+      <%= link_to 'RSS', gobierto_people_posts_path(format: :rss), class: 'button small' %>
+      <p><%= t("gobierto_people.open_data.index.posts.description") %></p>
+    </div>
+
+  </div>
+
+</div>

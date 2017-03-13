@@ -1,0 +1,10 @@
+---
+en:
+  gobierto_open_data:
+    layouts:
+      application:
+        open_data: Open Data
+    open_data:
+      index:
+        title: Open Data
+        subtitle: In this page you can download all the site data in a reusable format.

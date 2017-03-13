@@ -5,6 +5,8 @@ module GobiertoPeople
     def setup
       super
       @path = gobierto_people_people_path
+      @path_for_json = gobierto_people_people_path(format: :json)
+      @path_for_csv = gobierto_people_people_path(format: :csv)
     end
 
     def site
@@ -67,6 +69,26 @@ module GobiertoPeople
         within ".subscribable-box", match: :first do
           assert has_button?("Subscribe")
         end
+      end
+    end
+
+    def test_people_index_json
+      with_current_site(site) do
+        visit @path_for_json
+
+        json_response = JSON.parse(page.body)
+        assert_equal json_response.last["name"], "Tamara Devoux"
+        assert_equal json_response.last["email"], "tamara@example.com"
+      end
+    end
+
+    def test_people_index_csv
+      with_current_site(site) do
+        visit @path_for_csv
+
+        csv_response = CSV.parse(page.body, headers: true)
+        assert_equal csv_response.by_row[1]["name"], "Tamara Devoux"
+        assert_equal csv_response.by_row[1]["email"], "tamara@example.com"
       end
     end
   end

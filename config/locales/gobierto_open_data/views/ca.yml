@@ -1,0 +1,11 @@
+---
+ca:
+  gobierto_open_data:
+    layouts:
+      application:
+        open_data: Open Data
+    open_data:
+      index:
+        title: Open Data
+        subtitle: Desde esta página puedes descargar en formato reutilizable el contenido de este site.
+

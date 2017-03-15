@@ -1,7 +1,11 @@
 class GobiertoPeople::ContentBlockRecordSerializer < ActiveModel::Serializer
-  attributes :name, :payload
+  attributes :id, :title, :payload
 
-  def name
+  def id
     object.content_block.internal_id
+  end
+
+  def title
+    object.content_block.title
   end
 end

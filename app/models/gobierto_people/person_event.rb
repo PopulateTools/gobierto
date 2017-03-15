@@ -62,7 +62,7 @@ module GobiertoPeople
     def as_csv
       person_name = person.try(:name)
 
-      [id, person_id, person_name, title, description, starts_at, ends_at, attachment_url, created_at, updated_at]
+      [id, person_id, person_name, title, description.html_safe, starts_at, ends_at, attachment_url, created_at, updated_at]
     end
   end
 end

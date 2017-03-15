@@ -4,7 +4,7 @@
 
 ## Developing a new module of Gobierto
 
-> Date: 2017-01-26
+> Date: 2017-03-15
 > Author: Populate tools dev team
 > Version: Draft
 
@@ -170,11 +170,15 @@ end
 
 ## Open Data
 
-GobiertoOpenData is a module that exposes a page where the user can download data in a reusable format (JSON and CSV). This page is composed by the data exposed by each module. If your module wants to expose some data in this page you need to add a folder named `open_data` inside your module views folder with two partials
-  
-- `_index.html.erb` containing the html to include in the open data page
+GobiertoOpenData is a module that exposes a page where the user can download data in a reusable format (JSON and CSV). This page is composed by the data exposed by each module. If your module wants to expose some data in this page you need to add a folder named `open_data` inside your module views folder with two partials:
 
-Example:
+- `_nav_item.html.erb` with the link to include in the module submenu, for example:
+
+```ruby
+<%= link_to t("gobierto_people.layouts.application.title"), gobierto_open_data_root_path(anchor: 'section-people') %>
+```
+  
+- `_index.html.erb` containing the html to include in the open data page, for example:
 
 ```ruby
 <div class="pure-g data_block" id="section-people">
@@ -203,14 +207,6 @@ Example:
   </div>
 
 </div>
-```
-
-- `_nav_item.html.erb` with the link to include in the module submenu
-
-Example:
-
-```ruby
-<%= link_to t("gobierto_people.layouts.application.title"), gobierto_open_data_root_path(anchor: 'section-people') %>
 ```
 
 Expose some endpoints in json and csv format, you can use a block like this

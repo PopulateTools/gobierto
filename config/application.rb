@@ -11,6 +11,7 @@ require "sprockets/railtie"
 require "rails/test_unit/railtie"
 
 require "ostruct"
+require "csv"
 
 Bundler.require(*Rails.groups)
 

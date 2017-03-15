@@ -45,7 +45,7 @@ Rails.application.routes.draw do
         resources :consultation_items, controller: "consultations/consultation_items", path: :items
         resource :consultation_items_sort, only: [:create], controller: "consultations/consultation_items_sort", path: :items_sort
         resources :consultation_responses, only: [:index, :show, :new, :create, :destroy], controller: "consultations/consultation_responses", path: :responses
-        resource :consultation_reports, only: [:show], controller: "consultations/consultation_reports", path: :reports
+        resource :consultation_reports, only: [:show], controller: "consultations/consultation_reports", path: :report
       end
     end
 

@@ -38,7 +38,7 @@ module GobiertoPeople
     def as_csv
       political_group_name = political_group.try(:name)
 
-      [id, name, email, charge, bio.html_safe, bio_url, avatar_url, category, political_group_name, party, created_at, updated_at]
+      [id, name, email, charge, bio, bio_url, avatar_url, category, political_group_name, party, created_at, updated_at]
     end
   end
 end

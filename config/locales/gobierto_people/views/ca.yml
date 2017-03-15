@@ -24,16 +24,16 @@ ca:
       index:
         events:
           title: Agendes
-          description: Listado de los eventos (pasados y futuros) con título y descripción, asistentes, ubicación...
+          description: Llistat dels events (passats i futurs) amb títol i descripció, assistentes, ubicació...
         people:
           title: Càrrecs
-          description: Listado de los cargos, con sus datos de contacto, biografía, titulaciones, etc.
+          description: Llistat dels càrrecs, amb les seves dades de contacte, biografia, titulacions, etc.
         posts:
           title: Blogs
-          description: Últimas entradas del conjunto de los blogs.
+          description: Últimes entrades del conjunt dels blogs.
         statements:
           title: Declaracions
-          description: Listado de las declaraciones de bienes y actividades y todos sus elementos.
+          description: Llistat de las declaracions de béns i activitats i tots els seus elements.
     people:
       contact_methods:
         send_email: Envia un correu-e

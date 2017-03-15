@@ -176,14 +176,14 @@ var VisAgeReport = Class.extend({
       .attr('width', this.width + this.margin.left + this.margin.right)
       .attr('height', this.height + this.margin.top + this.margin.bottom)
 
-    this.svg.select(this.container + ' g')
+    this.svg.select(this.container + ' > g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
     // Update bars
     d3.select(this.container + ' .bars').selectAll('rect')
-      .attr('x', function(d) { return this.xScale(d.age) }.bind(this))
-      .attr('y', function(d) { return this.yScale(d.value) }.bind(this))
+      .attr('x', function(d) { return this.xScale(d.age_group) }.bind(this))
+      .attr('y', function(d) { return this.yScale(d.response_rate) }.bind(this))
       .attr('width', this.xScale.bandwidth())
-      .attr('height', function(d) { return this.height - this.yScale(d.value) }.bind(this));
+      .attr('height', function(d) { return this.height - this.yScale(d.response_rate) }.bind(this));
   }
 });

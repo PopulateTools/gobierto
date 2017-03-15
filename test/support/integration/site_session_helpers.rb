@@ -11,7 +11,7 @@ module Integration
       visit admin_root_path
 
       within("#managed-sites-list") do
-        click_button site.name
+        click_link site.name
       end
     end
   end

@@ -106,6 +106,7 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
         },
         submitConsultation: function(e){
           e.preventDefault();
+          $(e.target).prop('disabled', true);
           bus.$emit('submitConsultation');
         },
         showConsultationStatusError: function(e){
@@ -223,7 +224,10 @@ this.GobiertoBudgetConsultations.ConsultationResponsesController = (function() {
             }
           });
         },
-        submitConsultation: function(){
+        submitConsultation: function(e){
+          if(e !== undefined)
+            $(e.target).prop('disabled', true);
+
           var self = this;
           var url = $(self.$options.el).data('submit-url');
           var data = app.$data.cards.map(function(card){

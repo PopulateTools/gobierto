@@ -3,9 +3,9 @@ ca:
   gobierto_open_data:
     layouts:
       application:
-        open_data: Open Data
+        open_data: Descarrega dades
     open_data:
       index:
-        title: Open Data
+        title: Descarrega dades
         subtitle: Des d'aquesta pàgina pots descarregar en format reutilitzable el contingut d'aquesta web
 

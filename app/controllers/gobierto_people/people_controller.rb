@@ -9,7 +9,7 @@ module GobiertoPeople
       respond_to do |format|
         format.html
         format.json { render json: @people }
-        format.csv  { render csv: GobiertoOpenData::CSVRenderer.new(@people).to_csv }
+        format.csv  { render csv: GobiertoOpenData::CSVRenderer.new(@people).to_csv, filename: 'people' }
       end
     end
 

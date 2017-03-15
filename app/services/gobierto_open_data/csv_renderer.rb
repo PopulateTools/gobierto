@@ -7,9 +7,9 @@ module GobiertoOpenData
 
     def to_csv
       csv = CSV.generate do |csv|
-        csv << @relation.attribute_names
+        csv << @relation.klass.csv_columns
         @relation.each do |record|
-          csv << record.attributes.values
+          csv << record.as_csv
         end
       end
     end

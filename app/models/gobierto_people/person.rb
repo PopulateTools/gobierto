@@ -30,5 +30,15 @@ module GobiertoPeople
     enum party: { government: 0, opposition: 1 }
 
     validates :email, format: { with: User::EMAIL_ADDRESS_REGEXP }, allow_blank: true
+
+    def self.csv_columns
+      [:id, :name, :email, :charge, :bio, :bio_url, :avatar_url, :category, :political_group, :party, :created_at, :updated_at]
+    end
+
+    def as_csv
+      political_group_name = political_group.try(:name)
+
+      [id, name, email, charge, bio, bio_url, avatar_url, category, political_group_name, party, created_at, updated_at]
+    end
   end
 end

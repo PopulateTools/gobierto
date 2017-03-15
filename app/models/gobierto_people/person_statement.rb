@@ -25,5 +25,15 @@ module GobiertoPeople
     def parameterize
       { person_id: person, id: self }
     end
+
+    def self.csv_columns
+      [:id, :person_id, :person_name, :title, :published_on, :attachment_url, :attachment_size, :created_at, :updated_at]
+    end
+
+    def as_csv
+      person_name = person.try(:name)
+
+      [id, person_id, person_name, title, published_on, attachment_url, attachment_size, created_at, updated_at]
+    end
   end
 end

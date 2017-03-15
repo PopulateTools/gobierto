@@ -11,7 +11,7 @@ module GobiertoPeople
       respond_to do |format|
         format.html
         format.json { render json: @events }
-        format.csv  { render csv: GobiertoOpenData::CSVRenderer.new(@events).to_csv }
+        format.csv  { render csv: GobiertoOpenData::CSVRenderer.new(@events).to_csv, filename: 'events' }
       end
     end
 

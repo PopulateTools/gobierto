@@ -122,18 +122,27 @@ var VisAgeReport = Class.extend({
   },
   _renderBars: function() {
     // We keep this separate to not create them after every resize
-    var bars = this.svg.append('g')
+    var barGroup = this.svg.append('g')
       .attr('class', 'bars')
       .selectAll('rect')
       .data(this.ageGroups)
       .enter();
 
+    var bars = barGroup.append('g')
+      .attr('transform', function(d) { return 'translate('+ this.xScale(d.age_group) + ',' + this.yScale(d.response_rate) + ')'; }.bind(this)); 
+    
     bars.append('rect')
-      .attr('x', function(d) { return this.xScale(d.age_group) }.bind(this))
-      .attr('y', function(d) { return this.yScale(d.response_rate) }.bind(this))
       .attr('width', this.xScale.bandwidth())
       .attr('height', function(d) { return this.height - this.yScale(d.response_rate) }.bind(this))
-      .attr('fill', '#8da0cb')
+      .attr('fill', '#8da0cb');
+      
+    bars.append('text')
+      .attr('text-anchor', 'middle')
+      .attr('dy', -5)
+      .attr('x', this.xScale.bandwidth() / 2)
+      .text(function(d) {
+        return d3.format('.0%')(d.response_rate);
+      });
   },
   _renderAxis: function() {
     // X axis
@@ -180,10 +189,14 @@ var VisAgeReport = Class.extend({
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
     // Update bars
-    d3.select(this.container + ' .bars').selectAll('rect')
-      .attr('x', function(d) { return this.xScale(d.age_group) }.bind(this))
-      .attr('y', function(d) { return this.yScale(d.response_rate) }.bind(this))
+    d3.select(this.container + ' .bars').selectAll('g')
+      .attr('transform', function(d) { return 'translate('+ this.xScale(d.age_group) + ',' + this.yScale(d.response_rate) + ')'; }.bind(this)); 
+    
+    d3.select(this.container + ' .bars').selectAll('g rect')
       .attr('width', this.xScale.bandwidth())
       .attr('height', function(d) { return this.height - this.yScale(d.response_rate) }.bind(this));
+      
+    d3.select(this.container + ' .bars').selectAll('g text')
+      .attr('x', this.xScale.bandwidth() / 2)
   }
 });

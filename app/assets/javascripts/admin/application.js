@@ -16,8 +16,8 @@
 
 $(document).on('turbolinks:load', function() {
 
-  if ($('#consultation_report').length) {
-    var vis_ageReport = new VisAgeReport('#consultation_report');
+  if ($('#age_report').length) {
+    var vis_ageReport = new VisAgeReport('#age_report');
     vis_ageReport.render();
   };
 

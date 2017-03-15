@@ -412,3 +412,21 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
 	width: 2em;
 	font-size: 14px;
 }
+
+
+/* Consultations report */
+#age_report {
+	.axis {
+		font-family: $font_text;
+		font-size: 0.85rem;
+	}
+	.y.axis {
+		.domain {
+			display: none;
+		}
+		.tick line {
+			stroke-dasharray: 2, 2;
+			stroke: $text_soft;
+		}
+	} 
+}

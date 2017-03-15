@@ -48,6 +48,7 @@ ca:
         agenda: Agenda
         bio: Biografia i CV
         blog: Blog
+        open_data: Descarga los datos en formato reutilizable
         statements: Béns i activitats
       person:
         picture: Foto de %{name}

@@ -24,7 +24,7 @@ ca:
       index:
         events:
           title: Agendes
-          description: Llistat dels events (passats i futurs) amb títol i descripció, assistentes, ubicació...
+          description: Llistat dels esdeveniments (passats i futurs) amb títol i descripció, assistents, ubicació...
         people:
           title: Càrrecs
           description: Llistat dels càrrecs, amb les seves dades de contacte, biografia, titulacions, etc.
@@ -33,7 +33,7 @@ ca:
           description: Últimes entrades del conjunt dels blogs.
         statements:
           title: Declaracions
-          description: Llistat de las declaracions de béns i activitats i tots els seus elements.
+          description: Llistat de les declaracions de béns i activitats i tots els seus elements.
     people:
       contact_methods:
         send_email: Envia un correu-e
@@ -58,7 +58,7 @@ ca:
           title: Perfil de %{person_name}
       person_events:
         index:
-          no_events: No hi ha esdeveniments en aquesta agenda
+          no_events: No hi ha esdeveniments a aquesta agenda
           past_events: Esdeveniments passats
           subscribable_box:
             title: Rebeix actualitzacions al teu correu-e sobre %{person_name}

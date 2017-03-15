@@ -168,6 +168,78 @@ namespace :gobierto_budgets, path: '', module: 'gobierto_budgets' do
 end
 ```
 
+## Open Data
+
+GobiertoOpenData is a module that exposes a page where the user can download data in a reusable format (JSON and CSV). This page is composed by the data exposed by each module. If your module wants to expose some data in this page you need to add a folder named `open_data` inside your module views folder with two partials
+  
+- `_index.html.erb` containing the html to include in the open data page
+
+Example:
+
+```ruby
+<div class="pure-g data_block" id="section-people">
+
+  <div class="pure-u-1 pure-u-md-7-24">
+    <h2><%= t("gobierto_people.layouts.application.title") %></h2>
+    <p></p>
+  </div>
+
+  <div class="pure-u-1 pure-u-md-17-24 main_content">
+
+    <div class="data_item">
+      <h3><%= t("gobierto_people.open_data.index.people.title") %></h3>
+      <%= link_to 'CSV', gobierto_people_people_path(format: :csv), class: 'button small' %>
+      <%= link_to 'JSON', gobierto_people_people_path(format: :json), class: 'button small' %>
+      <p><%= t("gobierto_people.open_data.index.people.description") %></p>
+    </div>
+
+    <div class="data_item">
+      <h3><%= t("gobierto_people.open_data.index.events.title") %></h3>
+      <%= link_to 'CSV', gobierto_people_events_path(format: :csv), class: 'button small' %>
+      <%= link_to 'JSON', gobierto_people_events_path(format: :json), class: 'button small' %>
+      <p><%= t("gobierto_people.open_data.index.events.description") %></p>
+    </div>
+
+  </div>
+
+</div>
+```
+
+- `_nav_item.html.erb` with the link to include in the module submenu
+
+Example:
+
+```ruby
+<%= link_to t("gobierto_people.layouts.application.title"), gobierto_open_data_root_path(anchor: 'section-people') %>
+```
+
+Expose some endpoints in json and csv format, you can use a block like this
+
+```ruby
+respond_to do |format|
+  format.html
+  format.json { render json: @events }
+  format.csv  { render csv: GobiertoOpenData::CSVRenderer.new(@events).to_csv, filename: 'events' }
+end
+```
+
+For the json format put your module serializers into `app/serializers/<module_name>`. 
+
+For the csv define use the `GobiertoOpenData::CSVRenderer` with a relation and define two methods in the corresponding module, a class method named `csv_columns` that returns the csv headers and an instance method named `as_csv` that returns that record as an array of values to include in th csv. 
+
+Example:
+
+```ruby
+def self.csv_columns
+  [:id, :name, :email, :charge, :bio, :bio_url, :avatar_url, :category, :political_group, :party, :created_at, :updated_at]
+end
+
+def as_csv
+  political_group_name = political_group.try(:name)
+
+  [id, name, email, charge, bio, bio_url, avatar_url, category, political_group_name, party, created_at, updated_at]
+end
+```
 
 ## Assets
 

@@ -108,9 +108,10 @@ module GobiertoPeople
 
     def test_person_events_index_json
       with_current_site(site) do
-        visit @path_for_json
+        get @path_for_json
 
-        json_response = JSON.parse(page.body)
+        json_response = JSON.parse(response.body)
+        assert_equal json_response.first["person_name"], "Richard Rider"
         assert_equal json_response.first["title"], "Junta de Gobierno"
         assert_equal json_response.first["description"], "El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno."
       end
@@ -118,9 +119,10 @@ module GobiertoPeople
 
     def test_person_events_index_csv
       with_current_site(site) do
-        visit @path_for_csv
+        get @path_for_csv
 
-        csv_response = CSV.parse(page.body, headers: true)
+        csv_response = CSV.parse(response.body, headers: true)
+        assert_equal csv_response.by_row[0]["person_name"], "Richard Rider"
         assert_equal csv_response.by_row[0]["title"], "Junta de Gobierno"
         assert_equal csv_response.by_row[0]["description"], "El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno."
       end

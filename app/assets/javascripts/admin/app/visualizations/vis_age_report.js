@@ -15,7 +15,7 @@ var VisAgeReport = Class.extend({
 
     // Scales & Ranges
     this.xScale = d3.scaleBand()
-      .padding(0.1);
+      .padding(0.3);
 
     this.yScale = d3.scaleLinear();
 
@@ -95,8 +95,6 @@ var VisAgeReport = Class.extend({
             ];
           })
           .entries(this.data);
-        
-        console.log(this.ageGroups);
 
         this.updateRender();
         this._renderBars();

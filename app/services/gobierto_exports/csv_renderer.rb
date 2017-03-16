@@ -1,4 +1,4 @@
-module GobiertoOpenData
+module GobiertoExports
   class CSVRenderer
     def initialize(relation, options={})
       @relation = relation

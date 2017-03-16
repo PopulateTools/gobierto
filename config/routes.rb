@@ -208,10 +208,10 @@ Rails.application.routes.draw do
     end
   end
 
-  # Gobierto Open Data module
-  namespace :gobierto_open_data, path: 'datos' do
+  # Gobierto Exports module
+  namespace :gobierto_exports, path: 'datos' do
     constraints GobiertoSiteConstraint.new do
-      root 'open_data#index'
+      root 'exports#index'
     end
   end
 end

@@ -20,7 +20,7 @@ ca:
         home: Inici
         people: Càrrecs
         statements: Declaracions
-    open_data:
+    exports:
       index:
         events:
           title: Agendes
@@ -48,7 +48,7 @@ ca:
         agenda: Agenda
         bio: Biografia i CV
         blog: Blog
-        open_data: Descarrega les dades en format reutilitzable
+        exports: Descarrega les dades en format reutilitzable
         statements: Béns i activitats
       person:
         picture: Foto de %{name}

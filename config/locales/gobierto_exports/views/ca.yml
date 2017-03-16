@@ -1,10 +1,10 @@
 ---
 ca:
-  gobierto_open_data:
+  gobierto_exports:
     layouts:
       application:
-        open_data: Descarrega dades
-    open_data:
+        exports: Descarrega dades
+    exports:
       index:
         title: Descarrega dades
         subtitle: Des d'aquesta pàgina pots descarregar en format reutilitzable el contingut d'aquesta web

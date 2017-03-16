@@ -20,7 +20,7 @@ en:
         home: Home
         people: Officials
         statements: Statements
-    open_data:
+    exports:
       index:
         events:
           title: Agendas
@@ -48,7 +48,7 @@ en:
         agenda: Agenda
         bio: Biography and CV
         blog: Blog
-        open_data: Download data in a reusable format
+        exports: Download data in a reusable format
         statements: Goods and Activities
       person:
         picture: Picture of %{name}

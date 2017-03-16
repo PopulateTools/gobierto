@@ -3,14 +3,14 @@ require "test_helper"
 class HomePageTest < ActionDispatch::IntegrationTest
   def setup
     super
-    @path = gobierto_open_data_root_path
+    @path = gobierto_exports_root_path
   end
 
   def site
     @site ||= sites(:madrid)
   end
 
-  def test_greeting_to_first_active_module
+  def test_index
     with_current_site(site) do
       visit @path
 

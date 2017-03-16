@@ -8,7 +8,7 @@
   </header>
 
   <% current_site.configuration.modules.each do |site_module| %>
-    <%= render_if_exists "#{site_module.underscore}/open_data/index" %>
+    <%= render_if_exists "#{site_module.underscore}/exports/index" %>
   <% end %>
 
 </div>

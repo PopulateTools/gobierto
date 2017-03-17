@@ -18,6 +18,10 @@
 </div>
 
 <div class="admin_tools right">
+  <%= t('.users', count: @users_stats.total_users) %> ·
+  <%= t('.users_confirmed', count: @users_stats.total_confirmed_percentage) %> (<%= @users_stats.total_confirmed %>) ·
+  <%= t('.users_verified', count: @users_stats.total_verified_percentage) %> (<%= @users_stats.total_verified %>) ·
+
   <%= link_to new_admin_census_imports_path do %>
     <i class="fa fa-table"></i>
     <%= t(".census_configuration") %>

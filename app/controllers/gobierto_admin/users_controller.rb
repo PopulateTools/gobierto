@@ -2,6 +2,7 @@ module GobiertoAdmin
   class UsersController < BaseController
     def index
       @users = get_users_in_current_site.sorted
+      @users_stats = get_users_stats
     end
 
     def show
@@ -68,6 +69,10 @@ module GobiertoAdmin
 
     def default_activity_params
       { ip: remote_ip, author: current_admin }
+    end
+
+    def get_users_stats
+      GobiertoAdmin::Users::UsersStatsPresenter.new(current_site)
     end
   end
 end

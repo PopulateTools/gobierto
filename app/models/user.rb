@@ -19,6 +19,7 @@ class User < ApplicationRecord
 
   validates :email, uniqueness: true
 
+  scope :census_verified, -> { where(census_verified: true) }
   scope :sorted, -> { order(created_at: :desc) }
   scope :by_source_site, ->(source_site) { where(source_site: source_site) }
 

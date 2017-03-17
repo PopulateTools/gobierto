@@ -433,6 +433,9 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
   }
   .widget_figure {
     @include min-screen(768) {
+      font-size: 1.5rem;
+    }
+    @include min-screen(1400) {
       font-size: 2rem;
     }
 	}

@@ -55,6 +55,8 @@
     display: inline-block;
   }
   .category {
+    color: $text_soft;
+    margin-bottom: 0.5rem;
     text-transform: uppercase;
     font-size: 0.85rem;
   }
@@ -64,7 +66,8 @@
   }
 }
 .widget_body.categories {
-  line-height: unset;
+  line-height: inherit;
+  font-size: 0.85rem;
 }
 .widget_headline i {
 	color: #b1b8b8;

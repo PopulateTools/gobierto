@@ -23,6 +23,10 @@ dennis_madrid_open:
   budget_amount: 29.99
   visibility_level: <%= GobiertoBudgetConsultations::ConsultationResponse.visibility_levels["active"] %>
   sharing_token: dennismadridopentoken
+  user_information: <%= {
+'gender' => 'male',
+'date_of_birth' => '1981-10-13'
+  }.to_json %>
 
 reed_madrid_open_deficit:
   consultation: madrid_open

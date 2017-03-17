@@ -23,3 +23,13 @@ en:
           verified: Verified
         title: Users
         view_user: View User
+        users:
+          one: "%{count} user"
+          other: "%{count} users"
+        users_verified:
+          one: "%{count}% verified"
+          other: "%{count}% verified"
+        users_confirmed:
+          one: "%{count}% confirmed"
+          other: "%{count}% confirmed"
+

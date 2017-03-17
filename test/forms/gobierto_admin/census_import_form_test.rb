@@ -1,5 +1,4 @@
 require "test_helper"
-require "csv"
 
 module GobiertoAdmin
   class CensusImportFormTest < ActiveSupport::TestCase

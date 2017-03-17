@@ -1,5 +1,3 @@
-require "csv"
-
 module GobiertoAdmin
   class CensusImportForm
     include ActiveModel::Model

@@ -131,8 +131,7 @@ var VisAgeReport = Class.extend({
     
     bars.append('rect')
       .attr('width', this.xScale.bandwidth())
-      .attr('height', function(d) { return this.height - this.yScale(d.response_rate) }.bind(this))
-      .attr('fill', '#8da0cb');
+      .attr('height', function(d) { return this.height - this.yScale(d.response_rate) }.bind(this));
       
     bars.append('text')
       .attr('text-anchor', 'middle')

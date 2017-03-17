@@ -430,7 +430,60 @@ div[data-tab="consultation_report"] {
 				stroke: $text_soft;
 			}
 		}
+		.bars rect {
+			fill: #00909E;
+		}
 	}
+	#consultation-indicators {
+		.padded_cols .padded {
+			margin: 0.25em;
+		}
+		.padded {
+			background: #f0f9f9;
+			padding: 1em;
+			min-height: 150px;
+			border-radius: 6px;
+			
+			h3 {
+				margin-bottom: 0.5rem;
+				margin-top: 0;
+			}
+			ol {
+				padding: 0 1rem;
+			}
+			.card-center {
+				margin-top: 1.5rem;
+				
+				.half {
+					width: 48%;
+					display: inline-block;
+				}
+				.category {
+					text-transform: uppercase;
+					font-size: 0.85rem;
+				}
+				.figure {
+					font-size: 1.75rem;
+					margin-top: 1rem;
+					color: #00909e;
+					font-weight: 300;
+					
+					@include min-screen(1400) {
+						font-size: 2.25rem;
+					}
+				}
+			}
+			.card-center.mt {
+				margin-top: 3.25rem;
+			}
+		}
+		.figure-row {
+			padding-bottom: 0.25rem;
+			margin-bottom: 0.5rem;
+			border-bottom: 1px solid rgba(0,0,0,0.1);
+		}
+	}
+
 	#table_report {
 		.table--header {
 			color: #333;

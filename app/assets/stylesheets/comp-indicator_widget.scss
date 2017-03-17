@@ -49,6 +49,22 @@
 }
 .widget_body {
 	line-height: 80px;
+  
+  .half {
+    width: 48%;
+    display: inline-block;
+  }
+  .category {
+    text-transform: uppercase;
+    font-size: 0.85rem;
+  }
+  
+  ol {
+    padding: 0 1rem;
+  }
+}
+.widget_body.categories {
+  line-height: unset;
 }
 .widget_headline i {
 	color: #b1b8b8;
@@ -153,6 +169,11 @@
 	-ms-transform: rotateY(180deg);
 	transform: rotateY(180deg);
 }
+.figure-row {
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
 
 @media (min-width: 768px) {
 	.card_container {
@@ -161,6 +182,9 @@
 	.indicator_widget {
 		margin-right: 6rem;
 	}
+  .indicator_widget.slim {
+    margin-right: 3rem;
+  }
 	.widget_start {
 		margin-right: 6rem;
 	}

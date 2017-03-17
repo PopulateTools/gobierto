@@ -136,13 +136,13 @@ var VisIndicators = Class.extend({
     // TABLE
     var color = d3.scaleQuantile()
       .domain([0, 1])
-      .range(['df-scale--1', 'df-scale--2', 'df-scale--3', 'df-scale--4', 'df-scale--5']);
+      .range(['bg-scale--1', 'bg-scale--2', 'bg-scale--3', 'bg-scale--4', 'bg-scale--5']);
       
     var columns = [
       { head: 'Preguntas', headCl: 'title', cl: 'title', html: function(d) { return d.key; } },
-      { head: 'Reducir', headCl: '', cl: function(d) { return typeof d.values[0] !== 'undefined' ? 'number ' + color(d.values[0].value) : 'empty' }, html: function(d) { return typeof d.values[0] !== 'undefined' ? format(d.values[0].value) : '—' } },
-      { head: 'Mantener', headCl: '', cl: function(d) { return typeof d.values[1] !== 'undefined' ? 'number ' + color(d.values[1].value) : 'empty' }, html: function(d) { return typeof d.values[1] !== 'undefined' ? format(d.values[1].value) : '—' } },
-      { head: 'Aumentar', headCl: '', cl: function(d) { return typeof d.values[2] !== 'undefined' ? 'number ' + color(d.values[2].value) : 'empty' }, html: function(d) { return typeof d.values[2] !== 'undefined' ? format(d.values[2].value) : '—' } },
+      { head: 'Reducir', headCl: 'center', cl: function(d) { return typeof d.values[0] !== 'undefined' ? 'center number ' + color(d.values[0].value) : 'center empty' }, html: function(d) { return typeof d.values[0] !== 'undefined' ? format(d.values[0].value) : '—' } },
+      { head: 'Mantener', headCl: 'center', cl: function(d) { return typeof d.values[1] !== 'undefined' ? 'center number ' + color(d.values[1].value) : 'center empty' }, html: function(d) { return typeof d.values[1] !== 'undefined' ? format(d.values[1].value) : '—' } },
+      { head: 'Aumentar', headCl: 'center', cl: function(d) { return typeof d.values[2] !== 'undefined' ? 'center number ' + color(d.values[2].value) : 'center empty' }, html: function(d) { return typeof d.values[2] !== 'undefined' ? format(d.values[2].value) : '—' } },
     ];
     
     var table = d3.select('#table_report')
@@ -176,7 +176,6 @@ var VisIndicators = Class.extend({
       .enter()
       .append('td')
       .html(function(d) { return d.html; })
-      .attr('class', function(d) { return d.cl; });
-    
+      .attr('class', function(d) { return d.cl; });  
   }
 });

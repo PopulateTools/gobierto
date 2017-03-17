@@ -84,8 +84,6 @@ var VisIndicators = Class.extend({
           .rollup(function(d) { return d.length / this.total; }.bind(this))
           .entries(this.data)
         
-        console.log(this.table);
-        
         this.updateRender();
       }.bind(this));
   },
@@ -139,7 +137,7 @@ var VisIndicators = Class.extend({
     var color = d3.scaleQuantile()
       .domain([0, 1])
       .range(['df-scale--1', 'df-scale--2', 'df-scale--3', 'df-scale--4', 'df-scale--5']);
-    
+      
     var columns = [
       { head: 'Preguntas', headCl: 'title', cl: 'title', html: function(d) { return d.key; } },
       { head: 'Reducir', headCl: '', cl: function(d) { return typeof d.values[0] !== 'undefined' ? 'number ' + color(d.values[0].value) : 'empty' }, html: function(d) { return typeof d.values[0] !== 'undefined' ? format(d.values[0].value) : '—' } },

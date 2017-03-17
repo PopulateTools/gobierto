@@ -230,3 +230,9 @@
 
 
 </div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.consultation_responses_controller.index();
+  <% end %>
+<% end %>

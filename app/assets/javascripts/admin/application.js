@@ -15,17 +15,6 @@
 
 
 $(document).on('turbolinks:load', function() {
-
-  if ($('#age_report').length) {
-    var vis_ageReport = new VisAgeReport('#age_report');
-    vis_ageReport.render();
-  };
-
-  if ($('#consultation-indicators').length) {
-    var vis_consultationIndicators = new VisIndicators('#consultation-indicators');
-    vis_consultationIndicators.render();
-  }
-
   if($('.air-datepicker').length){
     var start = new Date();
     start.setDate(start.getDate() + 1);

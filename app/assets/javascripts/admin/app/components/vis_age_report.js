@@ -7,7 +7,7 @@ var VisAgeReport = Class.extend({
     this.ageGroups = null;
     this.dataUrl = '/consultation-1-responses-2017-03-15.csv';
     this.isMobile = window.innerWidth <= 768;
-
+    
     // Chart dimensions
     this.margin = {top: 25, right: 10, bottom: 25, left: 15};
     this.width = this._width() - this.margin.left - this.margin.right;

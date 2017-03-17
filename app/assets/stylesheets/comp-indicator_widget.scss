@@ -48,7 +48,9 @@
 	font-weight: 600;
 }
 .widget_body {
-	line-height: 80px;
+  @include min-screen(1200) {
+    line-height: 80px;
+  }
   
   .half {
     width: 48%;

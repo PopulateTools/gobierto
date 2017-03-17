@@ -52,7 +52,7 @@ module GobiertoBudgetConsultations
     def projected_responses
       @projected_responses ||= begin
         if open? && consultation_responses.any? && days_open > 0
-          ((consultation_responses.count / days_open.to_f) * days_left).ceil
+          ((consultation_responses.count / days_open.to_f) * days_left).ceil + consultation_responses.count
         else
           nil
         end

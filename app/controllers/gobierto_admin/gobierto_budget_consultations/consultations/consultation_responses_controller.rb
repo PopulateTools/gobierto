@@ -4,9 +4,7 @@ module GobiertoAdmin
       class ConsultationResponsesController < Consultations::BaseController
         def index
           respond_to do |format|
-            format.html do
-              @consultation_responses = @consultation.consultation_responses.sorted
-            end
+            format.html
             format.js
           end
         end

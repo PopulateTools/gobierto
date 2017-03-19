@@ -1,13 +1,13 @@
 'use strict';
 
 var VisAgeReport = Class.extend({
-  init: function(divId) {
+  init: function(divId, url) {
     this.container = divId;
     this.data = null;
     this.ageGroups = null;
-    this.dataUrl = '/consultation-1-responses-2017-03-15.csv';
+    this.dataUrl = url;
     this.isMobile = window.innerWidth <= 768;
-    
+
     // Chart dimensions
     this.margin = {top: 25, right: 10, bottom: 25, left: 15};
     this.width = this._width() - this.margin.left - this.margin.right;
@@ -41,14 +41,14 @@ var VisAgeReport = Class.extend({
     // Append axes containers
     this.svg.append('g').attr('class','x axis');
     this.svg.append('g').attr('class','y axis');
-    
+
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
   },
   getData: function() {
     d3.csv(this.dataUrl)
       .get(function(error, csvData) {
         if (error) throw error;
-        
+
         // Main dataset
         this.data = csvData;
         this.data.forEach(function(d) {
@@ -56,15 +56,15 @@ var VisAgeReport = Class.extend({
           d.answer = +d.answer
           d.id = +d.id
         });
-        
+
         // Make an object for each participant
         var nested = d3.nest()
           .key(function(d) { return d.id })
           .entries(this.data);
-        
+
         // Gather total participations
         var total = nested.length;
-        
+
         // Assign people to age groups
         this.ageGroups = d3.nest()
           .rollup(function(v) { return [
@@ -127,12 +127,12 @@ var VisAgeReport = Class.extend({
       .enter();
 
     var bars = barGroup.append('g')
-      .attr('transform', function(d) { return 'translate('+ this.xScale(d.age_group) + ',' + this.yScale(d.response_rate) + ')'; }.bind(this)); 
-    
+      .attr('transform', function(d) { return 'translate('+ this.xScale(d.age_group) + ',' + this.yScale(d.response_rate) + ')'; }.bind(this));
+
     bars.append('rect')
       .attr('width', this.xScale.bandwidth())
       .attr('height', function(d) { return this.height - this.yScale(d.response_rate) }.bind(this));
-      
+
     bars.append('text')
       .attr('text-anchor', 'middle')
       .attr('dy', -5)
@@ -187,12 +187,12 @@ var VisAgeReport = Class.extend({
 
     // Update bars
     d3.select(this.container + ' .bars').selectAll('g')
-      .attr('transform', function(d) { return 'translate('+ this.xScale(d.age_group) + ',' + this.yScale(d.response_rate) + ')'; }.bind(this)); 
-    
+      .attr('transform', function(d) { return 'translate('+ this.xScale(d.age_group) + ',' + this.yScale(d.response_rate) + ')'; }.bind(this));
+
     d3.select(this.container + ' .bars').selectAll('g rect')
       .attr('width', this.xScale.bandwidth())
       .attr('height', function(d) { return this.height - this.yScale(d.response_rate) }.bind(this));
-      
+
     d3.select(this.container + ' .bars').selectAll('g text')
       .attr('x', this.xScale.bandwidth() / 2)
   }

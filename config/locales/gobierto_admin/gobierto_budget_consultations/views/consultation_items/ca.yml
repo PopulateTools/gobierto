@@ -3,14 +3,14 @@ ca:
   gobierto_admin:
     gobierto_budget_consultations:
       consultations:
+        tabs:
+          consultation_items_section: Partides
+          consultation_section: Consulta
+          consultation_responses_section: Informe
         consultation_items:
           edit:
-            consultation_items_section: Partides
-            consultation_section: Consulta
             title: Editar partida
           edit_modal:
-            consultation_items_section: Partides
-            consultation_section: Consulta
             title: Editar partida
           form:
             placeholders:
@@ -19,16 +19,10 @@ ca:
               description: Descriu aquesta partida breument
               title: Pavimentació de vies públiques
           index:
-            consultation_items_section: Partides
-            consultation_section: Consulta
             drag_to_sort: Arraster per a ordenar
             new: Agregar partida
             title: Partides
           new:
-            consultation_items_section: Partides
-            consultation_section: Consulta
             title: Nova partida
           new_modal:
-            consultation_items_section: Partides
-            consultation_section: Consulta
             title: Nova partida

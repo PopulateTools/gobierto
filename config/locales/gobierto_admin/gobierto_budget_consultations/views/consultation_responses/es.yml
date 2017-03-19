@@ -5,14 +5,30 @@ es:
       consultations:
         consultation_responses:
           index:
-            header:
-              budget_amount: Inversión propuesta
-              consultation_budget_amount: Inversión inicial planificada
-              date: Fecha
-            title: Participaciones
-            view_response: Ver Particpiación
+            title: Reporte
+            stats: Estadísticas
+            participations: Participaciones
+            responses: Respuestas
+            genre: Género
+            male: Hombres
+            female: Mujeres
+            proposals: Propuestas
+            surplus: Superávit
+            deficit: Déficit
+            balance: Equilibrio
+            age_avg: Media de edad
+            years: años
+            places: Lugares
+            participation_by_age: Participación por grupos de edad
+            answers_table: Tabla de respuestas
+            questions: Preguntas
+            reduce: Reducir
+            keep: Mantener
+            increase: Aumentar
           new:
             gender:
               female: Mujer
               male: Hombre
             user_information: Información personal
+
+

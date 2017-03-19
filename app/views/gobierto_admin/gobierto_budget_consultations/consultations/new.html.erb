@@ -8,15 +8,6 @@
   <%= t(".title") %>
 </h1>
 
-<div class="tabs">
-  <ul>
-    <li class="active">
-      <%= link_to t(".consultation_section"), "#" %>
-    </li>
-    <li class="disabled">
-      <%= link_to t(".consultation_items_section"), "#" %>
-    </li>
-  </ul>
-</div>
+<%= render 'gobierto_admin/gobierto_budget_consultations/consultations/tabs' %>
 
 <%= render "form" %>

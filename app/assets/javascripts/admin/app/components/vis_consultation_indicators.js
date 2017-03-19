@@ -1,7 +1,7 @@
 'use strict';
 
 var VisIndicators = Class.extend({
-  init: function(divId) {
+  init: function(divId, url) {
     this.container = divId;
     this.data = null;
     this.total = null;
@@ -10,13 +10,13 @@ var VisIndicators = Class.extend({
     this.avgAge = null;
     this.places = null;
     this.table = null;
-    this.dataUrl = '/consultation-1-responses-2017-03-15.csv';
+    this.dataUrl = url;
   },
   getData: function() {
     d3.csv(this.dataUrl)
       .get(function(error, csvData) {
         if (error) throw error;
-        
+
         // Main dataset
         this.data = csvData;
         this.data.forEach(function(d) {
@@ -24,20 +24,20 @@ var VisIndicators = Class.extend({
           d.answer = +d.answer
           d.id = +d.id
         });
-        
+
         // Make an object for each participant
         var totalNest = d3.nest()
           .key(function(d) { return d.id; })
           .entries(this.data);
-          
+
         totalNest.forEach(function(d) {
           d.age = d.values[0].age;
           d.location = d.values[0].location
         });
-        
+
         // TOTAL RESPONSES
         this.total = totalNest.length;
-        
+
         // GENDER RATIO
         var ratioNest = d3.nest()
           .key(function(d) { return d.gender; })
@@ -45,45 +45,45 @@ var VisIndicators = Class.extend({
           .entries(this.data);
 
         this.genderRatio = [ratioNest[0].values.length / this.total, ratioNest[1].values.length / this.total];
-        
+
         // EQ / DEFICIT RATIO
         var eqNest = d3.nest()
           .key(function(d) { return d.id; })
           .rollup(function(v) { return d3.sum(v, function(d) { return d.answer; }) })
           .entries(this.data);
-          
+
         this.eqRatio = [
           eqNest.filter(function(d) { return d.value < 0; }).length / this.total,
           eqNest.filter(function(d) { return d.value === 0; }).length / this.total,
           eqNest.filter(function(d) { return d.value > 0; }).length / this.total
         ];
-        
+
         // AVERAGE AGE
         this.avgAge = d3.mean(totalNest, function(d) { return d.age; });
-        
+
         // PLACES COUNT
         var placesNest = d3.nest()
           .key(function(d) { return d.location; })
           .key(function(d) { return d.id; })
           .rollup(function(v) { return v.length; })
           .entries(this.data);
-          
+
         this.places = placesNest.map(function(d) {
           return {
             location: d.key,
             responses: d.values.length / this.total
           }
         }.bind(this));
-        
+
         this.places.sort(function(a, b) { return b.responses - a.responses; });
-        
+
         // GET QUESTIONS SUMMARY
         this.table = d3.nest()
           .key(function(d) { return d.question; })
           .key(function(d) { return d.answer; })
           .rollup(function(d) { return d.length / this.total; }.bind(this))
           .entries(this.data)
-        
+
         this.updateRender();
       }.bind(this));
   },
@@ -96,31 +96,31 @@ var VisIndicators = Class.extend({
   },
   updateRender: function(callback) {
     var format = d3.format('.0%');
-    
+
     // TOTAL PARTICIPANTS
     d3.select('.total-participants')
       .text(this.total)
-    
+
     // PARTICIPANTS GENDER
     var genderClasses = ['.ratio-participants-m', '.ratio-participants-w'];
-    
+
     genderClasses.forEach(function(className, i) {
       d3.select(className)
         .text(format(this.genderRatio[i]));
     }.bind(this));
-    
+
     // SURPLUS, EQ AND DEFICIT
     var budgetClasses = ['.ratio-responses-sp', '.ratio-responses-eq', '.ratio-responses-df'];
-    
+
     budgetClasses.forEach(function(className, i){
       d3.select(className)
         .text(format(this.eqRatio[i]));
     }.bind(this));
-    
+
     // AVG AGE
     d3.select('.avg-participants')
       .text(accounting.formatNumber(this.avgAge, 0));
-      
+
     // PLACES LIST
     var placeList = d3.select('.location-participants')
       .append('ol')
@@ -132,22 +132,22 @@ var VisIndicators = Class.extend({
       .append('li')
       .attr('class', 'figure-row')
       .html(function(d) { return d.location + '<span class="f_right">' + format(d.responses); + '</span>' });
-      
+
     // TABLE
     var color = d3.scaleQuantile()
       .domain([0, 1])
       .range(['bg-scale--1', 'bg-scale--2', 'bg-scale--3', 'bg-scale--4', 'bg-scale--5']);
-      
+
     var columns = [
-      { head: 'Preguntas', headCl: 'title', cl: 'title', html: function(d) { return d.key; } },
-      { head: 'Reducir', headCl: 'center', cl: function(d) { return typeof d.values[0] !== 'undefined' ? 'center number ' + color(d.values[0].value) : 'center empty' }, html: function(d) { return typeof d.values[0] !== 'undefined' ? format(d.values[0].value) : '—' } },
-      { head: 'Mantener', headCl: 'center', cl: function(d) { return typeof d.values[1] !== 'undefined' ? 'center number ' + color(d.values[1].value) : 'center empty' }, html: function(d) { return typeof d.values[1] !== 'undefined' ? format(d.values[1].value) : '—' } },
-      { head: 'Aumentar', headCl: 'center', cl: function(d) { return typeof d.values[2] !== 'undefined' ? 'center number ' + color(d.values[2].value) : 'center empty' }, html: function(d) { return typeof d.values[2] !== 'undefined' ? format(d.values[2].value) : '—' } },
+      { head: I18n.t('gobierto_admin.gobierto_budget_consultations.consultations.consultation_responses.index.questions'), headCl: 'title', cl: 'title', html: function(d) { return d.key; } },
+      { head: I18n.t('gobierto_admin.gobierto_budget_consultations.consultations.consultation_responses.index.reduce'), headCl: 'center', cl: function(d) { return typeof d.values[0] !== 'undefined' ? 'center number ' + color(d.values[0].value) : 'center empty' }, html: function(d) { return typeof d.values[0] !== 'undefined' ? format(d.values[0].value) : '—' } },
+      { head: I18n.t('gobierto_admin.gobierto_budget_consultations.consultations.consultation_responses.index.keep'), headCl: 'center', cl: function(d) { return typeof d.values[1] !== 'undefined' ? 'center number ' + color(d.values[1].value) : 'center empty' }, html: function(d) { return typeof d.values[1] !== 'undefined' ? format(d.values[1].value) : '—' } },
+      { head: I18n.t('gobierto_admin.gobierto_budget_consultations.consultations.consultation_responses.index.increase'), headCl: 'center', cl: function(d) { return typeof d.values[2] !== 'undefined' ? 'center number ' + color(d.values[2].value) : 'center empty' }, html: function(d) { return typeof d.values[2] !== 'undefined' ? format(d.values[2].value) : '—' } },
     ];
-    
+
     var table = d3.select('#table_report')
       .append('table');
-      
+
     table.append('thead')
       .append('tr')
       .selectAll('th')
@@ -156,7 +156,7 @@ var VisIndicators = Class.extend({
       .append('th')
       .attr('class', function(d) { return d.headCl + ' table--header' })
       .text(function(d) { return d.head; });
-      
+
     table.append('tbody')
       .selectAll('tr')
       .data(this.table)
@@ -176,6 +176,6 @@ var VisIndicators = Class.extend({
       .enter()
       .append('td')
       .html(function(d) { return d.html; })
-      .attr('class', function(d) { return d.cl; });  
+      .attr('class', function(d) { return d.cl; });
   }
 });

@@ -5,12 +5,26 @@ ca:
       consultations:
         consultation_responses:
           index:
-            header:
-              budget_amount: Proposta d'inversió
-              consultation_budget_amount: Inversió inicial planificada
-              date: Data
-            title: Participacions
-            view_response: Veure Particpiació
+            title: Informe
+            stats: Estadístiques
+            participations: Participacions
+            responses: Respostes
+            genre: Gènere
+            male: Homes
+            female: Dones
+            proposals: Propostes
+            surplus: Superàvit
+            deficit: Dèficit
+            balance: Equilibri
+            age_avg: Mitjana d'edat
+            years: anys
+            places: Llocs
+            participation_by_age: Participació per grups d'edad
+            answers_table: Taula de respostes
+            questions: Preguntes
+            reduce: Reduir
+            keep: Mantindre
+            increase: Augmentar
           new:
             gender:
               female: Dona

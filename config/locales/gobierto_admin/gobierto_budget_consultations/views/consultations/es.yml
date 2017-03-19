@@ -23,8 +23,6 @@ es:
             replace: "¿Quieres eliminar su participación para poder cargar otra?"
             search_another: Buscar otro
         edit:
-          consultation_items_section: Partidas
-          consultation_section: Consulta
           title: Editar consulta
         form:
           check_id: Comprobar la participación de un ID
@@ -63,6 +61,4 @@ es:
             active: Publicada
             draft: Borrador
         new:
-          consultation_items_section: Partidas
-          consultation_section: Consulta
           title: Nueva consulta

@@ -1,15 +1,15 @@
 this.GobiertoAdmin.ConsultationResponsesController = (function() {
   function ConsultationResponsesController() {}
 
-  ConsultationResponsesController.prototype.index = function() {
-    _loadReport();
+  ConsultationResponsesController.prototype.index = function(dataUrl) {
+    _loadReport(dataUrl);
   };
-  
-  function _loadReport() {
-    var vis_ageReport = new VisAgeReport('#age_report');
+
+  function _loadReport(dataUrl) {
+    var vis_ageReport = new VisAgeReport('#age_report', dataUrl);
     vis_ageReport.render();
 
-    var vis_consultationIndicators = new VisIndicators('#consultation-indicators');
+    var vis_consultationIndicators = new VisIndicators('#consultation-indicators', dataUrl);
     vis_consultationIndicators.render();
   }
 

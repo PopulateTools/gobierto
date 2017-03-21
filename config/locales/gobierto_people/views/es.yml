@@ -20,6 +20,20 @@ es:
         home: Inicio
         people: Cargos
         statements: Declaraciones
+    exports:
+      index:
+        events:
+          title: Agendas
+          description: Listado de los eventos (pasados y futuros) con título y descripción, asistentes, ubicación...
+        people:
+          title: Cargos
+          description: Listado de los cargos, con sus datos de contacto, biografía, titulaciones, etc.
+        posts:
+          title: Blogs
+          description: Últimas entradas del conjunto de los blogs.
+        statements:
+          title: Declaraciones de bienes y actividades
+          description: Listado de las declaraciones de bienes y actividades y todos sus elementos.
     people:
       contact_methods:
         send_email: Envía un correo-e
@@ -34,6 +48,7 @@ es:
         agenda: Agenda
         bio: Biografía y CV
         blog: Blog
+        exports: Descarga los datos en formato reutilizable
         statements: Bienes y Actividades
       person:
         picture: Foto de %{name}

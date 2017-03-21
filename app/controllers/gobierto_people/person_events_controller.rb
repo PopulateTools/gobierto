@@ -7,6 +7,12 @@ module GobiertoPeople
       @events = filter_by_date_param if params[:date]
       @people = current_site.people.active.sorted
       @political_groups = get_political_groups
+
+      respond_to do |format|
+        format.html
+        format.json { render json: @events }
+        format.csv  { render csv: GobiertoExports::CSVRenderer.new(@events).to_csv, filename: 'events' }
+      end
     end
 
     private

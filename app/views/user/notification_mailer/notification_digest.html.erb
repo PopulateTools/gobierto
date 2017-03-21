@@ -1,5 +1,5 @@
 <p>
-  <%= t('.hi') %>
+  <%= t('.hi') %>,
 </p>
 
 <p>
@@ -8,13 +8,14 @@
 
 <ul>
   <% @user_notifications.each do |user_notification| %>
-    <li>
-      <%= user_notification.subject_name %>: <%= user_notification.translated_action %>
-    </li>
+    <li><%= user_notification.translated_action %>: <%= link_to user_notification.subject_name, user_notification.url %></li>
   <% end %>
 </ul>
 
 <p>
-  <%= t('.bye') %>,<br>
-  <%= @site.name %>
+  <%= t('.manage_notifications_html', url: user_subscriptions_url(domain: @site.domain)) %>.
+</p>
+
+<p>
+  <%= t('.bye') %>
 </p>

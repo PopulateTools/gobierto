@@ -22,7 +22,7 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("h1", text: person.name)
+        assert has_selector?("h2", text: person.name)
         assert has_selector?(".person_charge", text: person.charge)
       end
     end

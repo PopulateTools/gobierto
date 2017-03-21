@@ -14,16 +14,16 @@ en:
             title: Edit budget line
           form:
             placeholders:
-              budget_line_amount: "250,000"
-              title: Repair streets
-              budget_line_name: (Optional) Pick a budget line from the official classification
+              budget_line_amount: '250,000'
+              budget_line_name: "(Optional) Pick a budget line from the official classification"
               description: Describe this budget line briefly
+              title: Repair streets
           index:
             consultation_items_section: Budget lines
             consultation_section: Consultation
+            drag_to_sort: Drag to sort
             new: Add budget line
             title: Budget lines
-            drag_to_sort: Drag to sort
           new:
             consultation_items_section: Budget lines
             consultation_section: Consultation

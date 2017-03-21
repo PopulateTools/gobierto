@@ -7,6 +7,7 @@ ca:
           edit:
             title: Editar agrupació
           index:
+            drag_to_sort: Arrastra per a ordenar
             header:
               created: Creada
               political_group: Agrupació
@@ -15,11 +16,11 @@ ca:
             title: Nova agrupación
         settings:
           index:
-            update: Actualitzar
             header:
               key: Nom
               value: Valor
             settings:
-              home_text_es: Text home espanyol
               home_text_ca: Text home català
+              home_text_es: Text home espanyol
+            update: Actualitzar
         title: Configuració

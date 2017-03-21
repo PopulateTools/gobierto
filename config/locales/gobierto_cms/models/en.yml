@@ -3,8 +3,8 @@ en:
   activerecord:
     attributes:
       gobierto_cms/page:
-        title: Title
         body: Body
         slug: URL
+        title: Title
     models:
       gobierto_cms/page: Page

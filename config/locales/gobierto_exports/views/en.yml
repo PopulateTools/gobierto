@@ -1,0 +1,10 @@
+---
+en:
+  gobierto_exports:
+    layouts:
+      application:
+        exports: Download data
+    exports:
+      index:
+        title: Download data
+        subtitle: In this page you can download the site data in a reusable format.

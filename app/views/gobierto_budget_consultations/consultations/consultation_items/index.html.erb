@@ -26,7 +26,7 @@
         <% @consultation_items.each do |consultation_item| %>
           <div class="consultation-card">
             <div class="card-title">
-              <div class="consultation-title"><%= consultation_item.title %></div>
+              <h3 class="consultation-title"><%= consultation_item.title %></h3>
               <div class="consultation-figure"><%= budget_amount_to_human(consultation_item.budget_line_amount) %></div>
             </div>
           </div>

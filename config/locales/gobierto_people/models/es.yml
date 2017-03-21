@@ -1,5 +1,13 @@
 ---
 es:
+  activemodel:
+    attributes:
+      gobierto_people/person_message:
+        body: Mensaje
+        email: Tu e-mail
+        name: Tu nombre
+    models:
+      gobierto_people/person_message: Mensaje
   activerecord:
     attributes:
       gobierto_people/person_event_attendee:
@@ -16,11 +24,3 @@ es:
       gobierto_people/person_event_location: Localizacion
       gobierto_people/person_post: Post
       gobierto_people/person_statement: Declaracion
-  activemodel:
-    attributes:
-      gobierto_people/person_message:
-        name: Tu nombre
-        email: Tu e-mail
-        body: Mensaje
-    models:
-      gobierto_people/person_message: Mensaje

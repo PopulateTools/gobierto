@@ -16,14 +16,14 @@ ca:
           index:
             header:
               date: Data
+              status: Estat
               tags: Tags
               title: Títol
-              status: Estat
             new: Nou post
             title: Blog
             view_post: Veure post
             visibility_level:
-              draft: Borrador
               active: Publicat
+              draft: Borrador
           new:
             title: Nou post

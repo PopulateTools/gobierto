@@ -1,5 +1,4 @@
 require "test_helper"
-require "csv"
 
 module GobiertoAdmin
   class CensusImportFormTest < ActiveSupport::TestCase
@@ -53,7 +52,7 @@ module GobiertoAdmin
     end
 
     def test_items_creation
-      assert_difference "CensusItem.count", 1 do
+      assert_difference "CensusItem.count", -1 do
         valid_user_census_import_form.save
       end
     end

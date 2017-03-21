@@ -3,4 +3,4 @@ ca:
   gobierto_admin:
     form_helpers:
       rich_text_area:
-        hints: Arrossega i deixa anar una imatge per incloure-la.
+        hints: Arrossega una imatge per incloure-la.

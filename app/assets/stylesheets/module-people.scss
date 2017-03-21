@@ -8,6 +8,9 @@ body.gobierto_people {
   .block + .person-item {
     margin-top: 2em;
   }
+  .avatar-title {
+    margin: 0;
+  }
   img.avatar {
     object-fit: cover;
     width: 100%;
@@ -48,6 +51,10 @@ body.gobierto_people {
     .person-name {
       padding: 0 0 0 1.5em;
       box-sizing: border-box;
+      
+      h3 {
+        margin: 0;
+      }
     }
     h4 {
       margin: 0;
@@ -183,6 +190,9 @@ body.gobierto_people {
   .person-post-excerpt {
     margin: 0 0 5em 0;
   }
+  .person_post-title {
+    font-size: 1.5em;
+  }
 }
 
 body.gobierto_people.welcome.index {
@@ -216,7 +226,7 @@ body.gobierto_people {
 
   .person_header {
     margin: 0 0 2em 0;
-    h1 {
+    h2 {
       margin: 0 0 .25em 0;
       font-size: 2em;
       font-weight: bold;
@@ -243,6 +253,29 @@ body.gobierto_people {
     }
 
   }
+  
+  h2.statement_header {
+    font-size: 1.6em;
+    font-weight: 300;
+  }
+  
+  .bio-subtitle {
+    font-size: 1.5em;
+  }
+  
+  .latest-activity {
+    li h4 {
+      margin: 0;
+      font-weight: 400;
+      display: inline-block;
+    }
+  }
+  
+  .person_statement-item {
+    h3 {
+      margin: 0;
+    }
+  }
 
 }
 
@@ -253,14 +286,17 @@ body.gobierto_people {
     list-style-type: none;
   }
   li {
-    a {
-      padding: .5em 1.5em;
+    h3 {
+      margin: 0;
       font-size: 1.15em;
-      font-weight: bold;
-      display: block;
-    }
-    a.active, a:hover {
-      background: $color_1_soft;
+      a {
+        padding: .5em 1.5em;
+        font-weight: bold;
+        display: block;
+      }
+      a.active, a:hover {
+        background: $color_1_soft;
+      }
     }
   }
 }
@@ -291,6 +327,11 @@ body.gobierto_people {
   }
   ul {
     margin: 1em 0 .5em 0;
+    
+    h4 {
+      display: inline-block;
+      margin: 0;
+    }
   }
 }
 

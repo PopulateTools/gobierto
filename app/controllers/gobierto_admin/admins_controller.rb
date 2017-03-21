@@ -120,7 +120,7 @@ module GobiertoAdmin
     end
 
     def set_activities
-      @activities = ActivityCollectionDecorator.new(Activity.admin_activities(@admin))
+      @activities = ActivityCollectionDecorator.new(Activity.admin_activities(@admin).page(params[:page]))
     end
 
     def track_create_activity

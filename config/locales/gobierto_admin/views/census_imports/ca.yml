@@ -4,9 +4,9 @@ ca:
     census:
       imports:
         file_format_notes:
-          instructions: 'El archiu a carregar deu ser un CSV, snese fila de capcalera,
-            amb les columnes de dades que vullguem que el usuari haja de verificar.
-            Per exemple, si volver que valide DNI, data de naiximent i codi postal,
+          instructions: 'El arxiu a carregar deu de ser un CSV, sense fila de capcalera,
+            amb les columnes de dades que vulguem que el usuari hagi de verificar.
+            Per exemple, si volem validar DNI, data de naixement i codi postal,
             deurem preparar un arxiu com aquest:'
         form:
           disable_with: Carregant...

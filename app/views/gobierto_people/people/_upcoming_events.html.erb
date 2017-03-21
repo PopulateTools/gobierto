@@ -9,7 +9,7 @@
           <span class="soft">
             <%= event.starts_at.day %> <%= l(event.starts_at, format: "%b").capitalize %> ·
           </span>
-          <strong><%= link_to event.title, gobierto_people_person_event_path(@person, event) %></strong>
+          <h4 class="event-title"><%= link_to event.title, gobierto_people_person_event_path(@person, event) %></h4>
         </li>
       <% end %>
     </ul>

@@ -1,47 +1,47 @@
 ---
 ca:
-  census:
-    events:
-      census_census_imported: Cens importat
-  sites:
-    events:
-      sites_site_visibility_updated: Site publicat
-      sites_site_created: Site creat
-      sites_site_updated: Site actualitzat
-      sites_site_destroyed: Site eliminat
   admins:
     events:
       admins_admin_authorization_level_updated: Nivel autorització admin actualitzat
-      admins_invitation_created: Admin invitat
-      admins_invitation_accepted: Invitació admin aceptada
       admins_admin_created: Admin creat
       admins_admin_updated: Admin actualitzat
-  users:
-    events:
-      users_user_updated: Usuari actualitzat
+      admins_invitation_accepted: Invitació admin aceptada
+      admins_invitation_created: Admin invitat
   based_on: Web basat en
+  census:
+    events:
+      census_census_imported: Cens importat
+  helpers:
+    page_entries_info:
+      more_pages:
+        display_entries: Mostrant %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b>
+          de <b>%{total}</b> en total
+      one_page:
+        display_entries:
+          one: Mostrant <b>1</b> %{entry_name}
+          other: Mostrant <b>%{count}</b> %{entry_name}
+          zero: No hi ha %{entry_name}
   invisible_captcha:
-    sentence_for_humans: "Si ets humà, per favor, ignora este camp."
-    timestamp_error_message: "Disulpa, això ha sigut molt rapid. Torna a enviar el formulari."
+    sentence_for_humans: Si ets humà, per favor, ignora aquest camp.
+    timestamp_error_message: Disculpa, això ha sigut molt rapid. Torna a enviar el
+      formulari.
   layouts:
     accept_privacy_policy_signup: Al registrar-te estàs acceptant la Política de Privacitat
-    main_menu: 
-      search: Cerca...
     application:
-      disclaimer: Aquesta web es una demostració de Gobierto, software de transparència
+      disclaimer: Aquesta web es una demostració de Gobierto, un programari de transparència
         i participació
       more_information: Més informació en gobierto.es
+      search: Cerca...
       session:
         alerts: Les teves alertes
         notifications: Notificacions
         sign_in: Iniciar sessió
-        sign_out: Tancar sessió
+        sign_out: Surt
         title: El teu compte
-      search: Cerca...
     gobierto_budget_consultations:
       application:
         about_the_data: Sobre les dades
-        disclaimer: Aquesta web es una demostració de Gobierto, software de transparència
+        disclaimer: Aquesta web es una demostració de Gobierto, un programari de transparència
           i participació
         is_open_source: es software lliure creat per
         more_information: Més informació en gobierto.es
@@ -66,12 +66,14 @@ ca:
           sign_in: Iniciar sessió
           sign_out: Tancar sessió
           title: El teu compte
+    main_menu:
+      search: Cerca...
     sandbox:
       application:
         about_the_data: Sobre les dades
-        disclaimer: Aquesta web es una demostració de Gobierto, software de transparència
+        disclaimer: Aquesta web es una demostració de Gobierto, un programari de transparència
           i participació
-        is_open_source: es software lliure creat per
+        is_open_source: es programari lliure creat per
         more_information: Més informació en gobierto.es
         session:
           admin: Administració
@@ -81,9 +83,25 @@ ca:
           sign_out: Tancar sessió
           title: El teu compte
     search:
-      updated: Actualitat
+      page_item: Pàgina
+      person_event_item: Event
       person_item: Biografia
       person_post_item: Post
-      person_event_item: Event
       person_statement_item: Declaració
-      page_item: Pàgina
+      updated: Actualitat
+  sites:
+    events:
+      sites_site_created: Site creat
+      sites_site_destroyed: Site eliminat
+      sites_site_updated: Site actualitzat
+      sites_site_visibility_updated: Site publicat
+  users:
+    events:
+      users_user_updated: Usuari actualitzat
+  views:
+    pagination:
+      first: "&laquo; Primera"
+      last: Última &raquo;
+      next: Següent &rsaquo;
+      previous: "&lsaquo; Anterior"
+      truncate: "&hellip;"

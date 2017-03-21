@@ -5,6 +5,6 @@ ca:
       application:
         account: El teu compte
       menu_subsections:
-        admin: Ajusts
+        admin: Configuració
         alerts: Las teves alertes
         notifications: Notificacions

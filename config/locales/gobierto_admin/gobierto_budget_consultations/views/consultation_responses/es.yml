@@ -13,6 +13,6 @@ es:
             view_response: Ver Particpiación
           new:
             gender:
-              male: Hombre
               female: Mujer
+              male: Hombre
             user_information: Información personal

@@ -83,19 +83,19 @@ es:
         other: hace más de %{count} años
       x_days:
         one: hace 1 día
-        other: "hace %{count} días"
+        other: hace %{count} días
       x_minutes:
         one: hace 1 minuto
-        other: "hace %{count} minutos"
+        other: hace %{count} minutos
       x_months:
         one: hace 1 mes
-        other: "hace %{count} meses"
+        other: hace %{count} meses
       x_seconds:
         one: hace 1 segundo
-        other: "hace %{count} segundos"
+        other: hace %{count} segundos
       x_years:
         one: hace 1 año
-        other: "hace %{count} años"
+        other: hace %{count} años
     prompts:
       day: Día
       hour: Hora
@@ -108,6 +108,7 @@ es:
     messages:
       accepted: debe ser aceptado
       blank: no puede estar en blanco
+      blank_for_modules: tiene que ser un municipio para que los módulos activos funcionen
       confirmation: no coincide
       empty: no puede estar vacío
       equal_to: debe ser igual a %{count}
@@ -117,6 +118,8 @@ es:
       greater_than_or_equal_to: debe ser mayor que o igual a %{count}
       inclusion: no está incluido en la lista
       invalid: no es válido
+      invalid_consultation_response: No se ha podido guardar la consulta. Por favor,
+        revisa los valores e inténtalo de nuevo.
       less_than: debe ser menor que %{count}
       less_than_or_equal_to: debe ser menor que o igual a %{count}
       not_a_number: no es un número
@@ -132,8 +135,6 @@ es:
       too_long: es demasiado largo (%{count} caracteres máximo)
       too_short: es demasiado corto (%{count} caracteres mínimo)
       wrong_length: no tiene la longitud correcta (%{count} caracteres exactos)
-      blank_for_modules: tiene que ser un municipio para que los módulos activos funcionen
-      invalid_consultation_response: No se ha podido guardar la consulta. Por favor, revisa los valores e inténtalo de nuevo.
     template:
       body: 'Se encontraron problemas con los siguientes campos:'
       header:

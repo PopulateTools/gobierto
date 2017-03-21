@@ -3,6 +3,6 @@ es:
   gobierto_people:
     person_mailer:
       new_message:
-        subject: "Has recibido un nuevo mensaje desde %{name}"
-        hi: "Hola"
-        new_message: "Has recibido un nuevo mensaje de %{name} (%{reply_to})"
+        hi: Hola
+        new_message: Has recibido un nuevo mensaje de %{name} (%{reply_to})
+        subject: Has recibido un nuevo mensaje desde %{name}

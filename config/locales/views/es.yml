@@ -1,43 +1,43 @@
 ---
 es:
-  census:
-    events:
-      census_census_imported: Censo importado
-  sites:
-    events:
-      sites_site_visibility_updated: Site publicado
-      sites_site_created: Site creado
-      sites_site_updated: Site actualizado
-      sites_site_destroyed: Site eliminado
   admins:
     events:
       admins_admin_authorization_level_updated: Nivel autorización admin actualizado
-      admins_invitation_created: Admin invitado
-      admins_invitation_accepted: Invitación admin aceptada
       admins_admin_created: Admin creado
       admins_admin_updated: Admin actualizado
-  users:
+      admins_invitation_accepted: Invitación admin aceptada
+      admins_invitation_created: Admin invitado
+  based_on: Web basada en
+  census:
     events:
-      users_user_updated: Usuario actualizado
-  based_on: Web basada en 
+      census_census_imported: Censo importado
+  helpers:
+    page_entries_info:
+      more_pages:
+        display_entries: Mostrando %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b>
+          de <b>%{total}</b> en total
+      one_page:
+        display_entries:
+          one: Mostrando <b>1</b> %{entry_name}
+          other: Mostrando <b>%{count}</b> %{entry_name}
+          zero: No hay %{entry_name}
   invisible_captcha:
-    sentence_for_humans: "Si eres humano, por favor ignora este campo."
-    timestamp_error_message: "Lo siento, eso ha sido muy rápido. Por favor, vuelve a enviar el formulario."
+    sentence_for_humans: Si eres humano, por favor ignora este campo.
+    timestamp_error_message: Lo siento, eso ha sido muy rápido. Por favor, vuelve
+      a enviar el formulario.
   layouts:
     accept_privacy_policy_signup: Al registrarte estás aceptando la Política de Privacidad
-    main_menu: 
-      search: Busca...
     application:
       disclaimer: Esta web es una demostración de Gobierto, software de transparencia
         y participación
       more_information: Más información en gobierto.es
+      search: Busca...
       session:
         alerts: Tus alertas
         notifications: Notificaciones
         sign_in: Iniciar sesión
         sign_out: Cerrar sesión
         title: Tu cuenta
-      search: Busca...
     gobierto_budget_consultations:
       application:
         about_the_data: Sobre los datos
@@ -66,6 +66,8 @@ es:
           sign_in: Iniciar sesión
           sign_out: Cerrar sesión
           title: Tu cuenta
+    main_menu:
+      search: Busca...
     sandbox:
       application:
         about_the_data: Sobre los datos
@@ -81,9 +83,25 @@ es:
           sign_out: Cerrar sesión
           title: Tu cuenta
     search:
-      updated: Actualizado
+      page_item: Página
+      person_event_item: Evento
       person_item: Biografía
       person_post_item: Post
-      person_event_item: Evento
       person_statement_item: Declaración
-      page_item: Página
+      updated: Actualizado
+  sites:
+    events:
+      sites_site_created: Site creado
+      sites_site_destroyed: Site eliminado
+      sites_site_updated: Site actualizado
+      sites_site_visibility_updated: Site publicado
+  users:
+    events:
+      users_user_updated: Usuario actualizado
+  views:
+    pagination:
+      first: "&laquo; Primera"
+      last: Última &raquo;
+      next: Siguiente &rsaquo;
+      previous: "&lsaquo; Anterior"
+      truncate: "&hellip;"

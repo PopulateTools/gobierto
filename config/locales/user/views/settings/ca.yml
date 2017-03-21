@@ -2,22 +2,22 @@
 ca:
   user:
     settings:
-      show:
-        title: El teu compte
       form:
         gender:
           female: Dona
           male: Home
         hints:
-          email: La teva direcció de correu-e serà privada en tot moment. Només l'utilitzarem
+          date_of_birth: Aquesta informació serà privada, i nunca s'identificarà amb
+            el teu perfil. La dada serà anonimitzada, i te la demanem només per a
+            poder obtindre informació segmentada i entendre millor les opinions i
+            preferències dels ciutadans.
+          email: La teva adreça de correu-e serà privada en tot moment. Només l'utilitzarem
             per enviar-te comunicacions.
           gender: Aquesta informació serà privada, i nunca s'identificarà amb el teu
             perfil. La dada serà anonimitzada, i te la demanem només per a poder obtindre
             informació segmentada i entendre millor les opinions i preferències dels
             ciutadans.
-          date_of_birth: Aquesta informació serà privada, i nunca s'identificarà amb
-            el teu perfil. La dada serà anonimitzada, i te la demanem només per a
-            poder obtindre informació segmentada i entendre millor les opinions i
-            preferències dels ciutadans.
         submit: Guardar
         your_gender_is: Eres...
+      show:
+        title: El teu compte

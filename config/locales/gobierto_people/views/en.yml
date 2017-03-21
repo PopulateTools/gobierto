@@ -2,14 +2,15 @@
 en:
   gobierto_people:
     events:
+      gobierto_people_person_event_published: 'Calendar updated with a new event:
+        %{subject_name}'
+      gobierto_people_person_event_updated: 'Event updated: %{subject_name}'
+      gobierto_people_person_post_published: 'Blog updated: %{subject_name}'
+      gobierto_people_person_post_updated: 'Post updated: %{subject_name}'
+      gobierto_people_person_published: 'New person published: %{subject_name}'
+      gobierto_people_person_statement_published: 'New statement published: %{subject_name}'
+      gobierto_people_person_statement_updated: 'Statement updated: %{subject_name}'
       gobierto_people_person_updated: Personal information updated
-      gobierto_people_person_published: "New person published: %{subject_name}"
-      gobierto_people_person_post_updated: "Post updated: %{subject_name}"
-      gobierto_people_person_post_published: "Blog updated: %{subject_name}"
-      gobierto_people_person_event_updated: "Event updated: %{subject_name}"
-      gobierto_people_person_event_published: "Calendar updated with a new event: %{subject_name}"
-      gobierto_people_person_statement_updated: "Statement updated: %{subject_name}"
-      gobierto_people_person_statement_published: "New statement published: %{subject_name}"
     layouts:
       application:
         title: Officials and Agendas
@@ -19,20 +20,23 @@ en:
         home: Home
         people: Officials
         statements: Statements
+    exports:
+      index:
+        events:
+          title: Agendas
+          description: Listing of all events (past and future) with title, description, participants, location, etc.
+        people:
+          title: Officials
+          description: Listing of officiald with their contact information, biography, CV, etc.
+        posts:
+          title: Blogs
+          description: Latest posts in all blogs.
+        statements:
+          title: Statements
+          description: Listing of all statements and it elements.
     people:
-      subscription_button:
-        follow: Follow
-        cancel: Cancel
-      person_messages:
-        new:
-          title: Send a message %{name}
-          placeholders:
-            name: Your name
-            email: Your email
-            body: Write a message
-          submit: Send
-      person:
-        picture: Picture of %{name}
+      contact_methods:
+        send_email: Send an email
       index:
         subscribable_box:
           title: Receive alerts in your inbox
@@ -40,13 +44,14 @@ en:
       latest_activity:
         no_activity: This profile has not registered any activity yet.
         title: Latest activity
-      contact_methods:
-        send_email: Send an email
       navigation:
         agenda: Agenda
         bio: Biography and CV
         blog: Blog
+        exports: Download data in a reusable format
         statements: Goods and Activities
+      person:
+        picture: Picture of %{name}
       person_bio:
         show:
           download: Download CV
@@ -54,12 +59,12 @@ en:
           title: "%{person_name}'s profile"
       person_events:
         index:
+          no_events: There are no events in this agenda
           past_events: Past events
           subscribable_box:
             title: Receive %{person_name}'s updates in your inbox
           title: "%{person_name}'s agenda"
           upcoming_events: Agenda
-          no_events: There are no events in this agenda
         show:
           event_data:
             event_attendees: Attendees
@@ -68,22 +73,30 @@ en:
             subtitle: Get updates, questions and news
             title: Follow this event
           title: "%{person_name}'s agenda"
+      person_messages:
+        new:
+          placeholders:
+            body: Write a message
+            email: Your email
+            name: Your name
+          submit: Send
+          title: Send a message %{name}
       person_post_tags:
         show:
           filtering_by_tag: Filtering by "%{tag}"
           go_back: Back to blog
       person_posts:
         index:
-          title: "%{person_name}, %{person_charge}'s blog"
           no_posts: There aren't posts published.
+          title: "%{person_name}, %{person_charge}'s blog"
         show:
           subscribable_box:
             title: Receive updates in your inbox
           title: "%{person_name}, %{person_charge}'s blog"
       person_statements:
         index:
-          title: "%{person_name}'s goods and Activities"
           no_statements: There aren't yet statems for this person.
+          title: "%{person_name}'s goods and Activities"
         show:
           download: Download statement (%{file_size})
           subscribable_box:
@@ -96,10 +109,13 @@ en:
           oposition: Oposition
         subscribable_box:
           title: Receive %{person_name}'s updates in your inbox
+      subscription_button:
+        cancel: Cancel
+        follow: Follow
       upcoming_events:
+        no_upcoming_events: Ther eare no upcoming events
         title: Agenda
         view_all: View all
-        no_upcoming_events: Ther eare no upcoming events
     people_filter:
       all: All
       categories:
@@ -129,21 +145,21 @@ en:
           title: Receive alerts in your inbox
     person_posts:
       index:
-        switcher:
-          title: Check posts from...
-          subtitle: Filter by community members
         subscribable_box:
           title: Receive alerts in your inbox
+        switcher:
+          subtitle: Filter by community members
+          title: Check posts from...
         title: Blogs
       person_post_excerpt:
         continue: Continue reading
     person_statements:
       index:
-        switcher:
-          title: Check statements from...
-          subtitle: Filter by community members
         subscribable_box:
           title: Receive alerts in your inbox
+        switcher:
+          subtitle: Filter by community members
+          title: Check statements from...
         title: Statements
     welcome:
       index:

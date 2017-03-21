@@ -1,7 +1,7 @@
 require "test_helper"
 
 module GobiertoAdmin
-  class Census::ImporsControllerTest < GobiertoControllerTest
+  class Census::ImportsControllerTest < GobiertoControllerTest
     def admin
       @admin ||= gobierto_admin_admins(:nick)
     end

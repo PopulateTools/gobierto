@@ -16,14 +16,14 @@ es:
           index:
             header:
               date: Fecha
+              status: Estado
               tags: Tags
               title: Título
-              status: Estado
             new: Nuevo post
             title: Blog
             view_post: Ver post
             visibility_level:
-              draft: Borrador
               active: Publicado
+              draft: Borrador
           new:
             title: Nuevo post

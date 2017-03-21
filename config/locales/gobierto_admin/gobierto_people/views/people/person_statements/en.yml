@@ -16,13 +16,12 @@ en:
             header:
               date: Date
               statement: Statement
-              status: Status
               status: Estat
             new: New statement
             title: Statements
             view_statement: View statement
             visibility_level:
-              draft: Draft
               active: Published
+              draft: Draft
           new:
             title: New statement

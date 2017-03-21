@@ -4,11 +4,6 @@
  */
 
 // Intro
-.gobierto_indicators h4 {
-	font-weight: 400;
-	text-align: left;
-	color: $text_soft;
-}
 .gobierto_indicators section {
 	padding-top: 2rem;
 	border-top: 1px solid #EBEBEB;
@@ -35,8 +30,19 @@
 .section_desc {
 	margin-top: 0;
 }
+.widget_headline h3 {
+	color: $color_text;
+	font-weight: 400;
+	margin: 0;
+}
 
 /* Graphics */
+.chart_headline {
+	font-size: 1rem;
+	color: #A5A5A5;
+	margin-top: 0;
+	font-weight: 400;
+}
 .gobierto_indicators .axis path {
 	stroke: #BDBDBD;
 }

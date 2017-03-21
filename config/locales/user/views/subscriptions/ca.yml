@@ -3,29 +3,29 @@ ca:
   user:
     subscriptions:
       index:
+        areas: Àrees
+        consultations: Consultes pressupostos
+        frequency: Freqüència
         modules:
-          gobierto_people: Persones
-          gobierto_indicators: Indicadors
-          gobierto_budgets: Pressupostos
           gobierto_budget_consultations: Consultes de pressupostos
+          gobierto_budgets: Pressupostos
+          gobierto_indicators: Indicadors
+          gobierto_people: Persones
         notification_frequency:
           daily: Resum diari
           disabled: Deshabilitades
           hourly: Resum cada hora
           immediate: Inmediates
+          submit: Desa
           weekly: Resum setmanal
-          submit: Guardar
-        title: Les teves alertes
-        submit: Guardar
-        frequency: Freqüència
-        whole_site: Tot el site
-        areas: Àrees
         people: Persones
-        consultations: Consultes pressupostos
+        submit: Desa
+        title: Les teves alertes
+        whole_site: Tot el site
       subscribable_box:
-        cancel: Ja estàs subscrits. cancel·lar?
+        cancel: Ja estàs subscrit. cancel·lar?
         form:
           placeholders:
             user_email: El teu correu-e
-          submit: Suscriurem
-        subscribe: Suscriurem
+          submit: Subscriu-m'hi
+        subscribe: Subscriu-m'hi

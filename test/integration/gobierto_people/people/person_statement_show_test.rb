@@ -33,7 +33,7 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          assert has_selector?("h1", text: "#{person.name}'s goods and Activities")
+          assert has_selector?("h2", text: "#{person.name}'s goods and Activities")
           assert has_selector?("h3", text: statement.title)
         end
       end

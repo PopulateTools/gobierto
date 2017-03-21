@@ -7,6 +7,7 @@ en:
           edit:
             title: Edit group
           index:
+            drag_to_sort: Drag to sort
             header:
               created: Created
               political_group: Group
@@ -15,11 +16,11 @@ en:
             title: New group
         settings:
           index:
-            update: Update
             header:
               key: Name
               value: Value
             settings:
-              home_text_es: Home text Spanish
               home_text_ca: Home text Catalan
+              home_text_es: Home text Spanish
+            update: Update
         title: Configuration

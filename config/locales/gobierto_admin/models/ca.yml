@@ -6,17 +6,19 @@ ca:
         email: Email
       gobierto_admin/admin_edit_password_form:
         password: Contrasenya
-        password_confirmation: Confirmació de contrasenya
+        password_confirmation: Confirmació de la contrasenya
       gobierto_admin/admin_form:
         email: Email
         name: Nom
         password: Contrasenya
-        password_confirmation: Confirmación de contrasenya
+        password_confirmation: Confirmació de la contrasenya
       gobierto_admin/admin_invitation_form:
         emails: Emails
       gobierto_admin/admin_new_password_form:
         email: Email
       gobierto_admin/site_form:
+        available_locales: Idiomes disponibles
+        default_locale: Idioma per defecte
         domain: Domini
         foot_markup: HTML de Peu
         google_analytics_id: Codi de Google Analytics
@@ -24,12 +26,10 @@ ca:
         links_markup: HTML de Enllaços
         location_name: Municipi
         logo_file: Logotip
-        name: Nom de l'entitat
-        title: Nom del site
         municipality_id: Municipi
-        default_locale: Idioma per defecte
-        available_locales: Idiomes disponibles
+        name: Nom de l'entitat
         privacy_page_id: Pàgina privacitat
+        title: Nom del site
       gobierto_admin/user_form:
         email: Email
         name: Nom

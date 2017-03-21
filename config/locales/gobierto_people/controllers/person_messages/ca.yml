@@ -4,5 +4,5 @@ ca:
     people:
       person_messages:
         create:
-          success: Missatge enviat correctamente
           error: No s'ha pogut enviar el missatge
+          success: Missatge enviat correctamente

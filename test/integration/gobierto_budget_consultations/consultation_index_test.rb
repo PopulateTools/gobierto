@@ -34,7 +34,7 @@ module GobiertoBudgetConsultations
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("h1", text: "Active consultations")
+        assert has_selector?("h2", text: "Active consultations")
 
         within ".active-consultations" do
           active_consultations.each do |consultation|
@@ -70,7 +70,7 @@ module GobiertoBudgetConsultations
         with_signed_in_user(user) do
           visit @path
 
-          assert has_selector?("h1", text: "Active consultations")
+          assert has_selector?("h2", text: "Active consultations")
 
           within ".active-consultations" do
             assert has_link?("Consulta sobre los presupuestos de Madrid (You already responded)")

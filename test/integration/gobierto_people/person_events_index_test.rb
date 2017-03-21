@@ -5,6 +5,8 @@ module GobiertoPeople
     def setup
       super
       @path = gobierto_people_events_path
+      @path_for_json = gobierto_people_events_path(format: :json)
+      @path_for_csv = gobierto_people_events_path(format: :csv)
     end
 
     def site
@@ -39,7 +41,7 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("h1", text: "#{site.name}'s member agendas")
+        assert has_selector?("h2", text: "#{site.name}'s member agendas")
       end
     end
 
@@ -101,6 +103,28 @@ module GobiertoPeople
         within ".subscribable-box", match: :first do
           assert has_button?("Subscribe")
         end
+      end
+    end
+
+    def test_person_events_index_json
+      with_current_site(site) do
+        get @path_for_json
+
+        json_response = JSON.parse(response.body)
+        assert_equal json_response.first["person_name"], "Richard Rider"
+        assert_equal json_response.first["title"], "Junta de Gobierno"
+        assert_equal json_response.first["description"], "El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno."
+      end
+    end
+
+    def test_person_events_index_csv
+      with_current_site(site) do
+        get @path_for_csv
+
+        csv_response = CSV.parse(response.body, headers: true)
+        assert_equal csv_response.by_row[0]["person_name"], "Richard Rider"
+        assert_equal csv_response.by_row[0]["title"], "Junta de Gobierno"
+        assert_equal csv_response.by_row[0]["description"], "El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno."
       end
     end
   end

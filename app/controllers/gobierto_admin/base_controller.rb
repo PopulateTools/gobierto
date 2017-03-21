@@ -7,6 +7,7 @@ module GobiertoAdmin
 
     skip_before_action :authenticate_user_in_site
     before_action :authenticate_admin!
+    before_action :set_admin_site
 
     helper_method :current_admin, :admin_signed_in?
     helper_method :current_site, :managing_site?
@@ -34,6 +35,17 @@ module GobiertoAdmin
       preferred_locale = (locale_param || locale_cookie || I18n.default_locale).to_s
 
       I18n.locale = cookies.permanent.signed[:locale] = preferred_locale.to_sym
+    end
+
+    def set_admin_site
+      return unless current_site
+
+      if request.host != current_site.domain
+        if site = managed_sites.find_by(domain: request.host)
+          enter_site(site.id)
+          redirect_to admin_root_path
+        end
+      end
     end
   end
 end

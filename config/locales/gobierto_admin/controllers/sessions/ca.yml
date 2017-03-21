@@ -3,7 +3,7 @@ ca:
   gobierto_admin:
     sessions:
       create:
-        error: Les dades que has introduit no pareixen ser vàlids. Per favor, inténta-ho
+        error: Les dades que has introduit no semblen ser vàlides. Per favor, tria
           de nou.
         success: Sessió iniciada correctament
       destroy:

@@ -7,6 +7,7 @@ es:
           account: Tu cuenta
           sign_out: Cerrar sesión
         budget_consultations: Consultas de presupuestos
+        cms: Gestión de páginas
         collapse_menu: Colapsar menú
         dirty_forms:
           message: Hay cambios sin guardar. ¿Estás seguro de querer continuar?
@@ -15,7 +16,6 @@ es:
         manage_sites: Gestionar sites
         notifications: Notificaciones
         people: Altos cargos y Agendas
-        cms: Gestión de páginas
         site_network: Red
         users: Usuarios
         view_site: Ver site

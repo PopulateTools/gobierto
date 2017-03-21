@@ -7,6 +7,7 @@ es:
           edit:
             title: Editar agrupación
           index:
+            drag_to_sort: Arrastra para ordenar
             header:
               created: Creada
               political_group: Agrupación
@@ -15,11 +16,11 @@ es:
             title: Nueva agrupación
         settings:
           index:
-            update: Actualizar
             header:
               key: Nombre
               value: Valor
             settings:
-              home_text_es: Texto home español
               home_text_ca: Texto home catalán
+              home_text_es: Texto home español
+            update: Actualizar
         title: Configuración

@@ -9,7 +9,7 @@
     <div class="pure-u-1 pure-u-md-7-24">
 
       <% if @person.avatar_url.present? %>
-        <%= image_tag @person.avatar_url, height: 250, width: 250, class: "avatar" %>
+        <h2 class="avatar-title"><%= image_tag @person.avatar_url, height: 250, width: 250, alt: @person.name, class: "avatar" %></h2>
       <% end %>
 
       <%= render("gobierto_people/people/subscription_button", person: @person) %>
@@ -26,7 +26,7 @@
 
       <div class="person_header">
 
-        <h1><%= title @person.name %></h1>
+        <h2><%= title @person.name %></h2>
 
         <div class="person_charge"><%= @person.charge %></div>
         <div class="person_party"><%= t(".party.#{@person.party}") %></div>
@@ -46,4 +46,3 @@
   </div>
 
 </div>
-

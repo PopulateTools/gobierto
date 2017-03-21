@@ -45,7 +45,7 @@ Rails.application.routes.draw do
         resources :consultation_items, controller: "consultations/consultation_items", path: :items
         resource :consultation_items_sort, only: [:create], controller: "consultations/consultation_items_sort", path: :items_sort
         resources :consultation_responses, only: [:index, :show, :new, :create, :destroy], controller: "consultations/consultation_responses", path: :responses
-        resource :consultation_reports, only: [:show], controller: "consultations/consultation_reports", path: :reports
+        resource :consultation_reports, only: [:show], controller: "consultations/consultation_reports", path: :report
       end
     end
 
@@ -64,7 +64,11 @@ Rails.application.routes.draw do
 
       namespace :configuration do
         resources :settings, only: [:index, :update], path: :settings
-        resources :political_groups, only: [:index, :new, :create, :edit, :update], path: :groups
+        resources :political_groups, only: [:index, :new, :create, :edit, :update], path: :groups do
+          collection do
+            resource :political_groups_sort, only: [:create], controller: "political_groups_sort", path: :political_groups_sort
+          end
+        end
       end
 
       resource :file_attachments, only: [:create]
@@ -201,6 +205,13 @@ Rails.application.routes.draw do
   namespace :gobierto_cms, path: 'paginas' do
     constraints GobiertoSiteConstraint.new do
       get ':id' => 'pages#show', as: :page
+    end
+  end
+
+  # Gobierto Exports module
+  namespace :gobierto_exports, path: 'datos' do
+    constraints GobiertoSiteConstraint.new do
+      root 'exports#index'
     end
   end
 end

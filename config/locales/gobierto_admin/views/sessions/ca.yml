@@ -9,5 +9,5 @@ ca:
       new:
         didnt_receive_confirmation_instructions: No has rebut les instrucciones de
           confirmació?
-        forgot_your_password: Ovlidares la contrasenya
+        forgot_your_password: Has oblidat la contrasenya?
         title: Iniciar sessió

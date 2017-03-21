@@ -1,0 +1,14 @@
+<div class="column text_page open_data">
+
+  <header class="text_page_header">
+
+    <h1><%= t(".title") %></h1>
+    <p class="subtitle"><%= t(".subtitle") %></p>
+
+  </header>
+
+  <% current_site.configuration.modules.each do |site_module| %>
+    <%= render_if_exists "#{site_module.underscore}/exports/index" %>
+  <% end %>
+
+</div>

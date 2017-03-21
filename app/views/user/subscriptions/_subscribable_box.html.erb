@@ -21,7 +21,7 @@
             subscribable_id: user_subscription_form.subscribable_id
           }
         },
-        class: "pure-menu-link")
+        class: "pure-menu-link", role: "button")
       %>
 
     <% else %>
@@ -31,7 +31,7 @@
         <%= f.hidden_field :subscribable_id %>
         <%= f.email_field :user_email, placeholder: defined?(placeholder) ? placeholder : t(".form.placeholders.user_email") %>
 
-        <%= f.submit t(".form.submit") %>
+        <%= f.submit t(".form.submit"), role: "button" %>
         <div class="disclaimer"><%= privacy_policy_page_link %></div>
       <% end %>
 

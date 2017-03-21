@@ -3,7 +3,7 @@
     <%= raw @consultation.description %>
   </div>
   <% if @consultation.open? %>
-    <%= link_to gobierto_budget_consultations_consultation_item_summary_path(@consultation), class: "consultation-link", data:{ consultation_link: true } do %>
+    <%= link_to gobierto_budget_consultations_consultation_item_summary_path(@consultation), class: "consultation-link", data:{ consultation_link: true }, role: "button" do %>
       <div class="bottom-info">
         <div class="teaser">
           <h2 class="consultation-q inline-block"><%= t('.want_to_opinate') %></h2>

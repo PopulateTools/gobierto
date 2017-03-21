@@ -100,7 +100,7 @@
 
 <% if @consultation.consultation_responses.any? %>
   <% content_for :javascript_hook do %>
-    <%= javascript_tag do %>
+    <%= javascript_tag data: { "turbolinks-eval" => false } do %>
       window.GobiertoAdmin.consultation_responses_controller.index("<%= admin_budget_consultation_consultation_reports_path(@consultation, format: :csv) %>");
     <% end %>
   <% end %>

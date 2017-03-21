@@ -414,6 +414,9 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
 /* Consultations report */
 .consultation_report {
   #age_report {
+    h2 {
+      margin-top: 0;
+    }
     .axis {
       font-family: $font_text;
       font-size: 0.85rem;

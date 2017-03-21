@@ -5,7 +5,7 @@
 	-webkit-perspective: 1000px;
 	-moz-perspective: 1000px;
 	-ms-perspective: 1000px;
-	height: 180px;
+	min-height: 180px;
 	border-radius: 8px;
 	margin-bottom: 2rem;
 }
@@ -182,7 +182,7 @@
 
 @media (min-width: 768px) {
 	.card_container {
-		height: 200px;
+		min-height: 200px;
 	}
 	.indicator_widget {
 		margin-right: 6rem;
@@ -202,7 +202,7 @@
 		margin-left: 4rem;
 	}
 	.widget_body {
-		height: 100px;
+		min-height: 100px;
 	}
 	.widget_headline {
 		margin-bottom: 1rem;

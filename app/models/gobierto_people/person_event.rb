@@ -54,5 +54,15 @@ module GobiertoPeople
     def active?
       published?
     end
+
+    def self.csv_columns
+      [:id, :person_id, :person_name, :title, :description, :starts_at, :ends_at, :attachment_url, :created_at, :updated_at]
+    end
+
+    def as_csv
+      person_name = person.try(:name)
+
+      [id, person_id, person_name, title, description, starts_at, ends_at, attachment_url, created_at, updated_at]
+    end
   end
 end

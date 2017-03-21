@@ -5,6 +5,7 @@ module GobiertoPeople
     def setup
       super
       @path = gobierto_people_posts_path
+      @path_for_rss = gobierto_people_posts_path(format: :rss)
     end
 
     def site
@@ -53,6 +54,14 @@ module GobiertoPeople
         within ".subscribable-box", match: :first do
           assert has_button?("Subscribe")
         end
+      end
+    end
+
+    def test_person_posts_index_rss
+      with_current_site(site) do
+        visit @path_for_rss
+
+        assert_includes page.response_headers["Content-Type"], "application/rss+xml"
       end
     end
   end

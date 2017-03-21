@@ -1,0 +1,10 @@
+---
+es:
+  gobierto_exports:
+    layouts:
+      application:
+        exports: Descarga datos
+    exports:
+      index:
+        title: Descarga datos
+        subtitle: Desde esta página puedes descargar en formato reutilizable el contenido de este site.

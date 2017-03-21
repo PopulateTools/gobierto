@@ -207,4 +207,11 @@ Rails.application.routes.draw do
       get ':id' => 'pages#show', as: :page
     end
   end
+
+  # Gobierto Exports module
+  namespace :gobierto_exports, path: 'datos' do
+    constraints GobiertoSiteConstraint.new do
+      root 'exports#index'
+    end
+  end
 end

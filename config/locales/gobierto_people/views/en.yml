@@ -20,6 +20,20 @@ en:
         home: Home
         people: Officials
         statements: Statements
+    exports:
+      index:
+        events:
+          title: Agendas
+          description: Listing of all events (past and future) with title, description, participants, location, etc.
+        people:
+          title: Officials
+          description: Listing of officiald with their contact information, biography, CV, etc.
+        posts:
+          title: Blogs
+          description: Latest posts in all blogs.
+        statements:
+          title: Statements
+          description: Listing of all statements and it elements.
     people:
       contact_methods:
         send_email: Send an email
@@ -34,6 +48,7 @@ en:
         agenda: Agenda
         bio: Biography and CV
         blog: Blog
+        exports: Download data in a reusable format
         statements: Goods and Activities
       person:
         picture: Picture of %{name}

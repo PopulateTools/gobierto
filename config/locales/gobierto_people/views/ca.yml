@@ -20,6 +20,20 @@ ca:
         home: Inici
         people: Càrrecs
         statements: Declaracions
+    exports:
+      index:
+        events:
+          title: Agendes
+          description: Llistat dels esdeveniments (passats i futurs) amb títol i descripció, assistents, ubicació...
+        people:
+          title: Càrrecs
+          description: Llistat dels càrrecs, amb les seves dades de contacte, biografia, titulacions, etc.
+        posts:
+          title: Blogs
+          description: Últimes entrades del conjunt dels blogs.
+        statements:
+          title: Declaracions
+          description: Llistat de les declaracions de béns i activitats i tots els seus elements.
     people:
       contact_methods:
         send_email: Envia un correu-e
@@ -34,6 +48,7 @@ ca:
         agenda: Agenda
         bio: Biografia i CV
         blog: Blog
+        exports: Descarrega les dades en format reutilitzable
         statements: Béns i activitats
       person:
         picture: Foto de %{name}
@@ -44,7 +59,7 @@ ca:
           title: Perfil de %{person_name}
       person_events:
         index:
-          no_events: No hi ha esdeveniments en aquesta agenda
+          no_events: No hi ha esdeveniments a aquesta agenda
           past_events: Esdeveniments passats
           subscribable_box:
             title: Rebeix actualitzacions al teu correu-e sobre %{person_name}

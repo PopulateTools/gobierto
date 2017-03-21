@@ -14,7 +14,8 @@ class HomePageTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @path
 
-      assert_equal 200, page.status_code
+      assert has_selector?("h1", text: "Download data")
+      assert has_selector?("h2", text: "Officials and Agendas")
     end
   end
 end

@@ -41,7 +41,7 @@ module GobiertoAdmin
             visit @path
 
             click_link closed_consultation.title
-            assert has_content?("Stats")
+            assert has_content?("There weren't respones in this consultation")
           end
         end
       end

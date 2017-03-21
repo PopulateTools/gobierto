@@ -25,6 +25,7 @@ es:
             reduce: Reducir
             keep: Mantener
             increase: Aumentar
+            no_responses: No ha habido participaciones en esta consulta
           new:
             gender:
               female: Mujer

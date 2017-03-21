@@ -25,6 +25,7 @@ ca:
             reduce: Reduir
             keep: Mantindre
             increase: Augmentar
+            no_responses: No hi ha hagut respostes en aquesta consulta
           new:
             gender:
               female: Dona

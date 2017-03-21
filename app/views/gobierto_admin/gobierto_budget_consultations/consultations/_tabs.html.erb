@@ -1,8 +1,8 @@
 <div class="tabs">
   <ul>
     <% if @consultation && @consultation.past? %>
-      <li class="<%= class_if('active', @consultation && admin_budget_consultation_consultation_responses_path(@consultation) == request.path) %> <%= class_if('disabled', @consultation && @consultation.consultation_responses.empty?) %>">
-        <%= link_to t(".consultation_responses_section"), @consultation.consultation_responses.any? ? admin_budget_consultation_consultation_responses_path(@consultation) : 'javascript:void(0)' %>
+      <li class="<%= class_if('active', @consultation && admin_budget_consultation_consultation_responses_path(@consultation) == request.path) %>">
+        <%= link_to t(".consultation_responses_section"), admin_budget_consultation_consultation_responses_path(@consultation) %>
       </li>
     <% end %>
     <li class="<%= class_if('active', @consultation && edit_admin_budget_consultation_path(@consultation) == request.path) %>">

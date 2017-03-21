@@ -1,4 +1,4 @@
-<div class="admin_breadcrumb">
+div class="admin_breadcrumb">
   <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
   <%= link_to t("gobierto_admin.gobierto_budget_consultations.consultations.index.title"), admin_budget_consultations_path %> »
   <%= t(".title") %>
@@ -11,16 +11,6 @@
   </small>
 </h1>
 
-
-<div class="tabs">
-  <ul>
-    <li>
-      <%= link_to t(".consultation_section"), edit_admin_budget_consultation_path(@consultation) %>
-    </li>
-    <li class="active">
-      <%= link_to t(".consultation_items_section"), "#" %>
-    </li>
-  </ul>
-</div>
+<%= render 'gobierto_admin/gobierto_budget_consultations/consultations/tabs' %>
 
 <%= render "form" %>

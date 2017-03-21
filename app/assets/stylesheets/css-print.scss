@@ -132,4 +132,42 @@
   .border {
     margin: 0;
   }
+  
+  /* Admin */
+  header.main,
+  menu.main,
+  .tabs {
+    display: none;
+  }
+  .admin_content_column {
+    padding-top: none;
+    float: none;
+  }
+  .card_container {
+    width: 20%;
+    display: inline-block;
+    min-height: auto;
+    margin-bottom: 2.5rem;
+    
+    .front {
+      position: relative;
+      padding: 0;
+    }
+    .widget_figure {
+      font-size: 1.5rem;
+    }
+  }
+  #table_report {
+    page-break-inside: avoid;
+   
+    tr td,
+    tr th {
+      color: #111 !important;
+    }
+    .bg-scale--3,
+    .bg-scale--5,
+    .bg-scale--4 {
+      text-shadow: none;
+    }
+  }
 }

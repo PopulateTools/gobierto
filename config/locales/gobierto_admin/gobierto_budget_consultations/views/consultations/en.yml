@@ -23,8 +23,6 @@ en:
             replace: Do you want to remove this participation and create a new one?
             search_another: Search another
         edit:
-          consultation_items_section: Budget lines
-          consultation_section: Consultation
           title: Edit consultation
         form:
           check_id: Check if an ID has responded
@@ -62,6 +60,4 @@ en:
             active: Published
             draft: Draft
         new:
-          consultation_items_section: Budget lines
-          consultation_section: Consultation
           title: New consultation

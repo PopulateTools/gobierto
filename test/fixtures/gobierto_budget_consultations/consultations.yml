@@ -19,7 +19,7 @@ madrid_open:
 madrid_open_no_balance:
   site: madrid
   admin: tony
-  title: Consulta sobre los presupuestos de Madrid
+  title: Consulta sobre los presupuestos de Madrid no equilibrio
   description: |
     Esta política de gasto comprende los originados por los servicios a que se
     refiere su denominación, tales como promoción y difusión deportiva, gastos
@@ -55,7 +55,7 @@ madrid_open_attached:
 madrid_past:
   site: madrid
   admin: tony
-  title: Consulta sobre partidas destinadas a Museos en Madrid
+  title: Consulta sobre partidas destinadas a Museos en Madrid cerrada
   description: |
     Esta política de gasto comprende los originados por los servicios a que se
     refiere su denominación, tales como promoción y difusión deportiva, gastos

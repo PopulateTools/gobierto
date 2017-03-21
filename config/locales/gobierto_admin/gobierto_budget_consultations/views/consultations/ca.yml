@@ -22,8 +22,6 @@ ca:
             replace: Vols eliminar la seva participació per afegir altra?
             search_another: Cercar un altre
         edit:
-          consultation_items_section: Partides
-          consultation_section: Consulta
           title: Editar consulta
         form:
           check_id: Comprobar la participació d'un ID
@@ -62,6 +60,4 @@ ca:
             active: Publicada
             draft: Borrador
         new:
-          consultation_items_section: Partides
-          consultation_section: Consulta
           title: Nova consulta

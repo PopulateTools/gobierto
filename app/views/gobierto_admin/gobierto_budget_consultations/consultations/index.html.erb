@@ -27,8 +27,10 @@
         <% end %>
       </td>
       <td>
-        <%= link_to edit_admin_budget_consultation_path(consultation) do %>
-          <%= consultation.title %>
+        <% if consultation.past? %>
+          <%= link_to consultation.title, admin_budget_consultation_consultation_responses_path(consultation) %>
+        <% else %>
+          <%= link_to consultation.title, edit_admin_budget_consultation_path(consultation) %>
         <% end %>
         <div class="soft">
           <%= t(".opens_on") %>

@@ -25,6 +25,7 @@ en:
             reduce: Reduce
             keep: Keep
             increase: Increase
+            no_responses: There weren't respones in this consultation
           new:
             gender:
               female: Female

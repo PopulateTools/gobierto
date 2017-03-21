@@ -6,7 +6,7 @@ module GobiertoBudgetConsultations
       CSV.generate(headers: true) do |csv|
         csv << attributes
 
-        consultation.consultation_responses.each do |consultation_response|
+        consultation.consultation_responses.sorted.each do |consultation_response|
           gender = consultation_response.user_information['gender'] rescue nil
           age = ((Date.today - Date.parse(consultation_response.user_information['date_of_birth'])).to_i / 365.0).floor rescue nil
           location = consultation_response.user_information['place']['raw_value'] rescue nil

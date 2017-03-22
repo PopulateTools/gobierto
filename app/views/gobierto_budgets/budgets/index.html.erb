@@ -118,8 +118,8 @@
         <table class="med_bg">
           <thead class="screen-hidden">
             <tr>
-              <th>Top income category</th>
-              <th>Top income value</th>
+              <th><%= t('.top_income_category') %></th>
+              <th><%= t('.top_income_value') %></th>
             </tr>
           </thead>
           <tbody>
@@ -145,9 +145,9 @@
         <table class="med_bg">
           <thead>
             <tr>
-              <th>Top expense category</th>
-              <th>Top expense value</th>
-            </tr>
+              <th><%= t('.top_expense_category') %></th>
+              <th><%= t('.top_expense_value') %></th>
+           </tr>
           </thead>
           <tbody>
             <% @top_expense_budget_lines.each do |budget_line| %>
@@ -182,14 +182,14 @@
     <table class="explore_slow">
       <thead class="screen-hidden">
         <tr>
-          <th>Category level 2</th>
-          <th>Category level 3 </th>
-          <th>Category value</th>
-          <th>Category percentage</th>
+          <th><%= t('.level_2_category') %></th>
+          <th><%= t('.level_3_category') %></th>
+          <th><%= t('.category_value') %></th>
+          <th><%= t('.category_percentage') %></th>
           <th></th>
         </tr>
       </thead>
-      
+
       <tbody>
         <% @interesting_expenses.group_by(&:parent_code).each do |parent_code, bls| %>
             <tr class="group">

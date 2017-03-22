@@ -35,10 +35,11 @@ es:
         real_value: El %{kind} real son %{value}
         real_vs_planned: real vs. pres.
         sub_budget_lines: Dentro de esta partida
-        twitter_text_expense: 'En @gobierto: Gasto municipal de %{name} en %{budget_line_name}
-          para el %{year}'
-        twitter_text_income: 'En @gobierto: Ingreso municipal de %{name} en %{budget_line_name}
-          para el %{year}'
+        twitter_text_expense: 'En @gobierto: Gasto municipal de %{name} en %{budget_line_name} para el %{year}'
+        twitter_text_income: 'En @gobierto: Ingreso municipal de %{name} en %{budget_line_name} para el %{year}'
+        budget_line_category: Categoría
+        budget_line_percentage: Porcentaje
+        budget_line_value: Cantidad
     budgets:
       index:
         at_a_glance: Evolución del gasto y comparación
@@ -75,6 +76,14 @@ es:
         title: Presupuestos municipales en %{year}
         total_expenses: Gasto total
         twitter_text: 'En @gobierto: Presupuestos municipales de %{name} del %{year}'
+        top_income_category: Categoría
+        top_income_value: Cantidad
+        top_expense_category: Categoría
+        top_expense_value: Cantidad
+        level_2_category: Categoría nivel 2
+        level_3_category: Categoría nivel 3
+        category_value: Cantidad
+        category_percentage: Porcentaje
     budgets_execution:
       execution_table:
         deviation: Desviación

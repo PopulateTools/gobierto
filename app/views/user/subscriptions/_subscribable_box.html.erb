@@ -21,7 +21,7 @@
             subscribable_id: user_subscription_form.subscribable_id
           }
         },
-        class: "pure-menu-link")
+        class: "pure-menu-link", role: "button")
       %>
 
     <% else %>
@@ -29,9 +29,10 @@
       <%= form_for(user_subscription_form, as: :user_subscription, url: :user_subscriptions) do |f| %>
         <%= f.hidden_field :subscribable_type %>
         <%= f.hidden_field :subscribable_id %>
+        <label class="screen-hidden" for="user_subscription_user_email"><%= defined?(placeholder) ? placeholder : t(".form.placeholders.user_email") %></label>
         <%= f.email_field :user_email, placeholder: defined?(placeholder) ? placeholder : t(".form.placeholders.user_email") %>
 
-        <%= f.submit t(".form.submit") %>
+        <%= f.submit t(".form.submit"), role: "button" %>
         <div class="disclaimer"><%= privacy_policy_page_link %></div>
       <% end %>
 

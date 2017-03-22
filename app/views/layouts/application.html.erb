@@ -163,6 +163,7 @@
           <%= content_for?(:module_sub_sections) ? yield(:module_sub_sections) : load_module_sub_sections(current_module) %>
 
           <div class="search_box slim_search desktop_only">
+            <label for="gobierto_search" class="screen-hidden"><%= t('.search') %></label>
             <input type="text" placeholder="<%= t('.search') %>" name="q" id="gobierto_search" />
           </div>
 

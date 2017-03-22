@@ -188,11 +188,11 @@
         </div>
       </div>
       <div class="pure-u-1-6">
-        <a href="#" class="budget-next" @click="nextScreen" v-if="!next"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+        <a href="#" role="button" class="budget-next" @click="nextScreen" v-if="!next"><i class="fa fa-arrow-right" aria-hidden="true"></i></a>
         <% if @consultation.force_responses_balance? %>
-          <a href="#" class="budget-next consultation-status-error" @click="showConsultationStatusError" v-else-if="status=='deficit'" title="<p><%= I18n.t('gobierto_budget_consultations.consultation_status_error') %></p><button class='tip-button' data-tipsy-close>OK</button>"><i class="fa fa-times" aria-hidden="true"></i></a>
+          <a href="#" role="button" class="budget-next consultation-status-error" @click="showConsultationStatusError" v-else-if="status=='deficit'" title="<p><%= I18n.t('gobierto_budget_consultations.consultation_status_error') %></p><button class='tip-button' data-tipsy-close>OK</button>"><i class="fa fa-times" aria-hidden="true"></i></a>
         <% end %>
-        <a href="#" class="budget-next" @click="submitConsultation" v-else><i class="fa fa-check" aria-hidden="true"></i></a>
+        <a href="#" role="button" class="budget-next" @click="submitConsultation" v-else><i class="fa fa-check" aria-hidden="true"></i></a>
       </div>
     </div>
 

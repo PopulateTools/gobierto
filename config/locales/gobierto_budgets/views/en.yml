@@ -18,6 +18,7 @@ en:
         income_from_what: Where does the income come from
         per_inhabitant: Per inhabitant
         title: Local municipality budgets in %{year}
+        categories: Categories
       show:
         about_this_line: About this budget line
         avg_province: Avg. %{kind} in the province
@@ -40,6 +41,7 @@ en:
           for year %{year}'
     budgets:
       index:
+        visualize: Visualize expenses per inhabitant or the total
         at_a_glance: At a glance
         at_years_end: "* at the end of %{year}"
         context: Context

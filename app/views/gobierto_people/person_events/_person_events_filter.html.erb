@@ -1,8 +1,7 @@
 <menu class="filter_boxed">
-
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
 
-    <ul role="tablist" aria-label="Agenda de los miembros del <%= @site.name %>">
+    <ul role="tablist" aria-label="<%= t('.agenda', name: @site.name) %>">
       <li role="presentation" class="<%= class_if('active', controller_name.in?(%w(government_party_person_events government_party_past_person_events))) %>">
         <%= link_to t("gobierto_people.people_filter.parties.government"), gobierto_people_government_party_events_path, tab_attributes(controller_name.in?(%w(government_party_person_events government_party_past_person_events))).merge('aria-controls' => 'person-agenda') %>
       </li>
@@ -18,7 +17,6 @@
     </ul>
 
   </div>
-
 </menu>
 
 <% pending do %>

@@ -118,6 +118,8 @@ es:
         title: Agenda
         view_all: Ver todos
     people_filter:
+      organigram: Organigrama de %{name}
+      political_groups: Grupos políticos de %{name}
       all: Todos
       categories:
         executive: Directivos
@@ -127,6 +129,8 @@ es:
       political_groups:
         title: Grupos políticos
     person_events:
+      person_events_filter:
+        agenda: Agenda de los miembros del %{name}
       index:
         agenda_switcher:
           subtitle: Filtra por miembros de la comunidad

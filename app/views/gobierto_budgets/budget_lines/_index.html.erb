@@ -1,30 +1,23 @@
 <div <%= @kind == GobiertoBudgets::BudgetLine::INCOME ? 'aria-labelledby="ingresos" id="ingresos-tab"'.html_safe : 'aria-labelledby="gastos" id="gastos-tab"'.html_safe %> >
   <p class="m_2"></p>
 
-  <div class="filter m_2" role="tablist" aria-label="Categorías presupuestarias">
+  <div class="filter m_2" role="tablist" aria-label="<%= t('.categories') %>">
     <% if kind == GobiertoBudgets::BudgetLine::EXPENSE %>
       <%= link_to t('.expense_in_what'), gobierto_budgets_budget_lines_path(year: year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::BudgetLine::FUNCTIONAL), data: {remote: true},
           class: class_if('active', area_name == GobiertoBudgets::BudgetLine::FUNCTIONAL),
-          id:'functional-G',
-          role:'tab',
-          tabindex: area_name == GobiertoBudgets::BudgetLine::FUNCTIONAL ? '0' : '-1',
+          id: 'functional-G', role: 'tab', tabindex: area_name == GobiertoBudgets::BudgetLine::FUNCTIONAL ? '0' : '-1',
           'aria-selected' => area_name == GobiertoBudgets::BudgetLine::FUNCTIONAL ? 'true' : 'false',
           'aria-controls' => 'functional-G-table' %>
       <%= link_to t('.expense_to_do_what'), gobierto_budgets_budget_lines_path(year: year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::BudgetLine::ECONOMIC), data: {remote: true},
           class: class_if('active', area_name == GobiertoBudgets::BudgetLine::ECONOMIC),
-          id:'economic-G',
-          role:'tab',
-          tabindex: area_name == GobiertoBudgets::BudgetLine::ECONOMIC ? '0' : '-1',
+          id: 'economic-G', role: 'tab', tabindex: area_name == GobiertoBudgets::BudgetLine::ECONOMIC ? '0' : '-1',
           'aria-selected' => area_name == GobiertoBudgets::BudgetLine::ECONOMIC ? 'true' : 'false',
           'aria-controls' => 'economic-G-table' %>
     <% else %>
       <%= link_to t('.income_from_what'), gobierto_budgets_budget_lines_path(year: year, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::BudgetLine::ECONOMIC),
-          class:'active',
-          id:'economic-I',
-          role:'tab',
-          tabindex:'0',
-          'aria-selected' => 'true',
-          'aria-controls' => 'economic-I-table' %>
+          class: 'active',
+          id: 'economic-I', role: 'tab', tabindex: '0',
+          'aria-selected' => 'true', 'aria-controls' => 'economic-I-table' %>
     <% end %>
     <%= link_to '?', '', class:'help tipsit', title: t('.help') %>
   </div>

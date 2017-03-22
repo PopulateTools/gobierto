@@ -117,6 +117,8 @@ ca:
         title: Agenda
         view_all: Veure tots
     people_filter:
+      organigram: Organigrama de %{name}
+      political_groups: Grups polítics de %{name}
       all: tots
       categories:
         executive: Directiu
@@ -126,6 +128,8 @@ ca:
       political_groups:
         title: Grup polític
     person_events:
+      person_events_filter:
+        agenda: Agenda dels membres del %{name}
       index:
         agenda_switcher:
           subtitle: Filtra per membres de la comunitat

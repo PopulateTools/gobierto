@@ -110,9 +110,7 @@ en:
         planned: planned
         real: real
     common:
-      budget_line_description_html: 'This budget line is composed of %{kind_what}
-        in %{description}. If you want to understand more about it, check its parent
-        budget line: %{link}'
+      budget_line_description_html: 'This budget line is composed of %{kind_what} in %{description}. If you want to understand more about it, check its parent budget line: %{link}'
       expense: expense
       expenses: expenses
       income: income

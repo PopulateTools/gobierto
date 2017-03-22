@@ -22,7 +22,7 @@
 
     <% if @political_group %>
       <div>
-        <ul role="tablist" aria-label="<%= t('.political_group', name: @site.name) %>">
+        <ul role="tablist" aria-label="<%= t('.political_groups', name: @site.name) %>">
           <% @political_groups.each do |political_group| %>
             <li role="presentation" class="<%= class_if('active', @political_group == political_group) %>">
               <%= link_to political_group.name, gobierto_people_political_group_people_path(political_group), tab_attributes(@political_group == political_group).merge('aria-controls' => 'people-list').merge('aria-controls' => 'people-list') %>

@@ -35,6 +35,9 @@ es:
           title: Declaraciones de bienes y actividades
           description: Listado de las declaraciones de bienes y actividades y todos sus elementos.
     people:
+      people_filter:
+        organigram: Organigrama de %{name}
+        political_groups: Grupos políticos de %{name}
       contact_methods:
         send_email: Envía un correo-e
       index:
@@ -118,8 +121,6 @@ es:
         title: Agenda
         view_all: Ver todos
     people_filter:
-      organigram: Organigrama de %{name}
-      political_groups: Grupos políticos de %{name}
       all: Todos
       categories:
         executive: Directivos
@@ -130,17 +131,17 @@ es:
         title: Grupos políticos
     person_events:
       person_events_filter:
-        agenda: Agenda de los miembros del %{name}
+        agenda: "Agenda de los miembros del %{name}"
       index:
         agenda_switcher:
           subtitle: Filtra por miembros de la comunidad
           title: Consulta la agenda de...
-        displaying_events_of: Mostrando eventos del %{date}
+        displaying_events_of: "Mostrando eventos del %{date}"
         go_back: Volver
         past_events: Eventos pasados
         subscribable_box:
           title: Recibe un resumen de las agendas de tus representantes
-        title: Agendas de los miembros de %{site_name}
+        title: "Agendas de los miembros de %{site_name}"
         upcoming_events: Agenda
     person_post_tags:
       show:

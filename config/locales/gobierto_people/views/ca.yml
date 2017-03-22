@@ -35,6 +35,9 @@ ca:
           title: Declaracions
           description: Llistat de les declaracions de béns i activitats i tots els seus elements.
     people:
+      people_filter:
+        organigram: Organigrama de %{name}
+        political_groups: Grups polítics de %{name}
       contact_methods:
         send_email: Envia un correu-e
       index:
@@ -117,8 +120,6 @@ ca:
         title: Agenda
         view_all: Veure tots
     people_filter:
-      organigram: Organigrama de %{name}
-      political_groups: Grups polítics de %{name}
       all: tots
       categories:
         executive: Directiu

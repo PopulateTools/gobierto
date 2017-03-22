@@ -129,13 +129,22 @@
         <% if @budget_line_descendants.any? %>
 
           <table>
-            <% @budget_line_descendants.each do |budget_line| %>
+            <thead class="screen-hidden">
               <tr>
-                <td><%= link_to truncate(budget_line.name, length: 75), gobierto_budgets_budget_line_path(budget_line.to_param), title: budget_line.name %></td>
-                <td class="qty"><%= number_with_precision(budget_line.percentage_compared_with(@budget_line.amount) * 100, precision: 2) + '%' %></td>
-                <td class="amount"><%= format_currency(budget_line.amount) %></td>
+                <th><%= t('.budget_line_category') %></th>
+                <th><%= t('.budget_line_percentage') %></th>
+                <th><%= t('.budget_line_value') %></th>
               </tr>
-            <% end %>
+            </thead>
+            <tbody>
+              <% @budget_line_descendants.each do |budget_line| %>
+                <tr>
+                  <td><%= link_to truncate(budget_line.name, length: 75), gobierto_budgets_budget_line_path(budget_line.to_param), title: budget_line.name %></td>
+                  <td class="qty"><%= number_with_precision(budget_line.percentage_compared_with(@budget_line.amount) * 100, precision: 2) + '%' %></td>
+                  <td class="amount"><%= format_currency(budget_line.amount) %></td>
+                </tr>
+              <% end %>
+            </tbody>
           </table>
 
         <% else %>

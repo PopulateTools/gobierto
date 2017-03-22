@@ -5,12 +5,27 @@ en:
       consultations:
         consultation_responses:
           index:
-            header:
-              budget_amount: Proposed budget amount
-              consultation_budget_amount: Budget amount
-              date: Date
-            title: Participations
-            view_response: View participation
+            title: Report
+            stats: Stats
+            participations: Participations
+            responses: Responses
+            genre: Genre
+            male: Male
+            female: Female
+            proposals: Proposals
+            surplus: Surplus
+            deficit: Deficit
+            balance: Balance
+            age_avg: Age average
+            years: years
+            places: Places
+            participation_by_age: Participation by age groups
+            answers_table: Answers table
+            questions: Questions
+            reduce: Reduce
+            keep: Keep
+            increase: Increase
+            no_responses: There weren't respones in this consultation
           new:
             gender:
               female: Female

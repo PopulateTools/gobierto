@@ -3,14 +3,14 @@ en:
   gobierto_admin:
     gobierto_budget_consultations:
       consultations:
+        tabs:
+          consultation_items_section: Budget lines
+          consultation_section: Consultation
+          consultation_responses_section: Report
         consultation_items:
           edit:
-            consultation_items_section: Budget lines
-            consultation_section: Consultation
             title: Edit budget line
           edit_modal:
-            consultation_items_section: Budget lines
-            consultation_section: Consultation
             title: Edit budget line
           form:
             placeholders:
@@ -19,16 +19,10 @@ en:
               description: Describe this budget line briefly
               title: Repair streets
           index:
-            consultation_items_section: Budget lines
-            consultation_section: Consultation
             drag_to_sort: Drag to sort
             new: Add budget line
             title: Budget lines
           new:
-            consultation_items_section: Budget lines
-            consultation_section: Consultation
             title: New budget line
           new_modal:
-            consultation_items_section: Budget lines
-            consultation_section: Consultation
             title: New budget line

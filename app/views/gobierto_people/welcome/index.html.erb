@@ -32,7 +32,7 @@
         <%= render "gobierto_people/people/people_filter" %>
         <%= render @people %>
 
-        <%= link_to t(".people_summary.view_all"), gobierto_people_people_path, class: "see_more" %>
+        <%= link_to t(".people_summary.view_all"), gobierto_people_people_path, class: "see_more", role: "button" %>
 
       </div>
 
@@ -49,7 +49,7 @@
 
         <%= render @events %>
 
-        <%= link_to t(".events_summary.view_all"), gobierto_people_events_path, class: "see_more" %>
+        <%= link_to t(".events_summary.view_all"), gobierto_people_events_path, class: "see_more", role: "button" %>
 
       </div>
 
@@ -66,7 +66,7 @@
     <div class="pure-u-1 pure-u-md-1-2 site-references p_h_r_2">
 
       <div class="box fully_linked">
-        <%= link_to gobierto_people_statements_path do %>
+        <%= link_to gobierto_people_statements_path, role: "button" do %>
           <h2 class="linked_headline">
             <i class="fa fa-money"></i>
             <%= t(".statements") %>
@@ -75,7 +75,7 @@
       </div>
 
       <div class="box fully_linked">
-        <%= link_to gobierto_people_gifts_path do %>
+        <%= link_to gobierto_people_gifts_path, role: "button" do %>
           <h2 class="linked_headline">
             <i class="fa fa-gift"></i>
             <%= t(".gifts") %>
@@ -84,7 +84,7 @@
       </div>
 
       <div class="box fully_linked">
-        <%= link_to gobierto_people_travels_path do %>
+        <%= link_to gobierto_people_travels_path, role: "button" do %>
           <h2 class="linked_headline">
             <i class="fa fa-plane"></i>
             <%= t(".travels") %>
@@ -104,7 +104,7 @@
 
         <%= render @posts %>
 
-        <%= link_to t(".posts_summary.view_all"), gobierto_people_posts_path, class: "see_more" %>
+        <%= link_to t(".posts_summary.view_all"), gobierto_people_posts_path, class: "see_more", role: "button" %>
 
       </div>
 

@@ -3,14 +3,14 @@ es:
   gobierto_admin:
     gobierto_budget_consultations:
       consultations:
+        tabs:
+          consultation_items_section: Partidas
+          consultation_section: Consulta
+          consultation_responses_section: Reporte
         consultation_items:
           edit:
-            consultation_items_section: Partidas
-            consultation_section: Consulta
             title: Editar partida
           edit_modal:
-            consultation_items_section: Partidas
-            consultation_section: Consulta
             title: Editar partida
           form:
             placeholders:
@@ -20,16 +20,10 @@ es:
               description: Describe esta partida brevemente
               title: Pavimentación de vías públicas
           index:
-            consultation_items_section: Partidas
-            consultation_section: Consulta
             drag_to_sort: Arrastra para ordenar
             new: Agregar partida
             title: Partidas
           new:
-            consultation_items_section: Partidas
-            consultation_section: Consulta
             title: Nueva partida
           new_modal:
-            consultation_items_section: Partidas
-            consultation_section: Consulta
             title: Nueva partida

@@ -8,14 +8,15 @@
 
 <div class="tabs">
   <ul>
-    <li class="active"><a href="" data-tab-target="consultation_meta">Consulta</a></li>
+    <li><a href="" data-tab-target="consultation_meta">Consulta</a></li>
     <li><a href="" data-tab-target="consultation_lines">Partidas</a></li>
+    <li class="active"><a href="" data-tab-target="consultation_report">Reporte</a></li>
   </ul>
 </div>
 
 <div class="pure-g" >
 
-  <div class="pure-u-1 pure-u-md-16-24 tab active" data-tab="consultation_meta">
+  <div class="pure-u-1 pure-u-md-16-24 tab" data-tab="consultation_meta">
 
     <div class="box">
       <div class="inner">
@@ -127,14 +128,88 @@
         <%= link_to '<i class="fa fa-add"></i> <span>Añadir nueva partida</span>'.html_safe %>
       </li>
     </ul>
-
   </div>
 
-  <div class="pure-u-1 pure-u-md-2-24"></div>
+  <div class="pure-u-1 pure-u-md-24-24 tab active consultation_report" data-tab="consultation_report">
+    <div id="consultation-indicators">
+      <h2>Estadísticas</h2>
 
-  <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
-    <%= render "admin_widget_save.html.erb" %>
+      <div class="pure-g">
 
+        <div class="pure-u-1 pure-u-md-1-5 card_container">
+          <div class="indicator_widget slim">
+            <div class="front">
+              <div class="widget_headline"><h3 class="m_v_0">Participaciones</h3></div>
+              <div class="widget_body">
+                <span class="widget_figure"><span class="total-participants"></span> respuestas</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-5 card_container">
+          <div class="indicator_widget slim">
+            <div class="front">
+              <div class="widget_headline"><h3 class="m_v_0">Género</h3></div>
+              <div class="widget_body categories">
+                <div class="half">
+                  <div class="category">Hombres</div>
+                  <div class="widget_figure ratio-participants-m"></div>
+                </div>
+                <div class="half">
+                  <div class="category">Mujeres</div>
+                  <div class="widget_figure ratio-participants-w"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-5 card_container">
+          <div class="indicator_widget slim">
+            <div class="front">
+              <div class="widget_headline"><h3 class="m_v_0">Propuestas</h3></div>
+              <div class="widget_body categories">
+                <div class="figure-row">Superávit <span class="f_right ratio-responses-sp"></span></div>
+                <div class="figure-row">Equilibrio <span class="f_right ratio-responses-eq"></span></div>
+                <div>Déficit <span class="f_right ratio-responses-df"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-5 card_container">
+          <div class="indicator_widget slim">
+            <div class="front">
+              <div class="widget_headline"><h3 class="m_v_0">Media de edad</h3></div>
+              <div class="widget_body">
+                <span class="widget_figure"><span class="avg-participants"></span> años</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-5 card_container">
+          <div class="indicator_widget slim">
+            <div class="front">
+              <div class="widget_headline"><h3 class="m_v_0">Lugares</h3></div>
+              <div class="widget_body categories">
+                <div class="location-participants"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="age_report">
+      <h2>Participación por grupos de edad</h2>
+    </div>
+
+    <div id="table_report">
+      <h2>Tabla de respuestas</h2>
+    </div>
   </div>
 
   <div class="modal mfp-hide" id="budget_line_1">
@@ -169,3 +244,9 @@
 
 
 </div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.consultation_responses_controller.index();
+  <% end %>
+<% end %>

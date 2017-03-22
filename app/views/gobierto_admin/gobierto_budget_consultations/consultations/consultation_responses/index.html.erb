@@ -1,44 +1,107 @@
 <div class="admin_breadcrumb">
   <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
   <%= link_to t("gobierto_admin.gobierto_budget_consultations.consultations.index.title"), admin_budget_consultations_path %> »
-  <%= t(".title") %>
+  <%= title t(".title") %>
 </div>
 
 <h1>
   <%= @consultation.title %>
 </h1>
 
-<table class="consultations-list">
-<tr>
-  <th><%= t(".header.date") %></th>
-  <th><%= t(".header.consultation_budget_amount") %></th>
-  <th><%= t(".header.budget_amount") %></th>
-  <th></th>
-</tr>
+<%= render 'gobierto_admin/gobierto_budget_consultations/consultations/tabs' %>
 
-<tbody>
-  <% @consultation_responses.each do |consultation_response| %>
-    <tr id="consultation-response_item-<%= consultation_response.id %>" class="<%= cycle("odd", "even") %>">
-      <td>
-        <div class="soft">
-          <%= link_to admin_budget_consultation_consultation_response_path(@consultation, consultation_response) do %>
-            <%= l(consultation_response.updated_at, format: :long) %>
-          <% end %>
+<div class="pure-g" >
+  <div class="pure-u-1 pure-u-md-24-24 tab active consultation_report" data-tab="consultation_report">
+    <% if @consultation.consultation_responses.any? %>
+      <div id="consultation-indicators">
+        <h2><%= t('.stats') %></h2>
+
+        <div class="pure-g">
+
+          <div class="pure-u-1 pure-u-md-1-4 card_container">
+            <div class="indicator_widget slim">
+              <div class="front">
+                <div class="widget_headline"><h3 class="m_v_0"><%= t('.participations') %></h3></div>
+                <div class="widget_body">
+                  <span class="widget_figure"><span class="total-participants"></span> <%= t('.responses') %></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pure-u-1 pure-u-md-1-4 card_container">
+            <div class="indicator_widget slim">
+              <div class="front">
+                <div class="widget_headline"><h3 class="m_v_0"><%= t('.genre') %></h3></div>
+                <div class="widget_body categories">
+                  <div class="half">
+                    <div class="category"><%= t('.male') %></div>
+                    <div class="widget_figure ratio-participants-m"></div>
+                  </div>
+                  <div class="half">
+                    <div class="category"><%= t('.female') %></div>
+                    <div class="widget_figure ratio-participants-w"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pure-u-1 pure-u-md-1-4 card_container">
+            <div class="indicator_widget slim">
+              <div class="front">
+                <div class="widget_headline"><h3 class="m_v_0"><%= t('.proposals') %></h3></div>
+                <div class="widget_body categories">
+                  <div class="figure-row"><%= t('.surplus') %> <span class="f_right ratio-responses-sp"></span></div>
+                  <div class="figure-row"><%= t('.balance') %> <span class="f_right ratio-responses-eq"></span></div>
+                  <div><%= t('.deficit') %> <span class="f_right ratio-responses-df"></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pure-u-1 pure-u-md-1-4 card_container">
+            <div class="indicator_widget slim">
+              <div class="front">
+                <div class="widget_headline"><h3 class="m_v_0"><%= t('.age_avg') %></h3></div>
+                <div class="widget_body">
+                  <span class="widget_figure"><span class="avg-participants"></span> <%= t('.years') %></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pure-u-1 pure-u-md-1-4 card_container">
+            <div class="indicator_widget slim">
+              <div class="front">
+                <div class="widget_headline"><h3 class="m_v_0"><%= t('.places') %></h3></div>
+                <div class="widget_body categories">
+                  <div class="location-participants"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pure-u-1 pure-u-md-3-4" id="age_report">
+            <h2><%= t('.participation_by_age') %></h2>
+          </div>
+
         </div>
-      </td>
-      <td>
-        <%= number_to_currency(budget_amount_to_human(@consultation.budget_amount)) %>
-      </td>
-      <td>
-        <%= number_to_currency(budget_amount_to_human(consultation_response.budget_amount)) %>
-      </td>
-      <td>
-        <%= link_to admin_budget_consultation_consultation_response_path(@consultation, consultation_response), class: "view_item" do %>
-          <i class="fa fa-eye"></i>
-          <%= t(".view_response") %>
-        <% end %>
-      </td>
-    </tr>
+      </div>
+
+      <div id="table_report">
+        <h2><%= t('.answers_table') %></h2>
+      </div>
+    </div>
+  <% else %>
+    <p><%= t('.no_responses') %></p>
   <% end %>
-</tbody>
-</table>
+</div>
+
+<% if @consultation.consultation_responses.any? %>
+  <% content_for :javascript_hook do %>
+    <%= javascript_tag data: { "turbolinks-eval" => false } do %>
+      window.GobiertoAdmin.consultation_responses_controller.index("<%= admin_budget_consultation_consultation_reports_path(@consultation, format: :csv) %>");
+    <% end %>
+  <% end %>
+<% end %>

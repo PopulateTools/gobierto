@@ -4,7 +4,7 @@ module GobiertoCms
   class VisitPageTest < ActionDispatch::IntegrationTest
     def setup
       super
-      @path = gobierto_cms_page_path(cms_page)
+      @path = gobierto_cms_page_path(cms_page.slug)
     end
 
     def site

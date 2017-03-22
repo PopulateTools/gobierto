@@ -17,7 +17,7 @@ module GobiertoCms
     end
 
     def find_page
-      current_site.pages.active.find_by!(slug: params[:id])
+      current_site.pages.active.find_by_slug!(params[:id])
     end
   end
 end

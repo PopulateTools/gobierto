@@ -58,6 +58,9 @@ gem "invisible_captcha"
 # Redis
 gem "redis", "~> 3.3"
 
+# Translations
+gem "json_translate", "~> 3.0"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"

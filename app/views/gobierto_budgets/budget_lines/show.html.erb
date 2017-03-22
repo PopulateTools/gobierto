@@ -182,8 +182,8 @@
 
       <div class="pure-u-1">
         <div class="filter m_v_2">
-          <%= link_to t('gobierto_budgets.budgets.index.per_person'), '#', class:'active',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_budget_line_path(@place.id, @year, "per_person", @kind, @code.parameterize, @area_name, format: :json ), "line-widget-type" => "per_person" } %>
-          <%= link_to t('gobierto_budgets.budgets.index.in_total'), '#', class:'',  data: {"line-widget-series" => "means", "line-widget-url" =>gobierto_budgets_api_data_lines_budget_line_path(@place.id, @year, "total_budget", @kind, @code.parameterize, @area_name, format: :json ), "line-widget-type" => "total_budget" } %>
+          <%= link_to t('gobierto_budgets.budgets.index.per_person'), '#', class:'active',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_budget_line_path(@place.id, @year, "per_person", @kind, @code.parameterize, @area_name, format: :json ), "line-widget-type" => "per_person" }, role: "button" %>
+          <%= link_to t('gobierto_budgets.budgets.index.in_total'), '#', class:'',  data: {"line-widget-series" => "means", "line-widget-url" =>gobierto_budgets_api_data_lines_budget_line_path(@place.id, @year, "total_budget", @kind, @code.parameterize, @area_name, format: :json ), "line-widget-type" => "total_budget" }, role: "button" %>
         </div>
       </div>
     </div>

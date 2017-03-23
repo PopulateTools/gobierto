@@ -27,6 +27,12 @@ module ApplicationHelper
       link_to t('layouts.accept_privacy_policy_signup'), current_site.configuration.privacy_page
     end
   end
+  
+  def tab_attributes(condition)
+    {
+      role:'tab', 'tabindex' => condition ? 0 : -1, 'aria-selected' => condition
+    }
+  end
 
   def show_social_links?
     !params[:controller].include?('user/')

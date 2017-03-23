@@ -16,7 +16,16 @@
         visLineasJ.measure = $(this).data('line-widget-type');
         visLineasJ.render($(this).data('line-widget-url'));
         $('[data-line-widget-url]').removeClass('active');
+        $('[data-line-widget-url]').attr({
+          'tabindex': -1,
+          'aria-selected': false
+        });
+
         $(this).addClass('active');
+        $(this).attr({
+          'tabindex': 0,
+          'aria-selected': true
+        });
       });
     });
   });

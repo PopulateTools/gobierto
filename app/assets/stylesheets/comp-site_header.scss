@@ -53,7 +53,7 @@ header.meta {
         }
       }
     }
-    .menu_control {
+    .nav_control {
       padding: .75em 1.5em .6em;
     }
   }
@@ -91,7 +91,7 @@ header.meta {
     a:hover {
       // color: rgba($color_main_negative, .8);
     }
-    menu.nav {
+    .nav {
       margin: 0;
       padding: 1em 0 0 0;
       border-top: 1px solid;
@@ -216,7 +216,7 @@ header.meta {
         }
       }
     }
-    menu.complete {
+    .menu.complete {
       display: none;
       z-index: 100;
       position: absolute;
@@ -345,7 +345,7 @@ header.section {
     }
   }
 }
-.mobile_only .menu_control .fa {
+.mobile_only .nav_control .fa {
   font-size: 1.2em;
   line-height: 1em;
 }
@@ -402,7 +402,7 @@ header.section {
       }
     }
     .site_header {
-      menu.nav {
+      .nav {
         .social_links_container {
           position: fixed;
         }

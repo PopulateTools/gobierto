@@ -116,12 +116,20 @@
         <h3><%= t('.income') %></h3>
 
         <table class="med_bg">
-          <% @top_income_budget_lines.each do |budget_line| %>
+          <thead class="screen-hidden">
             <tr>
-              <td><%= link_to budget_line.name, gobierto_budgets_budget_line_path(budget_line.to_param) %></td>
-              <td class="qty"><%= number_with_precision(budget_line.percentage_of_total, precision: 2) + '%' %></td>
+              <th><%= t('.top_income_category') %></th>
+              <th><%= t('.top_income_value') %></th>
             </tr>
-          <% end %>
+          </thead>
+          <tbody>
+            <% @top_income_budget_lines.each do |budget_line| %>
+              <tr>
+                <td><%= link_to budget_line.name, gobierto_budgets_budget_line_path(budget_line.to_param) %></td>
+                <td class="qty"><%= number_with_precision(budget_line.percentage_of_total, precision: 2) + '%' %></td>
+              </tr>
+            <% end %>
+          </tbody>
         </table>
 
         <div class="small center m_v_2">
@@ -135,12 +143,20 @@
         <h3><%= t('.expenses') %></h3>
 
         <table class="med_bg">
-          <% @top_expense_budget_lines.each do |budget_line| %>
+          <thead>
             <tr>
-              <td><%= link_to budget_line.name, gobierto_budgets_budget_line_path(budget_line.to_param) %></td>
-              <td class="qty"><%= number_with_precision(budget_line.percentage_of_total, precision: 2) + '%' %></td>
-            </tr>
-          <% end %>
+              <th><%= t('.top_expense_category') %></th>
+              <th><%= t('.top_expense_value') %></th>
+           </tr>
+          </thead>
+          <tbody>
+            <% @top_expense_budget_lines.each do |budget_line| %>
+              <tr>
+                <td><%= link_to budget_line.name, gobierto_budgets_budget_line_path(budget_line.to_param) %></td>
+                <td class="qty"><%= number_with_precision(budget_line.percentage_of_total, precision: 2) + '%' %></td>
+              </tr>
+            <% end %>
+          </tbody>
         </table>
 
         <div class="small center m_v_2">
@@ -164,20 +180,32 @@
     </div>
 
     <table class="explore_slow">
-      <% @interesting_expenses.group_by(&:parent_code).each do |parent_code, bls| %>
-        <tr class="group">
-          <td class="level_1" rowspan="<%= bls.count %>">
-            <%= budget_line_denomination @interesting_area, parent_code, GobiertoBudgets::BudgetLine::EXPENSE %>
-          </td>
-          <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
-                locals: {sub_budget_line: bls.first } %>
+      <thead class="screen-hidden">
+        <tr>
+          <th><%= t('.level_2_category') %></th>
+          <th><%= t('.level_3_category') %></th>
+          <th><%= t('.category_value') %></th>
+          <th><%= t('.category_percentage') %></th>
+          <th></th>
         </tr>
-        <% bls[1..-1].each do |bl| %>
-          <tr>
-            <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
-                locals: {sub_budget_line: bl } %>
-          </tr>
-        <% end %>
+      </thead>
+
+      <tbody>
+        <% @interesting_expenses.group_by(&:parent_code).each do |parent_code, bls| %>
+            <tr class="group">
+              <td class="level_1" rowspan="<%= bls.count %>">
+                <%= budget_line_denomination @interesting_area, parent_code, GobiertoBudgets::BudgetLine::EXPENSE %>
+              </td>
+              <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
+                    locals: {sub_budget_line: bls.first } %>
+            </tr>
+            <% bls[1..-1].each do |bl| %>
+              <tr>
+                <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
+                    locals: {sub_budget_line: bl } %>
+              </tr>
+          <% end %>
+        </tbody>
       <% end %>
     </table>
 
@@ -188,8 +216,8 @@
 
   <div class="separator"></div>
 
-  <div class="pure-g" data-vis-lines>
-    <div class="pure-u-1 pure-u-md-1-2 block">
+  <div id="lines_chart_wrapper" class="pure-g" data-vis-lines role="tabpanel" aria-controlledby="per_person, total_budget">
+    <div class=" pure-u-1 pure-u-md-1-2 block" >
       <h2><%= t('.at_a_glance') %></h2>
 
       <div id="lines_chart"></div>
@@ -205,9 +233,9 @@
     </div>
 
     <div class="pure-u-1">
-      <div class="filter m_v_2">
-        <%= link_to t('.per_person'), '#', class:'active',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_path(ine_code: @place.id, year: @year, what: 'per_person', format: :json), "line-widget-type" => "per_person" } %>
-        <%= link_to t('.in_total'), '#', class:'',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_path(ine_code: @place.id, year: @year, what: 'total_budget', format: :json), "line-widget-type" => "total_budget" } %>
+      <div class="filter m_v_2" role="tablist" aria-label="<%= t('.visualize') %>">
+        <%= link_to t('.per_person'), '#', class:'active',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_path(ine_code: @place.id, year: @year, what: 'per_person', format: :json), "line-widget-type" => "per_person" }, role:'tab', tabindex:0, 'aria-selected' => 'true', id:'per_person', 'aria-controls' => 'lines_chart_wrapper' %>
+        <%= link_to t('.in_total'), '#', class:'',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_path(ine_code: @place.id, year: @year, what: 'total_budget', format: :json), "line-widget-type" => "total_budget" }, role:'tab', tabindex:-1, 'aria-selected' => 'false', id:'total_budget', 'aria-controls' => 'lines_chart_wrapper' %>
 
         <% pending do %>
           <span class="separator_v"></span>

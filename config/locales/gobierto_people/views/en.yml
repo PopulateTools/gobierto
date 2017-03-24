@@ -35,6 +35,9 @@ en:
           title: Statements
           description: Listing of all statements and it elements.
     people:
+      people_filter:
+        organigram: "%{name} organigram"
+        political_groups: "%{name} political groups"
       contact_methods:
         send_email: Send an email
       index:
@@ -126,11 +129,13 @@ en:
       political_groups:
         title: Political groups
     person_events:
+      person_events_filter:
+        agenda: "%{name} members agenda"
       index:
         agenda_switcher:
           subtitle: Filter by community members
           title: Check the agenda of...
-        displaying_events_of: Displaying events of %{date}
+        displaying_events_of: "Displaying events of %{date}"
         go_back: Go back
         past_events: Past events
         subscribable_box:

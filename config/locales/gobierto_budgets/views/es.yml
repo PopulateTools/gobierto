@@ -14,11 +14,11 @@ es:
         budget_line: Partida
         expense_in_what: En qué se gasta
         expense_to_do_what: Para qué se gasta
-        help: El presupuesto organiza los gastos en dos categorías. Consulta nuestra
-          guía
+        help: El presupuesto organiza los gastos en dos categorías. Consulta nuestra guía
         income_from_what: En qué se ingresa
         per_inhabitant: Por habitante
         title: Presupuestos municipales en %{year}
+        categories: Categorías presupuestarias
       show:
         about_this_line: Acerca de esta partida
         avg_province: Media %{kind} provincial
@@ -35,12 +35,14 @@ es:
         real_value: El %{kind} real son %{value}
         real_vs_planned: real vs. pres.
         sub_budget_lines: Dentro de esta partida
-        twitter_text_expense: 'En @gobierto: Gasto municipal de %{name} en %{budget_line_name}
-          para el %{year}'
-        twitter_text_income: 'En @gobierto: Ingreso municipal de %{name} en %{budget_line_name}
-          para el %{year}'
+        twitter_text_expense: 'En @gobierto: Gasto municipal de %{name} en %{budget_line_name} para el %{year}'
+        twitter_text_income: 'En @gobierto: Ingreso municipal de %{name} en %{budget_line_name} para el %{year}'
+        budget_line_category: Categoría
+        budget_line_percentage: Porcentaje
+        budget_line_value: Cantidad
     budgets:
       index:
+        visualize: Visualiza los gastos por habitante o el total
         at_a_glance: Evolución del gasto y comparación
         at_years_end: "* a cierre del %{year}"
         context: Contexto
@@ -75,6 +77,14 @@ es:
         title: Presupuestos municipales en %{year}
         total_expenses: Gasto total
         twitter_text: 'En @gobierto: Presupuestos municipales de %{name} del %{year}'
+        top_income_category: Categoría
+        top_income_value: Cantidad
+        top_expense_category: Categoría
+        top_expense_value: Cantidad
+        level_2_category: Categoría nivel 2
+        level_3_category: Categoría nivel 3
+        category_value: Cantidad
+        category_percentage: Porcentaje
     budgets_execution:
       execution_table:
         deviation: Desviación

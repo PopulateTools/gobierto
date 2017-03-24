@@ -14,11 +14,11 @@ ca:
         budget_line: Partida
         expense_in_what: En què es gasta
         expense_to_do_what: Per a què es gasta
-        help: El pressupuest organitza les despeses en dues categories. Consulta la
-          nostra guia.
+        help: El pressupuest organitza les despeses en dues categories. Consulta la nostra guia.
         income_from_what: En què s'ingressa
         per_inhabitant: Per habitant
         title: Pressupostos municipals en %{year}
+        categories: Categories pressupostàries
       show:
         about_this_line: Sobre aquesta partida
         avg_province: Mitjana %{kind} provincial
@@ -35,12 +35,14 @@ ca:
         real_value: El %{kind} real són %{value}
         real_vs_planned: real vs. pres.
         sub_budget_lines: Dins d'aquesta partida
-        twitter_text_expense: 'En @gobierto: Despesa municipal de %{name} en %{budget_line_name}
-          al %{year}'
-        twitter_text_income: 'En @gobierto: Ingrés municipal de %{name} en %{budget_line_name}
-          al %{year}'
+        twitter_text_expense: 'En @gobierto: Despesa municipal de %{name} en %{budget_line_name} al %{year}'
+        twitter_text_income: 'En @gobierto: Ingrés municipal de %{name} en %{budget_line_name} al %{year}'
+        budget_line_category: Categoria
+        budget_line_percentage: Percentatge
+        budget_line_value: Quantitat
     budgets:
       index:
+        visualize: Visualitza les despeses per habitant o el total
         at_a_glance: Evolució de la despesa i comparació
         at_years_end: "* a final del %{year}"
         context: Contexte
@@ -75,6 +77,14 @@ ca:
         title: Pressupostos municipals el %{year}
         total_expenses: Despesa total
         twitter_text: 'En @gobierto: Pressupostos municipals de %{name} del %{year}'
+        top_income_category: Categoria
+        top_income_value: Quantitat
+        top_expense_category: Categoria
+        top_expense_value: Quantitat
+        level_2_category: Categoria nivell 2
+        level_3_category: Categoria nivell 3
+        category_value: Quantitat
+        category_percentage: Percentatge
     budgets_execution:
       execution_table:
         deviation: Desviació

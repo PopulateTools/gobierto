@@ -15,7 +15,7 @@
   <% if @statement.attachment_url.present? %>
     <div class="download_file f_right">
       <i class="fa fa-file-pdf-o"></i>
-      <%= link_to @statement.attachment_url, download: "" do %>
+      <%= link_to @statement.attachment_url, download: "", role:"button" do %>
         <%= t(".download", file_size: number_to_human_size(@statement.attachment_size || 0)) %>
       <% end %>
     </div>

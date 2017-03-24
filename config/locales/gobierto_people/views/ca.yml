@@ -35,6 +35,9 @@ ca:
           title: Declaracions
           description: Llistat de les declaracions de béns i activitats i tots els seus elements.
     people:
+      people_filter:
+        organigram: Organigrama de %{name}
+        political_groups: Grups polítics de %{name}
       contact_methods:
         send_email: Envia un correu-e
       index:
@@ -126,6 +129,8 @@ ca:
       political_groups:
         title: Grup polític
     person_events:
+      person_events_filter:
+        agenda: Agenda dels membres del %{name}
       index:
         agenda_switcher:
           subtitle: Filtra per membres de la comunitat

@@ -18,27 +18,58 @@
 <div class="pure-g">
 
   <div class="pure-u-1 pure-u-md-16-24">
-    
+
     <form>
-      
+
+      <div class="globalized_fields">
+
+        <div class="globalize_tool">
+          <label>Traducir</label>
+          <a href="#" class="locale_option selected completed tipsit" title="Define el contenido en su versión en Español">
+            <span class="locale">ES</span>
+            <span class="status"></span>
+          </a>
+          <a href="#" class="locale_option completed tipsit" title="Define el contenido en su versión en Catalán">
+            <span class="locale">CA</span>
+            <span class="status"></span>
+          </a>
+          <a href="#" class="locale_option tipsit" title="Define el contenido en su versión en Inglés">
+            <span class="locale">EN</span>
+            <span class="status"></span>
+          </a>
+        </div>
+
+        <div class="form_item input_text">
+          <label for="name">Nombre</label>
+          <input type="text" id="name" value="Rafa García García">
+        </div>
+
+        <div class="form_item input_text">
+          <label for="entity">Cargo</label>
+          <input type="text" id="entity" value="Alcalde">
+        </div>
+
+        <!-- warning, this is not code, do not add the code class to the .form_item -->
+        <div class="form_item textarea">
+          <label for="entity">Biografía</label>
+          <textarea></textarea>
+        </div>
+
+        <div class="form_item file_field">
+          <label for="site_logo_file">Adjuntar fichero (PDF)</label>
+          <input type="file" name="site[logo_file]" id="site_logo_file">
+        </div>
+
+      </div>
+
       <div class="form_item file_field">
         <img src="https://pbs.twimg.com/profile_images/305246290/Foto_2_400x400.jpg" width="150" height="150">
         <label for="site_logo_file">Avatar del usuario (fichero de 500x500)</label>
         <input type="file" name="site[logo_file]" id="site_logo_file">
       </div>
 
-      <div class="form_item input_text">
-        <label for="name">Nombre</label>
-        <input type="text" id="name" value="Rafa García García">
-      </div>
-
-      <div class="form_item input_text">
-        <label for="entity">Cargo</label>
-        <input type="text" id="entity" value="Alcalde">
-      </div>
-
       <div class="pure-g">
-      
+
         <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
 
           <div class="form_item options_cont compact">
@@ -88,7 +119,7 @@
         </div>
 
       </div>
-      
+
       <div class="form_item select_control">
         <label for="entity">Agrupación política</label>
         <!-- should show the list from sandbox/admin_people_conf -->
@@ -100,18 +131,6 @@
           <option>Valencia en comú</option>
         </select>
       </div>
-
-      <!-- warning, this is not code, do not add the code class to the .form_item -->
-      <div class="form_item textarea">
-        <label for="entity">Biografía</label>
-        <textarea></textarea>
-      </div>
-
-      <div class="form_item file_field">
-        <label for="site_logo_file">Adjuntar fichero (PDF)</label>
-        <input type="file" name="site[logo_file]" id="site_logo_file">
-      </div>
-
 
       <div class="dyna_block">
         <label>Contacto</label>
@@ -163,7 +182,7 @@
             <input type="text" placeholder="Red">
             <input type="text" placeholder="Usuario">
             <input type="text" placeholder="URL">
-            <button>Añadir</button> 
+            <button>Añadir</button>
             <%= link_to '<i class="fa fa-trash"></i> Cancelar'.html_safe, '', class: 'close-new_row_content' %>
           </td>
         </tr>
@@ -190,7 +209,7 @@
             <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
           </td>
         </tr>
-        
+
         <tr class="new_row_add">
           <td colspan="4">
             <%= link_to '', class: "open-new_row_content" do %>
@@ -206,7 +225,7 @@
             <input type="text" placeholder="Centro">
             <input type="text" placeholder="Fecha de inicio">
             <input type="text" placeholder="Fecha de fin">
-            <button>Añadir</button> 
+            <button>Añadir</button>
             <%= link_to '<i class="fa fa-trash"></i> Cancelar'.html_safe, '', class: 'close-new_row_content' %>
           </td>
         </tr>
@@ -329,7 +348,7 @@
             <input type="text" placeholder="Centro">
             <input type="text" placeholder="Fecha de inicio">
             <input type="text" placeholder="Fecha de fin">
-            <button>Añadir</button> 
+            <button>Añadir</button>
             <%= link_to '<i class="fa fa-trash"></i> Cancelar'.html_safe, '', class: 'close-new_row_content' %>
           </td>
         </tr>
@@ -360,7 +379,7 @@
             <option>Campo de fecha</option>
             <option>Campo de moneda</option>
           </select>
-          <input type="text" placeholder="Título"> 
+          <input type="text" placeholder="Título">
           <%= link_to '<i class="fa fa-trash"></i>'.html_safe, '', class: 'delete-new_block_row' %>
         </div>
 
@@ -370,7 +389,7 @@
             <option>Campo de fecha</option>
             <option>Campo de moneda</option>
           </select>
-          <input type="text" placeholder="Título"> 
+          <input type="text" placeholder="Título">
           <%= link_to '<i class="fa fa-trash"></i>'.html_safe, '', class: 'delete-new_block_row' %>
         </div>
 
@@ -381,8 +400,8 @@
           <% end %>
         </div>
 
-        <button>Guardar</button> 
-        
+        <button>Guardar</button>
+
 
       </div>
 
@@ -393,7 +412,7 @@
   <div class="pure-u-1 pure-u-md-2-24"></div>
 
   <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
-    
+
     <%= render partial: "admin_widget_save", locals: { password_protected: true }  %>
 
   </div>

@@ -231,7 +231,7 @@ option, select {
 }
 .form_item.input_text, .form_item.textarea, .select_control, .file_field {
   position: relative;
-  margin: 0 0 1em 0;
+  margin: 0 0 2em 0;
   label {
     position: absolute;
     top: .5rem;
@@ -270,7 +270,7 @@ option, select {
     display: block;
     text-transform: uppercase;
     font-size: .75em;
-    font-weight: 700;  
+    font-weight: 700;
   }
 }
 .form_item.textarea.code {
@@ -328,9 +328,9 @@ option, select {
   .form_item {
     .options.compact {
       .option {
-        height: initial;  
+        height: initial;
       }
-    }  
+    }
   }
 }
 .disclaimer {
@@ -341,7 +341,7 @@ option, select {
 .slim_search {
 	label {
 		font-weight: 200;
-		padding: 0 1em 0 0;	
+		padding: 0 1em 0 0;
 	}
 	input[type=text] {
 		height: 40px;
@@ -355,30 +355,30 @@ option, select {
  * Autocomplete
  *
  */
-.autocomplete-suggestions { 
-  border: 1px solid #999; 
+.autocomplete-suggestions {
+  border: 1px solid #999;
   font-size: 12px;
-  background: #FFF; 
-  cursor: default; 
-  overflow: auto; 
-  -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); 
-  -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); 
-  box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); 
+  background: #FFF;
+  cursor: default;
+  overflow: auto;
+  -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+  -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
+  box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
 }
 .autocomplete-suggestion { padding: 2px 10px; white-space: nowrap; overflow: hidden; }
 .autocomplete-no-suggestion { padding: 2px 10px;}
 .autocomplete-selected { background: $color_main; color: #FFF; }
 .autocomplete-suggestions strong { font-weight: bold; color: #000; }
 .autocomplete-group { }
-.autocomplete-group strong { 
-  font-weight: bold; 
-  font-size: 14px; 
-  color: #999; 
+.autocomplete-group strong {
+  font-weight: bold;
+  font-size: 14px;
+  color: #999;
   background: $separator;
   padding: 2px 10px;
   text-transform: uppercase;
-  display: block; 
-  border-bottom: 1px solid $separator; 
+  display: block;
+  border-bottom: 1px solid $separator;
 }
 .ui-autocomplete {
   z-index: 1500;
@@ -397,7 +397,7 @@ trix-toolbar .button_group button.attach::before {
 .follow_item {
   button, .button {
     width: 100%;
-    margin: .5em 0 1em 0;  
+    margin: .5em 0 1em 0;
   }
-  
+
 }

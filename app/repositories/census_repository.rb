@@ -19,7 +19,7 @@ class CensusRepository
   def initialize(site_id:, document_number:, date_of_birth:, import_reference: nil)
     @site_id = site_id
 
-    @document_number = document_number.to_s
+    @document_number = parse_document_number(document_number.to_s)
     @document_number_alternatives = build_alternatives(@document_number)
     @document_number_digest = ::SecretAttribute.digest(@document_number)
 
@@ -80,6 +80,16 @@ class CensusRepository
     end
   rescue ArgumentError
     nil
+  end
+
+  def parse_document_number(document_number)
+    parsed_document_number = document_number
+
+    parsed_document_number.gsub!(' ', '')
+    parsed_document_number.gsub!(/\W/, '')
+    parsed_document_number.upcase!
+
+    parsed_document_number
   end
 
   def build_alternatives(document_number)

@@ -128,6 +128,36 @@ default: &default
   elastic_url: http://localhost:9200
 ```
 
+### Application configuration
+
+```shell
+$ cp config/database.yml.example config/database.yml
+$ cp .env.example .env
+```
+
+Fill all the values of the new `.env` file (see [environment variables description document](docs/environment-variables.md) if you need a detailed description of each variable).
+
+If you are using **rbenv** you should:
+
+1. Check you have [rbenv-vars](https://github.com/rbenv/rbenv-vars) plugin installed
+2. Symlink `.env` to `.rbenv-vars` file. Yo can do this by running:
+
+```shell
+$ ln -s .env .rbenv-vars
+```
+
+3. Verify variables are properly configured by running `rbenv vars`. You should see something like:
+
+```shell
+export INTEGRATION_DEBUG='false'
+export INTEGRATION_INSPECTOR='false'
+export TEST_LOG_LEVEL='debug'
+export RACK_ENV='development'
+export RAILS_ENV='development'
+export HOST='gobierto.dev'
+...
+```
+
 ### Development top-level domain and port proxying
 
 Gobierto is a [_multi-tenant_](https://en.wikipedia.org/wiki/Multitenancy) application, designed to serve multiple *tenants* from the same instance of the application. A tenant is a group of users who share a common access with specific privileges to the software instance. In our case these tenants are the different cities using Gobierto.
@@ -157,3 +187,7 @@ Now you can run the tests with:
 ```
 
 * **NOTE**: it is not enough to run `bin/rails test` since the test script contains a few more necessary steps.
+
+### Mailcatcher
+
+To use `MailCatcher`, just run `$ mailcatcher` command and follow the instructions printed in the terminal.

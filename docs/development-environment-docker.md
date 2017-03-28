@@ -21,7 +21,7 @@ $ cp config/database.yml.example config/database.yml
 $ cp .env.example .env
 ```
 
-Fill all the values of the new `.env` file.
+Fill all the values of the new `.env` file (see [environment variables description document](docs/environment-variables.md) if you need a detailed description of each variable).
 
 If you are using **rbenv** you should:
 
@@ -30,6 +30,18 @@ If you are using **rbenv** you should:
 
 ```shell
 $ ln -s .env .rbenv-vars
+```
+
+3. Verify variables are properly configured by running `rbenv vars`. You should see something like:
+
+```shell
+export INTEGRATION_DEBUG='false'
+export INTEGRATION_INSPECTOR='false'
+export TEST_LOG_LEVEL='debug'
+export RACK_ENV='development'
+export RAILS_ENV='development'
+export HOST='gobierto.dev'
+...
 ```
 
 ### Set up

@@ -42,11 +42,11 @@ Los módulos agrupan funcionalidad, por ejemplo, los módulos actualmente desarr
 
 - Visualización de Presupuestos
 - Consultas sobre Presupuestos
+- Altos Cargos y Agendas
 - Indicadores
 
 En desarrollo ahora mismo:
 
-- Altos Cargos y Agendas
 - Participación Ciudadana
 
 ## Desarrollo

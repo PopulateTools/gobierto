@@ -135,7 +135,7 @@
           </div>
         </div>
         <div class="mobile_only right">
-          <%= link_to "#", class: "menu_control" do %>
+          <%= link_to "#", class: "nav_control" do %>
             <i class="fa fa-bars"></i>
           <% end %>
         </div>
@@ -157,7 +157,7 @@
       <%= render "layouts/main_menu" %>
 
       <div class="column">
-        <menu class="nav">
+        <nav id="main_nav" class="nav" role="navigation" aria-controls="main_menu" aria-hidden="false">
 
           <%= render "layouts/breadcrumb" %>
           <%= content_for?(:module_sub_sections) ? yield(:module_sub_sections) : load_module_sub_sections(current_module) %>
@@ -179,7 +179,7 @@
             </div>
           <% end %>
 
-        </menu>
+        </nav>
       </div>
     </div>
   </header>
@@ -196,7 +196,7 @@
     <div class="column pure-g">
 
       <div class="pure-u-1 mobile_only">
-        <%= link_to "#", class: "menu_control" do %>
+        <%= link_to "#", class: "nav_control" do %>
           <i class="fa fa-bars"></i> Menú
         <% end %>
       </div>

@@ -3,10 +3,7 @@
 <% end %>
 
 <% content_for :breadcrumb_items do %>
-  <strong>
-    <%= link_to t("gobierto_budget_consultations.layouts.application.participation"), gobierto_budget_consultations_consultations_path, data: { turbolinks: false } %>
-  </strong>
-  <span>/</span>
+  <span role="separator">/</span>
   <h1>
     <%= link_to t('gobierto_budget_consultations.layouts.menu_subsections.consultations'), gobierto_budget_consultations_consultations_path %>
   </h1>

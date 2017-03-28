@@ -136,18 +136,18 @@ menu.main {
   box-sizing: border-box;
 
   .admin_content, footer {
-    padding: 3em 4em;	
+    padding: 3em 4em;
   }
 }
 .admin_content_column_with_menu_opened {
   .admin_content_column {
-    width: calc(100% - 190px);	
+    width: calc(100% - 190px);
   }
   menu.main {
     width: 190px;
   }
 
-  .menu_content, 
+  .menu_content,
   .collapse_menu span {
     visibility: visible;
     overflow: hidden;
@@ -169,7 +169,7 @@ menu.main {
   menu.main {
     width: 15px;
   }
-  .menu_content, 
+  .menu_content,
   .collapse_menu span {
     visibility: hidden;
   }
@@ -270,7 +270,7 @@ body.gobierto_admin {
 .widget_save {
   background: $color_neutral_soft;
   @include border-radius(6px);
-  padding: 1.5em;	
+  padding: 1.5em;
   box-sizing: border-box;
   .button {
     display: block;
@@ -290,7 +290,7 @@ body.gobierto_admin {
 
 
 .view_item {
-  text-decoration: none; 
+  text-decoration: none;
   font-size: .8em;
   text-transform: uppercase;
   .fa {
@@ -356,7 +356,7 @@ pre {
     margin: 0 1em 0 0;
   }
   .inline_notice {
-    font-style: italic; 
+    font-style: italic;
     opacity: .5;
   }
   .tools {
@@ -393,7 +393,7 @@ pre {
       padding: .25em .5em;
       margin: 0 0 .5em 0;
     }
-    
+
   }
   .field_locale {
     label {
@@ -442,4 +442,50 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
       font-size: 2rem;
     }
 	}
+}
+
+.globalized_fields {
+  margin-bottom: 5em;
+
+  .globalize_tool {
+    margin: 0 0 1em 0;
+    font-size: .9em;
+    label {
+      font-size: .75em;
+      display: inline-block;
+      margin: 0 1em 0 0;
+      opacity: .75;
+    }
+    a.locale_option {
+      display: inline-block;
+      padding: .15em .55em;
+      line-height: 1.3;
+      margin: 0 .55em 0 0;
+      text-decoration: none;
+      @include border-radius(3px);
+      background: rgba($color_main, .1);
+    }
+    a.locale_option:hover {
+      background: rgba($color_main, .3);
+    }
+    a.selected, a.selected.locale_option:hover {
+      background: $color_main;
+      color: #FFF;
+    }
+    .status {
+      display: inline-block;
+      background: $color_main;
+      width: .5em;
+      height: .5em;
+      @include border-radius(1em);
+      margin: 0 0 0 .25em;
+      opacity: .3;
+    }
+    .selected .status {
+      background: #FFF;
+    }
+    .completed .status {
+      opacity: 1;
+    }
+  }
 }

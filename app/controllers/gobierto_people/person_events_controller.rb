@@ -3,8 +3,15 @@ module GobiertoPeople
     include PoliticalGroupsHelper
 
     def index
-      @events = current_site.person_events.upcoming.sorted
-      @events = filter_by_date_param if params[:date]
+      if params[:date]
+        @events = filter_by_date_param
+        calendar_date_range = (Date.parse(params[:date]).at_beginning_of_month - 1.week)..(Date.parse(params[:date]).at_end_of_month + 1.week)
+      else
+        @events = current_site.person_events.upcoming.sorted
+        calendar_date_range = (Time.zone.now.at_beginning_of_month - 1.week)..(Time.zone.now.at_end_of_month + 1.week)
+      end
+      
+      @calendar_events = current_site.person_events.for_month_calendar(calendar_date_range)
       @people = current_site.people.active.sorted
       @political_groups = get_political_groups
 

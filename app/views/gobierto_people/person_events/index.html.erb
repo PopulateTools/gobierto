@@ -34,7 +34,7 @@
       <div class="calendar-component m_v_2">
         <%= month_calendar(
           partial: "gobierto_people/person_events/calendar_template",
-          events: @events,
+          events: @calendar_events,
           attribute: :starts_at,
           start_date: @filtering_date || params[:start_date] || Date.current
         ) do |date, events| %>

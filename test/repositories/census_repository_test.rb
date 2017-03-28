@@ -47,6 +47,21 @@ class CensusRepositoryTest < ActiveSupport::TestCase
     end
   end
 
+  def test_parse_document_number
+
+    document_numbers = ["12345678A", " 1234 5678 a ", "ñ1?23 45*6¿78--a"]
+
+    document_numbers.each do |document_number|
+      census_repository = CensusRepository.new(
+        site_id: site.id,
+        document_number: document_number,
+        date_of_birth: "2000-01-02"
+      )
+
+      assert_equal census_repository.document_number, "12345678A"
+    end
+  end
+
   def test_exists?
     refute census_repository.exists?
 

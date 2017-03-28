@@ -1,9 +1,9 @@
 <% title t('.title', year: @year) %>
 
 <% content_for :breadcrumb_current_item do %>
-  <strong>
+  <h1>
     <%= link_to t('gobierto_budgets.layouts.menu_subsections.summary'), gobierto_budgets_budgets_path %>
-  </strong>
+  </h1>
 <% end %>
 
 <div class="column">
@@ -143,7 +143,7 @@
         <h3><%= t('.expenses') %></h3>
 
         <table class="med_bg">
-          <thead>
+          <thead class="screen-hidden">
             <tr>
               <th><%= t('.top_expense_category') %></th>
               <th><%= t('.top_expense_value') %></th>

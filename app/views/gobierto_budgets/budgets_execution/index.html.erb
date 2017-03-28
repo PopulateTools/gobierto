@@ -4,9 +4,9 @@
 %>
 
 <% content_for :breadcrumb_current_item do %>
-  <strong>
+  <h1>
     <%= link_to t('gobierto_budgets.layouts.menu_subsections.execution'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last) %>
-  </strong>
+  </h1>
 <% end %>
 
 <div class="column">

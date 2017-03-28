@@ -128,6 +128,26 @@ default: &default
   elastic_url: http://localhost:9200
 ```
 
+### Development top-level domain and port proxying
+
+Gobierto is a [_multi-tenant_](https://en.wikipedia.org/wiki/Multitenancy) application, designed to serve multiple *tenants* from the same instance of the application. A tenant is a group of users who share a common access with specific privileges to the software instance. In our case these tenants are the different cities using Gobierto.
+
+When running a single Gobierto rails application, you'll be able to access each of the available tenants throught a custom URL. The easiest way to deal with this is to use [Pow](http://pow.cx/)'s Port Proxying feature, as described on its [User's manual](http://pow.cx/manual.html#section_2.1.4).
+
+Once Pow is installed, you have to configure it to work with Gobierto:
+
+```shell
+cd ~/.pow
+echo 3000 > ~/.pow/gobierto
+```
+
+The seeds provided for development, as explained [here](user-namespace.md), have two available tenants: one for the city of Madrid and one for Santander.
+
+The application server should be queried through the top-level domain `.gobierto.dev`. Each of the tenants are accessible on their corresponding subdomais:
+
+* [http://madrid.gobierto.dev](http://madrid.gobierto.dev)
+* [http://santander.gobierto.dev](http://santander.gobierto.dev)
+
 ### Run the tests!
 
 Now you can run the tests with:

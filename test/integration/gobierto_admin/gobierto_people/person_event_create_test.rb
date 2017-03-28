@@ -72,7 +72,7 @@ module GobiertoAdmin
                 end
 
                 with_stubbed_s3_file_upload do
-                  click_button "Create"
+                  click_button "Create", visible: false
                 end
               end
 

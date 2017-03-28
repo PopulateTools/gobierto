@@ -23,7 +23,7 @@ class User::CensusVerificationTest < ActionDispatch::IntegrationTest
       with_signed_in_user(unverified_user) do
         visit @verification_path
 
-        fill_in :user_verification_document_number, with: "00000000A"
+        fill_in :user_verification_document_number, with: " 00*00 00ñ00 a "
 
         click_on "Verify"
 

@@ -15,12 +15,20 @@ module GobiertoPeople
 
     def upcoming_events
       @upcoming_events ||= [
-        gobierto_people_person_events(:richard_published)
+        gobierto_people_person_events(:richard_published),
+        gobierto_people_person_events(:richard_published_tomorrow)
       ]
     end
 
     def upcoming_event
       @upcoming_event ||= upcoming_events.first
+    end
+
+    def past_events
+      @past_events ||= [
+        gobierto_people_person_events(:richard_published_past),
+        gobierto_people_person_events(:richard_published_yesterday)
+      ]
     end
 
     def people
@@ -80,6 +88,43 @@ module GobiertoPeople
 
         within ".calendar-component" do
           assert has_link?(upcoming_event.starts_at.day)
+        end
+      end
+    end
+
+    def test_calendar_navigation_arrows
+      with_current_site(site) do
+        visit gobierto_people_events_path
+
+        within ".calendar-heading" do
+          click_link "next-month-link"
+        end
+
+        within ".calendar-component" do
+          assert has_link?(gobierto_people_person_events(:richard_published).starts_at.day)
+        end
+
+        visit gobierto_people_events_path
+
+        within ".calendar-heading" do
+          click_link "previous-month-link"
+        end
+
+        within ".calendar-component" do
+          assert has_link?(gobierto_people_person_events(:richard_published_past).starts_at.day)
+        end
+
+      end
+    end
+
+    def test_calendar_event_links
+      with_current_site(site) do
+        visit gobierto_people_events_path
+
+        within ".calendar-component" do
+          (past_events + upcoming_events).each do |event|
+            assert has_link?(event.starts_at.day)
+          end
         end
       end
     end

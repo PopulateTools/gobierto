@@ -32,6 +32,17 @@ module GobiertoPeople
       refute_includes subject, past_person_event
     end
 
+    def test_within_range_scope
+      past_events = PersonEvent.within_range (1.year.ago)..(Time.zone.now)
+      upcoming_events = PersonEvent.within_range (Time.zone.now)..(1.year.from_now)
+
+      assert_includes past_events, past_person_event
+      refute_includes past_events, person_event
+
+      assert_includes upcoming_events, person_event
+      refute_includes upcoming_events, past_person_event
+    end
+
     def test_by_site_scope
       person_site = person_event.person.site
       subject = PersonEvent.by_site(person_site)

@@ -24,3 +24,21 @@ richard_published_past:
   ends_at: <%= 1.month.ago + 1.hour %>
   attachment_url: https://bit.ly/67890
   state: <%= GobiertoPeople::PersonEvent.states["published"] %>
+
+richard_published_tomorrow:
+  person: richard
+  title: Junta de Gobierno
+  description: El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.
+  starts_at: <%= 1.day.from_now %>
+  ends_at: <%= 1.day.from_now + 1.hour %>
+  attachment_url: https://bit.ly/67890
+  state: <%= GobiertoPeople::PersonEvent.states["published"] %>
+
+richard_published_yesterday:
+  person: richard
+  title: Junta de Gobierno
+  description: El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.
+  starts_at: <%= 1.day.ago %>
+  ends_at: <%= 1.day.ago + 1.hour %>
+  attachment_url: https://bit.ly/67890
+  state: <%= GobiertoPeople::PersonEvent.states["published"] %>

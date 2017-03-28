@@ -89,7 +89,7 @@ class ActionDispatch::IntegrationTest
       timeout: 300,
       inspector: ENV["INTEGRATION_INSPECTOR"] == "true",
       debug: ENV["INTEGRATION_DEBUG"] == "true",
-      window_size: [1920, 1080]
+      window_size: [1920, 6000]
     )
   end
 

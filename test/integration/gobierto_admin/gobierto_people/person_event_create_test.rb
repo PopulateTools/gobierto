@@ -72,7 +72,7 @@ module GobiertoAdmin
                 end
 
                 with_stubbed_s3_file_upload do
-                  page.first('input[type=submit][value="Create"]', visible: false).click
+                  click_button "Create"
                 end
               end
 

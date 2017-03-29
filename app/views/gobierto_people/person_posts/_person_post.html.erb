@@ -4,7 +4,7 @@
   
   <div class="meta">
     <% if person_post.person.avatar_url.present? %>
-      <%= link_to (image_tag person_post.person.avatar_url, height: 30, width: 30), person_post.person %>
+      <%= link_to (image_tag person_post.person.avatar_url, height: 'auto', width: 30), person_post.person %>
     <% end %>
     por <%= link_to person_post.person.name, person_post.person %>
   </div>

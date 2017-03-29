@@ -6,11 +6,13 @@ module GobiertoPeople
       @person_category = Person.categories["executive"]
       @events = @events.by_person_category(@person_category)
 
-      @no_upcoming_events = @events.empty?
+      check_past_events
+    end
 
-      if @no_upcoming_events
-        @events = current_site.person_events.past.by_person_category(@person_category)
-      end
+    private
+
+    def past_events
+      current_site.person_events.past.by_person_category(@person_category)
     end
   end
 end

@@ -9,11 +9,7 @@ module GobiertoPeople
       @people = current_site.people.active.sorted
       @political_groups = get_political_groups
 
-      @no_upcoming_events = @events.empty?
-
-      if @no_upcoming_events
-        @events = current_site.person_events.past.sorted
-      end
+      check_past_events
 
       respond_to do |format|
         format.html
@@ -38,6 +34,15 @@ module GobiertoPeople
       else
         (Time.zone.now.at_beginning_of_month.at_beginning_of_week)..(Time.zone.now.at_end_of_month.at_end_of_week)
       end
+    end
+
+    def past_events
+      current_site.person_events.past.sorted
+    end
+
+    def check_past_events
+      @no_upcoming_events = @events.empty?
+      if @no_upcoming_events then @events = past_events end
     end
 
   end

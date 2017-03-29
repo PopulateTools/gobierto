@@ -6,11 +6,13 @@ module GobiertoPeople
       @person_party = Person.parties["opposition"]
       @events = @events.by_person_party(@person_party)
 
-      @no_upcoming_events = @events.empty?
+      check_past_events
+    end
 
-      if @no_upcoming_events
-        @events = current_site.person_events.past.by_person_party(@person_party)
-      end
+    private
+
+    def past_events
+      current_site.person_events.past.by_person_party(@person_party)
     end
   end
 end

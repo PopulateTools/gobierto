@@ -48,9 +48,8 @@
 	font-weight: 600;
 }
 .widget_body {
-  @include min-screen(1200) {
-    line-height: 80px;
-  }
+  min-height: 80px;
+  line-height: 80px;
   
   .half {
     width: 48%;
@@ -137,6 +136,7 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	color: #7F7F7F;
+  font-weight: 300;
 }
 .widget_meta .widget_src a {
 	font-weight: 300;
@@ -203,6 +203,7 @@
 	}
 	.widget_body {
 		min-height: 100px;
+    line-height: 100px;
 	}
 	.widget_headline {
 		margin-bottom: 1rem;

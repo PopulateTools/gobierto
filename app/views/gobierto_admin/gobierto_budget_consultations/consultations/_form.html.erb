@@ -29,17 +29,15 @@
           </div>
         <% end %>
 
-        <% if f.object.consultation.open? %>
-          <div class="box p_1 m_v_1">
-            <div id="check_participation_start">
-              <%= link_to t('.check_id'), admin_budget_consultation_consultation_responses_path(f.object.consultation), class: 'check_participation_control', remote: true %>
-              <div>(<%= t('.how_to_add') %>)</div>
-            </div>
-
-            <div id="check_participation"></div>
-            <div id="check_participation_results"></div>
+        <div class="box p_1 m_v_1">
+          <div id="check_participation_start">
+            <%= link_to t('.check_id'), admin_budget_consultation_consultation_responses_path(f.object.consultation), class: 'check_participation_control', remote: true %>
+            <div>(<%= t('.how_to_add') %>)</div>
           </div>
-        <% end %>
+
+          <div id="check_participation"></div>
+          <div id="check_participation_results"></div>
+        </div>
       <% end %>
 
       <div class="form_block">

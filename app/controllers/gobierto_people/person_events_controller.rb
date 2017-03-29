@@ -9,6 +9,12 @@ module GobiertoPeople
       @people = current_site.people.active.sorted
       @political_groups = get_political_groups
 
+      @no_upcoming_events = @events.empty?
+
+      if @no_upcoming_events
+        @events = current_site.person_events.past.sorted
+      end
+
       respond_to do |format|
         format.html
         format.json { render json: @events }

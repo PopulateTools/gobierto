@@ -24,3 +24,12 @@ richard_published_past:
   ends_at: <%= 1.month.ago + 1.hour %>
   attachment_url: https://bit.ly/67890
   state: <%= GobiertoPeople::PersonEvent.states["published"] %>
+
+tamara_published_past:
+  person: tamara
+  title: Executive member event I
+  description: Executive member event.
+  starts_at: <%= 15.days.ago %>
+  ends_at: <%= 15.days.ago + 1.hour %>
+  attachment_url: https://bit.ly/67890
+  state: <%= GobiertoPeople::PersonEvent.states["published"] %>

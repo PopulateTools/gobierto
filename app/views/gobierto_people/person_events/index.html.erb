@@ -93,7 +93,12 @@
 
         </div>
 
-        <%= render @events %>
+        <% if @no_upcoming_events %>
+          <div><p><strong>No hay eventos futuros.</strong> Échale un vistazo a los pasados:</p></div>
+        <% end %>
+
+        <%= render partial: "gobierto_people/person_events/person_event", collection: @events %>
+
 
       </div>
 

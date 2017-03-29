@@ -24,11 +24,17 @@ module GobiertoPeople
       @upcoming_event ||= upcoming_events.first
     end
 
-    def past_events
-      @past_events ||= [
-        gobierto_people_person_events(:richard_published_past),
-        gobierto_people_person_events(:richard_published_yesterday)
-      ]
+    def create_visible_month_events
+      @visible_month_events ||= ["2017-02-28 16:00", "2017-03-14 16:00", "2017-03-16 16:00", "2017-04-01 16:00"].map do |date|
+        GobiertoPeople::PersonEvent.create!(
+          person: gobierto_people_people(:richard),
+          title: "foo",
+          description: "bar",
+          starts_at: Time.zone.parse(date),
+          ends_at: (Time.zone.parse(date) + 1.hour),
+          state: GobiertoPeople::PersonEvent.states["published"]
+        )
+      end
     end
 
     def people
@@ -93,39 +99,49 @@ module GobiertoPeople
     end
 
     def test_calendar_navigation_arrows
-      with_current_site(site) do
-        visit gobierto_people_events_path
+      Timecop.freeze(Time.zone.parse("2017-03-15 16:00")) do
 
-        within ".calendar-heading" do
-          click_link "next-month-link"
-        end
+        with_current_site(site) do
+          visit gobierto_people_events_path
 
-        within ".calendar-component" do
-          assert has_link?(gobierto_people_person_events(:richard_published).starts_at.day)
-        end
+          within ".calendar-heading" do
+            click_link "next-month-link"
+          end
 
-        visit gobierto_people_events_path
+          within ".calendar-component" do
+            assert has_link?(gobierto_people_person_events(:richard_published).starts_at.day)
+          end
 
-        within ".calendar-heading" do
-          click_link "previous-month-link"
-        end
+          visit gobierto_people_events_path
 
-        within ".calendar-component" do
-          assert has_link?(gobierto_people_person_events(:richard_published_past).starts_at.day)
+          within ".calendar-heading" do
+            click_link "previous-month-link"
+          end
+
+          within ".calendar-component" do
+            assert has_link?(gobierto_people_person_events(:richard_published_past).starts_at.day)
+          end
         end
 
       end
     end
 
     def test_calendar_event_links
-      with_current_site(site) do
-        visit gobierto_people_events_path
+      visible_month_events = create_visible_month_events
 
-        within ".calendar-component" do
-          (past_events + upcoming_events).each do |event|
-            assert has_link?(event.starts_at.day)
+      Timecop.freeze(Time.zone.parse("2017-03-15 16:00")) do
+
+        with_current_site(site) do
+          visit gobierto_people_events_path
+
+          within ".calendar-component" do
+            visible_month_events.each do |event|
+              assert has_link?(event.starts_at.day)
+            end
           end
+
         end
+
       end
     end
 

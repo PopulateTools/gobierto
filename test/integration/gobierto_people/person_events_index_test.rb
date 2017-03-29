@@ -15,7 +15,7 @@ module GobiertoPeople
 
     def upcoming_events
       @upcoming_events ||= [
-        gobierto_people_person_events(:richard_published),
+        gobierto_people_person_events(:richard_published)
       ]
     end
 
@@ -23,12 +23,12 @@ module GobiertoPeople
       @upcoming_event ||= upcoming_events.first
     end
 
-    def create_visible_month_events
-      @visible_month_events ||= ["2017-02-28 16:00", "2017-03-14 16:00", "2017-03-16 16:00", "2017-04-01 16:00"].map do |date|
+    def create_events_for_dates(dates)
+      @visible_month_events ||= dates.map do |date|
         GobiertoPeople::PersonEvent.create!(
           person: gobierto_people_people(:richard),
-          title: "foo",
-          description: "bar",
+          title: "Event title",
+          description: "Event description",
           starts_at: Time.zone.parse(date),
           ends_at: (Time.zone.parse(date) + 1.hour),
           state: GobiertoPeople::PersonEvent.states["published"]
@@ -98,6 +98,8 @@ module GobiertoPeople
     end
 
     def test_calendar_navigation_arrows
+      visible_month_events = create_events_for_dates(["2017-02-15 16:00", "2017-04-15 16:00"])
+
       Timecop.freeze(Time.zone.parse("2017-03-15 16:00")) do
 
         with_current_site(site) do
@@ -108,7 +110,7 @@ module GobiertoPeople
           end
 
           within ".calendar-component" do
-            assert has_link?(gobierto_people_person_events(:richard_published).starts_at.day)
+            assert has_link?(visible_month_events.last.starts_at.day)
           end
 
           visit gobierto_people_events_path
@@ -118,7 +120,7 @@ module GobiertoPeople
           end
 
           within ".calendar-component" do
-            assert has_link?(gobierto_people_person_events(:richard_published_past).starts_at.day)
+            assert has_link?(visible_month_events.first.starts_at.day)
           end
         end
 
@@ -126,7 +128,7 @@ module GobiertoPeople
     end
 
     def test_calendar_event_links
-      visible_month_events = create_visible_month_events
+      visible_month_events = create_events_for_dates(["2017-02-28 16:00", "2017-03-14 16:00", "2017-03-16 16:00", "2017-04-01 16:00"])
 
       Timecop.freeze(Time.zone.parse("2017-03-15 16:00")) do
 

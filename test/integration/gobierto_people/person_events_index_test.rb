@@ -16,7 +16,6 @@ module GobiertoPeople
     def upcoming_events
       @upcoming_events ||= [
         gobierto_people_person_events(:richard_published),
-        gobierto_people_person_events(:richard_published_tomorrow)
       ]
     end
 

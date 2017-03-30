@@ -13,6 +13,25 @@ module GobiertoPeople
       @site ||= sites(:madrid)
     end
 
+    def government_member
+      gobierto_people_people(:richard)
+    end
+
+    def executive_member
+      gobierto_people_people(:tamara)
+    end
+
+    def people
+      @people ||= [government_member, executive_member]
+    end
+
+    def political_groups
+      @political_groups ||= [
+        gobierto_people_political_groups(:marvel),
+        gobierto_people_political_groups(:dc)
+      ]
+    end
+
     def upcoming_events
       @upcoming_events ||= [
         gobierto_people_person_events(:richard_published)
@@ -23,31 +42,21 @@ module GobiertoPeople
       @upcoming_event ||= upcoming_events.first
     end
 
+    def create_event(options = {})
+      GobiertoPeople::PersonEvent.create!(
+        person: options[:person] || government_member,
+        title: "Event title",
+        description: "Event description",
+        starts_at: Time.zone.parse(options[:starts_at]) || Time.zone.now,
+        ends_at: (Time.zone.parse(options[:starts_at]) || Time.zone.now) + 1.hour,
+        state: GobiertoPeople::PersonEvent.states["published"]
+      )
+    end
+
     def create_events_for_dates(dates)
       @visible_month_events ||= dates.map do |date|
-        GobiertoPeople::PersonEvent.create!(
-          person: gobierto_people_people(:richard),
-          title: "Event title",
-          description: "Event description",
-          starts_at: Time.zone.parse(date),
-          ends_at: (Time.zone.parse(date) + 1.hour),
-          state: GobiertoPeople::PersonEvent.states["published"]
-        )
+        create_event(starts_at: date)
       end
-    end
-
-    def people
-      @people ||= [
-        gobierto_people_people(:richard),
-        gobierto_people_people(:tamara)
-      ]
-    end
-
-    def political_groups
-      @political_groups ||= [
-        gobierto_people_political_groups(:marvel),
-        gobierto_people_political_groups(:dc)
-      ]
     end
 
     def test_person_events_index

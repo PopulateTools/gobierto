@@ -6,6 +6,7 @@ module GobiertoPeople
       @person_category = Person.categories["executive"]
       @events = @events.by_person_category(@person_category)
       @calendar_events = @calendar_events.by_person_category(@person_category)
+      @people = @people.executive
 
       check_past_events
     end

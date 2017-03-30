@@ -235,10 +235,10 @@ body.gobierto_people {
       display: inline-block;
     }
     .person_charge {
-      font-size: 2em;
+      font-size: 1.5em;
       font-weight: 200;
       vertical-align: top;
-      margin: 0 1em 0 0;
+      margin: 0 1em .5em 0;
     }
     .person_party, .political_group {
       background: $color_1_soft;
@@ -264,10 +264,14 @@ body.gobierto_people {
   }
   
   .latest-activity {
-    li h4 {
-      margin: 0;
-      font-weight: 400;
-      display: inline-block;
+    li {
+      margin-bottom: 0.5em;
+
+      h4 {
+        margin: 0;
+        font-weight: 400;
+        display: inline-block;
+      }
     }
   }
   

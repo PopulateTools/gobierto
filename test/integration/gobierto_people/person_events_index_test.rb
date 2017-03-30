@@ -97,11 +97,15 @@ module GobiertoPeople
     end
 
     def test_calendar_component
-      with_current_site(site) do
-        visit gobierto_people_events_path(start_date: upcoming_event.starts_at)
+      upcoming_event = create_events_for_dates(["2017-03-15 16:00"]).first
 
-        within ".calendar-component" do
-          assert has_link?(upcoming_event.starts_at.day)
+      Timecop.freeze(Time.zone.parse("2017-03-15 16:00")) do
+        with_current_site(site) do
+          visit gobierto_people_events_path(start_date: upcoming_event.starts_at)
+
+          within ".calendar-component" do
+            assert has_link?(upcoming_event.starts_at.day)
+          end
         end
       end
     end

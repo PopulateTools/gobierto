@@ -82,6 +82,7 @@
   ul {
     list-style-type: none;
     padding-left: 0;
+    margin-bottom: .5rem;
 
     li {
     	position: relative;
@@ -91,7 +92,7 @@
       a {
         text-transform: uppercase;
         text-decoration: none;
-        padding: .75em 3em .6em;
+        padding: .4em .6em .4em;
         display: inline-block;
         border: 1px solid $color_separator;
         color: $text_soft;
@@ -127,8 +128,8 @@
 			pointer-events: none;
 			border-color: white;
 			border-top-color: $color_1_soft;
-			border-width: 20px;
-			margin-left: -20px;
+			border-width: 10px;
+			margin-left: -10px;
 			@include border-radius(2px);
 		}
   }
@@ -143,5 +144,3 @@
 		}
 	}
 }
-
-

@@ -20,6 +20,7 @@ module GobiertoPeople
     scope :past,     -> { published.where("starts_at <= ?", Time.zone.now) }
     scope :upcoming, -> { published.where("starts_at > ?", Time.zone.now) }
     scope :sorted,   -> { order(starts_at: :asc) }
+    scope :within_range, -> (date_range) { published.where(starts_at: date_range) }
     scope :by_date,  ->(date) { where("starts_at::date = ?", date) }
 
     scope :by_site, ->(site) do

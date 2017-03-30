@@ -5,6 +5,7 @@ module GobiertoPeople
     def index
       @events = current_site.person_events.upcoming.sorted
       @events = filter_by_date_param if params[:date]
+      @calendar_events = current_site.person_events.within_range(calendar_date_range)
       @people = current_site.people.active.sorted
       @political_groups = get_political_groups
 
@@ -24,5 +25,14 @@ module GobiertoPeople
     rescue ArgumentError
       @events
     end
+
+    def calendar_date_range
+      if params[:start_date]
+        (Date.parse(params[:start_date]).at_beginning_of_month.at_beginning_of_week)..(Date.parse(params[:start_date]).at_end_of_month.at_end_of_week)
+      else
+        (Time.zone.now.at_beginning_of_month.at_beginning_of_week)..(Time.zone.now.at_end_of_month.at_end_of_week)
+      end
+    end
+
   end
 end

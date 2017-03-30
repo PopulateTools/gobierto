@@ -23,6 +23,19 @@ module GobiertoPeople
       @upcoming_event ||= upcoming_events.first
     end
 
+    def create_events_for_dates(dates)
+      @visible_month_events ||= dates.map do |date|
+        GobiertoPeople::PersonEvent.create!(
+          person: gobierto_people_people(:richard),
+          title: "Event title",
+          description: "Event description",
+          starts_at: Time.zone.parse(date),
+          ends_at: (Time.zone.parse(date) + 1.hour),
+          state: GobiertoPeople::PersonEvent.states["published"]
+        )
+      end
+    end
+
     def people
       @people ||= [
         gobierto_people_people(:richard),
@@ -81,6 +94,55 @@ module GobiertoPeople
         within ".calendar-component" do
           assert has_link?(upcoming_event.starts_at.day)
         end
+      end
+    end
+
+    def test_calendar_navigation_arrows
+      visible_month_events = create_events_for_dates(["2017-02-15 16:00", "2017-04-15 16:00"])
+
+      Timecop.freeze(Time.zone.parse("2017-03-15 16:00")) do
+
+        with_current_site(site) do
+          visit gobierto_people_events_path
+
+          within ".calendar-heading" do
+            click_link "next-month-link"
+          end
+
+          within ".calendar-component" do
+            assert has_link?(visible_month_events.last.starts_at.day)
+          end
+
+          visit gobierto_people_events_path
+
+          within ".calendar-heading" do
+            click_link "previous-month-link"
+          end
+
+          within ".calendar-component" do
+            assert has_link?(visible_month_events.first.starts_at.day)
+          end
+        end
+
+      end
+    end
+
+    def test_calendar_event_links
+      visible_month_events = create_events_for_dates(["2017-02-28 16:00", "2017-03-14 16:00", "2017-03-16 16:00", "2017-04-01 16:00"])
+
+      Timecop.freeze(Time.zone.parse("2017-03-15 16:00")) do
+
+        with_current_site(site) do
+          visit gobierto_people_events_path
+
+          within ".calendar-component" do
+            visible_month_events.each do |event|
+              assert has_link?(event.starts_at.day)
+            end
+          end
+
+        end
+
       end
     end
 

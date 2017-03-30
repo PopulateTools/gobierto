@@ -1,20 +1,9 @@
 module GobiertoPeople
   class ExecutiveCategoryPersonEventsController < PersonEventsController
     def index
-      super
       @person_event_scope = "executive_category"
       @person_category = Person.categories["executive"]
-      @events = @events.by_person_category(@person_category)
-      @calendar_events = @calendar_events.by_person_category(@person_category)
-      @people = @people.executive
-
-      check_past_events
-    end
-
-    private
-
-    def past_events
-      current_site.person_events.past.by_person_category(@person_category)
+      super
     end
   end
 end

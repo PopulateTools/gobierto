@@ -93,8 +93,14 @@
 
         </div>
 
-        <% if @no_upcoming_events %>
-          <div><p><strong>No hay eventos futuros.</strong> Échale un vistazo a los pasados:</p></div>
+        <% if @past_events && @events.empty? %>
+          <p>No hay eventos pasados.</p>
+        <% else %>
+          <% if @no_upcoming_events && @events.empty? %>
+            <p>No hay eventos futuros ni pasados.</p>
+          <% elsif @no_upcoming_events %>
+            <p><strong>No hay eventos futuros.</strong> Échale un vistazo a los pasados:</p>
+          <% end %>
         <% end %>
 
         <%= render partial: "gobierto_people/person_events/person_event", collection: @events %>

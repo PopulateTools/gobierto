@@ -3,13 +3,11 @@ module GobiertoPeople
     include PoliticalGroupsHelper
 
     def index
-      @events = current_site.person_events.upcoming.sorted
-      @events = filter_by_date_param if params[:date]
-      @calendar_events = current_site.person_events.within_range(calendar_date_range)
-      @people = current_site.people.active.sorted
       @political_groups = get_political_groups
 
-      check_past_events
+      set_events
+      set_calendar_events
+      set_people
 
       respond_to do |format|
         format.html
@@ -19,6 +17,36 @@ module GobiertoPeople
     end
 
     private
+
+    def set_events
+      @events = current_site.person_events.sorted
+      @events = filter_by_date_param if params[:date]
+      @events = @events.by_person_category(@person_category) if @person_category
+      @events = @events.by_person_party(@person_party) if @person_party
+
+      if @past_events
+        @events = @events.past
+      else
+        if @events.upcoming.empty?
+          @no_upcoming_events = true
+          @events = @events.past
+        else
+          @events = @events.upcoming
+        end
+      end
+    end
+
+    def set_calendar_events
+      @calendar_events = current_site.person_events.within_range(calendar_date_range)
+      @calendar_events = @calendar_events.by_person_category(@person_category) if @person_category
+      @calendar_events = @calendar_events.by_person_party(@person_party) if @person_party
+    end
+
+    def set_people
+      @people = current_site.people.active.sorted
+      @people = @people.send(Person.categories.index(@person_category)) if @person_category
+      @people = @people.send(Person.parties.index(@person_party)) if @person_party
+    end
 
     def filter_by_date_param
       @filtering_date = Date.parse(params[:date])
@@ -34,15 +62,6 @@ module GobiertoPeople
       else
         (Time.zone.now.at_beginning_of_month.at_beginning_of_week)..(Time.zone.now.at_end_of_month.at_end_of_week)
       end
-    end
-
-    def past_events
-      current_site.person_events.past.sorted
-    end
-
-    def check_past_events
-      @no_upcoming_events = @events.empty?
-      if @no_upcoming_events then @events = past_events end
     end
 
   end

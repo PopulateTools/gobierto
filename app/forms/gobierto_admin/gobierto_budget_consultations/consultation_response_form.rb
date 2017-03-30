@@ -18,7 +18,7 @@ module GobiertoAdmin
       delegate :to_model, :persisted?, to: :consultation_response
 
       validates :document_number_digest, :consultation, :selected_options,
-                :site, :census_item, :date_of_birth, :gender, presence: true
+                :site, :census_item, presence: true
 
       def save
         save_consultation_response if valid?
@@ -73,15 +73,9 @@ module GobiertoAdmin
 
       private
 
+      # User custom records are not mandatory if the consultation is being created by an admin
       def valid_custom_records
-        return if custom_records_attributes.nil? || custom_records_attributes.empty?
-
-        custom_records_attributes.each do |name, attributes|
-          custom_user_field = site.custom_user_fields.find_by(name: name)
-          if custom_user_field.mandatory? && attributes["raw_value"].blank?
-            errors[:base] << "#{custom_user_field.localized_title} #{I18n.t('errors.messages.blank')}"
-          end
-        end
+        return true
       end
 
       def consultation_class

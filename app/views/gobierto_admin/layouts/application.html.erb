@@ -116,7 +116,7 @@
       <div class="menu_content">
 
         <ul>
-          <% if current_site.configuration.gobierto_budget_consultations_enabled? %>
+          <% if SITE_MODULES.include?("GobiertoBudgetConsultations") && current_site.configuration.gobierto_budget_consultations_enabled? %>
           <li>
             <%= link_to t(".budget_consultations"), admin_budget_consultations_path %>
           </li>

@@ -449,7 +449,11 @@ $units: 1px !default;
 
 /* Padded Cols hack */
 .padded_cols.pure-g {
-  width: calc(100% + 2em);
+  width: 100%;
+
+  @include min-screen(768) {
+   width: calc(100% + 2em);
+  }
 }
 .padded_cols {
   [class*="pure-u"] {
@@ -458,8 +462,14 @@ $units: 1px !default;
   .padded {
     margin: 1em;  
   }
-  [class*="pure-u"]:first-child {
-    margin-left: -1em;
+  [class*="pure-u"] {
+    margin-left: 0;
+  }
+
+  @include min-screen(768) {
+   [class*="pure-u"] {
+      margin-left: -1em;
+    }
   }
 }
 .padded_cols.example {

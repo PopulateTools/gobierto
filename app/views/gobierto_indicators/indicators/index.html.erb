@@ -13,7 +13,7 @@
 
 <div class="column">
 	<section id="poblacion" class="mb4">
-		<div class="pure-g mb2">			
+		<div class="pure-g">
 			<div class="pure-u-1 pure-u-md-1-3">
 				<h2 class="section_headline" id="population">Población</h2>
 				<p class="section_desc">
@@ -27,10 +27,9 @@
 			</div>
 		</div>
 		
-		<div class="pure-g">
-			
+		<div class="pure-g padded_cols">
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-        <div class="indicator_widget widget_start" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-poblacion-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
+        <div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-poblacion-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
 					<div class="front">
 						<div class="widget_headline"><h3>Población</h3></h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
@@ -68,7 +67,7 @@
 			</div>
 			
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_middle" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-nacimientos-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
+				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-nacimientos-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
 					<div class="front">
 						<div class="widget_headline"><h3>Nacimientos</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
@@ -106,7 +105,7 @@
 			</div>
 			
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_end" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-defunciones-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
+				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-defunciones-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
 					<div class="front">
 						<div class="widget_headline"><h3>Defunciones</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
@@ -150,12 +149,12 @@
 		<div class="pure-g">
 			<div class="pure-u-1 pure-u-md-2-3">
 				<h2 class="section_headline" id="employment">Empleo</h2>
-          <p class="section_desc">
+          <p class="section_desc mb2">
 						A nivel municipal hay varios indicadores sobre empleo, aunque no existe la tasa de paro: esta la calcula el INE en base a una encuesta trimestral (<a href="http://www.ine.es/prensa/epa_prensa.htm">la EPA</a>). En esta sección puedes consultar una aproximación a lo que sería una tasa de paro municipal, basada en los datos de población anuales y en los inscritos en el Servicio Público de Empleo, que son mensuales.
 					</p>
 			</div>
 		</div>
-		<div class="pure-g mb2">
+		<div class="pure-g">
 			<div class="pure-u-1 pure-u-md-12-24">
 				<h3 class="chart_headline center">Porcentaje de desempleados según la población total y edad</h3>
 				<div id="unemployment_age" class="small_graphic"></div>
@@ -166,10 +165,10 @@
 			</div>
 		</div>
 		
-		<div class="pure-g">
+		<div class="pure-g padded_cols">
 
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_start" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-tasa-paro-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=" data-type="percentage">
+				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-tasa-paro-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=" data-type="percentage">
 					<div class="front">
 						<div class="widget_headline"><h3>Tasa de paro</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
@@ -207,7 +206,7 @@
 			</div>
 			
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_middle" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-poblacion-activa-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
+				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-poblacion-activa-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
 					<div class="front">
 						<div class="widget_headline"><h3>Población activa</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
@@ -246,7 +245,7 @@
 			
 			
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_end" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-afiliados-ss-municipio.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
+				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-afiliados-ss-municipio.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
 					<div class="front">
 						<div class="widget_headline"><h3>Afiliados Seguridad Social</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
@@ -284,7 +283,7 @@
 			</div>
 			
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_start" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-contratos-municipio.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
+				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-contratos-municipio.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
 					<div class="front">
 						<div class="widget_headline"><h3>Contratos en el último mes</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
@@ -322,7 +321,7 @@
 			</div>
 			
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_middle" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-autonomos-municipio.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
+				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-autonomos-municipio.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
 					<div class="front">
 						<div class="widget_headline"><h3>Autónomos</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
@@ -360,7 +359,7 @@
 			</div>
 			
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_end" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-empresas-municipio.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
+				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-empresas-municipio.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
 					<div class="front">
 						<div class="widget_headline"><h3>Empresas</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
@@ -402,7 +401,7 @@
 
 
 	<section id="economia" class="mb4">
-		<div class="pure-g mb2">
+		<div class="pure-g">
 			<div class="pure-u-1 pure-u-md-1-3">
 				<div class="r_mr">
 					<h2 class="section_headline" id="economy">Economía</h2>
@@ -425,9 +424,9 @@
 			</div>
 		</div>
 		
-		<div class="pure-g">
+		<div class="pure-g padded_cols">
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_start" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-renta-bruta-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=" data-type="currency">
+				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-renta-bruta-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=" data-type="currency">
 					<div class="front">
 						<div class="widget_headline"><h3>Renta bruta</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
@@ -465,7 +464,7 @@
 			</div>
 			
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_middle" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-renta-disponible-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=" data-type="currency">
+				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-renta-disponible-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=" data-type="currency">
 					<div class="front">
 						<div class="widget_headline"><h3>Renta disponible</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
@@ -503,7 +502,7 @@
 			</div>
 			
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_end" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-impuestos-actividades-economicas-min-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=" data-type="percentage">
+				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-impuestos-actividades-economicas-min-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=" data-type="percentage">
 					<div class="front">
 						<div class="widget_headline"><h3>Impuesto actividades económicas</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
@@ -545,7 +544,7 @@
 
 	<section id="presupuestos" class="mb4">
 		<div class="pure-g">
-			<div class="pure-u-1 pure-u-md-2-3 mb1">
+			<div class="pure-u-1 pure-u-md-2-3">
 				<h2 class="section_headline" id="budgets">Presupuestos</h2>
           <p class="section_desc">
 						El presupuesto municipal es el documento que explica cómo se gestiona el dinero público durante un año. El alcalde y los responsables de cada área de gobierno diseñan el presupuesto, lo redactan con las indicaciones de la concejalía de Hacienda y se somete a votación en el pleno. El presupuesto de un año tiene que quedar aprobado antes del 31 de diciembre del año anterior. Si no, se prorroga automáticamente.
@@ -553,10 +552,10 @@
 			</div>
 		</div>
 
-		<div class="pure-g">
+		<div class="pure-g padded_cols">
 			
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_start" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-inversion-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="currency_per_person">
+				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-inversion-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="currency_per_person">
 					<div class="front">
 						<div class="widget_headline"><h3>Inversión por habitante</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
@@ -594,7 +593,7 @@
 			</div>
 			
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_middle" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-coste-deuda.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="percentage">
+				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-coste-deuda.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="percentage">
 					<div class="front">
 						<div class="widget_headline"><h3>Coste de la deuda</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
@@ -632,7 +631,7 @@
 			</div>
 			
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_end" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-presion-fiscal-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="currency_per_person">
+				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-presion-fiscal-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="currency_per_person">
 					<div class="front">
 						<div class="widget_headline"><h3>Presión fiscal por habitante</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
@@ -670,7 +669,7 @@
 			</div>
 			
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_start" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-nivel-endeudamiento.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="percentage">
+				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-nivel-endeudamiento.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="percentage">
 					<div class="front">
 						<div class="widget_headline"><h3>Nivel de endeudamiento</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
@@ -708,7 +707,7 @@
 			</div>
 			
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_middle" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-riesgo-financiero.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="percentage">
+				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-riesgo-financiero.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="percentage">
 					<div class="front">
 						<div class="widget_headline"><h3>Riesgo financiero</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
@@ -746,7 +745,7 @@
 			</div>
 			
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_end" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-rigidez-gasto.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="percentage">
+				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-rigidez-gasto.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="percentage">
 					<div class="front">
 						<div class="widget_headline"><h3>Rigidez de gasto</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">

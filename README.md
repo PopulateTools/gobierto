@@ -1,6 +1,5 @@
 [![CircleCI](https://circleci.com/gh/PopulateTools/gobierto.svg?style=svg)](https://circleci.com/gh/PopulateTools/gobierto)
 [![codecov](https://img.shields.io/codecov/c/github/PopulateTools/gobierto.svg)](https://codecov.io/gh/PopulateTools/gobierto)
-[![Stories in Ready](https://badge.waffle.io/PopulateTools/gobierto.svg?label=ready&title=Ready)](http://waffle.io/PopulateTools/gobierto)
 
 <img src="https://gobierto.es/assets/logo_gobierto.png" width="250" height="auto">
 
@@ -94,7 +93,7 @@ Toda la documentación y comunicación relativa al desarrollo la realizamos en i
 - [Acceder como Administrador](docs/admin-namespace.md)
 - [Acceder como Usuario](docs/user-namespace.md)
 
-### Dsarrollo
+### Desarrollo
 
 - Contribuciones: Si quieres realizar aportaciones a Gobierto, lee [cómo colaborar](CONTRIBUTING_EN.md)
 - [Desarrollar un módulo](docs/developing-module.md)

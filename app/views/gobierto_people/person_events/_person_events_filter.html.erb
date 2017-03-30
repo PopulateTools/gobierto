@@ -2,20 +2,21 @@
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
 
     <ul role="tablist" aria-label="<%= t('.agenda', name: @site.name) %>">
+      <% past_events_controller = controller.class.ancestors.include?(GobiertoPeople::PastPersonEventsController) %>
       <li role="presentation" class="<%= class_if('active', controller_name.in?(%w(government_party_person_events government_party_past_person_events))) %>">
-        <% path = (controller.class.ancestors.include?(GobiertoPeople::PastPersonEventsController) ? gobierto_people_government_party_past_events_path : gobierto_people_government_party_events_path) %>
+        <% path = (past_events_controller ? gobierto_people_government_party_past_events_path : gobierto_people_government_party_events_path) %>
         <%= link_to t("gobierto_people.people_filter.parties.government"), path, tab_attributes(controller_name.in?(%w(government_party_person_events government_party_past_person_events))).merge('aria-controls' => 'person-agenda') %>
       </li>
       <li role="presentation" class="<%= class_if('active', controller_name.in?(%w(opposition_party_person_events opposition_party_past_person_events))) %>">
-        <% path = (controller.class.ancestors.include?(GobiertoPeople::PastPersonEventsController) ? gobierto_people_opposition_party_past_events_path : gobierto_people_opposition_party_events_path) %>
+        <% path = (past_events_controller ? gobierto_people_opposition_party_past_events_path : gobierto_people_opposition_party_events_path) %>
         <%= link_to t("gobierto_people.people_filter.parties.opposition"), path, tab_attributes(controller_name.in?(%w(opposition_party_person_events opposition_party_past_person_events))).merge('aria-controls' => 'person-agenda') %>
       </li>
       <li role="presentation" class="<%= class_if('active', controller_name.in?(%w(executive_category_person_events executive_category_past_person_events))) %>">
-        <% path = (controller.class.ancestors.include?(GobiertoPeople::PastPersonEventsController) ? gobierto_people_executive_category_past_events_path : gobierto_people_executive_category_events_path) %>
+        <% path = (past_events_controller ? gobierto_people_executive_category_past_events_path : gobierto_people_executive_category_events_path) %>
         <%= link_to t("gobierto_people.people_filter.categories.executive"), path, tab_attributes(controller_name.in?(%w(executive_category_person_events executive_category_past_person_events))).merge('aria-controls' => 'person-agenda') %>
       </li>
       <li role="presentation" class="<%= class_if('active', controller_name.in?(%w(person_events past_person_events))) %>">
-        <% path = (controller.class.ancestors.include?(GobiertoPeople::PastPersonEventsController) ? gobierto_people_past_events_path : gobierto_people_events_path) %>
+        <% path = (past_events_controller ? gobierto_people_past_events_path : gobierto_people_events_path) %>
         <%= link_to t("gobierto_people.people_filter.all"), path, tab_attributes(controller_name.in?(%w(person_events past_person_events))).merge('aria-controls' => 'person-agenda') %>
       </li>
     </ul>

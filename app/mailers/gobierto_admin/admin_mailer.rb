@@ -3,6 +3,7 @@ module GobiertoAdmin
     def confirmation_instructions(admin)
       @admin = admin
       @site = admin.sites.first
+      @site_host = site_host
 
       mail(
         from: from,
@@ -15,6 +16,7 @@ module GobiertoAdmin
     def invitation_instructions(admin)
       @admin = admin
       @site = admin.sites.first
+      @site_host = site_host
 
       mail(
         from: from,
@@ -27,6 +29,7 @@ module GobiertoAdmin
     def reset_password_instructions(admin)
       @admin = admin
       @site = admin.sites.first
+      @site_host = site_host
 
       mail(
         from: from,

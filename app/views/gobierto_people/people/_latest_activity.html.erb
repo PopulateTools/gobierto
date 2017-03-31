@@ -7,7 +7,7 @@
     <ul>
       <% @latest_activity.each do |activity| %>
         <li>
-          <h4><%= link_to_if activity.active?, activity.translated_action, activity.subject.to_url(domain: @site.domain) %></h4>
+          <h4><%= link_to_if activity.active?, activity.translated_action, activity.subject.to_url(host: @site.domain) %></h4>
           <span class="soft">
             <%= l(activity.created_at.to_date, format: :short) %>
           </span>

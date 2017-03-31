@@ -37,7 +37,7 @@ module GobiertoAdmin
         if @consultation_form.save
           redirect_to(
             admin_budget_consultation_consultation_items_path(@consultation_form.consultation),
-            notice: t(".success_html", link: gobierto_budget_consultations_consultation_url(@consultation_form.consultation, domain: current_site.domain))
+            notice: t(".success_html", link: gobierto_budget_consultations_consultation_url(@consultation_form.consultation, host: current_site.domain))
           )
         else
           @consultation_visibility_levels = get_consultation_visibility_levels
@@ -55,7 +55,7 @@ module GobiertoAdmin
         if @consultation_form.save
           redirect_to(
             edit_admin_budget_consultation_path(@consultation),
-            notice: t(".success_html", link: gobierto_budget_consultations_consultation_url(@consultation_form.consultation, domain: current_site.domain))
+            notice: t(".success_html", link: gobierto_budget_consultations_consultation_url(@consultation_form.consultation, host: current_site.domain))
           )
         else
           @consultation_visibility_levels = get_consultation_visibility_levels

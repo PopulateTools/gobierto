@@ -44,8 +44,8 @@ module GobiertoPeople
 
     def set_people
       @people = current_site.people.active.sorted
-      @people = @people.send(Person.categories.index(@person_category)) if @person_category
-      @people = @people.send(Person.parties.index(@person_party)) if @person_party
+      @people = @people.send(Person.categories.key(@person_category)) if @person_category
+      @people = @people.send(Person.parties.key(@person_party)) if @person_party
     end
 
     def filter_by_date_param

@@ -105,9 +105,9 @@ class Site < ApplicationRecord
     @added_modules_after_update ||= begin
       if self.configuration_data.has_key?('modules')
         if self.configuration_data_was && self.configuration_data_was.has_key?('modules')
-          self.configuration_data['modules'] - self.configuration_data_was['modules']
+          Array.wrap(self.configuration_data['modules']) - Array.wrap(self.configuration_data_was['modules'])
         else
-          self.configuration_data['modules']
+          Array.wrap(self.configuration_data['modules'])
         end
       else
         []

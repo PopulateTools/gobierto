@@ -142,6 +142,9 @@ ca:
           title: Rep un resum de les agendes dels teus representants
         title: Agendes de %{site_name}
         upcoming_events: Agenda
+        no_upcoming_events: No hi ha events futurs. Mira els pròxims events
+        no_past_events: No hi ha events passats.
+        no_events: No hi ha events futurs ni passats.
     person_post_tags:
       show:
         filtering_by_tag: Filtrant per "%{tag}"

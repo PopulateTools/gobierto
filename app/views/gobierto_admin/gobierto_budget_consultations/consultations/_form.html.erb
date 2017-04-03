@@ -20,7 +20,7 @@
                     <div><%= t('.days_left_html', count: f.object.consultation.days_left, projected_count: f.object.consultation.projected_responses )%></div>
                   <% end %>
                 <% else %>
-                  <div><%= t('.no_response_html', url: f.object.consultation.to_url(domain: current_site.domain)) %></div>
+                  <div><%= t('.no_response_html', url: f.object.consultation.to_url(host: current_site.domain)) %></div>
                 <% end %>
               <% elsif f.object.consultation.upcoming? %>
                 <div><%= t('.upcoming') %></div>

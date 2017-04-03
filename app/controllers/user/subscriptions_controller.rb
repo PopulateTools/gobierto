@@ -34,7 +34,7 @@ class User::SubscriptionsController < User::BaseController
       flash[:alert] = t(
         ".error",
         details: @user_subscription_form.errors.full_messages.to_sentence,
-        sign_in_path: new_user_sessions_path(domain: current_site.domain)
+        sign_in_path: new_user_sessions_path(host: current_site.domain)
       )
     end
 

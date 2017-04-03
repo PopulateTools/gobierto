@@ -18,7 +18,7 @@ class UserNotificationDecorator < BaseDecorator
   end
 
   def url
-    @object.subject.to_url(domain: @object.site.domain)
+    @object.subject.to_url(host: @object.site.domain)
   end
 
   private

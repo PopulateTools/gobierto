@@ -41,7 +41,7 @@
 
       <div class="events-summary person_event-list item-list">
 
-        <%= render(partial: "gobierto_people/people/person_events", locals: { person_events: @events, people_filter: 'government' } ) %>
+        <%= render(partial: "gobierto_people/people/person_events", locals: { person_events: @events, people_filter: 'government', no_upcoming_events: @no_upcoming_events } ) %>
 
       </div>
 

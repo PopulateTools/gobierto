@@ -37,9 +37,16 @@ module GobiertoPeople
     end
 
     def set_events
-      @events = current_site.person_events.upcoming.sorted
+      @events = current_site.person_events.sorted
       @events = @events.by_person_category(@person_category) if @person_category
       @events = @events.by_person_party(@person_party) if @person_party
+
+      if @events.upcoming.empty?
+        @no_upcoming_events = true
+        @events = @events.past
+      else
+        @events = @events.upcoming
+      end
     end
 
   end

@@ -1,25 +1,32 @@
 <div id="person-events-list">
 
   <div class="block">
-    <h2><%= t(".events_summary.upcoming_events") %></h2>
-
     <% case people_filter %>
     <% when 'government' %>
+      <h2><%= link_to t(".events_summary.upcoming_events"), gobierto_people_government_party_events_path, remote: true  %></h2>
       <%= link_to t(".events_summary.past_events"), gobierto_people_government_party_past_events_path, { remote: true, class: 'to_r' } %>
     <% when 'opposition' %>
+      <h2><%= link_to t(".events_summary.upcoming_events"), gobierto_people_opposition_party_events_path, remote: true  %></h2>
       <%= link_to t(".events_summary.past_events"), gobierto_people_opposition_party_past_events_path, { remote: true, class: 'to_r' } %>
     <% when 'executive' %>
+      <h2><%= link_to t(".events_summary.upcoming_events"), gobierto_people_executive_category_events_path, remote: true  %></h2>
       <%= link_to t(".events_summary.past_events"), gobierto_people_executive_category_past_events_path, { remote: true, class: 'to_r' } %>
     <% end %>
   </div>
+
+  <% if no_upcoming_events && person_events.any? %>
+    <p>No hay eventos futuros. Échale un vistazo a los pasados:</p>
+  <% end %>
 
   <% if person_events.any? %>
     <% person_events.each do |person_event| %>
       <%= render(partial: 'gobierto_people/person_events/person_event', locals: { person_event: person_event } ) %>
     <% end %>
     <%= link_to t(".events_summary.view_all"), gobierto_people_events_path, class: "see_more", role: "button" %>
-  <% else %>
-    <p>No hay eventos</p>
+  <% end %>
+
+  <% if person_events.empty? %>
+    <p>No hay eventos.</p>
   <% end %>
 
 </div>

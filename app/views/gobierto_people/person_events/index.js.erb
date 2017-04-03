@@ -1,3 +1,3 @@
-$("#person-events-list").html('<%=j render(partial: "gobierto_people/people/person_events", locals: { person_events: @events, people_filter: GobiertoPeople::Person.parties.key(@person_party) || GobiertoPeople::Person.categories.key(@person_category) } ) %>');
+$("#person-events-list").html('<%=j render(partial: "gobierto_people/people/person_events", locals: { person_events: @events, no_upcoming_events: @no_upcoming_events, people_filter: GobiertoPeople::Person.parties.key(@person_party) || GobiertoPeople::Person.categories.key(@person_category) } ) %>');
 
 rebindAll();

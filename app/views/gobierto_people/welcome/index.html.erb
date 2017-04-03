@@ -41,12 +41,7 @@
 
       <div class="events-summary person_event-list item-list">
 
-        <div class="block">
-          <h2><%= t(".events_summary.upcoming_events") %></h2>
-          <%= link_to t(".events_summary.past_events"), gobierto_people_past_events_path, class: 'to_r' %>
-        </div>
-
-        <%= render(partial: "gobierto_people/person_events/person_events", locals: { person_events: @events } ) %>
+        <%= render(partial: "gobierto_people/person_events/person_events", locals: { person_events: @events, people_filter: 'government' } ) %>
 
       </div>
 

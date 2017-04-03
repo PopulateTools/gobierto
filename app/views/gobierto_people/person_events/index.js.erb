@@ -1,4 +1,3 @@
-$("#people-list").html('<%=j render partial: "gobierto_people/people/people", locals: { people: @people } %>');
 $("#person-events-list").html('<%=j render(partial: "gobierto_people/person_events/person_events", locals: { person_events: @events, people_filter: GobiertoPeople::Person.parties.key(@person_party) || GobiertoPeople::Person.categories.key(@person_category) } ) %>');
 
 rebindAll();

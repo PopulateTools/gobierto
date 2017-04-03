@@ -1,8 +1,8 @@
 module GobiertoPeople
   class PastPersonEventsController < PersonEventsController
     def index
+      @past_events = true
       super
-      @events = current_site.person_events.past.sorted
     end
   end
 end

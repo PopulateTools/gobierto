@@ -15,7 +15,7 @@
 
   <% if person_events.any? %>
     <% person_events.each do |person_event| %>
-      <%= render person_event %>
+      <%= render(partial: 'gobierto_people/person_events/person_event', locals: { person_event: person_event } ) %>
     <% end %>
     <%= link_to t(".events_summary.view_all"), gobierto_people_events_path, class: "see_more", role: "button" %>
   <% else %>

@@ -1,8 +1,8 @@
 module GobiertoPeople
   class OppositionPartyPeopleController < PeopleController
     def index
+      @person_party = Person.parties["opposition"]
       super
-      @people = @people.politician.opposition
     end
   end
 end

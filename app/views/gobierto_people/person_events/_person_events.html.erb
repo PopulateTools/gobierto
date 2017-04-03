@@ -1,0 +1,10 @@
+<div class="person-events-list">
+  <% if person_events.any? %>
+    <% person_events.each do |person_event| %>
+      <%= render person_event %>
+    <% end %>
+    <%= link_to t(".events_summary.view_all"), gobierto_people_events_path, class: "see_more", role: "button" %>
+  <% else %>
+    <p>No hay eventos</p>
+  <% end %>
+</div>

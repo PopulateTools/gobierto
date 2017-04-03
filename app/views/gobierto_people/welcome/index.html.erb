@@ -30,9 +30,8 @@
         </div>
 
         <%= render "gobierto_people/people/people_filter" %>
-        <%= render @people %>
 
-        <%= link_to t(".people_summary.view_all"), gobierto_people_people_path, class: "see_more", role: "button" %>
+        <%= render(partial: "gobierto_people/people/people", locals: { people: @people } ) %>
 
       </div>
 
@@ -47,9 +46,7 @@
           <%= link_to t(".events_summary.past_events"), gobierto_people_past_events_path, class: 'to_r' %>
         </div>
 
-        <%= render @events %>
-
-        <%= link_to t(".events_summary.view_all"), gobierto_people_events_path, class: "see_more", role: "button" %>
+        <%= render(partial: "gobierto_people/person_events/person_events", locals: { person_events: @events } ) %>
 
       </div>
 

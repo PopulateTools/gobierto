@@ -3,11 +3,15 @@ module GobiertoPeople
     include PoliticalGroupsHelper
 
     def index
-      @people = current_site.people.active.sorted
+
       @political_groups = get_political_groups
+
+      set_people
+      set_events
 
       respond_to do |format|
         format.html
+        format.js
         format.json { render json: @people }
         format.csv  { render csv: GobiertoExports::CSVRenderer.new(@people).to_csv, filename: 'people' }
       end
@@ -25,5 +29,18 @@ module GobiertoPeople
     def find_person
       current_site.people.active.find(params[:id])
     end
+
+    def set_people
+      @people = current_site.people.active.sorted
+      @people = @people.send(Person.categories.key(@person_category)) if @person_category
+      @people = @people.send(Person.parties.key(@person_party)) if @person_party
+    end
+
+    def set_events
+      @events = current_site.person_events.upcoming.sorted
+      @events = @events.by_person_category(@person_category) if @person_category
+      @events = @events.by_person_party(@person_party) if @person_party
+    end
+
   end
 end

@@ -2,6 +2,7 @@ class User::UserMailer < ApplicationMailer
   def confirmation_instructions(user, site)
     @user = user
     @site = site
+    @site_host = site_host
 
     mail(
       from: from,
@@ -14,6 +15,7 @@ class User::UserMailer < ApplicationMailer
   def reset_password_instructions(user, site)
     @user = user
     @site = site
+    @site_host = site_host
 
     mail(
       from: from,
@@ -26,8 +28,9 @@ class User::UserMailer < ApplicationMailer
   def welcome(user, site)
     @user = user
     @site = site
-    @site_url = root_url(domain: @site.domain)
-    @notifications_url = user_notifications_url(domain: @site.domain)
+    @site_url = root_url(host: @site.domain)
+    @notifications_url = user_notifications_url(host: @site.domain)
+    @site_host = site_host
 
     mail(
       from: from,

@@ -4,6 +4,6 @@
 
 - <%= @user_notification_decorated.translated_action %>: <%= @user_notification_decorated.subject_name %> (<%= @user_notification_decorated.url %>)
 
-<%= t('.manage_notifications', url: user_subscriptions_url(domain: @site.domain)) %>.
+<%= t('.manage_notifications', url: user_subscriptions_url(host: @site_host)) %>.
 
 <%= t('.bye') %>

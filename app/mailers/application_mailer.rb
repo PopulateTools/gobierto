@@ -11,6 +11,10 @@ class ApplicationMailer < ActionMailer::Base
     @site.presence && "#{@site.name} <#{APP_CONFIG["email_config"]["default_email"]}>"
   end
 
+  def site_host
+    @site.try(:domain) || ENV["HOST"]
+  end
+
   def default_from
     APP_CONFIG["email_config"]["default_from"]
   end

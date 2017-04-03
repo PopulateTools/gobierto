@@ -31,7 +31,7 @@ module GobiertoAdmin
           if @person_event_form.save
             redirect_to(
               edit_admin_people_person_event_path(@person, @person_event_form.person_event),
-              notice: t(".success_html", link: gobierto_people_person_event_url(@person, @person_event_form.person_event, domain: current_site.domain))
+              notice: t(".success_html", link: gobierto_people_person_event_url(@person, @person_event_form.person_event, host: current_site.domain))
             )
           else
             @attendees = get_attendees
@@ -49,7 +49,7 @@ module GobiertoAdmin
           if @person_event_form.save
             redirect_to(
               edit_admin_people_person_event_path(@person, @person_event),
-              notice: t(".success_html", link: gobierto_people_person_event_url(@person, @person_event_form.person_event, domain: current_site.domain))
+              notice: t(".success_html", link: gobierto_people_person_event_url(@person, @person_event_form.person_event, host: current_site.domain))
             )
           else
             @attendees = get_attendees

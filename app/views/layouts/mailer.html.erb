@@ -6,7 +6,7 @@
   <p>
   --<br>
   <%= @site.name %> <%= "· #{@site.location_name}" %><br>
-  <%= root_url(domain: @site.domain) %>
+  <%= root_url(host: @site_host) %>
   </p>
 <% end %>
   </body>

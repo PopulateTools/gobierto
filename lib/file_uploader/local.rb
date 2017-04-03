@@ -1,6 +1,6 @@
 module FileUploader
   class Local
-    FILE_PATH_PREFIX = "attachments".freeze
+    FILE_PATH_PREFIX = "system/attachments".freeze
 
     attr_reader :file, :file_name
 

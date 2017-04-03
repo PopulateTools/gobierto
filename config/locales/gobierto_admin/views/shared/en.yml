@@ -1,0 +1,7 @@
+---
+en:
+  gobierto_admin:
+    shared:
+      form_locale_switchers:
+        translate: Translate
+        define_content_in_locale: Define the content in %{locale_name} version

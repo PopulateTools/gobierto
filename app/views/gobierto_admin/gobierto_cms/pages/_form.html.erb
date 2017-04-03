@@ -4,31 +4,21 @@
   <div class="pure-g">
     <div class="pure-u-1 pure-u-md-16-24">
       <div class="globalized_fields">
-        <% if current_site.configuration.available_locales.length > 1 %>
-          <div class="globalize_tool">
-            <label>Traducir</label>
-            <% current_site.configuration.available_locales.each do |locale| %>
-              <a href="#" data-toggle-edit-locale="<%= locale %>" class="locale_option tipsit" title="Define el contenido en su versión en Español" <%= %Q{data-loaded-locale="#{locale}"}.html_safe if locale == current_site.configuration.default_locale %>>
-                <span class="locale"><%= locale.upcase %></span>
-                <span class="status"></span>
-              </a>
-            <% end %>
-          </div>
-        <% end %>
+        <%= render "gobierto_admin/shared/form_locale_switchers" %>
 
         <% I18n.available_locales.map(&:to_s).each do |locale| %>
           <div class="form_item input_text" data-locale="<%= locale %>">
-            <%= label_tag "page[title_translations][#{locale}]", "#{f.object.class.human_attribute_name(:title)} (#{locale})" %>
+            <%= label_tag "page[title_translations][#{locale}]", f.object.class.human_attribute_name(:title) %>
             <%= text_field_tag "page[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title") %>
           </div>
 
           <div class="form_item input_text" data-locale="<%= locale %>">
-            <%= label_tag "page[slug_translations][#{locale}]", "#{f.object.class.human_attribute_name(:slug)} (#{locale})" %>
+            <%= label_tag "page[slug_translations][#{locale}]", f.object.class.human_attribute_name(:slug) %>
             <%= text_field_tag "page[slug_translations][#{locale}]", f.object.slug_translations && f.object.slug_translations[locale], placeholder: t(".placeholders.slug") %>
           </div>
 
           <div class="form_item textarea" data-locale="<%= locale %>">
-            <%= label_tag "page[body_translations][#{locale}]", "#{f.object.class.human_attribute_name(:body)} (#{locale})" %>
+            <%= label_tag "page[body_translations][#{locale}]", f.object.class.human_attribute_name(:body) %>
             <%= rich_text_area_tag "page[body_translations][#{locale}]", f.object.body_translations && f.object.body_translations[locale], attachment_path: admin_cms_file_attachments_path %>
           </div>
         <% end %>

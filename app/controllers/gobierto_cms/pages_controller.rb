@@ -12,7 +12,7 @@ module GobiertoCms
     def find_page_by_id_and_redirect
       if params[:id].present? && params[:id] =~ /\A\d+\z/
         page = current_site.pages.active.find(params[:id])
-        redirect_to gobierto_cms_page_path(page) and return false
+        redirect_to gobierto_cms_page_path(page.slug) and return false
       end
     end
 

@@ -4,8 +4,8 @@ module GobiertoAdmin
   class FileUploadService
     attr_reader :file, :site, :collection
 
-    def initialize(adapter:, site:, collection:, attribute_name:, file:, content_disposition: nil)
-      @adapter = adapter
+    def initialize(site:, collection:, attribute_name:, file:, content_disposition: nil)
+      @adapter = APP_CONFIG['file_uploads_adapter'].presence.try(:to_sym) || :s3
       @site = site
       @collection = collection
       @attribute_name = attribute_name
@@ -22,6 +22,7 @@ module GobiertoAdmin
 
       case @adapter
       when :s3 then FileUploader::S3.new(file: file, file_name: file_name, content_disposition: @content_disposition)
+      when :filesystem then FileUploader::Local.new(file: file, file_name: file_name)
       end
     end
 

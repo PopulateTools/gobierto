@@ -1,14 +1,14 @@
 consultation_faq:
-  title_translations: <%= { 'en' => 'Consultation page FAQ' }.to_json %>
-  body_translations: <%= { 'en' => 'This is the body of the page' }.to_json %>
-  slug_translations: <%= { 'en' => 'consultation-faq' }.to_json %>
+  title_translations: <%= { 'en' => 'Consultation page FAQ', 'es' => 'FAQ consultas' }.to_json %>
+  body_translations: <%= { 'en' => 'This is the body of the page', 'es' => 'Cuerpo página consultas' }.to_json %>
+  slug_translations: <%= { 'en' => 'consultation-faq', 'es' => 'faq-consultas' }.to_json %>
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
 
 privacy:
-  title_translations: <%= {'en' => 'Privacy' }.to_json %>
-  body_translations: <%= {'en' => 'These are the privacy terms' }.to_json %>
-  slug_translations: <%= {'en' => 'privacy' }.to_json %>
+  title_translations: <%= {'en' => 'Privacy', 'es' => 'Privacidad' }.to_json %>
+  body_translations: <%= {'en' => 'These are the privacy terms', 'es' => 'Privacidad' }.to_json %>
+  slug_translations: <%= {'en' => 'privacy', 'es' => 'privacidad' }.to_json %>
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
 

@@ -18,7 +18,7 @@ module GobiertoCms
         GobiertoCms::Page.find_by_slug! "foo"
       end
 
-      assert_nil GobiertoCms::Page.find_by_slug!(page.slug_es)
+      assert_equal page, GobiertoCms::Page.find_by_slug!(page.slug_es)
       assert_equal page, GobiertoCms::Page.find_by_slug!(page.slug_en)
     end
   end

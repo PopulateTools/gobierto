@@ -121,13 +121,13 @@ Rails.application.routes.draw do
     constraints GobiertoSiteConstraint.new do
       get '/' => 'welcome#index', as: :root
 
-      resources :person_events, only: [:index], as: :events, path: 'agendas/eventos'
+      resources :person_events, only: [:index], as: :events, path: 'todos-los-cargos/agendas/eventos'
       resources :government_party_person_events, only: [:index], as: :government_party_events, path: 'equipo-gobierno/agendas/eventos'
       resources :opposition_party_person_events, only: [:index], as: :opposition_party_events, path: 'cargos-en-oposicion/agendas/eventos'
       resources :executive_category_person_events, only: [:index], as: :executive_category_events, path: 'cargos-directivos/agendas/eventos'
 
       resources :past_person_events, only: [:index], as: :past_events, path: 'todos-los-cargos/agendas/eventos-pasados'
-      resources :government_party_past_person_events, only: [:index], as: :government_party_past_events, path: 'agendas/eventos-pasados'
+      resources :government_party_past_person_events, only: [:index], as: :government_party_past_events, path: 'equipo-gobierno/agendas/eventos-pasados'
       resources :opposition_party_past_person_events, only: [:index], as: :opposition_party_past_events, path: 'cargos-en-oposicion/agendas/eventos-pasados'
       resources :executive_category_past_person_events, only: [:index], as: :executive_category_past_events, path: 'cargos-directivos/agendas/eventos-pasados'
 

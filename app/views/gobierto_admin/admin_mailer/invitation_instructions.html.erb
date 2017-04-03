@@ -7,8 +7,8 @@
 </p>
 
 <p>
-  <%= link_to admin_admin_invitation_acceptances_url(invitation_token: @admin.invitation_token, domain: @site.try(:domain)),
-              admin_admin_invitation_acceptances_url(invitation_token: @admin.invitation_token, domain: @site.try(:domain)) %>
+  <%= link_to admin_admin_invitation_acceptances_url(invitation_token: @admin.invitation_token, host: @site_host),
+              admin_admin_invitation_acceptances_url(invitation_token: @admin.invitation_token, host: @site_host) %>
 </p>
 
 <p>

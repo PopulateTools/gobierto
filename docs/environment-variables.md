@@ -53,6 +53,12 @@ GOOGLE_PLACES_API_KEY=
 ALGOLIA_APPLICATION_ID=
 ALGOLIA_API_KEY=
 ALGOLIA_SEARCH_API_KEY=
+
+# Action mailer config
+MAILER_DELIVERY_METHOD=
+MAILER_SMTP_ADDRESS=
+MAILER_SMTP_USER_NAME=
+MAILER_SMTP_PASSWORD=
 ```
 
 ### Rails configuration variables
@@ -64,6 +70,10 @@ ALGOLIA_SEARCH_API_KEY=
 - `RAILS_MAX_THREADS`: Puma setting
 - `TEST_LOG_LEVEL`: logger level in test environment. Set it to `fatal` to don't log anything.
 - `INTEGRATION_INSPECTOR` and `INTEGRATION_DEBUG`: Poltergeist settings to enable the inspector and the debugger. See https://github.com/teampoltergeist/poltergeist#remote-debugging-experimental
+- `MAILER_DELIVERY_METHOD`
+- `MAILER_SMTP_ADDRESS`
+- `MAILER_SMTP_USER_NAME`
+- `MAILER_SMTP_PASSWORD`
 
 ### Populate Data variables
 

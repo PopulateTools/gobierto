@@ -143,6 +143,9 @@ es:
           title: Recibe un resumen de las agendas de tus representantes
         title: "Agendas de los miembros de %{site_name}"
         upcoming_events: Agenda
+        no_upcoming_events: No hay eventos futuros. Échale un vistazo a los pasados
+        no_past_events: No hay eventos pasados.
+        no_events: No hay eventos futuros ni pasados.
     person_post_tags:
       show:
         filtering_by_tag: Filtrando por "%{tag}"

@@ -93,7 +93,18 @@
 
         </div>
 
-        <%= render @events %>
+        <% if @past_events && @events.empty? %>
+          <p><%= t(".no_past_events") %></p>
+        <% else %>
+          <% if @no_upcoming_events && @events.empty? %>
+            <p><%= t(".no_events") %></p>
+          <% elsif @no_upcoming_events %>
+            <p><%= t(".no_upcoming_events") %>:</p>
+          <% end %>
+        <% end %>
+
+        <%= render partial: "gobierto_people/person_events/person_event", collection: @events %>
+
 
       </div>
 

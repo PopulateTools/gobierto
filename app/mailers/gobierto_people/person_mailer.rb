@@ -6,6 +6,7 @@ module GobiertoPeople
       @name = args[:name]
       @body = args[:body]
       @site = @person.site
+      @site_host = site_host
 
       mail(
         from: from,

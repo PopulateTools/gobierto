@@ -6,6 +6,8 @@ class User::NotificationMailer < ApplicationMailer
     @user = user_notification.user
     @site = user_notification.site
 
+    @site_host = site_host
+
     mail(
       from: from,
       reply_to: default_reply_to,
@@ -18,6 +20,7 @@ class User::NotificationMailer < ApplicationMailer
     @user = user
     @user_notifications = UserNotificationCollectionDecorator.new(user_notifications)
     @site = user_notifications.first.site
+    @site_host = site_host
 
     mail(
       from: from,

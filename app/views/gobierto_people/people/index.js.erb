@@ -1,7 +1,4 @@
-$(".people-summary.person-list.item-list .people-list").remove();
-$(".people-summary.person-list.item-list .filter_boxed").after('<%=j render partial: "gobierto_people/people/people", people: @people %>');
-
-$(".events-summary.person_event-list.item-list .person-events-list").remove();
-$(".events-summary.person_event-list.item-list .block").after('<%=j render(partial: "gobierto_people/person_events/person_events", locals: { person_events: @events } ) %>');
+$("#people-list").html('<%=j render partial: "gobierto_people/people/people", locals: { people: @people } %>');
+$("#person-events-list").html('<%=j render(partial: "gobierto_people/person_events/person_events", locals: { person_events: @events } ) %>');
 
 rebindAll();

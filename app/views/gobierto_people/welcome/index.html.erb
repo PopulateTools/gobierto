@@ -29,7 +29,9 @@
           <h2><%= t(".people_summary.title", site_name: current_site.name) %></h2>
         </div>
 
-        <%= render "gobierto_people/people/people_filter" %>
+        <div id="people-filter">
+          <%= render "gobierto_people/people/people_filter" %>
+        </div>
 
         <%= render(partial: "gobierto_people/people/people", locals: { people: @people } ) %>
 

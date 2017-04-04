@@ -31,7 +31,7 @@ module GobiertoPeople
     end
 
     def set_people
-      @people = current_site.people.active.sorted
+      @people = current_site.people.active
       @people = @people.send(Person.categories.key(@person_category)) if @person_category
       @people = @people.send(Person.parties.key(@person_party)) if @person_party
     end
@@ -43,9 +43,9 @@ module GobiertoPeople
 
       if @events.upcoming.empty?
         @no_upcoming_events = true
-        @events = @events.past
+        @events = @events.past.sorted_backwards
       else
-        @events = @events.upcoming
+        @events = @events.upcoming.sorted
       end
     end
 

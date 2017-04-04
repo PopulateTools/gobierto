@@ -13,13 +13,13 @@ module GobiertoPeople
     private
 
     def set_events
-      @events = current_site.person_events.by_person_party(Person.parties[:government]).sorted
+      @events = current_site.person_events.by_person_party(Person.parties[:government])
 
       if @events.upcoming.empty?
         @no_upcoming_events = true
-        @events = @events.past.first(10)
+        @events = @events.past.sorted_backwards.first(10)
       else
-        @events = @events.upcoming.first(10)
+        @events = @events.upcoming.sorted.first(10)
       end
     end
 

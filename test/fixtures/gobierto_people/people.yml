@@ -13,6 +13,21 @@ richard:
   position: 1
   email: richard@example.com
 
+nelson:
+  site: madrid
+  admin: tony
+  name: Horatio Nelson
+  charge: Navy Commander
+  bio: Vice Admiral Horatio Nelson is a British flag officer in the Royal Navy. He was killed during his victory at the Battle of Trafalgar.
+  bio_url: https://en.wikipedia.org/wiki/Horatio_Nelson,_1st_Viscount_Nelson
+  avatar_url: https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/HoratioNelson1.jpg/1280px-HoratioNelson1.jpg
+  visibility_level: <%= GobiertoPeople::Person.visibility_levels["active"] %>
+  category: <%= GobiertoPeople::Person.categories["politician"] %>
+  party: <%= GobiertoPeople::Person.parties["government"] %>
+  political_group: marvel
+  position: 1
+  email: nelson@example.com
+
 tamara:
   site: madrid
   admin: tony

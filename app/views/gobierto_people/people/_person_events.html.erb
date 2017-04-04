@@ -1,0 +1,21 @@
+<div id="person-events-list">
+
+  <div class="block">
+    <h2><%= t("gobierto_people.welcome.index.events_summary.upcoming_events") %></h2>
+    <%= link_to t("gobierto_people.welcome.index.events_summary.past_events"), gobierto_people_past_events_for_people_group_url(people_filter), { remote: true, class: 'to_r' } %>
+  </div>
+
+  <% if no_upcoming_events && person_events.any? %>
+    <p><%= t("gobierto_people.welcome.index.events_summary.no_upcoming_events") %>:</p>
+  <% end %>
+
+  <% if person_events.any? %>
+    <% person_events.each do |person_event| %>
+      <%= render(partial: 'gobierto_people/person_events/person_event', locals: { person_event: person_event } ) %>
+    <% end %>
+    <%= link_to t("gobierto_people.welcome.index.events_summary.view_all"), gobierto_people_events_path, class: "see_more", role: "button" %>
+  <% else %>
+    <p><%= t("gobierto_people.welcome.index.events_summary.no_events") %>.</p>
+  <% end %>
+
+</div>

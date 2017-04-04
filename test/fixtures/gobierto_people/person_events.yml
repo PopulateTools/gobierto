@@ -9,7 +9,7 @@ richard_pending:
 
 richard_published:
   person: richard
-  title: Junta de Gobierno
+  title: Future government event
   description: El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.
   starts_at: <%= 1.month.from_now %>
   ends_at: <%= 1.month.from_now + 1.hour %>
@@ -18,7 +18,7 @@ richard_published:
 
 richard_published_past:
   person: richard
-  title: Junta de Gobierno
+  title: Past government event
   description: El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.
   starts_at: <%= 1.month.ago %>
   ends_at: <%= 1.month.ago + 1.hour %>
@@ -27,7 +27,7 @@ richard_published_past:
 
 tamara_published_past:
   person: tamara
-  title: Executive member event I
+  title: Past executive event
   description: Executive member event.
   starts_at: <%= 15.days.ago %>
   ends_at: <%= 15.days.ago + 1.hour %>

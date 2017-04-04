@@ -1,8 +1,8 @@
 module GobiertoPeople
   class GovernmentPartyPeopleController < PeopleController
     def index
+      @person_party = Person.parties["government"]
       super
-      @people = @people.politician.government
     end
   end
 end

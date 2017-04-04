@@ -372,7 +372,7 @@ module GobiertoPeople
 
         json_response = JSON.parse(response.body)
         assert_equal json_response.first["person_name"], "Richard Rider"
-        assert_equal json_response.first["title"], "Junta de Gobierno"
+        assert_equal json_response.first["title"], "Future government event"
         assert_equal json_response.first["description"], "El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno."
       end
     end
@@ -383,7 +383,7 @@ module GobiertoPeople
 
         csv_response = CSV.parse(response.body, headers: true)
         assert_equal csv_response.by_row[0]["person_name"], "Richard Rider"
-        assert_equal csv_response.by_row[0]["title"], "Junta de Gobierno"
+        assert_equal csv_response.by_row[0]["title"], "Future government event"
         assert_equal csv_response.by_row[0]["description"], "El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno."
       end
     end

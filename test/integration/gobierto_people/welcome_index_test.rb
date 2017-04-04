@@ -30,6 +30,26 @@ module GobiertoPeople
       ]
     end
 
+    def government_member
+      gobierto_people_people(:richard)
+    end
+
+    def executive_member
+      gobierto_people_people(:tamara)
+    end
+
+    def government_event
+      gobierto_people_person_events(:richard_published)
+    end
+
+    def government_past_event
+      gobierto_people_person_events(:richard_published_past)
+    end
+
+    def executive_past_event
+      gobierto_people_person_events(:tamara_published_past)
+    end
+
     def latest_posts
       @latest_posts ||= [
         gobierto_people_person_posts(:richard_about_me),
@@ -71,6 +91,64 @@ module GobiertoPeople
       end
     end
 
+    def test_people_summary_filters
+      with_javascript do
+        with_current_site(site) do
+          visit @path
+
+          within ".people-summary" do
+            assert has_link? government_member.name
+            refute has_link? executive_member.name
+            assert has_link?("View all")
+          end
+
+          within ".events-summary" do
+            assert has_link? government_event.title
+            refute has_link? government_past_event.title
+            refute has_link? executive_past_event.title
+          end
+
+          click_link "Executive"
+
+          sleep 1
+
+          within ".people-summary" do
+            refute has_link? government_member.name
+            assert has_link? executive_member.name
+            assert has_link?("View all")
+          end
+
+          within ".events-summary" do
+            assert has_content? "There are no future events. Take a look at past ones"
+            refute has_link? government_event.title
+            refute has_link? government_past_event.title
+            assert has_link? executive_past_event.title
+          end
+
+          click_link "Opposition"
+
+          sleep 1
+
+          within ".people-summary" do
+            refute has_link? government_member.name
+            refute has_link? executive_member.name
+            refute has_link?("View all")
+          end
+
+          within ".events-summary" do
+            assert has_content? "There are no events"
+            refute has_link? government_event.title
+            refute has_link? government_past_event.title
+            refute has_link? executive_past_event.title
+          end
+
+          click_link "Political groups"
+
+          assert has_content? "Officials"
+        end
+      end
+    end
+
     def test_events_block
       with_current_site(site) do
         visit @path
@@ -85,6 +163,51 @@ module GobiertoPeople
           end
 
           assert has_link?("View all")
+        end
+      end
+    end
+
+    def test_events_summary_filters
+      with_javascript do
+        with_current_site(site) do
+          visit @path
+
+          within ".events-summary" do
+            assert has_content? government_event.title
+            refute has_content? government_past_event.title
+            refute has_content? executive_past_event.title
+          end
+
+          click_link "Past events"
+
+          sleep 1
+
+          within ".events-summary" do
+            refute has_content? government_event.title
+            assert has_content? government_past_event.title
+            refute has_content? executive_past_event.title
+          end
+
+          click_link "Executive"
+
+          sleep 1
+
+          within ".events-summary" do
+            assert has_content? "There are no future events. Take a look at past ones"
+            refute has_content? government_event.title
+            refute has_content? government_past_event.title
+            assert has_content? executive_past_event.title
+          end
+
+          click_link "Past events"
+
+          sleep 1
+
+          within ".events-summary" do
+            refute has_content? government_event.title
+            refute has_content? government_past_event.title
+            assert has_content? executive_past_event.title
+          end
         end
       end
     end

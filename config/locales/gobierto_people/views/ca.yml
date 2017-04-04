@@ -175,10 +175,13 @@ ca:
           past_events: Esdeveniments passats
           upcoming_events: Agenda
           view_all: Veure tots
+          no_events: No hi ha events
+          no_upcoming_events: "No hi ha events futurs. Mira els pròxims events"
         gifts: Obsequis i regals
         people_summary:
           title: Organigrama de %{site_name}
           view_all: Veure tots
+          no_people: No hi ha persones
         posts_summary:
           title: Blogs
           view_all: Veure tots

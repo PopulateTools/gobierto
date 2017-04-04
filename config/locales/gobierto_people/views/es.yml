@@ -176,10 +176,13 @@ es:
           past_events: Eventos pasados
           upcoming_events: Próximos eventos
           view_all: Ver todos
+          no_events: No hay eventos
+          no_upcoming_events: "No hay eventos futuros. Échale un vistazo a los pasados"
         gifts: Obsequios y regalos
         people_summary:
           title: Organigrama de %{site_name}
           view_all: Ver todos
+          no_people: No hay personas
         posts_summary:
           title: Blogs
           view_all: Ver todos

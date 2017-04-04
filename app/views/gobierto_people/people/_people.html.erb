@@ -5,6 +5,6 @@
     <% end %>
     <%= link_to t("gobierto_people.welcome.index.people_summary.view_all"), gobierto_people_people_path, class: "see_more", role: "button" %>
   <% else %>
-    <p>No hay personas.</p>
+    <p><%= t("gobierto_people.welcome.index.people_summary.no_people")%>.</p>
   <% end %>
 </div>

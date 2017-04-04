@@ -15,7 +15,7 @@
   </div>
 
   <% if no_upcoming_events && person_events.any? %>
-    <p>No hay eventos futuros. Échale un vistazo a los pasados:</p>
+    <p><%= t("gobierto_people.welcome.index.events_summary.no_upcoming_events") %>:</p>
   <% end %>
 
   <% if person_events.any? %>
@@ -26,7 +26,7 @@
   <% end %>
 
   <% if person_events.empty? %>
-    <p>No hay eventos.</p>
+    <p><%= t("gobierto_people.welcome.index.events_summary.no_events") %>.</p>
   <% end %>
 
 </div>

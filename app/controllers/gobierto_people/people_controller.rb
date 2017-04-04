@@ -31,7 +31,7 @@ module GobiertoPeople
     end
 
     def set_people
-      @people = current_site.people.active
+      @people = current_site.people.active.sorted
       @people = @people.send(Person.categories.key(@person_category)) if @person_category
       @people = @people.send(Person.parties.key(@person_party)) if @person_party
     end

@@ -7,7 +7,6 @@ module GobiertoAdmin
 
     def file_upload_service
       @file_upload_service ||= FileUploadService.new(
-        adapter: :s3,
         site: site,
         collection: :test_collection,
         attribute_name: :test_attribute,

@@ -108,7 +108,6 @@ module GobiertoAdmin
         return site.configuration.logo unless logo_file.present?
 
         FileUploadService.new(
-          adapter: :s3,
           site: site,
           collection: site.model_name.collection,
           attribute_name: :logo,

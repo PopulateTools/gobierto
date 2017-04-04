@@ -19,7 +19,7 @@ module FileUploader
     end
 
     def test_call
-      assert_equal "/attachments/people/person/avatar.jpg", local_file_uploader.call
+      assert_equal "/system/attachments/people/person/avatar.jpg", local_file_uploader.call
     end
   end
 end

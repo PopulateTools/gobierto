@@ -17,7 +17,6 @@ module GobiertoAdmin
 
     def file_url
       @file_url ||= FileUploadService.new(
-        adapter: :s3,
         site: site,
         collection: collection,
         attribute_name: :attachment,

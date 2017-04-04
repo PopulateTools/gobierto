@@ -82,7 +82,6 @@ module GobiertoAdmin
           return person.bio_url unless bio_file.present?
 
           FileUploadService.new(
-            adapter: :s3,
             site: site,
             collection: person.model_name.collection,
             attribute_name: :bio,
@@ -96,7 +95,6 @@ module GobiertoAdmin
           return person.avatar_url unless avatar_file.present?
 
           FileUploadService.new(
-            adapter: :s3,
             site: site,
             collection: person.model_name.collection,
             attribute_name: :avatar,

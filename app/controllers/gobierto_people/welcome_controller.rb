@@ -13,7 +13,7 @@ module GobiertoPeople
     private
 
     def set_events
-      @events = current_site.person_events.by_person_party(Person.categories[:government]).sorted
+      @events = current_site.person_events.by_person_party(Person.parties[:government]).sorted
 
       if @events.upcoming.empty?
         @no_upcoming_events = true

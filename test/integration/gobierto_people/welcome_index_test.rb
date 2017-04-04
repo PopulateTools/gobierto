@@ -144,7 +144,7 @@ module GobiertoPeople
 
           click_link "Political groups"
 
-          #assert_current_path gobierto_people_political_group_people_path
+          assert has_content? "Officials"
         end
       end
     end

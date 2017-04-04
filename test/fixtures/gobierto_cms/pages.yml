@@ -1,27 +1,27 @@
 consultation_faq:
-  title: 'Consultation page FAQ'
-  body: 'This is the body of the page'
-  slug: 'consultation-faq'
+  title_translations: <%= { 'en' => 'Consultation page FAQ', 'es' => 'FAQ consultas' }.to_json %>
+  body_translations: <%= { 'en' => 'This is the body of the page', 'es' => 'Cuerpo página consultas' }.to_json %>
+  slug_translations: <%= { 'en' => 'consultation-faq', 'es' => 'faq-consultas' }.to_json %>
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
 
 privacy:
-  title: 'Privacy'
-  body: 'These are the privacy terms'
-  slug: 'privacy'
+  title_translations: <%= {'en' => 'Privacy', 'es' => 'Privacidad' }.to_json %>
+  body_translations: <%= {'en' => 'These are the privacy terms', 'es' => 'Privacidad' }.to_json %>
+  slug_translations: <%= {'en' => 'privacy', 'es' => 'privacidad' }.to_json %>
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
 
 cookies:
-  title: 'Cookies'
-  body: 'These are the cookies terms'
-  slug: 'cookies'
+  title_translations: <%= {'en' => 'Cookies' }.to_json %>
+  body_translations: <%= {'en' => 'These are the cookies terms' }.to_json %>
+  slug_translations: <%= {'en' => 'cookies' }.to_json %>
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:draft] %>
   site: madrid
 
 about:
-  title: 'About'
-  body: 'About santander'
-  slug: 'about'
+  title_translations: <%= {'en' => 'About' }.to_json %>
+  body_translations: <%= {'en' => 'About santander' }.to_json %>
+  slug_translations: <%= {'en' => 'about' }.to_json %>
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: santander

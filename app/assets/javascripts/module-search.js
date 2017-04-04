@@ -21,7 +21,7 @@ $(document).on('turbolinks:load', function() {
 
   function itemDescription(d){
     var maxLenght = 200;
-    var description = (d['bio'] || d['description'] || d['body'] || '');
+    var description = (d['bio'] || d['description'] || d['body'] || d['bio_' + I18n.locale] || d['description_' + I18n.locale] || d['body_' + I18n.locale] || '');
     if(description === '' || description.length < maxLenght)
       return description;
     return truncateOnWord(description, maxLenght) + '...';
@@ -56,7 +56,7 @@ $(document).on('turbolinks:load', function() {
     content.results.forEach(function(indexResults){
       indexResults.hits.forEach(function(d){
         var result = '<div class="result">' +
-					'<h2><a href="'+d.resource_path+'">' + (d['title'] || d['name']) + '</a></h2>' +
+					'<h2><a href="'+d.resource_path+'">' + (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) + '</a></h2>' +
 					'<div class="description">' +
             '<div>' + itemDescription(d) + '</div>' +
 						'<span class="soft item_type">' + itemType(d) + '</span> · ' +

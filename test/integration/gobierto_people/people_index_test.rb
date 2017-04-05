@@ -16,6 +16,7 @@ module GobiertoPeople
     def people
       @people ||= [
         gobierto_people_people(:richard),
+        gobierto_people_people(:nelson),
         gobierto_people_people(:tamara)
       ]
     end
@@ -77,8 +78,8 @@ module GobiertoPeople
         get @path_for_json
 
         json_response = JSON.parse(response.body)
-        assert_equal json_response.last["name"], "Tamara Devoux"
-        assert_equal json_response.last["email"], "tamara@example.com"
+        assert_equal json_response.last["name"], people.last.name
+        assert_equal json_response.last["email"], people.last.email
       end
     end
 
@@ -87,8 +88,8 @@ module GobiertoPeople
         get @path_for_csv
 
         csv_response = CSV.parse(response.body, headers: true)
-        assert_equal csv_response.by_row[1]["name"], "Tamara Devoux"
-        assert_equal csv_response.by_row[1]["email"], "tamara@example.com"
+        assert_equal csv_response.by_row[2]["name"], people.last.name
+        assert_equal csv_response.by_row[2]["email"], people.last.email
       end
     end
   end

@@ -36,10 +36,10 @@
           partial: "gobierto_people/person_events/calendar_template",
           events: @calendar_events,
           attribute: :starts_at,
-          start_date: @filtering_date || params[:start_date] || Date.current
+          start_date: params[:start_date] || Date.current
         ) do |date, events| %>
           <% if events.any? %>
-            <%= link_to date.day, date: date %>
+            <%= link_to date.day, date: date, start_date: params[:start_date] %>
           <% else %>
             <%= date.day %>
           <% end %>

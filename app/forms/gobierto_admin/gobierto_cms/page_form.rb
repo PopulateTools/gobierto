@@ -6,15 +6,15 @@ module GobiertoAdmin
       attr_accessor(
         :id,
         :site_id,
-        :title,
-        :body,
-        :slug,
         :visibility_level,
+        :title_translations,
+        :body_translations,
+        :slug_translations
       )
 
       delegate :persisted?, to: :page
 
-      validates :site, :title, :body, :slug, :visibility_level, presence: true
+      validates :site, :visibility_level, presence: true
 
       def save
         save_page if valid?
@@ -49,9 +49,9 @@ module GobiertoAdmin
       def save_page
         @page = page.tap do |page_attributes|
           page_attributes.site_id = site_id
-          page_attributes.title = title
-          page_attributes.body = body
-          page_attributes.slug = slug
+          page_attributes.title_translations = title_translations
+          page_attributes.body_translations = body_translations
+          page_attributes.slug_translations = slug_translations
           page_attributes.visibility_level = visibility_level
         end
 

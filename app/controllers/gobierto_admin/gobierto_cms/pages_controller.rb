@@ -85,15 +85,15 @@ module GobiertoAdmin
 
       def page_params
         params.require(:page).permit(
-          :title,
-          :body,
-          :slug,
-          :visibility_level
+          :visibility_level,
+          title_translations: [*I18n.available_locales],
+          body_translations:  [*I18n.available_locales],
+          slug_translations:  [*I18n.available_locales],
         )
       end
 
       def ignored_page_attributes
-        %w( created_at updated_at )
+        %w( created_at updated_at title body slug )
       end
 
       def find_page

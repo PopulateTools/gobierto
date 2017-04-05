@@ -13,7 +13,7 @@ module GobiertoAdmin
         end
 
         def person2
-          @person2 ||= gobierto_people_people(:tamara)
+          @person2 ||= gobierto_people_people(:nelson)
         end
 
         def setup

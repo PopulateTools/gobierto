@@ -6,9 +6,9 @@ module GobiertoAdmin
       def valid_page_form
         @valid_page_form ||= PageForm.new(
           site_id: site.id,
-          title: page.title,
-          body: page.body,
-          slug: page.slug,
+          title_translations: {I18n.locale => page.title},
+          body_translations: {I18n.locale => page.body},
+          slug_translations: {I18n.locale => page.slug},
           visibility_level: page.visibility_level
         )
       end
@@ -16,9 +16,9 @@ module GobiertoAdmin
       def invalid_page_form
         @invalid_page_form ||= PageForm.new(
           site_id: nil,
-          title: nil,
-          body: nil,
-          slug: nil,
+          title_translations: nil,
+          body_translations: nil,
+          slug_translations: nil,
           visibility_level: nil
         )
       end
@@ -39,9 +39,6 @@ module GobiertoAdmin
         invalid_page_form.save
 
         assert_equal 1, invalid_page_form.errors.messages[:site].size
-        assert_equal 1, invalid_page_form.errors.messages[:title].size
-        assert_equal 1, invalid_page_form.errors.messages[:body].size
-        assert_equal 1, invalid_page_form.errors.messages[:slug].size
       end
     end
   end

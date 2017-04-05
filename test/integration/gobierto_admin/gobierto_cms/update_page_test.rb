@@ -28,18 +28,19 @@ module GobiertoAdmin
 
               click_link "Consultation page FAQ"
 
-              fill_in "Title", with: "Consultation page FAQ updated"
-              fill_in "URL", with: "consultation-faq-updated"
+              fill_in "page_title_translations_en", with: "Consultation page FAQ updated"
+              fill_in "page_slug_translations_en", with: "consultation-faq-updated"
 
               click_button "Update"
 
               assert has_message?("Page updated successfully")
               assert has_selector?("h1", text: "Consultation page FAQ updated")
-              assert has_field?("page_slug", with: "consultation-faq-updated")
+              assert has_field?("page_slug_translations_en", with: "consultation-faq-updated")
+              assert_equal("faq-consultas", find("#page_slug_translations_es", visible: false).value)
 
               assert_equal(
                 "<div>This is the body of the page</div>",
-                find("#page_body", visible: false).value
+                find("#page_body_translations_en", visible: false).value
               )
 
               activity = Activity.last

@@ -14,7 +14,14 @@ module GobiertoPeople
     end
 
     def government_member
-      gobierto_people_people(:richard)
+      government_members.first
+    end
+
+    def government_members
+      @government_members ||= [
+        gobierto_people_people(:richard),
+        gobierto_people_people(:nelson)
+      ]
     end
 
     def executive_member
@@ -34,6 +41,7 @@ module GobiertoPeople
 
     def upcoming_events
       @upcoming_events ||= [
+        gobierto_people_person_events(:nelson_tomorrow),
         gobierto_people_person_events(:richard_published)
       ]
     end
@@ -41,6 +49,7 @@ module GobiertoPeople
     def past_events
       @past_events ||= [
         gobierto_people_person_events(:richard_published_past),
+        gobierto_people_person_events(:nelson_yesterday),
         gobierto_people_person_events(:tamara_published_past)
       ]
     end
@@ -371,9 +380,9 @@ module GobiertoPeople
         get @path_for_json
 
         json_response = JSON.parse(response.body)
-        assert_equal json_response.first["person_name"], "Richard Rider"
-        assert_equal json_response.first["title"], "Junta de Gobierno"
-        assert_equal json_response.first["description"], "El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno."
+        assert_equal json_response.first["person_name"], upcoming_events.first.person.name
+        assert_equal json_response.first["title"], upcoming_events.first.title
+        assert_equal json_response.first["description"], upcoming_events.first.description
       end
     end
 
@@ -382,9 +391,9 @@ module GobiertoPeople
         get @path_for_csv
 
         csv_response = CSV.parse(response.body, headers: true)
-        assert_equal csv_response.by_row[0]["person_name"], "Richard Rider"
-        assert_equal csv_response.by_row[0]["title"], "Junta de Gobierno"
-        assert_equal csv_response.by_row[0]["description"], "El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno."
+        assert_equal csv_response.by_row[0]["person_name"], upcoming_events.first.person.name
+        assert_equal csv_response.by_row[0]["title"], upcoming_events.first.title
+        assert_equal csv_response.by_row[0]["description"], upcoming_events.first.description
       end
     end
   end

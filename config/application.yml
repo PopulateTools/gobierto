@@ -45,6 +45,7 @@ default: &default
     endpoint: <%= ENV["POPULATE_DATA_ENDPOINT"] %>
   gobierto_indicators:
     year: 2015
+  file_uploads_adapter: s3
 
 development:
   <<: *default

@@ -67,7 +67,6 @@ module GobiertoAdmin
           return person_event.attachment_url unless attachment_file.present?
 
           FileUploadService.new(
-            adapter: :s3,
             site: person.site,
             collection: person_event.model_name.collection,
             attribute_name: :attachment,

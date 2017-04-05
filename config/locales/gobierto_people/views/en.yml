@@ -175,10 +175,13 @@ en:
           past_events: Past events
           upcoming_events: Agenda
           view_all: View all
+          no_events: There are no events
+          no_upcoming_events: "There are no future events. Take a look at past ones"
         gifts: Gifts
         people_summary:
           title: "%{site_name}'s organization chart"
           view_all: View all
+          no_people: There is no people
         posts_summary:
           title: Blogs
           view_all: View all

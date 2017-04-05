@@ -198,16 +198,6 @@ module GobiertoPeople
             refute has_content? government_past_event.title
             assert has_content? executive_past_event.title
           end
-
-          click_link "Past events"
-
-          sleep 1
-
-          within ".events-summary" do
-            refute has_content? government_event.title
-            refute has_content? government_past_event.title
-            assert has_content? executive_past_event.title
-          end
         end
       end
     end

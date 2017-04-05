@@ -2,14 +2,17 @@
 
   <div class="block">
     <h2><%= t("gobierto_people.welcome.index.events_summary.upcoming_events") %></h2>
-    <%= link_to t("gobierto_people.welcome.index.events_summary.past_events"), gobierto_people_past_events_for_people_group_url(people_filter), { remote: true, class: 'to_r' } %>
+
+    <% unless no_upcoming_events %>
+      <%= link_to t("gobierto_people.welcome.index.events_summary.past_events"), gobierto_people_past_events_for_people_group_url(people_filter), { remote: true, class: 'to_r' } %>
+    <% end %>
   </div>
 
-  <% if no_upcoming_events && person_events.any? %>
-    <p><%= t("gobierto_people.welcome.index.events_summary.no_upcoming_events") %>:</p>
-  <% end %>
-
   <% if person_events.any? %>
+    <% if no_upcoming_events %>
+      <p><%= t("gobierto_people.welcome.index.events_summary.no_upcoming_events") %>:</p>
+    <% end %>
+
     <% person_events.each do |person_event| %>
       <%= render(partial: 'gobierto_people/person_events/person_event', locals: { person_event: person_event } ) %>
     <% end %>

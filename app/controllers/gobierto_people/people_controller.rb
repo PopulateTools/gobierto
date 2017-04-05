@@ -37,15 +37,15 @@ module GobiertoPeople
     end
 
     def set_events
-      @events = current_site.person_events.sorted
+      @events = current_site.person_events
       @events = @events.by_person_category(@person_category) if @person_category
       @events = @events.by_person_party(@person_party) if @person_party
 
       if @events.upcoming.empty?
         @no_upcoming_events = true
-        @events = @events.past.sorted_backwards
+        @events = @events.past.sorted_backwards.first(10)
       else
-        @events = @events.upcoming.sorted
+        @events = @events.upcoming.sorted.first(10)
       end
     end
 

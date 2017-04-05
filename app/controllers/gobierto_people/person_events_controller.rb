@@ -20,19 +20,19 @@ module GobiertoPeople
     private
 
     def set_events
-      @events = current_site.person_events.sorted
+      @events = current_site.person_events
       @events = filter_by_date_param if params[:date]
       @events = @events.by_person_category(@person_category) if @person_category
       @events = @events.by_person_party(@person_party) if @person_party
 
       if @past_events
-        @events = @events.past
+        @events = @events.past.sorted_backwards
       else
         if @events.upcoming.empty?
           @no_upcoming_events = true
-          @events = @events.past
+          @events = @events.past.sorted_backwards
         else
-          @events = @events.upcoming
+          @events = @events.upcoming.sorted
         end
       end
     end

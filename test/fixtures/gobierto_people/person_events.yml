@@ -25,6 +25,24 @@ richard_published_past:
   attachment_url: https://bit.ly/67890
   state: <%= GobiertoPeople::PersonEvent.states["published"] %>
 
+nelson_tomorrow:
+  person: nelson
+  title: Nelson tomorrow event
+  description: Have tea with biscuits
+  starts_at: <%= 1.day.from_now %>
+  ends_at: <%= 1.day.from_now + 1.hour %>
+  attachment_url: https://bit.ly/67890
+  state: <%= GobiertoPeople::PersonEvent.states["published"] %>
+
+nelson_yesterday:
+  person: nelson
+  title: Nelson yesterday event
+  description: Have tea with biscuits
+  starts_at: <%= 1.day.ago %>
+  ends_at: <%= 1.day.ago + 1.hour %>
+  attachment_url: https://bit.ly/67890
+  state: <%= GobiertoPeople::PersonEvent.states["published"] %>
+  
 tamara_published_past:
   person: tamara
   title: Past executive event

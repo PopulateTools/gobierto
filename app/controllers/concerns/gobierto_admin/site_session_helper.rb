@@ -15,7 +15,7 @@ module GobiertoAdmin
     end
 
     def managing_site?
-      current_site.present?
+      current_site.present? && current_admin.managing_user?
     end
 
     def leave_site

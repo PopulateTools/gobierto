@@ -2,9 +2,7 @@ module SubmodulesHelper
   extend ActiveSupport::Concern
 
   included do
-    if respond_to?(:helper_method)
-      helper_method :active_submodules, :welcome_submodule_active?, :officials_submodule_active?, :agendas_submodule_active?, :blog_submodule_active?, :statements_submodule_active?, :submodule_path_for, :submodule_title_for, :submodule_controller_for
-    end
+    helper_method :active_submodules, :welcome_submodule_active?, :officials_submodule_active?, :agendas_submodule_active?, :blog_submodule_active?, :statements_submodule_active?, :submodule_path_for, :submodule_title_for, :submodule_controller_for
   end
 
   private
@@ -37,7 +35,7 @@ module SubmodulesHelper
   def active_submodules
     active_submodules = GobiertoPeople::Setting.where("key ~* ?", ".*_submodule_active").where(value: 'true', site: current_site)
     active_submodules_names = active_submodules.pluck(:key).map { |key| key.gsub("_submodule_active", "") }
-    active_submodules_names & available_submodules.keys.map { |key| key.to_s }
+    active_submodules_names & available_submodules.keys.map(&:to_s)
   end
 
   def welcome_submodule_active?

@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include SubmodulesHelper
+
   protect_from_forgery with: :exception
 
   rescue_from ActionController::RoutingError, with: :render_404

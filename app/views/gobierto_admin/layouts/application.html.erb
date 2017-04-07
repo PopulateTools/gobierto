@@ -58,11 +58,9 @@
       </ul>
     </div>
 
-    <% if managing_site? %>
-      <div id="current-site-name" class="pure-menu-link">
-        <%= current_site.name %>
-      </div>
-    <% end %>
+    <div id="current-site-name" class="pure-menu-link">
+      <%= current_site.name %>
+    </div>
 
     <% if admin_signed_in? %>
       <div class="right pure-menu pure-menu-horizontal">
@@ -74,7 +72,7 @@
 
             <ul class="pure-menu-children">
               <li class="pure-menu-item">
-                <%= link_to admin_root_path, class: "pure-menu-link" do %>
+                <%= link_to edit_admin_admin_settings_path, class: "pure-menu-link" do %>
                   <i class="fa fa-th"></i>
                   <%= t(".admin_dropdown.account") %>
                 <% end %>
@@ -102,9 +100,7 @@
     </div>
 
     <div class="right pure-menu-link">
-      <% if managing_site? %>
-        <%= link_to t(".view_site"), current_site.domain_url, target: "_blank" %>
-      <% end %>
+      <%= link_to t(".view_site"), current_site.domain_url, target: "_blank" %>
     </div>
 
   </header>

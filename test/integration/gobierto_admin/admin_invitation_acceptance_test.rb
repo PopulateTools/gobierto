@@ -19,6 +19,14 @@ module GobiertoAdmin
       visit @invitation_acceptance_path
 
       assert has_message?("Signed in successfully")
+
+      assert has_content?("Edit your data")
+
+      fill_in :admin_password, with: 'gobierto'
+      fill_in :admin_password_confirmation, with: 'gobierto'
+      click_button "Update"
+
+      assert has_message?("Data updated successfully")
     end
 
     def test_invalid_invitation_acceptance

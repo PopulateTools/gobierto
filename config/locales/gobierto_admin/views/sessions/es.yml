@@ -7,7 +7,5 @@ es:
         password: Contraseña
         submit: Enviar
       new:
-        didnt_receive_confirmation_instructions: "¿No has recibido las instrucciones
-          de confirmación?"
         forgot_your_password: "¿Olvidaste tu contraseña?"
         title: Iniciar sesión

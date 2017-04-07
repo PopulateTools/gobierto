@@ -29,7 +29,7 @@ module GobiertoAdmin
     end
 
     def find_current_admin
-      Admin.confirmed.find_by(id: session[:admin_id])
+      Admin.find_by(id: session[:admin_id])
     end
 
     def after_sign_in_path

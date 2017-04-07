@@ -2,11 +2,6 @@
 en:
   gobierto_admin:
     admin_mailer:
-      confirmation_instructions:
-        bye: Cheers
-        click_link: Click in the following link to active your account in Gobierto
-        hi: Hi
-        subject: Activate your account at Gobierto
       invitation_instructions:
         bye: Cheers
         click_link: You have been invited to collaborate in Gobierto. Click the following

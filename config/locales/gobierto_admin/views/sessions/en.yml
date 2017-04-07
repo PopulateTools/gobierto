@@ -7,6 +7,5 @@ en:
         password: Password
         submit: Send
       new:
-        didnt_receive_confirmation_instructions: Didn't receive confirmation instructions?
         forgot_your_password: Forgot your password?
         title: Log in

@@ -67,30 +67,5 @@ module GobiertoAdmin
         admin_edit_form.save
       end
     end
-
-    def test_confirmation_email_delivery_when_changing_email
-      email_changing_form = AdminForm.new(
-        id: admin.id,
-        name: admin.name,
-        email: "wadus@gobierto.dev",
-        password: "wadus"
-      )
-
-      assert_difference "ActionMailer::Base.deliveries.size", 1 do
-        email_changing_form.save
-      end
-    end
-
-    def test_confirmation_email_delivery_when_not_changing_email
-      not_changing_form = AdminForm.new(
-        id: admin.id,
-        name: admin.name,
-        email: admin.name
-      )
-
-      assert_difference "ActionMailer::Base.deliveries.size", 0 do
-        not_changing_form.save
-      end
-    end
   end
 end

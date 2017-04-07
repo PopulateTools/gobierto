@@ -16,7 +16,7 @@
         <%= f.email_field :email, placeholder: t(".placeholders.email"), disabled: !@admin_policy.update? %>
       </div>
 
-      <% if @admin_policy.update? %>
+      <% if !f.object.admin.new_record? && @admin_policy.update? %>
         <div class="form_block">
 
           <h2><%= t(".password_block") %></h2>

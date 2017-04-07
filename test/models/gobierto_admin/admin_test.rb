@@ -8,7 +8,6 @@ require "support/concerns/session/trackable_test"
 module GobiertoAdmin
   class AdminTest < ActiveSupport::TestCase
     include Authentication::AuthenticableTest
-    include Authentication::ConfirmableTest
     include Authentication::InvitableTest
     include Authentication::RecoverableTest
     include Session::TrackableTest
@@ -17,11 +16,6 @@ module GobiertoAdmin
       @admin ||= gobierto_admin_admins(:tony)
     end
     alias user admin
-
-    def unconfirmed_admin
-      @unconfirmed_admin ||= gobierto_admin_admins(:steve)
-    end
-    alias unconfirmed_user unconfirmed_admin
 
     def manager_admin
       @manager_admin ||= gobierto_admin_admins(:nick)

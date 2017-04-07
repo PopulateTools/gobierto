@@ -1,0 +1,8 @@
+---
+ca:
+  gobierto_admin:
+    admin:
+      settings:
+        edit:
+          title: Edita les teves dades
+          password_block: Contrasenya

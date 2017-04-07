@@ -29,7 +29,7 @@ module GobiertoAdmin
       return false unless valid?
 
       if save_admin
-        send_confirmation_instructions if send_confirmation_instructions?
+        send_invitation if send_invitation?
 
         admin
       end
@@ -111,13 +111,13 @@ module GobiertoAdmin
       end
     end
 
-    def send_confirmation_instructions?
-      new_record? || email_changed?
+    def send_invitation?
+      new_record?
     end
 
-    def send_confirmation_instructions
-      admin.regenerate_confirmation_token
-      deliver_confirmation_email
+    def send_invitation
+      admin.regenerate_invitation_token
+      deliver_invitation_email
     end
 
     protected
@@ -128,8 +128,8 @@ module GobiertoAdmin
       end
     end
 
-    def deliver_confirmation_email
-      AdminMailer.confirmation_instructions(admin).deliver_later
+    def deliver_invitation_email
+      AdminMailer.invitation_instructions(admin).deliver_later
     end
   end
 end

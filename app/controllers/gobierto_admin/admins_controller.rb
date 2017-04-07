@@ -21,6 +21,7 @@ module GobiertoAdmin
 
     def edit
       @admin = find_admin
+
       @admin_form = AdminForm.new(
         @admin.attributes.except(*ignored_admin_attributes)
       )
@@ -33,7 +34,9 @@ module GobiertoAdmin
     end
 
     def create
-      @admin_form = AdminForm.new(admin_params.merge(creation_ip: remote_ip))
+      random_password = generate_random_password
+
+      @admin_form = AdminForm.new(admin_params.merge(creation_ip: remote_ip, password: random_password, password_confirmation: random_password))
 
       set_admin_policy
       set_site_modules
@@ -138,5 +141,10 @@ module GobiertoAdmin
     def managing_user
       redirect_to admin_users_path and return false unless current_admin.managing_user?
     end
+
+    def generate_random_password
+      SecureRandom.hex(8)
+    end
+
   end
 end

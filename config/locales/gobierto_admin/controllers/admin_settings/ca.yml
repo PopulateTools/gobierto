@@ -1,0 +1,12 @@
+---
+ca:
+  gobierto_admin:
+    admin:
+      settings:
+        update:
+          error: No s'han pogut guardar les dades
+          success: Dades actualitzades correctament
+        edit:
+          placeholders:
+            name: Nom
+            email: Email

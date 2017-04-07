@@ -3,7 +3,6 @@ require_dependency "gobierto_admin"
 module GobiertoAdmin
   class Admin < ApplicationRecord
     include Authentication::Authenticable
-    include Authentication::Confirmable
     include Authentication::Invitable
     include Authentication::Recoverable
     include Session::Trackable
@@ -31,7 +30,7 @@ module GobiertoAdmin
 
     scope :sorted, -> { order(created_at: :desc) }
     scope :god,    -> { where(god: true) }
-    scope :active, -> { confirmed.where.not(authorization_level: authorization_levels[:disabled]) }
+    scope :active, -> { where.not(authorization_level: authorization_levels[:disabled]) }
 
     enum authorization_level: { regular: 0, manager: 1, disabled: 2 }
 

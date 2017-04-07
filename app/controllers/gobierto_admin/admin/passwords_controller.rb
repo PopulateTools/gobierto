@@ -22,7 +22,7 @@ module GobiertoAdmin
     end
 
     def edit
-      admin = Admin.confirmed.find_by_reset_password_token(params[:reset_password_token])
+      admin = Admin.find_by_reset_password_token(params[:reset_password_token])
 
       if admin
         @admin_password_form = AdminEditPasswordForm.new(admin_id: admin.id)

@@ -1,0 +1,12 @@
+---
+es:
+  gobierto_admin:
+    admin:
+      settings:
+        update:
+          error: No se han podido guardar tus datos
+          success: Datos guardados correctamente
+        edit:
+          placeholders:
+            name: Nombre
+            email: Email

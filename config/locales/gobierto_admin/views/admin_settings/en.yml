@@ -1,0 +1,8 @@
+---
+en:
+  gobierto_admin:
+    admin:
+      settings:
+        edit:
+          title: Edit your data
+          password_block: Password

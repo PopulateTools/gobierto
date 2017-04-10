@@ -12,14 +12,11 @@ module GobiertoAdmin
 
       if admin
         admin.accept_invitation!
-        admin.confirm!
         admin.update_session_data(remote_ip)
         sign_in_admin(admin.id)
         track_accepted_activity
 
-        # TODO. Redirect to Edit Profile URL to set a new password.
-        #
-        redirect_to after_sign_in_path, notice: t(".success")
+        redirect_to edit_admin_admin_settings_path, notice: t(".success")
       else
         redirect_to new_admin_sessions_path, notice: t(".error")
       end

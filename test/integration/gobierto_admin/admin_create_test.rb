@@ -23,15 +23,13 @@ module GobiertoAdmin
       end
     end
 
-    def test_admin_create
+    def test_admin_create_and_admin_accept_email
       with_signed_in_admin(admin) do
         visit @path
 
         within "form.new_admin" do
           fill_in "admin_name", with: "Admin Name"
           fill_in "admin_email", with: "admin@email.dev"
-          fill_in "admin_password", with: "adminpassword"
-          fill_in "admin_password_confirmation", with: "adminpassword"
 
           within ".site-module-check-boxes" do
             check "Gobierto Development"
@@ -70,7 +68,24 @@ module GobiertoAdmin
         within ".admin-authorization-level-radio-buttons" do
           assert has_checked_field?("Regular")
         end
+
+        invite_email = ActionMailer::Base.deliveries.last
+        assert_equal 'admin@email.dev', invite_email.to[0]
       end
+
+      open_email('admin@email.dev')
+      current_email.click_link current_email.first('a').text
+
+      assert has_message?("Signed in successfully")
+
+      assert has_content?("Edit your data")
+
+      assert has_field?("admin_email", with: "admin@email.dev")
+      fill_in :admin_password, with: 'gobierto'
+      fill_in :admin_password_confirmation, with: 'gobierto'
+      click_button "Update"
+
+      assert has_message?("Data updated successfully")
     end
   end
 end

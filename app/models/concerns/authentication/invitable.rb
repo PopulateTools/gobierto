@@ -11,6 +11,10 @@ module Authentication::Invitable
     end
   end
 
+  def regenerate_invitation_token
+    update_columns(invitation_token: self.class.generate_unique_secure_token, invitation_sent_at: Time.now)
+  end
+
   def invitation?
     invitation_sent_at.present?
   end

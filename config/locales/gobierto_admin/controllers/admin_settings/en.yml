@@ -1,0 +1,12 @@
+---
+en:
+  gobierto_admin:
+    admin:
+      settings:
+        update:
+          error: There was an error updating your data
+          success: Data updated successfully
+        edit:
+          placeholders:
+            name: Name
+            email: Email

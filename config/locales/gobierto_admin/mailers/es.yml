@@ -2,11 +2,6 @@
 es:
   gobierto_admin:
     admin_mailer:
-      confirmation_instructions:
-        bye: Saludos
-        click_link: Pincha en el siguiente enlace para activar tu cuenta en Gobierto
-        hi: Hola
-        subject: Instrucciones para activar tu cuenta en Gobierto
       invitation_instructions:
         bye: Saludos
         click_link: Has sido invitado para colaborar en Gobierto. Pincha en el siguiente

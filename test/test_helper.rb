@@ -14,7 +14,8 @@ require "support/session_helpers"
 require "support/site_session_helpers"
 require "support/message_delivery_helpers"
 require "support/gobierto_site_constraint_helpers"
-require 'minitest/retry'
+require "capybara/email"
+require "minitest/retry"
 
 if ENV["CI"] || ENV["RUN_COVERAGE"]
   require "simplecov"
@@ -82,6 +83,7 @@ class ActionDispatch::IntegrationTest
   include Integration::SiteSessionHelpers
   include Integration::MatcherHelpers
   include Integration::PageHelpers
+  include Capybara::Email::DSL
 
   Capybara.register_driver :poltergeist_custom do |app|
     Capybara::Poltergeist::Driver.new(

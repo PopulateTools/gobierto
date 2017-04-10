@@ -14,6 +14,10 @@ module GobiertoAdmin
       @admin ||= gobierto_admin_admins(:nick)
     end
 
+    def unauthorized_admin
+      @unauthorized_admin ||= gobierto_admin_admins(:tony)
+    end
+
     def site
       @site ||= sites(:madrid)
     end
@@ -132,6 +136,18 @@ module GobiertoAdmin
 
         assert has_content?("Username can't be blank")
         assert has_content?("Password can't be blank")
+      end
+    end
+
+    def test_unauthorized_admin_access
+      with_signed_in_admin(unauthorized_admin) do
+        visit admin_root_path
+        refute has_link?("Customize site")
+
+        visit @path
+
+        refute has_selector?("form.edit_site")
+        assert has_content?("You are not authorized to perform this action")
       end
     end
   end

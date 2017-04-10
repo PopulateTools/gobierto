@@ -2,6 +2,8 @@ module GobiertoPeople
   class PeopleController < GobiertoPeople::ApplicationController
     include PoliticalGroupsHelper
 
+    before_action :check_active_submodules, except: :show
+
     def index
 
       @political_groups = get_political_groups
@@ -25,6 +27,12 @@ module GobiertoPeople
     end
 
     private
+
+    def check_active_submodules
+      if !officials_submodule_active?
+        redirect_to gobierto_people_root_path
+      end
+    end
 
     def find_person
       current_site.people.active.find(params[:id])

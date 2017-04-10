@@ -4,6 +4,11 @@ module GobiertoSeeds
       # Config keys
       GobiertoPeople::Setting.find_or_create_by! site: site, key: "home_text_ca"
       GobiertoPeople::Setting.find_or_create_by! site: site, key: "home_text_es"
+      
+      GobiertoPeople::Setting.create site: site, key: "agendas_submodule_active", value: "true"
+      GobiertoPeople::Setting.create site: site, key: "officials_submodule_active", value: "true"
+      GobiertoPeople::Setting.create site: site, key: "blog_submodule_active", value: "true"
+      GobiertoPeople::Setting.create site: site, key: "statements_submodule_active", value: "true"
 
       #
       # Content blocks

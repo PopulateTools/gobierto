@@ -44,11 +44,12 @@
 
 /* Graphics */
 .chart_headline {
-	font-size: 1rem;
-	color: #A5A5A5;
+	font-size: 1.25rem;
+	color: $color_headers;
 	margin-top: 0;
-	font-weight: 400;
-  margin-bottom: 0;
+	font-weight: 500;
+  margin-bottom: 1rem;
+  font-weight: 600;
 }
 .gobierto_indicators .axis path {
 	stroke: #BDBDBD;
@@ -181,8 +182,25 @@
   }
 }
 
+#empleo {
+  .chart_headline {
+    margin: 0 auto;
+    max-width: 150px;
+  }
+}
+
 #unemployment_age {
   margin-bottom: 1rem;
+  position: relative;
+  
+  .lines-labels div {
+    position: absolute;
+    margin-top: 10px;
+    max-width: 40px;
+    line-height: 1;
+    text-transform: uppercase;
+    font-size: 0.75em;
+  }
   
   .axis {
   	font-family: $font_text;
@@ -192,8 +210,10 @@
   	fill: $text_soft;
   }
   .line {
-    fill: none;
-    stroke-width: 2.5px;
+    path {
+      fill: none;
+      stroke-width: 2.5px;
+    }
   }
   .y.axis {
     .tick line {

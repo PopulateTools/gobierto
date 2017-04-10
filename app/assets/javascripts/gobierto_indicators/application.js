@@ -30,7 +30,7 @@ $(document).on('turbolinks:load', function() {
   }
 
   if ($('#unemployment_age').length && !$('#unemployment_age svg').length) {
-    var vis_unempl = new VisUnemploymentAge('#unemployment_age', window.populateData.municipalityId);
+    var vis_unempl = new VisUnemploymentAge('#unemployment_age', 39073);
     vis_unempl.render();
   }
 

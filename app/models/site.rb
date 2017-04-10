@@ -45,6 +45,10 @@ class Site < ApplicationRecord
   scope :sorted, -> { order(created_at: :desc) }
   scope :alphabetically_sorted, -> { order(name: :asc) }
 
+  def self.with_agendas_integration_enabled
+    # TODO
+  end
+
   enum visibility_level: { draft: 0, active: 1 }
 
   def self.find_by_allowed_domain(domain)

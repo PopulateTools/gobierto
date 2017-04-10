@@ -25,6 +25,14 @@ module GobiertoPeople
     scope :sorted, -> { order(position: :asc, created_at: :desc) }
     scope :by_site, ->(site) { where(site_id: site.id) }
 
+    def self.with_synchronized_agenda
+      # TODO
+    end
+
+    def calendar_endpoint
+      # TODO
+    end
+
     enum visibility_level: { draft: 0, active: 1 }
     enum category: { politician: 0, executive: 1 }
     enum party: { government: 0, opposition: 1 }

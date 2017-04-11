@@ -11,6 +11,11 @@ class ApiTest < ActiveSupport::TestCase
     @person ||= gobierto_people_people(:richard)
   end
 
+  def utc_time(date)
+    d = Time.parse(date)
+    Time.utc(d.year, d.month, d.day, d.hour, d.min, d.sec)
+  end
+
   def response_event
     @response_event ||= {
       'id' => 'Lotus Notes persisted event ID',
@@ -29,8 +34,8 @@ class ApiTest < ActiveSupport::TestCase
     @gobierto_event ||= GobiertoPeople::PersonEvent.new(
       external_id: 'Lotus Notes persisted event ID',
       title: 'Lotus Notes persisted event title',
-      starts_at: Time.parse("2017-04-11 10:00:00").utc,
-      ends_at:   Time.parse("2017-04-11 11:00:00").utc,
+      starts_at: utc_time("2017-04-11 10:00:00"),
+      ends_at:   utc_time("2017-04-11 11:00:00"),
       state: GobiertoPeople::PersonEvent.states['published'],
       person: person
     )
@@ -64,8 +69,8 @@ class ApiTest < ActiveSupport::TestCase
     @outdated_gobierto_event ||= GobiertoPeople::PersonEvent.new(
       external_id: 'Lotus Notes outdated event ID',
       title: 'Lotus Notes outdated event title',
-      starts_at: Time.parse("2017-04-11 10:00:00").utc,
-      ends_at:   Time.parse("2017-04-11 11:00:00").utc,
+      starts_at: utc_time("2017-04-11 10:00:00"),
+      ends_at:   utc_time("2017-04-11 11:00:00"),
       state: GobiertoPeople::PersonEvent.states['published'],
       person: person
     )
@@ -77,15 +82,15 @@ class ApiTest < ActiveSupport::TestCase
     assert_equal lotus_event.state, GobiertoPeople::PersonEvent.states['published']
     assert_equal lotus_event.transparency, 'transparent'
     assert_equal lotus_event.person, person
-    assert_equal lotus_event.starts_at, Time.parse('2017-04-11 10:00:00').utc
-    assert_equal lotus_event.ends_at,   Time.parse('2017-04-11 11:00:00').utc
+    assert_equal lotus_event.starts_at, utc_time('2017-04-11 10:00:00')
+    assert_equal lotus_event.ends_at,   utc_time('2017-04-11 11:00:00')
   end
 
   def test_hash_version
     assert_equal(lotus_event.hash_version, {
       'title' => 'Lotus Notes persisted event title',
-      'starts_at' => '2017-04-11T08:00:00.000Z',
-      'ends_at' => '2017-04-11T09:00:00.000Z',
+      'starts_at' => '2017-04-11T10:00:00.000Z',
+      'ends_at'   => '2017-04-11T11:00:00.000Z',
       'state' => GobiertoPeople::PersonEvent.states['published'],
     })
   end

@@ -77,7 +77,8 @@ module LotusNotes
 
     def parse_date(date)
       unless date.nil?
-        Time.parse("#{date['date']} #{date['time']}").in_time_zone
+        d = Time.parse("#{date['date']} #{date['time']}")
+        Time.utc(d.year, d.month, d.day, d.hour, d.min, d.sec)
       end
     end
 

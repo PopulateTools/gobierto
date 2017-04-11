@@ -56,6 +56,7 @@
   min-height: 80px;
   line-height: 80px;
   padding: 0 1rem;
+  position: relative;
   
   .half {
     width: 48%;
@@ -67,9 +68,39 @@
     text-transform: uppercase;
     font-size: 0.85rem;
   }
-  
+  .sparkline {
+    position: absolute;
+    top: 0;
+    line-height: 0;
+    width: calc(100% - 2rem);
+    
+    path {
+      fill: none;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      stroke-opacity: 0.15;
+      stroke-width: 4;
+    }
+  }
   ol {
     padding: 0 1rem;
+  }
+}
+.widget_body.widget_comparison {
+  line-height: 37px;
+  
+  .first {
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  .first,
+  .second {
+    span:not(.figure) {
+      font-size: 1rem;
+      color: $color_text;
+    }
   }
 }
 .widget_body.categories {

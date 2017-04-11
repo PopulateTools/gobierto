@@ -5,6 +5,8 @@ module GobiertoPeople
     include User::Subscribable
     include GobiertoCommon::Searchable
 
+    validates :person, presence: true
+
     algoliasearch_gobierto do
       attribute :site_id, :title, :description, :updated_at
       searchableAttributes ['title', 'description']

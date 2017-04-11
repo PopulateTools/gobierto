@@ -17,13 +17,13 @@ module GobiertoPeople
         event.sync
       end
 
-      mark_deleted_future_events_as_drafts(received_events)
+      mark_deleted_future_events_as_drafts(person, received_events)
     end
 
-    def self.mark_deleted_future_events_as_drafts(received_events)
-      PersonEvent.synchronized_future_events.each do |future_event|
-        unless received_events.map { |event| event['external_id'] }.include?(future_event.external_id)
-          event.update_attribute(state: PersonEvent.states[:pending])
+    def self.mark_deleted_future_events_as_drafts(person, received_events)
+      person.events.synchronized_future_events.each do |future_event|
+        unless received_events.map { |event| event['id'] }.include?(future_event.external_id)
+          future_event.update_attribute(:state, PersonEvent.states[:pending])
         end
       end
     end

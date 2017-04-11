@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170410082426) do
+ActiveRecord::Schema.define(version: 20170411163634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -341,6 +341,10 @@ ActiveRecord::Schema.define(version: 20170410082426) do
     t.integer  "visibility_level",            default: 0,  null: false
     t.inet     "creation_ip"
     t.integer  "municipality_id"
+    t.jsonb    "name_translations"
+    t.jsonb    "title_translations"
+    t.index ["name_translations"], name: "index_sites_on_name_translations", using: :gin
+    t.index ["title_translations"], name: "index_sites_on_title_translations", using: :gin
   end
 
   create_table "user_notifications", force: :cascade do |t|

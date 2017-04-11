@@ -4,8 +4,8 @@ module GobiertoAdmin
   class SiteFormTest < ActiveSupport::TestCase
     def valid_site_form
       @valid_site_form ||= SiteForm.new(
-        title: site.title,
-        name: new_site_name, # To ensure uniqueness
+        title_translations: {I18n.locale => site.title},
+        name_translations: {I18n.locale => new_site_name}, # To ensure uniqueness
         domain: new_site_domain, # To ensure uniqueness
         location_name: site.location_name,
         municipality_id: 1,
@@ -18,8 +18,8 @@ module GobiertoAdmin
 
     def invalid_site_form
       @invalid_site_form ||= SiteForm.new(
-        title: nil,
-        name: nil,
+        title_translations: {},
+        name_translations: {},
         domain: site.domain,
         location_name: site.location_name,
         visibility_level: "active",
@@ -76,8 +76,8 @@ module GobiertoAdmin
     def test_error_messages_with_invalid_attributes
       invalid_site_form.save
 
-      assert invalid_site_form.errors.messages[:title].one?
-      assert invalid_site_form.errors.messages[:name].one?
+      assert invalid_site_form.errors.messages[:title_translations].one?
+      assert invalid_site_form.errors.messages[:name_translations].one?
       assert invalid_site_form.errors.messages[:available_locales].one?
     end
   end

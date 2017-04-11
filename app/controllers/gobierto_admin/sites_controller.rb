@@ -26,7 +26,9 @@ module GobiertoAdmin
       site_policy = SitePolicy.new(current_admin, @site)
       raise Errors::NotAuthorized unless site_policy.update?
 
-      @site_form = SiteForm.new(@site.attributes)
+      @site_form = SiteForm.new(
+        @site.attributes.except(*ignored_site_attributes)
+      )
       @site_modules = get_site_modules
       @site_visibility_levels = get_site_visibility_levels
       @dns_config = get_dns_config
@@ -114,8 +116,6 @@ module GobiertoAdmin
 
     def site_params
       params.require(:site).permit(
-        :title,
-        :name,
         :domain,
         :location_name,
         :location_type,
@@ -137,6 +137,8 @@ module GobiertoAdmin
         :privacy_page_id,
         site_modules: [],
         available_locales: [],
+        title_translations: [*I18n.available_locales],
+        name_translations: [*I18n.available_locales]
       )
     end
 
@@ -162,6 +164,10 @@ module GobiertoAdmin
 
     def get_available_pages
       @site.pages.active.sorted
+    end
+
+    def ignored_site_attributes
+      %w( name title )
     end
   end
 end

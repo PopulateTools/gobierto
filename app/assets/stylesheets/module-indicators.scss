@@ -201,7 +201,6 @@
     text-transform: uppercase;
     font-size: 0.75em;
   }
-  
   .axis {
   	font-family: $font_text;
   	font-size: 0.9em;
@@ -238,7 +237,17 @@
   }
 }
 
-#unemployment_sectors {
+#unemployment_sex {
+  position: relative;
+  
+  .lines-labels div {
+    position: absolute;
+    margin-top: 20px;
+    max-width: 40px;
+    line-height: 1;
+    text-transform: uppercase;
+    font-size: 0.75em;
+  }
   .axis {
   	font-family: $font_text;
   	font-size: 0.9em;

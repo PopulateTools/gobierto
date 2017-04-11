@@ -35,9 +35,9 @@ $(document).on('turbolinks:load', function() {
     vis_unempl.render();
   }
 
-  if ($('#unemployment_sectors').length && !$('#unemployment_sectors svg').length) {
-    var vis_unemplSec = new VisUnemploymentSectors('#unemployment_sectors', window.populateData.municipalityId);
-    vis_unemplSec.render();
+  if ($('#unemployment_sex').length && !$('#unemployment_sex svg').length) {
+    var vis_unemplSex = new VisUnemploymentSex('#unemployment_sex', window.populateData.municipalityId);
+    vis_unemplSex.render();
   }
 
   if ($('#rent_distribution').length && !$('#rent_distribution svg').length) {
@@ -65,7 +65,6 @@ $(document).on('turbolinks:load', function() {
   
   var contractsCard = new ContractsCard('.contracts-comparison', populateData.municipalityId);
   contractsCard.render();
-
 
   // // Render indicator cards info
   // if ($('.indicator_widget').length) {

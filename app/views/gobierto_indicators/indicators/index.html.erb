@@ -28,18 +28,20 @@
 		</div>
 		
 		<div class="pure-g padded_cols">
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-        <div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-poblacion-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
+
+      <div class="pure-u-1 pure-u-md-1-3 card_container population-card" data-type="figure" data-trend="up" data-freq="daily">
+        <div class="indicator_widget padded">
 					<div class="front">
-						<div class="widget_headline"><h3>Población</h3></h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+						<div class="widget_headline"><h3 class="widget_title"></h3></h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
 							<span class="widget_figure"></span>
 							<span class="pull-right widget_pct"></span>
+              <div class="sparkline"></div>
 						</div>
 
 						<div class="widget_meta">
 							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
+              <div class="widget_src"></div>
 							<div class="pull-right">
 								<i class="fa fa-clock-o" aria-hidden="true"></i>
 								<small class="widget_updated"></small>
@@ -48,15 +50,15 @@
 					</div>
 					
 					<div class="back">
-						<div class="widget_headline"><h3>Población</h3> <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+						<div class="widget_headline"><h3 class="widget_title"></h3> <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 
 						<div class="widget_info">
-							<span class="js-data-desc"></span>. Actualizado <span class="js-data-freq"></span>.
+							<span class="data-desc"></span>. Actualizado <span class="data-freq"></span>.
 						</div>
 
 						<div class="widget_meta">
 							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
+              <div class="widget_src"></div>
 							<div class="pull-right">
 								<i class="fa fa-clock-o" aria-hidden="true"></i>
 								<small class="widget_updated"></small>
@@ -65,49 +67,49 @@
 					</div>
 				</div>
 			</div>
-			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-nacimientos-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
-					<div class="front">
-						<div class="widget_headline"><h3>Nacimientos</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
+      
+      <div class="pure-u-1 pure-u-md-1-3 card_container">
+        <div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-defunciones-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
+          <div class="front">
+            <div class="widget_headline"><h3></h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+            <div class="widget_body">
+              <span class="widget_figure"></span>
+              <span class="pull-right widget_pct"></span>
+            </div>
 
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Nacimientos</h3> <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+            <div class="widget_meta">
+              <i class="fa fa-university" aria-hidden="true"></i>
+              <div class="widget_src"></div>
+              <div class="pull-right">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <small class="widget_updated"></small>
+              </div>
+            </div>
+          </div>
+          
+          <div class="back">
+            <div class="widget_headline"><h3>Defunciones</h3> <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 
-						<div class="widget_info">
-							<span class="js-data-desc"></span>. Actualizado <span class="js-data-freq"></span>.
-						</div>
+            <div class="widget_info">
+              <span class="js-data-desc"></span>. Actualizado <span class="js-data-freq"></span>.
+            </div>
 
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+            <div class="widget_meta">
+              <i class="fa fa-university" aria-hidden="true"></i>
+              <div class="widget_src"></div>
+              <div class="pull-right">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <small class="widget_updated"></small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 			
 			<div class="pure-u-1 pure-u-md-1-3 card_container">
 				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-defunciones-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
 					<div class="front">
-						<div class="widget_headline"><h3>Defunciones</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+						<div class="widget_headline"><h3></h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
 							<span class="widget_figure"></span>
 							<span class="pull-right widget_pct"></span>
@@ -141,6 +143,122 @@
 					</div>
 				</div>
 			</div>
+      
+      <div class="pure-u-1 pure-u-md-1-3 card_container active-pop-card" data-type-first="percentage" data-type-second="figure" data-freq="daily">
+        <div class="indicator_widget padded">
+          <div class="front">
+            <div class="widget_headline"><h3 class="widget_title"></h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+            <div class="widget_body widget_comparison">
+              <div class="widget_figure first"><span class="figure figure-first"></span> <span>del total</span></div>
+              <div class="widget_figure second"><span class="figure figure-second"></span> <span>personas</span></div>
+              <span class="pull-right widget_pct"></span>
+            </div>
+
+            <div class="widget_meta">
+              <i class="fa fa-university" aria-hidden="true"></i>
+              <div class="widget_src"></div>
+              <div class="pull-right">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <small class="widget_updated"></small>
+              </div>
+            </div>
+          </div>
+          
+          <div class="back">
+            <div class="widget_headline"><h3 class="widget_title"></h3> <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+
+            <div class="widget_info">
+              <span class="js-data-desc"></span>. Actualizado <span class="js-data-freq"></span>.
+            </div>
+
+            <div class="widget_meta">
+              <i class="fa fa-university" aria-hidden="true"></i>
+              <div class="widget_src"></div>
+              <div class="pull-right">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <small class="widget_updated"></small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="pure-u-1 pure-u-md-1-3 card_container homes-card" data-type-first="figure" data-type-second="figure" data-freq="daily">
+        <div class="indicator_widget padded">
+          <div class="front">
+            <div class="widget_headline"><h3 class="widget_title"></h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+            <div class="widget_body widget_comparison">
+              <div class="widget_figure first"><span class="figure figure-first"></span> <span>familiares</span></div>
+              <div class="widget_figure second"><span class="figure figure-second"></span> <span>principales</span></div>
+              <span class="pull-right widget_pct"></span>
+            </div>
+
+            <div class="widget_meta">
+              <i class="fa fa-university" aria-hidden="true"></i>
+              <div class="widget_src"></div>
+              <div class="pull-right">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <small class="widget_updated"></small>
+              </div>
+            </div>
+          </div>
+          
+          <div class="back">
+            <div class="widget_headline"><h3 class="widget_title"></h3> <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+
+            <div class="widget_info">
+              <span class="js-data-desc"></span>. Actualizado <span class="js-data-freq"></span>.
+            </div>
+
+            <div class="widget_meta">
+              <i class="fa fa-university" aria-hidden="true"></i>
+              <div class="widget_src"></div>
+              <div class="pull-right">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <small class="widget_updated"></small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="pure-u-1 pure-u-md-1-3 card_container">
+        <div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-defunciones-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
+          <div class="front">
+            <div class="widget_headline"><h3></h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+            <div class="widget_body">
+              <span class="widget_figure"></span>
+              <span class="pull-right widget_pct"></span>
+            </div>
+
+            <div class="widget_meta">
+              <i class="fa fa-university" aria-hidden="true"></i>
+              <div class="widget_src"></div>
+              <div class="pull-right">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <small class="widget_updated"></small>
+              </div>
+            </div>
+          </div>
+          
+          <div class="back">
+            <div class="widget_headline"><h3>Defunciones</h3> <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+
+            <div class="widget_info">
+              <span class="js-data-desc"></span>. Actualizado <span class="js-data-freq"></span>.
+            </div>
+
+            <div class="widget_meta">
+              <i class="fa fa-university" aria-hidden="true"></i>
+              <div class="widget_src"></div>
+              <div class="pull-right">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <small class="widget_updated"></small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 		</div>
 	</section>
@@ -159,7 +277,7 @@
         <h3 class="chart_headline center">Histórico de la tasa de paro</h3>
       </div>
 			<div class="pure-u-1 pure-u-md-1-3">
-				<h3 class="chart_headline center">Desempleo según sexo</h3>
+				<h3 class="chart_headline center">Desempleo según sectores</h3>
 				<div id="unemployment_sectors" class="small_graphic"></div>
 			</div>
 			<div class="pure-u-1 pure-u-md-1-3">
@@ -170,13 +288,14 @@
 		
 		<div class="pure-g padded_cols">
 
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-tasa-paro-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=" data-type="percentage">
+			<div class="pure-u-1 pure-u-md-1-3 card_container ss-members" data-type="figure" data-freq="daily" data-trend="up">
+				<div class="indicator_widget padded">
 					<div class="front">
-						<div class="widget_headline"><h3>Tasa de paro</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+						<div class="widget_headline"><h3 class="widget_title"></h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
 							<span class="widget_figure"></span>
 							<span class="pull-right widget_pct"></span>
+              <div class="sparkline"></div>
 						</div>
 
 						<div class="widget_meta">
@@ -190,7 +309,7 @@
 					</div>
 					
 					<div class="back">
-						<div class="widget_headline"><h3>Tasa de paro</h3> <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+						<div class="widget_headline"><h3 class="widget_title"></h3> <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 
 						<div class="widget_info">
 							<span class="js-data-desc"></span>. Actualizado <span class="js-data-freq"></span>.
@@ -285,13 +404,14 @@
 				</div>
 			</div>
 			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-contratos-municipio.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
+			<div class="pure-u-1 pure-u-md-1-3 card_container freelancers" data-type="figure" data-freq="daily" data-trend="up">
+				<div class="indicator_widget padded">
 					<div class="front">
-						<div class="widget_headline"><h3>Contratos en el último mes</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+						<div class="widget_headline"><h3 class="widget_title"></h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
 							<span class="widget_figure"></span>
 							<span class="pull-right widget_pct"></span>
+              <div class="sparkline"></div>
 						</div>
 
 						<div class="widget_meta">
@@ -305,7 +425,7 @@
 					</div>
 					
 					<div class="back">
-						<div class="widget_headline"><h3>Contratos en el último mes</h3> <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+						<div class="widget_headline"><h3 class="widget_title"></h3> <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 
 						<div class="widget_info">
 							<span class="js-data-desc"></span>. Actualizado <span class="js-data-freq"></span>.
@@ -323,13 +443,14 @@
 				</div>
 			</div>
 			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-autonomos-municipio.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
+			<div class="pure-u-1 pure-u-md-1-3 card_container companies" data-type="figure" data-freq="daily" data-trend="up">
+				<div class="indicator_widget padded">
 					<div class="front">
-						<div class="widget_headline"><h3>Autónomos</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+						<div class="widget_headline"><h3 class="widget_title"></h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 						<div class="widget_body">
 							<span class="widget_figure"></span>
 							<span class="pull-right widget_pct"></span>
+              <div class="sparkline"></div>
 						</div>
 
 						<div class="widget_meta">
@@ -343,7 +464,7 @@
 					</div>
 					
 					<div class="back">
-						<div class="widget_headline"><h3>Autónomos</h3> <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+						<div class="widget_headline"><h3 class="widget_title"></h3> <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 
 						<div class="widget_info">
 							<span class="js-data-desc"></span>. Actualizado <span class="js-data-freq"></span>.
@@ -361,43 +482,44 @@
 				</div>
 			</div>
 			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget padded" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-empresas-municipio.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
-					<div class="front">
-						<div class="widget_headline"><h3>Empresas</h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
+      <div class="pure-u-1 pure-u-md-1-3 card_container contracts-comparison" data-type-first="figure" data-type-second="figure" data-freq="daily">
+        <div class="indicator_widget padded">
+          <div class="front">
+            <div class="widget_headline"><h3 class="widget_title"></h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+            <div class="widget_body widget_comparison">
+              <div class="widget_figure first"><span class="figure figure-first"></span> <span>temporales</span></div>
+              <div class="widget_figure second"><span class="figure figure-second"></span> <span>indefinidos</span></div>
+              <span class="pull-right widget_pct"></span>
+            </div>
 
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Empresas</h3> <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+            <div class="widget_meta">
+              <i class="fa fa-university" aria-hidden="true"></i>
+              <div class="widget_src"></div>
+              <div class="pull-right">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <small class="widget_updated"></small>
+              </div>
+            </div>
+          </div>
+          
+          <div class="back">
+            <div class="widget_headline"><h3 class="widget_title"></h3> <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
 
-						<div class="widget_info">
-							<span class="js-data-desc"></span>. Actualizado <span class="js-data-freq"></span>.
-						</div>
+            <div class="widget_info">
+              <span class="js-data-desc"></span>. Actualizado <span class="js-data-freq"></span>.
+            </div>
 
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+            <div class="widget_meta">
+              <i class="fa fa-university" aria-hidden="true"></i>
+              <div class="widget_src"></div>
+              <div class="pull-right">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <small class="widget_updated"></small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 		</div>
 	</section>

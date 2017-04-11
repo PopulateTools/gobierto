@@ -1,4 +1,5 @@
 //= require_directory ./visualizations/
+//= require_directory ./cards/
 
 function selectSection(html){
   var $el = $('[data-breadcrumb-sub-item]');
@@ -43,16 +44,38 @@ $(document).on('turbolinks:load', function() {
     var vis_rent = new VisRentDistribution('#rent_distribution', window.populateData.municipalityId, window.populateData.year - 1);
     vis_rent.render();
   }
+  
+  var popCard = new PopulationCard('.population-card', populateData.municipalityId);
+  popCard.render();
+  
+  var activePopCard = new ActivePopulationCard('.active-pop-card', populateData.municipalityId);
+  activePopCard.render();
+  
+  var hCard = new HomesCard('.homes-card', populateData.municipalityId);
+  hCard.render();
+  
+  var ssCard = new ssMembersCard('.ss-members', populateData.municipalityId);
+  ssCard.render();
+  
+  var fCard = new FreelancersCard('.freelancers', populateData.municipalityId);
+  fCard.render();
+  
+  var cCard = new CompaniesCard('.companies', populateData.municipalityId);
+  cCard.render();
+  
+  var contractsCard = new ContractsCard('.contracts-comparison', populateData.municipalityId);
+  contractsCard.render();
 
-  // Render indicator cards info
-  if ($('.indicator_widget').length) {
-    new CardIndicators('.indicator_widget', window.populateData.municipalityId);
 
-    // Show dataset info on click
-    $('.card_container').click(function() {
-      $(this).toggleClass('hover');
-    });
-  }
+  // // Render indicator cards info
+  // if ($('.indicator_widget').length) {
+  //   new CardIndicators('.indicator_widget', window.populateData.municipalityId);
+  // 
+  //   // Show dataset info on click
+  //   $('.card_container').click(function() {
+  //     $(this).toggleClass('hover');
+  //   });
+  // }
 
   if(window.location.hash !== ""){
     selectSection();

@@ -16,6 +16,7 @@ require "support/message_delivery_helpers"
 require "support/gobierto_site_constraint_helpers"
 require "capybara/email"
 require "minitest/retry"
+require "vcr"
 
 if ENV["CI"] || ENV["RUN_COVERAGE"]
   require "simplecov"
@@ -55,6 +56,12 @@ WebMock.disable_net_connect!(
   allow_localhost: true,
   allow: "elasticsearch"
 )
+
+VCR.configure do |c|
+  c.cassette_library_dir = 'test/vcr_cassettes'
+  c.hook_into :webmock
+  c.allow_http_connections_when_no_cassette = true
+end
 
 ActiveRecord::Migration.maintain_test_schema!
 

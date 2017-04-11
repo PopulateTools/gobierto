@@ -81,6 +81,7 @@ group :test do
   gem "webmock"
   gem "minitest-retry"
   gem "capybara-email"
+  gem "vcr"
 end
 
 group :development do

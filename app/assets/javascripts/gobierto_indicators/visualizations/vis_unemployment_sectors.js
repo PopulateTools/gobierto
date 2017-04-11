@@ -112,7 +112,7 @@ var VisUnemploymentSectors = Class.extend({
 
     this.yScale
       .rangeRound([this.height, 0])
-      .domain([0, d3.max(this.data, function(d) { return d.pct})]);
+      .domain([0, 0.137]);
 
     this.color
       .domain(['Agricultura', 'Industria', 'Construcción', 'Servicios', 'Sin empleo anterior'])
@@ -213,7 +213,7 @@ var VisUnemploymentSectors = Class.extend({
     return parseInt(d3.select(this.container).style('width'));
   },
   _height: function() {
-    return this.isMobile ? 200 : this._width() * 0.4;
+    return this.isMobile ? 200 : this._width() * 1.4;
   },
   _resize: function() {
     this.width = this._width();

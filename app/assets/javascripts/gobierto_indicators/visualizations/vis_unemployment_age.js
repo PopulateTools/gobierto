@@ -222,19 +222,19 @@ var VisUnemploymentAge = Class.extend({
     // X axis
     this.svg.select('.x.axis')
       .attr('transform', 'translate(0,' + this.height + ')');
+      
+    this.xAxis
+      .ticks(2)
+      .tickPadding(10)
+      .tickSize(0, 0)
+      .scale(this.xScale);
+    
+    this.yAxis
+      .ticks(2, '%')
+      .tickSize(-this.width)
+      .scale(this.yScale);
 
-    this.xAxis.ticks(2);
-    this.xAxis.tickPadding(5);
-    this.xAxis.tickSize(0, 0);
-    this.xAxis.scale(this.xScale);
-    // this.xAxis.tickFormat(this._formatNumberX.bind(this));
     this.svg.select('.x.axis').call(this.xAxis);
-
-    // Y axis
-    this.yAxis.tickSize(-this.width);
-    this.yAxis.scale(this.yScale);
-    this.yAxis.ticks(2, '%');
-    // this.yAxis.tickFormat(this._formatNumberY.bind(this));
     this.svg.select('.y.axis').call(this.yAxis);
 
     // Remove the zero

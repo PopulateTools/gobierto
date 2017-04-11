@@ -1,0 +1,111 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://host.wadus.com/endpoint
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/html; charset=UTF-8
+      Content-Length:
+      - '370'
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PHRpdGxlPjwvdGl0bGU+PC9oZWFkPjxib2R5Pjxm
+        b3JtIGFjdGlvbj0iL25hbWVzLm5zZj9Mb2dpbiIgaWQ9Il9Eb21pbm9Gb3JtIiBtZXRob2Q9InBv
+        c3QiIG5hbWU9Il9Eb21pbm9Gb3JtIj48aW5wdXQgbmFtZT0iJSVNb2REYXRlIiB0eXBlPSJoaWRk
+        ZW4iIHZhbHVlPSIwQTVEMkM1QTAwMDAwMDAwIj48aW5wdXQgbWF4bGVuZ3RoPSIyNTYiIG5hbWU9
+        IlVzZXJuYW1lIiB2YWx1ZT0iIj48aW5wdXQgbWF4bGVuZ3RoPSIyNTYiIG5hbWU9IlBhc3N3b3Jk
+        IiB0eXBlPSJwYXNzd29yZCIgdmFsdWU9IiI+PGlucHV0IHR5cGU9InN1Ym1pdCIgdmFsdWU9IkFj
+        Y2VkaXIiPjwvZm9ybT48L2JvZHk+PC9odG1sPg==
+    http_version:
+  recorded_at: Tue, 11 Apr 2017 08:30:10 GMT
+- request:
+    method: post
+    uri: https://host.wadus.com/names.nsf?Login
+    headers:
+      Host:
+      - host.wadus.com
+  response:
+    status:
+      code: 302
+      message: Found
+    headers:
+      Location:
+      - https://host.wadus.com/endpoint
+  recorded_at: Tue, 11 Apr 2017 08:30:10 GMT
+- request:
+    method: get
+    uri: https://host.wadus.com/endpoint
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1251'
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "events": [
+            {
+              "href":"https://host.wadus.com/wadus/1",
+              "id":"Lotus Notes public event ID",
+              "summary":"Lotus Notes public event summary",
+              "start": {
+                "date":"2017-04-11",
+                "time":"10:00:00",
+                "utc":true
+              },
+              "end": {
+                "date":"2017-04-11",
+                "time":"11:00:00",
+                "utc":true
+              },
+              "class":"public",
+              "transparency":"transparent",
+              "sequence":0
+            },
+            {
+              "href":"https://host.wadus.com/wadus/2",
+              "id":"Lotus Notes public event without end date ID",
+              "summary":"Lotus Notes public event without end date summary",
+              "start": {
+                "date":"2017-04-11",
+                "time":"10:00:00",
+                "utc":true
+              },
+              "class":"public",
+              "transparency":"transparent",
+              "sequence":0
+            },
+            {
+              "href":"https://host.wadus.com/wadus/3",
+              "id":"Lotus Notes private event ID",
+              "summary":"Lotus Notes private event summary",
+              "start": {
+                "date":"2017-04-11",
+                "time":"10:00:00",
+                "utc":true
+              },
+              "end": {
+                "date":"2017-04-11",
+                "time":"11:00:00",
+                "utc":true
+              },
+              "class":"public",
+              "transparency":"opaque",
+              "sequence":0
+            }
+          ]
+        }
+    http_version:
+  recorded_at: Tue, 11 Apr 2017 08:30:10 GMT
+recorded_with: VCR 3.0.3

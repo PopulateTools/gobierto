@@ -37,6 +37,3 @@ config/deploy/production.rb
 
 # Uploaded files
 /public/system/attachments
-
-# VCR cassettes
-test/vcr_cassettes/

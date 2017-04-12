@@ -37,7 +37,7 @@ module LotusNotes
     end
 
     def gobierto_event_outdated?
-      !has_gobierto_event? || (hash_version != gobierto_event.as_json.slice(*PersonEvent.synchronized_attributes))
+      !has_gobierto_event? || (hash_version != gobierto_event.slice(*PersonEvent.synchronized_attributes))
     end
 
     def public?
@@ -60,12 +60,9 @@ module LotusNotes
 
     def update
       gobierto_event.update_attributes!(
-        external_id: external_id,
         title: title,
         starts_at: starts_at,
         ends_at: ends_at,
-        state: state,
-        person: person,
         state: state
       )
     end

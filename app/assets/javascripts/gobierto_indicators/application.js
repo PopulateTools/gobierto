@@ -69,6 +69,9 @@ $(document).on('turbolinks:load', function() {
   var unBySector = new UnemplBySectorCard('.unemployed-sector', populateData.municipalityId);
   unBySector.render();
   
+  var contrSector = new ContractsBySectorCard('.contracts-sector', populateData.municipalityId);
+  contrSector.render();
+  
   // var birthRate = new BirthRateCard('.births', populateData.municipalityId);
   // birthRate.render();
 

@@ -1,7 +1,7 @@
 'use strict';
 
 var SparklineTableCard = Class.extend({
-  init: function(divClass, json, value) {
+  init: function(divClass, json, value, cardName) {
     d3.timeFormatDefaultLocale(es_ES);
 
     this.div = d3.select(divClass);
@@ -24,10 +24,10 @@ var SparklineTableCard = Class.extend({
 
     // Append metadata
     this.div.selectAll('.widget_title')
-      .text(json.metadata.name);
+      .text(I18n.t('gobierto_indicators.cards.' + cardName + '.title'));
       
     var rows = value.map(function(d) {
-      return '<td>' + d.key + '</td> \
+      return '<td>' + I18n.t('gobierto_indicators.cards.' + cardName + '.' + this._normalize(d.key)) + '</td> \
         <td class="sparktable sparkline-' + this._normalize(d.key) + '"></td> \
         <td>' + accounting.formatNumber(d.diff, 1) + '%</td> \
         <td>' + this._printData(d.value) + '</td>'

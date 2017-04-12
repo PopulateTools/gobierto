@@ -9,3 +9,16 @@ en:
         economy: Economy
         employment: Employment
         population: Population
+    cards:
+      unemployed_sector:
+        title: Unemployed by sector
+        industria: Industry
+        construccion: Buildings
+        agricultura: Agriculture
+        servicios: Services
+      contracts_sector:
+        title: Contracts by sector
+        industria: Industry
+        construccion: Buildings
+        agricultura: Agriculture
+        servicios: Services

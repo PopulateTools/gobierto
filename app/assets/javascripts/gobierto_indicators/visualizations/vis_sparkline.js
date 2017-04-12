@@ -54,9 +54,9 @@ var Sparkline = Class.extend({
       .datum(this.data)
       .attr('stroke', function() {
         if (this.isPositive && this.trend === 'up' || !this.isPositive && this.trend === 'down') {
-          return 'darkgreen';
+          return '#AAC44B';
         } else {
-          return 'darkred';
+          return '#981F2E';
         }
       }.bind(this))
       .attr('d', this.line);

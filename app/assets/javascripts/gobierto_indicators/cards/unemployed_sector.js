@@ -37,7 +37,7 @@ var UnemplBySectorCard = Class.extend({
           d.value = d.value.value
         }.bind(this));
         
-        new SparklineTableCard(this.container, jsonData, this.nest);
+        new SparklineTableCard(this.container, jsonData, this.nest, 'unemployed_sector');
         
         /* Sparklines */
         var ind = jsonData.data.filter(function(d) { return d.sector === 'Industria'; });

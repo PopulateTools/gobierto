@@ -4,7 +4,12 @@ class ApiTest < ActiveSupport::TestCase
 
   def test_get_person_events
     VCR.use_cassette('sample_calendar_events', decode_compressed_response: true) do
-      events = LotusNotes::Api.get_person_events('https://host.wadus.com/endpoint')
+      events = LotusNotes::Api.get_person_events(
+        endpoint: 'https://host.wadus.com/endpoint',
+        username: 'Mo',
+        password: 'Cuishle'
+      )
+
       event = events.first
 
       assert_equal events.size, 3

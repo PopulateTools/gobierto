@@ -119,7 +119,7 @@ class ApiTest < ActiveSupport::TestCase
 
   def test_gobierto_event
     assert_equal lotus_event.gobierto_event, gobierto_event
-    assert_equal new_lotus_event.gobierto_event, nil
+    assert_nil new_lotus_event.gobierto_event
   end
 
   def test_has_gobierto_event?

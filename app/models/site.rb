@@ -47,6 +47,12 @@ class Site < ApplicationRecord
 
   def self.with_agendas_integration_enabled
     # TODO
+    Site.where(name: "Ayuntamiento de Madrid")
+  end
+
+  def calendar_integration
+    # TODO: hacer un switch
+    GobiertoPeople::LotusNotesCalendarIntegration
   end
 
   enum visibility_level: { draft: 0, active: 1 }

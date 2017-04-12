@@ -3,19 +3,19 @@ require 'mechanize'
 module LotusNotes
   class Api
 
-    def self.get_person_events(calendar_endpoint)
-      response_page = make_request(calendar_endpoint)
+    def self.get_person_events(params)
+      response_page = make_request(params)
       person_events = JSON.parse(response_page.body)["events"]
       person_events
     end
 
     private
 
-    def self.make_request(calendar_endpoint)
-      signin_page = agent.get(calendar_endpoint)
+    def self.make_request(params)
+      signin_page = agent.get params[:endpoint]
       page = signin_page.form_with(action: "/names.nsf?Login") do |form|
-        form.Username = lotus_username
-        form.Password = lotus_password
+        form.Username = params[:username]
+        form.Password = params[:password]
       end.submit
     end
 
@@ -26,12 +26,5 @@ module LotusNotes
       agent
     end
 
-    def self.lotus_username
-      # TODO
-    end
-
-    def self.lotus_password
-      # TODO
-    end
   end
 end

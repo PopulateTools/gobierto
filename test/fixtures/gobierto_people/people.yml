@@ -2,8 +2,11 @@ richard:
   site: madrid
   admin: tony
   name: Richard Rider
-  charge: Avenger
-  bio: Left the Secret Avengers, to participate in The Thanos Imperative. Presumed killed in The Thanos Imperative.
+  charge_translations: <%= { 'en' => 'Avenger', 'es' => 'Vengador' }.to_json %>
+  bio_translations: <%= {
+    'en' => 'Left the Secret Avengers, to participate in The Thanos Imperative. Presumed killed in The Thanos Imperative.',
+    'es' => 'Abandonó los Vengadores Secretos para participar en The Thanos Imperative. Presumiblemente muerto ahí'
+  }.to_json %>
   bio_url: https://en.wikipedia.org/wiki/Nova_(Richard_Rider)
   avatar_url: https://upload.wikimedia.org/wikipedia/en/2/26/Nova1adigranov.jpg
   visibility_level: <%= GobiertoPeople::Person.visibility_levels["active"] %>
@@ -17,8 +20,11 @@ nelson:
   site: madrid
   admin: tony
   name: Horatio Nelson
-  charge: Navy Commander
-  bio: Vice Admiral Horatio Nelson is a British flag officer in the Royal Navy. He was killed during his victory at the Battle of Trafalgar.
+  charge_translations: <%= { 'en' => 'Navy Commander', 'es' => 'Comandante' }.to_json %>
+  bio_translations: <%= {
+    'en' => 'Vice Admiral Horatio Nelson is a British flag officer in the Royal Navy. He was killed during his victory at the Battle of Trafalgar.',
+    'es' => 'Vice Admirante Horatio Nelson es un oficial de bandera británico de la Marina Real.'
+  }.to_json %>
   bio_url: https://en.wikipedia.org/wiki/Horatio_Nelson,_1st_Viscount_Nelson
   avatar_url: https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/HoratioNelson1.jpg/1280px-HoratioNelson1.jpg
   visibility_level: <%= GobiertoPeople::Person.visibility_levels["active"] %>
@@ -32,8 +38,11 @@ tamara:
   site: madrid
   admin: tony
   name: Tamara Devoux
-  charge: Former Avenger
-  bio: Former member of the main Avengers team.
+  charge_translations: <%= { 'en' => 'Former Avenger', 'es' => 'Antigua Vengadora' }.to_json %>
+  bio_translations: <%= {
+    'en' => 'Former member of the main Avengers team.',
+    'es' => 'Antigua miembro de los vengadores'
+  }.to_json %>
   bio_url: https://en.wikipedia.org/wiki/Captain_Universe
   avatar_url: https://upload.wikimedia.org/wikipedia/en/thumb/1/11/Captain_Universe.jpg/381px-Captain_Universe.jpg
   visibility_level: <%= GobiertoPeople::Person.visibility_levels["active"] %>

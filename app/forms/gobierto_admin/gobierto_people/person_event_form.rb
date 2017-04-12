@@ -9,8 +9,8 @@ module GobiertoAdmin
         :admin_id,
         :site_id,
         :person_id,
-        :title,
-        :description,
+        :title_translations,
+        :description_translations,
         :starts_at,
         :ends_at,
         :attachment_file,
@@ -22,7 +22,7 @@ module GobiertoAdmin
 
       delegate :persisted?, to: :person_event
 
-      validates :title, presence: true
+      validates :title_translations, presence: true
       validates :starts_at, :ends_at, presence: true
       validates :person, presence: true
 
@@ -177,8 +177,8 @@ module GobiertoAdmin
         @person_event = person_event.tap do |person_event_attributes|
           person_event_attributes.person_id = person_id
           person_event_attributes.state = state
-          person_event_attributes.title = title
-          person_event_attributes.description = description
+          person_event_attributes.title_translations = title_translations
+          person_event_attributes.description_translations = description_translations
           person_event_attributes.starts_at = starts_at
           person_event_attributes.ends_at = ends_at
           person_event_attributes.attachment_url = attachment_url

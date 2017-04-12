@@ -36,7 +36,7 @@ module GobiertoAdmin
               visit @path
 
               within "form.new_person_statement" do
-                fill_in "person_statement_title", with: "Statement Title"
+                fill_in "person_statement_title_translations_en", with: "Statement Title"
                 fill_in "person_statement_published_on", with: "2017-01-01"
 
                 within ".attachment_file_field" do
@@ -50,6 +50,10 @@ module GobiertoAdmin
 
                 fill_in_content_blocks
 
+                click_link "ES"
+
+                fill_in "person_statement_title_translations_es", with: "Título"
+
                 with_stubbed_s3_file_upload do
                   click_button "Create"
                 end
@@ -58,7 +62,7 @@ module GobiertoAdmin
               assert has_message?("Statement was successfully created. See the statement.")
 
               within "form.edit_person_statement" do
-                assert has_field?("person_statement_title", with: "Statement Title")
+                assert has_field?("person_statement_title_translations_en", with: "Statement Title")
                 assert has_field?("person_statement_published_on", with: "2017-01-01")
 
                 within ".attachment_file_field" do
@@ -73,6 +77,10 @@ module GobiertoAdmin
 
                 assert_content_blocks_have_the_right_values
                 assert_content_blocks_can_be_managed
+
+                click_link "ES"
+
+                assert has_field?("person_statement_title_translations_es", with: "Título")
               end
             end
           end

@@ -6,8 +6,8 @@ module GobiertoAdmin
       def valid_person_event_form
         @valid_person_event_form ||= PersonEventForm.new(
           person_id: person.id,
-          title: person_event.title,
-          description: person_event.description,
+          title_translations: {I18n.locale => person_event.title},
+          description_translations: {I18n.locale => person_event.description},
           attachment_url: person_event.attachment_url,
           starts_at: person_event.starts_at,
           ends_at: person_event.ends_at,
@@ -20,8 +20,8 @@ module GobiertoAdmin
       def invalid_person_event_form
         @invalid_person_event_form ||= PersonEventForm.new(
           person_id: nil,
-          title: nil,
-          description: nil,
+          title_translations: {},
+          description_translations: {},
           attachment_url: person_event.attachment_url,
           starts_at: nil,
           ends_at: nil,
@@ -47,7 +47,7 @@ module GobiertoAdmin
         invalid_person_event_form.save
 
         assert_equal 1, invalid_person_event_form.errors.messages[:person].size
-        assert_equal 1, invalid_person_event_form.errors.messages[:title].size
+        assert_equal 1, invalid_person_event_form.errors.messages[:title_translations].size
         assert_equal 1, invalid_person_event_form.errors.messages[:ends_at].size
       end
     end

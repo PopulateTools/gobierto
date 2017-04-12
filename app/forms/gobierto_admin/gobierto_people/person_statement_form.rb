@@ -10,7 +10,7 @@ module GobiertoAdmin
         :admin_id,
         :site_id,
         :person_id,
-        :title,
+        :title_translations,
         :published_on,
         :attachment_file,
         :attachment_url,
@@ -20,7 +20,7 @@ module GobiertoAdmin
 
       delegate :persisted?, to: :person_statement
 
-      validates :title, presence: true
+      validates :title_translations, presence: true
       validates :published_on, presence: true
       validates :person, presence: true
 
@@ -116,7 +116,7 @@ module GobiertoAdmin
       def save_person_statement
         @person_statement = person_statement.tap do |person_statement_attributes|
           person_statement_attributes.person_id = person_id
-          person_statement_attributes.title = title
+          person_statement_attributes.title_translations = title_translations
           person_statement_attributes.published_on = published_on
           person_statement_attributes.attachment_url = attachment_url
           person_statement_attributes.attachment_size = attachment_size

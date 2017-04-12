@@ -10,9 +10,9 @@ module GobiertoAdmin
         :admin_id,
         :site_id,
         :name,
-        :charge,
+        :charge_translations,
         :email,
-        :bio,
+        :bio_translations,
         :bio_file,
         :bio_url,
         :avatar_file,
@@ -122,9 +122,9 @@ module GobiertoAdmin
           person_attributes.admin_id = admin_id
           person_attributes.site_id = site_id
           person_attributes.name = name
-          person_attributes.charge = charge
+          person_attributes.charge_translations = charge_translations
           person_attributes.email = email
-          person_attributes.bio = bio
+          person_attributes.bio_translations = bio_translations
           person_attributes.bio_url = bio_url
           person_attributes.avatar_url = avatar_url
           person_attributes.visibility_level = visibility_level

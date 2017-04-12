@@ -6,7 +6,7 @@ var Sparkline = Class.extend({
     this.timeParse = freq === 'daily' ? d3.timeParse('%Y-%m-%d') : freq === 'monthly' ? d3.timeParse('%Y-%m') : d3.timeParse('%Y');
     this.isMobile = window.innerWidth <= 768;
     this.trend = trend;
-    this.data = json.data;
+    this.data = json;
 
     // Chart dimensions
     this.margin = {top: 5, right: 5, bottom: 5, left: 5};
@@ -70,7 +70,7 @@ var Sparkline = Class.extend({
     return parseInt(d3.select(this.container).style('width'));
   },
   _height: function() {
-    return this.isMobile ? 85 : this._width() * 0.3;
+    return this.isMobile ? 85 : this._width() * 0.2;
   },
   _resize: function() {
     this.width = this._width() - this.margin.left - this.margin.right;

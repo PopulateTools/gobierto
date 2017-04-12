@@ -65,6 +65,12 @@ $(document).on('turbolinks:load', function() {
   
   var contractsCard = new ContractsCard('.contracts-comparison', populateData.municipalityId);
   contractsCard.render();
+  
+  var unBySector = new UnemplBySectorCard('.unemployed-sector', populateData.municipalityId);
+  unBySector.render();
+  
+  // var birthRate = new BirthRateCard('.births', populateData.municipalityId);
+  // birthRate.render();
 
   // // Render indicator cards info
   // if ($('.indicator_widget').length) {

@@ -1,6 +1,6 @@
 'use strict';
 
-var SimpleCard = Class.extend({
+var SparklineTableCard = Class.extend({
   init: function(divClass, json, value) {
     d3.timeFormatDefaultLocale(es_ES);
 
@@ -14,9 +14,6 @@ var SimpleCard = Class.extend({
     var parsedDate = parseDate(json.data[0].date);
     var formatDate = d3.timeFormat("%B %Y");
 
-    this.div.select('.widget_figure')
-      .text(this._printData(value));
-
     // Append source
     this.div.selectAll('.widget_src')
       .text(json.metadata.indicator['source name']);
@@ -28,27 +25,20 @@ var SimpleCard = Class.extend({
     // Append metadata
     this.div.selectAll('.widget_title')
       .text(json.metadata.name);
-    
-    if (typeof json.data[1] !== 'undefined') {
-      var spark = new Sparkline(divClass + ' .sparkline', json.data, trend, freq);
-      spark.render();
+      
+    var rows = value.map(function(d) {
+      return '<td>' + d.key + '</td> \
+        <td class="sparktable sparkline-' + this._normalize(d.key) + '"></td> \
+        <td>' + accounting.formatNumber(d.diff, 1) + '%</td> \
+        <td>' + this._printData(d.value) + '</td>'
+    }.bind(this));
 
-      var pctChange = (value / json.data[1].value * 100) - 100;
-      var pctFormat = accounting.formatNumber(pctChange, 1) + '%';
-      var isPositive = pctChange > 0;
-
-      // If is a positive change, attach a plus sign to the number
-      this.div.select('.widget_pct')
-        .text(function() { return isPositive ? '+' + pctFormat : pctFormat; });
-
-      // Return the correct icon
-      this.div.select('.widget_pct')
-        .append('i')
-        .attr('aria-hidden', 'true')
-        .attr('class', function() {
-          return isPositive ? 'fa fa-caret-up' : 'fa fa-caret-down';
-        });
-    }
+    this.div.select('.widget_table')
+      .selectAll('tr')
+      .data(rows)
+      .enter()
+      .append('tr')
+      .html(function(d) { return d; });
   },
   _printData: function(data) {
     // Switch between different figure types
@@ -65,6 +55,27 @@ var SimpleCard = Class.extend({
       default:
         return accounting.formatNumber(data, 0);
     }
+  },
+  _normalize: function(str) {
+    var from = "1234567890ÃÀÁÄÂÈÉËÊÌÍÏÎÒÓÖÔÙÚÜÛãàáäâèéëêìíïîòóöôùúüûÑñÇç ‘/&().!",
+        to = "izeasgtogoAAAAAEEEEIIIIOOOOUUUUaaaaaeeeeiiiioooouuuunncc_____",
+        mapping = {};
+
+    for (var i = 0, j = from.length; i < j; i++) {
+      mapping[from.charAt(i)] = to.charAt(i);
+    }
+
+    var ret = [];
+    for (var i = 0, j = str.length; i < j; i++) {
+      var c = str.charAt(i);
+      if (mapping.hasOwnProperty(str.charAt(i))) {
+        ret.push(mapping[c]);
+      }
+      else {
+        ret.push(c);
+      }
+    }
+
+    return ret.join('').toLowerCase();
   }
 });
-

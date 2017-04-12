@@ -14,7 +14,7 @@
 	-ms-perspective: 1000px;
 	min-height: 180px;
 	border-radius: 8px;
-	margin-bottom: 3rem;
+	margin-bottom: 1rem;
 }
 .indicator_widget {
 	cursor: pointer;
@@ -57,7 +57,7 @@
   line-height: 80px;
   padding: 0 1rem;
   position: relative;
-  
+
   .half {
     width: 48%;
     display: inline-block;
@@ -80,6 +80,19 @@
       stroke-linecap: round;
       stroke-opacity: 0.15;
       stroke-width: 4;
+    }
+  }
+  
+  .widget_table {
+    .sparktable {
+      width: 25%;
+      
+      path {
+        fill: none;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+        stroke-width: 2;
+      }
     }
   }
   ol {
@@ -226,7 +239,7 @@
 
 @media (min-width: 768px) {
 	.card_container {
-		min-height: 200px;
+		min-height: 260px;
 	}
 	.widget_body {
 		min-height: 100px;

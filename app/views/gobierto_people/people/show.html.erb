@@ -35,7 +35,10 @@
         <% end %>
       </div>
 
-      <%= render "upcoming_events" %>
+      <% if agendas_submodule_active? %>
+        <%= render "upcoming_events" %>
+      <% end %>
+
       <%= render("user/subscriptions/subscribable_box",
                  subscribable: @person,
                  title: t(".subscribable_box.title", person_name: @person.name)) %>

@@ -1,0 +1,7 @@
+richard_calendar_configuration:
+    person: richard
+    data: <%= { endpoint: "#{ENV['RICHARD_CALENDAR_ENDPOINT']}" }.to_json %>
+
+tamara_calendar_configuration:
+    person: tamara
+    data: <%= { endpoint: "#{ENV['TAMARA_CALENDAR_ENDPOINT']}" }.to_json %>

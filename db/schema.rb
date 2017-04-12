@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170411101428) do
+ActiveRecord::Schema.define(version: 20170412125156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -241,6 +241,11 @@ ActiveRecord::Schema.define(version: 20170411101428) do
     t.index ["party"], name: "index_gp_people_on_party", using: :btree
     t.index ["political_group_id"], name: "index_gp_people_on_political_group_id", using: :btree
     t.index ["site_id"], name: "index_gp_people_on_site_id", using: :btree
+  end
+
+  create_table "gp_person_calendar_configurations", force: :cascade do |t|
+    t.integer "person_id",                null: false
+    t.jsonb   "data",      default: "{}", null: false
   end
 
   create_table "gp_person_event_attendees", force: :cascade do |t|

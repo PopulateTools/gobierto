@@ -22,3 +22,11 @@ madrid_statements_submodule:
   key: statements_submodule_active
   value: 'true'
   site: madrid
+
+lotus_endpoint_usr:
+    key: LOTUS_ENDPOINT_USR
+    value: <%= ENV['LOTUS_ENDPOINT_USR'] %>
+
+lotus_endpoint_pwd:
+    key: LOTUS_ENDPOINT_PWD
+    valu: <%= ENV['LOTUS_ENDPOINT_PWD'] %>

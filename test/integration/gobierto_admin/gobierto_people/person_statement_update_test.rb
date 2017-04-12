@@ -37,8 +37,12 @@ module GobiertoAdmin
               visit @path
 
               within "form.edit_person_statement" do
-                fill_in "person_statement_title", with: "Statement Title"
+                fill_in "person_statement_title_translations_en", with: "Statement Title"
                 fill_in "person_statement_published_on", with: "2017-01-01"
+
+                click_link "ES"
+
+                fill_in "person_statement_title_translations_es", with: "Título"
 
                 within ".attachment_file_field" do
                   assert has_selector?("a")
@@ -59,7 +63,7 @@ module GobiertoAdmin
               assert has_message?("Statement was successfully updated. See the statement.")
 
               within "form.edit_person_statement" do
-                assert has_field?("person_statement_title", with: "Statement Title")
+                assert has_field?("person_statement_title_translations_en", with: "Statement Title")
                 assert has_field?("person_statement_published_on", with: "2017-01-01")
 
                 within ".attachment_file_field" do
@@ -71,6 +75,8 @@ module GobiertoAdmin
                     assert has_checked_field?("Draft")
                   end
                 end
+
+                click_link "ES"
 
                 assert_content_blocks_have_the_right_values
                 assert_content_blocks_can_be_managed

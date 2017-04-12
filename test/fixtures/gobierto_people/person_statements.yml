@@ -1,6 +1,9 @@
 richard_current:
   person: richard
-  title: Declaración de Bienes y Actividades
+  title_translations: <%= {
+    'en' => 'Declaración de Bienes y Actividades',
+    'es' => 'Declaración de Bienes y Actividades'
+  }.to_json %>
   attachment_url: https://bit.ly/12345
   attachment_size: <%= 100.kilobytes %>
   published_on: <%= Date.current %>
@@ -8,7 +11,10 @@ richard_current:
 
 richard_past:
   person: richard
-  title: Declaración de Bienes y Actividades (pasada)
+  title_translations: <%= {
+    'en' => 'Declaración de Bienes y Actividades (pasada)',
+    'es' => 'Declaración de Bienes y Actividades (pasada)'
+  }.to_json %>
   attachment_url: https://bit.ly/67890
   attachment_size: <%= 100.kilobytes %>
   published_on: <%= 1.year.ago.to_date %>

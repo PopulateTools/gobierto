@@ -42,7 +42,7 @@ module GobiertoAdmin
                 end
 
                 fill_in "person_name", with: "Person Name"
-                fill_in "person_charge", with: "Person Charge"
+                fill_in "person_charge_translations_en", with: "Person Charge"
 
                 within ".person-category-radio-buttons" do
                   find("label", text: "Politician").click
@@ -59,7 +59,12 @@ module GobiertoAdmin
                 end
 
                 # Simulate Bio rich text area
-                find("#person_bio", visible: false).set("Person Bio")
+                find("#person_bio_translations_en", visible: false).set("Person Bio")
+
+                click_link "ES"
+
+                fill_in "person_charge_translations_es", with: "Cargo persona"
+                find("#person_bio_translations_es", visible: false).set("Bio Persona")
 
                 within ".bio_file_field" do
                   refute has_selector?("a")
@@ -86,7 +91,7 @@ module GobiertoAdmin
                 end
 
                 assert has_field?("person_name", with: "Person Name")
-                assert has_field?("person_charge", with: "Person Charge")
+                assert has_field?("person_charge_translations_en", with: "Person Charge")
 
                 within ".person-category-radio-buttons" do
                   with_hidden_elements do
@@ -104,7 +109,7 @@ module GobiertoAdmin
 
                 assert_equal(
                   "<div>Person Bio</div>",
-                  find("#person_bio", visible: false).value
+                  find("#person_bio_translations_en", visible: false).value
                 )
 
                 within ".bio_file_field" do
@@ -116,6 +121,15 @@ module GobiertoAdmin
                     assert has_checked_field?("Published")
                   end
                 end
+
+                click_link "ES"
+
+                assert has_field?("person_charge_translations_es", with: "Cargo persona")
+
+                assert_equal(
+                  "<div>Bio Persona</div>",
+                  find("#person_bio_translations_es", visible: false).value
+                )
 
                 assert_content_blocks_have_the_right_values
                 assert_content_blocks_can_be_managed

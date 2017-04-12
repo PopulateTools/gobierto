@@ -1,9 +1,7 @@
 <%= render "gobierto_admin/shared/validation_errors", resource: @person_form %>
 
-<%= form_for(@person_form, as: :person, url: @person_form.persisted? ? admin_people_person_path(@person_form) : :admin_people_people) do |f| %>
-
+<%= form_for(@person_form, as: :person, url: @person_form.persisted? ? admin_people_person_path(@person_form) : :admin_people_people, data: { "globalized-form-container" => true }) do |f| %>
   <div class="pure-g">
-
     <div class="pure-u-1 pure-u-md-16-24">
       <div class="form_item file_field avatar_file_field">
         <%= f.label :avatar_file, t(".avatar_file_constraints") %>
@@ -20,9 +18,30 @@
         <%= f.text_field :name, placeholder: t(".placeholders.name") %>
       </div>
 
-      <div class="form_item input_text">
-        <%= f.label :charge %>
-        <%= f.text_field :charge, placeholder: t(".placeholders.charge") %>
+      <div class="globalized_fields">
+        <%= render "gobierto_admin/shared/form_locale_switchers" %>
+
+        <% I18n.available_locales.map(&:to_s).each do |locale| %>
+          <div class="form_item input_text" data-locale="<%= locale %>">
+            <%= label_tag "person[charge_translations][#{locale}]", f.object.class.human_attribute_name(:charge) %>
+            <%= text_field_tag "person[charge_translations][#{locale}]", f.object.charge_translations && f.object.charge_translations[locale], placeholder: t(".placeholders.charge") %>
+          </div>
+
+          <div class="form_item textarea" data-locale="<%= locale %>">
+            <%= label_tag "person[bio_translations][#{locale}]", f.object.class.human_attribute_name(:bio) %>
+            <%= rich_text_area_tag "person[bio_translations][#{locale}]", f.object.bio_translations && f.object.bio_translations[locale], attachment_path: admin_people_file_attachments_path %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="form_item file_field bio_file_field">
+        <%= f.label :bio_file, t(".bio_file_constraints") %>
+
+        <% if f.object.bio_url.present? %>
+          <%= link_to f.object.bio_url, f.object.bio_url %>
+        <% end %>
+
+        <%= f.file_field :bio_file %>
       </div>
 
       <div class="pure-g">
@@ -70,21 +89,6 @@
         <%= f.select :political_group_id,
                      options_from_collection_for_select(@political_groups, :id, :name, f.object.political_group_id),
                      include_blank: true %>
-      </div>
-
-      <div class="form_item textarea">
-        <%= f.label :bio %>
-        <%= f.rich_text_area :bio, attachment_path: admin_people_file_attachments_path %>
-      </div>
-
-      <div class="form_item file_field bio_file_field">
-        <%= f.label :bio_file, t(".bio_file_constraints") %>
-
-        <% if f.object.bio_url.present? %>
-          <%= link_to f.object.bio_url, f.object.bio_url %>
-        <% end %>
-
-        <%= f.file_field :bio_file %>
       </div>
 
       <div class="form_item input_text">

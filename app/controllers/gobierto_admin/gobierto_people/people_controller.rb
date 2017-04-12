@@ -92,26 +92,20 @@ module GobiertoAdmin
 
       def person_params
         params.require(:person).permit(
-          :name,
-          :charge,
-          :email,
-          :bio,
-          :bio_file,
-          :avatar_file,
-          :visibility_level,
-          :category,
-          :party,
-          :political_group_id,
-          dynamic_content_attributes
+          :name, :email, :bio_file, :avatar_file, :visibility_level, :category, :party, :political_group_id,
+          charge_translations: [*I18n.available_locales],
+          bio_translations: [*I18n.available_locales],
+          content_block_records_attributes: [
+            :id,
+            :content_block_id,
+            :_destroy,
+            fields_attributes: [:name, :value]
+          ]
         )
       end
 
       def ignored_person_attributes
-        %w(
-        created_at updated_at
-        events_count statements_count posts_count
-        position
-        )
+        %w( created_at updated_at events_count statements_count posts_count position charge bio )
       end
     end
   end

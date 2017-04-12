@@ -57,11 +57,6 @@ module GobiertoAdmin
                 # Simulate Bio rich text area
                 find("#person_bio_translations_en", visible: false).set("Person Bio")
 
-                click_link "ES"
-
-                fill_in "person_charge_translations_es", with: "Cargo persona"
-                find("#person_bio_translations_es", visible: false).set("Bio Persona")
-
                 within ".bio_file_field" do
                   attach_file "person_bio_file", "test/fixtures/files/gobierto_people/people/bio.pdf"
                 end
@@ -71,6 +66,11 @@ module GobiertoAdmin
                 end
 
                 fill_in_content_blocks
+
+                click_link "ES"
+
+                fill_in "person_charge_translations_es", with: "Cargo persona"
+                find("#person_bio_translations_es", visible: false).set("Bio Persona")
 
                 with_stubbed_s3_file_upload do
                   click_button "Update"
@@ -115,6 +115,8 @@ module GobiertoAdmin
                     assert has_checked_field?("Draft")
                   end
                 end
+                assert_content_blocks_have_the_right_values
+                assert_content_blocks_can_be_managed
 
                 click_link "ES"
 
@@ -124,9 +126,6 @@ module GobiertoAdmin
                   "<div>Bio Persona</div>",
                   find("#person_bio_translations_es", visible: false).value
                 )
-
-                assert_content_blocks_have_the_right_values
-                assert_content_blocks_can_be_managed
               end
             end
           end

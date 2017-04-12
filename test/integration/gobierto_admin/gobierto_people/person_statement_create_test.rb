@@ -39,10 +39,6 @@ module GobiertoAdmin
                 fill_in "person_statement_title_translations_en", with: "Statement Title"
                 fill_in "person_statement_published_on", with: "2017-01-01"
 
-                click_link "ES"
-
-                fill_in "person_statement_title_translations_es", with: "Título"
-
                 within ".attachment_file_field" do
                   refute has_selector?("a")
                   attach_file "person_statement_attachment_file", "test/fixtures/files/gobierto_people/people/person_statement/attachment.pdf"
@@ -53,6 +49,10 @@ module GobiertoAdmin
                 end
 
                 fill_in_content_blocks
+
+                click_link "ES"
+
+                fill_in "person_statement_title_translations_es", with: "Título"
 
                 with_stubbed_s3_file_upload do
                   click_button "Create"
@@ -75,12 +75,12 @@ module GobiertoAdmin
                   end
                 end
 
+                assert_content_blocks_have_the_right_values
+                assert_content_blocks_can_be_managed
+
                 click_link "ES"
 
                 assert has_field?("person_statement_title_translations_es", with: "Título")
-
-                assert_content_blocks_have_the_right_values
-                assert_content_blocks_can_be_managed
               end
             end
           end

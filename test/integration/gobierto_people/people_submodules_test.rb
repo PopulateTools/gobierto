@@ -15,12 +15,11 @@ module GobiertoPeople
       gobierto_people_people(:richard)
     end
 
-    def enable_submodule(submodule_name)
-      GobiertoPeople::Setting.find_by_key("#{submodule_name}_submodule_active").update_attributes(value: 'true')
-    end
-
     def disable_submodule(submodule_name)
-      GobiertoPeople::Setting.find_by_key("#{submodule_name}_submodule_active").update_attributes(value: 'false')
+      submodules_enabled = site.gobierto_people_settings.submodules_enabled
+      submodules_enabled.delete(submodule_name)
+      site.gobierto_people_settings.submodules_enabled = submodules_enabled
+      site.gobierto_people_settings.save!
     end
 
     def disable_submodules(submodules_names)
@@ -39,7 +38,7 @@ module GobiertoPeople
           assert has_content? 'Blogs'
         end
 
-        disable_submodule('blog')
+        disable_submodule('blogs')
 
         visit @path
 
@@ -73,7 +72,7 @@ module GobiertoPeople
 
         assert_equal current_path, gobierto_people_people_path
 
-        disable_submodules ['blog', 'statements']
+        disable_submodules ['blogs', 'statements']
         visit @path
 
         assert_equal current_path, gobierto_people_people_path

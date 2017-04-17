@@ -5,7 +5,7 @@ module GobiertoAdmin
     class SettingsUpdateTest < ActionDispatch::IntegrationTest
       def setup
         super
-        @path = admin_people_configuration_settings_path
+        @path = edit_admin_people_configuration_settings_path
       end
 
       def admin
@@ -16,25 +16,29 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
-      def setting
-        @setting ||= gobierto_people_settings(:home_text)
-      end
-
       def test_setting_update
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
 
-            within "#edit_gobierto_people_setting_#{setting.id}" do
-              fill_in "gobierto_people_setting_value", with: "New value"
+            within "#edit_gobierto_people_settings" do
+              fill_in "gobierto_people_settings_home_text_es", with: "Texto Spanish"
+              fill_in "gobierto_people_settings_home_text_en", with: "Texto English"
+              check "Agendas"
+              check "Blogs"
+              uncheck "Statements"
 
               click_button "Update"
             end
 
-            assert has_message?("Setting updated successfully")
+            assert has_message?("Settings updated successfully")
 
-            within "#edit_gobierto_people_setting_#{setting.id}" do
-              assert has_field?("gobierto_people_setting_value", with: "New value")
+            within "#edit_gobierto_people_settings" do
+              assert has_field?("gobierto_people_settings_home_text_es", with: "Texto Spanish")
+              assert has_field?("gobierto_people_settings_home_text_en", with: "Texto English")
+              assert has_checked_field?("Agendas")
+              assert has_checked_field?("Blogs")
+              refute has_checked_field?("Statements")
             end
           end
         end

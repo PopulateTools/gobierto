@@ -14,7 +14,7 @@
 <div class="tabs">
   <ul>
     <li <%= %Q{class="active"}.html_safe if controller_name == 'settings'%>>
-      <%= link_to t("gobierto_admin.gobierto_people.settings.title"), admin_people_configuration_settings_path %>
+      <%= link_to t("gobierto_admin.gobierto_people.settings.title"), edit_admin_people_configuration_settings_path %>
     </li>
     <li <%= %Q{class="active"}.html_safe if controller_name == 'political_groups'%>>
       <%= link_to t("gobierto_admin.gobierto_people.political_groups.title"), admin_people_configuration_political_groups_path %>

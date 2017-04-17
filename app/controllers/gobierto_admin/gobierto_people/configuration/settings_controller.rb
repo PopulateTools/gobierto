@@ -4,31 +4,49 @@ module GobiertoAdmin
       class SettingsController < BaseController
         before_action { module_enabled!(current_site, "GobiertoPeople") }
 
-        def index
-          @settings = current_site.gobierto_people_settings.all
+        def edit
+          @settings_form = SettingsForm.new(site_id: current_site.id)
+          @available_submodules = find_available_submodules
+          @calendar_integrations_options = find_calendar_integrations
         end
 
         def update
-          @setting = find_setting
-          @setting_form = SettingForm.new(
-            setting_params.merge(id: params[:id])
+          @settings_form = SettingsForm.new(
+            settings_params.merge(site_id: current_site.id)
           )
 
-          @setting_form.save
+          @settings_form.save
           redirect_to(
-            admin_people_configuration_settings_path,
+            edit_admin_people_configuration_settings_path,
             notice: t(".success")
           )
         end
 
         private
 
-        def find_setting
-          current_site.gobierto_people_settings.find(params[:id])
+        def settings_params
+          params.require(:gobierto_people_settings).permit(
+            :home_text_es,
+            :home_text_ca,
+            :home_text_en,
+            :calendar_integration,
+            submodules_enabled: []
+          )
         end
 
-        def setting_params
-          params.require(:gobierto_people_setting).permit(:value)
+        def find_available_submodules
+          ::GobiertoPeople.module_submodules.map do |submodule|
+            [submodule, submodule]
+          end
+        end
+
+        def find_calendar_integrations
+          ::GobiertoPeople.remote_calendar_integrations.map do |integration_name|
+            [
+              I18n.t("gobierto_admin.gobierto_people.configuration.settings.edit.#{integration_name}"),
+              integration_name
+            ]
+          end
         end
       end
     end

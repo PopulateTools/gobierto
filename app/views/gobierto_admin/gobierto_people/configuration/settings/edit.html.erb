@@ -37,7 +37,7 @@
 
       <div class="form_item input_text">
         <%= f.label :calendar_integration, t(".calendar_integration") %>
-        <%= f.select :calendar_integration, @calendar_integrations_options %>
+        <%= f.select :calendar_integration, @calendar_integrations_options, include_blank: true %>
       </div>
     </div>
 

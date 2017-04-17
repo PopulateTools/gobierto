@@ -4,6 +4,9 @@
       token: "<%= Rails.application.secrets.tbi_api_token %>",
       municipalityId: "<%= @site.place.id %>",
       municipalityName: "<%= @site.place.name %>",
+      provinceId: "<%= @site.place.province.id %>",
+      ccaaId: "<%= @site.place.province.autonomous_region.id %>",
+      ccaaName: "<%= @site.place.province.autonomous_region.name %>",
       year: <%= APP_CONFIG["gobierto_indicators"]["year"] %>,
       endpoint: "<%= APP_CONFIG["populate_data"]["endpoint"] %>"
     }

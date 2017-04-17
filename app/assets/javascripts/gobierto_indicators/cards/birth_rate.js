@@ -31,9 +31,6 @@ var BirthRateCard = Class.extend({
         
         var birthRate = jsonData.data[0].value / jsonPop.data[0].value;
         
-        console.log(jsonData);
-        console.log(jsonPop);
-        
         // var value = jsonActive.data[0].value;
         // var rate = value / jsonPop.data[0].value * 100;
         

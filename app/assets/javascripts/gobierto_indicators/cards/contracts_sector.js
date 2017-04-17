@@ -20,7 +20,7 @@ var ContractsBySectorCard = Class.extend({
         
         this.data = jsonData.data;
         
-        console.log(this.data);
+        // console.log(this.data);
         
         this.nest = d3.nest()
           .key(function(d) { return d.sector; })

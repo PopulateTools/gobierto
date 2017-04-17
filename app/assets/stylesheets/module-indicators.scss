@@ -188,7 +188,7 @@
     max-width: 150px;
   }
 }
-
+#unemployment_rate,
 #unemployment_age {
   margin-bottom: 1rem;
   position: relative;
@@ -236,6 +236,14 @@
     }
   }
 }
+#unemployment_rate {
+  .lines-labels div {
+    margin-top: 20px;
+    max-width: none;
+    width: 60px;
+  }
+}
+
 
 #unemployment_sex {
   position: relative;

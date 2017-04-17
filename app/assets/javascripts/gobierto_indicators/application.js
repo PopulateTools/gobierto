@@ -29,9 +29,14 @@ $(document).on('turbolinks:load', function() {
     var vis_agedb = new VisAgeDistribution('#age_distribution', window.populateData.municipalityId, window.populateData.year - 1);
     vis_agedb.render();
   }
+  
+  if ($('#unemployment_rate').length && !$('#unemployment_rate svg').length) {
+    var vis_unemplR = new VisUnemploymentRate('#unemployment_rate', window.populateData.municipalityId, window.populateData.ccaaId);
+    vis_unemplR.render();
+  }
 
   if ($('#unemployment_age').length && !$('#unemployment_age svg').length) {
-    var vis_unempl = new VisUnemploymentAge('#unemployment_age', 39073);
+    var vis_unempl = new VisUnemploymentAge('#unemployment_age', window.populateData.municipalityId);
     vis_unempl.render();
   }
 

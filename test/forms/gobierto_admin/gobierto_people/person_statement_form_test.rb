@@ -6,7 +6,7 @@ module GobiertoAdmin
       def valid_person_statement_form
         @valid_person_statement_form ||= PersonStatementForm.new(
           person_id: person.id,
-          title: person_statement.title,
+          title_translations: {I18n.locale => person_statement.title},
           published_on: person_statement.published_on,
           attachment_url: person_statement.attachment_url,
           attachment_size: person_statement.attachment_size,
@@ -17,7 +17,7 @@ module GobiertoAdmin
       def invalid_person_statement_form
         @invalid_person_statement_form ||= PersonStatementForm.new(
           person_id: nil,
-          title: nil,
+          title_translations: {},
           published_on: nil
         )
       end
@@ -38,7 +38,7 @@ module GobiertoAdmin
         invalid_person_statement_form.save
 
         assert_equal 1, invalid_person_statement_form.errors.messages[:person].size
-        assert_equal 1, invalid_person_statement_form.errors.messages[:title].size
+        assert_equal 1, invalid_person_statement_form.errors.messages[:title_translations].size
         assert_equal 1, invalid_person_statement_form.errors.messages[:published_on].size
       end
 

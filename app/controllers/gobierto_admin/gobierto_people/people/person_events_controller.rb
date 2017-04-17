@@ -77,21 +77,19 @@ module GobiertoAdmin
 
         def person_event_params
           params.require(:person_event).permit(
-            :title,
-            :description,
             :starts_at,
             :ends_at,
             :attachment_file,
             :state,
             locations_attributes: [:id, :name, :address, :lat, :lng, :_destroy],
-            attendees_attributes: [:id, :person_id, :name, :charge, :_destroy]
+            attendees_attributes: [:id, :person_id, :name, :charge, :_destroy],
+            title_translations: [*I18n.available_locales],
+            description_translations: [*I18n.available_locales]
           )
         end
 
         def ignored_person_event_attributes
-          %w(
-          created_at updated_at
-          )
+          %w( created_at updated_at title description )
         end
       end
     end

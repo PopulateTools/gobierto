@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170410082426) do
+ActiveRecord::Schema.define(version: 20170412092307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -219,25 +219,29 @@ ActiveRecord::Schema.define(version: 20170410082426) do
   create_table "gp_people", force: :cascade do |t|
     t.integer  "site_id"
     t.integer  "admin_id"
-    t.string   "name",               default: "",     null: false
+    t.string   "name",                default: "",     null: false
     t.string   "charge"
     t.text     "bio"
     t.string   "bio_url"
-    t.integer  "visibility_level",   default: 0,      null: false
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.integer  "visibility_level",    default: 0,      null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "avatar_url"
-    t.integer  "events_count",       default: 0,      null: false
-    t.integer  "statements_count",   default: 0,      null: false
-    t.integer  "posts_count",        default: 0,      null: false
+    t.integer  "events_count",        default: 0,      null: false
+    t.integer  "statements_count",    default: 0,      null: false
+    t.integer  "posts_count",         default: 0,      null: false
     t.integer  "political_group_id"
-    t.integer  "category",           default: 0,      null: false
+    t.integer  "category",            default: 0,      null: false
     t.integer  "party"
-    t.integer  "position",           default: 999999, null: false
+    t.integer  "position",            default: 999999, null: false
     t.string   "email"
+    t.jsonb    "charge_translations"
+    t.jsonb    "bio_translations"
     t.index ["admin_id"], name: "index_gp_people_on_admin_id", using: :btree
+    t.index ["bio_translations"], name: "index_gp_people_on_bio_translations", using: :gin
     t.index ["category", "party"], name: "index_gp_people_on_category_and_party", using: :btree
     t.index ["category"], name: "index_gp_people_on_category", using: :btree
+    t.index ["charge_translations"], name: "index_gp_people_on_charge_translations", using: :gin
     t.index ["party"], name: "index_gp_people_on_party", using: :btree
     t.index ["political_group_id"], name: "index_gp_people_on_political_group_id", using: :btree
     t.index ["site_id"], name: "index_gp_people_on_site_id", using: :btree
@@ -266,16 +270,20 @@ ActiveRecord::Schema.define(version: 20170410082426) do
   end
 
   create_table "gp_person_events", force: :cascade do |t|
-    t.string   "title",          default: "", null: false
+    t.string   "title",                    default: "", null: false
     t.text     "description"
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.string   "attachment_url"
-    t.integer  "state",          default: 0,  null: false
+    t.integer  "state",                    default: 0,  null: false
     t.integer  "person_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.jsonb    "title_translations"
+    t.jsonb    "description_translations"
+    t.index ["description_translations"], name: "index_gp_person_events_on_description_translations", using: :gin
     t.index ["person_id"], name: "index_gp_person_events_on_person_id", using: :btree
+    t.index ["title_translations"], name: "index_gp_person_events_on_title_translations", using: :gin
   end
 
   create_table "gp_person_posts", force: :cascade do |t|
@@ -291,15 +299,17 @@ ActiveRecord::Schema.define(version: 20170410082426) do
   end
 
   create_table "gp_person_statements", force: :cascade do |t|
-    t.string   "title",            default: "", null: false
+    t.string   "title",              default: "", null: false
     t.date     "published_on"
     t.integer  "person_id"
-    t.integer  "visibility_level", default: 0,  null: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.integer  "visibility_level",   default: 0,  null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "attachment_url"
     t.integer  "attachment_size"
+    t.jsonb    "title_translations"
     t.index ["person_id"], name: "index_gp_person_statements_on_person_id", using: :btree
+    t.index ["title_translations"], name: "index_gp_person_statements_on_title_translations", using: :gin
   end
 
   create_table "gp_political_groups", force: :cascade do |t|
@@ -341,6 +351,10 @@ ActiveRecord::Schema.define(version: 20170410082426) do
     t.integer  "visibility_level",            default: 0,  null: false
     t.inet     "creation_ip"
     t.integer  "municipality_id"
+    t.jsonb    "name_translations"
+    t.jsonb    "title_translations"
+    t.index ["name_translations"], name: "index_sites_on_name_translations", using: :gin
+    t.index ["title_translations"], name: "index_sites_on_title_translations", using: :gin
   end
 
   create_table "user_notifications", force: :cascade do |t|

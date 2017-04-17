@@ -23,8 +23,8 @@ module GobiertoAdmin
 
     def valid_site_params
       {
-        title: 'Title',
-        name: 'Foo',
+        title_translations: { I18n.locale => 'Title'},
+        name_translations: { I18n.locale => 'Foo'},
         location_name: 'Madrid',
         municipality_id: 1,
         domain: 'test2.gobierto.dev',

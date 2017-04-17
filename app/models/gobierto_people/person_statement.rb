@@ -6,9 +6,12 @@ module GobiertoPeople
     include User::Subscribable
     include GobiertoCommon::Searchable
 
+    translates :title
+    include GobiertoCommon::LocalizedContent
+
     algoliasearch_gobierto do
-      attribute :site_id, :title, :updated_at
-      searchableAttributes ['title']
+      attribute :site_id, :title_en, :title_es, :title_ca, :updated_at
+      searchableAttributes ['title_en', 'title_es', 'title_ca']
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end

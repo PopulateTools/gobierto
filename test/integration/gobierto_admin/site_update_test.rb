@@ -31,8 +31,8 @@ module GobiertoAdmin
         visit @path
 
         within "form.edit_site" do
-          fill_in "site_title", with: "Site Title"
-          fill_in "site_name", with: "Site Name"
+          fill_in "site_title_translations_es", with: "Site Title"
+          fill_in "site_name_translations_es", with: "Site Name"
           fill_in "site_location_name", with: "Site Location"
           fill_in "site_domain", with: "test.gobierto.dev"
           fill_in "site_head_markup", with: "Site Head markup"
@@ -60,8 +60,8 @@ module GobiertoAdmin
         assert has_message?("Site was successfully updated")
 
         within "form.edit_site" do
-          assert has_field?("site_name", with: "Site Name")
-          assert has_field?("site_title", with: "Site Title")
+          assert has_field?("site_name_translations_es", with: "Site Name")
+          assert has_field?("site_title_translations_es", with: "Site Title")
           assert has_field?("site_location_name", with: "Site Location")
           assert has_field?("site_domain", with: "test.gobierto.dev")
           assert has_field?("site_head_markup", with: "Site Head markup")
@@ -108,7 +108,7 @@ module GobiertoAdmin
             assert has_checked_field?("Draft")
           end
 
-          fill_in "site_title", with: "New Site Title"
+          fill_in "site_title_translations_en", with: "New Site Title"
           click_button "Update"
         end
 

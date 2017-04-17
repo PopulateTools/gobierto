@@ -1,6 +1,6 @@
 madrid:
-  title: Transparencia y Participción
-  name: Ayuntamiento de Madrid
+  title_translations: <%= { 'en' => 'Transparencia y Participción', 'es' => 'Transparencia y Participción' }.to_json %>
+  name_translations: <%= { 'en' => 'Ayuntamiento de Madrid', 'es' => 'Ayuntamiento de Madrid' }.to_json %>
   domain: madrid.gobierto.dev
   configuration_data: <%= {
     "links_markup" => %Q{<a href="http://madrid.es">Ayuntamiento de Madrid</a>},
@@ -21,8 +21,8 @@ madrid:
   visibility_level: <%= Site.visibility_levels["active"] %>
 
 santander:
-  title: Transparencia Ciudadana
-  name: Ayuntamiento de Santander
+  title_translations: <%= { 'en' => 'Transparencia Ciudadana', 'es' => 'Transparencia Ciudadana' }.to_json %>
+  name_translations: <%= { 'en' => 'Ayuntamiento de Santander', 'es' => 'Ayuntamiento de Santander' }.to_json %>
   domain: santander.gobierto.dev
   configuration_data: <%= {
     "links_markup" => %Q{<a href="http://santander.es">Ayuntamiento de Santander</a>},

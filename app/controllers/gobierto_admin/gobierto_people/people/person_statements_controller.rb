@@ -67,18 +67,21 @@ module GobiertoAdmin
 
         def person_statement_params
           params.require(:person_statement).permit(
-            :title,
             :published_on,
             :attachment_file,
             :visibility_level,
-            dynamic_content_attributes
+            title_translations: [*I18n.available_locales],
+            content_block_records_attributes: [
+              :id,
+              :content_block_id,
+              :_destroy,
+              fields_attributes: [:name, :value]
+            ]
           )
         end
 
         def ignored_person_statement_attributes
-          %w(
-          created_at updated_at
-          )
+          %w( created_at updated_at title )
         end
       end
     end

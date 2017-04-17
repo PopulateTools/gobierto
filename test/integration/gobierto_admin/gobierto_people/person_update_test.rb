@@ -42,7 +42,7 @@ module GobiertoAdmin
                 end
 
                 fill_in "person_name", with: "Person Name"
-                fill_in "person_charge", with: "Person Charge"
+                fill_in "person_charge_translations_en", with: "Person Charge"
 
                 within ".person-category-radio-buttons" do
                   find("label", text: "Politician").click
@@ -55,7 +55,7 @@ module GobiertoAdmin
                 select political_group.name, from: "Political group"
 
                 # Simulate Bio rich text area
-                find("#person_bio", visible: false).set("Person Bio")
+                find("#person_bio_translations_en", visible: false).set("Person Bio")
 
                 within ".bio_file_field" do
                   attach_file "person_bio_file", "test/fixtures/files/gobierto_people/people/bio.pdf"
@@ -66,6 +66,11 @@ module GobiertoAdmin
                 end
 
                 fill_in_content_blocks
+
+                click_link "ES"
+
+                fill_in "person_charge_translations_es", with: "Cargo persona"
+                find("#person_bio_translations_es", visible: false).set("Bio Persona")
 
                 with_stubbed_s3_file_upload do
                   click_button "Update"
@@ -80,7 +85,7 @@ module GobiertoAdmin
                 end
 
                 assert has_field?("person_name", with: "Person Name")
-                assert has_field?("person_charge", with: "Person Charge")
+                assert has_field?("person_charge_translations_en", with: "Person Charge")
 
                 within ".person-category-radio-buttons" do
                   with_hidden_elements do
@@ -98,7 +103,7 @@ module GobiertoAdmin
 
                 assert_equal(
                   "<div>Person Bio</div>",
-                  find("#person_bio", visible: false).value
+                  find("#person_bio_translations_en", visible: false).value
                 )
 
                 within ".bio_file_field" do
@@ -110,9 +115,17 @@ module GobiertoAdmin
                     assert has_checked_field?("Draft")
                   end
                 end
-
                 assert_content_blocks_have_the_right_values
                 assert_content_blocks_can_be_managed
+
+                click_link "ES"
+
+                assert has_field?("person_charge_translations_es", with: "Cargo persona")
+
+                assert_equal(
+                  "<div>Bio Persona</div>",
+                  find("#person_bio_translations_es", visible: false).value
+                )
               end
             end
           end

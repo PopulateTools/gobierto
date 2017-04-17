@@ -1,13 +1,14 @@
 'use strict';
 
 var VisUnemploymentSex = Class.extend({
-  init: function(divId, city_id) {
+  init: function(divId, city_id, unemplAgeData) {
     this.container = divId;
     this.data = null;
+    this.unemplAgeData = unemplAgeData;
     this.tbiToken = window.populateData.token;
     this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-activa-municipal-sexo.json?sort_asc_by=date&filter_by_location_id=' + city_id;
     this.unemplUrl = window.populateData.endpoint + '/datasets/ds-personas-paradas-municipio-sexo.json?sort_asc_by=date&filter_by_location_id=' + city_id;
-    this.timeFormat = d3.timeParse('%Y-%m');
+    this.parseTime = d3.timeParse('%Y-%m');
     this.pctFormat = d3.format('.1%');
     this.isMobile = window.innerWidth <= 768;
 
@@ -82,11 +83,11 @@ var VisUnemploymentSex = Class.extend({
           } else {
             d.pct = null;
           }
-          d.date = this.timeFormat(d.date);
+          d.date = this.parseTime(d.date);
         }.bind(this));
 
         // Filtering values to start from the first data points
-        this.data = unemployment.filter(function(d) { return d.date >= this.timeFormat('2011-01') }.bind(this));
+        this.data = unemployment.filter(function(d) { return d.date >= this.parseTime('2011-01') }.bind(this));
 
         this.nest = d3.nest()
           .key(function(d) { return d.sex; })
@@ -112,7 +113,7 @@ var VisUnemploymentSex = Class.extend({
 
     this.yScale
       .rangeRound([this.height, 0])
-      .domain([0, 0.133]);
+      .domain([0, d3.max(this.unemplAgeData, function(d) { return d.pct; })]);
 
     this.color
       .domain(['M', 'H'])
@@ -192,7 +193,7 @@ var VisUnemploymentSex = Class.extend({
   _mouseover: function(d) {
     this.focus.select('circle').attr('stroke', this.color(d.data.sex));
     this.focus.attr('transform', 'translate(' + this.xScale(d.data.date) + ',' + this.yScale(d.data.pct) + ')');
-    this.focus.select('text').attr('text-anchor', d.data.date >= this.timeFormat('2014-01') ? 'end' : 'start');
+    this.focus.select('text').attr('text-anchor', d.data.date >= this.parseTime('2014-01') ? 'end' : 'start');
     this.focus.select('tspan').text(this._getLabel(d.data.sex) + ': ' + this.pctFormat(d.data.pct));
   },
   _mouseout: function(d) {

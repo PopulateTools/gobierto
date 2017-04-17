@@ -1,5 +1,6 @@
 //= require_directory ./visualizations/
 //= require_directory ./cards/
+//= require_directory ./lib/
 
 function selectSection(html){
   var $el = $('[data-breadcrumb-sub-item]');
@@ -25,6 +26,22 @@ $(document).on('turbolinks:click', function (event) {
 })
 
 $(document).on('turbolinks:load', function() {
+  var getUnemplAgeData = new GetUnemploymentAgeData(window.populateData.municipalityId);
+  
+  // Process unemployment age data and pass it to the charts
+  getUnemplAgeData.getData(function() {
+    // Needs the data to set the same y scale
+    if ($('#unemployment_sex').length && !$('#unemployment_sex svg').length) {
+      var vis_unemplSex = new VisUnemploymentSex('#unemployment_sex', window.populateData.municipalityId, window.unemplAgeData);
+      vis_unemplSex.render();
+    }
+    
+    if ($('#unemployment_age').length && !$('#unemployment_age svg').length) {
+      var vis_unempl = new VisUnemploymentAge('#unemployment_age', window.populateData.municipalityId, window.unemplAgeData);
+      vis_unempl.render();
+    }
+  })
+
   if ($('#age_distribution').length && !$('#age_distribution svg').length) {
     var vis_agedb = new VisAgeDistribution('#age_distribution', window.populateData.municipalityId, window.populateData.year - 1);
     vis_agedb.render();
@@ -33,16 +50,6 @@ $(document).on('turbolinks:load', function() {
   if ($('#unemployment_rate').length && !$('#unemployment_rate svg').length) {
     var vis_unemplR = new VisUnemploymentRate('#unemployment_rate', window.populateData.municipalityId, window.populateData.ccaaId);
     vis_unemplR.render();
-  }
-
-  if ($('#unemployment_age').length && !$('#unemployment_age svg').length) {
-    var vis_unempl = new VisUnemploymentAge('#unemployment_age', window.populateData.municipalityId);
-    vis_unempl.render();
-  }
-
-  if ($('#unemployment_sex').length && !$('#unemployment_sex svg').length) {
-    var vis_unemplSex = new VisUnemploymentSex('#unemployment_sex', window.populateData.municipalityId);
-    vis_unemplSex.render();
   }
 
   if ($('#rent_distribution').length && !$('#rent_distribution svg').length) {

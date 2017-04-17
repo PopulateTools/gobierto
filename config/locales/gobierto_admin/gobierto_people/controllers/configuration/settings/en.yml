@@ -5,4 +5,4 @@ en:
       configuration:
         settings:
           update:
-            success: Setting updated successfully
+            success: Settings updated successfully

@@ -73,6 +73,18 @@ module GobiertoPeople
         refute updated_gobierto_event.published?
       end
 
+      def test_sync_doesnt_create_duplicated_events
+        assert outdated_lotus_event.gobierto_event_outdated?
+
+        CalendarIntegration.sync_event(outdated_lotus_event)
+
+        refute outdated_lotus_event.gobierto_event_outdated?
+
+        assert_no_difference 'GobiertoPeople::PersonEvent.count' do
+          CalendarIntegration.sync_event(outdated_lotus_event)
+        end
+      end
+
     end
   end
 end

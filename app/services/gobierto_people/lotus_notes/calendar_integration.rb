@@ -22,7 +22,7 @@ module GobiertoPeople
       def self.sync_event(lotus_event)
         if lotus_event.gobierto_event_outdated?
           update_gobierto_event(lotus_event)
-        else
+        elsif !lotus_event.has_gobierto_event?
           create_gobierto_event(lotus_event)
         end
       end
@@ -30,10 +30,11 @@ module GobiertoPeople
       private
 
       def self.request_params(person)
+        site = person.site
         {
           endpoint: get_calendar_endpoint(person),
-          username: person.site.gobierto_people_settings.find_by_key('LOTUS_ENDPOINT_USR').value,
-          password: person.site.gobierto_people_settings.find_by_key('LOTUS_ENDPOINT_PWD').value
+          username: GobiertoPeople::Setting.find_by(site_id: site.id, key: 'LOTUS_ENDPOINT_USR').value,
+          password: GobiertoPeople::Setting.find_by(site_id: site.id, key: 'LOTUS_ENDPOINT_PWD').value
         }
       end
 
@@ -49,17 +50,25 @@ module GobiertoPeople
           starts_at: lotus_event.starts_at,
           ends_at: lotus_event.ends_at,
           person: lotus_event.person,
-          state: lotus_event.state
+          state: GobiertoPeople::PersonEvent.states[:pending]
         )
       end
 
       def self.update_gobierto_event(lotus_event)
-        lotus_event.gobierto_event.update_attributes!(
+        current_state = lotus_event.gobierto_event.state
+
+        new_attributes = {
           title: lotus_event.title,
           starts_at: lotus_event.starts_at,
           ends_at: lotus_event.ends_at,
-          state: lotus_event.state
-        )
+        }
+
+        # TOOD
+        if(current_state.published? && lotus_event.gobierto_event.state)
+          new_attributes.merge!(state: GobiertoPeople::PersonEvent.states[:pending])
+        end
+
+        lotus_event.gobierto_event.update_attributes!(new_attributes)
       end
 
     end

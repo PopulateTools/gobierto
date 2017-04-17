@@ -65,15 +65,6 @@ class PersonEventTest < ActiveSupport::TestCase
     assert_equal persisted_lotus_event.ends_at,      utc_time('2017-04-11 11:00:00')
   end
 
-  def test_to_hash
-    assert_equal(persisted_lotus_event.to_hash, {
-      'title' => 'Lotus Notes persisted event title',
-      'starts_at' => '2017-04-11T10:00:00.000Z',
-      'ends_at'   => '2017-04-11T11:00:00.000Z',
-      'state' => 'published',
-    })
-  end
-
   def test_gobierto_event
     assert_equal persisted_lotus_event.gobierto_event, persisted_lotus_event_gobierto_event
     assert_nil new_lotus_event.gobierto_event

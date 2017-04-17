@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170412125156) do
+ActiveRecord::Schema.define(version: 20170417094657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -216,6 +216,16 @@ ActiveRecord::Schema.define(version: 20170412125156) do
     t.index ["title_translations"], name: "index_gcms_pages_on_title_translations", using: :gin
   end
 
+  create_table "gobierto_module_settings", force: :cascade do |t|
+    t.integer  "site_id"
+    t.string   "module_name"
+    t.jsonb    "settings"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["site_id", "module_name"], name: "index_gobierto_module_settings_on_site_id_and_module_name", unique: true, using: :btree
+    t.index ["site_id"], name: "index_gobierto_module_settings_on_site_id", using: :btree
+  end
+
   create_table "gp_people", force: :cascade do |t|
     t.integer  "site_id"
     t.integer  "admin_id"
@@ -288,6 +298,7 @@ ActiveRecord::Schema.define(version: 20170412125156) do
     t.jsonb    "title_translations"
     t.jsonb    "description_translations"
     t.index ["description_translations"], name: "index_gp_person_events_on_description_translations", using: :gin
+    t.index ["person_id", "external_id"], name: "index_gp_person_events_on_person_id_and_external_id", unique: true, using: :btree
     t.index ["person_id"], name: "index_gp_person_events_on_person_id", using: :btree
     t.index ["title_translations"], name: "index_gp_person_events_on_title_translations", using: :gin
   end

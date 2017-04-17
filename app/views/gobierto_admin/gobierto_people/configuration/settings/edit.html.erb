@@ -1,0 +1,53 @@
+<%= render 'gobierto_admin/gobierto_people/configuration/navigation' %>
+
+<%= form_for @settings_form, as: :gobierto_people_settings, url: admin_people_configuration_settings_path,  method: :patch do |f| %>
+  <div class="pure-g">
+    <div class="pure-u-1 pure-u-md-16-24">
+      <div class="form_item input_text">
+        <%= f.label :home_text_es %>
+        <%= f.text_area :home_text_es, placeholder: t(".placeholders.home_text_es") %>
+      </div>
+
+      <div class="form_item input_text">
+        <%= f.label :home_text_ca %>
+        <%= f.text_area :home_text_ca, placeholder: t(".placeholders.home_text_ca") %>
+      </div>
+
+      <div class="form_item input_text">
+        <%= f.label :home_text_en %>
+        <%= f.text_area :home_text_en, placeholder: t(".placeholders.home_text_en") %>
+      </div>
+
+      <div class="form_block">
+        <div class="form_item site-check-boxes">
+          <div class="options compact">
+            <h4><%= t(".submodules_enabled") %></h4>
+            <%= f.collection_check_boxes(:submodules_enabled, @available_submodules, :first, :first) do |b| %>
+              <div class="option">
+                <%= b.check_box %>
+                <%= b.label do %>
+                  <span></span>
+                  <%= t(".#{b.text}") %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form_item input_text">
+        <%= f.label :calendar_integration, t(".calendar_integration") %>
+        <%= f.select :calendar_integration, @calendar_integrations_options, include_blank: true %>
+      </div>
+    </div>
+
+    <div class="pure-u-1 pure-u-md-2-24"></div>
+
+    <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
+
+      <div class="widget_save">
+        <%= f.submit t(".update"), class: "button" %>
+      </div>
+    </div>
+  </div>
+<% end %>

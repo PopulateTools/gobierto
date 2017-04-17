@@ -19,7 +19,7 @@ module SubmodulesHelper
         layout_title: t('gobierto_people.layouts.menu_subsections.agendas'),
         controller_name: 'person_events'
       },
-      blog: {
+      blogs: {
         root_path: gobierto_people_posts_path,
         layout_title: t('gobierto_people.layouts.menu_subsections.blogs'),
         controller_name: 'person_posts'
@@ -33,9 +33,7 @@ module SubmodulesHelper
   end
 
   def active_submodules
-    active_submodules = GobiertoPeople::Setting.where("key ~* ?", ".*_submodule_active").where(value: 'true', site: current_site)
-    active_submodules_names = active_submodules.pluck(:key).map { |key| key.gsub("_submodule_active", "") }
-    active_submodules_names & available_submodules.keys.map(&:to_s)
+    current_site.gobierto_people_settings.submodules_enabled
   end
 
   def welcome_submodule_active?
@@ -51,7 +49,7 @@ module SubmodulesHelper
   end
 
   def blog_submodule_active?
-    active_submodules.include?('blog')
+    active_submodules.include?('blogs')
   end
 
   def statements_submodule_active?
@@ -69,5 +67,4 @@ module SubmodulesHelper
   def submodule_controller_for(submodule)
     available_submodules[submodule.to_sym][:controller_name]
   end
-
 end

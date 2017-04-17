@@ -49,7 +49,7 @@ end
 I18n.locale = I18n.default_locale = :en
 Time.zone = "UTC"
 
-Minitest::Retry.use!
+#Minitest::Retry.use!
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 WebMock.disable_net_connect!(
@@ -70,6 +70,7 @@ class ActiveSupport::TestCase
   include SiteSessionHelpers
   include ActiveJob::TestHelper
 
+  set_fixture_class gobierto_module_settings: GobiertoModuleSettings
   fixtures :all
 
   AVAILABLE_LOCALES = I18n.available_locales - [:en]

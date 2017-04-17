@@ -17,7 +17,7 @@ module LotusNotes
     end
 
     def gobierto_event
-      GobiertoPeople::PersonEvent.find_by_external_id(self.external_id)
+      @gobierto_event ||= person.events.find_by_external_id(self.external_id)
     end
 
     def has_gobierto_event?
@@ -25,19 +25,11 @@ module LotusNotes
     end
 
     def gobierto_event_outdated?
-      has_gobierto_event? && (to_hash != gobierto_event.attributes.slice(*PersonEvent.synchronized_attributes))
+      has_gobierto_event? && self.class.synchronized_attributes.any? { |attr_name| self.send(attr_name.to_sym) != gobierto_event.send(attr_name.to_sym) }
     end
 
     def public?
       transparency == 'transparent'
-    end
-
-    def to_hash
-      hash = {}
-      PersonEvent.synchronized_attributes.each do |attribute|
-        hash[attribute] = instance_variable_get("@#{attribute}")
-      end
-      hash
     end
 
     private

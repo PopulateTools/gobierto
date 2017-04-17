@@ -63,7 +63,7 @@ Rails.application.routes.draw do
       end
 
       namespace :configuration do
-        resources :settings, only: [:index, :update], path: :settings
+        resource :settings, only: [:edit, :update], path: :settings
         resources :political_groups, only: [:index, :new, :create, :edit, :update], path: :groups do
           collection do
             resource :political_groups_sort, only: [:create], controller: "political_groups_sort", path: :political_groups_sort

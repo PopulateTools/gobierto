@@ -32,7 +32,7 @@ module GobiertoPeople
     end
 
     def load_home_text
-      current_site.gobierto_people_settings.find_by(key: "home_text_#{I18n.locale}").try(:value)
+      current_site.gobierto_people_settings.send("home_text_#{I18n.locale}")
     end
   end
 end

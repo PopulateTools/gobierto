@@ -15,12 +15,17 @@ ca:
           new:
             title: Nova agrupación
         settings:
-          index:
-            header:
-              key: Nom
-              value: Valor
-            settings:
+          edit:
+            officials: Persones
+            agendas: Agendes
+            blogs: Blogs
+            statements: Declaracions
+            placeholders:
               home_text_ca: Text home català
               home_text_es: Text home espanyol
+              home_text_en: Text home anglés
             update: Actualitzar
+            ibm_notes: IBM Notes
+            submodules_enabled: Submòduls habilitats
+            calendar_integration: Integració de calendari
         title: Configuració

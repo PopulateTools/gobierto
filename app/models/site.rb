@@ -25,10 +25,12 @@ class Site < ApplicationRecord
   has_many :person_events, through: :people, source: :events, class_name: "GobiertoPeople::PersonEvent"
   has_many :person_posts, through: :people, source: :posts, class_name: "GobiertoPeople::PersonPost"
   has_many :person_statements, through: :people, source: :statements, class_name: "GobiertoPeople::PersonStatement"
-  has_many :gobierto_people_settings, class_name: "GobiertoPeople::Setting"
 
   # Gobierto CMS integration
   has_many :pages, dependent: :destroy, class_name: "GobiertoCms::Page"
+
+  # Modules settings
+  has_many :module_settings, dependent: :destroy, class_name: "GobiertoModuleSettings"
 
   serialize :configuration_data
 
@@ -44,16 +46,6 @@ class Site < ApplicationRecord
   scope :sorted, -> { order(created_at: :desc) }
   scope :alphabetically_sorted, -> { order(name: :asc) }
 
-  def self.with_agendas_integration_enabled
-    # TODO
-    Site.where(name: "Ayuntamiento de Madrid")
-  end
-
-  def calendar_integration
-    # TODO: hacer un switch
-    GobiertoPeople::LotusNotes::CalendarIntegration
-  end
-
   enum visibility_level: { draft: 0, active: 1 }
 
   translates :name, :title
@@ -63,6 +55,24 @@ class Site < ApplicationRecord
     unless reserved_domains.include?(domain)
       find_by(domain: domain)
     end
+  end
+
+  def self.with_agendas_integration_enabled
+    @with_agendas_integration_enabled ||= Site.all.select do |site|
+      site.calendar_integration.present?
+    end
+  end
+
+  def calendar_integration
+    if gobierto_people_settings && gobierto_people_settings.calendar_integration == 'ibm_notes'
+      GobiertoPeople::LotusNotes::CalendarIntegration
+    end
+  end
+
+  def gobierto_people_settings
+    @gobierto_people_settings ||= if configuration.gobierto_people_enabled?
+                                    module_settings.find_by(module_name: "GobiertoPeople")
+                                  end
   end
 
   def place

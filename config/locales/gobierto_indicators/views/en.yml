@@ -22,3 +22,7 @@ en:
         construccion: Buildings
         agricultura: Agriculture
         servicios: Services
+      income:
+        title: Average income
+        gross: Gross income
+        net: Net income

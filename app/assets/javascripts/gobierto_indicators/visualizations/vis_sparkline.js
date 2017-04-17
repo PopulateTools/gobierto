@@ -70,7 +70,7 @@ var Sparkline = Class.extend({
     return parseInt(d3.select(this.container).style('width'));
   },
   _height: function() {
-    return this.isMobile ? 85 : this._width() * 0.2;
+    return this._width() * 0.2;
   },
   _resize: function() {
     this.width = this._width() - this.margin.left - this.margin.right;

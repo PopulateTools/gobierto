@@ -78,11 +78,14 @@ $(document).on('turbolinks:load', function() {
   var contractsCard = new ContractsCard('.contracts-comparison', populateData.municipalityId);
   contractsCard.render();
   
-  var unBySector = new UnemplBySectorCard('.unemployed-sector', populateData.municipalityId);
-  unBySector.render();
+  var unBySectorCard = new UnemplBySectorCard('.unemployed-sector', populateData.municipalityId);
+  unBySectorCard.render();
   
-  var contrSector = new ContractsBySectorCard('.contracts-sector', populateData.municipalityId);
-  contrSector.render();
+  var contrSectorCard = new ContractsBySectorCard('.contracts-sector', populateData.municipalityId);
+  contrSectorCard.render();
+  
+  var incomeCard = new IncomeCard('.income', populateData.municipalityId);
+  incomeCard.render();
   
   // var birthRate = new BirthRateCard('.births', populateData.municipalityId);
   // birthRate.render();

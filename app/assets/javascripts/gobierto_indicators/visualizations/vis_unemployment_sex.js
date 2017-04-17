@@ -248,6 +248,8 @@ var VisUnemploymentSex = Class.extend({
     return this.isMobile ? 200 : this._width() * 1.4;
   },
   _resize: function() {
+    this.isMobile = window.innerWidth <= 768;
+    
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 

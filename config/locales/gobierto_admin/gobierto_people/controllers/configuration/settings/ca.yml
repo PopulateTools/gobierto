@@ -5,4 +5,4 @@ ca:
       configuration:
         settings:
           update:
-            success: Preferencia actualitzada correctament
+            success: Preferències actualitzades correctament

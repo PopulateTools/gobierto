@@ -1,24 +1,2 @@
-home_text:
-  key: home_text
-  value: this is the home text
-  site: madrid
+---
 
-madrid_agendas_submodule:
-  key: agendas_submodule_active
-  value: 'true'
-  site: madrid
-
-madrid_officials_submodule:
-  key: officials_submodule_active
-  value: 'true'
-  site: madrid
-
-madrid_blog_submodule:
-  key: blog_submodule_active
-  value: 'true'
-  site: madrid
-
-madrid_statements_submodule:
-  key: statements_submodule_active
-  value: 'true'
-  site: madrid

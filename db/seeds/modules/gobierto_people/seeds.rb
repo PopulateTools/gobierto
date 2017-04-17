@@ -2,13 +2,9 @@ module GobiertoSeeds
   class Recipe
     def self.run(site)
       # Config keys
-      GobiertoPeople::Setting.find_or_create_by! site: site, key: "home_text_ca"
-      GobiertoPeople::Setting.find_or_create_by! site: site, key: "home_text_es"
-      
-      GobiertoPeople::Setting.create site: site, key: "agendas_submodule_active", value: "true"
-      GobiertoPeople::Setting.create site: site, key: "officials_submodule_active", value: "true"
-      GobiertoPeople::Setting.create site: site, key: "blog_submodule_active", value: "true"
-      GobiertoPeople::Setting.create site: site, key: "statements_submodule_active", value: "true"
+      settings = GobiertoModuleSettings.new site: site, module_name: "GobiertoPeople"
+      settings.submodules_enabled = GobiertoPeople.module_submodules
+      settings.save!
 
       #
       # Content blocks

@@ -52,7 +52,7 @@ class Site < ApplicationRecord
 
   def calendar_integration
     # TODO: hacer un switch
-    GobiertoPeople::LotusNotesCalendarIntegration
+    GobiertoPeople::LotusNotes::CalendarIntegration
   end
 
   enum visibility_level: { draft: 0, active: 1 }

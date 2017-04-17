@@ -38,6 +38,7 @@ module Gobierto
       "#{config.root}/lib/validators",
       "#{config.root}/lib/constraints",
       "#{config.root}/lib/errors",
+      "#{config.root}/lib/lotus_notes",
       "#{config.root}/app/pub_sub",
       "#{config.root}/app/pub_sub/publishers",
       "#{config.root}/app/pub_sub/subscribers"

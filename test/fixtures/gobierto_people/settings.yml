@@ -25,10 +25,10 @@ madrid_statements_submodule:
 
 lotus_endpoint_usr:
   key: LOTUS_ENDPOINT_USR
-  value: <%= ENV['LOTUS_ENDPOINT_USR'] %>
+  value: <%= ENV.fetch('LOTUS_ENDPOINT_USR') %>
   site: madrid
 
 lotus_endpoint_pwd:
   key: LOTUS_ENDPOINT_PWD
-  value: <%= ENV['LOTUS_ENDPOINT_PWD'] %>
+  value: <%= ENV.fetch('LOTUS_ENDPOINT_PWD') %>
   site: madrid

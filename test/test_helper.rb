@@ -44,11 +44,10 @@ if ENV["CI"]
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
 end
 
-
 I18n.locale = I18n.default_locale = :en
 Time.zone = "UTC"
 
-Minitest::Retry.use!
+Minitest::Retry.use! if ENV["RETRY_FAILING_TEST"]
 Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new(color: true)
 
 WebMock.disable_net_connect!(

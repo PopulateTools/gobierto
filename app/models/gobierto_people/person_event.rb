@@ -4,12 +4,14 @@ module GobiertoPeople
   class PersonEvent < ApplicationRecord
     include User::Subscribable
     include GobiertoCommon::Searchable
+    include GobiertoCommon::LocalizedContent
 
     validates :person, presence: true
+    translates :title, :description
 
     algoliasearch_gobierto do
-      attribute :site_id, :title, :description, :updated_at
-      searchableAttributes ['title', 'description']
+      attribute :site_id, :title_en, :title_es, :title_ca, :description_en, :description_es, :description_ca, :updated_at
+      searchableAttributes ['title_en', 'title_es', 'title_ca', 'description_en', 'description_es', 'description_ca']
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end

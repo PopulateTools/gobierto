@@ -7,9 +7,12 @@ module GobiertoPeople
     include GobiertoCommon::Sortable
     include GobiertoCommon::Searchable
 
+    translates :charge, :bio
+    include GobiertoCommon::LocalizedContent
+
     algoliasearch_gobierto do
-      attribute :site_id, :name, :charge, :bio, :updated_at
-      searchableAttributes ['name', 'charge', 'bio']
+      attribute :site_id, :name, :charge_en, :charge_es, :charge_ca, :bio_en, :bio_es, :bio_ca, :updated_at
+      searchableAttributes ['name', 'charge_en', 'charge_es', 'charge_ca', 'bio_en', 'bio_es', 'bio_ca']
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end

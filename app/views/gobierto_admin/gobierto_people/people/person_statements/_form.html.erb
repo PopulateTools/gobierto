@@ -1,14 +1,20 @@
 <%= render "gobierto_admin/shared/validation_errors", resource: @person_statement_form %>
 
-<%= form_for(@person_statement_form, as: :person_statement, url: @person_statement_form.persisted? ? admin_people_person_statement_path(@person, @person_statement_form) : admin_people_person_statements_path(@person)) do |f| %>
+<%= form_for(@person_statement_form, as: :person_statement, url: @person_statement_form.persisted? ? admin_people_person_statement_path(@person, @person_statement_form) : admin_people_person_statements_path(@person), data: { "globalized-form-container" => true }) do |f| %>
 
   <div class="pure-g">
 
     <div class="pure-u-1 pure-u-md-16-24">
 
-      <div class="form_item input_text">
-        <%= f.label :title %>
-        <%= f.text_field :title, placeholder: t(".placeholders.title") %>
+      <div class="globalized_fields">
+        <%= render "gobierto_admin/shared/form_locale_switchers" %>
+
+        <% I18n.available_locales.map(&:to_s).each do |locale| %>
+          <div class="form_item input_text" data-locale="<%= locale %>">
+            <%= label_tag "person_statement[title_translations][#{locale}]", f.object.class.human_attribute_name(:title) %>
+            <%= text_field_tag "person_statement[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title") %>
+          </div>
+        <% end %>
       </div>
 
       <div class="form_item input_text">

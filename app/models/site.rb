@@ -1,5 +1,4 @@
 class Site < ApplicationRecord
-
   RESERVED_SUBDOMAINS = %W(presupuestos hosted)
 
   has_many :activities
@@ -38,7 +37,7 @@ class Site < ApplicationRecord
   after_save :run_seeder
 
   validates :title, presence: true
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
   validates :domain, presence: true, uniqueness: true, domain: true
   validate :location_required
 
@@ -56,6 +55,9 @@ class Site < ApplicationRecord
   end
 
   enum visibility_level: { draft: 0, active: 1 }
+
+  translates :name, :title
+  include GobiertoCommon::LocalizedContent
 
   def self.find_by_allowed_domain(domain)
     unless reserved_domains.include?(domain)

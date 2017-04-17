@@ -34,10 +34,14 @@ module GobiertoAdmin
               visit @path
 
               within "form.new_person_event" do
-                fill_in "person_event_title", with: "Event Title"
+                fill_in "person_event_title_translations_en", with: "Event Title"
                 fill_in "person_event_starts_at", with: "2017-01-01 00:00"
                 fill_in "person_event_ends_at", with: "2017-01-01 00:01"
-                find("#person_event_description", visible: false).set("Event Description")
+                find("#person_event_description_translations_en", visible: false).set("Event Description")
+
+                click_link "ES"
+                fill_in "person_event_title_translations_es", with: "Título Evento"
+                find("#person_event_description_translations_es", visible: false).set("Descripción Evento")
 
                 within ".attachment_file_field" do
                   refute has_selector?("a")
@@ -79,14 +83,14 @@ module GobiertoAdmin
               assert has_message?("Event was successfully created. See the event.")
 
               within "form.edit_person_event" do
-                assert has_field?("person_event_title", with: "Event Title")
+                assert has_field?("person_event_title_translations_en", with: "Event Title")
 
                 assert has_field?("person_event_starts_at", with: "2017-01-01 00:00")
                 assert has_field?("person_event_ends_at", with: "2017-01-01 00:01")
 
                 assert_equal(
                   "<div>Event Description</div>",
-                  find("#person_event_description", visible: false).value
+                  find("#person_event_description_translations_en", visible: false).value
                 )
 
                 within ".attachment_file_field" do
@@ -107,6 +111,15 @@ module GobiertoAdmin
                     assert has_checked_field?("Published")
                   end
                 end
+
+                click_link "ES"
+
+                assert has_field?("person_event_title_translations_es", with: "Título Evento")
+
+                assert_equal(
+                  "<div>Descripción Evento</div>",
+                  find("#person_event_description_translations_es", visible: false).value
+                )
               end
             end
           end

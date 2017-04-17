@@ -7,8 +7,8 @@ module GobiertoAdmin
     attr_accessor(
       :id,
       :external_id,
-      :title,
-      :name,
+      :title_translations,
+      :name_translations,
       :domain,
       :configuration_data,
       :location_name,
@@ -46,8 +46,8 @@ module GobiertoAdmin
       allow_blank: true
 
     validates :username, :password, presence: true, if: :draft_visibility?
-    validates :title, presence: true
-    validates :name, presence: true
+    validates :title_translations, presence: true
+    validates :name_translations, presence: true
     validates :available_locales, length: { minimum: 1 }
     validates :default_locale, presence: true
 
@@ -124,8 +124,8 @@ module GobiertoAdmin
 
     def save_site
       @site = site.tap do |site_attributes|
-        site_attributes.title = title
-        site_attributes.name = name
+        site_attributes.title_translations = title_translations
+        site_attributes.name_translations = name_translations
         site_attributes.domain = domain
         site_attributes.location_name = location_name
         site_attributes.municipality_id = municipality_id

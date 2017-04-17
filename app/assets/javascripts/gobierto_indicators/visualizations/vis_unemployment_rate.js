@@ -82,8 +82,6 @@ var VisUnemploymentRate = Class.extend({
         this.nest = d3.nest()
           .key(function(d) { return d.location_type; })
           .entries(this.data);
-        
-        console.log(this.data);
 
         this.updateRender();
         this._renderLines();
@@ -152,7 +150,6 @@ var VisUnemploymentRate = Class.extend({
       }.bind(this));
   },
   _renderVoronoi: function() {
-    // Voronoi
     this.focus = this.svg.append('g')
       .attr('transform', 'translate(-100,-100)')
       .attr('class', 'focus');
@@ -243,20 +240,27 @@ var VisUnemploymentRate = Class.extend({
     return this.isMobile ? 200 : this._width() * 1.4;
   },
   _resize: function() {
-    this.width = this._width();
-    this.height = this._height();
+    this.width = this._width() - this.margin.left - this.margin.right;
+    this.height = this._height() - this.margin.top - this.margin.bottom;
 
     this.updateRender();
-
+    
     d3.select(this.container + ' svg')
       .attr('width', this.width + this.margin.left + this.margin.right)
-      .attr('height', this.height + this.margin.top + this.margin.bottom)
+      .attr('height', this.height + this.margin.top + this.margin.bottom);
 
     this.svg.select('.chart-container')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
     this.svg.selectAll('.lines path')
       .attr('d', function(d) { d.line = this; return this.line(d.values); }.bind(this));
+      
+    this.svg.selectAll('.lines circle')
+      .attr('cx', function(d) { return this.xScale(d.values.map(function(d) { return d.date; }).slice(-1)[0]); }.bind(this))
+      .attr('cy', function(d) { return this.yScale(d.values.map(function(d) { return d.value; }).slice(-1)[0]); }.bind(this));
+      
+    d3.selectAll(this.container + ' .lines-labels div')
+      .style('top', function(d) { return this.yScale(d.values.map(function(d) { return d.value; }).slice(-1)[0]) + 'px'; }.bind(this));
 
     this.voronoi
       .extent([[0, 0], [this.width, this.height]]);

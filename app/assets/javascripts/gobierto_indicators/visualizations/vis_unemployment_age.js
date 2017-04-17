@@ -259,25 +259,32 @@ var VisUnemploymentAge = Class.extend({
     return this.isMobile ? 200 : this._width() * 1.4;
   },
   _resize: function() {
-    this.width = this._width();
-    this.height = this._height();
+    this.width = this._width() - this.margin.left - this.margin.right;
+    this.height = this._height() - this.margin.top - this.margin.bottom;
 
     this.updateRender();
-
+    
     d3.select(this.container + ' svg')
       .attr('width', this.width + this.margin.left + this.margin.right)
-      .attr('height', this.height + this.margin.top + this.margin.bottom)
+      .attr('height', this.height + this.margin.top + this.margin.bottom);
 
     this.svg.select('.chart-container')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
     this.svg.selectAll('.lines path')
       .attr('d', function(d) { d.line = this; return this.line(d.values); }.bind(this));
+      
+    this.svg.selectAll('.lines circle')
+      .attr('cx', function(d) { return this.xScale(d.values.map(function(d) { return d.date; }).slice(-1)[0]); }.bind(this))
+      .attr('cy', function(d) { return this.yScale(d.values.map(function(d) { return d.pct; }).slice(-1)[0]); }.bind(this));
+      
+    d3.selectAll(this.container + ' .lines-labels div')
+      .style('top', function(d) { return this.yScale(d.values.map(function(d) { return d.pct; }).slice(-1)[0]) + 'px'; }.bind(this));
 
     this.voronoi
       .extent([[0, 0], [this.width, this.height]]);
 
-    this.voronoiGroup.selectAll("path")
+    this.voronoiGroup.selectAll('path')
       .data(this.voronoi.polygons(d3.merge(this.nest.map(function(d) { return d.values; }))))
       .attr('d', function(d) { return d ? 'M' + d.join('L') + 'Z' : null; });
   }

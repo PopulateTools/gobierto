@@ -5,6 +5,8 @@ module GobiertoPeople
     include User::Subscribable
     include GobiertoCommon::Searchable
 
+    validates :person, presence: true
+
     translates :title, :description
     include GobiertoCommon::LocalizedContent
 
@@ -25,6 +27,7 @@ module GobiertoPeople
     scope :sorted,   -> { order(starts_at: :asc) }
     scope :sorted_backwards, -> { order(starts_at: :desc) }
     scope :within_range, -> (date_range) { published.where(starts_at: date_range) }
+    scope :synchronized_future_events, -> { upcoming.where("external_id IS NOT NULL") }
     scope :by_date,  ->(date) { where("starts_at::date = ?", date) }
 
     scope :by_site, ->(site) do

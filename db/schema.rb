@@ -257,6 +257,11 @@ ActiveRecord::Schema.define(version: 20170417094657) do
     t.index ["site_id"], name: "index_gp_people_on_site_id", using: :btree
   end
 
+  create_table "gp_person_calendar_configurations", force: :cascade do |t|
+    t.integer "person_id",                null: false
+    t.jsonb   "data",      default: "{}", null: false
+  end
+
   create_table "gp_person_event_attendees", force: :cascade do |t|
     t.string   "name"
     t.string   "charge"
@@ -286,12 +291,14 @@ ActiveRecord::Schema.define(version: 20170417094657) do
     t.datetime "ends_at"
     t.string   "attachment_url"
     t.integer  "state",                    default: 0,  null: false
-    t.integer  "person_id"
+    t.integer  "person_id",                             null: false
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
+    t.string   "external_id"
     t.jsonb    "title_translations"
     t.jsonb    "description_translations"
     t.index ["description_translations"], name: "index_gp_person_events_on_description_translations", using: :gin
+    t.index ["person_id", "external_id"], name: "index_gp_person_events_on_person_id_and_external_id", unique: true, using: :btree
     t.index ["person_id"], name: "index_gp_person_events_on_person_id", using: :btree
     t.index ["title_translations"], name: "index_gp_person_events_on_title_translations", using: :gin
   end

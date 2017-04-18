@@ -57,6 +57,18 @@ class Site < ApplicationRecord
     end
   end
 
+  def self.with_agendas_integration_enabled
+    @with_agendas_integration_enabled ||= Site.all.select do |site|
+      site.calendar_integration.present?
+    end
+  end
+
+  def calendar_integration
+    if gobierto_people_settings && gobierto_people_settings.calendar_integration == 'ibm_notes'
+      GobiertoPeople::IbmNotes::CalendarIntegration
+    end
+  end
+
   def gobierto_people_settings
     @gobierto_people_settings ||= if configuration.gobierto_people_enabled?
                                     module_settings.find_by(module_name: "GobiertoPeople")

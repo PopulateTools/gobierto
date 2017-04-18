@@ -86,15 +86,15 @@ var IncomeCard = Class.extend({
         this.nest = d3.nest()
           .key(function(d) { return d.location_id; })
           .rollup(function(v) {
+            console.log(v);
             return {
-              location: v[0].location_name,
-              gross: v.filter(function(d) { return d.kind === 'gross' })[0].value,
-              net: v.filter(function(d) { return d.kind === 'net' })[0].value,
+              column: v[0].location_type,
+              key: v[0].location_name,
+              valueOne: v.filter(function(d) { return d.kind === 'gross' })[0].value,
+              valueTwo: v.filter(function(d) { return d.kind === 'net' })[0].value,
             }
           })
           .entries(this.data);
-
-          console.log(this.nest);
 
         new TableCard(this.container, placeGross, this.nest, 'income');
       }.bind(this));

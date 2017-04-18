@@ -26,3 +26,6 @@ en:
         title: Average income
         gross: Gross income
         net: Net income
+        place: ''
+        province: Gross income
+        country: Net income

@@ -26,14 +26,27 @@ var TableCard = Class.extend({
     this.div.selectAll('.widget_title')
       .text(I18n.t('gobierto_indicators.cards.' + cardName + '.title'));
       
+    var header = nest.map(function(d) {
+      return I18n.t('gobierto_indicators.cards.' + cardName + '.' + this._normalize(d.value.column));
+    }.bind(this));
+      
     var rows = nest.map(function(d) {
-      return '<th>' + d.value.column + '</th> \
-        <td>' + d.value.location + '</td> \
-        <td>' + this._printData(d.value.gross, this.dataTypeOne) + '</td> \
-        <td>' + this._printData(d.value.net, this.dataTypeTwo) + '</td>'
+      return '<td>' + d.value.key + '</td> \
+        <td class="right">' + this._printData(d.value.valueOne, this.dataTypeOne) + '</td> \
+        <td class="right">' + this._printData(d.value.valueTwo, this.dataTypeTwo) + '</td>'
     }.bind(this));
 
-    this.div.select('.widget_table')
+    var table = this.div.select('.widget_table');
+    
+    table
+      .selectAll('th')
+      .data(header)
+      .enter()
+      .append('th')
+      .attr('class', 'right')
+      .html(function(d) { return d; });
+    
+    table
       .selectAll('tr')
       .data(rows)
       .enter()

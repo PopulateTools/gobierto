@@ -17,7 +17,7 @@ var PopulationCard = Class.extend({
         
         var value = jsonData.data[0].value;
 
-        new SimpleCard(this.container, jsonData, value);
+        new SimpleCard(this.container, jsonData, value, 'population');
       }.bind(this));
   },
   render: function() {

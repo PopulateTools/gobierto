@@ -1,7 +1,7 @@
 'use strict';
 
 var SimpleCard = Class.extend({
-  init: function(divClass, json, value) {
+  init: function(divClass, json, value, cardName) {
     d3.timeFormatDefaultLocale(es_ES);
 
     this.div = d3.select(divClass);
@@ -27,7 +27,7 @@ var SimpleCard = Class.extend({
 
     // Append metadata
     this.div.selectAll('.widget_title')
-      .text(json.metadata.name);
+      .text(I18n.t('gobierto_indicators.cards.' + cardName + '.title'));
     
     if (typeof json.data[1] !== 'undefined') {
       var spark = new Sparkline(divClass + ' .sparkline', json.data, trend, freq);

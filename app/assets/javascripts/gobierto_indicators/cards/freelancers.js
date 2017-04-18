@@ -17,7 +17,7 @@ var FreelancersCard = Class.extend({
         
         var value = jsonData.data[0].value;
 
-        new SimpleCard(this.container, jsonData, value);
+        new SimpleCard(this.container, jsonData, value, 'freelancers');
       }.bind(this));
   },
   render: function() {

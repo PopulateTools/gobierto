@@ -4,337 +4,355 @@
  */
 
 // Intro
-.gobierto_indicators section {
-	padding-top: 2rem;
-	border-top: 1px solid #EBEBEB;
-}
-.intro_section {
-	padding: 5em 0 4em 0;
-	background: $color_main_negative;
-	margin-top: -2em;
-}
-.intro_headline {
-	margin-bottom: 0;
-}
-.intro_desc {
-	font-size: 1.5em;
-  line-height: 1.3;
-  font-weight: 200;
-}
-
-// Sections
-.section_headline {
-	font-weight: 400;
-	margin-bottom: 0.5em;
-	font-size: 2rem;
-}
-.section_desc {
-	margin-top: 0;
-}
-.widget_headline h3 {
-	color: $color_text;
-	font-weight: 300;
-	margin: 0;
-  max-width: 75%;
-  display: inline-block;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-/* Graphics */
-.chart_headline {
-	font-size: 1.25rem;
-	color: $color_headers;
-	margin-top: 0;
-	font-weight: 500;
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-.gobierto_indicators .axis path {
-	stroke: #BDBDBD;
-}
-#age_distribution {
-  position: relative;
-  
-  .axis {
-  	font-family: $font_text;
-  	font-size: 0.9em;
+.gobierto_indicators {
+  footer {
+    z-index: 2;
+    clear: right;
+  }
+  .sections {
+    background: white;
+    float: right;
+    width: calc(100% - 8rem);
+  }
+  .sections-nav {
+    position: fixed;
+    z-index: 1;
+    font-weight: 600;
     
-    text {
-    	fill: $text_soft;
+    ul {
+      list-style: none;
+      padding-left: 0;
+      
+      li {
+        margin-bottom: 0.75rem;
+      }
     }
   }
-  .y.axis {
-    .domain {
-      display: none;
+  section {
+	   padding-top: 2rem;
+	   border-top: 1px solid #EBEBEB;
+      
+    .section_headline {
+    	font-weight: 400;
+    	margin-bottom: 0.5em;
+    	font-size: 2rem;
     }
-    line {
-    	stroke: #ccc;
-    	stroke-dasharray: 1, 2;
+    .section_desc {
+    	margin-top: 0;
+    }
+    .widget_headline h3 {
+    	color: $color_text;
+    	font-weight: 300;
+    	margin: 0;
+      max-width: 75%;
+      display: inline-block;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
     }
   }
-  
   .chart_headline {
+  	font-size: 1.25rem;
+  	color: $color_headers;
   	margin-top: 0;
+    margin-bottom: 1rem;
+    font-weight: 400;
+    max-width: 420px;
   }
-  .focus {
-  	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+  .intro_section {
+  	padding: 5em 0 4em 0;
+  	background: $color_main_negative;
+  	margin-top: -2em;
   }
-  rect:hover {
-  	fill: darken(#d52a59, 10%);
-  }
-}
-
-#rent_distribution {
-  .chart_headline {
-  	margin-top: 0;
+  .intro_headline {
   	margin-bottom: 0;
   }
-  .annotations {
-  	color: $text_soft;
-  	font-weight: 300;
-  	position: relative;
+  .intro_desc {
+  	font-size: 1.5em;
+    line-height: 1.3;
+    font-weight: 200;
+  }
+
+  /* Graphics */
+  .gobierto_indicators .axis path {
+  	stroke: #BDBDBD;
+  }
+  #age_distribution {
+    position: relative;
     
-    .arrow {
-    	color: $color_text;
-    	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    }
-  }
-  .pop-anno {
-  	position: absolute;
-  	font-size: 1rem;
-  	background: white;
-  	left: 10px;
-  	top: 75px;
-  }
-  .rent-anno {
-  	position: absolute;
-  	font-size: 1rem;
-  	background: white;
-    right: 2%;
-    top: 75px;
-  }
-  .axis {
-  	font-family: $font_text;
-  	font-size: 0.9em;
-    
-    .domain {
-    	display: none;
-    }
-    .tick {
-      line {
-      	stroke-dasharray: 2,2;
-      	stroke: #dcdcdc;
-      }
+    .axis {
+    	font-family: $font_text;
+    	font-size: 0.9em;
+      
       text {
       	fill: $text_soft;
       }
     }
-  }
-  .x.axis .tick text {
-  	font-weight: 600;
-  }
-  .circles .selected-city {
-  	stroke: #111;
-  }
-  .text-label {
-  	font-size: 1em;
-  	font-weight: 600;
-  	text-shadow: 0 0 5px white;
-  }
-  circle {
-  	pointer-events: none;
-  	fill-opacity: 0.7;
-  }
-  .tooltip {
-    border-radius: 2px;
-    padding: 0.5rem;
-    min-height: 90px;
-    width: 200px;
-    border: 1px solid #ccc;
-    box-shadow: 0 0px 3px rgba(0,0,0,0.2);
-    background: rgba(255,255,255,0.98);
-    font-size: 1em;
-    color: #111;
-    text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff;
-    pointer-events: none;
-    opacity: 0;
-    z-index: 99;
-    position: absolute;
-  }
-  .tooltip-city {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    font-size: 1.05rem;
-  }
-  .tooltip-table {
-    line-height: 1.4;
+    .y.axis {
+      .domain {
+        display: none;
+      }
+      line {
+      	stroke: #ccc;
+      	stroke-dasharray: 1, 2;
+      }
+    }
     
-    td {
-    	border-top: 1px solid $color_separator;
+    .chart_headline {
+    	margin-top: 0;
+    }
+    .focus {
+    	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+    }
+    rect:hover {
+    	fill: darken(#d52a59, 10%);
     }
   }
-  .table-t {
-  	color: $color_text;
-  	font-weight: 600;
-  	padding: .7em 0 .4em;
-  }
-}
 
-#empleo {
-  .chart_headline {
-    margin: 0 auto;
-    max-width: 150px;
-  }
-}
-#unemployment_rate,
-#unemployment_age {
-  margin-bottom: 1rem;
-  position: relative;
-  
-  .lines-labels div {
-    position: absolute;
-    margin-top: 10px;
-    max-width: 40px;
-    line-height: 1;
-    text-transform: uppercase;
-    font-size: 0.75em;
-  }
-  .axis {
-  	font-family: $font_text;
-  	font-size: 0.9em;
-  }
-  .tick text {
-  	fill: $text_soft;
-  }
-  .line {
-    path {
-      fill: none;
-      stroke-width: 2.5px;
+  #rent_distribution {
+    .chart_headline {
+    	margin-top: 0;
+    	margin-bottom: 0;
     }
-  }
-  .y.axis {
-    .tick line {
-    	stroke-dasharray: 2,2;
-    	stroke: #ccc;
+    .annotations {
+    	color: $text_soft;
+    	font-weight: 300;
+    	position: relative;
+      
+      .arrow {
+      	color: $color_text;
+      	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
     }
-    .domain {
-    	display: none;
+    .pop-anno {
+    	position: absolute;
+    	font-size: 1rem;
+    	background: white;
+    	left: 10px;
+    	top: 75px;
     }
-  }
-  .voronoi path {
-  	fill: none;
-  	pointer-events: all;
-  }
-  .focus {
-    text {
-  	  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+    .rent-anno {
+    	position: absolute;
+    	font-size: 1rem;
+    	background: white;
+      right: 2%;
+      top: 75px;
+    }
+    .axis {
+    	font-family: $font_text;
+    	font-size: 0.9em;
+      
+      .domain {
+      	display: none;
+      }
+      .tick {
+        line {
+        	stroke-dasharray: 2,2;
+        	stroke: #dcdcdc;
+        }
+        text {
+        	fill: $text_soft;
+        }
+      }
+    }
+    .x.axis .tick text {
+    	font-weight: 600;
+    }
+    .circles .selected-city {
+    	stroke: #111;
+    }
+    .text-label {
+    	font-size: 1em;
+    	font-weight: 600;
+    	text-shadow: 0 0 5px white;
     }
     circle {
-      stroke-width: 2px;
+    	pointer-events: none;
+    	fill-opacity: 0.7;
+    }
+    .tooltip {
+      border-radius: 2px;
+      padding: 0.5rem;
+      min-height: 90px;
+      width: 200px;
+      border: 1px solid #ccc;
+      box-shadow: 0 0px 3px rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.98);
+      font-size: 1em;
+      color: #111;
+      text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 99;
+      position: absolute;
+    }
+    .tooltip-city {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 1.05rem;
+    }
+    .tooltip-table {
+      line-height: 1.4;
+      
+      td {
+      	border-top: 1px solid $color_separator;
+      }
+    }
+    .table-t {
+    	color: $color_text;
+    	font-weight: 600;
+    	padding: .7em 0 .4em;
     }
   }
-}
-#unemployment_rate {
-  .lines-labels div {
-    margin-top: 20px;
-    max-width: none;
-    width: 60px;
-  }
-}
 
-
-#unemployment_sex {
-  position: relative;
-  
-  .lines-labels div {
-    position: absolute;
-    margin-top: 20px;
-    max-width: 40px;
-    line-height: 1;
-    text-transform: uppercase;
-    font-size: 0.75em;
+  #empleo {
+    .chart_headline {
+      margin: 0 auto;
+      max-width: 150px;
+    }
   }
-  .axis {
-  	font-family: $font_text;
-  	font-size: 0.9em;
+  #unemployment_rate,
+  #unemployment_age {
+    margin-bottom: 1rem;
+    position: relative;
     
+    .lines-labels div {
+      position: absolute;
+      margin-top: 10px;
+      max-width: 40px;
+      line-height: 1;
+      text-transform: uppercase;
+      font-size: 0.75em;
+    }
+    .axis {
+    	font-family: $font_text;
+    	font-size: 0.9em;
+    }
     .tick text {
     	fill: $text_soft;
     }
-  }
-  .line {
-    fill: none;
-    stroke-width: 2.5px;
-  }
-  .y.axis {
-    .tick line {
-    	stroke-dasharray: 2,2;
-    	stroke: #ccc;
+    .line {
+      path {
+        fill: none;
+        stroke-width: 2.5px;
+      }
     }
-    .domain {
-    	display: none;
+    .y.axis {
+      .tick line {
+      	stroke-dasharray: 2,2;
+      	stroke: #ccc;
+      }
+      .domain {
+      	display: none;
+      }
+    }
+    .voronoi path {
+    	fill: none;
+    	pointer-events: all;
+    }
+    .focus {
+      text {
+    	  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+      }
+      circle {
+        stroke-width: 2px;
+      }
     }
   }
-  .voronoi path {
-  	fill: none;
-  	pointer-events: all;
-  }
-  .focus {
-    text {
-    	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
-    }
-    circle {
-    	stroke-width: 2px;
+  #unemployment_rate {
+    .lines-labels div {
+      margin-top: 20px;
+      max-width: none;
+      width: 60px;
     }
   }
-}
 
-// Desktop
-@media (min-width: 768px) {
-	.indicators_header {
-		min-height: 55px;
-	}
-	.indicators_sections {
-		margin-top: 1em;
-	}
-	.indicators_section {
-		font-size: 1em;
-		margin-left: 20px;
-	}
-	.r_mr {
-		margin-right: 1.5em;
-	}
-	.gobierto_indicators h4 {
-		text-align: center;
-	}
-	#age_distribution .chart_headline {
-		text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
-		position: absolute;
-		right: 0;
-	}
-  #unemployment_age {
-    margin-bottom: 0;
+
+  #unemployment_sex {
+    position: relative;
+    
+    .lines-labels div {
+      position: absolute;
+      margin-top: 20px;
+      max-width: 40px;
+      line-height: 1;
+      text-transform: uppercase;
+      font-size: 0.75em;
+    }
+    .axis {
+    	font-family: $font_text;
+    	font-size: 0.9em;
+      
+      .tick text {
+      	fill: $text_soft;
+      }
+    }
+    .line {
+      fill: none;
+      stroke-width: 2.5px;
+    }
+    .y.axis {
+      .tick line {
+      	stroke-dasharray: 2,2;
+      	stroke: #ccc;
+      }
+      .domain {
+      	display: none;
+      }
+    }
+    .voronoi path {
+    	fill: none;
+    	pointer-events: all;
+    }
+    .focus {
+      text {
+      	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+      }
+      circle {
+      	stroke-width: 2px;
+      }
+    }
   }
-	#rent_distribution {
-		margin-top: 2rem;
-  
-    .chart_headline {
-  		margin-top: 0;
-  		position: absolute;
-  		left: 10px;
+
+  @media (min-width: 768px) {
+  	.indicators_header {
+  		min-height: 55px;
   	}
-    .pop-anno,
-    .rent-anno {
-  		font-size: 1.25rem;
+  	.indicators_sections {
+  		margin-top: 1em;
   	}
-    .rent-anno {
-  	  right: 8.75%;
-  	  top: 50px;
+  	.indicators_section {
+  		font-size: 1em;
+  		margin-left: 20px;
   	}
-    .text-label {
-  		font-size: 1.25rem;
+  	.r_mr {
+  		margin-right: 1.5em;
   	}
-	}
+  	.gobierto_indicators h4 {
+  		text-align: center;
+  	}
+    #unemployment_age {
+      margin-bottom: 0;
+    }
+  	#rent_distribution {
+  		margin-top: 2rem;
+    
+      .chart_headline {
+    		margin-top: 0;
+    		position: absolute;
+    		left: 10px;
+    	}
+      .pop-anno,
+      .rent-anno {
+    		font-size: 1.25rem;
+    	}
+      .rent-anno {
+    	  right: 8.75%;
+    	  top: 50px;
+    	}
+      .text-label {
+    		font-size: 1.25rem;
+    	}
+  	}
+  }
 }

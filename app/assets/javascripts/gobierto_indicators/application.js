@@ -57,19 +57,19 @@ $(document).on('turbolinks:load', function() {
     vis_rent.render();
   }
   
-  var popCard = new PopulationCard('.population-card', populateData.municipalityId);
+  var popCard = new PopulationCard('.population_card', populateData.municipalityId);
   popCard.render();
   
-  var activePopCard = new ActivePopulationCard('.active-pop-card', populateData.municipalityId);
+  var activePopCard = new ActivePopulationCard('.active_pop', populateData.municipalityId);
   activePopCard.render();
   
-  var hCard = new HomesCard('.homes-card', populateData.municipalityId);
+  var hCard = new HousesCard('.houses', populateData.municipalityId);
   hCard.render();
   
   var cCard = new CarsCard('.cars', populateData.municipalityId);
   cCard.render();
   
-  var ssCard = new ssMembersCard('.ss-members', populateData.municipalityId);
+  var ssCard = new ssMembersCard('.ss_members', populateData.municipalityId);
   ssCard.render();
   
   var fCard = new FreelancersCard('.freelancers', populateData.municipalityId);
@@ -78,13 +78,13 @@ $(document).on('turbolinks:load', function() {
   var cCard = new CompaniesCard('.companies', populateData.municipalityId);
   cCard.render();
   
-  var contractsCard = new ContractsCard('.contracts-comparison', populateData.municipalityId);
+  var contractsCard = new ContractsCard('.contracts_comparison', populateData.municipalityId);
   contractsCard.render();
   
-  var unBySectorCard = new UnemplBySectorCard('.unemployed-sector', populateData.municipalityId);
+  var unBySectorCard = new UnemplBySectorCard('.unemployed_sector', populateData.municipalityId);
   unBySectorCard.render();
   
-  var contrSectorCard = new ContractsBySectorCard('.contracts-sector', populateData.municipalityId);
+  var contrSectorCard = new ContractsBySectorCard('.contracts_sector', populateData.municipalityId);
   contrSectorCard.render();
   
   var incomeCard = new IncomeCard('.income', populateData.municipalityId);

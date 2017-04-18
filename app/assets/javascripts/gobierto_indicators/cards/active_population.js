@@ -23,7 +23,7 @@ var ActivePopulationCard = Class.extend({
         var value = jsonActive.data[0].value;
         var rate = value / jsonPop.data[0].value * 100;
         
-        new ComparisonCard(this.container, jsonActive, rate, value);
+        new ComparisonCard(this.container, jsonActive, rate, value, 'active_pop');
       }.bind(this));
   },
   render: function() {

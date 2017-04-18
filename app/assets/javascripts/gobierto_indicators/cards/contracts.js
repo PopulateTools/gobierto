@@ -22,7 +22,7 @@ var ContractsCard = Class.extend({
         var i = nest.filter(function(d) { return d.key === 'INI-I'; })[0].values[0].value;
         var t = nest.filter(function(d) { return d.key === 'INI-T'; })[0].values[0].value;
         
-        new ComparisonCard(this.container, json, t, i);
+        new ComparisonCard(this.container, json, t, i, 'contracts_comparison');
       }.bind(this));
   },
   render: function() {

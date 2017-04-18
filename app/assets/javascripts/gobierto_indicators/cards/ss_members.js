@@ -17,7 +17,7 @@ var ssMembersCard = Class.extend({
         
         var value = jsonData.data[0].value;
 
-        new SimpleCard(this.container, jsonData, value);
+        new SimpleCard(this.container, jsonData, value, 'ss_members');
       }.bind(this));
   },
   render: function() {

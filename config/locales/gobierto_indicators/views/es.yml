@@ -5,7 +5,65 @@ es:
       application:
         indicators: Indicadores
       menu_subsections:
-        budgets: Presupuestos
-        economy: Economía
-        employment: Empleo
         population: Población
+        employment: Empleo
+        economy: Economía
+    copy:
+      title: 'Conoce %{place} a través de sus principales cifras: la población, el empleo, la economía y los presupuestos.'
+      population:
+        title: Población
+        intro: Comprueba la distribución por edades de tu municipio
+      employment:
+        title: Empleo
+        rate_comparison: Comparación de la tasa de paro
+        sex_comparison: Desempleo según sexo
+        age_comparison: Desempleo según la edad
+      economy:
+        title: Economía
+        intro: Riqueza y población en la provincia
+        legend:
+          inhabitants: Habitantes
+          income: Renta bruta
+    cards:
+      updated: Última actualización
+      unemployed_sector:
+        title: Desempleados por sector
+        industria: Industria
+        construccion: Construcción
+        agricultura: Agricultura
+        servicios: Servicios
+      contracts_sector:
+        title: Contratos por sector
+        industria: Industria
+        construccion: Construcción
+        agricultura: Agricultura
+        servicios: Servicios
+      income:
+        title: Renta media
+        gross: Renta bruta
+        net: Renta disponible
+        place: ''
+        province: Renta bruta
+        country: Renta disponible
+      cars:
+        title: Coches por habitante
+      active_pop:
+        title: Población activa
+        figure_first: del total
+        figure_second: personas
+      houses:
+        title: Viviendas
+        figure_first: familiares
+        figure_second: principales
+      contracts_comparison:
+        title: Contratos en el mes pasado
+        figure_first: temporales
+        figure_second: indefinidos
+      companies:
+        title: Empresas
+      freelancers:
+        title: Autónomos
+      ss_members:
+        title: Afiliados a la Seguridad Social
+      population:
+        title: Habitantes

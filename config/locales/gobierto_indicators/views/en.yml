@@ -5,21 +5,37 @@ en:
       application:
         indicators: Indicators
       menu_subsections:
-        budgets: Budgets
-        economy: Economy
-        employment: Employment
         population: Population
+        employment: Employment
+        economy: Economy
+    copy:
+      title: 'Understand %{place} through its main figures: the population, the employment market and the economy.'
+      population:
+        title: Population
+        intro: Discover the age distribution of your municipality
+      employment:
+        title: Employment
+        rate_comparison: Unemployment rate comparison
+        sex_comparison: Unemployment by sex
+        age_comparison: Unemployment by age
+      economy:
+        title: Economy
+        intro: Wealth and population in the province
+        legend:
+          inhabitants: Inhabitants
+          income: Gross income
     cards:
+      updated: Last update
       unemployed_sector:
         title: Unemployed by sector
         industria: Industry
-        construccion: Buildings
+        construccion: Construction
         agricultura: Agriculture
         servicios: Services
       contracts_sector:
         title: Contracts by sector
         industria: Industry
-        construccion: Buildings
+        construccion: Construction
         agricultura: Agriculture
         servicios: Services
       income:
@@ -31,3 +47,23 @@ en:
         country: Net income
       cars:
         title: Cars per inhabitant
+      active_pop:
+        title: Active population
+        figure_first: of total
+        figure_second: persons
+      houses:
+        title: Houses
+        figure_first: family houses
+        figure_second: main houses
+      contracts_comparison:
+        title: Contracts in the last month
+        figure_first: short term
+        figure_second: long term
+      companies:
+        title: Companies
+      freelancers:
+        title: Freelancers
+      ss_members:
+        title: Social Security affiliates
+      population:
+        title: Inhabitants

@@ -1,6 +1,6 @@
 'use strict';
 
-var HomesCard = Class.extend({
+var HousesCard = Class.extend({
   init: function(divClass, city_id) {
     this.container = divClass;
     this.tbiToken = window.populateData.token;
@@ -23,7 +23,7 @@ var HomesCard = Class.extend({
         var familyHouses = jsonFamily.data[0].value;
         var mainHouses = jsonMain.data[0].value;
 
-        new ComparisonCard(this.container, jsonFamily, familyHouses, mainHouses);
+        new ComparisonCard(this.container, jsonFamily, familyHouses, mainHouses, 'houses');
       }.bind(this));
   },
   render: function() {

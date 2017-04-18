@@ -5,7 +5,65 @@ ca:
       application:
         indicators: Indicadors
       menu_subsections:
-        budgets: Pressupostos
-        economy: Economia
-        employment: Ocupació
         population: Població
+        employment: Ocupació
+        economy: Economia
+    copy:
+      title: "Coneix %{place} a partir de les principals xifres: la població, l'ocupació i l'economia."
+      population:
+        title: Població
+        intro: Descobreix la distribució per edats del teu municipi
+      employment:
+        title: Ocupació
+        rate_comparison: Comparació de la tasa d'atur
+        sex_comparison: L'atur segons el sexe
+        age_comparison: L'atur segons l'edat
+      economy:
+        title: Economia
+        intro: Riquesa i població a la província
+        legend:
+          inhabitants: Habitants
+          income: Renda bruta
+    cards:
+      updated: Darrera actualització
+      unemployed_sector:
+        title: Desempleats per sector
+        industria: Indústria
+        construccion: Construcció
+        agricultura: Agricultura
+        servicios: Serveis
+      contracts_sector:
+        title: Contractes per sector
+        industria: Indústria
+        construccion: Construcció
+        agricultura: Agricultura
+        servicios: Serveis
+      income:
+        title: Renda mitjana
+        gross: Renda bruta
+        net: Renda disponible
+        place: ''
+        province: Renda bruta
+        country: Renda disponible
+      cars:
+        title: Cotxes per persona
+      active_pop:
+        title: Població activa
+        figure_first: del total
+        figure_second: persones
+      houses:
+        title: Habitatge
+        figure_first: familiars
+        figure_second: principals
+      contracts_comparison:
+        title: Contractes en el darrer mes
+        figure_first: temporals
+        figure_second: indefinits
+      companies:
+        title: Empreses
+      freelancers:
+        title: Autónoms
+      ss_members:
+        title: Afiliats a la Seguretat Social
+      population:
+        title: Habitants

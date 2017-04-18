@@ -1,7 +1,7 @@
 'use strict';
 
 var ComparisonCard = Class.extend({
-  init: function(divClass, json, value1, value2) {
+  init: function(divClass, json, value1, value2, cardName) {
     d3.timeFormatDefaultLocale(es_ES);
 
     this.div = d3.select(divClass);
@@ -30,7 +30,7 @@ var ComparisonCard = Class.extend({
 
     // Append metadata
     this.div.selectAll('.widget_title')
-      .text(json.metadata.name);
+      .text(I18n.t('gobierto_indicators.cards.' + cardName + '.title'));
   },
   _printData: function(type, data) {
     // Switch between different figure types

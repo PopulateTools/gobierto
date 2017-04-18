@@ -29,3 +29,5 @@ en:
         place: ''
         province: Gross income
         country: Net income
+      cars:
+        title: Cars per inhabitant

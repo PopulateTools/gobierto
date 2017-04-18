@@ -66,6 +66,9 @@ $(document).on('turbolinks:load', function() {
   var hCard = new HomesCard('.homes-card', populateData.municipalityId);
   hCard.render();
   
+  var cCard = new CarsCard('.cars', populateData.municipalityId);
+  cCard.render();
+  
   var ssCard = new ssMembersCard('.ss-members', populateData.municipalityId);
   ssCard.render();
   

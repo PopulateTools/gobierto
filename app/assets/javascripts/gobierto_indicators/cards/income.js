@@ -58,7 +58,7 @@ var IncomeCard = Class.extend({
         
         countryGross.data.forEach(function(d) {
           d.location_type = 'country';
-          d.location_name = 'Spain';
+          d.location_name = I18n.t('country');
           d.kind = 'gross';
         });
         
@@ -77,7 +77,7 @@ var IncomeCard = Class.extend({
         
         countryNet.data.forEach(function(d) {
           d.location_type = 'country';
-          d.location_name = 'Spain';
+          d.location_name = I18n.t('country');
           d.kind = 'net';
         });
         
@@ -86,7 +86,6 @@ var IncomeCard = Class.extend({
         this.nest = d3.nest()
           .key(function(d) { return d.location_id; })
           .rollup(function(v) {
-            console.log(v);
             return {
               column: v[0].location_type,
               key: v[0].location_name,

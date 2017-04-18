@@ -98,6 +98,39 @@
   ol {
     padding: 0 1rem;
   }
+  .bars {
+    .row {
+      line-height: normal;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      
+      &:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+
+      .key {
+        min-width: 20%;
+        max-width: 30%;
+        vertical-align: top;
+        display: inline-block;
+      }
+      .bar {
+        display: inline-block;
+        height: 20px;
+        background: $color_main;
+      }
+      .qty {
+        font-size: 90%;
+        vertical-align: top;
+        padding-left: 0.5rem;
+        font-weight: 300;
+        display: inline-block;
+      }
+    }
+  }
 }
 .widget_body.widget_comparison {
   line-height: 37px;

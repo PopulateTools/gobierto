@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170417094657) do
+ActiveRecord::Schema.define(version: 20170418145507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,13 +200,10 @@ ActiveRecord::Schema.define(version: 20170417094657) do
   end
 
   create_table "gcms_pages", force: :cascade do |t|
-    t.string   "title",              default: "", null: false
-    t.text     "body",               default: "", null: false
-    t.string   "slug",               default: "", null: false
     t.integer  "site_id"
-    t.integer  "visibility_level",   default: 0,  null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.integer  "visibility_level",   default: 0, null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.jsonb    "title_translations"
     t.jsonb    "body_translations"
     t.jsonb    "slug_translations"
@@ -230,8 +227,6 @@ ActiveRecord::Schema.define(version: 20170417094657) do
     t.integer  "site_id"
     t.integer  "admin_id"
     t.string   "name",                default: "",     null: false
-    t.string   "charge"
-    t.text     "bio"
     t.string   "bio_url"
     t.integer  "visibility_level",    default: 0,      null: false
     t.datetime "created_at",                           null: false
@@ -285,15 +280,13 @@ ActiveRecord::Schema.define(version: 20170417094657) do
   end
 
   create_table "gp_person_events", force: :cascade do |t|
-    t.string   "title",                    default: "", null: false
-    t.text     "description"
     t.datetime "starts_at"
     t.datetime "ends_at"
     t.string   "attachment_url"
-    t.integer  "state",                    default: 0,  null: false
-    t.integer  "person_id",                             null: false
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.integer  "state",                    default: 0, null: false
+    t.integer  "person_id",                            null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "external_id"
     t.jsonb    "title_translations"
     t.jsonb    "description_translations"
@@ -316,12 +309,11 @@ ActiveRecord::Schema.define(version: 20170417094657) do
   end
 
   create_table "gp_person_statements", force: :cascade do |t|
-    t.string   "title",              default: "", null: false
     t.date     "published_on"
     t.integer  "person_id"
-    t.integer  "visibility_level",   default: 0,  null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.integer  "visibility_level",   default: 0, null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "attachment_url"
     t.integer  "attachment_size"
     t.jsonb    "title_translations"
@@ -352,7 +344,6 @@ ActiveRecord::Schema.define(version: 20170417094657) do
 
   create_table "sites", force: :cascade do |t|
     t.string   "external_id"
-    t.string   "name"
     t.string   "domain"
     t.text     "configuration_data"
     t.string   "location_name"
@@ -362,10 +353,9 @@ ActiveRecord::Schema.define(version: 20170417094657) do
     t.string   "institution_email"
     t.string   "institution_address"
     t.string   "institution_document_number"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-    t.string   "title",                       default: "", null: false
-    t.integer  "visibility_level",            default: 0,  null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "visibility_level",            default: 0, null: false
     t.inet     "creation_ip"
     t.integer  "municipality_id"
     t.jsonb    "name_translations"

@@ -6,17 +6,17 @@ this.GobiertoAdmin.GlobalizedFormsComponent = (function() {
   };
 
   function _handleGlobalizedForm() {
-    var $globalizedForm = _findGlobalizedForm();
-    if(!$globalizedForm.length) return;
+    var $container = _findGlobalizedFormContainer();
+    if(!$container.length) return;
 
-    $globalizedForm.find('[data-toggle-edit-locale]').on("click", _toggleLocaleClickHandler);
-    $globalizedForm.on("change", "input, select, textarea", _changeHandler);
+    $container.find('[data-toggle-edit-locale]').on("click", _toggleLocaleClickHandler);
+    $container.on("change", "input, select, textarea", _changeHandler);
 
-    var currentLocale = $globalizedForm.find('[data-loaded-locale]').data('loaded-locale');
+    var currentLocale = $container.find('[data-loaded-locale]').data('loaded-locale');
     if(currentLocale === undefined)
       currentLocale = I18n.defaultLocale;
     _activateLocale(currentLocale);
-    _checkCompleted($globalizedForm);
+    _checkCompleted($container);
   }
 
   function _toggleLocaleClickHandler(e){
@@ -25,25 +25,25 @@ this.GobiertoAdmin.GlobalizedFormsComponent = (function() {
   }
 
   function _changeHandler(e){
-    _checkCompleted(_findGlobalizedForm());
+    _checkCompleted(_findGlobalizedFormContainer());
   }
 
   function _activateLocale(currentLocale){
-    var $globalizedForm = _findGlobalizedForm();
+    var $container = _findGlobalizedFormContainer();
 
-    $globalizedForm.find('[data-toggle-edit-locale]').removeClass('selected');
-    $globalizedForm.find('[data-toggle-edit-locale='+currentLocale+']').addClass('selected');
+    $container.find('[data-toggle-edit-locale]').removeClass('selected');
+    $container.find('[data-toggle-edit-locale='+currentLocale+']').addClass('selected');
 
-    $globalizedForm.find('[data-locale]').each(function(){
+    $container.find('[data-locale]').each(function(){
       $(this).data('locale') !== currentLocale ? $(this).hide() : $(this).show();
     });
   }
 
-  function _checkCompleted($globalizedForm){
-    $globalizedForm.find('[data-toggle-edit-locale]').each(function(){
+  function _checkCompleted($container){
+    $container.find('[data-toggle-edit-locale]').each(function(){
       var locale = $(this).data('toggle-edit-locale');
       var completed = true;
-      var $el = $globalizedForm.find('[data-locale='+locale+']');
+      var $el = $container.find('[data-locale='+locale+']');
 
       $el.find("input, select, textarea").each(function(){
         if($(this).attr('id') !== undefined && $(this).val() === ""){
@@ -51,13 +51,13 @@ this.GobiertoAdmin.GlobalizedFormsComponent = (function() {
         }
       });
 
-      $el = $globalizedForm.find('[data-toggle-edit-locale='+locale+']');
+      $el = $container.find('[data-toggle-edit-locale='+locale+']');
       completed ? $el.addClass('completed') : $el.removeClass('completed');
     });
   }
 
-  function _findGlobalizedForm(){
-    return $("form[data-globalized-form-container]");
+  function _findGlobalizedFormContainer(){
+    return $("form[data-globalized-form-container] .globalized_fields");
   }
 
   return GlobalizedFormsComponent;

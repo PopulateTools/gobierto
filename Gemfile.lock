@@ -185,6 +185,7 @@ GEM
     launchy (2.4.3)
       addressable (~> 2.3)
     libv8 (3.16.14.17)
+    liquid (4.0.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -379,6 +380,7 @@ DEPENDENCIES
   json_translate (~> 3.0)
   kaminari (~> 1.0)
   launchy
+  liquid (~> 4.0)
   meta-tags
   minitest-rails
   minitest-rails-capybara

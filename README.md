@@ -99,6 +99,7 @@ Toda la documentación y comunicación relativa al desarrollo la realizamos en i
 - [Desarrollar un módulo](docs/developing-module.md)
 - [Integrar la extensión Trackable](docs/trackable-extension.md)
 - [Integrar el componente DynamicContent](docs/dynamic-content-component.md)
+- [Integrar plantillas con Liquid](docs/liquid-templates.md)
 
 
 ## Licencia

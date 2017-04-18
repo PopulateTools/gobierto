@@ -33,7 +33,11 @@ module SubmodulesHelper
   end
 
   def active_submodules
-    current_site.gobierto_people_settings.submodules_enabled
+    if current_site.gobierto_people_settings
+      current_site.gobierto_people_settings.submodules_enabled
+    else
+      GobiertoPeople.module_submodules
+    end
   end
 
   def welcome_submodule_active?

@@ -1,0 +1,9 @@
+gobierto_people_settings_madrid:
+  site: madrid
+  module_name: "GobiertoPeople"
+  settings: <%= {
+    "home_text_es": "",
+    "home_text_en": "Home text English",
+    "submodules_enabled": ["officials", "agendas", "statements", "blogs"]
+  }.to_json %>
+

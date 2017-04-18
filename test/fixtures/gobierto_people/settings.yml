@@ -1,10 +1,10 @@
 ---
-lotus_endpoint_usr:
-  key: LOTUS_ENDPOINT_USR
-  value: lotus_endpoint_usr
+ibm_notes_endpoint_usr:
+  key: IBM_NOTES_ENDPOINT_USR
+  value: ibm_notes_endpoint_usr
   site: madrid
 
-lotus_endpoint_pwd:
-  key: LOTUS_ENDPOINT_PWD
-  value: lotus_endpoint_pwd
+ibm_notes_endpoint_pwd:
+  key: IBM_NOTES_ENDPOINT_PWD
+  value: ibm_notes_endpoint_pwd
   site: madrid

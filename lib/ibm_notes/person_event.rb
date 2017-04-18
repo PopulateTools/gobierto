@@ -1,4 +1,4 @@
-module LotusNotes
+module IbmNotes
   class PersonEvent
 
     attr_accessor :external_id, :title, :starts_at, :ends_at, :state, :person

@@ -65,7 +65,7 @@ class Site < ApplicationRecord
 
   def calendar_integration
     if gobierto_people_settings && gobierto_people_settings.calendar_integration == 'ibm_notes'
-      GobiertoPeople::LotusNotes::CalendarIntegration
+      GobiertoPeople::IbmNotes::CalendarIntegration
     end
   end
 

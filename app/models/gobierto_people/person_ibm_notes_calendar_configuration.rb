@@ -1,5 +1,5 @@
 module GobiertoPeople
-  class PersonLotusNotesCalendarConfiguration < PersonCalendarConfiguration
+  class PersonIbmNotesCalendarConfiguration < PersonCalendarConfiguration
 
     def endpoint
       data['endpoint']

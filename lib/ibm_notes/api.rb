@@ -1,6 +1,6 @@
 require 'mechanize'
 
-module LotusNotes
+module IbmNotes
   class Api
 
     def self.get_person_events(params)

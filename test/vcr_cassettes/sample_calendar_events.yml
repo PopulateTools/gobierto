@@ -49,7 +49,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '1251'
+      - '1239'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -57,8 +57,8 @@ http_interactions:
           "events": [
             {
               "href":"https://host.wadus.com/wadus/1",
-              "id":"Lotus Notes public event ID",
-              "summary":"Lotus Notes public event summary",
+              "id":"Ibm Notes public event ID",
+              "summary":"Ibm Notes public event summary",
               "start": {
                 "date":"2017-04-11",
                 "time":"10:00:00",
@@ -75,8 +75,8 @@ http_interactions:
             },
             {
               "href":"https://host.wadus.com/wadus/2",
-              "id":"Lotus Notes public event without end date ID",
-              "summary":"Lotus Notes public event without end date summary",
+              "id":"Ibm Notes public event without end date ID",
+              "summary":"Ibm Notes public event without end date summary",
               "start": {
                 "date":"2017-04-11",
                 "time":"10:00:00",
@@ -88,8 +88,8 @@ http_interactions:
             },
             {
               "href":"https://host.wadus.com/wadus/3",
-              "id":"Lotus Notes private event ID",
-              "summary":"Lotus Notes private event summary",
+              "id":"Ibm Notes private event ID",
+              "summary":"Ibm Notes private event summary",
               "start": {
                 "date":"2017-04-11",
                 "time":"10:00:00",

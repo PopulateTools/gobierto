@@ -17,4 +17,10 @@ class GobiertoCommon::LocalizedContentTest < ActiveSupport::TestCase
     assert_equal "Transparencia y Participción", subject.title
     assert_equal "Transparencia y Participción", subject.title_with_fallback
   end
+
+  def test_localized_with_fallback_empty_attribute
+    site = Site.new
+    assert_nil site.title_with_fallback
+  end
+
 end

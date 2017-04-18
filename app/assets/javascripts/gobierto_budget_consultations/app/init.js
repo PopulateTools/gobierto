@@ -1,7 +1,5 @@
 this.GobiertoBudgetConsultations = {
-  init: function() {
-    return console.log("GobiertoBudgetConsultations.init");
-  }
+  init: function() {}
 };
 
 $(document).ready(function() {

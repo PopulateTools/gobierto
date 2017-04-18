@@ -36,7 +36,7 @@
             <%= t(".site_network") %>
           <% end %>
           <ul id="managed-sites-list" class="pure-menu-children">
-            <% managed_sites.each do |site| %>
+            <% managed_sites.alphabetically_sorted.each do |site| %>
               <li class="pure-menu-item">
                 <%= link_to(
                   site.name,

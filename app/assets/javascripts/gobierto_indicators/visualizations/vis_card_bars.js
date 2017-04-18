@@ -12,6 +12,7 @@ var BarsCard = Class.extend({
     var parseDate = freq === 'daily' ? d3.timeParse('%Y-%m-%d') : freq === 'monthly' ? d3.timeParse('%Y-%m') : d3.timeParse('%Y');
     var parsedDate = parseDate(json.data[0].date);
     var formatDate = d3.timeFormat("%B %Y");
+    var isMobile = innerWidth <= 768;
 
     // Append source
     this.div.selectAll('.widget_src')
@@ -24,9 +25,10 @@ var BarsCard = Class.extend({
     // Append metadata
     this.div.selectAll('.widget_title')
       .text(I18n.t('gobierto_indicators.cards.' + cardName + '.title'));
-      
+    
+    // Paint bars
     var x = d3.scaleLinear()
-      .range([0, 60])
+      .range([0, isMobile ? 50 : 60])
       .domain([0, d3.max(data, function(d) { return d.figure; })]);
       
     var row = this.div.select('.bars')
@@ -38,7 +40,7 @@ var BarsCard = Class.extend({
       
     row.append('div')
       .attr('class', 'key')
-      .text(function(d) { return d.location_name });
+      .text(function(d) { return d.key });
       
     row.append('div')
       .attr('class', 'bar')
@@ -47,9 +49,6 @@ var BarsCard = Class.extend({
     row.append('div')
       .attr('class', 'qty')
       .text(function(d) { return this._printData(d.figure); }.bind(this));
-      
-    console.log(data);
-
   },
   _printData: function(data) {
     // Switch between different figure types
@@ -64,7 +63,7 @@ var BarsCard = Class.extend({
         return accounting.formatNumber(data, 0) + '€/hab';
         break;
       case 'per_inhabitant':
-        return accounting.formatNumber(data, 2) + ' / hab';
+        return accounting.formatNumber(data, 2) + '/hab';
         break;
       default:
         return accounting.formatNumber(data, 0);

@@ -14,7 +14,11 @@
 	-ms-perspective: 1000px;
 	min-height: 180px;
 	border-radius: 8px;
-	margin-bottom: 1rem;
+	margin-bottom: 3rem;
+  
+  @media (min-width: 768px) {
+    margin-bottom: 1rem;
+  }
 }
 .indicator_widget {
 	cursor: pointer;
@@ -112,6 +116,7 @@
       }
 
       .key {
+        padding-right: 5px;
         min-width: 20%;
         max-width: 30%;
         vertical-align: top;
@@ -119,8 +124,12 @@
       }
       .bar {
         display: inline-block;
-        height: 20px;
+        height: 10px;
         background: $color_main;
+        
+        @media (min-width: 768px) {
+          height: 20px;
+        }
       }
       .qty {
         font-size: 90%;

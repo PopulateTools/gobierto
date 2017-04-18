@@ -45,17 +45,17 @@ var CarsCard = Class.extend({
         carsPlace.data.forEach(function(d) {
           d.date = d.date.slice(0, 4);
           d.figure = d.value / popPlace[0].value;
-          d.location_name = window.populateData.municipalityName;
+          d.key = window.populateData.municipalityName;
         });
         
         carsProvince.forEach(function(d) {
           d.figure = d.value / popProvince.sum;
-          d.location_name = window.populateData.provinceName;
+          d.key = window.populateData.provinceName;
         });
         
         carsCountry.forEach(function(d) {
           d.figure = d.value / popCountry.sum;
-          d.location_name = I18n.t('country');
+          d.key = I18n.t('country');
         });
         
         this.data = carsPlace.data.concat(carsProvince, carsCountry);

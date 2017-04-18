@@ -29,7 +29,11 @@
         <h2><%= title @person.name %></h2>
 
         <div class="person_charge"><%= @person.charge_with_fallback %></div>
-        <div class="person_party"><%= t(".party.#{@person.party}") %></div>
+        <% if @person.party.present? %>
+          <div class="person_party">
+            <%= t(".party.#{@person.party}") %>
+          </div>
+        <% end %>
         <% if @person.political_group %>
           <div class="political_group"><%= @person.political_group.name %></div>
         <% end %>

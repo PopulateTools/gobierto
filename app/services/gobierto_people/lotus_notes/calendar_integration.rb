@@ -22,7 +22,7 @@ module GobiertoPeople
       def self.sync_event(lotus_event)
         if lotus_event.gobierto_event_outdated?
           update_gobierto_event(lotus_event)
-        elsif !lotus_event.has_gobierto_event?
+        elsif lotus_event.public? && !lotus_event.has_gobierto_event?
           create_gobierto_event(lotus_event)
         end
       end
@@ -50,25 +50,17 @@ module GobiertoPeople
           starts_at: lotus_event.starts_at,
           ends_at: lotus_event.ends_at,
           person: lotus_event.person,
-          state: GobiertoPeople::PersonEvent.states[:pending]
+          state: GobiertoPeople::PersonEvent.states[:published]
         )
       end
 
       def self.update_gobierto_event(lotus_event)
-        current_state = lotus_event.gobierto_event.state
-
-        new_attributes = {
+        lotus_event.gobierto_event.update_attributes!(
           title: lotus_event.title,
           starts_at: lotus_event.starts_at,
           ends_at: lotus_event.ends_at,
-        }
-
-        # TOOD
-        if(current_state.published? && lotus_event.gobierto_event.state)
-          new_attributes.merge!(state: GobiertoPeople::PersonEvent.states[:pending])
-        end
-
-        lotus_event.gobierto_event.update_attributes!(new_attributes)
+          state: lotus_event.state
+        )
       end
 
     end

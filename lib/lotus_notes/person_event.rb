@@ -1,13 +1,12 @@
 module LotusNotes
   class PersonEvent
 
-    attr_accessor :external_id, :title, :starts_at, :ends_at, :state, :transparency, :person
+    attr_accessor :external_id, :title, :starts_at, :ends_at, :state, :person
 
     def initialize(person, response_event)
       @external_id  = response_event['id']
       @title        = response_event['summary']
-      @transparency = response_event['transparency']
-      @state        = public? ? 'published' : 'pending'
+      @state = (response_event['transparency'] == 'transparent') ? 'published' : 'pending'
       @person       = person
       set_start_and_end_date(response_event)
     end
@@ -29,7 +28,7 @@ module LotusNotes
     end
 
     def public?
-      transparency == 'transparent'
+      state == 'published'
     end
 
     private

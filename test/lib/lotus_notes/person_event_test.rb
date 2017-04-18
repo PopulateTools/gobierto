@@ -59,7 +59,6 @@ class PersonEventTest < ActiveSupport::TestCase
     assert_equal persisted_lotus_event.external_id, 'Lotus Notes persisted event ID'
     assert_equal persisted_lotus_event.title,        'Lotus Notes persisted event title'
     assert_equal persisted_lotus_event.state,        'published'
-    assert_equal persisted_lotus_event.transparency, 'transparent'
     assert_equal persisted_lotus_event.person,       person
     assert_equal persisted_lotus_event.starts_at,    utc_time('2017-04-11 10:00:00')
     assert_equal persisted_lotus_event.ends_at,      utc_time('2017-04-11 11:00:00')

@@ -24,7 +24,17 @@ module GobiertoPeople
           'summary' => 'Lotus Notes new event summary',
           'start' =>  { 'date' => '2017-04-11', 'time' => '10:00:00', 'utc' => true },
           'end'   =>  { 'date' => '2017-04-11', 'time' => '11:00:00', 'utc' => true },
-          'transparency' => 'transparent',
+          'transparency' => 'transparent'
+        })
+      end
+
+      def new_private_lotus_event
+        @new_private_lotus_event ||= ::LotusNotes::PersonEvent.new(person, {
+          'id' => 'Lotus Notes new private event ID',
+          'summary' => 'Lotus Notes new private event summary',
+          'start' =>  { 'date' => '2017-04-11', 'time' => '10:00:00', 'utc' => true },
+          'end'   =>  { 'date' => '2017-04-11', 'time' => '11:00:00', 'utc' => true },
+          'transparency' => 'opaque'
         })
       end
 
@@ -82,6 +92,13 @@ module GobiertoPeople
 
         assert_no_difference 'GobiertoPeople::PersonEvent.count' do
           CalendarIntegration.sync_event(outdated_lotus_event)
+        end
+      end
+
+      def test_sync_doesnt_import_new_private_events
+
+        assert_no_difference 'GobiertoPeople::PersonEvent.count' do
+          CalendarIntegration.sync_event(new_private_lotus_event)
         end
       end
 

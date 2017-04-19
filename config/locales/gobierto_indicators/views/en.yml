@@ -90,3 +90,8 @@ en:
         place: '%{place}'
         province: Province average
         country: Country average
+      investment_by_inhabitant:
+        title: Investment by inhabitant
+        first_column: '%{place}'
+        second_column: Barcelona
+        third_column: Valencia

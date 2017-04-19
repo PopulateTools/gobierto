@@ -91,6 +91,7 @@
   		<div class="pure-g padded_cols">
         <%= render 'card_comparison', {card_class: 'income_overview', data_type_one: 'currency', data_type_two: 'currency', data_freq: 'daily'} %>
         <%= render 'card_table', {card_class: 'income', data_type_one: 'currency', data_type_two: 'currency', data_freq: 'daily'} %>
+        <%= render 'card_sparkline_table', {card_class: 'investment_by_inhabitant', data_trend: 'up', data_type: 'currency', data_freq: 'daily'} %>
   		</div>
   	</section>
   </div>

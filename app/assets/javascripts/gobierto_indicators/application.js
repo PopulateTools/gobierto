@@ -99,10 +99,13 @@ $(document).on('turbolinks:load', function() {
   var incomeCard = new IncomeCard('.income', populateData.municipalityId);
   incomeCard.render();
   
+  var invByInhab  = new InvestmentByInhabitantCard('.investment_by_inhabitant', populateData.municipalityId)
+  invByInhab.render();
+  
   // Show dataset info on click
-  $('.card_container').click(function() {
-    $(this).toggleClass('hover');
-  });
+  // $('.card_container').click(function() {
+  //   $(this).toggleClass('hover');
+  // });
 
   if(window.location.hash !== ""){
     selectSection();

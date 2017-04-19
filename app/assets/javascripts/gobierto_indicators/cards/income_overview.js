@@ -23,9 +23,6 @@ var IncomeOverviewCard = Class.extend({
       .await(function (error, incomeProvince, incomeCountry) {
         if (error) throw error;
         
-        console.log(incomeProvince);
-        console.log(incomeCountry);
-        
         var valueOne = incomeProvince.data[0].value;
         var valueTwo = incomeCountry.data[0].value;
         

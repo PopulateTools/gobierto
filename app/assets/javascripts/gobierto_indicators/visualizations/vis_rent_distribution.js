@@ -16,7 +16,7 @@ var VisRentDistribution = Class.extend({
     d3.formatDefaultLocale(eval(I18n.locale));
 
     // Chart dimensions
-    this.margin = {top: 25, right: 10, bottom: 30, left: 10};
+    this.margin = {top: 25, right: 15, bottom: 30, left: 10};
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -118,7 +118,7 @@ var VisRentDistribution = Class.extend({
       .attr('cy', function(d) { return this.yScale(d.rent) }.bind(this))
       .attr('fill', function(d) { return this.color(d.rent) }.bind(this))
       .attr('stroke', 'white')
-      .attr('r', this.isMobile ? 6 : 8);
+      .attr('r', this.isMobile ? 6 : 12);
 
     // Add name of the current city
     var cityLabel = this.svg.append('g')
@@ -166,7 +166,7 @@ var VisRentDistribution = Class.extend({
       .attr('class', 'hover')
       .attr('fill', 'none')
       .attr('transform', 'translate(-100,-100)')
-      .attr('r', this.isMobile ? 4: 8);
+      .attr('r', this.isMobile ? 6 : 12);
   },
   _mousemove: function(d, i) {
     d3.select('.circle' + i).attr('stroke', 'none')

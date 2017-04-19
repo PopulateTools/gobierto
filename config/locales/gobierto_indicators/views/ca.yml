@@ -90,3 +90,8 @@ ca:
         place: '%{place}'
         province: Mitjana provincial
         country: Mitjana estatal
+      investment_by_inhabitant:
+        title: Inversió per habitant
+        first_column: '%{place}'
+        second_column: Barcelona
+        third_column: Valencia

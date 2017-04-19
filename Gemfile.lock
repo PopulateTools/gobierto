@@ -105,7 +105,7 @@ GEM
       js_cookie_rails
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
-    d3-rails (4.3.0)
+    d3-rails (4.8.0)
       railties (>= 3.1)
     dalli (2.7.6)
     database_cleaner (1.5.3)
@@ -386,7 +386,7 @@ DEPENDENCIES
   cocoon
   codecov (~> 0.1.9)
   cookies_eu
-  d3-rails (~> 4.3)
+  d3-rails (~> 4.8)
   dalli
   database_cleaner
   elasticsearch

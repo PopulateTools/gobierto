@@ -81,8 +81,8 @@
   				<div id="rent_distribution" class="main_graphic">
   					<div class="annotations">
   						<h3 class="chart_headline"><%= t("gobierto_indicators.graphics.rent_distribution.title") %></h3>
-  						<div class="rent-anno"><%= t("gobierto_indicators.graphics.rent_distribution.inhabitants") %> <span class="arrow">↑</span></div>
-  						<div class="pop-anno"><%= t("gobierto_indicators.graphics.rent_distribution.gross_income") %> <span class="arrow">→</span></div>
+  						<div class="rent-anno"><%= t("gobierto_indicators.graphics.rent_distribution.gross_income") %> <span class="arrow">↑</span></div>
+  						<div class="pop-anno"><%= t("gobierto_indicators.graphics.rent_distribution.inhabitants") %> <span class="arrow">→</span></div>
   					</div>
   				</div>
   			</div>
@@ -92,6 +92,7 @@
         <%= render 'card_comparison', {card_class: 'income_overview', data_type_one: 'currency', data_type_two: 'currency', data_freq: 'daily'} %>
         <%= render 'card_table', {card_class: 'income', data_type_one: 'currency', data_type_two: 'currency', data_freq: 'daily'} %>
         <%= render 'card_sparkline_table', {card_class: 'investment_by_inhabitant', data_trend: 'up', data_type: 'currency', data_freq: 'daily'} %>
+        <%= render 'card_bars', {card_class: 'debt_by_inhabitant', data_type: 'currency_per_person', data_freq: 'annual' } %>
   		</div>
   	</section>
   </div>

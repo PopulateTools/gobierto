@@ -60,7 +60,7 @@ var BarsCard = Class.extend({
         return accounting.formatNumber(data, 0) + '€';
         break;
       case 'currency_per_person':
-        return accounting.formatNumber(data, 1) + '€/' + I18n.t('gobierto_indicators.inhabitants');
+        return accounting.formatNumber(data, 0) + '€/' + I18n.t('gobierto_indicators.inhabitants');
         break;
       case 'per_inhabitant':
         return accounting.formatNumber(data, 2) + '/' + I18n.t('gobierto_indicators.inhabitants');

@@ -9,7 +9,7 @@ en:
         employment: Employment
         economy: Economy
     intro: 'Understand %{place} through its main figures: the population, the employment market and the economy.'
-    inhabitants: inhab
+    inhabitants: inh
     graphics:
       age_distribution:
         title: Discover the age distribution of your municipality
@@ -95,3 +95,5 @@ en:
         first_column: '%{place}'
         second_column: Barcelona
         third_column: Valencia
+      debt_by_inhabitant:
+        title: Debt by inhabitant

@@ -95,3 +95,5 @@ ca:
         first_column: '%{place}'
         second_column: Barcelona
         third_column: Valencia
+      debt_by_inhabitant:
+        title: Deute per habitant

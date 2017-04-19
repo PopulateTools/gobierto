@@ -99,8 +99,11 @@ $(document).on('turbolinks:load', function() {
   var incomeCard = new IncomeCard('.income', populateData.municipalityId);
   incomeCard.render();
   
-  var invByInhab  = new InvestmentByInhabitantCard('.investment_by_inhabitant', populateData.municipalityId)
+  var invByInhab  = new InvestmentByInhabitantCard('.investment_by_inhabitant', populateData.municipalityId);
   invByInhab.render();
+  
+  var debtPerInhab = new DebtByInhabitantCard('.debt_by_inhabitant', populateData.municipalityId);
+  debtPerInhab.render();
   
   // Show dataset info on click
   // $('.card_container').click(function() {

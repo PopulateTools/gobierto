@@ -45,8 +45,6 @@ var InvestmentByInhabitantCard = Class.extend({
         
         this.data = json.data.concat(bcn.data, vlc.data);
         
-        console.log(this.data);
-        
         this.nest = d3.nest()
           .key(function(d) { return d.row; })
           .rollup(function(v) { return {

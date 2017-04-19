@@ -120,7 +120,7 @@ module GobiertoPeople
 
     def test_person_events_filter_for_calendar_widget
       government_event = create_event(person: government_member, starts_at: "2017-03-16")
-      executive_event  = create_event(person: executive_member,  starts_at: "2017-03-19")
+      executive_event  = create_event(person: executive_member,  starts_at: "2017-03-22")
 
       government_event_day = government_event.starts_at.day
       executive_event_day  = executive_event.starts_at.day

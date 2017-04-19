@@ -44,16 +44,31 @@ class Site < ApplicationRecord
   validate :location_required
 
   scope :sorted, -> { order(created_at: :desc) }
-  scope :alphabetically_sorted, -> { order(name: :asc) }
 
   enum visibility_level: { draft: 0, active: 1 }
 
   translates :name, :title
   include GobiertoCommon::LocalizedContent
 
+  def self.alphabetically_sorted
+    all.sort_by(&:title).reverse
+  end
+
   def self.find_by_allowed_domain(domain)
     unless reserved_domains.include?(domain)
       find_by(domain: domain)
+    end
+  end
+
+  def self.with_agendas_integration_enabled
+    @with_agendas_integration_enabled ||= Site.all.select do |site|
+      site.calendar_integration.present?
+    end
+  end
+
+  def calendar_integration
+    if gobierto_people_settings && gobierto_people_settings.calendar_integration == 'ibm_notes'
+      GobiertoPeople::IbmNotes::CalendarIntegration
     end
   end
 

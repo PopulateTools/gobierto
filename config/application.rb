@@ -38,6 +38,7 @@ module Gobierto
       "#{config.root}/lib/validators",
       "#{config.root}/lib/constraints",
       "#{config.root}/lib/errors",
+      "#{config.root}/lib/ibm_notes",
       "#{config.root}/app/pub_sub",
       "#{config.root}/app/pub_sub/publishers",
       "#{config.root}/app/pub_sub/subscribers"
@@ -45,5 +46,8 @@ module Gobierto
 
     # Do not add wrapper .field_with_errors around form fields with validation errors
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
+
+    config.time_zone = 'Madrid'
   end
 end
+

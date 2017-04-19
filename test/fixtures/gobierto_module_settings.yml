@@ -1,3 +1,6 @@
+_fixture:
+  model_class: GobiertoModuleSettings
+
 gobierto_people_settings_madrid:
   site: madrid
   module_name: "GobiertoPeople"
@@ -6,4 +9,3 @@ gobierto_people_settings_madrid:
     "home_text_en": "Home text English",
     "submodules_enabled": ["officials", "agendas", "statements", "blogs"]
   }.to_json %>
-

@@ -1,4 +1,4 @@
-<% description(@person.bio) %>
+<% description(@person.bio_with_fallback) %>
 
 <%= render "gobierto_people/people/content_for_breadcrumb" %>
 
@@ -28,8 +28,12 @@
 
         <h2><%= title @person.name %></h2>
 
-        <div class="person_charge"><%= @person.charge %></div>
-        <div class="person_party"><%= t(".party.#{@person.party}") %></div>
+        <div class="person_charge"><%= @person.charge_with_fallback %></div>
+        <% if @person.party.present? %>
+          <div class="person_party">
+            <%= t(".party.#{@person.party}") %>
+          </div>
+        <% end %>
         <% if @person.political_group %>
           <div class="political_group"><%= @person.political_group.name %></div>
         <% end %>

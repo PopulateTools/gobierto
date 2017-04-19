@@ -15,6 +15,7 @@ gem "cookies_eu"
 gem "actionpack-action_caching", git: "https://github.com/rails/actionpack-action_caching.git", ref: "9044141824650138bf27741e8f0ed95ccd9ef26d"
 gem "active_model_serializers"
 gem "timecop"
+gem "mechanize"
 
 # Frontend
 gem "sass-rails", "~> 5.0.0"
@@ -61,6 +62,9 @@ gem "redis", "~> 3.3"
 # Translations
 gem "json_translate", "~> 3.0"
 
+# Liquid
+gem "liquid", "~> 4.0"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"
@@ -80,6 +84,7 @@ group :test do
   gem "webmock"
   gem "minitest-retry"
   gem "capybara-email"
+  gem "vcr"
 end
 
 group :development do

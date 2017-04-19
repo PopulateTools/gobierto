@@ -44,7 +44,7 @@ class SiteConfiguration
   def available_locales
     return I18n.available_locales if @available_locales.nil? || @available_locales.empty?
 
-    @available_locales.select{ |l| l.present? }
+    Array(default_locale).concat(@available_locales.select{ |l| l.present? }.map(&:to_s)).uniq
   end
 
   def default_locale

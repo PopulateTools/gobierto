@@ -1,7 +1,5 @@
 this.GobiertoPeople = {
-  init: function() {
-    return console.log("GobiertoPeople.init");
-  }
+  init: function() {}
 };
 
 $(document).ready(function() {

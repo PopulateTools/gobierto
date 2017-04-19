@@ -34,6 +34,7 @@
   		<div class="pure-g padded_cols">
         <%= render 'card_simple', {card_class: 'population_card'} %>
         <%= render 'card_sparkline_table', {card_class: 'births', data_trend: 'up', data_type: 'percentage_by_thousand', data_freq: 'annual'} %>
+        <%= render 'card_sparkline_table', {card_class: 'deaths', data_trend: 'down', data_type: 'percentage_by_thousand', data_freq: 'annual'} %>
         <%= render 'card_comparison', {card_class: 'active_pop', data_type_first: 'percentage', data_type_second: 'figure', data_freq: 'daily' } %>
         <%= render 'card_comparison', {card_class: 'houses', data_type_first: 'figure', data_type_second: 'figure', data_freq: 'daily' } %>
         <%= render 'card_bars', {card_class: 'cars', data_type: 'per_inhabitant', data_freq: 'annual' } %>

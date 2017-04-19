@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170417094657) do
+ActiveRecord::Schema.define(version: 20170419153124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -258,8 +258,8 @@ ActiveRecord::Schema.define(version: 20170417094657) do
   end
 
   create_table "gp_person_calendar_configurations", force: :cascade do |t|
-    t.integer "person_id",                null: false
-    t.jsonb   "data",      default: "{}", null: false
+    t.integer "person_id",              null: false
+    t.jsonb   "data",      default: {}, null: false
   end
 
   create_table "gp_person_event_attendees", force: :cascade do |t|

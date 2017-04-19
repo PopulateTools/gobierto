@@ -251,10 +251,10 @@ var VisRentDistribution = Class.extend({
       .remove();
   },
   _formatMillionAbbr: function(x) {
-    return d3.format('.0f')(x / 1e6) + ' millón';
+    return d3.format('.0f')(x / 1e6) + ' ' + I18n.t('gobierto_indicators.graphics.rent_distribution.million');
   },
   _formatThousandAbbr: function(x) {
-    return d3.format('.0f')(x / 1e3) + ' mil';
+    return d3.format('.0f')(x / 1e3) + ' ' + I18n.t('gobierto_indicators.graphics.rent_distribution.thousand');
   },
   _formatAbbreviation: function(x) {
     var v = Math.abs(x);

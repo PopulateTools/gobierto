@@ -30,6 +30,8 @@ en:
         title: Wealth and population in the province
         inhabitants: Inhabitants
         gross_income: Gross income
+        million: million
+        thousand: thousand
     cards:
       updated: Last update
       unemployed_sector:

@@ -30,6 +30,8 @@ ca:
         title: Riquesa i població a la província
         inhabitants: Habitants
         gross_income: Renda bruta
+        million: milió
+        thousand: mil
     cards:
       updated: Darrera actualització
       unemployed_sector:

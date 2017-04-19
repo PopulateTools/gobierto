@@ -30,6 +30,8 @@ es:
         title: Riqueza y población en la provincia
         inhabitants: Habitantes
         gross_income: Renta bruta
+        million: millón
+        thousand: mil
     cards:
       updated: Última actualización
       unemployed_sector:

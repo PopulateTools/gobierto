@@ -1,8 +1,7 @@
 module GobiertoPeople
   module People
-    class PastPersonEventsController < PersonEventsController
+    class PastPersonEventsController < People::PersonEventsController
       def index
-        super
         @events = @person.events.past.sorted
       end
     end

@@ -114,3 +114,5 @@ es:
         title: Impuesto a los turismos
         figure_first: '%{place}'
         figure_second: media provincial
+      economic_tax:
+        title: Impuesto a las actividades económicas

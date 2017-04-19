@@ -114,3 +114,5 @@ ca:
         title: Impost a turismes
         figure_first: '%{place}'
         figure_second: mitjana provincial
+      economic_tax:
+        title: Impost a les activitats econòmiques

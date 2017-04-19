@@ -117,6 +117,9 @@ $(document).on('turbolinks:load', function() {
   var carsTax =  new CarsTaxCard('.cars_tax', populateData.municipalityId)
   carsTax.render();
   
+  var economicTax =  new EconomicTaxCard('.economic_tax', populateData.municipalityId)
+  economicTax.render();
+  
   // Show dataset info on click
   // $('.card_container').click(function() {
   //   $(this).toggleClass('hover');

@@ -114,3 +114,5 @@ en:
         title: Passenger cars tax
         figure_first: '%{place}'
         figure_second: province average
+      economic_tax:
+        title: Economic activity tax

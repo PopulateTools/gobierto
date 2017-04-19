@@ -106,3 +106,11 @@ es:
         third_column: Viviendas rústicas
       budget_by_inhabitant:
         title: Presupuesto por habitante
+      construction_tax:
+        title: Impuesto a las construcciones
+        figure_first: '%{place}'
+        figure_second: media provincial
+      cars_tax:
+        title: Impuesto a los turismos
+        figure_first: '%{place}'
+        figure_second: media provincial

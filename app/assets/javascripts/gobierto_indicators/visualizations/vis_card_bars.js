@@ -28,7 +28,7 @@ var BarsCard = Class.extend({
     
     // Paint bars
     var x = d3.scaleLinear()
-      .range([0, isMobile ? 50 : 60])
+      .range([0, isMobile ? 50 : 55])
       .domain([0, d3.max(data, function(d) { return d.figure; })]);
       
     var row = this.div.select('.bars')

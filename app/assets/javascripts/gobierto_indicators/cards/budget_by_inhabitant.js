@@ -15,8 +15,6 @@ var BudgetByInhabitantCard = Class.extend({
       .await(function (error, jsonData) {
         if (error) throw error;
         
-        console.log(jsonData);
-        
         var value = jsonData.data[0].value_per_inhabitant;
 
         new SimpleCard(this.container, jsonData, value, 'budget_by_inhabitant', 'value_per_inhabitant');

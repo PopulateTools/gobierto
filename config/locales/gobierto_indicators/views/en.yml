@@ -106,3 +106,11 @@ en:
         third_column: Rustic buildings
       budget_by_inhabitant:
         title: Budget per inhabitant
+      construction_tax:
+        title: Construction tax
+        figure_first: '%{place}'
+        figure_second: province average
+      cars_tax:
+        title: Passenger cars tax
+        figure_first: '%{place}'
+        figure_second: province average

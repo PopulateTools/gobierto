@@ -223,21 +223,25 @@ var VisRentDistribution = Class.extend({
     this.svg.select('.x.axis')
       .attr('transform', 'translate(0,' + this.height + ')');
 
-    this.xAxis.tickPadding(10);
-    this.xAxis.ticks(2); // FIXME: ticks(3) creates 15 ticks
-    this.xAxis.tickSize(-this.height);
-    this.xAxis.scale(this.xScale);
-    this.xAxis.tickFormat(this._formatNumberX.bind(this))
+    this.xAxis
+      .tickPadding(10)
+      .ticks(3)
+      .tickSize(-this.height)
+      .scale(this.xScale)
+      .tickFormat(this._formatNumberX.bind(this));
+    
     this.svg.select('.x.axis').call(this.xAxis);
 
     // Y axis
     this.svg.select('.y.axis')
       .attr('transform', 'translate(' + this.width + ' ,0)');
 
-    this.yAxis.scale(this.yScale);
-    this.yAxis.ticks(this.isMobile ? 3 : 4);
-    this.yAxis.tickSize(-this.width);
-    this.yAxis.tickFormat(this._formatNumberY.bind(this));
+    this.yAxis
+      .scale(this.yScale)
+      .ticks(this.isMobile ? 3 : 4)
+      .tickSize(-this.width)
+      .tickFormat(this._formatNumberY.bind(this));
+    
     this.svg.select('.y.axis').call(this.yAxis);
 
     // Place y axis labels on top of ticks

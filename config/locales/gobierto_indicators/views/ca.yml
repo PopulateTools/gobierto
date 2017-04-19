@@ -46,7 +46,7 @@ ca:
         province: Renda bruta
         country: Renda disponible
       cars:
-        title: Cotxes per persona
+        title: Cotxes per habitant
       active_pop:
         title: Població activa
         figure_first: del total
@@ -68,7 +68,12 @@ ca:
       population:
         title: Habitants
       births:
-        title: Tasa de naixements
+        title: Taxa de naixements
+        place: '%{place}'
+        province: '%{province}'
+        country: Espanya
+      deaths:
+        title: Taxa de defuncions
         place: '%{place}'
         province: '%{province}'
         country: Espanya

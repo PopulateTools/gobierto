@@ -2,7 +2,7 @@
 
 var ComparisonCard = Class.extend({
   init: function(divClass, json, value1, value2, cardName) {
-    d3.timeFormatDefaultLocale(es_ES);
+    d3.timeFormatDefaultLocale(eval(I18n.locale));
 
     this.div = d3.select(divClass);
     this.firstDataType = this.div.attr('data-type-first');

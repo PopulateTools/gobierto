@@ -63,6 +63,9 @@ $(document).on('turbolinks:load', function() {
   var births = new BirthRateCard('.births', populateData.municipalityId);
   births.render();
   
+  var deaths = new DeathRateCard('.deaths', populateData.municipalityId);
+  deaths.render();
+  
   var activePopCard = new ActivePopulationCard('.active_pop', populateData.municipalityId);
   activePopCard.render();
   

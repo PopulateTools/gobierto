@@ -3,7 +3,7 @@
 var CardIndicators = Class.extend({
   init: function(divClass, city_id) {
     // Set formats
-    d3.timeFormatDefaultLocale(es_ES);
+    d3.timeFormatDefaultLocale(eval(I18n.locale));
     var parseDate = d3.timeParse("%Y-%m-%d");
     var formatDate = d3.timeFormat("%B %Y");
 

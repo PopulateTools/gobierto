@@ -72,3 +72,8 @@ en:
         place: '%{place}'
         province: '%{province}'
         country: Spain
+      deaths:
+        title: Death rate
+        place: '%{place}'
+        province: '%{province}'
+        country: Espanya

@@ -13,7 +13,7 @@ var VisRentDistribution = Class.extend({
     this.isMobile = window.innerWidth <= 768;
 
     // Set default locale
-    d3.formatDefaultLocale(es_ES);
+    d3.formatDefaultLocale(eval(I18n.locale));
 
     // Chart dimensions
     this.margin = {top: 25, right: 10, bottom: 30, left: 10};

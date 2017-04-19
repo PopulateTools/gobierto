@@ -72,3 +72,8 @@ es:
         place: '%{place}'
         province: '%{province}'
         country: España
+      deaths:
+        title: Tasa de defunciones
+        place: '%{place}'
+        province: '%{province}'
+        country: Espanya

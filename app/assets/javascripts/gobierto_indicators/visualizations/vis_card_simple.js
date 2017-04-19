@@ -2,7 +2,7 @@
 
 var SimpleCard = Class.extend({
   init: function(divClass, json, value, cardName) {
-    d3.timeFormatDefaultLocale(es_ES);
+    d3.timeFormatDefaultLocale(eval(I18n.locale));
 
     this.div = d3.select(divClass);
     this.dataType = this.div.attr('data-type');

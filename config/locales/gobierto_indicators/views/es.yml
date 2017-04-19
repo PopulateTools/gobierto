@@ -9,6 +9,7 @@ es:
         employment: Empleo
         economy: Economía
     intro: 'Conoce %{place} a través de sus principales cifras: la población, el empleo, la economía y los presupuestos.'
+    inhabitants: hab
     graphics:
       age_distribution:
         title: Comprueba la distribución por edades de tu municipio
@@ -47,12 +48,16 @@ es:
         agricultura: Agricultura
         servicios: Servicios
       income:
-        title: Renta media
+        title: Renta municipal
         gross: Renta bruta
         net: Renta disponible
-        place: ''
-        province: Renta bruta
-        country: Renta disponible
+        first_column: ''
+        second_column: Renda bruta
+        third_column: Renda disponible
+      income_overview:
+        title: Renta bruta
+        figure_first: '%{province}'
+        figure_second: España
       cars:
         title: Coches por habitante
       active_pop:
@@ -78,10 +83,10 @@ es:
       births:
         title: Tasa de nacimientos
         place: '%{place}'
-        province: '%{province}'
-        country: España
+        province: Media provincial
+        country: Media estatal
       deaths:
         title: Tasa de defunciones
         place: '%{place}'
-        province: '%{province}'
-        country: Espanya
+        province: Media provincial
+        country: Media estatal

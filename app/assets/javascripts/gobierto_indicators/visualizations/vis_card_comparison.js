@@ -1,7 +1,7 @@
 'use strict';
 
 var ComparisonCard = Class.extend({
-  init: function(divClass, json, value1, value2, cardName) {
+  init: function(divClass, json, value_1, value_2, cardName) {
     d3.timeFormatDefaultLocale(eval(I18n.locale));
 
     this.div = d3.select(divClass);
@@ -15,10 +15,10 @@ var ComparisonCard = Class.extend({
     var formatDate = d3.timeFormat("%B %Y");
 
     this.div.select('.widget_figure .figure-first')
-      .text(this._printData(this.firstDataType, value1));
+      .text(this._printData(this.firstDataType, value_1));
       
     this.div.select('.widget_figure .figure-second')
-      .text(this._printData(this.secondDataType, value2));
+      .text(this._printData(this.secondDataType, value_2));
 
     // Append source
     this.div.selectAll('.widget_src')
@@ -39,10 +39,10 @@ var ComparisonCard = Class.extend({
         return accounting.formatNumber(data, 0) + '%';
         break;
       case 'currency':
-        return accounting.formatNumber(data, 1) + '€';
+        return accounting.formatNumber(data, 0) + '€';
         break;
       case 'currency_per_person':
-        return accounting.formatNumber(data, 1) + '€/hab';
+        return accounting.formatNumber(data, 1) + '€/' + I18n.t('gobierto_indicators.inhabitants');
         break;
       default:
         return accounting.formatNumber(data, 0);

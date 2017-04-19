@@ -9,6 +9,7 @@ ca:
         employment: Ocupació
         economy: Economia
     intro: "Coneix %{place} a partir de les principals xifres: la població, l'ocupació i l'economia."
+    inhabitants: hab
     graphics:
       age_distribution:
         title: Descobreix la distribució per edats del teu municipi
@@ -47,12 +48,16 @@ ca:
         agricultura: Agricultura
         servicios: Serveis
       income:
-        title: Renda mitjana
+        title: Renda municipal
         gross: Renda bruta
         net: Renda disponible
-        place: ''
-        province: Renda bruta
-        country: Renda disponible
+        first_column: ''
+        second_column: Renda bruta
+        third_column: Renda disponible
+      income_overview:
+        title: Renda bruta
+        figure_first: '%{province}'
+        figure_second: Espanya
       cars:
         title: Cotxes per habitant
       active_pop:
@@ -78,10 +83,10 @@ ca:
       births:
         title: Taxa de naixements
         place: '%{place}'
-        province: '%{province}'
-        country: Espanya
+        province: Mitjana provincial
+        country: Mitjana estatal
       deaths:
         title: Taxa de defuncions
         place: '%{place}'
-        province: '%{province}'
-        country: Espanya
+        province: Mitjana provincial
+        country: Mitjana estatal

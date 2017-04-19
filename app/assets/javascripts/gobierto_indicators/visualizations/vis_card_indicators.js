@@ -75,7 +75,7 @@ var CardIndicators = Class.extend({
                 return accounting.formatNumber(json.data[0].value, 1) + '€';
                 break;
               case 'currency_per_person':
-                return accounting.formatNumber(json.data[0].value, 1) + '€/hab';
+                return accounting.formatNumber(json.data[0].value, 1) + '€/' + I18n.t('gobierto_indicators.inhabitants');
                 break;
               default:
                 return accounting.formatNumber(json.data[0].value, 0);

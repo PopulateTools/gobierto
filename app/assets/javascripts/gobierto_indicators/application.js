@@ -93,21 +93,16 @@ $(document).on('turbolinks:load', function() {
   var contrSectorCard = new ContractsBySectorCard('.contracts_sector', populateData.municipalityId);
   contrSectorCard.render();
   
+  var incomeOverviewCard = new IncomeOverviewCard('.income_overview', populateData.municipalityId);
+  incomeOverviewCard.render();
+  
   var incomeCard = new IncomeCard('.income', populateData.municipalityId);
   incomeCard.render();
   
-  // var birthRate = new BirthRateCard('.births', populateData.municipalityId);
-  // birthRate.render();
-
-  // // Render indicator cards info
-  // if ($('.indicator_widget').length) {
-  //   new CardIndicators('.indicator_widget', window.populateData.municipalityId);
-  // 
-  //   // Show dataset info on click
-  //   $('.card_container').click(function() {
-  //     $(this).toggleClass('hover');
-  //   });
-  // }
+  // Show dataset info on click
+  $('.card_container').click(function() {
+    $(this).toggleClass('hover');
+  });
 
   if(window.location.hash !== ""){
     selectSection();

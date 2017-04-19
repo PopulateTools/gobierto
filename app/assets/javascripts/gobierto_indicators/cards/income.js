@@ -6,11 +6,11 @@ var IncomeCard = Class.extend({
     this.div = d3.select(this.container);
     this.tbiToken = window.populateData.token;
     this.placeGrossUrl = window.populateData.endpoint + '/datasets/ds-renta-bruta-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=' + city_id;
-    this.provinceGrossUrl = window.populateData.endpoint + '/datasets/ds-renta-bruta-media-provincial.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=' + window.populateData.provinceId;
-    this.countryGrossUrl = window.populateData.endpoint + '/datasets/ds-renta-bruta-media-nacional.json?sort_desc_by=date&with_metadata=true&limit=1';
+    this.bcnGrossUrl = window.populateData.endpoint + '/datasets/ds-renta-bruta-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=08019'; // TODO: Use Populate Data's related cities API
+    this.vlcGrossUrl = window.populateData.endpoint + '/datasets/ds-renta-bruta-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=46250';  // TODO: Use Populate Data's related cities API
     this.placeNetUrl = window.populateData.endpoint + '/datasets/ds-renta-disponible-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=' + city_id;
-    this.provinceNetUrl = window.populateData.endpoint + '/datasets/ds-renta-disponible-media-provincial.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=' + window.populateData.provinceId;
-    this.countryNetUrl = window.populateData.endpoint + '/datasets/ds-renta-disponible-media-nacional.json?sort_desc_by=date&with_metadata=true&limit=1';
+    this.bcnNetUrl = window.populateData.endpoint + '/datasets/ds-renta-disponible-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=08019'; // TODO: Use Populate Data's related cities API
+    this.vlcNetUrl = window.populateData.endpoint + '/datasets/ds-renta-disponible-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=1&filter_by_location_id=46250'; // TODO: Use Populate Data's related cities API
     this.trend = this.div.attr('data-trend');
     this.freq = this.div.attr('data-freq');
   },
@@ -18,76 +18,76 @@ var IncomeCard = Class.extend({
     var placeGross = d3.json(this.placeGrossUrl)
     .header('authorization', 'Bearer ' + this.tbiToken);
 
-    var provinceGross = d3.json(this.provinceGrossUrl)
+    var bcnGross = d3.json(this.bcnGrossUrl)
       .header('authorization', 'Bearer ' + this.tbiToken);
     
-    var countryGross = d3.json(this.countryGrossUrl)
+    var vlcGross = d3.json(this.vlcGrossUrl)
       .header('authorization', 'Bearer ' + this.tbiToken);
 
     var placeNet = d3.json(this.placeNetUrl)
       .header('authorization', 'Bearer ' + this.tbiToken);
 
-    var provinceNet = d3.json(this.provinceNetUrl)
+    var bcnNet = d3.json(this.bcnNetUrl)
       .header('authorization', 'Bearer ' + this.tbiToken);
 
-    var countryNet = d3.json(this.countryNetUrl)
+    var vlcNet = d3.json(this.vlcNetUrl)
       .header('authorization', 'Bearer ' + this.tbiToken);
 
     d3.queue()
       .defer(placeGross.get)
-      .defer(provinceGross.get)
-      .defer(countryGross.get)
+      .defer(bcnGross.get)
+      .defer(vlcGross.get)
       .defer(placeNet.get)
-      .defer(provinceNet.get)
-      .defer(countryNet.get)
-      .await(function (error, placeGross, provinceGross, countryGross, placeNet, provinceNet, countryNet) {
+      .defer(bcnNet.get)
+      .defer(vlcNet.get)
+      .await(function (error, placeGross, bcnGross, vlcGross, placeNet, bcnNet, vlcNet) {
         if (error) throw error;
         
         // Gross
         placeGross.data.forEach(function(d) {
-          d.location_type = 'place';
+          d.column = 'first_column';
           d.location_name = window.populateData.municipalityName;
           d.kind = 'gross';
         });
         
-        provinceGross.data.forEach(function(d) {
-          d.location_type = 'province';
-          d.location_name = window.populateData.provinceName;
+        bcnGross.data.forEach(function(d) {
+          d.column = 'second_column';
+          d.location_name = 'Barcelona'
           d.kind = 'gross';
         });
         
-        countryGross.data.forEach(function(d) {
-          d.location_type = 'country';
-          d.location_name = I18n.t('country');
+        vlcGross.data.forEach(function(d) {
+          d.column = 'third_column';
+          d.location_name = 'Valencia'
           d.kind = 'gross';
         });
         
         // Net
         placeNet.data.forEach(function(d) {
-          d.location_type = 'place';
+          d.column = 'first_column';
           d.location_name = window.populateData.municipalityName;
           d.kind = 'net';
         });
         
-        provinceNet.data.forEach(function(d) {
-          d.location_type = 'province';
-          d.location_name = window.populateData.provinceName;
+        bcnNet.data.forEach(function(d) {
+          d.column = 'second_column';
+          d.location_name = 'Barcelona';
           d.kind = 'net';
         });
         
-        countryNet.data.forEach(function(d) {
-          d.location_type = 'country';
-          d.location_name = I18n.t('country');
+        vlcNet.data.forEach(function(d) {
+          d.column = 'third_column';
+          d.location_name = 'Valencia'
           d.kind = 'net';
         });
         
-        this.data = placeGross.data.concat(provinceGross.data, countryGross.data, placeNet.data, provinceNet.data, countryNet.data);
+        this.data = placeGross.data.concat(bcnGross.data, vlcGross.data, placeNet.data, bcnNet.data, vlcNet.data);
 
         this.nest = d3.nest()
           .key(function(d) { return d.location_id; })
           .rollup(function(v) {
             return {
-              column: v[0].location_type,
+              column: v[0].column,
               key: v[0].location_name,
               valueOne: v.filter(function(d) { return d.kind === 'gross' })[0].value,
               valueTwo: v.filter(function(d) { return d.kind === 'net' })[0].value,

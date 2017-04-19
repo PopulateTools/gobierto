@@ -9,6 +9,7 @@ en:
         employment: Employment
         economy: Economy
     intro: 'Understand %{place} through its main figures: the population, the employment market and the economy.'
+    inhabitants: inhab
     graphics:
       age_distribution:
         title: Discover the age distribution of your municipality
@@ -47,12 +48,16 @@ en:
         agricultura: Agriculture
         servicios: Services
       income:
-        title: Average income
+        title: Municipality income
         gross: Gross income
         net: Net income
-        place: ''
-        province: Gross income
-        country: Net income
+        first_column: ''
+        second_column: Renda bruta
+        third_column: Renda disponible
+      income_overview:
+        title: Gross income
+        figure_first: '%{province}'
+        figure_second: Spain
       cars:
         title: Cars per inhabitant
       active_pop:
@@ -78,10 +83,10 @@ en:
       births:
         title: Birth rate
         place: '%{place}'
-        province: '%{province}'
-        country: Spain
+        province: Province average
+        country: Country average
       deaths:
         title: Death rate
         place: '%{place}'
-        province: '%{province}'
-        country: Espanya
+        province: Province average
+        country: Country average

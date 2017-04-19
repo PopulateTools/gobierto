@@ -63,7 +63,7 @@ var TableCard = Class.extend({
         return accounting.formatNumber(data, 0) + '€';
         break;
       case 'currency_per_person':
-        return accounting.formatNumber(data, 0) + '€/hab';
+        return accounting.formatNumber(data, 0) + '€/' + I18n.t('gobierto_indicators.inhabitants');
         break;
       default:
         return accounting.formatNumber(data, 0);

@@ -202,10 +202,10 @@ var VisUnemploymentSex = Class.extend({
   _getLabel: function(sex) {
     switch (sex) {
       case 'H':
-        return 'Hombres';
+        return I18n.t('gobierto_indicators.graphics.unemployment_sex.men');
         break;
       case 'M':
-        return 'Mujeres';
+        return I18n.t('gobierto_indicators.graphics.unemployment_sex.women');
         break;
     }
   },

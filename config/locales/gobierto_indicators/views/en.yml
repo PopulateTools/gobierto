@@ -8,22 +8,28 @@ en:
         population: Population
         employment: Employment
         economy: Economy
-    copy:
-      title: 'Understand %{place} through its main figures: the population, the employment market and the economy.'
-      population:
-        title: Population
-        intro: Discover the age distribution of your municipality
-      employment:
-        title: Employment
-        rate_comparison: Unemployment rate comparison
-        sex_comparison: Unemployment by sex
-        age_comparison: Unemployment by age
-      economy:
-        title: Economy
-        intro: Wealth and population in the province
-        legend:
-          inhabitants: Inhabitants
-          income: Gross income
+    intro: 'Understand %{place} through its main figures: the population, the employment market and the economy.'
+    graphics:
+      age_distribution:
+        title: Discover the age distribution of your municipality
+        label: inhabitants
+        axis: years
+      unemployment_rate:
+        title: Unemployment rate comparison
+        country: Spain
+      unemployment_sex:
+        title: Unemployment by sex
+        women: Women
+        men: Men
+      unemployment_age:
+        title: Unemployment by age
+        less_25: Younger than 25
+        between_25_44: Between 25 and 44
+        more_44: Older than 44
+      rent_distribution:
+        title: Wealth and population in the province
+        inhabitants: Inhabitants
+        gross_income: Gross income
     cards:
       updated: Last update
       unemployed_sector:

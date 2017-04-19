@@ -132,10 +132,10 @@ var VisAgeDistribution = Class.extend({
     this.svg.select('.focus-halo')
       .attr('stroke', 'white')
       .attr('stroke-width', '2px')
-      .text(accounting.formatNumber(d.value, 0) + ' personas');
+      .text(accounting.formatNumber(d.value, 0) + ' ' + I18n.t('gobierto_indicators.graphics.age_distribution.label'));
       
     this.svg.select('.focus-text')
-      .text(accounting.formatNumber(d.value, 0) + ' personas');
+      .text(accounting.formatNumber(d.value, 0) + ' ' + I18n.t('gobierto_indicators.graphics.age_distribution.label'));
   },
   _mouseout: function(d) {
     this.svg.select('.focus')
@@ -188,7 +188,7 @@ var VisAgeDistribution = Class.extend({
   _formatNumberX: function(d) {
     // 'Age 100' is aggregated
     if (d === 0) {
-      return d + ' años';
+      return d + ' ' + I18n.t('gobierto_indicators.graphics.age_distribution.axis');
     } else if (d === 100) {
       return d + '+';
     } else {

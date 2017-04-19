@@ -182,11 +182,11 @@ var VisRentDistribution = Class.extend({
     this.tooltip.html('<div class="tooltip-city">' + d.datum.municipality_name + '</div>' +
       '<table class="tooltip-table">' +
           '<tr class="first-row">' +
-              '<td class="table-t">Habitantes</td>' +
+              '<td class="table-t">' + I18n.t('gobierto_indicators.graphics.rent_distribution.inhabitants') + '</td>' +
               '<td><span class="table-n">'+ accounting.formatNumber(d.datum.value, 0) +'</span></td>' +
           '</tr>' +
           '<tr class="second-row">' +
-              '<td class="table-t">Renta bruta</td>' +
+              '<td class="table-t">' + I18n.t('gobierto_indicators.graphics.rent_distribution.gross_income') + '</td>' +
               '<td>' + accounting.formatNumber(d.datum.rent, 0) + '€</td>' +
           '</tr>' +
       '</table>')

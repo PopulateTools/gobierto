@@ -151,13 +151,13 @@ var VisUnemploymentAge = Class.extend({
   _getAgeRange: function(age) {
     switch (age) {
       case '<25':
-        return 'Menores de 25';
+        return I18n.t('gobierto_indicators.graphics.unemployment_age.less_25');
         break;
       case '25-44':
-        return 'Entre 25 y 44';
+        return I18n.t('gobierto_indicators.graphics.unemployment_age.between_25_44');
         break;
       case '>=45':
-        return 'Mayores de 44';
+        return I18n.t('gobierto_indicators.graphics.unemployment_age.more_44');
     }
   },
   _renderAxis: function() {

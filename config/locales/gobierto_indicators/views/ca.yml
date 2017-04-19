@@ -8,22 +8,28 @@ ca:
         population: Població
         employment: Ocupació
         economy: Economia
-    copy:
-      title: "Coneix %{place} a partir de les principals xifres: la població, l'ocupació i l'economia."
-      population:
-        title: Població
-        intro: Descobreix la distribució per edats del teu municipi
-      employment:
-        title: Ocupació
-        rate_comparison: Comparació de la tasa d'atur
-        sex_comparison: L'atur segons el sexe
-        age_comparison: L'atur segons l'edat
-      economy:
-        title: Economia
-        intro: Riquesa i població a la província
-        legend:
-          inhabitants: Habitants
-          income: Renda bruta
+    intro: "Coneix %{place} a partir de les principals xifres: la població, l'ocupació i l'economia."
+    graphics:
+      age_distribution:
+        title: Descobreix la distribució per edats del teu municipi
+        label: habitants
+        axis: anys
+      unemployment_rate:
+        title: Comparació de la taxa d'atur
+        country: Espanya
+      unemployment_age:
+        title: L'atur segons l'edat
+        less_25: Menors de 25
+        between_25_44: Entre 25 i 44
+        more_44: Més de 44
+      unemployment_sex:
+        title: L'atur segons el sexe
+        women: Dones
+        men: Homes
+      rent_distribution:
+        title: Riquesa i població a la província
+        inhabitants: Habitants
+        gross_income: Renda bruta
     cards:
       updated: Darrera actualització
       unemployed_sector:

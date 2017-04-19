@@ -224,7 +224,7 @@ var VisUnemploymentRate = Class.extend({
   _getPlaceType: function(place) {
     switch (place) {
       case 'country':
-        return 'España';
+        return I18n.t('gobierto_indicators.graphics.unemployment_rate.country');
         break;
       case 'autonomous_region':
         return window.populateData.ccaaName;

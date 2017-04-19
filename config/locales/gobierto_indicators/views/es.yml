@@ -8,22 +8,28 @@ es:
         population: Población
         employment: Empleo
         economy: Economía
-    copy:
-      title: 'Conoce %{place} a través de sus principales cifras: la población, el empleo, la economía y los presupuestos.'
-      population:
-        title: Población
-        intro: Comprueba la distribución por edades de tu municipio
-      employment:
-        title: Empleo
-        rate_comparison: Comparación de la tasa de paro
-        sex_comparison: Desempleo según sexo
-        age_comparison: Desempleo según la edad
-      economy:
-        title: Economía
-        intro: Riqueza y población en la provincia
-        legend:
-          inhabitants: Habitantes
-          income: Renta bruta
+    intro: 'Conoce %{place} a través de sus principales cifras: la población, el empleo, la economía y los presupuestos.'
+    graphics:
+      age_distribution:
+        title: Comprueba la distribución por edades de tu municipio
+        label: habitantes
+        axis: años
+      unemployment_rate:
+        title: Comparación de la tasa de paro
+        country: España
+      unemployment_sex:
+        title: Desempleo según el sexo
+        women: Mujeres
+        men: Hombres
+      unemployment_age:
+        title: Desempleo según la edad
+        less_25: Menores de 25
+        between_25_44: Entre 25 y 44
+        more_44: Mayores de 44
+      rent_distribution:
+        title: Riqueza y población en la provincia
+        inhabitants: Habitantes
+        gross_income: Renta bruta
     cards:
       updated: Última actualización
       unemployed_sector:

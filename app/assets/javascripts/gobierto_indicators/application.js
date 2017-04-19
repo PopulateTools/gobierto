@@ -105,6 +105,9 @@ $(document).on('turbolinks:load', function() {
   var debtPerInhab = new DebtByInhabitantCard('.debt_by_inhabitant', populateData.municipalityId);
   debtPerInhab.render();
   
+  var ibi =  new IbiCard('.ibi', populateData.municipalityId)
+  ibi.render();
+
   // Show dataset info on click
   // $('.card_container').click(function() {
   //   $(this).toggleClass('hover');

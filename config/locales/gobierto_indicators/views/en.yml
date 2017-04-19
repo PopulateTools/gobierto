@@ -97,3 +97,10 @@ en:
         third_column: Valencia
       debt_by_inhabitant:
         title: Debt by inhabitant
+      ibi:
+        title: IBI
+        city: City buildings
+        net: Rustic buildings
+        first_column: ''
+        second_column: City buildings
+        third_column: Rustic buildings

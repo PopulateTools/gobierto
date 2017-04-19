@@ -97,3 +97,10 @@ es:
         third_column: Valencia
       debt_by_inhabitant:
         title: Deuda por habitante
+      ibi:
+        title: IBI
+        city: Viviendas urbanas
+        net: Viviendas rústicas
+        first_column: ''
+        second_column: Viviendas urbanas
+        third_column: Viviendas rústicas

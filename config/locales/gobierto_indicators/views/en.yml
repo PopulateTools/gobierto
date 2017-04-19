@@ -104,3 +104,5 @@ en:
         first_column: ''
         second_column: City buildings
         third_column: Rustic buildings
+      budget_by_inhabitant:
+        title: Budget per inhabitant

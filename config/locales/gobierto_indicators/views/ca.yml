@@ -98,9 +98,11 @@ ca:
       debt_by_inhabitant:
         title: Deute per habitant
       ibi:
-          title: IBI
-          city: Habitatge urbà
-          net: Habitatge rústic
-          first_column: ''
-          second_column: Habitatge urbà
-          third_column: Habitatge rústic
+        title: IBI
+        city: Habitatge urbà
+        net: Habitatge rústic
+        first_column: ''
+        second_column: Habitatge urbà
+        third_column: Habitatge rústic
+      budget_by_inhabitant:
+        title: Pressupost per habitant

@@ -104,3 +104,5 @@ es:
         first_column: ''
         second_column: Viviendas urbanas
         third_column: Viviendas rústicas
+      budget_by_inhabitant:
+        title: Presupuesto por habitante

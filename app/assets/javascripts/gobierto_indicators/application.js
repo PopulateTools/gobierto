@@ -107,7 +107,9 @@ $(document).on('turbolinks:load', function() {
   
   var ibi =  new IbiCard('.ibi', populateData.municipalityId)
   ibi.render();
-
+  
+  var budget =  new BudgetByInhabitantCard('.budget_by_inhabitant', populateData.municipalityId)
+  budget.render();
   // Show dataset info on click
   // $('.card_container').click(function() {
   //   $(this).toggleClass('hover');

@@ -45,8 +45,6 @@ var DebtByInhabitantCard = Class.extend({
         
         this.data = [json.data[0], bcn.data[0], vlc.data[0]];
         
-        console.log(this.data);
-        
         new BarsCard(this.container, json, this.data, 'debt_by_inhabitant');
       }.bind(this));
   },

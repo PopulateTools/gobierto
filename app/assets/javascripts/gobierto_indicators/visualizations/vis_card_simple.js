@@ -1,7 +1,7 @@
 'use strict';
 
 var SimpleCard = Class.extend({
-  init: function(divClass, json, value, cardName) {
+  init: function(divClass, json, value, cardName, valueType) {
     d3.timeFormatDefaultLocale(eval(I18n.locale));
 
     this.div = d3.select(divClass);
@@ -33,8 +33,8 @@ var SimpleCard = Class.extend({
       var spark = new Sparkline(divClass + ' .sparkline', json.data, trend, freq);
       spark.render();
 
-      var pctChange = (value / json.data[1].value * 100) - 100;
-      var pctFormat = accounting.formatNumber(pctChange, 1) + '%';
+      var pctChange = valueType ? (value / json.data[1][valueType] * 100) - 100 : (value / json.data[1].value * 100) - 100
+      var pctFormat = accounting.formatNumber(pctChange, 2) + '%';
       var isPositive = pctChange > 0;
 
       // If is a positive change, attach a plus sign to the number
@@ -57,7 +57,7 @@ var SimpleCard = Class.extend({
         return accounting.formatNumber(data, 1) + '%';
         break;
       case 'currency':
-        return accounting.formatNumber(data, 1) + '€';
+        return accounting.formatNumber(data, 0) + '€';
         break;
       case 'currency_per_person':
         return accounting.formatNumber(data, 1) + '€/' + I18n.t('gobierto_indicators.inhabitants');

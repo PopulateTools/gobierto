@@ -32,7 +32,7 @@
   		</div>
   		
   		<div class="pure-g padded_cols">
-        <%= render 'card_simple', {card_class: 'population_card'} %>
+        <%= render 'card_simple', {card_class: 'population_card', data_type: 'figure'} %>
         <%= render 'card_sparkline_table', {card_class: 'births', data_trend: 'up', data_type: 'percentage_by_thousand', data_freq: 'annual'} %>
         <%= render 'card_sparkline_table', {card_class: 'deaths', data_trend: 'down', data_type: 'percentage_by_thousand', data_freq: 'annual'} %>
         <%= render 'card_comparison', {card_class: 'active_pop', data_type_one: 'percentage', data_type_two: 'figure', data_freq: 'daily' } %>
@@ -63,11 +63,11 @@
   		</div>
   		
   		<div class="pure-g padded_cols">
-        <%= render 'card_simple', {card_class: 'ss_members'} %>
+        <%= render 'card_simple', {card_class: 'ss_members', data_type: 'figure'} %>
         <%= render 'card_sparkline_table', {card_class: 'unemployed_sector', data_trend: 'down', data_type: 'figure', data_freq: 'daily'} %>
         <%= render 'card_sparkline_table', {card_class: 'contracts_sector', data_trend: 'up', data_type: 'figure', data_freq: 'daily'} %>
-        <%= render 'card_simple', {card_class: 'freelancers'} %>
-        <%= render 'card_simple', {card_class: 'companies'} %>
+        <%= render 'card_simple', {card_class: 'freelancers', data_type: 'figure'} %>
+        <%= render 'card_simple', {card_class: 'companies', data_type: 'figure'} %>
         <%= render 'card_comparison', {card_class: 'contracts_comparison', data_type_one: 'figure', data_type_two: 'figure', data_freq: 'daily' } %>
   		</div>
   	</section>
@@ -94,6 +94,7 @@
         <%= render 'card_sparkline_table', {card_class: 'investment_by_inhabitant', data_trend: 'up', data_type: 'currency', data_freq: 'daily'} %>
         <%= render 'card_bars', {card_class: 'debt_by_inhabitant', data_type: 'currency_per_person', data_freq: 'annual' } %>
         <%= render 'card_table', {card_class: 'ibi', data_type_one: 'percentage', data_type_two: 'percentage', data_freq: 'daily'} %>
+        <%= render 'card_simple', {card_class: 'budget_by_inhabitant', data_type: 'currency'} %>
   		</div>
   	</section>
   </div>

@@ -27,7 +27,7 @@ var SparklineTableCard = Class.extend({
       .text(I18n.t('gobierto_indicators.cards.' + cardName + '.title'));
       
     var rows = value.map(function(d) {
-      return '<td>' + I18n.t('gobierto_indicators.cards.' + cardName + '.' + this._normalize(d.key)) + '</td> \
+      return '<td>' + I18n.t('gobierto_indicators.cards.' + cardName + '.' + this._normalize(d.key), {place: window.populateData.municipalityName, province: window.populateData.provinceName }) + '</td> \
         <td class="sparktable sparkline-' + this._normalize(d.key) + '"></td> \
         <td>' + accounting.formatNumber(d.diff, 1) + '%</td> \
         <td>' + this._printData(d.value) + '</td>'
@@ -45,6 +45,9 @@ var SparklineTableCard = Class.extend({
     switch (this.dataType) {
       case 'percentage':
         return accounting.formatNumber(data, 1) + '%';
+        break;
+      case 'percentage_by_thousand':
+        return accounting.formatNumber(data, 1) + '‰';
         break;
       case 'currency':
         return accounting.formatNumber(data, 1) + '€';

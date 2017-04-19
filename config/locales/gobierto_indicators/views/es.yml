@@ -67,3 +67,8 @@ es:
         title: Afiliados a la Seguridad Social
       population:
         title: Habitantes
+      births:
+        title: Tasa de nacimientos
+        place: '%{place}'
+        province: '%{province}'
+        country: España

@@ -67,3 +67,8 @@ ca:
         title: Afiliats a la Seguretat Social
       population:
         title: Habitants
+      births:
+        title: Tasa de naixements
+        place: '%{place}'
+        province: '%{province}'
+        country: Espanya

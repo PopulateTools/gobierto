@@ -60,6 +60,9 @@ $(document).on('turbolinks:load', function() {
   var popCard = new PopulationCard('.population_card', populateData.municipalityId);
   popCard.render();
   
+  var births = new BirthRateCard('.births', populateData.municipalityId);
+  births.render();
+  
   var activePopCard = new ActivePopulationCard('.active_pop', populateData.municipalityId);
   activePopCard.render();
   

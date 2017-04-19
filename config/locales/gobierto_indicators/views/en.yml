@@ -67,3 +67,8 @@ en:
         title: Social Security affiliates
       population:
         title: Inhabitants
+      births:
+        title: Birth rate
+        place: '%{place}'
+        province: '%{province}'
+        country: Spain

@@ -6,7 +6,7 @@ module IbmNotes
     def initialize(person, response_event)
       @external_id  = response_event['id']
       @title        = response_event['summary']
-      @state = (response_event['transparency'] == 'transparent') ? 'published' : 'pending'
+      @state        = 'published'
       @person       = person
       set_start_and_end_date(response_event)
     end

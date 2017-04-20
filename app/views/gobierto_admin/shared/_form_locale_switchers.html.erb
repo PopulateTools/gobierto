@@ -3,7 +3,7 @@
     <label><%= t('.translate') %></label>
     <% current_site.configuration.available_locales.each do |locale| %>
       <a href="#" data-toggle-edit-locale="<%= locale %>" class="locale_option tipsit" title="<%= t('.define_content_in_locale', locale_name: t("locales.#{locale}")) %>" <%= %Q{data-loaded-locale="#{locale}"}.html_safe if locale == current_site.configuration.default_locale %>>
-        <span class="locale"><%= locale.upcase %></span>
+        <span class="locale"><%= t("locales.#{locale}_short").upcase %></span>
         <span class="status"></span>
       </a>
     <% end %>

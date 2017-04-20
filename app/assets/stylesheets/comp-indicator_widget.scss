@@ -85,6 +85,9 @@
       stroke-opacity: 0.15;
       stroke-width: 4;
     }
+    circle {
+      fill-opacity: 0.15;
+    }
   }
   
   .widget_table {
@@ -95,7 +98,7 @@
         fill: none;
         stroke-linejoin: round;
         stroke-linecap: round;
-        stroke-width: 2;
+        stroke-width: 1.5;
       }
     }
   }

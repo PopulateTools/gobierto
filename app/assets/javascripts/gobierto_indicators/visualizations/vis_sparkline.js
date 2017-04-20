@@ -52,14 +52,21 @@ var Sparkline = Class.extend({
     
     this.svg.append('path')
       .datum(this.data)
-      .attr('stroke', function() {
-        if (this.isPositive && this.trend === 'up' || !this.isPositive && this.trend === 'down') {
-          return '#AAC44B';
-        } else {
-          return '#981F2E';
-        }
-      }.bind(this))
+      .attr('stroke', this._getColor())
       .attr('d', this.line);
+      
+    this.svg.append('circle')
+      .attr('cx', function(d) { return this.xScale(this.data[0].date); }.bind(this))
+      .attr('cy', function(d) { return this.yScale(this.data[0].value); }.bind(this))
+      .attr('r', 2.5)
+      .attr('fill', this._getColor());
+  },
+  _getColor: function() {
+    if (this.isPositive && this.trend === 'up' || !this.isPositive && this.trend === 'down') {
+      return '#AAC44B';
+    } else {
+      return '#981F2E';
+    }
   },
   _type: function() {
     this.data.forEach(function(d) {
@@ -87,5 +94,9 @@ var Sparkline = Class.extend({
     
     this.svg.select('path')
       .attr('d', this.line);
+      
+    this.svg.select('circle')
+      .attr('cx', function(d) { return this.xScale(this.data[0].date); }.bind(this))
+      .attr('cy', function(d) { return this.yScale(this.data[0].value); }.bind(this))
   }
 });

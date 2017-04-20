@@ -36,6 +36,7 @@ en:
             visibility_level:
               pending: Draft
               published: Published
+            configuration: Configuration
           locations_form:
             header:
               address: Address

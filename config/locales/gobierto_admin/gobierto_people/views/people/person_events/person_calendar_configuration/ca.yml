@@ -1,0 +1,15 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_events:
+          person_calendar_configuration:
+            edit:
+              labels:
+                ibm_notes_url: URL del calendari d'IBM Notes
+              placeholders:
+                ibm_notes_url: URL del calendari d'IBM Notes
+              update: Actualitzar
+            navigation:
+                calendar_configuration: Configuració del calendari

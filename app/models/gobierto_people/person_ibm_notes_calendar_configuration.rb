@@ -5,5 +5,9 @@ module GobiertoPeople
       data['endpoint']
     end
 
+    def endpoint=(endpoint)
+      data['endpoint'] = endpoint
+    end
+
   end
 end

@@ -5,6 +5,8 @@ module GobiertoBudgetConsultations
 
     layout "gobierto_budget_consultations/layouts/application"
 
+    before_action { module_enabled!(current_site, "GobiertoBudgetConsultations") }
+
     protected
 
     def check_not_responded

@@ -5,8 +5,9 @@
 
 // Intro
 .gobierto_indicators {
-  .container > .column {
+  .graphics {
     overflow: hidden;
+    margin-top: 2rem;
   }
   .sections-nav {
     float: left;
@@ -38,15 +39,25 @@
   .sections {
     position: relative;
     float: left;
-    margin-left: 2rem;
-    width: calc(100% - 10rem);
+    margin-left: 3rem;
+    width: calc(100% - 11rem);
   }
   section {
-	   padding-top: 2rem;
-	   border-top: 1px solid #EBEBEB;
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+	  border-bottom: 1px solid #EBEBEB;
+    
+    &:first-child {
+      margin-top: 1rem;
+    }
+     
+    &:last-child {
+      border-bottom: none;
+    }
       
     .section_headline {
     	font-weight: 400;
+      margin-top: 0;
     	margin-bottom: 0.5em;
     	font-size: 2rem;
     }
@@ -76,6 +87,7 @@
   	padding: 5em 0 4em 0;
   	background: $color_main_negative;
   	margin-top: -2em;
+    border-bottom: 1px solid #EBEBEB;
   }
   .intro_headline {
   	margin-bottom: 0;
@@ -226,8 +238,9 @@
 
   #empleo {
     .chart_headline {
-      margin: 0 auto;
-      max-width: 150px;
+      text-align: left;
+      margin-top: 1rem;
+      margin-bottom: 0;
     }
   }
   #unemployment_rate,
@@ -355,7 +368,7 @@
     }
   	#rent_distribution {
   		margin-top: 2rem;
-    
+
       .chart_headline {
     		margin-top: 0;
     		position: absolute;

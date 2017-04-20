@@ -1,17 +1,15 @@
-<div class="intro_section clearfix">
-	<div class="column">
-		<div class="pure-g">
-			<div class="pure-u-1 pure-u-md-2-5">
-        <p class="intro_desc"><%= t("gobierto_indicators.intro", place: @site.place.name) %></p>
-			</div>
-			<div class="pure-u-1 pure-u-md-3-5">
-				<%= image_tag('illustrations/integra.jpg', class: 'img-fluid side_50 pb1') %>
-			</div>
+<div class="intro_section clearfix column">
+	<div class="pure-g">
+		<div class="pure-u-1 pure-u-md-2-5">
+      <p class="intro_desc"><%= t("gobierto_indicators.intro", place: @site.place.name) %></p>
+		</div>
+		<div class="pure-u-1 pure-u-md-3-5">
+			<%= image_tag('illustrations/integra.jpg', class: 'img-fluid side_50 pb1') %>
 		</div>
 	</div>
 </div>
 
-<div class="column">
+<div class="column graphics">
   <nav class="sections-nav">
     <ul>
       <li><a href="#poblacion"><%= t("gobierto_indicators.layouts.menu_subsections.population") %></a></li>
@@ -21,7 +19,7 @@
   </nav>
    
   <div class="sections">
-  	<section id="poblacion" class="mb4">
+  	<section id="poblacion">
   		<div class="pure-g">
   			<div class="pure-u-1 pure-u-md-1">
   				<h2 class="section_headline" id="population"><%= t("gobierto_indicators.layouts.menu_subsections.population") %></h2>
@@ -41,7 +39,7 @@
   		</div>
   	</section>
 
-  	<section id="empleo" class="mb4">
+  	<section id="empleo">
   		<div class="pure-g">
   			<div class="pure-u-1 pure-u-md-2-3">
   				<h2 class="section_headline" id="employment"><%= t("gobierto_indicators.layouts.menu_subsections.employment") %></h2>
@@ -73,7 +71,7 @@
   	</section>
 
 
-  	<section id="economia" class="mb4">
+  	<section id="economia">
   		<div class="pure-g">
   			<div class="pure-u-1">
           <h2 class="section_headline" id="economy"><%= t("gobierto_indicators.layouts.menu_subsections.economy") %></h2>

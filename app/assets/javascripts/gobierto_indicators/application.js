@@ -132,7 +132,7 @@ $(document).on('turbolinks:load', function() {
       // scroll to each target
       $(target).velocity('scroll', {
           duration: 500,
-          offset: 40,
+          offset: 0,
           easing: 'ease-in-out'
       });
   });

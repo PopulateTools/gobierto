@@ -28,6 +28,8 @@ var DebtByInhabitantCard = Class.extend({
       .await(function (error, json, bcn, vlc) {
         if (error) throw error;
         
+        console.log(json);
+        
         json.data.forEach(function(d) {
           d.figure = d.divided_by_value;
           d.key = window.populateData.municipalityName;

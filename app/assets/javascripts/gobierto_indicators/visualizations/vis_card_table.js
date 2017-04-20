@@ -14,8 +14,6 @@ var TableCard = Class.extend({
     var parsedDate = parseDate(json.data[0].date);
     var formatDate = d3.timeFormat("%B %Y");
     
-    console.log(nest);
-    
     this.div.selectAll('.tw-sharer')
       .attr('target', '_blank')
       .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_indicators.cards.meta.where') + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(I18n.t('gobierto_indicators.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_indicators.cards.meta.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(nest[0].value.valueOne))  + '&url=' + window.location.href + '&via=gobierto&source=webclient');

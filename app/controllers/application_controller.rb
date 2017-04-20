@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include SubmodulesHelper
+  include ::GobiertoCommon::ModuleHelper
 
   protect_from_forgery with: :exception
 
@@ -70,5 +71,9 @@ class ApplicationController < ActionController::Base
 
   def remote_ip
     request.env['action_dispatch.remote_ip'].try(:calculate_ip) || request.remote_ip
+  end
+
+  def raise_module_not_enabled
+    redirect_to(root_path) and return false
   end
 end

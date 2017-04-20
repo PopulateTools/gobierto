@@ -30,7 +30,7 @@ class SiteTest < ActiveSupport::TestCase
     site.admin_sites.delete_all
 
     assert_difference "site.admin_sites.size", 1 do
-      assert_send [site, :initialize_admins]
+      site.send :initialize_admins
     end
   end
 

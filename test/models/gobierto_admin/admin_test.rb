@@ -64,13 +64,13 @@ module GobiertoAdmin
 
     # -- Initialization
     def test_god_flag_initialization_when_it_is_already_present
-      assert_send [admin, :set_god_flag]
+      admin.send :set_god_flag
       refute admin.god
     end
 
     def test_god_flag_initialization_when_it_is_not_already_present
       Admin.god.delete_all
-      assert_send [admin, :set_god_flag]
+      admin.send :set_god_flag
       assert admin.god
     end
 

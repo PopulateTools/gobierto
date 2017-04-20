@@ -151,6 +151,9 @@ es:
     ca: Catalán
     en: Inglés
     es: Castellano
+    ca_short: CA
+    en_short: EN
+    es_short: ES
   number:
     currency:
       format:

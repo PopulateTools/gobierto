@@ -34,6 +34,9 @@ ca:
         million: milió
         thousand: mil
     cards:
+      meta:
+        where: 'A '
+        time: ' al '
       updated: Darrera actualització
       unemployed_sector:
         title: Desempleats per sector
@@ -49,8 +52,6 @@ ca:
         servicios: Serveis
       income:
         title: Renda municipal
-        gross: Renda bruta
-        net: Renda disponible
         first_column: ''
         second_column: Renda bruta
         third_column: Renda disponible
@@ -98,12 +99,10 @@ ca:
       debt_by_inhabitant:
         title: Deute per habitant
       ibi:
-        title: IBI
-        city: Habitatge urbà
-        net: Habitatge rústic
+        title: Impost sobre els Béns Immobles
         first_column: ''
-        second_column: Habitatge urbà
-        third_column: Habitatge rústic
+        second_column: Urbàns
+        third_column: Rústics
       budget_by_inhabitant:
         title: Pressupost per habitant
       construction_tax:

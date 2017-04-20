@@ -6,13 +6,21 @@ var BarsCard = Class.extend({
 
     this.div = d3.select(divClass);
     this.dataType = this.div.attr('data-type');
-
+    
     var freq = this.div.attr('data-freq');
 
     var parseDate = freq === 'daily' ? d3.timeParse('%Y-%m-%d') : freq === 'monthly' ? d3.timeParse('%Y-%m') : d3.timeParse('%Y');
     var parsedDate = parseDate(json.data[0].date);
     var formatDate = d3.timeFormat("%B %Y");
     var isMobile = innerWidth <= 768;
+    
+    this.div.selectAll('.tw-sharer')
+      .attr('target', '_blank')
+      .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_indicators.cards.meta.where') + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(I18n.t('gobierto_indicators.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_indicators.cards.meta.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(data[0].figure))  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
+
+    this.div.selectAll('.fb-sharer')
+      .attr('target', '_blank')
+      .attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + window.location.href);
 
     // Append source
     this.div.selectAll('.widget_src')
@@ -24,11 +32,12 @@ var BarsCard = Class.extend({
 
     // Append metadata
     this.div.selectAll('.widget_title')
+      .attr('title', I18n.t('gobierto_indicators.cards.' + cardName + '.title'))
       .text(I18n.t('gobierto_indicators.cards.' + cardName + '.title'));
     
     // Paint bars
     var x = d3.scaleLinear()
-      .range([0, isMobile ? 50 : 55])
+      .range([0, isMobile ? 40 : 45])
       .domain([0, d3.max(data, function(d) { return d.figure; })]);
       
     var row = this.div.select('.bars')

@@ -101,6 +101,19 @@
     z-index: 2;
     clear: both;
   }
+  
+  /* Cards */
+  .padded_cols.pure-g {
+    @include min-screen(768) {
+      width: calc(100% + 4em);
+    }
+    .padded {
+      margin: 1.5rem;
+    }
+    .widget_body {
+      height: 110px;
+    }
+  }
 
   /* Graphics */
   .gobierto_indicators .axis path {

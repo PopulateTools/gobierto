@@ -35,6 +35,9 @@ en:
         thousand: thousand
     cards:
       updated: Last update
+      meta:
+        where: 'At '
+        time: ' in '
       unemployed_sector:
         title: Unemployed by sector
         industria: Industry
@@ -49,11 +52,9 @@ en:
         servicios: Services
       income:
         title: Municipality income
-        gross: Gross income
-        net: Net income
         first_column: ''
-        second_column: Renda bruta
-        third_column: Renda disponible
+        second_column: Gross income
+        third_column: Net income
       income_overview:
         title: Gross income
         figure_first: '%{province}'
@@ -98,12 +99,10 @@ en:
       debt_by_inhabitant:
         title: Debt by inhabitant
       ibi:
-        title: IBI
-        city: City buildings
-        net: Rustic buildings
+        title: Land value tax
         first_column: ''
-        second_column: City buildings
-        third_column: Rustic buildings
+        second_column: City
+        third_column: Rustic
       budget_by_inhabitant:
         title: Budget per inhabitant
       construction_tax:

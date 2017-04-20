@@ -31,31 +31,21 @@ $(document).on('turbolinks:load', function() {
   // Process unemployment age data and pass it to the charts
   getUnemplAgeData.getData(function() {
     // Needs the data to set the same y scale
-    if ($('#unemployment_sex').length && !$('#unemployment_sex svg').length) {
-      var vis_unemplSex = new VisUnemploymentSex('#unemployment_sex', window.populateData.municipalityId, window.unemplAgeData);
-      vis_unemplSex.render();
-    }
+    var vis_unemplSex = new VisUnemploymentSex('#unemployment_sex', window.populateData.municipalityId, window.unemplAgeData);
+    vis_unemplSex.render();
     
-    if ($('#unemployment_age').length && !$('#unemployment_age svg').length) {
-      var vis_unempl = new VisUnemploymentAge('#unemployment_age', window.populateData.municipalityId, window.unemplAgeData);
-      vis_unempl.render();
-    }
-  })
+    var vis_unempl = new VisUnemploymentAge('#unemployment_age', window.populateData.municipalityId, window.unemplAgeData);
+    vis_unempl.render();
+  });
 
-  if ($('#age_distribution').length && !$('#age_distribution svg').length) {
-    var vis_agedb = new VisAgeDistribution('#age_distribution', window.populateData.municipalityId, window.populateData.year - 1);
-    vis_agedb.render();
-  }
-  
-  if ($('#unemployment_rate').length && !$('#unemployment_rate svg').length) {
-    var vis_unemplR = new VisUnemploymentRate('#unemployment_rate', window.populateData.municipalityId, window.populateData.ccaaId);
-    vis_unemplR.render();
-  }
+  var vis_agedb = new VisAgeDistribution('#age_distribution', window.populateData.municipalityId, window.populateData.year - 1);
+  vis_agedb.render();
 
-  if ($('#rent_distribution').length && !$('#rent_distribution svg').length) {
-    var vis_rent = new VisRentDistribution('#rent_distribution', window.populateData.municipalityId, window.populateData.year - 1);
-    vis_rent.render();
-  }
+  var vis_unemplR = new VisUnemploymentRate('#unemployment_rate', window.populateData.municipalityId, window.populateData.ccaaId);
+  vis_unemplR.render();
+
+  var vis_rent = new VisRentDistribution('#rent_distribution', window.populateData.municipalityId, window.populateData.year - 1);
+  vis_rent.render();
   
   var popCard = new PopulationCard('.population_card', populateData.municipalityId);
   popCard.render();

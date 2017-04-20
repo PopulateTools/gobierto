@@ -36,14 +36,6 @@ var CardIndicators = Class.extend({
           div.selectAll('.js-data-desc')
             .text(json.metadata.indicator.name);
             
-          div.selectAll('.tw-sharer')
-            .attr('target', '_blank')
-            .attr('href', 'https://twitter.com/intent/tweet?text=' + 'En ' + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(json.metadata.name).toLowerCase() + ' en ' + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(printData())  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
-
-          div.selectAll('.fb-sharer')
-            .attr('target', '_blank')
-            .attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + window.location.href);
-
           div.selectAll('.js-data-freq')
             .text(printFreq);
 

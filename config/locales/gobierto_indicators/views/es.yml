@@ -35,6 +35,9 @@ es:
         thousand: mil
     cards:
       updated: Última actualización
+      meta:
+        where: 'En '
+        time: ' en '
       unemployed_sector:
         title: Desempleados por sector
         industria: Industria
@@ -49,11 +52,9 @@ es:
         servicios: Servicios
       income:
         title: Renta municipal
-        gross: Renta bruta
-        net: Renta disponible
         first_column: ''
-        second_column: Renda bruta
-        third_column: Renda disponible
+        second_column: Renta bruta
+        third_column: Renta disponible
       income_overview:
         title: Renta bruta
         figure_first: '%{province}'
@@ -98,12 +99,10 @@ es:
       debt_by_inhabitant:
         title: Deuda por habitante
       ibi:
-        title: IBI
-        city: Viviendas urbanas
-        net: Viviendas rústicas
+        title: Impuesto sobre bienes inmuebles
         first_column: ''
-        second_column: Viviendas urbanas
-        third_column: Viviendas rústicas
+        second_column: Urbano
+        third_column: Rústico
       budget_by_inhabitant:
         title: Presupuesto por habitante
       construction_tax:

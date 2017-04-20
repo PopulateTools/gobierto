@@ -1,11 +1,4 @@
 /* Widget */
-.gobierto_indicators {
-  .padded_cols.pure-g {
-    @include min-screen(768) {
-      width: calc(100% + 4em);
-    }
-  }
-}
 .card_container {
 	position: relative;
 	perspective: 1000px;
@@ -120,8 +113,7 @@
 
       .key {
         padding-right: 5px;
-        min-width: 20%;
-        max-width: 30%;
+        width: 25%;
         vertical-align: top;
         display: inline-block;
       }

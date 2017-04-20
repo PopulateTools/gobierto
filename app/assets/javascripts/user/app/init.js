@@ -1,7 +1,5 @@
 this.User = {
-  init: function() {
-    return console.log("User.init");
-  }
+  init: function() {}
 };
 
 $(document).ready(function() {

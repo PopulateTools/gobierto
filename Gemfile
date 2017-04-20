@@ -14,7 +14,6 @@ gem "dalli"
 gem "cookies_eu"
 gem "actionpack-action_caching", git: "https://github.com/rails/actionpack-action_caching.git", ref: "9044141824650138bf27741e8f0ed95ccd9ef26d"
 gem "active_model_serializers"
-gem "timecop"
 gem "mechanize"
 
 # Frontend
@@ -27,7 +26,7 @@ gem "therubyracer"
 gem "flight-for-rails"
 gem "cocoon"
 gem "i18n-js", ">= 3.0.0.rc11"
-gem "d3-rails", "~> 4.3"
+gem "d3-rails", "~> 4.8"
 
 # Elasticsearch
 gem "elasticsearch"
@@ -61,6 +60,7 @@ gem "redis", "~> 3.3"
 
 # Translations
 gem "json_translate", "~> 3.0"
+gem "i18n-active_record", :require => "i18n/active_record"
 
 # Liquid
 gem "liquid", "~> 4.0"
@@ -85,6 +85,7 @@ group :test do
   gem "minitest-retry"
   gem "capybara-email"
   gem "vcr"
+  gem "timecop"
 end
 
 group :development do

@@ -1,7 +1,5 @@
 this.GobiertoAdmin = {
-  init: function() {
-    return console.log("GobiertoAdmin.init");
-  }
+  init: function() {}
 };
 
 $(document).ready(function() {

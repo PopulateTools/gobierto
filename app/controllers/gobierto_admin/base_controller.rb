@@ -3,7 +3,6 @@ module GobiertoAdmin
     include SessionHelper
     include SiteSessionHelper
     include LayoutPolicyHelper
-    include ModuleHelper
 
     skip_before_action :authenticate_user_in_site
     before_action :authenticate_admin!
@@ -46,6 +45,15 @@ module GobiertoAdmin
           redirect_to admin_root_path
         end
       end
+    end
+
+    protected
+
+    def raise_module_not_enabled
+      redirect_to(
+        admin_root_path,
+        alert: t("gobierto_admin.module_helper.not_enabled")
+      )
     end
   end
 end

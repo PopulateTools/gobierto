@@ -46,6 +46,8 @@ module Gobierto
 
     # Do not add wrapper .field_with_errors around form fields with validation errors
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
+
+    config.time_zone = 'Madrid'
   end
 end
 

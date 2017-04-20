@@ -2,9 +2,12 @@ module GobiertoSeeds
   class Recipe
     def self.run(site)
       # Config keys
-      settings = GobiertoModuleSettings.new site: site, module_name: "GobiertoPeople"
-      settings.submodules_enabled = GobiertoPeople.module_submodules
-      settings.save!
+      settings = GobiertoModuleSettings.find_by site: site, module_name: "GobiertoPeople"
+      if settings.nil?
+        settings = GobiertoModuleSettings.new site: site, module_name: "GobiertoPeople"
+        settings.submodules_enabled = GobiertoPeople.module_submodules
+        settings.save!
+      end
 
       #
       # Content blocks

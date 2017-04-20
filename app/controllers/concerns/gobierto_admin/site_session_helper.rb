@@ -28,7 +28,7 @@ module GobiertoAdmin
 
     def managed_sites
       @managed_sites ||= begin
-        current_admin.sites.alphabetically_sorted if admin_signed_in?
+        current_admin.sites if admin_signed_in?
       end
     end
   end

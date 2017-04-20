@@ -7,15 +7,10 @@
 .gobierto_indicators {
   footer {
     z-index: 2;
-    clear: right;
-  }
-  .sections {
-    background: white;
-    float: right;
-    width: calc(100% - 8rem);
+    clear: both;
   }
   .sections-nav {
-    position: fixed;
+    float: left;
     z-index: 1;
     font-weight: 600;
     
@@ -24,9 +19,26 @@
       padding-left: 0;
       
       li {
+        cursor: pointer;
         margin-bottom: 0.75rem;
+        
+        a {
+          text-decoration: none;
+          
+          &:hover,
+          &:focus,
+          &:active {
+            text-decoration: underline;
+          }
+        }
       }
     }
+  }
+  .sections {
+    position: relative;
+    float: left;
+    margin-left: 2rem;
+    width: calc(100% - 10rem);
   }
   section {
 	   padding-top: 2rem;
@@ -110,6 +122,8 @@
   }
 
   #rent_distribution {
+    position: relative;
+
     .chart_headline {
     	margin-top: 0;
     	margin-bottom: 0;

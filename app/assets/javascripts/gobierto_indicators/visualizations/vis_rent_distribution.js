@@ -196,17 +196,16 @@ var VisRentDistribution = Class.extend({
     if (this.isMobile) {
       this.tooltip.style('opacity', 0);
     } else {
-      var tooltipX = (window.innerWidth / d3.event.pageX) / 2;
-
-      this.tooltip.style('top', (d3.event.pageY + 23) + 'px');
-
-      // Ugly tooltip hack
-      if (tooltipX < 0.65) {
-          return this.tooltip.style('left', (d3.event.pageX - 200) + 'px');
-      } else if (tooltipX > 2.5) {
-          return this.tooltip.style('left', (d3.event.pageX - 20) + 'px');
+      var coords = d3.mouse(d3.select(this.container)._groups[0][0]);
+      var x = coords[0], y = coords[1];
+      
+      this.tooltip.style('top', (y + 23) + 'px');
+      
+      if (x > 900) {
+        // Move tooltip to the left side
+        return this.tooltip.style('left', (x - 200) + 'px');
       } else {
-          return this.tooltip.style('left', (d3.event.pageX - 95) + 'px');
+        return this.tooltip.style('left', (x - 20) + 'px');
       }
     }
   },

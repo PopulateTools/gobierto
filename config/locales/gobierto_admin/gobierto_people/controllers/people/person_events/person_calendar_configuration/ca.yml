@@ -3,6 +3,6 @@ ca:
   gobierto_admin:
     gobierto_people:
       people:
-        person_events:
-          person_calendar_configuration:
+        person_calendar_configuration:
+          update:
             success: Preferències actualitzades correctament

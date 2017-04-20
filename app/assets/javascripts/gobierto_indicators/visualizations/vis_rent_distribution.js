@@ -16,7 +16,7 @@ var VisRentDistribution = Class.extend({
     d3.formatDefaultLocale(eval(I18n.locale));
 
     // Chart dimensions
-    this.margin = {top: 25, right: 15, bottom: 30, left: 10};
+    this.margin = {top: 25, right: 15, bottom: 30, left: 15};
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 

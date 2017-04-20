@@ -5,9 +5,8 @@
 
 // Intro
 .gobierto_indicators {
-  footer {
-    z-index: 2;
-    clear: both;
+  .container > .column {
+    overflow: hidden;
   }
   .sections-nav {
     float: left;
@@ -21,6 +20,8 @@
       li {
         cursor: pointer;
         margin-bottom: 0.75rem;
+        text-transform: uppercase;
+        font-weight: 300;
         
         a {
           text-decoration: none;
@@ -83,6 +84,10 @@
   	font-size: 1.5em;
     line-height: 1.3;
     font-weight: 200;
+  }
+  footer {
+    z-index: 2;
+    clear: both;
   }
 
   /* Graphics */

@@ -120,7 +120,7 @@ $(document).on('turbolinks:load', function() {
   var economicTax =  new EconomicTaxCard('.economic_tax', populateData.municipalityId)
   economicTax.render();
   
-  $('.sections-nav').stick_in_parent({recalc_every: 1});
+  $(".sections-nav").stick_in_parent();
   
   // Show dataset info on click
   // $('.card_container').click(function() {

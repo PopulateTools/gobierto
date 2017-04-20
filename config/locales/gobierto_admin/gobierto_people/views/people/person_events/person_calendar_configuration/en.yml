@@ -1,0 +1,15 @@
+---
+en:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_events:
+          person_calendar_configuration:
+            edit:
+              labels:
+                ibm_notes_url: IBM Notes calendar URL
+              placeholders:
+                ibm_notes_url: IBM Notes calendar URL
+              update: Update
+            navigation:
+                calendar_configuration: Calendar configuration

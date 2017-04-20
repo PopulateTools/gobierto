@@ -27,6 +27,10 @@ module GobiertoPeople
         end
       end
 
+      def self.person_calendar_configuration_class
+        ::GobiertoPeople::PersonIbmNotesCalendarConfiguration
+      end
+
       private
 
       def self.request_params(person)

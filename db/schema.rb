@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420072054) do
+ActiveRecord::Schema.define(version: 20170420132633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -253,8 +253,9 @@ ActiveRecord::Schema.define(version: 20170420072054) do
   end
 
   create_table "gp_person_calendar_configurations", force: :cascade do |t|
-    t.integer "person_id",                null: false
-    t.jsonb   "data",      default: "{}", null: false
+    t.integer "person_id",              null: false
+    t.jsonb   "data",      default: {}, null: false
+    t.index ["person_id"], name: "index_gp_person_calendar_configurations_on_person_id", unique: true, using: :btree
   end
 
   create_table "gp_person_event_attendees", force: :cascade do |t|

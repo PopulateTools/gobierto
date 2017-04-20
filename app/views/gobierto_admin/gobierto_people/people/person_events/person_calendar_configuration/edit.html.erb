@@ -1,0 +1,23 @@
+<%= render 'gobierto_admin/gobierto_people/people/person_events/person_calendar_configuration/navigation' %>
+
+<% if current_site.calendar_integration.present? %>
+
+  <%= form_for @calendar_configuration_form, as: :calendar_configuration, url: admin_people_person_calendar_configuration_path,  method: :patch do |f| %>
+    <div class="pure-g">
+
+      <% if current_site.calendar_integration == ::GobiertoPeople::IbmNotes::CalendarIntegration %>
+        <%= render 'gobierto_admin/gobierto_people/people/person_events/person_calendar_configuration/ibm_notes_fields', f: f %>
+      <% end %>
+
+      <div class="pure-u-1 pure-u-md-2-24"></div>
+
+      <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
+        <div class="widget_save">
+          <%= f.submit t(".update"), class: "button" %>
+        </div>
+      </div>
+
+    </div>
+  <% end %>
+
+<% end %>

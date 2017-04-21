@@ -12,13 +12,13 @@ class ApiTest < ActiveSupport::TestCase
 
       event = events.first
 
-      assert_equal events.size, 3
+      assert_equal events.size, 4
 
       assert_equal event['id'], 'Ibm Notes public event ID'
       assert_equal event['summary'], 'Ibm Notes public event summary'
+      assert_equal event['location'], 'Ibm Notes public event location'
       assert_equal event['start'], { 'date' => '2017-04-11', 'time' => '10:00:00', 'utc' => true }
       assert_equal event['end'],   { 'date' => '2017-04-11', 'time' => '11:00:00', 'utc' => true }
-      assert_equal event['transparency'], 'transparent'
     end
   end
 

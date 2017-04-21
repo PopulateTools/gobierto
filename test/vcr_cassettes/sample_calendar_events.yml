@@ -14,6 +14,8 @@ http_interactions:
       - '370'
     body:
       encoding: ASCII-8BIT
+      # The following lines contain a base64-encoded fake 'login form' which is
+      # used by Mechanize to perform authentication.
       string: !binary |-
         PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PHRpdGxlPjwvdGl0bGU+PC9oZWFkPjxib2R5Pjxm
         b3JtIGFjdGlvbj0iL25hbWVzLm5zZj9Mb2dpbiIgaWQ9Il9Eb21pbm9Gb3JtIiBtZXRob2Q9InBv
@@ -49,7 +51,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '1239'
+      - '1624'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -59,6 +61,7 @@ http_interactions:
               "href":"https://host.wadus.com/wadus/1",
               "id":"Ibm Notes public event ID",
               "summary":"Ibm Notes public event summary",
+              "location":"Ibm Notes public event location",
               "start": {
                 "date":"2017-04-11",
                 "time":"10:00:00",
@@ -70,26 +73,26 @@ http_interactions:
                 "utc":true
               },
               "class":"public",
-              "transparency":"transparent",
               "sequence":0
             },
             {
               "href":"https://host.wadus.com/wadus/2",
               "id":"Ibm Notes public event without end date ID",
               "summary":"Ibm Notes public event without end date summary",
+              "location":"Ibm Notes public event without end date location",
               "start": {
                 "date":"2017-04-11",
                 "time":"10:00:00",
                 "utc":true
               },
               "class":"public",
-              "transparency":"transparent",
               "sequence":0
             },
             {
               "href":"https://host.wadus.com/wadus/3",
               "id":"Ibm Notes private event ID",
               "summary":"Ibm Notes private event summary",
+              "location":"Ibm Notes private event location",
               "start": {
                 "date":"2017-04-11",
                 "time":"10:00:00",
@@ -101,7 +104,18 @@ http_interactions:
                 "utc":true
               },
               "class":"public",
-              "transparency":"opaque",
+              "sequence":0
+            },
+            {
+              "href":"https://host.wadus.com/wadus/4",
+              "id":"Ibm Notes event without location ID",
+              "summary":"Ibm Notes event without location summary",
+              "start": {
+                "date":"2017-04-11",
+                "time":"10:00:00",
+                "utc":true
+              },
+              "class":"public",
               "sequence":0
             }
           ]

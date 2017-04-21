@@ -20,7 +20,7 @@
       <% person_event.locations.each do |event_location| %>
         <div>
           <i class="fa fa-map-marker"></i>
-          <%= link_to event_location.name, external_location_service_url(event_location) %>
+          <%= event_location.name %>
           <%= event_location.address %>
         </div>
       <% end %>

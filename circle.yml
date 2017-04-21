@@ -23,3 +23,13 @@ dependencies:
 test:
   override:
     - script/test
+
+deployment:
+  production:
+    branch: stable
+    commands:
+      - curl -XPOST -H "Authorization: Token token="$DEPLOY_BOT_TOKEN $GOBIERTO_PRODUCTION_DEPLOY_URL
+  staging:
+    branch: master
+    commands:
+      - curl -XPOST -H "Authorization: Token token="$DEPLOY_BOT_TOKEN $GOBIERTO_STAGING_DEPLOY_URL

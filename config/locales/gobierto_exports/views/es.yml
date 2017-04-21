@@ -8,3 +8,4 @@ es:
       index:
         title: Descarga datos
         subtitle: Desde esta página puedes descargar en formato reutilizable el contenido de este site.
+        no_submodules: No hay ningún submódulo activo

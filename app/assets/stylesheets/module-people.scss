@@ -42,7 +42,7 @@ body.gobierto_people {
       img {
         margin: 0 1em 0 0;
         vertical-align: middle;
-      }  
+      }
     }
     h2 {
       font-size: 1.2em;
@@ -51,9 +51,12 @@ body.gobierto_people {
     .person-name {
       padding: 0 0 0 1.5em;
       box-sizing: border-box;
-      
+      line-height: 1;
       h3 {
         margin: 0;
+      }
+      .soft {
+        font-size: .85em;
       }
     }
     h4 {
@@ -98,7 +101,7 @@ body.gobierto_people {
     .meta {
       font-size: .85em;
     }
-    h2 {
+    h2, h3 {
       margin: .5em 0 .75em 0;
     }
     .event-data {
@@ -138,7 +141,7 @@ body.gobierto_people {
       padding: 0;
 
       .person-name {
-        padding: 1em;
+        padding: .75em 1em;
       }
     }
     .contact-methods {
@@ -147,7 +150,7 @@ body.gobierto_people {
       li {
         display: inline-block;
         a {
-          display: inline-block;  
+          display: inline-block;
           padding: .25em;
         }
       }
@@ -253,16 +256,16 @@ body.gobierto_people {
     }
 
   }
-  
+
   h2.statement_header {
     font-size: 1.6em;
     font-weight: 300;
   }
-  
+
   .bio-subtitle {
     font-size: 1.5em;
   }
-  
+
   .latest-activity {
     li {
       margin-bottom: 0.5em;
@@ -274,7 +277,7 @@ body.gobierto_people {
       }
     }
   }
-  
+
   .person_statement-item {
     h3 {
       margin: 0;
@@ -331,7 +334,7 @@ body.gobierto_people {
   }
   ul {
     margin: 1em 0 .5em 0;
-    
+
     h4 {
       display: inline-block;
       margin: 0;

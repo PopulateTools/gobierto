@@ -28,8 +28,8 @@ deployment:
   production:
     branch: stable
     commands:
-      - curl -XPOST -H "Authorization: Token token="$DEPLOY_BOT_TOKEN $GOBIERTO_PRODUCTION_DEPLOY_URL
+      - ./script/production_deploy.sh
   staging:
     branch: master
     commands:
-      - curl -XPOST -H "Authorization: Token token="$DEPLOY_BOT_TOKEN $GOBIERTO_STAGING_DEPLOY_URL
+      - ./script/staging_deploy.sh

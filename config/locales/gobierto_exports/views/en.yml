@@ -8,3 +8,4 @@ en:
       index:
         title: Download data
         subtitle: In this page you can download the site data in a reusable format.
+        no_submodules: There aren't any active submodules

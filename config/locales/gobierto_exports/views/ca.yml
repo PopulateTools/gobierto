@@ -8,4 +8,4 @@ ca:
       index:
         title: Descarrega dades
         subtitle: Des d'aquesta pàgina pots descarregar en format reutilitzable el contingut d'aquesta web
-
+        no_submodules: No hi ha cap submòdul actiu

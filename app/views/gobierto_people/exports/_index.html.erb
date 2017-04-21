@@ -7,32 +7,44 @@
 
   <div class="pure-u-1 pure-u-md-17-24 main_content">
 
-    <div class="data_item">
-      <h3><%= t("gobierto_people.exports.index.people.title") %></h3>
-      <%= link_to 'CSV', gobierto_people_people_path(format: :csv), class: 'button small', role: "button" %>
-      <%= link_to 'JSON', gobierto_people_people_path(format: :json), class: 'button small', role: "button" %>
-      <p><%= t("gobierto_people.exports.index.people.description") %></p>
-    </div>
+    <% if active_submodules.empty? %>
+      <p><%= t("gobierto_exports.exports.index.no_submodules") %></p>
+    <% end %>
 
-    <div class="data_item">
-      <h3><%= t("gobierto_people.exports.index.events.title") %></h3>
-      <%= link_to 'CSV', gobierto_people_events_path(format: :csv), class: 'button small', role: "button" %>
-      <%= link_to 'JSON', gobierto_people_events_path(format: :json), class: 'button small', role: "button" %>
-      <p><%= t("gobierto_people.exports.index.events.description") %></p>
-    </div>
+    <% if officials_submodule_active? %>
+      <div class="data_item">
+        <h3><%= t("gobierto_people.exports.index.people.title") %></h3>
+        <%= link_to 'CSV', gobierto_people_people_path(format: :csv), class: 'button small', role: "button" %>
+        <%= link_to 'JSON', gobierto_people_people_path(format: :json), class: 'button small', role: "button" %>
+        <p><%= t("gobierto_people.exports.index.people.description") %></p>
+      </div>
+    <% end %>
 
-    <div class="data_item">
-      <h3><%= t("gobierto_people.exports.index.statements.title") %></h3>
-      <%= link_to 'CSV', gobierto_people_statements_path(format: :csv), class: 'button small', role: "button" %>
-      <%= link_to 'JSON', gobierto_people_statements_path(format: :json), class: 'button small', role: "button" %>
-      <p><%= t("gobierto_people.exports.index.statements.description") %></p>
-    </div>
+    <% if agendas_submodule_active? %>
+      <div class="data_item">
+        <h3><%= t("gobierto_people.exports.index.events.title") %></h3>
+        <%= link_to 'CSV', gobierto_people_events_path(format: :csv), class: 'button small', role: "button" %>
+        <%= link_to 'JSON', gobierto_people_events_path(format: :json), class: 'button small', role: "button" %>
+        <p><%= t("gobierto_people.exports.index.events.description") %></p>
+      </div>
+    <% end %>
 
-    <div class="data_item">
-      <h3><%= t("gobierto_people.exports.index.posts.title") %></h3>
-      <%= link_to 'RSS', gobierto_people_posts_path(format: :rss), class: 'button small', role: "button" %>
-      <p><%= t("gobierto_people.exports.index.posts.description") %></p>
-    </div>
+    <% if statements_submodule_active? %>
+      <div class="data_item">
+        <h3><%= t("gobierto_people.exports.index.statements.title") %></h3>
+        <%= link_to 'CSV', gobierto_people_statements_path(format: :csv), class: 'button small', role: "button" %>
+        <%= link_to 'JSON', gobierto_people_statements_path(format: :json), class: 'button small', role: "button" %>
+        <p><%= t("gobierto_people.exports.index.statements.description") %></p>
+      </div>
+    <% end %>
+
+    <% if blog_submodule_active? %>
+      <div class="data_item">
+        <h3><%= t("gobierto_people.exports.index.posts.title") %></h3>
+        <%= link_to 'RSS', gobierto_people_posts_path(format: :rss), class: 'button small', role: "button" %>
+        <p><%= t("gobierto_people.exports.index.posts.description") %></p>
+      </div>
+    <% end %>
 
   </div>
 

@@ -20,10 +20,11 @@ module GobiertoPeople
       end
 
       def self.sync_event(ibm_notes_event)
-        if ibm_notes_event.gobierto_event_outdated?
-          update_gobierto_event(ibm_notes_event)
-        elsif ibm_notes_event.public? && !ibm_notes_event.has_gobierto_event?
+        if ibm_notes_event.first_synchronization?
           create_gobierto_event(ibm_notes_event)
+        else
+          update_gobierto_event(ibm_notes_event) if ibm_notes_event.gobierto_event_outdated?
+          update_gobierto_event_location(ibm_notes_event) if ibm_notes_event.gobierto_event_location_outdated?
         end
       end
 
@@ -48,7 +49,7 @@ module GobiertoPeople
       end
 
       def self.create_gobierto_event(ibm_notes_event)
-        GobiertoPeople::PersonEvent.create!(
+        event = GobiertoPeople::PersonEvent.create!(
           external_id: ibm_notes_event.external_id,
           title: ibm_notes_event.title,
           starts_at: ibm_notes_event.starts_at,
@@ -56,6 +57,8 @@ module GobiertoPeople
           person: ibm_notes_event.person,
           state: GobiertoPeople::PersonEvent.states[:published]
         )
+
+        create_event_location(event, ibm_notes_event.location) if ibm_notes_event.location.present?
       end
 
       def self.update_gobierto_event(ibm_notes_event)
@@ -64,6 +67,25 @@ module GobiertoPeople
           starts_at: ibm_notes_event.starts_at,
           ends_at: ibm_notes_event.ends_at,
           state: ibm_notes_event.state
+        )
+      end
+
+      def self.update_gobierto_event_location(ibm_notes_event)
+        gobierto_event = ibm_notes_event.gobierto_event
+
+        if ibm_notes_event.location_previously_synced?
+          gobierto_event.locations.first.update_attributes!(name: ibm_notes_event.location)
+        elsif ibm_notes_event.location_has_been_added?
+          create_event_location(gobierto_event, ibm_notes_event.location)
+        elsif ibm_notes_event.location_has_been_removed?
+          gobierto_event.locations.destroy_all
+        end
+      end
+
+      def self.create_event_location(event, location_name)
+        GobiertoPeople::PersonEventLocation.create!(
+          person_event: event,
+          name: location_name
         )
       end
 

@@ -23,3 +23,13 @@ dependencies:
 test:
   override:
     - script/test
+
+deployment:
+  production:
+    branch: stable
+    commands:
+      - ./script/production_deploy.sh
+  staging:
+    branch: master
+    commands:
+      - ./script/staging_deploy.sh

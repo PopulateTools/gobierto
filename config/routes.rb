@@ -60,7 +60,7 @@ Rails.application.routes.draw do
         resources :past_person_events, only: [:index], controller: "people/past_person_events", as: :past_events, path: "events/past"
         resources :person_statements, only: [:index, :new, :create, :edit, :update], controller: "people/person_statements", as: :statements, path: :statements
         resources :person_posts, only: [:index, :new, :create, :edit, :update], controller: "people/person_posts", as: :posts, path: :blog
-        resource :person_calendar_configuration, only: [:edit, :update], controller: "people/person_calendar_configuration", as: :calendar_configuration, path: :calendar_configuration 
+        resource :person_calendar_configuration, only: [:edit, :update], controller: "people/person_calendar_configuration", as: :calendar_configuration, path: :calendar_configuration
       end
 
       namespace :configuration do
@@ -104,7 +104,7 @@ Rails.application.routes.draw do
   end
 
   # Gobierto Budget Consultations module
-  namespace :gobierto_budget_consultations, path: 'consultas_presupuestos' do
+  namespace :gobierto_budget_consultations, path: 'consultas-presupuestos' do
     constraints GobiertoSiteConstraint.new do
       resources :consultations, only: [:index, :show], path: '' do
         get 'partidas', to: 'consultations/consultation_items#index', as: :item_summary

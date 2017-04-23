@@ -13,9 +13,10 @@
       <p><%= t("gobierto_people.welcome.index.events_summary.no_upcoming_events") %>:</p>
     <% end %>
 
-    <% person_events.each do |person_event| %>
-      <%= render(partial: 'gobierto_people/person_events/person_event', locals: { person_event: person_event } ) %>
-    <% end %>
+    <div id="events">
+      <%= render(partial: 'gobierto_people/person_events/person_event', collection: person_events) %>
+    </div>
+
     <%= link_to t("gobierto_people.welcome.index.events_summary.view_all"), gobierto_people_events_path, class: "see_more", role: "button" %>
   <% else %>
     <p><%= t("gobierto_people.welcome.index.events_summary.no_events") %>.</p>

@@ -2,7 +2,11 @@ module GobiertoPeople
   module People
     class PersonEventsController < BaseController
       def index
-        @events = @person.events.upcoming.sorted
+        @events = @person.events.upcoming.sorted.page params[:page]
+        respond_to do |format|
+          format.js
+          format.html
+        end
       end
 
       def show

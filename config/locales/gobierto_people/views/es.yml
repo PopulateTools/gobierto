@@ -68,6 +68,7 @@ es:
             title: Recibe actualizaciones sobre la actividad de %{person_name}
           title: Agenda de %{person_name}
           upcoming_events: Próximos eventos
+          view_more: Ver más
         show:
           event_data:
             event_attendees: Asistentes
@@ -146,6 +147,7 @@ es:
         no_upcoming_events: No hay eventos futuros. Échale un vistazo a los pasados
         no_past_events: No hay eventos pasados.
         no_events: No hay eventos futuros ni pasados.
+        view_more: Ver más
     person_post_tags:
       show:
         filtering_by_tag: Filtrando por "%{tag}"

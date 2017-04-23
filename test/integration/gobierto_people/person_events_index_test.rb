@@ -74,6 +74,25 @@ module GobiertoPeople
         visit @path
 
         assert has_selector?("h2", text: "#{site.name}'s member agendas")
+        refute has_link?("View more")
+      end
+    end
+
+    def test_person_events_index_pagination
+      20.times do |i|
+        government_member.events.create! title: "Event #{i}",
+          starts_at: Time.now.tomorrow + i.days, state: GobiertoPeople::PersonEvent.states["published"]
+      end
+
+      with_current_site(site) do
+        visit @path
+
+        assert has_link?("View more")
+        refute has_link?("Event 14")
+        click_link "View more"
+
+        assert has_link?("Event 14")
+        refute has_link?("View more")
       end
     end
 

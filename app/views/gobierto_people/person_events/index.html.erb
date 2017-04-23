@@ -93,18 +93,23 @@
 
         </div>
 
-        <% if @past_events && @events.empty? %>
-          <p><%= t(".no_past_events") %></p>
-        <% else %>
-          <% if @no_upcoming_events && @events.empty? %>
-            <p><%= t(".no_events") %></p>
-          <% elsif @no_upcoming_events %>
-            <p><%= t(".no_upcoming_events") %>:</p>
+        <p>
+          <% if @past_events && @events.empty? %>
+            <%= t(".no_past_events") %>
+          <% else %>
+            <% if @no_upcoming_events && @events.empty? %>
+              <%= t(".no_events") %>
+            <% elsif @no_upcoming_events %>
+              <%= t(".no_upcoming_events") %>:
+            <% end %>
           <% end %>
-        <% end %>
+        </p>
 
-        <%= render partial: "gobierto_people/person_events/person_event", collection: @events %>
+        <div id="events">
+          <%= render partial: "gobierto_people/person_events/person_event", collection: @events %>
+        </div>
 
+        <%= link_to_next_page @events, t('.view_more'), class: "see_more", role: "button", remote: true %>
       </div>
 
     </div>

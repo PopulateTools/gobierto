@@ -28,7 +28,7 @@ module GobiertoPeople
     end
 
     def set_events
-      @events = current_site.person_events
+      @events = current_site.person_events.page params[:page]
       @events = filter_by_date_param if params[:date]
       @events = @events.by_person_category(@person_category) if @person_category
       @events = @events.by_person_party(@person_party) if @person_party

@@ -39,6 +39,7 @@ module GobiertoPeople
 
           within ".events-summary" do
             assert has_content?("Agenda")
+            refute has_link?("View more")
             assert has_link?("Past events")
 
             upcoming_events.each do |event|
@@ -56,6 +57,24 @@ module GobiertoPeople
           within ".subscribable-box", match: :first do
             assert has_button?("Subscribe")
           end
+        end
+      end
+
+      def test_person_events_index_pagination
+        10.times do |i|
+          person.events.create! title: "Event #{i}",
+            starts_at: Time.now.tomorrow + i.days, state: GobiertoPeople::PersonEvent.states["published"]
+        end
+
+        with_current_site(site) do
+          visit @path
+
+          assert has_link?("View more")
+          refute has_link?("Event 8")
+          click_link "View more"
+
+          assert has_link?("Event 8")
+          refute has_link?("View more")
         end
       end
     end

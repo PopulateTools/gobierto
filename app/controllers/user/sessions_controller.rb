@@ -45,7 +45,7 @@ class User::SessionsController < User::BaseController
 
   def referrer_entity
     if request.referrer.present?
-      if request.referrer.include?("consultas_presupuestos")
+      if request.referrer.include?("consultas-presupuestos")
         "GobiertoBudgetConsultations::Consultation"
       end
     end

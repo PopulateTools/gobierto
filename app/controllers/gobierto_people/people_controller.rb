@@ -21,8 +21,12 @@ module GobiertoPeople
 
     def show
       @person = PersonDecorator.new(find_person)
-      @upcoming_events = @person.events.upcoming.sorted.first(3)
 
+      if active_submodules.size == 1 && agendas_submodule_active?
+        redirect_to gobierto_people_person_events_path @person
+      end
+
+      @upcoming_events = @person.events.upcoming.sorted.first(3)
       @latest_activity = ActivityCollectionDecorator.new(Activity.for_recipient(@person).limit(30).sorted.page(params[:page]))
     end
 

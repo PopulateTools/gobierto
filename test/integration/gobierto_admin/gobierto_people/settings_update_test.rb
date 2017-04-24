@@ -43,6 +43,59 @@ module GobiertoAdmin
           end
         end
       end
+
+      def test_calendar_integration_settings_update
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit @path
+
+            select "IBM Notes", from: "gobierto_people_settings_calendar_integration"
+            fill_in "gobierto_people_settings_ibm_notes_usr", with: "IBM Notes user"
+            fill_in "gobierto_people_settings_ibm_notes_pwd", with: "IBM Notes password"
+
+            click_button "Update"
+
+            assert has_message?("Settings updated successfully")
+
+            assert has_field?("gobierto_people_settings_ibm_notes_usr", with: "IBM Notes user")
+            assert has_field?("gobierto_people_settings_ibm_notes_pwd", with: "IBM Notes password")
+
+            select "", from: "gobierto_people_settings_calendar_integration"
+            fill_in "gobierto_people_settings_ibm_notes_usr", with: nil
+            fill_in "gobierto_people_settings_ibm_notes_pwd", with: nil
+
+            click_button "Update"
+
+            assert has_message?("Settings updated successfully")
+
+            refute has_field?("gobierto_people_settings_ibm_notes_usr", with: "IBM Notes user")
+            refute has_field?("gobierto_people_settings_ibm_notes_pwd", with: "IBM Notes password")
+          end
+        end
+      end
+
+      def test_prohibit_saving_erroneous_calendar_configuration_settings
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit @path
+
+            select "IBM Notes", from: "gobierto_people_settings_calendar_integration"
+
+            click_button "Update"
+
+            assert has_message?("An error occured while saving these settings")
+
+            select "", from: "gobierto_people_settings_calendar_integration"
+            fill_in "gobierto_people_settings_ibm_notes_usr", with: "IBM Notes user"
+            fill_in "gobierto_people_settings_ibm_notes_pwd", with: "IBM Notes password"
+
+            click_button "Update"
+
+            assert has_message?("An error occured while saving these settings")
+          end
+        end
+      end
+
     end
   end
 end

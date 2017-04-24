@@ -35,16 +35,16 @@ module GobiertoPeople
       private
 
       def self.request_params(person)
-        site = person.site
+        gobierto_people_settings = person.site.gobierto_people_settings
         {
-          endpoint: get_calendar_endpoint(person),
-          username: GobiertoPeople::Setting.find_by(site_id: site.id, key: 'IBM_NOTES_ENDPOINT_USR').value,
-          password: GobiertoPeople::Setting.find_by(site_id: site.id, key: 'IBM_NOTES_ENDPOINT_PWD').value
+          endpoint: person_calendar_endpoint(person),
+          username: gobierto_people_settings.ibm_notes_usr,
+          password: gobierto_people_settings.ibm_notes_pwd
         }
       end
 
-      def self.get_calendar_endpoint(person)
-        person_calendar_configuration = PersonIbmNotesCalendarConfiguration.find_by_person_id(person.id)
+      def self.person_calendar_endpoint(person)
+        person_calendar_configuration = PersonIbmNotesCalendarConfiguration.find_by(person_id: person.id)
         person_calendar_configuration.endpoint
       end
 

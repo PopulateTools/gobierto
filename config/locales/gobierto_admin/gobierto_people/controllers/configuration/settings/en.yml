@@ -6,3 +6,4 @@ en:
         settings:
           update:
             success: Settings updated successfully
+            error: An error occured while saving these settings

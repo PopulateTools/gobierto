@@ -1,11 +1,16 @@
 require 'test_helper'
+require 'support/calendar_integration_helpers'
 
 module GobiertoAdmin
   module GobiertoPeople
     class PersonEventsIndexTest < ActionDispatch::IntegrationTest
+
+      include ::CalendarIntegrationHelpers
+
       def setup
         super
         @person_events_path = admin_people_person_events_path(person)
+        activate_calendar_integration(person.site)
       end
 
       def person
@@ -21,6 +26,8 @@ module GobiertoAdmin
       end
 
       def test_read_person_calendar_configuration
+        activate_calendar_integration(site)
+
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @person_events_path

@@ -9,12 +9,16 @@
 //= require ./trix_events
 //= require ./trix_toolbar
 //= require ./app/init
+//= require sticky-kit.min
 //= require_tree ./app
 
 //= require module-admin
 
 
 $(document).on('turbolinks:load', function() {
+
+  $(".stick_in_parent").stick_in_parent();
+
   if($('.air-datepicker').length){
     var start = new Date();
     start.setDate(start.getDate() + 1);

@@ -277,6 +277,9 @@ body.gobierto_admin {
     width: 100%;
   }
 }
+.widget_save.is_stuck {
+  margin-top: 60px;
+}
 .sep_top_bot {
   border-top: 1px solid $color_separator;
   border-bottom: 1px solid $color_separator;

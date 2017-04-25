@@ -2,7 +2,16 @@ module GobiertoPeople
   module People
     class PersonEventsController < BaseController
       def index
-        @events = @person.events.upcoming.sorted.page params[:page]
+
+        if params[:date]
+          @filtering_date = Date.parse(params[:date])
+          @events = @person.events.by_date(@filtering_date).sorted.page params[:page]
+        else
+          @events = @person.events.upcoming.sorted.page params[:page]
+        end
+
+        @calendar_events = @person.events
+
         respond_to do |format|
           format.js
           format.html

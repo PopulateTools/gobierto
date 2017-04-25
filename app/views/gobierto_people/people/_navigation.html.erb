@@ -1,19 +1,44 @@
-<div class="people-navigation">
+<% if active_submodules.size > 1 %>
+  <div class="separator"></div>
 
-  <ul>
-    <li><h3><%= link_to t(".bio"), gobierto_people_person_bio_path(@person), class: class_if("active", controller_name == "person_bio") %></h3></li>
-    <% if agendas_submodule_active? %>
-      <li><h3><%= link_to t(".agenda"), gobierto_people_person_events_path(@person), class: class_if("active", controller_name == "person_events")  %></h3></li>
-    <% end %>
-    <% if blog_submodule_active? %>
-      <li><h3><%= link_to t(".blog"), gobierto_people_person_posts_path(@person), class: class_if("active", controller_name == "person_posts")  %></h3></li>
-    <% end %>
-    <% if statements_submodule_active? %>
-      <li><h3><%= link_to t(".statements"), gobierto_people_person_statements_path(@person), class: class_if("active", controller_name == "person_statements")  %></h3></li>
-    <% end %>
-  </ul>
+  <div class="people-navigation">
 
-</div>
+    <ul>
+      <% if officials_submodule_active? %>
+        <li><h3><%= link_to t(".bio"), gobierto_people_person_bio_path(@person), class: class_if("active", controller_name == "person_bio") %></h3></li>
+      <% end %>
+      <% if agendas_submodule_active? %>
+        <li><h3><%= link_to t(".agenda"), gobierto_people_person_events_path(@person), class: class_if("active", controller_name == "person_events")  %></h3></li>
+      <% end %>
+      <% if blog_submodule_active? %>
+        <li><h3><%= link_to t(".blog"), gobierto_people_person_posts_path(@person), class: class_if("active", controller_name == "person_posts")  %></h3></li>
+      <% end %>
+      <% if statements_submodule_active? %>
+        <li><h3><%= link_to t(".statements"), gobierto_people_person_statements_path(@person), class: class_if("active", controller_name == "person_statements")  %></h3></li>
+      <% end %>
+    </ul>
+
+  </div>
+<% end %>
+
+<% if (controller_name == "person_events" || controller_name == "past_person_events") && action_name == "index" %>
+  <div class="separator"></div>
+
+  <div class="calendar-component m_v_2">
+    <%= month_calendar(
+      partial: "gobierto_people/person_events/calendar_template",
+      events: @calendar_events,
+      attribute: :starts_at,
+      start_date: params[:start_date] || Date.current
+    ) do |date, events| %>
+      <% if events.any? %>
+        <%= link_to date.day, date: date, start_date: params[:start_date] %>
+      <% else %>
+        <%= date.day %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
 
 <div class="download_open_data">
 

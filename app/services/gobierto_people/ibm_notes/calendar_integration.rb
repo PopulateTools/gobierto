@@ -17,6 +17,12 @@ module GobiertoPeople
             future_event.pending!
           end
         end
+      rescue ::IbmNotes::InvalidCredentials
+        Rails.logger.info "[#{person.site.name} calendar integration] Invalid credentials for site"
+      rescue ::IbmNotes::ServiceUnavailable
+        Rails.logger.info "[#{person.site.name} calendar integration] IBM Notes calendar API is down"
+      rescue ::JSON::ParserError
+        Rails.logger.info "[#{person.site.name} calendar integration] JSON parser error"
       end
 
       def self.sync_event(ibm_notes_event)

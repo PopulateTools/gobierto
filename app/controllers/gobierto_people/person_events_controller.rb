@@ -29,18 +29,21 @@ module GobiertoPeople
 
     def set_events
       @events = current_site.person_events.page params[:page]
-      @events = filter_by_date_param if params[:date]
       @events = @events.by_person_category(@person_category) if @person_category
       @events = @events.by_person_party(@person_party) if @person_party
 
-      if @past_events
-        @events = @events.past.sorted_backwards
+      if params[:date]
+        filter_events_by_date(params[:date])
       else
-        if @events.upcoming.empty?
-          @no_upcoming_events = true
+        if @past_events
           @events = @events.past.sorted_backwards
         else
-          @events = @events.upcoming.sorted
+          if @events.upcoming.empty?
+            @no_upcoming_events = true
+            @events = @events.past.sorted_backwards
+          else
+            @events = @events.upcoming.sorted
+          end
         end
       end
     end
@@ -57,10 +60,10 @@ module GobiertoPeople
       @people = @people.send(Person.parties.key(@person_party)) if @person_party
     end
 
-    def filter_by_date_param
-      @filtering_date = Date.parse(params[:date])
-
-      @events.by_date(@filtering_date)
+    def filter_events_by_date(date)
+      @filtering_date = Date.parse(date)
+      @events = @events.by_date(@filtering_date)
+      @events = (@filtering_date >= Time.now ? @events.sorted : @events.sorted_backwards)
     rescue ArgumentError
       @events
     end

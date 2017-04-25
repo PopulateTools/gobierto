@@ -1,7 +1,10 @@
 require "test_helper"
+require_relative "../../support/person_event_helpers"
 
 module GobiertoPeople
   class PersonEventsIndexTest < ActionDispatch::IntegrationTest
+    include ::PersonEventHelpers
+
     def setup
       super
       @path = gobierto_people_events_path
@@ -56,17 +59,6 @@ module GobiertoPeople
 
     def upcoming_event
       @upcoming_event ||= upcoming_events.first
-    end
-
-    def create_event(options = {})
-      GobiertoPeople::PersonEvent.create!(
-        person: options[:person] || government_member,
-        title: options[:title] || "Event title",
-        description: "Event description",
-        starts_at: Time.zone.parse(options[:starts_at]) || Time.zone.now,
-        ends_at:  (Time.zone.parse(options[:starts_at]) || Time.zone.now) + 1.hour,
-        state: GobiertoPeople::PersonEvent.states["published"]
-      )
     end
 
     def test_person_events_index
@@ -369,6 +361,34 @@ module GobiertoPeople
 
         end
 
+      end
+    end
+
+    def test_filter_events_by_calendar_date_link
+      past_event    = create_event(title: "Past event title", starts_at: "2014-03-10")
+      future_event  = create_event(title: "Future event title", starts_at: "2014-03-20")
+
+      Timecop.freeze(Time.zone.parse("2014-03-15")) do
+
+        with_current_site(site) do
+          visit @path
+
+          within ".events-summary" do
+            refute has_content?(past_event.title)
+            assert has_content?(future_event.title)
+          end
+
+          within ".calendar-component" do
+            click_link past_event.starts_at.day
+          end
+
+          assert has_content? "Displaying events of #{past_event.starts_at.strftime("%b %d %Y")}"
+
+          within ".events-summary" do
+            assert has_content?(past_event.title)
+            refute has_content?(future_event.title)
+          end
+        end
       end
     end
 

@@ -103,7 +103,7 @@ var VisUnemploymentRate = Class.extend({
     
     this.yScale
       .rangeRound([this.height, 0])
-      .domain([0, d3.max(this.data, function(d) { return d.value; })]);
+      .domain([4, d3.max(this.data, function(d) { return d.value; })]);
 
     this.color
       .domain(['place', 'autonomous_region', 'country'])

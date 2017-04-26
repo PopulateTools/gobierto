@@ -60,7 +60,7 @@ var VisUnemploymentAge = Class.extend({
 
     this.yScale
       .rangeRound([this.height, 0])
-      .domain([0, d3.max(this.data, function(d) { return d.pct})]);
+      .domain([0.04, d3.max(this.data, function(d) { return d.pct})]);
 
     this.color
       .domain(['<25', '25-44', '>=45'])

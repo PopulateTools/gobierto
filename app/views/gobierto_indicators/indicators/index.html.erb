@@ -19,12 +19,12 @@
   </nav>
    
   <div class="sections">
-  	<section id="poblacion">
+  	<section id="poblacion" class="block">
   		<div class="pure-g">
   			<div class="pure-u-1 pure-u-md-1">
-  				<h2 class="section_headline" id="population"><%= t("gobierto_indicators.layouts.menu_subsections.population") %></h2>
+  				<h2 class="with_description" id="population"><%= t("gobierto_indicators.layouts.menu_subsections.population") %></h2>
   				<div id="age_distribution" class="main_graphic">
-  					<h3 class="chart_headline"><%= t("gobierto_indicators.graphics.age_distribution.title") %></h3>
+  					<p class="description"><%= t("gobierto_indicators.graphics.age_distribution.title") %></p>
   				</div>
   			</div>
   		</div>
@@ -39,23 +39,23 @@
   		</div>
   	</section>
 
-  	<section id="empleo">
+  	<section id="empleo" class="block">
   		<div class="pure-g">
   			<div class="pure-u-1 pure-u-md-2-3">
-  				<h2 class="section_headline" id="employment"><%= t("gobierto_indicators.layouts.menu_subsections.employment") %></h2>
+  				<h2 class="with_description" id="employment"><%= t("gobierto_indicators.layouts.menu_subsections.employment") %></h2>
   			</div>
   		</div>
   		<div class="pure-g">
         <div class="pure-u-1 pure-u-md-1-3">
-          <h3 class="chart_headline center"><%= t("gobierto_indicators.graphics.unemployment_rate.title") %></h3>
+          <p class="description"><%= t("gobierto_indicators.graphics.unemployment_rate.title") %></p>
           <div id="unemployment_rate" class="small_graphic"></div>
         </div>
   			<div class="pure-u-1 pure-u-md-1-3">
-  				<h3 class="chart_headline center"><%= t("gobierto_indicators.graphics.unemployment_sex.title") %></h3>
+  				<p class="description"><%= t("gobierto_indicators.graphics.unemployment_sex.title") %></p>
   				<div id="unemployment_sex" class="small_graphic"></div>
   			</div>
   			<div class="pure-u-1 pure-u-md-1-3">
-  				<h3 class="chart_headline center"><%= t("gobierto_indicators.graphics.unemployment_age.title") %></h3>
+  				<p class="description"><%= t("gobierto_indicators.graphics.unemployment_age.title") %></p>
   				<div id="unemployment_age" class="small_graphic"></div>
   			</div>
   		</div>
@@ -71,14 +71,14 @@
   	</section>
 
 
-  	<section id="economia">
+  	<section id="economia" class="block">
   		<div class="pure-g">
   			<div class="pure-u-1">
-          <h2 class="section_headline" id="economy"><%= t("gobierto_indicators.layouts.menu_subsections.economy") %></h2>
+          <h2 class="with_description" id="economy"><%= t("gobierto_indicators.layouts.menu_subsections.economy") %></h2>
           
   				<div id="rent_distribution" class="main_graphic">
   					<div class="annotations">
-  						<h3 class="chart_headline"><%= t("gobierto_indicators.graphics.rent_distribution.title") %></h3>
+  						<p class="description"><%= t("gobierto_indicators.graphics.rent_distribution.title") %></p>
   						<div class="rent-anno"><%= t("gobierto_indicators.graphics.rent_distribution.gross_income") %> <span class="arrow">↑</span></div>
   						<div class="pop-anno"><%= t("gobierto_indicators.graphics.rent_distribution.inhabitants") %> <span class="arrow">→</span></div>
   					</div>

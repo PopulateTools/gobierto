@@ -47,19 +47,16 @@
     padding-bottom: 2rem;
 	  border-bottom: 1px solid #EBEBEB;
     
+    .description {
+      margin-bottom: 0;
+    }
+    
     &:first-child {
       margin-top: 1rem;
     }
      
     &:last-child {
       border-bottom: none;
-    }
-      
-    .section_headline {
-    	font-weight: 400;
-      margin-top: 0;
-    	margin-bottom: 0.5em;
-    	font-size: 2rem;
     }
     .section_desc {
     	margin-top: 0;
@@ -74,14 +71,6 @@
       white-space: nowrap;
       overflow: hidden;
     }
-  }
-  .chart_headline {
-  	font-size: 1.25rem;
-  	color: $color_headers;
-  	margin-top: 0;
-    margin-bottom: 1rem;
-    font-weight: 400;
-    max-width: 420px;
   }
   .intro_section {
   	padding: 5em 0 4em 0;
@@ -100,6 +89,12 @@
   footer {
     z-index: 2;
     clear: both;
+  }
+  #poblacion h2 {
+    margin-top: 0;
+  }
+  #empleo .description {
+    width: 100%;
   }
   
   /* Cards */
@@ -153,10 +148,9 @@
 
   #rent_distribution {
     position: relative;
-
-    .chart_headline {
-    	margin-top: 0;
-    	margin-bottom: 0;
+    
+    .description {
+      opacity: 1;
     }
     .annotations {
     	color: $text_soft;
@@ -380,13 +374,6 @@
       margin-bottom: 0;
     }
   	#rent_distribution {
-  		margin-top: 2rem;
-
-      .chart_headline {
-    		margin-top: 0;
-    		position: absolute;
-    		left: 10px;
-    	}
       .pop-anno,
       .rent-anno {
     		font-size: 1.25rem;

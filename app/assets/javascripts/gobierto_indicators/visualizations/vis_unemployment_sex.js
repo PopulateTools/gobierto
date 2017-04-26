@@ -113,7 +113,7 @@ var VisUnemploymentSex = Class.extend({
 
     this.yScale
       .rangeRound([this.height, 0])
-      .domain([0, d3.max(this.unemplAgeData, function(d) { return d.pct; })]);
+      .domain([0.04, d3.max(this.unemplAgeData, function(d) { return d.pct; })]);
 
     this.color
       .domain(['M', 'H'])
@@ -226,7 +226,7 @@ var VisUnemploymentSex = Class.extend({
     this.yAxis
       .tickSize(-this.width)
       .scale(this.yScale)
-      .ticks(3, '%');
+      .ticks(2, '%');
     
     this.svg.select('.y.axis').call(this.yAxis);
 

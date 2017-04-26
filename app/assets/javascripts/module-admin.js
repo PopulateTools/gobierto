@@ -3,6 +3,7 @@ $(document).on('turbolinks:load', function() {
 	var header_height = $('header.main').height() + 1;
 	$('menu.main').css('top', header_height);
 	$('.admin_content_column').css('padding-top', header_height);
+  // $('.widget_save.stick_in_parent').css('margin-top', header_height + 20);
 
 
 	$('.js-collapse-menu').click(function(e) {
@@ -39,7 +40,5 @@ $(document).on('turbolinks:load', function() {
 		e.preventDefault();
 		$('.new_block_content').show();
 	});
-
-  $(".stick_in_parent, #stick_in_parent, stick_in_parent").stick_in_parent();
 
 });

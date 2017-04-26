@@ -8,18 +8,14 @@
 
   <div class="events-filter">
 
-    <div class="events-filter">
-
-      <% if @filtering_date %>
-        <div class="box">
-          <div class="inner">
-            <%= t("gobierto_people.person_events.index.displaying_events_of", date: l(@filtering_date, format: :short)) %>
-            <%= link_to t("gobierto_people.person_events.index.go_back"), gobierto_people_person_events_path(@person) %>
-          </div>
+    <% if @filtering_date %>
+      <div class="box">
+        <div class="inner">
+          <%= t("gobierto_people.person_events.index.displaying_events_of", date: l(@filtering_date, format: :short)) %>
+          <%= link_to t("gobierto_people.person_events.index.go_back"), gobierto_people_person_events_path(@person) %>
         </div>
-      <% end %>
-
-    </div>
+      </div>
+    <% end %>
 
     <div class="pure-g block">
 

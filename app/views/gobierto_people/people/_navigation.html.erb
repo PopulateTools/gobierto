@@ -21,7 +21,7 @@
   </div>
 <% end %>
 
-<% if (controller_name == "person_events" || controller_name == "past_person_events") && action_name == "index" %>
+<% if @calendar_events %>
   <div class="separator"></div>
 
   <div class="calendar-component m_v_2">
@@ -31,11 +31,7 @@
       attribute: :starts_at,
       start_date: params[:start_date] || Date.current
     ) do |date, events| %>
-      <% if events.any? %>
-        <%= link_to date.day, date: date, start_date: params[:start_date] %>
-      <% else %>
-        <%= date.day %>
-      <% end %>
+      <%= link_to_if events.any?, date.day, date: date, start_date: params[:start_date] %>
     <% end %>
   </div>
 <% end %>

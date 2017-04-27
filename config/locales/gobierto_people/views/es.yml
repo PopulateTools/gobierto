@@ -64,8 +64,6 @@ es:
         index:
           no_events: No hay eventos en esta agenda.
           past_events: Eventos pasados
-          subscribable_box:
-            title: Recibe actualizaciones sobre la actividad de %{person_name}
           title: Agenda de %{person_name}
           upcoming_events: Próximos eventos
           view_more: Ver más

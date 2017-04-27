@@ -64,8 +64,6 @@ ca:
         index:
           no_events: No hi ha esdeveniments a aquesta agenda
           past_events: Esdeveniments passats
-          subscribable_box:
-            title: Rebeix actualitzacions al teu correu-e sobre %{person_name}
           title: Agenda de %{person_name}
           upcoming_events: Agenda
           view_more: Veure més

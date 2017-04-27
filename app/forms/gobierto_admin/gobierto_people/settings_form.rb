@@ -10,12 +10,17 @@ module GobiertoAdmin
         :home_text_en,
         :submodules_enabled,
         :calendar_integration,
+        :ibm_notes_usr,
+        :ibm_notes_pwd
       )
 
       delegate :persisted?, to: :gobierto_module_settings
 
+      validates :ibm_notes_usr, :ibm_notes_pwd, presence: true, if: :ibm_notes_integration_selected?
+      validates :ibm_notes_usr, :ibm_notes_pwd, absence: true, unless: :ibm_notes_integration_selected?
+
       def save
-        save_settings if valid?
+        valid? && save_settings
       end
 
       def gobierto_module_settings
@@ -46,6 +51,14 @@ module GobiertoAdmin
         @calendar_integration ||= gobierto_module_settings.calendar_integration
       end
 
+      def ibm_notes_usr
+        @ibm_notes_usr ||= gobierto_module_settings.ibm_notes_usr
+      end
+
+      def ibm_notes_pwd
+        @ibm_notes_pwd ||= gobierto_module_settings.ibm_notes_pwd
+      end
+
       private
 
       def gobierto_module_settings_class
@@ -65,15 +78,14 @@ module GobiertoAdmin
           settings_attributes.home_text_en = home_text_en
           settings_attributes.submodules_enabled = submodules_enabled.select{|m| m.present?}
           settings_attributes.calendar_integration = calendar_integration
+
+          set_ibm_notes_integration_settings(settings_attributes)
         end
 
-        if @gobierto_module_settings.valid?
-          @gobierto_module_settings.save
-
-          @gobierto_module_settings
+        if @gobierto_module_settings.save
+          true
         else
           promote_errors(@gobierto_module_settings.errors)
-
           false
         end
       end
@@ -85,6 +97,23 @@ module GobiertoAdmin
           errors.add(attribute, message)
         end
       end
+
+      private
+
+      def ibm_notes_integration_selected?
+        calendar_integration == 'ibm_notes'
+      end
+
+      def set_ibm_notes_integration_settings(settings_attributes)
+        if ibm_notes_integration_selected?
+          settings_attributes.ibm_notes_usr = ibm_notes_usr
+          settings_attributes.ibm_notes_pwd = ibm_notes_pwd
+        else
+          settings_attributes.ibm_notes_usr = nil
+          settings_attributes.ibm_notes_pwd = nil
+        end
+      end
+
     end
   end
 end

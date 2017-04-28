@@ -87,6 +87,7 @@ es:
       gobierto_budget_consultations_consultation_response_deleted: Respuesta de consulta
         eliminada
       gobierto_budget_consultations_consultation_updated: Consulta actualizada
+      gobierto_budget_consultations_consultation_closed: Consulta cerrada
     layouts:
       application:
         participation: Participación

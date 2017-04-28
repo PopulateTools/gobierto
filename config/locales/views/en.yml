@@ -78,6 +78,7 @@ en:
           sign_out: Sign out
           title: Your account
     search:
+      powered_by: 'Search powered by <a href="https://www.algolia.com" target="_blank">Algolia</a>'
       page_item: Page
       person_event_item: Event
       person_item: Biography

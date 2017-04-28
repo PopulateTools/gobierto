@@ -68,6 +68,8 @@ $(document).on('turbolinks:load', function() {
         div.appendTo($resultsContainer);
       });
     });
+
+    $('<div class="result"><small>'+I18n.t("layouts.search.powered_by")+'</small></div>').appendTo($resultsContainer);
   }
 
   $input.on('keyup', function(e){

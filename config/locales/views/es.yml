@@ -83,6 +83,7 @@ es:
           sign_out: Cerrar sesión
           title: Tu cuenta
     search:
+      powered_by: 'Gobierto utiliza <a href="https://www.algolia.com" target="_blank">Algolia</a> para buscar'
       page_item: Página
       person_event_item: Evento
       person_item: Biografía

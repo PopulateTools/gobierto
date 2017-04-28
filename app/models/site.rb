@@ -123,7 +123,7 @@ class Site < ApplicationRecord
   end
 
   def run_seeder
-    if self.configuration_data_changed? && added_modules_after_update.any?
+    if self.saved_change_to_attribute?('configuration_data') && added_modules_after_update.any?
       added_modules_after_update.each do |module_name|
         GobiertoCommon::GobiertoSeeder::ModuleSeeder.seed(module_name, self)
         GobiertoCommon::GobiertoSeeder::ModuleSiteSeeder.seed(APP_CONFIG['site']['name'], module_name, self)
@@ -134,8 +134,9 @@ class Site < ApplicationRecord
   def added_modules_after_update
     @added_modules_after_update ||= begin
       if self.configuration_data.has_key?('modules')
-        if self.configuration_data_was && self.configuration_data_was.has_key?('modules')
-          Array.wrap(self.configuration_data['modules']) - Array.wrap(self.configuration_data_was['modules'])
+        configuration_data_before = self.attribute_before_last_save('configuration_data')
+        if configuration_data_before && configuration_data_before.has_key?('modules')
+          Array.wrap(self.configuration_data['modules']) - Array.wrap(configuration_data_before['modules'])
         else
           Array.wrap(self.configuration_data['modules'])
         end

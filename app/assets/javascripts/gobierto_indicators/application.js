@@ -114,7 +114,6 @@ $(document).on('turbolinks:load', function() {
   
   // Smooth scrolling
   $('a[href*="#"]').on('click', function (e) {
-    console.log(e);
     // prevent default action and bubbling
     e.preventDefault();
     e.stopPropagation();

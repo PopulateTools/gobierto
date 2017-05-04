@@ -5,7 +5,118 @@ es:
       application:
         indicators: Indicadores
       menu_subsections:
-        budgets: Presupuestos
-        economy: Economía
-        employment: Empleo
-        population: Población
+        poblacion: Población
+        empleo: Empleo
+        economia: Economía
+    intro: 'Conoce %{place} a través de sus principales cifras: la población, el empleo, la economía y los presupuestos.'
+    inhabitants: hab
+    graphics:
+      age_distribution:
+        title: Comprueba la distribución por edades de tu municipio
+        label: habitantes
+        axis: años
+      unemployment_rate:
+        title: Comparación de la tasa de paro
+        country: España
+      unemployment_sex:
+        title: Desempleo según el sexo
+        women: Mujeres
+        men: Hombres
+      unemployment_age:
+        title: Desempleo según la edad
+        less_25: Menores de 25
+        between_25_44: Entre 25 y 44
+        more_44: Mayores de 44
+      rent_distribution:
+        title: Riqueza y población en la provincia
+        inhabitants: Habitantes
+        gross_income: Renta bruta
+        million: millón
+        thousand: mil
+    cards:
+      frequency:
+        yearly: Actualización anual
+        monthly: Actualización mensual
+        weekly: Actualización semanal
+        daily: Actualización diaria
+      updated: Última actualización
+      meta:
+        where: 'En '
+        time: ' en '
+      unemployed_sector:
+        title: Desempleados por sector
+        industria: Industria
+        construccion: Construcción
+        agricultura: Agricultura
+        servicios: Servicios
+      contracts_sector:
+        title: Contratos por sector
+        industria: Industria
+        construccion: Construcción
+        agricultura: Agricultura
+        servicios: Servicios
+      income:
+        title: Renta municipal
+        first_column: ''
+        second_column: Renta bruta
+        third_column: Renta disponible
+      income_overview:
+        title: Renta bruta
+        figure_first: '%{province}'
+        figure_second: España
+      cars:
+        title: Coches por habitante
+      active_pop:
+        title: Población activa
+        figure_first: del total
+        figure_second: personas
+      houses:
+        title: Viviendas
+        figure_first: familiares
+        figure_second: principales
+      contracts_comparison:
+        title: Contratos en el mes pasado
+        figure_first: temporales
+        figure_second: indefinidos
+      companies:
+        title: Empresas
+      freelancers:
+        title: Autónomos
+      ss_members:
+        title: Afiliados a la Seguridad Social
+      population:
+        title: Habitantes
+      births:
+        title: Tasa de nacimientos
+        place: '%{place}'
+        province: Media provincial
+        country: Media estatal
+      deaths:
+        title: Tasa de defunciones
+        place: '%{place}'
+        province: Media provincial
+        country: Media estatal
+      investment_by_inhabitant:
+        title: Inversión por habitante
+        first_column: '%{place}'
+        second_column: Barcelona
+        third_column: Valencia
+      debt_by_inhabitant:
+        title: Deuda por habitante
+      ibi:
+        title: Impuesto sobre bienes inmuebles
+        first_column: ''
+        second_column: Urbano
+        third_column: Rústico
+      budget_by_inhabitant:
+        title: Presupuesto por habitante
+      construction_tax:
+        title: Impuesto a las construcciones
+        figure_first: '%{place}'
+        figure_second: media provincial
+      cars_tax:
+        title: Impuesto a los turismos
+        figure_first: '%{place}'
+        figure_second: media provincial
+      economic_tax:
+        title: Impuesto a las actividades económicas

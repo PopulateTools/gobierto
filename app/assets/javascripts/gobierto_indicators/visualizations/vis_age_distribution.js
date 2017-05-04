@@ -20,7 +20,9 @@ var VisAgeDistribution = Class.extend({
 
     this.yScale = d3.scaleLinear();
 
-    // this.color = d3.scaleSequential(d3.interpolateWarm);
+    this.color = d3.scaleLinear()
+      .range(['#FFE4C4','#d52a59'])
+      .interpolate(d3.interpolateHcl);
 
     // Create axes
     this.xAxis = d3.axisBottom();
@@ -91,6 +93,9 @@ var VisAgeDistribution = Class.extend({
       .rangeRound([this.height, 0])
       .domain([0, d3.max(this.data, function(d) {return d.value})]);
       
+    this.color
+      .domain([0, d3.max(this.data, function(d) {return d.value})]);
+      
     this._renderAxis();
   },
   _renderBars: function() {
@@ -106,7 +111,7 @@ var VisAgeDistribution = Class.extend({
       .attr('y', function(d) { return this.yScale(d.value) }.bind(this))
       .attr('width', this.xScale.bandwidth())
       .attr('height', function(d) { return this.height - this.yScale(d.value) }.bind(this))
-      .attr('fill', '#8da0cb')
+      .attr('fill', function(d) { return this.color(d.value); }.bind(this))
       .on('mousemove', this._mousemove.bind(this))
       .on('mouseout', this._mouseout.bind(this));
     
@@ -127,10 +132,10 @@ var VisAgeDistribution = Class.extend({
     this.svg.select('.focus-halo')
       .attr('stroke', 'white')
       .attr('stroke-width', '2px')
-      .text(accounting.formatNumber(d.value, 0) + ' personas');
+      .text(accounting.formatNumber(d.value, 0) + ' ' + I18n.t('gobierto_indicators.graphics.age_distribution.label'));
       
     this.svg.select('.focus-text')
-      .text(accounting.formatNumber(d.value, 0) + ' personas');
+      .text(accounting.formatNumber(d.value, 0) + ' ' + I18n.t('gobierto_indicators.graphics.age_distribution.label'));
   },
   _mouseout: function(d) {
     this.svg.select('.focus')
@@ -183,7 +188,7 @@ var VisAgeDistribution = Class.extend({
   _formatNumberX: function(d) {
     // 'Age 100' is aggregated
     if (d === 0) {
-      return d + ' años';
+      return d + ' ' + I18n.t('gobierto_indicators.graphics.age_distribution.axis');
     } else if (d === 100) {
       return d + '+';
     } else {

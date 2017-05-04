@@ -1,18 +1,19 @@
 'use strict';
 
-var VisUnemploymentSectors = Class.extend({
-  init: function(divId, city_id) {
+var VisUnemploymentSex = Class.extend({
+  init: function(divId, city_id, unemplAgeData) {
     this.container = divId;
     this.data = null;
+    this.unemplAgeData = unemplAgeData;
     this.tbiToken = window.populateData.token;
-    this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal-edad.json?sort_asc_by=date&filter_by_location_id=' + city_id;
-    this.sectorsUrl = window.populateData.endpoint + '/datasets/ds-personas-paradas-municipio-sector.json?sort_asc_by=date&filter_by_location_id=' + city_id;
-    this.timeFormat = d3.timeParse('%Y-%m');
+    this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-activa-municipal-sexo.json?sort_asc_by=date&filter_by_location_id=' + city_id;
+    this.unemplUrl = window.populateData.endpoint + '/datasets/ds-personas-paradas-municipio-sexo.json?sort_asc_by=date&filter_by_location_id=' + city_id;
+    this.parseTime = d3.timeParse('%Y-%m');
     this.pctFormat = d3.format('.1%');
     this.isMobile = window.innerWidth <= 768;
 
     // Chart dimensions
-    this.margin = {top: 25, right: 10, bottom: 25, left: 0};
+    this.margin = {top: 25, right: 70, bottom: 25, left: 0};
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -48,19 +49,19 @@ var VisUnemploymentSectors = Class.extend({
     var pop = d3.json(this.popUrl)
       .header('authorization', 'Bearer ' + this.tbiToken)
 
-    var sectors = d3.json(this.sectorsUrl)
+    var unemployed = d3.json(this.unemplUrl)
       .header('authorization', 'Bearer ' + this.tbiToken)
 
     d3.queue()
       .defer(pop.get)
-      .defer(sectors.get)
-      .await(function (error, jsonData, sectors) {
+      .defer(unemployed.get)
+      .await(function (error, population, unemployment) {
         if (error) throw error;
 
         var nested = d3.nest()
           .key(function(d) { return d.date; })
           .rollup(function(v) { return d3.sum(v, function(d) { return d.value; }); })
-          .entries(jsonData);
+          .entries(population);
 
         var temp = {};
         nested.forEach(function(k) {
@@ -69,9 +70,9 @@ var VisUnemploymentSectors = Class.extend({
         nested = temp;
 
         // Get the last year from the array
-        var lastYear = sectors[sectors.length - 1].date.slice(0,4);
+        var lastYear = unemployment[unemployment.length - 1].date.slice(0,4);
 
-        sectors.forEach(function(d) {
+        unemployment.forEach(function(d) {
           var year = d.date.slice(0,4);
 
           if(nested.hasOwnProperty(year)) {
@@ -82,14 +83,14 @@ var VisUnemploymentSectors = Class.extend({
           } else {
             d.pct = null;
           }
-          d.date = this.timeFormat(d.date);
+          d.date = this.parseTime(d.date);
         }.bind(this));
 
         // Filtering values to start from the first data points
-        this.data = sectors.filter(function(d) { return d.date >= this.timeFormat('2011-01') }.bind(this));
+        this.data = unemployment.filter(function(d) { return d.date >= this.parseTime('2011-01') }.bind(this));
 
         this.nest = d3.nest()
-          .key(function(d) { return d.sector; })
+          .key(function(d) { return d.sex; })
           .entries(this.data);
 
         this.updateRender();
@@ -112,11 +113,11 @@ var VisUnemploymentSectors = Class.extend({
 
     this.yScale
       .rangeRound([this.height, 0])
-      .domain([0, d3.max(this.data, function(d) { return d.pct})]);
+      .domain([0.04, d3.max(this.unemplAgeData, function(d) { return d.pct; })]);
 
     this.color
-      .domain(['Agricultura', 'Industria', 'Construcción', 'Servicios', 'Sin empleo anterior'])
-      .range(['#66c2a5','#fc8d62','#8da0cb','#e78ac3','#a6d854']);
+      .domain(['M', 'H'])
+      .range(['#F6B128','#007382']);
 
     this._renderAxis();
   },
@@ -124,16 +125,38 @@ var VisUnemploymentSectors = Class.extend({
     this.line = d3.line()
       .x(function(d) { return this.xScale(d.date); }.bind(this))
       .y(function(d) { return this.yScale(d.pct); }.bind(this));
+      
+      var lines = this.svg.append('g')
+        .attr('class', 'lines')
+        .selectAll('path')
+        .data(this.nest, function(d) { return d.key; })
+        .enter();
 
-    this.svg.append('g')
-      .attr('class', 'lines')
-      .selectAll('path')
-      .data(this.nest, function(d) { return d.key; })
-      .enter()
-      .append('path')
-      .attr('class', 'line')
-      .attr('d', function(d) { d.line = this; return this.line(d.values); }.bind(this))
-      .attr('stroke', function(d) { return this.color(d.key); }.bind(this));
+      var linesGroup = lines.append('g')
+        .attr('class', 'line');
+
+      linesGroup.append('path')
+        .attr('d', function(d) { d.line = this; return this.line(d.values); }.bind(this))
+        .attr('stroke', function(d) { return this.color(d.key); }.bind(this));
+        
+      linesGroup.append('circle')
+       .attr('cx', function(d) { return this.xScale(d.values.map(function(d) { return d.date; }).slice(-1)[0]); }.bind(this))
+       .attr('cy', function(d) { return this.yScale(d.values.map(function(d) { return d.pct; }).slice(-1)[0]); }.bind(this))
+       .attr('r', 5)
+       .attr('fill', function(d) { return this.color(d.key); }.bind(this));
+       
+      var linesText = d3.select(this.container).append('div')
+        .attr('class', 'lines-labels')
+        .selectAll('p')
+        .data(this.nest, function(d) { return d.key; })
+        .enter();
+        
+      linesText.append('div')
+        .style('right', '20px')
+        .style('top', function(d) { return this.yScale(d.values.map(function(d) { return d.pct; }).slice(-1)[0]) + 'px'; }.bind(this))
+        .text(function(d) {
+          return this._getLabel(d.key);
+        }.bind(this));
   },
   _renderVoronoi: function() {
     // Voronoi
@@ -168,30 +191,43 @@ var VisUnemploymentSectors = Class.extend({
         .on('mouseout', this._mouseout.bind(this));
   },
   _mouseover: function(d) {
-    this.focus.select('circle').attr('stroke', this.color(d.data.sector));
+    this.focus.select('circle').attr('stroke', this.color(d.data.sex));
     this.focus.attr('transform', 'translate(' + this.xScale(d.data.date) + ',' + this.yScale(d.data.pct) + ')');
-    this.focus.select('text').attr('text-anchor', d.data.date >= this.timeFormat('2014-01') ? 'end' : 'start');
-    this.focus.select('tspan').text(d.data.sector + ': ' + this.pctFormat(d.data.pct));
+    this.focus.select('text').attr('text-anchor', d.data.date >= this.parseTime('2014-01') ? 'end' : 'start');
+    this.focus.select('tspan').text(this._getLabel(d.data.sex) + ': ' + this.pctFormat(d.data.pct));
   },
   _mouseout: function(d) {
     this.focus.attr('transform', 'translate(-100,-100)');
+  },
+  _getLabel: function(sex) {
+    switch (sex) {
+      case 'H':
+        return I18n.t('gobierto_indicators.graphics.unemployment_sex.men');
+        break;
+      case 'M':
+        return I18n.t('gobierto_indicators.graphics.unemployment_sex.women');
+        break;
+    }
   },
   _renderAxis: function() {
     // X axis
     this.svg.select('.x.axis')
       .attr('transform', 'translate(0,' + this.height + ')');
 
-    this.xAxis.tickPadding(5);
-    this.xAxis.tickSize(0, 0);
-    this.xAxis.scale(this.xScale);
-    // this.xAxis.tickFormat(this._formatNumberX.bind(this));
+    this.xAxis
+      .tickPadding(5)
+      .tickSize(0, 0)
+      .ticks(2)
+      .scale(this.xScale);
+
     this.svg.select('.x.axis').call(this.xAxis);
 
     // Y axis
-    this.yAxis.tickSize(-this.width);
-    this.yAxis.scale(this.yScale);
-    this.yAxis.ticks(3, '%');
-    // this.yAxis.tickFormat(this._formatNumberY.bind(this));
+    this.yAxis
+      .tickSize(-this.width)
+      .scale(this.yScale)
+      .ticks(2, '%');
+    
     this.svg.select('.y.axis').call(this.yAxis);
 
     // Remove the zero
@@ -205,36 +241,41 @@ var VisUnemploymentSectors = Class.extend({
       .attr('dx', '0.25em')
       .attr('dy', '-0.55em');
   },
-  _formatNumberX: function(d) {
-  },
-  _formatNumberY: function(d) {
-  },
   _width: function() {
     return parseInt(d3.select(this.container).style('width'));
   },
   _height: function() {
-    return this.isMobile ? 200 : this._width() * 0.4;
+    return this.isMobile ? 200 : this._width() * 1.4;
   },
   _resize: function() {
-    this.width = this._width();
-    this.height = this._height();
+    this.isMobile = window.innerWidth <= 768;
+    
+    this.width = this._width() - this.margin.left - this.margin.right;
+    this.height = this._height() - this.margin.top - this.margin.bottom;
 
     this.updateRender();
-
+    
     d3.select(this.container + ' svg')
       .attr('width', this.width + this.margin.left + this.margin.right)
-      .attr('height', this.height + this.margin.top + this.margin.bottom)
+      .attr('height', this.height + this.margin.top + this.margin.bottom);
 
     this.svg.select('.chart-container')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
     this.svg.selectAll('.lines path')
       .attr('d', function(d) { d.line = this; return this.line(d.values); }.bind(this));
+      
+    this.svg.selectAll('.lines circle')
+      .attr('cx', function(d) { return this.xScale(d.values.map(function(d) { return d.date; }).slice(-1)[0]); }.bind(this))
+      .attr('cy', function(d) { return this.yScale(d.values.map(function(d) { return d.pct; }).slice(-1)[0]); }.bind(this));
+      
+    d3.selectAll(this.container + ' .lines-labels div')
+      .style('top', function(d) { return this.yScale(d.values.map(function(d) { return d.pct; }).slice(-1)[0]) + 'px'; }.bind(this));
 
     this.voronoi
-    .extent([[0, 0], [this.width, this.height]]);
+      .extent([[0, 0], [this.width, this.height]]);
 
-    this.voronoiGroup.selectAll("path")
+    this.voronoiGroup.selectAll('path')
       .data(this.voronoi.polygons(d3.merge(this.nest.map(function(d) { return d.values; }))))
       .attr('d', function(d) { return d ? 'M' + d.join('L') + 'Z' : null; });
   }

@@ -1,8 +1,9 @@
-$(document).on('turbolinks:load', function() {
 
+$(document).on('turbolinks:load', function() {
   $('.nav_control, .close').click(function(e) {
     e.preventDefault();
     if( $('.menu.complete').css('display') == 'none' ) {
+      console.log('in');
       $('.nav').attr('aria-hidden', 'true');
       $('.menu.complete').attr({
         'aria-hidden': 'false',
@@ -21,6 +22,7 @@ $(document).on('turbolinks:load', function() {
       });
     }
     else {
+      console.log('out');
       $('.nav').attr('aria-hidden', 'false');
       $('.menu.complete').attr({
         'aria-hidden': 'true',

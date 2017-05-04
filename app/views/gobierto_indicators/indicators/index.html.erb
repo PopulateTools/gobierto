@@ -1,788 +1,102 @@
-<div class="intro_section clearfix">
-	<div class="column">
-		<div class="pure-g">
-			<div class="pure-u-1 pure-u-md-2-5">
-        <p class="intro_desc">Conoce <%= @site.place.name %> a través de sus principales cifras: nuestra población, empleo, economía y presupuestos.</p>
-			</div>
-			<div class="pure-u-1 pure-u-md-3-5">
-				<%= image_tag('illustrations/integra.jpg', class: 'img-fluid side_50 pb1') %>
-			</div>
+<div class="intro_section clearfix column">
+	<div class="pure-g">
+		<div class="pure-u-1 pure-u-md-2-5">
+      <p class="intro_desc"><%= t("gobierto_indicators.intro", place: @site.place.name) %></p>
+		</div>
+		<div class="pure-u-1 pure-u-md-3-5">
+			<%= image_tag('illustrations/integra.jpg', class: 'img-fluid side_50 pb1') %>
 		</div>
 	</div>
 </div>
 
-<div class="column">
-	<section id="poblacion" class="mb4">
-		<div class="pure-g mb2">			
-			<div class="pure-u-1 pure-u-md-1-3">
-				<h2 class="section_headline" id="population">Población</h2>
-				<p class="section_desc">
-					Los datos de población municipales se recoge en el padrón, un indicador recopilado por los ayuntamientos y publicado por el INE anualmente. Son datos básicos, que se complementan con el censo, una foto fija del país que se elabora cada década. 
-				</p>
-			</div>
-			<div class="pure-u-1 pure-u-md-2-3">
-				<div id="age_distribution" class="main_graphic">
-					<h3 class="chart_headline">La población por edades de <%= @site.place.name %></h3>
-				</div>
-			</div>
-		</div>
-		
-		<div class="pure-g">
-			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-        <div class="indicator_widget widget_start" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-poblacion-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
-					<div class="front">
-						<div class="widget_headline"><h3>Población <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
+<div class="column graphics">
+  <nav class="sections-nav desktop_only_reset">
+    <ul>
+      <% %W{ poblacion empleo economia }.each do |subsection| %>
+        <li><%= link_to t("gobierto_indicators.layouts.menu_subsections.#{subsection}"), "##{subsection}" %></li>
+      <% end %>
+    </ul>
+  </nav>
+   
+  <div class="sections">
+  	<section id="poblacion" class="block">
+  		<div class="pure-g">
+  			<div class="pure-u-1 pure-u-md-1">
+  				<h2 class="with_description"><%= t("gobierto_indicators.layouts.menu_subsections.poblacion") %></h2>
+  				<div id="age_distribution" class="main_graphic">
+  					<p class="description"><%= t("gobierto_indicators.graphics.age_distribution.title") %></p>
+  				</div>
+  			</div>
+  		</div>
+  		
+  		<div class="pure-g padded_cols">
+        <%= render 'card_simple', {card_class: 'population_card', data_type: 'figure'} %>
+        <%= render 'card_sparkline_table', {card_class: 'births', data_trend: 'up', data_type: 'percentage_by_thousand', data_freq: 'annual'} %>
+        <%= render 'card_sparkline_table', {card_class: 'deaths', data_trend: 'down', data_type: 'percentage_by_thousand', data_freq: 'annual'} %>
+        <%= render 'card_comparison', {card_class: 'active_pop', data_type_one: 'percentage', data_type_two: 'figure', data_freq: 'daily' } %>
+        <%= render 'card_comparison', {card_class: 'houses', data_type_one: 'figure', data_type_two: 'figure', data_freq: 'daily' } %>
+        <%= render 'card_bars', {card_class: 'cars', data_type: 'per_inhabitant', data_freq: 'annual' } %>
+  		</div>
+  	</section>
 
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Población <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_middle" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-nacimientos-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
-					<div class="front">
-						<div class="widget_headline"><h3>Nacimientos <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Nacimientos <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_end" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-defunciones-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
-					<div class="front">
-						<div class="widget_headline"><h3>Defunciones <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Defunciones <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</section>
-
-	<section id="empleo" class="mb4">
-		<div class="pure-g">
-			<div class="pure-u-1 pure-u-md-2-3">
-				<h2 class="section_headline" id="employment">Empleo</h2>
-          <p class="section_desc">
-						A nivel municipal hay varios indicadores sobre empleo, aunque no existe la tasa de paro: esta la calcula el INE en base a una encuesta trimestral (<a href="http://www.ine.es/prensa/epa_prensa.htm">la EPA</a>). En esta sección puedes consultar una aproximación a lo que sería una tasa de paro municipal, basada en los datos de población anuales y en los inscritos en el Servicio Público de Empleo, que son mensuales.
-					</p>
-			</div>
-		</div>
-		<div class="pure-g mb2">
-			<div class="pure-u-1 pure-u-md-12-24">
-				<h3 class="chart_headline center">Porcentaje de desempleados según la población total y edad</h3>
-				<div id="unemployment_age" class="small_graphic"></div>
-			</div>
-			<div class="pure-u-1 pure-u-md-12-24">
-				<h3 class="chart_headline center">Porcentaje de desempleados según la población total y sectores</h3>
-				<div id="unemployment_sectors" class="small_graphic"></div>
-			</div>
-		</div>
-		
-		<div class="pure-g">
-
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_start" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-tasa-paro-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=" data-type="percentage">
-					<div class="front">
-						<div class="widget_headline"><h3>Tasa de paro <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Tasa de paro <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_middle" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-poblacion-activa-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
-					<div class="front">
-						<div class="widget_headline"><h3>Población activa <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Población activa <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_end" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-afiliados-ss-municipio.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
-					<div class="front">
-						<div class="widget_headline"><h3>Afiliados Seguridad Social <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Afiliados Seguridad Social <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_start" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-contratos-municipio.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
-					<div class="front">
-						<div class="widget_headline"><h3>Contratos en el último mes <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Contratos en el último mes <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_middle" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-autonomos-municipio.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
-					<div class="front">
-						<div class="widget_headline"><h3>Autónomos <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Autónomos <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_end" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-empresas-municipio.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=">
-					<div class="front">
-						<div class="widget_headline"><h3>Empresas <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Empresas <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</section>
+  	<section id="empleo" class="block">
+  		<div class="pure-g">
+  			<div class="pure-u-1 pure-u-md-2-3">
+  				<h2 class="with_description"><%= t("gobierto_indicators.layouts.menu_subsections.empleo") %></h2>
+  			</div>
+  		</div>
+  		<div class="pure-g">
+        <div class="pure-u-1 pure-u-md-1-3">
+          <p class="description"><%= t("gobierto_indicators.graphics.unemployment_rate.title") %></p>
+          <div id="unemployment_rate" class="small_graphic"></div>
+        </div>
+  			<div class="pure-u-1 pure-u-md-1-3">
+  				<p class="description"><%= t("gobierto_indicators.graphics.unemployment_sex.title") %></p>
+  				<div id="unemployment_sex" class="small_graphic"></div>
+  			</div>
+  			<div class="pure-u-1 pure-u-md-1-3">
+  				<p class="description"><%= t("gobierto_indicators.graphics.unemployment_age.title") %></p>
+  				<div id="unemployment_age" class="small_graphic"></div>
+  			</div>
+  		</div>
+  		
+  		<div class="pure-g padded_cols">
+        <%= render 'card_simple', {card_class: 'ss_members', data_type: 'figure'} %>
+        <%= render 'card_sparkline_table', {card_class: 'unemployed_sector', data_trend: 'down', data_type: 'figure', data_freq: 'daily'} %>
+        <%= render 'card_sparkline_table', {card_class: 'contracts_sector', data_trend: 'up', data_type: 'figure', data_freq: 'daily'} %>
+        <%= render 'card_simple', {card_class: 'freelancers', data_type: 'figure'} %>
+        <%= render 'card_simple', {card_class: 'companies', data_type: 'figure'} %>
+        <%= render 'card_comparison', {card_class: 'contracts_comparison', data_type_one: 'figure', data_type_two: 'figure', data_freq: 'daily' } %>
+  		</div>
+  	</section>
 
 
-	<section id="economia" class="mb4">
-		<div class="pure-g mb2">
-			<div class="pure-u-1 pure-u-md-1-3">
-				<div class="r_mr">
-					<h2 class="section_headline" id="economy">Economía</h2>
-            <p class="section_desc">
-							Este gráfico recoge la renta media antes de impuestos en <%= @site.place.name %> y provincia. Esta cifra (que hasta hace poco no era pública) la recopila la Agencia Tributaria.
-						</p>
-						<p class="section_desc">
-							A través de la comparación con el número de habitantes se puede distinguir si existe alguna relación entre el tamaño del municipio y su riqueza, aunque hay más variables que influyen en el indicador.
-						</p>
-				</div>
-			</div>
-			<div class="pure-u-1 pure-u-md-2-3">
-				<div id="rent_distribution" class="main_graphic">
-					<div class="annotations">
-						<h3 class="chart_headline">La riqueza de <%= @site.place.name %>, en perspectiva</h3>
-						<div class="rent-anno">Renta bruta <span class="arrow">↑</span></div>
-						<div class="pop-anno">Habitantes <span class="arrow">→</span></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<div class="pure-g">
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_start" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-renta-bruta-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=" data-type="currency">
-					<div class="front">
-						<div class="widget_headline"><h3>Renta bruta <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Renta bruta <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_middle" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-renta-disponible-media-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=" data-type="currency">
-					<div class="front">
-						<div class="widget_headline"><h3>Renta disponible <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Renta disponible <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_end" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-impuestos-actividades-economicas-min-municipal.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_location_id=" data-type="percentage">
-					<div class="front">
-						<div class="widget_headline"><h3>Impuesto actividades económicas <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Impuesto actividades económicas <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</section>
-
-	<section id="presupuestos" class="mb4">
-		<div class="pure-g">
-			<div class="pure-u-1 pure-u-md-2-3 mb1">
-				<h2 class="section_headline" id="budgets">Presupuestos</h2>
-          <p class="section_desc">
-						El presupuesto municipal es el documento que explica cómo se gestiona el dinero público durante un año. El alcalde y los responsables de cada área de gobierno diseñan el presupuesto, lo redactan con las indicaciones de la concejalía de Hacienda y se somete a votación en el pleno. El presupuesto de un año tiene que quedar aprobado antes del 31 de diciembre del año anterior. Si no, se prorroga automáticamente.
-					</p>
-			</div>
-		</div>
-
-		<div class="pure-g">
-			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_start" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-inversion-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="currency_per_person">
-					<div class="front">
-						<div class="widget_headline"><h3>Inversión por habitante <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Inversión por habitante <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_middle" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-coste-deuda.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="percentage">
-					<div class="front">
-						<div class="widget_headline"><h3>Coste de la deuda <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Coste de la deuda <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_end" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-presion-fiscal-por-habitante.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="currency_per_person">
-					<div class="front">
-						<div class="widget_headline"><h3>Presión fiscal por habitante <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Presión fiscal por habitante <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_start" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-nivel-endeudamiento.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="percentage">
-					<div class="front">
-						<div class="widget_headline"><h3>Nivel de endeudamiento <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Nivel de endeudamiento <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_middle" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-riesgo-financiero.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="percentage">
-					<div class="front">
-						<div class="widget_headline"><h3>Riesgo financiero <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Riesgo financiero <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="pure-u-1 pure-u-md-1-3 card_container">
-				<div class="indicator_widget widget_end" data-url="<%= APP_CONFIG["populate_data"]["endpoint"] %>/datasets/ds-rigidez-gasto.json?sort_desc_by=date&with_metadata=true&limit=2&filter_by_municipality_id=" data-type="percentage">
-					<div class="front">
-						<div class="widget_headline"><h3>Rigidez de gasto <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-						<div class="widget_body">
-							<span class="widget_figure"></span>
-							<span class="pull-right widget_pct"></span>
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-					
-					<div class="back">
-						<div class="widget_headline"><h3>Rigidez de gasto <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-
-						<div class="widget_info">
-							<span><span class="js-data-desc"></span>, se actualiza <span class="js-data-freq"></span>. Fuente: <span class="widget_src"></span>.
-						</div>
-
-						<div class="widget_meta">
-							<i class="fa fa-university" aria-hidden="true"></i>
-							<div class="widget_src"></div>
-							<div class="pull-right">
-								<i class="fa fa-clock-o" aria-hidden="true"></i>
-								<small class="widget_updated"></small>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-		</div>
-	</section>
+  	<section id="economia" class="block">
+  		<div class="pure-g">
+  			<div class="pure-u-1">
+          <h2 class="with_description"><%= t("gobierto_indicators.layouts.menu_subsections.economia") %></h2>
+          
+  				<div id="rent_distribution" class="main_graphic">
+  					<div class="annotations">
+  						<p class="description"><%= t("gobierto_indicators.graphics.rent_distribution.title") %></p>
+  						<div class="rent-anno"><%= t("gobierto_indicators.graphics.rent_distribution.gross_income") %> <span class="arrow">↑</span></div>
+  						<div class="pop-anno"><%= t("gobierto_indicators.graphics.rent_distribution.inhabitants") %> <span class="arrow">→</span></div>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  		
+  		<div class="pure-g padded_cols">
+        <%= render 'card_comparison', {card_class: 'income_overview', data_type_one: 'currency', data_type_two: 'currency', data_freq: 'daily'} %>
+        <%= render 'card_table', {card_class: 'income', data_type_one: 'currency', data_type_two: 'currency', data_freq: 'daily'} %>
+        <%= render 'card_sparkline_table', {card_class: 'investment_by_inhabitant', data_trend: 'up', data_type: 'currency', data_freq: 'daily'} %>
+        <%= render 'card_bars', {card_class: 'debt_by_inhabitant', data_type: 'currency_per_person', data_freq: 'daily' } %>
+        <%= render 'card_table', {card_class: 'ibi', data_type_one: 'percentage', data_type_two: 'percentage', data_freq: 'daily'} %>
+        <%= render 'card_simple', {card_class: 'budget_by_inhabitant', data_type: 'currency'} %>
+        <%= render 'card_comparison', {card_class: 'construction_tax', data_type_one: 'percentage', data_type_two: 'percentage', data_freq: 'daily'} %>
+        <%= render 'card_comparison', {card_class: 'cars_tax', data_type_one: 'currency', data_type_two: 'currency', data_freq: 'daily'} %>
+        <%= render 'card_simple', {card_class: 'economic_tax', data_type: 'percentage'} %>
+  		</div>
+  	</section>
+  </div>
 </div>

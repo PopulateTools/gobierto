@@ -6,7 +6,7 @@ this.GobiertoAdmin.ConsultationResponsesController = (function() {
   };
 
   function _loadReport(dataUrl) {
-    var vis_ageReport = new VisAgeReport('#age_report', dataUrl);
+    var vis_ageReport = new VisAgeReport('#age_report .vis', dataUrl);
     vis_ageReport.render();
 
     var vis_consultationIndicators = new VisIndicators('#consultation-indicators', dataUrl);

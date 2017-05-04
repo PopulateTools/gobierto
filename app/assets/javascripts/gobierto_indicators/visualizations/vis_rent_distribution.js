@@ -13,10 +13,10 @@ var VisRentDistribution = Class.extend({
     this.isMobile = window.innerWidth <= 768;
 
     // Set default locale
-    d3.formatDefaultLocale(es_ES);
+    d3.formatDefaultLocale(eval(I18n.locale));
 
     // Chart dimensions
-    this.margin = {top: 25, right: 10, bottom: 30, left: 10};
+    this.margin = {top: 25, right: 15, bottom: 30, left: 15};
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -118,7 +118,7 @@ var VisRentDistribution = Class.extend({
       .attr('cy', function(d) { return this.yScale(d.rent) }.bind(this))
       .attr('fill', function(d) { return this.color(d.rent) }.bind(this))
       .attr('stroke', 'white')
-      .attr('r', this.isMobile ? 6 : 8);
+      .attr('r', this.isMobile ? 6 : 12);
 
     // Add name of the current city
     var cityLabel = this.svg.append('g')
@@ -137,6 +137,7 @@ var VisRentDistribution = Class.extend({
       .attr('dx', -15)
       .attr('text-anchor', 'end')
       .text(function(d) { return d.municipality_name });
+    
   },
   _renderVoronoi: function() {
     // Create voronoi
@@ -166,7 +167,7 @@ var VisRentDistribution = Class.extend({
       .attr('class', 'hover')
       .attr('fill', 'none')
       .attr('transform', 'translate(-100,-100)')
-      .attr('r', this.isMobile ? 4: 8);
+      .attr('r', this.isMobile ? 6 : 12);
   },
   _mousemove: function(d, i) {
     d3.select('.circle' + i).attr('stroke', 'none')
@@ -182,11 +183,11 @@ var VisRentDistribution = Class.extend({
     this.tooltip.html('<div class="tooltip-city">' + d.datum.municipality_name + '</div>' +
       '<table class="tooltip-table">' +
           '<tr class="first-row">' +
-              '<td class="table-t">Habitantes</td>' +
+              '<td class="table-t">' + I18n.t('gobierto_indicators.graphics.rent_distribution.inhabitants') + '</td>' +
               '<td><span class="table-n">'+ accounting.formatNumber(d.datum.value, 0) +'</span></td>' +
           '</tr>' +
           '<tr class="second-row">' +
-              '<td class="table-t">Renta bruta</td>' +
+              '<td class="table-t">' + I18n.t('gobierto_indicators.graphics.rent_distribution.gross_income') + '</td>' +
               '<td>' + accounting.formatNumber(d.datum.rent, 0) + '€</td>' +
           '</tr>' +
       '</table>')
@@ -196,17 +197,16 @@ var VisRentDistribution = Class.extend({
     if (this.isMobile) {
       this.tooltip.style('opacity', 0);
     } else {
-      var tooltipX = (window.innerWidth / d3.event.pageX) / 2;
-
-      this.tooltip.style('top', (d3.event.pageY + 23) + 'px');
-
-      // Ugly tooltip hack
-      if (tooltipX < 0.65) {
-          return this.tooltip.style('left', (d3.event.pageX - 200) + 'px');
-      } else if (tooltipX > 2.5) {
-          return this.tooltip.style('left', (d3.event.pageX - 20) + 'px');
+      var coords = d3.mouse(d3.select(this.container)._groups[0][0]);
+      var x = coords[0], y = coords[1];
+      
+      this.tooltip.style('top', (y + 23) + 'px');
+      
+      if (x > 900) {
+        // Move tooltip to the left side
+        return this.tooltip.style('left', (x - 200) + 'px');
       } else {
-          return this.tooltip.style('left', (d3.event.pageX - 95) + 'px');
+        return this.tooltip.style('left', (x - 20) + 'px');
       }
     }
   },
@@ -223,21 +223,25 @@ var VisRentDistribution = Class.extend({
     this.svg.select('.x.axis')
       .attr('transform', 'translate(0,' + this.height + ')');
 
-    this.xAxis.tickPadding(10);
-    this.xAxis.ticks(2); // FIXME: ticks(3) creates 15 ticks
-    this.xAxis.tickSize(-this.height);
-    this.xAxis.scale(this.xScale);
-    this.xAxis.tickFormat(this._formatNumberX.bind(this))
+    this.xAxis
+      .tickPadding(10)
+      .ticks(3)
+      .tickSize(-this.height)
+      .scale(this.xScale)
+      .tickFormat(this._formatNumberX.bind(this));
+    
     this.svg.select('.x.axis').call(this.xAxis);
 
     // Y axis
     this.svg.select('.y.axis')
       .attr('transform', 'translate(' + this.width + ' ,0)');
 
-    this.yAxis.scale(this.yScale);
-    this.yAxis.ticks(this.isMobile ? 3 : 4);
-    this.yAxis.tickSize(-this.width);
-    this.yAxis.tickFormat(this._formatNumberY.bind(this));
+    this.yAxis
+      .scale(this.yScale)
+      .ticks(this.isMobile ? 3 : 4)
+      .tickSize(-this.width)
+      .tickFormat(this._formatNumberY.bind(this));
+    
     this.svg.select('.y.axis').call(this.yAxis);
 
     // Place y axis labels on top of ticks
@@ -251,10 +255,10 @@ var VisRentDistribution = Class.extend({
       .remove();
   },
   _formatMillionAbbr: function(x) {
-    return d3.format('.0f')(x / 1e6) + ' millón';
+    return d3.format('.0f')(x / 1e6) + ' ' + I18n.t('gobierto_indicators.graphics.rent_distribution.million');
   },
   _formatThousandAbbr: function(x) {
-    return d3.format('.0f')(x / 1e3) + ' mil';
+    return d3.format('.0f')(x / 1e3) + ' ' + I18n.t('gobierto_indicators.graphics.rent_distribution.thousand');
   },
   _formatAbbreviation: function(x) {
     var v = Math.abs(x);

@@ -4,6 +4,10 @@
       token: "<%= Rails.application.secrets.tbi_api_token %>",
       municipalityId: "<%= @site.place.id %>",
       municipalityName: "<%= @site.place.name %>",
+      provinceId: "<%= @site.place.province.id %>",
+      provinceName: "<%= @site.place.province.name %>",
+      ccaaId: "<%= @site.place.province.autonomous_region.id %>",
+      ccaaName: "<%= @site.place.province.autonomous_region.name %>",
       year: <%= APP_CONFIG["gobierto_indicators"]["year"] %>,
       endpoint: "<%= APP_CONFIG["populate_data"]["endpoint"] %>"
     }
@@ -13,7 +17,7 @@
 
 <% content_for :breadcrumb_items do %>
   <h1>
-    <%= link_to t('.indicators'), gobierto_indicators_root_path %>
+    <%= link_to title(t('.indicators')), gobierto_indicators_root_path %>
   </h1>
   <strong data-breadcrumb-sub-item></strong>
 <% end %>

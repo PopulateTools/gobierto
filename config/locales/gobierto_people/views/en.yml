@@ -64,10 +64,9 @@ en:
         index:
           no_events: There are no events in this agenda
           past_events: Past events
-          subscribable_box:
-            title: Receive %{person_name}'s updates in your inbox
           title: "%{person_name}'s agenda"
           upcoming_events: Agenda
+          view_more: View more
         show:
           event_data:
             event_attendees: Attendees
@@ -145,6 +144,7 @@ en:
         no_upcoming_events: There are no future events. Take a look at past ones
         no_past_events: There are no past events.
         no_events: There are no future or past events.
+        view_more: View more
     person_post_tags:
       show:
         filtering_by_tag: Filtering by "%{tag}"

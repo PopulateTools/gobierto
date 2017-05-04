@@ -15,11 +15,11 @@ module GobiertoAdmin
             settings_params.merge(site_id: current_site.id)
           )
 
-          @settings_form.save
-          redirect_to(
-            edit_admin_people_configuration_settings_path,
-            notice: t(".success")
-          )
+          if @settings_form.save
+            redirect_to edit_admin_people_configuration_settings_path, notice: t(".success")
+          else
+            redirect_to edit_admin_people_configuration_settings_path, alert: t(".error")
+          end
         end
 
         private
@@ -30,6 +30,8 @@ module GobiertoAdmin
             :home_text_ca,
             :home_text_en,
             :calendar_integration,
+            :ibm_notes_usr,
+            :ibm_notes_pwd,
             submodules_enabled: []
           )
         end

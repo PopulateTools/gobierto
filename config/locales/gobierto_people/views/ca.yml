@@ -64,10 +64,9 @@ ca:
         index:
           no_events: No hi ha esdeveniments a aquesta agenda
           past_events: Esdeveniments passats
-          subscribable_box:
-            title: Rebeix actualitzacions al teu correu-e sobre %{person_name}
           title: Agenda de %{person_name}
           upcoming_events: Agenda
+          view_more: Veure més
         show:
           event_data:
             event_attendees: Assistents
@@ -145,6 +144,7 @@ ca:
         no_upcoming_events: No hi ha events futurs. Mira els pròxims events
         no_past_events: No hi ha events passats.
         no_events: No hi ha events futurs ni passats.
+        view_more: Veure més
     person_post_tags:
       show:
         filtering_by_tag: Filtrant per "%{tag}"

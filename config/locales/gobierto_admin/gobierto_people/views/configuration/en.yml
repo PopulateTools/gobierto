@@ -24,8 +24,11 @@ en:
               home_text_ca: Home text Catalan
               home_text_es: Home text Spanish
               home_text_en: Home text English
+              ibm_notes_usr: IBM Notes user
             update: Update
             ibm_notes: IBM Notes
+            ibm_notes_usr: IBM Notes user
+            ibm_notes_pwd: IBM Notes password
             submodules_enabled: Enabled submodules
             calendar_integration: Calendar integration
         title: Configuration

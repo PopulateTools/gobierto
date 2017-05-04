@@ -1,0 +1,8 @@
+---
+en:
+  gobierto_admin:
+    gobierto_people:
+      people:
+        person_calendar_configuration:
+          update:
+            success: Settings updated successfully

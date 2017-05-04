@@ -6,3 +6,4 @@ ca:
         settings:
           update:
             success: Preferències actualitzades correctament
+            error: Hi ha hagut un error guardant les preferències

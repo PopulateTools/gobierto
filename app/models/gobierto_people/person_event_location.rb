@@ -5,5 +5,9 @@ module GobiertoPeople
     belongs_to :person_event
 
     validates :name, presence: true
+
+    def geolocated?
+      lat.present? && lng.present?
+    end
   end
 end

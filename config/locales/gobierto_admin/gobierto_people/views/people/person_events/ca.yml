@@ -36,6 +36,7 @@ ca:
             visibility_level:
               pending: Borrador
               published: Publicat
+            configuration: Configuració
           locations_form:
             header:
               address: Adreça

@@ -1,0 +1,63 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://host.wadus.com/endpoint
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/html; charset=UTF-8
+      Content-Length:
+      - '370'
+    body:
+      encoding: ASCII-8BIT
+      # The following lines contain a base64-encoded fake 'login form' which is
+      # used by Mechanize to perform authentication.
+      string: !binary |-
+        PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PHRpdGxlPjwvdGl0bGU+PC9oZWFkPjxib2R5Pjxm
+        b3JtIGFjdGlvbj0iL25hbWVzLm5zZj9Mb2dpbiIgaWQ9Il9Eb21pbm9Gb3JtIiBtZXRob2Q9InBv
+        c3QiIG5hbWU9Il9Eb21pbm9Gb3JtIj48aW5wdXQgbmFtZT0iJSVNb2REYXRlIiB0eXBlPSJoaWRk
+        ZW4iIHZhbHVlPSIwQTVEMkM1QTAwMDAwMDAwIj48aW5wdXQgbWF4bGVuZ3RoPSIyNTYiIG5hbWU9
+        IlVzZXJuYW1lIiB2YWx1ZT0iIj48aW5wdXQgbWF4bGVuZ3RoPSIyNTYiIG5hbWU9IlBhc3N3b3Jk
+        IiB0eXBlPSJwYXNzd29yZCIgdmFsdWU9IiI+PGlucHV0IHR5cGU9InN1Ym1pdCIgdmFsdWU9IkFj
+        Y2VkaXIiPjwvZm9ybT48L2JvZHk+PC9odG1sPg==
+    http_version:
+  recorded_at: Tue, 11 Apr 2017 08:30:10 GMT
+- request:
+    method: post
+    uri: https://host.wadus.com/names.nsf?Login
+    headers:
+      Host:
+      - host.wadus.com
+  response:
+    status:
+      code: 302
+      message: Found
+    headers:
+      Location:
+      - https://host.wadus.com/endpoint
+  recorded_at: Tue, 11 Apr 2017 08:30:10 GMT
+- request:
+    method: get
+    uri: https://host.wadus.com/endpoint
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '24'
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "foo":"bar",$,%,&,
+        }
+    http_version:
+  recorded_at: Tue, 11 Apr 2017 08:30:10 GMT
+recorded_with: VCR 3.0.3

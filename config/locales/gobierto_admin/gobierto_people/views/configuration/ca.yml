@@ -24,8 +24,11 @@ ca:
               home_text_ca: Text home català
               home_text_es: Text home espanyol
               home_text_en: Text home anglés
+              ibm_notes_usr: Usuari d'IBM Notes
             update: Actualitzar
             ibm_notes: IBM Notes
+            ibm_notes_usr: Usuari d'IBM Notes
+            ibm_notes_pwd: Contrasenya d'IBM Notes
             submodules_enabled: Submòduls habilitats
             calendar_integration: Integració de calendari
         title: Configuració

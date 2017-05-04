@@ -34,6 +34,10 @@
 
   <div class="pure-u-1 pure-u-md-2-5">
     <div class="admin_tools right">
+      <%= link_to edit_admin_people_person_calendar_configuration_path(@person) do %>
+        <i class="fa fa-cog"></i>
+        <%= t(".configuration") %>
+      <% end %>
       <%= link_to t(".new"), new_admin_people_person_event_path(@person), class: "button", data: { turbolinks: false } %>
     </div>
   </div>
@@ -60,7 +64,7 @@
       </td>
       <td>
         <%= link_to edit_admin_people_person_event_path(@person, person_event), data: { turbolinks: false } do %>
-          <%= person_event.title %>
+          <%= person_event.title_with_fallback %>
         <% end %>
       </td>
       <td>

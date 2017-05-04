@@ -157,6 +157,9 @@ en:
     ca: Catalan
     en: English
     es: Spanish
+    ca_short: CA
+    en_short: EN
+    es_short: ES
   number:
     currency:
       format:

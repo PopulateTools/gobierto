@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170418145507) do
+ActiveRecord::Schema.define(version: 20170424104048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -253,8 +253,9 @@ ActiveRecord::Schema.define(version: 20170418145507) do
   end
 
   create_table "gp_person_calendar_configurations", force: :cascade do |t|
-    t.integer "person_id",                null: false
-    t.jsonb   "data",      default: "{}", null: false
+    t.integer "person_id",              null: false
+    t.jsonb   "data",      default: {}, null: false
+    t.index ["person_id"], name: "index_gp_person_calendar_configurations_on_person_id", unique: true, using: :btree
   end
 
   create_table "gp_person_event_attendees", force: :cascade do |t|
@@ -362,6 +363,18 @@ ActiveRecord::Schema.define(version: 20170418145507) do
     t.jsonb    "title_translations"
     t.index ["name_translations"], name: "index_sites_on_name_translations", using: :gin
     t.index ["title_translations"], name: "index_sites_on_title_translations", using: :gin
+  end
+
+  create_table "translations", force: :cascade do |t|
+    t.string   "locale"
+    t.string   "key"
+    t.text     "value"
+    t.text     "interpolations"
+    t.boolean  "is_proc",        default: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.index ["key"], name: "index_translations_on_key", using: :btree
+    t.index ["locale"], name: "index_translations_on_locale", using: :btree
   end
 
   create_table "user_notifications", force: :cascade do |t|

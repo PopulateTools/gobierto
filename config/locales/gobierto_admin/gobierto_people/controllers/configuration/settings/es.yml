@@ -6,3 +6,4 @@ es:
         settings:
           update:
             success: Preferencias actualizadas correctamente
+            error: Ha ocurrido un error guardando las preferencias

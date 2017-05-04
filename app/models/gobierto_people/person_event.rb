@@ -2,6 +2,8 @@ require_dependency "gobierto_people"
 
 module GobiertoPeople
   class PersonEvent < ApplicationRecord
+    paginates_per 8
+
     include User::Subscribable
     include GobiertoCommon::Searchable
 

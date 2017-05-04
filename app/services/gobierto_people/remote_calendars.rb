@@ -3,6 +3,7 @@ module GobiertoPeople
 
     def self.sync
       Site.with_agendas_integration_enabled.each do |site|
+        I18n.locale = site.configuration.default_locale
         calendar_integration = site.calendar_integration
 
         site.people.with_calendar_configuration.each do |person|

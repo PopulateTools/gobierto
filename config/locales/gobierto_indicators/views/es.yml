@@ -34,6 +34,11 @@ es:
         million: millón
         thousand: mil
     cards:
+      frequency:
+        yearly: Actualización anual
+        monthly: Actualización mensual
+        weekly: Actualización semanal
+        daily: Actualización diaria
       updated: Última actualización
       meta:
         where: 'En '

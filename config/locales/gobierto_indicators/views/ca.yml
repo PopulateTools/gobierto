@@ -34,6 +34,11 @@ ca:
         million: milió
         thousand: mil
     cards:
+      frequency:
+        yearly: Actualització anual
+        monthly: Actualització mensual
+        weekly: Actualització setmanal
+        daily: Actualització diària
       meta:
         where: 'A '
         time: ' al '

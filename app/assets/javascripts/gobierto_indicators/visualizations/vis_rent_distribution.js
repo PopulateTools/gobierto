@@ -137,6 +137,7 @@ var VisRentDistribution = Class.extend({
       .attr('dx', -15)
       .attr('text-anchor', 'end')
       .text(function(d) { return d.municipality_name });
+    
   },
   _renderVoronoi: function() {
     // Create voronoi

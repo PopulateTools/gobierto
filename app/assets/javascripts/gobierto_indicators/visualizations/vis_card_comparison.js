@@ -12,7 +12,7 @@ var ComparisonCard = Class.extend({
     var freq = this.div.attr('data-freq');
     var parseDate = freq === 'daily' ? d3.timeParse('%Y-%m-%d') : freq === 'monthly' ? d3.timeParse('%Y-%m') : d3.timeParse('%Y');
     var parsedDate = parseDate(json.data[0].date);
-    var formatDate = d3.timeFormat("%B %Y");
+    var formatDate = d3.timeFormat("%b %Y");
     
     this.div.selectAll('.tw-sharer')
       .attr('target', '_blank')
@@ -30,7 +30,12 @@ var ComparisonCard = Class.extend({
 
     // Append source
     this.div.selectAll('.widget_src')
+      .attr('title', json.metadata.indicator['source name'])
       .text(json.metadata.indicator['source name']);
+      
+    // Append update frequency
+    this.div.selectAll('.widget_freq')
+      .text(this._printFreq(json.metadata.frequency_type));
 
     // Append date of last data point
     this.div.selectAll('.widget_updated')
@@ -40,6 +45,25 @@ var ComparisonCard = Class.extend({
     this.div.selectAll('.widget_title')
       .attr('title', I18n.t('gobierto_indicators.cards.' + cardName + '.title'))
       .text(I18n.t('gobierto_indicators.cards.' + cardName + '.title'));
+  },
+  _printFreq: function(json) {
+    // Switch between different figure types
+    switch (json) {
+      case 'yearly':
+        return I18n.t('gobierto_indicators.cards.frequency.yearly')
+        break;
+      case 'monthly':
+      return I18n.t('gobierto_indicators.cards.frequency.monthly')
+        break;
+      case 'weekly':
+      return I18n.t('gobierto_indicators.cards.frequency.weekly')
+        break;
+      case 'daily':
+      return I18n.t('gobierto_indicators.cards.frequency.dailt')
+        break;
+      default:
+        return ''
+    }
   },
   _printData: function(type, data) {
     // Switch between different figure types

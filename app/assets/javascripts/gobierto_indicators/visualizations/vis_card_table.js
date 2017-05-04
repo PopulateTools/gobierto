@@ -12,7 +12,7 @@ var TableCard = Class.extend({
 
     var parseDate = freq === 'daily' ? d3.timeParse('%Y-%m-%d') : freq === 'monthly' ? d3.timeParse('%Y-%m') : d3.timeParse('%Y');
     var parsedDate = parseDate(json.data[0].date);
-    var formatDate = d3.timeFormat("%B %Y");
+    var formatDate = d3.timeFormat("%b %Y");
     
     this.div.selectAll('.tw-sharer')
       .attr('target', '_blank')
@@ -24,11 +24,16 @@ var TableCard = Class.extend({
 
     // Append source
     this.div.selectAll('.widget_src')
+      .attr('title', json.metadata.indicator['source name'])
       .text(json.metadata.indicator['source name']);
 
     // Append date of last data point
     this.div.selectAll('.widget_updated')
       .text(formatDate(parsedDate));
+
+    // Append update frequency
+    this.div.selectAll('.widget_freq')
+      .text(this._printFreq(json.metadata.frequency_type));
 
     // Append metadata
     this.div.selectAll('.widget_title')
@@ -61,6 +66,25 @@ var TableCard = Class.extend({
       .enter()
       .append('tr')
       .html(function(d) { return d; });
+  },
+  _printFreq: function(json) {
+    // Switch between different figure types
+    switch (json) {
+      case 'yearly':
+        return I18n.t('gobierto_indicators.cards.frequency.yearly')
+        break;
+      case 'monthly':
+      return I18n.t('gobierto_indicators.cards.frequency.monthly')
+        break;
+      case 'weekly':
+      return I18n.t('gobierto_indicators.cards.frequency.weekly')
+        break;
+      case 'daily':
+      return I18n.t('gobierto_indicators.cards.frequency.dailt')
+        break;
+      default:
+        return ''
+    }
   },
   _printData: function(data, dataType) {
     // Switch between different figure types

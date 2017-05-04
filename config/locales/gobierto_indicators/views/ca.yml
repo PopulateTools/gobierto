@@ -5,9 +5,9 @@ ca:
       application:
         indicators: Indicadors
       menu_subsections:
-        population: Població
-        employment: Ocupació
-        economy: Economia
+        poblacion: Població
+        empleo: Ocupació
+        economia: Economia
     intro: "Coneix %{place} a partir de les principals xifres: la població, l'ocupació i l'economia."
     inhabitants: hab
     graphics:

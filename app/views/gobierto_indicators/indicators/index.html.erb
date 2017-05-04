@@ -12,9 +12,9 @@
 <div class="column graphics">
   <nav class="sections-nav">
     <ul>
-      <li><a href="#poblacion"><%= t("gobierto_indicators.layouts.menu_subsections.population") %></a></li>
-      <li><a href="#empleo"><%= t("gobierto_indicators.layouts.menu_subsections.employment") %></a></li>
-      <li><a href="#economia"><%= t("gobierto_indicators.layouts.menu_subsections.economy") %></a></li>
+      <% %W{ poblacion empleo economia }.each do |subsection| %>
+        <li><%= link_to t("gobierto_indicators.layouts.menu_subsections.#{subsection}"), "##{subsection}" %></li>
+      <% end %>
     </ul>
   </nav>
    
@@ -22,7 +22,7 @@
   	<section id="poblacion" class="block">
   		<div class="pure-g">
   			<div class="pure-u-1 pure-u-md-1">
-  				<h2 class="with_description" id="population"><%= t("gobierto_indicators.layouts.menu_subsections.population") %></h2>
+  				<h2 class="with_description"><%= t("gobierto_indicators.layouts.menu_subsections.population") %></h2>
   				<div id="age_distribution" class="main_graphic">
   					<p class="description"><%= t("gobierto_indicators.graphics.age_distribution.title") %></p>
   				</div>
@@ -42,7 +42,7 @@
   	<section id="empleo" class="block">
   		<div class="pure-g">
   			<div class="pure-u-1 pure-u-md-2-3">
-  				<h2 class="with_description" id="employment"><%= t("gobierto_indicators.layouts.menu_subsections.employment") %></h2>
+  				<h2 class="with_description"><%= t("gobierto_indicators.layouts.menu_subsections.employment") %></h2>
   			</div>
   		</div>
   		<div class="pure-g">
@@ -74,7 +74,7 @@
   	<section id="economia" class="block">
   		<div class="pure-g">
   			<div class="pure-u-1">
-          <h2 class="with_description" id="economy"><%= t("gobierto_indicators.layouts.menu_subsections.economy") %></h2>
+          <h2 class="with_description"><%= t("gobierto_indicators.layouts.menu_subsections.economy") %></h2>
           
   				<div id="rent_distribution" class="main_graphic">
   					<div class="annotations">

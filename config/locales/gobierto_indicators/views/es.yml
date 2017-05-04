@@ -5,9 +5,9 @@ es:
       application:
         indicators: Indicadores
       menu_subsections:
-        population: Población
-        employment: Empleo
-        economy: Economía
+        poblacion: Población
+        empleo: Empleo
+        economia: Economía
     intro: 'Conoce %{place} a través de sus principales cifras: la población, el empleo, la economía y los presupuestos.'
     inhabitants: hab
     graphics:

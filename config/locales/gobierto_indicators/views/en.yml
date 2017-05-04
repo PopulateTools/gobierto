@@ -5,9 +5,9 @@ en:
       application:
         indicators: Indicators
       menu_subsections:
-        population: Population
-        employment: Employment
-        economy: Economy
+        poblacion: Population
+        economia: Employment
+        empleo: Economy
     intro: 'Understand %{place} through its main figures: the population, the employment market and the economy.'
     inhabitants: inh
     graphics:

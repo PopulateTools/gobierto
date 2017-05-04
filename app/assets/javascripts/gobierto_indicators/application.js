@@ -28,7 +28,7 @@ $(document).on('turbolinks:click', function (event) {
 $(document).on('turbolinks:load', function() {
   var getUnemplAgeData = new GetUnemploymentAgeData(window.populateData.municipalityId);
   
-  // Process unemployment age data and pass it to the charts
+  // Process unemployment age data and pass it to both charts
   getUnemplAgeData.getData(function() {
     // Needs the data to set the same y scale
     var vis_unemplSex = new VisUnemploymentSex('#unemployment_sex', window.populateData.municipalityId, window.unemplAgeData);
@@ -114,17 +114,18 @@ $(document).on('turbolinks:load', function() {
   
   // Smooth scrolling
   $('a[href*="#"]').on('click', function (e) {
-      // prevent default action and bubbling
-      e.preventDefault();
-      e.stopPropagation();
-      // set target to anchor's "href" attribute
-      var target = $(this).attr('href');
-      // scroll to each target
-      $(target).velocity('scroll', {
-          duration: 500,
-          offset: 0,
-          easing: 'ease-in-out'
-      });
+    console.log(e);
+    // prevent default action and bubbling
+    e.preventDefault();
+    e.stopPropagation();
+    // set target to anchor's "href" attribute
+    var target = $(this).attr('href');
+    // scroll to each target
+    $(target).velocity('scroll', {
+      duration: 500,
+      offset: 0,
+      easing: 'ease-in-out'
+    });
   });
 
   // Show dataset info on click

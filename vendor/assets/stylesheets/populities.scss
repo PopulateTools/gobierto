@@ -430,6 +430,9 @@ $units: 1px !default;
   .desktop_only {
     display: none;
   }
+  .desktop_only_reset {
+    display: none;
+  }
   .mobile_only {
     display: block;
     width: 100%;
@@ -438,6 +441,9 @@ $units: 1px !default;
 @include min-screen(741) {
   .desktop_only {
     width: 100%;
+    display: block;
+  }
+  .desktop_only_reset {
     display: block;
   }
   .mobile_only {

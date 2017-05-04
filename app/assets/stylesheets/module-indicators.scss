@@ -39,8 +39,11 @@
   .sections {
     position: relative;
     float: left;
-    margin-left: 3rem;
-    width: calc(100% - 11rem);
+
+    @media (min-width: 768px) {
+      margin-left: 3rem;
+      width: calc(1xz00% - 11rem);
+    }
   }
   section {
     margin-top: 2rem;
@@ -73,10 +76,13 @@
     }
   }
   .intro_section {
-  	padding: 5em 0 4em 0;
   	background: $color_main_negative;
   	margin-top: -2em;
     border-bottom: 1px solid #EBEBEB;
+    
+    @media (min-width: 768px) {
+      padding: 5em 0 4em 0;
+    }
   }
   .intro_headline {
   	margin-bottom: 0;
@@ -103,7 +109,9 @@
       width: calc(100% + 4em);
     }
     .padded {
-      margin: 1.5rem;
+      @include min-screen(768) {
+        margin: 1.5rem;
+      }
     }
     .widget_body {
       height: 110px;

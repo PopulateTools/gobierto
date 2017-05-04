@@ -461,7 +461,10 @@ $units: 1px !default;
   }
   .padded {
     height: 100%;
-    margin: 1em;  
+    
+    @include min-screen(768) {
+      margin: 1em;  
+    }
   }
   [class*="pure-u"] {
     margin-left: 0;

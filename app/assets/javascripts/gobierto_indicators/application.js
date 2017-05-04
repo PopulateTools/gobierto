@@ -113,7 +113,7 @@ $(document).on('turbolinks:load', function() {
   $(".sections-nav").stick_in_parent();
   
   // Smooth scrolling
-  $('a[href*="#"]').on('click', function (e) {
+  $('.sections-nav a[href*="#"]').on('click', function (e) {
     // prevent default action and bubbling
     e.preventDefault();
     e.stopPropagation();

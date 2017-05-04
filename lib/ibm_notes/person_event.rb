@@ -4,7 +4,7 @@ module IbmNotes
     attr_accessor :external_id, :title, :starts_at, :ends_at, :state, :person, :location
 
     def initialize(person, response_event)
-      @external_id  = response_event['id']
+      set_external_id(response_event)
       @title        = response_event['summary']
       @state        = 'published'
       @person       = person
@@ -54,9 +54,23 @@ module IbmNotes
 
     private
 
+    def set_external_id(event)
+      if event['recurrenceId'].present?
+        @external_id = "#{event['id']}/#{event['recurrenceId']}"
+      else
+        @external_id = event['id']
+      end
+    end
+
     def set_start_and_end_date(event)
-      @starts_at = parse_date event['start']
-      @ends_at   = parse_date(event['end']) || starts_at + 1.hour
+      if event['start']['tzid'].present? && event['start']['tzid'] == 'Romance Standard Time'
+        #debugger
+        @starts_at = ActiveSupport::TimeZone['Madrid'].parse("#{event['start']['date']} #{event['start']['time']}").utc
+        @ends_at   = ActiveSupport::TimeZone['Madrid'].parse("#{event['end']['date']} #{event['end']['time']}").utc || starts_at + 1.hour
+      else # assume UTC
+        @starts_at = parse_date event['start']
+        @ends_at   = parse_date(event['end']) || starts_at + 1.hour
+      end
     end
 
     def parse_date(date)

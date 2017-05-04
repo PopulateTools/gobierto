@@ -3,18 +3,36 @@ module GobiertoPeople
     class CalendarIntegration
 
       def self.sync_person_events(person)
-        received_events = ::IbmNotes::Api.get_person_events(request_params(person))
+        events_collection_hrefs = get_person_events_collection_hrefs(person)
+        received_events_external_ids = []
 
-        received_events.each do |event_hash|
-          event = ::IbmNotes::PersonEvent.new(person, event_hash)
-          sync_event(event)
+        events_collection_hrefs.each do |href|
+          response_data = ::IbmNotes::Api.get_event_by_href(request_params_for_href_request(person, href))
+
+          if response_data && response_data['events'].present?
+            event_data = response_data['events'][0]
+          else
+            next
+          end
+
+          if recurring_event?(event_data)
+            instances_hrefs = get_person_event_instances_hrefs(person, href)
+
+            instances_hrefs.each do |href|
+              response_event = ::IbmNotes::Api.get_event_by_href(request_params_for_href_request(person, href))
+
+              if response_event && response_event['events'].present?
+                received_events_external_ids << create_and_sync_ibm_notes_event(person, response_event['events'][0])
+              end
+            end
+          else # instancia de evento recurrente o evento no recurrente
+            received_events_external_ids << create_and_sync_ibm_notes_event(person, event_data)
+          end
         end
-
-        received_events_ids = received_events.map { |event| event['id'] }
-
-        person.events.synchronized_future_events.each do |future_event|
-          unless received_events_ids.include?(future_event.external_id)
-            future_event.pending!
+        
+        person.events.synchronized_events.each do |event|
+          unless received_events_external_ids.include?(event.external_id)
+            event.pending!
           end
         end
       rescue ::IbmNotes::InvalidCredentials
@@ -23,6 +41,12 @@ module GobiertoPeople
         Rails.logger.info "[#{person.site.name} calendar integration] IBM Notes calendar API is down"
       rescue ::JSON::ParserError
         Rails.logger.info "[#{person.site.name} calendar integration] JSON parser error"
+      end
+
+      def self.create_and_sync_ibm_notes_event(person, event_data)
+        event = ::IbmNotes::PersonEvent.new(person, event_data)
+        sync_event(event)
+        event.external_id
       end
 
       def self.sync_event(ibm_notes_event)
@@ -40,10 +64,51 @@ module GobiertoPeople
 
       private
 
+      def self.get_person_events_collection_hrefs(person)
+        response_events = ::IbmNotes::Api.get_person_events_collection(request_params(person))
+
+        if response_events && response_events['events'].present?
+          response_events['events'].map { |event_data| event_data['href'] }
+        else
+          []
+        end
+      end
+
+      def self.get_person_event_instances_hrefs(person, href)
+        response_data = ::IbmNotes::Api.get_recurrent_event_instances(request_params_for_href_request(person, href))
+
+        if response_data && response_data['instances'].present?
+          response_data['instances'].map { |instance_data| instance_data['href'] }
+        else
+          []
+        end
+      end
+
+      def self.recurring_event?(event_data)
+        event_data['links'].present? && has_instances_link?(event_data['links'])
+      end
+
+      def self.has_instances_link?(links_data)
+        links_data.each do |element|
+          return true if (element['rel'].present? && element['rel'] == 'instances')
+        end
+        false
+      end
+
       def self.request_params(person)
         gobierto_people_settings = person.site.gobierto_people_settings
         {
           endpoint: person_calendar_endpoint(person),
+          username: gobierto_people_settings.ibm_notes_usr,
+          password: gobierto_people_settings.ibm_notes_pwd
+        }
+      end
+
+      def self.request_params_for_href_request(person, href)
+        gobierto_people_settings = person.site.gobierto_people_settings
+        uri = URI.parse person_calendar_endpoint(person)
+        {
+          endpoint: "#{uri.scheme}://#{uri.host}#{href}",
           username: gobierto_people_settings.ibm_notes_usr,
           password: gobierto_people_settings.ibm_notes_pwd
         }

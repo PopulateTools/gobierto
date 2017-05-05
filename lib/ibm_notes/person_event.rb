@@ -64,7 +64,6 @@ module IbmNotes
 
     def set_start_and_end_date(event)
       if event['start']['tzid'].present? && event['start']['tzid'] == 'Romance Standard Time'
-        #debugger
         @starts_at = ActiveSupport::TimeZone['Madrid'].parse("#{event['start']['date']} #{event['start']['time']}").utc
         @ends_at   = ActiveSupport::TimeZone['Madrid'].parse("#{event['end']['date']} #{event['end']['time']}").utc || starts_at + 1.hour
       else # assume UTC

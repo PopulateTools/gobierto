@@ -25,6 +25,10 @@ module GobiertoPeople
         Time.utc(d.year, d.month, d.day, d.hour, d.min, d.sec)
       end
 
+      def rst_to_utc(date)
+        ActiveSupport::TimeZone['Madrid'].parse(date).utc
+      end
+
       def create_ibm_notes_event(params = {})
         ::IbmNotes::PersonEvent.new((params[:person] || richard), {
           'id'       => params[:id] || 'Ibm Notes event ID',
@@ -64,71 +68,112 @@ module GobiertoPeople
 
       def test_sync_events_v9
         activate_calendar_integration(sites(:madrid))
-
-        calendar_conf = richard.calendar_configuration
-        calendar_conf.data = {endpoint: 'https://host.wadus.com/mail/foo.nsf/api/calendar/events' }
-        calendar_conf.save!
+        set_calendar_endpoint(richard, 'https://host.wadus.com/mail/foo.nsf/api/calendar/events')
 
         VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
-
           CalendarIntegration.sync_person_events(richard)
-
-          non_recurrent_events       = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated$")
-          recurrent_events_instances = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated/\\d{8}T\\d{6}Z$")
-
-          assert_equal 2, non_recurrent_events.count
-          assert_equal 1, recurrent_events_instances.count
-
-          assert_equal "Buscar alcaldessa al seu despatx i Sortida cap a l'acte Gran Via Corts Catalanes, 400", non_recurrent_events.first.title
-          assert_equal ActiveSupport::TimeZone['Madrid'].parse("2017-05-04 18:45:00").utc, non_recurrent_events.first.starts_at
-
-          assert_equal "Lliurament Premis Rac", non_recurrent_events.second.title
-          assert_equal ActiveSupport::TimeZone['Madrid'].parse("2017-05-04 19:30:00").utc, non_recurrent_events.second.starts_at
-
-          assert_equal "CAEM", recurrent_events_instances.first.title
-          assert_equal ActiveSupport::TimeZone['Madrid'].parse("2017-05-05 09:00:00").utc, recurrent_events_instances.first.starts_at
         end
+
+        non_recurrent_events       = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated$")
+        recurrent_events_instances = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated/\\d{8}T\\d{6}Z$")
+
+        assert_equal 2, non_recurrent_events.count
+        assert_equal 1, recurrent_events_instances.count
+
+        assert_equal "Buscar alcaldessa al seu despatx i Sortida cap a l'acte Gran Via Corts Catalanes, 400", non_recurrent_events.first.title
+        assert_equal rst_to_utc("2017-05-04 18:45:00"), non_recurrent_events.first.starts_at
+
+        assert_equal "Lliurament Premis Rac", non_recurrent_events.second.title
+        assert_equal rst_to_utc("2017-05-04 19:30:00"), non_recurrent_events.second.starts_at
+
+        assert_equal "CAEM", recurrent_events_instances.first.title
+        assert_equal rst_to_utc("2017-05-05 09:00:00"), recurrent_events_instances.first.starts_at
+      end
+
+      def test_sync_events_updates_event_attributes
+        activate_calendar_integration(sites(:madrid))
+        set_calendar_endpoint(richard, 'https://host.wadus.com/mail/foo.nsf/api/calendar/events')
+
+        VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
+          CalendarIntegration.sync_person_events(richard)
+        end
+
+        # Change arbitrary data, and check it gets  updated accordingly after the
+        # next synchronization
+
+        non_recurrent_event = richard.events.find_by(external_id: 'BD5EA243F9F715AAC1258116003ED56C-Lotus_Notes_Generated')
+        non_recurrent_event.title = 'Old non recurrent event title'
+        non_recurrent_event.starts_at = utc_time("2017-05-05 10:00:00")
+        non_recurrent_event.save!
+
+        recurrent_event_instance = richard.events.find_by(external_id: 'D2E5B40E6AAEAED4C125808E0035A6A0-Lotus_Notes_Generated/20170503T073000Z')
+        recurrent_event_instance.title = 'Old recurrent event instance title'
+        recurrent_event_instance.locations.first.update_attributes!(name: 'Old location')
+        recurrent_event_instance.save!
+
+        VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
+          CalendarIntegration.sync_person_events(richard)
+        end
+
+        assert "Buscar alcaldessa al seu despatx i Sortida cap a l'acte Gran Via Corts Catalanes, 400", non_recurrent_event.title
+        assert rst_to_utc("2017-05-04 16:45:00"), non_recurrent_event.starts_at
+
+        assert 'CAEM', recurrent_event_instance.title
+        assert 'Sala de juntes 1a. planta Ajuntament', recurrent_event_instance.locations.first.name
+      end
+
+      def test_sync_events_removes_deleted_event_attributes
+        activate_calendar_integration(sites(:madrid))
+        set_calendar_endpoint(richard, 'https://host.wadus.com/mail/foo.nsf/api/calendar/events')
+
+        VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
+          CalendarIntegration.sync_person_events(richard)
+        end
+
+        # Add new data to events, and check it is removed after sync
+        event = richard.events.find_by(external_id: 'BD5EA243F9F715AAC1258116003ED56C-Lotus_Notes_Generated')
+        GobiertoPeople::PersonEventLocation.create!(person_event: event, name: "I'll be deleted")
+
+        VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
+          CalendarIntegration.sync_person_events(richard)
+        end
+
+        event.reload
+        assert event.locations.empty?
       end
 
       # Se piden eventos en el intervalo [1,3], 1 y 3 son recurrentes y son el mismo, el 2 es uno no recurrente
       # De las 9 instancias del evento recurrente, la que tiene recurrenceId=20170407T113000Z (la segunda) da 404
       def test_sync_events_v8
         activate_calendar_integration(sites(:madrid))
-
-        calendar_conf = tamara.calendar_configuration
-        calendar_conf.data = {endpoint: 'https://host.wadus.com/mail/bar.nsf/api/calendar/events' }
-        calendar_conf.save!
+        set_calendar_endpoint(tamara, 'https://host.wadus.com/mail/bar.nsf/api/calendar/events')
 
         VCR.use_cassette('ibm_notes/person_events_collection_v8', decode_compressed_response: true) do
-
           CalendarIntegration.sync_person_events(tamara)
-
-          non_recurrent_events       = tamara.events.where("external_id ~* ?", "-Lotus_Notes_Generated$")
-          recurrent_events_instances = tamara.events.where("external_id ~* ?", "-Lotus_Notes_Generated/\\d{8}T\\d{6}Z$").order(:external_id)
-
-          assert_equal 1, non_recurrent_events.count
-          assert_equal 8, recurrent_events_instances.count
-
-          assert_equal "rom", non_recurrent_events.first.title
-          assert_equal 'CD1B539AEB0D44D7C1258110003BB81E-Lotus_Notes_Generated', non_recurrent_events.first.external_id
-          assert_equal ActiveSupport::TimeZone['Madrid'].parse('2017-05-05 16:00:00').utc, non_recurrent_events.first.starts_at
-
-          assert_equal "Coordinació Política Igualtat + dinar", recurrent_events_instances.first.title
-          assert_equal 'EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated/20170303T110000Z', recurrent_events_instances.first.external_id
-          assert_equal ActiveSupport::TimeZone['Madrid'].parse('2017-03-03 12:00:00').utc, recurrent_events_instances.first.starts_at
-
-          assert_equal "Coordinació Política Igualtat + dinar", recurrent_events_instances.second.title
-          assert_equal 'EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated/20170505T100000Z', recurrent_events_instances.second.external_id
-          assert_equal ActiveSupport::TimeZone['Madrid'].parse('2017-05-05 12:00:00').utc, recurrent_events_instances.second.starts_at
         end
+
+        non_recurrent_events       = tamara.events.where("external_id ~* ?", "-Lotus_Notes_Generated$")
+        recurrent_events_instances = tamara.events.where("external_id ~* ?", "-Lotus_Notes_Generated/\\d{8}T\\d{6}Z$").order(:external_id)
+
+        assert_equal 1, non_recurrent_events.count
+        assert_equal 8, recurrent_events_instances.count
+
+        assert_equal "rom", non_recurrent_events.first.title
+        assert_equal 'CD1B539AEB0D44D7C1258110003BB81E-Lotus_Notes_Generated', non_recurrent_events.first.external_id
+        assert_equal rst_to_utc('2017-05-05 16:00:00'), non_recurrent_events.first.starts_at
+
+        assert_equal "Coordinació Política Igualtat + dinar", recurrent_events_instances.first.title
+        assert_equal 'EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated/20170303T110000Z', recurrent_events_instances.first.external_id
+        assert_equal rst_to_utc('2017-03-03 12:00:00'), recurrent_events_instances.first.starts_at
+
+        assert_equal "Coordinació Política Igualtat + dinar", recurrent_events_instances.second.title
+        assert_equal 'EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated/20170505T100000Z', recurrent_events_instances.second.external_id
+        assert_equal rst_to_utc('2017-05-05 12:00:00'), recurrent_events_instances.second.starts_at
       end
 
-      def test_sync_events_v9_mark_unreceived_events_as_pending
+      def test_sync_events_marks_unreceived_events_as_pending
         activate_calendar_integration(sites(:madrid))
-
-        calendar_conf = richard.calendar_configuration
-        calendar_conf.data = {endpoint: 'https://host.wadus.com/mail/foo.nsf/api/calendar/events' }
-        calendar_conf.save!
+        set_calendar_endpoint(richard, 'https://host.wadus.com/mail/foo.nsf/api/calendar/events')
 
         VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
           CalendarIntegration.sync_person_events(richard)
@@ -153,7 +198,7 @@ module GobiertoPeople
         assert non_recurrent_events.second.active?
       end
 
-      def test_sync_creates_new_event_with_location
+      def test_sync_event_creates_new_event_with_location
         refute new_ibm_notes_event.has_gobierto_event?
 
         CalendarIntegration.sync_event(new_ibm_notes_event)
@@ -169,7 +214,7 @@ module GobiertoPeople
         assert_equal 'Ibm Notes new event location', gobierto_event.locations.first.name
       end
 
-      def test_sync_updates_existing_event
+      def test_sync_event_updates_existing_event
         assert outdated_ibm_notes_event.gobierto_event_outdated?
 
         CalendarIntegration.sync_event(outdated_ibm_notes_event)
@@ -181,7 +226,7 @@ module GobiertoPeople
         assert_equal 'Ibm Notes outdated event title - THIS HAS CHANGED', updated_gobierto_event.title
       end
 
-      def test_sync_doesnt_create_duplicated_events
+      def test_sync_event_doesnt_create_duplicated_events
         assert outdated_ibm_notes_event.gobierto_event_outdated?
 
         CalendarIntegration.sync_event(outdated_ibm_notes_event)
@@ -193,7 +238,7 @@ module GobiertoPeople
         end
       end
 
-      def test_sync_creates_updates_and_removes_location_for_existing_gobierto_event
+      def test_sync_event_creates_updates_and_removes_location_for_existing_gobierto_event
         ibm_notes_event = create_ibm_notes_event(location: nil)
 
         CalendarIntegration.sync_event(ibm_notes_event)

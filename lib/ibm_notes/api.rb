@@ -6,11 +6,11 @@ module IbmNotes
 
   class Api
 
-    def self.get_person_events_collection(params)
+    def self.get_person_events(params)
       make_request params
     end
 
-    def self.get_event_by_href(params)
+    def self.get_event(params)
       make_request params
     end
 

@@ -3,9 +3,9 @@ require_relative '../../../lib/ibm_notes/api'
 
 class ApiTest < ActiveSupport::TestCase
 
-  def test_get_person_events_collection
+  def test_get_person_events
     VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
-      response_data = IbmNotes::Api.get_person_events_collection(
+      response_data = IbmNotes::Api.get_person_events(
         endpoint: 'https://host.wadus.com/mail/foo.nsf/api/calendar/events',
         username: 'username',
         password: 'password'
@@ -20,9 +20,9 @@ class ApiTest < ActiveSupport::TestCase
     end
   end
 
-  def test_get_event_by_href
+  def test_get_event
     VCR.use_cassette('ibm_notes/non_recurrent_event', decode_compressed_response: true) do
-      response_data = IbmNotes::Api.get_event_by_href(
+      response_data = IbmNotes::Api.get_event(
         endpoint: 'https://host.wadus.com/mail/foo.nsf/api/calendar/events/3C1E302CAC131891C12580F90044239B-Lotus_Notes_Generated',
         username: 'username',
         password: 'password'
@@ -56,7 +56,7 @@ class ApiTest < ActiveSupport::TestCase
   def test_get_person_events_with_invalid_credentials
     assert_raises ::IbmNotes::InvalidCredentials do
       VCR.use_cassette('ibm_notes/calendar_events_invalid_credentials', decode_compressed_response: true) do
-        IbmNotes::Api.get_person_events_collection(
+        IbmNotes::Api.get_person_events(
           endpoint: 'https://host.wadus.com/endpoint',
           username: 'INVALID',
           password: 'INVALID'
@@ -67,7 +67,7 @@ class ApiTest < ActiveSupport::TestCase
 
   def test_get_person_events_with_no_events
     VCR.use_cassette('ibm_notes/calendar_events_no_events', decode_compressed_response: true) do
-      IbmNotes::Api.get_person_events_collection(
+      IbmNotes::Api.get_person_events(
         endpoint: 'https://host.wadus.com/endpoint?since=2013-07-01T00:00:00Z&before=2013-07-31T00:00:00Z',
         username: 'username',
         password: 'password'
@@ -78,7 +78,7 @@ class ApiTest < ActiveSupport::TestCase
   def test_get_person_events_json_parser_error
     assert_raises JSON::ParserError do
       VCR.use_cassette('ibm_notes/calendar_events_json_parser_error', decode_compressed_response: true) do
-        IbmNotes::Api.get_person_events_collection(
+        IbmNotes::Api.get_person_events(
           endpoint: 'https://host.wadus.com/endpoint',
           username: 'username',
           password: 'password'

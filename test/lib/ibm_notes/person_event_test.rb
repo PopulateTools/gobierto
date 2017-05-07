@@ -44,7 +44,6 @@ class PersonEventTest < ActiveSupport::TestCase
       title: 'Ibm Notes persisted event title',
       starts_at: utc_time("2017-04-11 10:00:00"),
       ends_at:   utc_time("2017-04-11 11:00:00"),
-      state: 'published',
       person: person
     )
   end
@@ -63,7 +62,6 @@ class PersonEventTest < ActiveSupport::TestCase
   def test_initialize
     assert_equal 'Ibm Notes persisted event ID', persisted_ibm_notes_event.external_id
     assert_equal 'Ibm Notes persisted event title', persisted_ibm_notes_event.title
-    assert_equal 'published', persisted_ibm_notes_event.state
     assert_equal person, persisted_ibm_notes_event.person
     assert_equal utc_time('2017-04-11 10:00:00'), persisted_ibm_notes_event.starts_at
     assert_equal utc_time('2017-04-11 11:00:00'), persisted_ibm_notes_event.ends_at
@@ -81,24 +79,6 @@ class PersonEventTest < ActiveSupport::TestCase
     ibm_notes_event = IbmNotes::PersonEvent.new(person, response_data(location: 'valid location name'))
 
     assert_equal 'valid location name', ibm_notes_event.location
-  end
-
-  def test_gobierto_event
-    assert_equal persisted_ibm_notes_event.gobierto_event, persisted_ibm_notes_event_gobierto_event
-    assert_nil new_ibm_notes_event.gobierto_event
-  end
-
-  def test_has_gobierto_event?
-    assert persisted_ibm_notes_event.has_gobierto_event?
-    refute new_ibm_notes_event.has_gobierto_event?
-  end
-
-  def test_gobierto_event_outdated?
-    refute persisted_ibm_notes_event.gobierto_event_outdated?
-
-    persisted_ibm_notes_event.gobierto_event.update_attribute(:title, 'New Title')
-
-    assert persisted_ibm_notes_event.gobierto_event_outdated?
   end
 
 end

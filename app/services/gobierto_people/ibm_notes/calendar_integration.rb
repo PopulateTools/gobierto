@@ -31,12 +31,23 @@ module GobiertoPeople
       end
 
       def self.sync_event(ibm_notes_event)
-        if ibm_notes_event.first_synchronization?
-          create_gobierto_event(ibm_notes_event)
-        else
-          update_gobierto_event(ibm_notes_event) if ibm_notes_event.gobierto_event_outdated?
-          update_gobierto_event_location(ibm_notes_event) if ibm_notes_event.gobierto_event_location_outdated?
-        end
+        locations_attributes = if ibm_notes_event.location.present?
+                                 { name: ibm_notes_event.location }
+                               else
+                                 { "_destroy" => "1" }
+                               end
+
+        person_event_params = {
+          external_id: ibm_notes_event.external_id,
+          person_id: ibm_notes_event.person.id,
+          title: ibm_notes_event.title,
+          starts_at: ibm_notes_event.starts_at,
+          ends_at: ibm_notes_event.ends_at,
+          state: GobiertoPeople::PersonEvent.states[:published],
+          locations_attributes: {"0" => locations_attributes }
+        }
+
+        GobiertoPeople::PersonEventForm.new(person_event_params).save
       end
 
       # Private methods
@@ -127,51 +138,6 @@ module GobiertoPeople
         PersonIbmNotesCalendarConfiguration.find_by(person_id: person.id).endpoint
       end
       private_class_method :person_calendar_endpoint
-
-      def self.create_gobierto_event(ibm_notes_event)
-        event = GobiertoPeople::PersonEvent.create!(
-          external_id: ibm_notes_event.external_id,
-          title: ibm_notes_event.title,
-          starts_at: ibm_notes_event.starts_at,
-          ends_at: ibm_notes_event.ends_at,
-          person: ibm_notes_event.person,
-          state: GobiertoPeople::PersonEvent.states[:published]
-        )
-
-        create_event_location(event, ibm_notes_event.location) if ibm_notes_event.location.present?
-      end
-      private_class_method :create_gobierto_event
-
-      def self.update_gobierto_event(ibm_notes_event)
-        ibm_notes_event.gobierto_event.update_attributes!(
-          title: ibm_notes_event.title,
-          starts_at: ibm_notes_event.starts_at,
-          ends_at: ibm_notes_event.ends_at,
-          state: ibm_notes_event.state
-        )
-      end
-      private_class_method :update_gobierto_event
-
-      def self.update_gobierto_event_location(ibm_notes_event)
-        gobierto_event = ibm_notes_event.gobierto_event
-
-        if ibm_notes_event.location_previously_synced?
-          gobierto_event.locations.first.update_attributes!(name: ibm_notes_event.location)
-        elsif ibm_notes_event.location_has_been_added?
-          create_event_location(gobierto_event, ibm_notes_event.location)
-        elsif ibm_notes_event.location_has_been_removed?
-          gobierto_event.locations.destroy_all
-        end
-      end
-      private_class_method :update_gobierto_event_location
-
-      def self.create_event_location(event, location_name)
-        GobiertoPeople::PersonEventLocation.create!(
-          person_event: event,
-          name: location_name
-        )
-      end
-      private_class_method :create_event_location
 
     end
   end

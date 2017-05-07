@@ -18,6 +18,7 @@ module GobiertoPeople
       def setup
         super
         outdated_ibm_notes_event_gobierto_event.save!
+        ibm_notes_event_gobierto_event.save!
       end
 
       def utc_time(date)
@@ -30,7 +31,7 @@ module GobiertoPeople
       end
 
       def create_ibm_notes_event(params = {})
-        ::IbmNotes::PersonEvent.new((params[:person] || richard), {
+        ::IbmNotes::PersonEvent.new(richard, {
           'id'       => params[:id] || 'Ibm Notes event ID',
           'summary'  => params[:summary] || 'Ibm Notes event summary',
           'location' => params.has_key?(:location) ? params[:location] : 'Ibm Notes event location',
@@ -52,6 +53,17 @@ module GobiertoPeople
           id: 'Ibm Notes outdated event ID',
           summary: 'Ibm Notes outdated event title - THIS HAS CHANGED',
           location: 'Ibm Notes outdated event location - THIS HAS CHANGED'
+        )
+      end
+
+      def ibm_notes_event_gobierto_event
+        @ibm_notes_event_gobierto_event ||= GobiertoPeople::PersonEvent.new(
+          external_id: 'Ibm Notes event ID',
+          title: 'Ibm Notes event title',
+          starts_at: utc_time("2017-04-11 10:00:00"),
+          ends_at:   utc_time("2017-04-11 11:00:00"),
+          state: GobiertoPeople::PersonEvent.states['published'],
+          person: richard
         )
       end
 
@@ -199,14 +211,13 @@ module GobiertoPeople
       end
 
       def test_sync_event_creates_new_event_with_location
-        refute new_ibm_notes_event.has_gobierto_event?
+        refute GobiertoPeople::PersonEvent.exists?(external_id: new_ibm_notes_event.external_id)
 
         CalendarIntegration.sync_event(new_ibm_notes_event)
 
-        refute new_ibm_notes_event.gobierto_event_outdated?
-        assert new_ibm_notes_event.has_gobierto_event?
+        assert GobiertoPeople::PersonEvent.exists?(external_id: new_ibm_notes_event.external_id)
 
-        gobierto_event = new_ibm_notes_event.gobierto_event
+        gobierto_event = GobiertoPeople::PersonEvent.find_by(external_id: new_ibm_notes_event.external_id)
 
         assert_equal new_ibm_notes_event.title, gobierto_event.title
         assert_equal richard, gobierto_event.person
@@ -215,23 +226,16 @@ module GobiertoPeople
       end
 
       def test_sync_event_updates_existing_event
-        assert outdated_ibm_notes_event.gobierto_event_outdated?
-
         CalendarIntegration.sync_event(outdated_ibm_notes_event)
 
-        updated_gobierto_event = outdated_ibm_notes_event.gobierto_event
+        updated_gobierto_event = GobiertoPeople::PersonEvent.find_by(external_id: outdated_ibm_notes_event.external_id)
 
-        refute outdated_ibm_notes_event.gobierto_event_outdated?
         assert updated_gobierto_event.published?
         assert_equal 'Ibm Notes outdated event title - THIS HAS CHANGED', updated_gobierto_event.title
       end
 
       def test_sync_event_doesnt_create_duplicated_events
-        assert outdated_ibm_notes_event.gobierto_event_outdated?
-
         CalendarIntegration.sync_event(outdated_ibm_notes_event)
-
-        refute outdated_ibm_notes_event.gobierto_event_outdated?
 
         assert_no_difference 'GobiertoPeople::PersonEvent.count' do
           CalendarIntegration.sync_event(outdated_ibm_notes_event)
@@ -240,28 +244,33 @@ module GobiertoPeople
 
       def test_sync_event_creates_updates_and_removes_location_for_existing_gobierto_event
         ibm_notes_event = create_ibm_notes_event(location: nil)
+        gobierto_event = GobiertoPeople::PersonEvent.find_by!(external_id: ibm_notes_event.external_id)
 
         CalendarIntegration.sync_event(ibm_notes_event)
 
-        assert ibm_notes_event.gobierto_event.locations.empty?
+        gobierto_event.reload
+        assert gobierto_event.locations.empty?
 
         ibm_notes_event.location = 'Location name added afterwards'
 
         CalendarIntegration.sync_event(ibm_notes_event)
+        gobierto_event.reload
 
-        assert 'Location name added afterwards', ibm_notes_event.gobierto_event.locations.first.name
+        assert 'Location name added afterwards', gobierto_event.locations.first.name
 
         ibm_notes_event.location = 'Location name updated afterwards'
 
         CalendarIntegration.sync_event(ibm_notes_event)
+        gobierto_event.reload
 
-        assert 'Location name updated afterwards', ibm_notes_event.gobierto_event.locations.first.name
+        assert 'Location name updated afterwards', gobierto_event.locations.first.name
 
         ibm_notes_event.location = nil
 
         CalendarIntegration.sync_event(ibm_notes_event)
+        gobierto_event.reload
 
-        assert ibm_notes_event.gobierto_event.locations.empty?
+        assert gobierto_event.locations.empty?
       end
 
     end

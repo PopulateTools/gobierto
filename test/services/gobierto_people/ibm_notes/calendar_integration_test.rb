@@ -11,16 +11,6 @@ module GobiertoPeople
         @richard ||= gobierto_people_people(:richard)
       end
 
-      def tamara
-        @tamara ||= gobierto_people_people(:tamara)
-      end
-
-      def setup
-        super
-        outdated_ibm_notes_event_gobierto_event.save!
-        ibm_notes_event_gobierto_event.save!
-      end
-
       def utc_time(date)
         d = Time.parse(date)
         Time.utc(d.year, d.month, d.day, d.hour, d.min, d.sec)
@@ -158,14 +148,14 @@ module GobiertoPeople
       # De las 9 instancias del evento recurrente, la que tiene recurrenceId=20170407T113000Z (la segunda) da 404
       def test_sync_events_v8
         activate_calendar_integration(sites(:madrid))
-        set_calendar_endpoint(tamara, 'https://host.wadus.com/mail/bar.nsf/api/calendar/events')
+        set_calendar_endpoint(richard, 'https://host.wadus.com/mail/foo.nsf/api/calendar/events')
 
         VCR.use_cassette('ibm_notes/person_events_collection_v8', decode_compressed_response: true) do
-          CalendarIntegration.sync_person_events(tamara)
+          CalendarIntegration.sync_person_events(richard)
         end
 
-        non_recurrent_events       = tamara.events.where("external_id ~* ?", "-Lotus_Notes_Generated$")
-        recurrent_events_instances = tamara.events.where("external_id ~* ?", "-Lotus_Notes_Generated/\\d{8}T\\d{6}Z$").order(:external_id)
+        non_recurrent_events       = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated$")
+        recurrent_events_instances = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated/\\d{8}T\\d{6}Z$").order(:external_id)
 
         assert_equal 1, non_recurrent_events.count
         assert_equal 8, recurrent_events_instances.count
@@ -183,34 +173,41 @@ module GobiertoPeople
         assert_equal rst_to_utc('2017-05-05 12:00:00'), recurrent_events_instances.second.starts_at
       end
 
-      def test_sync_events_marks_unreceived_events_as_pending
+      # Only v8 will return past events instances, but use v9 cassette for simplicity
+      def test_sync_events_marks_unreceived_upcoming_events_as_pending
         activate_calendar_integration(sites(:madrid))
         set_calendar_endpoint(richard, 'https://host.wadus.com/mail/foo.nsf/api/calendar/events')
 
-        VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
-          CalendarIntegration.sync_person_events(richard)
+        Timecop.freeze(Time.zone.parse('2017-05-03')) do
+          VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
+            # Returns 3 events, all of them upcoming
+            CalendarIntegration.sync_person_events(richard)
+          end
+
+          richard_synchronized_events = richard.events.synchronized
+
+          assert_equal 3, richard_synchronized_events.count
+          assert richard_synchronized_events.all? { |event| event.active? }
         end
 
-        non_recurrent_events = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated$")
+        Timecop.freeze(Time.zone.parse('2017-05-05 01:00:00')) do
+          VCR.use_cassette('ibm_notes/person_events_collection_v9_mark_as_pending', decode_compressed_response: true) do
+            # Returns first event from the previous set, which is now past
+            CalendarIntegration.sync_person_events(richard)
+          end
 
-        assert_equal 2, non_recurrent_events.count
+          richard_synchronized_events = richard.events.synchronized.order(:external_id)
 
-        assert non_recurrent_events.first.active?
-        assert non_recurrent_events.second.active?
+          assert_equal 3, richard_synchronized_events.count
 
-        VCR.use_cassette('ibm_notes/person_events_collection_v9_mark_as_pending', decode_compressed_response: true) do
-          CalendarIntegration.sync_person_events(richard)
+          assert richard_synchronized_events.first.active?
+          assert richard_synchronized_events.second.active?
+          refute richard_synchronized_events.third.active?
         end
-
-        non_recurrent_events = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated$").order(:external_id)
-
-        assert_equal 2, non_recurrent_events.count
-
-        refute non_recurrent_events.first.active?
-        assert non_recurrent_events.second.active?
       end
 
       def test_sync_event_creates_new_event_with_location
+
         refute GobiertoPeople::PersonEvent.exists?(external_id: new_ibm_notes_event.id)
 
         CalendarIntegration.sync_event(new_ibm_notes_event)
@@ -243,6 +240,9 @@ module GobiertoPeople
       end
 
       def test_sync_event_creates_updates_and_removes_location_for_existing_gobierto_event
+        outdated_ibm_notes_event_gobierto_event.save!
+        ibm_notes_event_gobierto_event.save!
+
         ibm_notes_event = create_ibm_notes_event(location: nil)
         gobierto_event = GobiertoPeople::PersonEvent.find_by!(external_id: ibm_notes_event.id)
 

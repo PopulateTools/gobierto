@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events
     body:
       encoding: US-ASCII
       string: ''
@@ -58,7 +58,7 @@ http_interactions:
     uri: https://host.wadus.com/names.nsf?Login
     body:
       encoding: UTF-8
-      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Fbar.nsf%2Fapi%2Fcalendar%2Fevents%3Fstart%3D1%26count%3D3"
+      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Ffoo.nsf%2Fapi%2Fcalendar%2Fevents%3Fstart%3D1%26count%3D3"
     headers:
       Accept-Encoding:
       - gzip,deflate,identity
@@ -80,7 +80,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events"
+        path: "/mail/foo.nsf/api/calendar/events"
         opaque:
         fragment:
         parser: &2 !ruby/object:URI::RFC3986_Parser
@@ -114,7 +114,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events
       Set-Cookie:
       - DomAuthSessId=1FC5986E28500821C176F369C23CCB76; path=/
       Content-Length:
@@ -126,7 +126,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events
     body:
       encoding: US-ASCII
       string: ''
@@ -177,7 +177,7 @@ http_interactions:
         {
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated",
               "id":"646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar,Alice Sol\u00EDs Gonz\u00E1lez",
               "start": {
@@ -202,7 +202,7 @@ http_interactions:
               }
             },
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated",
               "id":"50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated",
               "summary":"Replanificaci\u00F3n: Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar,Alice Sol\u00EDs Gonz\u00E1lez",
               "start": {
@@ -227,7 +227,7 @@ http_interactions:
               }
             },
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/CD1B539AEB0D44D7C1258110003BB81E_2-Lotus_ReadRange_Generated",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/CD1B539AEB0D44D7C1258110003BB81E_2-Lotus_ReadRange_Generated",
               "id":"CD1B539AEB0D44D7C1258110003BB81E_2-Lotus_ReadRange_Generated",
               "summary":"rom,sala de juntes,Paco Aguil\u00E0 Esteve",
               "start": {
@@ -257,7 +257,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated
     body:
       encoding: US-ASCII
       string: ''
@@ -313,7 +313,7 @@ http_interactions:
     uri: https://host.wadus.com/names.nsf?Login
     body:
       encoding: UTF-8
-      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Fbar.nsf%2Fapi%2Fcalendar%2Fevents%2F646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated"
+      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Ffoo.nsf%2Fapi%2Fcalendar%2Fevents%2F646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated"
     headers:
       Accept-Encoding:
       - gzip,deflate,identity
@@ -335,7 +335,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated"
+        path: "/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated"
         query:
         opaque:
         fragment:
@@ -360,7 +360,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated
       Set-Cookie:
       - DomAuthSessId=17324F338EBC77C38CEAC72C522E8DAC; path=/
       Content-Length:
@@ -372,7 +372,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated
     body:
       encoding: US-ASCII
       string: ''
@@ -444,7 +444,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -589,7 +589,7 @@ http_interactions:
               "links": [
                         {
                   "rel":"instances",
-                  "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/instances"
+                  "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/instances"
                 }
               ],
               "class":"public",
@@ -659,7 +659,7 @@ http_interactions:
               }
             },
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170407T100000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170407T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -745,7 +745,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/instances
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/instances
     body:
       encoding: US-ASCII
       string: ''
@@ -801,7 +801,7 @@ http_interactions:
     uri: https://host.wadus.com/names.nsf?Login
     body:
       encoding: UTF-8
-      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Fbar.nsf%2Fapi%2Fcalendar%2Fevents%2F646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated%2Finstances"
+      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Ffoo.nsf%2Fapi%2Fcalendar%2Fevents%2F646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated%2Finstances"
     headers:
       Accept-Encoding:
       - gzip,deflate,identity
@@ -823,7 +823,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/instances"
+        path: "/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/instances"
         query:
         opaque:
         fragment:
@@ -848,7 +848,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/instances
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/instances
       Set-Cookie:
       - DomAuthSessId=F1FE2FF4BBE40014EF096C883EBE144F; path=/
       Content-Length:
@@ -860,7 +860,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/instances
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/instances
     body:
       encoding: US-ASCII
       string: ''
@@ -910,39 +910,39 @@ http_interactions:
           "instances":[
             {
               "recurrenceId":"20170303T110000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20170303T110000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20170303T110000Z"
             },
             {
               "recurrenceId":"20170407T113000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20170407T113000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20170407T113000Z"
             },
             {
               "recurrenceId":"20170505T100000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20170505T100000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20170505T100000Z"
             },
             {
               "recurrenceId":"20170602T100000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20170602T100000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20170602T100000Z"
             },
             {
               "recurrenceId":"20170707T100000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20170707T100000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20170707T100000Z"
             },
             {
               "recurrenceId":"20170908T100000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20170908T100000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20170908T100000Z"
             },
             {
               "recurrenceId":"20171006T100000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20171006T100000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20171006T100000Z"
             },
             {
               "recurrenceId":"20171103T110000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20171103T110000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20171103T110000Z"
             },
             {
               "recurrenceId":"20171201T110000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20171201T110000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated\/20171201T110000Z"
             }
           ]
         }
@@ -950,7 +950,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170303T110000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170303T110000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -1006,7 +1006,7 @@ http_interactions:
     uri: https://host.wadus.com/names.nsf?Login
     body:
       encoding: UTF-8
-      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Fbar.nsf%2Fapi%2Fcalendar%2Fevents%2F646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated%2F20170303T110000Z"
+      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Ffoo.nsf%2Fapi%2Fcalendar%2Fevents%2F646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated%2F20170303T110000Z"
     headers:
       Accept-Encoding:
       - gzip,deflate,identity
@@ -1028,7 +1028,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170303T110000Z"
+        path: "/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170303T110000Z"
         query:
         opaque:
         fragment:
@@ -1053,7 +1053,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170303T110000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170303T110000Z
       Set-Cookie:
       - DomAuthSessId=336C1F7581E231FC1B75ED191F28151D; path=/
       Content-Length:
@@ -1065,7 +1065,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170303T110000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170303T110000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -1137,7 +1137,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170303T110000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170303T110000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -1223,7 +1223,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170407T113000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170407T113000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -1279,7 +1279,7 @@ http_interactions:
     uri: https://host.wadus.com/names.nsf?Login
     body:
       encoding: UTF-8
-      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Fbar.nsf%2Fapi%2Fcalendar%2Fevents%2F646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated%2F20170407T113000Z"
+      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Ffoo.nsf%2Fapi%2Fcalendar%2Fevents%2F646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated%2F20170407T113000Z"
     headers:
       Accept-Encoding:
       - gzip,deflate,identity
@@ -1301,7 +1301,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170407T113000Z"
+        path: "/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170407T113000Z"
         query:
         opaque:
         fragment:
@@ -1326,7 +1326,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170407T113000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170407T113000Z
       Set-Cookie:
       - DomAuthSessId=6A0B6F9599CB5A21E3EC4BCF3E71C90D; path=/
       Content-Length:
@@ -1338,7 +1338,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170407T113000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170407T113000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -1399,7 +1399,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170505T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170505T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -1474,7 +1474,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170505T100000Z"
+        path: "/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170505T100000Z"
         query:
         opaque:
         fragment:
@@ -1499,7 +1499,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170505T100000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170505T100000Z
       Set-Cookie:
       - DomAuthSessId=D0AEF3ABF7B4BD1161CA9BE4143D182D; path=/
       Content-Length:
@@ -1511,7 +1511,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170505T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170505T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -1583,7 +1583,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170505T100000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170505T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -1669,7 +1669,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170602T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170602T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -1744,7 +1744,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170602T100000Z"
+        path: "/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170602T100000Z"
         query:
         opaque:
         fragment:
@@ -1769,7 +1769,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170602T100000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170602T100000Z
       Set-Cookie:
       - DomAuthSessId=8F7E1A83D2F1459D55783E34DAD41994; path=/
       Content-Length:
@@ -1781,7 +1781,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170602T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170602T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -1853,7 +1853,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170602T100000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170602T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -1939,7 +1939,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170707T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170707T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -2014,7 +2014,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170707T100000Z"
+        path: "/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170707T100000Z"
         query:
         opaque:
         fragment:
@@ -2039,7 +2039,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170707T100000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170707T100000Z
       Set-Cookie:
       - DomAuthSessId=C1CCF43CEFBFA0FD5DF4790686CE1FFE; path=/
       Content-Length:
@@ -2051,7 +2051,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170707T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170707T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -2123,7 +2123,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170707T100000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170707T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -2209,7 +2209,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170908T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170908T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -2284,7 +2284,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170908T100000Z"
+        path: "/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170908T100000Z"
         query:
         opaque:
         fragment:
@@ -2309,7 +2309,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170908T100000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170908T100000Z
       Set-Cookie:
       - DomAuthSessId=66335D4F87BD8837A3B34CDE38D5E1F7; path=/
       Content-Length:
@@ -2321,7 +2321,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170908T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20170908T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -2393,7 +2393,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170908T100000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170908T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -2479,7 +2479,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171006T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171006T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -2554,7 +2554,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171006T100000Z"
+        path: "/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171006T100000Z"
         query:
         opaque:
         fragment:
@@ -2579,7 +2579,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171006T100000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171006T100000Z
       Set-Cookie:
       - DomAuthSessId=CD35563DA7DF1ADBDEC7F0623EAA224D; path=/
       Content-Length:
@@ -2591,7 +2591,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171006T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171006T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -2663,7 +2663,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171006T100000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171006T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -2749,7 +2749,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171103T110000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171103T110000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -2824,7 +2824,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171103T110000Z"
+        path: "/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171103T110000Z"
         query:
         opaque:
         fragment:
@@ -2849,7 +2849,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171103T110000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171103T110000Z
       Set-Cookie:
       - DomAuthSessId=0192A9BCC164207B5951BFBEB6B8567C; path=/
       Content-Length:
@@ -2861,7 +2861,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171103T110000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171103T110000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -2933,7 +2933,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171103T110000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171103T110000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -3019,7 +3019,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171201T110000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171201T110000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -3094,7 +3094,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171201T110000Z"
+        path: "/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171201T110000Z"
         query:
         opaque:
         fragment:
@@ -3119,7 +3119,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171201T110000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171201T110000Z
       Set-Cookie:
       - DomAuthSessId=A0F275FA3ED65FCFF61A2250594BBA23; path=/
       Content-Length:
@@ -3131,7 +3131,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171201T110000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/646503F7F545D629C12580FB0030DC5E_0-Lotus_ReadRange_Generated/20171201T110000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -3203,7 +3203,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171201T110000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171201T110000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -3289,7 +3289,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated
     body:
       encoding: US-ASCII
       string: ''
@@ -3364,7 +3364,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated"
+        path: "/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated"
         query:
         opaque:
         fragment:
@@ -3389,7 +3389,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated
       Set-Cookie:
       - DomAuthSessId=BE209D7F17D4CCFAFD487A8C2B4084D7; path=/
       Content-Length:
@@ -3401,7 +3401,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated
     body:
       encoding: US-ASCII
       string: ''
@@ -3473,7 +3473,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -3618,7 +3618,7 @@ http_interactions:
               "links": [
                         {
                   "rel":"instances",
-                  "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/instances"
+                  "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/instances"
                 }
               ],
               "class":"public",
@@ -3688,7 +3688,7 @@ http_interactions:
               }
             },
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170407T100000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170407T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -3774,7 +3774,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/instances
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/instances
     body:
       encoding: US-ASCII
       string: ''
@@ -3849,7 +3849,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/instances"
+        path: "/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/instances"
         query:
         opaque:
         fragment:
@@ -3874,7 +3874,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/instances
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/instances
       Set-Cookie:
       - DomAuthSessId=EA94437C0089A5676FE6A8081ED64CAF; path=/
       Content-Length:
@@ -3886,7 +3886,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/instances
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/instances
     body:
       encoding: US-ASCII
       string: ''
@@ -3936,39 +3936,39 @@ http_interactions:
           "instances":[
             {
               "recurrenceId":"20170303T110000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20170303T110000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20170303T110000Z"
             },
             {
               "recurrenceId":"20170407T113000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20170407T113000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20170407T113000Z"
             },
             {
               "recurrenceId":"20170505T100000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20170505T100000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20170505T100000Z"
             },
             {
               "recurrenceId":"20170602T100000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20170602T100000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20170602T100000Z"
             },
             {
               "recurrenceId":"20170707T100000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20170707T100000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20170707T100000Z"
             },
             {
               "recurrenceId":"20170908T100000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20170908T100000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20170908T100000Z"
             },
             {
               "recurrenceId":"20171006T100000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20171006T100000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20171006T100000Z"
             },
             {
               "recurrenceId":"20171103T110000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20171103T110000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20171103T110000Z"
             },
             {
               "recurrenceId":"20171201T110000Z",
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20171201T110000Z"
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated\/20171201T110000Z"
             }
           ]
         }
@@ -3976,7 +3976,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170303T110000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170303T110000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -4051,7 +4051,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170303T110000Z"
+        path: "/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170303T110000Z"
         query:
         opaque:
         fragment:
@@ -4076,7 +4076,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170303T110000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170303T110000Z
       Set-Cookie:
       - DomAuthSessId=F2B1CB20E4870D5A252E7C43E64BB509; path=/
       Content-Length:
@@ -4088,7 +4088,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170303T110000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170303T110000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -4160,7 +4160,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170303T110000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170303T110000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -4246,7 +4246,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170407T113000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170407T113000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -4321,7 +4321,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170407T113000Z"
+        path: "/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170407T113000Z"
         query:
         opaque:
         fragment:
@@ -4346,7 +4346,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170407T113000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170407T113000Z
       Set-Cookie:
       - DomAuthSessId=B810C4B974D911A6FDC06EA129B1D7DC; path=/
       Content-Length:
@@ -4358,7 +4358,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170407T113000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170407T113000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -4419,7 +4419,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170505T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170505T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -4475,7 +4475,7 @@ http_interactions:
     uri: https://host.wadus.com/names.nsf?Login
     body:
       encoding: UTF-8
-      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Fbar.nsf%2Fapi%2Fcalendar%2Fevents%2F50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated%2F20170505T100000Z"
+      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Ffoo.nsf%2Fapi%2Fcalendar%2Fevents%2F50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated%2F20170505T100000Z"
     headers:
       Accept-Encoding:
       - gzip,deflate,identity
@@ -4497,7 +4497,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170505T100000Z"
+        path: "/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170505T100000Z"
         query:
         opaque:
         fragment:
@@ -4522,7 +4522,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170505T100000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170505T100000Z
       Set-Cookie:
       - DomAuthSessId=D0537C9CFF56B2F5D133907A37FA65FC; path=/
       Content-Length:
@@ -4534,7 +4534,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170505T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170505T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -4606,7 +4606,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170505T100000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170505T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -4692,7 +4692,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170602T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170602T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -4748,7 +4748,7 @@ http_interactions:
     uri: https://host.wadus.com/names.nsf?Login
     body:
       encoding: UTF-8
-      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Fbar.nsf%2Fapi%2Fcalendar%2Fevents%2F50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated%2F20170602T100000Z"
+      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Ffoo.nsf%2Fapi%2Fcalendar%2Fevents%2F50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated%2F20170602T100000Z"
     headers:
       Accept-Encoding:
       - gzip,deflate,identity
@@ -4770,7 +4770,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170602T100000Z"
+        path: "/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170602T100000Z"
         query:
         opaque:
         fragment:
@@ -4795,7 +4795,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170602T100000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170602T100000Z
       Set-Cookie:
       - DomAuthSessId=95872293F18BC8F5316E1B12F7865C5F; path=/
       Content-Length:
@@ -4807,7 +4807,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170602T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170602T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -4879,7 +4879,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170602T100000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170602T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -4965,7 +4965,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170707T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170707T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -5021,7 +5021,7 @@ http_interactions:
     uri: https://host.wadus.com/names.nsf?Login
     body:
       encoding: UTF-8
-      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Fbar.nsf%2Fapi%2Fcalendar%2Fevents%2F50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated%2F20170707T100000Z"
+      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Ffoo.nsf%2Fapi%2Fcalendar%2Fevents%2F50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated%2F20170707T100000Z"
     headers:
       Accept-Encoding:
       - gzip,deflate,identity
@@ -5043,7 +5043,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170707T100000Z"
+        path: "/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170707T100000Z"
         query:
         opaque:
         fragment:
@@ -5068,7 +5068,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170707T100000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170707T100000Z
       Set-Cookie:
       - DomAuthSessId=02BACBB92B096405E8947F9DE8B1ECB0; path=/
       Content-Length:
@@ -5080,7 +5080,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170707T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170707T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -5152,7 +5152,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170707T100000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170707T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -5238,7 +5238,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170908T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170908T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -5294,7 +5294,7 @@ http_interactions:
     uri: https://host.wadus.com/names.nsf?Login
     body:
       encoding: UTF-8
-      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Fbar.nsf%2Fapi%2Fcalendar%2Fevents%2F50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated%2F20170908T100000Z"
+      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Ffoo.nsf%2Fapi%2Fcalendar%2Fevents%2F50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated%2F20170908T100000Z"
     headers:
       Accept-Encoding:
       - gzip,deflate,identity
@@ -5316,7 +5316,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170908T100000Z"
+        path: "/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170908T100000Z"
         query:
         opaque:
         fragment:
@@ -5341,7 +5341,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170908T100000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170908T100000Z
       Set-Cookie:
       - DomAuthSessId=AF62E22C3117ED4B58B559A191DA0190; path=/
       Content-Length:
@@ -5353,7 +5353,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170908T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20170908T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -5425,7 +5425,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170908T100000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170908T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -5511,7 +5511,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171006T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171006T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -5567,7 +5567,7 @@ http_interactions:
     uri: https://host.wadus.com/names.nsf?Login
     body:
       encoding: UTF-8
-      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Fbar.nsf%2Fapi%2Fcalendar%2Fevents%2F50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated%2F20171006T100000Z"
+      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Ffoo.nsf%2Fapi%2Fcalendar%2Fevents%2F50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated%2F20171006T100000Z"
     headers:
       Accept-Encoding:
       - gzip,deflate,identity
@@ -5589,7 +5589,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171006T100000Z"
+        path: "/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171006T100000Z"
         query:
         opaque:
         fragment:
@@ -5614,7 +5614,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171006T100000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171006T100000Z
       Set-Cookie:
       - DomAuthSessId=6D36678F3667BBC59CC3D4BC2B6383AC; path=/
       Content-Length:
@@ -5626,7 +5626,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171006T100000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171006T100000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -5698,7 +5698,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171006T100000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171006T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -5784,7 +5784,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171103T110000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171103T110000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -5840,7 +5840,7 @@ http_interactions:
     uri: https://host.wadus.com/names.nsf?Login
     body:
       encoding: UTF-8
-      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Fbar.nsf%2Fapi%2Fcalendar%2Fevents%2F50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated%2F20171103T110000Z"
+      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Ffoo.nsf%2Fapi%2Fcalendar%2Fevents%2F50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated%2F20171103T110000Z"
     headers:
       Accept-Encoding:
       - gzip,deflate,identity
@@ -5862,7 +5862,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171103T110000Z"
+        path: "/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171103T110000Z"
         query:
         opaque:
         fragment:
@@ -5887,7 +5887,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171103T110000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171103T110000Z
       Set-Cookie:
       - DomAuthSessId=9195E66290E5733E29D44D4AD1B1FCAA; path=/
       Content-Length:
@@ -5899,7 +5899,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171103T110000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171103T110000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -5971,7 +5971,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171103T110000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171103T110000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -6057,7 +6057,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171201T110000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171201T110000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -6113,7 +6113,7 @@ http_interactions:
     uri: https://host.wadus.com/names.nsf?Login
     body:
       encoding: UTF-8
-      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Fbar.nsf%2Fapi%2Fcalendar%2Fevents%2F50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated%2F20171201T110000Z"
+      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Ffoo.nsf%2Fapi%2Fcalendar%2Fevents%2F50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated%2F20171201T110000Z"
     headers:
       Accept-Encoding:
       - gzip,deflate,identity
@@ -6135,7 +6135,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171201T110000Z"
+        path: "/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171201T110000Z"
         query:
         opaque:
         fragment:
@@ -6160,7 +6160,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171201T110000Z
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171201T110000Z
       Set-Cookie:
       - DomAuthSessId=FD6F7673E87C56E3B0BD33588AD76056; path=/
       Content-Length:
@@ -6172,7 +6172,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171201T110000Z
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/50931C22575E2581C12581150040267B_1-Lotus_ReadRange_Generated/20171201T110000Z
     body:
       encoding: US-ASCII
       string: ''
@@ -6244,7 +6244,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171201T110000Z",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171201T110000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
@@ -6330,7 +6330,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/CD1B539AEB0D44D7C1258110003BB81E_2-Lotus_ReadRange_Generated
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/CD1B539AEB0D44D7C1258110003BB81E_2-Lotus_ReadRange_Generated
     body:
       encoding: US-ASCII
       string: ''
@@ -6386,7 +6386,7 @@ http_interactions:
     uri: https://host.wadus.com/names.nsf?Login
     body:
       encoding: UTF-8
-      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Fbar.nsf%2Fapi%2Fcalendar%2Fevents%2FCD1B539AEB0D44D7C1258110003BB81E_2-Lotus_ReadRange_Generated"
+      string: "%25%25ModDate=0A5D2C5A00000000&Username=username&Password=password&RedirectTo=%2Fmail%2Ffoo.nsf%2Fapi%2Fcalendar%2Fevents%2FCD1B539AEB0D44D7C1258110003BB81E_2-Lotus_ReadRange_Generated"
     headers:
       Accept-Encoding:
       - gzip,deflate,identity
@@ -6408,7 +6408,7 @@ http_interactions:
         password:
         host: host.wadus.com
         port: 443
-        path: "/mail/bar.nsf/api/calendar/events/CD1B539AEB0D44D7C1258110003BB81E_2-Lotus_ReadRange_Generated"
+        path: "/mail/foo.nsf/api/calendar/events/CD1B539AEB0D44D7C1258110003BB81E_2-Lotus_ReadRange_Generated"
         query:
         opaque:
         fragment:
@@ -6433,7 +6433,7 @@ http_interactions:
       Connection:
       - close
       Location:
-      - https://host.wadus.com/mail/bar.nsf/api/calendar/events/CD1B539AEB0D44D7C1258110003BB81E_2-Lotus_ReadRange_Generated
+      - https://host.wadus.com/mail/foo.nsf/api/calendar/events/CD1B539AEB0D44D7C1258110003BB81E_2-Lotus_ReadRange_Generated
       Set-Cookie:
       - DomAuthSessId=7FAEB16FC554E3DF6BEC47855C7BADC6; path=/
       Content-Length:
@@ -6445,7 +6445,7 @@ http_interactions:
   recorded_at: Thu, 04 May 2017 00:00:00 GMT
 - request:
     method: get
-    uri: https://host.wadus.com/mail/bar.nsf/api/calendar/events/CD1B539AEB0D44D7C1258110003BB81E_2-Lotus_ReadRange_Generated
+    uri: https://host.wadus.com/mail/foo.nsf/api/calendar/events/CD1B539AEB0D44D7C1258110003BB81E_2-Lotus_ReadRange_Generated
     body:
       encoding: US-ASCII
       string: ''
@@ -6517,7 +6517,7 @@ http_interactions:
           ],
           "events": [
             {
-              "href":"\/mail\/bar.nsf\/api\/calendar\/events\/CD1B539AEB0D44D7C1258110003BB81E-Lotus_Notes_Generated",
+              "href":"\/mail\/foo.nsf\/api\/calendar\/events\/CD1B539AEB0D44D7C1258110003BB81E-Lotus_Notes_Generated",
               "id":"CD1B539AEB0D44D7C1258110003BB81E-Lotus_Notes_Generated",
               "summary":"rom",
               "location":"sala de juntes",

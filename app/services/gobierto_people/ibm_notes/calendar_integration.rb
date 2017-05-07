@@ -13,7 +13,7 @@ module GobiertoPeople
           process_event(event_data, event_url, person)
         end.compact
 
-        person.events.synchronized_events.each do |event|
+        person.events.upcoming.synchronized.each do |event|
           unless received_events_ids.include?(event.external_id)
             event.pending!
           end

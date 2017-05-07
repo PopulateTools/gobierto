@@ -65,12 +65,8 @@ module GobiertoPeople
       attributes.each do |_, location_attributes|
         next if location_attributes["_destroy"] == "1"
 
-        location = person_event_location_class.new(
-          name: location_attributes[:name],
-          address: location_attributes[:address],
-          lat: location_attributes[:lat],
-          lng: location_attributes[:lng]
-        )
+        location = person_event.locations.detect{ |l| l.name == location_attributes[:name] } ||
+          person_event_location_class.new(name: location_attributes[:name])
 
         @locations.push(location) if location.valid?
       end
@@ -145,8 +141,10 @@ module GobiertoPeople
       end
 
       if @person_event.valid?
-        run_callbacks(:save) do
-          @person_event.save
+        if @person_event.changes.any?
+          run_callbacks(:save) do
+            @person_event.save
+          end
         end
 
         @person_event

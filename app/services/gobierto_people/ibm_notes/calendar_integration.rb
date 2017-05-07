@@ -3,7 +3,7 @@ module GobiertoPeople
     class CalendarIntegration
 
       def self.sync_person_events(person)
-        received_events_external_ids = get_person_events_urls(person).map do |event_url|
+        received_events_ids = get_person_events_urls(person).map do |event_url|
           response_data = ::IbmNotes::Api.get_event(request_params_for_event_request(person, event_url))
 
           next if response_data.nil? || response_data['events'].blank?
@@ -14,7 +14,7 @@ module GobiertoPeople
         end.compact
 
         person.events.synchronized_events.each do |event|
-          unless received_events_external_ids.include?(event.external_id)
+          unless received_events_ids.include?(event.external_id)
             event.pending!
           end
         end
@@ -38,7 +38,7 @@ module GobiertoPeople
                                end
 
         person_event_params = {
-          external_id: ibm_notes_event.external_id,
+          external_id: ibm_notes_event.id,
           person_id: ibm_notes_event.person.id,
           title: ibm_notes_event.title,
           starts_at: ibm_notes_event.starts_at,
@@ -55,7 +55,7 @@ module GobiertoPeople
       def self.create_and_sync_ibm_notes_event(person, event_data)
         event = ::IbmNotes::PersonEvent.new(person, event_data)
         sync_event(event)
-        event.external_id
+        event.id
       end
       private_class_method :create_and_sync_ibm_notes_event
 

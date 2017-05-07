@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class PersonEventTest < ActiveSupport::TestCase
+class IbmNotes::PersonEventTest < ActiveSupport::TestCase
 
   def setup
     super
@@ -40,7 +40,7 @@ class PersonEventTest < ActiveSupport::TestCase
 
   def persisted_ibm_notes_event_gobierto_event
     @persisted_ibm_notes_event_gobierto_event ||= GobiertoPeople::PersonEvent.new(
-      external_id: 'Ibm Notes persisted event ID',
+      id: 'Ibm Notes persisted event ID',
       title: 'Ibm Notes persisted event title',
       starts_at: utc_time("2017-04-11 10:00:00"),
       ends_at:   utc_time("2017-04-11 11:00:00"),
@@ -60,7 +60,7 @@ class PersonEventTest < ActiveSupport::TestCase
   end
 
   def test_initialize
-    assert_equal 'Ibm Notes persisted event ID', persisted_ibm_notes_event.external_id
+    assert_equal 'Ibm Notes persisted event ID', persisted_ibm_notes_event.id
     assert_equal 'Ibm Notes persisted event title', persisted_ibm_notes_event.title
     assert_equal person, persisted_ibm_notes_event.person
     assert_equal utc_time('2017-04-11 10:00:00'), persisted_ibm_notes_event.starts_at

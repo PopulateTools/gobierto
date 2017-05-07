@@ -211,13 +211,13 @@ module GobiertoPeople
       end
 
       def test_sync_event_creates_new_event_with_location
-        refute GobiertoPeople::PersonEvent.exists?(external_id: new_ibm_notes_event.external_id)
+        refute GobiertoPeople::PersonEvent.exists?(external_id: new_ibm_notes_event.id)
 
         CalendarIntegration.sync_event(new_ibm_notes_event)
 
-        assert GobiertoPeople::PersonEvent.exists?(external_id: new_ibm_notes_event.external_id)
+        assert GobiertoPeople::PersonEvent.exists?(external_id: new_ibm_notes_event.id)
 
-        gobierto_event = GobiertoPeople::PersonEvent.find_by(external_id: new_ibm_notes_event.external_id)
+        gobierto_event = GobiertoPeople::PersonEvent.find_by(external_id: new_ibm_notes_event.id)
 
         assert_equal new_ibm_notes_event.title, gobierto_event.title
         assert_equal richard, gobierto_event.person
@@ -228,7 +228,7 @@ module GobiertoPeople
       def test_sync_event_updates_existing_event
         CalendarIntegration.sync_event(outdated_ibm_notes_event)
 
-        updated_gobierto_event = GobiertoPeople::PersonEvent.find_by(external_id: outdated_ibm_notes_event.external_id)
+        updated_gobierto_event = GobiertoPeople::PersonEvent.find_by(external_id: outdated_ibm_notes_event.id)
 
         assert updated_gobierto_event.published?
         assert_equal 'Ibm Notes outdated event title - THIS HAS CHANGED', updated_gobierto_event.title
@@ -244,7 +244,7 @@ module GobiertoPeople
 
       def test_sync_event_creates_updates_and_removes_location_for_existing_gobierto_event
         ibm_notes_event = create_ibm_notes_event(location: nil)
-        gobierto_event = GobiertoPeople::PersonEvent.find_by!(external_id: ibm_notes_event.external_id)
+        gobierto_event = GobiertoPeople::PersonEvent.find_by!(external_id: ibm_notes_event.id)
 
         CalendarIntegration.sync_event(ibm_notes_event)
 

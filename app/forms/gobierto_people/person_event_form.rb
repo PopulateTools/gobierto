@@ -76,26 +76,6 @@ module GobiertoPeople
       end
     end
 
-    def attendees
-      @attendees ||= person_event.attendees.presence || [build_person_event_attendee]
-    end
-
-    def attendees_attributes=(attributes)
-      @attendees ||= []
-
-      attributes.each do |_, attendee_attributes|
-        next if attendee_attributes["_destroy"] == "1"
-
-        attendee = person_event_attendee_class.new(
-          person_id: attendee_attributes[:person_id],
-          name: attendee_attributes[:name],
-          charge: attendee_attributes[:charge]
-        )
-
-        @attendees.push(attendee) if attendee.valid?
-      end
-    end
-
     def starts_at
       @starts_at ||= (1.hour.from_now.beginning_of_hour + 1.day).localtime
 

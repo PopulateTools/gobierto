@@ -7,12 +7,28 @@ module IbmNotes
   class Api
 
     def self.get_person_events(params)
-      response_page = make_request(params)
+      make_request params
+    end
+
+    def self.get_event(params)
+      make_request params
+    end
+
+    def self.get_recurrent_event_instances(params)
+      params[:endpoint] += "/instances"
+      make_request params
+    end
+
+    private
+
+    def self.make_request(params)
+      response_page = get_response_page(params)
       begin
         if response_page.uri.path == URI.parse(params[:endpoint]).path
           if response_page.code.to_i == 200
-            JSON.parse(response_page.body)["events"]
+            JSON.parse(response_page.body)
           else
+            Rails.logger.info "[IBM Notes GET #{params[:endpoint]}] ERROR response code = #{response_page.code}"
             raise IbmNotes::ServiceUnavailable
           end
         else
@@ -25,11 +41,12 @@ module IbmNotes
           raise JSON::ParserError
         end
       end
+    rescue ::Mechanize::ResponseCodeError
+      Rails.logger.info "[IBM Notes GET #{params[:endpoint]} ] Mechanize response code error"
+      return nil
     end
 
-    private
-
-    def self.make_request(params)
+    def self.get_response_page(params)
       signin_page = agent.get params[:endpoint]
       signin_page.form_with(action: "/names.nsf?Login") do |form|
         form.Username = params[:username]

@@ -1,4 +1,5 @@
 module CalendarIntegrationHelpers
+
   def activate_calendar_integration(site)
     gp_module_settings = site.module_settings.find_by(module_name: 'GobiertoPeople')
 
@@ -8,4 +9,11 @@ module CalendarIntegrationHelpers
 
     gp_module_settings.save!
   end
+
+  def set_calendar_endpoint(person, endpoint)
+    calendar_conf = person.calendar_configuration
+    calendar_conf.data = { endpoint: endpoint }
+    calendar_conf.save!
+  end
+
 end

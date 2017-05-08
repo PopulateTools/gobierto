@@ -11,7 +11,7 @@ module GobiertoPeople
           event_data = response_data['events'][0]
 
           process_event(event_data, event_url, person)
-        end.compact
+        end.compact.flatten
 
         person.events.upcoming.synchronized.each do |event|
           unless received_events_ids.include?(event.external_id)
@@ -47,19 +47,22 @@ module GobiertoPeople
           locations_attributes: {"0" => locations_attributes }
         }
 
-        GobiertoPeople::PersonEventForm.new(person_event_params).save
+        event = GobiertoPeople::PersonEventForm.new(person_event_params)
+        event.save
+        event.external_id
       end
 
       # Private methods
 
       def self.create_and_sync_ibm_notes_event(person, event_data)
         event = ::IbmNotes::PersonEvent.new(person, event_data)
-        sync_event(event)
-        event.id
+        created_event_external_id = sync_event(event)
+        return created_event_external_id
       end
       private_class_method :create_and_sync_ibm_notes_event
 
       def self.process_event(event_data, event_url, person)
+        processed_events_ids = []
         if recurring_event?(event_data)
           instances_urls = get_person_event_instances_urls(person, event_url)
 
@@ -67,12 +70,14 @@ module GobiertoPeople
             response_event = ::IbmNotes::Api.get_event(request_params_for_event_request(person, event_url))
 
             if response_event && response_event['events'].present?
-              create_and_sync_ibm_notes_event(person, response_event['events'][0])
+              processed_events_ids << create_and_sync_ibm_notes_event(person, response_event['events'][0])
             end
           end
         else
-          create_and_sync_ibm_notes_event(person, event_data)
+          processed_events_ids << create_and_sync_ibm_notes_event(person, event_data)
         end
+
+        processed_events_ids
       end
       private_class_method :process_event
 

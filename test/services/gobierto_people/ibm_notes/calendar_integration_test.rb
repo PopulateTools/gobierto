@@ -210,9 +210,10 @@ module GobiertoPeople
 
         refute GobiertoPeople::PersonEvent.exists?(external_id: new_ibm_notes_event.id)
 
-        CalendarIntegration.sync_event(new_ibm_notes_event)
+        created_event_external_id = CalendarIntegration.sync_event(new_ibm_notes_event)
 
         assert GobiertoPeople::PersonEvent.exists?(external_id: new_ibm_notes_event.id)
+        assert_equal created_event_external_id, new_ibm_notes_event.id
 
         gobierto_event = GobiertoPeople::PersonEvent.find_by(external_id: new_ibm_notes_event.id)
 

@@ -44,7 +44,7 @@ module GobiertoPeople
     end
 
     def person_event
-      @person_event ||= person_event_class.find_by(external_id: external_id).presence || build_person_event
+      @person_event ||= person.events.find_by(external_id: external_id).presence || build_person_event
     end
 
     def person_id
@@ -91,7 +91,7 @@ module GobiertoPeople
     end
 
     def state
-      @state ||= "pending"
+      @state ||= person_event.state || "published"
     end
 
     def notify?

@@ -6,7 +6,7 @@ module GobiertoPeople
     belongs_to :person_event
 
     validates :person, presence: true, unless: :custom_person_present?
-    validates :name, :charge, presence: true, unless: :person_present?
+    validates :name, presence: true, unless: :person_present?
 
     private
 

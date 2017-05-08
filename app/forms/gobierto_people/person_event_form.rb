@@ -47,10 +47,6 @@ module GobiertoPeople
       @person_event ||= person.events.find_by(external_id: external_id).presence || build_person_event
     end
 
-    def person_id
-      @person_id ||= person_event.person_id
-    end
-
     def person
       @person ||= person_class.find_by(id: person_id)
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428081148) do
+ActiveRecord::Schema.define(version: 20170509082436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -262,7 +262,7 @@ ActiveRecord::Schema.define(version: 20170428081148) do
     t.string   "name"
     t.string   "charge"
     t.integer  "person_id"
-    t.integer  "person_event_id"
+    t.integer  "person_event_id", null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["person_event_id"], name: "index_gp_person_event_attendees_on_person_event_id", using: :btree
@@ -274,7 +274,7 @@ ActiveRecord::Schema.define(version: 20170428081148) do
     t.string   "address"
     t.decimal  "lat",             precision: 10, scale: 6
     t.decimal  "lng",             precision: 10, scale: 6
-    t.integer  "person_event_id"
+    t.integer  "person_event_id",                                       null: false
     t.datetime "created_at",                                            null: false
     t.datetime "updated_at",                                            null: false
     t.index ["person_event_id"], name: "index_gp_person_event_locations_on_person_event_id", using: :btree

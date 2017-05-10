@@ -883,7 +883,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '3924'
+      - '2604'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -933,74 +933,39 @@ http_interactions:
               "sequence":2,
               "last-modified":"20170420T080845Z",
               "attendees": [
-                        {
+                {
                   "role":"chair",
                   "status":"accepted",
                   "rsvp":false,
-                  "displayName":"Josep M. Farreras Hern\u00E1ndez\/AJUNTAMENT DE foo bar DE wadus.",
-                  "email":"foo@bar.com"
+                  "displayName":"Josep M. Farreras\/AJUNTAMENT DE foo bar DE wadus.",
+                  "email":"josep@bar.com"
                 },
-                        {
+                {
+                  "role":"req-participant",
+                  "status":"accepted",
+                  "rsvp":true,
+                  "displayName":"Horatio Nelson\/AJUNTAMENT DE foo bar DE wadus.",
+                  "email":"nelson@example.com"
+                },
+                {
                   "role":"req-participant",
                   "status":"needs-action",
                   "rsvp":true,
-                  "displayName":"Albert Vilatarsana Silvestre\/AJUNTAMENT DE foo bar DE wadus.",
-                  "email":"foo@bar.com"
+                  "displayName":"Ana Guerra\/AJUNTAMENT DE foo bar DE wadus.",
+                  "email":"ana@bar.com"
                 },
-                        {
-                  "role":"req-participant",
+                {
+                  "role":"some-other-role",
                   "status":"needs-action",
                   "rsvp":true,
-                  "displayName":"Anna Falguera Rosas\/AJUNTAMENT DE foo bar DE wadus.",
-                  "email":"foo@bar.com"
-                },
-                        {
-                  "role":"req-participant",
-                  "status":"needs-action",
-                  "rsvp":true,
-                  "displayName":"Francisco Guti\u00E9rrez Marchena\/AJUNTAMENT DE foo bar DE wadus.",
-                  "email":"foo@bar.com"
-                },
-                        {
-                  "role":"req-participant",
-                  "status":"needs-action",
-                  "rsvp":true,
-                  "displayName":"Josep Puigdengolas Torres\/AJUNTAMENT DE foo bar DE wadus.",
-                  "email":"foo@bar.com"
-                },
-                        {
-                  "role":"req-participant",
-                  "status":"needs-action",
-                  "rsvp":true,
-                  "displayName":"Juan Antonio Tamayo Fern\u00E1ndez\/AJUNTAMENT DE foo bar DE wadus.",
-                  "email":"foo@bar.com"
-                },
-                        {
-                  "role":"req-participant",
-                  "status":"needs-action",
-                  "rsvp":true,
-                  "displayName":"Maria Isabel Sarrate Buisan\/AJUNTAMENT DE foo bar DE wadus.",
-                  "email":"foo@bar.com"
-                },
-                        {
-                  "role":"req-participant",
-                  "status":"needs-action",
-                  "rsvp":true,
-                  "displayName":"Rosa Cifuentes Mesas\/AJUNTAMENT DE foo bar DE wadus.",
-                  "email":"foo@bar.com"
-                },
-                        {
-                  "role":"req-participant",
-                  "status":"needs-action",
-                  "rsvp":true,
-                  "displayName":"S\u00F3nia Guerra L\u00F3pez\/AJUNTAMENT DE foo bar DE wadus.",
-                  "email":"foo@bar.com"
+                  "displayName":"Pepe\/AJUNTAMENT DE foo bar DE wadus.",
+                  "email":"pepe@bar.com"
                 }
               ],
               "organizer": {
-                "displayName":"Josep M. Farreras Hern\u00E1ndez\/AJUNTAMENT DE foo bar DE wadus.",
+                "displayName":"Josep M. Farreras\/AJUNTAMENT DE foo bar DE wadus.",
                 "sentBy":"mailto:foo@bar.com",
-                "email":"foo@bar.com"
+                "email":"josep@bar.com"
               },
               "x-lotus-broadcast": {
                 "data":"FALSE"

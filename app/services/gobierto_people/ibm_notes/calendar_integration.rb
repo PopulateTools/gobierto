@@ -41,9 +41,11 @@ module GobiertoPeople
           external_id: ibm_notes_event.id,
           person_id: ibm_notes_event.person.id,
           title: ibm_notes_event.title,
+          description: ibm_notes_event.description,
           starts_at: ibm_notes_event.starts_at,
           ends_at: ibm_notes_event.ends_at,
           state: GobiertoPeople::PersonEvent.states[:published],
+          attendees: ibm_notes_event.attendees,
           locations_attributes: {"0" => locations_attributes }
         }
 

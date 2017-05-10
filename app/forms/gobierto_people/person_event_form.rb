@@ -32,7 +32,7 @@ module GobiertoPeople
     end
 
     def site_id
-      @site_id ||= person_event.site_id
+      @site_id ||= person.site_id
     end
 
     def admin
@@ -79,10 +79,10 @@ module GobiertoPeople
         name  = attendee_attributes[:name]
         email = attendee_attributes[:email]
 
-        attendee_person = GobiertoPeople::Person.find_by(email: email)
+        attendee_person = site.people.find_by(email: email)
 
         existing_attendee = person_event.attendees.detect do |a|
-          (attendee_person.present? && a.person == attendee_person) || a.name == attendee_attributes[:name]
+          (attendee_person.present? && a.person == attendee_person) || a.name == name
         end
 
         attendee = if existing_attendee
@@ -92,6 +92,7 @@ module GobiertoPeople
                    else
                      person_event_attendee_class.new(name: name)
                    end
+
         @attendees.push(attendee) if attendee.valid?
       end
     end

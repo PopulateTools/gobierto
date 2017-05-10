@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428081148) do
+ActiveRecord::Schema.define(version: 20170510091709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -242,6 +242,7 @@ ActiveRecord::Schema.define(version: 20170428081148) do
     t.string   "email"
     t.jsonb    "charge_translations"
     t.jsonb    "bio_translations"
+    t.string   "slug",                                 null: false
     t.index ["admin_id"], name: "index_gp_people_on_admin_id", using: :btree
     t.index ["bio_translations"], name: "index_gp_people_on_bio_translations", using: :gin
     t.index ["category", "party"], name: "index_gp_people_on_category_and_party", using: :btree
@@ -250,6 +251,7 @@ ActiveRecord::Schema.define(version: 20170428081148) do
     t.index ["party"], name: "index_gp_people_on_party", using: :btree
     t.index ["political_group_id"], name: "index_gp_people_on_political_group_id", using: :btree
     t.index ["site_id"], name: "index_gp_people_on_site_id", using: :btree
+    t.index ["slug"], name: "index_gp_people_on_slug", unique: true, using: :btree
   end
 
   create_table "gp_person_calendar_configurations", force: :cascade do |t|
@@ -291,9 +293,11 @@ ActiveRecord::Schema.define(version: 20170428081148) do
     t.string   "external_id"
     t.jsonb    "title_translations"
     t.jsonb    "description_translations"
+    t.string   "slug",                                 null: false
     t.index ["description_translations"], name: "index_gp_person_events_on_description_translations", using: :gin
     t.index ["person_id", "external_id"], name: "index_gp_person_events_on_person_id_and_external_id", unique: true, using: :btree
     t.index ["person_id"], name: "index_gp_person_events_on_person_id", using: :btree
+    t.index ["slug"], name: "index_gp_person_events_on_slug", unique: true, using: :btree
     t.index ["title_translations"], name: "index_gp_person_events_on_title_translations", using: :gin
   end
 
@@ -305,7 +309,9 @@ ActiveRecord::Schema.define(version: 20170428081148) do
     t.integer  "person_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.string   "slug",                          null: false
     t.index ["person_id"], name: "index_gp_person_posts_on_person_id", using: :btree
+    t.index ["slug"], name: "index_gp_person_posts_on_slug", unique: true, using: :btree
     t.index ["tags"], name: "index_gp_person_posts_on_tags", using: :gin
   end
 
@@ -318,7 +324,9 @@ ActiveRecord::Schema.define(version: 20170428081148) do
     t.string   "attachment_url"
     t.integer  "attachment_size"
     t.jsonb    "title_translations"
+    t.string   "slug",                           null: false
     t.index ["person_id"], name: "index_gp_person_statements_on_person_id", using: :btree
+    t.index ["slug"], name: "index_gp_person_statements_on_slug", unique: true, using: :btree
     t.index ["title_translations"], name: "index_gp_person_statements_on_title_translations", using: :gin
   end
 

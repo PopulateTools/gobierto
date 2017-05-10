@@ -4,6 +4,7 @@ module GobiertoPeople
   class PersonPost < ApplicationRecord
     include User::Subscribable
     include GobiertoCommon::Searchable
+    include GobiertoPeople::SearchableBySlug
 
     algoliasearch_gobierto do
       attribute :site_id, :title, :body, :updated_at
@@ -22,8 +23,20 @@ module GobiertoPeople
 
     enum visibility_level: { draft: 0, active: 1 }
 
+    before_save :set_slug
+
     def parameterize
       { person_id: person, id: self }
     end
+
+    private
+
+    def set_slug
+      if slug.nil?
+        new_slug = GobiertoPeople::PersonPost.generate_unique_slug(title, Time.zone.now)
+        write_attribute(:slug, new_slug)
+      end
+    end
+
   end
 end

@@ -6,6 +6,7 @@ module GobiertoPeople
     include User::Subscribable
     include GobiertoCommon::Sortable
     include GobiertoCommon::Searchable
+    include GobiertoPeople::SearchableBySlug
 
     translates :charge, :bio
     include GobiertoCommon::LocalizedContent
@@ -37,6 +38,8 @@ module GobiertoPeople
 
     validates :email, format: { with: User::EMAIL_ADDRESS_REGEXP }, allow_blank: true
 
+    before_save :set_slug
+
     def self.csv_columns
       [:id, :name, :email, :charge, :bio, :bio_url, :avatar_url, :category, :political_group, :party, :created_at, :updated_at]
     end
@@ -46,5 +49,15 @@ module GobiertoPeople
 
       [id, name, email, charge, bio, bio_url, avatar_url, category, political_group_name, party, created_at, updated_at]
     end
+
+    private
+
+    def set_slug
+      if slug.nil?
+        new_slug = GobiertoPeople::Person.generate_unique_slug(name)
+        write_attribute(:slug, new_slug)
+      end
+    end
+
   end
 end

@@ -81,7 +81,7 @@ module GobiertoAdmin
         end
 
         def ignored_person_statement_attributes
-          %w( created_at updated_at title )
+          %w( created_at updated_at title slug )
         end
       end
     end

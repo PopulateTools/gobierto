@@ -1,13 +1,17 @@
 richard_about_me:
   person: richard
   title: About me
+  slug: <%= GobiertoPeople::PersonEvent.generate_unique_slug('About me', Date.current) %>
   body: Article about my professional career in politics.
   tags: <%= ["Personal", "Career", "Richard Rider"] %>
   visibility_level: <%= GobiertoPeople::PersonPost.visibility_levels["active"] %>
+  created_at: <%= Date.current %>
 
 richard_achievements:
   person: richard
   title: Achievements
+  slug: <%= GobiertoPeople::PersonEvent.generate_unique_slug('Achievements', 1.week.ago) %>
   body: Article about my professional achievements.
   tags:
   visibility_level: <%= GobiertoPeople::PersonPost.visibility_levels["active"] %>
+  created_at: <%= 1.week.ago %>

@@ -4,6 +4,7 @@ richard_current:
     'en' => 'Declaración de Bienes y Actividades',
     'es' => 'Declaración de Bienes y Actividades'
   }.to_json %>
+  slug: <%= GobiertoPeople::PersonEvent.generate_unique_slug('Declaración de Bienes y Actividades', Date.current) %>
   attachment_url: https://bit.ly/12345
   attachment_size: <%= 100.kilobytes %>
   published_on: <%= Date.current %>
@@ -15,6 +16,7 @@ richard_past:
     'en' => 'Declaración de Bienes y Actividades (pasada)',
     'es' => 'Declaración de Bienes y Actividades (pasada)'
   }.to_json %>
+  slug: <%= GobiertoPeople::PersonEvent.generate_unique_slug('Declaración de Bienes y Actividades (pasada)', 1.year.ago) %>
   attachment_url: https://bit.ly/67890
   attachment_size: <%= 100.kilobytes %>
   published_on: <%= 1.year.ago.to_date %>

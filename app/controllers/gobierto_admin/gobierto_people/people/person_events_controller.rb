@@ -89,7 +89,7 @@ module GobiertoAdmin
         end
 
         def ignored_person_event_attributes
-          %w( created_at updated_at title description external_id )
+          %w( created_at updated_at title description external_id slug )
         end
       end
     end

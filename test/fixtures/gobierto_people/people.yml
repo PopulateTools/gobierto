@@ -2,6 +2,7 @@ richard:
   site: madrid
   admin: tony
   name: Richard Rider
+  slug: <%= GobiertoPeople::Person.generate_unique_slug('Richard Rider') %>
   charge_translations: <%= { 'en' => 'Avenger', 'es' => 'Vengador' }.to_json %>
   bio_translations: <%= {
     'en' => 'Left the Secret Avengers, to participate in The Thanos Imperative. Presumed killed in The Thanos Imperative.',
@@ -20,6 +21,7 @@ nelson:
   site: madrid
   admin: tony
   name: Horatio Nelson
+  slug: <%= GobiertoPeople::Person.generate_unique_slug('Horatio Nelson') %>
   charge_translations: <%= { 'en' => 'Navy Commander', 'es' => 'Comandante' }.to_json %>
   bio_translations: <%= {
     'en' => 'Vice Admiral Horatio Nelson is a British flag officer in the Royal Navy. He was killed during his victory at the Battle of Trafalgar.',
@@ -38,6 +40,7 @@ tamara:
   site: madrid
   admin: tony
   name: Tamara Devoux
+  slug: <%= GobiertoPeople::Person.generate_unique_slug('Tamara Devoux') %>
   charge_translations: <%= { 'en' => 'Former Avenger', 'es' => 'Antigua Vengadora' }.to_json %>
   bio_translations: <%= {
     'en' => 'Former member of the main Avengers team.',

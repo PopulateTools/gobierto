@@ -26,10 +26,10 @@ test:
 
 deployment:
   production:
-    branch: stable
+    branch: master
     commands:
       - ./script/production_deploy.sh
   staging:
-    branch: master
+    branch: staging
     commands:
       - ./script/staging_deploy.sh

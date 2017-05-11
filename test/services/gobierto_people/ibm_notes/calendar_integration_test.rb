@@ -87,10 +87,10 @@ module GobiertoPeople
         assert_equal 1, recurrent_events_instances.count
 
         assert_equal "Buscar alcaldessa al seu despatx i Sortida cap a l'acte Gran Via Corts Catalanes, 400", non_recurrent_events.first.title
-        assert_equal rst_to_utc("2017-05-04 18:45:00"), non_recurrent_events.first.starts_at
+        assert_equal rst_to_utc("2017-05-04 18:45:00"), non_recurrent_events.first.starts_at.utc
 
         assert_equal "Lliurament Premis Rac", non_recurrent_events.second.title
-        assert_equal rst_to_utc("2017-05-04 19:30:00"), non_recurrent_events.second.starts_at
+        assert_equal rst_to_utc("2017-05-04 19:30:00"), non_recurrent_events.second.starts_at.utc
 
         assert_equal "CAEM", recurrent_events_instances.first.title
         assert_equal rst_to_utc("2017-05-05 09:00:00"), recurrent_events_instances.first.starts_at

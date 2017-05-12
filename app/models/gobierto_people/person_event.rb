@@ -65,6 +65,10 @@ module GobiertoPeople
       published?
     end
 
+    def synchronized?
+      external_id.present?
+    end
+
     def self.csv_columns
       [:id, :person_id, :person_name, :title, :description, :starts_at, :ends_at, :attachment_url, :created_at, :updated_at]
     end

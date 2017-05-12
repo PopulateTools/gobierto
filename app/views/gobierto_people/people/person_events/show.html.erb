@@ -32,7 +32,11 @@
       <div class="event-data">
 
         <div class="event-description">
-          <%= raw @event.description_with_fallback %>
+          <% if @event.synchronized? %>
+            <%= simple_format @event.description_with_fallback %>
+          <% else %>
+            <%= raw @event.description_with_fallback %>
+          <% end %>
         </div>
 
         <div class="pure-g">

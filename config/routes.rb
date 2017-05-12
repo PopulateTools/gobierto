@@ -134,26 +134,29 @@ Rails.application.routes.draw do
       resources :opposition_party_past_person_events, only: [:index], as: :opposition_party_past_events, path: 'agendas/oposicion/eventos-pasados'
       resources :executive_category_past_person_events, only: [:index], as: :executive_category_past_events, path: 'agendas/directivos/eventos-pasados'
 
+      resources :people_past_person_events, only: [:index], controller: "people/past_person_events", as: :person_past_events, path: 'agendas/:person_slug/eventos-pasados'
+      resources :people_person_events, only: [:index, :show], controller: "people/person_events", as: :person_events, path: 'agendas/:person_slug', param: :slug
+
       # Blogs
 
-      resources :person_posts, only: [:index], as: :posts, path: 'blog/posts'
-      resources :person_post_tags, only: [:show], as: :post_tags, path: 'blog/tags'
+      resources :person_posts, only: [:index], as: :posts, path: 'blogs/posts'
+      resources :person_post_tags, only: [:show], as: :post_tags, path: 'blogs/tags'
+
+      resources :people_person_post_tags, only: [:show], controller: "people/person_post_tags", as: :person_post_tags, path: 'blogs/:person_slug/tags'
+      resources :people_person_posts, only: [:index, :show], controller: "people/person_posts", as: :person_posts, path: 'blogs/:person_slug', param: :slug
 
       # Statements
 
-      resources :person_statements, only: [:index], as: :statements, path: 'bienes-y-actividades'
+      resources :person_statements, only: [:index], as: :statements, path: 'declaraciones'
       resources :person_gifts, only: [:index], as: :gifts, path: 'obsequios-y-regalos'
       resources :person_travels, only: [:index], as: :travels, path: 'viajes-y-desplazamientos'
+
+      resources :people_person_statements, only: [:index, :show], controller: "people/person_statements", as: :person_statements, path: 'declaraciones/:person_slug', param: :slug
 
       # Officials
 
       resources :people, only: [:show], path: 'personas', param: :slug do
         resource :person_bio, only: [:show], controller: "people/person_bio", as: :bio, path: 'biografia'
-        resources :person_events, only: [:index, :show], controller: "people/person_events", as: :events, path: 'agenda/eventos', param: :slug
-        resources :past_person_events, only: [:index], controller: "people/past_person_events", as: :past_events, path: 'agenda/eventos-pasados'
-        resources :person_posts, only: [:index, :show], controller: "people/person_posts", as: :posts, path: 'blog/posts', param: :slug
-        resources :person_post_tags, only: [:show], controller: "people/person_post_tags", as: :post_tags, path: 'blog/tags'
-        resources :person_statements, only: [:index, :show], controller: "people/person_statements", as: :statements, path: 'bienes-y-actividades', param: :slug
         resources :person_messages, only: [:create], controller: "people/person_messages", as: :messages, path: 'contacto', param: :slug do
           collection do
             get 'nuevo' => 'people/person_messages#new', as: :new
@@ -161,19 +164,15 @@ Rails.application.routes.draw do
         end
       end
 
-      # Others
+      # Political Groups
 
       resources :people, only: [:index], path: 'todos-los-cargos'
-      resources :government_party_people, only: [:index], path: 'cargos'
-      resources :opposition_party_people, only: [:index], path: 'cargos-en-oposicion'
-      resources :executive_category_people, only: [:index], path: 'cargos-directivos'
-
-      # Political Groups
+      resources :government_party_people, only: [:index], path: 'gobierno'
+      resources :opposition_party_people, only: [:index], path: 'oposicion'
+      resources :executive_category_people, only: [:index], path: 'directivos'
 
       resources :political_groups, only: [:show], path: 'grupos-politicos' do
         resources :people, only: [:index], controller: "political_groups/people", path: 'cargos'
-        resources :person_events, only: [:index], controller: "political_groups/person_events", as: :events, path: 'agendas/eventos'
-        resources :past_person_events, only: [:index], controller: "political_groups/past_person_events", as: :past_events, path: 'agendas/eventos-pasados'
       end
     end
   end

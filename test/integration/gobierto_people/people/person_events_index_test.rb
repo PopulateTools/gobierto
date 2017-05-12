@@ -137,8 +137,8 @@ module GobiertoPeople
       end
 
       def test_filter_events_by_calendar_date_link
-        past_event    = create_event(title: "Past event title", starts_at: "2014-03-10", person: person)
-        future_event  = create_event(title: "Future event title", starts_at: "2014-03-20", person: person)
+        past_event    = create_event(title: "Past event title", starts_at: "2014-03-10 11:00", person: person)
+        future_event  = create_event(title: "Future event title", starts_at: "2014-03-20 11:00", person: person)
 
         Timecop.freeze(Time.zone.parse("2014-03-15")) do
 

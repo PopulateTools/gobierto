@@ -13,7 +13,6 @@ module GobiertoCms
     end
 
     translates :title, :body, :slug
-    include GobiertoCommon::LocalizedContent
 
     belongs_to :site
 

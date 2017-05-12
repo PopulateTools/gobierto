@@ -8,7 +8,6 @@ module GobiertoPeople
     include GobiertoCommon::Searchable
 
     translates :charge, :bio
-    include GobiertoCommon::LocalizedContent
 
     algoliasearch_gobierto do
       attribute :site_id, :name, :charge_en, :charge_es, :charge_ca, :bio_en, :bio_es, :bio_ca, :updated_at

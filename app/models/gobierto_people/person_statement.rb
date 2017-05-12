@@ -7,7 +7,6 @@ module GobiertoPeople
     include GobiertoCommon::Searchable
 
     translates :title
-    include GobiertoCommon::LocalizedContent
 
     algoliasearch_gobierto do
       attribute :site_id, :title_en, :title_es, :title_ca, :updated_at

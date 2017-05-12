@@ -264,7 +264,7 @@ ActiveRecord::Schema.define(version: 20170510091709) do
     t.string   "name"
     t.string   "charge"
     t.integer  "person_id"
-    t.integer  "person_event_id"
+    t.integer  "person_event_id", null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["person_event_id"], name: "index_gp_person_event_attendees_on_person_event_id", using: :btree
@@ -276,7 +276,7 @@ ActiveRecord::Schema.define(version: 20170510091709) do
     t.string   "address"
     t.decimal  "lat",             precision: 10, scale: 6
     t.decimal  "lng",             precision: 10, scale: 6
-    t.integer  "person_event_id"
+    t.integer  "person_event_id",                                       null: false
     t.datetime "created_at",                                            null: false
     t.datetime "updated_at",                                            null: false
     t.index ["person_event_id"], name: "index_gp_person_event_locations_on_person_event_id", using: :btree

@@ -32,7 +32,7 @@ module GobiertoPeople
     end
 
     def site_id
-      @site_id ||= person_event.site_id
+      @site_id ||= person.site_id
     end
 
     def admin
@@ -56,7 +56,7 @@ module GobiertoPeople
     end
 
     def locations_attributes=(attributes)
-      @locations ||= []
+      @locations = []
 
       attributes.each do |_, location_attributes|
         next if location_attributes["_destroy"] == "1"
@@ -68,22 +68,33 @@ module GobiertoPeople
       end
     end
 
-    def starts_at
-      @starts_at ||= (1.hour.from_now.beginning_of_hour + 1.day).localtime
-
-      if @starts_at.respond_to?(:strftime)
-        return @starts_at.strftime("%Y-%m-%d %H:%M")
-      end
-
-      @starts_at
+    def attendees
+      @attendees ||= person_event.attendees.presence || []
     end
 
-    def ends_at
-      if @ends_at.respond_to?(:strftime)
-        return @ends_at.strftime("%Y-%m-%d %H:%M")
-      end
+    def attendees=(attendees_attributes)
+      @attendees = []
 
-      @ends_at
+      attendees_attributes.each do |attendee_attributes|
+        name  = attendee_attributes[:name]
+        email = attendee_attributes[:email]
+
+        attendee_person = site.people.find_by(email: email)
+
+        existing_attendee = person_event.attendees.detect do |a|
+          (attendee_person.present? && a.person == attendee_person) || a.name == name
+        end
+
+        attendee = if existing_attendee
+                     existing_attendee
+                   elsif attendee_person.present?
+                     person_event_attendee_class.new(person: attendee_person)
+                   else
+                     person_event_attendee_class.new(name: name)
+                   end
+
+        @attendees.push(attendee) if attendee.valid?
+      end
     end
 
     def state
@@ -134,6 +145,7 @@ module GobiertoPeople
         person_event_attributes.starts_at = starts_at
         person_event_attributes.ends_at = ends_at
         person_event_attributes.locations = locations
+        person_event_attributes.attendees = attendees
       end
 
       if @person_event.valid?

@@ -1,4 +1,4 @@
-<% description @person.bio_with_fallback %>
+<% description @person.bio %>
 <%= render "gobierto_people/people/content_for_breadcrumb" %>
 
 <div class="person_header">
@@ -23,7 +23,7 @@
 </div>
 
 <div class="article">
-  <%= raw @person.bio_with_fallback %>
+  <%= raw @person.bio %>
 </div>
 
 <div class="separator"></div>

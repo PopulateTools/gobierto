@@ -5,7 +5,7 @@
 <% end %>
 
 <div class="blog_header">
-  <%= t(".title", person_name: @person.name, person_charge: @person.charge_with_fallback) %>
+  <%= t(".title", person_name: @person.name, person_charge: @person.charge) %>
 </div>
 
 <h1 class="person_post-title center"><%= title @post.title %></h1>

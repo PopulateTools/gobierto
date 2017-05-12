@@ -17,7 +17,7 @@
     <div class="pure-u-1 pure-u-md-5-6 event-content">
 
       <span class="soft"><%= t(".title", person_name: @person.name) %></span>
-      <h2><%= title @event.title_with_fallback %></h2>
+      <h2><%= title @event.title %></h2>
 
     </div>
 
@@ -32,7 +32,11 @@
       <div class="event-data">
 
         <div class="event-description">
-          <%= raw @event.description_with_fallback %>
+          <% if @event.synchronized? %>
+            <%= simple_format @event.description %>
+          <% else %>
+            <%= raw @event.description %>
+          <% end %>
         </div>
 
         <div class="pure-g">
@@ -47,9 +51,6 @@
                 <%= render attendee.person %>
               <% else %>
                 <div class="person-item pure-g">
-                  <div class="pure-u-1 pure-u-md-1-5">
-                    AVATAR
-                  </div>
                   <div class="pure-u-1 pure-u-md-4-5 person-name">
                     <h4><%= attendee.name %></h4>
                     <div class="soft"><%= attendee.charge %></div>

@@ -46,7 +46,7 @@ if ENV["CI"]
 end
 
 I18n.locale = I18n.default_locale = :en
-Time.zone = "UTC"
+Time.zone = "Madrid"
 
 Minitest::Retry.use! if ENV["RETRY_FAILING_TEST"]
 Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new(color: true)

@@ -11,7 +11,6 @@ module GobiertoPeople
     validates :person, presence: true
 
     translates :title, :description
-    include GobiertoCommon::LocalizedContent
 
     before_save :set_slug
 
@@ -66,6 +65,10 @@ module GobiertoPeople
 
     def active?
       published?
+    end
+
+    def synchronized?
+      external_id.present?
     end
 
     def self.csv_columns

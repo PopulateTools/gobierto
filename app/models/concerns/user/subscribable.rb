@@ -19,7 +19,7 @@ module User::Subscribable
   def to_url(options = {})
     url_helpers.send(
       "#{singular_route_key}_url",
-      parameterize.merge(options).merge(host: app_host)
+      parameterize.merge(host: app_host).merge(options)
     )
   end
 

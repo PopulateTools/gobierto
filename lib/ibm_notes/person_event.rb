@@ -1,18 +1,16 @@
 module IbmNotes
   class PersonEvent
 
-    attr_accessor :id, :title, :starts_at, :ends_at, :person, :location
+    attr_accessor :id, :title, :description, :starts_at, :ends_at, :person, :location, :attendees
 
     def initialize(person, response_event)
-      @id       = set_id(response_event)
-      @title    = response_event['summary']
-      @person   = person
-      @location = response_event['location'] if response_event['location'].present?
+      @id          = set_id(response_event)
+      @title       = response_event['summary']
+      @description = response_event['description'] if response_event['description'].present?
+      @person      = person
+      @location    = response_event['location'] if response_event['location'].present?
+      @attendees   = set_attendees(response_event)
       set_start_and_end_date(response_event)
-    end
-
-    def self.synchronized_attributes
-      ['title', 'starts_at', 'ends_at']
     end
 
     private
@@ -40,6 +38,21 @@ module IbmNotes
       unless date.nil?
         d = Time.parse("#{date['date']} #{date['time']}")
         Time.utc(d.year, d.month, d.day, d.hour, d.min, d.sec)
+      end
+    end
+
+    def set_attendees(event)
+      if event['attendees'].present?
+        event['attendees'].map do |attendee|
+          if (attendee['status'] == 'accepted' || attendee['role'] == 'req-participant') && attendee['displayName'].present?
+            {
+              name: attendee['displayName'].split('/').first,
+              email: attendee['email']
+            }
+          end
+        end.compact
+      else
+        []
       end
     end
 

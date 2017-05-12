@@ -11,6 +11,10 @@ module GobiertoPeople
         @richard ||= gobierto_people_people(:richard)
       end
 
+      def nelson
+        @nelson ||= gobierto_people_people(:nelson)
+      end
+
       def utc_time(date)
         d = Time.parse(date)
         Time.utc(d.year, d.month, d.day, d.hour, d.min, d.sec)
@@ -83,10 +87,10 @@ module GobiertoPeople
         assert_equal 1, recurrent_events_instances.count
 
         assert_equal "Buscar alcaldessa al seu despatx i Sortida cap a l'acte Gran Via Corts Catalanes, 400", non_recurrent_events.first.title
-        assert_equal rst_to_utc("2017-05-04 18:45:00"), non_recurrent_events.first.starts_at
+        assert_equal rst_to_utc("2017-05-04 18:45:00"), non_recurrent_events.first.starts_at.utc
 
         assert_equal "Lliurament Premis Rac", non_recurrent_events.second.title
-        assert_equal rst_to_utc("2017-05-04 19:30:00"), non_recurrent_events.second.starts_at
+        assert_equal rst_to_utc("2017-05-04 19:30:00"), non_recurrent_events.second.starts_at.utc
 
         assert_equal "CAEM", recurrent_events_instances.first.title
         assert_equal rst_to_utc("2017-05-05 09:00:00"), recurrent_events_instances.first.starts_at
@@ -117,11 +121,15 @@ module GobiertoPeople
           CalendarIntegration.sync_person_events(richard)
         end
 
-        assert "Buscar alcaldessa al seu despatx i Sortida cap a l'acte Gran Via Corts Catalanes, 400", non_recurrent_event.title
-        assert rst_to_utc("2017-05-04 16:45:00"), non_recurrent_event.starts_at
+        non_recurrent_event.reload
+        recurrent_event_instance.reload
 
-        assert 'CAEM', recurrent_event_instance.title
-        assert 'Sala de juntes 1a. planta Ajuntament', recurrent_event_instance.locations.first.name
+        assert_equal "Buscar alcaldessa al seu despatx i Sortida cap a l'acte Gran Via Corts Catalanes, 400", non_recurrent_event.title
+        assert_equal rst_to_utc("2017-05-04 18:45:00"), non_recurrent_event.starts_at
+
+        assert_equal 'CAEM', recurrent_event_instance.title
+        assert_equal 'Sala de juntes 1a. planta Ajuntament', recurrent_event_instance.locations.first.name
+        assert_equal 1, recurrent_event_instance.locations.size
       end
 
       def test_sync_events_removes_deleted_event_attributes
@@ -135,6 +143,8 @@ module GobiertoPeople
         # Add new data to events, and check it is removed after sync
         event = richard.events.find_by(external_id: 'BD5EA243F9F715AAC1258116003ED56C-Lotus_Notes_Generated')
         GobiertoPeople::PersonEventLocation.create!(person_event: event, name: "I'll be deleted")
+
+        assert 1, event.locations.size
 
         VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
           CalendarIntegration.sync_person_events(richard)
@@ -257,14 +267,14 @@ module GobiertoPeople
         CalendarIntegration.sync_event(ibm_notes_event)
         gobierto_event.reload
 
-        assert 'Location name added afterwards', gobierto_event.locations.first.name
+        assert_equal 'Location name added afterwards', gobierto_event.locations.first.name
 
         ibm_notes_event.location = 'Location name updated afterwards'
 
         CalendarIntegration.sync_event(ibm_notes_event)
         gobierto_event.reload
 
-        assert 'Location name updated afterwards', gobierto_event.locations.first.name
+        assert_equal 'Location name updated afterwards', gobierto_event.locations.first.name
 
         ibm_notes_event.location = nil
 
@@ -272,6 +282,35 @@ module GobiertoPeople
         gobierto_event.reload
 
         assert gobierto_event.locations.empty?
+      end
+
+      def test_sync_attendees
+        activate_calendar_integration(sites(:madrid))
+        set_calendar_endpoint(richard, 'https://host.wadus.com/mail/foo.nsf/api/calendar/events')
+
+        # Cassette contains one confirmed attendee and two requested participants.
+        VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
+          CalendarIntegration.sync_person_events(richard)
+        end
+
+        event = richard.events.find_by(external_id: 'D2E5B40E6AAEAED4C125808E0035A6A0-Lotus_Notes_Generated/20170503T073000Z')
+        attendees = event.attendees
+
+        assert_equal 3, attendees.size
+
+        assert_equal 'Josep M. Farreras', attendees.first.name
+        assert_equal 'Horatio Nelson', attendees.second.person.name
+        assert_equal nelson, attendees.second.person
+
+        # Check if Nelson accepts afterwards, Josep is not duplicated on second sync
+
+        event.attendees.second.delete
+
+        VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
+          CalendarIntegration.sync_person_events(richard)
+        end
+
+        assert_equal 3, attendees.reload.size
       end
 
     end

@@ -52,7 +52,7 @@ module GobiertoPeople
     enum state: { pending: 0, published: 1 }
 
     def parameterize
-      { person_id: person, id: self }
+      { person_slug: person.slug, slug: slug }
     end
 
     def past?

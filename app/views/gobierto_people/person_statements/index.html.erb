@@ -17,7 +17,7 @@
       <div class="hidden_options">
         <% @people.each do |person| %>
         <ul>
-          <li><%= link_to person.name, gobierto_people_person_statements_path(person_id: person) %></li>
+          <li><%= link_to person.name, gobierto_people_person_statements_path(person.slug) %></li>
         </ul>
         <% end %>
       </div>

@@ -147,14 +147,14 @@ Rails.application.routes.draw do
 
       # Officials
 
-      resources :people, only: [:show], path: 'personas' do
+      resources :people, only: [:show], path: 'personas', param: :slug do
         resource :person_bio, only: [:show], controller: "people/person_bio", as: :bio, path: 'biografia'
-        resources :person_events, only: [:index, :show], controller: "people/person_events", as: :events, path: 'agenda/eventos'
+        resources :person_events, only: [:index, :show], controller: "people/person_events", as: :events, path: 'agenda/eventos', param: :slug
         resources :past_person_events, only: [:index], controller: "people/past_person_events", as: :past_events, path: 'agenda/eventos-pasados'
-        resources :person_posts, only: [:index, :show], controller: "people/person_posts", as: :posts, path: 'blog/posts'
+        resources :person_posts, only: [:index, :show], controller: "people/person_posts", as: :posts, path: 'blog/posts', param: :slug
         resources :person_post_tags, only: [:show], controller: "people/person_post_tags", as: :post_tags, path: 'blog/tags'
-        resources :person_statements, only: [:index, :show], controller: "people/person_statements", as: :statements, path: 'bienes-y-actividades'
-        resources :person_messages, only: [:create], controller: "people/person_messages", as: :messages, path: 'contacto' do
+        resources :person_statements, only: [:index, :show], controller: "people/person_statements", as: :statements, path: 'bienes-y-actividades', param: :slug
+        resources :person_messages, only: [:create], controller: "people/person_messages", as: :messages, path: 'contacto', param: :slug do
           collection do
             get 'nuevo' => 'people/person_messages#new', as: :new
           end

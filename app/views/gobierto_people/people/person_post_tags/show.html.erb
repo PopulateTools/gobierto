@@ -6,7 +6,7 @@
 
 <h4 class="center">
   <%= t(".filtering_by_tag", tag: @tag) %>
-  <%= link_to t(".go_back"), gobierto_people_person_posts_path(@person) %>
+  <%= link_to t(".go_back"), gobierto_people_person_posts_path(@person.slug) %>
 </h4>
 
 <div class="posts-summary">

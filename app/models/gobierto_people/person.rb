@@ -49,6 +49,10 @@ module GobiertoPeople
       [id, name, email, charge, bio, bio_url, avatar_url, category, political_group_name, party, created_at, updated_at]
     end
 
+    def parameterize
+      { slug: slug }
+    end
+
     private
 
     def set_slug

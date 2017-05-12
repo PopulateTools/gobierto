@@ -23,7 +23,7 @@ module GobiertoPeople
       @person = PersonDecorator.new(find_person)
 
       if active_submodules.size == 1 && agendas_submodule_active?
-        redirect_to gobierto_people_person_events_path @person
+        redirect_to gobierto_people_person_events_path(@person.slug)
       end
 
       @upcoming_events = @person.events.upcoming.sorted.first(3)
@@ -39,7 +39,7 @@ module GobiertoPeople
     end
 
     def find_person
-      current_site.people.active.find(params[:id])
+      current_site.people.active.find_by!(slug: params[:slug])
     end
 
     def set_people

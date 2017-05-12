@@ -1,13 +1,13 @@
 <div class="person-post-excerpt">
 
   <h3 class="person_post-title center">
-    <%= link_to person_post.title, gobierto_people_person_post_path(person_post.person, person_post) %>
+    <%= link_to person_post.title, gobierto_people_person_post_path(person_post.person.slug, person_post.slug) %>
   </h3>
 
   <div class="person_post-data center">
-    
+
     <% unless @person %>
-      <%= link_to person_post.person.name, gobierto_people_person_posts_path(person_post.person) %>
+      <%= link_to person_post.person.name, gobierto_people_person_posts_path(person_post.person.slug) %>
       &middot;
     <% end %>
 
@@ -29,7 +29,7 @@
   </div>
 
   <div class="person_post-continue center">
-    <%= link_to t(".continue"), gobierto_people_person_post_path(person_post.person, person_post) %>
+    <%= link_to t(".continue"), gobierto_people_person_post_path(person_post.person.slug, person_post.slug) %>
   </div>
 
   <div class="separator"></div>

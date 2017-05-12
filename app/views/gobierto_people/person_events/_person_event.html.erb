@@ -8,12 +8,12 @@
 
   <div class="pure-u-1 pure-u-md-5-6 event-content">
 
-    <h3><%= link_to person_event.title, gobierto_people_person_event_path(person_event.person, person_event) %></h3>
+    <h3><%= link_to person_event.title, gobierto_people_person_event_path(person_event.person.slug, person_event.slug) %></h3>
 
     <div class="soft meta">
       <div>
         <i class="fa fa-user"></i>
-        <%= link_to person_event.person.name, person_event.person %>
+        <%= link_to person_event.person.name, gobierto_people_person_path(person_event.person.slug) %>
         <%= person_event.person.charge %>
       </div>
 

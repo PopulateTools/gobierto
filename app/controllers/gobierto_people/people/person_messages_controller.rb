@@ -15,7 +15,7 @@ module GobiertoPeople
         if @person_message.valid?
           @person_message.deliver!
 
-          redirect_to new_gobierto_people_person_messages_path(@person), notice: t(".success")
+          redirect_to new_gobierto_people_person_messages_path(@person.slug), notice: t(".success")
         else
           flash.now[:alert] = t('.error')
           render 'new'
@@ -38,7 +38,7 @@ module GobiertoPeople
 
       def check_person_has_email
         if @person.email.blank?
-          redirect_to gobierto_people_person_path(@person)
+          redirect_to gobierto_people_person_path(@person.slug)
         end
       end
     end

@@ -25,13 +25,17 @@ module User::SubscribableTest
   end
 
   def test_to_path
+    subscribable_identifier = subscribable.respond_to?(:slug) ? subscribable.slug : subscribable.to_param
+    
     assert_not_nil subscribable.to_path
-    assert_includes subscribable.to_path, subscribable.to_param
+    assert_includes subscribable.to_path, subscribable_identifier
   end
 
   def test_to_url
+    subscribable_identifier = subscribable.respond_to?(:slug) ? subscribable.slug : subscribable.to_param
+
     assert_not_nil subscribable.to_url
-    assert_includes subscribable.to_url, subscribable.to_param
+    assert_includes subscribable.to_url, subscribable_identifier
     assert_includes subscribable.to_url, ENV["HOST"]
     assert_includes subscribable.to_url(host: 'site.gobierto.dev'), 'site.gobierto.dev'
   end

@@ -28,7 +28,7 @@ module GobiertoPeople
     before_save :set_slug
 
     def parameterize
-      { person_id: person, id: self }
+      { person_slug: person.slug, slug: slug }
     end
 
     def self.csv_columns

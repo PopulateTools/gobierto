@@ -34,7 +34,7 @@
 
     <% if @person.email? %>
       <li>
-        <%= link_to new_gobierto_people_person_messages_path(@person), title: t('.send_email') do %>
+        <%= link_to new_gobierto_people_person_messages_path(@person.slug), title: t('.send_email') do %>
           <i class="fa fa-envelope-o"></i> <span><%= t('.send_email') %></span>
         <% end %>
       </li>

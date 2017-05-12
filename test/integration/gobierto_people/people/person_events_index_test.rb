@@ -10,7 +10,7 @@ module GobiertoPeople
 
       def setup
         super
-        @path = gobierto_people_person_events_path(person)
+        @path = gobierto_people_person_events_path(person.slug)
       end
 
       def site
@@ -59,7 +59,7 @@ module GobiertoPeople
         Timecop.freeze(Time.zone.parse("2014-03-15")) do
 
           with_current_site(site) do
-            visit gobierto_people_person_events_path(person)
+            visit gobierto_people_person_events_path(person.slug)
 
             within ".events-summary" do
               refute has_content?(past_event.title)
@@ -112,7 +112,7 @@ module GobiertoPeople
         Timecop.freeze(Time.zone.parse("2014-03-15")) do
 
           with_current_site(site) do
-            visit gobierto_people_person_events_path(person)
+            visit gobierto_people_person_events_path(person.slug)
 
             within ".calendar-component" do
               assert has_link?(present_event.starts_at.day)
@@ -124,7 +124,7 @@ module GobiertoPeople
               assert has_link?(future_event.starts_at.day)
             end
 
-            visit gobierto_people_person_events_path(person)
+            visit gobierto_people_person_events_path(person.slug)
 
             click_link "previous-month-link"
 
@@ -143,7 +143,7 @@ module GobiertoPeople
         Timecop.freeze(Time.zone.parse("2014-03-15")) do
 
           with_current_site(site) do
-            visit gobierto_people_person_events_path(person)
+            visit gobierto_people_person_events_path(person.slug)
 
             within ".events-summary" do
               refute has_content?(past_event.title)

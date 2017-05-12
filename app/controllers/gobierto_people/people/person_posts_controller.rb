@@ -12,7 +12,7 @@ module GobiertoPeople
       private
 
       def find_post
-        @person.posts.active.find(params[:id])
+        @person.posts.active.find_by!(slug: params[:slug])
       end
     end
   end

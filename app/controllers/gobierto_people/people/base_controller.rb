@@ -14,7 +14,7 @@ module GobiertoPeople
       protected
 
       def find_person
-        current_site.people.active.find(params[:person_id])
+        current_site.people.active.find_by!(slug: params[:person_slug])
       end
     end
   end

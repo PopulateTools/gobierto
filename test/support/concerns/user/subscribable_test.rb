@@ -33,5 +33,6 @@ module User::SubscribableTest
     assert_not_nil subscribable.to_url
     assert_includes subscribable.to_url, subscribable.to_param
     assert_includes subscribable.to_url, ENV["HOST"]
+    assert_includes subscribable.to_url(host: 'site.gobierto.dev'), 'site.gobierto.dev'
   end
 end

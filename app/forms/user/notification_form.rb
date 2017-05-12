@@ -52,7 +52,7 @@ class User::NotificationForm
   end
 
   def deliver_notification_email
-    User::NotificationMailer.single_notification(user_notification).deliver_later
+    User::NotificationMailer.single_notification(user_notification).deliver_later(wait: 5.seconds)
   end
 
   def mark_as_sent

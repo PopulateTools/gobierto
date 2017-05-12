@@ -48,7 +48,6 @@ class Site < ApplicationRecord
   enum visibility_level: { draft: 0, active: 1 }
 
   translates :name, :title
-  include GobiertoCommon::LocalizedContent
 
   def self.alphabetically_sorted
     all.sort_by(&:title).reverse

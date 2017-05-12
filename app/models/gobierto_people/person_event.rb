@@ -10,7 +10,6 @@ module GobiertoPeople
     validates :person, presence: true
 
     translates :title, :description
-    include GobiertoCommon::LocalizedContent
 
     algoliasearch_gobierto do
       attribute :site_id, :title_en, :title_es, :title_ca, :description_en, :description_es, :description_ca, :updated_at
@@ -63,6 +62,10 @@ module GobiertoPeople
 
     def active?
       published?
+    end
+
+    def synchronized?
+      external_id.present?
     end
 
     def self.csv_columns

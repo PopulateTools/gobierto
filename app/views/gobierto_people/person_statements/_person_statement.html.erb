@@ -12,7 +12,7 @@
 
   <div class="pure-u-md-2-3">
 
-    <h3><%= link_to person_statement.title_with_fallback, gobierto_people_person_statement_path(person_statement.person, person_statement) %></h3>
+    <h3><%= link_to person_statement.title, gobierto_people_person_statement_path(person_statement.person, person_statement) %></h3>
     <div class="soft"><small><%= l(person_statement.updated_at, format: :long) %></small></div>
 
   </div>

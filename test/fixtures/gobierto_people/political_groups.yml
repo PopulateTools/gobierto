@@ -1,11 +1,13 @@
 marvel:
   name: Marvel
+  slug: <%= GobiertoPeople::PoliticalGroup.generate_unique_slug('Marvel') %>
   site: madrid
   admin: tony
   position: 1
 
 dc:
   name: DC
+  slug: <%= GobiertoPeople::PoliticalGroup.generate_unique_slug('DC') %>
   site: santander
   admin: nick
   position: 2

@@ -14,7 +14,7 @@ module GobiertoPeople
       protected
 
       def find_political_group
-        PoliticalGroup.find(params[:political_group_id])
+        PoliticalGroup.find_by!(slug: params[:political_group_slug])
       end
     end
   end

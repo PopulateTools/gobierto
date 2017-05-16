@@ -1,12 +1,12 @@
 <div class="item post-item">
-  
-  <h3><%= link_to person_post.title, gobierto_people_person_post_path(person_post.person, person_post) %></h3>
-  
+
+  <h3><%= link_to person_post.title, gobierto_people_person_post_path(person_post.person.slug, person_post.slug) %></h3>
+
   <div class="meta">
     <% if person_post.person.avatar_url.present? %>
-      <%= link_to (image_tag person_post.person.avatar_url, height: 'auto', width: 30), person_post.person %>
+      <%= link_to (image_tag person_post.person.avatar_url, height: 'auto', width: 30), gobierto_people_person_path(person_post.person.slug) %>
     <% end %>
-    por <%= link_to person_post.person.name, person_post.person %>
+    por <%= link_to person_post.person.name, gobierto_people_person_path(person_post.person.slug) %>
   </div>
-    
+
 </div>

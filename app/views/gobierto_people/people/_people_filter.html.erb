@@ -8,7 +8,7 @@
         <%= link_to t("gobierto_people.people_filter.parties.opposition"), gobierto_people_opposition_party_people_path, tab_attributes(controller_name == 'opposition_party_people').merge('aria-controls' => 'people-list') %>
       </li>
       <li role="presentation" class="<%= class_if('active', @political_group.present?) %>">
-        <%= link_to t("gobierto_people.people_filter.political_groups.title"), gobierto_people_political_group_people_path(@political_groups.first), tab_attributes(@political_group.present?).merge('aria-controls' => 'people-list') %>
+        <%= link_to t("gobierto_people.people_filter.political_groups.title"), gobierto_people_political_group_people_path(@political_groups.first.slug), tab_attributes(@political_group.present?).merge('aria-controls' => 'people-list') %>
       </li>
       <li role="presentation" class="<%= class_if('active', controller_name == 'executive_category_people') %>">
         <%= link_to t("gobierto_people.people_filter.categories.executive"), gobierto_people_executive_category_people_path, tab_attributes(controller_name == 'executive_category_people').merge('aria-controls' => 'people-list') %>
@@ -25,7 +25,7 @@
         <ul role="tablist" aria-label="<%= t('.political_groups', name: @site.name) %>">
           <% @political_groups.each do |political_group| %>
             <li role="presentation" class="<%= class_if('active', @political_group == political_group) %>">
-              <%= link_to political_group.name, gobierto_people_political_group_people_path(political_group), tab_attributes(@political_group == political_group).merge('aria-controls' => 'people-list').merge('aria-controls' => 'people-list') %>
+              <%= link_to political_group.name, gobierto_people_political_group_people_path(political_group.slug), tab_attributes(@political_group == political_group).merge('aria-controls' => 'people-list').merge('aria-controls' => 'people-list') %>
             </li>
           <% end %>
         </ul>

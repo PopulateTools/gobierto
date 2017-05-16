@@ -155,25 +155,24 @@ Rails.application.routes.draw do
 
       # Officials
 
+      resources :people, only: [:index], path: 'personas'
+      resources :government_party_people, only: [:index], path: 'personas/gobierno'
+      resources :opposition_party_people, only: [:index], path: 'personas/oposicion'
+      resources :executive_category_people, only: [:index], path: 'personas/directivos'
+
+      resources :political_group, only: [:show], path: 'personas/grupos-politicos', param: :slug do
+        resources :people, only: [:index], controller: 'political_groups/people', path: '/'
+      end
+
       resources :people, only: [:show], path: 'personas', param: :slug do
         resource :person_bio, only: [:show], controller: "people/person_bio", as: :bio, path: 'biografia'
         resources :person_messages, only: [:create], controller: "people/person_messages", as: :messages, path: 'contacto', param: :slug do
           collection do
-            get 'nuevo' => 'people/person_messages#new', as: :new
+            get '/' => 'people/person_messages#new', as: :new
           end
         end
       end
 
-      # Political Groups
-
-      resources :people, only: [:index], path: 'todos-los-cargos'
-      resources :government_party_people, only: [:index], path: 'gobierno'
-      resources :opposition_party_people, only: [:index], path: 'oposicion'
-      resources :executive_category_people, only: [:index], path: 'directivos'
-
-      resources :political_groups, only: [:show], path: 'grupos-politicos' do
-        resources :people, only: [:index], controller: "political_groups/people", path: 'cargos'
-      end
     end
   end
 

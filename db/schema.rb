@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170510091709) do
+ActiveRecord::Schema.define(version: 20170516111435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -283,8 +283,8 @@ ActiveRecord::Schema.define(version: 20170510091709) do
   end
 
   create_table "gp_person_events", force: :cascade do |t|
-    t.datetime "starts_at"
-    t.datetime "ends_at"
+    t.datetime "starts_at",                            null: false
+    t.datetime "ends_at",                              null: false
     t.string   "attachment_url"
     t.integer  "state",                    default: 0, null: false
     t.integer  "person_id",                            null: false
@@ -316,7 +316,7 @@ ActiveRecord::Schema.define(version: 20170510091709) do
   end
 
   create_table "gp_person_statements", force: :cascade do |t|
-    t.date     "published_on"
+    t.date     "published_on",                   null: false
     t.integer  "person_id"
     t.integer  "visibility_level",   default: 0, null: false
     t.datetime "created_at",                     null: false
@@ -337,9 +337,11 @@ ActiveRecord::Schema.define(version: 20170510091709) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.integer  "position",   default: 0,  null: false
+    t.string   "slug",                    null: false
     t.index ["admin_id"], name: "index_gp_political_groups_on_admin_id", using: :btree
     t.index ["position"], name: "index_gp_political_groups_on_position", using: :btree
     t.index ["site_id"], name: "index_gp_political_groups_on_site_id", using: :btree
+    t.index ["slug"], name: "index_gp_political_groups_on_slug", unique: true, using: :btree
   end
 
   create_table "gp_settings", force: :cascade do |t|

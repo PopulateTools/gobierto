@@ -4,8 +4,8 @@ class AddSlugToGobiertoPeoplePersonEvent < ActiveRecord::Migration[5.0]
     add_column :gp_person_events, :slug, :string
     create_slug_for_existing_events
     change_column :gp_person_events, :slug, :string, null: false
-    change_column :gp_person_events, :starts_at, :date, null: false
-    change_column :gp_person_events, :ends_at, :date, null: false
+    change_column :gp_person_events, :starts_at, :datetime, null: false
+    change_column :gp_person_events, :ends_at, :datetime, null: false
     add_index :gp_person_events, :slug, unique: true
   end
 

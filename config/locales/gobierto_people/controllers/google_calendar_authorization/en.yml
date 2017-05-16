@@ -1,0 +1,7 @@
+---
+en:
+  gobierto_people:
+    people:
+      google_calendar_authorization:
+        new:
+          success: Configuration stored successfully. From now on, your public events from Google Calendar will be automatically published in your agenda.

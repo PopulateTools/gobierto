@@ -14,7 +14,9 @@
     <% end %>
 
     <div id="events">
-      <%= render(partial: 'gobierto_people/person_events/person_event', collection: person_events) %>
+      <% person_events.each do |event| %>
+        <%= render(partial: 'gobierto_people/person_events/person_event', locals: {person_event: event, person: event.person}) %>
+      <% end %>
     </div>
 
     <%= link_to t("gobierto_people.welcome.index.events_summary.view_all"), gobierto_people_events_path, class: "see_more", role: "button" %>

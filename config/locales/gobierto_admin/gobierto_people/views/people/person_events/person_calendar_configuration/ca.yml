@@ -11,5 +11,8 @@ ca:
               placeholders:
                 ibm_notes_url: URL del calendari d'IBM Notes
               update: Actualitzar
+              share_link: "Comparteix aquest enllaç amb el alt càrrec per a permetre a Gobierto llegir els seus esdeveniments de Google Calendar:"
+              calendar_configured: Actualment esta persona té configurat Google Calendar.
+              remove_integration: Eliminar la configuració de Google Calendar
             navigation:
                 calendar_configuration: Configuració del calendari

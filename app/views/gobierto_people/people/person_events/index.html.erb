@@ -41,7 +41,7 @@
 
   <% if @events.any? %>
     <div id="events">
-      <%= render @events %>
+      <%= render partial: 'gobierto_people/person_events/person_event', collection: @events, locals: {person: @person} %>
     </div>
     <%= link_to_next_page @events, t('.view_more'), class: "see_more", role: "button", remote: true %>
   <% else %>

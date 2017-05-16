@@ -17,6 +17,7 @@
           <td class="content-block-record-value">
             <% if attendee_form.object.person.present? %>
               <%= attendee_form.object.person.name %>
+
               <%= link_to "#", class: "view_item" do %>
                 <i class="fa fa-eye"></i>
                 <%= t(".view_person") %>
@@ -27,14 +28,16 @@
           <td class="content-block-record-value"><%= attendee_form.object.charge %></td>
 
           <td class="edit_cell">
-            <%= attendee_form.check_box :_destroy, class: "hidden destroy-content-block-record" %>
+            <% if attendee_form.object.person != form_builder.object.person %>
+              <%= attendee_form.check_box :_destroy, class: "hidden destroy-content-block-record" %>
 
-            <%= link_to "#", data: { behavior: "edit_record" } do %>
-              <i class="fa fa-edit"></i>
-            <% end %>
+              <%= link_to "#", data: { behavior: "edit_record" } do %>
+                <i class="fa fa-edit"></i>
+              <% end %>
 
-            <%= link_to "#", data: { behavior: "delete_record" } do %>
-              <i class="fa fa-trash"></i>
+              <%= link_to "#", data: { behavior: "delete_record" } do %>
+                <i class="fa fa-trash"></i>
+              <% end %>
             <% end %>
           </td>
         </tr>

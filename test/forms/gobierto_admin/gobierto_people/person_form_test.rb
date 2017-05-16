@@ -40,6 +40,7 @@ module GobiertoAdmin
 
       def test_save_with_valid_attributes
         assert valid_person_form.save
+        assert valid_person_form.person.google_calendar_token.present?
       end
 
       def test_error_messages_with_invalid_attributes

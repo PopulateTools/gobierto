@@ -27,6 +27,7 @@ en:
               ibm_notes_usr: IBM Notes user
             update: Update
             ibm_notes: IBM Notes
+            google_calendar: Google Calendar
             ibm_notes_usr: IBM Notes user
             ibm_notes_pwd: IBM Notes password
             submodules_enabled: Enabled submodules

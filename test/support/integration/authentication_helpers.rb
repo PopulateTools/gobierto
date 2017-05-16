@@ -23,6 +23,7 @@ module Integration
 
         click_button "Send"
       end
+    rescue Capybara::ElementNotFound
     end
 
     def sign_out_admin
@@ -35,6 +36,7 @@ module Integration
           click_link "admin-sign-out"
         end
       end
+    rescue Capybara::ElementNotFound
     end
 
     def sign_in_user(user)

@@ -19,7 +19,9 @@ module GobiertoCommon::TrackableTest
   def test_trackable_notify?
     if trackable.trackable.respond_to?(:active?)
       trackable.trackable.stub(:active?, true) do
-        assert trackable.notify?
+        if trackable.trackable.admin_id.present?
+          assert trackable.notify?
+        end
       end
 
       trackable.trackable.stub(:active?, false) do

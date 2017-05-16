@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170516111435) do
+ActiveRecord::Schema.define(version: 20170519070559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -226,28 +226,30 @@ ActiveRecord::Schema.define(version: 20170516111435) do
   create_table "gp_people", force: :cascade do |t|
     t.integer  "site_id"
     t.integer  "admin_id"
-    t.string   "name",                default: "",     null: false
+    t.string   "name",                  default: "",     null: false
     t.string   "bio_url"
-    t.integer  "visibility_level",    default: 0,      null: false
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.integer  "visibility_level",      default: 0,      null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "avatar_url"
-    t.integer  "events_count",        default: 0,      null: false
-    t.integer  "statements_count",    default: 0,      null: false
-    t.integer  "posts_count",         default: 0,      null: false
+    t.integer  "events_count",          default: 0,      null: false
+    t.integer  "statements_count",      default: 0,      null: false
+    t.integer  "posts_count",           default: 0,      null: false
     t.integer  "political_group_id"
-    t.integer  "category",            default: 0,      null: false
+    t.integer  "category",              default: 0,      null: false
     t.integer  "party"
-    t.integer  "position",            default: 999999, null: false
+    t.integer  "position",              default: 999999, null: false
     t.string   "email"
     t.jsonb    "charge_translations"
     t.jsonb    "bio_translations"
-    t.string   "slug",                                 null: false
+    t.string   "slug",                                   null: false
+    t.string   "google_calendar_token"
     t.index ["admin_id"], name: "index_gp_people_on_admin_id", using: :btree
     t.index ["bio_translations"], name: "index_gp_people_on_bio_translations", using: :gin
     t.index ["category", "party"], name: "index_gp_people_on_category_and_party", using: :btree
     t.index ["category"], name: "index_gp_people_on_category", using: :btree
     t.index ["charge_translations"], name: "index_gp_people_on_charge_translations", using: :gin
+    t.index ["google_calendar_token"], name: "index_gp_people_on_google_calendar_token", unique: true, using: :btree
     t.index ["party"], name: "index_gp_people_on_party", using: :btree
     t.index ["political_group_id"], name: "index_gp_people_on_political_group_id", using: :btree
     t.index ["site_id"], name: "index_gp_people_on_site_id", using: :btree

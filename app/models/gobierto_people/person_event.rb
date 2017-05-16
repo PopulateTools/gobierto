@@ -8,7 +8,6 @@ module GobiertoPeople
     include GobiertoCommon::Searchable
     include GobiertoPeople::Sluggable
 
-    validates :person, presence: true
     validates :site, presence: true
 
     translates :title, :description
@@ -35,7 +34,7 @@ module GobiertoPeople
     scope :by_date,  ->(date) { where("starts_at::date = ?", date) }
 
     scope :by_site, ->(site) do
-      joins(:person).where(Person.table_name => { site_id: site.id })
+      where(site_id: site.id)
     end
 
     scope :by_person_category, ->(category) do
@@ -46,10 +45,15 @@ module GobiertoPeople
       joins(:person).where(Person.table_name => { party: party })
     end
 
-    delegate :site_id, to: :person
     delegate :admin_id, to: :person
 
     enum state: { pending: 0, published: 1 }
+
+    def admin_id
+      if person
+        person.admin_id
+      end
+    end
 
     def parameterize
       { person_slug: person.slug, slug: slug }

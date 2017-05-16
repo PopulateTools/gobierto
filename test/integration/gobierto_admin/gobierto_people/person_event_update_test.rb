@@ -66,6 +66,7 @@ module GobiertoAdmin
                 within "#person-event-attendees" do
                   person_event.attendees.each do |attendee|
                     within ".dynamic-content-record-wrapper.content-block-record-#{attendee.id}" do
+                      next if attendee.person && attendee.person == person
                       with_hidden_elements do
                         find("a[data-behavior=edit_record]").trigger("click")
                       end
@@ -111,10 +112,8 @@ module GobiertoAdmin
                   assert has_selector?(".content-block-record-value", text: "Location Address")
                 end
 
-                within "#person-event-attendees .dynamic-content-record-view", match: :first do
-                  assert has_selector?(".content-block-record-value", text: "Attendee Name")
-                  assert has_selector?(".content-block-record-value", text: "Attendee Charge")
-                end
+                assert all(".content-block-record-value").any?{ |v| v.text.include?("Attendee Name") }
+                assert all(".content-block-record-value").any?{ |v| v.text.include?("Attendee Charge") }
 
                 within ".person-event-state-radio-buttons" do
                   with_hidden_elements do

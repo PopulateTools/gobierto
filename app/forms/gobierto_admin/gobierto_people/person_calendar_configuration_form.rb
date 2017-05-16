@@ -5,7 +5,8 @@ module GobiertoAdmin
 
       attr_accessor(
         :person_id,
-        :ibm_notes_url
+        :ibm_notes_url,
+        :clear_google_calendar_configuration
       )
 
       def save
@@ -37,7 +38,12 @@ module GobiertoAdmin
       def save_calendar_configuration
         @person_calendar_configuration = person_calendar_configuration.tap do |calendar_configuration_attributes|
           calendar_configuration_attributes.person_id = person_id
-          
+
+          if clear_google_calendar_configuration
+            calendar_configuration_attributes.google_calendar_credentials = nil
+            calendar_configuration_attributes.google_calendar_id = nil
+          end
+
           if calendar_configuration_attributes.respond_to?(:endpoint)
             calendar_configuration_attributes.endpoint = ibm_notes_url
           end

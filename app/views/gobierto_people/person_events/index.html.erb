@@ -22,7 +22,7 @@
         <p><small><%= t(".agenda_switcher.subtitle") %></small></p>
 
         <div class="hidden_options">
-          <ul >
+          <ul>
             <% @people.each do |person| %>
               <li><%= link_to person.name, gobierto_people_person_events_path(person.slug) %></li>
             <% end %>
@@ -102,7 +102,9 @@
         </p>
 
         <div id="events">
-          <%= render partial: "gobierto_people/person_events/person_event", collection: @events %>
+          <% @events.each do |event| %>
+            <%= render partial: "gobierto_people/person_events/person_event", locals: { person: event.person, person_event: event } %>
+          <% end %>
         </div>
 
         <%= link_to_next_page @events, t('.view_more'), class: "see_more", role: "button", remote: true %>

@@ -123,7 +123,6 @@ Rails.application.routes.draw do
       get '/' => 'welcome#index', as: :root
 
       # Agendas
-
       resources :person_events, only: [:index], as: :events, path: 'agendas'
       resources :government_party_person_events, only: [:index], as: :government_party_events, path: 'agendas/gobierno'
       resources :opposition_party_person_events, only: [:index], as: :opposition_party_events, path: 'agendas/oposicion'
@@ -138,7 +137,6 @@ Rails.application.routes.draw do
       resources :people_person_events, only: [:index, :show], controller: "people/person_events", as: :person_events, path: 'agendas/:person_slug', param: :slug
 
       # Blogs
-
       resources :person_posts, only: [:index], as: :posts, path: 'blogs/posts'
       resources :person_post_tags, only: [:show], as: :post_tags, path: 'blogs/tags'
 
@@ -146,24 +144,23 @@ Rails.application.routes.draw do
       resources :people_person_posts, only: [:index, :show], controller: "people/person_posts", as: :person_posts, path: 'blogs/:person_slug', param: :slug
 
       # Statements
-
       resources :person_statements, only: [:index], as: :statements, path: 'declaraciones'
       resources :person_gifts, only: [:index], as: :gifts, path: 'obsequios-y-regalos'
       resources :person_travels, only: [:index], as: :travels, path: 'viajes-y-desplazamientos'
-
       resources :people_person_statements, only: [:index, :show], controller: "people/person_statements", as: :person_statements, path: 'declaraciones/:person_slug', param: :slug
 
       # Officials
-
       resources :people, only: [:index], path: 'personas'
       resources :government_party_people, only: [:index], path: 'personas/gobierno'
       resources :opposition_party_people, only: [:index], path: 'personas/oposicion'
       resources :executive_category_people, only: [:index], path: 'personas/directivos'
 
+      # Political Groups
       resources :political_group, only: [:show], path: 'personas/grupos-politicos', param: :slug do
         resources :people, only: [:index], controller: 'political_groups/people', path: '/'
       end
 
+      # People
       resources :people, only: [:show], path: 'personas', param: :slug do
         resource :person_bio, only: [:show], controller: "people/person_bio", as: :bio, path: 'biografia'
         resources :person_messages, only: [:create], controller: "people/person_messages", as: :messages, path: 'contacto', param: :slug do
@@ -172,8 +169,10 @@ Rails.application.routes.draw do
           end
         end
       end
-
     end
+
+    # Google calendar integration hook
+    resource :google_calendar_authorization, only: [:new], controller: "people/google_calendar_authorization", as: :google_calendar_authorization
   end
 
   # Gobierto Budgets module

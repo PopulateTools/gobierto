@@ -88,13 +88,7 @@ module GobiertoPeople
 
       def test_person_events_index_pagination
         10.times do |i|
-          person.events.create!(
-            title: "Event #{i}",
-            site: person.site,
-            starts_at: Time.now.tomorrow + i.days,
-            ends_at:   Time.now.tomorrow + i.days + 1.hour,
-            state: GobiertoPeople::PersonEvent.states["published"]
-          )
+          create_event(person: person, title: "Event #{i}", starts_at: (Time.now.tomorrow + i.days).to_s)
         end
 
         with_current_site(site) do

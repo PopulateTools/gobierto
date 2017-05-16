@@ -20,7 +20,11 @@ class ApplicationController < ActionController::Base
   end
 
   def current_site
-    request.env['gobierto_site']
+    @current_site ||= if request.env['gobierto_site'].present?
+                        request.env['gobierto_site']
+                      else
+                        Site.first if Rails.env.test?
+                      end
   end
 
   private

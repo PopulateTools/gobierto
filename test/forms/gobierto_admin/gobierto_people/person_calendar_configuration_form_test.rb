@@ -23,7 +23,7 @@ module GobiertoAdmin
       end
 
       def test_save_with_valid_attributes
-        activate_calendar_integration(person.site)
+        activate_ibm_notes_calendar_integration(person.site)
 
         assert valid_person_calendar_configuration_form.save
         assert_equal({ 'endpoint' => 'http://foo.com'}, person.calendar_configuration.data)

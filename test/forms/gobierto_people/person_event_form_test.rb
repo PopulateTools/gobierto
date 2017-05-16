@@ -5,6 +5,7 @@ module GobiertoPeople
     def valid_person_event_form
       @valid_person_event_form ||= PersonEventForm.new(
         external_id: '123',
+        site_id: site.id,
         person_id: person.id,
         title: person_event.title,
         description: person_event.description,
@@ -19,6 +20,7 @@ module GobiertoPeople
     def invalid_person_event_form
       @invalid_person_event_form ||= PersonEventForm.new(
         external_id: nil,
+        site_id: nil,
         person_id: nil,
         title: nil,
         description: nil,
@@ -28,6 +30,10 @@ module GobiertoPeople
         locations: [],
         attendees: []
       )
+    end
+
+    def site
+      @site ||= sites(:madrid)
     end
 
     def person_event

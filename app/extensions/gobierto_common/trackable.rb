@@ -33,6 +33,7 @@ module GobiertoCommon
     end
 
     def notify?
+      return false if trackable.admin_id.nil?
       return super if defined?(super)
 
       true

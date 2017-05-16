@@ -12,6 +12,10 @@ require "rails/test_unit/railtie"
 
 require "ostruct"
 require "csv"
+require "google/apis/calendar_v3"
+require "googleauth"
+require "google/api_client/client_secrets"
+require "googleauth/stores/file_token_store"
 
 Bundler.require(*Rails.groups)
 

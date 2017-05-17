@@ -2,6 +2,7 @@ class AddSlugToGobiertoPeoplePersonEvent < ActiveRecord::Migration[5.0]
 
   def up
     add_column :gp_person_events, :slug, :string
+    ::GobiertoPeople::PersonEvent.reset_column_information
     create_slug_for_existing_events
     change_column :gp_person_events, :slug, :string, null: false
     change_column :gp_person_events, :starts_at, :datetime, null: false
@@ -10,7 +11,9 @@ class AddSlugToGobiertoPeoplePersonEvent < ActiveRecord::Migration[5.0]
   end
 
   def down
-    raise ActiveRecord::IrreversibleMigration
+    remove_column :gp_person_events, :slug
+    change_column :gp_person_events, :starts_at, :datetime
+    change_column :gp_person_events, :ends_at, :datetime
   end
 
   private

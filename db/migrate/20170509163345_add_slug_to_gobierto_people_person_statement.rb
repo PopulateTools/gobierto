@@ -2,6 +2,7 @@ class AddSlugToGobiertoPeoplePersonStatement < ActiveRecord::Migration[5.0]
 
   def up
     add_column :gp_person_statements, :slug, :string
+    ::GobiertoPeople::PersonStatement.reset_column_information
     create_slug_for_existing_statements
     change_column :gp_person_statements, :slug, :string, null: false
     change_column :gp_person_statements, :published_on, :date, null: false
@@ -9,7 +10,8 @@ class AddSlugToGobiertoPeoplePersonStatement < ActiveRecord::Migration[5.0]
   end
 
   def down
-    raise ActiveRecord::IrreversibleMigration
+    remove_column :gp_person_statements, :slug
+    change_column :gp_person_statements, :published_on, :date
   end
 
   private

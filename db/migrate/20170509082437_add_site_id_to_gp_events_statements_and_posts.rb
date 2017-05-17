@@ -1,8 +1,15 @@
 class AddSiteIdToGpEventsStatementsAndPosts < ActiveRecord::Migration[5.0]
-  def change
+
+  def up
     add_site_id_to_person_events
     add_site_id_to_person_statements
     add_site_id_to_person_posts
+  end
+
+  def down
+    remove_column :gp_person_events, :site_id
+    remove_column :gp_person_statements, :site_id
+    remove_column :gp_person_posts, :site_id
   end
 
   private
@@ -15,6 +22,7 @@ class AddSiteIdToGpEventsStatementsAndPosts < ActiveRecord::Migration[5.0]
     end
 
     add_foreign_key :gp_person_events, :sites
+    change_column :gp_person_events, :site_id, :integer, null: false
   end
 
   def add_site_id_to_person_statements
@@ -25,6 +33,7 @@ class AddSiteIdToGpEventsStatementsAndPosts < ActiveRecord::Migration[5.0]
     end
 
     add_foreign_key :gp_person_statements, :sites
+    change_column :gp_person_statements, :site_id, :integer, null: false
   end
 
   def add_site_id_to_person_posts
@@ -35,6 +44,7 @@ class AddSiteIdToGpEventsStatementsAndPosts < ActiveRecord::Migration[5.0]
     end
 
     add_foreign_key :gp_person_posts, :sites
+    change_column :gp_person_posts, :site_id, :integer, null: false
   end
 
 end

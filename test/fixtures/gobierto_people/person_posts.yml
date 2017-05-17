@@ -2,7 +2,7 @@ richard_about_me:
   person: richard
   site: madrid
   title: About me
-  slug: <%= GobiertoPeople::PersonEvent.generate_unique_slug('About me', Date.current) %>
+  slug: <%= "#{Date.current.strftime('%F')}-about-me" %>
   body: Article about my professional career in politics.
   tags: <%= ["Personal", "Career", "Richard Rider"] %>
   visibility_level: <%= GobiertoPeople::PersonPost.visibility_levels["active"] %>
@@ -12,7 +12,7 @@ richard_achievements:
   person: richard
   site: madrid
   title: Achievements
-  slug: <%= GobiertoPeople::PersonEvent.generate_unique_slug('Achievements', 1.week.ago) %>
+  slug: <%= "#{1.week.ago.strftime('%F')}-achievements" %>
   body: Article about my professional achievements.
   tags:
   visibility_level: <%= GobiertoPeople::PersonPost.visibility_levels["active"] %>

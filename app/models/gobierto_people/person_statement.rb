@@ -5,8 +5,9 @@ module GobiertoPeople
     include ::GobiertoCommon::DynamicContent
     include User::Subscribable
     include GobiertoCommon::Searchable
-    include GobiertoPeople::SearchableBySlug
+    include GobiertoPeople::Sluggable
 
+    validates :person, presence: true
     validates :site, presence: true
     
     translates :title
@@ -28,8 +29,6 @@ module GobiertoPeople
     delegate :site_id, to: :person
     delegate :admin_id, to: :person
 
-    before_save :set_slug
-
     def parameterize
       { person_slug: person.slug, slug: slug }
     end
@@ -44,13 +43,8 @@ module GobiertoPeople
       [id, person_id, person_name, title, published_on, attachment_url, attachment_size, created_at, updated_at]
     end
 
-    private
-
-    def set_slug
-      if slug.nil?
-        new_slug = GobiertoPeople::PersonStatement.generate_unique_slug(title, published_on)
-        write_attribute(:slug, new_slug)
-      end
+    def attributes_for_slug
+      [published_on.strftime('%F'), title]
     end
 
   end

@@ -16,11 +16,9 @@ class AddSlugToGobiertoPeoplePersonStatement < ActiveRecord::Migration[5.0]
 
   def create_slug_for_existing_statements
     GobiertoPeople::PersonStatement.all.each do |statement|
-      published_on = statement.published_on || Time.zone.now.utc
-      statement.update_attributes!(
-        slug: GobiertoPeople::PersonStatement.generate_unique_slug(statement.title_with_fallback, published_on),
-        publisehd_on: published_on
-      )
+      statement.published_on ||= Time.zone.now.utc
+      statement.send(:set_slug)
+      statement.save!
     end
   end
 

@@ -15,11 +15,8 @@ class AddSlugToGobiertoPeoplePersonPosts < ActiveRecord::Migration[5.0]
 
   def create_slug_for_existing_posts
     GobiertoPeople::PersonPost.all.each do |post|
-      created_at = post.created_at || Time.zone.now
-      post.update_attributes!(
-        slug: GobiertoPeople::PersonPost.generate_unique_slug(post.title_with_fallback, created_at),
-        starts_at: starts_at
-      )
+      post.send(:set_slug)
+      post.save!
     end
   end
 

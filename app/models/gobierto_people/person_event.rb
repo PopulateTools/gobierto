@@ -6,14 +6,12 @@ module GobiertoPeople
 
     include User::Subscribable
     include GobiertoCommon::Searchable
-    include GobiertoPeople::SearchableBySlug
+    include GobiertoPeople::Sluggable
 
     validates :person, presence: true
     validates :site, presence: true
 
     translates :title, :description
-
-    before_save :set_slug
 
     algoliasearch_gobierto do
       attribute :site_id, :title_en, :title_es, :title_ca, :description_en, :description_es, :description_ca, :updated_at
@@ -83,13 +81,8 @@ module GobiertoPeople
       [id, person_id, person_name, title, description, starts_at, ends_at, attachment_url, created_at, updated_at]
     end
 
-    private
-
-    def set_slug
-      if slug.nil?
-        new_slug = GobiertoPeople::PersonEvent.generate_unique_slug(title, starts_at)
-        write_attribute(:slug, new_slug)
-      end
+    def attributes_for_slug
+      [starts_at.strftime('%F'), title]
     end
 
   end

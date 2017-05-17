@@ -6,7 +6,7 @@ module GobiertoPeople
     include User::Subscribable
     include GobiertoCommon::Sortable
     include GobiertoCommon::Searchable
-    include GobiertoPeople::SearchableBySlug
+    include GobiertoPeople::Sluggable
 
     translates :charge, :bio
 
@@ -36,8 +36,6 @@ module GobiertoPeople
     enum party: { government: 0, opposition: 1 }
 
     validates :email, format: { with: User::EMAIL_ADDRESS_REGEXP }, allow_blank: true
-
-    before_save :set_slug
     validates :site, presence: true
 
     def self.csv_columns
@@ -54,13 +52,8 @@ module GobiertoPeople
       { slug: slug }
     end
 
-    private
-
-    def set_slug
-      if slug.nil?
-        new_slug = GobiertoPeople::Person.generate_unique_slug(name)
-        write_attribute(:slug, new_slug)
-      end
+    def attributes_for_slug
+      [name]
     end
 
   end

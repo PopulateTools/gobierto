@@ -15,9 +15,8 @@ class AddSlugToGobiertoPeoplePoliticalGroup < ActiveRecord::Migration[5.0]
 
   def create_slug_for_existing_political_groups
     GobiertoPeople::PoliticalGroup.all.each do |political_group|
-      political_group.update_attributes!(
-        slug: GobiertoPeople::PoliticalGroup.generate_unique_slug(political_group.name)
-      )
+      political_group.send(:set_slug)
+      political_group.save!
     end
   end
 

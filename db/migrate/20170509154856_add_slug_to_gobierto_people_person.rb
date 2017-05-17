@@ -15,9 +15,8 @@ class AddSlugToGobiertoPeoplePerson < ActiveRecord::Migration[5.0]
 
   def create_slug_for_existing_people
     GobiertoPeople::Person.all.each do |person|
-      person.update_attributes!(
-        slug: GobiertoPeople::Person.generate_unique_slug(person.name)
-      )
+      person.send(:set_slug)
+      person.save!
     end
   end
 

@@ -5,7 +5,7 @@ richard_pending:
     'en' => 'Reunión con los vecinos del distrito centro',
     'es' => 'Reunión con los vecinos del distrito centro'
   }.to_json %>
-  slug: <%= GobiertoPeople::PersonEvent.generate_unique_slug('Reunión con los vecinos del distrito centro', 1.month.from_now) %>
+  slug: <%= "#{1.month.from_now.strftime('%F')}-reunion-con-los-vecinos-del-distrito-centro" %>
   description_translations: <%= {
     'en' => 'Reunión con los vecinos del distrito centro para comentar la posibilidad de reubicar el centro de salud de Universidad en el nuevo edificio de Bomberos.',
     'es' => 'Reunión con los vecinos del distrito centro para comentar la posibilidad de reubicar el centro de salud de Universidad en el nuevo edificio de Bomberos.'
@@ -22,7 +22,7 @@ richard_published:
     'en' => 'Future government event',
     'es' => 'Future government event',
   }.to_json %>
-  slug: <%= GobiertoPeople::PersonEvent.generate_unique_slug('Future government event', 1.month.from_now) %>
+  slug: <%= "#{1.month.from_now.strftime('%F')}-future-government-event" %>
   description_translations: <%= {
     'en' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
     'es' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
@@ -39,7 +39,7 @@ richard_published_past:
     'en' => 'Past government event',
     'es' => 'Past government event'
   }.to_json %>
-  slug: <%= GobiertoPeople::PersonEvent.generate_unique_slug('Past government event', 1.month.ago) %>
+  slug: <%= "#{1.month.ago.strftime('%F')}-past-government-event" %>
   description_translations: <%= {
     'en' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
     'es' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.'
@@ -56,7 +56,7 @@ nelson_tomorrow:
     'en' => 'Nelson tomorrow event',
     'es' => 'Nelson tomorrow event'
   }.to_json %>
-  slug: <%= GobiertoPeople::PersonEvent.generate_unique_slug('Nelson tomorrow event', 1.day.from_now) %>
+  slug: <%= "#{1.day.from_now.strftime('%F')}-nelson-tomorrow-event" %>
   description_translations: <%= {
     'en' => 'Have tea with biscuits',
     'es' => 'Have tea with biscuits'
@@ -73,7 +73,7 @@ nelson_yesterday:
     'en' => 'Nelson yesterday event',
     'es' => 'Nelson yesterday event'
   }.to_json %>
-  slug: <%= GobiertoPeople::PersonEvent.generate_unique_slug('Nelson yesterday event', 1.day.ago) %>
+  slug: <%= "#{1.day.ago.strftime('%F')}-nelson-yesterday-event" %>
   description_translations: <%= {
     'en' => 'Have tea with biscuits',
     'es' => 'Have tea with biscuits'
@@ -90,7 +90,7 @@ tamara_published_past:
     'en' => 'Past executive event',
     'es' => 'Past executive event'
   }.to_json %>
-  slug: <%= GobiertoPeople::PersonEvent.generate_unique_slug('Past executive event', 15.days.ago) %>
+  slug: <%= "#{15.days.ago.strftime('%F')}-pasat-executive-event" %>
   description_translations: <%= {
     'en' => 'Executive member event.',
     'es' => 'Executive member event.'

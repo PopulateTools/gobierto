@@ -1,5 +1,6 @@
 richard_about_me:
   person: richard
+  site: madrid
   title: About me
   slug: <%= GobiertoPeople::PersonEvent.generate_unique_slug('About me', Date.current) %>
   body: Article about my professional career in politics.
@@ -9,6 +10,7 @@ richard_about_me:
 
 richard_achievements:
   person: richard
+  site: madrid
   title: Achievements
   slug: <%= GobiertoPeople::PersonEvent.generate_unique_slug('Achievements', 1.week.ago) %>
   body: Article about my professional achievements.

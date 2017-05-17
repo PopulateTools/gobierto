@@ -1,6 +1,6 @@
 require "test_helper"
 require_relative "base"
-require_relative "../../../support/person_event_helpers"
+require "support/person_event_helpers"
 
 module GobiertoPeople
   module People
@@ -90,6 +90,7 @@ module GobiertoPeople
         10.times do |i|
           person.events.create!(
             title: "Event #{i}",
+            site: person.site,
             starts_at: Time.now.tomorrow + i.days,
             ends_at:   Time.now.tomorrow + i.days + 1.hour,
             state: GobiertoPeople::PersonEvent.states["published"]

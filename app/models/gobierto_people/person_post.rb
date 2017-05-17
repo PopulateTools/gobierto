@@ -6,6 +6,8 @@ module GobiertoPeople
     include GobiertoCommon::Searchable
     include GobiertoPeople::SearchableBySlug
 
+    validates :site, presence: true
+    
     algoliasearch_gobierto do
       attribute :site_id, :title, :body, :updated_at
       searchableAttributes ['title', 'body']
@@ -14,6 +16,7 @@ module GobiertoPeople
     end
 
     belongs_to :person, counter_cache: :posts_count
+    belongs_to :site
 
     scope :sorted, -> { order(created_at: :desc) }
     scope :by_tag, ->(*tags) { where("tags @> ARRAY[?]::varchar[]", tags) }

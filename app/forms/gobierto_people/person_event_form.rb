@@ -139,6 +139,7 @@ module GobiertoPeople
       @person_event = person_event.tap do |person_event_attributes|
         person_event_attributes.external_id = external_id
         person_event_attributes.person_id = person_id
+        person_event_attributes.site_id = site_id
         person_event_attributes.state = state
         person_event_attributes.title = title
         person_event_attributes.description = description

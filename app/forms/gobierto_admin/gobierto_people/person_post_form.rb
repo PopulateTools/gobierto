@@ -93,6 +93,7 @@ module GobiertoAdmin
       def save_person_post
         @person_post = person_post.tap do |person_post_attributes|
           person_post_attributes.person_id = person_id
+          person_post_attributes.site_id = site_id
           person_post_attributes.title = title
           person_post_attributes.body = body
           person_post_attributes.tags = tags

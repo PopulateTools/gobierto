@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170516111435) do
+ActiveRecord::Schema.define(version: 20170516154422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -294,6 +294,7 @@ ActiveRecord::Schema.define(version: 20170516111435) do
     t.jsonb    "title_translations"
     t.jsonb    "description_translations"
     t.string   "slug",                                 null: false
+    t.integer  "site_id"
     t.index ["description_translations"], name: "index_gp_person_events_on_description_translations", using: :gin
     t.index ["person_id", "external_id"], name: "index_gp_person_events_on_person_id_and_external_id", unique: true, using: :btree
     t.index ["person_id"], name: "index_gp_person_events_on_person_id", using: :btree
@@ -310,6 +311,7 @@ ActiveRecord::Schema.define(version: 20170516111435) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.string   "slug",                          null: false
+    t.integer  "site_id"
     t.index ["person_id"], name: "index_gp_person_posts_on_person_id", using: :btree
     t.index ["slug"], name: "index_gp_person_posts_on_slug", unique: true, using: :btree
     t.index ["tags"], name: "index_gp_person_posts_on_tags", using: :gin
@@ -325,6 +327,7 @@ ActiveRecord::Schema.define(version: 20170516111435) do
     t.integer  "attachment_size"
     t.jsonb    "title_translations"
     t.string   "slug",                           null: false
+    t.integer  "site_id"
     t.index ["person_id"], name: "index_gp_person_statements_on_person_id", using: :btree
     t.index ["slug"], name: "index_gp_person_statements_on_slug", unique: true, using: :btree
     t.index ["title_translations"], name: "index_gp_person_statements_on_title_translations", using: :gin
@@ -461,4 +464,7 @@ ActiveRecord::Schema.define(version: 20170516111435) do
     t.index ["source_site_id"], name: "index_users_on_source_site_id", using: :btree
   end
 
+  add_foreign_key "gp_person_events", "sites"
+  add_foreign_key "gp_person_posts", "sites"
+  add_foreign_key "gp_person_statements", "sites"
 end

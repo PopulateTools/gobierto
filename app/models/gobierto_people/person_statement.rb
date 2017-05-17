@@ -7,6 +7,8 @@ module GobiertoPeople
     include GobiertoCommon::Searchable
     include GobiertoPeople::SearchableBySlug
 
+    validates :site, presence: true
+    
     translates :title
 
     algoliasearch_gobierto do
@@ -17,6 +19,7 @@ module GobiertoPeople
     end
 
     belongs_to :person, counter_cache: :statements_count
+    belongs_to :site
 
     scope :sorted, -> { order(published_on: :desc, created_at: :desc) }
 

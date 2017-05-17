@@ -1,5 +1,6 @@
 richard_current:
   person: richard
+  site: madrid
   title_translations: <%= {
     'en' => 'Declaración de Bienes y Actividades',
     'es' => 'Declaración de Bienes y Actividades'
@@ -12,6 +13,7 @@ richard_current:
 
 richard_past:
   person: richard
+  site: madrid
   title_translations: <%= {
     'en' => 'Declaración de Bienes y Actividades (pasada)',
     'es' => 'Declaración de Bienes y Actividades (pasada)'

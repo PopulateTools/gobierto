@@ -73,7 +73,7 @@ module GobiertoAdmin
         end
 
         def ignored_person_post_attributes
-          %w( created_at updated_at slug )
+          %w( created_at updated_at slug site_id )
         end
       end
     end

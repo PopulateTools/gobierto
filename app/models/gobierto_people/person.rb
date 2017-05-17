@@ -38,6 +38,7 @@ module GobiertoPeople
     validates :email, format: { with: User::EMAIL_ADDRESS_REGEXP }, allow_blank: true
 
     before_save :set_slug
+    validates :site, presence: true
 
     def self.csv_columns
       [:id, :name, :email, :charge, :bio, :bio_url, :avatar_url, :category, :political_group, :party, :created_at, :updated_at]

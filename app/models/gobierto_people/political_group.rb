@@ -5,6 +5,8 @@ module GobiertoPeople
     include GobiertoCommon::Sortable
     include GobiertoPeople::SearchableBySlug
 
+    validates :site, presence: true
+
     belongs_to :admin, class_name: "GobiertoAdmin::Admin"
     belongs_to :site
 

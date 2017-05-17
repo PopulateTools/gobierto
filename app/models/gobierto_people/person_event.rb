@@ -9,6 +9,7 @@ module GobiertoPeople
     include GobiertoPeople::SearchableBySlug
 
     validates :person, presence: true
+    validates :site, presence: true
 
     translates :title, :description
 
@@ -22,6 +23,7 @@ module GobiertoPeople
     end
 
     belongs_to :person, counter_cache: :events_count
+    belongs_to :site
 
     has_many :locations, class_name: "PersonEventLocation", dependent: :destroy
     has_many :attendees, class_name: "PersonEventAttendee", dependent: :destroy

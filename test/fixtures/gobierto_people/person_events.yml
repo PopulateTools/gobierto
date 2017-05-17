@@ -1,5 +1,6 @@
 richard_pending:
   person: richard
+  site: madrid
   title_translations: <%= {
     'en' => 'Reunión con los vecinos del distrito centro',
     'es' => 'Reunión con los vecinos del distrito centro'
@@ -16,6 +17,7 @@ richard_pending:
 
 richard_published:
   person: richard
+  site: madrid
   title_translations: <%= {
     'en' => 'Future government event',
     'es' => 'Future government event',
@@ -32,6 +34,7 @@ richard_published:
 
 richard_published_past:
   person: richard
+  site: madrid
   title_translations: <%= {
     'en' => 'Past government event',
     'es' => 'Past government event'
@@ -48,6 +51,7 @@ richard_published_past:
 
 nelson_tomorrow:
   person: nelson
+  site: madrid
   title_translations: <%= {
     'en' => 'Nelson tomorrow event',
     'es' => 'Nelson tomorrow event'
@@ -64,6 +68,7 @@ nelson_tomorrow:
 
 nelson_yesterday:
   person: nelson
+  site: madrid
   title_translations: <%= {
     'en' => 'Nelson yesterday event',
     'es' => 'Nelson yesterday event'
@@ -77,9 +82,10 @@ nelson_yesterday:
   ends_at: <%= 1.day.ago + 1.hour %>
   attachment_url: https://bit.ly/67890
   state: <%= GobiertoPeople::PersonEvent.states["published"] %>
-  
+
 tamara_published_past:
   person: tamara
+  site: madrid
   title_translations: <%= {
     'en' => 'Past executive event',
     'es' => 'Past executive event'

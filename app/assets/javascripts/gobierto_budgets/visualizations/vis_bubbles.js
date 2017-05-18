@@ -43,9 +43,24 @@ var VisBubbles = Class.extend({
     
     var filtered = this.data.filter(function(d) { return d.budget_category === this.budget_category; }.bind(this));
     
-    var color = d3.scaleOrdinal(d3.schemeCategory10)
-      .domain(filtered.map(function(d) { return d.level_1; }))
-    
+    var color = d3.scaleOrdinal()
+      .domain([
+        "Deute públic",
+        "Serveis públics bàsics",
+        "Actuacions de protecció i promoció social",
+        "Producció de béns públics de caràcter preferent",
+        "Actuacions de caràcter econòmic",
+        "Actuacions de caràcter general",
+        "Impostos directes",
+        "Impostos indirectes",
+        "Taxes, preus públics i altres ingressos",
+        "Transferències corrents",
+        "Ingressos patrimonials",
+        "Alienació d'inversions reals",
+        "Transferències de capital"
+      ])
+      .range(['#00909e', '#f39d96', '#f6b128', '#aac44b', '#a25fa6', '#981f2e', '#00909e', '#f39d96', '#f6b128', '#aac44b', '#a25fa6', '#981f2e', '#feecae'])
+
     var maxAmount = d3.max(this.data, function (d) { return d.value; });
 
     var radiusScale = d3.scalePow()
@@ -60,6 +75,7 @@ var VisBubbles = Class.extend({
         value: d.value,
         group: d.level_1,
         name: d.level_2,
+        per_inhabitant: d.per_inhabitant,
         x: Math.random() * 900,
         y: -d.pct_section * 900
       };
@@ -75,10 +91,13 @@ var VisBubbles = Class.extend({
       .nodes(nodes)
       .on('tick', ticked);
       
-    var bubbles = this.svg.selectAll('.bubble')
+    var bubbles = this.svg.selectAll('g')
       .data(nodes, function (d) { return d.id; })
       .enter()
-      .append('circle')
+      .append('g')
+      .attr('class', 'bubble-g')
+      
+    bubbles.append('circle')
       .attr('class', 'bubble')
       .attr('r', function (d) { return d.radius; })
       .attr('fill', function (d) { return color(d.group); })
@@ -86,6 +105,15 @@ var VisBubbles = Class.extend({
       .attr('stroke-width', 2)
       .on('mousemove', mousemoved)
       .on('mouseleave', mouseleft);
+      
+    bubbles.append('text')
+      .attr('text-anchor', 'middle')
+      .text(function(d) { return d.radius > 50 ? d.name : '' })
+    
+    bubbles.append('text')
+      .attr('text-anchor', 'middle')
+      .attr('dy', '20')
+      .text(function(d) { return d.radius > 50 ? d.per_inhabitant + '€/hab' : '' })
       
     function mousemoved(d) {
       var coordinates = d3.mouse(selectionNode);
@@ -98,7 +126,7 @@ var VisBubbles = Class.extend({
       tooltip
         .style('display', 'block')
         .style('left', (x - 50) + 'px')
-        .style('top', (y + 80) + 'px')
+        .style('top', (y + 40) + 'px')
         
       tooltip.html(d.name);
     }
@@ -111,9 +139,7 @@ var VisBubbles = Class.extend({
     }
     
     function ticked() {
-      bubbles
-        .attr('cx', function (d) { return d.x; })
-        .attr('cy', function (d) { return d.y; });
+      bubbles.attr('transform', function(d) { return 'translate(' + d.x + ',' + d.y + ')' })
     }
   },
   _charge: function(d) {

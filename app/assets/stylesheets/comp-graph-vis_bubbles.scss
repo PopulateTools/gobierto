@@ -7,4 +7,12 @@
     border: 1px solid #eee;
     padding: 10px;
   }
+  
+  .bubble-g {
+    text {
+      fill: white;
+      text-shadow: 1px 1px 0 #111, -1px -1px 0 #111, 1px -1px 0 #111, -1px 1px 0 #111;
+      pointer-events: none;
+    }
+  }
 }

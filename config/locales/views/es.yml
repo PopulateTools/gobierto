@@ -38,6 +38,8 @@ es:
         sign_in: Iniciar sesión
         sign_out: Cerrar sesión
         title: Tu cuenta
+    mailcheck:
+        suggestion_message: ¿Quieres decir
     gobierto_budget_consultations:
       application:
         about_the_data: Sobre los datos

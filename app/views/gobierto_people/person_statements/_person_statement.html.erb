@@ -6,7 +6,7 @@
       <%= link_to image_tag(person_statement.person.avatar_url, height: 30, width: 30, class: 'v_top', alt: person_statement.person.name , title: 'Avatar de ' + person_statement.person.name), person_statement.person.slug %>
     <% end %>
 
-    <%= link_to person_statement.person.name, person_statement.person.slug %>
+    <%= link_to person_statement.person.name, gobierto_people_person_path(person_statement.person.slug) %>
 
   </div>
 

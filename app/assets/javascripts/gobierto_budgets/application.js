@@ -9,10 +9,20 @@ $(document).on('turbolinks:load', function() {
   } else {
     $('.open_line_browser').hide();
   }
-
+  
   if($('#expense-treemap').length && !$('#expense-treemap svg').length){
     window.expenseTreemap = new TreemapVis('#expense-treemap', 'big', true);
     window.expenseTreemap.render($('#expense-treemap').data('functional-url'));
+  }
+  
+  if($('.vis-bubbles-expense').length) {
+    var visBubblesExpense = new VisBubbles('.vis-bubbles-expense', 'expense');
+    visBubblesExpense.render();
+  }
+  
+  if($('.vis-bubbles-income').length) {
+    var visBubblesIncome = new VisBubbles('.vis-bubbles-income', 'income');
+    visBubblesIncome.render();
   }
 
   var $autocomplete = $('[data-autocomplete]');

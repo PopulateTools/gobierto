@@ -9,11 +9,11 @@
           <span class="soft">
             <%= event.starts_at.day %> <%= l(event.starts_at, format: "%b").capitalize %> ·
           </span>
-          <h4 class="event-title"><%= link_to event.title, gobierto_people_person_event_path(@person, event) %></h4>
+          <h4 class="event-title"><%= link_to event.title, gobierto_people_person_event_path(@person.slug, event.slug) %></h4>
         </li>
       <% end %>
     </ul>
-    <small><%= link_to t(".view_all"), gobierto_people_person_events_path(@person) %></small>
+    <small><%= link_to t(".view_all"), gobierto_people_person_events_path(@person.slug) %></small>
   <% else %>
     <%= t('.no_upcoming_events') %>
   <% end %>

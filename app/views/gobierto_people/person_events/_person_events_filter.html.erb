@@ -36,7 +36,7 @@
     <ul role="tablist" aria-label="Listado de partidos políticos">
       <% @political_groups.each do |political_group| %>
         <li role="presentation" class="<%= class_if('active', @political_group.try(:name) == political_group.name) %>">
-          <%= link_to political_group.name, gobierto_people_political_group_events_path(political_group), tab_attributes(@political_group.try(:name) == political_group.name) %>
+          <%= link_to political_group.name, gobierto_people_political_group_events_path(political_group.slug), tab_attributes(@political_group.try(:name) == political_group.name) %>
         </li>
       <% end %>
     </ul>

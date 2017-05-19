@@ -86,7 +86,7 @@ module GobiertoPeople
 
     def test_submodule_page_hides_disabled_submodules_components
       with_current_site(site) do
-        visit gobierto_people_person_path richard
+        visit gobierto_people_person_path(richard.slug)
 
         within '.people-navigation' do
           assert has_link? 'Agenda'
@@ -97,7 +97,7 @@ module GobiertoPeople
 
         disable_submodules ['agendas', 'statements']
 
-        visit gobierto_people_person_path richard
+        visit gobierto_people_person_path(richard.slug)
 
         within '.people-navigation' do
           refute has_link? 'Agenda'

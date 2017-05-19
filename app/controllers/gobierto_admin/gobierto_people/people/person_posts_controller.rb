@@ -28,7 +28,7 @@ module GobiertoAdmin
           if @person_post_form.save
             redirect_to(
               edit_admin_people_person_post_path(@person, @person_post_form.person_post),
-              notice: t(".success_html", link: gobierto_people_person_post_url(@person, @person_post_form.person_post, host: current_site.domain))
+              notice: t(".success_html", link: gobierto_people_person_post_url(@person.slug, @person_post_form.person_post.slug, host: current_site.domain))
             )
           else
             @person_post_visibility_levels = get_person_post_visibility_levels
@@ -45,7 +45,7 @@ module GobiertoAdmin
           if @person_post_form.save
             redirect_to(
               edit_admin_people_person_post_path(@person, @person_post),
-              notice: t(".success_html", link: gobierto_people_person_post_url(@person, @person_post_form.person_post, host: current_site.domain))
+              notice: t(".success_html", link: gobierto_people_person_post_url(@person.slug, @person_post_form.person_post.slug, host: current_site.domain))
             )
           else
             @person_post_visibility_levels = get_person_post_visibility_levels
@@ -73,9 +73,7 @@ module GobiertoAdmin
         end
 
         def ignored_person_post_attributes
-          %w(
-          created_at updated_at
-          )
+          %w( created_at updated_at slug site_id )
         end
       end
     end

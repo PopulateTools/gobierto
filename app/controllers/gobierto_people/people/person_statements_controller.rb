@@ -18,7 +18,7 @@ module GobiertoPeople
       private
 
       def find_statement
-        @person.statements.active.find(params[:id])
+        @person.statements.active.find_by!(slug: params[:slug])
       end
 
       def find_statements

@@ -8,7 +8,7 @@ module GobiertoPeople
 
       def setup
         super
-        @path = gobierto_people_person_statement_path(person, statement)
+        @path = gobierto_people_person_statement_path(person.slug, statement.slug)
       end
 
       def site

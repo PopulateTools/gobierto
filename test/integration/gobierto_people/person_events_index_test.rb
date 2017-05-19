@@ -1,5 +1,5 @@
 require "test_helper"
-require_relative "../../support/person_event_helpers"
+require "support/person_event_helpers"
 
 module GobiertoPeople
   class PersonEventsIndexTest < ActionDispatch::IntegrationTest
@@ -72,8 +72,13 @@ module GobiertoPeople
 
     def test_person_events_index_pagination
       10.times do |i|
-        government_member.events.create! title: "Event #{i}",
-          starts_at: Time.now.tomorrow + i.days, state: GobiertoPeople::PersonEvent.states["published"]
+        government_member.events.create!(
+          title: "Event #{i}",
+          site: government_member.site,
+          starts_at: Time.now.tomorrow + i.days,
+          ends_at:   Time.now.tomorrow + i.days + 1.hour,
+          state: GobiertoPeople::PersonEvent.states["published"]
+        )
       end
 
       with_current_site(site) do

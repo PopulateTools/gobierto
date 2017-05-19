@@ -1,6 +1,6 @@
 require "test_helper"
 require_relative "base"
-require_relative "../../../support/person_event_helpers"
+require "support/person_event_helpers"
 
 module GobiertoPeople
   module People
@@ -10,7 +10,7 @@ module GobiertoPeople
 
       def setup
         super
-        @path = gobierto_people_person_events_path(person)
+        @path = gobierto_people_person_events_path(person.slug)
       end
 
       def site
@@ -59,7 +59,7 @@ module GobiertoPeople
         Timecop.freeze(Time.zone.parse("2014-03-15")) do
 
           with_current_site(site) do
-            visit gobierto_people_person_events_path(person)
+            visit gobierto_people_person_events_path(person.slug)
 
             within ".events-summary" do
               refute has_content?(past_event.title)
@@ -88,8 +88,13 @@ module GobiertoPeople
 
       def test_person_events_index_pagination
         10.times do |i|
-          person.events.create! title: "Event #{i}",
-            starts_at: Time.now.tomorrow + i.days, state: GobiertoPeople::PersonEvent.states["published"]
+          person.events.create!(
+            title: "Event #{i}",
+            site: person.site,
+            starts_at: Time.now.tomorrow + i.days,
+            ends_at:   Time.now.tomorrow + i.days + 1.hour,
+            state: GobiertoPeople::PersonEvent.states["published"]
+          )
         end
 
         with_current_site(site) do
@@ -112,7 +117,7 @@ module GobiertoPeople
         Timecop.freeze(Time.zone.parse("2014-03-15")) do
 
           with_current_site(site) do
-            visit gobierto_people_person_events_path(person)
+            visit gobierto_people_person_events_path(person.slug)
 
             within ".calendar-component" do
               assert has_link?(present_event.starts_at.day)
@@ -124,7 +129,7 @@ module GobiertoPeople
               assert has_link?(future_event.starts_at.day)
             end
 
-            visit gobierto_people_person_events_path(person)
+            visit gobierto_people_person_events_path(person.slug)
 
             click_link "previous-month-link"
 
@@ -143,7 +148,7 @@ module GobiertoPeople
         Timecop.freeze(Time.zone.parse("2014-03-15")) do
 
           with_current_site(site) do
-            visit gobierto_people_person_events_path(person)
+            visit gobierto_people_person_events_path(person.slug)
 
             within ".events-summary" do
               refute has_content?(past_event.title)

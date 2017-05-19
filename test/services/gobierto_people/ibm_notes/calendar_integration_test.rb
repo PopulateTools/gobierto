@@ -15,6 +15,10 @@ module GobiertoPeople
         @nelson ||= gobierto_people_people(:nelson)
       end
 
+      def site
+        @site ||= sites(:madrid)
+      end
+
       def utc_time(date)
         d = Time.parse(date)
         Time.utc(d.year, d.month, d.day, d.hour, d.min, d.sec)
@@ -57,7 +61,8 @@ module GobiertoPeople
           starts_at: utc_time("2017-04-11 10:00:00"),
           ends_at:   utc_time("2017-04-11 11:00:00"),
           state: GobiertoPeople::PersonEvent.states['published'],
-          person: richard
+          person: richard,
+          site: site
         )
       end
 
@@ -68,7 +73,8 @@ module GobiertoPeople
           starts_at: utc_time("2017-04-11 10:00:00"),
           ends_at:   utc_time("2017-04-11 11:00:00"),
           state: GobiertoPeople::PersonEvent.states['published'],
-          person: richard
+          person: richard,
+          site: site
         )
       end
 

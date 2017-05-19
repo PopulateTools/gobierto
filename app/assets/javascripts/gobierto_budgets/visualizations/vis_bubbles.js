@@ -7,7 +7,7 @@ var VisBubbles = Class.extend({
     this.url = '/bubble_data.json';
     this.budget_category = budgetCategory;
     this.forceStrength = 0.05;
-    
+  
     this.margin = {top: 20, right: 10, bottom: 20, left: 10},
     this.width = parseInt(d3.select(this.container).style('width')) - this.margin.left - this.margin.right;
     this.height = 520 - this.margin.top - this.margin.bottom;
@@ -45,39 +45,42 @@ var VisBubbles = Class.extend({
     
     var color = d3.scaleOrdinal()
       .domain([
-        "Deute públic",
-        "Serveis públics bàsics",
-        "Actuacions de protecció i promoció social",
-        "Producció de béns públics de caràcter preferent",
-        "Actuacions de caràcter econòmic",
-        "Actuacions de caràcter general",
-        "Impostos directes",
-        "Impostos indirectes",
-        "Taxes, preus públics i altres ingressos",
-        "Transferències corrents",
-        "Ingressos patrimonials",
-        "Alienació d'inversions reals",
-        "Transferències de capital"
-      ])
-      .range(['#00909e', '#f39d96', '#f6b128', '#aac44b', '#a25fa6', '#981f2e', '#00909e', '#f39d96', '#f6b128', '#aac44b', '#a25fa6', '#981f2e', '#feecae'])
+          "Deuda pública",
+          "Servicios públicos básicos",
+          "Actuaciones de protección y promoción social",
+          "Producción de bienes públicos de carácter preferente",
+          "Actuaciones de carácter económico",
+          "Actuaciones de carácter general",
+          "Impuestos directos",
+          "Impuestos indirectos",
+          "Tasas y otros ingresos",
+          "Transferencias corrientes",
+          "Ingresos patrimoniales",
+          "Enajenación de inversiones reales",
+          "Transferencias de capital",
+          "Activos financieros",
+          "Pasivos financieros"
+        ])
+      .range(['#00909e', '#f39d96', '#f6b128', '#aac44b', '#a25fa6', '#981f2e', '#00909e', '#f39d96', '#f6b128', '#aac44b', '#a25fa6', '#981f2e', '#feecae', '#f79d68', '#edefee'])
 
     var maxAmount = d3.max(this.data, function (d) { return d.value; });
 
     var radiusScale = d3.scalePow()
       .exponent(0.5)
-      .range([2, 150])
+      .range([2, 100])
       .domain([0, maxAmount]);
 
     var nodes = filtered.map(function (d) {
       return {
-        id: d.id,
+        id: +d.id,
         radius: radiusScale(d.value),
         value: d.value,
         group: d.level_1,
         name: d.level_2,
+        pct_diff: d.pct_diff,
         per_inhabitant: d.per_inhabitant,
         x: Math.random() * 900,
-        y: -d.pct_section * 900
+        y: -d.pct_diff * 1000
       };
     });
 
@@ -108,12 +111,9 @@ var VisBubbles = Class.extend({
       
     bubbles.append('text')
       .attr('text-anchor', 'middle')
-      .text(function(d) { return d.radius > 50 ? d.name : '' })
-    
-    bubbles.append('text')
-      .attr('text-anchor', 'middle')
-      .attr('dy', '20')
-      .text(function(d) { return d.radius > 50 ? d.per_inhabitant + '€/hab' : '' })
+      .tspans(function(d) {
+        return d.radius > 50 ? d3.wordwrap(d.name, 15) : d3.wordwrap('', 15) 
+      })
       
     function mousemoved(d) {
       var coordinates = d3.mouse(selectionNode);
@@ -128,7 +128,7 @@ var VisBubbles = Class.extend({
         .style('left', (x - 50) + 'px')
         .style('top', (y + 40) + 'px')
         
-      tooltip.html(d.name);
+      tooltip.html('<div>' + d.name + '</div><div>' + d3.format("+.1%")(d.pct_diff, 1) + '</div>');
     }
     
     function mouseleft(d) {
@@ -144,5 +144,5 @@ var VisBubbles = Class.extend({
   },
   _charge: function(d) {
     return -Math.pow(d.radius, 2) * 0.05;
-  }.bind(this),
+  }.bind(this)
 });

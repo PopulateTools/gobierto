@@ -1,6 +1,7 @@
 //= require ./execution
 //= require_directory ./components/
 //= require_directory ./visualizations/
+//= require d3-jetpack
 
 $(document).on('turbolinks:load', function() {
 

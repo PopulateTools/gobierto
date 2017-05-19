@@ -44,7 +44,8 @@ class IbmNotes::PersonEventTest < ActiveSupport::TestCase
       title: 'Ibm Notes persisted event title',
       starts_at: utc_time("2017-04-11 10:00:00"),
       ends_at:   utc_time("2017-04-11 11:00:00"),
-      person: person
+      person: person,
+      site: person.site
     )
   end
 

@@ -1,14 +1,27 @@
 require "test_helper"
 require "support/concerns/user/subscribable_test"
+require "support/concerns/gobierto_people/sluggable_test"
 
 module GobiertoPeople
   class PersonEventTest < ActiveSupport::TestCase
     include User::SubscribableTest
+    include ::GobiertoPeople::SluggableTestModule
 
     def person_event
       @person_event ||= gobierto_people_person_events(:richard_published)
     end
     alias subscribable person_event
+
+    def new_person_event
+      ::GobiertoPeople::PersonEvent.create!(
+        title: 'Person Event Title',
+        starts_at: Time.zone.now,
+        ends_at: Time.zone.now + 1.hour,
+        person: gobierto_people_people(:richard),
+        site: sites(:madrid)
+      )
+    end
+    alias create_sluggable new_person_event
 
     def past_person_event
       @past_person_event ||= gobierto_people_person_events(:richard_published_past)

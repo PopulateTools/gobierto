@@ -18,7 +18,7 @@
       </li>
       <li role="presentation">
         <%= link_to t("gobierto_people.people_filter.political_groups.title"),
-                    gobierto_people_political_group_people_path(@political_groups.first),
+                    gobierto_people_political_group_people_path(@political_groups.first.slug),
                     tab_attributes(false).merge('aria-controls' => 'people-list') %>
       </li>
     </ul>

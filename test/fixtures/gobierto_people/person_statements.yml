@@ -1,9 +1,11 @@
 richard_current:
   person: richard
+  site: madrid
   title_translations: <%= {
     'en' => 'Declaración de Bienes y Actividades',
     'es' => 'Declaración de Bienes y Actividades'
   }.to_json %>
+  slug: <%= "#{Date.current.strftime('%F')}-declaracion-de-bienes-y-actividades" %>
   attachment_url: https://bit.ly/12345
   attachment_size: <%= 100.kilobytes %>
   published_on: <%= Date.current %>
@@ -11,10 +13,12 @@ richard_current:
 
 richard_past:
   person: richard
+  site: madrid
   title_translations: <%= {
     'en' => 'Declaración de Bienes y Actividades (pasada)',
     'es' => 'Declaración de Bienes y Actividades (pasada)'
   }.to_json %>
+  slug: <%= "#{1.year.ago.strftime('%F')}-declaracion-de-bienes-y-actividades-pasada" %>
   attachment_url: https://bit.ly/67890
   attachment_size: <%= 100.kilobytes %>
   published_on: <%= 1.year.ago.to_date %>

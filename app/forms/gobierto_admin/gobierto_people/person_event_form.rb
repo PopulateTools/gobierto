@@ -176,6 +176,7 @@ module GobiertoAdmin
       def save_person_event
         @person_event = person_event.tap do |person_event_attributes|
           person_event_attributes.person_id = person_id
+          person_event_attributes.site_id = site_id
           person_event_attributes.state = state
           person_event_attributes.title_translations = title_translations
           person_event_attributes.description_translations = description_translations

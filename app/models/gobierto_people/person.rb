@@ -6,6 +6,7 @@ module GobiertoPeople
     include User::Subscribable
     include GobiertoCommon::Sortable
     include GobiertoCommon::Searchable
+    include GobiertoPeople::Sluggable
 
     translates :charge, :bio
 
@@ -35,6 +36,7 @@ module GobiertoPeople
     enum party: { government: 0, opposition: 1 }
 
     validates :email, format: { with: User::EMAIL_ADDRESS_REGEXP }, allow_blank: true
+    validates :site, presence: true
 
     def self.csv_columns
       [:id, :name, :email, :charge, :bio, :bio_url, :avatar_url, :category, :political_group, :party, :created_at, :updated_at]
@@ -45,5 +47,14 @@ module GobiertoPeople
 
       [id, name, email, charge, bio, bio_url, avatar_url, category, political_group_name, party, created_at, updated_at]
     end
+
+    def parameterize
+      { slug: slug }
+    end
+
+    def attributes_for_slug
+      [name]
+    end
+
   end
 end

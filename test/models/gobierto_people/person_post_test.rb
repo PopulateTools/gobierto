@@ -1,14 +1,25 @@
 require "test_helper"
 require "support/concerns/user/subscribable_test"
+require "support/concerns/gobierto_people/sluggable_test"
 
 module GobiertoPeople
   class PersonPostTest < ActiveSupport::TestCase
     include User::SubscribableTest
+    include ::GobiertoPeople::SluggableTestModule
 
     def person_post
       @person_post ||= gobierto_people_person_posts(:richard_about_me)
     end
     alias subscribable person_post
+
+    def new_person_post
+      ::GobiertoPeople::PersonPost.create!(
+        title: 'Person Post Title',
+        person: gobierto_people_people(:richard),
+        site: sites(:madrid)
+      )
+    end
+    alias create_sluggable new_person_post
 
     def subject_tags
       @subject_tags ||= person_post.tags

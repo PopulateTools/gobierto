@@ -25,7 +25,7 @@ module GobiertoPeople
       private
 
       def find_event
-        @person.events.published.find(params[:id])
+        @person.events.published.find_by!(slug: params[:slug])
       end
 
       def set_calendar_events

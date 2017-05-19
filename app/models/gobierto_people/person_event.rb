@@ -6,8 +6,10 @@ module GobiertoPeople
 
     include User::Subscribable
     include GobiertoCommon::Searchable
+    include GobiertoPeople::Sluggable
 
     validates :person, presence: true
+    validates :site, presence: true
 
     translates :title, :description
 
@@ -19,6 +21,7 @@ module GobiertoPeople
     end
 
     belongs_to :person, counter_cache: :events_count
+    belongs_to :site
 
     has_many :locations, class_name: "PersonEventLocation", dependent: :destroy
     has_many :attendees, class_name: "PersonEventAttendee", dependent: :destroy
@@ -49,7 +52,7 @@ module GobiertoPeople
     enum state: { pending: 0, published: 1 }
 
     def parameterize
-      { person_id: person, id: self }
+      { person_slug: person.slug, slug: slug }
     end
 
     def past?
@@ -77,5 +80,10 @@ module GobiertoPeople
 
       [id, person_id, person_name, title, description, starts_at, ends_at, attachment_url, created_at, updated_at]
     end
+
+    def attributes_for_slug
+      [starts_at.strftime('%F'), title]
+    end
+
   end
 end

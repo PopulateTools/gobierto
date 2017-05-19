@@ -33,7 +33,7 @@
         <ul class="inner">
           <% @other_statements.each do |statement| %>
             <li>
-              <%= link_to statement.title, gobierto_people_person_statement_path(@person, statement) %>
+              <%= link_to statement.title, gobierto_people_person_statement_path(@person.slug, statement.slug) %>
               (<%= l(statement.published_on, format: :short) %>)
             </li>
           <% end %>

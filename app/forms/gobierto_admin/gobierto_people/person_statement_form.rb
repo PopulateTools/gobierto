@@ -116,6 +116,7 @@ module GobiertoAdmin
       def save_person_statement
         @person_statement = person_statement.tap do |person_statement_attributes|
           person_statement_attributes.person_id = person_id
+          person_statement_attributes.site_id = site_id
           person_statement_attributes.title_translations = title_translations
           person_statement_attributes.published_on = published_on
           person_statement_attributes.attachment_url = attachment_url

@@ -5,7 +5,11 @@ module GobiertoPeople
     include ::GobiertoCommon::DynamicContent
     include User::Subscribable
     include GobiertoCommon::Searchable
+    include GobiertoPeople::Sluggable
 
+    validates :person, presence: true
+    validates :site, presence: true
+    
     translates :title
 
     algoliasearch_gobierto do
@@ -16,6 +20,7 @@ module GobiertoPeople
     end
 
     belongs_to :person, counter_cache: :statements_count
+    belongs_to :site
 
     scope :sorted, -> { order(published_on: :desc, created_at: :desc) }
 
@@ -25,7 +30,7 @@ module GobiertoPeople
     delegate :admin_id, to: :person
 
     def parameterize
-      { person_id: person, id: self }
+      { person_slug: person.slug, slug: slug }
     end
 
     def self.csv_columns
@@ -37,5 +42,10 @@ module GobiertoPeople
 
       [id, person_id, person_name, title, published_on, attachment_url, attachment_size, created_at, updated_at]
     end
+
+    def attributes_for_slug
+      [published_on.strftime('%F'), title]
+    end
+
   end
 end

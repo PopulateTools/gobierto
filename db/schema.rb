@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170509082436) do
+ActiveRecord::Schema.define(version: 20170516111435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -242,6 +242,7 @@ ActiveRecord::Schema.define(version: 20170509082436) do
     t.string   "email"
     t.jsonb    "charge_translations"
     t.jsonb    "bio_translations"
+    t.string   "slug",                                 null: false
     t.index ["admin_id"], name: "index_gp_people_on_admin_id", using: :btree
     t.index ["bio_translations"], name: "index_gp_people_on_bio_translations", using: :gin
     t.index ["category", "party"], name: "index_gp_people_on_category_and_party", using: :btree
@@ -250,6 +251,7 @@ ActiveRecord::Schema.define(version: 20170509082436) do
     t.index ["party"], name: "index_gp_people_on_party", using: :btree
     t.index ["political_group_id"], name: "index_gp_people_on_political_group_id", using: :btree
     t.index ["site_id"], name: "index_gp_people_on_site_id", using: :btree
+    t.index ["slug"], name: "index_gp_people_on_slug", unique: true, using: :btree
   end
 
   create_table "gp_person_calendar_configurations", force: :cascade do |t|
@@ -281,8 +283,8 @@ ActiveRecord::Schema.define(version: 20170509082436) do
   end
 
   create_table "gp_person_events", force: :cascade do |t|
-    t.datetime "starts_at"
-    t.datetime "ends_at"
+    t.datetime "starts_at",                            null: false
+    t.datetime "ends_at",                              null: false
     t.string   "attachment_url"
     t.integer  "state",                    default: 0, null: false
     t.integer  "person_id",                            null: false
@@ -291,9 +293,12 @@ ActiveRecord::Schema.define(version: 20170509082436) do
     t.string   "external_id"
     t.jsonb    "title_translations"
     t.jsonb    "description_translations"
+    t.integer  "site_id",                              null: false
+    t.string   "slug",                                 null: false
     t.index ["description_translations"], name: "index_gp_person_events_on_description_translations", using: :gin
     t.index ["person_id", "external_id"], name: "index_gp_person_events_on_person_id_and_external_id", unique: true, using: :btree
     t.index ["person_id"], name: "index_gp_person_events_on_person_id", using: :btree
+    t.index ["slug"], name: "index_gp_person_events_on_slug", unique: true, using: :btree
     t.index ["title_translations"], name: "index_gp_person_events_on_title_translations", using: :gin
   end
 
@@ -305,12 +310,15 @@ ActiveRecord::Schema.define(version: 20170509082436) do
     t.integer  "person_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.integer  "site_id",                       null: false
+    t.string   "slug",                          null: false
     t.index ["person_id"], name: "index_gp_person_posts_on_person_id", using: :btree
+    t.index ["slug"], name: "index_gp_person_posts_on_slug", unique: true, using: :btree
     t.index ["tags"], name: "index_gp_person_posts_on_tags", using: :gin
   end
 
   create_table "gp_person_statements", force: :cascade do |t|
-    t.date     "published_on"
+    t.date     "published_on",                   null: false
     t.integer  "person_id"
     t.integer  "visibility_level",   default: 0, null: false
     t.datetime "created_at",                     null: false
@@ -318,7 +326,10 @@ ActiveRecord::Schema.define(version: 20170509082436) do
     t.string   "attachment_url"
     t.integer  "attachment_size"
     t.jsonb    "title_translations"
+    t.integer  "site_id",                        null: false
+    t.string   "slug",                           null: false
     t.index ["person_id"], name: "index_gp_person_statements_on_person_id", using: :btree
+    t.index ["slug"], name: "index_gp_person_statements_on_slug", unique: true, using: :btree
     t.index ["title_translations"], name: "index_gp_person_statements_on_title_translations", using: :gin
   end
 
@@ -329,9 +340,11 @@ ActiveRecord::Schema.define(version: 20170509082436) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.integer  "position",   default: 0,  null: false
+    t.string   "slug",                    null: false
     t.index ["admin_id"], name: "index_gp_political_groups_on_admin_id", using: :btree
     t.index ["position"], name: "index_gp_political_groups_on_position", using: :btree
     t.index ["site_id"], name: "index_gp_political_groups_on_site_id", using: :btree
+    t.index ["slug"], name: "index_gp_political_groups_on_slug", unique: true, using: :btree
   end
 
   create_table "gp_settings", force: :cascade do |t|
@@ -451,4 +464,7 @@ ActiveRecord::Schema.define(version: 20170509082436) do
     t.index ["source_site_id"], name: "index_users_on_source_site_id", using: :btree
   end
 
+  add_foreign_key "gp_person_events", "sites"
+  add_foreign_key "gp_person_posts", "sites"
+  add_foreign_key "gp_person_statements", "sites"
 end

@@ -8,13 +8,21 @@
 
   <div class="pure-u-1 pure-u-md-5-6 event-content">
 
-    <h3><%= link_to person_event.title, gobierto_people_person_event_path(person_event.person.slug, person_event.slug) %></h3>
+    <h3>
+      <% if person.present? %>
+        <%= link_to person_event.title, gobierto_people_person_event_path(person.slug, person_event.slug) %>
+      <% else %>
+        <%= person_event.title %>
+      <% end %>
+    </h3>
 
     <div class="soft meta">
       <div>
         <i class="fa fa-user"></i>
-        <%= link_to person_event.person.name, gobierto_people_person_path(person_event.person.slug) %>
-        <%= person_event.person.charge %>
+        <% if person %>
+          <%= link_to person.name, gobierto_people_person_path(person.slug)%>
+          <%= person.charge %>
+        <% end %>
       </div>
 
       <% person_event.locations.each do |event_location| %>

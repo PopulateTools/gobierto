@@ -27,6 +27,7 @@ ca:
               ibm_notes_usr: Usuari d'IBM Notes
             update: Actualitzar
             ibm_notes: IBM Notes
+            google_calendar: Google Calendar
             ibm_notes_usr: Usuari d'IBM Notes
             ibm_notes_pwd: Contrasenya d'IBM Notes
             submodules_enabled: Submòduls habilitats

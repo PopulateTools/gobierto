@@ -1,7 +1,4 @@
 class GobiertoSiteConstraint
-  def initialize
-  end
-
   def matches?(request)
     full_domain = (request.env['HTTP_HOST'] || request.env['SERVER_NAME'] || request.env['SERVER_ADDR']).split(':').first
 

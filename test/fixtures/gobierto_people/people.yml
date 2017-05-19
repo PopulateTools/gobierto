@@ -16,6 +16,7 @@ richard:
   political_group: marvel
   position: 1
   email: richard@example.com
+  google_calendar_token: gct1
 
 nelson:
   site: madrid
@@ -35,6 +36,7 @@ nelson:
   political_group: marvel
   position: 2
   email: nelson@example.com
+  google_calendar_token: gct2
 
 tamara:
   site: madrid
@@ -54,3 +56,4 @@ tamara:
   political_group:
   position: 3
   email: tamara@example.com
+  google_calendar_token: gct3

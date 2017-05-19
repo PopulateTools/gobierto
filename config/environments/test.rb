@@ -41,7 +41,7 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Increase log level to speed up the test suite
-  config.log_level = ENV.fetch("TEST_LOG_LEVEL") { :fatal }.to_sym
+  config.log_level = ENV["CI"] ? :fatal : :debug
 
   config.action_mailer.default_url_options = { host: 'gobierto.dev' }
 end

@@ -23,6 +23,7 @@ class Site < ApplicationRecord
   # GobiertoPeople integration
   has_many :people, dependent: :destroy, class_name: "GobiertoPeople::Person"
   has_many :person_events, through: :people, source: :events, class_name: "GobiertoPeople::PersonEvent"
+  has_many :person_attendee_events, class_name: "GobiertoPeople::PersonEvent", dependent: :destroy
   has_many :person_posts, through: :people, source: :posts, class_name: "GobiertoPeople::PersonPost"
   has_many :person_statements, through: :people, source: :statements, class_name: "GobiertoPeople::PersonStatement"
 
@@ -66,8 +67,13 @@ class Site < ApplicationRecord
   end
 
   def calendar_integration
-    if gobierto_people_settings && gobierto_people_settings.calendar_integration == 'ibm_notes'
-      GobiertoPeople::IbmNotes::CalendarIntegration
+    if gobierto_people_settings
+      case gobierto_people_settings.calendar_integration
+      when 'ibm_notes'
+        GobiertoPeople::IbmNotes::CalendarIntegration
+      when 'google_calendar'
+        GobiertoPeople::GoogleCalendar::CalendarIntegration
+      end
     end
   end
 

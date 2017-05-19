@@ -1,0 +1,7 @@
+---
+ca:
+  gobierto_people:
+    people:
+      google_calendar_authorization:
+        new:
+          success: Configuració guardada correctament. A partir d'ara els teus events públics de Google Calendar apareixeran publicats a la teva agenda.

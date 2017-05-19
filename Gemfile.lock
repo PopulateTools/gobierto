@@ -109,6 +109,8 @@ GEM
       railties (>= 3.1)
     dalli (2.7.6)
     database_cleaner (1.5.3)
+    declarative (0.0.9)
+    declarative-option (0.1.0)
     docile (1.1.5)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
@@ -138,6 +140,21 @@ GEM
       rails (>= 3.1.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    google-api-client (0.11.2)
+      addressable (>= 2.5.1)
+      googleauth (~> 0.5)
+      httpclient (>= 2.8.1, < 3.0)
+      mime-types (>= 3.0)
+      representable (~> 3.0)
+      retriable (>= 2.0, < 4.0)
+    googleauth (0.5.1)
+      faraday (~> 0.9)
+      jwt (~> 1.4)
+      logging (~> 2.0)
+      memoist (~> 0.12)
+      multi_json (~> 1.11)
+      os (~> 0.9)
+      signet (~> 0.7)
     hashdiff (0.3.2)
     highline (1.7.8)
     http-cookie (1.0.3)
@@ -176,6 +193,7 @@ GEM
     json_translate (3.0.1)
       activerecord (>= 4.2.0)
     jsonapi-renderer (0.1.2)
+    jwt (1.5.6)
     kaminari (1.0.1)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.0.1)
@@ -196,6 +214,10 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
+    little-plugger (1.1.4)
+    logging (2.2.2)
+      little-plugger (~> 1.1)
+      multi_json (~> 1.10)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -209,8 +231,10 @@ GEM
       nokogiri (~> 1.6)
       ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (>= 0.0.9, < 0.2)
+    memoist (0.15.0)
     meta-tags (2.4.0)
       actionpack (>= 3.2.0, <= 5.1.0)
+    metaclass (0.0.4)
     method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -239,6 +263,8 @@ GEM
     minitest-retry (0.1.8)
       minitest (>= 5.0)
     minitest-stub_any_instance (1.0.1)
+    mocha (1.2.1)
+      metaclass (~> 0.0.1)
     multi_json (1.12.1)
     multipart-post (2.0.0)
     net-http-digest_auth (1.4.1)
@@ -247,6 +273,7 @@ GEM
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
     ntlm-http (0.1.1)
+    os (0.9.6)
     parser (2.4.0.0)
       ast (~> 2.2)
     pg (0.20.0)
@@ -292,8 +319,13 @@ GEM
     redcarpet (3.4.0)
     redis (3.3.3)
     ref (2.0.0)
+    representable (3.0.4)
+      declarative (< 0.1.0)
+      declarative-option (< 0.2.0)
+      uber (< 0.2.0)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
+    retriable (3.0.2)
     rollbar (2.14.1)
       multi_json
     ruby-prof (0.16.2)
@@ -314,6 +346,11 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.2, >= 3.2.1)
+    signet (0.7.3)
+      addressable (~> 2.3)
+      faraday (~> 0.9)
+      jwt (~> 1.5)
+      multi_json (~> 1.10)
     simple_calendar (2.2.5)
       rails (>= 3.0)
     simplecov (0.14.1)
@@ -349,6 +386,7 @@ GEM
     turbolinks-source (5.0.0)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
+    uber (0.1.0)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
@@ -392,6 +430,7 @@ DEPENDENCIES
   elasticsearch
   elasticsearch-extensions
   flight-for-rails
+  google-api-client
   i18n-active_record
   i18n-js (>= 3.0.0.rc11)
   i18n-tasks
@@ -410,6 +449,7 @@ DEPENDENCIES
   minitest-reporters
   minitest-retry
   minitest-stub_any_instance
+  mocha
   pg (~> 0.19)
   poltergeist
   puma

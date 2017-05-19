@@ -38,6 +38,7 @@ module GobiertoPeople
                                end
 
         person_event_params = {
+          site_id: ibm_notes_event.person.site.id,
           external_id: ibm_notes_event.id,
           person_id: ibm_notes_event.person.id,
           title: ibm_notes_event.title,

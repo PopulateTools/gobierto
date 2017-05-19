@@ -22,6 +22,8 @@ module GobiertoPeople
     belongs_to :political_group
 
     has_many :events, class_name: "PersonEvent", dependent: :destroy
+    has_many :attending_person_events, class_name: "PersonEventAttendee", dependent: :destroy
+    has_many :attending_events, class_name: "PersonEvent", through: :attending_person_events, source: :person_event
     has_many :statements, class_name: "PersonStatement", dependent: :destroy
     has_many :posts, class_name: "PersonPost", dependent: :destroy
 

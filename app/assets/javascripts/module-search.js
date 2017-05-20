@@ -53,21 +53,29 @@ $(document).on('turbolinks:load', function() {
     }
 
     $resultsContainer.html('');
+    var sum = 0;
     content.results.forEach(function(indexResults){
-      indexResults.hits.forEach(function(d){
-        var result = '<div class="result">' +
-					'<h2><a href="'+d.resource_path+'">' + (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) + '</a></h2>' +
-					'<div class="description">' +
-            '<div>' + itemDescription(d) + '</div>' +
-						'<span class="soft item_type">' + itemType(d) + '</span> · ' +
-						'<span class="soft updated_at">' + itemUpdatedAt(d) + '</span>' +
-					'</div>' +
-				'</div>';
-
-        var div = $(result);
-        div.appendTo($resultsContainer);
-      });
+      sum += indexResults.nbHits;
     });
+    if(sum > 0) {
+      content.results.forEach(function(indexResults){
+        indexResults.hits.forEach(function(d){
+          var result = '<div class="result">' +
+            '<h2><a href="'+d.resource_path+'">' + (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) + '</a></h2>' +
+            '<div class="description">' +
+              '<div>' + itemDescription(d) + '</div>' +
+              '<span class="soft item_type">' + itemType(d) + '</span> · ' +
+              '<span class="soft updated_at">' + itemUpdatedAt(d) + '</span>' +
+            '</div>' +
+          '</div>';
+
+          var div = $(result);
+          div.appendTo($resultsContainer);
+        });
+      });
+    } else {
+      $('<div class="result"><p>No hay resultados</p></div>').appendTo($resultsContainer);
+    }
 
     $('<div class="result"><small>'+I18n.t("layouts.search.powered_by")+'</small></div>').appendTo($resultsContainer);
   }
@@ -88,6 +96,8 @@ $(document).on('turbolinks:load', function() {
 
     if(q.length > 2){
       window.searchClient.client.search(queries, searchCallback);
+    } else {
+      $resultsContainer.html('');
     }
   });
 

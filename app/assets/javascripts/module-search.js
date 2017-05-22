@@ -1,5 +1,6 @@
 $(document).on('turbolinks:load', function() {
   var $input = $('input#gobierto_search');
+  var $resultsContainer = $('#search_results');
 
   function truncateOnWord(str, limit) {
     var trimmable = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u2028\u2029\u3000\uFEFF';
@@ -51,23 +52,30 @@ $(document).on('turbolinks:load', function() {
       return;
     }
 
-    var $resultsContainer = $('#search_results');
     $resultsContainer.html('');
+    var sum = 0;
     content.results.forEach(function(indexResults){
-      indexResults.hits.forEach(function(d){
-        var result = '<div class="result">' +
-					'<h2><a href="'+d.resource_path+'">' + (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) + '</a></h2>' +
-					'<div class="description">' +
-            '<div>' + itemDescription(d) + '</div>' +
-						'<span class="soft item_type">' + itemType(d) + '</span> · ' +
-						'<span class="soft updated_at">' + itemUpdatedAt(d) + '</span>' +
-					'</div>' +
-				'</div>';
-
-        var div = $(result);
-        div.appendTo($resultsContainer);
-      });
+      sum += indexResults.nbHits;
     });
+    if(sum > 0) {
+      content.results.forEach(function(indexResults){
+        indexResults.hits.forEach(function(d){
+          var result = '<div class="result">' +
+            '<h2><a href="'+d.resource_path+'">' + (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) + '</a></h2>' +
+            '<div class="description">' +
+              '<div>' + itemDescription(d) + '</div>' +
+              '<span class="soft item_type">' + itemType(d) + '</span> · ' +
+              '<span class="soft updated_at">' + itemUpdatedAt(d) + '</span>' +
+            '</div>' +
+          '</div>';
+
+          var div = $(result);
+          div.appendTo($resultsContainer);
+        });
+      });
+    } else {
+      $('<div class="result"><p>No hay resultados</p></div>').appendTo($resultsContainer);
+    }
 
     $('<div class="result"><small>'+I18n.t("layouts.search.powered_by")+'</small></div>').appendTo($resultsContainer);
   }
@@ -88,6 +96,19 @@ $(document).on('turbolinks:load', function() {
 
     if(q.length > 2){
       window.searchClient.client.search(queries, searchCallback);
+    } else {
+      $resultsContainer.html('');
+    }
+  });
+
+  $input.focusin(function() {
+    $resultsContainer.show();
+  });
+
+  // Hide resultsContainer if clicked outside the search input and results
+  $('body').click(function(e) {
+    if ( !$(e.target).is('#search_results *') && !$(e.target).is('input#gobierto_search') ) {
+      $resultsContainer.hide();
     }
   });
 });

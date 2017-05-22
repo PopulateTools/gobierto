@@ -38,6 +38,8 @@ ca:
         sign_in: Iniciar sessió
         sign_out: Surt
         title: El teu compte
+    mailcheck:
+        suggestion_message: Vols dir
     gobierto_budget_consultations:
       application:
         about_the_data: Sobre les dades

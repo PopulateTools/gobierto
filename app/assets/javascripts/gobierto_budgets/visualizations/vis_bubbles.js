@@ -1,13 +1,13 @@
 'use strict';
 
 var VisBubbles = Class.extend({
-  init: function(divId, budgetCategory) {
+  init: function(divId, budgetCategory, data) {
     this.container = divId;
-    this.data = null;
-    this.url = '/bubble_data.json';
+    this.currentYear = parseInt(d3.select('body').attr('data-year'));
+    this.data = data.filter(function(d) { return d.year === this.currentYear; }.bind(this));;
     this.budget_category = budgetCategory;
     this.forceStrength = 0.045;
-  
+    
     this.margin = {top: 20, right: 10, bottom: 20, left: 10},
     this.width = parseInt(d3.select(this.container).style('width')) - this.margin.left - this.margin.right;
     this.height = 520 - this.margin.top - this.margin.bottom;
@@ -19,20 +19,8 @@ var VisBubbles = Class.extend({
       .append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
   },
-  getData: function() {
-    d3.json(this.url, function(error, jsonData) {
-      if (error) throw error;
-
-      this.data = jsonData;
-      this.updateRender();
-    }.bind(this));
-  },
   render: function() {
-    if (this.data === null) {
-      this.getData();
-    } else {
-      this.updateRender();
-    }
+    this.updateRender();
   },
   updateRender: function(callback) {
     var budgetCategory = this.budget_category;

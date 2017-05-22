@@ -2,6 +2,15 @@
 es:
   gobierto_people:
     people:
-      google_calendar_authorization:
-        new:
-          success: Configuración guardada correctamente. A partir de ahora tus eventos públicos de Google Calendar aparecerán publicados en tu agenda.
+      google_calendar:
+        authorization:
+          new:
+            success: Configuración guardada correctamente. A partir de ahora tus eventos públicos de Google Calendar aparecerán publicados en tu agenda.
+        calendars:
+          edit:
+            title: Integración con Google Calendar
+            save: Guardar
+            explain: Selecciona qué calendarios quieres publicar automáticamente en tu agenda
+          update:
+            success: Calendarios configurados correctamente.
+

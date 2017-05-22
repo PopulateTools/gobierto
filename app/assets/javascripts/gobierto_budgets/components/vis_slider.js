@@ -6,6 +6,7 @@ var VisSlider = Class.extend({
     this.data = data;
     
     var currentYear = parseInt(d3.select('body').attr('data-year'));
+    var slideYear = currentYear;
     var years = _.uniq(this.data.map(function(d) { return d.year; })).filter(function(d) { return d <= currentYear; });
     
     var scale = d3.scaleLinear()
@@ -32,7 +33,9 @@ var VisSlider = Class.extend({
       .attr('class', 'timeline-piece-dot');
     
     lis.append('span')  
-      .attr('class', 'timeline-piece-label')
+      .attr('class', function(d) {
+        return slideYear === d ? 'active timeline-piece-label' : 'timeline-piece-label'
+      })
       .text(function(d) { return d; });
   },
 });

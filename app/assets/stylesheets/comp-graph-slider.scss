@@ -1,27 +1,27 @@
 .timeline {
   position: relative;
   box-sizing: border-box;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   
   .timeline-wrap {
     height: 6px;
     position: relative;
     display: block;
     border-radius: 15px;
-    background-color: #ccc;
+    background-color: $color_secondary;;
   }
   .timeline-dot {
     position: absolute;
     border-radius: 50%;
-    background-color: #fff;
-    box-shadow: 0.5px 0.5px 2px 1px rgba(0, 0, 0, 0.32);
+    background-color: $color_main;
+    // box-shadow: 0.5px 0.5px 2px 1px rgba(0, 0, 0, 0.32);
     transition: all 0s;
     will-change: transform;
     cursor: pointer;
     z-index: 3;
-    width: 16px;
-    height: 16px;
-    top: -5px;
+    width: 20px;
+    height: 20px;
+    top: -8px;
     transition-duration: 0s;
     transform: translateX(-8px);
     left: 100%;
@@ -43,10 +43,10 @@
       top: 0px;
       
       .timeline-piece-dot {
-        background-color: rgb(204, 204, 204);
+        background-color: $color_secondary;
         visibility: visible;
-        width: 12px;
-        height: 12px;
+        width: 20px;
+        height: 20px;
         position: absolute;
         left: 50%;
         top: 50%;
@@ -58,17 +58,24 @@
         transform: translate(-50%, -50%);
         z-index: 2;
         transition: all .3s;
+        border: 1px solid white;
       }
       .timeline-piece-label {
         position: absolute;
         display: inline-block;
-        top: 10px;
+        top: 15px;
         left: 50%;
         white-space: nowrap;
-        font-size: 1rem;
-        color: #333;
+        font-size: 1.25rem;
+        color: $color_separator;
         transform: translateX(-50%);
         visibility: visible;
+        font-weight: 300;
+        
+        &.active {
+          font-weight: 600;
+          color: $color_headers;
+        }
       }
     }
     .timeline-piece:first-child {

@@ -8,6 +8,8 @@ var VisBubbles = Class.extend({
     this.budget_category = budgetCategory;
     this.forceStrength = 0.045;
     
+    console.log(this.data);
+    
     this.margin = {top: 20, right: 10, bottom: 20, left: 10},
     this.width = parseInt(d3.select(this.container).style('width')) - this.margin.left - this.margin.right;
     this.height = 520 - this.margin.top - this.margin.bottom;

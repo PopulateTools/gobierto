@@ -43,6 +43,13 @@ module GobiertoAdmin
 
             assert has_field?('calendar_configuration[ibm_notes_url]', with: 'http://calendar/richard/new')
             refute has_field?('calendar_configuration[ibm_notes_url]', with: 'http://calendar/richard')
+
+            assert_enqueued_with(job: ::GobiertoPeople::ClearImportedPersonEventsJob, args: [person], queue: "default") do
+              fill_in 'calendar_configuration_ibm_notes_url', with: ''
+              click_button 'Update'
+            end
+
+            assert has_field?('calendar_configuration[ibm_notes_url]')
           end
         end
       end
@@ -77,11 +84,17 @@ module GobiertoAdmin
 
             refute has_field?('google_calendar_invitation_url')
             assert has_field?('calendar_configuration[clear_google_calendar_configuration]')
+
+            assert_enqueued_with(job: ::GobiertoPeople::ClearImportedPersonEventsJob, args: [person], queue: "default") do
+              check 'calendar_configuration[clear_google_calendar_configuration]'
+              click_button "Update"
+            end
+
+            assert has_field?('google_calendar_invitation_url')
+            refute has_field?('calendar_configuration[clear_google_calendar_configuration]')
           end
         end
       end
-
-
     end
   end
 end

@@ -12,6 +12,7 @@ module GobiertoPeople
       :starts_at,
       :ends_at,
       :state,
+      :notify,
       :locations,
       :attendees
     )
@@ -21,7 +22,7 @@ module GobiertoPeople
     validates :external_id, presence: true
     validates :title, presence: true
     validates :starts_at, :ends_at, presence: true
-    validates :person, presence: true
+    validates :site, presence: true
 
     trackable_on :person_event
 
@@ -31,20 +32,12 @@ module GobiertoPeople
       save_person_event if valid?
     end
 
-    def site_id
-      @site_id ||= person.site_id
-    end
-
-    def admin
-      @admin ||= Admin.find_by(id: admin_id)
-    end
-
     def site
       @site ||= Site.find_by(id: site_id)
     end
 
     def person_event
-      @person_event ||= person.events.find_by(external_id: external_id).presence || build_person_event
+      @person_event ||= site.person_attendee_events.find_by(external_id: external_id).presence || build_person_event
     end
 
     def person
@@ -52,7 +45,7 @@ module GobiertoPeople
     end
 
     def locations
-      @locations ||= person_event.locations.presence || [build_person_event_location]
+      @locations ||= []
     end
 
     def locations_attributes=(attributes)
@@ -70,6 +63,19 @@ module GobiertoPeople
 
     def attendees
       @attendees ||= person_event.attendees.presence || []
+
+      return @attendees if person.nil?
+
+      if person_event.attendees.any?
+        unless organizer = person_event.attendees.find_by(person_id: person_id)
+          organizer = person_event_attendee_class.new(person_id: person_id)
+        end
+      else
+        organizer = person_event_attendee_class.new(person_id: person_id)
+      end
+      @attendees.push(organizer) unless @attendees.any?{ |a| a.person_id == organizer.person_id }
+
+      @attendees
     end
 
     def attendees=(attendees_attributes)
@@ -79,7 +85,7 @@ module GobiertoPeople
         name  = attendee_attributes[:name]
         email = attendee_attributes[:email]
 
-        attendee_person = site.people.find_by(email: email)
+        attendee_person = attendee_attributes[:person] || site.people.find_by(email: email)
 
         existing_attendee = person_event.attendees.detect do |a|
           (attendee_person.present? && a.person == attendee_person) || a.name == name
@@ -102,13 +108,13 @@ module GobiertoPeople
     end
 
     def notify?
-      person_event.active?
+      notify && person_event.active? && person.present?
     end
 
     private
 
     def build_person_event
-      person_event_class.new
+      site.person_events.new
     end
 
     def build_person_event_location
@@ -117,10 +123,6 @@ module GobiertoPeople
 
     def build_person_event_attendee
       person_event.attendees.build
-    end
-
-    def person_event_class
-      ::GobiertoPeople::PersonEvent
     end
 
     def person_event_location_class
@@ -137,9 +139,9 @@ module GobiertoPeople
 
     def save_person_event
       @person_event = person_event.tap do |person_event_attributes|
-        person_event_attributes.external_id = external_id
-        person_event_attributes.person_id = person_id
         person_event_attributes.site_id = site_id
+        person_event_attributes.external_id = external_id
+        person_event_attributes.person_id ||= person_id
         person_event_attributes.state = state
         person_event_attributes.title = title
         person_event_attributes.description = description
@@ -151,7 +153,11 @@ module GobiertoPeople
 
       if @person_event.valid?
         if @person_event.changes.any?
-          run_callbacks(:save) do
+          if notify?
+            run_callbacks(:save) do
+              @person_event.save
+            end
+          else
             @person_event.save
           end
         end

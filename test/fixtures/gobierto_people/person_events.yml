@@ -32,6 +32,24 @@ richard_published:
   attachment_url: https://bit.ly/67890
   state: <%= GobiertoPeople::PersonEvent.states["published"] %>
 
+richard_published_just_attending:
+  person: nil
+  site: madrid
+  slug: <%= "#{1.month.from_now.strftime('%F')}-invitado-evento" %>
+  external_id: justattending
+  title_translations: <%= {
+    'en' => 'Invited event',
+    'es' => 'Invited event',
+  }.to_json %>
+  description_translations: <%= {
+    'en' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
+    'es' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
+  }.to_json %>
+  starts_at: <%= 1.month.from_now %>
+  ends_at: <%= 1.month.from_now + 1.hour %>
+  attachment_url: https://bit.ly/67890
+  state: <%= GobiertoPeople::PersonEvent.states["published"] %>
+
 richard_published_past:
   person: richard
   site: madrid

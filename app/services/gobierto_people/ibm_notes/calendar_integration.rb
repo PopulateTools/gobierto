@@ -38,6 +38,7 @@ module GobiertoPeople
                                end
 
         person_event_params = {
+          site_id: ibm_notes_event.person.site.id,
           external_id: ibm_notes_event.id,
           person_id: ibm_notes_event.person.id,
           title: ibm_notes_event.title,
@@ -46,7 +47,8 @@ module GobiertoPeople
           ends_at: ibm_notes_event.ends_at,
           state: GobiertoPeople::PersonEvent.states[:published],
           attendees: ibm_notes_event.attendees,
-          locations_attributes: {"0" => locations_attributes }
+          locations_attributes: {"0" => locations_attributes },
+          notify: true
         }
 
         event = GobiertoPeople::PersonEventForm.new(person_event_params)

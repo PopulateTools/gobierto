@@ -28,6 +28,12 @@ module GobiertoPeople
         ActiveSupport::TimeZone['Madrid'].parse(date).utc
       end
 
+      def setup
+        super
+        activate_ibm_notes_calendar_integration(sites(:madrid))
+        set_ibm_notes_calendar_endpoint(richard, 'https://host.wadus.com/mail/foo.nsf/api/calendar/events')
+      end
+
       def create_ibm_notes_event(params = {})
         ::IbmNotes::PersonEvent.new(richard, {
           'id'       => params[:id] || 'Ibm Notes event ID',
@@ -56,6 +62,7 @@ module GobiertoPeople
 
       def ibm_notes_event_gobierto_event
         @ibm_notes_event_gobierto_event ||= GobiertoPeople::PersonEvent.new(
+          site: site,
           external_id: 'Ibm Notes event ID',
           title: 'Ibm Notes event title',
           starts_at: utc_time("2017-04-11 10:00:00"),
@@ -68,6 +75,7 @@ module GobiertoPeople
 
       def outdated_ibm_notes_event_gobierto_event
         @outdated_ibm_notes_event_gobierto_event ||= GobiertoPeople::PersonEvent.new(
+          site: site,
           external_id: 'Ibm Notes outdated event ID',
           title: 'Ibm Notes outdated event title',
           starts_at: utc_time("2017-04-11 10:00:00"),
@@ -79,9 +87,6 @@ module GobiertoPeople
       end
 
       def test_sync_events_v9
-        activate_calendar_integration(sites(:madrid))
-        set_calendar_endpoint(richard, 'https://host.wadus.com/mail/foo.nsf/api/calendar/events')
-
         VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
           CalendarIntegration.sync_person_events(richard)
         end
@@ -103,9 +108,6 @@ module GobiertoPeople
       end
 
       def test_sync_events_updates_event_attributes
-        activate_calendar_integration(sites(:madrid))
-        set_calendar_endpoint(richard, 'https://host.wadus.com/mail/foo.nsf/api/calendar/events')
-
         VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
           CalendarIntegration.sync_person_events(richard)
         end
@@ -139,9 +141,6 @@ module GobiertoPeople
       end
 
       def test_sync_events_removes_deleted_event_attributes
-        activate_calendar_integration(sites(:madrid))
-        set_calendar_endpoint(richard, 'https://host.wadus.com/mail/foo.nsf/api/calendar/events')
-
         VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
           CalendarIntegration.sync_person_events(richard)
         end
@@ -163,9 +162,6 @@ module GobiertoPeople
       # Se piden eventos en el intervalo [1,3], 1 y 3 son recurrentes y son el mismo, el 2 es uno no recurrente
       # De las 9 instancias del evento recurrente, la que tiene recurrenceId=20170407T113000Z (la segunda) da 404
       def test_sync_events_v8
-        activate_calendar_integration(sites(:madrid))
-        set_calendar_endpoint(richard, 'https://host.wadus.com/mail/foo.nsf/api/calendar/events')
-
         VCR.use_cassette('ibm_notes/person_events_collection_v8', decode_compressed_response: true) do
           CalendarIntegration.sync_person_events(richard)
         end
@@ -191,9 +187,6 @@ module GobiertoPeople
 
       # Only v8 will return past events instances, but use v9 cassette for simplicity
       def test_sync_events_marks_unreceived_upcoming_events_as_pending
-        activate_calendar_integration(sites(:madrid))
-        set_calendar_endpoint(richard, 'https://host.wadus.com/mail/foo.nsf/api/calendar/events')
-
         Timecop.freeze(Time.zone.parse('2017-05-03')) do
           VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
             # Returns 3 events, all of them upcoming
@@ -291,9 +284,6 @@ module GobiertoPeople
       end
 
       def test_sync_attendees
-        activate_calendar_integration(sites(:madrid))
-        set_calendar_endpoint(richard, 'https://host.wadus.com/mail/foo.nsf/api/calendar/events')
-
         # Cassette contains one confirmed attendee and two requested participants.
         VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
           CalendarIntegration.sync_person_events(richard)
@@ -302,11 +292,12 @@ module GobiertoPeople
         event = richard.events.find_by(external_id: 'D2E5B40E6AAEAED4C125808E0035A6A0-Lotus_Notes_Generated/20170503T073000Z')
         attendees = event.attendees
 
-        assert_equal 3, attendees.size
+        assert_equal 4, attendees.size
 
         assert_equal 'Josep M. Farreras', attendees.first.name
         assert_equal 'Horatio Nelson', attendees.second.person.name
         assert_equal nelson, attendees.second.person
+        assert_equal richard, attendees.fourth.person
 
         # Check if Nelson accepts afterwards, Josep is not duplicated on second sync
 
@@ -316,9 +307,8 @@ module GobiertoPeople
           CalendarIntegration.sync_person_events(richard)
         end
 
-        assert_equal 3, attendees.reload.size
+        assert_equal 4, attendees.reload.size
       end
-
     end
   end
 end

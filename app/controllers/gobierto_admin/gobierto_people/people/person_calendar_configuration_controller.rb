@@ -6,6 +6,7 @@ module GobiertoAdmin
 
         def edit
           @calendar_configuration_form = PersonCalendarConfigurationForm.new(person_id: @person.id)
+          @google_calendar_configuration = find_google_calendar_configuration
 
           render 'gobierto_admin/gobierto_people/people/person_events/person_calendar_configuration/edit'
         end
@@ -25,9 +26,11 @@ module GobiertoAdmin
         private
 
         def calendar_configuration_params
-          params.require(:calendar_configuration).permit(
-            :ibm_notes_url
-          )
+          params.require(:calendar_configuration).permit(:ibm_notes_url, :clear_google_calendar_configuration)
+        end
+
+        def find_google_calendar_configuration
+          ::GobiertoPeople::PersonGoogleCalendarConfiguration.find_by person_id: @person.id
         end
 
       end

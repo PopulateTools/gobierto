@@ -14,11 +14,11 @@ this.GobiertoAdmin.GobiertoPeopleConfigurationSettingsController = (function() {
 
   function _ibm_settings_fields() {
     $("#calendar-integration-picker select").on('change', function(){
-      if ($(this).val() === "") {
+      if ($(this).val() === "ibm_notes") {
+        $(".ibm_notes_setting").show('slow');
+      } else {
         $(".ibm_notes_setting input").val('');
         $(".ibm_notes_setting").hide('slow');
-      } else {
-        $(".ibm_notes_setting").show('slow');
       }
     });
   }

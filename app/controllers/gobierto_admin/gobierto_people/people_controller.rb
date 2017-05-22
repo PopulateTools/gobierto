@@ -92,7 +92,7 @@ module GobiertoAdmin
 
       def person_params
         params.require(:person).permit(
-          :name, :email, :bio_file, :avatar_file, :visibility_level, :category, :party, :political_group_id,
+          :name, :email, :bio_file, :avatar_file, :visibility_level, :category, :party, :political_group_id, :google_calendar_token,
           charge_translations: [*I18n.available_locales],
           bio_translations: [*I18n.available_locales],
           content_block_records_attributes: [
@@ -105,7 +105,7 @@ module GobiertoAdmin
       end
 
       def ignored_person_attributes
-        %w( created_at updated_at events_count statements_count posts_count position charge bio slug )
+        %w( created_at updated_at events_count statements_count posts_count position charge bio slug google_calendar_token )
       end
     end
   end

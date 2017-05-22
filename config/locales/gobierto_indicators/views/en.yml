@@ -69,7 +69,7 @@ en:
       active_pop:
         title: Active population
         figure_first: of total
-        figure_second: persons
+        figure_second: people
       houses:
         title: Houses
         figure_first: family houses

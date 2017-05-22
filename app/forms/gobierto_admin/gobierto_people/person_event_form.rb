@@ -25,6 +25,7 @@ module GobiertoAdmin
       validates :title_translations, presence: true
       validates :starts_at, :ends_at, presence: true
       validates :person, presence: true
+      validates :site, presence: true
 
       trackable_on :person_event
 
@@ -39,7 +40,7 @@ module GobiertoAdmin
       end
 
       def site_id
-        @site_id ||= person_event.site_id
+        @site_id ||= person.site_id
       end
 
       def admin
@@ -47,7 +48,7 @@ module GobiertoAdmin
       end
 
       def site
-        @site ||= Site.find_by(id: site_id)
+        @site ||= person.try(:site)
       end
 
       def person_event
@@ -99,6 +100,17 @@ module GobiertoAdmin
 
       def attendees
         @attendees ||= person_event.attendees.presence || [build_person_event_attendee]
+
+        if person_event.attendees.any?
+          unless organizer = person_event.attendees.find_by(person_id: person_id)
+            organizer = person_event_attendee_class.new(person_id: person_id)
+          end
+        else
+          organizer = person_event_attendee_class.new(person_id: person_id)
+        end
+        @attendees.push(organizer) unless @attendees.include?(organizer)
+
+        @attendees
       end
 
       def attendees_attributes=(attributes)

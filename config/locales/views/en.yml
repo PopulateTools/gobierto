@@ -36,6 +36,8 @@ en:
         sign_in: Sign in
         sign_out: Sign out
         title: Your account
+    mailcheck:
+        suggestion_message: Did you mean
     gobierto_budget_consultations:
       application:
         about_the_data: About the data

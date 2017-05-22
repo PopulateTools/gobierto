@@ -24,14 +24,19 @@ module GobiertoPeople
         @service.client_options.application_name = person.site.name
         @service.authorization = authorize(person)
       end
-      private_class_method :new
 
       def sync!
         set_google_calendar_id!
 
         service.list_calendar_lists(max_results: 100).items.each do |calendar|
-          sync_calendar_events(calendar)
+          if configuration.calendars.present? && configuration.calendars.include?(calendar.id)
+            sync_calendar_events(calendar)
+          end
         end
+      end
+
+      def calendars
+        @calendars ||= service.list_calendar_lists(max_results: 100).items
       end
 
       private
@@ -40,7 +45,7 @@ module GobiertoPeople
 
       def set_google_calendar_id!
         if @configuration.google_calendar_id.nil?
-          @configuration.google_calendar_id = service.list_calendar_lists(max_results: 100).items.select{ |c| c.primary? }.first.id
+          @configuration.google_calendar_id = calendars.select{ |c| c.primary? }.first.id
           @configuration.save
         end
       end

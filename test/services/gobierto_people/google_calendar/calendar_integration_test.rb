@@ -44,6 +44,11 @@ module GobiertoPeople
         attendee2 = mock()
         attendee2.stubs(self?: false, display_name: 'Wadus person', email: nil)
 
+        # Single event, organized by richard, with two attendees, from calendar that is not selected
+        event7 = mock()
+        event7.stubs(visibility: nil, location: nil, creator: creator_event2, recurrence: nil, id: 'event7',
+                     summary: 'Event 7', start: date1, end: date2, attendees: [attendee1, attendee2])
+
         # Single event, organized by richard, with two attendees
         event2 = mock()
         event2.stubs(visibility: nil, location: nil, creator: creator_event2, recurrence: nil, id: 'event2',
@@ -75,17 +80,23 @@ module GobiertoPeople
         calendar2 = mock()
         calendar2.stubs(id: 2, primary?: false)
 
+        calendar3 = mock()
+        calendar3.stubs(id: 3, primary?: false)
+
         calendar_1_items_response = mock()
         calendar_1_items_response.stubs(:items).returns([event1, event2])
 
         calendar_2_items_response = mock()
         calendar_2_items_response.stubs(:items).returns([event3, event4])
 
+        calendar_3_items_response = mock()
+        calendar_3_items_response.stubs(:items).returns([event7])
+
         event_4_instances_response = mock()
         event_4_instances_response.stubs(:items).returns([event5, event6])
 
         calendar_items_response = mock()
-        calendar_items_response.stubs(:items).returns([calendar1, calendar2])
+        calendar_items_response.stubs(:items).returns([calendar1, calendar2, calendar3])
 
         client_options = mock()
         client_options.stubs(:application_name=).returns(true)
@@ -93,12 +104,14 @@ module GobiertoPeople
         ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:list_calendar_lists).returns(calendar_items_response)
         ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:list_events).with(calendar1.id, instance_of(Hash)).returns(calendar_1_items_response)
         ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:list_events).with(calendar2.id, instance_of(Hash)).returns(calendar_2_items_response)
+        ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:list_events).with(calendar3.id, instance_of(Hash)).returns(calendar_3_items_response)
         ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:list_event_instances).with(calendar2.id, event4.id).returns(event_4_instances_response)
         ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:client_options).returns(client_options)
         ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:authorization=).returns(true)
 
         ## Configure site and person
         activate_google_calendar_calendar_integration(sites(:madrid))
+        configure_google_calendar_integration(richard, { calendars: [calendar1.id, calendar2.id] })
       end
 
       def test_sync_events

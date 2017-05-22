@@ -1,6 +1,6 @@
 require "test_helper"
 
-class GobiertoPeople::People::GoogleCalendarAuthorizationControllerTest < ActionController::TestCase
+class GobiertoPeople::People::GoogleCalendar::AuthorizationControllerTest < ActionController::TestCase
   def site
     @site ||= sites(:madrid)
   end

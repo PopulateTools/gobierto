@@ -6,7 +6,7 @@ var VisBubbles = Class.extend({
     this.data = null;
     this.url = '/bubble_data.json';
     this.budget_category = budgetCategory;
-    this.forceStrength = 0.05;
+    this.forceStrength = 0.045;
   
     this.margin = {top: 20, right: 10, bottom: 20, left: 10},
     this.width = parseInt(d3.select(this.container).style('width')) - this.margin.left - this.margin.right;
@@ -35,12 +35,18 @@ var VisBubbles = Class.extend({
     }
   },
   updateRender: function(callback) {
+    var budgetCategory = this.budget_category;
+    
     var selectionNode = d3.select(this.container)._groups[0][0];
     
     var tooltip = d3.select(this.container)
       .append('div')
       .attr('class', 'tooltip');
-    
+      
+    var budgetColor = d3.scaleOrdinal()
+      .domain(['income', 'expense'])
+      .range(['#d9eef1', '#fab395'])
+      
     var filtered = this.data.filter(function(d) { return d.budget_category === this.budget_category; }.bind(this));
     
     var color = d3.scaleOrdinal()
@@ -103,9 +109,10 @@ var VisBubbles = Class.extend({
     bubbles.append('circle')
       .attr('class', 'bubble')
       .attr('r', function (d) { return d.radius; })
-      .attr('fill', function (d) { return color(d.group); })
-      .attr('stroke', function (d) { return d3.rgb(color(d.group)).darker(); })
+      .attr('fill', budgetColor(this.budget_category))
+      .attr('stroke', d3.rgb(budgetColor(this.budget_category)).darker())
       .attr('stroke-width', 2)
+      .on('mouseenter', colorize)
       .on('mousemove', mousemoved)
       .on('mouseleave', mouseleft);
       
@@ -115,10 +122,20 @@ var VisBubbles = Class.extend({
         return d.radius > 50 ? d3.wordwrap(d.name, 15) : d3.wordwrap('', 15) 
       })
       
+    function colorize(d) {
+      bubbles.selectAll('.bubble')
+        .transition()
+        .duration(300)
+        .attr('fill', function (d) { return color(d.group); })
+        .attr('stroke', function(d) {
+          return d3.rgb(color(d.group)).darker()
+        });
+    }
+    
     function mousemoved(d) {
       var coordinates = d3.mouse(selectionNode);
       var x = coordinates[0], y = coordinates[1];
-
+      
       d3.select(this)
         .attr('stroke', 'black')
         .attr('stroke-width', 2);
@@ -133,9 +150,15 @@ var VisBubbles = Class.extend({
     
     function mouseleft(d) {
       tooltip.style('display', 'none');
+      
+      bubbles.selectAll('.bubble')
+        .transition()
+        .duration(300)
+        .attr('fill', budgetColor(budgetCategory))
+        .attr('stroke', d3.rgb(budgetColor(budgetCategory)).darker())
 
       d3.select(this)
-        .attr('stroke', d3.rgb(color(d.group)).darker() )
+        .attr('stroke', d3.rgb(budgetColor(budgetCategory)).darker())
     }
     
     function ticked() {

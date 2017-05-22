@@ -47,7 +47,8 @@ module GobiertoPeople
           ends_at: ibm_notes_event.ends_at,
           state: GobiertoPeople::PersonEvent.states[:published],
           attendees: ibm_notes_event.attendees,
-          locations_attributes: {"0" => locations_attributes }
+          locations_attributes: {"0" => locations_attributes },
+          notify: true
         }
 
         event = GobiertoPeople::PersonEventForm.new(person_event_params)

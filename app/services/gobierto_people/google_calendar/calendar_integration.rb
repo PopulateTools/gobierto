@@ -51,8 +51,8 @@ module GobiertoPeople
           next if is_private?(event) || (!is_creator?(event) && !is_attendee?(event))
 
           if is_recurring?(event)
-            service.list_event_instances(calendar.id, event.id).items.each do |event|
-              sync_event(event)
+            service.list_event_instances(calendar.id, event.id).items.each_with_index do |event, i|
+              sync_event(event, i)
             end
           else
             sync_event(event)
@@ -88,7 +88,7 @@ module GobiertoPeople
         end
       end
 
-      def sync_event(event)
+      def sync_event(event, i = nil)
         person_event_params = {
           site_id: person.site_id,
           external_id: event.id,
@@ -97,6 +97,7 @@ module GobiertoPeople
           ends_at: event.end.date_time || DateTime.parse(event.end.date),
           state: GobiertoPeople::PersonEvent.states[:published],
           attendees: event_attendees(event),
+          notify: i.nil? || i == 0
         }
         if is_creator?(event)
           person_event_params.merge!(person_id: person.id)

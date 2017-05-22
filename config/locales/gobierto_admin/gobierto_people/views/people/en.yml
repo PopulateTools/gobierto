@@ -32,7 +32,7 @@ en:
             statements: Statements
             status: Status
           new: New person
-          title: Persons
+          title: People
           view_person: View person
           visibility_level:
             active: Published

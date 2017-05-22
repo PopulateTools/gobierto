@@ -118,9 +118,9 @@ Rails.application.routes.draw do
   end
 
   # Gobierto People module
-  namespace :gobierto_people, path: 'cargos-y-agendas' do
+  namespace :gobierto_people, path: '/' do
     constraints GobiertoSiteConstraint.new do
-      get '/' => 'welcome#index', as: :root
+      get 'cargos-y-agendas' => 'welcome#index', as: :root
 
       # Agendas
 

@@ -5,7 +5,7 @@ module GobiertoPeople
         @statements = find_statements
 
         if @statements.any?
-          redirect_to gobierto_people_person_statement_path(@person, @statements.first)
+          redirect_to gobierto_people_person_statement_path(@person.slug, @statements.first.slug)
         end
       end
 

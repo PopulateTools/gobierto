@@ -12,6 +12,7 @@ module GobiertoPeople
       :starts_at,
       :ends_at,
       :state,
+      :notify,
       :locations,
       :attendees
     )
@@ -107,7 +108,7 @@ module GobiertoPeople
     end
 
     def notify?
-      person_event.active?
+      notify && person_event.active? && person.present?
     end
 
     private
@@ -152,7 +153,11 @@ module GobiertoPeople
 
       if @person_event.valid?
         if @person_event.changes.any?
-          run_callbacks(:save) do
+          if notify?
+            run_callbacks(:save) do
+              @person_event.save
+            end
+          else
             @person_event.save
           end
         end

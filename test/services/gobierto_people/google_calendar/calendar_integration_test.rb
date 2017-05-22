@@ -36,7 +36,7 @@ module GobiertoPeople
         creator_event2.stubs(email: google_calendar_id)
 
         creator_event3 = mock()
-        creator_event3.stubs(email: 'foo@google-calendar.com')
+        creator_event3.stubs(email: google_calendar_id)
 
         attendee1 = mock()
         attendee1.stubs(self?: true, display_name: richard.name, email: google_calendar_id)
@@ -102,6 +102,8 @@ module GobiertoPeople
       end
 
       def test_sync_events
+        Publishers::Trackable.expects(:broadcast_event).times(3)
+
         assert_difference 'GobiertoPeople::PersonEvent.count', 4 do
           CalendarIntegration.sync_person_events(richard)
         end

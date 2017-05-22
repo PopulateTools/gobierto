@@ -36,6 +36,7 @@ richard_published_just_attending:
   person: nil
   site: madrid
   slug: <%= "#{1.month.from_now.strftime('%F')}-invitado-evento" %>
+  external_id: justattending
   title_translations: <%= {
     'en' => 'Invited event',
     'es' => 'Invited event',

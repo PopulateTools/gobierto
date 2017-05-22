@@ -27,8 +27,12 @@ module GobiertoAdmin
 
       private
 
+      def person
+        @person ||= ::GobiertoPeople::Person.find_by(id: person_id)
+      end
+
       def site
-        @site ||= ::GobiertoPeople::Person.find_by(id: person_id).site
+        @site ||= person.site
       end
 
       def person_calendar_configuration_class
@@ -50,9 +54,18 @@ module GobiertoAdmin
         end
 
         if @person_calendar_configuration.valid?
-          @person_calendar_configuration.save
 
-          @person_calendar_configuration
+          if clear_google_calendar_configuration || ibm_notes_url.blank?
+            ::GobiertoPeople::ClearImportedPersonEventsJob.perform_later(person)
+
+            @person_calendar_configuration.destroy
+
+            nil
+          else
+            @person_calendar_configuration.save
+
+            @person_calendar_configuration
+          end
         else
           promote_errors(@person_calendar_configuration.errors)
 

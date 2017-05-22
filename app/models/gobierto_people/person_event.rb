@@ -56,7 +56,12 @@ module GobiertoPeople
     end
 
     def parameterize
-      { person_slug: person.slug, slug: slug }
+      person_slug = if person.present?
+        person.slug
+      elsif attendee = attendees.detect{ |a| a.person_id.present? }
+        attendee.person.slug
+      end
+      { person_slug: person_slug, slug: slug }
     end
 
     def past?

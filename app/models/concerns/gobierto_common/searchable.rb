@@ -14,7 +14,7 @@ module GobiertoCommon
       end
 
       def self.trigger_reindex_job(record, remove)
-        GobiertoCommon::AlgoliaReindexJob.perform_later(record, remove)
+        GobiertoCommon::AlgoliaReindexJob.perform_later(record.class.name, record.id, remove)
       end
     end
 

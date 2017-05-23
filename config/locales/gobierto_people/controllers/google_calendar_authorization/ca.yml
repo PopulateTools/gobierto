@@ -5,12 +5,12 @@ ca:
       google_calendar:
         authorization:
           new:
-            success: Configuració guardada correctament. A partir d'ara els teus events públics de Google Calendar apareixeran publicats a la teva agenda.
+            success: Configuració guardada correctament. Una última cosa, tria quins calendirs vols publicar automàticament a la teva agenda
         calendars:
           edit:
             title: Integració amb Google Calendar
             save: Guardar
-            explain: Selecciona quins calendaris vols publicar automàticament a la teva agenda
+            explain: Tria quins calendaris vols publicar automàticament a la teva agenda
           update:
-            success: Calendaris configurats correctament.
+            success: Calendaris guardats correctament.
 

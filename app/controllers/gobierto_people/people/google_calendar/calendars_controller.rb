@@ -4,6 +4,8 @@ module GobiertoPeople
       class CalendarsController < ::GobiertoPeople::People::BaseController
         before_action :check_person_session
 
+        layout "gobierto_people/layouts/application"
+
         def edit
           @calendars = calendar_service.calendars
           @calendars_form = GobiertoPeople::PersonGoogleCalendarCalendarsForm.new(person_id: @person.id)

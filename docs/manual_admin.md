@@ -1,4 +1,4 @@
-Índice: 
+Índice:
 
 * [Introducción](#introducción)
 * [Crear y personalizar un nuevo sitio](#crear-y-personalizar-un-nuevo-sitio)
@@ -205,13 +205,11 @@ En la pantalla de creación/edición de administrador puedes modificar varios ca
 
 ### Altos Cargos y Agendas
 
-El módulo de Altos cargos y Agendas contiene información sobre los cargos de la entidad –llamados **Personas**– y sus **eventos**. Puedes añadir todos los cargos que quieras y vincularlos con sus agendas correspondientes.
-
-Los **eventos** se pueden introducir manualmente o pueden aparecer en este módulo de forma automática si están vinculados mediante _web service_ a la agenda institucional del cargo en cuestión (Outlook, Google Calendar o IBM Notes). En este último caso, el sistema envía siempre una petición de confirmación al correo del cargo en cuestión para que apruebe o deniegue la publicación de un evento.
+El módulo de Altos cargos y Agendas contiene información sobre los cargos de la entidad –llamados **Personas**–, **eventos** de sus agendas, declaraciones de bienes y actividades, obsequios... y su blog.
 
 #### Personas
 
-Las **personas** son todos aquellos cargos de la entidad cuya información quieres visualizar en el site público. Puedes introducir tantas personas como desees y no hace falta que las hagas públicas inmediatamente. En el site público sólo se visualizarán aquellas a las que asignes el estado de **Publicada**.
+Las **personas** son todos aquellos cargos de la entidad cuya información se quiere visualizar en el site público. Puedes introducir tantas personas como desees y no hace falta que las hagas públicas inmediatamente. En el site público sólo se visualizarán aquellas a las que asignes el estado de **Publicada**.
 
 Para acceder al listado de personas selecciona **Altos cargos y Agendas** en el menú lateral. Aparecerá una tabla con todas las personas introducidas en el sistema.
 
@@ -247,24 +245,71 @@ Una vez que hayas creado una persona, edítala seleccionando su nombre en el lis
 
 #### Agenda
 
-Los eventos de cada cargo se pueden introducir **manualmente** o pueden aparecer en este apartado de forma **automática** si están vinculados mediante _web service_ a la agenda institucional del cargo en cuestión (Outlook, Google Calendar o IBM Notes).
+Cada persona tiene su agenda correspondiente en Gobierto. Los **eventos** se pueden introducir manualmente o pueden aparecer en este módulo de forma automática mediante integraciones con sistemas externos como Google Calendar, Outlook/Exchange o IBM Notes.
 
-##### Cómo **vincular una agenda externa (ej: IBM Notes)**
+##### Crear y/o editar los datos de un evento manualmente
 
-1. Desde la pestaña **Agenda** selecciona **Configuración**
-2. Introduce la URL del calendario en la casilla correspondiente y pulsa **Actualizar**
-
-Una vez vinculados, los eventos aparecerán listados en el espacio central de la pestaña **Agenda**. Seleccionando cada uno de los eventos puedes acceder a la información del mismo para cambiar su estado a **Publicado** o editar la información.
-
-Los eventos de las agendas externas vinculadas mediante _web service_ aparecen con el título, fechas y descripción de su fuente original. Si lo deseas, puedes editar manualmente esta información y añadir más contenido (imágenes, archivos adjuntos, lugar, asistentes...). Una vez editado, los cambios realizados en Gobierto permanecerán aunque cambies el evento en la fuente original
-
-Una vez que se haya establecido la vinculación, cada vez que la persona crea un evento en su agenda externa, el sistema envía una petición de confirmación al a su correo para que apruebe o deniegue la publicación de ese evento en la web de forma pública. Nunca se publicará un evento que no haya sido autorizado expresamente desde este sistema de administración.
-
-##### Cómo **crear y editar los datos de un evento manualmente**:
-
+1. Entra en la ficha de una persona, y selecciona la pestaña Agenda.
 1. Selecciona **Nuevo evento** o pincha en el **nombre del evento** en la tabla para editarlo.
 1. Rellena la información del evento. Por defecto, todos los eventos se marcan como **Pendientes** (en la parte superior derecha de la pantalla) para que no se hagan públicos inmediatamente. Si quieres hacerlo público, selecciona **Publicado** y se publicará cuando apruebes los cambios en el paso siguiente.
 1. Dale a **Crear** o **Actualizar** para aprobar todos los cambios.
+
+##### Sincronización de agendas
+
+###### Google Calendar
+
+La integración permite sincronizar Gobierto con la cuenta de Google de la persona cuyo perfil y eventos estaremos mostrando en Gobierto, para que se lean los eventos de uno o varios calendarios de la cuenta de esa persona. Es decir, que la persona puede mantener un calendario privado, y crear otro que sea "Eventos Públicos" y sincronizar solo este calendario.
+
+La integración se ha diseñado para que la persona no tenga que compartir sus credenciales de acceso a su cuenta de Google, y que no sea necesario que la persona tenga un login de Gobierto.
+
+Gobierto tiene en cuenta eventos únicos así como eventos recurrentes.
+
+**Cómo activar la sincronización de eventos**
+
+La forma de enlazar el calendario de Google Calendar de la persona con Gobierto es la siguiente:
+
+- desde la página de Configuración dentro del módulo de Personas se debe seleccionar la opción IBM Notes en el desplegable "Integración de Calendario".
+
+- desde la página de agenda de la persona (a la que accede el administrador de Gobierto), en la opción Configuración, el administrador podrá seleccionar una URL de enlace. Esta URL deberá ser enviada por correo-e a la persona.
+
+- cuando la persona abra la URL, será redirigido a la página de autenticación de Google. En esta página la persona dará permisos a Gobierto para leer la agenda de la persona.
+
+- una vez que se ha dado permiso, la persona podrá seleccionar si quiere sincronizar todos los calendarios de esa cuenta, o solo uno (o varios). Esta selección de calendarios también podrá realizarse después desde la página de Configuración de la Agenda de una persona.
+
+Una vez que se haya realizado esta autorización, Gobierto leerá cada hora los eventos del calendario o calendarios sincronizados.
+
+**Cómo desactivar la sincronización de eventos**
+
+En cualquier momento se puede eliminar la sincronización de eventos. Para hacerlo, desde la página de Configuración de la Agenda de la persona, selecciona la opción **Eliminar configuración de Google Calendar** y pincha en Actualizar.
+
+Al hacerlo, todos los eventos que se hayan importado serán eliminados. Si se desea volver a activar la sincronización, habrá que realizar de nuevo el paso de la autorización de la cuenta.
+
+###### Outlook / Exchange
+
+Viniendo pronto!
+
+###### IBM Notes
+
+La integración permite sincronizar Gobierto con el servicio de trabajo en grupo IBM Notes. Una vez activada la sincronización, aquellos eventos marcados como públicos en el calendario de IBM Notes de la persona aparecerá en Gobierto.
+
+La integración se ha diseñado para que la persona no tenga que compartir sus credenciales de acceso a su cuenta a IBM Notes, y que no sea necesario que la persona tenga un login de Gobierto.
+
+Gobierto tiene en cuenta eventos únicos así como eventos recurrentes.
+
+**Cómo activar la sincronización de eventos**
+
+La forma de enlazar el calendario de IBM Notes de la persona con Gobierto es la siguiente:
+
+- desde la página de Configuración dentro del módulo de Personas se debe seleccionar la opción IBM Notes en el desplegable "Integración de Calendario".
+
+- desde la página de agenda de la persona (a la que accede el administrador de Gobierto), en la opción Configuración, el administrador deberá incluir la URL de calendario de IBM Notes.
+
+Una vez que se ha realizado esta configuración, Gobierto leerá cada hora los eventos del calendario o calendarios sincronizados.
+
+**Cómo desactivar la sincronización de eventos**
+
+En cualquier momento se puede eliminar la sincronización de eventos. Para hacerlo: elimina la URL de calendario en la página de Configuración de la Agenda de la persona. Al hacerlo, todos los eventos que se hayan importado serán eliminados. Si se desea volver a activar la sincronización, habrá que realizar de nuevo el paso de la autorización de la cuenta.
+
 
 #### Declaraciones
 
@@ -315,9 +360,17 @@ Una vez que haya finalizado la consulta, aquí aparecen los resultados y los dat
 
 ##### Consulta
 
+ToDo
+
 ##### Partidas
 
+ToDo
+
 ### Indicadores
+
 Los datos del módulo de Indicadores se cargan y se visualizan automáticamente.
 
+
 ## Preguntas frecuentes
+
+ToDo

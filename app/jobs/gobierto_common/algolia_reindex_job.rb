@@ -1,12 +1,15 @@
 class GobiertoCommon::AlgoliaReindexJob < ActiveJob::Base
   queue_as :algoliasearch
 
-  def perform(record, remove)
+  def perform(klass_name, id, remove)
+    klass = klass_name.constantize
     if remove
-      index = Algolia::Index.new(record.class.search_index_name)
-      index.delete_object(record.id)
+      index = Algolia::Index.new(klass.search_index_name)
+      index.delete_object(id)
     else
-      record.index!
+      if record = klass.find_by(id: id)
+        record.index!
+      end
     end
   end
 end

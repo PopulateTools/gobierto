@@ -105,7 +105,7 @@ GEM
       js_cookie_rails
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
-    d3-rails (4.8.0)
+    d3-rails (4.9.0)
       railties (>= 3.1)
     dalli (2.7.6)
     database_cleaner (1.5.3)

@@ -34,9 +34,11 @@
 
   <div class="pure-u-1 pure-u-md-2-5">
     <div class="admin_tools right">
-      <%= link_to edit_admin_people_person_calendar_configuration_path(@person) do %>
-        <i class="fa fa-cog"></i>
-        <%= t(".configuration") %>
+      <% if current_site.calendar_integration.present? %>
+        <%= link_to edit_admin_people_person_calendar_configuration_path(@person) do %>
+          <i class="fa fa-cog"></i>
+          <%= t(".configuration") %>
+        <% end %>
       <% end %>
       <%= link_to t(".new"), new_admin_people_person_event_path(@person), class: "button", data: { turbolinks: false } %>
     </div>

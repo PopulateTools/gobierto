@@ -7,9 +7,9 @@ module GobiertoPeople
       def index
         if params[:date]
           @filtering_date = Date.parse(params[:date])
-          @events = @person.events.by_date(@filtering_date).sorted.page params[:page]
+          @events = @person.attending_events.by_date(@filtering_date).sorted.page params[:page]
         else
-          @events = @person.events.upcoming.sorted.page params[:page]
+          @events = @person.attending_events.upcoming.sorted.page params[:page]
         end
 
         respond_to do |format|
@@ -25,11 +25,11 @@ module GobiertoPeople
       private
 
       def find_event
-        @person.events.published.find_by!(slug: params[:slug])
+        @person.attending_events.published.find_by!(slug: params[:slug])
       end
 
       def set_calendar_events
-        @calendar_events = @person.events
+        @calendar_events = @person.attending_events
       end
     end
   end

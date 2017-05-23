@@ -3,6 +3,7 @@ module GobiertoCommon
     def initialize(site)
       @site = site
     end
+
     def search_in_indexes
       add_quotes = -> x{"'#{x}'"}
 

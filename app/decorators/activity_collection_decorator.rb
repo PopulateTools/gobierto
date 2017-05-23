@@ -4,6 +4,6 @@ class ActivityCollectionDecorator < BaseDecorator
   def initialize(activities)
     @collection = activities
 
-    @object = @collection.map { |activity| ActivityDecorator.new(activity) }
+    @object = @collection.map { |activity| activity.subject.present? ? ActivityDecorator.new(activity) : nil }.compact
   end
 end

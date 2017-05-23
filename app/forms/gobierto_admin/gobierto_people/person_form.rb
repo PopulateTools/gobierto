@@ -132,6 +132,7 @@ module GobiertoAdmin
           person_attributes.party = party
           person_attributes.political_group_id = political_group_id
           person_attributes.content_block_records = content_block_records
+          person_attributes.google_calendar_token ||= person_class.generate_unique_secure_token
         end
 
         if @person.valid?

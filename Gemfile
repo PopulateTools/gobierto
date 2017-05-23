@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 5.0", ">= 5.0.1"
+gem "rails", "~> 5.0", "< 5.1"
 gem "pg", "~> 0.19"
 gem "redcarpet", require: true
 gem "bcrypt", '~> 3.1.0'
@@ -65,9 +65,14 @@ gem "i18n-active_record", :require => "i18n/active_record"
 # Liquid
 gem "liquid", "~> 4.0"
 
+# Google API
+gem "google-api-client"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"
+  gem "spring"
+  gem "spring-watcher-listen", "~> 2.0.0"
 end
 
 group :test do
@@ -86,10 +91,9 @@ group :test do
   gem "capybara-email"
   gem "vcr"
   gem "timecop"
+  gem "mocha"
 end
 
 group :development do
-  gem "spring"
-  gem "spring-watcher-listen", "~> 2.0.0"
   gem "puma"
 end

@@ -1,0 +1,16 @@
+---
+ca:
+  gobierto_people:
+    people:
+      google_calendar:
+        authorization:
+          new:
+            success: Configuració guardada correctament. Una última cosa, tria quins calendirs vols publicar automàticament a la teva agenda
+        calendars:
+          edit:
+            title: Integració amb Google Calendar
+            save: Guardar
+            explain: Tria quins calendaris vols publicar automàticament a la teva agenda
+          update:
+            success: Calendaris guardats correctament.
+

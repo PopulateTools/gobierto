@@ -62,7 +62,7 @@ module GobiertoAdmin
                 within "#person-event-attendees" do
                   find("a[data-behavior=add_child]").click
 
-                  within ".cloned-dynamic-content-record-wrapper" do
+                  within all(".cloned-dynamic-content-record-wrapper")[0] do
                     select attendee.name, from: "Person"
                     fill_in "Name", with: ""
                     fill_in "Charge", with: ""
@@ -102,9 +102,7 @@ module GobiertoAdmin
                   assert has_selector?(".content-block-record-value", text: "Location Address")
                 end
 
-                within "#person-event-attendees .dynamic-content-record-view" do
-                  assert has_selector?(".content-block-record-value", text: attendee.name)
-                end
+                assert all(".content-block-record-value").any?{ |v| v.text.include?(attendee.name) }
 
                 within ".person-event-state-radio-buttons" do
                   with_hidden_elements do

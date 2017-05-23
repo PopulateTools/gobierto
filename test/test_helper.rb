@@ -17,6 +17,7 @@ require "support/gobierto_site_constraint_helpers"
 require "capybara/email"
 require "minitest/retry"
 require "vcr"
+require "mocha/mini_test"
 
 if ENV["CI"] || ENV["RUN_COVERAGE"]
   require "simplecov"

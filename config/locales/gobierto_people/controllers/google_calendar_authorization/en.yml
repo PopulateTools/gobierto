@@ -1,0 +1,16 @@
+---
+en:
+  gobierto_people:
+    people:
+      google_calendar:
+        authorization:
+          new:
+            success: Configuration stored successfully. One last step, pick which calendas you want to automatically publish in your agenda.
+        calendars:
+          edit:
+            title: Google Calendar integration
+            save: Save
+            explain: Select which calendars you want to automatically publish in your agenda
+          update:
+            success: Calendars saved successfully.
+

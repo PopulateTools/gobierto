@@ -1,3 +1,21 @@
+richard_richard_pending:
+  person_event: richard_pending
+  person: richard
+  name:
+  charge:
+
+richard_richard_published:
+  person_event: richard_published
+  person: richard
+  name:
+  charge:
+
+richard_richard_published_just_attending:
+  person_event: richard_published_just_attending
+  person: richard
+  name:
+  charge:
+
 tamara:
   person_event: richard_published
   person: tamara
@@ -9,3 +27,28 @@ custom:
   person:
   name: John Custom
   charge: President
+
+richard_richard_past:
+  person_event: richard_past
+  person: richard
+  name:
+  charge:
+
+nelson_nelson_tomorrow:
+  person_event: nelson_tomorrow
+  person: nelson
+  name:
+  charge:
+
+nelson_nelson_yesterday:
+  person_event: nelson_yesterday
+  person: nelson
+  name:
+  charge:
+
+tamara_published_past:
+  person_event: tamara_published
+  person: tamara
+  name:
+  charge:
+

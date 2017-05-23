@@ -45,7 +45,8 @@ module GobiertoPeople
     def upcoming_events
       @upcoming_events ||= [
         gobierto_people_person_events(:nelson_tomorrow),
-        gobierto_people_person_events(:richard_published)
+        gobierto_people_person_events(:richard_published),
+        gobierto_people_person_events(:richard_published_just_attending)
       ]
     end
 
@@ -72,13 +73,7 @@ module GobiertoPeople
 
     def test_person_events_index_pagination
       10.times do |i|
-        government_member.events.create!(
-          title: "Event #{i}",
-          site: government_member.site,
-          starts_at: Time.now.tomorrow + i.days,
-          ends_at:   Time.now.tomorrow + i.days + 1.hour,
-          state: GobiertoPeople::PersonEvent.states["published"]
-        )
+        create_event(person: government_member, starts_at: (Time.now.tomorrow + i.days).to_s, title: "Event #{i}")
       end
 
       with_current_site(site) do
@@ -211,6 +206,8 @@ module GobiertoPeople
           assert has_link?("Past events")
 
           upcoming_events.each do |event|
+            next if event.person.nil?
+
             assert has_selector?(".person_event-item", text: event.title)
             assert has_link?(event.title)
           end

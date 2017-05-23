@@ -11,5 +11,8 @@ en:
               placeholders:
                 ibm_notes_url: IBM Notes calendar URL
               update: Update
+              share_link: "Share this link with the person to allow Gobierto to read her public events from Google Calendar:"
+              calendar_configured: Currently this person has the following calendars integrated
+              remove_integration: Remove Google Calendar integration
             navigation:
                 calendar_configuration: Calendar configuration

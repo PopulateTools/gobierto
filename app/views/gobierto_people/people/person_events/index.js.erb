@@ -1,2 +1,5 @@
 $('.see_more').remove();
-$('<%=j render(partial: 'gobierto_people/person_events/person_event', collection: @events)%>').appendTo('#events');
+<% @events.each do |event| %>
+  $('<%=j render(partial: 'gobierto_people/person_events/person_event', locals: {person_event: event, person: event.person}) %>').appendTo('#events');
+<% end %>
+

@@ -12,7 +12,7 @@ es:
                 ibm_notes_url: URL del calendario de IBM Notes
               update: Actualizar
               share_link: "Comparte este enlace con el Alto Cargo para que permita a Gobierto leer sus eventos de Google Calendar:"
-              calendar_configured: Actualmente esta persona tiene configurado Google Calendar.
+              calendar_configured: Actualmente esta persona tiene configurados estos calendarios
               remove_integration: Eliminar configuración de Google Calendar
             navigation:
                 calendar_configuration: Configuración del calendario

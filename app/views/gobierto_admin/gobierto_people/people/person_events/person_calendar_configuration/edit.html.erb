@@ -7,21 +7,40 @@
       <%= render 'gobierto_admin/gobierto_people/people/person_events/person_calendar_configuration/ibm_notes_fields', f: f %>
     <% elsif current_site.calendar_integration == ::GobiertoPeople::GoogleCalendar::CalendarIntegration %>
       <div class="pure-u-1 pure-u-md-16-24">
-        <% if @google_calendar_configuration.nil? || @google_calendar_configuration.google_calendar_credentials.blank? %>
+        <% if @google_calendar_configuration.nil? %>
           <div class="form_item input_text">
             <p><%= t('.share_link') %></p>
             <p><input type="text" name="google_calendar_invitation_url" value="<%= new_gobierto_people_google_calendar_authorization_url(token: @person.google_calendar_token) %>"/></p>
           </div>
         <% else %>
-          <div class="form_item site-check-boxes">
-            <p><%= t('.calendar_configured') %></p>
-            <div class="options compact">
-              <div class="option">
-                <%= f.check_box :clear_google_calendar_configuration %>
-                <%= f.label :clear_google_calendar_configuration do %>
-                  <span></span>
-                  <%= t('.remove_integration') %>
+          <p><%= t('.calendar_configured') %>:</p>
+
+          <div class="form_block ">
+            <div class="form_item site-check-boxes">
+              <div class="options compact">
+                <%= f.collection_check_boxes(:calendars, @calendars, :id, :summary) do |b| %>
+                  <div class="option">
+                    <%= b.check_box %>
+                    <%= b.label do %>
+                      <span></span>
+                      <%= b.text %>
+                    <% end %>
+                  </div>
                 <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form_block ">
+            <div class="form_item site-check-boxes">
+              <div class="options compact">
+                <div class="option">
+                  <%= f.check_box :clear_google_calendar_configuration %>
+                  <%= f.label :clear_google_calendar_configuration do %>
+                    <span></span>
+                    <%= t('.remove_integration') %>
+                  <% end %>
+                </div>
               </div>
             </div>
           </div>

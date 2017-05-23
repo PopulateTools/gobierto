@@ -168,11 +168,12 @@ Rails.application.routes.draw do
             get '/' => 'people/person_messages#new', as: :new
           end
         end
+        resource :google_calendar_calendars, only: [:edit, :update], controller: "people/google_calendar/calendars", as: :google_calendar_calendars
       end
     end
 
     # Google calendar integration hook
-    resource :google_calendar_authorization, only: [:new], controller: "people/google_calendar_authorization", as: :google_calendar_authorization
+    resource :google_calendar_authorization, only: [:new], controller: "people/google_calendar/authorization", as: :google_calendar_authorization
   end
 
   # Gobierto Budgets module

@@ -80,18 +80,20 @@ var VisBubbles = Class.extend({
     
     this.bubbles.exit()
       .transition()
+      .duration(1000)
       .attr('r', '0')
       .remove();
 
     this.bubbles.selectAll('circle')
       .attr('r', function (d) { return d.radius; })
+      .attr('class', function(d) { return d.year + ' bubble'})
       .merge(this.bubbles)
       // .on('mouseenter', colorize.bind(this))
       .on('mousemove', this._mousemoved.bind(this))
       .on('mouseleave', this._mouseleft.bind(this));
       
-    this.simulation.nodes(this.nodes);
-    this.simulation.alpha(1).restart();
+    this.simulation.nodes(this.nodes)
+    this.simulation.alpha(1).restart().stop();
   },
   updateRender: function(callback) {
     var budgetCategory = this.budget_category;
@@ -135,7 +137,7 @@ var VisBubbles = Class.extend({
       .attr('class', 'bubble-g')
       
     this.bubbles.append('circle')
-      .attr('class', function(d) { return d.name + ' bubble'})
+      .attr('class', function(d) { return d.year + ' bubble'})
       .attr('r', function (d) { return d.radius; })
       .attr('fill', this.budgetColor(this.budget_category))
       .attr('stroke', d3.rgb(this.budgetColor(this.budget_category)).darker())

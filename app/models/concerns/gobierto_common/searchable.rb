@@ -10,7 +10,11 @@ module GobiertoCommon
       end
 
       def self.algoliasearch_gobierto(&block)
-        algoliasearch(enqueue: true, disable_indexing: Rails.env.test?, index_name: search_index_name, if: :active?, sanitize: true, &block)
+        algoliasearch(enqueue: :trigger_reindex_job, disable_indexing: Rails.env.test?, index_name: search_index_name, if: :active?, sanitize: true, &block)
+      end
+
+      def self.trigger_reindex_job(record, remove)
+        GobiertoCommon::AlgoliaReindexJob.perform_later(record.class.name, record.id, remove)
       end
     end
 

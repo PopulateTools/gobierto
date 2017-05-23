@@ -28,6 +28,12 @@ $(document).on('turbolinks:load', function() {
 
       var visBubblesIncome = new VisBubbles('.vis-bubbles-income', 'income', window.budgetLevels);
       visBubblesIncome.render();
+      
+      $(document).on('visSlider:yearChanged', function(e, year) {
+        visBubblesIncome.update(year);
+        visBubblesExpense.update(year);
+      });
+      
     });
     // sliderBubbles.update([visBubblesExpense, visBubblesIncome]);
   }

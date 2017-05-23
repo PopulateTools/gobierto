@@ -85,9 +85,12 @@ var VisBubbles = Class.extend({
 
     this.bubbles.selectAll('circle')
       .attr('r', function (d) { return d.radius; })
-      .merge(this.bubbles);
+      .merge(this.bubbles)
+      // .on('mouseenter', colorize.bind(this))
+      .on('mousemove', this._mousemoved.bind(this))
+      .on('mouseleave', this._mouseleft.bind(this));
       
-    this.simulation.nodes(this.bubbles);
+    this.simulation.nodes(this.nodes);
     this.simulation.alpha(1).restart();
   },
   updateRender: function(callback) {
@@ -137,7 +140,7 @@ var VisBubbles = Class.extend({
       .attr('fill', this.budgetColor(this.budget_category))
       .attr('stroke', d3.rgb(this.budgetColor(this.budget_category)).darker())
       .attr('stroke-width', 2)
-      .on('mouseenter', colorize.bind(this))
+      // .on('mouseenter', colorize.bind(this))
       .on('mousemove', this._mousemoved.bind(this))
       .on('mouseleave', this._mouseleft.bind(this));
       

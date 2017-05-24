@@ -33,9 +33,7 @@ $(document).on('turbolinks:load', function() {
         visBubblesIncome.update(year);
         visBubblesExpense.update(year);
       });
-      
     });
-    // sliderBubbles.update([visBubblesExpense, visBubblesIncome]);
   }
 
   var $autocomplete = $('[data-autocomplete]');

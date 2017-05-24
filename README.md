@@ -14,6 +14,7 @@ Gobierto es una plataforma de gobierno abierto de código libre. Ofrece herramie
 * [Quiénes somos](#quiénes-somos)
 * [Comienza a usarlo](#comienza-a-usarlo)
 * [Síguenos](#síguenos)
+* [Manuales](#manuales)
 * [Instalación, desarrollo y contribuciones](#instalación-desarrollo-y-contribuciones)
 * [Licencia](#licencia)
 
@@ -81,6 +82,9 @@ Gobierto es un producto de Populate, un estudio de diseño y tecnología en torn
 - Web + Blog: [populate.tools/gobierto](http://populate.tools/gobierto)
 - Suscríbete: Puedes suscribirte a la [newsletter de Populate](http://populate.tools/newsletter) donde vamos contando casos de uso de Gobierto y las novedades más relevantes.
 
+### Manuales
+
+- [Manual del Administrador](docs/manual_admin.md)
 
 ## Instalación, Desarrollo y contribuciones
 
@@ -92,6 +96,7 @@ Toda la documentación y comunicación relativa al desarrollo la realizamos en i
 - [Variables de entorno](docs/environment-variables.md)
 - [Acceder como Administrador](docs/admin-namespace.md)
 - [Acceder como Usuario](docs/user-namespace.md)
+
 
 ### Desarrollo
 

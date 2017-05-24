@@ -13,16 +13,16 @@ var VisSlider = Class.extend({
     
     var bisectDate = d3.bisector(function(d) { return d; }).left
     
-    var margin = {right: 20, left: 10},
-      width = parseInt(d3.select(this.container).style('width')) - margin.left - margin.right,
-      height = 50;
+    var margin = {right: 20, left: 10};
+    var width = parseInt(d3.select(this.container).style('width')) - margin.left - margin.right;
+    var height = 65;
     
     var svg = d3.select(this.container).append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height)
       .append('g')
         .attr('transform', 'translate(' + margin.left + ',' + 0 + ')');
-    
+
     // scalePoint derives from the ordinal scale, but allows a continuous range
     var x = d3.scalePoint()
       .domain(years)
@@ -39,21 +39,21 @@ var VisSlider = Class.extend({
       }
     })()
     
-    var slider = svg.append("g")
-      .attr("class", "slider")
-      .attr("transform", "translate(" + margin.left + "," + height / 2 + ")");
+    var slider = svg.append('g')
+      .attr('class', 'slider')
+      .attr('transform', 'translate(' + margin.left + ',' + height / 2 + ')');
     
-    slider.append("line")
-      .attr("class", "track")
-      .attr("x1", x.range()[0])
-      .attr("x2", x.range()[1])
+    slider.append('line')
+      .attr('class', 'track')
+      .attr('x1', x.range()[0])
+      .attr('x2', x.range()[1])
       .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-      .attr("class", "track-inset")
+      .attr('class', 'track-inset')
       .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-      .attr("class", "track-overlay")
+      .attr('class', 'track-overlay')
       .call(d3.drag()
-        .on("start.interrupt", function() { slider.interrupt(); })
-        .on("start drag", function() {
+        .on('start.interrupt', function() { slider.interrupt(); })
+        .on('start drag', function() {
           dragged(x.invert(d3.mouse(this)[0]))
         })
         // .on('end', function() {
@@ -62,47 +62,57 @@ var VisSlider = Class.extend({
         // })
       )
       
-    //   
-    // slider.insert("g", ".track-overlay")
-    //   .attr("class", "year-circles")
-    //   .attr("transform", "translate(0," + 0 + ")")
-    //   .selectAll("circle")
-    //   .data(years)
-    //   .enter()
-    //   .append("circle")
-    //   .attr('cx', function(d) { return x(d)})
-    
-    slider.insert("g", ".track-overlay")
-      .attr("class", "ticks")
-      .attr("transform", "translate(0," + 18 + ")")
-      .selectAll("text")
+    slider.append('g')
+      .attr('class', 'year-circles')
+      .attr('transform', 'translate(0,' + 0 + ')')
+      .selectAll('circle')
       .data(years)
       .enter()
-      .append("text")
-      .attr("x", function(d) { return x(d) })
-      .attr("text-anchor", "middle")
-      .text(function(d) { return d });
+      .append('circle')
+      .attr('cx', function(d) { return x(d)})
+      .attr('r', 9);
     
-    var handle = slider.append('circle')
-      .attr("class", "handle")
-      .attr('cx', x(currentYear))
-      .attr("r", 9)
-      .call(d3.drag()
-        .on("start.interrupt", function() { slider.interrupt(); })
-        .on("start drag", function() {
-          dragged(x.invert(d3.mouse(this)[0]))
-        })
-        .on('end', function() {
-          var year = x.invert(d3.mouse(this)[0]);
-          $(document).trigger('visSlider:yearChanged', year);
-        })
-      );
+    slider.append('g')
+      .attr('class', 'ticks')
+      .attr('transform', 'translate(0,' + 30 + ')')
+      .selectAll('text')
+      .data(years)
+      .enter()
+      .append('text')
+      .attr('x', function(d) { return x(d) })
+      .text(function(d) { return d })
+      .classed('active', function(d) { return d == currentYear; });
+      .attr('text-anchor', function(d, i) {
+        if (d == currentYear) {
+          return 'end'
+        } else if (d === 2010) {
+          return 'start'
+        } else {
+          return 'middle'
+        }
+      });
 
-    
-    function dragged(year) {
-      handle.attr("cx", x(year));
+    var handle = slider.append('circle')
+      .attr('class', 'handle')
+      .attr('cx', x(currentYear))
+      .attr('r', 9)
+      .call(d3.drag()
+        .on('start.interrupt', function() { slider.interrupt(); })
+        .on('start drag', dragged)
+        .on('end', endDrag));
+
+    function dragged() {
+      var year = x.invert(d3.mouse(this)[0]);
+      handle.attr('cx', x(year));
+      
+      slider.select('.ticks')
+        .selectAll('text')
+        .classed('active', function(d) { return d === year; });
     }
     
-    
+    function endDrag() {
+      var year = x.invert(d3.mouse(this)[0]);
+      $(document).trigger('visSlider:yearChanged', year);
+    }
   },
 });

@@ -2,6 +2,10 @@
 
 * Fernando Blat [github](https://github.com/ferblape) | [twitter](https://twitter.com/ferblape)
 * Álvaro Ortiz [github](https://github.com/furilo) | [twitter](https://twitter.com/furilo)
+* Amaia Castro [github](https://github.com/amaia) | [twitter](https://twitter.com/amaiac)
+* Rafael de las Cuevas Sáez [github](https://github.com/rafadelascuevas) | [twitter](https://twitter.com/rafadelascuevas)
+* Martín González [github](https://github.com/martgnz) | [twitter](https://twitter.com/martgnz)
+* Alberto Miedes Garcés [github](https://github.com/amiedes) | [twitter](https://twitter.com/amiedes94)
 
 ## Código de conducta
 

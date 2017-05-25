@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class SiteForm
     include ActiveModel::Model
@@ -41,9 +43,9 @@ module GobiertoAdmin
     delegate :persisted?, to: :site
 
     validates :google_analytics_id,
-      format: { with: GOOGLE_ANALYTICS_ID_REGEXP },
-      allow_nil: true,
-      allow_blank: true
+              format: { with: GOOGLE_ANALYTICS_ID_REGEXP },
+              allow_nil: true,
+              allow_blank: true
 
     validates :username, :password, presence: true, if: :draft_visibility?
     validates :title_translations, presence: true
@@ -96,7 +98,7 @@ module GobiertoAdmin
     end
 
     def visibility_level
-      @visibility_level ||= "draft"
+      @visibility_level ||= 'draft'
     end
 
     def privacy_page_id
@@ -105,7 +107,7 @@ module GobiertoAdmin
 
     def logo_url
       @logo_url ||= begin
-        return site.configuration.logo unless logo_file.present?
+        return site.configuration.logo if logo_file.blank?
 
         FileUploadService.new(
           site: site,
@@ -146,7 +148,7 @@ module GobiertoAdmin
         site_attributes.configuration.password_protection_username = username
         site_attributes.configuration.password_protection_password = password
         site_attributes.configuration.default_locale = default_locale
-        site_attributes.configuration.available_locales = (available_locales.select{ |l| l.present? } + [default_locale]).uniq
+        site_attributes.configuration.available_locales = (available_locales.select(&:present?) + [default_locale]).uniq
         site_attributes.configuration.privacy_page_id = privacy_page_id
       end
 
@@ -160,7 +162,7 @@ module GobiertoAdmin
     end
 
     def draft_visibility?
-      visibility_level == "draft"
+      visibility_level == 'draft'
     end
 
     protected

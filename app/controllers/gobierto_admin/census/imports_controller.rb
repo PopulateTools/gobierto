@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class Census::ImportsController < BaseController
     def new
@@ -17,12 +19,12 @@ module GobiertoAdmin
         track_create_activity
         redirect_to(
           new_admin_census_imports_path,
-          notice: t(".success", record_count: @census_import_form.record_count)
+          notice: t('.success', record_count: @census_import_form.record_count)
         )
       else
         @latest_import = CensusImport.latest_by_site(current_site)
 
-        flash.now[:alert] = t(".error")
+        flash.now[:alert] = t('.error')
         render :new
       end
     end
@@ -34,7 +36,7 @@ module GobiertoAdmin
     end
 
     def track_create_activity
-      Publishers::CensusActivity.broadcast_event("census_imported", default_activity_params.merge({subject: @census_import_form.census_import}))
+      Publishers::CensusActivity.broadcast_event('census_imported', default_activity_params.merge(subject: @census_import_form.census_import))
     end
 
     def default_activity_params

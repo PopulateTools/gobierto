@@ -1,11 +1,13 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoPeople
   class PersonGoogleCalendarCalendarsFormTest < ActiveSupport::TestCase
     def valid_form
       @valid_form ||= GobiertoPeople::PersonGoogleCalendarCalendarsForm.new(
         person_id: person.id,
-        calendars: ['foo', 'bar']
+        calendars: %w[foo bar]
       )
     end
 
@@ -21,7 +23,7 @@ module GobiertoPeople
       assert valid_form.save
 
       configuration = ::GobiertoPeople::PersonGoogleCalendarConfiguration.find_by(person_id: person.id)
-      assert_equal ['foo', 'bar'], configuration.calendars
+      assert_equal %w[foo bar], configuration.calendars
     end
 
     def test_update_with_valid_attributes
@@ -32,8 +34,7 @@ module GobiertoPeople
       assert valid_form.save
 
       configuration = ::GobiertoPeople::PersonGoogleCalendarConfiguration.find_by(person_id: person.id)
-      assert_equal ['foo', 'bar'], configuration.calendars
+      assert_equal %w[foo bar], configuration.calendars
     end
-
   end
 end

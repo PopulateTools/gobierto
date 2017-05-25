@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoPeople
@@ -6,7 +8,7 @@ module GobiertoAdmin
       def valid_person_statement_form
         @valid_person_statement_form ||= PersonStatementForm.new(
           person_id: person.id,
-          title_translations: {I18n.locale => person_statement.title},
+          title_translations: { I18n.locale => person_statement.title },
           published_on: person_statement.published_on,
           attachment_url: person_statement.attachment_url,
           attachment_size: person_statement.attachment_size,
@@ -44,7 +46,7 @@ module GobiertoAdmin
 
       def test_published_on
         assert_equal(
-          person_statement.published_on.strftime("%Y-%m-%d"),
+          person_statement.published_on.strftime('%Y-%m-%d'),
           valid_person_statement_form.published_on
         )
       end

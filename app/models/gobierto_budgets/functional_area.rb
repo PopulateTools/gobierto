@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   class FunctionalArea
     include Describable
@@ -17,7 +19,7 @@ module GobiertoBudgets
               filter: {
                 bool: {
                   must: [
-                    {term: { area: 'functional' }},
+                    { term: { area: 'functional' } }
                   ]
                 }
               }

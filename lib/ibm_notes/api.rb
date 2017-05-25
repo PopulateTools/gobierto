@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mechanize'
 
 module IbmNotes
@@ -5,7 +7,6 @@ module IbmNotes
   class ServiceUnavailable < StandardError; end
 
   class Api
-
     def self.get_person_events(params)
       make_request params
     end
@@ -15,7 +16,7 @@ module IbmNotes
     end
 
     def self.get_recurrent_event_instances(params)
-      params[:endpoint] += "/instances"
+      params[:endpoint] += '/instances'
       make_request params
     end
 
@@ -35,7 +36,7 @@ module IbmNotes
           raise IbmNotes::InvalidCredentials
         end
       rescue JSON::ParserError
-        if response_page.body == ""
+        if response_page.body == ''
           []
         else
           raise JSON::ParserError
@@ -48,7 +49,7 @@ module IbmNotes
 
     def self.get_response_page(params)
       signin_page = agent.get params[:endpoint]
-      signin_page.form_with(action: "/names.nsf?Login") do |form|
+      signin_page.form_with(action: '/names.nsf?Login') do |form|
         form.Username = params[:username]
         form.Password = params[:password]
       end.submit
@@ -60,6 +61,5 @@ module IbmNotes
       agent.agent.http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       agent
     end
-
   end
 end

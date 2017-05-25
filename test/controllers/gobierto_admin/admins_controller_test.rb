@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class AdminsControllerTest < GobiertoControllerTest
@@ -28,8 +30,8 @@ module GobiertoAdmin
         admin: {
           name: admin.name,
           email: admin.email,
-          password: "wadus",
-          site_modules: ["GobiertoBudgetConsultations", "GobiertoPeople"]
+          password: 'wadus',
+          site_modules: %w[GobiertoBudgetConsultations GobiertoPeople]
         }
       }
     end
@@ -37,11 +39,11 @@ module GobiertoAdmin
     def valid_created_admin_params
       {
         admin: {
-          name: "New admin name",
-          email: "newadmin@example.com",
-          password: "wadus",
-          password_confirmation: "wadus",
-          site_modules: ["GobiertoBudgetConsultations", "GobiertoPeople"]
+          name: 'New admin name',
+          email: 'newadmin@example.com',
+          password: 'wadus',
+          password_confirmation: 'wadus',
+          site_modules: %w[GobiertoBudgetConsultations GobiertoPeople]
         }
       }
     end
@@ -52,7 +54,7 @@ module GobiertoAdmin
 
       assert notification_service_spy.has_been_called?
       event_name, event_payload = first_call_arguments
-      assert_equal "admin_created", event_name
+      assert_equal 'admin_created', event_name
       assert_includes event_payload, :ip
       assert_equal event_payload[:author], admin
       assert_equal event_payload[:subject], GobiertoAdmin::Admin.last
@@ -75,7 +77,7 @@ module GobiertoAdmin
 
       assert notification_service_spy.has_been_called?
       event_name, event_payload = first_call_arguments
-      assert_equal "admin_updated", event_name
+      assert_equal 'admin_updated', event_name
       assert_includes event_payload, :ip
       assert_equal event_payload[:author], admin
       assert_equal event_payload[:subject], admin

@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class UserListTest < ActionDispatch::IntegrationTest
@@ -28,7 +30,7 @@ module GobiertoAdmin
         with_selected_site(site) do
           visit @path
 
-          within "table.user-list tbody" do
+          within 'table.user-list tbody' do
             users_in_site.each do |user|
               assert has_selector?("tr#user-item-#{user.id}")
             end

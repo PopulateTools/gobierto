@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Activity < ApplicationRecord
   paginates_per 50
 
@@ -23,5 +25,4 @@ class Activity < ApplicationRecord
   def self.admin_activities(admin)
     where(author_type: admin.class.name, author_id: admin.id).sorted.includes(:subject, :author, :recipient)
   end
-
 end

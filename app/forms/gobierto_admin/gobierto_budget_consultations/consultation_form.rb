@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoBudgetConsultations
     class ConsultationForm
       include ActiveModel::Model
       prepend ::GobiertoCommon::Trackable
 
-      OPENING_DATE_RANGE_SEPARATOR = " - ".freeze
+      OPENING_DATE_RANGE_SEPARATOR = ' - '
 
       attr_accessor(
         :id,
@@ -55,7 +57,7 @@ module GobiertoAdmin
       end
 
       def visibility_level
-        @visibility_level ||= "draft"
+        @visibility_level ||= 'draft'
       end
 
       def opening_date_range

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   class PersonGoogleCalendarConfiguration < PersonCalendarConfiguration
     def google_calendar_credentials

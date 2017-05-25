@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   class CustomUserFieldRecord < ApplicationRecord
     belongs_to :user
@@ -23,14 +25,12 @@ module GobiertoCommon
 
     def raw_value
       @raw_value ||= if custom_user_field && payload.present?
-        payload[custom_user_field.name]
+                       payload[custom_user_field.name]
       end
     end
 
     def value=(v)
-      if custom_user_field
-        self.payload = {custom_user_field.name => v}
-      end
+      self.payload = { custom_user_field.name => v } if custom_user_field
     end
   end
 end

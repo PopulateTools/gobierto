@@ -1,4 +1,6 @@
-require_dependency "gobierto_people"
+# frozen_string_literal: true
+
+require_dependency 'gobierto_people'
 
 module GobiertoPeople
   class PersonMessage
@@ -10,12 +12,10 @@ module GobiertoPeople
     validates :email, format: { with: User::EMAIL_ADDRESS_REGEXP }
 
     def deliver!
-      PersonMailer.new_message({
-        person_id: person.id,
-        reply_to: email,
-        name: name,
-        body: body,
-      }).deliver_later
+      PersonMailer.new_message(person_id: person.id,
+                               reply_to: email,
+                               name: name,
+                               body: body).deliver_later
     end
   end
 end

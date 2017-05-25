@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class GobiertoBudgets::ExecutionPpageTest < ActionDispatch::IntegrationTest
   def setup
@@ -18,8 +20,8 @@ class GobiertoBudgets::ExecutionPpageTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @path
 
-      assert_equal all("table.execution_vs_budget_table").length, 4
-      all("table.execution_vs_budget_table").all? { |table| table.has_css?("tbody tr") }
+      assert_equal all('table.execution_vs_budget_table').length, 4
+      all('table.execution_vs_budget_table').all? { |table| table.has_css?('tbody tr') }
     end
   end
 end

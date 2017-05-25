@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class ActivitiesTest < ActionDispatch::IntegrationTest
@@ -15,10 +17,10 @@ module GobiertoAdmin
       with_signed_in_admin(admin) do
         visit @path
 
-        assert has_content?("Site updated")
-        assert has_content?("Ayuntamiento de Madrid")
-        assert has_content?("Tony Stark")
-        assert has_content?("1.2.3.4")
+        assert has_content?('Site updated')
+        assert has_content?('Ayuntamiento de Madrid')
+        assert has_content?('Tony Stark')
+        assert has_content?('1.2.3.4')
       end
     end
   end

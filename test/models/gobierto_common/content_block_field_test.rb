@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoCommon
   class ContentBlockFieldTest < ActiveSupport::TestCase
@@ -11,12 +13,12 @@ module GobiertoCommon
     end
 
     def test_label
-      assert_equal "Service", content_block_field.label["en"]
-      assert_equal "Servicio", content_block_field.label["es"]
+      assert_equal 'Service', content_block_field.label['en']
+      assert_equal 'Servicio', content_block_field.label['es']
     end
 
     def test_localized_label
-      assert_equal "Service", content_block_field.localized_label
+      assert_equal 'Service', content_block_field.localized_label
     end
   end
 end

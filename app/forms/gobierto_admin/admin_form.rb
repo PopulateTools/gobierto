@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class AdminForm
     include ActiveModel::Model
@@ -40,14 +42,14 @@ module GobiertoAdmin
     end
 
     def authorization_level
-      @authorization_level ||= "regular"
+      @authorization_level ||= 'regular'
     end
 
     def site_modules
       return [] unless persisted?
 
       @site_modules ||= begin
-        admin.permissions.by_namespace("site_module").resource_names.map(&:camelize)
+        admin.permissions.by_namespace('site_module').resource_names.map(&:camelize)
       end
     end
 
@@ -75,10 +77,10 @@ module GobiertoAdmin
 
     def build_permissions
       site_modules.map do |site_module|
-        next unless site_module.present?
+        next if site_module.blank?
 
         admin.send("#{site_module.underscore}_permissions").new(
-          action_name: "manage"
+          action_name: 'manage'
         )
       end.compact
     end

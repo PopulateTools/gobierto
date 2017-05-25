@@ -1,5 +1,7 @@
-require "test_helper"
-require "support/file_uploader_helpers"
+# frozen_string_literal: true
+
+require 'test_helper'
+require 'support/file_uploader_helpers'
 
 module GobiertoAdmin
   class FileAttachmentFormTest < ActiveSupport::TestCase
@@ -8,10 +10,10 @@ module GobiertoAdmin
     def valid_file_attachment_form
       @valid_file_attachment_form ||= FileAttachmentForm.new(
         file: Rack::Test::UploadedFile.new(
-          Rails.root.join("test/fixtures/files/sites/logo-madrid.png")
+          Rails.root.join('test/fixtures/files/sites/logo-madrid.png')
         ),
         site: site,
-        collection: "wadus"
+        collection: 'wadus'
       )
     end
 
@@ -42,7 +44,7 @@ module GobiertoAdmin
         valid_file_attachment_form.save
 
         assert_equal(
-          "http://www.madrid.es/assets/images/logo-madrid.png",
+          'http://www.madrid.es/assets/images/logo-madrid.png',
           valid_file_attachment_form.file_url
         )
       end

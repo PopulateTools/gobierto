@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class AdminFormTest < ActiveSupport::TestCase
@@ -6,8 +8,8 @@ module GobiertoAdmin
       @valid_admin_form ||= AdminForm.new(
         name: admin.name,
         email: new_admin_email, # To ensure uniqueness
-        password: "gobierto",
-        password_confirmation: "gobierto"
+        password: 'gobierto',
+        password_confirmation: 'gobierto'
       )
     end
 
@@ -25,7 +27,7 @@ module GobiertoAdmin
     end
 
     def new_admin_email
-      "wadus@gobierto.dev"
+      'wadus@gobierto.dev'
     end
 
     def test_save_with_valid_attributes
@@ -33,7 +35,7 @@ module GobiertoAdmin
     end
 
     def test_error_messages_with_valid_attributes_and_not_matching_passwords
-      valid_admin_form.password_confirmation = "wadus"
+      valid_admin_form.password_confirmation = 'wadus'
 
       valid_admin_form.save
 
@@ -55,7 +57,7 @@ module GobiertoAdmin
     end
 
     def test_confirmation_email_delivery_for_new_record
-      assert_difference "ActionMailer::Base.deliveries.size", 1 do
+      assert_difference 'ActionMailer::Base.deliveries.size', 1 do
         valid_admin_form.save
       end
     end
@@ -63,7 +65,7 @@ module GobiertoAdmin
     def test_confirmation_email_delivery_for_existing_record
       admin_edit_form = AdminForm.new(id: admin.id)
 
-      assert_no_difference "ActionMailer::Base.deliveries.size" do
+      assert_no_difference 'ActionMailer::Base.deliveries.size' do
         admin_edit_form.save
       end
     end

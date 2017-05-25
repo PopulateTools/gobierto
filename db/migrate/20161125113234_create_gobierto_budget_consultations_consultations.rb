@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class CreateGobiertoBudgetConsultationsConsultations < ActiveRecord::Migration[5.0]
   def change
     create_table :gbc_consultations do |t|
-      t.string :title, null: false, default: ""
-      t.text :description, null: false, default: ""
+      t.string :title, null: false, default: ''
+      t.text :description, null: false, default: ''
       t.date :opens_on
       t.date :closes_on
       t.integer :visibility_level, null: false, default: 0

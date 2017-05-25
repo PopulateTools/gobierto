@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Subscribers
   class Base
     attr_reader :namespace

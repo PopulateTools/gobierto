@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ActivityDecorator < BaseDecorator
   def initialize(activity)
     @object = activity
@@ -32,7 +34,7 @@ class ActivityDecorator < BaseDecorator
       if object.send("#{relation_name}_type").present?
         "(deleted) #{object.send("#{relation_name}_type")} - #{object.send("#{relation_name}_id")}"
       else
-        "-"
+        '-'
       end
     end
   end

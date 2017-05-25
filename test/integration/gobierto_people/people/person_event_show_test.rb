@@ -1,5 +1,7 @@
-require "test_helper"
-require_relative "base"
+# frozen_string_literal: true
+
+require 'test_helper'
+require_relative 'base'
 
 module GobiertoPeople
   module People
@@ -36,7 +38,7 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          within ".event-attendees" do
+          within '.event-attendees' do
             event.attendees.each do |attendee|
               if attendee.person.present?
                 assert has_link?(attendee.person.name)
@@ -52,7 +54,7 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          within ".event-locations" do
+          within '.event-locations' do
             event.locations.each do |location|
               assert has_link?(location.name)
               assert has_content?(location.address)
@@ -65,8 +67,8 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          within ".subscribable-box", match: :first do
-            assert has_button?("Subscribe")
+          within '.subscribable-box', match: :first do
+            assert has_button?('Subscribe')
           end
         end
       end

@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::SettingsTest < ActionDispatch::IntegrationTest
   def setup
@@ -19,14 +21,14 @@ class User::SettingsTest < ActionDispatch::IntegrationTest
       with_signed_in_user(user) do
         visit @path
 
-        fill_in :user_settings_name, with: "New name"
-        select "1992", from: :user_settings_date_of_birth_1i
-        select "January", from: :user_settings_date_of_birth_2i
-        select "1", from: :user_settings_date_of_birth_3i
-        choose "Male"
+        fill_in :user_settings_name, with: 'New name'
+        select '1992', from: :user_settings_date_of_birth_1i
+        select 'January', from: :user_settings_date_of_birth_2i
+        select '1', from: :user_settings_date_of_birth_3i
+        choose 'Male'
 
-        click_on "Save"
-        assert has_message?("Settings saved successfully")
+        click_on 'Save'
+        assert has_message?('Settings saved successfully')
       end
     end
   end
@@ -35,19 +37,19 @@ class User::SettingsTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       with_signed_in_user(user) do
         visit @path
-        assert has_select?("Districts", selected: "Center")
+        assert has_select?('Districts', selected: 'Center')
 
-        fill_in :user_settings_name, with: "New name"
-        select "1992", from: :user_settings_date_of_birth_1i
-        select "January", from: :user_settings_date_of_birth_2i
-        select "1", from: :user_settings_date_of_birth_3i
-        choose "Male"
-        select "Chamberi", from: "Districts"
+        fill_in :user_settings_name, with: 'New name'
+        select '1992', from: :user_settings_date_of_birth_1i
+        select 'January', from: :user_settings_date_of_birth_2i
+        select '1', from: :user_settings_date_of_birth_3i
+        choose 'Male'
+        select 'Chamberi', from: 'Districts'
 
-        click_on "Save"
-        assert has_message?("Settings saved successfully")
+        click_on 'Save'
+        assert has_message?('Settings saved successfully')
 
-        assert has_select?("Districts", selected: "Chamberi")
+        assert has_select?('Districts', selected: 'Chamberi')
       end
     end
   end

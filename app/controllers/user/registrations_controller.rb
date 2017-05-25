@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class User::RegistrationsController < User::BaseController
   before_action :require_no_authentication
 
-  layout "user/layouts/sessions"
+  layout 'user/layouts/sessions'
 
   def create
     @user_registration_form = User::RegistrationForm.new(
@@ -9,12 +11,12 @@ class User::RegistrationsController < User::BaseController
     )
 
     if @user_registration_form.save
-      flash[:notice] = t(".success")
+      flash[:notice] = t('.success')
     else
       if @user_registration_form.errors.added?(:email, :taken)
-        flash[:notice] = t(".email_taken")
+        flash[:notice] = t('.email_taken')
       else
-        flash[:alert] = t(".error")
+        flash[:alert] = t('.error')
       end
     end
 

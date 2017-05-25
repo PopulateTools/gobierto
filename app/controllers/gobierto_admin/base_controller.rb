@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class BaseController < ApplicationController
     include SessionHelper
@@ -15,7 +17,7 @@ module GobiertoAdmin
 
     rescue_from Errors::NotAuthorized, with: :raise_admin_not_authorized
 
-    layout "gobierto_admin/layouts/application"
+    layout 'gobierto_admin/layouts/application'
 
     private
 
@@ -52,7 +54,7 @@ module GobiertoAdmin
     def raise_module_not_enabled
       redirect_to(
         admin_root_path,
-        alert: t("gobierto_admin.module_helper.not_enabled")
+        alert: t('gobierto_admin.module_helper.not_enabled')
       )
     end
   end

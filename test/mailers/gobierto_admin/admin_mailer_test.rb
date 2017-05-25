@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class AdminMailerTest < ActionMailer::TestCase
@@ -11,10 +13,10 @@ module GobiertoAdmin
 
       refute ActionMailer::Base.deliveries.empty?
 
-      assert_equal ["admin@gobierto.dev"], email.from
-      assert_equal ["admin@gobierto.dev"], email.reply_to
+      assert_equal ['admin@gobierto.dev'], email.from
+      assert_equal ['admin@gobierto.dev'], email.reply_to
       assert_equal [admin.email], email.to
-      assert_equal "You have been invitited to collaborate in Gobierto", email.subject
+      assert_equal 'You have been invitited to collaborate in Gobierto', email.subject
       assert_match %r{http://madrid.gobierto.dev/admin}, email.body.to_s
     end
 
@@ -23,10 +25,10 @@ module GobiertoAdmin
 
       refute ActionMailer::Base.deliveries.empty?
 
-      assert_equal ["admin@gobierto.dev"], email.from
-      assert_equal ["admin@gobierto.dev"], email.reply_to
+      assert_equal ['admin@gobierto.dev'], email.from
+      assert_equal ['admin@gobierto.dev'], email.reply_to
       assert_equal [admin.email], email.to
-      assert_equal "Reset password instructions", email.subject
+      assert_equal 'Reset password instructions', email.subject
       assert_match %r{http://madrid.gobierto.dev/admin}, email.body.to_s
     end
   end

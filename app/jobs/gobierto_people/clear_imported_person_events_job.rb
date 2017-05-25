@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GobiertoPeople::ClearImportedPersonEventsJob < ActiveJob::Base
   queue_as :default
 
@@ -8,8 +10,8 @@ class GobiertoPeople::ClearImportedPersonEventsJob < ActiveJob::Base
 
     # Person attending events from other person calendar
     person.attending_events.each do |event|
-      if event.synchronized? && event.attendees.select{ |a| a.person_id.present? }.length == 1 &&
-          event.person_id == 0
+      if event.synchronized? && event.attendees.select { |a| a.person_id.present? }.length == 1 &&
+         event.person_id == 0
         event.destroy
       end
     end

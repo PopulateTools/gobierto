@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module IbmNotes
     class CalendarIntegration
-
       def self.sync_person_events(person)
         received_events_ids = get_person_events_urls(person).map do |event_url|
           response_data = ::IbmNotes::Api.get_event(request_params_for_event_request(person, event_url))
@@ -14,9 +15,7 @@ module GobiertoPeople
         end.compact.flatten
 
         person.events.upcoming.synchronized.each do |event|
-          unless received_events_ids.include?(event.external_id)
-            event.pending!
-          end
+          event.pending! unless received_events_ids.include?(event.external_id)
         end
       rescue ::IbmNotes::InvalidCredentials
         Rails.logger.info "[#{person.site.name} calendar integration] Invalid credentials for site"
@@ -34,7 +33,7 @@ module GobiertoPeople
         locations_attributes = if ibm_notes_event.location.present?
                                  { name: ibm_notes_event.location }
                                else
-                                 { "_destroy" => "1" }
+                                 { '_destroy' => '1' }
                                end
 
         person_event_params = {
@@ -47,7 +46,7 @@ module GobiertoPeople
           ends_at: ibm_notes_event.ends_at,
           state: GobiertoPeople::PersonEvent.states[:published],
           attendees: ibm_notes_event.attendees,
-          locations_attributes: {"0" => locations_attributes },
+          locations_attributes: { '0' => locations_attributes },
           notify: true
         }
 
@@ -61,7 +60,7 @@ module GobiertoPeople
       def self.create_and_sync_ibm_notes_event(person, event_data)
         event = ::IbmNotes::PersonEvent.new(person, event_data)
         created_event_external_id = sync_event(event)
-        return created_event_external_id
+        created_event_external_id
       end
       private_class_method :create_and_sync_ibm_notes_event
 
@@ -114,7 +113,7 @@ module GobiertoPeople
 
       def self.has_instances_link?(links_data)
         links_data.each do |element|
-          return true if (element['rel'].present? && element['rel'] == 'instances')
+          return true if element['rel'].present? && element['rel'] == 'instances'
         end
         false
       end
@@ -147,7 +146,6 @@ module GobiertoPeople
         PersonIbmNotesCalendarConfiguration.find_by(person_id: person.id).endpoint
       end
       private_class_method :person_calendar_endpoint
-
     end
   end
 end

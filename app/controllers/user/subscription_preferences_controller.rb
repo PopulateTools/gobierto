@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::SubscriptionPreferencesController < User::BaseController
   before_action :authenticate_user!
 
@@ -10,9 +12,9 @@ class User::SubscriptionPreferencesController < User::BaseController
     )
 
     if @user_subscription_preferences_form.save
-      flash[:notice] = t(".update_success")
+      flash[:notice] = t('.update_success')
     else
-      flash[:alert] = t(".error", details: @user_subscription_preferences_form.errors.full_messages.to_sentence)
+      flash[:alert] = t('.error', details: @user_subscription_preferences_form.errors.full_messages.to_sentence)
     end
 
     redirect_to user_subscriptions_path

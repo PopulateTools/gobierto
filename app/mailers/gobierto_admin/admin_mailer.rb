@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class AdminMailer < ApplicationMailer
     def invitation_instructions(admin)
@@ -9,7 +11,7 @@ module GobiertoAdmin
         from: from,
         reply_to: default_reply_to,
         to: @admin.email,
-        subject: t(".subject")
+        subject: t('.subject')
       )
     end
 

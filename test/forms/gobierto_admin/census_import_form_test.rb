@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class CensusImportFormTest < ActiveSupport::TestCase
@@ -32,15 +34,15 @@ module GobiertoAdmin
     end
 
     def census_file
-      @census_file ||= Rails.root.join("test/fixtures/files/census.csv")
+      @census_file ||= Rails.root.join('test/fixtures/files/census.csv')
     end
 
     def census_file_semicolons
-      @census_file_semicolons ||= Rails.root.join("test/fixtures/files/census_semicolons.csv")
+      @census_file_semicolons ||= Rails.root.join('test/fixtures/files/census_semicolons.csv')
     end
 
     def empty_census_file
-      @empty_census_file ||= Rails.root.join("test/fixtures/files/empty_census.csv")
+      @empty_census_file ||= Rails.root.join('test/fixtures/files/empty_census.csv')
     end
 
     def test_save_with_valid_attributes
@@ -52,13 +54,13 @@ module GobiertoAdmin
     end
 
     def test_items_creation
-      assert_difference "CensusItem.count", -1 do
+      assert_difference 'CensusItem.count', -1 do
         valid_user_census_import_form.save
       end
     end
 
     def test_census_import_creation
-      assert_difference "CensusImport.count", 1 do
+      assert_difference 'CensusImport.count', 1 do
         valid_user_census_import_form.save
       end
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   class ContentBlockRecord < ApplicationRecord
     belongs_to :content_block
@@ -12,7 +14,7 @@ module GobiertoCommon
             content_block_id: content_block_id,
             field_type: content_block_field.field_type,
             name: content_block_field.name,
-            value: payload ? payload[content_block_field.name] : "",
+            value: payload ? payload[content_block_field.name] : '',
             label: content_block_field.label[I18n.locale.to_s]
           )
         end
@@ -23,7 +25,7 @@ module GobiertoCommon
       @fields = fields
 
       self.payload = fields.reduce({}) do |payload_from_fields, field|
-        payload_from_fields.merge!({ field.name => field.value })
+        payload_from_fields.merge!(field.name => field.value)
       end
     end
 
@@ -32,7 +34,7 @@ module GobiertoCommon
 
       Array(attributes).each do |_, field_attributes|
         payload_from_fields.merge!(
-          { field_attributes["name"] => field_attributes["value"] }
+          field_attributes['name'] => field_attributes['value']
         )
       end
 

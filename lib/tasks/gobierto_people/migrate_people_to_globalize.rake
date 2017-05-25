@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 namespace :gobierto_people do
   namespace :globalize do
-    desc "Migrates people fields to globalize"
+    desc 'Migrates people fields to globalize'
     task migrate_people: :environment do
       GobiertoPeople::Person.find_each do |person|
         puts "* Migrating person id=#{person.id}"

@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class AdminNewPasswordFormTest < ActiveSupport::TestCase
@@ -21,7 +23,7 @@ module GobiertoAdmin
     end
 
     def test_reset_password_email_delivery
-      assert_difference "ActionMailer::Base.deliveries.size", 1 do
+      assert_difference 'ActionMailer::Base.deliveries.size', 1 do
         valid_admin_new_password_form.save
       end
     end

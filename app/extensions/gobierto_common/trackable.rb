@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   module Trackable
     module ClassMethods
@@ -23,7 +25,7 @@ module GobiertoCommon
 
       base.class_eval do
         extend ActiveModel::Callbacks
-        define_model_callbacks :save, only: [:before, :after]
+        define_model_callbacks :save, only: %i[before after]
         before_save :store_changes
       end
     end
@@ -65,7 +67,7 @@ module GobiertoCommon
     protected
 
     def publish_updated
-      broadcast_event("updated")
+      broadcast_event('updated')
     end
 
     def publish_changed(attribute_name)

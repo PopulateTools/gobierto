@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoCommon
@@ -31,8 +33,8 @@ module GobiertoAdmin
               with_current_site(site) do
                 visit @path
 
-                within "form.edit_content_block" do
-                  within ".title_components" do
+                within 'form.edit_content_block' do
+                  within '.title_components' do
                     AVAILABLE_LOCALES.each do |locale|
                       fill_in I18n.t("locales.#{locale}"), with: "Content block title in #{locale}"
                     end
@@ -40,7 +42,7 @@ module GobiertoAdmin
 
                   content_block.fields.each do |content_block_field|
                     within ".content-block-field-record-#{content_block_field.id}" do
-                      select "Currency", from: "Field type"
+                      select 'Currency', from: 'Field type'
 
                       AVAILABLE_LOCALES.each do |locale|
                         fill_in I18n.t("locales.#{locale}"), with: "Content block field in #{locale}"
@@ -48,23 +50,23 @@ module GobiertoAdmin
                     end
                   end
 
-                  find("a[data-behavior=add_child]").click
+                  find('a[data-behavior=add_child]').click
 
-                  within ".cloned-dynamic-content-record-wrapper" do
-                    select "Text", from: "Field type"
+                  within '.cloned-dynamic-content-record-wrapper' do
+                    select 'Text', from: 'Field type'
 
                     AVAILABLE_LOCALES.each do |locale|
                       fill_in I18n.t("locales.#{locale}"), with: "Child content block field in #{locale}"
                     end
                   end
 
-                  click_button "Update"
+                  click_button 'Update'
                 end
 
-                assert has_message?("Content block was successfully updated")
+                assert has_message?('Content block was successfully updated')
 
-                within "form.edit_content_block" do
-                  within ".title_components" do
+                within 'form.edit_content_block' do
+                  within '.title_components' do
                     AVAILABLE_LOCALES.each do |locale|
                       assert has_field?(I18n.t("locales.#{locale}"), with: "Content block title in #{locale}")
                     end
@@ -72,7 +74,7 @@ module GobiertoAdmin
 
                   content_block.fields.each do |content_block_field|
                     within ".content-block-field-record-#{content_block_field.id}" do
-                      assert has_select?("Field type", selected: "Currency")
+                      assert has_select?('Field type', selected: 'Currency')
 
                       AVAILABLE_LOCALES.each do |locale|
                         assert has_field?(I18n.t("locales.#{locale}"), with: "Content block field in #{locale}")
@@ -90,7 +92,7 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
 
-              assert has_message?("You are not authorized to perform this action")
+              assert has_message?('You are not authorized to perform this action')
             end
           end
         end

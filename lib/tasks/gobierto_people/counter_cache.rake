@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 namespace :gobierto_people do
   namespace :counter_cache do
-    desc "Resets Person-related counter cache fields"
+    desc 'Resets Person-related counter cache fields'
     task reset: :environment do
       GobiertoPeople::Person.pluck(:id).each do |person_id|
         puts "* Resetting GobiertoPeople::Person##{person_id} counters"

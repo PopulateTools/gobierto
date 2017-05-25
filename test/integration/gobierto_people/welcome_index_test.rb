@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoPeople
   class WelcomeIndexTest < ActionDispatch::IntegrationTest
@@ -61,7 +63,7 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("p", text: "Home text English")
+        assert has_selector?('p', text: 'Home text English')
       end
     end
 
@@ -69,21 +71,21 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".people-summary" do
-          within ".filter_boxed" do
-            assert has_link?("Government Team")
-            assert has_link?("Opposition")
-            assert has_link?("Executive")
-            assert has_link?("Political groups")
-            refute has_link?("All")
+        within '.people-summary' do
+          within '.filter_boxed' do
+            assert has_link?('Government Team')
+            assert has_link?('Opposition')
+            assert has_link?('Executive')
+            assert has_link?('Political groups')
+            refute has_link?('All')
           end
 
           government_people.each do |person|
-            assert has_selector?(".person-item", text: person.name)
+            assert has_selector?('.person-item', text: person.name)
             assert has_link?(person.name)
           end
 
-          assert has_link?("View all")
+          assert has_link?('View all')
         end
       end
     end
@@ -93,55 +95,55 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          within ".people-summary" do
+          within '.people-summary' do
             assert has_link? government_member.name
             refute has_link? executive_member.name
-            assert has_link?("View all")
+            assert has_link?('View all')
           end
 
-          within ".events-summary" do
+          within '.events-summary' do
             assert has_link? government_event.title
             refute has_link? government_past_event.title
             refute has_link? executive_past_event.title
           end
 
-          click_link "Executive"
+          click_link 'Executive'
 
           sleep 1
 
-          within ".people-summary" do
+          within '.people-summary' do
             refute has_link? government_member.name
             assert has_link? executive_member.name
-            assert has_link?("View all")
+            assert has_link?('View all')
           end
 
-          within ".events-summary" do
-            assert has_content? "There are no future events. Take a look at past ones"
+          within '.events-summary' do
+            assert has_content? 'There are no future events. Take a look at past ones'
             refute has_link? government_event.title
             refute has_link? government_past_event.title
             assert has_link? executive_past_event.title
           end
 
-          click_link "Opposition"
+          click_link 'Opposition'
 
           sleep 1
 
-          within ".people-summary" do
+          within '.people-summary' do
             refute has_link? government_member.name
             refute has_link? executive_member.name
-            refute has_link?("View all")
+            refute has_link?('View all')
           end
 
-          within ".events-summary" do
-            assert has_content? "There are no events"
+          within '.events-summary' do
+            assert has_content? 'There are no events'
             refute has_link? government_event.title
             refute has_link? government_past_event.title
             refute has_link? executive_past_event.title
           end
 
-          click_link "Political groups"
+          click_link 'Political groups'
 
-          assert has_content? "Officials"
+          assert has_content? 'Officials'
         end
       end
     end
@@ -150,16 +152,16 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".events-summary" do
-          assert has_content?("Agenda")
-          assert has_link?("Past events")
+        within '.events-summary' do
+          assert has_content?('Agenda')
+          assert has_link?('Past events')
 
           upcoming_events.each do |event|
-            assert has_selector?(".person_event-item", text: event.title)
+            assert has_selector?('.person_event-item', text: event.title)
             assert has_link?(event.title)
           end
 
-          assert has_link?("View all")
+          assert has_link?('View all')
         end
       end
     end
@@ -169,28 +171,28 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          within ".events-summary" do
+          within '.events-summary' do
             assert has_content? government_event.title
             refute has_content? government_past_event.title
             refute has_content? executive_past_event.title
           end
 
-          click_link "Past events"
+          click_link 'Past events'
 
           sleep 1
 
-          within ".events-summary" do
+          within '.events-summary' do
             refute has_content? government_event.title
             assert has_content? government_past_event.title
             refute has_content? executive_past_event.title
           end
 
-          click_link "Executive"
+          click_link 'Executive'
 
           sleep 1
 
-          within ".events-summary" do
-            assert has_content? "There are no future events. Take a look at past ones"
+          within '.events-summary' do
+            assert has_content? 'There are no future events. Take a look at past ones'
             refute has_content? government_event.title
             refute has_content? government_past_event.title
             assert has_content? executive_past_event.title
@@ -203,13 +205,13 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".posts-summary" do
+        within '.posts-summary' do
           latest_posts.each do |person_post|
-            assert has_selector?(".post-item", text: person_post.title)
+            assert has_selector?('.post-item', text: person_post.title)
             assert has_link?(person_post.title)
           end
 
-          assert has_link?("View all")
+          assert has_link?('View all')
         end
       end
     end
@@ -218,8 +220,8 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".subscribable-box", match: :first do
-          assert has_button?("Subscribe")
+        within '.subscribable-box', match: :first do
+          assert has_button?('Subscribe')
         end
       end
     end

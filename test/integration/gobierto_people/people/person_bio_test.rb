@@ -1,5 +1,7 @@
-require "test_helper"
-require_relative "base"
+# frozen_string_literal: true
+
+require 'test_helper'
+require_relative 'base'
 
 module GobiertoPeople
   module People
@@ -23,8 +25,8 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          assert has_selector?("h2", text: "#{person.name}'s profile")
-          assert has_selector?("h3", text: "Biography and CV")
+          assert has_selector?('h2', text: "#{person.name}'s profile")
+          assert has_selector?('h3', text: 'Biography and CV')
         end
       end
 
@@ -32,7 +34,7 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          assert has_link?("Download CV")
+          assert has_link?('Download CV')
         end
       end
 
@@ -40,10 +42,10 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          refute has_selector?("h3", text: "Contact methods")
-          assert has_selector?("h3", text: "Accomplishments")
-          assert has_content?("Nobel Prize in Chemistry")
-          refute has_selector?("h3", text: "Associations")
+          refute has_selector?('h3', text: 'Contact methods')
+          assert has_selector?('h3', text: 'Accomplishments')
+          assert has_content?('Nobel Prize in Chemistry')
+          refute has_selector?('h3', text: 'Associations')
         end
       end
     end

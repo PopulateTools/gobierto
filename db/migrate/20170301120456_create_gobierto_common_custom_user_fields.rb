@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGobiertoCommonCustomUserFields < ActiveRecord::Migration[5.0]
   def change
     enable_extension 'hstore' unless extension_enabled?('hstore')
@@ -9,11 +11,11 @@ class CreateGobiertoCommonCustomUserFields < ActiveRecord::Migration[5.0]
       t.boolean :mandatory, default: false
       t.integer :field_type, null: false, default: 0
       t.jsonb :options
-      t.string :name, default: "", null: false
+      t.string :name, default: '', null: false
 
       t.timestamps
     end
 
-    add_index :custom_user_fields, [:site_id, :name], unique: true
+    add_index :custom_user_fields, %i[site_id name], unique: true
   end
 end

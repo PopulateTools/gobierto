@@ -1,12 +1,14 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class AdminEditPasswordFormTest < ActiveSupport::TestCase
     def valid_admin_edit_password_form
       @valid_admin_edit_password_form ||= AdminEditPasswordForm.new(
         admin_id: admin.id,
-        password: "wadus",
-        password_confirmation: "wadus"
+        password: 'wadus',
+        password_confirmation: 'wadus'
       )
     end
 

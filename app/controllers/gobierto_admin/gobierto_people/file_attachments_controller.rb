@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
     class FileAttachmentsController < BaseController
-      before_action { module_enabled!(current_site, "GobiertoPeople") }
+      before_action { module_enabled!(current_site, 'GobiertoPeople') }
 
       def create
         @file_attachment_form = FileAttachmentForm.new(
           file_attachment_params.merge(
             site: current_site,
-            collection: "gobierto_people"
+            collection: 'gobierto_people'
           )
         )
 

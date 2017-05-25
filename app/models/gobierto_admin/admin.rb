@@ -1,4 +1,6 @@
-require_dependency "gobierto_admin"
+# frozen_string_literal: true
+
+require_dependency 'gobierto_admin'
 
 module GobiertoAdmin
   class Admin < ApplicationRecord
@@ -13,14 +15,14 @@ module GobiertoAdmin
     has_many :sites, through: :admin_sites
 
     has_many :permissions, dependent: :destroy
-    has_many :global_permissions, class_name: "Permission::Global"
+    has_many :global_permissions, class_name: 'Permission::Global'
 
-    has_many :gobierto_development_permissions, class_name: "Permission::GobiertoDevelopment"
-    has_many :gobierto_budgets_permissions, class_name: "Permission::GobiertoBudgets"
-    has_many :gobierto_budget_consultations_permissions, class_name: "Permission::GobiertoBudgetConsultations"
-    has_many :gobierto_people_permissions, class_name: "Permission::GobiertoPeople"
-    has_many :gobierto_cms_permissions, class_name: "Permission::GobiertoCms"
-    has_many :gobierto_indicators_permissions, class_name: "Permission::GobiertoIndicators"
+    has_many :gobierto_development_permissions, class_name: 'Permission::GobiertoDevelopment'
+    has_many :gobierto_budgets_permissions, class_name: 'Permission::GobiertoBudgets'
+    has_many :gobierto_budget_consultations_permissions, class_name: 'Permission::GobiertoBudgetConsultations'
+    has_many :gobierto_people_permissions, class_name: 'Permission::GobiertoPeople'
+    has_many :gobierto_cms_permissions, class_name: 'Permission::GobiertoCms'
+    has_many :gobierto_indicators_permissions, class_name: 'Permission::GobiertoIndicators'
 
     has_many :census_imports
 
@@ -36,9 +38,9 @@ module GobiertoAdmin
 
     def self.preset
       god.first || god.new(
-        email: APP_CONFIG["admins"]["preset_admin_email"],
-        name: APP_CONFIG["admins"]["preset_admin_name"],
-        password: APP_CONFIG["admins"]["preset_admin_password"]
+        email: APP_CONFIG['admins']['preset_admin_email'],
+        name: APP_CONFIG['admins']['preset_admin_name'],
+        password: APP_CONFIG['admins']['preset_admin_password']
       )
     end
 
@@ -50,7 +52,7 @@ module GobiertoAdmin
       return super unless god?
 
       print "Do you REALLY want to destroy the God Admin ##{id}? [Yes/No]: "
-      return "Skipping deletion" unless gets.chomp == "Yes"
+      return 'Skipping deletion' unless gets.chomp == 'Yes'
 
       super
     end

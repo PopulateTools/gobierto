@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoPeople
   class PersonPostsIndexTest < ActionDispatch::IntegrationTest
@@ -23,7 +25,7 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("h2", text: "Blogs")
+        assert has_selector?('h2', text: 'Blogs')
       end
     end
 
@@ -31,16 +33,16 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".posts-summary" do
+        within '.posts-summary' do
           latest_posts.each do |person_post|
-            assert has_selector?(".person-post-excerpt", text: person_post.title)
+            assert has_selector?('.person-post-excerpt', text: person_post.title)
 
             Array(person_post.tags).each do |person_post_tag|
               assert has_link?("##{person_post_tag}")
             end
 
             assert has_link?(person_post.title)
-            assert has_link?("Continue reading")
+            assert has_link?('Continue reading')
             assert has_link?(person_post.person.name)
           end
         end
@@ -51,8 +53,8 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".subscribable-box", match: :first do
-          assert has_button?("Subscribe")
+        within '.subscribable-box', match: :first do
+          assert has_button?('Subscribe')
         end
       end
     end
@@ -61,7 +63,7 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path_for_rss
 
-        assert_includes page.response_headers["Content-Type"], "application/rss+xml"
+        assert_includes page.response_headers['Content-Type'], 'application/rss+xml'
       end
     end
   end

@@ -1,24 +1,26 @@
+# frozen_string_literal: true
+
 class User::Verification::CensusVerification < User::Verification
-  default_scope -> { where(verification_type: "census") }
+  default_scope -> { where(verification_type: 'census') }
 
   def verification_type
-    "census"
+    'census'
   end
 
   def document_number
-    verification_data["document_number"]
+    verification_data['document_number']
   end
 
   def document_number=(document_number)
-    verification_data["document_number"] = document_number
+    verification_data['document_number'] = document_number
   end
 
   def date_of_birth
-    verification_data["date_of_birth"]
+    verification_data['date_of_birth']
   end
 
   def date_of_birth=(date_of_birth)
-    verification_data["date_of_birth"] = date_of_birth
+    verification_data['date_of_birth'] = date_of_birth
   end
 
   def will_verify?
@@ -26,7 +28,7 @@ class User::Verification::CensusVerification < User::Verification
   end
 
   def document_number_digest
-    @document_number_digest ||= SecretAttribute.digest(verification_data["document_number"])
+    @document_number_digest ||= SecretAttribute.digest(verification_data['document_number'])
   end
 
   def verify!

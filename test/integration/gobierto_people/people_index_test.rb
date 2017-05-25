@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoPeople
   class PeopleIndexTest < ActionDispatch::IntegrationTest
@@ -32,7 +34,7 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("h2", text: "#{site.name}'s organization chart")
+        assert has_selector?('h2', text: "#{site.name}'s organization chart")
       end
     end
 
@@ -40,12 +42,12 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".filter_boxed" do
-          assert has_link?("Government Team")
-          assert has_link?("Opposition")
-          assert has_link?("Executive")
-          assert has_link?("All")
-          assert has_link?("Political groups")
+        within '.filter_boxed' do
+          assert has_link?('Government Team')
+          assert has_link?('Opposition')
+          assert has_link?('Executive')
+          assert has_link?('All')
+          assert has_link?('Political groups')
         end
       end
     end
@@ -54,9 +56,9 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".people-summary" do
+        within '.people-summary' do
           people.each do |person|
-            assert has_selector?(".person-item", text: person.name)
+            assert has_selector?('.person-item', text: person.name)
             assert has_link?(person.name)
           end
         end
@@ -67,8 +69,8 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".subscribable-box", match: :first do
-          assert has_button?("Subscribe")
+        within '.subscribable-box', match: :first do
+          assert has_button?('Subscribe')
         end
       end
     end
@@ -78,8 +80,8 @@ module GobiertoPeople
         get @path_for_json
 
         json_response = JSON.parse(response.body)
-        assert_equal json_response.last["name"], people.last.name
-        assert_equal json_response.last["email"], people.last.email
+        assert_equal json_response.last['name'], people.last.name
+        assert_equal json_response.last['email'], people.last.email
       end
     end
 
@@ -88,8 +90,8 @@ module GobiertoPeople
         get @path_for_csv
 
         csv_response = CSV.parse(response.body, headers: true)
-        assert_equal csv_response.by_row[2]["name"], people.last.name
-        assert_equal csv_response.by_row[2]["email"], people.last.email
+        assert_equal csv_response.by_row[2]['name'], people.last.name
+        assert_equal csv_response.by_row[2]['email'], people.last.email
       end
     end
   end

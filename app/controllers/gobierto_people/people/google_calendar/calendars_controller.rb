@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module People
     module GoogleCalendar
       class CalendarsController < ::GobiertoPeople::People::BaseController
         before_action :check_person_session
 
-        layout "gobierto_people/layouts/application"
+        layout 'gobierto_people/layouts/application'
 
         def edit
           @calendars = calendar_service.calendars
@@ -25,7 +27,7 @@ module GobiertoPeople
 
         def check_person_session
           if session[:google_calendar_person_id] != @person.id
-            render_404 and return false
+            render_404 && (return false)
           end
         end
 

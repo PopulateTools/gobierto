@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class AddInternalIdToContentBlocks < ActiveRecord::Migration[5.0]
   def change
     add_column :content_blocks, :internal_id, :string
-    add_index :content_blocks, [:site_id, :internal_id], unique: true
+    add_index :content_blocks, %i[site_id internal_id], unique: true
   end
 end

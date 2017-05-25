@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::Subscription::NotificationBuilderTest < ActiveSupport::TestCase
   def user_subscription
@@ -40,7 +42,7 @@ class User::Subscription::NotificationBuilderTest < ActiveSupport::TestCase
     assert_equal User::Notification, first_user_notification.class
     assert_equal user.id, first_user_notification.user_id
     assert_equal site.id, first_user_notification.site_id
-    assert_equal "gobierto_budget_consultations.consultation.updated", first_user_notification.action
+    assert_equal 'gobierto_budget_consultations.consultation.updated', first_user_notification.action
     assert_equal subscribable.model_name.to_s, first_user_notification.subject_type
     assert_equal subscribable.id, first_user_notification.subject_id
   end
@@ -54,7 +56,7 @@ class User::Subscription::NotificationBuilderTest < ActiveSupport::TestCase
     assert_equal User::Notification, first_user_notification.class
     assert_equal user.id, first_user_notification.user_id
     assert_equal site.id, first_user_notification.site_id
-    assert_equal "gobierto_budget_consultations.consultation.published", first_user_notification.action
+    assert_equal 'gobierto_budget_consultations.consultation.published', first_user_notification.action
     assert_equal subscribable.model_name.to_s, first_user_notification.subject_type
     assert_equal subscribable.id, first_user_notification.subject_id
   end

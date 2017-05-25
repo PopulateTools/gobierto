@@ -1,13 +1,15 @@
-require_dependency "gobierto_budget_consultations"
+# frozen_string_literal: true
+
+require_dependency 'gobierto_budget_consultations'
 
 module GobiertoBudgetConsultations
   class ConsultationItem < ApplicationRecord
     include GobiertoCommon::Sortable
 
     RESPONSE_OPTIONS = {
-      "-5" => "reduce",
-      "0"  => "keep",
-      "5"  => "increase"
+      '-5' => 'reduce',
+      '0'  => 'keep',
+      '5'  => 'increase'
     }.freeze
 
     SELECTED_RESPONSE_OPTION_IDS = [1].freeze

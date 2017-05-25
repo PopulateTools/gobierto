@@ -1,10 +1,12 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class AdminInvitationFormTest < ActiveSupport::TestCase
     def valid_admin_invitation_form
       @valid_admin_invitation_form ||= AdminInvitationForm.new(
-        emails: "one@gobierto.dev, two@gobierto.dev",
+        emails: 'one@gobierto.dev, two@gobierto.dev',
         site_ids: [site.id]
       )
     end

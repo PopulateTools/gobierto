@@ -1,7 +1,8 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class GobiertoModuleSettingsTest < ActiveSupport::TestCase
-
   def gobierto_people_settings
     @gobierto_people_settings ||= gobierto_module_settings(:gobierto_people_settings_madrid)
   end
@@ -16,15 +17,15 @@ class GobiertoModuleSettingsTest < ActiveSupport::TestCase
   end
 
   def test_update
-    assert_equal "Home text English", gobierto_people_settings.home_text_en
-    gobierto_people_settings.home_text_en = "Home text English updated"
+    assert_equal 'Home text English', gobierto_people_settings.home_text_en
+    gobierto_people_settings.home_text_en = 'Home text English updated'
     gobierto_people_settings.save!
     gobierto_people_settings.reload
-    assert_equal "Home text English updated", gobierto_people_settings.home_text_en
+    assert_equal 'Home text English updated', gobierto_people_settings.home_text_en
   end
 
   def test_dynamic_getters
-    assert_equal "Home text English", gobierto_people_settings.home_text_en
+    assert_equal 'Home text English', gobierto_people_settings.home_text_en
     assert_nil gobierto_people_settings.wrong_field
   end
 end

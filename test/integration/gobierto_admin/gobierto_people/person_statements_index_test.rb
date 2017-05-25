@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoPeople
@@ -25,19 +27,19 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            within "table.person-statements-list tbody" do
-              assert has_selector?("tr", count: person.statements.count)
+            within 'table.person-statements-list tbody' do
+              assert has_selector?('tr', count: person.statements.count)
 
               person.statements.each do |statement|
                 assert has_selector?("tr#person-statement-item-#{statement.id}")
 
                 within "tr#person-statement-item-#{statement.id}" do
                   if statement.active?
-                    assert has_content?("Published")
+                    assert has_content?('Published')
                   else
-                    assert has_content?("Draft")
+                    assert has_content?('Draft')
                   end
-                  assert has_link?("View statement")
+                  assert has_link?('View statement')
                 end
               end
             end

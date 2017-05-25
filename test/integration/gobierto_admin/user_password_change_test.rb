@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class UserPasswordChangeTest < ActionDispatch::IntegrationTest
@@ -19,14 +21,14 @@ module GobiertoAdmin
         with_selected_site(site) do
           visit new_admin_user_passwords_path(user)
 
-          within "form.new_user_password" do
-            fill_in "user_password_password", with: "wadus"
-            fill_in "user_password_password_confirmation", with: "wadus"
+          within 'form.new_user_password' do
+            fill_in 'user_password_password', with: 'wadus'
+            fill_in 'user_password_password_confirmation', with: 'wadus'
 
-            click_button "Send"
+            click_button 'Send'
           end
 
-          assert has_message?("User password was successfully updated")
+          assert has_message?('User password was successfully updated')
         end
       end
     end
@@ -35,14 +37,14 @@ module GobiertoAdmin
       with_signed_in_admin(signed_in_admin) do
         visit new_admin_user_passwords_path(user)
 
-        within "form.new_user_password" do
-          fill_in "user_password_password", with: "wadus"
-          fill_in "user_password_password_confirmation", with: "foo"
+        within 'form.new_user_password' do
+          fill_in 'user_password_password', with: 'wadus'
+          fill_in 'user_password_password_confirmation', with: 'foo'
 
-          click_button "Send"
+          click_button 'Send'
         end
 
-        assert has_message?("There was a problem changing your password")
+        assert has_message?('There was a problem changing your password')
       end
     end
   end

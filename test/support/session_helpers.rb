@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SessionHelpers
   def with_current_admin(admin)
     GobiertoAdmin::BaseController.stub_any_instance(:current_admin, admin) do

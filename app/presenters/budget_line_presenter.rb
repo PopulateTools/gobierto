@@ -1,5 +1,6 @@
-class BudgetLinePresenter
+# frozen_string_literal: true
 
+class BudgetLinePresenter
   def initialize(attributes)
     @attributes = attributes.symbolize_keys
   end
@@ -18,7 +19,7 @@ class BudgetLinePresenter
 
   def percentage_of_total
     total_amount = total || GobiertoBudgets::BudgetTotal.for(@attributes[:ine_code], @attributes[:year])
-    ((amount.to_f / total_amount.to_f)*100).round(2)
+    ((amount.to_f / total_amount.to_f) * 100).round(2)
   end
 
   def percentage_compared_with(other_value)
@@ -69,17 +70,16 @@ class BudgetLinePresenter
     }
   end
 
-  def as_json(attrs = {})
+  def as_json(_attrs = {})
     {
-      name: self.name,
-      amount: self.amount,
-      amount_per_inhabitant: self.amount_per_inhabitant,
-      percentage_of_total: self.percentage_of_total,
-      total: self.total,
-      total_per_inhabitant: self.total_per_inhabitant,
-      code: self.code,
-      level: self.level
+      name: name,
+      amount: amount,
+      amount_per_inhabitant: amount_per_inhabitant,
+      percentage_of_total: percentage_of_total,
+      total: total,
+      total_per_inhabitant: total_per_inhabitant,
+      code: code,
+      level: level
     }
   end
-
 end

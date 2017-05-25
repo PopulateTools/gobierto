@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class DirtyFormsTest < ActionDispatch::IntegrationTest
@@ -25,19 +27,19 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            within "form.edit_user" do
+            within 'form.edit_user' do
               sleep 2
 
-              fill_in "user_name", with: "User Name"
+              fill_in 'user_name', with: 'User Name'
 
-              click_link "Change password"
+              click_link 'Change password'
 
               assert_equal(
-                "You have unsaved changes. Are you sure you want to leave this page?",
+                'You have unsaved changes. Are you sure you want to leave this page?',
                 page.driver.browser.modal_message
               )
 
-              click_button "Update"
+              click_button 'Update'
 
               refute page.driver.browser.modal_message
             end

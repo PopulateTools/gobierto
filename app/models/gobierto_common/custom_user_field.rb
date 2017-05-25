@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   class CustomUserField < ApplicationRecord
     belongs_to :site
-    has_many :records, dependent: :destroy, class_name: "CustomUserFieldRecord"
+    has_many :records, dependent: :destroy, class_name: 'CustomUserFieldRecord'
 
     enum field_type: { string: 0, paragraph: 1, single_option: 2, multiple_options: 3 }
 

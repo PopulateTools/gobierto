@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 namespace :gobierto_budgets do
   namespace :elasticsearch do
-    desc "Create indices"
+    desc 'Create indices'
     task create_indices: :environment do
       exit unless allowed?
 
@@ -12,7 +14,7 @@ namespace :gobierto_budgets do
       end
     end
 
-    desc "Drop indices"
+    desc 'Drop indices'
     task drop_indices: :environment do
       exit unless allowed?
 

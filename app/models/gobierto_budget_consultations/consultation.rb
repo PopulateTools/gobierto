@@ -1,10 +1,12 @@
-require_dependency "gobierto_budget_consultations"
+# frozen_string_literal: true
+
+require_dependency 'gobierto_budget_consultations'
 
 module GobiertoBudgetConsultations
   class Consultation < ApplicationRecord
     include User::Subscribable
 
-    belongs_to :admin, class_name: "GobiertoAdmin::Admin"
+    belongs_to :admin, class_name: 'GobiertoAdmin::Admin'
     belongs_to :site
 
     has_many :consultation_items, dependent: :destroy
@@ -19,8 +21,8 @@ module GobiertoBudgetConsultations
     scope :active_visibility, -> { where(visibility_level: visibility_levels[:active]) }
     scope :active,            -> { select(&:open?) }
     scope :not_draft,         -> { where.not(visibility_level: visibility_levels[:draft]) }
-    scope :past,              -> { not_draft.where("closes_on < ?", Date.current) }
-    scope :upcoming,          -> { not_draft.where("opens_on > ?", Date.current) }
+    scope :past,              -> { not_draft.where('closes_on < ?', Date.current) }
+    scope :upcoming,          -> { not_draft.where('opens_on > ?', Date.current) }
     scope :opening_today,     -> { active_visibility.where(opens_on: Date.current) }
     scope :closing_today,     -> { active_visibility.where(closes_on: Date.current) }
     scope :about_to_close,    -> { active_visibility.where(closes_on: 2.days.from_now.to_date) }
@@ -53,14 +55,12 @@ module GobiertoBudgetConsultations
       @projected_responses ||= begin
         if open? && consultation_responses.any? && days_open > 0
           ((consultation_responses.count / days_open.to_f) * days_left).ceil + consultation_responses.count
-        else
-          nil
         end
       end
     end
 
     def days_left
-      (closes_on - Date.current ).to_i
+      (closes_on - Date.current).to_i
     end
 
     private

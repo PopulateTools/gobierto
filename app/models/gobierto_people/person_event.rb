@@ -1,4 +1,6 @@
-require_dependency "gobierto_people"
+# frozen_string_literal: true
+
+require_dependency 'gobierto_people'
 
 module GobiertoPeople
   class PersonEvent < ApplicationRecord
@@ -14,7 +16,7 @@ module GobiertoPeople
 
     algoliasearch_gobierto do
       attribute :site_id, :title_en, :title_es, :title_ca, :description_en, :description_es, :description_ca, :updated_at
-      searchableAttributes ['title_en', 'title_es', 'title_ca', 'description_en', 'description_es', 'description_ca']
+      searchableAttributes %w[title_en title_es title_ca description_en description_es description_ca]
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end
@@ -22,16 +24,16 @@ module GobiertoPeople
     belongs_to :person, counter_cache: :events_count
     belongs_to :site
 
-    has_many :locations, class_name: "PersonEventLocation", dependent: :destroy
-    has_many :attendees, class_name: "PersonEventAttendee", dependent: :destroy
+    has_many :locations, class_name: 'PersonEventLocation', dependent: :destroy
+    has_many :attendees, class_name: 'PersonEventAttendee', dependent: :destroy
 
-    scope :past,     -> { published.where("starts_at <= ?", Time.zone.now) }
-    scope :upcoming, -> { published.where("starts_at > ?", Time.zone.now) }
+    scope :past,     -> { published.where('starts_at <= ?', Time.zone.now) }
+    scope :upcoming, -> { published.where('starts_at > ?', Time.zone.now) }
     scope :sorted,   -> { order(starts_at: :asc) }
     scope :sorted_backwards, -> { order(starts_at: :desc) }
-    scope :within_range, -> (date_range) { published.where(starts_at: date_range) }
-    scope :synchronized, -> { where("external_id IS NOT NULL") }
-    scope :by_date,  ->(date) { where("starts_at::date = ?", date) }
+    scope :within_range, ->(date_range) { published.where(starts_at: date_range) }
+    scope :synchronized, -> { where('external_id IS NOT NULL') }
+    scope :by_date, ->(date) { where('starts_at::date = ?', date) }
 
     scope :by_site, ->(site) do
       where(site_id: site.id)
@@ -49,17 +51,13 @@ module GobiertoPeople
 
     enum state: { pending: 0, published: 1 }
 
-    def admin_id
-      if person
-        person.admin_id
-      end
-    end
+    delegate :admin_id, to: :person
 
     def parameterize
       person_slug = if person.present?
-        person.slug
-      elsif attendee = attendees.detect{ |a| a.person_id.present? }
-        attendee.person.slug
+                      person.slug
+                    elsif attendee = attendees.detect { |a| a.person_id.present? }
+                      attendee.person.slug
       end
       { person_slug: person_slug, slug: slug }
     end
@@ -81,7 +79,7 @@ module GobiertoPeople
     end
 
     def self.csv_columns
-      [:id, :person_id, :person_name, :title, :description, :starts_at, :ends_at, :attachment_url, :created_at, :updated_at]
+      %i[id person_id person_name title description starts_at ends_at attachment_url created_at updated_at]
     end
 
     def as_csv
@@ -93,6 +91,5 @@ module GobiertoPeople
     def attributes_for_slug
       [starts_at.strftime('%F'), title]
     end
-
   end
 end

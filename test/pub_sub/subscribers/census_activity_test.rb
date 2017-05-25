@@ -1,9 +1,11 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class Subscribers::CensusActivityTest < ActiveSupport::TestCase
   class Event < OpenStruct; end
 
-  IP = "1.2.3.4"
+  IP = '1.2.3.4'
 
   def site
     @site ||= sites(:madrid)
@@ -22,21 +24,21 @@ class Subscribers::CensusActivityTest < ActiveSupport::TestCase
   end
 
   def ip_address
-    @ip_address ||= IPAddr.new("1.2.3.4")
+    @ip_address ||= IPAddr.new('1.2.3.4')
   end
 
   def test_census_imported_event_handling
     assert_difference 'Activity.count' do
-      subject.census_imported Event.new(name: "census/census_imported", payload: {
-        author: admin, ip: IP, subject: census_import,
-      })
+      subject.census_imported Event.new(name: 'census/census_imported', payload: {
+                                          author: admin, ip: IP, subject: census_import
+                                        })
     end
 
     activity = Activity.last
     assert_equal census_import, activity.subject
     assert_equal admin, activity.author
     assert_equal ip_address, activity.subject_ip
-    assert_equal "census.census_imported", activity.action
+    assert_equal 'census.census_imported', activity.action
     assert activity.admin_activity
     assert_nil activity.site_id
   end

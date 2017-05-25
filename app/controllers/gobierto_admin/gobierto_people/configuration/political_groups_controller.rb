@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
     module Configuration
       class PoliticalGroupsController < BaseController
-        before_action { module_enabled!(current_site, "GobiertoPeople") }
+        before_action { module_enabled!(current_site, 'GobiertoPeople') }
 
         def index
           @political_groups = ::GobiertoPeople::PoliticalGroup.all
@@ -31,7 +33,7 @@ module GobiertoAdmin
           if @political_group_form.save
             redirect_to(
               edit_admin_people_configuration_political_group_path(@political_group_form.political_group),
-              notice: t(".success")
+              notice: t('.success')
             )
           else
             render :new
@@ -47,7 +49,7 @@ module GobiertoAdmin
           if @political_group_form.save
             redirect_to(
               edit_admin_people_configuration_political_group_path(@political_group),
-              notice: t(".success")
+              notice: t('.success')
             )
           else
             render :edit
@@ -65,7 +67,7 @@ module GobiertoAdmin
         end
 
         def ignored_political_group_attributes
-          %w( created_at updated_at position slug )
+          %w[created_at updated_at position slug]
         end
       end
     end

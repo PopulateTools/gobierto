@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   module Data
     class Treemap
@@ -12,15 +14,15 @@ module GobiertoBudgets
 
       def generate_json
         options = [
-          {term: { ine_code: @place.id }},
-          {term: { kind: @kind }},
-          {term: { year: @year }}
+          { term: { ine_code: @place.id } },
+          { term: { kind: @kind } },
+          { term: { year: @year } }
         ]
 
         if @parent_code.nil?
-          options.push({term: { level: @level }})
+          options.push(term: { level: @level })
         else
-          options.push({term: { parent_code: @parent_code }})
+          options.push(term: { parent_code: @parent_code })
         end
 
         query = {
@@ -51,7 +53,7 @@ module GobiertoBudgets
           }
         end
 
-        return {
+        {
           name: @type,
           children: children_json
         }.to_json

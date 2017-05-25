@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 namespace :gobierto_cms do
   namespace :globalize do
-    desc "Migrates pages fields to globalize"
+    desc 'Migrates pages fields to globalize'
     task migrate: :environment do
       GobiertoCms::Page.find_each do |page|
         puts "* Migrating page id=#{page.id}"

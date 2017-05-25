@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateTableGobiertoModuleSettings < ActiveRecord::Migration[5.0]
   def change
     create_table :gobierto_module_settings do |t|
@@ -8,6 +10,6 @@ class CreateTableGobiertoModuleSettings < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    add_index :gobierto_module_settings, [:site_id, :module_name], unique: true
+    add_index :gobierto_module_settings, %i[site_id module_name], unique: true
   end
 end

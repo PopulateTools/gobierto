@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoBudgetConsultations
     class ConsultationResponseForm
@@ -34,7 +36,7 @@ module GobiertoAdmin
 
       def census_item
         @census_item ||= if site
-          CensusItem.find_by(site_id: site.id, document_number_digest: document_number_digest)
+                           CensusItem.find_by(site_id: site.id, document_number_digest: document_number_digest)
         end
       end
 
@@ -52,11 +54,11 @@ module GobiertoAdmin
 
       def date_of_birth
         @date_of_birth ||= if date_of_birth_year && date_of_birth_month && date_of_birth_day
-          Date.new(
-            date_of_birth_year.to_i,
-            date_of_birth_month.to_i,
-            date_of_birth_day.to_i
-          )
+                             Date.new(
+                               date_of_birth_year.to_i,
+                               date_of_birth_month.to_i,
+                               date_of_birth_day.to_i
+                             )
         end
       rescue ArgumentError
         nil
@@ -64,10 +66,10 @@ module GobiertoAdmin
 
       def custom_records=(attributes)
         @custom_records_attributes ||= Hash[Array(attributes).map do |name, field_attributes|
-          custom_user_field = site.custom_user_fields.find(field_attributes["custom_user_field_id"])
+          custom_user_field = site.custom_user_fields.find(field_attributes['custom_user_field_id'])
           custom_record = custom_user_field.records.new
-          custom_record.value = field_attributes["value"]
-          [name, {"raw_value" => custom_record.raw_value, "localized_value" => custom_record.value}]
+          custom_record.value = field_attributes['value']
+          [name, { 'raw_value' => custom_record.raw_value, 'localized_value' => custom_record.value }]
         end]
       end
 
@@ -75,7 +77,7 @@ module GobiertoAdmin
 
       # User custom records are not mandatory if the consultation is being created by an admin
       def valid_custom_records
-        return true
+        true
       end
 
       def consultation_class
@@ -102,7 +104,7 @@ module GobiertoAdmin
               item_title: consultation_item.title,
               item_budget_line_amount: consultation_item.budget_line_amount,
               item_response_options: consultation_item.raw_response_options,
-              selected_option: selected_option.to_i,
+              selected_option: selected_option.to_i
             )
           end.compact
         end

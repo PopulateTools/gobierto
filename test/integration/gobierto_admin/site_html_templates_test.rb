@@ -1,9 +1,10 @@
-require "test_helper"
-require "support/file_uploader_helpers"
+# frozen_string_literal: true
+
+require 'test_helper'
+require 'support/file_uploader_helpers'
 
 module GobiertoAdmin
   class SiteHtmlTemplatesTest < ActionDispatch::IntegrationTest
-
     def setup
       super
       @path = edit_admin_site_path(site)
@@ -22,7 +23,7 @@ module GobiertoAdmin
     end
 
     def template
-      %Q{<a href="{% page_url #{privacy_page.slug} %}">{% page_title #{privacy_page.slug} %}</a>}
+      %(<a href="{% page_url #{privacy_page.slug} %}">{% page_title #{privacy_page.slug} %}</a>)
     end
 
     def test_site_render_liquid_html_blocks
@@ -32,7 +33,7 @@ module GobiertoAdmin
 
       with_current_site(site) do
         visit root_path
-        assert has_link?("Privacy")
+        assert has_link?('Privacy')
       end
     end
   end

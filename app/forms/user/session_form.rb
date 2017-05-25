@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::SessionForm
   include ActiveModel::Model
 

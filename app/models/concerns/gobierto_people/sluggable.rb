@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module Sluggable
     extend ActiveSupport::Concern
@@ -9,8 +11,8 @@ module GobiertoPeople
     private
 
     def set_slug
-      unless slug.present?
-        base_slug = attributes_for_slug.join('-').gsub('_', ' ').parameterize
+      if slug.blank?
+        base_slug = attributes_for_slug.join('-').tr('_', ' ').parameterize
         new_slug  = base_slug
 
         count = 2
@@ -22,6 +24,5 @@ module GobiertoPeople
         self.slug = new_slug
       end
     end
-
   end
 end

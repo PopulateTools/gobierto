@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module People
     class PersonMessagesController < BaseController
@@ -8,14 +10,12 @@ module GobiertoPeople
       end
 
       def create
-        @person_message = GobiertoPeople::PersonMessage.new(person_message_params.merge(default_params.merge({
-          person: @person
-        })))
+        @person_message = GobiertoPeople::PersonMessage.new(person_message_params.merge(default_params.merge(person: @person)))
 
         if @person_message.valid?
           @person_message.deliver!
 
-          redirect_to new_gobierto_people_person_messages_path(@person.slug), notice: t(".success")
+          redirect_to new_gobierto_people_person_messages_path(@person.slug), notice: t('.success')
         else
           flash.now[:alert] = t('.error')
           render 'new'
@@ -30,7 +30,7 @@ module GobiertoPeople
 
       def default_params
         if user_signed_in?
-          {name: current_user.name, email: current_user.email}
+          { name: current_user.name, email: current_user.email }
         else
           {}
         end

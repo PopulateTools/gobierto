@@ -1,10 +1,12 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class AdminInvitationBuilderTest < ActiveSupport::TestCase
     def admin_invitation_builder
       @admin_invitation_builder ||= begin
-        AdminInvitationBuilder.new("wadus@gobierto.dev", site_ids)
+        AdminInvitationBuilder.new('wadus@gobierto.dev', site_ids)
       end
     end
 
@@ -25,7 +27,7 @@ module GobiertoAdmin
     end
 
     def test_admin_creation
-      assert_difference "Admin.count", 1 do
+      assert_difference 'Admin.count', 1 do
         admin_invitation_builder.call
       end
     end
@@ -33,7 +35,7 @@ module GobiertoAdmin
     def test_invalid_admin_creation
       refute AdminInvitationBuilder.new(admin.email, site_ids).call
 
-      assert_no_difference "Admin.count" do
+      assert_no_difference 'Admin.count' do
         AdminInvitationBuilder.new(admin.email, site_ids).call
       end
     end

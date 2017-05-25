@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class GobiertoPeople::PersonEventAttendeeTest < ActiveSupport::TestCase
   def person_event_attendee

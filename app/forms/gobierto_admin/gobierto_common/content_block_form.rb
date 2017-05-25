@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoCommon
     class ContentBlockForm
@@ -47,17 +49,17 @@ module GobiertoAdmin
 
       def fields_attributes=(attributes)
         @fields ||= Array(attributes).map do |_, field_attributes|
-          next if field_attributes["_destroy"] == "1"
+          next if field_attributes['_destroy'] == '1'
 
-          if field_attributes["id"].present?
-            content_block_field = content_block_field_class.find_by(id: field_attributes["id"])
+          if field_attributes['id'].present?
+            content_block_field = content_block_field_class.find_by(id: field_attributes['id'])
 
-            next unless content_block_field.present?
+            next if content_block_field.blank?
 
-            content_block_field.assign_attributes(field_attributes.except("_destroy"))
+            content_block_field.assign_attributes(field_attributes.except('_destroy'))
             content_block_field if content_block_field.save
           else
-            content_block_field_class.new(field_attributes.except("_destroy"))
+            content_block_field_class.new(field_attributes.except('_destroy'))
           end
         end
       end
@@ -68,7 +70,7 @@ module GobiertoAdmin
 
       def title_components_attributes=(attributes)
         @title ||= Array(attributes).reduce({}) do |title, (_, title_component)|
-          title.merge!({ title_component["locale"] => title_component["value"] })
+          title.merge!(title_component['locale'] => title_component['value'])
         end
       end
 

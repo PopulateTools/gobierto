@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class FileAttachmentForm
     include ActiveModel::Model
@@ -21,14 +23,14 @@ module GobiertoAdmin
         collection: collection,
         attribute_name: :attachment,
         file: file,
-        content_disposition: "attachment"
+        content_disposition: 'attachment'
       ).call
     end
 
     private
 
     def collection
-      @collection ||= "file_attachments"
+      @collection ||= 'file_attachments'
     end
   end
 end

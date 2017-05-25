@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class User::SubscriptionsController < User::BaseController
-  before_action :authenticate_user!, only: [:index, :destroy]
+  before_action :authenticate_user!, only: %i[index destroy]
 
   def index
     @user_notification_frequencies = get_user_notification_frequencies
@@ -32,13 +34,13 @@ class User::SubscriptionsController < User::BaseController
       flash[:notice] = t(".#{subscription_operation}_success")
     else
       flash[:alert] = t(
-        ".error",
+        '.error',
         details: @user_subscription_form.errors.full_messages.to_sentence,
         sign_in_path: new_user_sessions_path(host: current_site.domain)
       )
     end
 
-    redirect_to request.referrer
+    redirect_to request.referer
   end
 
   def destroy
@@ -46,7 +48,7 @@ class User::SubscriptionsController < User::BaseController
 
     @user_subscription.destroy
 
-    redirect_to user_subscriptions_path, notice: t(".success")
+    redirect_to user_subscriptions_path, notice: t('.success')
   end
 
   private
@@ -75,7 +77,7 @@ class User::SubscriptionsController < User::BaseController
   end
 
   def get_user_notification_modules
-    current_site.configuration.modules_with_notifications.map{ |m| [m.underscore, m.underscore] }
+    current_site.configuration.modules_with_notifications.map { |m| [m.underscore, m.underscore] }
   end
 
   def get_user_notification_gobierto_people_people
@@ -95,9 +97,7 @@ class User::SubscriptionsController < User::BaseController
   end
 
   def get_current_user_subsciption_to_site
-    if current_user.subscribed_to?(current_site, current_site)
-      current_site.id
-    end
+    current_site.id if current_user.subscribed_to?(current_site, current_site)
   end
 
   def get_user_notification_gobierto_budget_consultations_consultations

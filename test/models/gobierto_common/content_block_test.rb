@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoCommon
   class ContentBlockTest < ActiveSupport::TestCase
@@ -15,12 +17,12 @@ module GobiertoCommon
     end
 
     def test_title
-      assert_equal "Contact methods", content_block.title["en"]
-      assert_equal "Formas de contacto", content_block.title["es"]
+      assert_equal 'Contact methods', content_block.title['en']
+      assert_equal 'Formas de contacto', content_block.title['es']
     end
 
     def test_localized_title
-      assert_equal "Contact methods", content_block.localized_title
+      assert_equal 'Contact methods', content_block.localized_title
     end
 
     def test_records_without_content_context

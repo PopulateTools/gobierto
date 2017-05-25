@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoBudgetConsultations
   class ConsultationResponseItemTest < ActiveSupport::TestCase
@@ -42,10 +44,10 @@ module GobiertoBudgetConsultations
     def consultation_response_item_params
       @consultation_response_item_params ||= begin
         {
-          item_id: 26213347,
-          item_title: "Pavimentación de vías públicas",
-          item_budget_line_amount: "10.0",
-          item_response_options: {"0"=>"reduce", "1"=>"keep", "2"=>"increase"},
+          item_id: 26_213_347,
+          item_title: 'Pavimentación de vías públicas',
+          item_budget_line_amount: '10.0',
+          item_response_options: { '0' => 'reduce', '1' => 'keep', '2' => 'increase' }
         }
       end
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module LayoutPolicyHelper
     extend ActiveSupport::Concern

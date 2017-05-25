@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SiteSessionHelpers
   def with_current_site(site)
     GobiertoSiteConstraint.stub_any_instance(:matches?, true) do

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
     module Configuration
       class SettingsController < BaseController
-        before_action { module_enabled!(current_site, "GobiertoPeople") }
+        before_action { module_enabled!(current_site, 'GobiertoPeople') }
 
         def edit
           @settings_form = SettingsForm.new(site_id: current_site.id)
@@ -16,9 +18,9 @@ module GobiertoAdmin
           )
 
           if @settings_form.save
-            redirect_to edit_admin_people_configuration_settings_path, notice: t(".success")
+            redirect_to edit_admin_people_configuration_settings_path, notice: t('.success')
           else
-            redirect_to edit_admin_people_configuration_settings_path, alert: t(".error")
+            redirect_to edit_admin_people_configuration_settings_path, alert: t('.error')
           end
         end
 

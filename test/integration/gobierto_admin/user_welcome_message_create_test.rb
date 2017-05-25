@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class UserWelcomeMessageCreateTest < ActionDispatch::IntegrationTest
@@ -19,9 +21,9 @@ module GobiertoAdmin
         with_selected_site(site) do
           visit edit_admin_user_path(user)
 
-          click_link "Resend welcome email"
+          click_link 'Resend welcome email'
 
-          assert has_message?("The welcome message has been sent")
+          assert has_message?('The welcome message has been sent')
         end
       end
     end

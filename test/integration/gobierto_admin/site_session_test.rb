@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class SiteSessionTest < ActionDispatch::IntegrationTest
@@ -19,7 +21,7 @@ module GobiertoAdmin
       with_signed_in_admin(admin) do
         visit @path
 
-        within "#current-site-name" do
+        within '#current-site-name' do
           assert has_content?(site.name)
         end
       end
@@ -29,11 +31,11 @@ module GobiertoAdmin
       with_signed_in_admin(admin) do
         visit @path
 
-        within "#managed-sites-list" do
+        within '#managed-sites-list' do
           click_on site.name
         end
 
-        within "#current-site-name" do
+        within '#current-site-name' do
           assert has_content?(site.name)
         end
       end

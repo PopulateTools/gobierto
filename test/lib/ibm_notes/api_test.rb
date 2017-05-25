@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 require_relative '../../../lib/ibm_notes/api'
 
 class ApiTest < ActiveSupport::TestCase
-
   def test_get_person_events
     VCR.use_cassette('ibm_notes/person_events_collection_v9', decode_compressed_response: true) do
       response_data = IbmNotes::Api.get_person_events(
@@ -14,9 +15,9 @@ class ApiTest < ActiveSupport::TestCase
       events = response_data['events']
 
       assert_equal events.size, 3
-      assert_equal "/mail/foo.nsf/api/calendar/events/BD5EA243F9F715AAC1258116003ED56C-Lotus_Notes_Generated", events[0]['href']
-      assert_equal "/mail/foo.nsf/api/calendar/events/3C1E302CAC131891C12580F90044239B-Lotus_Notes_Generated", events[1]['href']
-      assert_equal "/mail/foo.nsf/api/calendar/events/D2E5B40E6AAEAED4C125808E0035A6A0-Lotus_Notes_Generated/20170503T073000Z", events[2]['href']
+      assert_equal '/mail/foo.nsf/api/calendar/events/BD5EA243F9F715AAC1258116003ED56C-Lotus_Notes_Generated', events[0]['href']
+      assert_equal '/mail/foo.nsf/api/calendar/events/3C1E302CAC131891C12580F90044239B-Lotus_Notes_Generated', events[1]['href']
+      assert_equal '/mail/foo.nsf/api/calendar/events/D2E5B40E6AAEAED4C125808E0035A6A0-Lotus_Notes_Generated/20170503T073000Z', events[2]['href']
     end
   end
 
@@ -86,5 +87,4 @@ class ApiTest < ActiveSupport::TestCase
       end
     end
   end
-
 end

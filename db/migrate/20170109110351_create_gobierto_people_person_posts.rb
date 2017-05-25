@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class CreateGobiertoPeoplePersonPosts < ActiveRecord::Migration[5.0]
   def change
     create_table :gp_person_posts do |t|
-      t.string :title, null: false, default: ""
+      t.string :title, null: false, default: ''
       t.text :body
       t.string :tags, array: true
       t.integer :visibility_level, null: false, default: 0

@@ -1,24 +1,26 @@
+# frozen_string_literal: true
+
 module GobiertoBudgetConsultations
   class ApplicationController < ::ApplicationController
     include User::SessionHelper
     include User::VerificationHelper
 
-    layout "gobierto_budget_consultations/layouts/application"
+    layout 'gobierto_budget_consultations/layouts/application'
 
-    before_action { module_enabled!(current_site, "GobiertoBudgetConsultations") }
+    before_action { module_enabled!(current_site, 'GobiertoBudgetConsultations') }
 
     protected
 
     def check_not_responded
       if @consultation && user_signed_in? && @consultation.already_responded?(current_user)
         flash[:alert] = t('gobierto_budget_consultations.layouts.errors.already_responded')
-        redirect_to gobierto_budget_consultations_consultation_show_confirmation_path(@consultation) and return false
+        redirect_to(gobierto_budget_consultations_consultation_show_confirmation_path(@consultation)) && (return false)
       end
     end
 
     def raise_consultation_closed
       redirect_to(
-        request.referrer || user_root_path,
+        request.referer || user_root_path,
         alert: "This consultation doesn't allow participations."
       )
     end

@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   class RemoteCalendars
-
     def self.sync
       Site.with_agendas_integration_enabled.each do |site|
         I18n.locale = site.configuration.default_locale
@@ -11,6 +12,5 @@ module GobiertoPeople
         end
       end
     end
-
   end
 end

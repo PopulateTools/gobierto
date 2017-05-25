@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoBudgetConsultations
@@ -13,10 +15,10 @@ module GobiertoAdmin
           date_of_birth_year: 1992,
           date_of_birth_month: 1,
           date_of_birth_day: 1,
-          gender: "male",
+          gender: 'male',
           custom_records: {
-            madrid_custom_user_field_district.name => { "custom_user_field_id" => madrid_custom_user_field_district.id, "value" => madrid_custom_user_field_district.options.keys.first },
-            madrid_custom_user_field_association.name => { "custom_user_field_id" => madrid_custom_user_field_association.id, "value" => "Foo" }
+            madrid_custom_user_field_district.name => { 'custom_user_field_id' => madrid_custom_user_field_district.id, 'value' => madrid_custom_user_field_district.options.keys.first },
+            madrid_custom_user_field_association.name => { 'custom_user_field_id' => madrid_custom_user_field_association.id, 'value' => 'Foo' }
           }
         )
       end
@@ -42,7 +44,7 @@ module GobiertoAdmin
       end
 
       def document_number_digest
-        @document_number_digest ||= SecretAttribute.digest("00000000D")
+        @document_number_digest ||= SecretAttribute.digest('00000000D')
       end
 
       def consultation_items
@@ -65,10 +67,10 @@ module GobiertoAdmin
         valid_consultation_response_form.save
 
         user_information = valid_consultation_response_form.consultation_response.user_information
-        assert_equal "male", user_information["gender"]
-        assert_equal "1992-01-01", user_information["date_of_birth"]
-        assert_equal user_information["district"], {"raw_value"=>"randomstring1", "localized_value"=>"Center"}
-        assert_equal user_information["association"], {"raw_value"=>"Foo", "localized_value"=>"Foo"}
+        assert_equal 'male', user_information['gender']
+        assert_equal '1992-01-01', user_information['date_of_birth']
+        assert_equal user_information['district'], 'raw_value' => 'randomstring1', 'localized_value' => 'Center'
+        assert_equal user_information['association'], 'raw_value' => 'Foo', 'localized_value' => 'Foo'
       end
 
       def test_error_messages_with_invalid_attributes

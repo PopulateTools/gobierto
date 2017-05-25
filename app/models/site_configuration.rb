@@ -1,27 +1,29 @@
+# frozen_string_literal: true
+
 class SiteConfiguration
-  PROPERTIES = [
-    :site_id,
-    :modules,
-    :logo,
-    :demo,
-    :password_protection_username,
-    :password_protection_password,
-    :google_analytics_id,
-    :head_markup,
-    :foot_markup,
-    :links_markup,
-    :available_locales,
-    :default_locale,
-    :privacy_page_id,
+  PROPERTIES = %i[
+    site_id
+    modules
+    logo
+    demo
+    password_protection_username
+    password_protection_password
+    google_analytics_id
+    head_markup
+    foot_markup
+    links_markup
+    available_locales
+    default_locale
+    privacy_page_id
   ].freeze
 
-  DEFAULT_LOGO_PATH = "sites/logo-default.png".freeze
+  DEFAULT_LOGO_PATH = 'sites/logo-default.png'
 
-  MODULES_WITH_NOTIFICATONS = ["GobiertoPeople", "GobiertoBudgetConsultations"]
+  MODULES_WITH_NOTIFICATONS = %w[GobiertoPeople GobiertoBudgetConsultations].freeze
 
   attr_accessor *PROPERTIES
 
-  alias :site_modules :modules
+  alias site_modules modules
 
   def initialize(configuration_params)
     return unless configuration_params.is_a?(Hash)
@@ -32,7 +34,7 @@ class SiteConfiguration
   end
 
   def modules
-    return [] unless @modules.present?
+    return [] if @modules.blank?
 
     @modules.select { |site_module| SITE_MODULES.include?(site_module) }
   end
@@ -42,9 +44,9 @@ class SiteConfiguration
   end
 
   def available_locales
-    return I18n.available_locales if @available_locales.nil? || @available_locales.empty?
+    return I18n.available_locales if @available_locales.blank?
 
-    Array(default_locale).concat(@available_locales.select{ |l| l.present? }.map(&:to_s)).uniq
+    Array(default_locale).concat(@available_locales.select(&:present?).map(&:to_s)).uniq
   end
 
   def default_locale

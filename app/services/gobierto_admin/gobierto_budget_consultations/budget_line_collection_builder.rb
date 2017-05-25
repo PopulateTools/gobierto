@@ -1,4 +1,6 @@
-require "populate_data"
+# frozen_string_literal: true
+
+require 'populate_data'
 
 module GobiertoAdmin
   module GobiertoBudgetConsultations
@@ -11,19 +13,19 @@ module GobiertoAdmin
       def call
         [].tap do |budget_line_summary|
           Array(entities).each do |entity|
-            Array(budget_lines_for(entity["_id"])).each do |budget_line|
+            Array(budget_lines_for(entity['_id'])).each do |budget_line|
               matching_category = Array(categories).detect do |category|
-                category["code"] == budget_line["code"]
+                category['code'] == budget_line['code']
               end
 
               next unless matching_category
 
               budget_line_summary << {
-                id: budget_line["_id"],
-                entity_id: entity["_id"],
-                date: budget_line["date"],
-                name: matching_category["name"],
-                amount: budget_line["value"]
+                id: budget_line['_id'],
+                entity_id: entity['_id'],
+                date: budget_line['date'],
+                name: matching_category['name'],
+                amount: budget_line['value']
               }
             end
           end
@@ -35,9 +37,9 @@ module GobiertoAdmin
       def budget_lines_for(entity_id)
         PopulateData::Gobierto::BudgetLine.new(
           level: 3,
-          type: "planned",
-          kind: "expense",
-          area: "functional",
+          type: 'planned',
+          kind: 'expense',
+          area: 'functional',
           date: @year,
           entity_id: entity_id
         ).fetch
@@ -52,8 +54,8 @@ module GobiertoAdmin
       def categories
         @categories ||= PopulateData::Gobierto::Category.new(
           level: 3,
-          kind: "expense",
-          area: "functional",
+          kind: 'expense',
+          area: 'functional'
         ).fetch
       end
     end

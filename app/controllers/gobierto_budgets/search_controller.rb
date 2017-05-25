@@ -1,19 +1,20 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   class SearchController < GobiertoBudgets::ApplicationController
-
     def all_categories
       year = params[:year].to_i
-      place = INE::Places::Place.find_by_slug(params[:slug])
+      place = INE::Places::Place.find_by(slug: params[:slug])
 
       query = params[:query].downcase
       suggestions = []
       [GobiertoBudgets::BudgetLine::ECONOMIC, GobiertoBudgets::BudgetLine::FUNCTIONAL].each do |area|
         [GobiertoBudgets::BudgetLine::EXPENSE, GobiertoBudgets::BudgetLine::INCOME].each do |kind|
-          next if area == GobiertoBudgets::BudgetLine::FUNCTIONAL and kind == GobiertoBudgets::BudgetLine::INCOME
+          next if area == GobiertoBudgets::BudgetLine::FUNCTIONAL && kind == GobiertoBudgets::BudgetLine::INCOME
 
           this_year_codes = get_year_codes(place, area, kind, year)
           klass_name = area == 'economic' ? GobiertoBudgets::EconomicArea : GobiertoBudgets::FunctionalArea
-          suggestions += klass_name.all_items[kind].select{|k,v| this_year_codes.include?(k) && v.downcase.include?(query) }.map do |k,v|
+          suggestions += klass_name.all_items[kind].select { |k, v| this_year_codes.include?(k) && v.downcase.include?(query) }.map do |k, v|
             {
               value: v,
               data: {
@@ -42,9 +43,9 @@ module GobiertoBudgets
             filter: {
               bool: {
                 must: [
-                  {term: { ine_code: place.id }},
-                  {term: { kind: kind}},
-                  {term: { year: year }},
+                  { term: { ine_code: place.id } },
+                  { term: { kind: kind } },
+                  { term: { year: year } }
                 ]
               }
             }
@@ -54,7 +55,7 @@ module GobiertoBudgets
       }
 
       response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: area, body: query
-      response['hits']['hits'].map{|h| h['_source']['code'] }
+      response['hits']['hits'].map { |h| h['_source']['code'] }
     end
   end
 end

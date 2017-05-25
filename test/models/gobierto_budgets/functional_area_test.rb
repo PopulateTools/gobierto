@@ -1,5 +1,7 @@
-require "test_helper"
-require "support/concerns/gobierto_budgets/describable_test"
+# frozen_string_literal: true
+
+require 'test_helper'
+require 'support/concerns/gobierto_budgets/describable_test'
 
 class GobiertoBudgets::FunctionalAreaTest < ActiveSupport::TestCase
   include GobiertoBudgets::DescribableTest

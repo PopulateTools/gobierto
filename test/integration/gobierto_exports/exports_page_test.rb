@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoExports
   class HomePageTest < ActionDispatch::IntegrationTest
@@ -19,13 +21,12 @@ module GobiertoExports
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("h1", text: "Download data")
-        assert has_selector?("h2", text: "Officials and Agendas")
+        assert has_selector?('h1', text: 'Download data')
+        assert has_selector?('h2', text: 'Officials and Agendas')
       end
     end
 
     def test_index_hides_disabled_submodules
-
       gp_enabled_submodules.delete('statements')
 
       with_current_site(site) do
@@ -37,7 +38,6 @@ module GobiertoExports
     end
 
     def test_index_without_any_submodules
-
       gp_enabled_submodules.delete('officials')
       gp_enabled_submodules.delete('agendas')
       gp_enabled_submodules.delete('blogs')
@@ -48,6 +48,5 @@ module GobiertoExports
         assert has_content? "There aren't any active submodules"
       end
     end
-
   end
 end

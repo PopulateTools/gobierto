@@ -1,5 +1,7 @@
-require "test_helper"
-require "support/concerns/gobierto_common/sortable_test"
+# frozen_string_literal: true
+
+require 'test_helper'
+require 'support/concerns/gobierto_common/sortable_test'
 
 module GobiertoBudgetConsultations
   class ConsultationItemTest < ActiveSupport::TestCase
@@ -28,7 +30,7 @@ module GobiertoBudgetConsultations
 
     def test_single_response_option
       assert 0, response_option.id
-      assert "reduce", response_option.label
+      assert 'reduce', response_option.label
     end
 
     def test_raw_response_options

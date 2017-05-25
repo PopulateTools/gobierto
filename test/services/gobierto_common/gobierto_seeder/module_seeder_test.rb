@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class GobiertoCommon::GobiertoSeeder::ModuleSeederTest < ActiveSupport::TestCase
   def setup
@@ -15,7 +17,7 @@ class GobiertoCommon::GobiertoSeeder::ModuleSeederTest < ActiveSupport::TestCase
   end
 
   def seeds_path
-    @seeds_path ||= Rails.root.join("db/seeds/modules/gobierto_people/seeds")
+    @seeds_path ||= Rails.root.join('db/seeds/modules/gobierto_people/seeds')
   end
 
   def site
@@ -23,7 +25,7 @@ class GobiertoCommon::GobiertoSeeder::ModuleSeederTest < ActiveSupport::TestCase
   end
 
   def test_seed_a_site_with_that_module
-    @subject.seed("GobiertoPeople", site)
+    @subject.seed('GobiertoPeople', site)
     assert recipe_spy.has_been_called?
     args = first_call_arguments
     assert_equal site, args.first

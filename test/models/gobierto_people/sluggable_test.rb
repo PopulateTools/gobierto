@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 require 'support/person_event_helpers'
 
@@ -22,6 +24,5 @@ module GobiertoPeople
       assert_equal '2017-01-02-title-2',   event_2.slug
       assert_equal '2017-01-02-title-2-2', event_3.slug
     end
-
   end
 end

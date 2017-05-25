@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   include Authentication::Authenticable
   include Authentication::Confirmable
@@ -7,13 +9,13 @@ class User < ApplicationRecord
 
   EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/
 
-  belongs_to :source_site, class_name: "Site"
+  belongs_to :source_site, class_name: 'Site'
 
-  has_many :verifications, class_name: "User::Verification", dependent: :destroy
-  has_many :census_verifications, class_name: "User::Verification::CensusVerification"
+  has_many :verifications, class_name: 'User::Verification', dependent: :destroy
+  has_many :census_verifications, class_name: 'User::Verification::CensusVerification'
   has_many :subscriptions, dependent: :destroy
   has_many :notifications, dependent: :destroy
-  has_many :custom_records, dependent: :destroy, class_name: "GobiertoCommon::CustomUserFieldRecord"
+  has_many :custom_records, dependent: :destroy, class_name: 'GobiertoCommon::CustomUserFieldRecord'
 
   accepts_nested_attributes_for :custom_records
 
@@ -34,7 +36,7 @@ class User < ApplicationRecord
 
   def site_verification(site)
     @user_verifications ||= {}
-    @user_verifications[site] ||= census_verifications.find_by(site_id: site.id, user_id: self.id, verified: true)
+    @user_verifications[site] ||= census_verifications.find_by(site_id: site.id, user_id: id, verified: true)
     @user_verifications[site]
   end
 end

@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::SubscriptionFormTest < ActiveSupport::TestCase
   def valid_user_subscription_form
@@ -6,7 +8,7 @@ class User::SubscriptionFormTest < ActiveSupport::TestCase
       user: user,
       site: site,
       subscribable: subscribable,
-      creation_ip: IPAddr.new("0.0.0.0")
+      creation_ip: IPAddr.new('0.0.0.0')
     )
   end
 
@@ -15,7 +17,7 @@ class User::SubscriptionFormTest < ActiveSupport::TestCase
       user_email: new_user_email,
       site: site,
       subscribable: subscribable,
-      creation_ip: IPAddr.new("0.0.0.0")
+      creation_ip: IPAddr.new('0.0.0.0')
     )
   end
 
@@ -36,7 +38,7 @@ class User::SubscriptionFormTest < ActiveSupport::TestCase
   end
 
   def new_user_email
-    "wadus@gobierto.dev"
+    'wadus@gobierto.dev'
   end
 
   def user
@@ -96,7 +98,7 @@ class User::SubscriptionFormTest < ActiveSupport::TestCase
   end
 
   def test_user_registration
-    assert_difference "User.count", 1 do
+    assert_difference 'User.count', 1 do
       valid_new_user_subscription_form.save
     end
   end

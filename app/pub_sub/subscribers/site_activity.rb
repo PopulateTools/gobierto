@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Subscribers
   class SiteActivity < ::Subscribers::Base
     def site_created(event)
@@ -38,4 +40,3 @@ module Subscribers
     end
   end
 end
-

@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoPeople
@@ -6,8 +8,8 @@ module GobiertoAdmin
       def valid_person_event_form
         @valid_person_event_form ||= PersonEventForm.new(
           person_id: person.id,
-          title_translations: {I18n.locale => person_event.title},
-          description_translations: {I18n.locale => person_event.description},
+          title_translations: { I18n.locale => person_event.title },
+          description_translations: { I18n.locale => person_event.description },
           attachment_url: person_event.attachment_url,
           starts_at: person_event.starts_at,
           ends_at: person_event.ends_at,

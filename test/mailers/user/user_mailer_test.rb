@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::UserMailerTest < ActionMailer::TestCase
   def user
@@ -14,10 +16,10 @@ class User::UserMailerTest < ActionMailer::TestCase
 
     refute ActionMailer::Base.deliveries.empty?
 
-    assert_equal ["admin@gobierto.dev"], email.from
-    assert_equal ["admin@gobierto.dev"], email.reply_to
+    assert_equal ['admin@gobierto.dev'], email.from
+    assert_equal ['admin@gobierto.dev'], email.reply_to
     assert_equal [user.email], email.to
-    assert_equal "Complete your registration in Ayuntamiento de Madrid", email.subject
+    assert_equal 'Complete your registration in Ayuntamiento de Madrid', email.subject
   end
 
   def test_reset_password_instructions
@@ -25,10 +27,10 @@ class User::UserMailerTest < ActionMailer::TestCase
 
     refute ActionMailer::Base.deliveries.empty?
 
-    assert_equal ["admin@gobierto.dev"], email.from
-    assert_equal ["admin@gobierto.dev"], email.reply_to
+    assert_equal ['admin@gobierto.dev'], email.from
+    assert_equal ['admin@gobierto.dev'], email.reply_to
     assert_equal [user.email], email.to
-    assert_equal "Reset your password", email.subject
+    assert_equal 'Reset your password', email.subject
   end
 
   def test_welcome
@@ -36,9 +38,9 @@ class User::UserMailerTest < ActionMailer::TestCase
 
     refute ActionMailer::Base.deliveries.empty?
 
-    assert_equal ["admin@gobierto.dev"], email.from
-    assert_equal ["admin@gobierto.dev"], email.reply_to
+    assert_equal ['admin@gobierto.dev'], email.from
+    assert_equal ['admin@gobierto.dev'], email.reply_to
     assert_equal [user.email], email.to
-    assert_equal "Welcome", email.subject
+    assert_equal 'Welcome', email.subject
   end
 end

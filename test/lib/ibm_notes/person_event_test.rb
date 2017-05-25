@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class IbmNotes::PersonEventTest < ActiveSupport::TestCase
-
   def setup
     super
     persisted_ibm_notes_event_gobierto_event.save!
@@ -20,12 +21,11 @@ class IbmNotes::PersonEventTest < ActiveSupport::TestCase
     {
       'id'       => params[:id] || 'Ibm Notes event ID',
       'summary'  => params[:summary] || 'Ibm Notes event title',
-      'location' => params.has_key?(:location) ? params[:location] : 'Ibm Notes event location',
+      'location' => params.key?(:location) ? params[:location] : 'Ibm Notes event location',
       'start'    => params[:start] || { 'date' => '2017-04-11', 'time' => '10:00:00', 'utc' => true },
       'end'      => params[:end] || { 'date' => '2017-04-11', 'time' => '11:00:00', 'utc' => true }
     }
   end
-
 
   def persisted_ibm_notes_event_response_data
     @persisted_ibm_notes_event_response_data ||= response_data(
@@ -42,8 +42,8 @@ class IbmNotes::PersonEventTest < ActiveSupport::TestCase
     @persisted_ibm_notes_event_gobierto_event ||= GobiertoPeople::PersonEvent.new(
       id: 'Ibm Notes persisted event ID',
       title: 'Ibm Notes persisted event title',
-      starts_at: utc_time("2017-04-11 10:00:00"),
-      ends_at:   utc_time("2017-04-11 11:00:00"),
+      starts_at: utc_time('2017-04-11 10:00:00'),
+      ends_at:   utc_time('2017-04-11 11:00:00'),
       person: person,
       site: person.site
     )
@@ -81,5 +81,4 @@ class IbmNotes::PersonEventTest < ActiveSupport::TestCase
 
     assert_equal 'valid location name', ibm_notes_event.location
   end
-
 end

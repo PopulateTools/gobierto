@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoBudgetConsultations
     module Consultations
@@ -19,7 +21,7 @@ module GobiertoAdmin
           @consultation_item_form = ConsultationItemForm.new
           @budget_lines = get_budget_lines
 
-          render :new_modal, layout: false and return if request.xhr?
+          render(:new_modal, layout: false) && return if request.xhr?
         end
 
         def edit
@@ -29,7 +31,7 @@ module GobiertoAdmin
           )
           @budget_lines = get_budget_lines
 
-          render :edit_modal, layout: false and return if request.xhr?
+          render(:edit_modal, layout: false) && return if request.xhr?
         end
 
         def create
@@ -40,11 +42,11 @@ module GobiertoAdmin
           if @consultation_item_form.save
             redirect_to(
               admin_budget_consultation_consultation_items_path(@consultation),
-              notice: t(".success")
+              notice: t('.success')
             )
           else
             @budget_lines = get_budget_lines
-            render :new_modal, layout: false and return if request.xhr?
+            render(:new_modal, layout: false) && return if request.xhr?
             render :new
           end
         end
@@ -58,11 +60,11 @@ module GobiertoAdmin
           if @consultation_item_form.save
             redirect_to(
               admin_budget_consultation_consultation_items_path(@consultation),
-              notice: t(".success")
+              notice: t('.success')
             )
           else
             @budget_lines = get_budget_lines
-            render :edit_modal, layout: false and return if request.xhr?
+            render(:edit_modal, layout: false) && return if request.xhr?
             render :edit
           end
         end
@@ -90,7 +92,7 @@ module GobiertoAdmin
         end
 
         def ignored_consultation_item_attributes
-          %w( created_at updated_at)
+          %w[created_at updated_at]
         end
       end
     end

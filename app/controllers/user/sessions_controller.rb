@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 class User::SessionsController < User::BaseController
   before_action :authenticate_user!, only: [:destroy]
-  before_action :require_no_authentication, only: [:new, :create]
+  before_action :require_no_authentication, only: %i[new create]
 
-  layout "user/layouts/sessions"
+  layout 'user/layouts/sessions'
 
   def new
-    @user_session_form = User::SessionForm.new(referrer_url: request.referrer)
-    @user_registration_form = User::RegistrationForm.new(referrer_url: request.referrer, referrer_entity: referrer_entity)
+    @user_session_form = User::SessionForm.new(referrer_url: request.referer)
+    @user_registration_form = User::RegistrationForm.new(referrer_url: request.referer, referrer_entity: referrer_entity)
     @user_password_form = User::NewPasswordForm.new
   end
 
@@ -21,20 +23,20 @@ class User::SessionsController < User::BaseController
 
       redirect_to(
         after_sign_in_path(@user_session_form.referrer_url),
-        notice: t(".success")
+        notice: t('.success')
       )
     else
       @user_registration_form = User::RegistrationForm.new
       @user_password_form = User::NewPasswordForm.new
 
-      flash.now[:alert] = t(".error")
+      flash.now[:alert] = t('.error')
       render :new
     end
   end
 
   def destroy
     sign_out_user
-    redirect_to after_sign_out_path, notice: t(".success")
+    redirect_to after_sign_out_path, notice: t('.success')
   end
 
   private
@@ -44,9 +46,9 @@ class User::SessionsController < User::BaseController
   end
 
   def referrer_entity
-    if request.referrer.present?
-      if request.referrer.include?("consultas-presupuestos")
-        "GobiertoBudgetConsultations::Consultation"
+    if request.referer.present?
+      if request.referer.include?('consultas-presupuestos')
+        'GobiertoBudgetConsultations::Consultation'
       end
     end
   end

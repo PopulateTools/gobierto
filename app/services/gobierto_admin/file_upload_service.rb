@@ -1,4 +1,6 @@
-require "file_uploader"
+# frozen_string_literal: true
+
+require 'file_uploader'
 
 module GobiertoAdmin
   class FileUploadService
@@ -30,14 +32,14 @@ module GobiertoAdmin
 
     def file_name
       @file_name ||= begin
-        [site_id, collection, attribute_name, file.original_filename].join("/")
+        [site_id, collection, attribute_name, file.original_filename].join('/')
       end
     end
 
     protected
 
     def site_id
-      site.present? ? "site-#{site.id}" : "site-unknown"
+      site.present? ? "site-#{site.id}" : 'site-unknown'
     end
 
     def attribute_name

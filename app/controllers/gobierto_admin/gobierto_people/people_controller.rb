@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
     class PeopleController < BaseController
       include ::GobiertoCommon::DynamicContentHelper
 
-      before_action { module_enabled!(current_site, "GobiertoPeople") }
+      before_action { module_enabled!(current_site, 'GobiertoPeople') }
 
       def index
         @people = current_site.people.sorted
@@ -37,7 +39,7 @@ module GobiertoAdmin
         if @person_form.save
           redirect_to(
             edit_admin_people_person_path(@person_form.person),
-            notice: t(".success_html", link: gobierto_people_person_url(@person_form.person.slug, host: current_site.domain))
+            notice: t('.success_html', link: gobierto_people_person_url(@person_form.person.slug, host: current_site.domain))
           )
         else
           @person_visibility_levels = get_person_visibility_levels
@@ -57,7 +59,7 @@ module GobiertoAdmin
         if @person_form.save
           redirect_to(
             edit_admin_people_person_path(@person),
-            notice: t(".success_html", link: gobierto_people_person_url(@person_form.person.slug, host: current_site.domain))
+            notice: t('.success_html', link: gobierto_people_person_url(@person_form.person.slug, host: current_site.domain))
           )
         else
           @person_visibility_levels = get_person_visibility_levels
@@ -99,13 +101,13 @@ module GobiertoAdmin
             :id,
             :content_block_id,
             :_destroy,
-            fields_attributes: [:name, :value]
+            fields_attributes: %i[name value]
           ]
         )
       end
 
       def ignored_person_attributes
-        %w( created_at updated_at events_count statements_count posts_count position charge bio slug google_calendar_token )
+        %w[created_at updated_at events_count statements_count posts_count position charge bio slug google_calendar_token]
       end
     end
   end

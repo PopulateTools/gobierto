@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoCms
   class VisitPageTest < ActionDispatch::IntegrationTest
@@ -19,7 +21,7 @@ module GobiertoCms
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("h1", text: cms_page.title)
+        assert has_selector?('h1', text: cms_page.title)
         assert has_content?(cms_page.body)
       end
     end

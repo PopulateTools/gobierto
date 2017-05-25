@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   class PeopleController < GobiertoPeople::ApplicationController
     include PoliticalGroupsHelper
@@ -5,7 +7,6 @@ module GobiertoPeople
     before_action :check_active_submodules, except: :show
 
     def index
-
       @political_groups = get_political_groups
 
       set_people
@@ -33,9 +34,7 @@ module GobiertoPeople
     private
 
     def check_active_submodules
-      if !officials_submodule_active?
-        redirect_to gobierto_people_root_path
-      end
+      redirect_to gobierto_people_root_path unless officials_submodule_active?
     end
 
     def find_person
@@ -60,6 +59,5 @@ module GobiertoPeople
         @events = @events.upcoming.sorted.first(10)
       end
     end
-
   end
 end

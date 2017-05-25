@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   class TopBudgetLine
     def self.limit(n)
@@ -12,10 +14,10 @@ module GobiertoBudgets
 
     def self.all
       terms = [
-        {term: { kind: @conditions[:kind] }},
-        {term: { year: @conditions[:year] }},
-        {term: { level: 3 }},
-        {term: { ine_code: @conditions[:place].id }}
+        { term: { kind: @conditions[:kind] } },
+        { term: { year: @conditions[:year] } },
+        { term: { level: 3 } },
+        { term: { ine_code: @conditions[:place].id } }
       ]
 
       query = {
@@ -47,7 +49,7 @@ module GobiertoBudgets
       response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
                                                              type: type, body: query
 
-      response['hits']['hits'].map{ |h| h['_source'] }.map do |row|
+      response['hits']['hits'].map { |h| h['_source'] }.map do |row|
         BudgetLinePresenter.new(row.merge(kind: @conditions[:kind], area: area, area_name: type, total: total))
       end
     end

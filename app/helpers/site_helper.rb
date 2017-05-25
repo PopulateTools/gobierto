@@ -1,5 +1,6 @@
-module SiteHelper
+# frozen_string_literal: true
 
+module SiteHelper
   def site_name
     if current_site
       "#{current_site.title} de #{current_site.name}"
@@ -29,5 +30,4 @@ module SiteHelper
       ''
     end
   end
-
 end

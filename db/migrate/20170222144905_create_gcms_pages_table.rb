@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGcmsPagesTable < ActiveRecord::Migration[5.0]
   def change
     create_table :gcms_pages do |t|
@@ -10,6 +12,6 @@ class CreateGcmsPagesTable < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    add_index :gcms_pages, [:slug, :site_id], unique: true
+    add_index :gcms_pages, %i[slug site_id], unique: true
   end
 end

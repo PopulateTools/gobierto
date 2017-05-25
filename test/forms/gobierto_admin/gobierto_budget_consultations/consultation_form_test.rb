@@ -1,5 +1,7 @@
-require "test_helper"
-require "support/extensions/gobierto_common/trackable_test"
+# frozen_string_literal: true
+
+require 'test_helper'
+require 'support/extensions/gobierto_common/trackable_test'
 
 module GobiertoAdmin
   module GobiertoBudgetConsultations
@@ -29,7 +31,7 @@ module GobiertoAdmin
           site_id: site.id,
           title: consultation.title,
           description: consultation.description,
-          opening_date_range: "2016-01-01 - 2016-12-01"
+          opening_date_range: '2016-01-01 - 2016-12-01'
         )
       end
 
@@ -80,12 +82,12 @@ module GobiertoAdmin
 
       def test_opening_date_range_for_opening_date_range_form
         assert_equal(
-          "2016-01-01",
+          '2016-01-01',
           valid_consultation_with_opening_date_range_form.opens_on
         )
 
         assert_equal(
-          "2016-12-01",
+          '2016-12-01',
           valid_consultation_with_opening_date_range_form.closes_on
         )
       end

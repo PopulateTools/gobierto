@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class SiteDecorator < BaseDecorator
-  DOMAIN_URL_SCHEME = "http://"
+  DOMAIN_URL_SCHEME = 'http://'
 
   def initialize(site)
     @object = site

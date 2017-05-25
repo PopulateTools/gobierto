@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   class BudgetLineStats
     def initialize(options)
@@ -13,7 +15,7 @@ module GobiertoBudgets
     def amount(year = nil)
       budget_line_planned_query(year, 'amount')
     end
-    alias_method :amount_planned, :amount
+    alias amount_planned amount
 
     def amount_executed(year = nil)
       budget_line_executed_query(year, 'amount')
@@ -38,22 +40,22 @@ module GobiertoBudgets
                year1 = options.fetch(:year1)
                year2 = options.fetch(:year2)
 
-               v1 = self.send(variable1, year1)
-               v2 = self.send(variable1, year2)
+               v1 = send(variable1, year1)
+               v2 = send(variable1, year2)
                return nil if v1.nil? || v2.nil?
 
-               ((v1.to_f - v2.to_f)/v2.to_f) * 100
+               ((v1.to_f - v2.to_f) / v2.to_f) * 100
              else
-               v1 = self.send(variable1, year)
-               v2 = self.send(variable2, year)
+               v1 = send(variable1, year)
+               v2 = send(variable2, year)
                return nil if v1.nil? || v2.nil?
 
-               ((v1.to_f - v2.to_f)/v2.to_f) * 100
+               ((v1.to_f - v2.to_f) / v2.to_f) * 100
              end
 
-      if(diff < 0)
+      if diff < 0
         direction = I18n.t('gobierto_budgets.budgets.index.less')
-        diff = diff*-1
+        diff *= -1
       else
         direction = I18n.t('gobierto_budgets.budgets.index.more')
       end
@@ -93,17 +95,17 @@ module GobiertoBudgets
 
     def total_budget_planned_query(year, attribute)
       result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast,
-        type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: [@place.id, year, @kind].join('/')
+                                                        type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: [@place.id, year, @kind].join('/')
       result['_source'][attribute].to_f
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
     end
 
     def mean_province_query(year, attribute)
-      filters = [ {term: { province_id: @place.province_id }} ]
-      filters.push({term: { code: @code }})
-      filters.push({term: { kind: @kind }})
-      filters.push({term: { year: year }})
+      filters = [{ term: { province_id: @place.province_id } }]
+      filters.push(term: { code: @code })
+      filters.push(term: { kind: @kind })
+      filters.push(term: { year: year })
 
       query = {
         query: {
@@ -119,13 +121,13 @@ module GobiertoBudgets
         "aggs": {
           "#{attribute}_per_year": {
             "terms": {
-              "field": "year",
+              "field": 'year',
               size: 10_000
             },
             "aggs": {
               "budget_sum": {
                 "sum": {
-                  "field": "#{attribute}"
+                  "field": attribute.to_s
                 }
               }
             }

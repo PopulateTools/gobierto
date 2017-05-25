@@ -1,6 +1,8 @@
-require "test_helper"
-require "support/concerns/user/subscribable_test"
-require "support/concerns/gobierto_people/sluggable_test"
+# frozen_string_literal: true
+
+require 'test_helper'
+require 'support/concerns/user/subscribable_test'
+require 'support/concerns/gobierto_people/sluggable_test'
 
 module GobiertoPeople
   class PersonEventTest < ActiveSupport::TestCase

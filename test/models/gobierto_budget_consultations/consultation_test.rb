@@ -1,5 +1,7 @@
-require "test_helper"
-require "support/concerns/user/subscribable_test"
+# frozen_string_literal: true
+
+require 'test_helper'
+require 'support/concerns/user/subscribable_test'
 
 module GobiertoBudgetConsultations
   class ConsultationTest < ActiveSupport::TestCase
@@ -101,7 +103,7 @@ module GobiertoBudgetConsultations
     end
 
     def test_open_in_range
-      consultation.visibility_level = "active"
+      consultation.visibility_level = 'active'
       consultation.opens_on = Date.today
       consultation.closes_on = Date.tomorrow
 
@@ -109,7 +111,7 @@ module GobiertoBudgetConsultations
     end
 
     def test_open_out_of_range
-      consultation.visibility_level = "active"
+      consultation.visibility_level = 'active'
       consultation.opens_on = Date.tomorrow
       consultation.closes_on = Date.tomorrow
 
@@ -117,7 +119,7 @@ module GobiertoBudgetConsultations
     end
 
     def test_open_with_draft_visibility_level
-      consultation.visibility_level = "draft"
+      consultation.visibility_level = 'draft'
       consultation.opens_on = Date.today
       consultation.closes_on = Date.tomorrow
 
@@ -130,7 +132,7 @@ module GobiertoBudgetConsultations
 
       consultation_items_total_amount = consultation.consultation_items.sum(:budget_line_amount)
 
-      assert_difference "consultation.budget_amount", consultation_items_total_amount do
+      assert_difference 'consultation.budget_amount', consultation_items_total_amount do
         consultation.calculate_budget_amount
       end
     end

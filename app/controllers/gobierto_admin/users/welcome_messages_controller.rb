@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class Users::WelcomeMessagesController < BaseController
     def create
@@ -6,12 +8,12 @@ module GobiertoAdmin
       )
 
       if @user_welcome_message_form.save
-        flash[:notice] = t(".success")
+        flash[:notice] = t('.success')
       else
-        flash[:alert] = t(".error")
+        flash[:alert] = t('.error')
       end
 
-      redirect_to request.referrer
+      redirect_to request.referer
     end
   end
 end

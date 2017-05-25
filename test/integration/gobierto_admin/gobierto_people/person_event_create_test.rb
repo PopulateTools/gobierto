@@ -1,5 +1,7 @@
-require "test_helper"
-require "support/file_uploader_helpers"
+# frozen_string_literal: true
+
+require 'test_helper'
+require 'support/file_uploader_helpers'
 
 module GobiertoAdmin
   module GobiertoPeople
@@ -33,90 +35,90 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
 
-              within "form.new_person_event" do
-                fill_in "person_event_title_translations_en", with: "Event Title"
-                fill_in "person_event_starts_at", with: "2017-01-01 00:00"
-                fill_in "person_event_ends_at", with: "2017-01-01 00:01"
-                find("#person_event_description_translations_en", visible: false).set("Event Description")
+              within 'form.new_person_event' do
+                fill_in 'person_event_title_translations_en', with: 'Event Title'
+                fill_in 'person_event_starts_at', with: '2017-01-01 00:00'
+                fill_in 'person_event_ends_at', with: '2017-01-01 00:01'
+                find('#person_event_description_translations_en', visible: false).set('Event Description')
 
-                click_link "ES"
-                fill_in "person_event_title_translations_es", with: "Título Evento"
-                find("#person_event_description_translations_es", visible: false).set("Descripción Evento")
+                click_link 'ES'
+                fill_in 'person_event_title_translations_es', with: 'Título Evento'
+                find('#person_event_description_translations_es', visible: false).set('Descripción Evento')
 
-                within ".attachment_file_field" do
-                  refute has_selector?("a")
-                  attach_file "person_event_attachment_file", "test/fixtures/files/gobierto_people/people/person_event/attachment.pdf"
+                within '.attachment_file_field' do
+                  refute has_selector?('a')
+                  attach_file 'person_event_attachment_file', 'test/fixtures/files/gobierto_people/people/person_event/attachment.pdf'
                 end
 
-                within "#person-event-locations" do
-                  find("a[data-behavior=add_child]").click
+                within '#person-event-locations' do
+                  find('a[data-behavior=add_child]').click
 
-                  within ".cloned-dynamic-content-record-wrapper" do
-                    fill_in "Place", with: "Location Place"
-                    fill_in "Address", with: "Location Address"
+                  within '.cloned-dynamic-content-record-wrapper' do
+                    fill_in 'Place', with: 'Location Place'
+                    fill_in 'Address', with: 'Location Address'
 
-                    find("a[data-behavior=add_record]").click
+                    find('a[data-behavior=add_record]').click
                   end
                 end
 
-                within "#person-event-attendees" do
-                  find("a[data-behavior=add_child]").click
+                within '#person-event-attendees' do
+                  find('a[data-behavior=add_child]').click
 
-                  within all(".cloned-dynamic-content-record-wrapper")[0] do
-                    select attendee.name, from: "Person"
-                    fill_in "Name", with: ""
-                    fill_in "Charge", with: ""
+                  within all('.cloned-dynamic-content-record-wrapper')[0] do
+                    select attendee.name, from: 'Person'
+                    fill_in 'Name', with: ''
+                    fill_in 'Charge', with: ''
 
-                    find("a[data-behavior=add_record]").click
+                    find('a[data-behavior=add_record]').click
                   end
                 end
 
-                within ".person-event-state-radio-buttons" do
-                  find("label", text: "Published").trigger('click')
+                within '.person-event-state-radio-buttons' do
+                  find('label', text: 'Published').trigger('click')
                 end
 
                 with_stubbed_s3_file_upload do
-                  click_button "Create"
+                  click_button 'Create'
                 end
               end
 
-              assert has_message?("Event was successfully created. See the event.")
+              assert has_message?('Event was successfully created. See the event.')
 
-              within "form.edit_person_event" do
-                assert has_field?("person_event_title_translations_en", with: "Event Title")
+              within 'form.edit_person_event' do
+                assert has_field?('person_event_title_translations_en', with: 'Event Title')
 
-                assert has_field?("person_event_starts_at", with: "2017-01-01 00:00")
-                assert has_field?("person_event_ends_at", with: "2017-01-01 00:01")
+                assert has_field?('person_event_starts_at', with: '2017-01-01 00:00')
+                assert has_field?('person_event_ends_at', with: '2017-01-01 00:01')
 
                 assert_equal(
-                  "<div>Event Description</div>",
-                  find("#person_event_description_translations_en", visible: false).value
+                  '<div>Event Description</div>',
+                  find('#person_event_description_translations_en', visible: false).value
                 )
 
-                within ".attachment_file_field" do
-                  assert has_selector?("a")
+                within '.attachment_file_field' do
+                  assert has_selector?('a')
                 end
 
-                within "#person-event-locations .dynamic-content-record-view" do
-                  assert has_selector?(".content-block-record-value", text: "Location Place")
-                  assert has_selector?(".content-block-record-value", text: "Location Address")
+                within '#person-event-locations .dynamic-content-record-view' do
+                  assert has_selector?('.content-block-record-value', text: 'Location Place')
+                  assert has_selector?('.content-block-record-value', text: 'Location Address')
                 end
 
-                assert all(".content-block-record-value").any?{ |v| v.text.include?(attendee.name) }
+                assert all('.content-block-record-value').any? { |v| v.text.include?(attendee.name) }
 
-                within ".person-event-state-radio-buttons" do
+                within '.person-event-state-radio-buttons' do
                   with_hidden_elements do
-                    assert has_checked_field?("Published")
+                    assert has_checked_field?('Published')
                   end
                 end
 
-                click_link "ES"
+                click_link 'ES'
 
-                assert has_field?("person_event_title_translations_es", with: "Título Evento")
+                assert has_field?('person_event_title_translations_es', with: 'Título Evento')
 
                 assert_equal(
-                  "<div>Descripción Evento</div>",
-                  find("#person_event_description_translations_es", visible: false).value
+                  '<div>Descripción Evento</div>',
+                  find('#person_event_description_translations_es', visible: false).value
                 )
               end
             end

@@ -1,10 +1,10 @@
+# frozen_string_literal: true
+
 module User::SessionHelper
   extend ActiveSupport::Concern
 
   included do
-    if respond_to?(:helper_method)
-      helper_method :current_user, :user_signed_in?
-    end
+    helper_method :current_user, :user_signed_in? if respond_to?(:helper_method)
   end
 
   private
@@ -54,7 +54,7 @@ module User::SessionHelper
 
   def raise_user_not_authorized
     redirect_to(
-      request.referrer || user_root_path,
+      request.referer || user_root_path,
       alert: t('user.sessions.user_not_authorized')
     )
   end

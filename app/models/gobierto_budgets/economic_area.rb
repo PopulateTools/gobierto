@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   class EconomicArea
     include Describable
@@ -19,7 +21,7 @@ module GobiertoBudgets
               filter: {
                 bool: {
                   must: [
-                    {term: { area: 'economic' }},
+                    { term: { area: 'economic' } }
                   ]
                 }
               }

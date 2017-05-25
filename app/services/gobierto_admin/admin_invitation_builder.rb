@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class AdminInvitationBuilder
     attr_reader :email_address, :sites, :admin
@@ -35,9 +37,7 @@ module GobiertoAdmin
     protected
 
     def get_username_from_email(email_address)
-      if email_address =~ Admin::EMAIL_ADDRESS_REGEXP
-        $1
-      end
+      Regexp.last_match(1) if email_address.match?(Admin::EMAIL_ADDRESS_REGEXP)
     end
 
     def generate_random_password

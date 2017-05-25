@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoPeople
@@ -8,8 +10,8 @@ module GobiertoAdmin
           admin_id: admin.id,
           site_id: site.id,
           name: person.name,
-          charge_translations: {I18n.locale => person.charge},
-          bio_translations: {I18n.locale => person.bio},
+          charge_translations: { I18n.locale => person.charge },
+          bio_translations: { I18n.locale => person.bio },
           bio_url: person.bio_url,
           visibility_level: person.visibility_level,
           category: person.category,
@@ -56,7 +58,7 @@ module GobiertoAdmin
       end
 
       def test_party_for_executive_category
-        valid_person_form.category = "executive"
+        valid_person_form.category = 'executive'
 
         assert_nil valid_person_form.party
       end
@@ -66,7 +68,7 @@ module GobiertoAdmin
       end
 
       def test_political_group_id_for_executive_category
-        valid_person_form.category = "executive"
+        valid_person_form.category = 'executive'
 
         assert_nil valid_person_form.political_group_id
       end

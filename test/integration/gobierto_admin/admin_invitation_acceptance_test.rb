@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class AdminInvitationAcceptanceTest < ActionDispatch::IntegrationTest
@@ -18,19 +20,19 @@ module GobiertoAdmin
     def test_invitation_acceptance
       visit @invitation_acceptance_path
 
-      assert has_message?("Signed in successfully")
+      assert has_message?('Signed in successfully')
 
-      assert has_content?("Edit your data")
+      assert has_content?('Edit your data')
 
       fill_in :admin_password, with: 'gobierto'
       fill_in :admin_password_confirmation, with: 'gobierto'
-      click_button "Update"
+      click_button 'Update'
 
-      assert has_message?("Data updated successfully")
+      assert has_message?('Data updated successfully')
     end
 
     def test_invalid_invitation_acceptance
-      visit admin_admin_invitation_acceptances_path(invitation_token: "foo")
+      visit admin_admin_invitation_acceptances_path(invitation_token: 'foo')
 
       assert has_message?("This URL doesn't seem to be valid")
     end
@@ -39,7 +41,7 @@ module GobiertoAdmin
       with_signed_in_admin(admin) do
         visit @invitation_acceptance_path
 
-        assert has_message?("You are already signed in")
+        assert has_message?('You are already signed in')
       end
     end
   end

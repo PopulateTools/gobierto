@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class SitesControllerTest < GobiertoControllerTest
@@ -23,8 +25,8 @@ module GobiertoAdmin
 
     def valid_site_params
       {
-        title_translations: { I18n.locale => 'Title'},
-        name_translations: { I18n.locale => 'Foo'},
+        title_translations: { I18n.locale => 'Title' },
+        name_translations: { I18n.locale => 'Foo' },
         location_name: 'Madrid',
         municipality_id: 1,
         domain: 'test2.gobierto.dev',
@@ -127,7 +129,7 @@ module GobiertoAdmin
 
         assert notification_service_spy.has_been_called?
         event_name, event_payload = first_call_arguments
-        assert_equal "site_created", event_name
+        assert_equal 'site_created', event_name
         assert_includes event_payload, :ip
         assert_equal event_payload[:author], admin
         assert_equal event_payload[:subject], Site.last
@@ -142,7 +144,7 @@ module GobiertoAdmin
 
         assert notification_service_spy.has_been_called?
         event_name, event_payload = first_call_arguments
-        assert_equal "site_updated", event_name
+        assert_equal 'site_updated', event_name
         assert_includes event_payload, :ip
         assert_equal event_payload[:author], admin
         assert_equal event_payload[:subject], site
@@ -166,7 +168,7 @@ module GobiertoAdmin
 
         assert notification_service_spy.has_been_called?
         event_name, event_payload = first_call_arguments
-        assert_equal "site_deleted", event_name
+        assert_equal 'site_deleted', event_name
         assert_includes event_payload, :ip
         assert_equal event_payload[:author], admin
         assert_equal event_payload[:subject], site

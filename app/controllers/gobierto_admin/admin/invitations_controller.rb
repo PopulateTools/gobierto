@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class Admin::InvitationsController < BaseController
     def new
@@ -12,15 +14,15 @@ module GobiertoAdmin
       if @admin_invitation_form.process
         if @admin_invitation_form.not_delivered_email_addresses.any?
           flash.now[:alert] = t(
-            ".success_with_errors",
+            '.success_with_errors',
             email_addresses: @admin_invitation_form.not_delivered_email_addresses.to_sentence
           )
         else
           track_create_activity
-          flash.now[:notice] = t(".success")
+          flash.now[:notice] = t('.success')
         end
       else
-        flash.now[:alert] = t(".error")
+        flash.now[:alert] = t('.error')
       end
 
       render :new
@@ -40,7 +42,7 @@ module GobiertoAdmin
     end
 
     def track_create_activity
-      Publishers::AdminActivity.broadcast_event("invitation_created", default_activity_params)
+      Publishers::AdminActivity.broadcast_event('invitation_created', default_activity_params)
     end
 
     def default_activity_params

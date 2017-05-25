@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::VerificationTest < ActiveSupport::TestCase
   def user_verification
@@ -22,7 +24,7 @@ class User::VerificationTest < ActiveSupport::TestCase
   end
 
   def test_verify_later!
-    assert_enqueued_with(job: User::VerificationJob, args: [user_verification], queue: "user_verifications") do
+    assert_enqueued_with(job: User::VerificationJob, args: [user_verification], queue: 'user_verifications') do
       user_verification.verify_later!
     end
   end

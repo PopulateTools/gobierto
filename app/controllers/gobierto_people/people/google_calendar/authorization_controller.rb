@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module People
     module GoogleCalendar
@@ -20,7 +22,7 @@ module GobiertoPeople
             client_secrets = Google::APIClient::ClientSecrets.load(client_secret_path)
 
             auth_client = client_secrets.to_authorization
-            auth_client.update!(:scope => scope)
+            auth_client.update!(scope: scope)
             auth_client.code = params[:code]
             auth_client.fetch_access_token!
             auth_client.client_secret = nil

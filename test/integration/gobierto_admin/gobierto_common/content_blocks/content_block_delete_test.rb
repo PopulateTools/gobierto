@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoCommon
@@ -30,7 +32,7 @@ module GobiertoAdmin
             with_current_site(site) do
               page.driver.submit :delete, @path, {}
 
-              assert has_message?("Content block was successfully deleted")
+              assert has_message?('Content block was successfully deleted')
             end
           end
         end
@@ -40,7 +42,7 @@ module GobiertoAdmin
             with_current_site(site) do
               page.driver.submit :delete, @path, {}
 
-              assert has_message?("You are not authorized to perform this action")
+              assert has_message?('You are not authorized to perform this action')
             end
           end
         end

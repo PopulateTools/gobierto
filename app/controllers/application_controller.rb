@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   include SubmodulesHelper
   include ::GobiertoCommon::ModuleHelper
@@ -12,7 +14,7 @@ class ApplicationController < ActionController::Base
   before_action :set_current_site, :authenticate_user_in_site, :set_locale
 
   def render_404
-    render file: "public/404", status: 404, layout: false, handlers: [:erb], formats: [:html]
+    render file: 'public/404', status: 404, layout: false, handlers: [:erb], formats: [:html]
   end
 
   def helpers
@@ -78,6 +80,6 @@ class ApplicationController < ActionController::Base
   end
 
   def raise_module_not_enabled
-    redirect_to(root_path) and return false
+    redirect_to(root_path) && (return false)
   end
 end

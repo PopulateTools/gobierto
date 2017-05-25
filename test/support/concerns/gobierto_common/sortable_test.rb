@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module GobiertoCommon::SortableTest
   def test_update_positions
-    positions_from_params = { "0" => { "id" => sortable_object.id, "position" => 1 } }
+    positions_from_params = { '0' => { 'id' => sortable_object.id, 'position' => 1 } }
 
     assert subject_class.update_positions(positions_from_params)
   end

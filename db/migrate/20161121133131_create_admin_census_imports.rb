@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateAdminCensusImports < ActiveRecord::Migration[5.0]
   def change
     create_table :admin_census_imports do |t|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::NotificationMailer < ApplicationMailer
   def single_notification(user_notification)
     @user_notification = user_notification
@@ -12,11 +14,11 @@ class User::NotificationMailer < ApplicationMailer
       from: from,
       reply_to: default_reply_to,
       to: @user.email,
-      subject: t(".subject", site_name: @site.name, action_name: @user_notification_decorated.subject_name)
+      subject: t('.subject', site_name: @site.name, action_name: @user_notification_decorated.subject_name)
     )
   end
 
-  def notification_digest(user, user_notifications, frequency)
+  def notification_digest(user, user_notifications, _frequency)
     @user = user
     @user_notifications = UserNotificationCollectionDecorator.new(user_notifications)
     @site = user_notifications.first.site
@@ -26,7 +28,7 @@ class User::NotificationMailer < ApplicationMailer
       from: from,
       reply_to: default_reply_to,
       to: @user.email,
-      subject: t(".subject", site_name: @site.name)
+      subject: t('.subject', site_name: @site.name)
     )
   end
 end

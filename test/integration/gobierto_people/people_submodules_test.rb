@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoPeople
   class PeopleSubmodulesTest < ActionDispatch::IntegrationTest
@@ -62,7 +64,6 @@ module GobiertoPeople
           refute has_content? 'Statements'
           refute has_content? 'Blogs'
         end
-
       end
     end
 
@@ -72,7 +73,7 @@ module GobiertoPeople
 
         assert_equal current_path, gobierto_people_people_path
 
-        disable_submodules ['blogs', 'statements']
+        disable_submodules %w[blogs statements]
         visit @path
 
         assert_equal current_path, gobierto_people_people_path
@@ -95,7 +96,7 @@ module GobiertoPeople
 
         assert has_selector? 'div .upcoming-events'
 
-        disable_submodules ['agendas', 'statements']
+        disable_submodules %w[agendas statements]
 
         visit gobierto_people_person_path(richard.slug)
 
@@ -107,6 +108,5 @@ module GobiertoPeople
         refute has_selector? 'div .upcoming-events'
       end
     end
-
   end
 end

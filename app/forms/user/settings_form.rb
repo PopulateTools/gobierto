@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::SettingsForm
   include ActiveModel::Model
   include GobiertoCommon::CustomUserFieldsHelper
@@ -33,7 +35,7 @@ class User::SettingsForm
 
   def date_of_birth
     @date_of_birth ||= if date_of_birth_year && date_of_birth_month && date_of_birth_day
-      Date.new(date_of_birth_year.to_i, date_of_birth_month.to_i, date_of_birth_day.to_i)
+                         Date.new(date_of_birth_year.to_i, date_of_birth_month.to_i, date_of_birth_day.to_i)
     end
   rescue ArgumentError
     nil

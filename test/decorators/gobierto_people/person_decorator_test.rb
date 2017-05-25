@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoPeople
   class PersonDecoratorTest < ActiveSupport::TestCase
@@ -16,11 +18,11 @@ module GobiertoPeople
     end
 
     def test_twitter_handle
-      assert_equal "@richard", @subject.twitter_handle
+      assert_equal '@richard', @subject.twitter_handle
     end
 
     def test_twitter_url
-      assert_equal "https://twitter.com/richard", @subject.twitter_url
+      assert_equal 'https://twitter.com/richard', @subject.twitter_url
     end
 
     def test_facebook_handle

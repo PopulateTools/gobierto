@@ -1,19 +1,21 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::ConfirmationFormTest < ActiveSupport::TestCase
   def valid_user_confirmation_form
     @valid_user_confirmation_form ||= User::ConfirmationForm.new(
       confirmation_token: unconfirmed_user.confirmation_token,
       name: unconfirmed_user.name,
-      password: "wadus",
-      password_confirmation: "wadus",
+      password: 'wadus',
+      password_confirmation: 'wadus',
       date_of_birth_year: 1992,
       date_of_birth_month: 1,
       date_of_birth_day: 1,
       gender: unconfirmed_user.gender,
       custom_records: {
-        madrid_custom_user_field_district.name => { "custom_user_field_id" => madrid_custom_user_field_district.id, "value" => madrid_custom_user_field_district.options.keys.first },
-        madrid_custom_user_field_association.name => { "custom_user_field_id" => madrid_custom_user_field_association.id, "value" => "Foo" }
+        madrid_custom_user_field_district.name => { 'custom_user_field_id' => madrid_custom_user_field_district.id, 'value' => madrid_custom_user_field_district.options.keys.first },
+        madrid_custom_user_field_association.name => { 'custom_user_field_id' => madrid_custom_user_field_association.id, 'value' => 'Foo' }
       },
       document_number: '00000000A'
     )
@@ -79,7 +81,7 @@ class User::ConfirmationFormTest < ActiveSupport::TestCase
   end
 
   def test_welcome_email_delivery
-    assert_difference "ActionMailer::Base.deliveries.size", 1 do
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
       valid_user_confirmation_form.save
     end
   end

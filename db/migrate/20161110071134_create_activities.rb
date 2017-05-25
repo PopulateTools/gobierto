@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateActivities < ActiveRecord::Migration[5.0]
   def change
     create_table :activities do |t|
@@ -10,7 +12,7 @@ class CreateActivities < ActiveRecord::Migration[5.0]
       t.integer :site_id
     end
 
-    add_index :activities, [:subject_id, :subject_type]
+    add_index :activities, %i[subject_id subject_type]
     add_index :activities, :admin_activity
     add_index :activities, :site_id
   end

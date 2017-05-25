@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoBudgetConsultations
   class ConsultationShowTest < ActionDispatch::IntegrationTest
@@ -43,7 +45,7 @@ module GobiertoBudgetConsultations
       with_current_site(site) do
         visit @path
 
-        assert has_link?("Do you want to opinate?")
+        assert has_link?('Do you want to opinate?')
       end
     end
 
@@ -51,8 +53,8 @@ module GobiertoBudgetConsultations
       with_current_site(site) do
         visit @past_consultation_path
 
-        refute has_link?("Do you want to opinate?")
-        assert has_content?("Sorry, this consultation is closed")
+        refute has_link?('Do you want to opinate?')
+        assert has_content?('Sorry, this consultation is closed')
       end
     end
 
@@ -60,7 +62,7 @@ module GobiertoBudgetConsultations
       with_current_site(site) do
         visit @upcoming_consultation_path
 
-        refute has_link?("Do you want to opinate?")
+        refute has_link?('Do you want to opinate?')
         assert has_content?("You'll be able to participate since the #{l(upcoming_consultation.opens_on, format: :long).downcase}")
       end
     end
@@ -72,7 +74,7 @@ module GobiertoBudgetConsultations
         with_signed_in_user(user) do
           visit @path
 
-          refute has_link?("Participa en la consulta")
+          refute has_link?('Participa en la consulta')
         end
       end
     end
@@ -81,18 +83,18 @@ module GobiertoBudgetConsultations
       with_current_site(site) do
         visit @path
 
-        assert has_link?("Do you want to opinate?")
+        assert has_link?('Do you want to opinate?')
 
-        click_link "Do you want to opinate?"
+        click_link 'Do you want to opinate?'
 
-        assert has_selector?(".consultation-title", text: "Inversión en Instalaciones Deportivas")
-        assert has_content?("10€")
-        assert has_selector?(".consultation-title", text: "Inversión en Bomberos y Protección Civil")
-        assert has_content?("40€")
+        assert has_selector?('.consultation-title', text: 'Inversión en Instalaciones Deportivas')
+        assert has_content?('10€')
+        assert has_selector?('.consultation-title', text: 'Inversión en Bomberos y Protección Civil')
+        assert has_content?('40€')
 
-        click_link "Start"
+        click_link 'Start'
 
-        assert has_message?("The participation in this consultation is reserved to people registered in Madrid.")
+        assert has_message?('The participation in this consultation is reserved to people registered in Madrid.')
       end
     end
 
@@ -101,7 +103,7 @@ module GobiertoBudgetConsultations
         with_signed_in_user(user) do
           visit @path
 
-          assert has_message?("You already replied to this consultation")
+          assert has_message?('You already replied to this consultation')
         end
       end
     end
@@ -111,18 +113,18 @@ module GobiertoBudgetConsultations
         with_signed_in_user(user_no_verified) do
           visit @path
 
-          assert has_link?("Do you want to opinate?")
+          assert has_link?('Do you want to opinate?')
 
-          click_link "Do you want to opinate?"
+          click_link 'Do you want to opinate?'
 
-          assert has_selector?(".consultation-title", text: "Inversión en Instalaciones Deportivas")
-          assert has_content?("10€")
-          assert has_selector?(".consultation-title", text: "Inversión en Bomberos y Protección Civil")
-          assert has_content?("40€")
+          assert has_selector?('.consultation-title', text: 'Inversión en Instalaciones Deportivas')
+          assert has_content?('10€')
+          assert has_selector?('.consultation-title', text: 'Inversión en Bomberos y Protección Civil')
+          assert has_content?('40€')
 
-          click_link "Start"
+          click_link 'Start'
 
-          assert has_message?("The process in which you want to participate requires to verify your register in")
+          assert has_message?('The process in which you want to participate requires to verify your register in')
         end
       end
     end
@@ -133,18 +135,18 @@ module GobiertoBudgetConsultations
           with_signed_in_user(user_verified) do
             visit @path
 
-            assert has_link?("Do you want to opinate?")
+            assert has_link?('Do you want to opinate?')
 
-            click_link "Do you want to opinate?"
+            click_link 'Do you want to opinate?'
 
-            assert has_selector?(".consultation-title", text: "Inversión en Instalaciones Deportivas")
-            assert has_content?("10€")
-            assert has_selector?(".consultation-title", text: "Inversión en Bomberos y Protección Civil")
-            assert has_content?("40€")
+            assert has_selector?('.consultation-title', text: 'Inversión en Instalaciones Deportivas')
+            assert has_content?('10€')
+            assert has_selector?('.consultation-title', text: 'Inversión en Bomberos y Protección Civil')
+            assert has_content?('40€')
 
-            click_link "Start"
+            click_link 'Start'
 
-            assert has_selector?(".consultation-title", text: "Inversión en Instalaciones Deportivas")
+            assert has_selector?('.consultation-title', text: 'Inversión en Instalaciones Deportivas')
           end
         end
       end

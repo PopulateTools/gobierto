@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::SubscriptionPreferencesForm
   include ActiveModel::Model
 
@@ -32,7 +34,7 @@ class User::SubscriptionPreferencesForm
       update_subscription_to_site(site_to_subscribe)
       update_subscriptions_to_consultations(gobierto_budget_consultations_consultations)
 
-     @user
+      @user
     else
       promote_errors(@user.errors)
 
@@ -82,7 +84,7 @@ class User::SubscriptionPreferencesForm
   end
 
   def update_subscription_to_site(site_to_subscribe_id)
-    if site_to_subscribe_id != "0"
+    if site_to_subscribe_id != '0'
       @user.subscribe_to!(site, site)
     else
       @user.unsubscribe_from!(site, site)

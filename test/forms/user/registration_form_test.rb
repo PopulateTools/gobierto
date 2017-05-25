@@ -1,11 +1,13 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::RegistrationFormTest < ActiveSupport::TestCase
   def valid_user_registration_form
     @valid_user_registration_form ||= User::RegistrationForm.new(
       email: new_user_email, # To ensure uniqueness
       site: site,
-      creation_ip: IPAddr.new("0.0.0.0")
+      creation_ip: IPAddr.new('0.0.0.0')
     )
   end
 
@@ -17,7 +19,7 @@ class User::RegistrationFormTest < ActiveSupport::TestCase
   end
 
   def new_user_email
-    "wadus@gobierto.dev"
+    'wadus@gobierto.dev'
   end
 
   def user
@@ -44,7 +46,7 @@ class User::RegistrationFormTest < ActiveSupport::TestCase
   end
 
   def test_confirmation_email_delivery
-    assert_difference "ActionMailer::Base.deliveries.size", 1 do
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
       valid_user_registration_form.save
     end
   end

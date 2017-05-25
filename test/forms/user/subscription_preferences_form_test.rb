@@ -1,15 +1,17 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::SubscriptionPreferencesFormTest < ActiveSupport::TestCase
   def valid_user_subscription_preferences_form
     @valid_user_subscription_preferences_form ||= User::SubscriptionPreferencesForm.new(
       user: user,
       site: site,
-      notification_frequency: User.notification_frequencies["daily"],
-      modules: ["", "gobierto_people"],
-      gobierto_people_people: ["", person.id.to_s],
+      notification_frequency: User.notification_frequencies['daily'],
+      modules: ['', 'gobierto_people'],
+      gobierto_people_people: ['', person.id.to_s],
       site_to_subscribe: site.id.to_s,
-      gobierto_budget_consultations_consultations: ["", consultation.id.to_s]
+      gobierto_budget_consultations_consultations: ['', consultation.id.to_s]
     )
   end
 

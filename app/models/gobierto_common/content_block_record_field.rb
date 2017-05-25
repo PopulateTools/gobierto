@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   class ContentBlockRecordField
     include ActiveModel::Model

@@ -1,5 +1,7 @@
-require_dependency "gobierto_budget_consultations"
-require_dependency "secret_attribute"
+# frozen_string_literal: true
+
+require_dependency 'gobierto_budget_consultations'
+require_dependency 'secret_attribute'
 
 module GobiertoBudgetConsultations
   class ConsultationResponse < ApplicationRecord
@@ -20,32 +22,30 @@ module GobiertoBudgetConsultations
     end
 
     def consultation_items
-      Array(read_attribute(:consultation_items)).map do |consultation_response_item_attributes|
+      Array(self[:consultation_items]).map do |consultation_response_item_attributes|
         ConsultationResponseItem.new(consultation_response_item_attributes.symbolize_keys)
       end
     end
 
     def consultation_items=(consultation_response_items)
-      @consultation_items = Array(consultation_response_items).map do |consultation_response_item|
-        consultation_response_item.instance_values
-      end
+      @consultation_items = Array(consultation_response_items).map(&:instance_values)
 
-      write_attribute(:consultation_items, @consultation_items)
+      self[:consultation_items] = @consultation_items
     end
 
     private
 
     def responses_balance
       if consultation.force_responses_balance? && deficit_response?
-        Rails.logger.debug "[exception] Trying to save deficit response"
+        Rails.logger.debug '[exception] Trying to save deficit response'
 
         errors[:base] << I18n.t('errors.messages.invalid_consultation_response')
       end
     end
 
     def deficit_response?
-      possitive_items = self.consultation_items.select{ |i| i.selected_option > 0 }
-      negative_items  = self.consultation_items.select{ |i| i.selected_option < 0 }
+      possitive_items = consultation_items.select { |i| i.selected_option > 0 }
+      negative_items  = consultation_items.select { |i| i.selected_option < 0 }
       possitive_items.length > negative_items.length
     end
   end

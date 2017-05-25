@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::NotificationMailerTest < ActionMailer::TestCase
   def user_notification
@@ -14,10 +16,10 @@ class User::NotificationMailerTest < ActionMailer::TestCase
 
     refute ActionMailer::Base.deliveries.empty?
 
-    assert_equal ["admin@gobierto.dev"], email.from
-    assert_equal ["admin@gobierto.dev"], email.reply_to
+    assert_equal ['admin@gobierto.dev'], email.from
+    assert_equal ['admin@gobierto.dev'], email.reply_to
     assert_equal [user.email], email.to
-    assert_equal "New activity in Ayuntamiento de Madrid: Consulta sobre los presupuestos de Madrid", email.subject
+    assert_equal 'New activity in Ayuntamiento de Madrid: Consulta sobre los presupuestos de Madrid', email.subject
   end
 
   def test_notification_digest
@@ -25,9 +27,9 @@ class User::NotificationMailerTest < ActionMailer::TestCase
 
     refute ActionMailer::Base.deliveries.empty?
 
-    assert_equal ["admin@gobierto.dev"], email.from
-    assert_equal ["admin@gobierto.dev"], email.reply_to
+    assert_equal ['admin@gobierto.dev'], email.from
+    assert_equal ['admin@gobierto.dev'], email.reply_to
     assert_equal [user.email], email.to
-    assert_equal "Activity summary from Ayuntamiento de Madrid", email.subject
+    assert_equal 'Activity summary from Ayuntamiento de Madrid', email.subject
   end
 end

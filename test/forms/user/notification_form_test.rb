@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::NotificationFormTest < ActiveSupport::TestCase
   def valid_user_notification_form
@@ -29,7 +31,7 @@ class User::NotificationFormTest < ActiveSupport::TestCase
   end
 
   def action
-    "created"
+    'created'
   end
 
   def user
@@ -66,19 +68,19 @@ class User::NotificationFormTest < ActiveSupport::TestCase
   end
 
   def test_resource_creation
-    assert_difference "User::Notification.count", 1 do
+    assert_difference 'User::Notification.count', 1 do
       valid_user_notification_form.save
     end
   end
 
   def test_immediate_notification_email_delivery
-    assert_difference "ActionMailer::Base.deliveries.size", 1 do
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
       valid_user_notification_form.save
     end
   end
 
   def test_delayed_notification_email_delivery
-    assert_no_difference "ActionMailer::Base.deliveries.size" do
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
       valid_delayed_user_notification_form.save
     end
   end

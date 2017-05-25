@@ -1,26 +1,28 @@
+# frozen_string_literal: true
+
 class User::ConfirmationsController < User::BaseController
   before_action :require_no_authentication
 
-  layout "user/layouts/sessions"
+  layout 'user/layouts/sessions'
 
   def new
     @user_confirmation_form = User::ConfirmationForm.new(
       confirmation_token: params[:confirmation_token],
-      creation_ip: remote_ip,
+      creation_ip: remote_ip
     )
 
     @user_genders = get_user_genders
     unless @user_confirmation_form.user
-      redirect_to root_path, alert: t(".error")
+      redirect_to root_path, alert: t('.error')
     end
   end
 
   def create
     @user_confirmation_form = User::ConfirmationForm.new(
       user_confirmation_params.except(*ignored_user_confirmation_params).merge(
-        date_of_birth_year: user_confirmation_params["date_of_birth(1i)"],
-        date_of_birth_month: user_confirmation_params["date_of_birth(2i)"],
-        date_of_birth_day: user_confirmation_params["date_of_birth(3i)"],
+        date_of_birth_year: user_confirmation_params['date_of_birth(1i)'],
+        date_of_birth_month: user_confirmation_params['date_of_birth(2i)'],
+        date_of_birth_day: user_confirmation_params['date_of_birth(3i)'],
         creation_ip: remote_ip
       )
     )
@@ -31,11 +33,11 @@ class User::ConfirmationsController < User::BaseController
       user.update_session_data(remote_ip)
       sign_in_user(user.id)
 
-      redirect_to after_sign_in_path(user.referrer_url), notice: t(".success")
+      redirect_to after_sign_in_path(user.referrer_url), notice: t('.success')
     else
       @user_genders = get_user_genders
 
-      flash.now[:alert] = t(".error")
+      flash.now[:alert] = t('.error')
       render :new
     end
   end
@@ -43,9 +45,9 @@ class User::ConfirmationsController < User::BaseController
   private
 
   def user_confirmation_params
-    permitted_params = [:confirmation_token, :name, :password, :password_confirmation, :date_of_birth, :gender, :document_number]
+    permitted_params = %i[confirmation_token name password password_confirmation date_of_birth gender document_number]
     if params[:user_confirmation] && params[:user_confirmation][:custom_records]
-      permitted_params << {custom_records: Hash[params[:user_confirmation][:custom_records].keys.map{ |k| [k, [:custom_user_field_id, :value]] }]}
+      permitted_params << { custom_records: Hash[params[:user_confirmation][:custom_records].keys.map { |k| [k, %i[custom_user_field_id value]] }] }
     end
 
     params.require(:user_confirmation).permit(permitted_params)
@@ -56,6 +58,6 @@ class User::ConfirmationsController < User::BaseController
   end
 
   def ignored_user_confirmation_params
-    ["date_of_birth(1i)", "date_of_birth(2i)", "date_of_birth(3i)"]
+    ['date_of_birth(1i)', 'date_of_birth(2i)', 'date_of_birth(3i)']
   end
 end

@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::SettingsFormTest < ActiveSupport::TestCase
   def valid_user_settings_form
@@ -11,8 +13,8 @@ class User::SettingsFormTest < ActiveSupport::TestCase
       date_of_birth_year: 1982,
       gender: User.genders[:male],
       custom_records: {
-        madrid_custom_user_field_district.name => { "custom_user_field_id" => madrid_custom_user_field_district.id, "value" => madrid_custom_user_field_district.options.keys.first },
-        madrid_custom_user_field_association.name => { "custom_user_field_id" => madrid_custom_user_field_association.id, "value" => "Foo" }
+        madrid_custom_user_field_district.name => { 'custom_user_field_id' => madrid_custom_user_field_district.id, 'value' => madrid_custom_user_field_district.options.keys.first },
+        madrid_custom_user_field_association.name => { 'custom_user_field_id' => madrid_custom_user_field_association.id, 'value' => 'Foo' }
       }
     )
   end

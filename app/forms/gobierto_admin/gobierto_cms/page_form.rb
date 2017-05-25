@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoCms
     class PageForm
@@ -33,7 +35,7 @@ module GobiertoAdmin
       end
 
       def visibility_level
-        @visibility_level ||= "draft"
+        @visibility_level ||= 'draft'
       end
 
       private

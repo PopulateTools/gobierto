@@ -1,37 +1,39 @@
+# frozen_string_literal: true
+
 class Site < ApplicationRecord
-  RESERVED_SUBDOMAINS = %W(presupuestos hosted)
+  RESERVED_SUBDOMAINS = %w[presupuestos hosted].freeze
 
   has_many :activities
 
   # GobiertoAdmin integrations
-  has_many :admin_sites, dependent: :destroy, class_name: "GobiertoAdmin::AdminSite"
-  has_many :admins, through: :admin_sites, class_name: "GobiertoAdmin::Admin"
-  has_many :census_imports, dependent: :destroy, class_name: "GobiertoAdmin::CensusImport"
+  has_many :admin_sites, dependent: :destroy, class_name: 'GobiertoAdmin::AdminSite'
+  has_many :admins, through: :admin_sites, class_name: 'GobiertoAdmin::Admin'
+  has_many :census_imports, dependent: :destroy, class_name: 'GobiertoAdmin::CensusImport'
 
   # GobiertoCommon integration
-  has_many :content_blocks, dependent: :destroy, class_name: "GobiertoCommon::ContentBlock"
-  has_many :custom_user_fields, dependent: :destroy, class_name: "GobiertoCommon::CustomUserField"
+  has_many :content_blocks, dependent: :destroy, class_name: 'GobiertoCommon::ContentBlock'
+  has_many :custom_user_fields, dependent: :destroy, class_name: 'GobiertoCommon::CustomUserField'
 
   # User integrations
-  has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"
-  has_many :notifications, dependent: :destroy, class_name: "User::Notification"
+  has_many :subscriptions, dependent: :destroy, class_name: 'User::Subscription'
+  has_many :notifications, dependent: :destroy, class_name: 'User::Notification'
 
   # GobiertoBudgetConsultations integration
-  has_many :budget_consultations, dependent: :destroy, class_name: "GobiertoBudgetConsultations::Consultation"
-  has_many :budget_consultation_responses, through: :budget_consultations, source: :consultation_responses, class_name: "GobiertoBudgetConsultations::ConsultationResponse"
+  has_many :budget_consultations, dependent: :destroy, class_name: 'GobiertoBudgetConsultations::Consultation'
+  has_many :budget_consultation_responses, through: :budget_consultations, source: :consultation_responses, class_name: 'GobiertoBudgetConsultations::ConsultationResponse'
 
   # GobiertoPeople integration
-  has_many :people, dependent: :destroy, class_name: "GobiertoPeople::Person"
-  has_many :person_events, through: :people, source: :events, class_name: "GobiertoPeople::PersonEvent"
-  has_many :person_attendee_events, class_name: "GobiertoPeople::PersonEvent", dependent: :destroy
-  has_many :person_posts, through: :people, source: :posts, class_name: "GobiertoPeople::PersonPost"
-  has_many :person_statements, through: :people, source: :statements, class_name: "GobiertoPeople::PersonStatement"
+  has_many :people, dependent: :destroy, class_name: 'GobiertoPeople::Person'
+  has_many :person_events, through: :people, source: :events, class_name: 'GobiertoPeople::PersonEvent'
+  has_many :person_attendee_events, class_name: 'GobiertoPeople::PersonEvent', dependent: :destroy
+  has_many :person_posts, through: :people, source: :posts, class_name: 'GobiertoPeople::PersonPost'
+  has_many :person_statements, through: :people, source: :statements, class_name: 'GobiertoPeople::PersonStatement'
 
   # Gobierto CMS integration
-  has_many :pages, dependent: :destroy, class_name: "GobiertoCms::Page"
+  has_many :pages, dependent: :destroy, class_name: 'GobiertoCms::Page'
 
   # Modules settings
-  has_many :module_settings, dependent: :destroy, class_name: "GobiertoModuleSettings"
+  has_many :module_settings, dependent: :destroy, class_name: 'GobiertoModuleSettings'
 
   serialize :configuration_data
 
@@ -55,9 +57,7 @@ class Site < ApplicationRecord
   end
 
   def self.find_by_allowed_domain(domain)
-    unless reserved_domains.include?(domain)
-      find_by(domain: domain)
-    end
+    find_by(domain: domain) unless reserved_domains.include?(domain)
   end
 
   def self.with_agendas_integration_enabled
@@ -79,13 +79,13 @@ class Site < ApplicationRecord
 
   def gobierto_people_settings
     @gobierto_people_settings ||= if configuration.gobierto_people_enabled?
-                                    module_settings.find_by(module_name: "GobiertoPeople")
+                                    module_settings.find_by(module_name: 'GobiertoPeople')
                                   end
   end
 
   def place
-    @place ||= if self.municipality_id && self.location_name
-                 INE::Places::Place.find self.municipality_id
+    @place ||= if municipality_id && location_name
+                 INE::Places::Place.find municipality_id
                end
   end
 
@@ -101,21 +101,21 @@ class Site < ApplicationRecord
 
   def site_configuration_attributes
     {}.tap do |attributes|
-      attributes.merge!(read_attribute(:configuration_data) || {})
-      attributes.merge!('site_id' => self.id) unless new_record?
+      attributes.merge!(self[:configuration_data] || {})
+      attributes['site_id'] = id unless new_record?
       attributes
     end
   end
 
   def self.reserved_domains
     @reserved_domains ||= RESERVED_SUBDOMAINS.map do |subdomain|
-      "#{subdomain}." + ENV.fetch("HOST")
+      "#{subdomain}." + ENV.fetch('HOST')
     end
   end
   private_class_method :reserved_domains
 
   def store_configuration
-    self.configuration_data = self.configuration.instance_values
+    self.configuration_data = configuration.instance_values
   end
 
   def initialize_admins
@@ -123,7 +123,7 @@ class Site < ApplicationRecord
   end
 
   def run_seeder
-    if self.configuration_data_changed? && added_modules_after_update.any?
+    if configuration_data_changed? && added_modules_after_update.any?
       added_modules_after_update.each do |module_name|
         GobiertoCommon::GobiertoSeeder::ModuleSeeder.seed(module_name, self)
         GobiertoCommon::GobiertoSeeder::ModuleSiteSeeder.seed(APP_CONFIG['site']['name'], module_name, self)
@@ -133,11 +133,11 @@ class Site < ApplicationRecord
 
   def added_modules_after_update
     @added_modules_after_update ||= begin
-      if self.configuration_data.has_key?('modules')
-        if self.configuration_data_was && self.configuration_data_was.has_key?('modules')
-          Array.wrap(self.configuration_data['modules']) - Array.wrap(self.configuration_data_was['modules'])
+      if configuration_data.key?('modules')
+        if configuration_data_was && configuration_data_was.key?('modules')
+          Array.wrap(configuration_data['modules']) - Array.wrap(configuration_data_was['modules'])
         else
-          Array.wrap(self.configuration_data['modules'])
+          Array.wrap(configuration_data['modules'])
         end
       else
         []
@@ -146,7 +146,7 @@ class Site < ApplicationRecord
   end
 
   def location_required
-    if (self.configuration.modules & %W{ GobiertoBudgetConsultations GobiertoBudgets GobiertoIndicators} ).any?
+    if (configuration.modules & %w[GobiertoBudgetConsultations GobiertoBudgets GobiertoIndicators]).any?
       if municipality_id.blank? || location_name.blank?
         errors.add(:location_name, I18n.t('errors.messages.blank_for_modules'))
       end

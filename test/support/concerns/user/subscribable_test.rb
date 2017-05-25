@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module User::SubscribableTest
   class User::SubscribableClass
     include Subscribable
@@ -13,20 +15,20 @@ module User::SubscribableTest
 
   def test_subscribable_label
     subscribable = User::SubscribableClass.new
-    subscribable.title = "foo"
-    subscribable.name = "bar"
+    subscribable.title = 'foo'
+    subscribable.name = 'bar'
 
-    assert_equal "foo", subscribable.subscribable_label
+    assert_equal 'foo', subscribable.subscribable_label
 
     subscribable.title = nil
-    subscribable.name = "bar"
+    subscribable.name = 'bar'
 
-    assert_equal "bar", subscribable.subscribable_label
+    assert_equal 'bar', subscribable.subscribable_label
   end
 
   def test_to_path
     subscribable_identifier = subscribable.respond_to?(:slug) ? subscribable.slug : subscribable.to_param
-    
+
     assert_not_nil subscribable.to_path
     assert_includes subscribable.to_path, subscribable_identifier
   end
@@ -36,7 +38,7 @@ module User::SubscribableTest
 
     assert_not_nil subscribable.to_url
     assert_includes subscribable.to_url, subscribable_identifier
-    assert_includes subscribable.to_url, ENV["HOST"]
+    assert_includes subscribable.to_url, ENV['HOST']
     assert_includes subscribable.to_url(host: 'site.gobierto.dev'), 'site.gobierto.dev'
   end
 end

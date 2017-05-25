@@ -1,5 +1,7 @@
-require "test_helper"
-require_relative "people/base"
+# frozen_string_literal: true
+
+require 'test_helper'
+require_relative 'people/base'
 
 module GobiertoPeople
   class PersonProfileTest < ActionDispatch::IntegrationTest
@@ -22,8 +24,8 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("h2", text: person.name)
-        assert has_selector?(".person_charge", text: person.charge)
+        assert has_selector?('h2', text: person.name)
+        assert has_selector?('.person_charge', text: person.charge)
       end
     end
 
@@ -31,12 +33,12 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".upcoming-events" do
+        within '.upcoming-events' do
           person.events.upcoming.each do |person_event|
             assert has_link?(person_event.title)
           end
 
-          assert has_link?("View all")
+          assert has_link?('View all')
         end
       end
     end
@@ -45,8 +47,8 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".latest-activity" do
-          assert has_content?("This profile has not registered any activity yet.")
+        within '.latest-activity' do
+          assert has_content?('This profile has not registered any activity yet.')
         end
       end
     end
@@ -55,8 +57,8 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".subscribable-box", match: :first do
-          assert has_button?("Subscribe")
+        within '.subscribable-box', match: :first do
+          assert has_button?('Subscribe')
         end
       end
     end

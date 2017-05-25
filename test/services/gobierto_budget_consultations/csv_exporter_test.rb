@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class GobiertoBudgetConsultations::CsvExporterTest < ActiveSupport::TestCase
   def setup
@@ -12,12 +14,12 @@ class GobiertoBudgetConsultations::CsvExporterTest < ActiveSupport::TestCase
 
   def test_export
     csv = @subject.export(consultation)
-    assert_equal csv, <<-CSV
-id,age,gender,location,question,answer
-692345489,35,male,,Pavimentación de vías públicas,-5
-692345489,35,male,,Inversión en Instalaciones Deportivas,5
-112679343,,,,Pavimentación de vías públicas,5
-112679343,,,,Inversión en Instalaciones Deportivas,5
+    assert_equal csv, <<~CSV
+      id,age,gender,location,question,answer
+      692345489,35,male,,Pavimentación de vías públicas,-5
+      692345489,35,male,,Inversión en Instalaciones Deportivas,5
+      112679343,,,,Pavimentación de vías públicas,5
+      112679343,,,,Inversión en Instalaciones Deportivas,5
 CSV
   end
 end

@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class UserWelcomeMessageFormTest < ActiveSupport::TestCase
@@ -17,7 +19,7 @@ module GobiertoAdmin
     end
 
     def test_welcome_email_delivery
-      assert_difference "ActionMailer::Base.deliveries.size", 1 do
+      assert_difference 'ActionMailer::Base.deliveries.size', 1 do
         valid_welcome_message_form.save
       end
     end

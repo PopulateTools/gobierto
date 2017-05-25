@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoPeople
@@ -21,16 +23,16 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            within "form.new_political_group" do
-              fill_in "political_group_name", with: "Political group name"
+            within 'form.new_political_group' do
+              fill_in 'political_group_name', with: 'Political group name'
 
-              click_button "Create"
+              click_button 'Create'
             end
 
-            assert has_message?("Political group was successfully created")
+            assert has_message?('Political group was successfully created')
 
-            within "form.edit_political_group" do
-              assert has_field?("political_group_name", with: "Political group name")
+            within 'form.edit_political_group' do
+              assert has_field?('political_group_name', with: 'Political group name')
             end
           end
         end

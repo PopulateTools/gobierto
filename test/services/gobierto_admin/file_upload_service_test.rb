@@ -1,5 +1,7 @@
-require "test_helper"
-require "support/file_uploader_helpers"
+# frozen_string_literal: true
+
+require 'test_helper'
+require 'support/file_uploader_helpers'
 
 module GobiertoAdmin
   class FileUploadServiceTest < ActiveSupport::TestCase
@@ -22,7 +24,7 @@ module GobiertoAdmin
       @file ||= Rack::Test::UploadedFile.new(
         File.join(
           ActionDispatch::IntegrationTest.fixture_path,
-          "files/gobierto_people/people/avatar.jpg"
+          'files/gobierto_people/people/avatar.jpg'
         )
       )
     end

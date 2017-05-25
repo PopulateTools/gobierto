@@ -1,5 +1,7 @@
-require "test_helper"
-require_relative "base"
+# frozen_string_literal: true
+
+require 'test_helper'
+require_relative 'base'
 
 module GobiertoPeople
   module People
@@ -27,21 +29,21 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          click_link "Send an email"
-          fill_in "gobierto_people_person_message_name", with: "Sender"
-          fill_in "gobierto_people_person_message_email", with: "foo@example.com"
-          fill_in "gobierto_people_person_message_body", with: "This is my message"
-          click_button "Send"
+          click_link 'Send an email'
+          fill_in 'gobierto_people_person_message_name', with: 'Sender'
+          fill_in 'gobierto_people_person_message_email', with: 'foo@example.com'
+          fill_in 'gobierto_people_person_message_body', with: 'This is my message'
+          click_button 'Send'
 
-          assert has_message?("Message sent successfully")
+          assert has_message?('Message sent successfully')
 
           refute ActionMailer::Base.deliveries.empty?
           email = ActionMailer::Base.deliveries.last
 
-          assert_equal ["admin@gobierto.dev"], email.from
-          assert_equal ["foo@example.com"], email.reply_to
+          assert_equal ['admin@gobierto.dev'], email.from
+          assert_equal ['foo@example.com'], email.reply_to
           assert_equal [person.email], email.to
-          assert_equal "You have received a new message from Transparencia y Participción", email.subject
+          assert_equal 'You have received a new message from Transparencia y Participción', email.subject
         end
       end
 
@@ -50,19 +52,19 @@ module GobiertoPeople
           with_signed_in_user(user) do
             visit @path
 
-            click_link "Send an email"
-            fill_in "gobierto_people_person_message_body", with: "This is my message"
-            click_button "Send"
+            click_link 'Send an email'
+            fill_in 'gobierto_people_person_message_body', with: 'This is my message'
+            click_button 'Send'
 
-            assert has_message?("Message sent successfully")
+            assert has_message?('Message sent successfully')
 
             refute ActionMailer::Base.deliveries.empty?
             email = ActionMailer::Base.deliveries.last
 
-            assert_equal ["admin@gobierto.dev"], email.from
+            assert_equal ['admin@gobierto.dev'], email.from
             assert_equal [user.email], email.reply_to
             assert_equal [person.email], email.to
-            assert_equal "You have received a new message from Transparencia y Participción", email.subject
+            assert_equal 'You have received a new message from Transparencia y Participción', email.subject
           end
         end
       end

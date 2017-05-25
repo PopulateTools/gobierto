@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   module DynamicContentHelper
     extend ActiveSupport::Concern
@@ -10,7 +12,7 @@ module GobiertoCommon
           :id,
           :content_block_id,
           :_destroy,
-          fields_attributes: [:name, :value]
+          fields_attributes: %i[name value]
         ]
       }
     end

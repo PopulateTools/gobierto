@@ -1,5 +1,7 @@
-require "test_helper"
-require_relative "base"
+# frozen_string_literal: true
+
+require 'test_helper'
+require_relative 'base'
 
 module GobiertoPeople
   module People
@@ -33,8 +35,8 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          assert has_selector?("h2", text: "#{person.name}'s goods and Activities")
-          assert has_selector?("h3", text: statement.title)
+          assert has_selector?('h2', text: "#{person.name}'s goods and Activities")
+          assert has_selector?('h3', text: statement.title)
         end
       end
 
@@ -42,7 +44,7 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          assert has_link?("Download statement (100 KB)")
+          assert has_link?('Download statement (100 KB)')
         end
       end
 
@@ -50,7 +52,7 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          within ".other-statements" do
+          within '.other-statements' do
             other_statements.each do |statement|
               assert has_link?(statement.title)
             end
@@ -62,7 +64,7 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          assert has_content?("Declaración de Bienes y Actividades")
+          assert has_content?('Declaración de Bienes y Actividades')
         end
       end
 
@@ -70,8 +72,8 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          within ".subscribable-box", match: :first do
-            assert has_button?("Subscribe")
+          within '.subscribable-box', match: :first do
+            assert has_button?('Subscribe')
           end
         end
       end

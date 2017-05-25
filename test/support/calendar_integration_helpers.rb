@@ -1,5 +1,6 @@
-module CalendarIntegrationHelpers
+# frozen_string_literal: true
 
+module CalendarIntegrationHelpers
   def activate_ibm_notes_calendar_integration(site)
     gp_module_settings = site.module_settings.find_by(module_name: 'GobiertoPeople')
 
@@ -27,5 +28,4 @@ module CalendarIntegrationHelpers
     calendar_conf.data = options
     calendar_conf.save!
   end
-
 end

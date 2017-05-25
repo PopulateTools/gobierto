@@ -1,22 +1,24 @@
+# frozen_string_literal: true
+
 namespace :gobierto_budgets do
   namespace :fixtures do
-    desc "Create indices and import data"
+    desc 'Create indices and import data'
     task load: :environment do
-      BUDGETS_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed]
-      BUDGETS_TYPES = ['economic', 'functional']
+      BUDGETS_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed].freeze
+      BUDGETS_TYPES = %w[economic functional].freeze
 
       create_categories_mapping
       create_data_mapping
       create_budgets_mapping
 
       import_categories
-      place = INE::Places::Place.find_by_slug('madrid')
+      place = INE::Places::Place.find_by(slug: 'madrid')
       (GobiertoBudgets::SearchEngineConfiguration::Year.last - 1..GobiertoBudgets::SearchEngineConfiguration::Year.last).each do |year|
         import_gobierto_budgets_for_place(place, year)
         import_gobierto_budgets_data_for_place(place, year)
       end
 
-      place = INE::Places::Place.find_by_slug('santander')
+      place = INE::Places::Place.find_by(slug: 'santander')
       (GobiertoBudgets::SearchEngineConfiguration::Year.last - 1..GobiertoBudgets::SearchEngineConfiguration::Year.last).each do |year|
         import_gobierto_budgets_for_place(place, year)
         import_gobierto_budgets_data_for_place(place, year)
@@ -53,18 +55,16 @@ namespace :gobierto_budgets do
 
       budgets_for_place = BUDGETS_INDEXES.map do |index|
         categories_fixtures do |category|
-          category.merge!('kind' => category['kind'] == 'income' ? 'I' : 'G')
+          category['kind'] = category['kind'] == 'income' ? 'I' : 'G'
           {
             index: {
               _index: index,
               _id: [place.id, year, category['code'], category['kind']].join('/'),
               _type: category['area'],
-              data: base_data.merge({
-                amount: rand(1_000_000), code: category['code'],
-                level: category['level'], kind: category['kind'],
-                amount_per_inhabitant: (rand(1_000)/2.0).round(2),
-                parent_code: category['parent_code']
-              })
+              data: base_data.merge(amount: rand(1_000_000), code: category['code'],
+                                    level: category['level'], kind: category['kind'],
+                                    amount_per_inhabitant: (rand(1_000) / 2.0).round(2),
+                                    parent_code: category['parent_code'])
             }
           }
         end
@@ -73,11 +73,11 @@ namespace :gobierto_budgets do
       total_budgets = BUDGETS_INDEXES.map do |index|
         type = GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type
         categories_fixtures do |category|
-          category.merge!('kind' => category['kind'] == 'income' ? 'I' : 'G')
+          category['kind'] = category['kind'] == 'income' ? 'I' : 'G'
           {
             index: {
               _index: index,
-              _id: [place.id, year, category['kind']].join("/"),
+              _id: [place.id, year, category['kind']].join('/'),
               _type: type,
               data: {
                 ine_code: place.id.to_i, province_id: place.province.id.to_i,
@@ -94,8 +94,8 @@ namespace :gobierto_budgets do
       GobiertoBudgets::SearchEngine.client.bulk(body: budgets_for_place + total_budgets)
     end
 
-    def categories_fixtures(&block)
-      YAML.load(File.read(File.expand_path('categories.yml', __dir__))).map do |_, category|
+    def categories_fixtures
+      YAML.safe_load(File.read(File.expand_path('categories.yml', __dir__))).map do |_, category|
         yield(category)
       end
     end
@@ -104,7 +104,7 @@ namespace :gobierto_budgets do
       m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index, type: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type
       return unless m.empty?
 
-      puts "== Creating categories mapping =="
+      puts '== Creating categories mapping =='
       GobiertoBudgets::SearchEngine.client.indices.put_mapping index: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index, type: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type, body: {
         GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type.to_sym => {
           properties: {
@@ -120,7 +120,7 @@ namespace :gobierto_budgets do
     end
 
     def import_categories
-      puts "== Importing categories =="
+      puts '== Importing categories =='
       categories = categories_fixtures do |category|
         {
           index: {
@@ -141,7 +141,7 @@ namespace :gobierto_budgets do
           m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: index, type: type
           return unless m.empty?
 
-          puts "== Creating budgets mapping =="
+          puts '== Creating budgets mapping =='
           GobiertoBudgets::SearchEngine.client.indices.put_mapping index: index, type: type, body: {
             type.to_sym => {
               properties: {
@@ -165,7 +165,7 @@ namespace :gobierto_budgets do
         m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: index, type: type
         return unless m.empty?
 
-        puts "== Creating total budgets mapping =="
+        puts '== Creating total budgets mapping =='
         GobiertoBudgets::SearchEngine.client.indices.put_mapping index: index, type: type, body: {
           type.to_sym => {
             properties: {
@@ -188,7 +188,7 @@ namespace :gobierto_budgets do
         m = GobiertoBudgets::SearchEngine.client.indices.get_mapping index: index, type: type
         return unless m.empty?
 
-        puts "== Creating data mapping =="
+        puts '== Creating data mapping =='
         GobiertoBudgets::SearchEngine.client.indices.put_mapping index: index, type: type, body: {
           type.to_sym => {
             properties: {

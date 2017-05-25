@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoBudgetConsultations
   class ConsultationDecoratorTest < ActiveSupport::TestCase
@@ -17,7 +19,7 @@ module GobiertoBudgetConsultations
       end
 
       assert_equal consultation.consultation_items.count * ConsultationDecorator::CONSULTATION_ITEM_COMPLETION_TIME_IN_SECONDS,
-        @subject.estimated_completion_time_in_seconds
+                   @subject.estimated_completion_time_in_seconds
     end
   end
 end

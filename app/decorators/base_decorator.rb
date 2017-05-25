@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BaseDecorator
   attr_reader :object
 

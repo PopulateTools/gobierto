@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::NotificationDigestTest < ActiveSupport::TestCase
   def setup
@@ -27,7 +29,7 @@ class User::NotificationDigestTest < ActiveSupport::TestCase
   end
 
   def test_notification_digest_deliveries
-    assert_difference "ActionMailer::Base.deliveries.size", 1 do
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
       @subject.call
     end
   end

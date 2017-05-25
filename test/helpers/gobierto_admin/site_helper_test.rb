@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class SiteHelperTest < ActionView::TestCase
@@ -18,7 +20,7 @@ module GobiertoAdmin
         '</span>'
 
       assert_equal visibility_level_badge_markup,
-        site_visibility_level_badge_for(draft_site)
+                   site_visibility_level_badge_for(draft_site)
     end
 
     def test_site_visibility_level_badge_for_active_site
@@ -29,7 +31,7 @@ module GobiertoAdmin
         '</span>'
 
       assert_equal visibility_level_badge_markup,
-        site_visibility_level_badge_for(active_site)
+                   site_visibility_level_badge_for(active_site)
     end
   end
 end

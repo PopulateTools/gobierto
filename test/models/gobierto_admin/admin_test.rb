@@ -1,9 +1,11 @@
-require "test_helper"
-require "support/concerns/authentication/authenticable_test"
-require "support/concerns/authentication/confirmable_test"
-require "support/concerns/authentication/invitable_test"
-require "support/concerns/authentication/recoverable_test"
-require "support/concerns/session/trackable_test"
+# frozen_string_literal: true
+
+require 'test_helper'
+require 'support/concerns/authentication/authenticable_test'
+require 'support/concerns/authentication/confirmable_test'
+require 'support/concerns/authentication/invitable_test'
+require 'support/concerns/authentication/recoverable_test'
+require 'support/concerns/session/trackable_test'
 
 module GobiertoAdmin
   class AdminTest < ActiveSupport::TestCase
@@ -50,8 +52,8 @@ module GobiertoAdmin
       preset_admin = Admin.preset
 
       expected_admin = Admin.new(
-        email: "admin@gobierto.dev",
-        name: "Gobierto Admin"
+        email: 'admin@gobierto.dev',
+        name: 'Gobierto Admin'
       )
 
       assert_equal expected_admin.email, preset_admin.email

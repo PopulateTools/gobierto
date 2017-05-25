@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
     class PersonForm
@@ -58,28 +60,28 @@ module GobiertoAdmin
       end
 
       def visibility_level
-        @visibility_level ||= "draft"
+        @visibility_level ||= 'draft'
       end
 
       def category
-        @category ||= "politician"
+        @category ||= 'politician'
       end
 
       def party
-        return if category == "executive"
+        return if category == 'executive'
 
         @party ||= person.party
       end
 
       def political_group_id
-        return if category == "executive"
+        return if category == 'executive'
 
         @political_group_id ||= person.political_group_id
       end
 
       def bio_url
         @bio_url ||= begin
-          return person.bio_url unless bio_file.present?
+          return person.bio_url if bio_file.blank?
 
           FileUploadService.new(
             site: site,
@@ -92,7 +94,7 @@ module GobiertoAdmin
 
       def avatar_url
         @avatar_url ||= begin
-          return person.avatar_url unless avatar_file.present?
+          return person.avatar_url if avatar_file.blank?
 
           FileUploadService.new(
             site: site,

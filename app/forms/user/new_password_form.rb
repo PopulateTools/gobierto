@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::NewPasswordForm
   include ActiveModel::Model
 
@@ -30,5 +32,4 @@ class User::NewPasswordForm
   def deliver_confirmation_email
     User::UserMailer.confirmation_instructions(user, site).deliver_later
   end
-
 end

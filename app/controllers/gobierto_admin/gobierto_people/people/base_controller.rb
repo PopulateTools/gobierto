@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
     module People
       class BaseController < GobiertoAdmin::BaseController
-        before_action { module_enabled!(current_site, "GobiertoPeople") }
+        before_action { module_enabled!(current_site, 'GobiertoPeople') }
         before_action :set_person
 
         private

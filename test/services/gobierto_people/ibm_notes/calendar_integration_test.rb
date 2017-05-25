@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 require 'support/calendar_integration_helpers'
 
 module GobiertoPeople
   module IbmNotes
     class CalendarIntegrationTest < ActiveSupport::TestCase
-
       include ::CalendarIntegrationHelpers
 
       def richard
@@ -35,20 +36,18 @@ module GobiertoPeople
       end
 
       def create_ibm_notes_event(params = {})
-        ::IbmNotes::PersonEvent.new(richard, {
-          'id'       => params[:id] || 'Ibm Notes event ID',
-          'summary'  => params[:summary] || 'Ibm Notes event summary',
-          'location' => params.has_key?(:location) ? params[:location] : 'Ibm Notes event location',
-          'start'    => { 'date' => '2017-04-11', 'time' => '10:00:00', 'utc' => true },
-          'end'      => { 'date' => '2017-04-11', 'time' => '11:00:00', 'utc' => true }
-        })
+        ::IbmNotes::PersonEvent.new(richard, 'id' => params[:id] || 'Ibm Notes event ID',
+                                             'summary'  => params[:summary] || 'Ibm Notes event summary',
+                                             'location' => params.key?(:location) ? params[:location] : 'Ibm Notes event location',
+                                             'start'    => { 'date' => '2017-04-11', 'time' => '10:00:00', 'utc' => true },
+                                             'end'      => { 'date' => '2017-04-11', 'time' => '11:00:00', 'utc' => true })
       end
 
       def new_ibm_notes_event
         @new_ibm_notes_event ||= create_ibm_notes_event(
           id: 'Ibm Notes new event ID',
           summary: 'Ibm Notes new event summary',
-          location: 'Ibm Notes new event location',
+          location: 'Ibm Notes new event location'
         )
       end
 
@@ -65,8 +64,8 @@ module GobiertoPeople
           site: site,
           external_id: 'Ibm Notes event ID',
           title: 'Ibm Notes event title',
-          starts_at: utc_time("2017-04-11 10:00:00"),
-          ends_at:   utc_time("2017-04-11 11:00:00"),
+          starts_at: utc_time('2017-04-11 10:00:00'),
+          ends_at:   utc_time('2017-04-11 11:00:00'),
           state: GobiertoPeople::PersonEvent.states['published'],
           person: richard,
           site: site
@@ -78,8 +77,8 @@ module GobiertoPeople
           site: site,
           external_id: 'Ibm Notes outdated event ID',
           title: 'Ibm Notes outdated event title',
-          starts_at: utc_time("2017-04-11 10:00:00"),
-          ends_at:   utc_time("2017-04-11 11:00:00"),
+          starts_at: utc_time('2017-04-11 10:00:00'),
+          ends_at:   utc_time('2017-04-11 11:00:00'),
           state: GobiertoPeople::PersonEvent.states['published'],
           person: richard,
           site: site
@@ -91,20 +90,20 @@ module GobiertoPeople
           CalendarIntegration.sync_person_events(richard)
         end
 
-        non_recurrent_events       = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated$")
-        recurrent_events_instances = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated/\\d{8}T\\d{6}Z$")
+        non_recurrent_events       = richard.events.where('external_id ~* ?', '-Lotus_Notes_Generated$')
+        recurrent_events_instances = richard.events.where('external_id ~* ?', '-Lotus_Notes_Generated/\\d{8}T\\d{6}Z$')
 
         assert_equal 2, non_recurrent_events.count
         assert_equal 1, recurrent_events_instances.count
 
         assert_equal "Buscar alcaldessa al seu despatx i Sortida cap a l'acte Gran Via Corts Catalanes, 400", non_recurrent_events.first.title
-        assert_equal rst_to_utc("2017-05-04 18:45:00"), non_recurrent_events.first.starts_at.utc
+        assert_equal rst_to_utc('2017-05-04 18:45:00'), non_recurrent_events.first.starts_at.utc
 
-        assert_equal "Lliurament Premis Rac", non_recurrent_events.second.title
-        assert_equal rst_to_utc("2017-05-04 19:30:00"), non_recurrent_events.second.starts_at.utc
+        assert_equal 'Lliurament Premis Rac', non_recurrent_events.second.title
+        assert_equal rst_to_utc('2017-05-04 19:30:00'), non_recurrent_events.second.starts_at.utc
 
-        assert_equal "CAEM", recurrent_events_instances.first.title
-        assert_equal rst_to_utc("2017-05-05 09:00:00"), recurrent_events_instances.first.starts_at
+        assert_equal 'CAEM', recurrent_events_instances.first.title
+        assert_equal rst_to_utc('2017-05-05 09:00:00'), recurrent_events_instances.first.starts_at
       end
 
       def test_sync_events_updates_event_attributes
@@ -117,7 +116,7 @@ module GobiertoPeople
 
         non_recurrent_event = richard.events.find_by(external_id: 'BD5EA243F9F715AAC1258116003ED56C-Lotus_Notes_Generated')
         non_recurrent_event.title = 'Old non recurrent event title'
-        non_recurrent_event.starts_at = utc_time("2017-05-05 10:00:00")
+        non_recurrent_event.starts_at = utc_time('2017-05-05 10:00:00')
         non_recurrent_event.save!
 
         recurrent_event_instance = richard.events.find_by(external_id: 'D2E5B40E6AAEAED4C125808E0035A6A0-Lotus_Notes_Generated/20170503T073000Z')
@@ -133,7 +132,7 @@ module GobiertoPeople
         recurrent_event_instance.reload
 
         assert_equal "Buscar alcaldessa al seu despatx i Sortida cap a l'acte Gran Via Corts Catalanes, 400", non_recurrent_event.title
-        assert_equal rst_to_utc("2017-05-04 18:45:00"), non_recurrent_event.starts_at
+        assert_equal rst_to_utc('2017-05-04 18:45:00'), non_recurrent_event.starts_at
 
         assert_equal 'CAEM', recurrent_event_instance.title
         assert_equal 'Sala de juntes 1a. planta Ajuntament', recurrent_event_instance.locations.first.name
@@ -166,21 +165,21 @@ module GobiertoPeople
           CalendarIntegration.sync_person_events(richard)
         end
 
-        non_recurrent_events       = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated$")
-        recurrent_events_instances = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated/\\d{8}T\\d{6}Z$").order(:external_id)
+        non_recurrent_events       = richard.events.where('external_id ~* ?', '-Lotus_Notes_Generated$')
+        recurrent_events_instances = richard.events.where('external_id ~* ?', '-Lotus_Notes_Generated/\\d{8}T\\d{6}Z$').order(:external_id)
 
         assert_equal 1, non_recurrent_events.count
         assert_equal 8, recurrent_events_instances.count
 
-        assert_equal "rom", non_recurrent_events.first.title
+        assert_equal 'rom', non_recurrent_events.first.title
         assert_equal 'CD1B539AEB0D44D7C1258110003BB81E-Lotus_Notes_Generated', non_recurrent_events.first.external_id
         assert_equal rst_to_utc('2017-05-05 16:00:00'), non_recurrent_events.first.starts_at
 
-        assert_equal "Coordinació Política Igualtat + dinar", recurrent_events_instances.first.title
+        assert_equal 'Coordinació Política Igualtat + dinar', recurrent_events_instances.first.title
         assert_equal 'EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated/20170303T110000Z', recurrent_events_instances.first.external_id
         assert_equal rst_to_utc('2017-03-03 12:00:00'), recurrent_events_instances.first.starts_at
 
-        assert_equal "Coordinació Política Igualtat + dinar", recurrent_events_instances.second.title
+        assert_equal 'Coordinació Política Igualtat + dinar', recurrent_events_instances.second.title
         assert_equal 'EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated/20170505T100000Z', recurrent_events_instances.second.external_id
         assert_equal rst_to_utc('2017-05-05 12:00:00'), recurrent_events_instances.second.starts_at
       end
@@ -196,7 +195,7 @@ module GobiertoPeople
           richard_synchronized_events = richard.events.synchronized
 
           assert_equal 3, richard_synchronized_events.count
-          assert richard_synchronized_events.all? { |event| event.active? }
+          assert richard_synchronized_events.all?(&:active?)
         end
 
         Timecop.freeze(Time.zone.parse('2017-05-05 01:00:00')) do
@@ -216,7 +215,6 @@ module GobiertoPeople
       end
 
       def test_sync_event_creates_new_event_with_location
-
         refute GobiertoPeople::PersonEvent.exists?(external_id: new_ibm_notes_event.id)
 
         created_event_external_id = CalendarIntegration.sync_event(new_ibm_notes_event)

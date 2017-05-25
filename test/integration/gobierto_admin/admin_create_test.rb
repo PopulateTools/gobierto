@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class AdminCreateTest < ActionDispatch::IntegrationTest
@@ -19,7 +21,7 @@ module GobiertoAdmin
       with_signed_in_admin(regular_admin) do
         visit @path
 
-        refute has_selector?("form.new_admin")
+        refute has_selector?('form.new_admin')
       end
     end
 
@@ -27,46 +29,46 @@ module GobiertoAdmin
       with_signed_in_admin(admin) do
         visit @path
 
-        within "form.new_admin" do
-          fill_in "admin_name", with: "Admin Name"
-          fill_in "admin_email", with: "admin@email.dev"
+        within 'form.new_admin' do
+          fill_in 'admin_name', with: 'Admin Name'
+          fill_in 'admin_email', with: 'admin@email.dev'
 
-          within ".site-module-check-boxes" do
-            check "Gobierto Development"
+          within '.site-module-check-boxes' do
+            check 'Gobierto Development'
           end
 
-          within ".site-check-boxes" do
-            check "madrid.gobierto.dev"
+          within '.site-check-boxes' do
+            check 'madrid.gobierto.dev'
           end
 
-          within ".admin-authorization-level-radio-buttons" do
-            choose "Regular"
+          within '.admin-authorization-level-radio-buttons' do
+            choose 'Regular'
           end
 
-          click_button "Create"
+          click_button 'Create'
         end
 
-        assert has_message?("Admin was successfully created")
+        assert has_message?('Admin was successfully created')
 
-        within "table.admin-list tbody tr", match: :first do
-          assert has_content?("Admin Name")
-          assert has_content?("admin@email.dev")
+        within 'table.admin-list tbody tr', match: :first do
+          assert has_content?('Admin Name')
+          assert has_content?('admin@email.dev')
 
-          click_link "Admin Name"
+          click_link 'Admin Name'
         end
 
-        within ".site-module-check-boxes" do
-          assert has_checked_field?("Gobierto Development")
-          refute has_checked_field?("Gobierto Budgets")
+        within '.site-module-check-boxes' do
+          assert has_checked_field?('Gobierto Development')
+          refute has_checked_field?('Gobierto Budgets')
         end
 
-        within ".site-check-boxes" do
-          assert has_checked_field?("madrid.gobierto.dev")
-          refute has_checked_field?("santander.gobierto.dev")
+        within '.site-check-boxes' do
+          assert has_checked_field?('madrid.gobierto.dev')
+          refute has_checked_field?('santander.gobierto.dev')
         end
 
-        within ".admin-authorization-level-radio-buttons" do
-          assert has_checked_field?("Regular")
+        within '.admin-authorization-level-radio-buttons' do
+          assert has_checked_field?('Regular')
         end
 
         invite_email = ActionMailer::Base.deliveries.last
@@ -76,16 +78,16 @@ module GobiertoAdmin
       open_email('admin@email.dev')
       current_email.click_link current_email.first('a').text
 
-      assert has_message?("Signed in successfully")
+      assert has_message?('Signed in successfully')
 
-      assert has_content?("Edit your data")
+      assert has_content?('Edit your data')
 
-      assert has_field?("admin_email", with: "admin@email.dev")
+      assert has_field?('admin_email', with: 'admin@email.dev')
       fill_in :admin_password, with: 'gobierto'
       fill_in :admin_password_confirmation, with: 'gobierto'
-      click_button "Update"
+      click_button 'Update'
 
-      assert has_message?("Data updated successfully")
+      assert has_message?('Data updated successfully')
     end
   end
 end

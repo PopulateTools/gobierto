@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'tempfile'
 require 'fileutils'
 
@@ -45,12 +47,12 @@ module GobiertoPeople
 
       def set_google_calendar_id!
         if @configuration.google_calendar_id.nil?
-          @configuration.google_calendar_id = calendars.select{ |c| c.primary? }.first.id
+          @configuration.google_calendar_id = calendars.select(&:primary?).first.id
           @configuration.save
         end
       end
 
-      def sync_calendar_events( calendar)
+      def sync_calendar_events(calendar)
         response = service.list_events(calendar.id, always_include_email: true, time_min: Time.now.iso8601)
         response.items.each do |event|
           next if is_private?(event) || (!is_creator?(event) && !is_attendee?(event))
@@ -66,7 +68,7 @@ module GobiertoPeople
       end
 
       def is_private?(event)
-        %w( private confidential ).include?(event.visibility)
+        %w[private confidential].include?(event.visibility)
       end
 
       def is_creator?(event)
@@ -74,7 +76,7 @@ module GobiertoPeople
       end
 
       def is_attendee?(event)
-        Array(event.attendees).any?{ |a| a.email == configuration.google_calendar_id }
+        Array(event.attendees).any? { |a| a.email == configuration.google_calendar_id }
       end
 
       def is_recurring?(event)
@@ -104,17 +106,17 @@ module GobiertoPeople
           attendees: event_attendees(event),
           notify: i.nil? || i == 0
         }
-        if is_creator?(event)
-          person_event_params.merge!(person_id: person.id)
-        else
-          person_event_params.merge!(person_id: 0)
-        end
+        person_event_params[:person_id] = if is_creator?(event)
+                                            person.id
+                                          else
+                                            0
+                                          end
 
-        if event.location.present?
-          person_event_params.merge!(locations_attributes: {"0" => {name: event.location} })
-        else
-          person_event_params.merge!(locations_attributes: {"0" => {"_destroy" => "1" }})
-        end
+        person_event_params[:locations_attributes] = if event.location.present?
+                                                       { '0' => { name: event.location } }
+                                                     else
+                                                       { '0' => { '_destroy' => '1' } }
+                                                     end
 
         event = GobiertoPeople::PersonEventForm.new(person_event_params)
         event.save

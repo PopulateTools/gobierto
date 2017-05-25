@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::SessionsControllerTest < GobiertoControllerTest
   def confirmed_user
@@ -6,13 +8,13 @@ class User::SessionsControllerTest < GobiertoControllerTest
   end
 
   def referrer_url
-    "http://example.com/home"
+    'http://example.com/home'
   end
 
   def valid_session_params
     {
       email: confirmed_user.email,
-      password: "gobierto"
+      password: 'gobierto'
     }
   end
 

@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class GobiertoBudgets::BudgetLineTest < ActionDispatch::IntegrationTest
   def setup
@@ -18,8 +20,8 @@ class GobiertoBudgets::BudgetLineTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @path
 
-      assert has_content?("Gastos de personal")
-      assert has_content?("Órganos de gobierno y personal directivo")
+      assert has_content?('Gastos de personal')
+      assert has_content?('Órganos de gobierno y personal directivo')
     end
   end
 
@@ -27,12 +29,12 @@ class GobiertoBudgets::BudgetLineTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @path
 
-      assert has_css?(".metric_box h3", text: "Expense plan. / inh.")
-      assert has_css?(".metric_box h3", text: "Expense planned")
-      assert has_css?(".metric_box h3", text: "Expense real vs. plan.")
-      assert has_css?(".metric_box h3", text: "% over the total")
-      assert has_css?(".metric_box h3", text: "Avg. expense in the province")
-      assert page.all(".metric_box .metric").all?{ |e| e.text =~ /\d{2}/}
+      assert has_css?('.metric_box h3', text: 'Expense plan. / inh.')
+      assert has_css?('.metric_box h3', text: 'Expense planned')
+      assert has_css?('.metric_box h3', text: 'Expense real vs. plan.')
+      assert has_css?('.metric_box h3', text: '% over the total')
+      assert has_css?('.metric_box h3', text: 'Avg. expense in the province')
+      assert page.all('.metric_box .metric').all? { |e| e.text =~ /\d{2}/ }
     end
   end
 

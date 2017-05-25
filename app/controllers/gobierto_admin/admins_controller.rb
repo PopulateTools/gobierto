@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class AdminsController < BaseController
     before_action :managing_user
@@ -45,7 +47,7 @@ module GobiertoAdmin
 
       if @admin_form.save
         track_create_activity
-        redirect_to admin_admins_path, notice: t(".success")
+        redirect_to admin_admins_path, notice: t('.success')
       else
         render :new
       end
@@ -66,7 +68,7 @@ module GobiertoAdmin
 
       if @admin_form.save
         track_update_activity
-        redirect_to edit_admin_admin_path(@admin), notice: t(".success")
+        redirect_to edit_admin_admin_path(@admin), notice: t('.success')
       else
         render :edit
       end
@@ -91,11 +93,11 @@ module GobiertoAdmin
     end
 
     def ignored_admin_attributes
-      %w(
-      created_at updated_at password_digest god
-      confirmation_token reset_password_token
-      invitation_token invitation_sent_at
-      )
+      %w[
+        created_at updated_at password_digest god
+        confirmation_token reset_password_token
+        invitation_token invitation_sent_at
+      ]
     end
 
     def set_admin_policy
@@ -105,7 +107,7 @@ module GobiertoAdmin
     def set_site_modules
       return unless @admin_policy.manage_permissions?
 
-      @site_modules = APP_CONFIG["site_modules"].map do |site_module|
+      @site_modules = APP_CONFIG['site_modules'].map do |site_module|
         OpenStruct.new(site_module)
       end
     end
@@ -127,11 +129,11 @@ module GobiertoAdmin
     end
 
     def track_create_activity
-      Publishers::AdminActivity.broadcast_event("admin_created", default_activity_params.merge({subject: @admin_form.admin}))
+      Publishers::AdminActivity.broadcast_event('admin_created', default_activity_params.merge(subject: @admin_form.admin))
     end
 
     def track_update_activity
-      Publishers::AdminActivity.broadcast_event("admin_updated", default_activity_params.merge({subject: @admin_form.admin, changes: @admin_form.admin.previous_changes.except(:updated_at)}))
+      Publishers::AdminActivity.broadcast_event('admin_updated', default_activity_params.merge(subject: @admin_form.admin, changes: @admin_form.admin.previous_changes.except(:updated_at)))
     end
 
     def default_activity_params
@@ -139,12 +141,11 @@ module GobiertoAdmin
     end
 
     def managing_user
-      redirect_to admin_users_path and return false unless current_admin.managing_user?
+      redirect_to(admin_users_path) && (return false) unless current_admin.managing_user?
     end
 
     def generate_random_password
       SecureRandom.hex(8)
     end
-
   end
 end

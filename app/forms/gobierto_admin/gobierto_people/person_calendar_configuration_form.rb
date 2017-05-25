@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
     class PersonCalendarConfigurationForm
@@ -57,7 +59,7 @@ module GobiertoAdmin
       end
 
       def clear_google_calendar_configuration?
-        person_google_calendar_configuration_class == person_calendar_configuration.class && clear_google_calendar_configuration == "1"
+        person_google_calendar_configuration_class == person_calendar_configuration.class && clear_google_calendar_configuration == '1'
       end
 
       def clear_ibm_notes_configuration?
@@ -69,7 +71,7 @@ module GobiertoAdmin
           calendar_configuration_attributes.person_id = person_id
 
           if person_calendar_configuration.respond_to?(:calendars)
-            calendar_configuration_attributes.calendars = calendars.select { |c| !c.blank? }
+            calendar_configuration_attributes.calendars = calendars.reject(&:blank?)
           end
 
           if calendar_configuration_attributes.respond_to?(:endpoint)

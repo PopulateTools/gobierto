@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
     class PersonStatementForm
@@ -63,7 +65,7 @@ module GobiertoAdmin
 
       def published_on
         if @published_on.respond_to?(:strftime)
-          return @published_on.strftime("%Y-%m-%d")
+          return @published_on.strftime('%Y-%m-%d')
         end
 
         @published_on
@@ -71,28 +73,28 @@ module GobiertoAdmin
 
       def attachment_url
         @attachment_url ||= begin
-          return person_statement.attachment_url unless attachment_file.present?
+          return person_statement.attachment_url if attachment_file.blank?
 
           FileUploadService.new(
             site: person.site,
             collection: person_statement.model_name.collection,
             attribute_name: :attachment,
             file: attachment_file,
-            content_disposition: "attachment"
+            content_disposition: 'attachment'
           ).call
         end
       end
 
       def attachment_size
         @attachment_size ||= begin
-          return person_statement.attachment_size unless attachment_file.present?
+          return person_statement.attachment_size if attachment_file.blank?
 
           attachment_file.size
         end
       end
 
       def visibility_level
-        @visibility_level ||= "draft"
+        @visibility_level ||= 'draft'
       end
 
       def notify?

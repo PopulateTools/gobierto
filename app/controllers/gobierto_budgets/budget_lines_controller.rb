@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationController
   before_action :load_params
 
@@ -44,7 +46,7 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
 
   def load_params
     @place = @site.place
-    render_404 and return if @place.nil?
+    render_404 && return if @place.nil?
 
     @year = params[:year].to_i
     @kind = params[:kind] || GobiertoBudgets::BudgetLine::EXPENSE
@@ -52,5 +54,4 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
     @level = params[:level].present? ? params[:level].to_i : 1
     @code = params[:id]
   end
-
 end

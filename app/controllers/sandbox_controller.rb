@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SandboxController < ApplicationController
   before_action :set_working_variables
   layout :set_layout
@@ -22,10 +24,10 @@ class SandboxController < ApplicationController
 
   def show
     if params[:template].index('.') # CVE-2014-0130
-      render :action => "index"
+      render action: 'index'
     elsif lookup_context.exists?("sandbox/#{params[:template]}")
-      if params[:template] == "index"
-        render :action => "index"
+      if params[:template] == 'index'
+        render action: 'index'
       else
         render "sandbox/#{params[:template]}"
       end
@@ -33,19 +35,19 @@ class SandboxController < ApplicationController
     elsif lookup_context.exists?("sandbox/#{params[:template]}/index")
       render "sandbox/#{params[:template]}/index"
     else
-      render :action => "index"
+      render action: 'index'
     end
   end
 
   private
 
   def set_layout
-    return "sandbox/application" unless params[:template]
+    return 'sandbox/application' unless params[:template]
 
-    case params[:template].split("_").first
-    when "admin"        then "sandbox/gobierto_admin/application"
-    when "consultation" then "sandbox/gobierto_budget_consultations/application"
-    else "sandbox/application"
+    case params[:template].split('_').first
+    when 'admin'        then 'sandbox/gobierto_admin/application'
+    when 'consultation' then 'sandbox/gobierto_budget_consultations/application'
+    else 'sandbox/application'
     end
   end
 
@@ -55,7 +57,7 @@ class SandboxController < ApplicationController
   end
 
   def current_site
-    SiteDecorator.new(Site.find_by(domain: "madrid.gobierto.dev"))
+    SiteDecorator.new(Site.find_by(domain: 'madrid.gobierto.dev'))
   end
 
   def user_signed_in?

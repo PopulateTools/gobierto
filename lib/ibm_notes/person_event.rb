@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module IbmNotes
   class PersonEvent
-
     attr_accessor :id, :title, :description, :starts_at, :ends_at, :person, :location, :attendees
 
     def initialize(person, response_event)
@@ -44,17 +45,15 @@ module IbmNotes
     def set_attendees(event)
       if event['attendees'].present?
         event['attendees'].map do |attendee|
-          if (attendee['status'] == 'accepted' || attendee['role'] == 'req-participant') && attendee['displayName'].present?
-            {
-              name: attendee['displayName'].split('/').first,
-              email: attendee['email']
-            }
-          end
+          next unless (attendee['status'] == 'accepted' || attendee['role'] == 'req-participant') && attendee['displayName'].present?
+          {
+            name: attendee['displayName'].split('/').first,
+            email: attendee['email']
+          }
         end.compact
       else
         []
       end
     end
-
   end
 end

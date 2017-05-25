@@ -1,5 +1,6 @@
-class AddSiteIdToGpEventsStatementsAndPosts < ActiveRecord::Migration[5.0]
+# frozen_string_literal: true
 
+class AddSiteIdToGpEventsStatementsAndPosts < ActiveRecord::Migration[5.0]
   def up
     add_site_id_to_person_events
     add_site_id_to_person_statements
@@ -46,5 +47,4 @@ class AddSiteIdToGpEventsStatementsAndPosts < ActiveRecord::Migration[5.0]
     add_foreign_key :gp_person_posts, :sites
     change_column :gp_person_posts, :site_id, :integer, null: false
   end
-
 end

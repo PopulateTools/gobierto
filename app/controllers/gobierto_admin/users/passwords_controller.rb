@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class Users::PasswordsController < BaseController
     def new
@@ -12,9 +14,9 @@ module GobiertoAdmin
       )
 
       if @user_password_form.save
-        redirect_to edit_admin_user_path(@user), notice: t(".success")
+        redirect_to edit_admin_user_path(@user), notice: t('.success')
       else
-        flash.now[:alert] = t(".error")
+        flash.now[:alert] = t('.error')
         render :new
       end
     end

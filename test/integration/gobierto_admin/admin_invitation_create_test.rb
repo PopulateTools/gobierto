@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class AdminInvitationCreateTest < ActionDispatch::IntegrationTest
@@ -15,15 +17,15 @@ module GobiertoAdmin
       with_signed_in_admin(admin) do
         visit @new_invitation_path
 
-        fill_in :admin_invitation_emails, with: "foo@gobierto.dev, bar@gobierto.dev"
+        fill_in :admin_invitation_emails, with: 'foo@gobierto.dev, bar@gobierto.dev'
 
-        within ".site-check-boxes" do
-          check "madrid.gobierto.dev"
+        within '.site-check-boxes' do
+          check 'madrid.gobierto.dev'
         end
 
-        click_on "Send"
+        click_on 'Send'
 
-        assert has_message?("The invitations have been successfully sent")
+        assert has_message?('The invitations have been successfully sent')
       end
     end
   end

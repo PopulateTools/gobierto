@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class Sites::SessionsController < BaseController
     def create
@@ -11,17 +13,17 @@ module GobiertoAdmin
 
     def destroy
       leave_site
-      redirect_to(request.referrer)
+      redirect_to(request.referer)
     end
 
     private
 
     def redirect_path
-      if URI(request.referrer).path == edit_admin_site_path(current_site)
+      if URI(request.referer).path == edit_admin_site_path(current_site)
         return edit_admin_site_path(id: params[:site_id])
       end
 
-      request.referrer
+      request.referer
     end
 
     def allowed_site?(site_id)

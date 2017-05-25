@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   module ApplicationHelper
-
     def current_parameters_with_year(year)
       params.except(:host, :port, :protocol).merge(year: year).permit!
     end
@@ -31,7 +32,7 @@ module GobiertoBudgets
     end
 
     def delta_percentage(current_year_value, old_value)
-      number_with_precision(((current_year_value.to_f - old_value.to_f)/old_value.to_f) * 100, precision: 2).to_s + "%"
+      number_with_precision(((current_year_value.to_f - old_value.to_f) / old_value.to_f) * 100, precision: 2).to_s + '%'
     end
 
     def percentage_of_total(value, total)
@@ -39,17 +40,17 @@ module GobiertoBudgets
     end
 
     def area_class(area, kind)
-      return GobiertoBudgets::FunctionalArea if (area == 'functional' && %{income i}.exclude?(kind.downcase))
+      return GobiertoBudgets::FunctionalArea if area == 'functional' && %(income i).exclude?(kind.downcase)
       GobiertoBudgets::EconomicArea
     end
 
     def budget_line_denomination(area, code, kind, capped = -1)
       area = area_class area, kind
       if area.all_items[kind][code].nil?
-        return " - "
+        return ' - '
       else
         res = area.all_items[kind][code][0..capped]
-        res += "..." if capped < res.length && capped > -1
+        res += '...' if capped < res.length && capped > -1
       end
       res
     end
@@ -76,19 +77,19 @@ module GobiertoBudgets
     def data_attributes
       attrs = []
       if @place
-        attrs << %Q{data-track-url="#{gobierto_budgets_budgets_path(@year || GobiertoBudgets::SearchEngineConfiguration::Year.last)}"}
-        attrs << %Q{data-place-slug="#{@place.slug}"}
-        attrs << %Q{data-place-name="#{@place.name}"}
+        attrs << %(data-track-url="#{gobierto_budgets_budgets_path(@year || GobiertoBudgets::SearchEngineConfiguration::Year.last)}")
+        attrs << %(data-place-slug="#{@place.slug}")
+        attrs << %(data-place-name="#{@place.name}")
       end
-      if action_name == 'compare' and controller_name == 'places'
-        attrs << %Q{data-comparison-name="#{@places.map{|p| p.name }.join(' + ')}"}
-        attrs << %Q{data-comparison-track-url="#{request.path}"}
-        attrs << %Q{data-comparison-slug="#{params[:slug_list]}"}
+      if action_name == 'compare' && controller_name == 'places'
+        attrs << %(data-comparison-name="#{@places.map(&:name).join(' + ')}")
+        attrs << %(data-comparison-track-url="#{request.path}")
+        attrs << %(data-comparison-slug="#{params[:slug_list]}")
       end
-      attrs << %Q{data-year="#{@year || GobiertoBudgets::SearchEngineConfiguration::Year.last}"}
-      attrs << %Q{data-kind="#{@kind || 'expense'}"}
-      attrs << %Q{data-area="#{@area_name || 'economic'}"}
-      attrs << %Q{data-action="#{action_name}"}
+      attrs << %(data-year="#{@year || GobiertoBudgets::SearchEngineConfiguration::Year.last}")
+      attrs << %(data-kind="#{@kind || 'expense'}")
+      attrs << %(data-area="#{@area_name || 'economic'}")
+      attrs << %(data-action="#{action_name}")
       attrs.join(' ').html_safe
     end
 

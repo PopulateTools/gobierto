@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgetConsultations
   module Consultations
     class ConsultationResponsesController < BaseController
@@ -41,7 +43,7 @@ module GobiertoBudgetConsultations
       private
 
       def consultation_response_params
-        params.require(:consultation_response).permit(selected_options: [:item_id, :selected_option])
+        params.require(:consultation_response).permit(selected_options: %i[item_id selected_option])
       end
 
       def document_number_digest

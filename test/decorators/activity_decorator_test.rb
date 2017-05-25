@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class ActivityDecoratorTest < ActiveSupport::TestCase
   def setup
@@ -27,6 +29,6 @@ class ActivityDecoratorTest < ActiveSupport::TestCase
   end
 
   def test_recipient_name
-    assert_equal "-", @subject.recipient_name
+    assert_equal '-', @subject.recipient_name
   end
 end

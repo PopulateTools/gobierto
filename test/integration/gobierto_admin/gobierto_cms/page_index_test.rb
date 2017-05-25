@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoCms
@@ -25,19 +27,19 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            within "table.pages-list tbody" do
-              assert has_selector?("tr", count: pages.size)
+            within 'table.pages-list tbody' do
+              assert has_selector?('tr', count: pages.size)
 
               pages.each do |page|
                 assert has_selector?("tr#page-item-#{page.id}")
 
                 within "tr#page-item-#{page.id}" do
                   if page.active?
-                    assert has_content?("Published")
+                    assert has_content?('Published')
                   else
-                    assert has_content?("Draft")
+                    assert has_content?('Draft')
                   end
-                  assert has_link?("View page")
+                  assert has_link?('View page')
                 end
               end
             end

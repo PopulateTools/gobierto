@@ -1,4 +1,6 @@
-require_dependency "gobierto_people"
+# frozen_string_literal: true
+
+require_dependency 'gobierto_people'
 
 module GobiertoPeople
   class Person < ApplicationRecord
@@ -12,22 +14,22 @@ module GobiertoPeople
 
     algoliasearch_gobierto do
       attribute :site_id, :name, :charge_en, :charge_es, :charge_ca, :bio_en, :bio_es, :bio_ca, :updated_at
-      searchableAttributes ['name', 'charge_en', 'charge_es', 'charge_ca', 'bio_en', 'bio_es', 'bio_ca']
+      searchableAttributes %w[name charge_en charge_es charge_ca bio_en bio_es bio_ca]
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end
 
-    belongs_to :admin, class_name: "GobiertoAdmin::Admin"
+    belongs_to :admin, class_name: 'GobiertoAdmin::Admin'
     belongs_to :site
     belongs_to :political_group
 
-    has_many :events, class_name: "PersonEvent", dependent: :destroy
-    has_many :attending_person_events, class_name: "PersonEventAttendee", dependent: :destroy
-    has_many :attending_events, class_name: "PersonEvent", through: :attending_person_events, source: :person_event
-    has_many :statements, class_name: "PersonStatement", dependent: :destroy
-    has_many :posts, class_name: "PersonPost", dependent: :destroy
+    has_many :events, class_name: 'PersonEvent', dependent: :destroy
+    has_many :attending_person_events, class_name: 'PersonEventAttendee', dependent: :destroy
+    has_many :attending_events, class_name: 'PersonEvent', through: :attending_person_events, source: :person_event
+    has_many :statements, class_name: 'PersonStatement', dependent: :destroy
+    has_many :posts, class_name: 'PersonPost', dependent: :destroy
 
-    has_one :calendar_configuration, class_name: "PersonCalendarConfiguration", dependent: :destroy
+    has_one :calendar_configuration, class_name: 'PersonCalendarConfiguration', dependent: :destroy
 
     scope :sorted, -> { order(position: :asc, created_at: :desc) }
     scope :by_site, ->(site) { where(site_id: site.id) }
@@ -41,7 +43,7 @@ module GobiertoPeople
     validates :site, presence: true
 
     def self.csv_columns
-      [:id, :name, :email, :charge, :bio, :bio_url, :avatar_url, :category, :political_group, :party, :created_at, :updated_at]
+      %i[id name email charge bio bio_url avatar_url category political_group party created_at updated_at]
     end
 
     def as_csv
@@ -57,6 +59,5 @@ module GobiertoPeople
     def attributes_for_slug
       [name]
     end
-
   end
 end

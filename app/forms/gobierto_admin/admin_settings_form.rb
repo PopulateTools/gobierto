@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class AdminSettingsForm
     include ActiveModel::Model
@@ -21,9 +23,7 @@ module GobiertoAdmin
 
       return false unless valid?
 
-      if save_admin
-        admin
-      end
+      admin if save_admin
     end
 
     def admin

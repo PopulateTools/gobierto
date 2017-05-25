@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoBudgetConsultations
     module Consultations
@@ -7,10 +9,10 @@ module GobiertoAdmin
         private
 
         def ignored_consultation_attributes
-          %w(
-          created_at updated_at
-          budget_amount
-          )
+          %w[
+            created_at updated_at
+            budget_amount
+          ]
         end
 
         def get_consultation_visibility_levels

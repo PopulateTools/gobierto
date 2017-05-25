@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module FileUploader
   class Local
-    FILE_PATH_PREFIX = "system/attachments".freeze
+    FILE_PATH_PREFIX = 'system/attachments'
 
     attr_reader :file, :file_name
 
@@ -12,7 +14,7 @@ module FileUploader
     def call
       FileUtils.mkdir_p(file_base_path) unless File.exist?(file_base_path)
       FileUtils.mv(file.tempfile.path, file_path)
-      File.chmod(0664, file_path)
+      File.chmod(0o664, file_path)
       ObjectSpace.undefine_finalizer(file.tempfile)
 
       file_uri
@@ -21,7 +23,7 @@ module FileUploader
     private
 
     def file_uri
-      File.join("/", FILE_PATH_PREFIX, file_name)
+      File.join('/', FILE_PATH_PREFIX, file_name)
     end
 
     def file_path
@@ -30,7 +32,7 @@ module FileUploader
 
     def file_base_path
       File.join(
-        defined?(Rails) ? Rails.public_path : "",
+        defined?(Rails) ? Rails.public_path : '',
         FILE_PATH_PREFIX,
         file_dirname
       )

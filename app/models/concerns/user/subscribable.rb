@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module User::Subscribable
   extend ActiveSupport::Concern
 
@@ -14,7 +16,7 @@ module User::Subscribable
   def to_path
     url_helpers.send("#{singular_route_key}_path", parameterize)
   end
-  alias_method :resource_path, :to_path
+  alias resource_path to_path
 
   def to_url(options = {})
     url_helpers.send(
@@ -30,11 +32,11 @@ module User::Subscribable
   end
 
   def singular_route_key
-    self.model_name.singular_route_key
+    model_name.singular_route_key
   end
 
   def app_host
-    @app_host ||= ENV.fetch("HOST") { "gobierto.dev" }
+    @app_host ||= ENV.fetch('HOST') { 'gobierto.dev' }
   end
 
   protected

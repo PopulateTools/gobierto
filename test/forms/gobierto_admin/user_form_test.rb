@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class UserFormTest < ActiveSupport::TestCase
@@ -40,17 +42,17 @@ module GobiertoAdmin
     def test_confirmation_email_delivery_when_changing_email
       email_changing_form = UserForm.new(
         id: user.id,
-        email: "wadus@gobierto.dev",
-        name: "Wadus"
+        email: 'wadus@gobierto.dev',
+        name: 'Wadus'
       )
 
-      assert_difference "ActionMailer::Base.deliveries.size", 1 do
+      assert_difference 'ActionMailer::Base.deliveries.size', 1 do
         email_changing_form.save
       end
     end
 
     def test_confirmation_email_delivery_when_not_changing_email
-      assert_no_difference "ActionMailer::Base.deliveries.size" do
+      assert_no_difference 'ActionMailer::Base.deliveries.size' do
         valid_user_form.save
       end
     end

@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class Admin::InvitationsControllerTest < GobiertoControllerTest
@@ -43,7 +45,7 @@ module GobiertoAdmin
 
       assert notification_service_spy.has_been_called?
       event_name, event_payload = first_call_arguments
-      assert_equal "invitation_created", event_name
+      assert_equal 'invitation_created', event_name
       assert_includes event_payload, :ip
       assert_equal event_payload[:author], admin
       assert_nil event_payload[:subject]

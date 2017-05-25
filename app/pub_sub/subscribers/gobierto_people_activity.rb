@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Subscribers
   class GobiertoPeopleActivity < ::Subscribers::Base
     def updated(event)
@@ -20,11 +22,11 @@ module Subscribers
       author = GobiertoAdmin::Admin.find event.payload[:admin_id]
       action = subject.class.name.underscore.tr('/', '.') + '.' + action
 
-      if !subject.is_a?(GobiertoPeople::Person)
-        recipient = subject.person
-      else
-        recipient = subject
-      end
+      recipient = if !subject.is_a?(GobiertoPeople::Person)
+                    subject.person
+                  else
+                    subject
+                  end
 
       Activity.create! subject: subject,
                        author: author,
@@ -36,4 +38,3 @@ module Subscribers
     end
   end
 end
-

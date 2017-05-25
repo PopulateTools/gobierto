@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 require 'support/calendar_integration_helpers'
 
 module GobiertoPeople
   module GoogleCalendar
     class CalendarIntegrationTest < ActiveSupport::TestCase
-
       include ::CalendarIntegrationHelpers
 
       def richard
@@ -23,82 +24,82 @@ module GobiertoPeople
         super
 
         ## Mocks
-        date1 = mock()
+        date1 = mock
         date1.stubs(date_time: Time.now)
-        date2 = mock()
+        date2 = mock
         date2.stubs(date_time: 1.hour.from_now)
 
         # Private event, ignored
-        event1 = mock()
+        event1 = mock
         event1.stubs(visibility: 'private')
 
-        creator_event2 = mock()
+        creator_event2 = mock
         creator_event2.stubs(email: google_calendar_id)
 
-        creator_event3 = mock()
+        creator_event3 = mock
         creator_event3.stubs(email: google_calendar_id)
 
-        attendee1 = mock()
+        attendee1 = mock
         attendee1.stubs(self?: true, display_name: richard.name, email: google_calendar_id)
 
-        attendee2 = mock()
+        attendee2 = mock
         attendee2.stubs(self?: false, display_name: 'Wadus person', email: nil)
 
         # Single event, organized by richard, with two attendees, from calendar that is not selected
-        event7 = mock()
+        event7 = mock
         event7.stubs(visibility: nil, location: nil, creator: creator_event2, recurrence: nil, id: 'event7',
                      summary: 'Event 7', start: date1, end: date2, attendees: [attendee1, attendee2])
 
         # Single event, organized by richard, with two attendees
-        event2 = mock()
+        event2 = mock
         event2.stubs(visibility: nil, location: nil, creator: creator_event2, recurrence: nil, id: 'event2',
                      summary: 'Event 2', start: date1, end: date2, attendees: [attendee1, attendee2])
 
         # Single event, organized by other, Richard is invited
-        event3 = mock()
+        event3 = mock
         event3.stubs(visibility: nil, location: 'Patio de mi casa 1, 28005, Madrid', creator: creator_event3, recurrence: nil, id: 'event3',
                      summary: 'Event 3', start: date1, end: date2, attendees: [attendee1, attendee2])
 
         # Recurring event
-        event4 = mock()
-        event4.stubs(visibility: nil, location: nil, creator: creator_event3, recurrence: ["WEEK=1"], id: 'event4',
+        event4 = mock
+        event4.stubs(visibility: nil, location: nil, creator: creator_event3, recurrence: ['WEEK=1'], id: 'event4',
                      summary: 'Event 4', start: date1, end: date2, attendees: [attendee1, attendee2])
 
         # Instance 1 of recurring event event4
-        event5 = mock()
+        event5 = mock
         event5.stubs(visibility: nil, location: nil, creator: creator_event3, recurrence: nil, id: 'event4_instance_1',
                      summary: 'Event 5', start: date1, end: date2, attendees: [attendee1, attendee2])
 
         # Instance 2 of recurring event event4
-        event6 = mock()
+        event6 = mock
         event6.stubs(visibility: nil, location: nil, creator: creator_event3, recurrence: nil, id: 'event4_instance_2',
                      summary: 'Event 6', start: date1, end: date2, attendees: [attendee1, attendee2])
 
-        calendar1 = mock()
+        calendar1 = mock
         calendar1.stubs(id: google_calendar_id, primary?: true)
 
-        calendar2 = mock()
+        calendar2 = mock
         calendar2.stubs(id: 2, primary?: false)
 
-        calendar3 = mock()
+        calendar3 = mock
         calendar3.stubs(id: 3, primary?: false)
 
-        calendar_1_items_response = mock()
+        calendar_1_items_response = mock
         calendar_1_items_response.stubs(:items).returns([event1, event2])
 
-        calendar_2_items_response = mock()
+        calendar_2_items_response = mock
         calendar_2_items_response.stubs(:items).returns([event3, event4])
 
-        calendar_3_items_response = mock()
+        calendar_3_items_response = mock
         calendar_3_items_response.stubs(:items).returns([event7])
 
-        event_4_instances_response = mock()
+        event_4_instances_response = mock
         event_4_instances_response.stubs(:items).returns([event5, event6])
 
-        calendar_items_response = mock()
+        calendar_items_response = mock
         calendar_items_response.stubs(:items).returns([calendar1, calendar2, calendar3])
 
-        client_options = mock()
+        client_options = mock
         client_options.stubs(:application_name=).returns(true)
 
         ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:list_calendar_lists).returns(calendar_items_response)
@@ -111,7 +112,7 @@ module GobiertoPeople
 
         ## Configure site and person
         activate_google_calendar_calendar_integration(sites(:madrid))
-        configure_google_calendar_integration(richard, { calendars: [calendar1.id, calendar2.id] })
+        configure_google_calendar_integration(richard, calendars: [calendar1.id, calendar2.id])
       end
 
       def test_sync_events

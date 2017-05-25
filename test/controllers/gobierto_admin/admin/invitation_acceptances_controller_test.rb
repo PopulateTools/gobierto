@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class Admin::InvitationAcceptancesControllerTest < GobiertoControllerTest
@@ -22,9 +24,7 @@ module GobiertoAdmin
       sign_out_admin
     end
 
-    def invitation_token
-      invited_admin.invitation_token
-    end
+    delegate :invitation_token, to: :invited_admin
 
     def valid_invitation_params
       {
@@ -43,7 +43,7 @@ module GobiertoAdmin
 
       assert notification_service_spy.has_been_called?
       event_name, event_payload = first_call_arguments
-      assert_equal "invitation_accepted", event_name
+      assert_equal 'invitation_accepted', event_name
       assert_includes event_payload, :ip
       assert_equal event_payload[:author], invited_admin
       assert_equal event_payload[:subject], invited_admin

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module User::VerificationHelper
   extend ActiveSupport::Concern
 
@@ -19,14 +21,14 @@ module User::VerificationHelper
 
   def raise_user_already_verified
     redirect_to(
-      request.referrer || user_root_path,
+      request.referer || user_root_path,
       alert: t('user.census_verifications.messages.already_verified')
     )
   end
 
   def raise_user_not_verified(site)
     redirect_to(
-      new_user_census_verifications_path || request.referrer || user_root_path,
+      new_user_census_verifications_path || request.referer || user_root_path,
       alert: t("user.census_verifications.messages.#{controller_name}.not_verified", site_name: site.try(:name), default: 'user.census_verifications.messages.not_verified')
     )
   end

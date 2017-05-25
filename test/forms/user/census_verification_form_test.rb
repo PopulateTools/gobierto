@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::CensusVerificationFormTest < ActiveSupport::TestCase
   def valid_census_verification_form
@@ -9,7 +11,7 @@ class User::CensusVerificationFormTest < ActiveSupport::TestCase
       date_of_birth_year: date_of_birth.year,
       date_of_birth_month: date_of_birth.month,
       date_of_birth_day: date_of_birth.day,
-      creation_ip: IPAddr.new("0.0.0.0")
+      creation_ip: IPAddr.new('0.0.0.0')
     )
   end
 
@@ -38,7 +40,7 @@ class User::CensusVerificationFormTest < ActiveSupport::TestCase
   end
 
   def test_census_verification_creation
-    assert_difference "User::Verification::CensusVerification.count", 1 do
+    assert_difference 'User::Verification::CensusVerification.count', 1 do
       valid_census_verification_form.save
     end
   end

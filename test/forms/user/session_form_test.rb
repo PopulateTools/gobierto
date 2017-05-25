@@ -1,11 +1,13 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::SessionFormTest < ActiveSupport::TestCase
   def valid_user_session_form
     @valid_user_session_form ||= User::SessionForm.new(
       email: confirmed_user.email,
-      password: "gobierto",
-      referrer_url: "http://example.com/home"
+      password: 'gobierto',
+      referrer_url: 'http://example.com/home'
     )
   end
 

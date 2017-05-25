@@ -1,13 +1,15 @@
-require "uri"
-require "net/http"
-require "json"
+# frozen_string_literal: true
+
+require 'uri'
+require 'net/http'
+require 'json'
 
 module PopulateData
   module Gobierto
     class Client
       include Logging
 
-      BASE_URI = APP_CONFIG["populate_data"]["endpoint"]
+      BASE_URI = APP_CONFIG['populate_data']['endpoint']
 
       def initialize(options = {})
         Client.logger.debug("Initializing #{self.class.name} with options #{options}")
@@ -39,10 +41,10 @@ module PopulateData
       def build_request
         request = Net::HTTP::Get.new(request_uri)
 
-        request["Content-Type"] = "application/json"
-        request["Accept"] = "application/json"
-        request["Authorization"] = "Bearer #{ENV["TBI_API_TOKEN"]}"
-        request["Origin"] = "http://#{ENV["HOST"]}"
+        request['Content-Type'] = 'application/json'
+        request['Accept'] = 'application/json'
+        request['Authorization'] = "Bearer #{ENV['TBI_API_TOKEN']}"
+        request['Origin'] = "http://#{ENV['HOST']}"
 
         request.body = request_body
 
@@ -63,7 +65,6 @@ module PopulateData
 
         http_client
       end
-
     end
   end
 end

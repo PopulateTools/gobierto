@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class GobiertoCommon::ActiveNotifier::DailyTest < ActiveSupport::TestCase
   def setup
@@ -7,7 +9,7 @@ class GobiertoCommon::ActiveNotifier::DailyTest < ActiveSupport::TestCase
   end
 
   def test_notifications
-    assert_difference "User::Notification.count", 3 do
+    assert_difference 'User::Notification.count', 3 do
       assert @subject.call
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Publisher
   extend ::ActiveSupport::Concern
   extend self
@@ -9,7 +11,7 @@ module Publisher
   end
 
   # delegate to class method
-  def broadcast_event(event_name, payload={})
+  def broadcast_event(event_name, payload = {})
     if block_given?
       self.class.broadcast_event(event_name, payload) do
         yield
@@ -20,9 +22,9 @@ module Publisher
   end
 
   module ClassMethods
-    def broadcast_event(event_name, payload={})
+    def broadcast_event(event_name, payload = {})
       event_name = [pub_sub_namespace, event_name].compact.join('.')
-      return if !allowed_for_publication?(event_name, payload)
+      return unless allowed_for_publication?(event_name, payload)
 
       if block_given?
         ActiveSupport::Notifications.instrument(event_name, payload) do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PageTitle < Liquid::Tag
   def initialize(tag_name, page_slug, tokens)
     super
@@ -6,10 +8,10 @@ class PageTitle < Liquid::Tag
 
   def render(context)
     current_site = context.environments.first['current_site']
-    page = current_site.pages.find_by_slug!(@page_slug)
+    page = current_site.pages.find_by!(slug: @page_slug)
     return page.title
   rescue ActiveRecord::RecordNotFound
-    return ""
+    return ''
   end
 end
 

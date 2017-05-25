@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Subscribers
   class UserActivity < ::Subscribers::Base
     def user_updated(event)
@@ -17,4 +19,3 @@ module Subscribers
     end
   end
 end
-

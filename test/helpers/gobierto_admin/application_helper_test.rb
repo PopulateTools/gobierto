@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class ApplicationHelperTest < ActionView::TestCase
@@ -11,11 +13,11 @@ module GobiertoAdmin
     end
 
     def test_admin_label_for_regular
-      assert_equal "Tony Stark", admin_label_for(regular_admin)
+      assert_equal 'Tony Stark', admin_label_for(regular_admin)
     end
 
     def test_admin_label_for_manager
-      assert_equal "Nick Fury (manager)", admin_label_for(manager_admin)
+      assert_equal 'Nick Fury (manager)', admin_label_for(manager_admin)
     end
   end
 end

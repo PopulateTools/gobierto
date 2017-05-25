@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::Verification::CensusVerificationTest < ActiveSupport::TestCase
   def user_verification
@@ -14,11 +16,11 @@ class User::Verification::CensusVerificationTest < ActiveSupport::TestCase
   end
 
   def test_document_number_getter
-    assert_equal "00000000A", user_verification.document_number
+    assert_equal '00000000A', user_verification.document_number
   end
 
   def test_date_of_birth_getter
-    assert_equal "1992-01-01", user_verification.date_of_birth
+    assert_equal '1992-01-01', user_verification.date_of_birth
   end
 
   def test_will_verify?

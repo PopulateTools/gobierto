@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoCommon
     class ContentBlocksController < BaseController
@@ -21,7 +23,7 @@ module GobiertoAdmin
 
         @content_block_form = ContentBlockForm.new(
           content_model_name: get_content_model_name_from_params,
-          referrer_url: request.referrer,
+          referrer_url: request.referer,
           available_locales: available_locales
         )
       end
@@ -36,7 +38,7 @@ module GobiertoAdmin
           @content_block.attributes
             .except(*ignored_content_block_attributes)
             .merge(
-              referrer_url: request.referrer,
+              referrer_url: request.referer,
               available_locales: available_locales
             )
         )
@@ -56,7 +58,7 @@ module GobiertoAdmin
         if @content_block_form.save
           redirect_to(
             @content_block_form.referrer_url.presence || edit_admin_common_content_block_path(@content_block_form.content_block),
-            notice: t(".success")
+            notice: t('.success')
           )
         else
           render :new
@@ -79,23 +81,23 @@ module GobiertoAdmin
         if @content_block_form.save
           redirect_to(
             @content_block_form.referrer_url.presence || edit_admin_common_content_block_path(@content_block),
-            notice: t(".success")
+            notice: t('.success')
           )
         else
           render :edit
         end
       end
 
-    def destroy
-      @content_block = find_content_block
+      def destroy
+        @content_block = find_content_block
 
-      content_block_policy = ContentBlockPolicy.new(current_admin, @content_block)
-      raise Errors::NotAuthorized unless content_block_policy.delete?
+        content_block_policy = ContentBlockPolicy.new(current_admin, @content_block)
+        raise Errors::NotAuthorized unless content_block_policy.delete?
 
-      @content_block.destroy
+        @content_block.destroy
 
-      redirect_to request.referrer, notice: t(".success")
-    end
+        redirect_to request.referer, notice: t('.success')
+      end
 
       private
 
@@ -111,20 +113,20 @@ module GobiertoAdmin
         params.require(:content_block).permit(
           :content_model_name,
           :referrer_url,
-          title_components_attributes: [:locale, :value],
+          title_components_attributes: %i[locale value],
           fields_attributes: [
             :id,
             :_destroy,
             :field_type,
-            label_components_attributes: [:locale, :value]
+            label_components_attributes: %i[locale value]
           ]
         )
       end
 
       def ignored_content_block_attributes
-        %w(
-        created_at updated_at internal_id
-        )
+        %w[
+          created_at updated_at internal_id
+        ]
       end
     end
   end

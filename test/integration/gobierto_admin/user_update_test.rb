@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class UserUpdateTest < ActionDispatch::IntegrationTest
@@ -19,18 +21,18 @@ module GobiertoAdmin
         with_selected_site(site) do
           visit edit_admin_user_path(user)
 
-          within "form.edit_user" do
-            fill_in "user_name", with: "User Name"
-            fill_in "user_email", with: "user@email.dev"
+          within 'form.edit_user' do
+            fill_in 'user_name', with: 'User Name'
+            fill_in 'user_email', with: 'user@email.dev'
 
-            click_button "Update"
+            click_button 'Update'
           end
 
-          assert has_message?("User was successfully updated")
+          assert has_message?('User was successfully updated')
 
-          within "form.edit_user" do
-            assert has_field?("user_name", with: "User Name")
-            assert has_field?("user_email", with: "user@email.dev")
+          within 'form.edit_user' do
+            assert has_field?('user_name', with: 'User Name')
+            assert has_field?('user_email', with: 'user@email.dev')
           end
         end
       end

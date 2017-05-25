@@ -1,19 +1,21 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module SiteHelper
     def site_visibility_level_badge_for(site)
       case site.visibility_level
-      when "draft" then
+      when 'draft' then
         content_tag :span do
           capture do
-            concat content_tag(:i, nil, class: "fa fa-lock")
-            concat t("gobierto_admin.sites.form.visibility_level.draft")
+            concat content_tag(:i, nil, class: 'fa fa-lock')
+            concat t('gobierto_admin.sites.form.visibility_level.draft')
           end
         end
-      when "active" then
+      when 'active' then
         content_tag :span do
           capture do
-            concat content_tag(:i, nil, class: "fa fa-unlock")
-            concat t("gobierto_admin.sites.form.visibility_level.active")
+            concat content_tag(:i, nil, class: 'fa fa-unlock')
+            concat t('gobierto_admin.sites.form.visibility_level.active')
           end
         end
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::VerificationJob < ActiveJob::Base
   queue_as :user_verifications
 

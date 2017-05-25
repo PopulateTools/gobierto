@@ -1,4 +1,6 @@
-require_dependency "gobierto_budget_consultations"
+# frozen_string_literal: true
+
+require_dependency 'gobierto_budget_consultations'
 
 module GobiertoBudgetConsultations
   class ConsultationResponseItem
@@ -6,15 +8,15 @@ module GobiertoBudgetConsultations
     class EmptySelectedOption < StandardError; end
     class NotAllowedToReduce < StandardError; end
 
-    ATTRIBUTE_NAMES = [
-      :id,
-      :item_id,
-      :item_title,
-      :item_budget_line_amount,
-      :item_response_options,
-      :selected_option,
-      :budget_line_amount
-    ]
+    ATTRIBUTE_NAMES = %i[
+      id
+      item_id
+      item_title
+      item_budget_line_amount
+      item_response_options
+      selected_option
+      budget_line_amount
+    ].freeze
 
     attr_accessor *ATTRIBUTE_NAMES
 

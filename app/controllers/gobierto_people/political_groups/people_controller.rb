@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module PoliticalGroups
     class PeopleController < BaseController

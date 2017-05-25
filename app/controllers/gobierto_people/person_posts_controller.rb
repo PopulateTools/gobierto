@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   class PersonPostsController < GobiertoPeople::ApplicationController
-
     before_action :check_active_submodules
 
     def index
@@ -15,10 +16,7 @@ module GobiertoPeople
     private
 
     def check_active_submodules
-      if !blog_submodule_active?
-        redirect_to gobierto_people_root_path
-      end
+      redirect_to gobierto_people_root_path unless blog_submodule_active?
     end
-
   end
 end

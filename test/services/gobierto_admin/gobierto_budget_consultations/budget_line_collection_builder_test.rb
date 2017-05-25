@@ -1,5 +1,7 @@
-require "test_helper"
-require "support/populate_data_helpers"
+# frozen_string_literal: true
+
+require 'test_helper'
+require 'support/populate_data_helpers'
 
 module GobiertoAdmin
   module GobiertoBudgetConsultations

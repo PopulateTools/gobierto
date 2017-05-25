@@ -1,4 +1,6 @@
-require_dependency "gobierto_admin"
+# frozen_string_literal: true
+
+require_dependency 'gobierto_admin'
 
 module GobiertoAdmin
   class Permission < ApplicationRecord
@@ -8,7 +10,7 @@ module GobiertoAdmin
     validates :namespace, presence: true
     validates :resource_name, presence: true
     validates :action_name, presence: true
-    validates :namespace, uniqueness: { scope: [:admin_id, :resource_name, :action_name] }
+    validates :namespace, uniqueness: { scope: %i[admin_id resource_name action_name] }
 
     def self.by_namespace(namespace)
       where(namespace: namespace)

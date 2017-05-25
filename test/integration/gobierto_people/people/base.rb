@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module People
     module Base
@@ -5,11 +7,11 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          within ".people-navigation" do
-            assert has_link?("Biography and CV")
-            assert has_link?("Agenda")
-            assert has_link?("Blog")
-            assert has_link?("Goods and Activities")
+          within '.people-navigation' do
+            assert has_link?('Biography and CV')
+            assert has_link?('Agenda')
+            assert has_link?('Blog')
+            assert has_link?('Goods and Activities')
           end
         end
       end
@@ -18,8 +20,8 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          within ".contact-methods" do
-            assert has_link?("@richard", href: "https://twitter.com/richard")
+          within '.contact-methods' do
+            assert has_link?('@richard', href: 'https://twitter.com/richard')
           end
         end
       end

@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::RegistrationTest < ActionDispatch::IntegrationTest
   def setup
@@ -18,11 +20,11 @@ class User::RegistrationTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @registration_path
 
-      fill_in :user_registration_email, with: "user@email.dev"
+      fill_in :user_registration_email, with: 'user@email.dev'
 
       click_on "Let's go"
 
-      assert has_message?("Please check your inbox to confirm your email address")
+      assert has_message?('Please check your inbox to confirm your email address')
     end
   end
 
@@ -43,7 +45,7 @@ class User::RegistrationTest < ActionDispatch::IntegrationTest
       with_current_site(site) do
         visit @registration_path
 
-        assert has_message?("You are already signed in.")
+        assert has_message?('You are already signed in.')
       end
     end
   end
@@ -56,7 +58,7 @@ class User::RegistrationTest < ActionDispatch::IntegrationTest
 
       click_on "Let's go"
 
-      assert has_message?("That email is already registered. Try login in or recovering your password")
+      assert has_message?('That email is already registered. Try login in or recovering your password')
     end
   end
 end

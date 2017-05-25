@@ -1,5 +1,7 @@
-require "test_helper"
-require "support/person_event_helpers"
+# frozen_string_literal: true
+
+require 'test_helper'
+require 'support/person_event_helpers'
 
 module GobiertoPeople
   class PersonEventsIndexTest < ActionDispatch::IntegrationTest
@@ -66,8 +68,8 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("h2", text: "#{site.name}'s member agendas")
-        refute has_link?("View more")
+        assert has_selector?('h2', text: "#{site.name}'s member agendas")
+        refute has_link?('View more')
       end
     end
 
@@ -79,12 +81,12 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        assert has_link?("View more")
-        refute has_link?("Event 7")
-        click_link "View more"
+        assert has_link?('View more')
+        refute has_link?('Event 7')
+        click_link 'View more'
 
-        assert has_link?("Event 7")
-        refute has_link?("View more")
+        assert has_link?('Event 7')
+        refute has_link?('View more')
       end
     end
 
@@ -92,11 +94,11 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".filter_boxed" do
-          assert has_link?("Government Team")
-          assert has_link?("Opposition")
-          assert has_link?("Executive")
-          assert has_link?("All")
+        within '.filter_boxed' do
+          assert has_link?('Government Team')
+          assert has_link?('Opposition')
+          assert has_link?('Executive')
+          assert has_link?('All')
         end
       end
     end
@@ -105,91 +107,89 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        click_link "All"
+        click_link 'All'
 
-        within ".agenda-switcher" do
+        within '.agenda-switcher' do
           assert has_link? government_member.name
           assert has_link? executive_member.name
         end
 
-        click_link "Government Team"
+        click_link 'Government Team'
 
-        within ".agenda-switcher" do
+        within '.agenda-switcher' do
           assert has_link? government_member.name
           refute has_link? executive_member.name
         end
 
-        click_link "Opposition"
+        click_link 'Opposition'
 
-        within ".agenda-switcher" do
+        within '.agenda-switcher' do
           refute has_link? government_member.name
           refute has_link? executive_member.name
         end
-
       end
     end
 
     def test_person_events_filter_for_calendar_widget
-      government_event = create_event(person: government_member, starts_at: "2014-03-16")
-      executive_event  = create_event(person: executive_member,  starts_at: "2014-03-17")
+      government_event = create_event(person: government_member, starts_at: '2014-03-16')
+      executive_event  = create_event(person: executive_member,  starts_at: '2014-03-17')
 
       government_event_day = government_event.starts_at.day
       executive_event_day  = executive_event.starts_at.day
 
-      Timecop.freeze(Time.zone.parse("2014-03-15")) do
+      Timecop.freeze(Time.zone.parse('2014-03-15')) do
         with_current_site(site) do
           visit @path
 
-          click_link "All"
+          click_link 'All'
 
-          within ".calendar-component" do
+          within '.calendar-component' do
             assert has_link? government_event_day
             assert has_link? executive_event_day
           end
 
-          click_link "Government Team"
+          click_link 'Government Team'
 
-          within ".calendar-component" do
+          within '.calendar-component' do
             assert has_link? government_event_day
             refute has_link? executive_event_day
           end
 
-          click_link "Opposition"
+          click_link 'Opposition'
 
-          within ".calendar-component" do
+          within '.calendar-component' do
             refute has_link? government_event_day
             refute has_link? executive_event_day
           end
-
         end
       end
     end
 
     def test_person_events_filter_for_events_list
-      government_event = create_event(person: government_member, title: "Government event", starts_at: "2014-03-16")
-      executive_event  = create_event(person: executive_member,  title: "Executive event",  starts_at: "2014-03-16")
+      government_event = create_event(person: government_member, title: 'Government event', starts_at: '2014-03-16')
+      executive_event  = create_event(person: executive_member,  title: 'Executive event',  starts_at: '2014-03-16')
 
-      Timecop.freeze(Time.zone.parse("2014-03-15")) do
+      Timecop.freeze(Time.zone.parse('2014-03-15')) do
         with_current_site(site) do
           visit @path
 
-          click_link "All"
+          click_link 'All'
 
-          within ".events-summary" do
+          within '.events-summary' do
             assert has_link?(government_event.title)
             assert has_link?(executive_event.title)
           end
 
-          click_link "Government Team"
+          click_link 'Government Team'
 
-          within ".events-summary" do
+          within '.events-summary' do
             assert has_link?(government_event.title)
             refute has_link?(executive_event.title)
           end
 
-          click_link "Opposition"
+          click_link 'Opposition'
 
-          within ".events-summary" do
+          within '.events-summary' do
             refute has_link?(government_event.title)
             refute has_link?(executive_event.title)
           end
@@ -201,14 +201,14 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".events-summary" do
-          assert has_content?("Agenda")
-          assert has_link?("Past events")
+        within '.events-summary' do
+          assert has_content?('Agenda')
+          assert has_link?('Past events')
 
           upcoming_events.each do |event|
             next if event.person.nil?
 
-            assert has_selector?(".person_event-item", text: event.title)
+            assert has_selector?('.person_event-item', text: event.title)
             assert has_link?(event.title)
           end
         end
@@ -216,14 +216,14 @@ module GobiertoPeople
     end
 
     def test_events_summary_with_no_upcoming_events
-      past_event = create_event(starts_at: "2014-03-14")
+      past_event = create_event(starts_at: '2014-03-14')
 
       Timecop.freeze(10.years.from_now) do
         with_current_site(site) do
           visit @path
 
-          within ".events-summary" do
-            assert_text("There are no future events. Take a look at past ones")
+          within '.events-summary' do
+            assert_text('There are no future events. Take a look at past ones')
             assert has_link?(past_event.title)
           end
         end
@@ -235,9 +235,9 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          click_link "Past events"
+          click_link 'Past events'
 
-          assert_text("There are no past events.")
+          assert_text('There are no past events.')
         end
       end
     end
@@ -248,32 +248,30 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        assert_text("There are no future or past events.")
+        assert_text('There are no future or past events.')
       end
     end
 
     def test_future_and_past_events_filter
-      past_event   = create_event(title: "Past event title",   starts_at: "2014-02-15")
-      future_event = create_event(title: "Future event title", starts_at: "2014-04-15")
+      past_event   = create_event(title: 'Past event title',   starts_at: '2014-02-15')
+      future_event = create_event(title: 'Future event title', starts_at: '2014-04-15')
 
-      Timecop.freeze(Time.zone.parse("2014-03-15")) do
-
+      Timecop.freeze(Time.zone.parse('2014-03-15')) do
         with_current_site(site) do
           visit @path
 
-          within ".events-summary" do
+          within '.events-summary' do
             refute has_content?(past_event.title)
             assert has_content?(future_event.title)
           end
 
-          click_link "Past events"
+          click_link 'Past events'
 
-          within ".events-summary" do
+          within '.events-summary' do
             assert has_content?(past_event.title)
             refute has_content?(future_event.title)
           end
         end
-
       end
     end
 
@@ -281,37 +279,37 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".events-summary .events-filter" do
-          assert has_link? "Past events"
-          refute has_link? "Agenda"
+        within '.events-summary .events-filter' do
+          assert has_link? 'Past events'
+          refute has_link? 'Agenda'
         end
 
-        click_link "Past events"
-        click_link "Government Team"
+        click_link 'Past events'
+        click_link 'Government Team'
 
-        within ".events-summary .events-filter" do
-          refute has_link? "Past events"
-          assert has_link? "Agenda"
+        within '.events-summary .events-filter' do
+          refute has_link? 'Past events'
+          assert has_link? 'Agenda'
         end
 
-        click_link "Agenda"
-        click_link "Executive"
+        click_link 'Agenda'
+        click_link 'Executive'
 
-        within ".events-summary .events-filter" do
-          assert has_link? "Past events"
-          refute has_link? "Agenda"
+        within '.events-summary .events-filter' do
+          assert has_link? 'Past events'
+          refute has_link? 'Agenda'
         end
       end
     end
 
     def test_calendar_component
-      future_event = create_event(starts_at: "2014-03-16")
+      future_event = create_event(starts_at: '2014-03-16')
 
-      Timecop.freeze(Time.zone.parse("2014-03-15")) do
+      Timecop.freeze(Time.zone.parse('2014-03-15')) do
         with_current_site(site) do
           visit gobierto_people_events_path(start_date: future_event.starts_at)
 
-          within ".calendar-component" do
+          within '.calendar-component' do
             assert has_link?(future_event.starts_at.day)
           end
         end
@@ -319,74 +317,68 @@ module GobiertoPeople
     end
 
     def test_calendar_navigation_arrows
-      past_event   = create_event(starts_at: "2014-02-15")
-      future_event = create_event(starts_at: "2014-04-15")
+      past_event   = create_event(starts_at: '2014-02-15')
+      future_event = create_event(starts_at: '2014-04-15')
 
-      Timecop.freeze(Time.zone.parse("2014-03-15")) do
-
+      Timecop.freeze(Time.zone.parse('2014-03-15')) do
         with_current_site(site) do
           visit gobierto_people_events_path
 
-          click_link "next-month-link"
+          click_link 'next-month-link'
 
-          within ".calendar-component" do
+          within '.calendar-component' do
             assert has_link?(future_event.starts_at.day)
           end
 
           visit gobierto_people_events_path
 
-          click_link "previous-month-link"
+          click_link 'previous-month-link'
 
-          within ".calendar-component" do
+          within '.calendar-component' do
             assert has_link?(past_event.starts_at.day)
           end
         end
-
       end
     end
 
     def test_calendar_event_links
-      visible_month_events = ["2014-02-28", "2014-03-14", "2014-03-16", "2014-04-01"].map do |date|
+      visible_month_events = ['2014-02-28', '2014-03-14', '2014-03-16', '2014-04-01'].map do |date|
         create_event(starts_at: date)
       end
 
-      Timecop.freeze(Time.zone.parse("2014-03-15")) do
-
+      Timecop.freeze(Time.zone.parse('2014-03-15')) do
         with_current_site(site) do
           visit gobierto_people_events_path
 
-          within ".calendar-component" do
+          within '.calendar-component' do
             visible_month_events.each do |event|
               assert has_link?(event.starts_at.day)
             end
           end
-
         end
-
       end
     end
 
     def test_filter_events_by_calendar_date_link
-      past_event    = create_event(title: "Past event title", starts_at: "2014-03-10 11:00")
-      future_event  = create_event(title: "Future event title", starts_at: "2014-03-20 11:00")
+      past_event    = create_event(title: 'Past event title', starts_at: '2014-03-10 11:00')
+      future_event  = create_event(title: 'Future event title', starts_at: '2014-03-20 11:00')
 
-      Timecop.freeze(Time.zone.parse("2014-03-15")) do
-
+      Timecop.freeze(Time.zone.parse('2014-03-15')) do
         with_current_site(site) do
           visit @path
 
-          within ".events-summary" do
+          within '.events-summary' do
             refute has_content?(past_event.title)
             assert has_content?(future_event.title)
           end
 
-          within ".calendar-component" do
+          within '.calendar-component' do
             click_link past_event.starts_at.day
           end
 
-          assert has_content? "Displaying events of #{past_event.starts_at.strftime("%b %d %Y")}"
+          assert has_content? "Displaying events of #{past_event.starts_at.strftime('%b %d %Y')}"
 
-          within ".events-summary" do
+          within '.events-summary' do
             assert has_content?(past_event.title)
             refute has_content?(future_event.title)
           end
@@ -398,7 +390,7 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".agenda-switcher" do
+        within '.agenda-switcher' do
           people.each do |person|
             assert has_link?(person.name)
           end
@@ -410,8 +402,8 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within ".subscribable-box", match: :first do
-          assert has_button?("Subscribe")
+        within '.subscribable-box', match: :first do
+          assert has_button?('Subscribe')
         end
       end
     end
@@ -421,9 +413,9 @@ module GobiertoPeople
         get @path_for_json
 
         json_response = JSON.parse(response.body)
-        assert_equal json_response.first["person_name"], upcoming_events.first.person.name
-        assert_equal json_response.first["title"], upcoming_events.first.title
-        assert_equal json_response.first["description"], upcoming_events.first.description
+        assert_equal json_response.first['person_name'], upcoming_events.first.person.name
+        assert_equal json_response.first['title'], upcoming_events.first.title
+        assert_equal json_response.first['description'], upcoming_events.first.description
       end
     end
 
@@ -432,9 +424,9 @@ module GobiertoPeople
         get @path_for_csv
 
         csv_response = CSV.parse(response.body, headers: true)
-        assert_equal csv_response.by_row[0]["person_name"], upcoming_events.first.person.name
-        assert_equal csv_response.by_row[0]["title"], upcoming_events.first.title
-        assert_equal csv_response.by_row[0]["description"], upcoming_events.first.description
+        assert_equal csv_response.by_row[0]['person_name'], upcoming_events.first.person.name
+        assert_equal csv_response.by_row[0]['title'], upcoming_events.first.title
+        assert_equal csv_response.by_row[0]['description'], upcoming_events.first.description
       end
     end
   end

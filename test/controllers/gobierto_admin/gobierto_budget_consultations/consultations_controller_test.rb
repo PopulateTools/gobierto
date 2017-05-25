@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoBudgetConsultations
@@ -26,7 +28,7 @@ module GobiertoAdmin
           consultation: {
             title: consultation.title,
             description: consultation.description,
-            opening_date_range: "2016-01-01 - 2016-12-01"
+            opening_date_range: '2016-01-01 - 2016-12-01'
           }
         }
       end

@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class AdminPasswordResetTest < ActionDispatch::IntegrationTest
@@ -21,17 +23,17 @@ module GobiertoAdmin
 
       fill_in :admin_password_email, with: admin.email
 
-      click_button "Request recovery"
+      click_button 'Request recovery'
 
-      assert has_message?("Please, check your inbox to get instructions")
+      assert has_message?('Please, check your inbox to get instructions')
     end
 
     def test_invalid_password_reset_request
       visit @password_request_path
 
-      fill_in :admin_password_email, with: "wadus@gobierto.dev"
+      fill_in :admin_password_email, with: 'wadus@gobierto.dev'
 
-      click_button "Request recovery"
+      click_button 'Request recovery'
 
       assert has_message?("The email address specified doesn't seem to be valid")
     end
@@ -40,37 +42,37 @@ module GobiertoAdmin
       with_signed_in_admin(admin) do
         visit @password_request_path
 
-        assert has_message?("You are already signed in")
+        assert has_message?('You are already signed in')
       end
     end
 
     def test_password_change
       visit @password_change_path
 
-      fill_in :admin_password_password, with: "wadus"
-      fill_in :admin_password_password_confirmation, with: "wadus"
+      fill_in :admin_password_password, with: 'wadus'
+      fill_in :admin_password_password_confirmation, with: 'wadus'
 
-      click_button "Change password"
+      click_button 'Change password'
 
-      assert has_message?("Signed in successfully")
+      assert has_message?('Signed in successfully')
     end
 
     def test_invalid_password_change
       visit @password_change_path
 
-      fill_in :admin_password_password, with: "wadus"
-      fill_in :admin_password_password_confirmation, with: "foo"
+      fill_in :admin_password_password, with: 'wadus'
+      fill_in :admin_password_password_confirmation, with: 'foo'
 
-      click_button "Change password"
+      click_button 'Change password'
 
-      assert has_message?("There was a problem changing your password")
+      assert has_message?('There was a problem changing your password')
     end
 
     def test_password_change_when_already_signed_in
       with_signed_in_admin(admin) do
         visit @password_change_path
 
-        assert has_message?("You are already signed in")
+        assert has_message?('You are already signed in')
       end
     end
   end

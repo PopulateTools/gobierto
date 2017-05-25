@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   class ContentBlockField < ApplicationRecord
     belongs_to :content_block
@@ -15,7 +17,7 @@ module GobiertoCommon
     def label_components
       available_locales.map do |locale|
         OpenStruct.new(
-          attribute_name: "label",
+          attribute_name: 'label',
           locale: locale.to_s,
           value: label[locale.to_s]
         )
@@ -24,7 +26,7 @@ module GobiertoCommon
 
     def label_components_attributes=(attributes)
       self.label = Array(attributes).reduce({}) do |label_components, (_, field_attributes)|
-        label_components.merge!({ field_attributes["locale"] => field_attributes["value"] })
+        label_components.merge!(field_attributes['locale'] => field_attributes['value'])
       end
     end
 
@@ -35,7 +37,7 @@ module GobiertoCommon
     private
 
     def set_name
-      self.name = SecureRandom.uuid if self.name.blank?
+      self.name = SecureRandom.uuid if name.blank?
     end
 
     def set_position

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   module Sortable
     extend ActiveSupport::Concern
@@ -5,7 +7,7 @@ module GobiertoCommon
     included do
       def self.update_positions(positions_from_params)
         position_assignment = positions_from_params.values.reduce({}) do |assignment, attributes|
-          assignment.merge!({ attributes["id"] => attributes })
+          assignment.merge!(attributes['id'] => attributes)
         end
 
         update(position_assignment.keys, position_assignment.values)

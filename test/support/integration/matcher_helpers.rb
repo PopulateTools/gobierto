@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module Integration
   module MatcherHelpers
     def has_message?(text)
-      within ".flash-message" do
+      within '.flash-message' do
         has_content?(text)
       end
     end
 
     def has_alert?(text)
-      within ".alert" do
+      within '.alert' do
         has_content?(text)
       end
     end

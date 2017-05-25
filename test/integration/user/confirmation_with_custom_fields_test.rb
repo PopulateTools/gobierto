@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::ConfirmationWithCustomFieldsTest < ActionDispatch::IntegrationTest
   def setup
@@ -18,21 +20,21 @@ class User::ConfirmationWithCustomFieldsTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @confirmation_path
 
-      fill_in :user_confirmation_name, with: "user@email.dev"
-      fill_in :user_confirmation_password, with: "wadus"
-      fill_in :user_confirmation_password_confirmation, with: "wadus"
-      select "1992", from: :user_confirmation_date_of_birth_1i
-      select "January", from: :user_confirmation_date_of_birth_2i
-      select "1", from: :user_confirmation_date_of_birth_3i
-      choose "Male"
-      fill_in :user_confirmation_document_number, with: "00000000A"
-      select "Center", from: "Districts"
-      fill_in "Association", with: "Asociación Vecinos Arganzuela"
-      fill_in "Bio", with: "My short bio"
+      fill_in :user_confirmation_name, with: 'user@email.dev'
+      fill_in :user_confirmation_password, with: 'wadus'
+      fill_in :user_confirmation_password_confirmation, with: 'wadus'
+      select '1992', from: :user_confirmation_date_of_birth_1i
+      select 'January', from: :user_confirmation_date_of_birth_2i
+      select '1', from: :user_confirmation_date_of_birth_3i
+      choose 'Male'
+      fill_in :user_confirmation_document_number, with: '00000000A'
+      select 'Center', from: 'Districts'
+      fill_in 'Association', with: 'Asociación Vecinos Arganzuela'
+      fill_in 'Bio', with: 'My short bio'
 
-      click_on "Save"
+      click_on 'Save'
 
-      assert has_message?("Signed in successfully")
+      assert has_message?('Signed in successfully')
     end
   end
 
@@ -42,29 +44,29 @@ class User::ConfirmationWithCustomFieldsTest < ActionDispatch::IntegrationTest
 
       fill_in :user_confirmation_name, with: nil
 
-      click_on "Save"
+      click_on 'Save'
 
       assert has_message?("The data you entered doesn't seem to be valid. Please try again.")
 
-      fill_in :user_confirmation_name, with: "user@email.dev"
-      fill_in :user_confirmation_password, with: "wadus"
-      fill_in :user_confirmation_password_confirmation, with: "wadus"
-      select "1992", from: :user_confirmation_date_of_birth_1i
-      select "January", from: :user_confirmation_date_of_birth_2i
-      select "1", from: :user_confirmation_date_of_birth_3i
-      choose "Male"
-      fill_in :user_confirmation_document_number, with: "00000000A"
-      click_on "Save"
+      fill_in :user_confirmation_name, with: 'user@email.dev'
+      fill_in :user_confirmation_password, with: 'wadus'
+      fill_in :user_confirmation_password_confirmation, with: 'wadus'
+      select '1992', from: :user_confirmation_date_of_birth_1i
+      select 'January', from: :user_confirmation_date_of_birth_2i
+      select '1', from: :user_confirmation_date_of_birth_3i
+      choose 'Male'
+      fill_in :user_confirmation_document_number, with: '00000000A'
+      click_on 'Save'
 
       assert has_message?("The data you entered doesn't seem to be valid. Please try again.")
 
-      fill_in :user_confirmation_password, with: "wadus"
-      fill_in :user_confirmation_password_confirmation, with: "wadus"
-      select "Center", from: "Districts"
-      fill_in "Association", with: "Asociación Vecinos Arganzuela"
+      fill_in :user_confirmation_password, with: 'wadus'
+      fill_in :user_confirmation_password_confirmation, with: 'wadus'
+      select 'Center', from: 'Districts'
+      fill_in 'Association', with: 'Asociación Vecinos Arganzuela'
 
-      click_on "Save"
-      assert has_message?("Signed in successfully")
+      click_on 'Save'
+      assert has_message?('Signed in successfully')
     end
   end
 
@@ -72,29 +74,29 @@ class User::ConfirmationWithCustomFieldsTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @confirmation_path
 
-      fill_in :user_confirmation_name, with: "user@email.dev"
-      fill_in :user_confirmation_password, with: "wadus"
-      fill_in :user_confirmation_password_confirmation, with: "wadus"
-      select "1992", from: :user_confirmation_date_of_birth_1i
-      select "January", from: :user_confirmation_date_of_birth_2i
-      select "1", from: :user_confirmation_date_of_birth_3i
-      choose "Male"
-      fill_in :user_confirmation_document_number, with: "10000000A"
-      select "Center", from: "Districts"
-      fill_in "Association", with: "Asociación Vecinos Arganzuela"
-      fill_in "Bio", with: "My short bio"
+      fill_in :user_confirmation_name, with: 'user@email.dev'
+      fill_in :user_confirmation_password, with: 'wadus'
+      fill_in :user_confirmation_password_confirmation, with: 'wadus'
+      select '1992', from: :user_confirmation_date_of_birth_1i
+      select 'January', from: :user_confirmation_date_of_birth_2i
+      select '1', from: :user_confirmation_date_of_birth_3i
+      choose 'Male'
+      fill_in :user_confirmation_document_number, with: '10000000A'
+      select 'Center', from: 'Districts'
+      fill_in 'Association', with: 'Asociación Vecinos Arganzuela'
+      fill_in 'Bio', with: 'My short bio'
 
-      click_on "Save"
+      click_on 'Save'
 
       assert has_message?("The data you entered doesn't seem to be valid. Please try again.")
-      assert has_content?("Census verification is invalid")
+      assert has_content?('Census verification is invalid')
 
-      fill_in :user_confirmation_password, with: "wadus"
-      fill_in :user_confirmation_password_confirmation, with: "wadus"
-      fill_in :user_confirmation_document_number, with: "00000000A"
-      click_on "Save"
+      fill_in :user_confirmation_password, with: 'wadus'
+      fill_in :user_confirmation_password_confirmation, with: 'wadus'
+      fill_in :user_confirmation_document_number, with: '00000000A'
+      click_on 'Save'
 
-      assert has_message?("Signed in successfully")
+      assert has_message?('Signed in successfully')
     end
   end
 end

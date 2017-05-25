@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoBudgetConsultations
   class ConsultationIndexTest < ActionDispatch::IntegrationTest
@@ -11,7 +13,7 @@ module GobiertoBudgetConsultations
       @active_consultations ||= begin
         [
           gobierto_budget_consultations_consultations(:madrid_open),
-          gobierto_budget_consultations_consultations(:madrid_open_attached),
+          gobierto_budget_consultations_consultations(:madrid_open_attached)
         ]
       end
     end
@@ -34,17 +36,17 @@ module GobiertoBudgetConsultations
       with_current_site(site) do
         visit @path
 
-        assert has_selector?("h2", text: "Active consultations")
+        assert has_selector?('h2', text: 'Active consultations')
 
-        within ".active-consultations" do
+        within '.active-consultations' do
           active_consultations.each do |consultation|
             assert has_link?(consultation.title)
           end
         end
 
-        assert has_selector?("h2", text: "Previous consultations")
+        assert has_selector?('h2', text: 'Previous consultations')
 
-        within ".past-consultations" do
+        within '.past-consultations' do
           past_consultations.each do |consultation|
             assert has_link?(consultation.title)
           end
@@ -61,7 +63,7 @@ module GobiertoBudgetConsultations
 
         visit @path
 
-        assert has_content?("Do you want to opinate?")
+        assert has_content?('Do you want to opinate?')
       end
     end
 
@@ -70,11 +72,11 @@ module GobiertoBudgetConsultations
         with_signed_in_user(user) do
           visit @path
 
-          assert has_selector?("h2", text: "Active consultations")
+          assert has_selector?('h2', text: 'Active consultations')
 
-          within ".active-consultations" do
-            assert has_link?("Consulta sobre los presupuestos de Madrid (You already responded)")
-            assert has_link?("Consulta adjunta sobre los presupuestos de Madrid")
+          within '.active-consultations' do
+            assert has_link?('Consulta sobre los presupuestos de Madrid (You already responded)')
+            assert has_link?('Consulta adjunta sobre los presupuestos de Madrid')
           end
         end
       end

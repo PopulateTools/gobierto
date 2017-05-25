@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationController
   before_action :load_place, :load_year
 
@@ -20,7 +22,7 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
 
   def load_place
     @place = @site.place
-    render_404 and return if @place.nil?
+    render_404 && return if @place.nil?
   end
 
   def load_year
@@ -30,5 +32,4 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
       @year = params[:year].to_i
     end
   end
-
 end

@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoCommon
   class ContentBlockRecordTest < ActiveSupport::TestCase
@@ -19,15 +21,15 @@ module GobiertoCommon
     def test_fields_setter
       field_instances = [
         ContentBlockRecordField.new(
-          name: "Foo",
-          value: "Bar"
+          name: 'Foo',
+          value: 'Bar'
         )
       ]
 
       content_block_record.fields = field_instances
 
       assert_equal(field_instances, content_block_record.fields)
-      assert_equal({ "Foo" => "Bar" }, content_block_record.payload)
+      assert_equal({ 'Foo' => 'Bar' }, content_block_record.payload)
     end
   end
 end

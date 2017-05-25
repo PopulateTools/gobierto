@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoBudgetConsultations
     class ConsultationsController < BaseController
-      before_action { module_enabled!(current_site, "GobiertoBudgetConsultations") }
+      before_action { module_enabled!(current_site, 'GobiertoBudgetConsultations') }
 
       def index
         @consultations = current_site.budget_consultations.sorted
@@ -37,7 +39,7 @@ module GobiertoAdmin
         if @consultation_form.save
           redirect_to(
             admin_budget_consultation_consultation_items_path(@consultation_form.consultation),
-            notice: t(".success_html", link: gobierto_budget_consultations_consultation_url(@consultation_form.consultation, host: current_site.domain))
+            notice: t('.success_html', link: gobierto_budget_consultations_consultation_url(@consultation_form.consultation, host: current_site.domain))
           )
         else
           @consultation_visibility_levels = get_consultation_visibility_levels
@@ -55,7 +57,7 @@ module GobiertoAdmin
         if @consultation_form.save
           redirect_to(
             edit_admin_budget_consultation_path(@consultation),
-            notice: t(".success_html", link: gobierto_budget_consultations_consultation_url(@consultation_form.consultation, host: current_site.domain))
+            notice: t('.success_html', link: gobierto_budget_consultations_consultation_url(@consultation_form.consultation, host: current_site.domain))
           )
         else
           @consultation_visibility_levels = get_consultation_visibility_levels
@@ -90,7 +92,7 @@ module GobiertoAdmin
       end
 
       def ignored_consultation_attributes
-        %w( created_at updated_at budget_amount )
+        %w[created_at updated_at budget_amount]
       end
     end
   end

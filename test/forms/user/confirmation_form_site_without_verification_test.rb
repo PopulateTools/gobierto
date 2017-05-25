@@ -1,12 +1,14 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::ConfirmationFormSiteWithoutVerificationTest < ActiveSupport::TestCase
   def valid_user_confirmation_form
     @valid_user_confirmation_form ||= User::ConfirmationForm.new(
       confirmation_token: unconfirmed_user.confirmation_token,
       name: unconfirmed_user.name,
-      password: "wadus",
-      password_confirmation: "wadus",
+      password: 'wadus',
+      password_confirmation: 'wadus',
       date_of_birth_year: 1992,
       date_of_birth_month: 1,
       date_of_birth_day: 1,
@@ -23,7 +25,7 @@ class User::ConfirmationFormSiteWithoutVerificationTest < ActiveSupport::TestCas
       date_of_birth_year: nil,
       date_of_birth_month: nil,
       date_of_birth_day: nil,
-      gender: nil,
+      gender: nil
     )
   end
 
@@ -65,7 +67,7 @@ class User::ConfirmationFormSiteWithoutVerificationTest < ActiveSupport::TestCas
   end
 
   def test_welcome_email_delivery
-    assert_difference "ActionMailer::Base.deliveries.size", 1 do
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
       valid_user_confirmation_form.save
     end
   end

@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoPeople
@@ -25,19 +27,19 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            within "table.people-list tbody" do
-              assert has_selector?("tr", count: people.size)
+            within 'table.people-list tbody' do
+              assert has_selector?('tr', count: people.size)
 
               people.each do |person|
                 assert has_selector?("tr#person-item-#{person.id}")
 
                 within "tr#person-item-#{person.id}" do
                   if person.active?
-                    assert has_content?("Published")
+                    assert has_content?('Published')
                   else
-                    assert has_content?("Draft")
+                    assert has_content?('Draft')
                   end
-                  assert has_link?("View person")
+                  assert has_link?('View person')
                 end
               end
             end

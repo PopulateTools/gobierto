@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 module PopulateData
   module Gobierto
     class Entity < Client
-
-      ENDPOINT_URI = "/collections/c-entidades-presupuestos-municipales/items".freeze
+      ENDPOINT_URI = '/collections/c-entidades-presupuestos-municipales/items'
 
       attr_reader(
         :municipality_id
@@ -21,7 +22,6 @@ module PopulateData
           filter_by_municipality_id: @municipality_id
         }.to_json
       end
-
     end
   end
 end

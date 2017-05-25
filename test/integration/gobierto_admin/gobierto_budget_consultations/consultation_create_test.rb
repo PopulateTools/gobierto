@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoBudgetConsultations
@@ -21,22 +23,22 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            within "form.new_consultation" do
-              fill_in "consultation_title", with: "Consultation Title"
-              fill_in "consultation_description", with: "Consultation Description"
-              fill_in "consultation_opening_date_range", with: "2016-01-01 - 2016-12-01"
+            within 'form.new_consultation' do
+              fill_in 'consultation_title', with: 'Consultation Title'
+              fill_in 'consultation_description', with: 'Consultation Description'
+              fill_in 'consultation_opening_date_range', with: '2016-01-01 - 2016-12-01'
 
-              within ".consultation-visibility-level-radio-buttons" do
-                choose "Published"
+              within '.consultation-visibility-level-radio-buttons' do
+                choose 'Published'
               end
 
-              click_button "Create"
+              click_button 'Create'
             end
 
-            assert has_message?("Consultation was successfully created")
+            assert has_message?('Consultation was successfully created')
 
-            assert has_selector?("h1", text: "Consultation Title")
-            assert has_selector?(".consultation-items-list")
+            assert has_selector?('h1', text: 'Consultation Title')
+            assert has_selector?('.consultation-items-list')
           end
         end
       end

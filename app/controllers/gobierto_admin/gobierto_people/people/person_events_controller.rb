@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
     module People
@@ -31,7 +33,7 @@ module GobiertoAdmin
           if @person_event_form.save
             redirect_to(
               edit_admin_people_person_event_path(@person, @person_event_form.person_event),
-              notice: t(".success_html", link: gobierto_people_person_event_url(@person.slug, @person_event_form.person_event.slug, host: current_site.domain))
+              notice: t('.success_html', link: gobierto_people_person_event_url(@person.slug, @person_event_form.person_event.slug, host: current_site.domain))
             )
           else
             @attendees = get_attendees
@@ -49,7 +51,7 @@ module GobiertoAdmin
           if @person_event_form.save
             redirect_to(
               edit_admin_people_person_event_path(@person, @person_event),
-              notice: t(".success_html", link: gobierto_people_person_event_url(@person.slug, @person_event_form.person_event.slug, host: current_site.domain))
+              notice: t('.success_html', link: gobierto_people_person_event_url(@person.slug, @person_event_form.person_event.slug, host: current_site.domain))
             )
           else
             @attendees = get_attendees
@@ -66,9 +68,9 @@ module GobiertoAdmin
 
         def get_attendees
           current_site.people
-            .where.not(id: @person.id)
-            .active
-            .select(:id, :name)
+                      .where.not(id: @person.id)
+                      .active
+                      .select(:id, :name)
         end
 
         def get_person_event_states
@@ -81,15 +83,15 @@ module GobiertoAdmin
             :ends_at,
             :attachment_file,
             :state,
-            locations_attributes: [:id, :name, :address, :lat, :lng, :_destroy],
-            attendees_attributes: [:id, :person_id, :name, :charge, :_destroy],
+            locations_attributes: %i[id name address lat lng _destroy],
+            attendees_attributes: %i[id person_id name charge _destroy],
             title_translations: [*I18n.available_locales],
             description_translations: [*I18n.available_locales]
           )
         end
 
         def ignored_person_event_attributes
-          %w( created_at updated_at title description external_id slug site_id )
+          %w[created_at updated_at title description external_id slug site_id]
         end
       end
     end

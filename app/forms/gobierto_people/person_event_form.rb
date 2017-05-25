@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   class PersonEventForm
     include ActiveModel::Model
@@ -52,10 +54,10 @@ module GobiertoPeople
       @locations = []
 
       attributes.each do |_, location_attributes|
-        next if location_attributes["_destroy"] == "1"
+        next if location_attributes['_destroy'] == '1'
 
-        location = person_event.locations.detect{ |l| l.name == location_attributes[:name] } ||
-          person_event_location_class.new(name: location_attributes[:name])
+        location = person_event.locations.detect { |l| l.name == location_attributes[:name] } ||
+                   person_event_location_class.new(name: location_attributes[:name])
 
         @locations.push(location) if location.valid?
       end
@@ -73,7 +75,7 @@ module GobiertoPeople
       else
         organizer = person_event_attendee_class.new(person_id: person_id)
       end
-      @attendees.push(organizer) unless @attendees.any?{ |a| a.person_id == organizer.person_id }
+      @attendees.push(organizer) unless @attendees.any? { |a| a.person_id == organizer.person_id }
 
       @attendees
     end
@@ -104,7 +106,7 @@ module GobiertoPeople
     end
 
     def state
-      @state ||= person_event.state || "published"
+      @state ||= person_event.state || 'published'
     end
 
     def notify?

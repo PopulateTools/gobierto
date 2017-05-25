@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::ConfirmationTest < ActionDispatch::IntegrationTest
   def setup
@@ -22,18 +24,18 @@ class User::ConfirmationTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @confirmation_path
 
-      fill_in :user_confirmation_name, with: "User name"
-      fill_in :user_confirmation_password, with: "wadus"
-      fill_in :user_confirmation_password_confirmation, with: "wadus"
-      select "1992", from: :user_confirmation_date_of_birth_1i
-      select "January", from: :user_confirmation_date_of_birth_2i
-      select "1", from: :user_confirmation_date_of_birth_3i
+      fill_in :user_confirmation_name, with: 'User name'
+      fill_in :user_confirmation_password, with: 'wadus'
+      fill_in :user_confirmation_password_confirmation, with: 'wadus'
+      select '1992', from: :user_confirmation_date_of_birth_1i
+      select 'January', from: :user_confirmation_date_of_birth_2i
+      select '1', from: :user_confirmation_date_of_birth_3i
 
-      choose "Male"
+      choose 'Male'
 
-      click_on "Save"
+      click_on 'Save'
 
-      assert has_message?("Signed in successfully")
+      assert has_message?('Signed in successfully')
     end
   end
 
@@ -43,7 +45,7 @@ class User::ConfirmationTest < ActionDispatch::IntegrationTest
 
       fill_in :user_confirmation_name, with: nil
 
-      click_on "Save"
+      click_on 'Save'
 
       assert has_message?("The data you entered doesn't seem to be valid. Please try again.")
     end
@@ -54,7 +56,7 @@ class User::ConfirmationTest < ActionDispatch::IntegrationTest
       with_current_site(site) do
         visit @confirmation_path
 
-        assert has_message?("You are already signed in.")
+        assert has_message?('You are already signed in.')
       end
     end
   end

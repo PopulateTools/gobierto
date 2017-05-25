@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module People
     class BaseController < GobiertoPeople::ApplicationController
       before_action :set_person
 
-      layout "gobierto_people/layouts/people"
+      layout 'gobierto_people/layouts/people'
 
       private
 

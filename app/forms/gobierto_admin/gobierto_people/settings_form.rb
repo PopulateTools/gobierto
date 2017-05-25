@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
     class SettingsForm
@@ -24,7 +26,7 @@ module GobiertoAdmin
       end
 
       def gobierto_module_settings
-        @gobierto_module_settings ||= gobierto_module_settings_class.find_by(site_id: site_id, module_name: "GobiertoPeople") || build_gobierto_module_settings
+        @gobierto_module_settings ||= gobierto_module_settings_class.find_by(site_id: site_id, module_name: 'GobiertoPeople') || build_gobierto_module_settings
       end
 
       def site_id
@@ -71,12 +73,12 @@ module GobiertoAdmin
 
       def save_settings
         @gobierto_module_settings = gobierto_module_settings.tap do |settings_attributes|
-          settings_attributes.module_name = "GobiertoPeople"
+          settings_attributes.module_name = 'GobiertoPeople'
           settings_attributes.site_id = site_id
           settings_attributes.home_text_es = home_text_es
           settings_attributes.home_text_ca = home_text_ca
           settings_attributes.home_text_en = home_text_en
-          settings_attributes.submodules_enabled = submodules_enabled.select{|m| m.present?}
+          settings_attributes.submodules_enabled = submodules_enabled.select(&:present?)
           settings_attributes.calendar_integration = calendar_integration
 
           set_ibm_notes_integration_settings(settings_attributes)
@@ -113,7 +115,6 @@ module GobiertoAdmin
           settings_attributes.ibm_notes_pwd = nil
         end
       end
-
     end
   end
 end

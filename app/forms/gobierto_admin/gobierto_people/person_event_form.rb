@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
     class PersonEventForm
@@ -65,14 +67,14 @@ module GobiertoAdmin
 
       def attachment_url
         @attachment_url ||= begin
-          return person_event.attachment_url unless attachment_file.present?
+          return person_event.attachment_url if attachment_file.blank?
 
           FileUploadService.new(
             site: person.site,
             collection: person_event.model_name.collection,
             attribute_name: :attachment,
             file: attachment_file,
-            content_disposition: "attachment"
+            content_disposition: 'attachment'
           ).call
         end
       end
@@ -85,7 +87,7 @@ module GobiertoAdmin
         @locations ||= []
 
         attributes.each do |_, location_attributes|
-          next if location_attributes["_destroy"] == "1"
+          next if location_attributes['_destroy'] == '1'
 
           location = person_event_location_class.new(
             name: location_attributes[:name],
@@ -117,7 +119,7 @@ module GobiertoAdmin
         @attendees ||= []
 
         attributes.each do |_, attendee_attributes|
-          next if attendee_attributes["_destroy"] == "1"
+          next if attendee_attributes['_destroy'] == '1'
 
           attendee = person_event_attendee_class.new(
             person_id: attendee_attributes[:person_id],
@@ -133,7 +135,7 @@ module GobiertoAdmin
         @starts_at ||= (1.hour.from_now.beginning_of_hour + 1.day).localtime
 
         if @starts_at.respond_to?(:strftime)
-          return @starts_at.strftime("%Y-%m-%d %H:%M")
+          return @starts_at.strftime('%Y-%m-%d %H:%M')
         end
 
         @starts_at
@@ -141,14 +143,14 @@ module GobiertoAdmin
 
       def ends_at
         if @ends_at.respond_to?(:strftime)
-          return @ends_at.strftime("%Y-%m-%d %H:%M")
+          return @ends_at.strftime('%Y-%m-%d %H:%M')
         end
 
         @ends_at
       end
 
       def state
-        @state ||= "pending"
+        @state ||= 'pending'
       end
 
       def notify?

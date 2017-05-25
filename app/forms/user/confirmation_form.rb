@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::ConfirmationForm
   include ActiveModel::Model
   include GobiertoCommon::CustomUserFieldsHelper
@@ -22,7 +24,7 @@ class User::ConfirmationForm
   validate :user_verification
 
   def require_user_verification?
-    user.present? && user.referrer_entity == "GobiertoBudgetConsultations::Consultation"
+    user.present? && user.referrer_entity == 'GobiertoBudgetConsultations::Consultation'
   end
 
   def save
@@ -32,7 +34,7 @@ class User::ConfirmationForm
   end
 
   def user
-    @user ||= User.find_by_confirmation_token(confirmation_token)
+    @user ||= User.find_by(confirmation_token: confirmation_token)
   end
 
   def email
@@ -45,11 +47,11 @@ class User::ConfirmationForm
 
   def date_of_birth
     @date_of_birth ||= if date_of_birth_year && date_of_birth_month && date_of_birth_day
-      Date.new(
-        date_of_birth_year.to_i,
-        date_of_birth_month.to_i,
-        date_of_birth_day.to_i
-      )
+                         Date.new(
+                           date_of_birth_year.to_i,
+                           date_of_birth_month.to_i,
+                           date_of_birth_day.to_i
+                         )
     end
   rescue ArgumentError
     nil
@@ -70,7 +72,7 @@ class User::ConfirmationForm
       user_attributes.custom_records = custom_records
     end
 
-    if !@user.valid?
+    unless @user.valid?
       promote_errors(@user.errors)
       return false
     end
@@ -78,12 +80,12 @@ class User::ConfirmationForm
     if require_user_verification?
       @census_verification = build_census_verification
 
-      if !@census_verification.valid?
+      unless @census_verification.valid?
         promote_errors(@census_verification.errors)
         return false
       end
 
-      if !@census_verification.will_verify?
+      unless @census_verification.will_verify?
         errors[:base] << "#{I18n.t('activemodel.models.user/census_verification_form')} #{I18n.t('errors.messages.invalid')}"
         return false
       end
@@ -132,9 +134,7 @@ class User::ConfirmationForm
   end
 
   def deliver_welcome_email
-    if user
-      User::UserMailer.welcome(user, user.source_site).deliver_later
-    end
+    User::UserMailer.welcome(user, user.source_site).deliver_later if user
   end
 
   def enable_notifications

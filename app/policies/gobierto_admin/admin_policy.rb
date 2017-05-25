@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class AdminPolicy
     attr_reader :admin_user, :admin
@@ -8,25 +10,25 @@ module GobiertoAdmin
     end
 
     def update?
-      return true unless admin.present?
+      return true if admin.blank?
 
       god_or_manager_skipping_god
     end
 
     def manage_permissions?
-      return true unless admin.present?
+      return true if admin.blank?
 
       god_or_manager_skipping_god
     end
 
     def manage_sites?
-      return true unless admin.present?
+      return true if admin.blank?
 
       god_or_manager && !admin.god? && admin.regular?
     end
 
     def manage_authorization_levels?
-      return true unless admin.present?
+      return true if admin.blank?
 
       god_or_manager_skipping_god
     end

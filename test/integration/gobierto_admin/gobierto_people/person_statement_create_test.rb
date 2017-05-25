@@ -1,6 +1,8 @@
-require "test_helper"
-require "support/integration/dynamic_content_helpers"
-require "support/file_uploader_helpers"
+# frozen_string_literal: true
+
+require 'test_helper'
+require 'support/integration/dynamic_content_helpers'
+require 'support/file_uploader_helpers'
 
 module GobiertoAdmin
   module GobiertoPeople
@@ -35,52 +37,52 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
 
-              within "form.new_person_statement" do
-                fill_in "person_statement_title_translations_en", with: "Statement Title"
-                fill_in "person_statement_published_on", with: "2017-01-01"
+              within 'form.new_person_statement' do
+                fill_in 'person_statement_title_translations_en', with: 'Statement Title'
+                fill_in 'person_statement_published_on', with: '2017-01-01'
 
-                within ".attachment_file_field" do
-                  refute has_selector?("a")
-                  attach_file "person_statement_attachment_file", "test/fixtures/files/gobierto_people/people/person_statement/attachment.pdf"
+                within '.attachment_file_field' do
+                  refute has_selector?('a')
+                  attach_file 'person_statement_attachment_file', 'test/fixtures/files/gobierto_people/people/person_statement/attachment.pdf'
                 end
 
-                within ".person-statement-visibility-level-radio-buttons" do
-                  find("label", text: "Published").click
+                within '.person-statement-visibility-level-radio-buttons' do
+                  find('label', text: 'Published').click
                 end
 
                 fill_in_content_blocks
 
-                click_link "ES"
+                click_link 'ES'
 
-                fill_in "person_statement_title_translations_es", with: "Título"
+                fill_in 'person_statement_title_translations_es', with: 'Título'
 
                 with_stubbed_s3_file_upload do
-                  click_button "Create"
+                  click_button 'Create'
                 end
               end
 
-              assert has_message?("Statement was successfully created. See the statement.")
+              assert has_message?('Statement was successfully created. See the statement.')
 
-              within "form.edit_person_statement" do
-                assert has_field?("person_statement_title_translations_en", with: "Statement Title")
-                assert has_field?("person_statement_published_on", with: "2017-01-01")
+              within 'form.edit_person_statement' do
+                assert has_field?('person_statement_title_translations_en', with: 'Statement Title')
+                assert has_field?('person_statement_published_on', with: '2017-01-01')
 
-                within ".attachment_file_field" do
-                  assert has_selector?("a")
+                within '.attachment_file_field' do
+                  assert has_selector?('a')
                 end
 
-                within ".person-statement-visibility-level-radio-buttons" do
+                within '.person-statement-visibility-level-radio-buttons' do
                   with_hidden_elements do
-                    assert has_checked_field?("Published")
+                    assert has_checked_field?('Published')
                   end
                 end
 
                 assert_content_blocks_have_the_right_values
                 assert_content_blocks_can_be_managed
 
-                click_link "ES"
+                click_link 'ES'
 
-                assert has_field?("person_statement_title_translations_es", with: "Título")
+                assert has_field?('person_statement_title_translations_es', with: 'Título')
               end
             end
           end

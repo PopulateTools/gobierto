@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   class PersonEventsController < GobiertoPeople::ApplicationController
     include PoliticalGroupsHelper
@@ -22,9 +24,7 @@ module GobiertoPeople
     private
 
     def check_active_submodules
-      if !agendas_submodule_active?
-        redirect_to gobierto_people_root_path
-      end
+      redirect_to gobierto_people_root_path unless agendas_submodule_active?
     end
 
     def set_events
@@ -75,6 +75,5 @@ module GobiertoPeople
         (Time.zone.now.at_beginning_of_month.at_beginning_of_week)..(Time.zone.now.at_end_of_month.at_end_of_week)
       end
     end
-
   end
 end

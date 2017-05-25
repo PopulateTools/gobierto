@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module GobiertoExports
   class CSVRenderer
-    def initialize(relation, options={})
+    def initialize(relation, options = {})
       @relation = relation
       @options = options
     end

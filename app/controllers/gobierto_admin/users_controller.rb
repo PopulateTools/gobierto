@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class UsersController < BaseController
     def index
@@ -22,7 +24,7 @@ module GobiertoAdmin
 
       if @user_form.save
         track_update_activity
-        redirect_to edit_admin_user_path(@user), notice: t(".success")
+        redirect_to edit_admin_user_path(@user), notice: t('.success')
       else
         render :edit
       end
@@ -47,24 +49,24 @@ module GobiertoAdmin
     end
 
     def ignored_user_attributes
-      %w(
-      created_at updated_at
-      password_digest
-      confirmation_token reset_password_token
-      creation_ip last_sign_in_ip
-      last_sign_in_at
-      source_site_id
-      census_verified
-      date_of_birth
-      gender
-      notification_frequency
-      referrer_entity
-      referrer_url
-      )
+      %w[
+        created_at updated_at
+        password_digest
+        confirmation_token reset_password_token
+        creation_ip last_sign_in_ip
+        last_sign_in_at
+        source_site_id
+        census_verified
+        date_of_birth
+        gender
+        notification_frequency
+        referrer_entity
+        referrer_url
+      ]
     end
 
     def track_update_activity
-      Publishers::UserActivity.broadcast_event("user_updated", default_activity_params.merge({subject: @user_form.user, changes: @user_form.user.previous_changes.except(:updated_at)}))
+      Publishers::UserActivity.broadcast_event('user_updated', default_activity_params.merge(subject: @user_form.user, changes: @user_form.user.previous_changes.except(:updated_at)))
     end
 
     def default_activity_params

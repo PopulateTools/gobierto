@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgetConsultations
   class ConsultationsController < GobiertoBudgetConsultations::ApplicationController
     before_action :set_consultation, only: [:show]

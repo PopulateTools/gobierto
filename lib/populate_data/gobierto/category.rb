@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 module PopulateData
   module Gobierto
     class Category < Client
-
-      ENDPOINT_URI = "/collections/c-categorias-presupuestos-municipales/items".freeze
+      ENDPOINT_URI = '/collections/c-categorias-presupuestos-municipales/items'
 
       attr_reader(
         :area,
@@ -20,9 +21,9 @@ module PopulateData
 
       def fetch
         super.select do |category|
-          category["area"] == @area &&
-            category["kind"] == @kind &&
-            category["level"] == @level
+          category['area'] == @area &&
+            category['kind'] == @kind &&
+            category['level'] == @level
         end
       end
 
@@ -35,7 +36,6 @@ module PopulateData
           level: @level
         }.to_json
       end
-
     end
   end
 end

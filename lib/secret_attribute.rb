@@ -1,8 +1,10 @@
-require "digest/sha1"
+# frozen_string_literal: true
+
+require 'digest/sha1'
 
 class SecretAttribute
   def self.digest(value)
-    Digest::SHA1.hexdigest(value+salt)
+    Digest::SHA1.hexdigest(value + salt)
   end
 
   def self.salt

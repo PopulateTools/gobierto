@@ -1,4 +1,6 @@
-require_dependency "gobierto_people"
+# frozen_string_literal: true
+
+require_dependency 'gobierto_people'
 
 module GobiertoPeople
   class PersonPost < ApplicationRecord
@@ -8,10 +10,10 @@ module GobiertoPeople
 
     validates :person, presence: true
     validates :site, presence: true
-    
+
     algoliasearch_gobierto do
       attribute :site_id, :title, :body, :updated_at
-      searchableAttributes ['title', 'body']
+      searchableAttributes %w[title body]
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end
@@ -20,7 +22,7 @@ module GobiertoPeople
     belongs_to :site
 
     scope :sorted, -> { order(created_at: :desc) }
-    scope :by_tag, ->(*tags) { where("tags @> ARRAY[?]::varchar[]", tags) }
+    scope :by_tag, ->(*tags) { where('tags @> ARRAY[?]::varchar[]', tags) }
 
     delegate :site_id, to: :person
     delegate :admin_id, to: :person
@@ -34,6 +36,5 @@ module GobiertoPeople
     def attributes_for_slug
       [created_at.strftime('%F'), title]
     end
-
   end
 end

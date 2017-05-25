@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 module PopulateData
   module Gobierto
     class BudgetLine < Client
-
-      ENDPOINT_URI = "/datasets/ds-presupuestos-municipales-partida.json".freeze
+      ENDPOINT_URI = '/datasets/ds-presupuestos-municipales-partida.json'
 
       attr_reader(
         :level,
@@ -36,7 +37,6 @@ module PopulateData
           filter_by_entity_id: @entity_id
         }.to_json
       end
-
     end
   end
 end

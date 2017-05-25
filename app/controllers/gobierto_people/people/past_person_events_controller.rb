@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module People
     class PastPersonEventsController < People::PersonEventsController
-
       def index
         if params[:date]
           @filtering_date = Date.parse(params[:date])
@@ -15,7 +16,6 @@ module GobiertoPeople
           format.html
         end
       end
-
     end
   end
 end

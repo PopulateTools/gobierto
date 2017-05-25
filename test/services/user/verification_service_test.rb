@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class User::VerificationServiceTest < ActiveSupport::TestCase
   def user
@@ -10,12 +12,12 @@ class User::VerificationServiceTest < ActiveSupport::TestCase
   end
 
   def valid_verification_type
-    "census"
+    'census'
   end
 
   def test_call
     assert User::VerificationService.new(user, site).call
     assert User::VerificationService.new(user, site, valid_verification_type).call
-    refute User::VerificationService.new(user, site, "wadus").call
+    refute User::VerificationService.new(user, site, 'wadus').call
   end
 end

@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class AdminInvitationForm
     include ActiveModel::Model
 
-    EMAIL_LIST_DELIMITER = ",".freeze
+    EMAIL_LIST_DELIMITER = ','
 
     attr_accessor :emails, :site_ids
 

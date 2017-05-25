@@ -1,12 +1,14 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class UserPasswordFormTest < ActiveSupport::TestCase
     def valid_user_password_form
       @valid_user_password_form ||= UserPasswordForm.new(
         id: user.id,
-        password: "wadus",
-        password_confirmation: "wadus"
+        password: 'wadus',
+        password_confirmation: 'wadus'
       )
     end
 

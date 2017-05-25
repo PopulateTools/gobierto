@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Authentication::InvitableTest
   def test_invitations_scope
     subject = user.class.invitation
@@ -24,11 +26,11 @@ module Authentication::InvitableTest
 
   def test_find_by_invitation_token
     invitation_token = invited_user.invitation_token
-    subject = invited_user.class.find_by_invitation_token(invitation_token)
+    subject = invited_user.class.find_by(invitation_token: invitation_token)
 
     assert_equal invited_user, subject
 
-    subject = invited_user.class.find_by_invitation_token(nil)
+    subject = invited_user.class.find_by(invitation_token: nil)
 
     assert_nil subject
   end

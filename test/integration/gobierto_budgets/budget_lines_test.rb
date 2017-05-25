@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class GobiertoBudgets::BudgetLinesTest < ActionDispatch::IntegrationTest
   def setup
@@ -18,9 +20,9 @@ class GobiertoBudgets::BudgetLinesTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @path
 
-      assert has_content?("Explore the detail")
-      assert has_content?("Impuestos directos")
-      assert has_content?("Impuestos indirectos")
+      assert has_content?('Explore the detail')
+      assert has_content?('Impuestos directos')
+      assert has_content?('Impuestos indirectos')
     end
   end
 
@@ -28,11 +30,11 @@ class GobiertoBudgets::BudgetLinesTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @path
 
-      click_link "Expenses"
-      assert has_content?("Deuda pública")
+      click_link 'Expenses'
+      assert has_content?('Deuda pública')
 
-      click_link "To do what is spent"
-      assert has_content?("Gastos de personal")
+      click_link 'To do what is spent'
+      assert has_content?('Gastos de personal')
     end
   end
 end

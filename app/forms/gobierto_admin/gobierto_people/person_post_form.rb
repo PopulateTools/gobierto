@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoPeople
     class PersonPostForm
       include ActiveModel::Model
       prepend ::GobiertoCommon::Trackable
 
-      TAG_SEPARATOR = ","
+      TAG_SEPARATOR = ','
 
       attr_accessor(
         :id,
@@ -59,14 +61,14 @@ module GobiertoAdmin
       end
 
       def visibility_level
-        @visibility_level ||= "draft"
+        @visibility_level ||= 'draft'
       end
 
       def tags
-        return unless @tags.present?
+        return if @tags.blank?
 
         if @tags.respond_to?(:join)
-          @tags.join(TAG_SEPARATOR + " ")
+          @tags.join(TAG_SEPARATOR + ' ')
         else
           @tags.split(TAG_SEPARATOR).map(&:strip)
         end

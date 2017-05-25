@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class User::VerificationService
   attr_reader :user, :site, :verification_type
 
-  def initialize(user, site, verification_type = "census")
+  def initialize(user, site, verification_type = 'census')
     @user = user
     @site = site
     @verification_type = verification_type

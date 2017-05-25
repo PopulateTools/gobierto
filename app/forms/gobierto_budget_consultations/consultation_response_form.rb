@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgetConsultations
   class ConsultationResponseForm
     include ActiveModel::Model
@@ -46,7 +48,7 @@ module GobiertoBudgetConsultations
       @consultation_response_items ||= begin
         selected_options.map do |_, selected_option_item|
           consultation_item = consultation.consultation_items.find_by(id: selected_option_item['item_id'])
-          raise GobiertoBudgetConsultations::ConsultationResponseItem::MissingItem unless consultation_item.present?
+          raise GobiertoBudgetConsultations::ConsultationResponseItem::MissingItem if consultation_item.blank?
 
           selected_option = selected_option_item['selected_option']
           raise GobiertoBudgetConsultations::ConsultationResponseItem::EmptySelectedOption if selected_option.blank?
@@ -59,7 +61,7 @@ module GobiertoBudgetConsultations
             item_title: consultation_item.title,
             item_budget_line_amount: consultation_item.budget_line_amount,
             item_response_options: consultation_item.raw_response_options,
-            selected_option: selected_option,
+            selected_option: selected_option
           )
         end.compact
       end
@@ -81,10 +83,12 @@ module GobiertoBudgetConsultations
         consultation_response_attributes.budget_amount = consultation_response_items.sum(&:budget_line_amount)
         consultation_response_attributes.sharing_token ||= consultation_response_class.generate_unique_secure_token
         consultation_response_attributes.visibility_level = consultation_class.visibility_levels[:active]
-        consultation_response_attributes.user_information = {
-          gender: user.gender,
-          date_of_birth: user.date_of_birth.to_s
-        }.merge(custom_records_for_user || {}) if user
+        if user
+          consultation_response_attributes.user_information = {
+            gender: user.gender,
+            date_of_birth: user.date_of_birth.to_s
+          }.merge(custom_records_for_user || {})
+        end
       end
 
       if @consultation_response.valid?
@@ -97,22 +101,22 @@ module GobiertoBudgetConsultations
         false
       end
     rescue GobiertoBudgetConsultations::ConsultationResponseItem::MissingItem
-      Rails.logger.debug "[exception] #{$!}"
+      Rails.logger.debug "[exception] #{$ERROR_INFO}"
       errors[:base] << I18n.t('errors.messages.invalid_consultation_response')
       return false
     rescue GobiertoBudgetConsultations::ConsultationResponseItem::EmptySelectedOption
-      Rails.logger.debug "[exception] #{$!}"
+      Rails.logger.debug "[exception] #{$ERROR_INFO}"
       errors[:base] << I18n.t('errors.messages.invalid_consultation_response')
       return false
     rescue GobiertoBudgetConsultations::ConsultationResponseItem::NotAllowedToReduce
-      Rails.logger.debug "[exception] #{$!}"
+      Rails.logger.debug "[exception] #{$ERROR_INFO}"
       errors[:base] << I18n.t('errors.messages.invalid_consultation_response')
       return false
     end
 
     def custom_records_for_user
       @custom_records_for_user ||= Hash[Array(user.custom_records).map do |custom_record|
-        [custom_record.custom_user_field.name, {"raw_value" => custom_record.raw_value, "localized_value" => custom_record.value}]
+        [custom_record.custom_user_field.name, { 'raw_value' => custom_record.raw_value, 'localized_value' => custom_record.value }]
       end]
     end
 

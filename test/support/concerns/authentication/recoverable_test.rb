@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Authentication::RecoverableTest
   def test_recoverable_scope
     subject = recoverable_user.class.recoverable
@@ -8,11 +10,11 @@ module Authentication::RecoverableTest
 
   def test_find_by_reset_password_token
     reset_password_token = recoverable_user.reset_password_token
-    subject = recoverable_user.class.find_by_reset_password_token(reset_password_token)
+    subject = recoverable_user.class.find_by(reset_password_token: reset_password_token)
 
     assert_equal recoverable_user, subject
 
-    subject = recoverable_user.class.find_by_reset_password_token(nil)
+    subject = recoverable_user.class.find_by(reset_password_token: nil)
 
     assert_nil subject
   end

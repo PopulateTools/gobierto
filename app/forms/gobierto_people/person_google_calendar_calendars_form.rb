@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   class PersonGoogleCalendarCalendarsForm
     include ActiveModel::Model
@@ -40,7 +42,7 @@ module GobiertoPeople
 
     def save_google_calendar_configuration
       @google_calendar_configuration = google_calendar_configuration.tap do |google_calendar_configuration_attributes|
-        google_calendar_configuration_attributes.calendars = calendars.select { |c| !c.blank? }
+        google_calendar_configuration_attributes.calendars = calendars.reject(&:blank?)
       end
 
       if @google_calendar_configuration.valid?

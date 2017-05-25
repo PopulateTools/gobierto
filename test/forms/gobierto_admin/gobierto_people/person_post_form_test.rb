@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoPeople
@@ -42,13 +44,13 @@ module GobiertoAdmin
       end
 
       def test_tags_denormalization
-        assert_equal person_post.tags.join(", "), valid_person_post_form.tags
+        assert_equal person_post.tags.join(', '), valid_person_post_form.tags
       end
 
       def test_tags_normalization
-        valid_person_post_form.tags = "one, two, three"
+        valid_person_post_form.tags = 'one, two, three'
 
-        assert_equal ["one", "two", "three"], valid_person_post_form.tags
+        assert_equal %w[one two three], valid_person_post_form.tags
       end
 
       def test_tags_initialization

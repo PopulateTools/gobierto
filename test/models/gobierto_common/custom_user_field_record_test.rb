@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class GobiertoCommon::CustomUserFieldRecordTest < ActiveSupport::TestCase
   def custom_user_field_single_option
@@ -42,8 +44,8 @@ class GobiertoCommon::CustomUserFieldRecordTest < ActiveSupport::TestCase
 
     subject = GobiertoCommon::CustomUserFieldRecord.new
     subject.custom_user_field = custom_user_field_multiple_options
-    subject.value = ['randomstring1', 'random2']
-    assert_equal ['randomstring1', 'random2'], subject.raw_value
+    subject.value = %w[randomstring1 random2]
+    assert_equal %w[randomstring1 random2], subject.raw_value
   end
 
   def test_values

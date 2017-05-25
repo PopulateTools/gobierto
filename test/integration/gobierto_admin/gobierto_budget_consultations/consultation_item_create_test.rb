@@ -1,5 +1,7 @@
-require "test_helper"
-require "support/populate_data_helpers"
+# frozen_string_literal: true
+
+require 'test_helper'
+require 'support/populate_data_helpers'
 
 module GobiertoAdmin
   module GobiertoBudgetConsultations
@@ -29,19 +31,19 @@ module GobiertoAdmin
             with_stubbed_budget_line_collection do
               visit @path
 
-              within "form.new_consultation_item" do
-                fill_in "consultation_item_budget_line_name", with: populate_data_budget_line_summary[:name]
-                fill_in "consultation_item_title", with: populate_data_budget_line_summary[:name]
-                fill_in "consultation_item_budget_line_amount", with: populate_data_budget_line_summary[:amount]
-                fill_in "consultation_item_description", with: "ConsultationItem Description"
+              within 'form.new_consultation_item' do
+                fill_in 'consultation_item_budget_line_name', with: populate_data_budget_line_summary[:name]
+                fill_in 'consultation_item_title', with: populate_data_budget_line_summary[:name]
+                fill_in 'consultation_item_budget_line_amount', with: populate_data_budget_line_summary[:amount]
+                fill_in 'consultation_item_description', with: 'ConsultationItem Description'
 
                 # Simulate Budget line selection in user control
-                find("#consultation_item_budget_line_id", visible: false).set(populate_data_budget_line_summary[:name])
+                find('#consultation_item_budget_line_id', visible: false).set(populate_data_budget_line_summary[:name])
 
-                click_button "Create"
+                click_button 'Create'
               end
 
-              assert has_message?("Consultation item was successfully created")
+              assert has_message?('Consultation item was successfully created')
             end
           end
         end

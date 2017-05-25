@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   class Search
     def initialize(site)
@@ -5,11 +7,9 @@ module GobiertoCommon
     end
 
     def search_in_indexes
-      add_quotes = -> x{"'#{x}'"}
+      add_quotes = ->(x) { "'#{x}'" }
 
-      models_to_search.map do |model|
-        model.search_index_name
-      end.map(&add_quotes).join(',')
+      models_to_search.map(&:search_index_name).map(&add_quotes).join(',')
     end
 
     attr_reader :site

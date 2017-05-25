@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   class PersonIbmNotesCalendarConfiguration < PersonCalendarConfiguration
-
     def endpoint
       data['endpoint']
     end
@@ -8,6 +9,5 @@ module GobiertoPeople
     def endpoint=(endpoint)
       data['endpoint'] = endpoint
     end
-
   end
 end

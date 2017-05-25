@@ -1,9 +1,11 @@
-require "test_helper"
-require "support/concerns/authentication/authenticable_test"
-require "support/concerns/authentication/confirmable_test"
-require "support/concerns/authentication/recoverable_test"
-require "support/concerns/session/trackable_test"
-require "support/concerns/user/subscriber_test"
+# frozen_string_literal: true
+
+require 'test_helper'
+require 'support/concerns/authentication/authenticable_test'
+require 'support/concerns/authentication/confirmable_test'
+require 'support/concerns/authentication/recoverable_test'
+require 'support/concerns/session/trackable_test'
+require 'support/concerns/user/subscriber_test'
 
 class UserTest < ActiveSupport::TestCase
   include Authentication::AuthenticableTest

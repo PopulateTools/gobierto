@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module LocationsHelper
     def external_location_service_url(location)

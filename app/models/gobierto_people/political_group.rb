@@ -1,4 +1,6 @@
-require_dependency "gobierto_people"
+# frozen_string_literal: true
+
+require_dependency 'gobierto_people'
 
 module GobiertoPeople
   class PoliticalGroup < ApplicationRecord
@@ -7,7 +9,7 @@ module GobiertoPeople
 
     validates :site, presence: true
 
-    belongs_to :admin, class_name: "GobiertoAdmin::Admin"
+    belongs_to :admin, class_name: 'GobiertoAdmin::Admin'
     belongs_to :site
 
     has_many :people
@@ -18,6 +20,5 @@ module GobiertoPeople
     def attributes_for_slug
       [name]
     end
-
   end
 end

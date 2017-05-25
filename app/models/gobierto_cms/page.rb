@@ -1,4 +1,6 @@
-require_dependency "gobierto_cms"
+# frozen_string_literal: true
+
+require_dependency 'gobierto_cms'
 
 module GobiertoCms
   class Page < ApplicationRecord
@@ -7,7 +9,7 @@ module GobiertoCms
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca
-      searchableAttributes ['title_en', 'title_es', 'title_ca', 'body_en', 'body_es', 'body_ca']
+      searchableAttributes %w[title_en title_es title_ca body_en body_es body_ca]
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end
@@ -26,7 +28,7 @@ module GobiertoCms
     def self.find_by_slug!(slug)
       if slug.present?
         I18n.available_locales.each do |locale|
-          if p = self.with_slug_translation(slug, locale).first
+          if p = with_slug_translation(slug, locale).first
             return p
           end
         end
@@ -38,7 +40,7 @@ module GobiertoCms
 
     def uniqueness_of_slug
       if slug_translations.present?
-        if slug_translations.select{ |_, slug| slug.present? }.any?{ |_, slug| self.class.where(site_id: self.site_id).where.not(id: self.id).with_slug_translation(slug).exists? }
+        if slug_translations.select { |_, slug| slug.present? }.any? { |_, slug| self.class.where(site_id: site_id).where.not(id: id).with_slug_translation(slug).exists? }
           errors.add(:slug, I18n.t('errors.messages.taken'))
         end
       end

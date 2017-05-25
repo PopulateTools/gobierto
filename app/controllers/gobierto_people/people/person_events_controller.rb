@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module People
     class PersonEventsController < BaseController
-
       before_action :set_calendar_events, only: [:index]
 
       def index

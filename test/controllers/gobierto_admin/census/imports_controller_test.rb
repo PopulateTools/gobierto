@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class Census::ImportsControllerTest < GobiertoControllerTest
@@ -42,7 +44,7 @@ module GobiertoAdmin
 
       assert notification_service_spy.has_been_called?
       event_name, event_payload = first_call_arguments
-      assert_equal "census_imported", event_name
+      assert_equal 'census_imported', event_name
       assert_includes event_payload, :ip
       assert_equal event_payload[:author], admin
       assert_equal event_payload[:subject], GobiertoAdmin::CensusImport.last

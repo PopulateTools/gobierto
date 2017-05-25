@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class CensusImportForm
     include ActiveModel::Model
@@ -83,7 +85,7 @@ module GobiertoAdmin
     end
 
     def file_is_present
-      errors.add(:file, :not_available) unless file.present?
+      errors.add(:file, :not_available) if file.blank?
     end
 
     protected

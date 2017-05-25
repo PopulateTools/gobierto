@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   class UserShowTest < ActionDispatch::IntegrationTest
@@ -24,7 +26,7 @@ module GobiertoAdmin
         with_selected_site(site) do
           visit @path
 
-          within ".admin_content" do
+          within '.admin_content' do
             assert has_content?(user.name)
             assert has_link?(user.email)
           end

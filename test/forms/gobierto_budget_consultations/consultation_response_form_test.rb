@@ -1,10 +1,12 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoBudgetConsultations
   class ConsultationResponseFormTest < ActiveSupport::TestCase
     def valid_consultation_response_form
       @valid_consultation_response_form ||= ConsultationResponseForm.new(
-        document_number_digest: SecretAttribute.digest("00000000D"),
+        document_number_digest: SecretAttribute.digest('00000000D'),
         consultation_id: consultation.id,
         selected_options: selected_options_params,
         user: user
@@ -70,16 +72,16 @@ module GobiertoBudgetConsultations
 
       expected_consultation_items = [
         {
-          "item_id"                 => consultation_item_1.id,
-          "item_title"              => consultation_item_1.title,
-          "item_budget_line_amount" => consultation_item_1.budget_line_amount.to_s,
-          "selected_option"         => -5
+          'item_id'                 => consultation_item_1.id,
+          'item_title'              => consultation_item_1.title,
+          'item_budget_line_amount' => consultation_item_1.budget_line_amount.to_s,
+          'selected_option'         => -5
         },
         {
-          "item_id"                 => consultation_item_2.id,
-          "item_title"              => consultation_item_2.title,
-          "item_budget_line_amount" => consultation_item_2.budget_line_amount.to_s,
-          "selected_option"         => 0
+          'item_id'                 => consultation_item_2.id,
+          'item_title'              => consultation_item_2.title,
+          'item_budget_line_amount' => consultation_item_2.budget_line_amount.to_s,
+          'selected_option'         => 0
         }
       ]
 
@@ -121,10 +123,10 @@ module GobiertoBudgetConsultations
       valid_consultation_response_form.save
 
       user_information = valid_consultation_response_form.consultation_response.user_information
-      assert_equal "female", user_information["gender"]
-      assert_equal "1990-01-01", user_information["date_of_birth"]
-      assert_equal user_information["district"], {"raw_value"=>"randomstring1", "localized_value"=>"Center"}
-      assert_equal user_information["association"], {"raw_value"=>"Asociación amigos perros", "localized_value"=>"Asociación amigos perros"}
+      assert_equal 'female', user_information['gender']
+      assert_equal '1990-01-01', user_information['date_of_birth']
+      assert_equal user_information['district'], 'raw_value' => 'randomstring1', 'localized_value' => 'Center'
+      assert_equal user_information['association'], 'raw_value' => 'Asociación amigos perros', 'localized_value' => 'Asociación amigos perros'
     end
   end
 end

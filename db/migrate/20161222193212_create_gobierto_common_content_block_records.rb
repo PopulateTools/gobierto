@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class CreateGobiertoCommonContentBlockRecords < ActiveRecord::Migration[5.0]
   def change
     create_table :content_block_records do |t|
       t.references :content_block
-      t.references :content_context, polymorphic: true, index: { name: "index_content_block_records_on_content_context" }
+      t.references :content_context, polymorphic: true, index: { name: 'index_content_block_records_on_content_context' }
       t.jsonb :payload
 
       t.timestamps

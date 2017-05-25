@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoPeople
@@ -21,24 +23,24 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            within "#edit_gobierto_people_settings" do
-              fill_in "gobierto_people_settings_home_text_es", with: "Texto Spanish"
-              fill_in "gobierto_people_settings_home_text_en", with: "Texto English"
-              check "Agendas"
-              check "Blogs"
-              uncheck "Statements"
+            within '#edit_gobierto_people_settings' do
+              fill_in 'gobierto_people_settings_home_text_es', with: 'Texto Spanish'
+              fill_in 'gobierto_people_settings_home_text_en', with: 'Texto English'
+              check 'Agendas'
+              check 'Blogs'
+              uncheck 'Statements'
 
-              click_button "Update"
+              click_button 'Update'
             end
 
-            assert has_message?("Settings updated successfully")
+            assert has_message?('Settings updated successfully')
 
-            within "#edit_gobierto_people_settings" do
-              assert has_field?("gobierto_people_settings_home_text_es", with: "Texto Spanish")
-              assert has_field?("gobierto_people_settings_home_text_en", with: "Texto English")
-              assert has_checked_field?("Agendas")
-              assert has_checked_field?("Blogs")
-              refute has_checked_field?("Statements")
+            within '#edit_gobierto_people_settings' do
+              assert has_field?('gobierto_people_settings_home_text_es', with: 'Texto Spanish')
+              assert has_field?('gobierto_people_settings_home_text_en', with: 'Texto English')
+              assert has_checked_field?('Agendas')
+              assert has_checked_field?('Blogs')
+              refute has_checked_field?('Statements')
             end
           end
         end
@@ -49,27 +51,27 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            select "IBM Notes", from: "gobierto_people_settings_calendar_integration"
-            fill_in "gobierto_people_settings_ibm_notes_usr", with: "IBM Notes user"
-            fill_in "gobierto_people_settings_ibm_notes_pwd", with: "IBM Notes password"
+            select 'IBM Notes', from: 'gobierto_people_settings_calendar_integration'
+            fill_in 'gobierto_people_settings_ibm_notes_usr', with: 'IBM Notes user'
+            fill_in 'gobierto_people_settings_ibm_notes_pwd', with: 'IBM Notes password'
 
-            click_button "Update"
+            click_button 'Update'
 
-            assert has_message?("Settings updated successfully")
+            assert has_message?('Settings updated successfully')
 
-            assert has_field?("gobierto_people_settings_ibm_notes_usr", with: "IBM Notes user")
-            assert has_field?("gobierto_people_settings_ibm_notes_pwd", with: "IBM Notes password")
+            assert has_field?('gobierto_people_settings_ibm_notes_usr', with: 'IBM Notes user')
+            assert has_field?('gobierto_people_settings_ibm_notes_pwd', with: 'IBM Notes password')
 
-            select "", from: "gobierto_people_settings_calendar_integration"
-            fill_in "gobierto_people_settings_ibm_notes_usr", with: nil
-            fill_in "gobierto_people_settings_ibm_notes_pwd", with: nil
+            select '', from: 'gobierto_people_settings_calendar_integration'
+            fill_in 'gobierto_people_settings_ibm_notes_usr', with: nil
+            fill_in 'gobierto_people_settings_ibm_notes_pwd', with: nil
 
-            click_button "Update"
+            click_button 'Update'
 
-            assert has_message?("Settings updated successfully")
+            assert has_message?('Settings updated successfully')
 
-            refute has_field?("gobierto_people_settings_ibm_notes_usr", with: "IBM Notes user")
-            refute has_field?("gobierto_people_settings_ibm_notes_pwd", with: "IBM Notes password")
+            refute has_field?('gobierto_people_settings_ibm_notes_usr', with: 'IBM Notes user')
+            refute has_field?('gobierto_people_settings_ibm_notes_pwd', with: 'IBM Notes password')
           end
         end
       end
@@ -79,23 +81,22 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            select "IBM Notes", from: "gobierto_people_settings_calendar_integration"
+            select 'IBM Notes', from: 'gobierto_people_settings_calendar_integration'
 
-            click_button "Update"
+            click_button 'Update'
 
-            assert has_message?("An error occured while saving these settings")
+            assert has_message?('An error occured while saving these settings')
 
-            select "", from: "gobierto_people_settings_calendar_integration"
-            fill_in "gobierto_people_settings_ibm_notes_usr", with: "IBM Notes user"
-            fill_in "gobierto_people_settings_ibm_notes_pwd", with: "IBM Notes password"
+            select '', from: 'gobierto_people_settings_calendar_integration'
+            fill_in 'gobierto_people_settings_ibm_notes_usr', with: 'IBM Notes user'
+            fill_in 'gobierto_people_settings_ibm_notes_pwd', with: 'IBM Notes password'
 
-            click_button "Update"
+            click_button 'Update'
 
-            assert has_message?("An error occured while saving these settings")
+            assert has_message?('An error occured while saving these settings')
           end
         end
       end
-
     end
   end
 end

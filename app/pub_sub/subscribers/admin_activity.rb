@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Subscribers
   class AdminActivity < ::Subscribers::Base
     def invitation_created(event)
@@ -34,4 +36,3 @@ module Subscribers
     end
   end
 end
-

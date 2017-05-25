@@ -1,4 +1,6 @@
-require "aws-sdk"
+# frozen_string_literal: true
+
+require 'aws-sdk'
 
 module FileUploader
   class S3
@@ -14,7 +16,7 @@ module FileUploader
     def call
       object = resource.bucket(bucket_name).object(file_name)
 
-      File.open(file.tempfile, "rb") do |file_body|
+      File.open(file.tempfile, 'rb') do |file_body|
         options = { body: file_body }
         options[:content_disposition] = @content_disposition if @content_disposition.present?
 
@@ -31,16 +33,16 @@ module FileUploader
     end
 
     def bucket_name
-      @bucket_name ||= ENV.fetch("S3_BUCKET_NAME")
+      @bucket_name ||= ENV.fetch('S3_BUCKET_NAME')
     end
 
     protected
 
     def client
       Aws::S3::Client.new(
-        region: ENV.fetch("AWS_REGION"),
-        access_key_id: ENV.fetch("AWS_ACCESS_KEY_ID"),
-        secret_access_key: ENV.fetch("AWS_SECRET_ACCESS_KEY")
+        region: ENV.fetch('AWS_REGION'),
+        access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
+        secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY')
       )
     end
   end

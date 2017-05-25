@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ActivityCollectionDecorator < BaseDecorator
   attr_reader :collection, :total_pages
 

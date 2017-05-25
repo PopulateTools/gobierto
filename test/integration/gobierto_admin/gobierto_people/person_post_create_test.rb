@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoPeople
@@ -26,36 +28,36 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
 
-              within "form.new_person_post" do
-                fill_in "person_post_title", with: "Post Title"
+              within 'form.new_person_post' do
+                fill_in 'person_post_title', with: 'Post Title'
 
                 # Simulate Body rich text area
-                find("#person_post_body", visible: false).set("Post Body")
+                find('#person_post_body', visible: false).set('Post Body')
 
-                fill_in "person_post_tags", with: "one, two, three"
+                fill_in 'person_post_tags', with: 'one, two, three'
 
-                within ".person-post-visibility-level-radio-buttons" do
-                  find("label", text: "Published").click
+                within '.person-post-visibility-level-radio-buttons' do
+                  find('label', text: 'Published').click
                 end
 
-                click_button "Create"
+                click_button 'Create'
               end
 
-              assert has_message?("Post was successfully created. See the post.")
+              assert has_message?('Post was successfully created. See the post.')
 
-              within "form.edit_person_post" do
-                assert has_field?("person_post_title", with: "Post Title")
+              within 'form.edit_person_post' do
+                assert has_field?('person_post_title', with: 'Post Title')
 
                 assert_equal(
-                  "<div>Post Body</div>",
-                  find("#person_post_body", visible: false).value
+                  '<div>Post Body</div>',
+                  find('#person_post_body', visible: false).value
                 )
 
-                assert has_field?("person_post_tags", with: "one, two, three")
+                assert has_field?('person_post_tags', with: 'one, two, three')
 
-                within ".person-post-visibility-level-radio-buttons" do
+                within '.person-post-visibility-level-radio-buttons' do
                   with_hidden_elements do
-                    assert has_checked_field?("Published")
+                    assert has_checked_field?('Published')
                   end
                 end
               end

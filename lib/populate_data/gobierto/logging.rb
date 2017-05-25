@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PopulateData
   module Gobierto
     module Logging
@@ -14,7 +16,7 @@ module PopulateData
       def self.logger
         @logger ||= begin
           logger = Logger.new(STDOUT)
-          logger.formatter = proc do |severity, datetime, progname, msg|
+          logger.formatter = proc do |_severity, datetime, _progname, msg|
             "[PopulateData::Gobierto] #{datetime}: #{msg}\n"
           end
 

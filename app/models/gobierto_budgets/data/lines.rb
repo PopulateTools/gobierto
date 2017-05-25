@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoBudgets
   module Data
     class Lines
@@ -27,17 +29,17 @@ module GobiertoBudgets
           }
         }
 
-        return json.to_json
+        json.to_json
       end
 
       private
 
       def mean_province
-        filters = [ {term: { province_id: @place.province_id }} ]
+        filters = [{ term: { province_id: @place.province_id } }]
 
         if @code
-          filters.push({term: { code: @code }})
-          filters.push({term: { kind: @kind }})
+          filters.push(term: { code: @code })
+          filters.push(term: { kind: @kind })
         end
 
         query = {
@@ -54,13 +56,13 @@ module GobiertoBudgets
           "aggs": {
             "#{@variable}_per_year": {
               "terms": {
-                "field": "year",
+                "field": 'year',
                 size: 10_000
               },
               "aggs": {
                 "budget_sum": {
                   "sum": {
-                    "field": "#{@variable}"
+                    "field": @variable.to_s
                   }
                 }
               }
@@ -75,23 +77,21 @@ module GobiertoBudgets
         end
 
         result = []
-        data.sort_by{|k,_| k }.each do |year, v|
-          result.push({
-            date: year.to_s,
-            value: v,
-            dif: data[year-1] ? delta_percentage(v, data[year-1]) : 0
-          })
+        data.sort_by { |k, _| k }.each do |year, v|
+          result.push(date: year.to_s,
+                      value: v,
+                      dif: data[year - 1] ? delta_percentage(v, data[year - 1]) : 0)
         end
 
         result.reverse
       end
 
       def mean_autonomy
-        filters = [ {term: { autonomy_id: @place.province.autonomous_region.id }} ]
+        filters = [{ term: { autonomy_id: @place.province.autonomous_region.id } }]
 
         if @code
-          filters.push({term: { code: @code }})
-          filters.push({term: { kind: @kind }})
+          filters.push(term: { code: @code })
+          filters.push(term: { kind: @kind })
         end
 
         query = {
@@ -108,13 +108,13 @@ module GobiertoBudgets
           "aggs": {
             "#{@variable}_per_year": {
               "terms": {
-                "field": "year",
+                "field": 'year',
                 size: 10_000
               },
               "aggs": {
                 "budget_sum": {
                   "sum": {
-                    "field": "#{@variable}"
+                    "field": @variable.to_s
                   }
                 }
               }
@@ -129,12 +129,10 @@ module GobiertoBudgets
         end
 
         result = []
-        data.sort_by{|k,_| k }.each do |year, v|
-          result.push({
-            date: year.to_s,
-            value: v,
-            dif: data[year-1] ? delta_percentage(v, data[year-1]) : 0
-          })
+        data.sort_by { |k, _| k }.each do |year, v|
+          result.push(date: year.to_s,
+                      value: v,
+                      dif: data[year - 1] ? delta_percentage(v, data[year - 1]) : 0)
         end
 
         result.reverse
@@ -143,8 +141,8 @@ module GobiertoBudgets
       def mean_national
         filters = []
         if @code
-          filters.push({term: { code: @code }})
-          filters.push({term: { kind: @kind }})
+          filters.push(term: { code: @code })
+          filters.push(term: { kind: @kind })
         end
 
         query = {
@@ -161,13 +159,13 @@ module GobiertoBudgets
           "aggs": {
             "#{@variable}_per_year": {
               "terms": {
-                "field": "year",
+                "field": 'year',
                 size: 10_000
               },
               "aggs": {
                 "budget_sum": {
                   "sum": {
-                    "field": "#{@variable}"
+                    "field": @variable.to_s
                   }
                 }
               }
@@ -182,24 +180,22 @@ module GobiertoBudgets
         end
 
         result = []
-        data.sort_by{|k,_| k }.each do |year, v|
-          result.push({
-            date: year.to_s,
-            value: v,
-            dif: data[year-1] ? delta_percentage(v, data[year-1]) : 0
-          })
+        data.sort_by { |k, _| k }.each do |year, v|
+          result.push(date: year.to_s,
+                      value: v,
+                      dif: data[year - 1] ? delta_percentage(v, data[year - 1]) : 0)
         end
 
         result.reverse
       end
 
       def place_values(place = nil)
-        place = @place unless place.present?
-        filters = [ {term: { ine_code: place.id }} ]
+        place = @place if place.blank?
+        filters = [{ term: { ine_code: place.id } }]
 
         if @code
-          filters.push({term: { code: @code }})
-          filters.push({term: { kind: @kind }})
+          filters.push(term: { code: @code })
+          filters.push(term: { kind: @kind })
         end
 
         query = {
@@ -215,18 +211,18 @@ module GobiertoBudgets
               }
             }
           },
-          size: 10_000,
+          size: 10_000
         }
 
         result = []
         response = SearchEngine.client.search index: index, type: type, body: query
-        values = Hash[response['hits']['hits'].map{|h| h['_source']}.map{|h| [h['year'],h[@variable]] }]
-        values.each do |k,v|
+        values = Hash[response['hits']['hits'].map { |h| h['_source'] }.map { |h| [h['year'], h[@variable]] }]
+        values.each do |k, v|
           dif = 0
-          if old_value = values[k -1]
+          if old_value = values[k - 1]
             dif = delta_percentage(v, old_value)
           end
-          result.push({date: k.to_s, value: v, dif: dif})
+          result.push(date: k.to_s, value: v, dif: dif)
         end
         result
       end
@@ -235,15 +231,15 @@ module GobiertoBudgets
         return comparison_values if @is_comparison
         [
           {
-            "name":"mean_province",
+            "name": 'mean_province',
             "values": mean_province
           },
           {
-            "name":"mean_autonomy",
+            "name": 'mean_autonomy',
             "values": mean_autonomy
           },
           {
-            "name":"mean_national",
+            "name": 'mean_national',
             "values": mean_national
           },
           {
@@ -264,14 +260,14 @@ module GobiertoBudgets
 
       def lines_title
         if @code.nil?
-          @what == 'total_budget' ? I18n.t("gobierto_budgets.visualizations.total_expenses") : I18n.t("gobierto_budgets.visualizations.expenses_per_inhabitant")
+          @what == 'total_budget' ? I18n.t('gobierto_budgets.visualizations.total_expenses') : I18n.t('gobierto_budgets.visualizations.expenses_per_inhabitant')
         else
-          @what == 'total_budget' ? "#{@category_name}" : I18n.t("gobierto_budgets.visualizations.category_per_inhabitant", category: @category_name)
+          @what == 'total_budget' ? @category_name.to_s : I18n.t('gobierto_budgets.visualizations.category_per_inhabitant', category: @category_name)
         end
       end
 
       def delta_percentage(current_year_value, old_value)
-        (((current_year_value.to_f - old_value.to_f)/old_value.to_f) * 100).round(2)
+        (((current_year_value.to_f - old_value.to_f) / old_value.to_f) * 100).round(2)
       end
 
       def index

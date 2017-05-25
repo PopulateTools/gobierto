@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::CensusVerificationForm
   include ActiveModel::Model
 

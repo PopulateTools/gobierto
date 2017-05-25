@@ -26,7 +26,7 @@ If you want to contribute code to solve an issue:
 * Add a comment to tell everyone you are working on the issue.
 * If an issue has someone assigned it means that person is already working on it.
 * Fork the project.
-* Create a topic branch based on `stable`.
+* Create a topic branch based on `master` branch with git.
 * Commit there your code to solve the issue.
 * Make sure all test are passing (and add specs to test any new feature if needed).
 * Follow these [best practices](https://github.com/styleguide/ruby)

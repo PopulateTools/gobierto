@@ -26,7 +26,7 @@ Cuando quieras resolver una incidencia mediante código:
 * Avisa de que vas a trabajar en esta incidencia añadiendo un comentario.
 * Cuando las incidencias tienen a alguien asignado significa que esa persona ya está trabajando en esa issue.
 * Haz un fork del proyecto
-* Crea una rama para resolver la incidencia desde la rama `stable`
+* Crea una rama en git para resolver la incidencia desde la rama `master`
 * Añade el código necesario para resolver la incidencia en tantos commits como sea preciso
 * Asegúrate de que los tests pasan (y escribe más tests para probar la nueva funcionalidad si fuera preciso)
 * Sigue estas [buenas prácticas](https://github.com/styleguide/ruby)

@@ -2,6 +2,10 @@
 
 * Fernando Blat [github](https://github.com/ferblape) | [twitter](https://twitter.com/ferblape)
 * Álvaro Ortiz [github](https://github.com/furilo) | [twitter](https://twitter.com/furilo)
+* Amaia Castro [github](https://github.com/amaia) | [twitter](https://twitter.com/amaiac)
+* Rafael de las Cuevas Sáez [github](https://github.com/rafadelascuevas) | [twitter](https://twitter.com/rafadelascuevas)
+* Martín González [github](https://github.com/martgnz) | [twitter](https://twitter.com/martgnz)
+* Alberto Miedes Garcés [github](https://github.com/amiedes) | [twitter](https://twitter.com/amiedes94)
 
 ## Code of conduct
 
@@ -26,7 +30,7 @@ If you want to contribute code to solve an issue:
 * Add a comment to tell everyone you are working on the issue.
 * If an issue has someone assigned it means that person is already working on it.
 * Fork the project.
-* Create a topic branch based on `stable`.
+* Create a topic branch based on `master` branch with git.
 * Commit there your code to solve the issue.
 * Make sure all test are passing (and add specs to test any new feature if needed).
 * Follow these [best practices](https://github.com/styleguide/ruby)

@@ -3,10 +3,6 @@ es:
   gobierto_admin:
     gobierto_budget_consultations:
       consultations:
-        tabs:
-          consultation_items_section: Partidas
-          consultation_section: Consulta
-          consultation_responses_section: Reporte
         consultation_items:
           edit:
             title: Editar partida
@@ -27,3 +23,7 @@ es:
             title: Nueva partida
           new_modal:
             title: Nueva partida
+        tabs:
+          consultation_items_section: Partidas
+          consultation_responses_section: Reporte
+          consultation_section: Consulta

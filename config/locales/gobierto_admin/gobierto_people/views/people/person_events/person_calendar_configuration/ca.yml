@@ -6,13 +6,15 @@ ca:
         person_events:
           person_calendar_configuration:
             edit:
+              calendar_configured: Actualment esta persona té aquestos calendaris
+                configurats
               labels:
                 ibm_notes_url: URL del calendari d'IBM Notes
               placeholders:
                 ibm_notes_url: URL del calendari d'IBM Notes
-              update: Actualitzar
-              share_link: "Comparteix aquest enllaç amb el alt càrrec per a permetre a Gobierto llegir els seus esdeveniments de Google Calendar:"
-              calendar_configured: Actualment esta persona té aquestos calendaris configurats
               remove_integration: Eliminar la configuració de Google Calendar
+              share_link: 'Comparteix aquest enllaç amb el alt càrrec per a permetre
+                a Gobierto llegir els seus esdeveniments de Google Calendar:'
+              update: Actualitzar
             navigation:
-                calendar_configuration: Configuració del calendari
+              calendar_configuration: Configuració del calendari

@@ -11,6 +11,23 @@ es:
       gobierto_people_person_statement_published: 'Publicada la declaración: %{subject_name}'
       gobierto_people_person_statement_updated: 'Actualizada la declaración: %{subject_name}'
       gobierto_people_person_updated: Actualización de la información personal
+    exports:
+      index:
+        events:
+          description: Listado de los eventos (pasados y futuros) con título y descripción,
+            asistentes, ubicación...
+          title: Agendas
+        people:
+          description: Listado de los cargos, con sus datos de contacto, biografía,
+            titulaciones, etc.
+          title: Cargos
+        posts:
+          description: Últimas entradas del conjunto de los blogs.
+          title: Blogs
+        statements:
+          description: Listado de las declaraciones de bienes y actividades y todos
+            sus elementos.
+          title: Declaraciones de bienes y actividades
     layouts:
       application:
         title: Altos cargos y Agendas
@@ -20,24 +37,7 @@ es:
         home: Inicio
         people: Cargos
         statements: Declaraciones
-    exports:
-      index:
-        events:
-          title: Agendas
-          description: Listado de los eventos (pasados y futuros) con título y descripción, asistentes, ubicación...
-        people:
-          title: Cargos
-          description: Listado de los cargos, con sus datos de contacto, biografía, titulaciones, etc.
-        posts:
-          title: Blogs
-          description: Últimas entradas del conjunto de los blogs.
-        statements:
-          title: Declaraciones de bienes y actividades
-          description: Listado de las declaraciones de bienes y actividades y todos sus elementos.
     people:
-      people_filter:
-        organigram: Organigrama de %{name}
-        political_groups: Grupos políticos de %{name}
       contact_methods:
         send_email: Envía un correo-e
       index:
@@ -53,6 +53,9 @@ es:
         blog: Blog
         exports: Descarga los datos en formato reutilizable
         statements: Bienes y Actividades
+      people_filter:
+        organigram: Organigrama de %{name}
+        political_groups: Grupos políticos de %{name}
       person:
         picture: Foto de %{name}
       person_bio:
@@ -129,23 +132,23 @@ es:
       political_groups:
         title: Grupos políticos
     person_events:
-      person_events_filter:
-        agenda: "Agenda de los miembros del %{name}"
       index:
         agenda_switcher:
           subtitle: Filtra por miembros de la comunidad
           title: Consulta la agenda de...
-        displaying_events_of: "Mostrando eventos del %{date}"
+        displaying_events_of: Mostrando eventos del %{date}
         go_back: Volver
+        no_events: No hay eventos futuros ni pasados.
+        no_past_events: No hay eventos pasados.
+        no_upcoming_events: No hay eventos futuros. Échale un vistazo a los pasados
         past_events: Eventos pasados
         subscribable_box:
           title: Recibe un resumen de las agendas de tus representantes
-        title: "Agendas de los miembros de %{site_name}"
+        title: Agendas de los miembros de %{site_name}
         upcoming_events: Agenda
-        no_upcoming_events: No hay eventos futuros. Échale un vistazo a los pasados
-        no_past_events: No hay eventos pasados.
-        no_events: No hay eventos futuros ni pasados.
         view_more: Ver más
+      person_events_filter:
+        agenda: Agenda de los miembros del %{name}
     person_post_tags:
       show:
         filtering_by_tag: Filtrando por "%{tag}"
@@ -173,16 +176,16 @@ es:
     welcome:
       index:
         events_summary:
+          no_events: No hay eventos
+          no_upcoming_events: No hay eventos futuros. Échale un vistazo a los pasados
           past_events: Eventos pasados
           upcoming_events: Próximos eventos
           view_all: Ver todos
-          no_events: No hay eventos
-          no_upcoming_events: "No hay eventos futuros. Échale un vistazo a los pasados"
         gifts: Obsequios y regalos
         people_summary:
+          no_people: No hay personas
           title: Organigrama de %{site_name}
           view_all: Ver todos
-          no_people: No hay personas
         posts_summary:
           title: Blogs
           view_all: Ver todos

@@ -81,13 +81,13 @@ es:
         opens_at: Podrás participar en esta consulta a partir del %{date}
         want_to_opinate: "¿Quieres opinar?"
     events:
+      gobierto_budget_consultations_consultation_closed: Consulta cerrada
       gobierto_budget_consultations_consultation_published: Nueva consulta publicada
       gobierto_budget_consultations_consultation_response_created: Respuesta de consulta
         creada
       gobierto_budget_consultations_consultation_response_deleted: Respuesta de consulta
         eliminada
       gobierto_budget_consultations_consultation_updated: Consulta actualizada
-      gobierto_budget_consultations_consultation_closed: Consulta cerrada
     layouts:
       application:
         participation: Participación

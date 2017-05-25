@@ -4,6 +4,7 @@ en:
     errors:
       messages:
         record_invalid: 'Validation failed: %{errors}'
+  country: Spain
   date:
     abbr_day_names:
     - Sun
@@ -155,10 +156,10 @@ en:
       update: Update
   locales:
     ca: Catalan
-    en: English
-    es: Spanish
     ca_short: CA
+    en: English
     en_short: EN
+    es: Spanish
     es_short: ES
   number:
     currency:
@@ -220,4 +221,3 @@ en:
       long: "%B %d, %Y %H:%M"
       short: "%d %b %H:%M"
     pm: pm
-  country: Spain

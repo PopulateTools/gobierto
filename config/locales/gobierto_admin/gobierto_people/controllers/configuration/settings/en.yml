@@ -5,5 +5,5 @@ en:
       configuration:
         settings:
           update:
-            success: Settings updated successfully
             error: An error occured while saving these settings
+            success: Settings updated successfully

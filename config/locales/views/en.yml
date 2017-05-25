@@ -36,8 +36,6 @@ en:
         sign_in: Sign in
         sign_out: Sign out
         title: Your account
-    mailcheck:
-        suggestion_message: Did you mean
     gobierto_budget_consultations:
       application:
         about_the_data: About the data
@@ -64,6 +62,8 @@ en:
           sign_in: Sign in
           sign_out: Sign out
           title: Your account
+    mailcheck:
+      suggestion_message: Did you mean
     main_menu:
       search: Search...
     sandbox:
@@ -80,12 +80,12 @@ en:
           sign_out: Sign out
           title: Your account
     search:
-      powered_by: 'Search powered by <a href="https://www.algolia.com" target="_blank">Algolia</a>'
       page_item: Page
       person_event_item: Event
       person_item: Biography
       person_post_item: Post
       person_statement_item: Statement
+      powered_by: Search powered by <a href="https://www.algolia.com" target="_blank">Algolia</a>
       updated: Updated
   sites:
     events:

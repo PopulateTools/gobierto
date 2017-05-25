@@ -11,6 +11,23 @@ ca:
       gobierto_people_person_statement_published: 'Publicada la declaració: %{subject_name}'
       gobierto_people_person_statement_updated: 'Actualitzada la declaració: %{subject_name}'
       gobierto_people_person_updated: Actualització de la informació personal
+    exports:
+      index:
+        events:
+          description: Llistat dels esdeveniments (passats i futurs) amb títol i descripció,
+            assistents, ubicació...
+          title: Agendes
+        people:
+          description: Llistat dels càrrecs, amb les seves dades de contacte, biografia,
+            titulacions, etc.
+          title: Càrrecs
+        posts:
+          description: Últimes entrades del conjunt dels blogs.
+          title: Blogs
+        statements:
+          description: Llistat de les declaracions de béns i activitats i tots els
+            seus elements.
+          title: Declaracions
     layouts:
       application:
         title: Alts càrrecs i agendes
@@ -20,24 +37,7 @@ ca:
         home: Inici
         people: Càrrecs
         statements: Declaracions
-    exports:
-      index:
-        events:
-          title: Agendes
-          description: Llistat dels esdeveniments (passats i futurs) amb títol i descripció, assistents, ubicació...
-        people:
-          title: Càrrecs
-          description: Llistat dels càrrecs, amb les seves dades de contacte, biografia, titulacions, etc.
-        posts:
-          title: Blogs
-          description: Últimes entrades del conjunt dels blogs.
-        statements:
-          title: Declaracions
-          description: Llistat de les declaracions de béns i activitats i tots els seus elements.
     people:
-      people_filter:
-        organigram: Organigrama de %{name}
-        political_groups: Grups polítics de %{name}
       contact_methods:
         send_email: Envia un correu-e
       index:
@@ -53,6 +53,9 @@ ca:
         blog: Blog
         exports: Descarrega les dades en format reutilitzable
         statements: Béns i activitats
+      people_filter:
+        organigram: Organigrama de %{name}
+        political_groups: Grups polítics de %{name}
       person:
         picture: Foto de %{name}
       person_bio:
@@ -128,23 +131,23 @@ ca:
       political_groups:
         title: Grup polític
     person_events:
-      person_events_filter:
-        agenda: Agenda dels membres del %{name}
       index:
         agenda_switcher:
           subtitle: Filtra per membres de la comunitat
           title: Consulta l'agenda de...
         displaying_events_of: Mostrant esdeveniments del %{date}
         go_back: Tornar
+        no_events: No hi ha events futurs ni passats.
+        no_past_events: No hi ha events passats.
+        no_upcoming_events: No hi ha events futurs. Mira els pròxims events
         past_events: Esdeveniments passats
         subscribable_box:
           title: Rep un resum de les agendes dels teus representants
         title: Agendes de %{site_name}
         upcoming_events: Agenda
-        no_upcoming_events: No hi ha events futurs. Mira els pròxims events
-        no_past_events: No hi ha events passats.
-        no_events: No hi ha events futurs ni passats.
         view_more: Veure més
+      person_events_filter:
+        agenda: Agenda dels membres del %{name}
     person_post_tags:
       show:
         filtering_by_tag: Filtrant per "%{tag}"
@@ -172,16 +175,16 @@ ca:
     welcome:
       index:
         events_summary:
+          no_events: No hi ha events
+          no_upcoming_events: No hi ha events futurs. Mira els pròxims events
           past_events: Esdeveniments passats
           upcoming_events: Agenda
           view_all: Veure tots
-          no_events: No hi ha events
-          no_upcoming_events: "No hi ha events futurs. Mira els pròxims events"
         gifts: Obsequis i regals
         people_summary:
+          no_people: No hi ha persones
           title: Organigrama de %{site_name}
           view_all: Veure tots
-          no_people: No hi ha persones
         posts_summary:
           title: Blogs
           view_all: Veure tots

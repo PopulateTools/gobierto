@@ -12,17 +12,21 @@ es:
       index:
         amount: Cantidad
         budget_line: Partida
+        categories: Categorías presupuestarias
         expense_in_what: En qué se gasta
         expense_to_do_what: Para qué se gasta
-        help: El presupuesto organiza los gastos en dos categorías. Consulta nuestra guía
+        help: El presupuesto organiza los gastos en dos categorías. Consulta nuestra
+          guía
         income_from_what: En qué se ingresa
         per_inhabitant: Por habitante
         title: Presupuestos municipales en %{year}
-        categories: Categorías presupuestarias
       show:
         about_this_line: Acerca de esta partida
         avg_province: Media %{kind} provincial
         back_to_parent: Volver a la partida padre
+        budget_line_category: Categoría
+        budget_line_percentage: Porcentaje
+        budget_line_value: Cantidad
         budget_lines_distribution: Distribución de los gastos de esta partida
         evolution: Evolución
         last_year: El año pasado
@@ -35,16 +39,16 @@ es:
         real_value: El %{kind} real son %{value}
         real_vs_planned: real vs. pres.
         sub_budget_lines: Dentro de esta partida
-        twitter_text_expense: 'En @gobierto: Gasto municipal de %{name} en %{budget_line_name} para el %{year}'
-        twitter_text_income: 'En @gobierto: Ingreso municipal de %{name} en %{budget_line_name} para el %{year}'
-        budget_line_category: Categoría
-        budget_line_percentage: Porcentaje
-        budget_line_value: Cantidad
+        twitter_text_expense: 'En @gobierto: Gasto municipal de %{name} en %{budget_line_name}
+          para el %{year}'
+        twitter_text_income: 'En @gobierto: Ingreso municipal de %{name} en %{budget_line_name}
+          para el %{year}'
     budgets:
       index:
-        visualize: Visualiza los gastos por habitante o el total
         at_a_glance: Evolución del gasto y comparación
         at_years_end: "* a cierre del %{year}"
+        category_percentage: Porcentaje
+        category_value: Cantidad
         context: Contexto
         data_of_year: "* datos del %{year}"
         debt: Deuda
@@ -55,6 +59,8 @@ es:
         income: Ingresos
         inhabitants: Habitantes
         less: menos
+        level_2_category: Categoría nivel 2
+        level_3_category: Categoría nivel 3
         main_budget_lines: Los principales gastos e ingresos de tu ayuntamiento
         main_budget_lines_description: Estos son los 5 principales ingresos y gastos
           de tu municipio.
@@ -75,16 +81,13 @@ es:
         search_for_a_budget_line: Busca una partida
         see_all: ver todos
         title: Presupuestos municipales en %{year}
-        total_expenses: Gasto total
-        twitter_text: 'En @gobierto: Presupuestos municipales de %{name} del %{year}'
-        top_income_category: Categoría
-        top_income_value: Cantidad
         top_expense_category: Categoría
         top_expense_value: Cantidad
-        level_2_category: Categoría nivel 2
-        level_3_category: Categoría nivel 3
-        category_value: Cantidad
-        category_percentage: Porcentaje
+        top_income_category: Categoría
+        top_income_value: Cantidad
+        total_expenses: Gasto total
+        twitter_text: 'En @gobierto: Presupuestos municipales de %{name} del %{year}'
+        visualize: Visualiza los gastos por habitante o el total
     budgets_execution:
       execution_table:
         deviation: Desviación

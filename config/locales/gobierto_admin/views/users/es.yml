@@ -22,14 +22,13 @@ es:
           user: Usuario
           verified: Verificado
         title: Usuarios
-        view_user: Ver Usuario
         users:
           one: "%{count} usuario"
           other: "%{count} usuarios"
-        users_verified:
-          one: "%{count}% verificado"
-          other: "%{count}% verificados"
         users_confirmed:
           one: "%{count}% confirmado"
           other: "%{count}% confirmados"
-
+        users_verified:
+          one: "%{count}% verificado"
+          other: "%{count}% verificados"
+        view_user: Ver Usuario

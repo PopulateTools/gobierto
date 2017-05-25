@@ -3,10 +3,6 @@ en:
   gobierto_admin:
     gobierto_budget_consultations:
       consultations:
-        tabs:
-          consultation_items_section: Budget lines
-          consultation_section: Consultation
-          consultation_responses_section: Report
         consultation_items:
           edit:
             title: Edit budget line
@@ -26,3 +22,7 @@ en:
             title: New budget line
           new_modal:
             title: New budget line
+        tabs:
+          consultation_items_section: Budget lines
+          consultation_responses_section: Report
+          consultation_section: Consultation

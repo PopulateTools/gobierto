@@ -3,10 +3,10 @@ en:
   gobierto_admin:
     admin:
       settings:
+        edit:
+          placeholders:
+            email: Email
+            name: Name
         update:
           error: There was an error updating your data
           success: Data updated successfully
-        edit:
-          placeholders:
-            name: Name
-            email: Email

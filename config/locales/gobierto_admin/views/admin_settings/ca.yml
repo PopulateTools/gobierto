@@ -4,5 +4,5 @@ ca:
     admin:
       settings:
         edit:
-          title: Edita les teves dades
           password_block: Contrasenya
+          title: Edita les teves dades

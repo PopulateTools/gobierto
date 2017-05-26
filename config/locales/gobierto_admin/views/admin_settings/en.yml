@@ -4,5 +4,5 @@ en:
     admin:
       settings:
         edit:
-          title: Edit your data
           password_block: Password
+          title: Edit your data

@@ -12,17 +12,20 @@ en:
       index:
         amount: Amount
         budget_line: Budget line
+        categories: Categories
         expense_in_what: In what is spent
         expense_to_do_what: To do what is spent
         help: The budget is organized in two categories. Checkout our guide
         income_from_what: Where does the income come from
         per_inhabitant: Per inhabitant
         title: Local municipality budgets in %{year}
-        categories: Categories
       show:
         about_this_line: About this budget line
         avg_province: Avg. %{kind} in the province
         back_to_parent: Back to parent budget line
+        budget_line_category: Category
+        budget_line_percentage: Percentage
+        budget_line_value: Amount
         budget_lines_distribution: Expense budget lines distribution
         evolution: Evolution
         last_year: Last year
@@ -35,16 +38,16 @@ en:
         real_value: Real %{kind} is %{value}
         real_vs_planned: real vs. plan.
         sub_budget_lines: In this budget line
-        twitter_text_expense: 'In @gobierto: Municipal expense on %{name} in %{budget_line_name} for year %{year}'
-        twitter_text_income: 'In @gobierto: Municipal income on %{name} in %{budget_line_name} for year %{year}'
-        budget_line_category: Category
-        budget_line_percentage: Percentage
-        budget_line_value: Amount
+        twitter_text_expense: 'In @gobierto: Municipal expense on %{name} in %{budget_line_name}
+          for year %{year}'
+        twitter_text_income: 'In @gobierto: Municipal income on %{name} in %{budget_line_name}
+          for year %{year}'
     budgets:
       index:
-        visualize: Visualize expenses per inhabitant or the total
         at_a_glance: At a glance
         at_years_end: "* at the end of %{year}"
+        category_percentage: Percentage
+        category_value: Amount
         context: Context
         data_of_year: "* as of %{year}"
         debt: Debt
@@ -55,6 +58,8 @@ en:
         income: Income
         inhabitants: Inhabitants
         less: less
+        level_2_category: Level 2 Category
+        level_3_category: Level 3 Category
         main_budget_lines: Main income and expenses from your council
         main_budget_lines_description: These are the 5 main income and expense budget
           lines in your municipality.
@@ -75,16 +80,13 @@ en:
         search_for_a_budget_line: Search a budget line
         see_all: view all
         title: Local municipality budgets in %{year}
-        total_expenses: Total expenses
-        twitter_text: 'From @gobierto: Municipality budgets from %{name} in %{year}'
-        top_income_category: Category
-        top_income_value: Amount
         top_expense_category: Category
         top_expense_value: Amount
-        level_2_category: Level 2 Category
-        level_3_category: Level 3 Category
-        category_value: Amount
-        category_percentage: Percentage
+        top_income_category: Category
+        top_income_value: Amount
+        total_expenses: Total expenses
+        twitter_text: 'From @gobierto: Municipality budgets from %{name} in %{year}'
+        visualize: Visualize expenses per inhabitant or the total
     budgets_execution:
       execution_table:
         deviation: Diff
@@ -111,7 +113,9 @@ en:
         planned: planned
         real: real
     common:
-      budget_line_description_html: 'This budget line is composed of %{kind_what} in %{description}. If you want to understand more about it, check its parent budget line: %{link}'
+      budget_line_description_html: 'This budget line is composed of %{kind_what}
+        in %{description}. If you want to understand more about it, check its parent
+        budget line: %{link}'
       expense: expense
       expenses: expenses
       income: income

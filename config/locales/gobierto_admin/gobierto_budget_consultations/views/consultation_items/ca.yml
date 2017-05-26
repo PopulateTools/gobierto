@@ -3,10 +3,6 @@ ca:
   gobierto_admin:
     gobierto_budget_consultations:
       consultations:
-        tabs:
-          consultation_items_section: Partides
-          consultation_section: Consulta
-          consultation_responses_section: Informe
         consultation_items:
           edit:
             title: Editar partida
@@ -26,3 +22,7 @@ ca:
             title: Nova partida
           new_modal:
             title: Nova partida
+        tabs:
+          consultation_items_section: Partides
+          consultation_responses_section: Informe
+          consultation_section: Consulta

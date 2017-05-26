@@ -11,6 +11,22 @@ en:
       gobierto_people_person_statement_published: 'New statement published: %{subject_name}'
       gobierto_people_person_statement_updated: 'Statement updated: %{subject_name}'
       gobierto_people_person_updated: Personal information updated
+    exports:
+      index:
+        events:
+          description: Listing of all events (past and future) with title, description,
+            participants, location, etc.
+          title: Agendas
+        people:
+          description: Listing of officiald with their contact information, biography,
+            CV, etc.
+          title: Officials
+        posts:
+          description: Latest posts in all blogs.
+          title: Blogs
+        statements:
+          description: Listing of all statements and it elements.
+          title: Statements
     layouts:
       application:
         title: Officials and Agendas
@@ -20,24 +36,7 @@ en:
         home: Home
         people: Officials
         statements: Statements
-    exports:
-      index:
-        events:
-          title: Agendas
-          description: Listing of all events (past and future) with title, description, participants, location, etc.
-        people:
-          title: Officials
-          description: Listing of officiald with their contact information, biography, CV, etc.
-        posts:
-          title: Blogs
-          description: Latest posts in all blogs.
-        statements:
-          title: Statements
-          description: Listing of all statements and it elements.
     people:
-      people_filter:
-        organigram: "%{name} organigram"
-        political_groups: "%{name} political groups"
       contact_methods:
         send_email: Send an email
       index:
@@ -53,6 +52,9 @@ en:
         blog: Blog
         exports: Download data in a reusable format
         statements: Goods and Activities
+      people_filter:
+        organigram: "%{name} organigram"
+        political_groups: "%{name} political groups"
       person:
         picture: Picture of %{name}
       person_bio:
@@ -128,23 +130,23 @@ en:
       political_groups:
         title: Political groups
     person_events:
-      person_events_filter:
-        agenda: "%{name} members agenda"
       index:
         agenda_switcher:
           subtitle: Filter by community members
           title: Check the agenda of...
-        displaying_events_of: "Displaying events of %{date}"
+        displaying_events_of: Displaying events of %{date}
         go_back: Go back
+        no_events: There are no future or past events.
+        no_past_events: There are no past events.
+        no_upcoming_events: There are no future events. Take a look at past ones
         past_events: Past events
         subscribable_box:
           title: Receive a summary of the agendas of your representatives
         title: "%{site_name}'s member agendas"
         upcoming_events: Agenda
-        no_upcoming_events: There are no future events. Take a look at past ones
-        no_past_events: There are no past events.
-        no_events: There are no future or past events.
         view_more: View more
+      person_events_filter:
+        agenda: "%{name} members agenda"
     person_post_tags:
       show:
         filtering_by_tag: Filtering by "%{tag}"
@@ -172,16 +174,16 @@ en:
     welcome:
       index:
         events_summary:
+          no_events: There are no events
+          no_upcoming_events: There are no future events. Take a look at past ones
           past_events: Past events
           upcoming_events: Agenda
           view_all: View all
-          no_events: There are no events
-          no_upcoming_events: "There are no future events. Take a look at past ones"
         gifts: Gifts
         people_summary:
+          no_people: There is no people
           title: "%{site_name}'s organization chart"
           view_all: View all
-          no_people: There is no people
         posts_summary:
           title: Blogs
           view_all: View all

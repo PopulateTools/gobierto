@@ -22,6 +22,7 @@ es:
               published: Publicado
           index:
             all_events: Todos
+            configuration: Configuración
             header:
               date: Fecha
               event: Evento
@@ -36,7 +37,6 @@ es:
             visibility_level:
               pending: Borrador
               published: Publicado
-            configuration: Configuración
           locations_form:
             header:
               address: Dirección

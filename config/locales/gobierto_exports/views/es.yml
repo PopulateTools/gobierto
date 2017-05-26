@@ -1,11 +1,12 @@
 ---
 es:
   gobierto_exports:
+    exports:
+      index:
+        no_submodules: No hay ningún submódulo activo
+        subtitle: Desde esta página puedes descargar en formato reutilizable el contenido
+          de este site.
+        title: Descarga datos
     layouts:
       application:
         exports: Descarga datos
-    exports:
-      index:
-        title: Descarga datos
-        subtitle: Desde esta página puedes descargar en formato reutilizable el contenido de este site.
-        no_submodules: No hay ningún submódulo activo

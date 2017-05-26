@@ -5,27 +5,27 @@ en:
       consultations:
         consultation_responses:
           index:
-            title: Report
-            stats: Stats
-            participations: Participations
-            responses: Responses
-            genre: Genre
-            male: Male
-            female: Female
-            proposals: Proposals
-            surplus: Surplus
-            deficit: Deficit
-            balance: Balance
             age_avg: Age average
-            years: years
-            places: Places
-            participation_by_age: Participation by age groups
             answers_table: Answers table
+            balance: Balance
+            deficit: Deficit
+            female: Female
+            genre: Genre
+            increase: Increase
+            keep: Keep
+            male: Male
+            no_responses: There weren't respones in this consultation
+            participation_by_age: Participation by age groups
+            participations: Participations
+            places: Places
+            proposals: Proposals
             questions: Questions
             reduce: Reduce
-            keep: Keep
-            increase: Increase
-            no_responses: There weren't respones in this consultation
+            responses: Responses
+            stats: Stats
+            surplus: Surplus
+            title: Report
+            years: years
           new:
             gender:
               female: Female

@@ -5,12 +5,13 @@ en:
       google_calendar:
         authorization:
           new:
-            success: Configuration stored successfully. One last step, pick which calendas you want to automatically publish in your agenda.
+            success: Configuration stored successfully. One last step, pick which
+              calendas you want to automatically publish in your agenda.
         calendars:
           edit:
-            title: Google Calendar integration
+            explain: Select which calendars you want to automatically publish in your
+              agenda
             save: Save
-            explain: Select which calendars you want to automatically publish in your agenda
+            title: Google Calendar integration
           update:
             success: Calendars saved successfully.
-

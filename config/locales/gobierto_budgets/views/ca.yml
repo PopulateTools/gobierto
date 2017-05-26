@@ -12,17 +12,21 @@ ca:
       index:
         amount: Quantitat
         budget_line: Partida
+        categories: Categories pressupostàries
         expense_in_what: En què es gasta
         expense_to_do_what: Per a què es gasta
-        help: El pressupuest organitza les despeses en dues categories. Consulta la nostra guia.
+        help: El pressupuest organitza les despeses en dues categories. Consulta la
+          nostra guia.
         income_from_what: En què s'ingressa
         per_inhabitant: Per habitant
         title: Pressupostos municipals en %{year}
-        categories: Categories pressupostàries
       show:
         about_this_line: Sobre aquesta partida
         avg_province: Mitjana %{kind} provincial
         back_to_parent: Tornar a la partida pare
+        budget_line_category: Categoria
+        budget_line_percentage: Percentatge
+        budget_line_value: Quantitat
         budget_lines_distribution: Distribució de les despeses d'aquesta partida
         evolution: Evolució
         last_year: L'any passat
@@ -35,16 +39,16 @@ ca:
         real_value: El %{kind} real són %{value}
         real_vs_planned: real vs. pres.
         sub_budget_lines: Dins d'aquesta partida
-        twitter_text_expense: 'En @gobierto: Despesa municipal de %{name} en %{budget_line_name} al %{year}'
-        twitter_text_income: 'En @gobierto: Ingrés municipal de %{name} en %{budget_line_name} al %{year}'
-        budget_line_category: Categoria
-        budget_line_percentage: Percentatge
-        budget_line_value: Quantitat
+        twitter_text_expense: 'En @gobierto: Despesa municipal de %{name} en %{budget_line_name}
+          al %{year}'
+        twitter_text_income: 'En @gobierto: Ingrés municipal de %{name} en %{budget_line_name}
+          al %{year}'
     budgets:
       index:
-        visualize: Visualitza les despeses per habitant o el total
         at_a_glance: Evolució de la despesa i comparació
         at_years_end: "* a final del %{year}"
+        category_percentage: Percentatge
+        category_value: Quantitat
         context: Contexte
         data_of_year: "* dades del %{year}"
         debt: Deute
@@ -55,6 +59,8 @@ ca:
         income: Ingressos
         inhabitants: Habitants
         less: menys
+        level_2_category: Categoria nivell 2
+        level_3_category: Categoria nivell 3
         main_budget_lines: Les principals despeses i ingressos del teu ajuntament
         main_budget_lines_description: Estos són els 5 principals ingressos i despeses
           del teu municipi.
@@ -67,25 +73,22 @@ ca:
         not_available_short: No disp.
         note_about_the_data: Nota sobre les dades
         note_about_the_data_title: La base de dades que utilitzem no inclou dades
-          pel 100% dels municipis, axí que les mitjanes estàn calculades només
-          amb les dades que existeixen (que són la gran majoria). Més informació a
-          les nostres preguntes frequents
+          pel 100% dels municipis, axí que les mitjanes estàn calculades només amb
+          les dades que existeixen (que són la gran majoria). Més informació a les
+          nostres preguntes frequents
         per_person: Per habitant
         planned_vs_executed: Despesa real vs. el plà
         planned_vs_executed_other_year_html: En %{year} va ser un %{link}
         search_for_a_budget_line: Busca una partida
         see_all: Veure tots
         title: Pressupostos municipals el %{year}
-        total_expenses: Despesa total
-        twitter_text: 'En @gobierto: Pressupostos municipals de %{name} del %{year}'
-        top_income_category: Categoria
-        top_income_value: Quantitat
         top_expense_category: Categoria
         top_expense_value: Quantitat
-        level_2_category: Categoria nivell 2
-        level_3_category: Categoria nivell 3
-        category_value: Quantitat
-        category_percentage: Percentatge
+        top_income_category: Categoria
+        top_income_value: Quantitat
+        total_expenses: Despesa total
+        twitter_text: 'En @gobierto: Pressupostos municipals de %{name} del %{year}'
+        visualize: Visualitza les despeses per habitant o el total
     budgets_execution:
       execution_table:
         deviation: Desviació

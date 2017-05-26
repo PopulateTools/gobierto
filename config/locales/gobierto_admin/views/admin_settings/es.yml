@@ -4,5 +4,5 @@ es:
     admin:
       settings:
         edit:
-          title: Edita tus datos personales
           password_block: Contraseña
+          title: Edita tus datos personales

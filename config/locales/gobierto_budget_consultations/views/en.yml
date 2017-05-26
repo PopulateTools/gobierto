@@ -77,13 +77,13 @@ en:
         opens_at: You'll be able to participate since the %{date}
         want_to_opinate: Do you want to opinate?
     events:
+      gobierto_budget_consultations_consultation_closed: Consultation closed
       gobierto_budget_consultations_consultation_published: New consultation created
       gobierto_budget_consultations_consultation_response_created: Consultation response
         created
       gobierto_budget_consultations_consultation_response_deleted: Consultation response
         deleted
       gobierto_budget_consultations_consultation_updated: Consultation updated
-      gobierto_budget_consultations_consultation_closed: Consultation closed
     layouts:
       application:
         participation: Participation

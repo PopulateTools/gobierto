@@ -50,7 +50,7 @@ module GobiertoAdmin
       end
 
       def site_id
-        @site_id ||= person.site_id
+        @site_id || person.try(:site_id)
       end
 
       def admin

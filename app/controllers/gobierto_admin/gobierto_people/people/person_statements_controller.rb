@@ -23,9 +23,8 @@ module GobiertoAdmin
         end
 
         def create
-          @person_statement_form = PersonStatementForm.new(
-            person_statement_params.merge(person_id: @person.id, admin_id: current_admin.id, site_id: current_site.id)
-          )
+          @person_statement_form = PersonStatementForm.new(person_id: @person.id, admin_id: current_admin.id, site_id: current_site.id)
+          @person_statement_form.assign_attributes(person_statement_params)
 
           if @person_statement_form.save
             redirect_to(
@@ -40,9 +39,8 @@ module GobiertoAdmin
 
         def update
           @person_statement = find_person_statement
-          @person_statement_form = PersonStatementForm.new(
-            person_statement_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id)
-          )
+          @person_statement_form = PersonStatementForm.new(id: params[:id], admin_id: current_admin.id, site_id: current_site.id)
+          @person_statement_form.assign_attributes(person_statement_params)
 
           if @person_statement_form.save
             redirect_to(

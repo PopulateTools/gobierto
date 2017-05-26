@@ -5,5 +5,5 @@ ca:
       configuration:
         settings:
           update:
-            success: Preferències actualitzades correctament
             error: Hi ha hagut un error guardant les preferències
+            success: Preferències actualitzades correctament

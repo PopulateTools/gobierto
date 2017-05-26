@@ -1,11 +1,11 @@
 ---
 en:
   gobierto_exports:
+    exports:
+      index:
+        no_submodules: There aren't any active submodules
+        subtitle: In this page you can download the site data in a reusable format.
+        title: Download data
     layouts:
       application:
         exports: Download data
-    exports:
-      index:
-        title: Download data
-        subtitle: In this page you can download the site data in a reusable format.
-        no_submodules: There aren't any active submodules

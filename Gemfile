@@ -96,4 +96,5 @@ end
 
 group :development do
   gem "puma"
+  gem "rubocop"
 end

@@ -4,6 +4,7 @@ module GobiertoAdmin
       include ::GobiertoCommon::DynamicContentHelper
 
       before_action { module_enabled!(current_site, "GobiertoPeople") }
+      before_action { module_allowed!(current_admin, "GobiertoPeople") }
 
       def index
         @people = current_site.people.sorted

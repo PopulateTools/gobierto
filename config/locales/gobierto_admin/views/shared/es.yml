@@ -3,5 +3,5 @@ es:
   gobierto_admin:
     shared:
       form_locale_switchers:
-        translate: Traducir
         define_content_in_locale: Define el contenido en su versión %{locale_name}
+        translate: Traducir

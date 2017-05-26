@@ -3,10 +3,10 @@ es:
   gobierto_admin:
     admin:
       settings:
+        edit:
+          placeholders:
+            email: Email
+            name: Nombre
         update:
           error: No se han podido guardar tus datos
           success: Datos guardados correctamente
-        edit:
-          placeholders:
-            name: Nombre
-            email: Email

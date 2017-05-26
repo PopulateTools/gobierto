@@ -22,6 +22,7 @@ en:
               published: Published
           index:
             all_events: All
+            configuration: Configuration
             header:
               date: Date
               event: Event
@@ -36,7 +37,6 @@ en:
             visibility_level:
               pending: Draft
               published: Published
-            configuration: Configuration
           locations_form:
             header:
               address: Address

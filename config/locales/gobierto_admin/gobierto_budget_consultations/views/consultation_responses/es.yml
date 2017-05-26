@@ -5,31 +5,29 @@ es:
       consultations:
         consultation_responses:
           index:
-            title: Reporte
-            stats: Estadísticas
-            participations: Participaciones
-            responses: Respuestas
-            genre: Género
-            male: Hombres
-            female: Mujeres
-            proposals: Propuestas
-            surplus: Superávit
-            deficit: Déficit
-            balance: Equilibrio
             age_avg: Media de edad
-            years: años
-            places: Lugares
-            participation_by_age: Participación por grupos de edad
             answers_table: Tabla de respuestas
+            balance: Equilibrio
+            deficit: Déficit
+            female: Mujeres
+            genre: Género
+            increase: Aumentar
+            keep: Mantener
+            male: Hombres
+            no_responses: No ha habido participaciones en esta consulta
+            participation_by_age: Participación por grupos de edad
+            participations: Participaciones
+            places: Lugares
+            proposals: Propuestas
             questions: Preguntas
             reduce: Reducir
-            keep: Mantener
-            increase: Aumentar
-            no_responses: No ha habido participaciones en esta consulta
+            responses: Respuestas
+            stats: Estadísticas
+            surplus: Superávit
+            title: Reporte
+            years: años
           new:
             gender:
               female: Mujer
               male: Hombre
             user_information: Información personal
-
-

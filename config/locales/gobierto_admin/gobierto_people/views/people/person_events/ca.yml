@@ -22,6 +22,7 @@ ca:
               published: Publicat
           index:
             all_events: Tots
+            configuration: Configuració
             header:
               date: Data
               event: Dsdeveniment
@@ -36,7 +37,6 @@ ca:
             visibility_level:
               pending: Borrador
               published: Publicat
-            configuration: Configuració
           locations_form:
             header:
               address: Adreça

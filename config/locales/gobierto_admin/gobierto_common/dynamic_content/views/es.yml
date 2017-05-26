@@ -7,7 +7,11 @@ es:
           add_child: Añadir nuevo registro
           add_content_block: Añadir nuevo bloque
           add_record: Añadir
+          attachment: Adjunto
           cancel_record: Cancelar
           delete_content_block: Eliminar bloque
           delete_content_block_confirm: "¿Estás seguro de querer eliminar este bloque?"
+          download_attachment: Descargar adjunto
           edit_content_block: Editar
+          remove_attachment: Eliminar adjunto
+          save_record: Guardar

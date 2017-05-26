@@ -1,6 +1,6 @@
 <% form_builder.object.content_blocks.each do |content_block| %>
 
-  <div class="dyna_block">
+  <div class="dyna_block" data-title="<%=content_block.title%>">
     <label>
       <%= content_block.title %>
       &nbsp;
@@ -25,20 +25,31 @@
         <% content_block.header.each do |content_block_header| %>
           <th><%= content_block_header %></th>
         <% end %>
+        <th><%= t(".attachment") %></th>
         <th class="edit_cell">
           <i class="fa fa-trash"></i>
         </th>
       </tr>
 
       <%= form_builder.fields_for :content_block_records, content_block.records do |content_block_record_form| %>
-        <tbody class="dynamic-content-record-wrapper content-block-record-<%= content_block_record_form.object.id || "new" %>">
+        <tbody id="content-block-record-<%= content_block_record_form.object.id %>" class="dynamic-content-record-wrapper content-block-record-<%= content_block_record_form.object.id || "new" %>">
           <tr class="dynamic-content-record-view <%= cycle("odd", "even") %>">
             <% content_block_record_form.object.fields.each do |record_field| %>
               <td class="content-block-record-value"><%= record_field.value %></td>
             <% end %>
 
+            <td>
+              <% if content_block_record_form.object.attachment_url.present? %>
+                <%= link_to content_block_record_form.object.attachment_url, title: t(".download_attachment"), data: { remove_component: true } do %>
+                  <i class="fa fa-paperclip"></i><%= content_block_record_form.object.attachment_url.split('/').last.last(40) %>
+                <% end %>
+              <% else %>
+                -
+              <% end %>
+            </td>
+
             <td class="edit_cell">
-              <%= content_block_record_form.hidden_field :id %>
+              <%= content_block_record_form.hidden_field :id, data: { clear_value: true } %>
               <%= content_block_record_form.hidden_field :content_block_id %>
               <%= content_block_record_form.check_box :_destroy, class: "hidden destroy-content-block-record" %>
 
@@ -61,8 +72,28 @@
                 </div>
               <% end %>
 
+              <div>
+                <% if content_block_record_form.object.attachment_url.present? %>
+                  <div data-remove-component="true">
+                    <%= t(".attachment") %>:
+                    <%= link_to content_block_record_form.object.attachment_url.split('/').last.last(40), content_block_record_form.object.attachment_url %>
+                  </div>
+                <% end %>
+
+                <%= content_block_record_form.label :attachment_file %>
+                <%= content_block_record_form.file_field :attachment_file %>
+
+                <div class="option">
+                  <%= content_block_record_form.check_box :remove_attachment, include_hidden: false, data: { clear_value: true } %>
+                  <%= content_block_record_form.label :remove_attachment do %>
+                    <span></span><%= t(".remove_attachment") %>
+                  <% end %>
+                </div>
+
+              </div>
+
               <%= link_to "#", class: "button", data: { behavior: "add_record" } do %>
-                <%= t(".add_record") %>
+                <%= t(".save_record") %>
               <% end %>
 
               <%= link_to "#", data: { behavior: "cancel_record" } do %>

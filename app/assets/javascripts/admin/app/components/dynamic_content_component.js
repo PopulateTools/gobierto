@@ -77,6 +77,8 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
 
       $(recordTemplate).after(clonedField);
 
+      clonedField.find('[data-remove-component="true"]').remove();
+      clonedField.find('[type=checkbox][data-clear-value="true"]').prop('checked', false);
       clonedField.find("input:visible:first").focus();
     });
   }
@@ -132,7 +134,6 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
 
       _setRecordViewState(eventWrapper);
       _switchToRecordView(eventWrapper);
-      _addChild($(this).closest(".dynamic-content-wrapper"));
     });
   }
 
@@ -141,7 +142,7 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   }
 
   function _cleanupRecordField(selector) {
-    if (selector.attr("type") === "hidden") {
+    if ( (selector.attr("type") === "hidden") && !(selector.attr("data-clear-value") === "true") ) {
       return true;
     }
 

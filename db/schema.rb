@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519070559) do
+ActiveRecord::Schema.define(version: 20170522103406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(version: 20170519070559) do
     t.jsonb    "payload"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.string   "attachment_url"
     t.index ["content_block_id"], name: "index_content_block_records_on_content_block_id", using: :btree
     t.index ["content_context_type", "content_context_id"], name: "index_content_block_records_on_content_context", using: :btree
     t.index ["payload"], name: "index_content_block_records_on_payload", using: :gin

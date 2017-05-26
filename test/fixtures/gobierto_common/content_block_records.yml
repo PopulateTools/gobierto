@@ -11,7 +11,20 @@ contact_method_twitter_alternative:
 accomplishment_nobel_prize:
   content_context: richard (GobiertoPeople::Person)
   content_block: accomplishments
+  attachment_url: http://host.com/nobel_prize.pdf
   payload: <%= { "title" => "Nobel Prize in Chemistry", "date" => "2016" }.to_json %>
+
+accomplishment_marathon:
+  content_context: richard (GobiertoPeople::Person)
+  content_block: accomplishments
+  attachment_url: http://host.com/marathon_certificate.pdf
+  payload: <%= { "title" => "Ran New York marathon", "date" => "2012" }.to_json %>
+
+accomplishment_guiness_record:
+  content_context: richard (GobiertoPeople::Person)
+  content_block: accomplishments
+  attachment_url: http://host.com/meatballs_photo.png
+  payload: <%= { "title" => "Ate 33 meatballs in 45 minutes", "date" => "2013" }.to_json %>
 
 income_statements_dividends:
   content_context: richard_current (GobiertoPeople::PersonStatement)

@@ -2,6 +2,7 @@ module GobiertoAdmin
   module GobiertoBudgetConsultations
     class ConsultationsController < BaseController
       before_action { module_enabled!(current_site, "GobiertoBudgetConsultations") }
+      before_action { module_allowed!(current_admin, "GobiertoBudgetConsultations") }
 
       def index
         @consultations = current_site.budget_consultations.sorted

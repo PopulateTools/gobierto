@@ -92,5 +92,10 @@ module GobiertoAdmin
       assert manager_admin.managing_user?
       refute admin.managing_user?
     end
+
+    def module_allowed?(module_namespace)
+      refute admin.module_allowed?("GobiertoCms")
+      assert admin.module_allowed?("GobiertoBudgetConsultations")
+    end
   end
 end

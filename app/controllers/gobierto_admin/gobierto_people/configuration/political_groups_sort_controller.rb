@@ -3,6 +3,7 @@ module GobiertoAdmin
     module Configuration
       class PoliticalGroupsSortController < BaseController
         before_action { module_enabled!(current_site, "GobiertoPeople") }
+        before_action { module_allowed!(current_admin, "GobiertoPeople") }
 
         def create
           ::GobiertoPeople::PoliticalGroup.update_positions(political_group_sort_params)

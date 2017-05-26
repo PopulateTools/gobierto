@@ -3,3 +3,15 @@ tony_create:
   namespace: global
   resource_name: global
   action_name: create
+
+tony_gobierto_budget_consultations:
+  admin: tony
+  resource_name: gobierto_budget_consultations
+  namespace: site_module
+  action_name: manage
+
+tony_gobierto_people:
+  admin: tony
+  resource_name: gobierto_people
+  namespace: site_module
+  action_name: manage

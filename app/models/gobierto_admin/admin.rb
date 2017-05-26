@@ -59,6 +59,10 @@ module GobiertoAdmin
       god? || manager?
     end
 
+    def module_allowed?(module_namespace)
+      managing_user? || send(module_namespace.underscore + '_permissions').any?
+    end
+
     private
 
     def set_god_flag

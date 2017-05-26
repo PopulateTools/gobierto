@@ -3,6 +3,7 @@ module GobiertoAdmin
     module Configuration
       class SettingsController < BaseController
         before_action { module_enabled!(current_site, "GobiertoPeople") }
+        before_action { module_allowed!(current_admin, "GobiertoPeople") }
 
         def edit
           @settings_form = SettingsForm.new(site_id: current_site.id)

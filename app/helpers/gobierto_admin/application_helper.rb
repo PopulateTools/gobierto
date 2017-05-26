@@ -11,5 +11,10 @@ module GobiertoAdmin
 
       "#{admin.name} (#{admin.authorization_level})"
     end
+
+    def show_module_link?(module_namespace)
+      SITE_MODULES.include?(module_namespace) && current_site.configuration.send(module_namespace.underscore + "_enabled?") &&
+        current_admin.module_allowed?(module_namespace)
+    end
   end
 end

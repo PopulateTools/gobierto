@@ -1,7 +1,7 @@
 module GobiertoAdmin
   class WelcomeController < BaseController
     def index
-      @activities = if current_admin.manager? || current_admin.god?
+      @activities = if current_admin.managing_user?
                       ActivityCollectionDecorator.new(Activity.where(site_id: current_site).or(Activity.where(site_id: nil)).sorted.includes(:subject, :author, :recipient).page(params[:page]))
                     else
                       ActivityCollectionDecorator.new(Activity.in_site(current_site).sorted.includes(:subject, :author, :recipient).page(params[:page]))

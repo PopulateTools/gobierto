@@ -73,6 +73,7 @@ module GobiertoAdmin
               :id,
               :content_block_id,
               :_destroy,
+              :remove_attachment,
               :attachment_file,
               fields_attributes: [:name, :value]
             ]

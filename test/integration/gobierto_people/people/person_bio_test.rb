@@ -41,9 +41,15 @@ module GobiertoPeople
           visit @path
 
           refute has_selector?("h3", text: "Contact methods")
-          assert has_selector?("h3", text: "Accomplishments")
-          assert has_content?("Nobel Prize in Chemistry")
           refute has_selector?("h3", text: "Associations")
+
+          assert has_selector?("h3", text: "Accomplishments")
+
+          assert has_content?("Nobel Prize in Chemistry")
+          assert has_link?("nobel_prize.pdf")
+
+          assert has_content?("Ran New York marathon")
+          assert has_link?("marathon_certificate.pdf")
         end
       end
     end

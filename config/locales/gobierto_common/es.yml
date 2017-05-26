@@ -1,0 +1,7 @@
+---
+es:
+  gobierto_common:
+    dynamic_content:
+      table_component:
+        attachment: Adjunto
+        download_attachment: Descargar adjunto

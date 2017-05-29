@@ -1,13 +1,13 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 5.0", "< 5.1"
+gem "rails", "~> 5.1.1"
 gem "pg", "~> 0.19"
 gem "redcarpet", require: true
 gem "bcrypt", '~> 3.1.0'
 gem 'jbuilder', '~> 2.5'
 gem "rollbar"
 gem "meta-tags"
-gem "ine-places"
+gem "ine-places", '0.2.0'
 gem "ruby_px"
 gem "responders"
 gem "dalli"

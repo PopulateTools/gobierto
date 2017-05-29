@@ -70,23 +70,33 @@ var VisBubbles = Class.extend({
     return this.nodes;
   },
   update: function(year) {
+    var t = d3.transition()
+      .duration(750);
+
     this.nodes = this.createNodes(this.data, year);
 
-    console.log(this.nodes);
+    console.log(this.nodes, year);
 
-    this.svg.selectAll('.bubble-g')
-      .data(this.nodes, function (d) { return d.id; })
+    this.bubbles = this.bubbles.data(this.nodes, function(d) { return d.id;});
 
-    this.svg.selectAll('.bubble-g')
-      .exit().remove()
+    this.bubbles
+      .exit()
+      .attr("fill", "#b26745")
+      .transition(t)
+      .attr("r", 1e-6)
+      .remove();
 
-    var updatedBubbles = this.svg.selectAll('.bubble')
+    this.bubbles = this.bubbles
+      .enter()
+      .append("circle")
       .attr('class', function(d) { return d.year + ' bubble'})
       .attr('r', function (d) { return d.radius; })
+      .attr('fill', this.budgetColor(this.budget_category))
+      .attr('stroke', d3.rgb(this.budgetColor(this.budget_category)).darker())
+      .attr('stroke-width', 2)
       .on('mousemove', this._mousemoved.bind(this))
-      .on('mouseleave', this._mouseleft.bind(this));
-
-    this.bubbles = this.bubbles.merge(updatedBubbles);
+      .on('mouseleave', this._mouseleft.bind(this))
+      .merge(this.bubbles);
 
     this.simulation.nodes(this.nodes);
     this.simulation.alpha(1).restart();

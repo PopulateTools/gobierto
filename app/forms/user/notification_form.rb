@@ -13,7 +13,7 @@ class User::NotificationForm
   def save
     return unless valid?
 
-    run_callbacks if save_user_notification
+    run_custom_callbacks if save_user_notification
   end
 
   def user_notification
@@ -27,7 +27,7 @@ class User::NotificationForm
     user_notification.user
   end
 
-  def run_callbacks
+  def run_custom_callbacks
     return true unless deliver_notification_email?
 
     deliver_notification_email

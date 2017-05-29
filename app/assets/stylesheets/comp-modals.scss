@@ -17,7 +17,7 @@
       padding: 0 1em;
     }
   }
-  
+
 .disclaimer {
     font-size: .8em;
     text-align: center;
@@ -31,4 +31,17 @@
 .mfp-close-btn-in .mfp-close:hover {
 	color: #FFF;
 	border-radius: 0;
+}
+.modal-attachments {
+  background: white;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-shadow: 0 1px 3px rgba(0,0,0,.5);
+  transition: 0.3s;
+  /* padding: 1rem; */
+  border-radius: 4px;
+
+  .bg-highlight {
+    background: #fde09a;
+  }
 }

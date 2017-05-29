@@ -492,3 +492,21 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
     }
   }
 }
+
+/* Gobierto Attachments */
+#gobierto-attachment {
+  .show-files {
+    display: block;
+    color: $color_text;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+  }
+
+  table {
+    td {
+      border-top:  1px solid rgba(0, 144, 158, 0.15);
+      background: none;
+      font-weight: 600;
+    }
+  }
+}

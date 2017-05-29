@@ -1,0 +1,47 @@
+<script type="text/x-template" id="modal-template">
+  <transition name="modal">
+    <div class="modal-mask">
+      <div class="modal-wrapper" @click="$emit('close')">
+        <div class="modal-attachments">
+          <div class="pure-g">
+            <div class="pure-u-2-3">
+              <div class="p_2">
+                <h1>Últimos documentos añadidos</h1>
+              </div>
+            </div>
+            <div class="pure-u-1-3">
+              <div class="p_2 bg-highlight">
+                <h1>Añade nuevo documento</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</script>
+
+<script type="text/x-template" id="file-list-template">
+  <table class="explore_slow">
+    <tbody>
+      <tr>
+        <td><a href="#">Acta de la reunión v2</a></td>
+      </tr>
+      <tr>
+        <td><a href="#">Fotos de la presentación</a></td>
+      </tr>
+    </tbody>
+  </table>
+</script>
+
+
+<div id="gobierto-attachment" class="m_v_1">
+  <a @click="showFiles = !showFiles" href="#" class="show-files"><i :class="[showFiles ? 'fa-caret-down' : 'fa-caret-right']" class="fa p_h_r_0_25 soft" aria-hidden="true"></i><strong>Adjuntos</strong></a>
+
+  <file-list v-if="showFiles"></file-list>
+
+  <button id="show-modal" @click="showModal = true" class="m_t_1">Incluir archivo</button>
+  <p class="soft m_t_0_5">Arrastra y suelta un archivo para incluirlo</p>
+
+  <modal v-if="showModal" @close="showModal = false"></modal>
+</div>

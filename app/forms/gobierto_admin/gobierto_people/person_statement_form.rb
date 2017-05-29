@@ -20,9 +20,7 @@ module GobiertoAdmin
 
       delegate :persisted?, to: :person_statement
 
-      validates :title_translations, presence: true
-      validates :published_on, presence: true
-      validates :person, presence: true
+      validates :title_translations, :published_on, :person, :site, presence: true
 
       trackable_on :person_statement
 
@@ -47,10 +45,6 @@ module GobiertoAdmin
 
       def admin_id
         @admin_id ||= person.admin_id
-      end
-
-      def site_id
-        @site_id || person.try(:site_id)
       end
 
       def admin
@@ -102,7 +96,7 @@ module GobiertoAdmin
       private
 
       def build_person_statement
-        person_statement_class.new
+        person_statement_class.new(site_id: site_id)
       end
 
       def person_statement_class

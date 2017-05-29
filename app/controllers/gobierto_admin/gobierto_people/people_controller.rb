@@ -25,13 +25,12 @@ module GobiertoAdmin
         @political_groups = get_political_groups
 
         @person_form = PersonForm.new(
-          @person.attributes.except(*ignored_person_attributes)
+          @person.attributes.except(*ignored_person_attributes).merge(site_id: current_site.id)
         )
       end
 
       def create
-        @person_form = PersonForm.new(admin_id: current_admin.id, site_id: current_site.id)
-        @person_form.assign_attributes(person_params)
+        @person_form = PersonForm.new(person_params.merge(admin_id: current_admin.id, site_id: current_site.id))
 
         if @person_form.save
           redirect_to(
@@ -50,8 +49,7 @@ module GobiertoAdmin
       def update
         @person = find_person
 
-        @person_form = PersonForm.new(id: params[:id], admin_id: current_admin.id, site_id: current_site.id)
-        @person_form.assign_attributes(person_params)
+        @person_form = PersonForm.new(person_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id))
 
         if @person_form.save
           redirect_to(
@@ -106,7 +104,7 @@ module GobiertoAdmin
       end
 
       def ignored_person_attributes
-        %w( created_at updated_at events_count statements_count posts_count position charge bio slug google_calendar_token )
+        %w( created_at updated_at events_count statements_count posts_count position charge bio slug google_calendar_token site_id )
       end
     end
   end

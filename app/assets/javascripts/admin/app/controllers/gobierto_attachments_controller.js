@@ -11,7 +11,12 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
     })
 
     Vue.component('file-list', {
-      template: '#file-list-template'
+      template: '#file-list-template',
+      methods: {
+        popover: function() {
+          $('.file-popover').toggle()
+        }
+      }
     })
 
     // start app
@@ -19,7 +24,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
       el: '#gobierto-attachment',
       data: {
         showModal: false,
-        showFiles: false
+        showFiles: false,
       }
     })
   }

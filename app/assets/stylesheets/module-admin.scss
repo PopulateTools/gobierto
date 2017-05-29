@@ -501,12 +501,20 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
     text-decoration: none;
     margin-bottom: 0.5rem;
   }
+  .file-list {
+    position: relative;
 
-  table {
-    td {
-      border-top:  1px solid rgba(0, 144, 158, 0.15);
-      background: none;
-      font-weight: 600;
+    table {
+      td {
+        border-top:  1px solid rgba(0, 144, 158, 0.15);
+        background: none;
+        font-weight: 600;
+      }
+    }
+    .file-popover {
+      display: none;
+      position: absolute;
+      border: 1px solid rgba($color_text, .4);
     }
   }
 }

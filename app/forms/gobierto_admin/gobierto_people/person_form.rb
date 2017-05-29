@@ -48,10 +48,6 @@ module GobiertoAdmin
         @admin ||= Admin.find_by(id: admin_id)
       end
 
-      def site_id
-        @site_id || person.try(:site_id)
-      end
-
       def site
         @site ||= Site.find_by(id: site_id)
       end
@@ -109,7 +105,7 @@ module GobiertoAdmin
       private
 
       def build_person
-        person_class.new
+        person_class.new(site_id: site_id)
       end
 
       def person_class

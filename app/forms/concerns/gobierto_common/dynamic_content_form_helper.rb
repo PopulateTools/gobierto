@@ -4,6 +4,15 @@ module GobiertoCommon
 
     class BadInitialization < StandardError; end
 
+    def initialize(options = {})
+      content_block_records_attributes_param = options[:content_block_records_attributes]
+      if content_block_records_attributes_param
+        options.delete(:content_block_records_attributes)
+        options[:content_block_records_attributes] = content_block_records_attributes_param
+      end
+      super(options)
+    end
+
     def content_block_records
       @content_block_records ||= content_context.content_block_records.sorted
     end

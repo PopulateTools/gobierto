@@ -21,7 +21,7 @@
                 <td>
                   <% if content_block_record.attachment_url.present? %>
                     <%= link_to content_block_record.attachment_url, title: t(".download_attachment") do %>
-                      <i class="fa fa-paperclip"></i><%= content_block_record.attachment_url.split('/').last.last(40) %>
+                      <i class="fa fa-paperclip"></i><%= pretty_filename_url(content_block_record.attachment_url) %>
                     <% end %>
                   <% else %>
                     -

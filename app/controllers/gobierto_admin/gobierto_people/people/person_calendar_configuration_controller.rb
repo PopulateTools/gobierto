@@ -3,6 +3,7 @@ module GobiertoAdmin
     module People
       class PersonCalendarConfigurationController < BaseController
         before_action { module_enabled!(current_site, 'GobiertoPeople') }
+        before_action { module_allowed!(current_admin, "GobiertoPeople") }
 
         def edit
           @calendar_configuration_form = PersonCalendarConfigurationForm.new(person_id: @person.id)

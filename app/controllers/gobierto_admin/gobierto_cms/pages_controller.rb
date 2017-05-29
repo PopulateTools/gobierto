@@ -2,6 +2,7 @@ module GobiertoAdmin
   module GobiertoCms
     class PagesController < BaseController
       before_action { module_enabled!(current_site, "GobiertoCms") }
+      before_action { module_allowed!(current_admin, "GobiertoCms") }
 
       def index
         @pages = current_site.pages.sorted

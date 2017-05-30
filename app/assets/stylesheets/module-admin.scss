@@ -503,6 +503,7 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
   }
   .file-list {
     position: relative;
+    margin-bottom: 1em;
 
     table {
       td {
@@ -549,7 +550,7 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
       }
     }
   }
-  button {
+  .button {
     background: #c4dfe2;
     color: $color_1;
     text-transform: none;

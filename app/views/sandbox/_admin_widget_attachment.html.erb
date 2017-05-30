@@ -1,17 +1,133 @@
 <script type="text/x-template" id="modal-template">
   <transition name="modal">
     <div class="modal-mask">
-      <div class="modal-wrapper" @click="$emit('close')">
+      <div class="modal-wrapper">
         <div class="modal-attachments">
           <div class="pure-g">
             <div class="pure-u-2-3">
               <div class="p_2">
                 <h1>Últimos documentos añadidos</h1>
+
+                <input type="text" placeholder="Busca..." data-autocomplete="/all_categories/madrid/2016.json" autocomplete="off">
+
+                <table class="m_v_1">
+                  <tbody>
+                    <tr>
+                      <td><a href="#">Acta de la reunión v2</a></td>
+                      <td>PDF</td>
+                      <td>234kb</td>
+                      <td>12 nov 2017</td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Acta de la reunión v2</a></td>
+                      <td>PDF</td>
+                      <td>234kb</td>
+                      <td>12 nov 2017</td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Acta de la reunión v2</a></td>
+                      <td>PDF</td>
+                      <td>234kb</td>
+                      <td>12 nov 2017</td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Acta de la reunión v2</a></td>
+                      <td>PDF</td>
+                      <td>234kb</td>
+                      <td>12 nov 2017</td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Acta de la reunión v2</a></td>
+                      <td>PDF</td>
+                      <td>234kb</td>
+                      <td>12 nov 2017</td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Acta de la reunión v2</a></td>
+                      <td>PDF</td>
+                      <td>234kb</td>
+                      <td>12 nov 2017</td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Acta de la reunión v2</a></td>
+                      <td>PDF</td>
+                      <td>234kb</td>
+                      <td>12 nov 2017</td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Acta de la reunión v2</a></td>
+                      <td>PDF</td>
+                      <td>234kb</td>
+                      <td>12 nov 2017</td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Acta de la reunión v2</a></td>
+                      <td>PDF</td>
+                      <td>234kb</td>
+                      <td>12 nov 2017</td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Acta de la reunión v2</a></td>
+                      <td>PDF</td>
+                      <td>234kb</td>
+                      <td>12 nov 2017</td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Acta de la reunión v2</a></td>
+                      <td>PDF</td>
+                      <td>234kb</td>
+                      <td>12 nov 2017</td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Acta de la reunión v2</a></td>
+                      <td>PDF</td>
+                      <td>234kb</td>
+                      <td>12 nov 2017</td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Acta de la reunión v2</a></td>
+                      <td>PDF</td>
+                      <td>234kb</td>
+                      <td>12 nov 2017</td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Acta de la reunión v2</a></td>
+                      <td>PDF</td>
+                      <td>234kb</td>
+                      <td>12 nov 2017</td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Acta de la reunión v2</a></td>
+                      <td>PDF</td>
+                      <td>234kb</td>
+                      <td>12 nov 2017</td>
+                    </tr>
+                    <tr>
+                      <td><a href="#">Acta de la reunión v2</a></td>
+                      <td>PDF</td>
+                      <td>234kb</td>
+                      <td>12 nov 2017</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div>
+                  <button class="button" @click="$emit('close')">Cerrar</button>
+                </div>
               </div>
             </div>
-            <div class="pure-u-1-3">
-              <div class="p_2 bg-highlight">
+            <div class="pure-u-1-3 bg-highlight">
+              <div class="p_2 drag-section">
                 <h1>Añade nuevo documento</h1>
+
+                <div class="drag-drop">
+                  <div class="drag-call">
+                    <p>Arrastra y suelta tu documento aquí</p>
+                    <p>o</p>
+                    <p>Selecciona un archivo de tu disco duro</p>
+                  </div>
+                  <button>Incluir archivo</button>
+                </div>
               </div>
             </div>
           </div>
@@ -36,12 +152,12 @@
     <div class="file-popover">
       <a href="#">Acta de la reunión v2</a>
 
-      <div class="pure-button-group m_t_1" role="group">
+      <div class="pure-button-group m_v_1" role="group">
         <button class="pure-button"><i class="fa fa-edit"></i></button>
         <button class="pure-button"><i class="fa fa-trash"></i></button>
       </div>
 
-      <button class="m_v_1">Incluir archivo en el texto</button>
+      <button class="button">Incluir archivo en el texto</button>
     </div>
   </div>
 </script>
@@ -52,7 +168,7 @@
 
   <file-list v-if="showFiles"></file-list>
 
-  <button id="show-modal" @click="showModal = true" class="m_t_1">Incluir archivo</button>
+  <button id="show-modal" @click="showModal = true" class="button m_t_1">Incluir archivo</button>
   <p class="soft m_t_0_5">Arrastra y suelta un archivo para incluirlo</p>
 
   <modal v-if="showModal" @close="showModal = false"></modal>

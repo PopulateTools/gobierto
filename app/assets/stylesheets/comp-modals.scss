@@ -35,11 +35,15 @@
 .modal-attachments {
   background: white;
   max-width: 1200px;
+  max-height: 530px;
   margin: 0 auto;
   box-shadow: 0 1px 3px rgba(0,0,0,.5);
-  transition: 0.3s;
   /* padding: 1rem; */
   border-radius: 4px;
+
+  @media (min-width: 1440px) {
+    max-height: 960px;
+  }
 
   h1 {
     color: #946b04;
@@ -53,6 +57,15 @@
   }
 
   table {
+    tbody {
+      display: block;
+      overflow-y: scroll;
+      max-height: 290px;
+
+      @media (min-width: 1440px) {
+        max-height: 450px;
+      }
+    }
     tr td:first-child {
       width: 75%;
     }
@@ -61,6 +74,10 @@
     tr td:nth-child(4) {
       color: $text_soft;
     }
+    tr td:nth-child(2),
+    tr td:nth-child(3) {
+      width: 5%;
+    }
     tr td:nth-child(3) {
       text-transform: uppercase;
     }
@@ -68,10 +85,27 @@
 
   .bg-highlight {
     background: #fef0cd;
+    max-height: 530px;
+    transition: 0.3s;
+
+    i {
+      cursor: pointer;
+    }
+    &.pure-u-1 {
+      border-radius: 4px;
+    }
+    @media (min-width: 1440px) {
+      max-height: none;
+    }
+  }
+
+  .bg-highlight.pure-u-1 .drag-section {
+    max-width: 750px;
+    margin: 0 auto;
   }
 
   .drag-section {
-    height: calc(100% - 130px);
+    height: calc(100% - 115px);
 
     .drag-drop {
       text-align: center;
@@ -81,6 +115,11 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      transition: 0.3s;
+
+      &:hover {
+        background: darken(#fef0cd, 5%)
+      }
 
       .drag-call {
         margin: 0 auto;
@@ -98,6 +137,30 @@
         color: white;
         text-transform: uppercase;
         padding: 0.75em 2em;
+      }
+    }
+  }
+
+  .dragged {
+    input[type=text] {
+      height: auto;
+    }
+
+    .strong {
+      color: $color_headers;
+    }
+
+    .form_item.textarea {
+      margin-bottom: 1em;
+
+      textarea {
+        min-height: 180px;
+        height: 180px;
+
+        @media (min-width: 1440px) {
+          min-height: 300px;
+          height: 300px;
+        }
       }
     }
   }

@@ -7,7 +7,8 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
 
   function app() {
     Vue.component('modal', {
-      template: '#modal-template'
+      template: '#modal-template',
+      props: ['fileDragged']
     })
 
     Vue.component('file-list', {
@@ -25,6 +26,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
       data: {
         showModal: false,
         showFiles: false,
+        fileDragged: false
       }
     })
   }

@@ -68,8 +68,7 @@ module GobiertoPeople
           starts_at: utc_time("2017-04-11 10:00:00"),
           ends_at:   utc_time("2017-04-11 11:00:00"),
           state: GobiertoPeople::PersonEvent.states['published'],
-          person: richard,
-          site: site
+          person: richard
         )
       end
 
@@ -81,8 +80,7 @@ module GobiertoPeople
           starts_at: utc_time("2017-04-11 10:00:00"),
           ends_at:   utc_time("2017-04-11 11:00:00"),
           state: GobiertoPeople::PersonEvent.states['published'],
-          person: richard,
-          site: site
+          person: richard
         )
       end
 

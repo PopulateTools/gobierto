@@ -33,9 +33,10 @@
 	border-radius: 0;
 }
 .modal-attachments {
+  position: relative;
   background: white;
-  max-width: 1200px;
   max-height: 530px;
+  max-width: 90vw;
   margin: 0 auto;
   box-shadow: 0 1px 3px rgba(0,0,0,.5);
   /* padding: 1rem; */
@@ -43,6 +44,7 @@
 
   @media (min-width: 1440px) {
     max-height: 960px;
+    max-width: 1200px;
   }
 
   h1 {
@@ -60,7 +62,7 @@
     tbody {
       display: block;
       overflow-y: scroll;
-      max-height: 290px;
+      max-height: 350px;
 
       @media (min-width: 1440px) {
         max-height: 450px;
@@ -85,21 +87,28 @@
 
   .bg-highlight {
     background: #fef0cd;
-    max-height: 530px;
+    // max-height: 530px;
     transition: 0.3s;
+    height: 100%;
+    left: 66.6667%;
+    position: absolute;
+    border-radius: 4px;
+    z-index: 1;
 
     i {
       cursor: pointer;
     }
-    &.pure-u-1 {
-      border-radius: 4px;
-    }
     @media (min-width: 1440px) {
       max-height: none;
     }
+
+    &.dragged {
+      left: 0;
+      width: 100%;
+    }
   }
 
-  .bg-highlight.pure-u-1 .drag-section {
+  .dragged .drag-section {
     max-width: 750px;
     margin: 0 auto;
   }
@@ -109,13 +118,17 @@
 
     .drag-drop {
       text-align: center;
-      height: 100%;
+      height: 93%;
       border: 3px dotted #b4a47d;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       transition: 0.3s;
+
+      @media (min-width: 1440px) {
+        height: 100%;
+      }
 
       &:hover {
         background: darken(#fef0cd, 5%)
@@ -158,8 +171,8 @@
         height: 180px;
 
         @media (min-width: 1440px) {
-          min-height: 300px;
-          height: 300px;
+          min-height: 280px;
+          height: 280px;
         }
       }
     }

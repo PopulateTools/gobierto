@@ -194,7 +194,7 @@ module GobiertoPeople
           richard_synchronized_events = richard.events.synchronized
 
           assert_equal 3, richard_synchronized_events.count
-          assert richard_synchronized_events.all? { |event| event.active? }
+          assert richard_synchronized_events.all?(&:active?)
         end
 
         Timecop.freeze(Time.zone.parse('2017-05-05 01:00:00')) do

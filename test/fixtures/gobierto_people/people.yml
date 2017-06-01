@@ -57,3 +57,23 @@ tamara:
   position: 3
   email: tamara@example.com
   google_calendar_token: gct3
+
+juana:
+  site: madrid
+  admin: tony
+  name: Juana de Arco
+  slug: juana-de-arco
+  charge_translations: <%= { 'en' => 'Heroine of France', 'es' => 'Heroína de Francia' }.to_json %>
+  bio_translations: <%= {
+    'en' => 'Heroine of France',
+    'es' => 'Heroína de Francia'
+  }.to_json %>
+  bio_url: https://en.wikipedia.org/wiki/Joan_of_Arc
+  avatar_url: https://upload.wikimedia.org/wikipedia/commons/c/c3/Joan_of_Arc_miniature_graded.jpg
+  visibility_level: <%= GobiertoPeople::Person.visibility_levels["draft"] %>
+  category: <%= GobiertoPeople::Person.categories["executive"] %>
+  party:
+  political_group:
+  position: 3
+  email: juana@example.com
+  google_calendar_token:

@@ -37,6 +37,10 @@ module GobiertoBudgetConsultations
       opens_on > Date.current
     end
 
+    def not_draft?
+      self.class.visibility_levels[visibility_level] == self.class.visibility_levels[:active]
+    end
+
     def calculate_budget_amount
       update_columns(budget_amount: consultation_items.sum(:budget_line_amount))
     end

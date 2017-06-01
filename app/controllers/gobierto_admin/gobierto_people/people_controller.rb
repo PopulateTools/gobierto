@@ -6,6 +6,8 @@ module GobiertoAdmin
       before_action { module_enabled!(current_site, "GobiertoPeople") }
       before_action { module_allowed!(current_admin, "GobiertoPeople") }
 
+      helper_method :gobierto_people_person_preview_url
+
       def index
         @people = current_site.people.sorted
       end
@@ -38,7 +40,7 @@ module GobiertoAdmin
         if @person_form.save
           redirect_to(
             edit_admin_people_person_path(@person_form.person),
-            notice: t(".success_html", link: gobierto_people_person_url(@person_form.person.slug, host: current_site.domain))
+            notice: t(".success_html", link: gobierto_people_person_preview_url(@person_form.person, host: current_site.domain))
           )
         else
           @person_visibility_levels = get_person_visibility_levels
@@ -58,7 +60,7 @@ module GobiertoAdmin
         if @person_form.save
           redirect_to(
             edit_admin_people_person_path(@person),
-            notice: t(".success_html", link: gobierto_people_person_url(@person_form.person.slug, host: current_site.domain))
+            notice: t(".success_html", link: gobierto_people_person_preview_url(@person_form.person, host: current_site.domain))
           )
         else
           @person_visibility_levels = get_person_visibility_levels
@@ -107,6 +109,11 @@ module GobiertoAdmin
 
       def ignored_person_attributes
         %w( created_at updated_at events_count statements_count posts_count position charge bio slug google_calendar_token )
+      end
+
+      def gobierto_people_person_preview_url(person, options = {})
+        options.merge!(preview_token: current_admin.preview_token) unless person.active?
+        gobierto_people_person_url(person.slug, options)
       end
     end
   end

@@ -1,6 +1,9 @@
 module GobiertoPeople
   module People
     class PersonStatementsController < BaseController
+
+      include PreviewTokenHelper
+
       def index
         @statements = find_statements
 
@@ -18,12 +21,17 @@ module GobiertoPeople
       private
 
       def find_statement
-        @person.statements.active.find_by!(slug: params[:slug])
+        person_statements_scope.find_by!(slug: params[:slug])
       end
 
       def find_statements
         @person.statements.active.sorted
       end
+
+      def person_statements_scope
+        valid_preview_token? ? @person.statements.draft : @person.statements.active
+      end
+
     end
   end
 end

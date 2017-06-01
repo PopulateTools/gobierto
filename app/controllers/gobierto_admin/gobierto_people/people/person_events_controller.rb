@@ -96,7 +96,9 @@ module GobiertoAdmin
         end
 
         def gobierto_people_person_event_preview_url(person, event, options = {})
-          options.merge!(preview_token: current_admin.preview_token) unless event.active?
+          if event.pending? || event.person.draft?
+            options.merge!(preview_token: current_admin.preview_token)
+          end
           gobierto_people_person_event_url(person.slug, event.slug, options)
         end
 

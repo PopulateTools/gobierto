@@ -2,6 +2,9 @@ module GobiertoAdmin
   module GobiertoPeople
     module People
       class PersonEventsController < People::BaseController
+
+        helper_method :gobierto_people_person_event_preview_url
+
         def index
           @person_events = @person.events.sorted
           @person_events_presenter = PersonEventsPresenter.new(@person)
@@ -31,7 +34,7 @@ module GobiertoAdmin
           if @person_event_form.save
             redirect_to(
               edit_admin_people_person_event_path(@person, @person_event_form.person_event),
-              notice: t(".success_html", link: gobierto_people_person_event_url(@person.slug, @person_event_form.person_event.slug, host: current_site.domain))
+              notice: t(".success_html", link: gobierto_people_person_event_preview_url(@person, @person_event_form.person_event, host: current_site.domain))
             )
           else
             @attendees = get_attendees
@@ -49,7 +52,7 @@ module GobiertoAdmin
           if @person_event_form.save
             redirect_to(
               edit_admin_people_person_event_path(@person, @person_event),
-              notice: t(".success_html", link: gobierto_people_person_event_url(@person.slug, @person_event_form.person_event.slug, host: current_site.domain))
+              notice: t(".success_html", link: gobierto_people_person_event_preview_url(@person, @person_event_form.person_event, host: current_site.domain))
             )
           else
             @attendees = get_attendees
@@ -91,6 +94,12 @@ module GobiertoAdmin
         def ignored_person_event_attributes
           %w( created_at updated_at title description external_id slug site_id )
         end
+
+        def gobierto_people_person_event_preview_url(person, event, options = {})
+          options.merge!(preview_token: current_admin.preview_token) unless event.active?
+          gobierto_people_person_event_url(person.slug, event.slug, options)
+        end
+
       end
     end
   end

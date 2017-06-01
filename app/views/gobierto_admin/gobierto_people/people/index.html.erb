@@ -61,7 +61,7 @@
         <%= t(".visibility_level.#{person.visibility_level}") %>
       </td>
       <td>
-        <%= link_to gobierto_people_person_url(person.slug, host: current_site.domain), target: "_blank", class: "view_item" do %>
+        <%= link_to gobierto_people_person_preview_url(person, host: current_site.domain), target: "_blank", class: "view_item" do %>
           <i class="fa fa-eye"></i>
           <%= t(".view_person") %>
         <% end %>

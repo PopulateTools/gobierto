@@ -88,3 +88,14 @@ madrid_upcoming:
   show_figures: true
   force_responses_balance: false
 
+madrid_draft:
+  site: madrid
+  admin: tony
+  title: Borrador de consulta sobre partidas destinadas a Museos en Madrid
+  description: Descripción incompleta del borrador.
+  opens_on: <%= 2.year.from_now.to_date %>
+  closes_on: <%= 2.year.from_now.to_date %>
+  budget_amount: 19.99
+  visibility_level: <%= GobiertoBudgetConsultations::Consultation.visibility_levels["draft"] %>
+  show_figures: true
+  force_responses_balance: false

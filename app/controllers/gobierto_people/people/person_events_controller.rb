@@ -2,8 +2,6 @@ module GobiertoPeople
   module People
     class PersonEventsController < BaseController
 
-      include PreviewTokenHelper
-
       before_action :set_calendar_events, only: [:index]
 
       def index
@@ -35,7 +33,7 @@ module GobiertoPeople
       end
 
       def person_events_scope
-        valid_preview_token? ? @person.attending_events.pending : @person.attending_events.published
+        valid_preview_token? ? @person.attending_events : @person.attending_events.published
       end
 
     end

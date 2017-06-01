@@ -2,8 +2,6 @@ module GobiertoPeople
   module People
     class PersonPostsController < BaseController
 
-      include PreviewTokenHelper
-
       def index
         @posts = @person.posts.active.sorted
       end
@@ -19,7 +17,7 @@ module GobiertoPeople
       end
 
       def person_posts_scope
-        valid_preview_token? ? @person.posts.draft : @person.posts.active
+        valid_preview_token? ? @person.posts : @person.posts.active
       end
 
     end

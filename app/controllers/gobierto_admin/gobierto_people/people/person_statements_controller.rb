@@ -86,7 +86,9 @@ module GobiertoAdmin
         end
 
         def gobierto_people_person_statement_preview_url(person, statement, options = {})
-          options.merge!(preview_token: current_admin.preview_token) unless statement.active?
+          if statement.draft? || statement.person.draft?
+            options.merge!(preview_token: current_admin.preview_token)
+          end
           gobierto_people_person_statement_url(person.slug, statement.slug, options)
         end
 

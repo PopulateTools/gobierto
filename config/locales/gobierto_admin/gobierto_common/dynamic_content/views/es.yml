@@ -8,6 +8,7 @@ es:
           add_content_block: Añadir nuevo bloque
           add_record: Añadir
           attachment: Adjunto
+          attachment_file: Archivo adjunto
           cancel_record: Cancelar
           delete_content_block: Eliminar bloque
           delete_content_block_confirm: "¿Estás seguro de querer eliminar este bloque?"

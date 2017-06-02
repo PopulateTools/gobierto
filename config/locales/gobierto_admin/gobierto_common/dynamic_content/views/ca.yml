@@ -8,6 +8,7 @@ ca:
           add_content_block: Afegir nou bloc
           add_record: Afegir
           attachment: Adjunt
+          attachment_file: Arxiu adjunt
           cancel_record: Cancel·lar
           delete_content_block: Eliminar bloc
           delete_content_block_confirm: Estàs segur de suprimir aquest bloc?

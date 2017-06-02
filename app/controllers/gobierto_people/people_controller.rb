@@ -1,6 +1,8 @@
 module GobiertoPeople
   class PeopleController < GobiertoPeople::ApplicationController
+
     include PoliticalGroupsHelper
+    include PreviewTokenHelper
 
     before_action :check_active_submodules, except: :show
 
@@ -39,7 +41,11 @@ module GobiertoPeople
     end
 
     def find_person
-      current_site.people.active.find_by!(slug: params[:slug])
+      people_scope.find_by!(slug: params[:slug])
+    end
+
+    def people_scope
+      valid_preview_token? ? current_site.people.draft : current_site.people.active
     end
 
     def set_people

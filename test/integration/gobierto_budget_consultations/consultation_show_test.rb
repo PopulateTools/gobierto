@@ -70,9 +70,12 @@ module GobiertoBudgetConsultations
 
       with_current_site(site) do
         with_signed_in_user(user) do
-          visit @path
 
-          refute has_link?("Participa en la consulta")
+          assert_raises(ActiveRecord::RecordNotFound) do
+            visit @path
+          end
+
+          refute has_link?("Do you want to opinate?")
         end
       end
     end

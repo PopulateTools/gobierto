@@ -94,7 +94,7 @@ module GobiertoAdmin
       %w(
       created_at updated_at password_digest god
       confirmation_token reset_password_token
-      invitation_token invitation_sent_at
+      invitation_token invitation_sent_at preview_token
       )
     end
 

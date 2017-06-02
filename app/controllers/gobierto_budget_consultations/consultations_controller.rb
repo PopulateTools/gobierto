@@ -1,5 +1,8 @@
 module GobiertoBudgetConsultations
   class ConsultationsController < GobiertoBudgetConsultations::ApplicationController
+
+    include PreviewTokenHelper
+
     before_action :set_consultation, only: [:show]
     before_action :check_not_responded, only: [:show]
 
@@ -22,10 +25,14 @@ module GobiertoBudgetConsultations
       @consultation = ConsultationDecorator.new(find_consultation)
     end
 
+    def budget_consultations_scope
+      valid_preview_token? ? current_site.budget_consultations.draft : current_site.budget_consultations.not_draft
+    end
+
     protected
 
     def find_consultation
-      current_site.budget_consultations.find(params[:id])
+      budget_consultations_scope.find(params[:id])
     end
   end
 end

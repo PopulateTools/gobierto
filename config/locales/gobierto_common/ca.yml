@@ -5,3 +5,4 @@ ca:
       table_component:
         attachment: Adjunt
         download_attachment: Descarregar adjunt
+        download: Descarregar

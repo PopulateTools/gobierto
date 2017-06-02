@@ -12,6 +12,7 @@ en:
           delete_content_block: Delete block
           delete_content_block_confirm: Are you sure you want to delete this block?
           download_attachment: Download attachment
+          download: Download
           edit_content_block: Edit
           remove_attachment: Remove attachment
           save_record: Save

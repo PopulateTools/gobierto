@@ -40,7 +40,7 @@
 
             <td>
               <% if content_block_record_form.object.attachment_url.present? %>
-                <%= link_to content_block_record_form.object.attachment_url, title: t(".download_attachment"), data: { class: 'attachment_link', remove_component: true } do %>
+                <%= link_to content_block_record_form.object.attachment_url, title: t(".download_attachment"), target: 'blank', data: { class: 'attachment_link', remove_component: true } do %>
                   <i class="fa fa-paperclip"></i><%= pretty_filename_url(content_block_record_form.object.attachment_url) %>
                 <% end %>
               <% end %>
@@ -71,18 +71,28 @@
                 </div>
               <% end %>
 
-              <div>
-                <%= content_block_record_form.label :attachment_file %>
-                <%= content_block_record_form.file_field :attachment_file, data: { behavior: 'add_attachment' } %>
+              <div class="attach_file">
 
-                <% if content_block_record_form.object.attachment_url.present? %>
-                  <div class="option" data-remove-component="true">
-                    <%= content_block_record_form.check_box :remove_attachment, include_hidden: false, data: { behavior: 'remove_attachment', clear_value: true } %>
-                    <%= content_block_record_form.label :remove_attachment do %>
-                      <span></span><%= t(".remove_attachment") %>
-                    <% end %>
+                <%= content_block_record_form.label :attachment_file, t('.attachment_file') %>
+
+                <div class="pure-g">
+
+                  <div class="pure-u-1-2">
+                    <%= content_block_record_form.file_field :attachment_file, data: { behavior: 'add_attachment' } %>
                   </div>
-                <% end %>
+
+                  <% if content_block_record_form.object.attachment_url.present? %>
+                    <div class="pure-u-1-2">
+                      <div class="option" data-remove-component="true">
+                        <%= content_block_record_form.check_box :remove_attachment, include_hidden: false, data: { behavior: 'remove_attachment', clear_value: true } %>
+                        <%= content_block_record_form.label :remove_attachment do %>
+                          <span></span><%= t(".remove_attachment") %>
+                        <% end %>
+                      </div>
+                    </div>
+                  <% end %>
+
+                </div>
 
               </div>
 

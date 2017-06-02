@@ -5,3 +5,4 @@ es:
       table_component:
         attachment: Adjunto
         download_attachment: Descargar adjunto
+        download: Descargar

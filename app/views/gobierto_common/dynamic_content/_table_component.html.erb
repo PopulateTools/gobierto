@@ -9,7 +9,9 @@
             <% Array(content_block.fields).each do |content_block_field| %>
               <th><%= content_block_field.localized_label %></th>
             <% end %>
-            <th><i class="fa fa-paperclip" title="Adjunto"></i><%= t(".attachment")%></th>
+            <th>
+              <!-- <i class="fa fa-paperclip" title="Adjunto"></i><%= t(".attachment")%> -->
+            </th>
           </tr>
           <tbody>
             <% Array(content_block.records).each do |content_block_record| %>
@@ -17,14 +19,11 @@
                 <% Array(content_block_record.fields).each do |content_block_record_field| %>
                   <td><%= content_block_record_field.value %></td>
                 <% end %>
-
                 <td>
                   <% if content_block_record.attachment_url.present? %>
-                    <%= link_to content_block_record.attachment_url, title: t(".download_attachment") do %>
-                      <i class="fa fa-paperclip"></i><%= pretty_filename_url(content_block_record.attachment_url) %>
+                    <%= link_to content_block_record.attachment_url, target: '_blank', title: t(".download_attachment") + '(' + pretty_filename_url(content_block_record.attachment_url) + ')' do %>
+                      <button class="small"><i class="fa fa-paperclip"></i><%= t(".download") %></button>
                     <% end %>
-                  <% else %>
-                    -
                   <% end %>
                 </td>
               </tr>

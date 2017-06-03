@@ -25,8 +25,7 @@ module GobiertoAdmin
 
       delegate :persisted?, to: :person
 
-      validates :name, presence: true
-      validates :admin, :site, presence: true
+      validates :name, :site, :admin, presence: true
 
       trackable_on :person
 
@@ -43,10 +42,6 @@ module GobiertoAdmin
 
       def admin_id
         @admin_id ||= person.admin_id
-      end
-
-      def site_id
-        @site_id ||= person.site_id
       end
 
       def admin
@@ -110,7 +105,7 @@ module GobiertoAdmin
       private
 
       def build_person
-        person_class.new
+        person_class.new(site_id: site_id)
       end
 
       def person_class

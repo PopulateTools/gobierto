@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 20170530144711) do
     t.jsonb "payload"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "attachment_url"
     t.index ["content_block_id"], name: "index_content_block_records_on_content_block_id"
     t.index ["content_context_type", "content_context_id"], name: "index_content_block_records_on_content_context"
     t.index ["payload"], name: "index_content_block_records_on_payload", using: :gin

@@ -12,7 +12,7 @@ module GobiertoAdmin
         end
 
         def new
-          @person_statement_form = PersonStatementForm.new(person_id: @person.id)
+          @person_statement_form = PersonStatementForm.new(person_id: @person.id, site_id: current_site.id)
           @person_statement_visibility_levels = get_person_statement_visibility_levels
         end
 
@@ -21,14 +21,12 @@ module GobiertoAdmin
           @person_statement_visibility_levels = get_person_statement_visibility_levels
 
           @person_statement_form = PersonStatementForm.new(
-            @person_statement.attributes.except(*ignored_person_statement_attributes)
+            @person_statement.attributes.except(*ignored_person_statement_attributes).merge(site_id: current_site.id)
           )
         end
 
         def create
-          @person_statement_form = PersonStatementForm.new(
-            person_statement_params.merge(person_id: @person.id, admin_id: current_admin.id, site_id: current_site.id)
-          )
+          @person_statement_form = PersonStatementForm.new(person_statement_params.merge(person_id: @person.id, admin_id: current_admin.id, site_id: current_site.id))
 
           if @person_statement_form.save
             redirect_to(
@@ -43,9 +41,7 @@ module GobiertoAdmin
 
         def update
           @person_statement = find_person_statement
-          @person_statement_form = PersonStatementForm.new(
-            person_statement_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id)
-          )
+          @person_statement_form = PersonStatementForm.new(person_statement_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id))
 
           if @person_statement_form.save
             redirect_to(
@@ -78,6 +74,8 @@ module GobiertoAdmin
               :id,
               :content_block_id,
               :_destroy,
+              :remove_attachment,
+              :attachment_file,
               fields_attributes: [:name, :value]
             ]
           )

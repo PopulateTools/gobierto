@@ -2,6 +2,17 @@ module GobiertoCommon
   module DynamicContentFormHelper
     attr_accessor :content_block_records_attributes
 
+    class BadInitialization < StandardError; end
+
+    def initialize(options = {})
+      content_block_records_attributes_param = options[:content_block_records_attributes]
+      if content_block_records_attributes_param
+        options.delete(:content_block_records_attributes)
+        options[:content_block_records_attributes] = content_block_records_attributes_param
+      end
+      super(options)
+    end
+
     def content_block_records
       @content_block_records ||= content_context.content_block_records.sorted
     end
@@ -26,11 +37,14 @@ module GobiertoCommon
 
       attributes.each do |_, content_block_record_attributes|
         next if content_block_record_attributes["_destroy"] == "1"
-
-        content_block_record = GobiertoCommon::ContentBlockRecord.new(
+        
+        content_block_record_params = {
           content_block_id: content_block_record_attributes[:content_block_id],
-          fields_attributes: content_block_record_attributes[:fields_attributes]
-        )
+          fields_attributes: content_block_record_attributes[:fields_attributes],
+          attachment_url: get_attachment_url(content_block_record_attributes)
+        }
+
+        content_block_record = GobiertoCommon::ContentBlockRecord.new(content_block_record_params)
 
         if content_block_record.payload.present?
           @content_block_records.push(content_block_record)
@@ -39,6 +53,32 @@ module GobiertoCommon
     end
 
     private
+
+    def get_attachment_url(content_block_record_attributes)
+      if content_block_record_attributes[:remove_attachment] == "1"
+        nil
+      else
+        attachment_file = content_block_record_attributes[:attachment_file]
+
+        if attachment_file
+          upload_content_block_record_attachment_file(attachment_file)
+        else
+          existing_content_block_record = ContentBlockRecord.find_by(id: content_block_record_attributes[:id])
+          existing_content_block_record.try(:attachment_url)
+        end
+      end
+    end
+
+    def upload_content_block_record_attachment_file(attachment_file)
+      raise(BadInitialization, "Site is not yet set or initialized") if site.nil?
+
+      ::GobiertoAdmin::FileUploadService.new(
+        site: site,
+        collection: person.model_name.collection,
+        attribute_name: :attachment,
+        file: attachment_file
+      ).call
+    end
 
     def build_content_block_record_for(content_block)
       GobiertoCommon::ContentBlockRecord.new(content_block: content_block)

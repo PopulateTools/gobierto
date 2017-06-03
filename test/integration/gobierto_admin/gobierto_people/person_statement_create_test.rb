@@ -26,7 +26,7 @@ module GobiertoAdmin
       end
 
       def content_context
-        ::GobiertoPeople::PersonStatement.new
+        ::GobiertoPeople::PersonStatement.new(site_id: site.id)
       end
 
       def test_person_statement_create

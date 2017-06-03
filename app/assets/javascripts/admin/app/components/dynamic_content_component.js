@@ -77,7 +77,11 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
 
       $(recordTemplate).after(clonedField);
 
+      clonedField.find('[data-remove-component="true"]').remove();
+      clonedField.find('[type=checkbox][data-clear-value="true"]').prop('checked', false);
       clonedField.find("input:visible:first").focus();
+      clonedField.find('span[data-class="attachment_link_placeholder"]').removeClass('hidden');
+      clonedField.find('span[data-class="attachment_link_placeholder"]').html('-');
     });
   }
 
@@ -132,7 +136,25 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
 
       _setRecordViewState(eventWrapper);
       _switchToRecordView(eventWrapper);
-      _addChild($(this).closest(".dynamic-content-wrapper"));
+
+      var attachment_input  = eventWrapper.find('input[type="file"]');
+      var delete_attachment = eventWrapper.find('[data-behavior="remove_attachment"]');
+      var attachmentLink    = eventWrapper.find('a[data-class="attachment_link"]');
+      var attachmentLinkPlaceholder = eventWrapper.find('span[data-class="attachment_link_placeholder"]');
+
+      if (delete_attachment.is(':checked')) {
+        attachmentLink.hide();
+        attachmentLinkPlaceholder.show();
+      } else if (attachmentLink.length) {
+        attachmentLink.show();
+        attachmentLinkPlaceholder.hide();
+      }
+
+      if (attachment_input.val() !== '' && "undefined" !== typeof attachment_input.val()) {
+        var attachment_name = attachment_input.val().replace(/C:\\fakepath\\/i, '');
+        attachmentLink.hide();
+        attachmentLinkPlaceholder.html(attachment_name);
+      }
     });
   }
 
@@ -141,7 +163,7 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
   }
 
   function _cleanupRecordField(selector) {
-    if (selector.attr("type") === "hidden") {
+    if ( (selector.attr("type") === "hidden") && !(selector.attr("data-clear-value") === "true") ) {
       return true;
     }
 

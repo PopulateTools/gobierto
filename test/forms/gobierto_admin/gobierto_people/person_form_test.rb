@@ -70,6 +70,17 @@ module GobiertoAdmin
 
         assert_nil valid_person_form.political_group_id
       end
+
+      def test_content_block_records_are_assigned_after_site_id
+        person_params = { name: person.name, content_block_records_attributes: { "0" => { attachment_file: "file.pdf" } } }
+
+        ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns("http://host.com/file.pdf")
+
+        person_form = PersonForm.new(person_params.merge(id: person.id, admin_id: admin.id, site_id: site.id))
+
+        assert person_form.valid?
+      end
+
     end
   end
 end

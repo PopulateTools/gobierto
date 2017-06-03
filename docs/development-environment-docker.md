@@ -101,3 +101,7 @@ $ docker-compose up -d mailcatcher
 ```
 
 Having done this, the server should be available at `http://<your_docker_host>:1080`.
+
+### Using xip.io
+
+Check how to use xip.io in https://github.com/PopulateTools/gobierto/blob/master/docs/development-environment.md

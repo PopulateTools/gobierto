@@ -25,3 +25,11 @@ Rake::Task["db:fixtures:load"].invoke
 Rake::Task["gobierto_people:counter_cache:reset"].invoke
 
 GobiertoPeople::PoliticalGroup.reset_position!
+
+::GobiertoCommon::ContentBlock.reset_column_information
+Site.all.each do |site|
+  if site.configuration.gobierto_people_enabled?
+    GobiertoCommon::GobiertoSeeder::ModuleSeeder.seed("GobiertoPeople", site)
+    GobiertoCommon::GobiertoSeeder::ModuleSiteSeeder.seed(APP_CONFIG['site']['name'], "GobiertoPeople", site)
+  end
+end

@@ -34,7 +34,7 @@
             <%= t(".visibility_level.active") %>
           <% end %>
         </td>
-        <td><%= link_to %Q{<i class="fa fa-eye"></i> #{t('.view')}}.html_safe, gobierto_cms_page_url(page, host: current_site.domain), class: 'view_item' %></td>
+        <td><%= link_to %Q{<i class="fa fa-eye"></i> #{t('.view')}}.html_safe, gobierto_cms_page_preview_url(page, host: current_site.domain), class: 'view_item' %></td>
       </tr>
     <% end %>
   </tbody>

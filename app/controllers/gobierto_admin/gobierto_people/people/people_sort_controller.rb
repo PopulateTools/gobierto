@@ -3,6 +3,7 @@ module GobiertoAdmin
     module People
       class PeopleSortController < GobiertoAdmin::BaseController
         before_action { module_enabled!(current_site, "GobiertoPeople") }
+        before_action { module_allowed!(current_admin, "GobiertoPeople") }
 
         def create
           current_site.people.update_positions(people_sort_params)

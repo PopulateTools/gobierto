@@ -2,7 +2,7 @@ require "test_helper"
 
 class GobiertoPeople::PersonEventAttendeeTest < ActiveSupport::TestCase
   def person_event_attendee
-    @person_event_attendee ||= gobierto_people_person_event_attendees(:tamara)
+    @person_event_attendee ||= gobierto_people_person_event_attendees(:tamara_richard_published)
   end
 
   def custom_person_event_attendee

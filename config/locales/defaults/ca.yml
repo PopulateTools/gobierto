@@ -4,6 +4,7 @@ ca:
     errors:
       messages:
         record_invalid: 'La validació ha fallat: %{errors}'
+  country: Espanya
   date:
     abbr_day_names:
     - Dg
@@ -149,10 +150,10 @@ ca:
       update: Actualitzar
   locales:
     ca: Català
-    en: Anglès
-    es: Castellà
     ca_short: CA
+    en: Anglès
     en_short: EN
+    es: Castellà
     es_short: ES
   number:
     currency:
@@ -214,4 +215,3 @@ ca:
       long: "%d de %B de %Y %H:%M"
       short: "%d de %b %H:%M"
     pm: pm
-  country: Espanya

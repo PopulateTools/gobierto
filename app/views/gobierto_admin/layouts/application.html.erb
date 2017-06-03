@@ -112,19 +112,19 @@
       <div class="menu_content">
 
         <ul>
-          <% if SITE_MODULES.include?("GobiertoBudgetConsultations") && current_site.configuration.gobierto_budget_consultations_enabled? %>
+          <% if show_module_link?("GobiertoBudgetConsultations") %>
           <li>
             <%= link_to t(".budget_consultations"), admin_budget_consultations_path %>
           </li>
           <% end %>
 
-          <% if current_site.configuration.gobierto_people_enabled? %>
+          <% if show_module_link?("GobiertoPeople") %>
           <li>
             <%= link_to t(".people"), admin_people_people_path %>
           </li>
           <% end %>
 
-          <% if current_site.configuration.gobierto_cms_enabled? %>
+          <% if show_module_link?("GobiertoCms") %>
           <li>
             <%= link_to t(".cms"), admin_cms_pages_path %>
           </li>

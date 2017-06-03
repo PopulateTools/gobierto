@@ -2,6 +2,11 @@
 
 * Fernando Blat [github](https://github.com/ferblape) | [twitter](https://twitter.com/ferblape)
 * Álvaro Ortiz [github](https://github.com/furilo) | [twitter](https://twitter.com/furilo)
+* Amaia Castro [github](https://github.com/amaia) | [twitter](https://twitter.com/amaiac)
+* Rafael de las Cuevas Sáez [github](https://github.com/rafadelascuevas) | [twitter](https://twitter.com/rafadelascuevas)
+* Martín González [github](https://github.com/martgnz) | [twitter](https://twitter.com/martgnz)
+* Alberto Miedes Garcés [github](https://github.com/amiedes) | [twitter](https://twitter.com/amiedes94)
+* Alberto Calderón [github](https://github.com/bertocq) | [twitter](https://twitter.com/bertocq)
 
 ## Código de conducta
 
@@ -26,7 +31,7 @@ Cuando quieras resolver una incidencia mediante código:
 * Avisa de que vas a trabajar en esta incidencia añadiendo un comentario.
 * Cuando las incidencias tienen a alguien asignado significa que esa persona ya está trabajando en esa issue.
 * Haz un fork del proyecto
-* Crea una rama para resolver la incidencia desde la rama `stable`
+* Crea una rama en git para resolver la incidencia desde la rama `master`
 * Añade el código necesario para resolver la incidencia en tantos commits como sea preciso
 * Asegúrate de que los tests pasan (y escribe más tests para probar la nueva funcionalidad si fuera preciso)
 * Sigue estas [buenas prácticas](https://github.com/styleguide/ruby)

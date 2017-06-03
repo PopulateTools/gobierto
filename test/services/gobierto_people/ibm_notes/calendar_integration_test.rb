@@ -68,8 +68,7 @@ module GobiertoPeople
           starts_at: utc_time("2017-04-11 10:00:00"),
           ends_at:   utc_time("2017-04-11 11:00:00"),
           state: GobiertoPeople::PersonEvent.states['published'],
-          person: richard,
-          site: site
+          person: richard
         )
       end
 
@@ -81,8 +80,7 @@ module GobiertoPeople
           starts_at: utc_time("2017-04-11 10:00:00"),
           ends_at:   utc_time("2017-04-11 11:00:00"),
           state: GobiertoPeople::PersonEvent.states['published'],
-          person: richard,
-          site: site
+          person: richard
         )
       end
 
@@ -196,7 +194,7 @@ module GobiertoPeople
           richard_synchronized_events = richard.events.synchronized
 
           assert_equal 3, richard_synchronized_events.count
-          assert richard_synchronized_events.all? { |event| event.active? }
+          assert richard_synchronized_events.all?(&:active?)
         end
 
         Timecop.freeze(Time.zone.parse('2017-05-05 01:00:00')) do

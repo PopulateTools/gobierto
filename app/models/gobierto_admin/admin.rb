@@ -24,7 +24,7 @@ module GobiertoAdmin
 
     has_many :census_imports
 
-    before_create :set_god_flag
+    before_create :set_god_flag, :generate_preview_token
 
     validates :email, uniqueness: true
 
@@ -59,6 +59,10 @@ module GobiertoAdmin
       god? || manager?
     end
 
+    def module_allowed?(module_namespace)
+      managing_user? || send(module_namespace.underscore + '_permissions').any?
+    end
+
     private
 
     def set_god_flag
@@ -66,6 +70,10 @@ module GobiertoAdmin
 
       # Always return successfully to avoid halting execution.
       true
+    end
+
+    def generate_preview_token
+      self.preview_token = self.class.generate_unique_secure_token
     end
   end
 end

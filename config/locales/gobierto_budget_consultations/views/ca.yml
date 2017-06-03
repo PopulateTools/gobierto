@@ -79,13 +79,13 @@ ca:
         opens_at: Podràs participar a aquesta consulta a partir del %{date}
         want_to_opinate: Vols opinar?
     events:
+      gobierto_budget_consultations_consultation_closed: Consulta tancada
       gobierto_budget_consultations_consultation_published: Nova consulta publicada
       gobierto_budget_consultations_consultation_response_created: Resposta de consulta
         creada
       gobierto_budget_consultations_consultation_response_deleted: Resposta de consulta
         eliminada
       gobierto_budget_consultations_consultation_updated: Consulta actualitzada
-      gobierto_budget_consultations_consultation_closed: Consulta tancada
     layouts:
       application:
         participation: Participació

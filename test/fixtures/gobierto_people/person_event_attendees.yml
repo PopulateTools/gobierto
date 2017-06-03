@@ -16,7 +16,7 @@ richard_richard_published_just_attending:
   name:
   charge:
 
-tamara:
+tamara_richard_published:
   person_event: richard_published
   person: tamara
   name:
@@ -28,8 +28,8 @@ custom:
   name: John Custom
   charge: President
 
-richard_richard_past:
-  person_event: richard_past
+richard_richard_published_past:
+  person_event: richard_published_past
   person: richard
   name:
   charge:
@@ -46,9 +46,8 @@ nelson_nelson_yesterday:
   name:
   charge:
 
-tamara_published_past:
-  person_event: tamara_published
+tamara_tamara_published_past:
+  person_event: tamara_published_past
   person: tamara
   name:
   charge:
-

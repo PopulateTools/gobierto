@@ -1,6 +1,9 @@
 module GobiertoPeople
   module People
     class BaseController < GobiertoPeople::ApplicationController
+
+      include PreviewTokenHelper
+
       before_action :set_person
 
       layout "gobierto_people/layouts/people"
@@ -14,8 +17,13 @@ module GobiertoPeople
       protected
 
       def find_person
-        current_site.people.active.find_by!(slug: params[:person_slug])
+        people_scope.find_by!(slug: params[:person_slug])
       end
+
+      def people_scope
+        valid_preview_token? ? current_site.people : current_site.people.active
+      end
+
     end
   end
 end

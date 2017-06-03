@@ -3,6 +3,8 @@ module GobiertoAdmin
     module People
       class BaseController < GobiertoAdmin::BaseController
         before_action { module_enabled!(current_site, "GobiertoPeople") }
+        before_action { module_allowed!(current_admin, "GobiertoPeople") }
+
         before_action :set_person
 
         private

@@ -22,14 +22,13 @@ ca:
           user: Usuari
           verified: Verificat
         title: Usuaris
-        view_user: Veure usuari
         users:
           one: "%{count} usuari"
           other: "%{count} usuaris"
-        users_verified:
-          one: "%{count}% verificat"
-          other: "%{count}% verificats"
         users_confirmed:
           one: "%{count}% confirmat"
           other: "%{count}% confirmats"
-
+        users_verified:
+          one: "%{count}% verificat"
+          other: "%{count}% verificats"
+        view_user: Veure usuari

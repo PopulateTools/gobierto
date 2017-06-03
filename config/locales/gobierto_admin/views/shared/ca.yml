@@ -3,5 +3,5 @@ ca:
   gobierto_admin:
     shared:
       form_locale_switchers:
-        translate: Traduxir
         define_content_in_locale: Defineix el contingut en la versió en %{locale_name}
+        translate: Traduxir

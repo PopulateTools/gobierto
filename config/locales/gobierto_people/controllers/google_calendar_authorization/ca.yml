@@ -5,12 +5,13 @@ ca:
       google_calendar:
         authorization:
           new:
-            success: Configuració guardada correctament. Una última cosa, tria quins calendirs vols publicar automàticament a la teva agenda
+            success: Configuració guardada correctament. Una última cosa, tria quins
+              calendirs vols publicar automàticament a la teva agenda
         calendars:
           edit:
-            title: Integració amb Google Calendar
+            explain: Tria quins calendaris vols publicar automàticament a la teva
+              agenda
             save: Guardar
-            explain: Tria quins calendaris vols publicar automàticament a la teva agenda
+            title: Integració amb Google Calendar
           update:
             success: Calendaris guardats correctament.
-

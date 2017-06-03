@@ -1,7 +1,11 @@
 module GobiertoAdmin
   module GobiertoBudgetConsultations
     class ConsultationsController < BaseController
+
       before_action { module_enabled!(current_site, "GobiertoBudgetConsultations") }
+      before_action { module_allowed!(current_admin, "GobiertoBudgetConsultations") }
+
+      helper_method :gobierto_budget_consultations_consultation_preview_url
 
       def index
         @consultations = current_site.budget_consultations.sorted
@@ -37,7 +41,7 @@ module GobiertoAdmin
         if @consultation_form.save
           redirect_to(
             admin_budget_consultation_consultation_items_path(@consultation_form.consultation),
-            notice: t(".success_html", link: gobierto_budget_consultations_consultation_url(@consultation_form.consultation, host: current_site.domain))
+            notice: t(".success_html", link: gobierto_budget_consultations_consultation_preview_url(@consultation_form.consultation, host: current_site.domain))
           )
         else
           @consultation_visibility_levels = get_consultation_visibility_levels
@@ -55,7 +59,7 @@ module GobiertoAdmin
         if @consultation_form.save
           redirect_to(
             edit_admin_budget_consultation_path(@consultation),
-            notice: t(".success_html", link: gobierto_budget_consultations_consultation_url(@consultation_form.consultation, host: current_site.domain))
+            notice: t(".success_html", link: gobierto_budget_consultations_consultation_preview_url(@consultation_form.consultation, host: current_site.domain))
           )
         else
           @consultation_visibility_levels = get_consultation_visibility_levels
@@ -92,6 +96,12 @@ module GobiertoAdmin
       def ignored_consultation_attributes
         %w( created_at updated_at budget_amount )
       end
+
+      def gobierto_budget_consultations_consultation_preview_url(consultation, options = {})
+        options.merge!(preview_token: current_admin.preview_token) unless consultation.not_draft?
+        gobierto_budget_consultations_consultation_url(consultation, options)
+      end
+
     end
   end
 end

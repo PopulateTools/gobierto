@@ -55,5 +55,12 @@ module GobiertoAdmin
         alert: t("gobierto_admin.module_helper.not_enabled")
       )
     end
+
+    def raise_module_not_allowed
+      redirect_to(
+        admin_root_path,
+        alert: t("gobierto_admin.module_helper.not_enabled")
+      )
+    end
   end
 end

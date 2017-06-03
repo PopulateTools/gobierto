@@ -13,7 +13,6 @@ ca:
           delete_content_block: Eliminar bloc
           delete_content_block_confirm: Estàs segur de suprimir aquest bloc?
           download_attachment: Descarregar adjunt
-          download: Descarregar
           edit_content_block: Editar
           remove_attachment: Eliminar adjunt
           save_record: Guardar

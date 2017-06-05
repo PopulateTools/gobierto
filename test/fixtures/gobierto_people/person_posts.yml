@@ -17,3 +17,13 @@ richard_achievements:
   tags:
   visibility_level: <%= GobiertoPeople::PersonPost.visibility_levels["active"] %>
   created_at: <%= 1.week.ago %>
+
+richard_draft:
+  person: richard
+  site: madrid
+  title: Draft Post
+  slug: <%= "#{1.week.ago.strftime('%F')}-draft-post" %>
+  body: Article about how to not finish a post.
+  tags:
+  visibility_level: <%= GobiertoPeople::PersonPost.visibility_levels["draft"] %>
+  created_at: <%= 1.week.ago %>

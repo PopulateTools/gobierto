@@ -5,6 +5,8 @@ module GobiertoCommon
 
     scope :sorted, -> { order(created_at: :asc) }
 
+    attr_reader(:remove_attachment)
+
     def fields
       @fields ||= begin
         content_block.fields.sorted.map do |content_block_field|

@@ -1,8 +1,11 @@
 module GobiertoAdmin
   module GobiertoCms
     class PagesController < BaseController
+
       before_action { module_enabled!(current_site, "GobiertoCms") }
       before_action { module_allowed!(current_admin, "GobiertoCms") }
+
+      helper_method :gobierto_cms_page_preview_url
 
       def index
         @pages = current_site.pages.sorted
@@ -29,7 +32,7 @@ module GobiertoAdmin
 
           redirect_to(
             edit_admin_cms_page_path(@page_form.page.id),
-            notice: t(".success_html", link: gobierto_cms_page_url(@page_form.page, host: current_site.domain))
+            notice: t(".success_html", link: gobierto_cms_page_preview_url(@page_form.page, host: current_site.domain))
           )
         else
           @page_visibility_levels = get_page_visibility_levels
@@ -46,7 +49,7 @@ module GobiertoAdmin
 
           redirect_to(
             edit_admin_cms_page_path(@page_form.page.id),
-            notice: t(".success_html", link: gobierto_cms_page_url(@page_form.page, host: current_site.domain))
+            notice: t(".success_html", link: gobierto_cms_page_preview_url(@page_form.page, host: current_site.domain))
           )
         else
           @page_visibility_levels = get_page_visibility_levels
@@ -100,7 +103,11 @@ module GobiertoAdmin
       def find_page
         current_site.pages.find(params[:id])
       end
+
+      def gobierto_cms_page_preview_url(page, options = {})
+        options.merge!(preview_token: current_admin.preview_token) unless page.active?
+        gobierto_cms_page_url(page.slug, options)
+      end
     end
   end
 end
-

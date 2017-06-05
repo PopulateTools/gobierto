@@ -25,12 +25,17 @@ module GobiertoPeople
       private
 
       def find_event
-        @person.attending_events.published.find_by!(slug: params[:slug])
+        person_events_scope.find_by!(slug: params[:slug])
       end
 
       def set_calendar_events
         @calendar_events = @person.attending_events
       end
+
+      def person_events_scope
+        valid_preview_token? ? @person.attending_events : @person.attending_events.published
+      end
+
     end
   end
 end

@@ -191,3 +191,15 @@ Now you can run the tests with:
 ### Mailcatcher
 
 To use `MailCatcher`, just run `$ mailcatcher` command and follow the instructions printed in the terminal.
+
+### Using xip.io
+
+[xip.io](http://xip.io) is a magical DNS that allows us to expose our local server to external devices, such as other computers or mobile devices. It's very useful to check the dev server in a mobile.
+
+Just follow the following steps:
+
+1. Figure out your LAN IP, in your _Network preferences_ or just by doing in the shell: `ifconfig | grep 192`.  Let's say it's `192.168.1.41`, it means that Gobierto will be visible in `*.192.168.1.41.xip.io`
+2. Log into your Gobierto instance and edit the site you want to expose, by updating the domain to something like `madrid.gobierto.dev.192.168.1.41.xip.io`
+3. Stop the rails server and start it again with a new parameter to bind it to any address: `rails s -b 0.0.0.0`
+4. That's all, now you can visit http://madrid.gobierto.dev.192.168.1.41.xip.io:3000/ in any device
+

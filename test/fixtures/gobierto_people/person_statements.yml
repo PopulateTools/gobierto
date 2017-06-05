@@ -23,3 +23,16 @@ richard_past:
   attachment_size: <%= 100.kilobytes %>
   published_on: <%= 1.year.ago.to_date %>
   visibility_level: <%= GobiertoPeople::PersonStatement.visibility_levels["active"] %>
+
+richard_draft:
+  person: richard
+  site: madrid
+  title_translations: <%= {
+    'en' => 'Statement draft',
+    'es' => 'Borrador de delcaración'
+  }.to_json %>
+  slug: <%= "#{1.year.ago.strftime('%F')}-borrador-de-declaracion" %>
+  attachment_url:
+  attachment_size:
+  published_on: <%= 1.year.ago.to_date %>
+  visibility_level: <%= GobiertoPeople::PersonStatement.visibility_levels["draft"] %>

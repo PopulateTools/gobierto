@@ -1,6 +1,6 @@
 .vis-bubbles {
   position: relative;
-  
+
   .tooltip {
     display: none;
     position: absolute;
@@ -9,12 +9,21 @@
     padding: 10px;
     z-index: 4;
   }
-  
+
   .bubble-g {
     text {
-      fill: white;
-      text-shadow: 1px 1px 0 #111, -1px -1px 0 #111, 1px -1px 0 #111, -1px 1px 0 #111;
+      fill: black;
+      // text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white;
       pointer-events: none;
+      font-size: 0.8rem;
     }
+  }
+  circle {
+    stroke: white;
+    stroke-width: 0.5px;
+  }
+  circle:hover {
+    stroke: black;
+    stroke-width: 1px;
   }
 }

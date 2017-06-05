@@ -13,7 +13,7 @@ var VisBubbles = Class.extend({
     this.height = 520 - this.margin.top - this.margin.bottom;
     this.center = { x: this.width / 2, y: this.height / 2 };
 
-    this.selectionNode = d3.select(this.container)._groups[0][0];
+    this.selectionNode = d3.select(this.container).node();
 
     this.tooltip = d3.select(this.container)
       .append('div')
@@ -22,10 +22,11 @@ var VisBubbles = Class.extend({
     this.nodes = [];
 
     this.simulation = d3.forceSimulation()
-      .velocityDecay(0.2)
+      .velocityDecay(0.3)
       .force('x', d3.forceX().strength(this.forceStrength).x(this.center.x))
       .force('y', d3.forceY().strength(this.forceStrength).y(this.center.y))
       .force('charge', d3.forceManyBody().strength(this._charge))
+      .force("collide", d3.forceCollide().radius(function(d) { return d.radius + 0.5; }).iterations(2))
       .on('tick', this._ticked.bind(this));
 
     this.simulation.stop();
@@ -42,28 +43,40 @@ var VisBubbles = Class.extend({
   createNodes: function(rawData, year) {
     var data = rawData;
 
+    this.maxAmount = d3.max(data, function (d) { return d.values[year] }.bind(this));
     this.filtered = data.filter(function(d) { return d.budget_category === this.budget_category; }.bind(this));
-    this.maxAmount = d3.max(this.filtered, function (d) { return d.values[year] }.bind(this));
 
-    this.radiusScale = d3.scalePow()
-      .exponent(0.5)
-      .range([2, 90])
+    this.radiusScale = d3.scaleSqrt()
+      .range([0, 120])
       .domain([0, this.maxAmount]);
 
-    this.nodes = this.filtered.map(function (d) {
-      return {
-        id: +d.id,
-        radius: this.radiusScale(d.values[year]),
-        value: d.values[year],
-        group: d.level_1,
-        name: d.level_2,
-        pct_diff: d.pct_diff[year],
-        per_inhabitant: d.values_per_inhabitant[year],
-        x: Math.random() * 900,
-        y: Math.random() * 1000,
-        year: d3.keys(d.values).filter(function(d) { return d == year })
-      };
-    }.bind(this)).filter(function(d) { return d.value > 0 });
+    if (this.nodes.length > 0) {
+      this.nodes.forEach(function(d) {
+        d.radius = this.radiusScale(d.values[year])
+        d.value = d.values[year]
+        d.pct_diff = d.pct_diffs[year]
+        d.per_inhabitant = d.values_per_inhabitant[year]
+        d.year = year
+      }.bind(this))
+    } else {
+      this.nodes = this.filtered.map(function (d) {
+        return {
+          values: d.values,
+          pct_diffs: d.pct_diff,
+          values_per_inhabitant: d.values_per_inhabitant,
+          id: +d.id,
+          radius: this.radiusScale(d.values[year]),
+          value: d.values[year],
+          group: d.level_1,
+          name: d.level_2,
+          pct_diff: d.pct_diff[year],
+          per_inhabitant: d.values_per_inhabitant[year],
+          x: Math.random() * 600,
+          y: Math.random() * 500,
+          year: year
+        };
+      }.bind(this))
+    }
 
     this.nodes.sort(function (a, b) { return b.value - a.value; });
 
@@ -74,44 +87,30 @@ var VisBubbles = Class.extend({
       .duration(750);
 
     this.nodes = this.createNodes(this.data, year);
+    this.bubbles.data(this.nodes, function (d) { return d.name; })
 
-    console.log(this.nodes, year);
-
-    this.bubbles = this.bubbles.data(this.nodes, function(d) { return d.id;});
-
-    this.bubbles
-      .exit()
-      .attr("fill", "#b26745")
+    d3.selectAll('.bubble')
+      .data(this.nodes, function (d) { return d.name; })
+      .attr('class', function(d) { return 'bubble bubble-' + d.year})
       .transition(t)
-      .attr("r", 1e-6)
-      .remove();
-
-    this.bubbles = this.bubbles
-      .enter()
-      .append("circle")
-      .attr('class', function(d) { return d.year + ' bubble'})
       .attr('r', function (d) { return d.radius; })
-      .attr('fill', this.budgetColor(this.budget_category))
-      .attr('stroke', d3.rgb(this.budgetColor(this.budget_category)).darker())
-      .attr('stroke-width', 2)
-      .on('mousemove', this._mousemoved.bind(this))
-      .on('mouseleave', this._mouseleft.bind(this))
-      .merge(this.bubbles);
+      .attr('fill', function(d) { return this.budgetColor(d.pct_diff)}.bind(this))
 
-    this.simulation.nodes(this.nodes);
+    this.simulation
+      .nodes(this.nodes)
+
     this.simulation.alpha(1).restart();
-    this.simulation.stop();
   },
   updateRender: function(callback) {
     var budgetCategory = this.budget_category;
     this.nodes = this.createNodes(this.data, this.currentYear)
 
-    this.budgetColor = d3.scaleOrdinal()
-      .domain(['income', 'expense'])
-      .range(['#d9eef1', '#fab395']);
+    this.budgetColor = d3.scaleThreshold()
+      .domain([-50, -20, 10, 0, 10, 20, 50])
+      .range(['#b2182b','#d6604d','#f4a582','#fddbc7','#d1e5f0','#92c5de','#4393c3','#2166ac'])
 
     this.bubbles = this.svg.selectAll('g')
-      .data(this.nodes, function (d) { return d.id; })
+      .data(this.nodes, function (d) { return d.name; })
       .enter()
       .append('g')
       .attr('class', 'bubble-g')
@@ -119,8 +118,7 @@ var VisBubbles = Class.extend({
     var bubblesG = this.bubbles.append('circle')
       .attr('class', function(d) { return d.year + ' bubble'})
       .attr('r', function (d) { return d.radius; })
-      .attr('fill', this.budgetColor(this.budget_category))
-      .attr('stroke', d3.rgb(this.budgetColor(this.budget_category)).darker())
+      .attr('fill', function(d) { return this.budgetColor(d.pct_diff)}.bind(this))
       .attr('stroke-width', 2)
       .on('mousemove', this._mousemoved.bind(this))
       .on('mouseleave', this._mouseleft.bind(this));
@@ -146,12 +144,12 @@ var VisBubbles = Class.extend({
       .style('left', (x - 50) + 'px')
       .style('top', (y + 40) + 'px')
 
-    this.tooltip.html('<div>' + d.name + '</div><div>(' + d.year + ') ' + d.pct_diff + '</div>');
+    this.tooltip.html('<div>' + d.name + '</div><div>' + d.year + ': ' + d3.format('+')(d.pct_diff) + '%</div>');
   },
   _mouseleft: function() {
     this.tooltip.style('display', 'none');
   },
   _charge: function(d) {
-    return -Math.pow(d.radius, 2) * 0.055;
+    return -Math.pow(d.radius, 2) * 0.06;
   }.bind(this)
 });

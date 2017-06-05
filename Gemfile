@@ -15,6 +15,7 @@ gem "cookies_eu"
 gem "actionpack-action_caching", git: "https://github.com/rails/actionpack-action_caching.git", ref: "9044141824650138bf27741e8f0ed95ccd9ef26d"
 gem "active_model_serializers"
 gem "mechanize"
+gem "paper_trail"
 
 # Frontend
 gem "sass-rails", "~> 5.0.0"

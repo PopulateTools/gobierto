@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170530144711) do
+ActiveRecord::Schema.define(version: 20170605103424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -153,6 +153,25 @@ ActiveRecord::Schema.define(version: 20170530144711) do
     t.datetime "updated_at", null: false
     t.index ["site_id", "name"], name: "index_custom_user_fields_on_site_id_and_name", unique: true
     t.index ["site_id"], name: "index_custom_user_fields_on_site_id"
+  end
+
+  create_table "ga_attachings", force: :cascade do |t|
+    t.integer "site_id", null: false
+    t.integer "attachment_id", null: false
+    t.integer "attachable_id", null: false
+    t.string "attachable_type", null: false
+    t.index ["site_id", "attachment_id", "attachable_id", "attachable_type"], name: "record_unique_index", unique: true
+  end
+
+  create_table "ga_attachments", force: :cascade do |t|
+    t.integer "site_id", null: false
+    t.string "name", null: false
+    t.text "description"
+    t.string "file_name", null: false
+    t.string "file_digest", null: false
+    t.string "url", null: false
+    t.integer "file_size", null: false
+    t.integer "current_version", default: 0, null: false
   end
 
   create_table "gbc_consultation_items", id: :serial, force: :cascade do |t|
@@ -467,6 +486,16 @@ ActiveRecord::Schema.define(version: 20170530144711) do
     t.index ["notification_frequency"], name: "index_users_on_notification_frequency"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["source_site_id"], name: "index_users_on_source_site_id"
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
+    t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   add_foreign_key "gp_person_events", "sites"

@@ -1,0 +1,27 @@
+pdf_attachment_create:
+  item_type: GobiertoAttachments::Attachment
+  item_id: <%= ActiveRecord::FixtureSet.identify(:pdf_attachment) %>
+  event: create
+  whodunnit:
+  object:
+
+xlsx_attachment_create:
+  item_type: GobiertoAttachments::Attachment
+  item_id: <%= ActiveRecord::FixtureSet.identify(:xlsx_attachment) %>
+  event: create
+  whodunnit:
+  object:
+
+attachment_create:
+  item_type: GobiertoAttachments::Attachment
+  item_id: <%= ActiveRecord::FixtureSet.identify(:attachment) %>
+  event: create
+  whodunnit:
+  object:
+
+txt_pdf_attachment_create:
+  item_type: GobiertoAttachments::Attachment
+  item_id: <%= ActiveRecord::FixtureSet.identify(:txt_pdf_attachment) %>
+  event: create
+  whodunnit:
+  object:

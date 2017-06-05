@@ -2,18 +2,18 @@
   position: relative;
   box-sizing: border-box;
   margin-bottom: 3rem;
-  
+
   .ticks {
     font-size: 1.25rem;
     fill: $color_separator;
     font-weight: 300;
-    
+
     & text.active {
       font-weight: 600;
       fill: $color_headers;
     }
   }
-  
+
   .year-circles {
     fill: $color_separator;
     stroke: white;

@@ -77,6 +77,7 @@ var VisSlider = Class.extend({
       .attr('x', function(d) { return x(d) })
       .text(function(d) { return d })
       .classed('active', function(d) { return d == currentYear; })
+      .attr('dx', function(d) { return d === currentYear ? 10 : 0 ;})
       .attr('text-anchor', function(d, i) {
         if (d == currentYear) {
           return 'end'

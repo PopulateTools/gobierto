@@ -1,29 +1,55 @@
 .vis-bubbles {
   position: relative;
 
+  svg {
+    overflow: visible;
+  }
+
   .tooltip {
     display: none;
     position: absolute;
     background: white;
-    border: 1px solid #eee;
     padding: 10px;
     z-index: 4;
-  }
+    min-width: 200px;
+    max-width: 250px;
+    border: 1px solid #979797;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.10);
+    border-radius: 4px;
 
-  .bubble-g {
-    text {
-      fill: black;
-      // text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white, -1px 1px 0 white;
-      pointer-events: none;
-      font-size: 0.8rem;
+    .line-name {
+      width: calc(100% - 85px);
+    }
+    .line-pct {
+      width: 85px;
+
+      i {
+        display: inline;
+      }
+    }
+
+    @media (max-width: 590px){
+      position: fixed;
+      bottom: -1px;
+      width: calc(96%);
+      left: -1px !important;
+      right: -1px !important;
+      top: auto !important;
+      width: auto !important;
+      max-width: none;
     }
   }
+
+  .bubble-g text {
+    pointer-events: none;
+    font-size: 0.8rem;
+  }
   circle {
-    stroke: white;
-    stroke-width: 0.5px;
+    stroke-width: 0.1px;
+    stroke: #979797;
   }
   circle:hover {
-    stroke: black;
+    stroke: #979797;
     stroke-width: 1px;
   }
 }

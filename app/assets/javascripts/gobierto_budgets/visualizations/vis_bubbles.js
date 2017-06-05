@@ -112,7 +112,7 @@ var VisBubbles = Class.extend({
     d3.selectAll('.bubble-g text')
       .data(this.nodes, function (d) { return d.name; })
       .transition(t)
-      .attr('fill', function(d) { return d.pct_diff > 30 || d.pct_diff < -30 ? 'white' : 'black'; })
+      .attr('fill', function(d) { return d.pct_diff > 30 || d.pct_diff < -10 ? 'white' : 'black'; })
       .style('font-size', function(d) { return this.fontSize(d.radius) + 'px'; }.bind(this))
 
     this.simulation.nodes(this.nodes)
@@ -142,7 +142,7 @@ var VisBubbles = Class.extend({
       .style('font-size', function(d) { return this.fontSize(d.radius) + 'px'; }.bind(this))
       .attr('text-anchor', 'middle')
       .attr('y', -15)
-      .attr('fill', function(d) { return d.pct_diff > 30 || d.pct_diff < -30 ? 'white' : 'black'; })
+      .attr('fill', function(d) { return d.pct_diff > 30 || d.pct_diff < -10 ? 'white' : 'black'; })
       .tspans(function(d) { return d.radius > 50 ? d3.wordwrap(d.name, 15) : d3.wordwrap('', 15); }, function(d) { return this.fontSize(d.radius);}.bind(this));
 
     this.simulation.nodes(this.nodes);
@@ -166,7 +166,7 @@ var VisBubbles = Class.extend({
     }
 
     this.tooltip.html('<div class="f_left line-name"><strong>' + d.name + '</strong></div> \
-                       <div class="f_right p_h_l_1 line-pct right">' + getArrow(d.pct_diff, this.budgetColor) + d3.format('+,')(d.pct_diff) + '%</div> \
+                       <div class="f_right p_h_l_1 line-pct right">' + getArrow(d.pct_diff, this.budgetColor) + Math.abs(d.pct_diff) + '%</div> \
                        <div class="clear_b">' + accounting.formatMoney(d.per_inhabitant, "€", 0, ".", ",") + ' ' + I18n.t('gobierto_budgets.budgets.index.main_budget_levels_per_inhabitant') + '</div> \
                        <div>' + accounting.formatMoney(d.value, "€", 0, ".", ",") + '</div>');
   },

@@ -1,4 +1,4 @@
-require_dependency 'gobierto_people'
+require_dependency 'gobierto_attachments'
 
 module GobiertoAttachments
   class Attaching < ApplicationRecord

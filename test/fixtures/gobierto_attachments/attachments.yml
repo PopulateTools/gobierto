@@ -37,3 +37,13 @@ txt_pdf_attachment:
   description: Description of attachment with two extensions in name
   current_version: 4
   site: madrid
+
+santander_attachment:
+  name: Santander Attachment
+  file_size: 49
+  file_name: santander-attachment
+  file_digest: santander-attachment-file-digest
+  url: http://host.com/attachments/santander-attachment
+  description: An attachment belonging to other site
+  current_version: 1
+  site: santander

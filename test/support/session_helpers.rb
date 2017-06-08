@@ -10,4 +10,9 @@ module SessionHelpers
       yield
     end
   end
+
+  def login_admin_for_api(admin)
+    post admin_sessions_url, params: { session: { email: admin.email, password: 'gobierto' } }
+  end
+
 end

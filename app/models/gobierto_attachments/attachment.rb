@@ -43,8 +43,8 @@ module GobiertoAttachments
     def update_file_attributes
       if file
         throw :abort if file.size > MAX_FILE_SIZE_IN_BYTES
-        
-        new_digest = Attachment.file_digest(file)
+
+        new_digest = Attachment.file_digest(file.open)
 
         if file_updated?(new_digest)
           self.url = ::GobiertoAdmin::FileUploadService.new(site: site, collection: 'attachments', attribute_name: :attachment, file: file).call
@@ -53,6 +53,7 @@ module GobiertoAttachments
           self.file_digest = new_digest
           self.current_version += 1
         end
+        file.close
       end
     end
 

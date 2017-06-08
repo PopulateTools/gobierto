@@ -15,6 +15,8 @@ module GobiertoAdmin
 
       rescue_from PayloadError, with: :return_400
 
+      skip_before_action :verify_authenticity_token
+
       private
 
       def return_404

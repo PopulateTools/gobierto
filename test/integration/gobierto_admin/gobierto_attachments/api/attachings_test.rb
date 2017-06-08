@@ -36,7 +36,6 @@ module GobiertoAdmin
         login_admin_for_api(admin)
 
         payload = {
-          site_id: site.id,
           attachment_id: pdf_attachment.id,
           attachable_id: cms_page.id,
           attachable_type: cms_page.class.to_s
@@ -62,7 +61,6 @@ module GobiertoAdmin
         unexistent_id = 666
 
         payload = {
-          site_id: site.id,
           attachment_id: unexistent_id,
           attachable_id: cms_page.id,
           attachable_type: cms_page.class.to_s
@@ -77,7 +75,6 @@ module GobiertoAdmin
         login_admin_for_api(admin)
 
         payload = {
-          site_id: site.id,
           attachment_id: xlsx_attachment.id,
           attachable_id: cms_page.id,
           attachable_type: cms_page.class.to_s
@@ -98,7 +95,6 @@ module GobiertoAdmin
         unexistent_id = 666
 
         payload = {
-          site_id: site.id,
           attachment_id: unexistent_id,
           attachable_id: cms_page.id,
           attachable_type: cms_page.class.to_s

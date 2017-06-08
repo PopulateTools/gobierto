@@ -42,14 +42,15 @@ module GobiertoAdmin
       def test_attachments_index
         login_admin_for_api(admin)
 
-        get admin_attachments_api_attachments_path(site_id: site.id)
+        get admin_attachments_api_attachments_path
 
         json_response = JSON.parse(response.body)
-        attachment = json_response.first
+        attachments = json_response['attachments']
+        attachment = attachments.first
 
         assert_response :success
 
-        assert_equal 4, json_response.size
+        assert_equal 4, attachments.size
         assert array_match(attachment_attributes, attachment.keys)
 
         assert_equal 'PDF Attachment Name',                            attachment['name']
@@ -66,14 +67,15 @@ module GobiertoAdmin
         login_admin_for_api(admin)
 
         payload = {
-          site_id: site.id,
-          attachable: { id: attachable.id, type: attachable.class.to_s }
+          attachable_id: attachable.id,
+          attachable_type: attachable.class.to_s
         }
 
         get admin_attachments_api_attachments_path(payload)
 
         json_response = JSON.parse(response.body)
-        attachment = json_response.first
+        attachments = json_response['attachments']
+        attachment = attachments.first
 
         assert_response :success
 
@@ -85,7 +87,6 @@ module GobiertoAdmin
         login_admin_for_api(admin)
 
         payload = {
-          site_id: site.id,
           search_string: 'PDF'
         }
 
@@ -94,20 +95,19 @@ module GobiertoAdmin
         get admin_attachments_api_attachments_path(payload)
 
         json_response = JSON.parse(response.body)
+        attachments = json_response['attachments']
 
         assert_response :success
 
-        assert_equal 1, json_response.size
-        assert_equal 'PDF Attachment Name', json_response.first['name']
+        assert_equal 1, attachments.size
+        assert_equal 'PDF Attachment Name', attachments.first['name']
       end
 
       def test_attachments_create_success
         login_admin_for_api(admin)
 
         payload = {
-          site_id: site.id,
           attachment: {
-            site_id: site.id,
             name: 'New attachment name',
             description: 'New attachment description',
             file_name: 'pdf-attachment.pdf',
@@ -136,8 +136,7 @@ module GobiertoAdmin
         login_admin_for_api(admin)
 
         payload = {
-          site_id: site.id,
-          attachment: { site_id: site.id, name: 'Incomplete attachment info' }
+          attachment: { name: 'Incomplete attachment info' }
         }
 
         post admin_attachments_api_attachments_path, params: payload
@@ -152,10 +151,8 @@ module GobiertoAdmin
         login_admin_for_api(admin)
 
         payload = {
-          site_id: site.id,
           attachment: {
             id: pdf_attachment.id,
-            site_id: site.id,
             name: 'Replace PDF with XLSX',
             description: nil,
             file_name: 'xlsx-attachment.xlsx',
@@ -198,10 +195,8 @@ module GobiertoAdmin
         login_admin_for_api(admin)
 
         payload = {
-          site_id: site.id,
           attachment: {
             id: pdf_attachment.id,
-            site_id: site.id,
             name: nil
           }
         }
@@ -219,7 +214,6 @@ module GobiertoAdmin
         login_admin_for_api(admin)
 
         payload = {
-          site_id: site.id,
           attachment: { id: pdf_attachment.id }
         }
 
@@ -240,7 +234,6 @@ module GobiertoAdmin
         unexistent_id = 666
 
         payload = {
-          site_id: site.id,
           attachment: { id: unexistent_id }
         }
 

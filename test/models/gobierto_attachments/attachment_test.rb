@@ -23,16 +23,25 @@ module GobiertoAttachments
       @txt_pdf_attachment ||= gobierto_attachments_attachments(:txt_pdf_attachment)
     end
 
-    def pdf_file
-      @file ||= file_fixture('gobierto_attachments/attachment/pdf-attachment.pdf')
+    def uploaded_pdf_file
+      @uploaded_pdf_file ||= ActionDispatch::Http::UploadedFile.new(
+        filename: 'pdf-attachment.pdf',
+        tempfile: file_fixture('gobierto_attachments/attachment/pdf-attachment.pdf')
+      )
     end
 
-    def xlsx_file
-      @xlsx ||= file_fixture('gobierto_attachments/attachment/xlsx-attachment.xlsx')
+    def uploaded_xlsx_file
+      @uploaded_xlsx_file ||= ActionDispatch::Http::UploadedFile.new(
+        filename: 'xlsx-attachment.xlsx',
+        tempfile: file_fixture('gobierto_attachments/attachment/xlsx-attachment.xlsx')
+      )
     end
 
-    def txt_pdf_file
-      @txt_pdf_file ||= file_fixture('gobierto_attachments/attachment/txt-pdf-attachment.txt.pdf')
+    def uploaded_txt_pdf_file
+      @uploaded_txt_pdf_file ||= ActionDispatch::Http::UploadedFile.new(
+        filename: 'txt-pdf-attachment.txt.pdf',
+        tempfile: file_fixture('gobierto_attachments/attachment/txt-pdf-attachment.txt.pdf')
+      )
     end
 
     def file_digest(file)
@@ -50,7 +59,7 @@ module GobiertoAttachments
         site: site,
         name: 'New attachment name',
         description: 'New attachment description',
-        file: pdf_file
+        file: uploaded_pdf_file
       )
 
       assert new_attachment.valid?
@@ -58,12 +67,24 @@ module GobiertoAttachments
       assert_equal 'New attachment name', new_attachment.name
       assert_equal 'New attachment description', new_attachment.description
       assert_equal 'pdf-attachment.pdf', new_attachment.file_name
-      assert_equal file_digest(pdf_file), new_attachment.file_digest
+      assert_equal file_digest(uploaded_pdf_file), new_attachment.file_digest
       assert_equal 'http://host.com/attachments/pdf-attachment.pdf', new_attachment.url
       assert_equal 10022, new_attachment.file_size
 
       assert_equal 1, new_attachment.current_version
       assert_equal 1, new_attachment.versions.size
+    end
+
+    def test_abort_create_attachment_if_too_big
+      uploaded_pdf_file.stubs(:size).returns(Attachment::MAX_FILE_SIZE_IN_BYTES + 1)
+
+      new_attachment = Attachment.create(
+        site: site,
+        name: 'Attachment too big',
+        file: uploaded_pdf_file
+      )
+
+      refute new_attachment.valid?
     end
 
     def test_update_attachment
@@ -72,7 +93,7 @@ module GobiertoAttachments
       pdf_attachment.update_attributes!(
         name: '(EDITED) PDF Attachment Name',
         description: '(EDITED) Description of a PDF attachment',
-        file: xlsx_file
+        file: uploaded_xlsx_file
       )
 
       assert pdf_attachment.valid?
@@ -83,7 +104,7 @@ module GobiertoAttachments
       assert_equal '(EDITED) PDF Attachment Name', pdf_attachment.name
       assert_equal '(EDITED) Description of a PDF attachment', pdf_attachment.description
       assert_equal 'xlsx-attachment.xlsx', pdf_attachment.file_name
-      assert_equal file_digest(xlsx_file), pdf_attachment.file_digest
+      assert_equal file_digest(uploaded_xlsx_file), pdf_attachment.file_digest
       assert_equal 'http://host.com/attachments/xlsx-attachment.xlsx', pdf_attachment.url
       assert_equal 3604, pdf_attachment.file_size
     end
@@ -91,7 +112,7 @@ module GobiertoAttachments
     def test_update_attachment_file
       ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns('http://host.com/attachments/txt-pdf-attachment.txt.pdf')
 
-      pdf_attachment.update_attributes!(file: txt_pdf_file)
+      pdf_attachment.update_attributes!(file: uploaded_txt_pdf_file)
 
       assert_equal 2, pdf_attachment.current_version
       assert_equal 2, pdf_attachment.versions.size

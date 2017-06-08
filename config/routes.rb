@@ -83,6 +83,14 @@ Rails.application.routes.draw do
       resources :pages
       resource :file_attachments, only: [:create]
     end
+
+    namespace :gobierto_attachments, as: :attachments, path: :attachments do
+      namespace :api do
+        resources :attachments, only: [:index, :create, :update, :destroy]
+        post   '/attachings' => 'attachings#create'
+        delete '/attachings' => 'attachings#destroy'
+      end
+    end
   end
 
   # User module

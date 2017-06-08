@@ -12,7 +12,7 @@ module GobiertoAttachments
     end
 
     def unlink_attachment(attachment)
-      self.attachings.find_by!(site: site, attachment: attachment).destroy
+      self.attachings.find_by!(site: site, attachment: attachment).destroy!
     end
 
   end

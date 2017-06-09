@@ -13,6 +13,7 @@ es:
         password: Contraseña
         password_confirmation: Confirmación de contraseña
         site_ids: Sites
+        site_modules: Módulos
       gobierto_admin/admin_invitation_form:
         emails: Emails
         site_ids: Sites

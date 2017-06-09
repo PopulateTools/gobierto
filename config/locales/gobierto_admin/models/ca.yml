@@ -13,6 +13,7 @@ ca:
         password: Contrasenya
         password_confirmation: Confirmació de la contrasenya
         site_ids: Sites
+        site_modules: Mòduls
       gobierto_admin/admin_invitation_form:
         emails: Emails
         site_ids: Sites

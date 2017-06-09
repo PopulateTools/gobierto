@@ -12,6 +12,7 @@ ca:
         name: Nom
         password: Contrasenya
         password_confirmation: Confirmació de la contrasenya
+        site_ids: Sites
       gobierto_admin/admin_invitation_form:
         emails: Emails
         site_ids: Sites

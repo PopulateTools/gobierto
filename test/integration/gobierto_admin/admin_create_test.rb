@@ -87,5 +87,28 @@ module GobiertoAdmin
 
       assert has_message?("Data updated successfully")
     end
+
+    def test_admin_create_no_sites
+      with_signed_in_admin(admin) do
+        visit @path
+
+        within "form.new_admin" do
+          fill_in "admin_name", with: "Admin Name"
+          fill_in "admin_email", with: "admin@email.dev"
+
+          within ".site-module-check-boxes" do
+            check "Gobierto Development"
+          end
+
+          within ".admin-authorization-level-radio-buttons" do
+            choose "Regular"
+          end
+
+          click_button "Create"
+        end
+
+        assert has_alert?("Sites is too short (minimum at least 1 element)")
+      end
+    end
   end
 end

@@ -12,6 +12,7 @@ en:
         name: Name
         password: Password
         password_confirmation: Password confirmation
+        site_ids: Sites
       gobierto_admin/admin_invitation_form:
         emails: Emails
         site_ids: Sites

@@ -21,8 +21,6 @@ INTEGRATION_DEBUG=false
 INTEGRATION_INSPECTOR=false
 
 # Populate data variables
-# - API Token
-TBI_API_TOKEN=
 # - Main endpoint
 POPULATE_DATA_ENDPOINT=
 # - Suggestion endpoint for municipalities suggestion
@@ -76,7 +74,6 @@ MAILER_SMTP_PASSWORD=
 
 Populate Data is a tool developed by Populate that stores many of the open date used by Gobierto. Gobierto needs Populate Data to run. If you need access just write us to: `lets@populate.tools`
 
-- `TBI_API_TOKEN`: Populate Data API token
 - `POPULATE_DATA_ENDPOINT`: The endpoint of the Populate Data account
 - `MUNICIPALITIES_SUGGESTIONS_ENDPOINT`: The endpoint from Populate data with the places autosuggestion
 

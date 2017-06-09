@@ -10,6 +10,9 @@ module PopulateData
       BASE_URI = APP_CONFIG["populate_data"]["endpoint"]
 
       def initialize(options = {})
+        @origin = options.fetch(:origin)
+        @api_token = options.fetch(:api_token)
+
         Client.logger.debug("Initializing #{self.class.name} with options #{options}")
       end
 
@@ -26,6 +29,8 @@ module PopulateData
 
       private
 
+      attr_reader :origin, :api_token
+
       def http_client
         @http_client ||= setup_http_client
       end
@@ -41,8 +46,8 @@ module PopulateData
 
         request["Content-Type"] = "application/json"
         request["Accept"] = "application/json"
-        request["Authorization"] = "Bearer #{ENV["TBI_API_TOKEN"]}"
-        request["Origin"] = "http://#{ENV["HOST"]}"
+        request["Authorization"] = "Bearer #{api_token}"
+        request["Origin"] = origin
 
         request.body = request_body
 

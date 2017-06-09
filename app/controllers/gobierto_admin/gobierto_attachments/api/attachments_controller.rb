@@ -63,7 +63,7 @@ module GobiertoAdmin
 
           if attachable_id && attachable_type && ::GobiertoAttachments.permitted_attachable_types.include?(attachable_type)
             attachable_class = attachable_type.constantize
-            @attachable = attachable_class.find_by(site: current_site, id: attachable_id)
+            @attachable = attachable_class.find_by!(site: current_site, id: attachable_id)
           end
         end
 

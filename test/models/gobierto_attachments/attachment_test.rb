@@ -3,6 +3,11 @@ require 'test_helper'
 module GobiertoAttachments
   class AttachmentTest < ActiveSupport::TestCase
 
+    def setup
+      super
+      Pathname.any_instance.stubs(:close).returns(nil)
+    end
+
     def site
       @site ||= sites(:madrid)
     end

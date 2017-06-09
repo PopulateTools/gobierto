@@ -28,12 +28,12 @@ module GobiertoAdmin
 
           if ::GobiertoAttachments.permitted_attachable_types.include?(attachable_type)
             attachable_class = attachable_type.constantize
-            @attachable = attachable_class.find_by(site_id: params[:site_id], id: params[:attachable_id])
+            @attachable = attachable_class.find_by(site: current_site, id: params[:attachable_id])
           end
         end
 
         def attaching_params
-          params.require(:site_id, :attachment_id, :attachable_id, :attachable_type)
+          params.require(:attachment_id, :attachable_id, :attachable_type)
         end
 
       end

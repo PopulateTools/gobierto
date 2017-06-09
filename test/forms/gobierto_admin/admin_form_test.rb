@@ -4,6 +4,7 @@ module GobiertoAdmin
   class AdminFormTest < ActiveSupport::TestCase
     def valid_admin_form
       @valid_admin_form ||= AdminForm.new(
+        authorization_level: 'manager',
         name: admin.name,
         email: new_admin_email, # To ensure uniqueness
         password: "gobierto",

@@ -22,6 +22,13 @@ module GobiertoAdmin
     validates :name, :email, presence: true
     validates :email, format: { with: Admin::EMAIL_ADDRESS_REGEXP }
     validates :password, presence: { if: :new_record? }, confirmation: true
+    validate :sites_presence_for_regulars
+    validate :modules_presence_for_regulars
+
+    def initialize(attributes = {})
+      super(attributes)
+      @site_modules = @site_modules.select{ |m| m.present? } if @site_modules.present?
+    end
 
     def save
       @new_record = admin.new_record?
@@ -118,6 +125,18 @@ module GobiertoAdmin
     def send_invitation
       admin.regenerate_invitation_token
       deliver_invitation_email
+    end
+
+    def sites_presence_for_regulars
+      if authorization_level == "regular" && sites && sites.empty?
+        errors.add(:site_ids, I18n.t('errors.messages.array_too_short', count: 1))
+      end
+    end
+
+    def modules_presence_for_regulars
+      if authorization_level == "regular" && @site_modules && @site_modules.empty?
+        errors.add(:site_modules, I18n.t('errors.messages.array_too_short', count: 1))
+      end
     end
 
     protected

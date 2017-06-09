@@ -6,6 +6,10 @@ module GobiertoAdmin
       @admin ||= gobierto_admin_admins(:nick)
     end
 
+    def site
+      @site ||= sites(:madrid)
+    end
+
     def setup
       super
       @notification_service_spy = Spy.on(Publishers::AdminActivity, :broadcast_event)
@@ -29,7 +33,8 @@ module GobiertoAdmin
           name: admin.name,
           email: admin.email,
           password: "wadus",
-          site_modules: ["GobiertoBudgetConsultations", "GobiertoPeople"]
+          site_modules: ["GobiertoBudgetConsultations", "GobiertoPeople"],
+          site_ids: ['', site.id]
         }
       }
     end
@@ -41,7 +46,8 @@ module GobiertoAdmin
           email: "newadmin@example.com",
           password: "wadus",
           password_confirmation: "wadus",
-          site_modules: ["GobiertoBudgetConsultations", "GobiertoPeople"]
+          site_modules: ["GobiertoBudgetConsultations", "GobiertoPeople"],
+          site_ids: ['', site.id]
         }
       }
     end

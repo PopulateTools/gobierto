@@ -135,6 +135,7 @@ module GobiertoAdmin
         :logo_file,
         :default_locale,
         :privacy_page_id,
+        :populate_data_api_token,
         site_modules: [],
         available_locales: [],
         title_translations: [*I18n.available_locales],

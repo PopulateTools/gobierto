@@ -39,6 +39,7 @@ module GobiertoAdmin
           fill_in "site_foot_markup", with: "Site Foot markup"
           fill_in "site_links_markup", with: "Site Links markup"
           fill_in "site_google_analytics_id", with: "UA-000000-01"
+          fill_in "site_populate_data_api_token", with: "APITOKEN"
 
           attach_file "site_logo_file", "test/fixtures/files/sites/logo-madrid.png"
 
@@ -69,6 +70,7 @@ module GobiertoAdmin
           assert has_field?("site_links_markup", with: "Site Links markup")
           assert has_field?("site_google_analytics_id", with: "UA-000000-01")
           assert has_select?("Privacy page", selected: privacy_page.title)
+          assert has_field?("site_populate_data_api_token", with: "APITOKEN")
 
           within ".site-module-check-boxes" do
             assert has_checked_field?("Gobierto Development")

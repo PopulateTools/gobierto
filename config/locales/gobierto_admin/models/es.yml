@@ -32,6 +32,7 @@ es:
         municipality_id: Municipio
         name: Nombre de la entidad
         privacy_page_id: Página de privacidad
+        populate_data_api_token: API token Populate Data
         title: Nombre del site
       gobierto_admin/user_form:
         email: Email

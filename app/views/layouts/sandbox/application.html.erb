@@ -17,7 +17,7 @@
   <% end %>
 
   <script type="text/javascript">
-    window.tbiToken = "<%= ENV['TBI_API_TOKEN'] %>";
+    window.tbiToken = "<%= current_site.configuration.populate_data_api_token %>";
   </script>
 </head>
 

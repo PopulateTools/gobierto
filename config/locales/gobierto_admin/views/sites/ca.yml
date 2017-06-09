@@ -21,6 +21,7 @@ ca:
           location_name: Burjassot
           name: Ajuntament de Burjassot
           title: Transparencia i Participció
+          populate_data_api_token: Token de API de Populate Data
         username: Noe d'usuari
         visibility_level:
           active: Publicat

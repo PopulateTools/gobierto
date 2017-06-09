@@ -4,6 +4,7 @@ module GobiertoAdmin
   module GobiertoBudgetConsultations
     class BudgetLineCollectionBuilder
       def initialize(site, options = {})
+        @site = site
         @municipality_id = site.municipality_id
         @year = options.fetch(:year) { Date.current.year }
       end
@@ -39,13 +40,17 @@ module GobiertoAdmin
           kind: "expense",
           area: "functional",
           date: @year,
-          entity_id: entity_id
+          entity_id: entity_id,
+          origin: @site.domain,
+          api_token: @site.configuration.populate_data_api_token
         ).fetch
       end
 
       def entities
         @entities ||= PopulateData::Gobierto::Entity.new(
-          municipality_id: @municipality_id
+          municipality_id: @municipality_id,
+          origin: @site.domain,
+          api_token: @site.configuration.populate_data_api_token
         ).fetch
       end
 
@@ -54,6 +59,8 @@ module GobiertoAdmin
           level: 3,
           kind: "expense",
           area: "functional",
+          origin: @site.domain,
+          api_token: @site.configuration.populate_data_api_token
         ).fetch
       end
     end

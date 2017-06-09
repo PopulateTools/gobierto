@@ -87,6 +87,11 @@
           <%= f.select :privacy_page_id, @available_pages.map{ |p| [p.title, p.id] }, { include_blank: true } %>
         </div>
 
+        <div class="form_item input_text">
+          <%= f.label :populate_data_api_token %>
+          <%= f.text_field :populate_data_api_token, placeholder: t(".placeholders.populate_data_api_token") %>
+        </div>
+
       </div>
 
       <div class="form_block">
@@ -188,6 +193,6 @@
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
-    window.GobiertoAdmin.sites_controller.edit("<%= Rails.application.secrets.tbi_api_token %>");
+    window.GobiertoAdmin.sites_controller.edit("<%= current_site.configuration.populate_data_api_token %>");
   <% end %>
 <% end %>

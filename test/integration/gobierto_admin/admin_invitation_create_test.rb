@@ -26,5 +26,18 @@ module GobiertoAdmin
         assert has_message?("The invitations have been successfully sent")
       end
     end
+
+    def test_invalid_invitation
+      with_signed_in_admin(admin) do
+        visit @new_invitation_path
+
+        fill_in :admin_invitation_emails, with: "foo@gobierto.dev, bar@gobierto.dev"
+
+        click_on "Send"
+
+        assert has_content?("There was a problem sending the invitations")
+      end
+    end
+
   end
 end

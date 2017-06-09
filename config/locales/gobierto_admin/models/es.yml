@@ -12,8 +12,11 @@ es:
         name: Nombre
         password: Contraseña
         password_confirmation: Confirmación de contraseña
+        site_ids: Sites
+        site_modules: Módulos
       gobierto_admin/admin_invitation_form:
         emails: Emails
+        site_ids: Sites
       gobierto_admin/admin_new_password_form:
         email: Email
       gobierto_admin/site_form:

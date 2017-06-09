@@ -14,6 +14,7 @@ en:
         password_confirmation: Password confirmation
       gobierto_admin/admin_invitation_form:
         emails: Emails
+        site_ids: Sites
       gobierto_admin/admin_new_password_form:
         email: Email
       gobierto_admin/site_form:

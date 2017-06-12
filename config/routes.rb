@@ -86,7 +86,7 @@ Rails.application.routes.draw do
 
     namespace :gobierto_attachments, as: :attachments, path: :attachments do
       namespace :api do
-        resources :attachments, only: [:index, :create, :update, :destroy]
+        resources :attachments, only: [:index, :show, :create, :update, :destroy]
         post   '/attachings' => 'attachings#create'
         delete '/attachings' => 'attachings#destroy'
       end

@@ -35,6 +35,13 @@ module GobiertoAttachments
       )
     end
 
+    def uploaded_new_pdf_file
+      @uploaded_new_pdf_file ||= ActionDispatch::Http::UploadedFile.new(
+        filename: 'new-pdf-attachment.pdf',
+        tempfile: file_fixture('gobierto_attachments/attachment/new-pdf-attachment.pdf')
+      )
+    end
+
     def uploaded_xlsx_file
       @uploaded_xlsx_file ||= ActionDispatch::Http::UploadedFile.new(
         filename: 'xlsx-attachment.xlsx',
@@ -58,47 +65,53 @@ module GobiertoAttachments
     end
 
     def test_create_attachment
-      ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns('http://host.com/attachments/pdf-attachment.pdf')
+      ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns('http://host.com/attachments/new-pdf-attachment.pdf')
 
       new_attachment = Attachment.create(
         site: site,
         name: 'New attachment name',
         description: 'New attachment description',
-        file: uploaded_pdf_file
+        file: uploaded_new_pdf_file
       )
 
       assert new_attachment.valid?
 
-      assert_equal 'New attachment name', new_attachment.name
-      assert_equal 'New attachment description', new_attachment.description
-      assert_equal 'pdf-attachment.pdf', new_attachment.file_name
-      assert_equal file_digest(uploaded_pdf_file), new_attachment.file_digest
-      assert_equal 'http://host.com/attachments/pdf-attachment.pdf', new_attachment.url
-      assert_equal 10022, new_attachment.file_size
+      assert_equal 'New attachment name',                                new_attachment.name
+      assert_equal 'New attachment description',                         new_attachment.description
+      assert_equal 'new-pdf-attachment.pdf',                             new_attachment.file_name
+      assert_equal file_digest(uploaded_new_pdf_file),                   new_attachment.file_digest
+      assert_equal 'http://host.com/attachments/new-pdf-attachment.pdf', new_attachment.url
+      assert_equal uploaded_new_pdf_file.size,                           new_attachment.file_size
 
       assert_equal 1, new_attachment.current_version
       assert_equal 1, new_attachment.versions.size
     end
 
+    def test_create_attachment_with_duplicated_file
+      assert_raises ActiveRecord::RecordInvalid do
+        Attachment.create!(site: site, name: 'pdf-attachment.pdf', file: uploaded_pdf_file)
+      end
+    end
+
     def test_abort_create_attachment_if_too_big
-      uploaded_pdf_file.stubs(:size).returns(Attachment::MAX_FILE_SIZE_IN_BYTES + 1)
+      uploaded_new_pdf_file.stubs(:size).returns(Attachment::MAX_FILE_SIZE_IN_BYTES + 1)
 
       new_attachment = Attachment.create(
         site: site,
         name: 'Attachment too big',
-        file: uploaded_pdf_file
+        file: uploaded_new_pdf_file
       )
 
       refute new_attachment.valid?
     end
 
     def test_update_attachment
-      ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns('http://host.com/attachments/xlsx-attachment.xlsx')
+      ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns('http://host.com/attachments/new-pdf-attachment.pdf')
 
       pdf_attachment.update_attributes!(
         name: '(EDITED) PDF Attachment Name',
         description: '(EDITED) Description of a PDF attachment',
-        file: uploaded_xlsx_file
+        file: uploaded_new_pdf_file
       )
 
       assert pdf_attachment.valid?
@@ -106,24 +119,39 @@ module GobiertoAttachments
       assert_equal 2, pdf_attachment.current_version
       assert_equal 2, pdf_attachment.versions.size
 
-      assert_equal '(EDITED) PDF Attachment Name', pdf_attachment.name
-      assert_equal '(EDITED) Description of a PDF attachment', pdf_attachment.description
-      assert_equal 'xlsx-attachment.xlsx', pdf_attachment.file_name
-      assert_equal file_digest(uploaded_xlsx_file), pdf_attachment.file_digest
-      assert_equal 'http://host.com/attachments/xlsx-attachment.xlsx', pdf_attachment.url
-      assert_equal 3604, pdf_attachment.file_size
+      assert_equal '(EDITED) PDF Attachment Name',                       pdf_attachment.name
+      assert_equal '(EDITED) Description of a PDF attachment',           pdf_attachment.description
+      assert_equal 'new-pdf-attachment.pdf',                             pdf_attachment.file_name
+      assert_equal file_digest(uploaded_new_pdf_file),                   pdf_attachment.file_digest
+      assert_equal 'http://host.com/attachments/new-pdf-attachment.pdf', pdf_attachment.url
+      assert_equal uploaded_new_pdf_file.size,                           pdf_attachment.file_size
     end
 
     def test_update_attachment_file
-      ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns('http://host.com/attachments/txt-pdf-attachment.txt.pdf')
+      ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns('http://host.com/attachments/new-pdf-attachment.pdf')
 
-      pdf_attachment.update_attributes!(file: uploaded_txt_pdf_file)
+      pdf_attachment.update_attributes!(file: uploaded_new_pdf_file)
 
       assert_equal 2, pdf_attachment.current_version
       assert_equal 2, pdf_attachment.versions.size
 
-      assert_equal 'txt-pdf-attachment.txt.pdf', pdf_attachment.file_name
-      assert_equal 10312, pdf_attachment.file_size
+      assert_equal 'new-pdf-attachment.pdf', pdf_attachment.file_name
+      assert_equal uploaded_new_pdf_file.size, pdf_attachment.file_size
+    end
+
+    def test_update_attachment_when_file_is_duplicated
+      assert_raises ActiveRecord::RecordInvalid do
+        pdf_attachment.update_attributes!(file: uploaded_xlsx_file)
+      end
+    end
+
+    def test_update_attachment_when_file_is_duplicated_but_file_name_is_different
+      uploaded_xlsx_file.stubs(:file_name).returns('pdf-attachment-with-edited-name.pdf')
+      ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns('http://host.com/attachments/pdf-attachment-with-edited-name.pdf')
+
+      pdf_attachment.update_attributes!(file: uploaded_pdf_file)
+
+      assert pdf_attachment.valid?
     end
 
     def test_update_attachment_metadata

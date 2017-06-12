@@ -8,6 +8,7 @@ module GobiertoAdmin
 
       rescue_from ActionController::RoutingError,  with: :return_404
       rescue_from ActionController::UnknownFormat, with: :return_404
+      rescue_from ActionController::ParameterMissing, with: :return_400
 
       rescue_from ActiveRecord::RecordNotFound, with: :return_404
       rescue_from ActiveRecord::RecordNotSaved, with: :return_400

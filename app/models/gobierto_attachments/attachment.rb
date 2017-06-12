@@ -47,18 +47,29 @@ module GobiertoAttachments
         new_digest = Attachment.file_digest(file.open)
 
         if file_updated?(new_digest)
-          self.url = ::GobiertoAdmin::FileUploadService.new(site: site, collection: 'attachments', attribute_name: :attachment, file: file).call
           self.file_name = file.original_filename
           self.file_size = file.size
           self.file_digest = new_digest
           self.current_version += 1
+
+          if attachment = find_attachment_with_same_file_name_and_content
+            errors.add(:base, "This attachment already exists at the following URL: #{attachment.url}")
+            throw :abort
+          else
+            self.url = ::GobiertoAdmin::FileUploadService.new(site: site, collection: 'attachments', attribute_name: :attachment, file: file).call
+          end
         end
+
         file.close
       end
     end
 
     def file_updated?(new_digest)
       file_digest.nil? || (file.present? && (new_digest != self.file_digest))
+    end
+
+    def find_attachment_with_same_file_name_and_content
+      site.attachments.where(file_digest: file_digest, file_name: file_name).first
     end
 
   end

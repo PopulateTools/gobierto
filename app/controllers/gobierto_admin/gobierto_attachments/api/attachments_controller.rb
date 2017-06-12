@@ -4,16 +4,16 @@ module GobiertoAdmin
       class AttachmentsController < ::GobiertoAdmin::Api::BaseController
 
         before_action :find_attachable, only: [:index]
-        before_action :find_attachment, only: [:update, :destroy]
+        before_action :find_attachment, only: [:show, :update, :destroy]
 
         def index
-          if params[:search_string]
-            attachments = ::GobiertoAttachments::Attachment.search(params[:search_string], page: params[:page])
-          elsif @attachable
-            attachments = @attachable.attachments.page(params[:page])
-          else
-            attachments = current_site.attachments.page(params[:page])
-          end
+          attachments = if params[:search_string]
+                          ::GobiertoAttachments::Attachment.search(params[:search_string], page: params[:page])
+                        elsif @attachable
+                          @attachable.attachments.page(params[:page])
+                        else
+                          current_site.attachments.page(params[:page])
+                        end
 
           render(
             json: { attachments: attachments },
@@ -21,12 +21,14 @@ module GobiertoAdmin
           )
         end
 
-        def create
-          attachment = ::GobiertoAttachments::Attachment.new(
-            attachment_params.merge!(site: current_site, file: uploaded_file)
-          )
+        def show
+          render(json: { attachment: default_serializer.new(@attachment) } )
+        end
 
-          attachment.save!
+        def create
+          attachment = ::GobiertoAttachments::Attachment.create!(
+            attachment_params.merge(site: current_site, file: uploaded_file)
+          )
 
           render(
             json: { attachment: default_serializer.new(attachment) }
@@ -68,12 +70,11 @@ module GobiertoAdmin
         end
 
         def uploaded_file
-          @tmp_file = Tempfile.new('attachment_file')
-          @tmp_file.binmode
-          file_content = Base64.decode64(attachment_params[:file])
-          @tmp_file.write(file_content)
-          @tmp_file.close
-          ActionDispatch::Http::UploadedFile.new(filename: attachment_params[:file_name], tempfile: @tmp_file)
+          tmp_file = Tempfile.new('attachment_file')
+          tmp_file.binmode
+          tmp_file.write(Base64.strict_decode64(attachment_params[:file]))
+          tmp_file.close
+          ActionDispatch::Http::UploadedFile.new(filename: attachment_params[:file_name], tempfile: tmp_file)
         rescue
           raise(PayloadError, 'Invalid payload')
         end

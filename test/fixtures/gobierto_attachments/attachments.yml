@@ -2,7 +2,7 @@ pdf_attachment:
   name: PDF Attachment Name
   file_size: 10022
   file_name: pdf-attachment.pdf
-  file_digest: pdf-attachment-file-digest
+  file_digest: 44036997d456028a88d634afa64037ae
   url: http://host.com/attachments/pdf-attachment.pdf
   description: Description of a PDF attachment
   current_version: 1
@@ -12,7 +12,7 @@ xlsx_attachment:
   name: XLSX Attachment Name
   file_size: 3604
   file_name: xlsx-attachment.xlsx
-  file_digest: xlsx-attachment-file-digest
+  file_digest: 9cfd24e26ae096263cb82cd13bcd2feb
   url: http://host.com/attachments/xslsx-attachment.xlsx
   description: Description of a XLSX attachment
   current_version: 2
@@ -22,7 +22,7 @@ attachment:
   name: Attachment Name
   file_size: 49
   file_name: attachment
-  file_digest: attachment-file-digest
+  file_digest: b6db2818dffd2fb2fc20836bebd59b87
   url: http://host.com/attachments/attachment
   description: Description of attachment without extension
   current_version: 3
@@ -32,7 +32,7 @@ txt_pdf_attachment:
   name: TXT PDF Attachment Name
   file_size: 10312
   file_name: txt-pdf-attachment.txt.pdf
-  file_digest: txt-pdf-attachment-file-digest
+  file_digest: 0113fca2b2e2396c7b1a26fad897417b
   url: http://host.com/attachments/txt-pdf-attachment.txt.pdf
   description: Description of attachment with two extensions in name
   current_version: 4

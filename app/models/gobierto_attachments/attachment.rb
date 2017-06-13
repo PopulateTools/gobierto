@@ -21,8 +21,9 @@ module GobiertoAttachments
     attr_accessor :file
 
     validates :site, :name, :file_size, :file_name, :file_digest, :url, :current_version, presence: true
-    
+
     validates :file_digest, uniqueness: {
+      scope: :site_id,
       message: ->(object, data) do
         url = object.site.attachments.find_by!(file_digest: object.file_digest).url
         "not unique (already uploaded at #{url})."

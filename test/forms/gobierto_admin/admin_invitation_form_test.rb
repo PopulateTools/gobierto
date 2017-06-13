@@ -16,6 +16,13 @@ module GobiertoAdmin
       )
     end
 
+    def invalid_sites_admin_invitation_form
+      @invalid_sites_admin_invitation_form ||= AdminInvitationForm.new(
+        emails: "one@gobierto.dev",
+        site_ids: []
+      )
+    end
+
     def site
       @site ||= sites(:madrid)
     end
@@ -36,6 +43,11 @@ module GobiertoAdmin
     def test_invalid_process
       assert invalid_admin_invitation_form.process
       assert_equal 1, invalid_admin_invitation_form.delivered_email_addresses.size
+    end
+
+    def test_invalid_sites_process
+      assert_nil invalid_sites_admin_invitation_form.process
+      assert_equal 1, invalid_sites_admin_invitation_form.errors[:site_ids].size
     end
   end
 end

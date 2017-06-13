@@ -2,6 +2,11 @@ require "test_helper"
 
 module GobiertoAdmin
   class Admin::InvitationsControllerTest < GobiertoControllerTest
+
+    def site
+      @site ||= sites(:madrid)
+    end
+
     def admin
       @admin ||= gobierto_admin_admins(:nick)
     end
@@ -27,7 +32,7 @@ module GobiertoAdmin
       {
         admin_invitation: {
           emails: 'email1@example.com,email2@example.com',
-          site_ids: []
+          site_ids: ['', site.id]
         }
       }
     end

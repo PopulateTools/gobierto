@@ -15,7 +15,7 @@ es:
     - vie
     - sáb
     abbr_month_names:
-    - 
+    -
     - ene
     - feb
     - mar
@@ -41,7 +41,7 @@ es:
       long: "%d de %B de %Y"
       short: "%d %b %Y"
     month_names:
-    - 
+    -
     - enero
     - febrero
     - marzo
@@ -136,6 +136,7 @@ es:
       too_long: es demasiado largo (%{count} caracteres máximo)
       too_short: es demasiado corto (%{count} caracteres mínimo)
       wrong_length: no tiene la longitud correcta (%{count} caracteres exactos)
+      array_too_short: es demasiado corto (al menos ${count} elemento)
     template:
       body: 'Se encontraron problemas con los siguientes campos:'
       header:

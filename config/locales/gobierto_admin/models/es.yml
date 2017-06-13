@@ -12,8 +12,11 @@ es:
         name: Nombre
         password: Contraseña
         password_confirmation: Confirmación de contraseña
+        site_ids: Sites
+        site_modules: Módulos
       gobierto_admin/admin_invitation_form:
         emails: Emails
+        site_ids: Sites
       gobierto_admin/admin_new_password_form:
         email: Email
       gobierto_admin/site_form:
@@ -29,6 +32,7 @@ es:
         municipality_id: Municipio
         name: Nombre de la entidad
         privacy_page_id: Página de privacidad
+        populate_data_api_token: API token Populate Data
         title: Nombre del site
       gobierto_admin/user_form:
         email: Email

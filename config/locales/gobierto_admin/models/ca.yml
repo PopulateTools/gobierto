@@ -12,8 +12,11 @@ ca:
         name: Nom
         password: Contrasenya
         password_confirmation: Confirmació de la contrasenya
+        site_ids: Sites
+        site_modules: Mòduls
       gobierto_admin/admin_invitation_form:
         emails: Emails
+        site_ids: Sites
       gobierto_admin/admin_new_password_form:
         email: Email
       gobierto_admin/site_form:
@@ -29,6 +32,7 @@ ca:
         municipality_id: Municipi
         name: Nom de l'entitat
         privacy_page_id: Pàgina privacitat
+        populate_data_api_token: API token Populate Data
         title: Nom del site
       gobierto_admin/user_form:
         email: Email

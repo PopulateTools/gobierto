@@ -13,6 +13,7 @@ class SiteConfiguration
     :available_locales,
     :default_locale,
     :privacy_page_id,
+    :populate_data_api_token,
   ].freeze
 
   DEFAULT_LOGO_PATH = "sites/logo-default.png".freeze

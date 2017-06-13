@@ -1,0 +1,5 @@
+consultation_faq_xlsx_attachment:
+  site: madrid
+  attachment: xlsx_attachment
+  attachable: consultation_faq
+  attachable_type: GobiertoCms::Page

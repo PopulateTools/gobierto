@@ -7,13 +7,17 @@ module GobiertoAdmin
     attr_accessor :emails, :site_ids
 
     validates :email_list, presence: true
+    validates :site_ids, length: { minimum: 1, too_short: I18n.t('errors.messages.array_too_short') }
+
+    def initialize(attributes = {})
+      super(attributes)
+      if @site_ids && @site_ids.any?
+        @site_ids = @site_ids.delete_if{ |site_id| site_id.blank? }.compact.uniq
+      end
+    end
 
     def process
       build_invitations if valid?
-    end
-
-    def site_ids
-      @site_ids ||= []
     end
 
     def delivered_email_addresses

@@ -1,7 +1,7 @@
 <% content_for :javascript_include do %>
   <%= javascript_tag do %>
     window.populateData = {
-      token: "<%= Rails.application.secrets.tbi_api_token %>",
+      token: "<%= @site.configuration.populate_data_api_token %>",
       municipalityId: "<%= @site.place.id %>",
       municipalityName: "<%= @site.place.name %>",
       provinceId: "<%= @site.place.province.id %>",

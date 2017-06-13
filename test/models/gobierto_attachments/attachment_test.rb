@@ -67,7 +67,7 @@ module GobiertoAttachments
     def test_create_attachment
       ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns('http://host.com/attachments/new-pdf-attachment.pdf')
 
-      new_attachment = Attachment.create(
+      new_attachment = Attachment.create!(
         site: site,
         name: 'New attachment name',
         description: 'New attachment description',
@@ -143,15 +143,6 @@ module GobiertoAttachments
       assert_raises ActiveRecord::RecordInvalid do
         pdf_attachment.update_attributes!(file: uploaded_xlsx_file)
       end
-    end
-
-    def test_update_attachment_when_file_is_duplicated_but_file_name_is_different
-      uploaded_xlsx_file.stubs(:file_name).returns('pdf-attachment-with-edited-name.pdf')
-      ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns('http://host.com/attachments/pdf-attachment-with-edited-name.pdf')
-
-      pdf_attachment.update_attributes!(file: uploaded_pdf_file)
-
-      assert pdf_attachment.valid?
     end
 
     def test_update_attachment_metadata

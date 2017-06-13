@@ -74,7 +74,9 @@ module GobiertoAdmin
           tmp_file.binmode
           tmp_file.write(Base64.strict_decode64(attachment_params[:file]))
           tmp_file.close
-          ActionDispatch::Http::UploadedFile.new(filename: attachment_params[:file_name], tempfile: tmp_file)
+          # Mass assignment of file_name attribute is not permitted, it must always come from
+          # an UploadedFile instance. Thus, we read it from params instead of attachment_params.
+          ActionDispatch::Http::UploadedFile.new(filename: params[:attachment][:file_name], tempfile: tmp_file)
         rescue
           raise(PayloadError, 'Invalid payload')
         end
@@ -87,7 +89,6 @@ module GobiertoAdmin
           params.require(:attachment).permit(
             :name,
             :description,
-            :file_name,
             :file
           )
         end

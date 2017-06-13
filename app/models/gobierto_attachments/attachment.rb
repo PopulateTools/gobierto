@@ -21,6 +21,13 @@ module GobiertoAttachments
     attr_accessor :file
 
     validates :site, :name, :file_size, :file_name, :file_digest, :url, :current_version, presence: true
+    
+    validates :file_digest, uniqueness: {
+      message: ->(object, data) do
+        url = object.site.attachments.find_by!(file_digest: object.file_digest).url
+        "not unique (already uploaded at #{url})."
+      end
+    }
 
     belongs_to :site
 
@@ -42,34 +49,27 @@ module GobiertoAttachments
 
     def update_file_attributes
       if file
-        throw :abort if file.size > MAX_FILE_SIZE_IN_BYTES
+        if file.size > MAX_FILE_SIZE_IN_BYTES
+          errors.add(:base, "File exceeds max size")
+          throw :abort
+        end
 
-        new_digest = Attachment.file_digest(file.open)
+        self.file_digest = self.class.file_digest(file.open)
 
-        if file_updated?(new_digest)
+        if file_digest_changed? && unique_file_digest?
           self.file_name = file.original_filename
           self.file_size = file.size
-          self.file_digest = new_digest
           self.current_version += 1
-
-          if attachment = find_attachment_with_same_file_name_and_content
-            errors.add(:base, "This attachment already exists at the following URL: #{attachment.url}")
-            throw :abort
-          else
-            self.url = ::GobiertoAdmin::FileUploadService.new(site: site, collection: 'attachments', attribute_name: :attachment, file: file).call
-          end
+          self.url = ::GobiertoAdmin::FileUploadService.new(site: site, collection: 'attachments', attribute_name: :attachment, file: file).call
         end
 
         file.close
       end
     end
 
-    def file_updated?(new_digest)
-      file_digest.nil? || (file.present? && (new_digest != self.file_digest))
-    end
-
-    def find_attachment_with_same_file_name_and_content
-      site.attachments.where(file_digest: file_digest, file_name: file_name).first
+    def unique_file_digest?
+      attachment_with_same_digest_id = site.attachments.where(file_digest: file_digest).pluck(:id).first
+      attachment_with_same_digest_id.nil? || (attachment_with_same_digest_id == id)
     end
 
   end

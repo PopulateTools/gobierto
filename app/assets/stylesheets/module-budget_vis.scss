@@ -4,6 +4,23 @@
 	h2 {
 		margin: .85em 0 2em 0;
 	}
+  .last_update {
+    margin-top: 2em;
+    margin-bottom: 0.25em;
+  }
+  .inline_header {
+    h2,
+    .breadcrumb {
+      display: inline-block;
+    }
+    .breadcrumb {
+      padding: 0;
+    }
+  }
+	p {
+		line-height: 1.4;
+		font-size: 1.125rem;
+	}
 }
 
 
@@ -134,7 +151,7 @@
 		display: inline-block;
 		padding: .5em 2em .25em;
 		@include border-radius(4px);
-	}	
+	}
 	.fa {
 		margin: 0 .5em 0 0;
 		font-size: .85em;
@@ -261,7 +278,7 @@
     .deviation_table_container {
       padding-bottom:2em;
       margin-bottom:2em;
-      border-bottom:solid 1px rgba(178, 175, 169, 0.5); 
+      border-bottom:solid 1px rgba(178, 175, 169, 0.5);
     }
     .deviation_table_container:last-child {
       border-bottom: none;

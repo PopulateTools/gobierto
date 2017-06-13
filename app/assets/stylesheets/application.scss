@@ -50,6 +50,8 @@
 @import "comp-tabs";
 @import "comp-text_content";
 @import "comp-indicator_widget";
+@import "comp-story-box";
+@import "comp-banner-blocks";
 
 @import "comp-graph-treemap";
 @import "comp-graph-vis_lines_table";
@@ -216,7 +218,7 @@ a.soft_cta:hover {
 }
 .pl-xs {
   padding-left: 0.75rem;
-  
+
   @include min-screen(768) {
     padding-left: 0;
   }

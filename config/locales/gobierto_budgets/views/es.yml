@@ -52,9 +52,24 @@ es:
         context: Contexto
         data_of_year: "* datos del %{year}"
         debt: Deuda
+        data_advice: Cantidades económicas expresadas en €. Datos de 2015.
         expenses: Gastos
         expenses_per_inhabitant: Gasto por habitante
-        header: Los datos clave de tu municipio
+        header: Presupuestos
+        description_1: En esta página te contamos cúal es la distribución de los presupuestos, cuál es el estado de ejecución de cada partida, quiénes son los proveedores con los que trabajamos, y cómo ha evolucionado el gasto por habitante.
+        description_2: Además, podrás acceder al “El recibo de mis impuestos”, que te informará de cómo se distribuyen tus aportaciones tributarias a las diferentes partidas.
+        last_update: <strong>Última actualización:</strong> 5 de junio de 2017.
+        budget_guide: Consulta la Guía del Presupuesto
+        stories_header: Te explicamos el presupuesto
+        story_1:
+          title: Actuaciones de carácter general
+          lede: Te contamos cuales son las prioridades presupuestarias para el 2017 en torno a las que hemos articulado el plan económico.
+        story_2:
+          title: Presupuestos y medio ambiente
+          lede: Te contamos cuales son las prioridades presupuestarias para el 2017 en torno a las que hemos articulado el plan económico.
+        story_3:
+          title: Potenciando el deporte
+          lede: Te contamos cuales son las prioridades presupuestarias para el 2017 en torno a las que hemos articulado el plan económico.
         in_total: En total
         income: Ingresos
         inhabitants: Habitantes
@@ -76,8 +91,9 @@ es:
           con los datos que existen (que son la gran mayoría). Más información en
           nuestras preguntas frecuentes
         per_person: Por habitante
-        planned_vs_executed: Gasto real vs. el plan
-        planned_vs_executed_other_year_html: En %{year} fue un %{link}
+        executed: Ejecución
+        executed_tooltip: La ejecución es la cantidad que finalmente se ha gastado sobre lo presupuestado inicialmente.
+        executed_percent: 70% de lo presupuestado
         search_for_a_budget_line: Busca una partida
         see_all: ver todos
         title: Presupuestos municipales en %{year}

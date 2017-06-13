@@ -51,9 +51,24 @@ en:
         context: Context
         data_of_year: "* as of %{year}"
         debt: Debt
+        data_advice: Economic quantities expressed in €. Data from 2015.
         expenses: Expenses
         expenses_per_inhabitant: Expenses per inhabitant
-        header: Relevant data from your municipality
+        header: Budgets
+        description_1: In this site you can learn about the budget's income and expenses, the status of the execution, the different providers we work with and the evolution of the expense per inhabitant.
+        description_2: You can also go to the 'Receipt of my taxes', where you will learn how your contributions are splitted through dozens of budget lines.
+        last_update: <strong>Last update:</strong> 5th June, 2017.
+        budget_guide: Read our Budget Guide
+        stories_header: Explaining the budget
+        story_1:
+          title: General activities
+          lede: Explaining the budget priorities for 2017, and how we built the budget around them.
+        story_2:
+          title: Budgets and the environment
+          lede: Explaining the budget priorities for 2017, and how we built the budget around them.
+        story_3:
+          title: Promoting sports
+          lede: Explaining the budget priorities for 2017, and how we built the budget around them.
         in_total: Total
         income: Income
         inhabitants: Inhabitants
@@ -74,7 +89,9 @@ en:
           municipalities, and the avegages are calculated only with the data that
           exists (which is most of it). More information in our FAQ
         per_person: Per person
-        planned_vs_executed: Real expenses vs the plan
+        executed: Executed
+        executed_tooltip: The execution is the quantity that has been spent from the initial budget.
+        executed_percent: 70% of the budget
         planned_vs_executed_other_year_html: In %{year} it was %{link}
         search_for_a_budget_line: Search a budget line
         see_all: view all

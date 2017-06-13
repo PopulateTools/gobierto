@@ -3,23 +3,26 @@
  *
  */
 .metric_boxes {
-	margin: 0 0 6em 0;
-	.metric_box {
+	margin: 3em 0 6em 0;
+
+  .metric_box {
 		box-sizing: border-box;
 		.inner {
-			background: transparentize($color_main, .85);
 			margin: 0 .5em;
 			padding: .8em 1em;
 			min-height: 100px;
 			position: relative;
+      border: 1px solid $separator;
 		}
 		h3 {
-			color: $color_main;
+			color: $color_text;
 			margin: 0 0 .75em 0;
 			font-size: 1em;
+      opacity: 0.6;
 			font-weight: 600;
 		}
 		.metric {
+      color: $color_main;
 			font-size: 2em;
 			font-weight: 600;
 		}
@@ -33,6 +36,34 @@
 			font-size: 1em;
 			opacity: .5;
 		}
+    .explanation_bar {
+      font-size: .75em;
+      position: absolute;
+      bottom: .8em;
+      width: 100%;
+
+      span {
+        opacity: 0.6;
+      }
+    }
+    .bar {
+      display: inline-block;
+      width: 25%;
+      opacity: 1;
+      height: 10px;
+      background: $separator;
+      margin-right: 0.25rem;
+
+      .line {
+        opacity: 1;
+        height: 10px;
+        background: $color_main
+      }
+    }
+    .tooltiped {
+      text-decoration: underline;
+      cursor: pointer;
+    }
 	}
 	.metric_box:first-child {
 		.inner {

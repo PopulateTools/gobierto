@@ -55,3 +55,13 @@ $color_success: #2ca25f;
 .color_main {
 	background: $color_main;
 }
+.tipsy {
+  .tipsy-inner {
+    background: white;
+    border: 1px solid #979797;
+    border-radius: 4px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.10);
+    color: $color_text;
+    line-height: 1.3;
+  }
+}

@@ -1,12 +1,12 @@
- /* 
+ /*
   * Populities
   * CSS and JS utilities by Populate
   *
   * https://github.com/PopulateTools/populities
   * Version: 0.3
-  * 
+  *
   * TODO: Create and index, document...
-  * 
+  *
   */
 
 .clearfix, %clearfix {
@@ -27,7 +27,7 @@
   text-align: center;
 }
 .col-2-2 {
-  float: right; 
+  float: right;
   margin: 0;
 }
 .col-1-3, .col-2-3, .col-3-3 {
@@ -112,39 +112,42 @@
 }
 .p_h_1 {
   padding: 0 1em;
-  box-sizing: border-box;  
+  box-sizing: border-box;
 }
 .p_h_2 {
   padding: 0 2em;
-  box-sizing: border-box;  
+  box-sizing: border-box;
 }
 .p_h_3 {
   padding: 0 3em;
-  box-sizing: border-box;  
+  box-sizing: border-box;
 }
 .p_h_4 {
   padding: 0 4em;
-  box-sizing: border-box;  
+  box-sizing: border-box;
 }
 .p_v_1 {
   padding: 1em 0;
-  box-sizing: border-box;  
+  box-sizing: border-box;
 }
 .p_v_2 {
   padding: 2em 0;
-  box-sizing: border-box;  
+  box-sizing: border-box;
 }
 .p_v_3 {
   padding: 3em 0;
-  box-sizing: border-box;  
+  box-sizing: border-box;
 }
 .p_v_4 {
   padding: 4em 0;
-  box-sizing: border-box;  
+  box-sizing: border-box;
 }
 .m_v_0 {
   margin-top: 0;
   margin-bottom: 0;
+}
+.m_v_0_25 {
+  margin: .25em 0;
 }
 .m_v_1 {
   margin: 1em 0;
@@ -197,11 +200,11 @@ properties.
 
 @mixin reset_ul_li {
   ul, li {
-    margin: 0; 
+    margin: 0;
     padding: 0;
     list-style: none;
   }
-  li { 
+  li {
     display: inline-block;
   }
 }
@@ -209,10 +212,10 @@ properties.
 @mixin after_separator($separator, $margin_after: 0) {
   ul {
     li:not(:last-child):after {
-      content: $separator; 
+      content: $separator;
       @if $margin_after != false { margin-right: $margin_after}
-    }  
-    @if $margin_after != false { 
+    }
+    @if $margin_after != false {
       li a {
         padding-right: $margin_after
       }
@@ -294,13 +297,13 @@ properties.
   }
 }
 
-/* Responsive mixin 
+/* Responsive mixin
    ----------------
-  @include screen(768, 1280) { 
-    background: black; 
+  @include screen(768, 1280) {
+    background: black;
   }
-  @include min-screen(320) { 
-    width: 300px; 
+  @include min-screen(320) {
+    width: 300px;
   }
 */
 
@@ -350,7 +353,7 @@ $units: 1px !default;
   -webkit-border-radius: $radius;
   -moz-border-radius: $radius;
   -khtml-border-radius: $radius;
-  border-radius: $radius; 
+  border-radius: $radius;
 
 }
 
@@ -377,17 +380,17 @@ $units: 1px !default;
   ::-webkit-input-placeholder {@content}
   :-moz-placeholder           {@content}
   ::-moz-placeholder          {@content}
-  :-ms-input-placeholder      {@content}  
+  :-ms-input-placeholder      {@content}
 }
 
 
 @mixin tabs($border: #DFDFDF, $background: #CCC, $text: #999, $text_on_background: #FFF) {
   ul, li {
-    margin: 0; 
+    margin: 0;
     padding: 0;
     list-style: none;
   }
-  li { 
+  li {
     display: inline-block;
   }
   ul {
@@ -398,7 +401,7 @@ $units: 1px !default;
     height: 25px;
     a {
       display: block;
-      @include border-radius(6px, 6px, 0, 0); 
+      @include border-radius(6px, 6px, 0, 0);
       border: 1px solid $border;
       margin: 0 10px 0 0;
       padding: 6px 10px 4px;
@@ -408,7 +411,7 @@ $units: 1px !default;
     }
     a:hover {
       background: $background;
-      color: $text_on_background;  
+      color: $text_on_background;
     }
   }
   li.active a {
@@ -467,9 +470,9 @@ $units: 1px !default;
   }
   .padded {
     height: 100%;
-    
+
     @include min-screen(768) {
-      margin: 1em;  
+      margin: 1em;
     }
   }
   [class*="pure-u"] {

@@ -68,4 +68,6 @@ $(document).on('turbolinks:load', function() {
     $('.line_browser').velocity("fadeOut", { duration: 150 });
   });
 
+
+  $('#executed-tooltip').tipsy({gravity: 's', trigger: 'hover' });
 });

@@ -70,6 +70,15 @@ ca:
         story_3:
           title: Potenciant l'esport
           lede: Et contem quines són les prioritats pressupuestàries per al 2017 segons les quals hem articulat el pla econòmic.
+        budget_receipt:
+          title: El rebut dels meus impostos
+          intro: Descobreix a què es dediquen les teves aportacions
+        budget_slides:
+          title: Els pressuposts d'un cop d'ull
+          slide_1: Gasto en asistencia social por habitante
+        budget_lines_block:
+          title: Partides del pressupost
+          intro: Aquestes són les partides del pressupost més importants al teu municipi.
         in_total: En total
         income: Ingressos
         inhabitants: Habitants

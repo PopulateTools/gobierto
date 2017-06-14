@@ -69,6 +69,15 @@ en:
         story_3:
           title: Promoting sports
           lede: Explaining the budget priorities for 2017, and how we built the budget around them.
+        budget_receipt:
+          title: Your taxes receipt
+          intro: Learn how your contribution is spent
+        budget_slides:
+          title: A peek into the budget
+          slide_1: Gasto en asistencia social por habitante
+        budget_lines_block:
+          title: Budget lines
+          intro: These are your town's most important budget lines.
         in_total: Total
         income: Income
         inhabitants: Inhabitants

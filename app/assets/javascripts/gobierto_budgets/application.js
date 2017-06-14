@@ -68,6 +68,20 @@ $(document).on('turbolinks:load', function() {
     $('.line_browser').velocity("fadeOut", { duration: 150 });
   });
 
+  $('.tooltiped-budget-lines').tipsy({
+    gravity: 'se',
+    trigger: 'hover',
+    html: true,
+    className: 'tipsy-lines'
+  });
 
-  $('#executed-tooltip').tipsy({gravity: 's', trigger: 'hover' });
+  // $('.tooltiped-budget-lines').on('click', function() {
+  //   $(".tooltiped-budget-lines").tipsy("show");
+  // })
+
+  $('.tooltiped').tipsy({
+    gravity: 's',
+    trigger: 'hover',
+    html: true
+  });
 });

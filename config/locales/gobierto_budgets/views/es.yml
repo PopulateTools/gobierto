@@ -70,6 +70,15 @@ es:
         story_3:
           title: Potenciando el deporte
           lede: Te contamos cuales son las prioridades presupuestarias para el 2017 en torno a las que hemos articulado el plan económico.
+        budget_receipt:
+          title: El recibo de tus impuestos
+          intro: Comprueba a qué se dedican tus aportaciones
+        budget_slides:
+          title: Los presupuestos de un vistazo
+          slide_1: Gasto en asistencia social por habitante
+        budget_lines_block:
+          title: Partidas presupuestarias
+          intro: Estas son las partidas presupuestarias más importantes en tu municipio
         in_total: En total
         income: Ingresos
         inhabitants: Habitantes

@@ -3,9 +3,9 @@
  *
  */
 .success, .error, .alert, .notice {
-  padding: 2em;
+  padding: 1em;
   margin-bottom: 2em;
-  font-size: 1.2em;
+  font-size: $f5;
   border-left: 10px solid;
 
   .fa {

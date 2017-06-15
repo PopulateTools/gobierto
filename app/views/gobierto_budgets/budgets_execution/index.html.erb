@@ -10,43 +10,55 @@
 <% end %>
 
 <div class="column">
+  <div class="block">
+    <div class="pure-g header_block_inline">
+      <div class="pure-u-1 pure-u-md-1-2">
+        <div class="inline_header">
+          <h2 class="with_description p_h_r_1">Ejecución presupuestaria</h2>
+          <%= render partial: 'gobierto_budgets/budgets/year_breadcrumb', locals: {path_calculation_method: :gobierto_budgets_budgets_path} %>
 
-	<%= render partial: 'gobierto_budgets/budgets/year_breadcrumb', locals: {path_calculation_method: :gobierto_budgets_budgets_execution_path} %>
+          <p>La ejecución es la cantidad que finalmente se ha gastado sobre lo presupuestado inicialmente. Es normal que haya desviaciones ya que es imposible preveer todos los gastos con precisión absoluta.</p>
+          <p><strong>Última actualización:</strong> Junio 2017.</p>
+        </div>
+      </div>
 
-  <% if flash[:alert] %>
-    <p><em><%= flash[:alert] %></em></p>
-  <% end %>
+      <div class="pure-u-1 pure-u-md-1-2 metric_boxes m_v_4">
+        <div class="pure-g">
+          <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
+            <div class="inner">
+              <h3>Ejecución</h3>
+              <div class="metric">54%</div>
+              <div class="explanation">
+                0,74% más que en 2015
+              </div>
+            </div>
+          </div>
+
+          <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
+            <div class="inner">
+              <h3>Gasto presupuestado</h3>
+              <div class="metric">4.483M</div>
+              <div class="explanation">
+                0,74% más que en 2015
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="pure-g">
+      <div class="pure-u-1">
+        <h2>Así va la ejecución de los gastos</h2>
+
+
+
+      </div>
+    </div>
+  </div>
 
 	<div class="execution">
-
-		<div class="pure-g">
-			<div class="pure-u-1 pure-u-md-11-24">
-				<div class="deviation_widget"
-					data-widget-template="#widget-template-deviation"
-	    		data-widget-type="budget_execution_deviation"
-	    		data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_deviation_path(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, format: :json) %>"
-	    		data-callback="render_evo_line">
-				</div>
-			</div>
-			<div class="pure-u-1 pure-u-md-2-24"></div>
-			<div class="pure-u-1 pure-u-md-11-24">
-				<div class="deviation_widget"
-					data-widget-template="#widget-template-deviation"
-	    		data-widget-type="budget_execution_deviation"
-	    		data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_deviation_path(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, format: :json) %>"
-	    		data-callback="render_evo_line">
-				</div>
-			</div>
-		</div>
-
-		<div class="m_v_4">
-			<div class="section_separator" name="separator">
-			  <div class="sep"></div>
-        <p><strong><%= t('.execution_help') %></strong></p>
-        <p><%= t('.execution_disclaimer') %></p>
-			  <div class="sep"></div>
-			</div>
-		</div>
 
 		<div class="pure-g">
 			<div class="pure-u-1 pure-u-lg-11-24 deviation_table_container">

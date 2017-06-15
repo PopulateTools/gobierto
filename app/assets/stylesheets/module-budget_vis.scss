@@ -290,3 +290,39 @@
   }
 
 }
+.budgets_execution {
+  .lines_execution {
+
+    .axis {
+      font-family: $font_text;
+
+      .domain {
+        display: none;
+      }
+    }
+
+    .y.axis {
+      font-size: 1rem;
+
+      text {
+        fill: $color_text;
+        font-weight: 600;
+      }
+      line {
+        display: none;
+      }
+    }
+
+    .x.axis {
+      font-size: $f7;
+
+      text {
+        fill: rgba($color_text, .5)
+      }
+      line {
+        stroke-dasharray: 2 2;
+        stroke: rgba(0,0,0,.5)
+      }
+    }
+  }
+}

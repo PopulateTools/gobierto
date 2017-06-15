@@ -12,6 +12,10 @@ $( document ).on('turbolinks:load', function() {
       $(this).text($(this).data('more-literal'));
   })
 
+  if ($('.lines_execution').length) {
+    var vis_lines_execution = new VisLinesExecution('.lines_execution')
+    vis_lines_execution.render();
+  }
 });
 var vis_evoline = [];
 function render_evo_line($widget_node) {

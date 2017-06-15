@@ -79,6 +79,13 @@ ca:
         budget_lines_block:
           title: Partides del pressupost
           intro: Aquestes són les partides del pressupost més importants al teu municipi.
+        execution_block:
+          title: Execució
+          intro: Així s'està executant el pressupost municipal.
+          last_update: "Darrera actualització: %{date}."
+          income: Ingressos
+          expense: Despesa
+          button: Consulta l'execució al complet
         in_total: En total
         income: Ingressos
         inhabitants: Habitants

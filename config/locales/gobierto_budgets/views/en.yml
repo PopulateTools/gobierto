@@ -78,6 +78,13 @@ en:
         budget_lines_block:
           title: Budget lines
           intro: These are your town's most important budget lines.
+        execution_block:
+          title: Budget execution
+          intro: This is how the budget is being spent.
+          last_update: "Last update: %{date}."
+          income: Income
+          expense: Expense
+          button: Complete execution data
         in_total: Total
         income: Income
         inhabitants: Inhabitants

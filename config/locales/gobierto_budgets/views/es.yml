@@ -79,6 +79,13 @@ es:
         budget_lines_block:
           title: Partidas presupuestarias
           intro: Estas son las partidas presupuestarias más importantes en tu municipio
+        execution_block:
+          title: Ejecución
+          intro: Así va la ejecución del presupuesto municipal.
+          last_update: "Última actualización: %{date}."
+          income: Ingresos
+          expense: Gastos
+          button: Consulta la ejecución completa
         in_total: En total
         income: Ingresos
         inhabitants: Habitantes

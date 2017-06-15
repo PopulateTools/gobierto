@@ -26,8 +26,10 @@
 
         .line_title {
           display: inline-block;
+          margin-bottom: 0.5rem;
 
           @media (min-width: 768px) {
+            margin-bottom: 0;
             max-width: 65%;
           }
 
@@ -37,9 +39,6 @@
           }
         }
         .line_figure {
-          text-align: right;
-          float: right;
-
           .figure {
             font-weight: 700;
             font-size: 2.25em;
@@ -48,7 +47,7 @@
 
           .bar {
             display: inline-block;
-            width: 80px;
+            width: 100%;
             height: 10px;
             background: rgba($color_main, .1);
             margin-right: 0.25rem;
@@ -57,11 +56,25 @@
               height: 10px;
               background: $color_main
             }
+
+            @media (min-width: 740px) {
+              width: 80px;
+            }
+          }
+          .zoom {
+            i {
+              cursor: pointer;
+              color: $color_main;
+            }
+
+            @media (min-width: 740px) {
+              text-align: right;
+            }
           }
 
-          .zoom i {
-            cursor: pointer;
-            color: $color_main;
+          @media (min-width: 740px) {
+            text-align: right;
+            float: right;
           }
         }
 
@@ -78,10 +91,16 @@
   .line_box:last-child .inner {
     margin-right: 0;
   }
+  .line_box:nth-child(3) .inner {
+    margin-right: 0;
+  }
+  .line_box:nth-child(4) .inner {
+    margin-left: 0;
+  }
 
   @media (max-width: 740px) {
     .line_box .inner {
-      margin: 0 .5em 1em 0;
+      margin: 0 0 1em 0;
     }
   }
 }

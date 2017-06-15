@@ -31,8 +31,11 @@
       }
 
       img {
-        max-width: 560px;
         margin: 2em auto;
+
+        @media (min-width: 740px) {
+          max-width: 560px;
+        }
       }
 
       &:hover,
@@ -43,15 +46,20 @@
     }
     .budget_expense {
       h3 {
+        margin-top: 0.5rem;
         font-size: 1.5em;
       }
 
       .circle_figure {
         height: 100%;
         position: absolute;
-        top: 40%;
+        top: 45%;
         width: calc(100% - 2em);
         text-align: center;
+
+        @media (min-width: 740px) {
+          top: 40%;
+        }
 
         div {
           font-size: 3em;
@@ -79,7 +87,7 @@
 
   @media (max-width: 740px) {
     .banner_block .inner {
-      margin: 0 .5em 1em 0;
+      margin: 0 0 1em 0;
     }
   }
 }

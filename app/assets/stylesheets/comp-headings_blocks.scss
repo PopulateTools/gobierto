@@ -37,6 +37,21 @@ h1, h2, h3, h4 {
     right: 0;
     top: 0;
   }
+	.half_description {
+		.block_1 p {
+      margin-bottom: 0;
+    }
+    .block_2 {
+      p {
+       opacity: 0.6;
+       margin-bottom: 1rem;
+      }
+
+      @media (min-width: 768px) {
+        text-align: right;
+      }
+    }
+	}
 }
 .dynamic-content {
   .block {
@@ -149,7 +164,7 @@ p.intro {
 }
 .separator_v {
 	border-left: 1px solid $color_separator;
-	margin: 0 1em;	
+	margin: 0 1em;
 	display: inline-block;
 	height: 3em;
 	margin-top: -.25em;
@@ -219,12 +234,12 @@ p.intro {
 }
 .see_more:hover {
   text-decoration: none;
-  background: darken($color_1_soft, 15%); 
+  background: darken($color_1_soft, 15%);
 }
 
 .inpage_section {
   @include border-radius(4px);
-  text-align: center; 
+  text-align: center;
   background: $color_neutral_soft;
   padding: 1em;
   margin: 2em 0;

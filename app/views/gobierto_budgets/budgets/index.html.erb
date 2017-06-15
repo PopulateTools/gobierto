@@ -257,7 +257,7 @@
       <%= render 'mega_bar', {className: 'expense', percentage: '24' } %>
 
       <div class="pure-u-1 center m_v_1">
-        <a href="#" class="button"><%= t('.execution_block.button') %></a>
+        <%= link_to t('.execution_block.button'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false }, class: "button" %>
       </div>
     </div>
   </div>

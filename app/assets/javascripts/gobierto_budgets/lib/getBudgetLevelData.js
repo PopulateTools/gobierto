@@ -3,9 +3,10 @@
 var getBudgetLevelData = Class.extend({
   init: function() {
     this.data = null;
+    this.dataUrl = $('body').data('bubbles-data');
   },
   getData: function(callback) {
-    d3.json('/data.json', function(error, data) {
+    d3.json(this.dataUrl, function(error, data) {
       if (error) throw error;
 
       this.data = data;

@@ -63,6 +63,8 @@ en:
         main_budget_lines: Main income and expenses from your council
         main_budget_lines_description: These are the 5 main income and expense budget
           lines in your municipality.
+        main_budget_levels_timeline: Compare income and expenses year by year
+        main_budget_levels_per_inhabitant: per inhabitant
         more: more
         most_interesting_budget_lines: Most interesting budget lines
         most_interesting_budget_lines_description: Some of the budget lines you are

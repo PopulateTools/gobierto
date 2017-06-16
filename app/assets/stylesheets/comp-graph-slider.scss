@@ -1,0 +1,42 @@
+.timeline {
+  position: relative;
+  box-sizing: border-box;
+  margin-bottom: 3rem;
+
+  .ticks {
+    font-size: 1.25rem;
+    fill: $color_separator;
+    font-weight: 300;
+
+    & text.active {
+      font-weight: 600;
+      fill: $color_headers;
+    }
+  }
+
+  .year-circles {
+    fill: $color_separator;
+    stroke: white;
+    pointer-events: none;
+  }
+  .track {
+    stroke: $color_secondary;
+    stroke-width: 10px;
+  }
+  .track-inset {
+    stroke: $color_secondary;
+    stroke-width: 8px;
+  }
+  .track-overlay {
+    pointer-events: stroke;
+    stroke-width: 50px;
+    stroke: transparent;
+  }
+  .handle {
+    fill: $color_1;
+    stroke: white;
+    stroke-opacity: 0.5;
+    stroke-width: 1.25px;
+    cursor: pointer;
+  }
+}

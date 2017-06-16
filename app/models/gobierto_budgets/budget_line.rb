@@ -3,8 +3,10 @@ module GobiertoBudgets
     class RecordNotFound < StandardError; end
     class InvalidSearchConditions < StandardError; end
 
+    # Kinds
     INCOME = 'I'
     EXPENSE = 'G'
+    # Areas / ElasticSearch types
     ECONOMIC = 'economic'
     FUNCTIONAL = 'functional'
 
@@ -99,10 +101,11 @@ module GobiertoBudgets
     def self.all
       terms = [
         {term: { kind: @conditions[:kind] }},
-        {term: { year: @conditions[:year] }},
         {term: { ine_code: @conditions[:place].id }}
       ]
 
+      terms.push({term: { year: @conditions[:year] }}) if @conditions[:year]
+      terms.push({term: { code: @conditions[:code] }}) if @conditions[:code]
       terms.push({term: { level: @conditions[:level] }}) if @conditions[:level]
       terms.push({term: { parent_code: @conditions[:parent_code] }}) if @conditions[:parent_code]
       if @conditions[:functional_code]

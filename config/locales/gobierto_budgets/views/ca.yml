@@ -64,6 +64,8 @@ ca:
         main_budget_lines: Les principals despeses i ingressos del teu ajuntament
         main_budget_lines_description: Estos són els 5 principals ingressos i despeses
           del teu municipi.
+        main_budget_levels_timeline: Compara despeses i ingressos any per any
+        main_budget_levels_per_inhabitant: per habitant
         more: més
         most_interesting_budget_lines: Partides que més t'interessen
         most_interesting_budget_lines_description: Te mostrem algunes de les partides

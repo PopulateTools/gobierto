@@ -4,13 +4,14 @@ module GobiertoAdmin
   class FileUploadService
     attr_reader :file, :site, :collection
 
-    def initialize(site:, collection:, attribute_name:, file:, content_disposition: nil)
+    def initialize(site:, collection:, attribute_name:, file:, content_disposition: nil, add_suffix: true)
       @adapter = APP_CONFIG['file_uploads_adapter'].presence.try(:to_sym) || :s3
       @site = site
       @collection = collection
       @attribute_name = attribute_name
       @file = file
       @content_disposition = content_disposition
+      @add_suffix = add_suffix
     end
 
     delegate :call, to: :adapter
@@ -41,7 +42,11 @@ module GobiertoAdmin
     end
 
     def attribute_name
-      "#{@attribute_name}-#{SecureRandom.uuid}"
+      if @add_suffix
+        "#{@attribute_name}-#{SecureRandom.uuid}"
+      else
+        @attribute_name
+      end
     end
   end
 end

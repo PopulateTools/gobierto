@@ -61,8 +61,8 @@ en:
         level_2_category: Level 2 Category
         level_3_category: Level 3 Category
         main_budget_lines: Main income and expenses from your council
-        main_budget_lines_description: These are the 5 main income and expense budget
-          lines in your municipality.
+        main_budget_lines_income: Income
+        main_budget_lines_expense: Expense
         main_budget_levels_timeline: Compare income and expenses year by year
         main_budget_levels_per_inhabitant: per inhabitant
         more: more

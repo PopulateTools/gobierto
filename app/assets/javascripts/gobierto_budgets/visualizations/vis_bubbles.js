@@ -77,7 +77,7 @@ var VisBubbles = Class.extend({
           pct_diff: d.pct_diff[year],
           per_inhabitant: d.values_per_inhabitant[year],
           x: Math.random() * 600,
-          y: Math.random() * 500,
+          y: -d.pct_diff[year] * 10,
           year: year
         };
       }.bind(this))
@@ -88,6 +88,7 @@ var VisBubbles = Class.extend({
         d.pct_diff = d.pct_diffs[year]
         d.per_inhabitant = d.values_per_inhabitant[year]
         d.year = year
+        // d.y = -d.pct_diffs[year] * 10
       }.bind(this))
     }
 

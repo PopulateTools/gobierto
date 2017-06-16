@@ -11,29 +11,32 @@ $(document).on('turbolinks:load', function() {
   } else {
     $('.open_line_browser').hide();
   }
-  
+
   if($('#expense-treemap').length && !$('#expense-treemap svg').length){
     window.expenseTreemap = new TreemapVis('#expense-treemap', 'big', true);
     window.expenseTreemap.render($('#expense-treemap').data('functional-url'));
   }
-  
+
   if($('.vis-bubbles-expense').length && $('.vis-bubbles-income').length) {
+
     var getBubbleData = new getBudgetLevelData();
-    
+
     getBubbleData.getData(function() {
       var sliderBubbles = new VisSlider('.timeline', window.budgetLevels);
-      
+
       var visBubblesExpense = new VisBubbles('.vis-bubbles-expense', 'expense', window.budgetLevels);
       visBubblesExpense.render();
 
       var visBubblesIncome = new VisBubbles('.vis-bubbles-income', 'income', window.budgetLevels);
       visBubblesIncome.render();
-      
+
       $(document).on('visSlider:yearChanged', function(e, year) {
         visBubblesIncome.update(year);
         visBubblesExpense.update(year);
       });
     });
+
+    var bubbleLegend = new VisBubbleLegend('.bubble_legend');
   }
 
   var $autocomplete = $('[data-autocomplete]');

@@ -26,7 +26,7 @@ module GobiertoAttachments
       scope: :site_id,
       message: ->(object, data) do
         url = object.site.attachments.find_by!(file_digest: object.file_digest).url
-        "not unique (already uploaded at #{url})."
+        "#{I18n.t('activerecord.messages.gobierto_attachments/attachment.already_uploaded')} #{url})."
       end
     }
 
@@ -51,7 +51,7 @@ module GobiertoAttachments
     def update_file_attributes
       if file
         if file.size > MAX_FILE_SIZE_IN_BYTES
-          errors.add(:base, "File exceeds max size")
+          errors.add(:base, "#{I18n.t('activerecord.messages.gobierto_attachments/attachment.file_too_big')} (#{MAX_FILE_SIZE_IN_BYTES/1024} Mb)")
           throw :abort
         end
 

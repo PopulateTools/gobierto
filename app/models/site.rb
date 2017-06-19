@@ -30,6 +30,9 @@ class Site < ApplicationRecord
   # Gobierto CMS integration
   has_many :pages, dependent: :destroy, class_name: "GobiertoCms::Page"
 
+  # Gobierto Attachments integration
+  has_many :attachments, dependent: :destroy, class_name: "GobiertoAttachments::Attachment"
+
   # Modules settings
   has_many :module_settings, dependent: :destroy, class_name: "GobiertoModuleSettings"
 

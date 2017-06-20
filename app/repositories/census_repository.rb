@@ -100,9 +100,10 @@ class CensusRepository
     alternatives.push(document_number)
 
     if document_number =~ /\A\d+([a-z])\z/i
-      alternatives.push(document_number.tr(Regexp.last_match(1), ''))
+      letter = Regexp.last_match(1)
+      alternatives.push(document_number.tr(letter, ''))
       alternatives.push('X' + document_number)
-      alternatives.push('X' + document_number.tr(Regexp.last_match(1), ''))
+      alternatives.push('X' + document_number.tr(letter, ''))
     end
 
     if document_number =~ /\AX0\d+([a-z])\z/i

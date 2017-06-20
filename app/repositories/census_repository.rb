@@ -107,30 +107,22 @@ class CensusRepository
         alternatives.push('X' + document_number.gsub(letter, ''))
       when /\AX0\d+([a-z])\z/i
         letter = Regexp.last_match(1)
-        alternatives.push(document_number.gsub('X0', 'X'))
-        alternatives.push(document_number.gsub('X0', '0'))
-        alternatives.push(document_number.gsub('X0', ''))
+        changes = [['XO','X'], ['XO', '0'], ['XO' '']]
+        changes.map { |change| alternatives.push(document_number.gsub(change.first, change.last)) }
+        changes.map { |change| alternatives.push(document_number.gsub(change.first, change.last).gsub(letter, '')) }
         alternatives.push(document_number.gsub(letter, ''))
-        alternatives.push(document_number.gsub('X0', 'X').gsub(letter, ''))
-        alternatives.push(document_number.gsub('X0', '0').gsub(letter, ''))
-        alternatives.push(document_number.gsub('X0', '').gsub(letter, ''))
       when /\AX0\d+\z/i
-        alternatives.push(document_number.gsub('X0', 'X'))
-        alternatives.push(document_number.gsub('X0', '0'))
-        alternatives.push(document_number.gsub('X0', ''))
+        changes = [['XO','X'], ['XO', '0'], ['XO' '']]
+        changes.map { |change| alternatives.push(document_number.gsub(change.first, change.last)) }
       when /\AX\d+([a-z])\z/i
         letter = Regexp.last_match(1)
-        alternatives.push(document_number.gsub('X', 'X0'))
-        alternatives.push(document_number.gsub('X', '0'))
-        alternatives.push(document_number.gsub('X', ''))
+        changes = [['X','X0'], ['X', '0'], ['X' '']]
+        changes.map { |change| alternatives.push(document_number.gsub(change.first, change.last)) }
+        changes.map { |change| alternatives.push(document_number.gsub(letter, '').gsub(change.first, change.last)) }
         alternatives.push(document_number.gsub(letter, ''))
-        alternatives.push(document_number.gsub(letter, '').gsub('X', 'X0'))
-        alternatives.push(document_number.gsub(letter, '').gsub('X', '0'))
-        alternatives.push(document_number.gsub(letter, '').gsub('X', ''))
       when /\AX\d+\z/i
-        alternatives.push(document_number.gsub('X', 'X0'))
-        alternatives.push(document_number.gsub('X', '0'))
-        alternatives.push(document_number.gsub('X', ''))
+        changes = [['X','X0'], ['X', '0'], ['X' '']]
+        changes.map { |change| alternatives.push(document_number.gsub(change.first, change.last)) }
     end
 
     alternatives

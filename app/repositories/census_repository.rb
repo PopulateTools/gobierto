@@ -102,18 +102,18 @@ class CensusRepository
     case document_number
       when /\A\d+([a-z])\z/i
         letter = Regexp.last_match(1)
-        alternatives.push(document_number.tr(letter, ''))
+        alternatives.push(document_number.gsub(letter, ''))
         alternatives.push('X' + document_number)
-        alternatives.push('X' + document_number.tr(letter, ''))
+        alternatives.push('X' + document_number.gsub(letter, ''))
       when /\AX0\d+([a-z])\z/i
         letter = Regexp.last_match(1)
         alternatives.push(document_number.gsub('X0', 'X'))
         alternatives.push(document_number.gsub('X0', '0'))
         alternatives.push(document_number.gsub('X0', ''))
-        alternatives.push(document_number.tr(letter, ''))
-        alternatives.push(document_number.gsub('X0', 'X').tr(letter, ''))
-        alternatives.push(document_number.gsub('X0', '0').tr(letter, ''))
-        alternatives.push(document_number.gsub('X0', '').tr(letter, ''))
+        alternatives.push(document_number.gsub(letter, ''))
+        alternatives.push(document_number.gsub('X0', 'X').gsub(letter, ''))
+        alternatives.push(document_number.gsub('X0', '0').gsub(letter, ''))
+        alternatives.push(document_number.gsub('X0', '').gsub(letter, ''))
       when /\AX0\d+\z/i
         alternatives.push(document_number.gsub('X0', 'X'))
         alternatives.push(document_number.gsub('X0', '0'))
@@ -121,16 +121,16 @@ class CensusRepository
       when /\AX\d+([a-z])\z/i
         letter = Regexp.last_match(1)
         alternatives.push(document_number.gsub('X', 'X0'))
-        alternatives.push(document_number.tr('X', '0'))
-        alternatives.push(document_number.tr('X', ''))
-        alternatives.push(document_number.tr(letter, ''))
-        alternatives.push(document_number.tr(letter, '').gsub('X', 'X0'))
-        alternatives.push(document_number.tr(letter, '').tr('X', '0'))
-        alternatives.push(document_number.tr(letter, '').tr('X', ''))
+        alternatives.push(document_number.gsub('X', '0'))
+        alternatives.push(document_number.gsub('X', ''))
+        alternatives.push(document_number.gsub(letter, ''))
+        alternatives.push(document_number.gsub(letter, '').gsub('X', 'X0'))
+        alternatives.push(document_number.gsub(letter, '').gsub('X', '0'))
+        alternatives.push(document_number.gsub(letter, '').gsub('X', ''))
       when /\AX\d+\z/i
         alternatives.push(document_number.gsub('X', 'X0'))
-        alternatives.push(document_number.tr('X', '0'))
-        alternatives.push(document_number.tr('X', ''))
+        alternatives.push(document_number.gsub('X', '0'))
+        alternatives.push(document_number.gsub('X', ''))
     end
 
     alternatives

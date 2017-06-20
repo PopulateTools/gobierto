@@ -99,45 +99,38 @@ class CensusRepository
     document_number = document_number.upcase
     alternatives.push(document_number)
 
-    if document_number =~ /\A\d+([a-z])\z/i
-      letter = Regexp.last_match(1)
-      alternatives.push(document_number.tr(letter, ''))
-      alternatives.push('X' + document_number)
-      alternatives.push('X' + document_number.tr(letter, ''))
-    end
-
-    if document_number =~ /\AX0\d+([a-z])\z/i
-      letter = Regexp.last_match(1)
-      alternatives.push(document_number.tr(letter, ''))
-      alternatives.push(document_number.tr('X0', 'X'))
-      alternatives.push(document_number.tr('X0', 'X').tr(letter, ''))
-      alternatives.push(document_number.tr('X0', '0'))
-      alternatives.push(document_number.tr('X0', '0').tr(letter, ''))
-      alternatives.push(document_number.tr('X0', ''))
-      alternatives.push(document_number.tr('X0', '').tr(letter, ''))
-    end
-
-    if document_number =~ /\AX\d+([a-z])\z/i
-      letter = Regexp.last_match(1)
-      alternatives.push(document_number.tr(letter, ''))
-      alternatives.push(document_number.gsub('X', 'X0'))
-      alternatives.push(document_number.tr(letter, '').gsub('X', 'X0'))
-      alternatives.push(document_number.tr('X', '0'))
-      alternatives.push(document_number.tr(letter, '').tr('X', '0'))
-      alternatives.push(document_number.tr('X', ''))
-      alternatives.push(document_number.tr(letter, '').tr('X', ''))
-    end
-
-    if document_number.match?(/\AX0\d+\z/i)
-      alternatives.push(document_number.tr('X0', 'X'))
-      alternatives.push(document_number.tr('X0', '0'))
-      alternatives.push(document_number.tr('X0', ''))
-    end
-
-    if document_number.match?(/\AX\d+\z/i)
-      alternatives.push(document_number.gsub('X', 'X0'))
-      alternatives.push(document_number.tr('X', '0'))
-      alternatives.push(document_number.tr('X', ''))
+    case document_number
+      when /\A\d+([a-z])\z/i
+        letter = Regexp.last_match(1)
+        alternatives.push(document_number.tr(letter, ''))
+        alternatives.push('X' + document_number)
+        alternatives.push('X' + document_number.tr(letter, ''))
+      when /\AX0\d+([a-z])\z/i
+        letter = Regexp.last_match(1)
+        alternatives.push(document_number.tr(letter, ''))
+        alternatives.push(document_number.tr('X0', 'X'))
+        alternatives.push(document_number.tr('X0', 'X').tr(letter, ''))
+        alternatives.push(document_number.tr('X0', '0'))
+        alternatives.push(document_number.tr('X0', '0').tr(letter, ''))
+        alternatives.push(document_number.tr('X0', ''))
+        alternatives.push(document_number.tr('X0', '').tr(letter, ''))
+      when /\AX\d+([a-z])\z/i
+        letter = Regexp.last_match(1)
+        alternatives.push(document_number.tr(letter, ''))
+        alternatives.push(document_number.gsub('X', 'X0'))
+        alternatives.push(document_number.tr(letter, '').gsub('X', 'X0'))
+        alternatives.push(document_number.tr('X', '0'))
+        alternatives.push(document_number.tr(letter, '').tr('X', '0'))
+        alternatives.push(document_number.tr('X', ''))
+        alternatives.push(document_number.tr(letter, '').tr('X', ''))
+      when /\AX0\d+\z/i
+        alternatives.push(document_number.tr('X0', 'X'))
+        alternatives.push(document_number.tr('X0', '0'))
+        alternatives.push(document_number.tr('X0', ''))
+      when /\AX\d+\z/i
+        alternatives.push(document_number.gsub('X', 'X0'))
+        alternatives.push(document_number.tr('X', '0'))
+        alternatives.push(document_number.tr('X', ''))
     end
 
     alternatives

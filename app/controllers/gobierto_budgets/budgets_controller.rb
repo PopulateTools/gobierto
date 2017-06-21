@@ -3,8 +3,8 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
 
   def index
     @kind = GobiertoBudgets::BudgetLine::INCOME
-    @area_name = GobiertoBudgets::BudgetLine::ECONOMIC
-    @interesting_area = GobiertoBudgets::BudgetLine::FUNCTIONAL
+    @area_name = GobiertoBudgets::EconomicArea.area_name
+    @interesting_area = GobiertoBudgets::FunctionalArea.area_name
 
     @site_stats = GobiertoBudgets::SiteStats.new site: @site, year: @year
 

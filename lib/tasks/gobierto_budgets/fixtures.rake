@@ -3,7 +3,7 @@ namespace :gobierto_budgets do
     desc "Create indices and import data"
     task load: :environment do
       BUDGETS_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed]
-      BUDGETS_TYPES = ['economic', 'functional']
+      BUDGETS_TYPES = GobiertoBudgets::BudgetArea.all_areas_names
 
       create_categories_mapping
       create_data_mapping

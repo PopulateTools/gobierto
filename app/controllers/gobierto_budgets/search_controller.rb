@@ -7,17 +7,17 @@ module GobiertoBudgets
 
       query = params[:query].downcase
       suggestions = []
-      [GobiertoBudgets::BudgetLine::ECONOMIC, GobiertoBudgets::BudgetLine::FUNCTIONAL].each do |area|
-        [GobiertoBudgets::BudgetLine::EXPENSE, GobiertoBudgets::BudgetLine::INCOME].each do |kind|
-          next if area == GobiertoBudgets::BudgetLine::FUNCTIONAL and kind == GobiertoBudgets::BudgetLine::INCOME
+      BudgetArea.all_areas_names.each do |area_name|
+        BudgetLine.all_kinds.each do |kind|
+          next if (area_name == FunctionalArea.area_name and kind == BudgetLine::INCOME)
 
-          this_year_codes = get_year_codes(place, area, kind, year)
-          klass_name = area == 'economic' ? GobiertoBudgets::EconomicArea : GobiertoBudgets::FunctionalArea
-          suggestions += klass_name.all_items[kind].select{|k,v| this_year_codes.include?(k) && v.downcase.include?(query) }.map do |k,v|
+          this_year_codes = get_year_codes(place, area_name, kind, year)
+          area_klass = BudgetArea.klass_for(area_name)
+          suggestions += area_klass.all_items[kind].select{|k,v| this_year_codes.include?(k) && v.downcase.include?(query) }.map do |k,v|
             {
               value: v,
               data: {
-                url: gobierto_budgets_budget_line_url(year: year, id: k, kind: kind, area_name: area, host: @site.domain)
+                url: gobierto_budgets_budget_line_url(year: year, id: k, kind: kind, area_name: area_name, host: @site.domain)
               }
             }
           end

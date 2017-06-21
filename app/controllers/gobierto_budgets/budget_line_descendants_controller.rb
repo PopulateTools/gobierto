@@ -25,7 +25,7 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
 
     @year = params[:year]
     @kind = params[:kind] || GobiertoBudgets::BudgetLine::EXPENSE
-    @area_name = params[:area_name] || GobiertoBudgets::BudgetLine::FUNCTIONAL
+    @area_name = params[:area_name] || GobiertoBudgets::FunctionalArea.area_name
     @parent_code = params[:parent_code]
   end
 

@@ -3,10 +3,12 @@ module GobiertoBudgets
     class RecordNotFound < StandardError; end
     class InvalidSearchConditions < StandardError; end
 
-    INCOME = 'I'
+    INCOME  = 'I'
     EXPENSE = 'G'
-    ECONOMIC = 'economic'
-    FUNCTIONAL = 'functional'
+
+    def self.all_kinds
+      [INCOME, EXPENSE]
+    end
 
     @sort_attribute ||= 'code'
     @sort_order ||= 'asc'
@@ -42,11 +44,7 @@ module GobiertoBudgets
         size: 10_000
       }
 
-      if @conditions[:area_name] == GobiertoBudgets::BudgetLine::ECONOMIC
-        area = GobiertoBudgets::EconomicArea
-      else
-        area = GobiertoBudgets::FunctionalArea
-      end
+      area = BudgetArea.klass_for(@conditions[:area_name])
 
       response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
                                                              type: @conditions[:area_name], body: query
@@ -85,14 +83,14 @@ module GobiertoBudgets
       }
 
       response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-                                                             type: ECONOMIC, body: query
+                                                             type: EconomicArea.area_name, body: query
 
       response['hits']['hits'].map{ |h| h['_source'] }.map do |row|
         next if row['functional_code'].length != 1
         area = GobiertoBudgets::FunctionalArea
         row['code'] = row['functional_code']
 
-        BudgetLinePresenter.new(row.merge({ kind: EXPENSE, area_name: FUNCTIONAL, area: area }))
+        BudgetLinePresenter.new(row.merge({ kind: EXPENSE, area_name: FunctionalArea.area_name, area: area }))
       end.compact.sort{|b,a| a.amount <=> b.amount }
     end
 
@@ -106,11 +104,11 @@ module GobiertoBudgets
       terms.push({term: { level: @conditions[:level] }}) if @conditions[:level]
       terms.push({term: { parent_code: @conditions[:parent_code] }}) if @conditions[:parent_code]
       if @conditions[:functional_code]
-        if @conditions[:area_name] == FUNCTIONAL
-          @conditions[:area_name] = ECONOMIC
+        if @conditions[:area_name] == FunctionalArea.area_name
+          @conditions[:area_name] = EconomicArea.area_name
           terms.push({term: { functional_code: @conditions[:functional_code] }})
         else
-          @conditions[:area_name] = FUNCTIONAL
+          @conditions[:area_name] = FunctionalArea.area_name
           return functional_codes_for_economic_budget_line(@conditions)
         end
       else
@@ -137,11 +135,7 @@ module GobiertoBudgets
         size: 10_000
       }
 
-      if @conditions[:area_name] == ECONOMIC
-        area = GobiertoBudgets::EconomicArea
-      else
-        area = GobiertoBudgets::FunctionalArea
-      end
+      area = BudgetArea.klass_for(@conditions[:area_name])
 
       response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
                                                              type: @conditions[:area_name], body: query
@@ -189,7 +183,7 @@ module GobiertoBudgets
         size: 10_000
       }
 
-      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: (options[:type] || 'economic'), body: query
+      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: (options[:type] || EconomicArea.area_name), body: query
 
       return {
         'hits' => response['hits']['hits'].map{ |h| h['_source'] },
@@ -337,11 +331,11 @@ module GobiertoBudgets
         size: 10_000
       }
 
-      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: (options[:type] || 'economic'), body: query
+      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: (options[:type] || EconomicArea.area_name), body: query
 
       planned_results = response['hits']['hits'].map{ |h| h['_source'] }
 
-      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, type: (options[:type] || 'economic'), body: query
+      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, type: (options[:type] || EconomicArea.area_name), body: query
 
       executed_results = response['hits']['hits'].map{ |h| h['_source'] }
 
@@ -366,16 +360,16 @@ module GobiertoBudgets
     end
 
     def category
-      area = area_name == 'economic' ? EconomicArea : FunctionalArea
+      area = BudgetArea.klass_for(area_name)
       area.all_items[self.kind][self.code]
     end
 
     def self.validate_conditions(conditions)
       if conditions.has_key?(:kind)
-        raise GobiertoBudgets::BudgetLine::InvalidSearchConditions unless [INCOME, EXPENSE].include?(conditions[:kind])
+        raise GobiertoBudgets::BudgetLine::InvalidSearchConditions unless all_kinds.include?(conditions[:kind])
       end
       if conditions.has_key?(:area_name)
-        raise GobiertoBudgets::BudgetLine::InvalidSearchConditions unless [ECONOMIC, FUNCTIONAL].include?(conditions[:area_name])
+        raise GobiertoBudgets::BudgetLine::InvalidSearchConditions unless BudgetArea.all_areas_names.include?(conditions[:area_name])
       end
     end
     private_class_method :validate_conditions

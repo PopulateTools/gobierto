@@ -34,17 +34,17 @@ module GobiertoBudgets
         size: @limit
       }
 
-      if @conditions[:kind] == GobiertoBudgets::BudgetLine::INCOME
-        type = GobiertoBudgets::BudgetLine::ECONOMIC
-        area = GobiertoBudgets::EconomicArea
+      if @conditions[:kind] == BudgetLine::INCOME
+        type = EconomicArea.area_name
+        area = EconomicArea
       else
-        type = GobiertoBudgets::BudgetLine::FUNCTIONAL
-        area = GobiertoBudgets::FunctionalArea
+        type = FunctionalArea.area_name
+        area = FunctionalArea
       end
 
-      total = GobiertoBudgets::BudgetTotal.for(@conditions[:place].id, @conditions[:year])
+      total = BudgetTotal.for(@conditions[:place].id, @conditions[:year])
 
-      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
+      response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_forecast,
                                                              type: type, body: query
 
       response['hits']['hits'].map{ |h| h['_source'] }.map do |row|

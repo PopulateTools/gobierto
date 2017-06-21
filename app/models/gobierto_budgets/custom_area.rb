@@ -1,12 +1,12 @@
 module GobiertoBudgets
-  class FunctionalArea < BudgetArea
+  class CustomArea < BudgetArea
 
     def self.area_name
-      'functional'
+      'custom'
     end
 
     def self.available_kinds
-      [BudgetLine::EXPENSE]
+      [BudgetLine::INCOME, BudgetLine::EXPENSE]
     end
 
   end

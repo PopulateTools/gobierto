@@ -133,7 +133,7 @@
         </table>
 
         <div class="small center m_v_2">
-          <%= link_to t('.see_all'), gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::BudgetLine::ECONOMIC, level: 1) %>
+          <%= link_to t('.see_all'), gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::EconomicArea.area_name, level: 1) %>
         </div>
       </div>
 
@@ -160,7 +160,7 @@
         </table>
 
         <div class="small center m_v_2">
-          <%= link_to t('.see_all'), gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::BudgetLine::FUNCTIONAL, level: 1) %>
+          <%= link_to t('.see_all'), gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::FunctionalArea.area_name, level: 1) %>
         </div>
       </div>
 

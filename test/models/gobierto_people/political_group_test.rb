@@ -1,9 +1,9 @@
 require "test_helper"
-require "support/concerns/gobierto_people/sluggable_test"
+require "support/concerns/gobierto_common/sluggable_test"
 
 module GobiertoPeople
   class PoliticalGroupTest < ActiveSupport::TestCase
-    include ::GobiertoPeople::SluggableTestModule
+    include GobiertoCommon::SluggableTestModule
 
     def political_group
       @political_group ||= gobierto_people_political_groups(:marvel)

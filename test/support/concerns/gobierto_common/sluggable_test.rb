@@ -1,4 +1,4 @@
-module GobiertoPeople::SluggableTestModule
+module GobiertoCommon::SluggableTestModule
 
   def test_assings_slug_on_creation
     sluggable_1 = create_sluggable

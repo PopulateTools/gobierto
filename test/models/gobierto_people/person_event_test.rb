@@ -1,11 +1,11 @@
 require "test_helper"
 require "support/concerns/user/subscribable_test"
-require "support/concerns/gobierto_people/sluggable_test"
+require "support/concerns/gobierto_common/sluggable_test"
 
 module GobiertoPeople
   class PersonEventTest < ActiveSupport::TestCase
     include User::SubscribableTest
-    include ::GobiertoPeople::SluggableTestModule
+    include GobiertoCommon::SluggableTestModule
 
     def person_event
       @person_event ||= gobierto_people_person_events(:richard_published)

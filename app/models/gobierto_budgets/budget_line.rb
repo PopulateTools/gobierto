@@ -44,13 +44,24 @@ module GobiertoBudgets
         size: 10_000
       }
 
-      area = BudgetArea.klass_for(@conditions[:area_name])
+      area     = BudgetArea.klass_for(@conditions[:area_name])
+      category = Category.find_by(site: @conditions[:site], area_name: area.area_name, kind: @conditions[:kind], code: @conditions[:code])
 
-      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-                                                             type: @conditions[:area_name], body: query
+      response = GobiertoBudgets::SearchEngine.client.search(
+        index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
+        type: area.area_name,
+        body: query
+      )
 
-      raise GobiertoBudgets::BudgetLine::RecordNotFound if response['hits']['hits'].empty?
-      BudgetLinePresenter.new response['hits']['hits'].first['_source'].merge({kind: @conditions[:kind], area_name: @conditions[:area_name], area: area})
+      hits = response['hits']['hits']
+
+      raise GobiertoBudgets::BudgetLine::RecordNotFound if hits.empty?
+
+      BudgetLinePresenter.new(hits.first['_source'].merge(
+        kind: @conditions[:kind],
+        area: area,
+        category: category
+      ))
     end
 
     def self.functional_codes_for_economic_budget_line(conditions)
@@ -89,8 +100,9 @@ module GobiertoBudgets
         next if row['functional_code'].length != 1
         area = GobiertoBudgets::FunctionalArea
         row['code'] = row['functional_code']
+        category = Category.find_by(site: @conditions[:site], area_name: area.area_name, kind: @conditions[:kind], code: row['code'])
 
-        BudgetLinePresenter.new(row.merge({ kind: EXPENSE, area_name: FunctionalArea.area_name, area: area }))
+        BudgetLinePresenter.new(row.merge(kind: EXPENSE, area: area, category: category))
       end.compact.sort{|b,a| a.amount <=> b.amount }
     end
 
@@ -138,13 +150,18 @@ module GobiertoBudgets
       area = BudgetArea.klass_for(@conditions[:area_name])
 
       response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
-                                                             type: @conditions[:area_name], body: query
+                                                             type: area.area_name, body: query
 
       response['hits']['hits'].map{ |h| h['_source'] }.map do |row|
-        BudgetLinePresenter.new(row.merge({
-          kind: @conditions[:kind], area_name: @conditions[:area_name], area: area, total: response['aggregations']['total_budget']['value'],
+        category = Category.find_by(site: @conditions[:site], area_name: area.area_name, kind: @conditions[:kind], code: row['code'])
+
+        BudgetLinePresenter.new(row.merge(
+          kind: @conditions[:kind],
+          area: area,
+          category: category,
+          total: response['aggregations']['total_budget']['value'],
           total_budget_per_inhabitant: response['aggregations']['total_budget_per_inhabitant']['value']
-        }))
+        ))
       end
     end
 

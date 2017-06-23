@@ -18,7 +18,7 @@ class GobiertoBudgets::BudgetLineTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @path
 
-      assert has_content?("Gastos de personal")
+      assert has_content?("Personal expenses (custom, translated)")
       assert has_content?("Órganos de gobierno y personal directivo")
     end
   end

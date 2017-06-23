@@ -13,6 +13,9 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
     @place_budget_lines = GobiertoBudgets::BudgetLine.where(place: @place, level: 1, year: @year, kind: @kind, area_name: @area_name).all
     @interesting_expenses = GobiertoBudgets::BudgetLine.where(place: @place, level: 2, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: @interesting_area).all
 
+    @any_custom_income_budget_lines  = GobiertoBudgets::CustomArea.any_items?(place: @place, kind: GobiertoBudgets::BudgetLine::INCOME)
+    @any_custom_expense_budget_lines = GobiertoBudgets::CustomArea.any_items?(place: @place, kind: GobiertoBudgets::BudgetLine::EXPENSE)
+    
     @sample_budget_lines = (@top_income_budget_lines + @top_expense_budget_lines).sample(3)
   end
 

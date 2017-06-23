@@ -136,6 +136,7 @@ functional_3_g:
   kind: expense
 
 custom_6_i:
+  ine_code: 28079
   area: custom
   code: '6'
   name: Área de Servicios a las Personas
@@ -144,6 +145,7 @@ custom_6_i:
   kind: income
 
 custom_3_i:
+  ine_code: 28079
   area: custom
   code: '3'
   name: Área de Servicios Centrales, Ocupación y Promoción Económica
@@ -152,6 +154,7 @@ custom_3_i:
   kind: income
 
 custom_31_i:
+  ine_code: 28079
   area: custom
   code: '31'
   name: Dirección de Servicios Económicos
@@ -160,6 +163,7 @@ custom_31_i:
   kind: income
 
 custom_32_i:
+  ine_code: 28079
   area: custom
   code: '32'
   name: Dirección de Recursos Humanos
@@ -168,6 +172,7 @@ custom_32_i:
   kind: income
 
 custom_5_g:
+  ine_code: 28079
   area: custom
   code: '5'
   name: Área de Acción Social
@@ -176,6 +181,7 @@ custom_5_g:
   kind: expense
 
 custom_6_g:
+  ine_code: 28079
   area: custom
   code: '6'
   name: Área de Servicios a las Personas
@@ -184,6 +190,7 @@ custom_6_g:
   kind: expense
 
 custom_61_g:
+  ine_code: 28079
   area: custom
   code: '61'
   name: Dirección de Cultura
@@ -192,6 +199,7 @@ custom_61_g:
   kind: expense
 
 custom_62_g:
+  ine_code: 28079
   area: custom
   code: '62'
   name: Dirección de Deportes
@@ -200,6 +208,7 @@ custom_62_g:
   kind: expense
 
 custom_63_g:
+  ine_code: 28079
   area: custom
   code: '63'
   name: Dirección de Enseñanza

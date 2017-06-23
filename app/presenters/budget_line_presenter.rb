@@ -4,8 +4,16 @@ class BudgetLinePresenter
     @attributes = attributes.symbolize_keys
   end
 
+  def category
+    @attributes[:category]
+  end
+
   def name
-    @attributes[:area].all_items[@attributes[:kind]][@attributes[:code]]
+    category ? category.name : GobiertoBudgets::Category.default_name(area, kind, code)
+  end
+
+  def description
+    category ? category.description : GobiertoBudgets::Category.default_description(area, kind, code)
   end
 
   def amount
@@ -49,8 +57,12 @@ class BudgetLinePresenter
     @attributes[:kind]
   end
 
+  def area
+    @attributes[:area]
+  end
+
   def area_name
-    @attributes[:area_name]
+    area.area_name
   end
 
   def year
@@ -63,9 +75,10 @@ class BudgetLinePresenter
 
   def to_param
     {
-      id: code, year: @attributes[:year],
-      kind: @attributes[:kind],
-      area_name: @attributes[:area_name]
+      id: code,
+      year: year,
+      kind: kind,
+      area_name: area_name
     }
   end
 

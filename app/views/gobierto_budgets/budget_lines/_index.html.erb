@@ -1,4 +1,4 @@
-<div <%= @kind == GobiertoBudgets::BudgetLine::INCOME ? 'aria-labelledby="ingresos" id="ingresos-tab"'.html_safe : 'aria-labelledby="gastos" id="gastos-tab"'.html_safe %> >
+<div <%= kind == GobiertoBudgets::BudgetLine::INCOME ? 'aria-labelledby="ingresos" id="ingresos-tab"'.html_safe : 'aria-labelledby="gastos" id="gastos-tab"'.html_safe %> >
   <p class="m_2"></p>
 
   <div class="filter m_2" role="tablist" aria-label="<%= t('.categories') %>">
@@ -25,17 +25,19 @@
             'aria-selected' => area_name == GobiertoBudgets::EconomicArea.area_name ? 'true' : 'false',
             'aria-controls' => 'economic-G-table'
       )%>
-      <%= link_to(
-            t('.custom'),
-            gobierto_budgets_budget_lines_path(year: year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::CustomArea.area_name),
-            data: {remote: true},
-            class: class_if('active', area_name == GobiertoBudgets::CustomArea.area_name),
-            id: 'custom-G',
-            role: 'tab',
-            tabindex: area_name == GobiertoBudgets::CustomArea.area_name ? '0' : '-1',
-            'aria-selected' => area_name == GobiertoBudgets::CustomArea.area_name ? 'true' : 'false',
-            'aria-controls' => 'custom-G-table'
-      )%>
+      <% if @any_custom_expense_budget_lines %>
+        <%= link_to(
+              t('.custom'),
+              gobierto_budgets_budget_lines_path(year: year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::CustomArea.area_name),
+              data: {remote: true},
+              class: class_if('active', area_name == GobiertoBudgets::CustomArea.area_name),
+              id: 'custom-G',
+              role: 'tab',
+              tabindex: area_name == GobiertoBudgets::CustomArea.area_name ? '0' : '-1',
+              'aria-selected' => area_name == GobiertoBudgets::CustomArea.area_name ? 'true' : 'false',
+              'aria-controls' => 'custom-G-table'
+        )%>
+      <% end %>
     <% else %>
       <%= link_to(
             t('.income_from_what'),
@@ -48,17 +50,19 @@
             'aria-selected' => area_name == GobiertoBudgets::EconomicArea.area_name ? 'true' : 'false',
             'aria-controls' => 'economic-I-table'
       )%>
-      <%= link_to(
-            t('.custom'),
-            gobierto_budgets_budget_lines_path(year: year, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::CustomArea.area_name),
-            data: {remote: true},
-            class: class_if('active', area_name == GobiertoBudgets::CustomArea.area_name),
-            id: 'custom-I',
-            role: 'tab',
-            tabindex: area_name == GobiertoBudgets::CustomArea.area_name ? '0' : '-1',
-            'aria-selected' => area_name == GobiertoBudgets::CustomArea.area_name ? 'true' : 'false',
-            'aria-controls' => 'custom-I-table'
-      )%>
+      <% if @any_custom_income_budget_lines %>
+        <%= link_to(
+              t('.custom'),
+              gobierto_budgets_budget_lines_path(year: year, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::CustomArea.area_name),
+              data: {remote: true},
+              class: class_if('active', area_name == GobiertoBudgets::CustomArea.area_name),
+              id: 'custom-I',
+              role: 'tab',
+              tabindex: area_name == GobiertoBudgets::CustomArea.area_name ? '0' : '-1',
+              'aria-selected' => area_name == GobiertoBudgets::CustomArea.area_name ? 'true' : 'false',
+              'aria-controls' => 'custom-I-table'
+        )%>
+      <% end %>
     <% end %>
     <%= link_to '?', '', class:'help tipsit', title: t('.help') %>
   </div>

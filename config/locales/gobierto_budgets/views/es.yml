@@ -143,7 +143,7 @@ es:
       G_functional: Para qué se gasta
       G_custom: Personalizada
       I_economic: En qué se ingresa
-      I_custom: Personalitzada
+      I_custom: Personalizada
       category_per_inhabitant: "%{category} por habitante"
       expenses_per_inhabitant: Gasto por habitante
       inhabitant_short: hab

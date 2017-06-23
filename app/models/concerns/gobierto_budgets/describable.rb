@@ -10,15 +10,6 @@ module GobiertoBudgets
                                   [locale, YAML.load_file(path)]
                                 end]
                               end
-
-        # TODO: do this properly
-        custom_descriptions_path = './db/data/custom_budget_line_descriptions_ca.yml'
-        custom_descriptions_file = YAML.load_file(custom_descriptions_path)
-        @all_descriptions[:es]['custom'] = custom_descriptions_file
-        @all_descriptions[:en]['custom'] = custom_descriptions_file
-        @all_descriptions[:ca]['custom'] = custom_descriptions_file
-
-        @all_descriptions
       end
     end
   end

@@ -38,13 +38,9 @@ module GobiertoBudgets
       number_with_precision((value.to_f / total.to_f) * 100, precision: 2) + '%'
     end
 
-    def area_class(area, kind)
-      return GobiertoBudgets::FunctionalArea if (area == 'functional' && %{income i}.exclude?(kind.downcase))
-      GobiertoBudgets::EconomicArea
-    end
+    def budget_line_denomination(area_name, code, kind, capped = -1)
+      area = BudgetArea.klass_for(area_name)
 
-    def budget_line_denomination(area, code, kind, capped = -1)
-      area = area_class area, kind
       if area.all_items[kind][code].nil?
         return " - "
       else
@@ -54,14 +50,24 @@ module GobiertoBudgets
       res
     end
 
-    def budget_line_description(area_name, code, kind)
-      area = area_class area_name, kind
-      description = area.all_descriptions[I18n.locale][area_name][kind][code.to_s]
-      name = area.all_items[kind][code]
-      if description != name
+    def budget_line_description(budget_line)
+      kind = budget_line.kind
+      code = budget_line.code
+      area_name = budget_line.area_name
+      description = budget_line.description
+
+      if description != budget_line.name
         return description
       else
-        I18n.t('gobierto_budgets.common.budget_line_description_html', kind_what: kind_literal(kind), description: description.try(:downcase), link: link_to(budget_line_denomination(area_name, code[0..-2], kind), gobierto_budgets_budget_line_path(code[0..-2], params[:year], area_name, kind)))
+        I18n.t(
+          'gobierto_budgets.common.budget_line_description_html',
+          kind_what: kind_literal(kind),
+          description: description.try(:downcase),
+          link: link_to(
+                  budget_line_denomination(area_name, code[0..-2], kind),
+                  gobierto_budgets_budget_line_path(code[0..-2], params[:year], area_name, kind)
+                )
+        )
       end
     end
 

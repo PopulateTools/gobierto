@@ -28,12 +28,19 @@ input[type=text]:focus, input[type=email]:focus, input[type=submit]:focus, input
   margin: 0 0 1em 0;
   label {
     position: absolute;
+    width: calc(100% - 1.75rem);
     top: .5rem;
     left: 1rem;
     text-transform: uppercase;
     font-size: .75em;
     font-weight: 700;
+    .indication {
+      float: right;
+      font-weight: normal;
+      opacity: .5;
+    }
   }
+
   input, textarea {
     padding: 1.9rem 1rem .25rem 1rem;
     width: 100%;

@@ -12,7 +12,7 @@ module GobiertoBudgets
         @area = options[:area]
         if @code
           @variable = @what == 'total_budget' ? 'amount' : 'amount_per_inhabitant'
-          areas = @area == 'economic' ? EconomicArea : FunctionalArea
+          areas = BudgetArea.klass_for(@area)
           @category_name = areas.all_items[@kind][@code]
         end
       end

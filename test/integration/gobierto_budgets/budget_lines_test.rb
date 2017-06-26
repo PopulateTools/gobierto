@@ -3,7 +3,7 @@ require "test_helper"
 class GobiertoBudgets::BudgetLinesTest < ActionDispatch::IntegrationTest
   def setup
     super
-    @path = gobierto_budgets_budget_lines_path(last_year, GobiertoBudgets::BudgetLine::ECONOMIC, GobiertoBudgets::BudgetLine::INCOME)
+    @path = gobierto_budgets_budget_lines_path(last_year, GobiertoBudgets::EconomicArea.area_name, GobiertoBudgets::BudgetLine::INCOME)
   end
 
   def site
@@ -32,7 +32,7 @@ class GobiertoBudgets::BudgetLinesTest < ActionDispatch::IntegrationTest
       assert has_content?("Deuda pública")
 
       click_link "To do what is spent"
-      assert has_content?("Gastos de personal")
+      assert has_content?("Personal expenses (custom, translated)")
     end
   end
 end

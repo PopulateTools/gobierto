@@ -16,23 +16,9 @@ var VisBubbleLegend = Class.extend({
       .append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    var gradient = svg.append('defs')
-      .append('linearGradient')
-      .attr('id', 'gradient_legend')
-      .attr('x1', '0%')
-      .attr('x2', '0%')
-      .attr('y1', '0%')
-      .attr('y2', '100%')
+    var defs = svg.append('defs');
 
-    gradient.append('stop')
-      .attr('offset', '5%')
-      .attr('stop-color', 'black')
-
-    gradient.append('stop')
-      .attr('offset', '100%')
-      .attr('stop-color', 'magenta')
-
-    svg.append('marker')
+    defs.append('marker')
       .attr('id', 'arrow_start')
       .attr('viewBox', '-10 -10 20 20')
       .attr('markerWidth', 6)
@@ -42,7 +28,7 @@ var VisBubbleLegend = Class.extend({
       .attr('fill','#D6D6D6')
       .attr('d', 'M-4,-6 L 10,0 L -4,6');
 
-    svg.append('marker')
+    defs.append('marker')
       .attr('id', 'arrow_end')
       .attr('viewBox', '-10 -10 20 20')
       .attr('markerWidth', 6)
@@ -52,14 +38,24 @@ var VisBubbleLegend = Class.extend({
       .attr('fill','#D6D6D6')
       .attr('d', 'M-4,-6 L 10,0 L -4,6');
 
+    var gradient = defs.append('linearGradient')
+      .attr('id', 'gradient')
+
+    gradient.append('stop')
+      .attr('stop-color', 'black')
+
+    gradient.append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', 'magenta')
+
     svg.append('line')
       .attr('transform', 'translate(' + width / 2 + ',' + 0 + ')')
       .attr('x1', 0)
       .attr('x2', 0)
       .attr('y1', 0)
       .attr('y2', height)
-      // .attr('stroke', 'url(#gradient_legend)')
-      .attr('stroke', '#D6D6D6')
+      .attr('stroke', '#ccc')
+      // .attr('stroke', 'url(' + window.location.href + '#gradient)')
       .attr('stroke-width', 4)
       .attr('marker-end', 'url(#arrow_end)')
       .attr('marker-start', 'url(#arrow_start)')

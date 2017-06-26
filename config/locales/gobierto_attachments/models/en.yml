@@ -1,0 +1,18 @@
+---
+en:
+  activerecord:
+    attributes:
+      gobierto_attachments/attachment:
+        name: Name
+        description: Description
+        file_name: File name
+        file_digest: File digest
+        url: URL
+        file_size: File size
+        current_version: Current version
+    models:
+      gobierto_attachments/attachment: Attachment
+    messages:
+      gobierto_attachments/attachment:
+        already_uploaded: not unique (already uploaded at
+        file_too_big: File exceeds max size

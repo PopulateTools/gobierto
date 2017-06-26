@@ -1,5 +1,5 @@
 madrid_city_council:
-  person_event: richard_published
+  event: richard_published
   name: Ayuntamiento de Madrid
   address: Plaza Cibeles, 1A, 28014 Madrid
   lat: 40.4187403

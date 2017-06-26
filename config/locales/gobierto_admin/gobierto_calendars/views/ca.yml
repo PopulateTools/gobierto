@@ -1,0 +1,23 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_calendars:
+      collections:
+        index:
+          collections: Calendaris
+          header:
+            collection: Calendari
+            events: Events
+          latest_editions: Últims events editats
+          new: Nou
+          title: Agendas
+          view_collection: Veure col·lecció
+      events:
+        edit:
+          title: Editar event
+        form:
+          placeholders:
+            slug: event
+            title: Títol del event
+        new:
+          title: Nou event

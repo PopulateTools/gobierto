@@ -3,13 +3,6 @@ module GobiertoAdmin
     class CollectionsController < BaseController
       helper_method :gobierto_common_page_preview_url
 
-      def index
-        @collections = current_site.collections.by_item_type('GobiertoCms::Page')
-        @pages = current_site.pages
-
-        @collection_form = CollectionForm.new(site_id: current_site.id)
-      end
-
       def show
         @collection = find_collection
 
@@ -25,8 +18,6 @@ module GobiertoAdmin
 
       def new
         @collection_form = CollectionForm.new
-        @issues = current_site.issues
-        @site = Site.where(id: current_site.id)
         @containers = container_names_new
         @container_selected = nil
         @types = type_names
@@ -36,8 +27,6 @@ module GobiertoAdmin
 
       def edit
         @collection = find_collection
-        @issues = current_site.issues
-        @site = Site.where(id: current_site.id)
         @containers = container_names_edit
         @container_selected = @collection.container_id
         @types = type_names
@@ -52,8 +41,6 @@ module GobiertoAdmin
 
       def create
         @collection_form = CollectionForm.new(collection_params.merge(site_id: current_site.id))
-        @issues = current_site.issues
-        @site = Site.where(id: current_site.id)
         @containers = container_names_new
         @container_selected = nil
         @types = type_names
@@ -82,8 +69,6 @@ module GobiertoAdmin
         @collection_form = CollectionForm.new(
           collection_params.merge(id: params[:id])
         )
-        @issues = current_site.issues
-        @site = Site.where(id: current_site.id)
         @containers = container_names_new
         @container_selected = nil
         @types = type_names
@@ -133,14 +118,16 @@ module GobiertoAdmin
         current_site.collections.find(params[:id])
       end
 
+      def container_items
+        [current_site, current_site.issues, current_site.people, current_site.processes].flatten
+      end
+
       def container_names_new
-        @site.map { |x| ["Site: #{x.location_name}", x.to_global_id] } +
-          @issues.map { |x| ["Issue: #{x.name}", x.to_global_id] }
+        container_items.map { |item| ["#{item.class.model_name.human}: #{item}", item.to_global_id] }
       end
 
       def container_names_edit
-        @site.map { |x| ["Site: #{x.location_name}", x.id] } +
-          @issues.map { |x| ["Issue: #{x.name}", x.id] }
+        container_items.map { |item| ["#{item.class.model_name.human}: #{item}", item.id] }
       end
 
       def type_names

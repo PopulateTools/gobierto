@@ -20,5 +20,10 @@ module GobiertoPeople
     def test_valid
       assert person.valid?
     end
+
+    def test_collection_is_created
+      person = ::GobiertoPeople::Person.create!(name: 'New Person Name', site: sites(:madrid))
+      assert person.events_collection.present?
+    end
   end
 end

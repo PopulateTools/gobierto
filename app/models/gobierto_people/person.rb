@@ -6,7 +6,7 @@ module GobiertoPeople
     include User::Subscribable
     include GobiertoCommon::Sortable
     include GobiertoCommon::Searchable
-    include GobiertoPeople::Sluggable
+    include GobiertoCommon::Sluggable
 
     translates :charge, :bio
 
@@ -21,9 +21,9 @@ module GobiertoPeople
     belongs_to :site
     belongs_to :political_group
 
-    has_many :events, class_name: "PersonEvent", dependent: :destroy
-    has_many :attending_person_events, class_name: "PersonEventAttendee", dependent: :destroy
-    has_many :attending_events, class_name: "PersonEvent", through: :attending_person_events, source: :person_event
+    has_many :attending_person_events, class_name: "GobiertoCalendars::EventAttendee", dependent: :destroy
+    has_many :attending_events, class_name: "GobiertoCalendars::Event", through: :attending_person_events, source: :event
+
     has_many :statements, class_name: "PersonStatement", dependent: :destroy
     has_many :posts, class_name: "PersonPost", dependent: :destroy
 
@@ -39,6 +39,8 @@ module GobiertoPeople
 
     validates :email, format: { with: User::EMAIL_ADDRESS_REGEXP }, allow_blank: true
     validates :site, presence: true
+
+    after_create :create_events_collection
 
     def self.csv_columns
       [:id, :name, :email, :charge, :bio, :bio_url, :avatar_url, :category, :political_group, :party, :created_at, :updated_at]
@@ -58,5 +60,28 @@ module GobiertoPeople
       [name]
     end
 
+    def events_collection
+      @events_collection ||= GobiertoCommon::Collection.find_by container: self, item_type: 'GobiertoCalendars::Event'
+    end
+
+    def events
+      @events ||= GobiertoCalendars::Event.where(collection: events_collection)
+    end
+
+    def events_count
+      @events_count ||= events.count
+    end
+
+    def to_s
+      self.name
+    end
+
+    private
+
+    def create_events_collection
+      site.collections.create! container_type: self.class.name, container_id: self.id,
+        item_type: 'GobiertoCalendars::Event', slug: "calendar-#{self.slug}",
+        title: self.name
+    end
   end
 end

@@ -89,7 +89,7 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_common, as: :common, path: nil do
-      resources :collections, only: [:index, :show, :new, :create, :edit, :update]
+      resources :collections, only: [:show, :new, :create, :edit, :update]
       resources :content_blocks, only: [:new, :create, :edit, :update, :destroy]
     end
 
@@ -104,6 +104,11 @@ Rails.application.routes.draw do
         post   '/attachings' => 'attachings#create'
         delete '/attachings' => 'attachings#destroy'
       end
+    end
+
+    namespace :gobierto_calendars, as: :calendars do
+      resources :collections, only: [:index]
+      resources :events
     end
   end
 
@@ -155,8 +160,8 @@ Rails.application.routes.draw do
       resources :opposition_party_past_person_events, only: [:index], as: :opposition_party_past_events, path: 'agendas/oposicion/eventos-pasados'
       resources :executive_category_past_person_events, only: [:index], as: :executive_category_past_events, path: 'agendas/directivos/eventos-pasados'
 
-      resources :people_past_person_events, only: [:index], controller: "people/past_person_events", as: :person_past_events, path: 'agendas/:person_slug/eventos-pasados'
-      resources :people_person_events, only: [:index, :show], controller: "people/person_events", as: :person_events, path: 'agendas/:person_slug', param: :slug
+      resources :people_past_person_events, only: [:index], controller: "people/past_person_events", as: :person_past_events, path: 'agendas/:container_slug/eventos-pasados'
+      resources :people_person_events, only: [:index, :show], controller: "people/person_events", as: :person_events, path: 'agendas/:container_slug', param: :slug
 
       # Blogs
       resources :person_posts, only: [:index], as: :posts, path: 'blogs/posts'

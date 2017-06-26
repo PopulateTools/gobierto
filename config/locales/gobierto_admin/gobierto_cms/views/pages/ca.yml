@@ -10,7 +10,7 @@ ca:
             slug: sobre-aquesta-web
             title: Títol de la pàgina
         index:
-          collections: Collecciones
+          collections: Col·leccions
           header:
               collection: Col·lecció
               pages: Pàgines

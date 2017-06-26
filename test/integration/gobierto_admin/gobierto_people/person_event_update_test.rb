@@ -12,11 +12,11 @@ module GobiertoAdmin
       end
 
       def person_event
-        @person_event ||= gobierto_people_person_events(:richard_published)
+        @person_event ||= gobierto_calendars_events(:richard_published)
       end
 
       def person
-        @person ||= person_event.person
+        @person ||= gobierto_people_people(:richard)
       end
 
       def admin

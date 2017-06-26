@@ -27,6 +27,10 @@ module GobiertoParticipation
       end
     end
 
+    def to_s
+      self.name
+    end
+
     private
 
     def uniqueness_of_slug

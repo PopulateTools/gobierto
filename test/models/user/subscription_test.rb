@@ -22,7 +22,7 @@ class User::SubscriptionTest < ActiveSupport::TestCase
   end
 
   def person_event
-    @person_event ||= gobierto_people_person_events(:richard_published)
+    @person_event ||= gobierto_calendars_events(:richard_published)
   end
 
   def generic_user_subscription

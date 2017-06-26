@@ -7,8 +7,8 @@ module GobiertoAdmin
       attr_accessor(
         :id,
         :admin_id,
-        :site_id,
         :person_id,
+        :site_id,
         :title_translations,
         :description_translations,
         :starts_at,
@@ -23,9 +23,7 @@ module GobiertoAdmin
       delegate :persisted?, to: :person_event
 
       validates :title_translations, presence: true
-      validates :starts_at, :ends_at, presence: true
-      validates :person, presence: true
-      validates :site, presence: true
+      validates :starts_at, :ends_at, :collection, :site, :person, presence: true
 
       trackable_on :person_event
 
@@ -55,8 +53,8 @@ module GobiertoAdmin
         @person_event ||= person_event_class.find_by(id: id).presence || build_person_event
       end
 
-      def person_id
-        @person_id ||= person_event.person_id
+      def collection
+        @collection ||= person.try(:events_collection)
       end
 
       def person
@@ -170,15 +168,15 @@ module GobiertoAdmin
       end
 
       def person_event_class
-        ::GobiertoPeople::PersonEvent
+        ::GobiertoCalendars::Event
       end
 
       def person_event_location_class
-        ::GobiertoPeople::PersonEventLocation
+        ::GobiertoCalendars::EventLocation
       end
 
       def person_event_attendee_class
-        ::GobiertoPeople::PersonEventAttendee
+        ::GobiertoCalendars::EventAttendee
       end
 
       def person_class
@@ -187,7 +185,7 @@ module GobiertoAdmin
 
       def save_person_event
         @person_event = person_event.tap do |person_event_attributes|
-          person_event_attributes.person_id = person_id
+          person_event_attributes.collection = collection
           person_event_attributes.site_id = site_id
           person_event_attributes.state = state
           person_event_attributes.title_translations = title_translations

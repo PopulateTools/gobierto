@@ -1,9 +1,9 @@
-require_dependency "gobierto_people"
+require_dependency "gobierto_calendars"
 
-module GobiertoPeople
-  class PersonEventAttendee < ApplicationRecord
-    belongs_to :person
-    belongs_to :person_event
+module GobiertoCalendars
+  class EventAttendee < ApplicationRecord
+    belongs_to :person, class_name: "GobiertoPeople::Person"
+    belongs_to :event
 
     validates :person, presence: true, unless: :custom_person_present?
     validates :name, presence: true, unless: :person_present?

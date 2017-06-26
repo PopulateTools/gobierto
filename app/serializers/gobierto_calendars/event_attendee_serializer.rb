@@ -1,4 +1,4 @@
-class GobiertoPeople::PersonEventAttendeeSerializer < ActiveModel::Serializer
+class GobiertoCalendars::EventAttendeeSerializer < ActiveModel::Serializer
   attributes :id, :attendee_name, :attendee_position, :person_id
 
   def attendee_name

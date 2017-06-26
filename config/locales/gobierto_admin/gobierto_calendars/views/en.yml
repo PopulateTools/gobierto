@@ -1,0 +1,23 @@
+---
+en:
+  gobierto_admin:
+    gobierto_calendars:
+      collections:
+        index:
+          collections: Calendars
+          header:
+            collection: Calendar
+            events: Events
+          latest_editions: Latest updated events
+          new: New
+          title: Calendars
+          view_collection: View collection
+      events:
+        edit:
+          title: Edit event
+        form:
+          placeholders:
+            slug: event
+            title: Event title
+        new:
+          title: New event

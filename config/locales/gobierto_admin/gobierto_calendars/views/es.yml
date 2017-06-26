@@ -1,0 +1,23 @@
+---
+es:
+  gobierto_admin:
+    gobierto_calendars:
+      collections:
+        index:
+          collections: Calendarios
+          header:
+            collection: Calendario
+            events: Eventos
+          latest_editions: Últimos eventos editados
+          new: Nuevo
+          title: Agendas
+          view_collection: Ver colección
+      events:
+        edit:
+          title: Editar evento
+        form:
+          placeholders:
+            slug: acerca-de-esta-web
+            title: Título del evento
+        new:
+          title: Nuevo evento

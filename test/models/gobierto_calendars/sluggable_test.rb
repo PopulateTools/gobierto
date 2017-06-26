@@ -1,17 +1,9 @@
 require 'test_helper'
-require 'support/person_event_helpers'
+require 'support/event_helpers'
 
-module GobiertoPeople
+module GobiertoCalendars
   class SluggableTest < ActiveSupport::TestCase
-    include ::PersonEventHelpers
-
-    def site
-      @site ||= sites(:madrid)
-    end
-
-    def person
-      @person ||= gobierto_people_people(:richard)
-    end
+    include ::EventHelpers
 
     def test_assign_slug_with_date
       event_1 = create_event(title: '_* (Title)-',  starts_at: '2017-01-02 18:00:00')

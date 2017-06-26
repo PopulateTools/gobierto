@@ -1,12 +1,12 @@
 require "test_helper"
 require_relative "base"
-require "support/person_event_helpers"
+require "support/event_helpers"
 
 module GobiertoPeople
   module People
     class PersonEventsIndexTest < ActionDispatch::IntegrationTest
       include Base
-      include ::PersonEventHelpers
+      include ::EventHelpers
 
       def setup
         super
@@ -23,7 +23,7 @@ module GobiertoPeople
 
       def upcoming_events
         @upcoming_events ||= [
-          gobierto_people_person_events(:richard_published)
+          gobierto_calendars_events(:richard_published)
         ]
       end
 

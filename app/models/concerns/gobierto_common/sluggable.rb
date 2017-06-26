@@ -14,7 +14,7 @@ module GobiertoCommon
       base_slug = attributes_for_slug.join('-').gsub('_', ' ').parameterize
       new_slug  = base_slug
 
-      count = 1
+      count = 2
       while self.class.exists?(site: site, slug: new_slug)
         new_slug = "#{base_slug}-#{count}"
         count += 1

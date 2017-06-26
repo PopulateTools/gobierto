@@ -1,9 +1,9 @@
 require "test_helper"
-require "support/person_event_helpers"
+require "support/event_helpers"
 
 module GobiertoPeople
   class PersonEventsIndexTest < ActionDispatch::IntegrationTest
-    include ::PersonEventHelpers
+    include ::EventHelpers
 
     def setup
       super
@@ -44,17 +44,17 @@ module GobiertoPeople
 
     def upcoming_events
       @upcoming_events ||= [
-        gobierto_people_person_events(:nelson_tomorrow),
-        gobierto_people_person_events(:richard_published),
-        gobierto_people_person_events(:richard_published_just_attending)
+        gobierto_calendars_events(:nelson_tomorrow),
+        gobierto_calendars_events(:richard_published),
+        gobierto_calendars_events(:richard_published_just_attending)
       ]
     end
 
     def past_events
       @past_events ||= [
-        gobierto_people_person_events(:richard_published_past),
-        gobierto_people_person_events(:nelson_yesterday),
-        gobierto_people_person_events(:tamara_published_past)
+        gobierto_calendars_events(:richard_published_past),
+        gobierto_calendars_events(:nelson_yesterday),
+        gobierto_calendars_events(:tamara_published_past)
       ]
     end
 
@@ -206,7 +206,7 @@ module GobiertoPeople
           assert has_link?("Past events")
 
           upcoming_events.each do |event|
-            next if event.person.nil?
+            next if event.collection.container.nil?
 
             assert has_selector?(".person_event-item", text: event.title)
             assert has_link?(event.title)
@@ -421,9 +421,10 @@ module GobiertoPeople
         get @path_for_json
 
         json_response = JSON.parse(response.body)
-        assert_equal json_response.first["person_name"], upcoming_events.first.person.name
-        assert_equal json_response.first["title"], upcoming_events.first.title
-        assert_equal json_response.first["description"], upcoming_events.first.description
+        assert_equal upcoming_events.first.collection.container.name, json_response.first["creator_name"]
+        assert_equal upcoming_events.first.collection.container.id, json_response.first["creator_id"]
+        assert_equal upcoming_events.first.title, json_response.first["title"]
+        assert_equal upcoming_events.first.description, json_response.first["description"]
       end
     end
 
@@ -432,7 +433,7 @@ module GobiertoPeople
         get @path_for_csv
 
         csv_response = CSV.parse(response.body, headers: true)
-        assert_equal csv_response.by_row[0]["person_name"], upcoming_events.first.person.name
+        assert_equal csv_response.by_row[0]["creator_name"], upcoming_events.first.collection.container.name
         assert_equal csv_response.by_row[0]["title"], upcoming_events.first.title
         assert_equal csv_response.by_row[0]["description"], upcoming_events.first.description
       end

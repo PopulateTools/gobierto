@@ -2,6 +2,7 @@
   "last_update": "2017-06-01",
   "lines": [
     {
+      "cat_id": 1,
       "id": 1,
       "category": "expense_f",
       "name": "Deuda pública",
@@ -11,17 +12,19 @@
       "pct_executed": 0.85,
       "child_lines": [
         {
+          "cat_id": 1,
           "id": 11,
           "category": "expense",
           "name": "Deuda pública",
           "level": 2,
           "budget": 150000000,
           "executed": 750000,
-          "pct_executed": 0.2
+          "pct_executed": 0.85
         }
       ]
     },
     {
+      "cat_id": 2,
       "id": 2,
       "category": "expense_f",
       "name": "Servicios públicos básicos",
@@ -31,44 +34,50 @@
       "pct_executed": 0.43,
       "child_lines": [
         {
+          "cat_id": 2,
           "id": 21,
           "category": "expense_f",
           "name": "Seguridad y movilidad ciudadana",
           "level":2,
           "budget": 150000000,
           "executed": 750000,
-          "pct_executed": 0.2
+          "pct_executed": 0.647
         },
         {
+          "cat_id": 2,
           "id": 22,
           "category": "expense_f",
           "name": "Vivienda y urbanismo",
           "level":2,
           "budget": 150000000,
           "executed": 750000,
-          "pct_executed": 0.2
+          "pct_executed": 0.745
         },
         {
+          "cat_id": 2,
           "id": 23,
           "category": "expense_f",
           "name": "Bienestar comunitario",
           "level":2,
           "budget": 150000000,
           "executed": 750000,
-          "pct_executed": 0.2
+          "pct_executed": 0.321
         },
         {
+          "cat_id": 2,
           "id": 24,
           "category": "expense_f",
           "name": "Medio ambiente",
           "level":2,
           "budget": 150000000,
           "executed": 750000,
-          "pct_executed": 0.2
+          "pct_executed": 0.475
         }
       ]
     },
     {
+      "cat_id": 3,
+      "id": 3,
       "category": "expense_f",
       "name": "Actuaciones de protección y promoción social",
       "level": 1,
@@ -77,165 +86,44 @@
       "pct_executed": 0.35,
       "child_lines": [
         {
+          "cat_id": 3,
+          "id": 31,
           "category": "expense_f",
           "name": "Administración General de servicios sociales",
           "level":2,
           "budget": 150000000,
           "executed": 750000,
-          "pct_executed": 0.2
+          "pct_executed": 0.12
         },
         {
+          "cat_id": 3,
+          "id": 32,
           "category": "expense_f",
           "name": "Asistencia social primaria",
           "level":2,
           "budget": 150000000,
           "executed": 750000,
-          "pct_executed": 0.2
+          "pct_executed": 0.245
         },
         {
+          "cat_id": 3,
+          "id": 33,
           "category": "expense_f",
           "name": "Asistencia a personas dependientes",
           "level":2,
           "budget": 150000000,
           "executed": 750000,
-          "pct_executed": 0.2
+          "pct_executed": 0.754
         },
         {
+          "cat_id": 3,
+          "id": 34,
           "category": "expense_f",
-          "name": "Medio ambiente",
+          "name": "Medio ambiente y seguridad",
           "level":2,
           "budget": 150000000,
           "executed": 750000,
-          "pct_executed": 0.2
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "category": "expense_f",
-      "name": "Producción de bienes públicos de carácter preferente",
-      "level": 1,
-      "budget": 150000000,
-      "executed": 750000,
-      "pct_executed": 0.28,
-      "child_lines": [
-        {
-          "category": "expense_f",
-          "name": "Administración General de servicios sociales",
-          "level":2,
-          "budget": 150000000,
-          "executed": 750000,
-          "pct_executed": 0.2
-        },
-        {
-          "category": "expense_f",
-          "name": "Asistencia social primaria",
-          "level":2,
-          "budget": 150000000,
-          "executed": 750000,
-          "pct_executed": 0.2
-        },
-        {
-          "category": "expense_f",
-          "name": "Asistencia a personas dependientes",
-          "level":2,
-          "budget": 150000000,
-          "executed": 750000,
-          "pct_executed": 0.2
-        },
-        {
-          "category": "expense_f",
-          "name": "Medio ambiente",
-          "level":2,
-          "budget": 150000000,
-          "executed": 750000,
-          "pct_executed": 0.2
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "category": "expense_f",
-      "name": "Actuaciones de carácter económico",
-      "level": 1,
-      "budget": 150000000,
-      "executed": 750000,
-      "pct_executed": 0.25,
-      "child_lines": [
-        {
-          "category": "expense_f",
-          "name": "Administración General de servicios sociales",
-          "level":2,
-          "budget": 150000000,
-          "executed": 750000,
-          "pct_executed": 0.2
-        },
-        {
-          "category": "expense_f",
-          "name": "Asistencia social primaria",
-          "level":2,
-          "budget": 150000000,
-          "executed": 750000,
-          "pct_executed": 0.2
-        },
-        {
-          "category": "expense_f",
-          "name": "Asistencia a personas dependientes",
-          "level":2,
-          "budget": 150000000,
-          "executed": 750000,
-          "pct_executed": 0.2
-        },
-        {
-          "category": "expense_f",
-          "name": "Medio ambiente",
-          "level":2,
-          "budget": 150000000,
-          "executed": 750000,
-          "pct_executed": 0.2
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "category": "expense_f",
-      "name": "Actuaciones de carácter general",
-      "level": 1,
-      "budget": 150000000,
-      "executed": 750000,
-      "pct_executed": 0.21,
-      "child_lines": [
-        {
-          "category": "expense_f",
-          "name": "Administración General de servicios sociales",
-          "level":2,
-          "budget": 150000000,
-          "executed": 750000,
-          "pct_executed": 0.2
-        },
-        {
-          "category": "expense_f",
-          "name": "Asistencia social primaria",
-          "level":2,
-          "budget": 150000000,
-          "executed": 750000,
-          "pct_executed": 0.2
-        },
-        {
-          "category": "expense_f",
-          "name": "Asistencia a personas dependientes",
-          "level":2,
-          "budget": 150000000,
-          "executed": 750000,
-          "pct_executed": 0.2
-        },
-        {
-          "category": "expense_f",
-          "name": "Medio ambiente",
-          "level":2,
-          "budget": 150000000,
-          "executed": 750000,
-          "pct_executed": 0.2
+          "pct_executed": 0.41
         }
       ]
     }

@@ -2,16 +2,18 @@
 
 var VisLinesExecution = Class.extend({
   init: function(divId) {
+    // Set default locale based on the app setting
+    d3.formatDefaultLocale(eval(I18n.locale));
+    d3.timeFormatDefaultLocale(eval(I18n.locale));
+
     this.container = divId;
     this.data = null;
     this.parseTime = d3.timeParse('%Y-%m-%d');
     this.pctFormat = d3.format('.0%');
+    this.monthFormat = d3.timeFormat('%B %Y');
     this.isMobile = window.innerWidth <= 768;
     this.selectionNode = d3.select(this.container).node();
-
-    // Set default locale based on the app setting
-    d3.formatDefaultLocale(eval(I18n.locale));
-    d3.timeFormatDefaultLocale(eval(I18n.locale));
+    this.currentYear = new Date().getFullYear();
 
     // Chart dimensions
     this.margin = {top: 25, right: 50, bottom: 35, left: 385};
@@ -20,6 +22,7 @@ var VisLinesExecution = Class.extend({
 
     // Scales & Ranges
     this.x = d3.scaleLinear().range([0, this.width]);
+    this.z = d3.scaleTime().range([0, this.width]);
     this.y0 = d3.scaleBand().padding(0.2);
     this.y1 = d3.scaleBand().rangeRound([this.height, 0]).paddingInner(0.1);
 
@@ -57,6 +60,7 @@ var VisLinesExecution = Class.extend({
       if (error) throw error;
 
       this.data = jsonData;
+      this.updated = this.parseTime(this.data.last_update);
       this.updateRender();
     }.bind(this));
   },
@@ -68,10 +72,7 @@ var VisLinesExecution = Class.extend({
     }
   },
   updateRender: function(callback) {
-    this.x.domain([0, 1.15])
-
-    this.updated = this.parseTime(this.data.last_update);
-    d3.select('.last_update').text(d3.timeFormat('%B %Y')(this.updated));
+    d3.select('.last_update').text(this.monthFormat(this.updated));
 
     /* Flatten array to transform it easily */
     this.flattened = _.flatMapDeep(this.data.lines, function(n) { return [n, n.child_lines]; });
@@ -84,6 +85,8 @@ var VisLinesExecution = Class.extend({
       })
       .entries(this.flattened)
 
+    this.x.domain([0, 1.05]);
+
     /* Get the name of every line */
     this.y1.domain(_.flatten(this.nested.map(function(d) {
       return d.values.map(function(v) { return v.id }); })
@@ -92,6 +95,8 @@ var VisLinesExecution = Class.extend({
     /* Number of lines */
     this.y0.domain(this.nested.map(function(d) { return d.key }))
       .rangeRound([this.y1.bandwidth(), 0]);
+
+    this.z.domain([this.parseTime(this.currentYear + '-01-01'), this.parseTime(this.currentYear + '-12-31')]);
 
     var bars = this.svg.selectAll('g')
       .data(this.nested)
@@ -119,7 +124,7 @@ var VisLinesExecution = Class.extend({
       .attr('height', this.y1.bandwidth() )
       // .attr('height', function(d) { return d.level === 1 ? this.y1.bandwidth() : 30 ;}.bind(this))
       .attr('y', function(d) { return this.y1(d.id); }.bind(this))
-      .attr('width', this.x(1.15))
+      .attr('width', this.x(1.05))
       .attr('fill', '#efefef');
 
     /* Main bar */
@@ -143,7 +148,48 @@ var VisLinesExecution = Class.extend({
       .style('font-size', function(d) { return d.level === 1 ? '1rem' : '0.875rem';})
       .style('font-weight', function(d) { return d.level === 1 ? '600' : '400';})
       .style('fill', function(d) { return d.level === 1 ? '#4A4A4A' : '#767168';})
-      .text(function(d) { return d.name;})
+      .text(function(d) { return d.name;});
+
+    /* Legend */
+    var legend = this.svg.append('g')
+      .attr('class', 'legend')
+      .attr('transform', 'translate(0, -5)')
+
+    legend.append('text')
+      .attr('text-anchor', 'end')
+      .attr('dx', '-12')
+      .text('Partidas presupuestarias');
+
+    legend.append('text')
+      .text('% de progreso');
+
+    /* Year progress line */
+    var yearProgress = this.svg.append('g')
+      .attr('class', 'year_progress')
+      .attr('transform', 'translate(' + this.z(this.updated) + ',' + 0 + ')');
+
+    var yearArrow = yearProgress.append('g')
+      .attr('class', 'swoopy_arrow')
+      .attr('fill', 'none')
+      .attr('transform', 'translate(-5, -40)')
+
+    yearArrow.append('path')
+      .attr('stroke', '#979797')
+      .attr('d', 'M6.12890625,30.7975072 C6.12890625,13.9746951 12.1289062,4.02519777 24.1289062,0.949015299')
+
+    yearArrow.append('polygon')
+      .attr('fill', '#979797')
+      .attr('points', '8.366 24.01 10.271 32.463 2.518 29.857')
+      .attr('transform', 'rotate(45 6.395 28.236)')
+
+    yearProgress.append('line')
+      .attr('y2', this.height + this.margin.bottom)
+      .attr('stroke', 'black');
+
+    yearProgress.append('text')
+    .attr('dy', -40)
+    .attr('dx', 25)
+    .text(this.monthFormat(this.updated))
 
     this.svg.append('g')
       .attr('class', 'x axis')
@@ -160,7 +206,7 @@ var VisLinesExecution = Class.extend({
 
     this.tooltip
       .style('display', 'block')
-      .style('left', (x - 80) + 'px')
+      .style('left', (x - 110) + 'px')
       .style('top', (y + 40) + 'px')
 
     this.tooltip.html('<div class="line-name"><strong>' + accounting.formatMoney(d.budget, "€", 0, ".", ",") + '</strong></div> \

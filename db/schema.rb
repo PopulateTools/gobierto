@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20170712103453) do
 
   # These are extensions that must be enabled in order to support this database
@@ -259,6 +258,35 @@ ActiveRecord::Schema.define(version: 20170712103453) do
     t.index ["title_translations"], name: "index_gcms_pages_on_title_translations", using: :gin
   end
 
+  create_table "gobierto_calendars_calendars", force: :cascade do |t|
+    t.string "owner_type"
+    t.bigint "owner_id"
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_type", "owner_id"], name: "index_gobierto_calendars_calendars_on_owner_type_and_owner_id"
+  end
+
+  create_table "gobierto_calendars_events", id: :serial, force: :cascade do |t|
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.string "attachment_url"
+    t.integer "state", default: 0, null: false
+    t.integer "person_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "external_id"
+    t.jsonb "title_translations"
+    t.jsonb "description_translations"
+    t.integer "site_id", null: false
+    t.string "slug", null: false
+    t.index ["description_translations"], name: "index_gobierto_calendars_events_on_description_translations", using: :gin
+    t.index ["person_id", "external_id"], name: "index_gobierto_calendars_events_on_person_id_and_external_id", unique: true
+    t.index ["person_id"], name: "index_gobierto_calendars_events_on_person_id"
+    t.index ["slug"], name: "index_gobierto_calendars_events_on_slug", unique: true
+    t.index ["title_translations"], name: "index_gobierto_calendars_events_on_title_translations", using: :gin
+  end
+
   create_table "gobierto_module_settings", id: :serial, force: :cascade do |t|
     t.integer "site_id"
     t.string "module_name"
@@ -328,26 +356,6 @@ ActiveRecord::Schema.define(version: 20170712103453) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["person_event_id"], name: "index_gp_person_event_locations_on_person_event_id"
-  end
-
-  create_table "gp_person_events", id: :serial, force: :cascade do |t|
-    t.datetime "starts_at", null: false
-    t.datetime "ends_at", null: false
-    t.string "attachment_url"
-    t.integer "state", default: 0, null: false
-    t.integer "person_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "external_id"
-    t.jsonb "title_translations"
-    t.jsonb "description_translations"
-    t.integer "site_id", null: false
-    t.string "slug", null: false
-    t.index ["description_translations"], name: "index_gp_person_events_on_description_translations", using: :gin
-    t.index ["person_id", "external_id"], name: "index_gp_person_events_on_person_id_and_external_id", unique: true
-    t.index ["person_id"], name: "index_gp_person_events_on_person_id"
-    t.index ["slug"], name: "index_gp_person_events_on_slug", unique: true
-    t.index ["title_translations"], name: "index_gp_person_events_on_title_translations", using: :gin
   end
 
   create_table "gp_person_posts", id: :serial, force: :cascade do |t|
@@ -576,7 +584,7 @@ ActiveRecord::Schema.define(version: 20170712103453) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
-  add_foreign_key "gp_person_events", "sites"
+  add_foreign_key "gobierto_calendars_events", "sites"
   add_foreign_key "gp_person_posts", "sites"
   add_foreign_key "gp_person_statements", "sites"
 end

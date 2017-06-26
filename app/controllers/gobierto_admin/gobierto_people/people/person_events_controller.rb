@@ -13,12 +13,12 @@ module GobiertoAdmin
         def new
           @person_event_form = PersonEventForm.new
           @attendees = get_attendees
-          @person_event_states = get_person_event_states
+          @person_event_states = get_calendar_event_states
         end
 
         def edit
           @person_event = find_person_event
-          @person_event_states = get_person_event_states
+          @person_event_states = get_calendar_event_states
 
           @person_event_form = PersonEventForm.new(
             @person_event.attributes.except(*ignored_person_event_attributes)
@@ -38,7 +38,7 @@ module GobiertoAdmin
             )
           else
             @attendees = get_attendees
-            @person_event_states = get_person_event_states
+            @person_event_states = get_calendar_event_states
             render :new
           end
         end
@@ -56,7 +56,7 @@ module GobiertoAdmin
             )
           else
             @attendees = get_attendees
-            @person_event_states = get_person_event_states
+            @person_event_states = get_calendar_event_states
             render :edit
           end
         end
@@ -74,8 +74,8 @@ module GobiertoAdmin
             .select(:id, :name)
         end
 
-        def get_person_event_states
-          ::GobiertoPeople::PersonEvent.states
+        def get_calendar_event_states
+          ::GobiertoCalendars::Event.states
         end
 
         def person_event_params

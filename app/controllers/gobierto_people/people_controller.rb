@@ -7,7 +7,6 @@ module GobiertoPeople
     before_action :check_active_submodules, except: :show
 
     def index
-
       @political_groups = get_political_groups
 
       set_people

@@ -170,15 +170,15 @@ module GobiertoAdmin
       end
 
       def person_event_class
-        ::GobiertoPeople::PersonEvent
+        GobiertoCalendars::Event
       end
 
       def person_event_location_class
-        ::GobiertoPeople::PersonEventLocation
+        GobiertoCalendars::EventLocation
       end
 
       def person_event_attendee_class
-        ::GobiertoPeople::PersonEventAttendee
+        GobiertoCalendars::EventAttendee
       end
 
       def person_class

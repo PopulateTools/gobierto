@@ -1,5 +1,5 @@
 richard_pending:
-  person: richard
+  calendar: richard
   site: madrid
   title_translations: <%= {
     'en' => 'Reunión con los vecinos del distrito centro',
@@ -13,10 +13,10 @@ richard_pending:
   starts_at: <%= 1.month.from_now %>
   ends_at: <%= 1.month.from_now + 1.hour %>
   attachment_url: https://bit.ly/12345
-  state: <%= GobiertoPeople::PersonEvent.states["pending"] %>
+  state: <%= GobiertoCalendars::Event.states["pending"] %>
 
 richard_published:
-  person: richard
+  calendar: richard
   site: madrid
   title_translations: <%= {
     'en' => 'Future government event',
@@ -30,10 +30,10 @@ richard_published:
   starts_at: <%= 1.month.from_now %>
   ends_at: <%= 1.month.from_now + 1.hour %>
   attachment_url: https://bit.ly/67890
-  state: <%= GobiertoPeople::PersonEvent.states["published"] %>
+  state: <%= GobiertoCalendars::Event.states["published"] %>
 
 richard_published_just_attending:
-  person: nil
+  calendar: nil
   site: madrid
   slug: <%= "#{1.month.from_now.strftime('%F')}-invitado-evento" %>
   external_id: justattending
@@ -48,10 +48,10 @@ richard_published_just_attending:
   starts_at: <%= 1.month.from_now %>
   ends_at: <%= 1.month.from_now + 1.hour %>
   attachment_url: https://bit.ly/67890
-  state: <%= GobiertoPeople::PersonEvent.states["published"] %>
+  state: <%= GobiertoCalendars::Event.states["published"] %>
 
 richard_published_past:
-  person: richard
+  calendar: richard
   site: madrid
   title_translations: <%= {
     'en' => 'Past government event',
@@ -65,10 +65,10 @@ richard_published_past:
   starts_at: <%= 1.month.ago %>
   ends_at: <%= 1.month.ago + 1.hour %>
   attachment_url: https://bit.ly/67890
-  state: <%= GobiertoPeople::PersonEvent.states["published"] %>
+  state: <%= GobiertoCalendars::Event.states["published"] %>
 
 nelson_tomorrow:
-  person: nelson
+  calendar: nelson
   site: madrid
   title_translations: <%= {
     'en' => 'Nelson tomorrow event',
@@ -82,10 +82,10 @@ nelson_tomorrow:
   starts_at: <%= 1.day.from_now %>
   ends_at: <%= 1.day.from_now + 1.hour %>
   attachment_url: https://bit.ly/67890
-  state: <%= GobiertoPeople::PersonEvent.states["published"] %>
+  state: <%= GobiertoCalendar::Event.states["published"] %>
 
 nelson_yesterday:
-  person: nelson
+  calendar: nelson
   site: madrid
   title_translations: <%= {
     'en' => 'Nelson yesterday event',
@@ -99,10 +99,10 @@ nelson_yesterday:
   starts_at: <%= 1.day.ago %>
   ends_at: <%= 1.day.ago + 1.hour %>
   attachment_url: https://bit.ly/67890
-  state: <%= GobiertoPeople::PersonEvent.states["published"] %>
+  state: <%= GobiertoCalendar::Event.states["published"] %>
 
 tamara_published_past:
-  person: tamara
+  calendar: tamara
   site: madrid
   title_translations: <%= {
     'en' => 'Past executive event',
@@ -116,4 +116,4 @@ tamara_published_past:
   starts_at: <%= 15.days.ago %>
   ends_at: <%= 15.days.ago + 1.hour %>
   attachment_url: https://bit.ly/67890
-  state: <%= GobiertoPeople::PersonEvent.states["published"] %>
+  state: <%= GobiertoCalendar::Event.states["published"] %>

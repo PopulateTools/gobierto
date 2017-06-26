@@ -1,12 +1,12 @@
-require_dependency "gobierto_people"
+require_dependency "gobierto_calendars"
 
-module GobiertoPeople
-  class PersonEvent < ApplicationRecord
+module GobiertoCalendars
+  class Event < ApplicationRecord
     paginates_per 8
 
     include User::Subscribable
     include GobiertoCommon::Searchable
-    include GobiertoPeople::Sluggable
+    include GobiertoCommon::Sluggable
 
     validates :site, presence: true
 
@@ -19,11 +19,11 @@ module GobiertoPeople
       add_attribute :resource_path, :class_name
     end
 
-    belongs_to :person, counter_cache: :events_count
+    belongs_to :calendar
     belongs_to :site
 
-    has_many :locations, class_name: "PersonEventLocation", dependent: :destroy
-    has_many :attendees, class_name: "PersonEventAttendee", dependent: :destroy
+    has_many :locations, class_name: "EventLocation", dependent: :destroy
+    has_many :attendees, class_name: "EventAttendee", dependent: :destroy
 
     scope :past,     -> { published.where("starts_at <= ?", Time.zone.now) }
     scope :upcoming, -> { published.where("starts_at > ?", Time.zone.now) }
@@ -45,23 +45,16 @@ module GobiertoPeople
       joins(:person).where(Person.table_name => { party: party })
     end
 
-    delegate :admin_id, to: :person
-
     enum state: { pending: 0, published: 1 }
 
     def admin_id
-      if person
-        person.admin_id
+      if calendar
+        calendar.owner.admin_id
       end
     end
 
     def parameterize
-      person_slug = if person.present?
-        person.slug
-      elsif attendee = attendees.detect{ |a| a.person_id.present? }
-        attendee.person.slug
-      end
-      { person_slug: person_slug, slug: slug }
+      { calendar_slug: calendar.slug, slug: slug }
     end
 
     def past?
@@ -81,13 +74,11 @@ module GobiertoPeople
     end
 
     def self.csv_columns
-      [:id, :person_id, :person_name, :title, :description, :starts_at, :ends_at, :attachment_url, :created_at, :updated_at]
+      [:id, :calendar_id, :calendar_name, :calendar_owner_type, :calendar_owner_id, :title, :description, :starts_at, :ends_at, :attachment_url, :created_at, :updated_at]
     end
 
     def as_csv
-      person_name = person.try(:name)
-
-      [id, person_id, person_name, title, description, starts_at, ends_at, attachment_url, created_at, updated_at]
+      [id, calendar.id, calendar.name, calendar.owner.class.name, calendar.owner.id, title, description, starts_at, ends_at, attachment_url, created_at, updated_at]
     end
 
     def attributes_for_slug

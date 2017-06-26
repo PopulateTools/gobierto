@@ -6,7 +6,7 @@ module GobiertoPeople
     include User::Subscribable
     include GobiertoCommon::Sortable
     include GobiertoCommon::Searchable
-    include GobiertoPeople::Sluggable
+    include GobiertoCommon::Sluggable
 
     translates :charge, :bio
 
@@ -21,7 +21,8 @@ module GobiertoPeople
     belongs_to :site
     belongs_to :political_group
 
-    has_many :events, class_name: "PersonEvent", dependent: :destroy
+    has_many :calendars, inverse_of: :owner, class_name: "GobiertoCalendars::Calendar", dependent: :destroy
+    has_many :events, through: :calendars, class_name: "GobiertoCalendars::Event", dependent: :destroy
     has_many :attending_person_events, class_name: "PersonEventAttendee", dependent: :destroy
     has_many :attending_events, class_name: "PersonEvent", through: :attending_person_events, source: :person_event
     has_many :statements, class_name: "PersonStatement", dependent: :destroy

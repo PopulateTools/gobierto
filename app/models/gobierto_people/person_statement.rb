@@ -5,7 +5,7 @@ module GobiertoPeople
     include ::GobiertoCommon::DynamicContent
     include User::Subscribable
     include GobiertoCommon::Searchable
-    include GobiertoPeople::Sluggable
+    include GobiertoCommon::Sluggable
 
     validates :person, presence: true
     validates :site, presence: true

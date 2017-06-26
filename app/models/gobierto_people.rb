@@ -4,7 +4,7 @@ module GobiertoPeople
   end
 
   def self.searchable_models
-    [ GobiertoPeople::Person, GobiertoPeople::PersonPost, GobiertoPeople::PersonEvent, GobiertoPeople::PersonStatement ]
+    [ GobiertoPeople::Person, GobiertoPeople::PersonPost, GobiertoPeople::PersonStatement ]
   end
 
   def self.module_submodules

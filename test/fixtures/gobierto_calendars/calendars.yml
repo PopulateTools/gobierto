@@ -1,0 +1,11 @@
+richard:
+  owner: richard (GobiertoPeople::Person)
+  name: Richard's Calendar
+
+nelson:
+  owner: nelson (GobiertoPeople::Person)
+  name: Nelson's calendar
+
+tamara:
+  owner: tamara (GobiertoPeople::Person)
+  name: Tamara's calendar

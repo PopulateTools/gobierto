@@ -292,6 +292,8 @@
 }
 .budgets_execution {
   .lines_execution {
+    position: relative;
+
     .axis {
       font-family: $font_text;
 
@@ -299,7 +301,9 @@
         display: none;
       }
     }
-
+    .bar-group:hover {
+      stroke: black;
+    }
     .y.axis {
       font-size: 1rem;
 
@@ -311,7 +315,6 @@
         display: none;
       }
     }
-
     .x.axis {
       font-size: $f7;
 
@@ -321,6 +324,38 @@
       line {
         stroke-dasharray: 2 2;
         stroke: rgba(0,0,0,.5)
+      }
+    }
+    .tooltip {
+      pointer-events: none;
+      display: none;
+      position: absolute;
+      background: white;
+      padding: 10px;
+      z-index: 4;
+      min-width: 200px;
+      max-width: 250px;
+      border: 1px solid #979797;
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,0.10);
+      border-radius: 4px;
+
+      .line-pct {
+        width: 85px;
+
+        i {
+          display: inline;
+        }
+      }
+
+      @media (max-width: 590px){
+        position: fixed;
+        bottom: -1px;
+        width: calc(96%);
+        left: -1px !important;
+        right: -1px !important;
+        top: auto !important;
+        width: auto !important;
+        max-width: none;
       }
     }
   }

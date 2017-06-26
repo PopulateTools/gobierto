@@ -7,6 +7,7 @@ var VisLinesExecution = Class.extend({
     this.parseTime = d3.timeParse('%Y-%m-%d');
     this.pctFormat = d3.format('.0%');
     this.isMobile = window.innerWidth <= 768;
+    this.selectionNode = d3.select(this.container).node();
 
     // Set default locale based on the app setting
     d3.formatDefaultLocale(eval(I18n.locale));
@@ -19,8 +20,8 @@ var VisLinesExecution = Class.extend({
 
     // Scales & Ranges
     this.x = d3.scaleLinear().range([0, this.width]);
-    this.y0 = d3.scaleBand().padding(0.15);
-    this.y1 = d3.scaleBand().rangeRound([this.height, 0]).paddingInner(0.05);
+    this.y0 = d3.scaleBand().padding(0.2);
+    this.y1 = d3.scaleBand().rangeRound([this.height, 0]).paddingInner(0.1);
 
     this.color = d3.scaleOrdinal();
 
@@ -30,6 +31,10 @@ var VisLinesExecution = Class.extend({
     // Chart objects
     this.svg = null;
     this.chart = null;
+
+    this.tooltip = d3.select(this.container)
+      .append('div')
+      .attr('class', 'tooltip');
 
     // Create main elements
     this.svg = d3.select(this.container)
@@ -41,7 +46,7 @@ var VisLinesExecution = Class.extend({
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
     this.xAxis = d3.axisTop(this.x)
-      .tickSize(-this.height)
+      .tickSize(-this.height - this.margin.bottom)
       .ticks(4)
       .tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d);}.bind(this));
 
@@ -92,16 +97,21 @@ var VisLinesExecution = Class.extend({
       .data(this.nested)
       .enter()
       .append('g')
-      .attr('class', 'bar-group')
+      .attr('class', 'line-group')
       .attr('transform', function(d) {
         return 'translate(' + 0 + ',' + this.y0(d.key) + ')';
       }.bind(this));
 
-    var barGroup = bars.selectAll('g')
+    var lineGroup = bars.selectAll('g')
       .data(function(d) { return d.values;} )
       .enter()
       .append('g')
-      .attr('class', 'bar');
+      .attr('class', 'line');
+
+    var barGroup = lineGroup.append('g')
+      .attr('class', 'bar-group')
+      .on('mousemove', this._mousemoved.bind(this))
+      .on('mouseleave', this._mouseleft.bind(this));
 
     barGroup.append('rect')
       .attr('class', 'bar-bg')
@@ -114,7 +124,7 @@ var VisLinesExecution = Class.extend({
 
     /* Main bar */
     barGroup.append('rect')
-      .attr('class', 'bar-filled')
+      .attr('class', 'bar')
       .attr('x', 0)
       .attr('height', this.y1.bandwidth() )
       // .attr('height', function(d) { return d.level === 1 ? this.y1.bandwidth() : 30 ;}.bind(this))
@@ -124,17 +134,40 @@ var VisLinesExecution = Class.extend({
         return d.level === 1 ? '#00909e' : '#9bcdd2'
       });
 
-    barGroup.append('text')
+    lineGroup.append('text')
       .attr('x', 0)
       .attr('y', function(d) { return this.y1(d.id); }.bind(this))
       .attr('dy', 28)
       .attr('dx', -10)
       .attr('text-anchor', 'end')
+      .style('font-size', function(d) { return d.level === 1 ? '1rem' : '0.875rem';})
+      .style('font-weight', function(d) { return d.level === 1 ? '600' : '400';})
+      .style('fill', function(d) { return d.level === 1 ? '#4A4A4A' : '#767168';})
       .text(function(d) { return d.name;})
 
     this.svg.append('g')
       .attr('class', 'x axis')
     	.call(this.xAxis)
+
+    /* Remove first tick */
+    d3.selectAll('.x.axis .tick')
+      .filter(function(d) { return d === 0;})
+      .remove()
+  },
+  _mousemoved: function(d) {
+    var coordinates = d3.mouse(this.selectionNode);
+    var x = coordinates[0], y = coordinates[1];
+
+    this.tooltip
+      .style('display', 'block')
+      .style('left', (x - 80) + 'px')
+      .style('top', (y + 40) + 'px')
+
+    this.tooltip.html('<div class="line-name"><strong>' + accounting.formatMoney(d.budget, "€", 0, ".", ",") + '</strong></div> \
+                       <div>Se ha ejecutado un ' + this.pctFormat(d.pct_executed) + '</div>');
+  },
+  _mouseleft: function(d) {
+    this.tooltip.style('display', 'none');
   },
   _renderAxis: function() {
 

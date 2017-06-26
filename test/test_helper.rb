@@ -10,6 +10,7 @@ require "minitest/reporters"
 require "database_cleaner"
 require "spy/integration"
 require "webmock/minitest"
+require "support/common_helpers"
 require "support/session_helpers"
 require "support/site_session_helpers"
 require "support/message_delivery_helpers"
@@ -66,6 +67,7 @@ end
 ActiveRecord::Migration.maintain_test_schema!
 
 class ActiveSupport::TestCase
+  include CommonHelpers
   include SessionHelpers
   include SiteSessionHelpers
   include ActiveJob::TestHelper

@@ -15,12 +15,10 @@ module GobiertoBudgets
     end
 
     def name
-      disable_fallback
       custom_name || default_name
     end
 
     def description
-      disable_fallback
       custom_description || default_description
     end
 

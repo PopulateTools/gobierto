@@ -11,7 +11,7 @@ var VisSlider = Class.extend({
     var parseYear = d3.timeParse('%Y');
     var formatYear = d3.timeFormat('%Y');
 
-    var bisectDate = d3.bisector(function(d) { return d; }).left
+    var bisectDate = d3.bisector(function(d) { return d; }).left;
 
     var margin = {right: 20, left: 10};
     var width = parseInt(d3.select(this.container).style('width')) - margin.left - margin.right;
@@ -30,18 +30,18 @@ var VisSlider = Class.extend({
 
     // Invert ordinal scale, from: https://gist.github.com/shimizu/808e0f5cadb6a63f28bb00082dc8fe3f
     x.invert = (function(){
-      var domain = x.domain()
-      var range = x.range()
-      var scale = d3.scaleQuantize().domain(range).range(domain)
+      var domain = x.domain();
+      var range = x.range();
+      var scale = d3.scaleQuantize().domain(range).range(domain);
 
       return function(x){
-        return scale(x)
+        return scale(x);
       }
-    })()
+    })();
 
     var slider = svg.append('g')
       .attr('class', 'slider')
-      .attr('transform', 'translate(' + margin.left + ',' + height / 2 + ')');
+      .attr('transform', 'translate(0,' + height / 2 + ')');
 
     slider.append('line')
       .attr('class', 'track')
@@ -65,7 +65,12 @@ var VisSlider = Class.extend({
       .enter()
       .append('circle')
       .attr('cx', function(d) { return x(d)})
-      .attr('r', 9);
+      .attr('r', 9)
+      .call(d3.drag()
+        .on('start.interrupt', function() { slider.interrupt(); })
+        .on('start drag', dragged)
+        .on('end', endDrag)
+      )
 
     slider.append('g')
       .attr('class', 'ticks')
@@ -77,16 +82,29 @@ var VisSlider = Class.extend({
       .attr('x', function(d) { return x(d) })
       .text(function(d) { return d })
       .classed('active', function(d) { return d == currentYear; })
-      .attr('dx', function(d) { return d === currentYear ? 10 : 0 ;})
+      .attr('dx', function(d) {
+        if (d == currentYear) {
+          return 10
+        } else if (d == 2010) {
+          return -10
+        } else {
+          return 0
+        }
+      })
       .attr('text-anchor', function(d, i) {
         if (d == currentYear) {
           return 'end'
-        } else if (d === 2010) {
+        } else if (d == 2010) {
           return 'start'
         } else {
           return 'middle'
         }
-      });
+      })
+      .call(d3.drag()
+        .on('start.interrupt', function() { slider.interrupt(); })
+        .on('start drag', dragged)
+        .on('end', endDrag)
+      )
 
     var handle = slider.append('circle')
       .attr('class', 'handle')
@@ -109,6 +127,17 @@ var VisSlider = Class.extend({
     function endDrag() {
       var year = x.invert(d3.mouse(this)[0]);
       $(document).trigger('visSlider:yearChanged', year);
+
+      // Hide legend when we drag outside of the last year
+      if (year !== currentYear) {
+        d3.select('.bubble_legend')
+          .transition()
+          .style('opacity', 0);
+      } else {
+        d3.select('.bubble_legend')
+          .transition()
+          .style('opacity', 1);
+      }
     }
   },
 });

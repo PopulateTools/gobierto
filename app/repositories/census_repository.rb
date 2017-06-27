@@ -1,4 +1,6 @@
-require_dependency "secret_attribute"
+# frozen_string_literal: true
+
+require_dependency 'secret_attribute'
 
 class CensusRepository
   attr_reader(
@@ -34,10 +36,10 @@ class CensusRepository
 
   def exists?
     census_items = CensusItem
-      .where(verified: false)
-      .where(site_id: site_id)
-      .where(date_of_birth: date_of_birth)
-      .where(document_number_digest: document_number_digest)
+                   .where(verified: false)
+                   .where(site_id: site_id)
+                   .where(date_of_birth: date_of_birth)
+                   .where(document_number_digest: document_number_digest)
 
     if @document_number_alternatives.any?
       @document_number_alternatives.each do |alternative|
@@ -69,12 +71,12 @@ class CensusRepository
     return date if date.is_a?(Date)
 
     # Validate format
-    if date =~ /\A(\d{4})-(\d\d?)-(\d\d?)\z/
+    if date.match?(/\A(\d{4})-(\d\d?)-(\d\d?)\z/)
       return Date.parse(date)
     elsif date =~ /\A(\d\d?)-(\d\d?)-(\d+)\z/
-      day   = $1.to_i
-      month = $2.to_i
-      year  = $3.to_i
+      day   = Regexp.last_match(1).to_i
+      month = Regexp.last_match(2).to_i
+      year  = Regexp.last_match(3).to_i
       year  = "19#{year}".to_i if year <= 99
       return Date.new year, month, day
     end
@@ -85,7 +87,7 @@ class CensusRepository
   def parse_document_number(document_number)
     parsed_document_number = document_number
 
-    parsed_document_number.gsub!(' ', '')
+    parsed_document_number.delete!(' ')
     parsed_document_number.gsub!(/\W/, '')
     parsed_document_number.upcase!
 
@@ -97,47 +99,32 @@ class CensusRepository
     document_number = document_number.upcase
     alternatives.push(document_number)
 
-    if document_number =~ /\A\d+([a-z])\z/i
-      alternatives.push(document_number.tr($1, ''))
-      alternatives.push("X" + document_number)
-      alternatives.push("X" + document_number.tr($1, ''))
+    case document_number
+      when /\A\d+([a-z])\z/i
+        letter = Regexp.last_match(1)
+        alternatives.push(document_number.gsub(letter, ''))
+        alternatives.push('X' + document_number)
+        alternatives.push('X' + document_number.gsub(letter, ''))
+      when /\AX0\d+([a-z])\z/i
+        letter = Regexp.last_match(1)
+        changes = [['XO','X'], ['XO', '0'], ['XO' '']]
+        changes.map { |change| alternatives.push(document_number.gsub(change.first, change.last)) }
+        changes.map { |change| alternatives.push(document_number.gsub(change.first, change.last).gsub(letter, '')) }
+        alternatives.push(document_number.gsub(letter, ''))
+      when /\AX0\d+\z/i
+        changes = [['XO','X'], ['XO', '0'], ['XO' '']]
+        changes.map { |change| alternatives.push(document_number.gsub(change.first, change.last)) }
+      when /\AX\d+([a-z])\z/i
+        letter = Regexp.last_match(1)
+        changes = [['X','X0'], ['X', '0'], ['X' '']]
+        changes.map { |change| alternatives.push(document_number.gsub(change.first, change.last)) }
+        changes.map { |change| alternatives.push(document_number.gsub(letter, '').gsub(change.first, change.last)) }
+        alternatives.push(document_number.gsub(letter, ''))
+      when /\AX\d+\z/i
+        changes = [['X','X0'], ['X', '0'], ['X' '']]
+        changes.map { |change| alternatives.push(document_number.gsub(change.first, change.last)) }
     end
 
-    if document_number =~ /\AX0\d+([a-z])\z/i
-      letter = $1
-      alternatives.push(document_number.tr(letter, ''))
-      alternatives.push(document_number.tr('X0', 'X'))
-      alternatives.push(document_number.tr('X0', 'X').tr(letter, ''))
-      alternatives.push(document_number.tr('X0', '0'))
-      alternatives.push(document_number.tr('X0', '0').tr(letter, ''))
-      alternatives.push(document_number.tr('X0', ''))
-      alternatives.push(document_number.tr('X0', '').tr(letter, ''))
-    end
-
-    if document_number =~ /\AX\d+([a-z])\z/i
-      letter = $1
-      alternatives.push(document_number.tr(letter, ''))
-      alternatives.push(document_number.gsub('X', 'X0'))
-      alternatives.push(document_number.tr(letter, '').gsub('X', 'X0'))
-      alternatives.push(document_number.tr('X', '0'))
-      alternatives.push(document_number.tr(letter, '').tr('X', '0'))
-      alternatives.push(document_number.tr('X', ''))
-      alternatives.push(document_number.tr(letter, '').tr('X', ''))
-    end
-
-    if document_number =~ /\AX0\d+\z/i
-      alternatives.push(document_number.tr('X0', 'X'))
-      alternatives.push(document_number.tr('X0', '0'))
-      alternatives.push(document_number.tr('X0', ''))
-    end
-
-    if document_number =~ /\AX\d+\z/i
-      alternatives.push(document_number.gsub('X', 'X0'))
-      alternatives.push(document_number.tr('X', '0'))
-      alternatives.push(document_number.tr('X', ''))
-    end
-
-    return alternatives
+    alternatives
   end
-
 end

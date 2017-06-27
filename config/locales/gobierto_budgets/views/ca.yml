@@ -62,11 +62,16 @@ ca:
         less: menys
         level_2_category: Categoria nivell 2
         level_3_category: Categoria nivell 3
-        main_budget_lines: Les principals despeses i ingressos del teu ajuntament
-        main_budget_lines_description: Estos són els 5 principals ingressos i despeses
-          del teu municipi.
+        main_budget_lines: Els principals ingressos i despeses del teu ajuntament
+        main_budget_lines_income: Ingressos
+        main_budget_lines_expense: Despeses
         main_budget_levels_timeline: Compara despeses i ingressos any per any
         main_budget_levels_per_inhabitant: per habitant
+        main_budget_levels_tooltip_up: Ha pujat un
+        main_budget_levels_tooltip_down: Ha baixat un
+        main_budget_levels_tooltip_article: des de
+        main_budget_levels_legend_one: Canvi entre aquest any
+        main_budget_levels_legend_two: i el passat
         more: més
         most_interesting_budget_lines: Partides que més t'interessen
         most_interesting_budget_lines_description: Te mostrem algunes de les partides

@@ -19,7 +19,7 @@ var VisBubbles = Class.extend({
     this.selectionNode = d3.select(this.container).node();
 
     this.budgetColor = d3.scaleThreshold()
-      .domain([-30, -10, -5, 0, 5, 10, 30])
+      .domain([-30, -10, -5, 0, 5, 10, 30, 100])
       .range(['#b2182b','#d6604d','#f4a582','#fddbc7','#f7f7f7','#d1e5f0','#92c5de','#4393c3','#2166ac']);
 
     this.fontSize = d3.scaleLinear()
@@ -58,7 +58,7 @@ var VisBubbles = Class.extend({
     this.filtered = data.filter(function(d) { return d.budget_category === this.budget_category; }.bind(this));
 
     this.radiusScale = d3.scaleSqrt()
-      .range(this.isMobile ? [0, 80] : [0, 130])
+      .range(this.isMobile ? [0, 80] : [0, 120])
       .domain([0, this.maxAmount]);
 
     // If we enter for the first time, build the data
@@ -77,7 +77,7 @@ var VisBubbles = Class.extend({
           pct_diff: d.pct_diff[year],
           per_inhabitant: d.values_per_inhabitant[year],
           x: Math.random() * 600,
-          y: Math.random() * 500,
+          y: -d.pct_diff[year] * 10,
           year: year
         };
       }.bind(this))
@@ -88,6 +88,7 @@ var VisBubbles = Class.extend({
         d.pct_diff = d.pct_diffs[year]
         d.per_inhabitant = d.values_per_inhabitant[year]
         d.year = year
+        // d.y = -d.pct_diffs[year] * 10
       }.bind(this))
     }
 
@@ -157,18 +158,17 @@ var VisBubbles = Class.extend({
 
     this.tooltip
       .style('display', 'block')
-      .style('left', (x - 50) + 'px')
-      .style('top', (y + 40) + 'px')
+      .style('left', (x - 110) + 'px')
+      .style('top', (y + 40) + 'px');
 
-    function getArrow(d, budgetColor) {
-      return d > 0 ? '<i style="color:'+ budgetColor(d) +'" class="fa fa-caret-up"></i>' :
-                     '<i style="color:'+ budgetColor(d) +'" class="fa fa-caret-down"></i>';
+    function getString(d) {
+      return d > 0 ? I18n.t('gobierto_budgets.budgets.index.main_budget_levels_tooltip_up') : I18n.t('gobierto_budgets.budgets.index.main_budget_levels_tooltip_down');
     }
 
-    this.tooltip.html('<div class="f_left line-name"><strong>' + d.name + '</strong></div> \
-                       <div class="f_right p_h_l_1 line-pct right">' + getArrow(d.pct_diff, this.budgetColor) + Math.abs(d.pct_diff) + '%</div> \
+    this.tooltip.html('<div class="line-name"><strong>' + d.name + '</strong></div> \
+                       <div>' + accounting.formatMoney(d.value, "€", 0, ".", ",") + '</div> \
                        <div class="clear_b">' + accounting.formatMoney(d.per_inhabitant, "€", 0, ".", ",") + ' ' + I18n.t('gobierto_budgets.budgets.index.main_budget_levels_per_inhabitant') + '</div> \
-                       <div>' + accounting.formatMoney(d.value, "€", 0, ".", ",") + '</div>');
+                       <div class="line-pct">' + getString(d.pct_diff) + ' ' + accounting.formatNumber(d.pct_diff, 1) + '%</span> ' + I18n.t('gobierto_budgets.budgets.index.main_budget_levels_tooltip_article') + ' ' + (d.year - 1) + '</div>');
   },
   _mouseleft: function() {
     this.tooltip.style('display', 'none');

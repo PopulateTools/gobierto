@@ -9,7 +9,7 @@ var VisBubbleLegend = Class.extend({
 
     var scale = d3.scaleOrdinal()
       .domain(colors.reverse())
-      .range([0, 11.1, 25, 37.5, 50, 62.5, 87.5, 100]);
+      .range(d3.range(0, 100, 100 / colors.length));
 
     var margin = {top: 15, right: 5, bottom: 15, left: 5},
       width = parseInt(d3.select(this.container).style('width')) - margin.left - margin.right,

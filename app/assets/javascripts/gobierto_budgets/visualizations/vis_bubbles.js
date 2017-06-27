@@ -158,18 +158,17 @@ var VisBubbles = Class.extend({
 
     this.tooltip
       .style('display', 'block')
-      .style('left', (x - 130) + 'px')
-      .style('top', (y + 40) + 'px')
+      .style('left', (x - 120) + 'px')
+      .style('top', (y + 40) + 'px');
 
-    function getArrow(d, budgetColor) {
-      return d > 0 ? '<i style="color:'+ budgetColor(d) +'" class="fa fa-caret-up"></i>' :
-                     '<i style="color:'+ budgetColor(d) +'" class="fa fa-caret-down"></i>';
+    function getString(d) {
+      return d > 0 ? 'Ha subido un' : 'Ha bajado un';
     }
 
     this.tooltip.html('<div class="f_left line-name"><strong>' + d.name + '</strong></div> \
-                       <div class="f_right p_h_l_1 line-pct right">' + getArrow(d.pct_diff, this.budgetColor) + Math.abs(d.pct_diff) + '%</div> \
                        <div class="clear_b">' + accounting.formatMoney(d.per_inhabitant, "€", 0, ".", ",") + ' ' + I18n.t('gobierto_budgets.budgets.index.main_budget_levels_per_inhabitant') + '</div> \
-                       <div>' + accounting.formatMoney(d.value, "€", 0, ".", ",") + '</div>');
+                       <div>' + accounting.formatMoney(d.value, "€", 0, ".", ",") + '</div> \
+                       <div class="line-pct">' + getString(d.pct_diff) + ' ' + Math.abs(d.pct_diff) + '%' + ' sobre ' + (d.year - 1) + '</div>');
   },
   _mouseleft: function() {
     this.tooltip.style('display', 'none');

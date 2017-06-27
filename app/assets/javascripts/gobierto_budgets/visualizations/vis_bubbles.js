@@ -158,7 +158,7 @@ var VisBubbles = Class.extend({
 
     this.tooltip
       .style('display', 'block')
-      .style('left', (x - 50) + 'px')
+      .style('left', (x - 130) + 'px')
       .style('top', (y + 40) + 'px')
 
     function getArrow(d, budgetColor) {

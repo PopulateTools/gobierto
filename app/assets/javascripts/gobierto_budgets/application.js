@@ -36,7 +36,9 @@ $(document).on('turbolinks:load', function() {
       });
     });
 
-    var bubbleLegend = new VisBubbleLegend('.bubble_legend');
+    if (window.innerWidth >= 740) {
+      var bubbleLegend = new VisBubbleLegend('.bubble_legend');
+    }
   }
 
   var $autocomplete = $('[data-autocomplete]');

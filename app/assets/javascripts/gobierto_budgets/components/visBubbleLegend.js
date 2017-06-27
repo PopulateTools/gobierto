@@ -87,5 +87,5 @@ var VisBubbleLegend = Class.extend({
       .attr('x', 0)
       .attr('y', 18)
       .text('y el pasado');
-},
+  }
 });

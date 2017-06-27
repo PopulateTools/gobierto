@@ -10,9 +10,9 @@ module GobiertoBudgets
 
         if kind.nil? && area.nil?
           categories = {}
-          [GobiertoBudgets::EconomicArea, GobiertoBudgets::FunctionalArea].each do |klass|
-            area_name = (klass == GobiertoBudgets::EconomicArea) ? GobiertoBudgets::BudgetLine::ECONOMIC : GobiertoBudgets::BudgetLine::FUNCTIONAL
-            [GobiertoBudgets::BudgetLine::INCOME, GobiertoBudgets::BudgetLine::EXPENSE].each do |kind|
+          BudgetArea.all_areas.each do |klass|
+            area_name = klass.area_name
+            BudgetLine.all_kinds.each do |kind|
               next if kind == GobiertoBudgets::BudgetLine::INCOME and klass == GobiertoBudgets::FunctionalArea
 
               categories[area_name] ||= {}
@@ -20,7 +20,7 @@ module GobiertoBudgets
             end
           end
         else
-          klass = area == 'economic' ? GobiertoBudgets::EconomicArea : GobiertoBudgets::FunctionalArea
+          klass = BudgetArea.klass_for(area)
           categories = Hash[klass.all_items[kind].sort_by{ |k,v| k.to_f }]
         end
 

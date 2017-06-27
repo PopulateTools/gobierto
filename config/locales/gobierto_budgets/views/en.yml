@@ -65,6 +65,11 @@ en:
         main_budget_lines_expense: Expense
         main_budget_levels_timeline: Compare income and expenses year by year
         main_budget_levels_per_inhabitant: per inhabitant
+        main_budget_levels_tooltip_up: Has risen
+        main_budget_levels_tooltip_down: Has gone down
+        main_budget_levels_tooltip_article: since
+        main_budget_levels_legend_one: Change since last year
+        main_budget_levels_legend_two: ""
         more: more
         most_interesting_budget_lines: Most interesting budget lines
         most_interesting_budget_lines_description: Some of the budget lines you are

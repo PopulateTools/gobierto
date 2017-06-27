@@ -58,7 +58,7 @@ var VisBubbles = Class.extend({
     this.filtered = data.filter(function(d) { return d.budget_category === this.budget_category; }.bind(this));
 
     this.radiusScale = d3.scaleSqrt()
-      .range(this.isMobile ? [0, 80] : [0, 130])
+      .range(this.isMobile ? [0, 80] : [0, 120])
       .domain([0, this.maxAmount]);
 
     // If we enter for the first time, build the data
@@ -158,17 +158,17 @@ var VisBubbles = Class.extend({
 
     this.tooltip
       .style('display', 'block')
-      .style('left', (x - 120) + 'px')
+      .style('left', (x - 110) + 'px')
       .style('top', (y + 40) + 'px');
 
     function getString(d) {
-      return d > 0 ? 'Ha subido un' : 'Ha bajado un';
+      return d > 0 ? I18n.t('gobierto_budgets.budgets.index.main_budget_levels_tooltip_up') : I18n.t('gobierto_budgets.budgets.index.main_budget_levels_tooltip_down');
     }
 
-    this.tooltip.html('<div class="f_left line-name"><strong>' + d.name + '</strong></div> \
-                       <div class="clear_b">' + accounting.formatMoney(d.per_inhabitant, "€", 0, ".", ",") + ' ' + I18n.t('gobierto_budgets.budgets.index.main_budget_levels_per_inhabitant') + '</div> \
+    this.tooltip.html('<div class="line-name"><strong>' + d.name + '</strong></div> \
                        <div>' + accounting.formatMoney(d.value, "€", 0, ".", ",") + '</div> \
-                       <div class="line-pct">' + getString(d.pct_diff) + ' ' + Math.abs(d.pct_diff) + '%' + ' sobre ' + (d.year - 1) + '</div>');
+                       <div class="clear_b">' + accounting.formatMoney(d.per_inhabitant, "€", 0, ".", ",") + ' ' + I18n.t('gobierto_budgets.budgets.index.main_budget_levels_per_inhabitant') + '</div> \
+                       <div class="line-pct">' + getString(d.pct_diff) + ' ' + accounting.formatNumber(d.pct_diff, 1) + '%</span> ' + I18n.t('gobierto_budgets.budgets.index.main_budget_levels_tooltip_article') + ' ' + (d.year - 1) + '</div>');
   },
   _mouseleft: function() {
     this.tooltip.style('display', 'none');

@@ -81,11 +81,11 @@ var VisBubbleLegend = Class.extend({
       .attr('text-anchor', 'middle');
 
     label.append('tspan')
-      .text('Cambio entre este año');
+      .text(I18n.t('gobierto_budgets.budgets.index.main_budget_levels_legend_one'));
 
     label.append('tspan')
       .attr('x', 0)
       .attr('y', 18)
-      .text('y el pasado');
+      .text(I18n.t('gobierto_budgets.budgets.index.main_budget_levels_legend_two'));
   }
 });

@@ -24,8 +24,8 @@
     }
     .line-pct {
       // width: 85px;
-      font-size: 0.8rem;
-      margin-top: 0.5rem;
+      font-size: 0.775rem;
+      margin-top: 0.25rem;
       text-transform: uppercase;
 
       i {
@@ -86,5 +86,11 @@
   circle:hover {
     stroke: $color_headers;
     stroke-width: 1px;
+  }
+}
+.bubble_legend {
+  text {
+    fill: $color_1;
+    font-weight: 600;
   }
 }

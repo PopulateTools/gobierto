@@ -121,7 +121,7 @@ var VisBubbles = Class.extend({
   },
   updateRender: function(callback) {
     var budgetCategory = this.budget_category;
-    this.nodes = this.createNodes(this.data, this.currentYear)
+    this.nodes = this.createNodes(this.data, this.currentYear);
 
     this.bubbles = this.svg.selectAll('g')
       .data(this.nodes, function (d) { return d.name; })
@@ -129,7 +129,12 @@ var VisBubbles = Class.extend({
       .append('g')
       .attr('class', 'bubble-g')
 
-    var bubblesG = this.bubbles.append('circle')
+    var bubblesG = this.bubbles.append('a')
+      .attr('xlink:href', function(d) {
+        return this.budget_category === 'income' ? '/presupuestos/partidas/' + d.id + '/' + d.year + '/economic/I' : '/presupuestos/partidas/' + d.id + '/' + d.year + '/functional/G';
+      }.bind(this))
+      .attr('target', '_top')
+      .append('circle')
       .attr('class', function(d) { return d.year + ' bubble'})
       .attr('r', function (d) { return d.radius; })
       .attr('fill', function(d) { return this.budgetColor(d.pct_diff)}.bind(this))

@@ -45,7 +45,6 @@ module GobiertoBudgets
       }
 
       area     = BudgetArea.klass_for(@conditions[:area_name])
-      category = Category.find_by(site: @conditions[:site], area_name: area.area_name, kind: @conditions[:kind], code: @conditions[:code])
 
       response = GobiertoBudgets::SearchEngine.client.search(
         index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
@@ -57,10 +56,10 @@ module GobiertoBudgets
 
       raise GobiertoBudgets::BudgetLine::RecordNotFound if hits.empty?
 
-      BudgetLinePresenter.new(hits.first['_source'].merge(
+      GobiertoBudgets::BudgetLinePresenter.new(hits.first['_source'].merge(
+        site: @conditions[:site],
         kind: @conditions[:kind],
-        area: area,
-        category: category
+        area: area
       ))
     end
 
@@ -100,9 +99,8 @@ module GobiertoBudgets
         next if row['functional_code'].length != 1
         area = GobiertoBudgets::FunctionalArea
         row['code'] = row['functional_code']
-        category = Category.find_by(site: @conditions[:site], area_name: area.area_name, kind: @conditions[:kind], code: row['code'])
 
-        BudgetLinePresenter.new(row.merge(kind: EXPENSE, area: area, category: category))
+        GobiertoBudgets::BudgetLinePresenter.new(row.merge(kind: EXPENSE, area: area, site: @conditions[:site]))
       end.compact.sort{|b,a| a.amount <=> b.amount }
     end
 
@@ -153,12 +151,10 @@ module GobiertoBudgets
                                                              type: area.area_name, body: query
 
       response['hits']['hits'].map{ |h| h['_source'] }.map do |row|
-        category = Category.find_by(site: @conditions[:site], area_name: area.area_name, kind: @conditions[:kind], code: row['code'])
-
-        BudgetLinePresenter.new(row.merge(
+        GobiertoBudgets::BudgetLinePresenter.new(row.merge(
+          site: @conditions[:site],
           kind: @conditions[:kind],
           area: area,
-          category: category,
           total: response['aggregations']['total_budget']['value'],
           total_budget_per_inhabitant: response['aggregations']['total_budget_per_inhabitant']['value']
         ))

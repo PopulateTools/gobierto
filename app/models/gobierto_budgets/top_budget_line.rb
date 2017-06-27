@@ -48,7 +48,7 @@ module GobiertoBudgets
                                                              type: type, body: query
 
       response['hits']['hits'].map{ |h| h['_source'] }.map do |row|
-        BudgetLinePresenter.new(row.merge(kind: @conditions[:kind], area: area, area_name: type, total: total))
+        GobiertoBudgets::BudgetLinePresenter.new(row.merge(kind: @conditions[:kind], area: area, area_name: type, total: total))
       end
     end
   end

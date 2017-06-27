@@ -5,6 +5,12 @@ var VisBubbleLegend = Class.extend({
     this.container = divId;
     this.isMobile = window.innerWidth <= 740;
 
+    var colors =['#b2182b','#d6604d','#f4a582','#fddbc7','#f7f7f7','#d1e5f0','#92c5de','#4393c3','#2166ac'];
+
+    var scale = d3.scaleOrdinal()
+      .domain(colors.reverse())
+      .range([0, 11.1, 25, 37.5, 50, 62.5, 87.5, 100]);
+
     var margin = {top: 15, right: 5, bottom: 15, left: 5},
       width = parseInt(d3.select(this.container).style('width')) - margin.left - margin.right,
       height = this.isMobile ? 320 : 520 - margin.top - margin.bottom;
@@ -25,7 +31,7 @@ var VisBubbleLegend = Class.extend({
       .attr('markerHeight', 6)
       .attr('orient', '-90')
       .append('path')
-      .attr('fill','#D6D6D6')
+      .attr('fill','#2166ac')
       .attr('d', 'M-4,-6 L 10,0 L -4,6');
 
     defs.append('marker')
@@ -35,18 +41,23 @@ var VisBubbleLegend = Class.extend({
       .attr('markerHeight', 6)
       .attr('orient', 'auto')
       .append('path')
-      .attr('fill','#D6D6D6')
+      .attr('fill','#b2182b')
       .attr('d', 'M-4,-6 L 10,0 L -4,6');
 
     var gradient = defs.append('linearGradient')
       .attr('id', 'gradient')
+      .attr('x1', 0)
+      .attr('x2', 0)
+      .attr('y1', 0)
+      .attr('y2', height)
+      .attr('gradientUnits', 'userSpaceOnUse');
 
-    gradient.append('stop')
-      .attr('stop-color', 'black')
-
-    gradient.append('stop')
-      .attr('offset', '100%')
-      .attr('stop-color', 'magenta')
+    gradient.selectAll('stop')
+      .data(colors)
+      .enter()
+      .append('stop')
+      .attr('stop-color', function(d) { return d;})
+      .attr('offset', function(d) { return scale(d) + '%'; });
 
     svg.append('line')
       .attr('transform', 'translate(' + width / 2 + ',' + 0 + ')')
@@ -54,21 +65,20 @@ var VisBubbleLegend = Class.extend({
       .attr('x2', 0)
       .attr('y1', 0)
       .attr('y2', height)
-      .attr('stroke', '#ccc')
-      // .attr('stroke', 'url(' + window.location.href + '#gradient)')
+      .attr('stroke', 'url(#gradient)')
       .attr('stroke-width', 4)
       .attr('marker-end', 'url(#arrow_end)')
-      .attr('marker-start', 'url(#arrow_start)')
+      .attr('marker-start', 'url(#arrow_start)');
 
     var labelRect = svg.append('rect')
       .attr('transform', 'translate(-80' + ',' + (height / 2 - 25) + ')')
       .attr('width', 200)
       .attr('height', 60)
-      .attr('fill', 'white')
+      .attr('fill', 'white');
 
     var label = svg.append('text')
       .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
-      .attr('text-anchor', 'middle')
+      .attr('text-anchor', 'middle');
 
     label.append('tspan')
       .text('Cambio entre este año');

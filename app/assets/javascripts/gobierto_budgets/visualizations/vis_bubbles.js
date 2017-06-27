@@ -19,7 +19,7 @@ var VisBubbles = Class.extend({
     this.selectionNode = d3.select(this.container).node();
 
     this.budgetColor = d3.scaleThreshold()
-      .domain([-30, -10, -5, 0, 5, 10, 30])
+      .domain([-30, -10, -5, 0, 5, 10, 30, 100])
       .range(['#b2182b','#d6604d','#f4a582','#fddbc7','#f7f7f7','#d1e5f0','#92c5de','#4393c3','#2166ac']);
 
     this.fontSize = d3.scaleLinear()

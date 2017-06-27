@@ -11,7 +11,7 @@ var VisSlider = Class.extend({
     var parseYear = d3.timeParse('%Y');
     var formatYear = d3.timeFormat('%Y');
 
-    var bisectDate = d3.bisector(function(d) { return d; }).left
+    var bisectDate = d3.bisector(function(d) { return d; }).left;
 
     var margin = {right: 20, left: 10};
     var width = parseInt(d3.select(this.container).style('width')) - margin.left - margin.right;
@@ -30,12 +30,12 @@ var VisSlider = Class.extend({
 
     // Invert ordinal scale, from: https://gist.github.com/shimizu/808e0f5cadb6a63f28bb00082dc8fe3f
     x.invert = (function(){
-      var domain = x.domain()
-      var range = x.range()
-      var scale = d3.scaleQuantize().domain(range).range(domain)
+      var domain = x.domain();
+      var range = x.range();
+      var scale = d3.scaleQuantize().domain(range).range(domain);
 
       return function(x){
-        return scale(x)
+        return scale(x);
       }
     })();
 
@@ -127,6 +127,17 @@ var VisSlider = Class.extend({
     function endDrag() {
       var year = x.invert(d3.mouse(this)[0]);
       $(document).trigger('visSlider:yearChanged', year);
+
+      // Hide legend when we drag outside of the last year
+      if (year !== currentYear) {
+        d3.select('.bubble_legend')
+          .transition()
+          .style('opacity', 0);
+      } else {
+        d3.select('.bubble_legend')
+          .transition()
+          .style('opacity', 1);
+      }
     }
   },
 });

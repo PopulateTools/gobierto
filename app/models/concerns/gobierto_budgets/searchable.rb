@@ -4,29 +4,6 @@ module GobiertoBudgets
 
     class_methods do
 
-      def any_items?(options = {})
-        query = {
-          query: {
-            filtered: {
-              filter: {
-                bool: {
-                  must: [
-                    { term: { ine_code: options[:place].id.to_i } },
-                    { term: { area: area_name } },
-                    { term: { kind: (options[:kind] == GobiertoBudgets::BudgetLine::INCOME ? 'income' : 'expense') } }
-                  ]
-                }
-              }
-            }
-          },
-          size: 1
-        }
-
-        response = execute_query(query)
-
-        response['hits']['hits'].any?
-      end
-
       def all_items
         @all_items ||= {}
         @all_items[I18n.locale] ||= begin

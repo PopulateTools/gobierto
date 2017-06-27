@@ -2,7 +2,8 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
   before_action :load_params
 
   def index
-    conditions = {place: @place, year: @year, kind: @kind, area_name: @area_name}
+    conditions = { site: current_site, place: @place, year: @year, kind: @kind, area_name: @area_name }
+
     if @parent_code
       conditions.merge!({parent_code: @parent_code})
     else

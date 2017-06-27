@@ -2,7 +2,8 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
   before_action :load_params
 
   def index
-    conditions = {place: @place, year: @year, kind: @kind, area_name: @area_name}
+    conditions = { site: current_site, place: @place, year: @year, kind: @kind, area_name: @area_name }
+
     if @parent_code
       conditions.merge!({parent_code: @parent_code})
     else
@@ -25,7 +26,7 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
 
     @year = params[:year]
     @kind = params[:kind] || GobiertoBudgets::BudgetLine::EXPENSE
-    @area_name = params[:area_name] || GobiertoBudgets::BudgetLine::FUNCTIONAL
+    @area_name = params[:area_name] || GobiertoBudgets::FunctionalArea.area_name
     @parent_code = params[:parent_code]
   end
 

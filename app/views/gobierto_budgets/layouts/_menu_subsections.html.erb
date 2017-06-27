@@ -2,7 +2,7 @@
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
     <ul>
       <li><%= link_to t('.summary'), gobierto_budgets_budgets_path, class: class_if('active', controller_name == 'budgets') %></li>
-      <li><%= link_to t('.budget'), gobierto_budgets_budget_lines_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::BudgetLine::ECONOMIC, level: 1), class: class_if('active', controller_name == 'budget_lines') %></li>
+      <li><%= link_to t('.budget'), gobierto_budgets_budget_lines_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::EconomicArea.area_name, level: 1), class: class_if('active', controller_name == 'budget_lines') %></li>
       <li><%= link_to t('.execution'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), class: class_if('active', controller_name == 'budgets_execution')  %></li>
     </ul>
   </div>

@@ -13,6 +13,7 @@ en:
         amount: Amount
         budget_line: Budget line
         categories: Categories
+        custom: Custom
         expense_in_what: In what is spent
         expense_to_do_what: To do what is spent
         help: The budget is organized in two categories. Checkout our guide
@@ -144,7 +145,9 @@ en:
     visualizations:
       G_economic: In what
       G_functional: How
+      G_custom: Custom
       I_economic: How
+      I_custom: Custom
       category_per_inhabitant: "%{category} per inhabitant"
       expenses_per_inhabitant: Expenses per inhabitant
       inhabitant_short: inh

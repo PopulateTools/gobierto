@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170605103424) do
+ActiveRecord::Schema.define(version: 20170622125313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,6 +172,16 @@ ActiveRecord::Schema.define(version: 20170605103424) do
     t.string "url", null: false
     t.integer "file_size", null: false
     t.integer "current_version", default: 0, null: false
+  end
+
+  create_table "gb_categories", force: :cascade do |t|
+    t.integer "site_id", null: false
+    t.string "area_name", null: false
+    t.string "kind", null: false
+    t.string "code", null: false
+    t.jsonb "custom_name_translations"
+    t.jsonb "custom_description_translations"
+    t.index ["site_id", "area_name", "kind", "code"], name: "gb_categories_record_unique_index", unique: true
   end
 
   create_table "gbc_consultation_items", id: :serial, force: :cascade do |t|

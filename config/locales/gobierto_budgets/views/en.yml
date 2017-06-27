@@ -13,6 +13,7 @@ en:
         amount: Amount
         budget_line: Budget line
         categories: Categories
+        custom: Custom
         expense_in_what: In what is spent
         expense_to_do_what: To do what is spent
         help: The budget is organized in two categories. Checkout our guide
@@ -92,8 +93,15 @@ en:
         level_2_category: Level 2 Category
         level_3_category: Level 3 Category
         main_budget_lines: Main income and expenses from your council
-        main_budget_lines_description: These are the 5 main income and expense budget
-          lines in your municipality.
+        main_budget_lines_income: Income
+        main_budget_lines_expense: Expense
+        main_budget_levels_timeline: Compare income and expenses year by year
+        main_budget_levels_per_inhabitant: per inhabitant
+        main_budget_levels_tooltip_up: Has risen
+        main_budget_levels_tooltip_down: Has gone down
+        main_budget_levels_tooltip_article: since
+        main_budget_levels_legend_one: Change since last year
+        main_budget_levels_legend_two: ""
         more: more
         most_interesting_budget_lines: Most interesting budget lines
         most_interesting_budget_lines_description: Some of the budget lines you are
@@ -170,7 +178,9 @@ en:
     visualizations:
       G_economic: In what
       G_functional: How
+      G_custom: Custom
       I_economic: How
+      I_custom: Custom
       category_per_inhabitant: "%{category} per inhabitant"
       expenses_per_inhabitant: Expenses per inhabitant
       inhabitant_short: inh

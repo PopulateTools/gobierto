@@ -111,5 +111,11 @@ module GobiertoBudgets
         end
       end
     end
+
+    def bubbles_data_path(site)
+      path = GobiertoBudgets::Data::Bubbles.file_name_for(site.place)
+
+      "https://#{ENV['S3_BUCKET_NAME']}.s3-eu-west-1.amazonaws.com/#{path}"
+    end
   end
 end

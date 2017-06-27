@@ -6,6 +6,10 @@
   </h1>
 <% end %>
 
+<% content_for :body_attributes do %>
+  <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}"} %>
+<% end %>
+
 <div class="column">
 
   <div class="pure-g" style="display: none">
@@ -102,7 +106,6 @@
   <div class="block">
 
     <h2 class="with_description"><%= t('.main_budget_lines') %></h2>
-    <p class="description"><%= t('.main_budget_lines_description') %></p>
 
     <% pending do %>
       <div class="tip">
@@ -111,6 +114,24 @@
     <% end %>
 
     <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-11-24">
+        <h3 class="center m_v_0 mt1"><%= t('.main_budget_lines_income') %></h3>
+        <div class="graph vis-bubbles vis-bubbles-income"></div>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-1-24">
+        <div class="bubble_legend"></div>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-11-24">
+        <h3 class="center m_v_0 mt1"><%= t('.main_budget_lines_expense') %></h3>
+        <div class="graph vis-bubbles vis-bubbles-expense"></div>
+      </div>
+
+      <div class="pure-u-1">
+        <h3 class="m_v_0"><%= t('.main_budget_levels_timeline') %></h3>
+        <div class="timeline"></div>
+      </div>
 
       <div class="pure-u-1 pure-u-md-11-24">
         <h3><%= t('.income') %></h3>

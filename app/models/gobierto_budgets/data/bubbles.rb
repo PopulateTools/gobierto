@@ -40,19 +40,19 @@ module GobiertoBudgets
       end
 
       def all_expense_categories
-        @all_expense_categories ||= GobiertoBudgets::FunctionalArea.all_items[GobiertoBudgets::BudgetLine::EXPENSE]
+        GobiertoBudgets::FunctionalArea.all_items[GobiertoBudgets::BudgetLine::EXPENSE]
       end
 
       def all_income_categories
-        @all_income_categories ||= GobiertoBudgets::EconomicArea.all_items[GobiertoBudgets::BudgetLine::INCOME]
+        GobiertoBudgets::EconomicArea.all_items[GobiertoBudgets::BudgetLine::INCOME]
       end
 
       def expense_categories
-        @expense_categories ||= all_expense_categories.select{ |code, _| code.length == 2 }
+        all_expense_categories.select{ |code, _| code.length == 2 }
       end
 
       def income_categories
-        @income_categories ||= all_income_categories.select{ |code, _| code.length == 2 }
+        all_income_categories.select{ |code, _| code.length == 2 }
       end
 
       def parent_name(collection, code)
@@ -60,6 +60,14 @@ module GobiertoBudgets
       rescue
         if code.starts_with?("5")
           "Ingresos patrimoniales"
+        end
+      end
+
+      def localized_name_for(code, kind)
+        if kind == 'income'
+          income_categories[code]
+        else
+          expense_categories[code]
         end
       end
 
@@ -88,15 +96,25 @@ module GobiertoBudgets
           end
         end
 
-        @file_content.push({
+        data = {
           budget_category: kind,
           id: code.to_s,
-          level_1: parent_name(all_expense_categories, code),
-          level_2: name,
           "pct_diff": pct_diff,
           "values": values,
           "values_per_inhabitant": values_per_inhabitant
+        }
+
+        I18n.locale = :es
+        data.merge!({
+          level_2_es: localized_name_for(code, kind)
         })
+
+        I18n.locale = :ca
+        data.merge!({
+          level_2_ca: localized_name_for(code, kind)
+        })
+
+        @file_content.push(data)
       end
     end
   end

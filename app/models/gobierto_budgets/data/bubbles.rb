@@ -63,6 +63,14 @@ module GobiertoBudgets
         end
       end
 
+      def localized_name_for(code, kind)
+        if kind == 'income'
+          income_categories[code]
+        else
+          expense_categories[code]
+        end
+      end
+
       def fill_data_for(code, name, base_conditions, kind)
         budget_lines = GobiertoBudgets::BudgetLine.where(base_conditions.merge(code: code)).all
 
@@ -98,14 +106,12 @@ module GobiertoBudgets
 
         I18n.locale = :es
         data.merge!({
-          level_1_es: parent_name(all_expense_categories, code),
-          level_2_es: name
+          level_2_es: localized_name_for(code, kind)
         })
 
         I18n.locale = :ca
         data.merge!({
-          level_1_ca: parent_name(all_expense_categories, code),
-          level_2_ca: name
+          level_2_ca: localized_name_for(code, kind)
         })
 
         @file_content.push(data)

@@ -28,12 +28,12 @@ module GobiertoBudgets
       end
 
       def build_data_file
-        base_conditions = {place: place, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::BudgetLine::FUNCTIONAL, level: 2}
+        base_conditions = {place: place, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::FunctionalArea.area_name, level: 2}
         expense_categories.each do |code, name|
           fill_data_for(code, name, base_conditions, 'expense')
         end
 
-        base_conditions = {place: place, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::BudgetLine::ECONOMIC, level: 2}
+        base_conditions = {place: place, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::EconomicArea.area_name, level: 2}
         income_categories.each do |code, name|
           fill_data_for(code, name, base_conditions, 'income')
         end

@@ -1,5 +1,6 @@
 module GobiertoBudgets
   class TopBudgetLine
+
     def self.limit(n)
       @limit = n
       self
@@ -34,22 +35,23 @@ module GobiertoBudgets
         size: @limit
       }
 
-      if @conditions[:kind] == BudgetLine::INCOME
-        type = EconomicArea.area_name
-        area = EconomicArea
-      else
-        type = FunctionalArea.area_name
-        area = FunctionalArea
-      end
+      area = (@conditions[:kind] == BudgetLine::INCOME ? EconomicArea : FunctionalArea)
 
       total = BudgetTotal.for(@conditions[:place].id, @conditions[:year])
 
       response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_forecast,
-                                                             type: type, body: query
+                                                             type: area.area_name, body: query
 
       response['hits']['hits'].map{ |h| h['_source'] }.map do |row|
-        GobiertoBudgets::BudgetLinePresenter.new(row.merge(kind: @conditions[:kind], area: area, area_name: type, total: total))
+        GobiertoBudgets::BudgetLinePresenter.new(row.merge(
+          site: @conditions[:site],
+          kind: @conditions[:kind],
+          area: area,
+          area_name: area.area_name,
+          total: total
+        ))
       end
     end
+    
   end
 end

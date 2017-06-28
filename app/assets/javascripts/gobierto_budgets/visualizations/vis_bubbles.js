@@ -71,7 +71,7 @@ var VisBubbles = Class.extend({
           values: d.values,
           pct_diffs: d.pct_diff,
           values_per_inhabitant: d.values_per_inhabitant,
-          id: +d.id,
+          id: d.id,
           radius: this.radiusScale(d.values[year]),
           value: d.values[year],
           name: d['level_2_' + locale],
@@ -128,7 +128,9 @@ var VisBubbles = Class.extend({
       .data(this.nodes, function (d) { return d.name; })
       .enter()
       .append('g')
-      .attr('class', 'bubble-g')
+      .attr('class', 'bubble-g');
+
+      console.log(this.data);
 
     var bubblesG = this.bubbles.append('a')
       .attr('xlink:href', function(d) {

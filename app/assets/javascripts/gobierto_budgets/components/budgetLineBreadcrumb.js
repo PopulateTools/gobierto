@@ -62,11 +62,19 @@ function limit_length(input, length) {
       selectedItem = '';
 
       if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
+      html += '<tr><td data-area-name="custom" data-kind="I" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.I_custom') + '</a></td></tr>';
+      selectedItem = '';
+
+      if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
       html += '<tr><td data-area-name="economic" data-kind="G" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.G_economic') + '</a></td></tr>';
       selectedItem = '';
 
       if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
       html += '<tr><td data-area-name="functional" data-kind="G" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.G_functional') + '</a></td></tr>';
+      selectedItem = '';
+
+      if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
+      html += '<tr><td data-area-name="custom" data-kind="G" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.G_custom') + '</a></td></tr>';
 
       $el.html(html);
       $el.data('current-code', this.currentKind);

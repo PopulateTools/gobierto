@@ -3,6 +3,7 @@
 var VisBubbles = Class.extend({
   init: function(divId, budgetCategory, data) {
     this.container = divId;
+    $(this.container).html('');
     this.currentYear = parseInt(d3.select('body').attr('data-year'));
     this.data = data;
     this.budget_category = budgetCategory;

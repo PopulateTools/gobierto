@@ -3,13 +3,15 @@
 var VisBubbles = Class.extend({
   init: function(divId, budgetCategory, data) {
     this.container = divId;
+    $(this.container).html('');
     this.currentYear = parseInt(d3.select('body').attr('data-year'));
     this.data = data;
     this.budget_category = budgetCategory;
     this.forceStrength = 0.045;
     this.isMobile = window.innerWidth <= 590;
+    this.locale = I18n.locale;
 
-    d3.formatDefaultLocale(eval(I18n.locale));
+    d3.formatDefaultLocale(eval(this.locale));
 
     this.margin = {top: 20, right: 10, bottom: 20, left: 10},
     this.width = parseInt(d3.select(this.container).style('width')) - this.margin.left - this.margin.right;
@@ -53,8 +55,7 @@ var VisBubbles = Class.extend({
   },
   createNodes: function(rawData, year) {
     var data = rawData;
-    var locale = I18n.locale;
-    if(locale === 'en') locale = 'es';
+    if(this.locale === 'en') this.locale = 'es';
 
     this.maxAmount = d3.max(data, function (d) { return d.values[year] }.bind(this));
     this.filtered = data.filter(function(d) { return d.budget_category === this.budget_category; }.bind(this));
@@ -71,10 +72,10 @@ var VisBubbles = Class.extend({
           values: d.values,
           pct_diffs: d.pct_diff,
           values_per_inhabitant: d.values_per_inhabitant,
-          id: +d.id,
+          id: d.id,
           radius: this.radiusScale(d.values[year]),
           value: d.values[year],
-          name: d['level_2_' + locale],
+          name: d['level_2_' + this.locale],
           pct_diff: d.pct_diff[year],
           per_inhabitant: d.values_per_inhabitant[year],
           x: Math.random() * 600,
@@ -128,7 +129,7 @@ var VisBubbles = Class.extend({
       .data(this.nodes, function (d) { return d.name; })
       .enter()
       .append('g')
-      .attr('class', 'bubble-g')
+      .attr('class', 'bubble-g');
 
     var bubblesG = this.bubbles.append('a')
       .attr('xlink:href', function(d) {
@@ -140,8 +141,8 @@ var VisBubbles = Class.extend({
       .attr('r', function (d) { return d.radius; })
       .attr('fill', function(d) { return this.budgetColor(d.pct_diff)}.bind(this))
       .attr('stroke-width', 2)
-      .on('mousemove', this._mousemoved.bind(this))
-      .on('mouseleave', this._mouseleft.bind(this));
+      .on('mousemove', !this.isMobile && this._mousemoved.bind(this))
+      .on('mouseleave', !this.isMobile && this._mouseleft.bind(this));
 
     this.bubbles = this.bubbles.merge(bubblesG);
 

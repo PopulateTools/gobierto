@@ -7,7 +7,6 @@ this.User.SubscriptionPreferencesController = (function() {
 
   function _handleSiteSelected(){
     $('#user_subscription_preferences_site_to_subscribe').on('change', function(e){
-      console.log($(this).is(':checked'));
       if($(this).is(':checked') === false){
         _uncheckAllOptions();
       } else {

@@ -178,9 +178,9 @@ en:
     visualizations:
       G_economic: In what
       G_functional: How
-      G_custom: Custom
+      G_custom: Custom expenses
       I_economic: How
-      I_custom: Custom
+      I_custom: Custom income
       category_per_inhabitant: "%{category} per inhabitant"
       expenses_per_inhabitant: Expenses per inhabitant
       inhabitant_short: inh

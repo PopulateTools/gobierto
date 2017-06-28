@@ -180,9 +180,9 @@ ca:
     visualizations:
       G_economic: En què es gasta
       G_functional: Per a què es gasta
-      G_custom: Personalitzada
+      G_custom: Despeses personalitzats
       I_economic: En què s'ingressa
-      I_custom: Personalitzada
+      I_custom: Ingressos personalitzats
       category_per_inhabitant: "%{category} per habitant"
       expenses_per_inhabitant: Despesa per habitant
       inhabitant_short: hab

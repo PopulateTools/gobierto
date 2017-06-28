@@ -3,6 +3,7 @@
 var VisBubbleLegend = Class.extend({
   init: function(divId) {
     this.container = divId;
+    $(this.container).html('');
     this.isMobile = window.innerWidth <= 740;
 
     var colors =['#b2182b','#d6604d','#f4a582','#fddbc7','#f7f7f7','#d1e5f0','#92c5de','#4393c3','#2166ac'];

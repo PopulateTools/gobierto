@@ -3,6 +3,7 @@
 var VisSlider = Class.extend({
   init: function(divId, data) {
     this.container = divId;
+    $(this.container).html('');
     this.data = data;
 
     var currentYear = d3.select('body').attr('data-year');

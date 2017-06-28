@@ -12,8 +12,6 @@ var VisBubbles = Class.extend({
 
     d3.formatDefaultLocale(eval(this.locale));
 
-    console.log(this.locale);
-
     this.margin = {top: 20, right: 10, bottom: 20, left: 10},
     this.width = parseInt(d3.select(this.container).style('width')) - this.margin.left - this.margin.right;
     this.height = this.isMobile ? 320 : 520 - this.margin.top - this.margin.bottom;
@@ -142,8 +140,8 @@ var VisBubbles = Class.extend({
       .attr('r', function (d) { return d.radius; })
       .attr('fill', function(d) { return this.budgetColor(d.pct_diff)}.bind(this))
       .attr('stroke-width', 2)
-      .on('mousemove', this._mousemoved.bind(this))
-      .on('mouseleave', this._mouseleft.bind(this));
+      .on('mousemove', !this.isMobile && this._mousemoved.bind(this))
+      .on('mouseleave', !this.isMobile && this._mouseleft.bind(this));
 
     this.bubbles = this.bubbles.merge(bubblesG);
 

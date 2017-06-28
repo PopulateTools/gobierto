@@ -111,14 +111,20 @@
     // max-width: 380px;
 
     .table_header {
-      background: #eee5f5;
+      background: $color_1;
       padding: 10px 12px 10px 12px;
+      color: white;
 
       .table_title {
         font-size: 1rem;
         max-width: 80%;
         display: inline-block;
         font-weight: 600;
+
+        a {
+          color: white;
+          text-decoration: none;
+        }
       }
     }
     .table_wrapper {

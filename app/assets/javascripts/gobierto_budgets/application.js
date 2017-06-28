@@ -96,14 +96,14 @@ $(document).on('turbolinks:load', function() {
 
   $('.tooltiped-budget-lines').tipsy({
     gravity: 'se',
-    trigger: 'hover',
+    trigger: 'manual',
     html: true,
     className: 'tipsy-lines'
   });
 
-  // $('.tooltiped-budget-lines').on('click', function() {
-  //   $(".tooltiped-budget-lines").tipsy("show");
-  // })
+  $('.tooltiped-budget-lines').on('click', function() {
+    $(this).tipsy("show");
+  })
 
   $('.tooltiped').tipsy({
     gravity: 's',

@@ -8,8 +8,11 @@ var VisBubbles = Class.extend({
     this.budget_category = budgetCategory;
     this.forceStrength = 0.045;
     this.isMobile = window.innerWidth <= 590;
+    this.locale = I18n.locale;
 
-    d3.formatDefaultLocale(eval(I18n.locale));
+    d3.formatDefaultLocale(eval(this.locale));
+
+    console.log(this.locale);
 
     this.margin = {top: 20, right: 10, bottom: 20, left: 10},
     this.width = parseInt(d3.select(this.container).style('width')) - this.margin.left - this.margin.right;
@@ -53,8 +56,7 @@ var VisBubbles = Class.extend({
   },
   createNodes: function(rawData, year) {
     var data = rawData;
-    var locale = I18n.locale;
-    if(locale === 'en') locale = 'es';
+    if(this.locale === 'en') this.locale = 'es';
 
     this.maxAmount = d3.max(data, function (d) { return d.values[year] }.bind(this));
     this.filtered = data.filter(function(d) { return d.budget_category === this.budget_category; }.bind(this));
@@ -74,7 +76,7 @@ var VisBubbles = Class.extend({
           id: d.id,
           radius: this.radiusScale(d.values[year]),
           value: d.values[year],
-          name: d['level_2_' + locale],
+          name: d['level_2_' + this.locale],
           pct_diff: d.pct_diff[year],
           per_inhabitant: d.values_per_inhabitant[year],
           x: Math.random() * 600,
@@ -129,8 +131,6 @@ var VisBubbles = Class.extend({
       .enter()
       .append('g')
       .attr('class', 'bubble-g');
-
-      console.log(this.data);
 
     var bubblesG = this.bubbles.append('a')
       .attr('xlink:href', function(d) {

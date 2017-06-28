@@ -16,7 +16,6 @@ $(document).on('turbolinks:load', function() {
 			$('.container').addClass('admin_content_column_with_menu_closed');
 		}
 		else if($('menu.main').attr('data-menu-status') == 'closed') {
-			console.log('si');
 			$('menu.main').attr('data-menu-status', 'open');
 			$('.container').addClass('admin_content_column_with_menu_opened');
 			$('.container').removeClass('admin_content_column_with_menu_closed');

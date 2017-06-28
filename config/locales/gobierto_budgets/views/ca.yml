@@ -57,8 +57,7 @@ ca:
         expenses: Despeses
         expenses_per_inhabitant: Despesa per habitant
         header: Pressuposts
-        description_1: En aquesta pàgina pots aprendre sobre la distribució dels pressuposts, l'estat d'execució de cada partida, amb quins proveïdors treballem i com ha evolucionat la despesa per habitant.
-        description_2: També pots accedir al 'Rebut dels meus impostos', amb informació sobre com les teves aportacions es distribueixen a les diferents partides.
+        description: En aquesta pàgina pots aprendre sobre la distribució dels pressuposts, l'estat d'execució de cada partida, amb quins proveïdors treballem i com ha evolucionat la despesa per habitant.
         last_update: <strong>Última actualització:</strong> 5 de juny, 2017.
         budget_guide: Llegeix la Guia del Pressupost
         stories_header: T'expliquem el pressupost

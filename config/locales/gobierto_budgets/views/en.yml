@@ -56,8 +56,7 @@ en:
         expenses: Expenses
         expenses_per_inhabitant: Expenses per inhabitant
         header: Budgets
-        description_1: In this site you can learn about the budget's income and expenses, the status of the execution, the different providers we work with and the evolution of the expense per inhabitant.
-        description_2: You can also go to the 'Receipt of my taxes', where you will learn how your contributions are splitted through dozens of budget lines.
+        description: In this site you can learn about the budget's income and expenses, the status of the execution, the different providers we work with and the evolution of the expense per inhabitant.
         last_update: <strong>Last update:</strong> 5th June, 2017.
         budget_guide: Read our Budget Guide
         stories_header: Explaining the budget

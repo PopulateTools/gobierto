@@ -57,8 +57,7 @@ es:
         expenses: Gastos
         expenses_per_inhabitant: Gasto por habitante
         header: Presupuestos
-        description_1: En esta página te contamos cúal es la distribución de los presupuestos, cuál es el estado de ejecución de cada partida, quiénes son los proveedores con los que trabajamos, y cómo ha evolucionado el gasto por habitante.
-        description_2: Además, podrás acceder al “El recibo de mis impuestos”, que te informará de cómo se distribuyen tus aportaciones tributarias a las diferentes partidas.
+        description: En esta página te contamos cúal es la distribución de los presupuestos, cuál es el estado de ejecución de cada partida, quiénes son los proveedores con los que trabajamos, y cómo ha evolucionado el gasto por habitante.
         last_update: <strong>Última actualización:</strong> 5 de junio de 2017.
         budget_guide: Consulta la Guía del Presupuesto
         stories_header: Te explicamos el presupuesto

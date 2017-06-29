@@ -132,6 +132,7 @@ var VisLinesExecution = Class.extend({
 
     /* White bar marking 100% completion */
     barGroup.append('line')
+      .attr('class', 'hundred_percent')
       .attr('x1', this.x(100))
       .attr('x2', this.x(100))
       .attr('y1', function(d) { return this.y1(d.id); }.bind(this))
@@ -173,6 +174,7 @@ var VisLinesExecution = Class.extend({
       .text('Partidas presupuestarias');
 
     legend.append('text')
+      .attr('class', 'legend-value')
       .text('% de progreso');
 
     /* Year progress line */
@@ -218,6 +220,65 @@ var VisLinesExecution = Class.extend({
     d3.selectAll('.x.axis .tick')
       .filter(function(d) { return d === 100;})
       .classed('hundred_percent', true);
+
+    $('#show-absolute').on('change', function (e) {
+      this._update(e.target.checked);
+    }.bind(this))
+  },
+  _update: function(checked) {
+    if (checked) {
+      this.xAxis.tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d) + '€'}.bind(this))
+      this.x.domain([0, d3.max(this.data.lines, function(d) { return d.executed;})]);
+
+      d3.select('.x.axis')
+        .call(this.xAxis);
+
+      d3.selectAll('.x.axis .tick')
+        .filter(function(d) { return d === 0;})
+        .remove();
+
+      d3.selectAll('.x.axis .tick')
+        .filter(function(d) { return d === 100;})
+        .classed('hundred_percent', true);
+
+      d3.select('.legend-value')
+        .text('Valores absolutos (€)');
+
+      d3.selectAll('.hundred_percent')
+        .transition()
+        .style('opacity', 0);
+
+      d3.selectAll('.bar')
+        .transition()
+        .duration(300)
+        .attr('width', function(d) { return this.x(d.executed); }.bind(this));
+    } else {
+      this.xAxis.tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d) + '%'}.bind(this))
+      this.x.domain([0, d3.max(this.data.lines, function(d) { return d.pct_executed;})]);
+
+      d3.select('.x.axis')
+        .call(this.xAxis);
+
+      d3.selectAll('.x.axis .tick')
+        .filter(function(d) { return d === 0;})
+        .remove();
+
+      d3.selectAll('.x.axis .tick')
+        .filter(function(d) { return d === 100;})
+        .classed('hundred_percent', true);
+
+      d3.select('.legend-value')
+        .text('% de progreso');
+
+      d3.selectAll('.hundred_percent')
+        .transition()
+        .style('opacity', 1);
+
+      d3.selectAll('.bar')
+        .transition()
+        .duration(300)
+        .attr('width', function(d) { return this.x(d.pct_executed); }.bind(this));
+    }
   },
   _mousemoved: function(d) {
     var coordinates = d3.mouse(this.selectionNode);

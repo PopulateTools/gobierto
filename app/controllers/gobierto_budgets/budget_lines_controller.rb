@@ -21,7 +21,14 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
     end
     @budget_line_stats = GobiertoBudgets::BudgetLineStats.new(site: @site, budget_line: @budget_line)
     @budget_line_descendants = GobiertoBudgets::BudgetLine.where(site: current_site, place: @place, parent_code: @code, year: @year, kind: @kind, area_name: @area_name).all
-    @budget_line_composition = GobiertoBudgets::BudgetLine.where(site: current_site, place: @place, functional_code: @code, year: @year, kind: @kind, area_name: @area_name).all
+    if GobiertoBudgets::FunctionalArea.area_name == @area_name
+      @budget_line_composition = GobiertoBudgets::BudgetLine.where(site: current_site, place: @place, functional_code: @code, year: @year, kind: @kind, area_name: @area_name).all
+    elsif GobiertoBudgets::CustomArea.area_name == @area_name
+      debugger
+      @budget_line_composition = GobiertoBudgets::BudgetLine.where(site: current_site, place: @place, custom_code: @code, year: @year, kind: @kind, area_name: @area_name).all
+    else
+      @budget_line_composition = []
+    end
 
     respond_to do |format|
       format.html

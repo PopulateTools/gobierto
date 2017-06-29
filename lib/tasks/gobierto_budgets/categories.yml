@@ -134,3 +134,51 @@ functional_3_g:
   parent_code:
   level: 1
   kind: expense
+
+custom_0_g:
+  area: custom
+  code: '0'
+  name: Custom cat 0 gasto
+  parent_code:
+  level: 1
+  kind: expense
+
+custom_1_g:
+  area: custom
+  code: '1'
+  name: Custom cat 1 gasto
+  parent_code:
+  level: 1
+  kind: expense
+
+custom_13_g:
+  area: custom
+  code: '13'
+  name: Custom cat 13 gasto
+  parent_code: 1
+  level: 2
+  kind: expense
+
+custom_0_i:
+  area: custom
+  code: '0'
+  name: Custom cat 0 ingreso
+  parent_code:
+  level: 1
+  kind: income
+
+custom_1_i:
+  area: custom
+  code: '1'
+  name: Custom cat 1 ingreso
+  parent_code:
+  level: 1
+  kind: income
+
+custom_13_i:
+  area: custom
+  code: '13'
+  name: Custom cat 13 ingreso
+  parent_code: 1
+  level: 2
+  kind: income

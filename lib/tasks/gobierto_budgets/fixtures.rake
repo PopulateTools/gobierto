@@ -93,7 +93,53 @@ namespace :gobierto_budgets do
         end
       end.flatten
 
-      GobiertoBudgets::SearchEngine.client.bulk(body: budgets_for_place + total_budgets)
+      economic_budget_lines_for_functional = []
+      categories_fixtures do |category|
+        next if category['ine_code'] && (category['ine_code'] != place.id.to_i)
+        next if category['area_name'] != 'economic' && category['kind'] == "income"
+
+        index = GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
+        category.merge!('kind' => category['kind'] == 'income' ? 'I' : 'G')
+        economic_budget_lines_for_functional.push({
+          index: {
+            _index: index,
+            _id: [place.id, year, "#{category['code']}-1-f}", category['kind']].join('/'),
+            _type: category['area'],
+            data: base_data.merge({
+              amount: rand(1_000_000), code: category['code'],
+              level: category['level'], kind: category['kind'],
+              amount_per_inhabitant: (rand(1_000)/2.0).round(2),
+              functional_code: 1,
+              parent_code: category['parent_code']
+            })
+          }
+        })
+      end
+
+      economic_budget_lines_for_custom = []
+      categories_fixtures do |category|
+        next if category['ine_code'] && (category['ine_code'] != place.id.to_i)
+        next if category['area_name'] != 'economic' && category['kind'] == "income"
+
+        index = GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
+        category.merge!('kind' => 'G')
+        economic_budget_lines_for_functional.push({
+          index: {
+            _index: index,
+            _id: [place.id, year, "#{category['code']}-1-c}", category['kind']].join('/'),
+            _type: category['area'],
+            data: base_data.merge({
+              amount: rand(1_000_000), code: category['code'],
+              level: category['level'], kind: category['kind'],
+              amount_per_inhabitant: (rand(1_000)/2.0).round(2),
+              custom_code: 1,
+              parent_code: category['parent_code']
+            })
+          }
+        })
+      end
+
+      GobiertoBudgets::SearchEngine.client.bulk(body: budgets_for_place + total_budgets + economic_budget_lines_for_functional + economic_budget_lines_for_custom)
     end
 
     def categories_fixtures(&block)
@@ -153,6 +199,7 @@ namespace :gobierto_budgets do
                 code:                  { type: 'string', index: 'not_analyzed'  },
                 parent_code:           { type: 'string', index: 'not_analyzed'  },
                 functional_code:       { type: 'string', index: 'not_analyzed'  },
+                custom_code:           { type: 'string', index: 'not_analyzed'  },
                 level:                 { type: 'integer', index: 'not_analyzed' },
                 kind:                  { type: 'string', index: 'not_analyzed'  }, # income I / expense G
                 province_id:           { type: 'integer', index: 'not_analyzed' },

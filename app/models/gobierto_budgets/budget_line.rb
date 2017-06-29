@@ -275,7 +275,11 @@ module GobiertoBudgets
                 must_not: {
                   exists: {
                     field: "functional_code",
-                    field: "custom_code"
+                  },
+                },
+                must_not: {
+                  exists: {
+                    field: "custom_code",
                   }
                 }
               }

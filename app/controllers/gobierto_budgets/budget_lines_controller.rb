@@ -24,7 +24,6 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
     if GobiertoBudgets::FunctionalArea.area_name == @area_name
       @budget_line_composition = GobiertoBudgets::BudgetLine.where(site: current_site, place: @place, functional_code: @code, year: @year, kind: @kind, area_name: @area_name).all
     elsif GobiertoBudgets::CustomArea.area_name == @area_name
-      debugger
       @budget_line_composition = GobiertoBudgets::BudgetLine.where(site: current_site, place: @place, custom_code: @code, year: @year, kind: @kind, area_name: @area_name).all
     else
       @budget_line_composition = []

@@ -152,8 +152,8 @@
 
         <% end %>
 
+        <h2><%= t('.budget_lines_distribution') %></h2>
         <% if @budget_line_composition.any? %>
-          <h2><%= t('.budget_lines_distribution') %></h2>
           <table>
             <% @budget_line_composition.each do |budget_line| %>
               <tr>

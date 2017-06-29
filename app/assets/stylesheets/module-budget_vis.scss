@@ -290,6 +290,8 @@
   }
 
 }
+
+/* Budget execution */
 .budgets_execution {
   .lines_execution {
     position: relative;
@@ -297,7 +299,6 @@
     svg {
       overflow: visible;
     }
-
     .axis {
       font-family: $font_text;
 
@@ -328,6 +329,15 @@
       line {
         stroke-dasharray: 2 10;
         stroke: rgba(0,0,0,.5)
+      }
+      .hundred_percent {
+        line {
+          display: none;
+        }
+        text {
+          fill: $color_text;
+          font-weight: 700;
+        }
       }
     }
     .tooltip {

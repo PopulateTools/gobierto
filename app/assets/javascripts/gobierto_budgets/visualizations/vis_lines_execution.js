@@ -3,17 +3,19 @@
 var VisLinesExecution = Class.extend({
   init: function(divId) {
     // Set default locale based on the app setting
-    d3.formatDefaultLocale(eval(I18n.locale));
-    d3.timeFormatDefaultLocale(eval(I18n.locale));
+    this.locale = I18n.locale;
+    d3.formatDefaultLocale(eval(this.locale));
+    d3.timeFormatDefaultLocale(eval(this.locale));
 
     this.container = divId;
     this.data = null;
     this.parseTime = d3.timeParse('%Y-%m-%d');
-    this.pctFormat = d3.format('.0%');
+    this.pctFormat = d3.format(',');
     this.monthFormat = d3.timeFormat('%B %Y');
     this.isMobile = window.innerWidth <= 768;
     this.selectionNode = d3.select(this.container).node();
     this.currentYear = new Date().getFullYear();
+    this.budgetYear = d3.select('body').attr('data-year');
 
     // Chart dimensions
     this.margin = {top: 25, right: 50, bottom: 35, left: 385};
@@ -49,14 +51,15 @@ var VisLinesExecution = Class.extend({
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
     this.xAxis = d3.axisTop(this.x)
+      .tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d) + '%'}.bind(this))
       .tickSize(-this.height - this.margin.bottom)
-      .ticks(4)
-      .tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d);}.bind(this));
+      .tickPadding(10)
+      .ticks(5);
 
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
   },
   getData: function() {
-    d3.json('/test_lines.json', function(error, jsonData) {
+    d3.json('/api/data/widget/budget_execution_comparison/28079/' + this.budgetYear + '/G/functional.json', function(error, jsonData) {
       if (error) throw error;
 
       this.data = jsonData;
@@ -74,20 +77,18 @@ var VisLinesExecution = Class.extend({
   updateRender: function(callback) {
     d3.select('.last_update').text(this.monthFormat(this.updated));
 
-    /* Flatten array to transform it easily */
-    this.flattened = _.flatMapDeep(this.data.lines, function(n) { return [n, n.child_lines]; });
-
     this.nested = d3.nest()
-      .key(function(d) { return d.cat_id;})
+      .key(function(d) { return d.parent_id;})
       .sortValues(function(a, b) {
         // If it's from the first level make it the first one, then sort by execution
         return a.level === 1 ? b.level - a.level : a.pct_executed - b.pct_executed
       })
-      .entries(this.flattened)
+      .entries(this.data.lines)
 
-    this.x.domain([0, 1.05]);
+    /* Extent of the execution */
+    this.x.domain([0, d3.max(this.data.lines, function(d) { return d.pct_executed;})]);
 
-    /* Get the name of every line */
+    /* Get the id of every line */
     this.y1.domain(_.flatten(this.nested.map(function(d) {
       return d.values.map(function(v) { return v.id }); })
     ));
@@ -96,6 +97,7 @@ var VisLinesExecution = Class.extend({
     this.y0.domain(this.nested.map(function(d) { return d.key }))
       .rangeRound([this.y1.bandwidth(), 0]);
 
+    /* A time scale which spreads along the whole chart */
     this.z.domain([this.parseTime(this.currentYear + '-01-01'), this.parseTime(this.currentYear + '-12-31')]);
 
     var bars = this.svg.selectAll('g')
@@ -124,8 +126,17 @@ var VisLinesExecution = Class.extend({
       .attr('height', this.y1.bandwidth() )
       // .attr('height', function(d) { return d.level === 1 ? this.y1.bandwidth() : 30 ;}.bind(this))
       .attr('y', function(d) { return this.y1(d.id); }.bind(this))
-      .attr('width', this.x(1.05))
+      .attr('width', this.x(this.x.domain()[1]))
       .attr('fill', '#efefef');
+
+    /* White bar marking 100% completion */
+    barGroup.append('line')
+      .attr('x1', this.x(100))
+      .attr('x2', this.x(100))
+      .attr('y1', function(d) { return this.y1(d.id); }.bind(this))
+      .attr('y2', function(d) { return this.y1(d.id) + this.y1.bandwidth() }.bind(this) )
+      .attr('stroke', 'white')
+      .attr('stroke-width', 4)
 
     /* Main bar */
     barGroup.append('rect')
@@ -142,18 +153,18 @@ var VisLinesExecution = Class.extend({
     lineGroup.append('text')
       .attr('x', 0)
       .attr('y', function(d) { return this.y1(d.id); }.bind(this))
-      .attr('dy', 28)
+      .attr('dy', 16)
       .attr('dx', -10)
       .attr('text-anchor', 'end')
       .style('font-size', function(d) { return d.level === 1 ? '1rem' : '0.875rem';})
       .style('font-weight', function(d) { return d.level === 1 ? '600' : '400';})
       .style('fill', function(d) { return d.level === 1 ? '#4A4A4A' : '#767168';})
-      .text(function(d) { return d.name;});
+      .text(function(d) { return this.locale !== 'en' ? d['name_' + this.locale]: d.name_es }.bind(this));
 
     /* Legend */
     var legend = this.svg.append('g')
       .attr('class', 'legend')
-      .attr('transform', 'translate(0, -5)')
+      .attr('transform', 'translate(0, -10)')
 
     legend.append('text')
       .attr('text-anchor', 'end')
@@ -164,41 +175,48 @@ var VisLinesExecution = Class.extend({
       .text('% de progreso');
 
     /* Year progress line */
-    var yearProgress = this.svg.append('g')
-      .attr('class', 'year_progress')
-      .attr('transform', 'translate(' + this.z(this.updated) + ',' + 0 + ')');
+    // if (this.budgetYear === this.currentYear) {
+      var yearProgress = this.svg.append('g')
+        .attr('class', 'year_progress')
+        .attr('transform', 'translate(' + this.z(this.updated) + ',' + 0 + ')');
 
-    var yearArrow = yearProgress.append('g')
-      .attr('class', 'swoopy_arrow')
-      .attr('fill', 'none')
-      .attr('transform', 'translate(-5, -40)')
+      var yearArrow = yearProgress.append('g')
+        .attr('class', 'swoopy_arrow')
+        .attr('fill', 'none')
+        .attr('transform', 'translate(-5, -40)');
 
-    yearArrow.append('path')
-      .attr('stroke', '#979797')
-      .attr('d', 'M6.12890625,30.7975072 C6.12890625,13.9746951 12.1289062,4.02519777 24.1289062,0.949015299')
+      yearArrow.append('path')
+        .attr('stroke', '#979797')
+        .attr('d', 'M6.12890625,30.7975072 C6.12890625,13.9746951 12.1289062,4.02519777 24.1289062,0.949015299');
 
-    yearArrow.append('polygon')
-      .attr('fill', '#979797')
-      .attr('points', '8.366 24.01 10.271 32.463 2.518 29.857')
-      .attr('transform', 'rotate(45 6.395 28.236)')
+      yearArrow.append('polygon')
+        .attr('fill', '#979797')
+        .attr('points', '8.366 24.01 10.271 32.463 2.518 29.857')
+        .attr('transform', 'rotate(45 6.395 28.236)');
 
-    yearProgress.append('line')
-      .attr('y2', this.height + this.margin.bottom)
-      .attr('stroke', 'black');
+      yearProgress.append('line')
+        .attr('y2', this.height + this.margin.bottom)
+        .attr('stroke', 'black');
 
-    yearProgress.append('text')
-    .attr('dy', -40)
-    .attr('dx', 25)
-    .text(this.monthFormat(this.updated))
+      yearProgress.append('text')
+      .attr('dy', -40)
+      .attr('dx', 25)
+      .text(this.monthFormat(this.updated));
+    // }
 
     this.svg.append('g')
       .attr('class', 'x axis')
-    	.call(this.xAxis)
+    	.call(this.xAxis);
 
     /* Remove first tick */
     d3.selectAll('.x.axis .tick')
       .filter(function(d) { return d === 0;})
-      .remove()
+      .remove();
+
+    /* Style 100% completion */
+    d3.selectAll('.x.axis .tick')
+      .filter(function(d) { return d === 100;})
+      .classed('hundred_percent', true);
   },
   _mousemoved: function(d) {
     var coordinates = d3.mouse(this.selectionNode);
@@ -222,7 +240,7 @@ var VisLinesExecution = Class.extend({
     return parseInt(d3.select(this.container).style('width'));
   },
   _height: function() {
-    return this.isMobile ? 200 : this._width() * 0.5;
+    return this.isMobile ? 200 : this._width() * 0.6;
   },
   _resize: function() {
 

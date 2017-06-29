@@ -9,6 +9,7 @@ var VisLinesExecution = Class.extend({
 
     this.container = divId;
     this.data = null;
+    this.placeId = d3.select('body').attr('data-place-id');
     this.parseTime = d3.timeParse('%Y-%m-%d');
     this.pctFormat = d3.format(',');
     this.monthFormat = d3.timeFormat('%B %Y');
@@ -59,7 +60,7 @@ var VisLinesExecution = Class.extend({
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
   },
   getData: function() {
-    d3.json('/api/data/widget/budget_execution_comparison/28079/' + this.budgetYear + '/G/functional.json', function(error, jsonData) {
+    d3.json('/api/data/widget/budget_execution_comparison/' + this.placeId + '/' + this.budgetYear + '/G/functional.json', function(error, jsonData) {
       if (error) throw error;
 
       this.data = jsonData;

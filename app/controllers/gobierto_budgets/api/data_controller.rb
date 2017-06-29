@@ -97,6 +97,24 @@ module GobiertoBudgets
         end
       end
 
+      def budget_execution_comparison
+        year = params[:year].to_i
+        kind = params[:kind]
+        ine_code = params[:ine_code]
+        area = params[:area]
+
+        lines = GobiertoBudgets::Data::BudgetExecutionComparison.extract_lines(year: year, kind: kind, ine_code: ine_code, area: area)
+
+        respond_to do |format|
+          format.json do
+            render json: {
+              last_update: Date.today.strftime("%Y-%m-%d"),
+              lines: lines
+            }
+          end
+        end
+      end
+
       private
 
       def get_debt(year, ine_code)

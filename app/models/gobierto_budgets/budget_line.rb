@@ -158,7 +158,9 @@ module GobiertoBudgets
 
       area = BudgetArea.klass_for(@conditions[:area_name])
 
-      response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
+      index = @conditions[:index] || GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
+
+      response = GobiertoBudgets::SearchEngine.client.search index: index,
                                                              type: area.area_name, body: query
 
       response['hits']['hits'].map{ |h| h['_source'] }.map do |row|

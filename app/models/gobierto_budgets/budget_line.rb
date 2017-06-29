@@ -25,6 +25,7 @@ module GobiertoBudgets
         {term: { year: @conditions[:year] }},
         {term: { code: @conditions[:code] }},
         {missing: { field: 'functional_code'}},
+        {missing: { field: 'custom_code'}},
         {term: { ine_code: @conditions[:place].id }}
       ]
 
@@ -122,8 +123,17 @@ module GobiertoBudgets
           @conditions[:area_name] = FunctionalArea.area_name
           return functional_codes_for_economic_budget_line(@conditions)
         end
+      elsif @conditions[:custom_code]
+        if @conditions[:area_name] == CustomArea.area_name
+          @conditions[:area_name] = EconomicArea.area_name
+          terms.push({term: { custom_code: @conditions[:custom_code] }})
+        # else
+        #   @conditions[:area_name] = CustomArea.area_name
+        #   return functional_codes_for_economic_budget_line(@conditions)
+        end
       else
         terms.push({missing: { field: 'functional_code'}})
+        terms.push({missing: { field: 'custom_code'}})
       end
 
       query = {
@@ -264,7 +274,8 @@ module GobiertoBudgets
                 must: terms,
                 must_not: {
                   exists: {
-                    field: "functional_code"
+                    field: "functional_code",
+                    field: "custom_code"
                   }
                 }
               }

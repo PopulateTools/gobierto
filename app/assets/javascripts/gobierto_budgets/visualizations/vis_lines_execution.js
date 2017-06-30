@@ -157,7 +157,6 @@ var VisLinesExecution = Class.extend({
       .attr('class', 'bar')
       .attr('x', 0)
       .attr('height', this.y1.bandwidth() )
-      // .attr('height', function(d) { return d.level === 1 ? this.y1.bandwidth() : 30 ;}.bind(this))
       .attr('y', function(d) { return this.y1(d.id); }.bind(this))
       .attr('width', function(d) { return this.x(d.pct_executed); }.bind(this))
       .attr('fill', function(d) {
@@ -166,10 +165,11 @@ var VisLinesExecution = Class.extend({
         return d.level === 1 ? this.color(this.executionKind) : levelTwoColor;
       }.bind(this));
 
+    /* Line names */
     lineGroup.append('text')
       .attr('x', 0)
       .attr('y', function(d) { return this.y1(d.id); }.bind(this))
-      .attr('dy', 16)
+      .attr('dy', 18)
       .attr('dx', -10)
       .attr('text-anchor', 'end')
       .style('font-size', function(d) { return d.level === 1 ? '1rem' : '0.875rem';})

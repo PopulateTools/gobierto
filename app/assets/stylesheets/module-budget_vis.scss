@@ -293,6 +293,11 @@
 
 /* Budget execution */
 .budgets_execution {
+  .option {
+    margin-bottom: 1rem;
+    z-index: 1;
+  }
+
   .expenses_execution,
   .income_execution {
     position: relative;

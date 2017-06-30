@@ -19,6 +19,19 @@ module GobiertoBudgets
               categories[area_name][kind] = Hash[klass.all_items[kind].sort_by{ |k,v| k.to_f }]
             end
           end
+
+          categories['custom'] = { 'I' => {}, 'G' => {} }
+
+          custom_categories = GobiertoBudgets::Category.where(site: current_site)
+
+          custom_categories.each do |category|
+            if category.kind == GobiertoBudgets::BudgetLine::INCOME
+              categories['custom']['I'][category.code] = category.name
+            elsif category.kind == GobiertoBudgets::BudgetLine::EXPENSE
+              categories['custom']['G'][category.code] = category.name
+            end
+          end
+          
         else
           klass = BudgetArea.klass_for(area)
           categories = Hash[klass.all_items[kind].sort_by{ |k,v| k.to_f }]

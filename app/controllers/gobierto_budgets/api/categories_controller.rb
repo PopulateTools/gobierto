@@ -6,7 +6,7 @@ module GobiertoBudgets
       def index
         kind      = params[:kind]
         area_name = params[:area]
-        render_404 and return if area_name == 'functional' and kind == 'I'
+        render_404 and return if (area_name == FunctionalArea.area_name and kind == BudgetLine::INCOME)
 
         if kind.nil? && area_name.nil?
           categories = {}

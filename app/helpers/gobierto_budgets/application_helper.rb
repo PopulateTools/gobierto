@@ -117,5 +117,9 @@ module GobiertoBudgets
 
       "https://#{ENV['S3_BUCKET_NAME']}.s3-eu-west-1.amazonaws.com/#{path}"
     end
+
+    def budget_line_breadcrumb(budget_line, year, kind)
+      ([year, kind].concat(budget_line.parent_code.length.downto(1).map{|i| budget_line.parent_code[0..-i]})).concat([budget_line.code]).join('/')
+    end
   end
 end

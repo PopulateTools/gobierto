@@ -12,9 +12,14 @@ $( document ).on('turbolinks:load', function() {
       $(this).text($(this).data('more-literal'));
   })
 
-  if ($('.lines_execution').length) {
-    var vis_lines_execution = new VisLinesExecution('.lines_execution')
-    vis_lines_execution.render();
+  if ($('.expenses_execution').length) {
+    var vis_expenses_execution = new VisLinesExecution('.expenses_execution', 'G', 'functional')
+    vis_expenses_execution.render();
+  }
+
+  if ($('.income_execution').length) {
+    var vis_income_execution = new VisLinesExecution('.income_execution', 'I', 'economic')
+    vis_income_execution.render();
   }
 });
 var vis_evoline = [];

@@ -134,18 +134,34 @@ en:
         view_less: View less
         view_more: View more
       index:
+        title: Budget execution
+        description: The budget execution is the expense over the initial budget. It's normal to find deviations from the budget, as its impossible to predict the expenses with a great precision.
+        last_update: Last update
         budget_lines_expense_higher: Expense budget lines higher than planned
         budget_lines_expense_lower: Expense budget lines lower than planned
         budget_lines_income_higher: Income budget lines higher than planned
         budget_lines_income_lower: Income budget lines lower than planned
-        description: Local budget detailed execution from %{place} in %{year}. Check
-          the differences between the planned and the executed.
         economic: economic
         execution_disclaimer: It's very common to have deviatiatons, due to the difficulty
           of foreseeing the expenses.
         execution_help: The execution is the amount spent based on the planned budget.
         functional: functional
-        title: Local budget execution from %{place} in %{year}
+        metric:
+          execution:
+            title: Execution
+            message: higher than in
+          budget:
+            title: Budgeted expense
+            message: higher than in
+        vis:
+          tooltip: It has been executed by a
+          lines_title: Budget lines
+          percent: "% of progress"
+          absolute: Execution in euros
+          expenses:
+            title: Explore the execution of the expenses
+          income:
+            title: Explore the execution of the income
       widget_template_deviation:
         expense: Expense
         income: Income

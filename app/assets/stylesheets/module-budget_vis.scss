@@ -293,7 +293,8 @@
 
 /* Budget execution */
 .budgets_execution {
-  .lines_execution {
+  .expenses_execution,
+  .income_execution {
     position: relative;
 
     svg {

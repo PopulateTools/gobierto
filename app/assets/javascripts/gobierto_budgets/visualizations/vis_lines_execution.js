@@ -1,14 +1,18 @@
 'use strict';
 
 var VisLinesExecution = Class.extend({
-  init: function(divId) {
+  init: function(divId, type, category) {
     // Set default locale based on the app setting
     this.locale = I18n.locale;
+    this.localeFallback = this.locale === 'en' ? 'es' : this.locale;
+
     d3.formatDefaultLocale(eval(this.locale));
     d3.timeFormatDefaultLocale(eval(this.locale));
 
     this.container = divId;
     this.data = null;
+    this.executionKind = type;
+    this.budgetCategory = category;
     this.placeId = d3.select('body').attr('data-place-id');
     this.parseTime = d3.timeParse('%Y-%m-%d');
     this.pctFormat = d3.format(',');
@@ -19,7 +23,7 @@ var VisLinesExecution = Class.extend({
     this.budgetYear = d3.select('body').attr('data-year');
 
     // Chart dimensions
-    this.margin = {top: 25, right: 50, bottom: 35, left: 385};
+    this.margin = {top: 25, right: 0, bottom: 35, left: 385};
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -29,7 +33,9 @@ var VisLinesExecution = Class.extend({
     this.y0 = d3.scaleBand().padding(0.2);
     this.y1 = d3.scaleBand().rangeRound([this.height, 0]).paddingInner(0.1);
 
-    this.color = d3.scaleOrdinal();
+    this.color = d3.scaleOrdinal()
+      .domain(['I', 'G'])
+      .range(['#f88f59', '#00909e']);
 
     // Create axes
     this.xAxis = d3.axisBottom();
@@ -60,7 +66,9 @@ var VisLinesExecution = Class.extend({
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
   },
   getData: function() {
-    d3.json('/api/data/widget/budget_execution_comparison/' + this.placeId + '/' + this.budgetYear + '/G/functional.json', function(error, jsonData) {
+    this.dataUrl = '/api/data/widget/budget_execution_comparison/' + this.placeId + '/' + this.budgetYear + '/' + this.executionKind + '/' + this.budgetCategory + '.json';
+
+    d3.json(this.dataUrl, function(error, jsonData) {
       if (error) throw error;
 
       this.data = jsonData;
@@ -149,8 +157,8 @@ var VisLinesExecution = Class.extend({
       .attr('y', function(d) { return this.y1(d.id); }.bind(this))
       .attr('width', function(d) { return this.x(d.pct_executed); }.bind(this))
       .attr('fill', function(d) {
-        return d.level === 1 ? '#00909e' : '#9bcdd2'
-      });
+        return d.level === 1 ? this.color(this.executionKind) : d3.rgb(this.color(this.executionKind)).opacity(.5);
+      }.bind(this));
 
     lineGroup.append('text')
       .attr('x', 0)
@@ -161,7 +169,7 @@ var VisLinesExecution = Class.extend({
       .style('font-size', function(d) { return d.level === 1 ? '1rem' : '0.875rem';})
       .style('font-weight', function(d) { return d.level === 1 ? '600' : '400';})
       .style('fill', function(d) { return d.level === 1 ? '#4A4A4A' : '#767168';})
-      .text(function(d) { return this.locale !== 'en' ? d['name_' + this.locale]: d.name_es }.bind(this));
+      .text(function(d) { return d['name_' + this.localeFallback] }.bind(this));
 
     /* Legend */
     var legend = this.svg.append('g')
@@ -171,11 +179,11 @@ var VisLinesExecution = Class.extend({
     legend.append('text')
       .attr('text-anchor', 'end')
       .attr('dx', '-12')
-      .text('Partidas presupuestarias');
+      .text(I18n.t('gobierto_budgets.budgets_execution.index.vis.lines_title'));
 
     legend.append('text')
       .attr('class', 'legend-value')
-      .text('% de progreso');
+      .text(I18n.t('gobierto_budgets.budgets_execution.index.vis.percent'));
 
     /* Year progress line */
     // if (this.budgetYear === this.currentYear) {
@@ -242,7 +250,7 @@ var VisLinesExecution = Class.extend({
         .classed('hundred_percent', true);
 
       d3.select('.legend-value')
-        .text('Valores absolutos (€)');
+        .text(I18n.t('gobierto_budgets.budgets_execution.index.vis.absolute'));
 
       d3.selectAll('.hundred_percent')
         .transition()
@@ -268,7 +276,7 @@ var VisLinesExecution = Class.extend({
         .classed('hundred_percent', true);
 
       d3.select('.legend-value')
-        .text('% de progreso');
+        .text(I18n.t('gobierto_budgets.budgets_execution.index.vis.percent'));
 
       d3.selectAll('.hundred_percent')
         .transition()
@@ -287,10 +295,11 @@ var VisLinesExecution = Class.extend({
     this.tooltip
       .style('display', 'block')
       .style('left', (x - 110) + 'px')
-      .style('top', (y + 40) + 'px')
+      .style('top', (y + 40) + 'px');
 
-    this.tooltip.html('<div class="line-name"><strong>' + accounting.formatMoney(d.budget, "€", 0, ".", ",") + '</strong></div> \
-                       <div>Se ha ejecutado un ' + this.pctFormat(d.pct_executed) + '</div>');
+    this.tooltip.html('<div class="line-name"><strong>' + d['name_' + this.localeFallback] + '</strong></div> \
+                       <div class="line-name">' + accounting.formatMoney(d.budget, "€", 0, ".", ",") + '</div> \
+                       <div>' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip') + ' ' + this.pctFormat(d.pct_executed) + '%</div>');
   },
   _mouseleft: function(d) {
     this.tooltip.style('display', 'none');

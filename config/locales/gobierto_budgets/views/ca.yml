@@ -136,19 +136,35 @@ ca:
         view_less: Veure menys
         view_more: Veure més
       index:
+        title: Execució pressupostària
+        description: L'execució són les despeses comparades amb el pressupost inicial. És normal trobar desviacions, ja què és impossible preveure totes les despeses amb precisió absoluta.
+        last_update: Última actualització
         budget_lines_expense_higher: Partides de despeses molt superiors al pressupost
         budget_lines_expense_lower: Partides de despeses molt inferiors al pressupost
         budget_lines_income_higher: Partides d'ingressos molt superiors al pressupost
         budget_lines_income_lower: Partides d'ingressos molt inferiors al pressupost
-        description: Detall sobre l'execució del pressupost municipal de %{place}
-          el %{year}. Consulta la diferència entre lo pressupostat i lo executat.
         economic: Econòmica
         execution_disclaimer: Es normal que hi haja desviacions ja que és impossible
           preveure totes les despeses amb precisió absoluta.
         execution_help: L'execució es la quantitat que finalment s'ha gastat sobre
           lo pressupostat inicialment.
         functional: Funcional
-        title: Execució del pressupost municipal de %{place} el %{year}
+        metric:
+          execution:
+            title: Execució
+            message: més que en
+          budget:
+            title: Despesa pressupostada
+            message: més que en
+        vis:
+          tooltip: S'ha executat un
+          lines_title: Partides pressupuestàries
+          percent: "% de progrés"
+          absolute: Execució en euros
+          expenses:
+            title: L'estat de l'execució de les despeses
+          income:
+            title: L'estat de l'execució dels ingressos
       widget_template_deviation:
         expense: Despeses
         income: Ingressos

@@ -14,11 +14,11 @@
     <div class="pure-g header_block_inline">
       <div class="pure-u-1 pure-u-md-1-2">
         <div class="inline_header">
-          <h2 class="with_description p_h_r_1">Ejecución presupuestaria</h2>
+          <h2 class="with_description p_h_r_1"><%= t('.title') %></h2>
           <%= render partial: 'gobierto_budgets/budgets/year_breadcrumb', locals: {path_calculation_method: :gobierto_budgets_budgets_path} %>
 
-          <p>La ejecución es la cantidad que finalmente se ha gastado sobre lo presupuestado inicialmente. Es normal que haya desviaciones ya que es imposible preveer todos los gastos con precisión absoluta.</p>
-          <p><strong>Última actualización:</strong> <span class="last_update"></span>.</p>
+          <p><%= t('.description') %></p>
+          <p><strong><%= t('.last_update') %>:</strong> <span class="last_update"></span>.</p>
         </div>
       </div>
 
@@ -26,20 +26,20 @@
         <div class="pure-g">
           <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
             <div class="inner">
-              <h3>Ejecución</h3>
+              <h3><%= t('.metric.execution.title') %></h3>
               <div class="metric">54%</div>
               <div class="explanation">
-                0,74% más que en 2015
+                0,74% <%= t('.metric.execution.message') %> 2015
               </div>
             </div>
           </div>
 
           <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
             <div class="inner">
-              <h3>Gasto presupuestado</h3>
+              <h3><%= t('.metric.budget.title') %></h3>
               <div class="metric">4.483M</div>
               <div class="explanation">
-                0,74% más que en 2015
+                0,74% <%= t('.metric.budget.message') %> 2015
               </div>
             </div>
           </div>
@@ -50,17 +50,22 @@
 
     <div class="pure-g">
       <div class="pure-u-1">
-        <h2 class="with_description">Así va la ejecución de los gastos</h2>
+        <h2 class="with_description"><%= t('.vis.expenses.title') %></h2>
 
         <div class="option">
           <input type="checkbox" name="show-absolute" id="show-absolute">
           <label for="show-absolute">
             <span></span>
-            Show absolute
+            <%= t('.vis.absolute') %>
           </label>
         </div>
 
-        <div class="lines_execution"></div>
+        <div class="expenses_execution"></div>
+      </div>
+      <div class="pure-u-1">
+        <h2 class="with_description"><%= t('.vis.income.title') %></h2>
+
+        <div class="income_execution"></div>
       </div>
     </div>
   </div>

@@ -13,7 +13,7 @@ ca:
         amount: Quantitat
         budget_line: Partida
         categories: Categories pressupostàries
-        custom: Personalitzada
+        custom: Àrees
         expense_in_what: En què es gasta
         expense_to_do_what: Per a què es gasta
         help: El pressupuest organitza les despeses en dues categories. Consulta la
@@ -147,9 +147,9 @@ ca:
     visualizations:
       G_economic: En què es gasta
       G_functional: Per a què es gasta
-      G_custom: Despeses personalitzats
+      G_custom: Despeses per àrea
       I_economic: En què s'ingressa
-      I_custom: Ingressos personalitzats
+      I_custom: Ingressos per àrea
       category_per_inhabitant: "%{category} per habitant"
       expenses_per_inhabitant: Despesa per habitant
       inhabitant_short: hab

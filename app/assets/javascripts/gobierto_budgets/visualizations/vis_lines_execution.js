@@ -22,17 +22,6 @@ var VisLinesExecution = Class.extend({
     this.currentYear = new Date().getFullYear();
     this.budgetYear = d3.select('body').attr('data-year');
 
-    // Chart dimensions
-    this.margin = {top: 25, right: 0, bottom: 35, left: 385};
-    this.width = this._width() - this.margin.left - this.margin.right;
-    this.height = this._height() - this.margin.top - this.margin.bottom;
-
-    // Scales & Ranges
-    this.x = d3.scaleLinear().range([0, this.width]);
-    this.z = d3.scaleTime().range([0, this.width]);
-    this.y0 = d3.scaleBand().padding(0.2);
-    this.y1 = d3.scaleBand().rangeRound([this.height, 0]).paddingInner(0.1);
-
     this.color = d3.scaleOrdinal()
       .domain(['I', 'G'])
       .range(['#f88f59', '#00909e']);
@@ -48,6 +37,41 @@ var VisLinesExecution = Class.extend({
       .append('div')
       .attr('class', 'tooltip');
 
+    d3.select(window).on('resize.' + this.container, this._resize.bind(this));
+  },
+  getData: function() {
+    this.dataUrl = '/api/data/widget/budget_execution_comparison/' + this.placeId + '/' + this.budgetYear + '/' + this.executionKind + '/' + this.budgetCategory + '.json';
+
+    d3.json(this.dataUrl, function(error, jsonData) {
+      if (error) throw error;
+
+      this.data = jsonData;
+      this.updated = this.parseTime(this.data.last_update);
+
+      // Setting scales in a separate step, as we need the lines to set the height
+      this.setScales();
+      this.updateRender();
+    }.bind(this));
+  },
+  render: function() {
+    if (this.data === null) {
+      this.getData();
+    } else {
+      this.updateRender();
+    }
+  },
+  setScales: function(callback) {
+    // Chart dimensions
+    this.margin = {top: 25, right: 0, bottom: 35, left: 385};
+    this.width = this._width() - this.margin.left - this.margin.right;
+    this.height = this._height() - this.margin.top - this.margin.bottom;
+
+    // Scales & Ranges
+    this.x = d3.scaleLinear().range([0, this.width]);
+    this.z = d3.scaleTime().range([0, this.width]);
+    this.y0 = d3.scaleBand().padding(0.2);
+    this.y1 = d3.scaleBand().rangeRound([this.height, 0]).paddingInner(0.1);
+
     // Create main elements
     this.svg = d3.select(this.container)
       .append('svg')
@@ -62,26 +86,6 @@ var VisLinesExecution = Class.extend({
       .tickSize(-this.height - this.margin.bottom)
       .tickPadding(10)
       .ticks(5);
-
-    d3.select(window).on('resize.' + this.container, this._resize.bind(this));
-  },
-  getData: function() {
-    this.dataUrl = '/api/data/widget/budget_execution_comparison/' + this.placeId + '/' + this.budgetYear + '/' + this.executionKind + '/' + this.budgetCategory + '.json';
-
-    d3.json(this.dataUrl, function(error, jsonData) {
-      if (error) throw error;
-
-      this.data = jsonData;
-      this.updated = this.parseTime(this.data.last_update);
-      this.updateRender();
-    }.bind(this));
-  },
-  render: function() {
-    if (this.data === null) {
-      this.getData();
-    } else {
-      this.updateRender();
-    }
   },
   updateRender: function(callback) {
     d3.select('.last_update').text(this.monthFormat(this.updated));
@@ -157,7 +161,9 @@ var VisLinesExecution = Class.extend({
       .attr('y', function(d) { return this.y1(d.id); }.bind(this))
       .attr('width', function(d) { return this.x(d.pct_executed); }.bind(this))
       .attr('fill', function(d) {
-        return d.level === 1 ? this.color(this.executionKind) : d3.rgb(this.color(this.executionKind)).brighter(1);
+        var levelTwoColor = d3.rgb(this.color(this.executionKind));
+        levelTwoColor.opacity = 0.5;
+        return d.level === 1 ? this.color(this.executionKind) : levelTwoColor;
       }.bind(this));
 
     lineGroup.append('text')
@@ -229,34 +235,34 @@ var VisLinesExecution = Class.extend({
       .filter(function(d) { return d === 100;})
       .classed('hundred_percent', true);
 
-    $('#show-absolute').on('change', function (e) {
+    $('#show-absolute-' + this.executionKind).on('change', function (e) {
       this._update(e.target.checked);
-    }.bind(this))
+    }.bind(this));
   },
   _update: function(checked) {
     if (checked) {
       this.xAxis.tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d) + '€'}.bind(this))
       this.x.domain([0, d3.max(this.data.lines, function(d) { return d.executed;})]);
 
-      d3.select('.x.axis')
+      this.svg.select('.x.axis')
         .call(this.xAxis);
 
-      d3.selectAll('.x.axis .tick')
+      this.svg.selectAll('.x.axis .tick')
         .filter(function(d) { return d === 0;})
         .remove();
 
-      d3.selectAll('.x.axis .tick')
+      this.svg.selectAll('.x.axis .tick')
         .filter(function(d) { return d === 100;})
         .classed('hundred_percent', true);
 
-      d3.select('.legend-value')
+      this.svg.select('.legend-value')
         .text(I18n.t('gobierto_budgets.budgets_execution.index.vis.absolute'));
 
-      d3.selectAll('.hundred_percent')
+      this.svg.selectAll('.hundred_percent')
         .transition()
         .style('opacity', 0);
 
-      d3.selectAll('.bar')
+      this.svg.selectAll('.bar')
         .transition()
         .duration(300)
         .attr('width', function(d) { return this.x(d.executed); }.bind(this));
@@ -264,25 +270,25 @@ var VisLinesExecution = Class.extend({
       this.xAxis.tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d) + '%'}.bind(this))
       this.x.domain([0, d3.max(this.data.lines, function(d) { return d.pct_executed;})]);
 
-      d3.select('.x.axis')
+      this.svg.select('.x.axis')
         .call(this.xAxis);
 
-      d3.selectAll('.x.axis .tick')
+      this.svg.selectAll('.x.axis .tick')
         .filter(function(d) { return d === 0;})
         .remove();
 
-      d3.selectAll('.x.axis .tick')
+      this.svg.selectAll('.x.axis .tick')
         .filter(function(d) { return d === 100;})
         .classed('hundred_percent', true);
 
-      d3.select('.legend-value')
+      this.svg.select('.legend-value')
         .text(I18n.t('gobierto_budgets.budgets_execution.index.vis.percent'));
 
-      d3.selectAll('.hundred_percent')
+      this.svg.selectAll('.hundred_percent')
         .transition()
         .style('opacity', 1);
 
-      d3.selectAll('.bar')
+      this.svg.selectAll('.bar')
         .transition()
         .duration(300)
         .attr('width', function(d) { return this.x(d.pct_executed); }.bind(this));
@@ -311,7 +317,8 @@ var VisLinesExecution = Class.extend({
     return parseInt(d3.select(this.container).style('width'));
   },
   _height: function() {
-    return this.isMobile ? 200 : this._width() * 0.6;
+    // Height depends on line number
+    return this.isMobile ? 200 : this.data.lines.length * 33;
   },
   _resize: function() {
 

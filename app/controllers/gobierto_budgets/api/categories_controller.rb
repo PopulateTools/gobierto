@@ -4,24 +4,25 @@ module GobiertoBudgets
       caches_action :index
 
       def index
-        kind = params[:kind]
-        area = params[:area]
-        render_404 and return if area == 'functional' and kind == 'I'
+        kind      = params[:kind]
+        area_name = params[:area]
+        render_404 and return if (area_name == FunctionalArea.area_name and kind == BudgetLine::INCOME)
 
-        if kind.nil? && area.nil?
+        if kind.nil? && area_name.nil?
           categories = {}
-          BudgetArea.all_areas.each do |klass|
-            area_name = klass.area_name
-            BudgetLine.all_kinds.each do |kind|
-              next if kind == GobiertoBudgets::BudgetLine::INCOME and klass == GobiertoBudgets::FunctionalArea
-
-              categories[area_name] ||= {}
-              categories[area_name][kind] = Hash[klass.all_items[kind].sort_by{ |k,v| k.to_f }]
+          BudgetArea.all_areas.each do |area|
+            area.available_kinds.each do |kind|
+              categories[area.area_name] ||= {}
+              categories[area.area_name][kind] = Hash[area.all_items[kind].sort_by{ |k,v| k.to_f }]
             end
           end
+
+          current_site.custom_budget_lines_categories.each do |category|
+            categories[CustomArea.area_name][category.kind].merge!({ category.code => category.name })
+          end
         else
-          klass = BudgetArea.klass_for(area)
-          categories = Hash[klass.all_items[kind].sort_by{ |k,v| k.to_f }]
+          area = BudgetArea.klass_for(area_name)
+          categories = Hash[area.all_items[kind].sort_by{ |k,v| k.to_f }]
         end
 
 

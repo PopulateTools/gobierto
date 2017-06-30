@@ -106,7 +106,7 @@
 	        </ul>
 	      </div>
 
-				<div class="tab_content" data-tab="economic" style="display: none">
+				<div class="tab_content tab active" data-tab="economic">
 
 					<%= render partial: 'execution_table', locals: {data: @top_possitive_difference_expending_economic, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: 'economic'} %>
 
@@ -118,7 +118,7 @@
 
 				</div>
 
-				<div class="tab_content" data-tab="functional">
+				<div class="tab_content tab" data-tab="functional">
 
 					<%= render partial: 'execution_table', locals: {data: @top_possitive_difference_expending_functional, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: 'functional'} %>
 

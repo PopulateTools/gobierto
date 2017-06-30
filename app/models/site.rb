@@ -16,6 +16,9 @@ class Site < ApplicationRecord
   has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"
   has_many :notifications, dependent: :destroy, class_name: "User::Notification"
 
+  # GobiertoBudgets integration
+  has_many :custom_budget_lines_categories, dependent: :destroy, class_name: "GobiertoBudgets::Category"
+
   # GobiertoBudgetConsultations integration
   has_many :budget_consultations, dependent: :destroy, class_name: "GobiertoBudgetConsultations::Consultation"
   has_many :budget_consultation_responses, through: :budget_consultations, source: :consultation_responses, class_name: "GobiertoBudgetConsultations::ConsultationResponse"

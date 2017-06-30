@@ -1,4 +1,4 @@
-<div class="breadcrumb stick_ip" data-budget-line-breadcrumb="<%= ([@year, @kind].concat(@code.length.downto(1).map{|i| @code[0..-i]})).join('/') %>"
+<div class="breadcrumb stick_ip" data-budget-line-breadcrumb="<%= budget_line_breadcrumb(@budget_line, @year, @kind) %>"
                                  data-budget-line-area="<%= @area_name %>" data-budget-line-categories="<%= gobierto_budgets_api_categories_path(format: :json) %>">
   <div class="column">
     <div class="clearfix">
@@ -39,6 +39,10 @@
       </div>
 
       <div class="col" data-level="5">
+        <table class="med_bg" data-current-code=""></table>
+      </div>
+
+      <div class="col" data-level="6">
         <table class="med_bg" data-current-code=""></table>
       </div>
     </div>

@@ -10,16 +10,18 @@ module GobiertoBudgets
       [INCOME, EXPENSE]
     end
 
-    @sort_attribute ||= 'code'
-    @sort_order ||= 'asc'
-
     def self.where(conditions)
       validate_conditions(conditions)
-      @conditions = conditions
-      self
+      self.new(conditions)
     end
 
-    def self.first
+    def initialize(conditions)
+      @sort_attribute = 'code'
+      @sort_order = 'asc'
+      @conditions = conditions
+    end
+
+    def first
       terms = [
         {term: { kind: @conditions[:kind] }},
         {term: { year: @conditions[:year] }},
@@ -64,7 +66,7 @@ module GobiertoBudgets
       ))
     end
 
-    def self.functional_codes_for_economic_budget_line(conditions)
+    def functional_codes_for_economic_budget_line(conditions)
       terms = [
         {term: { kind: conditions[:kind] }},
         {term: { year: conditions[:year] }},
@@ -105,7 +107,7 @@ module GobiertoBudgets
       end.compact.sort{|b,a| a.amount <=> b.amount }
     end
 
-    def self.all
+    def all
       terms = [
         {term: { kind: @conditions[:kind] }},
         {term: { ine_code: @conditions[:place].id }}

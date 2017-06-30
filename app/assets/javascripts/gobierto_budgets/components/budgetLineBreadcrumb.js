@@ -25,6 +25,8 @@ function limit_length(input, length) {
         this.assignHandlers(0);
 
         this.states.slice(2, this.states.length - 1).forEach(function(code, level){
+          if(code.length > 5)
+            level = 5;
           var currentCode = code.slice(0, code.length-1);
           if(level == 0) {
             currentCode = this.currentKind;
@@ -165,6 +167,7 @@ function limit_length(input, length) {
       if(level > 2){
         url += '?parent_code=' + currentCode;
       }
+
 
       var that = this;
       var $el = $('[data-level="'+level+'"] table');

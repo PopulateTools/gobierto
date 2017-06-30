@@ -119,7 +119,12 @@ module GobiertoBudgets
     end
 
     def budget_line_breadcrumb(budget_line, year, kind)
-      ([year, kind].concat(budget_line.parent_code.length.downto(1).map{|i| budget_line.parent_code[0..-i]})).concat([budget_line.code]).join('/')
+      parent_code_length = if budget_line.parent_code
+                             budget_line.parent_code.length
+                           else
+                             0
+                           end
+      ([year, kind].concat(parent_code_length.downto(1).map{|i| budget_line.parent_code[0..-i]})).concat([budget_line.code]).join('/')
     end
   end
 end

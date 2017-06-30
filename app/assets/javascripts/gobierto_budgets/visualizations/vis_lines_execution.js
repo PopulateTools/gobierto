@@ -157,7 +157,7 @@ var VisLinesExecution = Class.extend({
       .attr('y', function(d) { return this.y1(d.id); }.bind(this))
       .attr('width', function(d) { return this.x(d.pct_executed); }.bind(this))
       .attr('fill', function(d) {
-        return d.level === 1 ? this.color(this.executionKind) : d3.rgb(this.color(this.executionKind)).opacity(.5);
+        return d.level === 1 ? this.color(this.executionKind) : d3.rgb(this.color(this.executionKind)).brighter(1);
       }.bind(this));
 
     lineGroup.append('text')

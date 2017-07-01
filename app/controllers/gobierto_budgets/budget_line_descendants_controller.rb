@@ -14,7 +14,7 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
     budget_lines = GobiertoBudgets::BudgetLine.where(conditions).all
     @budget_lines = budget_lines
 
-    if @parent_code.length >= 2
+    if @parent_code.length >= 1
       while budget_lines.any?
         children_budget_lines = budget_lines
         budget_lines = []

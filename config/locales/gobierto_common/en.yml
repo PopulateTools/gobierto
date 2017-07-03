@@ -4,5 +4,5 @@ en:
     dynamic_content:
       table_component:
         attachment: Attachment
-        download_attachment: Download attachment
         download: Download
+        download_attachment: Download attachment

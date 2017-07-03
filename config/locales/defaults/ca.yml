@@ -15,7 +15,7 @@ ca:
     - Dv
     - Ds
     abbr_month_names:
-    -
+    - 
     - Gen
     - Feb
     - Mar
@@ -41,7 +41,7 @@ ca:
       long: "%d de %B de %Y"
       short: "%d de %b"
     month_names:
-    -
+    - 
     - Gener
     - Febrer
     - Març
@@ -108,6 +108,7 @@ ca:
     format: "%{attribute} %{message}"
     messages:
       accepted: ha de ser acceptat
+      array_too_short: és massa curt (al menys %{count} element)
       blank: no pot estar en blanc
       blank_for_modules: ha de ser un municipi per que els moduls actius funcionin
       confirmation: no coincideix
@@ -136,7 +137,6 @@ ca:
       too_long: és massa llarg (%{count} caràcters màxim)
       too_short: és massa curt (%{count} caràcters mínim)
       wrong_length: no té la longitud correcta (%{count} caràcters exactament)
-      array_too_short: és massa curt (al menys %{count} element)
     template:
       body: 'Hi ha hagut problemes amb els següents camps:'
       header:

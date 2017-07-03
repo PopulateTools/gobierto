@@ -32,6 +32,7 @@ namespace :gobierto_budgets do
       [
         GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast,
         GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed,
+        GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed_series,
         GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index,
         GobiertoBudgets::SearchEngineConfiguration::Data.index
       ]

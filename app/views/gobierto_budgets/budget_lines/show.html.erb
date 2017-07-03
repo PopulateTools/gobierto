@@ -53,16 +53,8 @@
 <div class="column">
   <div class="budget_line">
 
-    <header data-share>
+    <header>
       <h1><%= title @budget_line.name %></h1>
-
-      <div class="social_links_container" data-share-text="<%= t(@area_name == GobiertoBudgets::BudgetLine::EXPENSE ? '.twitter_text_expense' : '.twitter_text_income', name: @site.place.name, budget_line_name: @budget_line.name, year: @year) %>">
-        <a href="#" class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|XXX"><i class="fa fa-twitter"></i></a>
-        <a href="#" class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|XXX"><i class="fa fa-facebook"></i></a>
-        <% pending do %>
-          <a href="#embed-graph-code" class="code open_modal"><i class="fa fa-code"></i></a>
-        <% end %>
-      </div>
     </header>
 
     <div class="pure-g metric_boxes">

@@ -148,6 +148,9 @@ ca:
           preveure totes les despeses amb precisió absoluta.
         execution_help: L'execució es la quantitat que finalment s'ha gastat sobre
           lo pressupostat inicialment.
+        sort: Ordre
+        higher_execution: Més execució
+        lower_execution: Menys execució
         functional: Funcional
         metric:
           execution:

@@ -91,98 +91,6 @@ var VisLinesExecution = Class.extend({
       .tickPadding(10)
       .ticks(5);
   },
-  _sortHighest: function (target) {
-    d3.select(target).classed('pure-button-active', true);
-    d3.select('.sort-lowest-' + this.executionKind).classed('pure-button-active', false);
-
-    this.nested.sort(function(a, b) { return a.group_pct - b.group_pct; });
-    this.y0.domain(this.nested.map(function(d) { return d.key }))
-      .rangeRound([this.y1.bandwidth(), 0]);
-
-    this.y1.domain(_.flatten(this.nested.map(function(d) {
-      return d.values.map(function(v) { return v.id }); })
-    ));
-
-    this.svg.selectAll('.line-group')
-      .data(this.nested)
-      .transition()
-      .duration(500)
-      .attr('transform', function(d) {
-        return 'translate(' + 0 + ',' + this.y0(d.key) + ')';
-      }.bind(this));
-
-    this.svg.selectAll('.bar')
-      .transition()
-      .delay(function(d, i) { return i * 20;})
-      .duration(500)
-      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
-
-    this.svg.selectAll('.bar-bg')
-      .transition()
-      .delay(function(d, i) { return i * 20;})
-      .duration(500)
-      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
-
-    this.svg.selectAll('.line text')
-      .transition()
-      .delay(function(d, i) { return i * 20;})
-      .duration(500)
-      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
-
-    this.svg.selectAll('.hundred_percent')
-      .transition()
-      .delay(function(d, i) { return i * 20;})
-      .duration(500)
-      .attr('y1', function(d) { return this.y1(d.id); }.bind(this))
-      .attr('y2', function(d) { return this.y1(d.id) + this.y1.bandwidth() }.bind(this) )
-  },
-  _sortLowest: function(target) {
-    d3.select(target).classed('pure-button-active', true);
-    d3.select('.sort-highest-' + this.executionKind).classed('pure-button-active', false);
-
-    // Sort by lowest execution
-    this.nested.sort(function(a, b) { return b.group_pct - a.group_pct; });
-
-    this.y1.domain(_.flatten(this.nested.map(function(d) {
-      return d.values.map(function(v) { return v.id }); })
-    ));
-
-    this.y0.domain(this.nested.map(function(d) { return d.key }))
-      .rangeRound([this.y1.bandwidth(), 0]);
-
-    this.svg.selectAll('.line-group')
-      .data(this.nested)
-      .transition()
-      .duration(500)
-      .attr('transform', function(d) {
-        return 'translate(' + 0 + ',' + (-this.y0(d.key) + this.margin.bottom) + ')';
-      }.bind(this));
-
-    this.svg.selectAll('.bar')
-      .transition()
-      .delay(function(d, i) { return i * 20;})
-      .duration(500)
-      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
-
-    this.svg.selectAll('.bar-bg')
-      .transition()
-      .delay(function(d, i) { return i * 20;})
-      .duration(500)
-      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
-
-    this.svg.selectAll('.line text')
-      .transition()
-      .delay(function(d, i) { return i * 20;})
-      .duration(500)
-      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
-
-    this.svg.selectAll('.hundred_percent')
-      .transition()
-      .delay(function(d, i) { return i * 20;})
-      .duration(500)
-      .attr('y1', function(d) { return this.y1(d.id); }.bind(this))
-      .attr('y2', function(d) { return this.y1(d.id) + this.y1.bandwidth() }.bind(this) )
-  },
   updateRender: function(callback) {
     d3.select('.last_update').text(this.monthFormat(this.updated));
 
@@ -412,6 +320,98 @@ var VisLinesExecution = Class.extend({
         .duration(300)
         .attr('width', function(d) { return this.x(d.pct_executed); }.bind(this));
     }
+  },
+  _sortHighest: function (target) {
+    d3.select(target).classed('active', true);
+    d3.select('.sort-lowest-' + this.executionKind).classed('active', false);
+
+    this.nested.sort(function(a, b) { return a.group_pct - b.group_pct; });
+    this.y0.domain(this.nested.map(function(d) { return d.key }))
+      .rangeRound([this.y1.bandwidth(), 0]);
+
+    this.y1.domain(_.flatten(this.nested.map(function(d) {
+      return d.values.map(function(v) { return v.id }); })
+    ));
+
+    this.svg.selectAll('.line-group')
+      .data(this.nested)
+      .transition()
+      .duration(500)
+      .attr('transform', function(d) {
+        return 'translate(' + 0 + ',' + this.y0(d.key) + ')';
+      }.bind(this));
+
+    this.svg.selectAll('.bar')
+      .transition()
+      .delay(function(d, i) { return i * 20;})
+      .duration(500)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+
+    this.svg.selectAll('.bar-bg')
+      .transition()
+      .delay(function(d, i) { return i * 20;})
+      .duration(500)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+
+    this.svg.selectAll('.line text')
+      .transition()
+      .delay(function(d, i) { return i * 20;})
+      .duration(500)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+
+    this.svg.selectAll('.hundred_percent')
+      .transition()
+      .delay(function(d, i) { return i * 20;})
+      .duration(500)
+      .attr('y1', function(d) { return this.y1(d.id); }.bind(this))
+      .attr('y2', function(d) { return this.y1(d.id) + this.y1.bandwidth() }.bind(this) )
+  },
+  _sortLowest: function(target) {
+    d3.select(target).classed('active', true);
+    d3.select('.sort-highest-' + this.executionKind).classed('active', false);
+
+    // Sort by lowest execution
+    this.nested.sort(function(a, b) { return b.group_pct - a.group_pct; });
+
+    this.y1.domain(_.flatten(this.nested.map(function(d) {
+      return d.values.map(function(v) { return v.id }); })
+    ));
+
+    this.y0.domain(this.nested.map(function(d) { return d.key }))
+      .rangeRound([this.y1.bandwidth(), 0]);
+
+    this.svg.selectAll('.line-group')
+      .data(this.nested)
+      .transition()
+      .duration(500)
+      .attr('transform', function(d) {
+        return 'translate(' + 0 + ',' + (-this.y0(d.key) + this.margin.bottom) + ')';
+      }.bind(this));
+
+    this.svg.selectAll('.bar')
+      .transition()
+      .delay(function(d, i) { return i * 20;})
+      .duration(500)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+
+    this.svg.selectAll('.bar-bg')
+      .transition()
+      .delay(function(d, i) { return i * 20;})
+      .duration(500)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+
+    this.svg.selectAll('.line text')
+      .transition()
+      .delay(function(d, i) { return i * 20;})
+      .duration(500)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+
+    this.svg.selectAll('.hundred_percent')
+      .transition()
+      .delay(function(d, i) { return i * 20;})
+      .duration(500)
+      .attr('y1', function(d) { return this.y1(d.id); }.bind(this))
+      .attr('y2', function(d) { return this.y1(d.id) + this.y1.bandwidth() }.bind(this) )
   },
   _mousemoved: function(d) {
     var coordinates = d3.mouse(this.selectionNode);

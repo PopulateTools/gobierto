@@ -147,6 +147,9 @@ es:
           preveer todos los gastos con precisión absoluta.
         execution_help: La ejecución es la cantidad que finalmente se ha gastado sobre
           lo presupuestado inicialmente.
+        sort: Ordenar
+        higher_execution: Mayor ejecución
+        lower_execution: Menor ejecución
         functional: Functional
         metric:
           execution:

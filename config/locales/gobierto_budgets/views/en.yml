@@ -144,6 +144,9 @@ en:
         economic: economic
         execution_disclaimer: It's very common to have deviatiatons, due to the difficulty
           of foreseeing the expenses.
+        sort: Sort
+        higher_execution: Higher execution
+        lower_execution: Lower execution
         execution_help: The execution is the amount spent based on the planned budget.
         functional: functional
         metric:

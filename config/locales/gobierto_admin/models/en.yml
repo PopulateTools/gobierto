@@ -31,8 +31,8 @@ en:
         logo_file: Logo
         municipality_id: Municipality
         name: Entity ame
-        privacy_page_id: Privacy page
         populate_data_api_token: API token Populate Data
+        privacy_page_id: Privacy page
         title: Site name
       gobierto_admin/user_form:
         email: Email

@@ -62,16 +62,16 @@ ca:
         less: menys
         level_2_category: Categoria nivell 2
         level_3_category: Categoria nivell 3
-        main_budget_lines: Els principals ingressos i despeses del teu ajuntament
-        main_budget_lines_income: Ingressos
-        main_budget_lines_expense: Despeses
-        main_budget_levels_timeline: Compara despeses i ingressos any per any
-        main_budget_levels_per_inhabitant: per habitant
-        main_budget_levels_tooltip_up: Ha pujat un
-        main_budget_levels_tooltip_down: Ha baixat un
-        main_budget_levels_tooltip_article: des de
         main_budget_levels_legend_one: Canvi entre aquest any
         main_budget_levels_legend_two: i el passat
+        main_budget_levels_per_inhabitant: per habitant
+        main_budget_levels_timeline: Compara despeses i ingressos any per any
+        main_budget_levels_tooltip_article: des de
+        main_budget_levels_tooltip_down: Ha baixat un
+        main_budget_levels_tooltip_up: Ha pujat un
+        main_budget_lines: Els principals ingressos i despeses del teu ajuntament
+        main_budget_lines_expense: Despeses
+        main_budget_lines_income: Ingressos
         more: més
         most_interesting_budget_lines: Partides que més t'interessen
         most_interesting_budget_lines_description: Te mostrem algunes de les partides
@@ -94,7 +94,6 @@ ca:
         top_income_category: Categoria
         top_income_value: Quantitat
         total_expenses: Despesa total
-        twitter_text: 'En @gobierto: Pressupostos municipals de %{name} del %{year}'
         visualize: Visualitza les despeses per habitant o el total
     budgets_execution:
       execution_table:
@@ -145,11 +144,11 @@ ca:
         execution: Execució
         summary: Resum
     visualizations:
+      G_custom: Despeses per àrea
       G_economic: En què es gasta
       G_functional: Per a què es gasta
-      G_custom: Despeses per àrea
-      I_economic: En què s'ingressa
       I_custom: Ingressos per àrea
+      I_economic: En què s'ingressa
       category_per_inhabitant: "%{category} per habitant"
       expenses_per_inhabitant: Despesa per habitant
       inhabitant_short: hab

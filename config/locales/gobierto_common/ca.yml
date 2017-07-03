@@ -4,5 +4,5 @@ ca:
     dynamic_content:
       table_component:
         attachment: Adjunt
-        download_attachment: Descarregar adjunt
         download: Descarregar
+        download_attachment: Descarregar adjunt

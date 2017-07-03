@@ -3,16 +3,16 @@ es:
   activerecord:
     attributes:
       gobierto_attachments/attachment:
-        name: Nombre
-        description: Descripción
-        file_name: Nombre del archivo
-        file_digest: Resumen del archivo
-        url: URL
-        file_size: Tamaño del archivo
         current_version: Versión actual
-    models:
-      gobierto_attachments/attachment: Adjunto
+        description: Descripción
+        file_digest: Resumen del archivo
+        file_name: Nombre del archivo
+        file_size: Tamaño del archivo
+        name: Nombre
+        url: URL
     messages:
       gobierto_attachments/attachment:
         already_uploaded: no es único (ya está subido en
         file_too_big: El fichero excede el tamaño máximo
+    models:
+      gobierto_attachments/attachment: Adjunto

@@ -20,8 +20,8 @@ en:
           google_analytics_id: UA-000000-01
           location_name: Burjassot
           name: Ayuntamiento de Burjassot
-          title: Transparencia y Participción
           populate_data_api_token: API Token Populate Data
+          title: Transparencia y Participción
         username: Username
         visibility_level:
           active: Published

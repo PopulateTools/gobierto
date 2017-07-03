@@ -31,8 +31,8 @@ ca:
         logo_file: Logotip
         municipality_id: Municipi
         name: Nom de l'entitat
-        privacy_page_id: Pàgina privacitat
         populate_data_api_token: API token Populate Data
+        privacy_page_id: Pàgina privacitat
         title: Nom del site
       gobierto_admin/user_form:
         email: Email

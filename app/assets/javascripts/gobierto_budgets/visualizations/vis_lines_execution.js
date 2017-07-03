@@ -22,6 +22,10 @@ var VisLinesExecution = Class.extend({
     this.currentYear = new Date().getFullYear();
     this.budgetYear = d3.select('body').attr('data-year');
 
+    this.t = d3.transition()
+      .delay(function(d, i) { return i * 10;})
+      .duration(1000);
+
     this.color = d3.scaleOrdinal()
       .domain(['I', 'G'])
       .range(['#f88f59', '#00909e']);
@@ -87,16 +91,119 @@ var VisLinesExecution = Class.extend({
       .tickPadding(10)
       .ticks(5);
   },
+  _sortHighest: function (target) {
+    d3.select(target).classed('pure-button-active', true);
+    d3.select('.sort-lowest-' + this.executionKind).classed('pure-button-active', false);
+
+    this.nested.sort(function(a, b) { return a.group_pct - b.group_pct; });
+    this.y0.domain(this.nested.map(function(d) { return d.key }))
+      .rangeRound([this.y1.bandwidth(), 0]);
+
+    this.y1.domain(_.flatten(this.nested.map(function(d) {
+      return d.values.map(function(v) { return v.id }); })
+    ));
+
+    this.svg.selectAll('.line-group')
+      .data(this.nested)
+      .transition()
+      .duration(500)
+      .attr('transform', function(d) {
+        return 'translate(' + 0 + ',' + this.y0(d.key) + ')';
+      }.bind(this));
+
+    this.svg.selectAll('.bar')
+      .transition()
+      .delay(function(d, i) { return i * 20;})
+      .duration(500)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+
+    this.svg.selectAll('.bar-bg')
+      .transition()
+      .delay(function(d, i) { return i * 20;})
+      .duration(500)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+
+    this.svg.selectAll('.line text')
+      .transition()
+      .delay(function(d, i) { return i * 20;})
+      .duration(500)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+
+    this.svg.selectAll('.hundred_percent')
+      .transition()
+      .delay(function(d, i) { return i * 20;})
+      .duration(500)
+      .attr('y1', function(d) { return this.y1(d.id); }.bind(this))
+      .attr('y2', function(d) { return this.y1(d.id) + this.y1.bandwidth() }.bind(this) )
+  },
+  _sortLowest: function(target) {
+    d3.select(target).classed('pure-button-active', true);
+    d3.select('.sort-highest-' + this.executionKind).classed('pure-button-active', false);
+
+    // Sort by lowest execution
+    this.nested.sort(function(a, b) { return b.group_pct - a.group_pct; });
+
+    this.y1.domain(_.flatten(this.nested.map(function(d) {
+      return d.values.map(function(v) { return v.id }); })
+    ));
+
+    this.y0.domain(this.nested.map(function(d) { return d.key }))
+      .rangeRound([this.y1.bandwidth(), 0]);
+
+    this.svg.selectAll('.line-group')
+      .data(this.nested)
+      .transition()
+      .duration(500)
+      .attr('transform', function(d) {
+        return 'translate(' + 0 + ',' + (-this.y0(d.key) + this.margin.bottom) + ')';
+      }.bind(this));
+
+    this.svg.selectAll('.bar')
+      .transition()
+      .delay(function(d, i) { return i * 20;})
+      .duration(500)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+
+    this.svg.selectAll('.bar-bg')
+      .transition()
+      .delay(function(d, i) { return i * 20;})
+      .duration(500)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+
+    this.svg.selectAll('.line text')
+      .transition()
+      .delay(function(d, i) { return i * 20;})
+      .duration(500)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+
+    this.svg.selectAll('.hundred_percent')
+      .transition()
+      .delay(function(d, i) { return i * 20;})
+      .duration(500)
+      .attr('y1', function(d) { return this.y1(d.id); }.bind(this))
+      .attr('y2', function(d) { return this.y1(d.id) + this.y1.bandwidth() }.bind(this) )
+  },
   updateRender: function(callback) {
     d3.select('.last_update').text(this.monthFormat(this.updated));
 
     this.nested = d3.nest()
       .key(function(d) { return d.parent_id;})
       .sortValues(function(a, b) {
-        // If it's from the first level make it the first one, then sort by execution
-        return a.level === 1 ? b.level - a.level : a.pct_executed - b.pct_executed
+        // Parent lines are the first for each group, and then child lines are sorted by execution rate
+        return a.level === 1 ? b.level - a.level : a.pct_executed - b.pct_executed;
       })
-      .entries(this.data.lines)
+      .entries(this.data.lines);
+
+    // Get parent line values for each group to sort them later
+    this.nested.forEach(function(d) {
+      d.group_pct = d.values.filter(function(d) { return d.level == 1;}).map(function(d) { return d.pct_executed;})[0];
+      d.group_executed = d.values.filter(function(d) { return d.level == 1;}).map(function(d) { return d.executed;})[0];
+
+      return d;
+    });
+
+    // Sort by execution
+    this.nested.sort(function(a ,b) { return a.group_pct - b.group_pct;});
 
     /* Extent of the execution */
     this.x.domain([0, d3.max(this.data.lines, function(d) { return d.pct_executed;})]);
@@ -113,7 +220,7 @@ var VisLinesExecution = Class.extend({
     /* A time scale which spreads along the whole chart */
     this.z.domain([this.parseTime(this.currentYear + '-01-01'), this.parseTime(this.currentYear + '-12-31')]);
 
-    var bars = this.svg.selectAll('g')
+    this.bars = this.svg.selectAll('g')
       .data(this.nested)
       .enter()
       .append('g')
@@ -122,7 +229,7 @@ var VisLinesExecution = Class.extend({
         return 'translate(' + 0 + ',' + this.y0(d.key) + ')';
       }.bind(this));
 
-    var lineGroup = bars.selectAll('g')
+    var lineGroup = this.bars.selectAll('g')
       .data(function(d) { return d.values;} )
       .enter()
       .append('g')
@@ -236,7 +343,19 @@ var VisLinesExecution = Class.extend({
       .classed('hundred_percent', true);
 
     $('#show-absolute-' + this.executionKind).on('change', function (e) {
+      $('#show-absolute-' + this.executionKind).attr('data-checked', e.target.checked);
       this._update(e.target.checked);
+    }.bind(this));
+
+    // Trigger button updates
+    $('.sort-highest-' + this.executionKind).on('click', function (e) {
+      // var orderBy = eval(d3.select('#show-absolute-' + this.executionKind).attr('data-checked')) ? 'group_executed' : 'group_pct';
+      this._sortHighest(e.target);
+    }.bind(this));
+
+    $('.sort-lowest-' + this.executionKind).on('click', function (e) {
+      // var orderBy = eval(d3.select('#show-absolute-' + this.executionKind).attr('data-checked')) ? 'group_executed' : 'group_pct';
+      this._sortLowest(e.target);
     }.bind(this));
   },
   _update: function(checked) {

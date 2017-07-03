@@ -51,9 +51,15 @@
     <div class="pure-g">
       <div class="pure-u-1">
         <h2 class="with_description"><%= t('.vis.expenses.title') %></h2>
+        <div class="ib">Ordenar
+          <div class="pure-button-group ib" role="group">
+            <button class="pure-button pure-button-active sort-highest-G">Mayor ejecución</button>
+            <button class="pure-button sort-lowest-G">Menor ejecución</button>
+          </div>
+        </div>
 
         <div class="option pure-1-6 f_right">
-          <input type="checkbox" name="show-absolute" id="show-absolute-G">
+          <input type="checkbox" name="show-absolute" id="show-absolute-G" data-checked="false">
           <label for="show-absolute-G">
             <span></span>
             <%= t('.vis.absolute') %>
@@ -64,9 +70,15 @@
       </div>
       <div class="pure-u-1">
         <h2 class="with_description"><%= t('.vis.income.title') %></h2>
+        <div class="ib">Ordenar
+          <div class="pure-button-group ib" role="group">
+            <button class="pure-button pure-button-active sort-highest-I">Mayor ejecución</button>
+            <button class="pure-button sort-lowest-I">Menor ejecución</button>
+          </div>
+        </div>
 
         <div class="option pure-1-6 f_right">
-          <input type="checkbox" name="show-absolute" id="show-absolute-I">
+          <input type="checkbox" name="show-absolute" id="show-absolute-I" data-checked="false">
           <label for="show-absolute-I">
             <span></span>
             <%= t('.vis.absolute') %>

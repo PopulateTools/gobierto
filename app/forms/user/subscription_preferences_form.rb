@@ -51,14 +51,14 @@ class User::SubscriptionPreferencesForm
     modules.each do |module_name|
       next if module_name.blank?
 
-      gobierto_module = module_name.classify.pluralize.constantize
+      gobierto_module = module_name.camelize.constantize
       @user.subscribe_to!(gobierto_module, site)
     end
 
     (site.configuration.modules.map(&:underscore) - modules).each do |module_name|
       next if module_name.blank?
 
-      gobierto_module = module_name.classify.pluralize.constantize
+      gobierto_module = module_name.camelize.constantize
       @user.unsubscribe_from!(gobierto_module, site)
     end
   end

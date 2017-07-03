@@ -25,10 +25,12 @@ fixtures_to_load = [
   "gobierto_participation/process_stages",
   "gobierto_participation/issues",
   "gobierto_participation/areas",
+  "gobierto_common/collection_items",
 ]
 
 ENV["FIXTURES"] = fixtures_to_load.join(",")
 Rake::Task["db:fixtures:load"].invoke
+::GobiertoCommon::ContentBlock.reset_column_information
 Rake::Task["gobierto_people:counter_cache:reset"].invoke
 
 GobiertoPeople::PoliticalGroup.reset_position!

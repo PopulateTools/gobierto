@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170703152748) do
+ActiveRecord::Schema.define(version: 20170703154336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,19 @@ ActiveRecord::Schema.define(version: 20170703152748) do
     t.index ["site_id", "document_number_digest", "date_of_birth"], name: "index_census_items_on_site_id_and_doc_number_and_date_of_birth"
     t.index ["site_id", "import_reference"], name: "index_census_items_on_site_id_and_import_reference"
     t.index ["site_id"], name: "index_census_items_on_site_id"
+  end
+
+  create_table "collection_items", force: :cascade do |t|
+    t.bigint "site_id"
+    t.string "item_type"
+    t.bigint "item_id"
+    t.string "container_type"
+    t.bigint "container_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["container_type", "container_id"], name: "index_collection_items_on_container_type_and_container_id"
+    t.index ["item_type", "item_id"], name: "index_collection_items_on_item_type_and_item_id"
+    t.index ["site_id"], name: "index_collection_items_on_site_id"
   end
 
   create_table "content_block_fields", id: :serial, force: :cascade do |t|

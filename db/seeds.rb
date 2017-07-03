@@ -20,7 +20,11 @@ fixtures_to_load = [
   "gobierto_people/political_groups",
   "gobierto_cms/pages",
   "gobierto_attachments/attachments",
-  "gobierto_attachments/attachings"
+  "gobierto_attachments/attachings",
+  "gobierto_participation/processes",
+  "gobierto_participation/process_stages",
+  "gobierto_participation/issues",
+  "gobierto_participation/areas",
 ]
 
 ENV["FIXTURES"] = fixtures_to_load.join(",")

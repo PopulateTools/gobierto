@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170622125313) do
+ActiveRecord::Schema.define(version: 20170703152748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -388,6 +388,58 @@ ActiveRecord::Schema.define(version: 20170622125313) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["site_id"], name: "index_gp_settings_on_site_id"
+  end
+
+  create_table "gpart_areas", force: :cascade do |t|
+    t.bigint "site_id"
+    t.jsonb "name_translations"
+    t.jsonb "slug_translations"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name_translations"], name: "index_gpart_areas_on_name_translations", using: :gin
+    t.index ["site_id"], name: "index_gpart_areas_on_site_id"
+    t.index ["slug_translations"], name: "index_gpart_areas_on_slug_translations", using: :gin
+  end
+
+  create_table "gpart_issues", force: :cascade do |t|
+    t.bigint "site_id"
+    t.jsonb "name_translations"
+    t.jsonb "slug_translations"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name_translations"], name: "index_gpart_issues_on_name_translations", using: :gin
+    t.index ["site_id"], name: "index_gpart_issues_on_site_id"
+    t.index ["slug_translations"], name: "index_gpart_issues_on_slug_translations", using: :gin
+  end
+
+  create_table "gpart_process_stages", force: :cascade do |t|
+    t.bigint "process_id"
+    t.jsonb "title_translations"
+    t.jsonb "slug_translations"
+    t.date "starts"
+    t.date "ends"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["process_id"], name: "index_gpart_process_stages_on_process_id"
+    t.index ["slug_translations"], name: "index_gpart_process_stages_on_slug_translations", using: :gin
+    t.index ["title_translations"], name: "index_gpart_process_stages_on_title_translations", using: :gin
+  end
+
+  create_table "gpart_processes", force: :cascade do |t|
+    t.bigint "site_id"
+    t.string "slug", default: "", null: false
+    t.integer "visibility_level", default: 0, null: false
+    t.jsonb "title_translations"
+    t.jsonb "body_translations"
+    t.jsonb "slug_translations"
+    t.date "starts"
+    t.date "ends"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["body_translations"], name: "index_gpart_processes_on_body_translations", using: :gin
+    t.index ["site_id"], name: "index_gpart_processes_on_site_id"
+    t.index ["slug_translations"], name: "index_gpart_processes_on_slug_translations", using: :gin
+    t.index ["title_translations"], name: "index_gpart_processes_on_title_translations", using: :gin
   end
 
   create_table "sites", id: :serial, force: :cascade do |t|

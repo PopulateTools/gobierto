@@ -144,6 +144,7 @@ es:
         economic: Económica
         execution_disclaimer: Es normal que haya desviaciones ya que es imposible
           preveer todos los gastos con precisión absoluta.
+        tooltip_disclaimer: <strong>Esta es una aproximación</strong>. <br /> A lo largo del año surgen imprevistos que cambian la cantidad o la finalidad de los gastos o ingresos.
         execution_help: La ejecución es la cantidad que finalmente se ha gastado sobre
           lo presupuestado inicialmente.
         sort: Ordenar

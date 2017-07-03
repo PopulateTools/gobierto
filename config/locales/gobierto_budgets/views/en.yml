@@ -143,6 +143,7 @@ en:
         economic: economic
         execution_disclaimer: It's very common to have deviatiatons, due to the difficulty
           of foreseeing the expenses.
+        tooltip_disclaimer: <strong>This is approximate</strong>. <br /> Throughout the year there are unforeseen events that change the amount or purpose of the expenses or income.
         sort: Sort
         higher_execution: Higher execution
         lower_execution: Lower execution

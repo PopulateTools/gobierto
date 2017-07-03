@@ -145,6 +145,7 @@ ca:
         economic: Econòmica
         execution_disclaimer: Es normal que hi haja desviacions ja que és impossible
           preveure totes les despeses amb precisió absoluta.
+        tooltip_disclaimer: <strong>Aquesta és una aproximació</strong>. <br /> Al llarg de l'any sorgeixen imprevistos que canvien la quantitat o la finalitat de les despeses o ingressos.
         execution_help: L'execució es la quantitat que finalment s'ha gastat sobre
           lo pressupostat inicialment.
         sort: Ordre

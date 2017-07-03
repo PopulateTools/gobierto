@@ -73,7 +73,7 @@ var VisLinesExecution = Class.extend({
     // Scales & Ranges
     this.x = d3.scaleLinear().range([0, this.width]);
     this.z = d3.scaleTime().range([0, this.width]);
-    this.y0 = d3.scaleBand().padding(0.2);
+    this.y0 = d3.scaleBand().padding(10);
     this.y1 = d3.scaleBand().rangeRound([this.height, 0]).paddingInner(0.1);
 
     // Create main elements
@@ -230,11 +230,39 @@ var VisLinesExecution = Class.extend({
         .attr('y2', this.height + this.margin.bottom)
         .attr('stroke', 'black');
 
-      yearProgress.append('text')
-      .attr('dy', -40)
-      .attr('dx', 25)
-      .text(this.monthFormat(this.updated));
-    // }
+      // Tooltip group
+      var hovered = yearProgress.append('g')
+        .attr('class', 'tooltiped')
+        .attr('original-title', I18n.t('gobierto_budgets.budgets_execution.index.tooltip_disclaimer'))
+        .style('cursor', 'pointer');
+
+      hovered.append('text')
+        .attr('class', 'legend-text')
+        .attr('dx', 25)
+        .attr('dy', -40)
+        .text(this.monthFormat(this.updated));
+
+      // Info icon
+      var info = hovered.append('g')
+        .attr('fill-rule', 'evenodd')
+        .attr('transform', 'translate(' + (d3.select('.legend-text').node().getBoundingClientRect().width + 30) + ',' + -50 + ')');
+
+      info.append('path')
+        .attr('fill', '#00909E')
+        .attr('d', 'M8.5 9.7V8.5s0-.3-.2-.3h-.8v-4s0-.2-.2-.2H4.8c-.2 0-.3 0-.3.2v1.3s0 .2.3.2h.7v2.5h-.7c-.2 0-.3.2-.3.3v1.2c0 .2 0 .3.3.3h3.5s.2 0 .2-.3zm-1-7V1.5s0-.3-.2-.3H5.8c-.2 0-.3.2-.3.3v1.2c0 .2 0 .3.3.3h1.5s.2 0 .2-.3zm5 3.3c0 3.3-2.7 6-6 6s-6-2.7-6-6 2.7-6 6-6 6 2.7 6 6z');
+
+      info.append('path')
+        .attr('fill', '#fff')
+        .attr('d', 'M7.3 3H5.7s-.2 0-.2-.2V1.4s0-.2.2-.2h1.6s.2 0 .2.2v1.4s0 .2-.2.2zM7.3 5.7H4.7s-.2 0-.2-.2V4.2s0-.2.2-.2h2.6s.2 0 .2.2v1.3s0 .2-.2.2z');
+
+      info.append('path')
+        .attr('fill', '#fff')
+        .attr('d', 'M5.7 10h1.6s.2 0 .2-.2V5.6s0-.2-.2-.2H5.7s-.2 0-.2.2v4.2s0 .2.2.2z');
+
+      info.append('path')
+        .attr('fill', '#fff')
+        .attr('d', 'M8.6 9.8V8.4s0-.2-.2-.2H4.7s-.2 0-.2.2v1.4s0 .2.2.2h3.7s.2 0 .2-.2');
+      // }
 
     this.svg.append('g')
       .attr('class', 'x axis')
@@ -326,7 +354,10 @@ var VisLinesExecution = Class.extend({
     d3.select('.sort-lowest-' + this.executionKind).classed('active', false);
 
     this.nested.sort(function(a, b) { return a.group_pct - b.group_pct; });
-    this.y0.domain(this.nested.map(function(d) { return d.key }))
+
+    this.y0.domain(this.nested.map(function(d) {
+        return d.key;
+      }))
       .rangeRound([this.y1.bandwidth(), 0]);
 
     this.y1.domain(_.flatten(this.nested.map(function(d) {
@@ -343,28 +374,24 @@ var VisLinesExecution = Class.extend({
 
     this.svg.selectAll('.bar')
       .transition()
-      .delay(function(d, i) { return i * 20;})
-      .duration(500)
-      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+      .duration(300)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this));
 
     this.svg.selectAll('.bar-bg')
       .transition()
-      .delay(function(d, i) { return i * 20;})
-      .duration(500)
-      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+      .duration(300)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this));
 
     this.svg.selectAll('.line text')
       .transition()
-      .delay(function(d, i) { return i * 20;})
-      .duration(500)
-      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+      .duration(300)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this));
 
     this.svg.selectAll('.hundred_percent')
       .transition()
-      .delay(function(d, i) { return i * 20;})
-      .duration(500)
+      .duration(300)
       .attr('y1', function(d) { return this.y1(d.id); }.bind(this))
-      .attr('y2', function(d) { return this.y1(d.id) + this.y1.bandwidth() }.bind(this) )
+      .attr('y2', function(d) { return this.y1(d.id) + this.y1.bandwidth() }.bind(this) );
   },
   _sortLowest: function(target) {
     d3.select(target).classed('active', true);
@@ -383,35 +410,31 @@ var VisLinesExecution = Class.extend({
     this.svg.selectAll('.line-group')
       .data(this.nested)
       .transition()
-      .duration(500)
+      .duration(300)
       .attr('transform', function(d) {
         return 'translate(' + 0 + ',' + (-this.y0(d.key) + this.margin.bottom) + ')';
       }.bind(this));
 
     this.svg.selectAll('.bar')
       .transition()
-      .delay(function(d, i) { return i * 20;})
-      .duration(500)
-      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+      .duration(300)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this));
 
     this.svg.selectAll('.bar-bg')
       .transition()
-      .delay(function(d, i) { return i * 20;})
-      .duration(500)
-      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+      .duration(300)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this));
 
     this.svg.selectAll('.line text')
       .transition()
-      .delay(function(d, i) { return i * 20;})
-      .duration(500)
-      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+      .duration(300)
+      .attr('y', function(d) { return this.y1(d.id); }.bind(this));
 
     this.svg.selectAll('.hundred_percent')
       .transition()
-      .delay(function(d, i) { return i * 20;})
-      .duration(500)
+      .duration(300)
       .attr('y1', function(d) { return this.y1(d.id); }.bind(this))
-      .attr('y2', function(d) { return this.y1(d.id) + this.y1.bandwidth() }.bind(this) )
+      .attr('y2', function(d) { return this.y1(d.id) + this.y1.bandwidth() }.bind(this) );
   },
   _mousemoved: function(d) {
     var coordinates = d3.mouse(this.selectionNode);

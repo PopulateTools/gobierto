@@ -152,6 +152,8 @@ es:
         higher_execution: Mayor ejecución
         lower_execution: Menor ejecución
         functional: Functional
+        functional_button: En qué se gasta
+        economic_button: Para qué se gasta
         metric:
           execution:
             title: Ejecución

@@ -40,8 +40,6 @@ var VisLinesExecution = Class.extend({
     this.tooltip = d3.select(this.container)
       .append('div')
       .attr('class', 'tooltip');
-
-    d3.select(window).on('resize.' + this.container, this._resize.bind(this));
   },
   getData: function() {
     this.dataUrl = '/api/data/widget/budget_execution_comparison/' + this.placeId + '/' + this.budgetYear + '/' + this.executionKind + '/' + this.budgetCategory + '.json';
@@ -152,7 +150,6 @@ var VisLinesExecution = Class.extend({
       .attr('class', 'bar-bg')
       .attr('x', 0)
       .attr('height', this.y1.bandwidth() )
-      // .attr('height', function(d) { return d.level === 1 ? this.y1.bandwidth() : 30 ;}.bind(this))
       .attr('y', function(d) { return this.y1(d.id); }.bind(this))
       .attr('width', this.x(this.x.domain()[1]))
       .attr('fill', '#efefef');
@@ -181,7 +178,12 @@ var VisLinesExecution = Class.extend({
       }.bind(this));
 
     /* Line names */
-    lineGroup.append('text')
+    lineGroup.append('a')
+      .attr('xlink:href', function(d) {
+        return '/presupuestos/partidas/' + d.id + '/' + this.budgetYear + '/' + this.budgetCategory + '/' + this.executionKind;
+      }.bind(this))
+      .attr('target', '_top')
+      .append('text')
       .attr('x', 0)
       .attr('y', function(d) { return this.y1(d.id); }.bind(this))
       .attr('dy', 18)
@@ -207,7 +209,7 @@ var VisLinesExecution = Class.extend({
       .text(I18n.t('gobierto_budgets.budgets_execution.index.vis.percent'));
 
     /* Year progress line */
-    // if (this.budgetYear === this.currentYear) {
+    if (this.budgetYear === this.currentYear) {
       var yearProgress = this.svg.append('g')
         .attr('class', 'year_progress')
         .attr('transform', 'translate(' + this.z(this.updated) + ',' + 0 + ')');
@@ -262,7 +264,7 @@ var VisLinesExecution = Class.extend({
       info.append('path')
         .attr('fill', '#fff')
         .attr('d', 'M8.6 9.8V8.4s0-.2-.2-.2H4.7s-.2 0-.2.2v1.4s0 .2.2.2h3.7s.2 0 .2-.2');
-      // }
+    }
 
     this.svg.append('g')
       .attr('class', 'x axis')
@@ -278,19 +280,18 @@ var VisLinesExecution = Class.extend({
       .filter(function(d) { return d === 100;})
       .classed('hundred_percent', true);
 
+    /* Switch to absolute values */
     $('#show-absolute-' + this.executionKind).on('change', function (e) {
       $('#show-absolute-' + this.executionKind).attr('data-checked', e.target.checked);
       this._update(e.target.checked);
     }.bind(this));
 
-    // Trigger button updates
+    /* Trigger sorting functions */
     $('.sort-highest-' + this.executionKind).on('click', function (e) {
-      // var orderBy = eval(d3.select('#show-absolute-' + this.executionKind).attr('data-checked')) ? 'group_executed' : 'group_pct';
       this._sortHighest(e.target);
     }.bind(this));
 
     $('.sort-lowest-' + this.executionKind).on('click', function (e) {
-      // var orderBy = eval(d3.select('#show-absolute-' + this.executionKind).attr('data-checked')) ? 'group_executed' : 'group_pct';
       this._sortLowest(e.target);
     }.bind(this));
   },
@@ -452,9 +453,6 @@ var VisLinesExecution = Class.extend({
   _mouseleft: function(d) {
     this.tooltip.style('display', 'none');
   },
-  _renderAxis: function() {
-
-  },
   _width: function() {
     return parseInt(d3.select(this.container).style('width'));
   },
@@ -462,7 +460,4 @@ var VisLinesExecution = Class.extend({
     // Height depends on line number
     return this.isMobile ? 200 : this.data.lines.length * 33;
   },
-  _resize: function() {
-
-  }
 });

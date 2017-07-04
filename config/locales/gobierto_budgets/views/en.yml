@@ -149,6 +149,8 @@ en:
         lower_execution: Lower execution
         execution_help: The execution is the amount spent based on the planned budget.
         functional: functional
+        functional_button: In what is spent
+        economic_button: To do what is spent
         metric:
           execution:
             title: Execution

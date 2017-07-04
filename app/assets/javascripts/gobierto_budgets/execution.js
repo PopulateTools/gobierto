@@ -13,8 +13,21 @@ $( document ).on('turbolinks:load', function() {
   })
 
   if ($('.expenses_execution').length) {
+    // Render functional data by default, let the user switch between datasets
     var vis_expenses_execution = new VisLinesExecution('.expenses_execution', 'G', 'functional')
     vis_expenses_execution.render();
+
+    $('.expenses_switcher').on('click', function (e) {
+      var economicKind = $(e.target).attr('data-toggle');
+
+      $('.expenses_execution').html('');
+
+      $('.expenses_switcher').removeClass('active');
+      $(e.target).addClass('active');
+
+      var vis_expenses_execution = new VisLinesExecution('.expenses_execution', 'G', economicKind)
+      vis_expenses_execution.render();
+    });
 
     $('.expenses_execution .tooltiped').tipsy({
       gravity: 's',

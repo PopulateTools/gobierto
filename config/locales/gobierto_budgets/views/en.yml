@@ -160,6 +160,7 @@ en:
             message: higher than in
         vis:
           tooltip: It has been executed by a
+          tooltip_budgeted: Budget
           lines_title: Budget lines
           percent: "% of progress"
           absolute: Execution in euros

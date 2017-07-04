@@ -163,6 +163,7 @@ ca:
             message: més que en
         vis:
           tooltip: S'ha executat un
+          tooltip_budgeted: Pressupostat
           lines_title: Partides pressupuestàries
           percent: "% de progrés"
           absolute: Execució en euros

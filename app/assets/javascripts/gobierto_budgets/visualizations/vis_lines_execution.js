@@ -62,15 +62,18 @@ var VisLinesExecution = Class.extend({
   },
   setScales: function(callback) {
     // Chart dimensions
-    this.margin = {top: 25, right: 0, bottom: 35, left: 385};
+    this.margin = {top: 25, right: 0, bottom: 50, left: 385};
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
+    // Triggered if a budget line's execution is over 500%
+    this.BigDeviation = d3.max(this.data.lines, function(d) { return d.pct_executed;}) > 500;
+
     // Scales & Ranges
-    this.x = d3.scaleLinear().range([0, this.width]);
+    this.x = this.BigDeviation ? d3.scaleLog().range([0.1, this.width]) : d3.scaleLinear().range([0, this.width]).clamp(true);
     this.z = d3.scaleTime().range([0, this.width]);
-    this.y0 = d3.scaleBand().padding(10);
-    this.y1 = d3.scaleBand().rangeRound([this.height, 0]).paddingInner(0.1);
+    this.y0 = d3.scaleBand().rangeRound([this.height, 0]).paddingInner(0.5);
+    this.y1 = d3.scaleBand().rangeRound([this.height, 0]).paddingInner(0.5).paddingOuter(0);
 
     // Create main elements
     this.svg = d3.select(this.container)
@@ -85,7 +88,7 @@ var VisLinesExecution = Class.extend({
       .tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d) + '%'}.bind(this))
       .tickSize(-this.height - this.margin.bottom)
       .tickPadding(10)
-      .ticks(5);
+      .ticks(this.BigDeviation ? 4 : 5);
   },
   updateRender: function(callback) {
     d3.select('.last_update').text(this.dayFormat(this.updated));
@@ -110,16 +113,15 @@ var VisLinesExecution = Class.extend({
     this.nested.sort(function(a ,b) { return a.group_pct - b.group_pct;});
 
     /* Extent of the execution */
-    this.x.domain([0, d3.max(this.data.lines, function(d) { return d.pct_executed;})]);
+    this.x.domain([0.1, d3.max(this.data.lines, function(d) { return d.pct_executed;})]);
+
+    /* Number of lines */
+    this.y0.domain(this.nested.map(function(d) { return d.key }));
 
     /* Get the id of every line */
     this.y1.domain(_.flatten(this.nested.map(function(d) {
       return d.values.map(function(v) { return v.id }); })
     ));
-
-    /* Number of lines */
-    this.y0.domain(this.nested.map(function(d) { return d.key }))
-      .rangeRound([this.y1.bandwidth(), 0]);
 
     /* A time scale which spreads along the whole chart */
     this.z.domain([this.parseTime(this.currentYear + '-01-01'), this.parseTime(this.currentYear + '-12-31')]);
@@ -129,8 +131,8 @@ var VisLinesExecution = Class.extend({
       .enter()
       .append('g')
       .attr('class', 'line-group')
-      .attr('transform', function(d) {
-        return 'translate(' + 0 + ',' + this.y0(d.key) + ')';
+      .attr('transform', function(d, i) {
+        return 'translate(' + 0 + ',' + this.y0(d.key) / 14 + ')';
       }.bind(this));
 
     var lineGroup = this.bars.selectAll('a')
@@ -184,7 +186,7 @@ var VisLinesExecution = Class.extend({
       .append('text')
       .attr('x', 0)
       .attr('y', function(d) { return this.y1(d.id); }.bind(this))
-      .attr('dy', 18)
+      .attr('dy', 12)
       .attr('dx', -10)
       .attr('text-anchor', 'end')
       .style('font-size', function(d) { return d.level === 1 ? '1rem' : '0.875rem';})
@@ -276,7 +278,7 @@ var VisLinesExecution = Class.extend({
 
     /* Remove first tick */
     d3.selectAll('.x.axis .tick')
-      .filter(function(d) { return d === 0;})
+      .filter(function(d) { return d === 0 || d === 0.1;})
       .remove();
 
     /* Style 100% completion */
@@ -306,14 +308,14 @@ var VisLinesExecution = Class.extend({
     }.bind(this));
   },
   _update: function(valueKind, symbol) {
-    this.xAxis.tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d) + symbol}.bind(this))
-    this.x.domain([0, d3.max(this.data.lines, function(d) { return d[valueKind];})]);
+    this.xAxis.tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d) + symbol}.bind(this));
+    this.x.domain([0.1, d3.max(this.data.lines, function(d) { return d[valueKind];})]);
 
     this.svg.select('.x.axis')
       .call(this.xAxis);
 
     this.svg.selectAll('.x.axis .tick')
-      .filter(function(d) { return d === 0;})
+      .filter(function(d) { return valueKind === 'executed' ? d === 0 || d === 0.1 || d === 1 : d === 0 || d === 0.1;})
       .remove();
 
     this.svg.selectAll('.x.axis .tick')
@@ -335,10 +337,7 @@ var VisLinesExecution = Class.extend({
   _sortValues: function (target, sortKind) {
     sortKind === 'highest' ? this.nested.sort(function(a, b) { return a.group_pct - b.group_pct; }) : this.nested.sort(function(a, b) { return b.group_pct - a.group_pct; })
 
-    this.y0.domain(this.nested.map(function(d) {
-        return d.key;
-      }))
-      .rangeRound([this.y1.bandwidth(), 0]);
+    this.y0.domain(sortKind === 'highest' ?  this.nested.map(function(d) { return d.key; }) : this.nested.map(function(d) { return d.key; }).reverse());
 
     this.y1.domain(_.flatten(this.nested.map(function(d) {
       return d.values.map(function(v) { return v.id }); })
@@ -349,7 +348,7 @@ var VisLinesExecution = Class.extend({
       .transition()
       .duration(500)
       .attr('transform', function(d) {
-        return sortKind === 'highest' ? 'translate(' + 0 + ',' + this.y0(d.key) + ')' : 'translate(' + 0 + ',' + (-this.y0(d.key) + this.margin.bottom) + ')';
+        return 'translate(' + 0 + ',' + this.y0(d.key) / 14 + ')';
       }.bind(this));
 
     this.svg.selectAll('.bar')
@@ -383,7 +382,7 @@ var VisLinesExecution = Class.extend({
       .style('top', (y + 40) + 'px');
 
     this.tooltip.html('<div class="line-name"><strong>' + d['name_' + this.localeFallback] + '</strong></div> \
-                       <div class="line-name">Presupuesto: ' + accounting.formatMoney(d.budget, "€", 0, ".", ",") + '</div> \
+                       <div class="line-name">' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip_budgeted')  + ': ' + accounting.formatMoney(d.budget, "€", 0, ".", ",") + '</div> \
                        <div>' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip') + ' ' + this.pctFormat(d.pct_executed) + '%</div>');
   },
   _mouseleft: function(d) {
@@ -393,7 +392,9 @@ var VisLinesExecution = Class.extend({
     return parseInt(d3.select(this.container).style('width'));
   },
   _height: function() {
-    // Height depends on line number
-    return this.data.lines.length * 33;
+    // Height depends on number of lines
+    var groupPadding = this.data.lines.filter(function (d) { return d.level === 1}).length * 10;
+
+    return (this.data.lines.length * 30) + groupPadding;
   },
 });

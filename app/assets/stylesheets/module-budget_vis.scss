@@ -311,6 +311,7 @@
   .expenses_execution,
   .income_execution {
     position: relative;
+    min-height: 500px;
 
     svg {
       overflow: visible;
@@ -323,7 +324,7 @@
       }
     }
     .bar-group:hover {
-      stroke: black;
+      stroke: black !important;
     }
     .y.axis {
       font-size: 1rem;

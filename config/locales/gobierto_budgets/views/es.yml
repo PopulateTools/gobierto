@@ -163,6 +163,7 @@ es:
             message: más que en
         vis:
           tooltip: Se ha ejecutado un
+          tooltip_budgeted: Presupuestado
           lines_title: Partidas presupuestarias
           percent: "% de progreso"
           absolute: Ejecución en euros

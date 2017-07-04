@@ -1,4 +1,6 @@
 function limit_length(input, length) {
+  if(input === null)
+    return "";
   return input.length > length ? input.substring(0, length - 3) + '...' : input
 }
 

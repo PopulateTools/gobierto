@@ -49,6 +49,26 @@ $( document ).on('turbolinks:load', function() {
     var vis_income_execution = new VisLinesExecution('.income_execution', 'I', 'economic')
     vis_income_execution.render();
 
+    $('.income_switcher').on('click', function (e) {
+      var economicKind = $(e.target).attr('data-toggle');
+
+      $('.income_execution').html('');
+
+      $('.income_switcher').removeClass('active');
+      $(e.target).addClass('active');
+
+      // Reset every button
+      $('.sort-I').removeClass('active');
+      $('.value-switcher-I').removeClass('active');
+
+      $(".sort-I[data-toggle='highest']").addClass('active');
+      $(".value-switcher-I[data-toggle='pct_executed']").addClass('active');
+
+      // Render the new category
+      var vis_expenses_execution = new VisLinesExecution('.income_execution', 'I', economicKind)
+      vis_expenses_execution.render();
+    });
+
     $('.income_execution .tooltiped').tipsy({
       gravity: 's',
       trigger: 'hover',

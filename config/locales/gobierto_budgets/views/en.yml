@@ -151,6 +151,7 @@ en:
         functional: functional
         functional_button: In what is spent
         economic_button: To do what is spent
+        custom_button: Custom
         metric:
           execution:
             title: Execution

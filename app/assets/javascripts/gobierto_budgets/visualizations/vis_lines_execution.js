@@ -88,7 +88,7 @@ var VisLinesExecution = Class.extend({
       .tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d) + '%'}.bind(this))
       .tickSize(-this.height - this.margin.bottom)
       .tickPadding(10)
-      .ticks(this.BigDeviation ? 4 : 5);
+      .ticks(this.BigDeviation ? 3 : 5);
   },
   updateRender: function(callback) {
     d3.select('.last_update').text(this.dayFormat(this.updated));

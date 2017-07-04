@@ -17,7 +17,7 @@
           <h2 class="with_description p_h_r_1"><%= t('.title') %></h2>
           <%= render partial: 'gobierto_budgets/budgets/year_breadcrumb', locals: {path_calculation_method: :gobierto_budgets_budgets_path} %>
 
-          <p class="block_description"><%= t('.description') %></p>
+          <p class="block_description"><%= t('.description') %>. <span class="last_update"></span></p>
           <a class="inline_button" href="#">Consulta nuestra Guía del presupuesto</a>
         </div>
       </div>
@@ -35,8 +35,6 @@
           </div>
 
           <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
-            <p class="f_right updated"><strong><%= t('.last_update') %>:</strong> <span class="last_update"></span>.</p>
-
             <div class="inner">
               <h3><%= t('.metric.budget.title') %></h3>
               <div class="metric">4.483M</div>
@@ -75,6 +73,9 @@
             <div class="button-group ib" role="group">
               <button class="button-grouped active expenses_switcher" data-toggle="functional"><%= t('.functional_button') %></button>
               <button class="button-grouped expenses_switcher" data-toggle="economic"><%= t('.economic_button') %></button>
+              <% if @any_custom_income_budget_lines %>
+                <button class="button-grouped expenses_switcher" data-toggle="custom"><%= t('.custom_button') %></button>
+              <% end %>
             </div>
           </div>
         </div>
@@ -92,13 +93,23 @@
             </div>
           </div>
 
-          <div class="ib">
+          <div class="ib p_h_r_1">
             <span class="soft p_h_r_0_5">Valor</span>
             <div class="button-group ib" role="group">
               <button class="button-grouped active value-switcher-I" data-toggle="pct_executed" data-symbol="%">Porcentaje</button>
               <button class="button-grouped value-switcher-I" data-toggle="executed" data-symbol="€">En euros</button>
             </div>
           </div>
+
+          <% if @any_custom_income_budget_lines %>
+            <div class="ib">
+              <span class="soft p_h_r_0_5">Categoría</span>
+              <div class="button-group ib" role="group">
+                  <button class="button-grouped income_switcher active" data-toggle="economic"><%= t('.economic_button') %></button>
+                  <button class="button-grouped button-grouped-one income_switcher" data-toggle="custom"><%= t('.custom_button') %></button>
+              </div>
+            </div>
+          <% end %>
         </div>
 
         <div class="income_execution"></div>

@@ -177,6 +177,10 @@ input[type="checkbox"] + label, input[type="radio"] + label {
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
   }
+  .button-grouped-one {
+    border-right: 1px solid #CECECE !important;
+    border-radius: 2px !important;
+  }
   .active {
     background: #F4F4F4;
     box-shadow: inset 0 0 3px 0 rgba(0,0,0,0.25);

@@ -154,6 +154,7 @@ es:
         functional: Functional
         functional_button: En qué se gasta
         economic_button: Para qué se gasta
+        custom_button: Personalizada
         metric:
           execution:
             title: Ejecución

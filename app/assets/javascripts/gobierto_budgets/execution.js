@@ -25,6 +25,14 @@ $( document ).on('turbolinks:load', function() {
       $('.expenses_switcher').removeClass('active');
       $(e.target).addClass('active');
 
+      // Reset every button
+      $('.sort-G').removeClass('active');
+      $('.value-switcher-G').removeClass('active');
+
+      $(".sort-G[data-toggle='highest']").addClass('active');
+      $(".value-switcher-G[data-toggle='pct_executed']").addClass('active');
+
+      // Render the new category
       var vis_expenses_execution = new VisLinesExecution('.expenses_execution', 'G', economicKind)
       vis_expenses_execution.render();
     });

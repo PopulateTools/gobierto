@@ -133,11 +133,15 @@ var VisLinesExecution = Class.extend({
         return 'translate(' + 0 + ',' + this.y0(d.key) + ')';
       }.bind(this));
 
-    var lineGroup = this.bars.selectAll('g')
+    var lineGroup = this.bars.selectAll('a')
       .data(function(d) { return d.values;} )
       .enter()
-      .append('g')
-      .attr('class', 'line');
+      .append('a')
+      .attr('class', 'line')
+      .attr('xlink:href', function(d) {
+        return '/presupuestos/partidas/' + d.id + '/' + this.budgetYear + '/' + this.budgetCategory + '/' + this.executionKind;
+      }.bind(this))
+      .attr('target', '_top')
 
     var barGroup = lineGroup.append('g')
       .attr('class', 'bar-group')
@@ -176,11 +180,7 @@ var VisLinesExecution = Class.extend({
       }.bind(this));
 
     /* Line names */
-    lineGroup.append('a')
-      .attr('xlink:href', function(d) {
-        return '/presupuestos/partidas/' + d.id + '/' + this.budgetYear + '/' + this.budgetCategory + '/' + this.executionKind;
-      }.bind(this))
-      .attr('target', '_top')
+    lineGroup
       .append('text')
       .attr('x', 0)
       .attr('y', function(d) { return this.y1(d.id); }.bind(this))
@@ -190,7 +190,13 @@ var VisLinesExecution = Class.extend({
       .style('font-size', function(d) { return d.level === 1 ? '1rem' : '0.875rem';})
       .style('font-weight', function(d) { return d.level === 1 ? '600' : '400';})
       .style('fill', function(d) { return d.level === 1 ? '#4A4A4A' : '#767168';})
-      .text(function(d) { return d['name_' + this.localeFallback] }.bind(this));
+      .text(function(d) { return d['name_' + this.localeFallback] }.bind(this))
+      .on('mousemove', function () {
+        $(this).prev().css('stroke', 'black');
+      })
+      .on('mouseleave', function () {
+        $(this).prev().css('stroke', 'none');
+      });
 
     /* Legend */
     var legend = this.svg.append('g')
@@ -279,80 +285,55 @@ var VisLinesExecution = Class.extend({
       .classed('hundred_percent', true);
 
     /* Switch to absolute values */
-    $('#show-absolute-' + this.executionKind).on('change', function (e) {
-      $('#show-absolute-' + this.executionKind).attr('data-checked', e.target.checked);
-      this._update(e.target.checked);
+    $('.value-switcher-' + this.executionKind).on('click', function (e) {
+      var valueKind = $(e.target).attr('data-toggle');
+      var symbol = $(e.target).attr('data-symbol');
+
+      $('.value-switcher-' + this.executionKind).removeClass('active');
+      $(e.target).addClass('active');
+
+      this._update(valueKind, symbol);
     }.bind(this));
 
     /* Trigger sorting functions */
-    $('.sort-highest-' + this.executionKind).on('click', function (e) {
-      this._sortHighest(e.target);
-    }.bind(this));
+    $('.sort-' + this.executionKind).on('click', function (e) {
+      var sortKind = $(e.target).attr('data-toggle');
 
-    $('.sort-lowest-' + this.executionKind).on('click', function (e) {
-      this._sortLowest(e.target);
+      $('.sort-' + this.executionKind).removeClass('active');
+      $(e.target).addClass('active');
+
+      this._sortValues(e.target, sortKind);
     }.bind(this));
   },
-  _update: function(checked) {
-    if (checked) {
-      this.xAxis.tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d) + '€'}.bind(this))
-      this.x.domain([0, d3.max(this.data.lines, function(d) { return d.executed;})]);
+  _update: function(valueKind, symbol) {
+    this.xAxis.tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d) + symbol}.bind(this))
+    this.x.domain([0, d3.max(this.data.lines, function(d) { return d[valueKind];})]);
 
-      this.svg.select('.x.axis')
-        .call(this.xAxis);
+    this.svg.select('.x.axis')
+      .call(this.xAxis);
 
-      this.svg.selectAll('.x.axis .tick')
-        .filter(function(d) { return d === 0;})
-        .remove();
+    this.svg.selectAll('.x.axis .tick')
+      .filter(function(d) { return d === 0;})
+      .remove();
 
-      this.svg.selectAll('.x.axis .tick')
-        .filter(function(d) { return d === 100;})
-        .classed('hundred_percent', true);
+    this.svg.selectAll('.x.axis .tick')
+      .filter(function(d) { return d === 100;})
+      .classed('hundred_percent', valueKind === 'pct_executed' ? true : false);
 
-      this.svg.select('.legend-value')
-        .text(I18n.t('gobierto_budgets.budgets_execution.index.vis.absolute'));
+    this.svg.select('.legend-value')
+      .text(valueKind === 'executed' ? I18n.t('gobierto_budgets.budgets_execution.index.vis.absolute') : I18n.t('gobierto_budgets.budgets_execution.index.vis.percent'));
 
-      this.svg.selectAll('.hundred_percent')
-        .transition()
-        .style('opacity', 0);
+    this.svg.selectAll('.hundred_percent')
+      .transition()
+      .style('opacity', valueKind === 'executed' ? 0 : 1);
 
-      this.svg.selectAll('.bar')
-        .transition()
-        .duration(300)
-        .attr('width', function(d) { return this.x(d.executed); }.bind(this));
-    } else {
-      this.xAxis.tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d) + '%'}.bind(this))
-      this.x.domain([0, d3.max(this.data.lines, function(d) { return d.pct_executed;})]);
-
-      this.svg.select('.x.axis')
-        .call(this.xAxis);
-
-      this.svg.selectAll('.x.axis .tick')
-        .filter(function(d) { return d === 0;})
-        .remove();
-
-      this.svg.selectAll('.x.axis .tick')
-        .filter(function(d) { return d === 100;})
-        .classed('hundred_percent', true);
-
-      this.svg.select('.legend-value')
-        .text(I18n.t('gobierto_budgets.budgets_execution.index.vis.percent'));
-
-      this.svg.selectAll('.hundred_percent')
-        .transition()
-        .style('opacity', 1);
-
-      this.svg.selectAll('.bar')
-        .transition()
-        .duration(300)
-        .attr('width', function(d) { return this.x(d.pct_executed); }.bind(this));
-    }
+    this.svg.selectAll('.bar')
+      .transition()
+      .duration(300)
+      .attr('width', function(d) { return this.x(d[valueKind]); }.bind(this));
   },
-  _sortHighest: function (target) {
-    d3.select(target).classed('active', true);
-    d3.select('.sort-lowest-' + this.executionKind).classed('active', false);
-
-    this.nested.sort(function(a, b) { return a.group_pct - b.group_pct; });
+  _sortValues: function (target, sortKind) {
+    sortKind === 'highest' ? this.nested.sort(function(a, b) { return a.group_pct - b.group_pct; }) : this.nested.sort(function(a, b) { return b.group_pct - a.group_pct; })
 
     this.y0.domain(this.nested.map(function(d) {
         return d.key;
@@ -368,50 +349,7 @@ var VisLinesExecution = Class.extend({
       .transition()
       .duration(500)
       .attr('transform', function(d) {
-        return 'translate(' + 0 + ',' + this.y0(d.key) + ')';
-      }.bind(this));
-
-    this.svg.selectAll('.bar')
-      .transition()
-      .duration(300)
-      .attr('y', function(d) { return this.y1(d.id); }.bind(this));
-
-    this.svg.selectAll('.bar-bg')
-      .transition()
-      .duration(300)
-      .attr('y', function(d) { return this.y1(d.id); }.bind(this));
-
-    this.svg.selectAll('.line text')
-      .transition()
-      .duration(300)
-      .attr('y', function(d) { return this.y1(d.id); }.bind(this));
-
-    this.svg.selectAll('.hundred_percent')
-      .transition()
-      .duration(300)
-      .attr('y1', function(d) { return this.y1(d.id); }.bind(this))
-      .attr('y2', function(d) { return this.y1(d.id) + this.y1.bandwidth() }.bind(this) );
-  },
-  _sortLowest: function(target) {
-    d3.select(target).classed('active', true);
-    d3.select('.sort-highest-' + this.executionKind).classed('active', false);
-
-    // Sort by lowest execution
-    this.nested.sort(function(a, b) { return b.group_pct - a.group_pct; });
-
-    this.y1.domain(_.flatten(this.nested.map(function(d) {
-      return d.values.map(function(v) { return v.id }); })
-    ));
-
-    this.y0.domain(this.nested.map(function(d) { return d.key }))
-      .rangeRound([this.y1.bandwidth(), 0]);
-
-    this.svg.selectAll('.line-group')
-      .data(this.nested)
-      .transition()
-      .duration(300)
-      .attr('transform', function(d) {
-        return 'translate(' + 0 + ',' + (-this.y0(d.key) + this.margin.bottom) + ')';
+        return sortKind === 'highest' ? 'translate(' + 0 + ',' + this.y0(d.key) + ')' : 'translate(' + 0 + ',' + (-this.y0(d.key) + this.margin.bottom) + ')';
       }.bind(this));
 
     this.svg.selectAll('.bar')
@@ -445,7 +383,7 @@ var VisLinesExecution = Class.extend({
       .style('top', (y + 40) + 'px');
 
     this.tooltip.html('<div class="line-name"><strong>' + d['name_' + this.localeFallback] + '</strong></div> \
-                       <div class="line-name">' + accounting.formatMoney(d.budget, "€", 0, ".", ",") + '</div> \
+                       <div class="line-name">Presupuesto: ' + accounting.formatMoney(d.budget, "€", 0, ".", ",") + '</div> \
                        <div>' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip') + ' ' + this.pctFormat(d.pct_executed) + '%</div>');
   },
   _mouseleft: function(d) {

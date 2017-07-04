@@ -53,43 +53,52 @@
     <div class="pure-g">
       <div class="pure-u-1">
         <h2 class="with_description"><%= t('.vis.expenses.title') %></h2>
-        <div class="ib"><span class="p_h_r_0_5 soft"><%= t('.sort') %></span>
-          <div class="button-group ib" role="group">
-            <button class="button-grouped active sort-highest-G"><%= t('.higher_execution') %></button>
-            <button class="button-grouped sort-lowest-G"><%= t('.lower_execution') %></button>
+        <div class="m_v_1">
+          <div class="ib p_h_r_1">
+            <span class="p_h_r_0_5 soft"><%= t('.sort') %></span>
+            <div class="button-group ib" role="group">
+              <button class="button-grouped active sort-G" data-toggle="highest"><%= t('.higher_execution') %></button>
+              <button class="button-grouped sort-G" data-toggle="lowest"><%= t('.lower_execution') %></button>
+            </div>
           </div>
-        </div>
 
-        <div class="option pure-1-6 f_right">
-          <input type="checkbox" name="show-absolute" id="show-absolute-G" data-checked="false">
-          <label for="show-absolute-G">
-            <span></span>
-            <%= t('.vis.absolute') %>
-          </label>
+          <div class="ib p_h_r_1">
+            <span class="soft p_h_r_0_5">Valor</span>
+            <div class="button-group ib" role="group">
+              <button class="button-grouped active value-switcher-G" data-toggle="pct_executed" data-symbol="%">Porcentaje</button>
+              <button class="button-grouped value-switcher-G" data-toggle="executed" data-symbol="€">En euros</button>
+            </div>
+          </div>
+
+          <div class="ib">
+            <span class="soft p_h_r_0_5">Categoría</span>
+            <div class="button-group ib" role="group">
+              <button class="button-grouped active expenses_switcher" data-toggle="functional"><%= t('.functional_button') %></button>
+              <button class="button-grouped expenses_switcher" data-toggle="economic"><%= t('.economic_button') %></button>
+            </div>
+          </div>
         </div>
 
         <div class="expenses_execution"></div>
-
-        <div class="filter m_v_1 f_right">
-          <a id="functional-G" class="active expenses_switcher" data-toggle="functional"><%= t('.functional_button') %></a>
-          <a id="economic-G" class="expenses_switcher" data-toggle="economic"><%= t('.economic_button') %></a>
-        </div>
       </div>
+
       <div class="pure-u-1">
         <h2 class="with_description"><%= t('.vis.income.title') %></h2>
-        <div class="ib"><span class="p_h_r_0_5 soft"><%= t('.sort') %></span>
-          <div class="button-group ib" role="group">
-            <button class="button-grouped active sort-highest-I"><%= t('.higher_execution') %></button>
-            <button class="button-grouped sort-lowest-I"><%= t('.lower_execution') %></button>
+        <div class="m_v_1">
+          <div class="ib p_h_r_1"><span class="p_h_r_0_5 soft"><%= t('.sort') %></span>
+            <div class="button-group ib" role="group">
+              <button class="button-grouped active sort-I" data-toggle="highest"><%= t('.higher_execution') %></button>
+              <button class="button-grouped sort-I" data-toggle="lowest"><%= t('.lower_execution') %></button>
+            </div>
           </div>
-        </div>
 
-        <div class="option pure-1-6 f_right">
-          <input type="checkbox" name="show-absolute" id="show-absolute-I" data-checked="false">
-          <label for="show-absolute-I">
-            <span></span>
-            <%= t('.vis.absolute') %>
-          </label>
+          <div class="ib">
+            <span class="soft p_h_r_0_5">Valor</span>
+            <div class="button-group ib" role="group">
+              <button class="button-grouped active value-switcher-I" data-toggle="pct_executed" data-symbol="%">Porcentaje</button>
+              <button class="button-grouped value-switcher-I" data-toggle="executed" data-symbol="€">En euros</button>
+            </div>
+          </div>
         </div>
 
         <div class="income_execution"></div>

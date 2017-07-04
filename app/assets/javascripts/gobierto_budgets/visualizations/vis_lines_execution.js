@@ -23,10 +23,7 @@ var VisLinesExecution = Class.extend({
     this.currentYear = new Date().getFullYear();
     this.budgetYear = d3.select('body').attr('data-year');
 
-    this.t = d3.transition()
-      .delay(function(d, i) { return i * 10;})
-      .duration(1000);
-
+    // Income and expenses colors
     this.color = d3.scaleOrdinal()
       .domain(['I', 'G'])
       .range(['#f88f59', '#00909e']);
@@ -459,6 +456,6 @@ var VisLinesExecution = Class.extend({
   },
   _height: function() {
     // Height depends on line number
-    return this.isMobile ? 200 : this.data.lines.length * 33;
+    return this.data.lines.length * 33;
   },
 });

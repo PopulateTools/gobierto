@@ -297,6 +297,16 @@
     margin-bottom: 1rem;
     z-index: 1;
   }
+  .metric_boxes {
+    .inner {
+      margin-top: 4em;
+    }
+  }
+  .block_description {
+    @media (min-width: 740px) {
+      margin-right: 2em;
+    }
+  }
 
   .expenses_execution,
   .income_execution {

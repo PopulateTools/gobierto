@@ -256,3 +256,12 @@ p.intro {
   }
 
 }
+
+.updated {
+  text-transform: uppercase;
+  font-size: $f7 !important;
+
+  strong {
+    color: $color_1;
+  }
+}

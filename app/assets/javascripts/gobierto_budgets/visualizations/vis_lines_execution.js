@@ -17,6 +17,7 @@ var VisLinesExecution = Class.extend({
     this.parseTime = d3.timeParse('%Y-%m-%d');
     this.pctFormat = d3.format(',');
     this.monthFormat = d3.timeFormat('%B %Y');
+    this.dayFormat = d3.timeFormat('%d %B %Y');
     this.isMobile = window.innerWidth <= 768;
     this.selectionNode = d3.select(this.container).node();
     this.currentYear = new Date().getFullYear();
@@ -90,7 +91,7 @@ var VisLinesExecution = Class.extend({
       .ticks(5);
   },
   updateRender: function(callback) {
-    d3.select('.last_update').text(this.monthFormat(this.updated));
+    d3.select('.last_update').text(this.dayFormat(this.updated));
 
     this.nested = d3.nest()
       .key(function(d) { return d.parent_id;})

@@ -135,7 +135,7 @@ en:
       index:
         title: Budget execution
         description: The budget execution is the expense over the initial budget. It's normal to find deviations from the budget, as its impossible to predict the expenses with a great precision.
-        last_update: Last update
+        last_update: Updated
         budget_lines_expense_higher: Expense budget lines higher than planned
         budget_lines_expense_lower: Expense budget lines lower than planned
         budget_lines_income_higher: Income budget lines higher than planned

@@ -137,7 +137,7 @@ es:
       index:
         title: Ejecución presupuestaria
         description: La ejecución es la cantidad que finalmente se ha gastado sobre lo presupuestado inicialmente. Es normal que haya desviaciones ya que es imposible preveer todos los gastos con precisión absoluta.
-        last_update: Última actualización
+        last_update: Actualizado
         budget_lines_expense_higher: Partidas de gastos muy superiores al presupuesto
         budget_lines_expense_lower: Partidas de gastos muy inferiores al presupuesto
         budget_lines_income_higher: Partidas de ingresos muy superiores al presupuesto

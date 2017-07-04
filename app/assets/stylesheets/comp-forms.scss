@@ -184,6 +184,23 @@ input[type="checkbox"] + label, input[type="radio"] + label {
     font-weight: 600;
   }
 }
+.inline_button {
+  background: rgba($color_main, .1);
+  border-radius: 4px;
+  color: $color_main;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.35em .75em;
+  transition: 0.3s;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background: rgba($color_main, .15);
+    text-decoration: none;
+  }
+}
+
 input[type="checkbox"] + label span, input[type="radio"] + label span {
   display: inline-block;
   width: 19px;

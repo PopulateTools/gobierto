@@ -97,7 +97,7 @@ var VisLinesExecution = Class.extend({
       .key(function(d) { return d.parent_id;})
       .sortValues(function(a, b) {
         // Parent lines are the first for each group, and then child lines are sorted by execution rate
-        return a.level === 1 ? b.level - a.level : a.pct_executed - b.pct_executed;
+        return a.level === 1 || b.level === 1 ? b.level - a.level : a.pct_executed - b.pct_executed;
       })
       .entries(this.data.lines);
 
@@ -211,7 +211,7 @@ var VisLinesExecution = Class.extend({
         .attr('dy', 12)
         .attr('dx', 2)
         .attr('text-anchor', 'start')
-        .style('text-shadow', function(d) { return d.level === 1 ? '0 0 4px white, 0 0 4px white, 0 0 4px white, 0 0 4px white' : '';})
+        .style('text-shadow', function(d) { return d.level === 1 ? '0 0 4px white' : '';})
         .style('font-size', function(d) { return d.level === 1 ? '0.875rem' : '0.75rem';})
         .style('font-weight', function(d) { return d.level === 1 ? '600' : '400';})
         .style('fill', '#4A4A4A')
@@ -333,6 +333,8 @@ var VisLinesExecution = Class.extend({
 
       this._sortValues(e.target, sortKind);
     }.bind(this));
+
+    d3.select('body:not(' + this.container +')').on('touchstart', this._mouseleft.bind(this));
   },
   _update: function(valueKind, symbol) {
     this.xAxis.tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d) + symbol}.bind(this));
@@ -413,7 +415,7 @@ var VisLinesExecution = Class.extend({
                        <div>' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip') + ' ' + this.pctFormat(d.pct_executed) + '%</div>');
   },
   _mouseleft: function(d) {
-    this.tooltip.style('display', 'none');
+    d3.selectAll('.tooltip').style('display', 'none');
   },
   _width: function() {
     return parseInt(d3.select(this.container).style('width'));

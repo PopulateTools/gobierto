@@ -1,5 +1,5 @@
-<div class="widget_save">
-  
+<div class="widget_save stick_in_parent">
+
   <% unless local_assigns[:only_save_button] %>
   <div class="form_item">
 
@@ -15,7 +15,7 @@
           <% if local_assigns[:password_protected] %>
             <div class="password_protected">
             	<p>Usuario: <strong>gobierto</strong></p>
-            	<p>Contraseña: 
+            	<p>Contraseña:
             		<input type="text" name="password">
             	</p>
             </div>
@@ -40,7 +40,7 @@
   	<%= link_to '<i class="fa fa-eye"></i> Ver usuario'.html_safe, '' %>
   </div>
   <% end %>
-  
+
   <input type="submit" value="Guardar" class="button">
 
 </div>

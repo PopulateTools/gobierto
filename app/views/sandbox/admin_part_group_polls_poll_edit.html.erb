@@ -1,0 +1,122 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Participación', 'admin_part' %> »
+  <%= link_to 'Comisión de Fiestas de Carnaval', 'admin_part_group' %></a>
+</div>
+
+<h1>Comisión de Fiestas de Carnaval</h1>
+
+<div class="tabs">
+  <ul>
+    <li ><%= link_to 'Grupo', 'admin_part_group' %></li>
+    <li ><%= link_to 'Información', 'admin_part_group_info' %></li>
+    <li><%= link_to 'Agenda', 'admin_part_group_agenda' %></li>
+    <li class="active"><%= link_to 'Encuestas', 'admin_part_group_polls' %></li>
+    <li><%= link_to 'Ideas', 'admin_part_group_ideas' %></li>
+    <li><%= link_to 'Noticias', 'admin_part_group_news' %></li>
+    <li><%= link_to 'Documentos', 'admin_part_group_docs' %></li>
+  </ul>
+</div>
+
+<div class="pure-g">
+
+  <div class="pure-u-1 pure-u-md-16-24">
+
+
+    <!-- if poll has started and received some vote -->
+    <div class="flash notice">
+      <p>La encuesta ya está activa y ha recibido votos, por lo que no puedes editarla.</p>
+      <p>Se han recibido <strong>123 votos</strong>. A este ritmo se pueden esperar 123. <a href="#front">Ver encuesta</a>.
+    </div>
+
+    <!-- if poll has started and received some vote -->
+    <div class="flash notice">
+      MODULO RESULTADOS / ESTANDARIZAR CON LO DE CONSULTAS
+    </div>
+
+
+    <form>
+
+      <div class="globalized_fields">
+
+        <div class="globalize_tool">
+          <label>Traducir</label>
+          <a href="#" class="locale_option selected completed tipsit" title="Define el contenido en su versión en Español">
+            <span class="locale">ES</span>
+            <span class="status"></span>
+          </a>
+          <a href="#" class="locale_option completed tipsit" title="Define el contenido en su versión en Catalán">
+            <span class="locale">CA</span>
+            <span class="status"></span>
+          </a>
+          <a href="#" class="locale_option tipsit" title="Define el contenido en su versión en Inglés">
+            <span class="locale">EN</span>
+            <span class="status"></span>
+          </a>
+        </div>
+
+        <div class="form_item input_text">
+          <label for="name">Título Máx 140 caracteres</label>
+          <input type="text" id="name" value="¿Crees que habría que modificar la ordenanza sobre terrazas?">
+        </div>
+
+        <!-- warning, this is not code, do not add the code class to the .form_item -->
+        <div class="form_item textarea">
+          <label for="entity">Descripción</label>
+          <textarea>Más info... </textarea>
+          <div class="inline_help"></div>
+        </div>
+
+        <h2>Posibles respuestas</h2>
+
+        <% for i in ['Si, toca actualizarla', 'No, está bien como está', 'No sé, cuéntame más'] %>
+
+          <div class="list_item_with_editable_content">
+
+            <i class="fa fa-bars"></i>
+            <input type="text" value="<%= i %>">
+
+            <div class="tools">
+              <%= link_to '<i class="fa fa-trash"></i>'.html_safe, '', title: 'Eliminar', class: 'tipsit' %>
+            </div>
+
+          </div>
+
+        <% end %>
+
+        <div class="m_1 p_h_3">
+          <!-- it generates another .list_item_with_editable_content element -->
+          <%= link_to '<i class="fa fa-plus-circle"></i> Añadir nueva respuesta'.html_safe %>
+        </div>
+
+      </div>
+
+      <div class="pure-g">
+        <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
+          <div class="form_item input_text">
+            <label for="person_event_starts_at">Fecha de comienzo</label>
+            <input data-language="es" data-timepicker="true" data-date-format="yyyy-mm-dd" data-time-format="hh:ii" data-startDate="2017-06-23T12:00:00+00:00" class="air-datepicker" readonly="readonly" type="text" value="2017-06-23 12:00" name="person_event[starts_at]" id="person_event_starts_at" />
+          </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-2">
+          <div class="form_item input_text">
+            <label for="person_event_ends_at">Fecha de finalización</label>
+            <input data-language="es" data-timepicker="true" data-date-format="yyyy-mm-dd" data-time-format="hh:ii" data-startDate="2017-06-23T13:00:00+00:00" class="air-datepicker" readonly="readonly" type="text" value="2017-06-23 13:00" name="person_event[ends_at]" id="person_event_ends_at" />
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+  <div class="pure-u-1 pure-u-md-2-24"></div>
+
+  <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
+
+    <%= render partial: "admin_widget_save"   %>
+
+  </div>
+
+</div>

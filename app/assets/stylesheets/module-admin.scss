@@ -340,10 +340,16 @@ pre {
   }
 }
 
-.custom_fields_field {
+
+.list_item, .list_item_with_editable_content {
   margin: 0 0 .5em 0;
   .fa-bars {
-    margin: 0 1em 0 0;
+    padding: 1em;
+    cursor: pointer;
+  }
+  .fa-bars:hover {
+    background: $color_neutral_soft;
+    @include border-radius(3px);
   }
   label.main {
     display: inline-block;
@@ -372,12 +378,19 @@ pre {
     margin-right: .5em;
   }
 }
-.custom_fields_field.disabled {
+.list_item.disabled {
   .fa-bars {
     opacity: .25;
   }
   .mandatory {
     opacity: .5;
+  }
+}
+.list_item_with_editable_content {
+  input[type=text] {
+    height: initial;
+    padding: 1em;
+    width: 70%;
   }
 }
 

@@ -1,0 +1,66 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Participación', 'admin_part' %> »
+  <%= link_to 'Comisión de Fiestas de Carnaval', 'admin_part_group' %></a>
+</div>
+
+<h1>Comisión de Fiestas de Carnaval</h1>
+
+<div class="tabs">
+  <ul>
+    <li ><%= link_to 'Grupo', 'admin_part_group' %></li>
+    <li ><%= link_to 'Información', 'admin_part_group_info' %></li>
+    <li><%= link_to 'Agenda', 'admin_part_group_agenda' %></li>
+    <li><%= link_to 'Encuestas', 'admin_part_group_polls' %></li>
+    <li class="active"><%= link_to 'Ideas', 'admin_part_group_ideas' %></li>
+    <li><%= link_to 'Noticias', 'admin_part_group_news' %></li>
+    <li><%= link_to 'Documentos', 'admin_part_group_docs' %></li>
+  </ul>
+</div>
+
+<div class="admin_tools right">
+  <%= link_to '<i class="fa fa-cog"></i> Configuración'.html_safe, 'admin_people_conf' %>
+  <button class="btn">Nueva</button>
+</div>
+
+<table>
+<tr>
+  <th></th>
+  <th>Petición de ideas</th>
+  <th>Ideas / Votos</th>
+  <th>Estado</th>
+  <th>Inicio</th>
+  <th>Fin</th>
+  <th></th>
+</tr>
+
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_part_group_ideas_idea_edit' %></td>
+  <td><%= link_to '¿Por donde debería circular el desfile?', 'admin_part_group_ideas_idea_edit' %></td>
+  <td>123 / 1.234</td>
+  <td>Publicada</td>
+  <td>1 may 2017</td>
+  <td>1 jul 2017</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver ideas'.html_safe, '#public_view', class: 'view_item' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_part_group_ideas_idea_edit' %></td>
+  <td><%= link_to '¿Qué actividades para niños podemos poner en marcha?', 'admin_part_group_ideas_idea_edit' %></td>
+  <td>123 / 1.234</td>
+  <td>Borrador</td>
+  <td>1 may 2017</td>
+  <td>1 jul 2017</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver ideas'.html_safe, '#public_view', class: 'view_item' %></td>
+</tr>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_part_group_ideas_idea_edit' %></td>
+  <td><%= link_to '¿Cómo podemos hacer el uso más eficiente del presupuesto que tenemos?', 'admin_part_group_ideas_idea_edit' %></td>
+  <td>123 / 1.234</td>
+  <td>Cerrada</td>
+  <td>1 may 2017</td>
+  <td>1 jun 2017</td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver ideas'.html_safe, '#public_view', class: 'view_item' %></td>
+</tr>
+
+
+</table>

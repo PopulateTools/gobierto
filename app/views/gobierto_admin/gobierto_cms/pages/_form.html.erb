@@ -44,6 +44,14 @@
         </div>
         <%= f.submit class: "button" %>
       </div>
+
+      <%= render "gobierto_admin/shared/admin_widget_attachment", {attachable_type: @page_form.page.class.name, attachable_id: @page_form.page.id} %>
     </div>
   </div>
+<% end %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.gobierto_attachments_controller.index();
+  <% end %>
 <% end %>

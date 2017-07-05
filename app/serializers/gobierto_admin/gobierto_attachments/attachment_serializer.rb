@@ -10,7 +10,8 @@ module GobiertoAdmin
         :file_digest,
         :url,
         :file_size,
-        :current_version
+        :current_version,
+        :created_at
       )
     end
   end

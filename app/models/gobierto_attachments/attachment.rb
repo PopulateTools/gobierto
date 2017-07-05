@@ -46,6 +46,12 @@ module GobiertoAttachments
       true
     end
 
+    def created_at
+      if versions.length
+        versions.last.created_at
+      end
+    end
+
     private
 
     def update_file_attributes

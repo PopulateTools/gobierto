@@ -17,7 +17,7 @@ var VisLinesExecution = Class.extend({
     this.parseTime = d3.timeParse('%Y-%m-%d');
     this.pctFormat = d3.format(',');
     this.monthFormat = d3.timeFormat('%B %Y');
-    this.dayFormat = d3.timeFormat('%d %B %Y');
+    this.dayFormat = d3.timeFormat('%e %B %Y');
     this.isMobile = window.innerWidth <= 768;
     this.selectionNode = d3.select(this.container).node();
     this.currentYear = new Date().getFullYear();
@@ -62,15 +62,15 @@ var VisLinesExecution = Class.extend({
   },
   setScales: function(callback) {
     // Chart dimensions
-    this.margin = {top: 25, right: 0, bottom: 50, left: 385};
+    this.margin = {top: 25, right: 0, bottom: 50, left: this.isMobile ? 0 : 385};
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
     // Triggered if a budget line's execution is over 500%
-    this.BigDeviation = d3.max(this.data.lines, function(d) { return d.pct_executed;}) > 500;
+    this.bigDeviation = d3.max(this.data.lines, function(d) { return d.pct_executed;}) > 500;
 
     // Scales & Ranges
-    this.x = this.BigDeviation ? d3.scaleLog().range([0.1, this.width]) : d3.scaleLinear().range([0, this.width]).clamp(true);
+    this.x = this.bigDeviation ? d3.scaleLog().range([0.1, this.width]) : d3.scaleLinear().range([0, this.width]).clamp(true);
     this.z = d3.scaleTime().range([0, this.width]);
     this.y0 = d3.scaleBand().rangeRound([this.height, 0]).paddingInner(0.5);
     this.y1 = d3.scaleBand().rangeRound([this.height, 0]).paddingInner(0.5).paddingOuter(0);
@@ -88,10 +88,10 @@ var VisLinesExecution = Class.extend({
       .tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d) + '%'}.bind(this))
       .tickSize(-this.height - this.margin.bottom)
       .tickPadding(10)
-      .ticks(this.BigDeviation ? 3 : 5);
+      .ticks(this.isMobile ? 2 : this.bigDeviation ? 3 : 5);
   },
   updateRender: function(callback) {
-    d3.select('.last_update').text(this.dayFormat(this.updated));
+    d3.select('.last_update').text(this.dayFormat(this.updated).toLowerCase());
 
     this.nested = d3.nest()
       .key(function(d) { return d.parent_id;})
@@ -143,7 +143,7 @@ var VisLinesExecution = Class.extend({
       .attr('xlink:href', function(d) {
         return '/presupuestos/partidas/' + d.id + '/' + this.budgetYear + '/' + this.budgetCategory + '/' + this.executionKind;
       }.bind(this))
-      .attr('target', '_top')
+      .attr('target', '_top');
 
     var barGroup = lineGroup.append('g')
       .attr('class', 'bar-group')
@@ -182,37 +182,68 @@ var VisLinesExecution = Class.extend({
       }.bind(this));
 
     /* Line names */
-    lineGroup
-      .append('text')
-      .attr('x', 0)
-      .attr('y', function(d) { return this.y1(d.id); }.bind(this))
-      .attr('dy', 12)
-      .attr('dx', -10)
-      .attr('text-anchor', 'end')
-      .style('font-size', function(d) { return d.level === 1 ? '1rem' : '0.875rem';})
-      .style('font-weight', function(d) { return d.level === 1 ? '600' : '400';})
-      .style('fill', function(d) { return d.level === 1 ? '#4A4A4A' : '#767168';})
-      .text(function(d) { return d['name_' + this.localeFallback] }.bind(this))
-      .on('mousemove', function () {
-        $(this).prev().css('stroke', 'black');
-      })
-      .on('mouseleave', function () {
-        $(this).prev().css('stroke', 'none');
-      });
+    if (!this.isMobile) {
+      lineGroup
+        .append('text')
+        .attr('x', 0)
+        .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+        .attr('dy', 12)
+        .attr('dx', -10)
+        .attr('text-anchor', 'end')
+        .style('font-size', function(d) { return d.level === 1 ? '1rem' : '0.875rem';})
+        .style('font-weight', function(d) { return d.level === 1 ? '600' : '400';})
+        .style('fill', function(d) { return d.level === 1 ? '#4A4A4A' : '#767168';})
+        .text(function(d) { return d['name_' + this.localeFallback] }.bind(this))
+        .on('mousemove', function () {
+          $(this).prev().css('stroke', 'black');
+        })
+        .on('mouseleave', function () {
+          $(this).prev().css('stroke', 'none');
+        })
+        .append('title')
+        .text(function(d) { return d['name_' + this.localeFallback] }.bind(this));
+    } else {
+      lineGroup
+        .append('text')
+        .attr('x', 0)
+        .attr('y', function(d) { return this.y1(d.id); }.bind(this))
+        .attr('dy', 12)
+        .attr('dx', 2)
+        .attr('text-anchor', 'start')
+        // .style('display', function(d) { return d.level === 1 ? '' : 'none';})
+        .style('text-shadow', '0 0 4px white, 0 0 4px white, 0 0 4px white, 0 0 4px white')
+        .style('font-size', function(d) { return d.level === 1 ? '0.875rem' : '0.75rem';})
+        .style('font-weight', function(d) { return d.level === 1 ? '600' : '400';})
+        .style('fill', function(d) { return d.level === 1 ? '#4A4A4A' : '#767168';})
+        .text(function(d) { return d['name_' + this.localeFallback] }.bind(this))
+        .style('pointer-events', 'none');
+    }
+
+    this.svg.append('g')
+      .attr('class', 'x axis')
+    	.call(this.xAxis);
 
     /* Legend */
     var legend = this.svg.append('g')
       .attr('class', 'legend')
       .attr('transform', 'translate(0, -10)')
 
+    if (!this.isMobile) {
+      legend.append('text')
+        .attr('text-anchor', 'end')
+        .attr('dx', '-12')
+        .text(I18n.t('gobierto_budgets.budgets_execution.index.vis.lines_title'));
+    }
+
     legend.append('text')
-      .attr('text-anchor', 'end')
-      .attr('dx', '-12')
-      .text(I18n.t('gobierto_budgets.budgets_execution.index.vis.lines_title'));
+      .attr('class', 'legend-value halo')
+      .text(this.bigDeviation ? I18n.t('gobierto_budgets.budgets_execution.index.vis.percent_log') : I18n.t('gobierto_budgets.budgets_execution.index.vis.percent'))
+      .attr('stroke', 'white')
+      .attr('stroke-width', 5);
 
     legend.append('text')
       .attr('class', 'legend-value')
-      .text(I18n.t('gobierto_budgets.budgets_execution.index.vis.percent'));
+      .text(this.bigDeviation ? I18n.t('gobierto_budgets.budgets_execution.index.vis.percent_log') : I18n.t('gobierto_budgets.budgets_execution.index.vis.percent'));
 
     /* Year progress line */
     if (this.budgetYear === this.currentYear) {
@@ -271,10 +302,6 @@ var VisLinesExecution = Class.extend({
         .attr('fill', '#fff')
         .attr('d', 'M8.6 9.8V8.4s0-.2-.2-.2H4.7s-.2 0-.2.2v1.4s0 .2.2.2h3.7s.2 0 .2-.2');
     }
-
-    this.svg.append('g')
-      .attr('class', 'x axis')
-    	.call(this.xAxis);
 
     /* Remove first tick */
     d3.selectAll('.x.axis .tick')

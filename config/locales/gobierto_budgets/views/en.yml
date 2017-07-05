@@ -134,8 +134,8 @@ en:
         view_more: View more
       index:
         title: Budget execution
-        description: The budget execution is the expense over the initial budget. It's normal to find deviations from the budget, as its impossible to predict the expenses with a great precision.
-        last_update: Updated
+        description: The budget execution is the expense over the initial budget. It's normal to find deviations from the budget, as its impossible to predict the expenses with a great precision
+        last_update: "Last update:"
         budget_lines_expense_higher: Expense budget lines higher than planned
         budget_lines_expense_lower: Expense budget lines lower than planned
         budget_lines_income_higher: Income budget lines higher than planned
@@ -144,7 +144,12 @@ en:
         execution_disclaimer: It's very common to have deviatiatons, due to the difficulty
           of foreseeing the expenses.
         tooltip_disclaimer: <strong>This is approximate</strong>. <br /> Throughout the year there are unforeseen events that change the amount or purpose of the expenses or income.
+        budget_guide: Read our Budget Guide
         sort: Sort
+        value: Value
+        percentage: Percentage
+        euros: In euros
+        category: Category
         higher_execution: Higher execution
         lower_execution: Lower execution
         execution_help: The execution is the amount spent based on the planned budget.
@@ -164,7 +169,8 @@ en:
           tooltip_budgeted: Budget
           lines_title: Budget lines
           percent: "% of progress"
-          absolute: Execution in euros
+          percent_log: "% of progress (log)"
+          absolute: Execution in €
           expenses:
             title: Explore the execution of the expenses
           income:

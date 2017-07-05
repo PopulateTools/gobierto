@@ -155,8 +155,35 @@ input[type="checkbox"] + label, input[type="radio"] + label {
   padding: 14px;
   @include transition;
 }
+.inline_filter {
+  display: inline-block;
+  width: 49%;
+  margin-bottom: 0.5em;
+
+  span {
+    display: block;
+
+    @media (min-width: 768px) {
+      display: inline-block;
+      padding-right: 0.5em;
+    }
+  }
+
+  .button-group {
+    width: 100%;
+
+    @media (min-width: 768px) {
+      width: auto;
+    }
+  }
+
+  @media (min-width: 768px) {
+    width: auto;
+    padding-right: 1em;
+  }
+}
 .button-group {
-  letter-spacing: -.31em;
+  // letter-spacing: -.31em;
 
   .button-grouped {
     background: white;
@@ -168,18 +195,23 @@ input[type="checkbox"] + label, input[type="radio"] + label {
     border-radius: 0;
     font-size: 14px;
   }
+  .button-grouped+.button-grouped {
+    @media (min-width: 768px) {
+      margin-left: -5px;
+    }
+  }
   .button-grouped:first-child {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
     border-top-left-radius: 2px;
-    border-right: none;
     border-bottom-left-radius: 2px;
+    margin-left: 0;
   }
   .button-grouped:last-child {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
-  }
-  .button-grouped-one {
-    border-right: 1px solid #CECECE !important;
-    border-radius: 2px !important;
   }
   .active {
     background: #F4F4F4;

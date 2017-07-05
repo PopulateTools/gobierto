@@ -17,8 +17,8 @@
           <h2 class="with_description p_h_r_1"><%= t('.title') %></h2>
           <%= render partial: 'gobierto_budgets/budgets/year_breadcrumb', locals: {path_calculation_method: :gobierto_budgets_budgets_path} %>
 
-          <p class="block_description"><%= t('.description') %>. <span class="last_update"></span></p>
-          <a class="inline_button" href="#">Consulta nuestra Guía del presupuesto</a>
+          <p class="block_description"><%= t('.description') %>. <%= t('.last_update') %> <span class="last_update"></span>.</p>
+          <p><a href="#"><%= t('.budget_guide') %></a>.</p>
         </div>
       </div>
 
@@ -52,24 +52,24 @@
       <div class="pure-u-1">
         <h2 class="with_description"><%= t('.vis.expenses.title') %></h2>
         <div class="m_v_1">
-          <div class="ib p_h_r_1">
-            <span class="p_h_r_0_5 soft"><%= t('.sort') %></span>
+          <div class="inline_filter">
+            <span class="soft"><%= t('.sort') %></span>
             <div class="button-group ib" role="group">
               <button class="button-grouped active sort-G" data-toggle="highest"><%= t('.higher_execution') %></button>
               <button class="button-grouped sort-G" data-toggle="lowest"><%= t('.lower_execution') %></button>
             </div>
           </div>
 
-          <div class="ib p_h_r_1">
-            <span class="soft p_h_r_0_5">Valor</span>
+          <div class="inline_filter">
+            <span class="soft"><%= t('.value') %></span>
             <div class="button-group ib" role="group">
-              <button class="button-grouped active value-switcher-G" data-toggle="pct_executed" data-symbol="%">Porcentaje</button>
-              <button class="button-grouped value-switcher-G" data-toggle="executed" data-symbol="€">En euros</button>
+              <button class="button-grouped active value-switcher-G" data-toggle="pct_executed" data-symbol="%"><%= t('.percentage') %></button>
+              <button class="button-grouped value-switcher-G" data-toggle="executed" data-symbol="€"><%= t('.euros') %></button>
             </div>
           </div>
 
-          <div class="ib">
-            <span class="soft p_h_r_0_5">Categoría</span>
+          <div class="inline_filter">
+            <span class="soft"><%= t('.category') %></span>
             <div class="button-group ib" role="group">
               <button class="button-grouped active expenses_switcher" data-toggle="functional"><%= t('.functional_button') %></button>
               <button class="button-grouped expenses_switcher" data-toggle="economic"><%= t('.economic_button') %></button>
@@ -86,24 +86,25 @@
       <div class="pure-u-1">
         <h2 class="with_description"><%= t('.vis.income.title') %></h2>
         <div class="m_v_1">
-          <div class="ib p_h_r_1"><span class="p_h_r_0_5 soft"><%= t('.sort') %></span>
+          <div class="inline_filter">
+            <span class="soft"><%= t('.sort') %></span>
             <div class="button-group ib" role="group">
               <button class="button-grouped active sort-I" data-toggle="highest"><%= t('.higher_execution') %></button>
               <button class="button-grouped sort-I" data-toggle="lowest"><%= t('.lower_execution') %></button>
             </div>
           </div>
 
-          <div class="ib p_h_r_1">
-            <span class="soft p_h_r_0_5">Valor</span>
+          <div class="inline_filter">
+            <span class="soft"><%= t('.value') %></span>
             <div class="button-group ib" role="group">
-              <button class="button-grouped active value-switcher-I" data-toggle="pct_executed" data-symbol="%">Porcentaje</button>
-              <button class="button-grouped value-switcher-I" data-toggle="executed" data-symbol="€">En euros</button>
+              <button class="button-grouped active value-switcher-I" data-toggle="pct_executed" data-symbol="%"><%= t('.percentage') %></button>
+              <button class="button-grouped value-switcher-I" data-toggle="executed" data-symbol="€"><%= t('.euros') %></button>
             </div>
           </div>
 
           <% if @any_custom_income_budget_lines %>
-            <div class="ib">
-              <span class="soft p_h_r_0_5">Categoría</span>
+            <div class="inline_filter">
+              <span class="soft"><%= t('.category') %></span>
               <div class="button-group ib" role="group">
                   <button class="button-grouped income_switcher active" data-toggle="economic"><%= t('.economic_button') %></button>
                   <button class="button-grouped button-grouped-one income_switcher" data-toggle="custom"><%= t('.custom_button') %></button>

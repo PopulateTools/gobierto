@@ -136,8 +136,8 @@ es:
         view_more: Ver más
       index:
         title: Ejecución presupuestaria
-        description: La ejecución es la cantidad que finalmente se ha gastado sobre lo presupuestado inicialmente. Es normal que haya desviaciones ya que es imposible preveer todos los gastos con precisión absoluta.
-        last_update: Actualizado
+        description: La ejecución es la cantidad que finalmente se ha gastado sobre lo presupuestado inicialmente. Es normal que haya desviaciones ya que es imposible preveer todos los gastos con precisión absoluta
+        last_update: "Última actualización:"
         budget_lines_expense_higher: Partidas de gastos muy superiores al presupuesto
         budget_lines_expense_lower: Partidas de gastos muy inferiores al presupuesto
         budget_lines_income_higher: Partidas de ingresos muy superiores al presupuesto
@@ -148,7 +148,12 @@ es:
         tooltip_disclaimer: <strong>Esta es una aproximación</strong>. <br /> A lo largo del año surgen imprevistos que cambian la cantidad o la finalidad de los gastos o ingresos.
         execution_help: La ejecución es la cantidad que finalmente se ha gastado sobre
           lo presupuestado inicialmente.
+        budget_guide: Consulta nuestra Guía del presupuesto
         sort: Ordenar
+        value: Valor
+        percentage: Porcentaje
+        euros: En euros
+        category: Categoría
         higher_execution: Mayor ejecución
         lower_execution: Menor ejecución
         functional: Functional
@@ -167,7 +172,8 @@ es:
           tooltip_budgeted: Presupuestado
           lines_title: Partidas presupuestarias
           percent: "% de progreso"
-          absolute: Ejecución en euros
+          percent_log: "% de progreso (log)"
+          absolute: Ejecución en €
           expenses:
             title: Así va la ejecución de los gastos
           income:

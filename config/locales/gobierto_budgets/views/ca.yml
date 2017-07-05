@@ -136,8 +136,8 @@ ca:
         view_more: Veure més
       index:
         title: Execució pressupostària
-        description: L'execució són les despeses comparades amb el pressupost inicial. És normal trobar desviacions, ja què és impossible preveure totes les despeses amb precisió absoluta.
-        last_update: Actualitzat
+        description: L'execució són les despeses comparades amb el pressupost inicial. És normal trobar desviacions, ja què és impossible preveure totes les despeses amb precisió absoluta
+        last_update: "Última actualització:"
         budget_lines_expense_higher: Partides de despeses molt superiors al pressupost
         budget_lines_expense_lower: Partides de despeses molt inferiors al pressupost
         budget_lines_income_higher: Partides d'ingressos molt superiors al pressupost
@@ -148,7 +148,12 @@ ca:
         tooltip_disclaimer: <strong>Aquesta és una aproximació</strong>. <br /> Al llarg de l'any sorgeixen imprevistos que canvien la quantitat o la finalitat de les despeses o ingressos.
         execution_help: L'execució es la quantitat que finalment s'ha gastat sobre
           lo pressupostat inicialment.
+        budget_guide: Consulta la Guia del pressupost
         sort: Ordre
+        value: Valor
+        percentage: Percentatge
+        euros: En euros
+        category: Categoria
         higher_execution: Més execució
         lower_execution: Menys execució
         functional: Funcional
@@ -167,7 +172,8 @@ ca:
           tooltip_budgeted: Pressupostat
           lines_title: Partides pressupuestàries
           percent: "% de progrés"
-          absolute: Execució en euros
+          percent_log: "% de progrés (log)"
+          absolute: Execució en €
           expenses:
             title: L'estat de l'execució de les despeses
           income:

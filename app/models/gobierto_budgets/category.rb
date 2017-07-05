@@ -23,7 +23,7 @@ module GobiertoBudgets
     end
 
     def self.default_name(area, kind, code)
-      area.all_items[kind][code]
+      area.all_items[I18n.locale][kind][code]
     end
 
     def self.default_description(area, kind, code)

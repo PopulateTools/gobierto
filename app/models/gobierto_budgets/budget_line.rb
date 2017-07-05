@@ -3,15 +3,39 @@ module GobiertoBudgets
     class RecordNotFound < StandardError; end
     class InvalidSearchConditions < StandardError; end
 
+    include ActiveModel::Model
+
     INCOME  = 'I'
     EXPENSE = 'G'
+
+    attr_reader(
+      :type,
+      :id,
+      :ine_code,
+      :place,
+      :province_id,
+      :autonomy_id,
+      :year,
+      :amount,
+      :code,
+      :level,
+      :kind,
+      :category,
+      :site,
+      :area,
+      :amount_per_inhabitant,
+      :parent_code,
+      :name,
+      :index,
+      :description
+    )
+
+    @sort_attribute ||= 'code'
+    @sort_order ||= 'asc'
 
     def self.all_kinds
       [INCOME, EXPENSE]
     end
-
-    @sort_attribute ||= 'code'
-    @sort_order ||= 'asc'
 
     def self.where(conditions)
       validate_conditions(conditions)
@@ -296,7 +320,6 @@ module GobiertoBudgets
       GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: options[:area_name], body: query
     end
 
-
     def self.find(options)
       return self.search(options)['hits'].detect{|h| h['code'] == options[:code] }
     end
@@ -378,19 +401,12 @@ module GobiertoBudgets
       return results.sort{ |b, a| a[1][2] <=> b[1][2] }[0..15], results.sort{ |a, b| a[1][2] <=> b[1][2] }[0..15]
     end
 
-    def to_param
-      {place_id: place_id, year: year, code: code, area_name: area_name, kind: kind}
-    end
-
-    def place
-      if place_id
-        INE::Places::Place.find(place_id)
+    def self.algolia_index
+      @algolia_index ||= begin
+        index = Algolia::Index.new(search_index_name)
+        index.set_settings({ attributesForFaceting: [ 'site_id' ] })
+        index
       end
-    end
-
-    def category
-      area = BudgetArea.klass_for(area_name)
-      area.all_items[self.kind][self.code]
     end
 
     def self.validate_conditions(conditions)
@@ -402,6 +418,143 @@ module GobiertoBudgets
       end
     end
     private_class_method :validate_conditions
+
+    def self.search_index_name
+      "#{APP_CONFIG["site"]["name"]}_#{Rails.env}_#{self.name}"
+    end
+
+    def self.get_level(code)
+      code_segments = code.split('-')
+      code_segments.length == 1 ? code_segments.first.length : code_segments.first.length + 1
+    end
+
+    def self.get_parent_code(code)
+      if get_level(code) == 1
+        nil
+      else
+        code_segments = code.split('-')
+        code_segments.length == 1 ? code_segments.first.chop : code_segments.first
+      end
+    end
+
+    def self.get_population(ine_code, year)
+      result = GobiertoBudgets::SearchEngine.client.get(
+        index: GobiertoBudgets::SearchEngineConfiguration::Data.index,
+         type: GobiertoBudgets::SearchEngineConfiguration::Data.type_population,
+           id: "#{ine_code}/#{year}"
+      )
+      result['_source']['value']
+    end
+
+    # Example:
+    # bl = GobiertoBudgets::BudgetLine.new(area_name: 'economic', site: Site.second, year: 2015, amount: 123.45, code: '1', kind: 'G', index: 'index_forecast')
+    def initialize(params = {})
+      @site     = params[:site]
+      @index    = params[:index]
+      @area     = BudgetArea.klass_for(params[:area_name])
+      @kind     = params[:kind]
+      @code     = params[:code]
+      @year     = params[:year]
+      @amount   = params[:amount].round(2)
+
+      @place       = site.place
+      @ine_code    = place.id.to_i
+      @id          = "#{ine_code}/#{year}/#{code}/#{kind}"
+      @category    = Category.find_by(site: site, area_name: area.area_name, kind: kind, code: code)
+      @name        = get_name
+      @description = get_description
+      @province_id = place.province_id.to_i
+      @autonomy_id = place.province.autonomous_region_id.to_i
+      @level       = self.class.get_level(code)
+      @parent_code = self.class.get_parent_code(code)
+      @amount_per_inhabitant = (amount / population).round(2)
+    end
+
+    def elastic_search_index
+      GobiertoBudgets::SearchEngineConfiguration::BudgetLine.send(index)
+    end
+
+    def algolia_id
+      "#{index}/#{area.area_name}/#{ine_code}/#{year}/#{code}/#{kind}"
+    end
+
+    def population
+      @population ||= self.class.get_population(ine_code, year)
+    end
+
+    def to_param
+      { place_id: place_id, year: year, code: code, area_name: area.area_name, kind: kind }
+    end
+
+    def elasticsearch_as_json
+      {
+        ine_code: ine_code,
+        province_id: province_id,
+        autonomy_id: autonomy_id,
+        year: year,
+        population: population,
+        amount: amount,
+        code: code,
+        level: level,
+        kind: kind,
+        amount_per_inhabitant: amount_per_inhabitant,
+        parent_code: parent_code
+      }
+    end
+
+    def algolia_as_json
+      current_locale = I18n.locale
+      attributes_translations = {}
+
+      I18n.available_locales.each do |locale|
+        I18n.locale = locale
+        attributes_translations["name_#{locale}"] = get_name
+        attributes_translations["description_#{locale}"] = get_description
+      end
+
+      I18n.locale = current_locale
+
+      {
+        objectID: algolia_id,
+        index: index,
+        type: area.area_name,
+        site_id: site.id,
+        ine_code: ine_code,
+        year: year,
+        code: code,
+        kind: kind
+      }.merge(attributes_translations)
+    end
+
+    # def category
+    #   area = BudgetArea.klass_for(area_name)
+    #   area.all_items[self.kind][self.code]
+    # end
+
+    def save
+      result = GobiertoBudgets::SearchEngine.client.index(index: elastic_search_index, type: area.area_name, id: id, body: elasticsearch_as_json.to_json)
+      saved = (result['_shards']['failed'] == 0)
+      if saved
+        self.class.algolia_index.add_object(algolia_as_json)
+      end
+      saved
+    end
+
+    def destroy
+      self.class.algolia_index.delete_object(algolia_id)
+      result = GobiertoBudgets::SearchEngine.client.delete(index: elastic_search_index, type: area.area_name, id: id)
+      result['_shards']['failed'] == 0
+    end
+
+    private
+
+    def get_name
+      (category ? category.name : GobiertoBudgets::Category.default_name(area, kind, code))
+    end
+
+    def get_description
+      (category ? category.description : GobiertoBudgets::Category.default_description(area, kind, code))
+    end
 
   end
 end

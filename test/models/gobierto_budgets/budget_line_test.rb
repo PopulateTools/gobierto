@@ -1,0 +1,126 @@
+require 'test_helper'
+
+module GobiertoBudgets
+  class BudgetLineTest < ActiveSupport::TestCase
+
+    def setup
+      super
+      budget_line.stubs(:population).returns(666)
+    end
+
+    def site
+      @site ||= sites(:madrid)
+    end
+
+    def budget_line
+      @budget_line ||= BudgetLine.new(
+        site: site,
+        index: 'index_forecast',
+        area_name: EconomicArea.area_name,
+        kind: BudgetLine::EXPENSE,
+        code: '1',
+        year: 2015,
+        amount: 123.45
+      )
+    end
+
+    def budget_line_arguments_for_indexing
+      {
+        index: SearchEngineConfiguration::BudgetLine.index_forecast,
+        type: EconomicArea.area_name,
+        id: '28079/2015/1/G'
+      }
+    end
+
+    def test_get_level
+      assert_equal 1, BudgetLine.get_level('0')
+      assert_equal 1, BudgetLine.get_level('1')
+      assert_equal 3, BudgetLine.get_level('123')
+      assert_equal 4, BudgetLine.get_level('123-00')
+    end
+
+    def test_get_parent_code
+      assert_nil BudgetLine.get_parent_code('0')
+      assert_nil BudgetLine.get_parent_code('1')
+      assert_equal '12',  BudgetLine.get_parent_code('123')
+      assert_equal '123', BudgetLine.get_parent_code('123-00')
+    end
+
+    def test_save
+      client = mock()
+
+      client.expects(:index)
+            .with(has_entries(budget_line_arguments_for_indexing))
+            .returns( { '_shards' => { 'failed' => 0 } } )
+
+      SearchEngine.stubs(client: client)
+
+      algolia_index = mock()
+
+      algolia_index.expects(:add_object).with(budget_line.algolia_as_json)
+
+      BudgetLine.stubs(algolia_index: algolia_index)
+
+      budget_line.save
+    end
+
+    def test_save_fail
+      client = mock()
+
+      client.expects(:index)
+            .with(has_entries(budget_line_arguments_for_indexing))
+            .returns( { '_shards' => { 'failed' => 1 } } )
+
+      SearchEngine.stubs(client: client)
+
+      algolia_index = mock()
+
+      algolia_index.expects(:add_object).with(budget_line.algolia_as_json).never
+
+      BudgetLine.stubs(algolia_index: algolia_index)
+
+      budget_line.save
+    end
+
+    def test_destroy
+      algolia_index = mock()
+
+      algolia_index.expects(:delete_object).with(budget_line.algolia_id)
+
+      BudgetLine.stubs(algolia_index: algolia_index)
+
+      client = mock()
+
+      client.expects(:delete)
+            .with(has_entries(budget_line_arguments_for_indexing))
+            .returns( { '_shards' => { 'failed' => 0 } } )
+
+      SearchEngine.stubs(client: client)
+
+      budget_line.destroy
+    end
+
+    def test_algolia_as_json
+
+      expected_hash = {
+        objectID: 'index_forecast/economic/28079/2015/1/G',
+        index: 'index_forecast',
+        type: 'economic',
+        site_id: site.id,
+        ine_code: budget_line.ine_code,
+        year: budget_line.year,
+        code: budget_line.code,
+        kind: budget_line.kind,
+        'name_es'        => 'Gastos de personal (custom, translated)',
+        'description_es' => 'Los gastos de personal son... (custom, translated)',
+        'name_en'        => 'Personal expenses (custom, translated)',
+        'description_en' => 'Personal expenses are... (custom, translated)',
+        'name_ca'        => 'Gastos de personal (custom, translated)',
+        'description_ca' => 'Los gastos de personal son... (custom, translated)'
+      }
+
+      assert_equal expected_hash, budget_line.algolia_as_json
+    end
+
+  end
+end

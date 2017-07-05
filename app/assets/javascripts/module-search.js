@@ -90,7 +90,7 @@ $(document).on('turbolinks:load', function() {
         params: {
           hitsPerPage: 10,
           filters: window.searchClient.filters
-          }
+        }
       });
     });
 

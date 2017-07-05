@@ -1,0 +1,71 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Personalizar sitio', 'admin_sites_site' %> »
+  Temas
+</div>
+
+<h1>Temas</h1>
+
+<div class="admin_tools right">
+  <%= link_to 'Nuevo tema', '#modal_edit_theme', class: 'button open_modal' %>
+</div>
+
+<table>
+<tr>
+  <th class="icon_col"></th>
+  <th>Tema</th>
+  <th>Creado</th>
+  <th></th>
+</tr>
+
+<% for i in ['Deporte', 'Cultura', 'Economía', 'Medio Ambiente', 'Urbanismo', 'Mujer', 'Mayores'] %>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, '#modal_edit_theme', class: 'open_modal' %></td>
+  <td><%= link_to i, '#modal_edit_theme', class: 'open_modal' %></td>
+  <td>12 oct 2016</td>
+  <td><i class="sort-handler fa fa-bars tipsit" original-title="Arrastra para ordenar"></i></td>
+</tr>
+<% end %>
+
+</table>
+
+
+<div class="modal mfp-hide" id="modal_edit_theme">
+
+  <h2>Editar tema</h2>
+
+  <form>
+
+    <div class="globalized_fields">
+
+      <div class="globalize_tool">
+        <label>Traducir</label>
+        <a href="#" class="locale_option selected completed tipsit" title="Define el contenido en su versión en Español">
+          <span class="locale">ES</span>
+          <span class="status"></span>
+        </a>
+        <a href="#" class="locale_option completed tipsit" title="Define el contenido en su versión en Catalán">
+          <span class="locale">CA</span>
+          <span class="status"></span>
+        </a>
+        <a href="#" class="locale_option tipsit" title="Define el contenido en su versión en Inglés">
+          <span class="locale">EN</span>
+          <span class="status"></span>
+        </a>
+      </div>
+
+      <div class="form_item input_text">
+        <label for="name">Nombre</label>
+        <input type="text" id="name" value="Deporte">
+      </div>
+
+    </div>
+
+    <div class="actions right">
+      <button class="light">Cancelar</button>
+      <input type="submit" value="Guardar">
+    </div>
+
+  </form>
+
+</div>

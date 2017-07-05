@@ -177,7 +177,8 @@ var VisLinesExecution = Class.extend({
       .attr('width', function(d) { return this.x(d.pct_executed); }.bind(this))
       .attr('fill', function(d) {
         var levelTwoColor = d3.rgb(this.color(this.executionKind));
-        levelTwoColor.opacity = 0.5;
+        levelTwoColor.opacity = this.isMobile ? 0.3 : 0.5;
+
         return d.level === 1 ? this.color(this.executionKind) : levelTwoColor;
       }.bind(this));
 
@@ -210,11 +211,10 @@ var VisLinesExecution = Class.extend({
         .attr('dy', 12)
         .attr('dx', 2)
         .attr('text-anchor', 'start')
-        // .style('display', function(d) { return d.level === 1 ? '' : 'none';})
-        .style('text-shadow', '0 0 4px white, 0 0 4px white, 0 0 4px white, 0 0 4px white')
+        .style('text-shadow', function(d) { return d.level === 1 ? '0 0 4px white, 0 0 4px white, 0 0 4px white, 0 0 4px white' : '';})
         .style('font-size', function(d) { return d.level === 1 ? '0.875rem' : '0.75rem';})
         .style('font-weight', function(d) { return d.level === 1 ? '600' : '400';})
-        .style('fill', function(d) { return d.level === 1 ? '#4A4A4A' : '#767168';})
+        .style('fill', '#4A4A4A')
         .text(function(d) { return d['name_' + this.localeFallback] }.bind(this))
         .style('pointer-events', 'none');
     }

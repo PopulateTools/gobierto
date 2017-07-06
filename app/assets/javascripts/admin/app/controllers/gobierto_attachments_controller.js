@@ -8,6 +8,9 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
   function app() {
     var bus = new Vue({});
 
+    const STATUS_INITIAL = 0, STATUS_SAVING = 1,
+          STATUS_SUCCESS = 2, STATUS_FAILED = 3;
+
     var fileUtils = {
       methods: {
         fileExtension: function(name){
@@ -25,6 +28,101 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
         }
       }
     }
+
+    Vue.component('file-upload', {
+      template: '#file-upload',
+      data: function(){
+        return {
+          fileDragged: false,
+          uploadedFiles: [],
+          uploadError: null,
+          currentStatus: null,
+          uploadFieldName: 'attachment',
+          attachment: {},
+        }
+      },
+      computed: {
+        isInitial() {
+          return this.currentStatus === STATUS_INITIAL;
+        },
+        isSaving() {
+          return this.currentStatus === STATUS_SAVING;
+        },
+        isSuccess() {
+          return this.currentStatus === STATUS_SUCCESS;
+        },
+        isFailed() {
+          return this.currentStatus === STATUS_FAILED;
+        }
+      },
+      methods: {
+        reset() {
+          // reset form to initial state
+          this.currentStatus = STATUS_INITIAL;
+          this.uploadedFiles = [];
+          this.uploadError = null;
+          this.attachment = {};
+          this.fileDragged = false;
+        },
+        save() {
+          // upload data to the server
+          this.currentStatus = STATUS_SAVING;
+
+          //var form = document.forms.namedItem("file-upload");
+          //var formData = new FormData(form);
+
+          this.upload(function(file){
+            this.uploadedFiles = [file];
+            this.currentStatus = STATUS_SUCCESS;
+          });
+        },
+        upload: function(callback){
+          var self = this;
+          $.ajax({
+            url: '/admin/attachments/api/attachments',
+            dataType: 'json',
+            method: "POST",
+            data: {
+              attachment: this.attachment
+            },
+            beforeSend: function(xhr){ xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')); },
+            success: function(response, textStatus, jqXHR){
+              Vue.set(self, 'fileDragged', false);
+              bus.$emit('file-upload:fileDraggedUpdated', self.fileDragged);
+              bus.$emit('site-attachments:load');
+            },
+            error: function(){
+              Vue.set(self, 'fileDragged', false);
+              bus.$emit('file-upload:fileDraggedUpdated', self.fileDragged);
+            }
+          });
+          callback();
+        },
+        filesChange: function(fieldName, fileList) {
+          if (!fileList.length) return;
+
+          this.fileDragged = true;
+          this.attachment.file_name = fileList[0].name;
+          bus.$emit('file-upload:fileDraggedUpdated', this.fileDragged);
+
+          // for(var i = 0; i < fileList.length; i++){
+          //   this.formData.append(fieldName, fileList[i]);
+          // }
+
+          var reader = new FileReader();
+          var self = this;
+          reader.addEventListener("load", function () {
+            self.attachment.file = reader.result.split(',')[1];
+          }, false);
+          reader.readAsDataURL(fileList[0]);
+
+          return;
+        }
+      },
+      mounted() {
+        this.reset();
+      },
+    });
 
     Vue.component('edit-attachment', {
       template: '#edit-attachment',
@@ -116,8 +214,6 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
               if(jqXHR.status == 200){
                 Vue.set(self, 'attachment', response.attachment);
                 Vue.set(self, 'show', true);
-              } else {
-                // TODO: handle errors
               }
             },
           });
@@ -154,16 +250,22 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
     Vue.component('site-attachments', {
       template: '#site-attachments',
       mixins: [fileUtils],
-      props: ['fileDragged', 'attachableId', 'attachableType'],
+      props: ['attachableId', 'attachableType'],
       data: function(){
         return {
           q: "",
           previousQ: "",
           attachments: [],
-          showModal: false
+          showModal: false,
+          fileDragged: false
         }
       },
       methods: {
+        searchStringParameters: function(){
+          if(this.q === "")
+            return {};
+          return {search_string: this.q};
+        },
         closeModal: function(){
           this.showModal = false;
         },
@@ -176,9 +278,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           $.ajax({
             url: '/admin/attachments/api/attachments',
             dataType: 'json',
-            data: {
-              search_string: this.q
-            },
+            data: this.searchStringParameters(),
             beforeSend: function(xhr){ xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')); },
             success: function(response, textStatus, jqXHR){
               if(jqXHR.status == 200){
@@ -223,6 +323,9 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
         var self = this;
         bus.$on('site-attachments:load', function(){
           self.fetchData();
+        });
+        bus.$on('file-upload:fileDraggedUpdated', function(value){
+          self.fileDragged = value;
         });
       },
     });
@@ -275,14 +378,19 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
     new Vue({
       el: selector,
       data: {
-        fileDragged: false,
         attachableType: $(selector).data('attachable-type'),
         attachableId: $(selector).data('attachable-id'),
       },
       methods: {
         loadAttachments: function(){
           bus.$emit('site-attachments:load');
-        }
+        },
+        dragHandler: function(e){
+          console.log('Drag handler');
+        },
+        dropHandler: function(e){
+          console.debug(e.dataTransfer.files)
+        },
       }
     });
   }

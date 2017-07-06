@@ -1,3 +1,35 @@
+<script type="text/x-template" id="file-upload">
+  <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving" name="file-upload">
+    <div class="drag-drop" v-if="!fileDragged">
+      <input type="file" :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files)" class="input-file">
+      <div class="drag-call">
+        <p>Arrastra y suelta tu documento aquí</p>
+        <p>o</p>
+        <p>Selecciona un archivo de tu disco duro</p>
+      </div>
+      <button>Incluir archivo</button>
+    </div>
+
+    <div class="dragged" v-if="fileDragged">
+      <div class="form_item input_text">
+        <label for="name">Documento</label>
+        <input class="strong" type="text" id="name" v-model="attachment.file_name" disabled>
+      </div>
+
+      <div class="form_item input_text">
+        <label for="name">Título del documento</label>
+        <input class="strong" type="text" id="name" v-model="attachment.name">
+      </div>
+
+      <div class="form_item textarea">
+        <label for="entity">Descripción</label>
+        <textarea v-model="attachment.description"></textarea>
+      </div>
+      <button class="f_right m_b_2" @click.prevent="save">Guardar</button>
+    </div>
+  </form>
+</script>
+
 <script type="text/x-template" id="site-attachments">
   <transition name="modal">
     <div class="modal-mask" v-if="showModal">
@@ -23,38 +55,13 @@
                 <p v-else>No hay adjuntos</p>
               </div>
             </div>
-            <div class="bg-highlight pure-u-1-3" :class="{ dragged: fileDragged }" >
+            <div class="bg-highlight pure-u-1-3" :class="{dragged: fileDragged}">
               <i class="fa fa-times f_right fa-lg p_0_5" @click="this.closeModal"></i>
 
               <div class="p_2 drag-section">
                 <h1>Añade nuevo documento</h1>
 
-                <div class="drag-drop" v-show="!fileDragged" @click="$emit('dragged')">
-                  <div class="drag-call">
-                    <p>Arrastra y suelta tu documento aquí</p>
-                    <p>o</p>
-                    <p>Selecciona un archivo de tu disco duro</p>
-                  </div>
-                  <button>Incluir archivo</button>
-                </div>
-
-                <div class="dragged" v-show="fileDragged">
-                  <div class="form_item input_text">
-                    <label for="name">Documento</label>
-                    <input class="strong" type="text" id="name" value="Inventario_bienes_Sueca.pdf (PDF · 234KB)" disabled>
-                  </div>
-
-                  <div class="form_item input_text">
-                    <label for="name">Título del documento</label>
-                    <input class="strong" type="text" id="name" value="Ayuntamiento de Burjassot">
-                  </div>
-
-                  <div class="form_item textarea">
-                    <label for="entity">Descripción</label>
-                    <textarea></textarea>
-                  </div>
-                  <button class="f_right m_b_2" @click="$emit('dragged')">Guardar</button>
-                </div>
+                <file-upload/>
 
               </div>
             </div>
@@ -145,10 +152,9 @@
   <file-list :attachable-type="attachableType" :attachable-id="attachableId"></file-list>
 
   <button id="show-modal" @click.prevent="loadAttachments" class="button m_t_1">Incluir archivo</button>
-  <p class="soft m_t_0_5">Arrastra y suelta un archivo para incluirlo</p>
+  <p class="soft m_t_0_5" @drop.prevent="dropHandler" @dragover.prevent="dragHandler">Arrastra y suelta un archivo para incluirlo</p>
 
-  <site-attachments :file-dragged="fileDragged" @dragged="fileDragged = !fileDragged"
-     :attachable-type="attachableType" :attachable-id="attachableId"></site-attachments>
+  <site-attachments :attachable-type="attachableType" :attachable-id="attachableId"></site-attachments>
 
   <edit-attachment />
 </div>

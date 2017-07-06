@@ -7,6 +7,8 @@ module GobiertoAttachments
 
     MAX_FILE_SIZE_IN_BYTES = 102400 # 100 Mb
 
+    default_scope { order(id: :desc) }
+
     has_paper_trail(
       on:     [:create, :update, :destroy],
       ignore: [:name, :file_size, :file_name, :description, :current_version]

@@ -505,3 +505,39 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
     }
   }
 }
+
+/*
+ * Activities
+ *
+ */
+.activity_feed {
+	.activity_item {
+		margin: 0 0 1.5em 0;
+		h2 {
+      text-transform: none;
+			margin: 0;
+			font-size: .85em;
+      line-height: 1.4;
+      font-weight: normal;
+			a {
+				display: block;
+				@include border-radius(3px);
+				text-decoration: initial;
+				span.secondary {
+					color: $text_soft;
+					display: block;
+					font-weight: normal;
+				}
+			}
+			a:hover {
+				background: $color_1_soft;
+			}
+		}
+		.date {
+			font-size: .85em;
+			color: $text_soft;
+			font-weight: normal;
+      opacity: .5;
+		}
+	}
+}

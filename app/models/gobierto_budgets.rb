@@ -4,4 +4,8 @@ module GobiertoBudgets
     'gb_'
   end
 
+  def self.searchable_models
+    [ GobiertoBudgets::BudgetLine ]
+  end
+
 end

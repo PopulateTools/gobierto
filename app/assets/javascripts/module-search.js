@@ -43,6 +43,8 @@ $(document).on('turbolinks:load', function() {
         return I18n.t("layouts.search.person_statement_item");
       case 'GobiertoCms::Page':
         return I18n.t("layouts.search.page_item");
+      case 'GobiertoBudgets::BudgetLine':
+        return I18n.t("layouts.search.budget_line_item");
     }
   }
 
@@ -64,8 +66,8 @@ $(document).on('turbolinks:load', function() {
             '<h2><a href="'+d.resource_path+'">' + (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) + '</a></h2>' +
             '<div class="description">' +
               '<div>' + itemDescription(d) + '</div>' +
-              '<span class="soft item_type">' + itemType(d) + '</span> · ' +
-              '<span class="soft updated_at">' + itemUpdatedAt(d) + '</span>' +
+              '<span class="soft item_type">' + itemType(d) + '</span>' +
+              (itemUpdatedAt(d) ? ' · <span class="soft updated_at">' + itemUpdatedAt(d) + '</span>' : '') +
             '</div>' +
           '</div>';
 
@@ -90,7 +92,7 @@ $(document).on('turbolinks:load', function() {
         params: {
           hitsPerPage: 10,
           filters: window.searchClient.filters
-          }
+        }
       });
     });
 

@@ -90,6 +90,7 @@ es:
       person_item: Biografía
       person_post_item: Post
       person_statement_item: Declaración
+      budget_line_item: Partida presupuestaria
       powered_by: Gobierto utiliza <a href="https://www.algolia.com" target="_blank">Algolia</a>
         para buscar
       updated: Actualizado

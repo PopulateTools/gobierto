@@ -90,6 +90,7 @@ ca:
       person_item: Biografia
       person_post_item: Post
       person_statement_item: Declaració
+      budget_line_item: Partida pressupostària
       powered_by: Gobierto utilitza <a href="https://www.algolia.com" target="_blank">Algolia</a>
         per a buscar
       updated: Actualitat

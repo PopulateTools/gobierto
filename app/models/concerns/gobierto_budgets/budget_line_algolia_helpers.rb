@@ -16,6 +16,15 @@ module GobiertoBudgets
         end
       end
 
+      def algolia_reindex_collection(budget_lines)
+        objects = budget_lines.map { |bl| bl.algolia_as_json }
+        algolia_index.add_objects(objects)
+      end
+
+      def algolia_destroy_records(site)
+        algolia_index.delete_by_query('', filters: "site_id:#{site.id}")
+      end
+
     end
 
     included do

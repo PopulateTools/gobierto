@@ -54,12 +54,31 @@ module GobiertoBudgets
     end
 
     def self.get_population(ine_code, year)
+      population = execute_get_population_query(ine_code, year)
+
+      if population.nil?
+        previous_year_population = execute_get_population_query(ine_code, year - 1)
+        next_year_population     = execute_get_population_query(ine_code, year + 1)
+
+        population = if previous_year_population && next_year_population
+                       (previous_year_population + next_year_population) / 2
+                     else
+                       previous_year_population || next_year_population
+                     end
+      end
+
+      population
+    end
+
+    def self.execute_get_population_query(ine_code, census_year)
       result = GobiertoBudgets::SearchEngine.client.get(
         index: GobiertoBudgets::SearchEngineConfiguration::Data.index,
          type: GobiertoBudgets::SearchEngineConfiguration::Data.type_population,
-           id: "#{ine_code}/#{year}"
+           id: "#{ine_code}/#{census_year}"
       )
       result['_source']['value']
+    rescue Elasticsearch::Transport::Transport::Errors::NotFound
+      nil
     end
 
     # BudgetLine.new(site: Site.second, index: 'index_forecast', area_name: 'economic', kind: 'G', code: '1', year: 2015, amount: 123.45)

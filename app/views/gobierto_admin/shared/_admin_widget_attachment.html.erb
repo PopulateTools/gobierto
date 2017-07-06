@@ -45,7 +45,7 @@
 
                 <table class="m_v_1" v-if="attachments.length">
                   <tbody>
-                    <tr v-for="attachment in attachments" @click="associateAttachment(attachment.id)">
+                    <tr v-for="attachment in attachments" @click="associateAttachment(attachment)">
                       <td><a :href="attachment.url" target="_blank">{{attachment.name}}</a></td>
                       <td>{{fileExtension(attachment.file_name)}}</td>
                       <td>{{bytesToSize(attachment.file_size)}}</td>
@@ -158,3 +158,5 @@
 
   <edit-attachment />
 </div>
+
+

@@ -5,6 +5,10 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
     app();
   };
 
+  function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+  }
+
   function app() {
     var bus = new Vue({});
 
@@ -217,22 +221,26 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
         },
         removeAttaching: function(){
           var self = this;
+          if(self.attachableId === "") {
+            bus.$emit('file-popover:removeAttaching', self.attachment);
+            Vue.set(self, 'show', false);
+            return;
+          }
+
           $.ajax({
             url: '/admin/attachments/api/attachings',
             method: "DELETE",
             dataType: 'json',
             data: {
-              attachment_id: this.attachment.id,
-              attachable_id: this.attachableId,
-              attachable_type: this.attachableType
+              attachment_id: self.attachment.id,
+              attachable_id: self.attachableId,
+              attachable_type: self.attachableType
             },
             beforeSend: function(xhr){ xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')); },
             success: function(response, textStatus, jqXHR){
               if(jqXHR.status == 200){
                 Vue.set(self, 'show', false);
                 bus.$emit('file-list:load');
-              } else {
-                // TODO: handle errors
               }
             },
           });
@@ -282,24 +290,27 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
             },
           });
         },
-        associateAttachment: function(id){
-          console.log(id);
+        associateAttachment: function(attachment){
           var self = this;
+          if(this.attachableId === "") {
+            bus.$emit('site-attachments:newAttaching', attachment);
+            Vue.set(self, 'showModal', false);
+            return;
+          }
           $.ajax({
             url: '/admin/attachments/api/attachings',
             dataType: 'json',
             method: "POST",
             data: {
-              attachment_id: id,
+              attachment_id: attachment.id,
               attachable_id: this.attachableId,
               attachable_type: this.attachableType
             },
             beforeSend: function(xhr){ xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')); },
             success: function(response, textStatus, jqXHR){
               bus.$emit('file-list:load');
-              Vue.set(self, 'showModal', false);
             },
-            error: function(){
+            complete: function(){
               Vue.set(self, 'showModal', false);
             }
           });
@@ -340,7 +351,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
         },
         fetchData: function(){
           var self = this;
-          var url = $(self.$options.el).data('data-url');
+          if(this.attachableId === "") return;
           $.ajax({
             url: '/admin/attachments/api/attachments',
             data: {
@@ -351,8 +362,6 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
             success: function(response, textStatus, jqXHR){
               if(jqXHR.status == 200){
                 Vue.set(self, 'attachments', response.attachments);
-              } else {
-                // TODO: handle errors
               }
             },
           });
@@ -365,6 +374,20 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           self.fetchData();
           self.showFiles = true;
         });
+        bus.$on('site-attachments:newAttaching', function(attachment){
+          self.attachments.push(attachment);
+          self.attachments = self.attachments.filter( onlyUnique );
+          self.showFiles = true;
+        });
+        bus.$on('file-popover:removeAttaching', function(attachment){
+          var index = -1;
+          self.attachments.forEach(function(a, i){
+            if(a.id === attachment.id)
+              index = i
+          });
+          self.attachments.splice(index, 1);
+          self.showFiles = true;
+        });
       }
     })
 
@@ -373,6 +396,8 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
     new Vue({
       el: selector,
       data: {
+        attachmentsIdsAfterCreated: [],
+        attachmentsIdsAfterCreatedStr: "",
         attachableType: $(selector).data('attachable-type'),
         attachableId: $(selector).data('attachable-id'),
       },
@@ -380,12 +405,24 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
         loadAttachments: function(){
           bus.$emit('site-attachments:load');
         },
-        dragHandler: function(e){
-          console.log('Drag handler');
-        },
-        dropHandler: function(e){
-          console.debug(e.dataTransfer.files)
-        },
+      },
+      mounted() {
+        var self = this;
+        bus.$on('site-attachments:newAttaching', function(attachment){
+          self.attachmentsIdsAfterCreated.push(attachment.id);
+          self.attachmentsIdsAfterCreatedStr = self.attachmentsIdsAfterCreated.join(',');
+          $('#attachmentsIdsAfterCreated').val(self.attachmentsIdsAfterCreatedStr);
+        });
+        bus.$on('file-popover:removeAttaching', function(attachment){
+          var index = -1;
+          self.attachmentsIdsAfterCreated.forEach(function(a, i){
+            if(a.id === attachment.id)
+              index = i
+          });
+          self.attachmentsIdsAfterCreated.splice(index, 1);
+          self.attachmentsIdsAfterCreatedStr = self.attachmentsIdsAfterCreated.join(',');
+          $('#attachmentsIdsAfterCreated').val(self.attachmentsIdsAfterCreatedStr);
+        });
       }
     });
   }

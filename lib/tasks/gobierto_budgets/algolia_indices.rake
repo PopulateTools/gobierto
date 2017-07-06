@@ -27,24 +27,11 @@ namespace :gobierto_budgets do
 
           puts "[INFO] Found #{forecast_hits.size} forecast #{area.area_name} #{kind} BudgetLine records"
 
-          execution_hits = request_budget_lines_from_elasticsearch(
-            GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed,
-            area,
-            ine_code,
-            year
-          )
-
-          puts "[INFO] Found #{execution_hits.size} execution #{area.area_name} #{kind} BudgetLine records"
-
           forecast_budget_lines = forecast_hits.map do |h|
             create_budget_line(site, 'index_forecast', h)
           end
 
-          execution_budget_lines = execution_hits.map do |h|
-            create_budget_line(site, 'index_executed', h)
-          end
-
-          GobiertoBudgets::BudgetLine.algolia_reindex_collection(forecast_budget_lines + execution_budget_lines)
+          GobiertoBudgets::BudgetLine.algolia_reindex_collection(forecast_budget_lines)
         end
       end
 

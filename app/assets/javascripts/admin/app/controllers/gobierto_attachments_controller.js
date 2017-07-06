@@ -39,6 +39,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           currentStatus: null,
           uploadFieldName: 'attachment',
           attachment: {},
+          errorMessage: null
         }
       },
       computed: {
@@ -68,9 +69,6 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           // upload data to the server
           this.currentStatus = STATUS_SAVING;
 
-          //var form = document.forms.namedItem("file-upload");
-          //var formData = new FormData(form);
-
           this.upload(function(file){
             this.uploadedFiles = [file];
             this.currentStatus = STATUS_SUCCESS;
@@ -83,16 +81,17 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
             dataType: 'json',
             method: "POST",
             data: {
-              attachment: this.attachment
+              attachment: self.attachment
             },
             beforeSend: function(xhr){ xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content')); },
             success: function(response, textStatus, jqXHR){
-              Vue.set(self, 'fileDragged', false);
-              bus.$emit('file-upload:fileDraggedUpdated', self.fileDragged);
               bus.$emit('site-attachments:load');
             },
-            error: function(){
-              Vue.set(self, 'fileDragged', false);
+            error: function(jqXHR, textStatus, errorThrown){
+              self.errorMessage = jqXHR.responseJSON.error;
+            },
+            complete: function(){
+              self.reset();
               bus.$emit('file-upload:fileDraggedUpdated', self.fileDragged);
             }
           });
@@ -104,10 +103,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           this.fileDragged = true;
           this.attachment.file_name = fileList[0].name;
           bus.$emit('file-upload:fileDraggedUpdated', this.fileDragged);
-
-          // for(var i = 0; i < fileList.length; i++){
-          //   this.formData.append(fieldName, fileList[i]);
-          // }
+          bus.$emit('site-attachments:load');
 
           var reader = new FileReader();
           var self = this;
@@ -115,8 +111,6 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
             self.attachment.file = reader.result.split(',')[1];
           }, false);
           reader.readAsDataURL(fileList[0]);
-
-          return;
         }
       },
       mounted() {
@@ -369,6 +363,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
         self.fetchData();
         bus.$on('file-list:load', function(){
           self.fetchData();
+          self.showFiles = true;
         });
       }
     })

@@ -111,6 +111,8 @@ module GobiertoBudgets
         year: budget_line.year,
         code: budget_line.code,
         kind: budget_line.kind,
+        resource_path: budget_line.resource_path,
+        class_name: budget_line.class.name,
         'name_es'        => 'Gastos de personal (custom, translated)',
         'description_es' => 'Los gastos de personal son... (custom, translated)',
         'name_en'        => 'Personal expenses (custom, translated)',

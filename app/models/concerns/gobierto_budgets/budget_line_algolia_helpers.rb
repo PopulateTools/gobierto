@@ -33,22 +33,33 @@ module GobiertoBudgets
           ine_code: ine_code,
           year: year,
           code: code,
-          kind: kind
-        }.merge(translated_attributes_hash)
+          kind: kind,
+          resource_path: resource_path,
+          class_name: self.class.name
+        }.merge(translated_attributes)
       end
 
-      def translated_attributes_hash
+      def translated_attributes
         current_locale = I18n.locale
-        attributes_translations = {}
+        translations = {}
 
         I18n.available_locales.each do |locale|
           I18n.locale = locale
-          attributes_translations["name_#{locale}"] = get_name
-          attributes_translations["description_#{locale}"] = get_description
+          translations["name_#{locale}"] = get_name
+          translations["description_#{locale}"] = get_description
         end
 
         I18n.locale = current_locale
-        attributes_translations
+        translations
+      end
+
+      def resource_path
+        Rails.application.routes.url_helpers.gobierto_budgets_budget_line_path(
+          area_name: area.area_name,
+          kind: kind,
+          year: year,
+          id: code
+        )
       end
 
     end

@@ -506,6 +506,16 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
   }
 }
 
+.nav_back {
+  background: lighten($color_logo_yellow, 40%);
+  padding: .5em 1em;
+  @include border-radius(5px);
+  font-size: .85em;
+  margin: 0 0 1em 0;
+  display: inline-block;
+}
+
+
 /*
  * Activities
  *

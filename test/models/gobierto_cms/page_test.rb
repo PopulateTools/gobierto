@@ -4,7 +4,7 @@ require "support/concerns/gobierto_attachments/attachable_test"
 module GobiertoCms
   class PageTest < ActiveSupport::TestCase
 
-    include ::GobiertoAttachments::AttachableTest
+    include GobiertoAttachments::AttachableTest
 
     def page
       @page ||= gobierto_cms_pages(:consultation_faq)

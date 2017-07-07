@@ -12,8 +12,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
   function app() {
     var bus = new Vue({});
 
-    const STATUS_INITIAL = 0, STATUS_SAVING = 1,
-          STATUS_SUCCESS = 2, STATUS_FAILED = 3;
+    var STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
 
     var fileUtils = {
       methods: {
@@ -47,21 +46,21 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
         }
       },
       computed: {
-        isInitial() {
+        isInitial: function() {
           return this.currentStatus === STATUS_INITIAL;
         },
-        isSaving() {
+        isSaving: function() {
           return this.currentStatus === STATUS_SAVING;
         },
-        isSuccess() {
+        isSuccess: function() {
           return this.currentStatus === STATUS_SUCCESS;
         },
-        isFailed() {
+        isFailed: function() {
           return this.currentStatus === STATUS_FAILED;
         }
       },
       methods: {
-        reset() {
+        reset: function() {
           // reset form to initial state
           this.currentStatus = STATUS_INITIAL;
           this.uploadedFiles = [];
@@ -69,7 +68,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           this.attachment = {};
           this.fileDragged = false;
         },
-        save() {
+        save: function() {
           // upload data to the server
           this.currentStatus = STATUS_SAVING;
 
@@ -117,7 +116,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           reader.readAsDataURL(fileList[0]);
         }
       },
-      mounted() {
+      mounted: function() {
         this.reset();
       },
     });
@@ -131,7 +130,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           attachment: null
         }
       },
-      mounted() {
+      mounted: function() {
         var self = this;
         bus.$on('edit-attachment:load', function(data){
           self.fetchData(data.id);
@@ -192,7 +191,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           attachment: null
         }
       },
-      mounted() {
+      mounted: function() {
         var self = this;
         bus.$on('file-popover:load', function(data){
           self.fetchData(data.id);
@@ -331,7 +330,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           this.previousQ = this.q;
         }
       },
-      mounted() {
+      mounted: function() {
         var self = this;
         bus.$on('site-attachments:load', function(){
           self.fetchData();
@@ -374,7 +373,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           });
         },
       },
-      mounted() {
+      mounted: function() {
         var self = this;
         self.fetchData();
         bus.$on('file-list:load', function(){
@@ -413,7 +412,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           bus.$emit('site-attachments:load');
         },
       },
-      mounted() {
+      mounted: function() {
         var self = this;
         bus.$on('site-attachments:newAttaching', function(attachment){
           self.attachmentsIdsAfterCreated.push(attachment.id);

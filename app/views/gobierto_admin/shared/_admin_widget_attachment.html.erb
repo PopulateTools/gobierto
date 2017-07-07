@@ -116,7 +116,7 @@
 
 <script type="text/x-template" id="file-popover">
   <div class="file-popover" v-if="attachment !== null && show" @mouseleave="closePopover">
-    <a href="#">{{attachment.name}}</a>
+    <a href="#" @click.prevent="addToEditor(attachment)">{{attachment.name}}</a>
 
     <div class="pure-button-group m_v_1" role="group">
       <button class="pure-button" @click.prevent="editAttachment(attachment.id)"><i class="fa fa-edit"></i></button>
@@ -138,7 +138,7 @@
       <table class="explore_slow">
         <tbody>
           <tr v-for="attachment in attachments" :key="attachment.id">
-            <td><a @mouseover="popover" href="#" :data-attachment-id="attachment.id">{{attachment.name}}</a></td>
+            <td><a @mouseover="popover" :href="attachment.url" target="_blank" :data-attachment-id="attachment.id">{{attachment.name}}</a></td>
           </tr>
         </tbody>
       </table>

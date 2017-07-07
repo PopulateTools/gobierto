@@ -1,7 +1,7 @@
-require_dependency "gobierto_cms"
+require_dependency "gobierto_participation"
 
-module GobiertoCms
-  class Page < ApplicationRecord
+module GobiertoParticipation
+  class Process < ApplicationRecord
     include User::Subscribable
     include GobiertoCommon::Searchable
     include GobiertoAttachments::Attachable
@@ -17,6 +17,7 @@ module GobiertoCms
     translates :title, :body, :slug
 
     belongs_to :site
+    has_many :stages, dependent: :destroy, class_name: 'GobiertoParticipation::ProcessStage'
 
     enum visibility_level: { draft: 0, active: 1 }
 

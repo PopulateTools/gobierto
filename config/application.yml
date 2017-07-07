@@ -26,6 +26,9 @@ default: &default
     -
       name: Gobierto Attachments
       namespace: GobiertoAttachments
+    -
+      name: Gobierto Participation
+      namespace: GobiertoParticipation
   dns_config:
     cname_record_target: site.gobierto.dev
     a_record_target: 222.111.222.11

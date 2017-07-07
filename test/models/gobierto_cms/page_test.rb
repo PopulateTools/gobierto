@@ -1,15 +1,17 @@
 require "test_helper"
 require "support/concerns/gobierto_attachments/attachable_test"
+require "support/concerns/gobierto_common/collectionable_test"
 
 module GobiertoCms
   class PageTest < ActiveSupport::TestCase
-
     include GobiertoAttachments::AttachableTest
+    include GobiertoCommon::CollectionableTest
 
     def page
       @page ||= gobierto_cms_pages(:consultation_faq)
     end
     alias attachable_with_attachment page
+    alias collectionable_object page
 
     def attachable_without_attachment
       @attachable_without_attachment ||= gobierto_cms_pages(:privacy)

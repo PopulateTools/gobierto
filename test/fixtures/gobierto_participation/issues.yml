@@ -1,0 +1,9 @@
+culture:
+  site: madrid
+  name_translations: <%= { 'en' => 'Culture', 'es' => 'Cultura' }.to_json %>
+  slug_translations: <%= { 'en' => 'culture', 'es' => 'cultura' }.to_json %>
+
+women:
+  site: madrid
+  name_translations: <%= { 'en' => 'Women', 'es' => 'Mujer' }.to_json %>
+  slug_translations: <%= { 'en' => 'women', 'es' => 'mujer' }.to_json %>

@@ -7,6 +7,8 @@ module GobiertoAttachments
 
     MAX_FILE_SIZE_IN_BYTES = 102400 # 100 Mb
 
+    default_scope { order(id: :desc) }
+
     has_paper_trail(
       on:     [:create, :update, :destroy],
       ignore: [:name, :file_size, :file_name, :description, :current_version]
@@ -20,7 +22,7 @@ module GobiertoAttachments
 
     attr_accessor :file
 
-    validates :site, :name, :file_size, :file_name, :file_digest, :url, :current_version, presence: true
+    validates :site, :name, presence: true
 
     validates :file_digest, uniqueness: {
       scope: :site_id,
@@ -44,6 +46,12 @@ module GobiertoAttachments
 
     def active?
       true
+    end
+
+    def created_at
+      if versions.length
+        versions.last.created_at
+      end
     end
 
     private

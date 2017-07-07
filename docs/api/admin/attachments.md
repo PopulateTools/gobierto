@@ -38,6 +38,25 @@ You'll need to provide the following parameters inside the request body, formatt
 
 * Description is optional
 
+## GET attachment
+
+```
+GET http://gobierto.example/admin/attachments/api/attachments/:id
+```
+
+You can provide the following parameters inside the request body, formatted as JSON (example):
+
+```json
+{
+    "attachment": {
+        "name": "New attachment name",
+        "description": "New attachment description",
+        "file_name": "sample_file.txt",
+        "file": "file content encoded in base64"
+    }
+}
+```
+
 ## Update attachment
 
 ```

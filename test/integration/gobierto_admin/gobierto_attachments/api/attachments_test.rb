@@ -14,7 +14,7 @@ module GobiertoAdmin
       end
 
       def attachment_attributes
-        @attachment_attributes ||= %w[ id site_id name description file_name file_digest url file_size current_version ]
+        @attachment_attributes ||= %w[ id site_id name description file_name file_digest url file_size current_version created_at ]
       end
 
       def pdf_file
@@ -57,14 +57,14 @@ module GobiertoAdmin
         assert_equal 4, attachments.size
         assert array_match(attachment_attributes, attachment.keys)
 
-        assert_equal 'PDF Attachment Name',                            attachment['name']
-        assert_equal 10022,                                            attachment['file_size']
-        assert_equal 'pdf-attachment.pdf',                             attachment['file_name']
-        assert_equal '44036997d456028a88d634afa64037ae',               attachment['file_digest']
-        assert_equal 'http://host.com/attachments/pdf-attachment.pdf', attachment['url']
-        assert_equal 'Description of a PDF attachment',                attachment['description']
-        assert_equal 1,                                                attachment['current_version']
-        assert_equal site.id,                                          attachment['site_id']
+        assert_equal 'Attachment Name',                             attachment['name']
+        assert_equal 49,                                            attachment['file_size']
+        assert_equal 'attachment',                                  attachment['file_name']
+        assert_equal 'b6db2818dffd2fb2fc20836bebd59b87',            attachment['file_digest']
+        assert_equal 'http://host.com/attachments/attachment',      attachment['url']
+        assert_equal 'Description of attachment without extension', attachment['description']
+        assert_equal 3,                                             attachment['current_version']
+        assert_equal site.id,                                       attachment['site_id']
       end
 
       def test_attachments_index_for_attachable

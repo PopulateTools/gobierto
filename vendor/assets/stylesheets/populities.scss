@@ -84,8 +84,13 @@
 .no_wrap {
   white-space: nowrap;
 }
+.strong {
+  font-weight: 700;
+}
 
-
+.p_0_5 {
+  padding: 0.5em;
+}
 .p_1 {
   padding: 1em;
 }
@@ -160,6 +165,26 @@
 }
 .m_v_4 {
   margin: 4em 0;
+}
+.m_t_1 {
+  margin: 1em 0 0 0;
+}
+.m_t_0_5 {
+  margin: 0.5em 0 0 0;
+}
+.m_b_1 {
+  margin: 0 0 1em 0;
+}
+.m_b_2 {
+  margin: 0 0 2em 0;
+}
+.p_h_r_0_25 {
+  padding: 0 0.25em 0 0;
+  box-sizing: border-box;
+}
+.p_h_r_0_5 {
+  padding: 0 0.5em 0 0;
+  box-sizing: border-box;
 }
 .p_h_r_1 {
   padding: 0 1em 0 0;

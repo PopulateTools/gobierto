@@ -1,0 +1,160 @@
+<script type="text/x-template" id="file-upload">
+  <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving" name="file-upload">
+    <div class="drag-drop" v-if="!fileDragged">
+      <input type="file" :name="uploadFieldName" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files)" class="input-file" />
+      <p v-if="errorMessage">{{errorMessage}}</p>
+      <div class="drag-call">
+        <p><%= t('.drag_document_here') %></p>
+        <p><%= t('.or') %></p>
+        <p><%= t('.select_file') %></p>
+      </div>
+      <button><%= t('.include_file') %></button>
+    </div>
+
+    <div class="dragged" v-if="fileDragged">
+      <div class="form_item input_text">
+        <label for="name"><%= t('.document') %></label>
+        <input class="strong" type="text" id="name" v-model="attachment.file_name" disabled>
+      </div>
+
+      <div class="form_item input_text">
+        <label for="name"><%= t('.document_title') %></label>
+        <input class="strong" type="text" id="name" v-model="attachment.name">
+      </div>
+
+      <div class="form_item textarea">
+        <label for="entity"><%= t('.description') %></label>
+        <textarea v-model="attachment.description"></textarea>
+      </div>
+      <button class="f_right m_b_2" @click.prevent="save"><%= t('.save') %></button>
+    </div>
+  </form>
+</script>
+
+<script type="text/x-template" id="site-attachments">
+  <transition name="modal">
+    <div class="modal-mask" v-if="showModal">
+      <div class="modal-wrapper">
+        <div class="modal-attachments">
+          <div class="pure-g">
+            <div class="pure-u-2-3">
+              <div class="p_2">
+                <h1><%= t('.latest_documents') %></h1>
+
+                <input type="text" placeholder="<%= t('.search') %>..." v-model="q" :value="q" @keyup="search"/>
+
+                <table class="m_v_1" v-if="attachments.length">
+                  <tbody>
+                    <tr v-for="attachment in attachments" @click="associateAttachment(attachment)">
+                      <td><a :href="attachment.url" target="_blank">{{attachment.name}}</a></td>
+                      <td>{{fileExtension(attachment.file_name)}}</td>
+                      <td>{{bytesToSize(attachment.file_size)}}</td>
+                      <td>{{formatDate(attachment.created_at)}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p v-else><%= t('.no_docs') %></p>
+              </div>
+            </div>
+            <div class="bg-highlight pure-u-1-3" :class="{dragged: fileDragged}">
+              <i class="fa fa-times f_right fa-lg p_0_5" @click="this.closeModal"></i>
+
+              <div class="p_2 drag-section">
+                <h1><%= t('.add_new_document') %></h1>
+
+                <file-upload/>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</script>
+
+<script type="text/x-template" id="edit-attachment">
+  <transition name="modal">
+    <div class="modal-mask" v-if="showModal">
+      <div class="modal-wrapper">
+        <div class="modal-attachments">
+          <div class="pure-g">
+            <div class="bg-highlight pure-u-1-1 dragged">
+              <div class="p_2">
+                <i class="fa fa-times f_right fa-lg p_0_5" @click="this.closeModal"></i>
+
+                <div class="p_2 drag-section">
+                  <h1><%= t('.edit_document') %></h1>
+
+                  <div class="dragged">
+                    <div class="form_item input_text">
+                      <label for="name"><%= t('.document') %></label>
+                      <input class="strong" type="text" :value="attachmentDoc(attachment)" disabled>
+                    </div>
+
+                    <div class="form_item input_text">
+                      <label for="name"><%= t('.document_title') %></label>
+                      <input class="strong" type="text" v-model="attachment.name" name="name">
+                    </div>
+
+                    <div class="form_item textarea">
+                      <label for="entity"><%= t('.description') %></label>
+                      <textarea name="description" v-model="attachment.description"></textarea>
+                    </div>
+                    <button class="f_right m_b_2" @click.prevent="updateAttachment(attachment.id)"><%= t('.save') %></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</script>
+
+
+<script type="text/x-template" id="file-popover">
+  <div class="file-popover" v-if="attachment !== null && show" @mouseleave="closePopover">
+    <a href="#">{{attachment.name}}</a>
+
+    <div class="pure-button-group m_v_1" role="group">
+      <button class="pure-button" @click.prevent="editAttachment(attachment.id)"><i class="fa fa-edit"></i></button>
+      <button class="pure-button" @click.prevent="removeAttaching"><i class="fa fa-trash"></i></button>
+    </div>
+
+    <button class="button" @click.prevent="addToEditor(attachment)"><%= t('.include_in_text') %></button>
+  </div>
+</script>
+
+<script type="text/x-template" id="file-list-template">
+  <div>
+    <a @click.prevent="showFiles = !showFiles" href="#" class="show-files">
+      <i :class="[showFiles ? 'fa-caret-down' : 'fa-caret-right']" class="fa p_h_r_0_25 soft" aria-hidden="true" v-if="attachments.length"></i>
+      <strong><%= t('.attachments') %></strong>
+    </a>
+
+    <div class="file-list" v-if="showFiles">
+      <table class="explore_slow">
+        <tbody>
+          <tr v-for="attachment in attachments" :key="attachment.id">
+            <td><a @mouseover="popover" href="#" :data-attachment-id="attachment.id">{{attachment.name}}</a></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <file-popover :attachable-type="attachableType" :attachable-id="attachableId" />
+    </div>
+  </div>
+</script>
+
+
+<div id="gobierto-attachment" class="m_v_2" data-attachable-type="<%= attachable_type %>" data-attachable-id="<%= attachable_id %>">
+  <file-list :attachable-type="attachableType" :attachable-id="attachableId"></file-list>
+
+  <button id="show-modal" @click.prevent="loadAttachments" class="button m_t_1"><%= t('.include_file') %></button>
+
+  <site-attachments :attachable-type="attachableType" :attachable-id="attachableId"></site-attachments>
+
+  <edit-attachment />
+</div>

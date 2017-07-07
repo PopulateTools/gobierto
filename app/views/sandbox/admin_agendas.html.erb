@@ -1,0 +1,88 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  Agendas
+</div>
+
+<h1>Agendas</h1>
+
+<div class="pure-g">
+
+  <div class="pure-u-1 pure-u-md-1-2 p_h_r_2">
+
+    <h3>Últimas ediciones</h3>
+
+    <%# same markup as in the front end, lets reuse partials? %>
+    <div class="activity_feed">
+
+      <% for i in [
+        'Reunión del Pleno Municipal',
+        'Inauguración del Campamento de Verano',
+        'Anunciamos el programa para las fiestas',
+        'Reunión informativa sobre los presupuestos participativos',
+        'Mesa de Diálogo sobre el Pacto de la Mujer',
+        '¡Vota! Comienza el plazo para elegir el nombre del nuevo polideportivo',
+        'Reunión del Pleno Municipal',
+        'Inauguración del Campamento de Verano',
+        'Anunciamos el programa para las fiestas',
+        'Reunión informativa sobre los presupuestos participativos',
+        'Mesa de Diálogo sobre el Pacto de la Mujer',
+        '¡Vota! Comienza el plazo para elegir el nombre del nuevo polideportivo'
+      ] %>
+      <div class="activity_item">
+        <h2>
+          <a href="admin_people_person_agenda_event">
+            <%= i %>
+            <span class="secondary">Altos Cargos/Manuela Carmena/Agenda</span>
+          </a>
+        </h2>
+        <div class="date">02 mar 2017</div>
+      </div>
+      <% end %>
+
+    </div>
+
+  </div>
+
+  <div class="pure-u-1 pure-u-md-1-2">
+
+    <div class="pure-g">
+
+      <div class="pure-u-1-2">
+        <h3>Agendas</h3>
+      </div>
+
+      <div class="pure-u-1-2 admin_tools right">
+        <%= link_to 'Nueva', 'admin_agendas_agenda#agenda_options', class: 'button' %>
+      </div>
+
+    </div>
+
+    <table>
+    <tr>
+      <th>Título</th>
+      <th>Páginas</th>
+      <th></th>
+    </tr>
+
+    <% for i in [
+      'Agenda global de Alcobendas',
+      'Agenda de Cultura de Alcobendas',
+      'Altos Cargos/Manuela Carmena/Agenda',
+      'Altos Cargos/Esperanza Aguirre/Agenda',
+      'Altos Cargos/Felipe González/Agenda',
+      'Altos Cargos/Zapatero/Agenda',
+      'Altos Cargos/Ronald Reagan/Agenda',
+      'Participación/Agenda',
+      'Participación/Proceso con Título que Puede llegar a ser muy largo/Agenda'] %>
+    <tr>
+      <td><%= link_to i, 'admin_people_person_agenda' %></td>
+      <td>12</td>
+      <td><%= link_to '<i class="fa fa-eye"></i> Ver agenda'.html_safe, '#', class: 'view_item' %></td>
+    </tr>
+    <% end %>
+
+    </table>
+
+  </div>
+
+</div>

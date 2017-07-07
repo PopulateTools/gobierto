@@ -1,14 +1,14 @@
 <div class="admin_breadcrumb">
   <%= link_to 'Inicio', 'admin' %> »
-  <%= link_to 'CMS', 'admin_cms' %> »
-  Colección
+  <%= link_to 'Agendas', 'admin_agendas' %> »
+  Agenda
 </div>
 
-<h1>Participación/Nombre del proceso que puede ser un poco largo/Noticias</h1>
+<h1>Participación/Nombre del proceso que puede ser un poco largo/Agenda</h1>
 
 <div class="admin_tools right">
-  <%= link_to '<i class="fa fa-cog"></i> Configuración'.html_safe, '#collection_options', class: 'open_modal' %>
-  <%= link_to 'Nueva', 'admin_cms_collection_page', class: 'button' %>
+  <%= link_to '<i class="fa fa-cog"></i> Configuración'.html_safe, '#agenda_options', class: 'open_modal' %>
+  <%= link_to 'Nueva', 'admin_agendas_agenda_event', class: 'button' %>
 </div>
 
 <table>
@@ -23,12 +23,18 @@
 </tr>
 
 <% for i in [
-  'Nuevo: Arranca la fase de votaciones para decidir los nuevos parques infantiles',
-  'Actualizado: Te explicamos los presupuestos en 5 claves',
-  'Inauguramos el Portal de Transparencia',
-  'Anunciamos la publicación de las agendas de los cargos y directivos del Ayuntamiento',
-  'Comienzan las fiestas de Getafe',
-  'Relación de puestos de trabajo y retribuciones del Ayuntamiento'
+  'Reunión del Pleno Municipal',
+  'Inauguración del Campamento de Verano',
+  'Anunciamos el programa para las fiestas',
+  'Reunión informativa sobre los presupuestos participativos',
+  'Mesa de Diálogo sobre el Pacto de la Mujer',
+  '¡Vota! Comienza el plazo para elegir el nombre del nuevo polideportivo',
+  'Reunión del Pleno Municipal',
+  'Inauguración del Campamento de Verano',
+  'Anunciamos el programa para las fiestas',
+  'Reunión informativa sobre los presupuestos participativos',
+  'Mesa de Diálogo sobre el Pacto de la Mujer',
+  '¡Vota! Comienza el plazo para elegir el nombre del nuevo polideportivo'
 ] %>
 <tr>
   <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_cms_collection_page' %></td>
@@ -45,9 +51,9 @@
 
 </table>
 
-<div class="modal mfp-hide" id="collection_options">
+<div class="modal mfp-hide" id="agenda_options">
 
-  <h2>Editar colección</h2>
+  <h2>Editar agenda</h2>
 
   <form>
 

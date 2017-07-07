@@ -244,7 +244,14 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
               }
             },
           });
+        },
+        addToEditor: function(attachment) {
+          var locale = $('[data-toggle-edit-locale].selected').data('toggle-edit-locale');
+          var element = document.querySelector("trix-editor[lang="+locale+"]");
+          if(element === null || element.editor === null) return;
 
+          var html = '<div><a href="'+attachment.url+'" target="_blank" data-trix-content-type="application/'+this.fileExtension(attachment.file_name)+'"><figure class="attachment attachment-file '+this.fileExtension(attachment.file_name)+'"><figcaption class="caption">'+attachment.file_name+' <span class="size">('+ this.bytesToSize(attachment.file_size) +')</span></figcaption></figure></a></div>';
+          element.editor.insertHTML(html);
         },
       },
     });

@@ -123,7 +123,7 @@
       <button class="pure-button" @click.prevent="removeAttaching"><i class="fa fa-trash"></i></button>
     </div>
 
-    <button class="button">Incluir archivo en el texto</button>
+    <button class="button" @click.prevent="addToEditor(attachment)">Incluir archivo en el texto</button>
   </div>
 </script>
 
@@ -158,5 +158,3 @@
 
   <edit-attachment />
 </div>
-
-

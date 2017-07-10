@@ -39,6 +39,9 @@ class Site < ApplicationRecord
   # Modules settings
   has_many :module_settings, dependent: :destroy, class_name: "GobiertoModuleSettings"
 
+  # Gobierto Participation integration
+  has_many :issues, dependent: :destroy, class_name: "GobiertoParticipation::Issue"
+
   serialize :configuration_data
 
   before_save :store_configuration

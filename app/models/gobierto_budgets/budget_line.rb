@@ -333,7 +333,7 @@ module GobiertoBudgets
 
     def self.has_children?(options)
       options.symbolize_keys!
-      conditions = { parent_code: options[:code], level: options[:level].to_i + 1, type: options[:area] }
+      conditions = { parent_code: options[:code], type: options[:area] }
       conditions.merge! options.slice(:ine_code,:kind,:year)
 
       return search(conditions)['hits'].length > 0

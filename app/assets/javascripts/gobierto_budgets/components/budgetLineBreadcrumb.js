@@ -49,8 +49,10 @@ function limit_length(input, length) {
       this.states.slice(2, this.states.length - 1).forEach(function(segment){
         if(segment.indexOf('-') === -1 || segment.length == 6) {
           var categoryName = categories[this.states[1]][segment];
-          this.selectedCategories.push(categoryName);
-          html += '<a href="/presupuestos/partidas/'+segment+'/'+this.currentYear+'/'+this.areaName+'/' + this.states[1] + '">' + categoryName + '</a> »';
+          if(categoryName !== undefined) {
+            this.selectedCategories.push(categoryName);
+            html += '<a href="/presupuestos/partidas/'+segment+'/'+this.currentYear+'/'+this.areaName+'/' + this.states[1] + '">' + categoryName + '</a> »';
+          }
         }
       }.bind(this));
       $el.html(html);

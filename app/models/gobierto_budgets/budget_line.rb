@@ -112,6 +112,14 @@ module GobiertoBudgets
       { place_id: place_id, year: year, code: code, area_name: area.area_name, kind: kind }
     end
 
+    def self.has_children?(options)
+      options.symbolize_keys!
+      conditions = { parent_code: options[:code], type: options[:area] }
+      conditions.merge! options.slice(:ine_code,:kind,:year)
+
+      return search(conditions)['hits'].length > 0
+    end
+
     def save
       result = GobiertoBudgets::SearchEngine.client.index(index: elastic_search_index, type: area.area_name, id: id, body: elasticsearch_as_json.to_json)
       saved = (result['_shards']['failed'] == 0)

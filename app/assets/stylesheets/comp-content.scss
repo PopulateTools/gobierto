@@ -7,7 +7,13 @@
     .inner {
       max-width: 650px;
       margin: 0 auto;
+      padding: 1em;
       padding-top: 5em;
+
+      @media (min-width: 768px) {
+        padding: 0;
+        padding-top: 5em;
+      }
 
       h1 {
         font-weight: 600;
@@ -77,11 +83,90 @@
     border-bottom: 1px solid #DEEFF1;
   }
 
+  h4 {
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
   hr {
     max-width: 100%;
     margin: 5em 0;
     border: none;
     border-top: 1px solid #DEEFF1;;
     max-width: 100%;
+  }
+
+  .number {
+    padding-top: 0.5em;
+    padding-bottom: 2em;
+
+    p {
+      margin-top: 0;
+      color: $text_soft;
+      font-size: 0.775em;
+    }
+    div {
+      color: $color_main;
+      font-weight: 300;
+      font-size: 3em;
+    }
+  }
+
+  blockquote {
+    position: relative;
+
+    p {
+      margin-top: 0;
+      font-weight: 300;
+      font-size: 2.25em;
+      line-height: 1.25;
+    }
+
+    .share {
+      position: absolute;
+      right: 0;
+
+      a {
+        color: $color_headers;
+
+        &:not(:last-child) {
+          margin-right: 0.25em;
+        }
+      }
+    }
+  }
+
+  figure {
+    position: relative;
+    max-width: 1024px;
+
+    @media (min-width: 768px) {
+      margin-bottom: 4em;
+    }
+
+    @media (min-width: 1350px) {
+      margin-bottom: 2em;
+    }
+
+    figcaption {
+      color: $text_soft;
+      font-size: 0.775em;
+      line-height: 1.4;
+      margin-top: 0.5em;
+
+      @media (min-width: 768px) {
+        display: inline-block;
+        position: absolute;
+        margin-left: 0.25em;
+        right: 0;
+      }
+
+      @media (min-width: 1350px) {
+        max-width: 13%;
+        right: -14%;
+        bottom: 0;
+        margin-top: 0;
+      }
+    }
   }
 }

@@ -110,70 +110,63 @@
 
   <div class="site_header">
 
-    <% if @site.configuration.logo %>
     <div class="column">
       <div class="logo">
-        <%= image_tag @site.configuration.logo %>
+        <%= link_to(image_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
       </div>
     </div>
-    <% end %>
 
-    <menu class="complete color_main">
+    <nav id="main_menu" class="menu complete color_bg_main" role="navigation" aria-hidden="true" aria-expanded="false" role="group" aria-controlledby="main_nav">
       <div class="column">
-
-        <div class="close ">
-          <%= link_to '<i class="fa fa-close"></i>'.html_safe, '', class: 'color_main' %>
+        <div class="close">
+          <%= link_to "#", class: "color_bg_main" do %>
+            <i class="fa fa-close"></i>
+          <% end %>
         </div>
 
         <div class="pure-g">
 
-          <div class="pure-u-1 pure-u-md-1-4 section">
-            <h2>Presupuestos</h2>
-            <%= link_to 'Visualización' %>
-            <%= link_to 'Consultas' %>
-          </div>
-
-          <div class="pure-u-1 pure-u-md-1-4 section">
-            <h2>Personas</h2>
-            <%= link_to 'Cargos' %>
-            <%= link_to 'Agendas' %>
-          </div>
-
-          <div class="pure-u-1 pure-u-md-1-4 section">
-            <h2>Indicadores</h2>
-            <%= link_to 'Tu municipio en cifras' %>
-            <%= link_to 'Cuadro de mando' %>
-            <%= link_to 'Objetivos' %>
-          </div>
-
-          <div class="pure-u-1 pure-u-md-1-4 section">
-            <h2>Participación</h2>
-            <%= link_to 'Propuestas' %>
-            <%= link_to 'Preguntas' %>
-            <%= link_to 'Consultas' %>
-            <%= link_to 'Legislación colaborativa' %>
-          </div>
-
-          <div class="pure-u-1 pure-u-md-1-4 section">
-            <h2>Mapas</h2>
-            <%= link_to 'Inversiones' %>
-            <%= link_to 'Recursos' %>
-            <%= link_to 'Instalacioens' %>
-          </div>
+          <% current_site.configuration.modules.each do |site_module| %>
+            <%= render_if_exists "#{site_module.underscore}/layouts/navigation" %>
+          <% end %>
 
           <div class="pure-u-1 pure-u-md-1-4 section personal_menu mobile_only">
-
-            <!-- these are the same links from .user_links -->
-            <h2>Tu cuenta</h2>
-            <%= link_to 'Perfil' %>
-            <%= link_to 'Alertas' %>
-            <%= link_to 'Desconectar' %>
+            <% if user_signed_in? %>
+              <h2>
+                <%= link_to user_settings_path, class: "pure-menu-link" do %>
+                  <i class="fa fa-ship"></i>
+                  <%= t("layouts.application.session.title") %>
+                <% end %>
+              </h2>
+              <%= link_to user_notifications_path, class: "pure-menu-link" do %>
+                <i class="fa fa-th"></i>
+                <%= t("layouts.application.session.notifications") %>
+              <% end %>
+              <%= link_to user_subscriptions_path, class: "pure-menu-link" do %>
+                <i class="fa fa-envelope-o"></i>
+                <%= t("layouts.application.session.alerts") %>
+              <% end %>
+              <%= link_to user_sessions_path, method: :delete, class: "pure-menu-link" do %>
+                <i class="fa fa-sign-out"></i>
+                <%= t("layouts.application.session.sign_out") %>
+              <% end %>
+            <% else %>
+              <ul class="pure-menu-list left">
+                <li class="pure-menu-item">
+                  <%= link_to new_user_sessions_path, class: "pure-menu-link" do %>
+                    <i class="fa fa-sign-in"></i>
+                    <%= t("layouts.application.session.sign_in") %>
+                  <% end %>
+                </li>
+              </ul>
+            <% end %>
 
             <div class="language_selector">
-              · <strong>ES</strong>
-              <a href="#">CA</a>
-              <a href="#">GA</a>
-              <a href="#">EU</a>
+              <%= render "layouts/locale_selector" %>
+            </div>
+
+            <div class="search_box slim_search mobile_only">
+              <input type="text" placeholder="<%= t('.search') %>" name="q" id="gobierto_search" />
             </div>
 
           </div>
@@ -181,18 +174,38 @@
         </div>
 
       </div>
-    </menu>
+    </nav>
 
     <div class="column">
-      <menu class="nav">
+      <nav id="main_nav" class="nav" role="navigation" aria-controls="main_menu" aria-hidden="false">
+
         <div class="global_breadcrumb">
           <%= link_to '<i class="fa fa-bars"></i> Inicio'.html_safe, '', class:'menu_control'  %> <span>/</span>
           <strong><%= link_to 'Presupuestos' %></strong> <span>/</span>
           <strong><%= link_to 'Visualización' %></strong>
         </div>
         <%= render 'sandbox/layouts/menu_subsections' %>
-      </menu>
+
+        <div class="search_box slim_search desktop_only">
+          <label for="gobierto_search" class="screen-hidden">Buscar...</label>
+          <input type="text" placeholder="Buscar..." name="q" id="gobierto_search" />
+        </div>
+
+        <div id="search_results" class="search_result_list"></div>
+
+        <% if show_social_links? %>
+          <div class="social_links_container" data-share>
+            <a href="#" class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
+            <% pending do %>
+              <a href="#embed-graph-code" class="code open_modal"><i class="fa fa-code"></i></a>
+            <% end %>
+          </div>
+        <% end %>
+
+      </nav>
     </div>
+
 
   </div>
   <%# load_current_module_sub_sections %>

@@ -174,13 +174,15 @@
         <div id="lines_chart"></div>
       </div>
 
-      <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
-        <h2><%= t('gobierto_budgets.budgets.index.context') %></h2>
-        <div id="lines_tooltip"></div>
-        <div class="help">
-          <%= link_to t('gobierto_budgets.budgets.index.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], title: t('gobierto_budgets.budgets.index.note_about_the_data_title'), class: 'tipsit' %>
+      <% if params[:area_name] != GobiertoBudgets::CustomArea.area_name %>
+        <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
+          <h2><%= t('gobierto_budgets.budgets.index.context') %></h2>
+          <div id="lines_tooltip"></div>
+          <div class="help">
+            <%= link_to t('gobierto_budgets.budgets.index.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], title: t('gobierto_budgets.budgets.index.note_about_the_data_title'), class: 'tipsit' %>
+          </div>
         </div>
-      </div>
+      <% end %>
 
       <div class="pure-u-1">
         <div class="filter m_v_2" role="tablist" aria-label="<%= t('gobierto_budgets.budgets.index.visualize') %>">

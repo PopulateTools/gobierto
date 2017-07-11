@@ -90,6 +90,10 @@
     }
   }
 
+  ul li {
+    margin-bottom: 0.25em;
+  }
+
   .note {
     position: relative;
     padding-top: 0.5em;
@@ -192,11 +196,7 @@
     max-width: 1024px;
 
     @media (min-width: 768px) {
-      margin-bottom: 4em;
-    }
-
-    @media (min-width: 1350px) {
-      margin-bottom: 2em;
+      margin-bottom: 3em;
     }
 
     figcaption {

@@ -44,7 +44,11 @@ $(document).on('turbolinks:load', function() {
       case 'GobiertoCms::Page':
         return I18n.t("layouts.search.page_item");
       case 'GobiertoBudgets::BudgetLine':
-        return I18n.t("layouts.search.budget_line_item");
+        if (d['kind'] === 'I') {
+          return I18n.t("layouts.search.budget_line_item_income");
+        } else {
+          return I18n.t("layouts.search.budget_line_item_expense");
+        }
     }
   }
 

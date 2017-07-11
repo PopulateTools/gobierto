@@ -10,7 +10,20 @@ class GobiertoBudgets::BudgetLineDescendantsController < GobiertoBudgets::Applic
       conditions.merge!({level: 1})
     end
 
-    @budget_lines = GobiertoBudgets::BudgetLine.where(conditions).all
+    @budget_lines = []
+    budget_lines = GobiertoBudgets::BudgetLine.where(conditions).all
+    @budget_lines = budget_lines
+
+    if !request.format.json? && @parent_code && @parent_code.length >= 1
+      while budget_lines.any?
+        children_budget_lines = budget_lines
+        budget_lines = []
+        children_budget_lines.each do |budget_line|
+          budget_lines.concat GobiertoBudgets::BudgetLine.where(conditions.merge({parent_code: budget_line.code})).all
+        end
+        @budget_lines.concat budget_lines
+      end
+    end
 
     respond_to do |format|
       format.js

@@ -8,7 +8,7 @@ module GobiertoPeople
 
     validates :person, presence: true
     validates :site, presence: true
-    
+
     algoliasearch_gobierto do
       attribute :site_id, :title, :body, :updated_at
       searchableAttributes ['title', 'body']

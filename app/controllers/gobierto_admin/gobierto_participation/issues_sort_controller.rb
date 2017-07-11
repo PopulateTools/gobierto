@@ -5,7 +5,7 @@ module GobiertoAdmin
       before_action { module_allowed!(current_admin, "GobiertoParticipation") }
 
       def create
-        ::GobiertoParticipation::Issue.update_positions(issue_sort_params)
+        current_site.issues.update_positions(issue_sort_params)
         head :no_content
       end
 

@@ -8,18 +8,60 @@ module GobiertoAdmin
 
       def index
         @issues = current_site.issues.sorted
+
         @issue_form = IssueForm.new(site_id: current_site.id)
       end
 
+      def show
+        @issue = find_issue
+      end
+
+      def new
+        @issue_form = IssueForm.new
+
+        render :new_modal, layout: false and return if request.xhr?
+      end
+
+      def edit
+        @issue = find_issue
+        @issue_form = IssueForm.new(
+          @issue.attributes.except(*ignored_issue_attributes)
+        )
+        @budget_lines = get_budget_lines
+
+        render :edit_modal, layout: false and return if request.xhr?
+      end
+
       def create
-        @issue_form = IssueForm.new(issue_params.merge(site_id: current_site.id))
+        @issue_form = IssueForm.new(
+          issue_params.merge(consultation_id: @consultation.id)
+        )
 
         if @issue_form.save
-
           redirect_to(
-            admin_participation_issues_path,
-            notice: t('.success_html')
+            admin_participation_issues_path(@consultation),
+            notice: t(".success")
           )
+        else
+          render :new_modal, layout: false and return if request.xhr?
+          render :new
+        end
+      end
+
+      def update
+        @issue = find_issue
+        @issue_form = IssueForm.new(
+          issue_params.merge(id: params[:id])
+        )
+
+        if @issue_form.save
+          redirect_to(
+            admin_participation_issues_path(@consultation),
+            notice: t('.success')
+          )
+        else
+          render :edit_modal, layout: false and return if request.xhr?
+          render :edit
         end
       end
 
@@ -31,13 +73,14 @@ module GobiertoAdmin
 
       def issue_params
         params.require(:issue).permit(
+          :position,
           name_translations: [*I18n.available_locales],
           slug_translations:  [*I18n.available_locales]
         )
       end
 
       def ignored_issue_attributes
-        %w[created_at updated_at slug]
+        %w[created_at updated_at]
       end
 
       def find_issue

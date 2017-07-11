@@ -12,7 +12,7 @@ module GobiertoParticipation
     validate :uniqueness_of_slug
     validate :uniqueness_of_name
 
-    scope :sorted, -> { order(id: :desc) }
+    scope :sorted, -> { order(position: :asc, created_at: :desc) }
 
     def self.find_by_slug!(slug)
       if slug.present?

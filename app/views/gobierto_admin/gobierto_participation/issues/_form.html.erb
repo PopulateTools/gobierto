@@ -1,0 +1,27 @@
+<%= render "gobierto_admin/shared/validation_errors", resource: @issue_form %>
+
+<%= form_for(
+  @issue_form, as: :issue,
+  url: @issue_form.persisted? ? admin_participation_issue_path(@issue) : admin_participation_issues_path(@issue)) do |f| %>
+
+    <div class="form_item input_text">
+      <%= f.label :name %>
+      <%= f.text_field :name, placeholder: t(".placeholders.title"), autofocus: true %>
+    </div>
+
+    <div class="form_item input_text">
+      <%= f.label :slug %>
+      <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
+    </div>
+
+    <div class="actions right">
+      <%= f.submit %>
+    </div>
+
+  </div>
+
+<% end %>
+
+<%= javascript_tag do %>
+  window.GobiertoAdmin.issues_controller.edit();
+<% end %>

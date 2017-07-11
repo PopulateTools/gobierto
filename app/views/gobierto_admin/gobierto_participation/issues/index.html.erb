@@ -6,7 +6,7 @@
 <h1><%= title t(".title") %></h1>
 
 <div class="admin_tools right">
-  <%= link_to t(".new"), '#modal_edit_theme', class: 'button open_modal' %>
+  <%= link_to t(".new"), new_admin_participation_issue_path, class: 'button open_modal' %>
 </div>
 
 <table>
@@ -17,9 +17,9 @@
     <th></th>
   </tr>
 
-  <tbody>
+  <tbody data-behavior="sortable" data-sortable-target="<%= admin_participation_issue_sort_path %>">
     <% @issues.each do |issue| %>
-      <tr id="issue-item-<%= issue.id %>">
+      <tr id="issue-item-<%= issue.id %>" data-id="<%= issue.id %>" class="<%= cycle("odd", "even") %>">
         <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, '#modal_edit_theme', class: 'open_modal' %></td>
         <td><%= link_to issue.name, '#modal_edit_theme', class: 'open_modal' %></td>
         <td><%= time_ago_in_words(issue.created_at) %></td>
@@ -29,30 +29,8 @@
   </tbody>
 </table>
 
-<%= render "gobierto_admin/shared/validation_errors", resource: @issue_form %>
-
-<div class="modal mfp-hide" id="modal_edit_theme">
-  <h2><%= t('.edit') %></h2>
-  <%= form_for(@issue_form, as: :issue, url: @issue_form.persisted? ? '#modal_edit_theme' : :admin_participation_issues, data: { "globalized-form-container" => true }) do |f| %>
-    <div class="globalized_fields">
-      <%= render "gobierto_admin/shared/form_locale_switchers" %>
-
-      <% I18n.available_locales.map(&:to_s).each do |locale| %>
-        <div class="form_item input_text" data-locale="<%= locale %>">
-          <%= label_tag "issue[name_translations][#{locale}]", f.object.class.human_attribute_name(:name) %>
-          <%= text_field_tag "issue[name_translations][#{locale}]", f.object.name_translations && f.object.title_translations[locale], placeholder: t(".placeholders.name") %>
-        </div>
-
-        <div class="form_item input_text" data-locale="<%= locale %>">
-          <%= label_tag "issue[slug_translations][#{locale}]", f.object.class.human_attribute_name(:slug) %>
-          <%= text_field_tag "issue[slug_translations][#{locale}]", f.object.slug_translations && f.object.slug_translations[locale], placeholder: t(".placeholders.slug") %>
-        </div>
-      <% end %>
-    </div>
-
-    <div class="actions right">
-      <button class="light">Cancelar</button>
-      <input type="submit" value="Guardar">
-    </div>
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.issues_controller.index();
   <% end %>
-</div>
+<% end %>

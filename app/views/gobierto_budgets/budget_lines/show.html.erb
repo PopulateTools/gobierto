@@ -112,7 +112,11 @@
       <div class="pure-u-1 pure-u-md-9-24 line_description">
 
         <h2><%= t('.about_this_line') %></h2>
-        <%= simple_format budget_line_description(@budget_line) %>
+        <% if @budget_line.description %>
+          <%= simple_format budget_line_description(@budget_line) %>
+        <% else %>
+          <%= t('.no_description') %>
+        <% end %>
       </div>
 
       <div class="pure-u-md-3-24"></div>

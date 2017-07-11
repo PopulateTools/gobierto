@@ -86,7 +86,6 @@ ca:
         per_person: Per habitant
         planned_vs_executed: Despesa real vs. el plà
         planned_vs_executed_other_year_html: En %{year} va ser un %{link}
-        search_for_a_budget_line: Busca una partida
         see_all: Veure tots
         title: Pressupostos municipals el %{year}
         top_expense_category: Categoria

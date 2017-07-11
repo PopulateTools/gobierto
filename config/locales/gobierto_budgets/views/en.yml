@@ -84,7 +84,6 @@ en:
         per_person: Per person
         planned_vs_executed: Real expenses vs the plan
         planned_vs_executed_other_year_html: In %{year} it was %{link}
-        search_for_a_budget_line: Search a budget line
         see_all: view all
         title: Local municipality budgets in %{year}
         top_expense_category: Category

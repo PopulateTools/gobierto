@@ -8,6 +8,19 @@ module GobiertoAdmin
 
       def index
         @issues = current_site.issues.sorted
+        @issue_form = IssueForm.new(site_id: current_site.id)
+      end
+
+      def create
+        @issue_form = IssueForm.new(issue_params.merge(site_id: current_site.id))
+
+        if @issue_form.save
+
+          redirect_to(
+            admin_participation_issues_path,
+            notice: t('.success_html')
+          )
+        end
       end
 
       private

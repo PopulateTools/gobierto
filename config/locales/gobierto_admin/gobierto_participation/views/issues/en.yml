@@ -1,0 +1,15 @@
+---
+en:
+  gobierto_admin:
+    gobierto_participation:
+      issues:
+        index:
+          created_at: Created
+          drag_to_sort: Drag to sort
+          edit: Edit theme
+          name: Theme
+          new: New
+          placeholders:
+            name: Theme name
+            slug: about-this-theme
+          title: Theme

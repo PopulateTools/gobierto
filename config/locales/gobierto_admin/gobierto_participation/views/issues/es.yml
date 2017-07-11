@@ -1,0 +1,15 @@
+---
+es:
+  gobierto_admin:
+    gobierto_participation:
+      issues:
+        index:
+          created_at: Creado
+          drag_to_sort: Arrastra para ordenar
+          edit: Editar tema
+          name: Tema
+          new: Nuevo
+          placeholders:
+            name: Nombre del tema
+            slug: acerca-de-este-tema
+          title: Temas

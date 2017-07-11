@@ -1,1 +1,58 @@
-<h1>Temas</h1>
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= t(".title") %> »
+</div>
+
+<h1><%= title t(".title") %></h1>
+
+<div class="admin_tools right">
+  <%= link_to t(".new"), '#modal_edit_theme', class: 'button open_modal' %>
+</div>
+
+<table>
+  <tr>
+    <th class="icon_col"></th>
+    <th><%= t('.name') %></th>
+    <th><%= t('.created_at') %></th>
+    <th></th>
+  </tr>
+
+  <tbody>
+    <% @issues.each do |issue| %>
+      <tr id="issue-item-<%= issue.id %>">
+        <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, '#modal_edit_theme', class: 'open_modal' %></td>
+        <td><%= link_to issue.name, '#modal_edit_theme', class: 'open_modal' %></td>
+        <td><%= time_ago_in_words(issue.created_at) %></td>
+        <td><i class="sort-handler fa fa-bars tipsit" title="<%= t('.drag_to_sort') %>"></i></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= render "gobierto_admin/shared/validation_errors", resource: @issue_form %>
+
+<div class="modal mfp-hide" id="modal_edit_theme">
+  <h2><%= t('.edit') %></h2>
+  <%= form_for(@issue_form, as: :issue, url: @issue_form.persisted? ? '#modal_edit_theme' : :admin_participation_issues, data: { "globalized-form-container" => true }) do |f| %>
+    <div class="globalized_fields">
+      <%= render "gobierto_admin/shared/form_locale_switchers" %>
+
+      <% I18n.available_locales.map(&:to_s).each do |locale| %>
+        <div class="form_item input_text" data-locale="<%= locale %>">
+          <%= label_tag "issue[name_translations][#{locale}]", f.object.class.human_attribute_name(:name) %>
+          <%= text_field_tag "issue[name_translations][#{locale}]", f.object.name_translations && f.object.title_translations[locale], placeholder: t(".placeholders.name") %>
+        </div>
+
+        <div class="form_item input_text" data-locale="<%= locale %>">
+          <%= label_tag "issue[slug_translations][#{locale}]", f.object.class.human_attribute_name(:slug) %>
+          <%= text_field_tag "issue[slug_translations][#{locale}]", f.object.slug_translations && f.object.slug_translations[locale], placeholder: t(".placeholders.slug") %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="actions right">
+      <button class="light">Cancelar</button>
+      <input type="submit" value="Guardar">
+    </div>
+  <% end %>
+</div>

@@ -91,14 +91,25 @@
   }
 
   .note {
+    position: relative;
     padding-top: 0.5em;
+    margin-bottom: 4em;
     font-size: 0.775em;
     color: $text_soft;
+
+    p:before {
+      content: ' ';
+      position: absolute;
+      top: 0.5em;
+      width: 6em;
+      height: 1px;
+      background: rgba($text_soft, .2);
+    }
   }
 
   h2 {
+    font-size: 1.875em;
     padding-bottom: 0.5em;
-    padding-top: 1em;
     border-bottom: 1px solid #DEEFF1;
   }
 
@@ -121,11 +132,19 @@
   }
 
   hr {
-    max-width: 100%;
-    margin: 5em 0;
+    margin: 4em 0;
     border: none;
     border-top: 1px solid #DEEFF1;;
     max-width: 100%;
+
+    @media (min-width: 768px) {
+      margin: 5em 0;
+    }
+  }
+
+  .light_separator {
+    margin: 4em auto;
+    max-width: 10em;
   }
 
   .number {
@@ -192,38 +211,38 @@
         margin-left: 0.25em;
         right: 0;
       }
-
-      @media (min-width: 1350px) {
-        max-width: 13%;
-        right: -14%;
-        bottom: 0;
-        margin-top: 0;
-      }
     }
   }
 
-  .element-grid {
+  dl {
     box-sizing: border-box;
     background: rgba($color_main, .03);
     max-width: 730px;
     padding: 1em;
     display: flex;
     flex-wrap: wrap;
+    margin: 1em -1em;
 
     @media (min-width: 768px) {
-      padding: 20px 50px;
+      padding: 30px 50px;
+      margin: 1em auto;
+      margin-bottom: 4em;
     }
 
     & > div {
-      margin-bottom: 1.5em;
+      &:not(:last-child) {
+        margin-bottom: 1.5em;
+      }
 
-      h5 {
+      dt {
         color: $color_main;
+        font-weight: 600;
         margin: 0;
       }
 
-      p {
+      dd {
         font-size: 1em;
+        line-height: 1.4;
         margin: 0;
       }
 
@@ -233,6 +252,24 @@
         &:nth-child(odd) {
             margin-right: 1em;
         }
+      }
+    }
+  }
+
+  .sources {
+    margin-top: 8em;
+
+    h4 {
+      padding-bottom: 0.5em;
+      border-bottom: 1px solid #DEEFF1;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+
+      li {
+        margin-bottom: 1em;
       }
     }
   }

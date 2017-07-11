@@ -132,7 +132,14 @@
 
           <li class="sep"></li>
 
-          <li><%= link_to t(".users"), admin_users_path %></li>
+          <li>
+            <%= link_to t(".users"), admin_users_path %>
+            <% if show_module_link?("GobiertoParticipation") %>
+              <ul>
+                <li><%= link_to t(".issues"), admin_participation_issues_path %></li>
+              </ul>
+            <% end %>
+          </li>
 
           <% if managing_site? %>
             <li>

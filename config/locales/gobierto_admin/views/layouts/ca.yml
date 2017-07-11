@@ -13,6 +13,7 @@ ca:
           message: Hi ha canvis sense desar. Estàs segur de voler continuar?
         edit_site: Personalitzar site
         hey_admin: Hola, %{admin_name}
+        issues: Temes
         manage_sites: Gestionar sites
         notifications: Notificacions
         people: Alts càrrecs i Agendes

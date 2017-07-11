@@ -34,17 +34,23 @@
 }
 .modal-attachments {
   position: relative;
-  background: white;
+  padding: 0;
   min-height: 600px;
-  max-width: 90vw;
-  margin: 0 auto;
-  box-shadow: 0 1px 3px rgba(0,0,0,.5);
-  /* padding: 1rem; */
-  border-radius: 4px;
+  max-width: 1024px;
 
   @media (min-width: 1440px) {
     min-height: 680px;
     max-width: 1200px;
+  }
+
+  &.bg-highlight {
+    background: #fef0cd;
+  }
+
+  .mfp-close:hover {
+    background: transparent;
+    color: #333;
+    opacity: 1;
   }
 
   h1 {
@@ -74,7 +80,7 @@
     }
   }
 
-  .bg-highlight {
+  .file-sidebar {
     background: #fef0cd;
     // max-height: 530px;
     transition: 0.3s;

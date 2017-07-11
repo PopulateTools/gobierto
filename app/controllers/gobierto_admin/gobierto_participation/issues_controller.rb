@@ -38,6 +38,8 @@ module GobiertoAdmin
         )
 
         if @issue_form.save
+          track_create_activity
+
           redirect_to(
             admin_participation_issues_path(@consultation),
             notice: t(".success")
@@ -55,6 +57,8 @@ module GobiertoAdmin
         )
 
         if @issue_form.save
+          track_update_activity
+
           redirect_to(
             admin_participation_issues_path(@consultation),
             notice: t('.success')
@@ -66,6 +70,14 @@ module GobiertoAdmin
       end
 
       private
+
+      def track_create_activity
+        Publishers::GobiertoParticipationIssueActivity.broadcast_event("issue_created", default_activity_params.merge({subject: @issue_form.issue}))
+      end
+
+      def track_update_activity
+        Publishers::GobiertoParticipationIssueActivity.broadcast_event("issue_updated", default_activity_params.merge({subject: @issue}))
+      end
 
       def default_activity_params
         { ip: remote_ip, author: current_admin, site_id: current_site.id }

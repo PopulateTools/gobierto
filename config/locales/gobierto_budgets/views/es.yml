@@ -93,7 +93,6 @@ es:
         per_person: Por habitante
         planned_vs_executed: Gasto real vs. el plan
         planned_vs_executed_other_year_html: En %{year} fue un %{link}
-        search_for_a_budget_line: Busca una partida
         see_all: ver todos
         title: Presupuestos municipales en %{year}
         top_expense_category: Categoría

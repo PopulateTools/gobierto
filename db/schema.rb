@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170703154336) do
+ActiveRecord::Schema.define(version: 20170711143932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -420,7 +420,9 @@ ActiveRecord::Schema.define(version: 20170703154336) do
     t.jsonb "slug_translations"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position", default: 0, null: false
     t.index ["name_translations"], name: "index_gpart_issues_on_name_translations", using: :gin
+    t.index ["position"], name: "index_gpart_issues_on_position"
     t.index ["site_id"], name: "index_gpart_issues_on_site_id"
     t.index ["slug_translations"], name: "index_gpart_issues_on_slug_translations", using: :gin
   end

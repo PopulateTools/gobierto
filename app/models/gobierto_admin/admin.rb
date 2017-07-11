@@ -21,6 +21,7 @@ module GobiertoAdmin
     has_many :gobierto_people_permissions, class_name: "Permission::GobiertoPeople"
     has_many :gobierto_cms_permissions, class_name: "Permission::GobiertoCms"
     has_many :gobierto_indicators_permissions, class_name: "Permission::GobiertoIndicators"
+    has_many :gobierto_participation_permissions, class_name: "Permission::GobiertoParticipation"
 
     has_many :census_imports
 

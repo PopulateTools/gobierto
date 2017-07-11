@@ -126,6 +126,28 @@ var VisLineasJ = Class.extend({
 
       this.data = jsonData;
 
+      var years_with_data = this.data["budgets"]["per_person"].map(function(x) {
+        var dates = x["values"].map(function(value) {
+          return value["date"];
+        });
+        return dates;
+      });
+
+      years_with_data = [].concat.apply([], years_with_data); // Flatten array
+
+      var unique_years = []
+      years_with_data.forEach(function(year) {
+          if (unique_years.indexOf(year) === -1) {
+            unique_years.push(year);
+          }
+      });
+
+      if (unique_years.length < 2) {
+        $('#lines_chart_wrapper').html('');
+        $('#lines_chart_wrapper_separator').remove();
+        return;
+      }
+
       this.data.budgets[this.measure].forEach(function(d) {
         d.values.forEach(function(v) {
           v.date = this.parseDate(v.date);

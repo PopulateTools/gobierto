@@ -276,6 +276,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
         },
         closeModal: function(){
           this.showModal = false;
+          this.fileDragged = false;
         },
         formatDate: function(date){
           if (date === undefined || date === null) return "";

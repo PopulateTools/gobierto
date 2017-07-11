@@ -1,6 +1,13 @@
 ---
 es:
   gobierto_budgets:
+    events:
+      gobierto_budgets_budgets_forecast_economic_updated: 'Presupuestos actualizados: área económica'
+      gobierto_budgets_budgets_forecast_functional_updated: 'Presupuestos actualizados: área funcional'
+      gobierto_budgets_budgets_forecast_custom_updated: 'Presupuestos actualizados: área personalizada'
+      gobierto_budgets_budgets_execution_economic_updated: 'Ejecución presupuestaria actualizada: área económica'
+      gobierto_budgets_budgets_execution_functional_updated: 'Ejecución presupuestaria actualizada: área funcional'
+      gobierto_budgets_budgets_execution_custom_updated: 'Ejecución presupuestaria actualizada: área personalizada'
     budget_lines:
       explorer:
         examples: Ejemplos

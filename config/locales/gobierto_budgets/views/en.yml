@@ -1,6 +1,13 @@
 ---
 en:
   gobierto_budgets:
+    events:
+      gobierto_budgets_budgets_forecast_economic_updated: 'Budgets updated: economic area'
+      gobierto_budgets_budgets_forecast_functional_updated: 'Budgets updated: functional area'
+      gobierto_budgets_budgets_forecast_custom_updated: 'Budgets updated: custom area'
+      gobierto_budgets_budgets_execution_economic_updated: 'Budgets execution updated: economic area'
+      gobierto_budgets_budgets_execution_functional_updated: 'Budgets execution updated: functional area'
+      gobierto_budgets_budgets_execution_custom_updated: 'Budgets execution updated: custom area'
     budget_lines:
       explorer:
         examples: Examples

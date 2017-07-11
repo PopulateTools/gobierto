@@ -1,6 +1,13 @@
 ---
 ca:
   gobierto_budgets:
+    events:
+      gobierto_budgets_budgets_forecast_economic_updated: 'Pressupostos actualitzats: àrea econòmica'
+      gobierto_budgets_budgets_forecast_functional_updated: 'Pressupostos actualitzats: àrea funcional'
+      gobierto_budgets_budgets_forecast_custom_updated: 'Pressupostos actualitzats: àrea personalitzada'
+      gobierto_budgets_budgets_execution_economic_updated: 'Execució pressupostària actualitzada: àrea econòmica'
+      gobierto_budgets_budgets_execution_functional_updated: 'Execució pressupostària actualitzada: àrea funcional'
+      gobierto_budgets_budgets_execution_custom_updated: 'Execució pressupostària actualitzada: àrea personalitzada'
     budget_lines:
       explorer:
         examples: Exemples

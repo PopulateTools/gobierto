@@ -11,6 +11,8 @@ module GobiertoParticipation
     validate :uniqueness_of_slug
     validate :uniqueness_of_name
 
+    scope :sorted, -> { order(id: :desc) }
+
     def self.find_by_slug!(slug)
       if slug.present?
         I18n.available_locales.each do |locale|

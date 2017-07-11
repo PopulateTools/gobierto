@@ -22,7 +22,13 @@ module Publisher
   module ClassMethods
     def broadcast_event(event_name, payload={})
       event_name = [pub_sub_namespace, event_name].compact.join('.')
-      return if !allowed_for_publication?(event_name, payload)
+
+      if allowed_for_publication?(event_name, payload)
+        register_allowed_event(event_name, payload)
+      else
+        Rails.logger.debug("Blocking event \"#{event_name}\" with payload: #{payload}")
+        return
+      end
 
       if block_given?
         ActiveSupport::Notifications.instrument(event_name, payload) do
@@ -34,16 +40,15 @@ module Publisher
     end
 
     def allowed_for_publication?(event_name, payload)
+      !$redis.get(key_for_event(event_name, payload))
+    end
+
+    def register_allowed_event(event_name, payload)
       event_key = key_for_event(event_name, payload)
-      if $redis.get(event_key)
-        Rails.logger.debug("Blocking event \"#{event_name}\" with payload: #{payload}")
-        return false
-      else
-        Rails.logger.debug("Allowing event \"#{event_name}\" with payload: #{payload}")
-        $redis.set(event_key, true)
-        $redis.expire(event_key, 60)
-        return true
-      end
+
+      Rails.logger.debug("Allowing event \"#{event_name}\" with payload: #{payload}")
+      $redis.set(event_key, true)
+      $redis.expire(event_key, 60)
     end
 
     def key_for_event(event_name, payload)

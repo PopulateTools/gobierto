@@ -92,7 +92,13 @@ var VisLineasJ = Class.extend({
 
     // Chart dimensions
     this.containerWidth = parseInt(d3.select(this.container).style('width'), 10);
-    this.tableWidth = parseInt(d3.select(this.tableContainer).style('width'), 10);
+
+    if (d3.select(this.tableContainer).size() !== 0) {
+      this.tableWidth = parseInt(d3.select(this.tableContainer).style('width'), 10);
+    } else {
+      this.tableWidth = 0;
+    }
+
     this.margin.right = this.measure == 'per_person' ? this.containerWidth * .07 : this.containerWidth * .15;
 
     this.width = this.containerWidth - this.margin.left - this.margin.right;
@@ -126,23 +132,24 @@ var VisLineasJ = Class.extend({
 
       this.data = jsonData;
 
-      var years_with_data = this.data["budgets"]["per_person"].map(function(x) {
+      var budgetsData = (this.data["budgets"]["per_person"] || this.data["budgets"]["total_budget"]);
+      var yearsWithData = budgetsData.map(function(x) {
         var dates = x["values"].map(function(value) {
           return value["date"];
         });
         return dates;
       });
 
-      years_with_data = [].concat.apply([], years_with_data); // Flatten array
+      yearsWithData = [].concat.apply([], yearsWithData); // Flatten array
 
-      var unique_years = []
-      years_with_data.forEach(function(year) {
-          if (unique_years.indexOf(year) === -1) {
-            unique_years.push(year);
+      var uniqueYears = []
+      yearsWithData.forEach(function(year) {
+          if (uniqueYears.indexOf(year) === -1) {
+            uniqueYears.push(year);
           }
       });
 
-      if (unique_years.length < 2) {
+      if (uniqueYears.length < 2) {
         $('#lines_chart_wrapper').html('');
         $('#lines_chart_wrapper_separator').remove();
         return;

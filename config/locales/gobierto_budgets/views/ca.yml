@@ -39,6 +39,7 @@ ca:
         evolution: Evolució
         last_year: L'any passat
         no_distribution: No hi ha distribució associada a aquesta partida.
+        no_description: No hi ha una descripció associada a aquesta partida.
         no_more_descendants: No hi ha més sub-partides
         not_available: No disp.
         percentage: "% sobre el total del press."

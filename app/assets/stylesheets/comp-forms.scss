@@ -146,6 +146,12 @@ button.outline:hover, .button.outline:hover {
   background: $color_1_soft;
   text-decoration: none;
 }
+button.lighter {
+  background: #c4dfe2;
+  color: $color_1;
+  text-transform: none;
+  padding: 0.25em 2em;
+}
 input[type="checkbox"], input[type="radio"] {
   display: none;
 }

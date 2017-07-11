@@ -32,6 +32,31 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
       }
     }
 
+    var magnificPopup = {
+      methods: {
+        closeModal: function(){
+          if (!$.magnificPopup.instance.isOpen && !this.showModal) { return; }
+          this.showModal = false;
+          $.magnificPopup.close();
+        },
+        openModal: function(){
+          var self = this;
+          self.showModal = true;
+          var config = {
+            mainClass: 'mfp-fade',
+            items: {
+              src:  $(self.$refs.modal),
+              type: 'inline',
+            },
+            callbacks: {
+              close: self.closeModal
+            }
+          };
+          $.magnificPopup.open(config);
+        },
+      }
+    }
+
     Vue.component('file-upload', {
       template: '#file-upload',
       data: function(){
@@ -42,7 +67,8 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           currentStatus: null,
           uploadFieldName: 'attachment',
           attachment: {},
-          errorMessage: null
+          errorMessage: null,
+          isDragged: false
         }
       },
       computed: {
@@ -60,6 +86,12 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
         }
       },
       methods: {
+        dragEntered: function() {
+          this.isDragged = true;
+        },
+        dragLeft: function() {
+          this.isDragged = false;
+        },
         reset: function() {
           // reset form to initial state
           this.currentStatus = STATUS_INITIAL;
@@ -123,7 +155,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
 
     Vue.component('edit-attachment', {
       template: '#edit-attachment',
-      mixins: [fileUtils],
+      mixins: [fileUtils, magnificPopup],
       data: function(){
         return {
           showModal: false,
@@ -137,9 +169,6 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
         });
       },
       methods: {
-        closeModal: function(){
-          this.showModal = false;
-        },
         fetchData: function(id){
           var self = this;
           $.ajax({
@@ -149,7 +178,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
             success: function(response, textStatus, jqXHR){
               if(jqXHR.status == 200){
                 Vue.set(self, 'attachment', response.attachment);
-                Vue.set(self, 'showModal', true);
+                self.openModal();
               }
             },
           });
@@ -161,8 +190,8 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
             method: 'PATCH',
             data: {
               attachment: {
-                name: this.attachment.name,
-                description: this.attachment.description
+                name: self.attachment !== null ? self.attachment.name : "",
+                description: self.attachment !== null ? self.attachment.description : ""
               }
             },
             dataType: 'json',
@@ -170,13 +199,17 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
             success: function(response, textStatus, jqXHR){
               if(jqXHR.status == 200){
                 bus.$emit('file-popover:load', {id: self.attachment.id});
-                Vue.set(self, 'showModal', false);
+                self.closeModal();
+                bus.$emit('file-list:load');
               }
             },
           });
         },
         attachmentDoc: function(attachment){
-          return attachment.file_name + " (" + this.bytesToSize(attachment.file_size) + ")";
+          if(attachment)
+            return attachment.file_name + " (" + this.bytesToSize(attachment.file_size) + ")";
+          else
+            return "";
         },
       },
     });
@@ -257,7 +290,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
 
     Vue.component('site-attachments', {
       template: '#site-attachments',
-      mixins: [fileUtils],
+      mixins: [fileUtils, magnificPopup],
       props: ['attachableId', 'attachableType'],
       data: function(){
         return {
@@ -274,10 +307,6 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
             return {};
           return {search_string: this.q};
         },
-        closeModal: function(){
-          this.showModal = false;
-          this.fileDragged = false;
-        },
         formatDate: function(date){
           if (date === undefined || date === null) return "";
           return I18n.l("date.formats.short", date);
@@ -292,7 +321,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
             success: function(response, textStatus, jqXHR){
               if(jqXHR.status == 200){
                 Vue.set(self, 'attachments', response.attachments);
-                Vue.set(self, 'showModal', true);
+                self.openModal();
               }
             },
           });
@@ -301,7 +330,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
           var self = this;
           if(this.attachableId === "") {
             bus.$emit('site-attachments:newAttaching', attachment);
-            Vue.set(self, 'showModal', false);
+            self.closeModal();
             return;
           }
           $.ajax({
@@ -318,7 +347,7 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
               bus.$emit('file-list:load');
             },
             complete: function(){
-              Vue.set(self, 'showModal', false);
+              self.closeModal();
             }
           });
         },

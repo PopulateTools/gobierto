@@ -499,17 +499,19 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
     display: block;
     color: $color_text;
     text-decoration: none;
-    margin-bottom: 0.5rem;
   }
   .file-list {
     position: relative;
     margin-bottom: 1em;
 
-    table {
-      td {
+    ul {
+      list-style: none;
+      padding-left: 0;
+
+      li {
         border-top:  1px solid rgba(0, 144, 158, 0.15);
-        background: none;
         font-weight: 600;
+        padding: 0.5em 0;
       }
     }
     .file-popover {
@@ -551,11 +553,5 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
         }
       }
     }
-  }
-  .button {
-    background: #c4dfe2;
-    color: $color_1;
-    text-transform: none;
-    padding: 0.25em 2em;
   }
 }

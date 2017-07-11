@@ -5,7 +5,7 @@ module GobiertoAttachments
 
     include GobiertoCommon::Searchable
 
-    MAX_FILE_SIZE_IN_BYTES = 102400 # 100 Mb
+    MAX_FILE_SIZE_IN_BYTES = 10.megabytes
 
     default_scope { order(id: :desc) }
 
@@ -49,7 +49,7 @@ module GobiertoAttachments
     end
 
     def created_at
-      if versions.length
+      if versions.length > 0
         versions.last.created_at
       end
     end

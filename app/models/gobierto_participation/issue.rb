@@ -2,6 +2,7 @@ require_dependency "gobierto_participation"
 
 module GobiertoParticipation
   class Issue < ApplicationRecord
+    include GobiertoCommon::Sortable
 
     belongs_to :site
 

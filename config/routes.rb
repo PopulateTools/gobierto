@@ -60,7 +60,7 @@ Rails.application.routes.draw do
         resources :past_person_events, only: [:index], controller: "people/past_person_events", as: :past_events, path: "events/past"
         resources :person_statements, only: [:index, :new, :create, :edit, :update], controller: "people/person_statements", as: :statements, path: :statements
         resources :person_posts, only: [:index, :new, :create, :edit, :update], controller: "people/person_posts", as: :posts, path: :blog
-        resource :person_calendar_configuration, only: [:edit, :update], controller: "people/person_calendar_configuration", as: :calendar_configuration, path: :calendar_configuration
+        resource :issue_configuration, only: [:edit, :update], controller: "people/issue_configuration", as: :calendar_configuration, path: :calendar_configuration
       end
 
       namespace :configuration do
@@ -76,7 +76,11 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_participation, as: :participation, path: :participation do
-      resources :issues
+      resources :issues, only: [:index, :show, :new, :create, :edit, :update] do
+        collection do
+          resource :issue_sort, only: [:create], controller: "issues_sort", path: :issues_sort
+        end
+      end
     end
 
     namespace :gobierto_common, as: :common, path: nil do

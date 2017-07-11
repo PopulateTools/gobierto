@@ -73,7 +73,7 @@ module GobiertoBudgets
     end
 
     def parent_code
-      @attributes[:parent_code]
+      @attributes[:parent_code].to_s
     end
 
     def to_param

@@ -24,10 +24,6 @@
         <%#%>
         </h2>
       </div>
-      <div class="pure-u-1 pure-u-md-10-24 right slim_search">
-        <label><%= t('.search_for_a_budget_line') %></label>
-        <input type="text" placeholder="<%= t('gobierto_budgets.budget_lines.explorer.search') %>..." data-autocomplete="<%= gobierto_budgets_search_all_categories_path(@place.slug, @year, format: :json) %>">
-      </div>
     </div>
 
     <div class="pure-g metric_boxes">
@@ -221,7 +217,7 @@
   <div class="featured_b_l block m_v_3" data-featured-budget-line="<%= gobierto_budgets_featured_budget_line_path(@site.place.slug, year: @year, template: 'gobierto_site_template') %>">
   </div>
 
-  <div class="separator"></div>
+  <div id="lines_chart_wrapper_separator" class="separator"></div>
 
   <div id="lines_chart_wrapper" class="pure-g" data-vis-lines role="tabpanel" aria-controlledby="per_person, total_budget">
     <div class=" pure-u-1 pure-u-md-1-2 block" >

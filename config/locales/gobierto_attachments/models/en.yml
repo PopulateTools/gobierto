@@ -5,7 +5,7 @@ en:
       gobierto_attachments/attachment:
         current_version: Current version
         description: Description
-        file_digest: File digest
+        file_digest: File
         file_name: File name
         file_size: File size
         name: Name

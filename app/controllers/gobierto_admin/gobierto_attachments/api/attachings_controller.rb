@@ -6,9 +6,11 @@ module GobiertoAdmin
         before_action :find_attachment, :find_attachable
 
         def create
-          attaching = @attachable.link_attachment(@attachment)
-
-          render json: { attachment: AttachmentSerializer.new(@attachment) }
+          if attaching = @attachable.link_attachment(@attachment)
+            render json: { attachment: AttachmentSerializer.new(@attachment) }
+          else
+            head :bad_request
+          end
         end
 
         def destroy

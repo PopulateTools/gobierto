@@ -9,6 +9,8 @@ module GobiertoAttachments
 
     def link_attachment(attachment)
       self.attachings.create!(site: site, attachment: attachment)
+    rescue ActiveRecord::RecordNotUnique
+      false
     end
 
     def unlink_attachment(attachment)

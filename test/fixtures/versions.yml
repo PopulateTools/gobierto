@@ -4,6 +4,7 @@ pdf_attachment_create:
   event: create
   whodunnit:
   object:
+  created_at: <%= Time.now %>
 
 xlsx_attachment_create:
   item_type: GobiertoAttachments::Attachment
@@ -11,6 +12,7 @@ xlsx_attachment_create:
   event: create
   whodunnit:
   object:
+  created_at: <%= Time.now %>
 
 attachment_create:
   item_type: GobiertoAttachments::Attachment
@@ -18,6 +20,7 @@ attachment_create:
   event: create
   whodunnit:
   object:
+  created_at: <%= Time.now %>
 
 txt_pdf_attachment_create:
   item_type: GobiertoAttachments::Attachment
@@ -25,3 +28,4 @@ txt_pdf_attachment_create:
   event: create
   whodunnit:
   object:
+  created_at: <%= Time.now %>

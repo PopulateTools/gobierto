@@ -60,7 +60,7 @@ Rails.application.routes.draw do
         resources :past_person_events, only: [:index], controller: "people/past_person_events", as: :past_events, path: "events/past"
         resources :person_statements, only: [:index, :new, :create, :edit, :update], controller: "people/person_statements", as: :statements, path: :statements
         resources :person_posts, only: [:index, :new, :create, :edit, :update], controller: "people/person_posts", as: :posts, path: :blog
-        resource :issue_configuration, only: [:edit, :update], controller: "people/issue_configuration", as: :calendar_configuration, path: :calendar_configuration
+        resource :person_calendar_configuration, only: [:edit, :update], controller: "people/person_calendar_configuration", as: :calendar_configuration, path: :calendar_configuration
       end
 
       namespace :configuration do

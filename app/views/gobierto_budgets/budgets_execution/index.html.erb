@@ -18,7 +18,9 @@
           <%= render partial: 'gobierto_budgets/budgets/year_breadcrumb', locals: {path_calculation_method: :gobierto_budgets_budgets_path} %>
 
           <p class="block_description"><%= t('.description') %>. <%= t('.last_update') %> <span class="last_update"></span>.</p>
-          <p><a href="#"><%= t('.budget_guide') %></a>.</p>
+          <% pending do %>
+            <p><a href="#"><%= t('.budget_guide') %></a>.</p>
+          <% end %>
         </div>
       </div>
 

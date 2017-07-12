@@ -24,7 +24,9 @@
         <p><%= t('.description') %></p>
 
         <p class="last_update"><%= raw t('.last_update') %></p>
-        <p class="m_v_0_25"><a href="#"><%= t('.budget_guide') %></a>.</p>
+        <% pending do %>
+          <p class="m_v_0_25"><a href="#"><%= t('.budget_guide') %></a>.</p>
+        <% end %>
       </div>
 
       <div class="pure-u-1 pure-u-md-12-24 right">
@@ -89,42 +91,44 @@
     </div>
   </div>
 
-  <div class="block">
-    <h2><%= t('.stories_header') %></h2>
+  <% pending do%>
+    <div class="block">
+      <h2><%= t('.stories_header') %></h2>
 
-    <div class="pure-g stories_box">
-      <a href="#" class="pure-u-md-1-3 pure-u-1 story_box">
-        <div class="inner">
-          <div class="bg-image" style="background-image: url(<%= image_url('stories/story_1') %>);"></div>
+      <div class="pure-g stories_box">
+        <a href="#" class="pure-u-md-1-3 pure-u-1 story_box">
+          <div class="inner">
+            <div class="bg-image" style="background-image: url(<%= image_url('stories/story_1') %>);"></div>
 
-          <div class="padded">
-            <h3 class="m_v_0_25"><%= t('.story_1.title') %></h3>
-            <p class="m_v_0_25 soft"><%= t('.story_1.lede') %></p>
+            <div class="padded">
+              <h3 class="m_v_0_25"><%= t('.story_1.title') %></h3>
+              <p class="m_v_0_25 soft"><%= t('.story_1.lede') %></p>
+            </div>
           </div>
-        </div>
-      </a>
-      <a href="#" class="pure-u-md-1-3 pure-u-1 story_box">
-        <div class="inner">
-          <div class="bg-image" style="background-image: url(<%= image_url('stories/story_2') %>);"></div>
+        </a>
+        <a href="#" class="pure-u-md-1-3 pure-u-1 story_box">
+          <div class="inner">
+            <div class="bg-image" style="background-image: url(<%= image_url('stories/story_2') %>);"></div>
 
-          <div class="padded">
-            <h3 class="m_v_0_25"><%= t('.story_2.title') %></h3>
-            <p class="m_v_0_25 soft"><%= t('.story_2.lede') %></p>
+            <div class="padded">
+              <h3 class="m_v_0_25"><%= t('.story_2.title') %></h3>
+              <p class="m_v_0_25 soft"><%= t('.story_2.lede') %></p>
+            </div>
           </div>
-        </div>
-      </a>
-      <a href="#" class="pure-u-md-1-3 pure-u-1 story_box">
-        <div class="inner">
-          <div class="bg-image" style="background-image: url(<%= image_url('stories/story_3') %>);"></div>
+        </a>
+        <a href="#" class="pure-u-md-1-3 pure-u-1 story_box">
+          <div class="inner">
+            <div class="bg-image" style="background-image: url(<%= image_url('stories/story_3') %>);"></div>
 
-          <div class="padded">
-            <h3 class="m_v_0_25"><%= t('.story_3.title') %></h3>
-            <p class="m_v_0_25 soft"><%= t('.story_3.lede') %></p>
+            <div class="padded">
+              <h3 class="m_v_0_25"><%= t('.story_3.title') %></h3>
+              <p class="m_v_0_25 soft"><%= t('.story_3.lede') %></p>
+            </div>
           </div>
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div class="block">
     <h2 class="with_description"><%= t('.main_budget_lines') %></h2>
@@ -151,29 +155,31 @@
     </div>
   </div>
 
-  <div class="block">
-    <div class="pure-g banners">
-      <div class="pure-u-md-2-3 pure-u-1 banner_block">
-        <a href="#" class="inner center vertically_centered budget_receipt">
+  <% pending do %>
+    <div class="block">
+      <div class="pure-g banners">
+        <div class="pure-u-md-2-3 pure-u-1 banner_block">
+          <a href="#" class="inner center vertically_centered budget_receipt">
 
-          <%= image_tag('illustrations/presupuestos.jpg', class: 'img-fluid') %>
-          <h3 class="m_v_0_25"><%= t('.budget_receipt.title') %></h3>
-          <p class="m_v_0_25"><%= t('.budget_receipt.intro') %></p>
+            <%= image_tag('illustrations/presupuestos.jpg', class: 'img-fluid') %>
+            <h3 class="m_v_0_25"><%= t('.budget_receipt.title') %></h3>
+            <p class="m_v_0_25"><%= t('.budget_receipt.intro') %></p>
 
-        </a>
-      </div>
-      <div class="pure-u-md-1-3 pure-u-1 banner_block">
-        <div class="inner budget_expense">
-          <div class="soft"><strong><%= t('.budget_slides.title') %> </strong></div>
-          <h3><%= t('.budget_slides.slide_1') %></h3>
+          </a>
+        </div>
+        <div class="pure-u-md-1-3 pure-u-1 banner_block">
+          <div class="inner budget_expense">
+            <div class="soft"><strong><%= t('.budget_slides.title') %> </strong></div>
+            <h3><%= t('.budget_slides.slide_1') %></h3>
 
-          <div class="circle_figure">
-            <div>36€</div>
+            <div class="circle_figure">
+              <div>36€</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
 
   <div class="block">
     <h2 class="with_description"><%= t('.budget_lines_block.title') %></h2>

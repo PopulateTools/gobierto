@@ -124,6 +124,9 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
             },
             error: function(jqXHR, textStatus, errorThrown){
               self.errorMessage = jqXHR.responseJSON.error;
+              setTimeout(function(){
+                self.errorMessage = null;
+              }, 2000);
             },
             complete: function(){
               self.reset();

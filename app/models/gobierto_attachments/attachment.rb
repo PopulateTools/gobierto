@@ -22,7 +22,7 @@ module GobiertoAttachments
 
     attr_accessor :file
 
-    validates :site, :name, presence: true
+    validates :site, presence: true
 
     validates :file_digest, uniqueness: {
       scope: :site_id,

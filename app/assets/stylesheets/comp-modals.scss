@@ -53,16 +53,8 @@
     opacity: 1;
   }
 
-  h1 {
+  h1, h2, h3, h4 {
     color: #946b04;
-    font-weight: 400;
-    margin-bottom: 0.5em !important;
-  }
-
-  // Make the search input slim
-  input[type=text] {
-    height: 40px;
-    width: 380px;
   }
 
   table {
@@ -92,9 +84,6 @@
 
     i {
       cursor: pointer;
-    }
-    @media (min-width: 1440px) {
-      max-height: none;
     }
 
     &.dragged {
@@ -159,9 +148,6 @@
   }
 
   .dragged {
-    input[type=text] {
-      height: auto;
-    }
 
     .strong {
       color: $color_headers;

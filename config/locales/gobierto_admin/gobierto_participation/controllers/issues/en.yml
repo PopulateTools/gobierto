@@ -4,6 +4,6 @@ en:
     gobierto_participation:
       issues:
         create:
-          success_html: "Theme was successfully created."
+          success: "Theme was successfully created."
         update:
-          success_html: "Theme was successfully updated."
+          success: "Theme was successfully updated."

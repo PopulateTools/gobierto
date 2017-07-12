@@ -3,13 +3,17 @@ ca:
   gobierto_admin:
     gobierto_participation:
       issues:
-        index:
-          created_at: Creat
-          drag_to_sort: Arrastra per a ordenar
-          edit: Edita tema
-          name: Tema
-          new: Nou
+        edit_modal:
+          title: Edita tema
+        form:
           placeholders:
             name: Nom del tema
             slug: sobre-aquest-tema
+        index:
+          created_at: Creat
+          drag_to_sort: Arrastra per a ordenar
+          name: Tema
+          new: Nou
           title: Temes
+        new_modal:
+          title: Nou tema

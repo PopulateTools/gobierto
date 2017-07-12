@@ -27,21 +27,18 @@ module GobiertoAdmin
         @issue_form = IssueForm.new(
           @issue.attributes.except(*ignored_issue_attributes)
         )
-        @budget_lines = get_budget_lines
 
         render :edit_modal, layout: false and return if request.xhr?
       end
 
       def create
-        @issue_form = IssueForm.new(
-          issue_params.merge(consultation_id: @consultation.id)
-        )
+        @issue_form = IssueForm.new(issue_params.merge(site_id: current_site.id))
 
         if @issue_form.save
           track_create_activity
 
           redirect_to(
-            admin_participation_issues_path(@consultation),
+            admin_participation_issues_path(@issue),
             notice: t(".success")
           )
         else
@@ -60,7 +57,7 @@ module GobiertoAdmin
           track_update_activity
 
           redirect_to(
-            admin_participation_issues_path(@consultation),
+            admin_participation_issues_path(@issue),
             notice: t('.success')
           )
         else

@@ -119,7 +119,7 @@ button.small, .button.small {
   padding: .45em 1em .3em;
   height: initial;
   line-height: 1.2em;
-  font-weight: 300;
+  // font-weight: 300;
   @include border-radius(4px);
   display: inline-block;
 }
@@ -149,12 +149,6 @@ button.outline, .button.outline {
 button.outline:hover, .button.outline:hover {
   background: $color_1_soft;
   text-decoration: none;
-}
-button.lighter {
-  background: #c4dfe2;
-  color: $color_1;
-  text-transform: none;
-  padding: 0.25em 2em;
 }
 input[type="checkbox"], input[type="radio"] {
   display: none;

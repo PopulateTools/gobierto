@@ -107,7 +107,7 @@
       <button class="pure-button" @click.prevent="removeAttaching"><i class="fa fa-trash"></i></button>
     </div>
 
-    <button class="lighter" @click.prevent="addToEditor(attachment)"><%= t('.include_in_text') %></button>
+    <button class="small" @click.prevent="addToEditor(attachment)"><%= t('.include_in_text') %></button>
   </div>
 </script>
 
@@ -134,7 +134,7 @@
 <div id="gobierto-attachment" class="m_v_2" data-attachable-type="<%= attachable_type %>" data-attachable-id="<%= attachable_id %>">
   <file-list :attachable-type="attachableType" :attachable-id="attachableId"></file-list>
 
-  <button id="show-modal" @click.prevent="loadAttachments" class="lighter m_t_1"><%= t('.include_file') %></button>
+  <button id="show-modal" @click.prevent="loadAttachments" class="small m_v_1"><%= t('.include_file') %></button>
 
   <site-attachments :attachable-type="attachableType" :attachable-id="attachableId"></site-attachments>
 

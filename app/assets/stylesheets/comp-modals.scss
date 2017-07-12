@@ -34,17 +34,23 @@
 }
 .modal-attachments {
   position: relative;
-  background: white;
-  max-height: 530px;
-  max-width: 90vw;
-  margin: 0 auto;
-  box-shadow: 0 1px 3px rgba(0,0,0,.5);
-  /* padding: 1rem; */
-  border-radius: 4px;
+  padding: 0;
+  min-height: 600px;
+  max-width: 1024px;
 
   @media (min-width: 1440px) {
-    max-height: 960px;
+    min-height: 680px;
     max-width: 1200px;
+  }
+
+  &.bg-highlight {
+    background: #fef0cd;
+  }
+
+  .mfp-close:hover {
+    background: transparent;
+    color: #333;
+    opacity: 1;
   }
 
   h1 {
@@ -53,6 +59,7 @@
     margin-bottom: 0.5em !important;
   }
 
+  // Make the search input slim
   input[type=text] {
     height: 40px;
     width: 380px;
@@ -60,7 +67,7 @@
 
   table {
     tbody {
-      display: block;
+      // display: block;
       overflow-y: scroll;
       max-height: 350px;
 
@@ -68,24 +75,12 @@
         max-height: 450px;
       }
     }
-    tr td:first-child {
-      width: 75%;
-    }
-    tr td:nth-child(2),
-    tr td:nth-child(3),
-    tr td:nth-child(4) {
+    tr td:not(:first-child) {
       color: $text_soft;
-    }
-    tr td:nth-child(2),
-    tr td:nth-child(3) {
-      width: 5%;
-    }
-    tr td:nth-child(3) {
-      text-transform: uppercase;
     }
   }
 
-  .bg-highlight {
+  .file-sidebar {
     background: #fef0cd;
     // max-height: 530px;
     transition: 0.3s;
@@ -118,13 +113,13 @@
 
     .drag-drop {
       text-align: center;
-      height: 93%;
       border: 3px dotted #b4a47d;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       transition: 0.3s;
+      padding: 1em;
 
       .input-file {
         opacity: 0;
@@ -138,7 +133,8 @@
         height: 100%;
       }
 
-      &:hover {
+      &:hover,
+      &.active {
         background: darken(#fef0cd, 5%)
       }
 

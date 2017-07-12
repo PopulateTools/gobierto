@@ -17,6 +17,10 @@ input[type=text], input[type=email], input[type=number], input[type=submit], inp
     margin: 0 0 1em 0;
   }
 }
+input[type=text].slim {
+  height: auto;
+  padding: .25em;
+}
 input[type=text]:focus, input[type=email]:focus, input[type=submit]:focus, input[type=password]:focus, input[type=file]:focus, .button:focus, button:focus, select:focus, textarea:focus {
   border-color: #51a7e8;
   outline: none;

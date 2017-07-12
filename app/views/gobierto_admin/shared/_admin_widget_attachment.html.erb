@@ -40,9 +40,9 @@
     <div class="pure-g" v-if="showModal">
       <div class="pure-u-2-3">
         <div class="p_2">
-          <h1><%= t('.latest_documents') %></h1>
+          <h3><%= t('.latest_documents') %></h3>
 
-          <input type="text" placeholder="<%= t('.search') %>..." v-model="q" :value="q" @keyup="search"/>
+          <input type="text" placeholder="<%= t('.search') %>..." v-model="q" :value="q" @keyup="search" class="slim"/>
 
           <table class="m_v_1" v-if="attachments.length">
             <tbody>
@@ -61,7 +61,7 @@
         <!--i class="fa fa-times f_right fa-lg p_0_5" @click="this.closeModal"></i -->
 
         <div class="p_2 drag-section">
-          <h1><%= t('.add_new_document') %></h1>
+          <h3><%= t('.add_new_document') %></h3>
 
           <file-upload/>
 

@@ -5,6 +5,10 @@ this.GobiertoAdmin.GlobalizedFormsComponent = (function() {
     $(document).on("turbolinks:load", _handleGlobalizedForm);
   };
 
+  GlobalizedFormsComponent.prototype.handleGlobalizedForm = function(message) {
+    _handleGlobalizedForm();
+  };
+
   function _handleGlobalizedForm() {
     var $container = _findGlobalizedFormContainer();
     if(!$container.length) return;

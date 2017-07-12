@@ -36,7 +36,7 @@ You'll need to provide the following parameters inside the request body, formatt
 }
 ```
 
-* Description is optional
+* Name and Description are optional
 
 ## GET attachment
 

@@ -47,7 +47,9 @@
           <table class="m_v_1" v-if="attachments.length">
             <tbody>
               <tr v-for="attachment in attachments" @click="associateAttachment(attachment)">
-                <td><a href="#" @click.prevent target="_blank">{{attachment.name}} <span class="soft">({{(attachment.file_name)}})</span></a></td>
+                <td>
+                  <a href="#" @click.prevent target="_blank">{{attachment.name || attachment.file_name}} <span class="soft" v-if="attachment.name !== ''">({{(attachment.file_name)}})</span></a>
+                </td>
                 <td class="right">{{fileExtension(attachment.file_name)}}</td>
                 <td class="right">{{bytesToSize(attachment.file_size)}}</td>
                 <td class="right">{{formatDate(attachment.created_at)}}</td>
@@ -100,7 +102,7 @@
 
 <script type="text/x-template" id="file-popover">
   <div class="file-popover" v-if="attachment !== null && show" @mouseleave="closePopover">
-    <a href="#" @click.prevent="addToEditor(attachment)">{{attachment.name}}</a>
+    <a href="#" @click.prevent="addToEditor(attachment)">{{attachment.name || attachment.file_name}}</a>
 
     <div class="pure-button-group m_v_1" role="group">
       <button class="pure-button" @click.prevent="editAttachment(attachment.id)"><i class="fa fa-edit"></i></button>
@@ -121,7 +123,7 @@
     <div class="file-list" v-if="showFiles">
       <ul>
         <li v-for="attachment in attachments" :key="attachment.id">
-          <a @mouseover="popover" :href="attachment.url" target="_blank" :data-attachment-id="attachment.id">{{attachment.name}}</a>
+          <a @mouseover="popover" :href="attachment.url" target="_blank" :data-attachment-id="attachment.id">{{attachment.name || attachment.file_name}}</a>
         </li>
       </ul>
 

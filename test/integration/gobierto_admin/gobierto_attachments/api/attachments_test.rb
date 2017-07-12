@@ -220,25 +220,6 @@ module GobiertoAdmin
         assert_equal 2,                                                    attachment['current_version']
       end
 
-      def test_attachments_update_error
-        login_admin_for_api(admin)
-
-        payload = {
-          attachment: {
-            id: pdf_attachment.id,
-            name: nil
-          }
-        }
-
-        patch admin_attachments_api_attachment_path(pdf_attachment.id), params: payload
-
-        assert_response :bad_request
-
-        db_pdf_attachment = ::GobiertoAttachments::Attachment.find(pdf_attachment.id)
-
-        assert_equal 'PDF Attachment Name', db_pdf_attachment.name
-      end
-
       def test_attachments_destroy_success
         login_admin_for_api(admin)
 

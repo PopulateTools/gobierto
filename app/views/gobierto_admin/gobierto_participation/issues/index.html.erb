@@ -20,10 +20,18 @@
   <tbody data-behavior="sortable" data-sortable-target="<%= admin_participation_issue_sort_path %>">
     <% @issues.each do |issue| %>
       <tr id="issue-item-<%= issue.id %>" data-id="<%= issue.id %>" class="<%= cycle("odd", "even") %>">
-        <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, '#modal_edit_theme', class: 'open_modal' %></td>
-        <td><%= link_to issue.name, '#modal_edit_theme', class: 'open_modal' %></td>
-        <td><%= time_ago_in_words(issue.created_at) %></td>
-        <td><i class="sort-handler fa fa-bars tipsit" title="<%= t('.drag_to_sort') %>"></i></td>
+        <td>
+          <%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_participation_issue_path(issue), class: 'open_remote_modal' %>
+        </td>
+        <td>
+          <%= link_to issue.name, edit_admin_participation_issue_path(issue), class: 'open_remote_modal' %>
+        </td>
+        <td>
+          <%= time_ago_in_words(issue.created_at) %>
+        </td>
+        <td>
+          <i class="sort-handler fa fa-bars tipsit" title="<%= t('.drag_to_sort') %>"></i>
+        </td>
       </tr>
     <% end %>
   </tbody>

@@ -82,14 +82,13 @@ module GobiertoAdmin
 
       def issue_params
         params.require(:issue).permit(
-          :position,
           name_translations: [*I18n.available_locales],
           slug_translations:  [*I18n.available_locales]
         )
       end
 
       def ignored_issue_attributes
-        %w[created_at updated_at]
+        %w[position created_at updated_at]
       end
 
       def find_issue

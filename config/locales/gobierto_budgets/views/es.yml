@@ -1,6 +1,13 @@
 ---
 es:
   gobierto_budgets:
+    events:
+      gobierto_budgets_budgets_forecast_economic_updated: 'Presupuestos actualizados: área económica'
+      gobierto_budgets_budgets_forecast_functional_updated: 'Presupuestos actualizados: área funcional'
+      gobierto_budgets_budgets_forecast_custom_updated: 'Presupuestos actualizados: área personalizada'
+      gobierto_budgets_budgets_execution_economic_updated: 'Ejecución presupuestaria actualizada: área económica'
+      gobierto_budgets_budgets_execution_functional_updated: 'Ejecución presupuestaria actualizada: área funcional'
+      gobierto_budgets_budgets_execution_custom_updated: 'Ejecución presupuestaria actualizada: área personalizada'
     budget_lines:
       explorer:
         examples: Ejemplos
@@ -32,6 +39,7 @@ es:
         evolution: Evolución
         last_year: El año pasado
         no_distribution: No hay distribución asociada a esta partida.
+        no_description: No hay una descripción asociada a esta partida.
         no_more_descendants: No hay más sub-partidas
         not_available: No disp.
         percentage: "% sobre el total del pres."

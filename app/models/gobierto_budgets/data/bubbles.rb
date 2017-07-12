@@ -72,7 +72,7 @@ module GobiertoBudgets
       end
 
       def fill_data_for(code, name, base_conditions, kind)
-        budget_lines = GobiertoBudgets::BudgetLine.where(base_conditions.merge(code: code)).all
+        budget_lines = GobiertoBudgets::BudgetLine.all(where: base_conditions.merge(code: code))
 
         values = {}
         values_per_inhabitant = {}

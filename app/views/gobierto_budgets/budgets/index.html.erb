@@ -216,6 +216,11 @@
     </div>
   </div>
 
+  <div class="featured_b_l block m_v_3" data-featured-budget-line="<%= gobierto_budgets_featured_budget_line_path(@site.place.slug, year: @year, template: 'gobierto_site_template') %>">
+  </div>
+
+  <div id="lines_chart_wrapper_separator" class="separator"></div>
+
   <div id="lines_chart_wrapper" class="pure-g" data-vis-lines role="tabpanel" aria-controlledby="per_person, total_budget">
     <div class=" pure-u-1 pure-u-md-1-2 block" >
       <h2><%= t('.at_a_glance') %></h2>

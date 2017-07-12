@@ -2,7 +2,7 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
   before_action :load_params
 
   def index
-    @place_budget_lines = GobiertoBudgets::BudgetLine.where(site: current_site, place: @place, level: @level, year: @year, kind: @kind, area_name: @area_name).all
+    @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, level: @level, year: @year, kind: @kind, area_name: @area_name })
     @sample_budget_lines = GobiertoBudgets::TopBudgetLine.limit(20).where(site: current_site, year: @year, place: @site.place, kind: @kind).all.sample(3)
 
     @any_custom_income_budget_lines  = GobiertoBudgets::CustomArea.any_items?(site: current_site, kind: GobiertoBudgets::BudgetLine::INCOME)
@@ -15,16 +15,16 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
   end
 
   def show
-    @budget_line = GobiertoBudgets::BudgetLine.where(site: current_site, code: @code, place: @place, year: @year, kind: @kind, area_name: @area_name).first
+    @budget_line = GobiertoBudgets::BudgetLine.first(where: { site: current_site, code: @code, place: @place, year: @year, kind: @kind, area_name: @area_name })
     if @budget_line.level > 1
-      @parent_budget_line = GobiertoBudgets::BudgetLine.where(site: current_site, code: @budget_line.parent_code, place: @place, year: @year, kind: @kind, area_name: @area_name).first
+      @parent_budget_line = GobiertoBudgets::BudgetLine.first(where: { site: current_site, code: @budget_line.parent_code, place: @place, year: @year, kind: @kind, area_name: @area_name })
     end
     @budget_line_stats = GobiertoBudgets::BudgetLineStats.new(site: @site, budget_line: @budget_line)
-    @budget_line_descendants = GobiertoBudgets::BudgetLine.where(site: current_site, place: @place, parent_code: @code, year: @year, kind: @kind, area_name: @area_name).all
+    @budget_line_descendants = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, parent_code: @code, year: @year, kind: @kind, area_name: @area_name })
     if GobiertoBudgets::FunctionalArea.area_name == @area_name
-      @budget_line_composition = GobiertoBudgets::BudgetLine.where(site: current_site, place: @place, functional_code: @code, year: @year, kind: @kind, area_name: @area_name).all
+      @budget_line_composition = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, functional_code: @code, year: @year, kind: @kind, area_name: @area_name })
     elsif GobiertoBudgets::CustomArea.area_name == @area_name
-      @budget_line_composition = GobiertoBudgets::BudgetLine.where(site: current_site, place: @place, custom_code: @code, year: @year, kind: @kind, area_name: @area_name).all
+      @budget_line_composition = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, custom_code: @code, year: @year, kind: @kind, area_name: @area_name })
     else
       @budget_line_composition = []
     end

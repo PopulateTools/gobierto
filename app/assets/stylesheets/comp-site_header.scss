@@ -96,7 +96,7 @@ header.meta {
       padding: 1em 0 0 0;
       border-top: 1px solid;
       border-bottom: 1px solid;
-      border-color: transparentize($color_main, .8);
+      border-color: $color_main_soft;
       position: relative;
       min-height: 4.85em;
       .search_box {

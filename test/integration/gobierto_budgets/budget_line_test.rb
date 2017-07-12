@@ -1,6 +1,6 @@
 require "test_helper"
 
-class GobiertoBudgets::BudgetLineTest < ActionDispatch::IntegrationTest
+class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTest
   def setup
     super
     @path = gobierto_budgets_budget_line_path('1', last_year, GobiertoBudgets::EconomicArea.area_name, GobiertoBudgets::BudgetLine::EXPENSE)

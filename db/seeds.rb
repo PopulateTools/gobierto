@@ -21,6 +21,7 @@ fixtures_to_load = [
   "gobierto_cms/pages",
   "gobierto_attachments/attachments",
   "gobierto_attachments/attachings",
+  "versions",
   "gobierto_participation/processes",
   "gobierto_participation/process_stages",
   "gobierto_participation/issues",

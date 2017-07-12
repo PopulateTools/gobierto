@@ -90,6 +90,7 @@ module GobiertoAdmin
       def page_params
         params.require(:page).permit(
           :visibility_level,
+          :attachment_ids,
           title_translations: [*I18n.available_locales],
           body_translations:  [*I18n.available_locales],
           slug_translations:  [*I18n.available_locales],

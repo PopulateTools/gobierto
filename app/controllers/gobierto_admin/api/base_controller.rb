@@ -25,7 +25,12 @@ module GobiertoAdmin
       end
 
       def return_400(exception)
-        render json: { error: exception.message }, status: 400
+        error_message = if exception.respond_to?(:record)
+                          exception.record.errors.full_messages.to_sentence
+                        else
+                          exception.message
+                        end
+        render json: { error: error_message }, status: 400
       end
 
     end

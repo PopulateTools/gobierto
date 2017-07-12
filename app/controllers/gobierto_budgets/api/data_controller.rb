@@ -103,7 +103,7 @@ module GobiertoBudgets
         ine_code = params[:ine_code]
         area = params[:area]
 
-        lines = GobiertoBudgets::Data::BudgetExecutionComparison.extract_lines(year: year, kind: kind, ine_code: ine_code, area: area)
+        lines = GobiertoBudgets::Data::BudgetExecutionComparison.extract_lines(site: current_site, year: year, kind: kind, ine_code: ine_code, area: area)
 
         respond_to do |format|
           format.json do
@@ -164,7 +164,6 @@ module GobiertoBudgets
           value: value
         }
       end
-
 
       def total_budget_data(year, field, ranking = true)
         query = {

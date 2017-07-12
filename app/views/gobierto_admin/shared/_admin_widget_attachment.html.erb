@@ -47,7 +47,7 @@
           <table class="m_v_1" v-if="attachments.length">
             <tbody>
               <tr v-for="attachment in attachments" @click="associateAttachment(attachment)">
-                <td><a href="#" @click.prevent target="_blank">{{attachment.name}}</a></td>
+                <td><a href="#" @click.prevent target="_blank">{{attachment.name}} <span class="soft">({{(attachment.file_name)}})</span></a></td>
                 <td class="right">{{fileExtension(attachment.file_name)}}</td>
                 <td class="right">{{bytesToSize(attachment.file_size)}}</td>
                 <td class="right">{{formatDate(attachment.created_at)}}</td>

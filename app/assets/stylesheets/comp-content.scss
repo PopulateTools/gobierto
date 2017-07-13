@@ -11,6 +11,11 @@
     margin-bottom: 5em;
     padding: 1em;
 
+    @media (min-width: 768px) {
+      margin: 0;
+      margin-bottom: 5em;
+    }
+
     .inner {
       @media (min-width: 768px) {
         padding: 0;
@@ -98,24 +103,6 @@
 
   h5 {
     font-size: 1em;
-  }
-
-  hr {
-    margin: 4em 0;
-    border: none;
-    border-top: 1px solid #DEEFF1;;
-
-    @media (min-width: 768px) {
-      min-width: 175%;
-      margin: 5em 0;
-      margin-left: -37.5%;
-    }
-  }
-
-  .light_separator {
-    margin: 4em auto;
-    max-width: 10em;
-    min-width: 25%;
   }
 
   .number {

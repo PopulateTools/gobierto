@@ -149,7 +149,7 @@ p.intro {
 }
 .separator_v {
 	border-left: 1px solid $color_separator;
-	margin: 0 1em;	
+	margin: 0 1em;
 	display: inline-block;
 	height: 3em;
 	margin-top: -.25em;
@@ -168,6 +168,23 @@ p.intro {
 .separator_blue_medium {
 	border-top: 3px solid transparentize($color_main, .65);
 }
+.separator_responsive {
+  margin: 4em 0;
+  border: none;
+  border-top: 1px solid #DEEFF1;
+
+  @media (min-width: 768px) {
+    min-width: 175%;
+    margin: 5em 0;
+    margin-left: -37.5%;
+  }
+}
+.separator_responsive.quarter {
+  margin: 4em auto;
+  max-width: 10em;
+  min-width: 25%;
+}
+
 .block_color {
 	background: transparentize($color_main, .94);
 	border-top: 4px solid $color_main;
@@ -219,12 +236,12 @@ p.intro {
 }
 .see_more:hover {
   text-decoration: none;
-  background: darken($color_1_soft, 15%); 
+  background: darken($color_1_soft, 15%);
 }
 
 .inpage_section {
   @include border-radius(4px);
-  text-align: center; 
+  text-align: center;
   background: $color_neutral_soft;
   padding: 1em;
   margin: 2em 0;

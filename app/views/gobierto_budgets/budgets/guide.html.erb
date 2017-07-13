@@ -36,7 +36,7 @@
 
       <div class="number">
         <p>En 2016 se ingresaron...</p>
-        <div>45.741.771€</div>
+        <div data-income>45.741.771€</div>
       </div>
 
       <h3>Gastos</h3>
@@ -44,7 +44,7 @@
 
       <div class="number">
         <p>El gasto por habitante fue de...</p>
-        <div>12€/hab</div>
+        <div data-expense>12€/hab</div>
       </div>
 
       <hr />
@@ -269,3 +269,8 @@
   </main>
 
 </div>
+
+
+<%= javascript_tag do %>
+  window.GobiertoBudgets.budgets_controller.guide();
+<% end %>

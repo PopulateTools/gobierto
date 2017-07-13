@@ -3,6 +3,8 @@
 //= require_directory ./visualizations/
 //= require_directory ./lib/
 //= require d3-jetpack
+//= require ./app/init
+//= require_tree ./app
 
 $(document).on('turbolinks:load', function() {
 

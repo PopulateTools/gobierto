@@ -2,27 +2,15 @@ module GobiertoBudgets
   class SearchController < GobiertoBudgets::ApplicationController
 
     def all_categories
-      year = params[:year].to_i
+      year  = params[:year].to_i
       place = INE::Places::Place.find_by_slug(params[:slug])
-
       query = params[:query].downcase
-      suggestions = []
-      [GobiertoBudgets::BudgetLine::ECONOMIC, GobiertoBudgets::BudgetLine::FUNCTIONAL].each do |area|
-        [GobiertoBudgets::BudgetLine::EXPENSE, GobiertoBudgets::BudgetLine::INCOME].each do |kind|
-          next if area == GobiertoBudgets::BudgetLine::FUNCTIONAL and kind == GobiertoBudgets::BudgetLine::INCOME
 
-          this_year_codes = get_year_codes(place, area, kind, year)
-          klass_name = area == 'economic' ? GobiertoBudgets::EconomicArea : GobiertoBudgets::FunctionalArea
-          suggestions += klass_name.all_items[kind].select{|k,v| this_year_codes.include?(k) && v.downcase.include?(query) }.map do |k,v|
-            {
-              value: v,
-              data: {
-                url: gobierto_budgets_budget_line_url(year: year, id: k, kind: kind, area_name: area, host: @site.domain)
-              }
-            }
-          end
-        end
-      end
+      custom_categories_suggestions = get_suggestions_from_custom_categories(query, year)
+
+      suggestions = custom_categories_suggestions[:suggestions]
+
+      suggestions += get_suggestions_from_default_categories(custom_categories_suggestions[:selected_budget_lines], place, year, query)
 
       respond_to do |format|
         format.json do
@@ -34,6 +22,44 @@ module GobiertoBudgets
     end
 
     private
+
+    def get_suggestions_from_custom_categories(query, year)
+      suggestions = { suggestions: [], selected_budget_lines: [] }
+
+      Category.all.each do |category|
+        next if category.custom_name_translations.nil?
+
+        names = category.custom_name_translations.values.compact
+
+        suggestions[:suggestions] += names.select{|name| name.downcase[/.*#{query}.*/] }.map do |name|
+          suggestions[:selected_budget_lines] << { code: category.code, kind: category.kind, area_name: category.area_name }
+          build_new_suggestion(name, year, category.code, category.kind, category.area_name, @site.domain)
+        end
+      end
+
+      suggestions
+    end
+
+    def get_suggestions_from_default_categories(selected_budget_lines, place, year, query)
+      suggestions = []
+
+      BudgetArea.all_areas.each do |area|
+        area.available_kinds.each do |kind|
+          area_name = area.area_name
+          this_year_codes = get_year_codes(place, area_name, kind, year)
+
+          suggested_categories = area.all_items[kind].select do |code, name|
+            this_year_codes.include?(code) && name.downcase.include?(query) && !selected_budget_lines.include?({ code: code, kind: kind, area_name: area_name })
+          end
+
+          suggestions += suggested_categories.map do |code, name|
+            build_new_suggestion(name, year, code, kind, area_name, @site.domain)
+          end
+        end
+      end
+
+      suggestions
+    end
 
     def get_year_codes(place, area, kind, year)
       query = {
@@ -56,5 +82,15 @@ module GobiertoBudgets
       response = GobiertoBudgets::SearchEngine.client.search index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: area, body: query
       response['hits']['hits'].map{|h| h['_source']['code'] }
     end
+
+    def build_new_suggestion(name, year, code, kind, area_name, host)
+      {
+        value: name,
+        data: {
+          url: gobierto_budgets_budget_line_url(year: year, id: code, kind: kind, area_name: area_name, host: host)
+        }
+      }
+    end
+
   end
 end

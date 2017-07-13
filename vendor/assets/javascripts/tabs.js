@@ -154,7 +154,11 @@ $(document).on('turbolinks:load', function() {
       var controls = tab.getAttribute('aria-controls');
 
       // Remove hidden attribute from tab panel to make it visible
-      document.getElementById(controls).removeAttribute('hidden');
+      var tabPanel = document.getElementById(controls);
+
+      if (tabPanel) {
+        tabPanel.removeAttribute('hidden');
+      }
 
       // Set focus when required
       if (setFocus) {

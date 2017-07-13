@@ -39,7 +39,7 @@ module GobiertoBudgets
           size: 10_000
         }
 
-        areas = @type == 'economic' ? EconomicArea : FunctionalArea
+        areas = BudgetArea.klass_for(@type)
 
         response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_forecast, type: @type, body: query
         children_json = response['hits']['hits'].map do |h|

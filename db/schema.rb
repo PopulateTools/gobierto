@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170605103424) do
+ActiveRecord::Schema.define(version: 20170712103453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,19 @@ ActiveRecord::Schema.define(version: 20170605103424) do
     t.index ["site_id"], name: "index_census_items_on_site_id"
   end
 
+  create_table "collection_items", force: :cascade do |t|
+    t.bigint "site_id"
+    t.string "item_type"
+    t.bigint "item_id"
+    t.string "container_type"
+    t.bigint "container_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["container_type", "container_id"], name: "index_collection_items_on_container_type_and_container_id"
+    t.index ["item_type", "item_id"], name: "index_collection_items_on_item_type_and_item_id"
+    t.index ["site_id"], name: "index_collection_items_on_site_id"
+  end
+
   create_table "content_block_fields", id: :serial, force: :cascade do |t|
     t.integer "content_block_id"
     t.integer "field_type", default: 0, null: false
@@ -165,13 +178,23 @@ ActiveRecord::Schema.define(version: 20170605103424) do
 
   create_table "ga_attachments", force: :cascade do |t|
     t.integer "site_id", null: false
-    t.string "name", null: false
+    t.string "name"
     t.text "description"
     t.string "file_name", null: false
     t.string "file_digest", null: false
     t.string "url", null: false
     t.integer "file_size", null: false
     t.integer "current_version", default: 0, null: false
+  end
+
+  create_table "gb_categories", force: :cascade do |t|
+    t.integer "site_id", null: false
+    t.string "area_name", null: false
+    t.string "kind", null: false
+    t.string "code", null: false
+    t.jsonb "custom_name_translations"
+    t.jsonb "custom_description_translations"
+    t.index ["site_id", "area_name", "kind", "code"], name: "gb_categories_record_unique_index", unique: true
   end
 
   create_table "gbc_consultation_items", id: :serial, force: :cascade do |t|
@@ -378,6 +401,58 @@ ActiveRecord::Schema.define(version: 20170605103424) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["site_id"], name: "index_gp_settings_on_site_id"
+  end
+
+  create_table "gpart_areas", force: :cascade do |t|
+    t.bigint "site_id"
+    t.jsonb "name_translations"
+    t.jsonb "slug_translations"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name_translations"], name: "index_gpart_areas_on_name_translations", using: :gin
+    t.index ["site_id"], name: "index_gpart_areas_on_site_id"
+    t.index ["slug_translations"], name: "index_gpart_areas_on_slug_translations", using: :gin
+  end
+
+  create_table "gpart_issues", force: :cascade do |t|
+    t.bigint "site_id"
+    t.jsonb "name_translations"
+    t.jsonb "slug_translations"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name_translations"], name: "index_gpart_issues_on_name_translations", using: :gin
+    t.index ["site_id"], name: "index_gpart_issues_on_site_id"
+    t.index ["slug_translations"], name: "index_gpart_issues_on_slug_translations", using: :gin
+  end
+
+  create_table "gpart_process_stages", force: :cascade do |t|
+    t.bigint "process_id"
+    t.jsonb "title_translations"
+    t.jsonb "slug_translations"
+    t.date "starts"
+    t.date "ends"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["process_id"], name: "index_gpart_process_stages_on_process_id"
+    t.index ["slug_translations"], name: "index_gpart_process_stages_on_slug_translations", using: :gin
+    t.index ["title_translations"], name: "index_gpart_process_stages_on_title_translations", using: :gin
+  end
+
+  create_table "gpart_processes", force: :cascade do |t|
+    t.bigint "site_id"
+    t.string "slug", default: "", null: false
+    t.integer "visibility_level", default: 0, null: false
+    t.jsonb "title_translations"
+    t.jsonb "body_translations"
+    t.jsonb "slug_translations"
+    t.date "starts"
+    t.date "ends"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["body_translations"], name: "index_gpart_processes_on_body_translations", using: :gin
+    t.index ["site_id"], name: "index_gpart_processes_on_site_id"
+    t.index ["slug_translations"], name: "index_gpart_processes_on_slug_translations", using: :gin
+    t.index ["title_translations"], name: "index_gpart_processes_on_title_translations", using: :gin
   end
 
   create_table "sites", id: :serial, force: :cascade do |t|

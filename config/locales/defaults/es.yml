@@ -15,7 +15,7 @@ es:
     - vie
     - sáb
     abbr_month_names:
-    -
+    - 
     - ene
     - feb
     - mar
@@ -41,7 +41,7 @@ es:
       long: "%d de %B de %Y"
       short: "%d %b %Y"
     month_names:
-    -
+    - 
     - enero
     - febrero
     - marzo
@@ -108,6 +108,7 @@ es:
     format: "%{attribute} %{message}"
     messages:
       accepted: debe ser aceptado
+      array_too_short: es demasiado corto (al menos ${count} elemento)
       blank: no puede estar en blanco
       blank_for_modules: tiene que ser un municipio para que los módulos activos funcionen
       confirmation: no coincide
@@ -136,7 +137,6 @@ es:
       too_long: es demasiado largo (%{count} caracteres máximo)
       too_short: es demasiado corto (%{count} caracteres mínimo)
       wrong_length: no tiene la longitud correcta (%{count} caracteres exactos)
-      array_too_short: es demasiado corto (al menos ${count} elemento)
     template:
       body: 'Se encontraron problemas con los siguientes campos:'
       header:

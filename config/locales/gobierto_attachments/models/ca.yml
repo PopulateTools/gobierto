@@ -3,16 +3,16 @@ ca:
   activerecord:
     attributes:
       gobierto_attachments/attachment:
-        name: Nom
-        description: Descripció
-        file_name: Nom del fitxer
-        file_digest: Resum de fitxer
-        url: URL
-        file_size: Mida del fitxer
         current_version: Versió actual
-    models:
-      gobierto_attachments/attachment: Adjunt
+        description: Descripció
+        file_digest: Fitxer
+        file_name: Nom del fitxer
+        file_size: Mida del fitxer
+        name: Nom
+        url: URL
     messages:
       gobierto_attachments/attachment:
         already_uploaded: no és únic (ja està pujat a
         file_too_big: El fitxer excedeix la mida màxima
+    models:
+      gobierto_attachments/attachment: Adjunt

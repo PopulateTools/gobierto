@@ -1,0 +1,14 @@
+green_city_first_stage:
+  process: green_city
+  title_translations: <%= { 'en' => 'Information', 'es' => 'Información' }.to_json %>
+  slug_translations: <%= { 'en' => 'information', 'es' => 'informacion' }.to_json %>
+  starts: <%= 3.days.ago %>
+  ends: <%= 2.days.ago %>
+
+green_city_second_stage:
+  process: green_city
+  title_translations: <%= { 'en' => 'Suggest ideas', 'es' => 'Sugiere ideas' }.to_json %>
+  slug_translations: <%= { 'en' => 'suggest-ideas', 'es' => 'sugiere-ideas' }.to_json %>
+  starts: <%= 2.days.ago %>
+  ends: <%= 5.days.from_now %>
+

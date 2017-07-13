@@ -13,6 +13,10 @@
     margin: 0 1em 0 0;
     vertical-align: top;
   }
+  &.slim {
+    padding: 1em;
+    font-size: 0.9em;
+  }
 }
 
 .success {

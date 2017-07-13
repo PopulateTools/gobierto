@@ -57,6 +57,7 @@ module PopulateDataHelpers
       "code" => "151",
       "parent_code" => "15",
       "functional_code" => nil,
+      "custom_code" => nil,
       "area" => "functional",
       "level" => 3,
       "_id" => "9208.0/2016-01-01/p/e/f/151"

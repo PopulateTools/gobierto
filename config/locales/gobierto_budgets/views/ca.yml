@@ -150,6 +150,7 @@ ca:
         budget: Pressupost
         execution: Execució
         summary: Resum
+        guide: Guia
     visualizations:
       G_custom: Despeses per àrea
       G_economic: En què es gasta

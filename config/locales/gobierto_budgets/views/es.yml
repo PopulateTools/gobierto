@@ -151,6 +151,7 @@ es:
         budget: Presupuesto
         execution: Ejecución
         summary: Resumen
+        guide: Guía
     visualizations:
       G_custom: Gastos por área
       G_economic: En qué se gasta

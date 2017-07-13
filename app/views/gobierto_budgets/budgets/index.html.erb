@@ -190,36 +190,46 @@
     <h2 class="with_description"><%= t('.budget_lines_block.title') %></h2>
     <p class="description"><%= t('.budget_lines_block.intro') %></p>
 
-    <div class="pure-g line_boxes">
-      <%= render 'line_box', {title: 'Deuda pública', figure: '716M', executed: '30%' } %>
-      <%= render 'line_box', {title: 'Servicios públicos básicos', figure: '2.076M', executed: '42%' } %>
-      <%= render 'line_box', {title: 'Actuaciones de protección y promoción social', figure: '8.451M', executed: '27%' } %>
-      <%= render 'line_box', {title: 'Protección de bienes públicos de carácter preferente', figure: '407M', executed: '65%' } %>
-      <%= render 'line_box', {title: 'Actuaciones de carácter económico', figure: '161M', executed: '12%' } %>
-      <%= render 'line_box', {title: 'Actuaciones de carácter general', figure: '602M', executed: '87%' } %>
+    <% pending do %>
+      <div class="pure-g line_boxes">
+        <%= render 'line_box', {title: 'Deuda pública', figure: '716M', executed: '30%' } %>
+        <%= render 'line_box', {title: 'Servicios públicos básicos', figure: '2.076M', executed: '42%' } %>
+        <%= render 'line_box', {title: 'Actuaciones de protección y promoción social', figure: '8.451M', executed: '27%' } %>
+        <%= render 'line_box', {title: 'Protección de bienes públicos de carácter preferente', figure: '407M', executed: '65%' } %>
+        <%= render 'line_box', {title: 'Actuaciones de carácter económico', figure: '161M', executed: '12%' } %>
+        <%= render 'line_box', {title: 'Actuaciones de carácter general', figure: '602M', executed: '87%' } %>
+      </div>
+    <% end %>
+
+    <div class="graph" id="expense-treemap"
+                       data-functional-url="<%= gobierto_budgets_budget_lines_treemap_path(@year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: 'functional', level: 2, format: :json) %>"
+                       data-economic-url="<%= gobierto_budgets_budget_lines_treemap_path(@year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: 'economic', level: 2, format: :json) %>">
     </div>
+
   </div>
 
-  <div class="block">
-    <h2 class="with_description"><%= t('.execution_block.title') %></h2>
-    <div class="pure-g half_description">
-      <div class="pure-u-md-1-2 pure-u-1 block_1">
-        <p class="description"><%= t('.execution_block.intro') %></p>
+  <% pending do %>
+    <div class="block">
+      <h2 class="with_description"><%= t('.execution_block.title') %></h2>
+      <div class="pure-g half_description">
+        <div class="pure-u-md-1-2 pure-u-1 block_1">
+          <p class="description"><%= t('.execution_block.intro') %></p>
+        </div>
+        <div class="pure-u-md-1-2 pure-u-1 block_2">
+          <p class="f7"><%= t('.execution_block.last_update', date: '5 de junio 2017') %></p>
+        </div>
       </div>
-      <div class="pure-u-md-1-2 pure-u-1 block_2">
-        <p class="f7"><%= t('.execution_block.last_update', date: '5 de junio 2017') %></p>
+
+      <div class="pure-g mega_bars">
+        <%= render 'mega_bar', {className: 'income', percentage: '68' } %>
+        <%= render 'mega_bar', {className: 'expense', percentage: '24' } %>
+
+        <div class="pure-u-1 center m_v_1">
+          <%= link_to t('.execution_block.button'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false }, class: "button" %>
+        </div>
       </div>
     </div>
-
-    <div class="pure-g mega_bars">
-      <%= render 'mega_bar', {className: 'income', percentage: '68' } %>
-      <%= render 'mega_bar', {className: 'expense', percentage: '24' } %>
-
-      <div class="pure-u-1 center m_v_1">
-        <%= link_to t('.execution_block.button'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false }, class: "button" %>
-      </div>
-    </div>
-  </div>
+  <% end %>
 
   <div class="featured_b_l block m_v_3" data-featured-budget-line="<%= gobierto_budgets_featured_budget_line_path(@site.place.slug, year: @year, template: 'gobierto_site_template') %>">
   </div>

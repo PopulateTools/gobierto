@@ -103,6 +103,13 @@ class Site < ApplicationRecord
     draft?
   end
 
+  def budgets_data_updated_at(index)
+    activities.where('action ~* ?', "gobierto_budgets.budgets_#{index}_.*_updated")
+              .order(created_at: :asc)
+              .pluck(:created_at)
+              .last
+  end
+
   private
 
   def site_configuration_attributes

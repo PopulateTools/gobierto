@@ -23,7 +23,12 @@
 
         <p><%= t('.description') %></p>
 
-        <p class="last_update"><%= raw t('.last_update') %></p>
+        <% if @budgets_data_updated_at %>
+          <p class="last_update">
+            <strong><%= t('.last_update') %>:</strong> <%= l(@budgets_data_updated_at, format: '%d %B %Y') %>
+          </p>
+        <% end %>
+
         <% pending do %>
           <p class="m_v_0_25"><a href="#"><%= t('.budget_guide') %></a>.</p>
         <% end %>

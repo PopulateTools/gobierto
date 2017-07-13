@@ -66,7 +66,7 @@ ca:
         expenses_per_inhabitant: Despesa per habitant
         header: Pressuposts
         description: En aquesta pàgina pots aprendre sobre la distribució dels pressuposts, l'estat d'execució de cada partida, amb quins proveïdors treballem i com ha evolucionat la despesa per habitant.
-        last_update: <strong>Última actualització:</strong> 5 de juny, 2017.
+        last_update: Última actualització
         budget_guide: Llegeix la Guia del Pressupost
         stories_header: T'expliquem el pressupost
         story_1:
@@ -145,7 +145,7 @@ ca:
       index:
         title: Execució pressupostària
         description: L'execució són les despeses comparades amb el pressupost inicial. És normal trobar desviacions, ja què és impossible preveure totes les despeses amb precisió absoluta
-        last_update: "Última actualització:"
+        last_update: "Última actualització"
         budget_lines_expense_higher: Partides de despeses molt superiors al pressupost
         budget_lines_expense_lower: Partides de despeses molt inferiors al pressupost
         budget_lines_income_higher: Partides d'ingressos molt superiors al pressupost

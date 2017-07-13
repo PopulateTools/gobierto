@@ -65,7 +65,7 @@ en:
         expenses_per_inhabitant: Expenses per inhabitant
         header: Budgets
         description: In this site you can learn about the budget's income and expenses, the status of the execution, the different providers we work with and the evolution of the expense per inhabitant.
-        last_update: <strong>Last update:</strong> 5th June, 2017.
+        last_update: Last update
         budget_guide: Read our Budget Guide
         stories_header: Explaining the budget
         story_1:
@@ -143,7 +143,7 @@ en:
       index:
         title: Budget execution
         description: The budget execution is the expense over the initial budget. It's normal to find deviations from the budget, as its impossible to predict the expenses with a great precision
-        last_update: "Last update:"
+        last_update: "Last update"
         budget_lines_expense_higher: Expense budget lines higher than planned
         budget_lines_expense_lower: Expense budget lines lower than planned
         budget_lines_income_higher: Income budget lines higher than planned

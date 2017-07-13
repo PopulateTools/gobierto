@@ -46,7 +46,6 @@ var VisLinesExecution = Class.extend({
       if (error) throw error;
 
       this.data = jsonData;
-      this.updated = this.parseTime(this.data.last_update);
 
       // Setting scales in a separate step, as we need the lines to set the height
       this.setScales();
@@ -91,8 +90,6 @@ var VisLinesExecution = Class.extend({
       .ticks(this.isMobile ? 2 : this.bigDeviation ? 3 : 5);
   },
   updateRender: function(callback) {
-    d3.select('.last_update').text(this.dayFormat(this.updated).toLowerCase());
-
     this.nested = d3.nest()
       .key(function(d) { return d.parent_id;})
       .sortValues(function(a, b) {

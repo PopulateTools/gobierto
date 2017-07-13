@@ -17,6 +17,8 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
     @any_custom_expense_budget_lines = GobiertoBudgets::CustomArea.any_items?(site: current_site, kind: GobiertoBudgets::BudgetLine::EXPENSE)
 
     @sample_budget_lines = (@top_income_budget_lines + @top_expense_budget_lines).sample(3)
+
+    @budgets_data_updated_at = current_site.budgets_data_updated_at('forecast')
   end
 
   private

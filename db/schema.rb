@@ -420,7 +420,9 @@ ActiveRecord::Schema.define(version: 20170712103453) do
     t.jsonb "slug_translations"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position", default: 0, null: false
     t.index ["name_translations"], name: "index_gpart_issues_on_name_translations", using: :gin
+    t.index ["position"], name: "index_gpart_issues_on_position"
     t.index ["site_id"], name: "index_gpart_issues_on_site_id"
     t.index ["slug_translations"], name: "index_gpart_issues_on_slug_translations", using: :gin
   end

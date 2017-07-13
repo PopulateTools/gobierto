@@ -12,7 +12,7 @@
         <% I18n.available_locales.map(&:to_s).each do |locale| %>
           <div class="form_item input_text" data-locale="<%= locale %>">
             <%= label_tag "person_statement[title_translations][#{locale}]", f.object.class.human_attribute_name(:title) %>
-            <%= text_field_tag "person_statement[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title") %>
+            <%= text_field_tag "person_statement[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title", locale: locale.to_sym) %>
           </div>
         <% end %>
       </div>

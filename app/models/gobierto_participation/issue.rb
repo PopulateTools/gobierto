@@ -2,6 +2,8 @@ require_dependency "gobierto_participation"
 
 module GobiertoParticipation
   class Issue < ApplicationRecord
+    include GobiertoCommon::Sortable
+    include User::Subscribable
 
     belongs_to :site
 
@@ -10,6 +12,8 @@ module GobiertoParticipation
     validates :site, :name, :slug, presence: true
     validate :uniqueness_of_slug
     validate :uniqueness_of_name
+
+    scope :sorted, -> { order(position: :asc, created_at: :desc) }
 
     def self.find_by_slug!(slug)
       if slug.present?

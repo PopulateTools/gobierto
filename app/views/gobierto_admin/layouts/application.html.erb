@@ -137,6 +137,11 @@
           <% if managing_site? %>
             <li>
               <%= link_to t(".edit_site"), edit_admin_site_path(current_site) %>
+              <% if show_module_link?("GobiertoParticipation") %>
+                <ul>
+                  <li><%= link_to t(".issues"), admin_participation_issues_path %></li>
+                </ul>
+              <% end %>
             </li>
           <% end %>
         </ul>

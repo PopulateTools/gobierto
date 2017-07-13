@@ -44,7 +44,7 @@
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
         <div class="inner">
           <h3><%= t('.expenses_per_inhabitant') %></h3>
-          <div class="metric"><%= number_to_currency @site_stats.total_budget_per_inhabitant, precision: 0 %></div>
+          <div class="metric"><%= format_currency @site_stats.total_budget_per_inhabitant %></div>
         </div>
       </div>
 
@@ -58,7 +58,7 @@
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
         <div class="inner">
           <h3><%= t('.executed') %> (<span class="tooltiped" title="<%= t('.executed_tooltip') %>">?</span>)</h3>
-          <div class="metric"><%= number_to_currency @site_stats.total_budget_executed, precision: 0 %></div>
+          <div class="metric"><%= format_currency @site_stats.total_budget_executed %></div>
           <div class="explanation_bar">
             <% percentage = @site_stats.percentage_difference(variable1: :total_budget_executed, variable2: :total_budget_planned) %>
             <div class="bar"><div class="line" style="width: <%= percentage %>%"></div></div>

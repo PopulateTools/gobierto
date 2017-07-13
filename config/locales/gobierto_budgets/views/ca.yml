@@ -170,11 +170,9 @@ ca:
         custom_button: Personalitzada
         metric:
           execution:
-            title: Execució
-            message: més que en
-          budget:
-            title: Despesa pressupostada
-            message: més que en
+            expenses_title: Execució de despeses
+            income_title: Execució d'ingressos
+            previous_execution_message: El %{year} l'execució va ser del %{percentage}
         vis:
           tooltip: S'ha executat un
           tooltip_budgeted: Pressupostat

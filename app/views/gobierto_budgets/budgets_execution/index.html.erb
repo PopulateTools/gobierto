@@ -37,20 +37,26 @@
         <div class="pure-g">
           <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
             <div class="inner">
-              <h3><%= t('.metric.execution.title') %></h3>
-              <div class="metric">54%</div>
+              <h3><%= t('.metric.execution.expenses_title') %></h3>
+              <div class="metric"><%= @budgets_execution_summary[:expenses_execution_percentage]%> %</div>
               <div class="explanation">
-                0,74% <%= t('.metric.execution.message') %> 2015
+                <%= t('.metric.execution.previous_execution_message',
+                      year: @budgets_execution_summary[:previous_year],
+                      percentage: @budgets_execution_summary[:expenses_previous_execution_percentage]
+                ) %> %
               </div>
             </div>
           </div>
 
           <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
             <div class="inner">
-              <h3><%= t('.metric.budget.title') %></h3>
-              <div class="metric">4.483M</div>
+              <h3><%= t('.metric.execution.income_title') %></h3>
+              <div class="metric"><%= @budgets_execution_summary[:income_execution_percentage] %> %</div>
               <div class="explanation">
-                0,74% <%= t('.metric.budget.message') %> 2015
+                <%= t('.metric.execution.previous_execution_message',
+                      year: @budgets_execution_summary[:previous_year],
+                      percentage: @budgets_execution_summary[:income_previous_execution_percentage]
+                ) %> %
               </div>
             </div>
           </div>

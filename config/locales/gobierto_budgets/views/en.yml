@@ -167,11 +167,9 @@ en:
         custom_button: Custom
         metric:
           execution:
-            title: Execution
-            message: higher than in
-          budget:
-            title: Budgeted expense
-            message: higher than in
+            expenses_title: Execution of expenses
+            income_title: Execution of income
+            previous_execution_message: In %{year} execution reached %{percentage}
         vis:
           tooltip: It has been executed by a
           tooltip_budgeted: Budget

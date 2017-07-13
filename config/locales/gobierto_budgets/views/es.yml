@@ -170,11 +170,9 @@ es:
         custom_button: Personalizada
         metric:
           execution:
-            title: Ejecución
-            message: más que en
-          budget:
-            title: Gasto presupuestado
-            message: más que en
+            expenses_title: Ejecución de gastos
+            income_title: Ejecución de ingresos
+            previous_execution_message: En el %{year} la ejecución fue del %{percentage}
         vis:
           tooltip: Se ha ejecutado un
           tooltip_budgeted: Presupuestado

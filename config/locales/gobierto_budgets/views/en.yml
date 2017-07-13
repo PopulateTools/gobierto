@@ -148,6 +148,7 @@ en:
         budget: Budget
         execution: Execution
         summary: Summary
+        guide: Guide
     visualizations:
       G_custom: Expenses per area
       G_economic: In what

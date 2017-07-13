@@ -16,8 +16,7 @@ module GobiertoAdmin
                         end
 
           render(
-            json: { attachments: attachments },
-            each_serializer: default_serializer
+            json: { attachments: attachments.map{ |a| default_serializer.new(a) }}
           )
         end
 

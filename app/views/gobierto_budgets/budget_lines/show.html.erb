@@ -112,7 +112,11 @@
       <div class="pure-u-1 pure-u-md-9-24 line_description">
 
         <h2><%= t('.about_this_line') %></h2>
-        <%= simple_format budget_line_description(@budget_line) %>
+        <% if @budget_line.description %>
+          <%= simple_format budget_line_description(@budget_line) %>
+        <% else %>
+          <%= t('.no_description') %>
+        <% end %>
       </div>
 
       <div class="pure-u-md-3-24"></div>
@@ -166,7 +170,7 @@
       </div>
     </div>
 
-    <div class="separator"></div>
+    <div id="lines_chart_wrapper_separator" class="separator"></div>
 
     <div id="lines_chart_wrapper" class="pure-g block" data-vis-lines role="tabpanel" aria-controlledby="per_person, total_budget">
       <div class="pure-u-1 pure-u-md-1-2 p_h_l_1">
@@ -174,13 +178,15 @@
         <div id="lines_chart"></div>
       </div>
 
-      <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
-        <h2><%= t('gobierto_budgets.budgets.index.context') %></h2>
-        <div id="lines_tooltip"></div>
-        <div class="help">
-          <%= link_to t('gobierto_budgets.budgets.index.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], title: t('gobierto_budgets.budgets.index.note_about_the_data_title'), class: 'tipsit' %>
+      <% if params[:area_name] != GobiertoBudgets::CustomArea.area_name %>
+        <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
+          <h2><%= t('gobierto_budgets.budgets.index.context') %></h2>
+          <div id="lines_tooltip"></div>
+          <div class="help">
+            <%= link_to t('gobierto_budgets.budgets.index.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], title: t('gobierto_budgets.budgets.index.note_about_the_data_title'), class: 'tipsit' %>
+          </div>
         </div>
-      </div>
+      <% end %>
 
       <div class="pure-u-1">
         <div class="filter m_v_2" role="tablist" aria-label="<%= t('gobierto_budgets.budgets.index.visualize') %>">

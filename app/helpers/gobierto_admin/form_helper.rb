@@ -14,7 +14,8 @@ module GobiertoAdmin
             "trix-editor",
             nil,
             input: sanitize_to_id(method),
-            data: { attachment_path: options[:attachment_path] }
+            data: { attachment_path: options[:attachment_path] },
+            lang: options[:lang]
           ),
           content_tag(
             "div",
@@ -36,7 +37,8 @@ module GobiertoAdmin
             "trix-editor",
             nil,
             input: "#{@object_name}_#{method}",
-            data: { attachment_path: options[:attachment_path] }
+            data: { attachment_path: options[:attachment_path] },
+            lang: options[:lang]
           ),
           @template.content_tag(
             "div",

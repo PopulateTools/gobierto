@@ -4,6 +4,7 @@ require "support/concerns/gobierto_common/collectionable_test"
 
 module GobiertoCms
   class PageTest < ActiveSupport::TestCase
+
     include GobiertoAttachments::AttachableTest
     include GobiertoCommon::CollectionableTest
 

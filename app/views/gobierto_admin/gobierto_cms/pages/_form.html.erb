@@ -19,7 +19,7 @@
 
           <div class="form_item textarea" data-locale="<%= locale %>">
             <%= label_tag "page[body_translations][#{locale}]", f.object.class.human_attribute_name(:body) %>
-            <%= rich_text_area_tag "page[body_translations][#{locale}]", f.object.body_translations && f.object.body_translations[locale], attachment_path: admin_cms_file_attachments_path %>
+            <%= rich_text_area_tag "page[body_translations][#{locale}]", f.object.body_translations && f.object.body_translations[locale], attachment_path: admin_cms_file_attachments_path, lang: locale %>
           </div>
         <% end %>
       </div>
@@ -44,6 +44,15 @@
         </div>
         <%= f.submit class: "button" %>
       </div>
+
+      <%= render "gobierto_admin/shared/admin_widget_attachment", {attachable_type: @page_form.page.class.name, attachable_id: @page_form.page.id} %>
+      <%= f.hidden_field :attachment_ids, id: "attachmentsIdsAfterCreated" %>
     </div>
   </div>
+<% end %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.gobierto_attachments_controller.index();
+  <% end %>
 <% end %>

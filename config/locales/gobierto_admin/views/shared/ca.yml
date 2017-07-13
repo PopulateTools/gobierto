@@ -5,3 +5,20 @@ ca:
       form_locale_switchers:
         define_content_in_locale: Defineix el contingut en la versió en %{locale_name}
         translate: Traduxir
+      admin_widget_attachment:
+        drag_document_here: Arrastra i solta el document aquí
+        or: o
+        select_file: Tria un arxiu del disc dur
+        include_file: Incloure arxiu
+        document: Document
+        document_title: Títol del document
+        description: Descripció
+        save: Desar
+        latest_documents: Últims documents afexits
+        search: Buscar
+        no_docs: No hi ha documents
+        add_new_document: Afegeix nou document
+        edit_document: Editar document
+        include_in_text: Incloure arxiu en el text
+        attachments: Adjunts
+

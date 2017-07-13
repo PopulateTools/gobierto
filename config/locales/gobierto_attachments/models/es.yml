@@ -5,7 +5,7 @@ es:
       gobierto_attachments/attachment:
         current_version: Versión actual
         description: Descripción
-        file_digest: Resumen del archivo
+        file_digest: Archivo
         file_name: Nombre del archivo
         file_size: Tamaño del archivo
         name: Nombre

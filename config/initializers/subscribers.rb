@@ -7,6 +7,7 @@
 ::Subscribers::GobiertoBudgetConsultationsConsultationResponseActivity.attach_to('activities/gobierto_budget_consultations_consultation_response')
 ::Subscribers::GobiertoCmsPageActivity.attach_to('activities/gobierto_cms_pages')
 ::Subscribers::GobiertoParticipationIssueActivity.attach_to('activities/gobierto_participation_issues')
+::Subscribers::GobiertoBudgetsBudgetLineActivity.attach_to('activities/gobierto_budgets_budget_line')
 
 # Custom subscribers
 ActiveSupport::Notifications.subscribe(/trackable/) do |*args|

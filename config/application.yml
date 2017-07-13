@@ -24,9 +24,6 @@ default: &default
       name: Gobierto CMS
       namespace: GobiertoCms
     -
-      name: Gobierto Attachments
-      namespace: GobiertoAttachments
-    -
       name: Gobierto Participation
       namespace: GobiertoParticipation
   dns_config:

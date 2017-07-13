@@ -14,7 +14,7 @@ class Subscribers::GobiertoParticipationIssueActivityTest < ActiveSupport::TestC
   end
 
   def issue
-    @issue ||= gobierto_participation_issues(:consultation_faq)
+    @issue ||= gobierto_participation_issues(:culture)
   end
 
   def admin

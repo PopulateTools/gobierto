@@ -84,6 +84,7 @@ module GobiertoBudgets
       if @place
         attrs << %Q{data-track-url="#{gobierto_budgets_budgets_path(@year || GobiertoBudgets::SearchEngineConfiguration::Year.last)}"}
         attrs << %Q{data-place-slug="#{@place.slug}"}
+        attrs << %Q{data-place-id="#{@place.id}"}
         attrs << %Q{data-place-name="#{@place.name}"}
       end
       if action_name == 'compare' and controller_name == 'places'

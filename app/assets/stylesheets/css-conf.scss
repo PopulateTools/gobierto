@@ -56,3 +56,45 @@ $color_success: #2ca25f;
 .color_bg_main {
 	background: $color_main;
 }
+
+/*
+ * Type scale
+ *
+ */
+$mega: 6rem;
+$submega: 5rem;
+$f1: 3rem;
+$f2: 2.25rem;
+$f3: 1.5rem;
+$f4: 1.25rem;
+$f5: 1.125rem;
+$f6: 1rem;
+$f7: 0.875rem;
+
+.f-mega {
+  font-size: $mega;
+}
+.f-submega {
+  font-size: $submega;
+}
+.f1 {
+  font-size: $f1;
+}
+.f2 {
+  font-size: $f2;
+}
+.f3 {
+  font-size: $f3;
+}
+.f4 {
+  font-size: $f4;
+}
+.f5 {
+  font-size: $f5;
+}
+.f6 {
+  font-size: $f6;
+}
+.f7 {
+  font-size: $f7;
+}

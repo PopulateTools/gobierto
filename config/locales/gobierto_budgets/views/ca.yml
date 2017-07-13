@@ -61,9 +61,39 @@ ca:
         context: Contexte
         data_of_year: "* dades del %{year}"
         debt: Deute
+        data_advice: Quantitats econòmiques expressades en €. Dades de 2015.
         expenses: Despeses
         expenses_per_inhabitant: Despesa per habitant
-        header: Les dades clau del teu municipi
+        header: Pressuposts
+        description: En aquesta pàgina pots aprendre sobre la distribució dels pressuposts, l'estat d'execució de cada partida, amb quins proveïdors treballem i com ha evolucionat la despesa per habitant.
+        last_update: Última actualització
+        budget_guide: Llegeix la Guia del Pressupost
+        stories_header: T'expliquem el pressupost
+        story_1:
+          title: Actuacions de caràcter general
+          lede: Et contem quines són les prioritats pressupuestàries per al 2017 segons les quals hem articulat el pla econòmic.
+        story_2:
+          title: Pressuposts i medi ambient
+          lede: Et contem quines són les prioritats pressupuestàries per al 2017 segons les quals hem articulat el pla econòmic.
+        story_3:
+          title: Potenciant l'esport
+          lede: Et contem quines són les prioritats pressupuestàries per al 2017 segons les quals hem articulat el pla econòmic.
+        budget_receipt:
+          title: El rebut dels meus impostos
+          intro: Descobreix a què es dediquen les teves aportacions
+        budget_slides:
+          title: Els pressuposts d'un cop d'ull
+          slide_1: Gasto en asistencia social por habitante
+        budget_lines_block:
+          title: Partides del pressupost
+          intro: Aquestes són les partides del pressupost més importants al teu municipi.
+        execution_block:
+          title: Execució
+          intro: Així s'està executant el pressupost municipal.
+          last_update: "Darrera actualització: %{date}."
+          income: Ingressos
+          expense: Despesa
+          button: Consulta l'execució al complet
         in_total: En total
         income: Ingressos
         inhabitants: Habitants
@@ -92,8 +122,11 @@ ca:
           les dades que existeixen (que són la gran majoria). Més informació a les
           nostres preguntes frequents
         per_person: Per habitant
-        planned_vs_executed: Despesa real vs. el plà
+        executed: Execució
+        executed_tooltip: L'execució és la quantitat que finalment s'ha gastat sobre el pressupostat inicialment.
+        executed_percent: 70% del pressupost
         planned_vs_executed_other_year_html: En %{year} va ser un %{link}
+        search_for_a_budget_line: Busca una partida
         see_all: Veure tots
         title: Pressupostos municipals el %{year}
         top_expense_category: Categoria
@@ -110,19 +143,47 @@ ca:
         view_less: Veure menys
         view_more: Veure més
       index:
+        title: Execució pressupostària
+        description: L'execució són les despeses comparades amb el pressupost inicial. És normal trobar desviacions, ja què és impossible preveure totes les despeses amb precisió absoluta
+        last_update: "Última actualització"
         budget_lines_expense_higher: Partides de despeses molt superiors al pressupost
         budget_lines_expense_lower: Partides de despeses molt inferiors al pressupost
         budget_lines_income_higher: Partides d'ingressos molt superiors al pressupost
         budget_lines_income_lower: Partides d'ingressos molt inferiors al pressupost
-        description: Detall sobre l'execució del pressupost municipal de %{place}
-          el %{year}. Consulta la diferència entre lo pressupostat i lo executat.
         economic: Econòmica
         execution_disclaimer: Es normal que hi haja desviacions ja que és impossible
           preveure totes les despeses amb precisió absoluta.
+        tooltip_disclaimer: <strong>Aquesta és una aproximació</strong>. <br /> Al llarg de l'any sorgeixen imprevistos que canvien la quantitat o la finalitat de les despeses o ingressos.
         execution_help: L'execució es la quantitat que finalment s'ha gastat sobre
           lo pressupostat inicialment.
+        budget_guide: Consulta la Guia del pressupost
+        sort: Ordre
+        value: Valor
+        percentage: Percentatge
+        euros: En euros
+        category: Categoria
+        higher_execution: Més execució
+        lower_execution: Menys execució
         functional: Funcional
-        title: Execució del pressupost municipal de %{place} el %{year}
+        functional_button: En què es gasta
+        economic_button: Per a què es gasta
+        custom_button: Personalitzada
+        metric:
+          execution:
+            expenses_title: Execució de despeses
+            income_title: Execució d'ingressos
+            previous_execution_message: El %{year} l'execució va ser del %{percentage}
+        vis:
+          tooltip: S'ha executat un
+          tooltip_budgeted: Pressupostat
+          lines_title: Partides pressupuestàries
+          percent: "% de progrés"
+          percent_log: "% de progrés (log)"
+          absolute: Execució en €
+          expenses:
+            title: L'estat de l'execució de les despeses
+          income:
+            title: L'estat de l'execució dels ingressos
       widget_template_deviation:
         expense: Despeses
         income: Ingressos

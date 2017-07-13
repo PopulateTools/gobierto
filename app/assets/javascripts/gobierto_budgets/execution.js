@@ -12,6 +12,70 @@ $( document ).on('turbolinks:load', function() {
       $(this).text($(this).data('more-literal'));
   })
 
+  if ($('.expenses_execution').length) {
+    // Render functional data by default, let the user switch between datasets
+    var vis_expenses_execution = new VisLinesExecution('.expenses_execution', 'G', 'functional')
+    vis_expenses_execution.render();
+
+    $('.expenses_switcher').on('click', function (e) {
+      var economicKind = $(e.target).attr('data-toggle');
+
+      $('.expenses_execution').html('');
+
+      $('.expenses_switcher').removeClass('active');
+      $(e.target).addClass('active');
+
+      // Reset every button
+      $('.sort-G').removeClass('active');
+      $('.value-switcher-G').removeClass('active');
+
+      $(".sort-G[data-toggle='highest']").addClass('active');
+      $(".value-switcher-G[data-toggle='pct_executed']").addClass('active');
+
+      // Render the new category
+      var vis_expenses_execution = new VisLinesExecution('.expenses_execution', 'G', economicKind)
+      vis_expenses_execution.render();
+    });
+
+    $('.expenses_execution .tooltiped').tipsy({
+      gravity: 's',
+      trigger: 'hover',
+      html: true,
+      live: true
+    });
+  }
+
+  if ($('.income_execution').length) {
+    var vis_income_execution = new VisLinesExecution('.income_execution', 'I', 'economic')
+    vis_income_execution.render();
+
+    $('.income_switcher').on('click', function (e) {
+      var economicKind = $(e.target).attr('data-toggle');
+
+      $('.income_execution').html('');
+
+      $('.income_switcher').removeClass('active');
+      $(e.target).addClass('active');
+
+      // Reset every button
+      $('.sort-I').removeClass('active');
+      $('.value-switcher-I').removeClass('active');
+
+      $(".sort-I[data-toggle='highest']").addClass('active');
+      $(".value-switcher-I[data-toggle='pct_executed']").addClass('active');
+
+      // Render the new category
+      var vis_expenses_execution = new VisLinesExecution('.income_execution', 'I', economicKind)
+      vis_expenses_execution.render();
+    });
+
+    $('.income_execution .tooltiped').tipsy({
+      gravity: 's',
+      trigger: 'hover',
+      html: true,
+      live: true
+    });
+  }
 });
 var vis_evoline = [];
 function render_evo_line($widget_node) {

@@ -4,25 +4,25 @@ module GobiertoBudgets
 
     class_methods do
 
-      def where(conditions)
-        validate_conditions(conditions)
-        @conditions = conditions
-        self
-      end
+      SORT_ATTRIBUTE = 'code'
+      SORT_ORDER     = 'asc'
 
-      def first
+      def first(params = {})
+        conditions = params[:where]
+        validate_conditions(conditions)
+
         terms = [
-          {term: { kind: @conditions[:kind] }},
-          {term: { year: @conditions[:year] }},
-          {term: { code: @conditions[:code] }},
+          {term: { kind: conditions[:kind] }},
+          {term: { year: conditions[:year] }},
+          {term: { code: conditions[:code] }},
           {missing: { field: 'functional_code'}},
           {missing: { field: 'custom_code'}},
-          {term: { ine_code: @conditions[:place].id }}
+          {term: { ine_code: conditions[:place].id }}
         ]
 
         query = {
           sort: [
-            { @sort_attribute => { order: @sort_order } }
+            { SORT_ATTRIBUTE => { order: SORT_ORDER } }
           ],
           query: {
             filtered: {
@@ -36,7 +36,7 @@ module GobiertoBudgets
           size: 10_000
         }
 
-        area     = BudgetArea.klass_for(@conditions[:area_name])
+        area     = BudgetArea.klass_for(conditions[:area_name])
 
         response = SearchEngine.client.search(
           index: SearchEngineConfiguration::BudgetLine.index_forecast,
@@ -49,13 +49,16 @@ module GobiertoBudgets
         raise BudgetLine::RecordNotFound if hits.empty?
 
         BudgetLinePresenter.new(hits.first['_source'].merge(
-          site: @conditions[:site],
-          kind: @conditions[:kind],
+          site: conditions[:site],
+          kind: conditions[:kind],
           area: area
         ))
       end
 
-      def functional_codes_for_economic_budget_line(conditions)
+      def functional_codes_for_economic_budget_line(params = {})
+        conditions = params[:where]
+        validate_conditions(conditions)
+
         terms = [
           {term: { kind: conditions[:kind] }},
           {term: { year: conditions[:year] }},
@@ -66,7 +69,7 @@ module GobiertoBudgets
 
         query = {
           sort: [
-            { @sort_attribute => { order: @sort_order } }
+            { SORT_ATTRIBUTE => { order: SORT_ORDER } }
           ],
           query: {
             filtered: {
@@ -92,35 +95,38 @@ module GobiertoBudgets
           area = FunctionalArea
           row['code'] = row['functional_code']
 
-          BudgetLinePresenter.new(row.merge(kind: EXPENSE, area: area, site: @conditions[:site]))
+          BudgetLinePresenter.new(row.merge(kind: EXPENSE, area: area, site: conditions[:site]))
         end.compact.sort{|b,a| a.amount <=> b.amount }
       end
 
-      def all
+      def all(params = {})
+        conditions = params[:where]
+        validate_conditions(conditions)
+
         terms = [
-          {term: { kind: @conditions[:kind] }},
-          {term: { ine_code: @conditions[:place].id }}
+          {term: { kind: conditions[:kind] }},
+          {term: { ine_code: conditions[:place].id }}
         ]
 
-        terms.push({term: { year: @conditions[:year] }}) if @conditions[:year]
-        terms.push({term: { code: @conditions[:code] }}) if @conditions[:code]
-        terms.push({term: { level: @conditions[:level] }}) if @conditions[:level]
-        terms.push({term: { parent_code: @conditions[:parent_code] }}) if @conditions[:parent_code]
-        if @conditions[:functional_code]
-          if @conditions[:area_name] == FunctionalArea.area_name
-            @conditions[:area_name] = EconomicArea.area_name
-            terms.push({term: { functional_code: @conditions[:functional_code] }})
+        terms.push({term: { year: conditions[:year] }}) if conditions[:year]
+        terms.push({term: { code: conditions[:code] }}) if conditions[:code]
+        terms.push({term: { level: conditions[:level] }}) if conditions[:level]
+        terms.push({term: { parent_code: conditions[:parent_code] }}) if conditions[:parent_code]
+        if conditions[:functional_code]
+          if conditions[:area_name] == FunctionalArea.area_name
+            conditions[:area_name] = EconomicArea.area_name
+            terms.push({term: { functional_code: conditions[:functional_code] }})
           else
-            @conditions[:area_name] = FunctionalArea.area_name
-            return functional_codes_for_economic_budget_line(@conditions)
+            conditions[:area_name] = FunctionalArea.area_name
+            return functional_codes_for_economic_budget_line(conditions)
           end
-        elsif @conditions[:custom_code]
-          if @conditions[:area_name] == CustomArea.area_name
-            @conditions[:area_name] = EconomicArea.area_name
-            terms.push({term: { custom_code: @conditions[:custom_code] }})
+        elsif conditions[:custom_code]
+          if conditions[:area_name] == CustomArea.area_name
+            conditions[:area_name] = EconomicArea.area_name
+            terms.push({term: { custom_code: conditions[:custom_code] }})
           # else
-          #   @conditions[:area_name] = CustomArea.area_name
-          #   return functional_codes_for_economic_budget_line(@conditions)
+          #   conditions[:area_name] = CustomArea.area_name
+          #   return functional_codes_for_economic_budget_line(conditions)
           end
         else
           terms.push({missing: { field: 'functional_code'}})
@@ -129,7 +135,7 @@ module GobiertoBudgets
 
         query = {
           sort: [
-            { @sort_attribute => { order: @sort_order } }
+            { SORT_ATTRIBUTE => { order: SORT_ORDER } }
           ],
           query: {
             filtered: {
@@ -147,15 +153,16 @@ module GobiertoBudgets
           size: 10_000
         }
 
-        area = BudgetArea.klass_for(@conditions[:area_name])
+        area = BudgetArea.klass_for(conditions[:area_name])
 
-        response = SearchEngine.client.search index: SearchEngineConfiguration::BudgetLine.index_forecast,
-                                                               type: area.area_name, body: query
+        index = conditions[:index] || GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
+
+        response = SearchEngine.client.search(index: index, type: area.area_name, body: query)
 
         response['hits']['hits'].map{ |h| h['_source'] }.map do |row|
           BudgetLinePresenter.new(row.merge(
-            site: @conditions[:site],
-            kind: @conditions[:kind],
+            site: conditions[:site],
+            kind: conditions[:kind],
             area: area,
             total: response['aggregations']['total_budget']['value'],
             total_budget_per_inhabitant: response['aggregations']['total_budget_per_inhabitant']['value']

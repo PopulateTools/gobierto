@@ -60,9 +60,39 @@ en:
         context: Context
         data_of_year: "* as of %{year}"
         debt: Debt
+        data_advice: Economic quantities expressed in €. Data from 2015.
         expenses: Expenses
         expenses_per_inhabitant: Expenses per inhabitant
-        header: Relevant data from your municipality
+        header: Budgets
+        description: In this site you can learn about the budget's income and expenses, the status of the execution, the different providers we work with and the evolution of the expense per inhabitant.
+        last_update: Last update
+        budget_guide: Read our Budget Guide
+        stories_header: Explaining the budget
+        story_1:
+          title: General activities
+          lede: Explaining the budget priorities for 2017, and how we built the budget around them.
+        story_2:
+          title: Budgets and the environment
+          lede: Explaining the budget priorities for 2017, and how we built the budget around them.
+        story_3:
+          title: Promoting sports
+          lede: Explaining the budget priorities for 2017, and how we built the budget around them.
+        budget_receipt:
+          title: Your taxes receipt
+          intro: Learn how your contribution is spent
+        budget_slides:
+          title: A peek into the budget
+          slide_1: Gasto en asistencia social por habitante
+        budget_lines_block:
+          title: Budget lines
+          intro: These are your town's most important budget lines.
+        execution_block:
+          title: Budget execution
+          intro: This is how the budget is being spent.
+          last_update: "Last update: %{date}."
+          income: Income
+          expense: Expense
+          button: Complete execution data
         in_total: Total
         income: Income
         inhabitants: Inhabitants
@@ -90,8 +120,11 @@ en:
           municipalities, and the avegages are calculated only with the data that
           exists (which is most of it). More information in our FAQ
         per_person: Per person
-        planned_vs_executed: Real expenses vs the plan
+        executed: Executed
+        executed_tooltip: The execution is the quantity that has been spent from the initial budget.
+        executed_percent: 70% of the budget
         planned_vs_executed_other_year_html: In %{year} it was %{link}
+        search_for_a_budget_line: Search a budget line
         see_all: view all
         title: Local municipality budgets in %{year}
         top_expense_category: Category
@@ -108,18 +141,46 @@ en:
         view_less: View less
         view_more: View more
       index:
+        title: Budget execution
+        description: The budget execution is the expense over the initial budget. It's normal to find deviations from the budget, as its impossible to predict the expenses with a great precision
+        last_update: "Last update"
         budget_lines_expense_higher: Expense budget lines higher than planned
         budget_lines_expense_lower: Expense budget lines lower than planned
         budget_lines_income_higher: Income budget lines higher than planned
         budget_lines_income_lower: Income budget lines lower than planned
-        description: Local budget detailed execution from %{place} in %{year}. Check
-          the differences between the planned and the executed.
         economic: economic
         execution_disclaimer: It's very common to have deviatiatons, due to the difficulty
           of foreseeing the expenses.
+        tooltip_disclaimer: <strong>This is approximate</strong>. <br /> Throughout the year there are unforeseen events that change the amount or purpose of the expenses or income.
+        budget_guide: Read our Budget Guide
+        sort: Sort
+        value: Value
+        percentage: Percentage
+        euros: In euros
+        category: Category
+        higher_execution: Higher execution
+        lower_execution: Lower execution
         execution_help: The execution is the amount spent based on the planned budget.
         functional: functional
-        title: Local budget execution from %{place} in %{year}
+        functional_button: In what is spent
+        economic_button: To do what is spent
+        custom_button: Custom
+        metric:
+          execution:
+            expenses_title: Execution of expenses
+            income_title: Execution of income
+            previous_execution_message: In %{year} execution reached %{percentage}
+        vis:
+          tooltip: It has been executed by a
+          tooltip_budgeted: Budget
+          lines_title: Budget lines
+          percent: "% of progress"
+          percent_log: "% of progress (log)"
+          absolute: Execution in €
+          expenses:
+            title: Explore the execution of the expenses
+          income:
+            title: Explore the execution of the income
       widget_template_deviation:
         expense: Expense
         income: Income

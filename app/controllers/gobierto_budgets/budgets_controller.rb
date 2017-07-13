@@ -11,13 +11,15 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
 
     @top_income_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, place: @site.place, kind: GobiertoBudgets::BudgetLine::INCOME).all
     @top_expense_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, place: @site.place, kind: GobiertoBudgets::BudgetLine::EXPENSE).all
-    @place_budget_lines = GobiertoBudgets::BudgetLine.where(site: current_site, place: @place, level: 1, year: @year, kind: @kind, area_name: @area_name).all
-    @interesting_expenses = GobiertoBudgets::BudgetLine.where(site: current_site, place: @place, level: 2, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: @interesting_area).all
+    @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, level: 1, year: @year, kind: @kind, area_name: @area_name })
+    @interesting_expenses = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, level: 2, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: @interesting_area })
 
     @any_custom_income_budget_lines  = GobiertoBudgets::CustomArea.any_items?(site: current_site, kind: GobiertoBudgets::BudgetLine::INCOME)
     @any_custom_expense_budget_lines = GobiertoBudgets::CustomArea.any_items?(site: current_site, kind: GobiertoBudgets::BudgetLine::EXPENSE)
 
     @sample_budget_lines = (@top_income_budget_lines + @top_expense_budget_lines).sample(3)
+
+    @budgets_data_updated_at = current_site.budgets_data_updated_at('forecast')
   end
 
   def guide

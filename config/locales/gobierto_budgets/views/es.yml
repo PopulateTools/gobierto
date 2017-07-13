@@ -61,9 +61,39 @@ es:
         context: Contexto
         data_of_year: "* datos del %{year}"
         debt: Deuda
+        data_advice: Cantidades económicas expresadas en €. Datos de 2015.
         expenses: Gastos
         expenses_per_inhabitant: Gasto por habitante
-        header: Los datos clave de tu municipio
+        header: Presupuestos
+        description: En esta página te contamos cúal es la distribución de los presupuestos, cuál es el estado de ejecución de cada partida, quiénes son los proveedores con los que trabajamos, y cómo ha evolucionado el gasto por habitante.
+        last_update: Última actualización
+        budget_guide: Consulta la Guía del Presupuesto
+        stories_header: Te explicamos el presupuesto
+        story_1:
+          title: Actuaciones de carácter general
+          lede: Te contamos cuales son las prioridades presupuestarias para el 2017 en torno a las que hemos articulado el plan económico.
+        story_2:
+          title: Presupuestos y medio ambiente
+          lede: Te contamos cuales son las prioridades presupuestarias para el 2017 en torno a las que hemos articulado el plan económico.
+        story_3:
+          title: Potenciando el deporte
+          lede: Te contamos cuales son las prioridades presupuestarias para el 2017 en torno a las que hemos articulado el plan económico.
+        budget_receipt:
+          title: El recibo de tus impuestos
+          intro: Comprueba a qué se dedican tus aportaciones
+        budget_slides:
+          title: Los presupuestos de un vistazo
+          slide_1: Gasto en asistencia social por habitante
+        budget_lines_block:
+          title: Partidas presupuestarias
+          intro: Estas son las partidas presupuestarias más importantes en tu municipio
+        execution_block:
+          title: Ejecución
+          intro: Así va la ejecución del presupuesto municipal.
+          last_update: "Última actualización: %{date}."
+          income: Ingresos
+          expense: Gastos
+          button: Consulta la ejecución completa
         in_total: En total
         income: Ingresos
         inhabitants: Habitantes
@@ -92,8 +122,11 @@ es:
           con los datos que existen (que son la gran mayoría). Más información en
           nuestras preguntas frecuentes
         per_person: Por habitante
-        planned_vs_executed: Gasto real vs. el plan
-        planned_vs_executed_other_year_html: En %{year} fue un %{link}
+        executed: Ejecución
+        executed_tooltip: La ejecución es la cantidad que finalmente se ha gastado sobre lo presupuestado inicialmente.
+        executed_percent: 70% de lo presupuestado
+        planned_vs_executed_other_year_html: En %{year} fue %{link}
+        search_for_a_budget_line: Busca una partida
         see_all: ver todos
         title: Presupuestos municipales en %{year}
         top_expense_category: Categoría
@@ -110,19 +143,47 @@ es:
         view_less: Ver menos
         view_more: Ver más
       index:
+        title: Ejecución presupuestaria
+        description: La ejecución es la cantidad que finalmente se ha gastado sobre lo presupuestado inicialmente. Es normal que haya desviaciones ya que es imposible preveer todos los gastos con precisión absoluta
+        last_update: "Última actualización"
         budget_lines_expense_higher: Partidas de gastos muy superiores al presupuesto
         budget_lines_expense_lower: Partidas de gastos muy inferiores al presupuesto
         budget_lines_income_higher: Partidas de ingresos muy superiores al presupuesto
         budget_lines_income_lower: Partidas de ingresos muy inferiores al presupuesto
-        description: Detalle sobre la ejecución del presupuesto municipal de %{place}
-          del %{year}. Consulta la diferencia entre lo presupuestado y lo ejecutado.
         economic: Económica
         execution_disclaimer: Es normal que haya desviaciones ya que es imposible
           preveer todos los gastos con precisión absoluta.
+        tooltip_disclaimer: <strong>Esta es una aproximación</strong>. <br /> A lo largo del año surgen imprevistos que cambian la cantidad o la finalidad de los gastos o ingresos.
         execution_help: La ejecución es la cantidad que finalmente se ha gastado sobre
           lo presupuestado inicialmente.
+        budget_guide: Consulta nuestra Guía del presupuesto
+        sort: Ordenar
+        value: Valor
+        percentage: Porcentaje
+        euros: En euros
+        category: Categoría
+        higher_execution: Mayor ejecución
+        lower_execution: Menor ejecución
         functional: Functional
-        title: Ejecución del presupuesto municipal de %{place} del %{year}
+        functional_button: En qué se gasta
+        economic_button: Para qué se gasta
+        custom_button: Personalizada
+        metric:
+          execution:
+            expenses_title: Ejecución de gastos
+            income_title: Ejecución de ingresos
+            previous_execution_message: En el %{year} la ejecución fue del %{percentage}
+        vis:
+          tooltip: Se ha ejecutado un
+          tooltip_budgeted: Presupuestado
+          lines_title: Partidas presupuestarias
+          percent: "% de progreso"
+          percent_log: "% de progreso (log)"
+          absolute: Ejecución en €
+          expenses:
+            title: Así va la ejecución de los gastos
+          income:
+            title: Así va la ejecución de los ingresos
       widget_template_deviation:
         expense: Gastos
         income: Ingresos

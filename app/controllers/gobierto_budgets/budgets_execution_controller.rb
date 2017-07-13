@@ -14,7 +14,7 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
     @any_custom_income_budget_lines = GobiertoBudgets::CustomArea.any_items?(site: current_site, kind: GobiertoBudgets::BudgetLine::INCOME)
 
     @budgets_data_updated_at   = current_site.budgets_data_updated_at('execution')
-    @budgets_execution_summary = current_site.budgets_execution_summary
+    @budgets_execution_summary = GobiertoBudgets::SiteStats.new(site: current_site, year: @year).budgets_execution_summary
   end
 
   private

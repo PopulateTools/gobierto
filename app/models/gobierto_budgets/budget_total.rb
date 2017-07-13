@@ -19,8 +19,15 @@ module GobiertoBudgets
       return for_places(ine_code, year) if ine_code.is_a?(Array)
       index = (b_or_e == BudgetTotal::EXECUTED) ? SearchEngineConfiguration::TotalBudget.index_executed : SearchEngineConfiguration::TotalBudget.index_forecast
 
-      result = SearchEngine.client.get index: index, type: SearchEngineConfiguration::TotalBudget.type, id: [ine_code, year, kind].join('/')
+      result = SearchEngine.client.get(
+        index: index,
+        type: SearchEngineConfiguration::TotalBudget.type,
+        id: [ine_code, year, kind].join('/')
+      )
+      
       result['_source']['total_budget'].to_f
+    rescue Elasticsearch::Transport::Transport::Errors::NotFound
+      nil
     end
 
     def self.budget_evolution_for(ine_code, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
@@ -140,32 +147,6 @@ module GobiertoBudgets
       end
 
       SearchEngine.client.search index: index, type: SearchEngineConfiguration::TotalBudget.type, body: query
-    end
-
-    def self.budgets_execution_summary_for_site(site)
-      ine_code = site.place.id
-      
-      current_year          = Time.current.year
-      last_budgets_year     = current_year - 1
-      previous_budgets_year = last_budgets_year - 1
-
-      last_budgeted_expenses     = budgeted_for(ine_code, last_budgets_year)
-      last_budgeted_income       = budgeted_for(ine_code, last_budgets_year, BudgetLine::INCOME)
-      previous_budgeted_expenses = budgeted_for(ine_code, previous_budgets_year)
-      previous_budgeted_income   = budgeted_for(ine_code, previous_budgets_year, BudgetLine::INCOME)
-
-      last_expenses_execution     = execution_for(ine_code, last_budgets_year)
-      last_income_execution       = execution_for(ine_code, last_budgets_year, BudgetLine::INCOME)
-      previous_expenses_execution = execution_for(ine_code, previous_budgets_year)
-      previous_income_execution   = execution_for(ine_code, previous_budgets_year, BudgetLine::INCOME)
-
-      {
-        expenses_execution_percentage: (last_expenses_execution*100 / last_budgeted_expenses).to_i,
-        expenses_previous_execution_percentage: (previous_expenses_execution*100 / previous_budgeted_expenses).to_i,
-        income_execution_percentage: (last_income_execution*100 / last_budgeted_income).to_i,
-        income_previous_execution_percentage: (previous_income_execution*100 / previous_budgeted_income).to_i,
-        previous_year: previous_budgets_year
-      }
     end
 
   end

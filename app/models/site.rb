@@ -110,10 +110,6 @@ class Site < ApplicationRecord
               .last
   end
 
-  def budgets_execution_summary
-    GobiertoBudgets::BudgetTotal.budgets_execution_summary_for_site(self)
-  end
-
   private
 
   def site_configuration_attributes

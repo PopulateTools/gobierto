@@ -4,6 +4,6 @@
       <div class="f3"><%= t("gobierto_budgets.budgets.index.execution_block.#{className}") %></div>
       <div class="figure f-mega"><%= percentage %><span class="f3">%</span></div>
     </div>
-    <div class="filled" style="width: <%= percentage %>%"></div>
+    <div class="filled" style="width: <%= percentage > 100 ? 100 : percentage %>%"></div>
   </div>
 </div>

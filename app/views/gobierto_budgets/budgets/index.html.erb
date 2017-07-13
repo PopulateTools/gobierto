@@ -58,10 +58,11 @@
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
         <div class="inner">
           <h3><%= t('.executed') %> (<span class="tooltiped" title="<%= t('.executed_tooltip') %>">?</span>)</h3>
-          <div class="metric">600M€</div>
+          <div class="metric"><%= number_to_currency @site_stats.total_budget_executed, precision: 0 %></div>
           <div class="explanation_bar">
-            <div class="bar"><div class="line" style="width: 70%"></div></div>
-            <span><%= t('.executed_percent') %></span>
+            <% percentage = @site_stats.percentage_difference(variable1: :total_budget_executed, variable2: :total_budget_planned) %>
+            <div class="bar"><div class="line" style="width: <%= percentage %>%"></div></div>
+            <span><%= t('.executed_percent', percentage: percentage) %></span>
           </div>
         </div>
       </div>
@@ -208,28 +209,28 @@
 
   </div>
 
-  <% pending do %>
-    <div class="block">
-      <h2 class="with_description"><%= t('.execution_block.title') %></h2>
-      <div class="pure-g half_description">
-        <div class="pure-u-md-1-2 pure-u-1 block_1">
-          <p class="description"><%= t('.execution_block.intro') %></p>
-        </div>
+  <div class="block">
+    <h2 class="with_description"><%= t('.execution_block.title') %></h2>
+    <div class="pure-g half_description">
+      <div class="pure-u-md-1-2 pure-u-1 block_1">
+        <p class="description"><%= t('.execution_block.intro') %></p>
+      </div>
+      <% pending do %>
         <div class="pure-u-md-1-2 pure-u-1 block_2">
           <p class="f7"><%= t('.execution_block.last_update', date: '5 de junio 2017') %></p>
         </div>
-      </div>
+      <% end %>
+    </div>
 
-      <div class="pure-g mega_bars">
-        <%= render 'mega_bar', {className: 'income', percentage: '68' } %>
-        <%= render 'mega_bar', {className: 'expense', percentage: '24' } %>
+    <div class="pure-g mega_bars">
+      <%= render 'mega_bar', {className: 'income', percentage: @site_stats.budgets_execution_summary[:income_execution_percentage] } %>
+      <%= render 'mega_bar', {className: 'expense', percentage: @site_stats.budgets_execution_summary[:expenses_execution_percentage] } %>
 
-        <div class="pure-u-1 center m_v_1">
-          <%= link_to t('.execution_block.button'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false }, class: "button" %>
-        </div>
+      <div class="pure-u-1 center m_v_1">
+        <%= link_to t('.execution_block.button'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false }, class: "button" %>
       </div>
     </div>
-  <% end %>
+  </div>
 
   <div class="featured_b_l block m_v_3" data-featured-budget-line="<%= gobierto_budgets_featured_budget_line_path(@site.place.slug, year: @year, template: 'gobierto_site_template') %>">
   </div>

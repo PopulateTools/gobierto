@@ -8,11 +8,11 @@ this.GobiertoBudgets.BudgetsController = (function() {
   };
 
   function _loadTotalIncomeWidget(url){
-    $('[data-income').html('');
+    $('[data-income]').html('');
   }
 
   function _loadExpensePerInhabitantWidget(url){
-    $('[data-expense').html('');
+    $('[data-expense]').html('');
   }
 
   return BudgetsController;

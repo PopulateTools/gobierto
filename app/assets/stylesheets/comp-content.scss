@@ -180,10 +180,10 @@
     box-sizing: border-box;
     background: rgba($color_main, .03);
     max-width: 730px;
-    padding: 1em 3em;
+    padding: 1em 1em;
     display: flex;
     flex-wrap: wrap;
-    margin: 1em -3em;
+    margin: 1em -1em;
 
     @media (min-width: 768px) {
       padding: 30px 65px;

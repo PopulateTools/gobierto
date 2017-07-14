@@ -2,6 +2,22 @@
 ca:
   gobierto_admin:
     shared:
+      admin_widget_attachment:
+        add_new_document: Afegeix nou document
+        attachments: Adjunts
+        description: Descripció
+        document: Document
+        document_title: Títol del document
+        drag_document_here: Arrastra i solta el document aquí
+        edit_document: Editar document
+        include_file: Incloure arxiu
+        include_in_text: Incloure arxiu en el text
+        latest_documents: Últims documents afexits
+        no_docs: No hi ha documents
+        or: o
+        save: Desar
+        search: Buscar
+        select_file: Tria un arxiu del disc dur
       form_locale_switchers:
         define_content_in_locale: Defineix el contingut en la versió en %{locale_name}
         translate: Traduxir

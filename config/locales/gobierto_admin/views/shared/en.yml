@@ -2,6 +2,22 @@
 en:
   gobierto_admin:
     shared:
+      admin_widget_attachment:
+        add_new_document: Add new document
+        attachments: Attachments
+        description: Description
+        document: Document
+        document_title: Document title
+        drag_document_here: Drag and drop the document here
+        edit_document: Edit document
+        include_file: Include file
+        include_in_text: Include file in the text
+        latest_documents: Recent documents
+        no_docs: There are no files
+        or: or
+        save: Save
+        search: Search
+        select_file: Chose a file
       form_locale_switchers:
         define_content_in_locale: Define the content in %{locale_name} version
         translate: Translate

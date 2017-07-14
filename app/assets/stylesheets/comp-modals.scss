@@ -17,7 +17,7 @@
       padding: 0 1em;
     }
   }
-  
+
 .disclaimer {
     font-size: .8em;
     text-align: center;
@@ -31,4 +31,140 @@
 .mfp-close-btn-in .mfp-close:hover {
 	color: #FFF;
 	border-radius: 0;
+}
+.modal-attachments {
+  position: relative;
+  padding: 0;
+  min-height: 600px;
+  max-width: 1024px;
+
+  @media (min-width: 1440px) {
+    min-height: 680px;
+    max-width: 1200px;
+  }
+
+  &.bg-highlight {
+    background: #fef0cd;
+  }
+
+  .mfp-close:hover {
+    background: transparent;
+    color: #333;
+    opacity: 1;
+  }
+
+  h1, h2, h3, h4 {
+    color: #946b04;
+  }
+
+  table {
+    tbody {
+      // display: block;
+      overflow-y: scroll;
+      max-height: 350px;
+
+      @media (min-width: 1440px) {
+        max-height: 450px;
+      }
+    }
+    tr td:not(:first-child) {
+      color: $text_soft;
+    }
+  }
+
+  .file-sidebar {
+    background: #fef0cd;
+    // max-height: 530px;
+    transition: 0.3s;
+    height: 100%;
+    left: 66.6667%;
+    position: absolute;
+    border-radius: 4px;
+    z-index: 1;
+
+    i {
+      cursor: pointer;
+    }
+
+    &.dragged {
+      left: 0;
+      width: 100%;
+    }
+  }
+
+  .dragged .drag-section {
+    max-width: 750px;
+    margin: 0 auto;
+  }
+
+  .drag-section {
+    height: calc(100% - 115px);
+
+    .drag-drop {
+      text-align: center;
+      border: 3px dotted #b4a47d;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+      padding: 1em;
+
+      .input-file {
+        opacity: 0;
+        width: 100%;
+        height: 200px;
+        position: absolute;
+        cursor: pointer;
+      }
+
+      @media (min-width: 1440px) {
+        height: 100%;
+      }
+
+      &:hover,
+      &.active {
+        background: darken(#fef0cd, 5%)
+      }
+
+      .drag-call {
+        margin: 0 auto;
+        text-align: center;
+        max-width: 150px;
+        color: #b4a47d;
+
+        p {
+          margin-top: 0;
+        }
+      }
+
+      button {
+        background: $color_1;
+        color: white;
+        text-transform: uppercase;
+        padding: 0.75em 2em;
+      }
+    }
+  }
+
+  .dragged {
+
+    .strong {
+      color: $color_headers;
+    }
+
+    .form_item.textarea {
+      margin-bottom: 1em;
+
+      textarea {
+        min-height: 180px;
+        height: 180px;
+
+        @media (min-width: 1440px) {
+          min-height: 280px;
+          height: 280px;
+        }
+      }
+    }
+  }
 }

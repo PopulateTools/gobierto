@@ -1,5 +1,6 @@
 class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationController
-  before_action :load_place, :load_year
+  before_action :load_place
+  before_action :load_year, except: [:guide]
 
   def index
     @kind = GobiertoBudgets::BudgetLine::INCOME
@@ -19,6 +20,11 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
     @sample_budget_lines = (@top_income_budget_lines + @top_expense_budget_lines).sample(3)
 
     @budgets_data_updated_at = current_site.budgets_data_updated_at('forecast')
+  end
+
+  def guide
+    @year = GobiertoBudgets::SearchEngineConfiguration::Year.last
+    @site_stats = GobiertoBudgets::SiteStats.new site: @site, year: @year
   end
 
   private

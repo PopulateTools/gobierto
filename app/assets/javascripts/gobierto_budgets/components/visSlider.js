@@ -8,7 +8,8 @@ var VisSlider = Class.extend({
 
     var currentYear = d3.select('body').attr('data-year');
     var slideYear = currentYear;
-    var years = d3.keys(this.data[0].values).filter(function(d) { return d <= currentYear; });
+    var years = d3.keys(this.data[0].values);
+    var maxYear = d3.max(years);
     var parseYear = d3.timeParse('%Y');
     var formatYear = d3.timeFormat('%Y');
 
@@ -84,7 +85,7 @@ var VisSlider = Class.extend({
       .text(function(d) { return d })
       .classed('active', function(d) { return d == currentYear; })
       .attr('dx', function(d) {
-        if (d == currentYear) {
+        if (d == maxYear) {
           return 10
         } else if (d == 2010) {
           return -10
@@ -93,7 +94,7 @@ var VisSlider = Class.extend({
         }
       })
       .attr('text-anchor', function(d, i) {
-        if (d == currentYear) {
+        if (d == maxYear) {
           return 'end'
         } else if (d == 2010) {
           return 'start'

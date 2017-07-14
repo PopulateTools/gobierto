@@ -196,6 +196,7 @@ Rails.application.routes.draw do
       get 'presupuestos/partidas/:id/:year/:area_name/:kind' => 'budget_lines#show', as: :budget_line
       get 'budget_line_descendants/:year/:area_name/:kind' => 'budget_line_descendants#index', as: :budget_line_descendants
       get 'presupuestos/ejecucion(/:year)' => 'budgets_execution#index', as: :budgets_execution
+      get 'presupuestos/guia' => 'budgets#guide', as: :budgets_guide
       get 'budgets/treemap(/:year)' => 'budget_lines#treemap', as: :budget_lines_treemap
 
       # TODO: move to an API > move to the big indexer

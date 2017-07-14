@@ -183,6 +183,23 @@ p.intro {
 .separator_blue_medium {
 	border-top: 3px solid transparentize($color_main, .65);
 }
+.separator_responsive {
+  margin: 4em 0;
+  border: none;
+  border-top: 1px solid #DEEFF1;
+
+  @media (min-width: 768px) {
+    min-width: 175%;
+    margin: 5em 0;
+    margin-left: -37.5%;
+  }
+}
+.separator_responsive.quarter {
+  margin: 4em auto;
+  max-width: 10em;
+  min-width: 25%;
+}
+
 .block_color {
 	background: transparentize($color_main, .94);
 	border-top: 4px solid $color_main;

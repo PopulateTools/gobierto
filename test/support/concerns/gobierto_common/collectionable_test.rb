@@ -3,6 +3,6 @@ module GobiertoCommon::CollectionableTest
     perform_enqueued_jobs do
       collectionable_object.destroy
     end
-    assert GobiertoCommon::CollectionItem.where(site: collectionable_object.site, item: collectionable_object).empty?
+    assert GobiertoCommon::CollectionItem.where(item: collectionable_object).empty?
   end
 end

@@ -1,6 +1,13 @@
 ---
 ca:
   gobierto_budgets:
+    events:
+      gobierto_budgets_budgets_forecast_economic_updated: 'Pressupostos actualitzats: àrea econòmica'
+      gobierto_budgets_budgets_forecast_functional_updated: 'Pressupostos actualitzats: àrea funcional'
+      gobierto_budgets_budgets_forecast_custom_updated: 'Pressupostos actualitzats: àrea personalitzada'
+      gobierto_budgets_budgets_execution_economic_updated: 'Execució pressupostària actualitzada: àrea econòmica'
+      gobierto_budgets_budgets_execution_functional_updated: 'Execució pressupostària actualitzada: àrea funcional'
+      gobierto_budgets_budgets_execution_custom_updated: 'Execució pressupostària actualitzada: àrea personalitzada'
     budget_lines:
       explorer:
         examples: Exemples
@@ -13,6 +20,7 @@ ca:
         amount: Quantitat
         budget_line: Partida
         categories: Categories pressupostàries
+        custom: Àrees
         expense_in_what: En què es gasta
         expense_to_do_what: Per a què es gasta
         help: El pressupuest organitza les despeses en dues categories. Consulta la
@@ -31,6 +39,7 @@ ca:
         evolution: Evolució
         last_year: L'any passat
         no_distribution: No hi ha distribució associada a aquesta partida.
+        no_description: No hi ha una descripció associada a aquesta partida.
         no_more_descendants: No hi ha més sub-partides
         not_available: No disp.
         percentage: "% sobre el total del press."
@@ -61,9 +70,16 @@ ca:
         less: menys
         level_2_category: Categoria nivell 2
         level_3_category: Categoria nivell 3
-        main_budget_lines: Les principals despeses i ingressos del teu ajuntament
-        main_budget_lines_description: Estos són els 5 principals ingressos i despeses
-          del teu municipi.
+        main_budget_levels_legend_one: Canvi entre aquest any
+        main_budget_levels_legend_two: i el passat
+        main_budget_levels_per_inhabitant: per habitant
+        main_budget_levels_timeline: Compara despeses i ingressos any per any
+        main_budget_levels_tooltip_article: des de
+        main_budget_levels_tooltip_down: Ha baixat un
+        main_budget_levels_tooltip_up: Ha pujat un
+        main_budget_lines: Els principals ingressos i despeses del teu ajuntament
+        main_budget_lines_expense: Despeses
+        main_budget_lines_income: Ingressos
         more: més
         most_interesting_budget_lines: Partides que més t'interessen
         most_interesting_budget_lines_description: Te mostrem algunes de les partides
@@ -78,7 +94,6 @@ ca:
         per_person: Per habitant
         planned_vs_executed: Despesa real vs. el plà
         planned_vs_executed_other_year_html: En %{year} va ser un %{link}
-        search_for_a_budget_line: Busca una partida
         see_all: Veure tots
         title: Pressupostos municipals el %{year}
         top_expense_category: Categoria
@@ -86,7 +101,6 @@ ca:
         top_income_category: Categoria
         top_income_value: Quantitat
         total_expenses: Despesa total
-        twitter_text: 'En @gobierto: Pressupostos municipals de %{name} del %{year}'
         visualize: Visualitza les despeses per habitant o el total
     budgets_execution:
       execution_table:
@@ -137,8 +151,10 @@ ca:
         execution: Execució
         summary: Resum
     visualizations:
+      G_custom: Despeses per àrea
       G_economic: En què es gasta
       G_functional: Per a què es gasta
+      I_custom: Ingressos per àrea
       I_economic: En què s'ingressa
       category_per_inhabitant: "%{category} per habitant"
       expenses_per_inhabitant: Despesa per habitant

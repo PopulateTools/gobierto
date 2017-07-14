@@ -9,7 +9,7 @@ module GobiertoPeople
 
     validates :person, presence: true
     validates :site, presence: true
-    
+
     translates :title
 
     algoliasearch_gobierto do

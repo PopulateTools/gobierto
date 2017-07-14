@@ -22,6 +22,7 @@ module GobiertoBudgets
     class BudgetLine
       def self.index_forecast; 'budgets-forecast-v3' end
       def self.index_executed; 'budgets-execution-v3' end
+      def self.index_executed_series; 'gobierto-budgets-execution-series-v1' end
     end
 
     class TotalBudget

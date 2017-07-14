@@ -1,0 +1,123 @@
+economic_1_g:
+  site: madrid
+  area_name: economic
+  code: '1'
+  kind: <%= GobiertoBudgets::BudgetLine::EXPENSE %>
+  custom_name_translations: <%= {
+    'es' => 'Gastos de personal (custom, translated)',
+    'en' => 'Personal expenses (custom, translated)'
+  }.to_json %>
+  custom_description_translations: <%= {
+    'es' => 'Los gastos de personal son... (custom, translated)',
+    'en' => 'Personal expenses are... (custom, translated)'
+  }.to_json %>
+
+economic_1_i:
+  site: madrid
+  area_name: economic
+  code: '1'
+  kind: <%= GobiertoBudgets::BudgetLine::INCOME %>
+  custom_name_translations: <%= {
+    'es' => 'Impuestos directos (custom, only spanish translation)'
+  }.to_json %>
+  custom_description_translations:
+
+functional_1_g:
+  site: madrid
+  area_name: functional
+  code: '1'
+  kind: <%= GobiertoBudgets::BudgetLine::EXPENSE %>
+  custom_name_translations:
+  custom_description_translations: <%= {
+    'es' => 'Los servicios públicos básicos son... (custom, only spanish translation)'
+  }.to_json %>
+
+custom_6_i:
+  site: madrid
+  area_name: custom
+  kind: <%= GobiertoBudgets::BudgetLine::INCOME %>
+  code: '6'
+  custom_name_translations: <%= {
+    'es' => 'Área de Servicios a las Personas'
+  }.to_json %>
+  custom_description_translations:
+
+custom_3_i:
+  site: madrid
+  area_name: custom
+  kind: <%= GobiertoBudgets::BudgetLine::INCOME %>
+  code: '3'
+  custom_name_translations: <%= {
+    'es' => 'Área de Servicios Centrales, Ocupación y Promoción Económica'
+  }.to_json %>
+  custom_description_translations:
+
+custom_31_i:
+  site: madrid
+  area_name: custom
+  kind: <%= GobiertoBudgets::BudgetLine::INCOME %>
+  code: '31'
+  custom_name_translations: <%= {
+    'es' => 'Dirección de Servicios Económicos'
+  }.to_json %>
+  custom_description_translations:
+
+custom_32_i:
+  site: madrid
+  area_name: custom
+  kind: <%= GobiertoBudgets::BudgetLine::INCOME %>
+  code: '32'
+  custom_name_translations: <%= {
+    'es' => 'Dirección de Recursos Humanos'
+  }.to_json %>
+  custom_description_translations:
+
+custom_5_g:
+  site: madrid
+  area_name: custom
+  kind: <%= GobiertoBudgets::BudgetLine::EXPENSE %>
+  code: '5'
+  custom_name_translations: <%= {
+    'es' => 'Área de Acción Social'
+  }.to_json %>
+  custom_description_translations:
+
+custom_6_g:
+  site: madrid
+  area_name: custom
+  kind: <%= GobiertoBudgets::BudgetLine::EXPENSE %>
+  code: '6'
+  custom_name_translations: <%= {
+    'es' => 'Área de Servicios a las Personas'
+  }.to_json %>
+  custom_description_translations:
+
+custom_61_g:
+  site: madrid
+  area_name: custom
+  kind: <%= GobiertoBudgets::BudgetLine::EXPENSE %>
+  code: '61'
+  custom_name_translations: <%= {
+    'es' => 'Dirección de Cultura'
+  }.to_json %>
+  custom_description_translations:
+
+custom_62_g:
+  site: madrid
+  area_name: custom
+  kind: <%= GobiertoBudgets::BudgetLine::EXPENSE %>
+  code: '62'
+  custom_name_translations: <%= {
+    'es' => 'Dirección de Deportes'
+  }.to_json %>
+  custom_description_translations:
+
+custom_63_g:
+  site: madrid
+  area_name: custom
+  kind: <%= GobiertoBudgets::BudgetLine::EXPENSE %>
+  code: '63'
+  custom_name_translations: <%= {
+    'es' => 'Dirección de Enseñanza'
+  }.to_json %>
+  custom_description_translations:

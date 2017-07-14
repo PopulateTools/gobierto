@@ -9,7 +9,8 @@ module GobiertoAdmin
         :visibility_level,
         :title_translations,
         :body_translations,
-        :slug_translations
+        :slug_translations,
+        :attachment_ids
       )
 
       delegate :persisted?, to: :page
@@ -53,6 +54,13 @@ module GobiertoAdmin
           page_attributes.body_translations = body_translations
           page_attributes.slug_translations = slug_translations
           page_attributes.visibility_level = visibility_level
+          if page.new_record? && attachment_ids.present?
+            if attachment_ids.is_a?(String)
+              page_attributes.attachment_ids = attachment_ids.split(',')
+            else
+              page_attributes.attachment_ids = attachment_ids
+            end
+          end
         end
 
         if @page.valid?

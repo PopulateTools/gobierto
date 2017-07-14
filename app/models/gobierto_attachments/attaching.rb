@@ -7,7 +7,15 @@ module GobiertoAttachments
     belongs_to :attachment
     belongs_to :attachable, polymorphic: true
 
-    validates :site, :attachment, :attachable, presence: true
+    validates :site, :attachment, presence: true
+
+    before_validation :set_site
+
+    private
+
+    def set_site
+      self.site ||= attachment.try(:site) || attachable.try(:site)
+    end
 
   end
 end

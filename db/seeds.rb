@@ -7,6 +7,7 @@ fixtures_to_load = [
   "user/verification/census_verifications",
   "user/subscriptions",
   "user/notifications",
+  "gobierto_budgets/categories",
   "gobierto_budget_consultations/consultations",
   "gobierto_budget_consultations/consultation_items",
   "gobierto_budget_consultations/consultation_responses",
@@ -19,11 +20,18 @@ fixtures_to_load = [
   "gobierto_people/political_groups",
   "gobierto_cms/pages",
   "gobierto_attachments/attachments",
-  "gobierto_attachments/attachings"
+  "gobierto_attachments/attachings",
+  "versions",
+  "gobierto_participation/processes",
+  "gobierto_participation/process_stages",
+  "gobierto_participation/issues",
+  "gobierto_participation/areas",
+  "gobierto_common/collection_items",
 ]
 
 ENV["FIXTURES"] = fixtures_to_load.join(",")
 Rake::Task["db:fixtures:load"].invoke
+::GobiertoCommon::ContentBlock.reset_column_information
 Rake::Task["gobierto_people:counter_cache:reset"].invoke
 
 GobiertoPeople::PoliticalGroup.reset_position!

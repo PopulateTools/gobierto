@@ -1,6 +1,13 @@
 ---
 en:
   gobierto_budgets:
+    events:
+      gobierto_budgets_budgets_forecast_economic_updated: 'Budgets updated: economic area'
+      gobierto_budgets_budgets_forecast_functional_updated: 'Budgets updated: functional area'
+      gobierto_budgets_budgets_forecast_custom_updated: 'Budgets updated: custom area'
+      gobierto_budgets_budgets_execution_economic_updated: 'Budgets execution updated: economic area'
+      gobierto_budgets_budgets_execution_functional_updated: 'Budgets execution updated: functional area'
+      gobierto_budgets_budgets_execution_custom_updated: 'Budgets execution updated: custom area'
     budget_lines:
       explorer:
         examples: Examples
@@ -13,6 +20,7 @@ en:
         amount: Amount
         budget_line: Budget line
         categories: Categories
+        custom: Areas
         expense_in_what: In what is spent
         expense_to_do_what: To do what is spent
         help: The budget is organized in two categories. Checkout our guide
@@ -29,7 +37,8 @@ en:
         budget_lines_distribution: Expense budget lines distribution
         evolution: Evolution
         last_year: Last year
-        no_distribution: There are related budget lines.
+        no_distribution: There aren't any related budget lines.
+        no_description: There's no description for this budget line.
         no_more_descendants: There are no more descendants
         not_available: Not avail.
         percentage: "% over the total"
@@ -60,9 +69,16 @@ en:
         less: less
         level_2_category: Level 2 Category
         level_3_category: Level 3 Category
+        main_budget_levels_legend_one: Change since last year
+        main_budget_levels_legend_two: ''
+        main_budget_levels_per_inhabitant: per inhabitant
+        main_budget_levels_timeline: Compare income and expenses year by year
+        main_budget_levels_tooltip_article: since
+        main_budget_levels_tooltip_down: Has gone down
+        main_budget_levels_tooltip_up: Has risen
         main_budget_lines: Main income and expenses from your council
-        main_budget_lines_description: These are the 5 main income and expense budget
-          lines in your municipality.
+        main_budget_lines_expense: Expense
+        main_budget_lines_income: Income
         more: more
         most_interesting_budget_lines: Most interesting budget lines
         most_interesting_budget_lines_description: Some of the budget lines you are
@@ -76,7 +92,6 @@ en:
         per_person: Per person
         planned_vs_executed: Real expenses vs the plan
         planned_vs_executed_other_year_html: In %{year} it was %{link}
-        search_for_a_budget_line: Search a budget line
         see_all: view all
         title: Local municipality budgets in %{year}
         top_expense_category: Category
@@ -84,7 +99,6 @@ en:
         top_income_category: Category
         top_income_value: Amount
         total_expenses: Total expenses
-        twitter_text: 'From @gobierto: Municipality budgets from %{name} in %{year}'
         visualize: Visualize expenses per inhabitant or the total
     budgets_execution:
       execution_table:
@@ -135,8 +149,10 @@ en:
         execution: Execution
         summary: Summary
     visualizations:
+      G_custom: Expenses per area
       G_economic: In what
       G_functional: How
+      I_custom: Income per area
       I_economic: How
       category_per_inhabitant: "%{category} per inhabitant"
       expenses_per_inhabitant: Expenses per inhabitant

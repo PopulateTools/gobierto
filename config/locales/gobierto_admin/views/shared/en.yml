@@ -5,3 +5,20 @@ en:
       form_locale_switchers:
         define_content_in_locale: Define the content in %{locale_name} version
         translate: Translate
+      admin_widget_attachment:
+        drag_document_here: Drag and drop the document here
+        or: or
+        select_file: Chose a file
+        include_file: Include file
+        document: Document
+        document_title: Document title
+        description: Description
+        save: Save
+        latest_documents: Recent documents
+        search: Search
+        no_docs: There are no files
+        add_new_document: Add new document
+        edit_document: Edit document
+        include_in_text: Include file in the text
+        attachments: Attachments
+

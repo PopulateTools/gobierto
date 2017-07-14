@@ -6,21 +6,11 @@
   </h1>
 <% end %>
 
+<% content_for :body_attributes do %>
+  <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}"} %>
+<% end %>
+
 <div class="column">
-
-  <div class="pure-g" style="display: none">
-
-    <div class="pure-u-1 pure-u-md-4-24 right" data-share>
-      <div class="social_links_container" data-share-text="<%= t('.twitter_text', name: @site.place.name, year: @year) %>">
-        <a href="#" class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|XXX"><i class="fa fa-twitter"></i></a>
-        <a href="#" class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|XXX"><i class="fa fa-facebook"></i></a>
-        <% pending do %>
-          <a href="#embed-graph-code" class="social_share code open_modal" data-track-event="Social Share|Click Code|XXX"><i class="fa fa-code"></i></a>
-        <% end %>
-      </div>
-    </div>
-
-  </div>
 
   <div class="block">
 
@@ -33,10 +23,6 @@
           <%= t('.header') %>
         <%#%>
         </h2>
-      </div>
-      <div class="pure-u-1 pure-u-md-10-24 right slim_search">
-        <label><%= t('.search_for_a_budget_line') %></label>
-        <input type="text" placeholder="<%= t('gobierto_budgets.budget_lines.explorer.search') %>..." data-autocomplete="<%= gobierto_budgets_search_all_categories_path(@place.slug, @year, format: :json) %>">
       </div>
     </div>
 
@@ -102,7 +88,6 @@
   <div class="block">
 
     <h2 class="with_description"><%= t('.main_budget_lines') %></h2>
-    <p class="description"><%= t('.main_budget_lines_description') %></p>
 
     <% pending do %>
       <div class="tip">
@@ -111,6 +96,24 @@
     <% end %>
 
     <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-11-24">
+        <h3 class="center m_v_0 mt1"><%= t('.main_budget_lines_income') %></h3>
+        <div class="graph vis-bubbles vis-bubbles-income"></div>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-1-24">
+        <div class="bubble_legend"></div>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-11-24">
+        <h3 class="center m_v_0 mt1"><%= t('.main_budget_lines_expense') %></h3>
+        <div class="graph vis-bubbles vis-bubbles-expense"></div>
+      </div>
+
+      <div class="pure-u-1">
+        <h3 class="m_v_0"><%= t('.main_budget_levels_timeline') %></h3>
+        <div class="timeline"></div>
+      </div>
 
       <div class="pure-u-1 pure-u-md-11-24">
         <h3><%= t('.income') %></h3>
@@ -133,7 +136,7 @@
         </table>
 
         <div class="small center m_v_2">
-          <%= link_to t('.see_all'), gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::BudgetLine::ECONOMIC, level: 1) %>
+          <%= link_to t('.see_all'), gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, area_name: GobiertoBudgets::EconomicArea.area_name, level: 1) %>
         </div>
       </div>
 
@@ -160,7 +163,7 @@
         </table>
 
         <div class="small center m_v_2">
-          <%= link_to t('.see_all'), gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::BudgetLine::FUNCTIONAL, level: 1) %>
+          <%= link_to t('.see_all'), gobierto_budgets_budget_lines_path(year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::FunctionalArea.area_name, level: 1) %>
         </div>
       </div>
 
@@ -214,7 +217,7 @@
   <div class="featured_b_l block m_v_3" data-featured-budget-line="<%= gobierto_budgets_featured_budget_line_path(@site.place.slug, year: @year, template: 'gobierto_site_template') %>">
   </div>
 
-  <div class="separator"></div>
+  <div id="lines_chart_wrapper_separator" class="separator"></div>
 
   <div id="lines_chart_wrapper" class="pure-g" data-vis-lines role="tabpanel" aria-controlledby="per_person, total_budget">
     <div class=" pure-u-1 pure-u-md-1-2 block" >

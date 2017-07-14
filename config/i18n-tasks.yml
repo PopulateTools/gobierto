@@ -39,3 +39,6 @@ ignore_unused:
   - 'views.pagination.*'
   - 'helpers.page_entries_info.*'
   - 'gobierto_indicators.cards.*'
+
+translation:
+  api_key: ''

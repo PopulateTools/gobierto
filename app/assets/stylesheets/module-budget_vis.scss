@@ -134,7 +134,7 @@
 		display: inline-block;
 		padding: .5em 2em .25em;
 		@include border-radius(4px);
-	}	
+	}
 	.fa {
 		margin: 0 .5em 0 0;
 		font-size: .85em;
@@ -261,7 +261,7 @@
     .deviation_table_container {
       padding-bottom:2em;
       margin-bottom:2em;
-      border-bottom:solid 1px rgba(178, 175, 169, 0.5); 
+      border-bottom:solid 1px rgba(178, 175, 169, 0.5);
     }
     .deviation_table_container:last-child {
       border-bottom: none;
@@ -272,4 +272,15 @@
     min-height: 275px;
   }
 
+}
+
+/* Budget guide */
+.budgets_guide {
+  header.meta {
+    margin: 0;
+  }
+
+  header.meta .site_header {
+    padding: 0;
+  }
 }

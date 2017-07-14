@@ -1,0 +1,69 @@
+/* Boxes */
+.box {
+  position: relative;
+  margin: 0 0.5em 2em;
+  box-shadow: 0 1px 2px 1px rgba(0,0,0,0.20);
+  border-radius: 4px;
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  min-height: 20em;
+}
+.box.cover_bottom_left {
+  background-size: auto;
+  background-position: bottom left;
+}
+.lead {
+  font-size: 1.25em;
+}
+.light_box {
+  h2 {
+    font-size: 1.625em;
+    margin-top: 0.25em;
+  }
+}
+.filled_box {
+  background-color: $color_main;
+
+  h2 {
+    font-size: 1.25em;
+    margin-top: 0.25em;
+    color: white;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.20);
+  }
+  p {
+    color: white;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.20);
+  }
+}
+.align_right {
+  text-align: right;
+
+  .f_right {
+    max-width: 15em;
+
+    h2 {
+      margin-bottom: 0.25em;
+    }
+    p {
+      margin-top: 0;
+    }
+  }
+}
+.align_bottom_right {
+  text-align: right;
+
+  > div {
+    position: absolute;
+    right: 1em;
+    bottom: 0;
+
+    h2 {
+      margin-bottom: 0.25em;
+    }
+    p {
+      margin-top: 0;
+    }
+  }
+}

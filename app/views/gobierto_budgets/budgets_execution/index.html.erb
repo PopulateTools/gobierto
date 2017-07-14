@@ -98,16 +98,23 @@
             </div>
           </div>
 
-          <div class="inline_filter">
-            <span class="soft"><%= t('.category') %></span>
-            <div class="button-group ib" role="group">
-              <button class="button-grouped active expenses_switcher" data-toggle="functional"><%= t('.functional_button') %></button>
-              <button class="button-grouped expenses_switcher" data-toggle="economic"><%= t('.economic_button') %></button>
-              <% if @any_custom_income_budget_lines %>
-                <button class="button-grouped expenses_switcher" data-toggle="custom"><%= t('.custom_button') %></button>
-              <% end %>
+          <% if @several_expenses_filters %>
+            <div class="inline_filter">
+              <span class="soft"><%= t('.category') %></span>
+              <div class="button-group ib" role="group">
+                <% if @any_economic_expense_budget_lines %>
+                  <button class="button-grouped active expenses_switcher" data-toggle="economic"><%= t('.economic_button') %></button>
+                <% end %>
+                <% if @any_functional_expense_budget_lines %>
+                  <button class="button-grouped expenses_switcher" data-toggle="functional"><%= t('.functional_button') %></button>
+                <% end %>
+                <% if @any_custom_expense_budget_lines %>
+                  <button class="button-grouped expenses_switcher" data-toggle="custom"><%= t('.custom_button') %></button>
+                <% end %>
+              </div>
             </div>
-          </div>
+          <% end %>
+
         </div>
 
         <div class="expenses_execution"></div>
@@ -132,15 +139,20 @@
             </div>
           </div>
 
-          <% if @any_custom_income_budget_lines %>
+          <% if @several_income_filters %>
             <div class="inline_filter">
               <span class="soft"><%= t('.category') %></span>
               <div class="button-group ib" role="group">
+                <% if @any_economic_income_budget_lines %>
                   <button class="button-grouped income_switcher active" data-toggle="economic"><%= t('.economic_button') %></button>
+                <% end %>
+                <% if @any_custom_income_budget_lines %>
                   <button class="button-grouped button-grouped-one income_switcher" data-toggle="custom"><%= t('.custom_button') %></button>
+                <% end %>
               </div>
             </div>
           <% end %>
+
         </div>
 
         <div class="income_execution"></div>

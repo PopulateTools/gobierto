@@ -13,8 +13,8 @@ $( document ).on('turbolinks:load', function() {
   })
 
   if ($('.expenses_execution').length) {
-    // Render functional data by default, let the user switch between datasets
-    var vis_expenses_execution = new VisLinesExecution('.expenses_execution', 'G', 'functional')
+    // Render economic data by default, let the user switch between datasets
+    var vis_expenses_execution = new VisLinesExecution('.expenses_execution', 'G', 'economic')
     vis_expenses_execution.render();
 
     $('.expenses_switcher').on('click', function (e) {

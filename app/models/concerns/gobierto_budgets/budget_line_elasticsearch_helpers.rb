@@ -384,6 +384,49 @@ module GobiertoBudgets
         end
       end
 
+      def any_data?(conditions = {})
+        any_data = false
+
+        indexes = (conditions[:index] ? [conditions[:index]] : [SearchEngineConfiguration::BudgetLine.index_forecast, SearchEngineConfiguration::BudgetLine.index_executed])
+        areas   = (conditions[:area] ? [conditions[:area]] : BudgetArea.all_areas)
+
+        terms = []
+        terms << { term: { ine_code: conditions[:site].place.id } } if conditions[:site]
+        terms << { term: { kind: conditions[:kind] } } if conditions[:kind]
+        terms << { term: { year: conditions[:year] } } if conditions[:year]
+
+        query = {
+          query: {
+            filtered: {
+              filter: {
+                bool: {
+                  must: terms
+                }
+              }
+            }
+          },
+          size: 1
+        }
+
+        indexes.each do |index|
+          areas.each do |area|
+            break if any_data
+            begin
+              response = SearchEngine.client.search(
+                index: index,
+                type: area.area_name,
+                body: query
+              )
+              any_data ||= response['hits']['hits'].any?
+            rescue
+              nil
+            end
+          end
+        end
+
+        any_data
+      end
+
     end
 
     included do

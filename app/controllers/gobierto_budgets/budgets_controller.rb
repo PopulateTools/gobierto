@@ -14,8 +14,8 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
     @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, level: 1, year: @year, kind: @kind, area_name: @area_name })
     @interesting_expenses = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, level: 2, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: @interesting_area })
 
-    @any_custom_income_budget_lines  = GobiertoBudgets::CustomArea.any_items?(site: current_site, kind: GobiertoBudgets::BudgetLine::INCOME)
-    @any_custom_expense_budget_lines = GobiertoBudgets::CustomArea.any_items?(site: current_site, kind: GobiertoBudgets::BudgetLine::EXPENSE)
+    @any_custom_income_budget_lines  = GobiertoBudgets::BudgetLine.any_data?(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME,  area: GobiertoBudgets::CustomArea, index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast)
+    @any_custom_expense_budget_lines = GobiertoBudgets::BudgetLine.any_data?(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::CustomArea, index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast)
 
     @sample_budget_lines = (@top_income_budget_lines + @top_expense_budget_lines).sample(3)
 

@@ -15,7 +15,7 @@ en:
         categories: Categories
         custom: Areas
         expense_in_what: In what is spent
-        expense_to_do_what: To do what is spent
+        expense_to_do_what: For what is spent
         help: The budget is organized in two categories. Checkout our guide
         income_from_what: Where does the income come from
         per_inhabitant: Per inhabitant
@@ -297,7 +297,7 @@ en:
         execution_help: The execution is the amount spent based on the planned budget.
         functional: functional
         functional_button: In what is spent
-        economic_button: To do what is spent
+        economic_button: For what is spent
         custom_button: Custom
         metric:
           execution:

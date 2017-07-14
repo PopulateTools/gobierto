@@ -93,6 +93,32 @@ module GobiertoBudgets
       "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)}% #{direction}"
     end
 
+    def main_budget_lines_summary
+      main_budget_lines_forecast  = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, place: @site.place, year: @year, area_name: EconomicArea.area_name })
+      main_budget_lines_execution = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, place: @site.place, year: @year, area_name: EconomicArea.area_name, index: SearchEngineConfiguration::BudgetLine.index_executed })
+
+      main_budget_lines_summary = {}
+
+      main_budget_lines_forecast.each do |budget_line|
+        main_budget_lines_summary[budget_line.code] = {
+          title: budget_line.name,
+          budgeted_amount: budget_line.amount
+        }
+      end
+
+      main_budget_lines_execution.each do |budget_line|
+        executed_amount = budget_line.amount
+        if main_budget_lines_summary[budget_line.code]
+          budgeted_amount = main_budget_lines_summary[budget_line.code][:budgeted_amount]
+          main_budget_lines_summary[budget_line.code].merge!(
+            executed_amount: executed_amount,
+            executed_percentage: (executed_amount*100 / budgeted_amount).to_i
+          )
+        end
+      end
+      main_budget_lines_summary.values
+    end
+
     def budgets_execution_summary
       ine_code = @place.id
 

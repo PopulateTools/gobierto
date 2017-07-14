@@ -1,20 +1,20 @@
-<% description "El presupuesto municipal es el documento que explica cómo se gestiona el dinero público durante un año. Aquí te explicamos los conceptos más importantes para que no te pierdas en su lectura." %>
-<% title "Cómo funciona un presupuesto municipal" %>
+<% description t('.description') %>
+<% title t('.title') %>
 
 <div class="column">
 
   <main class="content">
     <header class="gradient-bg">
       <div class="inner">
-        <h1>Cómo funciona un presupuesto municipal</h1>
-        <p>El presupuesto municipal es el documento que explica cómo se gestiona el dinero público durante un año. Aquí te explicamos los conceptos más importantes para que no te pierdas en su lectura.</p>
+        <h1><%= t('.title') %></h1>
+        <p><%= t('.description') %></p>
 
         <ul>
-          <li><a href="#como-se-lee">¿Cómo se lee un presupuesto?</a></li>
-          <li><a href="#tipos-de-ingreso">Ingresos</a></li>
-          <li><a href="#tipos-de-gasto">Gastos</a></li>
-          <li><a href="#deuda-viva">Deuda viva: Cuánto debe tu municipio</a></li>
-          <li><a href="#ejecucion-presupuestaria">Ejecución presupuestaria</a></li>
+          <li><a href="#como-se-lee"><%= t('.how_to_read') %></a></li>
+          <li><a href="#tipos-de-ingreso"><%= t('.income') %></a></li>
+          <li><a href="#tipos-de-gasto"><%= t('.expenses') %></a></li>
+          <li><a href="#deuda-viva"><%= t('.debt') %></a></li>
+          <li><a href="#ejecucion-presupuestaria"><%= t('.execution') %></a></li>
         </ul>
       </div>
     </header>
@@ -23,38 +23,38 @@
       <%= image_tag 'illustrations/presupuestos.jpg', class: 'pure-img' %>
 
       <ol>
-        <li>La Junta municipal –formada por el alcalde y los responsables de cada área de gobierno– diseña el presupuesto, lo redacta a través de la concejalía de Hacienda y lo presenta en el pleno, que es el órgano de máxima representación política municipal.</li>
-        <li>Una vez allí, todos los concejales lo estudian y sugieren modificaciones. Finalmente se somete a votación y se aprueba.</li>
+        <li><%= t('.intro_p1') %></li>
+        <li><%= t('.intro_p2') %></li>
       </ol>
 
       <div class="note">
-        <p>El presupuesto tiene que quedar aprobado antes del 31 de diciembre del año anterior. Es decir, el presupuesto de 2016 tiene que estar aprobado en diciembre de 2015, si no, se prorroga automáticamente.</p>
+        <p><%= t('.intro_p3') %></p>
       </div>
 
-      <h2 id="como-se-lee">¿Y cómo se lee?</h2>
-      <p>Todos los presupuestos municipales tienen la misma estructura, definida legalmente en la <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2008-19916">Orden EHA/3565/2008</a>. La estructura básica es sencilla: se divide en ingresos y gastos. Es decir, responde a las preguntas ¿De dónde sale el dinero? (ingresos) y ¿en qué se gasta? (gastos).</p>
+      <h2 id="como-se-lee"><%= t('.how_to_read') %></h2>
+      <p><%= t('.how_to_read_p1_html') %></p>
 
-      <h3>Ingresos</h3>
-      <p>Para empezar, los ingresos se dividen según su naturaleza económica, es decir, de dónde viene el dinero y qué “forma” tiene: Si es un crédito bancario, una propiedad municipal que se ha vendido o un impuesto.</p>
+      <h3><%= t('.income') %></h3>
+      <p><%= t('.income_p1') %></p>
 
       <div class="number">
-        <p>En 2016 se ingresaron...</p>
-        <div data-income>45.741.771€</div>
+        <p><%= t('.income_p2', year: @year) %></p>
+        <div><%= format_currency @site_stats.total_budget %></div>
       </div>
 
-      <h3>Gastos</h3>
-      <p>¿Cómo usa el ayuntamiento el dinero de todos los vecinos? Los gastos se pueden clasificar de dos formas: desde el punto de vista funcional (en qué se gasta) y económico (cómo se gasta).</p>
+      <h3><%= t('.expenses') %></h3>
+      <p><%= t('.expenses_how') %></p>
 
       <div class="number">
-        <p>El gasto por habitante fue de...</p>
-        <div data-expense>12€/hab</div>
+        <p><%= t('.expenses_per_inhabitant') %></p>
+        <div><%= format_currency @site_stats.total_budget_per_inhabitant %>/hab</div>
       </div>
 
       <hr class="separator_responsive" />
 
       <blockquote>
-        <h4>Clasificación presupuestaria</h4>
-        <p>Todo presupuesto tiene ingresos y los gastos. Los ingresos están clasificados de una manera económica, que establece su origen. Los gastos, por otra parte, son funcionales y económicos.</p>
+        <h4><%= t('.classification') %></h4>
+        <p><%= t('.classification_p1') %></p>
 
         <div class="share">
           <a href="#"><i class="fa fa-facebook"></i></a>
@@ -64,216 +64,210 @@
 
       <hr class="separator_responsive" />
 
-      <h2 id="tipos-de-ingreso">Tipos de ingreso</h2>
+      <h2 id="tipos-de-ingreso"><%= t('.types_income') %></h2>
 
       <figure>
         <%= image_tag 'samples/park.jpg', class: 'pure-img' %>
         <figcaption>Parque Cedeira (Oporto) <br /> João M. Gil.</figcaption>
       </figure>
 
-      <p>Los ingresos se dividen en nueve apartados y cada uno de ellos en varios subapartados. Estas divisiones permiten profundizar para conocer la procedencia exacta de cada ingreso.</p>
+      <p><%= t('.types_income_p1') %></p>
 
-      <p>Por ejemplo: dentro de Impuestos indirectos se encuentran los Consumos específicos. Y dentro de este último, están los Impuestos del alcohol o el tabaco. En un presupuesto oficial, los apartados principales se llaman capítulos. Y a su vez, cada capítulo se divide en artículos, conceptos y subconceptos.</p>
+      <p><%= t('.types_income_p2') %></p>
 
-      <p>En Gobierto lo hemos simplificado para que sólo tengas que buscar el nombre de cada apartado.</p>
+      <p><%= t('.types_income_p3') %></p>
 
-      <h4>Tipos de ingreso</h4>
+      <h4><%= t('.types_income') %></h4>
       <ol>
-        <li><a href="#ingresos-corrientes">Ingresos corrientes</a></li>
-        <li><a href="#ingresos-de-capital">Ingresos de capital</a></li>
-        <li><a href="#ingresos-financieros">Ingresos financieros</a></li>
+        <li><a href="#ingresos-corrientes"><%= t('.regular_income') %></a></li>
+        <li><a href="#ingresos-de-capital"><%= t('.capital_income') %></a></li>
+        <li><a href="#ingresos-financieros"><%= t('.financial_income') %></a></li>
       </ol>
 
       <hr class="separator_responsive quarter" />
 
-      <h3 id="ingresos-corrientes"><small>1</small> Ingresos corrientes</h3>
-      <p>Impuestos y tasas que recauda el ayuntamiento, o dinero que el Estado transfiere a cada municipio. Son los más habituales.</p>
+      <h3 id="ingresos-corrientes"><small>1</small> <%= t('.regular_income') %></h3>
+      <p><%= t('.regular_income_p1') %></p>
 
       <dl>
         <div>
-          <dt><a href="/presupuestos/partidas/1/2016/economic/I">Impuestos directos</a></dt>
-          <dd>Gravan la fuente de la renta, los frutos del patrimonio o de una actividad económica.</dd>
+          <dt><a href="/presupuestos/partidas/1/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 1, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+          <dd><%= t('.income_1_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/2/2016/economic/I">Impuestos indirectos</a></dt>
-          <dd>Algunos municipios recaudan una parte del IVA y otros impuestos especiales.</dd>
+          <dt><a href="/presupuestos/partidas/2/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 2, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+          <dd><%= t('.income_2_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/4/2016/economic/I">Transferencias corrientes</a></dt>
-          <dd>Dinero que el ayuntamiento recibe del Estado y de la Comunidad Autónoma.</dd>
+          <dt><a href="/presupuestos/partidas/4/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 4, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+          <dd><%= t('.income_4_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/3/2016/economic/I">Tasas y otros ingresos</a></dt>
-          <dd>Precios públicos y contribuciones por contraprestaciones municipales.</dd>
+          <dt><a href="/presupuestos/partidas/3/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 3, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+          <dd><%= t('.income_3_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/5/2016/economic/I">Ingresos patrimoniales</a></dt>
-          <dd>Rentas de patrimonio del municipio. Son los beneficios sobre bienes que no se destinan a servicio público.</dd>
+          <dt><a href="/presupuestos/partidas/5/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 5, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+          <dd><%= t('.income_5_desc') %></dd>
         </div>
       </dl>
 
-      <h3 id="ingresos-de-capital"><small>2</small> Ingresos de capital</h3>
-      <p>Proceden de la venta de propiedades municipales como solares o fincas. También pueden proceder de fondos europeos.</p>
+      <h3 id="ingresos-de-capital"><small>2</small> <%= t('.capital_income') %></h3>
+      <p><%= t('.capital_income_p1') %></p>
 
       <dl>
         <div>
-          <dt><a href="/presupuestos/partidas/6/2016/economic/I">Enajenación de inversiones reales</a></dt>
-          <dd>Venta de solares y fincas rústicas.</dd>
+          <dt><a href="/presupuestos/partidas/6/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 6, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+          <dd><%= t('.income_6_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/7/2016/economic/I">Transferencias de capital</a></dt>
-          <dd>Ingresos de naturaleza no tributaria destinados a financiar gastos de capital.</dd>
+          <dt><a href="/presupuestos/partidas/7/<%= @year %>/economic/I"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 7, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+          <dd><%= t('.income_7_desc') %></dd>
         </div>
       </dl>
 
-      <h3 id="ingresos-financieros"><small>3</small> Ingresos financieros</h3>
-      <p>Pueden ser depósitos bancarios inmovilizados o créditos concedidos por entidades privadas, como bancos o aseguradoras.</p>
+      <h3 id="ingresos-financieros"><small>3</small> <%= t('.financial_income') %></h3>
+      <p><%= t('.financial_income_p1') %></p>
 
       <dl>
         <div>
-          <dt><a href="/presupuestos/partidas/8/2016/economic/G">Activos financieros</a></dt>
-          <dd>Devolución de fianzas o depósitos inmovilizados.</dd>
+          <dt><a href="/presupuestos/partidas/8/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 8, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+          <dd><%= t('.income_8_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/9/2016/economic/G">Pasivos financieros</a></dt>
-          <dd>Créditos solicitados a entidades privadas.</dd>
+          <dt><a href="/presupuestos/partidas/9/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 9, kind: GobiertoBudgets::BudgetLine::INCOME).name %></a></dt>
+          <dd><%= t('.income_9_desc') %></dd>
         </div>
       </dl>
 
       <hr class="separator_responsive" />
 
-      <h2 id="tipos-de-gasto">Tipos de gasto</h2>
+      <h2 id="tipos-de-gasto"><%= t('.expenses_types') %></h2>
 
       <figure>
         <%= image_tag 'samples/metro.jpg', class: 'pure-img' %>
         <figcaption>Mar de Cristal (Madrid) <br /> Daniel Erler.</figcaption>
       </figure>
 
-      <p>¿Cómo usa el ayuntamiento el dinero de todos los vecinos? Aquí se detalla todo. Los gastos se pueden clasificar de dos formas: desde el punto de vista funcional (en qué se gasta) y económico (cómo se gasta). La cantidad de dinero es la misma, pero la vemos desde dos ángulos.</p>
+      <p><%= t('.expenses_types_p1') %></p>
 
-      <h4>Tipos de gasto</h4>
+      <h4><%= t('.expenses_types') %></h4>
       <ol>
-        <li><a href="#gasto-funcional">Gasto funcional</a></li>
-        <li><a href="#gasto-economico">Gasto económico</a></li>
+        <li><a href="#gasto-funcional"><%= t('.functional') %></a></li>
+        <li><a href="#gasto-economico"><%= t('.economic') %></a></li>
       </ol>
 
       <hr class="separator_responsive quarter" />
 
-      <h3 id="gasto-funcional"><small>1</small> Gasto funcional</h3>
-      <p>Es la más explicativa: nos dice, por ejemplo, cuánto se gasta en la recogida de basura o en instalaciones deportivas. También se la conoce como clasificación por partidas de gasto.</p>
-
-      <p>En un presupuesto oficial se divide en áreas, y éstas a su vez en políticas, grupos y programas. Este nivel de profundidad permite saber con detalle a dónde va el dinero.</p>
+      <h3 id="gasto-funcional"><small>1</small> <%= t('.functional') %></h3>
+      <p><%= t('.functional_p1') %></p>
+      <p><%= t('.functional_p2') %></p>
 
       <dl>
         <div>
-          <dt><a href="/presupuestos/partidas/0/2016/functional/G">Deuda pública</a></dt>
-          <dd>Esta partida se destina a pagar la deuda acumulada por el ayuntamiento.</dd>
+          <dt><a href="/presupuestos/partidas/0/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 0, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+          <dd><%= t('.expense_functional_0_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/1/2016/functional/G">Servicios públicos básicos</a></dt>
-          <dd>Esta partida cubre las necesidades mínimas y obligatorias de un municipio.</dd>
+          <dt><a href="/presupuestos/partidas/1/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 1, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+          <dd><%= t('.expense_functional_1_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/2/2016/functional/G">A. de protección y promoción social</a></dt>
-          <dd>Es el dinero que se destina a la prevención y la asistencia. Por ejemplo, el fomento del empleo.</dd>
+          <dt><a href="/presupuestos/partidas/2/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 2, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+          <dd><%= t('.expense_functional_2_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/3/2016/functional/G">P. de b. públicos de carácter preferente</a></dt>
-          <dd>Afecta a los servicios que mejoran la calidad de vida: sanidad, educación, cultura y ocio.</dd>
+          <dt><a href="/presupuestos/partidas/3/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 3, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+          <dd><%= t('.expense_functional_3_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/4/2016/functional/G">Actuaciones de carácter económico</a></dt>
-          <dd>Aquí entra lo que ayuda a desarrollar el potencial de los distintos sectores económicos.</dd>
+          <dt><a href="/presupuestos/partidas/4/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 4, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+          <dd><%= t('.expense_functional_4_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/9/2016/functional/G">Actuaciones de carácter general</a></dt>
-          <dd>Aquí se agrupan los gastos del propio ayuntamiento y demás organismos públicos.</dd>
+          <dt><a href="/presupuestos/partidas/9/<%= @year %>/functional/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::FunctionalArea.area_name, code: 9, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+          <dd><%= t('.expense_functional_9_desc') %></dd>
         </div>
       </dl>
 
-      <h3 id="gasto-economico"><small>2</small> Gasto económico</h3>
+      <h3 id="gasto-economico"><small>2</small> <%= t('.economic') %></h3>
 
-      <p>Indica la naturaleza del gasto. Por ejemplo, “Gastos de personal”, que engloba los sueldos de todos los funcionarios según su categoría. Es similar a la clasificación económica de los ingresos. </p>
+      <p><%= t('.economic_p1') %></p>
 
-      <p>En un presupuesto oficial, los apartados principales se llaman capítulos. Y a su vez, cada capítulo se divide en artículos, conceptos y subconceptos.</p>
+      <p><%= t('.economic_p2') %></p>
 
       <dl>
         <div>
-          <dt><a href="/presupuestos/partidas/1/2016/economic/G">Gastos de personal</a></dt>
-          <dd>Sueldos de funcionarios, indemnizaciones, cotizaciones y planes de pensiones para todo el personal contratado.</dd>
+          <dt><a href="/presupuestos/partidas/1/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 1, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+          <dd><%= t('.expense_economic_1_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/2/2016/economic/G">Gastos corrientes y servicios</a></dt>
-          <dd>Suministros, materiales y gastos de servicios o trabajos realizados por empresas ajenas contratadas.</dd>
+          <dt><a href="/presupuestos/partidas/2/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 2, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+          <dd><%= t('.expense_economic_2_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/3/2016/economic/G">Gastos financieros</a></dt>
-          <dd>Pago de intereses derivados de operaciones financieras.</dd>
+          <dt><a href="/presupuestos/partidas/3/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 3, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+          <dd><%= t('.expense_economic_3_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/4/2016/economic/G">Transferencias corrientes</a></dt>
-          <dd>Aportaciones a otras entidades o administraciones (estatales, autonómicas o empresas privadas) para financiar operaciones corrientes.</dd>
+          <dt><a href="/presupuestos/partidas/4/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 4, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+          <dd><%= t('.expense_economic_4_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/5/2016/economic/G">Fondo de contingencia y otros imprevistos</a></dt>
-          <dd>Son fondos que cubren situaciones de emergencia y gastos no previstos.</dd>
+          <dt><a href="/presupuestos/partidas/5/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 5, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+          <dd><%= t('.expense_economic_5_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/6/2016/economic/G">Inversiones reales</a></dt>
-          <dd>Creación de nuevos equipamientos o infraestructuras y adquisición de bienes inventariables.</dd>
+          <dt><a href="/presupuestos/partidas/6/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 6, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+          <dd><%= t('.expense_economic_6_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/7/2016/economic/G">Transferencias de capital</a></dt>
-          <dd>Pago de créditos para financiar operaciones de capital, que hayan financiado inversiones reales.</dd>
+          <dt><a href="/presupuestos/partidas/7/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 7, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+          <dd><%= t('.expense_economic_7_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/8/2016/economic/G">Activos financieros</a></dt>
-          <dd>Adquisición de activos financieros para la construcción de depósitos y fianzas exigidos.</dd>
+          <dt><a href="/presupuestos/partidas/8/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 8, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+          <dd><%= t('.expense_economic_8_desc') %></dd>
         </div>
         <div>
-          <dt><a href="/presupuestos/partidas/9/2016/economic/G">Pasivos financieros</a></dt>
-          <dd>Pago de amortización de pasivos financieros (como por ejemplo, la deuda).</dd>
+          <dt><a href="/presupuestos/partidas/9/<%= @year %>/economic/G"><%= GobiertoBudgets::Category.new(site: current_site, area_name: GobiertoBudgets::EconomicArea.area_name, code: 9, kind: GobiertoBudgets::BudgetLine::EXPENSE).name %></a></dt>
+          <dd><%= t('.expense_economic_9_desc') %></dd>
         </div>
       </dl>
 
       <hr class="separator_responsive" />
 
-      <h2>¿Cuánto debe tu municipio?</h2>
+      <h2><%= t('.how_much_debt') %></h2>
 
       <figure>
         <%= image_tag 'samples/retiro.jpg', class: 'pure-img' %>
         <figcaption>El Retiro (Madrid) <br /> Rimbaud Grégoire.</figcaption>
       </figure>
 
-      <p>La deuda viva de un municipio indica lo que debe el ayuntamiento a los bancos y otras entidades financieras. No hay que confundirla con el total del déficit del municipio (la diferencia entre los ingresos y los gastos).</p>
+      <p><%= t('.how_much_debt_p1') %></p>
 
-      <p>La deuda viva sólo incluye lo que se debe a las entidades financieras.</p>
+      <p><%= t('.how_much_debt_p2') %></p>
 
       <div class="note">
-        <p>Unos municipios tienen mayor capacidad de endeudamiento que otros. Es posible que un municipio tenga más deuda que otro, pero si su economía es más fuerte, tendrá más capacidad para soportarla y reducirla.</p>
+        <p><%= t('.how_much_debt_p3') %></p>
       </div>
 
       <hr class="separator_responsive" />
 
-      <h2>La ejecución presupuestaria</h2>
+      <h2><%= t('.budget_execution') %></h2>
 
-      <p>Aprobar un presupuesto no significa que se quede escrito en piedra. A lo largo del año surgen imprevistos que cambian la cantidad o la finalidad de los gastos. Estos cambios se anotan en otro documento: la <a href="/presupuestos/ejecucion/2016">ejecución presupuestaria</a>.</p>
+      <p><%= t('.budget_execution_p1_html', year: @year) %></p>
 
       <div class="note">
-        <p>Para saber si nuestro ayuntamiento ha planificado bien las cuentas sólo tenemos que comparar el presupuesto y la ejecución: ¿Ha gastado más de lo presupuestado, le ha sobrado dinero o se ha ajustado a lo previsto?.</p>
+        <p><%= t('.budget_execution_p2') %></p>
       </div>
 
       <div class="sources note">
-        <h4>Fuentes</h4>
-        <p>Para elaborar esta guía hemos tomado como referencia la estructura oficial de un presupuesto municipal, definida en la <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2008-19916">Orden EHA/3565/2008</a> y nos hemos inspirado en otros documentos como <a href="http://www.ocmcartagena.org/files/archive/Entendiendo-un-presupuesto-municipal.pdf">Entendiendo un presupuesto municipal</a> y <a href="https://docs.google.com/presentation/d/1oysDrJvlFxP0sKlzBalxvrV3lzSE5OCSKY7qd5yYpcA/pub?start=false&loop=false&delayms=3000&slide=id.p">Guía de introducción a los presupuestos municipales</a>.</p>
+        <h4><%= t('.sources') %></h4>
+        <p><%= t('.sources_p1_html') %></p>
       </div>
 
     </article>
   </main>
 
 </div>
-
-
-<%= javascript_tag do %>
-  window.GobiertoBudgets.budgets_controller.guide();
-<% end %>

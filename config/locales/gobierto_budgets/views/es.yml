@@ -1,13 +1,6 @@
 ---
 es:
   gobierto_budgets:
-    events:
-      gobierto_budgets_budgets_forecast_economic_updated: 'Presupuestos actualizados: área económica'
-      gobierto_budgets_budgets_forecast_functional_updated: 'Presupuestos actualizados: área funcional'
-      gobierto_budgets_budgets_forecast_custom_updated: 'Presupuestos actualizados: área personalizada'
-      gobierto_budgets_budgets_execution_economic_updated: 'Ejecución presupuestaria actualizada: área económica'
-      gobierto_budgets_budgets_execution_functional_updated: 'Ejecución presupuestaria actualizada: área funcional'
-      gobierto_budgets_budgets_execution_custom_updated: 'Ejecución presupuestaria actualizada: área personalizada'
     budget_lines:
       explorer:
         examples: Ejemplos
@@ -38,8 +31,8 @@ es:
         budget_lines_distribution: Distribución de los gastos de esta partida
         evolution: Evolución
         last_year: El año pasado
-        no_distribution: No hay distribución asociada a esta partida.
         no_description: No hay una descripción asociada a esta partida.
+        no_distribution: No hay distribución asociada a esta partida.
         no_more_descendants: No hay más sub-partidas
         not_available: No disp.
         percentage: "% sobre el total del pres."
@@ -53,6 +46,150 @@ es:
         twitter_text_income: 'En @gobierto: Ingreso municipal de %{name} en %{budget_line_name}
           para el %{year}'
     budgets:
+      guide:
+        budget_execution: La ejecución presupuestaria
+        budget_execution_p1_html: 'Aprobar un presupuesto no significa que se quede
+          escrito en piedra. A lo largo del año surgen imprevistos que cambian la
+          cantidad o la finalidad de los gastos. Estos cambios se anotan en otro documento:
+          la <a href=/presupuestos/ejecucion/%{year}">ejecución presupuestaria</a>.'
+        budget_execution_p2: 'Para saber si nuestro ayuntamiento ha planificado bien
+          las cuentas sólo tenemos que comparar el presupuesto y la ejecución: ¿Ha
+          gastado más de lo presupuestado, le ha sobrado dinero o se ha ajustado a
+          lo previsto?.'
+        capital_income: Ingresos de capital
+        capital_income_p1: Proceden de la venta de propiedades municipales como solares
+          o fincas. También pueden proceder de fondos europeos.
+        classification: Clasificación presupuestaria
+        classification_p1: Todo presupuesto tiene ingresos y los gastos. Los ingresos
+          están clasificados de una manera económica, que establece su origen. Los
+          gastos, por otra parte, son funcionales y económicos.
+        debt: 'Deuda viva: Cuánto debe tu municipio'
+        description: El presupuesto municipal es el documento que explica cómo se
+          gestiona el dinero público durante un año. Aquí te explicamos los conceptos
+          más importantes para que no te pierdas en su lectura.
+        economic: Gasto económico
+        economic_p1: Indica la naturaleza del gasto. Por ejemplo, “Gastos de personal”,
+          que engloba los sueldos de todos los funcionarios según su categoría. Es
+          similar a la clasificación económica de los ingresos.
+        economic_p2: En un presupuesto oficial, los apartados principales se llaman
+          capítulos. Y a su vez, cada capítulo se divide en artículos, conceptos y
+          subconceptos.
+        execution: Ejecución presupuestaria
+        expense_economic_1_desc: Sueldos de funcionarios, indemnizaciones, cotizaciones
+          y planes de pensiones para todo el personal contratado.
+        expense_economic_2_desc: Suministros, materiales y gastos de servicios o trabajos
+          realizados por empresas ajenas contratadas.
+        expense_economic_3_desc: Pago de intereses derivados de operaciones financieras.
+        expense_economic_4_desc: Aportaciones a otras entidades o administraciones
+          (estatales, autonómicas o empresas privadas) para financiar operaciones
+          corrientes.
+        expense_economic_5_desc: Son fondos que cubren situaciones de emergencia y
+          gastos no previstos.
+        expense_economic_6_desc: Creación de nuevos equipamientos o infraestructuras
+          y adquisición de bienes inventariables.
+        expense_economic_7_desc: Pago de créditos para financiar operaciones de capital,
+          que hayan financiado inversiones reales.
+        expense_economic_8_desc: Adquisición de activos financieros para la construcción
+          de depósitos y fianzas exigidos.
+        expense_economic_9_desc: Pago de amortización de pasivos financieros (como
+          por ejemplo, la deuda).
+        expense_functional_0_desc: Esta partida se destina a pagar la deuda acumulada
+          por el ayuntamiento.
+        expense_functional_1_desc: Esta partida cubre las necesidades mínimas y obligatorias
+          de un municipio.
+        expense_functional_2_desc: Es el dinero que se destina a la prevención y la
+          asistencia. Por ejemplo, el fomento del empleo.
+        expense_functional_3_desc: 'Afecta a los servicios que mejoran la calidad
+          de vida: sanidad, educación, cultura y ocio.'
+        expense_functional_4_desc: Aquí entra lo que ayuda a desarrollar el potencial
+          de los distintos sectores económicos.
+        expense_functional_9_desc: Aquí se agrupan los gastos del propio ayuntamiento
+          y demás organismos públicos.
+        expenses: Gastos
+        expenses_how: "¿Cómo usa el ayuntamiento el dinero de todos los vecinos? Los
+          gastos se pueden clasificar de dos formas: desde el punto de vista funcional
+          (en qué se gasta) y económico (cómo se gasta)."
+        expenses_per_inhabitant: El gasto por habitante fue de...
+        expenses_types: Tipos de gasto
+        expenses_types_p1: "¿Cómo usa el ayuntamiento el dinero de todos los vecinos?
+          Aquí se detalla todo. Los gastos se pueden clasificar de dos formas: desde
+          el punto de vista funcional (en qué se gasta) y económico (cómo se gasta).
+          La cantidad de dinero es la misma, pero la vemos desde dos ángulos."
+        financial_income: Ingresos financieros
+        financial_income_p1: Pueden ser depósitos bancarios inmovilizados o créditos
+          concedidos por entidades privadas, como bancos o aseguradoras.
+        functional: Gasto funcional
+        functional_p1: 'Es la más explicativa: nos dice, por ejemplo, cuánto se gasta
+          en la recogida de basura o en instalaciones deportivas. También se la conoce
+          como clasificación por partidas de gasto.'
+        functional_p2: En un presupuesto oficial se divide en áreas, y éstas a su
+          vez en políticas, grupos y programas. Este nivel de profundidad permite
+          saber con detalle a dónde va el dinero.
+        how_much_debt: "¿Cuánto debe tu municipio?"
+        how_much_debt_p1: La deuda viva de un municipio indica lo que debe el ayuntamiento
+          a los bancos y otras entidades financieras. No hay que confundirla con el
+          total del déficit del municipio (la diferencia entre los ingresos y los
+          gastos).
+        how_much_debt_p2: La deuda viva sólo incluye lo que se debe a las entidades
+          financieras.
+        how_much_debt_p3: Unos municipios tienen mayor capacidad de endeudamiento
+          que otros. Es posible que un municipio tenga más deuda que otro, pero si
+          su economía es más fuerte, tendrá más capacidad para soportarla y reducirla.
+        how_to_read: "¿Y cómo se lee?"
+        how_to_read_p1_html: 'Todos los presupuestos municipales tienen la misma estructura,
+          definida legalmente en la <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2008-19916">Orden
+          EHA/3565/2008</a>. La estructura básica es sencilla: se divide en ingresos
+          y gastos. Es decir, responde a las preguntas ¿De dónde sale el dinero? (ingresos)
+          y ¿en qué se gasta? (gastos).'
+        income: Ingresos
+        income_1_desc: Gravan la fuente de la renta, los frutos del patrimonio o de
+          una actividad económica.
+        income_2_desc: Algunos municipios recaudan una parte del IVA y otros impuestos
+          especiales.
+        income_3_desc: Precios públicos y contribuciones por contraprestaciones municipales.
+        income_4_desc: Dinero que el ayuntamiento recibe del Estado y de la Comunidad
+          Autónoma.
+        income_5_desc: Rentas de patrimonio del municipio. Son los beneficios sobre
+          bienes que no se destinan a servicio público.
+        income_6_desc: Venta de solares y fincas rústicas.
+        income_7_desc: Ingresos de naturaleza no tributaria destinados a financiar
+          gastos de capital.
+        income_8_desc: Devolución de fianzas o depósitos inmovilizados.
+        income_9_desc: Créditos solicitados a entidades privadas.
+        income_p1: 'Para empezar, los ingresos se dividen según su naturaleza económica,
+          es decir, de dónde viene el dinero y qué “forma” tiene: Si es un crédito
+          bancario, una propiedad municipal que se ha vendido o un impuesto.'
+        income_p2: En %{year} se ingresaron...
+        intro_p1: La Junta municipal –formada por el alcalde y los responsables de
+          cada área de gobierno– diseña el presupuesto, lo redacta a través de la
+          concejalía de Hacienda y lo presenta en el pleno, que es el órgano de máxima
+          representación política municipal.
+        intro_p2: Una vez allí, todos los concejales lo estudian y sugieren modificaciones.
+          Finalmente se somete a votación y se aprueba.
+        intro_p3: El presupuesto tiene que quedar aprobado antes del 31 de diciembre
+          del año anterior. Es decir, el presupuesto de 2016 tiene que estar aprobado
+          en diciembre de 2015, si no, se prorroga automáticamente.
+        regular_income: Ingresos corrientes
+        regular_income_p1: Impuestos y tasas que recauda el ayuntamiento, o dinero
+          que el Estado transfiere a cada municipio. Son los más habituales.
+        sources: Fuentes
+        sources_p1_html: Para elaborar esta guía hemos tomado como referencia la estructura
+          oficial de un presupuesto municipal, definida en la <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2008-19916">Orden
+          EHA/3565/2008</a> y nos hemos inspirado en otros documentos como <a href="http://www.ocmcartagena.org/files/archive/Entendiendo-un-presupuesto-municipal.pdf">Entendiendo
+          un presupuesto municipal</a> y <a href="https://docs.google.com/presentation/d/1oysDrJvlFxP0sKlzBalxvrV3lzSE5OCSKY7qd5yYpcA/pub?start=false&loop=false&delayms=3000&slide=id.p">Guía
+          de introducción a los presupuestos municipales</a>.
+        title: Cómo funciona un presupuesto municipal
+        types_income: Tipos de ingreso
+        types_income_p1: Los ingresos se dividen en nueve apartados y cada uno de
+          ellos en varios subapartados. Estas divisiones permiten profundizar para
+          conocer la procedencia exacta de cada ingreso.
+        types_income_p2: 'Por ejemplo: dentro de Impuestos indirectos se encuentran
+          los Consumos específicos. Y dentro de este último, están los Impuestos del
+          alcohol o el tabaco. En un presupuesto oficial, los apartados principales
+          se llaman capítulos. Y a su vez, cada capítulo se divide en artículos, conceptos
+          y subconceptos.'
+        types_income_p3: En Gobierto lo hemos simplificado para que sólo tengas que
+          buscar el nombre de cada apartado.
       index:
         at_a_glance: Evolución del gasto y comparación
         at_years_end: "* a cierre del %{year}"
@@ -136,6 +273,19 @@ es:
       expenses: gastos
       income: ingreso
       incomes: ingresos
+    events:
+      gobierto_budgets_budgets_execution_custom_updated: 'Ejecución presupuestaria
+        actualizada: área personalizada'
+      gobierto_budgets_budgets_execution_economic_updated: 'Ejecución presupuestaria
+        actualizada: área económica'
+      gobierto_budgets_budgets_execution_functional_updated: 'Ejecución presupuestaria
+        actualizada: área funcional'
+      gobierto_budgets_budgets_forecast_custom_updated: 'Presupuestos actualizados:
+        área personalizada'
+      gobierto_budgets_budgets_forecast_economic_updated: 'Presupuestos actualizados:
+        área económica'
+      gobierto_budgets_budgets_forecast_functional_updated: 'Presupuestos actualizados:
+        área funcional'
     featured_budget_lines:
       gobierto_site_template:
         how_much_place_in: "¿Cuánto se gasta %{place} en..."
@@ -150,8 +300,8 @@ es:
       menu_subsections:
         budget: Presupuesto
         execution: Ejecución
-        summary: Resumen
         guide: Guía
+        summary: Resumen
     visualizations:
       G_custom: Gastos por área
       G_economic: En qué se gasta

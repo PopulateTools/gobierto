@@ -1,5 +1,5 @@
 class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationController
-  before_action :load_place, :load_year
+  before_action :load_place
   before_action :load_year, except: [:guide]
 
   def index
@@ -23,6 +23,8 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
   end
 
   def guide
+    @year = GobiertoBudgets::SearchEngineConfiguration::Year.last
+    @site_stats = GobiertoBudgets::SiteStats.new site: @site, year: @year
   end
 
   private

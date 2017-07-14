@@ -1,13 +1,6 @@
 ---
 en:
   gobierto_budgets:
-    events:
-      gobierto_budgets_budgets_forecast_economic_updated: 'Budgets updated: economic area'
-      gobierto_budgets_budgets_forecast_functional_updated: 'Budgets updated: functional area'
-      gobierto_budgets_budgets_forecast_custom_updated: 'Budgets updated: custom area'
-      gobierto_budgets_budgets_execution_economic_updated: 'Budgets execution updated: economic area'
-      gobierto_budgets_budgets_execution_functional_updated: 'Budgets execution updated: functional area'
-      gobierto_budgets_budgets_execution_custom_updated: 'Budgets execution updated: custom area'
     budget_lines:
       explorer:
         examples: Examples
@@ -37,8 +30,8 @@ en:
         budget_lines_distribution: Expense budget lines distribution
         evolution: Evolution
         last_year: Last year
-        no_distribution: There aren't any related budget lines.
         no_description: There's no description for this budget line.
+        no_distribution: There aren't any related budget lines.
         no_more_descendants: There are no more descendants
         not_available: Not avail.
         percentage: "% over the total"
@@ -52,6 +45,147 @@ en:
         twitter_text_income: 'In @gobierto: Municipal income on %{name} in %{budget_line_name}
           for year %{year}'
     budgets:
+      guide:
+        budget_execution: Budget execution
+        budget_execution_p1_html: 'Approving a budget does not mean that it is written
+          in stone. Throughout the year there are unforeseen events that change the
+          amount or purpose of the expenses. These changes are noted in another document:
+          <a href=/presupuestos/ejecucion/%{year}">budget execution</a> .'
+        budget_execution_p2: 'In order to know if our city council has planned the
+          accounts well, we only have to compare the budget and the execution: Have
+          you spent more than budgeted, have you left money or adjusted to what is
+          expected ?.'
+        capital_income: Income from capital
+        capital_income_p1: They come from the sale of municipal properties such as
+          plots or estates. They can also come from European funds.
+        classification: Budget classification
+        classification_p1: Every budget has income and expenses. Income is classified
+          in an economic way, which establishes its origin. Expenses, on the other
+          hand, are functional and economical.
+        debt: 'Living Debt: How Much Should Your Township'
+        description: The municipal budget is the document that explains how the public
+          money is managed during a year. Here we explain the most important concepts
+          so that you do not lose in your reading.
+        economic: Economic spending
+        economic_p1: Indicates the nature of the expense. For example, "Staff costs",
+          which includes the salaries of all staff members according to their category.
+          It is similar to the economic classification of income.
+        economic_p2: In an official budget, the main sections are called chapters.
+          And in turn, each chapter is divided into articles, concepts and subconceptions.
+        execution: Budget Execution
+        expense_economic_1_desc: Salaries of civil servants, indemnities, contributions
+          and pension plans for all contracted personnel.
+        expense_economic_2_desc: Supplies, materials and expenses of services or work
+          done by contracted outsiders.
+        expense_economic_3_desc: Payment of interest arising from financial operations.
+        expense_economic_4_desc: Contributions to other entities or administrations
+          (state, autonomous or private companies) to finance current operations.
+        expense_economic_5_desc: These are funds that cover emergency situations and
+          unforeseen expenses.
+        expense_economic_6_desc: Creation of new equipment or infrastructures and
+          acquisition of inventories.
+        expense_economic_7_desc: Payment of credits to finance capital operations,
+          which have financed real investments.
+        expense_economic_8_desc: Acquisition of financial assets for the construction
+          of deposits and sureties required.
+        expense_economic_9_desc: Payment of amortization of financial liabilities
+          (such as debt).
+        expense_functional_0_desc: This item is intended to pay the debt accumulated
+          by the municipality.
+        expense_functional_1_desc: This item covers the minimum and compulsory needs
+          of a municipality.
+        expense_functional_2_desc: It is the money that goes to prevention and assistance.
+          For example, the promotion of employment.
+        expense_functional_3_desc: 'It affects services that improve the quality of
+          life: health, education, culture and leisure.'
+        expense_functional_4_desc: Herein lies what helps to develop the potential
+          of different economic sectors.
+        expense_functional_9_desc: Here the expenses of the city council and other
+          public bodies are grouped together.
+        expenses: Expenses
+        expenses_how: 'How does the municipality use the money of all the neighbors?
+          Expenses can be classified in two ways: from the functional point of view
+          (what is spent) and economic (how it is spent).'
+        expenses_per_inhabitant: The spending per capita was ...
+        expenses_types: Types of expense
+        expenses_types_p1: 'How does the municipality use the money of all the neighbors?
+          Everything is detailed here. Expenses can be classified in two ways: from
+          the functional point of view (what is spent) and economic (how it is spent).
+          The amount of money is the same, but we see it from two angles.'
+        financial_income: Financial income
+        financial_income_p1: They can be frozen bank deposits or loans granted by
+          private entities, such as banks or insurers.
+        functional: Functional expenditure
+        functional_p1: 'It is the most explanatory: it tells us, for example, how
+          much is spent on garbage collection or sports facilities. It is also known
+          as expenditure item classification.'
+        functional_p2: In an official budget is divided into areas, and these in turn
+          in policies, groups and programs. This level of depth allows you to know
+          in detail where the money goes.
+        how_much_debt: How much does your municipality owe?
+        how_much_debt_p1: The living debt of a municipality indicates what the council
+          owes to banks and other financial institutions. It should not be confused
+          with the total deficit of the municipality (the difference between income
+          and expenditure).
+        how_much_debt_p2: Living debt only includes what is owed to financial institutions.
+        how_much_debt_p3: Some municipalities have greater indebtedness capacity than
+          others. It is possible that one municipality has more debt than another,
+          but if its economy is stronger, it will have more capacity to support and
+          reduce it.
+        how_to_read: And how do you read?
+        how_to_read_p1_html: 'All municipal budgets have the same structure, legally
+          defined in <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2008-19916">Order
+          EHA / 3565/2008</a> . The basic structure is simple: it is divided into
+          income and expenses. That is, answers the questions Where does the money
+          come from? (Income) and what is it spent on? (expenses).'
+        income: Income
+        income_1_desc: They tax the source of income, the fruits of heritage or an
+          economic activity.
+        income_2_desc: Some municipalities collect a part of the VAT and other special
+          taxes.
+        income_3_desc: Public prices and contributions for municipal benefits.
+        income_4_desc: Money that the city council receives from the State and the
+          Autonomous Community.
+        income_5_desc: Property income of the municipality. They are the profits on
+          goods that are not destined to public service.
+        income_6_desc: Sale of plots and rustic farms.
+        income_7_desc: Income of a non-tax nature intended to finance capital expenditures.
+        income_8_desc: Return of immobilized deposits or deposits.
+        income_9_desc: Credits requested from private entities.
+        income_p1: 'To begin with, income is divided according to its economic nature,
+          ie where the money comes from and what "form" it has: If it is a bank credit,
+          a municipal property that has been sold or a tax.'
+        income_p2: In %{year} were entered...
+        intro_p1: The municipal council - formed by the mayor and those responsible
+          for each area of ​​government - designs the budget, drafts it through the
+          Department of Finance and presents it in plenary, which is the organ of
+          maximum representation municipal politics.
+        intro_p2: Once there, all councilors study it and suggest modifications. Finally
+          it is put to a vote and approved.
+        intro_p3: The budget must be approved before December 31 of the previous year.
+          That is, the 2016 budget has to be approved in December 2015, if not, it
+          is automatically extended.
+        regular_income: Current income
+        regular_income_p1: Taxes and fees collected by the municipality, or money
+          that the state transfers to each municipality. They are the most common.
+        sources: Sources
+        sources_p1_html: To prepare this guide we have taken as reference the official
+          structure of a municipal budget, defined in <a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2008-19916">Order
+          EHA / 3565/2008</a> and we have been inspired by other documents such as
+          <a href="http://www.ocmcartagena.org/files/archive/Entendiendo-un-presupuesto-municipal.pdf">Understanding
+          a municipal budget</a> and an <a href="https://docs.google.com/presentation/d/1oysDrJvlFxP0sKlzBalxvrV3lzSE5OCSKY7qd5yYpcA/pub?start=false&loop=false&delayms=3000&slide=id.p">introduction
+          guide to municipal budgets</a> .
+        title: How a municipal budget works
+        types_income: Types of income
+        types_income_p1: The income is divided into nine sections and each of them
+          in several subsections. These divisions allow to deepen to know the exact
+          origin of each income.
+        types_income_p2: 'For example: within Indirect Taxes are the specific Consumptions.
+          And within the latter, are the taxes of alcohol or tobacco. In an official
+          budget, the main sections are called chapters. And in turn, each chapter
+          is divided into articles, concepts and subconceptions.'
+        types_income_p3: In Gobierto we have simplified it so that you only have to
+          look for the name of each section.
       index:
         at_a_glance: At a glance
         at_years_end: "* at the end of %{year}"
@@ -194,6 +328,18 @@ en:
       expenses: expenses
       income: income
       incomes: incomes
+    events:
+      gobierto_budgets_budgets_execution_custom_updated: 'Budgets execution updated:
+        custom area'
+      gobierto_budgets_budgets_execution_economic_updated: 'Budgets execution updated:
+        economic area'
+      gobierto_budgets_budgets_execution_functional_updated: 'Budgets execution updated:
+        functional area'
+      gobierto_budgets_budgets_forecast_custom_updated: 'Budgets updated: custom area'
+      gobierto_budgets_budgets_forecast_economic_updated: 'Budgets updated: economic
+        area'
+      gobierto_budgets_budgets_forecast_functional_updated: 'Budgets updated: functional
+        area'
     featured_budget_lines:
       gobierto_site_template:
         how_much_place_in: How much does %{place} expend on...
@@ -208,8 +354,8 @@ en:
       menu_subsections:
         budget: Budget
         execution: Execution
-        summary: Summary
         guide: Guide
+        summary: Summary
     visualizations:
       G_custom: Expenses per area
       G_economic: In what

@@ -1,5 +1,7 @@
 /* Boxes */
-.box {
+.box,
+.agenda {
+  text-align: left;
   position: relative;
   margin: 0 0.5em 2em;
   box-shadow: 0 1px 2px 1px rgba(0,0,0,0.20);
@@ -65,5 +67,14 @@
     p {
       margin-top: 0;
     }
+  }
+}
+
+.agenda {
+  h3 {
+    font-size: 1em;
+    font-weight: 700;
+    color: $color_headers;
+    text-transform: uppercase;
   }
 }

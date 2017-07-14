@@ -67,6 +67,12 @@
 @import "module-admin";
 
 /*
+* Gobierto themes
+*
+*/
+@import "theme-participation";
+
+/*
  * Print styles
  *
  */
@@ -218,7 +224,7 @@ a.soft_cta:hover {
 }
 .pl-xs {
   padding-left: 0.75rem;
-  
+
   @include min-screen(768) {
     padding-left: 0;
   }

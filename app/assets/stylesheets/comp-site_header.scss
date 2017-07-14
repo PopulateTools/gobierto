@@ -69,6 +69,10 @@ header.meta {
   .site_header {
     padding: 0 0 1em 0;
     position: relative;
+
+    .column  {
+      position: relative;
+    }
     .logo {
       margin: 0.75em 0;
       img {
@@ -85,6 +89,92 @@ header.meta {
         }
       }
     }
+    .absolute_right {
+      top: 2em;
+    }
+    .social_links_container {
+      text-align: center;
+      font-size: .85em;
+      display: inline;
+      margin-right: 0.5em;
+
+      .fa {
+        margin: 0;
+      }
+      a {
+        padding: 0;
+        margin: 0 0 0 .5em;
+        width: 2.1em;
+      }
+    }
+    .button.outline.rounded {
+      text-transform: none;
+      padding: 0.25em 0.5em;
+      border-radius: 20px;
+      font-weight: 600;
+      width: auto;
+
+      &.desktop_only {
+        @include screen(740) {
+          display: none;
+        }
+        @include min-screen(741) {
+          display: inline-block;
+        }
+      }
+
+      &.mobile_only {
+        @include screen(740) {
+          display: inline-block;
+        }
+        @include min-screen(741) {
+          display: none;
+        }
+      }
+
+      .fa {
+        font-size: 85%;
+      }
+    }
+    .search_icon {
+      background: #e5eff8;
+      color: #979ea4;
+    }
+    .search_box {
+      margin-top: 0;
+      text-align: right;
+      display: inline;
+
+      input {
+        width: 150px;
+        height: 34px;
+        padding: 0 .5em;
+        margin: 0;
+      }
+    }
+    .search_result_list {
+      @include box-shadow(0, 0, 10px);
+      @include border-radius(4px);
+      // @mixin box-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4), $inset: "") {
+      width: 250px;
+      background: $color_neutral_soft;
+      // position: absolute;
+      // right: 0;
+      // top: 3.5em;
+      z-index: 1000;
+      font-size: .85em;
+      line-height: 1.2em;
+      .result {
+        padding: 1em;
+        h2 {
+          margin: .25em 0;
+          font-size: 1rem;
+        }
+      }
+      .result:hover {
+        background: darken($color_neutral_soft, 2%);
+      }
+    }
     a {
       text-decoration: none;
     }
@@ -99,35 +189,7 @@ header.meta {
       border-color: $color_main_soft;
       position: relative;
       min-height: 4.85em;
-      .search_box {
-        position: absolute;
-        right: 0;
-        top: 10px;
-        margin-top: 0;
-        text-align: right;
-        width: 40%;
-        input {
-          width: 150px;
-          height: 34px;
-          padding: 0 .5em;
-          margin: 0;
-        }
-      }
-      .social_links_container {
-        position: absolute;
-        right: 0;
-        bottom: 11px;
-        text-align: center;
-        font-size: .85em;
-        .fa {
-          margin: 0;
-        }
-        a {
-          padding: 0;
-          margin: 0 0 0 .5em;
-          width: 2.1em;
-        }
-      }
+
       a {
         display: inline-block;
       }
@@ -196,29 +258,6 @@ header.meta {
               }
             }
           }
-        }
-      }
-      .search_result_list {
-        @include box-shadow(0, 0, 10px);
-        @include border-radius(4px);
-        // @mixin box-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4), $inset: "") {
-        width: 250px;
-        background: $color_neutral_soft;
-        position: absolute;
-        right: 0;
-        top: 3.5em;
-        z-index: 1000;
-        font-size: .85em;
-        line-height: 1.2em;
-        .result {
-          padding: 1em;
-          h2 {
-            margin: .25em 0;
-            font-size: 1rem;
-          }
-        }
-        .result:hover {
-          background: darken($color_neutral_soft, 2%);
         }
       }
     }

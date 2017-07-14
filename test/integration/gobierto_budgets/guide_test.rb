@@ -20,7 +20,7 @@ class GobiertoBudgets::GuideTest < ActionDispatch::IntegrationTest
 
       assert has_content?("How a municipal budget works")
       assert has_content?("In 2016 were entered...")
-      assert has_content?("4483.5M€")
+      assert has_content?("753,256€")
     end
   end
 end

@@ -85,13 +85,13 @@ ca:
           sign_out: Tancar sessió
           title: El teu compte
     search:
+      budget_line_item_expense: Partida pressupostària - Despesa
+      budget_line_item_income: Partida pressupostària - Ingrés
       page_item: Pàgina
       person_event_item: Event
       person_item: Biografia
       person_post_item: Post
       person_statement_item: Declaració
-      budget_line_item_income: Partida pressupostària - Ingrés
-      budget_line_item_expense: Partida pressupostària - Despesa
       powered_by: Gobierto utilitza <a href="https://www.algolia.com" target="_blank">Algolia</a>
         per a buscar
       updated: Actualitat

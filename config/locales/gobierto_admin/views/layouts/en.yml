@@ -13,6 +13,7 @@ en:
           message: You have unsaved changes. Are you sure you want to leave this page?
         edit_site: Customize site
         hey_admin: Hey, %{admin_name}
+        issues: Themes
         manage_sites: Manage sites
         notifications: Notifications
         people: Officers and Agendas

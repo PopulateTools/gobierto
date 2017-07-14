@@ -1,0 +1,9 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_participation:
+      issues:
+        create:
+          success: "El tema s'ha creat correctament."
+        update:
+          success: "El tema s'ha actualitzat correctament."

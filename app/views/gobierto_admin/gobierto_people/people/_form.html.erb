@@ -24,7 +24,7 @@
         <% I18n.available_locales.map(&:to_s).each do |locale| %>
           <div class="form_item input_text" data-locale="<%= locale %>">
             <%= label_tag "person[charge_translations][#{locale}]", f.object.class.human_attribute_name(:charge) %>
-            <%= text_field_tag "person[charge_translations][#{locale}]", f.object.charge_translations && f.object.charge_translations[locale], placeholder: t(".placeholders.charge") %>
+            <%= text_field_tag "person[charge_translations][#{locale}]", f.object.charge_translations && f.object.charge_translations[locale], placeholder: t(".placeholders.charge", locale: locale.to_sym) %>
           </div>
 
           <div class="form_item textarea" data-locale="<%= locale %>">

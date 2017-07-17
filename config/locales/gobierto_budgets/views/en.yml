@@ -194,7 +194,6 @@ en:
         context: Context
         data_of_year: "* as of %{year}"
         debt: Debt
-        data_advice: Economic quantities expressed in €. Data from 2015.
         expenses: Expenses
         expenses_per_inhabitant: Expenses per inhabitant
         header: Budgets

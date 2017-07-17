@@ -198,7 +198,6 @@ es:
         context: Contexto
         data_of_year: "* datos del %{year}"
         debt: Deuda
-        data_advice: Cantidades económicas expresadas en €. Datos de 2015.
         expenses: Gastos
         expenses_per_inhabitant: Gasto por habitante
         header: Presupuestos

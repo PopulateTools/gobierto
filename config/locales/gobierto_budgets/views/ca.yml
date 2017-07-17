@@ -192,7 +192,6 @@ ca:
         context: Contexte
         data_of_year: "* dades del %{year}"
         debt: Deute
-        data_advice: Quantitats econòmiques expressades en €. Dades de 2015.
         expenses: Despeses
         expenses_per_inhabitant: Despesa per habitant
         header: Pressuposts

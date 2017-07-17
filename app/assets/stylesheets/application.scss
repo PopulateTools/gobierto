@@ -50,6 +50,7 @@
 @import "comp-tabs";
 @import "comp-text_content";
 @import "comp-indicator_widget";
+@import "comp-content";
 
 @import "comp-graph-treemap";
 @import "comp-graph-vis_lines_table";
@@ -65,6 +66,12 @@
 @import "module-people";
 
 @import "module-admin";
+
+/*
+* Gobierto themes
+*
+*/
+@import "theme-participation";
 
 /*
  * Print styles
@@ -218,7 +225,7 @@ a.soft_cta:hover {
 }
 .pl-xs {
   padding-left: 0.75rem;
-  
+
   @include min-screen(768) {
     padding-left: 0;
   }

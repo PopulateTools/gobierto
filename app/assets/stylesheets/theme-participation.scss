@@ -1,0 +1,20 @@
+$blue: #0072bc;
+$green: #00b585;
+
+.theme-participation {
+  header.meta .site_header .logo {
+    text-align: left;
+
+    img {
+      max-width: 190px;
+    }
+  }
+  .button.outline.rounded {
+    color: $green;
+    border: 1px solid $green;
+
+    .fa {
+      color: $green;
+    }
+  }
+}

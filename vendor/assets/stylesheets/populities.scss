@@ -61,6 +61,10 @@
 .f_right {
   float: right;
 }
+.absolute_right {
+  position: absolute;
+  right: 0;
+}
 .hidden, .soft_hidden {
   display: none;
 }
@@ -451,6 +455,20 @@ $units: 1px !default;
   }
 }
 
+/* Encloses current element with a circle */
+@mixin circle($size) {
+  color: $color_text;
+  font-weight: 400;
+  border: 1px solid #00909E;
+  border-radius: 100%;
+  font-size: 0.775em;
+  text-align: center;
+  margin-right: 0.25em;
+  width: $size;
+  height: $size;
+  line-height: $size;
+  display: inline-block;
+}
 
 
 

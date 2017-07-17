@@ -2,27 +2,27 @@
  * Metric boxes
  *
  */
+
 .metric_boxes {
 	margin: 0 0 3em 0;
 
   .metric_box {
 		box-sizing: border-box;
 		.inner {
+      background: transparentize($color_main, .85);
 			margin: 0 .5em;
 			padding: .8em 1em;
 			min-height: 100px;
 			position: relative;
-      border: 1px solid $separator;
 		}
 		h3 {
-			color: $color_text;
+      color: $color_main;
 			margin: 0 0 .75em 0;
 			font-size: 1em;
       opacity: 0.6;
 			font-weight: 600;
 		}
 		.metric {
-      color: $color_main;
 			font-size: 2em;
 			font-weight: 600;
 		}

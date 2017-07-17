@@ -1,0 +1,9 @@
+---
+en:
+  gobierto_admin:
+    gobierto_participation:
+      issues:
+        create:
+          success: "Theme was successfully created."
+        update:
+          success: "Theme was successfully updated."

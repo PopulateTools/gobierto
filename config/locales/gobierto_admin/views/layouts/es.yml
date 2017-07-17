@@ -13,6 +13,7 @@ es:
           message: Hay cambios sin guardar. ¿Estás seguro de querer continuar?
         edit_site: Personalizar sitio
         hey_admin: Hola, %{admin_name}
+        issues: Temas
         manage_sites: Gestionar sites
         notifications: Notificaciones
         people: Altos cargos y Agendas

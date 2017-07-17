@@ -84,6 +84,15 @@ module GobiertoBudgets
       @attributes[:parent_code].to_s
     end
 
+    def resource_path
+      Rails.application.routes.url_helpers.gobierto_budgets_budget_line_path(
+        area_name: area_name,
+        kind: kind,
+        year: year,
+        id: code
+      )
+    end
+
     def to_param
       {
         id: code,

@@ -8,7 +8,7 @@
 
     <div class="padded">
       <div class="line_title">
-        <h3 class="m_v_0"><%= budget_line_summary[:title] %></h3>
+        <h3 class="m_v_0"><%= budget_line_summary[:name] %></h3>
       </div>
       <div class="line_figure">
         <div class="figure">
@@ -30,7 +30,27 @@
         <% end %>
 
         <div class="zoom">
-          <i class="tooltiped-budget-lines fa fa-search-plus" title="<div class='table_header left'><div class='table_title'><a href='#'>Producción de bienes públicos de carácter preferente</a></div><div class='f_right'><strong class='f6'>407M</div></span></div><div class='table_wrapper'><table class='left'><tr><td><a href='#'>Seguridad y movilidad ciudadana</a></td><td class='right'>10M</td></tr><tr><td><a href='#'>Vivienda y urbanismo</a></td><td class='right'>20M</td></tr><tr><td><a href='#'>Bienestar comunitario</a></td><td class='right'>40M</td></tr><tr><td><a href='#'>Otras prestaciones económicas a favor de empleados</a></td><td class='right'>330M</td></tr></table></div>"></i>
+          <i class="tooltiped-budget-lines fa fa-search-plus" title="
+            <div class='table_header left'>
+              <div class='table_title'>
+                <a href='<%= budget_line_summary[:path] %>'><%= budget_line_summary[:name] %></a>
+              </div>
+              <div class='f_right'>
+                <strong><%= format_currency budget_line_summary[:budgeted_amount] %></strong>
+              </div>
+            </div>
+
+            <div class='table_wrapper'>
+              <table class='left'>
+                <% budget_line_summary[:descendants].each do |bl| %>
+                  <tr>
+                    <td><a href='<%= bl[:path] %>'><%= bl[:name] %></a></td>
+                    <td class='right'><%= format_currency bl[:budgeted_amount] %></td>
+                  </tr>
+                <% end %>
+              </table>
+            </div>"
+          ></i>
         </div>
       </div>
     </div>

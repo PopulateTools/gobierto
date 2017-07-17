@@ -98,15 +98,18 @@ module GobiertoBudgets
     end
 
     def main_budget_lines_summary
-      main_budget_lines_forecast  = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, place: @site.place, year: @year, area_name: EconomicArea.area_name })
-      main_budget_lines_execution = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, place: @site.place, year: @year, area_name: EconomicArea.area_name, index: SearchEngineConfiguration::BudgetLine.index_executed })
+      main_budget_lines_forecast         = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, place: @site.place, year: @year, area_name: EconomicArea.area_name })
+      main_budget_lines_execution        = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, place: @site.place, year: @year, area_name: EconomicArea.area_name, index: SearchEngineConfiguration::BudgetLine.index_executed })
+      second_level_budget_lines_forecast = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 2, place: @site.place, year: @year, area_name: EconomicArea.area_name })
 
       main_budget_lines_summary = {}
 
       main_budget_lines_forecast.each do |budget_line|
         main_budget_lines_summary[budget_line.code] = {
-          title: budget_line.name,
-          budgeted_amount: budget_line.amount
+          name: budget_line.name,
+          budgeted_amount: budget_line.amount,
+          path: budget_line.resource_path,
+          descendants: second_level_budget_lines_forecast.select{ |bl| bl.parent_code == budget_line.code }.map{ |bl| { name: bl.name, path: bl.resource_path, budgeted_amount: bl.amount } }
         }
       end
 

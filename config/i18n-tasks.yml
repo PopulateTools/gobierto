@@ -10,6 +10,7 @@ ignore_missing:
   - 'sandbox.*'
   - 'gobierto_budget_consultations.consultation_statuses.*'
   - 'gobierto_indicators.cards.*'
+  - 'gobierto_budgets.budgets.index_old.*'
 
 ignore_unused:
   - 'number.*'

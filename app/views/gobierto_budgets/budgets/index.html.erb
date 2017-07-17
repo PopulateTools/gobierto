@@ -190,16 +190,57 @@
     </div>
   <% end %>
 
-  <div class="block">
-    <h2 class="with_description"><%= t('.budget_lines_block.title') %></h2>
-    <p class="description"><%= t('.budget_lines_block.intro') %></p>
+  <% pending do %>
+    <div class="block">
+      <h2 class="with_description"><%= t('.budget_lines_block.title') %></h2>
+      <p class="description"><%= t('.budget_lines_block.intro') %></p>
 
-    <div class="pure-g line_boxes">
-      <% @main_budget_lines_summary.each do |budget_line_summary| %>
-        <%= render 'line_box', budget_line_summary: budget_line_summary %>
-      <% end %>
+      <div class="pure-g line_boxes">
+        <% @main_budget_lines_summary.each do |budget_line_summary| %>
+          <%= render 'line_box', budget_line_summary: budget_line_summary %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="block">
+    <h2 class="with_description"><%= t('.most_interesting_budget_lines') %></h2>
+    <p class="description"><%= t('.most_interesting_budget_lines_description') %></p>
+
+    <div class="graph" id="expense-treemap"
+                       data-functional-url="<%= gobierto_budgets_budget_lines_treemap_path(@year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: 'functional', level: 2, format: :json) %>"
+                       data-economic-url="<%= gobierto_budgets_budget_lines_treemap_path(@year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: 'economic', level: 2, format: :json) %>">
     </div>
 
+    <table class="explore_slow">
+      <thead class="screen-hidden">
+        <tr>
+          <th><%= t('.level_2_category') %></th>
+          <th><%= t('.level_3_category') %></th>
+          <th><%= t('.category_value') %></th>
+          <th><%= t('.category_percentage') %></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @interesting_expenses.group_by(&:parent_code).each do |parent_code, bls| %>
+            <tr class="group">
+              <td class="level_1" rowspan="<%= bls.count %>">
+                <%= budget_line_denomination @interesting_area, parent_code, GobiertoBudgets::BudgetLine::EXPENSE %>
+              </td>
+              <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
+                    locals: {sub_budget_line: bls.first } %>
+            </tr>
+            <% bls[1..-1].each do |bl| %>
+              <tr>
+                <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
+                    locals: {sub_budget_line: bl } %>
+              </tr>
+          <% end %>
+        </tbody>
+      <% end %>
+    </table>
   </div>
 
   <% if @site_stats.budgets_execution_summary[:income_execution_percentage] && @site_stats.budgets_execution_summary[:expenses_execution_percentage] %>

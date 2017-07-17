@@ -56,12 +56,21 @@
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
         <div class="inner">
           <h3><%= t('.executed') %> (<span class="tooltiped" title="<%= t('.executed_tooltip') %>">?</span>)</h3>
-          <div class="metric"><%= format_currency @site_stats.total_budget_executed %></div>
-          <div class="explanation_bar">
-            <% percentage = @site_stats.percentage_difference(variable1: :total_budget_executed, variable2: :total_budget_planned) %>
-            <div class="bar"><div class="line" style="width: <%= percentage %>%"></div></div>
-            <span><%= t('.executed_percent', percentage: percentage) %></span>
-          </div>
+          <% if @site_stats.total_budget_executed %>
+            <div class="metric"><%= format_currency @site_stats.total_budget_executed %></div>
+            <div class="explanation_bar">
+              <% percentage = @site_stats.total_budget_executed_percentage %>
+              <% percentage_bar_width = percentage > 100 ? 100 : percentage %>
+              <div class="bar"><div class="line" style="width: <%= percentage_bar_width %>%"></div></div>
+              <span><%= t('.executed_percent', percentage: percentage) %></span>
+            </div>
+          <% else %>
+            <% percentage = @site_stats.total_budget_executed_percentage(@year - 1) %>
+            <div class="metric"><span class="not_av"><%= t('.not_available_short') %></span></div>
+            <div class="explanation">
+              <%= t('.executed_percent_other_year_html', year: @year - 1, link: link_to("#{percentage} %", gobierto_budgets_budgets_execution_path)) %>
+            </div>
+          <% end %>
         </div>
       </div>
 

@@ -257,6 +257,7 @@ en:
         executed_tooltip: The execution is the quantity that has been spent from the initial budget.
         executed_percent: '%{percentage} of the budget'
         planned_vs_executed_other_year_html: In %{year} it was %{link}
+        executed_percent_other_year_html: In %{year} it was a %{link}
         search_for_a_budget_line: Search a budget line
         see_all: view all
         title: Local municipality budgets in %{year}

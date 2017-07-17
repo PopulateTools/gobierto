@@ -256,6 +256,7 @@ ca:
         executed_tooltip: L'execució és la quantitat que finalment s'ha gastat sobre el pressupostat inicialment.
         executed_percent: '%{percentage} del pressupost'
         planned_vs_executed_other_year_html: En %{year} va ser un %{link}
+        executed_percent_other_year_html: En %{year} va ser un %{link}
         search_for_a_budget_line: Busca una partida
         see_all: Veure tots
         title: Pressupostos municipals el %{year}

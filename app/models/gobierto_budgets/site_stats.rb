@@ -33,6 +33,10 @@ module GobiertoBudgets
       BudgetTotal.execution_for(@place.id, year)
     end
 
+    def total_budget_executed_percentage(year = nil)
+      execution_percentage(total_budget(year), total_budget_executed(year))
+    end
+
     def debt(year = nil)
       year ||= @year
       @data[:debt][year] ||= SearchEngine.client.get(index: SearchEngineConfiguration::Data.index,

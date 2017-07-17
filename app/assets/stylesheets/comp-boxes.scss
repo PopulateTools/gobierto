@@ -1,5 +1,5 @@
-/* Boxes */
-.box,
+/* home_blockes */
+.home_block,
 .agenda {
   text-align: left;
   position: relative;
@@ -12,20 +12,20 @@
   background-size: cover;
   min-height: 20em;
 }
-.box.cover_bottom_left {
+.home_block.cover_bottom_left {
   background-size: auto;
   background-position: bottom left;
 }
 .lead {
   font-size: 1.25em;
 }
-.light_box {
+.light_home_block {
   h2 {
     font-size: 1.625em;
     margin-top: 0.25em;
   }
 }
-.filled_box {
+.filled_home_block {
   background-color: $color_main;
 
   h2 {

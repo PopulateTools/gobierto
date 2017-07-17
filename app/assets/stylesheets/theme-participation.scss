@@ -2,6 +2,7 @@ $blue: #0072bc;
 $light_blue: #22A3D8;
 $lighter_blue: #E5F3F5;
 $green: #00b585;
+$light_black: rgba($color_headers, .7);
 
 .theme-participation {
   header.meta {
@@ -21,7 +22,7 @@ $green: #00b585;
   }
 
   .gradient-bg {
-    padding: 0.5em;
+    padding: 1em;
     padding-top: 4em;
 
     @media (min-width: 768px) {
@@ -48,14 +49,14 @@ $green: #00b585;
     }
   }
 
-  /* Boxes */
-  .light_box {
+  /* home_blockes */
+  .light_home_block {
     h2 {
       color: $green;
     }
   }
 
-  .filled_box {
+  .filled_home_block {
     background-color: $green;
   }
 
@@ -137,4 +138,83 @@ $green: #00b585;
     color: $light_blue;
     border-top-color: $light_blue;
   }
+
+  .updates_box {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+
+  .agenda_title {
+    text-align: left;
+    color: $color_headers;
+    margin: 0;
+    padding: 0.5em;
+    text-transform: uppercase;
+    font-size: 1em;
+  }
+
+  .agenda {
+    min-height: 17em;
+    padding-top: 1.5em;
+    margin-bottom: 1em;
+    border-top-left-radius: 0;
+
+    a {
+     color: $green;
+    }
+
+    ~ a {
+      color: $light_black;
+    }
+
+    .place_event-item,
+    .place_news-item,
+    .place_latest-item {
+      display: block;
+      margin-bottom: 1em;
+
+      .date_badge {
+        background-color: $light_blue;
+        margin-bottom: 0.5em;
+
+        @include min-screen(740) {
+          margin-bottom: 0;
+        }
+
+        .day {
+          text-transform: uppercase;
+          font-size: 1em;
+          color: white;
+        }
+      }
+
+      .event-content,
+      .news-content,
+      .latest-content {
+        padding: 0;
+
+        @include min-screen(740) {
+          padding: 0 0 0 1em;
+        }
+
+        h3 {
+          text-transform: none;
+          font-weight: 600;
+          margin: 0 0 0.25em 0;
+          @include multiline-ellipsis(2);
+        }
+
+        .meta {
+          a {
+            color: $light_black;
+          }
+
+          div:first-child {
+            padding-right: 0.5em;
+          }
+        }
+      }
+    }
+  }
+
 }

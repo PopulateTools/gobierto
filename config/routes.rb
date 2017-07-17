@@ -75,6 +75,14 @@ Rails.application.routes.draw do
       resource :file_attachments, only: [:create]
     end
 
+    namespace :gobierto_participation, as: :participation, path: :participation do
+      resources :issues, only: [:index, :show, :new, :create, :edit, :update] do
+        collection do
+          resource :issue_sort, only: [:create], controller: "issues_sort", path: :issues_sort
+        end
+      end
+    end
+
     namespace :gobierto_common, as: :common, path: nil do
       resources :content_blocks, only: [:new, :create, :edit, :update, :destroy]
     end

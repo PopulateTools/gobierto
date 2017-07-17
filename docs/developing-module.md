@@ -10,10 +10,11 @@
 
 Gobierto modules implement well defined and isolated features of the application. Examples of modules are:
 
-- Gobierto Budgets: municipalities budgets visualization
-- Gobierto Officials: senior officials official information and agenda publication
-- Gobierto Indicators: indicators and statics of a municipality
-- Gobierto CMS: small CMS system
+- Gobierto Budgets: municipalities budgets visualization.
+- Gobierto Officials: senior officials official information and agenda publication.
+- Gobierto Indicators: indicators and statics of a municipality.
+- Gobierto CMS: small CMS system.
+- Gobierto Participation: participation in phased processes.
 
 Modules can be activated or disabled by the **metadministrator**, but their code will be included in all the installations of Gobierto.
 
@@ -169,6 +170,25 @@ Also, you need to define a couple of files for the menus:
 
 - `_navigation.html.erb`
 
+### Admin menu
+
+Create a new link adding the necessary permissions in `app/views/gobierto_admin/layouts/application.html.erb`. Example:
+
+```ruby
+# app/views/gobierto_admin/layouts/application.html.erb
+
+<% if managing_site? %>
+  <li>
+    <%= link_to t('.edit_site'), edit_admin_site_path(current_site) %>
+    <% if show_module_link?('GobiertoParticipation') %>
+      <ul>
+        <li><%= link_to t('.issues'), admin_participation_issues_path %></li>
+      </ul>
+    <% end %>
+  </li>
+<% end %>
+
+```
 
 ## Routes
 
@@ -192,7 +212,7 @@ GobiertoExports is a module that exposes a page where the user can download data
 ```ruby
 <%= link_to t("gobierto_people.layouts.application.title"), gobierto_exports_root_path(anchor: 'section-people') %>
 ```
-  
+
 - `_index.html.erb` containing the html to include in the open data page, for example:
 
 ```ruby
@@ -234,9 +254,9 @@ respond_to do |format|
 end
 ```
 
-For the json format put your module serializers into `app/serializers/<module_name>`. 
+For the json format put your module serializers into `app/serializers/<module_name>`.
 
-For the csv define use the `GobiertoExports::CSVRenderer` with a relation and define two methods in the corresponding module, a class method named `csv_columns` that returns the csv headers and an instance method named `as_csv` that returns that record as an array of values to include in th csv. 
+For the csv define use the `GobiertoExports::CSVRenderer` with a relation and define two methods in the corresponding module, a class method named `csv_columns` that returns the csv headers and an instance method named `as_csv` that returns that record as an array of values to include in th csv.
 
 Example:
 
@@ -251,6 +271,93 @@ def as_csv
   [id, name, email, charge, bio, bio_url, avatar_url, category, political_group_name, party, created_at, updated_at]
 end
 ```
+
+## Activities
+
+Gobierto has an activities log that save the admin events in the application. For example, to save this
+information we must generate into `app/pub_sub/` the publisher and the subscriber to events like
+created page, updated page or deleted page.
+
+```ruby
+module Publishers
+  class GobiertoCmsPageActivity
+    include Publisher
+
+    self.pub_sub_namespace = 'activities/gobierto_cms_pages'
+  end
+end
+```
+
+```ruby
+module Subscribers
+  class GobiertoCmsPageActivity < ::Subscribers::Base
+    def page_created(event)
+      create_activity_from_event(event, 'gobierto_cms.page_created')
+    end
+
+    def page_updated(event)
+      create_activity_from_event(event, 'gobierto_cms.page_updated')
+    end
+
+    def page_deleted(event)
+      create_activity_from_event(event, 'gobierto_cms.page_deleted')
+    end
+
+    private
+
+    def create_activity_from_event(event, action)
+      Activity.create! subject: event.payload[:subject],
+                       author: event.payload[:author],
+                       subject_ip: event.payload[:ip],
+                       action: action,
+                       site_id: event.payload[:site_id],
+                       admin_activity: true
+    end
+  end
+end
+```
+
+These events have to be called from the controller with **track_create_activity**:
+
+```ruby
+# app/controllers/gobierto_admin/gobierto_participation/issues_controller.rb
+
+module GobiertoAdmin
+  module GobiertoParticipation
+    class IssuesController < BaseController
+
+      ...
+
+      def create
+        @issue_form = IssueForm.new(issue_params.merge(site_id: current_site.id))
+
+        if @issue_form.save
+          track_create_activity
+
+          redirect_to(
+            admin_participation_issues_path(@issue),
+            notice: t(".success")
+          )
+        else
+          render :new_modal, layout: false and return if request.xhr?
+          render :new
+        end
+      end
+
+      ...
+
+      private
+
+      def track_create_activity
+        Publishers::GobiertoParticipationIssueActivity.broadcast_event("issue_created", default_activity_params.merge({subject: @issue_form.issue}))
+      end
+      ...
+    end
+  end
+end
+
+```
+
 
 ## Assets
 

@@ -258,3 +258,10 @@ p.intro {
   }
 
 }
+
+.with_separator {
+  display: inline-block;
+  min-width: 10em;
+  padding-top: 1em;
+  border-top: 3px solid $color_main;
+}

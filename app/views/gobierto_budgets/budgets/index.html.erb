@@ -25,7 +25,7 @@
           <%= t('.description') %>
 
           <% if @budgets_data_updated_at %>
-            <%= t('.last_update') %>: <%= l(@budgets_data_updated_at, format: '%d %B %Y') %>
+            <%= t('.last_update') %>: <%= l(@budgets_data_updated_at, format: '%d %B %Y') %>.
           <% end %>
         </p>
 
@@ -203,8 +203,8 @@
           <p class="description">
             <%= t('.execution_block.intro') %>
 
-            <% pending do %>
-              <%= t('.execution_block.last_update', date: '5 de junio 2017') %>
+            <% if @budgets_data_updated_at %>
+              <%= t('.execution_block.last_update', date: l(@budgets_data_updated_at, format: '%d %B %Y')) %>
             <% end %>
           </p>
         </div>

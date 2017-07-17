@@ -135,6 +135,7 @@ $light_black: rgba($color_headers, .7);
 
   /* Agenda */
   .with_separator {
+    font-size: 1.25em;
     color: $light_blue;
     border-top-color: $light_blue;
   }
@@ -213,6 +214,19 @@ $light_black: rgba($color_headers, .7);
             padding-right: 0.5em;
           }
         }
+      }
+    }
+  }
+
+
+  /* Current processes */
+  .current_processes {
+    h3 {
+      font-weight: 600;
+      font-size: 1.25em;
+
+      a {
+        color: $green;
       }
     }
   }

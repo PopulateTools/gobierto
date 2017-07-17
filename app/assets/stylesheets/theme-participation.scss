@@ -138,6 +138,14 @@ $light_black: rgba($color_headers, .7);
     font-size: 1.25em;
     color: $light_blue;
     border-top-color: $light_blue;
+
+    & ~ .soft {
+      margin-top: 0;
+
+      @include min-screen(740) {
+        padding-right: 1em;
+      }
+    }
   }
 
   .updates_box {
@@ -227,6 +235,26 @@ $light_black: rgba($color_headers, .7);
 
       a {
         color: $green;
+      }
+    }
+  }
+
+  .forums {
+    .home_block {
+      padding: 0.5em 1em;
+      box-sizing: border-box;
+      min-height: 8em;
+
+      h3 {
+        margin-bottom: 0;
+
+        a {
+          color: $green;
+        }
+      }
+
+      p {
+        margin-top: 0.5em;
       }
     }
   }

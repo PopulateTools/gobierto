@@ -189,6 +189,14 @@ p.intro {
   .lead {
     font-size: 1.25em;
   }
+
+  .circle_teaser {
+    height: 6.25em;
+    width: 6.25em;
+    background: rgba($color_main, 0.1);
+    margin: 0 auto;
+    border-radius: 50%;
+  }
 }
 .home_block.cover_bottom_left {
   background-size: auto;

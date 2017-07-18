@@ -2,6 +2,7 @@ $blue: #0072bc;
 $light_blue: #22A3D8;
 $lighter_blue: #E5F3F5;
 $green: #00b585;
+$black: #333;
 $light_black: rgba($color_headers, .7);
 
 .theme-participation {
@@ -56,6 +57,27 @@ $light_black: rgba($color_headers, .7);
 
   .filled_block {
     background-color: $green;
+  }
+
+  /* 3x3 grid paddings */
+  .block_container.agenda,
+  .block_container.groups {
+    & > div {
+      @include min-screen(740) {
+        padding: 0 0.5em 2em 0.5em;
+      }
+
+      &:first-child {
+        @include min-screen(740) {
+          padding: 0 0.5em 2em 0;
+        }
+      }
+      &:last-child {
+        @include min-screen(740) {
+          padding: 0 0 2em 0.5em;
+        }
+      }
+    }
   }
 
   .questions {
@@ -149,25 +171,6 @@ $light_black: rgba($color_headers, .7);
     font-size: 1em;
   }
 
-  .block_container.agenda {
-    & > div {
-      @include min-screen(740) {
-        padding: 0 0.5em 2em 0.5em;
-      }
-
-      &:first-child {
-        @include min-screen(740) {
-          padding: 0 0.5em 2em 0;
-        }
-      }
-      &:last-child {
-        @include min-screen(740) {
-          padding: 0 0 2em 0.5em;
-        }
-      }
-    }
-  }
-
   .agenda > div {
     margin-bottom: 1em;
 
@@ -246,9 +249,20 @@ $light_black: rgba($color_headers, .7);
         color: $green;
       }
     }
+
+    .process {
+      h3 {
+        margin-bottom: 0.25em;
+      }
+      svg {
+        color: rgba($green, .7);
+        margin-right: 0.25em;
+      }
+    }
   }
 
-  .forums {
+  /* Themes */
+  .themes {
     .block_container > div {
       margin-bottom: 0;
       padding-bottom: 1em;
@@ -273,4 +287,41 @@ $light_black: rgba($color_headers, .7);
       }
     }
   }
+
+  /* Groups */
+  .groups > div {
+    .home_block {
+      display: block;
+      border-top: 6px solid $green;
+      text-align: center;
+      min-height: 10em;
+      margin-bottom: 1em;
+      text-decoration: none;
+      transition: 0.2s;
+
+      h3 {
+        font-size: 1.25em;
+        color: $black;
+        margin-bottom: 0.25em;
+      }
+
+      p {
+        color: $color_text;
+        font-size: 0.875em;
+        margin: 0;
+        line-height: 1.3;
+      }
+
+      .circle-teaser {
+        background: rgba($green, .1);
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+        box-shadow: 0 1px 6px 1px rgba(0,0,0,0.2);
+      }
+    }
+  }
+
 }

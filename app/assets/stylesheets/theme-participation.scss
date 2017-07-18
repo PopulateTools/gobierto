@@ -22,13 +22,11 @@ $light_black: rgba($color_headers, .7);
   }
 
   .gradient-bg {
-    padding: 1em;
+    margin: 0 0 2em 0;
+    padding: 0;
     padding-top: 4em;
 
     @media (min-width: 768px) {
-      padding: 0;
-      margin: 0;
-      padding-top: 4em;
       margin-bottom: 5em;
     }
   }
@@ -49,21 +47,24 @@ $light_black: rgba($color_headers, .7);
     }
   }
 
-  /* home_blockes */
-  .light_home_block {
+  /* home_blocks */
+  .light_block {
     h2 {
       color: $green;
     }
   }
 
-  .filled_home_block {
+  .filled_block {
     background-color: $green;
   }
 
   .questions {
     text-align: left;
     max-width: 16em;
-    margin: 3em auto;
+
+    @include min-screen(740) {
+      margin: 3em auto;
+    }
 
     .control {
       box-sizing: border-box;
@@ -135,45 +136,52 @@ $light_black: rgba($color_headers, .7);
 
   /* Agenda */
   .with_separator {
-    font-size: 1.25em;
     color: $light_blue;
     border-top-color: $light_blue;
-
-    & ~ .soft {
-      margin-top: 0;
-
-      @include min-screen(740) {
-        padding-right: 1em;
-      }
-    }
-  }
-
-  .updates_box {
-    text-align: center;
-    margin-bottom: 1em;
   }
 
   .agenda_title {
     text-align: left;
     color: $color_headers;
     margin: 0;
-    padding: 0.5em;
+    padding: 0.5em 0;
     text-transform: uppercase;
     font-size: 1em;
   }
 
-  .agenda {
-    min-height: 17em;
-    padding-top: 1.5em;
-    margin-bottom: 1em;
-    border-top-left-radius: 0;
+  .block_container.agenda {
+    & > div {
+      @include min-screen(740) {
+        padding: 0 0.5em 2em 0.5em;
+      }
 
-    a {
-     color: $green;
+      &:first-child {
+        @include min-screen(740) {
+          padding: 0 0.5em 2em 0;
+        }
+      }
+      &:last-child {
+        @include min-screen(740) {
+          padding: 0 0 2em 0.5em;
+        }
+      }
     }
+  }
 
-    ~ a {
-      color: $light_black;
+  .agenda > div {
+    margin-bottom: 1em;
+
+    .home_block {
+      min-height: 17em;
+      margin-bottom: 1em;
+
+      a {
+       color: $green;
+      }
+
+      & ~ a {
+        color: $light_black;
+      }
     }
 
     .place_event-item,
@@ -207,6 +215,7 @@ $light_black: rgba($color_headers, .7);
         }
 
         h3 {
+          font-size: 1em;
           text-transform: none;
           font-weight: 600;
           margin: 0 0 0.25em 0;
@@ -240,23 +249,28 @@ $light_black: rgba($color_headers, .7);
   }
 
   .forums {
-    .home_block {
-      padding: 0.5em 1em;
-      box-sizing: border-box;
-      min-height: 8em;
+    .block_container > div {
+      margin-bottom: 0;
+      padding-bottom: 1em;
 
-      h3 {
-        margin-bottom: 0;
+      .home_block {
+        padding: 1em;
+        min-height: 4.75em;
 
-        a {
-          color: $green;
+        h3 {
+          margin-top: 0;
+          margin-bottom: 0;
+
+          a {
+            color: $green;
+          }
         }
-      }
 
-      p {
-        margin-top: 0.5em;
+        p {
+          margin-top: 0.25em;
+          margin-bottom: 0;
+        }
       }
     }
   }
-
 }

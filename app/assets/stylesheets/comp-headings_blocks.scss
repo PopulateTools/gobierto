@@ -38,6 +38,19 @@ h1, h2, h3, h4 {
     top: 0;
   }
 }
+.with_separator {
+  font-size: 1.25em;
+  color: $color_main;
+  border-top-color: $color_main;
+
+  & ~ .soft {
+    margin-top: 0;
+
+    @include min-screen(740) {
+      padding-right: 1em;
+    }
+  }
+}
 .dynamic-content {
   .block {
     margin-bottom: 3em;
@@ -139,6 +152,114 @@ p.intro {
     margin-right: 1em;
   }
 }
+
+/* Participation boxes */
+.block_container {
+  & > div {
+    box-sizing: border-box;
+    // margin-bottom: 1em;
+
+    &:nth-child(odd) {
+      @include min-screen(740) {
+        padding: 0 0.5em 2em 0;
+      }
+    }
+    &:nth-child(even) {
+      @include min-screen(740) {
+        padding: 0 0 2em 0.5em;
+      }
+    }
+  }
+}
+.home_block {
+  text-align: left;
+  position: relative;
+  box-shadow: 0 1px 2px 1px rgba(0,0,0,0.20);
+  border-radius: 4px;
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+  min-height: 15em;
+
+  @include min-screen(740) {
+    min-height: 20em;
+  }
+
+  .lead {
+    font-size: 1.25em;
+  }
+}
+.home_block.cover_bottom_left {
+  background-size: auto;
+  background-position: bottom left;
+}
+.home_block.light_block {
+  h2 {
+    font-size: 1.625em;
+    margin-top: 0.25em;
+  }
+}
+.home_block.filled_block {
+  background-color: $color_main;
+
+  h2 {
+    font-size: 1.25em;
+    margin-top: 0.25em;
+    color: white;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.20);
+  }
+  p {
+    color: white;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.20);
+  }
+}
+.home_block.align_right {
+  @include min-screen(740) {
+    text-align: right;
+  }
+
+  .f_right {
+    max-width: 15em;
+    float: none;
+
+    @include min-screen(740) {
+      float: right;
+      text-align: right;
+    }
+
+    h2 {
+      margin-bottom: 0.25em;
+    }
+    p {
+      margin-top: 0;
+    }
+  }
+}
+.home_block.align_bottom_right {
+  text-align: left;
+
+  @include min-screen(740) {
+    text-align: right;
+  }
+
+
+  > div {
+    @include min-screen(740) {
+      position: absolute;
+      right: 1em;
+      bottom: 0;
+    }
+
+    h2 {
+      margin-bottom: 0.25em;
+    }
+    p {
+      margin-top: 0;
+    }
+  }
+}
+
 
 .separator {
 	border-top: 1px solid $text_soft;

@@ -1,0 +1,24 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        index:
+          title: Processos i Grups
+        new:
+          title: Nou procés o grup
+        create:
+          success: Procés creat correctament
+        update:
+          success: Procés actualitzat correctament
+        form:
+          process: Procés
+          group: Grup
+          placeholders:
+            title: Nom
+            body: Descripció
+            information_text: Text de la fase d'informació
+            slug: Slug
+            process_stage:
+              title: Títol
+              description: Descripció

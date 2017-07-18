@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170721104628) do
+ActiveRecord::Schema.define(version: 20170725131230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -443,13 +443,15 @@ ActiveRecord::Schema.define(version: 20170721104628) do
   create_table "gpart_process_stages", force: :cascade do |t|
     t.bigint "process_id"
     t.jsonb "title_translations"
-    t.jsonb "slug_translations"
     t.date "starts"
     t.date "ends"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug", null: false
+    t.integer "stage_type", default: 0, null: false
+    t.jsonb "description_translations"
+    t.index ["process_id", "slug"], name: "index_gpart_process_stages_on_process_id_and_slug", unique: true
     t.index ["process_id"], name: "index_gpart_process_stages_on_process_id"
-    t.index ["slug_translations"], name: "index_gpart_process_stages_on_slug_translations", using: :gin
     t.index ["title_translations"], name: "index_gpart_process_stages_on_title_translations", using: :gin
   end
 
@@ -459,14 +461,17 @@ ActiveRecord::Schema.define(version: 20170721104628) do
     t.integer "visibility_level", default: 0, null: false
     t.jsonb "title_translations"
     t.jsonb "body_translations"
-    t.jsonb "slug_translations"
     t.date "starts"
     t.date "ends"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "header_image_url"
+    t.string "process_type", default: "g", null: false
+    t.integer "issue_id"
+    t.jsonb "information_text_translations"
     t.index ["body_translations"], name: "index_gpart_processes_on_body_translations", using: :gin
     t.index ["site_id"], name: "index_gpart_processes_on_site_id"
-    t.index ["slug_translations"], name: "index_gpart_processes_on_slug_translations", using: :gin
+    t.index ["slug"], name: "index_gpart_processes_on_slug", unique: true
     t.index ["title_translations"], name: "index_gpart_processes_on_title_translations", using: :gin
   end
 

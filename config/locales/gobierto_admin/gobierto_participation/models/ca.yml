@@ -5,5 +5,21 @@ ca:
       gobierto_admin/gobierto_participation/issue_form:
         name: Nom
         slug: URL
+      gobierto_admin/gobierto_participation/process_form:
+        header_image: Imatge de capçalera
+        header_image_url: URL d'imatge de capçalera
+        title: Títol
+        body: Descripció
+        slug: Slug
     models:
+      gobierto_admin/gobierto_participation/process_form: Procés
       gobierto_admin/gobierto_participation/issue_form: Theme
+  activerecord:
+    attributes:
+      gobierto_participation/process_stage:
+        stage_types:
+          information: Informació
+          meetings: Reunions
+          surveys: Enquestes
+          ideas: Idees
+          results: Resultats

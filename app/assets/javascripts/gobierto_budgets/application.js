@@ -35,7 +35,7 @@ $(document).on('turbolinks:load', function() {
       });
     });
 
-    if (isDesktop()) {
+    if (window.innerWidth >= 1024) {
       var bubbleLegend = new VisBubbleLegend('.bubble_legend');
     }
   }

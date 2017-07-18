@@ -232,6 +232,8 @@ ca:
         level_3_category: Categoria nivell 3
         main_budget_levels_legend_one: Canvi entre aquest any
         main_budget_levels_legend_two: i el passat
+        main_budget_levels_legend_up: Han pujat
+        main_budget_levels_legend_down: Han baixat
         main_budget_levels_per_inhabitant: per habitant
         main_budget_levels_timeline: Compara despeses i ingressos any per any
         main_budget_levels_tooltip_article: des de

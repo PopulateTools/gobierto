@@ -234,6 +234,8 @@ en:
         level_3_category: Level 3 Category
         main_budget_levels_legend_one: Change since last year
         main_budget_levels_legend_two: ''
+        main_budget_levels_legend_up: Has increased
+        main_budget_levels_legend_down: Has decreased
         main_budget_levels_per_inhabitant: per inhabitant
         main_budget_levels_timeline: Compare income and expenses year by year
         main_budget_levels_tooltip_article: since

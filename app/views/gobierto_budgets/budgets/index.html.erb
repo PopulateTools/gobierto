@@ -57,7 +57,12 @@
         <div class="inner">
           <h3><%= t('.executed') %> (<span class="tooltiped" title="<%= t('.executed_tooltip') %>">?</span>)</h3>
           <% if @site_stats.total_budget_executed %>
-            <div class="metric"><%= format_currency @site_stats.total_budget_executed %></div>
+            <div class="metric">
+              <%= link_to gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last) do %>
+                <%= format_currency @site_stats.total_budget_executed %>
+              <% end %>
+            </div>
+
             <div class="explanation_bar">
               <% percentage = @site_stats.total_budget_executed_percentage %>
               <% percentage_bar_width = percentage > 100 ? 100 : percentage %>

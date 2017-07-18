@@ -305,6 +305,7 @@ ca:
             income_title: Execució d'ingressos
             previous_execution_message: El %{year} l'execució va ser del %{percentage}
         vis:
+          empty_lines: Les categories personalitzades no estan disponibles. Per favor, selecciona un altre any.
           tooltip: S'ha executat un
           tooltip_budgeted: Pressupostat
           lines_title: Partides pressupuestàries

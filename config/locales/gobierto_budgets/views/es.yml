@@ -311,6 +311,7 @@ es:
             income_title: Ejecución de ingresos
             previous_execution_message: En el %{year} la ejecución fue del %{percentage}
         vis:
+          empty_lines: Las categorías personalizadas no están disponibles. Por favor, selecciona otro año.
           tooltip: Se ha ejecutado un
           tooltip_budgeted: Presupuestado
           lines_title: Partidas presupuestarias

@@ -305,6 +305,7 @@ en:
             income_title: Execution of income
             previous_execution_message: In %{year} execution reached %{percentage}
         vis:
+          empty_lines: Custom lines are not available, please select another year.
           tooltip: It has been executed by a
           tooltip_budgeted: Budget
           lines_title: Budget lines

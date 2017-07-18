@@ -297,7 +297,6 @@ $light_black: rgba($color_headers, .7);
       min-height: 10em;
       margin-bottom: 1em;
       text-decoration: none;
-      transition: 0.2s;
 
       h3 {
         font-size: 1.25em;
@@ -314,12 +313,6 @@ $light_black: rgba($color_headers, .7);
 
       .circle-teaser {
         background: rgba($green, .1);
-      }
-
-      &:hover,
-      &:focus,
-      &:active {
-        box-shadow: 0 1px 6px 1px rgba(0,0,0,0.2);
       }
     }
   }

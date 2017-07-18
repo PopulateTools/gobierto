@@ -181,12 +181,16 @@ p.intro {
   background-position: bottom;
   background-size: cover;
   min-height: 15em;
+  display: block;
+  text-decoration: none;
+  transition: 0.2s;
 
   @include min-screen(740) {
     min-height: 20em;
   }
 
   .lead {
+    color: $color_text;
     font-size: 1.25em;
   }
 
@@ -198,6 +202,14 @@ p.intro {
     border-radius: 50%;
   }
 }
+a.home_block {
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: none;
+    box-shadow: 0 1px 6px 1px rgba(0,0,0,0.2);
+  }
+}
 .home_block.cover_bottom_left {
   background-size: auto;
   background-position: bottom left;
@@ -206,6 +218,9 @@ p.intro {
   h2 {
     font-size: 1.625em;
     margin-top: 0.25em;
+  }
+  p {
+    color: $color_text;
   }
 }
 .home_block.filled_block {

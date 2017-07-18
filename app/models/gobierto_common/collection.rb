@@ -1,13 +1,34 @@
 module GobiertoCommon
-  class Collection  < ApplicationRecord
+  class Collection < ApplicationRecord
+    include User::Subscribable
 
     belongs_to :site
+    belongs_to :container, polymorphic: true
+    has_many :collection_items
 
     translates :title, :slug
 
     validates :site, :title, :slug, presence: true
     validate :uniqueness_of_slug
     validate :uniqueness_of_title
+
+    attr_reader :container
+
+    def container
+      if container_id.present?
+        super
+      else
+        container_type.constantize
+      end
+    end
+
+    def global_container
+      container.to_global_id if container.present?
+    end
+
+    def global_container=(container)
+      self.container = GlobalID::Locator.locate container
+    end
 
     def self.find_by_slug!(slug)
       if slug.present?
@@ -24,11 +45,10 @@ module GobiertoCommon
       [Site, Module, GobiertoParticipation::Issue, GobiertoParticipation::Area]
     end
 
-    def initialize(site, container = nil)
-      @container = container.present? ? container : site
-    end
-
-    attr_reader :container
+    # def initialize(container = nil)
+    #   byebug
+    #   @container = container.present? ? container : site
+    # end
 
     def append(item)
       containers_hierarchy(container).each do |container_type, container_id|

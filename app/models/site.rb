@@ -9,6 +9,7 @@ class Site < ApplicationRecord
   has_many :census_imports, dependent: :destroy, class_name: "GobiertoAdmin::CensusImport"
 
   # GobiertoCommon integration
+  has_many :collections, dependent: :destroy, class_name: "GobiertoCommon::Collection"
   has_many :content_blocks, dependent: :destroy, class_name: "GobiertoCommon::ContentBlock"
   has_many :custom_user_fields, dependent: :destroy, class_name: "GobiertoCommon::CustomUserField"
 

@@ -1,0 +1,22 @@
+---
+es:
+  gobierto_admin:
+    gobierto_common:
+      collections:
+        edit_modal:
+          title: Editar colección
+        form:
+          placeholders:
+            slug: acerca-de-esta-coleccion
+            title: Nombre de la colección
+        index:
+          collections: Colecciones
+          header:
+            collection: Título
+            pages: Páginas
+          latest_editions: Últimas ediciones
+          new: Nueva
+          title: CMS
+          view_collection: Ver colección
+        new_modal:
+          title: Nueva colección

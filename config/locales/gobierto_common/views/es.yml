@@ -6,3 +6,6 @@ es:
         attachment: Adjunto
         download: Descargar
         download_attachment: Descargar adjunto
+    events:
+      gobierto_common_collection_created: Colección creada
+      gobierto_common_collection_updated: Colección actualizada

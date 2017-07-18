@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713104951) do
+ActiveRecord::Schema.define(version: 20170718094412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,6 +118,10 @@ ActiveRecord::Schema.define(version: 20170713104951) do
     t.jsonb "slug_translations"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "container_type"
+    t.bigint "container_id"
+    t.string "item_type"
+    t.index ["container_type", "container_id"], name: "index_collections_on_container_type_and_container_id"
     t.index ["site_id"], name: "index_collections_on_site_id"
   end
 

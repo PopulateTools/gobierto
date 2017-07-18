@@ -1,0 +1,22 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_common:
+      collections:
+        edit_modal:
+          title: Edita col·lecció
+        form:
+          placeholders:
+            slug: sobre-aquesta-colleccio
+            title: Nom de la col·lecció
+        index:
+          collections: Col·leccions
+          header:
+            collection: Títol
+            pages: Páginas
+          latest_editions: Últimes edicions
+          new: Nou
+          title: CMS
+          view_collection: Veure col·lecció
+        new_modal:
+          title: Nova col·lecció

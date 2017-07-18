@@ -1,6 +1,5 @@
 module GobiertoCommon
   class CollectionItem < ApplicationRecord
-
     belongs_to :collection
     belongs_to :item, polymorphic: true
     belongs_to :container, polymorphic: true

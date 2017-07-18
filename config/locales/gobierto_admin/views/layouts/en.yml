@@ -9,6 +9,7 @@ en:
         budget_consultations: Budget consultations
         cms: CMS
         collapse_menu: Collapse menu
+        collections: CMS
         dirty_forms:
           message: You have unsaved changes. Are you sure you want to leave this page?
         edit_site: Customize site

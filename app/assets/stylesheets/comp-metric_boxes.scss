@@ -40,7 +40,8 @@
       font-size: .75em;
       position: absolute;
       bottom: .8em;
-      width: 100%;
+      width: calc(100% - 3em);
+      line-height: 1.4;
 
       span {
         opacity: 0.6;

@@ -8,10 +8,16 @@
       position: absolute;
       top: 20%;
       color: white;
+      font-size: $f3;
 
       .figure {
+        font-size: $mega;
         font-weight: 700;
         line-height: 6rem;
+
+        span {
+          font-size: $f3;
+        }
       }
       @media (min-width: 740px) {
         top: 30%;

@@ -5,8 +5,8 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
     @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, level: @level, year: @year, kind: @kind, area_name: @area_name })
     @sample_budget_lines = GobiertoBudgets::TopBudgetLine.limit(20).where(site: current_site, year: @year, place: @site.place, kind: @kind).all.sample(3)
 
-    @any_custom_income_budget_lines  = GobiertoBudgets::CustomArea.any_items?(site: current_site, kind: GobiertoBudgets::BudgetLine::INCOME)
-    @any_custom_expense_budget_lines = GobiertoBudgets::CustomArea.any_items?(site: current_site, kind: GobiertoBudgets::BudgetLine::EXPENSE)
+    @any_custom_income_budget_lines  = GobiertoBudgets::BudgetLine.any_data?(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, area: GobiertoBudgets::CustomArea)
+    @any_custom_expense_budget_lines = GobiertoBudgets::BudgetLine.any_data?(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::CustomArea)
 
     respond_to do |format|
       format.html

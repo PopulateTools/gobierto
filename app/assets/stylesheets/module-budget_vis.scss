@@ -25,6 +25,10 @@
 			font-size: 1.125rem;
 		}
 	}
+  .img_header {
+    max-width: 400px;
+    height: auto;
+  }
 }
 
 
@@ -445,5 +449,16 @@
       border-color: transparent transparent white;
       content: '';
     }
+  }
+}
+
+/* Budget guide */
+.budgets_guide {
+  header.meta {
+    margin: 0;
+  }
+
+  header.meta .site_header {
+    padding: 0;
   }
 }

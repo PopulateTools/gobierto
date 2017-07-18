@@ -192,7 +192,6 @@ ca:
         context: Contexte
         data_of_year: "* dades del %{year}"
         debt: Deute
-        data_advice: Quantitats econòmiques expressades en €. Dades de 2015.
         expenses: Despeses
         expenses_per_inhabitant: Despesa per habitant
         header: Pressuposts
@@ -255,8 +254,9 @@ ca:
         per_person: Per habitant
         executed: Execució
         executed_tooltip: L'execució és la quantitat que finalment s'ha gastat sobre el pressupostat inicialment.
-        executed_percent: '%{percentage} del pressupost'
+        executed_percent: '%{percentage}% del pressupost'
         planned_vs_executed_other_year_html: En %{year} va ser un %{link}
+        executed_percent_other_year_html: En %{year} va ser un %{link}
         search_for_a_budget_line: Busca una partida
         see_all: Veure tots
         title: Pressupostos municipals el %{year}
@@ -305,6 +305,7 @@ ca:
             income_title: Execució d'ingressos
             previous_execution_message: El %{year} l'execució va ser del %{percentage}
         vis:
+          empty_lines: Les categories personalitzades no estan disponibles. Per favor, selecciona un altre any.
           tooltip: S'ha executat un
           tooltip_budgeted: Pressupostat
           lines_title: Partides pressupuestàries

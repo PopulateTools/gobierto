@@ -15,7 +15,7 @@ en:
         categories: Categories
         custom: Areas
         expense_in_what: In what is spent
-        expense_to_do_what: To do what is spent
+        expense_to_do_what: For what is spent
         help: The budget is organized in two categories. Checkout our guide
         income_from_what: Where does the income come from
         per_inhabitant: Per inhabitant
@@ -194,7 +194,6 @@ en:
         context: Context
         data_of_year: "* as of %{year}"
         debt: Debt
-        data_advice: Economic quantities expressed in €. Data from 2015.
         expenses: Expenses
         expenses_per_inhabitant: Expenses per inhabitant
         header: Budgets
@@ -256,8 +255,9 @@ en:
         per_person: Per person
         executed: Executed
         executed_tooltip: The execution is the quantity that has been spent from the initial budget.
-        executed_percent: '%{percentage} of the budget'
+        executed_percent: '%{percentage}% of the budget'
         planned_vs_executed_other_year_html: In %{year} it was %{link}
+        executed_percent_other_year_html: In %{year} it was a %{link}
         search_for_a_budget_line: Search a budget line
         see_all: view all
         title: Local municipality budgets in %{year}
@@ -297,7 +297,7 @@ en:
         execution_help: The execution is the amount spent based on the planned budget.
         functional: functional
         functional_button: In what is spent
-        economic_button: To do what is spent
+        economic_button: For what is spent
         custom_button: Custom
         metric:
           execution:
@@ -305,6 +305,7 @@ en:
             income_title: Execution of income
             previous_execution_message: In %{year} execution reached %{percentage}
         vis:
+          empty_lines: Custom lines are not available, please select another year.
           tooltip: It has been executed by a
           tooltip_budgeted: Budget
           lines_title: Budget lines

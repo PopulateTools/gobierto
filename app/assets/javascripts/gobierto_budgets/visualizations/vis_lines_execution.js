@@ -88,6 +88,13 @@ var VisLinesExecution = Class.extend({
       .tickSize(-this.height - this.margin.bottom)
       .tickPadding(10)
       .ticks(this.isMobile ? 2 : this.bigDeviation ? 3 : 5);
+
+    // Message if custom lines are empty
+    if (this.data.lines.length === 0) {
+      d3.select(this.container).append('div')
+        .attr('class', 'flash-message alert')
+        .text(I18n.t('gobierto_budgets.budgets_execution.index.vis.empty_lines'));
+    }
   },
   updateRender: function(callback) {
     this.nested = d3.nest()

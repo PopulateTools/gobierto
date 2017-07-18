@@ -21,21 +21,19 @@
           <%= render partial: 'gobierto_budgets/budgets/year_breadcrumb', locals: {path_calculation_method: :gobierto_budgets_budgets_path} %>
         </div>
 
-        <p><%= t('.description') %></p>
+        <p>
+          <%= t('.description') %>
 
-        <% if @budgets_data_updated_at %>
-          <p class="last_update">
-            <strong><%= t('.last_update') %>:</strong> <%= l(@budgets_data_updated_at, format: '%d %B %Y') %>
-          </p>
-        <% end %>
+          <% if @budgets_data_updated_at %>
+            <%= t('.last_update') %>: <%= l(@budgets_data_updated_at, format: '%d %B %Y') %>.
+          <% end %>
+        </p>
 
-        <% pending do %>
-          <p class="m_v_0_25"><a href="#"><%= t('.budget_guide') %></a>.</p>
-        <% end %>
+        <p class="m_v_0_25"><%= link_to t('.budget_guide'), gobierto_budgets_budgets_guide_path %>.</p>
       </div>
 
       <div class="pure-u-1 pure-u-md-12-24 right">
-        <%= image_tag('illustrations/personaliza.jpg', class: 'img-fluid m_v_4') %>
+        <%= image_tag('illustrations/personaliza.jpg', class: 'img_header m_v_4') %>
       </div>
     </div>
 
@@ -58,12 +56,21 @@
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
         <div class="inner">
           <h3><%= t('.executed') %> (<span class="tooltiped" title="<%= t('.executed_tooltip') %>">?</span>)</h3>
-          <div class="metric"><%= format_currency @site_stats.total_budget_executed %></div>
-          <div class="explanation_bar">
-            <% percentage = @site_stats.percentage_difference(variable1: :total_budget_executed, variable2: :total_budget_planned) %>
-            <div class="bar"><div class="line" style="width: <%= percentage %>%"></div></div>
-            <span><%= t('.executed_percent', percentage: percentage) %></span>
-          </div>
+          <% if @site_stats.total_budget_executed %>
+            <div class="metric"><%= format_currency @site_stats.total_budget_executed %></div>
+            <div class="explanation_bar">
+              <% percentage = @site_stats.total_budget_executed_percentage %>
+              <% percentage_bar_width = percentage > 100 ? 100 : percentage %>
+              <div class="bar"><div class="line" style="width: <%= percentage_bar_width %>%"></div></div>
+              <span><%= t('.executed_percent', percentage: percentage) %></span>
+            </div>
+          <% else %>
+            <% percentage = @site_stats.total_budget_executed_percentage(@year - 1) %>
+            <div class="metric"><span class="not_av"><%= t('.not_available_short') %></span></div>
+            <div class="explanation">
+              <%= t('.executed_percent_other_year_html', year: @year - 1, link: link_to("#{percentage} %", gobierto_budgets_budgets_execution_path)) %>
+            </div>
+          <% end %>
         </div>
       </div>
 
@@ -89,10 +96,6 @@
             </div>
           <% end %>
         </div>
-      </div>
-
-      <div class="pure-u-1-1 right soft m_v_0_25">
-        <small><%= t('.data_advice') %></small>
       </div>
     </div>
   </div>
@@ -187,50 +190,84 @@
     </div>
   <% end %>
 
-  <div class="block">
-    <h2 class="with_description"><%= t('.budget_lines_block.title') %></h2>
-    <p class="description"><%= t('.budget_lines_block.intro') %></p>
+  <% pending do %>
+    <div class="block">
+      <h2 class="with_description"><%= t('.budget_lines_block.title') %></h2>
+      <p class="description"><%= t('.budget_lines_block.intro') %></p>
 
-    <% pending do %>
       <div class="pure-g line_boxes">
-        <%= render 'line_box', {title: 'Deuda pública', figure: '716M', executed: '30%' } %>
-        <%= render 'line_box', {title: 'Servicios públicos básicos', figure: '2.076M', executed: '42%' } %>
-        <%= render 'line_box', {title: 'Actuaciones de protección y promoción social', figure: '8.451M', executed: '27%' } %>
-        <%= render 'line_box', {title: 'Protección de bienes públicos de carácter preferente', figure: '407M', executed: '65%' } %>
-        <%= render 'line_box', {title: 'Actuaciones de carácter económico', figure: '161M', executed: '12%' } %>
-        <%= render 'line_box', {title: 'Actuaciones de carácter general', figure: '602M', executed: '87%' } %>
+        <% @main_budget_lines_summary.each do |budget_line_summary| %>
+          <%= render 'line_box', budget_line_summary: budget_line_summary %>
+        <% end %>
       </div>
-    <% end %>
+    </div>
+  <% end %>
+
+  <div class="block">
+    <h2 class="with_description"><%= t('.most_interesting_budget_lines') %></h2>
+    <p class="description"><%= t('.most_interesting_budget_lines_description') %></p>
 
     <div class="graph" id="expense-treemap"
                        data-functional-url="<%= gobierto_budgets_budget_lines_treemap_path(@year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: 'functional', level: 2, format: :json) %>"
                        data-economic-url="<%= gobierto_budgets_budget_lines_treemap_path(@year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: 'economic', level: 2, format: :json) %>">
     </div>
 
-  </div>
+    <table class="explore_slow">
+      <thead class="screen-hidden">
+        <tr>
+          <th><%= t('.level_2_category') %></th>
+          <th><%= t('.level_3_category') %></th>
+          <th><%= t('.category_value') %></th>
+          <th><%= t('.category_percentage') %></th>
+          <th></th>
+        </tr>
+      </thead>
 
-  <div class="block">
-    <h2 class="with_description"><%= t('.execution_block.title') %></h2>
-    <div class="pure-g half_description">
-      <div class="pure-u-md-1-2 pure-u-1 block_1">
-        <p class="description"><%= t('.execution_block.intro') %></p>
-      </div>
-      <% pending do %>
-        <div class="pure-u-md-1-2 pure-u-1 block_2">
-          <p class="f7"><%= t('.execution_block.last_update', date: '5 de junio 2017') %></p>
-        </div>
+      <tbody>
+        <% @interesting_expenses.group_by(&:parent_code).each do |parent_code, bls| %>
+            <tr class="group">
+              <td class="level_1" rowspan="<%= bls.count %>">
+                <%= budget_line_denomination @interesting_area, parent_code, GobiertoBudgets::BudgetLine::EXPENSE %>
+              </td>
+              <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
+                    locals: {sub_budget_line: bls.first } %>
+            </tr>
+            <% bls[1..-1].each do |bl| %>
+              <tr>
+                <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
+                    locals: {sub_budget_line: bl } %>
+              </tr>
+          <% end %>
+        </tbody>
       <% end %>
-    </div>
+    </table>
+  </div>
 
-    <div class="pure-g mega_bars">
-      <%= render 'mega_bar', {className: 'income', percentage: @site_stats.budgets_execution_summary[:income_execution_percentage] } %>
-      <%= render 'mega_bar', {className: 'expense', percentage: @site_stats.budgets_execution_summary[:expenses_execution_percentage] } %>
+  <% if @site_stats.budgets_execution_summary[:income_execution_percentage] && @site_stats.budgets_execution_summary[:expenses_execution_percentage] %>
+    <div class="block">
+      <h2 class="with_description"><%= t('.execution_block.title') %></h2>
+      <div class="pure-g half_description">
+        <div class="pure-u-md-1 pure-u-1 block_1">
+          <p class="description">
+            <%= t('.execution_block.intro') %>
 
-      <div class="pure-u-1 center m_v_1">
-        <%= link_to t('.execution_block.button'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false }, class: "button" %>
+            <% if @budgets_data_updated_at %>
+              <%= t('.execution_block.last_update', date: l(@budgets_data_updated_at, format: '%d %B %Y')) %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+
+      <div class="pure-g mega_bars m_v_1">
+        <%= render 'mega_bar', {className: 'income', percentage: @site_stats.budgets_execution_summary[:income_execution_percentage] } %>
+        <%= render 'mega_bar', {className: 'expense', percentage: @site_stats.budgets_execution_summary[:expenses_execution_percentage] } %>
+
+        <div class="pure-u-1 center m_v_1">
+          <%= link_to t('.execution_block.button'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false }, class: "button" %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 
   <div class="featured_b_l block m_v_3" data-featured-budget-line="<%= gobierto_budgets_featured_budget_line_path(@site.place.slug, year: @year, template: 'gobierto_site_template') %>">
   </div>

@@ -7,7 +7,7 @@ module GobiertoAdmin
         :id,
         :site_id,
         :title_translations,
-        :slug_translations,
+        :slug,
         :global_entity,
         :container_id,
         :item_type
@@ -47,7 +47,7 @@ module GobiertoAdmin
         @collection = collection.tap do |collection_attributes|
           collection_attributes.site_id = site_id
           collection_attributes.title_translations = title_translations
-          collection_attributes.slug_translations = slug_translations
+          collection_attributes.slug = slug
           # TODO: Generalize
           collection_attributes.container = ::GobiertoParticipation::Issue.find(container_id)
           collection_attributes.item_type = item_type

@@ -7,7 +7,7 @@ module GobiertoAdmin
         :id,
         :site_id,
         :title_translations,
-        :slug_translations
+        :slug
       )
 
       delegate :persisted?, to: :collection
@@ -44,7 +44,7 @@ module GobiertoAdmin
         @collection = collection.tap do |collection_attributes|
           collection_attributes.site_id = site_id
           collection_attributes.title_translations = title_translations
-          collection_attributes.slug_translations = slug_translations
+          collection_attributes.slug = slug
         end
 
         if @collection.valid?

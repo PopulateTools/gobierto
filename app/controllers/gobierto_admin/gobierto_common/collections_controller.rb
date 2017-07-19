@@ -5,7 +5,7 @@ module GobiertoAdmin
 
       def index
         @collections = current_site.collections
-        @pages = current_site.pages.sort_by_updated_at
+        @pages = current_site.pages
 
         @collection_form = CollectionForm.new(site_id: current_site.id)
       end
@@ -84,8 +84,8 @@ module GobiertoAdmin
         params.require(:collection).permit(
           :container_id,
           :item_type,
-          title_translations: [*I18n.available_locales],
-          slug_translations:  [*I18n.available_locales]
+          :slug,
+          title_translations: [*I18n.available_locales]
         )
       end
 

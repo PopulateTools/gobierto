@@ -6,10 +6,10 @@ module GobiertoCommon
     belongs_to :container, polymorphic: true
     has_many :collection_items
 
-    translates :title, :slug
+    translates :title
 
     validates :site, :title, :slug, presence: true
-    validate :uniqueness_of_slug
+    validates :slug, uniqueness: true
     validate :uniqueness_of_title
 
     attr_reader :container
@@ -28,17 +28,6 @@ module GobiertoCommon
 
     def global_container=(container)
       self.container = GlobalID::Locator.locate container
-    end
-
-    def self.find_by_slug!(slug)
-      if slug.present?
-        I18n.available_locales.each do |locale|
-          if p = self.with_slug_translation(slug, locale).first
-            return p
-          end
-        end
-        raise(ActiveRecord::RecordNotFound)
-      end
     end
 
     def self.collector_classes
@@ -102,14 +91,6 @@ module GobiertoCommon
 
     def container_is_a_collector?(container)
       self.class.collector_classes.include?(container.class)
-    end
-
-    def uniqueness_of_slug
-      if slug_translations.present?
-        if slug_translations.select{ |_, slug| slug.present? }.any?{ |_, slug| self.class.where(site_id: self.site_id).where.not(id: self.id).with_slug_translation(slug).exists? }
-          errors.add(:slug, I18n.t('errors.messages.taken'))
-        end
-      end
     end
 
     def uniqueness_of_title

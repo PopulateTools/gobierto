@@ -11,7 +11,7 @@ class GobiertoBudgets::GuideTest < ActionDispatch::IntegrationTest
   end
 
   def last_year
-    2016
+    GobiertoBudgets::SearchEngineConfiguration::Year.last
   end
 
   def test_greeting
@@ -19,7 +19,7 @@ class GobiertoBudgets::GuideTest < ActionDispatch::IntegrationTest
       visit @path
 
       assert has_content?("How a municipal budget works")
-      assert has_content?("In 2016 were entered...")
+      assert has_content?("In #{last_year} were entered...")
     end
   end
 end

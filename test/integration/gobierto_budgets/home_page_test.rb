@@ -11,7 +11,7 @@ class GobiertoBudgets::HomePageTest < ActionDispatch::IntegrationTest
   end
 
   def last_year
-    2016
+    GobiertoBudgets::SearchEngineConfiguration::Year.last
   end
 
   def test_greeting

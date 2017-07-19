@@ -4,8 +4,20 @@
   .timeline_row {
     position: relative;
     width: 100%;
-    margin-bottom: 3em;
     padding: 0.5em;
+    margin-bottom: 0.5em;
+
+    @include min-screen(740) {
+      margin-bottom: 3em;
+    }
+
+    .timeline_separator {
+      display: none;
+
+      @include min-screen(740) {
+        display: inline-block;
+      }
+    }
   }
 
   .badge {
@@ -21,12 +33,16 @@
   .line {
     margin-top: 1em;
     position: absolute;
-    left: 10.1em;
+    right: 1em;
     width: 12px;
     height: calc(100% - 8em);
     background: $color_main_soft;
     border-radius: 4px;
-    z-index: 1;
+
+    @include min-screen(740) {
+      left: 10.1em;
+      z-index: 1;
+    }
   }
 
   .current {
@@ -68,6 +84,11 @@
       position: absolute;
       top: 1em;
       right: 1em;
+      display: none;
+
+      @include min-screen(740) {
+        display: block;
+      }
     }
 
     &:before {

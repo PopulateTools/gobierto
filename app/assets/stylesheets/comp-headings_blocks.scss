@@ -37,6 +37,21 @@ h1, h2, h3, h4 {
     right: 0;
     top: 0;
   }
+	.half_description {
+		.block_1 p {
+      margin-bottom: 0;
+    }
+    .block_2 {
+      p {
+       opacity: 0.6;
+       margin-bottom: 1rem;
+      }
+
+      @media (min-width: 768px) {
+        text-align: right;
+      }
+    }
+	}
 }
 .with_separator {
   font-size: 1.25em;
@@ -472,5 +487,14 @@ a.content_block {
   strong {
     font-size: 1.4em;
     font-weight: 600;
+  }
+}
+
+.updated {
+  text-transform: uppercase;
+  font-size: $f7 !important;
+
+  strong {
+    color: $color_1;
   }
 }

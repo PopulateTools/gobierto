@@ -31,7 +31,7 @@ class GobiertoBudgets::BudgetLinesTest < ActionDispatch::IntegrationTest
       click_link "Expenses"
       assert has_content?("Deuda pública")
 
-      click_link "To do what is spent"
+      click_link "For what is spent"
       assert has_content?("Personal expenses (custom, translated)")
     end
   end

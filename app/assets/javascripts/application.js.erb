@@ -37,11 +37,11 @@
 
 // Global util functions
 function rebindAll() {
-  $('.tipsit').tipsy({fade: true, gravity: 's', html: true});
-  $('.tipsit-n').tipsy({fade: true, gravity: 'n', html: true});
-  $('.tipsit-w').tipsy({fade: true, gravity: 'w', html: true});
-  $('.tipsit-e').tipsy({fade: true, gravity: 'e', html: true});
-  $('.tipsit-treemap').tipsy({fade: true, gravity: $.fn.tipsy.autoNS, html: true});
+  $('.tipsit').tipsy({fade: false, gravity: 's', html: true});
+  $('.tipsit-n').tipsy({fade: false, gravity: 'n', html: true});
+  $('.tipsit-w').tipsy({fade: false, gravity: 'w', html: true});
+  $('.tipsit-e').tipsy({fade: false, gravity: 'e', html: true});
+  $('.tipsit-treemap').tipsy({fade: false, gravity: $.fn.tipsy.autoNS, html: true});
 }
 
 function isDesktop(){

@@ -14,31 +14,33 @@ module GobiertoBudgets
 
     def total_budget_per_inhabitant(year = nil)
       year ||= @year
-      total_budget_planned_query(year)['_source']['total_budget_per_inhabitant'].to_f
+      total_budget_per_inhabitant_query(year)['_source']['total_budget_per_inhabitant'].to_f
     end
 
     def total_income_budget(year = nil)
       year ||= @year
-      total_budget_planned_income_query(year)['_source']['total_budget'].to_f
+      BudgetTotal.budgeted_for(@place.id, year, BudgetLine::INCOME)
     end
 
     def total_budget(year = nil)
       year ||= @year
-      total_budget_planned_query(year)['_source']['total_budget'].to_f
+      BudgetTotal.budgeted_for(@place.id, year)
     end
     alias_method :total_budget_planned, :total_budget
 
     def total_budget_executed(year = nil)
       year ||= @year
-      total_budget_executed_query(year)['_source']['total_budget']
-    rescue
-      nil
+      BudgetTotal.execution_for(@place.id, year)
+    end
+
+    def total_budget_executed_percentage(year = nil)
+      execution_percentage(total_budget(year), total_budget_executed(year))
     end
 
     def debt(year = nil)
       year ||= @year
-      @data[:debt][year] ||= GobiertoBudgets::SearchEngine.client.get(index: GobiertoBudgets::SearchEngineConfiguration::Data.index,
-        type: GobiertoBudgets::SearchEngineConfiguration::Data.type_debt, id: [@place.id, year].join('/'))['_source']['value'] * 1000
+      @data[:debt][year] ||= SearchEngine.client.get(index: SearchEngineConfiguration::Data.index,
+        type: SearchEngineConfiguration::Data.type_debt, id: [@place.id, year].join('/'))['_source']['value'] * 1000
       @data[:debt][year]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
@@ -46,8 +48,8 @@ module GobiertoBudgets
 
     def population(year = nil)
       year ||= @year
-      @data[:population][year] ||= GobiertoBudgets::SearchEngine.client.get(index: GobiertoBudgets::SearchEngineConfiguration::Data.index,
-        type: GobiertoBudgets::SearchEngineConfiguration::Data.type_population, id: [@place.id, year].join('/'))['_source']['value']
+      @data[:population][year] ||= SearchEngine.client.get(index: SearchEngineConfiguration::Data.index,
+        type: SearchEngineConfiguration::Data.type_population, id: [@place.id, year].join('/'))['_source']['value']
       @data[:population][year]
       rescue Elasticsearch::Transport::Transport::Errors::NotFound
         nil
@@ -95,27 +97,73 @@ module GobiertoBudgets
       "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)}% #{direction}"
     end
 
+    def main_budget_lines_summary
+      main_budget_lines_forecast  = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, place: @site.place, year: @year, area_name: EconomicArea.area_name })
+      main_budget_lines_execution = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, place: @site.place, year: @year, area_name: EconomicArea.area_name, index: SearchEngineConfiguration::BudgetLine.index_executed })
+
+      main_budget_lines_summary = {}
+
+      main_budget_lines_forecast.each do |budget_line|
+        main_budget_lines_summary[budget_line.code] = {
+          title: budget_line.name,
+          budgeted_amount: budget_line.amount
+        }
+      end
+
+      main_budget_lines_execution.each do |budget_line|
+        executed_amount = budget_line.amount
+        if main_budget_lines_summary[budget_line.code]
+          budgeted_amount = main_budget_lines_summary[budget_line.code][:budgeted_amount]
+          main_budget_lines_summary[budget_line.code].merge!(
+            executed_amount: executed_amount,
+            executed_percentage: (executed_amount*100 / budgeted_amount).to_i
+          )
+        end
+      end
+      main_budget_lines_summary.values
+    end
+
+    def budgets_execution_summary
+      ine_code = @place.id
+
+      year = @year
+      previous_year = year - 1
+
+      last_expenses_budgeted      = BudgetTotal.budgeted_for(ine_code, year)
+      last_income_budgeted        = BudgetTotal.budgeted_for(ine_code, year, BudgetLine::INCOME)
+      previous_expenses_budgeted  = BudgetTotal.budgeted_for(ine_code, previous_year)
+      previous_income_budgeted    = BudgetTotal.budgeted_for(ine_code, previous_year, BudgetLine::INCOME)
+
+      last_expenses_execution     = BudgetTotal.execution_for(ine_code, year)
+      last_income_execution       = BudgetTotal.execution_for(ine_code, year, BudgetLine::INCOME)
+      previous_expenses_execution = BudgetTotal.execution_for(ine_code, previous_year)
+      previous_income_execution   = BudgetTotal.execution_for(ine_code, previous_year, BudgetLine::INCOME)
+
+      {
+        expenses_execution_percentage:          execution_percentage(last_expenses_budgeted, last_expenses_execution),
+        expenses_previous_execution_percentage: execution_percentage(previous_expenses_budgeted, previous_expenses_execution),
+        income_execution_percentage:            execution_percentage(last_income_budgeted, last_income_execution),
+        income_previous_execution_percentage:   execution_percentage(previous_income_budgeted, previous_income_execution),
+        previous_year: previous_year
+      }
+    end
+
     private
 
-    def total_budget_planned_query(year)
-      GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast,
-        type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: [@place.id, year, GobiertoBudgets::BudgetLine::EXPENSE].join('/')
+    def total_budget_per_inhabitant_query(year)
+      SearchEngine.client.get(
+        index: SearchEngineConfiguration::TotalBudget.index_forecast,
+        type: SearchEngineConfiguration::TotalBudget.type,
+        id: [@place.id, year, BudgetLine::EXPENSE].join('/')
+      )
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
     end
 
-    def total_budget_executed_query(year)
-      GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_executed,
-        type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: [@place.id, year, GobiertoBudgets::BudgetLine::EXPENSE].join('/')
-    rescue Elasticsearch::Transport::Transport::Errors::NotFound
-      nil
-    end
-
-    def total_budget_planned_income_query(year)
-      GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.index_forecast,
-        type: GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type, id: [@place.id, year, GobiertoBudgets::BudgetLine::INCOME].join('/')
-    rescue Elasticsearch::Transport::Transport::Errors::NotFound
-      nil
+    def execution_percentage(budgeted_amount, executed_amount)
+      if budgeted_amount && executed_amount && budgeted_amount != 0
+        ((executed_amount * 100) / budgeted_amount).to_i
+      end
     end
 
   end

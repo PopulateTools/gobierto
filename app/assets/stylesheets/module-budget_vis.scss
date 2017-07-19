@@ -4,6 +4,31 @@
 	h2 {
 		margin: .85em 0 2em 0;
 	}
+  .last_update {
+    margin-top: 2em;
+    margin-bottom: 0.25em;
+  }
+  .inline_header {
+    h2,
+    .breadcrumb {
+      display: inline-block;
+    }
+    .breadcrumb {
+      padding: 0;
+    }
+  }
+	p {
+		line-height: 1.4;
+		font-size: 1rem;
+
+		@media (min-width: 768px) {
+			font-size: 1.125rem;
+		}
+	}
+  .img_header {
+    max-width: 400px;
+    height: auto;
+  }
 }
 
 
@@ -272,6 +297,148 @@
     min-height: 275px;
   }
 
+}
+
+/* Budget execution */
+.budgets_execution {
+  .option {
+    margin-bottom: 1rem;
+    z-index: 1;
+  }
+  .metric_boxes {
+    .inner {
+      margin-top: 4em;
+    }
+  }
+  .block_description {
+    @media (min-width: 740px) {
+      margin-right: 2em;
+    }
+  }
+
+  .expenses_execution,
+  .income_execution {
+    position: relative;
+    min-height: 500px;
+
+    svg {
+      overflow: visible;
+    }
+    .axis {
+      font-family: $font_text;
+
+      .domain {
+        display: none;
+      }
+    }
+    .bar-group:hover {
+      stroke: black !important;
+    }
+    .y.axis {
+      font-size: 1rem;
+
+      text {
+        fill: $color_text;
+        font-weight: 600;
+      }
+      line {
+        display: none;
+      }
+    }
+    .x.axis {
+      font-size: $f7;
+
+      text {
+        fill: rgba($color_text, .5)
+      }
+      line {
+        stroke-dasharray: 2 10;
+        stroke: rgba(0,0,0,.5)
+      }
+      .hundred_percent {
+        line {
+          display: none;
+        }
+        text {
+          fill: $color_text;
+          font-weight: 700;
+        }
+      }
+    }
+    .tooltip {
+      pointer-events: none;
+      display: none;
+      position: absolute;
+      background: white;
+      padding: 4px 8px;
+      z-index: 4;
+      min-width: 200px;
+      max-width: 250px;
+      border: 1px solid #979797;
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,0.10);
+      border-radius: 4px;
+
+      .line-pct {
+        width: 85px;
+
+        i {
+          display: inline;
+        }
+      }
+
+      @media (max-width: 590px){
+        position: fixed;
+        bottom: -1px;
+        width: calc(96%);
+        left: -1px !important;
+        right: -1px !important;
+        top: auto !important;
+        width: auto !important;
+        max-width: none;
+      }
+    }
+    .legend {
+      font-style: italic;
+      fill: #a4a4a4;
+      font-size: 0.875rem;
+    }
+    .year_progress {
+      font-weight: 600;
+      font-style: italic;
+      fill: #a4a4a4;
+      font-size: 0.875rem;
+
+      line {
+        stroke-dasharray: 4 4;
+      }
+    }
+    .tooltip:before {
+      border-radius: 2px;
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      width: 0;
+      height: 0;
+      margin-left: -7px;
+      border-width: 7px;
+      border-style: solid;
+      border-color: transparent transparent darken(#979797, 20%);
+      content: '';
+    }
+    .tooltip:after {
+      border-radius: 2px;
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      width: 0;
+      height: 0;
+      margin-left: -6px;
+      border-width: 6px;
+      border-style: solid;
+      border-color: transparent transparent white;
+      content: '';
+    }
+  }
 }
 
 /* Budget guide */

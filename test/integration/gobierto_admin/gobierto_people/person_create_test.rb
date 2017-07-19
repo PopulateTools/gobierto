@@ -36,13 +36,15 @@ module GobiertoAdmin
               visit @path
 
               within "form.new_person" do
+                refute has_field?("person_charge_translations_ca", visible: false)
+
                 within ".avatar_file_field" do
                   refute has_selector?("img")
                   attach_file "person_avatar_file", "test/fixtures/files/gobierto_people/people/avatar.jpg"
                 end
 
                 fill_in "person_name", with: "Person Name"
-                fill_in "person_charge_translations_en", with: "Person Charge"
+                fill_in "Charge", with: "Person Charge"
 
                 within ".person-category-radio-buttons" do
                   find("label", text: "Politician").click
@@ -74,7 +76,7 @@ module GobiertoAdmin
 
                 click_link "ES"
 
-                fill_in "person_charge_translations_es", with: "Cargo persona"
+                fill_in "Charge", with: "Cargo persona"
                 find("#person_bio_translations_es", visible: false).set("Bio Persona")
 
                 with_stubbed_s3_file_upload do
@@ -91,7 +93,7 @@ module GobiertoAdmin
                 end
 
                 assert has_field?("person_name", with: "Person Name")
-                assert has_field?("person_charge_translations_en", with: "Person Charge")
+                assert has_field?("Charge", with: "Person Charge")
 
                 within ".person-category-radio-buttons" do
                   with_hidden_elements do
@@ -127,7 +129,7 @@ module GobiertoAdmin
 
                 click_link "ES"
 
-                assert has_field?("person_charge_translations_es", with: "Cargo persona")
+                assert has_field?("Charge", with: "Cargo persona")
 
                 assert_equal(
                   "<div>Bio Persona</div>",

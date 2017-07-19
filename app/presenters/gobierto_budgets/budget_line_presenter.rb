@@ -11,12 +11,20 @@ module GobiertoBudgets
                     end
     end
 
-    def name
-      category ? category.name : GobiertoBudgets::Category.default_name(area, kind, code)
+    def name(locale = nil)
+      current_locale = I18n.locale
+      I18n.locale = locale if locale
+      name = category ? category.name : GobiertoBudgets::Category.default_name(area, kind, code)
+      I18n.locale = current_locale
+      name
     end
 
-    def description
-      category ? category.description : GobiertoBudgets::Category.default_description(area, kind, code)
+    def description(locale = nil)
+      current_locale = I18n.locale
+      I18n.locale = locale if locale
+      description = category ? category.description : GobiertoBudgets::Category.default_description(area, kind, code)
+      I18n.locale = current_locale
+      description
     end
 
     def amount

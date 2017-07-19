@@ -50,6 +50,10 @@
 @import "comp-tabs";
 @import "comp-text_content";
 @import "comp-indicator_widget";
+@import "comp-story_box";
+@import "comp-banner_blocks";
+@import "comp-line_boxes";
+@import "comp-mega_bars";
 @import "comp-content";
 @import "comp-agenda";
 @import "comp-timeline";
@@ -244,9 +248,9 @@ a.soft_cta:hover {
     display: none;
 }
 @media (min-width: 768px) {
-    .hidden-xs {
-        display: block;
-    }
+  .hidden-xs {
+    display: block;
+  }
 }
 
 
@@ -268,9 +272,22 @@ a.soft_cta:hover {
 		font-size: 1.6em;
 	}
 }
+.tipsy {
+  opacity: 1 !important;
+
+  .tipsy-inner {
+    background: white;
+    border: 1px solid #979797;
+    border-radius: 4px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.10);
+    color: $color_text;
+    line-height: 1.3;
+  }
+}
+
 
 .invisible {
-    visibility: hidden
+  visibility: hidden
 }
 
 
@@ -358,8 +375,6 @@ html.turbolinks-progress-bar::before {
     }
   }
 }
-
-
 
 
 @import "responsive";

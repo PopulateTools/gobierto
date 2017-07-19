@@ -155,20 +155,27 @@
   box-sizing: border-box;
 }
 .m_v_0 {
-  margin-top: 0;
-  margin-bottom: 0;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+.m_v_0_25 {
+  margin: .25em 0 !important;
 }
 .m_v_1 {
-  margin: 1em 0;
+  margin: 1em 0 !important;
 }
 .m_v_2 {
-  margin: 2em 0;
+  margin: 2em 0 !important;
 }
 .m_v_3 {
-  margin: 3em 0;
+  margin: 3em 0 !important;
 }
 .m_v_4 {
-  margin: 4em 0;
+  margin: 4em 0 !important;
+}
+.p_h_r_0_5 {
+  padding: 0 0.5em 0 0;
+  box-sizing: border-box;
 }
 .m_t_1 {
   margin: 1em 0 0 0;
@@ -214,7 +221,6 @@
   padding: 0 0 0 3em;
   box-sizing: border-box;
 }
-
 
 /*
 

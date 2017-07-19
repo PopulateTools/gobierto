@@ -10,96 +10,152 @@
 <% end %>
 
 <div class="column">
+  <div class="block">
+    <div class="pure-g header_block_inline">
+      <div class="pure-u-1 pure-u-md-1-2">
+        <div class="inline_header">
+          <h2 class="with_description p_h_r_0_5"><%= t('.title') %></h2>
+          <%= render partial: 'gobierto_budgets/budgets/year_breadcrumb', locals: {path_calculation_method: :gobierto_budgets_budgets_path} %>
 
-	<%= render partial: 'gobierto_budgets/budgets/year_breadcrumb', locals: {path_calculation_method: :gobierto_budgets_budgets_execution_path} %>
+          <p class="block_description">
+            <%= t('.description') %>.
+            <% if @budgets_data_updated_at %>
+              <%= t('.last_update') %>: <%= l(@budgets_data_updated_at, format: '%d %B %Y') %>.
+            <% end %>
+          </p>
 
-  <% if flash[:alert] %>
-    <p><em><%= flash[:alert] %></em></p>
-  <% end %>
+          <p><%= link_to t('.budget_guide'), gobierto_budgets_budgets_guide_path %>.</p>
+        </div>
+      </div>
 
-	<div class="execution">
+      <div class="pure-u-1 pure-u-md-1-2 metric_boxes">
+        <div class="pure-g">
 
-		<div class="pure-g">
-			<div class="pure-u-1 pure-u-md-11-24">
-				<div class="deviation_widget"
-					data-widget-template="#widget-template-deviation"
-	    		data-widget-type="budget_execution_deviation"
-	    		data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_deviation_path(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, format: :json) %>"
-	    		data-callback="render_evo_line">
-				</div>
-			</div>
-			<div class="pure-u-1 pure-u-md-2-24"></div>
-			<div class="pure-u-1 pure-u-md-11-24">
-				<div class="deviation_widget"
-					data-widget-template="#widget-template-deviation"
-	    		data-widget-type="budget_execution_deviation"
-	    		data-widget-data-url="<%= gobierto_budgets_api_data_budget_execution_deviation_path(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, format: :json) %>"
-	    		data-callback="render_evo_line">
-				</div>
-			</div>
-		</div>
+          <% if  @budgets_execution_summary[:expenses_execution_percentage] %>
+            <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
+              <div class="inner">
+                <h3><%= t('.metric.execution.expenses_title') %></h3>
+                <div class="metric"><%= @budgets_execution_summary[:expenses_execution_percentage]%> %</div>
 
-		<div class="m_v_4">
-			<div class="section_separator" name="separator">
-			  <div class="sep"></div>
-        <p><strong><%= t('.execution_help') %></strong></p>
-        <p><%= t('.execution_disclaimer') %></p>
-			  <div class="sep"></div>
-			</div>
-		</div>
+                <% if @budgets_execution_summary[:expenses_previous_execution_percentage] %>
+                  <div class="explanation">
+                    <%= t('.metric.execution.previous_execution_message',
+                          year: @budgets_execution_summary[:previous_year],
+                          percentage: @budgets_execution_summary[:expenses_previous_execution_percentage]
+                    ) %> %
+                  </div>
+                <% end %>
 
-		<div class="pure-g">
-			<div class="pure-u-1 pure-u-lg-11-24 deviation_table_container">
+              </div>
+            </div>
+          <% end %>
 
-        <h2 class="lite"><%= t('.budget_lines_income_higher') %></h2>
+          <% if  @budgets_execution_summary[:income_execution_percentage] %>
+            <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
+              <div class="inner">
+                <h3><%= t('.metric.execution.income_title') %></h3>
+                <div class="metric"><%= @budgets_execution_summary[:income_execution_percentage] %> %</div>
 
-				<%= render partial: 'execution_table', locals: {data: @top_possitive_difference_income, kind: GobiertoBudgets::BudgetLine::INCOME, area: 'economic'} %>
+                <% if @budgets_execution_summary[:income_previous_execution_percentage] %>
+                  <div class="explanation">
+                    <%= t('.metric.execution.previous_execution_message',
+                          year: @budgets_execution_summary[:previous_year],
+                          percentage: @budgets_execution_summary[:income_previous_execution_percentage]
+                    ) %> %
+                  </div>
+                <% end %>
 
-				<div class="separator"></div>
+              </div>
+            </div>
+          <% end %>
 
-        <h2 class="lite"><%= t('.budget_lines_income_lower') %></h2>
+        </div>
+      </div>
+    </div>
 
-				<%= render partial: 'execution_table', locals: {data: @top_negative_difference_income, kind: GobiertoBudgets::BudgetLine::INCOME, area: 'economic'} %>
+    <div class="pure-g">
+      <div class="pure-u-1">
+        <h2 class="with_description"><%= t('.vis.expenses.title') %></h2>
+        <div class="m_v_1">
+          <div class="inline_filter">
+            <span class="soft"><%= t('.sort') %></span>
+            <div class="button-group ib" role="group">
+              <button class="button-grouped active sort-G" data-toggle="highest"><%= t('.higher_execution') %></button>
+              <button class="button-grouped sort-G" data-toggle="lowest"><%= t('.lower_execution') %></button>
+            </div>
+          </div>
 
-			</div>
-			<div class="pure-u-1 pure-u-lg-2-24"></div>
-			<div class="pure-u-1 pure-u-lg-11-24 deviation_table_container">
+          <div class="inline_filter">
+            <span class="soft"><%= t('.value') %></span>
+            <div class="button-group ib" role="group">
+              <button class="button-grouped active value-switcher-G" data-toggle="pct_executed" data-symbol="%"><%= t('.percentage') %></button>
+              <button class="button-grouped value-switcher-G" data-toggle="executed" data-symbol="€"><%= t('.euros') %></button>
+            </div>
+          </div>
 
-        <h2 class="lite"><%= t('.budget_lines_expense_higher') %></h2>
+          <% if @several_expenses_filters %>
+            <div class="inline_filter">
+              <span class="soft"><%= t('.category') %></span>
+              <div class="button-group ib" role="group">
+                <% if @any_economic_expense_budget_lines %>
+                  <button class="button-grouped active expenses_switcher" data-toggle="economic"><%= t('.economic_button') %></button>
+                <% end %>
+                <% if @any_functional_expense_budget_lines %>
+                  <button class="button-grouped expenses_switcher" data-toggle="functional"><%= t('.functional_button') %></button>
+                <% end %>
+                <% if @any_custom_expense_budget_lines %>
+                  <button class="button-grouped expenses_switcher" data-toggle="custom"><%= t('.custom_button') %></button>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
 
-				<div class="form_filters">
-	        <ul>
-	          <li><%= link_to t('.economic'), '', class: 'toggle', "data-tab-target": 'economic' %></li>
-	          <li class="active"><%= link_to t('.functional'), '', class: 'toggle', "data-tab-target": 'functional' %></li>
-	        </ul>
-	      </div>
+        </div>
 
-				<div class="tab_content tab active" data-tab="economic">
+        <div class="expenses_execution"></div>
+      </div>
 
-					<%= render partial: 'execution_table', locals: {data: @top_possitive_difference_expending_economic, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: 'economic'} %>
+      <div class="pure-u-1">
+        <h2 class="with_description"><%= t('.vis.income.title') %></h2>
+        <div class="m_v_1">
+          <div class="inline_filter">
+            <span class="soft"><%= t('.sort') %></span>
+            <div class="button-group ib" role="group">
+              <button class="button-grouped active sort-I" data-toggle="highest"><%= t('.higher_execution') %></button>
+              <button class="button-grouped sort-I" data-toggle="lowest"><%= t('.lower_execution') %></button>
+            </div>
+          </div>
 
-					<div class="separator"></div>
+          <div class="inline_filter">
+            <span class="soft"><%= t('.value') %></span>
+            <div class="button-group ib" role="group">
+              <button class="button-grouped active value-switcher-I" data-toggle="pct_executed" data-symbol="%"><%= t('.percentage') %></button>
+              <button class="button-grouped value-switcher-I" data-toggle="executed" data-symbol="€"><%= t('.euros') %></button>
+            </div>
+          </div>
 
-          <h2 class="lite"><%= t('.budget_lines_expense_lower') %></h2>
+          <% if @several_income_filters %>
+            <div class="inline_filter">
+              <span class="soft"><%= t('.category') %></span>
+              <div class="button-group ib" role="group">
+                <% if @any_economic_income_budget_lines %>
+                  <button class="button-grouped income_switcher active" data-toggle="economic"><%= t('.economic_button') %></button>
+                <% end %>
+                <% if @any_custom_income_budget_lines %>
+                  <button class="button-grouped button-grouped-one income_switcher" data-toggle="custom"><%= t('.custom_button') %></button>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
 
-					<%= render partial: 'execution_table', locals: {data: @top_negative_difference_expending_economic, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: 'economic'} %>
+        </div>
 
-				</div>
+        <div class="income_execution"></div>
+      </div>
+    </div>
+  </div>
 
-				<div class="tab_content tab" data-tab="functional">
 
-					<%= render partial: 'execution_table', locals: {data: @top_possitive_difference_expending_functional, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: 'functional'} %>
-
-					<div class="separator"></div>
-
-          <h2 class="lite"><%= t('.budget_lines_expense_lower') %></h2>
-
-					<%= render partial: 'execution_table', locals: {data: @top_negative_difference_expending_functional, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: 'functional'} %>
-				</div>
-
-			</div>
-		</div>
-	</div>
 </div>
 
 <%= render partial: 'widget_template_deviation' %>

@@ -159,6 +159,87 @@ input[type="checkbox"] + label, input[type="radio"] + label {
   padding: 14px;
   @include transition;
 }
+.inline_filter {
+  display: inline-block;
+  width: 49%;
+  margin-bottom: 0.5em;
+
+  span {
+    display: block;
+
+    @media (min-width: 768px) {
+      display: inline-block;
+      padding-right: 0.5em;
+    }
+  }
+
+  .button-group {
+    width: 100%;
+
+    @media (min-width: 768px) {
+      width: auto;
+    }
+  }
+
+  @media (min-width: 768px) {
+    width: auto;
+    padding-right: 1em;
+  }
+}
+.button-group {
+  // letter-spacing: -.31em;
+
+  .button-grouped {
+    background: white;
+    color: $color_headers;
+    font-weight: 400;
+    border: 1px solid #CECECE;
+    padding: 0 0.5em;
+    margin: 0;
+    border-radius: 0;
+    font-size: 14px;
+  }
+  .button-grouped+.button-grouped {
+    @media (min-width: 768px) {
+      margin-left: -5px;
+    }
+  }
+  .button-grouped:first-child {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    margin-left: 0;
+  }
+  .button-grouped:last-child {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+  }
+  .active {
+    background: #F4F4F4;
+    box-shadow: inset 0 0 3px 0 rgba(0,0,0,0.25);
+    // font-weight: 600;
+  }
+}
+.inline_button {
+  background: rgba($color_main, .1);
+  border-radius: 4px;
+  color: $color_main;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.35em .75em;
+  transition: 0.3s;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background: rgba($color_main, .15);
+    text-decoration: none;
+  }
+}
+
 input[type="checkbox"] + label span, input[type="radio"] + label span {
   display: inline-block;
   width: 19px;

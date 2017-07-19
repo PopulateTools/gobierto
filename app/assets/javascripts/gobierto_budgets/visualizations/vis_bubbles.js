@@ -3,7 +3,7 @@
 var VisBubbles = Class.extend({
   init: function(divId, budgetCategory, data) {
     this.container = divId;
-    $(this.container).html('');
+    d3.select(this.container).html('');
     this.currentYear = parseInt(d3.select('body').attr('data-year'));
     this.data = data;
     this.budget_category = budgetCategory;
@@ -64,8 +64,14 @@ var VisBubbles = Class.extend({
       .range(this.isMobile ? [0, 80] : [0, 120])
       .domain([0, this.maxAmount]);
 
-    // If we enter for the first time, build the data
-    // If we update, update the data but not the x and the y
+    // Assigns the nodes an initial y before the force takes place
+    this.nodeScale = d3.scaleLinear()
+      .range([0, 500]) // SVG coordinates
+      .domain([80, -80]) // Percentage diff between this year and last
+      .clamp(true);
+
+    // If we enter for the first time, we build the data
+    // If we update, we update the data but not the x and the y
     if (!this.nodes.length > 0) {
       this.nodes = this.filtered.map(function (d) {
         return {
@@ -79,7 +85,7 @@ var VisBubbles = Class.extend({
           pct_diff: d.pct_diff[year],
           per_inhabitant: d.values_per_inhabitant[year],
           x: Math.random() * 600,
-          y: -d.pct_diff[year] * 10,
+          y: this.nodeScale(d.pct_diff[year]),
           year: year
         };
       }.bind(this))
@@ -90,7 +96,7 @@ var VisBubbles = Class.extend({
         d.pct_diff = d.pct_diffs[year]
         d.per_inhabitant = d.values_per_inhabitant[year]
         d.year = year
-        // d.y = -d.pct_diffs[year] * 10
+        // d.y = this.nodeScale(d.pct_diffs[year])
       }.bind(this))
     }
 

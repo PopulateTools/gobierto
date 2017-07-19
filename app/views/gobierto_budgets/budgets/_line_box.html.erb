@@ -1,0 +1,38 @@
+<div class="pure-u-md-1-3 pure-u-1 line_box">
+  <div class="inner">
+    <div class="bg-image center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="108" height="114" viewBox="0 0 108 114">
+        <path fill="#FFFFFF" d="M71.75,54.0833333 L71.75,18.5833333 L54,0.833333333 L36.25,18.5833333 L36.25,30.4166667 L0.75,30.4166667 L0.75,113.25 L107.25,113.25 L107.25,54.0833333 L71.75,54.0833333 Z M24.4166667,101.416667 L12.5833333,101.416667 L12.5833333,89.5833333 L24.4166667,89.5833333 L24.4166667,101.416667 Z M24.4166667,77.75 L12.5833333,77.75 L12.5833333,65.9166667 L24.4166667,65.9166667 L24.4166667,77.75 Z M24.4166667,54.0833333 L12.5833333,54.0833333 L12.5833333,42.25 L24.4166667,42.25 L24.4166667,54.0833333 Z M59.9166667,101.416667 L48.0833333,101.416667 L48.0833333,89.5833333 L59.9166667,89.5833333 L59.9166667,101.416667 Z M59.9166667,77.75 L48.0833333,77.75 L48.0833333,65.9166667 L59.9166667,65.9166667 L59.9166667,77.75 Z M59.9166667,54.0833333 L48.0833333,54.0833333 L48.0833333,42.25 L59.9166667,42.25 L59.9166667,54.0833333 Z M59.9166667,30.4166667 L48.0833333,30.4166667 L48.0833333,18.5833333 L59.9166667,18.5833333 L59.9166667,30.4166667 Z M95.4166667,101.416667 L83.5833333,101.416667 L83.5833333,89.5833333 L95.4166667,89.5833333 L95.4166667,101.416667 Z M95.4166667,77.75 L83.5833333,77.75 L83.5833333,65.9166667 L95.4166667,65.9166667 L95.4166667,77.75 Z"/>
+      </svg>
+    </div>
+
+    <div class="padded">
+      <div class="line_title">
+        <h3 class="m_v_0"><%= budget_line_summary[:title] %></h3>
+      </div>
+      <div class="line_figure">
+        <div class="figure">
+          <% if budget_line_summary[:executed_amount] %>
+            <span class="tooltiped" title="<div><strong><%= format_currency budget_line_summary[:executed_amount] %></strong> ejecutados</div><div class='soft'><%= budget_line_summary[:executed_percentage] %> % ejecutado</div>">
+              <%= format_currency budget_line_summary[:budgeted_amount] %>
+            </span>
+          <% else %>
+            <span>
+              <%= format_currency budget_line_summary[:budgeted_amount] %>
+            </span>
+          <% end %>
+        </div>
+
+        <% if budget_line_summary[:executed_amount] %>
+          <div class="bar">
+            <div class="line" style="width: <%= budget_line_summary[:executed_percentage] > 100 ? 100 : budget_line_summary[:executed_percentage]%>%"></div>
+          </div>
+        <% end %>
+
+        <div class="zoom">
+          <i class="tooltiped-budget-lines fa fa-search-plus" title="<div class='table_header left'><div class='table_title'><a href='#'>Producción de bienes públicos de carácter preferente</a></div><div class='f_right'><strong>407M</div></span></div><div class='table_wrapper'><table class='left'><tr><td><a href='#'>Seguridad y movilidad ciudadana</a></td><td class='right'>10M</td></tr><tr><td><a href='#'>Vivienda y urbanismo</a></td><td class='right'>20M</td></tr><tr><td><a href='#'>Bienestar comunitario</a></td><td class='right'>40M</td></tr><tr><td><a href='#'>Otras prestaciones económicas a favor de empleados</a></td><td class='right'>330M</td></tr></table></div>"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

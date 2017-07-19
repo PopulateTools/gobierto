@@ -218,6 +218,7 @@ Rails.application.routes.draw do
         get '/data/lines/:ine_code/:year/:what' => 'data#lines', as: :data_lines
         get '/data/lines/budget_line/:ine_code/:year/:what/:kind/:code/:area' => 'data#lines', as: :data_lines_budget_line
         get '/data/widget/budget_execution_deviation/:ine_code/:year/:kind' => 'data#budget_execution_deviation', as: :data_budget_execution_deviation
+        get '/data/widget/budget_execution_comparison/:ine_code/:year/:kind/:area' => 'data#budget_execution_comparison', as: :data_budget_execution_comparison
       end
     end
   end

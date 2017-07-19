@@ -10,6 +10,7 @@ ignore_missing:
   - 'sandbox.*'
   - 'gobierto_budget_consultations.consultation_statuses.*'
   - 'gobierto_indicators.cards.*'
+  - 'gobierto_budgets.budgets.index_old.*'
 
 ignore_unused:
   - 'number.*'
@@ -28,6 +29,8 @@ ignore_unused:
   - 'gobierto_budgets.budget_lines.show.twitter_text_*'
   - 'gobierto_budgets.visualizations.G_custom'
   - 'gobierto_budgets.visualizations.I_custom'
+  - 'gobierto_budgets.budgets.index.*'
+  - 'gobierto_budgets.budgets_execution.*'
   - 'gobierto_people.activities.gobierto_people_person*'
   - 'invisible_captcha.*'
   - '*.events.*'

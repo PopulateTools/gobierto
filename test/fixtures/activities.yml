@@ -6,3 +6,38 @@ site_updated_by_admin:
   subject_ip: '1.2.3.4'
   admin_activity: true
 
+budgets_forecast_economic_updated:
+  action: 'gobierto_budgets.budgets_forecast_economic_updated'
+  subject: madrid (Site)
+  author: nil
+  recipient: nil
+  subject_ip: '127.0.0.1'
+  admin_activity: false
+  site: madrid
+
+budgets_forecast_functional_updated:
+  action: 'gobierto_budgets.budgets_forecast_functional_updated'
+  subject: madrid (Site)
+  author: nil
+  recipient: nil
+  subject_ip: '127.0.0.1'
+  admin_activity: false
+  site: madrid
+
+budgets_execution_economic_updated:
+  action: 'gobierto_budgets.budgets_execution_economic_updated'
+  subject: madrid (Site)
+  author: nil
+  recipient: nil
+  subject_ip: '127.0.0.1'
+  admin_activity: false
+  site: madrid
+
+budgets_exeuction_functional_updated:
+  action: 'gobierto_budgets.budgets_execution_functional_updated'
+  subject: madrid (Site)
+  author: nil
+  recipient: nil
+  subject_ip: '127.0.0.1'
+  admin_activity: false
+  site: madrid

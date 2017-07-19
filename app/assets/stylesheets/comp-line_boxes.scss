@@ -1,0 +1,145 @@
+.line_boxes {
+  .line_box {
+    box-sizing: border-box;
+    text-decoration: none;
+    margin-bottom: 1em;
+
+    .bg-image {
+      height: 168px;
+      background: rgba($color_main, .1);
+
+      svg {
+        margin: 1.5em 0 auto;
+      }
+    }
+
+    .inner {
+      margin: 0 .5em;
+      position: relative;
+      border: 1px solid #F0F0F0;
+      transition: 0.3s;
+      min-height: 285px;
+
+      .padded {
+        overflow: hidden;
+        padding: 1.15em 1em 1em 1em;
+
+        .line_title {
+          display: inline-block;
+          margin-bottom: 0.5rem;
+
+          @media (min-width: 768px) {
+            margin-bottom: 0;
+            max-width: 55%;
+          }
+
+          h3 {
+            font-size: 1.25em;
+            text-transform: uppercase;
+          }
+        }
+        .line_figure {
+          .figure {
+            font-weight: 700;
+            font-size: 2.25em;
+            margin-bottom: 0.25rem;
+          }
+
+          .bar {
+            display: inline-block;
+            width: 100%;
+            height: 10px;
+            background: rgba($color_main, .1);
+            margin-right: 0.25rem;
+
+            .line {
+              height: 10px;
+              background: $color_main
+            }
+
+            @media (min-width: 740px) {
+              width: 80px;
+            }
+          }
+          .zoom {
+            i {
+              cursor: pointer;
+              color: $color_main;
+            }
+
+            @media (min-width: 740px) {
+              text-align: right;
+            }
+          }
+
+          @media (min-width: 740px) {
+            text-align: right;
+            float: right;
+          }
+        }
+
+        p {
+          line-height: 1.4;
+          color: $color_text;
+        }
+      }
+    }
+  }
+  .line_box:first-child .inner {
+    margin-left: 0;
+  }
+  .line_box:last-child .inner {
+    margin-right: 0;
+  }
+  .line_box:nth-child(3) .inner {
+    margin-right: 0;
+  }
+  .line_box:nth-child(4) .inner {
+    margin-left: 0;
+  }
+
+  @media (max-width: 740px) {
+    .line_box .inner {
+      margin: 0 0 1em 0;
+    }
+  }
+}
+.tipsy-lines {
+
+  .tipsy-inner {
+    padding: 0;
+    // max-width: 380px;
+
+    .table_header {
+      background: $color_1;
+      padding: 10px 12px 10px 12px;
+      color: white;
+
+      .table_title {
+        font-size: 1rem;
+        max-width: 80%;
+        display: inline-block;
+        font-weight: 600;
+
+        a {
+          color: white;
+          text-decoration: none;
+        }
+      }
+    }
+    .table_wrapper {
+      padding: 10px 12px 10px 12px;
+
+      table {
+        td,
+        th {
+          border-top: none;
+          // font-size: 1rem;
+        }
+        .right {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

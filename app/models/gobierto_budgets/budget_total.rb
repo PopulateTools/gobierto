@@ -19,8 +19,15 @@ module GobiertoBudgets
       return for_places(ine_code, year) if ine_code.is_a?(Array)
       index = (b_or_e == BudgetTotal::EXECUTED) ? SearchEngineConfiguration::TotalBudget.index_executed : SearchEngineConfiguration::TotalBudget.index_forecast
 
-      result = SearchEngine.client.get index: index, type: SearchEngineConfiguration::TotalBudget.type, id: [ine_code, year, kind].join('/')
+      result = SearchEngine.client.get(
+        index: index,
+        type: SearchEngineConfiguration::TotalBudget.type,
+        id: [ine_code, year, kind].join('/')
+      )
+      
       result['_source']['total_budget'].to_f
+    rescue Elasticsearch::Transport::Transport::Errors::NotFound
+      nil
     end
 
     def self.budget_evolution_for(ine_code, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
@@ -141,5 +148,6 @@ module GobiertoBudgets
 
       SearchEngine.client.search index: index, type: SearchEngineConfiguration::TotalBudget.type, body: query
     end
+
   end
 end

@@ -1,5 +1,10 @@
 .vis-bubbles {
   position: relative;
+  margin-bottom: 1em;
+
+  @include min-screen(740) {
+    margin-bottom: 0;
+  }
 
   svg {
     overflow: visible;
@@ -89,9 +94,22 @@
     stroke-width: 1px;
   }
 }
-.bubble_legend {
-  text {
-    fill: $color_1;
-    font-weight: 600;
+
+.bubble_legend_wrapper {
+  z-index: 1;
+
+  .bubble_legend {
+    text {
+      fill: $color_1;
+      font-weight: 600;
+      text-shadow: 1px 1px 0px rgba(255,255,255,0.7), -1px -1px 0px rgba(255,255,255,0.7), -1px 1px 0px rgba(255,255,255,0.7), 1px -1px 0px rgba(255,255,255,0.7);
+    }
+    .legend-label {
+      fill-opacity: 0.65;
+      font-size: 0.8em;
+      fill: $text_soft;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
   }
 }

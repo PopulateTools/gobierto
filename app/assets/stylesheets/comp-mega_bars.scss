@@ -1,0 +1,86 @@
+.mega_bars {
+  .bar {
+    margin-bottom: 1rem;
+    height: 200px;
+    position: relative;
+
+    .label {
+      position: absolute;
+      top: 20%;
+      color: white;
+      font-size: $f3;
+
+      .figure {
+        font-size: $mega;
+        font-weight: 700;
+        line-height: 6rem;
+
+        span {
+          font-size: $f3;
+        }
+      }
+      @media (min-width: 740px) {
+        top: 30%;
+      }
+    }
+    .filled {
+      height: 200px;
+
+      @media (min-width: 740px) {
+        height: 280px;
+      }
+    }
+
+    @media (min-width: 740px) {
+      height: 280px;
+      margin-bottom: 0;
+    }
+  }
+  .bar.income {
+    background: rgba($color_main, .1);
+
+    .label {
+      left: 20px;
+      text-shadow: -1px -1px 0 $color_main,  1px -1px 0 $color_main, -1px 1px 0 $color_main, 1px 1px 0 $color_main;
+
+      @media (min-width: 740px) {
+        left: 40px;
+      }
+    }
+    .filled {
+      background: rgba($color_main, 1);
+    }
+
+    @media (min-width: 740px) {
+      margin-right: 0.5rem;
+    }
+  }
+  .bar.expense {
+    background: rgba(#F88F59, .1);
+
+    .label {
+      left: 20px;
+      text-shadow: -1px -1px 0 #F88F59, 1px -1px 0 #F88F59, -1px 1px 0 #F88F59, 1px 1px 0 #F88F59;
+
+      @media (min-width: 740px) {
+        right: 40px;
+        text-align: right;
+
+        > .f3 {
+          margin-right: 1.55rem;
+        }
+      }
+    }
+    .filled {
+      background: rgba(#F88F59, 1);
+
+      @media (min-width: 740px) {
+        float: right;
+      }
+    }
+
+    @media (min-width: 740px) {
+      margin-left: 0.5rem;
+    }
+  }
+}

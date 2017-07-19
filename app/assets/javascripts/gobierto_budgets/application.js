@@ -35,7 +35,7 @@ $(document).on('turbolinks:load', function() {
       });
     });
 
-    if (isDesktop()) {
+    if (window.innerWidth >= 1024) {
       var bubbleLegend = new VisBubbleLegend('.bubble_legend');
     }
   }
@@ -93,4 +93,20 @@ $(document).on('turbolinks:load', function() {
     $('.line_browser').velocity("fadeOut", { duration: 150 });
   });
 
+  $('.tooltiped-budget-lines').tipsy({
+    gravity: 'se',
+    trigger: 'manual',
+    html: true,
+    className: 'tipsy-lines'
+  });
+
+  $('.tooltiped-budget-lines').on('click', function() {
+    $(this).tipsy("show");
+  })
+
+  $('.tooltiped').tipsy({
+    gravity: 's',
+    trigger: 'hover',
+    html: true
+  });
 });

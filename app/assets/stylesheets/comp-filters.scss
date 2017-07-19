@@ -11,6 +11,7 @@
 		@include border-radius(2em);
 		background: rgba($color_main, .2);
 		text-decoration: none;
+		cursor: pointer;
 	}
 	a:hover {
 		background: rgba($color_main, .3);

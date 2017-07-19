@@ -6,6 +6,8 @@ var VisBubbleLegend = Class.extend({
     $(this.container).html('');
     this.isMobile = window.innerWidth <= 740;
 
+    var bigScreen = window.innerWidth > 1280;
+
     var colors =['#b2182b','#d6604d','#f4a582','#fddbc7','#f7f7f7','#d1e5f0','#92c5de','#4393c3','#2166ac'];
 
     var scale = d3.scaleOrdinal()
@@ -71,14 +73,8 @@ var VisBubbleLegend = Class.extend({
       .attr('marker-end', 'url(#arrow_end)')
       .attr('marker-start', 'url(#arrow_start)');
 
-    var labelRect = svg.append('rect')
-      .attr('transform', 'translate(-80' + ',' + (height / 2 - 25) + ')')
-      .attr('width', 200)
-      .attr('height', 60)
-      .attr('fill', 'white');
-
     var label = svg.append('text')
-      .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')')
+      .attr('transform', 'translate(' + width / 2 + ',' + (height / 2 - 30) + ')')
       .attr('text-anchor', 'middle');
 
     label.append('tspan')
@@ -88,5 +84,18 @@ var VisBubbleLegend = Class.extend({
       .attr('x', 0)
       .attr('y', 18)
       .text(I18n.t('gobierto_budgets.budgets.index.main_budget_levels_legend_two'));
+
+    svg.append('text')
+      .attr('class', 'legend-label')
+      .attr('x', bigScreen ? 36 : 34)
+      .attr('dy', 2)
+      .text(I18n.t('gobierto_budgets.budgets.index.main_budget_levels_legend_up'));
+
+    svg.append('text')
+      .attr('class', 'legend-label')
+      .attr('x', bigScreen ? 12 : 4)
+      .attr('y', height + 8)
+      .attr('text-anchor', 'end')
+      .text(I18n.t('gobierto_budgets.budgets.index.main_budget_levels_legend_down'));
   }
 });

@@ -10,6 +10,7 @@ module GobiertoAdmin
         :slug,
         :global_entity,
         :container_id,
+        :container_type,
         :item_type
       )
 

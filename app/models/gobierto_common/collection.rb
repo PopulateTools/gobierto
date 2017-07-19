@@ -14,6 +14,8 @@ module GobiertoCommon
 
     attr_reader :container
 
+    scope :by_item_type, ->(item_type) { where(item_type: item_type) }
+
     def container
       if container_id.present?
         super
@@ -35,7 +37,6 @@ module GobiertoCommon
     end
 
     # def initialize(container = nil)
-    #   byebug
     #   @container = container.present? ? container : site
     # end
 

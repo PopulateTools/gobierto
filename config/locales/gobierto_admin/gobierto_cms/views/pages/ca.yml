@@ -13,14 +13,13 @@ ca:
             active: Publicada
             draft: Borrador
         index:
-          created_at: Creada
+          collections: Collecciones
+          header:
+              collection: Col·lecció
+              pages: Pàgines
+          latest_editions: Últimes edicions
           new: Nova
-          public: Pública
           title: Pàgines
-          updated_at: Actualitzada
-          view: Veure pàgina
-          visibility_level:
-            active: Publicada
-            draft: Borrador
+          view_collection: Veure col·lecció
         new:
           title: Nova pàgina

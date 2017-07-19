@@ -124,16 +124,12 @@
           </li>
           <% end %>
 
-          <% if show_module_link?("GobiertoCms") %>
-          <li>
-            <%= link_to t(".cms"), admin_cms_pages_path %>
-          </li>
-          <% end %>
-
           <li class="sep"></li>
-          <li>
-            <%= link_to t(".collections"), admin_common_collections_path %>
-          </li>
+            <% if show_module_link?("GobiertoCms") %>
+            <li>
+              <%= link_to t(".cms"), admin_cms_pages_path %>
+            </li>
+            <% end %>
 
           <li class="sep"></li>
 

@@ -9,7 +9,6 @@ es:
         budget_consultations: Consultas de presupuestos
         cms: Gestión de páginas
         collapse_menu: Colapsar menú
-        collections: CMS
         dirty_forms:
           message: Hay cambios sin guardar. ¿Estás seguro de querer continuar?
         edit_site: Personalizar sitio

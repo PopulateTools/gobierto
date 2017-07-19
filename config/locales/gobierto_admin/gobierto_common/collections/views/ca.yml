@@ -20,3 +20,13 @@ ca:
           view_collection: Veure col·lecció
         new_modal:
           title: Nova col·lecció
+        show:
+          configuration: Configuració
+          created_at: Creada
+          new: Nova
+          public: Pública
+          updated_at: Actualitzada
+          view: Veure pàgina
+          visibility_level:
+            active: Publicada
+            draft: Borrador

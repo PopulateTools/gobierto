@@ -1,10 +1,11 @@
 module GobiertoAdmin
   module GobiertoCommon
     class CollectionsController < BaseController
-      helper_method :gobierto_common_collection_preview_url
+      helper_method :gobierto_common_page_preview_url
 
       def index
-        @collections = current_site.collections
+        # TODO: WIP CMS Collections
+        @collections = current_site.collections.by_type('GobiertoCms::Page')
         @pages = current_site.pages
 
         @collection_form = CollectionForm.new(site_id: current_site.id)
@@ -83,6 +84,7 @@ module GobiertoAdmin
       def collection_params
         params.require(:collection).permit(
           :container_id,
+          :container_type,
           :item_type,
           :slug,
           title_translations: [*I18n.available_locales]
@@ -97,9 +99,9 @@ module GobiertoAdmin
         current_site.collections.find(params[:id])
       end
 
-      def gobierto_common_collection_preview_url(collection, options = {})
-        options[:preview_token] = current_admin.preview_token unless collection.active?
-        gobierto_common_collection_url(collection.slug, options)
+      def gobierto_common_page_preview_url(page, options = {})
+        options.merge!(preview_token: current_admin.preview_token) unless page.active?
+        gobierto_cms_page_url(page.slug, options)
       end
     end
   end

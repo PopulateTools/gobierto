@@ -1,5 +1,6 @@
 $blue: #0072bc;
-$light_blue: #22A3D8;
+$medium_blue: #22A3D8;
+$light_blue: #92D1EB;
 $lighter_blue: #E5F3F5;
 $green: #00b585;
 $black: #333;
@@ -48,8 +49,8 @@ $light_black: rgba($color_headers, .7);
     }
   }
 
-  /* home_blocks */
-  .light_block {
+  /* content_blocks */
+  .content_block {
     h2 {
       color: $green;
     }
@@ -64,17 +65,17 @@ $light_black: rgba($color_headers, .7);
   .block_container.groups {
     & > div {
       @include min-screen(740) {
-        padding: 0 0.5em 2em 0.5em;
+        padding: 0 1em 2em 1em;
       }
 
       &:first-child {
         @include min-screen(740) {
-          padding: 0 0.5em 2em 0;
+          padding: 0 1em 2em 0;
         }
       }
       &:last-child {
         @include min-screen(740) {
-          padding: 0 0 2em 0.5em;
+          padding: 0 0 2em 1em;
         }
       }
     }
@@ -91,7 +92,7 @@ $light_black: rgba($color_headers, .7);
     .control {
       box-sizing: border-box;
       font-size: 1.15em;
-      color: #00B585;
+      color: $green;
       background: #FFFFFF;
       box-shadow: 0 1px 2px 0 rgba(0,0,0,0.20);
       border-radius: 100px;
@@ -158,15 +159,15 @@ $light_black: rgba($color_headers, .7);
 
   /* Agenda */
   .with_separator {
-    color: $light_blue;
-    border-top-color: $light_blue;
+    color: $medium_blue;
+    border-top-color: $medium_blue;
   }
 
   .agenda_title {
     text-align: left;
     color: $color_headers;
     margin: 0;
-    padding: 0.5em 0;
+    padding-bottom: 0.5em;
     text-transform: uppercase;
     font-size: 1em;
   }
@@ -174,7 +175,7 @@ $light_black: rgba($color_headers, .7);
   .agenda > div {
     margin-bottom: 1em;
 
-    .home_block {
+    .content_block {
       min-height: 17em;
       margin-bottom: 1em;
 
@@ -192,21 +193,6 @@ $light_black: rgba($color_headers, .7);
     .place_latest-item {
       display: block;
       margin-bottom: 1em;
-
-      .date_badge {
-        background-color: $light_blue;
-        margin-bottom: 0.5em;
-
-        @include min-screen(740) {
-          margin-bottom: 0;
-        }
-
-        .day {
-          text-transform: uppercase;
-          font-size: 1em;
-          color: white;
-        }
-      }
 
       .event-content,
       .news-content,
@@ -267,7 +253,7 @@ $light_black: rgba($color_headers, .7);
       margin-bottom: 0;
       padding-bottom: 1em;
 
-      .home_block {
+      .content_block {
         padding: 1em;
         min-height: 4.75em;
 
@@ -290,7 +276,7 @@ $light_black: rgba($color_headers, .7);
 
   /* Groups */
   .groups > div {
-    .home_block {
+    .content_block {
       display: block;
       border-top: 6px solid $green;
       text-align: center;
@@ -313,6 +299,104 @@ $light_black: rgba($color_headers, .7);
 
       .circle-teaser {
         background: rgba($green, .1);
+      }
+    }
+  }
+
+  /* Process page */
+  .processes_home {
+    > div {
+      padding-bottom: 1em !important;
+      margin-bottom: 0;
+
+      @include min-screen(740) {
+        padding-bottom: 0 !important;
+      }
+    }
+
+    .content_block.mask_bottom {
+      min-height: 20em;
+
+      h2 {
+        color: white;
+      }
+    }
+    .news_teaser .content_block {
+      min-height: 16em;
+    }
+  }
+
+  .with_light_separator {
+    font-size: 1.25em;
+    color: $color_headers;
+
+    &:before {
+      background: rgba($color_text, .3);
+    }
+  }
+
+  .meta_info {
+    margin-bottom: 0.25em;
+
+    a {
+      color: $color_text;
+    }
+  }
+
+  .accent {
+    color: $green;
+  }
+
+  .badge {
+    background-color: $medium_blue;
+    margin-bottom: 0.5em;
+
+    @include min-screen(740) {
+      margin-bottom: 0;
+    }
+
+    strong {
+      text-transform: uppercase;
+      font-size: 1em;
+      color: white;
+    }
+  }
+
+  .timeline {
+    .line {
+      background: $light_blue;
+    }
+
+    .timeline_row.active:before {
+      background: $medium_blue !important;
+    }
+
+    .content_block {
+      h3 {
+        margin-top: 0;
+        margin-bottom: 0.25em;
+        color: $green;
+        font-size: 1.25em;
+      }
+
+      a {
+        color: $color_headers;
+      }
+
+      .circle {
+        border: none;
+        background: rgba($green, .1);
+        color: white;
+        font-weight: 700;
+        font-size: 1em;
+      }
+
+      &:before {
+        background: $light_blue;
+      }
+
+      &:after {
+        background: $medium_blue;
       }
     }
   }

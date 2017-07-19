@@ -2,23 +2,6 @@
 .place_event-item,
 .place_news-item,
 .place_latest-item {
-  .date_badge {
-    box-sizing: border-box;
-    padding: .3em 0;
-    background-color: $color_main;
-    text-align: center;
-    background: $color_1_soft;
-    @include border-radius(4px);
-    color: $color_main;
-  }
-  .day, .month, .hour {
-    margin: 0;
-    line-height: 1.4em;
-  }
-  .day {
-    font-size: 1.4em;
-    font-weight: 600;
-  }
   .month, .hour {
     font-size: .85em;
   }

@@ -161,17 +161,17 @@ p.intro {
 
     &:nth-child(odd) {
       @include min-screen(740) {
-        padding: 0 0.5em 2em 0;
+        padding: 0 1em 2em 0;
       }
     }
     &:nth-child(even) {
       @include min-screen(740) {
-        padding: 0 0 2em 0.5em;
+        padding: 0 0 2em 1em;
       }
     }
   }
 }
-.home_block {
+.content_block {
   text-align: left;
   position: relative;
   box-shadow: 0 1px 2px 1px rgba(0,0,0,0.20);
@@ -201,20 +201,6 @@ p.intro {
     margin: 0 auto;
     border-radius: 50%;
   }
-}
-a.home_block {
-  &:hover,
-  &:focus,
-  &:active {
-    text-decoration: none;
-    box-shadow: 0 1px 6px 1px rgba(0,0,0,0.2);
-  }
-}
-.home_block.cover_bottom_left {
-  background-size: auto;
-  background-position: bottom left;
-}
-.home_block.light_block {
   h2 {
     font-size: 1.625em;
     margin-top: 0.25em;
@@ -223,7 +209,19 @@ a.home_block {
     color: $color_text;
   }
 }
-.home_block.filled_block {
+a.content_block {
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: none;
+    box-shadow: 0 1px 6px 1px rgba(0,0,0,0.2);
+  }
+}
+.content_block.cover_bottom_left {
+  background-size: auto;
+  background-position: bottom left;
+}
+.content_block.filled_block {
   background-color: $color_main;
 
   h2 {
@@ -237,7 +235,7 @@ a.home_block {
     text-shadow: 0 1px 1px rgba(0,0,0,0.20);
   }
 }
-.home_block.align_right {
+.content_block.align_right {
   @include min-screen(740) {
     text-align: right;
   }
@@ -259,7 +257,7 @@ a.home_block {
     }
   }
 }
-.home_block.align_bottom_right {
+.content_block.align_bottom_right {
   text-align: left;
 
   @include min-screen(740) {
@@ -282,7 +280,41 @@ a.home_block {
     }
   }
 }
+.content_block.align_bottom {
+  text-align: left;
 
+  > div {
+    position: absolute;
+    bottom: 1.75em;
+    left: 1em;
+    max-width: 90%;
+
+    @include min-screen(740) {
+      left: 2em;
+      max-width: none;
+    }
+
+    h2 {
+      margin-bottom: 0.25em;
+    }
+    p {
+      margin-top: 0;
+    }
+  }
+}
+.content_block.mask_bottom {
+  &:before {
+    border-radius: 4px;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(to bottom,transparent, #000);
+    opacity: 0.9;
+  }
+}
 
 .separator {
 	border-top: 1px solid $text_soft;
@@ -408,4 +440,37 @@ a.home_block {
   min-width: 10em;
   padding-top: 1em;
   border-top: 3px solid $color_main;
+}
+.with_light_separator {
+  position: relative;
+  margin-top: 2em;
+  margin-bottom: 0;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: -1em;
+    width: 2em;
+    height: 3px;
+    background: rgba($color_main, .5);
+  }
+}
+.accent {
+  font-weight: 600;
+  color: $color_main;
+}
+
+.badge {
+  box-sizing: border-box;
+  padding: .3em 0;
+  background-color: $color_main;
+  text-align: center;
+  background: $color_1_soft;
+  @include border-radius(4px);
+  color: $color_main;
+
+  strong {
+    font-size: 1.4em;
+    font-weight: 600;
+  }
 }

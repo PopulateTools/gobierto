@@ -4,7 +4,6 @@ module GobiertoAdmin
       helper_method :gobierto_common_page_preview_url
 
       def index
-        # TODO: WIP CMS Collections
         @collections = current_site.collections.by_item_type('GobiertoCms::Page')
         @pages = current_site.pages
 

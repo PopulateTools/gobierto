@@ -17,6 +17,7 @@ module GobiertoCms
     translates :title, :body, :slug
 
     belongs_to :site
+    has_many :collection_items, as: :item
 
     enum visibility_level: { draft: 0, active: 1 }
 

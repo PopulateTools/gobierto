@@ -7,8 +7,6 @@ module GobiertoCommon
     def container
       if container_id.present?
         super
-      else
-        container_type.constantize
       end
     end
   end

@@ -38,7 +38,7 @@ module GobiertoCommon
 
     def append(item)
       containers_hierarchy(container).each do |container_type, container_id|
-        CollectionItem.create site: site, container_type: container_type, container_id: container_id, item: item
+        CollectionItem.create collection_id: id, container_type: container_type, container_id: container_id, item: item
       end
     end
 

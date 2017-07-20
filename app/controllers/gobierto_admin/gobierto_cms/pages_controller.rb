@@ -8,7 +8,6 @@ module GobiertoAdmin
       helper_method :gobierto_cms_page_preview_url
 
       def index
-        # TODO: WIP CMS Collections
         @collections = current_site.collections.by_item_type('GobiertoCms::Page')
         @pages = current_site.pages.sorted
       end
@@ -32,10 +31,7 @@ module GobiertoAdmin
 
         if @page_form.save
           track_create_activity
-          # TODO: WIP CMS Collections
-          ::GobiertoCommon::CollectionItem.create(collection: ::GobiertoCommon::Collection.find(params[:page][:collection_id]),
-                                                  item: @page_form.page,
-                                                  container: ::GobiertoCommon::Collection.find(params[:page][:collection_id]).container)
+          ::GobiertoCommon::Collection.find(params[:page][:collection_id]).append(@page_form.page)
 
           redirect_to(
             edit_admin_cms_page_path(@page_form.page.id),

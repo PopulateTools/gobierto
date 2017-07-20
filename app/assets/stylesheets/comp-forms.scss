@@ -257,7 +257,14 @@ input[type="checkbox"] + label, input[type="radio"] + label {
   }
 }
 .button.outline.rounded.wide {
-  padding: 0.1em 1em;
+  padding: 0.1em 1.5em;
+}
+.button.outline.rounded.checked {
+  background: $color_main;
+
+  .fa {
+    color: white;
+  }
 }
 
 input[type="checkbox"] + label span, input[type="radio"] + label span {

@@ -42,6 +42,14 @@ $lighter_black: rgba($color_headers, .7);
       color: $green;
     }
   }
+  .button.outline.rounded.checked {
+    background: $green;
+    color: white;
+
+    .fa {
+      color: white;
+    }
+  }
   .nav {
     border-color: $lighter_blue !important;
 

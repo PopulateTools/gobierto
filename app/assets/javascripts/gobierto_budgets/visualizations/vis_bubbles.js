@@ -109,7 +109,7 @@ var VisBubbles = Class.extend({
       .duration(500);
 
     this.nodes = this.createNodes(this.data, year);
-    this.bubbles.data(this.nodes, function (d) { return d.name; })
+    this.bubbles.data(this.nodes, function (d) { return d.id; })
 
     d3.selectAll('.bubble')
       .data(this.nodes, function (d) { return d.name; })

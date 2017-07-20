@@ -8,7 +8,9 @@ module GobiertoCommon
 
     translates :title
 
-    validates :site, :title, :slug, presence: true
+    validates :site, :title, :slug, :item_type, presence: true
+    validates :container, presence: true, associated: true
+    validates_associated :container
     validates :slug, uniqueness: true
     validate :uniqueness_of_title
 
@@ -19,8 +21,6 @@ module GobiertoCommon
     def container
       if container_id.present?
         super
-      else
-        container_type.constantize
       end
     end
 
@@ -35,10 +35,6 @@ module GobiertoCommon
     def self.collector_classes
       [Site, Module, GobiertoParticipation::Issue, GobiertoParticipation::Area]
     end
-
-    # def initialize(container = nil)
-    #   @container = container.present? ? container : site
-    # end
 
     def append(item)
       containers_hierarchy(container).each do |container_type, container_id|

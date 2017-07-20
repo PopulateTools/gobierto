@@ -50,7 +50,7 @@ module GobiertoAdmin
           collection_attributes.title_translations = title_translations
           collection_attributes.slug = slug
           # TODO: Generalize
-          collection_attributes.container = ::GobiertoParticipation::Issue.find(container_id)
+          collection_attributes.container = ::GobiertoParticipation::Issue.find(container_id) if container_id.present?
           collection_attributes.item_type = item_type
         end
 

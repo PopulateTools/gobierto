@@ -5,7 +5,7 @@ module GobiertoAdmin
 
       def index
         # TODO: WIP CMS Collections
-        @collections = current_site.collections.by_type('GobiertoCms::Page')
+        @collections = current_site.collections.by_item_type('GobiertoCms::Page')
         @pages = current_site.pages
 
         @collection_form = CollectionForm.new(site_id: current_site.id)
@@ -25,6 +25,7 @@ module GobiertoAdmin
 
       def edit
         @collection = find_collection
+        @issues = current_site.issues
         @collection_form = CollectionForm.new(
           @collection.attributes.except(*ignored_collection_attributes)
         )
@@ -34,6 +35,7 @@ module GobiertoAdmin
 
       def create
         @collection_form = CollectionForm.new(collection_params.merge(site_id: current_site.id))
+        @issues = current_site.issues
 
         if @collection_form.save
           track_create_activity

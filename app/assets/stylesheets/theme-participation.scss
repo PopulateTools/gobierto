@@ -338,6 +338,12 @@ $lighter_black: rgba($color_headers, .7);
   h3.with_light_separator {
     font-size: 1.25em;
   }
+
+  h4 {
+    margin-bottom: 0.5em;
+    color: $lighter_black;
+  }
+
   h4.with_light_separator {
     margin-top: 3em;
   }
@@ -463,7 +469,8 @@ $lighter_black: rgba($color_headers, .7);
     }
   }
 
-  .events_list {
+  .events_list,
+  .event_wrapper {
     .person_event-item {
       margin-bottom: 2em;
 
@@ -515,6 +522,7 @@ $lighter_black: rgba($color_headers, .7);
       }
 
       p {
+        font-size: 1.125em;
         margin-top: 0.25em;
       }
 
@@ -522,7 +530,10 @@ $lighter_black: rgba($color_headers, .7);
         font-size: 0.875em;
         color: $lighter_black;
         padding-bottom: 2em;
-        border-bottom: 1px solid $separator;
+
+        &.listed {
+          border-bottom: 1px solid $separator;
+        }
 
         a:not(.button) {
           color: $green;
@@ -545,9 +556,22 @@ $lighter_black: rgba($color_headers, .7);
           }
         }
       }
-
     }
   }
 
+  .new_user_subscription {
+    input[type=email] {
+      height: 32px;
+      background: white;
+      border: 1px solid $lighter_black;
+      box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.50);
+      border-radius: 4px;
+    }
+  }
 
+  input[type=submit] {
+    background: $green;
+    text-transform: none;
+    padding: 0.5em 1.25em;
+  }
 }

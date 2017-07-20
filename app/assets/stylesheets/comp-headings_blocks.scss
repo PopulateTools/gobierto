@@ -57,12 +57,11 @@ h1, h2, h3, h4 {
   font-size: 1.25em;
   color: $color_main;
   border-top-color: $color_main;
+  margin-top: 0;
 
   & ~ .soft {
-    margin-top: 0;
-
     @include min-screen(740) {
-      padding-right: 1em;
+      padding-right: 3em;
     }
   }
 }

@@ -32,8 +32,26 @@
           <%= render 'event_teaser', title: 'Curso de natación para mayores' %>
           <%= render 'event_teaser', title: 'Club de lectura intensivo en inglés' %>
         </div>
+
+        <%= render 'pagination' %>
       </div>
 
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+$.fn.extend({
+  toggleText: function(a, b){
+    return this.text(this.text() == b ? a : b);
+  }
+});
+
+$('.attend_event').click(function() {
+  $(this).find('.fa').toggleClass('hidden');
+  $(this).toggleClass('checked');
+
+  // Swap text
+  $(this).find('span').toggleText('Quiero asistir', 'Asistirás');
+});
+</script>

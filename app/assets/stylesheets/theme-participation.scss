@@ -582,4 +582,18 @@ $lighter_black: rgba($color_headers, .7);
     text-transform: none;
     padding: 0.5em 1.25em;
   }
+
+  .pagination {
+    a {
+      color: $color_text;
+    }
+  }
+
+
+  /* News */
+  .news_teaser {
+    h3 a {
+      color: $green;
+    }
+  }
 }

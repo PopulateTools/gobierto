@@ -1,0 +1,34 @@
+<%= content_for :body_attributes do %>
+  class="theme-participation gobierto_participation"
+<% end %>
+
+<div class="gradient-bg">
+  <div class="column">
+
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-lg-1-3">
+        <h2 class="with_separator">Noticias</h2>
+
+        <h4 class="with_light_separator m_t_1">Filtrar por grupo</h4>
+        <ul class="link_list">
+          <li><a href="#">Cultura</a></li>
+          <li><a href="#">Educación</a></li>
+          <li><a href="#">Empleo y comercio</a></li>
+          <li><a href="#">Vivienda</a></li>
+          <li><a href="#">Economía y hacienda</a></li>
+          <li><a href="#">Mujer</a></li>
+          <li><a href="#">Educación</a></li>
+        </ul>
+      </div>
+
+      <div class="pure-u-1 pure-u-lg-2-3">
+        <%= render 'news_teaser', headline: 'Alcobendas acoge media startups, un espacio de encuentro, reflexión y aprendizaje para emprendedores y medios de comunicación', image: true %>
+        <%= render 'news_teaser', headline: 'Más de 900 millones de euros en tres años para mejorar la calidad de vida de los mayores', image: false %>
+        <%= render 'news_teaser', headline: 'Alcobendas acoge media startups, un espacio de encuentro, reflexión y aprendizaje para emprendedores y medios de comunicación', image: false %>
+
+        <%= render 'pagination' %>
+      </div>
+
+    </div>
+  </div>
+</div>

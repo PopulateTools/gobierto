@@ -246,6 +246,19 @@ input[type="checkbox"] + label, input[type="radio"] + label {
     text-decoration: none;
   }
 }
+.button.outline.rounded {
+  text-transform: none;
+  padding: 0.25em 0.5em;
+  border-radius: 20px;
+  font-weight: 600;
+
+  .fa {
+    font-size: 85%;
+  }
+}
+.button.outline.rounded.wide {
+  padding: 0.1em 1em;
+}
 
 input[type="checkbox"] + label span, input[type="radio"] + label span {
   display: inline-block;

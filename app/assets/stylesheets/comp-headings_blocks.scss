@@ -475,6 +475,31 @@ a.content_block {
   color: $color_main;
 }
 
+.date_badge {
+  box-sizing: border-box;
+  padding: .3em 0;
+  background-color: $color_main;
+  text-align: center;
+  background: $color_1_soft;
+  @include border-radius(4px);
+  color: $color_main;
+
+  .day, .month, .hour {
+    margin: 0;
+    line-height: 1.4em;
+  }
+  .day {
+    font-size: 1.4em;
+    font-weight: 600;
+  }
+  .month, .hour {
+    font-size: .85em;
+  }
+  .hour {
+    opacity: .5;
+  }
+}
+
 .badge {
   box-sizing: border-box;
   padding: .3em 0;
@@ -497,4 +522,9 @@ a.content_block {
   strong {
     color: $color_1;
   }
+}
+
+.link_list {
+  padding-left: 0;
+  list-style: none;
 }

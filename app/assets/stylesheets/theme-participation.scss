@@ -4,7 +4,8 @@ $light_blue: #92D1EB;
 $lighter_blue: #E5F3F5;
 $green: #00b585;
 $black: #333;
-$light_black: rgba($color_headers, .7);
+$light_black: #4A4A4A;
+$lighter_black: rgba($color_headers, .7);
 
 .theme-participation {
   header.meta {
@@ -184,7 +185,7 @@ $light_black: rgba($color_headers, .7);
       }
 
       & ~ a {
-        color: $light_black;
+        color: $lighter_black;
       }
     }
 
@@ -213,7 +214,7 @@ $light_black: rgba($color_headers, .7);
 
         .meta {
           a {
-            color: $light_black;
+            color: $lighter_black;
           }
 
           div:first-child {
@@ -327,12 +328,18 @@ $light_black: rgba($color_headers, .7);
   }
 
   .with_light_separator {
-    font-size: 1.25em;
     color: $color_headers;
 
     &:before {
       background: rgba($color_text, .3);
     }
+  }
+
+  h3.with_light_separator {
+    font-size: 1.25em;
+  }
+  h4.with_light_separator {
+    margin-top: 3em;
   }
 
   .meta_info {
@@ -400,5 +407,147 @@ $light_black: rgba($color_headers, .7);
       }
     }
   }
+
+  /* Agenda */
+  .calendar-component {
+    padding: 0;
+
+    @include min-screen(740) {
+      max-width: 75%;
+    }
+
+    .calendar-heading {
+      background: $green;
+      padding: 0.75em;
+      color: white;
+      font-weight: 600;
+
+      a {
+        color: white;
+
+        i {
+          margin-top: 0.25em;
+        }
+      }
+    }
+
+    .table {
+      background: white;
+      padding: 1.5em;
+
+      a {
+        text-decoration: none;
+        color: $green;
+        font-weight: 700;
+      }
+
+      // FIXME: Think about a better solution
+      .today {
+        background: $light_black;
+        border-radius: 50%;
+        position: absolute;
+        width: 19px;
+        padding: 3px;
+        margin-left: 0.65em;
+        margin-top: 0.25em;
+      }
+    }
+  }
+
+  .link_list {
+    margin-bottom: 2em;
+
+    a {
+      color: $green;
+      font-weight: 600;
+    }
+  }
+
+  .events_list {
+    .person_event-item {
+      margin-bottom: 2em;
+
+      .date_badge {
+        display: table;
+        background: $medium_blue;
+        color: white;
+        margin-bottom: 1em;
+
+        @include min-screen(740) {
+          width: 10%;
+          margin-bottom: 0;
+        }
+
+        .day {
+          text-transform: uppercase;
+          font-size: 1em;
+        }
+
+        .hour {
+          opacity: 1;
+        }
+      }
+
+      .event-content {
+        padding-left: 0;
+
+        @include min-screen(740) {
+          padding: 0 0 0 1.5em;
+        }
+      }
+
+      h3 {
+        font-size: 1.25em;
+        margin-top: 0;
+        margin-bottom: 0.25em;
+
+        a {
+          color: $green;
+        }
+      }
+
+      .meta {
+        color: $lighter_black;
+
+        a {
+          color: $lighter_black;
+        }
+      }
+
+      p {
+        margin-top: 0.25em;
+      }
+
+      .extra_info {
+        font-size: 0.875em;
+        color: $lighter_black;
+        padding-bottom: 2em;
+        border-bottom: 1px solid $separator;
+
+        a:not(.button) {
+          color: $green;
+        }
+
+        .button {
+          margin-bottom: 0;
+          margin-right: 0.25em;
+
+          @include min-screen(740) {
+            margin-right: 0;
+          }
+        }
+
+        .ib {
+          margin-bottom: 0.5em;
+
+          @include min-screen(740) {
+            margin-bottom: 0;
+          }
+        }
+      }
+
+    }
+  }
+
 
 }

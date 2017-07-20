@@ -108,11 +108,8 @@ header.meta {
       }
     }
     .button.outline.rounded {
-      text-transform: none;
-      padding: 0.25em 0.5em;
-      border-radius: 20px;
-      font-weight: 600;
       width: auto;
+      padding: 0.25em 0.5em;
 
       &.desktop_only {
         @include screen(740) {
@@ -130,10 +127,6 @@ header.meta {
         @include min-screen(741) {
           display: none;
         }
-      }
-
-      .fa {
-        font-size: 85%;
       }
     }
     .search_icon {

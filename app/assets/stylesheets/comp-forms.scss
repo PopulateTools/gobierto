@@ -267,6 +267,18 @@ input[type="checkbox"] + label, input[type="radio"] + label {
   }
 }
 
+.button.outline.rounded.fat {
+  padding: 0.75em 1.5em !important;
+  border-radius: 30px !important;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.20);
+
+  &:focus,
+  &:active,
+  &:hover {
+    background: $color_main;
+  }
+}
+
 input[type="checkbox"] + label span, input[type="radio"] + label span {
   display: inline-block;
   width: 19px;

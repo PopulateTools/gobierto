@@ -50,6 +50,13 @@ $lighter_black: rgba($color_headers, .7);
       color: white;
     }
   }
+  .button.outline.rounded.fat {
+    &:focus,
+    &:active,
+    &:hover {
+      background: white;
+    }
+  }
   .nav {
     border-color: $lighter_blue !important;
 
@@ -239,6 +246,7 @@ $lighter_black: rgba($color_headers, .7);
     }
   }
 
+  // TODO: Move comp_headings_blocks
   .content_block.light {
     padding: 1em;
     min-height: 4.75em;
@@ -258,14 +266,17 @@ $lighter_black: rgba($color_headers, .7);
     }
   }
 
+  // TODO: Move comp_headings_blocks
   .content_block.themed {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     border-top: 6px solid $green;
     text-align: center;
     min-height: 10em;
     margin-bottom: 1em;
     text-decoration: none;
-    padding: 1em;
+    padding: 1em 1em 2em 1em;
 
     h3 {
       font-size: 1.25em;
@@ -280,8 +291,40 @@ $lighter_black: rgba($color_headers, .7);
       line-height: 1.3;
     }
 
+    .lead {
+      font-size: 1em;
+      color: $black;
+    }
+
+    .meta {
+      position: absolute;
+      bottom: 0.25em;
+      right: 1em;
+    }
+
+    .date {
+      color: $color_text;
+      position: absolute;
+      bottom: 0.5em;
+      right: 1em;
+      font-size: 0.875em;
+    }
+
     .circle_teaser {
       background: rgba($green, .1);
+    }
+  }
+
+  .content_block.themed.negative {
+    border-top-color: $lighter_black;
+  }
+
+  .emoji_block {
+    display: block !important;
+    background-image: url(asset_path('illustrations/emojis.svg'));
+
+    h2 {
+      margin-bottom: 2em;
     }
   }
 
@@ -629,5 +672,12 @@ $lighter_black: rgba($color_headers, .7);
   /* Theme list */
   .slim_headline {
     color: $black;
+  }
+
+  /* Contributions home */
+  .contributions_home {
+    h2:not(.left) {
+      color: $green;
+    }
   }
 }

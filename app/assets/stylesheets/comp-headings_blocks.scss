@@ -104,6 +104,12 @@ p.intro {
   color: $color_meta_text;
 }
 
+.slim_headline {
+  margin: 2em auto;
+  max-width: 675px;
+  font-size: 1.25em;
+}
+
 
 /*
  * Content Boxes
@@ -166,25 +172,6 @@ p.intro {
     margin-right: 1em;
   }
 }
-
-/* Participation boxes */
-.block_container {
-  & > div {
-    box-sizing: border-box;
-    // margin-bottom: 1em;
-
-    &:nth-child(odd) {
-      @include min-screen(740) {
-        padding: 0 1em 2em 0;
-      }
-    }
-    &:nth-child(even) {
-      @include min-screen(740) {
-        padding: 0 0 2em 1em;
-      }
-    }
-  }
-}
 .content_block {
   text-align: left;
   position: relative;
@@ -221,6 +208,21 @@ p.intro {
   }
   p {
     color: $color_text;
+  }
+
+  .meta {
+    margin-top: 0.5em;
+    color: $color_text;
+    opacity: 0.5;
+    font-size: 0.825em;
+
+    & > div:not(last-child) {
+      margin-right: 0.25em;
+    }
+
+    .fa {
+      margin-right: 0;
+    }
   }
 }
 a.content_block {

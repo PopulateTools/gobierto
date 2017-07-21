@@ -394,8 +394,10 @@ pre {
 .list_item_with_editable_content {
   input[type=text] {
     height: initial;
-    padding: 1em;
-    width: 70%;
+    padding: 4px 10px;
+    margin: 0 1em 0 0;
+    box-sizing: initial;
+    width: 75%;
   }
 }
 

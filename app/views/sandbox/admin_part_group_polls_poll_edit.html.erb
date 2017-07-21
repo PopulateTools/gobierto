@@ -128,28 +128,53 @@
                   <i class="fa fa-bars"></i>
                   <label class="main"><%= i %></label>
                   <div class="tools">
-                    <%= link_to '<i class="fa fa-edit"></i>'.html_safe, '#', title: 'Editar', class: 'tipsit' %>
-                    <%= link_to '<i class="fa fa-trash"></i>'.html_safe, '', title: 'Eliminar', class: 'tipsit' %>
+                    <%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'javascript:void(0)', title: 'Editar', class: 'tipsit', onclick: "$(this).parent().parent().hide(); $('#edit_response').show();" %>
+                    <%= link_to '<i class="fa fa-trash"></i>'.html_safe, 'javascript:void(0)', title: 'Eliminar', class: 'tipsit' %>
+                  </div>
+
+                </div>
+
+                <div class="list_item_with_editable_content" style="display: none;" id="edit_response">
+
+                  <i class="fa fa-bars"></i>
+                  <input type="text" value="<%= i %>">
+                  <div class="tools">
+                    <%= link_to 'cancelar', '#' %>
                   </div>
 
                 </div>
 
               <% end %>
 
-              <div class="m_1 p_h_2">
+              <div class="m_1 p_h_2" >
                 <!-- it generates another .list_item_with_editable_content element -->
-                <%= link_to '<i class="fa fa-plus-circle"></i> Añadir nueva respuesta'.html_safe %>
+                <%= link_to '<i class="fa fa-plus-circle"></i> Añadir nueva pregunta'.html_safe, 'javascript:void(0)', onclick: "$(this).parent().hide(); $('#add_new_question').show();" %>
               </div>
 
+              <div class="list_item_with_editable_content" style="display: none;" id="add_new_question">
+
+                <i class="fa fa-bars"></i>
+                <input type="text" value="" placeholder="¿Deseas que pongamos un Rey Mago gigante para Navidad?">
+                <div class="tools">
+                  <%= link_to 'cancelar', '#' %>
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="actions right">
+              <button class="light">Cancelar</button>
+              <input type="submit" value="Guardar">
             </div>
 
           </div>
 
         <% end %>
 
-        <div class="m_1 p_h_2">
+        <div class="m_1 p_h_2" >
           <!-- it generates another .list_item_with_editable_content element -->
-          <%= link_to '<i class="fa fa-plus-circle"></i> Añadir nueva respuesta'.html_safe %>
+          <%= link_to '<i class="fa fa-plus-circle"></i> Añadir nueva pregunta'.html_safe, '#edit_poll_response', class: 'open_modal'  %>
         </div>
 
       </div>

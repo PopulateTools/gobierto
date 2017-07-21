@@ -344,7 +344,7 @@ pre {
 .list_item, .list_item_with_editable_content {
   margin: 0 0 .5em 0;
   .fa-bars {
-    padding: 1em;
+    padding: .75em;
     cursor: pointer;
   }
   .fa-bars:hover {
@@ -357,7 +357,7 @@ pre {
     padding: 4px 10px;
     @include border-radius(4px);
     margin: 0 1em 0 0;
-    width: 300px;
+    width: 75%;
     font-weight: 600;
   }
   .mandatory, .inline_notice, .tools {
@@ -376,6 +376,11 @@ pre {
   input[type="checkbox"], input[type="radio"] {
     display: initial;
     margin-right: .5em;
+  }
+}
+.list_item.with_mandatory_column, .list_item_with_editable_content.with_mandatory_column {
+  label.main {
+    width: 50%;
   }
 }
 .list_item.disabled {

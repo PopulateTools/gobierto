@@ -57,7 +57,7 @@
         </div>
 
         <div class="form_item input_text">
-          <label for="name">Título Máx 140 caracteres</label>
+          <label for="name">Título Máx <span class="indication">Máx 140 caracteres</span></label>
           <input type="text" id="name" value="¿Crees que habría que modificar la ordenanza sobre terrazas?">
         </div>
 
@@ -68,24 +68,86 @@
           <div class="inline_help"></div>
         </div>
 
-        <h2>Posibles respuestas</h2>
+        <h2>Preguntas de esta encuesta</h2>
 
-        <% for i in ['Si, toca actualizarla', 'No, está bien como está', 'No sé, cuéntame más'] %>
+        <% for i in [
+          '¿Consideras que habría que modificar la ordenanza?',
+          '¿Qué aspecto consideras más prioritario modificar o mejorar?',
+          '¿Te afectan (porque las usas o eres vecino) directamente alguna terraza?']
+        %>
 
-          <div class="list_item_with_editable_content">
+          <div class="list_item">
 
             <i class="fa fa-bars"></i>
-            <input type="text" value="<%= i %>">
-
+            <label class="main"><%= i %></label>
             <div class="tools">
+              <%= link_to '<i class="fa fa-edit"></i>'.html_safe, '#edit_poll_response', title: 'Editar', class: 'tipsit open_modal' %>
               <%= link_to '<i class="fa fa-trash"></i>'.html_safe, '', title: 'Eliminar', class: 'tipsit' %>
+            </div>
+
+          </div>
+
+          <div class="modal mfp-hide" id="edit_poll_response">
+
+            <h2>Editar pregunta</h2>
+
+            <div class="globalized_fields">
+
+              <div class="globalize_tool">
+                <label>Traducir</label>
+                <a href="#" class="locale_option selected completed tipsit" title="Define el contenido en su versión en Español">
+                  <span class="locale">ES</span>
+                  <span class="status"></span>
+                </a>
+                <a href="#" class="locale_option completed tipsit" title="Define el contenido en su versión en Catalán">
+                  <span class="locale">CA</span>
+                  <span class="status"></span>
+                </a>
+                <a href="#" class="locale_option tipsit" title="Define el contenido en su versión en Inglés">
+                  <span class="locale">EN</span>
+                  <span class="status"></span>
+                </a>
+              </div>
+
+              <div class="form_item input_text">
+                <label for="name">
+                  Pregunta
+                  <span class="indication">Máx 140 caracteres</span>
+                </label>
+                <input type="text" id="name" value="<%= i %>">
+              </div>
+
+              <% for i in [
+                'Si',
+                'No',
+                'A medias']
+              %>
+
+                <div class="list_item">
+
+                  <i class="fa fa-bars"></i>
+                  <label class="main"><%= i %></label>
+                  <div class="tools">
+                    <%= link_to '<i class="fa fa-edit"></i>'.html_safe, '#', title: 'Editar', class: 'tipsit' %>
+                    <%= link_to '<i class="fa fa-trash"></i>'.html_safe, '', title: 'Eliminar', class: 'tipsit' %>
+                  </div>
+
+                </div>
+
+              <% end %>
+
+              <div class="m_1 p_h_2">
+                <!-- it generates another .list_item_with_editable_content element -->
+                <%= link_to '<i class="fa fa-plus-circle"></i> Añadir nueva respuesta'.html_safe %>
+              </div>
+
             </div>
 
           </div>
 
         <% end %>
 
-        <div class="m_1 p_h_3">
+        <div class="m_1 p_h_2">
           <!-- it generates another .list_item_with_editable_content element -->
           <%= link_to '<i class="fa fa-plus-circle"></i> Añadir nueva respuesta'.html_safe %>
         </div>

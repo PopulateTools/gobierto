@@ -1,0 +1,9 @@
+---
+es:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_participation/issue_form:
+        name: Nombre
+        slug: URL
+    models:
+      gobierto_admin/gobierto_participation/issue_form: Tema

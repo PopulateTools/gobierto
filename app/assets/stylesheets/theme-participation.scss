@@ -605,6 +605,14 @@ $lighter_black: rgba($color_headers, .7);
     }
   }
 
+  .document {
+    margin-bottom: 0.5em;
+
+    a {
+      color: $green;
+    }
+  }
+
   .news_article {
     h1 {
       color: $green;

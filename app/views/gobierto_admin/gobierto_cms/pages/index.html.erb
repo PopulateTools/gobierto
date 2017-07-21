@@ -53,7 +53,7 @@
         <% @collections.each do |collection| %>
           <tr>
             <td><%= link_to collection.title, admin_common_collection_path(collection) %></td>
-            <td><%= collection.collection_items.size %></td>
+            <td><%= ::GobiertoCms::Page.where(id: collection.pages_in_collection).size %></td>
             <td>
               <%= link_to admin_common_collection_path(collection), target: "_blank", class: "view_item" do %>
                 <i class="fa fa-eye"></i>

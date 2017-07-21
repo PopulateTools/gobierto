@@ -12,7 +12,7 @@ module GobiertoAdmin
 
       def show
         @collection = find_collection
-        @pages = current_site.pages.sort_by_updated_at
+        @pages = ::GobiertoCms::Page.where(id: @collection.pages_in_collection)
       end
 
       def new

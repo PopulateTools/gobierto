@@ -302,9 +302,21 @@ $lighter_black: rgba($color_headers, .7);
       right: 1em;
     }
 
+    .date {
+      color: $color_text;
+      position: absolute;
+      bottom: 0.5em;
+      right: 1em;
+      font-size: 0.875em;
+    }
+
     .circle_teaser {
       background: rgba($green, .1);
     }
+  }
+
+  .content_block.themed.negative {
+    border-top-color: $lighter_black;
   }
 
   .emoji_block {

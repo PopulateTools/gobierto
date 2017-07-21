@@ -17,7 +17,7 @@ module GobiertoAdmin
       end
 
       def published_page
-        @published_page ||= site.pages.active.first
+        @published_page ||= gobierto_cms_pages(:consultation_faq)
       end
 
       def draft_page
@@ -29,7 +29,6 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
             click_link 'News'
-
             within "tr#page-item-#{published_page.id}" do
               preview_link = find('a', text: 'View page')
 

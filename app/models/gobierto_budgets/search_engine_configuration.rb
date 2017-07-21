@@ -1,7 +1,7 @@
 module GobiertoBudgets
   class SearchEngineConfiguration
     class Year
-      def self.last; 2016 end
+      def self.last; 2017 end
       def self.first; 2010 end
       def self.all
         @all ||= (first..last).to_a.reverse

@@ -56,6 +56,7 @@
 @import "comp-line_boxes";
 @import "comp-mega_bars";
 @import "comp-content";
+@import "comp-boxes";
 
 @import "comp-graph-treemap";
 @import "comp-graph-vis_lines_table";
@@ -71,6 +72,12 @@
 @import "module-people";
 
 @import "module-admin";
+
+/*
+* Gobierto themes
+*
+*/
+@import "theme-participation";
 
 /*
  * Print styles

@@ -8,6 +8,7 @@ module GobiertoAdmin
       helper_method :gobierto_cms_page_preview_url
 
       def index
+        @collections = current_site.collections.by_item_type('GobiertoCms::Page')
         @pages = current_site.pages.sorted
       end
 
@@ -18,6 +19,7 @@ module GobiertoAdmin
 
       def edit
         @page = find_page
+        @collection = find_collection
         @page_visibility_levels = get_page_visibility_levels
         @page_form = PageForm.new(
           @page.attributes.except(*ignored_page_attributes)
@@ -29,6 +31,7 @@ module GobiertoAdmin
 
         if @page_form.save
           track_create_activity
+          ::GobiertoCommon::Collection.find(params[:page][:collection_id]).append(@page_form.page)
 
           redirect_to(
             edit_admin_cms_page_path(@page_form.page.id),
@@ -91,6 +94,7 @@ module GobiertoAdmin
         params.require(:page).permit(
           :visibility_level,
           :attachment_ids,
+          :collection_id,
           title_translations: [*I18n.available_locales],
           body_translations:  [*I18n.available_locales],
           slug_translations:  [*I18n.available_locales],
@@ -103,6 +107,10 @@ module GobiertoAdmin
 
       def find_page
         current_site.pages.find(params[:id])
+      end
+
+      def find_collection
+        ::GobiertoCommon::CollectionItem.where(item_id: params[:id], item_type: 'GobiertoCms::Page').first.collection
       end
 
       def gobierto_cms_page_preview_url(page, options = {})

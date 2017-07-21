@@ -340,10 +340,16 @@ pre {
   }
 }
 
-.custom_fields_field {
+
+.list_item, .list_item_with_editable_content {
   margin: 0 0 .5em 0;
   .fa-bars {
-    margin: 0 1em 0 0;
+    padding: 1em;
+    cursor: pointer;
+  }
+  .fa-bars:hover {
+    background: $color_neutral_soft;
+    @include border-radius(3px);
   }
   label.main {
     display: inline-block;
@@ -372,12 +378,19 @@ pre {
     margin-right: .5em;
   }
 }
-.custom_fields_field.disabled {
+.list_item.disabled {
   .fa-bars {
     opacity: .25;
   }
   .mandatory {
     opacity: .5;
+  }
+}
+.list_item_with_editable_content {
+  input[type=text] {
+    height: initial;
+    padding: 1em;
+    width: 70%;
   }
 }
 
@@ -491,6 +504,52 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
       opacity: 1;
     }
   }
+}
+
+.nav_back {
+  background: lighten($color_logo_yellow, 40%);
+  padding: .5em 1em;
+  @include border-radius(5px);
+  font-size: .85em;
+  margin: 0 0 1em 0;
+  display: inline-block;
+}
+
+
+/*
+ * Activities
+ *
+ */
+.activity_feed {
+	.activity_item {
+		margin: 0 0 1.5em 0;
+		h2 {
+      text-transform: none;
+			margin: 0;
+			font-size: .85em;
+      line-height: 1.4;
+      font-weight: normal;
+			a {
+				display: block;
+				@include border-radius(3px);
+				text-decoration: initial;
+				span.secondary {
+					color: $text_soft;
+					display: block;
+					font-weight: normal;
+				}
+			}
+			a:hover {
+				background: $color_1_soft;
+			}
+		}
+		.date {
+			font-size: .85em;
+			color: $text_soft;
+			font-weight: normal;
+      opacity: .5;
+		}
+	}
 }
 
 /* Gobierto Attachments */

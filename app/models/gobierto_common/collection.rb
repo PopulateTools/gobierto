@@ -1,23 +1,48 @@
 module GobiertoCommon
-  class Collection
-    def self.find(site, container = nil)
-      new(site, container)
+  class Collection < ApplicationRecord
+    include User::Subscribable
+
+    belongs_to :site
+    belongs_to :container, polymorphic: true
+    has_many :collection_items
+
+    translates :title
+
+    validates :site, :title, :slug, :item_type, presence: true
+    validates :container, presence: true, associated: true
+    validates_associated :container
+    validates :slug, uniqueness: true
+    validate :uniqueness_of_title
+
+    attr_reader :container
+
+    scope :by_item_type, ->(item_type) { where(item_type: item_type) }
+
+    def pages_in_collection
+      collection_items.where(item_type: 'GobiertoCms::Page').map(&:item_id)
+    end
+
+    def container
+      if container_id.present?
+        super
+      end
+    end
+
+    def global_container
+      container.to_global_id if container.present?
+    end
+
+    def global_container=(container)
+      self.container = GlobalID::Locator.locate container
     end
 
     def self.collector_classes
       [Site, Module, GobiertoParticipation::Issue, GobiertoParticipation::Area]
     end
 
-    def initialize(site, container = nil)
-      @site = site
-      @container = container.present? ? container : site
-    end
-
-    attr_reader :container, :site
-
     def append(item)
       containers_hierarchy(container).each do |container_type, container_id|
-        CollectionItem.create site: site, container_type: container_type, container_id: container_id, item: item
+        CollectionItem.create collection_id: id, container_type: container_type, container_id: container_id, item: item
       end
     end
 
@@ -67,6 +92,14 @@ module GobiertoCommon
 
     def container_is_a_collector?(container)
       self.class.collector_classes.include?(container.class)
+    end
+
+    def uniqueness_of_title
+      if title_translations.present?
+        if title_translations.select{ |_, title| title.present? }.any?{ |_, title| self.class.where(site_id: self.site_id).where.not(id: self.id).with_title_translation(title).exists? }
+          errors.add(:title, I18n.t('errors.messages.taken'))
+        end
+      end
     end
   end
 end

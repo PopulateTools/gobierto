@@ -6,6 +6,8 @@
   Evento
 </div>
 
+<%= link_to '« Volver a Agendas', 'admin_agendas' if params[:from_global_agendas] %>
+
 <h1>Rafa García García</h1>
 
 <div class="tabs">
@@ -20,9 +22,9 @@
 <div class="pure-g">
 
   <div class="pure-u-1 pure-u-md-16-24">
-    
+
     <form>
-      
+
       <div class="form_item input_text">
         <label for="name">Evento</label>
         <input type="text" id="name" value="Reunión con la asociación de vecinos MAS Burjassot">
@@ -68,7 +70,7 @@
             <h4>Añadir nuevo registro</h4>
             <input type="text" placeholder="Lugar">
             <input type="text" placeholder="Dirección">
-            <button>Añadir</button> 
+            <button>Añadir</button>
             <%= link_to '<i class="fa fa-trash"></i> Cancelar'.html_safe, '', class: 'close-new_row_content' %>
           </td>
         </tr>
@@ -99,7 +101,7 @@
             <%= link_to '<i class="fa fa-trash"></i>'.html_safe %>
           </td>
         </tr>
-        
+
         <tr class="new_row_add">
           <td colspan="4">
             <%= link_to '', class: "open-new_row_content" do %>
@@ -115,7 +117,7 @@
             <input type="text" placeholder="Centro">
             <input type="text" placeholder="Fecha de inicio">
             <input type="text" placeholder="Fecha de fin">
-            <button>Añadir</button> 
+            <button>Añadir</button>
             <%= link_to '<i class="fa fa-trash"></i> Cancelar'.html_safe, '', class: 'close-new_row_content' %>
           </td>
         </tr>
@@ -129,7 +131,7 @@
   <div class="pure-u-1 pure-u-md-2-24"></div>
 
   <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
-    
+
     <%= render partial: "admin_widget_save", locals: { password_protected: true }  %>
 
   </div>

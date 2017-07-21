@@ -1,19 +1,19 @@
-green_city_on_site:
-  site: madrid
-  item: green_city (GobiertoParticipation::Process)
-  container: madrid (Site)
-
-green_city_on_area:
-  site: madrid
-  item: green_city (GobiertoParticipation::Process)
-  container: north (GobiertoParticipation::Area)
-
-green_city_on_issue_culture:
-  site: madrid
-  item: green_city (GobiertoParticipation::Process)
+consultation_faq_on_site:
+  collection: news
+  item: consultation_faq (GobiertoCms::Page)
   container: culture (GobiertoParticipation::Issue)
 
-green_city_on_issue_women:
-  site: madrid
-  item: green_city (GobiertoParticipation::Process)
-  container: women (GobiertoParticipation::Issue)
+collection_item_themes:
+  collection: news
+  item: themes (GobiertoCms::Page)
+  container: culture (GobiertoParticipation::Issue)
+
+# green_city_on_issue_culture:
+#   site: madrid
+#   item: green_city (GobiertoParticipation::Process)
+#   container: culture (GobiertoParticipation::Issue)
+#
+# green_city_on_issue_women:
+#   site: madrid
+#   item: green_city (GobiertoParticipation::Process)
+#   container: women (GobiertoParticipation::Issue)

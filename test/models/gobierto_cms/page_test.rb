@@ -1,11 +1,9 @@
 require "test_helper"
 require "support/concerns/gobierto_attachments/attachable_test"
-require "support/concerns/gobierto_common/collectionable_test"
 
 module GobiertoCms
   class PageTest < ActiveSupport::TestCase
     include GobiertoAttachments::AttachableTest
-    include GobiertoCommon::CollectionableTest
 
     def page
       @page ||= gobierto_cms_pages(:consultation_faq)

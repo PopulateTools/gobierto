@@ -1,0 +1,32 @@
+---
+en:
+  gobierto_admin:
+    gobierto_common:
+      collections:
+        edit_modal:
+          title: Edit collection
+        form:
+          placeholders:
+            slug: about-this-collection
+            title: Collection name
+        index:
+          collections: Collections
+          header:
+            collection: Title
+            pages: Pages
+          latest_editions: Latests editions
+          new: New
+          title: CMS
+          view_collection: See collection
+        new_modal:
+          title: New theme
+        show:
+           configuration: Configuration
+           created_at: Created at
+           new: New
+           public: Public
+           updated_at: Updated at
+           view: View page
+           visibility_level:
+             active: Published
+             draft: Draft

@@ -1,3 +1,15 @@
+.gradient-bg {
+  background-image: linear-gradient(-180deg, #ecfafc 0%, white 50%);
+  margin: 0 -1em;
+  margin-bottom: 5em;
+  padding: 1em;
+
+  @media (min-width: 768px) {
+    margin: 0;
+    margin-bottom: 5em;
+  }
+}
+
 .content {
   .inner, article {
     max-width: 650px;
@@ -5,39 +17,27 @@
     text-align: left;
   }
 
-  .gradient-bg {
-    background-image: linear-gradient(-180deg, #ecfafc 0%, white 50%);
-    margin: 0 -1em;
-    margin-bottom: 5em;
-    padding: 1em;
-
+  .inner {
     @media (min-width: 768px) {
-      margin: 0;
-      margin-bottom: 5em;
+      padding: 0;
+      padding-top: 5em;
     }
 
-    .inner {
-      @media (min-width: 768px) {
-        padding: 0;
-        padding-top: 5em;
-      }
-
-      h1 {
-        font-weight: 600;
-        font-size: 2.25em;
-        margin-bottom: 0.25em;
-      }
-      p {
-        font-weight: 300;
-        color: $color_main;
-        font-size: 1.25em;
-        margin-top: 0;
-        line-height: 1.3;
-      }
-      ul {
-        list-style: none;
-        padding-left: 0;
-      }
+    h1 {
+      font-weight: 600;
+      font-size: 2.25em;
+      margin-bottom: 0.25em;
+    }
+    p {
+      font-weight: 300;
+      color: $color_main;
+      font-size: 1.25em;
+      margin-top: 0;
+      line-height: 1.3;
+    }
+    ul {
+      list-style: none;
+      padding-left: 0;
     }
   }
 

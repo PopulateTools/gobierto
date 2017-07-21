@@ -25,3 +25,10 @@ about:
   slug_translations: <%= {'en' => 'about' }.to_json %>
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: santander
+
+themes:
+  title_translations: <%= {'en' => 'Themes' }.to_json %>
+  body_translations: <%= {'en' => 'These are the themes' }.to_json %>
+  slug_translations: <%= {'en' => 'themes' }.to_json %>
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:draft] %>
+  site: madrid

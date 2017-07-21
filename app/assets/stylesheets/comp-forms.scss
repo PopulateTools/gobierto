@@ -32,12 +32,19 @@ input[type=text]:focus, input[type=email]:focus, input[type=submit]:focus, input
   margin: 0 0 1em 0;
   label {
     position: absolute;
+    width: calc(100% - 1.75rem);
     top: .5rem;
     left: 1rem;
     text-transform: uppercase;
     font-size: .75em;
     font-weight: 700;
+    .indication {
+      float: right;
+      font-weight: normal;
+      opacity: .5;
+    }
   }
+
   input, textarea {
     padding: 1.9rem 1rem .25rem 1rem;
     width: 100%;
@@ -397,6 +404,26 @@ option, select {
       left: 0;
       height: 14px;
       width: 14px;
+    }
+    .option_contextual {
+      background: rgba($color_main, .2);
+      padding: .5em 1em .5em 2.5em;
+      margin-left: calc(-.5rem - 1px);
+      margin-top: -1px;
+      .form_item {
+        margin-bottom: 1em;
+      }
+      label {
+        display: block;
+      }
+      input:not([data-timepicker="true"]) {
+        width: 100%;
+        height: initial;
+        padding: .5em;
+      }
+      textarea {
+        width: 100%;
+      }
     }
   }
   .fa {

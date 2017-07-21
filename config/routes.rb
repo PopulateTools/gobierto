@@ -84,6 +84,7 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_common, as: :common, path: nil do
+      resources :collections, only: [:index, :show, :new, :create, :edit, :update]
       resources :content_blocks, only: [:new, :create, :edit, :update, :destroy]
     end
 

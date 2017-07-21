@@ -6,6 +6,7 @@ module GobiertoAdmin
       attr_accessor(
         :id,
         :site_id,
+        :collection_id,
         :visibility_level,
         :title_translations,
         :body_translations,

@@ -61,6 +61,10 @@
 .f_right {
   float: right;
 }
+.absolute_right {
+  position: absolute;
+  right: 0;
+}
 .hidden, .soft_hidden {
   display: none;
 }

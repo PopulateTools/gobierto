@@ -21,7 +21,7 @@
   </script>
 </head>
 
-<body <%= data_attributes %>>
+<body <%= data_attributes %> <%= yield(:body_attributes) %>>
 
 <% if @site.configuration.demo? %>
   <div class="demo_bar pure-g">
@@ -114,6 +114,20 @@
       <div class="logo">
         <%= link_to(image_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
       </div>
+
+      <div class="absolute_right">
+        <a href="#" class="button outline rounded desktop_only"><i class="fa fa-rss"></i> Sigue este proceso</a>
+
+        <div class="social_links_container" data-share>
+          <% if show_social_links? %>
+            <a href="#" class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
+          <% end %>
+
+          <a href="#" class="search_icon"><i class="fa fa-search"></i></a>
+          <a href="#" class="button outline rounded mobile_only"><i class="fa fa-rss"></i> Sigue este proceso</a>
+        </div>
+      </div>
     </div>
 
     <nav id="main_menu" class="menu complete color_bg_main" role="navigation" aria-hidden="true" aria-expanded="false" role="group" aria-controlledby="main_nav">
@@ -185,24 +199,6 @@
           <strong><%= link_to 'Visualización' %></strong>
         </div>
         <%= render 'sandbox/layouts/menu_subsections' %>
-
-        <div class="search_box slim_search desktop_only">
-          <label for="gobierto_search" class="screen-hidden">Buscar...</label>
-          <input type="text" placeholder="Buscar..." name="q" id="gobierto_search" />
-        </div>
-
-        <div id="search_results" class="search_result_list"></div>
-
-        <% if show_social_links? %>
-          <div class="social_links_container" data-share>
-            <a href="#" class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
-            <a href="#" class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
-            <% pending do %>
-              <a href="#embed-graph-code" class="code open_modal"><i class="fa fa-code"></i></a>
-            <% end %>
-          </div>
-        <% end %>
-
       </nav>
     </div>
 

@@ -72,6 +72,105 @@ footer {
   }
 }
 
+/*
+ * Grid paddings (for boxes)
+ *
+ */
+/* 2x2 grid paddings */
+.two_by_two {
+  & > div {
+    box-sizing: border-box;
+    // margin-bottom: 1em;
+
+    &:nth-child(odd) {
+      @include min-screen(740) {
+        padding: 0 1em 1em 0;
+      }
+    }
+    &:nth-child(even) {
+      @include min-screen(740) {
+        padding: 0 0 1em 1em;
+      }
+    }
+  }
+}
+
+/* 3x3 grid paddings */
+.three_by_three {
+  & > div {
+    box-sizing: border-box;
+
+    @include min-screen(740) {
+      padding: 0 1em 2em 1em;
+    }
+
+    &:first-child {
+      @include min-screen(740) {
+        padding: 0 1em 2em 0;
+      }
+    }
+    &:last-child {
+      @include min-screen(740) {
+        padding: 0 0 2em 1em;
+      }
+    }
+  }
+}
+
+.four_by_four {
+  & > div {
+    box-sizing: border-box;
+
+    @include min-screen(740) {
+      padding: 0 1em 2em 1em;
+    }
+
+    &:first-child {
+      @include min-screen(740) {
+        padding: 0 1em 2em 0;
+      }
+    }
+
+    &:nth-child(4n+4) {
+      @include min-screen(740) {
+        padding: 0 0 2em 1em;
+      }
+    }
+    &:nth-child(5n) {
+      @include min-screen(740) {
+        padding: 0 1em 2em 0;
+      }
+    }
+  }
+}
+
+.four_by_four.slim {
+  & > div {
+    box-sizing: border-box;
+
+    @include min-screen(740) {
+      padding: 0 0.5em 1em 0.5em;
+    }
+
+    &:first-child {
+      @include min-screen(740) {
+        padding: 0 0.5em 1em 0;
+      }
+    }
+
+    &:nth-child(4n+4) {
+      @include min-screen(740) {
+        padding: 0 0 1em 0.5em;
+      }
+    }
+    &:nth-child(5n) {
+      @include min-screen(740) {
+        padding: 0 0.5em 1em 0;
+      }
+    }
+  }
+}
+
 
 @include screen(740) {
 

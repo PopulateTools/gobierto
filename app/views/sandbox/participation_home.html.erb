@@ -4,7 +4,7 @@
 
 <div class="gradient-bg">
   <div class="column">
-    <div class="pure-g block_container two_by_two">
+    <div class="pure-g two_by_two">
       <div class="pure-u-1 pure-u-md-16-24">
         <a href="#" class="p_1  content_block" style="background-image: url(<%= image_url('illustrations/houses.jpg') %>)">
           <h2>Conoce los mecanismos de participación que te ofrece Alcobendas</h2>
@@ -93,15 +93,15 @@
       </div>
 
       <div class="pure-u-1 pure-u-md-2-3">
-        <div class="pure-g block_container two_by_two">
-          <%= render 'theme_home_teaser', {name: 'Cultura', description: 'Bibliotecas, centros culturales, programación'} %>
-          <%= render 'theme_home_teaser', {name: 'Educación', description: 'Centros educativos municipales, Aulas de naturaleza'} %>
-          <%= render 'theme_home_teaser', {name: 'Ocio y deporte', description: 'Actividades y eventos, ocio nocturno, instalaciones deportivas'} %>
-          <%= render 'theme_home_teaser', {name: 'Mujer', description: 'Oposiciones, ofertas de empleo público'} %>
-          <%= render 'theme_home_teaser', {name: 'Urbanismo', description: 'Violencia machista, Igualdad, Atención, Transversalidad'} %>
-          <%= render 'theme_home_teaser', {name: 'Empleo y comercio', description: 'Programas de vivienda, callejero, licencias urbanísticas, alquiler'} %>
-          <%= render 'theme_home_teaser', {name: 'Vivienda', description: 'Accesibilidad, Espacios públicos, mobiliario urbano'} %>
-          <%= render 'theme_home_teaser', {name: 'Economía y Hacienda', description: 'Ayudas sociales, impuestos, multas, emprendimiento'} %>
+        <div class="pure-g two_by_two">
+          <%= render 'theme_teaser_light', {name: 'Cultura', description: 'Bibliotecas, centros culturales, programación'} %>
+          <%= render 'theme_teaser_light', {name: 'Educación', description: 'Centros educativos municipales, Aulas de naturaleza'} %>
+          <%= render 'theme_teaser_light', {name: 'Ocio y deporte', description: 'Actividades y eventos, ocio nocturno, instalaciones deportivas'} %>
+          <%= render 'theme_teaser_light', {name: 'Mujer', description: 'Oposiciones, ofertas de empleo público'} %>
+          <%= render 'theme_teaser_light', {name: 'Urbanismo', description: 'Violencia machista, Igualdad, Atención, Transversalidad'} %>
+          <%= render 'theme_teaser_light', {name: 'Empleo y comercio', description: 'Programas de vivienda, callejero, licencias urbanísticas, alquiler'} %>
+          <%= render 'theme_teaser_light', {name: 'Vivienda', description: 'Accesibilidad, Espacios públicos, mobiliario urbano'} %>
+          <%= render 'theme_teaser_light', {name: 'Economía y Hacienda', description: 'Ayudas sociales, impuestos, multas, emprendimiento'} %>
         </div>
       </div>
 

@@ -22,7 +22,7 @@
       <div class="form_item select_control">
         <%= f.label :container_id %>
         <%= f.select :container_id,
-                     options_from_collection_for_select(@issues, :id, :name, f.object.container_id),
+                     options_for_select(@containers, selected: @container_selected),
                      include_blank: true %>
       </div>
 

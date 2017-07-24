@@ -37,7 +37,7 @@ module GobiertoCommon
     end
 
     def self.collector_classes
-      [Site, Module, GobiertoParticipation::Issue, GobiertoParticipation::Area]
+      [Site, GobiertoParticipation::Issue, GobiertoParticipation::Area]
     end
 
     def append(item)

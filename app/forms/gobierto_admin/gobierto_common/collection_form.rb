@@ -49,8 +49,7 @@ module GobiertoAdmin
           collection_attributes.site_id = site_id
           collection_attributes.title_translations = title_translations
           collection_attributes.slug = slug
-          # TODO: Generalize
-          collection_attributes.container = ::GobiertoParticipation::Issue.find(container_id) if container_id.present?
+          collection_attributes.container = find_container(container_id)
           collection_attributes.item_type = item_type
         end
 
@@ -66,6 +65,20 @@ module GobiertoAdmin
       end
 
       protected
+
+      def find_container(id)
+        unless id.empty?
+          if id.include? 'gid'
+            GlobalID::Locator.locate(id)
+          else
+            ::GobiertoCommon::Collection.collector_classes.each do |container|
+              unless container.where(id: id).empty?
+                return container.where(id: id).first
+              end
+            end
+          end
+        end
+      end
 
       def promote_errors(errors_hash)
         errors_hash.each do |attribute, message|

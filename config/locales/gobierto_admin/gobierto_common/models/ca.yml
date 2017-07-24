@@ -1,0 +1,11 @@
+---
+ca:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_common/collection_form:
+        container_id: Contenidor
+        item_type: Tipus
+        slug: URL
+        title: Títol
+    models:
+      gobierto_admin/gobierto_common/collection_form: Col·lecció

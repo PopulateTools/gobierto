@@ -26,8 +26,8 @@ module GobiertoAdmin
               click_button 'Create'
 
               assert has_alert?("Title can't be blank")
-              assert has_alert?("Slug can't be blank")
-              assert has_alert?("Item type can't be blank")
+              assert has_alert?("URL can't be blank")
+              assert has_alert?("Type can't be blank")
               assert has_alert?("Container can't be blank")
             end
           end
@@ -44,7 +44,7 @@ module GobiertoAdmin
 
               fill_in 'collection_title_translations_en', with: 'My collection'
               fill_in 'collection_slug', with: 'my-collection'
-              find('select#collection_container_id').find("option[value='917085421']").select_option
+              find('select#collection_container_id').find("option[value='gid://gobierto/Site/1009469985']").select_option
               find('select#collection_item_type').find("option[value='GobiertoCms::Page']").select_option
 
               click_link 'ES'

@@ -18,6 +18,9 @@ module GobiertoAdmin
       def new
         @collection_form = CollectionForm.new
         @issues = current_site.issues
+        @site = Site.where(id: current_site.id)
+        @containers = container_names_new
+        @container_selected = nil
 
         render :new_modal, layout: false and return if request.xhr?
       end
@@ -25,6 +28,10 @@ module GobiertoAdmin
       def edit
         @collection = find_collection
         @issues = current_site.issues
+        @site = Site.where(id: current_site.id)
+        @containers = container_names_edit
+        @container_selected = @collection.container_id
+
         @collection_form = CollectionForm.new(
           @collection.attributes.except(*ignored_collection_attributes)
         )
@@ -35,6 +42,9 @@ module GobiertoAdmin
       def create
         @collection_form = CollectionForm.new(collection_params.merge(site_id: current_site.id))
         @issues = current_site.issues
+        @site = Site.where(id: current_site.id)
+        @containers = container_names_new
+        @container_selected = nil
 
         if @collection_form.save
           track_create_activity
@@ -54,6 +64,10 @@ module GobiertoAdmin
         @collection_form = CollectionForm.new(
           collection_params.merge(id: params[:id])
         )
+        @issues = current_site.issues
+        @site = Site.where(id: current_site.id)
+        @containers = container_names_new
+        @container_selected = nil
 
         if @collection_form.save
           track_update_activity
@@ -98,6 +112,16 @@ module GobiertoAdmin
 
       def find_collection
         current_site.collections.find(params[:id])
+      end
+
+      def container_names_new
+        @site.map { |x| ["Site: #{x.location_name}", x.to_global_id] } +
+          @issues.map { |x| ["Issue: #{x.name}", x.to_global_id] }
+      end
+
+      def container_names_edit
+        @site.map { |x| ["Site: #{x.location_name}", x.id] } +
+          @issues.map { |x| ["Issue: #{x.name}", x.id] }
       end
 
       def gobierto_common_page_preview_url(page, options = {})

@@ -70,6 +70,17 @@ header.meta {
     padding: 0 0 1em 0;
     position: relative;
 
+    .site_header_logo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      > div:only-child:not(.logo) {
+        margin-top: 2em;
+        margin-bottom: 2em;
+        margin-left: auto;
+      }
+    }
     .column  {
       position: relative;
     }
@@ -88,9 +99,6 @@ header.meta {
           max-width: 200px;
         }
       }
-    }
-    .absolute_right {
-      top: 2em;
     }
     .social_links_container {
       text-align: center;

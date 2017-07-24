@@ -110,12 +110,12 @@
 
   <div class="site_header">
 
-    <div class="column">
+    <div class="column site_header_logo">
       <div class="logo">
         <%= link_to(image_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
       </div>
 
-      <div class="absolute_right">
+      <div>
         <a href="#" class="button outline rounded desktop_only"><i class="fa fa-rss"></i> Sigue este proceso</a>
 
         <div class="social_links_container" data-share>

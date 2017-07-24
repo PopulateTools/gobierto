@@ -1,0 +1,9 @@
+---
+en:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_participation/issue_form:
+        name: Name
+        slug: URL
+    models:
+      gobierto_admin/gobierto_participation/issue_form: issue

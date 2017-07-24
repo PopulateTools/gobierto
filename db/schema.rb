@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20170712103453) do
+ActiveRecord::Schema.define(version: 20170721104628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,16 +100,29 @@ ActiveRecord::Schema.define(version: 20170712103453) do
   end
 
   create_table "collection_items", force: :cascade do |t|
-    t.bigint "site_id"
+    t.bigint "collection_id"
     t.string "item_type"
     t.bigint "item_id"
     t.string "container_type"
     t.bigint "container_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["collection_id"], name: "index_collection_items_on_collection_id"
     t.index ["container_type", "container_id"], name: "index_collection_items_on_container_type_and_container_id"
     t.index ["item_type", "item_id"], name: "index_collection_items_on_item_type_and_item_id"
-    t.index ["site_id"], name: "index_collection_items_on_site_id"
+  end
+
+  create_table "collections", force: :cascade do |t|
+    t.bigint "site_id"
+    t.jsonb "title_translations"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "container_type"
+    t.bigint "container_id"
+    t.string "item_type"
+    t.string "slug", default: "", null: false
+    t.index ["container_type", "container_id"], name: "index_collections_on_container_type_and_container_id"
+    t.index ["site_id"], name: "index_collections_on_site_id"
   end
 
   create_table "content_block_fields", id: :serial, force: :cascade do |t|

@@ -25,8 +25,7 @@ fixtures_to_load = [
   "gobierto_participation/processes",
   "gobierto_participation/process_stages",
   "gobierto_participation/issues",
-  "gobierto_participation/areas",
-  "gobierto_common/collection_items",
+  "gobierto_participation/areas"
 ]
 
 ENV["FIXTURES"] = fixtures_to_load.join(",")

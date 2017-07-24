@@ -3,7 +3,6 @@ require "test_helper"
 module GobiertoAdmin
   module GobiertoCms
     class PagePreviewTest < ActionDispatch::IntegrationTest
-      
       def setup
         super
         @path = admin_cms_pages_path
@@ -18,7 +17,7 @@ module GobiertoAdmin
       end
 
       def published_page
-        @published_page ||= site.pages.active.first
+        @published_page ||= gobierto_cms_pages(:consultation_faq)
       end
 
       def draft_page
@@ -29,9 +28,9 @@ module GobiertoAdmin
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
-
+            click_link 'News'
             within "tr#page-item-#{published_page.id}" do
-              preview_link = find("a", text: "View page")
+              preview_link = find('a', text: 'View page')
 
               refute preview_link[:href].include?(admin.preview_token)
 
@@ -39,7 +38,7 @@ module GobiertoAdmin
             end
 
             assert_equal gobierto_cms_page_path(published_page.slug), current_path
-            assert has_selector?("h1", text: published_page.title)
+            assert has_selector?('h1', text: published_page.title)
           end
         end
       end
@@ -48,9 +47,10 @@ module GobiertoAdmin
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
+            click_link 'News'
 
             within "tr#page-item-#{draft_page.id}" do
-              preview_link = find("a", text: "View page")
+              preview_link = find('a', text: 'View page')
 
               assert preview_link[:href].include?(admin.preview_token)
 
@@ -58,7 +58,7 @@ module GobiertoAdmin
             end
 
             assert_equal gobierto_cms_page_path(draft_page.slug), current_path
-            assert has_selector?("h1", text: draft_page.title)
+            assert has_selector?('h1', text: draft_page.title)
           end
         end
       end
@@ -71,7 +71,7 @@ module GobiertoAdmin
           end
 
           # assert_response :not_found
-          refute has_selector?("h1", text: draft_page.title)
+          refute has_selector?('h1', text: draft_page.title)
         end
       end
 

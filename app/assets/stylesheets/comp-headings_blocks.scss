@@ -406,6 +406,8 @@ a.content_block {
 	box-sizing: border-box;
 	margin-left: auto;
 	margin-right: auto;
+  background: white;
+
   @include screen(740) {
     padding: 0 1em;
     margin: 0 0 1em 0;

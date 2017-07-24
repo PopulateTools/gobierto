@@ -175,7 +175,7 @@ $lighter_black: rgba($color_headers, .7);
     margin-bottom: 1em;
 
     .content_block {
-      min-height: 17em;
+      min-height: 18em;
       margin-bottom: 1em;
 
       a {
@@ -677,6 +677,23 @@ $lighter_black: rgba($color_headers, .7);
   /* Contributions home */
   .contributions_home {
     h2:not(.left) {
+      color: $green;
+    }
+  }
+
+  .modal_background {
+    // color: $green;
+    background: $green;
+
+    h2 {
+      color: $black;
+    }
+
+    button {
+      background: $green;
+    }
+
+    a {
       color: $green;
     }
   }

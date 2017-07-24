@@ -29,12 +29,14 @@
                 <span class="control-indicator"></span>
                 <strong>No</strong>, está bien como está.
               </label>
-              <label class="control radio signin_modal" href="#signin_register">
+              <label class="control radio button_toggle">
                 <input id="radio3" name="radio" type="radio">
                 <span class="control-indicator"></span>
                 <strong>No sé</strong>, cuéntame más.
               </label>
             </div>
+
+            <a href="" class="button outline rounded fat hidden">Enviar</a>
           </div>
         </div>
       </div>
@@ -127,4 +129,8 @@ $('.signin_modal').magnificPopup({
   removalDelay: 10,
   mainClass: 'my-mfp-zoom-in'
 });
+
+$('.button_toggle').on('click', function() {
+  $('.button.hidden').toggleClass('hidden');
+})
 </script>

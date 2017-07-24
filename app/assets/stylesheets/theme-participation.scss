@@ -85,7 +85,8 @@ $lighter_black: rgba($color_headers, .7);
     max-width: 16em;
 
     @include min-screen(740) {
-      margin: 3em auto;
+      margin: 2em auto;
+      margin-bottom: 0.5em;
     }
 
     .control {

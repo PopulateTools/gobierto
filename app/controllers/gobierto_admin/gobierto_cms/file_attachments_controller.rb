@@ -4,6 +4,11 @@ module GobiertoAdmin
       before_action { module_enabled!(current_site, "GobiertoCms") }
       before_action { module_allowed!(current_admin, "GobiertoCms") }
 
+      def index
+        @collections = current_site.collections.by_item_type('GobiertoCms::Attachment')
+        @file_attachments = current_site.attachments
+      end
+
       def create
         @file_attachment_form = FileAttachmentForm.new(
           file_attachment_params.merge(

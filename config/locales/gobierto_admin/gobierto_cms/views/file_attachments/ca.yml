@@ -1,0 +1,14 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_cms:
+      file_attachments:
+        index:
+          collections: Collecciones
+          header:
+              collection: Col·lecció
+              file_attachments: Attachments
+          latest_editions: Últimes edicions
+          new: Nova
+          title: Attachments
+          view_collection: Veure col·lecció

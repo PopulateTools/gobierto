@@ -1,0 +1,58 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Participación', 'admin_part' %> »
+  <%= link_to 'Comisión de Fiestas de Carnaval', 'admin_part_group' %></a>
+</div>
+
+<h1>Comisión de Fiestas de Carnaval</h1>
+
+<div class="tabs">
+  <ul>
+    <li ><%= link_to 'Grupo', 'admin_part_group' %></li>
+    <li ><%= link_to 'Información', 'admin_part_group_info' %></li>
+    <li><%= link_to 'Agenda', 'admin_part_group_agenda' %></li>
+    <li><%= link_to 'Encuestas', 'admin_part_group_polls' %></li>
+    <li class="active"><%= link_to 'Aportaciones', 'admin_part_group_contributions' %></li>
+    <li><%= link_to 'Votaciones', 'admin_part_group_votaciones' %></li>
+    <li><%= link_to 'Noticias', 'admin_part_group_news' %></li>
+    <li><%= link_to 'Documentos', 'admin_part_group_docs' %></li>
+  </ul>
+</div>
+
+<div class="pure-g">
+  <div class="pure-u-3-4">
+    <strong>¿Qué actividades para niños podemos poner en marcha?</strong> » Aportaciones
+  </div>
+  <div class="pure-u-1-4 admin_tools right">
+    <%= link_to 'Configuración', 'admin_part_group_contributions_contribution_edit' %>
+    <%= link_to 'Nueva', '#', class: 'button' %>
+  </div>
+</div>
+
+
+<table>
+<tr>
+  <!-- <th></th> -->
+  <th>Aportación</th>
+  <th>Participantes</th>
+  <th>Valoraciones</th>
+  <th>Comentarios</th>
+  <th>Marcada</th>
+  <th>Estado</th>
+  <th></th>
+</tr>
+
+<% for i in ['Guiñol', 'Circuito de bicicletas', 'Gymkana', 'Olimpiada matemática', 'Pintacaras', 'Rol', 'Juegos de mesa'] %>
+<tr>
+  <!-- <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, '' %></td> -->
+  <td><%= i %></td>
+  <td>123</td>
+  <td>12</td>
+  <td>456</td>
+  <td>-</td>
+  <td><%= cycle 'Publicada', 'Moderada' %></td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver aportación'.html_safe, '#public_view', class: 'view_item' %></td>
+</tr>
+<% end %>
+
+</table>

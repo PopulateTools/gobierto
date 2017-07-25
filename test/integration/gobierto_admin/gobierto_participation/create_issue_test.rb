@@ -26,7 +26,7 @@ module GobiertoAdmin
               click_button "Create"
 
               assert has_alert?("Name can't be blank")
-              assert has_alert?("Slug can't be blank")
+              assert has_alert?("URL can't be blank")
             end
           end
         end

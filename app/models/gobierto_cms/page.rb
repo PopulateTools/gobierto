@@ -17,6 +17,7 @@ module GobiertoCms
     translates :title, :body, :slug
 
     belongs_to :site
+    has_many :collection_items, as: :item
 
     enum visibility_level: { draft: 0, active: 1 }
 
@@ -24,6 +25,7 @@ module GobiertoCms
     validate :uniqueness_of_slug
 
     scope :sorted, -> { order(id: :desc) }
+    scope :sort_by_updated_at, -> { order(updated_at: :desc) }
 
     def self.find_by_slug!(slug)
       if slug.present?

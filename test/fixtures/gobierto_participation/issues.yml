@@ -9,3 +9,9 @@ women:
   name_translations: <%= { 'en' => 'Women', 'es' => 'Mujer' }.to_json %>
   slug_translations: <%= { 'en' => 'women', 'es' => 'mujer' }.to_json %>
   position: 2
+
+economy:
+  site: madrid
+  name_translations: <%= { 'en' => 'Economy', 'es' => 'Economía' }.to_json %>
+  slug_translations: <%= { 'en' => 'economy', 'es' => 'economia' }.to_json %>
+  position: 3

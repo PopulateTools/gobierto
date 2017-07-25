@@ -76,14 +76,20 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_participation, as: :participation, path: :participation do
+
+      get '/' => 'welcome#index'
+
       resources :issues, only: [:index, :show, :new, :create, :edit, :update] do
         collection do
           resource :issue_sort, only: [:create], controller: "issues_sort", path: :issues_sort
         end
       end
+
+      resources :processes, only: [:index, :new, :edit, :create, :update]
     end
 
     namespace :gobierto_common, as: :common, path: nil do
+      resources :collections, only: [:index, :show, :new, :create, :edit, :update]
       resources :content_blocks, only: [:new, :create, :edit, :update, :destroy]
     end
 

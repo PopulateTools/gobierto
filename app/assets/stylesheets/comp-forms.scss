@@ -32,12 +32,19 @@ input[type=text]:focus, input[type=email]:focus, input[type=submit]:focus, input
   margin: 0 0 1em 0;
   label {
     position: absolute;
+    width: calc(100% - 1.75rem);
     top: .5rem;
     left: 1rem;
     text-transform: uppercase;
     font-size: .75em;
     font-weight: 700;
+    .indication {
+      float: right;
+      font-weight: normal;
+      opacity: .5;
+    }
   }
+
   input, textarea {
     padding: 1.9rem 1rem .25rem 1rem;
     width: 100%;
@@ -239,6 +246,50 @@ input[type="checkbox"] + label, input[type="radio"] + label {
     text-decoration: none;
   }
 }
+.button.outline.rounded {
+  text-transform: none;
+  padding: 0.25em 0.5em;
+  border-radius: 20px;
+  font-weight: 600;
+
+  .fa {
+    font-size: 85%;
+  }
+}
+.button.outline.rounded.wide {
+  padding: 0.1em 1.5em;
+}
+.button.outline.rounded.checked {
+  background: $color_main;
+
+  .fa {
+    color: white;
+  }
+}
+
+.button.outline.rounded.fat {
+  padding: 0.75em 1.5em !important;
+  border-radius: 30px !important;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.20);
+
+  &:focus,
+  &:active,
+  &:hover {
+    background: $color_main;
+  }
+}
+
+.button.outline.rounded.fat {
+  padding: 0.75em 1.5em !important;
+  border-radius: 30px !important;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.20);
+
+  &:focus,
+  &:active,
+  &:hover {
+    background: $color_main;
+  }
+}
 
 input[type="checkbox"] + label span, input[type="radio"] + label span {
   display: inline-block;
@@ -397,6 +448,26 @@ option, select {
       left: 0;
       height: 14px;
       width: 14px;
+    }
+    .option_contextual {
+      background: rgba($color_main, .2);
+      padding: .5em 1em .5em 2.5em;
+      margin-left: calc(-.5rem - 1px);
+      margin-top: -1px;
+      .form_item {
+        margin-bottom: 1em;
+      }
+      label {
+        display: block;
+      }
+      input:not([data-timepicker="true"]) {
+        width: 100%;
+        height: initial;
+        padding: .5em;
+      }
+      textarea {
+        width: 100%;
+      }
     }
   }
   .fa {

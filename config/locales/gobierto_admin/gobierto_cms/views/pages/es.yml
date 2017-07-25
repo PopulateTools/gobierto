@@ -13,14 +13,13 @@ es:
             active: Publicada
             draft: Borrador
         index:
-          created_at: Creada
+          collections: Collecciones
+          header:
+            collection: Colección
+            pages: Páginas
+          latest_editions: Últimas ediciones
           new: Nueva
-          public: Pública
           title: Páginas
-          updated_at: Actualizada
-          view: Ver página
-          visibility_level:
-            active: Publicada
-            draft: Borrador
+          view_collection: Ver colección
         new:
           title: Nueva página

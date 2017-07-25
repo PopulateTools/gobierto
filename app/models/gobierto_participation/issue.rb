@@ -6,6 +6,7 @@ module GobiertoParticipation
     include User::Subscribable
 
     belongs_to :site
+    has_many :collection_items, as: :container
 
     translates :name, :slug
 

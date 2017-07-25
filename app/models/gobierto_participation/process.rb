@@ -7,6 +7,9 @@ module GobiertoParticipation
     include GobiertoAttachments::Attachable
     include GobiertoCommon::Collectionable
 
+    PROCESS = 'p'
+    GROUP   = 'g'
+
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca
       searchableAttributes ['title_en', 'title_es', 'title_ca', 'body_en', 'body_es', 'body_ca']
@@ -14,37 +17,34 @@ module GobiertoParticipation
       add_attribute :resource_path, :class_name
     end
 
-    translates :title, :body, :slug
+    def self.allowed_types
+      [ PROCESS, GROUP ]
+    end
+
+    translates :title, :body, :information_text
 
     belongs_to :site
-    has_many :stages, dependent: :destroy, class_name: 'GobiertoParticipation::ProcessStage'
+    belongs_to :issue
+    has_many :stages, -> { order(stage_type: :asc) }, dependent: :destroy, class_name: 'GobiertoParticipation::ProcessStage'
 
     enum visibility_level: { draft: 0, active: 1 }
 
-    validates :site, :title, :body, :slug, presence: true
-    validate :uniqueness_of_slug
+    validates :site, :title, :body, presence: true
+    validates :slug, uniqueness: true
 
-    scope :sorted, -> { order(id: :desc) }
+    scope :sorted,    -> { order(id: :desc) }
+    scope :processes, -> { where(process_type: PROCESS) }
+    scope :groups,    -> { where(process_type: GROUP)   }
 
-    def self.find_by_slug!(slug)
-      if slug.present?
-        I18n.available_locales.each do |locale|
-          if p = self.with_slug_translation(slug, locale).first
-            return p
-          end
-        end
-        raise(ActiveRecord::RecordNotFound)
-      end
+    accepts_nested_attributes_for :stages
+
+    def is_process?
+      process_type == self.class::PROCESS
     end
 
-    private
-
-    def uniqueness_of_slug
-      if slug_translations.present?
-        if slug_translations.select{ |_, slug| slug.present? }.any?{ |_, slug| self.class.where(site_id: self.site_id).where.not(id: self.id).with_slug_translation(slug).exists? }
-          errors.add(:slug, I18n.t('errors.messages.taken'))
-        end
-      end
+    def is_group?
+      process_type == self.class::GROUP
     end
+
   end
 end

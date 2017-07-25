@@ -1,0 +1,113 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'CMS', 'admin_cms' %> »
+  Colección
+</div>
+
+<h1>Participación/Nombre del proceso que puede ser un poco largo/Noticias</h1>
+
+<div class="admin_tools right">
+  <%= link_to '<i class="fa fa-cog"></i> Configuración'.html_safe, '#collection_options', class: 'open_modal' %>
+  <%= link_to 'Nueva', 'admin_cms_collection_page', class: 'button' %>
+</div>
+
+<table>
+<tr>
+  <th></th>
+  <th>Título</th>
+  <th>Creada</th>
+  <th>Actualizada</th>
+  <th>Pública</th>
+  <th></th>
+  <th></th>
+</tr>
+
+<% for i in [
+  'Nuevo: Arranca la fase de votaciones para decidir los nuevos parques infantiles',
+  'Actualizado: Te explicamos los presupuestos en 5 claves',
+  'Inauguramos el Portal de Transparencia',
+  'Anunciamos la publicación de las agendas de los cargos y directivos del Ayuntamiento',
+  'Comienzan las fiestas de Getafe',
+  'Relación de puestos de trabajo y retribuciones del Ayuntamiento'
+] %>
+<tr>
+  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_cms_collection_page' %></td>
+  <td><%= link_to i, 'admin_cms_collection_page' %></td>
+  <td>hace 10 minutos</td>
+  <td>hace 5 minutos</td>
+  <td class="visibility_level">
+    <i class="fa fa-lock"></i>
+    Borrador
+  </td>
+  <td><%= link_to '<i class="fa fa-eye"></i> Ver página'.html_safe, '#', class: 'view_item' %></td>
+</tr>
+<% end %>
+
+</table>
+
+<div class="modal mfp-hide" id="collection_options">
+
+  <h2>Editar colección</h2>
+
+  <form>
+
+    <div class="form_item select_control">
+      <label for="entity">Contexto</label>
+      <select>
+        <% for i in [
+          'Sitio',
+          'Altos Cargos y Agendas',
+          'Participación',
+          'Participación/Nombre de un proceso o grupo que puede ser largo',
+          'Participación/Nombre de otro proceso largo',
+          'Participación/Nombre de otro proceso todavía más'
+          ]
+        %>
+          <option><%= i %></option>
+        <% end %>
+      </select>
+    </div>
+
+    <div class="globalized_fields">
+
+      <div class="globalize_tool">
+        <label>Traducir</label>
+        <a href="#" class="locale_option selected completed tipsit" title="Define el contenido en su versión en Español">
+          <span class="locale">ES</span>
+          <span class="status"></span>
+        </a>
+        <a href="#" class="locale_option completed tipsit" title="Define el contenido en su versión en Catalán">
+          <span class="locale">CA</span>
+          <span class="status"></span>
+        </a>
+        <a href="#" class="locale_option tipsit" title="Define el contenido en su versión en Inglés">
+          <span class="locale">EN</span>
+          <span class="status"></span>
+        </a>
+      </div>
+
+      <div class="form_item input_text">
+        <label for="name">Título</label>
+        <input type="text" id="name" value="Noticias">
+      </div>
+
+    </div>
+
+    <div class="form_item select_control">
+      <label for="entity">Tipo</label>
+      <select>
+        <option>Noticias</option>
+        <option>Páginas</option>
+      </select>
+    </div>
+
+
+
+    <div class="actions right">
+      <button class="light">Cancelar</button>
+      <input type="submit" value="Guardar">
+    </div>
+
+  </form>
+
+</div>

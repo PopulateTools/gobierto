@@ -10,18 +10,15 @@
 
     }
   }
-  
-}
-.article {
-	
+
 }
 figure.png, figure.jpg, figure.gif {
-	margin: 1em 0;
-	img {
-		max-width: 100%;
-		height: auto;
-	}
-	figcaption {
-		display: none;
-	}
+  margin: 1em 0;
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  figcaption {
+    display: none;
+  }
 }

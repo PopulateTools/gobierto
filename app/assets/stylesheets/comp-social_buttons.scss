@@ -20,17 +20,17 @@ a.social_share {
   }
 }
 .social_share_container {
-	.social_share {
-		@include border-radius(16px);
+  .social_share {
+    @include border-radius(16px);
     padding: .25em 2em;
-		text-decoration: none;
-		.fa {
-			margin: 0 .2em 0 0;
-		}
-	}
-	.social_share:hover {
-		text-decoration: none;
-	}
+    text-decoration: none;
+    .fa {
+      margin: 0 .2em 0 0;
+    }
+  }
+  .social_share:hover {
+    text-decoration: none;
+  }
 }
 .social_share:hover {
   color: #FFF;
@@ -66,9 +66,8 @@ a.social_share {
   background: darken($color_main, 10%);
 }
 .social_links_container {
-  // width: 40px;
   z-index: 1;
-  
+
   a {
     @include border-radius(3em);
     margin: 0 .5em 0 0;
@@ -79,11 +78,5 @@ a.social_share {
     width: 2.25em;
     box-sizing: border-box;
     text-align: center;
-  }
-  a.twitter {
-
-  }
-  a.facebook {
-
   }
 }

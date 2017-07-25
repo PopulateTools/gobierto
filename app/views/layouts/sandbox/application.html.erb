@@ -21,7 +21,7 @@
   </script>
 </head>
 
-<body <%= data_attributes %>>
+<body <%= data_attributes %> <%= yield(:body_attributes) %>>
 
 <% if @site.configuration.demo? %>
   <div class="demo_bar pure-g">
@@ -110,9 +110,23 @@
 
   <div class="site_header">
 
-    <div class="column">
+    <div class="column site_header_logo">
       <div class="logo">
         <%= link_to(image_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
+      </div>
+
+      <div>
+        <a href="#" class="button outline rounded desktop_only"><i class="fa fa-rss"></i> Sigue este proceso</a>
+
+        <div class="social_links_container" data-share>
+          <% if show_social_links? %>
+            <a href="#" class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
+          <% end %>
+
+          <a href="#" class="search_icon"><i class="fa fa-search"></i></a>
+          <a href="#" class="button outline rounded mobile_only"><i class="fa fa-rss"></i> Sigue este proceso</a>
+        </div>
       </div>
     </div>
 
@@ -180,31 +194,14 @@
       <nav id="main_nav" class="nav" role="navigation" aria-controls="main_menu" aria-hidden="false">
 
         <div class="global_breadcrumb">
-          <%= link_to '<i class="fa fa-bars"></i> Inicio'.html_safe, '', class:'menu_control'  %> <span>/</span>
-          <strong><%= link_to 'Presupuestos' %></strong> <span>/</span>
-          <strong><%= link_to 'Visualización' %></strong>
+          <%= link_to '<i class="fa fa-bars"></i> Participación'.html_safe, 'participation', class:'menu_control'  %> <span>/</span>
+          <strong><%= link_to 'Temas', 'participation_themes' %></strong> <span>/</span>
+          <strong><%= link_to 'Cooperación, sensibilización y Ayuda Humanitaria', 'participation_group' %></strong>
         </div>
         <%= render 'sandbox/layouts/menu_subsections' %>
-
-        <div class="search_box slim_search desktop_only">
-          <label for="gobierto_search" class="screen-hidden">Buscar...</label>
-          <input type="text" placeholder="Buscar..." name="q" id="gobierto_search" />
-        </div>
-
-        <div id="search_results" class="search_result_list"></div>
-
-        <% if show_social_links? %>
-          <div class="social_links_container" data-share>
-            <a href="#" class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
-            <a href="#" class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
-            <% pending do %>
-              <a href="#embed-graph-code" class="code open_modal"><i class="fa fa-code"></i></a>
-            <% end %>
-          </div>
-        <% end %>
-
       </nav>
     </div>
+
 
 
   </div>

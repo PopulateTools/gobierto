@@ -9,8 +9,10 @@ class Site < ApplicationRecord
   has_many :census_imports, dependent: :destroy, class_name: "GobiertoAdmin::CensusImport"
 
   # GobiertoCommon integration
+  has_many :collections, dependent: :destroy, class_name: "GobiertoCommon::Collection"
   has_many :content_blocks, dependent: :destroy, class_name: "GobiertoCommon::ContentBlock"
   has_many :custom_user_fields, dependent: :destroy, class_name: "GobiertoCommon::CustomUserField"
+  has_many :collection_items, as: :container
 
   # User integrations
   has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"
@@ -41,6 +43,7 @@ class Site < ApplicationRecord
 
   # Gobierto Participation integration
   has_many :issues, dependent: :destroy, class_name: "GobiertoParticipation::Issue"
+  has_many :processes, dependent: :destroy, class_name: "GobiertoParticipation::Process"
 
   serialize :configuration_data
 

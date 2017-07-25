@@ -1,0 +1,11 @@
+---
+es:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_common/collection_form:
+        container_id: Contenedor
+        item_type: Tipo
+        slug: URL
+        title: Título
+    models:
+      gobierto_admin/gobierto_common/collection_form: Colección

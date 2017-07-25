@@ -124,9 +124,16 @@
           </li>
           <% end %>
 
-          <% if show_module_link?("GobiertoCms") %>
+          <li class="sep"></li>
+            <% if show_module_link?("GobiertoCms") %>
+            <li>
+              <%= link_to t(".cms"), admin_cms_pages_path %>
+            </li>
+            <% end %>
+
+          <% if show_module_link?("GobiertoParticipation") %>
           <li>
-            <%= link_to t(".cms"), admin_cms_pages_path %>
+            <%= link_to t(".participation"), admin_participation_path %>
           </li>
           <% end %>
 
@@ -144,7 +151,7 @@
               <% end %>
             </li>
           <% end %>
-        </ul>
+         </ul>
 
       </div>
 

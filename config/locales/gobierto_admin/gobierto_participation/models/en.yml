@@ -1,0 +1,25 @@
+---
+en:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_participation/issue_form:
+        name: Name
+        slug: URL
+      gobierto_admin/gobierto_participation/process_form:
+        header_image: Header image
+        header_image_url: Header image URL
+        title: Title
+        body: Body
+        slug: Slug
+    models:
+      gobierto_admin/gobierto_participation/process_form: Proceso
+      gobierto_admin/gobierto_participation/issue_form: issue
+  activerecord:
+    attributes:
+      gobierto_participation/process_stage:
+        stage_types:
+          information: Information
+          meetings: Meetings
+          surveys: Surveys
+          ideas: Ideas
+          results: Results

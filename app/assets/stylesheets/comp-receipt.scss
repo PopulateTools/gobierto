@@ -1,0 +1,76 @@
+.receipt {
+  background: #e5f3f5;
+  border-radius: 4px;
+
+  .padding {
+    padding: 1em;
+
+    @include min-screen(740) {
+      padding: 3em 3em 1em 3em;
+    }
+  }
+
+  .pure-u-1 {
+    padding: 0.5em;
+    box-sizing: border-box;
+  }
+
+  .receipt_item {
+    font-size: 1.25em;
+    background: #f2f9fa;
+    font-weight: 600;
+  }
+  .receipt_dropdown {
+    padding: 0 0.5em;
+
+    select {
+      border: 1px solid #aeaeae;
+      background: white;
+      padding: 0 1em;
+      height: 100%;
+    }
+  }
+  .receipt_separator {
+    background-image: linear-gradient(to right, $color_main 33%, rgba(255,255,255,0) 0%);
+    background-position: bottom;
+    background-size: 10px 1px;
+    background-repeat: repeat-x;
+  }
+  .receipt_calc {
+    padding: 0 0.5em;
+
+    .bg {
+      height: 100%;
+      padding: 0 0.5em;
+      background: #f2f9fa;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      span {
+        font-size: 1.15em;
+      }
+    }
+  }
+
+  .receipt_result {
+    padding-top: 2em;
+    padding-bottom: 2em;
+
+    .pure-u-1 {
+      padding: 0;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.45em;
+      color: $color_headers;
+    }
+
+    .receipt_result_number {
+      font-size: 2em;
+      // font-weight: 600;
+    }
+  }
+}
+

@@ -154,6 +154,15 @@ p.intro {
     margin-right: 1em;
   }
 }
+.medium_img {
+  height: auto;
+  max-width: 100%;
+
+  @include min-screen(740) {
+    padding: 2em;
+    max-width: 500px;
+  }
+}
 
 .separator {
 	border-top: 1px solid $text_soft;

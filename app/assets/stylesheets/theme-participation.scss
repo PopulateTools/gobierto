@@ -602,7 +602,23 @@ $lighter_black: rgba($color_headers, .7);
 
   .pagination {
     a {
-      color: $color_text;
+      color: $green;
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: darken($green, .2);
+      }
+    }
+
+    .active a {
+      background: $green;
+      border-color: $green;
+      color: white;
+    }
+
+    .disabled {
+      color: rgba($color_text, 0.5);
     }
   }
 

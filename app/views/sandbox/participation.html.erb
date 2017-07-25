@@ -96,14 +96,24 @@
 
       <div class="pure-u-1 pure-u-md-2-3">
         <div class="pure-g two_by_two">
-          <%= render 'theme_teaser_light', {name: 'Cultura', description: 'Bibliotecas, centros culturales, programación'} %>
-          <%= render 'theme_teaser_light', {name: 'Educación', description: 'Centros educativos municipales, Aulas de naturaleza'} %>
-          <%= render 'theme_teaser_light', {name: 'Ocio y deporte', description: 'Actividades y eventos, ocio nocturno, instalaciones deportivas'} %>
-          <%= render 'theme_teaser_light', {name: 'Mujer', description: 'Oposiciones, ofertas de empleo público'} %>
-          <%= render 'theme_teaser_light', {name: 'Urbanismo', description: 'Violencia machista, Igualdad, Atención, Transversalidad'} %>
-          <%= render 'theme_teaser_light', {name: 'Empleo y comercio', description: 'Programas de vivienda, callejero, licencias urbanísticas, alquiler'} %>
-          <%= render 'theme_teaser_light', {name: 'Vivienda', description: 'Accesibilidad, Espacios públicos, mobiliario urbano'} %>
-          <%= render 'theme_teaser_light', {name: 'Economía y Hacienda', description: 'Ayudas sociales, impuestos, multas, emprendimiento'} %>
+          <% for i in [
+            'Cooperación, sensibilización y Ayuda Humanitaria',
+            'Cultura',
+            'Deportes',
+            'Educación',
+            'Integración Social e Inmigración',
+            'Mayores',
+            'Medio Ambiente',
+            'Mujer e Igualdad',
+            'Participación Ciudadana',
+            'Salud y Bienestar Social',
+            'Consumo',
+            'Juventud e Infancia',
+            'Comercio',
+            'Urbanismo']
+          %>
+          <%= render 'theme_teaser_light', {name: i, description: 'Bibliotecas, centros culturales, programación'} %>
+          <% end %>
         </div>
       </div>
 

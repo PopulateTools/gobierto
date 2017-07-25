@@ -620,6 +620,7 @@ $lighter_black: rgba($color_headers, .7);
 
   .document {
     margin-bottom: 0.5em;
+    @include ellipsis;
 
     a {
       color: $green;

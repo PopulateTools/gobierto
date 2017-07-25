@@ -39,5 +39,16 @@ $(document).on('turbolinks:load', function() {
 
   $('.site_header_logo .search_icon input').on('focusout', function(e) {
     $(this).parent('.search_icon').velocity({ width: '24px '}, { begin: function(element) { $(element[0]).find('input').addClass('hidden'); }});
-  })
+  });
+
+  $('.follow_process').on('click', function() {
+    $(this)
+      .toggleClass('checked')
+      .find('.fa')
+      .toggleClass('fa-rss fa-star')
+      .velocity({ translateY: -5 }, { duration: 100, loop: 2 })
+      .next('span')
+      .toggleText('Sigue este proceso', '¡Proceso seguido!');
+  });
+
 });

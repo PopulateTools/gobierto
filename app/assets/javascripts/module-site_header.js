@@ -33,11 +33,11 @@ $(document).on('turbolinks:load', function() {
     }
   });
 
-  $('.nav .search_box input').focus(function(e) {
-    $(this).velocity({width: '250px'});
-  });
-  $('.nav .search_box input').blur(function(e) {
-    $(this).velocity({width: '150px'});
+  $('.site_header_logo .search_icon').focus(function(e) {
+    $(this).velocity({ width: isMobile() ? '100px' : '170px' }, { complete: function (element) { $(element[0]).find('input').removeClass('hidden').focus(); }})
   });
 
+  $('.site_header_logo .search_icon input').on('focusout', function(e) {
+    $(this).parent('.search_icon').velocity({ width: '24px '}, { begin: function(element) { $(element[0]).find('input').addClass('hidden'); }});
+  })
 });

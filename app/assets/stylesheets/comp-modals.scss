@@ -18,7 +18,7 @@
     }
   }
 
-.disclaimer {
+  .disclaimer {
     font-size: .8em;
     text-align: center;
     margin: 2em 0;
@@ -26,11 +26,11 @@
   }
 }
 .mfp-bg {
-	opacity: .6;
+  opacity: .6;
 }
 .mfp-close-btn-in .mfp-close:hover {
-	color: #FFF;
-	border-radius: 0;
+  color: #FFF;
+  border-radius: 0;
 }
 .modal_background {
   position: relative;
@@ -71,7 +71,6 @@
 
   table {
     tbody {
-      // display: block;
       overflow-y: scroll;
       max-height: 350px;
 
@@ -86,7 +85,6 @@
 
   .file-sidebar {
     background: #fef0cd;
-    // max-height: 530px;
     transition: 0.3s;
     height: 100%;
     left: 66.6667%;

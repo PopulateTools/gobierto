@@ -15,7 +15,7 @@ $lighter_black: rgba($color_headers, .7);
       padding: 0;
     }
 
-   .site_header .logo {
+    .site_header .logo {
       text-align: left;
 
       img {
@@ -180,7 +180,7 @@ $lighter_black: rgba($color_headers, .7);
       margin-bottom: 1em;
 
       a {
-       color: $green;
+        color: $green;
       }
 
       & ~ a {

@@ -3,7 +3,7 @@
  *
  */
 h1, h2, h3, h4 {
-	line-height: 1.2em;
+  line-height: 1.2em;
   color: $color_main;
   .soft {
     color: $color_meta_text;
@@ -13,22 +13,22 @@ h1, h2, h3, h4 {
 .block {
   position: relative;
   margin: 0 0 1em 0;
-	h1, h2 {
-		font-weight: 200;
-		text-transform: uppercase;
-		font-size: 1.6em;
+  h1, h2 {
+    font-weight: 200;
+    text-transform: uppercase;
+    font-size: 1.6em;
     margin: 2em 0;
-	}
-	h2.with_description {
-		margin-bottom: .35em;
-	}
-	.description {
-		width: 50%;
-		font-size: .85em;
-		margin: 0 0 3em 0;
-		line-height: 1.3em;
-		opacity: .6;
-	}
+  }
+  h2.with_description {
+    margin-bottom: .35em;
+  }
+  .description {
+    width: 50%;
+    font-size: .85em;
+    margin: 0 0 3em 0;
+    line-height: 1.3em;
+    opacity: .6;
+  }
   .slim {
     margin: 0;
   }
@@ -37,21 +37,21 @@ h1, h2, h3, h4 {
     right: 0;
     top: 0;
   }
-	.half_description {
-		.block_1 p {
+  .half_description {
+    .block_1 p {
       margin-bottom: 0;
     }
     .block_2 {
       p {
-       opacity: 0.6;
-       margin-bottom: 1rem;
+        opacity: 0.6;
+        margin-bottom: 1rem;
       }
 
       @media (min-width: 768px) {
         text-align: right;
       }
     }
-	}
+  }
 }
 .with_separator {
   font-size: 1.25em;
@@ -74,23 +74,23 @@ h1, h2, h3, h4 {
   font-size: .75em;
 }
 h1.light {
-	font-weight: 200;
+  font-weight: 200;
 }
 h2.lite {
-	margin: 0 0 .5em 0;
-	font-size: 1em;
+  margin: 0 0 .5em 0;
+  font-size: 1em;
 }
 h1, h2 {
-	span.element_title {
-		font-size: .9rem;
-		font-weight: normal;
-		padding-left: 1em;
-	}
+  span.element_title {
+    font-size: .9rem;
+    font-weight: normal;
+    padding-left: 1em;
+  }
 }
 p.intro {
-	font-size: 1.6em;
-	line-height: 1.3em;
-	font-weight: 200;
+  font-size: 1.6em;
+  line-height: 1.3em;
+  font-weight: 200;
 }
 
 .compact {
@@ -154,11 +154,11 @@ p.intro {
   font-size: 1.4em;
   text-transform: uppercase;
   font-weight: 200;
-	.linked_headline {
-		font-size: 1em;
-		margin: 0;
-		font-weight: 300;
-	}
+  .linked_headline {
+    font-size: 1em;
+    margin: 0;
+    font-weight: 300;
+  }
   a {
     display: block;
     text-decoration: none;
@@ -333,32 +333,32 @@ a.content_block {
 }
 
 .separator {
-	border-top: 1px solid $text_soft;
+  border-top: 1px solid $text_soft;
   margin: 2em 0;
-	width: 100%;
+  width: 100%;
   height: 1px;
   opacity: .5;
 }
 .separator_v {
-	border-left: 1px solid $color_separator;
-	margin: 0 1em;
-	display: inline-block;
-	height: 3em;
-	margin-top: -.25em;
-	vertical-align: top;
+  border-left: 1px solid $color_separator;
+  margin: 0 1em;
+  display: inline-block;
+  height: 3em;
+  margin-top: -.25em;
+  vertical-align: top;
 }
 .separator.half {
-	width: 50%;
-	margin-left: auto;
-	margin-right: auto;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
 }
 .separator.quarter {
-	width: 25%;
-	margin-left: auto;
-	margin-right: auto;
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
 }
 .separator_blue_medium {
-	border-top: 3px solid transparentize($color_main, .65);
+  border-top: 3px solid transparentize($color_main, .65);
 }
 .separator_responsive {
   margin: 4em 0;
@@ -378,8 +378,8 @@ a.content_block {
 }
 
 .block_color {
-	background: transparentize($color_main, .94);
-	border-top: 4px solid $color_main;
+  background: transparentize($color_main, .94);
+  border-top: 4px solid $color_main;
 }
 .section_separator {
   margin: 1em 0;
@@ -400,12 +400,12 @@ a.content_block {
 }
 
 .padded_line_box {
-	@include border-radius(6px);
-	border: 1px solid $color_separator;
-	padding:  2em 3em;
-	box-sizing: border-box;
-	margin-left: auto;
-	margin-right: auto;
+  @include border-radius(6px);
+  border: 1px solid $color_separator;
+  padding:  2em 3em;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
   background: white;
 
   @include screen(740) {

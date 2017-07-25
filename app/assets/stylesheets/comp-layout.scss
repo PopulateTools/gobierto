@@ -31,7 +31,7 @@
  *
  */
 footer {
-	background: $color_neutral_soft;
+  background: $color_neutral_soft;
   padding: 3em 0;
   margin: 10em 0 0 0;
   .logo {
@@ -169,9 +169,4 @@ footer {
       }
     }
   }
-}
-
-
-@include screen(740) {
-
 }

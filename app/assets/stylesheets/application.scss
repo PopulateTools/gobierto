@@ -1,18 +1,18 @@
 /*
-* Master CSS file for Gobierto. In this file we include:
-*
-* - Vendor & Gobierto libraries
-* - Gobierto components
-* - CSS conf (fonts, colors)
-* - Fonts
-*
-*/
+ * Master CSS file for Gobierto. In this file we include:
+ *
+ * - Vendor & Gobierto libraries
+ * - Gobierto components
+ * - CSS conf (fonts, colors)
+ * - Fonts
+ *
+ */
 
 
 /*
-* Vendor libraries
-*
-*/
+ * Vendor libraries
+ *
+ */
 @import "bourbon";
 @import "pure-min";
 @import "pure-grids-responsive-min";
@@ -23,16 +23,16 @@
 
 
 /*
-* Gobierto libraries
-*
-*/
+ * Gobierto libraries
+ *
+ */
 @import "populities";
 
 
 /*
-* Gobierto components
-*
-*/
+ * Gobierto components
+ *
+ */
 @import "css-conf";
 @import "comp-breadcrumbs";
 @import "comp-flash_messages";
@@ -74,9 +74,9 @@
 @import "module-admin";
 
 /*
-* Gobierto themes
-*
-*/
+ * Gobierto themes
+ *
+ */
 @import "theme-participation";
 
 /*
@@ -114,7 +114,7 @@ body {
   color: $color_text;
 }
 .pure-g [class*="pure-u"] {
-	font-family: $font_text;
+  font-family: $font_text;
 }
 a {
   color: $color_main;
@@ -135,32 +135,32 @@ a:hover {
  *
  */
 .soft_cta {
-	background: rgba($color_main, .1);
-	@include border-radius(6px);
-	padding: 1em 2em;
-	display: inline-block;
+  background: rgba($color_main, .1);
+  @include border-radius(6px);
+  padding: 1em 2em;
+  display: inline-block;
 
 }
 a.soft_cta:hover {
-	background: rgba($color_main, .2);
+  background: rgba($color_main, .2);
 }
 .small {
-	font-size: .85em;
+  font-size: .85em;
 }
 .highlight {
-	background: #F1F4BE;
-	padding: .2em;
-	display: inline-block;
+  background: #F1F4BE;
+  padding: .2em;
+  display: inline-block;
 }
 
 
 
 #lines_tooltip {
-	table {
-		th[title=name] {
-			width: 45%;
-		}
-	}
+  table {
+    th[title=name] {
+      width: 45%;
+    }
+  }
 }
 .help {
   font-size: .75em;
@@ -175,14 +175,14 @@ a.soft_cta:hover {
  *
  */
 .b {
-	border: 1px solid #111;
+  border: 1px solid #111;
 }
 .img-fluid {
-	max-width: 100%;
-	height: auto;
+  max-width: 100%;
+  height: auto;
 }
 .m1 {
-	margin: 1em;
+  margin: 1em;
 }
 .mt1 {
   margin-top: 1em;
@@ -197,37 +197,37 @@ a.soft_cta:hover {
   margin-top: 4em;
 }
 .mb1 {
-	margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 .mb2 {
-	margin-bottom: 2em;
+  margin-bottom: 2em;
 }
 .mb3 {
-	margin-bottom: 3em;
+  margin-bottom: 3em;
 }
 .mb4 {
-	margin-bottom: 4em;
+  margin-bottom: 4em;
 }
 .ml1 {
-	margin-left: 1em;
+  margin-left: 1em;
 }
 .p1 {
-	padding: 1em;
+  padding: 1em;
 }
 .pb0 {
- 	padding-bottom: 0;
+  padding-bottom: 0;
 }
 .pb1 {
-	padding-bottom: 1em;
+  padding-bottom: 1em;
 }
 .pb2 {
-	padding-bottom: 2em;
+  padding-bottom: 2em;
 }
 .pb3 {
-	padding-bottom: 3em;
+  padding-bottom: 3em;
 }
 .pb4 {
-	padding-bottom: 4em;
+  padding-bottom: 4em;
 }
 .pl-xs {
   padding-left: 0.75rem;
@@ -245,7 +245,7 @@ a.soft_cta:hover {
 
 // Hidden utilities
 .hidden-xs {
-    display: none;
+  display: none;
 }
 @media (min-width: 768px) {
   .hidden-xs {
@@ -259,18 +259,18 @@ a.soft_cta:hover {
  *
  */
 .tip {
-	font-size: .85em;
-	font-weight: 700;
-	line-height: 1.2em;
-	a {
-		color: rgba($color_main, .7);
-		text-decoration: none;
-	}
-	.fa {
-		display: block;
-		line-height: 2em;
-		font-size: 1.6em;
-	}
+  font-size: .85em;
+  font-weight: 700;
+  line-height: 1.2em;
+  a {
+    color: rgba($color_main, .7);
+    text-decoration: none;
+  }
+  .fa {
+    display: block;
+    line-height: 2em;
+    font-size: 1.6em;
+  }
 }
 .tipsy {
   opacity: 1 !important;
@@ -375,6 +375,5 @@ html.turbolinks-progress-bar::before {
     }
   }
 }
-
 
 @import "responsive";

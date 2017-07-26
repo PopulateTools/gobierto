@@ -33,7 +33,10 @@ module GobiertoAdmin
           ::GobiertoCommon::Collection.find(params[:file_attachment][:collection_id]).append(@file_attachment_form.file_attachment)
 
           if params[:file_attachment][:collection_id]
-            redirect_to edit_admin_cms_file_attachment_path(@file_attachment_form.file_attachment.id)
+            redirect_to(
+              edit_admin_cms_file_attachment_path(@file_attachment_form.file_attachment.id),
+              notice: t('.success_html')
+            )
           else
             render plain: @file_attachment_form.file_url
           end
@@ -65,11 +68,11 @@ module GobiertoAdmin
       private
 
       def track_create_activity
-        Publishers::GobiertoAttachmentsAttachmentActivity.broadcast_event("attachment_created", default_activity_params.merge(subject: @file_attachment_form.file_attachment))
+        Publishers::GobiertoAttachmentsAttachmentActivity.broadcast_event('attachment_created', default_activity_params.merge(subject: @file_attachment_form.file_attachment))
       end
 
       def track_update_activity
-        Publishers::GobiertoAttachmentsAttachmentActivity.broadcast_event("attachment_updated", default_activity_params.merge(subject: @file_attachment))
+        Publishers::GobiertoAttachmentsAttachmentActivity.broadcast_event('attachment_updated', default_activity_params.merge(subject: @file_attachment))
       end
 
       def default_activity_params

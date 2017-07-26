@@ -65,8 +65,10 @@ var VisLinesExecution = Class.extend({
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
+    this.maxPct = d3.max(this.data.lines, function(d) { return d.pct_executed;});
+
     // Triggered if a budget line's execution is over 500%
-    this.bigDeviation = d3.max(this.data.lines, function(d) { return d.pct_executed;}) > 500;
+    this.bigDeviation = this.maxPct > 500;
 
     // Scales & Ranges
     this.x = this.bigDeviation ? d3.scaleLog().range([0.1, this.width]) : d3.scaleLinear().range([0, this.width]).clamp(true);
@@ -117,7 +119,7 @@ var VisLinesExecution = Class.extend({
     this.nested.sort(function(a ,b) { return a.group_pct - b.group_pct;});
 
     /* Extent of the execution */
-    this.x.domain([0.1, d3.max(this.data.lines, function(d) { return d.pct_executed;})]);
+    this.x.domain(this.maxPct <= 100 ? [0.1, 100] : [0.1, this.maxPct]);
 
     /* Number of lines */
     this.y0.domain(this.nested.map(function(d) { return d.key }));

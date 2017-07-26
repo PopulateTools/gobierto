@@ -108,6 +108,7 @@ module GobiertoBudgets
         respond_to do |format|
           format.json do
             render json: {
+              last_update: current_site.budgets_data_updated_at('execution').strftime('%F'),
               lines: lines
             }
           end

@@ -90,7 +90,7 @@ Rails.application.routes.draw do
 
     namespace :gobierto_cms, as: :cms, path: :cms do
       resources :pages
-      resources :file_attachments, only: [:index, :create]
+      resources :file_attachments, only: [:index, :create, :new, :edit, :update]
     end
 
     namespace :gobierto_attachments, as: :attachments, path: :attachments do

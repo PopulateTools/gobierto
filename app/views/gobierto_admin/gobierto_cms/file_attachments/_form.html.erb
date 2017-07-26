@@ -1,0 +1,30 @@
+<%= render "gobierto_admin/shared/validation_errors", resource: @file_attachment_form %>
+
+<%= form_for(@file_attachment_form, as: :file_attachment, url: @file_attachment_form.persisted? ? admin_cms_file_attachments_path(@file_attachment_form) : :admin_cms_file_attachments) do |f| %>
+  <%= f.hidden_field :collection_id, value: params[:collection_id] %>
+  <div class="pure-g">
+    <div class="pure-u-1 pure-u-md-16-24">
+      <div class="form_item file_field avatar_file_field">
+        <%= f.label :file, t(".file_constraints") %>
+
+        <% if f.object.url.present? %>
+          <%= image_tag f.object.url, height: 150 %>
+        <% end %>
+
+        <%= f.file_field :file %>
+      </div>
+
+      <div class="form_item input_text">
+        <%= f.label :name %>
+        <%= f.text_field :name, placeholder: t(".placeholders.name") %>
+      </div>
+
+      <div class="form_item input_text">
+        <%= f.label :description %>
+        <%= f.text_field :description, placeholder: t(".placeholders.description") %>
+      </div>
+    </div>
+  </div>
+  <%= f.submit class: "button" %>
+
+<% end %>

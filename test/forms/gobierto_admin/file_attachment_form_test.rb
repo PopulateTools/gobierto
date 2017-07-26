@@ -43,7 +43,7 @@ module GobiertoAdmin
 
         assert_equal(
           "http://www.madrid.es/assets/images/logo-madrid.png",
-          valid_file_attachment_form.file_url
+          valid_file_attachment_form.url
         )
       end
     end

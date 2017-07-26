@@ -12,3 +12,12 @@ en:
           new: New
           title: Attachments
           view_collection: View collection
+        edit:
+          title: Edit attachment
+        form:
+          file_constraints: Attach file
+          placeholders:
+            name: File name
+            description: Document description
+        new:
+          title: New document

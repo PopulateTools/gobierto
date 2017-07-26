@@ -12,3 +12,12 @@ ca:
           new: Nova
           title: Attachments
           view_collection: Veure col·lecció
+        edit:
+          title: Modifica adjunt
+        form:
+          file_constraints: Adjuntar fixer
+          placeholders:
+            name: Nom del fixer
+            description: Descripció del fitxer
+        new:
+          title: Nou fixer

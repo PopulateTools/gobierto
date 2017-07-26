@@ -4,27 +4,28 @@ module GobiertoAdmin
 
     attr_accessor(
       :id,
-      :site,
+      :site_id,
       :file,
       :file_name,
       :size,
       :file_digest,
       :url,
-      :collection, # TODO: is needed?
+      :collection,
       :name,
       :description
     )
+
+    delegate :persisted?, to: :file_attachment
 
     validates :file, presence: true
     validates :site, presence: true
 
     def save
-      # TODO without params only valid?
       save_file_attachment if valid?
     end
 
     def site
-      @site ||= Site.find_by(id: site.id)
+      @site ||= Site.find_by(id: site_id)
     end
 
     def file_attachment
@@ -48,7 +49,7 @@ module GobiertoAdmin
     private
 
     def build_file_attachment
-      file_attachment_class.new(site_id: site.id)
+      file_attachment_class.new(site_id: site_id)
     end
 
     def file_attachment_class

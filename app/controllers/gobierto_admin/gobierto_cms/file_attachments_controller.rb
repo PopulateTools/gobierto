@@ -10,7 +10,7 @@ module GobiertoAdmin
       end
 
       def new
-        @file_attachment_form = FileAttachmentForm.new(site: current_site)
+        @file_attachment_form = FileAttachmentForm.new(site_id: current_site.id)
       end
 
       def edit
@@ -23,7 +23,7 @@ module GobiertoAdmin
       def create
         @file_attachment_form = FileAttachmentForm.new(
           file_attachment_params.merge(
-            site: current_site,
+            site_id: current_site.id,
             collection: 'gobierto_cms'
           )
         )

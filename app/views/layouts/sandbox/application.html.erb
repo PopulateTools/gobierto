@@ -204,6 +204,16 @@
             <strong><%= link_to 'Procesos', 'participation_proccesses' %></strong> <span>/</span>
             <strong><%= link_to 'Pacto social por el fin de la violencia de la género', 'participation_group' %></strong>
           </div>
+          <menu class="secondary_nav">
+            <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
+              <ul>
+                <li><%= link_to 'Noticias', 'participation_news?from_group=true' %></li>
+                <li><%= link_to 'Agenda', 'participation_agenda?from_group=true' %></li>
+                <li><%= link_to 'Documentos', 'participation_docs?from_group=true' %></li>
+                <li><%= link_to 'Actividad', 'participation_activity?from_group=true' %></li>
+              </ul>
+            </div>
+          </menu>
           <menu class="sub_sections">
             <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
               <ul>
@@ -215,6 +225,7 @@
               </ul>
             </div>
           </menu>
+
 
         <% elsif @sub_section == 'participation' %>
 
@@ -232,6 +243,7 @@
               </ul>
             </div>
           </menu>
+
 
         <% else %>
 

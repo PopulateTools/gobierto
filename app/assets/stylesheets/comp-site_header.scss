@@ -115,7 +115,7 @@ header.meta {
     }
     .button.outline.rounded {
       width: auto;
-      
+
       &.desktop_only {
         @include screen(740) {
           display: none;
@@ -235,13 +235,40 @@ header.meta {
               font-weight: 300;
               padding: .5em 1.25em .4em;
               display: inline-block;
-              opacity: .5;
+              opacity: .75;
             }
           }
           li:first-child {
             a {
               margin-left: 0;
               padding-left: 0;
+            }
+          }
+        }
+      }
+      menu.secondary_nav {
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        right: 0;
+        text-align: right;
+        width: 35%;
+        ul {
+          margin: 0;
+          padding: 0;
+          list-style-type: none;
+          li {
+            display: inline-block;
+            a {
+              text-decoration: none;
+              font-size: .8em;
+              padding: .6rem .75rem .4rem;
+              display: inline-block;
+              color: $color_meta_text;
+              @include border-radius(3px);
+            }
+            a:hover {
+              background: $color_1_soft;
             }
           }
         }

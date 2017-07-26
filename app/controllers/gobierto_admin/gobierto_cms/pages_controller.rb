@@ -9,7 +9,7 @@ module GobiertoAdmin
 
       def index
         @collections = current_site.collections.by_item_type('GobiertoCms::Page')
-        @pages = current_site.pages.sorted
+        @pages = current_site.pages.sort_by_updated_at(10)
       end
 
       def new
@@ -97,7 +97,7 @@ module GobiertoAdmin
           :collection_id,
           title_translations: [*I18n.available_locales],
           body_translations:  [*I18n.available_locales],
-          slug_translations:  [*I18n.available_locales],
+          slug_translations:  [*I18n.available_locales]
         )
       end
 

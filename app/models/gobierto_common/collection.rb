@@ -22,6 +22,10 @@ module GobiertoCommon
       collection_items.where(item_type: 'GobiertoCms::Page').map(&:item_id)
     end
 
+    def file_attachments_in_collection
+      collection_items.where(item_type: 'GobiertoAttachments::Attachment').map(&:item_id)
+    end
+
     def container
       if container_id.present?
         super
@@ -38,6 +42,10 @@ module GobiertoCommon
 
     def self.collector_classes
       [Site, GobiertoParticipation::Issue, GobiertoParticipation::Area]
+    end
+
+    def self.type_classes
+      [GobiertoCms::Page, GobiertoAttachments::Attachment]
     end
 
     def append(item)

@@ -25,7 +25,11 @@ module GobiertoCms
     validate :uniqueness_of_slug
 
     scope :sorted, -> { order(id: :desc) }
-    scope :sort_by_updated_at, -> { order(updated_at: :desc) }
+    scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
+
+    def collection
+      GobiertoCommon::CollectionItem.find_by(item: self, item_type: 'GobiertoCms::Page').collection
+    end
 
     def self.find_by_slug!(slug)
       if slug.present?

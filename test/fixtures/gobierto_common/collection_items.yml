@@ -8,12 +8,7 @@ collection_item_themes:
   item: themes (GobiertoCms::Page)
   container: culture (GobiertoParticipation::Issue)
 
-# green_city_on_issue_culture:
-#   site: madrid
-#   item: green_city (GobiertoParticipation::Process)
-#   container: culture (GobiertoParticipation::Issue)
-#
-# green_city_on_issue_women:
-#   site: madrid
-#   item: green_city (GobiertoParticipation::Process)
-#   container: women (GobiertoParticipation::Issue)
+collection_item_attachment:
+  collection: news
+  item: themes (GobiertoAttachments::Attachment)
+  container: culture (GobiertoParticipation::Issue)

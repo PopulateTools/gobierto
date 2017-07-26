@@ -6,7 +6,7 @@ module GobiertoAdmin
       def create
         @file_attachment_form = FileAttachmentForm.new(
           file_attachment_params.merge(
-            site: current_site,
+            site_id: current_site.id,
             collection: "gobierto_people"
           )
         )

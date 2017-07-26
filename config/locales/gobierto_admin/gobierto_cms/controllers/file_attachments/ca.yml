@@ -1,0 +1,10 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_cms:
+      file_attachments:
+        create:
+          success_html: El fitxer ha estat creada correctament. <a href="%{link}">Veure
+            la pàgina</a>.
+        update:
+          success_html: El fitxer ha estat actualitzada correctament.

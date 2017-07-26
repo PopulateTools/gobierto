@@ -22,11 +22,14 @@ es:
           title: Nueva colección
         show:
           configuration: Configuración
-          created_at: Creada
+          file_attachments:
+            description: Descripción
           new: Nueva
-          public: Pública
-          updated_at: Actualitzada
-          view: Veure pàgina
-          visibility_level:
-            active: Publicada
-            draft: Borrador
+          pages:
+            created_at: Creada
+            public: Pública
+            updated_at: Actualitzada
+            view: Veure pàgina
+            visibility_level:
+              active: Publicada
+              draft: Borrador

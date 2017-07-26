@@ -13,18 +13,15 @@
 
     <%# same markup as in the front end, lets reuse partials? %>
     <div class="activity_feed">
-      <% @pages.each do |page| %>
+      <% @file_attachments.each do |file_attachment| %>
         <div class="activity_item">
           <h2>
-            <%= link_to edit_admin_cms_page_path(page, collection_id: page.collection.id) do %>
-              <%= page.title %>
-              <span class="secondary">
-                <%= truncate(strip_tags(page.body), length: 60, escape: false) %>
-              </span>
+            <%= link_to edit_admin_cms_file_attachment_path(file_attachment.id, collection_id: file_attachment.collection.id) do %>
+              <%= file_attachment.name %>
             <% end %>
           </h2>
           <div class="date">
-            <%= l(page.created_at, format: :short) %>
+            <%= l(file_attachment.created_at, format: :short) %>
           </div>
         </div>
       <% end %>
@@ -45,7 +42,7 @@
     <table>
       <tr>
         <th><%= t(".header.collection") %></th>
-        <th><%= t(".header.pages") %></th>
+        <th><%= t(".header.file_attachments") %></th>
         <th></th>
       </tr>
 
@@ -53,7 +50,7 @@
         <% @collections.each do |collection| %>
           <tr>
             <td><%= link_to collection.title, admin_common_collection_path(collection) %></td>
-            <td><%= ::GobiertoCms::Page.where(id: collection.pages_in_collection).size %></td>
+            <td><%= ::GobiertoAttachments::Attachment.where(id: collection.file_attachments_in_collection).size %></td>
             <td>
               <%= link_to admin_common_collection_path(collection), target: "_blank", class: "view_item" do %>
                 <i class="fa fa-eye"></i>

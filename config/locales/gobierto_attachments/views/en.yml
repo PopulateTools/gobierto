@@ -1,0 +1,6 @@
+---
+en:
+  gobierto_attachments:
+    events:
+      gobierto_attachments_attachment_created: Created attachment
+      gobierto_attachments_attachment_updated: Updated attachment

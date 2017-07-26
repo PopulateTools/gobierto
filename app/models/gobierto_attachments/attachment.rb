@@ -2,7 +2,7 @@ require_dependency 'gobierto_attachments'
 
 module GobiertoAttachments
   class Attachment < ApplicationRecord
-
+    include User::Subscribable
     include GobiertoCommon::Searchable
 
     MAX_FILE_SIZE_IN_BYTES = 10.megabytes

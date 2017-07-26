@@ -97,7 +97,7 @@ module GobiertoAdmin
           :collection_id,
           title_translations: [*I18n.available_locales],
           body_translations:  [*I18n.available_locales],
-          slug_translations:  [*I18n.available_locales],
+          slug_translations:  [*I18n.available_locales]
         )
       end
 

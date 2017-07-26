@@ -197,12 +197,52 @@
     <div class="column">
       <nav id="main_nav" class="nav" role="navigation" aria-controls="main_menu" aria-hidden="false">
 
-        <div class="global_breadcrumb">
-          <%= link_to '<i class="fa fa-bars"></i> Participación'.html_safe, 'participation', class:'menu_control'  %> <span>/</span>
-          <strong><%= link_to 'Temas', 'participation_themes' %></strong> <span>/</span>
-          <strong><%= link_to 'Cooperación, sensibilización y Ayuda Humanitaria', 'participation_group' %></strong>
-        </div>
-        <%= render 'sandbox/layouts/menu_subsections' %>
+        <% if @sub_section == 'participation_group' %>
+
+          <div class="global_breadcrumb">
+            <%= link_to '<i class="fa fa-bars"></i> Participación'.html_safe, 'participation', class:'menu_control'  %> <span>/</span>
+            <strong><%= link_to 'Procesos', 'participation_proccesses' %></strong> <span>/</span>
+            <strong><%= link_to 'Pacto social por el fin de la violencia de la género', 'participation_group' %></strong>
+          </div>
+          <menu class="sub_sections">
+            <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
+              <ul>
+                <li><%= link_to 'Información', 'participacion_group_info' %></li>
+                <li><%= link_to 'Reuniones', 'participation_agenda.html?from_group=true' %></li>
+                <li><%= link_to 'Encuestas', 'participation_polls' %></li>
+                <li><%= link_to 'Aportaciones', 'participation_contributions' %></li>
+                <li><%= link_to 'Resultados', 'participation_results' %></li>
+              </ul>
+            </div>
+          </menu>
+
+        <% elsif @sub_section == 'participation' %>
+
+          <div class="global_breadcrumb">
+            <%= link_to '<i class="fa fa-bars"></i> Participación'.html_safe, 'participation', class:'menu_control'  %>
+          </div>
+          <menu class="sub_sections">
+            <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
+              <ul>
+                <li><%= link_to 'Acerca de', 'participation_info' %></li>
+                <li><%= link_to 'Temas', 'participation_themes' %></li>
+                <li><%= link_to 'Procesos', 'participation_proccesses' %></li>
+                <li><%= link_to 'Pregunta', 'participation_info' %></li>
+                <li><%= link_to 'Ideas', 'participation_info' %></li>
+              </ul>
+            </div>
+          </menu>
+
+        <% else %>
+
+          <div class="global_breadcrumb">
+            <%= link_to '<i class="fa fa-bars"></i> Participación'.html_safe, 'participation', class:'menu_control'  %> <span>/</span>
+            <strong><%= link_to 'Temas', 'participation_themes' %></strong> <span>/</span>
+            <strong><%= link_to 'Cooperación, sensibilización y Ayuda Humanitaria', 'participation_group' %></strong>
+          </div>
+          <%= render 'sandbox/layouts/menu_subsections' %>
+
+        <% end %>
       </nav>
     </div>
 

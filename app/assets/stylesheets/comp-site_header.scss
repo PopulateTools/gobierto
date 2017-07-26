@@ -115,8 +115,7 @@ header.meta {
     }
     .button.outline.rounded {
       width: auto;
-      padding: 0.25em 0.5em;
-
+      
       &.desktop_only {
         @include screen(740) {
           display: none;

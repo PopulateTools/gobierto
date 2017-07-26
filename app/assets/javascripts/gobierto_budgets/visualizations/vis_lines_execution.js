@@ -46,6 +46,7 @@ var VisLinesExecution = Class.extend({
       if (error) throw error;
 
       this.data = jsonData;
+      this.updated = this.parseTime(this.data.last_update);
 
       // Setting scales in a separate step, as we need the lines to set the height
       this.setScales();
@@ -250,13 +251,13 @@ var VisLinesExecution = Class.extend({
       .text(this.bigDeviation ? I18n.t('gobierto_budgets.budgets_execution.index.vis.percent_log') : I18n.t('gobierto_budgets.budgets_execution.index.vis.percent'));
 
     /* Year progress line */
-    if (this.budgetYear === this.currentYear) {
+    if (this.budgetYear == this.currentYear) {
       var yearProgress = this.svg.append('g')
         .attr('class', 'year_progress')
         .attr('transform', 'translate(' + this.z(this.updated) + ',' + 0 + ')');
 
       var yearArrow = yearProgress.append('g')
-        .attr('class', 'swoopy_arrow')
+        .attr('class', 'swoopy_arrow desktop_only')
         .attr('fill', 'none')
         .attr('transform', 'translate(-5, -40)');
 
@@ -281,14 +282,28 @@ var VisLinesExecution = Class.extend({
 
       hovered.append('text')
         .attr('class', 'legend-text')
-        .attr('dx', 25)
-        .attr('dy', -40)
+        .attr('dx', this.isMobile ? 0 : 25)
+        .attr('dy', this.isMobile ? -25 : -38)
+        .attr('text-anchor', function() {
+          // If on a phone, adjust the alignment when we are closer to the end of the year
+          if (this.isMobile) {
+            return this.updated >= this.parseTime(this.currentYear + '-10-01') ? 'end' : 'middle';
+          }
+        }.bind(this))
         .text(this.monthFormat(this.updated));
 
       // Info icon
       var info = hovered.append('g')
         .attr('fill-rule', 'evenodd')
-        .attr('transform', 'translate(' + (d3.select('.legend-text').node().getBoundingClientRect().width + 30) + ',' + -50 + ')');
+        .attr('transform', function() {
+          var labelWidth = d3.select('.legend-text').node().getBoundingClientRect().width;
+
+          if (this.isMobile) {
+            return this.updated >= this.parseTime(this.currentYear + '-10-01') ? 'translate(' + (labelWidth - 60) + ',' + -36 + ')' : 'translate(' + (labelWidth - 30) + ',' + -36 + ')';
+          } else {
+            return 'translate(' + (labelWidth + 30) + ',' + -50 + ')';
+          }
+        }.bind(this));
 
       info.append('path')
         .attr('fill', '#00909E')

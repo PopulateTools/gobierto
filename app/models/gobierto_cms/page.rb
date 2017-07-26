@@ -28,7 +28,7 @@ module GobiertoCms
     scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
 
     def collection
-      GobiertoCommon::CollectionItem.find_by(item: self).collection
+      GobiertoCommon::CollectionItem.find_by(item: self, item_type: 'GobiertoCms::Page').collection
     end
 
     def self.find_by_slug!(slug)

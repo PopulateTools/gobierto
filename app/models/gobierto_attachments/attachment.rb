@@ -39,7 +39,12 @@ module GobiertoAttachments
     scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
 
     def collection
-      GobiertoCommon::CollectionItem.find_by(item: self).collection
+      GobiertoCommon::CollectionItem.find_by(item: self, item_type: 'GobiertoAttachments::Attachment').collection
+    end
+
+    def self.file_attachments_in_collections(site)
+      ids = GobiertoCommon::CollectionItem.where(item_type: 'GobiertoAttachments::Attachment').map(&:item_id)
+      where(id: ids, site: site)
     end
 
     def self.file_digest(file)

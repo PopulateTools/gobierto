@@ -36,6 +36,8 @@ module GobiertoAttachments
 
     before_validation :update_file_attributes
 
+    scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
+
     def self.file_digest(file)
       Digest::MD5.hexdigest(file.read)
     end

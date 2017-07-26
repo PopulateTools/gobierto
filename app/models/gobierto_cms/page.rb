@@ -25,7 +25,7 @@ module GobiertoCms
     validate :uniqueness_of_slug
 
     scope :sorted, -> { order(id: :desc) }
-    scope :sort_by_updated_at, -> { order(updated_at: :desc) }
+    scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
 
     def self.find_by_slug!(slug)
       if slug.present?

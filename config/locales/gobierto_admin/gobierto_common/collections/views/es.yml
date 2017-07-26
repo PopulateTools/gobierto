@@ -24,7 +24,6 @@ es:
           configuration: Configuración
           file_attachments:
             description: Descripción
-            view: Ver documento
           new: Nueva
           pages:
             created_at: Creada

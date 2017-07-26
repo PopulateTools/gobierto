@@ -24,7 +24,6 @@ en:
           configuration: Configuration
           file_attachments:
             description: Description
-            view: See attachment
           new: New
           pages:
             created_at: Created at

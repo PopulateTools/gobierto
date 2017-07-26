@@ -24,7 +24,6 @@ ca:
           configuration: Configuració
           file_attachments:
             description: Descripció
-            view: Veure fitxer
           new: Nova
           pages:
             created_at: Creada

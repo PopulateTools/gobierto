@@ -16,7 +16,7 @@
       <% @file_attachments.each do |file_attachment| %>
         <div class="activity_item">
           <h2>
-            <%= link_to 'edit_admin_cms_file_attachment_path(file_attachment)' do %>
+            <%= link_to edit_admin_cms_file_attachment_path(file_attachment.id) do %>
               <%= file_attachment.name %>
             <% end %>
           </h2>

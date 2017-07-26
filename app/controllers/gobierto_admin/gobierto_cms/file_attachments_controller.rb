@@ -6,7 +6,7 @@ module GobiertoAdmin
 
       def index
         @collections = current_site.collections.by_item_type('GobiertoAttachments::Attachment')
-        @file_attachments = current_site.attachments
+        @file_attachments = current_site.attachments.sort_by_updated_at(10)
       end
 
       def new

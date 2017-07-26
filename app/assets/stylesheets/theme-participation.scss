@@ -32,6 +32,9 @@ $lighter_black: rgba($color_headers, .7);
     @media (min-width: 768px) {
       margin-bottom: 5em;
     }
+    a {
+      color: $green;
+    }
   }
 
   .button.outline.rounded {

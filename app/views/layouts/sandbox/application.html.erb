@@ -197,7 +197,7 @@
     <div class="column">
       <nav id="main_nav" class="nav" role="navigation" aria-controls="main_menu" aria-hidden="false">
 
-        <% if @sub_section == 'participation_group' %>
+        <% if @sub_section == 'participation_group' or params['from'].present? %>
 
           <div class="global_breadcrumb">
             <%= link_to '<i class="fa fa-bars"></i> Participación'.html_safe, 'participation', class:'menu_control'  %> <span>/</span>
@@ -207,18 +207,18 @@
           <menu class="secondary_nav">
             <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
               <ul>
-                <li><%= link_to 'Noticias', 'participation_news?from_group=true' %></li>
-                <li><%= link_to 'Agenda', 'participation_agenda?from_group=true' %></li>
-                <li><%= link_to 'Documentos', 'participation_docs?from_group=true' %></li>
-                <li><%= link_to 'Actividad', 'participation_activity?from_group=true' %></li>
+                <li><%= link_to 'Noticias', 'participation_news?from=participation_group' %></li>
+                <li><%= link_to 'Agenda', 'participation_agenda?from=participation_group' %></li>
+                <li><%= link_to 'Documentos', 'participation_docs?from=participation_group' %></li>
+                <li><%= link_to 'Actividad', 'participation_activity?from=participation_group' %></li>
               </ul>
             </div>
           </menu>
           <menu class="sub_sections">
             <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
               <ul>
-                <li><%= link_to 'Información', 'participacion_group_info' %></li>
-                <li><%= link_to 'Reuniones', 'participation_agenda.html?from_group=true' %></li>
+                <li><%= link_to 'Información', 'participation_group_info' %></li>
+                <li><%= link_to 'Reuniones', 'participation_agenda.html?from=participation_group' %></li>
                 <li><%= link_to 'Encuestas', 'participation_polls' %></li>
                 <li><%= link_to 'Aportaciones', 'participation_contributions' %></li>
                 <li><%= link_to 'Resultados', 'participation_results' %></li>
@@ -232,6 +232,16 @@
           <div class="global_breadcrumb">
             <%= link_to '<i class="fa fa-bars"></i> Participación'.html_safe, 'participation', class:'menu_control'  %>
           </div>
+          <menu class="secondary_nav">
+            <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
+              <ul>
+                <li><%= link_to 'Noticias', 'participation_news?from=participation' %></li>
+                <li><%= link_to 'Agenda', 'participation_agenda?from=participation' %></li>
+                <li><%= link_to 'Documentos', 'participation_docs?from=participation' %></li>
+                <li><%= link_to 'Actividad', 'participation_activity?from=participation' %></li>
+              </ul>
+            </div>
+          </menu>
           <menu class="sub_sections">
             <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
               <ul>
@@ -252,6 +262,16 @@
             <strong><%= link_to 'Temas', 'participation_themes' %></strong> <span>/</span>
             <strong><%= link_to 'Cooperación, sensibilización y Ayuda Humanitaria', 'participation_group' %></strong>
           </div>
+          <menu class="secondary_nav">
+            <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
+              <ul>
+                <li><%= link_to 'Noticias', 'participation_news' %></li>
+                <li><%= link_to 'Agenda', 'participation_agenda' %></li>
+                <li><%= link_to 'Documentos', 'participation_docs' %></li>
+                <li><%= link_to 'Actividad', 'participation_activity' %></li>
+              </ul>
+            </div>
+          </menu>
           <%= render 'sandbox/layouts/menu_subsections' %>
 
         <% end %>

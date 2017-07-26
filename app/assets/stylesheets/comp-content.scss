@@ -28,14 +28,12 @@
     margin-top: 0.25em;
   }
 }
-
 .news_teaser, .news_article {
   .meta {
     font-size: $f7;
     opacity: .5;
   }
 }
-
 .content {
   .inner, article:not(.news_article) {
     max-width: 650px;
@@ -269,4 +267,7 @@
       }
     }
   }
+}
+.content_side_nav_location {
+  font-size: $f7;
 }

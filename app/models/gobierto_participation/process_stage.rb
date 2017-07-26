@@ -2,33 +2,27 @@ require_dependency "gobierto_participation"
 
 module GobiertoParticipation
   class ProcessStage < ApplicationRecord
+
+    attr_accessor(:active)
+
     belongs_to :process
 
-    translates :title, :slug
+    translates :title, :description
 
-    validate :uniqueness_of_slug
+    enum stage_type: [ :information, :meetings, :surveys, :ideas, :results ]
+
+    validates :slug, uniqueness: { scope: [:process_id] }
+    validates :title, :stage_type, presence: true
+    validates :stage_type, inclusion: { in: stage_types }
+    validates :stage_type, uniqueness: { scope: [:process_id] }
+    validates :starts, :ends, presence: true, if: -> { process.process? }
 
     scope :sorted, -> { order(id: :desc) }
 
-    def self.find_by_slug!(slug)
-      if slug.present?
-        I18n.available_locales.each do |locale|
-          if p = self.with_slug_translation(slug, locale).first
-            return p
-          end
-        end
-        raise(ActiveRecord::RecordNotFound)
-      end
+    def initialize(params = {})
+      super(params)
+      self.write_attribute(:active, params[:active]) if params[:active]
     end
 
-    private
-
-    def uniqueness_of_slug
-      if slug_translations.present?
-        if slug_translations.select{ |_, slug| slug.present? }.any?{ |_, slug| self.class.where(process_id: self.process_id).where.not(id: self.id).with_slug_translation(slug).exists? }
-          errors.add(:slug, I18n.t('errors.messages.taken'))
-        end
-      end
-    end
   end
 end

@@ -1,0 +1,45 @@
+<div class="person_event-item">
+  <h3><a href="participation_event.html"><%= title %></a></h3>
+
+  <div class="meta">
+    <div>
+      <div class="ib p_h_r_0_5">
+        <strong>12 de abril a 30 de junio</strong>
+      </div>
+      <div class="ib p_h_r_0_5">
+        <i class="fa fa-clock-o"></i> 18:00
+      </div>
+      <div class="ib">
+        <i class="fa fa-map-marker"></i> <a href="https://www.google.com/maps/place/40.41874,-3.693944">Ayuntamiento de Madrid</a>
+      </div>
+    </div>
+  </div>
+
+  <p>In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris. Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum</p>
+
+  <div class="extra_info">
+    <div class="ib p_h_r_0_5">
+      <a href="#" class="button outline rounded wide attend_event"><i class="fa fa-check hidden"></i> <span>Quiero asistir</span></a>
+    </div>
+
+    <div class="ib p_h_r_0_5">
+      <i class="fa fa-users"></i> <strong>55 vecinos</strong> asistirán
+    </div>
+
+    <div class="ib p_h_r_0_5">
+      <i class="fa fa-calendar"></i> <a href="#">Añadir a mi calendario</a>
+    </div>
+
+    <div class="ib">
+      <i class="fa fa-download"></i> <a href="#">Descargar datos</a>
+    </div>
+
+    <h4>Seguir este evento</h4>
+
+    <form class="new_user_subscription" id="new_user_subscription" action="/user/subscriptions" accept-charset="UTF-8" method="post">
+      <input placeholder="Your e-mail" type="email" name="user_subscription[user_email]" id="user_subscription_user_email">
+      <input type="submit" name="commit" value="Subscribe" role="button" data-disable-with="Subscribe">
+    </form>
+  </div>
+
+</div>

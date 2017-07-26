@@ -1,0 +1,44 @@
+<div id="signin_register" class="zoom-anim-dialog mfp-hide modal_background" style="background-image: url(<%= image_url('illustrations/emojis.svg') %>)">
+  <div class="pure-g">
+    <div class="pure-u-1 pure-u-md-11-24 padded_line_box m_v_2">
+      <div class="login_box">
+        <h2>¿Ya tienes cuenta? Haz login</h2>
+        <form>
+          <div class="form_item input_text">
+            <label for="">Tu correo-e</label>
+            <input type="text" id="opt_1" name="opt_1"  />
+          </div>
+          <div class="form_item input_text">
+            <label for="">Tu contraseña</label>
+            <input type="password" id="opt_1" name="opt_1" />
+          </div>
+          <button class="">Conectarse</button>
+          <%= link_to '¿Password?', '', class: 'show_password_recovery_box' %>
+        </form>
+      </div>
+      <div class="password_recovery_box hidden">
+        <h2>¿No recuerdas tu contraseña? Te ayudamos:</h2>
+        <form>
+          <div class="form_item input_text">
+            <label for="">Tu correo-e</label>
+            <input type="text" id="opt_1" name="opt_1"  />
+          </div>
+          <button class="">Conectarse</button>
+          <p><%= link_to '¿Te acuerdas de la contraseña? Haz login', '', class: 'show_login_box' %></p>
+        </form>
+      </div>
+    </div>
+    <div class="pure-u-md-2-24"></div>
+    <div class="pure-u-1 pure-u-md-11-24 padded_line_box m_v_2">
+      <h2>¿Nuevo por aquí? Crea una cuenta gratis:</h2>
+      <form>
+        <div class="form_item input_text">
+          <label for="">Tu correo-e</label>
+          <input type="text" id="opt_1" name="opt_1"  />
+        </div>
+        <button class="">Vamos</button>
+        <p>[<a href="user_confirmation">user confirmation</a>]</p>
+      </form>
+    </div>
+  </div>
+</div>

@@ -4,38 +4,38 @@
  */
 
 .metric_boxes {
-	margin: 0 0 3em 0;
+  margin: 0 0 3em 0;
 
   .metric_box {
-		box-sizing: border-box;
-		.inner {
+    box-sizing: border-box;
+    .inner {
       background: transparentize($color_main, .85);
-			margin: 0 .5em;
-			padding: .8em 1em;
-			min-height: 100px;
-			position: relative;
-		}
-		h3 {
+      margin: 0 .5em;
+      padding: .8em 1em;
+      min-height: 100px;
+      position: relative;
+    }
+    h3 {
       color: $color_main;
-			margin: 0 0 .75em 0;
-			font-size: 1em;
+      margin: 0 0 .75em 0;
+      font-size: 1em;
       opacity: 0.6;
-			font-weight: 600;
-		}
-		.metric {
-			font-size: 2em;
-			font-weight: 600;
-		}
-		.explanation {
-			font-size: .75em;
-			opacity: .6;
-			position: absolute;
-			bottom: .8em;
-		}
-		span.not_av {
-			font-size: 1em;
-			opacity: .5;
-		}
+      font-weight: 600;
+    }
+    .metric {
+      font-size: 2em;
+      font-weight: 600;
+    }
+    .explanation {
+      font-size: .75em;
+      opacity: .6;
+      position: absolute;
+      bottom: .8em;
+    }
+    span.not_av {
+      font-size: 1em;
+      opacity: .5;
+    }
     .explanation_bar {
       font-size: .75em;
       position: absolute;
@@ -65,16 +65,15 @@
       text-decoration: underline;
       cursor: pointer;
     }
-	}
-	.metric_box:first-child {
-		.inner {
-			margin-left: 0;
-		}
-	}
-	.metric_box:last-child {
-		.inner {
-			margin-right: 0;
-		}
-	}
-
+  }
+  .metric_box:first-child {
+    .inner {
+      margin-left: 0;
+    }
+  }
+  .metric_box:last-child {
+    .inner {
+      margin-right: 0;
+    }
+  }
 }

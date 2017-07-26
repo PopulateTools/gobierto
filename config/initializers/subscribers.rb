@@ -6,6 +6,8 @@
 ::Subscribers::GobiertoBudgetConsultationsActivity.attach_to('trackable')
 ::Subscribers::GobiertoBudgetConsultationsConsultationResponseActivity.attach_to('activities/gobierto_budget_consultations_consultation_response')
 ::Subscribers::GobiertoCmsPageActivity.attach_to('activities/gobierto_cms_pages')
+::Subscribers::GobiertoParticipationIssueActivity.attach_to('activities/gobierto_participation_issues')
+::Subscribers::GobiertoParticipationIssueActivity.attach_to('activities/gobierto_participation_processes')
 ::Subscribers::GobiertoBudgetsBudgetLineActivity.attach_to('activities/gobierto_budgets_budget_line')
 ::Subscribers::GobiertoParticipationIssueActivity.attach_to('activities/gobierto_participation_issues')
 ::Subscribers::GobiertoCommonCollectionActivity.attach_to('activities/gobierto_common_collections')

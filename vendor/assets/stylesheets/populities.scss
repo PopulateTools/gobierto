@@ -285,6 +285,15 @@ properties.
   word-wrap: normal;
 }
 
+@mixin multiline-ellipsis($lines) {
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @mixin keyframes( $animationName ) {
     @-webkit-keyframes $animationName {
         @content;

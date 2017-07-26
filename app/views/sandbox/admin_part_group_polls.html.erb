@@ -35,43 +35,23 @@
   <th></th>
 </tr>
 
+<% for i in [
+  'Aspectos generales de la ordenanza',
+  'Horarios',
+  'Espacio público',
+  'Ruido']
+%>
+
 <tr>
   <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_part_group_polls_poll_edit' %></td>
-  <td><%= link_to '¿Crees que habría que modificar la ordenanza sobre terrazas?', 'admin_part_group_polls_poll_edit' %></td>
+  <td><%= link_to i, 'admin_part_group_polls_poll_edit' %></td>
   <td>123</td>
   <td>Publicada</td>
   <td>1 may 2017</td>
   <td>1 jul 2017</td>
   <td><%= link_to '<i class="fa fa-eye"></i> Ver encuesta'.html_safe, '#public_view', class: 'view_item' %></td>
 </tr>
-<tr>
-  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_part_group_polls_poll_edit' %></td>
-  <td><%= link_to '¿Ampliarías los carriles bici en la ciudad?', 'admin_part_group_polls_poll_edit' %></td>
-  <td>123</td>
-  <td>Borrador</td>
-  <td>1 may 2017</td>
-  <td>1 jul 2017</td>
-  <td><%= link_to '<i class="fa fa-eye"></i> Ver encuesta'.html_safe, '#public_view', class: 'view_item' %></td>
-</tr>
-<tr>
-  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_part_group_polls_poll_edit' %></td>
-  <td><%= link_to '¿Te preocupa la polución en la ciudad?', 'admin_part_group_polls_poll_edit' %></td>
-  <td>123</td>
-  <td>En curso</td>
-  <td>1 may 2017</td>
-  <td>1 jul 2017</td>
-  <td><%= link_to '<i class="fa fa-eye"></i> Ver encuesta'.html_safe, '#public_view', class: 'view_item' %></td>
-</tr>
-<tr>
-  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_part_group_polls_poll_edit' %></td>
-  <td><%= link_to '¿Qué te preocupa más?', 'admin_part_group_polls_poll_edit' %></td>
-  <td>123</td>
-  <td>Cerrada</td>
-  <td>1 may 2017</td>
-  <td>1 jun 2017</td>
-  <td><%= link_to '<i class="fa fa-eye"></i> Ver encuesta'.html_safe, '#public_view', class: 'view_item' %></td>
-</tr>
 
-
+<% end %>
 
 </table>

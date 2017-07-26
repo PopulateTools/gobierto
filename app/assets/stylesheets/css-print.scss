@@ -4,7 +4,7 @@
     counter-reset: section;
   }
   @page {
-   margin: 1.5cm 0.7cm;
+    margin: 1.5cm 0.7cm;
   }
   header.meta {
     display: none;
@@ -20,8 +20,8 @@
     display: none;
   }
   #consultation-desktop-app .pure-g {
-  -webkit-flex-flow: column wrap;
-  -ms-flex-flow: column wrap;
+    -webkit-flex-flow: column wrap;
+    -ms-flex-flow: column wrap;
   }
   .consultation-info,
   .consultation-card {
@@ -36,7 +36,7 @@
     margin: 0;
     margin-bottom: 5pt;
   }
-  
+
   /* Cards */
   .card-content {
     padding: 0;
@@ -132,7 +132,7 @@
   .border {
     margin: 0;
   }
-  
+
   /* Admin */
   header.main,
   menu.main,
@@ -148,7 +148,7 @@
     display: inline-block;
     min-height: auto;
     margin-bottom: 2.5rem;
-    
+
     .front {
       position: relative;
       padding: 0;
@@ -159,7 +159,7 @@
   }
   #table_report {
     page-break-inside: avoid;
-   
+
     tr td,
     tr th {
       color: #111 !important;

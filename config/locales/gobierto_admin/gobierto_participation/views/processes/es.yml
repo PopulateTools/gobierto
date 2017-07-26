@@ -1,0 +1,26 @@
+---
+es:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        index:
+          title: Procesos y Grupos
+        new:
+          title: Nuevo proceso / grupo
+        edit:
+          title: Editar proceso
+        create:
+          success: Proceso creado correctamente
+        update:
+          success: Proceso actualizado correctamente
+        form:
+          stages_and_tools: Fases y herramientas
+          process_type: Tipo de grupo
+          placeholders:
+            title: Nombre
+            body: Descripción
+            information_text: Texto de la fase de información
+            slug: Slug
+            process_stage:
+              title: Título
+              description: Descripción

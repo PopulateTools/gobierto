@@ -16,13 +16,11 @@
 
 .axis line {
   stroke-width: 1px;
-  /*shape-rendering: crispEdges;*/
 }
 
 .evolution_line {
   fill: none;
 }
-
 
 /*Tooltip*/
 
@@ -42,10 +40,8 @@
   text-align: right;
 }
 
-/*
- * Legends
- *
- */
+/* Legends */
+
 .le {
   display: inline-block;
   @include border-radius(10px);
@@ -65,5 +61,3 @@
 .le-country {
   background: $color_vis_country;
 }
-
-

@@ -5,7 +5,6 @@
 header.meta {
   padding: 0;
   margin: 0 0 2em 0;
-  // .client_links, .user-session-navbar,
   .slim_nav_bar {
     text-transform: uppercase;
     font-weight: 200;
@@ -43,7 +42,6 @@ header.meta {
         @include box-shadow(0, 5px, 10px);
         background: $color_secondary;
         min-width: 150px;
-        // padding: 1em;
         a.pure-menu-link {
           display: block;
           padding: .5em 1em;
@@ -70,6 +68,17 @@ header.meta {
     padding: 0 0 1em 0;
     position: relative;
 
+    .site_header_logo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      > div:only-child:not(.logo) {
+        margin-top: 2em;
+        margin-bottom: 2em;
+        margin-left: auto;
+      }
+    }
     .column  {
       position: relative;
     }
@@ -89,9 +98,6 @@ header.meta {
         }
       }
     }
-    .absolute_right {
-      top: 2em;
-    }
     .social_links_container {
       text-align: center;
       font-size: .85em;
@@ -108,11 +114,8 @@ header.meta {
       }
     }
     .button.outline.rounded {
-      text-transform: none;
-      padding: 0.25em 0.5em;
-      border-radius: 20px;
-      font-weight: 600;
       width: auto;
+      padding: 0.25em 0.5em;
 
       &.desktop_only {
         @include screen(740) {
@@ -130,10 +133,6 @@ header.meta {
         @include min-screen(741) {
           display: none;
         }
-      }
-
-      .fa {
-        font-size: 85%;
       }
     }
     .search_icon {
@@ -155,12 +154,8 @@ header.meta {
     .search_result_list {
       @include box-shadow(0, 0, 10px);
       @include border-radius(4px);
-      // @mixin box-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4), $inset: "") {
       width: 250px;
       background: $color_neutral_soft;
-      // position: absolute;
-      // right: 0;
-      // top: 3.5em;
       z-index: 1000;
       font-size: .85em;
       line-height: 1.2em;
@@ -177,9 +172,6 @@ header.meta {
     }
     a {
       text-decoration: none;
-    }
-    a:hover {
-      // color: rgba($color_main_negative, .8);
     }
     .nav {
       margin: 0;
@@ -230,12 +222,6 @@ header.meta {
               padding: .5em 1.25em .4em;
               display: inline-block;
               opacity: .5;
-            }
-            a:hover {
-
-            }
-            a.active {
-
             }
           }
           li:first-child {

@@ -31,14 +31,13 @@ module GobiertoAdmin
         if @file_attachment_form.save
           ::GobiertoCommon::Collection.find(params[:file_attachment][:collection_id]).append(@file_attachment_form.file_attachment)
 
-          # TODO: Pending add hidden attribute
-          if true
+          if params[:file_attachment][:collection_id]
             redirect_to edit_admin_cms_file_attachment_path(@file_attachment_form.file_attachment.id)
           else
             render plain: @file_attachment_form.file_url
           end
         else
-          if true
+          if params[:file_attachment][:collection_id]
             render :edit
           else
             head :bad_request

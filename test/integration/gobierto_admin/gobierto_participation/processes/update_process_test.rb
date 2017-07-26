@@ -13,11 +13,11 @@ module GobiertoAdmin
       end
 
       def process
-        site.processes.processes.first
+        site.processes.process.first
       end
 
       def group
-        site.processes.groups.first
+        site.processes.group_process.first
       end
 
       def test_update_process

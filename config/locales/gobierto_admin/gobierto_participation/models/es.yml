@@ -16,6 +16,10 @@ es:
       gobierto_admin/gobierto_participation/issue_form: Tema
   activerecord:
     attributes:
+      gobierto_participation/process:
+        process_types:
+          process: Proceso
+          group_process: Grupo
       gobierto_participation/process_stage:
         stage_types:
           information: Información

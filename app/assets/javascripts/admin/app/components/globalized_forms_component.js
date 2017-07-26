@@ -32,8 +32,8 @@ this.GobiertoAdmin.GlobalizedFormsComponent = (function() {
     var container = $(e.target).closest(".globalized_fields");
 
     // When globalized form is in a popup, previous selector doesn't work
-    if (container == null) {
-      var container = $(e.target).parents().filter("div .globalized_fields")
+    if (container === null) {
+      container = $(e.target).parents().filter("div .globalized_fields")
     }
 
     _activateLocale($(this).data('toggle-edit-locale'), container);

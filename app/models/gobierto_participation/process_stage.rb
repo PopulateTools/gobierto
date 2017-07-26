@@ -15,7 +15,7 @@ module GobiertoParticipation
     validates :title, :stage_type, presence: true
     validates :stage_type, inclusion: { in: stage_types }
     validates :stage_type, uniqueness: { scope: [:process_id] }
-    validates :starts, :ends, presence: true, if: -> { process.is_process? }
+    validates :starts, :ends, presence: true, if: -> { process.process? }
 
     scope :sorted, -> { order(id: :desc) }
 

@@ -38,7 +38,7 @@ module GobiertoAdmin
               fill_in 'process_starts', with: '2017-01-01'
               fill_in 'process_ends',   with: '2017-01-30'
 
-              choose 'process_process_type_p'
+              choose 'process_process_type_process'
 
               # Activate and edit Information stage
 
@@ -71,7 +71,7 @@ module GobiertoAdmin
 
             assert has_content? 'New process title'
 
-            process = site.processes.processes.last
+            process = site.processes.process.last
 
             assert_equal 'New process title', process.title
             assert_equal 'New process body', process.body
@@ -103,7 +103,7 @@ module GobiertoAdmin
 
               select 'Culture', from: 'process_issue_id'
 
-              choose 'process_process_type_g'
+              choose 'process_process_type_group_process'
 
               click_button 'Create'
             end
@@ -114,7 +114,7 @@ module GobiertoAdmin
 
             assert has_content? 'New group title'
 
-            group = site.processes.groups.last
+            group = site.processes.group_process.last
 
             assert_equal 'New group title', group.title
             assert_equal 'New group body', group.body

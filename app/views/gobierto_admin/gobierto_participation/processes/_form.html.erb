@@ -101,14 +101,14 @@
 
         <div id="process_type_radio_buttons" class="options compact">
 
-          <h3>Tipo de grupo</h3>
+          <h3><%= t('.process_type') %></h3>
 
-          <% GobiertoParticipation::Process.allowed_types.each do |type| %>
+          <% GobiertoParticipation::Process.process_types.keys.each do |type| %>
             <div class="option">
               <%= f.radio_button :process_type, type %>
               <%= f.label :process_type, value: type do %>
                 <span></span>
-                <%= (type == 'p') ? t('.process') : t('.group') %>
+                <%= translate_enum_value(GobiertoParticipation::Process, :process_type, type) %>
               <% end %>
             </div>
           <% end %>
@@ -120,7 +120,7 @@
     </div>
 
     <div class="form_block">
-      <h3>Fases - Herramientas</h3>
+      <h3><%= t('.stages_and_tools') %></h3>
 
       <ul class="block_list">
         <%= f.fields_for :stages, f.object.default_stages do |stage_form| %>

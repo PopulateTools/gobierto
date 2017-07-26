@@ -466,7 +466,7 @@ ActiveRecord::Schema.define(version: 20170725131230) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "header_image_url"
-    t.string "process_type", default: "g", null: false
+    t.integer "process_type", default: 1, null: false
     t.integer "issue_id"
     t.jsonb "information_text_translations"
     t.index ["body_translations"], name: "index_gpart_processes_on_body_translations", using: :gin

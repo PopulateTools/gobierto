@@ -13,9 +13,13 @@ ca:
         slug: Slug
     models:
       gobierto_admin/gobierto_participation/process_form: Procés
-      gobierto_admin/gobierto_participation/issue_form: Theme
+      gobierto_admin/gobierto_participation/issue_form: Tema
   activerecord:
     attributes:
+      gobierto_participation/process:
+        process_types:
+          process: Procés
+          group_process: Grup
       gobierto_participation/process_stage:
         stage_types:
           information: Informació

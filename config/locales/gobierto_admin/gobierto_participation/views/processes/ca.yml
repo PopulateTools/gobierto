@@ -7,13 +7,15 @@ ca:
           title: Processos i Grups
         new:
           title: Nou procés o grup
+        edit:
+          title: Edita el procés
         create:
           success: Procés creat correctament
         update:
           success: Procés actualitzat correctament
         form:
-          process: Procés
-          group: Grup
+          stages_and_tools: Fases i eines
+          process_type: Tipus de grup
           placeholders:
             title: Nom
             body: Descripció

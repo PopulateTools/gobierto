@@ -7,13 +7,15 @@ es:
           title: Procesos y Grupos
         new:
           title: Nuevo proceso / grupo
+        edit:
+          title: Editar proceso
         create:
           success: Proceso creado correctamente
         update:
           success: Proceso actualizado correctamente
         form:
-          process: Proceso
-          group: Grupo
+          stages_and_tools: Fases y herramientas
+          process_type: Tipo de grupo
           placeholders:
             title: Nombre
             body: Descripción

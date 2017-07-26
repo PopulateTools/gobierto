@@ -22,10 +22,10 @@ module GobiertoAdmin
       delegate :persisted?, to: :process
 
       validates :site, :title_translations, :body_translations, :slug, :process_type, presence: true
-      validates :stages, presence: true, if: :is_process?
-      validates :process_type, inclusion: { in: ::GobiertoParticipation::Process.allowed_types }
-      validates_presence_of :starts, :ends, if: :is_process?
-      validates_absence_of  :starts, :ends, if: :is_group?
+      validates :stages, presence: true, if: :process?
+      validates :process_type, inclusion: { in: ::GobiertoParticipation::Process.process_types }
+      validates_presence_of :starts, :ends, if: :process?
+      validates_absence_of  :starts, :ends, if: :group_process?
 
       def initialize(options = {})
         # Reorder attributes so site and process get assigned first
@@ -42,6 +42,18 @@ module GobiertoAdmin
         @site ||= Site.find_by(id: site_id)
       end
 
+      def title
+        process.title
+      end
+
+      def starts
+        process? ? @starts : nil
+      end
+
+      def ends
+        process? ? @ends : nil
+      end
+
       def issue
         @issue ||= site.issues.find_by(id: issue_id)
       end
@@ -51,14 +63,14 @@ module GobiertoAdmin
         @process
       end
 
-      def is_process?
+      def process?
         # to avoid incoherences when updating, this must reflect the value passed through the input, not the DB process
-        (process_type == ::GobiertoParticipation::Process::PROCESS) || process.is_process?
+        (process_type == ::GobiertoParticipation::Process.process_types[:process]) || process.process?
       end
 
-      def is_group?
+      def group_process?
         # to avoid incoherences when updating, this must reflect the value passed through the input, not the DB process
-        (process_type == ::GobiertoParticipation::Process::GROUP) || process.is_group?
+        (process_type == ::GobiertoParticipation::Process.process_types[:group_process]) || process.group_process?
       end
 
       def header_image_url

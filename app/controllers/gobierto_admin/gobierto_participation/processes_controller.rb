@@ -6,8 +6,8 @@ module GobiertoAdmin
       before_action { module_allowed!(current_admin, 'GobiertoParticipation') }
 
       def index
-        @processes = current_site.processes.processes
-        @groups    = current_site.processes.groups
+        @processes = current_site.processes.process
+        @groups    = current_site.processes.group_process
       end
 
       def new
@@ -28,6 +28,7 @@ module GobiertoAdmin
         @process_form = ProcessForm.new(process_params.merge(site_id: current_site.id))
 
         if @process_form.save
+          track_create_process
           redirect_to(
             admin_participation_processes_path,
             notice: t('.success')
@@ -42,6 +43,7 @@ module GobiertoAdmin
         @process_form = ProcessForm.new(process_params.merge(id: params[:id], site_id: current_site.id))
 
         if @process_form.save
+          track_update_process
           redirect_to(
             edit_admin_participation_process_path(@process),
             notice: t('.success')
@@ -87,6 +89,18 @@ module GobiertoAdmin
 
       def ignored_process_attributes
         %w( visibility_level created_at updated_at site_id title body )
+      end
+
+      def default_activity_params
+        { ip: remote_ip, author: current_admin, site_id: current_site.id }
+      end
+
+      def track_create_process
+        Publishers::GobiertoParticipationProcessActivity.broadcast_event('process_created', default_activity_params.merge(subject: @process_form.process))
+      end
+
+      def track_update_process
+        Publishers::GobiertoParticipationProcessActivity.broadcast_event('process_updated', default_activity_params.merge(subject: @process))
       end
 
     end

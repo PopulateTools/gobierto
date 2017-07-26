@@ -7,13 +7,15 @@ en:
           title: Processes and Groups
         new:
           title: New process / group
+        edit:
+          title: Edit process
         create:
           success: Process was successfully created
         update:
           success: Process was successfully updated
         form:
-          process: Process
-          group: Group
+          stages_and_tools: Stages and tools
+          process_type: Group type
           placeholders:
             title: Name
             body: Description

@@ -12,10 +12,14 @@ en:
         body: Body
         slug: Slug
     models:
-      gobierto_admin/gobierto_participation/process_form: Proceso
-      gobierto_admin/gobierto_participation/issue_form: issue
+      gobierto_admin/gobierto_participation/process_form: Process
+      gobierto_admin/gobierto_participation/issue_form: Issue
   activerecord:
     attributes:
+      gobierto_participation/process:
+        process_types:
+          process: Process
+          group_process: Group
       gobierto_participation/process_stage:
         stage_types:
           information: Information

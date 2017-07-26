@@ -21,23 +21,67 @@
     font-weight: 600;
   }
   .receipt_dropdown {
-    padding: 0 0.5em;
+    padding: 0.5em 0;
+    position: relative;
+    display: inline-block;
+    color: $color_main;
+
+    @include min-screen(740) {
+      padding: 0 0.5em;
+    }
 
     select {
+      color: $color_text;
+      display: inline-block;
+      height: 44px;
+      width: 100%;
+      margin: 0;
+      padding: 0.5em 2.25em 0.5em 1em;
+      line-height: 1.5;
+      background-color: white;
+      border: 0;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: 0;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
       border: 1px solid #aeaeae;
-      background: white;
-      padding: 0 1em;
-      height: 100%;
     }
+
+    &:after {
+        position: absolute;
+        top: 50%;
+        right: 1.25rem;
+        display: inline-block;
+        content: "";
+        width: 0;
+        height: 0;
+        margin-top: -0.15em;
+        pointer-events: none;
+        border-top: 0.5em solid;
+        border-right: 0.5em solid transparent;
+        border-bottom: 0.5em solid transparent;
+        border-left: 0.5em solid transparent;
+      }
   }
   .receipt_separator {
-    background-image: linear-gradient(to right, $color_main 33%, rgba(255,255,255,0) 0%);
-    background-position: bottom;
-    background-size: 10px 1px;
-    background-repeat: repeat-x;
+    display: none;
+
+    @include min-screen(740) {
+      display: block;
+      background-image: linear-gradient(to right, $color_main 33%, rgba(255,255,255,0) 0%);
+      background-position: bottom;
+      background-size: 7px 2px;
+      background-repeat: repeat-x;
+    }
   }
   .receipt_calc {
-    padding: 0 0.5em;
+    padding: 0.5em 0;
+
+    @include min-screen(740) {
+      padding: 0 0.5em;
+    }
 
     .bg {
       height: 100%;

@@ -27,6 +27,10 @@ module GobiertoCms
     scope :sorted, -> { order(id: :desc) }
     scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
 
+    def collection
+      GobiertoCommon::CollectionItem.find_by(item: self).collection
+    end
+
     def self.find_by_slug!(slug)
       if slug.present?
         I18n.available_locales.each do |locale|

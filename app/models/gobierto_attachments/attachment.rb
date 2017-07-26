@@ -38,6 +38,10 @@ module GobiertoAttachments
 
     scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
 
+    def collection
+      GobiertoCommon::CollectionItem.find_by(item: self).collection
+    end
+
     def self.file_digest(file)
       Digest::MD5.hexdigest(file.read)
     end

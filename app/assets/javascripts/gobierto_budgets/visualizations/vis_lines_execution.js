@@ -62,7 +62,7 @@ var VisLinesExecution = Class.extend({
   },
   setScales: function(callback) {
     // Chart dimensions
-    this.margin = {top: 25, right: 0, bottom: 50, left: this.isMobile ? 0 : 385};
+    this.margin = {top: 55, right: 0, bottom: 50, left: this.isMobile ? 0 : 385};
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -301,7 +301,7 @@ var VisLinesExecution = Class.extend({
           var labelWidth = d3.select('.legend-text').node().getBoundingClientRect().width;
 
           if (this.isMobile) {
-            return this.updated >= this.parseTime(this.currentYear + '-10-01') ? 'translate(' + (labelWidth - 60) + ',' + -36 + ')' : 'translate(' + (labelWidth - 30) + ',' + -36 + ')';
+            return this.updated >= this.parseTime(this.currentYear + '-10-01') ? 'translate(' + (labelWidth - 58) + ',' + -36 + ')' : 'translate(' + (labelWidth - 26) + ',' + -36 + ')';
           } else {
             return 'translate(' + (labelWidth + 30) + ',' + -50 + ')';
           }

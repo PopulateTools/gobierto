@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <div class="pure-g">
+    <div class="pure-g m_b_4">
       <div class="pure-u-1">
         <div class="receipt">
           <div class="padding">
@@ -108,13 +108,11 @@
             </div>
           </div>
 
-          <hr>
-
           <div class="padding receipt_result">
             <div class="pure-g">
               <div class="pure-u-1 pure-u-md-15-24"><h3>Tu contribución a los presupuestos del Ayuntamiento de Valencia</h3></div>
               <div class="pure-u-1 pure-u-md-6-24 receipt_separator soft"></div>
-              <div class="pure-u-1 pure-u-md-3-24 right receipt_result_number">225,71€</div>
+              <div class="pure-u-1 pure-u-md-3-24 receipt_result_number">225,71€</div>
             </div>
           </div>
 
@@ -122,5 +120,80 @@
 
       </div>
     </div>
+
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-1-3">
+        <h2 class="m_v_1">Detalle de tu contribución</h2>
+
+        <div class="desktop_only">
+          <p class="ib m_v_0 p_h_r_0_5">Compártelo</p>
+
+          <div class="social_links_container ib" data-share>
+            <a href="#" class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
+            <% pending do %>
+              <a href="#embed-graph-code" class="code open_modal"><i class="fa fa-code"></i></a>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-2-3">
+        <div class="receipt_bill">
+          <% for i in [
+            'Bienestar comunitario',
+            'Seguridad y movilidad ciudadana',
+            'Deuda pública',
+            'Servicios de carácter general',
+            'Vivienda y urbanismo',
+            'Cultura'
+          ] %>
+            <div class="bill_row">
+              <div class="toggle"><i class="fa fa-plus"></i></div>
+              <div class="line"><%= i %></div>
+              <div class="figure">79,18€</div>
+
+              <div class="hidden children">
+
+                <% for i in [
+                  'Servicios sociales y promoción social',
+                  'Medio ambiente',
+                  'Transporte público',
+                  'Administración financiera y tributaria',
+                  'Educación',
+                  'Deporte',
+                  'Comercio, turismo y pequeñas y medianas empresas',
+                  'Órganos de gobierno',
+                  'Fomento del empleo',
+                  'Transferencias a otras administraciones públicas',
+                  'Infraestructuras',
+                  'Otras actuaciones de carácter económico',
+                  'Sanidad'
+                ] %>
+                  <div class="bill_row_child">
+                    <div class="line"><%= i %></div>
+                    <div class="figure">32,99€</div>
+                  </div>
+                <% end %>
+
+              </div>
+            </div>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+
+<script type="text/javascript">
+$('.bill_row').on('click', function() {
+  $(this)
+    .toggleClass('toggled')
+    .find('.fa').toggleClass('fa-plus fa-minus')
+    .parent().siblings('.children').toggleClass('hidden');
+}).find('.children').click(function(e) {
+  return false;
+});
+</script>

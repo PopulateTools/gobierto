@@ -98,6 +98,7 @@
   }
 
   .receipt_result {
+    border-top: 1px solid #d7e2e4;
     padding-top: 2em;
     padding-bottom: 2em;
 
@@ -112,9 +113,105 @@
     }
 
     .receipt_result_number {
+      margin-top: 0.5em;
       font-size: 2em;
+
+      @include min-screen(740) {
+        margin-top: 0;
+        text-align: right;
+      }
       // font-weight: 600;
     }
   }
 }
 
+.receipt_bill {
+  background: #e5f3f5;
+  border-radius: 4px;
+  padding: 1em;
+
+  @include min-screen(740) {
+    padding: 3em;
+  }
+
+  .bill_row {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-top: 1px solid #d7e2e4;
+    padding: 0.5em 0;
+    cursor: pointer;
+
+    &:hover > .line,
+    &:focus > .line,
+    &:active > .line {
+      text-decoration: underline;
+    }
+
+    &.toggled > .line {
+      text-decoration: underline;
+    }
+
+    .toggle {
+      left: -1.5em;
+      top: 1.15em;
+      border-radius: 50%;
+      height: 1em;
+      width: 1em;
+      font-size: 90%;
+      background: $color_main;
+      color: white;
+      line-height: 0.85em;
+      text-align: center;
+      cursor: pointer;
+      margin-top: 0.35em;
+
+      @include min-screen(740) {
+        position: absolute;
+        font-size: 80%;
+        margin-top: 0;
+      }
+
+      .fa {
+        margin: 0;
+        font-size: 0.7em;
+      }
+    }
+    .line {
+      font-weight: 600;
+      font-size: 1.15em;
+      flex-basis: 70%;
+    }
+    .figure {
+      opacity: 0.7;
+      font-size: 1.15em;
+    }
+    .children {
+      flex-basis: 100%;
+      margin-top: 0.5em;
+      cursor: auto;
+
+      .bill_row_child {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.75em;
+
+        @include min-screen(740) {
+          margin-bottom: 0.25em;
+        }
+
+        .line {
+          font-weight: 400;
+          text-transform: uppercase;
+          font-size: 1em;
+          opacity: 0.5;
+        }
+        .figure {
+          font-size: 1em;
+        }
+      }
+    }
+  }
+
+}

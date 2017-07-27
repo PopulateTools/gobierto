@@ -9,6 +9,6 @@ collection_item_themes:
   container: culture (GobiertoParticipation::Issue)
 
 collection_item_attachment:
-  collection: news
-  item: themes (GobiertoAttachments::Attachment)
+  collection: files
+  item: pdf_collection_attachment (GobiertoAttachments::Attachment)
   container: culture (GobiertoParticipation::Issue)

@@ -31,6 +31,11 @@ module GobiertoCms
       GobiertoCommon::CollectionItem.find_by(item: self, item_type: 'GobiertoCms::Page').collection
     end
 
+    def self.pages_in_collections(site)
+      ids = GobiertoCommon::CollectionItem.where(item_type: 'GobiertoCms::Page').map(&:item_id)
+      where(id: ids, site: site)
+    end
+
     def self.find_by_slug!(slug)
       if slug.present?
         I18n.available_locales.each do |locale|

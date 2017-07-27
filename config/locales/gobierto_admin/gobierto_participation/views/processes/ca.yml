@@ -13,9 +13,21 @@ ca:
           success: Procés creat correctament
         update:
           success: Procés actualitzat correctament
+        navigation:
+          stage: Procés
+          information: Informació
         form:
           stages_and_tools: Fases i eines
           process_type: Tipus de grup
+          active: Activada
+          starts: Començament
+          ends: Final
+          slug: Slug
+          header_image: Imatge de capçalera
+          issue: Tema
+          visibility_level:
+            active: Publicat
+            draft: Borrador
           placeholders:
             title: Nom
             body: Descripció

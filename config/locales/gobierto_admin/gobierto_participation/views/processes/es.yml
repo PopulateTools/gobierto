@@ -13,9 +13,21 @@ es:
           success: Proceso creado correctamente
         update:
           success: Proceso actualizado correctamente
+        navigation:
+          stage: Proceso
+          information: Información
         form:
           stages_and_tools: Fases y herramientas
           process_type: Tipo de grupo
+          active: Activada
+          starts: Comienzo
+          ends: Final
+          slug: Slug
+          header_image: Imagen de cabecera
+          issue: Tema
+          visibility_level:
+            active: Publicado
+            draft: Borrador
           placeholders:
             title: Nombre
             body: Descripción

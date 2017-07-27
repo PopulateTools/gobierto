@@ -13,9 +13,21 @@ en:
           success: Process was successfully created
         update:
           success: Process was successfully updated
+        navigation:
+          stage: Stage
+          information: Information
         form:
           stages_and_tools: Stages and tools
           process_type: Group type
+          active: Active
+          starts: Starts
+          ends: Ends
+          slug: Slug
+          header_image: Header image
+          issue: Theme
+          visibility_level:
+            active: Published
+            draft: Draft
           placeholders:
             title: Name
             body: Description

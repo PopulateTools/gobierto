@@ -158,8 +158,8 @@ p.intro {
   height: auto;
   max-width: 100%;
 
-  @include min-screen(740) {
-    padding: 2em;
+  @include min-screen(1120) {
+    padding: 2em 0;
     max-width: 500px;
   }
 }

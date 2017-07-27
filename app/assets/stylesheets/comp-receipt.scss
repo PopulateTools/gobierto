@@ -77,6 +77,7 @@
     }
   }
   .receipt_calc {
+    display: flex;
     padding: 0.5em 0;
 
     @include min-screen(740) {
@@ -84,12 +85,12 @@
     }
 
     .bg {
-      height: 100%;
-      padding: 0 0.5em;
-      background: #f2f9fa;
       display: flex;
+      width: 100%;
       align-items: center;
       justify-content: space-between;
+      background: #f2f9fa;
+      padding: 0 0.5em;
 
       span {
         font-size: 1.15em;
@@ -155,27 +156,25 @@
 
     .toggle {
       left: -1.5em;
-      top: 1.15em;
+      top: 0.85em;
       border-radius: 50%;
-      height: 1em;
-      width: 1em;
-      font-size: 90%;
+      height: 16px;
+      width: 16px;
       background: $color_main;
       color: white;
-      line-height: 0.85em;
+      line-height: 13px;
       text-align: center;
       cursor: pointer;
       margin-top: 0.35em;
 
       @include min-screen(740) {
         position: absolute;
-        font-size: 80%;
         margin-top: 0;
       }
 
       .fa {
+        font-size: 10px;
         margin: 0;
-        font-size: 0.7em;
       }
     }
     .line {

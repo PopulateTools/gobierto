@@ -19,7 +19,13 @@
 
           <% if params['from'] == 'participation_group' %>
           <div>
-            <small><%= link_to 'ver todos los eventos', 'participation_agenda' %></small>
+            <small><%= link_to 'ver todos los eventos', 'participation_agenda?from=participation' %></small>
+          </div>
+          <% end %>
+
+          <% if params['from'] == 'participation' %>
+          <div>
+            <small><%= link_to 'ver todos los eventos', 'agenda' %></small>
           </div>
           <% end %>
 

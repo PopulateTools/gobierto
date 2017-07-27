@@ -510,6 +510,30 @@ option, select {
   height: auto;
 }
 
+/*
+  Progress
+ */
+.circles_progress {
+  margin-top: 0;
+  padding-left: 0;
+  @include reset_ul_li;
+
+  li {
+    width: 8px;
+    height: 8px;
+    background: #ccc;
+    border-radius: 50%;
+
+    &:not(:last-child) {
+      margin-right: 0.5em;
+    }
+
+    &.active {
+      background: $color_main;
+    }
+  }
+}
+
 
 /*
  * Autocomplete

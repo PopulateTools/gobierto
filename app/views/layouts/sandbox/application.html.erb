@@ -197,7 +197,7 @@
     <div class="column">
       <nav id="main_nav" class="nav" role="navigation" aria-controls="main_menu" aria-hidden="false">
 
-        <% if @sub_section == 'participation_group' or params['from'].present? %>
+        <% if @sub_section == 'participation_group' %>
 
           <div class="global_breadcrumb">
             <%= link_to '<i class="fa fa-bars"></i> Participación'.html_safe, 'participation', class:'menu_control'  %> <span>/</span>

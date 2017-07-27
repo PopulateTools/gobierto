@@ -9,7 +9,7 @@ module GobiertoAdmin
 
       def index
         @collections = current_site.collections.by_item_type('GobiertoCms::Page')
-        @pages = current_site.pages.sort_by_updated_at(10)
+        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).sort_by_updated_at(10)
       end
 
       def new

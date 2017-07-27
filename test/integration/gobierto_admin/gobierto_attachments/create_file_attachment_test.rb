@@ -28,7 +28,6 @@ module GobiertoAdmin
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
-
               click_link 'Files'
               assert has_selector?('h1', text: 'Files')
 
@@ -55,14 +54,15 @@ module GobiertoAdmin
 
               fill_in 'file_attachment_name', with: 'My file_attachment'
               fill_in 'file_attachment_description', with: 'My file_attachment description'
-              attach_file('file_attachment_file', pdf_file)
+              attach_file('file_attachment_file', 'pdf_file')
 
               with_stubbed_s3_file_upload do
                 click_button 'Create'
               end
 
               assert has_message?('Attachment created successfully.')
-              file_attachment = ::GobiertoAttachments::Attachment.find_by(name: 'My file_attachment', description: 'My file_attachment description')
+              file_attachment = ::GobiertoAttachments::Attachment.find_by(name: 'My file_attachment',
+                                                                          description: 'My file_attachment description')
               activity = Activity.last
               assert_equal file_attachment, activity.subject
               assert_equal admin, activity.author

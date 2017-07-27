@@ -21,7 +21,7 @@
             <% end %>
           </h2>
           <div class="date">
-            <%= l(file_attachment.created_at, format: :short) %>
+            <%= l(file_attachment.created_at, format: :short) if file_attachment.created_at %>
           </div>
         </div>
       <% end %>

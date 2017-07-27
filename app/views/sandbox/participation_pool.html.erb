@@ -1,0 +1,114 @@
+<%= content_for :body_attributes do %>
+  class="theme-participation gobierto_participation"
+<% end %>
+
+<style type="text/css">
+.pool {
+  position: relative;
+  margin: 1em auto;
+  height: 600px;
+  width: 100%;
+  background-image: linear-gradient(-128deg, #2FB585 0%, #2F9EB5 100%);
+  box-shadow: 0 1px 2px 2px rgba(0,0,0,0.10);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.pool div {
+  cursor: pointer;
+  position: absolute;
+  background: white;
+  width: 300px;
+  height: 100px;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 2px rgba(0,0,0,0.10);
+  padding-top: 2em;
+}
+
+</style>
+
+<div class="column">
+  <div class="pure-g">
+    <div class="pure-u-1 center">
+      <div class="pool"></div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+var data = ['Incentivar el uso del transporte público', '+ bicis + buses - coches', 'Deberían plantarse más árboles', 'Es demasiado tarde para hacer nada', 'Poner metro', 'Reducir el número de plazas de aparcamiento público', 'Ya no se puede hacer nada', 'Fomentar el uso racional del transporte', 'No lo creo', 'Reducir la carga y descarga', 'Incentivar el uso del transporte público', '¡Prohibir los coches!', 'Reducir la velocidad de los coches lo máximo posible'];
+
+var width = 1184,
+    height = 600,
+    cardWidth = 300,
+    cardHeight = 100;
+
+var x = d3.scaleLinear()
+  .range([0, width])
+  .domain([0, data.length]);
+
+var y = d3.scaleLinear()
+  .range(0, height)
+  .domain([0, data.length]);
+
+var z = d3.scaleLinear()
+  .range([-30, 30])
+  .domain([0, 12]);
+
+var nodes = data.map(function(d, i) {
+  return {
+    name: d,
+    // x: (i + 1) * d3.randomUniform(20)(),
+    // y: (i + 1) * d3.randomUniform(20)(),
+    z: z(i) * d3.randomUniform(2)()
+  }
+});
+
+var simulation = d3.forceSimulation(nodes)
+  .force("collide", d3.forceCollide(40).strength(2.5))
+  .force("center", d3.forceCenter((width - cardWidth) / 2, (height - cardHeight) / 2))
+  .force("x", d3.forceX(function(d, i) { return x(i); }).strength(.1));
+
+var cards = d3.select('.pool')
+  .selectAll('div')
+  .data(nodes)
+  .enter()
+  .append('div')
+  .text(function(d) { return d.name; });
+
+cards
+  .style('display', 'block')
+  .style('transform', function(d, i) { return 'rotate(' + d.z +'deg)'; })
+  .style('left', function(d, i) { return d.x + 'px'; })
+  .style('top', function(d, i) { return d.y + 'px'; })
+  .call(d3.drag()
+          .on('start', started)
+          .on('drag', dragged)
+          .on('end', ended));
+
+simulation.on('tick', ticked);
+
+function ticked() {
+  cards
+    .style('left', function(d, i) { return d.x + 'px'; })
+    .style('top', function(d, i) { return d.y + 'px'; });
+}
+
+function started(d) {
+  d3.select(this).classed("dragging", true);
+
+  d3.select(this)
+    .style('left', d.x + 'px')
+    .style('top', d.y + 'px');
+}
+
+function dragged(d) {
+  d3.select(this)
+    .style('left', d3.event.x + 'px')
+    .style('top', d3.event.y + 'px');
+}
+
+function ended() {
+  d3.select(this).classed("dragging", false);
+}
+</script>

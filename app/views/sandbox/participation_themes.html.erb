@@ -9,32 +9,26 @@
     </div>
 
     <div class="pure-u-1">
-      <div class="pure-g four_by_four slim small_column">
-        <div class="pure-u-1 pure-u-md-1-4">
-          <%= render 'theme_teaser', title: 'Cultura', description: 'Bibliotecas, centros culturales, programación', meta: true %>
-        </div>
-        <div class="pure-u-1 pure-u-md-1-4">
-          <%= render 'theme_teaser', title: 'Ocio y deporte', description: 'Actividades y eventos, ocio nocturno, instalaciones deportivas', meta: true %>
-        </div>
-        <div class="pure-u-1 pure-u-md-1-4">
-          <%= render 'theme_teaser', title: 'Mujer', description: 'Violencia machista, Igualdad, Atención, Transversalidad', meta: true %>
-        </div>
-        <div class="pure-u-1 pure-u-md-1-4">
-          <%= render 'theme_teaser', title: 'Urbanismo', description: 'Accesibilidad, Espacios públicos, Mobiliario urbano.', meta: true %>
-        </div>
+      <div class="pure-g three_by_three small_column">
+        <% for i in [
+          'Cooperación, Sensibilización y Ayuda Humanitaria',
+          'Cultura',
+          'Deportes',
+          'Educación',
+          'Integración Social e Inmigración',
+          'Mayores',
+          'Medio Ambiente',
+          'Mujer e Igualdad',
+          'Participación Ciudadana',
+          'Salud y Bienestar Social',
+          'Consumo',
+          'Juventud e Infancia',
+          'Comercio',
+          'Urbanismo']
+        %>
+          <%= render 'theme_teaser', name: i, description: 'Bibliotecas, centros culturales, programación', meta: false %>
+        <% end %>
 
-        <div class="pure-u-1 pure-u-md-1-4">
-          <%= render 'theme_teaser', title: 'Educación', description: 'Centros educativos municipales, Aulas de naturaleza', meta: true %>
-        </div>
-        <div class="pure-u-1 pure-u-md-1-4">
-          <%= render 'theme_teaser', title: 'Empleo y comercio', description: 'Oposiciones, ofertas de empleo público y ayudas', meta: true %>
-        </div>
-        <div class="pure-u-1 pure-u-md-1-4">
-          <%= render 'theme_teaser', title: 'Vivienda', description: 'Programas de vivienda, callejero, licencias urbanísticas, alquiler', meta: true %>
-        </div>
-        <div class="pure-u-1 pure-u-md-1-4">
-          <%= render 'theme_teaser', title: 'Economía y hacienda', description: 'Ayudas sociales, impuestos, multas, emprendimiento', meta: true %>
-        </div>
       </div>
     </div>
   </div>

@@ -40,7 +40,7 @@
     border-radius: 4px;
 
     @include min-screen(740) {
-      left: 10.1em;
+      left: 20%;
       z-index: 1;
     }
   }
@@ -99,7 +99,11 @@
       width: 18px;
       height: 18px;
       top: 0.85em;
-      left: -2.7em;
+      left: -8.275%;
+
+      @include min-screen(1200) {
+        left: -7.95%;
+      }
     }
 
     &:after {
@@ -111,8 +115,19 @@
       width: 10px;
       height: 10px;
       top: 1.1em;
-      left: -2.45em
+      left: -7.5%;
+
+      @include min-screen(1200) {
+        left: -7.25%;
+      }
     }
   }
 
+  .current .content_block {
+    &:after {
+      @include min-screen(1200) {
+        left: -7.35%;
+      }
+    }
+  }
 }

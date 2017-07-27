@@ -26,12 +26,17 @@
   margin: 0 auto;
 }
 
+.content_side {
+  padding-right: 25%;
+}
+
+
 /*
  * Footer
  *
  */
 footer {
-	background: $color_neutral_soft;
+  background: $color_neutral_soft;
   padding: 3em 0;
   margin: 10em 0 0 0;
   .logo {
@@ -84,12 +89,12 @@ footer {
 
     &:nth-child(odd) {
       @include min-screen(740) {
-        padding: 0 1em 1em 0;
+        padding: 0 0.5em 1em 0;
       }
     }
     &:nth-child(even) {
       @include min-screen(740) {
-        padding: 0 0 1em 1em;
+        padding: 0 0 1em 0.5em;
       }
     }
   }
@@ -101,17 +106,23 @@ footer {
     box-sizing: border-box;
 
     @include min-screen(740) {
-      padding: 0 1em 2em 1em;
+      padding: 0 0.5em 2em 0.5em;
     }
 
+    &:nth-child(3n) {
+      padding-right: 0;
+    }
+    &:nth-child(3n+1) {
+      padding-left: 0;
+    }
     &:first-child {
       @include min-screen(740) {
-        padding: 0 1em 2em 0;
+        padding: 0 0.5em 2em 0;
       }
     }
     &:last-child {
       @include min-screen(740) {
-        padding: 0 0 2em 1em;
+        padding: 0 0 2em 0.5em;
       }
     }
   }
@@ -122,56 +133,24 @@ footer {
     box-sizing: border-box;
 
     @include min-screen(740) {
-      padding: 0 1em 2em 1em;
+      padding: 0 0.5em 2em 0.5em;
     }
 
     &:first-child {
       @include min-screen(740) {
-        padding: 0 1em 2em 0;
+        padding: 0 0.5em 2em 0;
       }
     }
 
     &:nth-child(4n+4) {
       @include min-screen(740) {
-        padding: 0 0 2em 1em;
+        padding: 0 0 2em 0.5em;
       }
     }
-    &:nth-child(5n) {
+    &:nth-child(4n+1) {
       @include min-screen(740) {
-        padding: 0 1em 2em 0;
+        padding: 0 0.5em 2em 0;
       }
     }
   }
-}
-
-.four_by_four.slim {
-  & > div {
-    box-sizing: border-box;
-
-    @include min-screen(740) {
-      padding: 0 0.5em 1em 0.5em;
-    }
-
-    &:first-child {
-      @include min-screen(740) {
-        padding: 0 0.5em 1em 0;
-      }
-    }
-
-    &:nth-child(4n+4) {
-      @include min-screen(740) {
-        padding: 0 0 1em 0.5em;
-      }
-    }
-    &:nth-child(5n) {
-      @include min-screen(740) {
-        padding: 0 0.5em 1em 0;
-      }
-    }
-  }
-}
-
-
-@include screen(740) {
-
 }

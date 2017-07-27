@@ -13,20 +13,20 @@
     float: left;
     z-index: 1;
     font-weight: 600;
-    
+
     ul {
       list-style: none;
       padding-left: 0;
-      
+
       li {
         cursor: pointer;
         margin-bottom: 0.75rem;
         text-transform: uppercase;
         font-weight: 300;
-        
+
         a {
           text-decoration: none;
-          
+
           &:hover,
           &:focus,
           &:active {
@@ -48,26 +48,26 @@
   section {
     margin-top: 2rem;
     padding-bottom: 2rem;
-	  border-bottom: 1px solid #EBEBEB;
-    
+    border-bottom: 1px solid #EBEBEB;
+
     .description {
       margin-bottom: 0;
     }
-    
+
     &:first-child {
       margin-top: 1rem;
     }
-     
+
     &:last-child {
       border-bottom: none;
     }
     .section_desc {
-    	margin-top: 0;
+      margin-top: 0;
     }
     .widget_headline h3 {
-    	color: $color_text;
-    	font-weight: 300;
-    	margin: 0;
+      color: $color_text;
+      font-weight: 300;
+      margin: 0;
       max-width: 75%;
       display: inline-block;
       text-overflow: ellipsis;
@@ -76,19 +76,19 @@
     }
   }
   .intro_section {
-  	background: $color_main_negative;
-  	margin-top: -2em;
+    background: $color_main_negative;
+    margin-top: -2em;
     border-bottom: 1px solid #EBEBEB;
-    
+
     @media (min-width: 768px) {
       padding: 5em 0 4em 0;
     }
   }
   .intro_headline {
-  	margin-bottom: 0;
+    margin-bottom: 0;
   }
   .intro_desc {
-  	font-size: 1.5em;
+    font-size: 1.5em;
     line-height: 1.3;
     font-weight: 200;
   }
@@ -102,7 +102,7 @@
   #empleo .description {
     width: 100%;
   }
-  
+
   /* Cards */
   .padded_cols.pure-g {
     @include min-screen(768) {
@@ -120,17 +120,17 @@
 
   /* Graphics */
   .gobierto_indicators .axis path {
-  	stroke: #BDBDBD;
+    stroke: #BDBDBD;
   }
   #age_distribution {
     position: relative;
-    
+
     .axis {
-    	font-family: $font_text;
-    	font-size: 0.9em;
-      
+      font-family: $font_text;
+      font-size: 0.9em;
+
       text {
-      	fill: $text_soft;
+        fill: $text_soft;
       }
     }
     .y.axis {
@@ -138,19 +138,19 @@
         display: none;
       }
       line {
-      	stroke: #ccc;
-      	stroke-dasharray: 1, 2;
+        stroke: #ccc;
+        stroke-dasharray: 1, 2;
       }
     }
-    
+
     .chart_headline {
-    	margin-top: 0;
+      margin-top: 0;
     }
     .focus {
-    	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+      text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
     }
     rect:hover {
-    	fill: darken(#d52a59, 10%);
+      fill: darken(#d52a59, 10%);
     }
   }
 
@@ -161,60 +161,60 @@
       opacity: 1;
     }
     .annotations {
-    	color: $text_soft;
-    	font-weight: 300;
-    	position: relative;
-      
+      color: $text_soft;
+      font-weight: 300;
+      position: relative;
+
       .arrow {
-      	color: $color_text;
-      	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: $color_text;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       }
     }
     .pop-anno {
-    	position: absolute;
-    	font-size: 1rem;
-    	background: white;
-    	left: 10px;
-    	top: 75px;
+      position: absolute;
+      font-size: 1rem;
+      background: white;
+      left: 10px;
+      top: 75px;
     }
     .rent-anno {
-    	position: absolute;
-    	font-size: 1rem;
-    	background: white;
+      position: absolute;
+      font-size: 1rem;
+      background: white;
       right: 2%;
       top: 75px;
     }
     .axis {
-    	font-family: $font_text;
-    	font-size: 0.9em;
-      
+      font-family: $font_text;
+      font-size: 0.9em;
+
       .domain {
-      	display: none;
+        display: none;
       }
       .tick {
         line {
-        	stroke-dasharray: 2,2;
-        	stroke: #dcdcdc;
+          stroke-dasharray: 2,2;
+          stroke: #dcdcdc;
         }
         text {
-        	fill: $text_soft;
+          fill: $text_soft;
         }
       }
     }
     .x.axis .tick text {
-    	font-weight: 600;
+      font-weight: 600;
     }
     .circles .selected-city {
-    	stroke: #111;
+      stroke: #111;
     }
     .text-label {
-    	font-size: 1em;
-    	font-weight: 600;
-    	text-shadow: 0 0 5px white;
+      font-size: 1em;
+      font-weight: 600;
+      text-shadow: 0 0 5px white;
     }
     circle {
-    	pointer-events: none;
-    	fill-opacity: 0.7;
+      pointer-events: none;
+      fill-opacity: 0.7;
     }
     .tooltip {
       border-radius: 2px;
@@ -239,15 +239,15 @@
     }
     .tooltip-table {
       line-height: 1.4;
-      
+
       td {
-      	border-top: 1px solid $color_separator;
+        border-top: 1px solid $color_separator;
       }
     }
     .table-t {
-    	color: $color_text;
-    	font-weight: 600;
-    	padding: .7em 0 .4em;
+      color: $color_text;
+      font-weight: 600;
+      padding: .7em 0 .4em;
     }
   }
 
@@ -262,7 +262,7 @@
   #unemployment_age {
     margin-bottom: 1rem;
     position: relative;
-    
+
     .lines-labels div {
       position: absolute;
       margin-top: 10px;
@@ -272,11 +272,11 @@
       font-size: 0.75em;
     }
     .axis {
-    	font-family: $font_text;
-    	font-size: 0.9em;
+      font-family: $font_text;
+      font-size: 0.9em;
     }
     .tick text {
-    	fill: $text_soft;
+      fill: $text_soft;
     }
     .line {
       path {
@@ -286,20 +286,20 @@
     }
     .y.axis {
       .tick line {
-      	stroke-dasharray: 2,2;
-      	stroke: #ccc;
+        stroke-dasharray: 2,2;
+        stroke: #ccc;
       }
       .domain {
-      	display: none;
+        display: none;
       }
     }
     .voronoi path {
-    	fill: none;
-    	pointer-events: all;
+      fill: none;
+      pointer-events: all;
     }
     .focus {
       text {
-    	  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+        text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
       }
       circle {
         stroke-width: 2px;
@@ -317,7 +317,7 @@
 
   #unemployment_sex {
     position: relative;
-    
+
     .lines-labels div {
       position: absolute;
       margin-top: 20px;
@@ -327,11 +327,11 @@
       font-size: 0.75em;
     }
     .axis {
-    	font-family: $font_text;
-    	font-size: 0.9em;
-      
+      font-family: $font_text;
+      font-size: 0.9em;
+
       .tick text {
-      	fill: $text_soft;
+        fill: $text_soft;
       }
     }
     .line {
@@ -340,59 +340,59 @@
     }
     .y.axis {
       .tick line {
-      	stroke-dasharray: 2,2;
-      	stroke: #ccc;
+        stroke-dasharray: 2,2;
+        stroke: #ccc;
       }
       .domain {
-      	display: none;
+        display: none;
       }
     }
     .voronoi path {
-    	fill: none;
-    	pointer-events: all;
+      fill: none;
+      pointer-events: all;
     }
     .focus {
       text {
-      	text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+        text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
       }
       circle {
-      	stroke-width: 2px;
+        stroke-width: 2px;
       }
     }
   }
 
   @media (min-width: 768px) {
-  	.indicators_header {
-  		min-height: 55px;
-  	}
-  	.indicators_sections {
-  		margin-top: 1em;
-  	}
-  	.indicators_section {
-  		font-size: 1em;
-  		margin-left: 20px;
-  	}
-  	.r_mr {
-  		margin-right: 1.5em;
-  	}
-  	.gobierto_indicators h4 {
-  		text-align: center;
-  	}
+    .indicators_header {
+      min-height: 55px;
+    }
+    .indicators_sections {
+      margin-top: 1em;
+    }
+    .indicators_section {
+      font-size: 1em;
+      margin-left: 20px;
+    }
+    .r_mr {
+      margin-right: 1.5em;
+    }
+    .gobierto_indicators h4 {
+      text-align: center;
+    }
     #unemployment_age {
       margin-bottom: 0;
     }
-  	#rent_distribution {
+    #rent_distribution {
       .pop-anno,
       .rent-anno {
-    		font-size: 1.25rem;
-    	}
+        font-size: 1.25rem;
+      }
       .rent-anno {
-    	  right: 8.75%;
-    	  top: 50px;
-    	}
+        right: 8.75%;
+        top: 50px;
+      }
       .text-label {
-    		font-size: 1.25rem;
-    	}
-  	}
+        font-size: 1.25rem;
+      }
+    }
   }
 }

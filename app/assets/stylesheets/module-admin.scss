@@ -464,7 +464,7 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
     @include min-screen(1400) {
       font-size: 2rem;
     }
-	}
+  }
 }
 
 .globalized_fields {
@@ -528,35 +528,35 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
  *
  */
 .activity_feed {
-	.activity_item {
-		margin: 0 0 1.5em 0;
-		h2 {
+  .activity_item {
+    margin: 0 0 1.5em 0;
+    h2 {
       text-transform: none;
-			margin: 0;
-			font-size: .85em;
+      margin: 0;
+      font-size: .85em;
       line-height: 1.4;
       font-weight: normal;
-			a {
-				display: block;
-				@include border-radius(3px);
-				text-decoration: initial;
-				span.secondary {
-					color: $text_soft;
-					display: block;
-					font-weight: normal;
-				}
-			}
-			a:hover {
-				background: $color_1_soft;
-			}
-		}
-		.date {
-			font-size: .85em;
-			color: $text_soft;
-			font-weight: normal;
+      a {
+        display: block;
+        @include border-radius(3px);
+        text-decoration: initial;
+        span.secondary {
+          color: $text_soft;
+          display: block;
+          font-weight: normal;
+        }
+      }
+      a:hover {
+        background: $color_1_soft;
+      }
+    }
+    .date {
+      font-size: .85em;
+      color: $text_soft;
+      font-weight: normal;
       opacity: .5;
-		}
-	}
+    }
+  }
 }
 
 /* Gobierto Attachments */
@@ -590,7 +590,6 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
       border-radius: 4px;
       z-index: 1;
       padding: 0.75rem 1.25rem;
-      // border: 1px solid rgba($color_text, .4);
 
       a {
         font-weight: 700;

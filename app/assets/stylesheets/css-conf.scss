@@ -10,11 +10,6 @@ $font_serif: 'Georgia, serif';
  * Colors
  *
  */
-/*
-$color_1: #00909E;
-$color_1_soft: #EFF8F9;
-$color_1_dark: #00909E;
-*/
 $color_text: #767168;
 $color_main: #00909E;
 $color_main_soft: #cce8eb;
@@ -54,7 +49,7 @@ $color_warn: #981F2E;
 $color_success: #2ca25f;
 
 .color_bg_main {
-	background: $color_main;
+  background: $color_main;
 }
 
 /*

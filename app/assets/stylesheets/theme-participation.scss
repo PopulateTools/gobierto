@@ -15,7 +15,7 @@ $lighter_black: rgba($color_headers, .7);
       padding: 0;
     }
 
-   .site_header .logo {
+    .site_header .logo {
       text-align: left;
 
       img {
@@ -31,6 +31,9 @@ $lighter_black: rgba($color_headers, .7);
 
     @media (min-width: 768px) {
       margin-bottom: 5em;
+    }
+    a {
+      color: $green;
     }
   }
 
@@ -85,7 +88,8 @@ $lighter_black: rgba($color_headers, .7);
     max-width: 16em;
 
     @include min-screen(740) {
-      margin: 3em auto;
+      margin: 2em auto;
+      margin-bottom: 0.5em;
     }
 
     .control {
@@ -175,11 +179,11 @@ $lighter_black: rgba($color_headers, .7);
     margin-bottom: 1em;
 
     .content_block {
-      min-height: 17em;
+      min-height: 18em;
       margin-bottom: 1em;
 
       a {
-       color: $green;
+        color: $green;
       }
 
       & ~ a {
@@ -254,10 +258,7 @@ $lighter_black: rgba($color_headers, .7);
     h3 {
       margin-top: 0;
       margin-bottom: 0;
-
-      a {
-        color: $green;
-      }
+      color: $green;
     }
 
     p {
@@ -277,6 +278,10 @@ $lighter_black: rgba($color_headers, .7);
     margin-bottom: 1em;
     text-decoration: none;
     padding: 1em 1em 2em 1em;
+
+    @include min-screen(740) {
+      height: calc(100% - 3em);
+    }
 
     h3 {
       font-size: 1.25em;
@@ -601,7 +606,23 @@ $lighter_black: rgba($color_headers, .7);
 
   .pagination {
     a {
-      color: $color_text;
+      color: $green;
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: darken($green, .2);
+      }
+    }
+
+    .active a {
+      background: $green;
+      border-color: $green;
+      color: white;
+    }
+
+    .disabled {
+      color: rgba($color_text, 0.5);
     }
   }
 
@@ -619,6 +640,7 @@ $lighter_black: rgba($color_headers, .7);
 
   .document {
     margin-bottom: 0.5em;
+    @include ellipsis;
 
     a {
       color: $green;
@@ -677,6 +699,23 @@ $lighter_black: rgba($color_headers, .7);
   /* Contributions home */
   .contributions_home {
     h2:not(.left) {
+      color: $green;
+    }
+  }
+
+  .modal_background {
+    // color: $green;
+    background: $green;
+
+    h2 {
+      color: $black;
+    }
+
+    button {
+      background: $green;
+    }
+
+    a {
       color: $green;
     }
   }

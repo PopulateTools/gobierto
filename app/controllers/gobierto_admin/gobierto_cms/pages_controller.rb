@@ -14,12 +14,13 @@ module GobiertoAdmin
 
       def new
         @page_form = PageForm.new(site_id: current_site.id)
+        @collection = find_collection(params[:collection_id])
         @page_visibility_levels = get_page_visibility_levels
       end
 
       def edit
         @page = find_page
-        @collection = find_collection
+        @collection = @page.collection
         @page_visibility_levels = get_page_visibility_levels
         @page_form = PageForm.new(
           @page.attributes.except(*ignored_page_attributes)
@@ -34,12 +35,13 @@ module GobiertoAdmin
           ::GobiertoCommon::Collection.find(params[:page][:collection_id]).append(@page_form.page)
 
           redirect_to(
-            edit_admin_cms_page_path(@page_form.page.id),
+            edit_admin_cms_page_path(@page_form.page.id, collection_id: params[:page][:collection_id]),
             notice: t(".success_html", link: gobierto_cms_page_preview_url(@page_form.page, host: current_site.domain))
           )
         else
           @page_visibility_levels = get_page_visibility_levels
-          render :new
+          @collection = ::GobiertoCommon::Collection.find(params[:page][:collection_id])
+          render :edit
         end
       end
 
@@ -109,8 +111,8 @@ module GobiertoAdmin
         current_site.pages.find(params[:id])
       end
 
-      def find_collection
-        ::GobiertoCommon::CollectionItem.where(item_id: params[:id], item_type: 'GobiertoCms::Page').first.collection
+      def find_collection(collection_id)
+        ::GobiertoCommon::Collection.find_by(id: params[:collection_id])
       end
 
       def gobierto_cms_page_preview_url(page, options = {})

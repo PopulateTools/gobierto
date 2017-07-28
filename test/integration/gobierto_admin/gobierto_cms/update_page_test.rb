@@ -37,7 +37,6 @@ module GobiertoAdmin
               click_button 'Update'
 
               assert has_message?('Page updated successfully')
-              assert has_selector?('h1', text: 'Consultation page FAQ updated')
               assert has_field?('page_slug_translations_en', with: 'consultation-faq-updated')
               assert_equal('faq-consultas', find('#page_slug_translations_es', visible: false).value)
 
@@ -54,7 +53,6 @@ module GobiertoAdmin
 
               click_link 'View the page'
 
-              assert has_content?('Consultation page FAQ updated')
               assert has_content?('This is the body of the page')
 
               visit @path

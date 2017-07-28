@@ -17,7 +17,7 @@ pdf_collection_attachment:
   file_digest: 44036997d456028a88d634afa64037ae1a
   url: http://host.com/attachments/pdf-collection-attachment.pdf
   description: Description of a PDF attachment
-  current_version: 2
+  current_version: 1
   site: madrid
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>

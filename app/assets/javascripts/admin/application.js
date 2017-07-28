@@ -93,4 +93,8 @@ $(document).on('turbolinks:load', function() {
     $('#site_password').val('');
   });
 
+  $('a[data-disabled]').on('click', function(e){
+    e.preventDefault();
+  });
+
 });

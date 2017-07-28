@@ -1,0 +1,134 @@
+.contributions_container {
+  margin-top: 2em;
+  box-shadow: 0 1px 2px 2px rgba(0,0,0,0.1);
+  border-top: 3px solid $color_main;
+  border-radius: 4px;
+
+  .contributions_header {
+    border-bottom: 4px solid rgba(0,0,0,0.1);
+
+    .wrapper {
+      width: 100%;
+      padding: 2em 1em 1em 1em;
+    }
+
+    .meta {
+      h2 {
+        font-size: 1.25em;
+        margin-bottom: 0;
+      }
+
+      p {
+        margin-top: 0;
+      }
+    }
+
+    .circle {
+      @include circle(5em);
+      border: 2px solid $color_main;
+      margin: 1em auto;
+
+      @include min-screen(740) {
+        margin: 0;
+      }
+
+      span {
+        font-size: 2.5em;
+        color: $color_main;
+      }
+    }
+
+    .contribution_action {
+      text-align: right;
+
+      .button {
+        width: 100%;
+        margin-bottom: 0;
+      }
+      p {
+        text-align: center;
+        margin-top: 0.25em;
+        font-size: 0.85em;
+        // opacity: 0.5;
+      }
+    }
+
+    .contributions_control {
+      border-top: 1px solid #ccc;
+      // padding-top: 1.5em;
+
+      p {
+        margin: 0 0 1em 0;
+        font-weight: 600;
+        font-size: 1.15em;
+        display: inline-block;
+
+        @include min-screen(740) {
+          margin: 0;
+          margin-right: 0.5em;
+        }
+      }
+
+      .circles_progress {
+        text-align: center;
+
+        @include min-screen(740) {
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  // Pool
+  .contributions_content {
+    border-top: 8px solid rgba(0,0,0,.1);
+    position: relative;
+    margin: 0 auto;
+    height: 600px;
+    width: 100%;
+    background-image: linear-gradient(-128deg, #2FB585 0%, #2F9EB5 100%);
+    overflow: hidden;
+    padding: 3em 0;
+
+    &.toggled {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      overflow-y: scroll;
+    }
+
+    &.toggled .card {
+      position: relative;
+      transform: none !important;
+      left: initial !important;
+      top: initial !important;
+      margin: 0.25em;
+    }
+
+    .card {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+      cursor: pointer;
+      position: absolute;
+      background: white;
+      width: 300px;
+      height: 100px;
+      border-radius: 16px;
+      box-shadow: 0 1px 2px 2px rgba(0,0,0,0.10);
+      padding: 1em;
+    }
+    .gradient_bar {
+      width: 100%;
+      height: 6px;
+      border-radius: 6px;
+    }
+    .contribution_legend {
+      position: absolute;
+      top: 0.5em;
+      right: 1em;
+      color: white;
+      text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    }
+  }
+}

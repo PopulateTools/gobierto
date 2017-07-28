@@ -10,9 +10,6 @@ en:
             placeholders:
               tags: personal, about me, my career
               title: About me
-            visibility_level:
-              active: Published
-              draft: Draft
           index:
             header:
               date: Date

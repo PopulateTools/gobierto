@@ -38,7 +38,7 @@
                 <div class="metric"><%= @budgets_execution_summary[:expenses_execution_percentage]%> %</div>
 
                 <% if @budgets_execution_summary[:expenses_previous_execution_percentage] %>
-                  <div class="explanation">
+                  <div class="explanation desktop_only">
                     <%= t('.metric.execution.previous_execution_message',
                           year: @budgets_execution_summary[:previous_year],
                           percentage: @budgets_execution_summary[:expenses_previous_execution_percentage]
@@ -57,7 +57,7 @@
                 <div class="metric"><%= @budgets_execution_summary[:income_execution_percentage] %> %</div>
 
                 <% if @budgets_execution_summary[:income_previous_execution_percentage] %>
-                  <div class="explanation">
+                  <div class="explanation desktop_only">
                     <%= t('.metric.execution.previous_execution_message',
                           year: @budgets_execution_summary[:previous_year],
                           percentage: @budgets_execution_summary[:income_previous_execution_percentage]
@@ -76,7 +76,7 @@
     <div class="pure-g">
       <div class="pure-u-1">
         <h2 class="with_description"><%= t('.vis.expenses.title') %></h2>
-        <div class="m_v_1">
+        <div>
           <div class="inline_filter">
             <span class="soft"><%= t('.sort') %></span>
             <div class="button-group ib" role="group">
@@ -117,7 +117,7 @@
 
       <div class="pure-u-1">
         <h2 class="with_description"><%= t('.vis.income.title') %></h2>
-        <div class="m_v_1">
+        <div>
           <div class="inline_filter">
             <span class="soft"><%= t('.sort') %></span>
             <div class="button-group ib" role="group">

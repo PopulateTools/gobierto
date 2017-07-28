@@ -9,9 +9,6 @@ en:
           form:
             placeholders:
               title: Statement of assets and activities
-            visibility_level:
-              active: Published
-              draft: Draft
           index:
             header:
               date: Date

@@ -7,25 +7,69 @@
 
     <div class="pure-g">
       <div class="pure-u-1 pure-u-lg-1-3">
-        <h2 class="with_separator">Noticias</h2>
+        <div class="content_side">
 
-        <h4 class="with_light_separator m_t_1">Filtrar por grupo</h4>
-        <ul class="link_list">
-          <li><a href="#">Cultura</a></li>
-          <li><a href="#">Educación</a></li>
-          <li><a href="#">Empleo y comercio</a></li>
-          <li><a href="#">Vivienda</a></li>
-          <li><a href="#">Economía y hacienda</a></li>
-          <li><a href="#">Mujer</a></li>
-          <li><a href="#">Educación</a></li>
-        </ul>
+          <h2 class="with_separator">
+            Noticias
+            <% if params['from'] == 'participation_group' %>
+              de Pacto social por el fin de la violencia de la género
+              <%# link_to 'Pacto social por el fin de la violencia de la género', 'participation_group' %>
+            <% end %>
+          </h2>
+
+          <% if params['from'] == 'participation_group' %>
+          <div>
+            <small><%= link_to 'ver todos las noticias de Participación', 'participation_news?from=participation' %></small>
+          </div>
+          <% end %>
+
+
+          <% if false # params['from'] == 'participation' %>
+          <div>
+            <small><%= link_to 'ver todas las noticias', 'news' %></small>
+          </div>
+          <% end %>
+
+
+
+
+          <h4 class="with_light_separator m_t_1">Filtrar por tema</h4>
+          <ul class="link_list">
+            <% for i in [
+              'Cooperación, Sensibilización y Ayuda Humanitaria',
+              'Cultura',
+              'Deportes',
+              'Educación',
+              'Integración Social e Inmigración',
+              'Mayores',
+              'Medio Ambiente',
+              'Mujer e Igualdad',
+              'Participación Ciudadana',
+              'Salud y Bienestar Social',
+              'Consumo',
+              'Juventud e Infancia',
+              'Comercio',
+              'Urbanismo']
+            %>
+            <li><a href="#"><%= i %></a></li>
+            <% end %>
+          </ul>
+
+        </div>
       </div>
 
       <div class="pure-u-1 pure-u-lg-2-3">
-        <%= render 'news_teaser', headline: 'Alcobendas acoge media startups, un espacio de encuentro, reflexión y aprendizaje para emprendedores y medios de comunicación', image: true %>
-        <%= render 'news_teaser', headline: 'Más de 900 millones de euros en tres años para mejorar la calidad de vida de los mayores', image: false %>
-        <%= render 'news_teaser', headline: 'Alcobendas acoge media startups, un espacio de encuentro, reflexión y aprendizaje para emprendedores y medios de comunicación', image: false %>
-
+        <% for i in [
+          'Alcobendas acoge media startups, un espacio de encuentro, reflexión y aprendizaje para emprendedores y medios de comunicación',
+          'Arranca el proceso del pacto social contra la violencia de género',
+          'Estrenamos un nuevo espacio para compartir ideas que mejoren Alcobendas',
+          'Pacto de la Bicicleta: Resultados',
+          'Envía tus preguntas al Alcalde',
+          'Conoce cómo funciona el Consejo Social de la Ciudad'
+        ] %>
+          <% # image: true for first element %>
+          <%= render 'news_teaser', headline: i, image: false %>
+        <% end %>
         <%= render 'pagination' %>
       </div>
 

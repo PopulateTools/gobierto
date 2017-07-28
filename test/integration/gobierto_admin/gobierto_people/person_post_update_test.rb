@@ -38,7 +38,7 @@ module GobiertoAdmin
 
                 fill_in "person_post_tags", with: "one, two, three"
 
-                within ".person-post-visibility-level-radio-buttons" do
+                within ".widget_save" do
                   find("label", text: "Draft").click
                 end
 
@@ -57,7 +57,7 @@ module GobiertoAdmin
 
                 assert has_field?("person_post_tags", with: "one, two, three")
 
-                within ".person-post-visibility-level-radio-buttons" do
+                within ".widget_save" do
                   with_hidden_elements do
                     assert has_checked_field?("Draft")
                   end

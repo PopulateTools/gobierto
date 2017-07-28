@@ -48,7 +48,7 @@ module GobiertoAdmin
               check "Gobierto Development"
             end
 
-            within ".site-visibility-level-radio-buttons" do
+            within ".widget_save" do
               choose "Published"
             end
 

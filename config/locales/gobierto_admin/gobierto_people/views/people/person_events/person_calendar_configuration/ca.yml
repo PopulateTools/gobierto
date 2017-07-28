@@ -15,6 +15,5 @@ ca:
               remove_integration: Eliminar la configuració de Google Calendar
               share_link: 'Comparteix aquest enllaç amb el alt càrrec per a permetre
                 a Gobierto llegir els seus esdeveniments de Google Calendar:'
-              update: Actualitzar
             navigation:
               calendar_configuration: Configuració del calendari

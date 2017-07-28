@@ -5,5 +5,33 @@ en:
       gobierto_admin/gobierto_participation/issue_form:
         name: Name
         slug: URL
+      gobierto_admin/gobierto_participation/process_form:
+        header_image: Header image
+        header_image_url: Header image URL
+        title: Title
+        body: Body
+        slug: Slug
+        starts: Starts
+        ends: Ends
+        process_type: Group type
+        issue_id: Theme
     models:
-      gobierto_admin/gobierto_participation/issue_form: issue
+      gobierto_admin/gobierto_participation/process_form: Process
+      gobierto_admin/gobierto_participation/issue_form: Issue
+  activerecord:
+    attributes:
+      gobierto_participation/process:
+        process_types:
+          process: Process
+          group_process: Group
+      gobierto_participation/process_stage:
+        title: Title
+        description: Description
+        starts: Starts
+        ends: Ends
+        stage_types:
+          information: Information
+          meetings: Meetings
+          surveys: Surveys
+          ideas: Ideas
+          results: Results

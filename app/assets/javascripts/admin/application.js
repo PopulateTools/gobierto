@@ -35,54 +35,66 @@ $(document).on('turbolinks:load', function() {
     start.setHours(start.getHours() + 1);
     start.setMinutes(0);
 
-    var $fromDatePicker = $('.air-datepicker:eq(0)');
-    var $toDatePicker = $('.air-datepicker:eq(1)');
+    var $fromDatePickers = $('.air-datepicker:even');
+    var $toDatePickers   = $('.air-datepicker:odd');
 
-    if($toDatePicker.length){
+    var index = 0;
+
+    $toDatePickers.each(function(index, toDatePicker) {
+
       // Datepicker end time
-      $toDatePicker.datepicker({
+      $(toDatePicker).datepicker({
         autoClose: true,
-        startDate: new Date($toDatePicker.data('startdate')),
+        startDate: new Date($(toDatePicker).data('startdate')),
         onSelect: function onSelect(_, _, instance) {
           $(instance.el).trigger("datepicker-change");
         }
       });
-    }
 
-    // Datepicker start time
-    if($fromDatePicker.data('range') === undefined) {
-      $fromDatePicker.datepicker({
-        autoClose: true,
-        minutesStep: 5,
-        startDate: new Date($fromDatePicker.data('startdate')),
-        onSelect: function onSelect(_, selectedDate, instance) {
-          $(instance.el).trigger("datepicker-change");
-          selectedDate.setHours(selectedDate.getHours() + 1);
-          if($toDatePicker.length){
-            $toDatePicker.data('datepicker').selectDate(selectedDate);
+      // Datepicker start time
+      var fromDatePicker = $fromDatePickers[index];
+
+      if($(fromDatePicker).data('range') === undefined) {
+        $(fromDatePicker).datepicker({
+          autoClose: true,
+          minutesStep: 5,
+          startDate: new Date($(fromDatePicker).data('startdate')),
+          onSelect: function onSelect(_, selectedDate, instance) {
+            $(instance.el).trigger("datepicker-change");
+            selectedDate.setHours(selectedDate.getHours() + 1);
+            if($(toDatePicker).length){
+              $(toDatePicker).data('datepicker').selectDate(selectedDate);
+            }
           }
-        }
-      });
+        });
 
-      var date = new Date($fromDatePicker.data('startdate'));
-      $fromDatePicker.data('datepicker').selectDate(date);
-      if($toDatePicker.length){
-        date = new Date($toDatePicker.data('startdate'));
-        $toDatePicker.data('datepicker').selectDate(date);
-      }
-    } else {
-      $fromDatePicker.datepicker({
-        autoClose: true,
-        onSelect: function onSelect(_, selectedDate, instance) {
-          $(instance.el).trigger("datepicker-change");
+        var date = new Date($(fromDatePicker).data('startdate'));
+
+        $(fromDatePicker).data('datepicker').selectDate(date);
+        if($(toDatePicker).length){
+          date = new Date($(toDatePicker).data('startdate'));
+          $(toDatePicker).data('datepicker').selectDate(date);
         }
-      });
-    }
+      } else {
+        $(fromDatePicker).datepicker({
+          autoClose: true,
+          onSelect: function onSelect(_, selectedDate, instance) {
+            $(instance.el).trigger("datepicker-change");
+          }
+        });
+      }
+
+      index++;
+    });
   }
 
   $('#site_visibility_level_active').on('click', function(e){
     $('#site_username').val('');
     $('#site_password').val('');
+  });
+
+  $('a[data-disabled]').on('click', function(e){
+    e.preventDefault();
   });
 
 });

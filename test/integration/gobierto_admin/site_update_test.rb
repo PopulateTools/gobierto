@@ -47,7 +47,7 @@ module GobiertoAdmin
             check "Gobierto Development"
           end
 
-          within ".site-visibility-level-radio-buttons" do
+          within ".widget_save" do
             choose "Published"
           end
 
@@ -76,7 +76,7 @@ module GobiertoAdmin
             assert has_checked_field?("Gobierto Development")
           end
 
-          within ".site-visibility-level-radio-buttons" do
+          within ".widget_save" do
             assert has_checked_field?("Published")
           end
         end
@@ -94,7 +94,7 @@ module GobiertoAdmin
         visit @path
 
         within "form.edit_site" do
-          within ".site-visibility-level-radio-buttons" do
+          within ".widget_save" do
             choose "Draft"
             fill_in "site_username", with: "wadus"
             fill_in "site_password", with: "wadus"
@@ -106,7 +106,7 @@ module GobiertoAdmin
         assert has_message?("Site was successfully updated")
 
         within "form.edit_site" do
-          within ".site-visibility-level-radio-buttons" do
+          within ".widget_save" do
             assert has_checked_field?("Draft")
           end
 
@@ -129,7 +129,7 @@ module GobiertoAdmin
         visit @path
 
         within "form.edit_site" do
-          within ".site-visibility-level-radio-buttons" do
+          within ".widget_save" do
             choose "Draft"
           end
 

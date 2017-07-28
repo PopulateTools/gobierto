@@ -1,14 +1,26 @@
-green_city_first_stage:
-  process: green_city
+local_budgets_information_stage:
+  process: local_budgets_process
   title_translations: <%= { 'en' => 'Information', 'es' => 'Información' }.to_json %>
-  slug_translations: <%= { 'en' => 'information', 'es' => 'informacion' }.to_json %>
+  description_translations: <%= { 'en' => 'Information description', 'es' => 'Información descripción' }.to_json %>
+  slug: informacion
   starts: <%= 3.days.ago %>
   ends: <%= 2.days.ago %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:information] %>
 
-green_city_second_stage:
-  process: green_city
-  title_translations: <%= { 'en' => 'Suggest ideas', 'es' => 'Sugiere ideas' }.to_json %>
-  slug_translations: <%= { 'en' => 'suggest-ideas', 'es' => 'sugiere-ideas' }.to_json %>
+local_budgets_meetings_stage:
+  process: local_budgets_process
+  title_translations: <%= { 'en' => 'Meetings stage', 'es' => 'Fase de reuniones' }.to_json %>
+  description_translations: <%= { 'en' => 'Meetings description', 'es' => 'Fase de reuniones descripción' }.to_json %>
+  slug: organiza-reuniones
   starts: <%= 2.days.ago %>
-  ends: <%= 5.days.from_now %>
+  ends: <%= 4.days.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
 
+local_budgets_ideas_stage:
+  process: local_budgets_process
+  title_translations: <%= { 'en' => 'Suggest ideas', 'es' => 'Sugiere ideas' }.to_json %>
+  description_translations: <%= { 'en' => 'Suggest ideas description', 'es' => 'Sugiere ideas descripción' }.to_json %>
+  slug: sugiere-idea
+  starts: <%= 1.day.from_now %>
+  ends: <%= 10.days.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:ideas] %>

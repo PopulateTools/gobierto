@@ -16,7 +16,7 @@ module GobiertoAdmin
       def edit
         @file_attachment = find_file_attachment
         @file_attachment_form = FileAttachmentForm.new(
-          @file_attachment.attributes.except(*ignored_file_attachment_attributes)
+          @file_attachment.attributes.except(*ignored_file_attachment_attributes).merge(site_id: current_site.id)
         )
       end
 
@@ -51,14 +51,13 @@ module GobiertoAdmin
 
       def update
         @file_attachment = find_file_attachment
-        @file_attachment_form = FileAttachmentForm.new(file_attachment_params.merge(id: @file_attachment.id, site_id: current_site.id))
-
+        @file_attachment_form = FileAttachmentForm.new(file_attachment_params.merge(id: params[:id], site_id: current_site.id))
         if @file_attachment_form.save
           track_update_activity
 
           redirect_to(
             edit_admin_cms_file_attachment_path(@file_attachment_form.file_attachment.id),
-            notice: t(".success_html", link: gobierto_cms_file_attachment_preview_url(@file_attachment_form.file_attachment, host: current_site.domain))
+            notice: t('.success_html')
           )
         else
           render :edit
@@ -84,11 +83,11 @@ module GobiertoAdmin
       end
 
       def ignored_file_attachment_attributes
-        %w( created_at updated_at id site_id file_size current_version)
+        %w( created_at updated_at site_id file_size current_version)
       end
 
       def file_attachment_params
-        params.require(:file_attachment).permit(:file, :name, :description, :file_name)
+        params.require(:file_attachment).permit(:id, :file, :name, :description, :file_name)
       end
     end
   end

@@ -17,8 +17,10 @@ module GobiertoAdmin
 
     def invalid_file_attachment_form
       @invalid_file_attachment_form ||= FileAttachmentForm.new(
-        site_id: site.id,
-        file: nil
+        site_id: nil,
+        file: nil,
+        name: nil,
+        description: nil
       )
     end
 

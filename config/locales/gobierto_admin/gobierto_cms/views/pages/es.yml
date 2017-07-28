@@ -9,9 +9,6 @@ es:
           placeholders:
             slug: acerca-de-esta-web
             title: Título de la página
-          visibility_level:
-            active: Publicada
-            draft: Borrador
         index:
           collections: Collecciones
           header:

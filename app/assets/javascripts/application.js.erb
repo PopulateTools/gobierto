@@ -52,6 +52,13 @@ function isMobile() {
   return !isDesktop();
 }
 
+/* Toggle text method */
+$.fn.extend({
+  toggleText: function(a, b){
+    return this.text(this.text() == b ? a : b);
+  }
+});
+
 $(document).on('turbolinks:load', function() {
 
   rebindAll();

@@ -1,0 +1,196 @@
+<%= content_for :body_attributes do %>
+  class="theme-participation gobierto_participation"
+<% end %>
+
+<div class="column">
+  <div class="pure-g">
+    <div class="pure-u-1">
+      <div class="contributions_container">
+
+        <div class="contributions_header pure-g">
+          <div class="wrapper">
+            <div class="pure-u-1 pure-u-md-2-24">
+              <div class="circle"><span>?</span></div>
+            </div>
+
+            <div class="pure-u-1 pure-u-md-15-24 meta">
+              <h2 class="m_v_0">¿Qué harías para reducir la contaminación en la ciudad?</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua… <a href="">leer más</a></p>
+            </div>
+
+            <div class="pure-u-1 pure-u-md-2-24"></div>
+
+            <div class="pure-u-1 pure-u-md-5-24 contribution_action">
+              <a href="" class="button">¡Tengo una idea!</a>
+              <p>Tienes de plazo hasta el <strong>25/06</strong></p>
+            </div>
+          </div>
+
+          <div class="pure-u-1 contributions_control">
+            <div class="pure-g">
+              <div class="wrapper">
+                <div class="pure-u-1 pure-u-md-12-24 pure-u-lg-15-24">
+                  <p>Mostrar ideas</p>
+
+                  <a class="button rounded outline">Todas</a>
+                  <a class="button rounded outline">Mejor valoradas</a>
+                  <a class="button rounded outline">Peor valoradas</a>
+                  <a class="button rounded outline">Recientes</a>
+                  <a class="button rounded outline">Tuyas</a>
+                </div>
+
+                <div class="pure-u-1 pure-u-md-1-24"></div>
+
+                <div class="pure-u-1 pure-u-md-5-24 pure-u-lg-3-24">
+                  <div class="radio_toggle">
+                    <span>Organizar</span>
+                    <input id="contributions_checkbox" type="checkbox">
+                    <label for="contributions_checkbox" class="toggleLayout"></label>
+                  </div>
+                </div>
+
+                <div class="pure-u-1 pure-u-md-6-24 pure-u-lg-5-24">
+                  <ul class="circles_progress">
+                    <li class="active"></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contributions_content"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+var data = ['Incentivar el uso del transporte público', '+ bicis + buses - coches', 'Deberían plantarse más árboles', 'Es demasiado tarde para hacer nada', 'Poner metro', 'Reducir el número de plazas de aparcamiento público', 'Ya no se puede hacer nada', 'Fomentar el uso racional del transporte', 'No lo creo', 'Reducir la carga y descarga', 'Incentivar el uso del transporte público', '¡Prohibir los coches!', 'Reducir la velocidad de los coches lo máximo posible'];
+
+var width = 1184,
+    height = 600,
+    cardWidth = 300,
+    cardHeight = 100;
+
+var x = d3.scaleLinear()
+  .range([0, width])
+  .domain([0, data.length]);
+
+var y = d3.scaleLinear()
+  .range(0, height)
+  .domain([0, data.length]);
+
+var z = d3.scaleLinear()
+  .range([-30, 30])
+  .domain([0, 12]);
+
+var nodes = data.map(function(d, i) {
+  return {
+    name: d,
+    // x: (i + 1) * d3.randomUniform(20)(),
+    // y: (i + 1) * d3.randomUniform(20)(),
+    z: z(i) * d3.randomUniform(2)(),
+    love: Math.floor(d3.randomUniform(5)()),
+    like: Math.floor(d3.randomUniform(10)()),
+    neutral: Math.floor(d3.randomUniform(10)()),
+    hate: Math.floor(d3.randomUniform(5)())
+  }
+});
+
+var simulation = d3.forceSimulation(nodes)
+  .force("collide", d3.forceCollide(40).strength(2.5))
+  .force("center", d3.forceCenter((width - cardWidth) / 2, (height - cardHeight) / 2))
+  .force("x", d3.forceX(function(d, i) { return x(i); }).strength(.1));
+
+var contributions = d3.select('.contributions_container');
+
+contributions.select('.toggleLayout')
+  .on('click', clicked);
+
+contributions.select('.contributions_content')
+  .append('div')
+  .attr('class', 'contribution_legend')
+  .text('50 vecinos han aportado ' + data.length + ' ideas')
+
+var card = contributions.select('.contributions_content')
+  .selectAll('div')
+  .data(nodes)
+  .enter()
+  .append('div')
+  .attr('class', 'card');
+
+card
+  .append('div')
+  .attr('class', 'gradient_bar')
+  .style('background', function(d) {
+    var categories = [d.love, d.like, d.neutral, d.hate];
+    var totalVotes = d3.sum(categories);
+
+    var pct = categories.map(function(d) {
+      return (d / totalVotes) * 100;
+    });
+
+    return 'linear-gradient(to right, #38b486 ' + pct[0] +'%, #429aad ' + pct[1] + '%, #9c7e7e ' + pct[2] + '%, #f06659 ' + pct[3] + '%)';
+    // return 'linear-gradient(to right, #38b486, #429aad, #9c7e7e, #f06659)';
+  });
+
+card
+  .append('div').attr('class', 'title')
+  .text(function(d) { return d.name; });
+
+card
+  .style('transform', function(d, i) { return 'rotate(' + d.z +'deg)'; })
+  .style('left', function(d, i) { return d.x + 'px'; })
+  .style('top', function(d, i) { return d.y + 'px'; })
+  .call(d3.drag()
+          .on('start', started)
+          .on('drag', dragged)
+          .on('end', ended));
+
+simulation.on('tick', ticked);
+
+function ticked() {
+  card
+    .style('left', function(d, i) { return d.x + 'px'; })
+    .style('top', function(d, i) { return d.y + 'px'; });
+}
+
+
+function clicked() {
+  var isChecked = d3.select(this).classed('checked');
+
+  if (isChecked) {
+    d3.select(this).classed('checked', false);
+    d3.select('.contributions_content').classed('toggled', false);
+  } else {
+    d3.select(this).classed('checked', true);
+    d3.select('.contributions_content').classed('toggled', true);
+  }
+}
+
+function started(d) {
+  d3.select(this).classed("dragging", true);
+
+  d3.select(this)
+    .style('left', d.x + 'px')
+    .style('top', d.y + 'px');
+}
+
+function dragged(d) {
+  d3.select(this)
+    .style('left', d3.event.x + 'px')
+    .style('top', d3.event.y + 'px');
+}
+
+function ended() {
+  d3.select(this).classed("dragging", false);
+}
+</script>

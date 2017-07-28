@@ -134,7 +134,6 @@
 .pagination {
   display: flex;
   padding-left: 0;
-  justify-content: center;
   @include reset_ul_li;
 
   li {

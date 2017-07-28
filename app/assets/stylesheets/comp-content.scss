@@ -17,25 +17,29 @@
 }
 
 .news_teaser {
+  margin: 0 0 4em 0;
   h3 {
     line-height: 1.3;
     font-size: 1.25em;
     margin-top: 0;
     margin-bottom: 0.25em;
   }
-
   p {
     margin-top: 0.25em;
   }
 }
-
+.news_teaser, .news_article {
+  .meta {
+    font-size: $f7;
+    opacity: .5;
+  }
+}
 .content {
   .inner, article:not(.news_article) {
     max-width: 650px;
     margin: 0 auto;
     text-align: left;
   }
-
   .inner {
     @media (min-width: 768px) {
       padding: 0;
@@ -263,4 +267,7 @@
       }
     }
   }
+}
+.content_side_nav_location {
+  font-size: $f7;
 }

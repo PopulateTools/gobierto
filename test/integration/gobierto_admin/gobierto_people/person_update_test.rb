@@ -61,7 +61,7 @@ module GobiertoAdmin
                   attach_file "person_bio_file", "test/fixtures/files/gobierto_people/people/bio.pdf"
                 end
 
-                within ".person-visibility-level-radio-buttons" do
+                within ".widget_save" do
                   find("label", text: "Draft").click
                 end
 
@@ -110,7 +110,7 @@ module GobiertoAdmin
                   assert has_selector?("a")
                 end
 
-                within ".person-visibility-level-radio-buttons" do
+                within ".widget_save" do
                   with_hidden_elements do
                     assert has_checked_field?("Draft")
                   end

@@ -46,6 +46,7 @@ var VisLinesExecution = Class.extend({
       if (error) throw error;
 
       this.data = jsonData;
+      this.updated = this.parseTime(this.data.last_update);
 
       // Setting scales in a separate step, as we need the lines to set the height
       this.setScales();
@@ -61,12 +62,14 @@ var VisLinesExecution = Class.extend({
   },
   setScales: function(callback) {
     // Chart dimensions
-    this.margin = {top: 25, right: 0, bottom: 50, left: this.isMobile ? 0 : 385};
+    this.margin = {top: 55, right: 0, bottom: 50, left: this.isMobile ? 0 : 385};
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
+    this.maxPct = d3.max(this.data.lines, function(d) { return d.pct_executed;});
+
     // Triggered if a budget line's execution is over 500%
-    this.bigDeviation = d3.max(this.data.lines, function(d) { return d.pct_executed;}) > 500;
+    this.bigDeviation = this.maxPct > 500;
 
     // Scales & Ranges
     this.x = this.bigDeviation ? d3.scaleLog().range([0.1, this.width]) : d3.scaleLinear().range([0, this.width]).clamp(true);
@@ -117,7 +120,7 @@ var VisLinesExecution = Class.extend({
     this.nested.sort(function(a ,b) { return a.group_pct - b.group_pct;});
 
     /* Extent of the execution */
-    this.x.domain([0.1, d3.max(this.data.lines, function(d) { return d.pct_executed;})]);
+    this.x.domain(this.maxPct <= 100 ? [0.1, 100] : [0.1, this.maxPct]);
 
     /* Number of lines */
     this.y0.domain(this.nested.map(function(d) { return d.key }));
@@ -250,13 +253,13 @@ var VisLinesExecution = Class.extend({
       .text(this.bigDeviation ? I18n.t('gobierto_budgets.budgets_execution.index.vis.percent_log') : I18n.t('gobierto_budgets.budgets_execution.index.vis.percent'));
 
     /* Year progress line */
-    if (this.budgetYear === this.currentYear) {
+    if (this.budgetYear == this.currentYear) {
       var yearProgress = this.svg.append('g')
         .attr('class', 'year_progress')
         .attr('transform', 'translate(' + this.z(this.updated) + ',' + 0 + ')');
 
       var yearArrow = yearProgress.append('g')
-        .attr('class', 'swoopy_arrow')
+        .attr('class', 'swoopy_arrow desktop_only')
         .attr('fill', 'none')
         .attr('transform', 'translate(-5, -40)');
 
@@ -281,14 +284,28 @@ var VisLinesExecution = Class.extend({
 
       hovered.append('text')
         .attr('class', 'legend-text')
-        .attr('dx', 25)
-        .attr('dy', -40)
+        .attr('dx', this.isMobile ? 0 : 25)
+        .attr('dy', this.isMobile ? -25 : -38)
+        .attr('text-anchor', function() {
+          // If on a phone, adjust the alignment when we are closer to the end of the year
+          if (this.isMobile) {
+            return this.updated >= this.parseTime(this.currentYear + '-10-01') ? 'end' : 'middle';
+          }
+        }.bind(this))
         .text(this.monthFormat(this.updated));
 
       // Info icon
       var info = hovered.append('g')
         .attr('fill-rule', 'evenodd')
-        .attr('transform', 'translate(' + (d3.select('.legend-text').node().getBoundingClientRect().width + 30) + ',' + -50 + ')');
+        .attr('transform', function() {
+          var labelWidth = d3.select('.legend-text').node().getBoundingClientRect().width;
+
+          if (this.isMobile) {
+            return this.updated >= this.parseTime(this.currentYear + '-10-01') ? 'translate(' + (labelWidth - 58) + ',' + -36 + ')' : 'translate(' + (labelWidth - 26) + ',' + -36 + ')';
+          } else {
+            return 'translate(' + (labelWidth + 30) + ',' + -50 + ')';
+          }
+        }.bind(this));
 
       info.append('path')
         .attr('fill', '#00909E')

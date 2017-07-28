@@ -15,6 +15,5 @@ es:
               remove_integration: Eliminar configuración de Google Calendar
               share_link: 'Comparte este enlace con el Alto Cargo para que permita
                 a Gobierto leer sus eventos de Google Calendar:'
-              update: Actualizar
             navigation:
               calendar_configuration: Configuración del calendario

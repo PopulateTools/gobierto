@@ -12,6 +12,7 @@ module GobiertoAdmin
 
       def edit
         @file_attachment = find_file_attachment
+        @collection = find_collection
         @file_attachment_form = FileAttachmentForm.new(
           @file_attachment.attributes.except(*ignored_file_attachment_attributes).merge(site_id: current_site.id)
         )
@@ -77,6 +78,10 @@ module GobiertoAdmin
 
       def find_file_attachment
         current_site.attachments.find(params[:id])
+      end
+
+      def find_collection
+        ::GobiertoCommon::CollectionItem.where(item_id: params[:id], item_type: 'GobiertoAttachments::Attachment').first.collection
       end
 
       def ignored_file_attachment_attributes

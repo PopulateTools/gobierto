@@ -516,8 +516,6 @@ $units: 1px !default;
 
 /* Padded Cols hack */
 .padded_cols.pure-g {
-  width: 100%;
-
   @include min-screen(768) {
    width: calc(100% + 2em);
   }
@@ -533,15 +531,10 @@ $units: 1px !default;
       margin: 1em;
     }
   }
-  [class*="pure-u"] {
-    margin-left: 0;
+  [class*="pure-u"]:first-child {
+    margin-left: -1em;
   }
 
-  @include min-screen(768) {
-   [class*="pure-u"] {
-      margin-left: -1em;
-    }
-  }
 }
 .padded_cols.example {
   background: transparentize(#CCC, .1);

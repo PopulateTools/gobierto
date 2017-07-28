@@ -58,6 +58,7 @@
 @import "comp-content";
 @import "comp-agenda";
 @import "comp-timeline";
+@import "comp-contributions";
 
 @import "comp-graph-treemap";
 @import "comp-graph-vis_lines_table";
@@ -373,6 +374,30 @@ html.turbolinks-progress-bar::before {
     }
     h3 + .button.small {
       margin-left: 1em;
+    }
+  }
+}
+
+.inner_cols.two_cols {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+.inner_cols.three_cols {
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+}
+.inner_cols.four_cols {
+  columns: 4;
+  -webkit-columns: 4;
+  -moz-columns: 4;
+}
+
+.sandbox {
+  .inner_cols {
+    a {
+      display: block;
     }
   }
 }

@@ -1,13 +1,9 @@
-<div id="main-content" class="container">
-  <div class="eight columns">
-    <div class="row">
-      <h1>Welcome to sandbox</h1>
+<div class="container sandbox">
+  <div class="column inner_cols three_cols">
 
-      <ul>
-        <% @templates.each do |template| %>
-          <li><%= link_to template, "/sandbox/" + template %></li>
-        <% end %>
-      </ul>
-    </div>
+    <% @templates.each do |template| %>
+      <%= link_to template, "/sandbox/" + template %>
+    <% end %>
+
   </div>
 </div>

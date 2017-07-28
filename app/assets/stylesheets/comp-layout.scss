@@ -26,6 +26,11 @@
   margin: 0 auto;
 }
 
+.content_side {
+  padding-right: 25%;
+}
+
+
 /*
  * Footer
  *
@@ -104,6 +109,12 @@ footer {
       padding: 0 0.5em 2em 0.5em;
     }
 
+    &:nth-child(3n) {
+      padding-right: 0;
+    }
+    &:nth-child(3n+1) {
+      padding-left: 0;
+    }
     &:first-child {
       @include min-screen(740) {
         padding: 0 0.5em 2em 0;
@@ -136,36 +147,9 @@ footer {
         padding: 0 0 2em 0.5em;
       }
     }
-    &:nth-child(5n) {
+    &:nth-child(4n+1) {
       @include min-screen(740) {
         padding: 0 0.5em 2em 0;
-      }
-    }
-  }
-}
-
-.four_by_four.slim {
-  & > div {
-    box-sizing: border-box;
-
-    @include min-screen(740) {
-      padding: 0 0.5em 1em 0.5em;
-    }
-
-    &:first-child {
-      @include min-screen(740) {
-        padding: 0 0.5em 1em 0;
-      }
-    }
-
-    &:nth-child(4n+4) {
-      @include min-screen(740) {
-        padding: 0 0 1em 0.5em;
-      }
-    }
-    &:nth-child(5n) {
-      @include min-screen(740) {
-        padding: 0 0.5em 1em 0;
       }
     }
   }

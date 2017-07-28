@@ -12,7 +12,7 @@ en:
         dirty_forms:
           message: You have unsaved changes. Are you sure you want to leave this page?
         edit_site: Customize site
-        file_attachments: Attachments
+        file_attachments: Documents
         hey_admin: Hey, %{admin_name}
         issues: Themes
         manage_sites: Manage sites

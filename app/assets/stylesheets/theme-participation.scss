@@ -730,4 +730,72 @@ $lighter_black: rgba($color_headers, .7);
       color: $green;
     }
   }
+
+  /* Contributions page */
+  .contributions_container {
+    border-top: 3px solid $green;
+
+    .contributions_header {
+      .meta {
+        h2 {
+          color: $black;
+        }
+      }
+
+      .circle {
+        border: 2px solid $green;
+
+        span {
+          color: $green;
+        }
+      }
+
+      .contribution_action {
+        @include min-screen(1200) {
+          width: 17%;
+          float: right;
+        }
+
+        .button {
+          background: $green;
+          text-transform: none;
+          font-size: 1.25em;
+          margin-right: 0;
+
+          @include min-screen(740) {
+            padding: 0.7em 1em;
+          }
+        }
+      }
+
+      .contributions_control {
+        .circles_progress {
+          li.active {
+            background: $green;
+          }
+        }
+      }
+
+      .radio_toggle {
+        margin: 1em auto;
+        max-width: 120px;
+
+        @include min-screen(740) {
+          margin: inherit;
+        }
+
+        label {
+          &:hover {
+            background: rgba($green, 0.5) !important;
+          }
+        }
+
+        input:checked + label:after {
+          margin-left: 21px;
+          background-color: $green;
+        }
+      }
+    }
+  }
+
 }

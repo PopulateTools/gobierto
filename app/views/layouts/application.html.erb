@@ -47,7 +47,7 @@
 
 </head>
 
-<body class="<%= current_module %> <%= controller_name %> <%= action_name %> <%= controller_name %>_<%= action_name %>" <%= yield(:body_attributes) %>>
+<body class="<%= current_module_body_class %> <%= controller_name %> <%= action_name %> <%= controller_name %>_<%= action_name %> <%= yield(:body_attributes) %>">
 
   <% if @site.configuration.demo? %>
     <div class="demo_bar pure-g">

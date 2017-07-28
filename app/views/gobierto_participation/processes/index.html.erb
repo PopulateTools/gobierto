@@ -1,0 +1,17 @@
+<h1>Gobierto Participation processes index</h1>
+
+Processes:
+
+<ul>
+  <% @processes.each do |process| %>
+    <li><%= link_to process.title, gobierto_participation_process_path(process.slug) %></li>
+  <% end %>
+</ul>
+
+Groups:
+
+<ul>
+  <% @groups.each do |group| %>
+    <li><%= link_to group.title, gobierto_participation_process_path(group.slug) %></li>
+  <% end %>
+</ul>

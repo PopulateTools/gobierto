@@ -243,6 +243,15 @@ Rails.application.routes.draw do
     end
   end
 
+  # Gobierto Participation module
+  namespace :gobierto_participation, path: '/' do
+    constraints GobiertoSiteConstraint.new do
+      get 'participacion' => 'welcome#index', as: :root
+
+      resources :processes, only: [:index, :show]
+    end
+  end
+
   # Gobierto Exports module
   namespace :gobierto_exports, path: 'datos' do
     constraints GobiertoSiteConstraint.new do

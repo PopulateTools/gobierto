@@ -17,22 +17,14 @@ es:
           stage: Proceso
           information: Información
         form:
+          edit: Editar
+          edit_stage: Editar fase
           stages_and_tools: Fases y herramientas
-          process_type: Tipo de grupo
           active: Activada
-          starts: Comienzo
-          ends: Final
-          slug: Slug
-          header_image: Imagen de cabecera
-          issue: Tema
           visibility_level:
             active: Publicado
             draft: Borrador
           placeholders:
-            title: Nombre
-            body: Descripción
-            information_text: Texto de la fase de información
-            slug: Slug
-            process_stage:
-              title: Título
-              description: Descripción
+            title: Comisión de Fiestas de Carnaval
+            body: En esta comisión se tratarán temas relacionados con...
+            slug: comision-de-fiestas-de-carnaval

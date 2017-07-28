@@ -17,22 +17,14 @@ ca:
           stage: Procés
           information: Informació
         form:
+          edit: Edita
+          edit_stage: Edita fase
           stages_and_tools: Fases i eines
-          process_type: Tipus de grup
           active: Activada
-          starts: Començament
-          ends: Final
-          slug: Slug
-          header_image: Imatge de capçalera
-          issue: Tema
           visibility_level:
             active: Publicat
             draft: Borrador
           placeholders:
-            title: Nom
-            body: Descripció
-            information_text: Text de la fase d'informació
-            slug: Slug
-            process_stage:
-              title: Títol
-              description: Descripció
+            title: Comissió de Festes de Carnaval
+            body: En aquesta comissió es tractaran temes relacionats amb ...
+            slug: comissio-de-festes-de-carnaval

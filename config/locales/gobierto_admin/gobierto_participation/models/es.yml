@@ -11,6 +11,10 @@ es:
         title: Título
         body: Descripción
         slug: Slug
+        starts: Comienzo
+        ends: Final
+        process_type: Tipo de grupo
+        issue_id: Tema
     models:
       gobierto_admin/gobierto_participation/process_form: Proceso
       gobierto_admin/gobierto_participation/issue_form: Tema
@@ -21,6 +25,10 @@ es:
           process: Proceso
           group_process: Grupo
       gobierto_participation/process_stage:
+        title: Título
+        description: Descripción
+        starts: Comienzo
+        ends: Final
         stage_types:
           information: Información
           meetings: Reuniones

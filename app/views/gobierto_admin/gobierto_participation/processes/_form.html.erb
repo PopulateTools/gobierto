@@ -9,28 +9,28 @@
         <% current_site.configuration.available_locales.each do |locale| %>
           <div class="form_item input_text" data-locale="<%= locale %>">
             <%= label_tag "process[title_translations][#{locale}]", f.object.class.human_attribute_name(:title) %>
-            <%= text_field_tag "process[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title") %>
+            <%= text_field_tag "process[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t('.placeholders.title', locale: locale) %>
           </div>
 
           <div class="form_item textarea" data-locale="<%= locale %>">
             <%= label_tag "process[body_translations][#{locale}]", f.object.class.human_attribute_name(:body) %>
-            <%= text_area_tag "process[body_translations][#{locale}]", f.object.body_translations && f.object.body_translations[locale], placeholder: t(".placeholders.body") %>
+            <%= text_area_tag "process[body_translations][#{locale}]", f.object.body_translations && f.object.body_translations[locale], placeholder: t('.placeholders.body', locale: locale) %>
           </div>
 
           <div class="form_item textarea" data-locale="<%= locale %>">
             <%= label_tag "process[information_text_translations][#{locale}]", f.object.class.human_attribute_name(:information_text) %>
-            <%= text_area_tag "process[information_text_translations][#{locale}]", f.object.information_text_translations && f.object.information_text_translations[locale], placeholder: t(".placeholders.information_text") %>
+            <%= text_area_tag "process[information_text_translations][#{locale}]", f.object.information_text_translations && f.object.information_text_translations[locale] %>
           </div>
         <% end %>
       </div>
 
       <div class="form_item input_text">
-        <%= f.label :slug, t('.slug') %>
-        <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
+        <%= f.label :slug %>
+        <%= f.text_field :slug, placeholder: t('.placeholders.slug') %>
       </div>
 
       <div class="form_item file_field">
-        <%= f.label :header_image, t('.header_image') %>
+        <%= f.label :header_image %>
 
         <% if f.object.header_image_url.present? %>
           <%= image_tag f.object.header_image_url, height: 150 %>
@@ -44,7 +44,7 @@
         <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
 
           <div class="form_item select_control">
-            <%= f.label :issue_id, t('.issue') %>
+            <%= f.label :issue_id %>
             <%= f.select(:issue_id, @issues, { include_blank: '-' }) %>
           </div>
 
@@ -69,7 +69,7 @@
       <div class="pure-g">
         <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
           <div class="form_item input_text">
-            <%= f.label :starts, t('.starts') %>
+            <%= f.label :starts %>
             <%= f.text_field :starts, data: {
                 "language": I18n.locale,
                 "date-format": "yyyy-mm-dd",
@@ -83,7 +83,7 @@
 
         <div class="pure-u-1 pure-u-md-1-2">
           <div class="form_item input_text">
-            <%= f.label :ends, t('.ends') %>
+            <%= f.label :ends %>
             <%= f.text_field :ends, data: {
                 "language": I18n.locale,
                 "date-format": "yyyy-mm-dd",
@@ -102,7 +102,7 @@
 
           <div id="process_type_radio_buttons" class="options compact">
 
-            <h3><%= t('.process_type') %></h3>
+            <h3><%= t('activemodel.attributes.gobierto_admin/gobierto_participation/process_form.process_type') %></h3>
 
             <% GobiertoParticipation::Process.process_types.keys.each do |type| %>
               <div class="option">
@@ -134,7 +134,7 @@
                 <%= stage_form.check_box :active %> <%= t('.active') %>
               </div>
               <div class="tools">
-                <%= link_to '<i class="fa fa-edit"></i>'.html_safe, "#edit_stage_#{stage_form.index}", title: 'Editar', class: 'tipsit open_modal' %>
+                <%= link_to '<i class="fa fa-edit"></i>'.html_safe, "#edit_stage_#{stage_form.index}", title: t('.edit'), class: 'tipsit open_modal' %>
               </div>
             </div>
             <!-- ./ Edit popup trigger -->
@@ -142,7 +142,7 @@
             <!-- Edit popup -->
             <div class="modal mfp-hide" id="<%= "edit_stage_#{stage_form.index}" %>">
 
-              <h2>Editar fase: <%= stage_form.object.stage_type %></h2>
+              <h2><%= t('.edit_stage') %>: <%= translate_enum_value(GobiertoParticipation::ProcessStage, :stage_type, stage_form.object.stage_type) %></h2>
 
               <div class="globalized_fields">
 
@@ -150,22 +150,22 @@
 
                 <%= stage_form.hidden_field :stage_type %>
 
-                <% I18n.available_locales.map(&:to_s).each do |locale| %>
+                <% current_site.configuration.available_locales.each do |locale| %>
                   <div class="form_item input_text" data-locale="<%= locale %>">
                     <%= label_tag "process[stages_attributes][#{stage_form.index}][title_translations][#{locale}]", stage_form.object.class.human_attribute_name(:title) %>
-                    <%= text_field_tag "process[stages_attributes][#{stage_form.index}][title_translations][#{locale}]", stage_form.object.title_translations && stage_form.object.title_translations[locale], placeholder: t(".placeholders.process_stage.title") %>
+                    <%= text_field_tag "process[stages_attributes][#{stage_form.index}][title_translations][#{locale}]", stage_form.object.title_translations && stage_form.object.title_translations[locale] %>
                   </div>
 
                   <div class="form_item input_text" data-locale="<%= locale %>">
                     <%= label_tag "process[stages_attributes][#{stage_form.index}][description_translations][#{locale}]", stage_form.object.class.human_attribute_name(:description) %>
-                    <%= text_area_tag "process[stages_attributes][#{stage_form.index}][description_translations][#{locale}]", stage_form.object.description_translations && stage_form.object.description_translations[locale], placeholder: t(".placeholders.process_stage.description") %>
+                    <%= text_area_tag "process[stages_attributes][#{stage_form.index}][description_translations][#{locale}]", stage_form.object.description_translations && stage_form.object.description_translations[locale] %>
                   </div>
                 <% end %>
 
                 <div class="pure-g">
                   <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
                     <div class="form_item input_text">
-                      <%= stage_form.label :starts, t('.starts') %>
+                      <%= stage_form.label :starts %>
                       <%= stage_form.text_field :starts, data: {
                           "language": I18n.locale,
                           "date-format": "yyyy-mm-dd",
@@ -179,7 +179,7 @@
 
                   <div class="pure-u-1 pure-u-md-1-2">
                     <div class="form_item input_text">
-                      <%= stage_form.label :ends, t('.ends') %>
+                      <%= stage_form.label :ends %>
                       <%= stage_form.text_field :ends, data: {
                           "language": I18n.locale,
                           "date-format": "yyyy-mm-dd",

@@ -7,15 +7,15 @@ en:
           collections: Collections
           header:
             collection: Collection
-            file_attachments: Attachments
+            file_attachments: Documents
           latest_editions: Latests editions
           new: New
           title: Attachments
           view_collection: View collection
         edit:
-          title: Edit attachment
+          title: Edit document
         form:
-          file_constraints: Attach file
+          file_constraints: Attach document
           placeholders:
             name: File name
             description: Document description

@@ -53,4 +53,4 @@ en:
       gobierto_admin/user_form: User
       gobierto_admin/user_password_form: Password change
       gobierto_admin/user_welcome_message_form: Welcome message
-      gobierto_admin/file_attachment_form: Attachment change
+      gobierto_admin/file_attachment_form: Document change

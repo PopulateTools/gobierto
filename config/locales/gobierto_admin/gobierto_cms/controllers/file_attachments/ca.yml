@@ -4,7 +4,6 @@ ca:
     gobierto_cms:
       file_attachments:
         create:
-          success_html: El fitxer ha estat creada correctament. <a href="%{link}">Veure
-            la pàgina</a>.
+          success_html: El document s'ha creat correctament.
         update:
-          success_html: El fitxer ha estat actualitzada correctament.
+          success_html: El document s'ha actualitzat correctament.

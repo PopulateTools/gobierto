@@ -33,11 +33,11 @@
                 <div class="pure-u-1 pure-u-md-12-24 pure-u-lg-15-24">
                   <p>Mostrar ideas</p>
 
-                  <a class="button rounded outline">Todas</a>
-                  <a class="button rounded outline">Mejor valoradas</a>
-                  <a class="button rounded outline">Peor valoradas</a>
-                  <a class="button rounded outline">Recientes</a>
-                  <a class="button rounded outline">Tuyas</a>
+                  <a class="button rounded outline cardControl checked" data-filter="all">Todas</a>
+                  <a class="button rounded outline cardControl" data-filter="best_ratings">Mejor valoradas</a>
+                  <a class="button rounded outline cardControl" data-filter="worst_ratings">Peor valoradas</a>
+                  <a class="button rounded outline cardControl" data-filter="recent">Recientes</a>
+                  <a class="button rounded outline cardControl" data-filter="self">Tuyas</a>
                 </div>
 
                 <div class="pure-u-1 pure-u-md-1-24"></div>
@@ -46,7 +46,7 @@
                   <div class="radio_toggle">
                     <span>Organizar</span>
                     <input id="contributions_checkbox" type="checkbox">
-                    <label for="contributions_checkbox" class="toggleLayout"></label>
+                    <label for="contributions_checkbox" class="toggleLayout" data-toggle="false"></label>
                   </div>
                 </div>
 
@@ -74,6 +74,7 @@
 
 <script type="text/javascript">
 var data = ['Incentivar el uso del transporte público', '+ bicis + buses - coches', 'Deberían plantarse más árboles', 'Es demasiado tarde para hacer nada', 'Poner metro', 'Reducir el número de plazas de aparcamiento público', 'Ya no se puede hacer nada', 'Fomentar el uso racional del transporte', 'No lo creo', 'Reducir la carga y descarga', 'Incentivar el uso del transporte público', '¡Prohibir los coches!', 'Reducir la velocidad de los coches lo máximo posible'];
+var now = new Date;
 
 var width = 1184,
     height = 600,
@@ -98,11 +99,19 @@ var nodes = data.map(function(d, i) {
     // x: (i + 1) * d3.randomUniform(20)(),
     // y: (i + 1) * d3.randomUniform(20)(),
     z: z(i) * d3.randomUniform(2)(),
-    love: Math.floor(d3.randomUniform(5)()),
+    love: Math.floor(d3.randomUniform(10)()),
     like: Math.floor(d3.randomUniform(10)()),
     neutral: Math.floor(d3.randomUniform(10)()),
-    hate: Math.floor(d3.randomUniform(5)())
+    hate: Math.floor(d3.randomUniform(10)())
   }
+});
+
+nodes.forEach(function(d) {
+  d.total = d.love + d.like + d.neutral + d.hate,
+  d.love_pct = Math.floor(d.love / d.total * 100)
+  d.like_pct = Math.floor(d.like / d.total * 100)
+  d.neutral_pct = Math.floor(d.neutral / d.total * 100)
+  d.hate_pct = Math.floor(d.hate / d.total * 100)
 });
 
 var simulation = d3.forceSimulation(nodes)
@@ -111,9 +120,6 @@ var simulation = d3.forceSimulation(nodes)
   .force("x", d3.forceX(function(d, i) { return x(i); }).strength(.1));
 
 var contributions = d3.select('.contributions_container');
-
-contributions.select('.toggleLayout')
-  .on('click', clicked);
 
 contributions.select('.contributions_content')
   .append('div')
@@ -131,14 +137,7 @@ card
   .append('div')
   .attr('class', 'gradient_bar')
   .style('background', function(d) {
-    var categories = [d.love, d.like, d.neutral, d.hate];
-    var totalVotes = d3.sum(categories);
-
-    var pct = categories.map(function(d) {
-      return (d / totalVotes) * 100;
-    });
-
-    return 'linear-gradient(to right, #38b486 ' + pct[0] +'%, #429aad ' + pct[1] + '%, #9c7e7e ' + pct[2] + '%, #f06659 ' + pct[3] + '%)';
+    return 'linear-gradient(to right, #38b486 ' + d.love_pct +'%, #429aad ' + d.like_pct + '%, #9c7e7e ' + d.neutral_pct + '%, #f06659 ' + d.hate_pct + '%)';
     // return 'linear-gradient(to right, #38b486, #429aad, #9c7e7e, #f06659)';
   });
 
@@ -157,23 +156,56 @@ card
 
 simulation.on('tick', ticked);
 
+/* Buttons */
+contributions.select('.toggleLayout')
+  .on('click', updateLayout);
+
+contributions.selectAll('.cardControl')
+  .on('click', updateCards);
+
+function updateLayout() {
+  var isChecked = eval(d3.select(this).attr('data-toggle'));
+
+  if (isChecked) {
+    d3.select(this).attr('data-toggle', false);
+    d3.select('.contributions_content').classed('toggled', false);
+  } else {
+    d3.select(this).attr('data-toggle', true);
+    d3.select('.contributions_content').classed('toggled', true);
+  }
+}
+
+function updateCards() {
+  var toggleFilter = d3.select(this).attr('data-filter');
+
+  contributions.selectAll('.cardControl').classed('checked', false);
+  d3.select(this).classed('checked', true);
+
+  switch(toggleFilter) {
+    case 'all':
+      d3.selectAll('.card').style('display', 'flex');
+      break;
+    case 'best_ratings':
+      d3.selectAll('.card')
+        .filter(function(d) { return d.love_pct < 50; })
+        .style('display', 'none');
+      break;
+    case 'worst_ratings':
+      d3.selectAll('.card')
+        .filter(function(d) { return d.hate_pct < 20; })
+        .style('display', 'none');
+      break;
+    case 'recent':
+      break;
+    case 'self':
+  }
+}
+
+
 function ticked() {
   card
     .style('left', function(d, i) { return d.x + 'px'; })
     .style('top', function(d, i) { return d.y + 'px'; });
-}
-
-
-function clicked() {
-  var isChecked = d3.select(this).classed('checked');
-
-  if (isChecked) {
-    d3.select(this).classed('checked', false);
-    d3.select('.contributions_content').classed('toggled', false);
-  } else {
-    d3.select(this).classed('checked', true);
-    d3.select('.contributions_content').classed('toggled', true);
-  }
 }
 
 function started(d) {

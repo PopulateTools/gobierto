@@ -18,9 +18,6 @@ es:
             charge: Alcalde
             email: Correo-e
             name: Rafael García
-          visibility_level:
-            active: Publicada
-            draft: Borrador
         index:
           configuration: Configuración
           drag_to_sort: Arrastra para ordenar

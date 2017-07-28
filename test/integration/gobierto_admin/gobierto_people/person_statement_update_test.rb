@@ -45,7 +45,7 @@ module GobiertoAdmin
                   attach_file "person_statement_attachment_file", "test/fixtures/files/gobierto_people/people/person_statement/attachment.pdf"
                 end
 
-                within ".person-statement-visibility-level-radio-buttons" do
+                within ".widget_save" do
                   find("label", text: "Draft").click
                 end
 
@@ -70,7 +70,7 @@ module GobiertoAdmin
                   assert has_selector?("a")
                 end
 
-                within ".person-statement-visibility-level-radio-buttons" do
+                within ".widget_save" do
                   with_hidden_elements do
                     assert has_checked_field?("Draft")
                   end

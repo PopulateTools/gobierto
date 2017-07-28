@@ -9,9 +9,6 @@ ca:
           form:
             placeholders:
               title: Declaració de béns i activitats
-            visibility_level:
-              active: Publicada
-              draft: Borrador
           index:
             header:
               date: Data

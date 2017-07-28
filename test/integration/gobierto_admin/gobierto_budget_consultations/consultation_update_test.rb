@@ -30,7 +30,7 @@ module GobiertoAdmin
               fill_in "consultation_description", with: "Consultation Description"
               fill_in "consultation_opening_date_range", with: "2016-01-01 - 2016-12-01"
 
-              within ".consultation-visibility-level-radio-buttons" do
+              within ".widget_save" do
                 choose "Draft"
               end
 
@@ -44,7 +44,7 @@ module GobiertoAdmin
               assert has_field?("consultation_description", with: "Consultation Description")
               assert has_field?("consultation_opening_date_range", with: "2016-01-01 - 2016-12-01")
 
-              within ".consultation-visibility-level-radio-buttons" do
+              within ".widget_save" do
                 assert has_checked_field?("Draft")
               end
             end

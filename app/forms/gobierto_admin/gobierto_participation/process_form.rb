@@ -16,6 +16,7 @@ module GobiertoAdmin
         :header_image,
         :header_image_url,
         :stages,
+        :visibility_level,
         :issue_id
       )
 
@@ -52,6 +53,10 @@ module GobiertoAdmin
 
       def ends
         process? ? @ends : nil
+      end
+
+      def visibility_level
+        @visibility_level ||= 'draft'
       end
 
       def issue
@@ -158,6 +163,7 @@ module GobiertoAdmin
           process_attributes.body_translations  = body_translations
           process_attributes.information_text_translations = information_text_translations
           process_attributes.header_image_url   = header_image_url
+          process_attributes.visibility_level   = visibility_level
           process_attributes.process_type       = process_type
           process_attributes.starts             = starts
           process_attributes.ends               = ends

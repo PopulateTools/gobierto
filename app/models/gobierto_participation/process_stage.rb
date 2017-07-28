@@ -19,10 +19,5 @@ module GobiertoParticipation
 
     scope :sorted, -> { order(id: :desc) }
 
-    def initialize(params = {})
-      super(params)
-      self.write_attribute(:active, params[:active]) if params[:active]
-    end
-
   end
 end

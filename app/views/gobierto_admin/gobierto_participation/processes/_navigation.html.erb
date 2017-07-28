@@ -1,0 +1,11 @@
+<div class="tabs">
+  <ul>
+    <li class="<%= class_if('active', controller_name == 'processes') %>">
+      <%= link_to t('.stage'), edit_admin_participation_process_path(@process_form) %>
+    </li>
+    <li class="<%= class_if("active", false) %>">
+      <!-- Temptative URL: edit_admin_participation_process_stage(@process_form.process_stages.select { |s| s.stage_type == 'information'} ) -->
+      <%= link_to "🛠 #{t(".information")}", '#', data: {disabled: true}, title: 'TODO: implement' %>
+    </li>
+  </ul>
+</div>

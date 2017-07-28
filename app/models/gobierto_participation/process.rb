@@ -24,7 +24,7 @@ module GobiertoParticipation
     enum process_type: { process: 0, group_process: 1 }
 
     validates :site, :title, :body, presence: true
-    validates :slug, uniqueness: true
+    validates :slug, uniqueness: { scope: :site }
 
     scope :sorted, -> { order(id: :desc) }
 

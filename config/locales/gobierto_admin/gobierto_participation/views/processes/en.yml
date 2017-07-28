@@ -13,14 +13,18 @@ en:
           success: Process was successfully created
         update:
           success: Process was successfully updated
+        navigation:
+          stage: Stage
+          information: Information
         form:
+          edit: Edit
+          edit_stage: Edit stage
           stages_and_tools: Stages and tools
-          process_type: Group type
+          active: Active
+          visibility_level:
+            active: Published
+            draft: Draft
           placeholders:
-            title: Name
-            body: Description
-            information_text: Information stage text
-            slug: Slug
-            process_stage:
-              title: Título
-              description: Description
+            title: Carnival Party Commission
+            body: This committee will discuss issues related to ...
+            slug: carnival-party-commission

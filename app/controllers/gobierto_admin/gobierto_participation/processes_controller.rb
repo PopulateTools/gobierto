@@ -12,12 +12,14 @@ module GobiertoAdmin
 
       def new
         @process_form = ProcessForm.new(site_id: current_site.id)
+        @process_visibility_levels = get_process_visibility_levels
         @issues = find_issues
       end
 
       def edit
         @process = find_process
         @issues  = find_issues
+        @process_visibility_levels = get_process_visibility_levels
 
         @process_form = ProcessForm.new(
           @process.attributes.except(*ignored_process_attributes).merge(site_id: current_site.id)
@@ -34,6 +36,8 @@ module GobiertoAdmin
             notice: t('.success')
           )
         else
+          @issues = find_issues
+          @process_visibility_levels = get_process_visibility_levels
           render :new
         end
       end
@@ -49,7 +53,8 @@ module GobiertoAdmin
             notice: t('.success')
           )
         else
-          @issues  = find_issues
+          @issues = find_issues
+          @process_visibility_levels = get_process_visibility_levels
           render :edit
         end
       end
@@ -72,6 +77,7 @@ module GobiertoAdmin
           :ends,
           :header_image,
           :issue_id,
+          :visibility_level,
           title_translations: [*I18n.available_locales],
           body_translations:  [*I18n.available_locales],
           information_text_translations: [*I18n.available_locales],
@@ -88,7 +94,7 @@ module GobiertoAdmin
       end
 
       def ignored_process_attributes
-        %w( visibility_level created_at updated_at site_id title body )
+        %w( created_at updated_at site_id title body )
       end
 
       def default_activity_params
@@ -101,6 +107,10 @@ module GobiertoAdmin
 
       def track_update_process
         Publishers::GobiertoParticipationProcessActivity.broadcast_event('process_updated', default_activity_params.merge(subject: @process))
+      end
+
+      def get_process_visibility_levels
+        ::GobiertoParticipation::Process.visibility_levels
       end
 
     end

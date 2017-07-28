@@ -1,9 +1,6 @@
 module GobiertoAdmin
   module GobiertoCms
     class FileAttachmentsController < BaseController
-      before_action { module_enabled!(current_site, 'GobiertoCms') }
-      before_action { module_allowed!(current_admin, 'GobiertoCms') }
-
       def index
         @collections = current_site.collections.by_item_type('GobiertoAttachments::Attachment')
         @file_attachments = ::GobiertoAttachments::Attachment.file_attachments_in_collections(current_site).sort_by_updated_at(10)

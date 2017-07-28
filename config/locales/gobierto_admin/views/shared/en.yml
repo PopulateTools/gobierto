@@ -21,3 +21,8 @@ en:
       form_locale_switchers:
         define_content_in_locale: Define the content in %{locale_name} version
         translate: Translate
+      save_widget:
+        visibility_level:
+          active: Published
+          draft: Draft
+

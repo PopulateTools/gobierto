@@ -9,9 +9,6 @@ ca:
           placeholders:
             slug: sobre-aquesta-web
             title: Títol de la pàgina
-          visibility_level:
-            active: Publicada
-            draft: Borrador
         index:
           created_at: Creada
           new: Nova

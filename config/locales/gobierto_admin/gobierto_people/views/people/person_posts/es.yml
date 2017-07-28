@@ -10,9 +10,6 @@ es:
             placeholders:
               tags: personal, sobre mi, mi carrera
               title: Sobre mí
-            visibility_level:
-              active: Publicado
-              draft: Borrador
           index:
             header:
               date: Fecha

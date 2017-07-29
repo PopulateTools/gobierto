@@ -10,6 +10,7 @@
 ::Subscribers::GobiertoParticipationIssueActivity.attach_to('activities/gobierto_participation_processes')
 ::Subscribers::GobiertoBudgetsBudgetLineActivity.attach_to('activities/gobierto_budgets_budget_line')
 ::Subscribers::GobiertoCommonCollectionActivity.attach_to('activities/gobierto_common_collections')
+::Subscribers::GobiertoAttachmentsAttachmentActivity.attach_to('activities/gobierto_attachments_attachments')
 
 # Custom subscribers
 ActiveSupport::Notifications.subscribe(/trackable/) do |*args|

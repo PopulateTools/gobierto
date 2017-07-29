@@ -19,6 +19,9 @@ en:
         site_ids: Sites
       gobierto_admin/admin_new_password_form:
         email: Email
+      gobierto_admin/file_attachment_form:
+        name: Name
+        description: Description
       gobierto_admin/site_form:
         available_locales: Available locales
         default_locale: Default locale
@@ -50,3 +53,4 @@ en:
       gobierto_admin/user_form: User
       gobierto_admin/user_password_form: Password change
       gobierto_admin/user_welcome_message_form: Welcome message
+      gobierto_admin/file_attachment_form: Document change

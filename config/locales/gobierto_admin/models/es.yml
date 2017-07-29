@@ -19,6 +19,9 @@ es:
         site_ids: Sites
       gobierto_admin/admin_new_password_form:
         email: Email
+      gobierto_admin/file_attachment_form:
+        name: Nombre
+        description: Descripción
       gobierto_admin/site_form:
         available_locales: Idiomas disponibles
         default_locale: Idioma por defecto
@@ -50,3 +53,4 @@ es:
       gobierto_admin/user_form: Usuario
       gobierto_admin/user_password_form: Cambio de contraseña
       gobierto_admin/user_welcome_message_form: Email de bienvenida
+      gobierto_admin/file_attachment_form: Cambio en el documento

@@ -21,9 +21,6 @@ en:
           edit_stage: Edit stage
           stages_and_tools: Stages and tools
           active: Active
-          visibility_level:
-            active: Published
-            draft: Draft
           placeholders:
             title: Carnival Party Commission
             body: This committee will discuss issues related to ...

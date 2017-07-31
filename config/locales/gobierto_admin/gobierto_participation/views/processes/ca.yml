@@ -21,9 +21,6 @@ ca:
           edit_stage: Edita fase
           stages_and_tools: Fases i eines
           active: Activada
-          visibility_level:
-            active: Publicat
-            draft: Borrador
           placeholders:
             title: Comissió de Festes de Carnaval
             body: En aquesta comissió es tractaran temes relacionats amb ...

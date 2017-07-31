@@ -15,4 +15,4 @@ en:
         already_uploaded: not unique (already uploaded at
         file_too_big: File exceeds max size
     models:
-      gobierto_attachments/attachment: Attachment
+      gobierto_attachments/attachment: Document

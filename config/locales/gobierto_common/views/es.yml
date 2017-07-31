@@ -3,9 +3,9 @@ es:
   gobierto_common:
     dynamic_content:
       table_component:
-        attachment: Adjunto
+        attachment: Documento
         download: Descargar
-        download_attachment: Descargar adjunto
+        download_attachment: Descargar documento
     events:
       gobierto_common_collection_created: Colección creada
       gobierto_common_collection_updated: Colección actualizada

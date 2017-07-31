@@ -19,6 +19,9 @@ ca:
         site_ids: Sites
       gobierto_admin/admin_new_password_form:
         email: Email
+      gobierto_admin/file_attachment_form:
+        name: Nom
+        description: Descripció
       gobierto_admin/site_form:
         available_locales: Idiomes disponibles
         default_locale: Idioma per defecte
@@ -50,3 +53,4 @@ ca:
       gobierto_admin/user_form: Usuari
       gobierto_admin/user_password_form: Canvi de contrasenya
       gobierto_admin/user_welcome_message_form: Email de benvinguda
+      gobierto_admin/file_attachment_form: Canvi en el fitxer

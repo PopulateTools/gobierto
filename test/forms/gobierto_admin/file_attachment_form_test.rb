@@ -10,14 +10,17 @@ module GobiertoAdmin
         file: Rack::Test::UploadedFile.new(
           Rails.root.join("test/fixtures/files/sites/logo-madrid.png")
         ),
-        site: site,
+        site_id: site.id,
         collection: "wadus"
       )
     end
 
     def invalid_file_attachment_form
       @invalid_file_attachment_form ||= FileAttachmentForm.new(
-        file: nil
+        site_id: nil,
+        file: nil,
+        name: nil,
+        description: nil
       )
     end
 
@@ -43,7 +46,7 @@ module GobiertoAdmin
 
         assert_equal(
           "http://www.madrid.es/assets/images/logo-madrid.png",
-          valid_file_attachment_form.file_url
+          valid_file_attachment_form.url
         )
       end
     end

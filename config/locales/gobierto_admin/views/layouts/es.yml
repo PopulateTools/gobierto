@@ -12,6 +12,7 @@ es:
         dirty_forms:
           message: Hay cambios sin guardar. ¿Estás seguro de querer continuar?
         edit_site: Personalizar sitio
+        file_attachments: Documentos
         hey_admin: Hola, %{admin_name}
         issues: Temas
         manage_sites: Gestionar sites

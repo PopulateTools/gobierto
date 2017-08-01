@@ -2,7 +2,7 @@ require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoCommon
-    class CreateCollectionTest < ActionDispatch::IntegrationTest
+    class CreateCmsPagesCollectionTest < ActionDispatch::IntegrationTest
       def setup
         super
         @path = admin_cms_pages_path
@@ -53,8 +53,6 @@ module GobiertoAdmin
               click_button 'Create'
 
               assert has_message?('Collection was successfully created.')
-
-              click_link 'My collection'
 
               assert has_selector?('h1', text: 'My collection')
 

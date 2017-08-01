@@ -4,6 +4,8 @@ module GobiertoCalendars
   class Event < ApplicationRecord
     paginates_per 8
 
+    attr_accessor :admin_id
+
     include User::Subscribable
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
@@ -35,6 +37,10 @@ module GobiertoCalendars
     scope :by_date,  ->(date) { where("starts_at::date = ?", date) }
     scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
 
+    scope :by_collection, ->(collection) do
+      where(collection_id: collection.id)
+    end
+
     scope :by_site, ->(site) do
       where(site_id: site.id)
     end
@@ -55,12 +61,6 @@ module GobiertoCalendars
     end
 
     enum state: { pending: 0, published: 1 }
-
-    def admin_id
-      if collection
-        collection.container.admin_id
-      end
-    end
 
     def parameterize
       { container_slug: collection.container.slug, slug: slug }

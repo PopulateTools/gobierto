@@ -17,7 +17,9 @@ module Subscribers
     def create_activity_from_event(event, action)
       subject = GlobalID::Locator.locate event.payload[:gid]
       return unless subject.class.parent == GobiertoCalendars
-      author = GobiertoAdmin::Admin.find event.payload[:admin_id]
+      author = GobiertoAdmin::Admin.find_by id: event.payload[:admin_id]
+      # When the author is nil, we can asume the action has been performed by an integration
+      return if author.nil?
       action = subject.class.name.underscore.tr('/', '.') + '.' + action
 
       recipient = subject.collection.container

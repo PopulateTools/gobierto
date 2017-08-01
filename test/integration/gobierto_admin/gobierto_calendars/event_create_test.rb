@@ -2,13 +2,17 @@ require "test_helper"
 require "support/file_uploader_helpers"
 
 module GobiertoAdmin
-  module GobiertoPeople
-    class PersonEventCreateTest < ActionDispatch::IntegrationTest
+  module GobiertoCalendars
+    class EventCreateTest < ActionDispatch::IntegrationTest
       include FileUploaderHelpers
 
       def setup
         super
-        @path = new_admin_people_person_event_path(person)
+        @path = new_admin_calendars_collection_event_path(collection)
+      end
+
+      def collection
+        @collection ||= person.events_collection
       end
 
       def person
@@ -27,25 +31,25 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
-      def test_person_event_create
+      def test_event_create
         with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
 
-              within "form.new_person_event" do
-                fill_in "person_event_title_translations_en", with: "Event Title"
-                fill_in "person_event_starts_at", with: "2017-01-01 00:00"
-                fill_in "person_event_ends_at", with: "2017-01-01 00:01"
-                find("#person_event_description_translations_en", visible: false).set("Event Description")
+              within "form.new_event" do
+                fill_in "event_title_translations_en", with: "Event Title"
+                fill_in "event_starts_at", with: "2017-01-01 00:00"
+                fill_in "event_ends_at", with: "2017-01-01 00:01"
+                find("#event_description_translations_en", visible: false).set("Event Description")
 
                 click_link "ES"
-                fill_in "person_event_title_translations_es", with: "Título Evento"
-                find("#person_event_description_translations_es", visible: false).set("Descripción Evento")
+                fill_in "event_title_translations_es", with: "Título Evento"
+                find("#event_description_translations_es", visible: false).set("Descripción Evento")
 
                 within ".attachment_file_field" do
                   refute has_selector?("a")
-                  attach_file "person_event_attachment_file", "test/fixtures/files/gobierto_people/people/person_event/attachment.pdf"
+                  attach_file "event_attachment_file", "test/fixtures/files/gobierto_calendars/events/attachment.pdf"
                 end
 
                 within "#person-event-locations" do
@@ -82,15 +86,15 @@ module GobiertoAdmin
 
               assert has_message?("Event was successfully created. See the event.")
 
-              within "form.edit_person_event" do
-                assert has_field?("person_event_title_translations_en", with: "Event Title")
+              within "form.edit_event" do
+                assert has_field?("event_title_translations_en", with: "Event Title")
 
-                assert has_field?("person_event_starts_at", with: "2017-01-01 00:00")
-                assert has_field?("person_event_ends_at", with: "2017-01-01 00:01")
+                assert has_field?("event_starts_at", with: "2017-01-01 00:00")
+                assert has_field?("event_ends_at", with: "2017-01-01 00:01")
 
                 assert_equal(
                   "<div>Event Description</div>",
-                  find("#person_event_description_translations_en", visible: false).value
+                  find("#event_description_translations_en", visible: false).value
                 )
 
                 within ".attachment_file_field" do
@@ -112,11 +116,11 @@ module GobiertoAdmin
 
                 click_link "ES"
 
-                assert has_field?("person_event_title_translations_es", with: "Título Evento")
+                assert has_field?("event_title_translations_es", with: "Título Evento")
 
                 assert_equal(
                   "<div>Descripción Evento</div>",
-                  find("#person_event_description_translations_es", visible: false).value
+                  find("#event_description_translations_es", visible: false).value
                 )
               end
             end

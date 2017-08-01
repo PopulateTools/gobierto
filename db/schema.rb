@@ -100,13 +100,13 @@ ActiveRecord::Schema.define(version: 20170731151716) do
   end
 
   create_table "collection_items", force: :cascade do |t|
-    t.bigint "collection_id"
     t.string "item_type"
     t.bigint "item_id"
     t.string "container_type"
     t.bigint "container_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "collection_id"
     t.index ["collection_id"], name: "index_collection_items_on_collection_id"
     t.index ["container_type", "container_id"], name: "index_collection_items_on_container_type_and_container_id"
     t.index ["item_type", "item_id"], name: "index_collection_items_on_item_type_and_item_id"

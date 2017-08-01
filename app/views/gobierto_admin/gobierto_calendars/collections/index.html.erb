@@ -15,7 +15,7 @@
       <% @events.each do |event| %>
         <div class="activity_item">
           <h2>
-            <%= link_to '#' do %>
+            <%= link_to edit_admin_calendars_collection_event_path(event.collection, event) do %>
               <%= event.title %>
             <% end %>
           </h2>
@@ -49,7 +49,7 @@
         <% @collections.each do |collection| %>
           <tr>
             <td><%= link_to collection.title, admin_common_collection_path(collection) %></td>
-            <td><%= collection.collection_items.count %></td>
+            <td><%= GobiertoCalendars::Event.by_collection(collection).count %></td>
             <td>
               <%= link_to admin_common_collection_path(collection), target: "_blank", class: "view_item" do %>
                 <i class="fa fa-eye"></i>

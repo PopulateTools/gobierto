@@ -13,6 +13,13 @@ module GobiertoAdmin
                          when 'GobiertoAttachments::Attachment'
                            @file_attachments = ::GobiertoAttachments::Attachment.where(id: @collection.file_attachments_in_collection)
                            new_admin_cms_file_attachment_path(collection_id: @collection.id)
+                         when 'GobiertoCalendars::Event'
+                           if @collection.container.is_a?(::GobiertoPeople::Person)
+                             redirect_to admin_people_person_events_path(@collection.container) and return
+                           end
+                           @events_presenter = GobiertoAdmin::GobiertoCalendars::EventsPresenter.new(@collection)
+                           @events = ::GobiertoCalendars::Event.by_collection(@collection)
+                           nil
                          end
       end
 
@@ -48,14 +55,8 @@ module GobiertoAdmin
         if @collection_form.save
           track_create_activity
 
-          redirect_to_path = case @collection_form.collection.item_type
-                             when 'GobiertoCms::Page'
-                               admin_cms_pages_path
-                             when 'GobiertoAttachments::Attachment'
-                               admin_cms_file_attachments_path
-                             end
           redirect_to(
-            redirect_to_path,
+            admin_common_collection_path(@collection_form.collection),
             notice: t('.success')
           )
         else
@@ -77,7 +78,7 @@ module GobiertoAdmin
           track_update_activity
 
           redirect_to(
-            admin_common_collections_path(@collection),
+            admin_common_collection_path(@collection),
             notice: t('.success')
           )
         else

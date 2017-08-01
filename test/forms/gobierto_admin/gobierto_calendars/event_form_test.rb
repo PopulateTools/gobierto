@@ -1,11 +1,11 @@
 require "test_helper"
 
 module GobiertoAdmin
-  module GobiertoPeople
-    class PersonEventFormTest < ActiveSupport::TestCase
+  module GobiertoCalendars
+    class EventFormTest < ActiveSupport::TestCase
       def valid_event_form
-        @valid_event_form ||= PersonEventForm.new(
-          person_id: person.id,
+        @valid_event_form ||= EventForm.new(
+          collection_id: collection.id,
           title_translations: {I18n.locale => event.title},
           description_translations: {I18n.locale => event.description},
           attachment_url: event.attachment_url,
@@ -18,8 +18,8 @@ module GobiertoAdmin
       end
 
       def invalid_event_form
-        @invalid_event_form ||= PersonEventForm.new(
-          person_id: nil,
+        @invalid_event_form ||= EventForm.new(
+          collection_id: nil,
           title_translations: {},
           description_translations: {},
           attachment_url: event.attachment_url,
@@ -50,7 +50,6 @@ module GobiertoAdmin
       def test_error_messages_with_invalid_attributes
         invalid_event_form.save
 
-        assert_equal 1, invalid_event_form.errors.messages[:person].size
         assert_equal 1, invalid_event_form.errors.messages[:collection].size
         assert_equal 1, invalid_event_form.errors.messages[:site].size
         assert_equal 1, invalid_event_form.errors.messages[:title_translations].size

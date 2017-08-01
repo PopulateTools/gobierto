@@ -1,15 +1,19 @@
 require "test_helper"
 
 module GobiertoAdmin
-  module GobiertoPeople
-    class PersonEventsPresenterTest < ActiveSupport::TestCase
+  module GobiertoCalendars
+    class EventsPresenterTest < ActiveSupport::TestCase
       def setup
         super
-        @subject = PersonEventsPresenter.new(person)
+        @subject = EventsPresenter.new(collection)
       end
 
       def person
         @person ||= gobierto_people_people(:richard)
+      end
+
+      def collection
+        @collection ||= gobierto_common_collections(:richard_calendar)
       end
 
       def test_events_count

@@ -54,10 +54,8 @@ Rails.application.routes.draw do
         collection do
           resource :people_sort, only: [:create], controller: "people/people_sort", path: :people_sort
         end
+        # TODO
         resources :person_events, only: [:index, :new, :create, :edit, :update], controller: "people/person_events", as: :events, path: :events
-        resources :published_person_events, only: [:index], controller: "people/published_person_events", as: :published_events, path: "events/published"
-        resources :pending_person_events, only: [:index], controller: "people/pending_person_events", as: :pending_events, path: "events/pending"
-        resources :past_person_events, only: [:index], controller: "people/past_person_events", as: :past_events, path: "events/past"
         resources :person_statements, only: [:index, :new, :create, :edit, :update], controller: "people/person_statements", as: :statements, path: :statements
         resources :person_posts, only: [:index, :new, :create, :edit, :update], controller: "people/person_posts", as: :posts, path: :blog
         resource :person_calendar_configuration, only: [:edit, :update], controller: "people/person_calendar_configuration", as: :calendar_configuration, path: :calendar_configuration
@@ -107,8 +105,9 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_calendars, as: :calendars do
-      resources :collections, only: [:index]
-      resources :events
+      resources :collections, only: [:index] do
+        resources :events
+      end
     end
   end
 

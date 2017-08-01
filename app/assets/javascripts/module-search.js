@@ -38,7 +38,7 @@ $(document).on('turbolinks:load', function() {
       case 'GobiertoPeople::PersonPost':
         return I18n.t("layouts.search.person_post_item");
       case 'GobiertoCalendars::Event':
-        return I18n.t("layouts.search.person_event_item");
+        return I18n.t("layouts.search.event_item");
       case 'GobiertoPeople::PersonStatement':
         return I18n.t("layouts.search.person_statement_item");
       case 'GobiertoCms::Page':

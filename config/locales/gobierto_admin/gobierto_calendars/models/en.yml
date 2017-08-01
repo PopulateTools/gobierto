@@ -1,0 +1,12 @@
+---
+en:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_calendars/event_form:
+        attachment_file: Attached file
+        description: Description
+        ends_at: End date
+        starts_at: Start date
+        title: Title
+    models:
+      gobierto_admin/gobierto_calendars/event_form: Event

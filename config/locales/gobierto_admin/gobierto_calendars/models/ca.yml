@@ -1,0 +1,12 @@
+---
+ca:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_calendars/event_form:
+        attachment_file: Fitxer adjunt
+        description: Descripció
+        ends_at: Data de finalització
+        starts_at: Data de començament
+        title: Títol
+    models:
+      gobierto_admin/gobierto_calendars/event_form: Esdeveniment

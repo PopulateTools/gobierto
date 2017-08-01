@@ -1,0 +1,25 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <% if @person %>
+    <%= link_to t("gobierto_admin.gobierto_people.people.index.title"), admin_people_people_path %> »
+    <%= link_to @person.name, edit_admin_people_person_path(@person) %> »
+    <% if action_name == 'index' %>
+      <%= t("gobierto_admin.gobierto_people.people.person_events.index.title") %>
+    <% else %>
+      <%= link_to t("gobierto_admin.gobierto_people.people.person_events.index.title"), admin_people_person_events_path(@person) %> »
+    <% end %>
+  <% else %>
+    <%= link_to t("gobierto_admin.layouts.application.calendars"), admin_calendars_collections_path %> »
+    <%= link_to @collection.title, admin_common_collection_path(@collection) %> »
+  <% end %>
+  <% if action_name == 'edit' %>
+    <%= link_to @event.title, edit_admin_calendars_collection_event_path(@collection, @event), data: { turbolinks: false } %> »
+    <%= t("gobierto_admin.gobierto_calendars.events.edit.title") %>
+  <% elsif action_name == 'new' %>
+    <%= t("gobierto_admin.gobierto_calendars.events.new.title") %>
+  <% end %>
+</div>
+
+<% if @person %>
+  <p><%= link_to t('.back_to_collections'), admin_calendars_collections_path %></p>
+<% end %>

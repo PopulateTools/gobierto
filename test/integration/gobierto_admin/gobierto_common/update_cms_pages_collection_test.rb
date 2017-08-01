@@ -2,7 +2,7 @@ require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoCommon
-    class UpdateCollectionTest < ActionDispatch::IntegrationTest
+    class UpdateCmsPagesCollectionTest < ActionDispatch::IntegrationTest
       def setup
         super
         @path = admin_cms_pages_path

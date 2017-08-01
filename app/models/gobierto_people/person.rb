@@ -65,11 +65,11 @@ module GobiertoPeople
     end
 
     def events
-      @events ||= GobiertoCalendars::Event.where(collection: events_collection)
+      GobiertoCalendars::Event.where(collection: events_collection)
     end
 
     def events_count
-      @events_count ||= events.count
+      events.count
     end
 
     def to_s

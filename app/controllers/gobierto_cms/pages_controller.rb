@@ -12,7 +12,7 @@ module GobiertoCms
     def index
       # TODO: params['from'] == 'participation' Add to process layout hidden_field
       @issues = current_site.issues
-      @pages = current_site.pages.page(params[:page])
+      @pages = current_site.pages.active.page(params[:page])
     end
 
     private

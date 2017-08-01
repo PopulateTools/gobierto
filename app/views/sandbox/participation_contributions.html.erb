@@ -237,6 +237,8 @@ function ticked() {
 
 // Drag functions
 function started(d) {
+  d3.select(this).style('z-index', 1);
+
   vx = 0;
   vy = 0;
   offsetX = (px = d3.event.x) - (d.fx = d.x);
@@ -254,6 +256,8 @@ function dragged(d) {
 }
 
 function ended(d) {
+  d3.select(this).style('z-index', 0);
+
   var vScalingFactor = maxVelocity / Math.max(Math.sqrt(vx * vx + vy * vy), maxVelocity);
 
   d.fx = null;

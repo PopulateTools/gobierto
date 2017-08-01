@@ -1,12 +1,18 @@
 module GobiertoCms
   class PagesController < GobiertoCms::ApplicationController
-
     include ::PreviewTokenHelper
 
     before_action :find_page_by_id_and_redirect
 
     def show
       @page = find_page
+      @groups = GobiertoParticipation::Process.all
+    end
+
+    def index
+      # TODO: params['from'] == 'participation' Add to process layout hidden_field
+      @issues = current_site.issues
+      @pages = current_site.pages.page(params[:page])
     end
 
     private
@@ -26,6 +32,5 @@ module GobiertoCms
     def pages_scope
       valid_preview_token? ? current_site.pages.draft : current_site.pages.active
     end
-
   end
 end

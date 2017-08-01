@@ -11,3 +11,10 @@ files:
   slug: files
   container: culture (GobiertoParticipation::Issue)
   item_type: GobiertoAttachments::Attachment
+
+process_news:
+  site: madrid
+  title_translations: <%= {'en' => 'Process News', 'es' => 'Noticias del proceso' }.to_json %>
+  slug: process-news
+  container: culture (GobiertoParticipation::Issue)
+  item_type: GobiertoCms::Page

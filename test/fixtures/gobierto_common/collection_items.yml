@@ -12,3 +12,13 @@ collection_item_attachment:
   collection: files
   item: pdf_collection_attachment (GobiertoAttachments::Attachment)
   container: culture (GobiertoParticipation::Issue)
+
+collection_news_process_1:
+  collection: process_news
+  item: notice_1 (GobiertoCms::Page)
+  container: green_city_group (GobiertoParticipation::Process)
+
+collection_news_process_2:
+  collection: process_news
+  item: notice_2 (GobiertoCms::Page)
+  container: green_city_group (GobiertoParticipation::Process)

@@ -5,3 +5,12 @@ en:
       gobierto_cms_page_created: Page created
       gobierto_cms_page_deleted: Page deleted
       gobierto_cms_page_updated: Page updated
+    pages:
+      index:
+        filter: Filter by theme
+        title: News
+      show:
+        documents: Documents
+        filter: Filter by group
+        published_at: Posted on %{date} by %{site}
+        title: News

@@ -356,11 +356,11 @@ pre {
     background: $color_secondary;
     padding: 4px 10px;
     @include border-radius(4px);
-    margin: 0 1em 0 0;
-    width: 75%;
+    margin: 0 20px 0 0;
+    width: calc(100% - 175px);
     font-weight: 600;
   }
-  .mandatory, .inline_notice, .tools {
+  .mandatory, .inline_notice {
     display: inline-block;
     margin: 0 1em 0 0;
   }
@@ -369,6 +369,8 @@ pre {
     opacity: .5;
   }
   .tools {
+    display: inline-block;
+    width: 70px;
     .fa {
       margin: 0 1em 0 0;
     }

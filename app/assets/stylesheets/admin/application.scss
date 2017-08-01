@@ -178,4 +178,8 @@ html.turbolinks-progress-bar::before {
   height: 5px !important;
 }
 
+.datepickers-container {
+  z-index: 100000000000;
+}
+
 @import "responsive";

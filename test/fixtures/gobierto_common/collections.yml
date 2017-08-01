@@ -4,3 +4,10 @@ news:
   slug: noticias
   container: culture (GobiertoParticipation::Issue)
   item_type: GobiertoCms::Page
+
+files:
+  site: madrid
+  title_translations: <%= {'en' => 'Files', 'es' => 'Ficheros' }.to_json %>
+  slug: files
+  container: culture (GobiertoParticipation::Issue)
+  item_type: GobiertoAttachments::Attachment

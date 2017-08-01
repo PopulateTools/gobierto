@@ -1,6 +1,11 @@
 <div class="admin_breadcrumb">
   <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
-  <%= link_to t("gobierto_admin.layouts.application.cms"), admin_cms_pages_path %> »
+  <% case @collection.item_type %>
+    <% when 'GobiertoCms::Page' %>
+      <%= link_to t("gobierto_admin.layouts.application.cms"), admin_cms_pages_path %> »
+    <% when 'GobiertoAttachments::Attachment' %>
+    <%= link_to t("gobierto_admin.layouts.application.file_attachments"), admin_cms_file_attachments_path %> »
+    <% end %>
   <%= link_to @collection.title, admin_common_collections_path(@collection) %>
 </div>
 
@@ -11,36 +16,18 @@
     <i class="fa fa-cog"></i>
     <%= t(".configuration") %>
   <% end %>
-  <%= link_to t(".new"), new_admin_cms_page_path(collection_id: @collection.id), class: 'button' %>
+  <%= link_to t(".new"), @new_item_path, class: 'button' %>
 </div>
 
-<table class="pages-list">
-  <tr>
-    <th></th>
-    <th><%= GobiertoCms::Page.human_attribute_name(:title) %></th>
-    <th><%= t('.created_at') %></th>
-    <th><%= t('.updated_at') %></th>
-    <th><%= t('.public') %></th>
-    <th></th>
-  </tr>
+<% case @collection.item_type %>
+  <% when 'GobiertoCms::Page' %>
+    <%= render 'gobierto_admin/gobierto_common/collections/show/pages' %>
+  <% when 'GobiertoAttachments::Attachment' %>
+    <%= render 'gobierto_admin/gobierto_common/collections/show/file_attachments' %>
+  <% end %>
 
-  <tbody>
-    <% @pages.each do |page| %>
-      <tr id="page-item-<%= page.id %>">
-        <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_cms_page_path(page.id, collection_id: @collection.id) %></td>
-        <td><%= link_to page.title, edit_admin_cms_page_path(page.id, collection_id: @collection.id) %></td>
-        <td><%= time_ago_in_words(page.created_at) %></td>
-        <td><%= time_ago_in_words(page.updated_at) %></td>
-        <td class="visibility_level">
-          <% if page.draft? %>
-            <i class="fa fa-lock"></i>
-            <%= t(".visibility_level.draft") %>
-          <% else %>
-            <%= t(".visibility_level.active") %>
-          <% end %>
-        </td>
-        <td><%= link_to %Q{<i class="fa fa-eye"></i> #{t('.view')}}.html_safe, gobierto_common_page_preview_url(page, host: current_site.domain), class: 'view_item' %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.gobierto_attachments_controller.index();
+  <% end %>
+<% end %>

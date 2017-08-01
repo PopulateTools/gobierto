@@ -1,0 +1,14 @@
+<div class='admin_breadcrumb'>
+  <%= link_to t('gobierto_admin.welcome.index.title'), admin_root_path %> »
+  <%= link_to t('gobierto_admin.gobierto_participation.welcome.index.title'), admin_participation_path %> »
+  <%= link_to t('gobierto_admin.gobierto_participation.processes.index.title'), admin_participation_processes_path %> »
+  <%= t('.title') %>
+</div>
+
+<h1>
+  <%= @process_form.title %>
+</h1>
+
+<%= render 'navigation' %>
+
+<%= render 'form' %>

@@ -1,0 +1,27 @@
+---
+es:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        index:
+          title: Procesos y Grupos
+        new:
+          title: Nuevo proceso / grupo
+        edit:
+          title: Editar proceso
+        create:
+          success: Proceso creado correctamente
+        update:
+          success: Proceso actualizado correctamente
+        navigation:
+          stage: Proceso
+          information: Información
+        form:
+          edit: Editar
+          edit_stage: Editar fase
+          stages_and_tools: Fases y herramientas
+          active: Activada
+          placeholders:
+            title: Comisión de Fiestas de Carnaval
+            body: En esta comisión se tratarán temas relacionados con...
+            slug: comision-de-fiestas-de-carnaval

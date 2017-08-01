@@ -59,7 +59,6 @@ module GobiertoAdmin
               click_button 'Create'
 
               assert has_message?('Page created successfully')
-              assert has_selector?('h1', text: 'My page')
               assert has_field?('page_slug_translations_en', with: 'new-page')
 
               assert_equal(

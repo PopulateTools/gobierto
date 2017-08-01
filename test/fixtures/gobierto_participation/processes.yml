@@ -1,23 +1,28 @@
-green_city:
+green_city_group:
   site: madrid
   title_translations: <%= { 'en' => 'Green city', 'es' => 'Ciudad verde' }.to_json %>
   body_translations: <%= { 'en' => 'Make Madrid a green city', 'es' => 'Hacer de Madrid una ciudad verde' }.to_json %>
-  slug_translations: <%= { 'en' => 'green-city', 'es' => 'ciudad-verde' }.to_json %>
+  slug: ciudad-verde
+  process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
   visibility_level: <%= Site.visibility_levels["active"] %>
-  starts: <%= 3.days.ago %>
-  ends: <%= 30.days.from_now %>
 
-local_budgets:
-  site: madrid
-  title_translations: <%= { 'en' => 'Local budgets', 'es' => 'Presupuestos participativos' }.to_json %>
-  body_translations: <%= { 'en' => 'Local budgets in Madrid', 'es' => 'Presupuestos participativos Madrid' }.to_json %>
-  slug_translations: <%= { 'en' => 'local-budgets', 'es' => 'presupuestos-participativos' }.to_json %>
-  visibility_level: <%= Site.visibility_levels["draft"] %>
-
-cultural_city:
+cultural_city_group:
   site: madrid
   title_translations: <%= { 'en' => 'Cultural city', 'es' => 'Ciudad cultural' }.to_json %>
   body_translations: <%= { 'en' => 'Make Madrid a cultural city', 'es' => 'Hacer de Madrid una ciudad cultural' }.to_json %>
-  slug_translations: <%= { 'en' => 'cultural-city', 'es' => 'ciudad-cultural' }.to_json %>
-  visibility_level: <%= Site.visibility_levels["active"] %>
+  slug: ciudad-cultural
+  process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
+  visibility_level: <%= Site.visibility_levels["draft"] %>
+  issue: culture
 
+local_budgets_process:
+  site: madrid
+  title_translations: <%= { 'en' => 'Local budgets', 'es' => 'Presupuestos participativos' }.to_json %>
+  body_translations: <%= { 'en' => 'Local budgets in Madrid', 'es' => 'Presupuestos participativos Madrid' }.to_json %>
+  information_text_translations: <%= { 'en' => 'Information stage text', 'es' => 'Texto de la fase de información' }.to_json %>
+  slug: presupuestos-participativos
+  process_type: <%= GobiertoParticipation::Process.process_types[:process] %>
+  visibility_level: <%= Site.visibility_levels["active"] %>
+  starts: <%= 3.days.ago %>
+  ends: <%= 30.days.from_now %>
+  issue: economy

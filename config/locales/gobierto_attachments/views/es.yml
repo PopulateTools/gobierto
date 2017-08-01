@@ -1,0 +1,6 @@
+---
+es:
+  gobierto_attachments:
+    events:
+      gobierto_attachments_attachment_created: Documento creado
+      gobierto_attachments_attachment_updated: Documento actualizado

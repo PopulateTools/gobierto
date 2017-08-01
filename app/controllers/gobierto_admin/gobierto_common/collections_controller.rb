@@ -12,7 +12,15 @@ module GobiertoAdmin
 
       def show
         @collection = find_collection
-        @pages = ::GobiertoCms::Page.where(id: @collection.pages_in_collection)
+
+        @new_item_path = case @collection.item_type
+                         when 'GobiertoCms::Page'
+                           @pages = ::GobiertoCms::Page.where(id: @collection.pages_in_collection)
+                           new_admin_cms_page_path(collection_id: @collection.id)
+                         when 'GobiertoAttachments::Attachment'
+                           @file_attachments = ::GobiertoAttachments::Attachment.where(id: @collection.file_attachments_in_collection)
+                           new_admin_cms_file_attachment_path(collection_id: @collection.id)
+                         end
       end
 
       def new
@@ -21,6 +29,7 @@ module GobiertoAdmin
         @site = Site.where(id: current_site.id)
         @containers = container_names_new
         @container_selected = nil
+        @types = type_names
 
         render :new_modal, layout: false and return if request.xhr?
       end
@@ -31,6 +40,8 @@ module GobiertoAdmin
         @site = Site.where(id: current_site.id)
         @containers = container_names_edit
         @container_selected = @collection.container_id
+        @types = type_names
+        @type_selected = @collection.item_type
 
         @collection_form = CollectionForm.new(
           @collection.attributes.except(*ignored_collection_attributes)
@@ -45,12 +56,19 @@ module GobiertoAdmin
         @site = Site.where(id: current_site.id)
         @containers = container_names_new
         @container_selected = nil
+        @types = type_names
 
         if @collection_form.save
           track_create_activity
 
+          redirect_to_path = case @collection_form.collection.item_type
+                             when 'GobiertoCms::Page'
+                               admin_cms_pages_path
+                             when 'GobiertoAttachments::Attachment'
+                               admin_cms_file_attachments_path
+                             end
           redirect_to(
-            admin_common_collections_path(@collection),
+            redirect_to_path,
             notice: t('.success')
           )
         else
@@ -68,6 +86,7 @@ module GobiertoAdmin
         @site = Site.where(id: current_site.id)
         @containers = container_names_new
         @container_selected = nil
+        @types = type_names
 
         if @collection_form.save
           track_update_activity
@@ -122,6 +141,10 @@ module GobiertoAdmin
       def container_names_edit
         @site.map { |x| ["Site: #{x.location_name}", x.id] } +
           @issues.map { |x| ["Issue: #{x.name}", x.id] }
+      end
+
+      def type_names
+        ::GobiertoCommon::Collection.type_classes.map { |x| [x.name, x.name] }
       end
 
       def gobierto_common_page_preview_url(page, options = {})

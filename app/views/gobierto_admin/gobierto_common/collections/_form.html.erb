@@ -8,7 +8,7 @@
       <div class="globalized_fields">
         <%= render "gobierto_admin/shared/form_locale_switchers" %>
 
-        <% I18n.available_locales.map(&:to_s).each do |locale| %>
+        <% current_site.configuration.available_locales.each do |locale| %>
           <div class="form_item input_text" data-locale="<%= locale %>">
             <%= label_tag "collection[title_translations][#{locale}]", f.object.class.human_attribute_name(:title) %>
             <%= text_field_tag "collection[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title", locale: locale.to_sym) %>
@@ -28,7 +28,9 @@
 
       <div class="form_item select_control">
         <%= f.label :item_type %>
-        <%= f.select :item_type, ['GobiertoCms::Page'], { include_blank: true } %>
+        <%= f.select :item_type,
+                     options_for_select(@types, selected: @type_selected),
+                     include_blank: true %>
       </div>
     </div>
   </div>

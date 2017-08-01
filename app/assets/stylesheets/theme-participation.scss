@@ -739,9 +739,6 @@ $lighter_black: rgba($color_headers, .7);
     }
   }
 
-  @include screen(740) {
-
-  }
   .modal.modal_poll {
     padding: 6em;
 
@@ -822,6 +819,50 @@ $lighter_black: rgba($color_headers, .7);
 
     }
 
+  }
+  @include screen(740) {
+    .modal.modal_poll {
+      padding: 0;
+      button.mfp-close {
+        border-color: #FFF;
+        color: #FFF;
+        margin: .55em .35em 0 0;
+      }
+      button.mfp-close:hover {
+        background: #FFF;
+        color: $green;
+      }
+      .poll {
+        margin: 0;
+        h1 {
+          padding: 1em 4em 1em 1em;
+        }
+        .poll_content, .poll_actions, .poll_progress_map {
+          padding: 0 2em;
+        }
+        .button.outline.rounded {
+          padding: .5em 1em;
+        }
+        .poll_content {
+          .poll_option {
+            margin: 0;
+          }
+          .social_links_container {
+            position: initial;
+          }
+        }
+        .poll_actions, .poll_progress_map {
+          position: initial;
+          margin: 1em 0;
+        }
+        .poll_actions {
+          margin-bottom: 3em;
+        }
+        .poll_progress_map {
+          text-align: center;
+        }
+      }
+    }
   }
 
   /* Contributions page */

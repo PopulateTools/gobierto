@@ -29,10 +29,10 @@ module GobiertoAdmin
               assert has_selector?('tr', count: collections.size)
 
               collections.each do |collection|
-                assert has_selector?('tr')
+                assert has_selector?("tr#collection-item-#{collection.id}")
 
-                within 'tr' do
-                  assert has_link?('View collection')
+                within "tr#collection-item-#{collection.id}" do
+                  assert has_link?("#{collection.title}")
                 end
               end
             end

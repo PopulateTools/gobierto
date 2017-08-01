@@ -22,19 +22,15 @@ module GobiertoParticipation
     end
 
     def find_process_news
-      news_collection ? news_collection.collection_items.limit(5).map { |collection_item| collection_item.item } : []
+      @process.news.sort_by(&:created_at).reverse.first(5)
+      # TODO: rewrite using Rails chainable scopes. Maybe something like this:
+      # @process.news.upcoming.sort(created_at: :desc).limit(5)
     end
 
     def find_process_events
-      events_collection ? events_collection.collection_items.limit(5).map { |collection_item| collection_item.item } : []
-    end
-
-    def news_collection
-      GobiertoCommon::Collection.find_by(container: @process, item_type: 'GobiertoCms::Page')
-    end
-
-    def events_collection
-      GobiertoCommon::Collection.find_by(container: @process, item_type: 'GobiertoPeople::PersonEvent')
+      @process.events.sort_by(&:starts_at).first(5)
+      # TODO: rewrite using Rails chainable scopes. Maybe something like this:
+      # @process.events.upcoming.sort(starts_at: :asc).limit(5)
     end
 
   end

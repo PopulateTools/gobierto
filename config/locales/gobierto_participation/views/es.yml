@@ -1,6 +1,26 @@
 ---
 es:
   gobierto_participation:
+    layouts:
+      application:
+        title: Participación
+      menu_subsections:
+        about: Acerca de
+        issues: Temas
+        processes: Procesos
+        questions: Pregunta
+        ideas: Ideas
+      process_menu_subsections:
+        information: Información
+        meetings: Reuniones
+        polls: Encuestas
+        contributions: Contribuciones
+        results: Resultados
+      secondary_nav:
+        news: Noticias
+        agenda: Agenda
+        documents: Documentos
+        activity: Actividad
     events:
       gobierto_participation_issue_created: Tema creado
       gobierto_participation_issue_updated: Tema actualizado

@@ -1,6 +1,26 @@
 ---
 ca:
   gobierto_participation:
+    layouts:
+      application:
+        title: Participació
+      menu_subsections:
+        about: Sobre
+        issues: Temes
+        processes: Processos
+        questions: Pregunta
+        ideas: Idees
+      process_menu_subsections:
+        information: Informació
+        meetings: Reunions
+        polls: Enquestes
+        contributions: Contribucions
+        results: Resultats
+      secondary_nav:
+        news: Notícies
+        agenda: Agenda
+        documents: Documents
+        activity: Activitat
     events:
       gobierto_participation_issue_created: Tema creat
       gobierto_participation_issue_updated: Tema actualitzat

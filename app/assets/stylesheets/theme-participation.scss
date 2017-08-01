@@ -8,6 +8,14 @@ $light_black: #4A4A4A;
 $lighter_black: rgba($color_headers, .7);
 
 .theme-participation {
+
+  button.submit, .button.submit, input[type=submit] {
+    background: $green;
+    color: #FFF;
+  }
+  button.submit:hover, .button.submit:hover, input[type=submit]:hover {
+    background: darken($green, 5%);
+  }
   header.meta {
     margin: 0;
 
@@ -729,6 +737,91 @@ $lighter_black: rgba($color_headers, .7);
     a {
       color: $green;
     }
+  }
+
+  @include screen(740) {
+
+  }
+  .modal.modal_poll {
+    padding: 6em;
+
+    button.mfp-close, button.mfp-close:hover {
+      opacity: 1;
+      border: 1px solid $green;
+      color: $green;
+    }
+    button.mfp-close:hover {
+      background: $green;
+      color: #FFF;
+    }
+    .poll {
+      margin: 2em;
+      position: relative;
+      // h1, h2, h3 {
+      //   color: $green;
+      // }
+      h1 {
+        background: $green;
+        color: #FFF;
+        padding: 1em;
+        margin: 0 0 2em 0;
+        font-size: $f5;
+        @include border-radius(6px, 6px, 0, 0)
+      }
+      .poll_content {
+        padding: 2em 4em 8em 4em;
+        text-align: center;
+        .poll_option {
+          margin: 0 0 1em 0;
+        }
+        .help {
+          display: block;
+          float: none;
+          margin: 0 0 2em 0;
+        }
+      }
+      .poll_progress_map {
+        font-size: $f7;
+        position: absolute;
+        bottom: 2em;
+        left: 3em;
+        @include reset_ul_li;
+        ul {
+          display: inline-block;
+        }
+        li {
+          float: left;
+          display: inline-block;
+          height: 10px;
+          padding: 0 1em;
+          margin: 0 .25em 0 0;
+          background: $color_secondary;
+          span {
+            display: none;
+          }
+        }
+        li.active {
+          background: $green;
+        }
+        li:first-child {
+          @include border-radius(6px, 0, 0, 6px);
+        }
+        li:last-child {
+          @include border-radius(0, 6px, 6px, 0);
+        }
+        .poll_page {
+          display: inline-block;
+          margin: 0 2em;
+        }
+      }
+      .poll_actions {
+        position: absolute;
+        bottom: 2em;
+        right: 2em;
+      }
+
+    }
+
   }
 
   /* Contributions page */

@@ -47,6 +47,12 @@ a.social_share {
 .email {
   background: $color_main;
 }
+.whatsapp {
+  background: #0DC143;
+}
+.telegram {
+  background: #2DA0DA;
+}
 .code {
   background: $color_main;
 }
@@ -79,4 +85,13 @@ a.social_share {
     box-sizing: border-box;
     text-align: center;
   }
+}
+
+@include min-screen(740) {
+  .social_links_container {
+    a.whatsapp, a.telegram {
+      display: none;
+    }
+  }
+
 }

@@ -66,14 +66,14 @@ $(document).on('turbolinks:load', function() {
     if(sum > 0) {
       content.results.forEach(function(indexResults){
         indexResults.hits.forEach(function(d){
-          var result = '<div class="result">' +
-            '<h2><a href="'+d.resource_path+'">' + (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) + '</a></h2>' +
+          var result = '<a class="result" <a href="' + d.resource_path + '">' +
+            '<h2>' + (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) + '</h2>' +
             '<div class="description">' +
               '<div>' + itemDescription(d) + '</div>' +
               '<span class="soft item_type">' + itemType(d) + '</span>' +
               (itemUpdatedAt(d) ? ' · <span class="soft updated_at">' + itemUpdatedAt(d) + '</span>' : '') +
             '</div>' +
-          '</div>';
+          '</a>';
 
           var div = $(result);
           div.appendTo($resultsContainer);

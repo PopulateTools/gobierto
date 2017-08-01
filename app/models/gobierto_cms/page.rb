@@ -35,7 +35,7 @@ module GobiertoCms
 
     def main_image
       attachments.each do |attachment|
-        attachment.url if attachment.content_type.start_with?('image/')
+        return attachment.url if attachment.content_type.start_with?('image/')
       end
       nil
     end

@@ -20,7 +20,7 @@ module GobiertoPeople
       end
 
       def event
-        @event ||= gobierto_people_person_events(:richard_published)
+        @event ||= gobierto_calendars_events(:richard_published)
       end
 
       def test_person_event_show

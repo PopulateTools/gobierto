@@ -26,7 +26,7 @@ module GobiertoPeople
 
     def upcoming_events
       @upcoming_events ||= [
-        gobierto_people_person_events(:richard_published)
+        gobierto_calendars_events(:richard_published)
       ]
     end
 
@@ -39,15 +39,15 @@ module GobiertoPeople
     end
 
     def government_event
-      gobierto_people_person_events(:richard_published)
+      gobierto_calendars_events(:richard_published)
     end
 
     def government_past_event
-      gobierto_people_person_events(:richard_published_past)
+      gobierto_calendars_events(:richard_published_past)
     end
 
     def executive_past_event
-      gobierto_people_person_events(:tamara_published_past)
+      gobierto_calendars_events(:tamara_published_past)
     end
 
     def latest_posts

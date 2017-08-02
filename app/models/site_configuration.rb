@@ -64,6 +64,10 @@ class SiteConfiguration
     modules & MODULES_WITH_NOTIFICATONS
   end
 
+  def default_modules
+    [ 'GobiertoCms', 'GobiertoCalendars', 'GobiertoAttachments' ]
+  end
+
   # Define question mark instance methods for each property.
   # i.e. `#demo?`.
   #

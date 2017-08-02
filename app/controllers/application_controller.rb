@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :render_404
   rescue_from ActionController::UnknownFormat, with: :render_404
 
-  helper_method :helpers, :load_current_module_sub_sections, :current_site, :current_module, :current_module_body_class, :available_locales
+  helper_method :helpers, :load_current_module_sub_sections, :current_site, :current_module, :current_module_body_class, :available_locales, :gobierto_people_event_preview_url
 
   before_action :set_current_site, :authenticate_user_in_site, :set_locale
 
@@ -89,4 +89,16 @@ class ApplicationController < ActionController::Base
   def raise_module_not_enabled
     redirect_to(root_path) and return false
   end
+
+  def gobierto_people_event_preview_url(event, options = {})
+    options[:host] ||= current_site.domain
+    # TODO
+    return '#' if @person.nil? || !event.collection.container.is_a?(::GobiertoPeople::Person)
+
+    if event.pending? || @person.draft?
+      options.merge!(preview_token: current_admin.preview_token)
+    end
+    gobierto_people_person_event_url(@person.slug, event.slug, options)
+  end
+
 end

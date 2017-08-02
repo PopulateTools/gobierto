@@ -4,43 +4,5 @@ es:
     gobierto_people:
       people:
         person_events:
-          attendees_form:
-            header:
-              charge: Cargo
-              name: Nombre
-              person: Persona
-            title: Asistentes
-            view_person: Ver persona
-          edit:
-            title: Editar evento
-          form:
-            attachment_file_constraints: Adjuntar fichero (PDF)
-            placeholders:
-              title: Reunión con los vecinos del distrito centro
-            state:
-              pending: Pendiente
-              published: Publicado
           index:
-            all_events: Todos
-            configuration: Configuración
-            header:
-              date: Fecha
-              event: Evento
-              location: Localización
-              status: Estado
-            new: Nuevo evento
-            past_events: Eventos pasados
-            pending_events: Pendientes de moderar
-            published_events: Eventos publicados
             title: Agenda
-            view_event: Ver evento
-            visibility_level:
-              pending: Borrador
-              published: Publicado
-          locations_form:
-            header:
-              address: Dirección
-              place: Lugar
-            title: Lugar
-          new:
-            title: Nuevo evento

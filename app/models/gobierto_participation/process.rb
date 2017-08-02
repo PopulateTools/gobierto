@@ -30,6 +30,10 @@ module GobiertoParticipation
 
     accepts_nested_attributes_for :stages
 
+    def to_s
+      self.title
+    end
+
     def news
       news_collection ? news_collection.collection_items.map { |collection_item| collection_item.item } : []
       # TODO: write in a more efficient way. Maybe something like this:
@@ -49,7 +53,7 @@ module GobiertoParticipation
     end
 
     def events_collection
-      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoPeople::PersonEvent')
+      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCalendars::Event')
     end
 
   end

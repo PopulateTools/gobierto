@@ -117,7 +117,7 @@ module GobiertoPeople
       def test_sync_events
         Publishers::Trackable.expects(:broadcast_event).times(3)
 
-        assert_difference 'GobiertoPeople::PersonEvent.count', 4 do
+        assert_difference 'GobiertoCalendars::Event.count', 4 do
           CalendarIntegration.sync_person_events(richard)
         end
 
@@ -131,7 +131,7 @@ module GobiertoPeople
         assert_equal 'Wadus person', event.attendees.second.name
 
         # Event 3 checks
-        event = site.person_attendee_events.find_by external_id: 'event3'
+        event = site.events.find_by external_id: 'event3'
         assert_equal 'Event 3', event.title
         assert_equal 'Patio de mi casa 1, 28005, Madrid', event.locations.first.name
         assert_equal 2, event.attendees.size
@@ -139,7 +139,7 @@ module GobiertoPeople
         assert_equal 'Wadus person', event.attendees.second.name
 
         # Event 5 checks
-        event = site.person_attendee_events.find_by external_id: 'event4_instance_1'
+        event = site.events.find_by external_id: 'event4_instance_1'
         assert_equal 'Event 5', event.title
         assert_empty event.locations
         assert_equal 2, event.attendees.size
@@ -147,7 +147,7 @@ module GobiertoPeople
         assert_equal 'Wadus person', event.attendees.second.name
 
         # Event 6 checks
-        event = site.person_attendee_events.find_by external_id: 'event4_instance_2'
+        event = site.events.find_by external_id: 'event4_instance_2'
         assert_equal 'Event 6', event.title
         assert_empty event.locations
         assert_equal 2, event.attendees.size
@@ -172,7 +172,7 @@ module GobiertoPeople
         CalendarIntegration.sync_person_events(richard)
 
         event = richard.events.find_by external_id: 'event2'
-        GobiertoPeople::PersonEventLocation.create!(person_event: event, name: "I'll be deleted")
+        GobiertoCalendars::EventLocation.create!(event: event, name: "I'll be deleted")
 
         CalendarIntegration.sync_person_events(richard)
 

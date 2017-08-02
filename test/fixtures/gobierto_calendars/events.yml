@@ -1,0 +1,119 @@
+richard_pending:
+  site: madrid
+  collection: richard_calendar
+  title_translations: <%= {
+    'en' => 'Reunión con los vecinos del distrito centro',
+    'es' => 'Reunión con los vecinos del distrito centro'
+  }.to_json %>
+  slug: <%= "#{1.month.from_now.strftime('%F')}-reunion-con-los-vecinos-del-distrito-centro" %>
+  description_translations: <%= {
+    'en' => 'Reunión con los vecinos del distrito centro para comentar la posibilidad de reubicar el centro de salud de Universidad en el nuevo edificio de Bomberos.',
+    'es' => 'Reunión con los vecinos del distrito centro para comentar la posibilidad de reubicar el centro de salud de Universidad en el nuevo edificio de Bomberos.'
+  }.to_json %>
+  starts_at: <%= 1.month.from_now %>
+  ends_at: <%= 1.month.from_now + 1.hour %>
+  attachment_url: https://bit.ly/12345
+  state: <%= GobiertoCalendars::Event.states["pending"] %>
+
+richard_published:
+  site: madrid
+  collection: richard_calendar
+  title_translations: <%= {
+    'en' => 'Future government event',
+    'es' => 'Future government event',
+  }.to_json %>
+  slug: <%= "#{1.month.from_now.strftime('%F')}-future-government-event" %>
+  description_translations: <%= {
+    'en' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
+    'es' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
+  }.to_json %>
+  starts_at: <%= 1.month.from_now %>
+  ends_at: <%= 1.month.from_now + 1.hour %>
+  attachment_url: https://bit.ly/67890
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+
+richard_published_just_attending:
+  site: madrid
+  collection: nelson_calendar
+  slug: <%= "#{1.month.from_now.strftime('%F')}-invitado-evento" %>
+  external_id: justattending
+  title_translations: <%= {
+    'en' => 'Invited event',
+    'es' => 'Invited event',
+  }.to_json %>
+  description_translations: <%= {
+    'en' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
+    'es' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
+  }.to_json %>
+  starts_at: <%= 1.month.from_now %>
+  ends_at: <%= 1.month.from_now + 1.hour %>
+  attachment_url: https://bit.ly/67890
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+
+richard_published_past:
+  site: madrid
+  collection: richard_calendar
+  title_translations: <%= {
+    'en' => 'Past government event',
+    'es' => 'Past government event'
+  }.to_json %>
+  slug: <%= "#{1.month.ago.strftime('%F')}-past-government-event" %>
+  description_translations: <%= {
+    'en' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
+    'es' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.'
+  }.to_json %>
+  starts_at: <%= 1.month.ago %>
+  ends_at: <%= 1.month.ago + 1.hour %>
+  attachment_url: https://bit.ly/67890
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+
+nelson_tomorrow:
+  site: madrid
+  collection: nelson_calendar
+  title_translations: <%= {
+    'en' => 'Nelson tomorrow event',
+    'es' => 'Nelson tomorrow event'
+  }.to_json %>
+  slug: <%= "#{1.day.from_now.strftime('%F')}-nelson-tomorrow-event" %>
+  description_translations: <%= {
+    'en' => 'Have tea with biscuits',
+    'es' => 'Have tea with biscuits'
+  }.to_json %>
+  starts_at: <%= 1.day.from_now %>
+  ends_at: <%= 1.day.from_now + 1.hour %>
+  attachment_url: https://bit.ly/67890
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+
+nelson_yesterday:
+  site: madrid
+  collection: nelson_calendar
+  title_translations: <%= {
+    'en' => 'Nelson yesterday event',
+    'es' => 'Nelson yesterday event'
+  }.to_json %>
+  slug: <%= "#{1.day.ago.strftime('%F')}-nelson-yesterday-event" %>
+  description_translations: <%= {
+    'en' => 'Have tea with biscuits',
+    'es' => 'Have tea with biscuits'
+  }.to_json %>
+  starts_at: <%= 1.day.ago %>
+  ends_at: <%= 1.day.ago + 1.hour %>
+  attachment_url: https://bit.ly/67890
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+
+tamara_published_past:
+  site: madrid
+  collection: tamara_calendar
+  title_translations: <%= {
+    'en' => 'Past executive event',
+    'es' => 'Past executive event'
+  }.to_json %>
+  slug: <%= "#{15.days.ago.strftime('%F')}-pasat-executive-event" %>
+  description_translations: <%= {
+    'en' => 'Executive member event.',
+    'es' => 'Executive member event.'
+  }.to_json %>
+  starts_at: <%= 15.days.ago %>
+  ends_at: <%= 15.days.ago + 1.hour %>
+  attachment_url: https://bit.ly/67890
+  state: <%= GobiertoCalendars::Event.states["published"] %>

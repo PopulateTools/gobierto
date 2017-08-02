@@ -48,7 +48,8 @@ $lighter_black: rgba($color_headers, .7);
   .button.outline.rounded {
     color: $green;
     border: 1px solid $green;
-
+    margin-top: -.25em;
+    
     .fa {
       color: $green;
     }
@@ -56,7 +57,6 @@ $lighter_black: rgba($color_headers, .7);
   .button.outline.rounded.checked {
     background: $green;
     color: white;
-
     .fa {
       color: white;
     }
@@ -825,6 +825,10 @@ $lighter_black: rgba($color_headers, .7);
       margin: 1.5em 1em 0 0;
       text-decoration: none;
       padding: 0;
+      font-size: 22px;
+      width: 30px;
+      height: 30px;
+      line-height: 34px;
     }
     button.mfp-close:hover, .mfp-close:hover {
       background: $green;
@@ -925,7 +929,11 @@ $lighter_black: rgba($color_headers, .7);
       .contributions_control {
         .circles_progress {
           li.active {
-            background: $green;
+            a {
+              span {
+                background: $green;
+              }
+            }
           }
         }
       }

@@ -43,7 +43,7 @@
       </div>
 
       <%= render("user/subscriptions/subscribable_box",
-                 subscribable: GobiertoPeople::PersonEvent,
+                 subscribable: GobiertoCalendars::Event,
                  title: t(".subscribable_box.title")) %>
 
     </div>
@@ -103,7 +103,7 @@
 
         <div id="events">
           <% @events.each do |event| %>
-            <%= render partial: "gobierto_people/person_events/person_event", locals: { person: event.person, person_event: event } %>
+            <%= render partial: "gobierto_people/person_events/person_event", locals: { person: event.collection.container, person_event: event } %>
           <% end %>
         </div>
 

@@ -30,5 +30,8 @@ module GobiertoParticipation
 
     accepts_nested_attributes_for :stages
 
+    def to_s
+      self.title
+    end
   end
 end

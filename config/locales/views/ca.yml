@@ -88,7 +88,7 @@ ca:
       budget_line_item_expense: Partida pressupostària - Despesa
       budget_line_item_income: Partida pressupostària - Ingrés
       page_item: Pàgina
-      person_event_item: Event
+      event_item: Event
       person_item: Biografia
       person_post_item: Post
       person_statement_item: Declaració

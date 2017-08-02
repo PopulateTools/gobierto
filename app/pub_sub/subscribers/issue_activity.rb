@@ -1,11 +1,11 @@
 module Subscribers
-  class GobiertoParticipationIssueActivity < ::Subscribers::Base
+  class IssueActivity < ::Subscribers::Base
     def issue_created(event)
-      create_activity_from_event(event, 'gobierto_participation.issue_created')
+      create_activity_from_event(event, 'issue_created')
     end
 
     def issue_updated(event)
-      create_activity_from_event(event, 'gobierto_participation.issue_updated')
+      create_activity_from_event(event, 'issue_updated')
     end
 
     private

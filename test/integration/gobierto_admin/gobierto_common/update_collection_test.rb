@@ -16,8 +16,8 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
-      def participation_issue
-        @participation_issue ||= gobierto_participation_issues(:culture)
+      def issue
+        @issue ||= issues(:culture)
       end
 
       def test_update_issue

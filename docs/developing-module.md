@@ -182,7 +182,7 @@ Create a new link adding the necessary permissions in `app/views/gobierto_admin/
     <%= link_to t('.edit_site'), edit_admin_site_path(current_site) %>
     <% if show_module_link?('GobiertoParticipation') %>
       <ul>
-        <li><%= link_to t('.issues'), admin_participation_issues_path %></li>
+        <li><%= link_to t('.issues'), admin_issues_path %></li>
       </ul>
     <% end %>
   </li>
@@ -335,7 +335,7 @@ module GobiertoAdmin
           track_create_activity
 
           redirect_to(
-            admin_participation_issues_path(@issue),
+            admin_issues_path(@issue),
             notice: t(".success")
           )
         else

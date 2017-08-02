@@ -41,7 +41,7 @@ module GobiertoCommon
     end
 
     def self.collector_classes
-      [Site, GobiertoParticipation::Issue, GobiertoParticipation::Area]
+      [Site, Issue, GobiertoParticipation::Area]
     end
 
     def self.type_classes
@@ -87,7 +87,7 @@ module GobiertoCommon
     end
 
     def issue_for_container(container)
-      if container.is_a?(GobiertoParticipation::Issue)
+      if container.is_a?(Issue)
         [container.class.name, container.id]
       end
     end

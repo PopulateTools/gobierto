@@ -25,6 +25,12 @@ ca:
     sentence_for_humans: Si ets humà, per favor, ignora aquest camp.
     timestamp_error_message: Disculpa, això ha sigut molt rapid. Torna a enviar el
       formulari.
+  issue_created:
+    events:
+      issue_created: Tema creat
+  issue_updated:
+    events:
+      issue_updated: Tema actualitzat
   layouts:
     accept_privacy_policy_signup: Al registrar-te estàs acceptant la Política de Privacitat
     application:

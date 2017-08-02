@@ -1,14 +1,14 @@
 consultation_faq_on_site:
   collection: news
   item: consultation_faq (GobiertoCms::Page)
-  container: culture (GobiertoParticipation::Issue)
+  container: culture (Issue)
 
 collection_item_themes:
   collection: news
   item: themes (GobiertoCms::Page)
-  container: culture (GobiertoParticipation::Issue)
+  container: culture (Issue)
 
 collection_item_attachment:
   collection: files
   item: pdf_collection_attachment (GobiertoAttachments::Attachment)
-  container: culture (GobiertoParticipation::Issue)
+  container: culture (Issue)

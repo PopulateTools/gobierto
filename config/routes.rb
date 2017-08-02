@@ -15,6 +15,11 @@ Rails.application.routes.draw do
 
     resource :sessions, only: [:new, :create, :destroy]
     resources :sites, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :issues, only: [:index, :show, :new, :create, :edit, :update] do
+      collection do
+        resource :issue_sort, only: [:create], controller: "issues_sort", path: :issues_sort
+      end
+    end
 
     namespace :sites do
       resource :sessions, only: [:create, :destroy]
@@ -76,14 +81,7 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_participation, as: :participation, path: :participation do
-
       get '/' => 'welcome#index'
-
-      resources :issues, only: [:index, :show, :new, :create, :edit, :update] do
-        collection do
-          resource :issue_sort, only: [:create], controller: "issues_sort", path: :issues_sort
-        end
-      end
 
       resources :processes, only: [:index, :new, :edit, :create, :update]
     end

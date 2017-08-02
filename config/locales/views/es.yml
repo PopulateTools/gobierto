@@ -25,6 +25,12 @@ es:
     sentence_for_humans: Si eres humano, por favor ignora este campo.
     timestamp_error_message: Lo siento, eso ha sido muy rápido. Por favor, vuelve
       a enviar el formulario.
+  issue_created:
+    events:
+      issue_created: Tema creado
+  issue_updated:
+    events:
+      issue_updated: Tema actualizado          
   layouts:
     accept_privacy_policy_signup: Al registrarte estás aceptando la Política de Privacidad
     application:

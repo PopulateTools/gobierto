@@ -269,9 +269,12 @@ header.meta {
               text-decoration: none;
               font-size: 1em;
               font-weight: 300;
-              padding: .5em 1.25em .4em;
+              padding: .5em .75em .4em;
               display: inline-block;
               opacity: .75;
+            }
+            a:hover, a.active {
+              font-weight: 500;
             }
           }
           li:first-child {

@@ -4,7 +4,7 @@ module GobiertoPeople
   class PersonPost < ApplicationRecord
     include User::Subscribable
     include GobiertoCommon::Searchable
-    include GobiertoPeople::Sluggable
+    include GobiertoCommon::Sluggable
 
     validates :person, presence: true
     validates :site, presence: true

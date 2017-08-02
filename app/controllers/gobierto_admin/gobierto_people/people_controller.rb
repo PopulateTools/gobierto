@@ -107,7 +107,7 @@ module GobiertoAdmin
       end
 
       def ignored_person_attributes
-        %w( created_at updated_at events_count statements_count posts_count position charge bio slug google_calendar_token site_id )
+        %w( created_at updated_at statements_count posts_count position charge bio slug google_calendar_token site_id )
       end
 
       def gobierto_people_person_preview_url(person, options = {})

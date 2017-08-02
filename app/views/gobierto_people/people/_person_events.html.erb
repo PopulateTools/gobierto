@@ -15,7 +15,7 @@
 
     <div id="events">
       <% person_events.each do |event| %>
-        <%= render(partial: 'gobierto_people/person_events/person_event', locals: {person_event: event, person: event.person}) %>
+        <%= render(partial: 'gobierto_people/person_events/person_event', locals: {person_event: event, person: event.collection.container}) %>
       <% end %>
     </div>
 

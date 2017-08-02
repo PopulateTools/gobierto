@@ -4,7 +4,7 @@ es:
     gobierto_cms:
       file_attachments:
         index:
-          collections: Collecciones
+          collections: Colecciones
           header:
             collection: Colección
             file_attachments: Documentos

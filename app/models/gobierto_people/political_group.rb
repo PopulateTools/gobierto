@@ -3,7 +3,7 @@ require_dependency "gobierto_people"
 module GobiertoPeople
   class PoliticalGroup < ApplicationRecord
     include GobiertoCommon::Sortable
-    include GobiertoPeople::Sluggable
+    include GobiertoCommon::Sluggable
 
     validates :site, presence: true
 

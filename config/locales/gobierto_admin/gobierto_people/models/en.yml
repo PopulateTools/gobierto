@@ -2,12 +2,6 @@
 en:
   activemodel:
     attributes:
-      gobierto_admin/gobierto_people/person_event_form:
-        attachment_file: Attached file
-        description: Description
-        ends_at: End date
-        starts_at: Start date
-        title: Title
       gobierto_admin/gobierto_people/person_form:
         avatar_file: Avatar
         avatar_url: Avatar
@@ -31,7 +25,6 @@ en:
       gobierto_admin/gobierto_people/political_group_form:
         name: Group name
     models:
-      gobierto_admin/gobierto_people/person_event_form: Event
       gobierto_admin/gobierto_people/person_form: Person
       gobierto_admin/gobierto_people/person_post_form: Post
       gobierto_admin/gobierto_people/person_statement_form: Statement

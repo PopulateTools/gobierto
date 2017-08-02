@@ -35,7 +35,7 @@ $(document).on('turbolinks:load', function() {
 
   $('.site_header_logo .search_icon').click(function(e) {
     e.preventDefault();
-    $(this).velocity({ width: isMobile() ? '100px' : '170px' }, { complete: function (element) { $(element[0]).find('input').removeClass('hidden').focus(); }})
+    $(this).velocity({ width: isMobile() ? '170px' : '170px' }, { complete: function (element) { $(element[0]).find('input').removeClass('hidden').focus(); }})
   });
 
   $('.site_header_logo .search_icon input').on('focusout', function(e) {

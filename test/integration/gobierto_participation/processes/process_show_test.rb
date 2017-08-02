@@ -5,15 +5,19 @@ module GobiertoParticipation
 
     def setup
       super
-      @path = gobierto_participation_process_path(process.slug)
+      @path = gobierto_participation_process_path(gender_violence_process.slug)
     end
 
     def site
       @site ||= sites(:madrid)
     end
 
-    def process
-      @process ||= gobierto_participation_processes(:gender_violence_process)
+    def gender_violence_process
+      @gender_violence_process ||= gobierto_participation_processes(:gender_violence_process)
+    end
+
+    def green_city_group
+      @green_city_group ||= gobierto_participation_processes(:green_city_group)
     end
 
     def test_breadcrumb_items
@@ -23,7 +27,7 @@ module GobiertoParticipation
         within '.global_breadcrumb' do
           assert has_link? 'Participation'
           assert has_link? 'Processes'
-          assert has_link? process.title
+          assert has_link? gender_violence_process.title
         end
       end
     end
@@ -73,12 +77,12 @@ module GobiertoParticipation
         visit @path
 
         within '.container' do
-          assert has_content? process.title
-          assert has_content? process.body
+          assert has_content? gender_violence_process.title
+          assert has_content? gender_violence_process.body
 
           assert has_content? 'Interesting information'
 
-          process_duration_text = "#{process.starts.strftime('%d/%m/%y')} to #{process.ends.strftime('%d/%m/%y')}"
+          process_duration_text = "#{gender_violence_process.starts.strftime('%d/%m/%y')} to #{gender_violence_process.ends.strftime('%d/%m/%y')}"
 
           assert has_content? process_duration_text
           assert has_content? 'Women'
@@ -91,11 +95,19 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        assert_equal process.news.size, all('.place_news-item').size
+        assert_equal gender_violence_process.news.size, all('.place_news-item').size
 
-        news_titles = process.news.map { |notice| notice.title }
+        news_titles = gender_violence_process.news.map { |notice| notice.title }
 
         assert array_match ['Notice 1 title', 'Notice 2 title'], news_titles
+      end
+    end
+
+    def test_process_without_news
+      with_current_site(site) do
+        visit gobierto_participation_process_path(green_city_group.slug)
+
+        assert has_content? 'There are no related news'
       end
     end
 
@@ -103,11 +115,19 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        assert_equal process.events.size, all('.place_event-item').size
+        assert_equal gender_violence_process.events.size, all('.place_event-item').size
 
-        events_titles = process.events.map { |event| event.title }
+        events_titles = gender_violence_process.events.map { |event| event.title }
 
         assert array_match ['Future government event', 'Nelson tomorrow event'], events_titles
+      end
+    end
+
+    def test_process_without_events
+      with_current_site(site) do
+        visit gobierto_participation_process_path(green_city_group.slug)
+
+        assert has_content? 'There are no related events'
       end
     end
 
@@ -124,8 +144,16 @@ module GobiertoParticipation
         visit @path
 
         within '.timeline' do
-          assert_equal process.stages.size, all('.timeline_row').size
+          assert_equal gender_violence_process.stages.size, all('.timeline_row').size
         end
+      end
+    end
+
+    def test_process_without_stages
+      with_current_site(site) do
+        visit gobierto_participation_process_path(green_city_group.slug)
+
+        refute has_content? 'Process stages'
       end
     end
 

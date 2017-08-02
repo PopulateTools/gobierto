@@ -68,7 +68,7 @@ a.social_share {
 .social_links_container {
   z-index: 1;
 
-  a {
+  > a {
     @include border-radius(3em);
     margin: 0 .5em 0 0;
     font-size: .85em;

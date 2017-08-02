@@ -25,6 +25,25 @@
     opacity: .6;
   }
 }
+.mfp-container {
+  padding: 0;
+}
+.modal.modal_poll {
+  max-width: 100%;
+  margin: 0;
+
+  button.mfp-close, button.mfp-close:hover {
+    @include border-radius(50%);
+    border: 1px solid $color_1_soft;
+    margin: 1.5em 1em 0 0;
+  }
+  button.mfp-close {
+    color: #FFF;
+  }
+  .poll {
+
+  }
+}
 .mfp-bg {
   opacity: .6;
 }

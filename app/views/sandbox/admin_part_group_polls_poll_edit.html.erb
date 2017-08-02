@@ -117,6 +117,36 @@
                 <input type="text" id="name" value="<%= i %>">
               </div>
 
+
+
+              <div class="form_item">
+
+                <h4>Tipo de pregunta</h4>
+
+            		<div class="options compact">
+
+	                <div class="option">
+                    <input type="radio" id="opt_1" name="opt" value="1" checked />
+                    <label for="opt_1">
+                      <span></span>
+                      Respuesta única
+                    </label>
+                  </div>
+
+                  <div class="option">
+                    <input type="radio" id="opt_2" name="opt" value="2"/>
+                    <label for="opt_2">
+                      <span></span>
+                      Respuesta múltiple
+                    </label>
+                  </div>
+
+            	  </div>
+
+            	</div>
+
+              <h4>Posibles respuestas</h4>
+
               <% for i in [
                 'Si',
                 'No',
@@ -174,7 +204,7 @@
 
         <div class="m_1 p_h_2" >
           <!-- it generates another .list_item_with_editable_content element -->
-          <%= link_to '<i class="fa fa-plus-circle"></i> Añadir nueva pregunta'.html_safe, '#edit_poll_response', class: 'open_modal'  %>
+          <%= link_to '<i class="fa fa-plus-circle"></i> Añadir nueva respuesta'.html_safe, '#edit_poll_response', class: 'open_modal'  %>
         </div>
 
       </div>

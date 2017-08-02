@@ -92,7 +92,7 @@ module GobiertoAdmin
           track_update_activity
 
           redirect_to(
-            admin_common_collections_path(@collection),
+            admin_common_collection_path(@collection),
             notice: t('.success')
           )
         else

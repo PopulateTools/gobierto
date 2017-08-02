@@ -33,5 +33,28 @@ module GobiertoParticipation
     def to_s
       self.title
     end
+
+    def news
+      news_collection ? news_collection.collection_items.map { |collection_item| collection_item.item } : []
+      # TODO: write in a more efficient way. Maybe something like this:
+      # GobiertoCms::Page.where(collection: news_collection)
+    end
+
+    def events
+      events_collection ? events_collection.collection_items.map { |collection_item| collection_item.item } : []
+      # TODO: write in a more efficient way. Maybe something like this:
+      # GobiertoCalendars::Event.where(collection: events_collection)
+    end
+
+    private
+
+    def news_collection
+      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCms::Page')
+    end
+
+    def events_collection
+      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCalendars::Event')
+    end
+
   end
 end

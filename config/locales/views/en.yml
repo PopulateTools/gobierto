@@ -25,6 +25,8 @@ en:
     sentence_for_humans: If you are human, ignore this field
     timestamp_error_message: Sorry, that was too quick! Please resubmit.
   layouts:
+    breadcrumb:
+      start: Start
     accept_privacy_policy_signup: By signing up you agree to the Privacy Policy
     application:
       disclaimer: This is a demo of Gobierto, transparency and participation software
@@ -36,6 +38,7 @@ en:
         sign_in: Sign in
         sign_out: Sign out
         title: Your account
+      follow_process: Follow this process
     gobierto_budget_consultations:
       application:
         about_the_data: About the data

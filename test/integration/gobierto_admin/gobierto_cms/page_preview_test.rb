@@ -24,11 +24,19 @@ module GobiertoAdmin
         @draft_page ||= site.pages.draft.first
       end
 
+      def collection
+        @collection ||= gobierto_common_collections(:news)
+      end
+
       def test_preview_published_page
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
-            click_link 'News'
+
+            within "#collection-#{collection.id}" do
+              click_link 'News'
+            end
+
             within "tr#page-item-#{published_page.id}" do
               preview_link = find('a', text: 'View page')
 
@@ -47,8 +55,11 @@ module GobiertoAdmin
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
-            click_link 'News'
 
+            within "#collection-#{collection.id}" do
+              click_link 'News'
+            end
+            
             within "tr#page-item-#{draft_page.id}" do
               preview_link = find('a', text: 'View page')
 

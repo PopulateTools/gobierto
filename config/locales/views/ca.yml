@@ -26,6 +26,8 @@ ca:
     timestamp_error_message: Disculpa, això ha sigut molt rapid. Torna a enviar el
       formulari.
   layouts:
+    breadcrumb:
+      start: Inici
     accept_privacy_policy_signup: Al registrar-te estàs acceptant la Política de Privacitat
     application:
       disclaimer: Aquesta web es una demostració de Gobierto, un programari de transparència
@@ -38,6 +40,7 @@ ca:
         sign_in: Iniciar sessió
         sign_out: Surt
         title: El teu compte
+      follow_process: Segueix aquest procés
     gobierto_budget_consultations:
       application:
         about_the_data: Sobre les dades

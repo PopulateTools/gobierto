@@ -93,7 +93,9 @@ module GobiertoBudgetConsultations
         assert has_selector?(".consultation-title", text: "Inversión en Bomberos y Protección Civil")
         assert has_content?("40€")
 
-        click_link "Start"
+        within '.consultation-step' do
+          click_link 'Start'
+        end
 
         assert has_message?("The participation in this consultation is reserved to people registered in Madrid.")
       end
@@ -123,7 +125,9 @@ module GobiertoBudgetConsultations
           assert has_selector?(".consultation-title", text: "Inversión en Bomberos y Protección Civil")
           assert has_content?("40€")
 
-          click_link "Start"
+          within '.consultation-step' do
+            click_link 'Start'
+          end
 
           assert has_message?("The process in which you want to participate requires to verify your register in")
         end

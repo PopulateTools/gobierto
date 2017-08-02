@@ -13,7 +13,22 @@ collection_item_attachment:
   item: pdf_collection_attachment (GobiertoAttachments::Attachment)
   container: culture (GobiertoParticipation::Issue)
 
+## Pages collection items
+
+news_collection_notice_1:
+  collection: gender_violence_process_news
+  item: notice_1 (GobiertoCms::Page)
+  container: gender_violence_process (GobiertoParticipation::Process)
+
+news_collection_notice_2:
+  collection: gender_violence_process_news
+  item: notice_2 (GobiertoCms::Page)
+  container: gender_violence_process (GobiertoParticipation::Process)
+
+## /end Pages collection items
+
 ## Events collection items
+
 richard_pending_person:
   collection: richard_calendar
   item: richard_pending (GobiertoCalendars::Event)
@@ -118,5 +133,15 @@ tamara_published_past_site:
   collection: tamara_calendar
   item: tamara_published_past (GobiertoCalendars::Event)
   container: madrid (Site)
+
+events_collection_event_1:
+  collection: gender_violence_process_events
+  item: richard_published (GobiertoCalendars::Event)
+  container: gender_violence_process (GobiertoParticipation::Process)
+
+events_collection_event_2:
+  collection: gender_violence_process_events
+  item: nelson_tomorrow (GobiertoCalendars::Event)
+  container: gender_violence_process (GobiertoParticipation::Process)
 
 ## /end Events collection items

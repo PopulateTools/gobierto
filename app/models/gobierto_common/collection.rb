@@ -12,7 +12,6 @@ module GobiertoCommon
     validates :container, presence: true, associated: true
     validates_associated :container
     validates :slug, uniqueness: true
-    # validate :uniqueness_of_title
 
     attr_reader :container
 
@@ -106,12 +105,5 @@ module GobiertoCommon
       self.class.collector_classes.include?(container.class)
     end
 
-    # def uniqueness_of_title
-    #   if title_translations.present?
-    #     if title_translations.select{ |_, title| title.present? }.any?{ |_, title| self.class.where(site_id: self.site_id).where.not(id: self.id).with_title_translation(title).exists? }
-    #       errors.add(:title, I18n.t('errors.messages.taken'))
-    #     end
-    #   end
-    # end
   end
 end

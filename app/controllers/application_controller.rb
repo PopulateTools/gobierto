@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::RoutingError, with: :render_404
   rescue_from ActionController::UnknownFormat, with: :render_404
 
-  helper_method :helpers, :load_current_module_sub_sections, :current_site, :current_module, :available_locales
+  helper_method :helpers, :load_current_module_sub_sections, :current_site, :current_module, :current_module_body_class, :available_locales
 
   before_action :set_current_site, :authenticate_user_in_site, :set_locale
 
@@ -38,6 +38,14 @@ class ApplicationController < ActionController::Base
     @current_module ||= if params[:controller].include?('/')
                           params[:controller].split('/').first
                         end
+  end
+
+  def current_module_body_class
+    if current_module == 'gobierto_participation'
+      return 'gobierto_participation theme-participation'
+    else
+      return current_module
+    end
   end
 
   def set_current_site

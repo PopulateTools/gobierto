@@ -1,0 +1,11 @@
+<menu class="sub_sections">
+  <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
+    <ul>
+      <li><%= todo_link_to { link_to t('.about'), '#', class: class_if('active', controller_name == 'welcome') } %></li>
+      <li><%= todo_link_to { link_to t('.issues'), '#', class: class_if('active', controller_name == 'issues') } %></li>
+      <li><%= link_to t('.processes'), gobierto_participation_processes_path, class: class_if('active', controller_name == 'processes') %></li>
+      <li><%= todo_link_to { link_to t('.questions'), '#', class: class_if('active', action_name == 'questions') } %></li>
+      <li><%= todo_link_to { link_to t('.ideas'), '#', class: class_if('active', controller_name == 'ideas') } %></li>
+    </ul>
+  </div>
+</menu>

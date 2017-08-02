@@ -1,6 +1,47 @@
 ---
 es:
   gobierto_participation:
+    layouts:
+      application:
+        title: Participación
+      menu_subsections:
+        about: Acerca de
+        issues: Temas
+        processes: Procesos
+        questions: Pregunta
+        ideas: Ideas
+      process_menu_subsections:
+        information: Información
+        meetings: Reuniones
+        polls: Encuestas
+        contributions: Contribuciones
+        results: Resultados
+      secondary_nav:
+        news: Noticias
+        agenda: Agenda
+        documents: Documentos
+        activity: Actividad
     events:
       gobierto_participation_issue_created: Tema creado
       gobierto_participation_issue_updated: Tema actualizado
+    processes:
+      show:
+        issues: Temas
+        process_stages: Fases del proceso
+        length: Duración
+        interesting_information: Información de interés
+        about: Sobre este proceso
+        news: Noticias
+        newest: Lo último
+        more_news: Ver más noticias
+        more_information: Más información
+        appointments: Citas presenciales
+        more_events: Ver más eventos
+        more_updates: Ver más actualizaciones
+        no_news: No hay noticias relacionadas
+        no_events: No hay eventos relacionados
+        from_to: '%{starts} al %{ends}'
+      timeline_row:
+        view_stage: Acceder a esta fase
+        upcoming_stage: Fase pendiente de inicio
+        past_stage: Fase finalizada

@@ -11,3 +11,17 @@ files:
   slug: files
   container: culture (GobiertoParticipation::Issue)
   item_type: GobiertoAttachments::Attachment
+  
+gender_violence_process_news:
+  site: madrid
+  title_translations: <%= {'en' => 'News', 'es' => 'Noticias' }.to_json %>
+  slug: noticias-violencia-genero
+  container: gender_violence_process (GobiertoParticipation::Process)
+  item_type: GobiertoCms::Page
+
+gender_violence_process_events:
+  site: madrid
+  title_translations: <%= {'en' => 'Face-to-face appointments', 'es' => 'Citas presenciales' }.to_json %>
+  slug: eventos-violencia-genero
+  container: gender_violence_process (GobiertoParticipation::Process)
+  item_type: GobiertoPeople::PersonEvent

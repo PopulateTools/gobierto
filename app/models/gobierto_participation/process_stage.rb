@@ -18,6 +18,23 @@ module GobiertoParticipation
     validates :starts, :ends, presence: true, if: -> { process.process? }
 
     scope :sorted, -> { order(id: :desc) }
+    scope :open,   -> { where('starts <= ? AND ends > ?', Time.zone.now, Time.zone.now) }
+
+    def open?
+      Time.zone.now.between?(starts, ends)
+    end
+
+    def past?
+      ends < Time.zone.now
+    end
+
+    def upcoming?
+      starts > Time.zone.now
+    end
+
+    def current?
+      self == process.stages.open.order(ends: :asc).last
+    end
 
   end
 end

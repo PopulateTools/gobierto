@@ -26,6 +26,8 @@ es:
     timestamp_error_message: Lo siento, eso ha sido muy rápido. Por favor, vuelve
       a enviar el formulario.
   layouts:
+    breadcrumb:
+      start: Inicio
     accept_privacy_policy_signup: Al registrarte estás aceptando la Política de Privacidad
     application:
       disclaimer: Esta web es una demostración de Gobierto, software de transparencia
@@ -38,6 +40,7 @@ es:
         sign_in: Iniciar sesión
         sign_out: Cerrar sesión
         title: Tu cuenta
+      follow_process: Sigue este proceso
     gobierto_budget_consultations:
       application:
         about_the_data: Sobre los datos

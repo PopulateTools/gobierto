@@ -20,13 +20,20 @@ module GobiertoAdmin
         @cms_page ||= gobierto_cms_pages(:consultation_faq)
       end
 
+      def collection
+        @collection ||= gobierto_common_collections(:news)
+      end
+
       def test_update_page
         with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
 
-              click_link 'News'
+              within "#collection-#{collection.id}" do
+                click_link 'News'
+              end
+
               assert has_selector?('h1', text: 'News')
 
               click_link 'Consultation page FAQ'

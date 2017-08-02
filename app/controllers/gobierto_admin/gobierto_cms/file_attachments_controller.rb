@@ -62,7 +62,7 @@ module GobiertoAdmin
           )
         else
           @collection = @page.file_attachment
-          render :edit
+          render :edit, collection_id: @collection.id
         end
       end
 

@@ -31,7 +31,7 @@ module GobiertoAdmin
               collections.each do |collection|
                 assert has_selector?('tr')
 
-                within 'tr' do
+                within "#collection-#{collection.id}" do
                   assert has_link?('View collection')
                 end
               end

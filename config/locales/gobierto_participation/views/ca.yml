@@ -1,0 +1,47 @@
+---
+ca:
+  gobierto_participation:
+    layouts:
+      application:
+        title: Participació
+      menu_subsections:
+        about: Sobre
+        issues: Temes
+        processes: Processos
+        questions: Pregunta
+        ideas: Idees
+      process_menu_subsections:
+        information: Informació
+        meetings: Reunions
+        polls: Enquestes
+        contributions: Contribucions
+        results: Resultats
+      secondary_nav:
+        news: Notícies
+        agenda: Agenda
+        documents: Documents
+        activity: Activitat
+    events:
+      gobierto_participation_issue_created: Tema creat
+      gobierto_participation_issue_updated: Tema actualitzat
+    processes:
+      show:
+        issues: Temas
+        process_stages: Fases del procés
+        length: Durada
+        interesting_information: Informació d'interès
+        about: Sobre aquest procés
+        news: Notícies
+        newest: L'últim
+        more_news: Veure més notícies
+        more_information: Més informació
+        appointments: Cites presencials
+        more_events: Veure més esdeveniments
+        more_updates: Veure més actualitzacions
+        no_news: No hi ha notícies relacionades
+        no_events: No hi ha esdeveniments relacionats
+        from_to: '%{starts} al %{ends}'
+      timeline_row:
+        view_stage: Acceder a aquesta fase
+        upcoming_stage: Fase pendent d'inici
+        past_stage: Fase finalitzada

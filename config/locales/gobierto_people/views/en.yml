@@ -2,9 +2,6 @@
 en:
   gobierto_people:
     events:
-      gobierto_people_person_event_published: 'Calendar updated with a new event:
-        %{subject_name}'
-      gobierto_people_person_event_updated: 'Event updated: %{subject_name}'
       gobierto_people_person_post_published: 'Blog updated: %{subject_name}'
       gobierto_people_person_post_updated: 'Post updated: %{subject_name}'
       gobierto_people_person_published: 'New person published: %{subject_name}'

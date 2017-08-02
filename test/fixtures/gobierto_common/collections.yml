@@ -11,3 +11,57 @@ files:
   slug: files
   container: culture (Issue)
   item_type: GobiertoAttachments::Attachment
+
+## GobiertoParticipation Process collections of pages
+
+gender_violence_process_news:
+  site: madrid
+  title_translations: <%= {'en' => 'News', 'es' => 'Noticias' }.to_json %>
+  slug: noticias-violencia-genero
+  container: gender_violence_process (GobiertoParticipation::Process)
+  item_type: GobiertoCms::Page
+
+## /end
+
+## GobiertoParticipation Process collections of events
+
+gender_violence_process_events:
+  site: madrid
+  title_translations: <%= {'en' => 'Face-to-face appointments', 'es' => 'Citas presenciales' }.to_json %>
+  slug: eventos-violencia-genero
+  container: gender_violence_process (GobiertoParticipation::Process)
+  item_type: GobiertoCalendars::Event
+
+## /end
+
+## GobiertoPeople People collections of events (calendars of events)
+
+richard_calendar:
+  site: madrid
+  title_translations: <%= {'en' => 'Richard calendar', 'es' => 'Calendario de Richard' }.to_json %>
+  slug: richard-calendar
+  container: richard (GobiertoPeople::Person)
+  item_type: GobiertoCalendars::Event
+
+nelson_calendar:
+  site: madrid
+  title_translations: <%= {'en' => 'Nelson calendar', 'es' => 'Calendario de Nelson' }.to_json %>
+  slug: nelson-calendar
+  container: nelson (GobiertoPeople::Person)
+  item_type: GobiertoCalendars::Event
+
+tamara_calendar:
+  site: madrid
+  title_translations: <%= {'en' => 'Tamara calendar', 'es' => 'Calendario de Tamara' }.to_json %>
+  slug: tamara-calendar
+  container: tamara (GobiertoPeople::Person)
+  item_type: GobiertoCalendars::Event
+
+juana_calendar:
+  site: madrid
+  title_translations: <%= {'en' => 'Juana calendar', 'es' => 'Calendario de Juana' }.to_json %>
+  slug: juana-calendar
+  container: juana (GobiertoPeople::Person)
+  item_type: GobiertoCalendars::Event
+
+## /end

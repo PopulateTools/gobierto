@@ -107,10 +107,27 @@ header.meta {
       .fa {
         margin: 0;
       }
-      a {
+      > a {
         padding: 0;
         margin: 0 0 0 .5em;
         width: 2.1em;
+      }
+
+      .social_share.twitter,
+      .social_share.facebook {
+        @include min-screen(740) {
+          position: absolute;
+          z-index: -1;
+          top: 1.4em;
+        }
+      }
+
+      .social_share.twitter {
+        right: 6.25em;
+      }
+
+      .social_share.facebook {
+        right: 3.5em;
       }
     }
     .button.outline.rounded {
@@ -148,6 +165,10 @@ header.meta {
         border: 1px solid #e5eff8;
         width: 70px;
 
+        &:focus {
+          box-shadow: none;
+        }
+
         @include min-screen(740) {
           width: 85%;
         }
@@ -173,8 +194,23 @@ header.meta {
       z-index: 1000;
       font-size: .85em;
       line-height: 1.2em;
+      position: absolute;
+      bottom: 3em;
+
+
+      @include min-screen(740) {
+        bottom: initial;
+        right: 1em;
+      }
+
+      a {
+        color: $color_headers;
+      }
+
       .result {
+        display: block;
         padding: 1em;
+
         h2 {
           margin: .25em 0;
           font-size: 1rem;

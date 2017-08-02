@@ -39,12 +39,12 @@ class IbmNotes::PersonEventTest < ActiveSupport::TestCase
   end
 
   def persisted_ibm_notes_event_gobierto_event
-    @persisted_ibm_notes_event_gobierto_event ||= GobiertoPeople::PersonEvent.new(
+    @persisted_ibm_notes_event_gobierto_event ||= GobiertoCalendars::Event.new(
       id: 'Ibm Notes persisted event ID',
       title: 'Ibm Notes persisted event title',
       starts_at: utc_time("2017-04-11 10:00:00"),
       ends_at:   utc_time("2017-04-11 11:00:00"),
-      person: person,
+      collection: person.events_collection,
       site: person.site
     )
   end

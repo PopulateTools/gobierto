@@ -94,34 +94,7 @@ var z = d3.scaleLinear()
   .range([-5, 5])
   .domain([0, data.length]);
 
-var nodes = data.map(function(d, i) {
-  var velocity = Math.random() * 2 + 1
-  var angle = Math.random() * 360
-
-  return {
-    width: cardWidth,
-    height: cardHeight,
-    x: Math.random() * (width - cardWidth),
-    y: Math.random() * (height - cardHeight),
-    vx: velocity * Math.cos(angle * Math.PI / 180),
-    vy: velocity * Math.sin(angle * Math.PI / 180),
-    name: d,
-    z: z(i) * d3.randomUniform(2)(),
-    love: Math.floor(d3.randomUniform(10)()),
-    like: Math.floor(d3.randomUniform(10)()),
-    neutral: Math.floor(d3.randomUniform(10)()),
-    hate: Math.floor(d3.randomUniform(10)()),
-  }
-});
-
-// Calculate percentage of votes for each card
-nodes.forEach(function(d) {
-  d.total = d.love + d.like + d.neutral + d.hate,
-  d.love_pct = Math.floor(d.love / d.total * 100)
-  d.like_pct = Math.floor(d.like / d.total * 100)
-  d.neutral_pct = Math.floor(d.neutral / d.total * 100)
-  d.hate_pct = Math.floor(d.hate / d.total * 100)
-});
+var nodes = createNodes(data);
 
 var collisionForce = rectCollide()
   .size(function (d) { return [d.width, d.height] });
@@ -146,32 +119,21 @@ var contributions = d3.select('.contributions_container');
 contributions.select('.contributions_content')
   .append('div')
   .attr('class', 'contribution_legend')
-  .text('50 vecinos han aportado ' + data.length + ' ideas')
+  .text('50 vecinos han aportado ' + data.length + ' ideas');
 
-var card = contributions.select('.contributions_content')
-  .selectAll('div')
-  .data(nodes)
-  .enter()
-  .append('div')
-  .attr('class', 'card');
+contributions.select('.contributions_content')
+  .append('i')
+  .attr('data-toggle', 'next')
+  .attr('class', 'fa fa-angle-right fa-3x arrow next_contribution')
+  .on('click', updateContributions);
 
-card
-  .append('div')
-  .attr('class', 'gradient_bar')
-  .style('background', function(d) {
-    // Every stop has to have every previous stop summed
-    return 'linear-gradient(to right, #38b486 ' + d.love_pct + '%, #429aad ' + (d.love_pct + d.like_pct ) + '%, #9c7e7e ' + (d.love_pct + d.like_pct + d.neutral_pct) + '%, #f06659 ' + (d.love_pct + d.like_pct + d.neutral_pct + d.hate_pct) + '%)';
-  });
+contributions.select('.contributions_content')
+  .append('i')
+  .attr('data-toggle', 'previous')
+  .attr('class', 'fa fa-angle-left fa-3x arrow previous_contribution disabled')
+  .on('click', updateContributions);
 
-card
-  .append('div').attr('class', 'title')
-  .text(function(d) { return d.name; });
-
-card
-  .style('transform', function(d, i) { return 'translate('+ d.x + 'px,' + d.y + 'px' + ') rotate(' + d.z + 'deg) translateZ(0)'; })
-  .call(drag);
-
-simulation.on('tick', ticked);
+createCards(nodes);
 
 /* Buttons */
 contributions.select('.toggleLayout')
@@ -218,14 +180,65 @@ function updateCards() {
   }
 }
 
+function updateContributions() {
+  var toggle = d3.select(this).attr('data-toggle');
+
+  // Current contribution pool tracker
+  d3.select('.circles_progress .active')
+    .classed('trackToggle', true);
+
+  if (toggle === 'next') {
+    d3.selectAll('.circles_progress .active + li')
+      .classed('active', 'true');
+
+    d3.select('.previous_contribution')
+      .classed('disabled', false);
+  } else {
+    d3.select('.circles_progress .active')
+      .select(function() {
+        return this.previousElementSibling;
+      })
+      .classed('active', true);
+  }
+
+  d3.selectAll('.trackToggle')
+    .classed('active', false)
+    .classed('trackToggle', false);
+
+  // Deselect markers on final steps
+  if (d3.select('.circles_progress li:first-child').classed('active')) {
+    d3.select('.previous_contribution')
+      .classed('disabled', true);
+  } else if (d3.select('.circles_progress li:last-child').classed('active')) {
+    d3.select('.next_contribution')
+      .classed('disabled', true);
+  }
+
+  // Transition cards
+  d3.selectAll('.card')
+    .transition(500)
+    .delay(function(d, i) { return i * 20 })
+    .style('opacity', 0)
+    .on('end', ended);
+
+  // TODO: Create new nodes & cards
+  function ended() {
+    d3.selectAll('.card')
+      .transition(500)
+      .delay(function(d, i) { return i * 20 })
+      .style('opacity', 1)
+  }
+}
 
 function ticked() {
   // Position the cards with a force simulation
-  card.style('transform', function(d, i) { return 'translate('+ d.x + 'px,' + d.y + 'px' + ') rotate(' + d.z + 'deg) translateZ(0)'; });
+  d3.selectAll('.card').style('transform', function(d, i) { return 'translate('+ d.x + 'px,' + d.y + 'px' + ') rotate(' + d.z + 'deg) translateZ(0)'; });
 }
 
 // Drag functions
 function started(d) {
+  d3.select(this).style('z-index', 1);
+
   vx = 0;
   vy = 0;
   offsetX = (px = d3.event.x) - (d.fx = d.x);
@@ -243,6 +256,8 @@ function dragged(d) {
 }
 
 function ended(d) {
+  d3.select(this).style('z-index', 0);
+
   var vScalingFactor = maxVelocity / Math.max(Math.sqrt(vx * vx + vy * vy), maxVelocity);
 
   d.fx = null;
@@ -397,7 +412,67 @@ function boundedBox() {
        : size)
   }
 
-  return force
+  return force;
+}
+
+function createNodes(data) {
+  var velocity = Math.random() * 2 + 1
+  var angle = Math.random() * 360
+
+  var output = data.map(function(d, i) {
+    return {
+      width: cardWidth,
+      height: cardHeight,
+      x: Math.random() * (width - cardWidth),
+      y: Math.random() * (height - cardHeight),
+      vx: velocity * Math.cos(angle * Math.PI / 180),
+      vy: velocity * Math.sin(angle * Math.PI / 180),
+      name: d,
+      z: z(i) * d3.randomUniform(2)(),
+      love: Math.floor(d3.randomUniform(10)()),
+      like: Math.floor(d3.randomUniform(10)()),
+      neutral: Math.floor(d3.randomUniform(10)()),
+      hate: Math.floor(d3.randomUniform(10)()),
+    }
+  });
+
+  // Calculate percentage of votes for each card
+  output.forEach(function(d) {
+    d.total = d.love + d.like + d.neutral + d.hate,
+    d.love_pct = Math.floor(d.love / d.total * 100)
+    d.like_pct = Math.floor(d.like / d.total * 100)
+    d.neutral_pct = Math.floor(d.neutral / d.total * 100)
+    d.hate_pct = Math.floor(d.hate / d.total * 100)
+  });
+
+  return output;
+}
+
+function createCards(data) {
+  var card = contributions.select('.contributions_content')
+    .selectAll('div')
+    .data(data)
+    .enter()
+    .append('div')
+    .attr('class', 'card');
+
+  card
+    .append('div')
+    .attr('class', 'gradient_bar')
+    .style('background', function(d) {
+      // Every stop has to have every previous stop summed
+      return 'linear-gradient(to right, #38b486 ' + d.love_pct + '%, #429aad ' + (d.love_pct + d.like_pct ) + '%, #9c7e7e ' + (d.love_pct + d.like_pct + d.neutral_pct) + '%, #f06659 ' + (d.love_pct + d.like_pct + d.neutral_pct + d.hate_pct) + '%)';
+    });
+
+  card
+    .append('div').attr('class', 'title')
+    .text(function(d) { return d.name; });
+
+  card
+    .style('transform', function(d, i) { return 'translate('+ d.x + 'px,' + d.y + 'px' + ') rotate(' + d.z + 'deg) translateZ(0)'; })
+    .call(drag);
+
+  simulation.on('tick', ticked);
 }
 
 function constant(_) {

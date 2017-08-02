@@ -9,7 +9,7 @@ class GobiertoPeople::ClearImportedPersonEventsJob < ActiveJob::Base
     # Person attending events from other person calendar
     person.attending_events.each do |event|
       if event.synchronized? && event.attendees.select{ |a| a.person_id.present? }.length == 1 &&
-          event.person_id == 0
+          event.collection.container != person
         event.destroy
       end
     end
@@ -17,7 +17,7 @@ class GobiertoPeople::ClearImportedPersonEventsJob < ActiveJob::Base
 
     # Person attendance to events
     person.attending_person_events.each do |attendee|
-      if attendee.person_event.nil? || attendee.person_event.synchronized?
+      if attendee.event.nil? || attendee.event.synchronized?
         attendee.destroy
       end
     end

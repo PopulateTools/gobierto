@@ -9,18 +9,7 @@ es:
     models:
       gobierto_people/person_message: Mensaje
   activerecord:
-    attributes:
-      gobierto_people/person_event_attendee:
-        charge: Cargo
-        name: Nombre
-        person: Persona
-      gobierto_people/person_event_location:
-        address: Dirección
-        name: Nombre
     models:
       gobierto_people/person: Cargo
-      gobierto_people/person_event: Evento
-      gobierto_people/person_event_attendee: Asistente
-      gobierto_people/person_event_location: Localizacion
       gobierto_people/person_post: Post
       gobierto_people/person_statement: Declaracion

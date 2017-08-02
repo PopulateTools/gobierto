@@ -24,3 +24,39 @@ local_budgets_ideas_stage:
   starts: <%= 1.day.from_now %>
   ends: <%= 10.days.from_now %>
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:ideas] %>
+
+gender_violence_process_information_stage:
+  process: gender_violence_process
+  title_translations: <%= { 'es' => 'Presentación del proceso' }.to_json %>
+  description_translations: <%= { 'es' => 'A través de diferentes Mesas de Diálogo Ciudadano recogeremos en los diferentes distritos propuestas vecinales.' }.to_json %>
+  slug: presentacion
+  starts: <%= 2.months.ago %>
+  ends: <%= 1.month.ago %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:information] %>
+
+gender_violence_process_meetings_stage:
+  process: gender_violence_process
+  title_translations: <%= { 'es' => 'Mesas de diálogo' }.to_json %>
+  description_translations: <%= { 'es' => 'A través de diferentes Mesas de Diálogo Ciudadano recogeremos en los diferentes distritos propuestas vecinales y soluciones concretas que nos permitan elaborar el borrador del “Pacto social por el fin de la violencia contra la mujer”.' }.to_json %>
+  slug: dialogo
+  starts: <%= 1.month.ago + 1.day %>
+  ends: <%= 5.days.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
+
+gender_violence_process_ideas_stage:
+  process: gender_violence_process
+  title_translations: <%= { 'es' => 'Publicación del borrador' }.to_json %>
+  description_translations: <%= { 'es' => 'A través de diferentes Mesas de Diálogo Ciudadano recogeremos en los diferentes distritos propuestas vecinales y soluciones concretas que nos permitan elaborar el borrador del “Pacto social por el fin de la violencia contra la mujer”.' }.to_json %>
+  slug: borrador
+  starts: <%= 15.days.ago %>
+  ends: <%= 2.months.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:ideas] %>
+
+gender_violence_process_results_stage:
+  process: gender_violence_process
+  title_translations: <%= { 'es' => 'Presentación del pacto' }.to_json %>
+  description_translations: <%= { 'es' => 'A través de diferentes Mesas de Diálogo Ciudadano recogeremos en los diferentes distritos propuestas vecinales y soluciones concretas que nos permitan elaborar el borrador del “Pacto social por el fin de la violencia contra la mujer”.' }.to_json %>
+  slug: pacto
+  starts: <%= 40.days.from_now %>
+  ends: <%= 60.days.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:results] %>

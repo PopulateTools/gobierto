@@ -28,7 +28,7 @@ module GobiertoPeople
     end
 
     def set_events
-      @events = current_site.person_events.page params[:page]
+      @events = GobiertoCalendars::Event.by_site(current_site).person_events.page params[:page]
       @events = @events.by_person_category(@person_category) if @person_category
       @events = @events.by_person_party(@person_party) if @person_party
 
@@ -49,7 +49,7 @@ module GobiertoPeople
     end
 
     def set_calendar_events
-      @calendar_events = current_site.person_events.within_range(calendar_date_range)
+      @calendar_events = GobiertoCalendars::Event.by_site(current_site).person_events.within_range(calendar_date_range)
       @calendar_events = @calendar_events.by_person_category(@person_category) if @person_category
       @calendar_events = @calendar_events.by_person_party(@person_party) if @person_party
     end

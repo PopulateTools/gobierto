@@ -100,7 +100,7 @@ module GobiertoPeople
           title: event.summary,
           starts_at: event.start.date_time || DateTime.parse(event.start.date),
           ends_at: event.end.date_time || DateTime.parse(event.end.date),
-          state: GobiertoPeople::PersonEvent.states[:published],
+          state: GobiertoCalendars::Event.states[:published],
           attendees: event_attendees(event),
           notify: i.nil? || i == 0
         }

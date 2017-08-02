@@ -1,0 +1,15 @@
+---
+es:
+  activerecord:
+    attributes:
+      gobierto_calendars/event_attendee:
+        charge: Cargo
+        name: Nombre
+        person: Persona
+      gobierto_calendars/event_location:
+        address: Dirección
+        name: Nombre
+    models:
+      gobierto_calendars/event: Evento
+      gobierto_calendars/event_attendee: Asistente
+      gobierto_calendars/event_location: Localizacion

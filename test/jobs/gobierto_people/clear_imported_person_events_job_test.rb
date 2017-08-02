@@ -6,11 +6,11 @@ class GobiertoPeople::ClearImportedPersonEventsJobTest < ActiveSupport::TestCase
   end
 
   def test_perform
-    event1 = gobierto_people_person_events(:richard_published)
+    event1 = gobierto_calendars_events(:richard_published)
     event1.update_column(:external_id, 'richard_published')
 
     GobiertoPeople::ClearImportedPersonEventsJob.new.perform(person)
 
-    assert_nil GobiertoPeople::PersonEvent.find_by(id: event1.id)
+    assert_nil GobiertoCalendars::Event.find_by(id: event1.id)
   end
 end

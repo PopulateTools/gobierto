@@ -7,7 +7,6 @@ module GobiertoPeople
     before_action :check_active_submodules, except: :show
 
     def index
-
       @political_groups = get_political_groups
 
       set_people
@@ -28,7 +27,7 @@ module GobiertoPeople
         redirect_to gobierto_people_person_events_path(@person.slug)
       end
 
-      @upcoming_events = @person.events.upcoming.sorted.first(3)
+      @upcoming_events = @person.attending_events.upcoming.sorted.first(3)
       @latest_activity = ActivityCollectionDecorator.new(Activity.for_recipient(@person).limit(30).sorted.page(params[:page]))
     end
 
@@ -55,7 +54,7 @@ module GobiertoPeople
     end
 
     def set_events
-      @events = current_site.person_events
+      @events = GobiertoCalendars::Event.by_site(current_site).person_events
       @events = @events.by_person_category(@person_category) if @person_category
       @events = @events.by_person_party(@person_party) if @person_party
 

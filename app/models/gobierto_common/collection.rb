@@ -4,7 +4,7 @@ module GobiertoCommon
 
     belongs_to :site
     belongs_to :container, polymorphic: true
-    has_many :collection_items
+    has_many :collection_items, dependent: :destroy
 
     translates :title
 
@@ -12,7 +12,6 @@ module GobiertoCommon
     validates :container, presence: true, associated: true
     validates_associated :container
     validates :slug, uniqueness: true
-    validate :uniqueness_of_title
 
     attr_reader :container
 
@@ -24,6 +23,10 @@ module GobiertoCommon
 
     def file_attachments_in_collection
       collection_items.where(item_type: 'GobiertoAttachments::Attachment').map(&:item_id)
+    end
+
+    def events_in_collection
+      collection_items.where(item_type: 'GobiertoCalendars::Event').map(&:item_id)
     end
 
     def container
@@ -45,12 +48,12 @@ module GobiertoCommon
     end
 
     def self.type_classes
-      [GobiertoCms::Page, GobiertoAttachments::Attachment]
+      [GobiertoCms::Page, GobiertoAttachments::Attachment, GobiertoCalendars::Event]
     end
 
     def append(item)
       containers_hierarchy(container).each do |container_type, container_id|
-        CollectionItem.create! collection_id: id, container_type: container_type, container_id: container_id, item: item
+        CollectionItem.find_or_create_by! collection_id: id, container_type: container_type, container_id: container_id, item: item
       end
     end
 
@@ -102,12 +105,5 @@ module GobiertoCommon
       self.class.collector_classes.include?(container.class)
     end
 
-    def uniqueness_of_title
-      if title_translations.present?
-        if title_translations.select{ |_, title| title.present? }.any?{ |_, title| self.class.where(site_id: self.site_id).where.not(id: self.id).with_title_translation(title).exists? }
-          errors.add(:title, I18n.t('errors.messages.taken'))
-        end
-      end
-    end
   end
 end

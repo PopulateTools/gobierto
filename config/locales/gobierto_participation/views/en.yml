@@ -1,0 +1,47 @@
+---
+en:
+  gobierto_participation:
+    layouts:
+      application:
+        title: Participation
+      menu_subsections:
+        about: About
+        issues: Issues
+        processes: Processes
+        questions: Ask
+        ideas: Ideas
+      process_menu_subsections:
+        information: Information
+        meetings: Meetings
+        polls: Polls
+        contributions: Contributions
+        results: Results
+      secondary_nav:
+        news: News
+        agenda: Agenda
+        documents: Documents
+        activity: Activity
+    events:
+      gobierto_participation_issue_created: Theme created
+      gobierto_participation_issue_updated: Theme updated
+    processes:
+      show:
+        issues: Issues
+        process_stages: Process stages
+        length: Duration
+        interesting_information: Interesting information
+        about: About this process
+        news: News
+        newest: Newest
+        more_news: More news
+        more_information: More information
+        appointments: Face-to-face appointments
+        more_events: More events
+        more_updates: More updates
+        no_news: There are no related news
+        no_events: There are no related events
+        from_to: '%{starts} to %{ends}'
+      timeline_row:
+        view_stage: Access this stage
+        upcoming_stage: Stage not yet started
+        past_stage: Stage has ended

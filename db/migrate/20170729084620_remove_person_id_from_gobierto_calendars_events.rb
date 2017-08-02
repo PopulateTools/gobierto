@@ -10,8 +10,11 @@ class RemovePersonIdFromGobiertoCalendarsEvents < ActiveRecord::Migration[5.1]
 
     GobiertoCalendars::Event.all.each do |e|
       if p = GobiertoPeople::Person.find_by(id: e.person_id)
-        e.collection = p.events_collection
+        collection = p.events_collection
+        e.collection = collection
         e.save!
+
+        collection.append(e)
       end
     end
 

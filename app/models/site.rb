@@ -44,7 +44,7 @@ class Site < ApplicationRecord
   has_many :module_settings, dependent: :destroy, class_name: "GobiertoModuleSettings"
 
   # Gobierto Participation integration
-  has_many :issues, dependent: :destroy, class_name: "GobiertoParticipation::Issue"
+  has_many :issues, dependent: :destroy, class_name: "Issue"
   has_many :processes, dependent: :destroy, class_name: "GobiertoParticipation::Process"
 
   serialize :configuration_data

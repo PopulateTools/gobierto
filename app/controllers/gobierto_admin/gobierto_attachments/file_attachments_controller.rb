@@ -1,5 +1,5 @@
 module GobiertoAdmin
-  module GobiertoCms
+  module GobiertoAttachments
     class FileAttachmentsController < BaseController
       def index
         @collections = current_site.collections.by_item_type('GobiertoAttachments::Attachment')
@@ -34,7 +34,7 @@ module GobiertoAdmin
 
           if params[:file_attachment][:collection_id]
             redirect_to(
-              edit_admin_cms_file_attachment_path(@file_attachment_form.file_attachment.id, collection_id: params[:file_attachment][:collection_id]),
+              edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id, collection_id: params[:file_attachment][:collection_id]),
               notice: t('.success_html')
             )
           else
@@ -57,7 +57,7 @@ module GobiertoAdmin
           track_update_activity
 
           redirect_to(
-            edit_admin_cms_file_attachment_path(@file_attachment_form.file_attachment.id),
+            edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id),
             notice: t('.success_html')
           )
         else

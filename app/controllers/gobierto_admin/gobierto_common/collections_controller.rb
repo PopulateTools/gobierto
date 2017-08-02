@@ -12,7 +12,7 @@ module GobiertoAdmin
                            new_admin_cms_page_path(collection_id: @collection.id)
                          when 'GobiertoAttachments::Attachment'
                            @file_attachments = ::GobiertoAttachments::Attachment.where(id: @collection.file_attachments_in_collection)
-                           new_admin_cms_file_attachment_path(collection_id: @collection.id)
+                           new_admin_attachments_file_attachment_path(collection_id: @collection.id)
                          when 'GobiertoCalendars::Event'
                            if @collection.container.is_a?(::GobiertoPeople::Person)
                              redirect_to admin_people_person_events_path(@collection.container) and return

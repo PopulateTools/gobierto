@@ -1,7 +1,7 @@
 ---
 ca:
   gobierto_admin:
-    gobierto_cms:
+    gobierto_attachments:
       file_attachments:
         create:
           success_html: El document s'ha creat correctament.

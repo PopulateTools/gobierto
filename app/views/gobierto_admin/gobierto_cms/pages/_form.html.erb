@@ -20,7 +20,7 @@
 
           <div class="form_item textarea" data-locale="<%= locale %>">
             <%= label_tag "page[body_translations][#{locale}]", f.object.class.human_attribute_name(:body) %>
-            <%= rich_text_area_tag "page[body_translations][#{locale}]", f.object.body_translations && f.object.body_translations[locale], attachment_path: admin_cms_file_attachments_path, lang: locale %>
+            <%= rich_text_area_tag "page[body_translations][#{locale}]", f.object.body_translations && f.object.body_translations[locale], attachment_path: admin_attachments_file_attachments_path, lang: locale %>
           </div>
         <% end %>
 

@@ -89,12 +89,12 @@ footer {
 
     &:nth-child(odd) {
       @include min-screen(740) {
-        padding: 0 0.5em 1em 0;
+        padding: 0 0.75em 1em 0;
       }
     }
     &:nth-child(even) {
       @include min-screen(740) {
-        padding: 0 0 1em 0.5em;
+        padding: 0 0 1em 0.75em;
       }
     }
   }
@@ -106,7 +106,7 @@ footer {
     box-sizing: border-box;
 
     @include min-screen(740) {
-      padding: 0 0.5em 2em 0.5em;
+      padding: 0 0.75em 2em 0.75em;
     }
 
     &:nth-child(3n) {
@@ -117,12 +117,12 @@ footer {
     }
     &:first-child {
       @include min-screen(740) {
-        padding: 0 0.5em 2em 0;
+        padding: 0 0.75em 2em 0;
       }
     }
     &:last-child {
       @include min-screen(740) {
-        padding: 0 0 2em 0.5em;
+        padding: 0 0 2em 0.75em;
       }
     }
   }
@@ -133,23 +133,23 @@ footer {
     box-sizing: border-box;
 
     @include min-screen(740) {
-      padding: 0 0.5em 2em 0.5em;
+      padding: 0 0.75em 2em 0.75em;
     }
 
     &:first-child {
       @include min-screen(740) {
-        padding: 0 0.5em 2em 0;
+        padding: 0 0.75em 2em 0;
       }
     }
 
     &:nth-child(4n+4) {
       @include min-screen(740) {
-        padding: 0 0 2em 0.5em;
+        padding: 0 0 2em 0.75em;
       }
     }
     &:nth-child(4n+1) {
       @include min-screen(740) {
-        padding: 0 0.5em 2em 0;
+        padding: 0 0.75em 2em 0;
       }
     }
   }

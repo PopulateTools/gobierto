@@ -25,12 +25,10 @@ es:
     sentence_for_humans: Si eres humano, por favor ignora este campo.
     timestamp_error_message: Lo siento, eso ha sido muy rápido. Por favor, vuelve
       a enviar el formulario.
-  issue_created:
+  issues:
     events:
-      issue_created: Tema creado
-  issue_updated:
-    events:
-      issue_updated: Tema actualizado          
+      issues_issue_created: Tema creado
+      issues_issue_updated: Tema actualizado
   layouts:
     breadcrumb:
       start: Inicio

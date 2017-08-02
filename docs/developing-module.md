@@ -349,7 +349,7 @@ module GobiertoAdmin
       private
 
       def track_create_activity
-        Publishers::GobiertoParticipationIssueActivity.broadcast_event("issue_created", default_activity_params.merge({subject: @issue_form.issue}))
+        Publishers::GobiertoParticipationIssueActivity.broadcast_event("issues.issue_created", default_activity_params.merge({subject: @issue_form.issue}))
       end
       ...
     end

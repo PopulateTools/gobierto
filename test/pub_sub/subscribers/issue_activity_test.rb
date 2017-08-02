@@ -38,7 +38,7 @@ class Subscribers::IssueActivityTest < ActiveSupport::TestCase
     assert_equal issue, activity.subject
     assert_equal admin, activity.author
     assert_equal ip_address, activity.subject_ip
-    assert_equal 'issue_created', activity.action
+    assert_equal 'issues.issue_created', activity.action
     assert activity.admin_activity
     assert_equal site.id, activity.site_id
   end
@@ -56,7 +56,7 @@ class Subscribers::IssueActivityTest < ActiveSupport::TestCase
     assert_equal issue, activity.subject
     assert_equal admin, activity.author
     assert_equal ip_address, activity.subject_ip
-    assert_equal 'issue_updated', activity.action
+    assert_equal 'issues.issue_updated', activity.action
     assert activity.admin_activity
     assert_equal site.id, activity.site_id
   end

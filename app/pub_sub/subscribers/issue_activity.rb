@@ -1,11 +1,11 @@
 module Subscribers
   class IssueActivity < ::Subscribers::Base
     def issue_created(event)
-      create_activity_from_event(event, 'issue_created')
+      create_activity_from_event(event, 'issues.issue_created')
     end
 
     def issue_updated(event)
-      create_activity_from_event(event, 'issue_updated')
+      create_activity_from_event(event, 'issues.issue_updated')
     end
 
     private

@@ -65,7 +65,7 @@ module GobiertoAdmin
             assert_equal issue, activity.subject
             assert_equal admin, activity.author
             assert_equal site.id, activity.site_id
-            assert_equal "issue_created", activity.action
+            assert_equal "issues.issue_created", activity.action
           end
         end
       end

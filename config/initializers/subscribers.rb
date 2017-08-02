@@ -6,11 +6,10 @@
 ::Subscribers::GobiertoBudgetConsultationsConsultationResponseActivity.attach_to('activities/gobierto_budget_consultations_consultation_response')
 ::Subscribers::GobiertoCmsPageActivity.attach_to('activities/gobierto_cms_pages')
 ::Subscribers::GobiertoBudgetsBudgetLineActivity.attach_to('activities/gobierto_budgets_budget_line')
-::Subscribers::GobiertoParticipationIssueActivity.attach_to('activities/gobierto_participation_issues')
 ::Subscribers::GobiertoCommonCollectionActivity.attach_to('activities/gobierto_common_collections')
 ::Subscribers::GobiertoAttachmentsAttachmentActivity.attach_to('activities/gobierto_attachments_attachments')
-::Subscribers::IssueActivity.attach_to('activities/issues')
 ::Subscribers::GobiertoParticipationProcessActivity.attach_to('activities/gobierto_participation_processes')
+::Subscribers::IssueActivity.attach_to('activities/issues')
 ::Subscribers::UserActivity.attach_to('activities/users')
 ::Subscribers::SiteActivity.attach_to('activities/sites')
 

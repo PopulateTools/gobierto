@@ -5,14 +5,21 @@ module GobiertoCms
     before_action :find_page_by_id_and_redirect
 
     def show
+      @process = find_process if params[:process]
       @page = find_page
       @groups = GobiertoParticipation::Process.all
+
     end
 
     def index
       # TODO: params['from'] == 'participation' Add to process layout hidden_field
       @issues = current_site.issues
-      @pages = current_site.pages.active.page(params[:page])
+      @process = find_process if params[:process]
+      @pages = if params[:process]
+                 find_process_news.page(params[:page])
+               else
+                 current_site.pages.active.page(params[:page])
+               end
     end
 
     private
@@ -23,6 +30,14 @@ module GobiertoCms
         page = current_site.pages.active.find(params[:id])
         redirect_to gobierto_cms_page_path(page.slug) and return false
       end
+    end
+
+    def find_process
+      ::GobiertoParticipation::Process.find_by_slug!(params[:process])
+    end
+
+    def find_process_news
+      @process.news.sort_by_updated_at(5)
     end
 
     def find_page

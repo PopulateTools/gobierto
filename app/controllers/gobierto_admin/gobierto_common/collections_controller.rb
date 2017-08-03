@@ -2,17 +2,17 @@ module GobiertoAdmin
   module GobiertoCommon
     class CollectionsController < BaseController
       helper_method :gobierto_common_page_preview_url
+      before_action :load_collection, only: [:show, :edit, :update]
+      before_action :redirect_to_custom_show, only: [:show]
 
       def show
-        @collection = find_collection
-
         @new_item_path = case @collection.item_type
                          when 'GobiertoCms::Page'
                            @pages = ::GobiertoCms::Page.where(id: @collection.pages_in_collection)
-                           new_admin_cms_page_path(collection_id: @collection.id)
+                           new_admin_cms_page_path(collection_id: @collection)
                          when 'GobiertoAttachments::Attachment'
                            @file_attachments = ::GobiertoAttachments::Attachment.where(id: @collection.file_attachments_in_collection)
-                           new_admin_attachments_file_attachment_path(collection_id: @collection.id)
+                           new_admin_attachments_file_attachment_path(collection_id: @collection)
                          when 'GobiertoCalendars::Event'
                            if @collection.container.is_a?(::GobiertoPeople::Person)
                              redirect_to admin_people_person_events_path(@collection.container) and return
@@ -33,7 +33,6 @@ module GobiertoAdmin
       end
 
       def edit
-        @collection = find_collection
         @containers = find_containers
         @container_selected = @collection.container.to_global_id
         @types = type_names
@@ -66,7 +65,6 @@ module GobiertoAdmin
       end
 
       def update
-        @collection = find_collection
         @collection_form = CollectionForm.new(
           collection_params.merge(id: params[:id])
         )
@@ -133,6 +131,24 @@ module GobiertoAdmin
       def gobierto_common_page_preview_url(page, options = {})
         options.merge!(preview_token: current_admin.preview_token) unless page.active?
         gobierto_cms_page_url(page.slug, options)
+      end
+
+      def load_collection
+        @collection = find_collection
+      end
+
+      def redirect_to_custom_show
+        case @collection.item_type
+          when 'GobiertoCms::Page'
+          when 'GobiertoAttachments::Attachment'
+            if @collection.container.is_a?(::GobiertoParticipation::Process)
+              redirect_to admin_participation_process_file_attachments_path(@collection.container) and return false
+            end
+          when 'GobiertoCalendars::Event'
+            if @collection.container.is_a?(::GobiertoPeople::Person)
+              redirect_to admin_people_person_events_path(@collection.container) and return false
+            end
+          end
       end
     end
   end

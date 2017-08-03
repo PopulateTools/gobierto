@@ -4,7 +4,8 @@ en:
     gobierto_calendars:
       events:
         create:
-          success_html: "Event was successfully created. <a href=\"%{link}\">See the event</a>."
+          success_html: Event was successfully created. <a href="%{link}">See the
+            event</a>.
         update:
-          success_html: "Event was successfully updated. <a href=\"%{link}\">See the event</a>."
-
+          success_html: Event was successfully updated. <a href="%{link}">See the
+            event</a>.

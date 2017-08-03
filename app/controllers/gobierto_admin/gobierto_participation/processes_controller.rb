@@ -65,6 +65,11 @@ module GobiertoAdmin
         current_site.processes.find(params[:id])
       end
 
+      def current_process
+        @process
+      end
+      helper_method :current_process
+
       def find_issues
         current_site.issues.collect { |issue| [ issue.name, issue.id ] }
       end

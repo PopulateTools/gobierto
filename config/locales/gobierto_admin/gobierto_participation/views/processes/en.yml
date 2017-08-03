@@ -18,9 +18,6 @@ en:
           stages_and_tools: Stages and tools
         index:
           title: Processes and Groups
-        navigation:
-          information: Information
-          stage: Stage
         new:
           title: New process / group
         update:

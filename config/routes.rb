@@ -80,7 +80,11 @@ Rails.application.routes.draw do
     namespace :gobierto_participation, as: :participation, path: :participation do
       get '/' => 'welcome#index'
 
-      resources :processes, only: [:index, :new, :edit, :create, :update]
+      resources :processes, only: [:index, :new, :edit, :create, :update] do
+        resources :file_attachments, only: [:index], controller: "processes/process_file_attachments", as: :file_attachments, path: :file_attachments
+        resources :events, only: [:index], controller: "processes/process_events", as: :events, path: :events
+        resources :pages, only: [:index], controller: "processes/process_pages", as: :pages, path: :pages
+      end
     end
 
     namespace :gobierto_common, as: :common, path: nil do

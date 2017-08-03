@@ -7,17 +7,6 @@ files:
   container: culture (Issue)
   item_type: GobiertoAttachments::Attachment
 
-## /end
-
-## GobiertoParticipation Process collections of pages
-
-gender_violence_process_news:
-  site: madrid
-  title_translations: <%= {'en' => 'News', 'es' => 'Noticias' }.to_json %>
-  slug: noticias-violencia-genero
-  container: gender_violence_process (GobiertoParticipation::Process)
-  item_type: GobiertoCms::Page
-
 news:
   site: madrid
   title_translations: <%= {'en' => 'News', 'es' => 'Noticias' }.to_json %>
@@ -27,7 +16,14 @@ news:
 
 ## /end
 
-## GobiertoParticipation Process collections of events
+## GobiertoParticipation Process collections of pages, events and attachments
+
+gender_violence_process_news:
+  site: madrid
+  title_translations: <%= {'en' => 'News', 'es' => 'Noticias' }.to_json %>
+  slug: noticias-violencia-genero
+  container: gender_violence_process (GobiertoParticipation::Process)
+  item_type: GobiertoCms::Page
 
 gender_violence_process_calendar:
   site: madrid
@@ -35,6 +31,13 @@ gender_violence_process_calendar:
   slug: eventos-violencia-genero
   container: gender_violence_process (GobiertoParticipation::Process)
   item_type: GobiertoCalendars::Event
+
+gender_violence_process_documents:
+  site: madrid
+  title_translations: <%= {'en' => 'Documents', 'es' => 'Documentos' }.to_json %>
+  slug: documentos-violencia-genero
+  container: gender_violence_process (GobiertoParticipation::Process)
+  item_type: GobiertoAttachments::Attachment
 
 ## /end
 

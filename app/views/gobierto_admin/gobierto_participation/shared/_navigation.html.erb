@@ -1,0 +1,23 @@
+<div class="tabs">
+  <ul>
+    <li class="<%= class_if('active', controller_name == 'processes') %>">
+      <%= link_to t('.stage'), edit_admin_participation_process_path(current_process) %>
+    </li>
+    <li class="<%= class_if("active", false) %>">
+      <!-- Temptative URL: edit_admin_participation_process_stage(@process_form.process_stages.select { |s| s.stage_type == 'information'} ) -->
+      <%= link_to t('.information'), '#', data: {disabled: true}, title: 'TODO: implement' %>
+    </li>
+    <li class="<%= class_if('active', controller_name == 'process_events') %>">
+      <%= link_to t('.agenda'), admin_participation_process_events_path(current_process) %>
+    </li>
+    <li><%= link_to t('.polls'), '#', data: {disabled: true}, title: 'TODO: implement' %></li>
+    <li><%= link_to t('.contributions'), '#', data: {disabled: true}, title: 'TODO: implement' %></li>
+    <li><%= link_to t('.votings'), '#', data: {disabled: true}, title: 'TODO: implement' %></li>
+    <li class="<%= class_if('active', controller_name == 'process_pages') %>">
+      <%= link_to t('.news'), admin_participation_process_pages_path(current_process) %>
+    </li>
+    <li class="<%= class_if('active', controller_name.include?('file_attachments')) %>">
+      <%= link_to t('.documents'), admin_participation_process_file_attachments_path(current_process) %>
+    </li>
+  </ul>
+</div>

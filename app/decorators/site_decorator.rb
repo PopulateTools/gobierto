@@ -5,6 +5,10 @@ class SiteDecorator < BaseDecorator
     @object = site
   end
 
+  def to_s
+    object.name
+  end
+
   def domain_url
     if object.domain.starts_with?(DOMAIN_URL_SCHEME)
       object.domain

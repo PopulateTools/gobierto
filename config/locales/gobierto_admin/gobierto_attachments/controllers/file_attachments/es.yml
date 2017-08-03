@@ -7,4 +7,3 @@ es:
           success_html: El documento ha sido creado correctamente.
         update:
           success_html: El documento ha sido actualizada correctamente.
-          

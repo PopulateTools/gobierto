@@ -2,9 +2,6 @@
 ca:
   activemodel:
     attributes:
-      gobierto_admin/gobierto_participation/issue_form:
-        name: Nom
-        slug: URL
       gobierto_admin/gobierto_participation/process_form:
         header_image: Imatge de capçalera
         header_image_url: URL d'imatge de capçalera
@@ -17,7 +14,6 @@ ca:
         issue_id: Tema
     models:
       gobierto_admin/gobierto_participation/process_form: Procés
-      gobierto_admin/gobierto_participation/issue_form: Tema
   activerecord:
     attributes:
       gobierto_participation/process:

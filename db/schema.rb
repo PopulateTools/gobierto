@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170731151716) do
+ActiveRecord::Schema.define(version: 20170802134830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -236,8 +236,8 @@ ActiveRecord::Schema.define(version: 20170731151716) do
     t.string "sharing_token"
     t.string "document_number_digest"
     t.jsonb "user_information"
-    t.index ["consultation_id", "document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["consultation_id"], name: "index_gbc_consultation_responses_on_consultation_id"
+    t.index ["document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["sharing_token"], name: "index_gbc_consultation_responses_on_sharing_token", unique: true
     t.index ["user_information"], name: "index_gbc_consultation_responses_on_user_information", using: :gin
   end
@@ -302,9 +302,9 @@ ActiveRecord::Schema.define(version: 20170731151716) do
     t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "external_id"
     t.jsonb "title_translations"
     t.jsonb "description_translations"
+    t.string "external_id"
     t.integer "site_id", null: false
     t.string "slug", null: false
     t.integer "collection_id"
@@ -426,19 +426,6 @@ ActiveRecord::Schema.define(version: 20170731151716) do
     t.index ["slug_translations"], name: "index_gpart_areas_on_slug_translations", using: :gin
   end
 
-  create_table "gpart_issues", force: :cascade do |t|
-    t.bigint "site_id"
-    t.jsonb "name_translations"
-    t.jsonb "slug_translations"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "position", default: 0, null: false
-    t.index ["name_translations"], name: "index_gpart_issues_on_name_translations", using: :gin
-    t.index ["position"], name: "index_gpart_issues_on_position"
-    t.index ["site_id"], name: "index_gpart_issues_on_site_id"
-    t.index ["slug_translations"], name: "index_gpart_issues_on_slug_translations", using: :gin
-  end
-
   create_table "gpart_process_stages", force: :cascade do |t|
     t.bigint "process_id"
     t.jsonb "title_translations"
@@ -472,6 +459,19 @@ ActiveRecord::Schema.define(version: 20170731151716) do
     t.index ["site_id"], name: "index_gpart_processes_on_site_id"
     t.index ["slug"], name: "index_gpart_processes_on_slug", unique: true
     t.index ["title_translations"], name: "index_gpart_processes_on_title_translations", using: :gin
+  end
+
+  create_table "issues", force: :cascade do |t|
+    t.bigint "site_id"
+    t.jsonb "name_translations"
+    t.jsonb "slug_translations"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "position", default: 0, null: false
+    t.index ["name_translations"], name: "index_issues_on_name_translations", using: :gin
+    t.index ["position"], name: "index_issues_on_position"
+    t.index ["site_id"], name: "index_issues_on_site_id"
+    t.index ["slug_translations"], name: "index_issues_on_slug_translations", using: :gin
   end
 
   create_table "sites", id: :serial, force: :cascade do |t|

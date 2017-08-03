@@ -25,7 +25,7 @@ fixtures_to_load = [
   "versions",
   "gobierto_participation/processes",
   "gobierto_participation/process_stages",
-  "gobierto_participation/issues",
+  "issues",
   "gobierto_participation/areas",
   "gobierto_common/collection_items"
 ]

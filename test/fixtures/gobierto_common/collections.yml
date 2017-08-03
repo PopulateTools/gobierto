@@ -2,14 +2,14 @@ news:
   site: madrid
   title_translations: <%= {'en' => 'News', 'es' => 'Noticias' }.to_json %>
   slug: noticias
-  container: culture (GobiertoParticipation::Issue)
+  container: culture (Issue)
   item_type: GobiertoCms::Page
 
 files:
   site: madrid
   title_translations: <%= {'en' => 'Files', 'es' => 'Ficheros' }.to_json %>
   slug: files
-  container: culture (GobiertoParticipation::Issue)
+  container: culture (Issue)
   item_type: GobiertoAttachments::Attachment
 
 ## GobiertoParticipation Process collections of pages

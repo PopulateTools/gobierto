@@ -49,7 +49,7 @@ $lighter_black: rgba($color_headers, .7);
     color: $green;
     border: 1px solid $green;
     margin-top: -.25em;
-    
+
     .fa {
       color: $green;
     }
@@ -892,6 +892,14 @@ $lighter_black: rgba($color_headers, .7);
   /* Contributions page */
   .contributions_container {
     border-top: 3px solid $green;
+
+    a, h1, h2, h3, h4, h5, .comment_actions a.active, .comment_actions a.active .fa {
+      color: $green;
+    }
+    .button {
+      color: #FFF;
+    }
+
 
     .contributions_header {
       .meta {

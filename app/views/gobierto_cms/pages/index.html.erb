@@ -56,7 +56,13 @@
         <% if @pages && @pages.any? %>
           <% @pages.each do |page| %>
             <div class='news_teaser'>
-              <h3><%= link_to page.title , gobierto_cms_page_path(page.slug) %></h3>
+              <h3>
+                <% if @process %>
+                  <%= link_to page.title , gobierto_cms_page_path(page.slug, process: @process.slug) %>
+                <% else %>
+                  <%= link_to page.title , gobierto_cms_page_path(page.slug) %>
+                <% end %>
+              </h3>
 
               <div class='meta'>
                 <time><%= time_ago_in_words(page.created_at) %></time>

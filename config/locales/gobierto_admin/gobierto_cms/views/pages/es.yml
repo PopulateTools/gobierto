@@ -10,7 +10,7 @@ es:
             slug: acerca-de-esta-web
             title: Título de la página
         index:
-          collections: Collecciones
+          collections: Colecciones
           header:
             collection: Colección
             pages: Páginas

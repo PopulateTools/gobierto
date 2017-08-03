@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170726122503) do
+ActiveRecord::Schema.define(version: 20170802134830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,13 +100,13 @@ ActiveRecord::Schema.define(version: 20170726122503) do
   end
 
   create_table "collection_items", force: :cascade do |t|
-    t.bigint "collection_id"
     t.string "item_type"
     t.bigint "item_id"
     t.string "container_type"
     t.bigint "container_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "collection_id"
     t.index ["collection_id"], name: "index_collection_items_on_collection_id"
     t.index ["container_type", "container_id"], name: "index_collection_items_on_container_type_and_container_id"
     t.index ["item_type", "item_id"], name: "index_collection_items_on_item_type_and_item_id"
@@ -236,8 +236,8 @@ ActiveRecord::Schema.define(version: 20170726122503) do
     t.string "sharing_token"
     t.string "document_number_digest"
     t.jsonb "user_information"
-    t.index ["consultation_id", "document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["consultation_id"], name: "index_gbc_consultation_responses_on_consultation_id"
+    t.index ["document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["sharing_token"], name: "index_gbc_consultation_responses_on_sharing_token", unique: true
     t.index ["user_information"], name: "index_gbc_consultation_responses_on_user_information", using: :gin
   end
@@ -273,6 +273,46 @@ ActiveRecord::Schema.define(version: 20170726122503) do
     t.index ["title_translations"], name: "index_gcms_pages_on_title_translations", using: :gin
   end
 
+  create_table "gobierto_calendars_event_attendees", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "charge"
+    t.integer "person_id"
+    t.integer "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_gobierto_calendars_event_attendees_on_event_id"
+    t.index ["person_id"], name: "index_gobierto_calendars_event_attendees_on_person_id"
+  end
+
+  create_table "gobierto_calendars_event_locations", id: :serial, force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.string "address"
+    t.decimal "lat", precision: 10, scale: 6
+    t.decimal "lng", precision: 10, scale: 6
+    t.integer "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_gobierto_calendars_event_locations_on_event_id"
+  end
+
+  create_table "gobierto_calendars_events", id: :serial, force: :cascade do |t|
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.string "attachment_url"
+    t.integer "state", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "title_translations"
+    t.jsonb "description_translations"
+    t.string "external_id"
+    t.integer "site_id", null: false
+    t.string "slug", null: false
+    t.integer "collection_id"
+    t.index ["description_translations"], name: "index_gobierto_calendars_events_on_description_translations", using: :gin
+    t.index ["slug"], name: "index_gobierto_calendars_events_on_slug", unique: true
+    t.index ["title_translations"], name: "index_gobierto_calendars_events_on_title_translations", using: :gin
+  end
+
   create_table "gobierto_module_settings", id: :serial, force: :cascade do |t|
     t.integer "site_id"
     t.string "module_name"
@@ -292,7 +332,6 @@ ActiveRecord::Schema.define(version: 20170726122503) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "avatar_url"
-    t.integer "events_count", default: 0, null: false
     t.integer "statements_count", default: 0, null: false
     t.integer "posts_count", default: 0, null: false
     t.integer "political_group_id"
@@ -320,48 +359,6 @@ ActiveRecord::Schema.define(version: 20170726122503) do
     t.integer "person_id", null: false
     t.jsonb "data", default: {}, null: false
     t.index ["person_id"], name: "index_gp_person_calendar_configurations_on_person_id", unique: true
-  end
-
-  create_table "gp_person_event_attendees", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.string "charge"
-    t.integer "person_id"
-    t.integer "person_event_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["person_event_id"], name: "index_gp_person_event_attendees_on_person_event_id"
-    t.index ["person_id"], name: "index_gp_person_event_attendees_on_person_id"
-  end
-
-  create_table "gp_person_event_locations", id: :serial, force: :cascade do |t|
-    t.string "name", default: "", null: false
-    t.string "address"
-    t.decimal "lat", precision: 10, scale: 6
-    t.decimal "lng", precision: 10, scale: 6
-    t.integer "person_event_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["person_event_id"], name: "index_gp_person_event_locations_on_person_event_id"
-  end
-
-  create_table "gp_person_events", id: :serial, force: :cascade do |t|
-    t.datetime "starts_at", null: false
-    t.datetime "ends_at", null: false
-    t.string "attachment_url"
-    t.integer "state", default: 0, null: false
-    t.integer "person_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "external_id"
-    t.jsonb "title_translations"
-    t.jsonb "description_translations"
-    t.integer "site_id", null: false
-    t.string "slug", null: false
-    t.index ["description_translations"], name: "index_gp_person_events_on_description_translations", using: :gin
-    t.index ["person_id", "external_id"], name: "index_gp_person_events_on_person_id_and_external_id", unique: true
-    t.index ["person_id"], name: "index_gp_person_events_on_person_id"
-    t.index ["slug"], name: "index_gp_person_events_on_slug", unique: true
-    t.index ["title_translations"], name: "index_gp_person_events_on_title_translations", using: :gin
   end
 
   create_table "gp_person_posts", id: :serial, force: :cascade do |t|
@@ -429,19 +426,6 @@ ActiveRecord::Schema.define(version: 20170726122503) do
     t.index ["slug_translations"], name: "index_gpart_areas_on_slug_translations", using: :gin
   end
 
-  create_table "gpart_issues", force: :cascade do |t|
-    t.bigint "site_id"
-    t.jsonb "name_translations"
-    t.jsonb "slug_translations"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "position", default: 0, null: false
-    t.index ["name_translations"], name: "index_gpart_issues_on_name_translations", using: :gin
-    t.index ["position"], name: "index_gpart_issues_on_position"
-    t.index ["site_id"], name: "index_gpart_issues_on_site_id"
-    t.index ["slug_translations"], name: "index_gpart_issues_on_slug_translations", using: :gin
-  end
-
   create_table "gpart_process_stages", force: :cascade do |t|
     t.bigint "process_id"
     t.jsonb "title_translations"
@@ -475,6 +459,19 @@ ActiveRecord::Schema.define(version: 20170726122503) do
     t.index ["site_id"], name: "index_gpart_processes_on_site_id"
     t.index ["slug"], name: "index_gpart_processes_on_slug", unique: true
     t.index ["title_translations"], name: "index_gpart_processes_on_title_translations", using: :gin
+  end
+
+  create_table "issues", force: :cascade do |t|
+    t.bigint "site_id"
+    t.jsonb "name_translations"
+    t.jsonb "slug_translations"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "position", default: 0, null: false
+    t.index ["name_translations"], name: "index_issues_on_name_translations", using: :gin
+    t.index ["position"], name: "index_issues_on_position"
+    t.index ["site_id"], name: "index_issues_on_site_id"
+    t.index ["slug_translations"], name: "index_issues_on_slug_translations", using: :gin
   end
 
   create_table "sites", id: :serial, force: :cascade do |t|
@@ -595,7 +592,8 @@ ActiveRecord::Schema.define(version: 20170726122503) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
-  add_foreign_key "gp_person_events", "sites"
+  add_foreign_key "gobierto_calendars_events", "collections", on_delete: :cascade
+  add_foreign_key "gobierto_calendars_events", "sites"
   add_foreign_key "gp_person_posts", "sites"
   add_foreign_key "gp_person_statements", "sites"
 end

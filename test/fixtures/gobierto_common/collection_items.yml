@@ -1,24 +1,151 @@
-consultation_faq_on_site:
-  collection: news
-  item: consultation_faq (GobiertoCms::Page)
-  container: culture (GobiertoParticipation::Issue)
-
-collection_item_themes:
-  collection: news
-  item: themes (GobiertoCms::Page)
-  container: culture (GobiertoParticipation::Issue)
+## Attachments collection items
 
 collection_item_attachment:
   collection: files
   item: pdf_collection_attachment (GobiertoAttachments::Attachment)
-  container: culture (GobiertoParticipation::Issue)
+  container: culture (Issue)
 
-collection_news_process_1:
-  collection: process_news
+## /end Attachments collection items
+
+## Pages collection items
+
+consultation_faq_on_site:
+  collection: news
+  item: consultation_faq (GobiertoCms::Page)
+  container: culture (Issue)
+
+collection_item_themes:
+  collection: news
+  item: themes (GobiertoCms::Page)
+  container: culture (Issue)
+  
+news_collection_notice_1:
+  collection: gender_violence_process_news
   item: notice_1 (GobiertoCms::Page)
-  container: green_city_group (GobiertoParticipation::Process)
+  container: gender_violence_process (GobiertoParticipation::Process)
 
-collection_news_process_2:
-  collection: process_news
+news_collection_notice_2:
+  collection: gender_violence_process_news
   item: notice_2 (GobiertoCms::Page)
-  container: green_city_group (GobiertoParticipation::Process)
+  container: gender_violence_process (GobiertoParticipation::Process)
+
+## /end Pages collection items
+
+## Events collection items
+
+richard_pending_person:
+  collection: richard_calendar
+  item: richard_pending (GobiertoCalendars::Event)
+  container: richard (GobiertoPeople::Person)
+
+richard_pending_people:
+  collection: richard_calendar
+  item: richard_pending (GobiertoCalendars::Event)
+  container_type: GobiertoPeople
+
+richard_pending_site:
+  collection: richard_calendar
+  item: richard_pending (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+richard_published_person:
+  collection: richard_calendar
+  item: richard_published (GobiertoCalendars::Event)
+  container: richard (GobiertoPeople::Person)
+
+richard_published_people:
+  collection: richard_calendar
+  item: richard_published (GobiertoCalendars::Event)
+  container_type: GobiertoPeople
+
+richard_published_site:
+  collection: richard_calendar
+  item: richard_published (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+richard_published_just_attending_person:
+  collection: richard_calendar
+  item: richard_published_just_attending (GobiertoCalendars::Event)
+  container: richard (GobiertoPeople::Person)
+
+richard_published_just_attending_people:
+  collection: richard_calendar
+  item: richard_published_just_attending (GobiertoCalendars::Event)
+  container_type: GobiertoPeople
+
+richard_published_just_attending_site:
+  collection: richard_calendar
+  item: richard_published_just_attending (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+richard_published_past_person:
+  collection: richard_calendar
+  item: richard_published_past (GobiertoCalendars::Event)
+  container: richard (GobiertoPeople::Person)
+
+richard_published_past_people:
+  collection: richard_calendar
+  item: richard_published_past (GobiertoCalendars::Event)
+  container_type: GobiertoPeople
+
+richard_published_past_site:
+  collection: richard_calendar
+  item: richard_published_past (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+nelson_tomorrow_person:
+  collection: nelson_calendar
+  item: nelson_tomorrow (GobiertoCalendars::Event)
+  container: nelson (GobiertoPeople::Person)
+
+nelson_tomorrow_people:
+  collection: nelson_calendar
+  item: nelson_tomorrow (GobiertoCalendars::Event)
+  container_type: GobiertoPeople
+
+nelson_tomorrow_site:
+  collection: nelson_calendar
+  item: nelson_tomorrow (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+nelson_yesterday_person:
+  collection: nelson_calendar
+  item: nelson_yesterday (GobiertoCalendars::Event)
+  container: nelson (GobiertoPeople::Person)
+
+nelson_yesterday_people:
+  collection: nelson_calendar
+  item: nelson_yesterday (GobiertoCalendars::Event)
+  container_type: GobiertoPeople
+
+nelson_yesterday_site:
+  collection: nelson_calendar
+  item: nelson_yesterday (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+tamara_published_past_person:
+  collection: tamara_calendar
+  item: tamara_published_past (GobiertoCalendars::Event)
+  container: tamara (GobiertoPeople::Person)
+
+tamara_published_past_people:
+  collection: tamara_calendar
+  item: tamara_published_past (GobiertoCalendars::Event)
+  container_type: GobiertoPeople
+
+tamara_published_past_site:
+  collection: tamara_calendar
+  item: tamara_published_past (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+events_collection_event_1:
+  collection: gender_violence_process_events
+  item: richard_published (GobiertoCalendars::Event)
+  container: gender_violence_process (GobiertoParticipation::Process)
+
+events_collection_event_2:
+  collection: gender_violence_process_events
+  item: nelson_tomorrow (GobiertoCalendars::Event)
+  container: gender_violence_process (GobiertoParticipation::Process)
+
+## /end Events collection items

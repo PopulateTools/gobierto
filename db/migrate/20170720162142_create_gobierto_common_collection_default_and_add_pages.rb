@@ -2,8 +2,8 @@ class CreateGobiertoCommonCollectionDefaultAndAddPages < ActiveRecord::Migration
   def change
     Site.all.each do |site|
       collection = GobiertoCommon::Collection.create! site: site,
-                                                      slug: 'site-' + site.location_name.downcase.delete(' '),
-                                                      title_translations: 'Sitio',
+                                                      slug: 'site-' + site.name.downcase.delete(' '),
+                                                      title_translations: {'es' => 'Sitio' },
                                                       container: site,
                                                       item_type: 'GobiertoCms::Page'
 

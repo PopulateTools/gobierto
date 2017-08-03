@@ -46,7 +46,7 @@ module GobiertoCommon
 
     def perform_notifications
       unless notify?
-        Rails.logger.debug("Skipping notifications for #{trackable.to_gid}")
+        Rails.logger.debug("Skipping notifications for #{trackable.class.name} #{trackable.id}")
         return true
       end
 

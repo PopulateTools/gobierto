@@ -1,0 +1,7 @@
+$('#events').html('<%= j render(partial: 'index', locals: { collection: @collection }) %>');
+$('[data-scope]').removeClass('active');
+<% if params[:scope] %>
+  $('[data-scope="<%= params[:scope] %>"]').addClass('active');
+<% else %>
+  $('[data-scope="all"]').addClass('active');
+<% end %>

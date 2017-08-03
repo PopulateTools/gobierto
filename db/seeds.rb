@@ -12,20 +12,22 @@ fixtures_to_load = [
   "gobierto_budget_consultations/consultation_items",
   "gobierto_budget_consultations/consultation_responses",
   "gobierto_people/people",
-  "gobierto_people/person_events",
-  "gobierto_people/person_event_locations",
-  "gobierto_people/person_event_attendees",
   "gobierto_people/person_statements",
   "gobierto_people/person_posts",
   "gobierto_people/political_groups",
+  "gobierto_common/collections",
+  "gobierto_calendars/events",
+  "gobierto_calendars/event_locations",
+  "gobierto_calendars/event_attendees",
   "gobierto_cms/pages",
   "gobierto_attachments/attachments",
   "gobierto_attachments/attachings",
   "versions",
   "gobierto_participation/processes",
   "gobierto_participation/process_stages",
-  "gobierto_participation/issues",
-  "gobierto_participation/areas"
+  "issues",
+  "gobierto_participation/areas",
+  "gobierto_common/collection_items"
 ]
 
 ENV["FIXTURES"] = fixtures_to_load.join(",")
@@ -36,6 +38,7 @@ Rake::Task["gobierto_people:counter_cache:reset"].invoke
 GobiertoPeople::PoliticalGroup.reset_position!
 
 ::GobiertoCommon::ContentBlock.reset_column_information
+
 Site.all.each do |site|
   if site.configuration.gobierto_people_enabled?
     GobiertoCommon::GobiertoSeeder::ModuleSeeder.seed("GobiertoPeople", site)

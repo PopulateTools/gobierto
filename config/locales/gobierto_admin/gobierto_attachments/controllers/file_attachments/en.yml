@@ -1,0 +1,9 @@
+---
+en:
+  gobierto_admin:
+    gobierto_attachments:
+      file_attachments:
+        create:
+          success_html: Attachment created successfully.
+        update:
+          success_html: Attachment updated successfully.

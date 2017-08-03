@@ -1,0 +1,60 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_calendars:
+      collections:
+        index:
+          collections: Calendaris
+          header:
+            collection: Calendari
+            events: Events
+          latest_editions: Últims events editats
+          new: Nou
+          title: Agendas
+          view_collection: Veure col·lecció
+      events:
+        person_breadcrumb:
+          back_to_collections: "< Tornar a agendes"
+        attendees_form:
+          header:
+            charge: Càrrec
+            name: Nom
+            person: Persona
+          title: Assistents
+          view_person: Veure persona
+        form:
+          attachment_file_constraints: adjuntar fitxer (PDF)
+          placeholders:
+            title: Reunió amb els veïns del districte centre
+          state:
+            pending: Pendent
+            published: Publicat
+          placeholders:
+            slug: event
+            title: Títol del event
+        locations_form:
+          header:
+            address: Adreça
+            place: Lloc
+          title: Lloc
+        edit:
+          title: Editar event
+        new:
+          title: Nou event
+        index:
+          all_events: Tots
+          configuration: Configuració
+          header:
+            date: Data
+            event: Dsdeveniment
+            location: Localització
+            status: Estat
+          new: Nou esdeveniment
+          past_events: Esdeveniments passats
+          pending_events: Pendents de moderar
+          published_events: Esdeveniments publicats
+          view_event: Veure esdeveniment
+          visibility_level:
+            pending: Borrador
+            published: Publicat
+

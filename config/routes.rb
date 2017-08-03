@@ -15,6 +15,11 @@ Rails.application.routes.draw do
 
     resource :sessions, only: [:new, :create, :destroy]
     resources :sites, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :issues, only: [:index, :show, :new, :create, :edit, :update] do
+      collection do
+        resource :issue_sort, only: [:create], controller: "issues_sort", path: :issues_sort
+      end
+    end
 
     namespace :sites do
       resource :sessions, only: [:create, :destroy]
@@ -54,10 +59,8 @@ Rails.application.routes.draw do
         collection do
           resource :people_sort, only: [:create], controller: "people/people_sort", path: :people_sort
         end
+        # TODO
         resources :person_events, only: [:index, :new, :create, :edit, :update], controller: "people/person_events", as: :events, path: :events
-        resources :published_person_events, only: [:index], controller: "people/published_person_events", as: :published_events, path: "events/published"
-        resources :pending_person_events, only: [:index], controller: "people/pending_person_events", as: :pending_events, path: "events/pending"
-        resources :past_person_events, only: [:index], controller: "people/past_person_events", as: :past_events, path: "events/past"
         resources :person_statements, only: [:index, :new, :create, :edit, :update], controller: "people/person_statements", as: :statements, path: :statements
         resources :person_posts, only: [:index, :new, :create, :edit, :update], controller: "people/person_posts", as: :posts, path: :blog
         resource :person_calendar_configuration, only: [:edit, :update], controller: "people/person_calendar_configuration", as: :calendar_configuration, path: :calendar_configuration
@@ -76,33 +79,32 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_participation, as: :participation, path: :participation do
-
       get '/' => 'welcome#index'
-
-      resources :issues, only: [:index, :show, :new, :create, :edit, :update] do
-        collection do
-          resource :issue_sort, only: [:create], controller: "issues_sort", path: :issues_sort
-        end
-      end
 
       resources :processes, only: [:index, :new, :edit, :create, :update]
     end
 
     namespace :gobierto_common, as: :common, path: nil do
-      resources :collections, only: [:index, :show, :new, :create, :edit, :update]
+      resources :collections, only: [:show, :new, :create, :edit, :update]
       resources :content_blocks, only: [:new, :create, :edit, :update, :destroy]
     end
 
     namespace :gobierto_cms, as: :cms, path: :cms do
       resources :pages
-      resources :file_attachments, only: [:index, :create, :new, :edit, :update]
     end
 
     namespace :gobierto_attachments, as: :attachments, path: :attachments do
+      resources :file_attachments, only: [:index, :create, :new, :edit, :update]
       namespace :api do
         resources :attachments, only: [:index, :show, :create, :update, :destroy]
         post   '/attachings' => 'attachings#create'
         delete '/attachings' => 'attachings#destroy'
+      end
+    end
+
+    namespace :gobierto_calendars, as: :calendars do
+      resources :collections, only: [:index] do
+        resources :events
       end
     end
   end
@@ -155,8 +157,8 @@ Rails.application.routes.draw do
       resources :opposition_party_past_person_events, only: [:index], as: :opposition_party_past_events, path: 'agendas/oposicion/eventos-pasados'
       resources :executive_category_past_person_events, only: [:index], as: :executive_category_past_events, path: 'agendas/directivos/eventos-pasados'
 
-      resources :people_past_person_events, only: [:index], controller: "people/past_person_events", as: :person_past_events, path: 'agendas/:person_slug/eventos-pasados'
-      resources :people_person_events, only: [:index, :show], controller: "people/person_events", as: :person_events, path: 'agendas/:person_slug', param: :slug
+      resources :people_past_person_events, only: [:index], controller: "people/past_person_events", as: :person_past_events, path: 'agendas/:container_slug/eventos-pasados'
+      resources :people_person_events, only: [:index, :show], controller: "people/person_events", as: :person_events, path: 'agendas/:container_slug', param: :slug
 
       # Blogs
       resources :person_posts, only: [:index], as: :posts, path: 'blogs/posts'
@@ -240,6 +242,15 @@ Rails.application.routes.draw do
   namespace :gobierto_cms, path: 'paginas' do
     constraints GobiertoSiteConstraint.new do
       resources :pages, only: [:index, :show], path: ''
+    end
+  end
+
+  # Gobierto Participation module
+  namespace :gobierto_participation, path: '/' do
+    constraints GobiertoSiteConstraint.new do
+      get 'participacion' => 'welcome#index', as: :root
+
+      resources :processes, only: [:index, :show]
     end
   end
 

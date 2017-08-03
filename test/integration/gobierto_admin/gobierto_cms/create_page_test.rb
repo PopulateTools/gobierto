@@ -16,12 +16,20 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
+      def collection
+        @collection ||= gobierto_common_collections(:news)
+      end
+
       def test_create_page_errors
         with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
-              click_link 'News'
+
+              within "tr#collection-item-#{collection.id}" do
+                click_link 'News'
+              end
+
               assert has_selector?('h1', text: 'News')
 
               click_link 'New'
@@ -41,7 +49,10 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
 
-              click_link 'News'
+              within "tr#collection-item-#{collection.id}" do
+                click_link 'News'
+              end
+
               assert has_selector?('h1', text: 'News')
 
               click_link 'New'

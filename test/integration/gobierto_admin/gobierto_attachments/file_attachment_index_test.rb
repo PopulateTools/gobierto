@@ -5,7 +5,7 @@ module GobiertoAdmin
     class FileAttachmentIndexTest < ActionDispatch::IntegrationTest
       def setup
         super
-        @path = admin_cms_file_attachments_path
+        @path = admin_attachments_file_attachments_path
       end
 
       def admin

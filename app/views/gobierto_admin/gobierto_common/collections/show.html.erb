@@ -4,30 +4,30 @@
     <% when 'GobiertoCms::Page' %>
       <%= link_to t("gobierto_admin.layouts.application.cms"), admin_cms_pages_path %> »
     <% when 'GobiertoAttachments::Attachment' %>
-    <%= link_to t("gobierto_admin.layouts.application.file_attachments"), admin_cms_file_attachments_path %> »
+      <%= link_to t("gobierto_admin.layouts.application.file_attachments"), admin_attachments_file_attachments_path %> »
+    <% when 'GobiertoCalendars::Event' %>
+      <%= link_to t("gobierto_admin.layouts.application.calendars"), admin_calendars_collections_path %> »
     <% end %>
-  <%= link_to @collection.title, admin_common_collections_path(@collection) %>
+  <%= @collection.title %>
 </div>
 
 <h1><%= @collection.title %></h1>
 
-<div class="admin_tools right">
-  <%= link_to edit_admin_common_collection_path(@collection), class: 'open_remote_modal' do %>
-    <i class="fa fa-cog"></i>
-    <%= t(".configuration") %>
-  <% end %>
-  <%= link_to t(".new"), @new_item_path, class: 'button' %>
-</div>
+<% if @collection.item_type != 'GobiertoCalendars::Event' %>
+  <div class="admin_tools right">
+    <%= link_to edit_admin_common_collection_path(@collection), class: 'open_remote_modal' do %>
+      <i class="fa fa-cog"></i>
+      <%= t(".configuration") %>
+    <% end %>
+    <%= link_to t(".new"), @new_item_path, class: 'button' if @new_item_path %>
+  </div>
+<% end %>
 
 <% case @collection.item_type %>
   <% when 'GobiertoCms::Page' %>
     <%= render 'gobierto_admin/gobierto_common/collections/show/pages' %>
   <% when 'GobiertoAttachments::Attachment' %>
     <%= render 'gobierto_admin/gobierto_common/collections/show/file_attachments' %>
-  <% end %>
-
-<% content_for :javascript_hook do %>
-  <%= javascript_tag do %>
-    window.GobiertoAdmin.gobierto_attachments_controller.index();
-  <% end %>
+  <% when 'GobiertoCalendars::Event' %>
+    <%= render 'gobierto_admin/gobierto_common/collections/show/events' %>
 <% end %>

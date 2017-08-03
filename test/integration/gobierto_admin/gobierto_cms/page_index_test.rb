@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoCms
@@ -24,7 +24,6 @@ module GobiertoAdmin
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
-
             within 'table tbody' do
               assert has_selector?('tr', count: collections.size)
 
@@ -32,7 +31,7 @@ module GobiertoAdmin
                 assert has_selector?("tr#collection-item-#{collection.id}")
 
                 within "tr#collection-item-#{collection.id}" do
-                  assert has_link?("#{collection.title}")
+                  assert has_link?('View collection')
                 end
               end
             end

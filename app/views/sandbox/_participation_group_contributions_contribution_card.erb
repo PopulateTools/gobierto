@@ -33,7 +33,7 @@
         <div class="comment">
           <div class="comment_text">
             <%= i %>
-            <div class="met>"
+            <div class="meta">
               —
               <a href="">Martín González</a>
               <span class="date">25/05/2017</span>
@@ -109,7 +109,7 @@ $(document).on('turbolinks:load', function() {
   );
 
   // ToDo: leave .action_description visible when its parent.action_button is clicked/selected
-  
+
   $('.action_button').on('click', function(e) {
     e.preventDefault();
     // $('.action_button').velocity({ opacity: '.5', duration: 50});
@@ -120,7 +120,7 @@ $(document).on('turbolinks:load', function() {
     $(this).find('.action_description').velocity("callout.pulse", { duration: 100});
   });
 
-  var contribution_card_expanded_container = $('.contributions_container .contributions_content').height();
+
 
   $('.contribution_card_expanded').hide();
 
@@ -131,9 +131,19 @@ $(document).on('turbolinks:load', function() {
 
   $('.card').on('click', function(e){
     e.preventDefault();
+
+    // ToDo decide where we position the expanded card
     $('.contributions_content').append($('.contribution_card_expanded'));
+    // $('.contributions_container').append($('.contribution_card_expanded'));
+    // $('.container').append($('.contribution_card_expanded'));
+
     $('.contribution_card_expanded').velocity('fadeIn', { duration: 150 });
   });
+
+  // Height definition, ToDo make it dynamic
+  // var contribution_card_expanded_container = $('.contributions_container .contributions_content').height();
+  $('.contribution_card_expanded_main_col').height('650');
+
 
 });
 

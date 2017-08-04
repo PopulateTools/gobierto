@@ -18,7 +18,7 @@ collection_item_themes:
   collection: news
   item: themes (GobiertoCms::Page)
   container: culture (Issue)
-
+  
 news_collection_notice_1:
   collection: gender_violence_process_news
   item: notice_1 (GobiertoCms::Page)

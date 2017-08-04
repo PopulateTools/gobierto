@@ -1,7 +1,11 @@
 <menu class="secondary_nav">
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
     <ul>
-      <li><%= todo_link_to { link_to t('.news'), '#' } %></li>
+      <% if @process %>
+        <li><%= link_to t('.news'), gobierto_participation_process_pages_path(process_id: @process.slug) %></li>
+      <% else %>
+        <li><%= link_to t('.news'), gobierto_cms_pages_path %></li>
+      <% end %>
       <li><%= todo_link_to { link_to t('.agenda'), '#' } %></li>
       <li><%= todo_link_to { link_to t('.documents'), '#' } %></li>
       <li><%= todo_link_to { link_to t('.activity'), '#' } %></li>

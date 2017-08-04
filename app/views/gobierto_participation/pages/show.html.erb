@@ -18,29 +18,32 @@
       <div class='pure-u-1 pure-u-lg-1-3'>
         <h2 class='with_separator'><%= t('.title') %></h2>
 
-        <h4 class='with_light_separator m_t_1'><%= t('.filter') %></h4>
-        <ul class='link_list'>
-          <% if @groups && @groups.any? %>
-            <% @groups.each do |group| %>
-              <li>
-                <!--TODO: Add route after merge -->
-                <%= link_to group.title , 'routing' %>
-              </li>
+        <!-- TODO: Pending -->
+        <% if false %>
+          <h4 class='with_light_separator m_t_1'><%= t('.filter') %></h4>
+          <ul class='link_list'>
+            <% if @groups && @groups.any? %>
+              <% @groups.each do |group| %>
+                <li>
+                  <!--TODO: Add route after merge -->
+                  <%= link_to group.title , 'routing' %>
+                </li>
+              <% end %>
             <% end %>
-          <% end %>
-        </ul>
+          </ul>
+        <% end %>
 
         <h4 class='with_light_separator m_t_1'><%= t('.documents') %></h4>
         <div class='document_list m_b_2'>
           <% if @page.attachments && @page.attachments.any? %>
             <% @page.attachments.each do |attachment| %>
               <div class='document'>
-                <%= link_to attachment.name , attachment.url %>
+                <%= link_to attachment.name , attachment.url, target: '_blank' %>
                 <div class='soft'>
                   <small>
                     <%= attachment.extension.upcase %>
                      ·
-                    <%= link_to number_to_human_size(attachment.file_size, precision: 2, separator: ','), attachment.url %>
+                    <%= number_to_human_size(attachment.file_size, precision: 2, separator: ',') %>
                   </small>
                 </div>
               </div>

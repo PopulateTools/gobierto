@@ -48,7 +48,7 @@
 
       <tbody>
         <% @collections.each do |collection| %>
-          <tr>
+          <tr id="collection-item-<%= collection.id %>">
             <td><%= link_to collection.title, admin_common_collection_path(collection) %></td>
             <td><%= ::GobiertoAttachments::Attachment.where(id: collection.file_attachments_in_collection).size %></td>
             <td>

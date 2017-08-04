@@ -47,7 +47,12 @@
 
 </head>
 
-<body class="<%= current_module_body_class %> <%= controller_name %> <%= action_name %> <%= controller_name %>_<%= action_name %>" <%= yield(:body_attributes) %>>
+<% if (current_module_body_class == 'gobierto_participation' && controller_name == 'theme-participation') ||
+      (current_module_body_class == 'gobierto_cms' && controller_name == 'pages') %>
+  <body class = 'gobierto_participation theme-participation'>
+<% else %>
+  <body class="<%= current_module_body_class %> <%= controller_name %> <%= action_name %> <%= controller_name %>_<%= action_name %>" <%= yield(:body_attributes) %>>
+<% end %>
 
   <% if @site.configuration.demo? %>
     <div class="demo_bar pure-g">
@@ -155,7 +160,7 @@
 
         <div>
           <!-- Keep this until new subscribe button is integrated, so other modules in production don't break -->
-          <% if current_module == 'gobierto_participation' %>
+          <% if current_module == 'gobierto_participation' || current_module == 'gobierto_cms' %>
             <a href="#" class="button outline rounded desktop_only follow_process"><i class="fa fa-rss"></i> <span><%= t('.follow_process') %></span></a>
           <% end %>
           <!-- ./ -->
@@ -175,7 +180,7 @@
             <div id="search_results" class="search_result_list" style="position:absolute;"></div>
 
             <!-- Keep this until new subscribe button is integrated, so other modules in production don't break -->
-            <% if current_module == 'gobierto_participation' %>
+            <% if current_module == 'gobierto_participation' || current_module == 'gobierto_cms' %>
               <a href="#" class="button outline rounded mobile_only follow_process"><i class="fa fa-rss"></i> <span><%= t('.follow_process') %></span></a>
             <% end %>
             <!-- ./ -->
@@ -191,7 +196,8 @@
 
           <%= render "layouts/breadcrumb" %>
 
-          <% if current_module == 'gobierto_participation' && controller_name == 'processes' && action_name == 'show' %>
+          <% if (current_module == 'gobierto_participation' && controller_name == 'processes' && action_name == 'show') ||
+                (current_module == 'gobierto_cms' && controller_name == 'pages' && (action_name == 'show' || action_name == 'index')) %>
             <%= render 'gobierto_participation/layouts/process_menu_subsections' %>
           <% else %>
             <%= content_for?(:module_sub_sections) ? yield(:module_sub_sections) : load_module_sub_sections(current_module) %>

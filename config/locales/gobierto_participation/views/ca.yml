@@ -1,6 +1,9 @@
 ---
 ca:
   gobierto_participation:
+    events:
+      gobierto_participation_issue_created: Tema creat
+      gobierto_participation_issue_updated: Tema actualitzat
     layouts:
       application:
         title: Participació
@@ -21,9 +24,15 @@ ca:
         agenda: Agenda
         documents: Documents
         activity: Activitat
-    events:
-      gobierto_participation_issue_created: Tema creat
-      gobierto_participation_issue_updated: Tema actualitzat
+    pages:
+      index:
+        filter: Filtrar per tema
+        title: Notícies
+      show:
+        documents: Documents
+        filter: Filtrar per grup
+        published_at: Publicat el %{date} pel %{site}
+        title: Notícies
     processes:
       show:
         issues: Temas

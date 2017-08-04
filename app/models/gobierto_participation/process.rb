@@ -35,9 +35,11 @@ module GobiertoParticipation
     end
 
     def news
-      news_collection ? news_collection.collection_items.map { |collection_item| collection_item.item } : []
+      # news_collection ? news_collection.collection_items.map { |collection_item| collection_item.item }.uniq : []
       # TODO: write in a more efficient way. Maybe something like this:
       # GobiertoCms::Page.where(collection: news_collection)
+      ids = GobiertoCommon::CollectionItem.where(collection: news_collection).map(&:item_id)
+      GobiertoCms::Page.where(id: ids, site: site)
     end
 
     def events

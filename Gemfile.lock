@@ -358,11 +358,11 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    sidekiq (4.2.10)
+    sidekiq (5.0.4)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
-      redis (~> 3.2, >= 3.2.1)
+      redis (~> 3.3, >= 3.3.3)
     signet (0.7.3)
       addressable (~> 2.3)
       faraday (~> 0.9)
@@ -480,7 +480,7 @@ DEPENDENCIES
   rubocop
   ruby_px
   sass-rails (~> 5.0.0)
-  sidekiq (~> 4.2.6)
+  sidekiq (~> 5.0.4)
   simple_calendar (~> 2.2)
   spring
   spring-watcher-listen (~> 2.0.0)

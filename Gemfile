@@ -34,7 +34,7 @@ gem "elasticsearch"
 gem "elasticsearch-extensions"
 
 # Background processing
-gem "sidekiq", "~> 4.2.6"
+gem "sidekiq", "~> 5.0.4"
 
 # AWS SDK client
 gem "aws-sdk", "~> 2.6", require: false

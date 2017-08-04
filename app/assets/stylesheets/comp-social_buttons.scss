@@ -2,7 +2,7 @@
  * Social Buttons
  *
  */
-.social_share {
+.social_share, .search_icon {
   display: inline-block;
   padding: .35em .75em;
   margin: 1em 1em 0 0;
@@ -20,7 +20,7 @@ a.social_share {
   }
 }
 .social_share_container {
-  .social_share {
+  .social_share, .search_icon {
     @include border-radius(16px);
     padding: .25em 2em;
     text-decoration: none;
@@ -28,7 +28,7 @@ a.social_share {
       margin: 0 .2em 0 0;
     }
   }
-  .social_share:hover {
+  .social_share:hover, .search_icon:hover {
     text-decoration: none;
   }
 }

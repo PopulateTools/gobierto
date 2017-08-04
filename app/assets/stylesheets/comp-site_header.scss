@@ -116,22 +116,17 @@ header.meta {
       .social_share.twitter,
       .social_share.facebook {
         @include min-screen(740) {
-          position: absolute;
+          // position: absolute;
           z-index: -1;
           top: 1.4em;
         }
       }
-
-      .social_share.twitter {
-        right: 6.25em;
-      }
-
-      .social_share.facebook {
-        right: 3.5em;
-      }
     }
     .button.outline.rounded {
       width: auto;
+      padding: 4px 10px 3px 13px;
+      line-height: 1.1;
+      margin-top: -1px;
 
       &.desktop_only {
         @include screen(740) {
@@ -156,7 +151,18 @@ header.meta {
       padding-left: 6px !important;
       background: #e5eff8;
       color: #979ea4;
-
+    }
+    .search_control {
+      position: absolute;
+      display: none;
+      background: #e5eff8;
+      border-radius: 25px;
+      padding: 4px 4px 5px 4px;
+      width: 285px;
+      line-height: 1.8;
+      top: 9px;
+      right: 0;
+      z-index: 10;
       input {
         padding: 0;
         margin-bottom: 0;

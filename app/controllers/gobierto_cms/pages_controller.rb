@@ -7,8 +7,7 @@ module GobiertoCms
     def show
       @process = find_process if params[:process]
       @page = find_page
-      @groups = GobiertoParticipation::Process.all
-
+      @groups = current_site.processes.group_process
     end
 
     def index

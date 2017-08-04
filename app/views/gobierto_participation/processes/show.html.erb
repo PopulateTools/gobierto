@@ -34,7 +34,9 @@
             <%= t('.no_news') %>
           <% end %>
         </div>
-        <%= link_to t('.more_news'), gobierto_cms_pages_path(process: @process.slug) %>
+        <% if @process_news.any? %>
+          <%= link_to t('.more_news'), gobierto_cms_pages_path(process: @process.slug) %>
+        <% end %>
       </div>
     </div>
 

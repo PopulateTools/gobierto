@@ -14,7 +14,7 @@ module GobiertoParticipation
       # TODO: params['from'] == 'participation' Add to process layout hidden_field
       @issues = current_site.issues
       @process = find_process if params[:process_id]
-      @pages = if params[:process]
+      @pages = if params[:process_id]
                  find_process_news.page(params[:page])
                else
                  current_site.pages.active.page(params[:page])

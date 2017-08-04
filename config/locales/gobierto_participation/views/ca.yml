@@ -33,6 +33,20 @@ ca:
         filter: Filtrar per grup
         published_at: Publicat el %{date} pel %{site}
         title: Notícies
+    events:
+      gobierto_participation_issue_created: Tema creat
+      gobierto_participation_issue_updated: Tema actualitzat
+      event:
+        from_to: '%{starts} al %{ends}'
+        follow_event: Seguir aquest esdeveniment
+      event_teaser:
+        agenda_for_container: Agenda d'
+      index:
+        agenda_for_container: 'Agenda de %{container_title}'
+        all_events: Veure tots els esdeveniments
+      show:
+        agenda_for_container: 'Agenda de %{container_title}'
+        container_agenda_explanation: Et convidem a assistir a les següents reunions on debatrem en persona sobre els temes d'aquest procés. Si no pots assistir-hi, anirem publicant en línia tot el que es parli a la reunions per facilitar el seguiment i fer accessibles les conclusions.
     processes:
       show:
         issues: Temas

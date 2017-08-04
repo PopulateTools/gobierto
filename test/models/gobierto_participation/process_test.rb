@@ -13,7 +13,7 @@ module GobiertoCms
     end
 
     def process_events
-      [ gobierto_calendars_events(:richard_published), gobierto_calendars_events(:nelson_tomorrow) ]
+      [ gobierto_calendars_events(:reading_club), gobierto_calendars_events(:swimming_lessons) ]
     end
 
     def test_valid

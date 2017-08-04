@@ -253,6 +253,8 @@ Rails.application.routes.draw do
       resources :processes, only: [:index, :show] do
         resources :pages, only: [:index, :show]
       end
+
+      resources :events, only: [:index, :show]
     end
   end
 

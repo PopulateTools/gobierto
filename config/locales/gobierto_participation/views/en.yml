@@ -1,6 +1,9 @@
 ---
 en:
   gobierto_participation:
+    events:
+      gobierto_participation_issue_created: Theme created
+      gobierto_participation_issue_updated: Theme updated
     layouts:
       application:
         title: Participation
@@ -21,9 +24,15 @@ en:
         agenda: Agenda
         documents: Documents
         activity: Activity
-    events:
-      gobierto_participation_issue_created: Theme created
-      gobierto_participation_issue_updated: Theme updated
+    pages:
+      index:
+        filter: Filter by theme
+        title: News
+      show:
+        documents: Documents
+        filter: Filter by group
+        published_at: Posted on %{date} by %{site}
+        title: News
     processes:
       show:
         issues: Issues

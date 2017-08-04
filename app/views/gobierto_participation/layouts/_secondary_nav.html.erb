@@ -2,7 +2,7 @@
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
     <ul>
       <% if @process %>
-        <li><%= link_to t('.news'), gobierto_cms_pages_path(process: @process.slug) %></li>
+        <li><%= link_to t('.news'), gobierto_participation_process_pages_path(process_id: @process.slug) %></li>
       <% else %>
         <li><%= link_to t('.news'), gobierto_cms_pages_path %></li>
       <% end %>

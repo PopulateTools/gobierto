@@ -1,8 +1,10 @@
 <menu class="secondary_nav">
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
     <ul>
+      <% path_arguments = @container ? { container_type: @container.container_type, container_id: @container.id } : nil %>
+
       <li><%= todo_link_to { link_to t('.news'), '#' } %></li>
-      <li><%= todo_link_to { link_to t('.agenda'), '#' } %></li>
+      <li><%= link_to t('.agenda'), gobierto_participation_events_path(path_arguments) %></li>
       <li><%= todo_link_to { link_to t('.documents'), '#' } %></li>
       <li><%= todo_link_to { link_to t('.activity'), '#' } %></li>
     </ul>

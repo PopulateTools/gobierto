@@ -25,7 +25,7 @@ gender_violence_process_news:
 
 ## GobiertoParticipation Process collections of events
 
-gender_violence_process_events:
+gender_violence_process_calendar:
   site: madrid
   title_translations: <%= {'en' => 'Face-to-face appointments', 'es' => 'Citas presenciales' }.to_json %>
   slug: eventos-violencia-genero

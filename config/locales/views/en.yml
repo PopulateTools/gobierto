@@ -103,8 +103,6 @@ en:
       users_user_updated: User updated
   views:
     pagination:
-      first: "&laquo; First"
-      last: Last &raquo;
-      next: Next &rsaquo;
-      previous: "&lsaquo; Prev"
+      next: Next
+      previous: Prev
       truncate: "&hellip;"

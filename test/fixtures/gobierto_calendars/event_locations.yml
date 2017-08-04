@@ -4,3 +4,10 @@ madrid_city_council:
   address: Plaza Cibeles, 1A, 28014 Madrid
   lat: 40.4187403
   lng: -3.6939436
+
+madrid_swimming_pool:
+  event: swimming_lessons
+  name: Instalaciones Deportivas Canal de Isabel II
+  address: Av. de Filipinas, 54, 28003 Madrid
+  lat: 40.441295
+  lng: -3.705199

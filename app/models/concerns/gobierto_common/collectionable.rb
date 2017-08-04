@@ -3,13 +3,22 @@ module GobiertoCommon
     extend ActiveSupport::Concern
 
     included do
-      after_destroy :clean_collection_items
+
+      def collection_container
+        collection.container
+      end
+
+      def container_title
+        collection_container.title_as_container
+      rescue
+        nil
+      end
+
+      def container_path
+        collection_container.container_path
+      end
+
     end
 
-    private
-
-    def clean_collection_items
-      GobiertoCommon::CleanCollectionItemsJob.perform_later(self.site_id, self.class.name, self.id)
-    end
   end
 end

@@ -253,6 +253,7 @@ Rails.application.routes.draw do
       get 'participacion' => 'welcome#index', as: :root
 
       resources :processes, only: [:index, :show]
+      resources :events, only: [:index, :show]
     end
   end
 

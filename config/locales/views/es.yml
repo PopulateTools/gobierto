@@ -109,8 +109,6 @@ es:
       users_user_updated: Usuario actualizado
   views:
     pagination:
-      first: "&laquo; Primera"
-      last: Última &raquo;
-      next: Siguiente &rsaquo;
-      previous: "&lsaquo; Anterior"
+      next: Siguiente
+      previous: Anterior
       truncate: "&hellip;"

@@ -28,11 +28,11 @@ module GobiertoParticipation
         visit @path
 
         within 'menu.sub_sections' do
-          assert has_content? 'About'
-          assert has_content? 'Issues'
-          assert has_content? 'Processes'
-          assert has_content? 'Ask'
-          assert has_content? 'Ideas'
+          assert has_link? 'About'
+          assert has_link? 'Issues'
+          assert has_link? 'Processes'
+          assert has_link? 'Ask'
+          assert has_link? 'Ideas'
         end
       end
     end

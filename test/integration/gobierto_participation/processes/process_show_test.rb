@@ -37,11 +37,11 @@ module GobiertoParticipation
         visit @path
 
         within 'menu.sub_sections' do
-          assert has_content? 'Information'
-          assert has_content? 'Meetings'
-          assert has_content? 'Polls'
-          assert has_content? 'Contributions'
-          assert has_content? 'Results'
+          assert has_link? 'Information'
+          assert has_link? 'Meetings'
+          assert has_link? 'Polls'
+          assert has_link? 'Contributions'
+          assert has_link? 'Results'
         end
       end
     end
@@ -82,7 +82,7 @@ module GobiertoParticipation
 
           assert has_content? 'Interesting information'
 
-          process_duration_text = "#{gender_violence_process.starts.strftime('%d/%m/%y')} to #{gender_violence_process.ends.strftime('%d/%m/%y')}"
+          process_duration_text = "#{gender_violence_process.starts.strftime('%e/%m/%y')} to #{gender_violence_process.ends.strftime('%e/%m/%y')}"
 
           assert has_content? process_duration_text
           assert has_content? 'Women'
@@ -119,7 +119,7 @@ module GobiertoParticipation
 
         events_titles = gender_violence_process.events.map { |event| event.title }
 
-        assert array_match ['Future government event', 'Nelson tomorrow event'], events_titles
+        assert array_match ['Intensive reading club in english', 'Swimming lessons for elders'], events_titles
       end
     end
 

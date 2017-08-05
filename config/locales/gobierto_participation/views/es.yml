@@ -1,6 +1,9 @@
 ---
 es:
   gobierto_participation:
+    events:
+      gobierto_participation_issue_created: Tema creado
+      gobierto_participation_issue_updated: Tema actualizado
     layouts:
       application:
         title: Participación
@@ -21,9 +24,15 @@ es:
         agenda: Agenda
         documents: Documentos
         activity: Actividad
-    events:
-      gobierto_participation_issue_created: Tema creado
-      gobierto_participation_issue_updated: Tema actualizado
+    pages:
+      index:
+        filter: Filtrar por tema
+        title: Noticias
+      show:
+        documents: Documentos
+        filter: Filtrar por grupo
+        published_at: Publicado el %{date} por el %{site}
+        title: Noticias
     processes:
       show:
         issues: Temas

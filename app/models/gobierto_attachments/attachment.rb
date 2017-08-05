@@ -38,6 +38,10 @@ module GobiertoAttachments
 
     scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
 
+    def content_type
+      MIME::Types.type_for(url).first.content_type
+    end
+
     def collection
       GobiertoCommon::CollectionItem.find_by(item: self, item_type: 'GobiertoAttachments::Attachment').collection
     end

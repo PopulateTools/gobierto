@@ -90,7 +90,7 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_cms, as: :cms, path: :cms do
-      resources :pages
+      resources :pages, only: [:index, :new, :edit, :create, :update]
     end
 
     namespace :gobierto_attachments, as: :attachments, path: :attachments do
@@ -241,7 +241,7 @@ Rails.application.routes.draw do
   # Gobierto CMS module
   namespace :gobierto_cms, path: 'paginas' do
     constraints GobiertoSiteConstraint.new do
-      get ':id' => 'pages#show', as: :page
+      resources :pages, only: [:index, :show], path: ''
     end
   end
 
@@ -250,7 +250,9 @@ Rails.application.routes.draw do
     constraints GobiertoSiteConstraint.new do
       get 'participacion' => 'welcome#index', as: :root
 
-      resources :processes, only: [:index, :show]
+      resources :processes, only: [:index, :show] do
+        resources :pages, only: [:index, :show]
+      end
     end
   end
 

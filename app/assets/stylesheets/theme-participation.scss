@@ -48,6 +48,7 @@ $lighter_black: rgba($color_headers, .7);
   .button.outline.rounded {
     color: $green;
     border: 1px solid $green;
+    margin-top: -.25em;
 
     .fa {
       color: $green;
@@ -56,7 +57,6 @@ $lighter_black: rgba($color_headers, .7);
   .button.outline.rounded.checked {
     background: $green;
     color: white;
-
     .fa {
       color: white;
     }
@@ -295,12 +295,14 @@ $lighter_black: rgba($color_headers, .7);
   // TODO: Move comp_headings_blocks
   .content_block.themed {
     display: flex;
+    flex-grow: 1;
+    flex-basis: 25%;
     flex-direction: column;
     justify-content: center;
     border-top: 6px solid $green;
     text-align: center;
     min-height: 10em;
-    margin-bottom: 1em;
+    margin: 1em;
     text-decoration: none;
     padding: 1em 1em 2em 1em;
     @include min-screen(740) {
@@ -742,15 +744,6 @@ $lighter_black: rgba($color_headers, .7);
   .modal.modal_poll {
     padding: 6em;
 
-    button.mfp-close, button.mfp-close:hover {
-      opacity: 1;
-      border: 1px solid $green;
-      color: $green;
-    }
-    button.mfp-close:hover {
-      background: $green;
-      color: #FFF;
-    }
     .poll {
       margin: 2em;
       position: relative;
@@ -816,10 +809,41 @@ $lighter_black: rgba($color_headers, .7);
         bottom: 2em;
         right: 2em;
       }
-
     }
-
   }
+
+  .modal.modal_poll {
+    max-width: 100%;
+    margin: 0;
+  }
+  .modal.modal_poll, .modal_like_control {
+    button.mfp-close, .mfp-close {
+      opacity: 1;
+      border: 1px solid $green;
+      color: $green;
+      @include border-radius(50%);
+      margin: 1.5em 1em 0 0;
+      text-decoration: none;
+      padding: 0;
+      font-size: 22px;
+      width: 30px;
+      height: 30px;
+      line-height: 34px;
+    }
+    button.mfp-close:hover, .mfp-close:hover {
+      background: $green;
+      color: #FFF;
+    }
+  }
+  .modal_like_control {
+    position: absolute;
+    top: 0;
+    right: 0;
+    button.mfp-close, .mfp-close {
+      margin: .5em .5em 0 0;
+    }
+  }
+
   @include screen(740) {
     .modal.modal_poll {
       padding: 0;
@@ -869,6 +893,14 @@ $lighter_black: rgba($color_headers, .7);
   .contributions_container {
     border-top: 3px solid $green;
 
+    a, h1, h2, h3, h4, h5, .comment_actions a.active, .comment_actions a.active .fa {
+      color: $green;
+    }
+    .button {
+      color: #FFF;
+    }
+
+
     .contributions_header {
       .meta {
         h2 {
@@ -905,7 +937,11 @@ $lighter_black: rgba($color_headers, .7);
       .contributions_control {
         .circles_progress {
           li.active {
-            background: $green;
+            a {
+              span {
+                background: $green;
+              }
+            }
           }
         }
       }
@@ -931,5 +967,4 @@ $lighter_black: rgba($color_headers, .7);
       }
     }
   }
-
 }

@@ -171,10 +171,12 @@
               <a href="#" class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
             <% end %>
 
-            <a href="#" class="search_icon">
+            <a href="#" class="search_icon"><i class="fa fa-search"></i></a>
+
+            <div class="search_control ">
               <i class="fa fa-search"></i>
-              <input type="text" placeholder="<%= t('.search') %>" name="q" id="gobierto_search" class="hidden"/>
-            </a>
+              <input type="text" placeholder="<%= t('.search') %>" name="q" id="gobierto_search" >
+            </div>
 
             <!-- TODO: lo del position:absolute es una ñapa -->
             <div id="search_results" class="search_result_list" style="position:absolute;"></div>

@@ -514,23 +514,31 @@ option, select {
   Progress
  */
 .circles_progress {
-  margin-top: 0;
+  margin-top: .25em;
   padding-left: 0;
   @include reset_ul_li;
 
   li {
-    width: 8px;
-    height: 8px;
-    background: #ccc;
-    border-radius: 50%;
-
-    &:not(:last-child) {
-      margin-right: 0.5em;
+    a {
+      display: inline-block;
+      padding: .35em;
+      span {
+        display: block;
+        float: left;
+        width: 8px;
+        height: 8px;
+        background: #ccc;
+        border-radius: 50%;
+        &.active {
+          background: $color_main;
+        }
+      }
+    }
+    a:hover {
+      background: $color_secondary;
+      border-radius: 50%;
     }
 
-    &.active {
-      background: $color_main;
-    }
   }
 }
 

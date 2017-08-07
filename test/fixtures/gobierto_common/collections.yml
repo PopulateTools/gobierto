@@ -1,16 +1,13 @@
-news:
-  site: madrid
-  title_translations: <%= {'en' => 'News', 'es' => 'Noticias' }.to_json %>
-  slug: noticias
-  container: culture (GobiertoParticipation::Issue)
-  item_type: GobiertoCms::Page
+## GobiertoParticipation Process collections of pages
 
 files:
   site: madrid
   title_translations: <%= {'en' => 'Files', 'es' => 'Ficheros' }.to_json %>
   slug: files
-  container: culture (GobiertoParticipation::Issue)
+  container: culture (Issue)
   item_type: GobiertoAttachments::Attachment
+
+## /end
 
 ## GobiertoParticipation Process collections of pages
 
@@ -19,6 +16,13 @@ gender_violence_process_news:
   title_translations: <%= {'en' => 'News', 'es' => 'Noticias' }.to_json %>
   slug: noticias-violencia-genero
   container: gender_violence_process (GobiertoParticipation::Process)
+  item_type: GobiertoCms::Page
+
+news:
+  site: madrid
+  title_translations: <%= {'en' => 'News', 'es' => 'Noticias' }.to_json %>
+  slug: noticias
+  container: culture (Issue)
   item_type: GobiertoCms::Page
 
 ## /end

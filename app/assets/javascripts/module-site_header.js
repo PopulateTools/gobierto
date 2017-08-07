@@ -35,11 +35,15 @@ $(document).on('turbolinks:load', function() {
 
   $('.site_header_logo .search_icon').click(function(e) {
     e.preventDefault();
-    $(this).velocity({ width: isMobile() ? '170px' : '170px' }, { complete: function (element) { $(element[0]).find('input').removeClass('hidden').focus(); }})
+    $('.search_control').velocity("fadeIn", {
+      complete: function (element) {
+        $(element[0]).find('input').removeClass('hidden').focus();
+      }
+    });
   });
 
-  $('.site_header_logo .search_icon input').on('focusout', function(e) {
-    $(this).parent('.search_icon').velocity({ width: '24px '}, { begin: function(element) { $(element[0]).find('input').addClass('hidden'); }});
+  $('.site_header_logo .search_control input').on('focusout', function(e) {
+    $('.search_control').velocity("fadeOut");
   });
 
   $('.follow_process').on('click', function() {

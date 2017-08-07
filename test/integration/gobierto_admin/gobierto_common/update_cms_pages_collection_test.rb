@@ -16,8 +16,8 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
-      def participation_issue
-        @participation_issue ||= gobierto_participation_issues(:culture)
+      def issue
+        @issue ||= issues(:culture)
       end
 
       def collection
@@ -30,10 +30,10 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
 
-              within "#collection-#{collection.id}" do
+              within "tr#collection-item-#{collection.id}" do
                 click_link 'News'
               end
-              
+
               click_link 'Configuration'
 
               within 'form.edit_collection' do

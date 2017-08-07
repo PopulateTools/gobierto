@@ -25,6 +25,10 @@ ca:
     sentence_for_humans: Si ets humà, per favor, ignora aquest camp.
     timestamp_error_message: Disculpa, això ha sigut molt rapid. Torna a enviar el
       formulari.
+  issues:
+    events:
+      issues_issue_created: Tema creat
+      issues_issue_updated: Tema actualitzat
   layouts:
     breadcrumb:
       start: Inici

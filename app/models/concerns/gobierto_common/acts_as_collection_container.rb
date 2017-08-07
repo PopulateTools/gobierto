@@ -27,8 +27,8 @@ module GobiertoCommon
       end
 
       def news
-        # TODO: rewrite properly as it is done for events
-        news_collection ? news_collection.collection_items.map { |collection_item| collection_item.item } : []
+        ids = GobiertoCommon::CollectionItem.where(collection: news_collection).map(&:item_id)
+        GobiertoCms::Page.where(id: ids, site: site)
       end
 
       def events

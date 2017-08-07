@@ -30,7 +30,7 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
 
-              within "#collection-#{collection.id}" do
+              within "tr#collection-item-#{collection.id}" do
                 click_link 'News'
               end
 

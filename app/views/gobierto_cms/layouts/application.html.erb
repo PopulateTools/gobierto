@@ -1,1 +1,12 @@
-<%= render template: "layouts/application" %>
+<% if @process %>
+  <% content_for :breadcrumb_items do %>
+    <%= link_to t('gobierto_participation.layouts.application.title'), gobierto_participation_root_path %>
+
+    <% if content_for?(:breadcrumb_current_item) %>
+      <span role="separator">/</span>
+      <%= yield(:breadcrumb_current_item) %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= render template: 'layouts/application' %>

@@ -15,6 +15,11 @@ Rails.application.routes.draw do
 
     resource :sessions, only: [:new, :create, :destroy]
     resources :sites, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :issues, only: [:index, :show, :new, :create, :edit, :update] do
+      collection do
+        resource :issue_sort, only: [:create], controller: "issues_sort", path: :issues_sort
+      end
+    end
 
     namespace :sites do
       resource :sessions, only: [:create, :destroy]
@@ -74,14 +79,7 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_participation, as: :participation, path: :participation do
-
       get '/' => 'welcome#index'
-
-      resources :issues, only: [:index, :show, :new, :create, :edit, :update] do
-        collection do
-          resource :issue_sort, only: [:create], controller: "issues_sort", path: :issues_sort
-        end
-      end
 
       resources :processes, only: [:index, :new, :edit, :create, :update]
     end
@@ -92,11 +90,11 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_cms, as: :cms, path: :cms do
-      resources :pages
-      resources :file_attachments, only: [:index, :create, :new, :edit, :update]
+      resources :pages, only: [:index, :new, :edit, :create, :update]
     end
 
     namespace :gobierto_attachments, as: :attachments, path: :attachments do
+      resources :file_attachments, only: [:index, :create, :new, :edit, :update]
       namespace :api do
         resources :attachments, only: [:index, :show, :create, :update, :destroy]
         post   '/attachings' => 'attachings#create'
@@ -243,7 +241,7 @@ Rails.application.routes.draw do
   # Gobierto CMS module
   namespace :gobierto_cms, path: 'paginas' do
     constraints GobiertoSiteConstraint.new do
-      get ':id' => 'pages#show', as: :page
+      resources :pages, only: [:index, :show], path: ''
     end
   end
 
@@ -252,7 +250,10 @@ Rails.application.routes.draw do
     constraints GobiertoSiteConstraint.new do
       get 'participacion' => 'welcome#index', as: :root
 
-      resources :processes, only: [:index, :show]
+      resources :processes, only: [:index, :show] do
+        resources :pages, only: [:index, :show]
+      end
+
       resources :events, only: [:index, :show]
     end
   end

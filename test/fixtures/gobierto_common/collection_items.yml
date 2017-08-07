@@ -1,20 +1,24 @@
-consultation_faq_on_site:
-  collection: news
-  item: consultation_faq (GobiertoCms::Page)
-  container: culture (GobiertoParticipation::Issue)
-
-collection_item_themes:
-  collection: news
-  item: themes (GobiertoCms::Page)
-  container: culture (GobiertoParticipation::Issue)
+## Attachments collection items
 
 collection_item_attachment:
   collection: files
   item: pdf_collection_attachment (GobiertoAttachments::Attachment)
-  container: culture (GobiertoParticipation::Issue)
+  container: culture (Issue)
+
+## /end Attachments collection items
 
 ## Pages collection items
 
+consultation_faq_on_site:
+  collection: news
+  item: consultation_faq (GobiertoCms::Page)
+  container: culture (Issue)
+
+collection_item_themes:
+  collection: news
+  item: themes (GobiertoCms::Page)
+  container: culture (Issue)
+  
 news_collection_notice_1:
   collection: gender_violence_process_news
   item: notice_1 (GobiertoCms::Page)

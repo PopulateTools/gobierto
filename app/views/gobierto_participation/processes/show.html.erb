@@ -1,13 +1,15 @@
-<% content_for :breadcrumb_current_item do %>
-  <strong>
-    <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path %>
-  </strong>
+<% if @process %>
+  <% content_for :breadcrumb_current_item do %>
+    <strong>
+      <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path %>
+    </strong>
 
-  <span role="separator">/</span>
+    <span role="separator">/</span>
 
-  <h1>
-    <%= link_to @process.title, gobierto_participation_process_path(@process) %>
-  </h1>
+    <h1>
+      <%= link_to @process.title, gobierto_participation_process_path(@process.slug) %>
+    </h1>
+  <% end %>
 <% end %>
 
 <div class="gradient-bg">
@@ -32,9 +34,8 @@
             <%= t('.no_news') %>
           <% end %>
         </div>
-
-        <%= todo_link_to do %>
-          <a href="participation_news.html"><%= t('.more_news') %></a>
+        <% if @process_news.any? %>
+          <%= link_to t('.more_news'), gobierto_cms_pages_path(process: @process.slug) %>
         <% end %>
       </div>
     </div>

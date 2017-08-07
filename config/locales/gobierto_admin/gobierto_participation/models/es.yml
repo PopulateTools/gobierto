@@ -2,9 +2,6 @@
 es:
   activemodel:
     attributes:
-      gobierto_admin/gobierto_participation/issue_form:
-        name: Nombre
-        slug: URL
       gobierto_admin/gobierto_participation/process_form:
         header_image: Imagen de cabecera
         header_image_url: URL de la imagen de cabecera
@@ -17,7 +14,6 @@ es:
         issue_id: Tema
     models:
       gobierto_admin/gobierto_participation/process_form: Proceso
-      gobierto_admin/gobierto_participation/issue_form: Tema
   activerecord:
     attributes:
       gobierto_participation/process:

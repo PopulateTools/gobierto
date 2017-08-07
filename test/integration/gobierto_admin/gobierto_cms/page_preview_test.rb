@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoCms
@@ -33,7 +33,7 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            within "#collection-#{collection.id}" do
+            within "tr#collection-item-#{collection.id}" do
               click_link 'News'
             end
 
@@ -56,10 +56,10 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            within "#collection-#{collection.id}" do
+            within "tr#collection-item-#{collection.id}" do
               click_link 'News'
             end
-            
+
             within "tr#page-item-#{draft_page.id}" do
               preview_link = find('a', text: 'View page')
 
@@ -76,7 +76,6 @@ module GobiertoAdmin
 
       def test_preview_draft_page_if_not_admin
         with_current_site(site) do
-
           assert_raises ActiveRecord::RecordNotFound do
             visit gobierto_cms_page_path(draft_page.slug)
           end
@@ -85,7 +84,6 @@ module GobiertoAdmin
           refute has_selector?('h1', text: draft_page.title)
         end
       end
-
     end
   end
 end

@@ -5,7 +5,7 @@ module GobiertoAdmin
     class FileAttachmentIndexTest < ActionDispatch::IntegrationTest
       def setup
         super
-        @path = admin_cms_file_attachments_path
+        @path = admin_attachments_file_attachments_path
       end
 
       def admin
@@ -29,10 +29,10 @@ module GobiertoAdmin
               assert has_selector?('tr', count: collections.size)
 
               collections.each do |collection|
-                assert has_selector?('tr')
+                assert has_selector?("tr#collection-item-#{collection.id}")
 
-                within 'tr' do
-                  assert has_link?('View collection')
+                within "tr#collection-item-#{collection.id}" do
+                  assert has_link?("#{collection.title}")
                 end
               end
             end

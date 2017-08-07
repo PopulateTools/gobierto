@@ -8,7 +8,6 @@ module GobiertoParticipation
 
     def show
       @process = GobiertoParticipation::Process.find_by!(slug: params[:id])
-
       @process_news   = find_process_news
       @process_events = find_process_events
       @activities     = [] # TODO: implementation not yet defined

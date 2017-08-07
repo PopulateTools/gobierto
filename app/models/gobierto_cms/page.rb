@@ -2,6 +2,8 @@ require_dependency "gobierto_cms"
 
 module GobiertoCms
   class Page < ApplicationRecord
+    paginates_per 10
+
     include User::Subscribable
     include GobiertoCommon::Searchable
     include GobiertoAttachments::Attachable
@@ -29,6 +31,13 @@ module GobiertoCms
 
     def collection
       GobiertoCommon::CollectionItem.find_by(item: self, item_type: 'GobiertoCms::Page').collection
+    end
+
+    def main_image
+      attachments.each do |attachment|
+        return attachment.url if attachment.content_type.start_with?('image/')
+      end
+      nil
     end
 
     def self.pages_in_collections(site)

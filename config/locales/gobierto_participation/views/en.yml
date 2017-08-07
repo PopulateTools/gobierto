@@ -24,6 +24,8 @@ en:
     events:
       gobierto_participation_issue_created: Theme created
       gobierto_participation_issue_updated: Theme updated
+      gobierto_participation_process_created: Process / group created
+      gobierto_participation_process_updated: Process / group updated
       event:
         from_to: '%{starts} to %{ends}'
         follow_event: Follow this event

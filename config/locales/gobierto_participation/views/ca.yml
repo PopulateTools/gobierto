@@ -24,6 +24,8 @@ ca:
     events:
       gobierto_participation_issue_created: Tema creat
       gobierto_participation_issue_updated: Tema actualitzat
+      gobierto_participation_process_created: Procés / grup creat
+      gobierto_participation_process_updated: Procés / grup actualitzat
       event:
         from_to: '%{starts} al %{ends}'
         follow_event: Seguir aquest esdeveniment

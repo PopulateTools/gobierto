@@ -8,6 +8,10 @@ module GobiertoCommon
         to_s.underscore
       end
 
+      def url_helpers
+        Rails.application.routes.url_helpers
+      end
+
     end
 
     included do
@@ -40,9 +44,9 @@ module GobiertoCommon
       end
 
       def container_path
-        case self.class
-        when GobiertoParticipation::Process
-          gobierto_participation_process_path(self)
+        case
+        when self.class == GobiertoParticipation::Process
+          self.class.url_helpers.gobierto_participation_process_path(self.slug)
         end
       end
 

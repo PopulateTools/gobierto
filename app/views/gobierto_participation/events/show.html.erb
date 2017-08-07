@@ -25,13 +25,11 @@
             attribute: :starts_at,
             start_date: params[:start_date] || Date.current
           ) do |date, events| %>
-            <!-- TODO: cuando esté el Index, linkar la colección completa de eventos de ese día -->
-            <% if events.any? %>
-              <%= link_to date.day, gobierto_participation_event_path(events.first.slug) %>
-            <% else %>
-              <%= date.day %>
-            <% end %>
-
+            <%= link_to_if events.any?, date.day, gobierto_participation_events_path(
+                  container_type: @event.collection_container.container_type,
+                  container_id: @event.collection_container.id,
+                  date: date
+            ) %>
           <% end %>
         </div>
 

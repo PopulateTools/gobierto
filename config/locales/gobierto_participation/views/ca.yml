@@ -24,15 +24,6 @@ ca:
         agenda: Agenda
         documents: Documents
         activity: Activitat
-    pages:
-      index:
-        filter: Filtrar per tema
-        title: Notícies
-      show:
-        documents: Documents
-        filter: Filtrar per grup
-        published_at: Publicat el %{date} pel %{site}
-        title: Notícies
     events:
       gobierto_participation_issue_created: Tema creat
       gobierto_participation_issue_updated: Tema actualitzat
@@ -46,9 +37,20 @@ ca:
       index:
         agenda_for_container: 'Agenda de %{container_title}'
         all_events: Veure tots els esdeveniments
+        displaying_events_of: Mostrant esdeveniments del %{date}
+        go_back: Tornar
       show:
         agenda_for_container: 'Agenda de %{container_title}'
         container_agenda_explanation: Et convidem a assistir a les següents reunions on debatrem en persona sobre els temes d'aquest procés. Si no pots assistir-hi, anirem publicant en línia tot el que es parli a la reunions per facilitar el seguiment i fer accessibles les conclusions.
+    pages:
+      index:
+        filter: Filtrar per tema
+        title: Notícies
+      show:
+        documents: Documents
+        filter: Filtrar per grup
+        published_at: Publicat el %{date} pel %{site}
+        title: Notícies
     processes:
       show:
         issues: Temas

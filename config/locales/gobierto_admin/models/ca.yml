@@ -20,8 +20,8 @@ ca:
       gobierto_admin/admin_new_password_form:
         email: Email
       gobierto_admin/file_attachment_form:
-        name: Nom
         description: Descripció
+        name: Nom
       gobierto_admin/issue_form:
         name: Nom
         slug: URL
@@ -52,9 +52,9 @@ ca:
       gobierto_admin/admin_form: Administrador
       gobierto_admin/admin_invitation_form: Invitació
       gobierto_admin/admin_new_password_form: Recuperació de contrasenya
+      gobierto_admin/file_attachment_form: Canvi en el fitxer
       gobierto_admin/issue_form: Tema
       gobierto_admin/site_form: Lloc
       gobierto_admin/user_form: Usuari
       gobierto_admin/user_password_form: Canvi de contrasenya
       gobierto_admin/user_welcome_message_form: Email de benvinguda
-      gobierto_admin/file_attachment_form: Canvi en el fitxer

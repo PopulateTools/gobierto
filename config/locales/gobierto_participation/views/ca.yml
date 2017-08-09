@@ -2,46 +2,46 @@
 ca:
   gobierto_participation:
     events:
+      event:
+        follow_event: Seguir aquest esdeveniment
+        from_to: "%{starts} al %{ends}"
+      event_teaser:
+        agenda_for_container: Agenda d'
       gobierto_participation_issue_created: Tema creat
       gobierto_participation_issue_updated: Tema actualitzat
+      gobierto_participation_process_created: Procés / grup creat
+      gobierto_participation_process_updated: Procés / grup actualitzat
+      index:
+        agenda_for_container: Agenda de %{container_title}
+        all_events: Veure tots els esdeveniments
+        displaying_events_of: Mostrant esdeveniments del %{date}
+        go_back: Tornar
+      show:
+        agenda_for_container: Agenda de %{container_title}
+        container_agenda_explanation: Et convidem a assistir a les següents reunions
+          on debatrem en persona sobre els temes d'aquest procés. Si no pots assistir-hi,
+          anirem publicant en línia tot el que es parli a la reunions per facilitar
+          el seguiment i fer accessibles les conclusions.
     layouts:
       application:
         title: Participació
       menu_subsections:
         about: Sobre
+        ideas: Idees
         issues: Temes
         processes: Processos
         questions: Pregunta
-        ideas: Idees
       process_menu_subsections:
+        contributions: Contribucions
         information: Informació
         meetings: Reunions
         polls: Enquestes
-        contributions: Contribucions
         results: Resultats
       secondary_nav:
-        news: Notícies
+        activity: Activitat
         agenda: Agenda
         documents: Documents
-        activity: Activitat
-    events:
-      gobierto_participation_issue_created: Tema creat
-      gobierto_participation_issue_updated: Tema actualitzat
-      gobierto_participation_process_created: Procés / grup creat
-      gobierto_participation_process_updated: Procés / grup actualitzat
-      event:
-        from_to: '%{starts} al %{ends}'
-        follow_event: Seguir aquest esdeveniment
-      event_teaser:
-        agenda_for_container: Agenda d'
-      index:
-        agenda_for_container: 'Agenda de %{container_title}'
-        all_events: Veure tots els esdeveniments
-        displaying_events_of: Mostrant esdeveniments del %{date}
-        go_back: Tornar
-      show:
-        agenda_for_container: 'Agenda de %{container_title}'
-        container_agenda_explanation: Et convidem a assistir a les següents reunions on debatrem en persona sobre els temes d'aquest procés. Si no pots assistir-hi, anirem publicant en línia tot el que es parli a la reunions per facilitar el seguiment i fer accessibles les conclusions.
+        news: Notícies
     pages:
       index:
         filter: Filtrar per tema
@@ -53,22 +53,22 @@ ca:
         title: Notícies
     processes:
       show:
-        issues: Temas
-        process_stages: Fases del procés
-        length: Durada
-        interesting_information: Informació d'interès
         about: Sobre aquest procés
-        news: Notícies
-        newest: L'últim
-        more_news: Veure més notícies
-        more_information: Més informació
         appointments: Cites presencials
+        from_to: "%{starts} al %{ends}"
+        interesting_information: Informació d'interès
+        issues: Temas
+        length: Durada
         more_events: Veure més esdeveniments
+        more_information: Més informació
+        more_news: Veure més notícies
         more_updates: Veure més actualitzacions
-        no_news: No hi ha notícies relacionades
+        newest: L'últim
+        news: Notícies
         no_events: No hi ha esdeveniments relacionats
-        from_to: '%{starts} al %{ends}'
+        no_news: No hi ha notícies relacionades
+        process_stages: Fases del procés
       timeline_row:
-        view_stage: Acceder a aquesta fase
-        upcoming_stage: Fase pendent d'inici
         past_stage: Fase finalitzada
+        upcoming_stage: Fase pendent d'inici
+        view_stage: Acceder a aquesta fase

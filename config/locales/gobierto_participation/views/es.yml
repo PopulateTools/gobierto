@@ -2,46 +2,46 @@
 es:
   gobierto_participation:
     events:
+      event:
+        follow_event: Seguir este evento
+        from_to: "%{starts} al %{ends}"
+      event_teaser:
+        agenda_for_container: Agenda de
       gobierto_participation_issue_created: Tema creado
       gobierto_participation_issue_updated: Tema actualizado
+      gobierto_participation_process_created: Proceso / grupo creado
+      gobierto_participation_process_updated: Proceso / grupo actualizado
+      index:
+        agenda_for_container: Agenda de %{container_title}
+        all_events: Ver todos los eventos
+        displaying_events_of: Mostrando eventos del %{date}
+        go_back: Volver
+      show:
+        agenda_for_container: Agenda de %{container_title}
+        container_agenda_explanation: Te invitamos a asistir a las siguientes reuniones
+          donde debatiremos en persona sobre los temas de este proceso. Si no puedes
+          asistir, iremos publicando online todo lo que se hable en la reuniones para
+          facilitar el seguimiento y hacer accesibles las conclusiones.
     layouts:
       application:
         title: Participación
       menu_subsections:
         about: Acerca de
+        ideas: Ideas
         issues: Temas
         processes: Procesos
         questions: Pregunta
-        ideas: Ideas
       process_menu_subsections:
+        contributions: Contribuciones
         information: Información
         meetings: Reuniones
         polls: Encuestas
-        contributions: Contribuciones
         results: Resultados
       secondary_nav:
-        news: Noticias
+        activity: Actividad
         agenda: Agenda
         documents: Documentos
-        activity: Actividad
-    events:
-      gobierto_participation_issue_created: Tema creado
-      gobierto_participation_issue_updated: Tema actualizado
-      gobierto_participation_process_created: Proceso / grupo creado
-      gobierto_participation_process_updated: Proceso / grupo actualizado
-      event:
-        from_to: '%{starts} al %{ends}'
-        follow_event: Seguir este evento
-      event_teaser:
-        agenda_for_container: Agenda de
-      index:
-        agenda_for_container: 'Agenda de %{container_title}'
-        all_events: Ver todos los eventos
-        displaying_events_of: Mostrando eventos del %{date}
-        go_back: Volver
-      show:
-        agenda_for_container: 'Agenda de %{container_title}'
-        container_agenda_explanation: Te invitamos a asistir a las siguientes reuniones donde debatiremos en persona sobre los temas de este proceso. Si no puedes asistir, iremos publicando online todo lo que se hable en la reuniones para facilitar el seguimiento y hacer accesibles las conclusiones.
+        news: Noticias
     pages:
       index:
         filter: Filtrar por tema
@@ -53,22 +53,22 @@ es:
         title: Noticias
     processes:
       show:
-        issues: Temas
-        process_stages: Fases del proceso
-        length: Duración
-        interesting_information: Información de interés
         about: Sobre este proceso
-        news: Noticias
-        newest: Lo último
-        more_news: Ver más noticias
-        more_information: Más información
         appointments: Citas presenciales
+        from_to: "%{starts} al %{ends}"
+        interesting_information: Información de interés
+        issues: Temas
+        length: Duración
         more_events: Ver más eventos
+        more_information: Más información
+        more_news: Ver más noticias
         more_updates: Ver más actualizaciones
-        no_news: No hay noticias relacionadas
+        newest: Lo último
+        news: Noticias
         no_events: No hay eventos relacionados
-        from_to: '%{starts} al %{ends}'
+        no_news: No hay noticias relacionadas
+        process_stages: Fases del proceso
       timeline_row:
-        view_stage: Acceder a esta fase
-        upcoming_stage: Fase pendiente de inicio
         past_stage: Fase finalizada
+        upcoming_stage: Fase pendiente de inicio
+        view_stage: Acceder a esta fase

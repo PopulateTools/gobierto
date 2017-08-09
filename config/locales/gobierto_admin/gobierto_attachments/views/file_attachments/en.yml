@@ -3,6 +3,13 @@ en:
   gobierto_admin:
     gobierto_attachments:
       file_attachments:
+        edit:
+          title: Edit document
+        form:
+          file_constraints: Attach document
+          placeholders:
+            description: Document description
+            name: File name
         index:
           collections: Collections
           header:
@@ -12,12 +19,5 @@ en:
           new: New
           title: Attachments
           view_collection: View collection
-        edit:
-          title: Edit document
-        form:
-          file_constraints: Attach document
-          placeholders:
-            name: File name
-            description: Document description
         new:
           title: New document

@@ -9,11 +9,14 @@ ca:
           placeholders:
             slug: sobre-aquesta-web
             title: Títol de la pàgina
+          visibility_level:
+            active: Publicada
+            draft: Borrador
         index:
           collections: Col·leccions
           header:
-              collection: Col·lecció
-              pages: Pàgines
+            collection: Col·lecció
+            pages: Pàgines
           latest_editions: Últimes edicions
           new: Nova
           title: Pàgines

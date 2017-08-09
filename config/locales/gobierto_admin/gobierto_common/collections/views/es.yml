@@ -21,7 +21,6 @@ es:
         new_modal:
           title: Nueva colección
         show:
-          configuration: Configuración
           file_attachments:
             description: Descripción
           new: Nueva

@@ -20,8 +20,8 @@
         <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
       </div>
       <div class="form_item select_control">
-        <%= f.label :container_id %>
-        <%= f.select :container_id,
+        <%= f.label :container_global_id %>
+        <%= f.select :container_global_id,
                      options_for_select(@containers, selected: @container_selected),
                      include_blank: true %>
       </div>

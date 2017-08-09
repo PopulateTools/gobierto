@@ -25,7 +25,7 @@ module GobiertoAdmin
 
       def new
         @collection_form = CollectionForm.new
-        @containers = container_names_new
+        @containers = find_containers
         @container_selected = nil
         @types = type_names
 
@@ -34,13 +34,13 @@ module GobiertoAdmin
 
       def edit
         @collection = find_collection
-        @containers = container_names_edit
-        @container_selected = @collection.container_id
+        @containers = find_containers
+        @container_selected = @collection.container.to_global_id
         @types = type_names
         @type_selected = @collection.item_type
 
         @collection_form = CollectionForm.new(
-          @collection.attributes.except(*ignored_collection_attributes)
+          @collection.attributes.except(*ignored_collection_attributes).merge(container_global_id: @collection.container.to_global_id)
         )
 
         render :edit_modal, layout: false and return if request.xhr?
@@ -48,7 +48,7 @@ module GobiertoAdmin
 
       def create
         @collection_form = CollectionForm.new(collection_params.merge(site_id: current_site.id))
-        @containers = container_names_new
+        @containers = find_containers
         @container_selected = nil
         @types = type_names
 
@@ -70,7 +70,7 @@ module GobiertoAdmin
         @collection_form = CollectionForm.new(
           collection_params.merge(id: params[:id])
         )
-        @containers = container_names_new
+        @containers = find_containers
         @container_selected = nil
         @types = type_names
 
@@ -103,8 +103,7 @@ module GobiertoAdmin
 
       def collection_params
         params.require(:collection).permit(
-          :container_id,
-          :container_type,
+          :container_global_id,
           :item_type,
           :slug,
           title_translations: [*I18n.available_locales]
@@ -112,7 +111,7 @@ module GobiertoAdmin
       end
 
       def ignored_collection_attributes
-        %w[created_at updated_at]
+        %w[created_at updated_at container_type container_id]
       end
 
       def find_collection
@@ -123,12 +122,8 @@ module GobiertoAdmin
         [current_site, current_site.issues, current_site.people, current_site.processes].flatten
       end
 
-      def container_names_new
-        container_items.map { |item| ["#{item.class.model_name.human}: #{item}", item.to_global_id] }
-      end
-
-      def container_names_edit
-        container_items.map { |item| ["#{item.class.model_name.human}: #{item}", item.id] }
+      def find_containers
+        @containers ||= container_items.map { |item| ["#{item.class.model_name.human}: #{item}", item.to_global_id] }
       end
 
       def type_names

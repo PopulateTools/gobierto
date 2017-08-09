@@ -9,6 +9,7 @@ module GobiertoCalendars
     include User::Subscribable
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
+    include GobiertoCommon::Collectionable
 
     validates :site, :collection, presence: true
 
@@ -105,6 +106,10 @@ module GobiertoCalendars
 
     def to_url(options = {})
       url_helpers.gobierto_people_person_event_url(parameterize.merge(host: app_host).merge(options))
+    end
+
+    def first_location
+      locations.first
     end
 
   end

@@ -113,8 +113,6 @@ ca:
       users_user_updated: Usuari actualitzat
   views:
     pagination:
-      first: "&laquo; Primera"
-      last: Última &raquo;
-      next: Següent &rsaquo;
-      previous: "&lsaquo; Anterior"
+      next: Següent
+      previous: Anterior
       truncate: "&hellip;"

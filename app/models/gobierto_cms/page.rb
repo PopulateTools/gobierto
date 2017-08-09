@@ -7,7 +7,7 @@ module GobiertoCms
     include User::Subscribable
     include GobiertoCommon::Searchable
     include GobiertoAttachments::Attachable
-    include GobiertoCommon::Collectionable
+    include GobiertoCommon::ActsAsCollectionContainer
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca

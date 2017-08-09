@@ -24,6 +24,24 @@ en:
         agenda: Agenda
         documents: Documents
         activity: Activity
+    events:
+      gobierto_participation_issue_created: Theme created
+      gobierto_participation_issue_updated: Theme updated
+      gobierto_participation_process_created: Process / group created
+      gobierto_participation_process_updated: Process / group updated
+      event:
+        from_to: '%{starts} to %{ends}'
+        follow_event: Follow this event
+      event_teaser:
+        agenda_for_container: Agenda for
+      index:
+        agenda_for_container: 'Agenda for %{container_title}'
+        all_events: View all events
+        displaying_events_of: Displaying events of %{date}
+        go_back: Go back
+      show:
+        agenda_for_container: 'Agenda for %{container_title}'
+        container_agenda_explanation: We invite you to attend the following meetings where we will discuss in person the topics of this process. If you can not attend, we will publish online everything that is said in the meetings to facilitate the follow-up and make the conclusions accessible.
     pages:
       index:
         filter: Filter by theme

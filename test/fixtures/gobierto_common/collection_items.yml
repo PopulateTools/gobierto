@@ -138,14 +138,34 @@ tamara_published_past_site:
   item: tamara_published_past (GobiertoCalendars::Event)
   container: madrid (Site)
 
-events_collection_event_1:
-  collection: gender_violence_process_events
-  item: richard_published (GobiertoCalendars::Event)
+reading_club_process:
+  collection: gender_violence_process_calendar
+  item: reading_club (GobiertoCalendars::Event)
   container: gender_violence_process (GobiertoParticipation::Process)
 
-events_collection_event_2:
-  collection: gender_violence_process_events
-  item: nelson_tomorrow (GobiertoCalendars::Event)
+reading_club_processes:
+  collection: gender_violence_process_calendar
+  item: reading_club (GobiertoCalendars::Event)
+  container_type: GobiertoParticipation
+
+reading_club_site:
+  collection: gender_violence_process_calendar
+  item: reading_club (GobiertoCalendars::Event)
+  container: madrid (Site)
+
+swimming_lessons_process:
+  collection: gender_violence_process_calendar
+  item: swimming_lessons (GobiertoCalendars::Event)
   container: gender_violence_process (GobiertoParticipation::Process)
+
+swimming_lessons_processes:
+  collection: gender_violence_process_calendar
+  item: swimming_lessons (GobiertoCalendars::Event)
+  container_type: GobiertoParticipation
+
+swimming_lessons_site:
+  collection: gender_violence_process_calendar
+  item: swimming_lessons (GobiertoCalendars::Event)
+  container: madrid (Site)
 
 ## /end Events collection items

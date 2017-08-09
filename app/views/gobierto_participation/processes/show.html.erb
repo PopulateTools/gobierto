@@ -66,7 +66,7 @@
               <span class="accent"><i class="fa fa-calendar"></i> <%= t('.length') %></span>
             </div>
             <div class="pure-u-1 pure-u-md-1-2">
-              <time><%= t('.from_to', starts: @process.starts.strftime('%d/%m/%y'), ends: @process.ends.strftime('%d/%m/%y')) %></time>
+              <time><%= t('.from_to', starts: @process.starts.strftime('%e/%m/%y'), ends: @process.ends.strftime('%e/%m/%y')) %></time>
             </div>
           </div>
         <% end %>
@@ -108,8 +108,8 @@
           <% end %>
         </div>
 
-        <%= todo_link_to do %>
-          <a href="participation_agenda.html"><%= t('.more_events') %></a>
+        <% if @process_events.any? %>
+          <%= link_to t('.more_events'), gobierto_participation_events_path(container_type: @process.container_type, container_id: @process.id) %>
         <% end %>
       </div>
 

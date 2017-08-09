@@ -117,3 +117,37 @@ tamara_published_past:
   ends_at: <%= 15.days.ago + 1.hour %>
   attachment_url: https://bit.ly/67890
   state: <%= GobiertoCalendars::Event.states["published"] %>
+
+reading_club:
+  site: madrid
+  collection: gender_violence_process_calendar
+  title_translations: <%= {
+    'en' => 'Intensive reading club in english',
+    'es' => 'Club de lectura intensivo en inglés'
+  }.to_json %>
+  slug: <%= "#{7.days.from_now.strftime('%F')}-reading-club" %>
+  description_translations: <%= {
+    'en' => 'Intensive reading club in english description',
+    'es' => 'Club de lectura intensivo en inglés descipción'
+  }.to_json %>
+  starts_at: <%= 7.days.from_now %>
+  ends_at: <%= 7.days.from_now + 1.hour %>
+  attachment_url: https://bit.ly/67890
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+
+swimming_lessons:
+  site: madrid
+  collection: gender_violence_process_calendar
+  title_translations: <%= {
+    'en' => 'Swimming lessons for elders',
+    'es' => 'Curso de natación para mayores'
+  }.to_json %>
+  slug: <%= "#{2.days.from_now.strftime('%F')}-swimming-lessons" %>
+  description_translations: <%= {
+    'en' => 'Swimming lessons for elders description',
+    'es' => 'Curso de natación para mayores descripción'
+  }.to_json %>
+  starts_at: <%= 2.days.from_now %>
+  ends_at: <%= 2.days.from_now + 1.hour %>
+  attachment_url: https://bit.ly/67890
+  state: <%= GobiertoCalendars::Event.states["published"] %>

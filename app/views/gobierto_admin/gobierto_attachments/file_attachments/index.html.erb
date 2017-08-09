@@ -41,6 +41,7 @@
 
     <table>
       <tr>
+        <th></th>
         <th><%= t(".header.collection") %></th>
         <th><%= t(".header.file_attachments") %></th>
         <th></th>
@@ -49,6 +50,11 @@
       <tbody>
         <% @collections.each do |collection| %>
           <tr id="collection-item-<%= collection.id %>">
+            <td>
+              <%= link_to edit_admin_common_collection_path(collection), class: 'open_remote_modal' do %>
+                <i class="fa fa-edit"></i>
+              <% end %>
+            </td>
             <td><%= link_to collection.title, admin_common_collection_path(collection) %></td>
             <td><%= ::GobiertoAttachments::Attachment.where(id: collection.file_attachments_in_collection).size %></td>
             <td>

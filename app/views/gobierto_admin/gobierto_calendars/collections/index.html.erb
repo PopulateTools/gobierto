@@ -40,6 +40,7 @@
 
     <table>
       <tr>
+        <th></th>
         <th><%= t(".header.collection") %></th>
         <th><%= t(".header.events") %></th>
         <th></th>
@@ -48,6 +49,11 @@
       <tbody>
         <% @collections.each do |collection| %>
           <tr>
+            <td>
+              <%= link_to edit_admin_common_collection_path(collection), class: 'open_remote_modal' do %>
+                <i class="fa fa-edit"></i>
+              <% end %>
+            </td>
             <td><%= link_to collection.title, admin_common_collection_path(collection) %></td>
             <td><%= GobiertoCalendars::Event.by_collection(collection).count %></td>
             <td>

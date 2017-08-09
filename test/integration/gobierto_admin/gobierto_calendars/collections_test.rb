@@ -48,7 +48,7 @@ module GobiertoAdmin
 
               fill_in 'collection_title_translations_en', with: 'My collection'
               fill_in 'collection_slug', with: 'my-collection'
-              find('select#collection_container_id').find("option[value='#{process.to_global_id}']").select_option
+              find('select#collection_container_global_id').find("option[value='#{process.to_global_id}']").select_option
               find('select#collection_item_type').find("option[value='GobiertoCalendars::Event']").select_option
 
               click_link 'ES'
@@ -81,7 +81,7 @@ module GobiertoAdmin
 
               fill_in 'collection_title_translations_en', with: 'My collection'
               fill_in 'collection_slug', with: 'my-collection'
-              find('select#collection_container_id').find("option[value='#{person.to_global_id}']").select_option
+              find('select#collection_container_global_id').find("option[value='#{person.to_global_id}']").select_option
               find('select#collection_item_type').find("option[value='GobiertoCalendars::Event']").select_option
 
               click_link 'ES'

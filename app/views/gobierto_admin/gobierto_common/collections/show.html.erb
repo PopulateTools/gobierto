@@ -13,15 +13,9 @@
 
 <h1><%= @collection.title %></h1>
 
-<% if @collection.item_type != 'GobiertoCalendars::Event' %>
-  <div class="admin_tools right">
-    <%= link_to edit_admin_common_collection_path(@collection), class: 'open_remote_modal' do %>
-      <i class="fa fa-cog"></i>
-      <%= t(".configuration") %>
-    <% end %>
-    <%= link_to t(".new"), @new_item_path, class: 'button' if @new_item_path %>
-  </div>
-<% end %>
+<div class="admin_tools right">
+  <%= link_to t(".new"), @new_item_path, class: 'button' if @new_item_path %>
+</div>
 
 <% case @collection.item_type %>
   <% when 'GobiertoCms::Page' %>

@@ -14,9 +14,6 @@ module GobiertoAdmin
                            @file_attachments = ::GobiertoAttachments::Attachment.where(id: @collection.file_attachments_in_collection)
                            new_admin_attachments_file_attachment_path(collection_id: @collection)
                          when 'GobiertoCalendars::Event'
-                           if @collection.container.is_a?(::GobiertoPeople::Person)
-                             redirect_to admin_people_person_events_path(@collection.container) and return
-                           end
                            @events_presenter = GobiertoAdmin::GobiertoCalendars::EventsPresenter.new(@collection)
                            @events = ::GobiertoCalendars::Event.by_collection(@collection)
                            nil
@@ -140,6 +137,9 @@ module GobiertoAdmin
       def redirect_to_custom_show
         case @collection.item_type
           when 'GobiertoCms::Page'
+            if @collection.container.is_a?(::GobiertoParticipation::Process)
+              redirect_to admin_participation_process_pages_path(@collection.container) and return false
+            end
           when 'GobiertoAttachments::Attachment'
             if @collection.container.is_a?(::GobiertoParticipation::Process)
               redirect_to admin_participation_process_file_attachments_path(@collection.container) and return false
@@ -147,8 +147,10 @@ module GobiertoAdmin
           when 'GobiertoCalendars::Event'
             if @collection.container.is_a?(::GobiertoPeople::Person)
               redirect_to admin_people_person_events_path(@collection.container) and return false
+            elsif @collection.container.is_a?(::GobiertoParticipation::Process)
+              redirect_to admin_participation_process_events_path(@collection.container) and return false
             end
-          end
+        end
       end
     end
   end

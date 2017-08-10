@@ -1,0 +1,33 @@
+---
+es:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_participation/process_form:
+        body: Descripción
+        ends: Final
+        header_image: Imagen de cabecera
+        header_image_url: URL de la imagen de cabecera
+        issue_id: Tema
+        process_type: Tipo de grupo
+        slug: Slug
+        starts: Comienzo
+        title: Título
+    models:
+      gobierto_admin/gobierto_participation/process_form: Proceso
+  activerecord:
+    attributes:
+      gobierto_participation/process:
+        process_types:
+          group_process: Grupo
+          process: Proceso
+      gobierto_participation/process_stage:
+        description: Descripción
+        ends: Final
+        stage_types:
+          ideas: Ideas
+          information: Información
+          meetings: Reuniones
+          results: Resultados
+          surveys: Encuestas
+        starts: Comienzo
+        title: Título

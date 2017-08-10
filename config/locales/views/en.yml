@@ -24,10 +24,15 @@ en:
   invisible_captcha:
     sentence_for_humans: If you are human, ignore this field
     timestamp_error_message: Sorry, that was too quick! Please resubmit.
+  issues:
+    events:
+      issues_issue_created: Theme created
+      issues_issue_updated: Theme updated
   layouts:
     accept_privacy_policy_signup: By signing up you agree to the Privacy Policy
     application:
       disclaimer: This is a demo of Gobierto, transparency and participation software
+      follow_process: Follow this process
       more_information: More info in gobierto.es
       search: Search...
       session:
@@ -36,6 +41,8 @@ en:
         sign_in: Sign in
         sign_out: Sign out
         title: Your account
+    breadcrumb:
+      start: Start
     gobierto_budget_consultations:
       application:
         about_the_data: About the data
@@ -82,8 +89,8 @@ en:
     search:
       budget_line_item_expense: Budget line - Expense
       budget_line_item_income: Budget line - Income
+      event_item: Event
       page_item: Page
-      person_event_item: Event
       person_item: Biography
       person_post_item: Post
       person_statement_item: Statement
@@ -100,8 +107,6 @@ en:
       users_user_updated: User updated
   views:
     pagination:
-      first: "&laquo; First"
-      last: Last &raquo;
-      next: Next &rsaquo;
-      previous: "&lsaquo; Prev"
+      next: Next
+      previous: Prev
       truncate: "&hellip;"

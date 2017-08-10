@@ -1,0 +1,57 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_calendars:
+      collections:
+        index:
+          collections: Calendaris
+          header:
+            collection: Calendari
+            events: Events
+          latest_editions: Últims events editats
+          new: Nou
+          title: Agendas
+          view_collection: Veure col·lecció
+      events:
+        attendees_form:
+          header:
+            charge: Càrrec
+            name: Nom
+            person: Persona
+          title: Assistents
+          view_person: Veure persona
+        edit:
+          title: Editar event
+        form:
+          attachment_file_constraints: adjuntar fitxer (PDF)
+          placeholders:
+            slug: event
+            title: Títol del event
+          state:
+            pending: Pendent
+            published: Publicat
+        index:
+          all_events: Tots
+          configuration: Configuració
+          header:
+            date: Data
+            event: Dsdeveniment
+            location: Localització
+            status: Estat
+          new: Nou esdeveniment
+          past_events: Esdeveniments passats
+          pending_events: Pendents de moderar
+          published_events: Esdeveniments publicats
+          view_event: Veure esdeveniment
+          visibility_level:
+            pending: Borrador
+            published: Publicat
+        locations_form:
+          header:
+            address: Adreça
+            place: Lloc
+          title: Lloc
+        new:
+          title: Nou event
+        person_breadcrumb:
+          back_to_collections: "< Tornar a agendes"

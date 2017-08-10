@@ -4,7 +4,7 @@ es:
     shared:
       admin_widget_attachment:
         add_new_document: Añade nuevo documento
-        attachments: Adjuntos
+        attachments: Documentos
         description: Descripción
         document: Documento
         document_title: Título del documento

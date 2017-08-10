@@ -25,11 +25,16 @@ es:
     sentence_for_humans: Si eres humano, por favor ignora este campo.
     timestamp_error_message: Lo siento, eso ha sido muy rápido. Por favor, vuelve
       a enviar el formulario.
+  issues:
+    events:
+      issues_issue_created: Tema creado
+      issues_issue_updated: Tema actualizado
   layouts:
     accept_privacy_policy_signup: Al registrarte estás aceptando la Política de Privacidad
     application:
       disclaimer: Esta web es una demostración de Gobierto, software de transparencia
         y participación
+      follow_process: Sigue este proceso
       more_information: Más información en gobierto.es
       search: Busca...
       session:
@@ -38,6 +43,8 @@ es:
         sign_in: Iniciar sesión
         sign_out: Cerrar sesión
         title: Tu cuenta
+    breadcrumb:
+      start: Inicio
     gobierto_budget_consultations:
       application:
         about_the_data: Sobre los datos
@@ -87,8 +94,8 @@ es:
     search:
       budget_line_item_expense: Partida presupuestaria - Gasto
       budget_line_item_income: Partida presupuestaria - Ingreso
+      event_item: Evento
       page_item: Página
-      person_event_item: Evento
       person_item: Biografía
       person_post_item: Post
       person_statement_item: Declaración
@@ -106,8 +113,6 @@ es:
       users_user_updated: Usuario actualizado
   views:
     pagination:
-      first: "&laquo; Primera"
-      last: Última &raquo;
-      next: Siguiente &rsaquo;
-      previous: "&lsaquo; Anterior"
+      next: Siguiente
+      previous: Anterior
       truncate: "&hellip;"

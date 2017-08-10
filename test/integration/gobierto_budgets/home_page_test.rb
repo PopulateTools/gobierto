@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 class GobiertoBudgets::HomePageTest < ActionDispatch::IntegrationTest
   def setup
@@ -18,7 +18,7 @@ class GobiertoBudgets::HomePageTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @path
 
-      assert has_content?("Budgets")
+      assert has_content?('Budgets')
       assert has_content?(last_year)
     end
   end
@@ -27,12 +27,12 @@ class GobiertoBudgets::HomePageTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @path
 
-      assert has_css?(".metric_box h3", text: "Expenses per inhabitant")
-      assert has_css?(".metric_box h3", text: "Total expenses")
-      assert has_css?(".metric_box h3", text: "Executed")
-      assert has_css?(".metric_box h3", text: "Inhabitants")
-      assert has_css?(".metric_box h3", text: "Debt")
-      assert page.all(".metric_box .metric").all?{ |e| e.text =~ /\d{2}/}
+      assert has_css?('.metric_box h3', text: 'Expenses per inhabitant')
+      assert has_css?('.metric_box h3', text: 'Total expenses')
+      assert has_css?('.metric_box h3', text: 'Executed')
+      assert has_css?('.metric_box h3', text: 'Inhabitants')
+      assert has_css?('.metric_box h3', text: 'Debt')
+      assert page.all('.metric_box .metric').all? { |e| e.text =~ /(\d+)|Not avail./ }
     end
   end
 end

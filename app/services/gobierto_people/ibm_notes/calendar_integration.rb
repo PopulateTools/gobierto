@@ -45,7 +45,7 @@ module GobiertoPeople
           description: ibm_notes_event.description,
           starts_at: ibm_notes_event.starts_at,
           ends_at: ibm_notes_event.ends_at,
-          state: GobiertoPeople::PersonEvent.states[:published],
+          state: GobiertoCalendars::Event.states[:published],
           attendees: ibm_notes_event.attendees,
           locations_attributes: {"0" => locations_attributes },
           notify: true

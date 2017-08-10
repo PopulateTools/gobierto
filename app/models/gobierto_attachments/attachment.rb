@@ -2,7 +2,7 @@ require_dependency 'gobierto_attachments'
 
 module GobiertoAttachments
   class Attachment < ApplicationRecord
-
+    include User::Subscribable
     include GobiertoCommon::Searchable
 
     MAX_FILE_SIZE_IN_BYTES = 10.megabytes
@@ -35,6 +35,21 @@ module GobiertoAttachments
     belongs_to :site
 
     before_validation :update_file_attributes
+
+    scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
+
+    def content_type
+      MIME::Types.type_for(url).first.content_type
+    end
+
+    def collection
+      GobiertoCommon::CollectionItem.find_by(item: self, item_type: 'GobiertoAttachments::Attachment').collection
+    end
+
+    def self.file_attachments_in_collections(site)
+      ids = GobiertoCommon::CollectionItem.where(item_type: 'GobiertoAttachments::Attachment').map(&:item_id)
+      where(id: ids, site: site)
+    end
 
     def self.file_digest(file)
       Digest::MD5.hexdigest(file.read)

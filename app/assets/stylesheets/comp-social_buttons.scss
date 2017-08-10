@@ -2,7 +2,7 @@
  * Social Buttons
  *
  */
-.social_share {
+.social_share, .search_icon {
   display: inline-block;
   padding: .35em .75em;
   margin: 1em 1em 0 0;
@@ -20,17 +20,17 @@ a.social_share {
   }
 }
 .social_share_container {
-	.social_share {
-		@include border-radius(16px);
+  .social_share, .search_icon {
+    @include border-radius(16px);
     padding: .25em 2em;
-		text-decoration: none;
-		.fa {
-			margin: 0 .2em 0 0;
-		}
-	}
-	.social_share:hover {
-		text-decoration: none;
-	}
+    text-decoration: none;
+    .fa {
+      margin: 0 .2em 0 0;
+    }
+  }
+  .social_share:hover, .search_icon:hover {
+    text-decoration: none;
+  }
 }
 .social_share:hover {
   color: #FFF;
@@ -46,6 +46,12 @@ a.social_share {
 }
 .email {
   background: $color_main;
+}
+.whatsapp {
+  background: #0DC143;
+}
+.telegram {
+  background: #2DA0DA;
 }
 .code {
   background: $color_main;
@@ -66,10 +72,9 @@ a.social_share {
   background: darken($color_main, 10%);
 }
 .social_links_container {
-  // width: 40px;
   z-index: 1;
-  
-  a {
+
+  > a {
     @include border-radius(3em);
     margin: 0 .5em 0 0;
     font-size: .85em;
@@ -80,10 +85,13 @@ a.social_share {
     box-sizing: border-box;
     text-align: center;
   }
-  a.twitter {
+}
 
+@include min-screen(740) {
+  .social_links_container {
+    a.whatsapp, a.telegram {
+      display: none;
+    }
   }
-  a.facebook {
 
-  }
 }

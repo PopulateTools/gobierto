@@ -1,0 +1,24 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        create:
+          success: Procés creat correctament
+        edit:
+          title: Edita el procés
+        form:
+          active: Activada
+          edit: Edita
+          edit_stage: Edita fase
+          placeholders:
+            body: En aquesta comissió es tractaran temes relacionats amb ...
+            slug: comissio-de-festes-de-carnaval
+            title: Comissió de Festes de Carnaval
+          stages_and_tools: Fases i eines
+        index:
+          title: Processos i Grups
+        new:
+          title: Nou procés o grup
+        update:
+          success: Procés actualitzat correctament

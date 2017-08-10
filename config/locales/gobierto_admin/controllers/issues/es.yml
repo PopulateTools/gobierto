@@ -1,0 +1,8 @@
+---
+es:
+  gobierto_admin:
+    issues:
+      create:
+        success: El tema se ha creado correctamente.
+      update:
+        success: El tema se ha actualizado correctamente.

@@ -80,7 +80,7 @@ Gobierto es un producto de Populate, un estudio de diseño y tecnología en torn
 
 - Twitter: [@gobierto](https://twitter.com/gobierto) & [@populatetools](https://twitter.com/populatetools)
 - Web + Blog: [populate.tools/gobierto](http://populate.tools/gobierto)
-- Suscríbete: Puedes suscribirte a la [newsletter de Populate](http://populate.tools/newsletter) donde vamos contando casos de uso de Gobierto y las novedades más relevantes.
+- Suscríbete: Puedes suscribirte a la [newsletter de Populate](http://links.populate.tools/) donde vamos contando casos de uso de Gobierto y las novedades más relevantes.
 
 ### Manuales
 

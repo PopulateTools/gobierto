@@ -21,12 +21,22 @@
   }
 }
 
+.small_column {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.content_side {
+  padding-right: 25%;
+}
+
+
 /*
  * Footer
  *
  */
 footer {
-	background: $color_neutral_soft;
+  background: $color_neutral_soft;
   padding: 3em 0;
   margin: 10em 0 0 0;
   .logo {
@@ -67,7 +77,88 @@ footer {
   }
 }
 
+/*
+ * Grid paddings (for boxes)
+ *
+ */
+/* 2x2 grid paddings */
+.two_by_two {
+  & > div {
+    box-sizing: border-box;
+    // margin-bottom: 1em;
 
-@include screen(740) {
+    &:nth-child(odd) {
+      @include min-screen(740) {
+        padding: 0 0.75em 1em 0;
+      }
+    }
+    &:nth-child(even) {
+      @include min-screen(740) {
+        padding: 0 0 1em 0.75em;
+      }
+    }
+  }
+}
 
+/* 3x3 grid paddings */
+.three_by_three {
+  & > div {
+    box-sizing: border-box;
+
+    @include min-screen(740) {
+      padding: 0 0.75em 2em 0.75em;
+    }
+
+    &:nth-child(3n) {
+      padding-right: 0;
+    }
+    &:nth-child(3n+1) {
+      padding-left: 0;
+    }
+    &:first-child {
+      @include min-screen(740) {
+        padding: 0 0.75em 2em 0;
+      }
+    }
+    &:last-child {
+      @include min-screen(740) {
+        padding: 0 0 2em 0.75em;
+      }
+    }
+  }
+}
+
+.four_by_four {
+  & > div {
+    box-sizing: border-box;
+
+    @include min-screen(740) {
+      padding: 0 0.75em 2em 0.75em;
+    }
+
+    &:first-child {
+      @include min-screen(740) {
+        padding: 0 0.75em 2em 0;
+      }
+    }
+
+    &:nth-child(4n+4) {
+      @include min-screen(740) {
+        padding: 0 0 2em 0.75em;
+      }
+    }
+    &:nth-child(4n+1) {
+      @include min-screen(740) {
+        padding: 0 0.75em 2em 0;
+      }
+    }
+  }
+}
+
+
+
+.flex_container {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
 }

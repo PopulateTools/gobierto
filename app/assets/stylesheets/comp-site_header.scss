@@ -5,7 +5,6 @@
 header.meta {
   padding: 0;
   margin: 0 0 2em 0;
-  // .client_links, .user-session-navbar,
   .slim_nav_bar {
     text-transform: uppercase;
     font-weight: 200;
@@ -43,7 +42,6 @@ header.meta {
         @include box-shadow(0, 5px, 10px);
         background: $color_secondary;
         min-width: 150px;
-        // padding: 1em;
         a.pure-menu-link {
           display: block;
           padding: .5em 1em;
@@ -69,6 +67,21 @@ header.meta {
   .site_header {
     padding: 0 0 1em 0;
     position: relative;
+
+    .site_header_logo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      > div:only-child:not(.logo) {
+        margin-top: 2em;
+        margin-bottom: 2em;
+        margin-left: auto;
+      }
+    }
+    .column  {
+      position: relative;
+    }
     .logo {
       margin: 0.75em 0;
       img {
@@ -85,11 +98,136 @@ header.meta {
         }
       }
     }
+    .social_links_container {
+      text-align: center;
+      font-size: .85em;
+      display: inline;
+      margin-right: 0.5em;
+
+      .fa {
+        margin: 0;
+      }
+      > a {
+        padding: 0;
+        margin: 0 0 0 .5em;
+        width: 2.1em;
+      }
+
+      .social_share.twitter,
+      .social_share.facebook {
+        @include min-screen(740) {
+          // position: absolute;
+          z-index: -1;
+          top: 1.4em;
+        }
+      }
+    }
+    .button.outline.rounded {
+      width: auto;
+      padding: 4px 10px 3px 13px;
+      line-height: 1.1;
+      margin-top: -1px;
+
+      &.desktop_only {
+        @include screen(740) {
+          display: none;
+        }
+        @include min-screen(741) {
+          display: inline-block;
+        }
+      }
+
+      &.mobile_only {
+        @include screen(740) {
+          display: inline-block;
+        }
+        @include min-screen(741) {
+          display: none;
+        }
+      }
+    }
+    .search_icon {
+      text-align: left;
+      padding-left: 6px !important;
+      background: #e5eff8;
+      color: #979ea4;
+    }
+    .search_control {
+      position: absolute;
+      display: none;
+      background: #e5eff8;
+      border-radius: 25px;
+      padding: 4px 4px 5px 4px;
+      width: 285px;
+      line-height: 1.8;
+      top: 9px;
+      right: 0;
+      z-index: 10;
+      input {
+        padding: 0;
+        margin-bottom: 0;
+        height: 20px;
+        background: #e5eff8;
+        border: 1px solid #e5eff8;
+        width: 70px;
+
+        &:focus {
+          box-shadow: none;
+        }
+
+        @include min-screen(740) {
+          width: 85%;
+        }
+      }
+    }
+    .search_box {
+      margin-top: 0;
+      text-align: right;
+      display: inline;
+
+      input {
+        width: 150px;
+        height: 34px;
+        padding: 0 .5em;
+        margin: 0;
+      }
+    }
+    .search_result_list {
+      @include box-shadow(0, 0, 10px);
+      @include border-radius(4px);
+      width: 250px;
+      background: $color_neutral_soft;
+      z-index: 1000;
+      font-size: .85em;
+      line-height: 1.2em;
+      position: absolute;
+      bottom: 3em;
+
+
+      @include min-screen(740) {
+        bottom: initial;
+        right: 1em;
+      }
+
+      a {
+        color: $color_headers;
+      }
+
+      .result {
+        display: block;
+        padding: 1em;
+
+        h2 {
+          margin: .25em 0;
+          font-size: 1rem;
+        }
+      }
+      .result:hover {
+        background: darken($color_neutral_soft, 2%);
+      }
+    }
     a {
       text-decoration: none;
-    }
-    a:hover {
-      // color: rgba($color_main_negative, .8);
     }
     .nav {
       margin: 0;
@@ -99,35 +237,7 @@ header.meta {
       border-color: $color_main_soft;
       position: relative;
       min-height: 4.85em;
-      .search_box {
-        position: absolute;
-        right: 0;
-        top: 10px;
-        margin-top: 0;
-        text-align: right;
-        width: 40%;
-        input {
-          width: 150px;
-          height: 34px;
-          padding: 0 .5em;
-          margin: 0;
-        }
-      }
-      .social_links_container {
-        position: absolute;
-        right: 0;
-        bottom: 11px;
-        text-align: center;
-        font-size: .85em;
-        .fa {
-          margin: 0;
-        }
-        a {
-          padding: 0;
-          margin: 0 0 0 .5em;
-          width: 2.1em;
-        }
-      }
+
       a {
         display: inline-block;
       }
@@ -165,21 +275,45 @@ header.meta {
               text-decoration: none;
               font-size: 1em;
               font-weight: 300;
-              padding: .5em 1.25em .4em;
+              padding: .5em .75em .4em;
               display: inline-block;
-              opacity: .5;
+              opacity: .75;
             }
-            a:hover {
-
-            }
-            a.active {
-
+            a:hover, a.active {
+              font-weight: 500;
             }
           }
           li:first-child {
             a {
               margin-left: 0;
               padding-left: 0;
+            }
+          }
+        }
+      }
+      menu.secondary_nav {
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        right: 0;
+        text-align: right;
+        width: 35%;
+        ul {
+          margin: 0;
+          padding: 0;
+          list-style-type: none;
+          li {
+            display: inline-block;
+            a {
+              text-decoration: none;
+              font-size: .8em;
+              padding: .6rem .75rem .4rem;
+              display: inline-block;
+              color: $color_meta_text;
+              @include border-radius(3px);
+            }
+            a:hover {
+              background: $color_1_soft;
             }
           }
         }
@@ -196,29 +330,6 @@ header.meta {
               }
             }
           }
-        }
-      }
-      .search_result_list {
-        @include box-shadow(0, 0, 10px);
-        @include border-radius(4px);
-        // @mixin box-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4), $inset: "") {
-        width: 250px;
-        background: $color_neutral_soft;
-        position: absolute;
-        right: 0;
-        top: 3.5em;
-        z-index: 1000;
-        font-size: .85em;
-        line-height: 1.2em;
-        .result {
-          padding: 1em;
-          h2 {
-            margin: .25em 0;
-            font-size: 1rem;
-          }
-        }
-        .result:hover {
-          background: darken($color_neutral_soft, 2%);
         }
       }
     }

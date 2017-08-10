@@ -4,7 +4,7 @@ ca:
     shared:
       admin_widget_attachment:
         add_new_document: Afegeix nou document
-        attachments: Adjunts
+        attachments: Documents
         description: Descripció
         document: Document
         document_title: Títol del document

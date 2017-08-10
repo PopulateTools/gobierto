@@ -1,0 +1,24 @@
+---
+en:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        create:
+          success: Process was successfully created
+        edit:
+          title: Edit process
+        form:
+          active: Active
+          edit: Edit
+          edit_stage: Edit stage
+          placeholders:
+            body: This committee will discuss issues related to ...
+            slug: carnival-party-commission
+            title: Carnival Party Commission
+          stages_and_tools: Stages and tools
+        index:
+          title: Processes and Groups
+        new:
+          title: New process / group
+        update:
+          success: Process was successfully updated

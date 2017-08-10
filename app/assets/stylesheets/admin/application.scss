@@ -57,25 +57,19 @@
 @import "module-consultations";
 @import "css-print";
 
-
-
 /*
  * Fonts
  *
  */
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:200,400,700,600|Source+Sans+Pro:200,400,700,600");
-@import "//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css";        
-
-
-
-
+@import "//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css";
 
 /*
  * Some defaults
  *
  */
 html {
-  margin: 0; 
+  margin: 0;
   padding: 0;
 }
 body {
@@ -87,7 +81,7 @@ body {
   color: $color_text;
 }
 .pure-g [class*="pure-u"] {
-	font-family: $font_text;
+  font-family: $font_text;
 }
 a {
   color: $color_main;
@@ -102,12 +96,6 @@ footer {
   padding: 5em 0 0 0;
 }
 
-
-
-
-
-
-
 /* ToDo: Review & generalize components */
 
 /*
@@ -115,32 +103,30 @@ footer {
  *
  */
 .soft_cta {
-	background: rgba($color_main, .1);
-	@include border-radius(6px);
-	padding: 1em 2em;
-	display: inline-block;
+  background: rgba($color_main, .1);
+  @include border-radius(6px);
+  padding: 1em 2em;
+  display: inline-block;
 
 }
 a.soft_cta:hover {
-	background: rgba($color_main, .2);
+  background: rgba($color_main, .2);
 }
 .small {
-	font-size: .85em;
+  font-size: .85em;
 }
 .highlight {
-	background: #F1F4BE;
-	padding: .2em;
-	display: inline-block;
+  background: #F1F4BE;
+  padding: .2em;
+  display: inline-block;
 }
 
-
-
 #lines_tooltip {
-	table {
-		th[title=name] {
-			width: 45%;
-		}
-	}
+  table {
+    th[title=name] {
+      width: 45%;
+    }
+  }
 }
 .help {
   font-size: .75em;
@@ -155,27 +141,23 @@ a.soft_cta:hover {
  *
  */
 .tip {
-	font-size: .85em;
-	font-weight: 700;
-	line-height: 1.2em;
-	a {
-		color: rgba($color_main, .7);
-		text-decoration: none;
-	}
-	.fa {
-		display: block;
-		line-height: 2em;
-		font-size: 1.6em;
-	}
+  font-size: .85em;
+  font-weight: 700;
+  line-height: 1.2em;
+  a {
+    color: rgba($color_main, .7);
+    text-decoration: none;
+  }
+  .fa {
+    display: block;
+    line-height: 2em;
+    font-size: 1.6em;
+  }
 }
-
 
 .invisible {
-    visibility: hidden
+  visibility: hidden
 }
-
-
-
 
 a.list_view_more {
   @include border-radius(3px);
@@ -191,11 +173,13 @@ a.list_view_more {
   font-weight: 600;
 }
 
-
-
 html.turbolinks-progress-bar::before {
   background-color: $color_main !important;
   height: 5px !important;
+}
+
+.datepickers-container {
+  z-index: 100000000000;
 }
 
 @import "responsive";

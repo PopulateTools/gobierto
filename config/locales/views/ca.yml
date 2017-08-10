@@ -25,11 +25,16 @@ ca:
     sentence_for_humans: Si ets humà, per favor, ignora aquest camp.
     timestamp_error_message: Disculpa, això ha sigut molt rapid. Torna a enviar el
       formulari.
+  issues:
+    events:
+      issues_issue_created: Tema creat
+      issues_issue_updated: Tema actualitzat
   layouts:
     accept_privacy_policy_signup: Al registrar-te estàs acceptant la Política de Privacitat
     application:
       disclaimer: Aquesta web es una demostració de Gobierto, un programari de transparència
         i participació
+      follow_process: Segueix aquest procés
       more_information: Més informació en gobierto.es
       search: Cerca...
       session:
@@ -38,6 +43,8 @@ ca:
         sign_in: Iniciar sessió
         sign_out: Surt
         title: El teu compte
+    breadcrumb:
+      start: Inici
     gobierto_budget_consultations:
       application:
         about_the_data: Sobre les dades
@@ -87,8 +94,8 @@ ca:
     search:
       budget_line_item_expense: Partida pressupostària - Despesa
       budget_line_item_income: Partida pressupostària - Ingrés
+      event_item: Event
       page_item: Pàgina
-      person_event_item: Event
       person_item: Biografia
       person_post_item: Post
       person_statement_item: Declaració
@@ -106,8 +113,6 @@ ca:
       users_user_updated: Usuari actualitzat
   views:
     pagination:
-      first: "&laquo; Primera"
-      last: Última &raquo;
-      next: Següent &rsaquo;
-      previous: "&lsaquo; Anterior"
+      next: Següent
+      previous: Anterior
       truncate: "&hellip;"

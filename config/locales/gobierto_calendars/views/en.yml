@@ -1,0 +1,6 @@
+---
+en:
+  gobierto_calendars:
+    events:
+      gobierto_calendars_event_published: 'Calendar updated with a new event: %{subject_name}'
+      gobierto_calendars_event_updated: 'Event updated: %{subject_name}'

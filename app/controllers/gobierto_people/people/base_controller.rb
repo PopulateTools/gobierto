@@ -17,7 +17,7 @@ module GobiertoPeople
       protected
 
       def find_person
-        people_scope.find_by!(slug: params[:person_slug])
+        people_scope.find_by!(slug: params[:container_slug] || params[:person_slug])
       end
 
       def people_scope

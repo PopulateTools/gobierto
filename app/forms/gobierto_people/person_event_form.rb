@@ -19,10 +19,7 @@ module GobiertoPeople
 
     delegate :persisted?, to: :person_event
 
-    validates :external_id, presence: true
-    validates :title, presence: true
-    validates :starts_at, :ends_at, presence: true
-    validates :site, presence: true
+    validates :external_id, :title, :starts_at, :ends_at, :site, :collection, presence: true
 
     trackable_on :person_event
 
@@ -37,11 +34,16 @@ module GobiertoPeople
     end
 
     def person_event
-      @person_event ||= site.person_attendee_events.find_by(external_id: external_id).presence || build_person_event
+      @person_event ||= event_class.by_site(site).
+        find_by(external_id: external_id).presence || build_person_event
     end
 
     def person
       @person ||= person_class.find_by(id: person_id)
+    end
+
+    def collection
+      @collection ||= person.try(:events_collection)
     end
 
     def locations
@@ -114,7 +116,11 @@ module GobiertoPeople
     private
 
     def build_person_event
-      site.person_events.new
+      event_class.new site_id: site_id
+    end
+
+    def event_class
+      ::GobiertoCalendars::Event
     end
 
     def build_person_event_location
@@ -126,11 +132,11 @@ module GobiertoPeople
     end
 
     def person_event_location_class
-      ::GobiertoPeople::PersonEventLocation
+      ::GobiertoCalendars::EventLocation
     end
 
     def person_event_attendee_class
-      ::GobiertoPeople::PersonEventAttendee
+      ::GobiertoCalendars::EventAttendee
     end
 
     def person_class
@@ -141,7 +147,7 @@ module GobiertoPeople
       @person_event = person_event.tap do |person_event_attributes|
         person_event_attributes.site_id = site_id
         person_event_attributes.external_id = external_id
-        person_event_attributes.person_id ||= person_id
+        person_event_attributes.collection = collection
         person_event_attributes.state = state
         person_event_attributes.title = title
         person_event_attributes.description = description

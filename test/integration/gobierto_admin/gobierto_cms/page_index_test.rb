@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 module GobiertoAdmin
   module GobiertoCms
@@ -16,28 +16,22 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
-      def pages
-        @pages ||= site.pages
+      def collections
+        @collections ||= site.collections.where(item_type: 'GobiertoCms::Page')
       end
 
-      def test_pages_index
+      def test_collections_index
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
+            within 'table tbody' do
+              assert has_selector?('tr', count: collections.size)
 
-            within "table.pages-list tbody" do
-              assert has_selector?("tr", count: pages.size)
+              collections.each do |collection|
+                assert has_selector?("tr#collection-item-#{collection.id}")
 
-              pages.each do |page|
-                assert has_selector?("tr#page-item-#{page.id}")
-
-                within "tr#page-item-#{page.id}" do
-                  if page.active?
-                    assert has_content?("Published")
-                  else
-                    assert has_content?("Draft")
-                  end
-                  assert has_link?("View page")
+                within "tr#collection-item-#{collection.id}" do
+                  assert has_link?('View collection')
                 end
               end
             end

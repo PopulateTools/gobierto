@@ -19,6 +19,12 @@ es:
         site_ids: Sites
       gobierto_admin/admin_new_password_form:
         email: Email
+      gobierto_admin/file_attachment_form:
+        description: Descripción
+        name: Nombre
+      gobierto_admin/issue_form:
+        name: Nombre
+        slug: URL
       gobierto_admin/site_form:
         available_locales: Idiomas disponibles
         default_locale: Idioma por defecto
@@ -46,6 +52,8 @@ es:
       gobierto_admin/admin_form: Administrador
       gobierto_admin/admin_invitation_form: Invitación
       gobierto_admin/admin_new_password_form: Recuperación de contraseña
+      gobierto_admin/file_attachment_form: Cambio en el documento
+      gobierto_admin/issue_form: Tema
       gobierto_admin/site_form: Site
       gobierto_admin/user_form: Usuario
       gobierto_admin/user_password_form: Cambio de contraseña

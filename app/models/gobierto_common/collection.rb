@@ -1,23 +1,59 @@
 module GobiertoCommon
-  class Collection
-    def self.find(site, container = nil)
-      new(site, container)
+  class Collection < ApplicationRecord
+    include User::Subscribable
+
+    belongs_to :site
+    belongs_to :container, polymorphic: true
+    has_many :collection_items, dependent: :destroy
+
+    translates :title
+
+    validates :site, :title, :slug, :item_type, presence: true
+    validates :container, presence: true, associated: true
+    validates_associated :container
+    validates :slug, uniqueness: true
+
+    attr_reader :container
+
+    scope :by_item_type, ->(item_type) { where(item_type: item_type) }
+
+    def pages_in_collection
+      collection_items.where(item_type: 'GobiertoCms::Page').pluck(:item_id)
+    end
+
+    def file_attachments_in_collection
+      collection_items.where(item_type: 'GobiertoAttachments::Attachment').pluck(:item_id)
+    end
+
+    def events_in_collection
+      collection_items.where(item_type: 'GobiertoCalendars::Event').pluck(:item_id)
+    end
+
+    def container
+      if container_id.present?
+        super
+      end
+    end
+
+    def global_container
+      container.to_global_id if container.present?
+    end
+
+    def global_container=(container)
+      self.container = GlobalID::Locator.locate container
     end
 
     def self.collector_classes
-      [Site, Module, GobiertoParticipation::Issue, GobiertoParticipation::Area]
+      [Site, Issue, GobiertoParticipation::Area]
     end
 
-    def initialize(site, container = nil)
-      @site = site
-      @container = container.present? ? container : site
+    def self.type_classes
+      [GobiertoCms::Page, GobiertoAttachments::Attachment, GobiertoCalendars::Event]
     end
-
-    attr_reader :container, :site
 
     def append(item)
       containers_hierarchy(container).each do |container_type, container_id|
-        CollectionItem.create site: site, container_type: container_type, container_id: container_id, item: item
+        CollectionItem.find_or_create_by! collection_id: id, container_type: container_type, container_id: container_id, item: item
       end
     end
 
@@ -54,7 +90,7 @@ module GobiertoCommon
     end
 
     def issue_for_container(container)
-      if container.is_a?(GobiertoParticipation::Issue)
+      if container.is_a?(Issue)
         [container.class.name, container.id]
       end
     end
@@ -68,5 +104,6 @@ module GobiertoCommon
     def container_is_a_collector?(container)
       self.class.collector_classes.include?(container.class)
     end
+
   end
 end

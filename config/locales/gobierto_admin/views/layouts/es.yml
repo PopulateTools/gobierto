@@ -7,15 +7,18 @@ es:
           account: Tu cuenta
           sign_out: Cerrar sesión
         budget_consultations: Consultas de presupuestos
+        calendars: Agendas
         cms: Gestión de páginas
         collapse_menu: Colapsar menú
         dirty_forms:
           message: Hay cambios sin guardar. ¿Estás seguro de querer continuar?
         edit_site: Personalizar sitio
+        file_attachments: Documentos
         hey_admin: Hola, %{admin_name}
         issues: Temas
         manage_sites: Gestionar sites
         notifications: Notificaciones
+        participation: Participación
         people: Altos cargos y Agendas
         site_network: Red
         users: Usuarios

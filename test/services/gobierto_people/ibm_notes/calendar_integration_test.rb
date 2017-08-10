@@ -61,26 +61,26 @@ module GobiertoPeople
       end
 
       def ibm_notes_event_gobierto_event
-        @ibm_notes_event_gobierto_event ||= GobiertoPeople::PersonEvent.new(
+        @ibm_notes_event_gobierto_event ||= GobiertoCalendars::Event.new(
           site: site,
           external_id: 'Ibm Notes event ID',
           title: 'Ibm Notes event title',
           starts_at: utc_time("2017-04-11 10:00:00"),
           ends_at:   utc_time("2017-04-11 11:00:00"),
-          state: GobiertoPeople::PersonEvent.states['published'],
-          person: richard
+          state: GobiertoCalendars::Event.states['published'],
+          collection: richard.events_collection
         )
       end
 
       def outdated_ibm_notes_event_gobierto_event
-        @outdated_ibm_notes_event_gobierto_event ||= GobiertoPeople::PersonEvent.new(
+        @outdated_ibm_notes_event_gobierto_event ||= GobiertoCalendars::Event.new(
           site: site,
           external_id: 'Ibm Notes outdated event ID',
           title: 'Ibm Notes outdated event title',
           starts_at: utc_time("2017-04-11 10:00:00"),
           ends_at:   utc_time("2017-04-11 11:00:00"),
-          state: GobiertoPeople::PersonEvent.states['published'],
-          person: richard
+          state: GobiertoCalendars::Event.states['published'],
+          collection: richard.events_collection
         )
       end
 
@@ -145,7 +145,7 @@ module GobiertoPeople
 
         # Add new data to events, and check it is removed after sync
         event = richard.events.find_by(external_id: 'BD5EA243F9F715AAC1258116003ED56C-Lotus_Notes_Generated')
-        GobiertoPeople::PersonEventLocation.create!(person_event: event, name: "I'll be deleted")
+        GobiertoCalendars::EventLocation.create!(event: event, name: "I'll be deleted")
 
         assert 1, event.locations.size
 
@@ -215,17 +215,17 @@ module GobiertoPeople
 
       def test_sync_event_creates_new_event_with_location
 
-        refute GobiertoPeople::PersonEvent.exists?(external_id: new_ibm_notes_event.id)
+        refute GobiertoCalendars::Event.exists?(external_id: new_ibm_notes_event.id)
 
         created_event_external_id = CalendarIntegration.sync_event(new_ibm_notes_event)
 
-        assert GobiertoPeople::PersonEvent.exists?(external_id: new_ibm_notes_event.id)
+        assert GobiertoCalendars::Event.exists?(external_id: new_ibm_notes_event.id)
         assert_equal created_event_external_id, new_ibm_notes_event.id
 
-        gobierto_event = GobiertoPeople::PersonEvent.find_by(external_id: new_ibm_notes_event.id)
+        gobierto_event = GobiertoCalendars::Event.find_by(external_id: new_ibm_notes_event.id)
 
         assert_equal new_ibm_notes_event.title, gobierto_event.title
-        assert_equal richard, gobierto_event.person
+        assert_equal richard, gobierto_event.collection.container
 
         assert_equal 'Ibm Notes new event location', gobierto_event.locations.first.name
       end
@@ -233,7 +233,7 @@ module GobiertoPeople
       def test_sync_event_updates_existing_event
         CalendarIntegration.sync_event(outdated_ibm_notes_event)
 
-        updated_gobierto_event = GobiertoPeople::PersonEvent.find_by(external_id: outdated_ibm_notes_event.id)
+        updated_gobierto_event = GobiertoCalendars::Event.find_by(external_id: outdated_ibm_notes_event.id)
 
         assert updated_gobierto_event.published?
         assert_equal 'Ibm Notes outdated event title - THIS HAS CHANGED', updated_gobierto_event.title
@@ -242,7 +242,7 @@ module GobiertoPeople
       def test_sync_event_doesnt_create_duplicated_events
         CalendarIntegration.sync_event(outdated_ibm_notes_event)
 
-        assert_no_difference 'GobiertoPeople::PersonEvent.count' do
+        assert_no_difference 'GobiertoCalendars::Event.count' do
           CalendarIntegration.sync_event(outdated_ibm_notes_event)
         end
       end
@@ -252,7 +252,7 @@ module GobiertoPeople
         ibm_notes_event_gobierto_event.save!
 
         ibm_notes_event = create_ibm_notes_event(location: nil)
-        gobierto_event = GobiertoPeople::PersonEvent.find_by!(external_id: ibm_notes_event.id)
+        gobierto_event = GobiertoCalendars::Event.find_by!(external_id: ibm_notes_event.id)
 
         CalendarIntegration.sync_event(ibm_notes_event)
 

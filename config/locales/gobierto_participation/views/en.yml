@@ -2,5 +2,73 @@
 en:
   gobierto_participation:
     events:
+      event:
+        follow_event: Follow this event
+        from_to: "%{starts} to %{ends}"
+      event_teaser:
+        agenda_for_container: Agenda for
       gobierto_participation_issue_created: Theme created
       gobierto_participation_issue_updated: Theme updated
+      gobierto_participation_process_created: Process / group created
+      gobierto_participation_process_updated: Process / group updated
+      index:
+        agenda_for_container: Agenda for %{container_title}
+        all_events: View all events
+        displaying_events_of: Displaying events of %{date}
+        go_back: Go back
+      show:
+        agenda_for_container: Agenda for %{container_title}
+        container_agenda_explanation: We invite you to attend the following meetings
+          where we will discuss in person the topics of this process. If you can not
+          attend, we will publish online everything that is said in the meetings to
+          facilitate the follow-up and make the conclusions accessible.
+    layouts:
+      application:
+        title: Participation
+      menu_subsections:
+        about: About
+        ideas: Ideas
+        issues: Issues
+        processes: Processes
+        questions: Ask
+      process_menu_subsections:
+        contributions: Contributions
+        information: Information
+        meetings: Meetings
+        polls: Polls
+        results: Results
+      secondary_nav:
+        activity: Activity
+        agenda: Agenda
+        documents: Documents
+        news: News
+    pages:
+      index:
+        filter: Filter by theme
+        title: News
+      show:
+        documents: Documents
+        filter: Filter by group
+        published_at: Posted on %{date} by %{site}
+        title: News
+    processes:
+      show:
+        about: About this process
+        appointments: Face-to-face appointments
+        from_to: "%{starts} to %{ends}"
+        interesting_information: Interesting information
+        issues: Issues
+        length: Duration
+        more_events: More events
+        more_information: More information
+        more_news: More news
+        more_updates: More updates
+        newest: Newest
+        news: News
+        no_events: There are no related events
+        no_news: There are no related news
+        process_stages: Process stages
+      timeline_row:
+        past_stage: Stage has ended
+        upcoming_stage: Stage not yet started
+        view_stage: Access this stage

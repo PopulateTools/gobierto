@@ -1,0 +1,107 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Participación', 'admin_part' %> »
+  <%= link_to 'Comisión de Fiestas de Carnaval', 'admin_part_group' %></a>
+</div>
+
+<h1>Comisión de Fiestas de Carnaval</h1>
+
+<div class="tabs">
+  <ul>
+    <li ><%= link_to 'Grupo', 'admin_part_group' %></li>
+    <li ><%= link_to 'Información', 'admin_part_group_info' %></li>
+    <li><%= link_to 'Agenda', 'admin_part_group_agenda' %></li>
+    <li><%= link_to 'Encuestas', 'admin_part_group_polls' %></li>
+    <li class="active"><%= link_to 'Aportaciones', 'admin_part_group_contributions' %></li>
+    <li><%= link_to 'Votaciones', 'admin_part_group_votaciones' %></li>
+    <li><%= link_to 'Noticias', 'admin_part_group_news' %></li>
+    <li><%= link_to 'Documentos', 'admin_part_group_docs' %></li>
+  </ul>
+</div>
+
+<div class="pure-g m_v_2">
+  <div class="pure-u-3-4">
+    <strong><%= link_to '¿Qué actividades para niños podemos poner en marcha?', 'admin_part_group_contributions_contribution' %></strong> » Configuración
+  </div>
+  <div class="pure-u-1-4 admin_tools right">
+
+  </div>
+</div>
+
+<div class="pure-g">
+
+  <div class="pure-u-1 pure-u-md-16-24">
+
+    <form>
+
+      <div class="globalized_fields">
+
+        <div class="globalize_tool">
+          <label>Traducir</label>
+          <a href="#" class="locale_option selected completed tipsit" title="Define el contenido en su versión en Español">
+            <span class="locale">ES</span>
+            <span class="status"></span>
+          </a>
+          <a href="#" class="locale_option completed tipsit" title="Define el contenido en su versión en Catalán">
+            <span class="locale">CA</span>
+            <span class="status"></span>
+          </a>
+          <a href="#" class="locale_option tipsit" title="Define el contenido en su versión en Inglés">
+            <span class="locale">EN</span>
+            <span class="status"></span>
+          </a>
+        </div>
+
+        <div class="form_item input_text">
+          <label for="name">Título <span class="indication">Máx 140 caracteres</span></label>
+          <input type="text" id="name" value="¿Qué actividades para niños podemos poner en marcha?">
+        </div>
+
+        <!-- warning, this is not code, do not add the code class to the .form_item -->
+        <div class="form_item textarea">
+          <label for="entity">Descripción <span class="indication">Máx 680 caracteres</span></label>
+          <textarea>Más info... </textarea>
+          <div class="inline_help"></div>
+        </div>
+
+        <div class="form_item select_control">
+          <label for="entity">Tipo</label>
+          <select>
+            <option>Idea</option>
+            <option>Pregunta</option>
+            <option>Propuesta</option>
+          </select>
+        </div>
+
+
+      </div>
+
+      <div class="pure-g">
+        <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
+          <div class="form_item input_text">
+            <label for="person_event_starts_at">Fecha de comienzo</label>
+            <input data-language="es" data-timepicker="true" data-date-format="yyyy-mm-dd" data-time-format="hh:ii" data-startDate="2017-06-23T12:00:00+00:00" class="air-datepicker" readonly="readonly" type="text" value="2017-06-23 12:00" name="person_event[starts_at]" id="person_event_starts_at" />
+          </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-2">
+          <div class="form_item input_text">
+            <label for="person_event_ends_at">Fecha de finalización</label>
+            <input data-language="es" data-timepicker="true" data-date-format="yyyy-mm-dd" data-time-format="hh:ii" data-startDate="2017-06-23T13:00:00+00:00" class="air-datepicker" readonly="readonly" type="text" value="2017-06-23 13:00" name="person_event[ends_at]" id="person_event_ends_at" />
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+  <div class="pure-u-1 pure-u-md-2-24"></div>
+
+  <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
+
+    <%= render partial: "admin_widget_save"   %>
+
+  </div>
+
+</div>

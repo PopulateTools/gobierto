@@ -5,7 +5,7 @@ module GobiertoParticipation
     include User::Subscribable
     include GobiertoCommon::Searchable
     include GobiertoAttachments::Attachable
-    include GobiertoCommon::Collectionable
+    include GobiertoCommon::ActsAsCollectionContainer
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca
@@ -14,37 +14,50 @@ module GobiertoParticipation
       add_attribute :resource_path, :class_name
     end
 
-    translates :title, :body, :slug
+    translates :title, :body, :information_text
 
     belongs_to :site
-    has_many :stages, dependent: :destroy, class_name: 'GobiertoParticipation::ProcessStage'
+    belongs_to :issue
+    has_many :stages, -> { order(stage_type: :asc) }, dependent: :destroy, class_name: 'GobiertoParticipation::ProcessStage'
 
     enum visibility_level: { draft: 0, active: 1 }
+    enum process_type: { process: 0, group_process: 1 }
 
-    validates :site, :title, :body, :slug, presence: true
-    validate :uniqueness_of_slug
+    validates :site, :title, :body, presence: true
+    validates :slug, uniqueness: { scope: :site }
 
     scope :sorted, -> { order(id: :desc) }
 
-    def self.find_by_slug!(slug)
-      if slug.present?
-        I18n.available_locales.each do |locale|
-          if p = self.with_slug_translation(slug, locale).first
-            return p
-          end
-        end
-        raise(ActiveRecord::RecordNotFound)
-      end
+    accepts_nested_attributes_for :stages
+
+    after_create :create_collections
+
+    def to_s
+      self.title
+    end
+
+    def pages_collection
+      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCms::Page')
+    end
+
+    def events_collection
+      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCalendars::Event')
+    end
+
+    def attachments_collection
+      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoAttachments::Attachment')
     end
 
     private
 
-    def uniqueness_of_slug
-      if slug_translations.present?
-        if slug_translations.select{ |_, slug| slug.present? }.any?{ |_, slug| self.class.where(site_id: self.site_id).where.not(id: self.id).with_slug_translation(slug).exists? }
-          errors.add(:slug, I18n.t('errors.messages.taken'))
-        end
-      end
+    def create_collections
+      # Events
+      site.collections.create! container: self,  item_type: 'GobiertoCalendars::Event', slug: "calendar-#{self.slug}", title: self.title
+      # Attachments
+      site.collections.create! container: self,  item_type: 'GobiertoAttachments::Attachment', slug: "attachment-#{self.slug}", title: self.title
+      # News / Pages
+      site.collections.create! container: self,  item_type: 'GobiertoCms::Page', slug: "news-#{self.slug}", title: self.title
     end
+
   end
 end

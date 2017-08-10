@@ -9,15 +9,17 @@ es:
           placeholders:
             slug: acerca-de-esta-web
             title: Título de la página
-        index:
-          created_at: Creada
-          new: Nueva
-          public: Pública
-          title: Páginas
-          updated_at: Actualizada
-          view: Ver página
           visibility_level:
             active: Publicada
             draft: Borrador
+        index:
+          collections: Colecciones
+          header:
+            collection: Colección
+            pages: Páginas
+          latest_editions: Últimas ediciones
+          new: Nueva
+          title: Páginas
+          view_collection: Ver colección
         new:
           title: Nueva página

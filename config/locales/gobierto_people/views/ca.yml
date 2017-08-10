@@ -2,9 +2,6 @@
 ca:
   gobierto_people:
     events:
-      gobierto_people_person_event_published: 'Agenda actualitzada amb un nou event:
-        %{subject_name}'
-      gobierto_people_person_event_updated: 'Event actualitzat: %{subject_name}'
       gobierto_people_person_post_published: 'Actualització del blog: %{subject_name}'
       gobierto_people_person_post_updated: 'Actualització del post: %{subject_name}'
       gobierto_people_person_published: 'Creada nova persona: %{subject_name}'

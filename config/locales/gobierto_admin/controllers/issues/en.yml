@@ -1,0 +1,8 @@
+---
+en:
+  gobierto_admin:
+    issues:
+      create:
+        success: Theme was successfully created.
+      update:
+        success: Theme was successfully updated.

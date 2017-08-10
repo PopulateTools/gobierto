@@ -9,6 +9,9 @@ class Site < ApplicationRecord
   has_many :census_imports, dependent: :destroy, class_name: "GobiertoAdmin::CensusImport"
 
   # GobiertoCommon integration
+  has_many :collections, dependent: :destroy, class_name: "GobiertoCommon::Collection"
+  has_many :collection_items, as: :container, class_name: "GobiertoCommon::CollectionItem", dependent: :destroy
+
   has_many :content_blocks, dependent: :destroy, class_name: "GobiertoCommon::ContentBlock"
   has_many :custom_user_fields, dependent: :destroy, class_name: "GobiertoCommon::CustomUserField"
 
@@ -25,10 +28,11 @@ class Site < ApplicationRecord
 
   # GobiertoPeople integration
   has_many :people, dependent: :destroy, class_name: "GobiertoPeople::Person"
-  has_many :person_events, through: :people, source: :events, class_name: "GobiertoPeople::PersonEvent"
-  has_many :person_attendee_events, class_name: "GobiertoPeople::PersonEvent", dependent: :destroy
   has_many :person_posts, through: :people, source: :posts, class_name: "GobiertoPeople::PersonPost"
   has_many :person_statements, through: :people, source: :statements, class_name: "GobiertoPeople::PersonStatement"
+
+  # GobiertoCalendars integration
+  has_many :events, class_name: "GobiertoCalendars::Event", dependent: :destroy
 
   # Gobierto CMS integration
   has_many :pages, dependent: :destroy, class_name: "GobiertoCms::Page"
@@ -40,7 +44,8 @@ class Site < ApplicationRecord
   has_many :module_settings, dependent: :destroy, class_name: "GobiertoModuleSettings"
 
   # Gobierto Participation integration
-  has_many :issues, dependent: :destroy, class_name: "GobiertoParticipation::Issue"
+  has_many :issues, dependent: :destroy, class_name: "Issue"
+  has_many :processes, dependent: :destroy, class_name: "GobiertoParticipation::Process"
 
   serialize :configuration_data
 
@@ -111,6 +116,10 @@ class Site < ApplicationRecord
               .order(created_at: :asc)
               .pluck(:created_at)
               .last
+  end
+
+  def to_s
+    self.name
   end
 
   private

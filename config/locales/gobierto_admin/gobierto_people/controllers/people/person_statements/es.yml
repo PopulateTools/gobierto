@@ -5,6 +5,8 @@ es:
       people:
         person_statements:
           create:
-            success_html: "La declaración ha sido creada correctamente. <a href=\"%{link}\">Ver la declaración</a>."
+            success_html: La declaración ha sido creada correctamente. <a href="%{link}">Ver
+              la declaración</a>.
           update:
-            success_html: "La declaración ha sido actualizada. <a href=\"%{link}\">Ver la declaración</a>."
+            success_html: La declaración ha sido actualizada. <a href="%{link}">Ver
+              la declaración</a>.

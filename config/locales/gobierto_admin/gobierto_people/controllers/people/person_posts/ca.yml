@@ -5,7 +5,8 @@ ca:
       people:
         person_posts:
           create:
-            success_html: "El post s'ha creat correctament. <a href=\"%{link}\">Veure el post</a>."
+            success_html: El post s'ha creat correctament. <a href="%{link}">Veure
+              el post</a>.
           update:
-            success_html: "El post s'ha actualitzat correctament. <a href=\"%{link}\">Veure el post</a>."
-
+            success_html: El post s'ha actualitzat correctament. <a href="%{link}">Veure
+              el post</a>.

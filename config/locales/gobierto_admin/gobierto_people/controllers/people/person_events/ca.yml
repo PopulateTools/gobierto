@@ -5,7 +5,8 @@ ca:
       people:
         person_events:
           create:
-            success_html: "El esdeveniment s'ha creat correctament. <a href=\"%{link}\">Veure el esdeveniment</a>."
+            success_html: El esdeveniment s'ha creat correctament. <a href="%{link}">Veure
+              el esdeveniment</a>.
           update:
-            success_html: "El esdeveniment s'ha actualitzat correctament. <a href=\"%{link}\">Veure el esdeveniment</a>."
-
+            success_html: El esdeveniment s'ha actualitzat correctament. <a href="%{link}">Veure
+              el esdeveniment</a>.

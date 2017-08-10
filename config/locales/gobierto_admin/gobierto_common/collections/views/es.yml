@@ -26,9 +26,9 @@ es:
           new: Nueva
           pages:
             created_at: Creada
-            public: Pública
-            updated_at: Actualitzada
-            view: Veure pàgina
+            public: Estado
+            updated_at: Actualizada
+            view: Ver pàgina
             visibility_level:
               active: Publicada
               draft: Borrador

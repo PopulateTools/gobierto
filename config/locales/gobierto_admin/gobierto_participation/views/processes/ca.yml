@@ -18,9 +18,6 @@ ca:
           stages_and_tools: Fases i eines
         index:
           title: Processos i Grups
-        navigation:
-          information: Informació
-          stage: Procés
         new:
           title: Nou procés o grup
         update:

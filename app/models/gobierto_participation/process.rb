@@ -30,8 +30,33 @@ module GobiertoParticipation
 
     accepts_nested_attributes_for :stages
 
+    after_create :create_collections
+
     def to_s
       self.title
+    end
+
+    def pages_collection
+      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCms::Page')
+    end
+
+    def events_collection
+      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCalendars::Event')
+    end
+
+    def attachments_collection
+      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoAttachments::Attachment')
+    end
+
+    private
+
+    def create_collections
+      # Events
+      site.collections.create! container: self,  item_type: 'GobiertoCalendars::Event', slug: "calendar-#{self.slug}", title: self.title
+      # Attachments
+      site.collections.create! container: self,  item_type: 'GobiertoAttachments::Attachment', slug: "attachment-#{self.slug}", title: self.title
+      # News / Pages
+      site.collections.create! container: self,  item_type: 'GobiertoCms::Page', slug: "news-#{self.slug}", title: self.title
     end
 
   end

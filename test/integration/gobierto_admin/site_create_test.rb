@@ -1,10 +1,7 @@
 require "test_helper"
-require "support/file_uploader_helpers"
 
 module GobiertoAdmin
   class SiteCreateTest < ActionDispatch::IntegrationTest
-    include FileUploaderHelpers
-
     def setup
       super
       @path = new_admin_site_path

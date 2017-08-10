@@ -4,6 +4,6 @@ ca:
     gobierto_common:
       collections:
         create:
-          success: "La col·lecció s'ha creat correctament."
+          success: La col·lecció s'ha creat correctament.
         update:
-          success: "La col·lecció s'ha actualitzat correctament."
+          success: La col·lecció s'ha actualitzat correctament.

@@ -58,8 +58,6 @@ module GobiertoAdmin
 
               assert has_message?('Collection was successfully created.')
 
-              assert has_selector?('h1', text: 'My collection')
-
               collection = site.collections.last
               activity = Activity.last
               assert_equal collection, activity.subject

@@ -4,19 +4,19 @@
     <div class="pure-u-1 pure-u-md-3-5 sub_filter">
       <ul>
         <li class="all-events-filter active" data-scope="all">
-          <%= link_to t(".all_events"), admin_calendars_collection_events_path(collection), remote: true %>
+          <%= link_to t(".all_events"), admin_calendars_events_path(collection_id: collection), remote: true %>
           (<%= @events_presenter.events_count %>)
         </li>
         <li class="pending-events-filter <%= class_if("warn", @events_presenter.pending_events_count > 0) %>" data-scope="pending">
-          <%= link_to t(".pending_events"), admin_calendars_collection_events_path(collection, scope: :pending), remote: true %>
+          <%= link_to t(".pending_events"), admin_calendars_events_path(collection_id: collection, scope: :pending), remote: true %>
           (<%= @events_presenter.pending_events_count %>)
         </li>
         <li class="published-events-filter" data-scope="published">
-          <%= link_to t(".published_events"), admin_calendars_collection_events_path(collection, scope: :published), remote: true %>
+          <%= link_to t(".published_events"), admin_calendars_events_path(collection_id: collection, scope: :published), remote: true %>
           (<%= @events_presenter.published_events_count %>)
         </li>
         <li class="past-events-filter" data-scope="past">
-          <%= link_to t(".past_events"), admin_calendars_collection_events_path(collection, scope: :past), remote: true  %>
+          <%= link_to t(".past_events"), admin_calendars_events_path(collection_id: collection, scope: :past), remote: true  %>
           (<%= @events_presenter.past_events_count %>)
         </li>
       </ul>
@@ -30,7 +30,7 @@
             <%= t(".configuration") %>
           <% end %>
         <% end %>
-        <%= link_to t(".new"), new_admin_calendars_collection_event_path(collection), class: "button", data: { turbolinks: false } %>
+        <%= link_to t(".new"), new_admin_calendars_event_path(collection_id: collection), class: "button", data: { turbolinks: false } %>
       </div>
     </div>
 
@@ -52,12 +52,12 @@
       <% @events.each do |event| %>
         <tr id="person-event-item-<%= event.id %>" class="<%= cycle("odd", "even") %>">
           <td>
-            <%= link_to edit_admin_calendars_collection_event_path(collection, event), data: { turbolinks: false } do %>
+            <%= link_to edit_admin_calendars_event_path(event, collection_id: collection), data: { turbolinks: false } do %>
               <i class="fa fa-edit"></i>
             <% end %>
           </td>
           <td>
-            <%= link_to edit_admin_calendars_collection_event_path(collection, event), data: { turbolinks: false } do %>
+            <%= link_to edit_admin_calendars_event_path(event, collection_id: collection), data: { turbolinks: false } do %>
               <%= event.title %>
             <% end %>
           </td>

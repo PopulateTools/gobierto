@@ -4,4 +4,6 @@ ca:
     consultations:
       consultation_responses:
         new:
-          user_not_signed_in_html: "La participació en aquesta consulta està reservada als empadronats/des a %{place_name}.<br><br>Registra't o fes login si ja tens compte (i verifica que ja estàs empadronat) per poder participar."
+          user_not_signed_in_html: La participació en aquesta consulta està reservada
+            als empadronats/des a %{place_name}.<br><br>Registra't o fes login si
+            ja tens compte (i verifica que ja estàs empadronat) per poder participar.

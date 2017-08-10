@@ -5,7 +5,8 @@ en:
       people:
         person_posts:
           create:
-            success_html: "Post was successfully created. <a href=\"%{link}\">See the post</a>."
+            success_html: Post was successfully created. <a href="%{link}">See the
+              post</a>.
           update:
-            success_html: "Post was successfully updated. <a href=\"%{link}\">See the post</a>."
-
+            success_html: Post was successfully updated. <a href="%{link}">See the
+              post</a>.

@@ -4,7 +4,7 @@ es:
     gobierto_people:
       people:
         create:
-          success_html: "El perfil ha sido creado correctamente. <a href=\"%{link}\">Ver la persona</a>."
+          success_html: El perfil ha sido creado correctamente. <a href="%{link}">Ver
+            la persona</a>.
         update:
-          success_html: "El perfil ha sido actualizado. <a href=\"%{link}\">Ver la persona</a>."
-
+          success_html: El perfil ha sido actualizado. <a href="%{link}">Ver la persona</a>.

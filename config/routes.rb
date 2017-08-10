@@ -106,9 +106,8 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_calendars, as: :calendars do
-      resources :collections, only: [:index] do
-        resources :events
-      end
+      resources :events
+      resources :collections, only: [:index]
     end
   end
 

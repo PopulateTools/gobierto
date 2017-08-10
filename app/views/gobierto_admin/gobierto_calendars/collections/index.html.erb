@@ -15,7 +15,7 @@
       <% @events.each do |event| %>
         <div class="activity_item">
           <h2>
-            <%= link_to edit_admin_calendars_collection_event_path(event.collection, event) do %>
+            <%= link_to edit_admin_calendars_event_path(event, collection_id: event.collection) do %>
               <%= event.title %>
             <% end %>
           </h2>

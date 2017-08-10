@@ -8,7 +8,7 @@ module GobiertoAdmin
 
       def setup
         super
-        @path = edit_admin_calendars_collection_event_path(collection, event)
+        @path = edit_admin_calendars_event_path(event, collection_id: collection)
       end
 
       def collection

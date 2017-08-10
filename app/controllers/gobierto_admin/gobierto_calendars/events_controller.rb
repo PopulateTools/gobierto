@@ -40,7 +40,7 @@ module GobiertoAdmin
 
         if @event_form.save
           redirect_to(
-            edit_admin_calendars_collection_event_path(@collection, @event_form.event),
+            edit_admin_calendars_event_path(@event_form.event, collection_id: @collection),
             notice: t(".success_html", link: gobierto_people_event_preview_url(@event_form.event))
           )
         else
@@ -58,7 +58,7 @@ module GobiertoAdmin
 
         if @event_form.save
           redirect_to(
-            edit_admin_calendars_collection_event_path(@collection, @event),
+            edit_admin_calendars_event_path(@event, collection_id: @collection),
             notice: t(".success_html", link: gobierto_people_event_preview_url(@event_form.event))
           )
         else

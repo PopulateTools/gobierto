@@ -12,6 +12,7 @@ module GobiertoAdmin
     helper_method :current_site, :managing_site?
     helper_method :managed_sites
     helper_method :can_manage_sites?
+    helper_method :gobierto_cms_page_preview_url
 
     rescue_from Errors::NotAuthorized, with: :raise_admin_not_authorized
 
@@ -45,6 +46,11 @@ module GobiertoAdmin
           redirect_to admin_root_path
         end
       end
+    end
+
+    def gobierto_cms_page_preview_url(page, options = {})
+      options.merge!(preview_token: current_admin.preview_token) unless page.active?
+      gobierto_cms_page_url(page.slug, options)
     end
 
     protected

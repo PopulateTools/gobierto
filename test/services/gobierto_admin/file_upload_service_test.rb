@@ -1,9 +1,7 @@
 require "test_helper"
-require "support/file_uploader_helpers"
 
 module GobiertoAdmin
   class FileUploadServiceTest < ActiveSupport::TestCase
-    include FileUploaderHelpers
 
     def file_upload_service
       @file_upload_service ||= FileUploadService.new(

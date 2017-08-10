@@ -1,10 +1,7 @@
 require "test_helper"
-require "support/file_uploader_helpers"
 
 module GobiertoAdmin
   class FileAttachmentFormTest < ActiveSupport::TestCase
-    include FileUploaderHelpers
-
     def valid_file_attachment_form
       @valid_file_attachment_form ||= FileAttachmentForm.new(
         file: Rack::Test::UploadedFile.new(

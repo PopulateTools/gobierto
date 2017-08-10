@@ -1,11 +1,8 @@
 require "test_helper"
-require "support/file_uploader_helpers"
 
 module GobiertoAdmin
   module GobiertoCalendars
     class PersonEventUpdateTest < ActionDispatch::IntegrationTest
-      include FileUploaderHelpers
-
       def setup
         super
         @path = edit_admin_calendars_event_path(event, collection_id: collection)

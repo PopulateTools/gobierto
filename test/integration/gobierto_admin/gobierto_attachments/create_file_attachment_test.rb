@@ -1,11 +1,8 @@
 require 'test_helper'
-require "support/file_uploader_helpers"
 
 module GobiertoAdmin
   module GobiertoAttachments
     class CreateFileAttachmentTest < ActionDispatch::IntegrationTest
-      include FileUploaderHelpers
-
       def setup
         super
         @path = admin_attachments_file_attachments_path

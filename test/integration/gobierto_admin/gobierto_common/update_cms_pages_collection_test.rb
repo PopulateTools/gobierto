@@ -16,10 +16,6 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
-      def issue
-        @issue ||= issues(:culture)
-      end
-
       def collection
         @collection ||= gobierto_common_collections(:news)
       end
@@ -31,10 +27,8 @@ module GobiertoAdmin
               visit @path
 
               within "tr#collection-item-#{collection.id}" do
-                click_link 'News'
+                page.find('a.open_remote_modal').trigger('click')
               end
-
-              click_link 'Configuration'
 
               within 'form.edit_collection' do
                 fill_in 'collection_title_translations_en', with: 'News updated'

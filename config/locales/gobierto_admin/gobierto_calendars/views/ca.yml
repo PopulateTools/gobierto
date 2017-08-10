@@ -13,8 +13,6 @@ ca:
           title: Agendas
           view_collection: Veure col·lecció
       events:
-        person_breadcrumb:
-          back_to_collections: "< Tornar a agendes"
         attendees_form:
           header:
             charge: Càrrec
@@ -22,25 +20,16 @@ ca:
             person: Persona
           title: Assistents
           view_person: Veure persona
+        edit:
+          title: Editar event
         form:
           attachment_file_constraints: adjuntar fitxer (PDF)
           placeholders:
-            title: Reunió amb els veïns del districte centre
+            slug: event
+            title: Títol del event
           state:
             pending: Pendent
             published: Publicat
-          placeholders:
-            slug: event
-            title: Títol del event
-        locations_form:
-          header:
-            address: Adreça
-            place: Lloc
-          title: Lloc
-        edit:
-          title: Editar event
-        new:
-          title: Nou event
         index:
           all_events: Tots
           configuration: Configuració
@@ -57,4 +46,12 @@ ca:
           visibility_level:
             pending: Borrador
             published: Publicat
-
+        locations_form:
+          header:
+            address: Adreça
+            place: Lloc
+          title: Lloc
+        new:
+          title: Nou event
+        person_breadcrumb:
+          back_to_collections: "< Tornar a agendes"

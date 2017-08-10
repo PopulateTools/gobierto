@@ -13,8 +13,6 @@ es:
           title: Agendas
           view_collection: Ver colección
       events:
-        person_breadcrumb:
-          back_to_collections: "< Volver a agendas"
         attendees_form:
           header:
             charge: Cargo
@@ -22,25 +20,16 @@ es:
             person: Persona
           title: Asistentes
           view_person: Ver persona
+        edit:
+          title: Editar evento
         form:
           attachment_file_constraints: Adjuntar fichero (PDF)
           placeholders:
-            title: Reunión con los vecinos del distrito centro
+            slug: acerca-de-esta-web
+            title: Título del evento
           state:
             pending: Pendiente
             published: Publicado
-          placeholders:
-            slug: acerca-de-esta-web
-            title: Título del evento
-        locations_form:
-          header:
-            address: Dirección
-            place: Lugar
-          title: Lugar
-        edit:
-          title: Editar evento
-        new:
-          title: Nuevo evento
         index:
           all_events: Todos
           configuration: Configuración
@@ -57,4 +46,12 @@ es:
           visibility_level:
             pending: Borrador
             published: Publicado
-
+        locations_form:
+          header:
+            address: Dirección
+            place: Lugar
+          title: Lugar
+        new:
+          title: Nuevo evento
+        person_breadcrumb:
+          back_to_collections: "< Volver a agendas"

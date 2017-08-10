@@ -3,7 +3,7 @@ es:
   activemodel:
     attributes:
       gobierto_admin/gobierto_common/collection_form:
-        container_id: Contenedor
+        container_global_id: Contenedor
         item_type: Tipo
         slug: URL
         title: Título

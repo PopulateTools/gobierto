@@ -18,15 +18,15 @@ module GobiertoCommon
     scope :by_item_type, ->(item_type) { where(item_type: item_type) }
 
     def pages_in_collection
-      collection_items.where(item_type: 'GobiertoCms::Page').map(&:item_id)
+      collection_items.where(item_type: 'GobiertoCms::Page').pluck(:item_id)
     end
 
     def file_attachments_in_collection
-      collection_items.where(item_type: 'GobiertoAttachments::Attachment').map(&:item_id)
+      collection_items.where(item_type: 'GobiertoAttachments::Attachment').pluck(:item_id)
     end
 
     def events_in_collection
-      collection_items.where(item_type: 'GobiertoCalendars::Event').map(&:item_id)
+      collection_items.where(item_type: 'GobiertoCalendars::Event').pluck(:item_id)
     end
 
     def container

@@ -7,6 +7,7 @@ es:
           account: Tu cuenta
           sign_out: Cerrar sesión
         budget_consultations: Consultas de presupuestos
+        calendars: Agendas
         cms: Gestión de páginas
         collapse_menu: Colapsar menú
         dirty_forms:
@@ -17,9 +18,8 @@ es:
         issues: Temas
         manage_sites: Gestionar sites
         notifications: Notificaciones
+        participation: Participación
         people: Altos cargos y Agendas
         site_network: Red
         users: Usuarios
         view_site: Ver site
-        participation: Participación
-        calendars: Agendas

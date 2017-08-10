@@ -8,9 +8,7 @@ module GobiertoAdmin
         :site_id,
         :title_translations,
         :slug,
-        :global_entity,
-        :container_id,
-        :container_type,
+        :container_global_id,
         :item_type
       )
 
@@ -22,12 +20,16 @@ module GobiertoAdmin
         save_collection if valid?
       end
 
+      def container
+        @container ||= GlobalID::Locator.locate(container_global_id)
+      end
+
       def collection
         @collection ||= collection_class.find_by(id: id).presence || build_collection
       end
 
       def site_id
-        @site_id ||= collection.site_id
+        @site_id ||= collection.try(:site_id)
       end
 
       def site
@@ -49,7 +51,7 @@ module GobiertoAdmin
           collection_attributes.site_id = site_id
           collection_attributes.title_translations = title_translations
           collection_attributes.slug = slug
-          collection_attributes.container = find_container(container_id)
+          collection_attributes.container = container
           collection_attributes.item_type = item_type
         end
 
@@ -65,20 +67,6 @@ module GobiertoAdmin
       end
 
       protected
-
-      def find_container(id)
-        unless id.empty?
-          if id.include? 'gid'
-            GlobalID::Locator.locate(id)
-          else
-            ::GobiertoCommon::Collection.collector_classes.each do |container|
-              unless container.where(id: id).empty?
-                return container.where(id: id).first
-              end
-            end
-          end
-        end
-      end
 
       def promote_errors(errors_hash)
         errors_hash.each do |attribute, message|

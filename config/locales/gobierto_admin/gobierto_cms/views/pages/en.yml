@@ -4,11 +4,14 @@ en:
     gobierto_cms:
       pages:
         edit:
-          title: Edita page
+          title: Edit page
         form:
           placeholders:
             slug: about-this-web
             title: Page title
+          visibility_level:
+            active: Published
+            draft: Draft
         index:
           collections: Collections
           header:

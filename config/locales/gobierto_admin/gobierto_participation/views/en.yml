@@ -2,6 +2,16 @@
 en:
   gobierto_admin:
     gobierto_participation:
+      shared:
+        navigation:
+          agenda: Agenda
+          contributions: Contributions
+          documents: Documents
+          information: Information
+          news: News
+          polls: Polls
+          stage: Stage
+          votings: Votings
       welcome:
         index:
           title: Participation

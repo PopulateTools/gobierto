@@ -29,11 +29,10 @@ en:
       issues_issue_created: Theme created
       issues_issue_updated: Theme updated
   layouts:
-    breadcrumb:
-      start: Start
     accept_privacy_policy_signup: By signing up you agree to the Privacy Policy
     application:
       disclaimer: This is a demo of Gobierto, transparency and participation software
+      follow_process: Follow this process
       more_information: More info in gobierto.es
       search: Search...
       session:
@@ -42,7 +41,8 @@ en:
         sign_in: Sign in
         sign_out: Sign out
         title: Your account
-      follow_process: Follow this process
+    breadcrumb:
+      start: Start
     gobierto_budget_consultations:
       application:
         about_the_data: About the data
@@ -89,8 +89,8 @@ en:
     search:
       budget_line_item_expense: Budget line - Expense
       budget_line_item_income: Budget line - Income
-      page_item: Page
       event_item: Event
+      page_item: Page
       person_item: Biography
       person_post_item: Post
       person_statement_item: Statement

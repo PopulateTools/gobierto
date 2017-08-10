@@ -7,6 +7,7 @@ en:
           account: Account
           sign_out: Sign out
         budget_consultations: Budget consultations
+        calendars: Calendars
         cms: CMS
         collapse_menu: Collapse menu
         dirty_forms:
@@ -17,9 +18,8 @@ en:
         issues: Themes
         manage_sites: Manage sites
         notifications: Notifications
+        participation: Participation
         people: Officers and Agendas
         site_network: Network
         users: Users
         view_site: View site
-        participation: Participation
-        calendars: Calendars

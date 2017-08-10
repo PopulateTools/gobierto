@@ -30,12 +30,11 @@ es:
       issues_issue_created: Tema creado
       issues_issue_updated: Tema actualizado
   layouts:
-    breadcrumb:
-      start: Inicio
     accept_privacy_policy_signup: Al registrarte estás aceptando la Política de Privacidad
     application:
       disclaimer: Esta web es una demostración de Gobierto, software de transparencia
         y participación
+      follow_process: Sigue este proceso
       more_information: Más información en gobierto.es
       search: Busca...
       session:
@@ -44,7 +43,8 @@ es:
         sign_in: Iniciar sesión
         sign_out: Cerrar sesión
         title: Tu cuenta
-      follow_process: Sigue este proceso
+    breadcrumb:
+      start: Inicio
     gobierto_budget_consultations:
       application:
         about_the_data: Sobre los datos
@@ -94,8 +94,8 @@ es:
     search:
       budget_line_item_expense: Partida presupuestaria - Gasto
       budget_line_item_income: Partida presupuestaria - Ingreso
-      page_item: Página
       event_item: Evento
+      page_item: Página
       person_item: Biografía
       person_post_item: Post
       person_statement_item: Declaración

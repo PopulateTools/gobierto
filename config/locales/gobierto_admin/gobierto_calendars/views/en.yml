@@ -13,10 +13,6 @@ en:
           title: Calendars
           view_collection: View collection
       events:
-        person_breadcrumb:
-          back_to_collections: "< Back to agendas"
-        edit:
-          title: Edit event
         attendees_form:
           header:
             charge: Charge
@@ -24,22 +20,16 @@ en:
             person: Person
           title: Attendees
           view_person: View person
+        edit:
+          title: Edit event
         form:
+          attachment_file_constraints: Attach file (PDF)
           placeholders:
             slug: event
             title: Event title
-          attachment_file_constraints: Attach file (PDF)
           state:
             pending: Pending
             published: Published
-        locations_form:
-          header:
-            address: Address
-            place: Place
-          title: Place
-
-        new:
-          title: New event
         index:
           all_events: All
           configuration: Configuration
@@ -56,4 +46,12 @@ en:
           visibility_level:
             pending: Draft
             published: Published
-
+        locations_form:
+          header:
+            address: Address
+            place: Place
+          title: Place
+        new:
+          title: New event
+        person_breadcrumb:
+          back_to_collections: "< Back to agendas"

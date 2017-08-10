@@ -21,7 +21,6 @@ ca:
         new_modal:
           title: Nova col·lecció
         show:
-          configuration: Configuració
           file_attachments:
             description: Descripció
           new: Nova

@@ -59,7 +59,6 @@ Rails.application.routes.draw do
         collection do
           resource :people_sort, only: [:create], controller: "people/people_sort", path: :people_sort
         end
-        # TODO
         resources :person_events, only: [:index, :new, :create, :edit, :update], controller: "people/person_events", as: :events, path: :events
         resources :person_statements, only: [:index, :new, :create, :edit, :update], controller: "people/person_statements", as: :statements, path: :statements
         resources :person_posts, only: [:index, :new, :create, :edit, :update], controller: "people/person_posts", as: :posts, path: :blog
@@ -81,7 +80,11 @@ Rails.application.routes.draw do
     namespace :gobierto_participation, as: :participation, path: :participation do
       get '/' => 'welcome#index'
 
-      resources :processes, only: [:index, :new, :edit, :create, :update]
+      resources :processes, only: [:index, :new, :edit, :create, :update] do
+        resources :file_attachments, only: [:index], controller: "processes/process_file_attachments", as: :file_attachments, path: :file_attachments
+        resources :events, only: [:index], controller: "processes/process_events", as: :events, path: :events
+        resources :pages, only: [:index], controller: "processes/process_pages", as: :pages, path: :pages
+      end
     end
 
     namespace :gobierto_common, as: :common, path: nil do
@@ -103,9 +106,8 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_calendars, as: :calendars do
-      resources :collections, only: [:index] do
-        resources :events
-      end
+      resources :events
+      resources :collections, only: [:index]
     end
   end
 

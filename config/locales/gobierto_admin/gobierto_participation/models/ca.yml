@@ -3,31 +3,31 @@ ca:
   activemodel:
     attributes:
       gobierto_admin/gobierto_participation/process_form:
+        body: Descripció
+        ends: Final
         header_image: Imatge de capçalera
         header_image_url: URL d'imatge de capçalera
-        title: Títol
-        body: Descripció
+        issue_id: Tema
+        process_type: Tipus de grup
         slug: Slug
         starts: Començament
-        ends: Final
-        process_type: Tipus de grup
-        issue_id: Tema
+        title: Títol
     models:
       gobierto_admin/gobierto_participation/process_form: Procés
   activerecord:
     attributes:
       gobierto_participation/process:
         process_types:
-          process: Procés
           group_process: Grup
+          process: Procés
       gobierto_participation/process_stage:
-        title: Títol
         description: Descripció
-        starts: Començament
         ends: Final
         stage_types:
+          ideas: Idees
           information: Informació
           meetings: Reunions
-          surveys: Enquestes
-          ideas: Idees
           results: Resultats
+          surveys: Enquestes
+        starts: Començament
+        title: Títol

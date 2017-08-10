@@ -86,6 +86,7 @@ class ActionDispatch::IntegrationTest
   require "support/integration/site_session_helpers"
   require "support/integration/matcher_helpers"
   require "support/integration/page_helpers"
+  require "support/file_uploader_helpers"
 
   include Capybara::DSL
   include Integration::AuthenticationHelpers
@@ -93,6 +94,7 @@ class ActionDispatch::IntegrationTest
   include Integration::MatcherHelpers
   include Integration::PageHelpers
   include Capybara::Email::DSL
+  include FileUploaderHelpers
 
   Capybara.register_driver :poltergeist_custom do |app|
     Capybara::Poltergeist::Driver.new(

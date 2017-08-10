@@ -2,8 +2,6 @@ module GobiertoAdmin
   module GobiertoCms
     class PagesController < BaseController
 
-      helper_method :gobierto_cms_page_preview_url
-
       def index
         @collections = current_site.collections.by_item_type('GobiertoCms::Page')
         @pages = ::GobiertoCms::Page.pages_in_collections(current_site).sort_by_updated_at(10)
@@ -110,11 +108,6 @@ module GobiertoAdmin
 
       def find_collection(collection_id)
         ::GobiertoCommon::Collection.find_by(id: params[:collection_id])
-      end
-
-      def gobierto_cms_page_preview_url(page, options = {})
-        options.merge!(preview_token: current_admin.preview_token) unless page.active?
-        gobierto_cms_page_url(page.slug, options)
       end
     end
   end

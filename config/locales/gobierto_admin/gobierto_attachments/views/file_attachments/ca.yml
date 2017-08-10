@@ -3,6 +3,13 @@ ca:
   gobierto_admin:
     gobierto_attachments:
       file_attachments:
+        edit:
+          title: Modifica adjunt
+        form:
+          file_constraints: Adjuntar document
+          placeholders:
+            description: Descripció del fitxer
+            name: Nom del document
         index:
           collections: Col·leccions
           header:
@@ -12,12 +19,5 @@ ca:
           new: Nova
           title: Documents
           view_collection: Veure col·lecció
-        edit:
-          title: Modifica adjunt
-        form:
-          file_constraints: Adjuntar document
-          placeholders:
-            name: Nom del document
-            description: Descripció del fitxer
         new:
           title: Nou document

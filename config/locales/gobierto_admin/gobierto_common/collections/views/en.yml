@@ -21,7 +21,6 @@ en:
         new_modal:
           title: New theme
         show:
-          configuration: Configuration
           file_attachments:
             description: Description
           new: New

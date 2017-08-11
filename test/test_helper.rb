@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ENV["RAILS_ENV"] = "test"
 ENV["DISABLE_DATABASE_ENVIRONMENT_CHECK"] = "1"
 ENV["HOST"] = "www.example.com"
@@ -59,7 +61,7 @@ WebMock.disable_net_connect!(
 )
 
 VCR.configure do |c|
-  c.cassette_library_dir = 'test/vcr_cassettes'
+  c.cassette_library_dir = "test/vcr_cassettes"
   c.hook_into :webmock
   c.allow_http_connections_when_no_cassette = true
 end

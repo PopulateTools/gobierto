@@ -1,9 +1,10 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 module GobiertoAdmin
   module GobiertoParticipation
     class ProcessPagesTest < ActionDispatch::IntegrationTest
-
       def setup
         super
         collection.append(cms_page)
@@ -34,8 +35,8 @@ module GobiertoAdmin
           with_current_site(site) do
             visit edit_admin_participation_process_path(process)
 
-            within '.tabs' do
-              click_link 'News'
+            within ".tabs" do
+              click_link "News"
             end
 
             assert has_content?(cms_page.title)
@@ -49,30 +50,30 @@ module GobiertoAdmin
             with_current_site(site) do
               visit edit_admin_participation_process_path(process)
 
-              within '.tabs' do
-                click_link 'News'
+              within ".tabs" do
+                click_link "News"
               end
 
-              within '.admin_tools' do
-                click_link 'New'
+              within ".admin_tools" do
+                click_link "New"
               end
 
-              assert has_selector?('h1', text: process.title)
+              assert has_selector?("h1", text: process.title)
 
               fill_in "page_title_translations_en", with: "News Title"
-              find('#page_body_translations_en', visible: false).set('The content of the page')
-              fill_in 'page_slug_translations_en', with: 'new-page'
-              click_button 'Create'
+              find("#page_body_translations_en", visible: false).set("The content of the page")
+              fill_in "page_slug_translations_en", with: "new-page"
+              click_button "Create"
 
-              assert has_message?('Page created successfully')
+              assert has_message?("Page created successfully")
 
-              assert has_selector?('h1', text: process.title)
+              assert has_selector?("h1", text: process.title)
 
-              within '.tabs' do
-                click_link 'News'
+              within ".tabs" do
+                click_link "News"
               end
 
-              assert has_content?('News Title')
+              assert has_content?("News Title")
             end
           end
         end
@@ -84,26 +85,26 @@ module GobiertoAdmin
             with_current_site(site) do
               visit edit_admin_participation_process_path(process)
 
-              within '.tabs' do
-                click_link 'News'
+              within ".tabs" do
+                click_link "News"
               end
 
               click_link cms_page.title
 
-              assert has_selector?('h1', text: process.title)
+              assert has_selector?("h1", text: process.title)
 
-              fill_in 'page_title_translations_en', with: 'My page updated'
-              click_button 'Update'
+              fill_in "page_title_translations_en", with: "My page updated"
+              click_button "Update"
 
-              assert has_message?('Page updated successfully')
+              assert has_message?("Page updated successfully")
 
-              assert has_selector?('h1', text: process.title)
+              assert has_selector?("h1", text: process.title)
 
-              within '.tabs' do
-                click_link 'News'
+              within ".tabs" do
+                click_link "News"
               end
 
-              assert has_content?('My page updated')
+              assert has_content?("My page updated")
               refute has_content?(cms_page.title)
             end
           end

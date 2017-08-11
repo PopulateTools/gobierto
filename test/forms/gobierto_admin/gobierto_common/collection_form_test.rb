@@ -1,19 +1,21 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
   module GobiertoCommon
     class CollectionFormTest < ActiveSupport::TestCase
-      def valid_form(file = nil)
+      def valid_form(_file = nil)
         @valid_form ||= CollectionForm.new(
           site_id: site.id,
-          title_translations: { 'en' => 'Collection', 'es' => 'Colección' },
-          slug: 'collection',
+          title_translations: { "en" => "Collection", "es" => "Colección" },
+          slug: "collection",
           container_global_id: container.to_global_id,
           item_type: item_type
         )
       end
 
-      def invalid_form(file = nil)
+      def invalid_form(_file = nil)
         @invalid_form ||= CollectionForm.new
       end
 
@@ -26,7 +28,7 @@ module GobiertoAdmin
       end
 
       def item_type
-        'GobiertoCms::Page'
+        "GobiertoCms::Page"
       end
 
       def test_save_with_valid_attributes

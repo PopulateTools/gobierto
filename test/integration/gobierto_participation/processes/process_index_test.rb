@@ -1,8 +1,9 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 module GobiertoParticipation
   class ProcessIndexTest < ActionDispatch::IntegrationTest
-
     def setup
       super
       @path = gobierto_participation_processes_path
@@ -16,9 +17,9 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within '.global_breadcrumb' do
-          assert has_link? 'Participation'
-          assert has_link? 'Processes'
+        within ".global_breadcrumb" do
+          assert has_link? "Participation"
+          assert has_link? "Processes"
         end
       end
     end
@@ -27,12 +28,12 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within 'menu.sub_sections' do
-          assert has_link? 'About'
-          assert has_link? 'Issues'
-          assert has_link? 'Processes'
-          assert has_link? 'Ask'
-          assert has_link? 'Ideas'
+        within "menu.sub_sections" do
+          assert has_link? "About"
+          assert has_link? "Issues"
+          assert has_link? "Processes"
+          assert has_link? "Ask"
+          assert has_link? "Ideas"
         end
       end
     end
@@ -41,11 +42,11 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within 'menu.secondary_nav' do
-          assert has_link? 'News'
-          assert has_link? 'Agenda'
-          assert has_link? 'Documents'
-          assert has_link? 'Activity'
+        within "menu.secondary_nav" do
+          assert has_link? "News"
+          assert has_link? "Agenda"
+          assert has_link? "Documents"
+          assert has_link? "Activity"
         end
 
         # TODO: check that these links redirect to their corresponding pages
@@ -57,11 +58,10 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within '.site_header' do
-          skip 'Not yet defined'
+        within ".site_header" do
+          skip "Not yet defined"
         end
       end
     end
-
   end
 end

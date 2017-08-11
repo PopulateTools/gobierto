@@ -1,5 +1,6 @@
-module EventHelpers
+# frozen_string_literal: true
 
+module EventHelpers
   def create_event(options = {})
     person = options[:person] || gobierto_people_people(:richard)
     collection = person.events_collection
@@ -19,5 +20,4 @@ module EventHelpers
 
     event
   end
-
 end

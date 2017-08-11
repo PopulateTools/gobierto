@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class GobiertoCommon::CustomUserFieldRecordTest < ActiveSupport::TestCase
@@ -20,51 +22,51 @@ class GobiertoCommon::CustomUserFieldRecordTest < ActiveSupport::TestCase
   def test_value_assignment
     subject = GobiertoCommon::CustomUserFieldRecord.new
     subject.custom_user_field = custom_user_field_single_option
-    subject.value = 'foo'
-    assert_equal 'foo', subject.payload[custom_user_field_single_option.name]
+    subject.value = "foo"
+    assert_equal "foo", subject.payload[custom_user_field_single_option.name]
   end
 
   def test_raw_value
     subject = GobiertoCommon::CustomUserFieldRecord.new
     subject.custom_user_field = custom_user_field_single_option
-    subject.value = 'randomstring1'
-    assert_equal 'randomstring1', subject.raw_value
+    subject.value = "randomstring1"
+    assert_equal "randomstring1", subject.raw_value
 
     subject = GobiertoCommon::CustomUserFieldRecord.new
     subject.custom_user_field = custom_user_field_string
-    subject.value = 'randomstring1'
-    assert_equal 'randomstring1', subject.raw_value
+    subject.value = "randomstring1"
+    assert_equal "randomstring1", subject.raw_value
 
     subject = GobiertoCommon::CustomUserFieldRecord.new
     subject.custom_user_field = custom_user_field_paragraph
-    subject.value = 'randomstring1'
-    assert_equal 'randomstring1', subject.raw_value
+    subject.value = "randomstring1"
+    assert_equal "randomstring1", subject.raw_value
 
     subject = GobiertoCommon::CustomUserFieldRecord.new
     subject.custom_user_field = custom_user_field_multiple_options
-    subject.value = ['randomstring1', 'random2']
-    assert_equal ['randomstring1', 'random2'], subject.raw_value
+    subject.value = %w(randomstring1 random2)
+    assert_equal %w(randomstring1 random2), subject.raw_value
   end
 
   def test_values
     subject = GobiertoCommon::CustomUserFieldRecord.new
     subject.custom_user_field = custom_user_field_single_option
-    subject.value = 'randomstring1'
-    assert_equal 'Center', subject.value
+    subject.value = "randomstring1"
+    assert_equal "Center", subject.value
 
     subject = GobiertoCommon::CustomUserFieldRecord.new
     subject.custom_user_field = custom_user_field_string
-    subject.value = 'randomstring1'
-    assert_equal 'randomstring1', subject.value
+    subject.value = "randomstring1"
+    assert_equal "randomstring1", subject.value
 
     subject = GobiertoCommon::CustomUserFieldRecord.new
     subject.custom_user_field = custom_user_field_paragraph
-    subject.value = 'randomstring1'
-    assert_equal 'randomstring1', subject.value
+    subject.value = "randomstring1"
+    assert_equal "randomstring1", subject.value
 
     subject = GobiertoCommon::CustomUserFieldRecord.new
     subject.custom_user_field = custom_user_field_multiple_options
-    subject.value = ['randomstring1']
-    assert_equal ['Sports'], subject.value
+    subject.value = ["randomstring1"]
+    assert_equal ["Sports"], subject.value
   end
 end

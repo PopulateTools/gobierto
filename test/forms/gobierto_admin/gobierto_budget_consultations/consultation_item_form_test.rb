@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -68,10 +70,10 @@ module GobiertoAdmin
 
       def test_position
         assert_equal latest_consultation_item.position + 1,
-          valid_consultation_item_form.position
+                     valid_consultation_item_form.position
 
         assert_equal consultation_item.position,
-          valid_persisted_consultation_item_form.position
+                     valid_persisted_consultation_item_form.position
       end
     end
   end

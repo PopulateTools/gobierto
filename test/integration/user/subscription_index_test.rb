@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class User::SubscriptionIndexTest < ActionDispatch::IntegrationTest
@@ -45,7 +47,7 @@ class User::SubscriptionIndexTest < ActionDispatch::IntegrationTest
         with_signed_in_user(user) do
           visit @path
 
-          page.find('#user_subscription_preferences_site_to_subscribe', visible: false).trigger('click')
+          page.find("#user_subscription_preferences_site_to_subscribe", visible: false).trigger("click")
 
           click_button "Save"
 

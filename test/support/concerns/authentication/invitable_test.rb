@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Authentication::InvitableTest
   def test_invitations_scope
     subject = user.class.invitation

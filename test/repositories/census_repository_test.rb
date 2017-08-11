@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class CensusRepositoryTest < ActiveSupport::TestCase
@@ -48,7 +50,6 @@ class CensusRepositoryTest < ActiveSupport::TestCase
   end
 
   def test_parse_document_number
-
     document_numbers = ["12345678A", " 1234 5678 a ", "ñ1?23 45*6¿78--a"]
 
     document_numbers.each do |document_number|
@@ -65,7 +66,7 @@ class CensusRepositoryTest < ActiveSupport::TestCase
   def test_exists?
     refute census_repository.exists?
 
-    existing_census_repository =  CensusRepository.new(
+    existing_census_repository = CensusRepository.new(
       site_id: census_item.site_id,
       document_number: "00000000A",
       date_of_birth: census_item.date_of_birth
@@ -75,7 +76,7 @@ class CensusRepositoryTest < ActiveSupport::TestCase
   end
 
   def test_exists_with_no_letter?
-    existing_census_repository =  CensusRepository.new(
+    existing_census_repository = CensusRepository.new(
       site_id: census_item.site_id,
       document_number: "12345678",
       date_of_birth: Date.parse("1998-01-01")
@@ -83,7 +84,7 @@ class CensusRepositoryTest < ActiveSupport::TestCase
 
     assert existing_census_repository.exists?
 
-    existing_census_repository =  CensusRepository.new(
+    existing_census_repository = CensusRepository.new(
       site_id: census_item.site_id,
       document_number: "12345678A",
       date_of_birth: Date.parse("1998-01-01")
@@ -93,7 +94,7 @@ class CensusRepositoryTest < ActiveSupport::TestCase
   end
 
   def test_exists_with_special_letters
-    existing_census_repository =  CensusRepository.new(
+    existing_census_repository = CensusRepository.new(
       site_id: census_item.site_id,
       document_number: "x5104959v",
       date_of_birth: Date.parse("1998-01-01")
@@ -101,7 +102,7 @@ class CensusRepositoryTest < ActiveSupport::TestCase
 
     assert existing_census_repository.exists?
 
-    existing_census_repository =  CensusRepository.new(
+    existing_census_repository = CensusRepository.new(
       site_id: census_item.site_id,
       document_number: "x05104959v",
       date_of_birth: Date.parse("1998-01-01")
@@ -109,7 +110,7 @@ class CensusRepositoryTest < ActiveSupport::TestCase
 
     assert existing_census_repository.exists?
 
-    existing_census_repository =  CensusRepository.new(
+    existing_census_repository = CensusRepository.new(
       site_id: census_item.site_id,
       document_number: "05104959v",
       date_of_birth: Date.parse("1998-01-01")
@@ -117,7 +118,7 @@ class CensusRepositoryTest < ActiveSupport::TestCase
 
     assert existing_census_repository.exists?
 
-    existing_census_repository =  CensusRepository.new(
+    existing_census_repository = CensusRepository.new(
       site_id: census_item.site_id,
       document_number: "x05104959",
       date_of_birth: Date.parse("1998-01-01")
@@ -125,7 +126,7 @@ class CensusRepositoryTest < ActiveSupport::TestCase
 
     assert existing_census_repository.exists?
 
-    existing_census_repository =  CensusRepository.new(
+    existing_census_repository = CensusRepository.new(
       site_id: census_item.site_id,
       document_number: "X5104959",
       date_of_birth: Date.parse("1998-01-01")

@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 module GobiertoAdmin
   module GobiertoCms
@@ -34,11 +36,11 @@ module GobiertoAdmin
             visit @path
 
             within "tr#collection-item-#{collection.id}" do
-              click_link 'News'
+              click_link "News"
             end
 
             within "tr#page-item-#{published_page.id}" do
-              preview_link = find('a', text: 'View page')
+              preview_link = find("a", text: "View page")
 
               refute preview_link[:href].include?(admin.preview_token)
 
@@ -46,7 +48,7 @@ module GobiertoAdmin
             end
 
             assert_equal gobierto_cms_page_path(published_page.slug), current_path
-            assert has_selector?('h1', text: published_page.title)
+            assert has_selector?("h1", text: published_page.title)
           end
         end
       end
@@ -57,11 +59,11 @@ module GobiertoAdmin
             visit @path
 
             within "tr#collection-item-#{collection.id}" do
-              click_link 'News'
+              click_link "News"
             end
 
             within "tr#page-item-#{draft_page.id}" do
-              preview_link = find('a', text: 'View page')
+              preview_link = find("a", text: "View page")
 
               assert preview_link[:href].include?(admin.preview_token)
 
@@ -69,7 +71,7 @@ module GobiertoAdmin
             end
 
             assert_equal gobierto_cms_page_path(draft_page.slug), current_path
-            assert has_selector?('h1', text: draft_page.title)
+            assert has_selector?("h1", text: draft_page.title)
           end
         end
       end
@@ -81,7 +83,7 @@ module GobiertoAdmin
           end
 
           # assert_response :not_found
-          refute has_selector?('h1', text: draft_page.title)
+          refute has_selector?("h1", text: draft_page.title)
         end
       end
     end

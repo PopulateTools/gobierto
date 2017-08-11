@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoParticipation
   class ProcessStageTest < ActiveSupport::TestCase
-
     def process
       @process ||= gobierto_participation_processes(:gender_violence_process)
     end
@@ -14,9 +15,9 @@ module GobiertoParticipation
     def stages
       {
         information: process.stages.find_by!(stage_type: ProcessStage.stage_types[:information]),
-           meetings: process.stages.find_by!(stage_type: ProcessStage.stage_types[:meetings]),
-              ideas: process.stages.find_by!(stage_type: ProcessStage.stage_types[:ideas]),
-            results: process.stages.find_by!(stage_type: ProcessStage.stage_types[:results])
+        meetings: process.stages.find_by!(stage_type: ProcessStage.stage_types[:meetings]),
+        ideas: process.stages.find_by!(stage_type: ProcessStage.stage_types[:ideas]),
+        results: process.stages.find_by!(stage_type: ProcessStage.stage_types[:results])
       }
     end
 
@@ -47,6 +48,5 @@ module GobiertoParticipation
       assert stages[:ideas].current?
       refute stages[:results].current?
     end
-
   end
 end

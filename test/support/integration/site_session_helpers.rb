@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Integration
   module SiteSessionHelpers
     def with_selected_site(site)

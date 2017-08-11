@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -22,8 +24,8 @@ module GobiertoAdmin
 
       assert has_content?("Edit your data")
 
-      fill_in :admin_password, with: 'gobierto'
-      fill_in :admin_password_confirmation, with: 'gobierto'
+      fill_in :admin_password, with: "gobierto"
+      fill_in :admin_password_confirmation, with: "gobierto"
       click_button "Update"
 
       assert has_message?("Data updated successfully")

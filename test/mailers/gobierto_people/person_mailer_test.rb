@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoPeople
@@ -15,12 +17,10 @@ module GobiertoPeople
     end
 
     def test_new_message
-      email = PersonMailer.new_message({
-        person_id: person.id,
-        reply_to: 'foo@example.com',
-        name: 'Sender',
-        body: "This is my message"
-      }).deliver_now
+      email = PersonMailer.new_message(person_id: person.id,
+                                       reply_to: "foo@example.com",
+                                       name: "Sender",
+                                       body: "This is my message").deliver_now
 
       refute ActionMailer::Base.deliveries.empty?
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class Subscribers::GobiertoPeopleActivityTest < ActiveSupport::TestCase
@@ -14,24 +16,24 @@ class Subscribers::GobiertoPeopleActivityTest < ActiveSupport::TestCase
   end
 
   def subject
-    @subject ||= Subscribers::GobiertoPeopleActivity.new('trackable')
+    @subject ||= Subscribers::GobiertoPeopleActivity.new("trackable")
   end
 
   def test_event_updated_for_non_gobierto_people_event
-    assert_no_difference 'Activity.count' do
+    assert_no_difference "Activity.count" do
       subject.updated Event.new(name: "foo", payload: {
-        gid: users(:dennis).to_gid, admin_id: admin.id,  site_id: site.id
-      })
+                                  gid: users(:dennis).to_gid, admin_id: admin.id, site_id: site.id
+                                })
     end
   end
 
   def test_event_updated_for_gobierto_people_person
     activity_subject = gobierto_people_people(:richard)
 
-    assert_difference 'Activity.count' do
+    assert_difference "Activity.count" do
       subject.updated Event.new(name: "trackable", payload: {
-        gid: activity_subject.to_gid, admin_id: admin.id, site_id: site.id
-      })
+                                  gid: activity_subject.to_gid, admin_id: admin.id, site_id: site.id
+                                })
     end
 
     activity = Activity.last

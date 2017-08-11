@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -12,24 +14,24 @@ module GobiertoAdmin
 
     def test_site_visibility_level_badge_for_draft_site
       visibility_level_badge_markup =
-        '<span>' \
+        "<span>" \
           '<i class="fa fa-lock"></i>' \
-          'Draft' \
-        '</span>'
+          "Draft" \
+        "</span>"
 
       assert_equal visibility_level_badge_markup,
-        site_visibility_level_badge_for(draft_site)
+                   site_visibility_level_badge_for(draft_site)
     end
 
     def test_site_visibility_level_badge_for_active_site
       visibility_level_badge_markup =
-        '<span>' \
+        "<span>" \
           '<i class="fa fa-unlock"></i>' \
-          'Published' \
-        '</span>'
+          "Published" \
+        "</span>"
 
       assert_equal visibility_level_badge_markup,
-        site_visibility_level_badge_for(active_site)
+                   site_visibility_level_badge_for(active_site)
     end
   end
 end

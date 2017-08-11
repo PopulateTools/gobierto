@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
   module GobiertoPeople
     class PersonEventPreviewTest < ActionDispatch::IntegrationTest
-
       def setup
         super
         @path = admin_people_person_events_path(person)
@@ -35,7 +36,6 @@ module GobiertoAdmin
             visit @path
 
             within "tr#person-event-item-#{published_event.id}" do
-
               preview_link = find("a", text: "View event")
 
               refute preview_link[:href].include?(admin.preview_token)
@@ -76,7 +76,6 @@ module GobiertoAdmin
             visit @path
 
             within "tr#person-event-item-#{published_event.id}" do
-
               preview_link = find("a", text: "View event")
 
               assert preview_link[:href].include?(admin.preview_token)
@@ -113,7 +112,6 @@ module GobiertoAdmin
 
       def test_preview_pending_event_if_not_admin
         with_current_site(site) do
-
           assert_raises ActiveRecord::RecordNotFound do
             visit gobierto_people_person_event_path(person.slug, pending_event.slug)
           end
@@ -129,7 +127,6 @@ module GobiertoAdmin
           refute has_selector?("h2", text: pending_event.title)
         end
       end
-
     end
   end
 end

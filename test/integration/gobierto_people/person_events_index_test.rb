@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require "support/event_helpers"
 
@@ -125,16 +127,15 @@ module GobiertoPeople
           refute has_link? government_member.name
           refute has_link? executive_member.name
         end
-
       end
     end
 
     def test_person_events_filter_for_calendar_widget
       government_event = create_event(person: government_member, starts_at: "2014-03-16")
-      executive_event  = create_event(person: executive_member,  starts_at: "2014-03-17")
+      executive_event = create_event(person: executive_member, starts_at: "2014-03-17")
 
       government_event_day = government_event.starts_at.day
-      executive_event_day  = executive_event.starts_at.day
+      executive_event_day = executive_event.starts_at.day
 
       Timecop.freeze(Time.zone.parse("2014-03-15")) do
         with_current_site(site) do
@@ -160,14 +161,13 @@ module GobiertoPeople
             refute has_link? government_event_day
             refute has_link? executive_event_day
           end
-
         end
       end
     end
 
     def test_person_events_filter_for_events_list
       government_event = create_event(person: government_member, title: "Government event", starts_at: "2014-03-16")
-      executive_event  = create_event(person: executive_member,  title: "Executive event",  starts_at: "2014-03-16")
+      executive_event = create_event(person: executive_member, title: "Executive event", starts_at: "2014-03-16")
 
       Timecop.freeze(Time.zone.parse("2014-03-15")) do
         with_current_site(site) do
@@ -253,11 +253,10 @@ module GobiertoPeople
     end
 
     def test_future_and_past_events_filter
-      past_event   = create_event(title: "Past event title",   starts_at: "2014-02-15")
+      past_event = create_event(title: "Past event title", starts_at: "2014-02-15")
       future_event = create_event(title: "Future event title", starts_at: "2014-04-15")
 
       Timecop.freeze(Time.zone.parse("2014-03-15")) do
-
         with_current_site(site) do
           visit @path
 
@@ -273,7 +272,6 @@ module GobiertoPeople
             refute has_content?(future_event.title)
           end
         end
-
       end
     end
 
@@ -319,11 +317,10 @@ module GobiertoPeople
     end
 
     def test_calendar_navigation_arrows
-      past_event   = create_event(starts_at: "2014-02-15")
+      past_event = create_event(starts_at: "2014-02-15")
       future_event = create_event(starts_at: "2014-04-15")
 
       Timecop.freeze(Time.zone.parse("2014-03-15")) do
-
         with_current_site(site) do
           visit gobierto_people_events_path
 
@@ -341,7 +338,6 @@ module GobiertoPeople
             assert has_link?(past_event.starts_at.day)
           end
         end
-
       end
     end
 
@@ -351,7 +347,6 @@ module GobiertoPeople
       end
 
       Timecop.freeze(Time.zone.parse("2014-03-15")) do
-
         with_current_site(site) do
           visit gobierto_people_events_path
 
@@ -360,18 +355,15 @@ module GobiertoPeople
               assert has_link?(event.starts_at.day)
             end
           end
-
         end
-
       end
     end
 
     def test_filter_events_by_calendar_date_link
-      past_event    = create_event(title: "Past event title", starts_at: "2014-03-10 11:00")
-      future_event  = create_event(title: "Future event title", starts_at: "2014-03-20 11:00")
+      past_event = create_event(title: "Past event title", starts_at: "2014-03-10 11:00")
+      future_event = create_event(title: "Future event title", starts_at: "2014-03-20 11:00")
 
       Timecop.freeze(Time.zone.parse("2014-03-15")) do
-
         with_current_site(site) do
           visit @path
 

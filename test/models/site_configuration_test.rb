@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class SiteConfigurationTest < ActiveSupport::TestCase
@@ -84,13 +86,13 @@ class SiteConfigurationTest < ActiveSupport::TestCase
   def site_configuration_params
     @site_configuration_params ||= begin
       {
-        "modules"           => ["Wadus", "GobiertoDevelopment"], # Note that the "Wadus" module is not standard
+        "modules"           => %w(Wadus GobiertoDevelopment), # Note that the "Wadus" module is not standard
         "logo"              => "gobierto_development.png",
-        "links_markup"      => %Q{<a href="http://madrid.es">Ayuntamiento de Madrid</a>},
+        "links_markup"      => %(<a href="http://madrid.es">Ayuntamiento de Madrid</a>),
         "demo"              => true,
         "wadus"             => "wadus", # Note that this is not a whitelisted property
         "default_locale"    => "ca",
-        "available_locales" => ["ca", "es"],
+        "available_locales" => %w(ca es),
         "site_id"           => site.id,
         "privacy_page_id"   => page.id
       }

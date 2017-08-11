@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PopulateDataHelpers
   def with_stubbed_budget_line_collection
     GobiertoAdmin::GobiertoBudgetConsultations::BudgetLineCollectionBuilder.stub_any_instance(:call, [populate_data_budget_line_summary]) do

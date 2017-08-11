@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -25,7 +27,7 @@ module GobiertoAdmin
         end
 
         def test_show
-          get admin_budget_consultation_consultation_reports_url(consultation), params: {format: :csv }
+          get admin_budget_consultation_consultation_reports_url(consultation), params: { format: :csv }
           assert_response :success
           assert exporter_spy.has_been_called?
         end

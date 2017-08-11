@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class Subscribers::GobiertoBudgetConsultationsTest < ActiveSupport::TestCase
@@ -14,31 +16,31 @@ class Subscribers::GobiertoBudgetConsultationsTest < ActiveSupport::TestCase
   end
 
   def subject
-    @subject ||= Subscribers::GobiertoBudgetConsultationsActivity.new('trackable')
+    @subject ||= Subscribers::GobiertoBudgetConsultationsActivity.new("trackable")
   end
 
   def test_event_updated_for_non_gobierto_budget_consultations_event
-    assert_no_difference 'Activity.count' do
+    assert_no_difference "Activity.count" do
       subject.updated Event.new(name: "foo", payload: {
-        gid: users(:dennis).to_gid, admin_id: admin.id,  site_id: site.id
-      })
+                                  gid: users(:dennis).to_gid, admin_id: admin.id, site_id: site.id
+                                })
     end
   end
 
   def test_event_updated_for_gobierto_budget_consultation_consultation
     activity_subject = gobierto_budget_consultations_consultations(:madrid_open)
 
-    assert_difference 'Activity.count' do
+    assert_difference "Activity.count" do
       subject.updated Event.new(name: "trackable", payload: {
-        gid: activity_subject.to_gid, admin_id: admin.id, site_id: site.id
-      })
+                                  gid: activity_subject.to_gid, admin_id: admin.id, site_id: site.id
+                                })
     end
 
     activity = Activity.last
     assert_equal activity_subject, activity.subject
     assert_equal admin, activity.author
     assert_equal "gobierto_budget_consultations.consultation.updated", activity.action
-    assert_nil   activity.recipient
+    assert_nil activity.recipient
     refute activity.admin_activity
     assert_equal site.id, activity.site_id
   end
@@ -46,17 +48,17 @@ class Subscribers::GobiertoBudgetConsultationsTest < ActiveSupport::TestCase
   def test_event_visibility_level_changed_for_gobierto_budget_consultations_consultation
     activity_subject = gobierto_budget_consultations_consultations(:madrid_open)
 
-    assert_difference 'Activity.count' do
+    assert_difference "Activity.count" do
       subject.visibility_level_changed Event.new(name: "trackable", payload: {
-        gid: activity_subject.to_gid, admin_id: admin.id, site_id: site.id
-      })
+                                                   gid: activity_subject.to_gid, admin_id: admin.id, site_id: site.id
+                                                 })
     end
 
     activity = Activity.last
     assert_equal activity_subject, activity.subject
     assert_equal admin, activity.author
     assert_equal "gobierto_budget_consultations.consultation.published", activity.action
-    assert_nil   activity.recipient
+    assert_nil activity.recipient
     refute activity.admin_activity
     assert_equal site.id, activity.site_id
   end

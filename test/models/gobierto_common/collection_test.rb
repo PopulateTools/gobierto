@@ -1,5 +1,7 @@
-require 'test_helper'
-require 'support/concerns/gobierto_attachments/attachable_test'
+# frozen_string_literal: true
+
+require "test_helper"
+require "support/concerns/gobierto_attachments/attachable_test"
 
 module GobiertoCommon
   class CollectionTest < ActiveSupport::TestCase

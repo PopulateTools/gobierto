@@ -1,9 +1,10 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 module GobiertoAdmin
   module GobiertoParticipation
     class ProcessEventsTest < ActionDispatch::IntegrationTest
-
       def setup
         super
         collection.append(event)
@@ -34,8 +35,8 @@ module GobiertoAdmin
           with_current_site(site) do
             visit edit_admin_participation_process_path(process)
 
-            within '.tabs' do
-              click_link 'Agenda'
+            within ".tabs" do
+              click_link "Agenda"
             end
 
             assert has_content?(event.title)
@@ -49,30 +50,30 @@ module GobiertoAdmin
             with_current_site(site) do
               visit edit_admin_participation_process_path(process)
 
-              within '.tabs' do
-                click_link 'Agenda'
+              within ".tabs" do
+                click_link "Agenda"
               end
 
-              click_link 'New event'
+              click_link "New event"
 
-              assert has_selector?('h1', text: process.title)
+              assert has_selector?("h1", text: process.title)
 
               fill_in "event_title_translations_en", with: "Event Title"
               fill_in "event_starts_at", with: "2017-01-01 00:00"
               fill_in "event_ends_at", with: "2017-01-01 00:01"
               find("#event_description_translations_en", visible: false).set("Event Description")
 
-              click_button 'Create'
+              click_button "Create"
 
-              assert has_message?('Event was successfully created.')
+              assert has_message?("Event was successfully created.")
 
-              assert has_selector?('h1', text: process.title)
+              assert has_selector?("h1", text: process.title)
 
-              within '.tabs' do
-                click_link 'Agenda'
+              within ".tabs" do
+                click_link "Agenda"
               end
 
-              assert has_content?('Event Title')
+              assert has_content?("Event Title")
             end
           end
         end
@@ -84,26 +85,26 @@ module GobiertoAdmin
             with_current_site(site) do
               visit edit_admin_participation_process_path(process)
 
-              within '.tabs' do
-                click_link 'Agenda'
+              within ".tabs" do
+                click_link "Agenda"
               end
 
               click_link event.title
 
-              assert has_selector?('h1', text: process.title)
+              assert has_selector?("h1", text: process.title)
 
-              fill_in 'event_title_translations_en', with: 'My event updated'
-              click_button 'Update'
+              fill_in "event_title_translations_en", with: "My event updated"
+              click_button "Update"
 
-              assert has_message?('Event was successfully updated')
+              assert has_message?("Event was successfully updated")
 
-              assert has_selector?('h1', text: process.title)
+              assert has_selector?("h1", text: process.title)
 
-              within '.tabs' do
-                click_link 'Agenda'
+              within ".tabs" do
+                click_link "Agenda"
               end
 
-              assert has_content?('My event updated')
+              assert has_content?("My event updated")
               refute has_content?(event.title)
             end
           end

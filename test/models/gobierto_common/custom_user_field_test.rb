@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class GobiertoCommon::CustomUserFieldTest < ActiveSupport::TestCase
@@ -6,7 +8,7 @@ class GobiertoCommon::CustomUserFieldTest < ActiveSupport::TestCase
   end
 
   def test_localized_title
-    subject.title = { 'en' => 'title en', 'es' => 'title es' }
-    assert_equal 'title en', subject.localized_title
+    subject.title = { "en" => "title en", "es" => "title es" }
+    assert_equal "title en", subject.localized_title
   end
 end

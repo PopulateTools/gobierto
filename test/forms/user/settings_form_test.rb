@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class User::SettingsFormTest < ActiveSupport::TestCase
   def valid_user_settings_form
     @valid_user_settings_form ||= User::SettingsForm.new(
       user_id: user.id,
-      name: 'Fulano',
-      email: 'example@example.org',
+      name: "Fulano",
+      email: "example@example.org",
       date_of_birth_day: 1,
       date_of_birth_month: 1,
       date_of_birth_year: 1982,

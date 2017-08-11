@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FileUploaderHelpers
   def with_stubbed_s3_file_upload
     FileUploader::S3.stub_any_instance(:call, public_url) do

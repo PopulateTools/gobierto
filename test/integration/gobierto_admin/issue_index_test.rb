@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -31,7 +33,7 @@ module GobiertoAdmin
               assert has_selector?("tr#issue-item-#{issue.id}")
 
               within "tr#issue-item-#{issue.id}" do
-                assert has_link?("#{issue.name}")
+                assert has_link?(issue.name.to_s)
               end
             end
           end

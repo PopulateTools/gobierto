@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require "support/concerns/gobierto_attachments/attachable_test"
 
 module GobiertoCms
   class PageTest < ActiveSupport::TestCase
-
     include GobiertoAttachments::AttachableTest
 
     def page

@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoPeople
   class PersonEventFormTest < ActiveSupport::TestCase
     def valid_event_form
       @valid_event_form ||= PersonEventForm.new(
-        external_id: '123',
+        external_id: "123",
         site_id: site.id,
         person_id: person.id,
         title: event.title,

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class Subscribers::UserActivityTest < ActiveSupport::TestCase
@@ -10,7 +12,7 @@ class Subscribers::UserActivityTest < ActiveSupport::TestCase
   end
 
   def subject
-    @subject ||= Subscribers::UserActivity.new('users')
+    @subject ||= Subscribers::UserActivity.new("users")
   end
 
   def user
@@ -26,11 +28,11 @@ class Subscribers::UserActivityTest < ActiveSupport::TestCase
   end
 
   def test_user_updated_event_handling
-    assert_difference 'Activity.count' do
+    assert_difference "Activity.count" do
       subject.user_updated Event.new(name: "users/user_updated", payload: {
-        author: admin, ip: IP, subject: user,
-        changes: { name: 'Foo' }
-      })
+                                       author: admin, ip: IP, subject: user,
+                                       changes: { name: "Foo" }
+                                     })
     end
 
     activity = Activity.last

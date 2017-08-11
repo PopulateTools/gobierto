@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -29,7 +31,7 @@ module GobiertoAdmin
               click_link cms_page.title
 
               refute has_content?("XLSX Attachment Name")
-              page.find('a.show-files').trigger('click')
+              page.find("a.show-files").trigger("click")
               assert has_content?("XLSX Attachment Name")
             end
           end
@@ -44,7 +46,7 @@ module GobiertoAdmin
 
               click_link cms_page.title
 
-              page.find('#show-modal').trigger('click')
+              page.find("#show-modal").trigger("click")
               assert has_content?("XLSX Attachment Name")
               assert has_content?("PDF Attachment Name")
             end

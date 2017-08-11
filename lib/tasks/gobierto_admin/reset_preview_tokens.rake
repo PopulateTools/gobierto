@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :gobierto_admin do
   desc "Regenerates admins preview token"
   task regenerate_preview_tokens: :environment do

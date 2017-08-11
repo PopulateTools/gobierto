@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :gobierto_people do
   namespace :counter_cache do
     desc "Resets Person-related counter cache fields"

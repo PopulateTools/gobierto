@@ -1,11 +1,12 @@
-require 'mechanize'
+# frozen_string_literal: true
+
+require "mechanize"
 
 module IbmNotes
   class InvalidCredentials < StandardError; end
   class ServiceUnavailable < StandardError; end
 
   class Api
-
     def self.get_person_events(params)
       make_request params
     end
@@ -56,10 +57,9 @@ module IbmNotes
 
     def self.agent
       agent = Mechanize.new
-      agent.user_agent_alias = 'Mac Safari'
+      agent.user_agent_alias = "Mac Safari"
       agent.agent.http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       agent
     end
-
   end
 end

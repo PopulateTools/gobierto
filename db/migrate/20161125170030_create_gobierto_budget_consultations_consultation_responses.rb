@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGobiertoBudgetConsultationsConsultationResponses < ActiveRecord::Migration[5.0]
   def change
     create_table :gbc_consultation_responses do |t|

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :common do
   namespace :active_notifier do
     desc "Actively seeks for events to notify"

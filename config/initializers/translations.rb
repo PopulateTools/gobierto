@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "i18n/backend/active_record"
 require "i18n/backend/fallbacks"
 
@@ -8,7 +10,7 @@ end
 module I18n
   module JS
     def self.translations
-     ::I18n::Backend::Simple.new.instance_eval do
+      ::I18n::Backend::Simple.new.instance_eval do
         init_translations unless initialized?
         Private::HashWithSymbolKeys.new(translations)
                                    .slice(*::I18n.available_locales)
@@ -18,7 +20,7 @@ module I18n
   end
 end
 
-Translation  = I18n::Backend::ActiveRecord::Translation
+Translation = I18n::Backend::ActiveRecord::Translation
 
 if Translation.table_exists?
   I18n.backend = I18n::Backend::ActiveRecord.new
@@ -31,6 +33,6 @@ if Translation.table_exists?
   I18n.backend = I18n::Backend::Chain.new(I18n.backend, I18n::Backend::Simple.new)
 end
 
-I18n.fallbacks.map(:ca => :es)
-I18n.fallbacks.map(:es => :ca)
-I18n.fallbacks.map(:en => :es)
+I18n.fallbacks.map(ca: :es)
+I18n.fallbacks.map(es: :ca)
+I18n.fallbacks.map(en: :es)

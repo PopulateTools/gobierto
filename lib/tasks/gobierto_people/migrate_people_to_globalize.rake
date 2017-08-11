@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :gobierto_people do
   namespace :globalize do
     desc "Migrates people fields to globalize"

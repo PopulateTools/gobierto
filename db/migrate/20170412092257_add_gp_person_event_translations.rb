@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddGpPersonEventTranslations < ActiveRecord::Migration[5.0]
   def change
     add_column :gp_person_events, :title_translations, :jsonb

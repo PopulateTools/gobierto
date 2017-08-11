@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 fixtures_to_load = [
   "sites",
   "users",
@@ -42,6 +44,6 @@ GobiertoPeople::PoliticalGroup.reset_position!
 Site.all.each do |site|
   if site.configuration.gobierto_people_enabled?
     GobiertoCommon::GobiertoSeeder::ModuleSeeder.seed("GobiertoPeople", site)
-    GobiertoCommon::GobiertoSeeder::ModuleSiteSeeder.seed(APP_CONFIG['site']['name'], "GobiertoPeople", site)
+    GobiertoCommon::GobiertoSeeder::ModuleSiteSeeder.seed(APP_CONFIG["site"]["name"], "GobiertoPeople", site)
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ForeceInternalIdToBeEmptyString < ActiveRecord::Migration[5.0]
   def up
     remove_index :content_blocks, name: "index_content_blocks_on_site_id_and_internal_id"

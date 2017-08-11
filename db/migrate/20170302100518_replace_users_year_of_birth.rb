@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReplaceUsersYearOfBirth < ActiveRecord::Migration[5.0]
   def up
     remove_column :users, :year_of_birth

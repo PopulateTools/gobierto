@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 namespace :gobierto_budgets do
   namespace :data do
-    desc 'Dump bubbles data'
+    desc "Dump bubbles data"
     task bubbles: :environment do
       Site.all.each do |site|
         place = site.place

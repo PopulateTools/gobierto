@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -6,9 +8,9 @@ module GobiertoAdmin
       def valid_page_form
         @valid_page_form ||= PageForm.new(
           site_id: site.id,
-          title_translations: {I18n.locale => page.title},
-          body_translations: {I18n.locale => page.body},
-          slug_translations: {I18n.locale => page.slug},
+          title_translations: { I18n.locale => page.title },
+          body_translations: { I18n.locale => page.body },
+          slug_translations: { I18n.locale => page.slug },
           visibility_level: page.visibility_level
         )
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class GobiertoPeople::ClearImportedPersonEventsJobTest < ActiveSupport::TestCase
@@ -7,7 +9,7 @@ class GobiertoPeople::ClearImportedPersonEventsJobTest < ActiveSupport::TestCase
 
   def test_perform
     event1 = gobierto_calendars_events(:richard_published)
-    event1.update_column(:external_id, 'richard_published')
+    event1.update_column(:external_id, "richard_published")
 
     GobiertoPeople::ClearImportedPersonEventsJob.new.perform(person)
 

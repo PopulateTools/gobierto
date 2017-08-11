@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -67,8 +69,8 @@ module GobiertoAdmin
         user_information = valid_consultation_response_form.consultation_response.user_information
         assert_equal "male", user_information["gender"]
         assert_equal "1992-01-01", user_information["date_of_birth"]
-        assert_equal user_information["district"], {"raw_value"=>"randomstring1", "localized_value"=>"Center"}
-        assert_equal user_information["association"], {"raw_value"=>"Foo", "localized_value"=>"Foo"}
+        assert_equal user_information["district"], "raw_value" => "randomstring1", "localized_value" => "Center"
+        assert_equal user_information["association"], "raw_value" => "Foo", "localized_value" => "Foo"
       end
 
       def test_error_messages_with_invalid_attributes

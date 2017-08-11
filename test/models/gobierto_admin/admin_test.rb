@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require "support/concerns/authentication/authenticable_test"
 require "support/concerns/authentication/confirmable_test"
@@ -93,7 +95,7 @@ module GobiertoAdmin
       refute admin.managing_user?
     end
 
-    def module_allowed?(module_namespace)
+    def module_allowed?(_module_namespace)
       refute admin.module_allowed?("GobiertoCms")
       assert admin.module_allowed?("GobiertoBudgetConsultations")
     end

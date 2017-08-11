@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
   class Admin::InvitationsControllerTest < GobiertoControllerTest
-
     def site
       @site ||= sites(:madrid)
     end
@@ -31,8 +32,8 @@ module GobiertoAdmin
     def valid_invitation_params
       {
         admin_invitation: {
-          emails: 'email1@example.com,email2@example.com',
-          site_ids: ['', site.id]
+          emails: "email1@example.com,email2@example.com",
+          site_ids: ["", site.id]
         }
       }
     end

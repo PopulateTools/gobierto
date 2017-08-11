@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 module GobiertoAdmin
   module GobiertoAttachments
@@ -25,18 +27,18 @@ module GobiertoAdmin
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
-              click_link 'Files'
-              assert has_selector?('h1', text: 'Files')
-              click_link 'PDF Collection Attachment Name'
+              click_link "Files"
+              assert has_selector?("h1", text: "Files")
+              click_link "PDF Collection Attachment Name"
 
-              fill_in 'file_attachment_name', with: 'File attachment name updated'
-              fill_in 'file_attachment_description', with: 'File attachment description updated'
+              fill_in "file_attachment_name", with: "File attachment name updated"
+              fill_in "file_attachment_description", with: "File attachment description updated"
 
-              click_button 'Update'
+              click_button "Update"
 
-              assert has_message?('Attachment updated successfully.')
-              assert has_field?('file_attachment_name', with: 'File attachment name updated')
-              assert has_field?('file_attachment_description', with: 'File attachment description updated')
+              assert has_message?("Attachment updated successfully.")
+              assert has_field?("file_attachment_name", with: "File attachment name updated")
+              assert has_field?("file_attachment_description", with: "File attachment description updated")
             end
           end
         end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module User::SubscriberTest
   def user_subscription
     @user_subscription ||= gobierto_budget_consultations_consultations(:madrid_open)

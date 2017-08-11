@@ -1,5 +1,6 @@
-class AddSlugToGobiertoPeoplePersonStatement < ActiveRecord::Migration[5.0]
+# frozen_string_literal: true
 
+class AddSlugToGobiertoPeoplePersonStatement < ActiveRecord::Migration[5.0]
   def up
     add_column :gp_person_statements, :slug, :string
     ::GobiertoPeople::PersonStatement.reset_column_information
@@ -23,5 +24,4 @@ class AddSlugToGobiertoPeoplePersonStatement < ActiveRecord::Migration[5.0]
       statement.save!
     end
   end
-
 end

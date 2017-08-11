@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :user do
   namespace :notification_digest_agent do
     desc "Delivers hourly notification digests"

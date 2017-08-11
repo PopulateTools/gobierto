@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeNameConstraintInUsers < ActiveRecord::Migration[5.0]
   def change
     change_column_null :users, :name, true

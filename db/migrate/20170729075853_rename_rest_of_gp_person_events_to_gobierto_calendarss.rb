@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RenameRestOfGpPersonEventsToGobiertoCalendarss < ActiveRecord::Migration[5.1]
   def change
     rename_table :gp_person_event_attendees, :gobierto_calendars_event_attendees

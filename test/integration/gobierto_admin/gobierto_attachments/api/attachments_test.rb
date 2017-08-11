@@ -1,10 +1,11 @@
-require 'test_helper'
-require 'base64'
+# frozen_string_literal: true
+
+require "test_helper"
+require "base64"
 
 module GobiertoAdmin
   module GobiertoAttachments
     class AttachmentTest < ActionDispatch::IntegrationTest
-
       def site
         @site ||= sites(:madrid)
       end
@@ -14,19 +15,19 @@ module GobiertoAdmin
       end
 
       def attachment_attributes
-        @attachment_attributes ||= %w[ id site_id name description file_name file_digest url file_size current_version created_at ]
+        @attachment_attributes ||= %w(id site_id name description file_name file_digest url file_size current_version created_at)
       end
 
       def pdf_file
-        @pdf_file ||= file_fixture('gobierto_attachments/attachment/pdf-attachment.pdf')
+        @pdf_file ||= file_fixture("gobierto_attachments/attachment/pdf-attachment.pdf")
       end
 
       def new_pdf_file
-        @new_pdf_file ||= file_fixture('gobierto_attachments/attachment/new-pdf-attachment.pdf')
+        @new_pdf_file ||= file_fixture("gobierto_attachments/attachment/new-pdf-attachment.pdf")
       end
 
       def xlsx_file
-        @xlsx_file ||= file_fixture('gobierto_attachments/attachment/xlsx-attachment.xlsx')
+        @xlsx_file ||= file_fixture("gobierto_attachments/attachment/xlsx-attachment.xlsx")
       end
 
       def pdf_attachment
@@ -49,7 +50,7 @@ module GobiertoAdmin
         get admin_attachments_api_attachments_path
 
         json_response = JSON.parse(response.body)
-        attachments = json_response['attachments']
+        attachments = json_response["attachments"]
         attachment = attachments.first
 
         assert_response :success
@@ -57,14 +58,14 @@ module GobiertoAdmin
         assert_equal 5, attachments.size
         assert array_match(attachment_attributes, attachment.keys)
 
-        assert_equal 'Attachment Name',                             attachment['name']
-        assert_equal 49,                                            attachment['file_size']
-        assert_equal 'attachment',                                  attachment['file_name']
-        assert_equal 'b6db2818dffd2fb2fc20836bebd59b87',            attachment['file_digest']
-        assert_equal 'http://host.com/attachments/attachment',      attachment['url']
-        assert_equal 'Description of attachment without extension', attachment['description']
-        assert_equal 3,                                             attachment['current_version']
-        assert_equal site.id,                                       attachment['site_id']
+        assert_equal "Attachment Name", attachment["name"]
+        assert_equal 49, attachment["file_size"]
+        assert_equal "attachment", attachment["file_name"]
+        assert_equal "b6db2818dffd2fb2fc20836bebd59b87", attachment["file_digest"]
+        assert_equal "http://host.com/attachments/attachment", attachment["url"]
+        assert_equal "Description of attachment without extension", attachment["description"]
+        assert_equal 3, attachment["current_version"]
+        assert_equal site.id, attachment["site_id"]
       end
 
       def test_attachments_index_for_attachable
@@ -78,20 +79,20 @@ module GobiertoAdmin
         get admin_attachments_api_attachments_path(payload)
 
         json_response = JSON.parse(response.body)
-        attachments = json_response['attachments']
+        attachments = json_response["attachments"]
         attachment = attachments.first
 
         assert_response :success
 
         assert_equal 1, json_response.size
-        assert_equal 'XLSX Attachment Name', attachment['name']
+        assert_equal "XLSX Attachment Name", attachment["name"]
       end
 
       def test_attachment_index_search
         login_admin_for_api(admin)
 
         payload = {
-          search_string: 'PDF'
+          search_string: "PDF"
         }
 
         ::GobiertoAttachments::Attachment.stubs(:search).returns([pdf_attachment])
@@ -99,12 +100,12 @@ module GobiertoAdmin
         get admin_attachments_api_attachments_path(payload)
 
         json_response = JSON.parse(response.body)
-        attachments = json_response['attachments']
+        attachments = json_response["attachments"]
 
         assert_response :success
 
         assert_equal 1, attachments.size
-        assert_equal 'PDF Attachment Name', attachments.first['name']
+        assert_equal "PDF Attachment Name", attachments.first["name"]
       end
 
       def test_attachments_show_success
@@ -113,13 +114,13 @@ module GobiertoAdmin
         get admin_attachments_api_attachment_path(pdf_attachment.id)
 
         json_response = JSON.parse(response.body)
-        attachment = json_response['attachment']
+        attachment = json_response["attachment"]
 
         assert_response :success
 
         assert array_match(attachment_attributes, attachment.keys)
-        assert_equal 'PDF Attachment Name', attachment['name']
-        assert_equal 'http://host.com/attachments/pdf-attachment.pdf', attachment['url']
+        assert_equal "PDF Attachment Name", attachment["name"]
+        assert_equal "http://host.com/attachments/pdf-attachment.pdf", attachment["url"]
       end
 
       def test_attachments_show_error
@@ -137,35 +138,35 @@ module GobiertoAdmin
 
         payload = {
           attachment: {
-            name: 'New attachment name',
-            description: 'New attachment description',
-            file_name: 'new-pdf-attachment.pdf',
+            name: "New attachment name",
+            description: "New attachment description",
+            file_name: "new-pdf-attachment.pdf",
             file: ::Base64.strict_encode64(new_pdf_file.read)
           }
         }
 
-        ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns('http://host.com/attachments/new-pdf-attachment.pdf')
+        ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns("http://host.com/attachments/new-pdf-attachment.pdf")
 
         post admin_attachments_api_attachments_path(payload)
 
         response_body = JSON.parse(response.body)
-        attachment = response_body['attachment']
+        attachment = response_body["attachment"]
 
         assert_response :success
 
         assert array_match(attachment_attributes, attachment.keys)
 
-        assert_equal 'New attachment name',                                attachment['name']
-        assert_equal 'new-pdf-attachment.pdf',                             attachment['file_name']
-        assert_equal 'http://host.com/attachments/new-pdf-attachment.pdf', attachment['url']
-        assert_equal 1,                                                    attachment['current_version']
+        assert_equal "New attachment name", attachment["name"]
+        assert_equal "new-pdf-attachment.pdf", attachment["file_name"]
+        assert_equal "http://host.com/attachments/new-pdf-attachment.pdf", attachment["url"]
+        assert_equal 1, attachment["current_version"]
       end
 
       def test_attachments_create_error
         login_admin_for_api(admin)
 
         payload = {
-          attachment: { name: 'Incomplete attachment info' }
+          attachment: { name: "Incomplete attachment info" }
         }
 
         post admin_attachments_api_attachments_path, params: payload
@@ -173,7 +174,7 @@ module GobiertoAdmin
         response_body = JSON.parse(response.body)
 
         assert_response :bad_request
-        assert_equal 'Invalid payload', response_body['error']
+        assert_equal "Invalid payload", response_body["error"]
       end
 
       def test_attachments_update_success
@@ -182,14 +183,14 @@ module GobiertoAdmin
         payload = {
           attachment: {
             id: pdf_attachment.id,
-            name: 'Replace with new PDF file',
+            name: "Replace with new PDF file",
             description: nil,
-            file_name: 'new-pdf-attachment.pdf',
+            file_name: "new-pdf-attachment.pdf",
             file: ::Base64.strict_encode64(new_pdf_file.read)
           }
         }
 
-        ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns('http://host.com/attachments/new-pdf-attachment.pdf')
+        ::GobiertoAdmin::FileUploadService.any_instance.stubs(:call).returns("http://host.com/attachments/new-pdf-attachment.pdf")
 
         patch admin_attachments_api_attachment_path(pdf_attachment.id), params: payload
 
@@ -197,27 +198,27 @@ module GobiertoAdmin
 
         db_pdf_attachment = ::GobiertoAttachments::Attachment.find(pdf_attachment.id)
 
-        assert_equal 'Replace with new PDF file',                          db_pdf_attachment.name
-        assert_nil                                                         db_pdf_attachment.description
-        assert_equal 'new-pdf-attachment.pdf',                             db_pdf_attachment.file_name
-        assert_equal 'http://host.com/attachments/new-pdf-attachment.pdf', db_pdf_attachment.url
-        assert_equal 2,                                                    db_pdf_attachment.current_version
+        assert_equal "Replace with new PDF file", db_pdf_attachment.name
+        assert_nil db_pdf_attachment.description
+        assert_equal "new-pdf-attachment.pdf", db_pdf_attachment.file_name
+        assert_equal "http://host.com/attachments/new-pdf-attachment.pdf", db_pdf_attachment.url
+        assert_equal 2, db_pdf_attachment.current_version
 
         # Check HTTP response returns updated info
 
         response_body = JSON.parse(response.body)
-        attachment = response_body['attachment']
+        attachment = response_body["attachment"]
 
         assert_response :success
 
         assert array_match(attachment_attributes, attachment.keys)
 
-        assert_equal pdf_attachment.id,                                    attachment['id']
-        assert_equal 'Replace with new PDF file',                          attachment['name']
-        assert_nil                                                         attachment['description']
-        assert_equal 'new-pdf-attachment.pdf',                             attachment['file_name']
-        assert_equal 'http://host.com/attachments/new-pdf-attachment.pdf', attachment['url']
-        assert_equal 2,                                                    attachment['current_version']
+        assert_equal pdf_attachment.id, attachment["id"]
+        assert_equal "Replace with new PDF file", attachment["name"]
+        assert_nil attachment["description"]
+        assert_equal "new-pdf-attachment.pdf", attachment["file_name"]
+        assert_equal "http://host.com/attachments/new-pdf-attachment.pdf", attachment["url"]
+        assert_equal 2, attachment["current_version"]
       end
 
       def test_attachments_destroy_success
@@ -251,7 +252,6 @@ module GobiertoAdmin
 
         assert_response :not_found
       end
-
     end
   end
 end

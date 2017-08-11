@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -8,8 +10,8 @@ module GobiertoAdmin
           admin_id: admin.id,
           site_id: site.id,
           name: person.name,
-          charge_translations: {I18n.locale => person.charge},
-          bio_translations: {I18n.locale => person.bio},
+          charge_translations: { I18n.locale => person.charge },
+          bio_translations: { I18n.locale => person.bio },
           bio_url: person.bio_url,
           visibility_level: person.visibility_level,
           category: person.category,
@@ -80,7 +82,6 @@ module GobiertoAdmin
 
         assert person_form.valid?
       end
-
     end
   end
 end

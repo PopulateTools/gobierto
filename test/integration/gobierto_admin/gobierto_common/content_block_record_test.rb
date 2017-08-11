@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
   module GobiertoCommon
     module ContentBlockRecords
       class ContentBlockRecordTest < ActionDispatch::IntegrationTest
-
         def setup
           super
           @path = edit_admin_people_person_path(gobierto_people_people(:richard))
@@ -69,7 +70,6 @@ module GobiertoAdmin
                   assert has_text? "Accomplishment 2 Title"
                   assert has_content?("document-1.pdf", count: 1)
                 end
-
               end
             end
           end
@@ -125,7 +125,6 @@ module GobiertoAdmin
                   assert has_content? "Ate 33 meatballs in 45 minutes"
                   refute has_content? "meatballs_photo.png"
                 end
-
               end
             end
           end
@@ -155,12 +154,10 @@ module GobiertoAdmin
 
                   assert has_content? "Ate 33 meatballs in 45 minutes"
                 end
-
               end
             end
           end
         end
-
       end
     end
   end

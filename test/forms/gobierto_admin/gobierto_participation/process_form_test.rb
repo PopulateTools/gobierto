@@ -1,9 +1,10 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 module GobiertoAdmin
   module GobiertoParticipation
     class ProcessFormTest < ActiveSupport::TestCase
-
       def valid_process_form
         @valid_process_form ||= ProcessForm.new(
           site_id: site.id,
@@ -46,8 +47,8 @@ module GobiertoAdmin
           body_translations: nil,
           slug: nil,
           process_type: group.process_type,
-          starts: Date.parse('2017-01-02'),
-          ends: Date.parse('2017-01-03')
+          starts: Date.parse("2017-01-02"),
+          ends: Date.parse("2017-01-03")
         )
       end
 
@@ -98,7 +99,6 @@ module GobiertoAdmin
         assert_equal 0, invalid_group_form.errors.messages[:starts].size
         assert_equal 0, invalid_group_form.errors.messages[:ends].size
       end
-
     end
   end
 end

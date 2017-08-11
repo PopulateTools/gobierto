@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -70,19 +72,19 @@ module GobiertoAdmin
         end
 
         invite_email = ActionMailer::Base.deliveries.last
-        assert_equal 'admin@email.dev', invite_email.to[0]
+        assert_equal "admin@email.dev", invite_email.to[0]
       end
 
-      open_email('admin@email.dev')
-      current_email.click_link current_email.first('a').text
+      open_email("admin@email.dev")
+      current_email.click_link current_email.first("a").text
 
       assert has_message?("Signed in successfully")
 
       assert has_content?("Edit your data")
 
       assert has_field?("admin_email", with: "admin@email.dev")
-      fill_in :admin_password, with: 'gobierto'
-      fill_in :admin_password_confirmation, with: 'gobierto'
+      fill_in :admin_password, with: "gobierto"
+      fill_in :admin_password_confirmation, with: "gobierto"
       click_button "Update"
 
       assert has_message?("Data updated successfully")
@@ -133,6 +135,5 @@ module GobiertoAdmin
         assert has_content?("Sites is too short (minimum at least 1 element)")
       end
     end
-
   end
 end

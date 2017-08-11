@@ -1,8 +1,9 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 module GobiertoParticipation
   class ProcessEventsIndexTest < ActionDispatch::IntegrationTest
-
     def site
       @site ||= sites(:madrid)
     end
@@ -26,9 +27,9 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_events_path
 
-        within '.global_breadcrumb' do
-          assert has_link? 'Participation'
-          assert has_link? 'Processes'
+        within ".global_breadcrumb" do
+          assert has_link? "Participation"
+          assert has_link? "Processes"
           assert has_link? process.title
         end
       end
@@ -38,12 +39,12 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_events_path
 
-        within 'menu.sub_sections' do
-          assert has_link? 'About'
-          assert has_link? 'Issues'
-          assert has_link? 'Processes'
-          assert has_link? 'Ask'
-          assert has_link? 'Ideas'
+        within "menu.sub_sections" do
+          assert has_link? "About"
+          assert has_link? "Issues"
+          assert has_link? "Processes"
+          assert has_link? "Ask"
+          assert has_link? "Ideas"
         end
       end
     end
@@ -52,13 +53,12 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_events_path
 
-        within 'menu.secondary_nav' do
-          assert has_link? 'News'
-          assert has_link? 'Agenda'
-          assert has_link? 'Documents'
-          assert has_link? 'Activity'
+        within "menu.secondary_nav" do
+          assert has_link? "News"
+          assert has_link? "Agenda"
+          assert has_link? "Documents"
+          assert has_link? "Activity"
         end
-
       end
     end
 
@@ -66,8 +66,8 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_events_path
 
-        within '.site_header' do
-          skip 'Not yet defined'
+        within ".site_header" do
+          skip "Not yet defined"
         end
       end
     end
@@ -76,24 +76,22 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_events_path
 
-        within '.events_list' do
-          assert_equal process_events.size, all('.person_event-item').size
+        within ".events_list" do
+          assert_equal process_events.size, all(".person_event-item").size
 
-          assert has_content? 'Swimming lessons for elders'
-          assert has_link? 'Instalaciones Deportivas Canal de Isabel II'
+          assert has_content? "Swimming lessons for elders"
+          assert has_link? "Instalaciones Deportivas Canal de Isabel II"
 
-          assert has_content? 'Intensive reading club in english'
+          assert has_content? "Intensive reading club in english"
         end
 
-        within '.content_side' do
-          assert has_content? 'Agenda'
+        within ".content_side" do
+          assert has_content? "Agenda"
           # TODO: refute has_content? "Agenda for #{process.title}"
 
-          assert_equal process_events.size, all('.has-events').size
+          assert_equal process_events.size, all(".has-events").size
         end
-
       end
     end
-
   end
 end

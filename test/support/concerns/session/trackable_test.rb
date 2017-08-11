@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Session::TrackableTest
   def test_update_session_data
     remote_ip = IPAddr.new("0.0.0.0")

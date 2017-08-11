@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :gobierto_cms do
   namespace :globalize do
     desc "Migrates pages fields to globalize"

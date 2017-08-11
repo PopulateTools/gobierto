@@ -1,14 +1,15 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoPeople
   class PersonMessageTest < ActiveSupport::TestCase
-
     def person
       @person ||= gobierto_people_people(:richard)
     end
 
     def subject
-      @subject ||= GobiertoPeople::PersonMessage.new name: 'Sender', email: 'foo@example.com', person: person, body: 'This is my message'
+      @subject ||= GobiertoPeople::PersonMessage.new name: "Sender", email: "foo@example.com", person: person, body: "This is my message"
     end
 
     def test_valid

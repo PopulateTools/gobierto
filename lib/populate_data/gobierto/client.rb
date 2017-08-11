@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "uri"
 require "net/http"
 require "json"
@@ -68,7 +70,6 @@ module PopulateData
 
         http_client
       end
-
     end
   end
 end

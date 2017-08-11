@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require "support/concerns/user/subscribable_test"
 require "support/concerns/gobierto_common/sluggable_test"
@@ -14,7 +16,7 @@ module GobiertoPeople
 
     def new_person_post
       ::GobiertoPeople::PersonPost.create!(
-        title: 'Person Post Title',
+        title: "Person Post Title",
         person: gobierto_people_people(:richard),
         site: sites(:madrid)
       )

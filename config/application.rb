@@ -1,4 +1,6 @@
-require_relative 'boot'
+# frozen_string_literal: true
+
+require_relative "boot"
 
 require "rails"
 require "active_model/railtie"
@@ -21,7 +23,7 @@ Bundler.require(*Rails.groups)
 
 module Gobierto
   class Application < Rails::Application
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+    config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}").to_s]
     config.i18n.default_locale = :es
     config.i18n.available_locales = [:es, :en, :ca]
 
@@ -29,10 +31,8 @@ module Gobierto
       g.test_framework :minitest, spec: false, fixture: true
     end
 
-    config.action_dispatch.default_headers.merge!({
-      'Access-Control-Allow-Origin' => '*',
-      'Access-Control-Request-Method' => '*'
-    })
+    config.action_dispatch.default_headers.merge!("Access-Control-Allow-Origin" => "*",
+                                                  "Access-Control-Request-Method" => "*")
 
     config.active_job.queue_adapter = :async
 
@@ -49,9 +49,8 @@ module Gobierto
     ]
 
     # Do not add wrapper .field_with_errors around form fields with validation errors
-    config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
+    config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag }
 
-    config.time_zone = 'Madrid'
+    config.time_zone = "Madrid"
   end
 end
-

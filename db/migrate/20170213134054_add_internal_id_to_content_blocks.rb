@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddInternalIdToContentBlocks < ActiveRecord::Migration[5.0]
   def change
     add_column :content_blocks, :internal_id, :string

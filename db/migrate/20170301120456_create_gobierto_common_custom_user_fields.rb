@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class CreateGobiertoCommonCustomUserFields < ActiveRecord::Migration[5.0]
   def change
-    enable_extension 'hstore' unless extension_enabled?('hstore')
+    enable_extension "hstore" unless extension_enabled?("hstore")
 
     create_table :custom_user_fields do |t|
       t.references :site

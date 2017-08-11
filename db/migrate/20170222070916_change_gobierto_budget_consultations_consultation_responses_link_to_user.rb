@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeGobiertoBudgetConsultationsConsultationResponsesLinkToUser < ActiveRecord::Migration[5.0]
   def up
     remove_index :gbc_consultation_responses, name: "index_gbc_consultation_responses_on_user_id"

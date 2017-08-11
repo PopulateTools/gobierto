@@ -1,9 +1,10 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 module GobiertoAdmin
   module GobiertoAttachments
     class AttachingTest < ActionDispatch::IntegrationTest
-
       def site
         @site ||= sites(:madrid)
       end
@@ -29,7 +30,7 @@ module GobiertoAdmin
       end
 
       def attachment_attributes
-        @attachment_attributes ||= %w[ id site_id name description file_name file_digest url file_size current_version created_at ]
+        @attachment_attributes ||= %w(id site_id name description file_name file_digest url file_size current_version created_at)
       end
 
       def test_attachings_create_success
@@ -44,14 +45,14 @@ module GobiertoAdmin
         post admin_attachments_api_attachings_path(payload)
 
         response_body = JSON.parse(response.body)
-        attachment = response_body['attachment']
+        attachment = response_body["attachment"]
 
         assert_response :success
 
         assert array_match(attachment_attributes, attachment.keys)
 
-        assert_equal 'PDF Attachment Name',                            attachment['name']
-        assert_equal 'http://host.com/attachments/pdf-attachment.pdf', attachment['url']
+        assert_equal "PDF Attachment Name", attachment["name"]
+        assert_equal "http://host.com/attachments/pdf-attachment.pdf", attachment["url"]
         assert_equal 2, cms_page.reload.attachments.count
       end
 
@@ -104,7 +105,6 @@ module GobiertoAdmin
 
         assert_response :not_found
       end
-
     end
   end
 end

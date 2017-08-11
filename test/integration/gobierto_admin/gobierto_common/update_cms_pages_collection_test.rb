@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 module GobiertoAdmin
   module GobiertoCommon
@@ -27,17 +29,17 @@ module GobiertoAdmin
               visit @path
 
               within "tr#collection-item-#{collection.id}" do
-                page.find('a.open_remote_modal').trigger('click')
+                page.find("a.open_remote_modal").trigger("click")
               end
 
-              within 'form.edit_collection' do
-                fill_in 'collection_title_translations_en', with: 'News updated'
-                fill_in 'collection_slug', with: 'news-updated'
+              within "form.edit_collection" do
+                fill_in "collection_title_translations_en", with: "News updated"
+                fill_in "collection_slug", with: "news-updated"
 
-                click_button 'Update'
+                click_button "Update"
               end
 
-              assert has_message?('Collection was successfully updated.')
+              assert has_message?("Collection was successfully updated.")
             end
           end
         end

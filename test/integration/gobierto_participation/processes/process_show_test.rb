@@ -1,8 +1,9 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 module GobiertoParticipation
   class ProcessShowTest < ActionDispatch::IntegrationTest
-
     def setup
       super
       @path = gobierto_participation_process_path(gender_violence_process.slug)
@@ -24,9 +25,9 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within '.global_breadcrumb' do
-          assert has_link? 'Participation'
-          assert has_link? 'Processes'
+        within ".global_breadcrumb" do
+          assert has_link? "Participation"
+          assert has_link? "Processes"
           assert has_link? gender_violence_process.title
         end
       end
@@ -36,12 +37,12 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within 'menu.sub_sections' do
-          assert has_link? 'Information'
-          assert has_link? 'Meetings'
-          assert has_link? 'Polls'
-          assert has_link? 'Contributions'
-          assert has_link? 'Results'
+        within "menu.sub_sections" do
+          assert has_link? "Information"
+          assert has_link? "Meetings"
+          assert has_link? "Polls"
+          assert has_link? "Contributions"
+          assert has_link? "Results"
         end
       end
     end
@@ -50,11 +51,11 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within 'menu.secondary_nav' do
-          assert has_link? 'News'
-          assert has_link? 'Agenda'
-          assert has_link? 'Documents'
-          assert has_link? 'Activity'
+        within "menu.secondary_nav" do
+          assert has_link? "News"
+          assert has_link? "Agenda"
+          assert has_link? "Documents"
+          assert has_link? "Activity"
         end
 
         # TODO: check that these links redirect to their corresponding pages
@@ -66,8 +67,8 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within '.site_header' do
-          assert has_content? 'Follow this process'
+        within ".site_header" do
+          assert has_content? "Follow this process"
         end
       end
     end
@@ -76,16 +77,16 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within '.container' do
+        within ".container" do
           assert has_content? gender_violence_process.title
           assert has_content? gender_violence_process.body
 
-          assert has_content? 'Interesting information'
+          assert has_content? "Interesting information"
 
-          process_duration_text = "#{gender_violence_process.starts.strftime('%e/%m/%y')} to #{gender_violence_process.ends.strftime('%e/%m/%y')}"
+          process_duration_text = "#{gender_violence_process.starts.strftime("%e/%m/%y")} to #{gender_violence_process.ends.strftime("%e/%m/%y")}"
 
           assert has_content? process_duration_text
-          assert has_content? 'Women'
+          assert has_content? "Women"
           # TODO: assert has_content? 'Strategic' (~Ámbito)
         end
       end
@@ -95,11 +96,11 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        assert_equal gender_violence_process.news.size, all('.place_news-item').size
+        assert_equal gender_violence_process.news.size, all(".place_news-item").size
 
-        news_titles = gender_violence_process.news.map { |notice| notice.title }
+        news_titles = gender_violence_process.news.map(&:title)
 
-        assert array_match ['Notice 1 title', 'Notice 2 title'], news_titles
+        assert array_match ["Notice 1 title", "Notice 2 title"], news_titles
       end
     end
 
@@ -107,7 +108,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit gobierto_participation_process_path(green_city_group.slug)
 
-        assert has_content? 'There are no related news'
+        assert has_content? "There are no related news"
       end
     end
 
@@ -115,11 +116,11 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        assert_equal gender_violence_process.events.size, all('.place_event-item').size
+        assert_equal gender_violence_process.events.size, all(".place_event-item").size
 
-        events_titles = gender_violence_process.events.map { |event| event.title }
+        events_titles = gender_violence_process.events.map(&:title)
 
-        assert array_match ['Intensive reading club in english', 'Swimming lessons for elders'], events_titles
+        assert array_match ["Intensive reading club in english", "Swimming lessons for elders"], events_titles
       end
     end
 
@@ -127,7 +128,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit gobierto_participation_process_path(green_city_group.slug)
 
-        assert has_content? 'There are no related events'
+        assert has_content? "There are no related events"
       end
     end
 
@@ -135,7 +136,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        skip 'Not yet defined'
+        skip "Not yet defined"
       end
     end
 
@@ -143,8 +144,8 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within '.timeline' do
-          assert_equal gender_violence_process.stages.size, all('.timeline_row').size
+        within ".timeline" do
+          assert_equal gender_violence_process.stages.size, all(".timeline_row").size
         end
       end
     end
@@ -153,9 +154,8 @@ module GobiertoParticipation
       with_current_site(site) do
         visit gobierto_participation_process_path(green_city_group.slug)
 
-        refute has_content? 'Process stages'
+        refute has_content? "Process stages"
       end
     end
-
   end
 end

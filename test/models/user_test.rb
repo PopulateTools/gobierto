@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require "support/concerns/authentication/authenticable_test"
 require "support/concerns/authentication/confirmable_test"

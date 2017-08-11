@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
   class SiteFormTest < ActiveSupport::TestCase
     def valid_site_form
       @valid_site_form ||= SiteForm.new(
-        title_translations: {I18n.locale => site.title},
-        name_translations: {I18n.locale => new_site_name}, # To ensure uniqueness
+        title_translations: { I18n.locale => site.title },
+        name_translations: { I18n.locale => new_site_name }, # To ensure uniqueness
         domain: new_site_domain, # To ensure uniqueness
         location_name: site.location_name,
         municipality_id: 1,
         visibility_level: "active",
-        default_locale: 'es',
-        available_locales: ['es', 'ca'],
+        default_locale: "es",
+        available_locales: %w(es ca),
         privacy_page_id: privacy_page.id
       )
     end
@@ -30,17 +32,13 @@ module GobiertoAdmin
 
     def valid_google_analytics_id_site_form
       @valid_google_analytics_id_site_form ||= SiteForm.new(
-        valid_site_form.instance_values.merge({
-          google_analytics_id: "UA-000000-01"
-        })
+        valid_site_form.instance_values.merge(google_analytics_id: "UA-000000-01")
       )
     end
 
     def invalid_google_analytics_id_site_form
       @invalid_google_analytics_id_site_form ||= SiteForm.new(
-        valid_site_form.instance_values.merge({
-          google_analytics_id: "UA-WADUS"
-        })
+        valid_site_form.instance_values.merge(google_analytics_id: "UA-WADUS")
       )
     end
 

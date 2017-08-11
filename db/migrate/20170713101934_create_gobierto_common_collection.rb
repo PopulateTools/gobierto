@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGobiertoCommonCollection < ActiveRecord::Migration[5.1]
   def change
     create_table :collections do |t|

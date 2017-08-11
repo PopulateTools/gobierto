@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Integration
   module DynamicContentHelpers
     def content_blocks

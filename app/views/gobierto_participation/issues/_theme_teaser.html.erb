@@ -2,7 +2,9 @@
   <%= link_to gobierto_participation_issue_path(issue), class: 'content_block themed' do %>
     <div class="circle_teaser"></div>
       <h3><%= issue.name %></h3>
-      <p class="soft">Test</p>
+      <p class="soft">
+        <%= issue.description %>
+      </p>
 
       <% if meta %>
         <div class="meta right">

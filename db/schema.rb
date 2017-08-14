@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_170_802_134_830) do
+ActiveRecord::Schema.define(version: 20_170_814_214_010) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
@@ -469,6 +469,7 @@ ActiveRecord::Schema.define(version: 20_170_802_134_830) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position", default: 0, null: false
+    t.jsonb "description_translations"
     t.index ["name_translations"], name: "index_issues_on_name_translations", using: :gin
     t.index ["position"], name: "index_issues_on_position"
     t.index ["site_id"], name: "index_issues_on_site_id"

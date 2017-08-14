@@ -8,9 +8,9 @@ class Issue < ApplicationRecord
   belongs_to :site
   has_many :collection_items, as: :container
 
-  translates :name, :slug
+  translates :name, :slug, :description
 
-  validates :site, :name, :slug, presence: true
+  validates :site, :name, :description, :slug, presence: true
   validate :uniqueness_of_slug
   validate :uniqueness_of_name
 

@@ -6,6 +6,7 @@ module GobiertoAdmin
       :id,
       :site_id,
       :name_translations,
+      :description_translations,
       :slug_translations
     )
 
@@ -43,6 +44,7 @@ module GobiertoAdmin
       @issue = issue.tap do |issue_attributes|
         issue_attributes.site_id = site_id
         issue_attributes.name_translations = name_translations
+        issue_attributes.description_translations = description_translations
         issue_attributes.slug_translations = slug_translations
       end
 

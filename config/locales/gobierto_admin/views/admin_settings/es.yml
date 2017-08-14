@@ -1,8 +1,0 @@
----
-es:
-  gobierto_admin:
-    admin:
-      settings:
-        edit:
-          password_block: Contraseña
-          title: Edita tus datos personales

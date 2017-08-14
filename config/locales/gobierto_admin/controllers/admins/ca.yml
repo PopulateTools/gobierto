@@ -1,8 +1,0 @@
----
-ca:
-  gobierto_admin:
-    admins:
-      create:
-        success: El Admin s'ha creat correctament
-      update:
-        success: El Admin s'ha actualizat correctament

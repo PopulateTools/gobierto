@@ -1,6 +1,0 @@
----
-es:
-  gobierto_admin:
-    users:
-      update:
-        success: El Usuario ha sido actualizado correctamente

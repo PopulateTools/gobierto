@@ -1,9 +1,0 @@
----
-ca:
-  gobierto_admin:
-    gobierto_people:
-      configuration:
-        settings:
-          update:
-            error: Hi ha hagut un error guardant les preferències
-            success: Preferències actualitzades correctament

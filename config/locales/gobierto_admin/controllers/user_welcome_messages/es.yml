@@ -1,9 +1,0 @@
----
-es:
-  gobierto_admin:
-    users:
-      welcome_messages:
-        create:
-          error: El mensaje de bienvenida no pudo ser enviado. Por favor, inténtalo
-            de nuevo.
-          success: El mensaje de bienvenida se ha enviado

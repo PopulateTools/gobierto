@@ -1,9 +1,0 @@
----
-es:
-  user:
-    census_verifications:
-      create:
-        error: No se ha podido verificar tu identidad. Por favor verifica tus datos
-          y vuelve a intentarlo. Si el problema persiste, ponte en contacto con tu
-          administración local.
-        notice: Tu identidad se ha verificado correctamente

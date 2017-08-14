@@ -1,7 +1,0 @@
----
-es:
-  user:
-    notifications:
-      index:
-        no_new_notifications: No hay notificaciones nuevas
-        title: Actividad reciente

@@ -1,9 +1,0 @@
----
-ca:
-  gobierto_admin:
-    users:
-      welcome_messages:
-        create:
-          error: El missatge de benvinguda no s'ha pogut enviar. Per favor, tria de
-            nou.
-          success: El missatge de benvinguda s'ha enviat

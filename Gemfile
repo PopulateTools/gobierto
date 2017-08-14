@@ -64,6 +64,7 @@ gem "redis", "~> 3.3"
 # Translations
 gem "i18n-active_record", require: "i18n/active_record"
 gem "json_translate", "~> 3.0"
+gem "translation"
 
 # Liquid
 gem "liquid", "~> 4.0"

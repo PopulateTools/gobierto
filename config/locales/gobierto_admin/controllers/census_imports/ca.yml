@@ -1,9 +1,0 @@
----
-ca:
-  gobierto_admin:
-    census:
-      imports:
-        create:
-          error: Hi ha hagut un error al importar el teu arxiu. Per favor, tria de
-            nou.
-          success: S'ha importat %{record_count} registres

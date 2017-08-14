@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 class Issue < ApplicationRecord
   include GobiertoCommon::Sortable
   include User::Subscribable
+  include GobiertoCommon::ActsAsCollectionContainer
 
   belongs_to :site
   has_many :collection_items, as: :container
@@ -12,6 +15,10 @@ class Issue < ApplicationRecord
   validate :uniqueness_of_name
 
   scope :sorted, -> { order(position: :asc, created_at: :desc) }
+
+  def self.alphabetically_sorted
+    all.sort_by(&:name)
+  end
 
   def self.find_by_slug!(slug)
     if slug.present?

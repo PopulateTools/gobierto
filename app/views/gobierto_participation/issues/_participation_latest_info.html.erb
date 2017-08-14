@@ -1,0 +1,40 @@
+<div class="gradient-bg">
+  <div class="column">
+    <h2 class="with_separator">Alcobendas al día</h2>
+
+    <div class="pure-g agenda three_by_three">
+      <div class="pure-u-1 pure-u-md-1-3 center">
+        <h3 class="agenda_title">Agenda</h3>
+        <div class="p_1  content_block">
+          <% @issue_events.each do |event| %>
+            <%= render 'gobierto_participation/processes/place_event', { event: event } %>
+          <% end %>
+        </div>
+
+        <a href="participation_agenda.html">Ver más eventos</a>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-1-3 center">
+        <h3 class="agenda_title">Lo último</h3>
+        <div class="p_1  content_block">
+          <% @issue_events.each do |event| %>
+            <%= render 'gobierto_participation/processes/place_event', { event: event } %>
+          <% end %>
+        </div>
+
+        <a href="#">Ver más actualizaciones</a>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-1-3 center">
+        <h3 class="agenda_title">Noticias</h3>
+        <div class="p_1  content_block">
+          <% @issue_news.each do |notice| %>
+            <%= render 'gobierto_participation/processes/place_news', { notice: notice } %>
+          <% end %>
+        </div>
+
+        <a href="participation_news.html">Ver más noticias</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -22,6 +22,27 @@ en:
           where we will discuss in person the topics of this process. If you can not
           attend, we will publish online everything that is said in the meetings to
           facilitate the follow-up and make the conclusions accessible.
+    issues:
+      current_group:
+        current_stage: Current stage
+      index:
+        intro: Your ideas help improve% {location_name} and the lives of all that
+          we reside here. Bring your best ideas to our <strong> permanent spaces participation
+          </ strong>
+      participation_groups:
+        work_groups_description: Check the activity of each group and participate.
+        work_groups_title: Work groups
+      participation_latest_info:
+        agenda: Diary
+        news: News
+        show_more_events: See more events
+        show_more_news: See more news
+        show_more_updates: See more updates
+        the_last: The last
+        up_to_date: "%{location_name} up to date"
+      participation_proccesses:
+        processes_description: Consultation and participation in specific processes.
+        processes_title: Processes in progress
     layouts:
       application:
         title: Participation

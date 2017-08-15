@@ -11,6 +11,7 @@ module GobiertoParticipation
       @issue_news = find_issue_news
       @issue_events = find_issue_events
       @processes = current_site.processes.process.open
+      @groups = current_site.processes.group_process
     end
 
     private

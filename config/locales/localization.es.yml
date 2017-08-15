@@ -20,6 +20,16 @@ es:
     - :day
     - :month
     - :year
+  support:
+    array:
+      last_word_connector: " y "
+      two_words_connector: " y "
+      words_connector: ", "
+  time:
+    formats:
+      default: "%A, %d de %B de %Y %H:%M:%S %z"
+      long: "%d de %B de %Y %H:%M"
+      short: "%d de %b %H:%M"
   number:
     currency:
       format:
@@ -51,20 +61,9 @@ es:
     percentage:
       format:
         delimiter: ''
-        format: "%n%"
     precision:
       format:
         delimiter: ''
-  support:
-    array:
-      last_word_connector: " y "
-      two_words_connector: " y "
-      words_connector: ", "
-  time:
-    formats:
-      default: "%A, %d de %B de %Y %H:%M:%S %z"
-      long: "%d de %B de %Y %H:%M"
-      short: "%d de %b %H:%M"
   spree:
     date_picker:
       first_day: 1

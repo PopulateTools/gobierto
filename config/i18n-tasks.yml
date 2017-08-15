@@ -1,9 +1,12 @@
-base_locale: es
-locales: [en, es, ca]
+base_locale: en
+locales: [en]
 data:
   read:
+    - config/locales/*.%{locale}.yml
+    - config/locales/**/%{locale}.yml
     - config/locales/**/%{locale}.yml
     - config/locales/**/*/%{locale}.yml
+
 ignore_missing:
   - 'gobierto_budgets.visualizations.*'
   - 'layouts.sandbox.*'

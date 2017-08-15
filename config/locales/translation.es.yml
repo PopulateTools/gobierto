@@ -57,30 +57,10 @@ es:
   time:
     am: am
     pm: pm
-  number:
-    human:
-      storage_units:
-        units:
-          byte:
-            one: Byte
-            other: Bytes
-          kb: KB
-          mb: MB
-          gb: GB
-          tb: TB
-          pb: 
-          eb: 
-      decimal_units:
-        units:
-          thousand: mil
-          million: millón
-          billion: mil millones
-          trillion: billón
-          quadrillion: mil billones
   errors:
     format: "%{attribute} %{message}"
     messages:
-      model_invalid: 
+      model_invalid: 'La validación falló: %{errors}'
       inclusion: no está incluido en la lista
       exclusion: está reservado
       invalid: no es válido
@@ -90,14 +70,14 @@ es:
       blank: no puede estar en blanco
       present: debe estar en blanco
       too_long:
-        one: 
-        other: 
+        one: es demasiado largo (máximo es de 1 carácter)
+        other: es demasiado largo (máximo es %{count} caracteres)
       too_short:
-        one: 
-        other: 
+        one: es demasiado corto (el mínimo es 1 carácter)
+        other: es demasiado corto (mínimo es %{count} caracteres)
       wrong_length:
-        one: 
-        other: 
+        one: es la longitud incorrecta (debe ser 1 carácter)
+        other: es la longitud incorrecta (debe ser %{count} caracteres)
       not_a_number: no es un número
       not_an_integer: debe ser un entero
       greater_than: debe ser mayor que %{count}
@@ -108,10 +88,10 @@ es:
       other_than: debe ser distinto de %{count}
       odd: debe ser impar
       even: debe ser par
-      required: 
+      required: debe existir
       taken: ya está en uso
       array_too_short:
-        one: 
+        one: es demasiado corto (mínimo al menos %{count} elemento)
       blank_for_modules: tiene que ser un municipio para que los módulos activos funcionen
       invalid_consultation_response: No se ha podido guardar la consulta. Por favor,
         revisa los valores e inténtalo de nuevo.
@@ -129,8 +109,8 @@ es:
       messages:
         record_invalid: 'La validación falló: %{errors}'
         restrict_dependent_destroy:
-          has_one: 
-          has_many: 
+          has_one: No se puede eliminar el registro porque existe un %{record} dependiente
+          has_many: No se puede eliminar el registro porque existen %{record} dependientes
     attributes:
       gobierto_common/content_block_field:
         field_type: Tipo de campo
@@ -242,9 +222,9 @@ es:
       submit: Guardar
     page_entries_info:
       entry:
-        zero: 
-        one: 
-        other: 
+        zero: entradas
+        one: entrada
+        other: entradas
       one_page:
         display_entries:
           zero: No hay %{entry_name}
@@ -256,116 +236,12 @@ es:
   flash:
     actions:
       create:
-        notice: 
+        notice: "%{resource_name} fue creado con éxito."
       update:
-        notice: 
+        notice: "%{resource_name} se ha actualizado correctamente."
       destroy:
-        notice: 
-        alert: 
-  i18n_tasks:
-    add_missing:
-      added:
-        one: 
-        other: 
-    cmd:
-      args:
-        default_text: 
-        desc:
-          confirm: 
-          data_format: 
-          key_pattern: 
-          key_pattern_to_rename: 
-          locale_to_translate_from: 
-          locales_filter: 
-          missing_types: 
-          new_key_name: 
-          nostdin: 
-          out_format: 
-          pattern_router: 
-          strict: 
-          value: 
-      desc:
-        add_missing: 
-        check_normalized: 
-        config: 
-        data: 
-        data_merge: 
-        data_remove: 
-        data_write: 
-        eq_base: 
-        find: 
-        gem_path: 
-        health: 
-        irb: 
-        missing: 
-        mv: 
-        normalize: 
-        remove_unused: 
-        rm: 
-        translate_missing: 
-        tree_convert: 
-        tree_filter: 
-        tree_merge: 
-        tree_mv_key: 
-        tree_rename_key: 
-        tree_set_value: 
-        tree_subtract: 
-        tree_translate: 
-        unused: 
-        xlsx_report: 
-      encourage:
-      - 
-      - 
-      - 
-      enum_list_opt:
-        invalid: 
-      enum_opt:
-        invalid: 
-      errors:
-        invalid_format: 
-        invalid_locale: 
-        invalid_missing_type:
-          one: 
-          other: 
-        pass_forest: 
-    common:
-      base_value: 
-      continue_q: 
-      key: 
-      locale: 
-      n_more: 
-      type: 
-      value: 
-    data_stats:
-      text: 
-      text_single_locale: 
-      title: 
-    google_translate:
-      errors:
-        no_api_key: 
-        no_results: 
-    health:
-      no_keys_detected: 
-    missing:
-      details_title: 
-      none: 
-    remove_unused:
-      confirm:
-        one: 
-        other: 
-      noop: 
-      removed: 
-    translate_missing:
-      translated: 
-    unused:
-      none: 
-    usages:
-      none: 
-  cookies_eu:
-    cookies_text: Las cookies nos ayudan a ofrecer nuestros servicios. Al utilizar
-      nuestros servicios, aceptas el uso de cookies.
-    learn_more: Más información
-    ok: OK
+        notice: "%{resource_name} fue destruido con éxito."
+        alert: "%{resource_name} no podía ser destruida."
   views:
     pagination:
       first: "&laquo; Primera"
@@ -2293,7 +2169,7 @@ es:
         events_summary:
           no_events: No hay eventos
           no_upcoming_events: No hay eventos futuros. Échale un vistazo a los pasados
-          past_events: Eventos pasados
+          past_events: Eventos pasados updated
           upcoming_events: Próximos eventos
           view_all: Ver todos
         gifts: Obsequios y regalos

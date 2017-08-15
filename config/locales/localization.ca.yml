@@ -20,6 +20,16 @@ ca:
     - :day
     - :month
     - :year
+  support:
+    array:
+      last_word_connector: ", i "
+      two_words_connector: " i "
+      words_connector: ", "
+  time:
+    formats:
+      default: "%A, %d de %B de %Y %H:%M:%S %z"
+      long: "%d de %B de %Y %H:%M"
+      short: "%d de %b %H:%M"
   number:
     currency:
       format:
@@ -51,19 +61,8 @@ ca:
     percentage:
       format:
         delimiter: ''
-        format: "%n%"
     precision:
       format:
         delimiter: ''
-  support:
-    array:
-      last_word_connector: ", i "
-      two_words_connector: " i "
-      words_connector: ", "
-  time:
-    formats:
-      default: "%A, %d de %B de %Y %H:%M:%S %z"
-      long: "%d de %B de %Y %H:%M"
-      short: "%d de %b %H:%M"
   spree:
     not: false

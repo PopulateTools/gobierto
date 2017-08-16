@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class GobiertoCommon::GobiertoSeeder::ModuleSiteSeederTest < ActiveSupport::TestCase

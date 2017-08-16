@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 module GobiertoAdmin
   module GobiertoCms
@@ -27,14 +29,14 @@ module GobiertoAdmin
               visit @path
 
               within "tr#collection-item-#{collection.id}" do
-                click_link 'News'
+                click_link "News"
               end
 
-              assert has_selector?('h1', text: 'News')
+              assert has_selector?("h1", text: "News")
 
-              click_link 'New'
-              assert has_selector?('h1', text: 'New page')
-              click_button 'Create'
+              click_link "New"
+              assert has_selector?("h1", text: "New page")
+              click_button "Create"
               assert has_alert?("Title can't be blank")
               assert has_alert?("Body can't be blank")
               assert has_alert?("URL can't be blank")
@@ -50,48 +52,48 @@ module GobiertoAdmin
               visit @path
 
               within "tr#collection-item-#{collection.id}" do
-                click_link 'News'
+                click_link "News"
               end
 
-              assert has_selector?('h1', text: 'News')
+              assert has_selector?("h1", text: "News")
 
-              click_link 'New'
-              assert has_selector?('h1', text: 'New page')
+              click_link "New"
+              assert has_selector?("h1", text: "New page")
 
-              fill_in 'page_title_translations_en', with: 'My page'
-              find('#page_body_translations_en', visible: false).set('The content of the page')
-              fill_in 'page_slug_translations_en', with: 'new-page'
+              fill_in "page_title_translations_en", with: "My page"
+              find("#page_body_translations_en", visible: false).set("The content of the page")
+              fill_in "page_slug_translations_en", with: "new-page"
 
-              click_link 'ES'
-              fill_in 'page_title_translations_es', with: 'Mi página'
-              find('#page_body_translations_es', visible: false).set('Contenido de la página')
-              fill_in 'page_slug_translations_es', with: 'nueva-pagina'
+              click_link "ES"
+              fill_in "page_title_translations_es", with: "Mi página"
+              find("#page_body_translations_es", visible: false).set("Contenido de la página")
+              fill_in "page_slug_translations_es", with: "nueva-pagina"
 
-              click_button 'Create'
+              click_button "Create"
 
-              assert has_message?('Page created successfully')
-              assert has_field?('page_slug_translations_en', with: 'new-page')
-
-              assert_equal(
-                '<div>The content of the page</div>',
-                find('#page_body_translations_en', visible: false).value
-              )
-
-              click_link 'ES'
+              assert has_message?("Page created successfully")
+              assert has_field?("page_slug_translations_en", with: "new-page")
 
               assert_equal(
-                '<div>Contenido de la página</div>',
-                find('#page_body_translations_es', visible: false).value
+                "<div>The content of the page</div>",
+                find("#page_body_translations_en", visible: false).value
               )
 
-              assert has_field?('page_slug_translations_es', with: 'nueva-pagina')
+              click_link "ES"
+
+              assert_equal(
+                "<div>Contenido de la página</div>",
+                find("#page_body_translations_es", visible: false).value
+              )
+
+              assert has_field?("page_slug_translations_es", with: "nueva-pagina")
 
               page = site.pages.last
               activity = Activity.last
               assert_equal page, activity.subject
               assert_equal admin, activity.author
               assert_equal site.id, activity.site_id
-              assert_equal 'gobierto_cms.page_created', activity.action
+              assert_equal "gobierto_cms.page_created", activity.action
             end
           end
         end

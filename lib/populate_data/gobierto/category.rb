@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 module PopulateData
   module Gobierto
     class Category < Client
-
-      ENDPOINT_URI = "/collections/c-categorias-presupuestos-municipales/items".freeze
+      ENDPOINT_URI = "/collections/c-categorias-presupuestos-municipales/items"
 
       attr_reader(
         :area,
@@ -35,7 +36,6 @@ module PopulateData
           level: @level
         }.to_json
       end
-
     end
   end
 end

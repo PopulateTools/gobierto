@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require_relative "base"
 require "support/event_helpers"
@@ -53,11 +55,10 @@ module GobiertoPeople
       end
 
       def test_events_summary_upcoming_and_past_filters
-        past_event    = create_event(title: "Past event title", starts_at: "2014-02-15", person: person)
-        future_event  = create_event(title: "Future event title", starts_at: "2014-04-15", person: person)
+        past_event = create_event(title: "Past event title", starts_at: "2014-02-15", person: person)
+        future_event = create_event(title: "Future event title", starts_at: "2014-04-15", person: person)
 
         Timecop.freeze(Time.zone.parse("2014-03-15")) do
-
           with_current_site(site) do
             visit gobierto_people_person_events_path(person.slug)
 
@@ -104,12 +105,11 @@ module GobiertoPeople
       end
 
       def test_calendar_navigation_arrows
-        past_event    = create_event(starts_at: "2014-02-15", person: person)
+        past_event = create_event(starts_at: "2014-02-15", person: person)
         present_event = create_event(starts_at: "2014-03-15", person: person)
-        future_event  = create_event(starts_at: "2014-04-15", person: person)
+        future_event = create_event(starts_at: "2014-04-15", person: person)
 
         Timecop.freeze(Time.zone.parse("2014-03-15")) do
-
           with_current_site(site) do
             visit gobierto_people_person_events_path(person.slug)
 
@@ -131,16 +131,14 @@ module GobiertoPeople
               assert has_link?(past_event.starts_at.day)
             end
           end
-
         end
       end
 
       def test_filter_events_by_calendar_date_link
-        past_event    = create_event(title: "Past event title", starts_at: "2014-03-10 11:00", person: person)
-        future_event  = create_event(title: "Future event title", starts_at: "2014-03-20 11:00", person: person)
+        past_event = create_event(title: "Past event title", starts_at: "2014-03-10 11:00", person: person)
+        future_event = create_event(title: "Future event title", starts_at: "2014-03-20 11:00", person: person)
 
         Timecop.freeze(Time.zone.parse("2014-03-15")) do
-
           with_current_site(site) do
             visit gobierto_people_person_events_path(person.slug)
 
@@ -162,7 +160,6 @@ module GobiertoPeople
           end
         end
       end
-
     end
   end
 end

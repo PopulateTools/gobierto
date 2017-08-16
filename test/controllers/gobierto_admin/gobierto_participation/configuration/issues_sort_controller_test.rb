@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -29,8 +31,8 @@ module GobiertoAdmin
         def valid_sort_params
           {
             positions: {
-              '0' => { id: issue_1.id, position: 2 },
-              '1' => { id: issue_2.id, position: 1 }
+              "0" => { id: issue_1.id, position: 2 },
+              "1" => { id: issue_2.id, position: 1 }
             }
           }
         end

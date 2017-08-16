@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoBudgetConsultations
@@ -70,7 +72,6 @@ module GobiertoBudgetConsultations
 
       with_current_site(site) do
         with_signed_in_user(user) do
-
           assert_raises(ActiveRecord::RecordNotFound) do
             visit @path
           end
@@ -93,8 +94,8 @@ module GobiertoBudgetConsultations
         assert has_selector?(".consultation-title", text: "Inversión en Bomberos y Protección Civil")
         assert has_content?("40€")
 
-        within '.consultation-step' do
-          click_link 'Start'
+        within ".consultation-step" do
+          click_link "Start"
         end
 
         assert has_message?("The participation in this consultation is reserved to people registered in Madrid.")
@@ -125,8 +126,8 @@ module GobiertoBudgetConsultations
           assert has_selector?(".consultation-title", text: "Inversión en Bomberos y Protección Civil")
           assert has_content?("40€")
 
-          within '.consultation-step' do
-            click_link 'Start'
+          within ".consultation-step" do
+            click_link "Start"
           end
 
           assert has_message?("The process in which you want to participate requires to verify your register in")

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Integration
   module PageHelpers
     def scroll_to_top

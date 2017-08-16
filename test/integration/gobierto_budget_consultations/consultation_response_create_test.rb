@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoBudgetConsultations
@@ -46,7 +48,7 @@ module GobiertoBudgetConsultations
       with_current_site(site) do
         with_signed_in_user(unverified_user) do
           # Force referer detection
-          Capybara.current_session.driver.header 'Referer', @path
+          Capybara.current_session.driver.header "Referer", @path
           visit @path
 
           assert has_content?("The process in which you want to participate requires to verify your register in")
@@ -84,15 +86,15 @@ module GobiertoBudgetConsultations
           with_signed_in_user(user) do
             visit @path
 
-            page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger('click')
-            page.find("button", text: "Reduce").trigger('click')
+            page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger("click")
+            page.find("button", text: "Reduce").trigger("click")
             assert_equal "Surplus", page.all(".budget-figure").last.text
             sleep 2
-            page.find("button", text: "Increase").trigger('click')
+            page.find("button", text: "Increase").trigger("click")
             assert_equal "Balanced", page.all(".budget-figure").last.text
 
-            assert page.find("a.budget-next i")['class'].include?("fa-check")
-            page.find("a.budget-next").trigger('click')
+            assert page.find("a.budget-next i")["class"].include?("fa-check")
+            page.find("a.budget-next").trigger("click")
 
             assert has_content?("Thanks for your response")
           end
@@ -106,15 +108,15 @@ module GobiertoBudgetConsultations
           with_signed_in_user(user) do
             visit @path
 
-            page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger('click')
-            page.find("button", text: "Increase").trigger('click')
+            page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger("click")
+            page.find("button", text: "Increase").trigger("click")
             assert_equal "Deficit", page.all(".budget-figure").last.text
             sleep 2
-            page.find("button", text: "Increase").trigger('click')
+            page.find("button", text: "Increase").trigger("click")
             assert_equal "Deficit", page.all(".budget-figure").last.text
 
-            assert page.find("a.budget-next i")['class'].include?("fa-times")
-            page.find("a.budget-next").trigger('click')
+            assert page.find("a.budget-next i")["class"].include?("fa-times")
+            page.find("a.budget-next").trigger("click")
 
             refute has_content?("Estupendo, muchas gracias por tu aportación")
           end
@@ -128,15 +130,15 @@ module GobiertoBudgetConsultations
           with_signed_in_user(user) do
             visit gobierto_budget_consultations_consultation_new_response_path(consultation_not_requiring_balance)
 
-            page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger('click')
-            page.find("button", text: "Increase").trigger('click')
+            page.find(".consultation-title", text: "Inversión en Instalaciones Deportivas").trigger("click")
+            page.find("button", text: "Increase").trigger("click")
             assert_equal "Deficit", page.all(".budget-figure").last.text
             sleep 2
-            page.find("button", text: "Increase").trigger('click')
+            page.find("button", text: "Increase").trigger("click")
             assert_equal "Deficit", page.all(".budget-figure").last.text
             sleep 2
-            assert page.find("a.budget-next i")['class'].include?("fa-check")
-            page.find("a.budget-next").trigger('click')
+            assert page.find("a.budget-next i")["class"].include?("fa-check")
+            page.find("a.budget-next").trigger("click")
 
             assert has_content?("Thanks for your response")
           end
@@ -147,7 +149,7 @@ module GobiertoBudgetConsultations
     def test_consultation_response_creation_with_login
       with_current_site(site) do
         # Force referer detection
-        Capybara.current_session.driver.header 'Referer', @path
+        Capybara.current_session.driver.header "Referer", @path
         visit @path
 
         assert has_content?("The participation in this consultation is reserved to people registered in Madrid.")
@@ -166,7 +168,7 @@ module GobiertoBudgetConsultations
     def test_consultation_response_creation_with_signup_and_verification
       with_current_site(site) do
         # Force referer detection
-        Capybara.current_session.driver.header 'Referer', @path
+        Capybara.current_session.driver.header "Referer", @path
         visit @path
 
         assert has_content?("The participation in this consultation is reserved to people registered in Madrid.")

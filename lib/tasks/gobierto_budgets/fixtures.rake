@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 namespace :gobierto_budgets do
   namespace :fixtures do
     desc "Create indices and import data"
     task load: :environment do
-      BUDGETS_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed_series]
+      BUDGETS_INDEXES = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed_series].freeze
       BUDGETS_TYPES = GobiertoBudgets::BudgetArea.all_areas_names
 
       create_categories_mapping
@@ -10,13 +12,13 @@ namespace :gobierto_budgets do
       create_all_budgets_mapping
 
       import_categories
-      place = INE::Places::Place.find_by_slug('madrid')
+      place = INE::Places::Place.find_by_slug("madrid")
       (GobiertoBudgets::SearchEngineConfiguration::Year.last - 1..GobiertoBudgets::SearchEngineConfiguration::Year.last).each do |year|
         import_gobierto_budgets_for_place(place, year)
         import_gobierto_budgets_data_for_place(place, year)
       end
 
-      place = INE::Places::Place.find_by_slug('santander')
+      place = INE::Places::Place.find_by_slug("santander")
       (GobiertoBudgets::SearchEngineConfiguration::Year.last - 1..GobiertoBudgets::SearchEngineConfiguration::Year.last).each do |year|
         import_gobierto_budgets_for_place(place, year)
         import_gobierto_budgets_data_for_place(place, year)
@@ -29,7 +31,7 @@ namespace :gobierto_budgets do
         {
           index: {
             _index: index,
-            _id: [place.id, year].join('/'),
+            _id: [place.id, year].join("/"),
             _type: type,
             data: {
               ine_code: place.id, province_id: place.province_id,
@@ -53,20 +55,18 @@ namespace :gobierto_budgets do
 
       budgets_for_place = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed].map do |index|
         categories_fixtures do |category|
-          next if category['ine_code'] && (category['ine_code'] != place.id.to_i)
+          next if category["ine_code"] && (category["ine_code"] != place.id.to_i)
 
-          category.merge!('kind' => category['kind'] == 'income' ? 'I' : 'G')
+          category["kind"] = category["kind"] == "income" ? "I" : "G"
           {
             index: {
               _index: index,
-              _id: [place.id, year, category['code'], category['kind']].join('/'),
-              _type: category['area'],
-              data: base_data.merge({
-                amount: rand(1_000_000), code: category['code'],
-                level: category['level'], kind: category['kind'],
-                amount_per_inhabitant: (rand(1_000)/2.0).round(2),
-                parent_code: category['parent_code']
-              })
+              _id: [place.id, year, category["code"], category["kind"]].join("/"),
+              _type: category["area"],
+              data: base_data.merge(amount: rand(1_000_000), code: category["code"],
+                                    level: category["level"], kind: category["kind"],
+                                    amount_per_inhabitant: (rand(1_000) / 2.0).round(2),
+                                    parent_code: category["parent_code"])
             }
           }
         end
@@ -75,16 +75,16 @@ namespace :gobierto_budgets do
       total_budgets = [GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed].map do |index|
         type = GobiertoBudgets::SearchEngineConfiguration::TotalBudget.type
         categories_fixtures do |category|
-          category.merge!('kind' => category['kind'] == 'income' ? 'I' : 'G')
+          category["kind"] = category["kind"] == "income" ? "I" : "G"
           {
             index: {
               _index: index,
-              _id: [place.id, year, category['kind']].join("/"),
+              _id: [place.id, year, category["kind"]].join("/"),
               _type: type,
               data: {
                 ine_code: place.id.to_i, province_id: place.province.id.to_i,
                 autonomy_id: place.province.autonomous_region.id.to_i, year: year,
-                kind: category['kind'],
+                kind: category["kind"],
                 total_budget: rand(1_000_000),
                 total_budget_per_inhabitant: rand(1_000_000)
               }
@@ -95,55 +95,47 @@ namespace :gobierto_budgets do
 
       economic_budget_lines_for_functional = []
       categories_fixtures do |category|
-        next if category['ine_code'] && (category['ine_code'] != place.id.to_i)
-        next if category['area_name'] != 'economic' && category['kind'] == "income"
+        next if category["ine_code"] && (category["ine_code"] != place.id.to_i)
+        next if category["area_name"] != "economic" && category["kind"] == "income"
 
         index = GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
-        category.merge!('kind' => category['kind'] == 'income' ? 'I' : 'G')
-        economic_budget_lines_for_functional.push({
-          index: {
-            _index: index,
-            _id: [place.id, year, "#{category['code']}-1-f}", category['kind']].join('/'),
-            _type: category['area'],
-            data: base_data.merge({
-              amount: rand(1_000_000), code: category['code'],
-              level: category['level'], kind: category['kind'],
-              amount_per_inhabitant: (rand(1_000)/2.0).round(2),
-              functional_code: 1,
-              parent_code: category['parent_code']
-            })
-          }
-        })
+        category["kind"] = category["kind"] == "income" ? "I" : "G"
+        economic_budget_lines_for_functional.push(index: {
+                                                    _index: index,
+                                                    _id: [place.id, year, "#{category["code"]}-1-f}", category["kind"]].join("/"),
+                                                    _type: category["area"],
+                                                    data: base_data.merge(amount: rand(1_000_000), code: category["code"],
+                                                                          level: category["level"], kind: category["kind"],
+                                                                          amount_per_inhabitant: (rand(1_000) / 2.0).round(2),
+                                                                          functional_code: 1,
+                                                                          parent_code: category["parent_code"])
+                                                  })
       end
 
       economic_budget_lines_for_custom = []
       categories_fixtures do |category|
-        next if category['ine_code'] && (category['ine_code'] != place.id.to_i)
-        next if category['area_name'] != 'economic' && category['kind'] == "income"
+        next if category["ine_code"] && (category["ine_code"] != place.id.to_i)
+        next if category["area_name"] != "economic" && category["kind"] == "income"
 
         index = GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
-        category.merge!('kind' => 'G')
-        economic_budget_lines_for_functional.push({
-          index: {
-            _index: index,
-            _id: [place.id, year, "#{category['code']}-1-c}", category['kind']].join('/'),
-            _type: category['area'],
-            data: base_data.merge({
-              amount: rand(1_000_000), code: category['code'],
-              level: category['level'], kind: category['kind'],
-              amount_per_inhabitant: (rand(1_000)/2.0).round(2),
-              custom_code: 1,
-              parent_code: category['parent_code']
-            })
-          }
-        })
+        category["kind"] = "G"
+        economic_budget_lines_for_functional.push(index: {
+                                                    _index: index,
+                                                    _id: [place.id, year, "#{category["code"]}-1-c}", category["kind"]].join("/"),
+                                                    _type: category["area"],
+                                                    data: base_data.merge(amount: rand(1_000_000), code: category["code"],
+                                                                          level: category["level"], kind: category["kind"],
+                                                                          amount_per_inhabitant: (rand(1_000) / 2.0).round(2),
+                                                                          custom_code: 1,
+                                                                          parent_code: category["parent_code"])
+                                                  })
       end
 
       GobiertoBudgets::SearchEngine.client.bulk(body: budgets_for_place + total_budgets + economic_budget_lines_for_functional + economic_budget_lines_for_custom)
     end
 
-    def categories_fixtures(&block)
-      YAML.load(File.read(File.expand_path('categories.yml', __dir__))).map do |_, category|
+    def categories_fixtures
+      YAML.safe_load(File.read(File.expand_path("categories.yml", __dir__))).map do |_, category|
         yield(category)
       end
     end
@@ -156,12 +148,12 @@ namespace :gobierto_budgets do
       GobiertoBudgets::SearchEngine.client.indices.put_mapping index: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index, type: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type, body: {
         GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type.to_sym => {
           properties: {
-            area:        { type: 'string',  index: 'not_analyzed' },
-            code:        { type: 'string',  index: 'not_analyzed' },
-            name:        { type: 'string',  index: 'not_analyzed' },
-            parent_code: { type: 'string',  index: 'not_analyzed' },
-            level:       { type: 'integer', index: 'not_analyzed' },
-            kind:        { type: 'string',  index: 'not_analyzed' } # income I / expense G
+            area:        { type: "string", index: "not_analyzed" },
+            code:        { type: "string", index: "not_analyzed" },
+            name:        { type: "string", index: "not_analyzed" },
+            parent_code: { type: "string", index: "not_analyzed" },
+            level:       { type: "integer", index: "not_analyzed" },
+            kind:        { type: "string", index: "not_analyzed" } # income I / expense G
           }
         }
       }
@@ -173,7 +165,7 @@ namespace :gobierto_budgets do
         {
           index: {
             _index: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.index,
-            _id: category.slice('ine_code', 'area', 'code', 'kind').values.join('/'),
+            _id: category.slice("ine_code", "area", "code", "kind").values.join("/"),
             _type: GobiertoBudgets::SearchEngineConfiguration::BudgetCategories.type,
             data: category
           }
@@ -205,18 +197,18 @@ namespace :gobierto_budgets do
       GobiertoBudgets::SearchEngine.client.indices.put_mapping index: index, type: type, body: {
         type.to_sym => {
           properties: {
-            ine_code:              { type: 'integer', index: 'not_analyzed' },
-            year:                  { type: 'integer', index: 'not_analyzed' },
-            amount:                { type: 'double', index: 'not_analyzed'  },
-            code:                  { type: 'string', index: 'not_analyzed'  },
-            parent_code:           { type: 'string', index: 'not_analyzed'  },
-            functional_code:       { type: 'string', index: 'not_analyzed'  },
-            custom_code:           { type: 'string', index: 'not_analyzed'  },
-            level:                 { type: 'integer', index: 'not_analyzed' },
-            kind:                  { type: 'string', index: 'not_analyzed'  }, # income I / expense G
-            province_id:           { type: 'integer', index: 'not_analyzed' },
-            autonomy_id:           { type: 'integer', index: 'not_analyzed' },
-            amount_per_inhabitant: { type: 'double', index: 'not_analyzed'  }
+            ine_code:              { type: "integer", index: "not_analyzed" },
+            year:                  { type: "integer", index: "not_analyzed" },
+            amount:                { type: "double", index: "not_analyzed" },
+            code:                  { type: "string", index: "not_analyzed" },
+            parent_code:           { type: "string", index: "not_analyzed" },
+            functional_code:       { type: "string", index: "not_analyzed" },
+            custom_code:           { type: "string", index: "not_analyzed" },
+            level:                 { type: "integer", index: "not_analyzed" },
+            kind:                  { type: "string", index: "not_analyzed" }, # income I / expense G
+            province_id:           { type: "integer", index: "not_analyzed" },
+            autonomy_id:           { type: "integer", index: "not_analyzed" },
+            amount_per_inhabitant: { type: "double", index: "not_analyzed" }
           }
         }
       }
@@ -230,13 +222,13 @@ namespace :gobierto_budgets do
       GobiertoBudgets::SearchEngine.client.indices.put_mapping index: index, type: type, body: {
         type.to_sym => {
           properties: {
-            ine_code:       { type: 'integer', index: 'not_analyzed' },
-            kind:           { type: 'string',  index: 'not_analyzed' },  # income I / expense G
-            code:           { type: 'string',  index: 'not_analyzed' },
+            ine_code:       { type: "integer", index: "not_analyzed" },
+            kind:           { type: "string", index: "not_analyzed" }, # income I / expense G
+            code:           { type: "string", index: "not_analyzed" },
             values: {
               properties: {
-                date:       { type: 'string',  index: 'not_analyzed' },
-                amount:     { type: 'double',  index: 'not_analyzed' }
+                date:       { type: "string", index: "not_analyzed" },
+                amount:     { type: "double", index: "not_analyzed" }
               }
             }
           }
@@ -253,13 +245,13 @@ namespace :gobierto_budgets do
       GobiertoBudgets::SearchEngine.client.indices.put_mapping index: index, type: type, body: {
         type.to_sym => {
           properties: {
-            ine_code:                    { type: 'integer', index: 'not_analyzed' },
-            province_id:                 { type: 'integer', index: 'not_analyzed' },
-            autonomy_id:                 { type: 'integer', index: 'not_analyzed' },
-            year:                        { type: 'integer', index: 'not_analyzed' },
-            kind:                        { type: 'string', index: 'not_analyzed'  }, # income I / expense G
-            total_budget:                { type: 'double',  index: 'not_analyzed' },
-            total_budget_per_inhabitant: { type: 'double',  index: 'not_analyzed' }
+            ine_code:                    { type: "integer", index: "not_analyzed" },
+            province_id:                 { type: "integer", index: "not_analyzed" },
+            autonomy_id:                 { type: "integer", index: "not_analyzed" },
+            year:                        { type: "integer", index: "not_analyzed" },
+            kind:                        { type: "string", index: "not_analyzed" }, # income I / expense G
+            total_budget:                { type: "double", index: "not_analyzed" },
+            total_budget_per_inhabitant: { type: "double", index: "not_analyzed" }
           }
         }
       }
@@ -275,11 +267,11 @@ namespace :gobierto_budgets do
         GobiertoBudgets::SearchEngine.client.indices.put_mapping index: index, type: type, body: {
           type.to_sym => {
             properties: {
-              ine_code:    { type: 'integer', index: 'not_analyzed' },
-              province_id: { type: 'integer', index: 'not_analyzed' },
-              autonomy_id: { type: 'integer', index: 'not_analyzed' },
-              year:        { type: 'integer', index: 'not_analyzed' },
-              value:       { type: 'double',  index: 'not_analyzed' }
+              ine_code:    { type: "integer", index: "not_analyzed" },
+              province_id: { type: "integer", index: "not_analyzed" },
+              autonomy_id: { type: "integer", index: "not_analyzed" },
+              year:        { type: "integer", index: "not_analyzed" },
+              value:       { type: "double", index: "not_analyzed" }
             }
           }
         }

@@ -1,9 +1,10 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 module GobiertoAdmin
   module GobiertoParticipation
     class ProcessAttachmentsTest < ActionDispatch::IntegrationTest
-
       def setup
         super
         collection.append(attachment)
@@ -34,8 +35,8 @@ module GobiertoAdmin
           with_current_site(site) do
             visit edit_admin_participation_process_path(process)
 
-            within '.tabs' do
-              click_link 'Documents'
+            within ".tabs" do
+              click_link "Documents"
             end
 
             assert has_content?(attachment.name)
@@ -48,31 +49,31 @@ module GobiertoAdmin
           with_current_site(site) do
             visit edit_admin_participation_process_path(process)
 
-            within '.tabs' do
-              click_link 'Documents'
+            within ".tabs" do
+              click_link "Documents"
             end
 
-            click_link 'New'
+            click_link "New"
 
-            assert has_selector?('h1', text: process.title)
+            assert has_selector?("h1", text: process.title)
 
-            fill_in 'file_attachment_name', with: 'My file_attachment'
-            fill_in 'file_attachment_description', with: 'My file_attachment description'
-            attach_file('file_attachment_file', 'test/fixtures/files/gobierto_attachments/attachment/pdf-collection-update-attachment.pdf')
+            fill_in "file_attachment_name", with: "My file_attachment"
+            fill_in "file_attachment_description", with: "My file_attachment description"
+            attach_file("file_attachment_file", "test/fixtures/files/gobierto_attachments/attachment/pdf-collection-update-attachment.pdf")
 
             with_stubbed_s3_file_upload do
-              click_button 'Create'
+              click_button "Create"
             end
 
-            assert has_message?('Attachment created successfully.')
+            assert has_message?("Attachment created successfully.")
 
-            assert has_selector?('h1', text: process.title)
+            assert has_selector?("h1", text: process.title)
 
-            within '.tabs' do
-              click_link 'Documents'
+            within ".tabs" do
+              click_link "Documents"
             end
 
-            assert has_content?('My file_attachment')
+            assert has_content?("My file_attachment")
           end
         end
       end
@@ -82,31 +83,31 @@ module GobiertoAdmin
           with_current_site(site) do
             visit edit_admin_participation_process_path(process)
 
-            within '.tabs' do
-              click_link 'Documents'
+            within ".tabs" do
+              click_link "Documents"
             end
 
             click_link attachment.name
 
-            assert has_selector?('h1', text: process.title)
+            assert has_selector?("h1", text: process.title)
 
-            fill_in 'file_attachment_name', with: 'My file_attachment'
-            fill_in 'file_attachment_description', with: 'My file_attachment description'
-            attach_file('file_attachment_file', 'test/fixtures/files/gobierto_attachments/attachment/pdf-collection-update-attachment.pdf')
+            fill_in "file_attachment_name", with: "My file_attachment"
+            fill_in "file_attachment_description", with: "My file_attachment description"
+            attach_file("file_attachment_file", "test/fixtures/files/gobierto_attachments/attachment/pdf-collection-update-attachment.pdf")
 
             with_stubbed_s3_file_upload do
-              click_button 'Update'
+              click_button "Update"
             end
 
-            assert has_message?('Attachment updated successfully.')
+            assert has_message?("Attachment updated successfully.")
 
-            assert has_selector?('h1', text: process.title)
+            assert has_selector?("h1", text: process.title)
 
-            within '.tabs' do
-              click_link 'Documents'
+            within ".tabs" do
+              click_link "Documents"
             end
 
-            assert has_content?('My file_attachment')
+            assert has_content?("My file_attachment")
             refute has_content?(attachment.name)
           end
         end

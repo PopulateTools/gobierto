@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 module GobiertoParticipation
   class PageShowTest < ActionDispatch::IntegrationTest
@@ -23,9 +25,9 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within '.global_breadcrumb' do
-          assert has_link? 'Participation'
-          assert has_link? 'Processes'
+        within ".global_breadcrumb" do
+          assert has_link? "Participation"
+          assert has_link? "Processes"
           assert has_link? gender_violence_process.title
         end
       end
@@ -35,12 +37,12 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within 'menu.sub_sections' do
-          assert has_content? 'Information'
-          assert has_content? 'Meetings'
-          assert has_content? 'Polls'
-          assert has_content? 'Contributions'
-          assert has_content? 'Results'
+        within "menu.sub_sections" do
+          assert has_content? "Information"
+          assert has_content? "Meetings"
+          assert has_content? "Polls"
+          assert has_content? "Contributions"
+          assert has_content? "Results"
         end
       end
     end
@@ -49,11 +51,11 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within 'menu.secondary_nav' do
-          assert has_link? 'News'
-          assert has_link? 'Agenda'
-          assert has_link? 'Documents'
-          assert has_link? 'Activity'
+        within "menu.secondary_nav" do
+          assert has_link? "News"
+          assert has_link? "Agenda"
+          assert has_link? "Documents"
+          assert has_link? "Activity"
         end
       end
     end
@@ -62,11 +64,11 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        assert_equal gender_violence_process.news.size, all('.place_news-item').size
+        assert_equal gender_violence_process.news.size, all(".place_news-item").size
 
         news_titles = gender_violence_process.news.map(&:title)
 
-        assert array_match ['Notice 1 title', 'Notice 2 title'], news_titles
+        assert array_match ["Notice 1 title", "Notice 2 title"], news_titles
       end
     end
 
@@ -74,7 +76,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit gobierto_participation_process_path(green_city_group.slug)
 
-        assert has_content? 'There are no related news'
+        assert has_content? "There are no related news"
       end
     end
 
@@ -82,12 +84,12 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        click_link 'News'
+        click_link "News"
 
-        assert has_selector?('h2', text: 'News')
-        click_link 'Notice 1 title'
-        assert has_selector?('h1', text: 'Notice 1 title')
-        assert has_content? 'Notice 1 body'
+        assert has_selector?("h2", text: "News")
+        click_link "Notice 1 title"
+        assert has_selector?("h1", text: "Notice 1 title")
+        assert has_content? "Notice 1 body"
       end
     end
   end

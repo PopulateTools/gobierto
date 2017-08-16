@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -6,8 +8,8 @@ module GobiertoAdmin
       def valid_event_form
         @valid_event_form ||= EventForm.new(
           collection_id: collection.id,
-          title_translations: {I18n.locale => event.title},
-          description_translations: {I18n.locale => event.description},
+          title_translations: { I18n.locale => event.title },
+          description_translations: { I18n.locale => event.description },
           attachment_url: event.attachment_url,
           starts_at: event.starts_at,
           ends_at: event.ends_at,

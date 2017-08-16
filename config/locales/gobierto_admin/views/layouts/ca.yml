@@ -15,7 +15,7 @@ ca:
         edit_site: Personalitzar site
         file_attachments: Documents
         hey_admin: Hola, %{admin_name}
-        issues: Temes
+        issues: Themes
         manage_sites: Gestionar sites
         notifications: Notificacions
         participation: Participació

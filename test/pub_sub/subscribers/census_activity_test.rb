@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class Subscribers::CensusActivityTest < ActiveSupport::TestCase
@@ -10,7 +12,7 @@ class Subscribers::CensusActivityTest < ActiveSupport::TestCase
   end
 
   def subject
-    @subject ||= Subscribers::CensusActivity.new('users')
+    @subject ||= Subscribers::CensusActivity.new("users")
   end
 
   def census_import
@@ -26,10 +28,10 @@ class Subscribers::CensusActivityTest < ActiveSupport::TestCase
   end
 
   def test_census_imported_event_handling
-    assert_difference 'Activity.count' do
+    assert_difference "Activity.count" do
       subject.census_imported Event.new(name: "census/census_imported", payload: {
-        author: admin, ip: IP, subject: census_import,
-      })
+                                          author: admin, ip: IP, subject: census_import
+                                        })
     end
 
     activity = Activity.last

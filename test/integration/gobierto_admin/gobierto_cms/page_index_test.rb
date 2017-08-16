@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 module GobiertoAdmin
   module GobiertoCms
@@ -17,21 +19,21 @@ module GobiertoAdmin
       end
 
       def collections
-        @collections ||= site.collections.where(item_type: 'GobiertoCms::Page')
+        @collections ||= site.collections.where(item_type: "GobiertoCms::Page")
       end
 
       def test_collections_index
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
-            within 'table tbody' do
-              assert has_selector?('tr', count: collections.size)
+            within "table tbody" do
+              assert has_selector?("tr", count: collections.size)
 
               collections.each do |collection|
                 assert has_selector?("tr#collection-item-#{collection.id}")
 
                 within "tr#collection-item-#{collection.id}" do
-                  assert has_link?('View collection')
+                  assert has_link?("View collection")
                 end
               end
             end

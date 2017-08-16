@@ -1,5 +1,6 @@
-class AddPreviewTokenToAdmins < ActiveRecord::Migration[5.1]
+# frozen_string_literal: true
 
+class AddPreviewTokenToAdmins < ActiveRecord::Migration[5.1]
   def up
     add_column :admin_admins, :preview_token, :string
     GobiertoAdmin::Admin.reset_column_information
@@ -21,5 +22,4 @@ class AddPreviewTokenToAdmins < ActiveRecord::Migration[5.1]
       admin.save!
     end
   end
-
 end

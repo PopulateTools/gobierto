@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :gobierto_budgets do
   namespace :elasticsearch do
     desc "Create indices"

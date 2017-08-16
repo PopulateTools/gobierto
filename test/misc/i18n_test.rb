@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require "i18n/tasks"
 
@@ -30,7 +32,7 @@ module Misc
     def test_normalized
       assert_empty non_normalized_paths, "The following files need to be normalized:\n" \
         "#{non_normalized_paths.map { |path| "  #{path}" }.join("\n")}\n" \
-        'Please run `i18n-tasks normalize` to fix'
+        "Please run `i18n-tasks normalize` to fix"
     end
   end
 end

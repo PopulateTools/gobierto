@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class IssueTest < ActiveSupport::TestCase
@@ -13,7 +15,7 @@ class IssueTest < ActiveSupport::TestCase
     assert_nil Issue.find_by_slug! nil
     assert_nil Issue.find_by_slug! ""
     assert_raises(ActiveRecord::RecordNotFound) do
-      Issue.find_by_slug!('foo')
+      Issue.find_by_slug!("foo")
     end
 
     assert_equal issue, Issue.find_by_slug!(issue.slug_es)

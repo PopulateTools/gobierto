@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class Subscribers::GobiertoCommonCollectionActivityTest < ActiveSupport::TestCase
@@ -10,7 +12,7 @@ class Subscribers::GobiertoCommonCollectionActivityTest < ActiveSupport::TestCas
   end
 
   def subject
-    @subject ||= Subscribers::GobiertoCommonCollectionActivity.new('activities')
+    @subject ||= Subscribers::GobiertoCommonCollectionActivity.new("activities")
   end
 
   def collection
@@ -26,10 +28,10 @@ class Subscribers::GobiertoCommonCollectionActivityTest < ActiveSupport::TestCas
   end
 
   def test_collection_created_event_handling
-    assert_difference 'Activity.count' do
+    assert_difference "Activity.count" do
       subject.collection_created Event.new(name: "activities/gobierto_common_collections.collection_created", payload: {
-        subject: collection, author: admin, ip: IP, site_id: site.id
-      })
+                                             subject: collection, author: admin, ip: IP, site_id: site.id
+                                           })
     end
 
     activity = Activity.last
@@ -42,10 +44,10 @@ class Subscribers::GobiertoCommonCollectionActivityTest < ActiveSupport::TestCas
   end
 
   def test_collection_updated_event_handling
-    assert_difference 'Activity.count' do
+    assert_difference "Activity.count" do
       subject.collection_updated Event.new(name: "activities/gobierto_common_collections.collection_updated", payload: {
-        subject: collection, author: admin, ip: IP, site_id: site.id
-      })
+                                             subject: collection, author: admin, ip: IP, site_id: site.id
+                                           })
     end
 
     activity = Activity.last

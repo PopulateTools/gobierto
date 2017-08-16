@@ -1,5 +1,6 @@
-class AddSlugToGobiertoPeoplePoliticalGroup < ActiveRecord::Migration[5.0]
+# frozen_string_literal: true
 
+class AddSlugToGobiertoPeoplePoliticalGroup < ActiveRecord::Migration[5.0]
   def up
     add_column :gp_political_groups, :slug, :string
     ::GobiertoPeople::PoliticalGroup.reset_column_information
@@ -20,5 +21,4 @@ class AddSlugToGobiertoPeoplePoliticalGroup < ActiveRecord::Migration[5.0]
       political_group.save!
     end
   end
-
 end

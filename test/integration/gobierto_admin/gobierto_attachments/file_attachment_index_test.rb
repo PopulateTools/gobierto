@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -17,7 +19,7 @@ module GobiertoAdmin
       end
 
       def collections
-        @collections ||= site.collections.where(item_type: 'GobiertoAttachments::Attachment')
+        @collections ||= site.collections.where(item_type: "GobiertoAttachments::Attachment")
       end
 
       def test_attachments_index
@@ -25,14 +27,14 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            within 'table tbody' do
-              assert has_selector?('tr', count: collections.size)
+            within "table tbody" do
+              assert has_selector?("tr", count: collections.size)
 
               collections.each do |collection|
                 assert has_selector?("tr#collection-item-#{collection.id}")
 
                 within "tr#collection-item-#{collection.id}" do
-                  assert has_link?("#{collection.title}")
+                  assert has_link?(collection.title.to_s)
                 end
               end
             end

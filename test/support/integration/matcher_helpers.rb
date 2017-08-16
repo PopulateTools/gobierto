@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Integration
   module MatcherHelpers
     def has_message?(text)

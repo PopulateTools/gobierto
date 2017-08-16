@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
   module GobiertoPeople
     class PersonPostPreviewTest < ActionDispatch::IntegrationTest
-
       def setup
         super
         @path = admin_people_person_posts_path(richard)
@@ -35,7 +36,6 @@ module GobiertoAdmin
             visit @path
 
             within "tr#person-post-item-#{active_post.id}" do
-
               preview_link = find("a", text: "View post")
 
               refute preview_link[:href].include?(admin.preview_token)
@@ -76,7 +76,6 @@ module GobiertoAdmin
             visit @path
 
             within "tr#person-post-item-#{active_post.id}" do
-
               preview_link = find("a", text: "View post")
 
               assert preview_link[:href].include?(admin.preview_token)
@@ -113,7 +112,6 @@ module GobiertoAdmin
 
       def test_preview_draft_post_if_not_admin
         with_current_site(site) do
-
           assert_raises ActiveRecord::RecordNotFound do
             visit gobierto_people_person_post_path(draft_post.person.slug, draft_post.slug)
           end
@@ -129,7 +127,6 @@ module GobiertoAdmin
           refute has_selector?("h1", text: draft_post.title)
         end
       end
-
     end
   end
 end

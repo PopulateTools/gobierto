@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon::TrackableTest
   def setup
     super
@@ -19,9 +21,7 @@ module GobiertoCommon::TrackableTest
   def test_trackable_notify?
     if trackable.trackable.respond_to?(:active?)
       trackable.trackable.stub(:active?, true) do
-        if trackable.trackable.admin_id.present?
-          assert trackable.notify?
-        end
+        assert trackable.notify? if trackable.trackable.admin_id.present?
       end
 
       trackable.trackable.stub(:active?, false) do

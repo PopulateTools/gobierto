@@ -1,10 +1,11 @@
-require 'test_helper'
-require 'support/calendar_integration_helpers'
+# frozen_string_literal: true
+
+require "test_helper"
+require "support/calendar_integration_helpers"
 
 module GobiertoAdmin
   module GobiertoPeople
     class PersonCalendarConfigurationFormTest < ActiveSupport::TestCase
-
       include ::CalendarIntegrationHelpers
 
       def person
@@ -14,7 +15,7 @@ module GobiertoAdmin
       def valid_person_calendar_configuration_form
         @valid_person_calendar_configuration_form ||= PersonCalendarConfigurationForm.new(
           person_id: person.id,
-          ibm_notes_url: 'http://foo.com'
+          ibm_notes_url: "http://foo.com"
         )
       end
 
@@ -26,7 +27,7 @@ module GobiertoAdmin
         activate_ibm_notes_calendar_integration(person.site)
 
         assert valid_person_calendar_configuration_form.save
-        assert_equal({ 'endpoint' => 'http://foo.com'}, person.calendar_configuration.data)
+        assert_equal({ "endpoint" => "http://foo.com" }, person.calendar_configuration.data)
       end
     end
   end

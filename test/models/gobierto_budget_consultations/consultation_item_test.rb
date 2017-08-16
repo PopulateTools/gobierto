@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require "support/concerns/gobierto_common/sortable_test"
 

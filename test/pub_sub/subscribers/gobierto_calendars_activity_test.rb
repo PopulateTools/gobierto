@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class Subscribers::GobiertoCalendarsActivityTest < ActiveSupport::TestCase
@@ -14,16 +16,16 @@ class Subscribers::GobiertoCalendarsActivityTest < ActiveSupport::TestCase
   end
 
   def subject
-    @subject ||= Subscribers::GobiertoCalendarsActivity.new('trackable')
+    @subject ||= Subscribers::GobiertoCalendarsActivity.new("trackable")
   end
 
   def test_event_updated_for_gobierto_calendars_event
     activity_subject = gobierto_calendars_events(:richard_published)
 
-    assert_difference 'Activity.count' do
+    assert_difference "Activity.count" do
       subject.updated Event.new(name: "trackable", payload: {
-        gid: activity_subject.to_gid, admin_id: admin.id, site_id: site.id
-      })
+                                  gid: activity_subject.to_gid, admin_id: admin.id, site_id: site.id
+                                })
     end
 
     activity = Activity.last
@@ -38,10 +40,10 @@ class Subscribers::GobiertoCalendarsActivityTest < ActiveSupport::TestCase
   def test_event_visibility_level_changed_for_gobierto_calendars_event
     activity_subject = gobierto_calendars_events(:richard_published)
 
-    assert_difference 'Activity.count' do
+    assert_difference "Activity.count" do
       subject.visibility_level_changed Event.new(name: "trackable", payload: {
-        gid: activity_subject.to_gid, admin_id: admin.id, site_id: site.id
-      })
+                                                   gid: activity_subject.to_gid, admin_id: admin.id, site_id: site.id
+                                                 })
     end
 
     activity = Activity.last
@@ -56,10 +58,10 @@ class Subscribers::GobiertoCalendarsActivityTest < ActiveSupport::TestCase
   def test_event_state_changed_for_gobierto_calendars_event
     activity_subject = gobierto_calendars_events(:richard_published)
 
-    assert_difference 'Activity.count' do
+    assert_difference "Activity.count" do
       subject.visibility_level_changed Event.new(name: "trackable", payload: {
-        gid: activity_subject.to_gid, admin_id: admin.id, site_id: site.id
-      })
+                                                   gid: activity_subject.to_gid, admin_id: admin.id, site_id: site.id
+                                                 })
     end
 
     activity = Activity.last

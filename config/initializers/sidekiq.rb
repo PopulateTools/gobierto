@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Sidekiq::Logging.logger.level = Rails.logger.level
 
 Sidekiq.configure_server do |config|

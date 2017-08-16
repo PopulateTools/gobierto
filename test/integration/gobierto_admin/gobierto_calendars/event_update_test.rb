@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -113,8 +115,8 @@ module GobiertoAdmin
                   assert has_selector?(".content-block-record-value", text: "Location Address")
                 end
 
-                assert all(".content-block-record-value").any?{ |v| v.text.include?("Attendee Name") }
-                assert all(".content-block-record-value").any?{ |v| v.text.include?("Attendee Charge") }
+                assert all(".content-block-record-value").any? { |v| v.text.include?("Attendee Name") }
+                assert all(".content-block-record-value").any? { |v| v.text.include?("Attendee Charge") }
 
                 within ".person-event-state-radio-buttons" do
                   with_hidden_elements do

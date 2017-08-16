@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class User::Subscription::NotificationBuilderTest < ActiveSupport::TestCase
@@ -18,14 +20,14 @@ class User::Subscription::NotificationBuilderTest < ActiveSupport::TestCase
   end
 
   def published_event
-    OpenStruct.new name: 'trackable.visibility_level_changed', payload: {
+    OpenStruct.new name: "trackable.visibility_level_changed", payload: {
       site_id: site.id,
       gid: subscribable.to_gid
     }
   end
 
   def updated_event
-    OpenStruct.new name: 'trackable.updated', payload: {
+    OpenStruct.new name: "trackable.updated", payload: {
       site_id: site.id,
       gid: subscribable.to_gid
     }

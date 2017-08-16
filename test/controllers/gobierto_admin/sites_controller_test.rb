@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -23,12 +25,12 @@ module GobiertoAdmin
 
     def valid_site_params
       {
-        title_translations: { I18n.locale => 'Title'},
-        name_translations: { I18n.locale => 'Foo'},
-        location_name: 'Madrid',
+        title_translations: { I18n.locale => "Title" },
+        name_translations: { I18n.locale => "Foo" },
+        location_name: "Madrid",
         municipality_id: 1,
-        domain: 'test2.gobierto.dev',
-        visibility_level: 'active'
+        domain: "test2.gobierto.dev",
+        visibility_level: "active"
       }
     end
 
@@ -152,7 +154,7 @@ module GobiertoAdmin
 
     def test_update_site_with_invalid_params_doesnt_broadcasts_event
       with_signed_in_admin(admin) do
-        patch admin_site_url(site), params: { site: { name: '' } }
+        patch admin_site_url(site), params: { site: { name: "" } }
         assert_response :success
 
         refute notification_service_spy.has_been_called?

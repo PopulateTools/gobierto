@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGobiertoBudgetsCategory < ActiveRecord::Migration[5.1]
   def change
     create_table :gb_categories do |t|
@@ -9,6 +11,6 @@ class CreateGobiertoBudgetsCategory < ActiveRecord::Migration[5.1]
       t.jsonb :custom_description_translations
     end
 
-    add_index :gb_categories, [:site_id, :area_name, :kind, :code], unique: true,  name: 'gb_categories_record_unique_index'
+    add_index :gb_categories, [:site_id, :area_name, :kind, :code], unique: true, name: "gb_categories_record_unique_index"
   end
 end

@@ -6,6 +6,7 @@ ca:
         title: Edita tema
       form:
         placeholders:
+          description: Descripció del tema
           name: Nom del tema
           slug: sobre-aquest-tema
       index:
@@ -13,6 +14,6 @@ ca:
         drag_to_sort: Arrastra per a ordenar
         name: Tema
         new: Nou
-        title: Temes
+        title: Themes
       new_modal:
         title: Nou tema

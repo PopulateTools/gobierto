@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -68,7 +70,7 @@ module GobiertoAdmin
                     end
                   end
 
-                  all(".dynamic-content-record-wrapper").each do |content_block_field|
+                  all(".dynamic-content-record-wrapper").each do |_content_block_field|
                     assert has_select?("Field type", selected: "Date")
 
                     AVAILABLE_LOCALES.each do |locale|

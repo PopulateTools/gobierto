@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -29,6 +31,7 @@ module GobiertoAdmin
 
             within "form.edit_issue" do
               fill_in "issue_name_translations_en", with: "Theme Culture updated"
+              fill_in "issue_description_translations_en", with: "Description Culture updated"
               fill_in "issue_slug_translations_en", with: "theme-culture-updated"
 
               click_button "Update"

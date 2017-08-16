@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require "support/concerns/user/subscribable_test"
 require "support/concerns/gobierto_common/sluggable_test"
@@ -22,7 +24,7 @@ module GobiertoCalendars
 
     def new_event
       subject_class.create!(
-        title: 'Person Event Title',
+        title: "Person Event Title",
         starts_at: Time.zone.now,
         ends_at: Time.zone.now + 1.hour,
         site: sites(:madrid),

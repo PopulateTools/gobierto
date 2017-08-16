@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddTimestampsGobiertoAttachmentsAttachment < ActiveRecord::Migration[5.1]
   def change
     add_timestamps :ga_attachments, default: DateTime.current

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class User::Subscription::FinderTest < ActiveSupport::TestCase
@@ -42,7 +44,7 @@ class User::Subscription::FinderTest < ActiveSupport::TestCase
       ["GobiertoPeople::Person", person.id],
       ["GobiertoPeople::Person", nil],
       ["GobiertoPeople", nil],
-      ["Site", site.id],
+      ["Site", site.id]
     ].each do |subscribable_type, subscribable_id|
       assert subject.user_subscribed_to?(user, subscribable_type, subscribable_id, site.id)
       refute subject.user_subscribed_to?(other_user, subscribable_type, subscribable_id, site.id)
@@ -57,7 +59,7 @@ class User::Subscription::FinderTest < ActiveSupport::TestCase
       ["GobiertoPeople::PersonEvent", nil],
       ["GobiertoPeople::Person", person.id],
       ["GobiertoPeople::Person", nil],
-      ["GobiertoPeople", nil],
+      ["GobiertoPeople", nil]
     ].each do |subscribable_type, subscribable_id|
       assert subject.user_subscribed_to?(user, subscribable_type, subscribable_id, site.id)
       refute subject.user_subscribed_to?(other_user, subscribable_type, subscribable_id, site.id)
@@ -78,7 +80,7 @@ class User::Subscription::FinderTest < ActiveSupport::TestCase
       ["GobiertoPeople::PersonEvent", person_event.id],
       ["GobiertoPeople::PersonEvent", nil],
       ["GobiertoPeople::Person", person.id],
-      ["GobiertoPeople::Person", nil],
+      ["GobiertoPeople::Person", nil]
     ].each do |subscribable_type, subscribable_id|
       assert subject.user_subscribed_to?(user, subscribable_type, subscribable_id, site.id)
       refute subject.user_subscribed_to?(other_user, subscribable_type, subscribable_id, site.id)
@@ -99,7 +101,7 @@ class User::Subscription::FinderTest < ActiveSupport::TestCase
     [
       ["GobiertoPeople::PersonEvent", person_event.id],
       ["GobiertoPeople::PersonEvent", nil],
-      ["GobiertoPeople::Person", person.id],
+      ["GobiertoPeople::Person", person.id]
     ].each do |subscribable_type, subscribable_id|
       assert subject.user_subscribed_to?(user, subscribable_type, subscribable_id, site.id)
       refute subject.user_subscribed_to?(other_user, subscribable_type, subscribable_id, site.id)
@@ -120,7 +122,7 @@ class User::Subscription::FinderTest < ActiveSupport::TestCase
 
     [
       ["GobiertoPeople::PersonEvent", person_event.id],
-      ["GobiertoPeople::PersonEvent", nil],
+      ["GobiertoPeople::PersonEvent", nil]
     ].each do |subscribable_type, subscribable_id|
       assert subject.user_subscribed_to?(user, subscribable_type, subscribable_id, site.id)
       refute subject.user_subscribed_to?(other_user, subscribable_type, subscribable_id, site.id)
@@ -141,7 +143,7 @@ class User::Subscription::FinderTest < ActiveSupport::TestCase
     User::Subscription.create! user: user, site: site, subscribable_type: "GobiertoPeople::PersonEvent", subscribable_id: person_event.id
 
     [
-      ["GobiertoPeople::PersonEvent", person_event.id],
+      ["GobiertoPeople::PersonEvent", person_event.id]
     ].each do |subscribable_type, subscribable_id|
       assert subject.user_subscribed_to?(user, subscribable_type, subscribable_id, site.id)
       refute subject.user_subscribed_to?(other_user, subscribable_type, subscribable_id, site.id)
@@ -168,7 +170,7 @@ class User::Subscription::FinderTest < ActiveSupport::TestCase
       ["GobiertoPeople::Person", person.id],
       ["GobiertoPeople::Person", nil],
       ["GobiertoPeople", nil],
-      ["Site", site.id],
+      ["Site", site.id]
     ].each do |subscribable_type, subscribable_id|
       assert_includes subject.subscriptions_for(subscribable_type, subscribable_id, site.id), user.id
     end
@@ -182,13 +184,13 @@ class User::Subscription::FinderTest < ActiveSupport::TestCase
       ["GobiertoPeople::PersonEvent", nil],
       ["GobiertoPeople::Person", person.id],
       ["GobiertoPeople::Person", nil],
-      ["GobiertoPeople", nil],
+      ["GobiertoPeople", nil]
     ].each do |subscribable_type, subscribable_id|
       assert_includes subject.subscriptions_for(subscribable_type, subscribable_id, site.id), user.id
     end
 
     [
-      ["Site", site.id],
+      ["Site", site.id]
     ].each do |subscribable_type, subscribable_id|
       refute_includes subject.subscriptions_for(subscribable_type, subscribable_id, site.id), user.id
     end
@@ -201,14 +203,14 @@ class User::Subscription::FinderTest < ActiveSupport::TestCase
       ["GobiertoPeople::PersonEvent", person_event.id],
       ["GobiertoPeople::PersonEvent", nil],
       ["GobiertoPeople::Person", person.id],
-      ["GobiertoPeople::Person", nil],
+      ["GobiertoPeople::Person", nil]
     ].each do |subscribable_type, subscribable_id|
       assert_includes subject.subscriptions_for(subscribable_type, subscribable_id, site.id), user.id
     end
 
     [
       ["GobiertoPeople", nil],
-      ["Site", site.id],
+      ["Site", site.id]
     ].each do |subscribable_type, subscribable_id|
       refute_includes subject.subscriptions_for(subscribable_type, subscribable_id, site.id), user.id
     end
@@ -220,7 +222,7 @@ class User::Subscription::FinderTest < ActiveSupport::TestCase
     [
       ["GobiertoPeople::PersonEvent", person_event.id],
       ["GobiertoPeople::PersonEvent", nil],
-      ["GobiertoPeople::Person", person.id],
+      ["GobiertoPeople::Person", person.id]
     ].each do |subscribable_type, subscribable_id|
       assert_includes subject.subscriptions_for(subscribable_type, subscribable_id, site.id), user.id
     end
@@ -228,7 +230,7 @@ class User::Subscription::FinderTest < ActiveSupport::TestCase
     [
       ["GobiertoPeople::Person", nil],
       ["GobiertoPeople", nil],
-      ["Site", site.id],
+      ["Site", site.id]
     ].each do |subscribable_type, subscribable_id|
       refute_includes subject.subscriptions_for(subscribable_type, subscribable_id, site.id), user.id
     end
@@ -239,7 +241,7 @@ class User::Subscription::FinderTest < ActiveSupport::TestCase
 
     [
       ["GobiertoPeople::PersonEvent", person_event.id],
-      ["GobiertoPeople::PersonEvent", nil],
+      ["GobiertoPeople::PersonEvent", nil]
     ].each do |subscribable_type, subscribable_id|
       assert_includes subject.subscriptions_for(subscribable_type, subscribable_id, site.id), user.id
     end
@@ -248,7 +250,7 @@ class User::Subscription::FinderTest < ActiveSupport::TestCase
       ["GobiertoPeople::Person", person.id],
       ["GobiertoPeople::Person", nil],
       ["GobiertoPeople", nil],
-      ["Site", site.id],
+      ["Site", site.id]
     ].each do |subscribable_type, subscribable_id|
       refute_includes subject.subscriptions_for(subscribable_type, subscribable_id, site.id), user.id
     end
@@ -258,7 +260,7 @@ class User::Subscription::FinderTest < ActiveSupport::TestCase
     User::Subscription.create! user: user, site: site, subscribable_type: "GobiertoPeople::PersonEvent", subscribable_id: person_event.id
 
     [
-      ["GobiertoPeople::PersonEvent", person_event.id],
+      ["GobiertoPeople::PersonEvent", person_event.id]
     ].each do |subscribable_type, subscribable_id|
       assert_includes subject.subscriptions_for(subscribable_type, subscribable_id, site.id), user.id
     end
@@ -268,7 +270,7 @@ class User::Subscription::FinderTest < ActiveSupport::TestCase
       ["GobiertoPeople::Person", person.id],
       ["GobiertoPeople::Person", nil],
       ["GobiertoPeople", nil],
-      ["Site", site.id],
+      ["Site", site.id]
     ].each do |subscribable_type, subscribable_id|
       refute_includes subject.subscriptions_for(subscribable_type, subscribable_id, site.id), user.id
     end

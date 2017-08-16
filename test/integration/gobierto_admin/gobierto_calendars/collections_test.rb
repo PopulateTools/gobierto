@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require "support/file_uploader_helpers"
 
@@ -44,26 +46,26 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
 
-              click_link 'New'
+              click_link "New"
 
-              fill_in 'collection_title_translations_en', with: 'My collection'
-              fill_in 'collection_slug', with: 'my-collection'
-              find('select#collection_container_global_id').find("option[value='#{process.to_global_id}']").select_option
-              find('select#collection_item_type').find("option[value='GobiertoCalendars::Event']").select_option
+              fill_in "collection_title_translations_en", with: "My collection"
+              fill_in "collection_slug", with: "my-collection"
+              find("select#collection_container_global_id").find("option[value='#{process.to_global_id}']").select_option
+              find("select#collection_item_type").find("option[value='GobiertoCalendars::Event']").select_option
 
-              click_link 'ES'
-              fill_in 'collection_title_translations_es', with: 'Mi colección'
+              click_link "ES"
+              fill_in "collection_title_translations_es", with: "Mi colección"
 
-              click_button 'Create'
+              click_button "Create"
 
-              assert has_message?('Collection was successfully created.')
+              assert has_message?("Collection was successfully created.")
 
               collection = site.collections.last
               activity = Activity.last
               assert_equal collection, activity.subject
               assert_equal admin, activity.author
               assert_equal site.id, activity.site_id
-              assert_equal 'gobierto_common.collection_created', activity.action
+              assert_equal "gobierto_common.collection_created", activity.action
             end
           end
         end
@@ -75,21 +77,21 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
 
-              click_link 'New'
+              click_link "New"
 
-              fill_in 'collection_title_translations_en', with: 'My collection'
-              fill_in 'collection_slug', with: 'my-collection'
-              find('select#collection_container_global_id').find("option[value='#{person.to_global_id}']").select_option
-              find('select#collection_item_type').find("option[value='GobiertoCalendars::Event']").select_option
+              fill_in "collection_title_translations_en", with: "My collection"
+              fill_in "collection_slug", with: "my-collection"
+              find("select#collection_container_global_id").find("option[value='#{person.to_global_id}']").select_option
+              find("select#collection_item_type").find("option[value='GobiertoCalendars::Event']").select_option
 
-              click_link 'ES'
-              fill_in 'collection_title_translations_es', with: 'Mi colección'
+              click_link "ES"
+              fill_in "collection_title_translations_es", with: "Mi colección"
 
-              click_button 'Create'
+              click_button "Create"
 
-              assert has_message?('Collection was successfully created.')
+              assert has_message?("Collection was successfully created.")
 
-              assert has_selector?('h1', text: person.name)
+              assert has_selector?("h1", text: person.name)
               assert has_link?("< Back to agendas")
 
               within ".sub_filter ul", match: :first do
@@ -119,12 +121,11 @@ module GobiertoAdmin
               assert_equal collection, activity.subject
               assert_equal admin, activity.author
               assert_equal site.id, activity.site_id
-              assert_equal 'gobierto_common.collection_created', activity.action
+              assert_equal "gobierto_common.collection_created", activity.action
             end
           end
         end
       end
-
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Authentication::ConfirmableTest
   def test_confirmed_scope
     subject = user.class.confirmed

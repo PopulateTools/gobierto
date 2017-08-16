@@ -78,7 +78,7 @@ en:
         appointments: Face-to-face appointments
         from_to: "%{starts} to %{ends}"
         interesting_information: Interesting information
-        issues: Issues
+        issue: Issue
         length: Duration
         more_events: More events
         more_information: More information

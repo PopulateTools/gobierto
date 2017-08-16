@@ -78,7 +78,7 @@ es:
         appointments: Citas presenciales
         from_to: "%{starts} al %{ends}"
         interesting_information: Información de interés
-        issues: Temas
+        issue: Tema
         length: Duración
         more_events: Ver más eventos
         more_information: Más información

@@ -78,7 +78,7 @@ ca:
         appointments: Cites presencials
         from_to: "%{starts} al %{ends}"
         interesting_information: Informació d'interès
-        issues: Temas
+        issue: Tema
         length: Durada
         more_events: Veure més esdeveniments
         more_information: Més informació

@@ -122,7 +122,7 @@ module GobiertoAdmin
       end
 
       def type_names
-        ::GobiertoCommon::Collection.type_classes.map { |item| [item.model_name.human, item.name] }
+        ::GobiertoCommon::Collection.type_classes(params["item_type"])
       end
 
       def gobierto_common_page_preview_url(page, options = {})

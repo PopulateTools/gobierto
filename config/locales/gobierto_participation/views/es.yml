@@ -35,6 +35,8 @@ es:
       participation_latest_info:
         agenda: Agenda
         news: Noticias
+        no_events: No hay eventos relacionados
+        no_news: No hay noticias relacionadas
         show_more_events: Ver más eventos
         show_more_news: Ver más noticias
         show_more_updates: Ver más actualizaciones

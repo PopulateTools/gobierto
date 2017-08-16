@@ -13,6 +13,10 @@ module GobiertoParticipation
       @site ||= sites(:madrid)
     end
 
+    def issues
+      @issues ||= site.issues.alphabetically_sorted
+    end
+
     def test_breadcrumb_items
       with_current_site(site) do
         visit @path
@@ -47,6 +51,16 @@ module GobiertoParticipation
           assert has_link? "Agenda"
           assert has_link? "Documents"
           assert has_link? "Activity"
+        end
+      end
+    end
+
+    def test_issues_index
+      with_current_site(site) do
+        visit @path
+
+        issues.each do |issue|
+          assert has_link?(issue.name)
         end
       end
     end

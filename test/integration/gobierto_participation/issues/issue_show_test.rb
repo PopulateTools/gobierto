@@ -79,5 +79,21 @@ module GobiertoParticipation
         end
       end
     end
+
+    def test_process_news
+      with_current_site(site) do
+        visit @path
+
+        assert_equal issue.news.size, all(".place_news-item").size
+      end
+    end
+
+    def test_issue_without_events
+      with_current_site(site) do
+        visit @path
+
+        assert has_content? "There are no related events"
+      end
+    end
   end
 end

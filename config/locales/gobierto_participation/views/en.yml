@@ -35,6 +35,8 @@ en:
       participation_latest_info:
         agenda: Diary
         news: News
+        no_events: There are no related events
+        no_news: There are no related news
         show_more_events: See more events
         show_more_news: See more news
         show_more_updates: See more updates

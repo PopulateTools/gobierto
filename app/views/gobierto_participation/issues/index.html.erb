@@ -19,9 +19,7 @@
     <div class="pure-u-1">
       <div class="pure-g three_by_three small_column">
         <% @issues.each do |issue| %>
-          <%= link_to gobierto_participation_issue_path(issue) do %>
-            <%= render 'theme_teaser', issue: issue, meta: false %>
-          <% end %>
+          <%= render 'theme_teaser', issue: issue, meta: false %>
         <% end %>
       </div>
     </div>

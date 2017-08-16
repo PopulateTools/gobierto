@@ -106,6 +106,9 @@ en:
     events:
       users_user_updated: User updated
   views:
+    drag_to_sort: Drag to sort
+    forms:
+      max_characters: Max. %{length} characters
     pagination:
       next: Next
       previous: Prev

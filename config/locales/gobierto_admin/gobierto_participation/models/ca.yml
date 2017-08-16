@@ -8,6 +8,19 @@ ca:
         ends: Final
         starts: Començament
         title: Títol
+      gobierto_admin/gobierto_participation/poll_form:
+        description: Descripció
+        ends_at: Final
+        questions: Algunes de les preguntes
+        starts_at: Començament
+        title: Títol
+      gobierto_admin/gobierto_participation/poll_form/questions:
+        answer_templates: Les respostes
+        answer_type: El tipus de pregunta
+        poll: La enquesta
+        title: El títol de les preguntes
+      gobierto_admin/gobierto_participation/poll_form/questions/answer_templates:
+        text: El text d'una resposta
       gobierto_admin/gobierto_participation/process_form:
         body: Descripció
         ends: Final
@@ -20,21 +33,6 @@ ca:
         title: Títol
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Grup d'aportacions
+      gobierto_admin/gobierto_participation/poll_form: Enquesta
+      gobierto_admin/gobierto_participation/poll_form/questions: Les preguntes
       gobierto_admin/gobierto_participation/process_form: Procés
-  activerecord:
-    attributes:
-      gobierto_participation/process:
-        process_types:
-          group_process: Grup
-          process: Procés
-      gobierto_participation/process_stage:
-        description: Descripció
-        ends: Final
-        stage_types:
-          ideas: Idees
-          information: Informació
-          meetings: Reunions
-          results: Resultats
-          surveys: Enquestes
-        starts: Començament
-        title: Títol

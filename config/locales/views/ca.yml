@@ -112,6 +112,9 @@ ca:
     events:
       users_user_updated: Usuari actualitzat
   views:
+    drag_to_sort: Arrastra per a ordenar
+    forms:
+      max_characters: Màx. %{length} caràcters
     pagination:
       next: Següent
       previous: Anterior

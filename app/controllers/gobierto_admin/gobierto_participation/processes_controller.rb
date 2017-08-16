@@ -32,7 +32,7 @@ module GobiertoAdmin
         if @process_form.save
           track_create_process
           redirect_to(
-            admin_participation_processes_path,
+            edit_admin_participation_process_path(@process_form.process),
             notice: t('.success')
           )
         else

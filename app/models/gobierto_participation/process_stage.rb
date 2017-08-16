@@ -9,7 +9,7 @@ module GobiertoParticipation
 
     translates :title, :description
 
-    enum stage_type: [ :information, :meetings, :surveys, :ideas, :results ]
+    enum stage_type: { information: 0, meetings: 1, polls: 2, ideas: 3, results: 4 }
 
     validates :slug, uniqueness: { scope: [:process_id] }
     validates :title, :stage_type, presence: true

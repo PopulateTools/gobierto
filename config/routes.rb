@@ -256,6 +256,7 @@ Rails.application.routes.draw do
 
       resources :processes, only: [:index, :show] do
         resources :pages, only: [:index, :show]
+        resource :information, only: [:show], controller: "process_information", as: :process_information, path: :information
       end
 
       resources :events, only: [:index, :show]

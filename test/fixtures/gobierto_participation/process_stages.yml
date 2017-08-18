@@ -60,3 +60,30 @@ gender_violence_process_results_stage:
   starts: <%= 40.days.from_now %>
   ends: <%= 60.days.from_now %>
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:results] %>
+
+sport_process_information_stage:
+  process: sport_city_process
+  title_translations: <%= { 'es' => 'Presentación de un proceso' }.to_json %>
+  description_translations: <%= { 'es' => 'A través de diferentes Mesas de Diálogo Ciudadano recogeremos en los diferentes distritos propuestas vecinales.' }.to_json %>
+  slug: presentacion-proceso-deporte
+  starts: <%= 2.months.ago %>
+  ends: <%= 1.month.ago %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:information] %>
+
+sport_meetings_stage:
+  process: sport_city_process
+  title_translations: <%= { 'en' => 'Meetings stage', 'es' => 'Fase de reuniones' }.to_json %>
+  description_translations: <%= { 'en' => 'Meetings description', 'es' => 'Fase de reuniones descripción' }.to_json %>
+  slug: organiza-reuniones-deporte
+  starts: <%= 2.days.ago %>
+  ends: <%= 4.days.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
+
+sport_ideas_stage:
+  process: sport_city_process
+  title_translations: <%= { 'en' => 'Suggest ideas', 'es' => 'Sugiere ideas' }.to_json %>
+  description_translations: <%= { 'en' => 'Suggest ideas description', 'es' => 'Sugiere ideas descripción' }.to_json %>
+  slug: sugiere-idea-deporte
+  starts: <%= 1.day.from_now %>
+  ends: <%= 10.days.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:ideas] %>

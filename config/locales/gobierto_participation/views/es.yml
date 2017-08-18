@@ -26,8 +26,8 @@ es:
       current_group:
         current_stage: Fase actual
       index:
-        intro: Tus ideas ayudan a mejorar %{location_name} y la vida de todos los
-          que residimos aquí. Aporta tus mejores ideas en nuestros <strong>espacios
+        intro_html: Tus ideas ayudan a mejorar %{location_name} y la vida de todos
+          los que residimos aquí. Aporta tus mejores ideas en nuestros <strong>espacios
           permanentes de participación</strong>.
       participation_groups:
         work_groups_description: Consulta la actividad de cada grupo y participa.

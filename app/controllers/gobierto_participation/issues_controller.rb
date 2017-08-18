@@ -11,14 +11,14 @@ module GobiertoParticipation
       @issue_news = find_issue_news
       @issue_news_updated = find_issue_news_updated
       @issue_events = find_issue_events
-      @processes = current_site.processes.process.open
-      @groups = current_site.processes.group_process
+      @processes = current_site.processes.process.where(issue: @issue).open
+      @groups = current_site.processes.group_process.where(issue: @issue)
     end
 
     private
 
     def find_issue
-      Issue.find_by_slug!(params[:id])
+      current_site.issues.find_by_slug!(params[:id])
     end
 
     def find_issue_news

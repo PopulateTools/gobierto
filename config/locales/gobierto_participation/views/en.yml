@@ -22,6 +22,15 @@ en:
           where we will discuss in person the topics of this process. If you can not
           attend, we will publish online everything that is said in the meetings to
           facilitate the follow-up and make the conclusions accessible.
+    issue_pages:
+      index:
+        filter: Filter by theme
+        title: News
+      show:
+        documents: Documents
+        filter: Filter by group
+        published_at: Posted on %{date} by %{site}
+        title: News
     issues:
       current_group:
         current_stage: Current stage
@@ -65,7 +74,7 @@ en:
         agenda: Agenda
         documents: Documents
         news: News
-    pages:
+    process_pages:
       index:
         filter: Filter by theme
         title: News

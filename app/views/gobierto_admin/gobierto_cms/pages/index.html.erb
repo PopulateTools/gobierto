@@ -38,7 +38,7 @@
         <h3><%= t(".collections") %></h3>
       </div>
       <div class="pure-u-1-2 admin_tools right">
-        <%= link_to t(".new"), new_admin_common_collection_path, class: 'button open_remote_modal' %>
+        <%= link_to t(".new"), new_admin_common_collection_path(item_type: 'Page'), class: 'button open_remote_modal' %>
       </div>
     </div>
 
@@ -54,7 +54,7 @@
         <% @collections.each do |collection| %>
           <tr id="collection-item-<%= collection.id %>">
             <td>
-              <%= link_to edit_admin_common_collection_path(collection), class: 'open_remote_modal' do %>
+              <%= link_to edit_admin_common_collection_path(collection, item_type: 'Page'), class: 'open_remote_modal' do %>
                 <i class="fa fa-edit"></i>
               <% end %>
             </td>

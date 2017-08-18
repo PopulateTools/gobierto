@@ -10,7 +10,7 @@ module GobiertoParticipation
       set_container
 
       @event = find_event
-      @calendar_events = @container.events
+      @calendar_events = @container.events_in_collections
     end
 
     private
@@ -19,10 +19,10 @@ module GobiertoParticipation
       if params[:date]
         @events = find_events_by_date params[:date]
       else
-        @events = @container.events.upcoming.sorted.page params[:page]
+        @events = @container.events_in_collections.upcoming.sorted.page params[:page]
       end
 
-      @calendar_events = @container.events
+      @calendar_events = @container.events_in_collections
     end
 
     def find_event
@@ -44,7 +44,7 @@ module GobiertoParticipation
 
     def find_events_by_date(date)
       @filtering_date = Date.parse(date)
-      events = @container.events.by_date(@filtering_date)
+      events = @container.events_in_collections.by_date(@filtering_date)
       events = (@filtering_date >= Time.now ? events.sorted : events.sorted_backwards)
       events.page params[:page]
     end

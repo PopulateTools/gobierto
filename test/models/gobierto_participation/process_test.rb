@@ -22,11 +22,11 @@ module GobiertoCms
     end
 
     def test_process_news
-      assert array_match process_news, process.news
+      assert array_match process_news, process.news_in_collections
     end
 
     def test_process_events
-      assert array_match process_events, process.events
+      assert array_match process_events, process.events_in_collections
     end
   end
 end

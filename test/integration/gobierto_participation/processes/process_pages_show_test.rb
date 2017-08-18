@@ -3,7 +3,7 @@
 require "test_helper"
 
 module GobiertoParticipation
-  class ProcessEventsIndexTest < ActionDispatch::IntegrationTest
+  class ProcessPagesShowTest < ActionDispatch::IntegrationTest
     def site
       @site ||= sites(:madrid)
     end
@@ -12,20 +12,20 @@ module GobiertoParticipation
       @process ||= gobierto_participation_processes(:gender_violence_process)
     end
 
-    def process_events_path
-      @process_events_path ||= gobierto_participation_events_path(
-        container_type: process.container_type,
-        container_id: process.id
-      )
+    def process_page
+      @process_page ||= gobierto_cms_pages(:notice_1)
     end
 
-    def process_events
-      @process_events ||= process.events_in_collections
+    def process_page_path
+      @process_page_path ||= gobierto_participation_process_process_page_path(
+        process_page.slug,
+        process_id: process.slug
+      )
     end
 
     def test_breadcrumb_items
       with_current_site(site) do
-        visit process_events_path
+        visit process_page_path
 
         within ".global_breadcrumb" do
           assert has_link? "Participation"
@@ -37,7 +37,7 @@ module GobiertoParticipation
 
     def test_menu_subsections
       with_current_site(site) do
-        visit process_events_path
+        visit process_page_path
 
         within "menu.sub_sections" do
           assert has_link? "About"
@@ -51,7 +51,7 @@ module GobiertoParticipation
 
     def test_secondary_nav
       with_current_site(site) do
-        visit process_events_path
+        visit process_page_path
 
         within "menu.secondary_nav" do
           assert has_link? "News"
@@ -59,37 +59,29 @@ module GobiertoParticipation
           assert has_link? "Documents"
           assert has_link? "Activity"
         end
+
+        # TODO: check that these links redirect to their corresponding pages
+        # applying the right scope (single process/group scope)
       end
     end
 
     def test_subscription_block
       with_current_site(site) do
-        visit process_events_path
+        visit process_page_path
 
         within ".site_header" do
-          skip "Not yet defined"
+          assert has_content? "Follow this process"
         end
       end
     end
 
-    def test_process_events_index
+    def test_process_page_show
       with_current_site(site) do
-        visit process_events_path
+        visit process_page_path
 
-        within ".events_list" do
-          assert_equal process_events.size, all(".person_event-item").size
-
-          assert has_content? "Swimming lessons for elders"
-          assert has_link? "Instalaciones Deportivas Canal de Isabel II"
-
-          assert has_content? "Intensive reading club in english"
-        end
-
-        within ".content_side" do
-          assert has_content? "Agenda"
-          # TODO: refute has_content? "Agenda for #{process.title}"
-
-          assert_equal process_events.size, all(".has-events").size
+        within ".news_article" do
+          assert has_content? "Notice 1 title"
+          assert has_content? "Notice 1 body"
         end
       end
     end

@@ -22,19 +22,15 @@ module GobiertoParticipation
     end
 
     def find_issue_news
-      @issue.news.sort_by(&:created_at).reverse.first(5)
-      # TODO: rewrite using Rails chainable scopes. Maybe something like this:
-      # @process.news.upcoming.order(created_at: :desc).limit(5)
+      @issue.extend_news.sort_by(&:created_at).reverse.first(5)
     end
 
     def find_issue_news_updated
-      @issue.events.upcoming.order(updated_at: :asc).limit(5)
-      # TODO: rewrite using Rails chainable scopes. Maybe something like this:
-      # @process.news.upcoming.order(created_at: :desc).limit(5)
+      @issue.extend_news.order(updated_at: :asc).limit(5)
     end
 
     def find_issue_events
-      @issue.events.upcoming.order(starts_at: :asc).limit(5)
+      @issue.extend_events.upcoming.order(starts_at: :asc).limit(5)
     end
   end
 end

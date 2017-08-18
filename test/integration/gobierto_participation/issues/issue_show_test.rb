@@ -80,11 +80,11 @@ module GobiertoParticipation
       end
     end
 
-    def test_process_news
+    def test_issue_news
       with_current_site(site) do
         visit @path
 
-        assert_equal issue.news.size, all(".place_news-item").size
+        assert_equal issue.news_in_collections.size, all(".place_news-item").size
       end
     end
 

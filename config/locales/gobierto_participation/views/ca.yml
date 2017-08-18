@@ -41,7 +41,7 @@ ca:
         show_more_news: Veure més notícies
         show_more_updates: Veure més actualitzacions
         the_last: L'últim
-        up_to_date: "%{location_name} al día"
+        up_to_date: "%{location_name} al dia"
       participation_proccesses:
         processes_description: Consulta i participa en processos específics.
         processes_title: Processos en marxa

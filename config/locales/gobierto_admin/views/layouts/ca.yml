@@ -15,11 +15,11 @@ ca:
         edit_site: Personalitzar site
         file_attachments: Documents
         hey_admin: Hola, %{admin_name}
-        issues: Themes
+        issues: Temes
         manage_sites: Gestionar sites
         notifications: Notificacions
         participation: Participació
         people: Alts càrrecs i Agendes
-        site_network: Red
+        site_network: Xarxa
         users: Usuaris
         view_site: Veure site

@@ -83,8 +83,7 @@ module GobiertoParticipation
     def test_issue_news
       with_current_site(site) do
         visit @path
-
-        assert_equal issue.news_in_collections.size, all(".place_news-item").size
+        assert_equal issue.news_in_collections.size, all("div#news/div").size
       end
     end
 

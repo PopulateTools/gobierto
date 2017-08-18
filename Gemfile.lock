@@ -275,7 +275,7 @@ GEM
       mini_portile2 (~> 2.2.0)
     ntlm-http (0.1.1)
     os (0.9.6)
-    paper_trail (7.1.0)
+    paper_trail (7.1.1)
       activerecord (>= 4.0, < 5.2)
       request_store (~> 1.1)
     parallel (1.11.2)

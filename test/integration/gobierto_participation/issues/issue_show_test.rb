@@ -17,6 +17,14 @@ module GobiertoParticipation
       @issue ||= issues(:culture)
     end
 
+    def processes
+      @processes ||= site.processes.process.where(issue: issue).open
+    end
+
+    def groups
+      @groups ||= site.processes.group_process.where(issue: issue)
+    end
+
     def test_breadcrumb_items
       with_current_site(site) do
         visit @path
@@ -92,6 +100,22 @@ module GobiertoParticipation
         visit @path
 
         assert has_content? "There are no related events"
+      end
+    end
+
+    def test_issue_processes
+      with_current_site(site) do
+        visit @path
+
+        assert_equal processes.size, all("div#processes/div").size
+      end
+    end
+
+    def test_issue_groups
+      with_current_site(site) do
+        visit @path
+
+        assert_equal groups.size, all("div#groups/div").size
       end
     end
   end

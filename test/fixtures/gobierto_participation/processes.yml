@@ -15,6 +15,18 @@ cultural_city_group:
   visibility_level: <%= Site.visibility_levels["draft"] %>
   issue: culture
 
+sport_city_process:
+  site: madrid
+  title_translations: <%= { 'en' => 'Sport city', 'es' => 'Ciudad deportiva' }.to_json %>
+  body_translations: <%= { 'en' => 'Make Madrid a sport city', 'es' => 'Hacer de Madrid una ciudad deportiva' }.to_json %>
+  information_text_translations: <%= { 'en' => 'Information text', 'es' => 'Texto de la información' }.to_json %>
+  slug: ciudad-deportiva
+  process_type: <%= GobiertoParticipation::Process.process_types[:process] %>
+  visibility_level: <%= Site.visibility_levels["active"] %>
+  starts: <%= 3.days.ago %>
+  ends: <%= 30.days.from_now %>
+  issue: culture
+
 local_budgets_process:
   site: madrid
   title_translations: <%= { 'en' => 'Local budgets', 'es' => 'Presupuestos participativos' }.to_json %>

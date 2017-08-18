@@ -26,7 +26,7 @@ module GobiertoParticipation
     end
 
     def find_event
-      GobiertoCalendars::Event.find_by!(slug: params[:id])
+      current_site.events.find_by!(slug: params[:id])
     end
 
     def find_container(container_type, container_id)

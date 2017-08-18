@@ -35,9 +35,9 @@ ca:
       current_group:
         current_stage: Fase actual
       index:
-        intro: Las teves idees ajuden a millorar %{location_name} i la vida de tots
-          els que residim aquí. Aporta els teus millors idees en els nostres <strong>
-          espais permanents de participació</strong>.
+        intro_html: Las teves idees ajuden a millorar %{location_name} i la vida de
+          tots els que residim aquí. Aporta els teus millors idees en els nostres
+          <strong> espais permanents de participació</strong>.
       participation_groups:
         work_groups_description: Consulta l'activitat de cada grup i participa.
         work_groups_title: Grups de treball
@@ -50,7 +50,7 @@ ca:
         show_more_news: Veure més notícies
         show_more_updates: Veure més actualitzacions
         the_last: L'últim
-        up_to_date: "%{location_name} al día"
+        up_to_date: "%{location_name} al dia"
       participation_proccesses:
         processes_description: Consulta i participa en processos específics.
         processes_title: Processos en marxa

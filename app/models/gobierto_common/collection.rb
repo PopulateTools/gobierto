@@ -47,8 +47,16 @@ module GobiertoCommon
       [Site, Issue, GobiertoParticipation::Area]
     end
 
-    def self.type_classes
-      [GobiertoCms::Page, GobiertoAttachments::Attachment, GobiertoCalendars::Event]
+    def self.type_classes(item_type)
+      if item_type == "Page"
+        [[::GobiertoCms::Page.model_name.human, ::GobiertoCms::Page.name]]
+      elsif item_type == "Attachment"
+        [[::GobiertoAttachments::Attachment.model_name.human, ::GobiertoAttachments::Attachment.name]]
+      elsif item_type == "Event"
+        [[::GobiertoCalendars::Event.model_name.human, ::GobiertoCalendars::Event.name]]
+      else
+        [GobiertoCms::Page, GobiertoAttachments::Attachment, GobiertoCalendars::Event]
+      end
     end
 
     def append(item)

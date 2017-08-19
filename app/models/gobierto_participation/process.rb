@@ -41,6 +41,24 @@ module GobiertoParticipation
       title
     end
 
+    def extend_news
+      news = self.news_in_collections.sort_by_updated_at(5)
+      news.merge(issue.news_in_collections) if issue
+      news
+    end
+
+    def extend_events
+      news = self.events_in_collections.sort_by_updated_at(5)
+      news.merge(issue.events_in_collections) if issue
+      news
+    end
+
+    def extend_attachments
+      news = self.attachments_in_collections.sort_by_updated_at(5)
+      news.merge(issue.attachments_in_collections) if issue
+      news
+    end
+
     def pages_collection
       GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCms::Page')
     end

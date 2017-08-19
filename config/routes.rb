@@ -255,11 +255,13 @@ Rails.application.routes.draw do
       get "participacion" => "welcome#index", as: :root
 
       resources :processes, only: [:index, :show] do
-        resources :pages, only: [:index, :show]
+        resources :pages, only: [:index, :show], controller: "process_pages", as: :process_pages
       end
 
       resources :events, only: [:index, :show]
-      resources :issues, only: [:index, :show]
+      resources :issues, only: [:index, :show] do
+        resources :pages, only: [:index, :show], controller: "issue_pages", as: :issue_pages
+      end
     end
   end
 

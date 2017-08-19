@@ -26,12 +26,12 @@ module GobiertoCommon
         self.class.container_type_name
       end
 
-      def news
+      def news_in_collections
         ids = GobiertoCommon::CollectionItem.where(collection: news_collection).map(&:item_id)
         GobiertoCms::Page.where(id: ids, site: site)
       end
 
-      def events
+      def events_in_collections
         collection_items_table = CollectionItem.table_name
         item_type = GobiertoCalendars::Event
 
@@ -41,6 +41,11 @@ module GobiertoCommon
           container_type = '#{self.class}' AND                               \
           container_id = #{self.id}                                          \
         ")
+      end
+
+      def attachments_in_collections
+        ids = GobiertoCommon::CollectionItem.where(collection: attachments_collection).map(&:item_id)
+        GobiertoAttachments::Attachment.where(id: ids, site: site)
       end
 
       def container_path
@@ -56,6 +61,10 @@ module GobiertoCommon
 
       def events_collection
         @events_collection ||= GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCalendars::Event')
+      end
+
+      def attachments_collection
+        @attachments_collection ||= GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoAttachments::Attachment')
       end
 
     end

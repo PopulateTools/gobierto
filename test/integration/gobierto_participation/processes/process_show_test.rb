@@ -96,9 +96,9 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        assert_equal gender_violence_process.news.size, all(".place_news-item").size
+        assert_equal gender_violence_process.news_in_collections.size, all(".place_news-item").size
 
-        news_titles = gender_violence_process.news.map(&:title)
+        news_titles = gender_violence_process.news_in_collections.map(&:title)
 
         assert array_match ["Notice 1 title", "Notice 2 title"], news_titles
       end
@@ -116,9 +116,9 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        assert_equal gender_violence_process.events.size, all(".place_event-item").size
+        assert_equal gender_violence_process.events_in_collections.size, all(".place_event-item").size
 
-        events_titles = gender_violence_process.events.map(&:title)
+        events_titles = gender_violence_process.events_in_collections.map(&:title)
 
         assert array_match ["Intensive reading club in english", "Swimming lessons for elders"], events_titles
       end

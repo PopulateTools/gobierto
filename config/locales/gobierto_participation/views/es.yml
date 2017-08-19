@@ -22,6 +22,15 @@ es:
           donde debatiremos en persona sobre los temas de este proceso. Si no puedes
           asistir, iremos publicando online todo lo que se hable en la reuniones para
           facilitar el seguimiento y hacer accesibles las conclusiones.
+    issue_pages:
+      index:
+        filter: Filtrar por tema
+        title: Noticias
+      show:
+        documents: Documentos
+        filter: Filtrar por grupo
+        published_at: Publicado el %{date} por el %{site}
+        title: Noticias
     issues:
       current_group:
         current_stage: Fase actual
@@ -65,7 +74,7 @@ es:
         agenda: Agenda
         documents: Documentos
         news: Noticias
-    pages:
+    process_pages:
       index:
         filter: Filtrar por tema
         title: Noticias

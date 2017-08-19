@@ -64,9 +64,9 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        assert_equal gender_violence_process.news.size, all(".place_news-item").size
+        assert_equal gender_violence_process.news_in_collections.size, all(".place_news-item").size
 
-        news_titles = gender_violence_process.news.map(&:title)
+        news_titles = gender_violence_process.news_in_collections.map(&:title)
 
         assert array_match ["Notice 1 title", "Notice 2 title"], news_titles
       end
@@ -88,7 +88,7 @@ module GobiertoParticipation
 
         assert has_selector?("h2", text: "News")
 
-        green_city_group.news.each do |page|
+        green_city_group.news_in_collections.each do |page|
           assert has_selector?("news_teaser")
 
           within "news_teaser" do

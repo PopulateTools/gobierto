@@ -1,9 +1,0 @@
----
-ca:
-  gobierto_admin:
-    gobierto_budget_consultations:
-      consultations:
-        consultation_responses:
-          create:
-            error: No s'ha pogut desar la resposta
-            success: Resposta creada correctament

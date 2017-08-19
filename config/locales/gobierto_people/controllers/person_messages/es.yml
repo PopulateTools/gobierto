@@ -1,8 +1,0 @@
----
-es:
-  gobierto_people:
-    people:
-      person_messages:
-        create:
-          error: No se ha podido enviar el mensaje
-          success: Mensaje enviado correctamente

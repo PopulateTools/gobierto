@@ -1,8 +1,0 @@
----
-es:
-  gobierto_admin:
-    census:
-      imports:
-        create:
-          error: Hubo un error al importar tu archivo. Por favor, inténtalo de nuevo.
-          success: Se han importado %{record_count} registros

@@ -1,8 +1,0 @@
----
-ca:
-  gobierto_admin:
-    users:
-      passwords:
-        create:
-          error: Hi ha hagut un problema al canviar la contrasenya del usuari
-          success: La contrasenya del usuari s'ha canviat correctamente

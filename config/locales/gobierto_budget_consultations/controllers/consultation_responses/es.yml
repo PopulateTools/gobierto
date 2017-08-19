@@ -1,9 +1,0 @@
----
-es:
-  gobierto_budget_consultations:
-    consultations:
-      consultation_responses:
-        new:
-          user_not_signed_in_html: La participación en esta consulta está reservada
-            a empadronados/as en %{place_name}.<br><br>Regístrate o haz login si ya
-            tienes cuenta (y verifica que ya estás empadronado) para poder participar.

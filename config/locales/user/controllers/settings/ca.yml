@@ -1,7 +1,0 @@
----
-ca:
-  user:
-    settings:
-      update:
-        error: Hi ha hagut un error al desar la teva configuració
-        success: Configuració desada amb éxit

@@ -1,9 +1,0 @@
----
-es:
-  gobierto_admin:
-    users:
-      passwords:
-        form:
-          submit: Enviar
-        new:
-          title: Cambiar contraseña de usuario

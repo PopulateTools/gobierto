@@ -1,6 +1,0 @@
----
-ca:
-  gobierto_admin:
-    form_helpers:
-      rich_text_area:
-        hints: Arrossega una imatge per incloure-la.

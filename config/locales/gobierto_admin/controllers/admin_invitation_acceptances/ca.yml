@@ -1,8 +1,0 @@
----
-ca:
-  gobierto_admin:
-    admin:
-      invitation_acceptances:
-        show:
-          error: Esta URL no sembla ser vàlida
-          success: Sessió iniciada correctament

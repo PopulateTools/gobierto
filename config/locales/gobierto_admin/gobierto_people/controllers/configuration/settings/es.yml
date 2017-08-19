@@ -1,9 +1,0 @@
----
-es:
-  gobierto_admin:
-    gobierto_people:
-      configuration:
-        settings:
-          update:
-            error: Ha ocurrido un error guardando las preferencias
-            success: Preferencias actualizadas correctamente

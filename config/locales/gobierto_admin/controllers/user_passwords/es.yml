@@ -1,8 +1,0 @@
----
-es:
-  gobierto_admin:
-    users:
-      passwords:
-        create:
-          error: Hubo un problema al cambiar la contraseña del usuario
-          success: La contraseña del usuario fue cambiada con éxito

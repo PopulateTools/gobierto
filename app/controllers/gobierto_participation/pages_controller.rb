@@ -32,7 +32,7 @@ module GobiertoParticipation
     end
 
     def find_process
-      ::GobiertoParticipation::Process.find_by_slug!(params[:process_id])
+      current_site.processes.find_by_slug!(params[:process_id])
     end
 
     def find_process_news

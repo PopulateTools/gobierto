@@ -32,8 +32,13 @@ module GobiertoParticipation
 
     after_create :create_collections
 
+    def self.open
+      ids = GobiertoParticipation::Process.select(&:open?).map(&:id)
+      where(id: ids)
+    end
+
     def to_s
-      self.title
+      title
     end
 
     def pages_collection
@@ -46,6 +51,21 @@ module GobiertoParticipation
 
     def attachments_collection
       GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoAttachments::Attachment')
+    end
+
+    def current_stage
+      if open?
+        process_stages = stages.where("starts >= ? AND ends <= ?", Time.zone.now, Time.zone.now)
+        process_stages.first.to_s
+      end
+    end
+
+    def open?
+      if stages.any?
+        Time.zone.now.between?(stages.last.starts, stages.last.ends)
+      else
+        false
+      end
     end
 
     private

@@ -6,6 +6,7 @@ en:
         title: Edit theme
       form:
         placeholders:
+          description: Theme description
           name: Theme name
           slug: about-this-theme
       index:

@@ -259,6 +259,7 @@ Rails.application.routes.draw do
       end
 
       resources :events, only: [:index, :show]
+      resources :issues, only: [:index, :show]
     end
   end
 

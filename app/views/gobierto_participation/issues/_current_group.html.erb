@@ -1,5 +1,5 @@
 <div class="process pure-u-1 pure-u-md-1-2">
-  <h3><a href="participation_group.html"><%= process.title %></a></h3>
+  <h3><%= link_to process.title, gobierto_participation_process_path(process.slug) %></h3>
   <% if process.open? %>
     <div class="meta">
       <svg xmlns="http://www.w3.org/2000/svg" width="40" height="12" viewBox="0 0 40 12">

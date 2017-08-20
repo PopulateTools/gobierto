@@ -18,7 +18,7 @@ module GobiertoParticipation
     private
 
     def find_issue
-      current_site.issues.find_by_slug!(params[:id])
+      current_site.issues.find_by!(slug: params[:id])
     end
 
     def find_issue_news

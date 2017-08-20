@@ -9,7 +9,7 @@ module GobiertoAdmin
         site_id: site.id,
         name_translations: { I18n.locale => issue.name },
         description_translations: { I18n.locale => issue.description },
-        slug_translations: { I18n.locale => issue.slug }
+        slug: "slug"
       )
     end
 
@@ -18,7 +18,7 @@ module GobiertoAdmin
         site_id: nil,
         name_translations: nil,
         description_translations: nil,
-        slug_translations: nil
+        slug: nil
       )
     end
 

@@ -41,13 +41,12 @@ module GobiertoAdmin
               click_link "Consultation page FAQ"
 
               fill_in "page_title_translations_en", with: "Consultation page FAQ updated"
-              fill_in "page_slug_translations_en", with: "consultation-faq-updated"
+              fill_in "page_slug", with: "consultation-faq-updated"
 
               click_button "Update"
 
               assert has_message?("Page updated successfully")
-              assert has_field?("page_slug_translations_en", with: "consultation-faq-updated")
-              assert_equal("faq-consultas", find("#page_slug_translations_es", visible: false).value)
+              assert has_field?("page_slug", with: "consultation-faq-updated")
 
               assert_equal(
                 "<div>This is the body of the page</div>",

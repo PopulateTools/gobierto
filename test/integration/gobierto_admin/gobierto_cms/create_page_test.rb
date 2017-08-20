@@ -62,17 +62,16 @@ module GobiertoAdmin
 
               fill_in "page_title_translations_en", with: "My page"
               find("#page_body_translations_en", visible: false).set("The content of the page")
-              fill_in "page_slug_translations_en", with: "new-page"
+              fill_in "page_slug", with: "new-page"
 
               click_link "ES"
               fill_in "page_title_translations_es", with: "Mi página"
               find("#page_body_translations_es", visible: false).set("Contenido de la página")
-              fill_in "page_slug_translations_es", with: "nueva-pagina"
 
               click_button "Create"
 
               assert has_message?("Page created successfully")
-              assert has_field?("page_slug_translations_en", with: "new-page")
+              assert has_field?("page_slug", with: "new-page")
 
               assert_equal(
                 "<div>The content of the page</div>",
@@ -85,8 +84,6 @@ module GobiertoAdmin
                 "<div>Contenido de la página</div>",
                 find("#page_body_translations_es", visible: false).value
               )
-
-              assert has_field?("page_slug_translations_es", with: "nueva-pagina")
 
               page = site.pages.last
               activity = Activity.last

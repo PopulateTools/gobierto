@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170814214010) do
+ActiveRecord::Schema.define(version: 20170820080155) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
@@ -30,17 +29,17 @@ ActiveRecord::Schema.define(version: 20170814214010) do
     t.integer "site_id"
     t.datetime "created_at", null: false
     t.index ["admin_activity"], name: "index_activities_on_admin_activity"
-    t.index %w(author_type author_id), name: "index_activities_on_author_type_and_author_id"
-    t.index %w(recipient_type recipient_id), name: "index_activities_on_recipient_type_and_recipient_id"
+    t.index ["author_type", "author_id"], name: "index_activities_on_author_type_and_author_id"
+    t.index ["recipient_type", "recipient_id"], name: "index_activities_on_recipient_type_and_recipient_id"
     t.index ["site_id"], name: "index_activities_on_site_id"
-    t.index %w(subject_id subject_type), name: "index_activities_on_subject_id_and_subject_type"
-    t.index %w(subject_type subject_id), name: "index_activities_on_subject_type_and_subject_id"
+    t.index ["subject_id", "subject_type"], name: "index_activities_on_subject_id_and_subject_type"
+    t.index ["subject_type", "subject_id"], name: "index_activities_on_subject_type_and_subject_id"
   end
 
   create_table "admin_admin_sites", id: :serial, force: :cascade do |t|
     t.integer "admin_id"
     t.integer "site_id"
-    t.index %w(admin_id site_id), name: "index_admin_admin_sites_on_admin_id_and_site_id"
+    t.index ["admin_id", "site_id"], name: "index_admin_admin_sites_on_admin_id_and_site_id"
     t.index ["admin_id"], name: "index_admin_admin_sites_on_admin_id"
     t.index ["site_id"], name: "index_admin_admin_sites_on_site_id"
   end
@@ -84,7 +83,7 @@ ActiveRecord::Schema.define(version: 20170814214010) do
     t.string "namespace", default: "", null: false
     t.string "resource_name", default: "", null: false
     t.string "action_name", default: "", null: false
-    t.index %w(admin_id namespace resource_name action_name), name: "index_admin_permissions_on_admin_id_and_fields"
+    t.index ["admin_id", "namespace", "resource_name", "action_name"], name: "index_admin_permissions_on_admin_id_and_fields"
     t.index ["admin_id"], name: "index_admin_permissions_on_admin_id"
   end
 
@@ -94,9 +93,9 @@ ActiveRecord::Schema.define(version: 20170814214010) do
     t.string "date_of_birth", default: "", null: false
     t.integer "import_reference"
     t.boolean "verified", default: false, null: false
-    t.index %w(site_id document_number_digest date_of_birth verified), name: "index_census_items_on_site_id_and_doc_number_and_birth_verified"
-    t.index %w(site_id document_number_digest date_of_birth), name: "index_census_items_on_site_id_and_doc_number_and_date_of_birth"
-    t.index %w(site_id import_reference), name: "index_census_items_on_site_id_and_import_reference"
+    t.index ["site_id", "document_number_digest", "date_of_birth", "verified"], name: "index_census_items_on_site_id_and_doc_number_and_birth_verified"
+    t.index ["site_id", "document_number_digest", "date_of_birth"], name: "index_census_items_on_site_id_and_doc_number_and_date_of_birth"
+    t.index ["site_id", "import_reference"], name: "index_census_items_on_site_id_and_import_reference"
     t.index ["site_id"], name: "index_census_items_on_site_id"
   end
 
@@ -109,8 +108,8 @@ ActiveRecord::Schema.define(version: 20170814214010) do
     t.datetime "updated_at", null: false
     t.bigint "collection_id"
     t.index ["collection_id"], name: "index_collection_items_on_collection_id"
-    t.index %w(container_type container_id), name: "index_collection_items_on_container_type_and_container_id"
-    t.index %w(item_type item_id), name: "index_collection_items_on_item_type_and_item_id"
+    t.index ["container_type", "container_id"], name: "index_collection_items_on_container_type_and_container_id"
+    t.index ["item_type", "item_id"], name: "index_collection_items_on_item_type_and_item_id"
   end
 
   create_table "collections", force: :cascade do |t|
@@ -122,7 +121,7 @@ ActiveRecord::Schema.define(version: 20170814214010) do
     t.bigint "container_id"
     t.string "item_type"
     t.string "slug", default: "", null: false
-    t.index %w(container_type container_id), name: "index_collections_on_container_type_and_container_id"
+    t.index ["container_type", "container_id"], name: "index_collections_on_container_type_and_container_id"
     t.index ["site_id"], name: "index_collections_on_site_id"
   end
 
@@ -144,7 +143,7 @@ ActiveRecord::Schema.define(version: 20170814214010) do
     t.datetime "updated_at", null: false
     t.string "attachment_url"
     t.index ["content_block_id"], name: "index_content_block_records_on_content_block_id"
-    t.index %w(content_context_type content_context_id), name: "index_content_block_records_on_content_context"
+    t.index ["content_context_type", "content_context_id"], name: "index_content_block_records_on_content_context"
     t.index ["payload"], name: "index_content_block_records_on_payload", using: :gin
   end
 
@@ -178,8 +177,13 @@ ActiveRecord::Schema.define(version: 20170814214010) do
     t.string "name", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index %w(site_id name), name: "index_custom_user_fields_on_site_id_and_name", unique: true
+    t.index ["site_id", "name"], name: "index_custom_user_fields_on_site_id_and_name", unique: true
     t.index ["site_id"], name: "index_custom_user_fields_on_site_id"
+  end
+
+  create_table "data_migrations", id: false, force: :cascade do |t|
+    t.string "version", null: false
+    t.index ["version"], name: "unique_data_migrations", unique: true
   end
 
   create_table "ga_attachings", force: :cascade do |t|
@@ -187,7 +191,7 @@ ActiveRecord::Schema.define(version: 20170814214010) do
     t.integer "attachment_id", null: false
     t.integer "attachable_id", null: false
     t.string "attachable_type", null: false
-    t.index %w(site_id attachment_id attachable_id attachable_type), name: "record_unique_index", unique: true
+    t.index ["site_id", "attachment_id", "attachable_id", "attachable_type"], name: "record_unique_index", unique: true
   end
 
   create_table "ga_attachments", force: :cascade do |t|
@@ -210,7 +214,7 @@ ActiveRecord::Schema.define(version: 20170814214010) do
     t.string "code", null: false
     t.jsonb "custom_name_translations"
     t.jsonb "custom_description_translations"
-    t.index %w(site_id area_name kind code), name: "gb_categories_record_unique_index", unique: true
+    t.index ["site_id", "area_name", "kind", "code"], name: "gb_categories_record_unique_index", unique: true
   end
 
   create_table "gbc_consultation_items", id: :serial, force: :cascade do |t|
@@ -237,7 +241,7 @@ ActiveRecord::Schema.define(version: 20170814214010) do
     t.string "sharing_token"
     t.string "document_number_digest"
     t.jsonb "user_information"
-    t.index %w(consultation_id document_number_digest), name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
+    t.index ["consultation_id", "document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["consultation_id"], name: "index_gbc_consultation_responses_on_consultation_id"
     t.index ["sharing_token"], name: "index_gbc_consultation_responses_on_sharing_token", unique: true
     t.index ["user_information"], name: "index_gbc_consultation_responses_on_user_information", using: :gin
@@ -320,7 +324,7 @@ ActiveRecord::Schema.define(version: 20170814214010) do
     t.jsonb "settings"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index %w(site_id module_name), name: "index_gobierto_module_settings_on_site_id_and_module_name", unique: true
+    t.index ["site_id", "module_name"], name: "index_gobierto_module_settings_on_site_id_and_module_name", unique: true
     t.index ["site_id"], name: "index_gobierto_module_settings_on_site_id"
   end
 
@@ -338,7 +342,7 @@ ActiveRecord::Schema.define(version: 20170814214010) do
     t.integer "political_group_id"
     t.integer "category", default: 0, null: false
     t.integer "party"
-    t.integer "position", default: 999_999, null: false
+    t.integer "position", default: 999999, null: false
     t.string "email"
     t.jsonb "charge_translations"
     t.jsonb "bio_translations"
@@ -346,7 +350,7 @@ ActiveRecord::Schema.define(version: 20170814214010) do
     t.string "google_calendar_token"
     t.index ["admin_id"], name: "index_gp_people_on_admin_id"
     t.index ["bio_translations"], name: "index_gp_people_on_bio_translations", using: :gin
-    t.index %w(category party), name: "index_gp_people_on_category_and_party"
+    t.index ["category", "party"], name: "index_gp_people_on_category_and_party"
     t.index ["category"], name: "index_gp_people_on_category"
     t.index ["charge_translations"], name: "index_gp_people_on_charge_translations", using: :gin
     t.index ["google_calendar_token"], name: "index_gp_people_on_google_calendar_token", unique: true
@@ -437,7 +441,7 @@ ActiveRecord::Schema.define(version: 20170814214010) do
     t.string "slug", null: false
     t.integer "stage_type", default: 0, null: false
     t.jsonb "description_translations"
-    t.index %w(process_id slug), name: "index_gpart_process_stages_on_process_id_and_slug", unique: true
+    t.index ["process_id", "slug"], name: "index_gpart_process_stages_on_process_id_and_slug", unique: true
     t.index ["process_id"], name: "index_gpart_process_stages_on_process_id"
     t.index ["title_translations"], name: "index_gpart_process_stages_on_title_translations", using: :gin
   end
@@ -465,15 +469,14 @@ ActiveRecord::Schema.define(version: 20170814214010) do
   create_table "issues", force: :cascade do |t|
     t.bigint "site_id"
     t.jsonb "name_translations"
-    t.jsonb "slug_translations"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position", default: 0, null: false
     t.jsonb "description_translations"
+    t.string "slug", default: "", null: false
     t.index ["name_translations"], name: "index_issues_on_name_translations", using: :gin
     t.index ["position"], name: "index_issues_on_position"
     t.index ["site_id"], name: "index_issues_on_site_id"
-    t.index ["slug_translations"], name: "index_issues_on_slug_translations", using: :gin
   end
 
   create_table "sites", id: :serial, force: :cascade do |t|
@@ -523,9 +526,9 @@ ActiveRecord::Schema.define(version: 20170814214010) do
     t.index ["is_seen"], name: "index_user_notifications_on_is_seen"
     t.index ["is_sent"], name: "index_user_notifications_on_is_sent"
     t.index ["site_id"], name: "index_user_notifications_on_site_id"
-    t.index %w(subject_type subject_id site_id user_id), name: "index_user_notifications_on_subject_and_site_id_and_user_id"
-    t.index %w(subject_type subject_id site_id), name: "index_user_notifications_on_subject_and_site_id"
-    t.index %w(user_id site_id), name: "index_user_notifications_on_user_id_and_site_id"
+    t.index ["subject_type", "subject_id", "site_id", "user_id"], name: "index_user_notifications_on_subject_and_site_id_and_user_id"
+    t.index ["subject_type", "subject_id", "site_id"], name: "index_user_notifications_on_subject_and_site_id"
+    t.index ["user_id", "site_id"], name: "index_user_notifications_on_user_id_and_site_id"
     t.index ["user_id"], name: "index_user_notifications_on_user_id"
   end
 
@@ -537,10 +540,10 @@ ActiveRecord::Schema.define(version: 20170814214010) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["site_id"], name: "index_user_subscriptions_on_site_id"
-    t.index %w(subscribable_type site_id), name: "index_user_subscriptions_on_subscribable_type_and_site_id"
-    t.index %w(subscribable_type subscribable_id site_id user_id), name: "index_user_subscriptions_on_type_and_id_and_user_id", unique: true
-    t.index %w(subscribable_type subscribable_id site_id), name: "index_user_subscriptions_on_type_and_id"
-    t.index %w(user_id site_id), name: "index_user_subscriptions_on_user_id_and_site_id"
+    t.index ["subscribable_type", "site_id"], name: "index_user_subscriptions_on_subscribable_type_and_site_id"
+    t.index ["subscribable_type", "subscribable_id", "site_id", "user_id"], name: "index_user_subscriptions_on_type_and_id_and_user_id", unique: true
+    t.index ["subscribable_type", "subscribable_id", "site_id"], name: "index_user_subscriptions_on_type_and_id"
+    t.index ["user_id", "site_id"], name: "index_user_subscriptions_on_user_id_and_site_id"
     t.index ["user_id"], name: "index_user_subscriptions_on_user_id"
   end
 
@@ -591,7 +594,7 @@ ActiveRecord::Schema.define(version: 20170814214010) do
     t.string "whodunnit"
     t.text "object"
     t.datetime "created_at"
-    t.index %w(item_type item_id), name: "index_versions_on_item_type_and_item_id"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   add_foreign_key "gobierto_calendars_events", "collections", on_delete: :cascade

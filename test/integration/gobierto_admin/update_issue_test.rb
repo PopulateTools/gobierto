@@ -18,7 +18,7 @@ module GobiertoAdmin
     end
 
     def participation_issue
-      @participation_issue ||= gobierto_admin_issues(:culture)
+      @participation_issue ||= issues(:culture)
     end
 
     def test_update_issue
@@ -27,17 +27,23 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            click_link "Culture"
+            click_link participation_issue.name
 
             within "form.edit_issue" do
               fill_in "issue_name_translations_en", with: "Theme Culture updated"
               fill_in "issue_description_translations_en", with: "Description Culture updated"
-              fill_in "issue_slug_translations_en", with: "theme-culture-updated"
+              fill_in "issue_slug", with: "theme-culture-updated"
 
               click_button "Update"
             end
 
             assert has_message?("Theme was successfully updated.")
+
+            click_link participation_issue.name
+
+            assert has_field?("issue_name_translations_en", with: "Theme Culture updated")
+            assert has_field?("issue_description_translations_en", with: "Description Culture updated")
+            assert has_field?("issue_slug", with: "theme-culture-updated")
           end
         end
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoParticipation
   class PagesController < GobiertoParticipation::ApplicationController
     include ::PreviewTokenHelper
@@ -27,7 +29,7 @@ module GobiertoParticipation
     def find_page_by_id_and_redirect
       if params[:id].present? && params[:id] =~ /\A\d+\z/
         page = current_site.pages.active.find(params[:id])
-        redirect_to gobierto_cms_page_path(page.slug) and return false
+        redirect_to(gobierto_cms_page_path(page.slug)) && (return false)
       end
     end
 
@@ -40,7 +42,7 @@ module GobiertoParticipation
     end
 
     def find_page
-      pages_scope.find_by_slug!(params[:id])
+      pages_scope.find_by!(slug: params[:id])
     end
 
     def pages_scope

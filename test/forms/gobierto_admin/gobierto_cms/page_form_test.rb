@@ -10,7 +10,7 @@ module GobiertoAdmin
           site_id: site.id,
           title_translations: { I18n.locale => page.title },
           body_translations: { I18n.locale => page.body },
-          slug: page.slug,
+          slug: "page-form-slug",
           visibility_level: page.visibility_level
         )
       end

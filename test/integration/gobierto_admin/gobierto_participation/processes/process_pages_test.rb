@@ -62,7 +62,7 @@ module GobiertoAdmin
 
               fill_in "page_title_translations_en", with: "News Title"
               find("#page_body_translations_en", visible: false).set("The content of the page")
-              fill_in "page_slug_translations_en", with: "new-page"
+              fill_in "page_slug", with: "new-page"
               click_button "Create"
 
               assert has_message?("Page created successfully")

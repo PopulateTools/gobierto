@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170820154600) do
+ActiveRecord::Schema.define(version: 20170821072152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -428,6 +428,19 @@ ActiveRecord::Schema.define(version: 20170820154600) do
     t.index ["name_translations"], name: "index_gpart_areas_on_name_translations", using: :gin
     t.index ["site_id"], name: "index_gpart_areas_on_site_id"
     t.index ["slug_translations"], name: "index_gpart_areas_on_slug_translations", using: :gin
+  end
+
+  create_table "gpart_contributor_containers", force: :cascade do |t|
+    t.jsonb "title_translations", default: "", null: false
+    t.jsonb "description_translations", default: "", null: false
+    t.date "starts"
+    t.date "ends"
+    t.integer "contribution_type", default: 0, null: false
+    t.integer "visibility_level", default: 0, null: false
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_gpart_contributor_containers_on_site_id"
   end
 
   create_table "gpart_process_stages", force: :cascade do |t|

@@ -20,5 +20,14 @@ ca:
           title: Processos i Grups
         new:
           title: Nou procés o grup
+        process_contribution_containers:
+          create:
+            success_html: Contenidor de contribucions creat correctament
+          form:
+            placeholders:
+              description: Idees for activities for children.
+              title: Quines activitats per a nens podem posar en marxa?
+          update:
+            success_html: Contenidor de contribucions actualitzat correctament
         update:
           success: Procés actualitzat correctament

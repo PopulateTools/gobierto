@@ -1,0 +1,32 @@
+<%= render 'gobierto_admin/gobierto_participation/shared/breadcrumb', last_breadcrumb_item: t('gobierto_admin.gobierto_attachments.file_attachments.index.title'), process: current_process %>
+
+<h1><%= current_process.title %></h1>
+
+<%= render 'gobierto_admin/gobierto_participation/shared/navigation' %>
+
+<div class="admin_tools right">
+  <%= link_to 'Nueva', new_admin_participation_process_contribution_container_path, class: 'button' %>
+</div>
+
+<table>
+  <tr>
+    <th></th>
+    <th>Petición de ideas</th>
+    <th>Aportaciones / Votos</th>
+    <th>Estado</th>
+    <th>Inicio</th>
+    <th>Fin</th>
+    <th></th>
+  </tr>
+  <% @contribution_containers.each do |contribution_container| %>
+    <tr>
+      <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_participation_process_contribution_container_path(contribution_container.id,process_id: contribution_container.process.id) %></td>
+      <td><%= link_to contribution_container.title, admin_participation_process_contribution_container_path(contribution_container.id, process_id: contribution_container.process.id) %></td>
+      <td>123 / 1.234</td>
+      <td>Publicada</td>
+      <td>1 may 2017</td>
+      <td>1 jul 2017</td>
+      <td><%= link_to '<i class="fa fa-eye"></i> Ver ideas'.html_safe, admin_participation_process_contribution_container_path(contribution_container.id, process_id: contribution_container.process.id), class: 'view_item' %></td>
+    </tr>
+  <% end %>
+</table>

@@ -36,7 +36,7 @@ module GobiertoAdmin
                                                                                                            admin_id: current_admin.id))
 
           if @contribution_container_form.save
-            # track_create_activity
+            track_create_activity
 
             redirect_to(
               edit_admin_participation_process_contribution_container_path(process_id: @process.id, id: @contribution_container_form.contribution_container.id),
@@ -54,7 +54,7 @@ module GobiertoAdmin
                                                                                                            process_id: @process.id,
                                                                                                            admin_id: current_admin.id))
           if @contribution_container_form.save
-            # track_update_activity
+            track_update_activity
 
             redirect_to(
               edit_admin_participation_process_contribution_container_path(id: @contribution_container_form.contribution_container.id,
@@ -68,6 +68,14 @@ module GobiertoAdmin
         end
 
         private
+
+        def track_create_activity
+          Publishers::GobiertoParticipationContributionContainerActivity.broadcast_event("contribution_container_created", default_activity_params.merge(subject: @contribution_container_form.contribution_container))
+        end
+
+        def track_update_activity
+          Publishers::GobiertoParticipationContributionContainerActivity.broadcast_event("contribution_container_updated", default_activity_params.merge(subject: @contribution_container))
+        end
 
         def default_activity_params
           { ip: remote_ip, author: current_admin, site_id: current_site.id }

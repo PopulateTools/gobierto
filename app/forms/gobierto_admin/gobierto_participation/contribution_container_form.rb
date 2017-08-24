@@ -20,7 +20,7 @@ module GobiertoAdmin
 
       delegate :persisted?, to: :contribution_container
 
-      validates :site, :title_translations, :description_translations, :admin_id, presence: true
+      validates :site, :title_translations, :description_translations, :contribution_type, :admin_id, presence: true
 
       def save
         save_contribution_container if valid?

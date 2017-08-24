@@ -50,6 +50,7 @@ module GobiertoAdmin
 
         assert_equal 1, invalid_contribution_container_form.errors.messages[:title_translations].size
         assert_equal 1, invalid_contribution_container_form.errors.messages[:description_translations].size
+        assert_equal 1, invalid_contribution_container_form.errors.messages[:contribution_type].size
       end
     end
   end

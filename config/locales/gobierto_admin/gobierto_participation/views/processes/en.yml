@@ -27,6 +27,30 @@ en:
             placeholders:
               description: Ideas for activities for children.
               title: What activities for children can we launch?
+          index:
+            contributions_votes: Contributions / Votes
+            end: Fin
+            new: New
+            request_ideas: Request of ideas
+            see_ideas: See ideas
+            start: Inicio
+            status: Estado
+            visibility_level:
+              active: Published
+              draft: Draft
+          show:
+            comments: Comments
+            config: Config
+            contribution: Contribution
+            marked: Marked
+            new: New
+            participants: Participants
+            see_contribution: See contribution
+            status: Status
+            status_level:
+              moderate: Moderate
+              published: Published
+            votes: Votes
           update:
             success_html: Container of contributions updated correctly
         update:

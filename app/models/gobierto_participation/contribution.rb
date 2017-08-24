@@ -11,6 +11,7 @@ module GobiertoParticipation
     belongs_to :site
     belongs_to :contribution_container
     has_many :comments, as: :commentable
+    has_many :votes, as: :votable
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title, :description
@@ -23,5 +24,11 @@ module GobiertoParticipation
 
     scope :sort_by_created_at, -> { reorder(created_at: :desc) }
     # scope :sort_by_votes , -> { reorder(hot_score: :desc) }
+
+    def number_participants
+      user_ids = comments.map(&:user_id) + votes.map(&:user_id)
+      user_ids.uniq
+      user_ids.size
+    end
   end
 end

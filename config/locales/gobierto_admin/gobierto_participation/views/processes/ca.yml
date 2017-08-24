@@ -27,6 +27,30 @@ ca:
             placeholders:
               description: Idees for activities for children.
               title: Quines activitats per a nens podem posar en marxa?
+          index:
+            contributions_votes: Aportacions / Valoracions
+            end: Fi
+            new: Nova
+            request_ideas: Petició d'idees
+            see_ideas: Veure idees
+            start: Inici
+            status: Estat
+            visibility_level:
+              active: Publicada
+              draft: Esborrany
+          show:
+            comments: Comentaris
+            config: Configuració
+            contribution: Aportació
+            marked: Marcada
+            new: Nova
+            participants: Participants
+            see_contribution: Veure aportació
+            status: Estat
+            status_level:
+              moderate: Moderada
+              published: Publicada
+            votes: Valoracions
           update:
             success_html: Contenidor de contribucions actualitzat correctament
         update:

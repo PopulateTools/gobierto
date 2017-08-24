@@ -9,35 +9,47 @@
     <strong><%= @contribution_container.title  %></strong> » Aportaciones
   </div>
   <div class="pure-u-1-4 admin_tools right">
-    <%= link_to 'Configuración', edit_admin_participation_process_contribution_container_path(@contribution_container.id, process_id: @contribution_container.process.id) %>
-    <%= link_to 'Nueva', new_admin_participation_process_contribution_container_path, class: 'button' %>
+    <%= link_to t('.config'), edit_admin_participation_process_contribution_container_path(@contribution_container.id, process_id: @contribution_container.process.id) %>
+    <%= link_to t('.new'), new_admin_participation_process_contribution_container_path, class: 'button' %>
   </div>
 </div>
 
 
 <table>
-<tr>
-  <!-- <th></th> -->
-  <th>Aportación</th>
-  <th>Participantes</th>
-  <th>Valoraciones</th>
-  <th>Comentarios</th>
-  <th>Marcada</th>
-  <th>Estado</th>
-  <th></th>
-</tr>
+  <tr>
+    <!-- TODO: Edit <th></th> -->
+    <th><%= t('.contribution') %></th>
+    <th><%= t('.participants') %></th>
+    <th><%= t('.votes') %></th>
+    <th><%= t('.comments') %></th>
+    <th><%= t('.marked') %></th>
+    <th><%= t('.status') %></th>
+    <th></th>
+  </tr>
 
-<% for i in ['Guiñol', 'Circuito de bicicletas', 'Gymkana', 'Olimpiada matemática', 'Pintacaras', 'Rol', 'Juegos de mesa'] %>
-<tr>
-  <!-- <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, '' %></td> -->
-  <td><%= i %></td>
-  <td>123</td>
-  <td>12</td>
-  <td>456</td>
-  <td>-</td>
-  <td><%= cycle 'Publicada', 'Moderada' %></td>
-  <td><%= link_to '<i class="fa fa-eye"></i> Ver aportación'.html_safe, '#public_view', class: 'view_item' %></td>
-</tr>
-<% end %>
-
+  <% @contribution_container.contributions.each do |contribution| %>
+    <tr>
+      <!-- TODO: Edit <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, '' %></td> -->
+      <td><%= contribution.title %></td>
+      <td><%= contribution.number_participants %></td>
+      <td><%= contribution.votes_count %></td>
+      <td><%= contribution.comments_count %></td>
+      <td><!-- TODO: Marcada --></td>
+      <td>
+        <!-- TODO: Publicada/Moderada -->
+        <% if true %>
+          <i class="fa fa-lock"></i>
+          <%= t(".status_level.published") %>
+        <% else %>
+          <%= t(".status_level.moderate") %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to '#public_view', target: "_blank", class: "view_item" do %>
+          <i class="fa fa-eye"></i>
+          <%= t(".see_contribution") %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
 </table>

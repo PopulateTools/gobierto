@@ -31,6 +31,7 @@ module GobiertoAdmin
 
         def create
           @process = find_process
+          @contribution_container_visibility_levels = contribution_container_visibility_levels
           @contribution_container_form = ContributionContainerForm.new(contribution_container_params.merge(site_id: current_site.id,
                                                                                                            process_id: @process.id,
                                                                                                            admin_id: current_admin.id))
@@ -49,6 +50,7 @@ module GobiertoAdmin
 
         def update
           @contribution_container = find_contribution_container
+          @contribution_container_visibility_levels = contribution_container_visibility_levels
           @process = @contribution_container.process
           @contribution_container_form = ContributionContainerForm.new(contribution_container_params.merge(id: @contribution_container.id,
                                                                                                            process_id: @process.id,

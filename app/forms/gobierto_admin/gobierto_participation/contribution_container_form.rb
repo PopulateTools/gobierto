@@ -38,6 +38,10 @@ module GobiertoAdmin
         @site ||= Site.find_by(id: site_id)
       end
 
+      def visibility_level
+        @visibility_level ||= "draft"
+      end
+
       private
 
       def build_contribution_container

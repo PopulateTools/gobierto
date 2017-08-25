@@ -35,6 +35,7 @@ en:
             see_ideas: See ideas
             start: Inicio
             status: Estado
+            title: Contributions
             visibility_level:
               active: Published
               draft: Draft

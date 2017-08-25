@@ -35,6 +35,7 @@ ca:
             see_ideas: Veure idees
             start: Inici
             status: Estat
+            title: Aportacions
             visibility_level:
               active: Publicada
               draft: Esborrany

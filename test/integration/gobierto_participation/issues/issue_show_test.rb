@@ -95,11 +95,11 @@ module GobiertoParticipation
       end
     end
 
-    def test_issue_without_events
+    def test_issue_with_events
       with_current_site(site) do
         visit @path
 
-        assert has_content? "There are no related events"
+        assert_equal issue.events.size, all(".place_events-item").size
       end
     end
 

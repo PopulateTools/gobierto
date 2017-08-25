@@ -20,7 +20,8 @@ module GobiertoAdmin
 
       delegate :persisted?, to: :contribution_container
 
-      validates :site, :title_translations, :description_translations, :contribution_type, :admin_id, presence: true
+      validates :title_translations, :description_translations, presence: true
+      validates :admin_id, :site, presence: true
 
       def save
         save_contribution_container if valid?
@@ -40,6 +41,10 @@ module GobiertoAdmin
 
       def visibility_level
         @visibility_level ||= "draft"
+      end
+
+      def contribution_type
+        @contribution_type ||= "idea"
       end
 
       private

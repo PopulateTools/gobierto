@@ -16,7 +16,6 @@ module GobiertoParticipation
     enum visibility_level: { draft: 0, active: 1 }
     enum contribution_type: { idea: 0, question: 1, proposal: 2 }
 
-    validates :site, :process, :title, :description, :contribution_type, :admin, presence: true
-    # validacion para contribution_type y posiblemente para visibility level
+    validates :site, :process, :title, :description, :admin, presence: true
   end
 end

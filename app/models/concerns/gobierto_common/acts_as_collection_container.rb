@@ -26,6 +26,23 @@ module GobiertoCommon
         self.class.container_type_name
       end
 
+      def news
+        ids = GobiertoCommon::CollectionItem.where(collection: news_collection).map(&:item_id)
+        GobiertoCms::Page.where(id: ids, site: site)
+      end
+
+      def events
+        collection_items_table = CollectionItem.table_name
+        item_type = GobiertoCalendars::Event
+
+        site.events.joins("INNER JOIN #{collection_items_table} ON           \
+          #{collection_items_table}.item_id = #{item_type.table_name}.id AND \
+          #{collection_items_table}.item_type = '#{item_type}' AND           \
+          container_type = '#{self.class}' AND                               \
+          container_id = #{self.id}                                          \
+        ")
+      end
+
       def news_in_collections
         ids = GobiertoCommon::CollectionItem.where(collection: news_collection).map(&:item_id)
         GobiertoCms::Page.where(id: ids, site: site)

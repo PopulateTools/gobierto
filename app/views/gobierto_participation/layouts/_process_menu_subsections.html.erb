@@ -4,7 +4,7 @@
       <li><%= todo_link_to { link_to t('.information'), '#' } %></li>
       <li><%= todo_link_to { link_to t('.meetings'), '#' } %></li>
       <li><%= todo_link_to { link_to t('.polls'), '#' } %></li>
-      <li><%= todo_link_to { link_to t('.contributions'), '#' } %></li>
+      <li><%= link_to t('.contributions'), gobierto_participation_process_process_contribution_containers_path(process_id: @process.slug) %></li>
       <li><%= todo_link_to { link_to t('.results'), '#' } %></li>
     </ul>
   </div>

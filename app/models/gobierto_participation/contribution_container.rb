@@ -17,5 +17,13 @@ module GobiertoParticipation
     enum contribution_type: { idea: 0, question: 1, proposal: 2 }
 
     validates :site, :process, :title, :description, :admin, presence: true
+
+    def comments_count
+      contributions.sum(:comments_count)
+    end
+
+    def participants_count
+      contributions.sum(&:number_participants)
+    end
   end
 end

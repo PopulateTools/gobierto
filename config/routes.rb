@@ -257,6 +257,7 @@ Rails.application.routes.draw do
 
       resources :processes, only: [:index, :show] do
         resources :pages, only: [:index, :show]
+        resources :contribution_containers, only: [:index, :show], controller: "process_contribution_containers", as: :process_contribution_containers, path: :contribution_containers
       end
 
       resources :events, only: [:index, :show]

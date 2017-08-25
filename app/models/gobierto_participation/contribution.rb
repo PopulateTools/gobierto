@@ -6,6 +6,7 @@ module GobiertoParticipation
   class Contribution < ApplicationRecord
     include GobiertoParticipation::Flaggable
     include GobiertoCommon::Searchable
+    include GobiertoCommon::Sluggable
 
     belongs_to :user
     belongs_to :site
@@ -24,6 +25,14 @@ module GobiertoParticipation
 
     scope :sort_by_created_at, -> { reorder(created_at: :desc) }
     # scope :sort_by_votes , -> { reorder(hot_score: :desc) }
+
+    def parameterize
+      { slug: slug }
+    end
+
+    def attributes_for_slug
+      [title]
+    end
 
     def number_participants
       user_ids = comments.map(&:user_id) + votes.map(&:user_id)

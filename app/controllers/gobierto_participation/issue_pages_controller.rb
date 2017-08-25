@@ -31,7 +31,7 @@ module GobiertoParticipation
     end
 
     def find_issue_news
-      @issue.extend_news
+      @issue.news
     end
 
     def find_page

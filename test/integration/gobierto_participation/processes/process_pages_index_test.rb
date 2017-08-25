@@ -19,7 +19,7 @@ module GobiertoParticipation
     end
 
     def process_pages
-      @process_pages ||= process.extend_news
+      @process_pages ||= process.news
     end
 
     def test_breadcrumb_items

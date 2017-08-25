@@ -63,6 +63,21 @@ module GobiertoCommon
       containers_hierarchy(container).each do |container_type, container_id|
         CollectionItem.find_or_create_by! collection_id: id, container_type: container_type, container_id: container_id, item: item
       end
+
+      if container_type == "GobiertoParticipation::Process"
+        process = GobiertoParticipation::Process.find(container_id)
+        if process.issue
+          CollectionItem.find_or_create_by! collection_id: id, container: process.issue, item: item
+        end
+      elsif container_type == "Issue"
+        issue = Issue.find(container_id)
+        relation_processes = GobiertoParticipation::Process.where(issue: issue)
+        if relation_processes.any?
+          relation_processes.each do |process|
+            CollectionItem.find_or_create_by! collection_id: id, container: process, item: item
+          end
+        end
+      end
     end
 
     private

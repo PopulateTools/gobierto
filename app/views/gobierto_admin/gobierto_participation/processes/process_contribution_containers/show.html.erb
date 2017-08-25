@@ -1,0 +1,55 @@
+<%= render 'gobierto_admin/gobierto_participation/shared/breadcrumb', last_breadcrumb_item: t('gobierto_admin.gobierto_participation.processes.process_contribution_containers.index.title'), process: current_process %>
+
+<h1><%= @process.title %></h1>
+
+<%= render 'gobierto_admin/gobierto_participation/shared/navigation' %>
+
+<div class="pure-g">
+  <div class="pure-u-3-4">
+    <strong><%= @contribution_container.title  %></strong> » Aportaciones
+  </div>
+  <div class="pure-u-1-4 admin_tools right">
+    <%= link_to t('.config'), edit_admin_participation_process_contribution_container_path(@contribution_container.id, process_id: @contribution_container.process.id) %>
+    <%= link_to t('.new'), new_admin_participation_process_contribution_container_path, class: 'button' %>
+  </div>
+</div>
+
+
+<table>
+  <tr>
+    <!-- TODO: Edit <th></th> -->
+    <th><%= t('.contribution') %></th>
+    <th><%= t('.participants') %></th>
+    <th><%= t('.votes') %></th>
+    <th><%= t('.comments') %></th>
+    <th><%= t('.marked') %></th>
+    <th><%= t('.status') %></th>
+    <th></th>
+  </tr>
+
+  <% @contribution_container.contributions.each do |contribution| %>
+    <tr>
+      <!-- TODO: Edit <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, '' %></td> -->
+      <td><%= contribution.title %></td>
+      <td><%= contribution.number_participants %></td>
+      <td><%= contribution.votes_count %></td>
+      <td><%= contribution.comments_count %></td>
+      <td><!-- TODO: Marcada --></td>
+      <td>
+        <!-- TODO: Publicada/Moderada -->
+        <% if true %>
+          <i class="fa fa-lock"></i>
+          <%= t(".status_level.published") %>
+        <% else %>
+          <%= t(".status_level.moderate") %>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to '#public_view', target: "_blank", class: "view_item" do %>
+          <i class="fa fa-eye"></i>
+          <%= t(".see_contribution") %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

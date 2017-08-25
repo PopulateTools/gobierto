@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170820154600) do
+ActiveRecord::Schema.define(version: 20170821072152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -430,6 +430,68 @@ ActiveRecord::Schema.define(version: 20170820154600) do
     t.index ["slug_translations"], name: "index_gpart_areas_on_slug_translations", using: :gin
   end
 
+  create_table "gpart_comments", force: :cascade do |t|
+    t.text "body", default: "", null: false
+    t.string "commentable_type"
+    t.bigint "commentable_id"
+    t.bigint "user_id"
+    t.bigint "site_id"
+    t.integer "votes_count", default: 0
+    t.integer "flags_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_gpart_comments_on_commentable_type_and_commentable_id"
+    t.index ["site_id"], name: "index_gpart_comments_on_site_id"
+    t.index ["user_id"], name: "index_gpart_comments_on_user_id"
+  end
+
+  create_table "gpart_contribution_containers", force: :cascade do |t|
+    t.jsonb "title_translations", default: "", null: false
+    t.jsonb "description_translations", default: "", null: false
+    t.date "starts"
+    t.date "ends"
+    t.integer "contribution_type", default: 0, null: false
+    t.integer "visibility_level", default: 0, null: false
+    t.bigint "process_id"
+    t.bigint "admin_id"
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_id"], name: "index_gpart_contribution_containers_on_admin_id"
+    t.index ["process_id"], name: "index_gpart_contribution_containers_on_process_id"
+    t.index ["site_id"], name: "index_gpart_contribution_containers_on_site_id"
+  end
+
+  create_table "gpart_contributions", force: :cascade do |t|
+    t.string "title", default: "", null: false
+    t.text "description", default: "", null: false
+    t.bigint "contribution_container_id"
+    t.bigint "user_id"
+    t.bigint "site_id"
+    t.integer "votes_count", default: 0
+    t.integer "flags_count", default: 0
+    t.integer "comments_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contribution_container_id"], name: "index_gpart_contributions_on_contribution_container_id"
+    t.index ["description"], name: "index_gpart_contributions_on_description"
+    t.index ["site_id"], name: "index_gpart_contributions_on_site_id"
+    t.index ["title"], name: "index_gpart_contributions_on_title"
+    t.index ["user_id"], name: "index_gpart_contributions_on_user_id"
+  end
+
+  create_table "gpart_flags", force: :cascade do |t|
+    t.string "flaggable_type"
+    t.bigint "flaggable_id"
+    t.bigint "user_id"
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["flaggable_type", "flaggable_id"], name: "index_gpart_flags_on_flaggable_type_and_flaggable_id"
+    t.index ["site_id"], name: "index_gpart_flags_on_site_id"
+    t.index ["user_id"], name: "index_gpart_flags_on_user_id"
+  end
+
   create_table "gpart_process_stages", force: :cascade do |t|
     t.bigint "process_id"
     t.jsonb "title_translations"
@@ -463,6 +525,23 @@ ActiveRecord::Schema.define(version: 20170820154600) do
     t.index ["site_id"], name: "index_gpart_processes_on_site_id"
     t.index ["slug"], name: "index_gpart_processes_on_slug", unique: true
     t.index ["title_translations"], name: "index_gpart_processes_on_title_translations", using: :gin
+  end
+
+  create_table "gpart_votes", force: :cascade do |t|
+    t.string "votable_type"
+    t.bigint "votable_id"
+    t.boolean "vote_flag"
+    t.string "vote_scope"
+    t.integer "vote_weight"
+    t.bigint "user_id"
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_gpart_votes_on_site_id"
+    t.index ["user_id", "vote_scope"], name: "index_gpart_votes_on_user_id_and_vote_scope"
+    t.index ["user_id"], name: "index_gpart_votes_on_user_id"
+    t.index ["votable_id", "votable_type", "vote_scope"], name: "index_gpart_votes_on_votable_id_and_votable_type_and_vote_scope"
+    t.index ["votable_type", "votable_id"], name: "index_gpart_votes_on_votable_type_and_votable_id"
   end
 
   create_table "issues", force: :cascade do |t|

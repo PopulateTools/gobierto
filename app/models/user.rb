@@ -14,6 +14,10 @@ class User < ApplicationRecord
   has_many :subscriptions, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :custom_records, dependent: :destroy, class_name: "GobiertoCommon::CustomUserFieldRecord"
+  has_many :contributions, dependent: :destroy, class_name: "GobiertoParticipation::Contribution"
+  has_many :flags, dependent: :destroy, class_name: "GobiertoParticipation::Flag"
+  has_many :votes, dependent: :destroy, class_name: "GobiertoParticipation::Vote"
+  has_many :comment, dependent: :destroy, class_name: "GobiertoParticipation::Comment"
 
   accepts_nested_attributes_for :custom_records
 

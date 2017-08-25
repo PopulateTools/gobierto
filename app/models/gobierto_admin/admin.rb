@@ -22,6 +22,7 @@ module GobiertoAdmin
     has_many :gobierto_cms_permissions, class_name: 'Permission::GobiertoCms'
     has_many :gobierto_indicators_permissions, class_name: 'Permission::GobiertoIndicators'
     has_many :gobierto_participation_permissions, class_name: 'Permission::GobiertoParticipation'
+    has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
 
     has_many :census_imports
 

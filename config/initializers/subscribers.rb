@@ -9,6 +9,7 @@
 ::Subscribers::GobiertoCommonCollectionActivity.attach_to('activities/gobierto_common_collections')
 ::Subscribers::GobiertoAttachmentsAttachmentActivity.attach_to('activities/gobierto_attachments_attachments')
 ::Subscribers::GobiertoParticipationProcessActivity.attach_to('activities/gobierto_participation_processes')
+::Subscribers::GobiertoParticipationContributionContainerActivity.attach_to("activities/gobierto_participation_contribution_containers")
 ::Subscribers::IssueActivity.attach_to('activities/issues')
 ::Subscribers::UserActivity.attach_to('activities/users')
 ::Subscribers::SiteActivity.attach_to('activities/sites')

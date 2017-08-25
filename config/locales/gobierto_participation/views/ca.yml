@@ -22,6 +22,15 @@ ca:
           on debatrem en persona sobre els temes d'aquest procés. Si no pots assistir-hi,
           anirem publicant en línia tot el que es parli a la reunions per facilitar
           el seguiment i fer accessibles les conclusions.
+    issue_pages:
+      index:
+        filter: Filtrar per tema
+        title: Notícies
+      show:
+        documents: Documents
+        filter: Filtrar per grup
+        published_at: Publicat el %{date} pel %{site}
+        title: Notícies
     issues:
       current_group:
         current_stage: Fase actual
@@ -65,7 +74,7 @@ ca:
         agenda: Agenda
         documents: Documents
         news: Notícies
-    pages:
+    process_pages:
       index:
         filter: Filtrar per tema
         title: Notícies

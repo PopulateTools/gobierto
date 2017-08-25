@@ -10,6 +10,19 @@
       <%= link_to @process.title, gobierto_participation_process_path(@process.slug) %>
     </h1>
   <% end %>
+
+<% elsif @issue %>
+  <% content_for :breadcrumb_current_item do %>
+    <strong>
+      <%= link_to t('gobierto_participation.layouts.menu_subsections.issues'), gobierto_participation_issues_path %>
+    </strong>
+
+    <span role="separator">/</span>
+
+    <h1>
+      <%= link_to @issue.name, gobierto_participation_issue_path(@issue.slug) %>
+    </h1>
+  <% end %>
 <% end %>
 
 <div class='gradient-bg'>
@@ -60,7 +73,7 @@
             <div class='news_teaser'>
               <h3>
                 <% if @process %>
-                  <%= link_to page.title , gobierto_participation_process_page_path(process_id: @process.slug, id: page.slug) %>
+                  <%= link_to page.title , gobierto_participation_process_process_page_path(process_id: @process.slug, id: page.slug) %>
                 <% else %>
                   <%= link_to page.title , gobierto_cms_page_path(page.slug) %>
                 <% end %>

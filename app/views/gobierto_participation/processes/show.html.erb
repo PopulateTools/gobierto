@@ -35,7 +35,7 @@
           <% end %>
         </div>
         <% if @process_news.any? %>
-          <%= link_to t('.more_news'), gobierto_cms_pages_path(process: @process.slug) %>
+          <%= link_to t('.more_news'), gobierto_participation_process_process_pages_path(@process.slug) %>
         <% end %>
       </div>
     </div>

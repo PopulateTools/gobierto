@@ -86,6 +86,7 @@ Rails.application.routes.draw do
         resources :file_attachments, only: [:index], controller: "processes/process_file_attachments", as: :file_attachments, path: :file_attachments
         resources :events, only: [:index], controller: "processes/process_events", as: :events, path: :events
         resources :pages, only: [:index], controller: "processes/process_pages", as: :pages, path: :pages
+        resources :information, only: [:edit, :update], controller: "processes/process_information", as: :process_information, path: :process_information
       end
     end
 

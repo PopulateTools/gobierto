@@ -20,5 +20,10 @@ en:
           title: Processes and Groups
         new:
           title: New process / group
+        process_information:
+          edit:
+            title: Edit process
+          update:
+            success: Process was successfully updated
         update:
           success: Process was successfully updated

@@ -13,17 +13,17 @@
             <%= text_field_tag "page[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title", locale: locale.to_sym) %>
           </div>
 
-          <div class="form_item input_text" data-locale="<%= locale %>">
-            <%= label_tag "page[slug_translations][#{locale}]", f.object.class.human_attribute_name(:slug) %>
-            <%= text_field_tag "page[slug_translations][#{locale}]", f.object.slug_translations && f.object.slug_translations[locale], placeholder: t(".placeholders.slug", locale: locale.to_sym) %>
-          </div>
-
           <div class="form_item textarea" data-locale="<%= locale %>">
             <%= label_tag "page[body_translations][#{locale}]", f.object.class.human_attribute_name(:body) %>
             <%= rich_text_area_tag "page[body_translations][#{locale}]", f.object.body_translations && f.object.body_translations[locale], attachment_path: admin_attachments_file_attachments_path, lang: locale %>
           </div>
         <% end %>
 
+      </div>
+
+      <div class="form_item input_text">
+        <%= f.label :slug %>
+        <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
       </div>
     </div>
 

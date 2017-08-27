@@ -74,12 +74,10 @@
         <% if @process.issue %>
           <div class="pure-g meta_info">
             <div class="pure-u-1 pure-u-md-1-4">
-              <span class="accent"><i class="fa fa-question-circle"></i><%= t('.issues') %></span>
+              <span class="accent"><i class="fa fa-question-circle"></i><%= t('.issue') %></span>
             </div>
             <div class="pure-u-1 pure-u-md-1-2">
-              <%= todo_link_to do %>
-                <% link_to @process.issue.name, '' %>
-              <% end %>
+              <%= link_to @process.issue.name, gobierto_participation_issue_path(@process.issue.slug) %>
             </div>
           </div>
         <% end %>

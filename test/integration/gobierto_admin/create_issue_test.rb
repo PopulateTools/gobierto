@@ -42,11 +42,12 @@ module GobiertoAdmin
             click_link "New"
 
             fill_in "issue_name_translations_en", with: "My theme"
-            fill_in "issue_slug_translations_en", with: "new-theme"
+            fill_in "issue_description_translations_en", with: "My theme description"
+            fill_in "issue_slug", with: "new-theme"
 
             click_link "ES"
             fill_in "issue_name_translations_es", with: "Mi tema"
-            fill_in "issue_slug_translations_es", with: "mi-tema"
+            fill_in "issue_description_translations_es", with: "Descripción de mi tema"
 
             click_button "Create"
 
@@ -55,12 +56,13 @@ module GobiertoAdmin
             click_link "My theme"
 
             assert has_field?("issue_name_translations_en", with: "My theme")
-            assert has_field?("issue_slug_translations_en", with: "new-theme")
+            assert has_field?("issue_description_translations_en", with: "My theme description")
+            assert has_field?("issue_slug", with: "new-theme")
 
             click_link "ES"
 
             assert has_field?("issue_name_translations_es", with: "Mi tema")
-            assert has_field?("issue_slug_translations_es", with: "mi-tema")
+            assert has_field?("issue_description_translations_es", with: "Descripción de mi tema")
 
             issue = site.issues.last
             activity = Activity.last

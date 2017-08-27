@@ -22,6 +22,29 @@ ca:
           on debatrem en persona sobre els temes d'aquest procés. Si no pots assistir-hi,
           anirem publicant en línia tot el que es parli a la reunions per facilitar
           el seguiment i fer accessibles les conclusions.
+    issues:
+      current_group:
+        current_stage: Fase actual
+      index:
+        intro_html: Las teves idees ajuden a millorar %{location_name} i la vida de
+          tots els que residim aquí. Aporta els teus millors idees en els nostres
+          <strong> espais permanents de participació</strong>.
+      participation_groups:
+        work_groups_description: Consulta l'activitat de cada grup i participa.
+        work_groups_title: Grups de treball
+      participation_latest_info:
+        agenda: Agenda
+        news: Notícies
+        no_events: No hi ha esdeveniments relacionats
+        no_news: No hi ha notícies relacionades
+        show_more_events: Veure més esdeveniments
+        show_more_news: Veure més notícies
+        show_more_updates: Veure més actualitzacions
+        the_last: L'últim
+        up_to_date: "%{location_name} al dia"
+      participation_proccesses:
+        processes_description: Consulta i participa en processos específics.
+        processes_title: Processos en marxa
     layouts:
       application:
         title: Participació
@@ -57,7 +80,7 @@ ca:
         appointments: Cites presencials
         from_to: "%{starts} al %{ends}"
         interesting_information: Informació d'interès
-        issues: Temas
+        issue: Tema
         length: Durada
         more_events: Veure més esdeveniments
         more_information: Més informació

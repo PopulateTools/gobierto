@@ -22,6 +22,29 @@ es:
           donde debatiremos en persona sobre los temas de este proceso. Si no puedes
           asistir, iremos publicando online todo lo que se hable en la reuniones para
           facilitar el seguimiento y hacer accesibles las conclusiones.
+    issues:
+      current_group:
+        current_stage: Fase actual
+      index:
+        intro_html: Tus ideas ayudan a mejorar %{location_name} y la vida de todos
+          los que residimos aquí. Aporta tus mejores ideas en nuestros <strong>espacios
+          permanentes de participación</strong>.
+      participation_groups:
+        work_groups_description: Consulta la actividad de cada grupo y participa.
+        work_groups_title: Grupos de trabajo
+      participation_latest_info:
+        agenda: Agenda
+        news: Noticias
+        no_events: No hay eventos relacionados
+        no_news: No hay noticias relacionadas
+        show_more_events: Ver más eventos
+        show_more_news: Ver más noticias
+        show_more_updates: Ver más actualizaciones
+        the_last: Lo último
+        up_to_date: "%{location_name} al día"
+      participation_proccesses:
+        processes_description: Consulta y participa en procesos específicos.
+        processes_title: Procesos en marcha
     layouts:
       application:
         title: Participación
@@ -57,7 +80,7 @@ es:
         appointments: Citas presenciales
         from_to: "%{starts} al %{ends}"
         interesting_information: Información de interés
-        issues: Temas
+        issue: Tema
         length: Duración
         more_events: Ver más eventos
         more_information: Más información

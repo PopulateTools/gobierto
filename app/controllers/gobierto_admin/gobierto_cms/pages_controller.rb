@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoCms
     class PagesController < BaseController
-
       def index
-        @collections = current_site.collections.by_item_type('GobiertoCms::Page')
+        @collections = current_site.collections.by_item_type("GobiertoCms::Page")
         @pages = ::GobiertoCms::Page.pages_in_collections(current_site).sort_by_updated_at(10)
       end
 
@@ -68,15 +69,15 @@ module GobiertoAdmin
       private
 
       def track_create_activity
-        Publishers::GobiertoCmsPageActivity.broadcast_event("page_created", default_activity_params.merge({subject: @page_form.page}))
+        Publishers::GobiertoCmsPageActivity.broadcast_event("page_created", default_activity_params.merge(subject: @page_form.page))
       end
 
       def track_update_activity
-        Publishers::GobiertoCmsPageActivity.broadcast_event("page_updated", default_activity_params.merge({subject: @page}))
+        Publishers::GobiertoCmsPageActivity.broadcast_event("page_updated", default_activity_params.merge(subject: @page))
       end
 
       def track_destroy_activity
-        Publishers::GobiertoCmsPageActivity.broadcast_event("page_deleted", default_activity_params.merge({subject: @page}))
+        Publishers::GobiertoCmsPageActivity.broadcast_event("page_deleted", default_activity_params.merge(subject: @page))
       end
 
       def default_activity_params
@@ -92,14 +93,14 @@ module GobiertoAdmin
           :visibility_level,
           :attachment_ids,
           :collection_id,
+          :slug,
           title_translations: [*I18n.available_locales],
-          body_translations:  [*I18n.available_locales],
-          slug_translations:  [*I18n.available_locales]
+          body_translations:  [*I18n.available_locales]
         )
       end
 
       def ignored_page_attributes
-        %w( created_at updated_at title body slug )
+        %w(created_at updated_at title body)
       end
 
       def find_page
@@ -107,7 +108,7 @@ module GobiertoAdmin
       end
 
       def find_collection(collection_id)
-        ::GobiertoCommon::Collection.find_by(id: params[:collection_id])
+        ::GobiertoCommon::Collection.find_by(id: collection_id)
       end
     end
   end

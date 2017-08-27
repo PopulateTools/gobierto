@@ -1,0 +1,36 @@
+<% content_for :breadcrumb_current_item do %>
+  <strong>
+    <%= link_to t('gobierto_participation.layouts.menu_subsections.issues'), gobierto_participation_issues_path %>
+  </strong>
+
+  <span role="separator">/</span>
+
+  <h1>
+    <%= link_to @issue.name, gobierto_participation_issue_path(@issue) %>
+  </h1>
+<% end %>
+
+<%= content_for :body_attributes do %>
+  class="theme-participation gobierto_participation"
+<% end %>
+
+<div class="gradient-bg">
+  <div class="column">
+    <div class="pure-g">
+      <div class="pure-u-1">
+        <a href="participation_themes.html" class="p_1 content_block cover_bottom_left align_bottom_right" style="background-image: url(<%= image_url('illustrations/man_city.jpg') %>)">
+          <div>
+            <h2><%= @issue.name %></h2>
+            <p><%= @issue.description %></p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render 'participation_latest_info' %>
+
+<%= render 'participation_proccesses' %>
+
+<%= render 'participation_groups' %>

@@ -6,6 +6,7 @@ es:
         title: Editar tema
       form:
         placeholders:
+          description: Descripción del tema
           name: Nombre del tema
           slug: acerca-de-este-tema
       index:

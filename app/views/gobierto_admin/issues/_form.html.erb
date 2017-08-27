@@ -15,11 +15,17 @@
           </div>
 
           <div class="form_item input_text" data-locale="<%= locale %>">
-            <%= label_tag "issue[slug_translations][#{locale}]", f.object.class.human_attribute_name(:slug) %>
-            <%= text_field_tag "issue[slug_translations][#{locale}]", f.object.slug_translations && f.object.slug_translations[locale], placeholder: t(".placeholders.slug", locale: locale.to_sym) %>
+            <%= label_tag "issue[description_translations][#{locale}]", f.object.class.human_attribute_name(:description) %>
+            <%= text_field_tag "issue[description_translations][#{locale}]", f.object.description_translations && f.object.description_translations[locale], placeholder: t(".placeholders.description", locale: locale.to_sym) %>
           </div>
         <% end %>
       </div>
+
+      <div class="form_item input_text">
+        <%= f.label :slug %>
+        <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
+      </div>
+
     </div>
   </div>
 

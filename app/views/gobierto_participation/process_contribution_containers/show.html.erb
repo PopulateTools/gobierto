@@ -90,20 +90,8 @@
 </div>
 
 <script type="text/javascript">
-var data = [
-  'Incentivar el uso del transporte público',
-  '+ bicis + buses - coches',
-  'Deberían plantarse más árboles',
-  'Es demasiado tarde para hacer nada',
-  'Poner metro',
-  'Reducir el número de plazas de aparcamiento público',
-  'Ya no se puede hacer nada',
-  'Fomentar el uso racional del transporte',
-  'No lo creo', 'Reducir la carga y descarga',
-  'Incentivar el uso del transporte público',
-  '¡Prohibir los coches!',
-  'Reducir la velocidad de los coches lo máximo posible'
-];
+var data = <%= @contribution_container.contributions.map(&:title).to_json.html_safe %>;
+
 var now = new Date;
 var px, py, vx, vy, offsetX, offsetY, maxVelocity = 8;
 

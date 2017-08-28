@@ -5,3 +5,19 @@ cinema:
   user: susan
   contribution_container: children_contributions
   slug: cinema
+
+park:
+  site: madrid
+  title: "Carril bici hasta el Juan Carlos I"
+  description: "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
+  user: susan
+  contribution_container: children_contributions
+  slug: cinema
+
+urban-orchard:
+  site: madrid
+  title: "Huerto Urbano"
+  description: "Huerto urbano para conocer los vegetales."
+  user: susan
+  contribution_container: huerto-urbano
+  slug: cinema

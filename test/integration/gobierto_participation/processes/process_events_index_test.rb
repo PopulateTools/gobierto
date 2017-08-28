@@ -85,12 +85,10 @@ module GobiertoParticipation
           assert has_content? "Intensive reading club in english"
         end
 
-        within ".content_side" do
-          assert has_content? "Agenda"
-          # TODO: refute has_content? "Agenda for #{process.title}"
+        assert has_content? "Agenda"
+        # TODO: refute has_content? "Agenda for #{process.title}"
 
-          assert_equal process_events.size, all(".has-events").size
-        end
+        assert_equal process.events.size, all(".event-content").size
       end
     end
   end

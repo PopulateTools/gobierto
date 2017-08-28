@@ -12,7 +12,7 @@
 
           <div class="form_item textarea" data-locale="<%= locale %>">
             <%= label_tag "contribution_container[description_translations][#{locale}]", f.object.class.human_attribute_name(:description) %>
-            <%= text_field_tag "contribution_container[description_translations][#{locale}]", f.object.description_translations && f.object.description_translations[locale], placeholder: t(".placeholders.description", locale: locale.to_sym) %>
+            <%= text_area_tag "contribution_container[description_translations][#{locale}]", f.object.description_translations && f.object.description_translations[locale], placeholder: t(".placeholders.description", locale: locale.to_sym) %>
           </div>
         <% end %>
 

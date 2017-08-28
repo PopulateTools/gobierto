@@ -86,10 +86,9 @@ module GobiertoParticipation
         end
 
         assert has_content? "Agenda"
-          # TODO: refute has_content? "Agenda for #{process.title}"
+        # TODO: refute has_content? "Agenda for #{process.title}"
 
-          assert all(".has-events").size >= 1
-        end
+        assert all(".has-events").size >= 1
       end
     end
   end

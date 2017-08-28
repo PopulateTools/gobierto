@@ -8,8 +8,8 @@ module GobiertoParticipation
     end
 
     def show
-      # @process = find_process
       @contribution_container = find_contribution_container
+      @process = @contribution_container.process
     end
 
     private

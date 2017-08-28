@@ -197,8 +197,8 @@
         <nav id="main_nav" class="nav" role="navigation" aria-controls="main_menu" aria-hidden="false">
 
           <%= render "layouts/breadcrumb" %>
-
           <% if (current_module == 'gobierto_participation' && controller_name == 'processes' && action_name == 'show') ||
+                (current_module == 'gobierto_participation' && controller_name == 'process_contribution_containers' && (action_name == 'index' || action_name == 'show')) ||
                 (current_module == 'gobierto_cms' && controller_name == 'pages' && (action_name == 'show' || action_name == 'index')) %>
             <%= render 'gobierto_participation/layouts/process_menu_subsections' %>
           <% else %>

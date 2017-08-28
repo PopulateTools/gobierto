@@ -20,5 +20,10 @@ es:
           title: Procesos y Grupos
         new:
           title: Nuevo proceso / grupo
+        process_information:
+          edit:
+            title: Editar proceso
+          update:
+            success: Proceso actualizado correctamente
         update:
           success: Proceso actualizado correctamente

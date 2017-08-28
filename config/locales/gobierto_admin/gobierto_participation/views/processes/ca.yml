@@ -20,5 +20,10 @@ ca:
           title: Processos i Grups
         new:
           title: Nou procés o grup
+        process_information:
+          edit:
+            title: Edita el procés
+          update:
+            success: Procés actualitzat correctament
         update:
           success: Procés actualitzat correctament

@@ -99,7 +99,7 @@ module GobiertoAdmin
       end
 
       def ignored_process_attributes
-        %w( created_at updated_at site_id title body )
+        %w( created_at updated_at site_id title body information_text_translations)
       end
 
       def default_activity_params

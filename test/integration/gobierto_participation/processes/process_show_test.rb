@@ -13,6 +13,17 @@ module GobiertoParticipation
       @site ||= sites(:madrid)
     end
 
+    def process
+      @process ||= gobierto_participation_processes(:gender_violence_process)
+    end
+
+    def process_information_path
+      @process_information_path ||= edit_admin_participation_process_process_information_path(
+        id: process,
+        process_id: process
+      )
+    end
+
     def gender_violence_process
       @gender_violence_process ||= gobierto_participation_processes(:gender_violence_process)
     end
@@ -121,6 +132,16 @@ module GobiertoParticipation
         events_titles = gender_violence_process.events.map(&:title)
 
         assert array_match ["Intensive reading club in english", "Swimming lessons for elders"], events_titles
+      end
+    end
+
+    def test_process_information
+      with_current_site(site) do
+        visit @path
+
+        click_on "Information"
+
+        assert has_content? process.information_text
       end
     end
 

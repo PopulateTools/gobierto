@@ -54,5 +54,10 @@ ca:
             votes: Valoracions
           update:
             success_html: Contenidor de contribucions actualitzat correctament
+        process_information:
+          edit:
+            title: Edita el procés
+          update:
+            success: Procés actualitzat correctament
         update:
           success: Procés actualitzat correctament

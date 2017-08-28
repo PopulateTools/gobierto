@@ -19,7 +19,6 @@ chdir APP_ROOT do
   system('bundle check') || system!('bundle install')
 
   puts "\n== Updating database =="
-  system! 'bin/rails db:migrate'
   system! 'bin/rails db:migrate:with_data'
 
   puts "\n== Removing old logs and tempfiles =="

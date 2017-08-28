@@ -19,6 +19,7 @@ module GobiertoParticipation
     belongs_to :site
     belongs_to :issue
     has_many :stages, -> { order(stage_type: :asc) }, dependent: :destroy, class_name: 'GobiertoParticipation::ProcessStage'
+    has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
 
     enum visibility_level: { draft: 0, active: 1 }
     enum process_type: { process: 0, group_process: 1 }

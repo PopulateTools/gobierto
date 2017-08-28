@@ -10,7 +10,9 @@
       <%= link_to t('.agenda'), admin_participation_process_events_path(current_process) %>
     </li>
     <li><%= link_to t('.polls'), '#', data: {disabled: true}, title: 'TODO: implement' %></li>
-    <li><%= link_to t('.contributions'), '#', data: {disabled: true}, title: 'TODO: implement' %></li>
+    <li class="<%= class_if("active", controller_name == "process_contribution_containers") %>">
+      <%= link_to t('.contributions'), admin_participation_process_contribution_containers_path(current_process) %>
+    </li>
     <li><%= link_to t('.votings'), '#', data: {disabled: true}, title: 'TODO: implement' %></li>
     <li class="<%= class_if('active', controller_name.include?('pages')) %>">
       <%= link_to t('.news'), admin_participation_process_pages_path(current_process) %>

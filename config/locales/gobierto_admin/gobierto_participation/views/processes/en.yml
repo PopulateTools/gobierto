@@ -20,6 +20,40 @@ en:
           title: Processes and Groups
         new:
           title: New process / group
+        process_contribution_containers:
+          create:
+            success_html: Container of contributions created correctly
+          form:
+            placeholders:
+              description: Ideas for activities for children.
+              title: What activities for children can we launch?
+          index:
+            contributions_votes: Contributions / Votes
+            end: Fin
+            new: New
+            request_ideas: Request of ideas
+            see_ideas: See ideas
+            start: Inicio
+            status: Estado
+            title: Contributions
+            visibility_level:
+              active: Published
+              draft: Draft
+          show:
+            comments: Comments
+            config: Config
+            contribution: Contribution
+            marked: Marked
+            new: New
+            participants: Participants
+            see_contribution: See contribution
+            status: Status
+            status_level:
+              moderate: Moderate
+              published: Published
+            votes: Votes
+          update:
+            success_html: Container of contributions updated correctly
         process_information:
           edit:
             title: Edit process

@@ -4,3 +4,4 @@ cinema:
   description: "En el Parque Juan Carlos I en el auditorio podría instalarse un cine de verano."
   user: susan
   contribution_container: children_contributions
+  slug: cinema

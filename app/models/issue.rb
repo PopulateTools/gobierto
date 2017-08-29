@@ -11,7 +11,7 @@ class Issue < ApplicationRecord
   translates :name, :description
 
   validates :site, :name, :description, :slug, presence: true
-  validates :slug, uniqueness: :site_id
+  validates :slug, uniqueness: { scope: :site }
   validate :uniqueness_of_name
 
   scope :sorted, -> { order(position: :asc, created_at: :desc) }

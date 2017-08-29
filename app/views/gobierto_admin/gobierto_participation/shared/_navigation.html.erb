@@ -3,15 +3,16 @@
     <li class="<%= class_if('active', controller_name == 'processes') %>">
       <%= link_to t('.stage'), edit_admin_participation_process_path(current_process) %>
     </li>
-    <li class="<%= class_if("active", false) %>">
-      <!-- Temptative URL: edit_admin_participation_process_stage(@process_form.process_stages.select { |s| s.stage_type == 'information'} ) -->
-      <%= link_to t('.information'), '#', data: {disabled: true}, title: 'TODO: implement' %>
+    <li class="<%= class_if("active", controller_name.include?('process_information')) %>">
+      <%= link_to t('.information'), edit_admin_participation_process_process_information_path(id: current_process, process_id: current_process) %>
     </li>
     <li class="<%= class_if('active', controller_name.include?('events')) %>">
       <%= link_to t('.agenda'), admin_participation_process_events_path(current_process) %>
     </li>
     <li><%= link_to t('.polls'), '#', data: {disabled: true}, title: 'TODO: implement' %></li>
-    <li><%= link_to t('.contributions'), '#', data: {disabled: true}, title: 'TODO: implement' %></li>
+    <li class="<%= class_if("active", controller_name == "process_contribution_containers") %>">
+      <%= link_to t('.contributions'), admin_participation_process_contribution_containers_path(current_process) %>
+    </li>
     <li><%= link_to t('.votings'), '#', data: {disabled: true}, title: 'TODO: implement' %></li>
     <li class="<%= class_if('active', controller_name.include?('pages')) %>">
       <%= link_to t('.news'), admin_participation_process_pages_path(current_process) %>

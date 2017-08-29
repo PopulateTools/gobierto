@@ -2,6 +2,12 @@
 en:
   activemodel:
     attributes:
+      gobierto_admin/gobierto_participation/contribution_container_form:
+        contribution_type: Contribution type
+        description: Description
+        ends: Ends
+        starts: Starts
+        title: Title
       gobierto_admin/gobierto_participation/process_form:
         body: Body
         ends: Ends
@@ -13,6 +19,8 @@ en:
         starts: Starts
         title: Title
     models:
+      gobierto_admin/gobierto_participation/contribution_container_form: Contribution
+        container
       gobierto_admin/gobierto_participation/process_form: Process
   activerecord:
     attributes:

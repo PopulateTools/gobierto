@@ -1,0 +1,10 @@
+children_contributions:
+  site: madrid
+  admin: tony
+  process: sport_city_process
+  title_translations: <%= { 'en' => 'What activities for children we can start up?', 'es' => '¿Qué actividades para niños podemos poner en marcha?' }.to_json %>
+  description_translations: <%= { 'en' => 'Ideas for activities for children.', 'es' => 'Ideas para actividades para niños.' }.to_json %>
+  visibility_level: <%= GobiertoParticipation::ContributionContainer.visibility_levels[:active] %>
+  contribution_type: <%= GobiertoParticipation::ContributionContainer.contribution_types[:idea] %>
+  starts: <%= 3.days.ago %>
+  ends: <%= 30.days.from_now %>

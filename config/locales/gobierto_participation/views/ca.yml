@@ -7,6 +7,8 @@ ca:
         from_to: "%{starts} al %{ends}"
       event_teaser:
         agenda_for_container: Agenda d'
+      gobierto_participation_contribution_container_created: Grup d'aportacions creat
+      gobierto_participation_contribution_container_updated: Grup d'aportacions actualitzat
       gobierto_participation_issue_created: Tema creat
       gobierto_participation_issue_updated: Tema actualitzat
       gobierto_participation_process_created: Procés / grup creat

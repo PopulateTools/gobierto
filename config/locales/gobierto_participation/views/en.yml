@@ -7,6 +7,10 @@ en:
         from_to: "%{starts} to %{ends}"
       event_teaser:
         agenda_for_container: Agenda for
+      gobierto_participation_contribution_container_created: Contribution container
+        created
+      gobierto_participation_contribution_container_updated: Contribution container
+        updated
       gobierto_participation_issue_created: Theme created
       gobierto_participation_issue_updated: Theme updated
       gobierto_participation_process_created: Process / group created

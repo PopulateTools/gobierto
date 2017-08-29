@@ -87,6 +87,7 @@ Rails.application.routes.draw do
         resources :events, only: [:index], controller: "processes/process_events", as: :events, path: :events
         resources :pages, only: [:index], controller: "processes/process_pages", as: :pages, path: :pages
         resources :contribution_containers, only: [:new, :edit, :create, :update, :index, :show], controller: "processes/process_contribution_containers", as: :contribution_containers, path: :contribution_containers
+        resources :information, only: [:edit, :update], controller: "processes/process_information", as: :process_information, path: :process_information
       end
     end
 
@@ -256,14 +257,17 @@ Rails.application.routes.draw do
       get "participacion" => "welcome#index", as: :root
 
       resources :processes, only: [:index, :show] do
-        resources :pages, only: [:index, :show]
+        resources :pages, only: [:index, :show], controller: "process_pages", as: :process_pages
+        resource :information, only: [:show], controller: "process_information", as: :process_information, path: :information
         resources :contribution_containers, only: [:index, :show], controller: "process_contribution_containers", as: :process_contribution_containers, path: :contribution_containers do
           resources :contributions, only: [:show], controller: "process_contributions", as: :process_contributions, path: :contributions
         end
       end
 
       resources :events, only: [:index, :show]
-      resources :issues, only: [:index, :show]
+      resources :issues, only: [:index, :show] do
+        resources :pages, only: [:index, :show], controller: "issue_pages", as: :issue_pages
+      end
     end
   end
 

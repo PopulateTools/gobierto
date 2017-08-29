@@ -54,5 +54,10 @@ en:
             votes: Votes
           update:
             success_html: Container of contributions updated correctly
+        process_information:
+          edit:
+            title: Edit process
+          update:
+            success: Process was successfully updated
         update:
           success: Process was successfully updated

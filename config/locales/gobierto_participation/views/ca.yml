@@ -76,6 +76,17 @@ ca:
         agenda: Agenda
         documents: Documents
         news: Notícies
+    process_contributions:
+      contribution:
+        comments_html: "<strong>%{comments}</strong> comentaris"
+        enchants: M'encanta
+        indifferent: M'és indiferent
+        like: M'agrada
+        not_like: No m'agrada
+        report: Informar
+        respond: Respondre
+        sent: enviat per %{author} el %{date}
+        values_this_idea: Valora aquesta idea
     process_pages:
       index:
         filter: Filtrar per tema

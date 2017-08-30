@@ -8,44 +8,36 @@
 
     <div class="contribution_card_expanded_main_col">
 
-      <h1>Incentivar el uso del transporte público entre los niños</h1>
+      <h1><%= @contribution.title %></h1>
 
       <div>
-        <p>Hay que fomentar el uso del transporte entre niños, porque son las futuras generaciones. Y si un niño le pide algo al padre, este le hace más caso. Hay que fomentar el uso del transporte entre niños, porque son las futuras generaciones. Y si un niño le pide algo al padre, este le hace más caso.</p>
-        <p>Hay que fomentar el uso del transporte entre niños, porque son las futuras generaciones. Y si un niño le pide algo al padre, este le hace más caso. Hay que fomentar el uso del transporte entre niños, porque son las futuras generaciones. Y si un niño le pide algo al padre, este le hace más caso. Hay que fomentar el uso del transporte entre niños, porque son las futuras generaciones. Y si un niño le pide algo al padre, este le hace más caso.</p>
+        <p>
+          <%= @contribution.description %>
+        </p>
         <div class="meta">
-          enviada por Isabel López el 12 dic 17
+          <%= t('.sent', date: l(@contribution.created_at, format: :short), author: @contribution.user.name) %>
         </div>
       </div>
 
       <div class="comments_container">
-
-        <h3><strong>3</strong> comentarios</h3>
-
-        <% for i in [
-          "Pues yo creo que esto no tiene demasiado sentido, ya que los niños no se transportan apenas. En todo caso habría que invitar a sus padres a que utilicen el transporte público cuando tengan que llevarles a algún sitio, para dar ejemplo.",
-          "Para fomentar esto haría autobuses con hidromasaje",
-          "Vaya tonteria dices fulano.",
-          "Pues yo creo que esto no tiene demasiado sentido, ya que los niños no se transportan apenas. En todo caso habría que invitar a sus padres a que utilicen el transporte público cuando tengan que llevarles a algún sitio, para dar ejemplo.",
-          "Para fomentar esto haría autobuses con hidromasaje",
-          "Vaya tonteria dices fulano."
-        ] %>
-        <div class="comment">
-          <div class="comment_text">
-            <%= i %>
-            <div class="meta">
-              —
-              <a href="">Martín González</a>
-              <span class="date">25/05/2017</span>
+        <h3><%= t('.comments_html', comments: @contribution.comments.size) %></h3>
+        <% @contribution.comments.each do |comment| %>
+          <div class="comment">
+            <div class="comment_text">
+              <%= comment.body %>
+              <div class="meta">
+                -
+                <%= link_to comment.user.name, gobierto_people_person_path(comment.user.slug) %>
+                <span class="date"><%= l(comment.updated_at, format: :long) %></span>
+              </div>
+            </div>
+            <div class="comment_actions">
+              <div class="action"><a href="" class="active"><i class="fa fa-thumbs-up"></i> <%= comment.votes.size %></a></div>
+              <div class="action"><a href=""><i class="fa fa-thumbs-down"></i> <%= comment.votes.size %></a></div>
+              <div class="action"><a href=""><i class="fa fa-reply"></i><%= t('.respond') %></a></div>
+              <div class="action"><a href=""><i class="fa fa-flag"></i><%= t('.report') %></a></div>
             </div>
           </div>
-          <div class="comment_actions">
-            <div class="action"><a href="" class="active"><i class="fa fa-thumbs-up"></i> 3</a></div>
-            <div class="action"><a href=""><i class="fa fa-thumbs-down"></i> 1</a></div>
-            <div class="action"><a href=""><i class="fa fa-reply"></i> Responder</a></div>
-            <div class="action"><a href=""><i class="fa fa-flag"></i> Reportar</a></div>
-          </div>
-        </div>
         <% end %>
 
       </div>
@@ -54,42 +46,33 @@
 
     <div class="contribution_actions ">
 
-      <h3>Valora esta idea</h3>
+      <h3><%= t('.values_this_idea') %></h3>
 
       <div class="element_eval_actions">
-
-        <!-- <div class="action_button_bg">
-          <a href=""></a>
-        </div> -->
-
         <div>
           <a href="" class="action_button love">
-            <div class="action_description">Me encanta</div>
+            <div class="action_description"><%= t('.enchants') %></div>
           </a>
         </div>
 
         <div>
           <a href="" class="action_button like">
-            <div class="action_description">Me gusta</div>
+            <div class="action_description"><%= t('.like') %></div>
           </a>
         </div>
 
         <div>
           <a href="" class="action_button pse">
-            <div class="action_description">Me es indiferente</div>
+            <div class="action_description"><%= t('.indifferent') %></div>
           </a>
         </div>
 
         <div>
           <a href="" class="action_button reject">
-            <div class="action_description">No me gusta</div>
+            <div class="action_description"><%= t('.not_like') %></div>
           </a>
         </div>
-
       </div>
-
     </div>
-
   </div>
-
 </div>

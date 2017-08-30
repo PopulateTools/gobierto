@@ -78,6 +78,17 @@ es:
         agenda: Agenda
         documents: Documentos
         news: Noticias
+    process_contributions:
+      contribution:
+        comments_html: "<strong>%{comments}</strong> comentarios"
+        enchants: Me encanta
+        indifferent: Me es indiferente
+        like: Me gusta
+        not_like: No me gusta
+        report: Reportar
+        respond: Responder
+        sent: enviada por %{author} el %{date}
+        values_this_idea: Valora esta idea
     process_pages:
       index:
         filter: Filtrar por tema

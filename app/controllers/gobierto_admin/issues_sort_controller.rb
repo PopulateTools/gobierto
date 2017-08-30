@@ -1,8 +1,7 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class IssuesSortController < BaseController
-    before_action { module_enabled!(current_site, "GobiertoParticipation") }
-    before_action { module_allowed!(current_admin, "GobiertoParticipation") }
-
     def create
       current_site.issues.update_positions(issue_sort_params)
       head :no_content

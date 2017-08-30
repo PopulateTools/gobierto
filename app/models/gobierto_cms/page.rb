@@ -26,7 +26,7 @@ module GobiertoCms
     enum visibility_level: { draft: 0, active: 1 }
 
     validates :site, :title, :body, :slug, presence: true
-    validates :slug, uniqueness: :site_id
+    validates :slug, uniqueness: { scope: :site }
 
     scope :sorted, -> { order(id: :desc) }
     scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }

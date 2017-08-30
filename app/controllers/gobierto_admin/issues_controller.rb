@@ -1,8 +1,7 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class IssuesController < BaseController
-    before_action { module_enabled!(current_site, 'GobiertoParticipation') }
-    before_action { module_allowed!(current_admin, 'GobiertoParticipation') }
-
     helper_method :issue_preview_url
 
     def index
@@ -18,7 +17,7 @@ module GobiertoAdmin
     def new
       @issue_form = IssueForm.new
 
-      render :new_modal, layout: false and return if request.xhr?
+      render(:new_modal, layout: false) && return if request.xhr?
     end
 
     def edit
@@ -27,7 +26,7 @@ module GobiertoAdmin
         @issue.attributes.except(*ignored_issue_attributes)
       )
 
-      render :edit_modal, layout: false and return if request.xhr?
+      render(:edit_modal, layout: false) && return if request.xhr?
     end
 
     def create
@@ -41,7 +40,7 @@ module GobiertoAdmin
           notice: t(".success")
         )
       else
-        render :new_modal, layout: false and return if request.xhr?
+        render(:new_modal, layout: false) && return if request.xhr?
         render :new
       end
     end
@@ -57,10 +56,10 @@ module GobiertoAdmin
 
         redirect_to(
           admin_issues_path(@issue),
-          notice: t('.success')
+          notice: t(".success")
         )
       else
-        render :edit_modal, layout: false and return if request.xhr?
+        render(:edit_modal, layout: false) && return if request.xhr?
         render :edit
       end
     end
@@ -68,11 +67,11 @@ module GobiertoAdmin
     private
 
     def track_create_activity
-      Publishers::IssueActivity.broadcast_event("issue_created", default_activity_params.merge({subject: @issue_form.issue}))
+      Publishers::IssueActivity.broadcast_event("issue_created", default_activity_params.merge(subject: @issue_form.issue))
     end
 
     def track_update_activity
-      Publishers::IssueActivity.broadcast_event("issue_updated", default_activity_params.merge({subject: @issue}))
+      Publishers::IssueActivity.broadcast_event("issue_updated", default_activity_params.merge(subject: @issue))
     end
 
     def default_activity_params
@@ -83,12 +82,12 @@ module GobiertoAdmin
       params.require(:issue).permit(
         :slug,
         name_translations: [*I18n.available_locales],
-        description_translations: [*I18n.available_locales],
+        description_translations: [*I18n.available_locales]
       )
     end
 
     def ignored_issue_attributes
-      %w[position created_at updated_at]
+      %w(position created_at updated_at)
     end
 
     def find_issue

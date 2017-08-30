@@ -11,7 +11,7 @@ class Issue < ApplicationRecord
 
   translates :name, :description
 
-  validates :site, :name, :description, presence: true
+  validates :site, :name, presence: true
   validates :slug, uniqueness: { scope: :site }
   validate :uniqueness_of_name
 

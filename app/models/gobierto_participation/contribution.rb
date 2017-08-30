@@ -39,5 +39,17 @@ module GobiertoParticipation
       user_ids.uniq
       user_ids.size
     end
+
+    def resource_path
+      Rails.application.routes.url_helpers.gobierto_participation_process_process_contribution_container_process_contribution_path(
+        process_id: contribution_container.process.slug,
+        process_contribution_container_id: contribution_container.slug,
+        id: slug
+      )
+    end
+
+    def self.javascript_json
+      all.to_json(only: :title, methods: [:resource_path])
+    end
   end
 end

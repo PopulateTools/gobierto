@@ -184,11 +184,7 @@
 </div>
 
 <script type="text/javascript">
-var data = <%= @contribution_container.contributions.map(&:title).to_json.html_safe %>;
-
-// encuhfarlo al html y cuando hago click lo llamo
-//var data = [['hola', '123'],['adios','321']];
-//Clave valor name e id
+var data = <%= @contribution_container.contributions.javascript_json.html_safe %>;
 
 var now = new Date;
 var px, py, vx, vy, offsetX, offsetY, maxVelocity = 8;
@@ -570,7 +566,8 @@ function createCards(data) {
     .data(data)
     .enter()
     .append('div')
-    .attr('class', 'card');
+    .attr('class', 'card')
+    .attr('data-url', function(d) { return d.name['resource_path']; });
 
   card
     .append('div')
@@ -582,13 +579,11 @@ function createCards(data) {
 
   card
     .append('div').attr('class', 'title')
-    .text(function(d) { return d.name; });
+    .text(function(d) { return d.name['title']; });
 
   card
     .style('transform', function(d, i) { return 'translate('+ d.x + 'px,' + d.y + 'px' + ') rotate(' + d.z + 'deg) translateZ(0)'; })
     .call(drag);
-
-  card.attr("data-url","myId");
 
   simulation.on('tick', ticked);
 }
@@ -632,7 +627,8 @@ $(document).on('turbolinks:load', function() {
     $.ajax({
       type: "GET",
       dataType: "script",
-      url: "http://madrid.gobierto.dev:3000/processes/612988711/contribution_containers/children-contributions/contributions/cinema"
+      url: $(this).data("url")
+      // "http://madrid.gobierto.dev:3000/processes/612988711/contribution_containers/children-contributions/contributions/cinema"
     });
   });
 

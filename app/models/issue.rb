@@ -4,13 +4,14 @@ class Issue < ApplicationRecord
   include GobiertoCommon::Sortable
   include User::Subscribable
   include GobiertoCommon::ActsAsCollectionContainer
+  include GobiertoCommon::Sluggable
 
   belongs_to :site
   has_many :collection_items, as: :container
 
   translates :name, :description
 
-  validates :site, :name, :description, :slug, presence: true
+  validates :site, :name, presence: true
   validates :slug, uniqueness: { scope: :site }
   validate :uniqueness_of_name
 
@@ -58,6 +59,14 @@ class Issue < ApplicationRecord
     end
 
     attachments.distinct
+  end
+
+  def parameterize
+    { slug: slug }
+  end
+
+  def attributes_for_slug
+    [name]
   end
 
   private

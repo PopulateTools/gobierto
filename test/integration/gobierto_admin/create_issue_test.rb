@@ -27,7 +27,6 @@ module GobiertoAdmin
             click_button "Create"
 
             assert has_alert?("Name can't be blank")
-            assert has_alert?("URL can't be blank")
           end
         end
       end
@@ -43,7 +42,6 @@ module GobiertoAdmin
 
             fill_in "issue_name_translations_en", with: "My theme"
             fill_in "issue_description_translations_en", with: "My theme description"
-            fill_in "issue_slug", with: "new-theme"
 
             click_link "ES"
             fill_in "issue_name_translations_es", with: "Mi tema"
@@ -57,7 +55,6 @@ module GobiertoAdmin
 
             assert has_field?("issue_name_translations_en", with: "My theme")
             assert has_field?("issue_description_translations_en", with: "My theme description")
-            assert has_field?("issue_slug", with: "new-theme")
 
             click_link "ES"
 

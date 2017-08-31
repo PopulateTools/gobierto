@@ -78,6 +78,17 @@ es:
         agenda: Agenda
         documents: Documentos
         news: Noticias
+    process_contribution_containers:
+      show:
+        all: Todas
+        best_ratings: Mejor valoradas
+        organize: Organizar
+        put_ideas: "¡Tengo una idea!"
+        recent: Recientes
+        self: Tuyas
+        show_ideas: Mostrar ideas
+        term_html: Tienes de plazo hasta el <strong>%{date}</strong>
+        worst_ratings: Peor valoradas
     process_contributions:
       contribution:
         comments_html: "<strong>%{comments}</strong> comentarios"

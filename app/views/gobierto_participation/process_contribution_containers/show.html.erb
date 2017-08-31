@@ -36,8 +36,10 @@
       <div class="pure-u-1 pure-u-md-2-24"></div>
 
       <div class="pure-u-1 pure-u-md-5-24 contribution_action">
-        <a href="" class="button">¡Tengo una idea!</a>
-        <p>Tienes de plazo hasta el <strong><%= @contribution_container.ends %></strong></p>
+        <a href="" class="button"><%= t('.put_ideas') %></a>
+        <p>
+          <%= t('.term_html', date: l(@contribution_container.ends, format: :short)) %>
+        </p>  
       </div>
 
     </div>
@@ -46,20 +48,20 @@
       <div class="pure-g">
         <div class="wrapper">
           <div class="pure-u-1 pure-u-md-12-24 pure-u-lg-15-24">
-            <p>Mostrar ideas</p>
+            <p><%= t('.show_ideas') %></p>
 
-            <a class="button rounded outline cardControl checked" data-filter="all">Todas</a>
-            <a class="button rounded outline cardControl" data-filter="best_ratings">Mejor valoradas</a>
-            <a class="button rounded outline cardControl" data-filter="worst_ratings">Peor valoradas</a>
-            <a class="button rounded outline cardControl" data-filter="recent">Recientes</a>
-            <a class="button rounded outline cardControl" data-filter="self">Tuyas</a>
+            <a class="button rounded outline cardControl checked" data-filter="all"><%= t('.all') %></a>
+            <a class="button rounded outline cardControl" data-filter="best_ratings"><%= t('.best_ratings') %></a>
+            <a class="button rounded outline cardControl" data-filter="worst_ratings"><%= t('.worst_ratings') %></a>
+            <a class="button rounded outline cardControl" data-filter="recent"><%= t('.recent') %></a>
+            <a class="button rounded outline cardControl" data-filter="self"><%= t('.self') %></a>
           </div>
 
           <div class="pure-u-1 pure-u-md-1-24"></div>
 
           <div class="pure-u-1 pure-u-md-5-24 pure-u-lg-3-24">
             <div class="radio_toggle">
-              <span>Organizar</span>
+              <span><%= t('.organize') %></span>
               <input id="contributions_checkbox" type="checkbox">
               <label for="contributions_checkbox" class="toggleLayout" data-toggle="false"></label>
             </div>

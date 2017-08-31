@@ -76,6 +76,17 @@ ca:
         agenda: Agenda
         documents: Documents
         news: Notícies
+    process_contribution_containers:
+      show:
+        all: Tots
+        best_ratings: Millors puntuacions
+        organize: Organitzar
+        put_ideas: Teniu una idea!
+        recent: Recent
+        self: Teves
+        show_ideas: Mostra idees
+        term_html: Teniu de termini fins a <strong>%{date}</strong>
+        worst_ratings: Pitjors puntuacions
     process_contributions:
       contribution:
         comments_html: "<strong>%{comments}</strong> comentaris"

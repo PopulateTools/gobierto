@@ -78,6 +78,17 @@ en:
         agenda: Agenda
         documents: Documents
         news: News
+    process_contribution_containers:
+      show:
+        all: All
+        best_ratings: Best ratings
+        organize: Organize
+        put_ideas: Have an idea!
+        recent: Recent
+        self: Self
+        show_ideas: Show ideas
+        term_html: You have of term until <strong>%{date}</strong>
+        worst_ratings: Worst ratings
     process_contributions:
       contribution:
         comments_html: "<strong>%{comments}</strong> comments"

@@ -18,22 +18,21 @@
           <%= t('.sent', date: l(@contribution.created_at, format: :short), author: @contribution.user.name) %>
         </div>
       </div>
-
       <div class="comments_container">
-        <h3><%= t('.comments_html', comments: @contribution.comments.size) %></h3>
+        <h3><%= t('.comments_html', comments: @contribution.comments_count) %></h3>
         <% @contribution.comments.each do |comment| %>
           <div class="comment">
             <div class="comment_text">
               <%= comment.body %>
               <div class="meta">
                 -
-                <%= link_to comment.user.name, gobierto_people_person_path(comment.user.slug) %>
+                <%= comment.user.name %>
                 <span class="date"><%= l(comment.updated_at, format: :long) %></span>
               </div>
             </div>
             <div class="comment_actions">
-              <div class="action"><a href="" class="active"><i class="fa fa-thumbs-up"></i> <%= comment.votes.size %></a></div>
-              <div class="action"><a href=""><i class="fa fa-thumbs-down"></i> <%= comment.votes.size %></a></div>
+              <div class="action"><a href="" class="active"><i class="fa fa-thumbs-up"></i> <%= comment.votes_count %></a></div>
+              <div class="action"><a href=""><i class="fa fa-thumbs-down"></i> <%= comment.votes_count %></a></div>
               <div class="action"><a href=""><i class="fa fa-reply"></i><%= t('.respond') %></a></div>
               <div class="action"><a href=""><i class="fa fa-flag"></i><%= t('.report') %></a></div>
             </div>

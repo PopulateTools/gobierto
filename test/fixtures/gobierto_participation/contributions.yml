@@ -12,12 +12,29 @@ park:
   description: "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
   user: susan
   contribution_container: children_contributions
-  slug: cinema
+  slug: carril-bici
+  comments_count: 2
 
-urban-orchard:
+urban_orchard:
   site: madrid
   title: "Huerto Urbano"
   description: "Huerto urbano para conocer los vegetales."
   user: susan
   contribution_container: huerto-urbano
-  slug: cinema
+  slug: huerto-urbano
+
+activities:
+  site: madrid
+  title: "Más actividades en las fiestas de Barajas"
+  description: "En las fiestas de Barajas hay pocas actividades para niños, sería necesario ampliarlas."
+  user: susan
+  contribution_container: children_contributions
+  slug: actividades
+
+quilted_park:
+  site: madrid
+  title: "Parques infantiles de calidad consuelo acolchado"
+  description: "Los parques deberían estar acolchados para los niños de 0 a 2 años."
+  user: susan
+  contribution_container: children_contributions
+  slug: parque-acolchado

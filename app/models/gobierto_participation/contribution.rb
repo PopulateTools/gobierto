@@ -4,15 +4,15 @@ require_dependency "gobierto_participation"
 
 module GobiertoParticipation
   class Contribution < ApplicationRecord
-    include GobiertoParticipation::Flaggable
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
+    include GobiertoParticipation::Flaggable
+    include GobiertoParticipation::Votable
 
     belongs_to :user
     belongs_to :site
     belongs_to :contribution_container
     has_many :comments, as: :commentable
-    has_many :votes, as: :votable
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title, :description

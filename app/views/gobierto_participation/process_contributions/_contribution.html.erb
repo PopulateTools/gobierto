@@ -49,9 +49,12 @@
 
       <div class="element_eval_actions">
         <div>
-          <a href="" class="action_button love">
+          <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_vote_path(process_contribution_id: @contribution.slug, process_contribution_container_id: @contribution.contribution_container.slug, process_id: @process.slug),
+                      class: "action_button love",
+                      method: :post,
+                      remote: true do %>
             <div class="action_description"><%= t('.enchants') %></div>
-          </a>
+          <% end %>
         </div>
 
         <div>

@@ -126,7 +126,9 @@
               <label class="main"><%= translate_enum_value(GobiertoParticipation::ProcessStage, :stage_type, stage_form.object.stage_type) %></label>
 
               <div class="mandatory">
-                <%= stage_form.check_box :active %> <%= t('.active') %>
+                <%= stage_form.label :active do %>
+                  <%= stage_form.check_box :active %> <%= t('.active') %>
+                <% end %>
               </div>
               <div class="tools">
                 <%= link_to '<i class="fa fa-edit"></i>'.html_safe, "#edit_stage_#{stage_form.index}", title: t('.edit'), class: 'tipsit open_modal' %>

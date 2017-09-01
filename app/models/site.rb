@@ -55,7 +55,6 @@ class Site < ApplicationRecord
   after_save :run_seeder
 
   validates :title, presence: true
-  validates :name, presence: true
   validates :domain, presence: true, uniqueness: true, domain: true
   validate :location_required
 
@@ -79,6 +78,10 @@ class Site < ApplicationRecord
     @with_agendas_integration_enabled ||= Site.all.select do |site|
       site.calendar_integration.present?
     end
+  end
+
+  def name
+    name_translations[I18n.locale.to_s] || title
   end
 
   def calendar_integration

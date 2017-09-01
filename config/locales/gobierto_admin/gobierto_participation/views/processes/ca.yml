@@ -8,7 +8,7 @@ ca:
         edit:
           title: Edita el procés
         form:
-          active: Activada
+          active: Activa
           edit: Edita
           edit_stage: Edita fase
           placeholders:

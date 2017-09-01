@@ -8,7 +8,7 @@ es:
         edit:
           title: Editar proceso
         form:
-          active: Activada
+          active: Activa
           edit: Editar
           edit_stage: Editar fase
           placeholders:

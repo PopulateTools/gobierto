@@ -16,7 +16,7 @@ module GobiertoAdmin
 
       delegate :persisted?, to: :page
 
-      validates :site, :visibility_level, presence: true
+      validates :site, :visibility_level, :collection_id, presence: true
 
       def save
         save_page if valid?

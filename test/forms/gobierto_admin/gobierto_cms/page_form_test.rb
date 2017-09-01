@@ -11,6 +11,7 @@ module GobiertoAdmin
           title_translations: { I18n.locale => page.title },
           body_translations: { I18n.locale => page.body },
           slug: "page-form-slug",
+          collection_id: collection.id,
           visibility_level: page.visibility_level
         )
       end
@@ -31,6 +32,10 @@ module GobiertoAdmin
 
       def site
         @site ||= sites(:santander)
+      end
+
+      def collection
+        @collection ||= gobierto_common_collections(:gender_violence_process_news)
       end
 
       def test_save_with_valid_attributes

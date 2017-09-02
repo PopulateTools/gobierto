@@ -81,7 +81,7 @@ class Site < ApplicationRecord
   end
 
   def name
-    name_translations[I18n.locale.to_s] || title
+    name_translations[I18n.locale.to_s].presence || title
   end
 
   def calendar_integration

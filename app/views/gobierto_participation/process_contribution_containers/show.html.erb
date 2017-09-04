@@ -93,6 +93,11 @@ var data = <%= @contribution_container.contributions.javascript_json.html_safe %
 var current_user_id = <%= current_user.id %>;
 var format_date = d3.timeFormat("%Y-%m-%d");
 
+var cardnumber = 12;
+var page = 1
+
+var viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
+
 var now = new Date;
 var px, py, vx, vy, offsetX, offsetY, maxVelocity = 8;
 
@@ -113,7 +118,7 @@ var z = d3.scaleLinear()
   .range([-5, 5])
   .domain([0, data.length]);
 
-var nodes = createNodes(data);
+var nodes = createNodes(viewdata);
 
 var collisionForce = rectCollide()
   .size(function (d) { return [d.width, d.height] });
@@ -142,17 +147,33 @@ contributions.select('.contributions_content')
 
 contributions.select('.contributions_content')
   .append('i')
+  .attr('id', 'next')
   .attr('data-toggle', 'next')
   .attr('class', 'fa fa-angle-right fa-3x arrow next_contribution')
   .on('click', updateContributions);
 
 contributions.select('.contributions_content')
   .append('i')
+  .attr('id', 'previous')
   .attr('data-toggle', 'previous')
   .attr('class', 'fa fa-angle-left fa-3x arrow previous_contribution disabled')
   .on('click', updateContributions);
 
-createCards(nodes);
+  createCards(nodes);
+
+$('#next').click(function() {
+    page++;
+    viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
+    var nodes = createNodes(viewdata);
+    createCards(nodes);
+});
+
+$('#previous').click(function() {
+    page--;
+    viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
+    var nodes = createNodes(viewdata);
+    createCards(nodes);
+});
 
 /* Buttons */
 contributions.select('.toggleLayout')
@@ -475,6 +496,8 @@ function createNodes(data) {
 }
 
 function createCards(data) {
+  $('.card').remove()
+
   var card = contributions.select('.contributions_content')
     .selectAll('div')
     .data(data)
@@ -500,6 +523,16 @@ function createCards(data) {
     .call(drag);
 
   simulation.on('tick', ticked);
+
+  $('.card').on('click', function(e){
+    e.preventDefault();
+
+    $.ajax({
+      type: "GET",
+      dataType: "script",
+      url: $(this).data("url")
+    });
+  });
 }
 
 function constant(_) {
@@ -533,16 +566,6 @@ $(document).on('turbolinks:load', function() {
   $('.contribution_card_expanded .modal_like_control .mfp-close').on('click', function(e){
     e.preventDefault();
     $('.contribution_card_expanded').velocity('fadeOut', { duration: 150 });
-  });
-
-  $('.card').on('click', function(e){
-    e.preventDefault();
-
-    $.ajax({
-      type: "GET",
-      dataType: "script",
-      url: $(this).data("url")
-    });
   });
 
   // Height definition, ToDo make it dynamic

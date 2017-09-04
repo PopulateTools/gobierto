@@ -42,10 +42,7 @@ module Gobierto
       "#{config.root}/lib/validators",
       "#{config.root}/lib/constraints",
       "#{config.root}/lib/errors",
-      "#{config.root}/lib/ibm_notes",
-      "#{config.root}/app/pub_sub",
-      "#{config.root}/app/pub_sub/publishers",
-      "#{config.root}/app/pub_sub/subscribers"
+      "#{config.root}/lib/ibm_notes"
     ]
 
     # Do not add wrapper .field_with_errors around form fields with validation errors
@@ -54,3 +51,6 @@ module Gobierto
     config.time_zone = "Madrid"
   end
 end
+
+require_dependency "app/publishers/base"
+require_dependency "app/subscribers/base"

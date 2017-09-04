@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require_dependency "app/publishers/base"
+
 module Publishers
   class GobiertoCmsPageActivity
     include Publisher

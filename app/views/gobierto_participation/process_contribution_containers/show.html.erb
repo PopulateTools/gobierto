@@ -39,7 +39,7 @@
         <a href="" class="button"><%= t('.put_ideas') %></a>
         <p>
           <%= t('.term_html', date: l(@contribution_container.ends, format: :short)) %>
-        </p>  
+        </p>
       </div>
 
     </div>
@@ -90,6 +90,8 @@
 
 <script type="text/javascript">
 var data = <%= @contribution_container.contributions.javascript_json.html_safe %>;
+var current_user_id = <%= current_user.id %>;
+var format_date = d3.timeFormat("%Y-%m-%d");
 
 var now = new Date;
 var px, py, vx, vy, offsetX, offsetY, maxVelocity = 8;
@@ -183,17 +185,24 @@ function updateCards() {
       break;
     case 'best_ratings':
       d3.selectAll('.card')
-        .filter(function(d) { return d.love_pct < 50; })
+        .filter(function(d) { return d.name['love_pct'] > 50; })
         .style('display', 'none');
       break;
     case 'worst_ratings':
       d3.selectAll('.card')
-        .filter(function(d) { return d.hate_pct < 20; })
+        .filter(function(d) { return d.name['hate_pct'] > 20; })
         .style('display', 'none');
       break;
     case 'recent':
+      d3.selectAll('.card')
+        .filter(function(d) { return d.name['created_at_ymd'] > format_date(d3.timeDay.offset(new Date(), -7)); })
+        .style('display', 'none');
       break;
     case 'self':
+      d3.selectAll('.card')
+        .filter(function(d) { return d.name['user_id'] = current_user_id; })
+        .style('display', 'none');
+      break;
   }
 }
 
@@ -455,11 +464,11 @@ function createNodes(data) {
 
   // Calculate percentage of votes for each card
   output.forEach(function(d) {
-    d.total = d.love + d.like + d.neutral + d.hate,
-    d.love_pct = Math.floor(d.love / d.total * 100)
-    d.like_pct = Math.floor(d.like / d.total * 100)
-    d.neutral_pct = Math.floor(d.neutral / d.total * 100)
-    d.hate_pct = Math.floor(d.hate / d.total * 100)
+    d.total = d.name['votes_count'],
+    d.love_pct = d.name['love_pct']
+    d.like_pct = d.name['like_pct']
+    d.neutral_pct = d.name['neutral_pct']
+    d.hate_pct = d.name['hate_pct']
   });
 
   return output;
@@ -479,7 +488,7 @@ function createCards(data) {
     .attr('class', 'gradient_bar')
     .style('background', function(d) {
       // Every stop has to have every previous stop summed
-      return 'linear-gradient(to right, #38b486 ' + d.love_pct + '%, #429aad ' + (d.love_pct + d.like_pct ) + '%, #9c7e7e ' + (d.love_pct + d.like_pct + d.neutral_pct) + '%, #f06659 ' + (d.love_pct + d.like_pct + d.neutral_pct + d.hate_pct) + '%)';
+      return 'linear-gradient(to right, #38b486 ' + d.name['love_pct'] + '%, #429aad ' + (d.name['love_pct'] + d.name['like_pct'] ) + '%, #9c7e7e ' + (d.name['love_pct'] + d.name['like_pct'] + d.name['neutral_pct']) + '%, #f06659 ' + (d.name['love_pct'] + d.name['like_pct'] + d.name['neutral_pct'] + d.name['hate_pct']) + '%)';
     });
 
   card
@@ -533,7 +542,6 @@ $(document).on('turbolinks:load', function() {
       type: "GET",
       dataType: "script",
       url: $(this).data("url")
-      // "http://madrid.gobierto.dev:3000/processes/612988711/contribution_containers/children-contributions/contributions/cinema"
     });
   });
 

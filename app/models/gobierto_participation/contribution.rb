@@ -48,8 +48,76 @@ module GobiertoParticipation
       )
     end
 
+    def votes_fdiv(numerator, denominator, args = {})
+      fallback = args.fetch(:fallback) { 0 }
+      round = args.fetch(:round) { 2 }
+      percentage = args.fetch(:percentage) { false }
+      multiplier = percentage ? 100 : 1
+
+      return fallback unless numerator.is_a?(Numeric) && denominator.is_a?(Numeric)
+      return fallback if denominator.negative?
+
+      (numerator.fdiv(denominator) * multiplier).round(round)
+    end
+
+    def love_pct
+      love_votes = votes.where(vote_weight: 2).count
+      all_votes = votes.count
+
+      pct = votes_fdiv(love_votes, all_votes, percentage: true, fallback: 0)
+
+      if pct.nan?
+        0
+      else
+        pct
+      end
+    end
+
+    def like_pct
+      like_votes = votes.where(vote_weight: 1).count
+      all_votes = votes.count
+
+      pct = votes_fdiv(like_votes, all_votes, percentage: true, fallback: 0)
+
+      if pct.nan?
+        0
+      else
+        pct
+      end
+    end
+
+    def neutral_pct
+      neutral_votes = votes.where(vote_weight: 0).count
+      all_votes = votes.count
+
+      pct = votes_fdiv(neutral_votes, all_votes, percentage: true, fallback: 0)
+
+      if pct.nan?
+        0
+      else
+        pct
+      end
+    end
+
+    def hate_pct
+      hate_votes = votes.where(vote_weight: -1).count
+      all_votes = votes.count
+
+      pct = votes_fdiv(hate_votes, all_votes, percentage: true, fallback: 0)
+
+      if pct.nan?
+        0
+      else
+        pct
+      end
+    end
+
+    def created_at_ymd
+      created_at.strftime("%Y-%m-%d")
+    end
+
     def self.javascript_json
-      all.to_json(only: :title, methods: [:resource_path])
+      all.to_json(only: [:title, :votes_count, :user_id], methods: [:resource_path, :love_pct, :like_pct, :neutral_pct, :hate_pct, :created_at_ymd])
     end
   end
 end

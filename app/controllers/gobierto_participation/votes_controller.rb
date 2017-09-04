@@ -23,6 +23,8 @@ module GobiertoParticipation
                                                   votable_type: find_votable.class,
                                                   votable_id: find_votable.id))
 
+      @vote_form.save
+
       respond_to do |format|
         format.js
       end
@@ -35,9 +37,7 @@ module GobiertoParticipation
     end
 
     def vote_params
-      params.permit(
-        vote_weight: 1
-      )
+      params.permit(:vote_weight)
     end
 
     def find_votable

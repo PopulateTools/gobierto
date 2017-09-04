@@ -49,7 +49,10 @@
 
       <div class="element_eval_actions">
         <div>
-          <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_vote_path(process_contribution_id: @contribution.slug, process_contribution_container_id: @contribution.contribution_container.slug, process_id: @process.slug),
+          <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_vote_path(process_contribution_id: @contribution.slug,
+                                                                                                                   process_contribution_container_id: @contribution.contribution_container.slug,
+                                                                                                                   process_id: @process.slug,
+                                                                                                                   vote_weight: 2),
                       class: "action_button love",
                       method: :post,
                       remote: true do %>
@@ -58,21 +61,39 @@
         </div>
 
         <div>
-          <a href="" class="action_button like">
+          <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_vote_path(process_contribution_id: @contribution.slug,
+                                                                                                                   process_contribution_container_id: @contribution.contribution_container.slug,
+                                                                                                                   process_id: @process.slug,
+                                                                                                                   vote_weight: 1),
+                      class: "action_button like",
+                      method: :post,
+                      remote: true do %>
             <div class="action_description"><%= t('.like') %></div>
-          </a>
+          <% end %>
         </div>
 
         <div>
-          <a href="" class="action_button pse">
+          <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_vote_path(process_contribution_id: @contribution.slug,
+                                                                                                                   process_contribution_container_id: @contribution.contribution_container.slug,
+                                                                                                                   process_id: @process.slug,
+                                                                                                                   vote_weight: 0),
+                      class: "action_button pse",
+                      method: :post,
+                      remote: true do %>
             <div class="action_description"><%= t('.indifferent') %></div>
-          </a>
+          <% end %>
         </div>
 
         <div>
-          <a href="" class="action_button reject">
+          <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_vote_path(process_contribution_id: @contribution.slug,
+                                                                                                                   process_contribution_container_id: @contribution.contribution_container.slug,
+                                                                                                                   process_id: @process.slug,
+                                                                                                                   vote_weight: -1),
+                      class: "action_button reject",
+                      method: :post,
+                      remote: true do %>
             <div class="action_description"><%= t('.not_like') %></div>
-          </a>
+          <% end %>
         </div>
       </div>
     </div>

@@ -9,11 +9,11 @@ $lighter_black: rgba($color_headers, .7);
 
 .theme-participation {
 
-  button.submit, .button.submit, input[type=submit] {
+  button.submit, .button, .button.submit, input[type=submit] {
     background: $green;
     color: #FFF;
   }
-  button.submit:hover, .button.submit:hover, input[type=submit]:hover {
+  button.submit:hover, .button:hover, .button.submit:hover, input[type=submit]:hover {
     background: darken($green, 5%);
   }
   header.meta {
@@ -47,6 +47,7 @@ $lighter_black: rgba($color_headers, .7);
 
   .button.outline.rounded {
     color: $green;
+    background: #FFF;
     border: 1px solid $green;
     margin-top: -.25em;
 
@@ -966,5 +967,10 @@ $lighter_black: rgba($color_headers, .7);
         }
       }
     }
+  }
+
+  .contribution_card_new_header {
+    background: $green;
+    color: #FFF;
   }
 }

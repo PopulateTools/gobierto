@@ -121,8 +121,10 @@ $(document).on('turbolinks:load', function() {
   });
 
 
-
+  // ToDo: This repeats with what we have in _participation_group_contributions_contribution_new.html
+  // we should probably create a function to close both and anything related
   $('.contribution_card_expanded').hide();
+  $('.contribution_card_new').hide();
 
   $('.contribution_card_expanded .modal_like_control .mfp-close').on('click', function(e){
     e.preventDefault();

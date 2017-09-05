@@ -170,6 +170,33 @@ body.contributions_layout {
   }
 }
 
+.contribution_card_new {
+  position: absolute;
+  margin: 5em;
+  max-width: 1000px;
+  min-width: 750px;
+  top: 0;
+  background: #FFF;
+  border-radius: 6px;
+  line-height: 1.3;
+  box-shadow: 0 5px 10px 10px rgba(0,0,0,0.10);
+
+  .contribution_card_new_header {
+    padding: 1em 2em;
+    font-weight: bold;
+    border-radius: 6px 6px 0 0;
+  }
+  .contribution_card_new_wrapper {
+    padding: 2em ;
+  }
+  .form_item {
+    margin: 0 0 2em 0;
+    textarea {
+      height: 200px;
+    }
+  }
+}
+
 .contribution_card_expanded {
   position: absolute;
   margin: 5em;

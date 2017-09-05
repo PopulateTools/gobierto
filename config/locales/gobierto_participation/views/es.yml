@@ -94,7 +94,6 @@ es:
         user:
           one: Un vecino ha aportado
           other: "%{count} vecinos han aportado"
-        users_ideas: "%{users} vecinos han aportado %{ideas} ideas"
         worst_ratings: Peor valoradas
     process_contributions:
       contribution:

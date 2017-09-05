@@ -138,8 +138,11 @@ $(document).on('turbolinks:load', function() {
     $('.contributions_content').append($('.contribution_card_expanded'));
     // $('.contributions_container').append($('.contribution_card_expanded'));
     // $('.container').append($('.contribution_card_expanded'));
-
     $('.contribution_card_expanded').velocity('fadeIn', { duration: 150 });
+
+    $('.contributions_content').append($('.contribution_tools_overlay'));
+    $('.contribution_tools_overlay').show();
+    
   });
 
   // Height definition, ToDo make it dynamic

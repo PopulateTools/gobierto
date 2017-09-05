@@ -12,8 +12,6 @@
 
   <div class="contribution_card_new_wrapper">
 
-
-
     <div class="contribution_card_new_form">
 
       <div class="form_item input_text">
@@ -35,8 +33,6 @@
         <a href="#" class="button">Añadir</a>
       </div>
 
-
-
     </div>
 
   </div>
@@ -51,17 +47,21 @@ $(document).on('turbolinks:load', function() {
   // we should probably create a function to close both and anything related
   $('.contribution_card_expanded').hide();
   $('.contribution_card_new').hide();
+  $('.contribution_tools_overlay').hide();
 
   $('.contribution_action .button').on('click', function(e){
     e.preventDefault();
     // ToDo Consolidate with code in _participation_group_contributions_contribution_expanded.html
     $('.contributions_content').append($('.contribution_card_new'));
     $('.contribution_card_new').velocity('fadeIn', { duration: 150 });
+    $('.contributions_content').append($('.contribution_tools_overlay'));
+    $('.contribution_tools_overlay').show();
   });
 
   $('.contribution_card_new .modal_like_control .mfp-close').on('click', function(e){
     e.preventDefault();
     $('.contribution_card_new').velocity('fadeOut', { duration: 150 });
+    $('.contribution_tools_overlay').hide();
   });
 
   var contribution_card_container_width = $('.contributions_container .contributions_content').width();

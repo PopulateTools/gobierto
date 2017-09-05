@@ -129,6 +129,7 @@ $(document).on('turbolinks:load', function() {
   $('.contribution_card_expanded .modal_like_control .mfp-close').on('click', function(e){
     e.preventDefault();
     $('.contribution_card_expanded').velocity('fadeOut', { duration: 150 });
+    $('.contribution_tools_overlay').velocity('fadeOut', { duration: 150 });
   });
 
   $('.card').on('click', function(e){
@@ -141,8 +142,8 @@ $(document).on('turbolinks:load', function() {
     $('.contribution_card_expanded').velocity('fadeIn', { duration: 150 });
 
     $('.contributions_content').append($('.contribution_tools_overlay'));
-    $('.contribution_tools_overlay').show();
-    
+    $('.contribution_tools_overlay').velocity('fadeIn', { duration: 150 });
+
   });
 
   // Height definition, ToDo make it dynamic

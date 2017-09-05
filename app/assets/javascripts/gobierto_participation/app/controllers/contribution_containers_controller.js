@@ -36,9 +36,9 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
 
     for (i = 1; i <= page_max; i++) {
       if (i === 1) {
-        $(".circles_progress").append('<li class="active"><a href=""><span></span></a></li>');
+        $(".circles_progress").append(`<li data-page=${i} class="active"><a href=""><span></span></a></li>`);
       } else {
-        $(".circles_progress").append('<li><a href=""><span></span></a></li>');
+        $(".circles_progress").append(`<li data-page=${i}><a href=""><span></span></a></li>`);
       }
     }
 
@@ -111,6 +111,36 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
         }
     });
 
+    /* Pagination links */
+    $('li[data-page]').click(function(e) {
+      e.preventDefault();
+      page = $(this).data('page');
+      viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
+      var nodes = createNodes(viewdata);
+      createCards(nodes);
+      if (page === page_max ) {
+        d3.select('.next_contribution')
+          .classed('disabled', true);
+      }
+      $('li[data-page]').removeClass('active');
+      $(this).addClass('active');
+
+      if (page === 1 ) {
+        d3.select('.previous_contribution')
+          .classed('disabled', true);
+      }
+
+      if (page <= page_max ) {
+        d3.select('.next_contribution')
+          .classed('disabled', false);
+      }
+
+      if (page === page_max ) {
+        d3.select('.next_contribution')
+          .classed('disabled', true);
+      }
+    });
+
     /* Buttons */
     contributions.select('.toggleLayout')
       .on('click', updateLayout);
@@ -179,9 +209,9 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
       $(".circles_progress").empty();
       for (i = 1; i <= page_max; i++) {
         if (i === 1) {
-          $(".circles_progress").append('<li class="active"><a href=""><span></span></a></li>');
+          $(".circles_progress").append(`<li data-page=${i} class="active"><a href=""><span></span></a></li>`);
         } else {
-          $(".circles_progress").append('<li><a href=""><span></span></a></li>');
+          $(".circles_progress").append(`<li data-page=${i}><a href=""><span></span></a></li>`);
         }
       }
 

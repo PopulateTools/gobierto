@@ -24,7 +24,18 @@ module GobiertoParticipation
     validates :title, :description, :user, :contribution_container, presence: true
 
     scope :sort_by_created_at, -> { reorder(created_at: :desc) }
-    # scope :sort_by_votes , -> { reorder(hot_score: :desc) }
+    scope :created_at_last_week, -> { where("created_at >= ?", 1.week.ago) }
+    scope :with_user, ->(user) { where("user_id = ?", user.id) }
+
+    def self.loved
+      ids = Contribution.all.select { |c| c.love_pct >= 50 }.map(&:id)
+      where(id: ids)
+    end
+
+    def self.hated
+      ids = Contribution.all.select { |c| c.hate_pct >= 20 }.map(&:id)
+      where(id: ids)
+    end
 
     def parameterize
       { slug: slug }

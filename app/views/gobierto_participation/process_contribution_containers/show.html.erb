@@ -89,7 +89,13 @@
 </div>
 
 <script type="text/javascript">
-var data = <%= @contribution_container.contributions.javascript_json.html_safe %>;
+var data_origin = <%= @contribution_container.contributions.javascript_json.html_safe %>;
+var data = data_origin;
+var data_best_ratings = <%= @contribution_container.contributions.loved.javascript_json.html_safe %>;
+var data_worst_ratings = <%= @contribution_container.contributions.hated.javascript_json.html_safe %>;
+var data_recent = <%= @contribution_container.contributions.created_at_last_week.javascript_json.html_safe %>;
+var data_self = <%= @contribution_container.contributions.with_user(current_user).javascript_json.html_safe %>;
+
 var current_user_id = <%= current_user.id %>;
 var format_date = d3.timeFormat("%Y-%m-%d");
 
@@ -200,31 +206,27 @@ function updateCards() {
   contributions.selectAll('.cardControl').classed('checked', false);
   d3.select(this).classed('checked', true);
 
+  page = 1;
+
   switch(toggleFilter) {
     case 'all':
-      d3.selectAll('.card').style('display', 'flex');
-      break;
+      data = data_origin;
     case 'best_ratings':
-      d3.selectAll('.card')
-        .filter(function(d) { return d.name['love_pct'] > 50; })
-        .style('display', 'none');
+      data = data_best_ratings;
       break;
     case 'worst_ratings':
-      d3.selectAll('.card')
-        .filter(function(d) { return d.name['hate_pct'] > 20; })
-        .style('display', 'none');
+      data = data_worst_ratings;
       break;
     case 'recent':
-      d3.selectAll('.card')
-        .filter(function(d) { return d.name['created_at_ymd'] > format_date(d3.timeDay.offset(new Date(), -7)); })
-        .style('display', 'none');
+      data = data_recent;
       break;
     case 'self':
-      d3.selectAll('.card')
-        .filter(function(d) { return d.name['user_id'] = current_user_id; })
-        .style('display', 'none');
+      data = data_self;
       break;
   }
+  viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
+  var nodes = createNodes(viewdata);
+  createCards(nodes);
 }
 
 function updateContributions() {

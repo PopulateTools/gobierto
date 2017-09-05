@@ -54,7 +54,9 @@
             <a class="button rounded outline cardControl" data-filter="best_ratings"><%= t('.best_ratings') %></a>
             <a class="button rounded outline cardControl" data-filter="worst_ratings"><%= t('.worst_ratings') %></a>
             <a class="button rounded outline cardControl" data-filter="recent"><%= t('.recent') %></a>
-            <a class="button rounded outline cardControl" data-filter="self"><%= t('.self') %></a>
+            <% if current_user %>
+              <a class="button rounded outline cardControl" data-filter="self"><%= t('.self') %></a>
+            <% end %>  
           </div>
 
           <div class="pure-u-1 pure-u-md-1-24"></div>
@@ -95,9 +97,10 @@
     var data_best_ratings = <%= @contribution_container.contributions.loved.javascript_json.html_safe %>;
     var data_worst_ratings = <%= @contribution_container.contributions.hated.javascript_json.html_safe %>;
     var data_recent = <%= @contribution_container.contributions.created_at_last_week.javascript_json.html_safe %>;
-    var data_self = <%= @contribution_container.contributions.with_user(current_user).javascript_json.html_safe %>;
-    var current_user_id = <%= current_user.id %>;
-    
+    <% if current_user %>
+      var data_self = <%= @contribution_container.contributions.with_user(current_user).javascript_json.html_safe %>;
+    <% end %>
+
     window.GobiertoParticipation.contribution_containers_controller.index();
   <% end %>
 <% end %>

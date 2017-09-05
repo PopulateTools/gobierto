@@ -8,6 +8,10 @@ module GobiertoParticipation
       @site ||= sites(:madrid)
     end
 
+    def user
+      @user ||= users(:peter)
+    end
+
     def process
       @process ||= gobierto_participation_processes(:sport_city_process)
     end

@@ -56,7 +56,7 @@
             <a class="button rounded outline cardControl" data-filter="recent"><%= t('.recent') %></a>
             <% if current_user %>
               <a class="button rounded outline cardControl" data-filter="self"><%= t('.self') %></a>
-            <% end %>  
+            <% end %>
           </div>
 
           <div class="pure-u-1 pure-u-md-1-24"></div>
@@ -97,9 +97,31 @@
     var data_best_ratings = <%= @contribution_container.contributions.loved.javascript_json.html_safe %>;
     var data_worst_ratings = <%= @contribution_container.contributions.hated.javascript_json.html_safe %>;
     var data_recent = <%= @contribution_container.contributions.created_at_last_week.javascript_json.html_safe %>;
+
     <% if current_user %>
       var data_self = <%= @contribution_container.contributions.with_user(current_user).javascript_json.html_safe %>;
+      var user =  "<%= t('.user',
+                        count: @contribution_container.contributions.with_user(current_user).count(:user_id)) %> <%= t('.idea',
+                        count: @contribution_container.contributions.with_user(current_user).count) %>";
     <% end %>
+
+    var users_ideas_origin = "<%= t('.user',
+                                  count: @contribution_container.contributions.distinct.count(:user_id)) %> <%= t('.idea',
+                                  count: @contribution_container.contributions.count) %>";
+
+    var users_best_ratings = "<%= t('.user',
+                                  count: @contribution_container.contributions.loved.distinct.count(:user_id)) %> <%= t('.idea',
+                                  count: @contribution_container.contributions.loved.count) %>";
+
+    var users_worst_ratings = "<%= t('.user',
+                                   count: @contribution_container.contributions.hated.distinct.count(:user_id)) %> <%= t('.idea',
+                                   count: @contribution_container.contributions.hated.count) %>";
+
+    var users_recent = "<%= t('.user',
+                                   count: @contribution_container.contributions.created_at_last_week.distinct.count(:user_id)) %> <%= t('.idea',
+                                   count: @contribution_container.contributions.created_at_last_week.count) %>";
+
+    var users_ideas = users_ideas_origin;
 
     window.GobiertoParticipation.contribution_containers_controller.index();
   <% end %>

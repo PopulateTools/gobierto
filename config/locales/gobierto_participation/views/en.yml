@@ -82,12 +82,18 @@ en:
       show:
         all: All
         best_ratings: Best ratings
+        idea:
+          one: 1 idea
+          other: "%{count} ideas"
         organize: Organize
         put_ideas: Have an idea!
         recent: Recent
         self: Self
         show_ideas: Show ideas
         term_html: You have of term until <strong>%{date}</strong>
+        user:
+          one: One neighbor have contributed
+          other: "%{count} neighbors have contributed"
         worst_ratings: Worst ratings
     process_contributions:
       contribution:

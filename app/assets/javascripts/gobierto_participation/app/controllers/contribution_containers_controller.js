@@ -58,7 +58,8 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
     contributions.select('.contributions_content')
       .append('div')
       .attr('class', 'contribution_legend')
-      .text('50 vecinos han aportado ' + data.length + ' ideas');
+      .attr('id', 'contribution_legend')
+      .text(users_ideas);
 
     contributions.select('.contributions_content')
       .append('i')
@@ -120,18 +121,23 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
       switch(toggleFilter) {
         case 'all':
           data = data_origin;
+          $('#contribution_legend').html(users_ideas_origin);
           break;
         case 'best_ratings':
           data = data_best_ratings;
+          $('#contribution_legend').html(users_best_ratings);
           break;
         case 'worst_ratings':
           data = data_worst_ratings;
+          $('#contribution_legend').html(users_worst_ratings);
           break;
         case 'recent':
           data = data_recent;
+          $('#contribution_legend').html(users_recent);
           break;
         case 'self':
           data = data_self;
+          $('#contribution_legend').html(user);
           break;
       }
       viewdata = data.slice((page-1)*cardnumber,page*cardnumber);

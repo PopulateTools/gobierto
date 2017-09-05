@@ -198,15 +198,6 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
         .classed('active', false)
         .classed('trackToggle', false);
 
-      // Deselect markers on final steps
-      // if (d3.select('.circles_progress li:first-child').classed('active')) {
-      //   d3.select('.previous_contribution')
-      //     .classed('disabled', true);
-      // } else if (d3.select('.circles_progress li:last-child').classed('active')) {
-      //   d3.select('.next_contribution')
-      //     .classed('disabled', true);
-      // }
-
       // Transition cards
       d3.selectAll('.card')
         .transition(500)

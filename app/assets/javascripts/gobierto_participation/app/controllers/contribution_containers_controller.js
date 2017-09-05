@@ -8,7 +8,6 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
   function _initContributionContainer(){
     var format_date = d3.timeFormat("%Y-%m-%d");
 
-    var cardnumber = 12;
     var page = 1
 
     var viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
@@ -82,6 +81,10 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
         viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
         var nodes = createNodes(viewdata);
         createCards(nodes);
+        if (page === page_max ) {
+          d3.select('.next_contribution')
+            .classed('disabled', true);
+        }
     });
 
     $('#previous').click(function() {
@@ -89,6 +92,15 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
         viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
         var nodes = createNodes(viewdata);
         createCards(nodes);
+        if (page === 1 ) {
+          d3.select('.previous_contribution')
+            .classed('disabled', true);
+        }
+
+        if (page <= page_max ) {
+          d3.select('.next_contribution')
+            .classed('disabled', false);
+        }
     });
 
     /* Buttons */
@@ -122,24 +134,40 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
         case 'all':
           data = data_origin;
           $('#contribution_legend').html(users_ideas_origin);
+          page_max = Math.round(data.length/cardnumber);
           break;
         case 'best_ratings':
           data = data_best_ratings;
           $('#contribution_legend').html(users_best_ratings);
+          page_max = Math.round(data.length/cardnumber);
           break;
         case 'worst_ratings':
           data = data_worst_ratings;
           $('#contribution_legend').html(users_worst_ratings);
+          page_max = Math.round(data.length/cardnumber);
           break;
         case 'recent':
           data = data_recent;
           $('#contribution_legend').html(users_recent);
+          page_max = Math.round(data.length/cardnumber);
           break;
         case 'self':
           data = data_self;
           $('#contribution_legend').html(user);
+          page_max = Math.round(data.length/cardnumber);
           break;
       }
+
+      if (page_max > 1 ) {
+        d3.select('.next_contribution')
+          .classed('disabled', false);
+      }
+
+      if ((page_max === 0 ) || (page_max === 1 )) {
+        d3.select('.next_contribution')
+          .classed('disabled', true);
+      }
+
       viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
       var nodes = createNodes(viewdata);
       createCards(nodes);
@@ -171,13 +199,13 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
         .classed('trackToggle', false);
 
       // Deselect markers on final steps
-      if (d3.select('.circles_progress li:first-child').classed('active')) {
-        d3.select('.previous_contribution')
-          .classed('disabled', true);
-      } else if (d3.select('.circles_progress li:last-child').classed('active')) {
-        d3.select('.next_contribution')
-          .classed('disabled', true);
-      }
+      // if (d3.select('.circles_progress li:first-child').classed('active')) {
+      //   d3.select('.previous_contribution')
+      //     .classed('disabled', true);
+      // } else if (d3.select('.circles_progress li:last-child').classed('active')) {
+      //   d3.select('.next_contribution')
+      //     .classed('disabled', true);
+      // }
 
       // Transition cards
       d3.selectAll('.card')

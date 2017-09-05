@@ -972,5 +972,11 @@ $lighter_black: rgba($color_headers, .7);
   .contribution_card_new_header {
     background: $green;
     color: #FFF;
+    .modal_like_control .mfp-close {
+      color: $green;
+      background: #FFF;
+      border-color: #FFF;
+    }
   }
+
 }

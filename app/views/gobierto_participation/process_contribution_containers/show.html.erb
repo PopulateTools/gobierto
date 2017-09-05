@@ -97,6 +97,7 @@ var data_recent = <%= @contribution_container.contributions.created_at_last_week
 var data_self = <%= @contribution_container.contributions.with_user(current_user).javascript_json.html_safe %>;
 
 var current_user_id = <%= current_user.id %>;
+
 var format_date = d3.timeFormat("%Y-%m-%d");
 
 var cardnumber = 12;
@@ -211,6 +212,7 @@ function updateCards() {
   switch(toggleFilter) {
     case 'all':
       data = data_origin;
+      break;
     case 'best_ratings':
       data = data_best_ratings;
       break;

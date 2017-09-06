@@ -2,6 +2,8 @@
   class="theme-participation gobierto_participation"
 <% end %>
 
+
+
 <div class="gradient-bg">
   <div class="column">
     <div class="pure-g two_by_two">
@@ -19,12 +21,12 @@
 
           <div class="center">
             <div class="questions">
-              <label class="control radio signin_modal" href="#signin_register">
+              <label class="control radio open_modal" href="#signin_register">
                 <input id="radio1" name="radio" type="radio">
                 <span class="control-indicator"></span>
                 <strong>Sí</strong>, toca actualizarla.
               </label>
-              <label class="control radio signin_modal" href="#signin_register">
+              <label class="control radio open_modal" href="#signin_register">
                 <input id="radio2" name="radio" type="radio">
                 <span class="control-indicator"></span>
                 <strong>No</strong>, está bien como está.
@@ -70,25 +72,3 @@
 <%= render 'participation_themes_list_a' %>
 
 <%= render 'user_signin_modal' %>
-
-<script type="text/javascript">
-$('.signin_modal').magnificPopup({
-  type: 'inline',
-
-  fixedContentPos: false,
-  fixedBgPos: true,
-
-  overflowY: 'auto',
-
-  closeBtnInside: true,
-  preloader: false,
-
-  midClick: true,
-  removalDelay: 10,
-  mainClass: 'my-mfp-zoom-in'
-});
-
-$('.button_toggle').on('click', function() {
-  $('.button.hidden').toggleClass('hidden');
-})
-</script>

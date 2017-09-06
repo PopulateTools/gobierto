@@ -27,4 +27,8 @@ $(document).on('turbolinks:load', function() {
     $(this).find('span').toggleText('Quiero asistir', 'Asistirás');
   });
 
+  $('.button_toggle').on('click', function() {
+    $('.button.hidden').toggleClass('hidden');
+  })
+
 });

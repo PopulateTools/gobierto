@@ -14,7 +14,9 @@
         <p>Hay que fomentar el uso del transporte entre niños, porque son las futuras generaciones. Y si un niño le pide algo al padre, este le hace más caso. Hay que fomentar el uso del transporte entre niños, porque son las futuras generaciones. Y si un niño le pide algo al padre, este le hace más caso.</p>
         <p>Hay que fomentar el uso del transporte entre niños, porque son las futuras generaciones. Y si un niño le pide algo al padre, este le hace más caso. Hay que fomentar el uso del transporte entre niños, porque son las futuras generaciones. Y si un niño le pide algo al padre, este le hace más caso. Hay que fomentar el uso del transporte entre niños, porque son las futuras generaciones. Y si un niño le pide algo al padre, este le hace más caso.</p>
         <div class="meta">
-          enviada por Isabel López el 12 dic 17
+          —
+          <a href="">Martín González</a>
+          <span class="date">25/05/2017</span>
         </div>
       </div>
 
@@ -47,6 +49,31 @@
           </div>
         </div>
         <% end %>
+
+        <div class="comment_new">
+
+        <!-- if logged in -->
+
+          <div class="form_item textarea">
+            <label>
+              Comenta esta idea|propuesta|pregunta
+            </label>
+            <textarea></textarea>
+          </div>
+
+          <div class="form_item action_buttons right">
+            <a href="#" class="button">Comentar</a>
+          </div>
+
+        <!-- else if not logged in -->
+
+          <div class="inline_login_cta">
+            <h2><a href="#signin_register" class="open_modal">Haz login o regístrate para comentar</a></h2>
+          </div>
+
+        <!-- end -->
+
+        </div>
 
       </div>
 
@@ -98,7 +125,6 @@
 
 $(document).on('turbolinks:load', function() {
 
-
   $('.action_button').hover(
     function() {
       $(this).find('.action_description').velocity('fadeIn', { duration: 150 });
@@ -121,12 +147,15 @@ $(document).on('turbolinks:load', function() {
   });
 
 
-
+  // ToDo: This repeats with what we have in _participation_group_contributions_contribution_new.html
+  // we should probably create a function to close both and anything related
   $('.contribution_card_expanded').hide();
+  $('.contribution_card_new').hide();
 
   $('.contribution_card_expanded .modal_like_control .mfp-close').on('click', function(e){
     e.preventDefault();
     $('.contribution_card_expanded').velocity('fadeOut', { duration: 150 });
+    $('.contribution_tools_overlay').velocity('fadeOut', { duration: 150 });
   });
 
   $('.card').on('click', function(e){
@@ -136,8 +165,11 @@ $(document).on('turbolinks:load', function() {
     $('.contributions_content').append($('.contribution_card_expanded'));
     // $('.contributions_container').append($('.contribution_card_expanded'));
     // $('.container').append($('.contribution_card_expanded'));
-
     $('.contribution_card_expanded').velocity('fadeIn', { duration: 150 });
+
+    $('.contributions_content').append($('.contribution_tools_overlay'));
+    $('.contribution_tools_overlay').velocity('fadeIn', { duration: 150 });
+
   });
 
   // Height definition, ToDo make it dynamic
@@ -148,3 +180,5 @@ $(document).on('turbolinks:load', function() {
 });
 
 </script>
+
+<%= render 'user_signin_modal' %>

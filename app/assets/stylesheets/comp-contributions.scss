@@ -233,21 +233,20 @@ body.contributions_layout {
       margin: 0;
       font-size: $f4;
     }
+    .meta {
+      font-weight: bold;
+      display: inline-block;
+      .date {
+        font-weight: normal;
+        font-size: $f7;
+        opacity: .5;
+      }
+    }
     .comments_container {
       opacity: .8;
       .comment {
         padding: 1em 0 0 0;
         margin: 0 0 2em 0;
-        .meta {
-          padding: 0 0 0 1em;
-          font-weight: bold;
-          display: inline;
-          .date {
-            font-weight: normal;
-            font-size: $f7;
-            opacity: .5;
-          }
-        }
       }
       h3 {
         border-bottom: 1px solid rgba(0,0,0,0.1);

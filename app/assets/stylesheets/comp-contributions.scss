@@ -170,6 +170,43 @@ body.contributions_layout {
   }
 }
 
+.contribution_tools_overlay {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.5);
+
+}
+
+.contribution_card_new {
+  position: absolute;
+  margin: 5em;
+  max-width: 1000px;
+  min-width: 750px;
+  top: 0;
+  background: #FFF;
+  border-radius: 6px;
+  line-height: 1.3;
+  box-shadow: 0 5px 10px 10px rgba(0,0,0,0.10);
+  z-index: 2;
+
+  .contribution_card_new_header {
+    padding: 1em 2em;
+    font-weight: bold;
+    border-radius: 6px 6px 0 0;
+  }
+  .contribution_card_new_wrapper {
+    padding: 2em 2em 0 2em;
+  }
+  .form_item {
+    margin: 0 0 2em 0;
+    textarea {
+      height: 200px;
+    }
+  }
+}
+
 .contribution_card_expanded {
   position: absolute;
   margin: 5em;
@@ -180,6 +217,7 @@ body.contributions_layout {
   border-radius: 6px;
   line-height: 1.3;
   box-shadow: 0 5px 10px 10px rgba(0,0,0,0.10);
+  z-index: 2;
 
   .contribution_card_expanded_wrapper {
     display: flex;
@@ -195,21 +233,20 @@ body.contributions_layout {
       margin: 0;
       font-size: $f4;
     }
+    .meta {
+      font-weight: bold;
+      display: inline-block;
+      .date {
+        font-weight: normal;
+        font-size: $f7;
+        opacity: .5;
+      }
+    }
     .comments_container {
       opacity: .8;
       .comment {
         padding: 1em 0 0 0;
         margin: 0 0 2em 0;
-        .meta {
-          padding: 0 0 0 1em;
-          font-weight: bold;
-          display: inline-block;
-          .date {
-            font-weight: normal;
-            font-size: $f7;
-            opacity: .5;
-          }
-        }
       }
       h3 {
         border-bottom: 1px solid rgba(0,0,0,0.1);
@@ -240,6 +277,11 @@ body.contributions_layout {
         }
 
       }
+    }
+    .comment_new {
+      border-top: 1px solid $color_separator;
+      padding: 3em 0;
+      margin: 3em 0;
     }
   }
   .contribution_actions {

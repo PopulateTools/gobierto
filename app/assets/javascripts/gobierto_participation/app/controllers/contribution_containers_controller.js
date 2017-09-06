@@ -93,6 +93,12 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
           d3.select('.next_contribution')
             .classed('disabled', true);
         }
+
+        var simulation = d3.forceSimulation(nodes)
+          .velocityDecay(0.6) // Speed of the simulation: https://github.com/d3/d3-force/blob/master/README.md#simulation_velocityDecay
+          .alphaTarget(1)
+          .force('box', boxForce)
+          .force('collision', collisionForce);
     });
 
     $('#previous').click(function() {
@@ -109,6 +115,12 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
           d3.select('.next_contribution')
             .classed('disabled', false);
         }
+
+        var simulation = d3.forceSimulation(nodes)
+          .velocityDecay(0.6) // Speed of the simulation: https://github.com/d3/d3-force/blob/master/README.md#simulation_velocityDecay
+          .alphaTarget(1)
+          .force('box', boxForce)
+          .force('collision', collisionForce);
     });
 
     /* Pagination links */
@@ -139,6 +151,12 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
         d3.select('.next_contribution')
           .classed('disabled', true);
       }
+
+      var simulation = d3.forceSimulation(nodes)
+        .velocityDecay(0.6) // Speed of the simulation: https://github.com/d3/d3-force/blob/master/README.md#simulation_velocityDecay
+        .alphaTarget(1)
+        .force('box', boxForce)
+        .force('collision', collisionForce);
     });
 
     /* Buttons */
@@ -218,6 +236,12 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
       viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
       var nodes = createNodes(viewdata);
       createCards(nodes);
+
+      var simulation = d3.forceSimulation(nodes)
+        .velocityDecay(0.6) // Speed of the simulation: https://github.com/d3/d3-force/blob/master/README.md#simulation_velocityDecay
+        .alphaTarget(1)
+        .force('box', boxForce)
+        .force('collision', collisionForce);
     }
 
     function updateContributions() {

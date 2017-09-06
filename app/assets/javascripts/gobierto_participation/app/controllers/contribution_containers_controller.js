@@ -36,9 +36,9 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
 
     for (i = 1; i <= page_max; i++) {
       if (i === 1) {
-        $(".circles_progress").append(`<li data-page=${i} class="active"><a href=""><span></span></a></li>`);
+        $(".circles_progress").append('<li data-page=' + i + ' class="active"><a href=""><span></span></a></li>');
       } else {
-        $(".circles_progress").append(`<li data-page=${i}><a href=""><span></span></a></li>`);
+        $(".circles_progress").append('<li data-page=' + i + '><a href=""><span></span></a></li>');
       }
     }
 
@@ -209,9 +209,9 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
       $(".circles_progress").empty();
       for (i = 1; i <= page_max; i++) {
         if (i === 1) {
-          $(".circles_progress").append(`<li data-page=${i} class="active"><a href=""><span></span></a></li>`);
+          $(".circles_progress").append('<li data-page=' + i + ' class="active"><a href=""><span></span></a></li>');
         } else {
-          $(".circles_progress").append(`<li data-page=${i}><a href=""><span></span></a></li>`);
+          $(".circles_progress").append('<li data-page=' + i + '><a href=""><span></span></a></li>');
         }
       }
 

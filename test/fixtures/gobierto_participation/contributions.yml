@@ -4,3 +4,37 @@ cinema:
   description: "En el Parque Juan Carlos I en el auditorio podría instalarse un cine de verano."
   user: susan
   contribution_container: children_contributions
+  slug: cinema
+
+park:
+  site: madrid
+  title: "Carril bici hasta el Juan Carlos I"
+  description: "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
+  user: susan
+  contribution_container: children_contributions
+  slug: carril-bici
+  comments_count: 2
+
+urban_orchard:
+  site: madrid
+  title: "Huerto Urbano"
+  description: "Huerto urbano para conocer los vegetales."
+  user: susan
+  contribution_container: huerto-urbano
+  slug: huerto-urbano
+
+activities:
+  site: madrid
+  title: "Más actividades en las fiestas de Barajas"
+  description: "En las fiestas de Barajas hay pocas actividades para niños, sería necesario ampliarlas."
+  user: susan
+  contribution_container: children_contributions
+  slug: actividades
+
+quilted_park:
+  site: madrid
+  title: "Parques infantiles de calidad consuelo acolchado"
+  description: "Los parques deberían estar acolchados para los niños de 0 a 2 años."
+  user: susan
+  contribution_container: children_contributions
+  slug: parque-acolchado

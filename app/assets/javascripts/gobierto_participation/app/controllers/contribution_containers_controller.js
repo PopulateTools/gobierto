@@ -483,7 +483,7 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
       $('.card').remove()
 
       var card = contributions.select('.contributions_content')
-        .selectAll('div')
+        .selectAll('.card')
         .data(data)
         .enter()
         .append('div')

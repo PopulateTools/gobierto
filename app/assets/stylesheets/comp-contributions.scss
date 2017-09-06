@@ -241,7 +241,7 @@ body.contributions_layout {
         .meta {
           padding: 0 0 0 1em;
           font-weight: bold;
-          display: inline-block;
+          display: inline;
           .date {
             font-weight: normal;
             font-size: $f7;
@@ -278,6 +278,11 @@ body.contributions_layout {
         }
 
       }
+    }
+    .comment_new {
+      border-top: 1px solid $color_separator;
+      padding: 3em 0;
+      margin: 3em 0;
     }
   }
   .contribution_actions {

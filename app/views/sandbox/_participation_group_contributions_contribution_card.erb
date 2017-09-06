@@ -48,6 +48,31 @@
         </div>
         <% end %>
 
+        <div class="comment_new">
+
+        <!-- if logged in -->
+
+          <div class="form_item textarea">
+            <label>
+              Comenta esta idea|propuesta|pregunta
+            </label>
+            <textarea></textarea>
+          </div>
+
+          <div class="form_item action_buttons right">
+            <a href="#" class="button">Comentar</a>
+          </div>
+
+        <!-- else if not logged in -->
+
+          <div class="inline_login_cta">
+            <h2><a href="#signin_register" class="open_modal">Haz login o regístrate para comentar</a></h2>
+          </div>
+
+        <!-- end -->
+
+        </div>
+
       </div>
 
     </div>
@@ -97,7 +122,6 @@
 <script type="text/javascript">
 
 $(document).on('turbolinks:load', function() {
-
 
   $('.action_button').hover(
     function() {
@@ -154,3 +178,5 @@ $(document).on('turbolinks:load', function() {
 });
 
 </script>
+
+<%= render 'user_signin_modal' %>

@@ -9,11 +9,18 @@ $lighter_black: rgba($color_headers, .7);
 
 .theme-participation {
 
-  button.submit, .button, .button.submit, input[type=submit] {
+  button.submit,
+  .button, .button.submit,
+  input[type=submit],
+  .contributions_container .inline_login_cta a {
     background: $green;
     color: #FFF;
   }
-  button.submit:hover, .button:hover, .button.submit:hover, input[type=submit]:hover {
+  button.submit:hover,
+  .button:hover,
+  .button.submit:hover,
+  input[type=submit]:hover,
+  .contributions_container .inline_login_cta a:hover {
     background: darken($green, 5%);
   }
   header.meta {

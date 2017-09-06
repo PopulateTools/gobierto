@@ -650,3 +650,14 @@ trix-toolbar .button_group button.attach::before {
     background-color: $color_main;
   }
 }
+.inline_login_cta {
+  a {
+    margin: 2em 0;
+    background: $color_main;
+    color: #FFF;
+    border-radius: 6px;
+    text-align: center;
+    padding: 2em;
+    display: block;
+  }
+}

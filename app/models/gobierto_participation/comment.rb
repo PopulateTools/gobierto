@@ -12,5 +12,13 @@ module GobiertoParticipation
     belongs_to :site
 
     validates :body, :user, presence: true
+
+    def positive_votes
+      votes.where(vote_weight: 1).size
+    end
+
+    def negative_votes
+      votes.where(vote_weight: -1).size
+    end
   end
 end

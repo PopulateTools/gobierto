@@ -1,1 +1,10 @@
-$(".contributions_content").html('<%=j render "contribution" %>');
+$(".contributions_content").append('<%=j render "contribution" %>');
+
+$('.action_button').hover(
+  function() {
+    $(this).find('.action_description').velocity('fadeIn', { duration: 150 });
+  },
+  function() {
+    $(this).find('.action_description').velocity('fadeOut', { duration: 150 });
+  }
+);

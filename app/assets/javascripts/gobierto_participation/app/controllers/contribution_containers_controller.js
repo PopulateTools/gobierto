@@ -576,6 +576,17 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
         $('.contribution_card_expanded').velocity('fadeOut', { duration: 150 });
       });
 
+      $('.card').on('click', function(e){
+        e.preventDefault();
+        // ToDo decide where we position the expanded card
+        $('.contributions_content').append($('.contribution_card_expanded'));
+        // $('.contributions_container').append($('.contribution_card_expanded'));
+        // $('.container').append($('.contribution_card_expanded'));
+        $('.contribution_card_expanded').velocity('fadeIn', { duration: 150 });
+        $('.contributions_content').append($('.contribution_tools_overlay'));
+        $('.contribution_tools_overlay').velocity('fadeIn', { duration: 150 });
+      });
+
       // Height definition, ToDo make it dynamic
       // var contribution_card_expanded_container = $('.contributions_container .contributions_content').height();
       $('.contribution_card_expanded_main_col').height('650');

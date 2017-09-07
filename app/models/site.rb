@@ -48,6 +48,7 @@ class Site < ApplicationRecord
   has_many :processes, dependent: :destroy, class_name: "GobiertoParticipation::Process"
   has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
   has_many :contributions, dependent: :destroy, class_name: "GobiertoParticipation::Contribution"
+  has_many :comments, dependent: :destroy, class_name: "GobiertoParticipation::Comment"
 
   serialize :configuration_data
 

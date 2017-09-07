@@ -32,10 +32,48 @@
                 </div>
               </div>
               <div class="comment_actions">
-                <div class="action"><a href="" class="active"><i class="fa fa-thumbs-up"></i> <%= comment.votes_count %></a></div>
-                <div class="action"><a href=""><i class="fa fa-thumbs-down"></i> <%= comment.votes_count %></a></div>
+                <div class="action">
+                  <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_vote_path(process_contribution_id: @contribution.slug,
+                                                                                                                           process_contribution_container_id: @contribution.contribution_container.slug,
+                                                                                                                           process_id: @process.slug,
+                                                                                                                           vote_weight: 1,
+                                                                                                                           votable_id: comment.id,
+                                                                                                                           votable_type: comment.class),
+                              class: (comment.vote_by_user?(current_user) ? 'action active' : 'action'),
+                              method: :post,
+                              remote: true do %>
+                  <i class="fa fa-thumbs-up"></i>
+                  <% end %>
+                  <%= comment.positive_votes %>
+                </div>
+
+                <div class="action">
+                  <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_vote_path(process_contribution_id: @contribution.slug,
+                                                                                                                           process_contribution_container_id: @contribution.contribution_container.slug,
+                                                                                                                           process_id: @process.slug,
+                                                                                                                           vote_weight: -1,
+                                                                                                                           votable_id: comment.id,
+                                                                                                                           votable_type: comment.class),
+                              class: (comment.vote_by_user?(current_user) ? 'action active' : 'action'),
+                              method: :post,
+                              remote: true do %>
+                  <i class="fa fa-thumbs-down"></i>
+                  <% end %>
+                  <%= comment.negative_votes %>
+                </div>
+
                 <div class="action"><a href=""><i class="fa fa-reply"></i><%= t('.respond') %></a></div>
-                <div class="action"><a href=""><i class="fa fa-flag"></i><%= t('.report') %></a></div>
+                <div class="action" id="#{comment.id}">
+                  <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_flag_path(process_contribution_id: @contribution.slug,
+                                                                                                                           process_contribution_container_id: @contribution.contribution_container.slug,
+                                                                                                                           process_id: @process.slug,
+                                                                                                                           flaggable_id: comment.id,
+                                                                                                                           flaggable_type: comment.class),
+                              class: (comment.flagged_by_user?(current_user) ? 'action active' : 'action'),
+                              method: :post,
+                              remote: true do %>
+                    <i class="fa fa-flag"></i><%= t('.report') %>
+                  <% end %>
               </div>
             </div>
           <% end %>
@@ -53,7 +91,9 @@
             <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_vote_path(process_contribution_id: @contribution.slug,
                                                                                                                      process_contribution_container_id: @contribution.contribution_container.slug,
                                                                                                                      process_id: @process.slug,
-                                                                                                                     vote_weight: 2),
+                                                                                                                     vote_weight: 2,
+                                                                                                                     votable_id: @contribution.id,
+                                                                                                                     votable_type: @contribution.class),
                         class: "action_button love",
                         method: :post,
                         remote: true do %>
@@ -65,7 +105,9 @@
             <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_vote_path(process_contribution_id: @contribution.slug,
                                                                                                                      process_contribution_container_id: @contribution.contribution_container.slug,
                                                                                                                      process_id: @process.slug,
-                                                                                                                     vote_weight: 1),
+                                                                                                                     vote_weight: 1,
+                                                                                                                     votable: @contribution.id,
+                                                                                                                     votable_type: @contribution.class),
                         class: "action_button like",
                         method: :post,
                         remote: true do %>
@@ -77,7 +119,9 @@
             <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_vote_path(process_contribution_id: @contribution.slug,
                                                                                                                      process_contribution_container_id: @contribution.contribution_container.slug,
                                                                                                                      process_id: @process.slug,
-                                                                                                                     vote_weight: 0),
+                                                                                                                     vote_weight: 0,
+                                                                                                                     votable: @contribution.id,
+                                                                                                                     votable_type: @contribution.class),
                         class: "action_button pse",
                         method: :post,
                         remote: true do %>
@@ -89,7 +133,9 @@
             <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_vote_path(process_contribution_id: @contribution.slug,
                                                                                                                      process_contribution_container_id: @contribution.contribution_container.slug,
                                                                                                                      process_id: @process.slug,
-                                                                                                                     vote_weight: -1),
+                                                                                                                     vote_weight: -1,
+                                                                                                                     votable: @contribution.id,
+                                                                                                                     votable_type: @contribution.class),
                         class: "action_button reject",
                         method: :post,
                         remote: true do %>

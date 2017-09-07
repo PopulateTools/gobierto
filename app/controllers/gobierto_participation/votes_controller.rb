@@ -19,9 +19,7 @@ module GobiertoParticipation
       raise Errors::NotAuthorized unless vote_policy.create?
 
       @vote_form = VoteForm.new(vote_params.merge(site_id: current_site.id,
-                                                  user_id: current_user.id,
-                                                  votable_type: find_votable.class,
-                                                  votable_id: find_votable.id))
+                                                  user_id: current_user.id))
 
       @vote_form.save
 
@@ -37,7 +35,11 @@ module GobiertoParticipation
     end
 
     def vote_params
-      params.permit(:vote_weight)
+      params.permit(
+        :vote_weight,
+        :votable_id,
+        :votable_type
+      )
     end
 
     def find_votable

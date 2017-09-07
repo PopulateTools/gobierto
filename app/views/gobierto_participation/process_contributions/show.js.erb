@@ -1,3 +1,5 @@
+$('.contribution_card_expanded').remove();
+$('.contribution_tools_overlay').remove();
 $(".contributions_content").append('<%=j render "contribution" %>');
 
 $('.action_button').on('click', function(e) {
@@ -8,6 +10,7 @@ $('.action_button').on('click', function(e) {
   $(this).velocity("callout.pulse", { duration: 100});
   $(this).addClass('selected');
   $(this).find('.action_description').velocity("callout.pulse", { duration: 100});
+  $(this).find('.action_description').velocity('fadeIn', { duration: 150 });
 });
 
 $('.action_button').hover(
@@ -15,7 +18,9 @@ $('.action_button').hover(
     $(this).find('.action_description').velocity('fadeIn', { duration: 150 });
   },
   function() {
-    $(this).find('.action_description').velocity('fadeOut', { duration: 150 });
+    if (!$(this).hasClass('selected')) {
+      $(this).find('.action_description').velocity('fadeOut', { duration: 150 });
+    }
   }
 );
 
@@ -23,6 +28,12 @@ $('.contribution_card_expanded .modal_like_control .mfp-close').on('click', func
   e.preventDefault();
   $('.contribution_card_expanded').velocity('fadeOut', { duration: 150 });
   $('.contribution_tools_overlay').velocity('fadeOut', { duration: 150 });
+});
+
+$('a.action_button').each(function(){
+  if ($(this).hasClass('selected')) {
+    $(this).find('.action_description').velocity('fadeIn', { duration: 150 });
+  }
 });
 
 $('.card').on('click', function(e){

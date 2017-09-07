@@ -36,7 +36,8 @@
  *
  */
 footer {
-  background: $color_neutral_soft;
+  border-top: 1px solid;
+  border-color: $color_main_soft;
   padding: 3em 0;
   margin: 10em 0 0 0;
   .logo {

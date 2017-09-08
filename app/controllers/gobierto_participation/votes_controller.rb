@@ -4,24 +4,35 @@ module GobiertoParticipation
   class VotesController < GobiertoParticipation::ApplicationController
     def new
       @votable = find_votable
-      vote_policy = VotePolicy.new(current_user, votable)
+      vote_policy = VotePolicy.new(current_user)
       raise Errors::NotAuthorized unless vote_policy.create?
 
       @vote_form = VoteForm.new
     end
 
     def create
-      params[:id] = params[:process_contribution_id]
+      @votable = find_votable
 
-      votable = find_votable
-
-      vote_policy = VotePolicy.new(current_user, votable)
+      vote_policy = VotePolicy.new(current_user)
       raise Errors::NotAuthorized unless vote_policy.create?
 
       @vote_form = VoteForm.new(vote_params.merge(site_id: current_site.id,
                                                   user_id: current_user.id))
 
-      @vote_form.save
+      if @vote_form.save
+        @vote = @vote_form.vote
+      end
+
+      respond_to do |format|
+        format.js
+      end
+    end
+
+    def destroy
+      @votable = find_votable
+      @vote = current_user.votes.find_by!(votable: @votable)
+
+      @vote.destroy
 
       respond_to do |format|
         format.js

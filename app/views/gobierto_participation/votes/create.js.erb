@@ -1,0 +1,3 @@
+<% if @vote %>
+  $("#votes-links-<%= @vote.votable.id %>").html("<%= j render(partial: 'gobierto_participation/process_contributions/comment_votes', locals: { item: @vote.votable }) %>");
+<% end %>

@@ -1,0 +1,33 @@
+<% if user_signed_in? %>
+  <div id="votes-links-<%= item.id %>">
+    <div class="action">
+      <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_vote_path(process_contribution_id: item.commentable.slug,
+                                                                                                               process_contribution_container_id: item.commentable.contribution_container.slug,
+                                                                                                               process_id: item.commentable.contribution_container.process.slug,
+                                                                                                               vote_weight: 1,
+                                                                                                               votable_id: item.id,
+                                                                                                               votable_type: item.class),
+                  class: "action #{ 'active' if (item.voted_with_weight_by_user?(current_user, 1))}",
+                  method: (item.voted_with_weight_by_user?(current_user, 1) ? :delete : :post),
+                  remote: true do %>
+      <i class="fa fa-thumbs-up"></i>
+      <% end %>
+      <%= item.positive_votes %>
+    </div>
+
+    <div class="action">
+      <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_vote_path(process_contribution_id: item.commentable.slug,
+                                                                                                               process_contribution_container_id: item.commentable.contribution_container.slug,
+                                                                                                               process_id: item.commentable.slug,
+                                                                                                               vote_weight: -1,
+                                                                                                               votable_id: item.id,
+                                                                                                               votable_type: item.class),
+                  class: "action #{ 'active' if (item.voted_with_weight_by_user?(current_user, -1))}",
+                  method: (item.voted_with_weight_by_user?(current_user, 1) ? :delete : :post),
+                  remote: true do %>
+      <i class="fa fa-thumbs-down"></i>
+      <% end %>
+      <%= item.negative_votes %>
+    </div>
+  </div>
+<% end %>

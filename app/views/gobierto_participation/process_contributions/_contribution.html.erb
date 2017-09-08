@@ -32,35 +32,8 @@
                 </div>
               </div>
               <div class="comment_actions">
-                <div class="action">
-                  <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_vote_path(process_contribution_id: @contribution.slug,
-                                                                                                                           process_contribution_container_id: @contribution.contribution_container.slug,
-                                                                                                                           process_id: @process.slug,
-                                                                                                                           vote_weight: 1,
-                                                                                                                           votable_id: comment.id,
-                                                                                                                           votable_type: comment.class),
-                              class: "action #{ 'active' if (comment.voted_with_weight_by_user?(current_user, 1))}",
-                              method: :post,
-                              remote: true do %>
-                  <i class="fa fa-thumbs-up"></i>
-                  <% end %>
-                  <%= comment.positive_votes %>
-                </div>
 
-                <div class="action">
-                  <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_vote_path(process_contribution_id: @contribution.slug,
-                                                                                                                           process_contribution_container_id: @contribution.contribution_container.slug,
-                                                                                                                           process_id: @process.slug,
-                                                                                                                           vote_weight: -1,
-                                                                                                                           votable_id: comment.id,
-                                                                                                                           votable_type: comment.class),
-                              class: "action #{ 'active' if (comment.voted_with_weight_by_user?(current_user, -1))}",
-                              method: :post,
-                              remote: true do %>
-                  <i class="fa fa-thumbs-down"></i>
-                  <% end %>
-                  <%= comment.negative_votes %>
-                </div>
+                <%= render partial: 'gobierto_participation/process_contributions/comment_votes', locals: { item: comment } %>
 
                 <div class="action"><a href=""><i class="fa fa-reply"></i><%= t('.respond') %></a></div>
                 <div class="action" id="#{comment.id}">

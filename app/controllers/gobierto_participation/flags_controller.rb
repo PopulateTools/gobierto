@@ -4,24 +4,40 @@ module GobiertoParticipation
   class FlagsController < GobiertoParticipation::ApplicationController
     def new
       @flaggable = find_flaggable
-      flag_policy = FlagPolicy.new(current_user, flaggable)
+      flag_policy = FlagPolicy.new(current_user)
       raise Errors::NotAuthorized unless flag_policy.create?
 
       @flag_form = FlagForm.new
     end
 
     def create
-      flaggable = find_flaggable
+      @flaggable = find_flaggable
 
-      flag_policy = FlagPolicy.new(current_user, flaggable)
+      if @flaggable.flagged_by_user?(current_user)
+        flag = current_user.flags.find_by!(flaggable: @flaggable)
+        flag.destroy
+      end
+
+      flag_policy = FlagPolicy.new(current_user)
       raise Errors::NotAuthorized unless flag_policy.create?
 
       @flag_form = FlagForm.new(flag_params.merge(site_id: current_site.id,
                                                   user_id: current_user.id))
 
       if @flag_form.save
-        @flag = true
+        @flag = @flag_form.flag
       end
+
+      respond_to do |format|
+        format.js
+      end
+    end
+
+    def destroy
+      @flaggable = find_flaggable
+      @flag = current_user.flags.find_by!(flaggable: @flaggable)
+
+      @flag.destroy
 
       respond_to do |format|
         format.js

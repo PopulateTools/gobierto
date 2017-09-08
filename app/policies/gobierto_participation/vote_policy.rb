@@ -2,7 +2,7 @@
 
 module GobiertoParticipation
   class VotePolicy
-    attr_reader :current_user, :votable
+    attr_reader :current_user
 
     def initialize(current_user)
       @current_user = current_user

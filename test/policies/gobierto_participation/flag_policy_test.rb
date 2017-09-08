@@ -13,8 +13,8 @@ module GobiertoParticipation
     end
 
     def test_create?
-      assert FlagPolicy.new(user, flaggable).create?
-      refute FlagPolicy.new(nil, flaggable).create?
+      assert FlagPolicy.new(user).create?
+      refute FlagPolicy.new(nil).create?
     end
   end
 end

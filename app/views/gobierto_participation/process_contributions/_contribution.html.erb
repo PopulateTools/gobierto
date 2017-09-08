@@ -36,18 +36,9 @@
                 <%= render partial: 'gobierto_participation/process_contributions/comment_votes', locals: { item: comment } %>
 
                 <div class="action"><a href=""><i class="fa fa-reply"></i><%= t('.respond') %></a></div>
-                <div class="action" id="#{comment.id}">
-                  <%= link_to gobierto_participation_process_process_contribution_container_process_contribution_flag_path(process_contribution_id: @contribution.slug,
-                                                                                                                           process_contribution_container_id: @contribution.contribution_container.slug,
-                                                                                                                           process_id: @process.slug,
-                                                                                                                           flaggable_id: comment.id,
-                                                                                                                           flaggable_type: comment.class),
-                              class: (comment.flagged_by_user?(current_user) ? 'action active' : 'action'),
-                              method: :post,
-                              remote: true do %>
-                    <i class="fa fa-flag"></i><%= t('.report') %>
-                  <% end %>
-                </div>
+
+                <%= render partial: 'gobierto_participation/process_contributions/flag', locals: { item: comment } %>
+
               </div>
             </div>
           <% end %>

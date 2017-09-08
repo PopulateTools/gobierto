@@ -108,13 +108,12 @@
     @include min-screen(768) {
       width: calc(100% + 4em);
     }
-    .padded {
-      @include min-screen(768) {
-        margin: 1.5rem;
-      }
-    }
     .widget_body {
       height: 110px;
+    }
+    // asumming 3 elements per col
+    [class*="pure-u"]:nth-child(3n+1) {
+      margin-left: -1em;
     }
   }
 

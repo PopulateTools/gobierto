@@ -15,7 +15,7 @@ module GobiertoParticipation
 
       votable = find_votable
 
-      vote_policy = VotePolicy.new(current_user, votable, params[:vote_weight])
+      vote_policy = VotePolicy.new(current_user, votable)
       raise Errors::NotAuthorized unless vote_policy.create?
 
       @vote_form = VoteForm.new(vote_params.merge(site_id: current_site.id,
@@ -43,7 +43,11 @@ module GobiertoParticipation
     end
 
     def find_votable
-      current_site.contributions.find_by!(slug: params[:id])
+      if params[:votable_type] == "GobiertoParticipation::Contribution"
+        current_site.contributions.find_by!(id: params[:votable_id])
+      elsif params[:votable_type] == "GobiertoParticipation::Comment"
+        current_site.comments.find_by!(id: params[:votable_id])
+      end
     end
   end
 end

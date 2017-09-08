@@ -13,8 +13,8 @@ module GobiertoParticipation
     end
 
     def test_create?
-      assert VotePolicy.new(user, votable, 1).create?
-      refute VotePolicy.new(nil, votable, 1).create?
+      assert VotePolicy.new(user, votable).create?
+      refute VotePolicy.new(nil, votable).create?
     end
   end
 end

@@ -39,7 +39,7 @@
                                                                                                                            vote_weight: 1,
                                                                                                                            votable_id: comment.id,
                                                                                                                            votable_type: comment.class),
-                              class: (comment.voted_by_user?(current_user, 1) ? 'action active' : 'action'),
+                              class: "action #{ 'active' if (comment.voted_with_weight_by_user?(current_user, 1))}",
                               method: :post,
                               remote: true do %>
                   <i class="fa fa-thumbs-up"></i>
@@ -54,7 +54,7 @@
                                                                                                                            vote_weight: -1,
                                                                                                                            votable_id: comment.id,
                                                                                                                            votable_type: comment.class),
-                              class: (comment.voted_by_user?(current_user, -1) ? 'action active' : 'action'),
+                              class: "action #{ 'active' if (comment.voted_with_weight_by_user?(current_user, -1))}",
                               method: :post,
                               remote: true do %>
                   <i class="fa fa-thumbs-down"></i>
@@ -95,7 +95,7 @@
                                                                                                                      vote_weight: 2,
                                                                                                                      votable_id: @contribution.id,
                                                                                                                      votable_type: @contribution.class),
-                        class: "action_button love #{ 'selected' if (@contribution.voted_by_user?(current_user, 2)) }",
+                        class: "action_button love #{ 'selected' if (@contribution.voted_with_weight_by_user?(current_user, 2)) }",
                         method: :post,
                         remote: true do %>
               <div class="action_description"><%= t('.enchants') %></div>
@@ -107,9 +107,9 @@
                                                                                                                      process_contribution_container_id: @contribution.contribution_container.slug,
                                                                                                                      process_id: @process.slug,
                                                                                                                      vote_weight: 1,
-                                                                                                                     votable: @contribution.id,
+                                                                                                                     votable_id: @contribution.id,
                                                                                                                      votable_type: @contribution.class),
-                        class: "action_button like #{ 'selected' if (@contribution.voted_by_user?(current_user, 1)) }",
+                        class: "action_button like #{ 'selected' if (@contribution.voted_with_weight_by_user?(current_user, 1)) }",
                         method: :post,
                         remote: true do %>
               <div class="action_description"><%= t('.like') %></div>
@@ -121,9 +121,9 @@
                                                                                                                      process_contribution_container_id: @contribution.contribution_container.slug,
                                                                                                                      process_id: @process.slug,
                                                                                                                      vote_weight: 0,
-                                                                                                                     votable: @contribution.id,
+                                                                                                                     votable_id: @contribution.id,
                                                                                                                      votable_type: @contribution.class),
-                        class: "action_button pse #{ 'selected' if (@contribution.voted_by_user?(current_user, 0)) }",
+                        class: "action_button pse #{ 'selected' if (@contribution.voted_with_weight_by_user?(current_user, 0)) }",
                         method: :post,
                         remote: true do %>
               <div class="action_description"><%= t('.indifferent') %></div>
@@ -135,9 +135,9 @@
                                                                                                                      process_contribution_container_id: @contribution.contribution_container.slug,
                                                                                                                      process_id: @process.slug,
                                                                                                                      vote_weight: -1,
-                                                                                                                     votable: @contribution.id,
+                                                                                                                     votable_id: @contribution.id,
                                                                                                                      votable_type: @contribution.class),
-                        class: "action_button reject #{ 'selected' if (@contribution.voted_by_user?(current_user, -1)) }",
+                        class: "action_button reject #{ 'selected' if (@contribution.voted_with_weight_by_user?(current_user, -1)) }",
                         method: :post,
                         remote: true do %>
               <div class="action_description"><%= t('.not_like') %></div>

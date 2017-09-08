@@ -23,7 +23,7 @@
                                                                                                                votable_id: item.id,
                                                                                                                votable_type: item.class),
                   class: "action #{ 'active' if (item.voted_with_weight_by_user?(current_user, -1))}",
-                  method: (item.voted_with_weight_by_user?(current_user, 1) ? :delete : :post),
+                  method: (item.voted_with_weight_by_user?(current_user, -1) ? :delete : :post),
                   remote: true do %>
       <i class="fa fa-thumbs-down"></i>
       <% end %>

@@ -13,6 +13,11 @@ module GobiertoParticipation
     def create
       @votable = find_votable
 
+      if @votable.voted_by_user?(current_user)
+        vote = current_user.votes.find_by!(votable: @votable)
+        vote.destroy
+      end
+
       vote_policy = VotePolicy.new(current_user)
       raise Errors::NotAuthorized unless vote_policy.create?
 

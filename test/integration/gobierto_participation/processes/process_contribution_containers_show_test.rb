@@ -108,22 +108,6 @@ module GobiertoParticipation
       end
     end
 
-    def test_all_contributions_show
-      with_javascript do
-        with_current_site(site) do
-          visit container_path
-
-          assert_equal contributions.size, all(".card").size
-          within ".contributions_content" do
-            assert has_content? "Cine de verano en el Juan Carlos I"
-            assert has_content? "Carril bici hasta el Juan Carlos I"
-            assert has_content? "Más actividades en las fiestas de Barajas"
-            assert has_content? "Parques infantiles de calidad consuelo acolchado"
-          end
-        end
-      end
-    end
-
     def test_best_ratings_contributions_show
       with_javascript do
         with_current_site(site) do

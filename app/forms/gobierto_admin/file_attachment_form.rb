@@ -67,7 +67,11 @@ module GobiertoAdmin
     def update_file_attachment
       @file_attachment = file_attachment.tap do |file_attachment_attributes|
         file_attachment_attributes.site = site
-        file_attachment_attributes.name = name
+        file_attachment_attributes.name = if name.blank?
+                                            file.original_filename
+                                          else
+                                            name
+                                          end
         file_attachment_attributes.description = description
       end
 

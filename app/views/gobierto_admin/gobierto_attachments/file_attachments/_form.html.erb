@@ -1,4 +1,5 @@
 <%= render 'gobierto_admin/shared/validation_errors', resource: @file_attachment_form %>
+
 <%= form_for(@file_attachment_form, as: :file_attachment, url: @file_attachment_form.persisted? ? admin_attachments_file_attachment_path(@file_attachment) : :admin_attachments_file_attachments) do |f| %>
   <%= f.hidden_field :collection_id, value: @collection.id %>
   <div class='pure-g'>
@@ -21,7 +22,13 @@
         <%= f.text_area :description, placeholder: t('.placeholders.description') %>
       </div>
     </div>
-  </div>
-  <%= f.submit class: 'button' %>
 
+    <div class="pure-u-1 pure-u-md-2-24"></div>
+
+    <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
+      <div class="widget_save">
+        <%= f.submit class: "button" %>
+      </div>
+    </div>
+  </div>
 <% end %>

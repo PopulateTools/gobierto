@@ -37,6 +37,7 @@ es:
     - viernes
     - sábado
     formats:
+      day_month: "%d/%m"
       default: "%d/%m/%Y"
       long: "%d de %B de %Y"
       short: "%d %b %Y"

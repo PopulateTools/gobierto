@@ -1,0 +1,53 @@
+<div class="comments_container">
+  <h3><%= t('.comments_html', comments: @contribution.comments_count) %></h3>
+  <% @contribution.comments.each do |comment| %>
+    <div class="comment">
+      <div class="comment_text">
+        <%= comment.body %>
+        <div class="meta">
+          -
+          <%= comment.user.name %>
+          <span class="date"><%= l(comment.updated_at, format: :long) %></span>
+        </div>
+      </div>
+      <div class="comment_actions">
+
+        <%= render partial: 'gobierto_participation/process_contributions/comment_votes', locals: { comment: comment } %>
+
+        <% if user_signed_in? %>
+          <div class="action"><a href=""><i class="fa fa-reply"></i><%= t('.respond') %></a></div>
+        <% end %>
+
+        <%= render partial: 'gobierto_participation/process_contributions/flag', locals: { item: comment } %>
+
+      </div>
+    </div>
+  <% end %>
+
+  <div class="comment_new">
+
+    <% if user_signed_in? %>
+
+      <%= form_for(
+        @comment_form, as: :comment,
+        url: @comment_form.persisted? ? gobierto_participation_process_process_contribution_container_process_contribution_comment_path(process_contribution_id: @contribution.slug,
+                                                                                                                                        process_contribution_container_id: @contribution.contribution_container.slug,
+                                                                                                                                        process_id: @contribution.contribution_container.process.slug) : gobierto_participation_process_process_contribution_container_process_contribution_comment_path(process_contribution_id: @contribution.slug,
+                                                                                                                                                                                                                                                         process_contribution_container_id: @contribution.contribution_container.slug,
+                                                                                                                                                                                                                                                         process_id: @contribution.contribution_container.process.slug), data: { "globalized-form-container" => true }, remote: true ) do |f| %>
+
+        <div class="form_item textarea">
+          <%= text_area_tag "comment[body]", f.object.body, placeholder: "Comenta esta idea|propuesta|pregunta" %>
+        </div>
+
+        <div class="form_item action_buttons right">
+          <%= f.submit %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="inline_login_cta">
+        <h2><a href="#signin_register" class="open_modal">Haz login o regístrate para comentar</a></h2>
+      </div>
+    <% end %>
+  </div>
+</div>

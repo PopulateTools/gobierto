@@ -16,10 +16,6 @@
   class="theme-participation gobierto_participation contributions_layout"
 <% end %>
 
-<div class="modal_like_control">
-  <a href="participation_group_contributions" class=" mfp-close">×</a>
-</div>
-
 <div class="contributions_container">
 
   <div class="contributions_header pure-g">
@@ -38,7 +34,7 @@
       <div class="pure-u-1 pure-u-md-5-24 contribution_action">
         <a href="" class="button"><%= t('.put_ideas') %></a>
         <p>
-          <%= t('.term_html', date: l(@contribution_container.ends, format: :short)) %>
+          <%= t('.term_html', date: l(@contribution_container.ends, format: :day_month)) %>
         </p>
       </div>
 

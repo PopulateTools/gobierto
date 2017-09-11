@@ -34,13 +34,7 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
 
     var nodes = createNodes(viewdata);
 
-    for (i = 1; i <= page_max; i++) {
-      if (i === 1) {
-        $(".circles_progress").append('<li data-page=' + i + ' class="active"><a href=""><span></span></a></li>');
-      } else {
-        $(".circles_progress").append('<li data-page=' + i + '><a href=""><span></span></a></li>');
-      }
-    }
+    createPagination(page_max);
 
     var collisionForce = rectCollide()
       .size(function (d) { return [d.width, d.height] });
@@ -93,6 +87,12 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
           d3.select('.next_contribution')
             .classed('disabled', true);
         }
+
+        var simulation = d3.forceSimulation(nodes)
+          .velocityDecay(0.6) // Speed of the simulation: https://github.com/d3/d3-force/blob/master/README.md#simulation_velocityDecay
+          .alphaTarget(1)
+          .force('box', boxForce)
+          .force('collision', collisionForce);
     });
 
     $('#previous').click(function() {
@@ -100,15 +100,13 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
         viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
         var nodes = createNodes(viewdata);
         createCards(nodes);
-        if (page === 1 ) {
-          d3.select('.previous_contribution')
-            .classed('disabled', true);
-        }
+        checkPreviousNextPagination(page, page_max);
 
-        if (page <= page_max ) {
-          d3.select('.next_contribution')
-            .classed('disabled', false);
-        }
+        var simulation = d3.forceSimulation(nodes)
+          .velocityDecay(0.6) // Speed of the simulation: https://github.com/d3/d3-force/blob/master/README.md#simulation_velocityDecay
+          .alphaTarget(1)
+          .force('box', boxForce)
+          .force('collision', collisionForce);
     });
 
     /* Pagination links */
@@ -118,27 +116,17 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
       viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
       var nodes = createNodes(viewdata);
       createCards(nodes);
-      if (page === page_max ) {
-        d3.select('.next_contribution')
-          .classed('disabled', true);
-      }
+
       $('li[data-page]').removeClass('active');
       $(this).addClass('active');
 
-      if (page === 1 ) {
-        d3.select('.previous_contribution')
-          .classed('disabled', true);
-      }
+      checkPreviousNextPagination(page, page_max);
 
-      if (page <= page_max ) {
-        d3.select('.next_contribution')
-          .classed('disabled', false);
-      }
-
-      if (page === page_max ) {
-        d3.select('.next_contribution')
-          .classed('disabled', true);
-      }
+      var simulation = d3.forceSimulation(nodes)
+        .velocityDecay(0.6) // Speed of the simulation: https://github.com/d3/d3-force/blob/master/README.md#simulation_velocityDecay
+        .alphaTarget(1)
+        .force('box', boxForce)
+        .force('collision', collisionForce);
     });
 
     /* Buttons */
@@ -207,17 +195,17 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
       }
 
       $(".circles_progress").empty();
-      for (i = 1; i <= page_max; i++) {
-        if (i === 1) {
-          $(".circles_progress").append('<li data-page=' + i + ' class="active"><a href=""><span></span></a></li>');
-        } else {
-          $(".circles_progress").append('<li data-page=' + i + '><a href=""><span></span></a></li>');
-        }
-      }
+      createPagination(page_max);
 
       viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
       var nodes = createNodes(viewdata);
       createCards(nodes);
+
+      var simulation = d3.forceSimulation(nodes)
+        .velocityDecay(0.6) // Speed of the simulation: https://github.com/d3/d3-force/blob/master/README.md#simulation_velocityDecay
+        .alphaTarget(1)
+        .force('box', boxForce)
+        .force('collision', collisionForce);
     }
 
     function updateContributions() {
@@ -446,6 +434,38 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
       return force;
     }
 
+    function createPagination(page_max) {
+      for (i = 1; i <= page_max; i++) {
+        if (i === 1) {
+          $(".circles_progress").append('<li data-page=' + i + ' class="active"><a href=""><span></span></a></li>');
+        } else {
+          $(".circles_progress").append('<li data-page=' + i + '><a href=""><span></span></a></li>');
+        }
+      }
+    }
+
+    function checkPreviousNextPagination(page, page_max) {
+      if (page < page_max ) {
+        d3.select('.next_contribution')
+          .classed('disabled', false);
+        d3.select('.previous_contribution')
+          .classed('disabled', false);
+      }
+
+      if (page == page_max ) {
+        d3.select('.next_contribution')
+          .classed('disabled', true);
+        d3.select('.previous_contribution')
+          .classed('disabled', false);
+      }
+
+      if (page == 1 ) {
+        d3.select('.previous_contribution')
+          .classed('disabled', true);
+      }
+
+    }
+
     function createNodes(data) {
       var velocity = Math.random() * 2 + 1
       var angle = Math.random() * 360
@@ -522,42 +542,6 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
     function constant(_) {
       return function () { return _ }
     }
-
-    $(document).on('turbolinks:load', function() {
-      $('.action_button').hover(
-        function() {
-          $(this).find('.action_description').velocity('fadeIn', { duration: 150 });
-        },
-        function() {
-          $(this).find('.action_description').velocity('fadeOut', { duration: 150 });
-        }
-      );
-
-      // ToDo: leave .action_description visible when its parent.action_button is clicked/selected
-
-      $('.action_button').on('click', function(e) {
-        e.preventDefault();
-        // $('.action_button').velocity({ opacity: '.5', duration: 50});
-        $('.action_button .action_description').hide();
-        // $(this).css("opacity", '1');
-        $(this).velocity("callout.pulse", { duration: 100});
-        $(this).addClass('selected');
-        $(this).find('.action_description').velocity("callout.pulse", { duration: 100});
-      });
-
-      $('.contribution_card_expanded').hide();
-
-      $('.contribution_card_expanded .modal_like_control .mfp-close').on('click', function(e){
-        e.preventDefault();
-        $('.contribution_card_expanded').velocity('fadeOut', { duration: 150 });
-      });
-
-      // Height definition, ToDo make it dynamic
-      // var contribution_card_expanded_container = $('.contributions_container .contributions_content').height();
-      $('.contribution_card_expanded_main_col').height('650');
-
-
-    });
   }
 
   return ContributionContainersController;

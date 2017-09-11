@@ -51,6 +51,7 @@ module GobiertoParticipation
         vote_attributes.votable_id = votable_id
         vote_attributes.vote_weight = vote_weight
       end
+
       if @vote.valid?
         @vote.save
 

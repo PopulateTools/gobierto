@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GobiertoParticipation
-  class VotePolicy
+  class FlagPolicy
     attr_reader :current_user
 
     def initialize(current_user)

@@ -100,10 +100,12 @@ ca:
         indifferent: M'és indiferent
         like: M'agrada
         not_like: No m'agrada
-        report: Informar
         respond: Respondre
         sent: enviat per %{author} el %{date}
         values_this_idea: Valora aquesta idea
+      flag:
+        report: Informar
+        reported: Informada
     process_pages:
       index:
         filter: Filter by theme

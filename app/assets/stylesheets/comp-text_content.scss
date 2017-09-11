@@ -96,6 +96,36 @@ figure.png, figure.jpg, figure.gif {
       border-radius: 6px;
       h3 {
         margin: 0 0 1em 0;
+        font-size: 1rem;
+      }
+      .file {
+        clear: both;
+        margin-top: -.5em;
+        margin-left: -.5em;
+        .icon {
+          float: left;
+          margin: 0 1rem 1rem 0;
+          font-size: 2.5rem;
+          opacity: .3;
+        }
+        a {
+          display: block;
+          text-decoration: none;
+          padding: .5em;
+          border-radius: 6px;
+        }
+        a:hover {
+          background: darken($color_1_soft, 5%);
+        }
+        h4 {
+          text-transform: none;
+          margin: 0;
+          text-decoration: underline;
+        }
+        .meta {
+          opacity: .65;
+          font-size: $f7;
+        }
       }
     }
   }

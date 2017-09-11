@@ -4,9 +4,7 @@ $(".contributions_content").append('<%=j render "contribution" %>');
 
 $('.action_button').on('click', function(e) {
   e.preventDefault();
-  // $('.action_button').velocity({ opacity: '.5', duration: 50});
   $('.action_button .action_description').hide();
-  // $(this).css("opacity", '1');
   $(this).velocity("callout.pulse", { duration: 100});
   $(this).addClass('selected');
   $(this).find('.action_description').velocity("callout.pulse", { duration: 100});
@@ -40,8 +38,6 @@ $('.card').on('click', function(e){
   e.preventDefault();
   // ToDo decide where we position the expanded card
   $('.contributions_content').append($('.contribution_card_expanded'));
-  // $('.contributions_container').append($('.contribution_card_expanded'));
-  // $('.container').append($('.contribution_card_expanded'));
   $('.contribution_card_expanded').velocity('fadeIn', { duration: 150 });
   $('.contributions_content').append($('.contribution_tools_overlay'));
   $('.contribution_tools_overlay').velocity('fadeIn', { duration: 150 });

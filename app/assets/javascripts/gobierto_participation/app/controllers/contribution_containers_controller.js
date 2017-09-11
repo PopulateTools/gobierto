@@ -100,15 +100,7 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
         viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
         var nodes = createNodes(viewdata);
         createCards(nodes);
-        if (page == 1 ) {
-          d3.select('.previous_contribution')
-            .classed('disabled', true);
-        }
-
-        if (page < page_max ) {
-          d3.select('.next_contribution')
-            .classed('disabled', false);
-        }
+        checkPreviousNextPagination(page, page_max);
 
         var simulation = d3.forceSimulation(nodes)
           .velocityDecay(0.6) // Speed of the simulation: https://github.com/d3/d3-force/blob/master/README.md#simulation_velocityDecay
@@ -124,31 +116,11 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
       viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
       var nodes = createNodes(viewdata);
       createCards(nodes);
-      if (page === page_max ) {
-        d3.select('.next_contribution')
-          .classed('disabled', true);
-      }
+
       $('li[data-page]').removeClass('active');
       $(this).addClass('active');
 
-      if (page < page_max ) {
-        d3.select('.next_contribution')
-          .classed('disabled', false);
-        d3.select('.previous_contribution')
-          .classed('disabled', false);
-      }
-
-      if (page == page_max ) {
-        d3.select('.next_contribution')
-          .classed('disabled', true);
-        d3.select('.previous_contribution')
-          .classed('disabled', false);
-      }
-
-      if (page == 1 ) {
-        d3.select('.previous_contribution')
-          .classed('disabled', true);
-      }
+      checkPreviousNextPagination(page, page_max);
 
       var simulation = d3.forceSimulation(nodes)
         .velocityDecay(0.6) // Speed of the simulation: https://github.com/d3/d3-force/blob/master/README.md#simulation_velocityDecay
@@ -470,6 +442,28 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
           $(".circles_progress").append('<li data-page=' + i + '><a href=""><span></span></a></li>');
         }
       }
+    }
+
+    function checkPreviousNextPagination(page, page_max) {
+      if (page < page_max ) {
+        d3.select('.next_contribution')
+          .classed('disabled', false);
+        d3.select('.previous_contribution')
+          .classed('disabled', false);
+      }
+
+      if (page == page_max ) {
+        d3.select('.next_contribution')
+          .classed('disabled', true);
+        d3.select('.previous_contribution')
+          .classed('disabled', false);
+      }
+
+      if (page == 1 ) {
+        d3.select('.previous_contribution')
+          .classed('disabled', true);
+      }
+
     }
 
     function createNodes(data) {

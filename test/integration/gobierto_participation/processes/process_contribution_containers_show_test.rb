@@ -9,7 +9,7 @@ module GobiertoParticipation
     end
 
     def user
-      @user ||= users(:peter)
+      @user ||= users(:dennis)
     end
 
     def process
@@ -29,6 +29,18 @@ module GobiertoParticipation
 
     def contributions
       @contributions ||= contribution_container.contributions
+    end
+
+    def contributions_best_ratings
+      @contributions_best_ratings ||= contribution_container.contributions.loved
+    end
+
+    def contributions_worst_ratings
+      @contributions_worst_ratings ||= contribution_container.contributions.hated
+    end
+
+    def contributions_recent
+      @contributions_recent ||= contribution_container.contributions.created_at_last_week
     end
 
     def test_breadcrumb_items
@@ -80,15 +92,79 @@ module GobiertoParticipation
       end
     end
 
-    def test_contributions_show
-      with_current_site(site) do
-        visit container_path
+    def test_all_contributions_show
+      with_javascript do
+        with_current_site(site) do
+          visit container_path
 
-        # TODO: Pending bug n contributions - 1
-        skip "Not yet defined"
-        # assert_equal process_contribution_containers.size, all(".card").size
-        # assert has_link? "Cine de verano en el Juan Carlos I"
-        # assert has_link? "Carril bici hasta el Juan Carlos I"
+          assert_equal contributions.size, all(".card").size
+          within ".contributions_content" do
+            assert has_content? "Cine de verano en el Juan Carlos I"
+            assert has_content? "Carril bici hasta el Juan Carlos I"
+            assert has_content? "Más actividades en las fiestas de Barajas"
+            assert has_content? "Parques infantiles de calidad consuelo acolchado"
+          end
+        end
+      end
+    end
+
+    def test_all_contributions_show
+      with_javascript do
+        with_current_site(site) do
+          visit container_path
+
+          assert_equal contributions.size, all(".card").size
+          within ".contributions_content" do
+            assert has_content? "Cine de verano en el Juan Carlos I"
+            assert has_content? "Carril bici hasta el Juan Carlos I"
+            assert has_content? "Más actividades en las fiestas de Barajas"
+            assert has_content? "Parques infantiles de calidad consuelo acolchado"
+          end
+        end
+      end
+    end
+
+    def test_best_ratings_contributions_show
+      with_javascript do
+        with_current_site(site) do
+          visit container_path
+
+          page.find("[data-filter=best_ratings]", visible: false).trigger("click")
+
+          assert_equal contributions_best_ratings.size, all(".card").size
+          within ".contributions_content" do
+            assert has_content? "Carril bici hasta el Juan Carlos I"
+            assert has_content? "Más actividades en las fiestas de Barajas"
+          end
+        end
+      end
+    end
+
+    def test_worst_ratings_contributions_show
+      with_javascript do
+        with_current_site(site) do
+          visit container_path
+
+          page.find("[data-filter=worst_ratings]", visible: false).trigger("click")
+
+          assert_equal contributions_worst_ratings.size, all(".card").size
+        end
+      end
+    end
+
+    def test_recent_contributions_show
+      with_javascript do
+        with_current_site(site) do
+          visit container_path
+
+          page.find("[data-filter=recent]", visible: false).trigger("click")
+
+          assert_equal contributions_recent.size, all(".card").size
+
+          within ".contributions_content" do
+            assert has_content? "Parques infantiles de calidad consuelo acolchado"
+          end
+        end
       end
     end
   end

@@ -107,6 +107,7 @@ en:
         values_this_idea: It values the idea
       flag:
         report: Report
+        reported: Reported
     process_pages:
       index:
         filter: Filter by theme

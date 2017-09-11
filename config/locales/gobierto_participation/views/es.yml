@@ -107,6 +107,7 @@ es:
         values_this_idea: Valora esta idea
       flag:
         report: Reportar
+        reported: Reportada
     process_pages:
       index:
         filter: Filtrar por tema

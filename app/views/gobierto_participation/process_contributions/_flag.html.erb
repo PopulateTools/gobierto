@@ -8,7 +8,12 @@
                 class: (item.flagged_by_user?(current_user) ? 'action active' : 'action'),
                 method: (item.flagged_by_user?(current_user) ? :delete : :post),
                 remote: true do %>
-      <i class="fa fa-flag"></i><%= t('.report') %>
+      <i class="fa fa-flag"></i>
+      <% if item.flagged_by_user?(current_user) %>
+        <%= t('.reported') %>
+      <% else %>
+        <%= t('.report') %>
+      <% end %>
     <% end %>
   </div>
 <% end %>

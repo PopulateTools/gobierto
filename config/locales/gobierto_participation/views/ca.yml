@@ -105,6 +105,7 @@ ca:
         values_this_idea: Valora aquesta idea
       flag:
         report: Informar
+        reported: Informada
     process_pages:
       index:
         filter: Filtrar per tema

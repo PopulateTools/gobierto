@@ -86,7 +86,7 @@ module GobiertoAdmin
       @file_attachment = file_attachment.tap do |file_attachment_attributes|
         file_attachment_attributes.site = site
         file_attachment_attributes.file_name = file.original_filename if file
-        file_attachment_attributes.name = if name.empty?
+        file_attachment_attributes.name = if name.blank?
                                             file.original_filename
                                           else
                                             name

@@ -142,8 +142,10 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
           .classed('disabled', true);
       }
 
-      if (page <= page_max ) {
+      if (page < page_max ) {
         d3.select('.next_contribution')
+          .classed('disabled', false);
+        d3.select('.previous_contribution')
           .classed('disabled', false);
       }
 

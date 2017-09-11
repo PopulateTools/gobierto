@@ -7,12 +7,7 @@
   -ms-perspective: 1000px;
   min-height: 180px;
   border-radius: 8px;
-  margin-bottom: 4rem;
-
-  @media (min-width: 768px) {
-    margin-bottom: 1rem;
-  }
-
+  
   .indicator_widget {
     cursor: pointer;
     transition: 0.6s;
@@ -43,7 +38,7 @@
   .back:hover,
   .back:active,
   .back:focus {
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);	 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   }
   .widget_headline {
     font-weight: 600;
@@ -255,7 +250,7 @@
     }
     .front,
     .back {
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);	 
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
   }
   .front {

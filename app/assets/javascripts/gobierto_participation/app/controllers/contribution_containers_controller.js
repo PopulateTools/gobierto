@@ -34,13 +34,7 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
 
     var nodes = createNodes(viewdata);
 
-    for (i = 1; i <= page_max; i++) {
-      if (i === 1) {
-        $(".circles_progress").append('<li data-page=' + i + ' class="active"><a href=""><span></span></a></li>');
-      } else {
-        $(".circles_progress").append('<li data-page=' + i + '><a href=""><span></span></a></li>');
-      }
-    }
+    createPagination(page_max);
 
     var collisionForce = rectCollide()
       .size(function (d) { return [d.width, d.height] });
@@ -106,12 +100,12 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
         viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
         var nodes = createNodes(viewdata);
         createCards(nodes);
-        if (page === 1 ) {
+        if (page == 1 ) {
           d3.select('.previous_contribution')
             .classed('disabled', true);
         }
 
-        if (page <= page_max ) {
+        if (page < page_max ) {
           d3.select('.next_contribution')
             .classed('disabled', false);
         }
@@ -137,11 +131,6 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
       $('li[data-page]').removeClass('active');
       $(this).addClass('active');
 
-      if (page === 1 ) {
-        d3.select('.previous_contribution')
-          .classed('disabled', true);
-      }
-
       if (page < page_max ) {
         d3.select('.next_contribution')
           .classed('disabled', false);
@@ -149,8 +138,15 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
           .classed('disabled', false);
       }
 
-      if (page === page_max ) {
+      if (page == page_max ) {
         d3.select('.next_contribution')
+          .classed('disabled', true);
+        d3.select('.previous_contribution')
+          .classed('disabled', false);
+      }
+
+      if (page == 1 ) {
+        d3.select('.previous_contribution')
           .classed('disabled', true);
       }
 
@@ -227,13 +223,7 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
       }
 
       $(".circles_progress").empty();
-      for (i = 1; i <= page_max; i++) {
-        if (i === 1) {
-          $(".circles_progress").append('<li data-page=' + i + ' class="active"><a href=""><span></span></a></li>');
-        } else {
-          $(".circles_progress").append('<li data-page=' + i + '><a href=""><span></span></a></li>');
-        }
-      }
+      createPagination(page_max);
 
       viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
       var nodes = createNodes(viewdata);
@@ -470,6 +460,16 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
       }
 
       return force;
+    }
+
+    function createPagination(page_max) {
+      for (i = 1; i <= page_max; i++) {
+        if (i === 1) {
+          $(".circles_progress").append('<li data-page=' + i + ' class="active"><a href=""><span></span></a></li>');
+        } else {
+          $(".circles_progress").append('<li data-page=' + i + '><a href=""><span></span></a></li>');
+        }
+      }
     }
 
     function createNodes(data) {

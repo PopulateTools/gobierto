@@ -42,7 +42,41 @@
     <div class="pure-g">
 
       <div class="pure-u-1-2">
-        <h3>Colecciones</h3>
+        <h3 class="m_t_0">Secciones</h3>
+      </div>
+
+      <div class="pure-u-1-2 admin_tools right">
+        <%= link_to 'Nueva', 'admin_cms_sections#section_options', class: 'button' %>
+      </div>
+
+    </div>
+
+    <table class="m_b_3">
+    <tr>
+      <th>Sección</th>
+      <th>Páginas</th>
+      <th></th>
+    </tr>
+
+    <% for i in [
+      'Portal de Transparencia',
+      'Ayuda',
+      'Manual de Participación',
+      'Guía de Participación'
+    ] %>
+    <tr>
+      <td><%= link_to i, 'admin_cms_sections_section' %></td>
+      <td>12</td>
+      <td><%= link_to '<i class="fa fa-eye"></i> Ver sección'.html_safe, '#public_url', class: 'view_item' %></td>
+    </tr>
+    <% end %>
+
+    </table>
+
+    <div class="pure-g">
+
+      <div class="pure-u-1-2">
+        <h3 class="m_t_0">Colecciones</h3>
       </div>
 
       <div class="pure-u-1-2 admin_tools right">
@@ -51,7 +85,7 @@
 
     </div>
 
-    <table>
+    <table class="m_b_3">
     <tr>
       <th>Título</th>
       <th>Páginas</th>
@@ -62,7 +96,7 @@
     <tr>
       <td><%= link_to i, 'admin_cms_collection' %></td>
       <td>12</td>
-      <td><%= link_to '<i class="fa fa-eye"></i> Ver colección'.html_safe, 'admin_cms_collection', class: 'view_item' %></td>
+      <td><%= link_to '<i class="fa fa-eye"></i> Ver colección'.html_safe, '#public_url', class: 'view_item' %></td>
     </tr>
     <% end %>
 

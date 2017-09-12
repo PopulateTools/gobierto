@@ -22,3 +22,111 @@ figure.png, figure.jpg, figure.gif {
     display: none;
   }
 }
+
+.cms_page {
+  menu.side_navigation {
+    @include reset_ul_li;
+    line-height: 1.4;
+    margin: 0;
+    padding: 0;
+    ul {
+      li {
+        display: block;
+        margin: 0 0 .5em 0;
+        a {
+          padding: .5em .75em;
+          color: #FFF;
+          background: $color_main;
+          display: block;
+          text-decoration: none;
+        }
+        a:hover {
+          background: lighten($color_main, 5%);
+        }
+        ul {
+          background: $color_1_soft;
+          padding: .75em .75em .75em 1.25em;
+          font-size: .85rem;
+          li {
+            margin: 0 0 1em 0;
+            a {
+              background: initial;
+              padding: 0;
+              font-weight: bold;
+              color: $color_main;
+            }
+            a:hover {
+              background: initial;
+              color: darken($color_main, 10%);
+            }
+            ul {
+              background: none;
+              padding: 1em 0 0 1.5em;
+              li {
+                a {
+                  font-weight: normal;
+                  color: $color_text;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  article {
+    padding-left: 6em;
+    .breadcrumb {
+      margin-top: 0;
+      padding-top: 0;
+      font-size: .75em;
+      opacity: .5;
+    }
+    h1 {
+      font-size: $f3;
+      border-bottom: 1px solid $color_main_soft;
+      padding: 0 0 .5em 0;
+    }
+    .page_attachments {
+      background: $color_1_soft;
+      width: 50%;
+      float: right;
+      margin: 0 0 2em 2em;
+      padding: 2em;
+      border-radius: 6px;
+      h3 {
+        margin: 0 0 1em 0;
+        font-size: 1rem;
+      }
+      .file {
+        clear: both;
+        margin-top: -.5em;
+        margin-left: -.5em;
+        .icon {
+          float: left;
+          margin: 0 1rem 1rem 0;
+          font-size: 2.5rem;
+          opacity: .3;
+        }
+        a {
+          display: block;
+          text-decoration: none;
+          padding: .5em;
+          border-radius: 6px;
+        }
+        a:hover {
+          background: darken($color_1_soft, 5%);
+        }
+        h4 {
+          text-transform: none;
+          margin: 0;
+          text-decoration: underline;
+        }
+        .meta {
+          opacity: .65;
+          font-size: $f7;
+        }
+      }
+    }
+  }
+}

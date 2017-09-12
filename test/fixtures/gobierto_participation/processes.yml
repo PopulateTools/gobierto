@@ -4,7 +4,7 @@ green_city_group:
   body_translations: <%= { 'en' => 'Make Madrid a green city', 'es' => 'Hacer de Madrid una ciudad verde' }.to_json %>
   slug: ciudad-verde
   process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
-  visibility_level: <%= Site.visibility_levels["active"] %>
+  visibility_level: <%= Site.visibility_levels['active'] %>
 
 cultural_city_group:
   site: madrid
@@ -34,7 +34,7 @@ local_budgets_process:
   information_text_translations: <%= { 'en' => 'Information stage text', 'es' => 'Texto de la fase de información' }.to_json %>
   slug: presupuestos-participativos
   process_type: <%= GobiertoParticipation::Process.process_types[:process] %>
-  visibility_level: <%= Site.visibility_levels["active"] %>
+  visibility_level: <%= Site.visibility_levels['active'] %>
   starts: <%= 3.days.ago %>
   ends: <%= 30.days.from_now %>
   issue: economy
@@ -52,8 +52,27 @@ gender_violence_process:
   information_text_translations: <%= { 'en' => 'Information stage text', 'es' => 'Texto de la fase de información' }.to_json %>
   slug: pacto-social-fin-vilencia-de-genero
   process_type: <%= GobiertoParticipation::Process.process_types[:process] %>
-  visibility_level: <%= Site.visibility_levels["active"] %>
+  visibility_level: <%= Site.visibility_levels['active'] %>
   starts: <%= 3.days.ago %>
   ends: <%= 30.days.from_now %>
   issue: women
+  header_image_url: /assets/samples/process-b31e99553977f5da46a9f71d9c37a6ae90e8e3d7980363fa429f1c2a27c9f7ae.jpg
+
+commission_for_carnival_festivities:
+  site: madrid
+  title_translations: <%= {
+    'en' => 'Commission for Carnival festivities',
+    'es' => 'Comisión de Fiestas de Carnaval'
+  }.to_json %>
+  body_translations: <%= {
+    'en' => 'Hail to the wine',
+    'es' => 'Viva el vino'
+  }.to_json %>
+  information_text_translations:
+  slug: comision-fiestas-carnaval
+  process_type: <%= GobiertoParticipation::Process.process_types[:process] %>
+  visibility_level: <%= Site.visibility_levels['active'] %>
+  starts: <%= 5.months.ago %>
+  ends: <%= 6.months.from_now %>
+  issue: culture
   header_image_url: /assets/samples/process-b31e99553977f5da46a9f71d9c37a6ae90e8e3d7980363fa429f1c2a27c9f7ae.jpg

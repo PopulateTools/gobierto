@@ -25,3 +25,4 @@ en:
         visibility_level:
           active: Published
           draft: Draft
+          published: Published

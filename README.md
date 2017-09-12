@@ -1,5 +1,6 @@
 [![CircleCI](https://circleci.com/gh/PopulateTools/gobierto.svg?style=svg)](https://circleci.com/gh/PopulateTools/gobierto)
-[![codecov](https://img.shields.io/codecov/c/github/PopulateTools/gobierto.svg)](https://codecov.io/gh/PopulateTools/gobierto)
+[![codecov](https://codecov.io/gh/PopulateTools/gobierto/branch/master/graph/badge.svg)](https://codecov.io/gh/PopulateTools/gobierto)
+
 
 <img src="https://gobierto.es/assets/logo_gobierto.png" width="250" height="auto">
 

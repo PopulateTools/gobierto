@@ -155,6 +155,12 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     // reload selector
     var $newQuestionModal = $('#edit_question_' + questionIdx);
 
+    // update question destroy flag
+    var $newQuestionDestroyInput = $newQuestionModal.find('#new_question_destroy_scaffold_input');
+    $newQuestionDestroyInput.attr('name', 'poll[questions_attributes][' + questionIdx + '][_destroy]')
+                            .attr('id', 'poll_questions_attributes_' + questionIdx + '__destroy')
+                            .val('0');
+
     // update question order
     var $newQuestionOrderInput = $newQuestionModal.find('#new_question_order_scaffold_input');
     $newQuestionOrderInput.attr('name', 'poll[questions_attributes][' + questionIdx + '][order]')
@@ -443,7 +449,8 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     // set answer destroy input id and name according to Rails standard
     var $newAnswerDestroyInput = $newAnswerEditPanel.find('#new_answer_destroy_scaffold_input');
     $newAnswerDestroyInput.attr('name', generateNameForAnswerTemplateAttribute(questionIdx, newAnswerIdx, '_destroy'))
-                          .attr('id', generateIdForAnswerTemplateAttribute(questionIdx, newAnswerIdx, '_destroy'));
+                          .attr('id', generateIdForAnswerTemplateAttribute(questionIdx, newAnswerIdx, '_destroy'))
+                          .val('0');
 
     // append at the end of all answer templates
     var answerTemplates = $questionModalWrapper.find('.question_answer_templates').children('.answer_template_scaffold, .answer_template');

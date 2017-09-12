@@ -182,4 +182,17 @@ html.turbolinks-progress-bar::before {
   z-index: 100000000000;
 }
 
+.activity_feed.section_editor {
+  .activity_item {
+    a {
+      border-radius: 6px;
+      padding: 1em;
+      border: 1px solid darken($color_1_soft, 5%);
+      background: $color_1_soft;
+    }
+    a:hover {
+      background: $color_main_soft;
+    }
+  }
+}
 @import "responsive";

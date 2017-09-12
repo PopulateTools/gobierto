@@ -78,19 +78,20 @@ module GobiertoAdmin
       end
 
       def locations_attributes=(attributes)
-        @locations ||= []
+        event.locations.clear
 
         attributes.each do |_, location_attributes|
           next if location_attributes["_destroy"] == "1"
+          next if location_attributes[:name].blank? && location_attributes[:address].blank?
 
-          location = event_location_class.new(
+          event.locations.build(
             name: location_attributes[:name],
             address: location_attributes[:address],
             lat: location_attributes[:lat],
             lng: location_attributes[:lng]
           )
 
-          @locations.push(location) if location.valid?
+          #@locations.push(location) unless location.attributes.values.all?(&:blank?)
         end
       end
 
@@ -112,18 +113,19 @@ module GobiertoAdmin
       end
 
       def attendees_attributes=(attributes)
-        @attendees ||= []
+        event.attendees.clear
 
         attributes.each do |_, attendee_attributes|
           next if attendee_attributes["_destroy"] == "1"
+          next if attendee_attributes[:name].blank? && attendee_attributes[:charge].blank? && attendee_attributes[:person_id].blank?
 
-          attendee = event_attendee_class.new(
+          event.attendees.build(
             person_id: attendee_attributes[:person_id],
             name: attendee_attributes[:name],
             charge: attendee_attributes[:charge]
           )
 
-          @attendees.push(attendee) if attendee.valid?
+          #@attendees.push(attendee) if attendee.valid?
         end
       end
 
@@ -198,8 +200,8 @@ module GobiertoAdmin
           event_attributes.ends_at = ends_at
           event_attributes.admin_id = admin_id
           event_attributes.attachment_url = attachment_url
-          event_attributes.locations = locations
-          event_attributes.attendees = attendees
+          # event_attributes.locations = locations
+          # event_attributes.attendees = attendees
         end
 
         if @event.valid?

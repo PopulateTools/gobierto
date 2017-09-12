@@ -52,9 +52,9 @@ module GobiertoAdmin
 
       def update
         @event = find_event
-        @event_form = EventForm.new(
-          event_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id, collection_id: @collection.id)
-        )
+        new_event_params = event_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id, collection_id: @collection.id)
+        @event_form = EventForm.new(new_event_params.slice(:id, :admin_id, :site_id, :collection_id))
+        @event_form.assign_attributes new_event_params
 
         if @event_form.save
           redirect_to(

@@ -6,7 +6,7 @@ module GobiertoParticipation
       @processes = current_site.processes.process
       @issues = current_site.issues.alphabetically_sorted
       @processes_events = find_processes_events
-      @processes_news = find_processes_news
+      @participation_news = find_participation_news.page(params[:page])
     end
 
     private
@@ -15,8 +15,8 @@ module GobiertoParticipation
       current_site.events.upcoming.order(starts_at: :asc).limit(5)
     end
 
-    def find_processes_news
-      current_site.pages.sort_by(&:created_at).reverse.first(5)
+    def find_participation_news
+      ::GobiertoCms::Page.pages_in_collections_and_container_type(current_site, "GobiertoParticipation").sorted
     end
   end
 end

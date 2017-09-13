@@ -9,6 +9,8 @@
         <%= link_to notice.title, gobierto_participation_process_process_page_path(process_id: @process.slug, id: notice.slug) %>
       <% elsif @issue %>
         <%= link_to notice.title, gobierto_participation_issue_issue_page_path(issue_id: @issue.slug, id: notice.slug) %>
+      <% else %>
+        <%= link_to notice.title, gobierto_participation_participation_page_path(notice.slug) %>
       <% end %>
     </h3>
   </div>

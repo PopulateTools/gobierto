@@ -265,6 +265,8 @@ Rails.application.routes.draw do
       resources :issues, only: [:index, :show] do
         resources :pages, only: [:index, :show], controller: "issue_pages", as: :issue_pages
       end
+
+      resources :pages, only: [:index, :show], controller: "participation_pages", as: :participation_pages, path: "participation/noticias"
     end
   end
 

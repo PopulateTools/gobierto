@@ -494,6 +494,47 @@ ActiveRecord::Schema.define(version: 20170825193717) do
     t.index ["user_id"], name: "index_gpart_flags_on_user_id"
   end
 
+  create_table "gpart_poll_answer_templates", force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.string "text", null: false
+    t.integer "order", default: 0, null: false
+    t.index ["question_id"], name: "index_gpart_poll_answer_templates_on_question_id"
+  end
+
+  create_table "gpart_poll_answers", force: :cascade do |t|
+    t.bigint "poll_id", null: false
+    t.bigint "question_id", null: false
+    t.integer "answer_template_id"
+    t.text "text"
+    t.bigint "user_id", null: false
+    t.datetime "created_at"
+    t.index ["poll_id"], name: "index_gpart_poll_answers_on_poll_id"
+    t.index ["question_id", "user_id", "answer_template_id"], name: "unique_index_gpart_poll_answers_for_fixed_answer_questions", unique: true
+    t.index ["question_id"], name: "index_gpart_poll_answers_on_question_id"
+    t.index ["user_id", "answer_template_id"], name: "unique_index_gpart_poll_answers_for_open_answer_questions", unique: true
+    t.index ["user_id"], name: "index_gpart_poll_answers_on_user_id"
+  end
+
+  create_table "gpart_poll_questions", force: :cascade do |t|
+    t.bigint "poll_id", null: false
+    t.jsonb "title_translations"
+    t.integer "answer_type", default: 0, null: false
+    t.integer "order", default: 0, null: false
+    t.index ["poll_id"], name: "index_gpart_poll_questions_on_poll_id"
+  end
+
+  create_table "gpart_polls", force: :cascade do |t|
+    t.bigint "process_id", null: false
+    t.jsonb "title_translations"
+    t.jsonb "description_translations"
+    t.date "starts_at", null: false
+    t.date "ends_at", null: false
+    t.integer "visibility_level", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["process_id"], name: "index_gpart_polls_on_process_id"
+  end
+
   create_table "gpart_process_stages", force: :cascade do |t|
     t.bigint "process_id"
     t.jsonb "title_translations"

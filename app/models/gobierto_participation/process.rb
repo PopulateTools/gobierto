@@ -18,7 +18,8 @@ module GobiertoParticipation
 
     belongs_to :site
     belongs_to :issue
-    has_many :stages, -> { order(stage_type: :asc) }, dependent: :destroy, class_name: 'GobiertoParticipation::ProcessStage'
+    has_many :stages, -> { order(stage_type: :asc) }, dependent: :destroy, class_name: 'GobiertoParticipation::ProcessStage', autosave: true
+    has_many :polls
     has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
 
     enum visibility_level: { draft: 0, active: 1 }
@@ -26,6 +27,7 @@ module GobiertoParticipation
 
     validates :site, :title, :body, presence: true
     validates :slug, uniqueness: { scope: :site }
+    validates_associated :stages
 
     scope :sorted, -> { order(id: :desc) }
 
@@ -58,6 +60,14 @@ module GobiertoParticipation
       news = self.attachments_in_collections.sort_by_updated_at(5)
       news.merge(issue.attachments_in_collections) if issue
       news
+    end
+
+    def polls_stage?
+      stages.exists?(stage_type: ProcessStage.stage_types[:polls])
+    end
+
+    def information_stage?
+      stages.exists?(stage_type: ProcessStage.stage_types[:information])
     end
 
     def pages_collection

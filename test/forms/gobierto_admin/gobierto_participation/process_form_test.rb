@@ -14,7 +14,7 @@ module GobiertoAdmin
           process_type: process.process_type,
           starts: process.starts,
           ends: process.ends,
-          stages: [process_stage]
+          stages_attributes: { '0' => process_stage }
         )
       end
 

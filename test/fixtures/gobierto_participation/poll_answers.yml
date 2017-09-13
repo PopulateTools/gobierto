@@ -1,0 +1,27 @@
+dennis_ordinance_of_terraces_single_choice:
+  poll: ordinance_of_terraces_published
+  question: ordinance_of_terraces_single_choice
+  answer_template: ordinance_of_terraces_single_choice_answer_template_yes
+  text:
+  user: dennis
+
+dennis_ordinance_of_terraces_multiple_choice_0:
+  poll: ordinance_of_terraces_published
+  question: ordinance_of_terraces_multiple_choice
+  answer_template: ordinance_of_terraces_multiple_choice_answer_template_schedules
+  text:
+  user: dennis
+
+dennis_ordinance_of_terraces_multiple_choice_1:
+  poll: ordinance_of_terraces_published
+  question: ordinance_of_terraces_multiple_choice
+  answer_template: ordinance_of_terraces_multiple_choice_answer_template_taxes
+  text:
+  user: dennis
+
+dennis_ordinance_of_terraces_open:
+  poll: ordinance_of_terraces_published
+  question: ordinance_of_terraces_open
+  answer_template:
+  text: Es el vecino el que elige el alcalde y es el alcalde el que quiere que sean los vecinos el alcalde.
+  user: dennis

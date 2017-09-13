@@ -23,7 +23,7 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            click_link "Nuevo proceso / grupo"
+            click_link 'New process / group'
 
             within "form.new_process" do
               fill_in "process_title_translations_en", with: "New process title"
@@ -94,7 +94,7 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            click_link "Nuevo proceso / grupo"
+            click_link 'New process / group'
 
             within "form.new_process" do
               fill_in "process_title_translations_en", with: "New group title"

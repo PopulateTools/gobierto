@@ -314,7 +314,7 @@ $lighter_black: rgba($color_headers, .7);
     text-decoration: none;
     padding: 1em 1em 2em 1em;
     @include min-screen(740) {
-      height: calc(100% - 3em);
+      // TODO: this breaks polls#index height: calc(100% - 3em);
     }
     h3 {
       font-size: 1.25em;

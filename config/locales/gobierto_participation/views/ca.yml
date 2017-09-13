@@ -88,6 +88,21 @@ ca:
         published_at: Publicat el %{date} pel %{site}
         title: Notícies
     processes:
+      poll_answers:
+        new:
+          already_answered: Ja has participat en aquesta enquesta
+          error_saving_poll: Hi ha hagut un error i no hem pogut guardar les teves
+            respostes :(
+          page_counter: "%{current} de %{total}"
+          share_message: Si et sembla interessant que altres persones aportin les
+            seves opinions, t'agraïm que comparteixis
+          thanks_for_answering: "¡Fantàstic, gràcies per contestar!"
+      polls:
+        index:
+          polls: Enquestes
+        theme_teaser_question:
+          participate: Participa en aquesta enquesta
+          participate_until: Participa fins %{date}
       show:
         about: Sobre aquest procés
         appointments: Cites presencials

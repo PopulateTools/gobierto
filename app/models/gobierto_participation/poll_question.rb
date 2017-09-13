@@ -28,6 +28,14 @@ module GobiertoParticipation
       !open_answer?
     end
 
+    def single_choice?
+      answer_type == PollQuestion.answer_types[:single_choice]
+    end
+
+    def multiple_choice?
+      answer_type == PollQuestion.answer_types[:multiple_choice]
+    end
+
     private
 
     def answer_templates_size

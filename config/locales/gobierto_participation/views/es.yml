@@ -90,6 +90,21 @@ es:
         published_at: Publicado el %{date} por el %{site}
         title: Noticias
     processes:
+      poll_answers:
+        new:
+          already_answered: Ya has participado en esta encuesta
+          error_saving_poll: Ha ocurrido un error y no hemos podido guardar tus respuestas
+            :(
+          page_counter: "%{current} de %{total}"
+          share_message: Si te parece interesante que otras personas aporten sus opiniones,
+            te agradecemos que compartas
+          thanks_for_answering: "¡Estupendo, gracias por contestar!"
+      polls:
+        index:
+          polls: Encuestas
+        theme_teaser_question:
+          participate: Participa en esta encuesta
+          participate_until: Participa hasta %{date}
       show:
         about: Sobre este proceso
         appointments: Citas presenciales

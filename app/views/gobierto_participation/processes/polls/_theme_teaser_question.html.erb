@@ -1,0 +1,8 @@
+<div class='content_block simple_big_header themed filled_block emoji_block' id='<%= "poll_#{poll.id}"%>'>
+
+  <h2><%= poll.title %></h2>
+
+  <p class='participate_until date'><%= t('.participate_until', date: poll.ends_at.strftime("%d %b")) %></p>
+  <div class='button outline rounded fat'><%= link_to t('.participate'), new_gobierto_participation_process_poll_answer_path(poll.process.slug, poll) %></div>
+
+</div>

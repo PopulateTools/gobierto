@@ -1,4 +1,5 @@
-<div class="column">
+<div class="<%= 'modal zoom-anim-dialog modal_background' if @modal %>"
+     style="<%= "background-image: url(#{ image_url('illustrations/emojis.svg')})" if @modal %>">
 
   <div class="pure-g">
 
@@ -35,3 +36,17 @@
   </div>
 
 </div>
+
+<script type="text/javascript">
+  $('.show_login_box').click(function(e) {
+    e.preventDefault();
+    $('.password_recovery_box').addClass("hidden");
+    $('.login_box').removeClass('hidden').velocity("transition.slideLeftIn");
+  });
+
+  $('.show_password_recovery_box').click(function(e) {
+    e.preventDefault();
+    $('.login_box').addClass("hidden");
+    $('.password_recovery_box').removeClass('hidden').velocity("transition.slideLeftIn");
+  });
+</script>

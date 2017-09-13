@@ -7,8 +7,8 @@
         <li><%= link_to t('.news'), gobierto_participation_process_process_pages_path(process_id: @process.slug) %></li>
       <% elsif @issue %>
         <li><%= link_to t('.news'), gobierto_participation_issue_issue_pages_path(issue_id: @issue.slug) %></li>
-      <% else %>
-        <li><%= link_to t('.news'), gobierto_cms_pages_path %></li>
+      <% elsif current_module == "gobierto_participation" %>
+        <li><%= link_to t('.news'), gobierto_participation_participation_pages_path %></li>
       <% end %>
 
       <li><%= link_to t('.agenda'), gobierto_participation_events_path(path_arguments) %></li>

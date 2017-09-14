@@ -17,8 +17,7 @@ module GobiertoParticipation
       raise Errors::NotAuthorized unless comment_policy.create?
 
       @comment_form = CommentForm.new(comment_params.merge(site_id: current_site.id,
-                                                           user_id: current_user.id,
-                                                           body: params[:comment][:body]))
+                                                           user_id: current_user.id))
 
       if @comment_form.save
         @comment = @comment_form.comment
@@ -36,7 +35,8 @@ module GobiertoParticipation
     end
 
     def comment_params
-      params.permit(
+      params.require(:comment).permit(
+        :body,
         :commentable_id,
         :commentable_type
       )

@@ -20,7 +20,7 @@
           </div>
         </div>
 
-        <%= render partial: 'gobierto_participation/process_contributions/comments' %>
+        <%= render partial: 'gobierto_participation/process_contributions/comments', locals: { commentable: @contribution } %>
       </div>
 
       <% if user_signed_in? %>

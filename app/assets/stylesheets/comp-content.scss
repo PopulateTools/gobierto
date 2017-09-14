@@ -35,7 +35,9 @@
   }
 }
 .content {
-  .inner, article:not(.news_article) {
+  .inner,
+  // article:not(.news_article) 
+  {
     max-width: 650px;
     margin: 0 auto;
     text-align: left;

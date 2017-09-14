@@ -22,8 +22,10 @@ ca:
           title: Nova col·lecció
         show:
           file_attachments:
-            description: Descripció
-          new: Nova
+            created_at: Creat
+            file_name: Nom del fitxer
+          new_attachment: Nou
+          new_page: Nova
           pages:
             created_at: Creada
             public: Pública

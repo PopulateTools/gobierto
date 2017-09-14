@@ -22,8 +22,10 @@ es:
           title: Nueva colección
         show:
           file_attachments:
-            description: Descripción
-          new: Nueva
+            created_at: Creado
+            file_name: Nombre del documento
+          new_attachment: Nuevo
+          new_page: Nueva
           pages:
             created_at: Creada
             public: Estado

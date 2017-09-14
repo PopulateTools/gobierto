@@ -79,6 +79,12 @@ $(document).on('turbolinks:load', function() {
 
   // Modal windows
   $('.open_modal').magnificPopup({
+    type: 'inline',
+    removalDelay: 300,
+    mainClass: 'mfp-fade'
+  });
+
+  $('.open_remote_modal').magnificPopup({
     type: 'ajax',
     removalDelay: 300,
     mainClass: 'mfp-fade'

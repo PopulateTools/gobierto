@@ -1,3 +1,9 @@
+<% content_for :breadcrumb_current_item do %>
+  <h1>
+    <%= link_to "Noticias", gobierto_participation_participation_events_path %>
+  </h1>
+<% end %>
+
 <%= content_for :body_attributes do %>
   class="theme-participation gobierto_participation"
 <% end %>
@@ -31,7 +37,16 @@
 
           <!-- <p class="soft">Te invitamos a asistir a las siguientes reuniones donde debatiremos en persona sobre los temas de este proceso. Si no puedes asistir, iremos publicando online todo lo que se hable en la reuniones para facilitar el seguimiento y hacer accesibles las conclusiones.</p> -->
 
-          <%= render 'calendar_component' %>
+          <div class="calendar-component m_v_2">
+            <%= month_calendar(
+              partial: "gobierto_people/person_events/calendar_template",
+              events: @events,
+              attribute: :starts_at,
+              start_date: params[:start_date] || Date.current
+            ) do |date, events| %>
+              <%= link_to_if events.any?, date.day, date: date, start_date: params[:start_date] %>
+            <% end %>
+          </div>
 
           <h4 class="with_light_separator m_t_1">Filtrar por tema</h4>
 
@@ -46,15 +61,67 @@
         </div>
       </div>
 
-      <div class="pure-u-1 pure-u-lg-2-3">
-        <div class="events_list">
-          <% @participation_events.each do |event| %>
-            <%= render 'event_teaser', event: event %>
+      <div id="participation-agenda" class="pure-u-1 pure-u-lg-2-3">
+
+        <div class="events-filter">
+
+          <% if @filtering_date %>
+            <div class="box">
+              <div class="inner">
+                <%= t(".displaying_events_of", date: l(@filtering_date, format: :short)) %>
+                <%= link_to t(".go_back"), [:gobierto_people, @person_event_scope, :events] %>
+              </div>
+            </div>
           <% end %>
+
         </div>
 
-        <!-- TODO: pending pagination -->
-        <!-- %= paginate @news %-->
+        <div class="events-summary">
+
+          <div class="events-filter">
+
+            <div class="pure-g block" >
+
+              <div class="pure-u-1 pure-u-md-1-2">
+
+                <h2 class="filter-option <%= class_if("active", !controller_name.include?("past_person_events")) %>">
+                  <%= link_to_unless_current t(".upcoming_events"), [:gobierto_people, @person_event_scope, :events] %>
+                </h2>
+
+              </div>
+
+              <div class="pure-u-1 pure-u-md-1-2 right">
+
+                <h2 class="filter-option <%= class_if("active", controller_name.include?("past_person_events")) %>">
+                  <%= link_to_unless_current t(".past_events"), [:gobierto_people, @person_event_scope, :past_events] %>
+                </h2>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <p>
+            <% if @past_events && @events.empty? %>
+              <%= t(".no_past_events") %>
+            <% else %>
+              <% if @no_upcoming_events && @events.empty? %>
+                <%= t(".no_events") %>
+              <% elsif @no_upcoming_events %>
+                <%= t(".no_upcoming_events") %>:
+              <% end %>
+            <% end %>
+          </p>
+
+          <div id="events">
+            <% @events.each do |event| %>
+              <%= render partial: "event_teaser", locals: { event: event } %>
+            <% end %>
+          </div>
+
+          <%= link_to_next_page @events, t('.view_more'), class: "see_more", role: "button", remote: true %>
+        </div>
 
       </div>
 

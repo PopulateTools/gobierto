@@ -68,6 +68,11 @@ module GobiertoCalendars
       where(id: ids, site: site)
     end
 
+    def self.events_in_collections_and_container(site, container)
+      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCalendars::Event", container: container).map(&:item_id)
+      where(id: ids, site: site)
+    end
+
     def parameterize
       { container_slug: collection.container.slug, slug: slug }
     end

@@ -78,6 +78,36 @@ es:
         agenda: Agenda
         documents: Documentos
         news: Noticias
+    process_contribution_containers:
+      show:
+        all: Todas
+        best_ratings: Mejor valoradas
+        idea:
+          one: 1 idea
+          other: "%{count} ideas"
+        organize: Organizar
+        put_ideas: "¡Tengo una idea!"
+        recent: Recientes
+        self: Tuyas
+        show_ideas: Mostrar ideas
+        term_html: Tienes de plazo hasta el <strong>%{date}</strong>
+        user:
+          one: Un vecino ha aportado
+          other: "%{count} vecinos han aportado"
+        worst_ratings: Peor valoradas
+    process_contributions:
+      contribution:
+        comments_html: "<strong>%{comments}</strong> comentarios"
+        enchants: Me encanta
+        indifferent: Me es indiferente
+        like: Me gusta
+        not_like: No me gusta
+        respond: Responder
+        sent: enviada por %{author} el %{date}
+        values_this_idea: Valora esta idea
+      flag:
+        report: Reportar
+        reported: Reportada
     process_pages:
       index:
         filter: Filtrar por tema

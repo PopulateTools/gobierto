@@ -37,6 +37,7 @@ en:
     - Friday
     - Saturday
     formats:
+      day_month: "%d/%m"
       default: "%Y-%m-%d"
       long: "%B %d, %Y"
       short: "%b %d %Y"

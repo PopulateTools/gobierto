@@ -99,7 +99,7 @@ module GobiertoAdmin
         end
 
         def ignored_contribution_container_attributes
-          %w(created_at updated_at)
+          %w(slug created_at updated_at)
         end
 
         def find_contribution_container

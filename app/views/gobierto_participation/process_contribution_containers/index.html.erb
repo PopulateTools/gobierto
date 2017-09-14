@@ -1,0 +1,37 @@
+<% if @process %>
+  <% content_for :breadcrumb_current_item do %>
+    <strong>
+      <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path %>
+    </strong>
+
+    <span role="separator">/</span>
+
+    <h1>
+      <%= link_to @process.title, gobierto_participation_process_path(@process.slug) %>
+    </h1>
+  <% end %>
+<% end %>
+
+<%= content_for :body_attributes do %>
+  class="theme-participation gobierto_participation"
+<% end %>
+
+<div class="gradient-bg">
+  <div class="column">
+
+    <div class="flex_container">
+      <% @contribution_containers.each do |contribution_container| %>
+        <%= link_to gobierto_participation_process_process_contribution_container_path(contribution_container.slug, process_id: @process.slug), class: "content_block themed light" do %>
+
+          <h3><%= contribution_container.title %></h3>
+          <p><%= contribution_container.description %></p>
+
+          <div class="meta right">
+            <div class="ib"><i class="fa fa-comment"></i><%= contribution_container.comments_count %></div>
+            <div class="ib"><i class="fa fa-users"></i><%= contribution_container.participants_count %></div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -17,6 +17,17 @@ module GobiertoAdmin
       )
     end
 
+    def valid_file_attachment_with_name_form
+      @valid_file_attachment_with_name_form ||= FileAttachmentForm.new(
+        file: Rack::Test::UploadedFile.new(
+          Rails.root.join("test/fixtures/files/sites/logo-madrid.png")
+        ),
+        name: "wadus",
+        site_id: site.id,
+        collection: "wadus"
+      )
+    end
+
     def invalid_file_attachment_form
       @invalid_file_attachment_form ||= FileAttachmentForm.new(
         site_id: nil,
@@ -32,6 +43,10 @@ module GobiertoAdmin
 
     def test_validation
       assert valid_file_attachment_form.valid?
+    end
+
+    def test_validation_with_name
+      assert valid_file_attachment_with_name_form.valid?
     end
 
     def test_error_messages_with_invalid_attributes

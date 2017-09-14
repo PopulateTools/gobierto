@@ -96,13 +96,14 @@ en:
           other: "%{count} neighbors have contributed"
         worst_ratings: Worst ratings
     process_contributions:
-      contribution:
+      comments:
         comments_html: "<strong>%{comments}</strong> comments"
+        respond: Respond
+      contribution:
         enchants: It enchants to me
         indifferent: It is to me indifferent
         like: I like
         not_like: I don't like
-        respond: Respond
         sent: sent by %{author} the %{date}
         values_this_idea: It values the idea
       flag:

@@ -84,6 +84,12 @@ $(document).on('turbolinks:load', function() {
     mainClass: 'mfp-fade'
   });
 
+  $('.open_remote_modal').magnificPopup({
+    type: 'ajax',
+    removalDelay: 300,
+    mainClass: 'mfp-fade'
+  });
+
   $('.close_modal').click(function(e) {
     $.magnificPopup.close();
   });

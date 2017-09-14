@@ -117,5 +117,10 @@ module GobiertoCalendars
       locations.first
     end
 
+    def first_issue
+      collection_item = GobiertoCommon::CollectionItem.where(item: self, container_type: "Issue")
+
+      collection_item.first.issue unless collection_item.empty?
+    end
   end
 end

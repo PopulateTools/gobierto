@@ -1,4 +1,5 @@
 <div id="comments-list" class="comments_container">
+  <% byebug %>
   <h3><%= t('.comments_html', comments: commentable.comments_count) %></h3>
   <% commentable.comments.each do |comment| %>
     <div class="comment">
@@ -15,7 +16,11 @@
         <%= render partial: 'gobierto_participation/process_contributions/comment_votes', locals: { comment: comment } %>
 
         <% if user_signed_in? %>
-          <div class="action"><a href=""><i class="fa fa-reply"></i><%= t('.respond') %></a></div>
+          <div class="action">
+            <%= link_to "", id: "js-add-comment-link", remote: true, data: { id: "comment-#{comment.id}" } do %>
+              <i class="fa fa-reply"></i><%= t('.respond') %>
+            <% end %>
+          </div>
         <% end %>
 
         <%= render partial: 'gobierto_participation/process_contributions/flag', locals: { item: comment } %>
@@ -39,3 +44,14 @@
     <% end %>
   </div>
 </div>
+
+<script type="text/javascript">
+
+  $('#js-add-comment-link').on('click', function(e){
+    e.preventDefault();
+    id = $(this).data("id");
+
+    $("#" + id).toggle();
+  });
+
+</script>

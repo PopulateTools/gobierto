@@ -1,4 +1,5 @@
-<div id="js-comment-form-<%= commentable.id %>" <%= "style='display:none'".html_safe if false %>>
+<div id='<%= commentable.class.name == "GobiertoParticipation::Contribution" ? "contribution" : "comment-#{commentable.id}" %>'
+     style='<%= commentable.class.name == "GobiertoParticipation::Contribution" ? "display: inline;" : "display: none;" %>'>
   <%= form_for(
     @comment_form, as: :comment,
     url: @comment_form.persisted? ? gobierto_participation_process_process_contribution_container_process_contribution_comment_path(process_contribution_id: commentable.slug,

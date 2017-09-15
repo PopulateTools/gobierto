@@ -1,6 +1,15 @@
 <div id="comments-list" class="comments_container">
   <h3><%= t('.comments_html', comments: commentable.comments_count) %></h3>
-  <% commentable.comments.each do |comment| %>
+
+  <%
+    comments_collection = if commentable.class.name == "GobiertoParticipation::Contribution"
+                            commentable.comments
+                          else
+                            commentable.replies
+                          end
+  %>
+
+  <% comments_collection.each do |comment| %>
     <div class="comment">
       <div class="comment_text">
         <%= comment.body %>

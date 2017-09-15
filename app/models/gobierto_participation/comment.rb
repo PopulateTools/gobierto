@@ -28,5 +28,9 @@ module GobiertoParticipation
     def slug
       commentable.slug
     end
+
+    def replies
+      GobiertoParticipation::Comment.where(commentable: self)
+    end
   end
 end

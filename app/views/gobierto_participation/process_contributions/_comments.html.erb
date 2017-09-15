@@ -16,7 +16,7 @@
 
         <% if user_signed_in? %>
           <div class="action">
-            <%= link_to "", id: "js-add-comment-link", remote: true, data: { id: "comment-#{comment.id}" } do %>
+            <%= link_to "", remote: true, data: { id: "comment-#{comment.id}" } do %>
               <i class="fa fa-reply"></i><%= t('.respond') %>
             <% end %>
           </div>
@@ -46,9 +46,9 @@
 
 <script type="text/javascript">
 
-  $('#js-add-comment-link').on('click', function(e){
+  $('[data-id]').on('click', function(e){
     e.preventDefault();
-    id = $(this).data("id");
+    var id = $(this).data("id");
 
     $("#" + id).toggle();
   });

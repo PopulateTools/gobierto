@@ -21,6 +21,7 @@ module GobiertoParticipation
 
       if @comment_form.save
         @comment = @comment_form.comment
+        @comment_form = CommentForm.new(site_id: current_site.id)
       end
 
       respond_to do |format|

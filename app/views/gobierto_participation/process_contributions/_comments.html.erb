@@ -1,5 +1,4 @@
 <div id="comments-list" class="comments_container">
-  <% byebug %>
   <h3><%= t('.comments_html', comments: commentable.comments_count) %></h3>
   <% commentable.comments.each do |comment| %>
     <div class="comment">

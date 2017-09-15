@@ -1,0 +1,22 @@
+<div id="js-comment-form-<%= commentable.id %>" <%= "style='display:none'".html_safe if false %>>
+  <%= form_for(
+    @comment_form, as: :comment,
+    url: @comment_form.persisted? ? gobierto_participation_process_process_contribution_container_process_contribution_comment_path(process_contribution_id: commentable.slug,
+                                                                                                                                    process_contribution_container_id: commentable.contribution_container.slug,
+                                                                                                                                    process_id: commentable.contribution_container.process.slug) :
+                                    gobierto_participation_process_process_contribution_container_process_contribution_comment_path(process_contribution_id: commentable.slug,
+                                                                                                                                    process_contribution_container_id: commentable.contribution_container.slug,
+                                                                                                                                    process_id: commentable.contribution_container.process.slug), data: { "globalized-form-container" => true }, remote: true ) do |f| %>
+
+   <%= f.hidden_field :commentable_type, value: commentable.class %>
+   <%= f.hidden_field :commentable_id, value: commentable.id %>
+
+    <div class="form_item textarea">
+      <%= text_area_tag "comment[body]", f.object.body, placeholder: "Comenta esta idea|propuesta|pregunta" %>
+    </div>
+
+    <div class="form_item action_buttons right">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>

@@ -1,3 +1,9 @@
+<% content_for :breadcrumb_current_item do %>
+  <strong>
+    <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path %>
+  </strong>
+<% end %>
+
 <%= content_for :body_attributes do %>
   class="theme-participation gobierto_participation"
 <% end %>

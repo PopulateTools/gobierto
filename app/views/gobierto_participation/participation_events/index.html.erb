@@ -36,7 +36,7 @@
           <ul class="link_list">
             <% @issues.each do |issue| %>
               <li>
-                <%= link_to issue.name , 'routing' %>
+                <%= link_to issue.name , gobierto_participation_participation_events_path(issue_id: issue.slug) %>
               </li>
             <% end %>
           </ul>

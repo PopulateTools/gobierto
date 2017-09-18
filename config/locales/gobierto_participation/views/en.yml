@@ -79,6 +79,14 @@ en:
         documents: Documents
         news: News
     participation_events:
+      event:
+        add_to_calendar: Add calendar
+        download: Download data
+        follow_event: Follow this event
+        neighbors_count_html:
+          one: "<strong>%{neighbors} neighbor</strong> will attend"
+          other: "<strong>%{neighbors} neighbors</strong> will attend"
+          zero: No neighbor will attend
       event_teaser:
         add_to_calendar: Add calendar
         agenda_of: 'Agenda de:'
@@ -87,6 +95,8 @@ en:
           other: "<strong>%{neighbors} neighbors</strong> will attend"
           zero: No neighbor will attend
         want_to_attend: I want to attend
+      show:
+        from_to: "%{starts} to %{ends}"
     participation_pages:
       index:
         filter: Filter

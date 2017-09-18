@@ -22,10 +22,14 @@
           <div class="meta">
             <div>
               <div class="ib p_h_r_0_5">
-                <strong>12 de abril a 30 de junio</strong>
+                <% if @event.starts_at.day == @event.ends_at.day %>
+                  <strong><%= l(@event.starts_at, format: '%e %b') %></strong>
+                <% else %>
+                  <strong><%= t('.from_to', starts: l(@event.starts_at, format: '%e %b'), ends: l(@event.ends_at, format: '%e %b')) %></strong>
+                <% end %>
               </div>
               <div class="ib p_h_r_0_5">
-                <i class="fa fa-clock-o"></i> 18:00
+                <i class="fa fa-clock-o"></i><%= @event.starts_at.strftime('%H:%M') %>
               </div>
               <div class="ib">
                 <i class="fa fa-map-marker"></i> <a href="https://www.google.com/maps/place/40.41874,-3.693944">Ayuntamiento de Madrid</a>
@@ -33,7 +37,7 @@
             </div>
           </div>
 
-          <p>In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris. Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum</p>
+          <p><%= raw @event.description %></p>
 
           <div class="extra_info">
             <div class="ib p_h_r_0_5">

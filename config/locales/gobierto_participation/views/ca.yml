@@ -77,6 +77,14 @@ ca:
         documents: Documents
         news: Notícies
     participation_events:
+      event:
+        add_to_calendar: Afegir al meu calendari
+        download: Baixeu les dades
+        follow_event: Seguir aquest esdeveniment
+        neighbors_count_html:
+          one: "<strong>%{neighbors} veïn</strong> assistirà"
+          other: "<strong>%{neighbors} veïns</strong> assistiran"
+          zero: Cap veí assistirà
       event_teaser:
         add_to_calendar: Afegir al meu calendari
         agenda_of: 'Agenda d'':'
@@ -85,6 +93,8 @@ ca:
           other: "<strong>%{neighbors} veïns</strong> assistiran"
           zero: Cap veí assistirà
         want_to_attend: Vull assistir
+      show:
+        from_to: "%{starts} al %{ends}"
     participation_pages:
       index:
         filter: Filtrar

@@ -11,6 +11,8 @@ module GobiertoParticipation
     def index
       @issues = current_site.issues.alphabetically_sorted
 
+      @issue = find_issue if params[:issue_id]
+
       set_events
 
       respond_to do |format|
@@ -20,6 +22,10 @@ module GobiertoParticipation
     end
 
     private
+
+    def find_issue
+      current_site.issues.find_by_slug!(params[:issue_id])
+    end
 
     def find_participation_events
       ::GobiertoCalendars::Event.events_in_collections_and_container_type(current_site, "GobiertoParticipation").sorted

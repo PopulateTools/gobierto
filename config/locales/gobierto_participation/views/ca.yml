@@ -1,6 +1,10 @@
 ---
 ca:
   gobierto_participation:
+    comments:
+      comment:
+        comments_html: "<strong>%{comments}</strong> comentaris"
+        respond: Respondre
     events:
       event:
         follow_event: Seguir aquest esdeveniment
@@ -96,7 +100,6 @@ ca:
     process_contributions:
       comments:
         comments_html: "<strong>%{comments}</strong> comentaris"
-        respond: Respondre
       contribution:
         enchants: M'encanta
         indifferent: M'és indiferent

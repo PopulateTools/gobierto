@@ -1,6 +1,10 @@
 ---
 en:
   gobierto_participation:
+    comments:
+      comment:
+        comments_html: "<strong>%{comments}</strong> comments"
+        respond: Respond
     events:
       event:
         follow_event: Follow this event
@@ -98,7 +102,6 @@ en:
     process_contributions:
       comments:
         comments_html: "<strong>%{comments}</strong> comments"
-        respond: Respond
       contribution:
         enchants: It enchants to me
         indifferent: It is to me indifferent

@@ -123,9 +123,9 @@ module GobiertoCalendars
     end
 
     def first_issue
-      collection_item = GobiertoCommon::CollectionItem.where(item: self, container_type: "Issue")
+      collection_item = GobiertoCommon::CollectionItem.where(item: self, container_type: "Issue").first
 
-      collection_item.first.issue unless collection_item.empty?
+      collection_item.container if collection_item
     end
   end
 end

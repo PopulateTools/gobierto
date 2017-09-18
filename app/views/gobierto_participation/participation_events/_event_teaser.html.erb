@@ -29,14 +29,16 @@
     </div>
 
     <p>
-      <%= event.description %>
+      <%= raw event.description %>
     </p>
 
     <div class="extra_info listed">
       <div class="ib p_h_r_0_5">
-        <a href="#" class="button outline rounded wide attend_event">
-          <i class="fa fa-check hidden"></i> <span><%= t('.want_to_attend') %></span>
-        </a>
+        <%= todo_link_to do %>
+          <a href="#" class="button outline rounded wide attend_event">
+            <i class="fa fa-check hidden"></i> <span><%= t('.want_to_attend') %></span>
+          </a>
+        <% end %>
       </div>
 
       <div class="ib p_h_r_0_5">
@@ -45,7 +47,9 @@
       </div>
 
       <div class="ib">
-        <i class="fa fa-calendar"></i> <a href="#"><%= t('.add_to_calendar') %></a>
+        <%= todo_link_to do %>
+          <i class="fa fa-calendar"></i> <a href="#"><%= t('.add_to_calendar') %></a>
+          <% end %>
       </div>
     </div>
   </div>

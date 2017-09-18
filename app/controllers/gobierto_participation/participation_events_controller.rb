@@ -4,6 +4,8 @@ module GobiertoParticipation
   class ParticipationEventsController < GobiertoParticipation::ApplicationController
     def show
       @event = find_event
+
+      set_events
     end
 
     def index

@@ -20,7 +20,11 @@ module GobiertoParticipation
                                                            user_id: current_user.id))
 
       if @comment_form.save
-        @comment = @comment_form.comment
+        @contribution = if @comment_form.comment.commentable_type == "GobiertoParticipation::Contribution"
+                          @comment_form.comment.commentable
+                        else
+                          @comment_form.comment.commentable.commentable
+                        end
         @comment_form = CommentForm.new(site_id: current_site.id)
       end
 

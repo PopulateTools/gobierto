@@ -1,4 +1,5 @@
 this.GobiertoParticipation.ProcessPollsController = (function() {
+
   function ProcessPollsController() {}
 
   ProcessPollsController.prototype.show = function(){
@@ -6,35 +7,58 @@ this.GobiertoParticipation.ProcessPollsController = (function() {
     _addNextQuestionButtonBehaviors();
     _preventAnchorsDefaultBehavior();
     _addQuestionOptionsBehaviors();
+    refreshNextQuestionButtonState();
 
     $('form').bind('ajax:success', showSharePollPage);
     $('form').bind('ajax:error', showCannotSavePollPage);
   };
 
+  function refreshNextQuestionButtonState() {
+    var $submitInput = $("input[data-behavior='next_question']");
+    var $currentQuestion = getCurrentQuestion();
+
+    var $inputs = $currentQuestion.find('input');
+    var inputType = $inputs.attr('type');
+
+    if (inputType === 'radio' || inputType === 'checkbox') {
+      if ($currentQuestion.find('label.checked').length >= 1) {
+        $submitInput.removeProp('disabled');
+      } else {
+        $submitInput.prop('disabled', true)
+      }
+    }
+  }
+
+  function showPollContentItem($content) {
+    $content.velocity("transition.slideRightIn", { duration: 250, delay: 250 })
+            .addClass('question_active');
+  }
+
+  function hidePollContentItem($content) {
+    $content.velocity("transition.slideLeftOut", { duration: 250 })
+            .removeClass('question_active');
+  }
+
+  function getCurrentQuestion() {
+    return $('.question_active');
+  }
+
   function showSharePollPage() {
     refreshPageCounter();
 
-    $currentQuestion = $('.question_active');
     $sharePollPage = $('[data-behavior="share_poll_page"]');
 
-    $currentQuestion.velocity("transition.slideLeftOut", { duration: 250 })
-                    .removeClass('question_active');
-
-    $sharePollPage.velocity("transition.slideRightIn", { duration: 250, delay: 250 })
-                  .addClass('question_active');
+    hidePollContentItem(getCurrentQuestion());
+    showPollContentItem($sharePollPage);
   }
 
   function showCannotSavePollPage() {
     refreshPageCounter();
 
-    $currentQuestion = $('.question_active');
     $errorPage = $('[data-behavior="error_saving_poll"]');
 
-    $currentQuestion.velocity("transition.slideLeftOut", { duration: 250 })
-                    .removeClass('question_active');
-
-    $errorPage.velocity("transition.slideRightIn", { duration: 250, delay: 250 })
-              .addClass('question_active');
+    hidePollContentItem(getCurrentQuestion());
+    showPollContentItem($errorPage);
   }
 
   function refreshPageCounter() {
@@ -69,6 +93,7 @@ this.GobiertoParticipation.ProcessPollsController = (function() {
       } else {
         $(this).toggleClass('checked');
       }
+      refreshNextQuestionButtonState();
     });
   }
 
@@ -91,7 +116,7 @@ this.GobiertoParticipation.ProcessPollsController = (function() {
 
     $submitInput.click(function(e) {
       var $questions = $('.poll_question');
-      var $currentQuestion = $('.question_active');
+      var $currentQuestion = getCurrentQuestion();
       var currentQuestionIndex = parseInt(extractIndex($currentQuestion.attr('id')));
 
       if (currentQuestionIndex !== $questions.length - 1) {
@@ -100,18 +125,16 @@ this.GobiertoParticipation.ProcessPollsController = (function() {
         
         var nextQuestionIndex = currentQuestionIndex + 1;
         var $nextQuestion = $('#poll_question_' + nextQuestionIndex);
-
-        $currentQuestion.velocity("transition.slideLeftOut", { duration: 250 })
-                        .removeClass('question_active');
-
-        $nextQuestion.velocity("transition.slideRightIn", { duration: 250, delay: 250 })
-                     .addClass('question_active');
+        
+        hidePollContentItem($currentQuestion);
+        showPollContentItem($nextQuestion);
 
         if (nextQuestionIndex == $questions.length - 1) {
           $submitInput.val("Submit");
         }
 
         refreshPageCounter();
+        refreshNextQuestionButtonState();
       } else {
         $('.poll_actions').hide();
         // form is submitted by JavaScript

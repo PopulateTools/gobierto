@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency 'gobierto_participation'
 
 module GobiertoParticipation

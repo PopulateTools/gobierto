@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoParticipation
   module Processes
     class BaseController < GobiertoParticipation::ApplicationController

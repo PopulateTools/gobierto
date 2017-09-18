@@ -32,6 +32,10 @@ module GobiertoParticipation
         )
       end
 
+      def answer_poll_path
+        @answer_poll_path ||= new_gobierto_participation_process_poll_answer_path(process.slug, poll)
+      end
+
       def test_answer_poll
         with_javascript do
           with_current_site(site) do
@@ -87,14 +91,9 @@ module GobiertoParticipation
         with_current_site(site) do
           with_signed_in_user(user_already_answered) do
 
-            visit process_polls_path
-
-            within "#poll_#{poll.id}" do
-              click_link 'Participate in this poll'
-            end
+            visit answer_poll_path
 
             assert has_message? 'You have already participated in this poll'
-
           end
         end
       end

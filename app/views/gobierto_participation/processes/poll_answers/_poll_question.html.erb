@@ -1,16 +1,16 @@
 <div style='<%= question_fb.index != 0 ? "display: none;" : '' %>' class="poll_content <%= class_if('question_active', question_fb.index == 0) %>" id='<%= "poll_question_#{question_fb.index}" %>'>
-  <div class="poll_question">
+  <div class='poll_question'>
 
     <h2><%= question.title %></h2>
 
     <% if question.multiple_choice? %>
 
-      <div class="help">Puedes elegir varias opciones</div>
+      <div class='help'><%= t('.multiple_choice_msg') %></div>
 
-      <div class="poll_options">
+      <div class='poll_options'>
         <% question.answer_templates.each_with_index do |answer_template, idx| %>
           <%= check_box_tag "poll[questions_attributes][#{question_fb.index}][answers_attributes][#{idx}][answer_template_id]", answer_template.id %>
-          <div class="poll_option">
+          <div class='poll_option'>
             <%= label_tag "poll[questions_attributes][#{question_fb.index}][answers_attributes][#{idx}][answer_template_id]", answer_template.text, class: 'button outline rounded' %>
           </div>
         <% end %>
@@ -18,10 +18,10 @@
 
     <% elsif question.single_choice? %>
 
-      <div class="poll_options">
+      <div class='poll_options'>
         <% question.answer_templates.each_with_index do |answer_template, idx| %>
           <%= radio_button_tag "poll[questions_attributes][#{question_fb.index}][answers_attributes][#{idx}][answer_template_id]", answer_template.id %>
-          <div class="poll_option">
+          <div class='poll_option'>
             <%= label_tag "poll[questions_attributes][#{question_fb.index}][answers_attributes][#{idx}][answer_template_id][#{answer_template.id}]", class: 'button outline rounded' do %>
               <%= answer_template.text %>
             <% end %>

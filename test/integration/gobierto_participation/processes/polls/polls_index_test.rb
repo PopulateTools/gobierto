@@ -20,8 +20,16 @@ module GobiertoParticipation
         )
       end
 
+      def poll
+        @poll ||= gobierto_participation_polls(:ordinance_of_terraces_published)
+      end
+
       def process_polls
         @process_polls ||= process.polls
+      end
+
+      def user_already_answered
+        @user_already_answered ||= users(:dennis)
       end
 
       def test_process_polls_index
@@ -36,6 +44,21 @@ module GobiertoParticipation
           refute has_content? 'Schedules'
           refute has_content? 'Public spaces'
           refute has_content? 'Noise'
+        end
+      end
+
+      def test_disable_participate_link_for_already_answered_polls
+        with_current_site(site) do
+          with_signed_in_user(user_already_answered) do
+
+            visit process_polls_path
+
+            within "#poll_#{poll.id}" do
+              assert has_content? 'You have already participated in this poll'
+              refute has_content? 'Participate in this poll'
+            end
+
+          end
         end
       end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency 'gobierto_participation'
 
 module GobiertoParticipation
@@ -31,7 +33,11 @@ module GobiertoParticipation
     end
 
     def answerable_by?(user)
-      answers.where(user: user).empty?
+      answerable? && !has_answers_from?(user)
+    end
+
+    def has_answers_from?(user)
+      answers.where(user: user).any?
     end
 
     def open?

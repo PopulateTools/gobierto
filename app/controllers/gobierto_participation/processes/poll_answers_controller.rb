@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
 module GobiertoParticipation
   module Processes
     class PollAnswersController < BaseController
+
+      include ::PreviewTokenHelper
 
       def new
         if current_poll.answerable_by?(current_user)
@@ -15,7 +19,11 @@ module GobiertoParticipation
       end
 
       def create
-        @poll_answer_form = PollAnswerForm.new(poll_answers_params.merge(user: current_user))
+        # PSEUDO-BUG: if both admin session and user session exist in different browser tabs, when admin clicks
+        # on preview link, it can happen that if he submit poll, it will be submitted with the user session
+        redirect_to(action: 'new') unless user_signed_in?
+
+        @poll_answer_form = PollAnswerForm.new(poll_answers_params.merge(user: current_user, poll: current_poll))
 
         if @poll_answer_form.save
           http_status = :ok
@@ -33,7 +41,7 @@ module GobiertoParticipation
       private
 
       def current_poll
-        current_process.polls.find(params[:poll_id])
+        polls_scope.find(params[:poll_id])
       end
 
       def poll_answers_params
@@ -46,6 +54,10 @@ module GobiertoParticipation
             ]
           ]
         )
+      end
+
+      def polls_scope
+        valid_preview_token? ? current_process.polls : current_process.polls.answerable
       end
 
     end

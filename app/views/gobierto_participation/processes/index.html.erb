@@ -1,23 +1,41 @@
-<% content_for :breadcrumb_current_item do %>
-  <strong>
-    <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path %>
-  </strong>
+<%= content_for :body_attributes do %>
+  class="theme-participation gobierto_participation"
 <% end %>
 
-<h1>Gobierto Participation processes index</h1>
+<div class="gradient-bg">
+  <div class="column">
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-1-3">
+        <h2 class="with_separator"><%= t('.ongoing_processes') %></h2>
+        <p class="soft"><%= t('.ongoing_processes_p') %></p>
+      </div>
 
-Processes:
+      <div class="pure-u-1 pure-u-md-2-3 groups">
+        <div class="pure-g three_by_three">
+          <% @processes.each do |process| %>
+            <%= render 'process_teaser', process: process, meta: false %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<ul>
-  <% @processes.each do |process| %>
-    <li><%= link_to process.title, gobierto_participation_process_path(process.slug) %></li>
-  <% end %>
-</ul>
+<div class="gradient-bg">
+  <div class="column">
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-1-3 groups">
+        <h2 class="with_separator"><%= t('.groups') %></h2>
+        <p class="soft"><%= t('.groups_p') %></p>
+      </div>
 
-Groups:
-
-<ul>
-  <% @groups.each do |group| %>
-    <li><%= link_to group.title, gobierto_participation_process_path(group.slug) %></li>
-  <% end %>
-</ul>
+      <div class="pure-u-1 pure-u-md-2-3 groups">
+        <div class="pure-g three_by_three">
+          <% @groups.each do |group| %>
+            <%= render 'group_teaser', group: group, meta: true %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

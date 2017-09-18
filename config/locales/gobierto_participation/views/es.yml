@@ -88,6 +88,13 @@ es:
         published_at: Publicado el %{date} por el %{site}
         title: Noticias
     processes:
+      index:
+        groups: Grupos de trabajo
+        groups_p: Consulta la actividad de cada grupo y participa.
+        ongoing_processes: Procesos en marcha
+        ongoing_processes_p: Consulta y participa en procesos específicos.
+      process_teaser:
+        current_stage_html: "<strong>Fase actual</strong>: %{current_stage}"
       show:
         about: Sobre este proceso
         appointments: Citas presenciales

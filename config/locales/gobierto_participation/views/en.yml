@@ -88,6 +88,13 @@ en:
         published_at: Posted on %{date} by %{site}
         title: News
     processes:
+      index:
+        groups: Work groups
+        groups_p: Check the activity of each group and participate.
+        ongoing_processes: Ongoing processes
+        ongoing_processes_p: Consult and participate in specific processes.
+      process_teaser:
+        current_stage_html: "<strong>Current stage</strong>: %{current_stage}"
       show:
         about: About this process
         appointments: Face-to-face appointments

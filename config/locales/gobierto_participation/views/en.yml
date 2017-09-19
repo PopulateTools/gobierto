@@ -110,6 +110,34 @@ en:
       flag:
         report: Report
         reported: Reported
+    participation_events:
+      event:
+        add_to_calendar: Add calendar
+        download: Download data
+        follow_event: Follow this event
+        neighbors_count_html:
+          one: "<strong>%{neighbors} neighbor</strong> will attend"
+          other: "<strong>%{neighbors} neighbors</strong> will attend"
+          zero: No neighbor will attend
+      event_teaser:
+        add_to_calendar: Add calendar
+        agenda_of: 'Agenda de:'
+        neighbors_count_html:
+          one: "<strong>%{neighbors} neighbor</strong> will attend"
+          other: "<strong>%{neighbors} neighbors</strong> will attend"
+          zero: No neighbor will attend
+        want_to_attend: I want to attend
+      show:
+        from_to: "%{starts} to %{ends}"
+    participation_pages:
+      index:
+        filter: Filter
+        title: News
+      show:
+        documents: Documentos
+        filter: Filtrar por grupo
+        published_at: Publicado el %{date} por el %{site}
+        title: Noticias
     process_pages:
       index:
         filter: Filter by theme
@@ -166,3 +194,20 @@ en:
         past_stage: Stage has ended
         upcoming_stage: Stage not yet started
         view_stage: Access this stage
+    welcome:
+      index:
+        intro: Know the mechanisms of participation that offers you %{location_name}
+        intro_p1: Vote every four years? Get involved in the day-to-day life.
+      participation_latest_info:
+        agenda: Agenda
+        more_news: More news
+        no_events: No related events
+        no_news: No related news
+        show_more_events: More events
+        show_more_updates: More updates
+        the_last: The last
+        up_to_date: "%{location_name} up to date"
+      participation_themes_list_a:
+        intro: Bring your best ideas to improve %{location_name} and the life of all
+          of us who live here.
+        issues: Themes

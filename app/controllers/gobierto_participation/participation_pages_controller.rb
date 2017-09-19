@@ -1,19 +1,17 @@
+# frozen_string_literal: true
+
 module GobiertoParticipation
-  class IssuePagesController < GobiertoParticipation::ApplicationController
+  class ParticipationPagesController < GobiertoParticipation::ApplicationController
     include ::PreviewTokenHelper
 
     before_action :find_page_by_id_and_redirect
 
     def show
-      @process = find_process if params[:process_id]
-      @page = find_page
-      @groups = current_site.processes.group_process
+      @new = find_new
     end
 
     def index
-      @issues = current_site.issues
-      @issue = find_issue
-      @pages = find_issue_news.page(params[:page])
+      @news = find_participation_news.page(params[:page])
     end
 
     private
@@ -26,20 +24,16 @@ module GobiertoParticipation
       end
     end
 
-    def find_issue
-      current_site.issues.find_by_slug!(params[:issue_id])
+    def find_participation_news
+      ::GobiertoCms::Page.pages_in_collections_and_container_type(current_site, "GobiertoParticipation").sorted
     end
 
-    def find_issue_news
-      @issue.news
-    end
-
-    def find_page
+    def find_new
       pages_scope.find_by_slug!(params[:id])
     end
 
     def pages_scope
-      valid_preview_token? ? current_site.pages.draft : current_site.pages.active
+      valid_preview_token? ? find_participation_news.draft : find_participation_news.active
     end
   end
 end

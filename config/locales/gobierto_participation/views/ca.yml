@@ -108,6 +108,34 @@ ca:
       flag:
         report: Informar
         reported: Informada
+    participation_events:
+      event:
+        add_to_calendar: Afegir al meu calendari
+        download: Baixeu les dades
+        follow_event: Seguir aquest esdeveniment
+        neighbors_count_html:
+          one: "<strong>%{neighbors} veïn</strong> assistirà"
+          other: "<strong>%{neighbors} veïns</strong> assistiran"
+          zero: Cap veí assistirà
+      event_teaser:
+        add_to_calendar: Afegir al meu calendari
+        agenda_of: 'Agenda d'':'
+        neighbors_count_html:
+          one: "<strong>%{neighbors} veïn</strong> assistirà"
+          other: "<strong>%{neighbors} veïns</strong> assistiran"
+          zero: Cap veí assistirà
+        want_to_attend: Vull assistir
+      show:
+        from_to: "%{starts} al %{ends}"
+    participation_pages:
+      index:
+        filter: Filtrar
+        title: Notícies
+      show:
+        documents: Documentos
+        filter: Filtrar por grupo
+        published_at: Publicado el %{date} por el %{site}
+        title: Noticias
     process_pages:
       index:
         filter: Filter by theme
@@ -165,3 +193,20 @@ ca:
         past_stage: Fase finalitzada
         upcoming_stage: Fase pendent d'inici
         view_stage: Acceder a aquesta fase
+    welcome:
+      index:
+        intro: Coneix els mecanismes de participació que t'ofereix %{location_name}
+        intro_p1: "¿Votar cada quatre anys? Implica't en el dia a dia."
+      participation_latest_info:
+        agenda: Agenda
+        more_news: Veure més notícies
+        no_events: No hi ha esdeveniments relacionats
+        no_news: No hi ha notícies relacionades
+        show_more_events: Veure més esdeveniments
+        show_more_updates: Veure més actualitzacions
+        the_last: L'últim
+        up_to_date: "%{location_name} al dia"
+      participation_themes_list_a:
+        intro: Aporta els teus millors idees per millorar% {location_name} i la vida
+          de tots els que residim aquí.
+        issues: Temes

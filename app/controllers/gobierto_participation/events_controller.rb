@@ -4,6 +4,8 @@ module GobiertoParticipation
     def index
       set_container
       set_events
+
+      @calendar_events = @container.events
     end
 
     def show

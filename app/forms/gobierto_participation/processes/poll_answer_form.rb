@@ -39,7 +39,7 @@ module GobiertoParticipation
           PollAnswer.create!(answers_attributes)
         end
         true
-      rescue
+      rescue ActiveRecord::Rollback
         false
       end
 

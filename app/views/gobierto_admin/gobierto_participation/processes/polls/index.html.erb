@@ -53,11 +53,9 @@
         <%= l(poll.ends_at, format: '%e %b %y') %>
       </td>
       <td>
-        <%= todo_link_to do %>
-          <% link_to '#', target: '_blank', class: 'view_item' do %>
-            <i class='fa fa-eye'></i>
-            <%= t('.view_poll') %>
-          <% end %>
+        <%= link_to gobierto_participation_process_poll_preview_url(current_process, poll, host: current_site.domain), target: '_blank', class: 'view_item' do %>
+          <i class='fa fa-eye'></i>
+          <%= t('.view_poll') %>
         <% end %>
       </td>
     </tr>

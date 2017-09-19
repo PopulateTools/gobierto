@@ -7,7 +7,7 @@ module GobiertoParticipation
       include ::PreviewTokenHelper
 
       def new
-        if current_poll.answerable_by?(current_user)
+        if !current_poll.has_answers_from?(current_user)
           @poll_answer_form = PollAnswerForm.new(poll: current_poll)
           render :new, layout: 'gobierto_participation/layouts/application_simple'
         else

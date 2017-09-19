@@ -120,6 +120,25 @@ en:
         published_at: Posted on %{date} by %{site}
         title: News
     processes:
+      poll_answers:
+        new:
+          already_answered: You have already participated in this poll
+          error_saving_poll: An error occured and we couldn't save your answers :(
+          next_question: Next question
+          page_counter: "%{current} out of %{total}"
+          share_message: If you find it interesting that other people contribute with
+            their opinions, we thank you for sharing
+          submit: Send
+          thanks_for_answering: Great, thanks for replying!
+        poll_question:
+          multiple_choice_msg: You can choose several options
+      polls:
+        index:
+          polls: Polls
+        theme_teaser_question:
+          already_participated: You have already participated in this poll
+          participate: Participate in this poll
+          participate_until: Participate until %{date}
       show:
         about: About this process
         appointments: Face-to-face appointments

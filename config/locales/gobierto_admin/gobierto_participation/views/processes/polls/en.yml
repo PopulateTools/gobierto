@@ -13,7 +13,7 @@ en:
             add_new_answer: Add new answer
             available_answers: Available answers
           create:
-            success: Poll created successfully
+            success_html: Poll created successfully. <a href="%{link}">See it</a>.
           form:
             placeholders:
               description: ex. The objective of this poll is ...
@@ -41,4 +41,4 @@ en:
             poll_questions: Questions from this poll
           question_not_translated: Question not translated to current language
           update:
-            success: Poll updated successfully
+            success_html: Poll has been updated. <a href="%{link}">See it</a>.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency 'gobierto_participation'
 
 module GobiertoParticipation
@@ -26,6 +28,14 @@ module GobiertoParticipation
 
     def fixed_answer?
       !open_answer?
+    end
+
+    def single_choice?
+      answer_type == PollQuestion.answer_types[:single_choice]
+    end
+
+    def multiple_choice?
+      answer_type == PollQuestion.answer_types[:multiple_choice]
     end
 
     private

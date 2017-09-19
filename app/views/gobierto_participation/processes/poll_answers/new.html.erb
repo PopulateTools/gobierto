@@ -1,0 +1,62 @@
+<%= form_for(@poll_answer_form, as: :poll, method: :post, url: gobierto_participation_process_poll_answers_path(current_process.slug, @poll_answer_form.poll), remote: true) do |fb| %>
+  <div class='modal modal_poll'>
+    <div class='poll content_block'>
+
+      <%= link_to 'x', gobierto_participation_process_polls_path(current_process.slug), class: 'mfp-close' %>
+
+      <div class='poll_title'>
+        <h1><%= @poll_answer_form.poll_title %></h1>
+      </div>
+
+      <%= fb.fields_for :questions do |question_fb| %>
+        <%= render 'poll_question', question: question_fb.object, question_fb: question_fb %>
+      <% end %>
+
+      <div class='poll_content' style='display: none;' data-behavior='share_poll_page'>
+        <h2><%= t('.thanks_for_answering') %></h2>
+        <div class='poll_options'>
+
+          <p><%= t('.share_message') %>:</p>
+
+          <div class='social_links_container' data-share>
+            <a href='#' class='social_share twitter' data-share-network='twitter' data-track-event='Social Share|Click Twitter|Header'><i class='fa fa-twitter'></i></a>
+            <a href='#' class='social_share facebook' data-share-network='facebook' data-track-event='Social Share|Click Facebook|Header'><i class='fa fa-facebook'></i></a>
+            <a href='#' class='social_share whatsapp' data-share-network='whatsapp' data-track-event='Social Share|Click Whatsapp|Header'><i class='fa fa-whatsapp'></i></a>
+            <a href='#' class='social_share telegram' data-share-network='telegram' data-track-event='Social Share|Click telegram|Header'><i class='fa fa-telegram'></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class='poll_content' style='display: none;' data-behavior='error_saving_poll'>
+        <p><%= t('.error_saving_poll') %></p>
+      </div>
+
+      <div class='poll_progress_map'>
+        <ul>
+          <li class='active'><span></span></li>
+          <% @poll_answer_form.questions_count.times do %>
+            <li><span></span></li>
+          <% end %>
+        </ul>
+        <div class='poll_page'>
+          <%= t('.page_counter', current: 1, total: @poll_answer_form.questions_count + 1) %>
+        </div>
+      </div>
+
+      <div class='poll_actions'>
+
+        <% submit_button_text =  @poll_answer_form.questions_count == 1 ? t('.submit') : t('.next_question') %>
+        <%= fb.submit submit_button_text, class: 'button submit next_question', data: { behavior: 'next_question' } %>
+
+      </div>
+
+    </div>
+  </div>
+
+<% end %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoParticipation.process_polls_controller.show();
+  <% end %>
+<% end %>

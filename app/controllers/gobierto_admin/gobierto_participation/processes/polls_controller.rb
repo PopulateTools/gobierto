@@ -6,7 +6,7 @@ module GobiertoAdmin
         before_action { module_enabled!(current_site,  'GobiertoParticipation') }
         before_action { module_allowed!(current_admin, 'GobiertoParticipation') }
 
-        helper_method :current_process, :poll_visibility_levels
+        helper_method :current_process, :poll_visibility_levels, :gobierto_participation_process_poll_preview_url
 
         def index
           @polls = current_process.polls
@@ -31,7 +31,7 @@ module GobiertoAdmin
             track_create_poll
             redirect_to(
               edit_admin_participation_process_poll_path(current_process, @poll_form.poll),
-              notice: t('.success')
+              notice: t('.success_html', link: gobierto_participation_process_poll_preview_url(current_process, @poll_form.poll, host: current_site.domain))
             )
           else
             render :new
@@ -50,7 +50,7 @@ module GobiertoAdmin
             track_update_poll
             redirect_to(
               edit_admin_participation_process_poll_path(current_process, @poll_form.poll),
-              notice: t('.success')
+              notice: t('.success_html', link: gobierto_participation_process_poll_preview_url(current_process, @poll_form.poll, host: current_site.domain))
             )
           else
             render :edit
@@ -116,6 +116,13 @@ module GobiertoAdmin
 
         def track_update_poll
           Publishers::GobiertoParticipationPollActivity.broadcast_event('poll_updated', default_activity_params.merge(subject: @poll_form.poll))
+        end
+
+        def gobierto_participation_process_poll_preview_url(process, poll, options = {})
+          if poll.draft? || !poll.open? || poll.process.draft?
+            options.merge!(preview_token: current_admin.preview_token)
+          end
+          new_gobierto_participation_process_poll_answer_url(process.slug, poll, options)
         end
 
       end

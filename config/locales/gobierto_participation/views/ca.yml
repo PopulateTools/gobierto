@@ -138,6 +138,13 @@ ca:
           already_participated: Ja has participat en aquesta enquesta
           participate: Participa en aquesta enquesta
           participate_until: Participa fins %{date}
+      index:
+        groups: Grups de treball
+        groups_p: Consulta l'activitat de cada grup i participa.
+        ongoing_processes: Processos en marxa
+        ongoing_processes_p: Consulta i participa en processos específics.
+      process_teaser:
+        current_stage_html: "<strong>Fase actual</strong>: %{current_stage}"
       show:
         about: Sobre aquest procés
         appointments: Cites presencials

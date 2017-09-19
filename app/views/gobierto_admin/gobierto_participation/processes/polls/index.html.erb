@@ -28,12 +28,12 @@
   <% @polls.each do |poll| %>
     <tr id="<%="poll-item-#{poll.id}"%>">
       <td>
-        <%= link_to edit_admin_participation_process_poll_path(current_process, poll) do %>
+        <%= link_to edit_admin_participation_process_poll_path(current_process, poll), data: { turbolinks: false } do %>
           <i class='fa fa-edit'></i>
         <% end %>
       </td>
       <td>
-        <%= link_to poll.title, edit_admin_participation_process_poll_path(current_process, poll) %>
+        <%= link_to poll.title, edit_admin_participation_process_poll_path(current_process, poll), data: { turbolinks: false } %>
       </td>
       <td>
         <%= poll.unique_answers_count %>

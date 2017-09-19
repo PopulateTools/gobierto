@@ -2,6 +2,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
 
   var $modalStateBackup;
   var restoreModalContentFlag = false;
+  var deleteLastCreatedQuestionIdx;
 
   function ProcessPollsController() {}
 
@@ -42,6 +43,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
       removalDelay: 300,
       mainClass: 'mfp-fade',
       closeMarkup: "<button title='Close (Esc)' type='button' class='mfp-close close_poll_modal' data-behavior='cancel_save_question'>×</button>",
+      closeOnBgClick: false,
       callbacks: {
         afterClose: function() {
           if (restoreModalContentFlag) {
@@ -56,6 +58,13 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
         // but this one works)
         open: function() {
           $('.close_poll_modal').unbind('click', closeModal).click(closeModal);
+
+          // set focus on title input
+          var questionIdx = extractIndex($.magnificPopup.instance.currItem.src);
+          var closestLocale = $('#edit_question_' + questionIdx).find('.globalized_fields').find('a.selected').text().trim().toLowerCase();
+          var $titleInput = $('#poll_questions_attributes_' + questionIdx + '_title_translations_' + closestLocale);
+
+          setTimeout(function(){ $titleInput.focus() }, 60);
         }
       }
     });
@@ -78,6 +87,16 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     _addCancelEditAnswerTemplateBehaviors();
     _addDeleteAnswerTemplateBehaviors();
     _handleSortableAnswerTemplates();
+
+    if(deleteLastCreatedQuestionIdx) {  
+      var splitted = modalId.split('_');
+      var $questionSummaryWrapper = $('#question_summary_' + splitted[splitted.length - 1]);
+
+      $questionModalWrapper.remove();
+      $questionSummaryWrapper.remove();
+
+      deleteLastCreatedQuestionIdx = undefined;
+    }
 
     restoreModalContentFlag = false;
   };
@@ -114,6 +133,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
 
       createNewQuestionModal(questionIdx);
       createNewQuestionSummary($existingQuestions, questionIdx);
+      deleteLastCreatedQuestionIdx = questionIdx; // will be removed if clicking on cancel button
     });
   };
 
@@ -293,6 +313,8 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     }
     var $titleLabel = $questionSummaryWrapper.find('label');
     $titleLabel.text(questionTitle);
+
+    deleteLastCreatedQuestionIdx = undefined;
   };
 
   function _addToggleAnswerTemplatesVisibilityBehaviors() {
@@ -331,6 +353,9 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
 
     $previewAnswerWrapper.hide();
     $editAnswerWrapper.show();
+
+    // set focus on text input
+    $('#poll_questions_attributes_' + questionIdx + '_answer_templates_attributes_' + answerIdx + '_text').focus();
   };
 
   function _addConfirmEditAnswerTemplateBehaviors() {
@@ -439,6 +464,9 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     var $newAnswerTextInput = $newAnswerEditPanel.find('#new_answer_text_scaffold_input');
     $newAnswerTextInput.attr('name', generateNameForAnswerTemplateAttribute(questionIdx, newAnswerIdx, 'text'))
                        .attr('id', generateIdForAnswerTemplateAttribute(questionIdx, newAnswerIdx, 'text'));
+
+    // set focus on text input (a little timeout is needed)
+    setTimeout(function(){ $('#' + generateIdForAnswerTemplateAttribute(questionIdx, newAnswerIdx, 'text')).focus() }, 50);
 
     // set answer order input id, name and value according to Rails standard
     var $newAnswerOrderInput = $newAnswerEditPanel.find('#new_answer_order_scaffold_input');

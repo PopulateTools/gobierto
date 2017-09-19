@@ -1,0 +1,66 @@
+<div class='admin_breadcrumb'>
+  <%= link_to t('gobierto_admin.welcome.index.title'), admin_root_path %> »
+  <%= link_to t('gobierto_admin.gobierto_participation.welcome.index.title'), admin_participation_path %> »
+  <%= link_to current_process.title, edit_admin_participation_process_path(current_process) %>
+</div>
+
+<h1>
+  <%= current_process.title %>
+</h1>
+
+<%= render 'gobierto_admin/gobierto_participation/shared/navigation' %>
+
+<div class='admin_tools right'>
+  <%= link_to t('.new'), new_admin_participation_process_poll_path(current_process), class: 'button', data: { turbolinks: false } %>
+</div>
+
+<table>
+  <tr>
+    <th></th>
+    <th><%= t('.poll') %></th>
+    <th><%= t('.answers') %></th>
+    <th><%= t('.visibility') %></th>
+    <th><%= t('.start') %></th>
+    <th><%= t('.end') %></th>
+    <th></th>
+  </tr>
+
+  <% @polls.each do |poll| %>
+    <tr id="<%="poll-item-#{poll.id}"%>">
+      <td>
+        <%= link_to edit_admin_participation_process_poll_path(current_process, poll), data: { turbolinks: false } do %>
+          <i class='fa fa-edit'></i>
+        <% end %>
+      </td>
+      <td>
+        <%= link_to poll.title, edit_admin_participation_process_poll_path(current_process, poll), data: { turbolinks: false } %>
+      </td>
+      <td>
+        <%= poll.unique_answers_count %>
+      </td>
+      <td>
+        <% if poll.draft? %>
+          <i class='fa fa-lock'></i>
+        <% else %>
+          <i class='fa fa-check'></i>
+        <% end %>
+        <%= t(".visibility_level.#{poll.visibility_level}") %>
+      </td>
+      <td>
+        <%= l(poll.starts_at, format: '%e %b %y') %>
+      </td>
+      <td>
+        <%= l(poll.ends_at, format: '%e %b %y') %>
+      </td>
+      <td>
+        <%= todo_link_to do %>
+          <% link_to '#', target: '_blank', class: 'view_item' do %>
+            <i class='fa fa-eye'></i>
+            <%= t('.view_poll') %>
+          <% end %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+
+</table>

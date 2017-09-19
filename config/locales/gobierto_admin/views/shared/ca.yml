@@ -25,3 +25,4 @@ ca:
         visibility_level:
           active: Públic
           draft: Borrador
+          published: Públic

@@ -17,6 +17,7 @@ Subscribers::GobiertoCommonCollectionActivity.attach_to("activities/gobierto_com
 Subscribers::GobiertoAttachmentsAttachmentActivity.attach_to("activities/gobierto_attachments_attachments")
 Subscribers::IssueActivity.attach_to("activities/issues")
 Subscribers::GobiertoParticipationProcessActivity.attach_to("activities/gobierto_participation_processes")
+Subscribers::GobiertoParticipationPollActivity.attach_to("activities/gobierto_participation_polls")
 Subscribers::GobiertoParticipationContributionContainerActivity.attach_to("activities/gobierto_participation_contribution_containers")
 Subscribers::UserActivity.attach_to("activities/users")
 Subscribers::SiteActivity.attach_to("activities/sites")

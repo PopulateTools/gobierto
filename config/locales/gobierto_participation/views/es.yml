@@ -1,6 +1,10 @@
 ---
 es:
   gobierto_participation:
+    comments:
+      comment:
+        comments_html: "<strong>%{comments}</strong> comentarios"
+        respond: Responder
     events:
       event:
         follow_event: Seguir este evento
@@ -98,13 +102,13 @@ es:
           other: "%{count} vecinos han aportado"
         worst_ratings: Peor valoradas
     process_contributions:
-      contribution:
+      comments:
         comments_html: "<strong>%{comments}</strong> comentarios"
+      contribution:
         enchants: Me encanta
         indifferent: Me es indiferente
         like: Me gusta
         not_like: No me gusta
-        respond: Responder
         sent: enviada por %{author} el %{date}
         values_this_idea: Valora esta idea
       flag:

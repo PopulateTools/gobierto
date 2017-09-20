@@ -5,6 +5,7 @@ module GobiertoParticipation
     def show
       @contribution = find_contribution
       @process = @contribution.contribution_container.process
+      @comment_form = CommentForm.new(site_id: current_site.id)
 
       respond_to do |format|
         format.js

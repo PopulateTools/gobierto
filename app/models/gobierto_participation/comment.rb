@@ -20,5 +20,17 @@ module GobiertoParticipation
     def negative_votes
       votes.where(vote_weight: -1).size
     end
+
+    def contribution_container
+      commentable.contribution_container
+    end
+
+    def slug
+      commentable.slug
+    end
+
+    def replies
+      GobiertoParticipation::Comment.where(commentable: self)
+    end
   end
 end

@@ -19,32 +19,8 @@
             <%= t('.sent', date: l(@contribution.created_at, format: :short), author: @contribution.user.name) %>
           </div>
         </div>
-        <div class="comments_container">
-          <h3><%= t('.comments_html', comments: @contribution.comments_count) %></h3>
-          <% @contribution.comments.each do |comment| %>
-            <div class="comment">
-              <div class="comment_text">
-                <%= comment.body %>
-                <div class="meta">
-                  -
-                  <%= comment.user.name %>
-                  <span class="date"><%= l(comment.updated_at, format: :long) %></span>
-                </div>
-              </div>
-              <div class="comment_actions">
 
-                <%= render partial: 'gobierto_participation/process_contributions/comment_votes', locals: { comment: comment } %>
-
-                <div class="action"><a href=""><i class="fa fa-reply"></i><%= t('.respond') %></a></div>
-
-                <%= render partial: 'gobierto_participation/process_contributions/flag', locals: { item: comment } %>
-
-              </div>
-            </div>
-          <% end %>
-
-        </div>
-
+        <%= render partial: 'gobierto_participation/process_contributions/comments', locals: { commentable: @contribution } %>
       </div>
 
       <% if user_signed_in? %>

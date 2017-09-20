@@ -43,6 +43,14 @@ module GobiertoParticipation
       @contributions_recent ||= contribution_container.contributions.created_at_last_week
     end
 
+    def contribution
+      @contribution ||= gobierto_participation_contributions(:park)
+    end
+
+    def contribution_comments
+      @contribution_comments ||= contribution.comments
+    end
+
     def test_breadcrumb_items
       with_current_site(site) do
         visit container_path
@@ -147,6 +155,52 @@ module GobiertoParticipation
 
           within ".contributions_content" do
             assert has_content? "Parques infantiles de calidad consuelo acolchado"
+          end
+        end
+      end
+    end
+
+    def test_contribution_show
+      with_javascript do
+        with_current_site(site) do
+          visit container_path
+
+          page.find('[data-url="/processes/ciudad-deportiva/contribution_containers/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
+          assert has_content? "Carril bici hasta el Juan Carlos I"
+        end
+      end
+    end
+
+    def test_vote_contribution
+      with_javascript do
+        with_current_site(site) do
+          with_signed_in_user(user) do
+            visit container_path
+
+            page.find('[data-url="/processes/ciudad-deportiva/contribution_containers/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
+            assert has_content? "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
+            assert has_content? "It values the idea"
+            page.find("a.action_button.love").trigger("click")
+            assert has_content? "It enchants to me"
+          end
+        end
+      end
+    end
+
+    def test_contribution_commments
+      with_javascript do
+        with_current_site(site) do
+          with_signed_in_user(user) do
+            visit container_path
+
+            page.find('[data-url="/processes/ciudad-deportiva/contribution_containers/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
+            assert has_content? "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
+
+            within "div.comments_container" do
+              contribution_comments.each do |comment|
+                assert has_selector?("div.comment div")
+              end
+            end
           end
         end
       end

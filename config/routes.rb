@@ -267,6 +267,7 @@ Rails.application.routes.draw do
           resources :contributions, only: [:show], controller: "process_contributions", as: :process_contributions, path: :contributions do
             resource :vote, only: [:create, :destroy]
             resource :flag, only: [:create, :destroy]
+            resource :comment, only: [:create, :index]
           end
         end
       end

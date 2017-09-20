@@ -111,6 +111,8 @@ es:
         upcoming_stage: Fase pendiente de inicio
         view_stage: Acceder a esta fase
     subscription_button:
+      event_followed: "¡Evento seguido!"
+      follow_event: Seguir evento
       follow_issue: Seguir tema
       follow_process: Seguir proceso
       issue_followed: "¡Tema seguido!"

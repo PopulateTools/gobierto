@@ -111,7 +111,9 @@ en:
         upcoming_stage: Stage not yet started
         view_stage: Access this stage
     subscription_button:
+      event_followed: Event followed!
+      follow_event: Follow event
       follow_issue: Follow theme
       follow_process: Follow process
-      issue_followed: "¡Theme followed!"
-      process_followed: "¡Process followed!"
+      issue_followed: Theme followed!
+      process_followed: Process followed!

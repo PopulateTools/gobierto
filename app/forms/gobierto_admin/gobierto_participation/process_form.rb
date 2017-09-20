@@ -1,6 +1,7 @@
 module GobiertoAdmin
   module GobiertoParticipation
     class ProcessForm
+      
       include ActiveModel::Model
 
       attr_accessor(
@@ -24,10 +25,7 @@ module GobiertoAdmin
       delegate :information_stage?, to: :process
 
       validates :site, :title_translations, :body_translations, :slug, :process_type, presence: true
-      validates :stages, presence: true, if: :process?
       validates :process_type, inclusion: { in: ::GobiertoParticipation::Process.process_types }
-      validates_presence_of :starts, :ends, if: :process?
-      validates_absence_of  :starts, :ends, if: :group_process?
 
       def initialize(options = {})
         # Reorder attributes so site and process get assigned first
@@ -46,14 +44,6 @@ module GobiertoAdmin
 
       def title
         process.title
-      end
-
-      def starts
-        process? ? @starts : nil
-      end
-
-      def ends
-        process? ? @ends : nil
       end
 
       def visibility_level
@@ -128,11 +118,11 @@ module GobiertoAdmin
         process.stages
       end
 
+      private
+
       def process_stage_class
         ::GobiertoParticipation::ProcessStage
       end
-
-      private
 
       def build_process(args = {})
         site.processes.build(args)
@@ -190,6 +180,7 @@ module GobiertoAdmin
           errors.add(attribute, message)
         end
       end
+
     end
   end
 end

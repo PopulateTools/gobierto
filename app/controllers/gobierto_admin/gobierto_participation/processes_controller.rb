@@ -33,7 +33,7 @@ module GobiertoAdmin
           track_create_process
           redirect_to(
             edit_admin_participation_process_path(@process_form.process),
-            notice: t('.success')
+            notice: [ t('.success'), t('.add_stages') ]
           )
         else
           @issues = find_issues
@@ -99,7 +99,7 @@ module GobiertoAdmin
       end
 
       def ignored_process_attributes
-        %w( created_at updated_at site_id title body information_text_translations)
+        %w( created_at updated_at site_id title body information_text_translations )
       end
 
       def default_activity_params

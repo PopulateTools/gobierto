@@ -5,6 +5,7 @@ ca:
       processes:
         create:
           success: Procés creat correctament
+          add_stages: Ara pots afegir fases
         edit:
           title: Edita el procés
         form:

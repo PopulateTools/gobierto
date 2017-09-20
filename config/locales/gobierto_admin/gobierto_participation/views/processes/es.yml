@@ -5,6 +5,7 @@ es:
       processes:
         create:
           success: Proceso creado correctamente
+          add_stages: Ahora puedes añadir fases
         edit:
           title: Editar proceso
         form:

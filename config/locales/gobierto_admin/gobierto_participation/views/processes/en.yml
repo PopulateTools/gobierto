@@ -5,6 +5,7 @@ en:
       processes:
         create:
           success: Process was successfully created
+          add_stages: Now you can add stages
         edit:
           title: Edit process
         form:

@@ -13,6 +13,8 @@ es:
         actualizado
       gobierto_participation_issue_created: Tema creado
       gobierto_participation_issue_updated: Tema actualizado
+      gobierto_participation_poll_created: Encuesta creada
+      gobierto_participation_poll_updated: Encuesta actualizada
       gobierto_participation_process_created: Proceso / grupo creado
       gobierto_participation_process_updated: Proceso / grupo actualizado
       index:

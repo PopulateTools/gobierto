@@ -11,6 +11,8 @@ ca:
       gobierto_participation_contribution_container_updated: Grup d'aportacions actualitzat
       gobierto_participation_issue_created: Tema creat
       gobierto_participation_issue_updated: Tema actualitzat
+      gobierto_participation_poll_created: Enquesta creada
+      gobierto_participation_poll_updated: Enquesta actualitzada
       gobierto_participation_process_created: Procés / grup creat
       gobierto_participation_process_updated: Procés / grup actualitzat
       index:

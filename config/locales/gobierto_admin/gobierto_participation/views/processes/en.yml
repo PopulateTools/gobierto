@@ -12,11 +12,12 @@ en:
           edit: Edit
           edit_stage: Edit stage
           placeholders:
-            body: This committee will discuss issues related to ...
-            slug: carnival-party-commission
-            title: Carnival Party Commission
+            body: ex. This committee will discuss issues related to ...
+            slug: ex. carnival-party-commission
+            title: ex. Carnival Party Commission
           stages_and_tools: Stages and tools
         index:
+          new_process: New process / group
           title: Processes and Groups
         new:
           title: New process / group

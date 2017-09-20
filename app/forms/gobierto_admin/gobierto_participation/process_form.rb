@@ -20,6 +20,8 @@ module GobiertoAdmin
       )
 
       delegate :persisted?, to: :process
+      delegate :polls_stage?, to: :process
+      delegate :information_stage?, to: :process
 
       validates :site, :title_translations, :body_translations, :slug, :process_type, presence: true
       validates :stages, presence: true, if: :process?
@@ -63,8 +65,7 @@ module GobiertoAdmin
       end
 
       def process
-        @process = site.processes.find_by(id: id).presence || build_process(process_type: process_type)
-        @process
+        @process ||= site.processes.find_by(id: id) || build_process(process_type: process_type)
       end
 
       def process?
@@ -91,7 +92,7 @@ module GobiertoAdmin
       end
 
       def stages
-        @stages ||= process.stages || []
+        process.stages
       end
 
       def default_stages
@@ -102,26 +103,29 @@ module GobiertoAdmin
           process_stage_class.new(process: process, stage_type: type, active: false)
         end
 
-        @default_stages ||= existing_stages + placeholder_stages
+        # WARNING: order matters for presentation
+        @default_stages ||= (existing_stages + placeholder_stages).sort_by! do |stage|
+          ::GobiertoParticipation::ProcessStage.stage_types[stage.stage_type.to_sym]
+        end
       end
 
       def stages_attributes=(attributes)
-        @stages = []
-
         attributes.each do |_, stage_attributes|
-          next if stage_attributes['active'] == '0'
 
-          stage = if existing_stage = process.stages.select { |stage| stage.stage_type == stage_attributes['stage_type'] }.first
-                    update_existing_stage_from_attributes(existing_stage, stage_attributes)
-                    existing_stage
-                  else
-                    build_process_stage_from_attributes(stage_attributes)
-                  end
+          existing_stage = process.stages.detect { |stage| stage.stage_type == stage_attributes['stage_type'] }
 
-          @stages.push(stage) if stage.valid?
+          if existing_stage && stage_attributes['active'] == '0'
+            process.stages.delete(existing_stage)
+          elsif stage_attributes['active'] != '0'
+            if existing_stage
+              update_existing_stage_from_attributes(existing_stage, stage_attributes)
+            else
+              build_process_stage_from_attributes(stage_attributes)
+            end
+          end
         end
 
-        @stages
+        process.stages
       end
 
       def process_stage_class
@@ -131,11 +135,11 @@ module GobiertoAdmin
       private
 
       def build_process(args = {})
-        site.processes.new(args)
+        site.processes.build(args)
       end
 
       def update_existing_stage_from_attributes(existing_stage, stage_attributes)
-        existing_stage.update_attributes!(
+        existing_stage.assign_attributes(
           title_translations: stage_attributes['title_translations'],
           description_translations: stage_attributes['description_translations'],
           starts: stage_attributes['starts'],
@@ -144,7 +148,7 @@ module GobiertoAdmin
       end
 
       def build_process_stage_from_attributes(stage_attributes)
-        process_stage_class.new(
+        process.stages.build(
           process: process,
           title_translations: stage_attributes['title_translations'],
           description_translations: stage_attributes['description_translations'],
@@ -171,14 +175,10 @@ module GobiertoAdmin
         end
 
         if @process.valid?
-          if @process.changes.any?
-            @process.save
-          end
-
+          @process.save
           @process
         else
           promote_errors(@process.errors)
-
           false
         end
       end

@@ -14,11 +14,11 @@ module GobiertoAdmin
       end
 
       def process
-        site.processes.process.first
+        @process ||= gobierto_participation_processes(:gender_violence_process)
       end
 
       def group
-        site.processes.group_process.first
+        @group ||= gobierto_participation_processes(:green_city_group)
       end
 
       def test_update_process
@@ -39,8 +39,10 @@ module GobiertoAdmin
 
             assert has_content? "Edited process title"
 
-            assert_equal "Edited process title", process.title
-            assert_equal "Women", process.issue.name
+            process.reload
+
+            assert_equal 'Edited process title', process.title
+            assert_equal 'Women', process.issue.name
           end
         end
       end
@@ -63,8 +65,10 @@ module GobiertoAdmin
 
             assert has_content? "Edited group title"
 
-            assert_equal "Edited group title", group.title
-            assert_equal "Women", group.issue.name
+            group.reload
+
+            assert_equal 'Edited group title', group.title
+            assert_equal 'Women', group.issue.name
           end
         end
       end
@@ -74,14 +78,14 @@ module GobiertoAdmin
           with_current_site(site) do
             visit edit_admin_participation_process_path(process)
 
-            # Add Results stage
-            within "form.edit_process" do
-              find("#process_stages_attributes_4_active").set(true)
+            # Enable Polls stage
+            within 'form.edit_process' do
+              find('#process_stages_attributes_2_active').set(true)
 
-              within "#edit_stage_4" do
-                fill_in "process_stages_attributes_4_title_translations_en", with: "Results stage title"
-                fill_in "process_stages_attributes_4_starts", with: "2017-01-02"
-                fill_in "process_stages_attributes_4_ends", with: "2017-01-14"
+              within '#edit_stage_2' do
+                fill_in 'process_stages_attributes_2_title_translations_en', with: 'Polls stage title'
+                fill_in 'process_stages_attributes_2_starts', with: '2017-01-02'
+                fill_in 'process_stages_attributes_2_ends',   with: '2017-01-14'
               end
 
               click_button "Update"
@@ -91,7 +95,7 @@ module GobiertoAdmin
 
             visit admin_participation_processes_path
 
-            assert array_match %w(information meetings ideas results), process.stages.pluck(:stage_type)
+            assert array_match %w(information meetings polls ideas results), process.stages.pluck(:stage_type)
           end
         end
       end
@@ -110,7 +114,7 @@ module GobiertoAdmin
 
             visit admin_participation_processes_path
 
-            assert array_match %w(meetings ideas), process.stages.pluck(:stage_type)
+            assert array_match %w(meetings ideas results), process.stages.pluck(:stage_type)
           end
         end
       end
@@ -145,7 +149,7 @@ module GobiertoAdmin
             information_stage = process.stages.find_by(stage_type: "information")
             meetings_stage = process.stages.find_by(stage_type: "meetings")
 
-            assert array_match %w(information meetings ideas), process.stages.pluck(:stage_type)
+            assert array_match %w(information meetings ideas results), process.stages.pluck(:stage_type)
 
             assert_equal "Edited information stage title", information_stage.title
             assert_equal Date.parse("2017-07-15"), information_stage.starts

@@ -12,11 +12,12 @@ es:
           edit: Editar
           edit_stage: Editar fase
           placeholders:
-            body: En esta comisión se tratarán temas relacionados con...
-            slug: comision-de-fiestas-de-carnaval
-            title: Comisión de Fiestas de Carnaval
+            body: ej. En esta comisión se tratarán temas relacionados con...
+            slug: ej. comision-de-fiestas-de-carnaval
+            title: ej. Comisión de Fiestas de Carnaval
           stages_and_tools: Fases y herramientas
         index:
+          new_process: Nuevo proceso / grupo
           title: Procesos y Grupos
         new:
           title: Nuevo proceso / grupo

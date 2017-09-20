@@ -84,6 +84,34 @@ en:
         agenda: Agenda
         documents: Documents
         news: News
+    participation_events:
+      event:
+        add_to_calendar: Add calendar
+        download: Download data
+        follow_event: Follow this event
+        neighbors_count_html:
+          one: "<strong>%{neighbors} neighbor</strong> will attend"
+          other: "<strong>%{neighbors} neighbors</strong> will attend"
+          zero: No neighbor will attend
+      event_teaser:
+        add_to_calendar: Add calendar
+        agenda_of: 'Agenda de:'
+        neighbors_count_html:
+          one: "<strong>%{neighbors} neighbor</strong> will attend"
+          other: "<strong>%{neighbors} neighbors</strong> will attend"
+          zero: No neighbor will attend
+        want_to_attend: I want to attend
+      show:
+        from_to: "%{starts} to %{ends}"
+    participation_pages:
+      index:
+        filter: Filter
+        title: News
+      show:
+        documents: Documentos
+        filter: Filtrar por grupo
+        published_at: Publicado el %{date} por el %{site}
+        title: Noticias
     process_contribution_containers:
       show:
         all: All
@@ -114,34 +142,6 @@ en:
       flag:
         report: Report
         reported: Reported
-    participation_events:
-      event:
-        add_to_calendar: Add calendar
-        download: Download data
-        follow_event: Follow this event
-        neighbors_count_html:
-          one: "<strong>%{neighbors} neighbor</strong> will attend"
-          other: "<strong>%{neighbors} neighbors</strong> will attend"
-          zero: No neighbor will attend
-      event_teaser:
-        add_to_calendar: Add calendar
-        agenda_of: 'Agenda de:'
-        neighbors_count_html:
-          one: "<strong>%{neighbors} neighbor</strong> will attend"
-          other: "<strong>%{neighbors} neighbors</strong> will attend"
-          zero: No neighbor will attend
-        want_to_attend: I want to attend
-      show:
-        from_to: "%{starts} to %{ends}"
-    participation_pages:
-      index:
-        filter: Filter
-        title: News
-      show:
-        documents: Documentos
-        filter: Filtrar por grupo
-        published_at: Publicado el %{date} por el %{site}
-        title: Noticias
     process_pages:
       index:
         filter: Filter by theme
@@ -152,6 +152,11 @@ en:
         published_at: Posted on %{date} by %{site}
         title: News
     processes:
+      index:
+        groups: Work groups
+        groups_p: Check the activity of each group and participate.
+        ongoing_processes: Ongoing processes
+        ongoing_processes_p: Consult and participate in specific processes.
       poll_answers:
         new:
           already_answered: You have already participated in this poll
@@ -171,11 +176,6 @@ en:
           already_participated: You have already participated in this poll
           participate: Participate in this poll
           participate_until: Participate until %{date}
-      index:
-        groups: Work groups
-        groups_p: Check the activity of each group and participate.
-        ongoing_processes: Ongoing processes
-        ongoing_processes_p: Consult and participate in specific processes.
       process_teaser:
         current_stage_html: "<strong>Current stage</strong>: %{current_stage}"
       show:

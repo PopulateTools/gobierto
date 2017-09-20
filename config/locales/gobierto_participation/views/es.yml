@@ -84,6 +84,34 @@ es:
         agenda: Agenda
         documents: Documentos
         news: Noticias
+    participation_events:
+      event:
+        add_to_calendar: Añadir a mi calendario
+        download: Descargar datos
+        follow_event: Seguir este evento
+        neighbors_count_html:
+          one: "<strong>%{neighbors} vecinos</strong> asistirán"
+          other: "<strong>%{neighbors} vecinos</strong> asistirán"
+          zero: Ningún vecino asistirá
+      event_teaser:
+        add_to_calendar: Añadir a mi calendario
+        agenda_of: 'Agenda de:'
+        neighbors_count_html:
+          one: "<strong>%{neighbors} vecinos</strong> asistirán"
+          other: "<strong>%{neighbors} vecinos</strong> asistirán"
+          zero: Ningún vecino asistirá
+        want_to_attend: Quiero asistir
+      show:
+        from_to: "%{starts} al %{ends}"
+    participation_pages:
+      index:
+        filter: Filtrar
+        title: Noticias
+      show:
+        documents: Documentos
+        filter: Filtrar por grupo
+        published_at: Publicado el %{date} por el %{site}
+        title: Noticias
     process_contribution_containers:
       show:
         all: Todas
@@ -114,34 +142,6 @@ es:
       flag:
         report: Reportar
         reported: Reportada
-    participation_events:
-      event:
-        add_to_calendar: Añadir a mi calendario
-        download: Descargar datos
-        follow_event: Seguir este evento
-        neighbors_count_html:
-          one: "<strong>%{neighbors} vecinos</strong> asistirán"
-          other: "<strong>%{neighbors} vecinos</strong> asistirán"
-          zero: Ningún vecino asistirá
-      event_teaser:
-        add_to_calendar: Añadir a mi calendario
-        agenda_of: 'Agenda de:'
-        neighbors_count_html:
-          one: "<strong>%{neighbors} vecinos</strong> asistirán"
-          other: "<strong>%{neighbors} vecinos</strong> asistirán"
-          zero: Ningún vecino asistirá
-        want_to_attend: Quiero asistir
-      show:
-        from_to: "%{starts} al %{ends}"
-    participation_pages:
-      index:
-        filter: Filtrar
-        title: Noticias
-      show:
-        documents: Documentos
-        filter: Filtrar por grupo
-        published_at: Publicado el %{date} por el %{site}
-        title: Noticias
     process_pages:
       index:
         filter: Filtrar por tema
@@ -152,6 +152,11 @@ es:
         published_at: Publicado el %{date} por el %{site}
         title: Noticias
     processes:
+      index:
+        groups: Grupos de trabajo
+        groups_p: Consulta la actividad de cada grupo y participa.
+        ongoing_processes: Procesos en marcha
+        ongoing_processes_p: Consulta y participa en procesos específicos.
       poll_answers:
         new:
           already_answered: Ya has participado en esta encuesta
@@ -172,11 +177,6 @@ es:
           already_participated: Ya has participado en esta encuesta
           participate: Participa en esta encuesta
           participate_until: Participa hasta %{date}
-      index:
-        groups: Grupos de trabajo
-        groups_p: Consulta la actividad de cada grupo y participa.
-        ongoing_processes: Procesos en marcha
-        ongoing_processes_p: Consulta y participa en procesos específicos.
       process_teaser:
         current_stage_html: "<strong>Fase actual</strong>: %{current_stage}"
       show:

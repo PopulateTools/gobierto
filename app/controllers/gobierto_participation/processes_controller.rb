@@ -3,7 +3,7 @@
 module GobiertoParticipation
   class ProcessesController < GobiertoParticipation::ApplicationController
     def index
-      @processes = current_site.processes.open
+      @processes = current_site.processes.process.open
       @groups = current_site.processes.group_process
     end
 

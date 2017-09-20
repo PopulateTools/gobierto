@@ -130,7 +130,7 @@ this.GobiertoParticipation.ProcessPollsController = (function() {
         showPollContentItem($nextQuestion);
 
         if (nextQuestionIndex == $questions.length - 1) {
-          $submitInput.val("Submit");
+          $submitInput.val(I18n.t('gobierto_participation.processes.poll_answers.new.submit'));
         }
 
         refreshPageCounter();

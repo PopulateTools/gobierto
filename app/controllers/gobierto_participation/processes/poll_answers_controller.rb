@@ -4,7 +4,10 @@ module GobiertoParticipation
   module Processes
     class PollAnswersController < BaseController
 
-      include ::PreviewTokenHelper
+      include User::VerificationHelper
+      
+      before_action :authenticate_user!
+      before_action { verify_user_in!(current_site) }
 
       def new
         if !current_poll.has_answers_from?(current_user)
@@ -18,11 +21,9 @@ module GobiertoParticipation
         end
       end
 
+      # PSEUDO-BUG: if both admin session and user session exist in different browser tabs, when admin clicks
+      # on preview link, it can happen that if he submit poll, it will be submitted with the user session
       def create
-        # PSEUDO-BUG: if both admin session and user session exist in different browser tabs, when admin clicks
-        # on preview link, it can happen that if he submit poll, it will be submitted with the user session
-        redirect_to(action: 'new') unless user_signed_in?
-
         @poll_answer_form = PollAnswerForm.new(poll_answers_params.merge(user: current_user, poll: current_poll))
 
         if @poll_answer_form.save

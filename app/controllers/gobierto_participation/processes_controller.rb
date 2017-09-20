@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module GobiertoParticipation
   class ProcessesController < GobiertoParticipation::ApplicationController
-
     def index
       @processes = current_site.processes.open
       @groups = current_site.processes.group_process
@@ -8,9 +9,9 @@ module GobiertoParticipation
 
     def show
       @process = GobiertoParticipation::Process.find_by!(slug: params[:id])
-      @process_news   = find_process_news
+      @process_news = find_process_news
       @process_events = find_process_events
-      @activities     = [] # TODO: implementation not yet defined
+      @activities = [] # TODO: implementation not yet defined
       @process_stages = @process.stages
     end
 
@@ -29,6 +30,5 @@ module GobiertoParticipation
     def find_process_events
       @process.extend_events
     end
-
   end
 end

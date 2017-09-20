@@ -17,9 +17,9 @@
       </div>
 
       <div class="pure-u-1 pure-u-md-2-3 groups">
-        <div class="pure-g three_by_three">
+        <div class="pure-g two_by_two">
           <% @processes.each do |process| %>
-            <%= render 'process_teaser', process: process, meta: false %>
+            <%= render 'process_teaser', process: process %>
           <% end %>
         </div>
       </div>
@@ -38,7 +38,7 @@
       <div class="pure-u-1 pure-u-md-2-3 groups">
         <div class="pure-g three_by_three">
           <% @groups.each do |group| %>
-            <%= render 'group_teaser', group: group, meta: true %>
+            <%= render 'group_teaser', group: group %>
           <% end %>
         </div>
       </div>

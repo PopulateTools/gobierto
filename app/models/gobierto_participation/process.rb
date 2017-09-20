@@ -84,7 +84,7 @@ module GobiertoParticipation
 
     def current_stage
       if open?
-        process_stages = stages.where("starts >= ? AND ends <= ?", Time.zone.now, Time.zone.now)
+        process_stages = stages.where("starts <= ? AND ends >= ?", Date.current, Date.current)
         process_stages.first.to_s
       end
     end

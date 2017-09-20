@@ -2,7 +2,7 @@
   <%= link_to gobierto_participation_process_path(group.slug), class:"content_block light" do %>
     <h3><%= group.title %></h3>
     <p><%= group.body %></p>
-    <% if meta %>
+    <% pending do %>
       <div class="meta right">
         <div class="ib"><i class="fa fa-comment"></i> 30</div>
         <div class="ib"><i class="fa fa-users"></i> 50</div>

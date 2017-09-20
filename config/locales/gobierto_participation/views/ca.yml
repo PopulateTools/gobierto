@@ -108,3 +108,8 @@ ca:
         past_stage: Fase finalitzada
         upcoming_stage: Fase pendent d'inici
         view_stage: Acceder a aquesta fase
+    subscription_button:
+      follow_issue: Seguir tema
+      follow_process: Segueix el procés
+      issue_followed: "¡Tema seguit!"
+      process_followed: "¡Procés seguit!"

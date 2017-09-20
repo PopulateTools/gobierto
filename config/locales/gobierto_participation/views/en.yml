@@ -110,3 +110,8 @@ en:
         past_stage: Stage has ended
         upcoming_stage: Stage not yet started
         view_stage: Access this stage
+    subscription_button:
+      follow_issue: Follow theme
+      follow_process: Follow process
+      issue_followed: "¡Theme followed!"
+      process_followed: "¡Process followed!"

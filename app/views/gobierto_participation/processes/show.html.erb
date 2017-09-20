@@ -12,6 +12,10 @@
   <% end %>
 <% end %>
 
+<% content_for :follow_button do %>
+  <%= render 'gobierto_participation/subscription_button', subscribable: @process %>
+<% end %>
+
 <div class="gradient-bg">
   <div class="column">
     <div class="pure-g agenda processes_home two_by_two">

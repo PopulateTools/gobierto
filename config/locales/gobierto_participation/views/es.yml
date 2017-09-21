@@ -95,11 +95,15 @@ es:
           other: "<strong>%{neighbors} vecinos</strong> asistirán"
           zero: Ningún vecino asistirá
         want_to_attend: Quiero asistir
+      index:
+        all_events: Ver todos los eventos
+        events: Eventos
       show:
         from_to: "%{starts} al %{ends}"
     participation_pages:
       index:
         filter: Filtrar
+        news: Noticias
         title: Noticias
       show:
         documents: Documentos

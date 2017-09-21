@@ -1,6 +1,6 @@
 <% content_for :breadcrumb_current_item do %>
   <h1>
-    <%= link_to "Noticias", gobierto_participation_participation_pages_path %>
+    <%= link_to t('.news'), gobierto_participation_participation_pages_path %>
   </h1>
 <% end %>
 
@@ -11,11 +11,6 @@
         <div class='content_side'>
           <h2 class='with_separator'>
             <%= t('.title') %>
-
-            <% if params['from'] == 'participation_group' %>
-              de Pacto social por el fin de la violencia de la género
-              <%# link_to 'Pacto social por el fin de la violencia de la género', 'participation_group' %>
-            <% end %>
           </h2>
 
           <% if params['from'] == 'participation_group' %>

@@ -102,6 +102,7 @@ es:
         from_to: "%{starts} al %{ends}"
     participation_pages:
       index:
+        all_pages: Ver todas las páginas
         filter: Filtrar
         news: Noticias
         title: Noticias

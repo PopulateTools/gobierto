@@ -142,11 +142,11 @@ es:
         intro_p1: "¿Votar cada cuatro años? Implícate en el día a día."
       participation_latest_info:
         agenda: Agenda
-        more_news: More news
-        no_events: There are no related events
+        more_news: Ver más noticias
+        no_events: No hay eventos relacionados
         no_news: No hay noticias relacionadas
-        show_more_events: show more events
-        show_more_updates: Show more updates
+        show_more_events: Ver más eventos
+        show_more_updates: Ver más actualizaciones
         the_last: Lo último
         up_to_date: "%{location_name} al día"
       participation_themes_list_a:

@@ -8,14 +8,14 @@ module GobiertoParticipation
     helper_method :current_process
 
     def index
-      @processes = current_site.processes.process.open
+      @processes = current_site.processes.process
       @groups = current_site.processes.group_process
     end
 
     def show
-      @process_news   = find_process_news
+      @process_news = find_process_news
       @process_events = find_process_events
-      @activities     = [] # TODO: implementation not yet defined
+      @activities = [] # TODO: implementation not yet defined
       @process_stages = current_process.stages
     end
 
@@ -31,6 +31,16 @@ module GobiertoParticipation
 
     def find_process_events
       current_process.extend_events
+    end
+
+    def current_process
+      @current_process ||= begin
+        params[:id] ? processes_scope.find_by_slug!(params[:id]) : nil
+      end
+    end
+
+    def processes_scope
+      valid_preview_token? ? current_site.processes : current_site.processes.active
     end
   end
 end

@@ -101,11 +101,16 @@ es:
           other: "<strong>%{neighbors} vecinos</strong> asistirán"
           zero: Ningún vecino asistirá
         want_to_attend: Quiero asistir
+      index:
+        all_events: Ver todos los eventos
+        events: Eventos
       show:
         from_to: "%{starts} al %{ends}"
     participation_pages:
       index:
+        all_pages: Ver todas las páginas
         filter: Filtrar
+        news: Noticias
         title: Noticias
       show:
         documents: Documentos
@@ -205,11 +210,11 @@ es:
         intro_p1: "¿Votar cada cuatro años? Implícate en el día a día."
       participation_latest_info:
         agenda: Agenda
-        more_news: More news
-        no_events: There are no related events
+        more_news: Ver más noticias
+        no_events: No hay eventos relacionados
         no_news: No hay noticias relacionadas
-        show_more_events: show more events
-        show_more_updates: Show more updates
+        show_more_events: Ver más eventos
+        show_more_updates: Ver más actualizaciones
         the_last: Lo último
         up_to_date: "%{location_name} al día"
       participation_themes_list_a:

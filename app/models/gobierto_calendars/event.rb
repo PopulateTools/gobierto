@@ -64,12 +64,12 @@ module GobiertoCalendars
     enum state: { pending: 0, published: 1 }
 
     def self.events_in_collections_and_container_type(site, container_type)
-      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCalendars::Event", container_type: container_type).map(&:item_id)
+      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCalendars::Event", container_type: container_type).pluck(:item_id)
       where(id: ids, site: site)
     end
 
     def self.events_in_collections_and_container(site, container)
-      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCalendars::Event", container: container).map(&:item_id)
+      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCalendars::Event", container: container).pluck(:item_id)
       where(id: ids, site: site)
     end
 

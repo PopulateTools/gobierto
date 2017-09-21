@@ -11,10 +11,18 @@ module GobiertoParticipation
     end
 
     def index
+      @issues = current_site.issues.alphabetically_sorted
+
+      @issue = find_issue if params[:issue_id]
+
       @news = find_participation_news.page(params[:page])
     end
 
     private
+
+    def find_issue
+      current_site.issues.find_by_slug!(params[:issue_id])
+    end
 
     # Load page by ID is necessary to keep the search results page unified and simple
     def find_page_by_id_and_redirect

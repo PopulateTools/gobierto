@@ -99,17 +99,22 @@ ca:
           other: "<strong>%{neighbors} veïns</strong> assistiran"
           zero: Cap veí assistirà
         want_to_attend: Vull assistir
+      index:
+        all_events: Veure tots els esdeveniments
+        events: Esdeveniments
       show:
         from_to: "%{starts} al %{ends}"
     participation_pages:
       index:
+        all_pages: Veure totes les pàgines
         filter: Filtrar
+        news: Notícies
         title: Notícies
       show:
         documents: Documentos
         filter: Filtrar por grupo
         published_at: Publicado el %{date} por el %{site}
-        title: Noticias
+        title: Notícies
     process_contribution_containers:
       show:
         all: Tots

@@ -101,11 +101,16 @@ en:
           other: "<strong>%{neighbors} neighbors</strong> will attend"
           zero: No neighbor will attend
         want_to_attend: I want to attend
+      index:
+        all_events: View all events
+        events: events
       show:
         from_to: "%{starts} to %{ends}"
     participation_pages:
       index:
+        all_pages: Show all pages
         filter: Filter
+        news: News
         title: News
       show:
         documents: Documentos

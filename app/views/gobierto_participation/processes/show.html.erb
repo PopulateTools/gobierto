@@ -12,8 +12,10 @@
   <% end %>
 <% end %>
 
-<% content_for :follow_button do %>
-  <%= render 'gobierto_participation/subscription_button', subscribable: @process %>
+<% if user_signed_in? %>
+  <% content_for :follow_button do %>
+    <%= render 'gobierto_participation/subscription_button', subscribable: @process %>
+  <% end %>
 <% end %>
 
 <div class="gradient-bg">

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Subscribers
   class GobiertoCmsPageActivity < ::Subscribers::Base
     def page_created(event)

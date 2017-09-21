@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Subscribers
   class GobiertoPeopleActivity < ::Subscribers::Base
     def updated(event)

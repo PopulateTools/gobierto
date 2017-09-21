@@ -1,0 +1,6 @@
+---
+ca:
+  concerns:
+    gobierto_participation:
+      process_stages_helper:
+        stage_not_active: Sembla que aquesta fase del Procés ja no està activa

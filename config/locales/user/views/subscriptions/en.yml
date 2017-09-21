@@ -10,6 +10,7 @@ en:
           gobierto_budget_consultations: Budgets consultations
           gobierto_budgets: Budgets
           gobierto_indicators: Indicators
+          gobierto_participation: Participation
           gobierto_people: People
         notification_frequency:
           daily: Daily digest
@@ -19,6 +20,7 @@ en:
           submit: Save
           weekly: Weekly digest
         people: People
+        process: Participation
         submit: Save
         title: Your alerts
         whole_site: Whole site

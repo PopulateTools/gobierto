@@ -5,6 +5,7 @@ class User::SubscriptionsController < User::BaseController
     @user_notification_frequencies = get_user_notification_frequencies
     @user_notification_modules = get_user_notification_modules
     @user_notification_gobierto_people_people = get_user_notification_gobierto_people_people
+    @user_notification_gobierto_participation_process = get_user_notification_gobierto_participation_process
     @user_notification_gobierto_budget_consultations_consultations = get_user_notification_gobierto_budget_consultations_consultations
     @user_subscription_preferences_form = User::SubscriptionPreferencesForm.new(
       user: current_user,
@@ -12,6 +13,7 @@ class User::SubscriptionsController < User::BaseController
       notification_frequency: current_user.notification_frequency,
       site_to_subscribe: get_current_user_subsciption_to_site,
       modules: get_current_user_subscribed_modules,
+      gobierto_participation_process: get_current_user_subscribed_gobierto_participation_process,
       gobierto_people_people: get_current_user_subscribed_gobierto_people_people,
       gobierto_budget_consultations_consultations: get_current_user_subscribed_gobierto_budet_consultations_consultations
     )
@@ -82,6 +84,10 @@ class User::SubscriptionsController < User::BaseController
     current_site.people.active.sorted
   end
 
+  def get_user_notification_gobierto_participation_process
+    current_site.processes.open
+  end
+
   def get_current_user_subscribed_modules
     current_site.configuration.modules.select do |module_name|
       current_user.subscribed_to?(module_name.constantize, current_site)
@@ -91,6 +97,12 @@ class User::SubscriptionsController < User::BaseController
   def get_current_user_subscribed_gobierto_people_people
     get_user_notification_gobierto_people_people.select do |person|
       current_user.subscribed_to?(person, current_site)
+    end.map(&:id)
+  end
+
+  def get_current_user_subscribed_gobierto_participation_process
+    get_user_notification_gobierto_participation_process.select do |process|
+      current_user.subscribed_to?(process, current_site)
     end.map(&:id)
   end
 

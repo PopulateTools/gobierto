@@ -6,6 +6,7 @@ class User::SubscriptionPreferencesForm
     :site,
     :notification_frequency,
     :modules,
+    :gobierto_participation_process,
     :gobierto_people_people,
     :gobierto_budget_consultations_consultations,
     :site_to_subscribe
@@ -31,8 +32,9 @@ class User::SubscriptionPreferencesForm
       update_subscriptions_to_people(gobierto_people_people)
       update_subscription_to_site(site_to_subscribe)
       update_subscriptions_to_consultations(gobierto_budget_consultations_consultations)
+      update_subscriptions_to_participation(gobierto_participation_process)
 
-     @user
+      @user
     else
       promote_errors(@user.errors)
 
@@ -78,6 +80,24 @@ class User::SubscriptionPreferencesForm
 
       person = site.people.find(person_id)
       @user.unsubscribe_from!(person, site)
+    end
+  end
+
+  def update_subscriptions_to_participation(process)
+    process = Array(process)
+
+    process.each do |process_id|
+      next if process_id.blank?
+
+      process = GobiertoParticipation::Process.find(process_id)
+      @user.subscribe_to!(process, site)
+    end
+
+    (site.processes.active.pluck(:id).map(&:to_s) - process).each do |process_id|
+      next if process_id.blank?
+
+      process = site.processes.find(process_id)
+      @user.unsubscribe_from!(process, site)
     end
   end
 

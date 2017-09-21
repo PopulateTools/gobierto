@@ -2,6 +2,7 @@ module GobiertoAdmin
   module GobiertoParticipation
     class ProcessForm
       include ActiveModel::Model
+      prepend ::GobiertoCommon::Trackable
 
       attr_accessor(
         :id,
@@ -27,7 +28,13 @@ module GobiertoAdmin
       validates :stages, presence: true, if: :process?
       validates :process_type, inclusion: { in: ::GobiertoParticipation::Process.process_types }
       validates_presence_of :starts, :ends, if: :process?
-      validates_absence_of  :starts, :ends, if: :group_process?
+      validates_absence_of :starts, :ends, if: :group_process?
+
+      trackable_on :process
+
+      # notify_changed :starts
+      # notify_changed :ends
+      notify_changed :visibility_level
 
       def initialize(options = {})
         # Reorder attributes so site and process get assigned first
@@ -130,6 +137,10 @@ module GobiertoAdmin
 
       def process_stage_class
         ::GobiertoParticipation::ProcessStage
+      end
+
+      def notify?
+        process.active?
       end
 
       private

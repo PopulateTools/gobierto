@@ -16,6 +16,8 @@ module GobiertoAdmin
 
     trackable_on :issue
 
+    notify_changed :description_translations
+
     def save
       save_issue if valid?
     end

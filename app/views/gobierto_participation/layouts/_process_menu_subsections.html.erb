@@ -8,7 +8,7 @@
       </li>
       <li><%= todo_link_to { link_to t('.meetings'), '#' } %></li>
       <li>
-        <% if @process %>
+        <% if @process.polls_stage? %>
           <%= link_to t('.polls'), gobierto_participation_process_polls_path(process_id: @process.slug) %>
         <% end %>
       </li>

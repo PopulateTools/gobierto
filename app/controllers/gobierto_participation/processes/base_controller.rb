@@ -5,6 +5,7 @@ module GobiertoParticipation
     class BaseController < GobiertoParticipation::ApplicationController
 
       include ::PreviewTokenHelper
+      include ProcessStagesHelper
       
       helper_method :current_process
 

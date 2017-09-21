@@ -186,7 +186,10 @@ module GobiertoAdmin
         end
 
         if @process.valid?
-          @process.save
+          run_callbacks(:save) do
+            @process.save
+          end
+
           @process
         else
           promote_errors(@process.errors)

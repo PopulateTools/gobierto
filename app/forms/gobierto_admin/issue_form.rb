@@ -50,7 +50,9 @@ module GobiertoAdmin
       end
 
       if @issue.valid?
-        @issue.save
+        run_callbacks(:save) do
+          @issue.save
+        end
 
         @issue
       else

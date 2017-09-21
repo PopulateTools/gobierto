@@ -2,6 +2,7 @@
 es:
   gobierto_participation:
     events:
+      gobierto_participation_process_published: 'Actualitzación del proceso: %{subject_name}'
       event:
         follow_event: Seguir este evento
         from_to: "%{starts} al %{ends}"

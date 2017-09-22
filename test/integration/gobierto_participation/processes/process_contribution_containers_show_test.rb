@@ -65,14 +65,22 @@ module GobiertoParticipation
 
     def test_menu_subsections
       with_current_site(site) do
-        visit container_path
+        processes.each do |process|
+          visit process_path(process)
 
-        within "menu.sub_sections" do
-          assert has_link? "Information"
-          assert has_link? "Meetings"
-          assert has_link? "Polls"
-          assert has_link? "Contributions"
-          assert has_link? "Results"
+          within 'menu.sub_sections' do
+            assert has_link? 'Information'
+            assert has_link? 'Meetings'
+
+            if process.polls_stage?
+              assert has_link? 'Polls'
+            else
+              refute has_link? 'Polls'
+            end
+
+            assert has_link? 'Contributions'
+            assert has_link? 'Results'
+          end
         end
       end
     end

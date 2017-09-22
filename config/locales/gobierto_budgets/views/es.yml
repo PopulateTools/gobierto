@@ -280,6 +280,51 @@ es:
         top_income_value: Cantidad
         total_expenses: Gasto total
         visualize: Visualiza los gastos por habitante o el total
+    budgets_elaboration:
+      index:
+        at_a_glance: Evolución del gasto y comparación
+        at_years_end: "* a cierre del %{year}"
+        by_custom_category: por área
+        by_economic: en qué se gasta
+        by_functional: para qué
+        category_percentage: Porcentaje
+        category_value: Cantidad
+        context: Contexto
+        data_of_year: "* datos del %{year}"
+        debt: Deuda
+        description: El equipo de gobierno publica el borrador del presupuesto del
+          próximo ejercicio para debatir en abierto con oposición y vecinos. Entre
+          todos podemos elaborar el presupuesto que más conviene a la ciudad.
+        diff_previous_year: Cambio vs. Ejercicio actual
+        executed: Ejecución
+        executed_percent: "%{percentage}% de lo presupuestado"
+        executed_percent_other_year_html: En %{year} fue un %{link}
+        executed_tooltip: La ejecución es la cantidad que finalmente se ha gastado
+          sobre lo presupuestado inicialmente.
+        expenses_per_inhabitant: Gasto por habitante
+        explore_the_detail: Explora el detalle
+        header: Elaboración del presupuesto
+        in_total: En total
+        inhabitants: Habitantes
+        last_update: Datos actualizlados
+        level_2_category: Categoría nivel 2
+        level_3_category: Categoría nivel 3
+        main_budget_levels_timeline: Compara gastos e ingresos año por año
+        main_budget_lines: Los principales ingresos y gastos de tu ayuntamiento
+        main_budget_lines_expense: Gastos
+        main_budget_lines_income: Ingresos
+        metric_boxes_data: Los datos
+        metric_boxes_data_description: Así cambiará el presupuesto de cara al próximo
+          ejercicio
+        not_available_short: No disp.
+        note_about_the_data: Nota sobre los datos
+        note_about_the_data_title: La base de datos que utilizamos no incluye datos
+          para el 100% de los municipios, por lo que las medias están calculadas solo
+          con los datos que existen (que son la gran mayoría). Más información en
+          nuestras preguntas frecuentes
+        per_person: Por habitante
+        total_expenses: Gasto total
+        visualize: Visualiza los gastos por habitante o el total
     budgets_execution:
       execution_table:
         deviation: Desviación
@@ -374,6 +419,7 @@ es:
         budgets: Presupuestos
       menu_subsections:
         budget: Presupuesto
+        elaboration: Elaboración
         execution: Ejecución
         guide: Guía
         summary: Resumen

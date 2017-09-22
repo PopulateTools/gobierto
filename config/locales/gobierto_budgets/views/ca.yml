@@ -274,6 +274,50 @@ ca:
         top_income_value: Quantitat
         total_expenses: Despesa total
         visualize: Visualitza les despeses per habitant o el total
+    budgets_elaboration:
+      index:
+        at_a_glance: Evolució de la despesa i comparació
+        at_years_end: "* a final del %{year}"
+        by_custom_category: per àrea
+        by_economic: en què es gasta
+        by_functional: per a què
+        category_percentage: Percentatge
+        category_value: Quantitat
+        context: Contexte
+        data_of_year: "* dades del %{year}"
+        debt: Deute
+        description: L'equip de govern publica el esborrany del pressupost del pròxim
+          exercici per a debatir en overt amb l'oposició i els veins. Entre tots podem
+          elaborar el pressupost que més convinga a la ciutat.
+        diff_previous_year: Canvi vs. Exercici actual
+        executed: Execució
+        executed_percent: "%{percentage}% del pressupost"
+        executed_percent_other_year_html: En %{year} va ser un %{link}
+        executed_tooltip: L'execució és la quantitat que finalment s'ha gastat sobre
+          el pressupostat inicialment.
+        expenses_per_inhabitant: Despesa per habitant
+        explore_the_detail: Explora el detall
+        header: Elaboració del pressupost
+        in_total: En total
+        inhabitants: Habitants
+        last_update: Dades actualitzades
+        level_2_category: Categoria nivell 2
+        level_3_category: Categoria nivell 3
+        main_budget_levels_timeline: Compara despeses i ingressos any per any
+        main_budget_lines: Els principals ingressos i despeses del teu ajuntament
+        main_budget_lines_expense: Despeses
+        main_budget_lines_income: Ingressos
+        metric_boxes_data: Les dades
+        metric_boxes_data_description: Així canviarà el pressupost del pròxim exercici
+        not_available_short: No disp.
+        note_about_the_data: Nota sobre les dades
+        note_about_the_data_title: La base de dades que utilitzem no inclou dades
+          pel 100% dels municipis, axí que les mitjanes estàn calculades només amb
+          les dades que existeixen (que són la gran majoria). Més informació a les
+          nostres preguntes frequents
+        per_person: Per habitant
+        total_expenses: Despesa total
+        visualize: Visualitza la despesa per habitant o total
     budgets_execution:
       execution_table:
         deviation: Desviació
@@ -367,6 +411,7 @@ ca:
         budgets: Pressupostos
       menu_subsections:
         budget: Pressupost
+        elaboration: Elaboració
         execution: Execució
         guide: Guia
         summary: Resum

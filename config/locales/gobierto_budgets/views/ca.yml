@@ -281,7 +281,7 @@ ca:
         by_custom_category: per àrea
         by_economic: en què es gasta
         by_functional: per a què
-        category_percentage: Percentatge
+        category_percentage: "% s/ Total"
         category_value: Quantitat
         context: Contexte
         data_of_year: "* dades del %{year}"
@@ -289,7 +289,7 @@ ca:
         description: L'equip de govern publica el esborrany del pressupost del pròxim
           exercici per a debatir en overt amb l'oposició i els veins. Entre tots podem
           elaborar el pressupost que més convinga a la ciutat.
-        diff_previous_year: Canvi vs. Exercici actual
+        diff_previous_year: vs. %{year}
         executed: Execució
         executed_percent: "%{percentage}% del pressupost"
         executed_percent_other_year_html: En %{year} va ser un %{link}
@@ -309,6 +309,7 @@ ca:
         main_budget_lines_income: Ingressos
         metric_boxes_data: Les dades
         metric_boxes_data_description: Així canviarà el pressupost del pròxim exercici
+        next_year_proposal: Proposta pel %{year}
         not_available_short: No disp.
         note_about_the_data: Nota sobre les dades
         note_about_the_data_title: La base de dades que utilitzem no inclou dades

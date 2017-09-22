@@ -282,7 +282,7 @@ en:
         by_custom_category: per area
         by_economic: in what
         by_functional: for what
-        category_percentage: Percentage
+        category_percentage: "% of Total"
         category_value: Amount
         context: Context
         data_of_year: "* data from %{year}"
@@ -310,6 +310,7 @@ en:
         main_budget_lines_income: Income
         metric_boxes_data: Data
         metric_boxes_data_description: This is how it will be the next year
+        next_year_proposal: Proposal next %{year}
         not_available_short: Not avail.
         note_about_the_data: Note about the data
         note_about_the_data_title: The database we use doesn't include 100% of the

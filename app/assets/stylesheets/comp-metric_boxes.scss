@@ -15,6 +15,7 @@
       min-height: 100px;
       position: relative;
     }
+    
     h3 {
       color: $color_main;
       margin: 0 0 .75em 0;
@@ -64,6 +65,12 @@
     .tooltiped {
       text-decoration: underline;
       cursor: pointer;
+    }
+    .diff {
+      position: absolute;
+      bottom: .8em;
+      opacity: 0.6;
+      font-size: .75em;
     }
   }
   .metric_box:first-child {

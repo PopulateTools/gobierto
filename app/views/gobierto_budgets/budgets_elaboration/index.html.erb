@@ -80,15 +80,19 @@
 
     <div class="pure-g metric_boxes">
 
+      <div class="pure-u-1-1 metric_box">
+        <div class="highlight-proposal">
+          <%# TODO: Corregir año %>
+          <p><span>&#9632;</span><%= t('.next_year_proposal', year: @year + 1 ) %></p>
+        </div>
+      </div>
+
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
-        <div class="inner">
+        <!--  metric_box should be flexbox -->
+        <div class="inner" style="margin-left:0;">
           <h3><%= t('.expenses_per_inhabitant') %></h3>
           <div class="metric"><%= format_currency @site_stats.total_budget_per_inhabitant %></div>
-        </div>
-
-        <!-- TODO: this is the diff with the previous year -->
-        <div class="diff">
-          <div class="metric">+ 3,45%</div>
+          <div class="diff">+ 3,45% vs 2017</div>
         </div>
       </div>
 
@@ -96,13 +100,8 @@
         <div class="inner">
           <h3><%= t('.total_expenses') %></h3>
           <div class="metric"><%= format_currency @site_stats.total_budget %></div>
+          <div class="diff">+ 3,45% vs 2017</div>
         </div>
-
-        <!-- TODO: this is the diff with the previous year -->
-        <div class="diff">
-          <div class="metric">+ 3,45%</div>
-        </div>
-
       </div>
 
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
@@ -129,11 +128,6 @@
             </div>
           <% end %>
         </div>
-
-        <!-- TODO: this is the diff with the previous year -->
-        <div class="diff">
-          <div class="metric">+ 3,45%</div>
-        </div>
       </div>
 
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
@@ -145,11 +139,6 @@
               <%= t('.data_of_year', year: @site_stats.latest_available(:population, @year)[:year]) %>
             </div>
           <% end %>
-        </div>
-
-        <!-- TODO: this is the diff with the previous year -->
-        <div class="diff">
-          <div class="metric">+ 3,45%</div>
         </div>
       </div>
 
@@ -163,22 +152,20 @@
             </div>
           <% end %>
         </div>
-        <!-- TODO: this is the diff with the previous year -->
-        <div class="diff">
-          <div class="metric">+ 3,45%</div>
-        </div>
       </div>
     </div>
 
   </div>
 
   <div class="block">
-    <!-- TODO: tabs -->
-    <ul>
-      <li><%= t('.by_custom_category') %></li>
-      <li><%= t('.by_economic') %></li>
-      <li><%= t('.by_functional') %></li>
-    </ul>
+
+    <div class="pure-menu pure-menu-horizontal pure-menu-horizontal--custom">
+      <ul class="pure-menu-list">
+        <li class="pure-menu-item active"><a href="" class="pure-menu-link"><%= t('.by_custom_category') %></a></li>
+        <li class="pure-menu-item"><a href="" class="pure-menu-link"><%= t('.by_economic') %></a></li>
+        <li class="pure-menu-item"><a href="" class="pure-menu-link"><%= t('.by_functional') %></a></li>
+      </ul>
+    </div>
 
     <div class="graph" id="expense-treemap"
                        data-functional-url="<%= gobierto_budgets_budget_lines_treemap_path(@year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: 'functional', level: 2, format: :json) %>"
@@ -186,15 +173,22 @@
     </div>
 
     <table class="explore_slow">
-      <!-- TODO: this headers should be visible now -->
-      <thead class="screen-hidden">
+
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th class="highlight-proposal" colspan="4">
+            <p style="text-align:left"><span>&#9632;</span><%= t('.next_year_proposal', year: @year + 1 ) %></p>
+          </th>
+        </tr>
         <tr>
           <th><%= t('.level_2_category') %></th>
           <th><%= t('.level_3_category') %></th>
-          <th><%= t('.category_value') %></th>
-          <th><%= t('.category_percentage') %></th>
-          <th><%= t('.diff_previous_year') %></th>
-          <th></th>
+          <th class="highlight-proposal"><%= t('.category_value') %></th>
+          <th class="highlight-proposal"><%= t('.category_percentage') %></th>
+          <th class="highlight-proposal"></th>
+          <th class="highlight-proposal"><%= t('.diff_previous_year', year: @year) %></th>
         </tr>
       </thead>
 

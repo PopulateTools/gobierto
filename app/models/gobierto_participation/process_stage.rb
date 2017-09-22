@@ -36,7 +36,7 @@ module GobiertoParticipation
     end
 
     def current?
-      self == process.stages.open.order(ends: :asc).last
+      self == process.current_stage
     end
 
     def to_s

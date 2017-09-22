@@ -166,7 +166,7 @@ module GobiertoParticipation
         visit @path
 
         within ".timeline" do
-          assert_equal gender_violence_process.stages.size, all(".timeline_row").size
+          assert_equal gender_violence_process.stages.active.size, all(".timeline_row").size
         end
       end
     end

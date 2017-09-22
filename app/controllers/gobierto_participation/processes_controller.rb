@@ -11,7 +11,7 @@ module GobiertoParticipation
       @process_news   = find_process_news
       @process_events = find_process_events
       @activities     = [] # TODO: implementation not yet defined
-      @process_stages = @process.stages
+      @process_stages = @process.stages.active
     end
 
     private

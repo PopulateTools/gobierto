@@ -27,7 +27,7 @@ module GobiertoParticipation
     enum visibility_level: { draft: 0, active: 1 }
     enum process_type: { process: 0, group_process: 1 }
 
-    validates :site, :title, :body, presence: true
+    validates :site, :title, presence: true
     validates :slug, uniqueness: { scope: :site }
     validates_associated :stages
 
@@ -67,17 +67,17 @@ module GobiertoParticipation
     end
 
     def current_stage
-      if open?
-        process_stages = stages.where("starts >= ? AND ends <= ?", Time.zone.now, Time.zone.now)
-        process_stages.first.to_s
+      if stages.active.any?
+        active_and_open_stages = stages.active.open
+        active_and_open_stages.order(ends: :asc).last
       end
     end
 
     def open?
-      if stages.any?
-        Time.zone.now.between?(stages.last.starts, stages.last.ends)
+      if starts.present? && ends.present?
+        Time.zone.now.between?(starts, ends)
       else
-        false
+        true
       end
     end
 

@@ -24,7 +24,7 @@ module GobiertoAdmin
       delegate :polls_stage?, to: :process
       delegate :information_stage?, to: :process
 
-      validates :site, :title_translations, :body_translations, :process_type, presence: true
+      validates :site, :title_translations, :process_type, presence: true
       validates :process_type, inclusion: { in: ::GobiertoParticipation::Process.process_types }
 
       def initialize(options = {})

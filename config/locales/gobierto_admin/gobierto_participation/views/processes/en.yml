@@ -61,8 +61,10 @@ en:
             success: Process was successfully updated
         process_stages:
           active: Active
+          cancel: Cancel
           edit: Edit
           edit_stage: Edit stage
+          save: Save
           stages_and_tools: Stages and tools
         update:
           success: Process was successfully updated

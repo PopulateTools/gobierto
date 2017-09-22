@@ -14,7 +14,7 @@
           <% end %>
         </div>
         <div class="tools">
-          <%= link_to '<i class="fa fa-edit"></i>'.html_safe, "#edit_stage_#{stage_form.index}", title: t('.edit'), class: 'tipsit open_modal' %>
+          <%= link_to '<i class="fa fa-edit"></i>'.html_safe, "#edit_stage_#{stage_form.index}", title: t('.edit'), class: 'tipsit', data: { behavior: 'edit_stage' } %>
         </div>
       </div>
       <!-- ./ Edit popup trigger -->
@@ -72,6 +72,11 @@
             </div>
           </div>
 
+        </div>
+
+        <div class="actions right">
+          <%= button_tag t('.cancel'), class: 'light close_process_modal', data: { behavior: 'cancel_edit_stage' } %>
+          <%= button_tag t('.save'), class: 'close_process_modal' %>
         </div>
 
       </div>

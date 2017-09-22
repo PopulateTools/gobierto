@@ -33,12 +33,12 @@
           <% current_site.configuration.available_locales.each do |locale| %>
             <div class="form_item input_text" data-locale="<%= locale %>">
               <%= label_tag "process[stages_attributes][#{stage_form.index}][title_translations][#{locale}]", stage_form.object.class.human_attribute_name(:title) %>
-              <%= text_field_tag "process[stages_attributes][#{stage_form.index}][title_translations][#{locale}]", stage_form.object.title_translations && stage_form.object.title_translations[locale] %>
+              <%= text_field_tag "process[stages_attributes][#{stage_form.index}][title_translations][#{locale}]", stage_form.object.title_translations && stage_form.object.title_translations[locale], placeholder: t('.placeholders.title', locale: locale) %>
             </div>
 
             <div class="form_item input_text" data-locale="<%= locale %>">
               <%= label_tag "process[stages_attributes][#{stage_form.index}][description_translations][#{locale}]", stage_form.object.class.human_attribute_name(:description) %>
-              <%= text_area_tag "process[stages_attributes][#{stage_form.index}][description_translations][#{locale}]", stage_form.object.description_translations && stage_form.object.description_translations[locale] %>
+              <%= text_area_tag "process[stages_attributes][#{stage_form.index}][description_translations][#{locale}]", stage_form.object.description_translations && stage_form.object.description_translations[locale], placeholder: t('.placeholders.body', locale: locale) %>
             </div>
           <% end %>
 

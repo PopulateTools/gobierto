@@ -64,6 +64,9 @@ en:
           cancel: Cancel
           edit: Edit
           edit_stage: Edit stage
+          placeholders:
+            body: ex. In this stage we intend ...
+            title: ex. Main stage
           save: Save
           stages_and_tools: Stages and tools
         update:

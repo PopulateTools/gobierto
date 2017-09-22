@@ -16,6 +16,14 @@ module GobiertoParticipation
       @process ||= gobierto_participation_processes(:sport_city_process)
     end
 
+    def processes
+      @processes ||= site.processes.process.open
+    end
+
+    def process_path(process)
+      gobierto_participation_process_path(process.slug)
+    end
+
     def contribution_container
       @contribution_container ||= gobierto_participation_contribution_containers(:children_contributions)
     end
@@ -68,18 +76,18 @@ module GobiertoParticipation
         processes.each do |process|
           visit process_path(process)
 
-          within 'menu.sub_sections' do
-            assert has_link? 'Information'
-            assert has_link? 'Meetings'
+          within "menu.sub_sections" do
+            assert has_link? "Information"
+            assert has_link? "Meetings"
 
             if process.polls_stage?
-              assert has_link? 'Polls'
+              assert has_link? "Polls"
             else
-              refute has_link? 'Polls'
+              refute has_link? "Polls"
             end
 
-            assert has_link? 'Contributions'
-            assert has_link? 'Results'
+            assert has_link? "Contributions"
+            assert has_link? "Results"
           end
         end
       end
@@ -205,7 +213,7 @@ module GobiertoParticipation
             assert has_content? "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
 
             within "div.comments_container" do
-              contribution_comments.each do |comment|
+              contribution_comments.each do |_comment|
                 assert has_selector?("div.comment div")
               end
             end

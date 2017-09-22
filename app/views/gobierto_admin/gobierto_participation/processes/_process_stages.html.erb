@@ -2,7 +2,7 @@
   <h3><%= t('.stages_and_tools') %></h3>
 
   <ul class="block_list">
-    <%= process_fb.fields_for :stages, process_fb.object.default_stages do |stage_form| %>
+    <%= process_fb.fields_for :stages do |stage_form| %>
 
       <!-- Edit popup trigger -->
       <div class="list_item">

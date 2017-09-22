@@ -83,6 +83,7 @@ module GobiertoAdmin
           :header_image,
           :issue_id,
           :visibility_level,
+          :has_duration,
           title_translations: [*I18n.available_locales],
           body_translations:  [*I18n.available_locales],
           information_text_translations: [*I18n.available_locales],

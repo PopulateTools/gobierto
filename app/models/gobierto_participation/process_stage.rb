@@ -3,8 +3,6 @@ require_dependency "gobierto_participation"
 module GobiertoParticipation
   class ProcessStage < ApplicationRecord
 
-    attr_accessor(:active)
-
     belongs_to :process
 
     translates :title, :description
@@ -12,16 +10,21 @@ module GobiertoParticipation
     enum stage_type: { information: 0, meetings: 1, polls: 2, ideas: 3, results: 4 }
 
     validates :slug, uniqueness: { scope: [:process_id] }
-    validates :title, :stage_type, presence: true
+    validates :title, :starts, :ends, presence: true, if: -> { active? }
+    validates :stage_type, presence: true
     validates :stage_type, inclusion: { in: stage_types }
     validates :stage_type, uniqueness: { scope: [:process_id] }
-    validates :starts, :ends, presence: true, if: -> { process.process? }
 
     scope :sorted, -> { order(id: :desc) }
     scope :open,   -> { where('starts <= ? AND ends > ?', Time.zone.now, Time.zone.now) }
+    scope :active, -> { where(active: true) }
 
     def open?
       Time.zone.now.between?(starts, ends)
+    end
+
+    def active?
+      active
     end
 
     def past?

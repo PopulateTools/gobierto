@@ -4,19 +4,17 @@ en:
     gobierto_participation:
       processes:
         create:
-          success: Process was successfully created
           add_stages: Now you can add stages
+          success: Process was successfully created
         edit:
           title: Edit process
         form:
-          active: Active
-          edit: Edit
-          edit_stage: Edit stage
+          duration: Duration
           placeholders:
             body: ex. This committee will discuss issues related to ...
             slug: ex. carnival-party-commission
             title: ex. Carnival Party Commission
-          stages_and_tools: Stages and tools
+          set_duration: Set duration
         index:
           new_process: New process / group
           title: Processes and Groups
@@ -61,5 +59,10 @@ en:
             title: Edit process
           update:
             success: Process was successfully updated
+        process_stages:
+          active: Active
+          edit: Edit
+          edit_stage: Edit stage
+          stages_and_tools: Stages and tools
         update:
           success: Process was successfully updated

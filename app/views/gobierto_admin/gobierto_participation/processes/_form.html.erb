@@ -61,7 +61,21 @@
 
       </div>
 
-      <div class="pure-g">
+      <h3><%= t('.duration') %></h3>
+
+      <div class="form_item site-check-boxes">
+        <div class="options compact">
+          <div class="option">
+            <%= f.check_box :has_duration %>
+            <%= f.label :has_duration do %>
+              <span></span>
+              <%= t('.set_duration') %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="pure-g" style='<%= f.object.has_duration ? '' : 'display: none;' %>' data-behavior="process_datepickers">
         <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
           <div class="form_item input_text">
             <%= f.label :starts %>
@@ -126,4 +140,8 @@
     <%= render partial: 'gobierto_admin/shared/save_widget', locals: { f: f, levels: @process_visibility_levels } %>
 
   </div>
+<% end %>
+
+<%= javascript_tag do %>
+  window.GobiertoAdmin.processes_controller.form();
 <% end %>

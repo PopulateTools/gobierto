@@ -33,9 +33,7 @@ class GobiertoBudgets::BudgetsElaborationController < GobiertoBudgets::Applicati
   end
 
   def load_year
-    @year = Date.today.year
-    # TODO
-    # @year = Date.today.year + 1
+    @year = Date.today.year + 1
   end
 
 end

@@ -2,7 +2,7 @@ class GobiertoBudgets::BudgetsElaborationController < GobiertoBudgets::Applicati
   before_action :check_setting_enabled, :load_place, :load_year
 
   def index
-    @site_stats = GobiertoBudgets::SiteStats.new(site: current_site, year: @year)
+    @site_stats = GobiertoBudgets::SiteStats.new(site: current_site, year: @year - 1)
     @top_income_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, place: @place, kind: GobiertoBudgets::BudgetLine::INCOME).all
     @top_expense_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, place: @place, kind: GobiertoBudgets::BudgetLine::EXPENSE).all
     @sample_budget_lines = (@top_income_budget_lines + @top_expense_budget_lines).sample(3)

@@ -15,6 +15,7 @@ class GobiertoBudgets::BudgetsElaborationController < GobiertoBudgets::Applicati
 
     @interesting_expenses = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, level: 2, year: @year, kind: @kind, area_name: @area_name })
     @interesting_expenses_previous_year = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, level: 2, year: @year - 1, kind: @kind, area_name: @area_name })
+    @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, level: 1, year: @year, kind: @kind, area_name: @area_name })
 
     respond_to do |format|
       format.html

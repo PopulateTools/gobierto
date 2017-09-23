@@ -1,23 +1,17 @@
 class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationController
   before_action :load_place
   before_action :load_year, except: [:guide]
+  before_action :load_site_stats
 
   def index
     @kind = GobiertoBudgets::BudgetLine::INCOME
     @area_name = GobiertoBudgets::EconomicArea.area_name
     @interesting_area = GobiertoBudgets::FunctionalArea.area_name
 
-    @site_stats = GobiertoBudgets::SiteStats.new site: @site, year: @year
-
     @top_income_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, place: @site.place, kind: GobiertoBudgets::BudgetLine::INCOME).all
     @top_expense_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, place: @site.place, kind: GobiertoBudgets::BudgetLine::EXPENSE).all
     @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, level: 1, year: @year, kind: @kind, area_name: @area_name })
     @interesting_expenses = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, level: 2, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: @interesting_area })
-
-    @main_budget_lines_summary = GobiertoBudgets::SiteStats.new(site: current_site, year: @year).main_budget_lines_summary
-
-    @any_custom_income_budget_lines  = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::INCOME,  area: GobiertoBudgets::CustomArea, index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast)
-    @any_custom_expense_budget_lines = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::CustomArea, index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast)
 
     @sample_budget_lines = (@top_income_budget_lines + @top_expense_budget_lines).sample(3)
 
@@ -26,7 +20,6 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
 
   def guide
     @year = GobiertoBudgets::SearchEngineConfiguration::Year.last
-    @site_stats = GobiertoBudgets::SiteStats.new site: @site, year: @year
   end
 
   private
@@ -42,6 +35,10 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
     else
       @year = params[:year].to_i
     end
+  end
+
+  def load_site_stats
+    @site_stats = GobiertoBudgets::SiteStats.new site: @site, year: @year
   end
 
 end

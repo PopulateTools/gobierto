@@ -7,8 +7,7 @@ class GobiertoBudgets::BudgetsElaborationController < GobiertoBudgets::Applicati
     @top_income_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, place: @place, kind: GobiertoBudgets::BudgetLine::INCOME).all
     @top_expense_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, place: @place, kind: GobiertoBudgets::BudgetLine::EXPENSE).all
     @sample_budget_lines = (@top_income_budget_lines + @top_expense_budget_lines).sample(3)
-    # TODO
-    @budgets_data_updated_at = Date.today.yesterday
+    @budgets_data_updated_at = current_site.budgets_data_updated_at('forecast')
 
     @kind = params[:kind] || GobiertoBudgets::BudgetLine::EXPENSE
     @area_name = params[:area_name] || (@kind == GobiertoBudgets::BudgetLine::EXPENSE ? GobiertoBudgets::FunctionalArea.area_name : GobiertoBudgets::EconomicArea.area_name)

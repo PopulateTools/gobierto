@@ -11,9 +11,4 @@ class GobiertoBudgets::ApplicationController < ApplicationController
   before_action { module_enabled!(current_site, "GobiertoBudgets") }
 
 
-  def budgets_elaboration_active?
-    current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["budgets_elaboration"]
-  end
-  helper_method :budgets_elaboration_active?
-
 end

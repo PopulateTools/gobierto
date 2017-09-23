@@ -8,8 +8,13 @@ var VisSlider = Class.extend({
 
     var currentYear = d3.select('body').attr('data-year');
     var slideYear = currentYear;
-    var years = d3.keys(this.data[0].values);
-    var maxYear = d3.max(years);
+    var maxYear = parseInt(d3.select('body').attr('data-max-year'));
+    var years = [];
+    d3.keys(this.data[0].values).forEach(function(year){
+      year = parseInt(year);
+      if(year <= maxYear)
+        years.push(year);
+    });
     var parseYear = d3.timeParse('%Y');
     var formatYear = d3.timeFormat('%Y');
 

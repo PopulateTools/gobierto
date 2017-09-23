@@ -1,6 +1,5 @@
 class GobiertoBudgets::BudgetsElaborationController < GobiertoBudgets::ApplicationController
-  before_action :load_place
-  before_action :load_year
+  before_action :check_setting_enabled, :load_place, :load_year
 
   def index
     @site_stats = GobiertoBudgets::SiteStats.new(site: current_site, year: @year)
@@ -23,6 +22,10 @@ class GobiertoBudgets::BudgetsElaborationController < GobiertoBudgets::Applicati
   end
 
   private
+
+  def check_setting_enabled
+    render_404 unless budgets_elaboration_active?
+  end
 
   def load_place
     @place = current_site.place

@@ -101,6 +101,12 @@ class Site < ApplicationRecord
                                   end
   end
 
+  def gobierto_budgets_settings
+    @gobierto_budgets_settings ||= if configuration.gobierto_budgets_enabled?
+                                    module_settings.find_by(module_name: "GobiertoBudgets")
+                                  end
+  end
+
   def place
     @place ||= if self.municipality_id && self.location_name
                  INE::Places::Place.find self.municipality_id

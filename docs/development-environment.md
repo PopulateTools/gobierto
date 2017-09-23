@@ -6,7 +6,7 @@
 
 ### Overview
 
-* This gide assumes you are using macOS and have [Homebrew](https://brew.sh/) installed.
+* This guide assumes you are using macOS and have [Homebrew](https://brew.sh/) installed.
 * Some of these steps might be incompatible with the [Docker setup approach](development-environment-docker.md).
 * The main dependencies are:
  * *postgres*

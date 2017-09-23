@@ -1,0 +1,18 @@
+// Proposals highlight style
+
+.highlight-proposal {
+  background: $color_proposal_bg;
+  margin: .5em 0;
+
+  p {
+    color: $color_proposal;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: .5em;
+    font-size: larger;
+  }
+  span {
+    font-size: x-large;
+    margin-right: .5em;
+  }
+}

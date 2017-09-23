@@ -7,7 +7,7 @@
 <% end %>
 
 <% content_for :body_attributes do %>
-  <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}"} %>
+  <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}" data-max-year="#{Date.today.year}"} %>
 <% end %>
 
 <div class="column">
@@ -195,19 +195,6 @@
     </div>
   <% end %>
 
-  <% pending do %>
-    <div class="block">
-      <h2 class="with_description"><%= t('.budget_lines_block.title') %></h2>
-      <p class="description"><%= t('.budget_lines_block.intro') %></p>
-
-      <div class="pure-g line_boxes">
-        <% @main_budget_lines_summary.each do |budget_line_summary| %>
-          <%= render 'line_box', budget_line_summary: budget_line_summary %>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-
   <div class="block">
     <h2 class="with_description"><%= t('.most_interesting_budget_lines') %></h2>
     <p class="description"><%= t('.most_interesting_budget_lines_description') %></p>
@@ -220,8 +207,8 @@
     <table class="explore_slow">
       <thead class="screen-hidden">
         <tr>
+          <th><%= t('.level_1_category') %></th>
           <th><%= t('.level_2_category') %></th>
-          <th><%= t('.level_3_category') %></th>
           <th><%= t('.category_value') %></th>
           <th><%= t('.category_percentage') %></th>
           <th></th>

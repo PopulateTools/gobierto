@@ -6,6 +6,7 @@ en:
         examples: Examples
         expenses: Expenses
         explore_the_detail: Explore the detail
+        guide: Check the Budgets guide to learn more
         income: Income
         search: Search
         search_budget_line: Search for a specific budget line
@@ -227,8 +228,8 @@ en:
         inhabitants: Inhabitants
         last_update: Last update
         less: less
-        level_2_category: Level 2 Category
-        level_3_category: Level 3 Category
+        level_1_category: Level 1 category
+        level_2_category: Level 2 category
         main_budget_levels_legend_down: Has decreased
         main_budget_levels_legend_one: Change since last year
         main_budget_levels_legend_two: ''
@@ -275,6 +276,52 @@ en:
         top_income_value: Amount
         total_expenses: Total expenses
         visualize: Visualize expenses per inhabitant or the total
+    budgets_elaboration:
+      index:
+        at_a_glance: At a glance
+        at_years_end: "* at the end of %{year}"
+        by_custom_category: per area
+        by_economic_expense: in what
+        by_economic_income: in what
+        by_functional_expense: for what
+        category_percentage: "% of Total"
+        category_value: Amount
+        context: Context
+        data_of_year: "* data from %{year}"
+        debt: Debt
+        description: Government team publishes a draft of next year budget to discuss
+          with the opposition and the citiziens. All together we can create the best
+          budget for the city.
+        diff_previous_year: Diff vs current year
+        executed: Execution
+        executed_percent: "%{percentage}% of the budget"
+        executed_percent_other_year_html: In %{year} it was %{link}
+        executed_tooltip: The execution is the quantity that has been spent from the
+          initial budget.
+        expenses_per_inhabitant: Expense per person
+        explore_the_detail: Explore the details
+        header: Budgets elaboration
+        in_total: Total
+        inhabitants: Inhabitants
+        last_update: Data updated
+        level_1_category: Level 1 category
+        level_2_category: Level 2 category
+        main_budget_levels_timeline: Compare income and expenses year by year
+        main_budget_lines: Main income and expenses from your council
+        main_budget_lines_expense: Expense
+        main_budget_lines_income: Income
+        metric_boxes_data: Data
+        metric_boxes_data_description: This is how it will be the next year
+        next_year_proposal: Proposal next %{year}
+        no_data: There's no data for this classification
+        not_available_short: Not avail.
+        note_about_the_data: Note about the data
+        note_about_the_data_title: The database we use doesn't include 100% of the
+          municipalities, and the avegages are calculated only with the data that
+          exists (which is most of it). More information in our FAQ
+        per_person: Per inhabitant
+        total_expenses: Total expenses
+        visualize: Visualize expenses per inhabitant
     budgets_execution:
       execution_table:
         deviation: Diff
@@ -366,6 +413,7 @@ en:
         budgets: Budgets
       menu_subsections:
         budget: Budget
+        elaboration: Elaboration
         execution: Execution
         guide: Guide
         summary: Summary

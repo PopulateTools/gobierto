@@ -58,7 +58,16 @@ td.visibility_level {
   padding: .5em 0;
 }
 table.explore_slow {
+  margin-top: 50px;
   font-size: 1.2rem;
+  th {
+    text-align: right;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: small;
+    border-top: none;
+    padding: .5em 1em;
+  }
   tr.group {
     td {
       border-top: 3px solid transparentize($color_main, .85);
@@ -145,8 +154,8 @@ th.icon_col {
 
 table.block_content {
   th {
-    background: transparentize($color_main, .85);	
-    text-align: left; 
+    background: transparentize($color_main, .85);
+    text-align: left;
     text-transform: uppercase;
     color: transparentize($color_main, .5);
     border: none;
@@ -159,18 +168,18 @@ table.block_content {
   }
   tr:visible:nth-child(2n-1) {
     td {
-      background: transparentize($color_main, .95);	
+      background: transparentize($color_main, .95);
     }
   }
   tr:nth-child(2n-1) {
     td {
-      background: transparentize($color_main, .95);	
+      background: transparentize($color_main, .95);
     }
   }
   tr:hover {
     td {
-      background: transparentize($color_main, .9);	
-    }	
+      background: transparentize($color_main, .9);
+    }
   }
   tr {
     td.bg-scale--1 {

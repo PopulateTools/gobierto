@@ -1,12 +1,13 @@
 class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationController
   before_action :load_place
   before_action :load_year, except: [:guide]
-  before_action :load_site_stats
 
   def index
     @kind = GobiertoBudgets::BudgetLine::INCOME
     @area_name = GobiertoBudgets::EconomicArea.area_name
     @interesting_area = GobiertoBudgets::FunctionalArea.area_name
+
+    @site_stats = GobiertoBudgets::SiteStats.new site: @site, year: @year
 
     @top_income_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, place: @site.place, kind: GobiertoBudgets::BudgetLine::INCOME).all
     @top_expense_budget_lines = GobiertoBudgets::TopBudgetLine.limit(5).where(site: current_site, year: @year, place: @site.place, kind: GobiertoBudgets::BudgetLine::EXPENSE).all
@@ -20,6 +21,7 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
 
   def guide
     @year = GobiertoBudgets::SearchEngineConfiguration::Year.last
+    @site_stats = GobiertoBudgets::SiteStats.new site: @site, year: @year
   end
 
   private
@@ -35,10 +37,6 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
     else
       @year = params[:year].to_i
     end
-  end
-
-  def load_site_stats
-    @site_stats = GobiertoBudgets::SiteStats.new site: @site, year: @year
   end
 
 end

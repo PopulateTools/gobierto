@@ -231,8 +231,8 @@ es:
         inhabitants: Habitantes
         last_update: Última actualización
         less: menos
+        level_1_category: Categoría nivel 1
         level_2_category: Categoría nivel 2
-        level_3_category: Categoría nivel 3
         main_budget_levels_legend_down: Han bajado
         main_budget_levels_legend_one: Cambio entre este año
         main_budget_levels_legend_two: y el pasado
@@ -285,8 +285,9 @@ es:
         at_a_glance: Evolución del gasto y comparación
         at_years_end: "* a cierre del %{year}"
         by_custom_category: por área
-        by_economic: en qué se gasta
-        by_functional: para qué
+        by_economic_expense: en qué se gasta
+        by_economic_income: en qué se ingresa
+        by_functional_expense: para qué
         category_percentage: "% s/ Total"
         category_value: Importe
         context: Contexto
@@ -307,8 +308,8 @@ es:
         in_total: En total
         inhabitants: Habitantes
         last_update: Datos actualizlados
+        level_1_category: Categoría nivel 1
         level_2_category: Categoría nivel 2
-        level_3_category: Categoría nivel 3
         main_budget_levels_timeline: Compara gastos e ingresos año por año
         main_budget_lines: Los principales ingresos y gastos de tu ayuntamiento
         main_budget_lines_expense: Gastos
@@ -317,6 +318,7 @@ es:
         metric_boxes_data_description: Así cambiará el presupuesto de cara al próximo
           ejercicio
         next_year_proposal: Propuesta para el %{year}
+        no_data: No hay datos para esta clasificación
         not_available_short: No disp.
         note_about_the_data: Nota sobre los datos
         note_about_the_data_title: La base de datos que utilizamos no incluye datos

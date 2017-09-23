@@ -225,8 +225,8 @@ ca:
         inhabitants: Habitants
         last_update: Última actualització
         less: menys
+        level_1_category: Categoria nivell 1
         level_2_category: Categoria nivell 2
-        level_3_category: Categoria nivell 3
         main_budget_levels_legend_down: Han baixat
         main_budget_levels_legend_one: Canvi entre aquest any
         main_budget_levels_legend_two: i el passat
@@ -279,8 +279,9 @@ ca:
         at_a_glance: Evolució de la despesa i comparació
         at_years_end: "* a final del %{year}"
         by_custom_category: per àrea
-        by_economic: en què es gasta
-        by_functional: per a què
+        by_economic_expense: en què es gasta
+        by_economic_income: en què s'ingressa
+        by_functional_expense: per a què
         category_percentage: "% s/ Total"
         category_value: Quantitat
         context: Contexte
@@ -301,8 +302,8 @@ ca:
         in_total: En total
         inhabitants: Habitants
         last_update: Dades actualitzades
+        level_1_category: Categoria nivell 1
         level_2_category: Categoria nivell 2
-        level_3_category: Categoria nivell 3
         main_budget_levels_timeline: Compara despeses i ingressos any per any
         main_budget_lines: Els principals ingressos i despeses del teu ajuntament
         main_budget_lines_expense: Despeses
@@ -310,6 +311,7 @@ ca:
         metric_boxes_data: Les dades
         metric_boxes_data_description: Així canviarà el pressupost del pròxim exercici
         next_year_proposal: Proposta pel %{year}
+        no_data: Ni ha dades per a aquesta classificació
         not_available_short: No disp.
         note_about_the_data: Nota sobre les dades
         note_about_the_data_title: La base de dades que utilitzem no inclou dades

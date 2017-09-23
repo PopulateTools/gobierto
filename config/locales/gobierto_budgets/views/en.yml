@@ -227,8 +227,8 @@ en:
         inhabitants: Inhabitants
         last_update: Last update
         less: less
-        level_2_category: Level 2 Category
-        level_3_category: Level 3 Category
+        level_1_category: Level 1 category
+        level_2_category: Level 2 category
         main_budget_levels_legend_down: Has decreased
         main_budget_levels_legend_one: Change since last year
         main_budget_levels_legend_two: ''
@@ -280,8 +280,9 @@ en:
         at_a_glance: At a glance
         at_years_end: "* at the end of %{year}"
         by_custom_category: per area
-        by_economic: in what
-        by_functional: for what
+        by_economic_expense: in what
+        by_economic_income: in what
+        by_functional_expense: for what
         category_percentage: "% of Total"
         category_value: Amount
         context: Context
@@ -302,8 +303,8 @@ en:
         in_total: Total
         inhabitants: Inhabitants
         last_update: Data updated
-        level_2_category: Level 2 Category
-        level_3_category: Level 3 Category
+        level_1_category: Level 1 category
+        level_2_category: Level 2 category
         main_budget_levels_timeline: Compare income and expenses year by year
         main_budget_lines: Main income and expenses from your council
         main_budget_lines_expense: Expense
@@ -311,6 +312,7 @@ en:
         metric_boxes_data: Data
         metric_boxes_data_description: This is how it will be the next year
         next_year_proposal: Proposal next %{year}
+        no_data: There's no data for this classification
         not_available_short: Not avail.
         note_about_the_data: Note about the data
         note_about_the_data_title: The database we use doesn't include 100% of the

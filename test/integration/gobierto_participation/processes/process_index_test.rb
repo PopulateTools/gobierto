@@ -44,7 +44,7 @@ module GobiertoParticipation
 
         within "menu.secondary_nav" do
           assert has_link? "News"
-          assert has_link? "Agenda"
+          assert has_link? "Diary"
           assert has_link? "Documents"
           assert has_link? "Activity"
         end

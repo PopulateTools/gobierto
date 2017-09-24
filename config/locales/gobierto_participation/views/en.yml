@@ -6,7 +6,7 @@ en:
         follow_event: Follow this event
         from_to: "%{starts} to %{ends}"
       event_teaser:
-        agenda_for_container: Agenda for
+        agenda_for_container: Diary for
       gobierto_participation_contribution_container_created: Contribution container
         created
       gobierto_participation_contribution_container_updated: Contribution container
@@ -16,12 +16,12 @@ en:
       gobierto_participation_process_created: Process / group created
       gobierto_participation_process_updated: Process / group updated
       index:
-        agenda_for_container: Agenda for %{container_title}
+        agenda_for_container: Diary for %{container_title}
         all_events: View all events
         displaying_events_of: Displaying events of %{date}
         go_back: Go back
       show:
-        agenda_for_container: Agenda for %{container_title}
+        agenda_for_container: Diary for %{container_title}
         container_agenda_explanation: We invite you to attend the following meetings
           where we will discuss in person the topics of this process. If you can not
           attend, we will publish online everything that is said in the meetings to
@@ -75,7 +75,7 @@ en:
         results: Results
       secondary_nav:
         activity: Activity
-        agenda: Agenda
+        agenda: Diary
         documents: Documents
         news: News
     participation_events:
@@ -89,7 +89,7 @@ en:
           zero: No neighbor will attend
       event_teaser:
         add_to_calendar: Add calendar
-        agenda_of: 'Agenda de:'
+        agenda_of: 'Diary of:'
         neighbors_count_html:
           one: "<strong>%{neighbors} neighbor</strong> will attend"
           other: "<strong>%{neighbors} neighbors</strong> will attend"
@@ -146,7 +146,7 @@ en:
         intro: Know the mechanisms of participation that offers you %{location_name}
         intro_p1: Vote every four years? Get involved in the day-to-day life.
       participation_latest_info:
-        agenda: Agenda
+        agenda: Diary
         more_news: More news
         no_events: No related events
         no_news: No related news

@@ -8,8 +8,8 @@ module GobiertoParticipation
     helper_method :current_process
 
     def index
-      @processes = current_site.processes.process
-      @groups = current_site.processes.group_process
+      @processes = current_site.processes.process.open
+      @groups = current_site.processes.group_process.open
     end
 
     def show
@@ -26,11 +26,11 @@ module GobiertoParticipation
     end
 
     def find_process_news
-      current_process.extend_news
+      current_process.extend_news.active
     end
 
     def find_process_events
-      current_process.extend_events
+      current_process.extend_events.published
     end
 
     def current_process

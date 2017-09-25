@@ -24,6 +24,8 @@ module GobiertoBudgets
     end
 
     def percentage_of_total(year = nil)
+      return "" if total_budget.nil?
+
       diff = amount(year) / total_budget
       if diff
         diff = diff.to_f * 100

@@ -5,7 +5,7 @@ en:
       processes:
         create:
           add_stages: Now you can add stages
-          success: Process was successfully created
+          success_html: Process was successfully created. <a href="%{link}">View process</a>.
         edit:
           title: Edit process
         form:
@@ -70,4 +70,4 @@ en:
           save: Save
           stages_and_tools: Stages and tools
         update:
-          success: Process was successfully updated
+          success_html: Process was successfully updated. <a href="%{link}">View process</a>.

@@ -1,13 +1,15 @@
 module GobiertoParticipation
   class ProcessesController < GobiertoParticipation::ApplicationController
 
+    include ::PreviewTokenHelper
+
     def index
       @processes = current_site.processes.process
       @groups    = current_site.processes.group_process
     end
 
     def show
-      @process = GobiertoParticipation::Process.find_by!(slug: params[:id])
+      @process = processes_scope.find_by!(slug: params[:id])
       @process_news   = find_process_news
       @process_events = find_process_events
       @activities     = [] # TODO: implementation not yet defined
@@ -28,6 +30,10 @@ module GobiertoParticipation
 
     def find_process_events
       @process.events.upcoming.order(starts_at: :asc).limit(5)
+    end
+
+    def processes_scope
+      valid_preview_token? ? current_site.processes.draft : current_site.processes.active
     end
 
   end

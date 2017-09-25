@@ -5,7 +5,7 @@ ca:
       processes:
         create:
           add_stages: Ara pots afegir fases
-          success: Procés creat correctament
+          success_html: Procés creat correctament. <a href="%{link}">Veure procés</a>.
         edit:
           title: Edita el procés
         form:
@@ -70,4 +70,4 @@ ca:
           save: Guardar
           stages_and_tools: Fases i eines
         update:
-          success: Procés actualitzat correctament
+          success_html: Procés actualitzat correctament. <a href="%{link}">Veure procés</a>.

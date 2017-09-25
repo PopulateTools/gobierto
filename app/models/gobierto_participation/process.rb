@@ -36,7 +36,7 @@ module GobiertoParticipation
     after_create :create_collections
 
     def self.open
-      ids = GobiertoParticipation::Process.select(&:open?).map(&:id)
+      ids = GobiertoParticipation::Process.select(&:open?).pluck(:id)
       where(id: ids)
     end
 

@@ -3,6 +3,8 @@ ca:
   gobierto_admin:
     issues:
       create:
-        success: El tema s'ha creat correctament.
+        success_html: El tema s'ha creat correctament. <a href="%{link}">Veure el
+          tema</a>.
       update:
-        success: El tema s'ha actualitzat correctament.
+        success_html: El tema s'ha actualitzat correctament. <a href="%{link}">Veure
+          el tema</a>.

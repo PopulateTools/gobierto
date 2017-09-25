@@ -14,5 +14,6 @@ ca:
         name: Tema
         new: Nou
         title: Temes
+        view: Veure tema
       new_modal:
         title: Nou tema

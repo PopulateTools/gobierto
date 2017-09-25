@@ -320,6 +320,7 @@ en:
           municipalities, and the avegages are calculated only with the data that
           exists (which is most of it). More information in our FAQ
         per_person: Per inhabitant
+        proposal: Proposal
         total_expenses: Total expenses
         visualize: Visualize expenses per inhabitant
     budgets_execution:

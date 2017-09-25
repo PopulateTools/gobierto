@@ -327,6 +327,7 @@ es:
           con los datos que existen (que son la gran mayoría). Más información en
           nuestras preguntas frecuentes
         per_person: Por habitante
+        proposal: Propuesta
         total_expenses: Gasto total
         visualize: Visualiza los gastos por habitante o el total
     budgets_execution:

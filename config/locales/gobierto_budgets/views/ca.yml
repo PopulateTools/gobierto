@@ -320,6 +320,7 @@ ca:
           les dades que existeixen (que són la gran majoria). Més informació a les
           nostres preguntes frequents
         per_person: Per habitant
+        proposal: Proposta
         total_expenses: Despesa total
         visualize: Visualitza la despesa per habitant o total
     budgets_execution:

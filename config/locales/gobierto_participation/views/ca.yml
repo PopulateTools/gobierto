@@ -54,7 +54,7 @@ ca:
         show_more_news: Veure més notícies
         show_more_updates: Veure més actualitzacions
         the_last: L'últim
-        up_to_date: "%{location_name} al dia"
+        up_to_date: "%{site_title} al dia"
       participation_proccesses:
         processes_description: Consulta i participa en processos específics.
         processes_title: Processos en marxa
@@ -153,7 +153,7 @@ ca:
         show_more_events: Veure més esdeveniments
         show_more_updates: Veure més actualitzacions
         the_last: L'últim
-        up_to_date: "%{location_name} al dia"
+        up_to_date: "%{site_title} al dia"
       participation_themes_list_a:
         intro: Aporta els teus millors idees per millorar% {location_name} i la vida
           de tots els que residim aquí.

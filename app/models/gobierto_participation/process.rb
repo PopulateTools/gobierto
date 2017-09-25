@@ -29,7 +29,7 @@ module GobiertoParticipation
 
     validates :site, :title, presence: true
     validates :slug, uniqueness: { scope: :site }
-    validates_associated :stages
+    validates_associated :stages, message: I18n.t('activerecord.messages.gobierto_participation/process.are_not_valid')
 
     scope :sorted, -> { order(id: :desc) }
 

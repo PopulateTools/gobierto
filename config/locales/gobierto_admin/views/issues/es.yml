@@ -8,6 +8,7 @@ es:
         placeholders:
           description: Descripción del tema
           name: Nombre del tema
+          slug: acerca-de-este-tema
       index:
         created_at: Creado
         drag_to_sort: Arrastra para ordenar

@@ -60,7 +60,7 @@ es:
         show_more_news: Ver más noticias
         show_more_updates: Ver más actualizaciones
         the_last: Lo último
-        up_to_date: "%{location_name} al día"
+        up_to_date: "%{site_title} al día"
       participation_proccesses:
         processes_description: Consulta y participa en procesos específicos.
         processes_title: Procesos en marcha
@@ -216,7 +216,7 @@ es:
         show_more_events: Ver más eventos
         show_more_updates: Ver más actualizaciones
         the_last: Lo último
-        up_to_date: "%{location_name} al día"
+        up_to_date: "%{site_title} al día"
       participation_themes_list_a:
         intro: Aporta tus mejores ideas para mejorar %{location_name} y la vida de
           todos los que residimos aquí.

@@ -24,9 +24,14 @@ module GobiertoBudgets
     end
 
     def percentage_of_total(year = nil)
-      diff = (amount(year) / total_budget).to_f * 100
+      diff = amount(year) / total_budget
+      if diff
+        diff = diff.to_f * 100
 
-      "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)}%"
+        "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)}%"
+      else
+        ""
+      end
     end
 
     def percentage_difference(options)

@@ -14,7 +14,11 @@ module GobiertoBudgets
 
     def total_budget_per_inhabitant(year = nil)
       year ||= @year
-      total_budget_per_inhabitant_query(year)['_source']['total_budget_per_inhabitant'].to_f
+      if value = total_budget_per_inhabitant_query(year)
+        if value['_source']
+          value['_source']['total_budget_per_inhabitant'].try(:to_f)
+        end
+      end
     end
 
     def total_income_budget(year = nil)

@@ -48,7 +48,7 @@ module GobiertoCms
     end
 
     def self.pages_in_collections_and_container_type(site, container_type)
-      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCms::Page", container_type: container_type).map(&:item_id)
+      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCms::Page", container_type: container_type).pluck(:item_id)
       where(id: ids, site: site)
     end
   end

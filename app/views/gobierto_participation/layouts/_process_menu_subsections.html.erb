@@ -1,13 +1,21 @@
 <menu class="sub_sections">
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
     <ul>
-      <li>
-        <% if @process %>
-          <%= link_to t('.information'), gobierto_participation_process_process_information_path(process_id: @process.slug) %>
-        <% end %>
-      </li>
+
+      <% if try(:current_process).present? %>
+        <li>
+          <%= link_to t('.information'), gobierto_participation_process_process_information_path(process_id: current_process.slug) %>
+        </li>
+      <% end %>
+
       <li><%= todo_link_to { link_to t('.meetings'), '#' } %></li>
-      <li><%= todo_link_to { link_to t('.polls'), '#' } %></li>
+
+      <% if try(:current_process).present? && current_process.polls_stage? %>
+        <li>
+          <%= link_to t('.polls'), gobierto_participation_process_polls_path(process_id: current_process.slug) %>
+        </li>
+      <% end %>
+
       <li><%= todo_link_to { link_to t('.contributions'), '#' } %></li>
       <li><%= todo_link_to { link_to t('.results'), '#' } %></li>
     </ul>

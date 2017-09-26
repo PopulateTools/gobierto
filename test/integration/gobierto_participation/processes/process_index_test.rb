@@ -14,11 +14,11 @@ module GobiertoParticipation
     end
 
     def processes
-      @processes ||= site.processes.process.open.active
+      @processes ||= site.processes.process.active
     end
 
     def groups
-      @groups ||= site.processes.group_process.open.active
+      @groups ||= site.processes.group_process.active
     end
 
     def test_breadcrumb_items

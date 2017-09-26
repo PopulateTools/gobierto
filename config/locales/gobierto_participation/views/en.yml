@@ -78,6 +78,13 @@ en:
         agenda: Diary
         documents: Documents
         news: News
+    participation_activities:
+      index:
+        activities: Updates
+        all_activities: View all updates
+        filter: Filter by theme
+        no_new_activities: No updates
+        title: Updates
     participation_events:
       event:
         add_to_calendar: Add calendar
@@ -99,8 +106,8 @@ en:
         news: News
         title: News
       show:
-        documents: Documentos
-        filter: Filtrar por grupo
+        documents: Documents
+        filter: Filter by group
         published_at: Publicado el %{date} por el %{site}
         title: Noticias
     process_pages:
@@ -109,7 +116,7 @@ en:
         title: News
       show:
         documents: Documents
-        filter: Filter by group
+        filter: Filter by theme
         published_at: Posted on %{date} by %{site}
         title: News
     processes:
@@ -123,12 +130,13 @@ en:
         interesting_information: Interesting information
         issue: Issue
         length: Duration
+        more_activities: More updates
         more_events: More events
         more_information: More information
         more_news: More news
-        more_updates: More updates
         newest: Newest
         news: News
+        no_activities: There are no related updates
         no_events: There are no related events
         no_news: There are no related news
         process_stages: Process stages
@@ -143,6 +151,8 @@ en:
       participation_latest_info:
         agenda: Diary
         more_news: More news
+        news: News
+        no_activities: No related updates
         no_events: No related events
         no_news: No related news
         show_more_events: More events

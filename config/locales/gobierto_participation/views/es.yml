@@ -78,6 +78,13 @@ es:
         agenda: Agenda
         documents: Documentos
         news: Noticias
+    participation_activities:
+      index:
+        activities: Actualizaciones
+        all_activities: Ver todas las actualizaciones
+        filter: Filtrar por tema
+        no_new_activities: No hay actualizaciones
+        title: Actualizaciones
     participation_events:
       event:
         add_to_calendar: Añadir a mi calendario
@@ -123,12 +130,13 @@ es:
         interesting_information: Información de interés
         issue: Tema
         length: Duración
+        more_activities: Ver más actualizaciones
         more_events: Ver más eventos
         more_information: Más información
         more_news: Ver más noticias
-        more_updates: Ver más actualizaciones
         newest: Lo último
         news: Noticias
+        no_activities: No hay actualizaciones relacionadas
         no_events: No hay eventos relacionados
         no_news: No hay noticias relacionadas
         process_stages: Fases del proceso
@@ -143,6 +151,8 @@ es:
       participation_latest_info:
         agenda: Agenda
         more_news: Ver más noticias
+        news: Noticias
+        no_activities: No hay actualizaciones relacionadas
         no_events: No hay eventos relacionados
         no_news: No hay noticias relacionadas
         show_more_events: Ver más eventos

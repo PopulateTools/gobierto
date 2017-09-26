@@ -112,15 +112,17 @@
       <div class="pure-u-1 pure-u-md-1-3 center">
         <h3 class="agenda_title"><%= t('.newest') %> 🛠</h3>
         <div class="p_1  content_block">
-          <%= render 'place_latest', { date: '20 Abr', title: 'Nuevo hilo de debate' } %>
-          <%= render 'place_latest', { date: '21 Abr', title: 'Nuevo documento adjunto compartido' } %>
-          <%= render 'place_latest', { date: '23 Abr', title: 'Mañana: Cita presencial' } %>
-          <%= render 'place_latest', { date: '24 Abr', title: 'Comentario en Pacto Social' } %>
-          <%= render 'place_latest', { date: '24 Abr', title: 'Mensaje de los administradores sobre el sistema de vídeo por streaming' } %>
+          <% if @process_activities.any? %>
+            <% @process_activities.each do |activity| %>
+              <%= render 'place_activities', { activity: activity } %>
+            <% end %>
+          <% else %>
+            <%= t('.no_activities') %>
+          <% end %>
         </div>
 
-        <%= todo_link_to do %>
-          <a href="#"><%= t('.more_updates') %></a>
+        <% if @process_activities.any? %>
+          <%= link_to t('.more_activities'), 'gobierto_participation_events_path(container_type: @process.container_type, container_id: @process.id)' %>
         <% end %>
       </div>
 

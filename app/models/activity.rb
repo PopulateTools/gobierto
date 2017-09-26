@@ -24,4 +24,8 @@ class Activity < ApplicationRecord
     where(author_type: admin.class.name, author_id: admin.id).sorted.includes(:subject, :author, :recipient)
   end
 
+  def self.participation
+    where("subject_type LIKE 'GobiertoParticipation%' OR
+           subject_type LIKE 'Issue'")
+  end
 end

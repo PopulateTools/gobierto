@@ -58,6 +58,9 @@ en:
         process_information:
           edit:
             title: Edit process
+          form:
+            placeholders:
+              information_text: Information
           update:
             success: Process was successfully updated
         update:

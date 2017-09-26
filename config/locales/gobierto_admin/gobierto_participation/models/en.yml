@@ -31,6 +31,8 @@ en:
         slug: Slug
         starts: Starts
         title: Title
+      gobierto_admin/gobierto_participation/process_information_form:
+        information_text: Information
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Contribution
         container

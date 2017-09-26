@@ -6,8 +6,8 @@ module GobiertoParticipation
     helper_method :current_process
 
     def index
-      @processes = current_site.processes.process
-      @groups    = current_site.processes.group_process
+      @processes = current_site.processes.process.open
+      @groups = current_site.processes.group_process
     end
 
     def show

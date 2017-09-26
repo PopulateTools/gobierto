@@ -74,11 +74,11 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        within 'menu.secondary_nav' do
-          assert has_link? 'News'
-          assert has_link? 'Agenda'
-          assert has_link? 'Documents'
-          assert has_link? 'Activity'
+        within "menu.secondary_nav" do
+          assert has_link? "News"
+          assert has_link? "Diary"
+          assert has_link? "Documents"
+          assert has_link? "Activity"
         end
 
         # TODO: check that these links redirect to their corresponding pages

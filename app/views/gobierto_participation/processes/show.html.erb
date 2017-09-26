@@ -60,7 +60,7 @@
       <div class="pure-u-1 pure-u-md-1-3">
         <h2 class="with_separator"><%= t('.interesting_information') %></h2>
 
-        <% if @process.starts && @process.ends %>
+        <% if current_process.starts && current_process.ends %>
           <div class="pure-g meta_info">
             <div class="pure-u-1 pure-u-md-1-4">
               <span class="accent"><i class="fa fa-calendar"></i> <%= t('.length') %></span>

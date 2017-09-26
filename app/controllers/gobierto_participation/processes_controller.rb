@@ -14,7 +14,7 @@ module GobiertoParticipation
       @process_news   = find_process_news
       @process_events = find_process_events
       @activities     = [] # TODO: implementation not yet defined
-      @process_stages = current_process.stages
+      @process_stages = current_process.stages.active
     end
 
     private
@@ -37,10 +37,6 @@ module GobiertoParticipation
       @current_process ||= begin
         params[:id] ? processes_scope.find_by_slug!(params[:id]) : nil
       end
-    end
-
-    def processes_scope
-      valid_preview_token? ? current_site.processes : current_site.processes.active
     end
 
     def processes_scope

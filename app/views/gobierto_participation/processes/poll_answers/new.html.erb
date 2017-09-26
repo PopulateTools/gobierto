@@ -5,7 +5,7 @@
 
       <div class='poll_title'>
         <h1><%= @poll_answer_form.poll_title %></h1>
-        <%= link_to 'X', gobierto_participation_process_polls_path(current_process.slug), class: 'mfp-close' %>
+        <%= link_to 'x', gobierto_participation_process_polls_path(current_process.slug), class: 'mfp-close' %>
       </div>
 
       <%= fb.fields_for :questions do |question_fb| %>

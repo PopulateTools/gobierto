@@ -1,9 +1,21 @@
 <% flash.select { |key, _| key.in?(%w(notice alert)) }.each do |key, value| %>
+
   <div class="flash-message <%= key %>">
     <ul>
-      <li>
-        <%= raw value %>
-      </li>
+
+      <% if value.is_a?(Array) %>
+
+        <% value.each do |message| %>
+          <li><%= raw message %></li>
+        <% end %> 
+
+      <% else %>
+
+        <li><%= raw value %></li>
+        
+      <% end %>
+
     </ul>
   </div>
+  
 <% end %>

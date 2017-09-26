@@ -42,5 +42,6 @@ module GobiertoParticipation
     def processes_scope
       valid_preview_token? ? current_site.processes : current_site.processes.active
     end
+
   end
 end

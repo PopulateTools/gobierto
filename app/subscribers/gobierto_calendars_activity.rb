@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Subscribers
   class GobiertoCalendarsActivity < ::Subscribers::Base
     def updated(event)

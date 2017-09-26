@@ -25,6 +25,15 @@ ordinance_of_terraces_open:
   answer_type: <%= GobiertoParticipation::PollQuestion.answer_types[:open] %>
   order: 2
 
+pedestrianization_open:
+  poll: pedestrianization_published
+  title_translations: <%= {
+    'en' => 'Comments',
+    'es' => 'Comentarios'
+  }.to_json %>
+  answer_type: <%= GobiertoParticipation::PollQuestion.answer_types[:open] %>
+  order: 0
+
 public_spaces_single_choice:
   poll: public_spaces_future
   title_translations: <%= {

@@ -12,6 +12,20 @@ ordinance_of_terraces_published:
   ends_at: <%= 1.month.from_now %>
   visibility_level: <%= GobiertoParticipation::Poll.visibility_levels['published'] %>
 
+pedestrianization_published:
+  process: commission_for_carnival_festivities
+  title_translations: <%= {
+    'en' => 'Should the main street be pedestrianized?',
+    'es' => '¿Debería ser peatonalizada la calle principal?'
+  }.to_json %>
+  description_translations: <%= {
+    'en' => 'The survey on the main street pedestrianization aims to gather information about ...',
+    'es' => 'La encuesta sobre la peatonalización de la calle principal pretende recabar información acerca de...'
+  }.to_json %>
+  starts_at: <%= Time.zone.now %>
+  ends_at: <%= 1.day.from_now %>
+  visibility_level: <%= GobiertoParticipation::Poll.visibility_levels['published'] %>
+
 schedules_draft:
   process: commission_for_carnival_festivities
   title_translations: <%= {

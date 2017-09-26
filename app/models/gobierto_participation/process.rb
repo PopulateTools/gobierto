@@ -47,11 +47,15 @@ module GobiertoParticipation
     end
 
     def polls_stage?
-      stages.exists?(stage_type: ProcessStage.stage_types[:polls])
+      active_stage?(ProcessStage.stage_types[:polls])
     end
 
     def information_stage?
-      stages.exists?(stage_type: ProcessStage.stage_types[:information])
+      active_stage?(ProcessStage.stage_types[:information])
+    end
+
+    def active_stage?(stage_type)
+      stages.exists?(stage_type: stage_type)
     end
 
     def pages_collection

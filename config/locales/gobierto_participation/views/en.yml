@@ -6,7 +6,7 @@ en:
         follow_event: Follow this event
         from_to: "%{starts} to %{ends}"
       event_teaser:
-        agenda_for_container: Agenda for
+        agenda_for_container: Diary for
       gobierto_participation_contribution_container_created: Contribution container
         created
       gobierto_participation_contribution_container_updated: Contribution container
@@ -18,12 +18,12 @@ en:
       gobierto_participation_process_created: Process / group created
       gobierto_participation_process_updated: Process / group updated
       index:
-        agenda_for_container: Agenda for %{container_title}
+        agenda_for_container: Diary for %{container_title}
         all_events: View all events
         displaying_events_of: Displaying events of %{date}
         go_back: Go back
       show:
-        agenda_for_container: Agenda for %{container_title}
+        agenda_for_container: Diary for %{container_title}
         container_agenda_explanation: We invite you to attend the following meetings
           where we will discuss in person the topics of this process. If you can not
           attend, we will publish online everything that is said in the meetings to
@@ -77,9 +77,42 @@ en:
         results: Results
       secondary_nav:
         activity: Activity
-        agenda: Agenda
+        agenda: Diary
         documents: Documents
         news: News
+    participation_events:
+      event:
+        add_to_calendar: Add calendar
+        download: Download data
+        follow_event: Follow this event
+        neighbors_count_html:
+          one: "<strong>%{neighbors} neighbor</strong> will attend"
+          other: "<strong>%{neighbors} neighbors</strong> will attend"
+          zero: No neighbor will attend
+      event_teaser:
+        add_to_calendar: Add calendar
+        agenda_of: 'Diary of:'
+        neighbors_count_html:
+          one: "<strong>%{neighbors} neighbor</strong> will attend"
+          other: "<strong>%{neighbors} neighbors</strong> will attend"
+          zero: No neighbor will attend
+        want_to_attend: I want to attend
+      index:
+        all_events: View all events
+        events: events
+      show:
+        from_to: "%{starts} to %{ends}"
+    participation_pages:
+      index:
+        all_pages: Show all pages
+        filter: Filter
+        news: News
+        title: News
+      show:
+        documents: Documentos
+        filter: Filtrar por grupo
+        published_at: Publicado el %{date} por el %{site}
+        title: Noticias
     process_pages:
       index:
         filter: Filter by theme
@@ -90,6 +123,25 @@ en:
         published_at: Posted on %{date} by %{site}
         title: News
     processes:
+      poll_answers:
+        new:
+          already_answered: You have already participated in this poll
+          error_saving_poll: An error occured and we couldn't save your answers :(
+          next_question: Next question
+          page_counter: "%{current} out of %{total}"
+          share_message: If you find it interesting that other people contribute with
+            their opinions, we thank you for sharing
+          submit: Send
+          thanks_for_answering: Great, thanks for replying!
+        poll_question:
+          multiple_choice_msg: You can choose several options
+      polls:
+        index:
+          polls: Polls
+        theme_teaser_question:
+          already_participated: You have already participated in this poll
+          participate: Participate in this poll
+          participate_until: Participate until %{date}
       show:
         about: About this process
         appointments: Face-to-face appointments
@@ -110,3 +162,20 @@ en:
         past_stage: Stage has ended
         upcoming_stage: Stage not yet started
         view_stage: Access this stage
+    welcome:
+      index:
+        intro: Know the mechanisms of participation that offers you %{location_name}
+        intro_p1: Vote every four years? Get involved in the day-to-day life.
+      participation_latest_info:
+        agenda: Diary
+        more_news: More news
+        no_events: No related events
+        no_news: No related news
+        show_more_events: More events
+        show_more_updates: More updates
+        the_last: The last
+        up_to_date: "%{location_name} up to date"
+      participation_themes_list_a:
+        intro: Bring your best ideas to improve %{location_name} and the life of all
+          of us who live here.
+        issues: Themes

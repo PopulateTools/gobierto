@@ -76,7 +76,7 @@ function addDatepickerBehaviors() {
           onSelect: function onSelect(_, selectedDate, instance) {
             $(instance.el).trigger("datepicker-change");
             selectedDate.setHours(selectedDate.getHours() + 1);
-            if($(toDatePicker).length){
+            if($(toDatePicker).length && selectedDate > $(toDatePicker).data('datepicker').lastSelectedDate) {
               $(toDatePicker).data('datepicker').selectDate(selectedDate);
             }
           }

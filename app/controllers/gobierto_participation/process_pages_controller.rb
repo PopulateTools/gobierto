@@ -1,11 +1,10 @@
-module GobiertoParticipation
-  class ProcessPagesController < GobiertoParticipation::ApplicationController
-    include ::PreviewTokenHelper
+# frozen_string_literal: true
 
+module GobiertoParticipation
+  class ProcessPagesController < GobiertoParticipation::Processes::BaseController
     before_action :find_page_by_id_and_redirect
 
     def show
-      @process = find_process if params[:process_id]
       @page = find_page
       @groups = current_site.processes.group_process
     end
@@ -13,8 +12,7 @@ module GobiertoParticipation
     def index
       # TODO: params['from'] == 'participation' Add to process layout hidden_field
       @issues = current_site.issues
-      @process = find_process if params[:process_id]
-      @pages = find_process_news.page(params[:page])
+      @pages = process_news.page(params[:page])
     end
 
     private
@@ -27,12 +25,8 @@ module GobiertoParticipation
       end
     end
 
-    def find_process
-      current_site.processes.find_by_slug!(params[:process_id])
-    end
-
-    def find_process_news
-      @process.news
+    def process_news
+      current_process.news
     end
 
     def find_page

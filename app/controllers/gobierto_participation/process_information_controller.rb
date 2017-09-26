@@ -1,16 +1,9 @@
 # frozen_string_literal: true
 
 module GobiertoParticipation
-  class ProcessInformationController < GobiertoParticipation::ApplicationController
+  class ProcessInformationController < GobiertoParticipation::Processes::BaseController
     def show
-      @process = find_process
-      @information_text = @process.information_text
-    end
-
-    private
-
-    def find_process
-      ::GobiertoParticipation::Process.find_by_slug!(params[:process_id])
+      @information_text = current_process.information_text
     end
   end
 end

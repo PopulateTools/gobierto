@@ -259,6 +259,9 @@ Rails.application.routes.draw do
 
       resources :processes, only: [:index, :show] do
         resources :pages, only: [:index, :show], controller: "process_pages", as: :process_pages
+        resources :polls, only: [:index], controller: "processes/polls" do
+          resources :answers, only: [:new, :create], controller: "processes/poll_answers"
+        end
         resource :information, only: [:show], controller: "process_information", as: :process_information, path: :information
       end
 

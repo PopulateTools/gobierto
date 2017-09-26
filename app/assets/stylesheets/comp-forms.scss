@@ -92,6 +92,14 @@ input[type=submit], .button, button {
   cursor: pointer;
   text-decoration: none;
 }
+// TODO
+input[type=submit].button {
+  border: 0 !important;
+  height: initial !important;
+  padding: 1em 2em !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+}
 input[type=submit]:hover, .button:hover, button:hover {
   background: darken($color_main, 10%);
 }

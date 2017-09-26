@@ -25,10 +25,12 @@
           </div>
         <% end %>
 
-        <div class="ib">
-          <!-- TODO: we'll only show this from participation moudle events index -->
-          <i class="fa fa-folder"></i> <%= t('.agenda_for_container') %>: <%= link_to @container.title, @container.container_path %>
-        </div>
+        <% if @container %>
+          <div class="ib">
+            <!-- TODO: we'll only show this from participation moudle events index -->
+            <i class="fa fa-folder"></i> <%= t('.agenda_for_container') %>: <%= link_to @container.title, @container.container_path %>
+          </div>
+        <% end %>
       </div>
     </div>
 

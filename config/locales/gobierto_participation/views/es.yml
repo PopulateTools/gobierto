@@ -87,14 +87,6 @@ es:
           one: "<strong>%{neighbors} vecinos</strong> asistirán"
           other: "<strong>%{neighbors} vecinos</strong> asistirán"
           zero: Ningún vecino asistirá
-      event_teaser:
-        add_to_calendar: Añadir a mi calendario
-        agenda_of: 'Agenda de:'
-        neighbors_count_html:
-          one: "<strong>%{neighbors} vecinos</strong> asistirán"
-          other: "<strong>%{neighbors} vecinos</strong> asistirán"
-          zero: Ningún vecino asistirá
-        want_to_attend: Quiero asistir
       index:
         all_events: Ver todos los eventos
         events: Eventos

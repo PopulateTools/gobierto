@@ -47,7 +47,7 @@
         <% if @events.any? %>
           <div class="events_list">
             <% @events.each do |event| %>
-              <%= render 'event_teaser', event: event %>
+              <%= render 'gobierto_participation/events/event_teaser', event: event %>
             <% end %>
           </div>
         <% else %>

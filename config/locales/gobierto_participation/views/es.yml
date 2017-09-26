@@ -38,8 +38,6 @@ es:
         published_at: Publicado el %{date} por el %{site}
         title: Noticias
     issues:
-      current_group:
-        current_stage: Fase actual
       index:
         intro_html: Tus ideas ayudan a mejorar %{location_name} y la vida de todos
           los que residimos aquí. Aporta tus mejores ideas en nuestros <strong>espacios
@@ -123,6 +121,9 @@ es:
         published_at: Publicado el %{date} por el %{site}
         title: Noticias
     processes:
+      process_teaser:
+        current_stage: Fase actual
+        next_stage: Próxima fase
       show:
         about: Sobre este proceso
         appointments: Citas presenciales

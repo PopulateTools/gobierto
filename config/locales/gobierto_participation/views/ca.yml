@@ -36,8 +36,6 @@ ca:
         published_at: Publicat el %{date} pel %{site}
         title: Notícies
     issues:
-      current_group:
-        current_stage: Fase actual
       index:
         intro_html: Las teves idees ajuden a millorar %{location_name} i la vida de
           tots els que residim aquí. Aporta els teus millors idees en els nostres
@@ -121,6 +119,9 @@ ca:
         published_at: Publicat el %{date} pel %{site}
         title: Notícies
     processes:
+      process_teaser:
+        current_stage: Fase actual
+        next_stage: Pròxima fase
       show:
         about: Sobre aquest procés
         appointments: Cites presencials

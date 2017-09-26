@@ -65,18 +65,17 @@ module GobiertoParticipation
     end
 
     def current_stage
-      if open?
-        process_stages = stages.where("starts >= ? AND ends <= ?", Time.zone.now, Time.zone.now)
-        process_stages.first.to_s
-      end
+      process_stages = stages.where("starts <= ? AND ends >= ?", Time.zone.now, Time.zone.now)
+      process_stages.first.to_s
+    end
+
+    def next_stage
+      process_stages = stages.where("starts >= ? AND ends >= ?", Time.zone.now, Time.zone.now)
+      process_stages.first.to_s
     end
 
     def open?
-      if stages.any?
-        Time.zone.now.between?(stages.last.starts, stages.last.ends)
-      else
-        false
-      end
+      Time.zone.now.between?(starts, ends)
     end
 
     private

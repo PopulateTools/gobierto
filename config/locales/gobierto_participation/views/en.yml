@@ -38,8 +38,6 @@ en:
         published_at: Posted on %{date} by %{site}
         title: News
     issues:
-      current_group:
-        current_stage: Current stage
       index:
         intro_html: Your ideas help improve %{location_name} and the lives of all
           that we reside here. Bring your best ideas to our <strong> permanent spaces
@@ -123,6 +121,9 @@ en:
         published_at: Posted on %{date} by %{site}
         title: News
     processes:
+      process_teaser:
+        current_stage: Current stage
+        next_stage: Next stage
       show:
         about: About this process
         appointments: Face-to-face appointments

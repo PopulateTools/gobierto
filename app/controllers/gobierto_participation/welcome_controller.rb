@@ -13,7 +13,7 @@ module GobiertoParticipation
     private
 
     def find_participation_events
-      ::GobiertoCalendars::Event.events_in_collections_and_container_type(current_site, "GobiertoParticipation").sorted.published
+      ::GobiertoCalendars::Event.events_in_collections_and_container_type(current_site, "GobiertoParticipation").sorted.upcoming.published
     end
 
     def find_participation_news

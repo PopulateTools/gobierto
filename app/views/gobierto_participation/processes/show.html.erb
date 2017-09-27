@@ -17,14 +17,14 @@
     <div class="pure-g agenda processes_home two_by_two">
       <div class="pure-u-1 pure-u-md-2-3">
 
-        <a href="#" class="p_1  content_block align_bottom mask_bottom" style="background-image: url(<%= @process.header_image_url %>)">
+        <a href="#" class="p_1  content_block align_bottom mask_bottom" style="background-image: url(<%= current_process.header_image_url %>)">
           <div>
             <h2><%= current_process.title %></h2>
           </div>
         </a>
 
         <h3 class="with_light_separator"><%= t('.about') %></h3>
-        <p><%= @process.body %></p>
+        <p><%= current_process.body %></p>
 
         <%= todo_link_to do %>
           <a href="participation_group_info.html" class="button outline rounded"><%= t('.more_information') %></a>

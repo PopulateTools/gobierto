@@ -688,7 +688,7 @@ $lighter_black: rgba($color_headers, .7);
         display: inline-block;
         position: relative;
 
-        .current-dot {
+        .dot-current {
           width: 0;
           height: 0;
           border-left: 7.5px solid transparent;
@@ -696,6 +696,56 @@ $lighter_black: rgba($color_headers, .7);
           border-top: 7.5px solid $medium_blue;
           position: absolute;
           top: -10px;
+        }
+
+        &.dot-tooltip {
+          position: relative;
+          display: inline-block;
+
+          .tooltip-text {
+            color: $green;
+            background-color: #FFF;
+            border: 1px solid transparentize($green, .7);
+            visibility: hidden;
+            width: 200px;
+            text-align: center;
+            text-decoration: underline;
+            font-weight: bold;
+            padding: 5px 0;
+            border-radius: 4px;
+            position: absolute;
+            z-index: 1;
+            top: 200%; /* Slightly apart from element */
+            left: 50%;
+            margin-left: -100px;
+
+            &::after, &::before {
+              bottom: 100%;
+            	left: 50%;
+            	border: solid transparent;
+            	content: " ";
+            	height: 0;
+            	width: 0;
+            	position: absolute;
+            	pointer-events: none;
+            }
+
+            &::after {
+              border-color: rgba(255, 255, 255, 0);
+            	border-bottom-color: #FFF;
+            	border-width: 10px;
+            	margin-left: -10px;
+            }
+            &::before {
+              border-color: rgba($green, 0);
+            	border-bottom-color: transparentize($green, .7);
+            	border-width: 11px;
+            	margin-left: -11px;
+            }
+          }
+          &:hover .tooltip-text {
+            visibility: visible;
+          }
         }
       }
 

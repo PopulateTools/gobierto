@@ -1,6 +1,7 @@
 ---
 es:
   gobierto_participation:
+    participation_attachments: Ver todos los documentos de Participación
     events:
       event:
         follow_event: Seguir este evento

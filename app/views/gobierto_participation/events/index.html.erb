@@ -1,13 +1,11 @@
 <% content_for :breadcrumb_current_item do %>
-  <strong>
-    <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path %>
-  </strong>
-
-  <span role="separator">/</span>
-
   <h1>
-    <%= link_to @container.title_as_container, @container.container_path %>
+    <%= link_to t('.events'), gobierto_participation_participation_events_path %>
   </h1>
+<% end %>
+
+<%= content_for :body_attributes do %>
+  class="theme-participation gobierto_participation"
 <% end %>
 
 <div class="gradient-bg">
@@ -16,85 +14,40 @@
     <div class="pure-g">
       <div class="pure-u-1 pure-u-lg-1-3">
         <div class="content_side">
-
-          <h2 class="with_separator">
-            <!-- TODO: sometimes we only have to show 'Agenda' -->
-            <%= t('.agenda_for_container', container_title: @container.title_as_container) %>
-          </h2>
-
-          <% if @container %>
-            <small><%= link_to t('.all_events'), gobierto_participation_events_path(container_type: @container.container_type, container_id: @container.id) %></small>
-          <% else %>
-            <!-- TODO: this will crash. Should show participation module events -->
-            <small><%= link_to t('.all_events'), gobierto_participation_events_path %></small>
-          <% end %>
+          <div>
+            <small><%= link_to t('.all_events'), gobierto_participation_participation_events_path %></small>
+          </div>
 
           <div class="calendar-component m_v_2">
             <%= month_calendar(
-              partial: 'gobierto_people/person_events/calendar_template',
-              events: @calendar_events,
+              partial: "gobierto_people/person_events/calendar_template",
+              events: @events,
               attribute: :starts_at,
               start_date: params[:start_date] || Date.current
             ) do |date, events| %>
-              <% if events.any? %>
-                <%= link_to date.day, gobierto_participation_events_path(
-                      container_type: @container.container_type,
-                      container_id: @container.id,
-                      date: date
-                ) %>
-              <% else %>
-                <%= date.day %>
-              <% end %>
-
+              <%= link_to_if events.any?, date.day, date: date, start_date: params[:start_date] %>
             <% end %>
           </div>
 
-          <% pending do %>
-            <h4 class="with_light_separator m_t_1">Filtrar por tema</h4>
+          <h4 class="with_light_separator m_t_1">Filtrar por tema</h4>
 
-            <ul class="link_list">
-              <% for i in [
-                'Cooperación, Sensibilización y Ayuda Humanitaria',
-                'Cultura',
-                'Deportes',
-                'Educación',
-                'Integración Social e Inmigración',
-                'Mayores',
-                'Medio Ambiente',
-                'Mujer e Igualdad',
-                'Participación Ciudadana',
-                'Salud y Bienestar Social',
-                'Consumo',
-                'Juventud e Infancia',
-                'Comercio',
-                'Urbanismo']
-              %>
-              <li><a href="#"><%= i %></a></li>
-              <% end %>
-            </ul>
-          <% end %>
+          <ul class="link_list">
+            <% @issues.each do |issue| %>
+              <li>
+                <%= link_to issue.name , gobierto_participation_participation_events_path(issue_id: issue.slug) %>
+              </li>
+            <% end %>
+          </ul>
 
         </div>
       </div>
 
+
       <div class="pure-u-1 pure-u-lg-2-3">
-
-        <div class="events-filter">
-          <% if @filtering_date %>
-            <div class="box">
-              <div class="inner">
-                <%= t('.displaying_events_of', date: l(@filtering_date, format: :short)) %>
-                <%= link_to t('.go_back'), gobierto_participation_events_path(container_type: @container.container_type, container_id: @container.id) %>
-              </div>
-            </div>
-          <% end %>
-        </div>
-        <br>
-
         <% if @events.any? %>
           <div class="events_list">
             <% @events.each do |event| %>
-              <%= render 'event_teaser', event: event %>
+              <%= render 'gobierto_participation/events/event_teaser', event: event %>
             <% end %>
           </div>
         <% else %>
@@ -104,7 +57,16 @@
         <%= paginate @events, window: 3, outer_window: 2 %>
 
       </div>
-
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+$('.attend_event').click(function() {
+  $(this).find('.fa').toggleClass('hidden');
+  $(this).toggleClass('checked');
+
+  // Swap text
+  $(this).find('span').toggleText('Quiero asistir', 'Asistirás');
+});
+</script>

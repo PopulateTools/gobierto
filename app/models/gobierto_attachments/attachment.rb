@@ -2,6 +2,8 @@ require_dependency 'gobierto_attachments'
 
 module GobiertoAttachments
   class Attachment < ApplicationRecord
+    paginates_per 8
+
     include User::Subscribable
     include GobiertoCommon::Searchable
 
@@ -48,6 +50,16 @@ module GobiertoAttachments
 
     def self.file_attachments_in_collections(site)
       ids = GobiertoCommon::CollectionItem.where(item_type: 'GobiertoAttachments::Attachment').map(&:item_id)
+      where(id: ids, site: site)
+    end
+
+    def self.attachments_in_collections_and_container_type(site, container_type)
+      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoAttachments::Attachment", container_type: container_type).pluck(:item_id)
+      where(id: ids, site: site)
+    end
+
+    def self.attachments_in_collections_and_container(site, container)
+      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoAttachments::Attachment", container: container).pluck(:item_id)
       where(id: ids, site: site)
     end
 

@@ -1,58 +1,42 @@
-<div class="person_event-item">
-  <h3>
-    <%= link_to(
-          event.title,
-          gobierto_participation_event_path(
-            event.slug,
-            container_type: event.collection_container.container_type,
-            container_id: event.collection_container.id
-          )
-    ) %>
-  </h3>
+<% pending do %>
+  <div class="person_event-item">
+    <h3><a href="participation_agenda_event.html"><%= event.title %></a></h3>
 
-  <div class="meta">
-    <div>
-
-      <div class="ib p_h_r_0_5">
-        <% if event.starts_at.day == event.ends_at.day %>
-          <strong><%= l(event.starts_at, format: '%e %b') %></strong>
-        <% else %>
-          <strong><%= t('.from_to', starts: l(event.starts_at, format: '%e %b'), ends: l(event.ends_at, format: '%e %b')) %></strong>
+    <div class="meta">
+      <div>
+        <div class="ib p_h_r_0_5">
+          <strong>12 de abril a 30 de junio</strong>
+        </div>
+        <div class="ib p_h_r_0_5">
+          <i class="fa fa-clock-o"></i> 18:00
+        </div>
+        <% if (location = event.first_location) %>
+          <div class="ib">
+            <i class="fa fa-map-marker"></i>
+            <%= link_to_if location.geolocated?, location.name, external_location_service_url(location) %>
+          </div>
         <% end %>
       </div>
-
-      <div class="ib p_h_r_0_5">
-        <i class="fa fa-clock-o"></i> <%= l(event.starts_at, format: '%H:%M') %>
-      </div>
-
-      <% if (location = event.first_location) %>
-        <div class="ib">
-          <i class="fa fa-map-marker"></i>
-          <%= link_to_if location.geolocated?, location.name, external_location_service_url(location), target: '_blank' %>
-        </div>
-      <% end %>
     </div>
-  </div>
 
-  <p><%== event.description %></p>
+    <p>In hac habitasse platea dictumst. Vivamus adipiscing fermentum quam volutpat aliquam. Integer et elit eget elit facilisis tristique. Nam vel iaculis mauris. Sed ullamcorper tellus erat, non ultrices sem tincidunt euismod. Fusce rhoncus porttitor velit, eu bibendum</p>
 
-  <div class="extra_info">
-
-    <% pending do %>
+    <div class="extra_info">
       <div class="ib p_h_r_0_5">
         <a href="#" class="button outline rounded wide attend_event"><i class="fa fa-check hidden"></i> <span>Quiero asistir</span></a>
       </div>
 
       <div class="ib p_h_r_0_5">
-        <i class="fa fa-users"></i> <strong>55 vecinos</strong> asistirán
+        <i class="fa fa-users"></i>
+        <%= t('.neighbors_count_html', count: event.attendees.count) %>
       </div>
 
       <div class="ib p_h_r_0_5">
-        <i class="fa fa-calendar"></i> <a href="#">Añadir a mi calendario</a>
+        <i class="fa fa-calendar"></i> <a href="#"><%= t('.add_to_calendar') %></a>
       </div>
 
       <div class="ib">
-        <i class="fa fa-download"></i> <a href="#">Descargar datos</a>
+        <i class="fa fa-download"></i> <a href="#"><%= t('.download') %></a>
       </div>
 
       <h4><%= t('.follow_event') %></h4>
@@ -61,8 +45,7 @@
         <input placeholder="Your e-mail" type="email" name="user_subscription[user_email]" id="user_subscription_user_email">
         <input type="submit" name="commit" value="Subscribe" role="button" data-disable-with="Subscribe">
       </form>
-    <% end %>
+    </div>
 
   </div>
-
-</div>
+<% end %>

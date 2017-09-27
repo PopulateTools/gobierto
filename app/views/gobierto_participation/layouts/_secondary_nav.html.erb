@@ -3,7 +3,7 @@
     <ul>
       <% path_arguments = @container ? { container_type: @container.container_type, container_id: @container.id } : nil %>
 
-      <% if try(:current_process).present? && !@issue %>
+      <% if try(:current_process).present? && !@issue.present? %>
         <li><%= link_to t('.news'), gobierto_participation_process_pages_path(process_id: current_process.slug) %></li>
         <li><%= link_to t('.agenda'), gobierto_participation_process_events_path(process_id: current_process.slug) %></li>
         <li><%= link_to t('.documents'), gobierto_participation_process_attachments_path(process_id: current_process.slug) %></li>
@@ -16,7 +16,7 @@
       <% elsif current_module == "gobierto_participation" %>
         <li><%= link_to t('.news'), gobierto_participation_pages_path %></li>
         <li><%= link_to t('.agenda'), gobierto_participation_events_path %></li>
-        <li><%= link_to t('.documents'), gobierto_participation_documents_path %></li>
+        <li><%= link_to t('.documents'), gobierto_participation_attachments_path %></li>
         <li><%= link_to t('.activity'), gobierto_participation_notifications_path %></li>
       <% end %>
     </ul>

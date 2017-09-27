@@ -2,7 +2,7 @@
 
 module GobiertoParticipation
   module Processes
-    class ParticipationNotificationsController < BaseController
+    class NotificationsController < BaseController
     end
   end
 end

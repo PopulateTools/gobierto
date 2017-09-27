@@ -2,7 +2,7 @@
 
 module GobiertoParticipation
   module Processes
-    class ParticipationEventsController < GobiertoParticipation::ApplicationController
+    class EventsController < GobiertoParticipation::ApplicationController
       def show
         @event = find_event
 

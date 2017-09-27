@@ -86,6 +86,7 @@ Rails.application.routes.draw do
         resources :file_attachments, only: [:index], controller: "processes/process_file_attachments", as: :file_attachments, path: :file_attachments
         resources :events, only: [:index], controller: "processes/process_events", as: :events, path: :events
         resources :pages, only: [:index], controller: "processes/process_pages", as: :pages, path: :pages
+        resources :polls, only: [:index, :new, :edit, :create, :update], controller: "processes/polls"
         resources :contribution_containers, only: [:new, :edit, :create, :update, :index, :show], controller: "processes/process_contribution_containers", as: :contribution_containers, path: :contribution_containers
         resources :information, only: [:edit, :update], controller: "processes/process_information", as: :process_information, path: :process_information
       end
@@ -258,6 +259,9 @@ Rails.application.routes.draw do
 
       resources :processes, only: [:index, :show] do
         resources :pages, only: [:index, :show], controller: "process_pages", as: :process_pages
+        resources :polls, only: [:index], controller: "processes/polls" do
+          resources :answers, only: [:new, :create], controller: "processes/poll_answers"
+        end
         resource :information, only: [:show], controller: "process_information", as: :process_information, path: :information
       end
 
@@ -265,6 +269,9 @@ Rails.application.routes.draw do
       resources :issues, only: [:index, :show] do
         resources :pages, only: [:index, :show], controller: "issue_pages", as: :issue_pages
       end
+
+      resources :pages, only: [:index, :show], controller: "participation_pages", as: :participation_pages, path: "participacion/noticias"
+      resources :events, only: [:index, :show], controller: "participation_events", as: :participation_events, path: "participacion/agendas"
     end
   end
 

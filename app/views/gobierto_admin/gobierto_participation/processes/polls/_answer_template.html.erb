@@ -1,0 +1,62 @@
+<%
+  if answer_fb
+    preview_answer_div_id = "question_#{question_index}_preview_answer_#{answer_fb.index}"
+    edit_answer_div_id    = "question_#{question_index}_edit_answer_#{answer_fb.index}"
+    answer_template_text  = answer_fb.object.text
+  else
+    preview_answer_div_id = ''
+    edit_answer_div_id    = ''
+    answer_template_text  = ''
+  end
+%>
+
+<div class="<%= class_if('answer_template', answer_fb) %> <%= class_if('answer_template_scaffold', !answer_fb) %>">
+
+  <div style='<%= answer_fb ? '' : "display: none;" %>' class='list_item' id='<%= preview_answer_div_id %>'>
+
+    <i class='fa fa-bars custom_handle tipsit' title="<%= t('views.drag_to_sort') %>"></i>
+    <label class='main'><%= answer_template_text %></label>
+
+    <div class='tools'>
+
+      <%= link_to '#', title: t('.edit'), class: 'tipsit edit_link' do %>
+        <i class="fa fa-edit"></i>
+      <% end %>
+
+      <%= link_to '#', title: t('.delete'), class: 'tipsit', data: { behavior: 'delete_answer' } do %>
+        <i class='fa fa-trash'></i>
+      <% end %>
+
+    </div>
+
+  </div>
+
+  <div class='list_item_with_editable_content' style='display: none;' id='<%= edit_answer_div_id %>'>
+
+    <i class='fa fa-bars custom_handle tipsit' title="<%= t('views.drag_to_sort') %>"></i>
+
+    <% if answer_fb %>
+      <%= answer_fb.text_field :text %>
+      <%= answer_fb.hidden_field :order %>
+      <%= answer_fb.hidden_field :_destroy, value: '0' %>
+    <% else %>
+      <input type='text' value='' id='new_answer_text_scaffold_input'>
+      <input type='hidden' value='' name='' id='new_answer_order_scaffold_input'>
+      <input type='hidden' value='0' name='' id='new_answer_destroy_scaffold_input'>
+    <% end %>
+
+    <div class='tools'>
+
+      <%= link_to '#', title: t('.confirm'), class: 'tipsit', data: { behavior: 'confirm_edit_answer' } do %>
+        <i class="fa fa-check"></i>
+      <% end %>
+
+      <%= link_to '#', title: t('.cancel'), class: 'tipsit', data: { behavior: 'cancel_edit_answer' } do %>
+        <i class='fa fa-undo'></i>
+      <% end %>
+
+    </div>
+
+  </div>
+
+</div>

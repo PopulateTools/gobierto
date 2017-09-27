@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::SessionsController < User::BaseController
   before_action :authenticate_user!, only: [:destroy]
   before_action :require_no_authentication, only: [:new, :create]
@@ -8,6 +10,11 @@ class User::SessionsController < User::BaseController
     @user_session_form = User::SessionForm.new(referrer_url: request.referrer)
     @user_registration_form = User::RegistrationForm.new(referrer_url: request.referrer, referrer_entity: referrer_entity)
     @user_password_form = User::NewPasswordForm.new
+
+    if params[:open_modal]
+      @modal = true
+      render(:new, layout: false) && return if request.xhr?
+    end
   end
 
   def create
@@ -28,6 +35,11 @@ class User::SessionsController < User::BaseController
       @user_password_form = User::NewPasswordForm.new
 
       flash.now[:alert] = t(".error")
+
+      if params[:open_modal]
+        render(:new, layout: false) && return if request.xhr?
+      end
+
       render :new
     end
   end

@@ -22,8 +22,10 @@ en:
           title: New theme
         show:
           file_attachments:
-            description: Description
-          new: New
+            created_at: Created at
+            file_name: Filename
+          new_attachment: New
+          new_page: New
           pages:
             created_at: Created at
             public: Public

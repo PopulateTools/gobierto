@@ -112,6 +112,9 @@ es:
     events:
       users_user_updated: Usuario actualizado
   views:
+    drag_to_sort: Arrastra para ordenar
+    forms:
+      max_characters: Máx. %{length} caracteres
     pagination:
       next: Siguiente
       previous: Anterior

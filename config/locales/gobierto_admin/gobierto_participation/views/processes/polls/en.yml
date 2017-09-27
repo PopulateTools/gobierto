@@ -1,0 +1,44 @@
+---
+en:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        polls:
+          answer_template:
+            cancel: Cancel
+            confirm: Confirm
+            delete: Delete
+            edit: Edit
+          answer_templates:
+            add_new_answer: Add new answer
+            available_answers: Available answers
+          create:
+            success_html: Poll created successfully. <a href="%{link}">See it</a>.
+          form:
+            placeholders:
+              description: ex. The objective of this poll is ...
+              title: ex. Terrace Ordinance Poll
+          index:
+            answers: Answers
+            end: End
+            new: New
+            poll: Poll
+            start: Start
+            view_poll: View poll
+            visibility: Status
+          new:
+            title: New poll
+          poll_question_modal:
+            cancel: Cancel
+            edit_question: Edit
+            question_type: Type of question
+            save: Save
+          poll_question_summary:
+            delete: Delete
+            edit: Edit
+          poll_questions:
+            add_question: Add new question
+            poll_questions: Questions from this poll
+          question_not_translated: Question not translated to current language
+          update:
+            success_html: Poll has been updated. <a href="%{link}">See it</a>.

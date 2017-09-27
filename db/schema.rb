@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170821072152) do
+ActiveRecord::Schema.define(version: 20170920145117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -492,6 +492,47 @@ ActiveRecord::Schema.define(version: 20170821072152) do
     t.index ["user_id"], name: "index_gpart_flags_on_user_id"
   end
 
+  create_table "gpart_poll_answer_templates", force: :cascade do |t|
+    t.bigint "question_id", null: false
+    t.string "text", null: false
+    t.integer "order", default: 0, null: false
+    t.index ["question_id"], name: "index_gpart_poll_answer_templates_on_question_id"
+  end
+
+  create_table "gpart_poll_answers", force: :cascade do |t|
+    t.bigint "poll_id", null: false
+    t.bigint "question_id", null: false
+    t.integer "answer_template_id"
+    t.text "text"
+    t.bigint "user_id", null: false
+    t.datetime "created_at"
+    t.index ["poll_id"], name: "index_gpart_poll_answers_on_poll_id"
+    t.index ["question_id", "user_id", "answer_template_id"], name: "unique_index_gpart_poll_answers_for_fixed_answer_questions", unique: true
+    t.index ["question_id"], name: "index_gpart_poll_answers_on_question_id"
+    t.index ["user_id", "answer_template_id"], name: "unique_index_gpart_poll_answers_for_open_answer_questions", unique: true
+    t.index ["user_id"], name: "index_gpart_poll_answers_on_user_id"
+  end
+
+  create_table "gpart_poll_questions", force: :cascade do |t|
+    t.bigint "poll_id", null: false
+    t.jsonb "title_translations"
+    t.integer "answer_type", default: 0, null: false
+    t.integer "order", default: 0, null: false
+    t.index ["poll_id"], name: "index_gpart_poll_questions_on_poll_id"
+  end
+
+  create_table "gpart_polls", force: :cascade do |t|
+    t.bigint "process_id", null: false
+    t.jsonb "title_translations"
+    t.jsonb "description_translations"
+    t.date "starts_at", null: false
+    t.date "ends_at", null: false
+    t.integer "visibility_level", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["process_id"], name: "index_gpart_polls_on_process_id"
+  end
+
   create_table "gpart_process_stages", force: :cascade do |t|
     t.bigint "process_id"
     t.jsonb "title_translations"
@@ -502,6 +543,7 @@ ActiveRecord::Schema.define(version: 20170821072152) do
     t.string "slug", null: false
     t.integer "stage_type", default: 0, null: false
     t.jsonb "description_translations"
+    t.boolean "active", default: false, null: false
     t.index ["process_id", "slug"], name: "index_gpart_process_stages_on_process_id_and_slug", unique: true
     t.index ["process_id"], name: "index_gpart_process_stages_on_process_id"
     t.index ["title_translations"], name: "index_gpart_process_stages_on_title_translations", using: :gin

@@ -14,7 +14,11 @@ $lighter_black: rgba($color_headers, .7);
   button.submit,
   input[type=submit] {
     background: $green;
-    color: #FFF;
+    color: $color_main_negative;
+
+    &:disabled {
+      background: transparentize($green, .9);
+    }
   }
 
   .button.submit:hover,
@@ -23,6 +27,10 @@ $lighter_black: rgba($color_headers, .7);
   button.submit:hover,
   input[type=submit]:hover {
     background: darken($green, 5%);
+
+    &:disabled {
+      background: transparentize($green, .9);
+    }
   }
 
   header.meta {
@@ -55,7 +63,7 @@ $lighter_black: rgba($color_headers, .7);
 
   .button.outline.rounded {
     color: $green;
-    background: #FFF;
+    background: $color_main_negative;
     border: 1px solid $green;
     margin-top: -.25em;
 
@@ -142,7 +150,7 @@ $lighter_black: rgba($color_headers, .7);
       box-sizing: border-box;
       font-size: 1.15em;
       color: $green;
-      background: #FFFFFF;
+      background: $color_main_negative;
       box-shadow: 0 1px 2px 0 rgba(0,0,0,0.20);
       border-radius: 100px;
       padding: 0.25em 0.75em;
@@ -186,16 +194,16 @@ $lighter_black: rgba($color_headers, .7);
     }
     /* Focus */
     .control input:focus ~ .control-indicator {
-      box-shadow: 0 0 0 0.075rem #fff, 0 0 0 0.2rem $green;
+      box-shadow: 0 0 0 0.075rem $color_main_negative, 0 0 0 0.2rem $green;
     }
     /* Checked state */
     .control input:checked ~ .control-indicator {
-      color: #fff;
+      color: $color_main_negative;
       background-color: $green;
     }
     /* Active */
     .control input:active ~ .control-indicator {
-      color: #fff;
+      color: $color_main_negative;
       background-color: rgba($green, .5);
     }
     /* Radio modifiers */
@@ -323,7 +331,7 @@ $lighter_black: rgba($color_headers, .7);
     text-decoration: none;
     padding: 1em 1em 2em;
     @include min-screen(740) {
-      height: calc(100% - 3em);
+      // TODO: this breaks polls#index height: calc(100% - 3em);
     }
 
     h3 {
@@ -704,7 +712,7 @@ $lighter_black: rgba($color_headers, .7);
 
           .tooltip-text {
             color: $green;
-            background-color: #FFF;
+            background-color: $color_main_negative;
             border: 1px solid transparentize($green, .7);
             visibility: hidden;
             width: 200px;
@@ -732,7 +740,7 @@ $lighter_black: rgba($color_headers, .7);
 
             &::after {
               border-color: rgba(255, 255, 255, 0);
-            	border-bottom-color: #FFF;
+            	border-bottom-color: $color_main_negative;
             	border-width: 10px;
             	margin-left: -10px;
             }
@@ -863,16 +871,17 @@ $lighter_black: rgba($color_headers, .7);
     .poll {
       margin: 2em;
       position: relative;
-      // h1, h2, h3 {
-      //   color: $green;
-      // }
-      h1 {
+
+      .poll_title {
         background: $green;
-        color: #FFF;
-        padding: 1em;
-        margin: 0 0 2em;
-        font-size: $f5;
-        @include border-radius(6px, 6px, 0, 0)
+
+        h1 {
+          color: $color_main_negative;
+          padding: 1em;
+          margin: 0 0 2em;
+          font-size: $f5;
+          @include border-radius(6px, 6px, 0, 0)
+        }
       }
 
       .poll_content {
@@ -959,13 +968,14 @@ $lighter_black: rgba($color_headers, .7);
       font-size: 22px;
       width: 30px;
       height: 30px;
-      line-height: 34px;
+      line-height: 30px;
+      background-color: $color_main_negative;
     }
 
     .mfp-close:hover,
     button.mfp-close:hover {
       background: $green;
-      color: #FFF;
+      color: $color_main_negative;
     }
   }
 
@@ -984,13 +994,13 @@ $lighter_black: rgba($color_headers, .7);
       padding: 0;
 
       button.mfp-close {
-        border-color: #FFF;
-        color: #FFF;
+        border-color: $color_main_negative;
+        color: $color_main_negative;
         margin: 0.55em 0.35em 0 0;
       }
 
       button.mfp-close:hover {
-        background: #FFF;
+        background: $color_main_negative;
         color: $green;
       }
 
@@ -1053,7 +1063,7 @@ $lighter_black: rgba($color_headers, .7);
     }
 
     .button {
-      color: #FFF;
+      color: $color_main_negative;
     }
 
     .contributions_header {
@@ -1123,12 +1133,12 @@ $lighter_black: rgba($color_headers, .7);
 
   .contribution_card_new_header {
     background: $green;
-    color: #FFF;
+    color: $color_main_negative;
 
     .modal_like_control .mfp-close {
       color: $green;
-      background: #FFF;
-      border-color: #FFF;
+      background: $color_main_negative;
+      border-color: $color_main_negative;
     }
   }
 }

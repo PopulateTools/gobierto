@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Subscribers
   class GobiertoAttachmentsAttachmentActivity < ::Subscribers::Base
     def attachment_created(event)

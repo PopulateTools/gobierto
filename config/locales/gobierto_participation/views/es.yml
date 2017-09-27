@@ -13,6 +13,8 @@ es:
         actualizado
       gobierto_participation_issue_created: Tema creado
       gobierto_participation_issue_updated: Tema actualizado
+      gobierto_participation_poll_created: Encuesta creada
+      gobierto_participation_poll_updated: Encuesta actualizada
       gobierto_participation_process_created: Proceso / grupo creado
       gobierto_participation_process_updated: Proceso / grupo actualizado
       index:
@@ -78,6 +80,39 @@ es:
         agenda: Agenda
         documents: Documentos
         news: Noticias
+    participation_events:
+      event:
+        add_to_calendar: Añadir a mi calendario
+        download: Descargar datos
+        follow_event: Seguir este evento
+        neighbors_count_html:
+          one: "<strong>%{neighbors} vecinos</strong> asistirán"
+          other: "<strong>%{neighbors} vecinos</strong> asistirán"
+          zero: Ningún vecino asistirá
+      event_teaser:
+        add_to_calendar: Añadir a mi calendario
+        agenda_of: 'Agenda de:'
+        neighbors_count_html:
+          one: "<strong>%{neighbors} vecinos</strong> asistirán"
+          other: "<strong>%{neighbors} vecinos</strong> asistirán"
+          zero: Ningún vecino asistirá
+        want_to_attend: Quiero asistir
+      index:
+        all_events: Ver todos los eventos
+        events: Eventos
+      show:
+        from_to: "%{starts} al %{ends}"
+    participation_pages:
+      index:
+        all_pages: Ver todas las páginas
+        filter: Filtrar
+        news: Noticias
+        title: Noticias
+      show:
+        documents: Documentos
+        filter: Filtrar por grupo
+        published_at: Publicado el %{date} por el %{site}
+        title: Noticias
     process_pages:
       index:
         filter: Filtrar por tema
@@ -88,6 +123,26 @@ es:
         published_at: Publicado el %{date} por el %{site}
         title: Noticias
     processes:
+      poll_answers:
+        new:
+          already_answered: Ya has participado en esta encuesta
+          error_saving_poll: Ha ocurrido un error y no hemos podido guardar tus respuestas
+            :(
+          next_question: Siguiente pregunta
+          page_counter: "%{current} de %{total}"
+          share_message: Si te parece interesante que otras personas aporten sus opiniones,
+            te agradecemos que compartas
+          submit: Enviar
+          thanks_for_answering: "¡Estupendo, gracias por contestar!"
+        poll_question:
+          multiple_choice_msg: Puedes elegir varias opciones
+      polls:
+        index:
+          polls: Encuestas
+        theme_teaser_question:
+          already_participated: Ya has participado en esta encuesta
+          participate: Participa en esta encuesta
+          participate_until: Participa hasta %{date}
       show:
         about: Sobre este proceso
         appointments: Citas presenciales
@@ -109,3 +164,20 @@ es:
         past_stage: Fase finalizada
         upcoming_stage: Fase pendiente de inicio
         view_stage: Acceder a esta fase
+    welcome:
+      index:
+        intro: Conoce los mecanismos de participación que te ofrece %{location_name}
+        intro_p1: "¿Votar cada cuatro años? Implícate en el día a día."
+      participation_latest_info:
+        agenda: Agenda
+        more_news: Ver más noticias
+        no_events: No hay eventos relacionados
+        no_news: No hay noticias relacionadas
+        show_more_events: Ver más eventos
+        show_more_updates: Ver más actualizaciones
+        the_last: Lo último
+        up_to_date: "%{location_name} al día"
+      participation_themes_list_a:
+        intro: Aporta tus mejores ideas para mejorar %{location_name} y la vida de
+          todos los que residimos aquí.
+        issues: Temas

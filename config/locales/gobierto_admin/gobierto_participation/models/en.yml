@@ -8,6 +8,19 @@ en:
         ends: Ends
         starts: Starts
         title: Title
+      gobierto_admin/gobierto_participation/poll_form:
+        description: Description
+        ends_at: Ends at
+        questions: Some of the questions
+        starts_at: Starts at
+        title: Title
+      gobierto_admin/gobierto_participation/poll_form/questions:
+        answer_templates: The answers
+        answer_type: Answer types
+        poll: Poll
+        title: Questions title
+      gobierto_admin/gobierto_participation/poll_form/questions/answer_templates:
+        text: The text of an answer
       gobierto_admin/gobierto_participation/process_form:
         body: Body
         ends: Ends
@@ -16,26 +29,14 @@ en:
         issue_id: Theme
         process_type: Group type
         slug: Slug
+        stages: Stages
         starts: Starts
         title: Title
+      gobierto_admin/gobierto_participation/process_form/stages:
+        title: The title of a stage
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Contribution
         container
+      gobierto_admin/gobierto_participation/poll_form: Poll
+      gobierto_admin/gobierto_participation/poll_form/questions: Questions
       gobierto_admin/gobierto_participation/process_form: Process
-  activerecord:
-    attributes:
-      gobierto_participation/process:
-        process_types:
-          group_process: Group
-          process: Process
-      gobierto_participation/process_stage:
-        description: Description
-        ends: Ends
-        stage_types:
-          ideas: Ideas
-          information: Information
-          meetings: Meetings
-          results: Results
-          surveys: Surveys
-        starts: Starts
-        title: Title

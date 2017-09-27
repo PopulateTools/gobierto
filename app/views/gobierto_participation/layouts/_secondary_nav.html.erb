@@ -3,15 +3,17 @@
     <ul>
       <% path_arguments = @container ? { container_type: @container.container_type, container_id: @container.id } : nil %>
 
-      <% if @process %>
-        <li><%= link_to t('.news'), gobierto_participation_process_process_pages_path(process_id: @process.slug) %></li>
+      <% if try(:current_process).present? %>
+        <li><%= link_to t('.news'), gobierto_participation_process_process_pages_path(process_id: current_process.slug) %></li>
       <% elsif @issue %>
         <li><%= link_to t('.news'), gobierto_participation_issue_issue_pages_path(issue_id: @issue.slug) %></li>
-      <% else %>
-        <li><%= link_to t('.news'), gobierto_cms_pages_path %></li>
+      <% elsif current_module == "gobierto_participation" %>
+        <li><%= link_to t('.news'), gobierto_participation_participation_pages_path %></li>
       <% end %>
 
-      <li><%= link_to t('.agenda'), gobierto_participation_events_path(path_arguments) %></li>
+      <% if current_module == "gobierto_participation" %>
+        <li><%= link_to t('.agenda'), gobierto_participation_participation_events_path(path_arguments) %></li>
+      <% end %>
       <li><%= todo_link_to { link_to t('.documents'), '#' } %></li>
       <li><%= todo_link_to { link_to t('.activity'), '#' } %></li>
     </ul>

@@ -177,8 +177,8 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        within '.timeline' do
-          assert_equal gender_violence_process.stages.size, all('.timeline_row').size
+        within ".timeline" do
+          assert_equal gender_violence_process.stages.active.size, all(".timeline_row").size
         end
       end
     end

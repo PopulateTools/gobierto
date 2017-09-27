@@ -29,6 +29,20 @@ $(document).on('turbolinks:load', function() {
 
   $(".stick_in_parent").stick_in_parent();
 
+  addDatepickerBehaviors();
+
+  $('#site_visibility_level_active').on('click', function(e){
+    $('#site_username').val('');
+    $('#site_password').val('');
+  });
+
+  $('a[data-disabled]').on('click', function(e){
+    e.preventDefault();
+  });
+
+});
+
+function addDatepickerBehaviors() {
   if($('.air-datepicker').length){
     var start = new Date();
     start.setDate(start.getDate() + 1);
@@ -62,7 +76,7 @@ $(document).on('turbolinks:load', function() {
           onSelect: function onSelect(_, selectedDate, instance) {
             $(instance.el).trigger("datepicker-change");
             selectedDate.setHours(selectedDate.getHours() + 1);
-            if($(toDatePicker).length){
+            if($(toDatePicker).length && selectedDate > $(toDatePicker).data('datepicker').lastSelectedDate) {
               $(toDatePicker).data('datepicker').selectDate(selectedDate);
             }
           }
@@ -87,14 +101,4 @@ $(document).on('turbolinks:load', function() {
       index++;
     });
   }
-
-  $('#site_visibility_level_active').on('click', function(e){
-    $('#site_username').val('');
-    $('#site_password').val('');
-  });
-
-  $('a[data-disabled]').on('click', function(e){
-    e.preventDefault();
-  });
-
-});
+};

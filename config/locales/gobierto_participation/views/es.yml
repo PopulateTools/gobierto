@@ -91,6 +91,7 @@ es:
       show:
         about: Sobre este proceso
         appointments: Citas presenciales
+        current: Fase actual
         from_to: "%{starts} al %{ends}"
         interesting_information: Información de interés
         issue: Tema

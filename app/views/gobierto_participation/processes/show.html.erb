@@ -33,15 +33,47 @@
       </div>
 
       <div class="pure-u-1 pure-u-md-1-3 center news_teaser">
-        <h3 class="agenda_title"><%= t('.news') %></h3>
-        <div class="p_1  content_block">
-          <% if @process_news.any? %>
+        <div>
+          <h3 class="agenda_title"><%= t('.current') %></h3>
+          <div class="p_1 content_block">
+            <p>Mesas de diálogo</p>
+            <p>
+              <a href="#" class="button outline rounded checked">
+                <span>Sigue este proceso</span>
+              </a>
+            </p>
+            <div class="dots-container">
+                <div class="dots">
+                  <div class="dot"></div>
+                  <div class="dot-join"></div>
+                  <div class="dot"></div>
+                  <div class="dot-join"></div>
+                  <div class="dot">
+                    <div class="current-dot"></div>
+                  </div>
+                  <div class="dot-join disabled"></div>
+                  <div class="dot disabled"></div>
+                  <div class="dot-join disabled"></div>
+                  <div class="dot disabled"></div>
+                  <div class="dot-join disabled"></div>
+                  <div class="dot disabled"></div>
+                  <div class="dot-join disabled"></div>
+                  <div class="dot disabled"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 class="agenda_title"><%= t('.news') %></h3>
+          <div class="p_1  content_block">
+            <% if @process_news.any? %>
             <% @process_news.each do |notice| %>
-              <%= render 'place_news', { notice: notice } %>
+            <%= render 'place_news', { notice: notice } %>
             <% end %>
-          <% else %>
+            <% else %>
             <%= t('.no_news') %>
-          <% end %>
+            <% end %>
+          </div>
         </div>
         <% if @process_news.any? %>
           <%= link_to t('.more_news'), gobierto_participation_process_process_pages_path(@process.slug) %>

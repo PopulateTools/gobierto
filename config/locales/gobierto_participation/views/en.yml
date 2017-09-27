@@ -91,6 +91,7 @@ en:
       show:
         about: About this process
         appointments: Face-to-face appointments
+        current: Current moment
         from_to: "%{starts} to %{ends}"
         interesting_information: Interesting information
         issue: Issue

@@ -89,6 +89,7 @@ ca:
       show:
         about: Sobre aquest procés
         appointments: Cites presencials
+        current: Fase actual
         from_to: "%{starts} al %{ends}"
         interesting_information: Informació d'interès
         issue: Tema

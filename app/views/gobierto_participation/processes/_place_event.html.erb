@@ -8,7 +8,7 @@
       <% if @process %>
       <%= link_to(event.title, gobierto_participation_event_path(event.slug, container_type: event.collection_container.container_type, container_id: event.collection_container.id)) %></h3>
       <% else %>
-      <%= link_to(event.title, gobierto_participation_participation_event_path(event.slug)) %></h3>
+      <%= link_to(event.title, gobierto_participation_process_event_path(event.slug)) %></h3>
       <% end %>
     <div class="meta">
       <div class="ib">

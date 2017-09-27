@@ -73,7 +73,7 @@
             <div class='news_teaser'>
               <h3>
                 <% if current_process %>
-                  <%= link_to page.title , gobierto_participation_process_process_page_path(process_id: current_process.slug, id: page.slug) %>
+                  <%= link_to page.title , gobierto_participation_process_page_path(process_id: current_process.slug, id: page.slug) %>
                 <% else %>
                   <%= link_to page.title , gobierto_cms_page_path(page.slug) %>
                 <% end %>

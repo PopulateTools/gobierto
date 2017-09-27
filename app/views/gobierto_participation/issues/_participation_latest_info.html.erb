@@ -15,7 +15,7 @@
           <% end %>
         </div>
         <% if @issue_events %>
-          <%= link_to t('.show_more_events'), gobierto_participation_events_path %>
+          <%= link_to t('.show_more_events'), gobierto_participation_issue_events_path(@issue.slug) %>
         <% end %>
       </div>
 
@@ -31,7 +31,7 @@
           <% end %>
         </div>
         <% if @issue_news_updated.any? %>
-          <%= link_to t('.show_more_updates'), gobierto_participation_events_path %>
+          <%= link_to t('.show_more_updates'), gobierto_participation_issue_notifications_path(@issue.slug) %>
         <% end %>
       </div>
 
@@ -47,7 +47,7 @@
           <% end %>
         </div>
         <% if @issue_news.any? %>
-          <%= link_to t('.show_more_news'), gobierto_participation_issue_issue_pages_path(@issue.slug) %>
+          <%= link_to t('.show_more_news'), gobierto_participation_issue_pages_path(@issue.slug) %>
         <% end %>
       </div>
     </div>

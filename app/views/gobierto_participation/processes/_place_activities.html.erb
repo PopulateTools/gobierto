@@ -6,9 +6,9 @@
   <div class="pure-u-1 pure-u-md-19-24 news-content">
     <h3>
       <% if @process %>
-        <%= link_to activity.translated_action + " " + activity.subject_name, 'gobierto_participation_process_process_page_path(process_id: @process.slug, id: activity.slug)' %>
+        <%= link_to activity.translated_action + " " + activity.subject_name, 'gobierto_participation_process_page_path(process_id: @process.slug, id: activity.slug)' %>
       <% elsif @issue %>
-        <%= link_to activity.translated_action + " " + activity.subject_name, 'gobierto_participation_issue_issue_page_path(issue_id: @issue.slug, id: activity.slug)' %>
+        <%= link_to activity.translated_action + " " + activity.subject_name, 'gobierto_participation_issue_page_path(issue_id: @issue.slug, id: activity.slug)' %>
       <% else %>
         <%= link_to activity.translated_action + " " + activity.subject_name, 'gobierto_participation_participation_activity_path(activity.id)' %>
       <% end %>

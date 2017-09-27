@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
 module GobiertoParticipation
-  module Processes
+  module Issues
     class BaseController < GobiertoParticipation::ApplicationController
-      include ::PreviewTokenHelper
-      include ProcessStagesHelper
-
       helper_method :current_process
 
       protected
 
       def current_process
-        @current_process ||= processes_scope.find_by_slug!(params[:process_id])
+        issue = Issue.find_by_slug!(params[:issue_id])
+        @current_process ||= processes_scope.find_by(issue: issue)
       end
 
       private

@@ -10,7 +10,7 @@
       <% elsif @issue %>
         <%= link_to notice.title, gobierto_participation_issue_page_path(issue_id: @issue.slug, id: notice.slug) %>
       <% else %>
-        <%= link_to notice.title, gobierto_participation_participation_page_path(notice.slug) %>
+        <%= link_to notice.title, gobierto_participation_page_path(notice.slug) %>
       <% end %>
     </h3>
   </div>

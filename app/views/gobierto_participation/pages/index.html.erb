@@ -30,11 +30,11 @@
       </div>
 
       <div class='pure-u-1 pure-u-lg-2-3'>
-        <% if @news && @news.any? %>
-          <% @news.each do |page| %>
+        <% if @pages && @pages.any? %>
+          <% @pages.each do |page| %>
             <div class='news_teaser'>
               <h3>
-                  <%= link_to page.title , gobierto_participation_participation_page_path(page.slug) %>
+                  <%= link_to page.title , gobierto_participation_page_path(page.slug) %>
               </h3>
 
               <div class='meta'>
@@ -52,7 +52,7 @@
             </div>
           <% end %>
 
-          <%= paginate @news %>
+          <%= paginate @pages %>
 
         <% end %>
       </div>

@@ -32,10 +32,10 @@ module GobiertoAdmin
                 click_link "News"
               end
 
-              assert has_selector?("h1", text: "News")
+              assert has_selector?("h1", text: "Sport city")
 
               click_link "New"
-              assert has_selector?("h1", text: "New page")
+              assert has_selector?("h1", text: "Sport city")
               click_button "Create"
               assert has_alert?("Title can't be blank")
               assert has_alert?("Body can't be blank")
@@ -55,10 +55,10 @@ module GobiertoAdmin
                 click_link "News"
               end
 
-              assert has_selector?("h1", text: "News")
+              assert has_selector?("h1", text: "Sport city")
 
               click_link "New"
-              assert has_selector?("h1", text: "New page")
+              assert has_selector?("h1", text: "Sport city")
 
               fill_in "page_title_translations_en", with: "My page"
               find("#page_body_translations_en", visible: false).set("The content of the page")

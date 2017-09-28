@@ -16,7 +16,12 @@ module GobiertoParticipation
       def index
         @issues = current_site.issues
         @issue = find_issue
-        @pages = find_issue_news.page(params[:page])
+        @pages = if @issue
+                   find_issue_news.page(params[:page])
+                 else
+                   find_issue_news.page(params[:page])
+
+                 end
       end
 
       private

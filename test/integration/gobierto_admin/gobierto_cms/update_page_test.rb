@@ -31,12 +31,11 @@ module GobiertoAdmin
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
-
               within "tr#collection-item-#{collection.id}" do
                 click_link "News"
               end
 
-              assert has_selector?("h1", text: "News")
+              assert has_selector?("h1", text: "Sport city")
 
               click_link "Consultation page FAQ"
 

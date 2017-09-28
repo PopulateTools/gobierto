@@ -49,65 +49,72 @@
     </div>
 
     <div id="person-agenda" class="pure-u-1 pure-u-md-17-24 main_people_content">
-
-      <div class="events-filter">
-
-        <% if @filtering_date %>
-          <div class="box">
-            <div class="inner">
-              <%= t(".displaying_events_of", date: l(@filtering_date, format: :short)) %>
-              <%= link_to t(".go_back"), [:gobierto_people, @person_event_scope, :events] %>
-            </div>
-          </div>
-        <% end %>
-
-      </div>
-
-      <div class="events-summary">
-
+    
+      <div class="list-view" style="display: none;">
         <div class="events-filter">
 
-          <div class="pure-g block" >
-
-            <div class="pure-u-1 pure-u-md-1-2">
-
-              <h2 class="filter-option <%= class_if("active", !controller_name.include?("past_person_events")) %>">
-                <%= link_to_unless_current t(".upcoming_events"), [:gobierto_people, @person_event_scope, :events] %>
-              </h2>
-
+          <% if @filtering_date %>
+            <div class="box">
+              <div class="inner">
+                <%= t(".displaying_events_of", date: l(@filtering_date, format: :short)) %>
+                <%= link_to t(".go_back"), [:gobierto_people, @person_event_scope, :events] %>
+              </div>
             </div>
+          <% end %>
 
-            <div class="pure-u-1 pure-u-md-1-2 right">
+        </div>
 
-              <h2 class="filter-option <%= class_if("active", controller_name.include?("past_person_events")) %>">
-                <%= link_to_unless_current t(".past_events"), [:gobierto_people, @person_event_scope, :past_events] %>
-              </h2>
+        <div class="events-summary">
+
+          <div class="events-filter">
+
+            <div class="pure-g block" >
+
+              <div class="pure-u-1 pure-u-md-1-2">
+
+                <h2 class="filter-option <%= class_if("active", !controller_name.include?("past_person_events")) %>">
+                  <%= link_to_unless_current t(".upcoming_events"), [:gobierto_people, @person_event_scope, :events] %>
+                </h2>
+
+              </div>
+
+              <% pending do %>
+                <div class="pure-u-1 pure-u-md-1-2 right">
+
+                  <h2 class="filter-option <%= class_if("active", controller_name.include?("past_person_events")) %>">
+                    <%= link_to_unless_current t(".past_events"), [:gobierto_people, @person_event_scope, :past_events] %>
+                  </h2>
+
+                </div>
+              <% end %>
 
             </div>
 
           </div>
 
-        </div>
-
-        <p>
-          <% if @past_events && @events.empty? %>
-            <%= t(".no_past_events") %>
-          <% else %>
-            <% if @no_upcoming_events && @events.empty? %>
-              <%= t(".no_events") %>
-            <% elsif @no_upcoming_events %>
-              <%= t(".no_upcoming_events") %>:
+          <p>
+            <% if @past_events && @events.empty? %>
+              <%= t(".no_past_events") %>
+            <% else %>
+              <% if @no_upcoming_events && @events.empty? %>
+                <%= t(".no_events") %>
+              <% elsif @no_upcoming_events %>
+                <%= t(".no_upcoming_events") %>:
+              <% end %>
             <% end %>
-          <% end %>
-        </p>
+          </p>
 
-        <div id="events">
-          <% @events.each do |event| %>
-            <%= render partial: "gobierto_people/person_events/person_event", locals: { person: event.collection.container, person_event: event } %>
-          <% end %>
+          <div id="events">
+            <% @events.each do |event| %>
+              <%= render partial: "gobierto_people/person_events/person_event", locals: { person: event.collection.container, person_event: event } %>
+            <% end %>
+          </div>
+
+          <%= link_to_next_page @events, t('.view_more'), class: "see_more", role: "button", remote: true %>
         </div>
+      </div>
 
-        <%= link_to_next_page @events, t('.view_more'), class: "see_more", role: "button", remote: true %>
+      <div id="calendar">
       </div>
 
     </div>
@@ -117,3 +124,9 @@
 </div>
 
 <% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoPeople.events_controller.index();
+  <% end %>
+<% end %> 

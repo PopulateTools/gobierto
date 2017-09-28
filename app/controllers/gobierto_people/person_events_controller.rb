@@ -14,12 +14,28 @@ module GobiertoPeople
       respond_to do |format|
         format.html
         format.js
-        format.json { render json: @events }
+        format.json do
+          render(json: { events: fullcalendar_events })
+        end
         format.csv  { render csv: GobiertoExports::CSVRenderer.new(@events).to_csv, filename: 'events' }
       end
     end
 
     private
+
+    def fullcalendar_events
+      starts  = Time.zone.parse(params[:start])
+      ends    = Time.zone.parse(params[:end])
+      debugger
+      @events = @events.published.where('starts_at >= ? AND ends_at <= ?', starts, ends)
+      @events.map do |event|
+        ::GobiertoCalendars::FullcalendarEventSerializer.new(
+          event,
+          current_site: current_site,
+          person_slug: ''
+        )
+      end
+    end
 
     def check_active_submodules
       if !agendas_submodule_active?
@@ -28,6 +44,7 @@ module GobiertoPeople
     end
 
     def set_events
+      debugger
       @events = GobiertoCalendars::Event.by_site(current_site).person_events.page params[:page]
       @events = @events.by_person_category(@person_category) if @person_category
       @events = @events.by_person_party(@person_party) if @person_party

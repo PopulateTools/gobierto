@@ -35,7 +35,14 @@
             <% @activities.each do |activity| %>
               <div class="activity_item">
                 <h2>
-                  <%= link_to('activity.url') do %>
+                  <% if try(:current_process).present? && !@issue.present? %>
+                    <% notification_url = nil %>
+                  <% elsif @issue %>
+                    <% notification_url = nil %>
+                  <% elsif current_module == "gobierto_participation" %>
+                    <% notification_url = activity.subject.to_url(host: @site.domain) %>
+                  <% end %>
+                  <%= link_to(notification_url) do %>
                     <%= activity.translated_action %>
                     <span class="secondary"><%= activity.subject_name %></span>
                   <% end %>

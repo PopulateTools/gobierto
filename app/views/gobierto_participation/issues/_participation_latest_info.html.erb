@@ -22,15 +22,15 @@
       <div class="pure-u-1 pure-u-md-1-3 center">
         <h3 class="agenda_title"><%= t('.the_last') %></h3>
         <div class="p_1  content_block" id="the_last">
-          <% if @issue_news_updated.any? %>
-            <% @issue_news_updated.each do |notice| %>
+          <% if @issue_notifications.any? %>
+            <% @issue_notifications.each do |notice| %>
               <%= render 'gobierto_participation/processes/place_news', { notice: notice } %>
             <% end %>
           <% else %>
             <%= t('.no_events') %>
           <% end %>
         </div>
-        <% if @issue_news_updated.any? %>
+        <% if @issue_notifications.any? %>
           <%= link_to t('.show_more_updates'), gobierto_participation_issue_notifications_path(@issue.slug) %>
         <% end %>
       </div>

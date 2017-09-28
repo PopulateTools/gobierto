@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Activity < ApplicationRecord
   paginates_per 50
 
@@ -24,8 +26,14 @@ class Activity < ApplicationRecord
     where(author_type: admin.class.name, author_id: admin.id).sorted.includes(:subject, :author, :recipient)
   end
 
-  def self.participation
-    where("subject_type LIKE 'GobiertoParticipation%' OR
-           subject_type LIKE 'Issue'")
+  def self.in_participation
+    Activity.select { |a| GobiertoCommon::CollectionItem.where("container_type IN ('GobiertoParticipation::Issue', 'GobiertoParticipation::Process') AND
+      item_type = ? AND item_id = ?", a.subject.class.to_s, a.subject.id).any? }.pluck(:id)
+    where(id: ids)
+  end
+
+  def self.in_container(container)
+    Activity.select { |a| GobiertoCommon::CollectionItem.where(container: container, item: a.subject).any? }.pluck(:id)
+    where(id: ids)
   end
 end

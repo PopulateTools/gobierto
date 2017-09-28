@@ -9,7 +9,7 @@ module GobiertoParticipation
     def show
       @issue = find_issue
       @issue_news = find_issue_news
-      @issue_news_updated = find_issue_news_updated
+      @issue_notifications = find_issue_notifications
       @issue_events = find_issue_events
       @processes = current_site.processes.process.where(issue: @issue).active
       @groups = current_site.processes.group_process.where(issue: @issue)
@@ -27,10 +27,8 @@ module GobiertoParticipation
       # @process.news.upcoming.order(created_at: :desc).limit(5)
     end
 
-    def find_issue_news_updated
-      @issue.events.upcoming.order(updated_at: :asc).limit(5)
-      # TODO: rewrite using Rails chainable scopes. Maybe something like this:
-      # @process.news.upcoming.order(created_at: :desc).limit(5)
+    def find_issue_notifications
+      ActivityCollectionDecorator.new(Activity.in_site(current_site).activities_in_issue(@issue).sorted.includes(:subject, :author, :recipient).page(params[:page]))
     end
 
     def find_issue_events

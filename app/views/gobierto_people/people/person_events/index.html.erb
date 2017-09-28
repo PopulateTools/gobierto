@@ -4,7 +4,7 @@
   <h2><%= title t(".title", person_name: @person.name) %></h2>
 </div>
 
-<div class="events-summary person_event-list item-list">
+<div class="events-summary person_event-list item-list" style="display: none;">
 
   <div class="events-filter">
 
@@ -50,4 +50,13 @@
 
 </div>
 
+<div id='calendar'>
+</div>
+
 <% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoPeople.person_events_controller.index();
+  <% end %>
+<% end %>

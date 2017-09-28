@@ -107,6 +107,19 @@ $lighter_black: rgba($color_headers, .7);
     h2 {
       color: $green;
     }
+
+    .bt {
+      border-top: 1px solid transparentize($green, .7);
+    }
+    .bb {
+      border-bottom: 1px solid transparentize($green, .7);
+    }
+    .bl {
+      border-top: 1px solid transparentize($green, .7);
+    }
+    .br {
+      border-top: 1px solid transparentize($green, .7);
+    }
   }
 
   .filled_block {
@@ -695,15 +708,17 @@ $lighter_black: rgba($color_headers, .7);
         border-radius: 50%;
         display: inline-block;
         position: relative;
+        cursor: pointer;
 
         .dot-current {
           width: 0;
           height: 0;
-          border-left: 7.5px solid transparent;
-          border-right: 7.5px solid transparent;
-          border-top: 7.5px solid $medium_blue;
+          border-left: 4px solid transparent;
+          border-right: 4px solid transparent;
+          border-top: 6px solid #22A3D8;
           position: absolute;
           top: -10px;
+          left: 3px;
         }
 
         &.dot-tooltip {
@@ -759,8 +774,8 @@ $lighter_black: rgba($color_headers, .7);
 
       .dot-join {
         background-color: $medium_blue;
-        width: 5px;
-        height: 5px;
+        width: 9.5px;
+        height: 3px;
         display: inline-block;
       }
 

@@ -8,9 +8,14 @@ module GobiertoParticipation
     end
 
     def index
+      @issue = find_issue if params[:issue_id]
       @issues = current_site.issues
       @filtered_issue = find_issue if params[:issue_id]
-      @attachments = find_attachments
+      @attachments = if @issue
+                       GobiertoAttachments::Attachment.attachments_in_collections_and_container(current_site, @issue).page(params[:page])
+                     else
+                       find_attachments.page(params[:page])
+                     end
     end
 
     private

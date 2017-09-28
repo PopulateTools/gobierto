@@ -3,14 +3,13 @@
 module GobiertoParticipation
   class EventsController < GobiertoParticipation::ApplicationController
     def index
+      @issue = find_issue if params[:issue_id]
+      @issues = current_site.issues.alphabetically_sorted
+
       container_events
       set_events
 
       @calendar_events = @container_events
-
-      @issues = current_site.issues.alphabetically_sorted
-
-      @issue = find_issue if params[:issue_id]
     end
 
     def show
@@ -30,7 +29,11 @@ module GobiertoParticipation
       @events = if params[:date]
                   find_events_by_date params[:date]
                 else
-                  @container_events.upcoming.sorted.page params[:page]
+                  if @issue
+                    GobiertoCalendars::Event.events_in_collections_and_container(current_site, @issue).page(params[:page]).upcoming.sorted.page params[:page]
+                  else
+                    @container_events.upcoming.sorted.page params[:page]
+                  end
                 end
 
       @calendar_events = @container_events

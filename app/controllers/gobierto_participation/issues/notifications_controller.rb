@@ -6,10 +6,7 @@ module GobiertoParticipation
       include ::PreviewTokenHelper
 
       def index
-        @issues = current_site.issues.alphabetically_sorted
-
-        @issue = find_issue if params[:issue_id]
-
+        @issue = find_issue
         @activities = find_issue_activities
       end
 

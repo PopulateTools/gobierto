@@ -3,6 +3,8 @@
 module GobiertoParticipation
   module Issues
     class EventsController < BaseController
+      include ::PreviewTokenHelper
+
       def show
         @event = find_event
 
@@ -10,9 +12,7 @@ module GobiertoParticipation
       end
 
       def index
-        @issues = current_site.issues.alphabetically_sorted
-
-        @issue = find_issue if params[:issue_id]
+        @issue = find_issue
 
         set_events
 

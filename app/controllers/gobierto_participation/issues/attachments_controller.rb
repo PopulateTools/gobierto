@@ -13,7 +13,6 @@ module GobiertoParticipation
       end
 
       def index
-        @issues = current_site.issues
         @issue = find_issue
         @attachments = find_issue_attachments
       end

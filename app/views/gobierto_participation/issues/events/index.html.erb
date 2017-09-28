@@ -29,16 +29,17 @@
             <% end %>
           </div>
 
-          <h4 class="with_light_separator m_t_1">Filtrar por tema</h4>
+          <% unless @issue %>
+            <h4 class="with_light_separator m_t_1">Filtrar por tema</h4>
 
-          <ul class="link_list">
-            <% @issues.each do |issue| %>
-              <li>
-                <%= link_to issue.name , gobierto_participation_issue_events_path(issue_id: issue.slug) %>
-              </li>
-            <% end %>
-          </ul>
-
+            <ul class="link_list">
+              <% @issues.each do |issue| %>
+                <li>
+                  <%= link_to issue.name , gobierto_participation_issue_events_path(issue_id: issue.slug) %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
         </div>
       </div>
 

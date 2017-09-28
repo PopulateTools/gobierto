@@ -4,7 +4,7 @@
   <h2><%= title t(".title", person_name: @person.name) %></h2>
 </div>
 
-<div class="events-summary person_event-list item-list">
+<div class="events-summary person_event-list item-list" style="<%= params[:list_view].present? ? '' : 'display: none;' %>">
 
   <div class="events-filter">
 
@@ -27,13 +27,15 @@
 
       </div>
 
-      <div class="pure-u-1 pure-u-md-1-2 right">
+      <% pending do %>
+        <div class="pure-u-1 pure-u-md-1-2 right">
 
-        <h3 class="filter-option <%= class_if("active", controller_name == "past_person_events") %>">
-          <%= link_to_unless_current t(".past_events"), gobierto_people_person_past_events_path(@person.slug) %>
-        </h3>
+          <h3 class="filter-option <%= class_if("active", controller_name == "past_person_events") %>">
+            <%= link_to_unless_current t(".past_events"), gobierto_people_person_past_events_path(@person.slug) %>
+          </h3>
 
-      </div>
+        </div>
+      <% end %>
 
     </div>
 
@@ -50,4 +52,13 @@
 
 </div>
 
+<div id='calendar'>
+</div>
+
 <% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoPeople.person_events_controller.index();
+  <% end %>
+<% end %>

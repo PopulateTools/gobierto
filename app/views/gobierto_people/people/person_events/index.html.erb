@@ -27,13 +27,15 @@
 
       </div>
 
-      <div class="pure-u-1 pure-u-md-1-2 right">
+      <% pending do %>
+        <div class="pure-u-1 pure-u-md-1-2 right">
 
-        <h3 class="filter-option <%= class_if("active", controller_name == "past_person_events") %>">
-          <%= link_to_unless_current t(".past_events"), gobierto_people_person_past_events_path(@person.slug) %>
-        </h3>
+          <h3 class="filter-option <%= class_if("active", controller_name == "past_person_events") %>">
+            <%= link_to_unless_current t(".past_events"), gobierto_people_person_past_events_path(@person.slug) %>
+          </h3>
 
-      </div>
+        </div>
+      <% end %>
 
     </div>
 

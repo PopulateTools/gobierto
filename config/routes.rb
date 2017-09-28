@@ -265,14 +265,14 @@ Rails.application.routes.draw do
         resources :attachments, only: [:index, :show], controller: "processes/attachments", path: "documentos"
         resources :events, only: [:index, :show], controller: "processes/events", path: "agendas"
         resources :pages, only: [:index, :show], controller: "processes/pages", path: "noticias"
-        resources :notifications, only: [:index, :show], controller: "processes/notifications"
+        resources :notifications, only: [:index], controller: "processes/notifications"
       end
 
       resources :issues, only: [:index, :show], path: "temas" do
         resources :attachments, only: [:index, :show], controller: "issues/attachments", path: "documentos"
         resources :events, only: [:index, :show], controller: "issues/events", path: "agendas"
         resources :pages, only: [:index, :show], controller: "issues/pages", path: "noticias"
-        resources :notifications, only: [:index, :show], controller: "issues/notifications"
+        resources :notifications, only: [:index], controller: "issues/notifications"
       end
 
       resources :attachments, only: [:index, :show], controller: "attachments", path: "documentos"

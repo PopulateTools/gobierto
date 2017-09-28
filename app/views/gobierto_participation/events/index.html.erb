@@ -1,6 +1,6 @@
 <% content_for :breadcrumb_current_item do %>
   <h1>
-    <%= link_to t('.events'), gobierto_participation_participation_events_path %>
+    <%= link_to t('.events'), gobierto_participation_events_path %>
   </h1>
 <% end %>
 
@@ -15,7 +15,7 @@
       <div class="pure-u-1 pure-u-lg-1-3">
         <div class="content_side">
           <div>
-            <small><%= link_to t('.all_events'), gobierto_participation_participation_events_path %></small>
+            <small><%= link_to t('.all_events'), gobierto_participation_events_path %></small>
           </div>
 
           <div class="calendar-component m_v_2">
@@ -34,7 +34,7 @@
           <ul class="link_list">
             <% @issues.each do |issue| %>
               <li>
-                <%= link_to issue.name , gobierto_participation_participation_events_path(issue_id: issue.slug) %>
+                <%= link_to issue.name , gobierto_participation_events_path(issue_id: issue.slug) %>
               </li>
             <% end %>
           </ul>
@@ -47,7 +47,7 @@
         <% if @events.any? %>
           <div class="events_list">
             <% @events.each do |event| %>
-              <%= render 'gobierto_participation/events/event_teaser', event: event %>
+              <%= render 'gobierto_participation/shared/events/event_teaser', event: event %>
             <% end %>
           </div>
         <% else %>

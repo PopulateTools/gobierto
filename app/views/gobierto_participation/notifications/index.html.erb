@@ -1,6 +1,6 @@
 <% content_for :breadcrumb_current_item do %>
   <h1>
-    <%= link_to t('.activities'), gobierto_participation_participation_activities_path %>
+    <%= link_to t('.activities'), gobierto_participation_notifications_path %>
   </h1>
 <% end %>
 
@@ -14,7 +14,7 @@
           </h2>
 
           <div>
-            <small><%= link_to t('.all_activities'), gobierto_participation_participation_activities_path %></small>
+            <small><%= link_to t('.all_activities'), gobierto_participation_notifications_path %></small>
           </div>
 
           <h4 class="with_light_separator m_t_1"><%= t('.filter') %></h4>
@@ -22,7 +22,7 @@
           <ul class="link_list">
             <% @issues.each do |issue| %>
               <li>
-                <%= link_to issue.name , gobierto_participation_participation_pages_path(issue_id: issue.slug) %>
+                <%= link_to issue.name , gobierto_participation_pages_path(issue_id: issue.slug) %>
               </li>
             <% end %>
           </ul>

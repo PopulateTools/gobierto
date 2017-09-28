@@ -23,8 +23,8 @@
         <h3 class="agenda_title"><%= t('.the_last') %></h3>
         <div class="p_1  content_block" id="the_last">
           <% if @issue_notifications.any? %>
-            <% @issue_notifications.each do |notice| %>
-              <%= render 'gobierto_participation/processes/place_news', { notice: notice } %>
+            <% @issue_notifications.each do |activity| %>
+              <%= render 'gobierto_participation/processes/place_activities', { activity: activity } %>
             <% end %>
           <% else %>
             <%= t('.no_events') %>

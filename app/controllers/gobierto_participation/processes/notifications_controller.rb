@@ -20,7 +20,7 @@ module GobiertoParticipation
       end
 
       def find_process_activities
-        ActivityCollectionDecorator.new(Activity.in_site(current_site).in_container(current_process).sort.includes(:subject, :author, :recipient).page(params[:page]))
+        ActivityCollectionDecorator.new(Activity.in_site(current_site).in_container(current_process).sorted.includes(:subject, :author, :recipient).page(params[:page]))
       end
     end
   end

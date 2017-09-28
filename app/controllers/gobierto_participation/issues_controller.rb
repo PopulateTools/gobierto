@@ -28,7 +28,7 @@ module GobiertoParticipation
     end
 
     def find_issue_notifications
-      ActivityCollectionDecorator.new(Activity.in_site(current_site).activities_in_issue(@issue).sorted.includes(:subject, :author, :recipient).page(params[:page]))
+      ActivityCollectionDecorator.new(Activity.in_site(current_site).in_container(@issue).sorted.includes(:subject, :author, :recipient).page(params[:page]))
     end
 
     def find_issue_events

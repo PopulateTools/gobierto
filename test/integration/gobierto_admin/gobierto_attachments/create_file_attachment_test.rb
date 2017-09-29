@@ -24,10 +24,10 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
               click_link "Files"
-              assert has_selector?("h1", text: "Files")
+              assert has_selector?("h1", text: "Sport city")
 
               click_link "New"
-              assert has_selector?("h1", text: "New document")
+              assert has_selector?("h1", text: "Sport city")
               click_button "Create"
               assert has_alert?("File can't be blank")
             end
@@ -42,10 +42,11 @@ module GobiertoAdmin
               visit @path
 
               click_link "Files"
-              assert has_selector?("h1", text: "Files")
+
+              assert has_selector?("h1", text: "Sport city")
 
               click_link "New"
-              assert has_selector?("h1", text: "New document")
+              assert has_selector?("h1", text: "Sport city")
 
               fill_in "file_attachment_name", with: "My file_attachment"
               fill_in "file_attachment_description", with: "My file_attachment description"
@@ -75,10 +76,10 @@ module GobiertoAdmin
               visit @path
 
               click_link "Files"
-              assert has_selector?("h1", text: "Files")
+              assert has_selector?("h1", text: "Sport city")
 
               click_link "New"
-              assert has_selector?("h1", text: "New document")
+              assert has_selector?("h1", text: "Sport city")
 
               fill_in "file_attachment_description", with: "My file_attachment description"
               attach_file("file_attachment_file", "test/fixtures/files/gobierto_attachments/attachment/pdf-collection-update-attachment.pdf")

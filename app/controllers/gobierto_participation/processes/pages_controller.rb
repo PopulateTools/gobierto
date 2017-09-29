@@ -8,7 +8,6 @@ module GobiertoParticipation
       before_action :find_page_by_id_and_redirect
 
       def show
-        @process = find_process if params[:process_id]
         @page = find_page
         @groups = current_site.processes.group_process
       end

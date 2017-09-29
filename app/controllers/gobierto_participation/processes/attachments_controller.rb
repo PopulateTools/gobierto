@@ -30,9 +30,7 @@ module GobiertoParticipation
       end
 
       def find_attachment
-        # TODO: pending create slug
-        # find_process_attachments.find_by_slug!(params[:id])
-        find_process_attachments.find_by_id!(params[:id])
+        find_process_attachments.find_by_slug!(params[:id])
       end
 
       def find_process_attachments

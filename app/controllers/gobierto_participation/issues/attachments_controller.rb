@@ -6,7 +6,6 @@ module GobiertoParticipation
       include ::PreviewTokenHelper
 
       def show
-        @process = find_process if params[:process_id]
         @attachment = find_attachment
         @groups = current_site.processes.group_process
         @issues = current_site.issues

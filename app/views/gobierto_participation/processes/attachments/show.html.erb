@@ -22,38 +22,25 @@
           </h2>
 
           <div>
-            <small><%= link_to t('gobierto_participation.participation_attachments'), gobierto_participation_attachments_path %></small>
+            <small><%= link_to t('gobierto_participation.participation_attachments'), gobierto_participation_process_attachments_path(process_id: current_process.slug) %></small>
           </div>
 
-          <h4 class='with_light_separator m_t_1'><%= t('.filter') %></h4>
-          <ul class='link_list'>
-            <% @issues.each do |issue| %>
-              <li>
-                <%= link_to issue.name , gobierto_participation_process_attachments_path(issue_id: issue.slug) %>
-              </li>
-            <% end %>
-          </ul>
+          <% pending do %>
+            <h4 class='with_light_separator m_t_1'><%= t('.filter') %></h4>
+            <ul class='link_list'>
+              <% @issues.each do |issue| %>
+                <li>
+                  <%= link_to issue.name , gobierto_participation_process_attachments_path(issue_id: issue.slug) %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
         </div>
       </div>
 
       <div class='pure-u-1 pure-u-lg-2-3'>
         <article class='news_article'>
-          <h1><%= link_to @attachment.name, @attachment.url, target: '_blank' %></h1>
-          <div class='meta'>
-            <time>
-              <%= l(@attachment.updated_at, format: :long) %>
-            </time>
-          </div>
-          <%= raw @attachment.description %>
-          <div class='document'>
-            <div class='soft'>
-              <small>
-                <%= @attachment.extension.upcase %>
-                 ·
-                <%= number_to_human_size(@attachment.file_size, precision: 2, separator: ',') %>
-              </small>
-            </div>
-          </div>
+          <%= render 'gobierto_participation/shared/attachments/attachment', { attachment: @attachment } %>
         </article>
       </div>
     </div>

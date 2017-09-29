@@ -38,39 +38,24 @@
             <small><%= link_to t('.all_pages'), gobierto_participation_pages_path %></small>
           </div>
 
-          <h4 class="with_light_separator m_t_1"><%= t('.filter') %></h4>
+          <% pending do %>
+            <h4 class="with_light_separator m_t_1"><%= t('.filter') %></h4>
 
-          <ul class="link_list">
-            <% @issues.each do |issue| %>
-              <li>
-                <%= link_to issue.name , gobierto_participation_process_pages_path(process_id: current_process.slug, issue_id: issue.slug) %>
-              </li>
-            <% end %>
-          </ul>
+            <ul class="link_list">
+              <% @issues.each do |issue| %>
+                <li>
+                  <%= link_to issue.name , gobierto_participation_process_pages_path(process_id: current_process.slug, issue_id: issue.slug) %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
         </div>
       </div>
 
       <div class='pure-u-1 pure-u-lg-2-3'>
         <% if @pages && @pages.any? %>
           <% @pages.each do |page| %>
-            <div class='news_teaser'>
-              <h3>
-                  <%= link_to page.title , gobierto_participation_page_path(page.slug) %>
-              </h3>
-
-              <div class='meta'>
-                <time><%= time_ago_in_words(page.created_at) %></time>
-              </div>
-
-              <% if page.main_image %>
-                <%= image_tag page.main_image, title: page.title, width: '221px', class: 'pure-img m_v_1' %>
-                <p>
-                  <%= truncate(strip_tags(page.body), length: 60, escape: false) %>
-                </p>
-              <% else %>
-                <%= truncate(strip_tags(page.body), length: 60, escape: false) %>
-              <% end %>
-            </div>
+            <%= render 'gobierto_participation/shared/pages/page_teaser', { page: page } %>
           <% end %>
 
           <%= paginate @pages %>

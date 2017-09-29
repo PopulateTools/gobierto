@@ -1,7 +1,6 @@
 ---
 en:
   gobierto_participation:
-    participation_attachments: See all the documents of Participation
     events:
       event:
         follow_event: Follow this event
@@ -29,15 +28,6 @@ en:
           where we will discuss in person the topics of this process. If you can not
           attend, we will publish online everything that is said in the meetings to
           facilitate the follow-up and make the conclusions accessible.
-    issue_pages:
-      index:
-        filter: Filter by theme
-        title: News
-      show:
-        documents: Documents
-        filter: Filter by group
-        published_at: Posted on %{date} by %{site}
-        title: News
     issues:
       index:
         intro_html: Your ideas help improve %{location_name} and the lives of all
@@ -79,47 +69,7 @@ en:
         agenda: Diary
         documents: Documents
         news: News
-    participation_activities:
-      index:
-        activities: Updates
-        all_activities: View all updates
-        filter: Filter by theme
-        no_new_activities: No updates
-        title: Updates
-    participation_events:
-      event:
-        add_to_calendar: Add calendar
-        download: Download data
-        follow_event: Follow this event
-        neighbors_count_html:
-          one: "<strong>%{neighbors} neighbor</strong> will attend"
-          other: "<strong>%{neighbors} neighbors</strong> will attend"
-          zero: No neighbor will attend
-      index:
-        all_events: View all events
-        events: events
-      show:
-        from_to: "%{starts} to %{ends}"
-    participation_pages:
-      index:
-        all_pages: Show all pages
-        filter: Filter
-        news: News
-        title: News
-      show:
-        documents: Documents
-        filter: Filter by group
-        published_at: Publicado el %{date} por el %{site}
-        title: Noticias
-    process_pages:
-      index:
-        filter: Filter by theme
-        title: News
-      show:
-        documents: Documents
-        filter: Filter by theme
-        published_at: Posted on %{date} by %{site}
-        title: News
+    participation_attachments: See all the documents of Participation
     processes:
       poll_answers:
         new:
@@ -146,7 +96,6 @@ en:
       show:
         about: About this process
         appointments: Face-to-face appointments
-        from_to: "%{starts} to %{ends}"
         interesting_information: Interesting information
         issue: Issue
         length: Duration
@@ -164,8 +113,41 @@ en:
         past_stage: Stage has ended
         upcoming_stage: Stage not yet started
         view_stage: Access this stage
+    shared:
+      activities: Updates
+      agenda: Agenda
+      agenda_participation_p1: We invite you to attend the following meetings where
+        we will discuss in person on the issues of this process. If you can not to
+        attend, we will publish online everything that is said in the meetings to
+        facilitate follow-up and make conclusions accessible.
+      all_activities: See all updates
+      all_attachments: See all documents
+      all_events: View all events
+      all_news: Show all news
+      consultation_processes: Consult and participate in specific processes.
+      documents: Documents
+      events:
+        event:
+          follow_event: Follow this events
+          from_to: "%{starts} to %{ends}"
+        event_teaser:
+          agenda_for_container: Diary for
+      filter_by_theme: Filter by theme
+      from_to: "%{starts} to %{ends}"
+      new: New
+      news: News
+      no_activities: No related updates
+      no_events: No related events
+      ongoing_processes: Ongoing processes
+      published_at: Posted on %{date} by %{site}
     welcome:
       index:
+        ask_the_mayor: Ask the mayor
+        ask_the_mayor_p1: What do you want to know about the mayor? Send him your
+          question.
+        improve_city: Let's improve the city together
+        improve_city_p1: Share your ideas for improving the city. Give your opinion
+          about the others.
         intro: Know the mechanisms of participation that offers you %{location_name}
         intro_p1: Vote every four years? Get involved in the day-to-day life.
       participation_latest_info:

@@ -1,13 +1,6 @@
 <div class="person_event-item">
   <h3>
-    <%= link_to(
-          event.title,
-          gobierto_participation_event_path(
-            event.slug,
-            container_type: event.collection_container.container_type,
-            container_id: event.collection_container.id
-          )
-    ) %>
+    <%= event.title %>
   </h3>
 
   <div class="meta">

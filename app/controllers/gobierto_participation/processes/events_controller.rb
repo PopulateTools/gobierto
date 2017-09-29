@@ -35,11 +35,15 @@ module GobiertoParticipation
       end
 
       def find_event
-        find_participation_events.find_by_slug!(params[:id])
+        find_process_events.find_by_slug!(params[:id])
+      end
+
+      def find_process_events
+        ::GobiertoCalendars::Event.events_in_collections_and_container(current_site, current_process)
       end
 
       def set_events
-        @events = ::GobiertoCalendars::Event.events_in_collections_and_container(current_site, current_process).sorted.page params[:page]
+        @events = find_process_events.sorted.page params[:page]
         @events = @events.events_in_collections_and_container(current_site, @issue) if @issue
 
         if params[:date]

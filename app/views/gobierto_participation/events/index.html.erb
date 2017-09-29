@@ -18,16 +18,7 @@
             <small><%= link_to t('.all_events'), gobierto_participation_events_path %></small>
           </div>
 
-          <div class="calendar-component m_v_2">
-            <%= month_calendar(
-              partial: "gobierto_people/person_events/calendar_template",
-              events: @events,
-              attribute: :starts_at,
-              start_date: params[:start_date] || Date.current
-            ) do |date, events| %>
-              <%= link_to_if events.any?, date.day, date: date, start_date: params[:start_date] %>
-            <% end %>
-          </div>
+          <%= render 'gobierto_participation/shared/events/calendar_component', events: @events %>
 
           <h4 class="with_light_separator m_t_1">Filtrar por tema</h4>
 

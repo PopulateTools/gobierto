@@ -12,7 +12,6 @@ module GobiertoCalendars
     include GobiertoCommon::Collectionable
 
     validates :site, :collection, presence: true
-    validates :slug, uniqueness: { scope: :site }
 
     translates :title, :description
 

@@ -22,7 +22,7 @@ module GobiertoParticipation
     end
 
     def find_issue_news
-      GobiertoCms::Page.pages_in_collections_and_container(current_site, @issue).active.sort_by(&:created_at).reverse.first(5)
+      @issue.active_pages(current_site)
     end
 
     def find_issue_notifications

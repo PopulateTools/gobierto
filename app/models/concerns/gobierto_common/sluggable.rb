@@ -5,20 +5,15 @@ module GobiertoCommon
     extend ActiveSupport::Concern
 
     included do
-      before_validation :set_slug
+      before_create :set_slug
     end
 
     private
 
     def set_slug
-      return if self.slug.present? && !self.class.exists?(site: site, slug: self.slug)
+      return if self.slug.present?
 
-      base_slug = if self.slug.present?
-                    self.slug
-                  else
-                    attributes_for_slug.join('-').gsub('_', ' ').parameterize
-                  end
-
+      base_slug = attributes_for_slug.join('-').gsub('_', ' ').parameterize
       new_slug  = base_slug
 
       count = 2

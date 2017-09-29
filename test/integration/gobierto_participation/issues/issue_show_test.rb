@@ -92,7 +92,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        assert_equal issue.news.size, all(".place_news-item").size
+        assert_equal issue.active_pages(site).size, all(".place_news-item").size
       end
     end
 
@@ -109,14 +109,6 @@ module GobiertoParticipation
         visit @path
 
         assert_equal processes.size, all("div#processes/div").size
-      end
-    end
-
-    def test_issue_groups
-      with_current_site(site) do
-        visit @path
-
-        assert_equal groups.size, all("div#groups/div").size
       end
     end
   end

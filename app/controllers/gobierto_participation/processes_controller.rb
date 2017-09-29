@@ -13,24 +13,20 @@ module GobiertoParticipation
     end
 
     def show
-      @process_news   = find_process_news
+      @process_news = find_process_news
       @process_events = find_process_events
-      @activities     = [] # TODO: implementation not yet defined
+      @activities = [] # TODO: implementation not yet defined
       @process_stages = current_process.stages.active
     end
 
     private
 
-    def find_person
-      people_scope.find_by!(slug: params[:slug])
-    end
-
     def find_process_news
-      current_process.extend_news.active
+      current_process.news.sort_by(&:created_at).reverse.first(5)
     end
 
     def find_process_events
-      current_process.extend_events.published
+      current_process.events.upcoming.order(starts_at: :asc).limit(5)
     end
 
     def current_process

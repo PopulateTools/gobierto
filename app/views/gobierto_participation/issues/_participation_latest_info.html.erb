@@ -31,7 +31,7 @@
           <% end %>
         </div>
         <% if @issue_notifications.any? %>
-          <%= link_to t('.show_more_updates'), gobierto_participation_issue_notifications_path(@issue.slug) %>
+          <%= link_to t('.show_more_updates'), gobierto_participation_issue_activities_path(@issue.slug) %>
         <% end %>
       </div>
 

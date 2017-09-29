@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GobiertoParticipation
-  class NotificationsController < BaseController
+  class ActivitiesController < BaseController
     def index
       @issues = current_site.issues.alphabetically_sorted
 

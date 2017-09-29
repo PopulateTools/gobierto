@@ -2,7 +2,7 @@
 
 module GobiertoParticipation
   module Processes
-    class NotificationsController < BaseController
+    class ActivitiesController < BaseController
       include ::PreviewTokenHelper
 
       def index

@@ -11,15 +11,8 @@
             <small><%= link_to t('.all_activities'), gobierto_participation_activities_path %></small>
           </div>
 
-          <h4 class="with_light_separator m_t_1"><%= t('.filter') %></h4>
+          <%= render 'gobierto_participation/shared/activities/activities_filter', { issues: @issues } %>
 
-          <ul class="link_list">
-            <% @issues.each do |issue| %>
-              <li>
-                <%= link_to issue.name , gobierto_participation_pages_path(issue_id: issue.slug) %>
-              </li>
-            <% end %>
-          </ul>
         </div>
       </div>
 

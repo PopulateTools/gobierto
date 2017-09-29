@@ -93,7 +93,7 @@ module GobiertoAdmin
       end
 
       def file_attachment_params
-        params.require(:file_attachment).permit(:id, :file, :name, :description, :file_name)
+        params.require(:file_attachment).permit(:id, :file, :name, :description, :file_name, :slug)
       end
     end
   end

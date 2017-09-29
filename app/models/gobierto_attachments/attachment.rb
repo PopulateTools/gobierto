@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency 'gobierto_attachments'
 
 module GobiertoAttachments
@@ -6,6 +8,7 @@ module GobiertoAttachments
 
     include User::Subscribable
     include GobiertoCommon::Searchable
+    include GobiertoCommon::Sluggable
 
     MAX_FILE_SIZE_IN_BYTES = 10.megabytes
 
@@ -79,6 +82,14 @@ module GobiertoAttachments
       if versions.length > 0
         versions.last.created_at
       end
+    end
+
+    def parameterize
+      { slug: slug }
+    end
+
+    def attributes_for_slug
+      [name]
     end
 
     private

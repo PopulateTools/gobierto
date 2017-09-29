@@ -27,12 +27,10 @@ module GobiertoParticipation
 
     def find_process_news
       current_process.news.sort_by(&:created_at).reverse.first(5)
-      # TODO: rewrite using Rails chainable scopes. Maybe something like this:
-      # @process.news.upcoming.order(created_at: :desc).limit(5)
     end
 
     def find_process_events
-      current_process.events.upcoming.order(starts_at: :asc).limit(5)
+      ::GobiertoCalendars::Event.events_in_collections_and_container(current_site, current_process)
     end
 
     def current_process

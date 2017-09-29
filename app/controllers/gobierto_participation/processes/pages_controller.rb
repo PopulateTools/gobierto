@@ -15,8 +15,8 @@ module GobiertoParticipation
 
       def index
         @issues = current_site.issues
-        @issue = find_issue
-        @pages = find_issue_news.page(params[:page])
+        @issue = find_issue if params[:issue_id]
+        @pages = find_process_news.page(params[:page])
       end
 
       private
@@ -33,8 +33,8 @@ module GobiertoParticipation
         current_site.issues.find_by_slug!(params[:issue_id])
       end
 
-      def find_issue_news
-        @issue.news
+      def find_process_news
+        current_process.news
       end
 
       def find_page

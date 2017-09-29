@@ -2,7 +2,9 @@
 
 module GobiertoParticipation
   module Processes
-    class EventsController < GobiertoParticipation::ApplicationController
+    class EventsController < BaseController
+      include ::PreviewTokenHelper
+
       def show
         @event = find_event
 
@@ -28,8 +30,8 @@ module GobiertoParticipation
         current_site.issues.find_by_slug!(params[:issue_id])
       end
 
-      def find_participation_events
-        ::GobiertoCalendars::Event.events_in_collections_and_container_type(current_site, "GobiertoParticipation").sorted
+      def find_process_events
+        ::GobiertoCalendars::Event.events_in_collections_and_container(current_site, current_process).sorted
       end
 
       def find_event
@@ -37,7 +39,7 @@ module GobiertoParticipation
       end
 
       def set_events
-        @events = ::GobiertoCalendars::Event.events_in_collections_and_container_type(current_site, "GobiertoParticipation").sorted.page params[:page]
+        @events =   ::GobiertoCalendars::Event.events_in_collections_and_container(current_site, current_process).sorted.page params[:page]
         @events = @events.events_in_collections_and_container(current_site, @issue) if @issue
 
         if params[:date]

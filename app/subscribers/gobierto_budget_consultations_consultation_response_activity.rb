@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Subscribers
   class GobiertoBudgetConsultationsConsultationResponseActivity < ::Subscribers::Base
     def consultation_response_created(event)

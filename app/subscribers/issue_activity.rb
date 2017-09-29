@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Subscribers
   class IssueActivity < ::Subscribers::Base
     def issue_created(event)

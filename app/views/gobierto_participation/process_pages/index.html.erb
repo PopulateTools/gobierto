@@ -1,4 +1,4 @@
-<% if @process %>
+<% if current_process %>
   <% content_for :breadcrumb_current_item do %>
     <strong>
       <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path %>
@@ -7,7 +7,7 @@
     <span role="separator">/</span>
 
     <h1>
-      <%= link_to @process.title, gobierto_participation_process_path(@process.slug) %>
+      <%= link_to current_process.title, gobierto_participation_process_path(current_process.slug) %>
     </h1>
   <% end %>
 
@@ -53,7 +53,7 @@
 
           <!-- TODO: Pending -->
           <% if false %>
-            <% if @process %>
+            <% if current_process %>
               <h4 class='with_light_separator m_t_1'><%= t('.filter') %></h4>
               <ul class='link_list'>
                 <% @issues.each do |issue| %>
@@ -72,8 +72,8 @@
           <% @pages.each do |page| %>
             <div class='news_teaser'>
               <h3>
-                <% if @process %>
-                  <%= link_to page.title , gobierto_participation_process_process_page_path(process_id: @process.slug, id: page.slug) %>
+                <% if current_process %>
+                  <%= link_to page.title , gobierto_participation_process_process_page_path(process_id: current_process.slug, id: page.slug) %>
                 <% else %>
                   <%= link_to page.title , gobierto_cms_page_path(page.slug) %>
                 <% end %>

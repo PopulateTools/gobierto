@@ -39,7 +39,7 @@ module GobiertoParticipation
       end
 
       def set_events
-        @events =   ::GobiertoCalendars::Event.events_in_collections_and_container(current_site, current_process).sorted.page params[:page]
+        @events = ::GobiertoCalendars::Event.events_in_collections_and_container(current_site, current_process).sorted.page params[:page]
         @events = @events.events_in_collections_and_container(current_site, @issue) if @issue
 
         if params[:date]

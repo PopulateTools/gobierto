@@ -16,7 +16,12 @@ module GobiertoParticipation
       def index
         @issues = current_site.issues
         @issue = find_issue if params[:issue_id]
-        @pages = find_process_news.page(params[:page])
+        @pages = if @issue
+                   GobiertoCms::Page.pages_in_collections_and_container(current_site, @issue)
+                                    .pages_in_collections_and_container(current_site, current_process).page(params[:page])
+                 else
+                   find_process_news.page(params[:page])
+                 end
       end
 
       private

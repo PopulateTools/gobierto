@@ -105,7 +105,7 @@
         </div>
 
         <% if @process_events.any? %>
-          <%= link_to t('.more_events'), gobierto_participation_events_path(container_type: current_process.container_type, container_id: current_process.id) %>
+          <%= link_to t('.more_events'), gobierto_participation_process_events_path(process_id: @process.slug) %>
         <% end %>
       </div>
 
@@ -122,7 +122,7 @@
         </div>
 
         <% if @process_activities.any? %>
-          <%= link_to t('.more_activities'), 'gobierto_participation_events_path(container_type: @process.container_type, container_id: @process.id)' %>
+          <%= link_to t('.more_activities'), gobierto_participation_process_notifications_path(process_id: @process.slug) %>
         <% end %>
       </div>
 

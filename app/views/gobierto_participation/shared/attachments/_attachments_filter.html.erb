@@ -7,8 +7,8 @@
   <ul class='link_list'>
     <% issues.each do |issue| %>
       <li>
-        <% if try(:current_process).present? && !try(:issue).present? %>
-          <%= link_to issue.name, gobierto_participation_process_attachments_path(process_id: current_process.slug) %>
+        <% if try(:current_process).present? %>
+          <%= link_to issue.name, gobierto_participation_process_attachments_path(process_id: current_process.slug, issue_id: issue.slug) %>
         <% elsif try(:issue) %>
           <%= link_to issue.name, gobierto_participation_issue_attachments_path(issue_id: issue.slug) %>
         <% elsif current_module == "gobierto_participation" %>

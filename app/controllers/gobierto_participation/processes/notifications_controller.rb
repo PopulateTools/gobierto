@@ -10,7 +10,14 @@ module GobiertoParticipation
 
         @issue = find_issue if params[:issue_id]
 
-        @activities = find_process_activities
+        @activities = if @issue
+                        ActivityCollectionDecorator.new(Activity.in_site(current_site)
+                                                                .in_container(current_process)
+                                                                .in_container(@issue)
+                                                                .sorted.includes(:subject, :author, :recipient).page(params[:page]))
+                      else
+                        find_process_activities
+                      end
       end
 
       private

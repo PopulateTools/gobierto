@@ -106,6 +106,7 @@ module GobiertoAdmin
           :ends_at,
           :attachment_file,
           :state,
+          :slug,
           locations_attributes: [:id, :name, :address, :lat, :lng, :_destroy],
           attendees_attributes: [:id, :person_id, :name, :charge, :_destroy],
           title_translations: [*I18n.available_locales],
@@ -114,7 +115,7 @@ module GobiertoAdmin
       end
 
       def ignored_event_attributes
-        %w( created_at updated_at title description external_id slug site_id collection_id )
+        %w( created_at updated_at title description external_id site_id collection_id )
       end
     end
   end

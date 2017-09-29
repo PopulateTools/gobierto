@@ -127,5 +127,9 @@ module GobiertoCalendars
 
       collection_item.container if collection_item
     end
+
+    def attributes_for_slug
+      [title]
+    end
   end
 end

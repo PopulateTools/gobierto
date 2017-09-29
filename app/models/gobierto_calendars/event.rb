@@ -12,6 +12,7 @@ module GobiertoCalendars
     include GobiertoCommon::Collectionable
 
     validates :site, :collection, presence: true
+    validates :slug, uniqueness: { scope: :site }
 
     translates :title, :description
 
@@ -126,10 +127,6 @@ module GobiertoCalendars
       collection_item = GobiertoCommon::CollectionItem.where(item: self, container_type: "Issue").first
 
       collection_item.container if collection_item
-    end
-
-    def attributes_for_slug
-      [title]
     end
   end
 end

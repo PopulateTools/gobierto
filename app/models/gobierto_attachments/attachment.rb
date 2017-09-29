@@ -28,7 +28,7 @@ module GobiertoAttachments
     attr_accessor :file
 
     validates :site, presence: true
-
+    validates :slug, uniqueness: { scope: :site }
     validates :file_digest, uniqueness: {
       scope: :site_id,
       message: ->(object, data) do

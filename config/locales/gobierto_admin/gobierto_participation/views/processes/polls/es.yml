@@ -13,7 +13,8 @@ es:
             add_new_answer: Añadir nueva respuesta
             available_answers: Posibles respuestas
           create:
-            success: Encuesta creada correctamente
+            success_html: La encuesta ha sido creado correctamente. <a href="%{link}">Ver
+              la encuesta</a>.
           form:
             placeholders:
               description: ej. El objetivo de esta encuesta es...
@@ -41,4 +42,5 @@ es:
             poll_questions: Preguntas de esta encuesta
           question_not_translated: Pregunta no traducida al idioma actual
           update:
-            success: Encuesta actualizada correctamente
+            success_html: La encuesta ha sido actualizada. <a href="%{link}">Ver la
+              encuesta</a>.

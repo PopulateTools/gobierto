@@ -2,10 +2,12 @@ require_dependency "gobierto_participation"
 
 module GobiertoParticipation
   class Process < ApplicationRecord
+
     include User::Subscribable
+    include GobiertoCommon::Sluggable
     include GobiertoCommon::Searchable
-    include GobiertoAttachments::Attachable
     include GobiertoCommon::ActsAsCollectionContainer
+    include GobiertoAttachments::Attachable
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca
@@ -25,9 +27,9 @@ module GobiertoParticipation
     enum visibility_level: { draft: 0, active: 1 }
     enum process_type: { process: 0, group_process: 1 }
 
-    validates :site, :title, :body, presence: true
+    validates :site, :title, presence: true
     validates :slug, uniqueness: { scope: :site }
-    validates_associated :stages
+    validates_associated :stages, message: I18n.t('activerecord.messages.gobierto_participation/process.are_not_valid')
 
     scope :sorted, -> { order(id: :desc) }
 
@@ -45,11 +47,15 @@ module GobiertoParticipation
     end
 
     def polls_stage?
-      stages.exists?(stage_type: ProcessStage.stage_types[:polls])
+      active_stage?(ProcessStage.stage_types[:polls])
     end
 
     def information_stage?
-      stages.exists?(stage_type: ProcessStage.stage_types[:information])
+      active_stage?(ProcessStage.stage_types[:information])
+    end
+
+    def active_stage?(stage_type)
+      stages.exists?(stage_type: stage_type)
     end
 
     def pages_collection
@@ -65,17 +71,17 @@ module GobiertoParticipation
     end
 
     def current_stage
-      if open?
-        process_stages = stages.where("starts >= ? AND ends <= ?", Time.zone.now, Time.zone.now)
-        process_stages.first.to_s
+      if stages.active.any?
+        active_and_open_stages = stages.active.open
+        active_and_open_stages.order(ends: :asc).last
       end
     end
 
     def open?
-      if stages.any?
-        Time.zone.now.between?(stages.last.starts, stages.last.ends)
+      if starts.present? && ends.present?
+        Time.zone.now.between?(starts, ends)
       else
-        false
+        true
       end
     end
 
@@ -88,6 +94,10 @@ module GobiertoParticipation
       site.collections.create! container: self,  item_type: 'GobiertoAttachments::Attachment', slug: "attachment-#{self.slug}", title: self.title
       # News / Pages
       site.collections.create! container: self,  item_type: 'GobiertoCms::Page', slug: "news-#{self.slug}", title: self.title
+    end
+
+    def attributes_for_slug
+      [ title ]
     end
 
   end

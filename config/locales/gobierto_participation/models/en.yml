@@ -34,6 +34,8 @@ en:
       gobierto_participation/poll_question:
         not_enough_alternatives: to fixed-response questions must offer at least two
           alternatives
+      gobierto_participation/process:
+        are_not_valid: are not valid
     models:
       gobierto_participation/poll: Poll
       gobierto_participation/poll_answer_template: Answer

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Publishers
   class GobiertoCommonCollectionActivity
     include Publisher

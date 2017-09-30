@@ -20,7 +20,7 @@ module GobiertoParticipation
     end
 
     def process_events
-      @process_events ||= process.events_in_collections
+      process.events_in_collections
     end
 
     def test_breadcrumb_items
@@ -73,6 +73,8 @@ module GobiertoParticipation
     end
 
     def test_process_events_index
+      process_events.first.update_attributes!(starts_at: Time.zone.now + 1.hour, ends_at: Time.zone.now)
+
       with_current_site(site) do
         visit process_events_path
 

@@ -71,7 +71,7 @@ module GobiertoPeople
 
             within ".events-summary" do
               refute has_content?(past_event.title)
-              assert has_content?(future_event.title)#
+              assert has_content?(future_event.title)
             end
 
             # PENDING

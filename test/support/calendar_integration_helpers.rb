@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module CalendarIntegrationHelpers
+
   def activate_ibm_notes_calendar_integration(site)
     gp_module_settings = site.module_settings.find_by(module_name: "GobiertoPeople")
 
@@ -17,6 +18,17 @@ module CalendarIntegrationHelpers
     gp_module_settings.save!
   end
 
+  def activate_microsoft_exchange_calendar_integration(site)
+    gp_module_settings = site.module_settings.find_by(module_name: "GobiertoPeople")
+
+    gp_module_settings.calendar_integration = "microsoft_exchange"
+    gp_module_settings.microsoft_exchange_endpoint = "https://calendar.endpoint.es/ews/exchange.asmx"
+    gp_module_settings.microsoft_exchange_usr = "username"
+    gp_module_settings.microsoft_exchange_pwd = "password"
+
+    gp_module_settings.save!
+  end
+
   def set_ibm_notes_calendar_endpoint(person, endpoint)
     calendar_conf = person.calendar_configuration
     calendar_conf.data = { endpoint: endpoint }
@@ -28,4 +40,11 @@ module CalendarIntegrationHelpers
     calendar_conf.data = options
     calendar_conf.save!
   end
+
+  def set_microsoft_exchange_email_account(person, email)
+    calendar_conf = person.calendar_configuration
+    calendar_conf.data = { microsoft_exchange_email: email }
+    calendar_conf.save!
+  end
+
 end

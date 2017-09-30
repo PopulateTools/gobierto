@@ -33,6 +33,9 @@ module GobiertoAdmin
             :calendar_integration,
             :ibm_notes_usr,
             :ibm_notes_pwd,
+            :microsoft_exchange_endpoint,
+            :microsoft_exchange_usr,
+            :microsoft_exchange_pwd,
             submodules_enabled: []
           )
         end

@@ -71,6 +71,11 @@ en:
         news: News
     participation_attachments: See all the documents of Participation
     processes:
+      index:
+        groups: Work groups
+        groups_p: Check the activity of each group and participate.
+        ongoing_processes: Ongoing processes
+        ongoing_processes_p: Consult and participate in specific processes.
       poll_answers:
         new:
           already_answered: You have already participated in this poll
@@ -91,7 +96,7 @@ en:
           participate: Participate in this poll
           participate_until: Participate until %{date}
       process_teaser:
-        current_stage: Current stage
+        current_stage_html: "<strong>Current stage</strong>: %{current_stage}"
         next_stage: Next stage
       show:
         about: About this process

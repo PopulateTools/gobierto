@@ -7,8 +7,8 @@ module GobiertoParticipation
     helper_method :current_process
 
     def index
-      @processes = current_site.processes.process.active
-      @groups = current_site.processes.group_process.active
+      @processes = current_site.processes.process.open.active
+      @groups = current_site.processes.group_process.open.active
     end
 
     def show
@@ -20,10 +20,6 @@ module GobiertoParticipation
     end
 
     private
-
-    def find_person
-      people_scope.find_by!(slug: params[:slug])
-    end
 
     def find_process_news
       current_process.news.sort_by(&:created_at).reverse.first(5)

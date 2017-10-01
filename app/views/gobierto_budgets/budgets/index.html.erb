@@ -216,18 +216,18 @@
       </thead>
 
       <tbody>
-        <% @interesting_expenses.group_by(&:parent_code).each do |parent_code, bls| %>
+        <% @interesting_expenses.group_by(&:parent_code).each do |parent_code, budget_lines| %>
             <tr class="group">
-              <td class="level_1" rowspan="<%= bls.count %>">
+              <td class="level_1" rowspan="<%= budget_lines.count %>">
                 <%= budget_line_denomination @interesting_area, parent_code, GobiertoBudgets::BudgetLine::EXPENSE %>
               </td>
               <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
-                    locals: {sub_budget_line: bls.first } %>
+                    locals: {sub_budget_line: budget_lines.first, last_item: false } %>
             </tr>
-            <% bls[1..-1].each do |bl| %>
+            <% budget_lines[1..-1].each_with_index do |budget_line, i| %>
               <tr>
                 <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
-                    locals: {sub_budget_line: bl } %>
+                    locals: {sub_budget_line: budget_line, last_item: (i == budget_lines.length - 2) } %>
               </tr>
           <% end %>
         </tbody>

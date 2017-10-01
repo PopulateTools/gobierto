@@ -71,9 +71,9 @@ module GobiertoParticipation
     end
 
     def current_stage
-      if stages.active.any?
-        active_and_open_stages = stages.active.open
-        active_and_open_stages.order(ends: :asc).last
+      if open?
+        process_stages = stages.where("starts <= ? AND ends >= ?", Date.current, Date.current)
+        process_stages.first.to_s
       end
     end
 

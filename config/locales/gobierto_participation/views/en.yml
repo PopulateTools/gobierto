@@ -123,6 +123,11 @@ en:
         published_at: Posted on %{date} by %{site}
         title: News
     processes:
+      index:
+        groups: Work groups
+        groups_p: Check the activity of each group and participate.
+        ongoing_processes: Ongoing processes
+        ongoing_processes_p: Consult and participate in specific processes.
       poll_answers:
         new:
           already_answered: You have already participated in this poll
@@ -142,6 +147,8 @@ en:
           already_participated: You have already participated in this poll
           participate: Participate in this poll
           participate_until: Participate until %{date}
+      process_teaser:
+        current_stage_html: "<strong>Current stage</strong>: %{current_stage}"
       show:
         about: About this process
         appointments: Face-to-face appointments

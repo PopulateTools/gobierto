@@ -2,10 +2,12 @@ require_dependency "gobierto_participation"
 
 module GobiertoParticipation
   class Process < ApplicationRecord
+
     include User::Subscribable
+    include GobiertoCommon::Sluggable
     include GobiertoCommon::Searchable
-    include GobiertoAttachments::Attachable
     include GobiertoCommon::ActsAsCollectionContainer
+    include GobiertoAttachments::Attachable
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca
@@ -25,9 +27,9 @@ module GobiertoParticipation
     enum visibility_level: { draft: 0, active: 1 }
     enum process_type: { process: 0, group_process: 1 }
 
-    validates :site, :title, :body, presence: true
+    validates :site, :title, presence: true
     validates :slug, uniqueness: { scope: :site }
-    validates_associated :stages
+    validates_associated :stages, message: I18n.t('activerecord.messages.gobierto_participation/process.are_not_valid')
 
     scope :sorted, -> { order(id: :desc) }
 
@@ -91,6 +93,10 @@ module GobiertoParticipation
       site.collections.create! container: self,  item_type: 'GobiertoAttachments::Attachment', slug: "attachment-#{self.slug}", title: self.title
       # News / Pages
       site.collections.create! container: self,  item_type: 'GobiertoCms::Page', slug: "news-#{self.slug}", title: self.title
+    end
+
+    def attributes_for_slug
+      [ title ]
     end
 
   end

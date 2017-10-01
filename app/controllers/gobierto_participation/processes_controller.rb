@@ -16,7 +16,7 @@ module GobiertoParticipation
       @process_news = find_process_news
       @process_events = find_process_events
       @process_activities = find_process_activities
-      @process_stages = current_process.stages
+      @process_stages = current_process.stages.active
     end
 
     private
@@ -40,7 +40,7 @@ module GobiertoParticipation
     end
 
     def processes_scope
-      valid_preview_token? ? current_site.processes : current_site.processes.active
+      valid_preview_token? ? current_site.processes.draft : current_site.processes.active
     end
 
     def find_process_activities

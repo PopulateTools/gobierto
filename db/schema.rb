@@ -544,6 +544,7 @@ ActiveRecord::Schema.define(version: 20170929075932) do
     t.string "slug", null: false
     t.integer "stage_type", default: 0, null: false
     t.jsonb "description_translations"
+    t.boolean "active", default: false, null: false
     t.index ["process_id", "slug"], name: "index_gpart_process_stages_on_process_id_and_slug", unique: true
     t.index ["process_id"], name: "index_gpart_process_stages_on_process_id"
     t.index ["title_translations"], name: "index_gpart_process_stages_on_title_translations", using: :gin

@@ -29,8 +29,11 @@ es:
         issue_id: Tema
         process_type: Tipo de grupo
         slug: Slug
+        stages: Las fases
         starts: Comienzo
         title: Título
+      gobierto_admin/gobierto_participation/process_form/stages:
+        title: El título de una fase
       gobierto_admin/gobierto_participation/process_information_form:
         information_text: Información
     models:

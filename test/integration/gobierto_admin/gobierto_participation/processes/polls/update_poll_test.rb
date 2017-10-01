@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 module GobiertoAdmin
@@ -104,7 +106,7 @@ module GobiertoAdmin
 
               click_button 'Update'
 
-              assert has_message? 'Poll updated successfully'
+              assert has_message? 'Poll has been updated'
 
               # assertions about poll
 

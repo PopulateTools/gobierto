@@ -260,6 +260,9 @@ Rails.application.routes.draw do
 
       resources :processes, only: [:index, :show] do
         resources :pages, only: [:index, :show], controller: "process_pages", as: :process_pages
+        resources :polls, only: [:index], controller: "processes/polls" do
+          resources :answers, only: [:new, :create], controller: "processes/poll_answers"
+        end
         resource :information, only: [:show], controller: "process_information", as: :process_information, path: :information
       end
 
@@ -267,6 +270,9 @@ Rails.application.routes.draw do
       resources :issues, only: [:index, :show] do
         resources :pages, only: [:index, :show], controller: "issue_pages", as: :issue_pages
       end
+
+      resources :pages, only: [:index, :show], controller: "participation_pages", as: :participation_pages, path: "participacion/noticias"
+      resources :events, only: [:index, :show], controller: "participation_events", as: :participation_events, path: "participacion/agendas"
     end
   end
 

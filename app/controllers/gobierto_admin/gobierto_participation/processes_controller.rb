@@ -1,9 +1,11 @@
 module GobiertoAdmin
   module GobiertoParticipation
     class ProcessesController < BaseController
-
+      
       before_action { module_enabled!(current_site,  'GobiertoParticipation') }
       before_action { module_allowed!(current_admin, 'GobiertoParticipation') }
+
+      helper_method :gobierto_participation_process_preview_url
 
       def index
         @processes = current_site.processes.process
@@ -33,7 +35,10 @@ module GobiertoAdmin
           track_create_process
           redirect_to(
             edit_admin_participation_process_path(@process_form.process),
-            notice: t('.success')
+            notice: [
+              t('.success_html', link: gobierto_participation_process_preview_url(@process_form.process, host: current_site.domain)),
+              t('.add_stages')
+            ]
           )
         else
           @issues = find_issues
@@ -50,7 +55,7 @@ module GobiertoAdmin
           track_update_process
           redirect_to(
             edit_admin_participation_process_path(@process),
-            notice: t('.success')
+            notice: t('.success_html', link: gobierto_participation_process_preview_url(@process_form.process, host: current_site.domain))
           )
         else
           @issues = find_issues
@@ -83,6 +88,7 @@ module GobiertoAdmin
           :header_image,
           :issue_id,
           :visibility_level,
+          :has_duration,
           title_translations: [*I18n.available_locales],
           body_translations:  [*I18n.available_locales],
           information_text_translations: [*I18n.available_locales],
@@ -99,7 +105,7 @@ module GobiertoAdmin
       end
 
       def ignored_process_attributes
-        %w( created_at updated_at site_id title body information_text_translations)
+        %w( created_at updated_at site_id title body information_text_translations )
       end
 
       def default_activity_params
@@ -116,6 +122,13 @@ module GobiertoAdmin
 
       def get_process_visibility_levels
         ::GobiertoParticipation::Process.visibility_levels
+      end
+
+      def gobierto_participation_process_preview_url(process, options = {})
+        if process.draft?
+          options.merge!(preview_token: current_admin.preview_token)
+        end
+        gobierto_participation_process_url(process.slug, options)
       end
 
     end

@@ -29,8 +29,11 @@ ca:
         issue_id: Tema
         process_type: Tipus de grup
         slug: Slug
+        stages: Les fases
         starts: Començament
         title: Títol
+      gobierto_admin/gobierto_participation/process_form/stages:
+        title: El títol d'una fase
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Grup d'aportacions
       gobierto_admin/gobierto_participation/poll_form: Enquesta

@@ -27,8 +27,7 @@ class Activity < ApplicationRecord
   end
 
   def self.in_participation
-    Activity.select { |a| GobiertoCommon::CollectionItem.where("container_type IN ('GobiertoParticipation::Issue', 'GobiertoParticipation::Process') AND
-      item_type = ? AND item_id = ?", a.subject.class.to_s, a.subject.id).any? }.pluck(:id)
+    Activity.select { |a| GobiertoCommon::CollectionItem.where("container_type IN ('GobiertoParticipation::Issue')").any? }.pluck(:id)
     where(id: ids)
   end
 

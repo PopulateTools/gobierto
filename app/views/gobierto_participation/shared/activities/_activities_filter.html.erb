@@ -3,7 +3,7 @@
 <ul class="link_list">
   <% issues.each do |issue| %>
     <li>
-      <%= link_to issue.name , gobierto_participation_pages_path(issue_id: issue.slug) %>
+      <%= link_to issue.name , gobierto_participation_activities_path(issue_id: issue.slug) %>
     </li>
   <% end %>
 </ul>

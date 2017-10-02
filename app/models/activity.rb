@@ -14,7 +14,8 @@ class Activity < ApplicationRecord
 
   scope :sorted, -> { order(id: :desc) }
   scope :admin, -> { where(admin_activity: true) }
-  scope :no_admin, -> { where(admin_activity: false) }
+  # TODO: Open activities to GobiertoParticipation module
+  scope :no_admin, -> { where(admin_activity: false, recipient_type: "GobiertoParticipation::Process") }
   scope :global, -> { where(site_id: nil) }
   scope :in_site, ->(site_id) { where(site_id: site_id) }
   scope :for_recipient, ->(recipient) { where(recipient: recipient) }

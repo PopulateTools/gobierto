@@ -113,7 +113,7 @@ class ActionDispatch::IntegrationTest
 
   self.use_transactional_tests = false
 
-  DatabaseCleaner.strategy = :transaction
+  DatabaseCleaner.strategy = :truncation
   DatabaseCleaner.clean_with :truncation
 
   def setup

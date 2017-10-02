@@ -96,7 +96,7 @@ ca:
           participate_until: Participa fins %{date}
       process_teaser:
         current_stage_html: "<strong>Fase actual</strong>: %{current_stage}"
-        next_stage: Pròxima fase
+        next_stage_html: "<strong>Pròxima fase</strong>: %{current_stage}"
       show:
         about: Sobre aquest procés
         appointments: Cites presencials

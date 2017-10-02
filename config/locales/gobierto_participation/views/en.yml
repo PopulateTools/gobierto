@@ -97,7 +97,7 @@ en:
           participate_until: Participate until %{date}
       process_teaser:
         current_stage_html: "<strong>Current stage</strong>: %{current_stage}"
-        next_stage: Next stage
+        next_stage_html: "<strong>Next stage</strong>: %{current_stage}"
       show:
         about: About this process
         appointments: Face-to-face appointments

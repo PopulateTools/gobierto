@@ -98,7 +98,7 @@ es:
           participate_until: Participa hasta %{date}
       process_teaser:
         current_stage_html: "<strong>Fase actual</strong>: %{current_stage}"
-        next_stage: Próxima fase
+        next_stage_html: "<strong>Próxima fase</strong>: %{current_stage}"
       show:
         about: Sobre este proceso
         appointments: Citas presenciales

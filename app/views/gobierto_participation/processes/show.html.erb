@@ -27,8 +27,8 @@
         <h3 class="agenda_title"><%= t('.news') %></h3>
         <div class="p_1  content_block">
           <% if @process_news.any? %>
-            <% @process_news.each do |notice| %>
-              <%= render 'place_news', { notice: notice } %>
+            <% @process_news.each do |page| %>
+              <%= render 'place_news', { page: page } %>
             <% end %>
           <% else %>
             <%= t('.no_news') %>

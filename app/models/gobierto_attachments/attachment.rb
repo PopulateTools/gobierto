@@ -92,6 +92,14 @@ module GobiertoAttachments
       [name]
     end
 
+    def to_url(options = {})
+      if collection.container_type == "GobiertoParticipation::Process"
+        url_helpers.gobierto_participation_process_attachment_url(id: slug, process_id: collection.container.slug, host: app_host)
+      elsif collection.container_type == "GobiertoParticipation"
+        url_helpers.gobierto_participation_attachment_url(id: slug, host: app_host)
+      end
+    end
+
     private
 
     def update_file_attributes

@@ -35,7 +35,7 @@ module GobiertoAdmin
           if params[:file_attachment][:collection_id]
             redirect_to(
               edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id, collection_id: params[:file_attachment][:collection_id]),
-              notice: t('.success_html')
+              notice: t(".success_html", link: @file_attachment_form.file_attachment.to_url(host: current_site.domain))
             )
           else
             render plain: @file_attachment_form.file_url
@@ -58,7 +58,7 @@ module GobiertoAdmin
 
           redirect_to(
             edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id),
-            notice: t('.success_html')
+            notice: t(".success_html", link: @file_attachment_form.file_attachment.to_url(host: current_site.domain))
           )
         else
           @collection = @page.file_attachment

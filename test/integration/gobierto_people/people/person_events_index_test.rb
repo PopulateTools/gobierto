@@ -142,6 +142,8 @@ module GobiertoPeople
           with_current_site(site) do
             visit gobierto_people_person_events_path(person.slug)
 
+            sleep 1
+
             within ".events-summary" do
               refute has_content?(past_event.title)
               assert has_content?(future_event.title)
@@ -151,6 +153,8 @@ module GobiertoPeople
               click_link past_event.starts_at.day
             end
 
+            sleep 1
+            
             assert has_content? "Displaying events of #{past_event.starts_at.strftime("%b %d %Y")}"
 
             within ".events-summary" do

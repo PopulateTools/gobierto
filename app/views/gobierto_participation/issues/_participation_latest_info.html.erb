@@ -39,8 +39,8 @@
         <h3 class="agenda_title"><%= t('.news') %></h3>
         <div class="p_1  content_block" id="news">
           <% if @issue_news.any? %>
-            <% @issue_news.each do |notice| %>
-              <%= render 'gobierto_participation/processes/place_news', { notice: notice } %>
+            <% @issue_news.each do |page| %>
+              <%= render 'gobierto_participation/processes/place_news', { page: page } %>
             <% end %>
           <% else %>
             <%= t('.no_news') %>

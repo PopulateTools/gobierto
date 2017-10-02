@@ -1,7 +1,15 @@
-<% content_for :breadcrumb_current_item do %>
-  <h1>
-    <%= link_to t('gobierto_participation.shared.events'), gobierto_participation_issue_events_path %>
-  </h1>
+<% if @issue %>
+  <% content_for :breadcrumb_current_item do %>
+    <strong>
+      <%= link_to t('gobierto_participation.layouts.menu_subsections.issues'), gobierto_participation_issues_path %>
+    </strong>
+
+    <span role="separator">/</span>
+
+    <h1>
+      <%= link_to @issue.name, gobierto_participation_issue_path(@issue.slug) %>
+    </h1>
+  <% end %>
 <% end %>
 
 <%= content_for :body_attributes do %>

@@ -61,9 +61,70 @@ module GobiertoParticipation
           assert has_link? "Documents"
           assert has_link? "Activity"
         end
+      end
+    end
 
-        # TODO: check that these links redirect to their corresponding pages
-        # applying the right scope (single process/group scope)
+    def test_secondary_nav_news
+      with_current_site(site) do
+        visit @path
+
+        click_link "News"
+
+        assert_equal gobierto_participation_issue_pages_path(issue_id: issue.slug), current_path
+
+        within ".global_breadcrumb" do
+          assert has_link? "Participation"
+        end
+
+        assert has_selector?("h2", text: "News")
+      end
+    end
+
+    def test_secondary_nav_diary
+      with_current_site(site) do
+        visit @path
+
+        click_link "Diary"
+
+        assert_equal gobierto_participation_issue_events_path(issue_id: issue.slug), current_path
+
+        within ".global_breadcrumb" do
+          assert has_link? "Participation"
+        end
+
+        assert has_link? "View all events"
+      end
+    end
+
+    def test_secondary_nav_documents
+      with_current_site(site) do
+        visit @path
+
+        click_link "Documents"
+
+        assert_equal gobierto_participation_issue_attachments_path(issue_id: issue.slug), current_path
+
+        within ".global_breadcrumb" do
+          assert has_link? "Participation"
+        end
+
+        assert has_selector?("h2", text: "Documents")
+      end
+    end
+
+    def test_secondary_nav_activity
+      with_current_site(site) do
+        visit @path
+
+        click_link "Activity"
+
+        assert_equal gobierto_participation_issue_activities_path(issue_id: issue.slug), current_path
+
+        within ".global_breadcrumb" do
+          assert has_link? "Participation"
+        end
+
+        assert has_selector?("h2", text: "Updates")
       end
     end
 

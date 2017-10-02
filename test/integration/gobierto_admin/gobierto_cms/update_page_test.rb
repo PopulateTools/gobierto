@@ -57,12 +57,6 @@ module GobiertoAdmin
               assert_equal admin, activity.author
               assert_equal site.id, activity.site_id
               assert_equal "gobierto_cms.page_updated", activity.action
-
-              click_link "View the page"
-
-              assert has_content?("This is the body of the page")
-
-              visit @path
             end
           end
         end

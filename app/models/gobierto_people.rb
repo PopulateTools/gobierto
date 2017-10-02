@@ -12,6 +12,6 @@ module GobiertoPeople
   end
 
   def self.remote_calendar_integrations
-    %w( ibm_notes google_calendar )
+    %w( ibm_notes google_calendar microsoft_exchange )
   end
 end

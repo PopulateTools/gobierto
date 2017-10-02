@@ -10,8 +10,10 @@ ca:
                 configurats
               labels:
                 ibm_notes_url: URL del calendari d'IBM Notes
+                microsoft_exchange_email: E-mail associat al calendari
               placeholders:
                 ibm_notes_url: URL del calendari d'IBM Notes
+                microsoft_exchange_email: ex. example@email.org
               remove_integration: Eliminar la configuració de Google Calendar
               share_link: 'Comparteix aquest enllaç amb el alt càrrec per a permetre
                 a Gobierto llegir els seus esdeveniments de Google Calendar:'

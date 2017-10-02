@@ -94,6 +94,8 @@ class Site < ApplicationRecord
         GobiertoPeople::IbmNotes::CalendarIntegration
       when 'google_calendar'
         GobiertoPeople::GoogleCalendar::CalendarIntegration
+      when 'microsoft_exchange'
+        GobiertoPeople::MicrosoftExchange::CalendarIntegration
       end
     end
   end

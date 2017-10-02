@@ -11,13 +11,19 @@ module GobiertoAdmin
         :submodules_enabled,
         :calendar_integration,
         :ibm_notes_usr,
-        :ibm_notes_pwd
+        :ibm_notes_pwd,
+        :microsoft_exchange_endpoint,
+        :microsoft_exchange_usr,
+        :microsoft_exchange_pwd
       )
 
       delegate :persisted?, to: :gobierto_module_settings
 
       validates :ibm_notes_usr, :ibm_notes_pwd, presence: true, if: :ibm_notes_integration_selected?
       validates :ibm_notes_usr, :ibm_notes_pwd, absence: true, unless: :ibm_notes_integration_selected?
+
+      validates :microsoft_exchange_usr, :microsoft_exchange_pwd, :microsoft_exchange_endpoint, presence: true, if: :microsoft_exchange_integration_selected?
+      validates :microsoft_exchange_usr, :microsoft_exchange_pwd, :microsoft_exchange_endpoint, absence: true, unless: :microsoft_exchange_integration_selected?
 
       def save
         valid? && save_settings
@@ -59,6 +65,18 @@ module GobiertoAdmin
         @ibm_notes_pwd ||= gobierto_module_settings.ibm_notes_pwd
       end
 
+      def microsoft_exchange_usr
+        @microsoft_exchange_usr ||= gobierto_module_settings.microsoft_exchange_usr
+      end
+
+      def microsoft_exchange_pwd
+        @microsoft_exchange_pwd ||= gobierto_module_settings.microsoft_exchange_pwd
+      end
+
+      def microsoft_exchange_endpoint
+        @microsoft_exchange_endpoint ||= gobierto_module_settings.microsoft_exchange_endpoint
+      end
+
       private
 
       def gobierto_module_settings_class
@@ -80,6 +98,7 @@ module GobiertoAdmin
           settings_attributes.calendar_integration = calendar_integration
 
           set_ibm_notes_integration_settings(settings_attributes)
+          set_microsoft_exchange_integration_settings(settings_attributes)
         end
 
         if @gobierto_module_settings.save
@@ -111,6 +130,22 @@ module GobiertoAdmin
         else
           settings_attributes.ibm_notes_usr = nil
           settings_attributes.ibm_notes_pwd = nil
+        end
+      end
+
+      def microsoft_exchange_integration_selected?
+        calendar_integration == 'microsoft_exchange'
+      end
+
+      def set_microsoft_exchange_integration_settings(settings_attributes)
+        if microsoft_exchange_integration_selected?
+          settings_attributes.microsoft_exchange_endpoint = microsoft_exchange_endpoint
+          settings_attributes.microsoft_exchange_usr = microsoft_exchange_usr
+          settings_attributes.microsoft_exchange_pwd = microsoft_exchange_pwd
+        else
+          settings_attributes.microsoft_exchange_endpoint = nil
+          settings_attributes.microsoft_exchange_usr = nil
+          settings_attributes.microsoft_exchange_pwd = nil
         end
       end
 

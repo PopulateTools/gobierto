@@ -6,6 +6,7 @@ module GobiertoAdmin
       attr_accessor(
         :person_id,
         :ibm_notes_url,
+        :microsoft_exchange_email,
         :clear_google_calendar_configuration,
         :calendars
       )
@@ -28,6 +29,12 @@ module GobiertoAdmin
                            end
       end
 
+      def microsoft_exchange_email
+        @microsoft_exchange_email ||= if person_calendar_configuration.respond_to?(:microsoft_exchange_email)
+                             person_calendar_configuration.microsoft_exchange_email
+                           end
+      end
+
       def calendars
         @calendars ||= if person_calendar_configuration.respond_to?(:calendars)
                          person_calendar_configuration.calendars
@@ -42,6 +49,10 @@ module GobiertoAdmin
 
       def person_ibm_notes_configuration_class
         ::GobiertoPeople::PersonIbmNotesCalendarConfiguration
+      end
+
+      def person_microsoft_exchange_configuration_class
+        ::GobiertoPeople::PersonMicrosoftExchangeCalendarConfiguration
       end
 
       def person
@@ -74,6 +85,10 @@ module GobiertoAdmin
 
           if calendar_configuration_attributes.respond_to?(:endpoint)
             calendar_configuration_attributes.endpoint = ibm_notes_url
+          end
+
+          if calendar_configuration_attributes.respond_to?(:microsoft_exchange_email)
+            calendar_configuration_attributes.microsoft_exchange_email = microsoft_exchange_email
           end
         end
 

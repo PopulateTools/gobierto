@@ -13,6 +13,10 @@ module GobiertoPeople
         new(person).sync
       end
 
+      def self.person_calendar_configuration_class
+        ::GobiertoPeople::PersonMicrosoftExchangeCalendarConfiguration
+      end
+
       def initialize(person)
         @person   = person
         @site     = person.site

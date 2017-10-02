@@ -6,7 +6,7 @@ machine:
     HOST: gobierto.dev
     RETRY_FAILING_TEST: true
   ruby:
-    version: 2.4.1
+    version: 2.4.2
 
 dependencies:
   cache_directories:

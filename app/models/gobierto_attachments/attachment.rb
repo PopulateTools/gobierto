@@ -6,9 +6,12 @@ module GobiertoAttachments
   class Attachment < ApplicationRecord
     paginates_per 8
 
+    attr_accessor :admin_id
+
     include User::Subscribable
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
+    include GobiertoCommon::Collectionable
 
     MAX_FILE_SIZE_IN_BYTES = 10.megabytes
 
@@ -38,6 +41,7 @@ module GobiertoAttachments
     }
 
     belongs_to :site
+    belongs_to :collection, class_name: "GobiertoCommon::Collection"
 
     before_validation :update_file_attributes
 
@@ -45,10 +49,6 @@ module GobiertoAttachments
 
     def content_type
       MIME::Types.type_for(url).first.content_type
-    end
-
-    def collection
-      GobiertoCommon::CollectionItem.find_by(item: self, item_type: 'GobiertoAttachments::Attachment').collection
     end
 
     def self.file_attachments_in_collections(site)

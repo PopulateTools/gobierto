@@ -7,7 +7,7 @@ module GobiertoAdmin
       end
 
       def new
-        @file_attachment_form = FileAttachmentForm.new(site_id: current_site.id)
+        @file_attachment_form = FileAttachmentForm.new(site_id: current_site.id, collection_id: @collection)
         @collection = find_collection(params[:collection_id])
       end
 
@@ -15,22 +15,22 @@ module GobiertoAdmin
         @file_attachment = find_file_attachment
         @collection = @file_attachment.collection
         @file_attachment_form = FileAttachmentForm.new(
-          @file_attachment.attributes.except(*ignored_file_attachment_attributes).merge(site_id: current_site.id)
+          @file_attachment.attributes.except(*ignored_file_attachment_attributes).merge(site_id: current_site.id, collection_id: @collection.id)
         )
       end
 
       def create
+        @collection = find_collection(params[:file_attachment][:collection_id])
+
         @file_attachment_form = FileAttachmentForm.new(
           file_attachment_params.merge(
             site_id: current_site.id,
-            collection: 'gobierto_cms'
+            collection_id: @collection,
+            admin_id: current_admin.id
           )
         )
-        @collection = ::GobiertoCommon::Collection.find(params[:file_attachment][:collection_id])
-
         if @file_attachment_form.save
-          track_create_activity
-          ::GobiertoCommon::Collection.find(params[:file_attachment][:collection_id]).append(@file_attachment_form.file_attachment)
+          @collection.append(@file_attachment_form.file_attachment)
 
           if params[:file_attachment][:collection_id]
             redirect_to(
@@ -52,9 +52,8 @@ module GobiertoAdmin
 
       def update
         @file_attachment = find_file_attachment
-        @file_attachment_form = FileAttachmentForm.new(file_attachment_params.merge(id: params[:id], site_id: current_site.id))
+        @file_attachment_form = FileAttachmentForm.new(file_attachment_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id))
         if @file_attachment_form.save
-          track_update_activity
 
           redirect_to(
             edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id),
@@ -68,14 +67,6 @@ module GobiertoAdmin
 
       private
 
-      def track_create_activity
-        Publishers::GobiertoAttachmentsAttachmentActivity.broadcast_event('attachment_created', default_activity_params.merge(subject: @file_attachment_form.file_attachment))
-      end
-
-      def track_update_activity
-        Publishers::GobiertoAttachmentsAttachmentActivity.broadcast_event('attachment_updated', default_activity_params.merge(subject: @file_attachment))
-      end
-
       def default_activity_params
         { ip: remote_ip, author: current_admin, site_id: current_site.id }
       end
@@ -85,15 +76,15 @@ module GobiertoAdmin
       end
 
       def find_collection(collection_id)
-        ::GobiertoCommon::Collection.find_by(id: params[:collection_id])
+        ::GobiertoCommon::Collection.find_by(id: collection_id)
       end
 
       def ignored_file_attachment_attributes
-        %w( created_at updated_at site_id file_size current_version)
+        %w(created_at updated_at site_id file_size current_version collection_id)
       end
 
       def file_attachment_params
-        params.require(:file_attachment).permit(:id, :file, :name, :description, :file_name, :slug)
+        params.require(:file_attachment).permit(:id, :file, :name, :description, :file_name, :slug, :collection_id)
       end
     end
   end

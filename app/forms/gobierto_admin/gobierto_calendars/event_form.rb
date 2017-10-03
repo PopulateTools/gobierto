@@ -190,8 +190,6 @@ module GobiertoAdmin
 
       def save_event
         @event = event.tap do |event_attributes|
-          byebug
-
           event_attributes.collection = collection
           event_attributes.site_id = site_id
           event_attributes.state = state

@@ -120,7 +120,7 @@ es:
         upcoming_stage: Fase pendiente de inicio
         view_stage: Acceder a esta fase
     shared:
-      activities: Actividad
+      activities_for: Actividad de %{container}
       agenda: Agenda
       agenda_participation_p1: Te invitamos a asistir a las siguientes reuniones donde
         debatiremos en persona sobre los temas de este proceso. Si no puedes asistir,
@@ -131,7 +131,9 @@ es:
       all_events: Ver todos los eventos
       all_news: Ver todas las noticias
       consultation_processes: Consulta y participa en procesos específicos.
+      diary_for: Agenda de %{container}
       documents: Documentos
+      documents_for: Documentos de %{container}
       events:
         event:
           follow_event: Seguir este evento
@@ -141,10 +143,11 @@ es:
       filter_by_theme: Filtrar por tema
       from_to: "%{starts} al %{ends}"
       new: Noticia
-      news: Noticias
+      news_for: Noticias de %{container}
       no_activities: No hay actualizaciones relacionadas
       no_events: No hay eventos relacionados
       ongoing_processes: Procesos en marcha
+      participation: Participación
       published_at: Publicado el %{date} por el %{site}
     welcome:
       index:

@@ -118,7 +118,7 @@ ca:
         upcoming_stage: Fase pendent d'inici
         view_stage: Acceder a aquesta fase
     shared:
-      activities: Activitat
+      activities_for: Activitat de %{container}
       agenda: Agenda
       agenda_participation_p1: Et convidem a assistir a les següents reunions on debatrem
         en persona sobre els temes d'aquest procés. Si no pots assistir, anirem publicant
@@ -129,7 +129,9 @@ ca:
       all_events: Veure tots els esdeveniments
       all_news: Veure totes les notícies
       consultation_processes: Consulta i participa en processos específics.
+      diary_for: Agenda de %{container}
       documents: Documents
+      documents_for: Documents de %{container}
       events:
         event:
           follow_event: Seguir aquest esdeveniment
@@ -139,10 +141,11 @@ ca:
       filter_by_theme: Filtrar per tema
       from_to: "%{starts} al %{ends}"
       new: Notície
-      news: Notícies
+      news_for: Notícies para %{container}
       no_activities: No hi ha actualitzacions relacionades
       no_events: No hi ha esdeveniments relacionats
       ongoing_processes: Processos en marxa
+      participation: Participació
       published_at: Publicat el %{date} pel %{site}
     welcome:
       index:

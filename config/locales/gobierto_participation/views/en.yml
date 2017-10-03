@@ -119,7 +119,7 @@ en:
         upcoming_stage: Stage not yet started
         view_stage: Access this stage
     shared:
-      activities: Updates
+      activities_for: Updates for %{container}
       agenda: Agenda
       agenda_participation_p1: We invite you to attend the following meetings where
         we will discuss in person on the issues of this process. If you can not to
@@ -130,7 +130,9 @@ en:
       all_events: View all events
       all_news: Show all news
       consultation_processes: Consult and participate in specific processes.
+      diary_for: Diary for %{container}
       documents: Documents
+      documents_for: Documents for %{container}
       events:
         event:
           follow_event: Follow this events
@@ -140,10 +142,11 @@ en:
       filter_by_theme: Filter by theme
       from_to: "%{starts} to %{ends}"
       new: New
-      news: News
+      news_for: News for %{container}
       no_activities: No related updates
       no_events: No related events
       ongoing_processes: Ongoing processes
+      participation: Participation
       published_at: Posted on %{date} by %{site}
     welcome:
       index:

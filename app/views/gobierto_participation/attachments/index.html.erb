@@ -4,7 +4,7 @@
       <div class='pure-u-1 pure-u-lg-1-3'>
         <div class='content_side'>
           <h2 class='with_separator'>
-            <%= t('gobierto_participation.shared.documents') %>
+            <%= t('gobierto_participation.shared.documents_for', container: t('gobierto_participation.shared.participation')) %>
           </h2>
           <%= render 'gobierto_participation/shared/attachments/attachments_filter', { issues: @issues } %>
         </div>

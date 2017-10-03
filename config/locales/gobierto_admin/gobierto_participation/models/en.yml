@@ -28,6 +28,7 @@ en:
         header_image_url: Header image URL
         issue_id: Theme
         process_type: Group type
+        scope_id: Scope
         slug: Slug
         stages: Stages
         starts: Starts

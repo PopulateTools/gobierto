@@ -20,6 +20,7 @@ module GobiertoParticipation
 
     belongs_to :site
     belongs_to :issue
+    belongs_to :scope, class_name: 'GobiertoCommon::Scope'
     has_many :stages, -> { order(stage_type: :asc) }, dependent: :destroy, class_name: 'GobiertoParticipation::ProcessStage', autosave: true
     has_many :polls
     has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"

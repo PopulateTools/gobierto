@@ -102,6 +102,10 @@ es:
       powered_by: Gobierto utiliza <a href="https://www.algolia.com" target="_blank">Algolia</a>
         para buscar
       updated: Actualizado
+  scopes:
+    events:
+      scopes_scope_created: Ámbito creado
+      scopes_scope_updated: Ámbito actualizado
   sites:
     events:
       sites_site_created: Site creado
@@ -112,7 +116,9 @@ es:
     events:
       users_user_updated: Usuario actualizado
   views:
+    delete: Eliminar
     drag_to_sort: Arrastra para ordenar
+    edit: Edita
     forms:
       max_characters: Máx. %{length} caracteres
     pagination:

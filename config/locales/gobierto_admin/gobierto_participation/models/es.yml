@@ -28,6 +28,7 @@ es:
         header_image_url: URL de la imagen de cabecera
         issue_id: Tema
         process_type: Tipo de grupo
+        scope_id: Ámbito
         slug: Slug
         stages: Las fases
         starts: Comienzo

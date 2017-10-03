@@ -28,6 +28,7 @@ ca:
         header_image_url: URL d'imatge de capçalera
         issue_id: Tema
         process_type: Tipus de grup
+        scope_id: Àmbit
         slug: Slug
         stages: Les fases
         starts: Començament

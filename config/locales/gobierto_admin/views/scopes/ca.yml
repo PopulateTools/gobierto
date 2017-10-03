@@ -1,0 +1,16 @@
+---
+ca:
+  gobierto_admin:
+    scopes:
+      edit_modal:
+        title: Edita àmbit
+      form:
+        placeholders:
+          name: ex. casc urbà
+      index:
+        created_at: Creat
+        name: Àmbit
+        new: Nou
+        title: Àmbits
+      new_modal:
+        title: Nou àmbit

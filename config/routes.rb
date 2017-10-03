@@ -22,6 +22,11 @@ Rails.application.routes.draw do
         resource :issue_sort, only: [:create], controller: "issues_sort", path: :issues_sort
       end
     end
+    resources :scopes do
+      collection do
+        resource :scope_sort, only: [:create], controller: "scopes_sort", path: :scopes_sort
+      end
+    end
 
     namespace :sites do
       resource :sessions, only: [:create, :destroy]

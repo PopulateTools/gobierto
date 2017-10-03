@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170920145117) do
+ActiveRecord::Schema.define(version: 20171002075255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -563,6 +563,7 @@ ActiveRecord::Schema.define(version: 20170920145117) do
     t.integer "process_type", default: 1, null: false
     t.integer "issue_id"
     t.jsonb "information_text_translations"
+    t.bigint "scope_id"
     t.index ["body_translations"], name: "index_gpart_processes_on_body_translations", using: :gin
     t.index ["site_id"], name: "index_gpart_processes_on_site_id"
     t.index ["slug"], name: "index_gpart_processes_on_slug", unique: true
@@ -597,6 +598,15 @@ ActiveRecord::Schema.define(version: 20170920145117) do
     t.index ["name_translations"], name: "index_issues_on_name_translations", using: :gin
     t.index ["position"], name: "index_issues_on_position"
     t.index ["site_id"], name: "index_issues_on_site_id"
+  end
+
+  create_table "scopes", force: :cascade do |t|
+    t.bigint "site_id", null: false
+    t.jsonb "name_translations", null: false
+    t.jsonb "description_translations", null: false
+    t.integer "position", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sites", id: :serial, force: :cascade do |t|

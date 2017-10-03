@@ -25,10 +25,9 @@ module GobiertoAdmin
 
       def create
         @collection = find_collection(params[:page][:collection_id])
-        @page_form = PageForm.new(page_params.merge(site_id: current_site.id, collection_id: @collection.id))
+        @page_form = PageForm.new(page_params.merge(site_id: current_site.id, admin_id: current_admin.id, collection_id: @collection.id))
 
         if @page_form.save
-          track_create_activity
           @collection.append(@page_form.page)
 
           redirect_to(
@@ -43,10 +42,9 @@ module GobiertoAdmin
 
       def update
         @page = find_page
-        @page_form = PageForm.new(page_params.merge(id: @page.id, site_id: current_site.id))
+        @page_form = PageForm.new(page_params.merge(id: @page.id, admin_id: current_admin.id, site_id: current_site.id))
 
         if @page_form.save
-          track_update_activity
 
           redirect_to(
             edit_admin_cms_page_path(@page_form.page.id),
@@ -61,24 +59,11 @@ module GobiertoAdmin
       def destroy
         @page = find_page
         @page.destroy
-        track_destroy_activity
 
         redirect_to admin_cms_pages_path, notice: t(".success")
       end
 
       private
-
-      def track_create_activity
-        Publishers::GobiertoCmsPageActivity.broadcast_event("page_created", default_activity_params.merge(subject: @page_form.page))
-      end
-
-      def track_update_activity
-        Publishers::GobiertoCmsPageActivity.broadcast_event("page_updated", default_activity_params.merge(subject: @page))
-      end
-
-      def track_destroy_activity
-        Publishers::GobiertoCmsPageActivity.broadcast_event("page_deleted", default_activity_params.merge(subject: @page))
-      end
 
       def default_activity_params
         { ip: remote_ip, author: current_admin, site_id: current_site.id }

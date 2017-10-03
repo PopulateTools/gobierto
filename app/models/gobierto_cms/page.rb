@@ -6,6 +6,8 @@ module GobiertoCms
   class Page < ApplicationRecord
     paginates_per 10
 
+    attr_accessor :admin_id
+
     include User::Subscribable
     include GobiertoCommon::Searchable
     include GobiertoAttachments::Attachable

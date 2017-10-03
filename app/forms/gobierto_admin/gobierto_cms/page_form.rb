@@ -2,9 +2,11 @@ module GobiertoAdmin
   module GobiertoCms
     class PageForm
       include ActiveModel::Model
+      prepend ::GobiertoCommon::Trackable
 
       attr_accessor(
         :id,
+        :admin_id,
         :site_id,
         :collection_id,
         :visibility_level,
@@ -18,8 +20,14 @@ module GobiertoAdmin
 
       validates :site, :visibility_level, :collection_id, presence: true
 
+      trackable_on :page
+
       def save
         save_page if valid?
+      end
+
+      def admin_id
+        @admin_id ||= page.admin_id
       end
 
       def page
@@ -51,6 +59,7 @@ module GobiertoAdmin
       def save_page
         @page = page.tap do |page_attributes|
           page_attributes.site_id = site_id
+          page_attributes.admin_id = admin_id
           page_attributes.title_translations = title_translations
           page_attributes.body_translations = body_translations
           page_attributes.slug = slug
@@ -65,7 +74,9 @@ module GobiertoAdmin
         end
 
         if @page.valid?
-          @page.save
+          run_callbacks(:save) do
+            @page.save
+          end
 
           @page
         else

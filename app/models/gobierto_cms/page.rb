@@ -13,6 +13,7 @@ module GobiertoCms
     include GobiertoAttachments::Attachable
     include GobiertoCommon::ActsAsCollectionContainer
     include GobiertoCommon::Sluggable
+    include GobiertoCommon::Collectionable
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca
@@ -24,19 +25,20 @@ module GobiertoCms
     translates :title, :body
 
     belongs_to :site
+    belongs_to :collection, class_name: "GobiertoCommon::Collection"
     has_many :collection_items, as: :item
 
     enum visibility_level: { draft: 0, active: 1 }
 
-    validates :site, :title, :body, :slug, presence: true
+    validates :site, :title, :collection, :body, :slug, presence: true
     validates :slug, uniqueness: { scope: :site }
 
     scope :sorted, -> { order(id: :desc) }
     scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
 
-    def collection
-      GobiertoCommon::CollectionItem.find_by(item: self, item_type: "GobiertoCms::Page").collection
-    end
+    # def collection
+    #   GobiertoCommon::CollectionItem.find_by(item: self, item_type: "GobiertoCms::Page").collection
+    # end
 
     def main_image
       attachments.each do |attachment|
@@ -65,12 +67,14 @@ module GobiertoCms
     end
 
     def to_url(options = {})
-      if collection.container_type == "GobiertoParticipation::Process"
-        url_helpers.gobierto_participation_process_page_url(parameterize.merge(id: slug, process_id: collection.container.slug, host: app_host).merge(options))
-      elsif collection.container_type == "GobiertoParticipation"
-        url_helpers.gobierto_participation_page_url(parameterize.merge(id: slug, host: app_host).merge(options))
-      else
-        url_helpers.gobierto_cms_page_url(parameterize.merge(host: app_host).merge(options))
+      if collection
+        if collection.container_type == "GobiertoParticipation::Process"
+          url_helpers.gobierto_participation_process_page_url(parameterize.merge(id: slug, process_id: collection.container.slug, host: app_host).merge(options))
+        elsif collection.container_type == "GobiertoParticipation"
+          url_helpers.gobierto_participation_page_url(parameterize.merge(id: slug, host: app_host).merge(options))
+        else
+          url_helpers.gobierto_cms_page_url(parameterize.merge(host: app_host).merge(options))
+        end
       end
     end
   end

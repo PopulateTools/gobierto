@@ -85,7 +85,7 @@ module GobiertoAdmin
       end
 
       def ignored_page_attributes
-        %w(created_at updated_at title body)
+        %w(created_at updated_at title body collection_id)
       end
 
       def find_page

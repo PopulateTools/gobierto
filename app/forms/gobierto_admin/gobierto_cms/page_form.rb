@@ -22,6 +22,8 @@ module GobiertoAdmin
 
       trackable_on :page
 
+      notify_changed :visibility_level
+
       def save
         save_page if valid?
       end
@@ -30,12 +32,16 @@ module GobiertoAdmin
         @admin_id ||= page.admin_id
       end
 
+      def collection
+        @collection ||= collection_class.find_by(id: collection_id)
+      end
+
       def page
         @page ||= page_class.find_by(id: id).presence || build_page
       end
 
       def site_id
-        @site_id ||= page.site_id
+        @site_id ||= collection.try(:site_id)
       end
 
       def site
@@ -56,8 +62,13 @@ module GobiertoAdmin
         ::GobiertoCms::Page
       end
 
+      def collection_class
+        ::GobiertoCommon::Collection
+      end
+
       def save_page
         @page = page.tap do |page_attributes|
+          page_attributes.collection = collection
           page_attributes.site_id = site_id
           page_attributes.admin_id = admin_id
           page_attributes.title_translations = title_translations

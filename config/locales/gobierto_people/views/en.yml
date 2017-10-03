@@ -48,7 +48,9 @@ en:
         bio: Biography and CV
         blog: Blog
         exports: Download data in a reusable format
+        gifts: Gifts
         statements: Goods and Activities
+        trips: Trips
       people_filter:
         organigram: "%{name} organigram"
         political_groups: "%{name} political groups"

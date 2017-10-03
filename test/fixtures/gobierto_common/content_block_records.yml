@@ -8,6 +8,16 @@ contact_method_twitter_alternative:
   content_block: contact_methods
   payload: <%= { "service_name" => "Twitter", "service_handle" => "@tamara", "service_url" => "https://twitter.com/tamara", "service_notes" => "Tamara's Twitter account" }.to_json %>
 
+custom_link_trips:
+  content_context: richard (GobiertoPeople::Person)
+  content_block: custom_links
+  payload: <%= { "service_name" => "Viajes", "service_url" => "https://viajes.com/richard" }.to_json %>
+
+custom_link_gifts:
+  content_context: richard (GobiertoPeople::Person)
+  content_block: custom_links
+  payload: <%= { "service_name" => "Obsequios", "service_url" => "https://obsequios.com/richard" }.to_json %>
+
 accomplishment_nobel_prize:
   content_context: richard (GobiertoPeople::Person)
   content_block: accomplishments

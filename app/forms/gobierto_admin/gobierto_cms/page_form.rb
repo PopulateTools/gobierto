@@ -22,6 +22,8 @@ module GobiertoAdmin
 
       trackable_on :page
 
+      notify_changed :visibility_level
+
       def save
         save_page if valid?
       end

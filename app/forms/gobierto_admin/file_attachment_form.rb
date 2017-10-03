@@ -27,6 +27,8 @@ module GobiertoAdmin
 
     trackable_on :file_attachment
 
+    notify_changed :name
+
     def save
       if valid?
         if persisted?

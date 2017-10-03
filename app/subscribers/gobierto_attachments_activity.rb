@@ -6,7 +6,7 @@ module Subscribers
       create_activity_from_event(event, 'updated')
     end
 
-    def created(event)
+    def name_changed(event)
       byebug
       create_activity_from_event(event, 'created')
     end

@@ -8,7 +8,7 @@ module GobiertoParticipation
       def show
         @attachment = find_attachment
         @groups = current_site.processes.group_process
-        @issues = current_site.issues
+        @issue = find_issue
       end
 
       def index

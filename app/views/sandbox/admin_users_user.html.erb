@@ -63,6 +63,27 @@
               </label>
             </div>
 
+            <div class="option_suboptions">
+
+              <% for i in [
+                "Todos",
+                "John Wayne",
+                "Marlon Brando",
+                "Javier Larrañaga",
+                "Perico el de los Palotes"
+              ] %>
+              <div class="option">
+                <input type="hidden" name="permissions" value="0"/>
+                <input type="checkbox" id="permission_<%= i %>" name="permission_1" value="1"/>
+                <label for="permission_<%= i %>">
+                  <span></span>
+                  <%= i %>
+                </label>
+              </div>
+              <% end %>
+
+            </div>
+
             <div class="option">
               <input type="hidden" name="permissions" value="0"/>
               <input type="checkbox" id="permission_5" name="permission_1" value="1"/>

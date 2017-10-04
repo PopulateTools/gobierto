@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
     resource :sessions, only: [:new, :create, :destroy]
     resources :sites, only: [:index, :new, :create, :edit, :update, :destroy]
-    resources :issues, only: [:index, :show, :new, :create, :edit, :update] do
+    resources :issues do
       collection do
         resource :issue_sort, only: [:create], controller: "issues_sort", path: :issues_sort
       end

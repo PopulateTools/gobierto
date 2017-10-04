@@ -4,5 +4,8 @@ en:
     issues:
       create:
         success: Theme was successfully created.
+      destroy:
+        has_items: You can't delete a theme while it has associated elements.
+        success: Theme was successfully destroyed.
       update:
         success: Theme was successfully updated.

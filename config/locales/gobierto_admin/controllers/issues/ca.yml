@@ -4,5 +4,8 @@ ca:
     issues:
       create:
         success: El tema s'ha creat correctament.
+      destroy:
+        has_items: No pots esborrar un tema mentre tingui elements associats.
+        success: El tema s'ha esborrat correctament.
       update:
         success: El tema s'ha actualitzat correctament.

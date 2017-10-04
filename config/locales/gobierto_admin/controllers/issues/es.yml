@@ -4,5 +4,8 @@ es:
     issues:
       create:
         success: El tema se ha creado correctamente.
+      destroy:
+        has_items: No puedes borrar un tema mientras tenga elementos asociados.
+        success: El tema se ha borrado correctamente.
       update:
         success: El tema se ha actualizado correctamente.

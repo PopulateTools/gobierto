@@ -114,7 +114,7 @@ module GobiertoAdmin
       end
 
       def container_items
-        [current_site, current_site.issues, current_site.people, current_site.processes].flatten
+        [current_site, current_site.people, current_site.processes].flatten
       end
 
       def find_containers

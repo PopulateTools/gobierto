@@ -10,6 +10,10 @@ module GobiertoAdmin
         @path = admin_attachments_file_attachments_path
       end
 
+      def collection
+        @collection ||= gobierto_common_collections(:files)
+      end
+
       def admin
         @admin ||= gobierto_admin_admins(:nick)
       end
@@ -91,11 +95,6 @@ module GobiertoAdmin
               assert has_message?("Attachment created successfully.")
               file_attachment = ::GobiertoAttachments::Attachment.find_by(name: "pdf-collection-update-attachment.pdf",
                                                                           description: "My file_attachment description")
-              activity = Activity.last
-              assert_equal file_attachment, activity.subject
-              assert_equal admin, activity.author
-              assert_equal site.id, activity.site_id
-              assert_equal "gobierto_attachments.attachment.created", activity.action
             end
           end
         end

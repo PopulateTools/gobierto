@@ -28,18 +28,12 @@ module GobiertoAdmin
           )
         )
         if @file_attachment_form.save
-          if params[:file_attachment][:collection_id]
-            redirect_to(
-              edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id, collection_id: params[:file_attachment][:collection_id]),
-              notice: t(".success_html", link: @file_attachment_form.file_attachment.to_url(host: current_site.domain))
-            )
-          end
+          redirect_to(
+            edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id, collection_id: @collection.id),
+            notice: t(".success_html", link: @file_attachment_form.file_attachment.to_url(host: current_site.domain))
+          )
         else
-          if params[:file_attachment][:collection_id]
-            render :edit
-          else
-            head :bad_request
-          end
+          render :edit
         end
       end
 

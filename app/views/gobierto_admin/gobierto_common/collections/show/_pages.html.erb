@@ -24,7 +24,7 @@
           <% end %>
         </td>
         <td>
-          <%= link_to gobierto_cms_page_preview_url(page, host: current_site.domain), target: "_blank", class: "view_item" do %>
+          <%= link_to page_preview_url(page, host: current_site.domain), target: "_blank", class: "view_item" do %>
             <i class="fa fa-eye"></i>
             <%= t(".view") %>
           <% end %>

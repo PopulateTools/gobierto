@@ -33,6 +33,7 @@ themes:
   slug: 'themes'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:draft] %>
   site: madrid
+  collection: news
 
 notice_1:
   title_translations: <%= {'en' => 'Notice 1 title' }.to_json %>

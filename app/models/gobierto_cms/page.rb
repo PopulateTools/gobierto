@@ -28,17 +28,15 @@ module GobiertoCms
     belongs_to :collection, class_name: "GobiertoCommon::Collection"
     has_many :collection_items, as: :item
 
+    after_create :add_item_to_collection
+
     enum visibility_level: { draft: 0, active: 1 }
 
-    validates :site, :title, :collection, :body, :slug, presence: true
+    validates :site, :title, :body, :slug, presence: true
     validates :slug, uniqueness: { scope: :site }
 
     scope :sorted, -> { order(id: :desc) }
     scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
-
-    # def collection
-    #   GobiertoCommon::CollectionItem.find_by(item: self, item_type: "GobiertoCms::Page").collection
-    # end
 
     def main_image
       attachments.each do |attachment|
@@ -75,6 +73,12 @@ module GobiertoCms
         else
           url_helpers.gobierto_cms_page_url(parameterize.merge(host: app_host).merge(options))
         end
+      end
+    end
+
+    def add_item_to_collection
+      if collection
+        collection.append(self)
       end
     end
   end

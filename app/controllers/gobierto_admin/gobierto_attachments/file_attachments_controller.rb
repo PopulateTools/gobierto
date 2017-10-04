@@ -1,6 +1,8 @@
 module GobiertoAdmin
   module GobiertoAttachments
     class FileAttachmentsController < BaseController
+      before_action :load_collection, only: [:new, :edit, :create, :update, :destroy]
+
       def index
         @collections = current_site.collections.by_item_type('GobiertoAttachments::Attachment')
         @file_attachments = ::GobiertoAttachments::Attachment.file_attachments_in_collections(current_site).sort_by_updated_at(10)
@@ -8,20 +10,16 @@ module GobiertoAdmin
 
       def new
         @file_attachment_form = FileAttachmentForm.new(site_id: current_site.id, collection_id: @collection)
-        @collection = find_collection(params[:collection_id])
       end
 
       def edit
         @file_attachment = find_file_attachment
-        @collection = @file_attachment.collection
         @file_attachment_form = FileAttachmentForm.new(
-          @file_attachment.attributes.except(*ignored_file_attachment_attributes).merge(site_id: current_site.id, collection_id: @collection.id)
+          @file_attachment.attributes.except(*ignored_file_attachment_attributes).merge(site_id: current_site.id, collection_id: @collection)
         )
       end
 
       def create
-        @collection = find_collection(params[:file_attachment][:collection_id])
-
         @file_attachment_form = FileAttachmentForm.new(
           file_attachment_params.merge(
             site_id: current_site.id,
@@ -30,19 +28,14 @@ module GobiertoAdmin
           )
         )
         if @file_attachment_form.save
-          @collection.append(@file_attachment_form.file_attachment)
-
           if params[:file_attachment][:collection_id]
             redirect_to(
               edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id, collection_id: params[:file_attachment][:collection_id]),
               notice: t(".success_html", link: @file_attachment_form.file_attachment.to_url(host: current_site.domain))
             )
-          else
-            render plain: @file_attachment_form.file_url
           end
         else
           if params[:file_attachment][:collection_id]
-            @collection = ::GobiertoCommon::Collection.find(params[:file_attachment][:collection_id])
             render :edit
           else
             head :bad_request
@@ -52,11 +45,11 @@ module GobiertoAdmin
 
       def update
         @file_attachment = find_file_attachment
-        @file_attachment_form = FileAttachmentForm.new(file_attachment_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id))
+        @file_attachment_form = FileAttachmentForm.new(file_attachment_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id, collection_id: @collection.id))
         if @file_attachment_form.save
 
           redirect_to(
-            edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id),
+            edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id, collection_id: @collection),
             notice: t(".success_html", link: @file_attachment_form.file_attachment.to_url(host: current_site.domain))
           )
         else
@@ -66,6 +59,10 @@ module GobiertoAdmin
       end
 
       private
+
+      def load_collection
+        @collection = current_site.collections.find(params[:collection_id])
+      end
 
       def default_activity_params
         { ip: remote_ip, author: current_admin, site_id: current_site.id }

@@ -51,12 +51,6 @@ module GobiertoAdmin
                 "<div>This is the body of the page</div>",
                 find("#page_body_translations_en", visible: false).value
               )
-
-              activity = Activity.last
-              assert_equal cms_page, activity.subject
-              assert_equal admin, activity.author
-              assert_equal site.id, activity.site_id
-              assert_equal "gobierto_cms.page_updated", activity.action
             end
           end
         end

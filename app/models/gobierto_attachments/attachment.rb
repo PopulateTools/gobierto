@@ -43,6 +43,7 @@ module GobiertoAttachments
     belongs_to :site
     belongs_to :collection, class_name: "GobiertoCommon::Collection"
 
+    after_create :add_item_to_collection
     before_validation :update_file_attributes
 
     scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
@@ -97,6 +98,12 @@ module GobiertoAttachments
         url_helpers.gobierto_participation_process_attachment_url(id: slug, process_id: collection.container.slug, host: app_host)
       elsif collection.container_type == "GobiertoParticipation"
         url_helpers.gobierto_participation_attachment_url(id: slug, host: app_host)
+      end
+    end
+
+    def add_item_to_collection
+      if collection
+        collection.append(self)
       end
     end
 

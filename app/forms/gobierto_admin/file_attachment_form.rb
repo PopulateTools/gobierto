@@ -79,7 +79,7 @@ module GobiertoAdmin
 
     def update_file_attachment
       @file_attachment = file_attachment.tap do |file_attachment_attributes|
-        file_attachment_attributes.collection = collection
+        file_attachment_attributes.collection = collection if collection_id
         file_attachment_attributes.site = site
         file_attachment_attributes.admin_id = admin_id
         file_attachment_attributes.name = if name.blank?
@@ -114,7 +114,7 @@ module GobiertoAdmin
 
     def save_file_attachment
       @file_attachment = file_attachment.tap do |file_attachment_attributes|
-        file_attachment_attributes.collection = collection
+        file_attachment_attributes.collection = collection if collection_id
         file_attachment_attributes.site = site
         file_attachment_attributes.file_name = file.original_filename if file
         file_attachment_attributes.admin_id = admin_id

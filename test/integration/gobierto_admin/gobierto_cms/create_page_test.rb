@@ -84,13 +84,6 @@ module GobiertoAdmin
                 "<div>Contenido de la página</div>",
                 find("#page_body_translations_es", visible: false).value
               )
-
-              page = site.pages.last
-              activity = Activity.last
-              assert_equal page, activity.subject
-              assert_equal admin, activity.author
-              assert_equal site.id, activity.site_id
-              assert_equal "gobierto_cms.page_created", activity.action
             end
           end
         end

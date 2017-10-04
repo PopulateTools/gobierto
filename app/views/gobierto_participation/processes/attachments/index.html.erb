@@ -22,7 +22,7 @@
           </h2>
           <% pending do %>
             <%= render 'gobierto_participation/shared/attachments/attachments_filter', { issues: @issues } %>
-          <% end %>  
+          <% end %>
         </div>
       </div>
 
@@ -31,6 +31,8 @@
           <% @attachments.each do |attachment| %>
             <%= render 'gobierto_participation/shared/attachments/attachment_teaser', { attachment: attachment } %>
           <% end %>
+        <% else %>
+          <%= t('gobierto_participation.shared.no_documents') %>
         <% end %>
       </div>
     </div>

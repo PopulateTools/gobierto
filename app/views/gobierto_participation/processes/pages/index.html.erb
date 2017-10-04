@@ -59,7 +59,8 @@
           <% end %>
 
           <%= paginate @pages %>
-
+        <% else %>
+          <%= t('gobierto_participation.shared.no_news') %>
         <% end %>
       </div>
     </div>

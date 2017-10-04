@@ -144,7 +144,9 @@ en:
       new: New
       news_for: News for %{container}
       no_activities: No related updates
+      no_documents: No related documents
       no_events: No related events
+      no_news: No related news
       ongoing_processes: Ongoing processes
       participation: Participation
       published_at: Posted on %{date} by %{site}

@@ -143,7 +143,9 @@ ca:
       new: Notície
       news_for: Notícies para %{container}
       no_activities: No hi ha actualitzacions relacionades
+      no_documents: No hi ha documents relacionades
       no_events: No hi ha esdeveniments relacionats
+      no_news: No hi ha notícies relacionats
       ongoing_processes: Processos en marxa
       participation: Participació
       published_at: Publicat el %{date} pel %{site}

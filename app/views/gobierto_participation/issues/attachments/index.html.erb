@@ -31,6 +31,8 @@
           <% @attachments.each do |attachment| %>
             <%= render 'gobierto_participation/shared/attachments/attachment_teaser', { attachment: attachment, issue: @issue } %>
           <% end %>
+        <% else %>
+          <%= t('gobierto_participation.shared.no_documents') %>
         <% end %>
       </div>
     </div>

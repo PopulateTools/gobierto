@@ -27,7 +27,7 @@ module GobiertoPeople
 
       private
 
-      def fullcalendar_events        
+      def fullcalendar_events
         starts = Time.zone.parse(params[:start])
         ends   = Time.zone.parse(params[:end])
         events = @person.attending_events.published.where('starts_at >= ? AND ends_at <= ?', starts, ends)

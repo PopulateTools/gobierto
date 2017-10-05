@@ -15,3 +15,37 @@ tony_gobierto_people:
   resource_name: gobierto_people
   namespace: site_module
   action_name: manage
+
+tony_richard:
+  admin: tony
+  namespace: gobierto_people
+  resource_name: person
+  resource_id: <%= ActiveRecord::FixtureSet.identify(:richard) %>
+  action_name: manage
+
+tony_tamara:
+  admin: tony
+  namespace: gobierto_people
+  resource_name: person
+  resource_id: <%= ActiveRecord::FixtureSet.identify(:tamara) %>
+  action_name: manage
+
+nick_gobierto_people:
+  admin: nick
+  resource_name: gobierto_people
+  namespace: site_module
+  action_name: manage
+
+nick_richard:
+  admin: nick
+  namespace: gobierto_people
+  resource_name: person
+  resource_id: <%= ActiveRecord::FixtureSet.identify(:richard) %>
+  action_name: manage
+
+nick_tamara:
+  admin: nick
+  namespace: gobierto_people
+  resource_name: person
+  resource_id: <%= ActiveRecord::FixtureSet.identify(:tamara) %>
+  action_name: manage

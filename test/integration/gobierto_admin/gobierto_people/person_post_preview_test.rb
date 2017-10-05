@@ -1,13 +1,23 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/concerns/gobierto_admin/authorizable_resource_preview_test_module"
 
 module GobiertoAdmin
   module GobiertoPeople
     class PersonPostPreviewTest < ActionDispatch::IntegrationTest
+
+      include ::GobiertoAdmin::AuthorizableResourcePreviewTestModule
+
       def setup
         super
         @path = admin_people_person_posts_path(richard)
+        setup_authorizable_resource_preview_test(
+          gobierto_admin_admins(:steve),
+          gobierto_people_person_post_path(richard.slug, active_post.slug),
+          gobierto_people_person_post_path(richard.slug, draft_post.slug),
+          richard
+        )
       end
 
       def admin

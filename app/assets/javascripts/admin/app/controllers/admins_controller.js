@@ -20,8 +20,25 @@ this.GobiertoAdmin.AdminsController = (function() {
 
         if (this.checked) {
           $sitePeople.show('slow');
+          $("#admin_all_people_permitted").closest('div').show();
+
+          // Mostrar people permissions si GobiertoPeople está activo
+          var $gpCheckbox = $("[data-behavior='toggle-module-GobiertoPeople']")[0];
+          if ($gpCheckbox.checked) { $('#people_permissions').show('slow'); }
+
         } else {
           $sitePeople.hide('slow');
+
+          var siteCheckboxes = $("[data-behavior='toggle_site']");
+          var sitePermissions = $.map(siteCheckboxes, function (val, i) {
+            if (val.checked) {
+              return val.checked;
+            }
+          });
+          
+          if(sitePermissions.length == 0) {
+            $('#people_permissions').hide('slow');
+          }
         }
       });
     };
@@ -62,7 +79,7 @@ this.GobiertoAdmin.AdminsController = (function() {
     };
 
     function _addToggleAllPeopleBehaviors() {
-      $('#permission_all_people').click(function() {
+      $('#admin_all_people_permitted').click(function() {
         if (this.checked) {
           $("[data-class='site_person'] input[type='checkbox']").prop('checked', false);
         }
@@ -72,7 +89,7 @@ this.GobiertoAdmin.AdminsController = (function() {
     function _addTogglePersonBehaviors() {
       $("[data-class='site_person'] input[type='checkbox']").click(function() {
         if (this.checked) {
-          $('#permission_all_people').prop('checked', false);
+          $('#admin_all_people_permitted').prop('checked', false);
         }
       });
     };

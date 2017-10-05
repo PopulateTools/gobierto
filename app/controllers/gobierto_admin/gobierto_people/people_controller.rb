@@ -13,6 +13,8 @@ module GobiertoAdmin
       end
 
       def new
+        create_person_allowed!
+
         @person_form = PersonForm.new(site_id: current_site.id)
         @person_visibility_levels = get_person_visibility_levels
         @person_categories = get_person_categories
@@ -22,6 +24,9 @@ module GobiertoAdmin
 
       def edit
         @person = find_person
+
+        manage_person_allowed!(@person)
+
         @person_visibility_levels = get_person_visibility_levels
         @person_categories = get_person_categories
         @person_parties = get_person_parties
@@ -33,6 +38,8 @@ module GobiertoAdmin
       end
 
       def create
+        create_person_allowed!
+
         @person_form = PersonForm.new(person_params.merge(admin_id: current_admin.id, site_id: current_site.id))
 
         if @person_form.save
@@ -51,6 +58,8 @@ module GobiertoAdmin
 
       def update
         @person = find_person
+
+        manage_person_allowed!(@person)
 
         @person_form = PersonForm.new(person_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id))
 
@@ -114,6 +123,19 @@ module GobiertoAdmin
         options.merge!(preview_token: current_admin.preview_token) unless person.active?
         gobierto_people_person_url(person.slug, options)
       end
+
+      def manage_person_allowed!(person)
+        unless PersonPolicy.new(current_admin, person).manage?
+          redirect_to admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')
+        end
+      end
+
+      def create_person_allowed!
+        unless PersonPolicy.new(current_admin).create?
+          redirect_to admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')
+        end
+      end
+
     end
   end
 end

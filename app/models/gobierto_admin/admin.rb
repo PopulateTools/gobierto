@@ -12,9 +12,11 @@ module GobiertoAdmin
     has_many :admin_sites, dependent: :destroy
     has_many :sites, through: :admin_sites
 
-    has_many :permissions, dependent: :destroy
+    has_many :permissions, dependent: :destroy, autosave: true
     has_many :global_permissions, class_name: 'Permission::Global'
-
+    has_many :modules_permissions, -> { for_modules }, class_name: '::GobiertoAdmin::Permission'
+    has_many :people_permissions,  -> { for_people }, class_name: '::GobiertoAdmin::Permission'
+    
     has_many :gobierto_development_permissions, class_name: 'Permission::GobiertoDevelopment'
     has_many :gobierto_budgets_permissions, class_name: 'Permission::GobiertoBudgets'
     has_many :gobierto_budget_consultations_permissions, class_name: 'Permission::GobiertoBudgetConsultations'
@@ -29,7 +31,8 @@ module GobiertoAdmin
     before_create :set_god_flag, :generate_preview_token
 
     validates :email, uniqueness: true
-
+    validates_associated :permissions
+    
     scope :sorted, -> { order(created_at: :desc) }
     scope :god,    -> { where(god: true) }
     scope :active, -> { where.not(authorization_level: authorization_levels[:disabled]) }

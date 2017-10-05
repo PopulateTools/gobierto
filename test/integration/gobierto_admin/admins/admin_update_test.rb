@@ -4,9 +4,16 @@ require "test_helper"
 
 module GobiertoAdmin
   class AdminUpdateTest < ActionDispatch::IntegrationTest
-    def regular_admin
-      @regular_admin ||= gobierto_admin_admins(:tony)
+    
+    def tony
+      @tony ||= gobierto_admin_admins(:tony)
     end
+    alias_method :regular_admin, :tony
+
+    def steve
+      @steve ||= gobierto_admin_admins(:steve)
+    end
+    alias_method :regular_admin_on_santander, :steve
 
     def manager_admin
       @manager_admin ||= gobierto_admin_admins(:nick)
@@ -18,7 +25,7 @@ module GobiertoAdmin
 
     def test_regular_admin_update
       with_signed_in_admin(manager_admin) do
-        visit edit_admin_admin_path(regular_admin)
+        visit edit_admin_admin_path(regular_admin_on_santander)
 
         within "form.edit_admin" do
           fill_in "admin_name", with: "Admin Name"
@@ -29,6 +36,7 @@ module GobiertoAdmin
           end
 
           within ".site-check-boxes" do
+            uncheck "santander.gobierto.dev"
             check "madrid.gobierto.dev"
           end
 
@@ -51,8 +59,8 @@ module GobiertoAdmin
           end
 
           within ".site-check-boxes" do
-            assert has_checked_field?("madrid.gobierto.dev")
             refute has_checked_field?("santander.gobierto.dev")
+            assert has_checked_field?("madrid.gobierto.dev")
           end
 
           within ".admin-authorization-level-radio-buttons" do
@@ -71,11 +79,9 @@ module GobiertoAdmin
           fill_in "admin_password", with: "wadus"
           fill_in "admin_password_confirmation", with: "wadus"
 
-          within ".site-module-check-boxes" do
-            check "Gobierto Development"
-          end
+          assert has_selector?(".site-check-boxes")
 
-          refute has_selector?(".site-check-boxes")
+          check "santander.gobierto.dev"
 
           within ".admin-authorization-level-radio-buttons" do
             choose "Manager"

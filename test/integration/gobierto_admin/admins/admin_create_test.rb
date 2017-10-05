@@ -4,6 +4,7 @@ require "test_helper"
 
 module GobiertoAdmin
   class AdminCreateTest < ActionDispatch::IntegrationTest
+    
     def setup
       super
       @path = new_admin_admin_path
@@ -11,6 +12,14 @@ module GobiertoAdmin
 
     def admin
       @admin ||= gobierto_admin_admins(:nick)
+    end
+
+    def madrid
+      @madrid ||= sites(:madrid)
+    end
+
+    def richard
+      @richard ||= gobierto_people_people(:richard)
     end
 
     def regular_admin
@@ -90,50 +99,61 @@ module GobiertoAdmin
       assert has_message?("Data updated successfully")
     end
 
-    def test_admin_create_no_modules
-      with_signed_in_admin(admin) do
-        visit @path
+    def test_create_admin_with_sites_modules_and_people
+      with_javascript do
+        with_signed_in_admin(admin) do
+        
+          visit @path
 
-        within "form.new_admin" do
           fill_in "admin_name", with: "Admin Name"
           fill_in "admin_email", with: "admin@email.dev"
 
-          within ".site-check-boxes" do
-            check "madrid.gobierto.dev"
-          end
+          # grant permissions for madrid.gobierto.dev
+          find("label[for='admin_permitted_sites_#{madrid.id}']").click
 
-          within ".admin-authorization-level-radio-buttons" do
-            choose "Regular"
-          end
+          # grant permissions for Gobierto People
 
-          click_button "Create"
-        end
+          find("label[for='admin_permitted_modules_gobiertopeople']").click
 
-        assert has_content?("Modules is too short (minimum at least 1 element)")
-      end
-    end
+          # grant permissions for Richard Rider
 
-    def test_admin_create_no_sites
-      with_signed_in_admin(admin) do
-        visit @path
+          find("label[for='admin_permitted_people_#{richard.id}']").click
 
-        within "form.new_admin" do
-          fill_in "admin_name", with: "Admin Name"
-          fill_in "admin_email", with: "admin@email.dev"
+          # set authorization level to 'Regular'
 
-          within ".site-module-check-boxes" do
-            check "Gobierto Development"
-          end
-
-          within ".admin-authorization-level-radio-buttons" do
-            choose "Regular"
-          end
+          find("label[for='admin_authorization_level_regular']", visible: false).click
 
           click_button "Create"
-        end
 
-        assert has_content?("Sites is too short (minimum at least 1 element)")
+          assert has_message?("Admin was successfully created")
+        end
       end
+
+      new_admin = ::GobiertoAdmin::Admin.last
+      permissions = new_admin.permissions
+      module_permission = permissions.find_by(resource_name: 'gobierto_people')
+      person_permission = permissions.find_by(resource_name: 'person')
+
+      # assert site permissions
+
+      assert_equal [madrid], new_admin.sites
+
+      # assert total permissions
+
+      assert_equal 2, permissions.size
+      
+      # assert module permissions
+
+      assert_equal 'site_module', module_permission.namespace
+      assert_nil module_permission.resource_id
+      assert_equal 'manage', module_permission.action_name
+
+      # assert person permissions
+
+      assert_equal 'gobierto_people', person_permission.namespace
+      assert_equal richard.id, person_permission.resource_id
+      assert_equal 'manage', person_permission.action_name
     end
+
   end
 end

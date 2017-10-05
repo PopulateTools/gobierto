@@ -29,12 +29,14 @@ class Activity < ApplicationRecord
   end
 
   def self.in_participation
-    Activity.select { |a| GobiertoCommon::CollectionItem.where("container_type IN ('GobiertoParticipation')").any? }.pluck(:id)
-    where(id: ids)
+    Activity.no_admin.joins("LEFT JOIN collection_items ON collection_items.item_type = activities.subject_type AND
+                             collection_items.item_id = activities.subject_id AND collection_items.container_type = 'GobiertoParticipation'")
   end
 
   def self.in_container(container)
-    Activity.select { |a| GobiertoCommon::CollectionItem.where(container: container, item: a.subject).any? }.pluck(:id)
-    where(id: ids)
+    Activity.no_admin.joins("LEFT JOIN collection_items ON collection_items.item_type = activities.subject_type AND
+                            collection_items.item_id = activities.subject_id")
+            .where("collection_items.container_type = ?
+                    AND collection_items.container_id = ?", container.class.to_s, container.id)
   end
 end

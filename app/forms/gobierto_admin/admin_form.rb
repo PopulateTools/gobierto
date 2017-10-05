@@ -12,6 +12,7 @@ module GobiertoAdmin
       :sites,
       :site_ids,
       :site_modules,
+      :people,
       :creation_ip,
       :last_sign_in_at,
       :last_sign_in_ip

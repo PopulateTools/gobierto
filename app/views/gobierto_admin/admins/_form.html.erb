@@ -34,53 +34,80 @@
         </div>
       <% end %>
 
-      <% if @site_modules.present? %>
-        <div class="form_block">
+      <!-- Site permissions -->
+      <div class="form_block" id="sites_permissions" style="<%= @admin.manager? ? '' : 'display: none;' %>">
 
-          <h2><%= t(".permissions_block") %></h2>
+        <h2><%= t(".sites_block") %></h2>
 
-          <div class="form_item site-module-check-boxes">
+        <div class="form_item site-check-boxes">
 
-            <div class="options compact">
-              <%= f.collection_check_boxes(:site_modules, Array(@site_modules), :namespace, :name) do |b| %>
-                <div class="option">
-                  <%= b.check_box %>
-                  <%= b.label do %>
-                    <span></span>
-                    <%= b.text %>
-                  <% end %>
-                </div>
-              <% end %>
-            </div>
-
+          <div class="options compact">
+            <%= f.collection_check_boxes(:site_ids, Array(@sites), :id, :domain) do |b| %>
+              <div class="option">
+                <%= b.check_box(data: { behavior: 'toggle_site', site_id: b.object.id }) %>
+                <%= b.label do %>
+                  <span></span>
+                  <%= b.text %>
+                <% end %>
+              </div>
+            <% end %>
           </div>
 
         </div>
-      <% end %>
 
-      <% if @sites.present? %>
-        <div class="form_block">
+      </div>
+      <!-- ./ Site permissions -->
 
-          <h2><%= t(".sites_block") %></h2>
+      <!-- Module permissions -->
+      <div class="form_block" id="modules_permissions" style="<%= @admin.regular? ? '' : 'display: none;' %>">
 
-          <div class="form_item site-check-boxes">
+        <h2><%= t(".permissions_block") %></h2>
 
-            <div class="options compact">
-              <%= f.collection_check_boxes(:site_ids, Array(@sites), :id, :domain) do |b| %>
-                <div class="option">
-                  <%= b.check_box %>
-                  <%= b.label do %>
-                    <span></span>
-                    <%= b.text %>
+        <div class="form_item site-module-check-boxes">
+
+          <div class="options compact">
+            <%= f.collection_check_boxes(:site_modules, Array(@site_modules), :namespace, :name) do |module_b| %>
+              <div class="option">
+                <%= module_b.check_box(data: { behavior: "toggle-module-#{module_b.value}" }) %>
+                <%= module_b.label do %>
+                  <span></span>
+                  <%= module_b.text %>
+                <% end %>
+              </div>
+              
+              <!-- GobiertoPeople people options -->
+              <% if module_b.text == 'Gobierto People' %>
+                <% module_active = f.object.site_modules.include?(module_b.object.namespace) %>
+                <div class="option_suboptions" id="people_permissions" style="<%= module_active ? '' : 'display: none;' %>">
+
+                  <div class="option">
+                    <input type="checkbox" id="permission_all_people"/>
+                    <label for="permission_all_people">
+                      <span></span><b><%= 'Todas' %></b>
+                    </label>
+                  </div>
+
+                  <% @people.each do |person| %>
+
+                    <div class="option" data-class="site_person" data-site-id="<%= person.site_id %>">
+                      <input type="hidden" name="permissions" value="0"/>
+                      <input type="checkbox" id="permission_<%= person.id %>" name="permission_1" value="1"/>
+                      <label for="permission_<%= person.id %>">
+                        <span></span><%= person.name %>
+                      </label>
+                    </div>
+
                   <% end %>
                 </div>
               <% end %>
-            </div>
-
+              <!-- ./ GobiertoPeople people options -->
+            <% end %>
           </div>
 
         </div>
-      <% end %>
+
+      </div>
+      <!-- ./ Module permissions -->
 
       <% if @admin_form.persisted? %>
         <div class="form_block">
@@ -106,7 +133,7 @@
             <div class="options compact">
               <%= f.collection_radio_buttons(:authorization_level, Array(@admin_authorization_levels), :first, :first) do |b| %>
                 <div class="option">
-                  <%= b.radio_button %>
+                  <%= b.radio_button(data: { behavior: "authorization-level-#{b.text}" }) %>
                   <%= b.label do %>
                     <span></span>
                     <%= t(".authorization_level.#{b.text}") %>
@@ -125,4 +152,10 @@
 
   </div>
 
+<% end %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.admins_controller.form();
+  <% end %>
 <% end %>

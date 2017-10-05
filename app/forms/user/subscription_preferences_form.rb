@@ -33,8 +33,8 @@ class User::SubscriptionPreferencesForm
       update_subscriptions_to_people(gobierto_people_people)
       update_subscription_to_site(site_to_subscribe)
       update_subscriptions_to_consultations(gobierto_budget_consultations_consultations)
-      update_subscriptions_to_participation(gobierto_participation_process)
-      update_subscriptions_to_participation(gobierto_participation_issue)
+      update_subscriptions_to_process(gobierto_participation_process)
+      update_subscriptions_to_issue(gobierto_participation_issue)
 
       @user
     else
@@ -85,39 +85,39 @@ class User::SubscriptionPreferencesForm
     end
   end
 
-  def update_subscriptions_to_participation(item)
-    if item.class == "GobiertoParticipation::Process"
-      process = Array(process)
+  def update_subscriptions_to_process(processes)
+    processes = Array(processes)
 
-      process.each do |process_id|
-        next if process_id.blank?
+    processes.each do |process_id|
+      next if process_id.blank?
 
-        process = GobiertoParticipation::Process.find(process_id)
-        @user.subscribe_to!(process, site)
-      end
+      process = GobiertoParticipation::Process.find(process_id)
+      @user.subscribe_to!(process, site)
+    end
 
-      (site.processes.active.pluck(:id).map(&:to_s) - process).each do |process_id|
-        next if process_id.blank?
+    (site.processes.active.pluck(:id).map(&:to_s) - processes).each do |process_id|
+      next if process_id.blank?
 
-        process = site.processes.find(process_id)
-        @user.unsubscribe_from!(process, site)
-      end
-    elsif item.class == "GobiertoParticipation::Issue"
-      issu = Array(issu)
+      process = site.processes.find(process_id)
+      @user.unsubscribe_from!(process, site)
+    end
+  end
 
-      issu.each do |issu_id|
-        next if issu_id.blank?
+  def update_subscriptions_to_issue(issues)
+    issues = Array(issues)
 
-        issu = GobiertoParticipation::Issue.find(issu_id)
-        @user.subscribe_to!(issu, site)
-      end
+    issues.each do |issue_id|
+      next if issue_id.blank?
 
-      (site.issues.active.pluck(:id).map(&:to_s) - issu).each do |issu_id|
-        next if issu_id.blank?
+      issue = Issue.find(issue_id)
+      @user.subscribe_to!(issue, site)
+    end
 
-        issu = site.issues.find(issu_id)
-        @user.unsubscribe_from!(issu, site)
-      end
+    (site.issues.pluck(:id).map(&:to_s) - issues).each do |issue_id|
+      next if issue_id.blank?
+
+      issue = site.issues.find(issue_id)
+      @user.unsubscribe_from!(issue, site)
     end
   end
 

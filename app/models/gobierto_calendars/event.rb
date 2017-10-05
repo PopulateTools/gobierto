@@ -116,9 +116,9 @@ module GobiertoCalendars
 
     def to_url(options = {})
       if collection.container_type == "GobiertoParticipation::Process"
-        url_helpers.gobierto_participation_process_event_url(id: slug, process_id: collection.container.slug, host: app_host)
+        url_helpers.gobierto_participation_process_event_url({ id: slug, process_id: collection.container.slug, host: app_host }.merge(options))
       elsif collection.container_type == "GobiertoParticipation"
-        url_helpers.gobierto_participation_event_url(id: slug, host: app_host)
+        url_helpers.gobierto_participation_event_url({ id: slug, host: app_host }.merge(options))
       else
         url_helpers.gobierto_people_person_event_url(parameterize.merge(host: app_host).merge(options))
       end

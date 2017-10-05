@@ -2,15 +2,19 @@
 
 require "test_helper"
 require "support/integration/dynamic_content_helpers"
+require "support/concerns/gobierto_admin/authorizable_resource_test_module"
 
 module GobiertoAdmin
   module GobiertoPeople
     class PersonUpdateTest < ActionDispatch::IntegrationTest
+
       include Integration::DynamicContentHelpers
+      include ::GobiertoAdmin::AuthorizableResourceTestModule
 
       def setup
         super
         @path = edit_admin_people_person_path(person)
+        setup_authorizable_resource_test(gobierto_admin_admins(:steve), @path)
       end
 
       def person

@@ -31,12 +31,20 @@
   <% @people.each do |person| %>
     <tr id="person-item-<%= person.id %>" data-id="<%= person.id %>" class="<%= cycle("odd", "even") %>">
       <td>
-        <%= link_to edit_admin_people_person_path(person) do %>
-          <i class="fa fa-edit"></i>
+        <% if ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: current_admin, person: person).manage? %>
+          <%= link_to edit_admin_people_person_path(person) do %>
+            <i class="fa fa-edit"></i>
+          <% end %>
+        <% else %>
+          <i class="fa fa-minus-circle"></i>
         <% end %>
       </td>
       <td>
-        <%= link_to edit_admin_people_person_path(person) do %>
+        <% if ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: current_admin, person: person).manage? %>
+          <%= link_to edit_admin_people_person_path(person) do %>
+            <%= person.name %>
+          <% end %>
+        <% else %>
           <%= person.name %>
         <% end %>
       </td>
@@ -61,7 +69,12 @@
         <%= t(".visibility_level.#{person.visibility_level}") %>
       </td>
       <td>
-        <%= link_to gobierto_people_person_preview_url(person, host: current_site.domain), target: "_blank", class: "view_item" do %>
+        <% if ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: current_admin, person: person).view? %>
+          <%= link_to gobierto_people_person_preview_url(person, host: current_site.domain), target: "_blank", class: "view_item" do %>
+            <i class="fa fa-eye"></i>
+            <%= t(".view_person") %>
+          <% end %>
+        <% else %>
           <i class="fa fa-eye"></i>
           <%= t(".view_person") %>
         <% end %>

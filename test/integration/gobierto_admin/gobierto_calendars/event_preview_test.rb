@@ -1,13 +1,23 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/concerns/gobierto_admin/authorizable_resource_preview_test_module"
 
 module GobiertoAdmin
   module GobiertoPeople
     class PersonEventPreviewTest < ActionDispatch::IntegrationTest
+
+      include ::GobiertoAdmin::AuthorizableResourcePreviewTestModule
+
       def setup
         super
         @path = admin_people_person_events_path(person)
+        setup_authorizable_resource_preview_test(
+          gobierto_admin_admins(:steve),
+          gobierto_people_person_event_path(person.slug, published_event.slug),
+          gobierto_people_person_event_path(person.slug, pending_event.slug),
+          person
+        )
       end
 
       def admin

@@ -78,7 +78,7 @@ module GobiertoAdmin
 
     # -- Authorization levels
     def test_sites_for_regular_authorization_level
-      assert_equal 1, admin.sites.count
+      assert_equal 2, admin.sites.count
     end
 
     def test_sites_bypass_for_manager_authorization_level

@@ -24,7 +24,11 @@ module GobiertoAdmin
       @admin = find_admin
 
       @admin_form = AdminForm.new(
-        @admin.attributes.except(*ignored_admin_attributes)
+        @admin.attributes.except(*ignored_admin_attributes).merge(
+          permitted_sites: @admin.sites.pluck(:id),
+          permitted_modules:  @admin.modules_permissions.pluck(:resource_name),
+          permitted_people: @admin.people_permissions.pluck(:resource_id)
+        )
       )
 
       set_admin_policy
@@ -89,8 +93,10 @@ module GobiertoAdmin
         :password,
         :password_confirmation,
         :authorization_level,
-        site_modules: [],
-        site_ids: []
+        :all_people_permitted,
+        permitted_sites: [],
+        permitted_modules: [],
+        permitted_people: []
       )
     end
 
@@ -117,7 +123,7 @@ module GobiertoAdmin
     end
 
     def set_people
-      @people = ::GobiertoPeople::Person.active.order(:site_id)
+      @people = ::GobiertoPeople::Person.order(:site_id)
     end
 
     def set_authorization_levels

@@ -2,11 +2,14 @@
 
 require "test_helper"
 require "support/calendar_integration_helpers"
+require "support/concerns/gobierto_admin/authorizable_resource_test_module"
 
 module GobiertoAdmin
   module GobiertoPeople
     class PersonCalendarConfigurationTest < ActionDispatch::IntegrationTest
+
       include ::CalendarIntegrationHelpers
+      include ::GobiertoAdmin::AuthorizableResourceTestModule
 
       def google_calendar_id
         "richard@google-calendar.com"
@@ -29,6 +32,8 @@ module GobiertoAdmin
         calendars_mock = mock
         calendars_mock.stubs(:calendars).returns([calendar1, calendar2, calendar3])
         ::GobiertoPeople::GoogleCalendar::CalendarIntegration.stubs(:new).returns(calendars_mock)
+
+        setup_authorizable_resource_test(gobierto_admin_admins(:steve), @person_events_path)
        end
 
       def person

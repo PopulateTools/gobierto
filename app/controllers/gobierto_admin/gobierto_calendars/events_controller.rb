@@ -1,7 +1,8 @@
 module GobiertoAdmin
   module GobiertoCalendars
     class EventsController < BaseController
-      before_action :load_collection, :load_person
+
+      before_action :load_collection, :load_person, :manage_event_allowed!
 
       def index
         @events_presenter = GobiertoAdmin::GobiertoCalendars::EventsPresenter.new(@collection)
@@ -117,6 +118,20 @@ module GobiertoAdmin
       def ignored_event_attributes
         %w( created_at updated_at title description external_id site_id collection_id )
       end
+
+      def manage_event_allowed!
+        event_policy = GobiertoCalendars::EventPolicy.new(
+                         current_site: current_site,
+                         current_admin: current_admin,
+                         event: try(:@event),
+                         collection_id: @collection.id
+                       )
+
+        if @collection.container.nil? || !event_policy.manage?
+          redirect_to(admin_root_path, alert: t('gobierto_admin.admin_unauthorized')) and return false
+        end
+      end
+
     end
   end
 end

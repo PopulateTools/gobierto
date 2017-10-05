@@ -4,6 +4,7 @@ require "test_helper"
 
 module GobiertoAdmin
   class AdminCreateTest < ActionDispatch::IntegrationTest
+
     def setup
       super
       @path = new_admin_admin_path
@@ -11,6 +12,18 @@ module GobiertoAdmin
 
     def admin
       @admin ||= gobierto_admin_admins(:nick)
+    end
+
+    def madrid
+      @madrid ||= sites(:madrid)
+    end
+
+    def santander
+      @santander ||= sites(:santander)
+    end
+
+    def richard
+      @richard ||= gobierto_people_people(:richard)
     end
 
     def regular_admin
@@ -26,53 +39,49 @@ module GobiertoAdmin
     end
 
     def test_admin_create_and_admin_accept_email
-      with_signed_in_admin(admin) do
-        visit @path
+      with_javascript do
+        with_signed_in_admin(admin) do
+          visit @path
 
-        within "form.new_admin" do
-          fill_in "admin_name", with: "Admin Name"
-          fill_in "admin_email", with: "admin@email.dev"
+          within "form.new_admin" do
+            fill_in "admin_name", with: "Admin Name"
+            fill_in "admin_email", with: "admin@email.dev"
 
-          within ".site-module-check-boxes" do
-            check "Gobierto Development"
+            # grant permissions for Gobierto Development
+            find("label[for='admin_permitted_modules_gobiertodevelopment']").click
+
+            # set authorization level to 'Regular'
+            find("label[for='admin_authorization_level_regular']", visible: false).click
+
+            # grant permissions for madrid.gobierto.dev
+            find("label[for='admin_permitted_sites_#{madrid.id}']").click
+
+            click_button "Create"
           end
 
-          within ".site-check-boxes" do
-            check "madrid.gobierto.dev"
-          end
+          assert has_message?("Admin was successfully created")
 
-          within ".admin-authorization-level-radio-buttons" do
-            choose "Regular"
-          end
-
-          click_button "Create"
-        end
-
-        assert has_message?("Admin was successfully created")
-
-        within "table.admin-list tbody tr", match: :first do
           assert has_content?("Admin Name")
           assert has_content?("admin@email.dev")
 
           click_link "Admin Name"
-        end
 
-        within ".site-module-check-boxes" do
-          assert has_checked_field?("Gobierto Development")
-          refute has_checked_field?("Gobierto Budgets")
-        end
+          # assert GobiertoDevelopment is checked
+          assert find("#admin_permitted_modules_gobiertodevelopment", visible: false).checked?
+          # refute GobiertoDevelopment is checked
+          refute find("#admin_permitted_modules_gobiertobudgets", visible: false).checked?
 
-        within ".site-check-boxes" do
-          assert has_checked_field?("madrid.gobierto.dev")
-          refute has_checked_field?("santander.gobierto.dev")
-        end
+          # assert Madrid is checked
+          assert find("#admin_permitted_sites_#{madrid.id}", visible: false).checked?
+          # refute Santander is checked
+          refute find("#admin_permitted_sites_#{santander.id}", visible: false).checked?
 
-        within ".admin-authorization-level-radio-buttons" do
-          assert has_checked_field?("Regular")
-        end
+          # assert admin is Regular
+          assert find("#admin_authorization_level_regular", visible: false).checked?
 
-        invite_email = ActionMailer::Base.deliveries.last
-        assert_equal "admin@email.dev", invite_email.to[0]
+          invite_email = ActionMailer::Base.deliveries.last
+          assert_equal "admin@email.dev", invite_email.to[0]
+        end
       end
 
       open_email("admin@email.dev")
@@ -90,50 +99,58 @@ module GobiertoAdmin
       assert has_message?("Data updated successfully")
     end
 
-    def test_admin_create_no_modules
-      with_signed_in_admin(admin) do
-        visit @path
+    def test_create_admin_with_sites_modules_and_people
+      with_javascript do
+        with_signed_in_admin(admin) do
 
-        within "form.new_admin" do
+          visit @path
+
           fill_in "admin_name", with: "Admin Name"
           fill_in "admin_email", with: "admin@email.dev"
 
-          within ".site-check-boxes" do
-            check "madrid.gobierto.dev"
-          end
+          # set authorization level to 'Regular'
+          find("label[for='admin_authorization_level_regular']", visible: false).click
 
-          within ".admin-authorization-level-radio-buttons" do
-            choose "Regular"
-          end
+          # grant permissions for madrid.gobierto.dev
+          find("label[for='admin_permitted_sites_#{madrid.id}']").click
 
-          click_button "Create"
-        end
+          # grant permissions for Gobierto People
+          find("label[for='admin_permitted_modules_gobiertopeople']").click
 
-        assert has_content?("Modules is too short (minimum at least 1 element)")
-      end
-    end
-
-    def test_admin_create_no_sites
-      with_signed_in_admin(admin) do
-        visit @path
-
-        within "form.new_admin" do
-          fill_in "admin_name", with: "Admin Name"
-          fill_in "admin_email", with: "admin@email.dev"
-
-          within ".site-module-check-boxes" do
-            check "Gobierto Development"
-          end
-
-          within ".admin-authorization-level-radio-buttons" do
-            choose "Regular"
-          end
+          # grant permissions for Richard Rider
+          find("label[for='admin_permitted_people_#{richard.id}']", visible: false).trigger(:click)
 
           click_button "Create"
-        end
 
-        assert has_content?("Sites is too short (minimum at least 1 element)")
+          assert has_message?("Admin was successfully created")
+        end
       end
+
+      new_admin = ::GobiertoAdmin::Admin.last
+      permissions = new_admin.permissions
+      module_permission = permissions.find_by(resource_name: 'gobierto_people')
+      person_permission = permissions.find_by(resource_name: 'person')
+
+      # assert site permissions
+
+      assert_equal [madrid], new_admin.sites
+
+      # assert total permissions
+
+      assert_equal 2, permissions.size
+
+      # assert module permissions
+
+      assert_equal 'site_module', module_permission.namespace
+      assert_nil module_permission.resource_id
+      assert_equal 'manage', module_permission.action_name
+
+      # assert person permissions
+
+      assert_equal 'gobierto_people', person_permission.namespace
+      assert_equal richard.id, person_permission.resource_id
+      assert_equal 'manage', person_permission.action_name
     end
+
   end
 end

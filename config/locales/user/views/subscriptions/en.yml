@@ -6,6 +6,7 @@ en:
         areas: Areas
         consultations: Budget consultations
         frequency: Frequency
+        issue_item: 'Theme: '
         modules:
           gobierto_budget_consultations: Budgets consultations
           gobierto_budgets: Budgets
@@ -21,6 +22,7 @@ en:
           weekly: Weekly digest
         people: People
         process: Participation
+        process_item: 'Process: '
         submit: Save
         title: Your alerts
         whole_site: Whole site

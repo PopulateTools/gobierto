@@ -6,6 +6,7 @@ es:
         areas: Áreas
         consultations: Consultas presupuestos
         frequency: Cada cuánto
+        issue_item: 'Tema: '
         modules:
           gobierto_budget_consultations: Consultas de presupuestos
           gobierto_budgets: Presupuestos
@@ -21,6 +22,7 @@ es:
           weekly: Resumen semanal
         people: Personas
         process: Participación
+        process_item: 'Proceso: '
         submit: Guardar
         title: Tus alertas
         whole_site: Todo el site

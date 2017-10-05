@@ -6,6 +6,7 @@ ca:
         areas: Àrees
         consultations: Consultes pressupostos
         frequency: Freqüència
+        issue_item: 'Tema: '
         modules:
           gobierto_budget_consultations: Consultes de pressupostos
           gobierto_budgets: Pressupostos
@@ -21,6 +22,7 @@ ca:
           weekly: Resum setmanal
         people: Persones
         process: Participació
+        process_item: 'Procés: '
         submit: Desa
         title: Les teves alertes
         whole_site: Tot el site

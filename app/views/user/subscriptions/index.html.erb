@@ -104,7 +104,7 @@
                     <%= b.check_box({"data-selected" => f.object.gobierto_participation_process.include?(b.value)}) %>
                     <%= b.label do %>
                       <span></span>
-                      <%= b.text %>
+                      <%= t('.process_item') + b.text %>
                     <% end %>
                   </div>
                 <% end %>
@@ -113,7 +113,7 @@
                     <%= b.check_box({"data-selected" => f.object.gobierto_participation_issue.include?(b.value)}) %>
                     <%= b.label do %>
                       <span></span>
-                      <%= b.text %>
+                      <%= t('.issue_item') + b.text %>
                     <% end %>
                   </div>
                 <% end %>

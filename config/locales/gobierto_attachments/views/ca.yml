@@ -2,5 +2,5 @@
 ca:
   gobierto_attachments:
     events:
-      gobierto_attachments_attachment_created: Document creat
+      gobierto_attachments_attachment_name_changed: Document creat
       gobierto_attachments_attachment_updated: Document actualizat

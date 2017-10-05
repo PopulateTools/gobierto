@@ -63,6 +63,16 @@ module GobiertoCalendars
 
     enum state: { pending: 0, published: 1 }
 
+    def self.events_in_collections_and_container_type(site, container_type)
+      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCalendars::Event", container_type: container_type).pluck(:item_id)
+      where(id: ids, site: site)
+    end
+
+    def self.events_in_collections_and_container(site, container)
+      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCalendars::Event", container: container).pluck(:item_id)
+      where(id: ids, site: site)
+    end
+
     def parameterize
       { container_slug: collection.container.slug, slug: slug }
     end
@@ -112,5 +122,10 @@ module GobiertoCalendars
       locations.first
     end
 
+    def first_issue
+      collection_item = GobiertoCommon::CollectionItem.where(item: self, container_type: "Issue").first
+
+      collection_item.container if collection_item
+    end
   end
 end

@@ -79,6 +79,39 @@ ca:
         agenda: Agenda
         documents: Documents
         news: Notícies
+    participation_events:
+      event:
+        add_to_calendar: Afegir al meu calendari
+        download: Baixeu les dades
+        follow_event: Seguir aquest esdeveniment
+        neighbors_count_html:
+          one: "<strong>%{neighbors} veïn</strong> assistirà"
+          other: "<strong>%{neighbors} veïns</strong> assistiran"
+          zero: Cap veí assistirà
+      event_teaser:
+        add_to_calendar: Afegir al meu calendari
+        agenda_of: 'Agenda d'':'
+        neighbors_count_html:
+          one: "<strong>%{neighbors} veïn</strong> assistirà"
+          other: "<strong>%{neighbors} veïns</strong> assistiran"
+          zero: Cap veí assistirà
+        want_to_attend: Vull assistir
+      index:
+        all_events: Veure tots els esdeveniments
+        events: Esdeveniments
+      show:
+        from_to: "%{starts} al %{ends}"
+    participation_pages:
+      index:
+        all_pages: Veure totes les pàgines
+        filter: Filtrar
+        news: Notícies
+        title: Notícies
+      show:
+        documents: Documentos
+        filter: Filtrar por grupo
+        published_at: Publicado el %{date} por el %{site}
+        title: Notícies
     process_pages:
       index:
         filter: Filtrar per tema
@@ -89,6 +122,33 @@ ca:
         published_at: Publicat el %{date} pel %{site}
         title: Notícies
     processes:
+      index:
+        groups: Grups de treball
+        groups_p: Consulta l'activitat de cada grup i participa.
+        ongoing_processes: Processos en marxa
+        ongoing_processes_p: Consulta i participa en processos específics.
+      poll_answers:
+        new:
+          already_answered: Ja has participat en aquesta enquesta
+          error_saving_poll: Hi ha hagut un error i no hem pogut guardar les teves
+            respostes :(
+          next_question: Següent pregunta
+          page_counter: "%{current} de %{total}"
+          share_message: Si et sembla interessant que altres persones aportin les
+            seves opinions, t'agraïm que comparteixis
+          submit: Enviar
+          thanks_for_answering: "¡Fantàstic, gràcies per contestar!"
+        poll_question:
+          multiple_choice_msg: Pots triar diverses opcions
+      polls:
+        index:
+          polls: Enquestes
+        theme_teaser_question:
+          already_participated: Ja has participat en aquesta enquesta
+          participate: Participa en aquesta enquesta
+          participate_until: Participa fins %{date}
+      process_teaser:
+        current_stage_html: "<strong>Fase actual</strong>: %{current_stage}"
       show:
         about: Sobre aquest procés
         appointments: Cites presencials
@@ -116,3 +176,20 @@ ca:
       follow_process: Segueix el procés
       issue_followed: "¡Tema seguit!"
       process_followed: "¡Procés seguit!"
+    welcome:
+      index:
+        intro: Coneix els mecanismes de participació que t'ofereix %{location_name}
+        intro_p1: "¿Votar cada quatre anys? Implica't en el dia a dia."
+      participation_latest_info:
+        agenda: Agenda
+        more_news: Veure més notícies
+        no_events: No hi ha esdeveniments relacionats
+        no_news: No hi ha notícies relacionades
+        show_more_events: Veure més esdeveniments
+        show_more_updates: Veure més actualitzacions
+        the_last: L'últim
+        up_to_date: "%{location_name} al dia"
+      participation_themes_list_a:
+        intro: Aporta els teus millors idees per millorar% {location_name} i la vida
+          de tots els que residim aquí.
+        issues: Temes

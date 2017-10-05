@@ -16,6 +16,12 @@
       <% if statements_submodule_active? %>
         <li><h3><%= link_to t(".statements"), gobierto_people_person_statements_path(@person.slug), class: class_if("active", controller_name == "person_statements")  %></h3></li>
       <% end %>
+      <% if @person.trips_url %>
+        <li><h3><%= link_to t(".trips"), @person.trips_url %></h3></li>
+      <% end %>
+      <% if @person.gifts_url %>
+        <li><h3><%= link_to t(".gifts"), @person.gifts_url  %></h3></li>
+      <% end %>
     </ul>
 
   </div>

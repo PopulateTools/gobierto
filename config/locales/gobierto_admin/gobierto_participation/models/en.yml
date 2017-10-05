@@ -29,8 +29,11 @@ en:
         issue_id: Theme
         process_type: Group type
         slug: Slug
+        stages: Stages
         starts: Starts
         title: Title
+      gobierto_admin/gobierto_participation/process_form/stages:
+        title: The title of a stage
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Contribution
         container

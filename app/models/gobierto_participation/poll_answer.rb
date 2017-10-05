@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency 'gobierto_participation'
 
 module GobiertoParticipation
@@ -15,6 +17,12 @@ module GobiertoParticipation
 
     validates_uniqueness_of :user_id, scope: [:question_id], if: :open_answer?
     validates_uniqueness_of :user_id, scope: [:question_id, :answer_template_id], if: :fixed_answer?
+
+    validates_presence_of :text, if: :open_answer?
+    validates_absence_of  :text,  if: :fixed_answer?
+
+    validates_presence_of :answer_template, if: :fixed_answer?
+    validates_absence_of  :answer_template, if: :open_answer?
 
     def open_answer?
       question.open?

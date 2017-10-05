@@ -29,12 +29,23 @@ $(document).on('turbolinks:load', function() {
 
   $(".stick_in_parent").stick_in_parent();
 
-  if($('.air-datepicker').length){
-    var start = new Date();
-    start.setDate(start.getDate() + 1);
-    start.setHours(start.getHours() + 1);
-    start.setMinutes(0);
+  addDatepickerBehaviors();
 
+  $('#site_visibility_level_active').on('click', function(e){
+    $('#site_username').val('');
+    $('#site_password').val('');
+  });
+
+  $('a[data-disabled]').on('click', function(e){
+    e.preventDefault();
+  });
+
+});
+
+function addDatepickerBehaviors() {
+  if ($('.air-datepicker').length == 1) {
+    initializePageWithOnlyOneDatepicker();
+  } else if($('.air-datepicker').length){
     var $fromDatePickers = $('.air-datepicker:even');
     var $toDatePickers   = $('.air-datepicker:odd');
 
@@ -62,7 +73,7 @@ $(document).on('turbolinks:load', function() {
           onSelect: function onSelect(_, selectedDate, instance) {
             $(instance.el).trigger("datepicker-change");
             selectedDate.setHours(selectedDate.getHours() + 1);
-            if($(toDatePicker).length){
+            if($(toDatePicker).length && selectedDate > $(toDatePicker).data('datepicker').lastSelectedDate) {
               $(toDatePicker).data('datepicker').selectDate(selectedDate);
             }
           }
@@ -87,14 +98,14 @@ $(document).on('turbolinks:load', function() {
       index++;
     });
   }
+};
 
-  $('#site_visibility_level_active').on('click', function(e){
-    $('#site_username').val('');
-    $('#site_password').val('');
+function initializePageWithOnlyOneDatepicker() {
+  $('.air-datepicker').datepicker({
+    autoClose: true,
+    startDate: new Date($('.air-datepicker').data('startdate')),
+    onSelect: function onSelect(_, selectedDate, instance) {
+      $(instance.el).trigger("datepicker-change");
+    }
   });
-
-  $('a[data-disabled]').on('click', function(e){
-    e.preventDefault();
-  });
-
-});
+};

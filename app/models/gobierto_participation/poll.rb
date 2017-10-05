@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency 'gobierto_participation'
 
 module GobiertoParticipation
@@ -7,9 +9,12 @@ module GobiertoParticipation
 
     belongs_to :process
     has_many :questions, -> { order(order: :asc) }, class_name: 'GobiertoParticipation::PollQuestion', dependent: :destroy, autosave: true
-    has_many :answers, class_name: 'GobiertoParticipation::PollAnswer'
+    has_many :answers, class_name: 'GobiertoParticipation::PollAnswer', autosave: true
 
     enum visibility_level: { draft: 0, published: 1 }
+
+    scope :open, -> { where("starts_at <= ? AND ends_at >= ?", Time.zone.now, Time.zone.now) }
+    scope :answerable, -> { published.open }
 
     translates :title, :description
 
@@ -25,6 +30,14 @@ module GobiertoParticipation
 
     def answerable?
       published? && open?
+    end
+
+    def answerable_by?(user)
+      answerable? && !has_answers_from?(user)
+    end
+
+    def has_answers_from?(user)
+      answers.where(user: user).any?
     end
 
     def open?

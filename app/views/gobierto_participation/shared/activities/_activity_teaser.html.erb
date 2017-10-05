@@ -1,6 +1,6 @@
 <div class="activity_item">
   <h2>
-    <%= link_to(activity.subject.to_url(host: current_site.domain)) do %>
+    <%= link_to_if activity.active?, activity.translated_action, activity.subject.to_url(host: current_site.domain) do %>
       <%= activity.translated_action %>
       <span class="secondary"><%= activity.subject_name %></span>
     <% end %>

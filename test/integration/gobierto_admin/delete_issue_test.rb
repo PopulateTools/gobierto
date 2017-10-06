@@ -23,7 +23,7 @@ module GobiertoAdmin
     end
 
     def test_delete_issue
-      issue.collection_items.destroy_all
+      issue.processes.destroy_all
 
       with_signed_in_admin(admin) do
         with_current_site(site) do

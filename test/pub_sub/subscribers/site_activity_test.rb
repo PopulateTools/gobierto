@@ -137,8 +137,7 @@ class Subscribers::SiteActivityTest < ActiveSupport::TestCase
   def test_site_deleted_event_handling
 
     # manually deassociate scopes and ids from items, so they can be destroyed
-    site.processes.update_all(scope_id: nil)
-    site.collection_items.where(container_type: 'Issue').destroy_all
+    site.processes.update_all(scope_id: nil, issue_id: nil)
 
     assert_difference "Activity.count" do
       site.destroy

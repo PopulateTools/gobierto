@@ -7,7 +7,7 @@ class Issue < ApplicationRecord
   include GobiertoCommon::Sluggable
 
   belongs_to :site
-  has_many :collection_items, as: :container, class_name: 'GobiertoCommon::CollectionItem', dependent: :restrict_with_error
+  has_many :processes, class_name: 'GobiertoParticipation::Process', dependent: :restrict_with_error
   
   translates :name, :description
 

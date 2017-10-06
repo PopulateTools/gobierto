@@ -3,6 +3,6 @@ en:
   gobierto_admin:
     issues:
       create:
-        success: Theme was successfully created.
+        success_html: Theme was successfully created. <a href="%{link}">View the theme</a>.
       update:
-        success: Theme was successfully updated.
+        success_html: Theme was successfully updated. <a href="%{link}">View the theme</a>.

@@ -2,6 +2,7 @@
 
 module GobiertoSeeds
   class Recipe
+
     def self.run(site)
       # Config keys
       settings = GobiertoModuleSettings.find_by site: site, module_name: "GobiertoPeople"
@@ -57,6 +58,32 @@ module GobiertoSeeds
                                                   label: { "ca" => "Notes", "es" => "Notas" })
       end
 
+      ## Custom links block
+      custom_links_block = GobiertoCommon::ContentBlock.find_by(site_id: site.id, internal_id: GobiertoCommon::DynamicContent::CUSTOM_LINKS_BLOCK_ID)
+      if custom_links_block.nil?
+        custom_links_block = GobiertoCommon::ContentBlock.create!(internal_id: GobiertoCommon::DynamicContent::CUSTOM_LINKS_BLOCK_ID,
+                                                             site: site,
+                                                             content_model_name: "GobiertoPeople::Person",
+                                                             title: { "ca" => "Links personalitzats", "es" => "Links personalizados", "en" => "Custom links" })
+      end
+
+      ## Custom links fields
+      custom_links_block_field = GobiertoCommon::ContentBlockField.find_by content_block: custom_links_block, name: "service_name"
+      if custom_links_block_field.nil?
+        GobiertoCommon::ContentBlockField.create!(content_block: custom_links_block,
+                                                  name: "service_name",
+                                                  field_type: ::GobiertoCommon::ContentBlockField.field_types["text"],
+                                                  label: { "ca" => "Servei", "es" => "Servicio", "en" => "Service" })
+      end
+
+      custom_links_block_field = GobiertoCommon::ContentBlockField.find_by content_block: custom_links_block, name: "service_url"
+      if custom_links_block_field.nil?
+        GobiertoCommon::ContentBlockField.create!(content_block: custom_links_block,
+                                                  name: "service_url",
+                                                  field_type: ::GobiertoCommon::ContentBlockField.field_types["text"],
+                                                  label: { "ca" => "URL", "es" => "URL", "en" => "URL" })
+      end
+
       ## Seed loader
       seeds_filenames = Dir.glob(File.join(File.dirname(__FILE__), "*_seeds.yml"))
 
@@ -81,6 +108,8 @@ module GobiertoSeeds
           end
         end
       end
+
     end
+
   end
 end

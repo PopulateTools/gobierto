@@ -4,7 +4,8 @@
   </div>
 
   <div class="pure-u-1 pure-u-md-19-24 event-content">
-    <h3><%= link_to(event.title, gobierto_participation_event_path(event.slug, container_type: event.collection_container.container_type, container_id: event.collection_container.id)) %></h3>
+    <h3>
+    <%= link_to(event.title, event.to_url(host: current_site.domain)) %></h3>
     <div class="meta">
       <div class="ib">
         <i class="fa fa-clock-o"></i> <%= l(event.created_at, format: '%H:%M') %>

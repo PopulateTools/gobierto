@@ -4,6 +4,7 @@ es:
     events:
       gobierto_cms_page_created: Página creada
       gobierto_cms_page_deleted: Página eliminada
+      gobierto_cms_page_published: Página publicada
       gobierto_cms_page_updated: Página actualizada
     pages:
       index:

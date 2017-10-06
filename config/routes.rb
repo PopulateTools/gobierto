@@ -86,6 +86,7 @@ Rails.application.routes.draw do
         resources :file_attachments, only: [:index], controller: "processes/process_file_attachments", as: :file_attachments, path: :file_attachments
         resources :events, only: [:index], controller: "processes/process_events", as: :events, path: :events
         resources :pages, only: [:index], controller: "processes/process_pages", as: :pages, path: :pages
+        resources :polls, only: [:index, :new, :edit, :create, :update], controller: "processes/polls"
         resources :contribution_containers, only: [:new, :edit, :create, :update, :index, :show], controller: "processes/process_contribution_containers", as: :contribution_containers, path: :contribution_containers
         resources :information, only: [:edit, :update], controller: "processes/process_information", as: :process_information, path: :process_information
       end
@@ -252,12 +253,11 @@ Rails.application.routes.draw do
   end
 
   # Gobierto Participation module
-  namespace :gobierto_participation, path: "/" do
+  namespace :gobierto_participation, path: "participacion" do
     constraints GobiertoSiteConstraint.new do
-      get "participacion" => "welcome#index", as: :root
+      get "/" => "welcome#index", as: :root
 
-      resources :processes, only: [:index, :show] do
-        resources :pages, only: [:index, :show], controller: "process_pages", as: :process_pages
+      resources :processes, only: [:index, :show], path: "procesos" do
         resource :information, only: [:show], controller: "process_information", as: :process_information, path: :information
         resources :contribution_containers, only: [:index, :show], controller: "process_contribution_containers", as: :process_contribution_containers, path: :contribution_containers do
           resources :contributions, only: [:show], controller: "process_contributions", as: :process_contributions, path: :contributions do
@@ -266,12 +266,27 @@ Rails.application.routes.draw do
             resource :comment, only: [:create, :index]
           end
         end
+
+        resources :polls, only: [:index], controller: "processes/polls" do
+          resources :answers, only: [:new, :create], controller: "processes/poll_answers"
+        end
+        resources :attachments, only: [:index, :show], controller: "processes/attachments", path: "documentos"
+        resources :events, only: [:index, :show], controller: "processes/events", path: "agendas"
+        resources :pages, only: [:index, :show], controller: "processes/pages", path: "noticias"
+        resources :activities, only: [:index], controller: "processes/activities"
       end
 
-      resources :events, only: [:index, :show]
-      resources :issues, only: [:index, :show] do
-        resources :pages, only: [:index, :show], controller: "issue_pages", as: :issue_pages
+      resources :issues, only: [:index, :show], path: "temas" do
+        resources :attachments, only: [:index, :show], controller: "issues/attachments", path: "documentos"
+        resources :events, only: [:index, :show], controller: "issues/events", path: "agendas"
+        resources :pages, only: [:index, :show], controller: "issues/pages", path: "noticias"
+        resources :activities, only: [:index], controller: "issues/activities"
       end
+
+      resources :attachments, only: [:index, :show], controller: "attachments", path: "documentos"
+      resources :events, only: [:index, :show], controller: "events", path: "agendas"
+      resources :pages, only: [:index, :show], controller: "pages", path: "noticias"
+      resources :activities, only: [:index], controller: "activities"
     end
   end
 

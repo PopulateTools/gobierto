@@ -1,0 +1,44 @@
+---
+en:
+  activerecord:
+    attributes:
+      gobierto_participation/poll:
+        questions: Questions
+      gobierto_participation/poll_question:
+        answer_templates: Answers
+        answer_type: Type of question
+        answer_types:
+          multiple_choice: Multiple choice
+          open: Open answer
+          single_choice: Single choice
+        poll: Poll
+        title: Title
+      gobierto_participation/process:
+        process_types:
+          group_process: Group
+          process: Process
+      gobierto_participation/process_stage:
+        description: Description
+        ends: Ends
+        stage_types:
+          ideas: Ideas
+          information: Information
+          meetings: Meetings
+          polls: Polls
+          results: Results
+        starts: Starts
+        title: Title
+    messages:
+      gobierto_participation/poll:
+        are_not_valid: are not valid
+      gobierto_participation/poll_question:
+        not_enough_alternatives: to fixed-response questions must offer at least two
+          alternatives
+      gobierto_participation/process:
+        are_not_valid: are not valid
+    models:
+      gobierto_participation/poll: Poll
+      gobierto_participation/poll_answer_template: Answer
+      gobierto_participation/poll_question: Question
+      gobierto_participation/process: Process
+      gobierto_participation/process_stage: Process stage

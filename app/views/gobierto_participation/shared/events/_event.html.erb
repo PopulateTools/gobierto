@@ -1,0 +1,61 @@
+<div class="person_event-item">
+  <h3>
+    <%= event.title %>
+  </h3>
+
+  <div class="meta">
+    <div>
+
+      <div class="ib p_h_r_0_5">
+        <% if event.starts_at.day == event.ends_at.day %>
+          <strong><%= l(event.starts_at, format: '%e %b') %></strong>
+        <% else %>
+          <strong><%= t('.from_to', starts: l(event.starts_at, format: '%e %b'), ends: l(event.ends_at, format: '%e %b')) %></strong>
+        <% end %>
+      </div>
+
+      <div class="ib p_h_r_0_5">
+        <i class="fa fa-clock-o"></i> <%= l(event.starts_at, format: '%H:%M') %>
+      </div>
+
+      <% if (location = event.first_location) %>
+        <div class="ib">
+          <i class="fa fa-map-marker"></i>
+          <%= link_to_if location.geolocated?, location.name, external_location_service_url(location), target: '_blank' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <p><%== event.description %></p>
+
+  <div class="extra_info">
+
+    <% pending do %>
+      <div class="ib p_h_r_0_5">
+        <a href="#" class="button outline rounded wide attend_event"><i class="fa fa-check hidden"></i> <span>Quiero asistir</span></a>
+      </div>
+
+      <div class="ib p_h_r_0_5">
+        <i class="fa fa-users"></i> <strong>55 vecinos</strong> asistirán
+      </div>
+
+      <div class="ib p_h_r_0_5">
+        <i class="fa fa-calendar"></i> <a href="#">Añadir a mi calendario</a>
+      </div>
+
+      <div class="ib">
+        <i class="fa fa-download"></i> <a href="#">Descargar datos</a>
+      </div>
+
+      <h4><%= t('.follow_event') %></h4>
+
+      <form class="new_user_subscription" id="new_user_subscription" action="/user/subscriptions" accept-charset="UTF-8" method="post">
+        <input placeholder="Your e-mail" type="email" name="user_subscription[user_email]" id="user_subscription_user_email">
+        <input type="submit" name="commit" value="Subscribe" role="button" data-disable-with="Subscribe">
+      </form>
+    <% end %>
+
+  </div>
+
+</div>

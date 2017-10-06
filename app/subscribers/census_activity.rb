@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Subscribers
   class CensusActivity < ::Subscribers::Base
     def census_imported(event)

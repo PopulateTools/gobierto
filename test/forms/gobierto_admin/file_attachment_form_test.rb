@@ -12,8 +12,7 @@ module GobiertoAdmin
         file: Rack::Test::UploadedFile.new(
           Rails.root.join("test/fixtures/files/sites/logo-madrid.png")
         ),
-        site_id: site.id,
-        collection: "wadus"
+        site_id: site.id
       )
     end
 

@@ -3,6 +3,7 @@ module GobiertoCommon
     extend ActiveSupport::Concern
 
     CONTACT_BLOCK_ID = "gobierto_people_contact_block"
+    CUSTOM_LINKS_BLOCK_ID = "gobierto_people_custom_links"
 
     included do
       has_many :content_block_records, as: :content_context, dependent: :destroy, class_name: "GobiertoCommon::ContentBlockRecord"

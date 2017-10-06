@@ -31,12 +31,11 @@ module GobiertoAdmin
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
-
               within "tr#collection-item-#{collection.id}" do
                 click_link "News"
               end
 
-              assert has_selector?("h1", text: "News")
+              assert has_selector?("h1", text: "Sport city")
 
               click_link "Consultation page FAQ"
 
@@ -52,18 +51,6 @@ module GobiertoAdmin
                 "<div>This is the body of the page</div>",
                 find("#page_body_translations_en", visible: false).value
               )
-
-              activity = Activity.last
-              assert_equal cms_page, activity.subject
-              assert_equal admin, activity.author
-              assert_equal site.id, activity.site_id
-              assert_equal "gobierto_cms.page_updated", activity.action
-
-              click_link "View the page"
-
-              assert has_content?("This is the body of the page")
-
-              visit @path
             end
           end
         end

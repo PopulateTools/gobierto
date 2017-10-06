@@ -4,9 +4,9 @@ require "test_helper"
 
 module GobiertoParticipation
   class PageShowTest < ActionDispatch::IntegrationTest
-    def setup
-      super
-      @path = gobierto_participation_process_path(gender_violence_process.slug)
+
+    def process_path(process)
+      gobierto_participation_process_path(process.slug)
     end
 
     def site
@@ -21,9 +21,13 @@ module GobiertoParticipation
       @green_city_group ||= gobierto_participation_processes(:green_city_group)
     end
 
+    def processes
+      @processes ||= [gender_violence_process, green_city_group]
+    end
+
     def test_breadcrumb_items
       with_current_site(site) do
-        visit @path
+        visit process_path(gender_violence_process)
 
         within ".global_breadcrumb" do
           assert has_link? "Participation"
@@ -35,25 +39,33 @@ module GobiertoParticipation
 
     def test_menu_subsections
       with_current_site(site) do
-        visit @path
+        processes.each do |process|
+          visit process_path(process)
 
-        within "menu.sub_sections" do
-          assert has_content? "Information"
-          assert has_content? "Meetings"
-          assert has_content? "Polls"
-          assert has_content? "Contributions"
-          assert has_content? "Results"
+          within 'menu.sub_sections' do
+            assert has_link? 'Information'
+            assert has_link? 'Meetings'
+
+            if process.polls_stage?
+              assert has_link? 'Polls'
+            else
+              refute has_link? 'Polls'
+            end
+
+            assert has_link? 'Contributions'
+            assert has_link? 'Results'
+          end
         end
       end
     end
 
     def test_secondary_nav
       with_current_site(site) do
-        visit @path
+        visit process_path(gender_violence_process)
 
         within "menu.secondary_nav" do
           assert has_link? "News"
-          assert has_link? "Agenda"
+          assert has_link? "Diary"
           assert has_link? "Documents"
           assert has_link? "Activity"
         end
@@ -62,7 +74,7 @@ module GobiertoParticipation
 
     def test_process_news
       with_current_site(site) do
-        visit @path
+        visit process_path(gender_violence_process)
 
         assert_equal gender_violence_process.news.size, all(".place_news-item").size
 
@@ -82,7 +94,7 @@ module GobiertoParticipation
 
     def test_menu_new
       with_current_site(site) do
-        visit @path
+        visit process_path(gender_violence_process)
 
         click_link "News"
 

@@ -2,10 +2,12 @@ require_dependency "gobierto_participation"
 
 module GobiertoParticipation
   class Process < ApplicationRecord
+
     include User::Subscribable
+    include GobiertoCommon::Sluggable
     include GobiertoCommon::Searchable
-    include GobiertoAttachments::Attachable
     include GobiertoCommon::ActsAsCollectionContainer
+    include GobiertoAttachments::Attachable
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca
@@ -18,14 +20,16 @@ module GobiertoParticipation
 
     belongs_to :site
     belongs_to :issue
-    has_many :stages, -> { order(stage_type: :asc) }, dependent: :destroy, class_name: 'GobiertoParticipation::ProcessStage'
+    has_many :stages, -> { order(stage_type: :asc) }, dependent: :destroy, class_name: 'GobiertoParticipation::ProcessStage', autosave: true
+    has_many :polls
     has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
 
     enum visibility_level: { draft: 0, active: 1 }
     enum process_type: { process: 0, group_process: 1 }
 
-    validates :site, :title, :body, presence: true
+    validates :site, :title, presence: true
     validates :slug, uniqueness: { scope: :site }
+    validates_associated :stages, message: I18n.t('activerecord.messages.gobierto_participation/process.are_not_valid')
 
     scope :sorted, -> { order(id: :desc) }
 
@@ -34,12 +38,24 @@ module GobiertoParticipation
     after_create :create_collections
 
     def self.open
-      ids = GobiertoParticipation::Process.select(&:open?).map(&:id)
+      ids = GobiertoParticipation::Process.select(&:open?).pluck(:id)
       where(id: ids)
     end
 
     def to_s
       title
+    end
+
+    def polls_stage?
+      active_stage?(ProcessStage.stage_types[:polls])
+    end
+
+    def information_stage?
+      active_stage?(ProcessStage.stage_types[:information])
+    end
+
+    def active_stage?(stage_type)
+      stages.exists?(stage_type: stage_type)
     end
 
     def pages_collection
@@ -55,15 +71,18 @@ module GobiertoParticipation
     end
 
     def current_stage
-      if open?
-        process_stages = stages.where("starts >= ? AND ends <= ?", Time.zone.now, Time.zone.now)
-        process_stages.first.to_s
-      end
+      process_stages = stages.where("starts <= ? AND ends >= ?", Time.zone.now, Time.zone.now)
+      process_stages.first.to_s
+    end
+
+    def next_stage
+      process_stages = stages.where("starts >= ? AND ends >= ?", Time.zone.now, Time.zone.now)
+      process_stages.first.to_s
     end
 
     def open?
-      if stages.any?
-        Time.zone.now.between?(stages.last.starts, stages.last.ends)
+      if starts.present? && ends.present?
+        Time.zone.now.between?(starts, ends)
       else
         false
       end
@@ -78,6 +97,10 @@ module GobiertoParticipation
       site.collections.create! container: self,  item_type: 'GobiertoAttachments::Attachment', slug: "attachment-#{self.slug}", title: self.title
       # News / Pages
       site.collections.create! container: self,  item_type: 'GobiertoCms::Page', slug: "news-#{self.slug}", title: self.title
+    end
+
+    def attributes_for_slug
+      [ title ]
     end
 
   end

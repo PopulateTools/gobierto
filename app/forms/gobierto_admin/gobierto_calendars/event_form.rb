@@ -17,7 +17,8 @@ module GobiertoAdmin
         :attachment_url,
         :state,
         :locations,
-        :attendees
+        :attendees,
+        :slug
       )
 
       delegate :persisted?, to: :event
@@ -200,6 +201,7 @@ module GobiertoAdmin
           event_attributes.attachment_url = attachment_url
           event_attributes.locations = locations
           event_attributes.attendees = attendees
+          event_attributes.slug = slug
         end
 
         if @event.valid?

@@ -7,23 +7,24 @@ module GobiertoParticipation
     before_action :find_page_by_id_and_redirect
 
     def show
-      @process = find_process if params[:process_id]
       @page = find_page
-      @groups = current_site.processes.group_process
     end
 
     def index
-      # TODO: params['from'] == 'participation' Add to process layout hidden_field
       @issues = current_site.issues
-      @process = find_process if params[:process_id]
-      @pages = if params[:process_id]
-                 find_process_news.page(params[:page])
+      @issue = find_issue if params[:issue_id]
+      @pages = if @issue
+                 GobiertoCms::Page.pages_in_collections_and_container(current_site, @issue).page(params[:page]).active
                else
-                 current_site.pages.active.page(params[:page])
+                 find_participation_news.page(params[:page])
                end
     end
 
     private
+
+    def find_issue
+      current_site.issues.find_by_slug!(params[:issue_id])
+    end
 
     # Load page by ID is necessary to keep the search results page unified and simple
     def find_page_by_id_and_redirect
@@ -33,20 +34,16 @@ module GobiertoParticipation
       end
     end
 
-    def find_process
-      current_site.processes.find_by_slug!(params[:process_id])
-    end
-
-    def find_process_news
-      @process.news.sort_by_updated_at(5)
+    def find_participation_news
+      ::GobiertoCms::Page.pages_in_collections_and_container_type(current_site, "GobiertoParticipation").active
     end
 
     def find_page
-      pages_scope.find_by!(slug: params[:id])
+      pages_scope.find_by_slug!(params[:id])
     end
 
     def pages_scope
-      valid_preview_token? ? current_site.pages.draft : current_site.pages.active
+      valid_preview_token? ? find_participation_news.draft : find_participation_news.active
     end
   end
 end

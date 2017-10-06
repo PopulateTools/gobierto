@@ -1,6 +1,7 @@
 module GobiertoAdmin
   module GobiertoParticipation
     class ProcessForm
+
       include ActiveModel::Model
 
       attr_accessor(
@@ -14,23 +15,31 @@ module GobiertoAdmin
         :slug,
         :header_image,
         :header_image_url,
-        :stages,
         :visibility_level,
-        :issue_id
+        :issue_id,
+        :has_duration
       )
 
       delegate :persisted?, to: :process
+      delegate :polls_stage?, to: :process
+      delegate :information_stage?, to: :process
 
-      validates :site, :title_translations, :body_translations, :slug, :process_type, presence: true
-      validates :stages, presence: true, if: :process?
+      validates :site, :title_translations, :process_type, presence: true
       validates :process_type, inclusion: { in: ::GobiertoParticipation::Process.process_types }
-      validates_presence_of :starts, :ends, if: :process?
-      validates_absence_of  :starts, :ends, if: :group_process?
 
       def initialize(options = {})
-        # Reorder attributes so site and process get assigned first
-        ordered_options = { site_id: options[:site_id], id: options[:id] }
+        options = options.to_h.with_indifferent_access
+
+        # reorder attributes so site and process get assigned first
+        ordered_options = {
+          site_id: options[:site_id],
+          id: options[:id]
+        }.with_indifferent_access
         ordered_options.merge!(options)
+
+        # overwritte options[:has_duration]
+        ordered_options.merge!(has_duration: calculate_has_duration(options))
+
         super(ordered_options)
       end
 
@@ -46,14 +55,6 @@ module GobiertoAdmin
         process.title
       end
 
-      def starts
-        process? ? @starts : nil
-      end
-
-      def ends
-        process? ? @ends : nil
-      end
-
       def visibility_level
         @visibility_level ||= 'draft'
       end
@@ -63,8 +64,7 @@ module GobiertoAdmin
       end
 
       def process
-        @process = site.processes.find_by(id: id).presence || build_process(process_type: process_type)
-        @process
+        @process ||= site.processes.find_by(id: id) || build_process(process_type: process_type)
       end
 
       def process?
@@ -91,94 +91,78 @@ module GobiertoAdmin
       end
 
       def stages
-        @stages ||= process.stages || []
-      end
-
-      def default_stages
-        existing_stages = process.stages.map { |stage| stage.active = true; stage }
-        placeholder_stage_types = process_stage_class.stage_types.keys - existing_stages.map { |stage| stage.stage_type }
-
-        placeholder_stages = placeholder_stage_types.map do |type|
-          process_stage_class.new(process: process, stage_type: type, active: false)
-        end
-
-        @default_stages ||= existing_stages + placeholder_stages
+        process.stages
       end
 
       def stages_attributes=(attributes)
-        @stages = []
-
         attributes.each do |_, stage_attributes|
-          next if stage_attributes['active'] == '0'
-
-          stage = if existing_stage = process.stages.select { |stage| stage.stage_type == stage_attributes['stage_type'] }.first
-                    update_existing_stage_from_attributes(existing_stage, stage_attributes)
-                    existing_stage
-                  else
-                    build_process_stage_from_attributes(stage_attributes)
-                  end
-
-          @stages.push(stage) if stage.valid?
+          existing_stage = process.stages.detect { |stage| stage.stage_type == stage_attributes['stage_type'] }
+          update_existing_stage_from_attributes(existing_stage, stage_attributes) if existing_stage
         end
-
-        @stages
+        
+        stages
       end
+
+      private
 
       def process_stage_class
         ::GobiertoParticipation::ProcessStage
       end
 
-      private
-
       def build_process(args = {})
-        site.processes.new(args)
+        site.processes.build(args)
       end
 
-      def update_existing_stage_from_attributes(existing_stage, stage_attributes)
-        existing_stage.update_attributes!(
-          title_translations: stage_attributes['title_translations'],
-          description_translations: stage_attributes['description_translations'],
-          starts: stage_attributes['starts'],
-          ends: stage_attributes['ends']
+      def calculate_has_duration(options)
+        if options[:has_duration].present?
+          options[:has_duration] == '1'
+        else
+          (options[:starts] || options[:ends]).present?
+        end
+      end
+
+      def update_existing_stage_from_attributes(existing_stage, attributes)
+        existing_stage.assign_attributes(
+          title_translations: attributes['title_translations'],
+          description_translations: attributes['description_translations'],
+          active: attributes['active'],
+          starts: attributes['starts'],
+          ends: attributes['ends']
         )
       end
 
-      def build_process_stage_from_attributes(stage_attributes)
-        process_stage_class.new(
-          process: process,
-          title_translations: stage_attributes['title_translations'],
-          description_translations: stage_attributes['description_translations'],
-          starts: stage_attributes['starts'],
-          ends: stage_attributes['ends'],
-          stage_type: stage_attributes['stage_type'],
-          slug: stage_attributes['stage_type']
-        )
+      def build_placeholder_stages
+        process_stage_class.stage_types.each do |stage_type_name, stage_type_number|
+          process.stages.build(
+            process: process,
+            stage_type: stage_type_number,
+            slug: stage_type_name
+          )
+        end
       end
 
       def save_process
         @process = process.tap do |process_attributes|
-          process_attributes.site_id = site_id
+          process_attributes.site_id            = site_id
           process_attributes.title_translations = title_translations
           process_attributes.body_translations  = body_translations
           process_attributes.header_image_url   = header_image_url
           process_attributes.visibility_level   = visibility_level
           process_attributes.process_type       = process_type
-          process_attributes.starts             = starts
-          process_attributes.ends               = ends
+          process_attributes.starts             = has_duration ? starts : nil
+          process_attributes.ends               = has_duration ? ends : nil
           process_attributes.slug               = slug
           process_attributes.issue_id           = issue_id
           process_attributes.stages             = stages
         end
 
-        if @process.valid?
-          if @process.changes.any?
-            @process.save
-          end
+        build_placeholder_stages if process.stages.empty?
 
+        if @process.valid?
+          @process.save
           @process
         else
           promote_errors(@process.errors)
-
           false
         end
       end
@@ -190,6 +174,7 @@ module GobiertoAdmin
           errors.add(attribute, message)
         end
       end
+
     end
   end
 end

@@ -10,6 +10,7 @@ en:
           placeholders:
             description: Document description
             name: File name
+            slug: file-name
         index:
           collections: Collections
           header:

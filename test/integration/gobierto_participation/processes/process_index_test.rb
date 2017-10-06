@@ -13,6 +13,14 @@ module GobiertoParticipation
       @site ||= sites(:madrid)
     end
 
+    def processes
+      @processes ||= site.processes.process.open.active
+    end
+
+    def groups
+      @groups ||= site.processes.group_process.open.active
+    end
+
     def test_breadcrumb_items
       with_current_site(site) do
         visit @path
@@ -44,7 +52,7 @@ module GobiertoParticipation
 
         within "menu.secondary_nav" do
           assert has_link? "News"
-          assert has_link? "Agenda"
+          assert has_link? "Diary"
           assert has_link? "Documents"
           assert has_link? "Activity"
         end
@@ -60,6 +68,20 @@ module GobiertoParticipation
 
         within ".site_header" do
           skip "Not yet defined"
+        end
+      end
+    end
+
+    def test_processes_index
+      with_current_site(site) do
+        visit @path
+
+        processes.each do |process|
+          assert has_link?(process.title)
+        end
+
+        groups.each do |group|
+          assert has_link?(group.title)
         end
       end
     end

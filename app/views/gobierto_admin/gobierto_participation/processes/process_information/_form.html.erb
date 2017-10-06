@@ -7,7 +7,7 @@
         <% current_site.configuration.available_locales.each do |locale| %>
           <div class="form_item textarea" data-locale="<%= locale %>">
             <%= label_tag "process[information_text_translations][#{locale}]", f.object.class.human_attribute_name(:information_text) %>
-            <%= text_area_tag "process[information_text_translations][#{locale}]", f.object.information_text_translations && f.object.information_text_translations[locale] %>
+            <%= text_area_tag "process[information_text_translations][#{locale}]", f.object.information_text_translations && f.object.information_text_translations[locale], placeholder: t('.placeholders.information_text', locale: locale) %>
           </div>
         <% end %>
       </div>

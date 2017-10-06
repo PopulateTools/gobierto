@@ -37,7 +37,7 @@ module GobiertoAdmin
 
         redirect_to(
           admin_issues_path(@issue),
-          notice: t(".success")
+          notice: t(".success_html", link: gobierto_participation_issue_url(@issue_form.issue.slug, host: current_site.domain))
         )
       else
         render(:new_modal, layout: false) && return if request.xhr?
@@ -56,7 +56,7 @@ module GobiertoAdmin
 
         redirect_to(
           admin_issues_path(@issue),
-          notice: t(".success")
+          notice: t(".success_html", link: gobierto_participation_issue_url(@issue_form.issue.slug, host: current_site.domain))
         )
       else
         render(:edit_modal, layout: false) && return if request.xhr?
@@ -80,13 +80,14 @@ module GobiertoAdmin
 
     def issue_params
       params.require(:issue).permit(
+        :slug,
         name_translations: [*I18n.available_locales],
         description_translations: [*I18n.available_locales]
       )
     end
 
     def ignored_issue_attributes
-      %w(position created_at updated_at slug)
+      %w(position created_at updated_at)
     end
 
     def find_issue

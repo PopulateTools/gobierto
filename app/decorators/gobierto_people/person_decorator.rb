@@ -32,6 +32,14 @@ module GobiertoPeople
       person_contact_method_for("LinkedIn", "service_url")
     end
 
+    def trips_url
+      person_custom_link_for('Viajes')
+    end
+
+    def gifts_url
+      person_custom_link_for('Obsequios')
+    end
+
     def content_blocks_for_bio(site_id)
       object.content_blocks(site_id).where.not(internal_id:  GobiertoCommon::DynamicContent::CONTACT_BLOCK_ID)
     end
@@ -42,6 +50,22 @@ module GobiertoPeople
       person_contact_methods.detect do |contact_method|
         contact_method["service_name"] == service_name
       end.try(:[], attribute_name)
+    end
+
+    def person_custom_link_for(service_name)
+      content_block = object.content_blocks.find_by(internal_id: GobiertoCommon::DynamicContent::CUSTOM_LINKS_BLOCK_ID)
+      payloads = content_block.records.pluck(:payload)
+      service_payload = payloads.detect { |payload| payload['service_name'] == service_name }
+      
+      if service_payload && valid_url?(service_payload['service_url'])
+        service_payload['service_url']
+      else
+        nil
+      end
+    end
+
+    def valid_url?(url)
+      /http.*\..*/.match(url)
     end
 
     protected

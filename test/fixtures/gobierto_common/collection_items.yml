@@ -3,7 +3,7 @@
 collection_item_attachment:
   collection: files
   item: pdf_collection_attachment (GobiertoAttachments::Attachment)
-  container: culture (Issue)
+  container: sport_city_process (GobiertoParticipation::Process)
 
 ## /end Attachments collection items
 
@@ -12,13 +12,18 @@ collection_item_attachment:
 consultation_faq_on_site:
   collection: news
   item: consultation_faq (GobiertoCms::Page)
-  container: culture (Issue)
+  container: sport_city_process (GobiertoParticipation::Process)
+
+themes_on_site:
+  collection: news
+  item: consultation_faq (GobiertoCms::Page)
+  container: sport_city_process (GobiertoParticipation::Process)
 
 collection_item_themes:
   collection: news
   item: themes (GobiertoCms::Page)
-  container: culture (Issue)
-  
+  container: sport_city_process (GobiertoParticipation::Process)
+
 news_collection_notice_1:
   collection: gender_violence_process_news
   item: notice_1 (GobiertoCms::Page)

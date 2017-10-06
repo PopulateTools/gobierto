@@ -1,0 +1,11 @@
+<% content_for :breadcrumb_current_item do %>
+  <h1>
+    <%= link_to "Noticias", gobierto_participation_pages_path %>
+  </h1>
+<% end %>
+
+<div class='gradient-bg'>
+  <div class='column'>
+    <%= render 'gobierto_participation/shared/pages/page', { page: @page } %>
+  </div>
+</div>

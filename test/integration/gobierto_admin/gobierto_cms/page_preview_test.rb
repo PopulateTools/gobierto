@@ -30,6 +30,10 @@ module GobiertoAdmin
         @collection ||= gobierto_common_collections(:news)
       end
 
+      def sport_city_process
+        @sport_city_process ||= gobierto_participation_processes(:sport_city_process)
+      end
+
       def test_preview_published_page
         with_signed_in_admin(admin) do
           with_current_site(site) do
@@ -47,7 +51,7 @@ module GobiertoAdmin
               preview_link.click
             end
 
-            assert_equal gobierto_cms_page_path(published_page.slug), current_path
+            assert_equal gobierto_participation_process_page_path(published_page.slug, process_id: sport_city_process.slug), current_path
             assert has_selector?("h1", text: published_page.title)
           end
         end
@@ -70,7 +74,7 @@ module GobiertoAdmin
               preview_link.click
             end
 
-            assert_equal gobierto_cms_page_path(draft_page.slug), current_path
+            assert_equal gobierto_participation_process_page_path(draft_page.slug, process_id: sport_city_process.slug), current_path
             assert has_selector?("h1", text: draft_page.title)
           end
         end

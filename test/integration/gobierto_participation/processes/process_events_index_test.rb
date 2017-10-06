@@ -13,9 +13,8 @@ module GobiertoParticipation
     end
 
     def process_events_path
-      @process_events_path ||= gobierto_participation_events_path(
-        container_type: process.container_type,
-        container_id: process.id
+      @process_events_path ||= gobierto_participation_process_events_path(
+        process_id: process.slug
       )
     end
 

@@ -8,11 +8,13 @@ ca:
         placeholders:
           description: Descripció del tema
           name: Nom del tema
+          slug: sobre-aquest-tema
       index:
         created_at: Creat
         drag_to_sort: Arrastra per a ordenar
         name: Tema
         new: Nou
         title: Temes
+        view: Veure tema
       new_modal:
         title: Nou tema

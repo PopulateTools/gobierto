@@ -27,15 +27,15 @@
         <h3 class="agenda_title"><%= t('.news') %></h3>
         <div class="p_1  content_block">
           <% if @process_news.any? %>
-            <% @process_news.each do |notice| %>
-              <%= render 'place_news', { notice: notice } %>
+            <% @process_news.each do |page| %>
+              <%= render 'place_news', { page: page } %>
             <% end %>
           <% else %>
             <%= t('.no_news') %>
           <% end %>
         </div>
         <% if @process_news.any? %>
-          <%= link_to t('.more_news'), gobierto_participation_process_process_pages_path(current_process.slug) %>
+          <%= link_to t('.more_news'), gobierto_participation_process_pages_path(current_process.slug) %>
         <% end %>
       </div>
     </div>
@@ -45,9 +45,7 @@
         <h3 class="with_light_separator"><%= t('.about') %></h3>
         <p><%= current_process.body %></p>
 
-        <%= todo_link_to do %>
-          <a href="participation_group_info.html" class="button outline rounded"><%= t('.more_information') %></a>
-        <% end %>
+        <%= link_to t('.more_information'), gobierto_participation_process_process_information_path(process_id: @process.slug), class: "button outline rounded" %>
       </div>
     </div>
 
@@ -66,7 +64,7 @@
               <span class="accent"><i class="fa fa-calendar"></i> <%= t('.length') %></span>
             </div>
             <div class="pure-u-1 pure-u-md-1-2">
-              <time><%= t('.from_to', starts: current_process.starts.strftime('%e/%m/%y'), ends: current_process.ends.strftime('%e/%m/%y')) %></time>
+              <time><%= t('gobierto_participation.shared.from_to', starts: current_process.starts.strftime('%e/%m/%y'), ends: current_process.ends.strftime('%e/%m/%y')) %></time>
             </div>
           </div>
         <% end %>
@@ -107,22 +105,24 @@
         </div>
 
         <% if @process_events.any? %>
-          <%= link_to t('.more_events'), gobierto_participation_events_path(container_type: current_process.container_type, container_id: current_process.id) %>
+          <%= link_to t('.more_events'), gobierto_participation_process_events_path(process_id: @process.slug) %>
         <% end %>
       </div>
 
       <div class="pure-u-1 pure-u-md-1-3 center">
         <h3 class="agenda_title"><%= t('.newest') %> 🛠</h3>
         <div class="p_1  content_block">
-          <%= render 'place_latest', { date: '20 Abr', title: 'Nuevo hilo de debate' } %>
-          <%= render 'place_latest', { date: '21 Abr', title: 'Nuevo documento adjunto compartido' } %>
-          <%= render 'place_latest', { date: '23 Abr', title: 'Mañana: Cita presencial' } %>
-          <%= render 'place_latest', { date: '24 Abr', title: 'Comentario en Pacto Social' } %>
-          <%= render 'place_latest', { date: '24 Abr', title: 'Mensaje de los administradores sobre el sistema de vídeo por streaming' } %>
+          <% if @process_activities.any? %>
+            <% @process_activities.each do |activity| %>
+              <%= render 'place_activities', { activity: activity } %>
+            <% end %>
+          <% else %>
+            <%= t('.no_activities') %>
+          <% end %>
         </div>
 
-        <%= todo_link_to do %>
-          <a href="#"><%= t('.more_updates') %></a>
+        <% if @process_activities.any? %>
+          <%= link_to t('.more_activities'), gobierto_participation_process_activities_path(process_id: @process.slug) %>
         <% end %>
       </div>
 

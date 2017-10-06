@@ -28,7 +28,7 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
               click_link "Files"
-              assert has_selector?("h1", text: "Files")
+
               click_link "PDF Collection Attachment Name"
 
               fill_in "file_attachment_name", with: "File attachment name updated"
@@ -52,7 +52,7 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
               click_link "Files"
-              assert has_selector?("h1", text: "Files")
+
               click_link "PDF Collection Attachment Name"
 
               fill_in "file_attachment_description", with: "File attachment description updated"

@@ -6,7 +6,8 @@ module GobiertoAdmin
       :id,
       :site_id,
       :name_translations,
-      :description_translations
+      :description_translations,
+      :slug
     )
 
     delegate :persisted?, to: :issue
@@ -44,6 +45,7 @@ module GobiertoAdmin
         issue_attributes.site_id = site_id
         issue_attributes.name_translations = name_translations
         issue_attributes.description_translations = description_translations
+        issue_attributes.slug = slug
       end
 
       if @issue.valid?

@@ -43,12 +43,9 @@ $(document).on('turbolinks:load', function() {
 });
 
 function addDatepickerBehaviors() {
-  if($('.air-datepicker').length){
-    var start = new Date();
-    start.setDate(start.getDate() + 1);
-    start.setHours(start.getHours() + 1);
-    start.setMinutes(0);
-
+  if ($('.air-datepicker').length == 1) {
+    initializePageWithOnlyOneDatepicker();
+  } else if($('.air-datepicker').length){
     var $fromDatePickers = $('.air-datepicker:even');
     var $toDatePickers   = $('.air-datepicker:odd');
 
@@ -101,4 +98,14 @@ function addDatepickerBehaviors() {
       index++;
     });
   }
+};
+
+function initializePageWithOnlyOneDatepicker() {
+  $('.air-datepicker').datepicker({
+    autoClose: true,
+    startDate: new Date($('.air-datepicker').data('startdate')),
+    onSelect: function onSelect(_, selectedDate, instance) {
+      $(instance.el).trigger("datepicker-change");
+    }
+  });
 };

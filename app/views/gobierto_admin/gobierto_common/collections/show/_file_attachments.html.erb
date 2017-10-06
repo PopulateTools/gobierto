@@ -4,6 +4,7 @@
     <th><%= t('.file_name') %></th>
     <th><%= GobiertoCms::Page.human_attribute_name(:title) %></th>
     <th><%= t('.created_at') %></th>
+    <th></th>
   </tr>
 
   <tbody>
@@ -13,6 +14,12 @@
         <td><%= file_attachment.file_name %></td>
         <td><%= link_to file_attachment.name, edit_admin_attachments_file_attachment_path(file_attachment.id, collection_id: @collection.id) %></td>
         <td><%= time_ago_in_words(file_attachment.created_at) %></td>
+        <td>
+          <%= link_to file_attachment.to_url, target: "_blank", class: "view_item" do %>
+            <i class="fa fa-eye"></i>
+            <%= t(".view") %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>

@@ -179,7 +179,7 @@ module GobiertoParticipation
 
           assert has_content? process_duration_text
           assert has_content? 'Women'
-          # TODO: assert has_content? 'Strategic' (~Ámbito)
+          assert has_content? 'Old town'
         end
       end
     end

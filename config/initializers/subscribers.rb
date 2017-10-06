@@ -16,6 +16,7 @@ Subscribers::GobiertoBudgetConsultationsConsultationResponseActivity.attach_to("
 Subscribers::GobiertoBudgetsBudgetLineActivity.attach_to("activities/gobierto_budgets_budget_line")
 Subscribers::GobiertoCommonCollectionActivity.attach_to("activities/gobierto_common_collections")
 Subscribers::IssueActivity.attach_to("activities/issues")
+Subscribers::ScopeActivity.attach_to("activities/scopes")
 Subscribers::GobiertoParticipationProcessActivity.attach_to("activities/gobierto_participation_processes")
 Subscribers::GobiertoParticipationPollActivity.attach_to("activities/gobierto_participation_polls")
 Subscribers::GobiertoParticipationContributionContainerActivity.attach_to("activities/gobierto_participation_contribution_containers")

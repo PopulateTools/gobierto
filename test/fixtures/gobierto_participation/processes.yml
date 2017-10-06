@@ -5,6 +5,7 @@ green_city_group:
   slug: ciudad-verde
   process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
   visibility_level: <%= Site.visibility_levels['active'] %>
+  scope: center
 
 cultural_city_group:
   site: madrid
@@ -26,6 +27,7 @@ sport_city_process:
   starts: <%= 3.days.ago %>
   ends: <%= 30.days.from_now %>
   issue: culture
+  scope: old_town
 
 local_budgets_process:
   site: madrid
@@ -56,6 +58,7 @@ gender_violence_process:
   starts: <%= 3.days.ago %>
   ends: <%= 30.days.from_now %>
   issue: women
+  scope: old_town
   header_image_url: /assets/samples/process-b31e99553977f5da46a9f71d9c37a6ae90e8e3d7980363fa429f1c2a27c9f7ae.jpg
 
 commission_for_carnival_festivities:

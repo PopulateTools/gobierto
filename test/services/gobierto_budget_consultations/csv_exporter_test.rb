@@ -25,6 +25,6 @@ class GobiertoBudgetConsultations::CsvExporterTest < ActiveSupport::TestCase
       692345489,#{age},male,,Inversión en Instalaciones Deportivas,5
       112679343,,,,Pavimentación de vías públicas,5
       112679343,,,,Inversión en Instalaciones Deportivas,5
-CSV
+    CSV
   end
 end

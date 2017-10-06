@@ -1,0 +1,11 @@
+---
+en:
+  gobierto_admin:
+    scopes:
+      create:
+        success: Scope was successfully created.
+      destroy:
+        has_items: You can't delete a scope while it has associated elements.
+        success: Scope was successfully destroyed.
+      update:
+        success: Scope was successfully updated.

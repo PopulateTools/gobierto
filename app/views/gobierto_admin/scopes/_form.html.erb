@@ -1,0 +1,27 @@
+<%= render "gobierto_admin/shared/validation_errors", resource: @scope_form %>
+
+<%= form_for(
+  @scope_form, as: :scope,
+  url: @scope_form.persisted? ? admin_scope_path(@scope_form) : admin_scopes_path(@scope), data: { "globalized-form-container" => true}) do |f| %>
+
+  <div class="globalized_fields">
+    <%= render "gobierto_admin/shared/form_locale_switchers" %>
+
+    <% current_site.configuration.available_locales.each do |locale| %>
+      <div class="form_item input_text" data-locale="<%= locale %>">
+        <%= label_tag "scope[name_translations][#{locale}]", f.object.class.human_attribute_name(:name) %>
+        <%= text_field_tag "scope[name_translations][#{locale}]", f.object.name_translations && f.object.name_translations[locale], placeholder: t(".placeholders.name", locale: locale.to_sym) %>
+      </div>
+
+      <div class="form_item input_text" data-locale="<%= locale %>">
+        <%= label_tag "scope[description_translations][#{locale}]", f.object.class.human_attribute_name(:description) %>
+        <%= text_area_tag "scope[description_translations][#{locale}]", f.object.description_translations && f.object.description_translations[locale] %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="actions right">
+    <%= f.submit %>
+  </div>
+  
+<% end %>

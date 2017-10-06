@@ -22,8 +22,7 @@ module GobiertoAdmin
           Rails.root.join("test/fixtures/files/sites/logo-madrid.png")
         ),
         name: "wadus",
-        site_id: site.id,
-        collection: "wadus"
+        site_id: site.id
       )
     end
 

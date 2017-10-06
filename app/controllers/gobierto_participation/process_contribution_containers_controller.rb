@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GobiertoParticipation
-  class ProcessContributionContainersController < GobiertoParticipation::ApplicationController
+  class ProcessContributionContainersController < GobiertoParticipation::Processes::BaseController
     def index
       @process = find_process
       @contribution_containers = @process.contribution_containers

@@ -8,21 +8,108 @@
 
 <div class="pure-g">
 
-  <div class="pure-u-1 pure-u-md-16-24">
+  <div class="pure-u-1 pure-u-md-16-24 p_h_r_2">
 
-    <p>Ultima actividad (en grupos, procesos: ideas, votos, reportes...)</p>
+    <h3 class="m_t_0">Elementos próximos a cerrar</h3>
 
-    <p>Contenido global: agenda, noticias, documentos</p>
+    <table class="m_b_3">
+    <tr>
+      <th></th>
+      <th>Elemento</th>
+      <th>Termina en...</th>
+    </tr>
+    <% for i in [
+      "Contribuciones: Preguntas para el Alcalde",
+      "Encuestas: Encuesta sobre el diseño de los Presupuestos Participativos 2017",
+      "Contribuciones: Preguntas para el Alcalde",
+      "Encuestas: Encuesta sobre el diseño de los Presupuestos Participativos 2017"
+    ] %>
+    <tr class="odd">
+      <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_part_group' %></td>
+      <td>
+        <%= link_to i, 'admin_part_group' %>
+        <div class="secondary">Proceso: Presupuestos Participativos Alcobendas</div>
+      </td>
+      <td>2 días</td>
+    </tr>
+    <% end %>
+    </table>
 
-    <p>Grupos / <a href="admin_part_group">Crear grupo</a></p>
+    
+    <div class="pure-g">
+
+      <div class="pure-u-1-2">
+        <h3 class="m_t_0">Grupos</h3>
+      </div>
+
+      <div class="pure-u-1-2 admin_tools right">
+        <%= link_to 'Nuevo', 'admin_part_group', class: 'button' %>
+      </div>
+
+    </div>
+
+    <table>
+    <tr>
+      <th></th>
+      <th>Grupo</th>
+      <th>Última actividad</th>
+    </tr>
+    <% for i in [
+      "Presupuestos Participativos Alcobendas ",
+      "Pacto Social sobre la Violencia de Genéro",
+      "Ideas para las luces de Navidad",
+      "Grupo de Trabajo de los Hosteleros de Alcobendas",
+      "Presupuestos Participativos Alcobendas ",
+      "Pacto Social sobre la Violencia de Genéro",
+      "Ideas para las luces de Navidad",
+      "Grupo de Trabajo de los Hosteleros de Alcobendas",
+      "Presupuestos Participativos Alcobendas ",
+      "Pacto Social sobre la Violencia de Genéro",
+      "Ideas para las luces de Navidad",
+      "Grupo de Trabajo de los Hosteleros de Alcobendas"
+    ] %>
+    <tr class="odd">
+      <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_part_group' %></td>
+      <td><%= link_to i, 'admin_part_group' %></td>
+      <td>hace 2 horas <span class="soft ip">222.111.222.11</td>
+    </tr>
+    <% end %>
+    </table>
 
   </div>
 
-  <div class="pure-u-1 pure-u-md-2-24"></div>
+  <div class="pure-u-1 pure-u-md-8-24">
 
-  <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
+    <h3 class="m_t_0">Última actividad</h3>
 
-    <%# render partial: "admin_widget_save"  %>
+    <%# same markup as in the front end, lets reuse partials? %>
+    <div class="activity_feed">
+
+      <% for i in [
+        'Reunión del Pleno Municipal',
+        'Inauguración del Campamento de Verano',
+        'Anunciamos el programa para las fiestas',
+        'Reunión informativa sobre los presupuestos participativos',
+        'Mesa de Diálogo sobre el Pacto de la Mujer',
+        '¡Vota! Comienza el plazo para elegir el nombre del nuevo polideportivo',
+        'Reunión del Pleno Municipal',
+        'Inauguración del Campamento de Verano',
+        'Anunciamos el programa para las fiestas',
+        'Reunión informativa sobre los presupuestos participativos',
+        'Mesa de Diálogo sobre el Pacto de la Mujer',
+        '¡Vota! Comienza el plazo para elegir el nombre del nuevo polideportivo'
+      ] %>
+      <div class="activity_item">
+        <h2>
+          <a href="admin_people_person_agenda_event">
+            <%= i %>
+          </a>
+        </h2>
+        <div class="date">02 mar 2017</div>
+      </div>
+      <% end %>
+
+    </div>
 
   </div>
 

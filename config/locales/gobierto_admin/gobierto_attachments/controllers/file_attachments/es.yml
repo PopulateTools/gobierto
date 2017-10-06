@@ -4,6 +4,8 @@ es:
     gobierto_attachments:
       file_attachments:
         create:
-          success_html: El documento ha sido creado correctamente.
+          success_html: El documento ha sido creado correctamente. <a href="%{link}">Ver
+            el documento</a>.
         update:
-          success_html: El documento ha sido actualizada correctamente.
+          success_html: El documento ha sido actualizada correctamente. <a href="%{link}">Ver
+            el documento</a>.

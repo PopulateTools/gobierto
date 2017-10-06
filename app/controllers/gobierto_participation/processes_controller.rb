@@ -2,7 +2,6 @@
 
 module GobiertoParticipation
   class ProcessesController < GobiertoParticipation::ApplicationController
-
     include ::PreviewTokenHelper
 
     helper_method :current_process
@@ -13,9 +12,10 @@ module GobiertoParticipation
     end
 
     def show
+      @process = current_process
       @process_news = find_process_news
       @process_events = find_process_events
-      @activities = [] # TODO: implementation not yet defined
+      @process_activities = find_process_activities
       @process_stages = current_process.stages.active
     end
 
@@ -26,7 +26,7 @@ module GobiertoParticipation
     end
 
     def find_process_events
-      current_process.events.upcoming.order(starts_at: :asc).limit(5)
+      ::GobiertoCalendars::Event.events_in_collections_and_container(current_site, current_process).first(5)
     end
 
     def current_process
@@ -37,6 +37,10 @@ module GobiertoParticipation
 
     def processes_scope
       valid_preview_token? ? current_site.processes.draft : current_site.processes.active
+    end
+
+    def find_process_activities
+      ActivityCollectionDecorator.new(Activity.in_site(current_site).no_admin.in_container(current_process).sorted.limit(5).includes(:subject, :author, :recipient))
     end
   end
 end

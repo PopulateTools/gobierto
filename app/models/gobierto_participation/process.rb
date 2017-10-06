@@ -38,7 +38,7 @@ module GobiertoParticipation
     after_create :create_collections
 
     def self.open
-      ids = GobiertoParticipation::Process.select(&:open?).map(&:id)
+      ids = GobiertoParticipation::Process.select(&:open?).pluck(:id)
       where(id: ids)
     end
 
@@ -71,17 +71,20 @@ module GobiertoParticipation
     end
 
     def current_stage
-      if open?
-        process_stages = stages.where("starts <= ? AND ends >= ?", Date.current, Date.current)
-        process_stages.first.to_s
-      end
+      process_stages = stages.where("starts <= ? AND ends >= ?", Time.zone.now, Time.zone.now)
+      process_stages.first.to_s
+    end
+
+    def next_stage
+      process_stages = stages.where("starts >= ? AND ends >= ?", Time.zone.now, Time.zone.now)
+      process_stages.first.to_s
     end
 
     def open?
       if starts.present? && ends.present?
         Time.zone.now.between?(starts, ends)
       else
-        true
+        false
       end
     end
 

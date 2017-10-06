@@ -34,6 +34,8 @@ es:
         title: Título
       gobierto_admin/gobierto_participation/process_form/stages:
         title: El título de una fase
+      gobierto_admin/gobierto_participation/process_information_form:
+        information_text: Información
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Grupo de
         aportaciones

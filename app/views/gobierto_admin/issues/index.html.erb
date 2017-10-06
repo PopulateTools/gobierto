@@ -16,6 +16,7 @@
     <th><%= t('.name') %></th>
     <th><%= t('.created_at') %></th>
     <th></th>
+    <th></th>
   </tr>
 
   <tbody data-behavior="sortable" data-sortable-target="<%= admin_issue_sort_path %>">
@@ -29,6 +30,12 @@
         </td>
         <td>
           <%= time_ago_in_words(issue.created_at) %>
+        </td>
+        <td>
+          <%= link_to gobierto_participation_issue_path(issue.slug ,host: current_site.domain), target: "_blank", class: "view_item" do %>
+            <i class="fa fa-eye"></i>
+            <%= t(".view") %>
+          <% end %>
         </td>
         <td>
           <i class="sort-handler fa fa-bars tipsit" title="<%= t('.drag_to_sort') %>"></i>

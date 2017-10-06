@@ -34,6 +34,8 @@ en:
         title: Title
       gobierto_admin/gobierto_participation/process_form/stages:
         title: The title of a stage
+      gobierto_admin/gobierto_participation/process_information_form:
+        information_text: Information
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Contribution
         container

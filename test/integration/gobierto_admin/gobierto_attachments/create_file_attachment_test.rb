@@ -10,6 +10,10 @@ module GobiertoAdmin
         @path = admin_attachments_file_attachments_path
       end
 
+      def collection
+        @collection ||= gobierto_common_collections(:files)
+      end
+
       def admin
         @admin ||= gobierto_admin_admins(:nick)
       end
@@ -24,10 +28,10 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
               click_link "Files"
-              assert has_selector?("h1", text: "Files")
+              assert has_selector?("h1", text: "Sport city")
 
               click_link "New"
-              assert has_selector?("h1", text: "New document")
+              assert has_selector?("h1", text: "Sport city")
               click_button "Create"
               assert has_alert?("File can't be blank")
             end
@@ -42,10 +46,11 @@ module GobiertoAdmin
               visit @path
 
               click_link "Files"
-              assert has_selector?("h1", text: "Files")
+
+              assert has_selector?("h1", text: "Sport city")
 
               click_link "New"
-              assert has_selector?("h1", text: "New document")
+              assert has_selector?("h1", text: "Sport city")
 
               fill_in "file_attachment_name", with: "My file_attachment"
               fill_in "file_attachment_description", with: "My file_attachment description"
@@ -62,7 +67,7 @@ module GobiertoAdmin
               assert_equal file_attachment, activity.subject
               assert_equal admin, activity.author
               assert_equal site.id, activity.site_id
-              assert_equal "gobierto_attachments.attachment_created", activity.action
+              assert_equal "gobierto_attachments.attachment.created", activity.action
             end
           end
         end
@@ -75,10 +80,10 @@ module GobiertoAdmin
               visit @path
 
               click_link "Files"
-              assert has_selector?("h1", text: "Files")
+              assert has_selector?("h1", text: "Sport city")
 
               click_link "New"
-              assert has_selector?("h1", text: "New document")
+              assert has_selector?("h1", text: "Sport city")
 
               fill_in "file_attachment_description", with: "My file_attachment description"
               attach_file("file_attachment_file", "test/fixtures/files/gobierto_attachments/attachment/pdf-collection-update-attachment.pdf")
@@ -90,11 +95,6 @@ module GobiertoAdmin
               assert has_message?("Attachment created successfully.")
               file_attachment = ::GobiertoAttachments::Attachment.find_by(name: "pdf-collection-update-attachment.pdf",
                                                                           description: "My file_attachment description")
-              activity = Activity.last
-              assert_equal file_attachment, activity.subject
-              assert_equal admin, activity.author
-              assert_equal site.id, activity.site_id
-              assert_equal "gobierto_attachments.attachment_created", activity.action
             end
           end
         end

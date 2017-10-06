@@ -19,6 +19,8 @@ pdf_collection_attachment:
   description: Description of a PDF attachment
   current_version: 1
   site: madrid
+  slug: pdf-collection-attachment-slug
+  collection: files
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 

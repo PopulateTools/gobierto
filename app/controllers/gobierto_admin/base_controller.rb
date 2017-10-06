@@ -50,7 +50,7 @@ module GobiertoAdmin
 
     def gobierto_cms_page_preview_url(page, options = {})
       options.merge!(preview_token: current_admin.preview_token) unless page.active?
-      gobierto_cms_page_url(page.slug, options)
+      page.to_url(options)
     end
 
     protected

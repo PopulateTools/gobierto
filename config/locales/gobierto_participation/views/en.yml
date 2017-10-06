@@ -28,18 +28,7 @@ en:
           where we will discuss in person the topics of this process. If you can not
           attend, we will publish online everything that is said in the meetings to
           facilitate the follow-up and make the conclusions accessible.
-    issue_pages:
-      index:
-        filter: Filter by theme
-        title: News
-      show:
-        documents: Documents
-        filter: Filter by group
-        published_at: Posted on %{date} by %{site}
-        title: News
     issues:
-      current_group:
-        current_stage: Current stage
       index:
         intro_html: Your ideas help improve %{location_name} and the lives of all
           that we reside here. Bring your best ideas to our <strong> permanent spaces
@@ -56,7 +45,7 @@ en:
         show_more_news: See more news
         show_more_updates: See more updates
         the_last: The last
-        up_to_date: "%{location_name} up to date"
+        up_to_date: "%{site_title} up to date"
       participation_proccesses:
         processes_description: Consultation and participation in specific processes.
         processes_title: Processes in progress
@@ -80,48 +69,7 @@ en:
         agenda: Diary
         documents: Documents
         news: News
-    participation_events:
-      event:
-        add_to_calendar: Add calendar
-        download: Download data
-        follow_event: Follow this event
-        neighbors_count_html:
-          one: "<strong>%{neighbors} neighbor</strong> will attend"
-          other: "<strong>%{neighbors} neighbors</strong> will attend"
-          zero: No neighbor will attend
-      event_teaser:
-        add_to_calendar: Add calendar
-        agenda_of: 'Diary of:'
-        neighbors_count_html:
-          one: "<strong>%{neighbors} neighbor</strong> will attend"
-          other: "<strong>%{neighbors} neighbors</strong> will attend"
-          zero: No neighbor will attend
-        want_to_attend: I want to attend
-      index:
-        all_events: View all events
-        events: events
-      show:
-        from_to: "%{starts} to %{ends}"
-    participation_pages:
-      index:
-        all_pages: Show all pages
-        filter: Filter
-        news: News
-        title: News
-      show:
-        documents: Documentos
-        filter: Filtrar por grupo
-        published_at: Publicado el %{date} por el %{site}
-        title: Noticias
-    process_pages:
-      index:
-        filter: Filter by theme
-        title: News
-      show:
-        documents: Documents
-        filter: Filter by group
-        published_at: Posted on %{date} by %{site}
-        title: News
+    participation_attachments: See all the documents of Participation
     processes:
       index:
         groups: Work groups
@@ -149,19 +97,20 @@ en:
           participate_until: Participate until %{date}
       process_teaser:
         current_stage_html: "<strong>Current stage</strong>: %{current_stage}"
+        next_stage_html: "<strong>Next stage</strong>: %{current_stage}"
       show:
         about: About this process
         appointments: Face-to-face appointments
-        from_to: "%{starts} to %{ends}"
         interesting_information: Interesting information
         issue: Issue
         length: Duration
+        more_activities: More updates
         more_events: More events
         more_information: More information
         more_news: More news
-        more_updates: More updates
         newest: Newest
         news: News
+        no_activities: There are no related updates
         no_events: There are no related events
         no_news: There are no related news
         process_stages: Process stages
@@ -169,19 +118,59 @@ en:
         past_stage: Stage has ended
         upcoming_stage: Stage not yet started
         view_stage: Access this stage
+    shared:
+      activities_for: Updates for %{container}
+      agenda: Agenda
+      agenda_participation_p1: We invite you to attend the following meetings where
+        we will discuss in person on the issues of this process. If you can not to
+        attend, we will publish online everything that is said in the meetings to
+        facilitate follow-up and make conclusions accessible.
+      all_activities: See all updates
+      all_attachments: See all documents
+      all_events: View all events
+      all_news: Show all news
+      consultation_processes: Consult and participate in specific processes.
+      diary_for: Diary for %{container}
+      documents: Documents
+      documents_for: Documents for %{container}
+      events:
+        event:
+          follow_event: Follow this events
+          from_to: "%{starts} to %{ends}"
+        event_teaser:
+          agenda_for_container: Diary for
+      filter_by_theme: Filter by theme
+      from_to: "%{starts} to %{ends}"
+      new: New
+      news_for: News for %{container}
+      no_activities: No related updates
+      no_documents: No related documents
+      no_events: No related events
+      no_news: No related news
+      ongoing_processes: Ongoing processes
+      participation: Participation
+      published_at: Posted on %{date} by %{site}
     welcome:
       index:
+        ask_the_mayor: Ask the mayor
+        ask_the_mayor_p1: What do you want to know about the mayor? Send him your
+          question.
+        improve_city: Let's improve the city together
+        improve_city_p1: Share your ideas for improving the city. Give your opinion
+          about the others.
         intro: Know the mechanisms of participation that offers you %{location_name}
         intro_p1: Vote every four years? Get involved in the day-to-day life.
       participation_latest_info:
         agenda: Diary
         more_news: More news
+        news: News
+        no_activities: No related updates
         no_events: No related events
         no_news: No related news
         show_more_events: More events
         show_more_updates: More updates
         the_last: The last
-        up_to_date: "%{location_name} up to date"
+        up_to_date: "%{site_title} up to date"
       participation_themes_list_a:
         intro: Bring your best ideas to improve %{location_name} and the life of all
           of us who live here.

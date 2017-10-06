@@ -216,14 +216,14 @@ module GobiertoPeople
     end
 
     def test_events_summary_with_no_upcoming_events
-      past_event = create_event(starts_at: "2014-03-14")
+      past_event = gobierto_calendars_events(:richard_published_just_attending)
 
       Timecop.freeze(10.years.from_now) do
         with_current_site(site) do
           visit @path
 
-          within ".events-summary" do
-            assert_text("There are no future events. Take a look at past ones")
+          within '.events-summary' do
+            assert_text('There are no future events. Take a look at past ones')
             assert has_link?(past_event.title)
           end
         end
@@ -243,11 +243,11 @@ module GobiertoPeople
     end
 
     def test_events_summary_with_no_events
-      (upcoming_events + past_events).each { |event| event.update_columns(state: :pending) }
+      ::GobiertoCalendars::Event.update_all(state: :pending)
 
       with_current_site(site) do
         visit @path
-
+        
         assert_text("There are no future or past events.")
       end
     end

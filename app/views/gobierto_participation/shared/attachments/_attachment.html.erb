@@ -1,0 +1,16 @@
+<h1><%= link_to attachment.name, attachment.url, target: '_blank' %></h1>
+<div class='meta'>
+  <time>
+    <%= l(attachment.updated_at, format: :long) %>
+  </time>
+</div>
+<%= raw attachment.description %>
+<div class='document'>
+  <div class='soft'>
+    <small>
+      <%= attachment.extension.upcase %>
+       ·
+      <%= number_to_human_size(attachment.file_size, precision: 2, separator: ',') %>
+    </small>
+  </div>
+</div>

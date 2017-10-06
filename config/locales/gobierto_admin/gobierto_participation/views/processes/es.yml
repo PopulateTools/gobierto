@@ -57,6 +57,9 @@ es:
         process_information:
           edit:
             title: Editar proceso
+          form:
+            placeholders:
+              information_text: Información
           update:
             success: Proceso actualizado correctamente
         process_stages:

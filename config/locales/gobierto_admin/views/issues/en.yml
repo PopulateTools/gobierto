@@ -8,11 +8,13 @@ en:
         placeholders:
           description: Theme description
           name: Theme name
+          slug: about-this-theme
       index:
         created_at: Created
         drag_to_sort: Drag to sort
         name: Theme
         new: New
         title: Theme
+        view: Show theme
       new_modal:
         title: New theme

@@ -1,0 +1,11 @@
+center:
+  site: madrid
+  name_translations: <%= { 'en' => 'Center', 'es' => 'Centro' }.to_json %>
+  description_translations: <%= { 'en' => 'Center of the city', 'es' => 'Zona centro de la ciudad' }.to_json %>
+  position: 0
+
+old_town:
+  site: madrid
+  name_translations: <%= { 'en' => 'Old town', 'es' => 'Casco histórico' }.to_json %>
+  description_translations: <%= { 'en' => 'Historic part of town', 'es' => 'Centro histórico de la ciudad' }.to_json %>
+  position: 1

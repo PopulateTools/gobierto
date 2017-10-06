@@ -4,6 +4,7 @@ ca:
     events:
       gobierto_cms_page_created: Pàgina creada
       gobierto_cms_page_deleted: Pàgina eliminada
+      gobierto_cms_page_published: Pàgina publicada
       gobierto_cms_page_updated: Pàgina actualitzada
     pages:
       index:

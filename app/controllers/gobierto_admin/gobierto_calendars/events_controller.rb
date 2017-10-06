@@ -41,7 +41,7 @@ module GobiertoAdmin
         if @event_form.save
           redirect_to(
             edit_admin_calendars_event_path(@event_form.event, collection_id: @collection),
-            notice: t(".success_html", link: gobierto_people_event_preview_url(@event_form.event))
+            notice: t(".success_html", link: @event_form.event.to_url(host: current_site.domain))
           )
         else
           @attendees = get_attendees
@@ -59,7 +59,7 @@ module GobiertoAdmin
         if @event_form.save
           redirect_to(
             edit_admin_calendars_event_path(@event, collection_id: @collection),
-            notice: t(".success_html", link: gobierto_people_event_preview_url(@event_form.event))
+            notice: t(".success_html", link: @event_form.event.to_url(host: current_site.domain))
           )
         else
           @attendees = get_attendees
@@ -106,6 +106,7 @@ module GobiertoAdmin
           :ends_at,
           :attachment_file,
           :state,
+          :slug,
           locations_attributes: [:id, :name, :address, :lat, :lng, :_destroy],
           attendees_attributes: [:id, :person_id, :name, :charge, :_destroy],
           title_translations: [*I18n.available_locales],
@@ -114,7 +115,7 @@ module GobiertoAdmin
       end
 
       def ignored_event_attributes
-        %w( created_at updated_at title description external_id slug site_id collection_id )
+        %w( created_at updated_at title description external_id site_id collection_id )
       end
     end
   end

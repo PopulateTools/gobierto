@@ -1,0 +1,16 @@
+---
+en:
+  gobierto_admin:
+    scopes:
+      edit_modal:
+        title: Edit theme
+      form:
+        placeholders:
+          name: ex. Old town
+      index:
+        created_at: Created
+        name: Scope
+        new: New
+        title: Scopes
+      new_modal:
+        title: New scope

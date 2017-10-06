@@ -46,7 +46,7 @@ module GobiertoAdmin
 
         def ignored_process_attributes
           %w( created_at updated_at site_id title_translations body_translations slug
-              starts ends header_image_url process_type issue_id)
+              starts ends header_image_url process_type issue_id scope_id)
         end
 
         def get_process_visibility_levels

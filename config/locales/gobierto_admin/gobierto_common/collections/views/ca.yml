@@ -24,6 +24,7 @@ ca:
           file_attachments:
             created_at: Creat
             file_name: Nom del fitxer
+            view: Veure fitxer
           new_attachment: Nou
           new_page: Nova
           pages:

@@ -8,7 +8,8 @@ module GobiertoAdmin
       @valid_issue_form ||= IssueForm.new(
         site_id: site.id,
         name_translations: { I18n.locale => issue.name },
-        description_translations: { I18n.locale => issue.description }
+        description_translations: { I18n.locale => issue.description },
+        slug: nil
       )
     end
 
@@ -16,7 +17,8 @@ module GobiertoAdmin
       @invalid_issue_form ||= IssueForm.new(
         site_id: nil,
         name_translations: nil,
-        description_translations: nil
+        description_translations: nil,
+        slug: nil
       )
     end
 

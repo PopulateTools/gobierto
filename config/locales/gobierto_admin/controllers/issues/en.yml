@@ -3,6 +3,9 @@ en:
   gobierto_admin:
     issues:
       create:
-        success: Theme was successfully created.
+        success_html: Theme was successfully created. <a href="%{link}">View the theme</a>.
+      destroy:
+        has_items: You can't delete a theme while it has associated elements.
+        success: Theme was successfully destroyed.
       update:
-        success: Theme was successfully updated.
+        success_html: Theme was successfully updated. <a href="%{link}">View the theme</a>.

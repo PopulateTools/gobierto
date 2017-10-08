@@ -93,36 +93,6 @@
               </div>
             </div>
           <% end %>
-
-          <% if current_site.configuration.gobierto_participation_enabled? %>
-            <h3><%= t('.process') %></h3>
-            <div class="form_item">
-              <div class="options compact">
-                <% if @user_notification_gobierto_participation_process.any? %>
-                  <%= f.collection_check_boxes(:gobierto_participation_process, @user_notification_gobierto_participation_process, :id, :title) do |b| %>
-                    <div class="option ">
-                      <%= b.check_box({"data-selected" => f.object.gobierto_participation_process.include?(b.value)}) %>
-                      <%= b.label do %>
-                        <span></span>
-                        <%= t('.process_item') + b.text %>
-                      <% end %>
-                    </div>
-                  <% end %>
-                <% end %>
-                <% if @user_notification_gobierto_participation_issue.any? %>
-                  <%= f.collection_check_boxes(:gobierto_participation_issue, @user_notification_gobierto_participation_issue, :id, :name) do |b| %>
-                    <div class="option ">
-                      <%= b.check_box({"data-selected" => f.object.gobierto_participation_issue.include?(b.value)}) %>
-                      <%= b.label do %>
-                        <span></span>
-                        <%= t('.issue_item') + b.text %>
-                      <% end %>
-                    </div>
-                  <% end %>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
         </div>
       </div>
     </div>

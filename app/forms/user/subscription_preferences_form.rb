@@ -6,8 +6,6 @@ class User::SubscriptionPreferencesForm
     :site,
     :notification_frequency,
     :modules,
-    :gobierto_participation_process,
-    :gobierto_participation_issue,
     :gobierto_people_people,
     :gobierto_budget_consultations_consultations,
     :site_to_subscribe
@@ -33,8 +31,6 @@ class User::SubscriptionPreferencesForm
       update_subscriptions_to_people(gobierto_people_people)
       update_subscription_to_site(site_to_subscribe)
       update_subscriptions_to_consultations(gobierto_budget_consultations_consultations)
-      update_subscriptions_to_process(gobierto_participation_process)
-      update_subscriptions_to_issue(gobierto_participation_issue)
 
       @user
     else
@@ -82,42 +78,6 @@ class User::SubscriptionPreferencesForm
 
       person = site.people.find(person_id)
       @user.unsubscribe_from!(person, site)
-    end
-  end
-
-  def update_subscriptions_to_process(processes)
-    processes = Array(processes)
-
-    processes.each do |process_id|
-      next if process_id.blank?
-
-      process = GobiertoParticipation::Process.find(process_id)
-      @user.subscribe_to!(process, site)
-    end
-
-    (site.processes.active.pluck(:id).map(&:to_s) - processes).each do |process_id|
-      next if process_id.blank?
-
-      process = site.processes.find(process_id)
-      @user.unsubscribe_from!(process, site)
-    end
-  end
-
-  def update_subscriptions_to_issue(issues)
-    issues = Array(issues)
-
-    issues.each do |issue_id|
-      next if issue_id.blank?
-
-      issue = Issue.find(issue_id)
-      @user.subscribe_to!(issue, site)
-    end
-
-    (site.issues.pluck(:id).map(&:to_s) - issues).each do |issue_id|
-      next if issue_id.blank?
-
-      issue = site.issues.find(issue_id)
-      @user.unsubscribe_from!(issue, site)
     end
   end
 

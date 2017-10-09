@@ -73,9 +73,6 @@ es:
           event_data:
             event_attendees: Asistentes
             event_locations: Lugar
-          subscribable_box:
-            subtitle: Recibe actualizaciones, preguntas y noticias
-            title: Sigue este evento
           title: Agenda de %{person_name}
       person_messages:
         new:
@@ -112,8 +109,6 @@ es:
         party:
           government: Equipo de gobierno
           oposition: Oposición
-        subscribable_box:
-          title: Recibe actualizaciones sobre la actividad de %{person_name}
       subscription_button:
         cancel: Cancelar
         follow: Seguir

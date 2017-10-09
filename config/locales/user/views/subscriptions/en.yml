@@ -34,6 +34,8 @@ en:
         event_followed: Event followed!
         follow_event: Follow event
         follow_issue: Follow theme
+        follow_person: Seguir persona
         follow_process: Follow process
         issue_followed: Theme followed!
+        person_followed: Person followed!
         process_followed: Process followed!

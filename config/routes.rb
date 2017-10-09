@@ -262,7 +262,7 @@ Rails.application.routes.draw do
     constraints GobiertoSiteConstraint.new do
       get "/" => "welcome#index", as: :root
 
-      resources :processes, only: [:index, :show], path: "procesos" do
+      resources :processes, only: [:index, :show], path: "p" do
         resource :information, only: [:show], controller: "process_information", as: :process_information, path: :informacion
         resources :polls, only: [:index], controller: "processes/polls" do
           resources :answers, only: [:new, :create], controller: "processes/poll_answers"

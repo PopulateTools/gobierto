@@ -6,7 +6,6 @@ module GobiertoAdmin
       class ProcessInformationController < Processes::BaseController
         def edit
           @process = find_process
-          @process_visibility_levels = get_process_visibility_levels
           @process_information_form = ProcessInformationForm.new(@process.attributes.except(*ignored_process_attributes).merge(site_id: current_site.id))
         end
 
@@ -21,7 +20,6 @@ module GobiertoAdmin
               notice: t(".success")
             )
           else
-            @process_visibility_levels = get_process_visibility_levels
             render :edit
           end
         end
@@ -39,18 +37,13 @@ module GobiertoAdmin
 
         def process_params
           params.require(:process).permit(
-            :visibility_level,
             information_text_translations: [*I18n.available_locales]
           )
         end
 
         def ignored_process_attributes
           %w( created_at updated_at site_id title_translations body_translations slug
-              starts ends header_image_url process_type issue_id scope_id)
-        end
-
-        def get_process_visibility_levels
-          ::GobiertoParticipation::Process.visibility_levels
+              starts ends header_image_url process_type issue_id scope_id visibility_level)
         end
 
         def default_activity_params

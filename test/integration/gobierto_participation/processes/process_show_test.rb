@@ -76,7 +76,7 @@ module GobiertoParticipation
 
         within "menu.secondary_nav" do
           assert has_link? "News"
-          assert has_link? "Diary"
+          assert has_link? "Participation Agenda"
           assert has_link? "Documents"
           assert has_link? "Activity"
         end
@@ -111,7 +111,7 @@ module GobiertoParticipation
           assert has_link? gender_violence_process.title
         end
 
-        click_link "Diary"
+        click_link "Participation Agenda"
 
         assert_equal gobierto_participation_process_events_path(process_id: gender_violence_process.slug), current_path
 

@@ -62,11 +62,7 @@ module GobiertoAdmin
 
               fill_in "page_title_translations_en", with: "News Title"
               find("#page_body_translations_en", visible: false).set("The content of the page")
-              click_button "Create"
 
-              assert has_alert?("URL can't be blank")
-
-              fill_in "page_slug", with: "new-page"
               click_button "Create"
 
               assert has_message?("Page created successfully")

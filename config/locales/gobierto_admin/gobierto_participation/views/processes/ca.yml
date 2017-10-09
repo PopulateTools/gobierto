@@ -57,6 +57,9 @@ ca:
         process_information:
           edit:
             title: Edita el procés
+          form:
+            placeholders:
+              information_text: Informació
           update:
             success: Procés actualitzat correctament
         process_stages:

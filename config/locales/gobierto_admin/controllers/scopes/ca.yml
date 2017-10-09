@@ -1,0 +1,11 @@
+---
+ca:
+  gobierto_admin:
+    scopes:
+      create:
+        success: El àmbit s'ha creat correctament.
+      destroy:
+        has_items: No pots esborrar un àmbit mentre tingui elements associats.
+        success: L'àmbit s'ha esborrat correctament.
+      update:
+        success: El àmbit s'ha actualitzat correctament.

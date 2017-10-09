@@ -57,8 +57,8 @@ module GobiertoAdmin
         assert_equal 1, invalid_process_form.errors.messages[:title_translations].size
         assert_equal 0, invalid_process_form.errors.messages[:body_translations].size
         assert_equal 0, invalid_process_form.errors.messages[:slug].size
-        assert_equal 0, invalid_process_form.errors.messages[:starts].size
-        assert_equal 0, invalid_process_form.errors.messages[:ends].size
+        assert_equal 1, invalid_process_form.errors.messages[:starts].size
+        assert_equal 1, invalid_process_form.errors.messages[:ends].size
       end
 
     end

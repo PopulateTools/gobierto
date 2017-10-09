@@ -15,6 +15,9 @@ module GobiertoPeople
         respond_to do |format|
           format.js
           format.html
+          format.json do
+            render(json: { events: fullcalendar_events } )
+          end
         end
       end
 
@@ -23,6 +26,19 @@ module GobiertoPeople
       end
 
       private
+
+      def fullcalendar_events        
+        starts = Time.zone.parse(params[:start])
+        ends   = Time.zone.parse(params[:end])
+        events = @person.attending_events.published.where('starts_at >= ? AND ends_at <= ?', starts, ends)
+        events.map do |event|
+          ::GobiertoCalendars::FullcalendarEventSerializer.new(
+            event,
+            current_site: current_site,
+            person_slug: @person.slug
+          )
+        end
+      end
 
       def find_event
         person_events_scope.find_by!(slug: params[:slug])

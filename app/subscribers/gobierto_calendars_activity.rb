@@ -36,4 +36,3 @@ module Subscribers
     end
   end
 end
-

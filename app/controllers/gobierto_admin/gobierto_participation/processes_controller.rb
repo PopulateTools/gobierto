@@ -16,11 +16,13 @@ module GobiertoAdmin
         @process_form = ProcessForm.new(site_id: current_site.id)
         @process_visibility_levels = get_process_visibility_levels
         @issues = find_issues
+        @scopes = find_scopes
       end
 
       def edit
         @process = find_process
         @issues  = find_issues
+        @scopes  = find_scopes
         @process_visibility_levels = get_process_visibility_levels
 
         @process_form = ProcessForm.new(
@@ -42,6 +44,7 @@ module GobiertoAdmin
           )
         else
           @issues = find_issues
+          @scopes = find_scopes
           @process_visibility_levels = get_process_visibility_levels
           render :new
         end
@@ -59,6 +62,7 @@ module GobiertoAdmin
           )
         else
           @issues = find_issues
+          @scopes = find_scopes
           @process_visibility_levels = get_process_visibility_levels
           render :edit
         end
@@ -79,6 +83,10 @@ module GobiertoAdmin
         current_site.issues.collect { |issue| [ issue.name, issue.id ] }
       end
 
+      def find_scopes
+        current_site.scopes.collect { |scope| [ scope.name, scope.id ] }
+      end
+
       def process_params
         params.require(:process).permit(
           :slug,
@@ -87,6 +95,7 @@ module GobiertoAdmin
           :ends,
           :header_image,
           :issue_id,
+          :scope_id,
           :visibility_level,
           :has_duration,
           title_translations: [*I18n.available_locales],

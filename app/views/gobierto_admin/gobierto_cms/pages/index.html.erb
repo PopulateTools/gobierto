@@ -16,7 +16,7 @@
       <% @pages.each do |page| %>
         <div class="activity_item">
           <h2>
-            <%= link_to edit_admin_cms_page_path(page, collection_id: page.collection.id) do %>
+            <%= link_to edit_admin_cms_page_path(page, collection_id: page.collection) do %>
               <%= page.title %>
               <span class="secondary">
                 <%= truncate(strip_tags(page.body), length: 60, escape: false) %>

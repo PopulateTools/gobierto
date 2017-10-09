@@ -1,24 +1,33 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class FileAttachmentForm
     include ActiveModel::Model
+    prepend ::GobiertoCommon::Trackable
 
     attr_accessor(
       :id,
       :site_id,
+      :admin_id,
+      :collection_id,
       :file,
       :file_name,
       :size,
       :file_digest,
       :url,
-      :collection,
       :name,
-      :description
+      :description,
+      :slug
     )
 
     delegate :persisted?, to: :file_attachment
 
     validates :file, presence: true
     validates :site, presence: true
+
+    trackable_on :file_attachment
+
+    notify_changed :name
 
     def save
       if valid?
@@ -34,6 +43,10 @@ module GobiertoAdmin
 
     def site
       @site ||= Site.find_by(id: site_id)
+    end
+
+    def admin_id
+      @admin_id ||= file_attachment.admin_id
     end
 
     def file_attachment
@@ -66,17 +79,26 @@ module GobiertoAdmin
 
     def update_file_attachment
       @file_attachment = file_attachment.tap do |file_attachment_attributes|
+        file_attachment_attributes.collection = collection if collection_id
         file_attachment_attributes.site = site
+        file_attachment_attributes.admin_id = admin_id
         file_attachment_attributes.name = if name.blank?
-                                            file.original_filename
+                                            if file
+                                              file.original_filename
+                                            else
+                                              file_attachment.name
+                                            end
                                           else
                                             name
                                           end
         file_attachment_attributes.description = description
+        file_attachment_attributes.slug = slug
       end
 
       if @file_attachment.valid?
-        @file_attachment.save
+        run_callbacks(:save) do
+          @file_attachment.save
+        end
 
         @file_attachment
       else
@@ -86,12 +108,22 @@ module GobiertoAdmin
       end
     end
 
+    def collection_class
+      ::GobiertoCommon::Collection
+    end
+
     def save_file_attachment
       @file_attachment = file_attachment.tap do |file_attachment_attributes|
+        file_attachment_attributes.collection = collection if collection_id
         file_attachment_attributes.site = site
         file_attachment_attributes.file_name = file.original_filename if file
+        file_attachment_attributes.admin_id = admin_id
         file_attachment_attributes.name = if name.blank?
-                                            file.original_filename
+                                            if file
+                                              file.original_filename
+                                            else
+                                              file_attachment.name
+                                            end
                                           else
                                             name
                                           end
@@ -99,10 +131,13 @@ module GobiertoAdmin
         file_attachment_attributes.file_digest = ::GobiertoAttachments::Attachment.file_digest(file) if file
         file_attachment_attributes.description = description
         file_attachment_attributes.url = url if url
+        file_attachment_attributes.slug = slug
       end
 
       if @file_attachment.valid?
-        @file_attachment.save
+        run_callbacks(:save) do
+          @file_attachment.save
+        end
 
         @file_attachment
       else
@@ -113,7 +148,7 @@ module GobiertoAdmin
     end
 
     def collection
-      @collection ||= 'file_attachments'
+      @collection ||= collection_class.find_by(id: collection_id)
     end
 
     protected

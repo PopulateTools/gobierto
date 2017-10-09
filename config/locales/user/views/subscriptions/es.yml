@@ -6,7 +6,6 @@ es:
         areas: Áreas
         consultations: Consultas presupuestos
         frequency: Cada cuánto
-        issue_item: 'Tema: '
         modules:
           gobierto_budget_consultations: Consultas de presupuestos
           gobierto_budgets: Presupuestos
@@ -21,8 +20,6 @@ es:
           submit: Guardar
           weekly: Resumen semanal
         people: Personas
-        process: Participación
-        process_item: 'Proceso: '
         submit: Guardar
         title: Tus alertas
         whole_site: Todo el site
@@ -33,3 +30,10 @@ es:
             user_email: Tu correo-e
           submit: Suscribirme
         subscribe: Suscribirme
+      subscribable_button:
+        event_followed: "¡Evento seguido!"
+        follow_event: Seguir evento
+        follow_issue: Seguir tema
+        follow_process: Seguir proceso
+        issue_followed: "¡Tema seguido!"
+        process_followed: "¡Proceso seguido!"

@@ -6,7 +6,6 @@ ca:
         areas: Àrees
         consultations: Consultes pressupostos
         frequency: Freqüència
-        issue_item: 'Tema: '
         modules:
           gobierto_budget_consultations: Consultes de pressupostos
           gobierto_budgets: Pressupostos
@@ -21,8 +20,6 @@ ca:
           submit: Desa
           weekly: Resum setmanal
         people: Persones
-        process: Participació
-        process_item: 'Procés: '
         submit: Desa
         title: Les teves alertes
         whole_site: Tot el site
@@ -33,3 +30,10 @@ ca:
             user_email: El teu correu-e
           submit: Subscriu-m'hi
         subscribe: Subscriu-m'hi
+      subscribable_button:
+        event_followed: "¡Esdeveniment seguit!"
+        follow_event: Seguir evento
+        follow_issue: Seguir tema
+        follow_process: Segueix el procés
+        issue_followed: "¡Tema seguit!"
+        process_followed: "¡Procés seguit!"

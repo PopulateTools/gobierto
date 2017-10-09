@@ -169,13 +169,6 @@ ca:
         past_stage: Fase finalitzada
         upcoming_stage: Fase pendent d'inici
         view_stage: Acceder a aquesta fase
-    subscription_button:
-      event_followed: "¡Esdeveniment seguit!"
-      follow_event: Seguir evento
-      follow_issue: Seguir tema
-      follow_process: Segueix el procés
-      issue_followed: "¡Tema seguit!"
-      process_followed: "¡Procés seguit!"
     welcome:
       index:
         intro: Coneix els mecanismes de participació que t'ofereix %{location_name}

@@ -114,7 +114,7 @@ en:
           title: Receive %{person_name}'s updates in your inbox
       subscription_button:
         cancel: Cancel
-        follow: Follow
+        follow: Folloe
       upcoming_events:
         no_upcoming_events: Ther eare no upcoming events
         title: Agenda

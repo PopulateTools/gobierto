@@ -14,8 +14,8 @@
   class="theme-participation gobierto_participation"
 <% end %>
 
-<% content_for :follow_button do %>
-  <%= render 'gobierto_participation/subscription_button', subscribable: @issue %>
+<% content_for :subscribable_button do %>
+  <%= render 'user/subscriptions/subscribable_button', subscribable: @issue %>
 <% end %>
 
 <div class="gradient-bg">

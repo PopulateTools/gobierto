@@ -10,8 +10,8 @@
   </h1>
 <% end %>
 
-<% content_for :follow_button do %>
-  <%= render 'gobierto_participation/subscription_button', subscribable: @event %>
+<% content_for :subscribable_button do %>
+  <%= render 'user/subscriptions/subscribable_button', subscribable: @event %>
 <% end %>
 
 <div class="gradient-bg">

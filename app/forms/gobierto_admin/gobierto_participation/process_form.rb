@@ -60,6 +60,10 @@ module GobiertoAdmin
         @visibility_level ||= 'draft'
       end
 
+      def process_type
+        @process_type ||= 'process'
+      end
+
       def issue
         @issue ||= site.issues.find_by(id: issue_id)
       end
@@ -104,7 +108,7 @@ module GobiertoAdmin
           existing_stage = process.stages.detect { |stage| stage.stage_type == stage_attributes['stage_type'] }
           update_existing_stage_from_attributes(existing_stage, stage_attributes) if existing_stage
         end
-        
+
         stages
       end
 

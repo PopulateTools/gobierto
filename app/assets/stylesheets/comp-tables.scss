@@ -145,8 +145,8 @@ th.icon_col {
 
 table.block_content {
   th {
-    background: transparentize($color_main, .85);	
-    text-align: left; 
+    background: transparentize($color_main, .85);
+    text-align: left;
     text-transform: uppercase;
     color: transparentize($color_main, .5);
     border: none;
@@ -159,18 +159,18 @@ table.block_content {
   }
   tr:visible:nth-child(2n-1) {
     td {
-      background: transparentize($color_main, .95);	
+      background: transparentize($color_main, .95);
     }
   }
   tr:nth-child(2n-1) {
     td {
-      background: transparentize($color_main, .95);	
+      background: transparentize($color_main, .95);
     }
   }
   tr:hover {
     td {
-      background: transparentize($color_main, .9);	
-    }	
+      background: transparentize($color_main, .9);
+    }
   }
   tr {
     td.bg-scale--1 {
@@ -198,4 +198,21 @@ table.block_content {
 }
 .sort-handler {
   cursor: pointer;
+}
+
+.gobierto_admin {
+  table.results_report {
+    th, td {
+      border-top: 6px solid #FFF;
+      border-left: 2px solid #FFF;
+    }
+    th {
+      color: $color_main;
+      text-transform: none;
+      font-weight: normal;
+    }
+    th.question_title {
+      font-weight: bold;
+    }
+  }
 }

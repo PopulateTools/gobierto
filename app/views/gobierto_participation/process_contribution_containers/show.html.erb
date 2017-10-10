@@ -1,20 +1,10 @@
-<% if @process %>
-  <% content_for :breadcrumb_current_item do %>
-    <strong>
-      <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path %>
-    </strong>
-
-    <span role="separator">/</span>
-
-    <h1>
-      <%= link_to @process.title, gobierto_participation_process_path(@process.slug) %>
-    </h1>
-  <% end %>
-<% end %>
-
 <%= content_for :body_attributes do %>
   class="theme-participation gobierto_participation contributions_layout"
 <% end %>
+
+<div class="modal_like_control">
+  <a href="<%= gobierto_participation_process_process_contribution_containers_path(@contribution_container.process.slug) %>" class=" mfp-close">×</a>
+</div>
 
 <div class="contributions_container">
 

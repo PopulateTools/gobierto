@@ -133,7 +133,7 @@ module GobiertoParticipation
         visit @path
 
         within ".site_header" do
-          assert has_content? "Follow this process"
+          assert has_content? "Follow theme"
         end
       end
     end

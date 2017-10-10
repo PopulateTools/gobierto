@@ -13,6 +13,7 @@ RACK_ENV=development
 RAILS_ENV=development
 TLD_LENGTH=2
 HOST=gobierto.dev
+BASE_HOST=gobierto.dev
 PORT=3000
 RAILS_MAX_THREADS=5
 
@@ -62,6 +63,7 @@ MAILER_SMTP_PASSWORD=
 - `RACK_ENV` and `RAILS_ENV`: Rack and Rails environment
 - `TLD_LENGTH`: TLD length setting for the session storage. See `config/initializers/session_store.rb`
 - `HOST` and `PORT`: application host and port
+- `BASE_HOST`: the application main host. It might be different from host, for example: hosted.gobierto.es vs gobierto.es
 - `RAILS_MAX_THREADS`: Puma setting
 - `TEST_LOG_LEVEL`: logger level in test environment. Set it to `fatal` to don't log anything.
 - `INTEGRATION_INSPECTOR` and `INTEGRATION_DEBUG`: Poltergeist settings to enable the inspector and the debugger. See https://github.com/teampoltergeist/poltergeist#remote-debugging-experimental

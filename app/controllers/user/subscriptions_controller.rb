@@ -38,7 +38,8 @@ class User::SubscriptionsController < User::BaseController
       )
     end
 
-    redirect_to request.referrer
+    redirect_to request.referrer if @user_subscription_form.subscribable.class.name == "Site" ||
+                                    @user_subscription_form.subscribable.name == "GobiertoPeople"
   end
 
   def destroy
@@ -46,7 +47,7 @@ class User::SubscriptionsController < User::BaseController
 
     @user_subscription.destroy
 
-    redirect_to user_subscriptions_path, notice: t(".success")
+    flash[:notice] = t(".success")
   end
 
   private

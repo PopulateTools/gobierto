@@ -81,7 +81,8 @@ module GobiertoParticipation
           assert_equal process_events.size, all(".person_event-item").size
 
           assert has_content? "Swimming lessons for elders"
-          assert has_link? "Instalaciones Deportivas Canal de Isabel II"
+          assert has_content? "Instalaciones Deportivas Canal de Isabel II"
+          assert has_link? "Av. de Filipinas, 54, 28003 Madrid"
 
           assert has_content? "Intensive reading club in english"
         end

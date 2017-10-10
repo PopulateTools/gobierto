@@ -11,6 +11,10 @@ en:
             your register in %{site_name}. Please, confirm your data to continue (they'll
             be verified against the register, if you are not registered we won't be
             abile to verify yourself)
+        not_verified: The process in which you want to participate requires to verify
+          your register in %{site_name}. Please, confirm your data to continue (they'll
+          be verified against the register, if you are not registered we won't be
+          abile to verify yourself)
         poll_answers:
           not_verified: The process in which you want to participate requires to verify
             your register in %{site_name}. Please, confirm your data to continue (they'll

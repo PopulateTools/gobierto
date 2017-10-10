@@ -131,6 +131,10 @@ header.meta {
       line-height: 1.1;
       margin-top: -1px;
 
+      &.checked {
+        color: #FFF;
+      }
+
       &.desktop_only {
         @include screen(740) {
           display: none;

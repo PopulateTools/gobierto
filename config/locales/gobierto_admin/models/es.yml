@@ -25,6 +25,8 @@ es:
       gobierto_admin/issue_form:
         name: Nombre
         slug: URL
+      gobierto_admin/scope_form:
+        name: Nombre
       gobierto_admin/site_form:
         available_locales: Idiomas disponibles
         default_locale: Idioma por defecto
@@ -54,6 +56,7 @@ es:
       gobierto_admin/admin_new_password_form: Recuperación de contraseña
       gobierto_admin/file_attachment_form: Cambio en el documento
       gobierto_admin/issue_form: Tema
+      gobierto_admin/scope_form: Ámbito
       gobierto_admin/site_form: Site
       gobierto_admin/user_form: Usuario
       gobierto_admin/user_password_form: Cambio de contraseña

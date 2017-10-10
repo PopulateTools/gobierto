@@ -149,6 +149,7 @@ es:
         no_events: No hay eventos relacionados
         no_news: No hay noticias relacionadas
         process_stages: Fases del proceso
+        scope: Ámbito
       timeline_row:
         past_stage: Fase finalizada
         upcoming_stage: Fase pendiente de inicio

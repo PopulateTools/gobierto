@@ -64,6 +64,16 @@ module GobiertoAdmin
       end
     end
 
+    def destroy
+      @issue = find_issue
+
+      if @issue.destroy
+        redirect_to admin_issues_path(@issue), notice: t('.success')
+      else
+        redirect_to admin_issues_path(@issue), alert: t('.has_items')
+      end
+    end
+
     private
 
     def track_create_activity

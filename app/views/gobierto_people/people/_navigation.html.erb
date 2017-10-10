@@ -37,7 +37,7 @@
       attribute: :starts_at,
       start_date: params[:start_date] || Date.current
     ) do |date, events| %>
-      <%= link_to_if events.any?, date.day, date: date, start_date: params[:start_date] %>
+      <%= link_to_if events.any?, date.day, date: date, start_date: params[:start_date], list_view: (controller_name == 'person_events' && action_name == 'index') %>
     <% end %>
   </div>
 <% end %>

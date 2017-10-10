@@ -40,8 +40,20 @@ nelson_nelson_tomorrow:
   name:
   charge:
 
+nelson_nelson_tomorrow_fixed:
+  event: nelson_tomorrow_fixed
+  person: nelson
+  name:
+  charge:
+
 nelson_nelson_yesterday:
   event: nelson_yesterday
+  person: nelson
+  name:
+  charge:
+
+nelson_nelson_yesterday_fixed:
+  event: nelson_yesterday_fixed
   person: nelson
   name:
   charge:

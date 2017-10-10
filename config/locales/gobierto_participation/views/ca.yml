@@ -147,6 +147,7 @@ ca:
         no_events: No hi ha esdeveniments relacionats
         no_news: No hi ha notícies relacionades
         process_stages: Fases del procés
+        scope: Àmbit
       timeline_row:
         past_stage: Fase finalitzada
         upcoming_stage: Fase pendent d'inici

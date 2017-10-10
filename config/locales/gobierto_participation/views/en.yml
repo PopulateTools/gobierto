@@ -148,6 +148,7 @@ en:
         no_events: There are no related events
         no_news: There are no related news
         process_stages: Process stages
+        scope: Scope
       timeline_row:
         past_stage: Stage has ended
         upcoming_stage: Stage not yet started

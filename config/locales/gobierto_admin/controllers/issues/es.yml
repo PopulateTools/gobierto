@@ -5,6 +5,9 @@ es:
       create:
         success_html: El tema se ha creado correctamente. <a href="%{link}">Ver el
           tema</a>.
+      destroy:
+        has_items: No puedes borrar un tema mientras tenga elementos asociados.
+        success: El tema se ha borrado correctamente.
       update:
         success_html: El tema se ha actualizado correctamente. <a href="%{link}">Ver
           el tema</a>.

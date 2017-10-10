@@ -80,16 +80,16 @@
           </div>
         <% end %>
 
-        <div class="pure-g meta_info">
-          <div class="pure-u-1 pure-u-md-1-4">
-            <span class="accent"><i class="fa fa-folder"></i> Ámbito</span>
+        <% if current_process.scope %>
+          <div class="pure-g meta_info">
+            <div class="pure-u-1 pure-u-md-1-4">
+              <span class="accent"><i class="fa fa-folder"></i><%= t('.scope') %></span>
+            </div>
+            <div class="pure-u-1 pure-u-md-1-2">
+                <%= current_process.scope.name %>
+            </div>
           </div>
-          <div class="pure-u-1 pure-u-md-1-2">
-            <%= todo_link_to do %>
-              <% link_to 'Estratégico', '' %>
-            <% end %>
-          </div>
-        </div>
+        <% end %>
       </div>
 
       <div class="pure-u-1 pure-u-md-1-3 center">

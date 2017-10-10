@@ -30,6 +30,7 @@ module GobiertoAdmin
             within 'form.edit_process' do
               fill_in 'process_title_translations_en', with: 'Edited process title'
               select 'Women', from: 'process_issue_id'
+              select 'Center', from: 'process_scope_id'
 
               click_button 'Update'
             end
@@ -44,6 +45,7 @@ module GobiertoAdmin
 
             assert_equal 'Edited process title', process.title
             assert_equal 'Women', process.issue.name
+            assert_equal 'Center', process.scope.name
           end
         end
       end
@@ -56,6 +58,7 @@ module GobiertoAdmin
             within 'form.edit_process' do
               fill_in 'process_title_translations_en', with: 'Edited group title'
               select 'Women', from: 'process_issue_id'
+              select 'Center', from: 'process_scope_id'
 
               click_button 'Update'
             end
@@ -70,6 +73,7 @@ module GobiertoAdmin
 
             assert_equal 'Edited group title', group.title
             assert_equal 'Women', group.issue.name
+            assert_equal 'Center', group.scope.name
           end
         end
       end

@@ -48,13 +48,8 @@
         <div class="pure-u-1 pure-u-md-1-2 ">
 
           <div class="form_item select_control">
-            <label for="entity">Ámbito</label>
-            <select>
-              <option>Centro</option>
-              <option>Polígonos</option>
-              <option>Valdelasfuentes</option>
-              <option>Urbanizaciones</option>
-            </select>
+            <%= f.label :scope_id %>
+            <%= f.select(:scope_id, @scopes, { include_blank: '-' }) %>
           </div>
 
         </div>

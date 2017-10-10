@@ -11,6 +11,10 @@ es:
             que estás empadronado/a en %{site_name}. Confirma tus datos para continuar
             (serán verificados contra el padrón, si no estás empadronado/a, no te
             podremos verificar)
-        not_verified: Necesitamos verificar tu identidad para poder continuar
+        poll_answers:
+          not_verified: El proceso en el que deseas participar exige que verifiques
+            que estás empadronado/a en %{site_name}. Confirma tus datos para continuar
+            (serán verificados contra el padrón, si no estás empadronado/a, no te
+            podremos verificar)
       new:
         title: Verifica tu identidad

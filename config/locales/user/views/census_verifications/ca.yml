@@ -11,6 +11,10 @@ ca:
             que estàs empadronat/ada a %{site_name}. Confirma les teves dades per
             continuar (seran verificades amb el padró, si no estàs empadronat/ada,
             no et podrem verificar)
-        not_verified: Necessitem verificar la teva identitat per poder continuar
+        poll_answers:
+          not_verified: El procés en el que vols participar exigeix que verifiquis
+            que estàs empadronat/ada a %{site_name}. Confirma les teves dades per
+            continuar (seran verificades amb el padró, si no estàs empadronat/ada,
+            no et podrem verificar)
       new:
         title: Verifica la teva identitat

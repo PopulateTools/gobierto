@@ -9,7 +9,18 @@ module GobiertoParticipation
     end
 
     def user
-      @user ||= users(:dennis)
+      @user ||= users(:peter)
+    end
+
+    def process_path(process)
+      gobierto_participation_process_path(process.slug)
+    end
+
+    def container_path
+      @container_path ||= gobierto_participation_process_process_contribution_container_path(
+        process_id: process.slug,
+        id: contribution_container.slug
+      )
     end
 
     def process
@@ -18,13 +29,6 @@ module GobiertoParticipation
 
     def contribution_container
       @contribution_container ||= gobierto_participation_contribution_containers(:children_contributions)
-    end
-
-    def container_path
-      @container_path ||= gobierto_participation_process_process_contribution_container_path(
-        process_id: process.slug,
-        id: contribution_container.slug
-      )
     end
 
     def contributions
@@ -49,55 +53,6 @@ module GobiertoParticipation
 
     def contribution_comments
       @contribution_comments ||= contribution.comments
-    end
-
-    def test_breadcrumb_items
-      with_current_site(site) do
-        visit container_path
-
-        within ".global_breadcrumb" do
-          assert has_link? "Participation"
-          assert has_link? "Processes"
-          assert has_link? process.title
-        end
-      end
-    end
-
-    def test_menu_subsections
-      with_current_site(site) do
-        visit container_path
-
-        within "menu.sub_sections" do
-          assert has_link? "Information"
-          assert has_link? "Meetings"
-          assert has_link? "Polls"
-          assert has_link? "Contributions"
-          assert has_link? "Results"
-        end
-      end
-    end
-
-    def test_secondary_nav
-      with_current_site(site) do
-        visit container_path
-
-        within "menu.secondary_nav" do
-          assert has_link? "News"
-          assert has_link? "Diary"
-          assert has_link? "Documents"
-          assert has_link? "Activity"
-        end
-      end
-    end
-
-    def test_subscription_block
-      with_current_site(site) do
-        visit container_path
-
-        within ".site_header" do
-          assert has_content? "Follow this process"
-        end
-      end
     end
 
     def test_all_contributions_show
@@ -165,7 +120,7 @@ module GobiertoParticipation
         with_current_site(site) do
           visit container_path
 
-          page.find('[data-url="/participacion/procesos/ciudad-deportiva/contribution_containers/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
+          page.find('[data-url="/participacion/procesos/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
           assert has_content? "Carril bici hasta el Juan Carlos I"
         end
       end
@@ -175,13 +130,22 @@ module GobiertoParticipation
       with_javascript do
         with_current_site(site) do
           with_signed_in_user(user) do
-            visit container_path
+            visit process_path(process)
 
-            page.find('[data-url="/participacion/procesos/ciudad-deportiva/contribution_containers/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
+            within ".container" do
+              assert has_content? process.title
+            end
+
+            visit container_path
+            assert has_content? "What activities for children we can start up?"
+
+            page.find('[data-url="/participacion/procesos/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
             assert has_content? "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
             assert has_content? "It values the idea"
             page.find("a.action_button.love").trigger("click")
             assert has_content? "It enchants to me"
+
+            find(".modal_like_control a", visible: false).click
           end
         end
       end
@@ -191,9 +155,10 @@ module GobiertoParticipation
       with_javascript do
         with_current_site(site) do
           with_signed_in_user(user) do
+            visit process_path(process)
             visit container_path
 
-            page.find('[data-url="/participacion/procesos/ciudad-deportiva/contribution_containers/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
+            page.find('[data-url="/participacion/procesos/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
             assert has_content? "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
 
             within "div.comments_container" do
@@ -201,6 +166,8 @@ module GobiertoParticipation
                 assert has_selector?("div.comment div")
               end
             end
+
+            find(".modal_like_control a", visible: false).click
           end
         end
       end

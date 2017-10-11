@@ -1,7 +1,7 @@
 this.GobiertoAdmin.AdminsController = (function() {
-  
+
     function AdminsController() {}
-  
+
     AdminsController.prototype.form = function() {
       _addToggleSiteBehaviors();
       _addChangeAuthorizationLevelBehaviors();
@@ -35,7 +35,7 @@ this.GobiertoAdmin.AdminsController = (function() {
               return val.checked;
             }
           });
-          
+
           if(sitePermissions.length == 0) {
             $('#people_permissions').hide('slow');
           }
@@ -56,7 +56,7 @@ this.GobiertoAdmin.AdminsController = (function() {
 
       $manager.click(function() {
         $('#modules_permissions').hide('fast', function() {
-          $('#sites_permissions').show('fast');
+          $('#sites_permissions').hide('fast');
         });
       });
 
@@ -66,7 +66,7 @@ this.GobiertoAdmin.AdminsController = (function() {
         });
       });
     }
-  
+
     function _addToggleGobiertoPeopleBehaviors() {
       var $checkbox = $("[data-behavior='toggle-module-GobiertoPeople']");
       $checkbox.click(function() {
@@ -96,5 +96,5 @@ this.GobiertoAdmin.AdminsController = (function() {
 
     return AdminsController;
   })();
-  
+
   this.GobiertoAdmin.admins_controller = new GobiertoAdmin.AdminsController;

@@ -68,7 +68,10 @@ module GobiertoAdmin
     end
 
     def set_permitted_sites(attributes)
-      if attributes[:permitted_sites].present?
+      if attributes[:authorization_level] != 'regular'
+        @permitted_sites = []
+        @sites = []
+      elsif attributes[:permitted_sites].present?
         @permitted_sites = attributes[:permitted_sites].select{ |id| id.present? }.map{|id| id.to_i }.compact
         @sites = Site.where(id: permitted_sites)
       elsif @admin
@@ -81,7 +84,9 @@ module GobiertoAdmin
     end
 
     def set_permitted_modules(attributes)
-      if attributes[:permitted_modules].present?
+      if attributes[:authorization_level] != 'regular'
+        @permitted_modules = []
+      elsif attributes[:permitted_modules].present?
         @permitted_modules = attributes[:permitted_modules].select{ |m| m.present? }.compact
       elsif @admin
         @permitted_modules = @admin.modules_permissions.pluck(:resource_name)
@@ -91,7 +96,9 @@ module GobiertoAdmin
     end
 
     def set_permitted_people(attributes)
-      if attributes[:all_people_permitted] && attributes[:all_people_permitted] == 'on'
+      if attributes[:authorization_level] != 'regular'
+        @permitted_people = []
+      elsif attributes[:all_people_permitted] && attributes[:all_people_permitted] == 'on'
         @permitted_people = ::GobiertoPeople::Person.where(site: sites).active.pluck(:id)
       elsif attributes[:permitted_people].present?
         @permitted_people = attributes[:permitted_people].select{ |m| m.present? }.map{|id| id.to_i }.compact

@@ -5,6 +5,8 @@ module GobiertoAdmin
 
       before_action { module_enabled!(current_site, "GobiertoPeople") }
       before_action { module_allowed!(current_admin, "GobiertoPeople") }
+      before_action :create_person_allowed!, only: [:new, :create]
+      before_action :manage_person_allowed!, only: [:edit, :update]
 
       helper_method :gobierto_people_person_preview_url
 
@@ -13,8 +15,6 @@ module GobiertoAdmin
       end
 
       def new
-        create_person_allowed!
-
         @person_form = PersonForm.new(site_id: current_site.id)
         @person_visibility_levels = get_person_visibility_levels
         @person_categories = get_person_categories
@@ -23,10 +23,6 @@ module GobiertoAdmin
       end
 
       def edit
-        @person = find_person
-
-        manage_person_allowed!(@person)
-
         @person_visibility_levels = get_person_visibility_levels
         @person_categories = get_person_categories
         @person_parties = get_person_parties
@@ -38,8 +34,6 @@ module GobiertoAdmin
       end
 
       def create
-        create_person_allowed!
-
         @person_form = PersonForm.new(person_params.merge(admin_id: current_admin.id, site_id: current_site.id))
 
         if @person_form.save
@@ -57,17 +51,13 @@ module GobiertoAdmin
       end
 
       def update
-        @person = find_person
-
-        manage_person_allowed!(@person)
-
         @person_form = PersonForm.new(person_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id))
 
         if @person_form.save
           redirect_to(
             edit_admin_people_person_path(@person),
             notice: t(".success_html", link: gobierto_people_person_preview_url(@person_form.person, host: current_site.domain))
-          )
+          ) and return
         else
           @person_visibility_levels = get_person_visibility_levels
           @person_categories = get_person_categories
@@ -124,15 +114,17 @@ module GobiertoAdmin
         gobierto_people_person_url(person.slug, options)
       end
 
-      def manage_person_allowed!(person)
-        unless PersonPolicy.new(current_admin, person).manage?
-          redirect_to admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')
+      def manage_person_allowed!
+        @person = find_person
+
+        if !PersonPolicy.new(current_admin, @person).manage?
+          redirect_to(admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')) and return false
         end
       end
 
       def create_person_allowed!
-        unless PersonPolicy.new(current_admin).create?
-          redirect_to admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')
+        if !PersonPolicy.new(current_admin).create?
+          redirect_to(admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')) and return false
         end
       end
 

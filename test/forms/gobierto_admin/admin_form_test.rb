@@ -110,6 +110,37 @@ module GobiertoAdmin
 
     ## Tests related to permissions
 
+    def test_change_authorization_level_updates_permissions
+
+      admin_form = AdminForm.new(admin_params.merge(
+        id: only_madrid_admin.id,
+        authorization_level: 'disabled',
+        permitted_modules: [ 'GobiertoPeople' ],
+        permitted_sites: [ madrid.id],
+        permitted_people: [ richard.id ]
+      ))
+
+      # disabled admins don't have permissions at all
+
+      assert admin_form.save
+      assert only_madrid_admin.permissions.empty?
+      assert only_madrid_admin.sites.empty?
+
+      admin_form = AdminForm.new(admin_params.merge(
+        id: only_madrid_admin.id,
+        authorization_level: 'manager',
+        permitted_modules: [ 'GobiertoPeople' ],
+        permitted_sites: [ madrid.id],
+        permitted_people: [ richard.id ]
+      ))
+
+      # manager admins don't need sites or permission objects
+
+      assert admin_form.save
+      assert only_madrid_admin.permissions.empty?
+      assert only_madrid_admin.sites.empty?
+    end
+
     def test_grant_site_permissions
       admin_form = AdminForm.new(admin_params.merge(
         id: only_madrid_admin.id,

@@ -4,7 +4,7 @@ require "test_helper"
 
 module GobiertoAdmin
   class AdminUpdateTest < ActionDispatch::IntegrationTest
-    
+
     def tony
       @tony ||= gobierto_admin_admins(:tony)
     end
@@ -21,6 +21,10 @@ module GobiertoAdmin
 
     def god_admin
       @god_admin ||= gobierto_admin_admins(:natasha)
+    end
+
+    def site
+      @site ||= sites(:madrid)
     end
 
     def test_regular_admin_update
@@ -79,13 +83,13 @@ module GobiertoAdmin
           fill_in "admin_password", with: "wadus"
           fill_in "admin_password_confirmation", with: "wadus"
 
-          assert has_selector?(".site-check-boxes")
-
-          check "santander.gobierto.dev"
+          refute has_selector?(".site-check-boxes")
 
           within ".admin-authorization-level-radio-buttons" do
-            choose "Manager"
+            choose "Regular"
           end
+
+          find("label[for='admin_permitted_sites_#{site.id}']").click
 
           click_button "Update"
         end
@@ -97,7 +101,7 @@ module GobiertoAdmin
           assert has_field?("admin_email", with: manager_admin.email)
 
           within ".admin-authorization-level-radio-buttons" do
-            assert has_checked_field?("Manager")
+            assert has_checked_field?("Regular")
           end
         end
       end

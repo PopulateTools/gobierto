@@ -59,7 +59,9 @@
     </div>
 
     <div id="current-site-name" class="pure-menu-link">
-      <%= current_site.name %>
+      <% if current_site.present? %>
+        <%= current_site.name %>
+      <% end %>
     </div>
 
     <% if admin_signed_in? %>
@@ -100,7 +102,9 @@
     </div>
 
     <div class="right pure-menu-link">
-      <%= link_to t(".view_site"), current_site.domain_url, target: "_blank" %>
+      <% if current_site.present? %>
+        <%= link_to t(".view_site"), current_site.domain_url, target: "_blank" %>
+      <% end %>
     </div>
 
   </header>

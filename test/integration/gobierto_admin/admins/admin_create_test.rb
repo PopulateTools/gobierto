@@ -4,7 +4,7 @@ require "test_helper"
 
 module GobiertoAdmin
   class AdminCreateTest < ActionDispatch::IntegrationTest
-    
+
     def setup
       super
       @path = new_admin_admin_path
@@ -102,7 +102,7 @@ module GobiertoAdmin
     def test_create_admin_with_sites_modules_and_people
       with_javascript do
         with_signed_in_admin(admin) do
-        
+
           visit @path
 
           fill_in "admin_name", with: "Admin Name"
@@ -141,7 +141,7 @@ module GobiertoAdmin
       # assert total permissions
 
       assert_equal 2, permissions.size
-      
+
       # assert module permissions
 
       assert_equal 'site_module', module_permission.namespace

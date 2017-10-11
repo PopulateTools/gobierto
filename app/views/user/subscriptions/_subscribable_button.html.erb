@@ -2,22 +2,31 @@
 <% subscribed = user_signed_in? ? current_user.subscribed_to?(subscribable, current_site) : false %>
 
 <% if user_signed_in? %>
-  <%= button_to(
-    user_subscriptions_path,
-    params: {
-      user_subscription: {
-        subscribable_type: user_subscription_form.subscribable_type,
-        subscribable_id: user_subscription_form.subscribable_id
-      }
-    },
-    remote: true,
-    class: "button outline rounded desktop_only follow_process #{'checked' if subscribed}") do %>
-    <% if subscribed %>
-      <i class="fa fa-star"></i>
-    <% else %>
-      <i class="fa fa-rss"></i>
+  <% if subscribed %>
+    <% user_subscription = User::Subscription.find_by(user: current_user,
+                                                      subscribable_id: user_subscription_form.subscribable_id,
+                                                      subscribable_type: user_subscription_form.subscribable_type.to_s) %>
+    <%= link_to(user_subscription_path(user_subscription),
+      remote: true,
+      method: :delete,
+      class: "button outline rounded desktop_only follow_process checked") do %>
+        <i class="fa fa-star"></i>
+        <%= t(".#{subscribable.class.name.demodulize.downcase}_followed") %>
     <% end %>
-    <%= subscribed ? t(".#{subscribable.class.name.demodulize.downcase}_followed") : t(".follow_#{subscribable.class.name.demodulize.downcase}") %>
+  <% else %>
+    <%= link_to(
+      user_subscriptions_path(
+        user_subscription: {
+          subscribable_type: user_subscription_form.subscribable_type,
+          subscribable_id: user_subscription_form.subscribable_id
+        }
+      ),
+      remote: true,
+      method: :post,
+      class: "button outline rounded desktop_only follow_process") do %>
+        <i class="fa fa-rss"></i>
+        <%= t(".follow_#{subscribable.class.name.demodulize.downcase}") %>
+    <% end %>
   <% end %>
 <% else %>
   <%= link_to(

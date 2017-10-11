@@ -28,26 +28,35 @@ class User::SubscriptionsController < User::BaseController
 
     subscription_operation, subscription_result = @user_subscription_form.save
 
-    if subscription_result
-      flash[:notice] = t(".#{subscription_operation}_success")
-    else
-      flash[:alert] = t(
-        ".error",
-        details: @user_subscription_form.errors.full_messages.to_sentence,
-        sign_in_path: new_user_sessions_path(host: current_site.domain)
-      )
-    end
+    respond_to do |format|
+      format.html do
+        if subscription_result
+          flash[:notice] = t(".#{subscription_operation}_success")
+        else
+          flash[:alert] = t(
+            ".error",
+            details: @user_subscription_form.errors.full_messages.to_sentence,
+            sign_in_path: new_user_sessions_path(host: current_site.domain)
+          )
+        end
 
-    redirect_to request.referrer if @user_subscription_form.subscribable.class.name == "Site" ||
-                                    @user_subscription_form.subscribable.name == "GobiertoPeople"
+        redirect_to request.referrer
+      end
+      format.js
+    end
   end
 
   def destroy
     @user_subscription = find_user_subscription
-
+    @subscribable = @user_subscription.subscribable
     @user_subscription.destroy
 
-    flash[:notice] = t(".success")
+    respond_to do |format|
+      format.html do
+        flash[:notice] = t(".success")
+      end
+      format.js
+    end
   end
 
   private

@@ -115,7 +115,9 @@
         </div>
 
         <div>
-          <%= yield(:subscribable_button) %>
+          <span id="subscribable_button">
+            <%= yield(:subscribable_button) %>
+          </span>
 
           <div class="social_links_container" data-share>
             <% if show_social_links? %>
@@ -132,13 +134,6 @@
 
             <!-- TODO: lo del position:absolute es una ñapa -->
             <div id="search_results" class="search_result_list" style="position:absolute;"></div>
-
-            <!-- Keep this until new subscribe button is integrated, so other modules in production don't break -->
-            <% if current_module == 'gobierto_participation' || current_module == 'gobierto_cms' %>
-              <a href="#" class="button outline rounded mobile_only follow_process"><i class="fa fa-rss"></i> <span><%= t('.follow_process') %></span></a>
-            <% end %>
-            <!-- ./ -->
-
           </div>
         </div>
       </div>

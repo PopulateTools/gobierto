@@ -32,9 +32,9 @@ ca:
         subscribe: Subscriu-m'hi
       subscribable_button:
         event_followed: "¡Esdeveniment seguit!"
-        follow_event: Seguir evento
-        follow_issue: Seguir tema
-        follow_person: Seguir persona
+        follow_event: Segueix l'esdeveniment
+        follow_issue: Segueix el tema
+        follow_person: Segueix la persona
         follow_process: Segueix el procés
         issue_followed: "¡Tema seguit!"
         person_followed: "¡Persona seguida!"

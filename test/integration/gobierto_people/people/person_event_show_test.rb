@@ -17,6 +17,10 @@ module GobiertoPeople
         @site ||= sites(:madrid)
       end
 
+      def user
+        @user ||= users(:peter)
+      end
+
       def person
         @person ||= gobierto_people_people(:richard)
       end
@@ -64,11 +68,21 @@ module GobiertoPeople
       end
 
       def test_subscription_block
-        with_current_site(site) do
-          visit @path
+        with_javascript do
+          with_current_site(site) do
+            with_signed_in_user(user) do
+              visit @path
 
-          within ".site_header" do
-            assert has_link? "Follow event"
+              within ".site_header" do
+                assert has_link? "Follow event"
+              end
+
+              click_on "Follow event"
+              assert has_link? "Event followed!"
+
+              click_on "Event followed!"
+              assert has_link? "Follow event"
+            end
           end
         end
       end

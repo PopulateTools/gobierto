@@ -8,6 +8,10 @@ module GobiertoParticipation
       @site ||= sites(:madrid)
     end
 
+    def user
+      @user ||= users(:peter)
+    end
+
     def process
       @process ||= gobierto_participation_processes(:gender_violence_process)
     end
@@ -66,11 +70,21 @@ module GobiertoParticipation
     end
 
     def test_subscription_block
-      with_current_site(site) do
-        visit process_page_path
+      with_javascript do
+        with_current_site(site) do
+          with_signed_in_user(user) do
+            visit process_page_path
 
-        within ".site_header" do
-          assert has_content? "Follow this process"
+            within ".site_header" do
+              assert has_link? "Follow process"
+            end
+
+            click_on "Follow process"
+            assert has_link? "Process followed!"
+
+            click_on "Process followed!"
+            assert has_link? "Follow process"
+          end
         end
       end
     end

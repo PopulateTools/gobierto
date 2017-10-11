@@ -13,7 +13,7 @@
 <% end %>
 
 <% content_for :subscribable_button do %>
-  <%= render 'user/subscriptions/subscribable_button', subscribable: @event %>
+  <%= render 'user/subscriptions/subscribable_button', subscribable: current_process %>
 <% end %>
 
 <div class="gradient-bg">

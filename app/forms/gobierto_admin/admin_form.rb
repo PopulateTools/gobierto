@@ -27,10 +27,18 @@ module GobiertoAdmin
     end
 
     def initialize(attributes = {})
-      super(attributes.except(:permitted_sites, :permitted_modules, :permitted_people, :all_people_permitted))
-      set_permitted_sites(attributes)
-      set_permitted_modules(attributes)
-      set_permitted_people(attributes)
+      parsed_attributes = attributes.to_h.with_indifferent_access
+
+      super(parsed_attributes.except(
+        :permitted_sites,
+        :permitted_modules,
+        :permitted_people,
+        :all_people_permitted
+      ))
+
+      set_permitted_sites(parsed_attributes)
+      set_permitted_modules(parsed_attributes)
+      set_permitted_people(parsed_attributes)
     end
 
     def save

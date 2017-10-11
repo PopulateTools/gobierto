@@ -75,7 +75,7 @@ module GobiertoAdmin
     end
 
     def test_manager_admin_update
-      with_signed_in_admin(manager_admin) do
+      with_signed_in_admin(god_admin) do
         visit edit_admin_admin_path(manager_admin)
 
         within "form.edit_admin" do
@@ -89,7 +89,7 @@ module GobiertoAdmin
             choose "Regular"
           end
 
-          find("label[for='admin_permitted_sites_#{site.id}']").click
+          find("label[for='admin_permitted_sites_#{site.id}']", visible: false).click
 
           click_button "Update"
         end

@@ -23,6 +23,12 @@ module GobiertoPeople
 
       def show
         @event = find_event
+        if valid_preview_token? && !manage_event?
+          redirect_to(
+            gobierto_people_person_path(@event.collection.container.slug),
+            alert: t('gobierto_admin.admin_unauthorized')
+          ) and return
+        end
       end
 
       private
@@ -50,6 +56,14 @@ module GobiertoPeople
 
       def person_events_scope
         valid_preview_token? ? @person.attending_events : @person.attending_events.published
+      end
+
+      def manage_event?
+        ::GobiertoAdmin::GobiertoCalendars::EventPolicy.new(
+          current_admin: current_admin,
+          current_site: current_site,
+          event: @event
+        ).view?
       end
 
     end

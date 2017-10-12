@@ -4,6 +4,7 @@ consultation_faq:
   slug: 'consultation-faq'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
+  collection: news
 
 privacy:
   title_translations: <%= {'en' => 'Privacy', 'es' => 'Privacidad' }.to_json %>
@@ -32,6 +33,7 @@ themes:
   slug: 'themes'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:draft] %>
   site: madrid
+  collection: news
 
 notice_1:
   title_translations: <%= {'en' => 'Notice 1 title' }.to_json %>
@@ -39,6 +41,7 @@ notice_1:
   slug: 'notice-1'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
+  collection: gender_violence_process_news (GobiertoCommon::Collection)
 
 notice_2:
   title_translations: <%= {'en' => 'Notice 2 title' }.to_json %>
@@ -46,3 +49,4 @@ notice_2:
   slug: 'notice-2'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
+  collection: gender_violence_process_news (GobiertoCommon::Collection)

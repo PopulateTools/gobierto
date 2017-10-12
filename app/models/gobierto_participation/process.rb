@@ -20,6 +20,7 @@ module GobiertoParticipation
 
     belongs_to :site
     belongs_to :issue
+    belongs_to :scope, class_name: 'GobiertoCommon::Scope'
     has_many :stages, -> { order(stage_type: :asc) }, dependent: :destroy, class_name: 'GobiertoParticipation::ProcessStage', autosave: true
     has_many :polls
     has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
@@ -38,7 +39,7 @@ module GobiertoParticipation
     after_create :create_collections
 
     def self.open
-      ids = GobiertoParticipation::Process.select(&:open?).map(&:id)
+      ids = GobiertoParticipation::Process.select(&:open?).pluck(:id)
       where(id: ids)
     end
 
@@ -71,17 +72,20 @@ module GobiertoParticipation
     end
 
     def current_stage
-      if stages.active.any?
-        active_and_open_stages = stages.active.open
-        active_and_open_stages.order(ends: :asc).last
-      end
+      process_stages = stages.where("starts <= ? AND ends >= ?", Time.zone.now, Time.zone.now)
+      process_stages.first.to_s
+    end
+
+    def next_stage
+      process_stages = stages.where("starts >= ? AND ends >= ?", Time.zone.now, Time.zone.now)
+      process_stages.first.to_s
     end
 
     def open?
       if starts.present? && ends.present?
         Time.zone.now.between?(starts, ends)
       else
-        true
+        false
       end
     end
 

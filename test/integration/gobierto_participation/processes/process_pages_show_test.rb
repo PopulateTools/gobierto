@@ -17,7 +17,7 @@ module GobiertoParticipation
     end
 
     def process_page_path
-      @process_page_path ||= gobierto_participation_process_process_page_path(
+      @process_page_path ||= gobierto_participation_process_page_path(
         process_page.slug,
         process_id: process.slug
       )

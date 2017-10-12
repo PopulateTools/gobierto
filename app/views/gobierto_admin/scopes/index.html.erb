@@ -1,0 +1,49 @@
+<div class='admin_breadcrumb'>
+  <%= link_to t('gobierto_admin.welcome.index.title'), admin_root_path %> »
+  <%= link_to t('gobierto_admin.layouts.application.edit_site'), edit_admin_site_path(current_site) %> »
+  <%= t('.title') %>
+</div>
+
+<h1><%= title t('.title') %></h1>
+
+<div class='admin_tools right'>
+  <%= link_to t('.new'), new_admin_scope_path, class: 'button open_remote_modal' %>
+</div>
+
+<table>
+  <tr>
+    <th class='icon_col'></th>
+    <th class='icon_col'></th>
+    <th><%= t('.name') %></th>
+    <th><%= t('.created_at') %></th>
+    <th></th>
+  </tr>
+
+  <tbody data-behavior='sortable' data-sortable-target='<%= admin_scope_sort_path %>'>
+    <% @scopes.each do |scope| %>
+      <tr id='scope-item-<%= scope.id %>' data-id='<%= scope.id %>' class='<%= cycle('odd', 'even') %>'>
+        <td>
+          <%= link_to "<i class='fa fa-edit'></i>".html_safe, edit_admin_scope_path(scope), class: 'open_remote_modal', title: t('views.edit') %>
+        </td>
+        <td>
+          <%= link_to "<i class='fa fa-trash'></i>".html_safe, admin_scope_path(scope), method: :delete, title: t('views.delete') %>
+        </td>
+        <td>
+          <%= link_to scope.name, edit_admin_scope_path(scope), class: 'open_remote_modal' %>
+        </td>
+        <td>
+          <%= time_ago_in_words(scope.created_at) %>
+        </td>
+        <td>
+          <i class='sort-handler fa fa-bars tipsit custom_handle' title="<%= t('views.drag_to_sort') %>"></i>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.scopes_controller.index();
+  <% end %>
+<% end %>

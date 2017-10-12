@@ -24,6 +24,7 @@ en:
           file_attachments:
             created_at: Created at
             file_name: Filename
+            view: View document
           new_attachment: New
           new_page: New
           pages:

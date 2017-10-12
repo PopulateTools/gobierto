@@ -96,6 +96,10 @@ en:
       person_statement_item: Statement
       powered_by: Search powered by <a href="https://www.algolia.com" target="_blank">Algolia</a>
       updated: Updated
+  scopes:
+    events:
+      scopes_scope_created: Scope created
+      scopes_scope_updated: Scope updated
   sites:
     events:
       sites_site_created: Site created
@@ -106,7 +110,9 @@ en:
     events:
       users_user_updated: User updated
   views:
+    delete: Delete
     drag_to_sort: Drag to sort
+    edit: Edit
     forms:
       max_characters: Max. %{length} characters
     pagination:

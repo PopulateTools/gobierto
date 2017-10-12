@@ -24,13 +24,14 @@ es:
           file_attachments:
             created_at: Creado
             file_name: Nombre del documento
+            view: Ver documento
           new_attachment: Nuevo
           new_page: Nueva
           pages:
             created_at: Creada
             public: Estado
             updated_at: Actualizada
-            view: Ver pàgina
+            view: Ver página
             visibility_level:
               active: Publicada
               draft: Borrador

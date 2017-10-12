@@ -37,7 +37,7 @@
       <% unless @admin && @admin.god? %>
 
         <!-- Site permissions -->
-        <div class="form_block" id="sites_permissions" style="<%= @admin && @admin.regular? ? '' : 'display: none;' %>">
+        <div class="form_block" id="sites_permissions" style="<%= @admin.nil? || @admin.regular? ? '' : 'display: none;' %>">
 
           <h2><%= t(".sites_block") %></h2>
 

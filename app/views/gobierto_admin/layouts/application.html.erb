@@ -113,51 +113,55 @@
 
     <menu class="main" data-menu-status="open">
 
-      <div class="menu_content">
+      <!-- .menu_content -->
+      <% if current_admin.sites.any? %>
+        <div class="menu_content">
 
-        <ul>
-          <% if show_module_link?("GobiertoBudgetConsultations") %>
-          <li>
-            <%= link_to t(".budget_consultations"), admin_budget_consultations_path %>
-          </li>
-          <% end %>
-
-          <% if show_module_link?("GobiertoPeople") %>
-          <li>
-            <%= link_to t(".people"), admin_people_people_path %>
-          </li>
-          <% end %>
-
-          <% if show_module_link?("GobiertoParticipation") %>
-          <li>
-            <%= link_to t(".participation"), admin_participation_path %>
-          </li>
-          <% end %>
-
-          <li class="sep"></li>
-
-          <li>
-            <%= link_to t(".cms"), admin_cms_pages_path %>
-            <%= link_to t(".file_attachments"), admin_attachments_file_attachments_path %>
-            <%= link_to t(".calendars"), admin_calendars_collections_path %>
-          </li>
-
-          <li class="sep"></li>
-
-          <li><%= link_to t(".users"), admin_users_path %></li>
-
-          <% if managing_site? %>
+          <ul>
+            <% if show_module_link?("GobiertoBudgetConsultations") %>
             <li>
-              <%= link_to t(".edit_site"), edit_admin_site_path(current_site) %>
-              <ul>
-                <li><%= link_to t(".issues"), admin_issues_path %></li>
-                <li><%= link_to t(".scopes"), admin_scopes_path %></li>
-              </ul>
+              <%= link_to t(".budget_consultations"), admin_budget_consultations_path %>
             </li>
-          <% end %>
-         </ul>
+            <% end %>
 
-      </div>
+            <% if show_module_link?("GobiertoPeople") %>
+            <li>
+              <%= link_to t(".people"), admin_people_people_path %>
+            </li>
+            <% end %>
+
+            <% if show_module_link?("GobiertoParticipation") %>
+            <li>
+              <%= link_to t(".participation"), admin_participation_path %>
+            </li>
+            <% end %>
+
+            <li class="sep"></li>
+
+            <li>
+              <%= link_to t(".cms"), admin_cms_pages_path %>
+              <%= link_to t(".file_attachments"), admin_attachments_file_attachments_path %>
+              <%= link_to t(".calendars"), admin_calendars_collections_path %>
+            </li>
+
+            <li class="sep"></li>
+
+            <li><%= link_to t(".users"), admin_users_path %></li>
+
+            <% if managing_site? %>
+              <li>
+                <%= link_to t(".edit_site"), edit_admin_site_path(current_site) %>
+                <ul>
+                  <li><%= link_to t(".issues"), admin_issues_path %></li>
+                  <li><%= link_to t(".scopes"), admin_scopes_path %></li>
+                </ul>
+              </li>
+            <% end %>
+          </ul>
+
+        </div>
+      <% end %>
+      <!-- ./menu_content -->
 
       <div class="collapse_menu">
         <a href="#" class="js-collapse-menu">

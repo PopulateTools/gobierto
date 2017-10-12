@@ -117,13 +117,13 @@ module GobiertoAdmin
       def manage_person_allowed!
         @person = find_person
 
-        if !PersonPolicy.new(current_admin, @person).manage?
+        if !PersonPolicy.new(current_admin: current_admin, person: @person).manage?
           redirect_to(admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')) and return false
         end
       end
 
       def create_person_allowed!
-        if !PersonPolicy.new(current_admin).create?
+        if !PersonPolicy.new(current_admin: current_admin).create?
           redirect_to(admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')) and return false
         end
       end

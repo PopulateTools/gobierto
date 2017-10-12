@@ -98,7 +98,7 @@
                       <% person_site_permitted = permitted_sites.include?(person_site_id) %>
 
                       <div class="option" data-class="site_person" data-site-id="<%= person_site_id %>" style="<%= person_site_permitted ? '' : 'display: none;' %>">
-                        <%= person_b.check_box(checked: @admin && ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(@admin, person_b.object).manage?) %>
+                        <%= person_b.check_box(checked: @admin && ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: @admin, person: person_b.object).manage?) %>
                         <%= person_b.label do %>
                           <span></span><%= person_b.object.name %>
                         <% end %>

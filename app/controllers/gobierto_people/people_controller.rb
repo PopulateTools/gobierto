@@ -72,7 +72,14 @@ module GobiertoPeople
 
     def admin_permissions_for_person?
       person = current_site.people.find_by(slug: params[:slug])
-      person && current_admin && ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin, person).view?
+      if person && current_admin
+        ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(
+          current_admin: current_admin,
+          person: person
+        ).view?
+      else
+        false
+      end
     end
 
   end

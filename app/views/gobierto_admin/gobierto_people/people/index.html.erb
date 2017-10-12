@@ -31,7 +31,7 @@
   <% @people.each do |person| %>
     <tr id="person-item-<%= person.id %>" data-id="<%= person.id %>" class="<%= cycle("odd", "even") %>">
       <td>
-        <% if ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin, person).manage? %>
+        <% if ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: current_admin, person: person).manage? %>
           <%= link_to edit_admin_people_person_path(person) do %>
             <i class="fa fa-edit"></i>
           <% end %>
@@ -40,7 +40,7 @@
         <% end %>
       </td>
       <td>
-        <% if ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin, person).manage? %>
+        <% if ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: current_admin, person: person).manage? %>
           <%= link_to edit_admin_people_person_path(person) do %>
             <%= person.name %>
           <% end %>
@@ -69,7 +69,7 @@
         <%= t(".visibility_level.#{person.visibility_level}") %>
       </td>
       <td>
-        <% if ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin, person).view? %>
+        <% if ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: current_admin, person: person).view? %>
           <%= link_to gobierto_people_person_preview_url(person, host: current_site.domain), target: "_blank", class: "view_item" do %>
             <i class="fa fa-eye"></i>
             <%= t(".view_person") %>

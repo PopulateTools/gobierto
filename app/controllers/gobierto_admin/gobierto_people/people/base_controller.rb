@@ -21,7 +21,8 @@ module GobiertoAdmin
         end
 
         def person_allowed!
-          unless PersonPolicy.new(current_admin, @person).manage?
+          person_policy = PersonPolicy.new(current_admin: current_admin, person: @person)
+          if !person_policy.manage?
             redirect_to admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')
           end
         end

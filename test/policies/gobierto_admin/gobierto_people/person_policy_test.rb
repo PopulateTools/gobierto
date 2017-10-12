@@ -36,46 +36,50 @@ module GobiertoAdmin
       end
       alias site madrid
 
-      def test_manage?
-        assert PersonPolicy.new(manager_admin, published_person).manage?
-        assert PersonPolicy.new(manager_admin, draft_person).manage?
+      def test_manager_admin_manage?
+        assert PersonPolicy.new(current_admin: manager_admin, person: published_person).manage?
+        assert PersonPolicy.new(current_admin: manager_admin, person: draft_person).manage?
+      end
 
-        # manager with all permissions
+      def test_regular_admin_manage?
+        # with all permissions
         setup_specific_permissions(regular_admin, site: site, module: 'gobierto_people', person: person)
-        assert PersonPolicy.new(regular_admin, person).manage?
+        assert PersonPolicy.new(current_admin: regular_admin, person: person).manage?
 
-        # manager without site permissions
+        # without site permissions
         setup_specific_permissions(regular_admin, module: 'gobierto_people', person: person)
-        refute PersonPolicy.new(regular_admin, person).manage?
+        refute PersonPolicy.new(current_admin: regular_admin, person: person).manage?
 
-        # manager without module permissions
+        # without module permissions
         setup_specific_permissions(regular_admin, site: site, person: person)
-        refute PersonPolicy.new(regular_admin, person).manage?
+        refute PersonPolicy.new(current_admin: regular_admin, person: person).manage?
 
-        # manager without person permissions
+        # without person permissions
         setup_specific_permissions(regular_admin, site: site, module: 'gobierto_people')
-        refute PersonPolicy.new(regular_admin, person).manage?
+        refute PersonPolicy.new(current_admin: regular_admin, person: person).manage?
+      end
 
-        # disabled with all permissions
+      def test_disabled_admin_manage?
+        # with all permissions
         setup_specific_permissions(disabled_admin, site: site, module: 'gobierto_people', person: person)
-        refute PersonPolicy.new(disabled_admin, person).manage?
+        refute PersonPolicy.new(current_admin: disabled_admin, person: person).manage?
       end
 
       def test_view?
-        assert PersonPolicy.new(manager_admin, published_person).view?
-        assert PersonPolicy.new(manager_admin, draft_person).view?
+        assert PersonPolicy.new(current_admin: manager_admin, person: published_person).view?
+        assert PersonPolicy.new(current_admin: manager_admin, person: draft_person).view?
 
-        assert PersonPolicy.new(regular_admin, published_person).view?
-        refute PersonPolicy.new(regular_admin, draft_person).view?
+        assert PersonPolicy.new(current_admin: regular_admin, person: published_person).view?
+        refute PersonPolicy.new(current_admin: regular_admin, person: draft_person).view?
 
-        assert PersonPolicy.new(disabled_admin, published_person).view?
-        refute PersonPolicy.new(disabled_admin, draft_person).view?
+        assert PersonPolicy.new(current_admin: disabled_admin, person: published_person).view?
+        refute PersonPolicy.new(current_admin: disabled_admin, person: draft_person).view?
       end
 
       def test_create?
-        assert PersonPolicy.new(manager_admin).create?
-        refute PersonPolicy.new(regular_admin).create?
-        refute PersonPolicy.new(disabled_admin).create?
+        assert PersonPolicy.new(current_admin: manager_admin).create?
+        refute PersonPolicy.new(current_admin: regular_admin).create?
+        refute PersonPolicy.new(current_admin: disabled_admin).create?
       end
 
     end

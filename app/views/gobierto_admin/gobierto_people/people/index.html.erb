@@ -29,14 +29,14 @@
   </thead>
   <tbody data-behavior="sortable" data-sortable-target="<%= admin_people_people_sort_path %>">
   <% @people.each do |person| %>
-    <tr id="person-item-<%= person.id %>" data-id="<%= person.id %>" class="<%= cycle("odd", "even") %>">
+    <tr id="person-item-<%= person.id %>" data-id="<%= person.id %>">
       <td>
         <% if ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: current_admin, person: person).manage? %>
           <%= link_to edit_admin_people_person_path(person) do %>
             <i class="fa fa-edit"></i>
           <% end %>
         <% else %>
-          <i class="fa fa-minus-circle"></i>
+          <i class="fa fa-ban tipsit" title="<%= t('.no_permissions') %>"></i>
         <% end %>
       </td>
       <td>

@@ -34,6 +34,7 @@ en:
           visibility_level:
             active: Published
             draft: Draft
+          no_permissions: You don't have permissions to edit this person. If you need to edit, ask your administrator
         navigation:
           agenda: Agenda
           person: Person

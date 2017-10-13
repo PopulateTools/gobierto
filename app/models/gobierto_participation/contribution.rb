@@ -27,8 +27,6 @@ module GobiertoParticipation
     scope :created_at_last_week, -> { where("created_at >= ?", 1.week.ago) }
     scope :with_user, ->(user) { where("user_id = ?", user.id) }
 
-    enum state: { pending: 0, published: 1 }
-
     def self.loved
       ids = Contribution.all.select { |c| c.love_pct >= 50 }.map(&:id)
       where(id: ids)
@@ -40,7 +38,7 @@ module GobiertoParticipation
     end
 
     def active?
-      published?
+      true
     end
 
     def parameterize

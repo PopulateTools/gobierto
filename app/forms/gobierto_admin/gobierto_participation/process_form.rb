@@ -28,8 +28,6 @@ module GobiertoAdmin
 
       validates :site, :title_translations, :process_type, presence: true
       validates :process_type, inclusion: { in: ::GobiertoParticipation::Process.process_types }
-      validates_presence_of :starts, :ends, if: :process?
-      validates_absence_of :starts, :ends, if: :group_process?
 
       trackable_on :process
 

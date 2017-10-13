@@ -104,7 +104,7 @@ module GobiertoAdmin
           existing_stage = process.stages.detect { |stage| stage.stage_type == stage_attributes['stage_type'] }
           update_existing_stage_from_attributes(existing_stage, stage_attributes) if existing_stage
         end
-        
+
         stages
       end
 
@@ -130,6 +130,7 @@ module GobiertoAdmin
         existing_stage.assign_attributes(
           title_translations: attributes['title_translations'],
           description_translations: attributes['description_translations'],
+          cta_text_translations: attributes['cta_text_translations'],
           active: attributes['active'],
           starts: attributes['starts'],
           ends: attributes['ends']

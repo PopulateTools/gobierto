@@ -16,7 +16,7 @@ module GobiertoParticipation
     validates :stage_type, inclusion: { in: stage_types }
     validates :stage_type, uniqueness: { scope: [:process_id] }
 
-    scope :sorted,   -> { order(id: :desc) }
+    scope :sorted,   -> { order(stage_type: :asc) }
     scope :open,     -> { where('starts <= ? AND ends >= ?', Time.zone.now, Time.zone.now) }
     scope :active,   -> { where(active: true) }
     scope :upcoming, -> { where('starts > ?', Time.zone.now) }

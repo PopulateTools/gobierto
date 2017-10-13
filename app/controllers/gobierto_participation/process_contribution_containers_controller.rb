@@ -4,7 +4,7 @@ module GobiertoParticipation
   class ProcessContributionContainersController < GobiertoParticipation::Processes::BaseController
     def index
       @process = find_process
-      @contribution_containers = @process.contribution_containers
+      @contribution_containers = @process.contribution_containers.active
     end
 
     def show

@@ -81,7 +81,7 @@ module GobiertoParticipation
     end
 
     def showcase_stage
-      current_stage || next_stage
+      current_stage || next_stage ||  active_stages.order(ends: :asc).last || active_stages.last
     end
 
     def open?

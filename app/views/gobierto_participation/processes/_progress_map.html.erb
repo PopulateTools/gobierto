@@ -1,29 +1,31 @@
 <div id="progress_map">
 
-  <h3 class='agenda_title'>
-    <% showcase_stage = process.showcase_stage %>
-
-    <% if process.current_stage %>
-      <%= t('.current') %>
-    <% else %>
-      <%= t('.next_stage') %>
-    <% end %>
-  </h3>
+  <% if showcase_stage = process.showcase_stage %>
+    <h3 class='agenda_title'>
+      <% if process.current_stage %>
+        <%= t('.current') %>
+      <% else %>
+        <%= t('.next_stage') %>
+      <% end %>
+    </h3>
+  <% end %>
 
   <div class='content_block'>
 
-    <div class='p_1'>
-      <p><%= showcase_stage.title %></p>
+    <% if showcase_stage %>
+      <div class='p_1'>
+        <p><%= showcase_stage.title %></p>
 
-      <% if showcase_stage.cta_text %>
-        <div class='center'>
-          <%= link_to process_stage_path(showcase_stage), class: 'button outline rounded checked' do %>
-            <span><%= showcase_stage.cta_text %></span>
-          <% end %>
-        </div>
-      <% end %>
+        <% if showcase_stage.cta_text %>
+          <div class='center'>
+            <%= link_to process_stage_path(showcase_stage), class: 'button outline rounded checked' do %>
+              <span><%= showcase_stage.cta_text %></span>
+            <% end %>
+          </div>
+        <% end %>
 
-    </div>
+      </div>
+    <% end %>
 
     <% if (stages_size = process.active_stages.size) >= 2 %>
 

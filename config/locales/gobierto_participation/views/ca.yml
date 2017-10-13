@@ -97,10 +97,12 @@ ca:
       process_teaser:
         current_stage_html: "<strong>Fase actual</strong>: %{current_stage}"
         next_stage_html: "<strong>Pròxima fase</strong>: %{current_stage}"
+      progress_map:
+        current: Fase actual
+        next_stage: Propera fase
       show:
         about: Sobre aquest procés
         appointments: Cites presencials
-        current: Fase actual
         interesting_information: Informació d'interès
         issue: Tema
         length: Durada

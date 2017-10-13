@@ -22,6 +22,7 @@ module GobiertoParticipation
     belongs_to :issue
     belongs_to :scope, class_name: 'GobiertoCommon::Scope'
     has_many :stages, -> { order(stage_type: :asc) }, dependent: :destroy, class_name: 'GobiertoParticipation::ProcessStage', autosave: true
+    has_many :active_stages, -> { active }, class_name: 'GobiertoParticipation::ProcessStage'
     has_many :polls
     has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
 
@@ -72,13 +73,15 @@ module GobiertoParticipation
     end
 
     def current_stage
-      process_stages = stages.where("starts <= ? AND ends >= ?", Time.zone.now, Time.zone.now)
-      process_stages.first.to_s
+      active_stages.open.order(ends: :asc).last
     end
 
     def next_stage
-      process_stages = stages.where("starts >= ? AND ends >= ?", Time.zone.now, Time.zone.now)
-      process_stages.first.to_s
+      active_stages.upcoming.order(starts: :asc).first
+    end
+
+    def showcase_stage
+      current_stage || next_stage
     end
 
     def open?

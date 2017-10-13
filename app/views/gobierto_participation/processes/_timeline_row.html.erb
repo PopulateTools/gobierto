@@ -18,9 +18,7 @@
       </div>
 
       <% if stage.open? %>
-        <%= todo_link_to do %>
-          <a href="#"><%= t('.view_stage') %></a>
-        <% end %>
+        <%= link_to t('.view_stage'), process_stage_path(stage) %>
       <% elsif stage.upcoming? %>
         <i><%= t('.upcoming_stage') %></i>
       <% elsif stage.past? %>

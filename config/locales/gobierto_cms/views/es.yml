@@ -12,6 +12,3 @@ es:
         title: Noticias
       show:
         documents: Documentos
-        filter: Filtrar por grupo
-        published_at: Publicado el %{date} por el %{site}
-        title: Noticias

@@ -12,6 +12,3 @@ ca:
         title: Notícies
       show:
         documents: Documents
-        filter: Filtrar per grup
-        published_at: Publicat el %{date} pel %{site}
-        title: Notícies

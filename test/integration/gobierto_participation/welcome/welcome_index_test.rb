@@ -43,7 +43,7 @@ module GobiertoParticipation
 
         within "menu.secondary_nav" do
           assert has_link? "News"
-          assert has_link? "Participation Agenda"
+          assert has_link? "Agenda"
           assert has_link? "Documents"
           assert has_link? "Activity"
         end
@@ -70,7 +70,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        click_link "Participation Agenda"
+        click_link "Agenda"
 
         assert_equal gobierto_participation_events_path, current_path
 

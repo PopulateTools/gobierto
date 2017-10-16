@@ -120,7 +120,7 @@ module GobiertoParticipation
         with_current_site(site) do
           visit container_path
 
-          page.find('[data-url="/participacion/procesos/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
+          page.find('[data-url="/participacion/p/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
           assert has_content? "Carril bici hasta el Juan Carlos I"
         end
       end
@@ -139,7 +139,7 @@ module GobiertoParticipation
             visit container_path
             assert has_content? "What activities for children we can start up?"
 
-            page.find('[data-url="/participacion/procesos/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
+            page.find('[data-url="/participacion/p/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
             assert has_content? "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
             assert has_content? "It values the idea"
             page.find("a.action_button.love").trigger("click")
@@ -158,7 +158,7 @@ module GobiertoParticipation
             visit process_path(process)
             visit container_path
 
-            page.find('[data-url="/participacion/procesos/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
+            page.find('[data-url="/participacion/p/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
             assert has_content? "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
 
             within "div.comments_container" do

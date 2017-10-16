@@ -42,7 +42,7 @@ en:
         work_groups_description: Check the activity of each group and participate.
         work_groups_title: Work groups
       participation_latest_info:
-        agenda: Diary
+        agenda: Paritipation Agenda
         news: News
         no_events: There are no related events
         no_news: There are no related news
@@ -71,7 +71,7 @@ en:
         results: Results
       secondary_nav:
         activity: Activity
-        agenda: Diary
+        agenda: Agenda
         documents: Documents
         news: News
     participation_attachments: See all the documents of Participation
@@ -160,10 +160,10 @@ en:
     shared:
       activities_for: Updates for %{container}
       agenda: Agenda
-      agenda_participation_p1: We invite you to attend the following meetings where
-        we will discuss in person on the issues of this process. If you can not to
-        attend, we will publish online everything that is said in the meetings to
-        facilitate follow-up and make conclusions accessible.
+      agenda_p1: We invite you to attend the following meetings where we will discuss
+        in person on the issues of this process. If you can not to attend, we will
+        publish online everything that is said in the meetings to facilitate follow-up
+        and make conclusions accessible.
       all_activities: See all updates
       all_attachments: See all documents
       all_events: View all events

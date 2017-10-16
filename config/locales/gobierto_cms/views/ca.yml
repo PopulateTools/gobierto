@@ -2,10 +2,10 @@
 ca:
   gobierto_cms:
     events:
-      gobierto_cms_page_created: Pàgina creada
-      gobierto_cms_page_deleted: Pàgina eliminada
-      gobierto_cms_page_published: Pàgina publicada
-      gobierto_cms_page_updated: Pàgina actualitzada
+      gobierto_cms_page_created: "%{subject_name}"
+      gobierto_cms_page_deleted: "%{subject_name}"
+      gobierto_cms_page_published: "%{subject_name}"
+      gobierto_cms_page_updated: "%{subject_name}"
     pages:
       index:
         filter: Filtrar per tema

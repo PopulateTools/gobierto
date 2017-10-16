@@ -42,7 +42,7 @@ es:
         work_groups_description: Consulta la actividad de cada grupo y participa.
         work_groups_title: Grupos de trabajo
       participation_latest_info:
-        agenda: Agenda
+        agenda: Agenda Participación
         news: Noticias
         no_events: No hay eventos relacionados
         no_news: No hay noticias relacionadas
@@ -161,10 +161,10 @@ es:
     shared:
       activities_for: Actividad de %{container}
       agenda: Agenda
-      agenda_participation_p1: Te invitamos a asistir a las siguientes reuniones donde
-        debatiremos en persona sobre los temas de este proceso. Si no puedes asistir,
-        iremos publicando online todo lo que se hable en la reuniones para facilitar
-        el seguimiento y hacer accesibles las conclusiones.
+      agenda_p1: Te invitamos a asistir a las siguientes reuniones donde debatiremos
+        en persona sobre los temas de este proceso. Si no puedes asistir, iremos publicando
+        online todo lo que se hable en la reuniones para facilitar el seguimiento
+        y hacer accesibles las conclusiones.
       all_activities: Ver todas las actualizaciones
       all_attachments: Ver todos los documentos
       all_events: Ver todos los eventos

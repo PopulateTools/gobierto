@@ -6,6 +6,9 @@
 <% if (current_module_body_class == 'gobierto_participation' && controller_name == 'theme-participation') ||
       (current_module_body_class == 'gobierto_cms' && controller_name == 'pages') %>
   <body class = 'gobierto_participation theme-participation'>
+
+<% elsif (current_module_body_class == 'gobierto_participation theme-participation' && controller_name == 'process_information') %>
+  <body class = 'gobierto_participation theme-participation content'>
 <% else %>
   <body class="<%= current_module_body_class %> <%= controller_name %> <%= action_name %> <%= controller_name %>_<%= action_name %>" <%= yield(:body_attributes) %>>
 <% end %>

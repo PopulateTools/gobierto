@@ -2,9 +2,8 @@
 es:
   gobierto_calendars:
     events:
-      gobierto_calendars_event_published: 'Agenda actualizada con un nuevo evento:
-        %{subject_name}'
-      gobierto_calendars_event_updated: 'Evento actualizado: %{subject_name}'
+      gobierto_calendars_event_published: "%{subject_name}"
+      gobierto_calendars_event_updated: "%{subject_name}"
     fullcalendar:
       day: Día
       list: Lista

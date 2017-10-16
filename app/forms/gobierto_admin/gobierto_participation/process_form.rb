@@ -67,6 +67,10 @@ module GobiertoAdmin
         @visibility_level ||= 'draft'
       end
 
+      def process_type
+        @process_type ||= 'process'
+      end
+
       def issue
         @issue ||= site.issues.find_by(id: issue_id)
       end

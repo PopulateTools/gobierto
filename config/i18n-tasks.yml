@@ -42,6 +42,7 @@ ignore_unused:
   - 'views.pagination.*'
   - 'helpers.page_entries_info.*'
   - 'gobierto_indicators.cards.*'
+  - 'user.subscriptions.subscribable_button.*'
 
 translation:
   api_key: ''

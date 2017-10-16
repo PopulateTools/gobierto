@@ -61,25 +61,39 @@ $lighter_black: rgba($color_headers, .7);
     }
   }
 
-  .button.outline.rounded {
-    color: $green;
-    background: $color_main_negative;
-    border: 1px solid $green;
-    margin-top: -.25em;
+  header.meta {
+    .site_header {
+      .button.outline.rounded {
+        color: $green;
+        background: $color_main_negative;
+        border: 1px solid $green;
+        margin-top: -.25em;
 
-    .fa {
-      color: $green;
+        .fa {
+          color: $green;
+        }
+
+        &:hover {
+          background: $green;
+          color: white;
+        }
+      }
+
+      .button.outline.rounded.checked {
+        background: $green;
+        color: white;
+
+        .fa {
+          color: white;
+        }
+      }
+
+
     }
   }
 
-  .button.outline.rounded.checked {
-    background: $green;
-    color: white;
 
-    .fa {
-      color: white;
-    }
-  }
+
 
   .button.outline.rounded.fat {
     &:active,

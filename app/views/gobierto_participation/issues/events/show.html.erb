@@ -4,6 +4,10 @@
   </h1>
 <% end %>
 
+<% content_for :subscribable_button do %>
+  <%= render 'user/subscriptions/subscribable_button', subscribable: @event %>
+<% end %>
+
 <div class="gradient-bg">
   <div class="column">
 

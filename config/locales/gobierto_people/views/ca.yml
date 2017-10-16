@@ -73,9 +73,6 @@ ca:
           event_data:
             event_attendees: Assistents
             event_locations: Lloc
-          subscribable_box:
-            subtitle: Rep actualitzacions, preguntes i notícies
-            title: Segueix aquest esdeveniment
           title: Agenda de %{person_name}
       person_messages:
         new:
@@ -111,8 +108,6 @@ ca:
         party:
           government: Equip de govern
           oposition: Oposició
-        subscribable_box:
-          title: Rebeix actualitzacions al teu correu-e sobre %{person_name}
       subscription_button:
         cancel: Cancelar
         follow: Seguir

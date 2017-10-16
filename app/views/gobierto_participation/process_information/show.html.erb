@@ -16,6 +16,10 @@
   class="theme-participation gobierto_participation content"
 <% end %>
 
+<% content_for :subscribable_button do %>
+  <%= render 'user/subscriptions/subscribable_button', subscribable: current_process %>
+<% end %>
+
 <div class="column">
   <div class="pure-g">
     <div class="pure-u-1 pure-u-lg-18-24">

@@ -3,6 +3,7 @@ module GobiertoAdmin
     class ProcessForm
 
       include ActiveModel::Model
+      prepend ::GobiertoCommon::Trackable
 
       attr_accessor(
         :id,
@@ -27,6 +28,12 @@ module GobiertoAdmin
 
       validates :site, :title_translations, :process_type, presence: true
       validates :process_type, inclusion: { in: ::GobiertoParticipation::Process.process_types }
+
+      trackable_on :process
+
+      # notify_changed :starts
+      # notify_changed :ends
+      notify_changed :visibility_level
 
       def initialize(options = {})
         options = options.to_h.with_indifferent_access
@@ -118,6 +125,12 @@ module GobiertoAdmin
         ::GobiertoParticipation::ProcessStage
       end
 
+      def notify?
+        process.active?
+      end
+
+      private
+
       def build_process(args = {})
         site.processes.build(args)
       end
@@ -169,7 +182,10 @@ module GobiertoAdmin
         build_placeholder_stages if process.stages.empty?
 
         if @process.valid?
-          @process.save
+          run_callbacks(:save) do
+            @process.save
+          end
+
           @process
         else
           promote_errors(@process.errors)

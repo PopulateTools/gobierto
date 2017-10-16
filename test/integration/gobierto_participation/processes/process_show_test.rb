@@ -4,13 +4,16 @@ require 'test_helper'
 
 module GobiertoParticipation
   class ProcessShowTest < ActionDispatch::IntegrationTest
-
     def site
       @site ||= sites(:madrid)
     end
 
+    def user
+      @user ||= users(:peter)
+    end
+
     def process_path(process)
-      gobierto_participation_process_path(process.slug)
+      @process_path ||= gobierto_participation_process_path(process.slug)
     end
 
     def process_information_path
@@ -156,11 +159,20 @@ module GobiertoParticipation
     end
 
     def test_subscription_block
-      with_current_site(site) do
-        visit process_path(gender_violence_process)
+      with_javascript do
+        with_current_site(site) do
+          with_signed_in_user(user) do
+            visit process_path(gender_violence_process)
+            within ".site_header" do
+              assert has_link? "Follow process"
+            end
 
-        within '.site_header' do
-          assert has_content? 'Follow this process'
+            click_on "Follow process"
+            assert has_link? "Process followed!"
+
+            click_on "Process followed!"
+            assert has_link? "Follow process"
+          end
         end
       end
     end

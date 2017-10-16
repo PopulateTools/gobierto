@@ -113,15 +113,5 @@ module GobiertoParticipation
         assert has_selector?("h2", text: "Updates")
       end
     end
-
-    def test_subscription_block
-      with_current_site(site) do
-        visit @path
-
-        within ".site_header" do
-          skip "Not yet defined"
-        end
-      end
-    end
   end
 end

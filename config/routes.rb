@@ -263,7 +263,15 @@ Rails.application.routes.draw do
       get "/" => "welcome#index", as: :root
 
       resources :processes, only: [:index, :show], path: "p" do
-        resource :information, only: [:show], controller: "process_information", as: :process_information, path: :informacion
+        resource :information, only: [:show], controller: "process_information", as: :process_information, path: "informacion"
+        resources :contribution_containers, only: [:index, :show], controller: "process_contribution_containers", as: :process_contribution_containers, path: "aportaciones" do
+          resources :contributions, only: [:show], controller: "process_contributions", as: :process_contributions, path: :contributions do
+            resource :vote, only: [:create, :destroy]
+            resource :flag, only: [:create, :destroy]
+            resource :comment, only: [:create, :index]
+          end
+        end
+
         resources :polls, only: [:index], controller: "processes/polls", path: "encuestas" do
           resources :answers, only: [:new, :create], controller: "processes/poll_answers"
         end

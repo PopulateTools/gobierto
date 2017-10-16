@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "test_helper"
-require "support/calendar_integration_helpers"
+require 'test_helper'
+require 'support/calendar_integration_helpers'
 
 module GobiertoAdmin
   module GobiertoPeople
@@ -9,7 +9,7 @@ module GobiertoAdmin
       include ::CalendarIntegrationHelpers
 
       def google_calendar_id
-        "richard@google-calendar.com"
+        'richard@google-calendar.com'
       end
 
       def setup
@@ -18,13 +18,13 @@ module GobiertoAdmin
 
         ## Mocks
         calendar1 = mock
-        calendar1.stubs(id: google_calendar_id, primary?: true, summary: "Calendar 1")
+        calendar1.stubs(id: google_calendar_id, primary?: true, summary: 'Calendar 1')
 
         calendar2 = mock
-        calendar2.stubs(id: 2, primary?: false, summary: "Calendar 2")
+        calendar2.stubs(id: 2, primary?: false, summary: 'Calendar 2')
 
         calendar3 = mock
-        calendar3.stubs(id: 3, primary?: false, summary: "Calendar 3")
+        calendar3.stubs(id: 3, primary?: false, summary: 'Calendar 3')
 
         calendars_mock = mock
         calendars_mock.stubs(:calendars).returns([calendar1, calendar2, calendar3])
@@ -47,28 +47,28 @@ module GobiertoAdmin
         with_signed_in_admin(admin) do
           with_current_site(site) do
             activate_ibm_notes_calendar_integration(site)
-            set_ibm_notes_calendar_endpoint(person, "http://calendar/richard")
+            set_ibm_notes_calendar_endpoint(person, 'http://calendar/richard')
 
             visit @person_events_path
 
-            click_link "Agenda"
-            click_link "Configuration"
+            click_link 'Agenda'
+            click_link 'Configuration'
 
-            assert has_field?("calendar_configuration[ibm_notes_url]", with: "http://calendar/richard")
+            assert has_field?('calendar_configuration[ibm_notes_url]', with: 'http://calendar/richard')
 
-            fill_in "calendar_configuration_ibm_notes_url", with: "http://calendar/richard/new"
+            fill_in 'calendar_configuration_ibm_notes_url', with: 'http://calendar/richard/new'
 
-            click_button "Update"
+            click_button 'Update'
 
-            assert has_field?("calendar_configuration[ibm_notes_url]", with: "http://calendar/richard/new")
-            refute has_field?("calendar_configuration[ibm_notes_url]", with: "http://calendar/richard")
+            assert has_field?('calendar_configuration[ibm_notes_url]', with: 'http://calendar/richard/new')
+            refute has_field?('calendar_configuration[ibm_notes_url]', with: 'http://calendar/richard')
 
-            assert_enqueued_with(job: ::GobiertoPeople::ClearImportedPersonEventsJob, args: [person], queue: "default") do
-              fill_in "calendar_configuration_ibm_notes_url", with: ""
-              click_button "Update"
+            assert_enqueued_with(job: ::GobiertoPeople::ClearImportedPersonEventsJob, args: [person], queue: 'default') do
+              fill_in 'calendar_configuration_ibm_notes_url', with: ''
+              click_button 'Update'
             end
 
-            assert has_field?("calendar_configuration[ibm_notes_url]")
+            assert has_field?('calendar_configuration[ibm_notes_url]')
           end
         end
       end
@@ -80,10 +80,10 @@ module GobiertoAdmin
 
             visit @person_events_path
 
-            click_link "Agenda"
-            click_link "Configuration"
+            click_link 'Agenda'
+            click_link 'Configuration'
 
-            assert has_field?("google_calendar_invitation_url")
+            assert has_field?('google_calendar_invitation_url')
           end
         end
       end
@@ -92,38 +92,77 @@ module GobiertoAdmin
         with_signed_in_admin(admin) do
           with_current_site(site) do
             activate_google_calendar_calendar_integration(site)
-            configure_google_calendar_integration(person, "google_calendar_credentials" => "person credentials")
+            configure_google_calendar_integration(person, 'google_calendar_credentials' => 'person credentials')
 
             visit @person_events_path
 
-            click_link "Agenda"
-            click_link "Configuration"
+            click_link 'Agenda'
+            click_link 'Configuration'
 
-            refute has_field?("google_calendar_invitation_url")
-            assert has_field?("calendar_configuration[clear_google_calendar_configuration]")
+            refute has_field?('google_calendar_invitation_url')
+            assert has_field?('calendar_configuration[clear_google_calendar_configuration]')
 
-            refute has_checked_field?("Calendar 1")
-            refute has_checked_field?("Calendar 2")
-            refute has_checked_field?("Calendar 3")
+            refute has_checked_field?('Calendar 1')
+            refute has_checked_field?('Calendar 2')
+            refute has_checked_field?('Calendar 3')
 
-            check "Calendar 1"
+            check 'Calendar 1'
 
-            click_button "Update"
+            click_button 'Update'
 
-            assert has_checked_field?("Calendar 1")
-            refute has_checked_field?("Calendar 2")
-            refute has_checked_field?("Calendar 3")
+            assert has_checked_field?('Calendar 1')
+            refute has_checked_field?('Calendar 2')
+            refute has_checked_field?('Calendar 3')
 
-            assert_enqueued_with(job: ::GobiertoPeople::ClearImportedPersonEventsJob, args: [person], queue: "default") do
-              check "calendar_configuration[clear_google_calendar_configuration]"
-              click_button "Update"
+            assert_enqueued_with(job: ::GobiertoPeople::ClearImportedPersonEventsJob, args: [person], queue: 'default') do
+              check 'calendar_configuration[clear_google_calendar_configuration]'
+              click_button 'Update'
             end
 
-            assert has_field?("google_calendar_invitation_url")
-            refute has_field?("calendar_configuration[clear_google_calendar_configuration]")
+            assert has_field?('google_calendar_invitation_url')
+            refute has_field?('calendar_configuration[clear_google_calendar_configuration]')
           end
         end
       end
+
+      def test_person_calendar_configuration_for_microsoft_exchange
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            activate_microsoft_exchange_calendar_integration(site)
+
+            visit @person_events_path
+
+            click_link 'Agenda'
+            click_link 'Configuration'
+
+            assert_nil find_field('calendar_configuration_microsoft_exchange_url').value
+            assert_nil find_field('calendar_configuration_microsoft_exchange_usr').value
+            assert_nil find_field('calendar_configuration_microsoft_exchange_pwd').value
+
+            # set calendar configuration
+
+            fill_in 'calendar_configuration_microsoft_exchange_url', with: 'http://endpoint.com'
+            fill_in 'calendar_configuration_microsoft_exchange_usr', with: 'username'
+            fill_in 'calendar_configuration_microsoft_exchange_pwd', with: 'password'
+
+            click_button 'Update'
+
+            assert has_field?('calendar_configuration[microsoft_exchange_url]', with: 'http://endpoint.com')
+            assert has_field?('calendar_configuration[microsoft_exchange_usr]', with: 'username')
+            assert has_field?('calendar_configuration[microsoft_exchange_pwd]', with: PersonCalendarConfigurationForm::ENCRYPTED_SETTING_PLACEHOLDER)
+
+            assert_equal 'password', ::SecretAttribute.decrypt(person.calendar_configuration.data['microsoft_exchange_pwd'])
+
+            # clear calendar configuration
+
+            assert_enqueued_with(job: ::GobiertoPeople::ClearImportedPersonEventsJob, args: [person], queue: 'default') do
+              check 'calendar_configuration[clear_microsoft_exchange_configuration]'
+              click_button 'Update'
+            end
+          end
+        end
+      end
+
     end
   end
 end

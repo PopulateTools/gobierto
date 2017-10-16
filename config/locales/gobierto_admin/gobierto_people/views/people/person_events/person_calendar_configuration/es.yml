@@ -13,6 +13,7 @@ es:
                 microsoft_exchange_pwd: Contraseña
                 microsoft_exchange_url: URL del calendario
                 microsoft_exchange_usr: Cuenta de Microsoft Exchange
+                remove_configuration: Eliminar configuración de calendario
               placeholders:
                 ibm_notes_url: URL del calendario de IBM Notes
                 microsoft_exchange_url: ej. https://ejemplo.com/ews/exchange.asmx

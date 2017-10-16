@@ -13,6 +13,7 @@ ca:
                 microsoft_exchange_pwd: Contrasenya
                 microsoft_exchange_url: URL del calendari
                 microsoft_exchange_usr: Compte de Microsoft Exchange
+                remove_configuration: Eliminar configuració
               placeholders:
                 ibm_notes_url: URL del calendari d'IBM Notes
                 microsoft_exchange_url: ex. https://example.com/ews/exchange.asmx

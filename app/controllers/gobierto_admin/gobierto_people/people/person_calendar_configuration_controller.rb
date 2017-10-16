@@ -34,6 +34,7 @@ module GobiertoAdmin
             :microsoft_exchange_pwd,
             :microsoft_exchange_url,
             :clear_google_calendar_configuration,
+            :clear_microsoft_exchange_configuration,
             calendars: []
           )
         end

@@ -17,8 +17,12 @@ module GobiertoPeople
         @site ||= sites(:madrid)
       end
 
-      def microsoft_exchange_email
-        'richard@microsoft-exchange.com'
+      def microsoft_exchange_settings
+        @microsoft_exchange_settings ||= {
+          microsoft_exchange_url: 'http://example.com/ews/exchange.asmx',
+          microsoft_exchange_usr: 'richard-me-username',
+          microsoft_exchange_pwd: 'richard-me-password'
+        }
       end
 
       def setup_mocks_for_synchronization(canned_responses)
@@ -49,7 +53,7 @@ module GobiertoPeople
 
         # configure site and person
         activate_microsoft_exchange_calendar_integration(sites(:madrid))
-        set_microsoft_exchange_email_account(richard, microsoft_exchange_email)
+        configure_microsoft_exchange_integration(richard, microsoft_exchange_settings.merge(encrypt: true))
       end
 
       def event_attributes

@@ -1,6 +1,10 @@
 ---
 en:
   gobierto_participation:
+    comments:
+      comment:
+        comments_html: "<strong>%{comments}</strong> comments"
+        respond: Respond
     events:
       event:
         follow_event: Follow this event
@@ -70,6 +74,36 @@ en:
         documents: Documents
         news: News
     participation_attachments: See all the documents of Participation
+    process_contribution_containers:
+      show:
+        all: All
+        best_ratings: Best ratings
+        idea:
+          one: 1 idea
+          other: "%{count} ideas"
+        organize: Organize
+        put_ideas: Have an idea!
+        recent: Recent
+        self: Self
+        show_ideas: Show ideas
+        term_html: You have of term until <strong>%{date}</strong>
+        user:
+          one: One neighbor have contributed
+          other: "%{count} neighbors have contributed"
+        worst_ratings: Worst ratings
+    process_contributions:
+      comments:
+        comments_html: "<strong>%{comments}</strong> comments"
+      contribution:
+        enchants: It enchants to me
+        indifferent: It is to me indifferent
+        like: I like
+        not_like: I don't like
+        sent: sent by %{author} the %{date}
+        values_this_idea: It values the idea
+      flag:
+        report: Report
+        reported: Reported
     processes:
       index:
         groups: Work groups

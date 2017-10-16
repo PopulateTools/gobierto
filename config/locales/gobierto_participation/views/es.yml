@@ -1,6 +1,10 @@
 ---
 es:
   gobierto_participation:
+    comments:
+      comment:
+        comments_html: "<strong>%{comments}</strong> comentarios"
+        respond: Responder
     events:
       event:
         follow_event: Seguir este evento
@@ -59,7 +63,7 @@ es:
         processes: Procesos
         questions: Pregunta
       process_menu_subsections:
-        contributions: Contribuciones
+        contributions: Aportaciones
         information: Información
         meetings: Reuniones
         polls: Encuestas
@@ -70,6 +74,36 @@ es:
         documents: Documentos
         news: Noticias
     participation_attachments: Ver todos los documentos de Participación
+    process_contribution_containers:
+      show:
+        all: Todas
+        best_ratings: Mejor valoradas
+        idea:
+          one: 1 idea
+          other: "%{count} ideas"
+        organize: Organizar
+        put_ideas: "¡Tengo una idea!"
+        recent: Recientes
+        self: Tuyas
+        show_ideas: Mostrar ideas
+        term_html: Tienes de plazo hasta el <strong>%{date}</strong>
+        user:
+          one: Un vecino ha aportado
+          other: "%{count} vecinos han aportado"
+        worst_ratings: Peor valoradas
+    process_contributions:
+      comments:
+        comments_html: "<strong>%{comments}</strong> comentarios"
+      contribution:
+        enchants: Me encanta
+        indifferent: Me es indiferente
+        like: Me gusta
+        not_like: No me gusta
+        sent: enviada por %{author} el %{date}
+        values_this_idea: Valora esta idea
+      flag:
+        report: Reportar
+        reported: Reportada
     processes:
       index:
         groups: Grupos de trabajo

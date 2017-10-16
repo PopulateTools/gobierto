@@ -1,0 +1,110 @@
+<%= content_for :body_attributes do %>
+  class="theme-participation gobierto_participation contributions_layout"
+<% end %>
+
+<div class="modal_like_control">
+  <a href="<%= gobierto_participation_process_process_contribution_containers_path(@contribution_container.process.slug) %>" class=" mfp-close">×</a>
+</div>
+
+<div class="contributions_container">
+
+  <div class="contributions_header pure-g">
+    <div class="wrapper">
+      <div class="pure-u-1 pure-u-md-2-24">
+        <div class="circle"><span>?</span></div>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-15-24 meta">
+        <h2 class="m_v_0"><%= @contribution_container.title %></h2>
+        <p><%= @contribution_container.description %></p>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-2-24"></div>
+
+      <div class="pure-u-1 pure-u-md-5-24 contribution_action">
+        <a href="" class="button"><%= t('.put_ideas') %></a>
+        <p>
+          <%= t('.term_html', date: l(@contribution_container.ends, format: :day_month)) %>
+        </p>
+      </div>
+
+    </div>
+
+    <div class="pure-u-1 contributions_control">
+      <div class="pure-g">
+        <div class="wrapper">
+          <div class="pure-u-1 pure-u-md-12-24 pure-u-lg-15-24">
+            <p><%= t('.show_ideas') %></p>
+
+            <a class="button rounded outline cardControl checked" data-filter="all"><%= t('.all') %></a>
+            <a class="button rounded outline cardControl" data-filter="best_ratings"><%= t('.best_ratings') %></a>
+            <a class="button rounded outline cardControl" data-filter="worst_ratings"><%= t('.worst_ratings') %></a>
+            <a class="button rounded outline cardControl" data-filter="recent"><%= t('.recent') %></a>
+            <% if current_user %>
+              <a class="button rounded outline cardControl" data-filter="self"><%= t('.self') %></a>
+            <% end %>
+          </div>
+
+          <div class="pure-u-1 pure-u-md-1-24"></div>
+
+          <div class="pure-u-1 pure-u-md-5-24 pure-u-lg-3-24">
+            <div class="radio_toggle">
+              <span><%= t('.organize') %></span>
+              <input id="contributions_checkbox" type="checkbox">
+              <label for="contributions_checkbox" class="toggleLayout" data-toggle="false"></label>
+            </div>
+          </div>
+
+          <div class="pure-u-1 pure-u-md-6-24 pure-u-lg-5-24">
+            <ul id="circles_progress" class="circles_progress">
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contributions_content">
+
+  </div>
+</div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    var data_origin = <%= @contribution_container.contributions.javascript_json.html_safe %>;
+    var data = data_origin;
+    var data_best_ratings = <%= @contribution_container.contributions.loved.javascript_json.html_safe %>;
+    var data_worst_ratings = <%= @contribution_container.contributions.hated.javascript_json.html_safe %>;
+    var data_recent = <%= @contribution_container.contributions.created_at_last_week.javascript_json.html_safe %>;
+
+    <% if current_user %>
+      var data_self = <%= @contribution_container.contributions.with_user(current_user).javascript_json.html_safe %>;
+      var user =  "<%= t('.user',
+                        count: @contribution_container.contributions.with_user(current_user).count(:user_id)) %> <%= t('.idea',
+                        count: @contribution_container.contributions.with_user(current_user).count) %>";
+    <% end %>
+
+    var users_ideas_origin = "<%= t('.user',
+                                  count: @contribution_container.contributions.distinct.count(:user_id)) %> <%= t('.idea',
+                                  count: @contribution_container.contributions.count) %>";
+
+    var users_best_ratings = "<%= t('.user',
+                                  count: @contribution_container.contributions.loved.distinct.count(:user_id)) %> <%= t('.idea',
+                                  count: @contribution_container.contributions.loved.count) %>";
+
+    var users_worst_ratings = "<%= t('.user',
+                                   count: @contribution_container.contributions.hated.distinct.count(:user_id)) %> <%= t('.idea',
+                                   count: @contribution_container.contributions.hated.count) %>";
+
+    var users_recent = "<%= t('.user',
+                                   count: @contribution_container.contributions.created_at_last_week.distinct.count(:user_id)) %> <%= t('.idea',
+                                   count: @contribution_container.contributions.created_at_last_week.count) %>";
+
+    var users_ideas = users_ideas_origin;
+
+    var cardnumber = 12;
+    var page_max = Math.round(data.length/cardnumber);
+
+    window.GobiertoParticipation.contribution_containers_controller.index();
+  <% end %>
+<% end %>

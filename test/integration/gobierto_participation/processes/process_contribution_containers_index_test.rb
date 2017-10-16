@@ -66,7 +66,7 @@ module GobiertoParticipation
         visit process_contribution_containers_path
 
         within ".site_header" do
-          assert has_content? "Follow this process"
+          assert has_content? "Follow process"
         end
       end
     end

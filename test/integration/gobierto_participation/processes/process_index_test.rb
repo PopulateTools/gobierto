@@ -62,16 +62,6 @@ module GobiertoParticipation
       end
     end
 
-    def test_subscription_block
-      with_current_site(site) do
-        visit @path
-
-        within ".site_header" do
-          skip "Not yet defined"
-        end
-      end
-    end
-
     def test_processes_index
       with_current_site(site) do
         visit @path

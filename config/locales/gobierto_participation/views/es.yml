@@ -20,6 +20,7 @@ es:
       gobierto_participation_poll_created: Encuesta creada
       gobierto_participation_poll_updated: Encuesta actualizada
       gobierto_participation_process_created: Proceso / grupo creado
+      gobierto_participation_process_published: 'Actualitzación del proceso: %{subject_name}'
       gobierto_participation_process_updated: Proceso / grupo actualizado
       index:
         agenda_for_container: Agenda de %{container_title}

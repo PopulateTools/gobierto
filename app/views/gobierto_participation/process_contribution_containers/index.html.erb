@@ -16,6 +16,10 @@
   class="theme-participation gobierto_participation"
 <% end %>
 
+<% content_for :subscribable_button do %>
+  <%= render 'user/subscriptions/subscribable_button', subscribable: current_process %>
+<% end %>
+
 <div class="gradient-bg">
   <div class="column">
 

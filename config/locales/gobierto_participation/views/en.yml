@@ -20,6 +20,7 @@ en:
       gobierto_participation_poll_created: Poll created
       gobierto_participation_poll_updated: Poll updated
       gobierto_participation_process_created: Process / group created
+      gobierto_participation_process_published: 'Update process: %{subject_name}'
       gobierto_participation_process_updated: Process / group updated
       index:
         agenda_for_container: Diary for %{container_title}

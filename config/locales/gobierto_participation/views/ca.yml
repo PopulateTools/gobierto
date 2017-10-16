@@ -18,6 +18,7 @@ ca:
       gobierto_participation_poll_created: Enquesta creada
       gobierto_participation_poll_updated: Enquesta actualitzada
       gobierto_participation_process_created: Procés / grup creat
+      gobierto_participation_process_published: 'Actualització del procés: %{subject_name}'
       gobierto_participation_process_updated: Procés / grup actualitzat
       index:
         agenda_for_container: Agenda de %{container_title}

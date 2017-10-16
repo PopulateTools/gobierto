@@ -72,9 +72,6 @@ en:
           event_data:
             event_attendees: Attendees
             event_locations: Location
-          subscribable_box:
-            subtitle: Get updates, questions and news
-            title: Follow this event
           title: "%{person_name}'s agenda"
       person_messages:
         new:
@@ -110,11 +107,9 @@ en:
         party:
           government: Government
           oposition: Oposition
-        subscribable_box:
-          title: Receive %{person_name}'s updates in your inbox
       subscription_button:
         cancel: Cancel
-        follow: Follow
+        follow: Folloe
       upcoming_events:
         no_upcoming_events: Ther eare no upcoming events
         title: Agenda

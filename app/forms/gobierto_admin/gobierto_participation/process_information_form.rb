@@ -8,7 +8,6 @@ module GobiertoAdmin
       attr_accessor(
         :id,
         :information_text_translations,
-        :visibility_level,
         :site_id
       )
 
@@ -43,7 +42,6 @@ module GobiertoAdmin
       def save_process
         @process = process.tap do |process_attributes|
           process_attributes.information_text_translations = information_text_translations
-          process_attributes.visibility_level = visibility_level
         end
 
         if @process.valid?

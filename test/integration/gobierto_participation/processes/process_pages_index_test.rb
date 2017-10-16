@@ -13,7 +13,7 @@ module GobiertoParticipation
     end
 
     def process_pages_path
-      @process_pages_path ||= gobierto_participation_process_process_pages_path(
+      @process_pages_path ||= gobierto_participation_process_pages_path(
         process_id: process.slug
       )
     end
@@ -54,7 +54,7 @@ module GobiertoParticipation
 
         within "menu.secondary_nav" do
           assert has_link? "News"
-          assert has_link? "Diary"
+          assert has_link? "Participation Agenda"
           assert has_link? "Documents"
           assert has_link? "Activity"
         end

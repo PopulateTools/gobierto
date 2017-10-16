@@ -10,6 +10,7 @@ ca:
           placeholders:
             description: Descripció del fitxer
             name: Nom del document
+            slug: nom-del-document
         index:
           collections: Col·leccions
           header:

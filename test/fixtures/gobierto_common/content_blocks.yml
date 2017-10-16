@@ -4,6 +4,12 @@ contact_methods:
   title: <%= { "en" => "Contact methods", "es" => "Formas de contacto" }.to_json %>
   internal_id: <%= GobiertoCommon::DynamicContent::CONTACT_BLOCK_ID %>
 
+custom_links:
+  site: madrid
+  content_model_name: GobiertoPeople::Person
+  title: <%= { "en" => "Custom links", "es" => "Links personalizados" }.to_json %>
+  internal_id: <%= GobiertoCommon::DynamicContent::CUSTOM_LINKS_BLOCK_ID %>
+
 accomplishments:
   site: madrid
   content_model_name: GobiertoPeople::Person

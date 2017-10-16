@@ -11,6 +11,7 @@ this.GobiertoAdmin.IssuesController = (function() {
 
     $(wrapper).sortable({
       items: 'tr',
+      handle: '.custom_handle',
       forcePlaceholderSize: true,
       placeholder: '<tr><td colspan="8">&nbsp;&nbsp;</td></tr>',
       update: function(e, ui) {

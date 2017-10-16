@@ -37,6 +37,8 @@ module GobiertoAdmin
 
               select 'Culture', from: 'process_issue_id'
 
+              select 'Old town', from: 'process_scope_id'
+
               find('#process_has_duration', visible: false).trigger(:click)
 
               fill_in 'process_starts', with: '2017-01-01'
@@ -59,6 +61,7 @@ module GobiertoAdmin
               assert_equal 'Título del nuevo proceso', process.title_es
               assert_equal 'Descripción del nuevo proceso', process.body_es
               assert_equal 'Culture', process.issue.name
+              assert_equal 'Old town', process.scope.name
 
               # check slug gets auto-filled in server
               assert_equal 'new-process-title', process.slug

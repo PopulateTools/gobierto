@@ -28,18 +28,7 @@ es:
           donde debatiremos en persona sobre los temas de este proceso. Si no puedes
           asistir, iremos publicando online todo lo que se hable en la reuniones para
           facilitar el seguimiento y hacer accesibles las conclusiones.
-    issue_pages:
-      index:
-        filter: Filtrar por tema
-        title: Noticias
-      show:
-        documents: Documentos
-        filter: Filtrar por grupo
-        published_at: Publicado el %{date} por el %{site}
-        title: Noticias
     issues:
-      current_group:
-        current_stage: Fase actual
       index:
         intro_html: Tus ideas ayudan a mejorar %{location_name} y la vida de todos
           los que residimos aquí. Aporta tus mejores ideas en nuestros <strong>espacios
@@ -56,7 +45,7 @@ es:
         show_more_news: Ver más noticias
         show_more_updates: Ver más actualizaciones
         the_last: Lo último
-        up_to_date: "%{location_name} al día"
+        up_to_date: "%{site_title} al día"
       participation_proccesses:
         processes_description: Consulta y participa en procesos específicos.
         processes_title: Procesos en marcha
@@ -77,51 +66,10 @@ es:
         results: Resultados
       secondary_nav:
         activity: Actividad
-        agenda: Agenda
+        agenda_participation: Agenda Participación
         documents: Documentos
         news: Noticias
-    participation_events:
-      event:
-        add_to_calendar: Añadir a mi calendario
-        download: Descargar datos
-        follow_event: Seguir este evento
-        neighbors_count_html:
-          one: "<strong>%{neighbors} vecinos</strong> asistirán"
-          other: "<strong>%{neighbors} vecinos</strong> asistirán"
-          zero: Ningún vecino asistirá
-      event_teaser:
-        add_to_calendar: Añadir a mi calendario
-        agenda_of: 'Agenda de:'
-        neighbors_count_html:
-          one: "<strong>%{neighbors} vecinos</strong> asistirán"
-          other: "<strong>%{neighbors} vecinos</strong> asistirán"
-          zero: Ningún vecino asistirá
-        want_to_attend: Quiero asistir
-      index:
-        all_events: Ver todos los eventos
-        events: Eventos
-      show:
-        from_to: "%{starts} al %{ends}"
-    participation_pages:
-      index:
-        all_pages: Ver todas las páginas
-        filter: Filtrar
-        news: Noticias
-        title: Noticias
-      show:
-        documents: Documentos
-        filter: Filtrar por grupo
-        published_at: Publicado el %{date} por el %{site}
-        title: Noticias
-    process_pages:
-      index:
-        filter: Filtrar por tema
-        title: Noticias
-      show:
-        documents: Documentos
-        filter: Filtrar por grupo
-        published_at: Publicado el %{date} por el %{site}
-        title: Noticias
+    participation_attachments: Ver todos los documentos de Participación
     processes:
       index:
         groups: Grupos de trabajo
@@ -150,39 +98,80 @@ es:
           participate_until: Participa hasta %{date}
       process_teaser:
         current_stage_html: "<strong>Fase actual</strong>: %{current_stage}"
+        next_stage_html: "<strong>Próxima fase</strong>: %{current_stage}"
       show:
         about: Sobre este proceso
         appointments: Citas presenciales
-        from_to: "%{starts} al %{ends}"
         interesting_information: Información de interés
         issue: Tema
         length: Duración
+        more_activities: Ver más actualizaciones
         more_events: Ver más eventos
         more_information: Más información
         more_news: Ver más noticias
-        more_updates: Ver más actualizaciones
         newest: Lo último
         news: Noticias
+        no_activities: No hay actualizaciones relacionadas
         no_events: No hay eventos relacionados
         no_news: No hay noticias relacionadas
         process_stages: Fases del proceso
+        scope: Ámbito
       timeline_row:
         past_stage: Fase finalizada
         upcoming_stage: Fase pendiente de inicio
         view_stage: Acceder a esta fase
+    shared:
+      activities_for: Actividad de %{container}
+      agenda: Agenda
+      agenda_participation_p1: Te invitamos a asistir a las siguientes reuniones donde
+        debatiremos en persona sobre los temas de este proceso. Si no puedes asistir,
+        iremos publicando online todo lo que se hable en la reuniones para facilitar
+        el seguimiento y hacer accesibles las conclusiones.
+      all_activities: Ver todas las actualizaciones
+      all_attachments: Ver todos los documentos
+      all_events: Ver todos los eventos
+      all_news: Ver todas las noticias
+      consultation_processes: Consulta y participa en procesos específicos.
+      diary_for: Agenda de %{container}
+      documents: Documentos
+      documents_for: Documentos de %{container}
+      events:
+        event:
+          follow_event: Seguir este evento
+          from_to: "%{starts} al %{ends}"
+        event_teaser:
+          agenda_for_container: Agenda de
+      filter_by_theme: Filtrar por tema
+      from_to: "%{starts} al %{ends}"
+      new: Noticia
+      news_for: Noticias de %{container}
+      no_activities: No hay actualizaciones relacionadas
+      no_documents: No hay documentos relacionados
+      no_events: No hay eventos relacionados
+      no_news: No hay noticias relacionadas
+      ongoing_processes: Procesos en marcha
+      participation: Participación
+      published_at: Publicado el %{date} por el %{site}
     welcome:
       index:
+        ask_the_mayor: Pregunta al alcalde
+        ask_the_mayor_p1: "¿Qué quieres saber de boca del Alcalde? Envíale tú pregunta."
+        improve_city: Mejoremos la ciudad juntos
+        improve_city_p1: Comparte tus ideas para mejorar la ciudad. Opina sobre las
+          de los demás.
         intro: Conoce los mecanismos de participación que te ofrece %{location_name}
         intro_p1: "¿Votar cada cuatro años? Implícate en el día a día."
       participation_latest_info:
         agenda: Agenda
         more_news: Ver más noticias
+        news: Noticias
+        no_activities: No hay actualizaciones relacionadas
         no_events: No hay eventos relacionados
         no_news: No hay noticias relacionadas
         show_more_events: Ver más eventos
         show_more_updates: Ver más actualizaciones
         the_last: Lo último
-        up_to_date: "%{location_name} al día"
+        up_to_date: "%{site_title} al día"
       participation_themes_list_a:
         intro: Aporta tus mejores ideas para mejorar %{location_name} y la vida de
           todos los que residimos aquí.

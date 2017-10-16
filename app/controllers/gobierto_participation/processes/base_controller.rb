@@ -3,10 +3,9 @@
 module GobiertoParticipation
   module Processes
     class BaseController < GobiertoParticipation::ApplicationController
-
       include ::PreviewTokenHelper
       include ProcessStagesHelper
-      
+
       helper_method :current_process
 
       protected
@@ -20,7 +19,6 @@ module GobiertoParticipation
       def processes_scope
         valid_preview_token? ? current_site.processes : current_site.processes.active
       end
-
     end
   end
 end

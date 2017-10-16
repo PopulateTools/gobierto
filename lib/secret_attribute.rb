@@ -3,6 +3,7 @@
 require "digest/sha1"
 
 class SecretAttribute
+
   def self.digest(value)
     Digest::SHA1.hexdigest(value + salt)
   end
@@ -11,4 +12,15 @@ class SecretAttribute
     Rails.application.secrets.secret_key_base
   end
   private_class_method :salt
+
+  def self.encrypt(plain_text)
+    crypt = ActiveSupport::MessageEncryptor.new(Rails.application.secrets.secret_key_base[0..31])
+    crypt.encrypt_and_sign(plain_text)
+  end
+
+  def self.decrypt(encrypted_text)
+    crypt = ActiveSupport::MessageEncryptor.new(Rails.application.secrets.secret_key_base[0..31])
+    crypt.decrypt_and_verify(encrypted_text)
+  end
+
 end

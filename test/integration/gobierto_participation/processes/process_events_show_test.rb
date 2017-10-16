@@ -17,10 +17,9 @@ module GobiertoParticipation
     end
 
     def process_event_path
-      @process_event_path ||= gobierto_participation_event_path(
+      @process_event_path ||= gobierto_participation_process_event_path(
         process_event.slug,
-        container_type: process.container_type,
-        container_id: process.id
+        process_id: process.slug
       )
     end
 
@@ -56,7 +55,7 @@ module GobiertoParticipation
 
         within "menu.secondary_nav" do
           assert has_link? "News"
-          assert has_link? "Diary"
+          assert has_link? "Participation Agenda"
           assert has_link? "Documents"
           assert has_link? "Activity"
         end
@@ -82,7 +81,8 @@ module GobiertoParticipation
 
         within ".event_wrapper" do
           assert has_content? "Swimming lessons for elders"
-          assert has_link? "Instalaciones Deportivas Canal de Isabel II"
+          assert has_content? "Instalaciones Deportivas Canal de Isabel II"
+          assert has_link? "Av. de Filipinas, 54, 28003 Madrid"
         end
 
         assert has_content? "Agenda"

@@ -62,6 +62,15 @@ input[type=text]:focus, input[type=email]:focus, input[type=submit]:focus, input
     height: 47px;
   }
 }
+.select_control.select_compact {
+  font-size: .85em;
+  margin: 0 0 .5em 0;
+  select {
+    margin-top: 0;
+    padding: 2px 10px;
+    height: initial;
+  }
+}
 .select_control.selects_inline {
   select {
     width: initial;

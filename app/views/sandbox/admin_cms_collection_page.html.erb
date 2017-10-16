@@ -65,6 +65,111 @@
 
     <%= render partial: "admin_widget_save"  %>
 
+    <div class="sidebar_tool m_v_2">
+      <small><a href="#" class="tool_title show-files"><!----> <strong>Documentos</strong></a> <!----></small>
+      <button id="show-modal" class="small m_v_1">Incluir archivo</button>
+    </div>
+
+    <div class="sidebar_tool m_v_2">
+      <!-- <small><a href="#" class="tool_title show-files"><strong>Sección</strong></a></small> -->
+      <div class="form_item">
+        <div class="options compact">
+          <div class="option open_level_1">
+            <input type="hidden" name="permission_1" value="0">
+            <input type="checkbox" id="permission_1" name="permission_1" value="1">
+            <label for="permission_1">
+              <span></span>
+              Incluir en secciones
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form_item select_control select_compact level_1 open_level_2" style="display: none;">
+        <select class="">
+          <option value="">Portal de Transparencia</option>
+          <option value="">Ayuda</option>
+          <option value="">Manual de Participación</option>
+          <option value="">Guía de Participación</option>
+          <option value="">- - - </option>
+          <option value="">Nueva sección</option>
+        </select>
+      </div>
+
+      <div class="form_item select_control select_compact level_2 open_level_3" style="display: none;">
+        <select class="">
+          <option value="">(sin padre)</option>
+
+          <option value="">Información del portal</option>
+
+          <option value="">Publicidad activa</option>
+
+          <option value=""> -- Información sobre la corporación municipal</option>
+          <option value=""> ---- Cargos electos y altos cargos</option>
+          <option value=""> ---- Personal</option>
+          <option value=""> ---- Organización</option>
+          <option value=""> ---- Resoluciones judiciales</option>
+          <option value=""> ---- Patrimonio</option>
+          <option value=""> ---- Normativa municipal</option>
+
+          <option value=""> -- Económica-financiera y contratos</option>
+          <option value=""> -- Relaciones con los ciudadanos</option>
+          <option value=""> -- Urbanimo y obras públicas</option>
+          <option value=""> -- Información sobre la corporación municipal</option>
+          <option value=""> -- Económica-financiera y contratos</option>
+          <option value=""> -- Relaciones con los ciudadanos</option>
+          <option value=""> -- Urbanimo y obras públicas</option>
+
+          <option value="">Acceso a la información</option>
+        </select>
+      </div>
+
+      <!-- <div class="form_item select_control select_compact" style="display: none;">
+        <select class="level_2 open_level_3">
+          <option value="">Información del portal</option>
+
+          <option value="">Publicidad activa</option>
+
+          <option value="">&nbsp;&nbsp;&nbsp;Información sobre la corporación municipal</option>
+          <option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cargos electos y altos cargos</option>
+          <option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Personal</option>
+          <option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Organización</option>
+          <option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Resoluciones judiciales</option>
+          <option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Patrimonio</option>
+          <option value="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Normativa municipal</option>
+
+          <option value="">&nbsp;&nbsp;&nbsp;Económica-financiera y contratos</option>
+          <option value="">&nbsp;&nbsp;&nbsp;Relaciones con los ciudadanos</option>
+          <option value="">&nbsp;&nbsp;&nbsp;Urbanimo y obras públicas</option>
+          <option value="">&nbsp;&nbsp;&nbsp;Información sobre la corporación municipal</option>
+          <option value="">&nbsp;&nbsp;&nbsp;Económica-financiera y contratos</option>
+          <option value="">&nbsp;&nbsp;&nbsp;Relaciones con los ciudadanos</option>
+          <option value="">&nbsp;&nbsp;&nbsp;Urbanimo y obras públicas</option>
+
+          <option value="">Acceso a la información</option>
+        </select>
+      </div> -->
+
+    </div>
+
   </div>
 
 </div>
+
+<script type="text/javascript">
+
+$(document).on('turbolinks:load', function() {
+
+  $('.open_level_1').on('click', function(e){
+    e.preventDefault();
+    $('.level_1').show();
+  });
+
+  $('.open_level_2').on('click', function(e){
+    e.preventDefault();
+    $('.level_2').show();
+  });
+
+});
+
+</script>

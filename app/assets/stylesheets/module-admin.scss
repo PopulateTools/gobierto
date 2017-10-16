@@ -561,13 +561,18 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
   }
 }
 
-/* Gobierto Attachments */
-#gobierto-attachment {
-  .show-files {
+.sidebar_tool {
+  .tool_title {
     display: block;
     color: $color_text;
     text-decoration: none;
   }
+  
+}
+
+
+/* Gobierto Attachments */
+#gobierto-attachment {
   .file-list {
     position: relative;
     margin-bottom: 1em;

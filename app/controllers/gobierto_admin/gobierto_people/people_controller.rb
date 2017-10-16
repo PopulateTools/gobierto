@@ -12,6 +12,7 @@ module GobiertoAdmin
 
       def index
         @people = current_site.people.sorted
+        @manage_all_people = site_people_policy.manage_all_people_in_site?
       end
 
       def new
@@ -126,6 +127,10 @@ module GobiertoAdmin
         if !PersonPolicy.new(current_admin: current_admin).create?
           redirect_to(admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')) and return false
         end
+      end
+
+      def site_people_policy
+        PersonPolicy.new(current_admin: current_admin, current_site: current_site)
       end
 
     end

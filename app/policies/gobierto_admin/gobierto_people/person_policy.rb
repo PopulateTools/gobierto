@@ -27,6 +27,13 @@ module GobiertoAdmin
         current_admin.manager?
       end
 
+      def manage_all_people_in_site?
+        return true if current_admin.manager?
+        site_people_ids = current_site.people.pluck(:id)
+        permitted_site_people_ids = current_admin.people_permissions.where(resource_id: site_people_ids)
+        site_people_ids.size == permitted_site_people_ids.size
+      end
+
       private
 
       def can_manage_person?(person)

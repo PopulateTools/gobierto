@@ -29,9 +29,10 @@
   </thead>
   <tbody data-behavior="sortable" data-sortable-target="<%= admin_people_people_sort_path %>">
   <% @people.each do |person| %>
+    <% person_policy = ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: current_admin, person: person) %>
     <tr id="person-item-<%= person.id %>" data-id="<%= person.id %>">
       <td>
-        <% if ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: current_admin, person: person).manage? %>
+        <% if person_policy.manage? %>
           <%= link_to edit_admin_people_person_path(person) do %>
             <i class="fa fa-edit"></i>
           <% end %>
@@ -40,7 +41,7 @@
         <% end %>
       </td>
       <td>
-        <% if ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: current_admin, person: person).manage? %>
+        <% if person_policy.manage? %>
           <%= link_to edit_admin_people_person_path(person) do %>
             <%= person.name %>
           <% end %>
@@ -69,7 +70,7 @@
         <%= t(".visibility_level.#{person.visibility_level}") %>
       </td>
       <td>
-        <% if ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: current_admin, person: person).view? %>
+        <% if person_policy.view? %>
           <%= link_to gobierto_people_person_preview_url(person, host: current_site.domain), target: "_blank", class: "view_item" do %>
             <i class="fa fa-eye"></i>
             <%= t(".view_person") %>
@@ -79,7 +80,11 @@
           <%= t(".view_person") %>
         <% end %>
       </td>
-      <td><i class="sort-handler fa fa-bars tipsit" title="<%= t('.drag_to_sort') %>"></i></td>
+      <td>
+        <% if @manage_all_people %>
+          <i class="sort-handler fa fa-bars tipsit" title="<%= t('.drag_to_sort') %>"></i>
+        <% end %>
+      </td>
     </tr>
   <% end %>
   </tbody>

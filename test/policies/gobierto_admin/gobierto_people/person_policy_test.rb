@@ -27,9 +27,13 @@ module GobiertoAdmin
       alias person richard
 
       def juana
-        @nelson ||= gobierto_people_people(:juana)
+        @juana ||= gobierto_people_people(:juana)
       end
       alias draft_person juana
+
+      def nelson
+        @nelson ||= gobierto_people_people(:nelson)
+      end
 
       def madrid
         sites(:madrid)
@@ -80,6 +84,20 @@ module GobiertoAdmin
         assert PersonPolicy.new(current_admin: manager_admin).create?
         refute PersonPolicy.new(current_admin: regular_admin).create?
         refute PersonPolicy.new(current_admin: disabled_admin).create?
+      end
+
+      def test_manage_all_people_in_site?
+        refute PersonPolicy.new(current_admin: disabled_admin, current_site: site).manage_all_people_in_site?
+        assert PersonPolicy.new(current_admin: manager_admin,  current_site: site).manage_all_people_in_site?
+        refute PersonPolicy.new(current_admin: regular_admin,  current_site: site).manage_all_people_in_site?
+
+        # create missing permissions for regular admin
+        regular_admin.people_permissions.create([
+          { resource_id: nelson.id, action_name: 'manage' },
+          { resource_id: juana.id,  action_name: 'manage' }
+        ])
+
+        assert PersonPolicy.new(current_admin: regular_admin, current_site: site).manage_all_people_in_site?
       end
 
     end

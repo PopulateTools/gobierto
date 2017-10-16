@@ -10,8 +10,13 @@
       <%= link_to @process.title, gobierto_participation_process_path(@process) %>
     </h1>
   <% end %>
+<% else %>
+  <% content_for :breadcrumb_current_item do %>
+    <strong>
+      <%= @collection.title %>
+    </strong>
+  <% end %>
 <% end %>
-
 
 <div class="column cms_page">
   <main class="content">
@@ -34,7 +39,7 @@
         <article>
           <div class="breadcrumb">
             <a href="#"><%= @collection.title %></a> /
-            <a href="#"><%= @page.title %></a> /
+            <a href="#"><%= @page.title %></a>
           </div>
 
           <h1><%= @page.title %></h1>

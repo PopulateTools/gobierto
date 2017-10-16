@@ -29,12 +29,13 @@ ca:
             statements: Declaracions
             status: Estat
           new: Nova persona
+          no_permissions: No tens permisos per editar aquesta persona. Si la necessites
+            editar, parla amb l'administrador
           title: Persones
           view_person: Veure persona
           visibility_level:
             active: Publicat
             draft: Borrador
-          no_permissions: No tens permisos per editar aquesta persona. Si la necessites editar, parla amb l'administrador
         navigation:
           agenda: Agenda
           person: Persona

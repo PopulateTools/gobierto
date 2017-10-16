@@ -29,12 +29,13 @@ en:
             statements: Statements
             status: Status
           new: New person
+          no_permissions: You don't have permissions to edit this person. If you need
+            to edit, ask your administrator
           title: People
           view_person: View person
           visibility_level:
             active: Published
             draft: Draft
-          no_permissions: You don't have permissions to edit this person. If you need to edit, ask your administrator
         navigation:
           agenda: Agenda
           person: Person

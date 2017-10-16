@@ -1,7 +1,7 @@
 module GobiertoAdmin
   module GobiertoParticipation
     class ProcessesController < BaseController
-      
+
       before_action { module_enabled!(current_site,  'GobiertoParticipation') }
       before_action { module_allowed!(current_admin, 'GobiertoParticipation') }
 
@@ -108,7 +108,8 @@ module GobiertoAdmin
             :ends,
             :active,
             title_translations: [*I18n.available_locales],
-            description_translations: [*I18n.available_locales]
+            description_translations: [*I18n.available_locales],
+            cta_text_translations: [*I18n.available_locales]
           ]
         )
       end

@@ -143,6 +143,7 @@ module GobiertoAdmin
         existing_stage.assign_attributes(
           title_translations: attributes['title_translations'],
           description_translations: attributes['description_translations'],
+          cta_text_translations: attributes['cta_text_translations'],
           active: attributes['active'],
           starts: attributes['starts'],
           ends: attributes['ends']

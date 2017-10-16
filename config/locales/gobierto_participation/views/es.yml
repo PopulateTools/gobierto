@@ -134,6 +134,9 @@ es:
       process_teaser:
         current_stage_html: "<strong>Fase actual</strong>: %{current_stage}"
         next_stage_html: "<strong>Próxima fase</strong>: %{current_stage}"
+      progress_map:
+        current: Fase actual
+        next_stage: Próxima fase
       show:
         about: Sobre este proceso
         appointments: Citas presenciales

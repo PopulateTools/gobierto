@@ -45,7 +45,7 @@ module GobiertoParticipation
     def test_current
       refute stages[:information].current?
       refute stages[:meetings].current?
-      refute stages[:ideas].current?
+      assert stages[:ideas].current?
       refute stages[:results].current?
     end
   end

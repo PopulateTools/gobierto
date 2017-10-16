@@ -69,6 +69,7 @@ en:
           edit_stage: Edit stage
           placeholders:
             body: ex. In this stage we intend ...
+            cta_text: ex. Add your idea
             title: ex. Main stage
           save: Save
           stages_and_tools: Stages and tools

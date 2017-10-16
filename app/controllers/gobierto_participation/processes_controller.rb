@@ -4,7 +4,7 @@ module GobiertoParticipation
   class ProcessesController < GobiertoParticipation::ApplicationController
     include ::PreviewTokenHelper
 
-    helper_method :current_process
+    helper_method :current_process, :process_stage_path
 
     def index
       @processes = current_site.processes.process.open.active
@@ -42,5 +42,10 @@ module GobiertoParticipation
     def find_process_activities
       ActivityCollectionDecorator.new(Activity.in_site(current_site).no_admin.in_container(current_process).sorted.limit(5).includes(:subject, :author, :recipient))
     end
+
+    def process_stage_path(stage)
+      stage.process_stage_path
+    end
+
   end
 end

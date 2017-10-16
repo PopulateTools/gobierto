@@ -133,6 +133,9 @@ en:
       process_teaser:
         current_stage_html: "<strong>Current stage</strong>: %{current_stage}"
         next_stage_html: "<strong>Next stage</strong>: %{current_stage}"
+      progress_map:
+        current: Current stage
+        next_stage: Next fase
       show:
         about: About this process
         appointments: Face-to-face appointments

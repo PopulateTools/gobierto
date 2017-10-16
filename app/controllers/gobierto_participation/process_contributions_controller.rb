@@ -2,6 +2,14 @@
 
 module GobiertoParticipation
   class ProcessContributionsController < GobiertoParticipation::Processes::BaseController
+    def new
+      @contribution_form = ContributionForm.new
+    end
+
+    def create
+
+    end
+
     def show
       @contribution = find_contribution
       @process = @contribution.contribution_container.process

@@ -22,7 +22,7 @@
       <div class="pure-u-1 pure-u-md-2-24"></div>
 
       <div class="pure-u-1 pure-u-md-5-24 contribution_action">
-        <a href="" class="button"><%= t('.put_ideas') %></a>
+        <%= link_to t('.put_ideas'), new_gobierto_participation_process_process_contribution_container_process_contribution_path(process_id: current_process.slug, process_contribution_container_id: @contribution_container.slug), class: "button", remote: true %></a>
         <p>
           <%= t('.term_html', date: l(@contribution_container.ends, format: :day_month)) %>
         </p>

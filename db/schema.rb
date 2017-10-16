@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171003112359) do
+ActiveRecord::Schema.define(version: 20171012153920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -443,6 +443,7 @@ ActiveRecord::Schema.define(version: 20171003112359) do
     t.integer "flags_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "comments_count", default: 0
     t.index ["commentable_type", "commentable_id"], name: "index_gpart_comments_on_commentable_type_and_commentable_id"
     t.index ["site_id"], name: "index_gpart_comments_on_site_id"
     t.index ["user_id"], name: "index_gpart_comments_on_user_id"
@@ -460,6 +461,7 @@ ActiveRecord::Schema.define(version: 20171003112359) do
     t.bigint "site_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug", default: "", null: false
     t.index ["admin_id"], name: "index_gpart_contribution_containers_on_admin_id"
     t.index ["process_id"], name: "index_gpart_contribution_containers_on_process_id"
     t.index ["site_id"], name: "index_gpart_contribution_containers_on_site_id"
@@ -476,6 +478,7 @@ ActiveRecord::Schema.define(version: 20171003112359) do
     t.integer "comments_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug", default: "", null: false
     t.index ["contribution_container_id"], name: "index_gpart_contributions_on_contribution_container_id"
     t.index ["description"], name: "index_gpart_contributions_on_description"
     t.index ["site_id"], name: "index_gpart_contributions_on_site_id"
@@ -547,6 +550,7 @@ ActiveRecord::Schema.define(version: 20171003112359) do
     t.integer "stage_type", default: 0, null: false
     t.jsonb "description_translations"
     t.boolean "active", default: false, null: false
+    t.jsonb "cta_text_translations"
     t.index ["process_id", "slug"], name: "index_gpart_process_stages_on_process_id_and_slug", unique: true
     t.index ["process_id"], name: "index_gpart_process_stages_on_process_id"
     t.index ["title_translations"], name: "index_gpart_process_stages_on_title_translations", using: :gin

@@ -10,6 +10,7 @@ es:
           gobierto_budget_consultations: Consultas de presupuestos
           gobierto_budgets: Presupuestos
           gobierto_indicators: Indicadores
+          gobierto_participation: Participación
           gobierto_people: Personas
         notification_frequency:
           daily: Resumen diario
@@ -29,3 +30,12 @@ es:
             user_email: Tu correo-e
           submit: Suscribirme
         subscribe: Suscribirme
+      subscribable_button:
+        event_followed: "¡Evento seguido!"
+        follow_event: Seguir evento
+        follow_issue: Seguir tema
+        follow_person: Seguir persona
+        follow_process: Seguir proceso
+        issue_followed: "¡Tema seguido!"
+        person_followed: "¡Persona seguida!"
+        process_followed: "¡Proceso seguido!"

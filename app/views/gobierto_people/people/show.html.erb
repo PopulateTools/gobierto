@@ -2,6 +2,10 @@
 
 <%= render "gobierto_people/people/content_for_breadcrumb" %>
 
+<% content_for :subscribable_button do %>
+  <%= render 'user/subscriptions/subscribable_button', subscribable: @person %>
+<% end %>
+
 <div class="column">
 
   <div class="pure-g">
@@ -43,9 +47,6 @@
         <%= render "upcoming_events" %>
       <% end %>
 
-      <%= render("user/subscriptions/subscribable_box",
-                 subscribable: @person,
-                 title: t(".subscribable_box.title", person_name: @person.name)) %>
       <%= render "latest_activity" %>
 
     </div>

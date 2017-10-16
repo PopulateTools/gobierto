@@ -27,7 +27,7 @@ module User::VerificationHelper
   def raise_user_not_verified(site)
     redirect_to(
       new_user_census_verifications_path || request.referrer || user_root_path,
-      alert: t("user.census_verifications.messages.#{controller_name}.not_verified", site_name: site.try(:name), default: 'user.census_verifications.messages.not_verified')
+      alert: t("user.census_verifications.messages.#{controller_name}.not_verified", site_name: site.try(:name))
     )
   end
 end

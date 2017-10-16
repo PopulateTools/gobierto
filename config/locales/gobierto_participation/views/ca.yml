@@ -1,6 +1,10 @@
 ---
 ca:
   gobierto_participation:
+    comments:
+      comment:
+        comments_html: "<strong>%{comments}</strong> comentaris"
+        respond: Respondre
     events:
       event:
         follow_event: Seguir aquest esdeveniment
@@ -14,6 +18,7 @@ ca:
       gobierto_participation_poll_created: Enquesta creada
       gobierto_participation_poll_updated: Enquesta actualitzada
       gobierto_participation_process_created: Procés / grup creat
+      gobierto_participation_process_published: 'Actualització del procés: %{subject_name}'
       gobierto_participation_process_updated: Procés / grup actualitzat
       index:
         agenda_for_container: Agenda de %{container_title}
@@ -35,7 +40,7 @@ ca:
         work_groups_description: Consulta l'activitat de cada grup i participa.
         work_groups_title: Grups de treball
       participation_latest_info:
-        agenda: Agenda
+        agenda: Agenda Participació
         news: Notícies
         no_events: No hi ha esdeveniments relacionats
         no_news: No hi ha notícies relacionades
@@ -68,6 +73,36 @@ ca:
         documents: Documents
         news: Notícies
     participation_attachments: Mostra tots les documents de Participació
+    process_contribution_containers:
+      show:
+        all: Tots
+        best_ratings: Millors puntuacions
+        idea:
+          one: 1 idea
+          other: "%{count} idees"
+        organize: Organitzar
+        put_ideas: Teniu una idea!
+        recent: Recent
+        self: Teves
+        show_ideas: Mostra idees
+        term_html: Teniu de termini fins a <strong>%{date}</strong>
+        user:
+          one: 1 veïn ha aportat
+          other: "%{count} veïns han aportat"
+        worst_ratings: Pitjors puntuacions
+    process_contributions:
+      comments:
+        comments_html: "<strong>%{comments}</strong> comentaris"
+      contribution:
+        enchants: M'encanta
+        indifferent: M'és indiferent
+        like: M'agrada
+        not_like: No m'agrada
+        sent: enviat per %{author} el %{date}
+        values_this_idea: Valora aquesta idea
+      flag:
+        report: Informar
+        reported: Informada
     processes:
       index:
         groups: Grups de treball
@@ -97,6 +132,9 @@ ca:
       process_teaser:
         current_stage_html: "<strong>Fase actual</strong>: %{current_stage}"
         next_stage_html: "<strong>Pròxima fase</strong>: %{current_stage}"
+      progress_map:
+        current: Fase actual
+        next_stage: Propera fase
       show:
         about: Sobre aquest procés
         appointments: Cites presencials
@@ -121,10 +159,10 @@ ca:
     shared:
       activities_for: Activitat de %{container}
       agenda: Agenda
-      agenda_participation_p1: Et convidem a assistir a les següents reunions on debatrem
-        en persona sobre els temes d'aquest procés. Si no pots assistir, anirem publicant
-        en línia tot el que es parli a la reunions per facilitar el seguiment i fer
-        accessibles les conclusions.
+      agenda_p1: Et convidem a assistir a les següents reunions on debatrem en persona
+        sobre els temes d'aquest procés. Si no pots assistir, anirem publicant en
+        línia tot el que es parli a la reunions per facilitar el seguiment i fer accessibles
+        les conclusions.
       all_activities: Veure totes les activitats
       all_attachments: Veure totes les documents
       all_events: Veure tots els esdeveniments

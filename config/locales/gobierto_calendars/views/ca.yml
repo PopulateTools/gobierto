@@ -2,8 +2,8 @@
 ca:
   gobierto_calendars:
     events:
-      gobierto_calendars_event_published: 'Agenda actualitzada amb un nou event: %{subject_name}'
-      gobierto_calendars_event_updated: 'Event actualitzat: %{subject_name}'
+      gobierto_calendars_event_published: "%{subject_name}"
+      gobierto_calendars_event_updated: "%{subject_name}"
     fullcalendar:
       day: Dia
       list: Llista

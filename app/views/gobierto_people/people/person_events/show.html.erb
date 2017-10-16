@@ -4,6 +4,10 @@
   </h1>
 <% end %>
 
+<% content_for :subscribable_button do %>
+  <%= render 'user/subscriptions/subscribable_button', subscribable: @event %>
+<% end %>
+
 <div class="person_event-item">
 
   <div class="pure-g">
@@ -90,10 +94,5 @@
   </div>
 
 </div>
-
-<%= render("user/subscriptions/subscribable_box",
-           subscribable: @event,
-           title: t(".subscribable_box.title"),
-           subtitle: t(".subscribable_box.subtitle")) %>
 
 <% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>

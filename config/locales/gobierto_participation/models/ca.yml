@@ -18,6 +18,7 @@ ca:
           group_process: Grup
           process: Procés
       gobierto_participation/process_stage:
+        cta_text: Text del 'Call to action'
         description: Descripció
         ends: Final
         stage_types:

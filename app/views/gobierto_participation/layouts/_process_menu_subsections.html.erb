@@ -8,7 +8,11 @@
         </li>
       <% end %>
 
-      <li><%= todo_link_to { link_to t('.meetings'), '#' } %></li>
+      <% if try(:current_process).present? %>
+        <li>
+          <%=link_to t('.meetings'), gobierto_participation_process_events_path(process_id: current_process.slug) %>
+        </li>
+      <% end %>
 
       <% if try(:current_process).present? && current_process.polls_stage? %>
         <li>
@@ -16,7 +20,12 @@
         </li>
       <% end %>
 
-      <li><%= todo_link_to { link_to t('.contributions'), '#' } %></li>
+      <% if try(:current_process).present? && current_process.polls_stage? %>
+        <li>
+          <%= link_to t('.contributions'), gobierto_participation_process_process_contribution_containers_path(process_id: current_process.slug) %>
+        </li>
+      <% end %>
+
       <li><%= todo_link_to { link_to t('.results'), '#' } %></li>
     </ul>
   </div>

@@ -1,6 +1,10 @@
 ---
 en:
   gobierto_participation:
+    comments:
+      comment:
+        comments_html: "<strong>%{comments}</strong> comments"
+        respond: Respond
     events:
       event:
         follow_event: Follow this event
@@ -16,6 +20,7 @@ en:
       gobierto_participation_poll_created: Poll created
       gobierto_participation_poll_updated: Poll updated
       gobierto_participation_process_created: Process / group created
+      gobierto_participation_process_published: 'Update process: %{subject_name}'
       gobierto_participation_process_updated: Process / group updated
       index:
         agenda_for_container: Diary for %{container_title}
@@ -37,7 +42,7 @@ en:
         work_groups_description: Check the activity of each group and participate.
         work_groups_title: Work groups
       participation_latest_info:
-        agenda: Diary
+        agenda: Paritipation Agenda
         news: News
         no_events: There are no related events
         no_news: There are no related news
@@ -66,10 +71,40 @@ en:
         results: Results
       secondary_nav:
         activity: Activity
-        agenda: Diary
+        agenda: Agenda
         documents: Documents
         news: News
     participation_attachments: See all the documents of Participation
+    process_contribution_containers:
+      show:
+        all: All
+        best_ratings: Best ratings
+        idea:
+          one: 1 idea
+          other: "%{count} ideas"
+        organize: Organize
+        put_ideas: Have an idea!
+        recent: Recent
+        self: Self
+        show_ideas: Show ideas
+        term_html: You have of term until <strong>%{date}</strong>
+        user:
+          one: One neighbor have contributed
+          other: "%{count} neighbors have contributed"
+        worst_ratings: Worst ratings
+    process_contributions:
+      comments:
+        comments_html: "<strong>%{comments}</strong> comments"
+      contribution:
+        enchants: It enchants to me
+        indifferent: It is to me indifferent
+        like: I like
+        not_like: I don't like
+        sent: sent by %{author} the %{date}
+        values_this_idea: It values the idea
+      flag:
+        report: Report
+        reported: Reported
     processes:
       index:
         groups: Work groups
@@ -98,6 +133,9 @@ en:
       process_teaser:
         current_stage_html: "<strong>Current stage</strong>: %{current_stage}"
         next_stage_html: "<strong>Next stage</strong>: %{current_stage}"
+      progress_map:
+        current: Current stage
+        next_stage: Next fase
       show:
         about: About this process
         appointments: Face-to-face appointments
@@ -122,10 +160,10 @@ en:
     shared:
       activities_for: Updates for %{container}
       agenda: Agenda
-      agenda_participation_p1: We invite you to attend the following meetings where
-        we will discuss in person on the issues of this process. If you can not to
-        attend, we will publish online everything that is said in the meetings to
-        facilitate follow-up and make conclusions accessible.
+      agenda_p1: We invite you to attend the following meetings where we will discuss
+        in person on the issues of this process. If you can not to attend, we will
+        publish online everything that is said in the meetings to facilitate follow-up
+        and make conclusions accessible.
       all_activities: See all updates
       all_attachments: See all documents
       all_events: View all events

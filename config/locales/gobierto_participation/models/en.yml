@@ -18,6 +18,7 @@ en:
           group_process: Group
           process: Process
       gobierto_participation/process_stage:
+        cta_text: "'Call to action' text"
         description: Description
         ends: Ends
         stage_types:

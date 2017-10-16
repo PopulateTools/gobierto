@@ -1,5 +1,41 @@
-culture_vote:
-  votable: cinema (Contributor)
+cinema_reed_vote:
+  votable: cinema (GobiertoParticipation::Contribution)
   user: reed
+  site: madrid
+  vote_weight: 1
+
+park_susan_vote:
+  votable: park (GobiertoParticipation::Contribution)
+  user: susan
+  site: madrid
+  vote_weight: 2
+
+park_reed_vote:
+  votable: park (GobiertoParticipation::Contribution)
+  user: reed
+  site: madrid
+  vote_weight: 2
+
+activities_susan_vote:
+  votable: activities (GobiertoParticipation::Contribution)
+  user: susan
+  site: madrid
+  vote_weight: 1c
+
+activities_reed_vote:
+  votable: activities (GobiertoParticipation::Contribution)
+  user: reed
+  site: madrid
+  vote_weight: 2
+
+urban_orchard_reed_vote:
+  votable: urban_orchard (GobiertoParticipation::Contribution)
+  user: reed
+  site: madrid
+  vote_weight: 1
+
+comment_susan_vote:
+  votable: park_reed_comment (GobiertoParticipation::Comment)
+  user: susan
   site: madrid
   vote_weight: 1

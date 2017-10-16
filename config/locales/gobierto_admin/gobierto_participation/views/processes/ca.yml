@@ -69,6 +69,7 @@ ca:
           edit_stage: Edita fase
           placeholders:
             body: ex. En aquesta fase es pretén ...
+            cta_text: ex. Aportar idea
             title: ex. Fase principal
           save: Guardar
           stages_and_tools: Fases i eines

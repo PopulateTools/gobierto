@@ -46,9 +46,9 @@
 
           <%= raw @page.body %>
 
-          <div class="page_attachments">
-            <h3><%= t('.documents') %></h3>
-            <% if @page.attachments && @page.attachments.any? %>
+          <% if @page.attachments && @page.attachments.any? %>
+            <div class="page_attachments">
+              <h3><%= t('.documents') %></h3>
               <% @page.attachments.each do |attachment| %>
                 <div class="file">
                   <%= link_to attachment.url do %>
@@ -60,8 +60,8 @@
                   <% end %>
                 </div>
               <% end %>
-            <% end %>
-          </div>
+            </div>
+          <% end %>
         </article>
       </div>
     </div>

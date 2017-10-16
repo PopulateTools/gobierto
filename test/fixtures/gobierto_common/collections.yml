@@ -68,3 +68,14 @@ juana_calendar:
   item_type: GobiertoCalendars::Event
 
 ## /end
+
+## Site collections of news
+
+site_news:
+  site: madrid
+  title_translations: <%= {'en' => 'Site news', 'es' => 'Noticias del sitio' }.to_json %>
+  slug: site-news
+  container: madrid (Site)
+  item_type: GobiertoCms::Page
+
+## /end

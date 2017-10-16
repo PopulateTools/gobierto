@@ -6,7 +6,9 @@ module GobiertoAdmin
       attr_accessor(
         :person_id,
         :ibm_notes_url,
-        :microsoft_exchange_email,
+        :microsoft_exchange_usr,
+        :microsoft_exchange_pwd,
+        :microsoft_exchange_url,
         :clear_google_calendar_configuration,
         :calendars
       )
@@ -29,10 +31,22 @@ module GobiertoAdmin
                            end
       end
 
-      def microsoft_exchange_email
-        @microsoft_exchange_email ||= if person_calendar_configuration.respond_to?(:microsoft_exchange_email)
-                             person_calendar_configuration.microsoft_exchange_email
-                           end
+      def microsoft_exchange_usr
+        @microsoft_exchange_usr ||= if person_calendar_configuration.respond_to?(:microsoft_exchange_usr)
+                                      person_calendar_configuration.microsoft_exchange_usr
+                                    end
+      end
+
+      def microsoft_exchange_pwd
+        @microsoft_exchange_pwd ||= if person_calendar_configuration.respond_to?(:microsoft_exchange_pwd)
+                                      person_calendar_configuration.microsoft_exchange_pwd
+                                    end
+      end
+
+      def microsoft_exchange_url
+        @microsoft_exchange_url ||= if person_calendar_configuration.respond_to?(:microsoft_exchange_url)
+                                      person_calendar_configuration.microsoft_exchange_url
+                                    end
       end
 
       def calendars
@@ -87,8 +101,16 @@ module GobiertoAdmin
             calendar_configuration_attributes.endpoint = ibm_notes_url
           end
 
-          if calendar_configuration_attributes.respond_to?(:microsoft_exchange_email)
-            calendar_configuration_attributes.microsoft_exchange_email = microsoft_exchange_email
+          if calendar_configuration_attributes.respond_to?(:microsoft_exchange_usr)
+            calendar_configuration_attributes.microsoft_exchange_usr = microsoft_exchange_usr
+          end
+
+          if calendar_configuration_attributes.respond_to?(:microsoft_exchange_pwd)
+            calendar_configuration_attributes.microsoft_exchange_pwd = microsoft_exchange_pwd
+          end
+
+          if calendar_configuration_attributes.respond_to?(:microsoft_exchange_url)
+            calendar_configuration_attributes.microsoft_exchange_url = microsoft_exchange_url
           end
         end
 

@@ -2,12 +2,14 @@ module GobiertoPeople
   module MicrosoftExchange
     class CalendarIntegration
 
-      attr_reader :person, :site, :calendar_email, :endpoint, :user, :password
+      attr_reader :person, :site
 
       SYNC_RANGE = {
         start_date: DateTime.now - 2.months,
         end_date:   DateTime.now + 1.year
       }
+
+      TARGET_CALENDAR_NAME = 'gobierto'
 
       def self.sync_person_events(person)
         new(person).sync
@@ -18,18 +20,14 @@ module GobiertoPeople
       end
 
       def initialize(person)
-        @person   = person
-        @site     = person.site
-        @calendar_email = person.calendar_configuration.data['microsoft_exchange_email']
-        settings  = site.gobierto_people_settings.settings
-        @endpoint = settings['microsoft_exchange_endpoint']
-        @user     = settings['microsoft_exchange_usr']
-        @password = settings['microsoft_exchange_pwd']
+        @person = person
+        @site = person.site
+        configuration = GobiertoPeople::PersonMicrosoftExchangeCalendarConfiguration.find_by(person_id: person.id)
 
         Exchanger.configure do |config|
-          config.endpoint = endpoint
-          config.username = user
-          config.password = password
+          config.endpoint = configuration.microsoft_exchange_url
+          config.username = configuration.microsoft_exchange_usr
+          config.password = configuration.microsoft_exchange_pwd
           config.debug    = false
           config.insecure_ssl = true
           config.ssl_version  = :TLSv1
@@ -37,14 +35,22 @@ module GobiertoPeople
       end
 
       def sync
-        folder = Exchanger::Folder.find(:calendar, calendar_email)
+        Rails.logger.info "[SYNC AGENDAS] Syncing Microsoft Exchange events for #{person.name} (id: #{person.id})"
 
-        calendar_items = folder.expanded_items(SYNC_RANGE)
+        root_folder   = Exchanger::Folder.find(:calendar)
+        target_folder = root_folder.folders.find { |folder| folder.display_name == TARGET_CALENDAR_NAME }
+
+        if target_folder.nil?
+          Rails.logger.info "[SYNC AGENDAS] Can't find '#{TARGET_CALENDAR_NAME}' calendar folder for #{person.name} (id: #{person.id})"
+          return
+        end
+
+        calendar_items = target_folder.expanded_items(SYNC_RANGE)
 
         mark_unreceived_events_as_drafts(calendar_items)
 
-        
-        calendar_items.each do |item|          
+
+        calendar_items.each do |item|
           next if is_private?(item)
           sync_event(item)
         end
@@ -60,7 +66,7 @@ module GobiertoPeople
           site_id: site.id
         }
 
-        event_params.merge!(person_id: person.id) 
+        event_params.merge!(person_id: person.id)
 
         if item.location.present?
           event_params.merge!(locations_attributes: { "0" => { name: item.location } })

@@ -30,7 +30,9 @@ module GobiertoAdmin
         def calendar_configuration_params
           params.require(:calendar_configuration).permit(
             :ibm_notes_url,
-            :microsoft_exchange_email,
+            :microsoft_exchange_usr,
+            :microsoft_exchange_pwd,
+            :microsoft_exchange_url,
             :clear_google_calendar_configuration,
             calendars: []
           )

@@ -10,9 +10,6 @@ this.GobiertoAdmin.GobiertoPeopleConfigurationSettingsController = (function() {
     if ($("#calendar-integration-picker select").val() !== 'ibm_notes') {
       $(".ibm_notes_setting").hide();
     }
-    if ($("#calendar-integration-picker select").val() !== 'microsoft_exchange') {
-      $(".microsoft_exchange_setting").hide();
-    }
   }
 
   function _ibm_settings_fields() {
@@ -22,12 +19,6 @@ this.GobiertoAdmin.GobiertoPeopleConfigurationSettingsController = (function() {
       } else {
         $(".ibm_notes_setting input").val('');
         $(".ibm_notes_setting").hide('slow');
-      }
-      if ($(this).val() === "microsoft_exchange") {
-        $(".microsoft_exchange_setting").show('slow');
-      } else {
-        $(".microsoft_exchange_setting input").val('');
-        $(".microsoft_exchange_setting").hide('slow');
       }
     });
   }

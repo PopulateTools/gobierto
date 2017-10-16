@@ -24,7 +24,6 @@ es:
             ibm_notes_pwd: Contraseña de IBM Notes
             ibm_notes_usr: Usuario de IBM Notes
             microsoft_exchange: Microsoft Exchange
-            microsoft_exchange_endpoint: URL de Microsoft Exchange
             microsoft_exchange_pwd: Contraseña de Microsoft Exchange
             microsoft_exchange_usr: Usuario de Microsoft Exchange
             officials: Personas
@@ -33,7 +32,6 @@ es:
               home_text_en: Texto home inglés
               home_text_es: Texto home español
               ibm_notes_usr: Usuario de IBM Notes
-              microsoft_exchange_endpoint: ej. http://example.com/ews/exchange.asmx
             statements: Declaraciones
             submodules_enabled: Submódulos habilitados
             update: Actualizar

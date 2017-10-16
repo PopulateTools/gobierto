@@ -50,21 +50,6 @@
         <%= f.password_field :ibm_notes_pwd, value: @settings_form.dummy_ibm_notes_pwd, autocomplete: "off" %>
       </div>
 
-      <div class="form_item input_text microsoft_exchange_setting">
-        <%= f.label :microsoft_exchange_endpoint, t(".microsoft_exchange_endpoint") %>
-        <%= f.text_field :microsoft_exchange_endpoint, placeholder: t(".placeholders.microsoft_exchange_endpoint"), autocomplete: "off" %>
-      </div>
-      
-      <div class="form_item input_text microsoft_exchange_setting">
-        <%= f.label :microsoft_exchange_usr, t(".microsoft_exchange_usr") %>
-        <%= f.text_field :microsoft_exchange_usr, autocomplete: "off" %>
-      </div>
-
-      <div class="form_item input_text microsoft_exchange_setting">
-        <%= f.label :microsoft_exchange_pwd, t(".microsoft_exchange_pwd") %>
-        <%= f.password_field :microsoft_exchange_pwd, value: @settings_form.microsoft_exchange_pwd, autocomplete: "off" %>
-      </div>
-
     </div>
 
     <div class="pure-u-1 pure-u-md-2-24"></div>

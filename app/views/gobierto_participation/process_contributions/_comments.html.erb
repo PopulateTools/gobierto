@@ -20,7 +20,7 @@
 
     <% else %>
       <div class="inline_login_cta">
-        <h2><%= link_to "Haz login o regístrate para comentar", new_user_sessions_path(open_modal: true), class: 'open_remote_modal' %></h2>
+        <h2><%= link_to t('.login_signup_comment'), new_user_sessions_path(open_modal: true), class: 'open_remote_modal' %></h2>
       </div>
     <% end %>
   </div>

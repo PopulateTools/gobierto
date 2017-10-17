@@ -82,6 +82,7 @@ en:
         idea:
           one: 1 idea
           other: "%{count} ideas"
+        login_signup_idea: Login or register to post ideas
         organize: Organize
         put_ideas: Have an idea!
         recent: Recent
@@ -95,6 +96,7 @@ en:
     process_contributions:
       comments:
         comments_html: "<strong>%{comments}</strong> comments"
+        login_signup_comment: Login or register to comment
       contribution:
         enchants: It enchants to me
         indifferent: It is to me indifferent
@@ -105,6 +107,10 @@ en:
       flag:
         report: Report
         reported: Reported
+      form:
+        placeholders:
+          description: The new pool ...
+          title: Ex. A new pool in the sports center
     processes:
       index:
         groups: Work groups

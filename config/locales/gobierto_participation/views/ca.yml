@@ -80,6 +80,7 @@ ca:
         idea:
           one: 1 idea
           other: "%{count} idees"
+        login_signup_idea: Fes login o registreu-vos per posar idees
         organize: Organitzar
         put_ideas: Teniu una idea!
         recent: Recent
@@ -93,6 +94,7 @@ ca:
     process_contributions:
       comments:
         comments_html: "<strong>%{comments}</strong> comentaris"
+        login_signup_comment: Inicieu sessió o registreu-vos per comentar
       contribution:
         enchants: M'encanta
         indifferent: M'és indiferent
@@ -103,6 +105,10 @@ ca:
       flag:
         report: Informar
         reported: Informada
+      form:
+        placeholders:
+          description: La nova piscina ...
+          title: Ex. Una nova piscina al poliesportiu
     processes:
       index:
         groups: Grups de treball

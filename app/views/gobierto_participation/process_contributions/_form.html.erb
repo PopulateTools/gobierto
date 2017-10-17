@@ -15,18 +15,16 @@
     <div class="contribution_card_new_wrapper">
       <div class="contribution_card_new_form">
         <div class="form_item input_text">
-          <label>
-            Describe tu idea de forma concisa
-            <span class="indication">Máx 140 caracteres</span>
-          </label>
-          <%= f.text_field :title, placeholder: "Ej. Una nueva piscina en el polideportivo" %>
+          <%= label_tag "contribution[title][#{locale}]" do %>
+            <%= f.object.class.human_attribute_name(:title) %>
+            <span class="indication"><%= t('views.forms.max_characters', length: 32) %></span>
+          <% end %>
+          <%= f.text_field :title, placeholder: t('.placeholders.title') %>
         </div>
 
         <div class="form_item textarea">
-          <label>
-            ¿Quieres dar detalles? Desarrolla los puntos principales de tu idea|pregunta|propuesta
-          </label>
-          <%= f.text_area :description, placeholder: "Ej. Una nueva piscina en el polideportivo" %>
+          <%= label_tag "contribution[description][#{locale}]", f.object.class.human_attribute_name(:description) %>
+          <%= f.text_area :description, placeholder: t('.placeholders.description') %>
         </div>
 
         <div class="form_item action_buttons right">

@@ -52,23 +52,13 @@ module GobiertoParticipation
 
         within "menu.secondary_nav" do
           assert has_link? "News"
-          assert has_link? "Diary"
+          assert has_link? "Agenda"
           assert has_link? "Documents"
           assert has_link? "Activity"
         end
 
         # TODO: check that these links redirect to their corresponding pages
         # applying the right scope (all processes/groups scope)
-      end
-    end
-
-    def test_subscription_block
-      with_current_site(site) do
-        visit @path
-
-        within ".site_header" do
-          skip "Not yet defined"
-        end
       end
     end
 

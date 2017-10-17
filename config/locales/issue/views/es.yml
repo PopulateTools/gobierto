@@ -1,0 +1,5 @@
+---
+es:
+  issue:
+    events:
+      issue_description_translations_changed: 'Actualitzación del tema: %{subject_name}'

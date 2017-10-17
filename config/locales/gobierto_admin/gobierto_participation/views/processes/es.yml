@@ -69,6 +69,7 @@ es:
           edit_stage: Editar fase
           placeholders:
             body: ej. En esta fase se pretende...
+            cta_text: ej. Aportar idea
             title: ej. Fase principal
           save: Guardar
           stages_and_tools: Fases y herramientas

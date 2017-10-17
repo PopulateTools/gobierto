@@ -4,13 +4,16 @@ require 'test_helper'
 
 module GobiertoParticipation
   class ProcessShowTest < ActionDispatch::IntegrationTest
-
     def site
       @site ||= sites(:madrid)
     end
 
+    def user
+      @user ||= users(:peter)
+    end
+
     def process_path(process)
-      gobierto_participation_process_path(process.slug)
+      @process_path ||= gobierto_participation_process_path(process.slug)
     end
 
     def process_information_path
@@ -24,12 +27,12 @@ module GobiertoParticipation
       @gender_violence_process ||= gobierto_participation_processes(:gender_violence_process)
     end
 
-    def comission_for_carnival_festivities
-      @comission_for_carnival_festivities ||= gobierto_participation_processes(:commission_for_carnival_festivities)
+    def commission_for_carnival_festivities
+      @commission_for_carnival_festivities ||= gobierto_participation_processes(:commission_for_carnival_festivities)
     end
 
     def processes
-      @processes ||= [gender_violence_process, comission_for_carnival_festivities]
+      @processes ||= [gender_violence_process, commission_for_carnival_festivities]
     end
 
     def green_city_group
@@ -76,7 +79,7 @@ module GobiertoParticipation
 
         within "menu.secondary_nav" do
           assert has_link? "News"
-          assert has_link? "Diary"
+          assert has_link? "Agenda"
           assert has_link? "Documents"
           assert has_link? "Activity"
         end
@@ -111,7 +114,7 @@ module GobiertoParticipation
           assert has_link? gender_violence_process.title
         end
 
-        click_link "Diary"
+        click_link "Agenda"
 
         assert_equal gobierto_participation_process_events_path(process_id: gender_violence_process.slug), current_path
 
@@ -156,11 +159,20 @@ module GobiertoParticipation
     end
 
     def test_subscription_block
-      with_current_site(site) do
-        visit process_path(gender_violence_process)
+      with_javascript do
+        with_current_site(site) do
+          with_signed_in_user(user) do
+            visit process_path(gender_violence_process)
+            within ".site_header" do
+              assert has_link? "Follow process"
+            end
 
-        within '.site_header' do
-          assert has_content? 'Follow this process'
+            click_on "Follow process"
+            assert has_link? "Process followed!"
+
+            click_on "Process followed!"
+            assert has_link? "Follow process"
+          end
         end
       end
     end
@@ -259,5 +271,71 @@ module GobiertoParticipation
         refute has_content? 'Process stages'
       end
     end
+
+    def test_progress_map_with_many_active_stages
+      active_stages = gender_violence_process.active_stages
+
+      with_current_site(site) do
+        visit process_path(gender_violence_process)
+
+        within '#progress_map' do
+
+          # current stage title and CTA, and a dot for each active stage
+          assert has_content? 'Current stage'
+          assert has_content? 'Draft publication'
+          assert has_link? 'Add your idea'
+          assert_equal active_stages.size, all('.dot').size
+
+          # check current stage is marked, and upcoming stages dots are grayed out
+          assert has_selector?("##{gender_violence_process.current_stage.slug}_stage_dot > .dot-current")
+          assert_equal active_stages.upcoming.size, all('.dot.disabled').size
+        end
+      end
+    end
+
+    def test_progress_map_with_one_active_stage
+      with_current_site(site) do
+        visit process_path(commission_for_carnival_festivities)
+
+        within '#progress_map' do
+          # just title  and CTA of current stage
+          assert has_content? 'Current stage'
+          assert has_content? 'Polls'
+          assert has_link? 'Participate'
+          refute has_selector? '.dots-container'
+        end
+
+      end
+    end
+
+    def test_progress_map_with_no_active_stages
+      with_current_site(site) do
+        visit process_path(green_city_group)
+
+        # hide progress map
+        refute has_selector? '#progress_map'
+      end
+    end
+
+    def test_progress_map_shows_next_stage_when_no_current_stage
+      commission_for_carnival_festivities.stages.polls.first.update_attributes!(
+        starts: 1.week.from_now,
+        ends: 2.weeks.from_now
+      )
+
+      with_current_site(site) do
+        visit process_path(commission_for_carnival_festivities)
+
+        within '#progress_map' do
+          refute has_content? 'Current stage'
+          refute has_content? 'Next stage'
+
+          assert has_content? 'Polls'
+          assert has_link? 'Participate'
+        end
+
+      end
+    end
+
   end
 end

@@ -4,6 +4,7 @@ es:
     subscriptions:
       create:
         create_success: Se ha realizado la suscripción
+        delete_success: Se ha cancelado esta suscripción
         error: 'Ha ocurrido un problema al suscribirte: %{details}. Si ya estás registrado,
           identifícate <a href="%{sign_in_path}">aquí</a>.'
       destroy:

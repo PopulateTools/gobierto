@@ -66,7 +66,7 @@ module GobiertoPeople
       def test_events_summary_upcoming_and_past_filters
         with_javascript do
           with_current_site(site) do
-            
+
             past_event = gobierto_calendars_events(:richard_published_past)
             future_event = gobierto_calendars_events(:richard_published_just_attending)
 
@@ -86,16 +86,6 @@ module GobiertoPeople
             #   assert has_content?(past_event.title)
             #   refute has_content?(future_event.title)
             # end
-          end
-        end
-      end
-
-      def test_subscription_block
-        with_current_site(site) do
-          visit @path
-
-          within ".subscribable-box", match: :first do
-            assert has_button?("Subscribe")
           end
         end
       end

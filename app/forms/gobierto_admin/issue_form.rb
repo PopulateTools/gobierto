@@ -1,6 +1,7 @@
 module GobiertoAdmin
   class IssueForm
     include ActiveModel::Model
+    prepend ::GobiertoCommon::Trackable
 
     attr_accessor(
       :id,
@@ -13,6 +14,10 @@ module GobiertoAdmin
     delegate :persisted?, to: :issue
 
     validates :site, presence: true
+
+    trackable_on :issue
+
+    notify_changed :description_translations
 
     def save
       save_issue if valid?
@@ -49,7 +54,9 @@ module GobiertoAdmin
       end
 
       if @issue.valid?
-        @issue.save
+        run_callbacks(:save) do
+          @issue.save
+        end
 
         @issue
       else

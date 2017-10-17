@@ -89,6 +89,7 @@ module GobiertoAdmin
 
               within '#edit_stage_2' do
                 fill_in 'process_stages_attributes_2_title_translations_en', with: 'Polls stage title'
+                fill_in 'process_stages_attributes_2_cta_text_translations_en', with: 'Participate in polls!'
                 fill_in 'process_stages_attributes_2_starts', with: '2017-01-02'
                 fill_in 'process_stages_attributes_2_ends',   with: '2017-01-14'
               end
@@ -101,6 +102,7 @@ module GobiertoAdmin
             visit admin_participation_processes_path
 
             assert array_match %w(information meetings polls ideas results), process.stages.pluck(:stage_type)
+            assert_equal 'Participate in polls!', process.stages.polls.first.cta_text
           end
         end
       end

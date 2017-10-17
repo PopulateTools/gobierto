@@ -42,7 +42,6 @@
                   <%= t('.whole_site') %>
                 <% end %>
               </div>
-
               <% if @user_notification_modules.length > 1 %>
                 <%= f.collection_check_boxes(:modules, @user_notification_modules, :first, :first) do |b| %>
                   <div class="option ">

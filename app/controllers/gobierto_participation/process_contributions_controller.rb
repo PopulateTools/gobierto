@@ -14,11 +14,9 @@ module GobiertoParticipation
                                                                           user_id: current_user.id))
 
       if @contribution_form.save
-        # track_create_activity
-
-        # redirect_to(
-        #   gobierto_participation_process_process_contribution_container_path(@contribution_container)
-        # )
+        redirect_to(
+          gobierto_participation_process_process_contribution_container_path(@contribution_container.slug, process_id: current_process.slug)
+        )
       else
         render(:new, layout: false) && return if request.xhr?
         render :new

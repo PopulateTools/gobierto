@@ -22,6 +22,7 @@ module GobiertoParticipation
     end
 
     validates :title, :description, :user, :contribution_container, presence: true
+    validates_length_of :title, maximum: 140
 
     scope :sort_by_created_at, -> { reorder(created_at: :desc) }
     scope :created_at_last_week, -> { where("created_at >= ?", 1.week.ago) }

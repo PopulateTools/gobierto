@@ -27,7 +27,7 @@
             <li><a href="#"><%= @collection.title %></a>
               <ul>
                 <% @pages.each do |page| %>
-                  <li><a href="#"><%= page.title %></a></li>
+                  <li><%= link_to page.title, gobierto_cms_page_path(page.slug) %></li>
                 <% end %>
               </ul>
             </li>
@@ -38,8 +38,8 @@
       <div class="pure-u-1 pure-u-md-3-4">
         <article>
           <div class="breadcrumb">
-            <a href="#"><%= @collection.title %></a> /
-            <a href="#"><%= @page.title %></a>
+            <%= @collection.title %> /
+            <%= @page.title %>
           </div>
 
           <h1><%= @page.title %></h1>

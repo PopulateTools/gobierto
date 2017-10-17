@@ -6,10 +6,11 @@ module GobiertoParticipation
 
     attr_accessor(
       :id,
+      :site_id,
       :user_id,
       :contribution_container_id,
       :title,
-      :body
+      :description
     )
 
     delegate :persisted?, to: :contribution
@@ -20,6 +21,14 @@ module GobiertoParticipation
 
     def contribution
       @contribution ||= contribution_class.find_by(id: id).presence || build_contribution
+    end
+
+    def site_id
+      @site_id ||= contribution.site_id
+    end
+
+    def site
+      @site ||= Site.find_by(id: site_id)
     end
 
     private
@@ -34,10 +43,11 @@ module GobiertoParticipation
 
     def save_contribution
       @contribution = contribution.tap do |contribution_attributes|
+        contribution_attributes.site_id = site_id
         contribution_attributes.user_id = user_id
         contribution_attributes.contribution_container_id = contribution_container_id
         contribution_attributes.title = title
-        contribution_attributes.body = body
+        contribution_attributes.description = description
       end
 
       if @contribution.valid?

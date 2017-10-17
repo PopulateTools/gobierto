@@ -1,40 +1,38 @@
 <div class="contribution_card_new">
-
   <div class="contribution_card_new_header">
-
-    ¿Qué harías para reducir la contaminación en la ciudad?
-
+    <%= @contribution_container.title %>
     <div class="modal_like_control">
       <a href="#" class="mfp-close">×</a>
     </div>
-
   </div>
 
-  <div class="contribution_card_new_wrapper">
+  <%= render "gobierto_admin/shared/validation_errors", resource: @contribution_form %>
 
-    <div class="contribution_card_new_form">
+  <%= form_for(
+    @contribution_form, as: :contribution,
+    url: gobierto_participation_process_process_contribution_container_process_contributions_path(process_id: current_process.slug,
+                                                                                                  process_contribution_container_id: @contribution_container.slug), remote: true) do |f| %>
+    <div class="contribution_card_new_wrapper">
+      <div class="contribution_card_new_form">
+        <div class="form_item input_text">
+          <label>
+            Describe tu idea de forma concisa
+            <span class="indication">Máx 140 caracteres</span>
+          </label>
+          <%= f.text_field :title, placeholder: "Ej. Una nueva piscina en el polideportivo" %>
+        </div>
 
-      <div class="form_item input_text">
-        <label>
-          Describe tu idea de forma concisa
-          <span class="indication">Máx 140 caracteres</span>
-        </label>
-        <input type="text" placeholder="Ej. Una nueva piscina en el polideportivo">
+        <div class="form_item textarea">
+          <label>
+            ¿Quieres dar detalles? Desarrolla los puntos principales de tu idea|pregunta|propuesta
+          </label>
+          <%= f.text_area :description, placeholder: "Ej. Una nueva piscina en el polideportivo" %>
+        </div>
+
+        <div class="form_item action_buttons right">
+          <%= f.submit class: "button" %>
+        </div>
       </div>
-
-      <div class="form_item textarea">
-        <label>
-          ¿Quieres dar detalles? Desarrolla los puntos principales de tu idea|pregunta|propuesta
-        </label>
-        <textarea></textarea>
-      </div>
-
-      <div class="form_item action_buttons right">
-        <a href="#" class="button">Añadir</a>
-      </div>
-
     </div>
-
-  </div>
-
+  <% end %>
 </div>

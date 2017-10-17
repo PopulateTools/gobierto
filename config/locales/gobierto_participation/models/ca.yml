@@ -1,11 +1,13 @@
 ---
 ca:
+  activemodel:
+    attributes:
+      gobierto_participation/contribution_form:
+        description: Descripció
+        title: Títol
   activerecord:
     attributes:
       gobierto_participation/contribution:
-        description: Descripció
-        title: Títol
-      gobierto_participation/contribution_form:
         description: Descripció
         title: Títol
       gobierto_participation/poll:

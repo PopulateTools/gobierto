@@ -1,3 +1,6 @@
+<% title(@page.title) %>
+<% description(truncate(strip_tags(@page.body), length: 100)) %>
+
 <% if @process %>
   <% content_for :breadcrumb_current_item do %>
     <strong>

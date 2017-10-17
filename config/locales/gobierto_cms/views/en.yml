@@ -12,6 +12,3 @@ en:
         title: News
       show:
         documents: Documents
-        filter: Filter by group
-        published_at: Posted on %{date} by %{site}
-        title: News

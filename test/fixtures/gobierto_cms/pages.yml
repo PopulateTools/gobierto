@@ -50,3 +50,11 @@ notice_2:
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
   collection: gender_violence_process_news (GobiertoCommon::Collection)
+
+about_site:
+  title_translations: <%= {'en' => 'About site' }.to_json %>
+  body_translations: <%= {'en' => 'Sobre el sitio' }.to_json %>
+  slug: 'about-site'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+  collection: site_news

@@ -13,15 +13,17 @@
 
 <h1><%= @collection.title %></h1>
 
-<div class="admin_tools right">
-  <% case @collection.item_type %>
-    <% when 'GobiertoCms::Page' %>
+<% case @collection.item_type %>
+  <% when 'GobiertoCms::Page' %>
+    <div class="admin_tools right">
       <%= link_to t(".new_page"), @new_item_path, class: 'button' if @new_item_path %>
-      <%= render 'gobierto_admin/gobierto_common/collections/show/pages' %>
-    <% when 'GobiertoAttachments::Attachment' %>
+    </div>
+    <%= render 'gobierto_admin/gobierto_common/collections/show/pages' %>
+  <% when 'GobiertoAttachments::Attachment' %>
+    <div class="admin_tools right">
       <%= link_to t(".new_attachment"), @new_item_path, class: 'button' if @new_item_path %>
-      <%= render 'gobierto_admin/gobierto_common/collections/show/file_attachments' %>
-    <% when 'GobiertoCalendars::Event' %>
-      <%= render 'gobierto_admin/gobierto_common/collections/show/events' %>
-  <% end %>
-</div>
+    </div>
+    <%= render 'gobierto_admin/gobierto_common/collections/show/file_attachments' %>
+  <% when 'GobiertoCalendars::Event' %>
+    <%= render 'gobierto_admin/gobierto_common/collections/show/events' %>
+<% end %>

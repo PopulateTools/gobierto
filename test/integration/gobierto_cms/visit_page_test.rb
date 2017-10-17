@@ -36,8 +36,8 @@ module GobiertoCms
         visit @path
 
         within ".breadcrumb" do
-          assert has_link? cms_page.collection.title
-          assert has_link? cms_page.title
+          assert has_content? cms_page.collection.title
+          assert has_content? cms_page.title
         end
       end
     end

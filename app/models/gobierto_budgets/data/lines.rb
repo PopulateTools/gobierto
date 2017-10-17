@@ -34,6 +34,7 @@ module GobiertoBudgets
 
       def mean_province
         filters = [ {term: { province_id: @place.province_id }} ]
+        filters.push({missing: { field: 'functional_code'}})
 
         if @code
           filters.push({term: { code: @code }})
@@ -88,6 +89,7 @@ module GobiertoBudgets
 
       def mean_autonomy
         filters = [ {term: { autonomy_id: @place.province.autonomous_region.id }} ]
+        filters.push({missing: { field: 'functional_code'}})
 
         if @code
           filters.push({term: { code: @code }})
@@ -146,6 +148,7 @@ module GobiertoBudgets
           filters.push({term: { code: @code }})
           filters.push({term: { kind: @kind }})
         end
+        filters.push({missing: { field: 'functional_code'}})
 
         query = {
           query: {
@@ -196,6 +199,7 @@ module GobiertoBudgets
       def place_values(place = nil)
         place = @place unless place.present?
         filters = [ {term: { ine_code: place.id }} ]
+        filters.push({missing: { field: 'functional_code'}})
 
         if @code
           filters.push({term: { code: @code }})

@@ -108,9 +108,12 @@ es:
         report: Reportar
         reported: Reportada
       form:
+        description: "¿Quieres dar detalles? Desarrolla los puntos principales de
+          tu idea|pregunta|propuesta"
         placeholders:
           description: La nueva piscina ...
           title: Ej. Una nueva piscina en el polideportivo
+        title: Describe tu idea de forma concisa
     processes:
       index:
         groups: Grupos de trabajo

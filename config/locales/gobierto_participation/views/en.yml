@@ -108,9 +108,12 @@ en:
         report: Report
         reported: Reported
       form:
+        description: Do you want to give them details? Develop the main points of
+          your idea|question|proposal
         placeholders:
           description: The new pool ...
           title: Ex. A new pool in the sports center
+        title: Write your idea concise
     processes:
       index:
         groups: Work groups

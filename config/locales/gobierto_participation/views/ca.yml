@@ -106,9 +106,12 @@ ca:
         report: Informar
         reported: Informada
       form:
+        description: Vols donar-los detalls? Desarrolla els punts principals de la
+          teva idea|pregunta|proposta
         placeholders:
           description: La nova piscina ...
           title: Ex. Una nova piscina al poliesportiu
+        title: Escriviu la vostra idea amb coneixement
     processes:
       index:
         groups: Grups de treball

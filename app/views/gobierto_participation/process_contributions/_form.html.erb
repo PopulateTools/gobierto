@@ -15,15 +15,15 @@
     <div class="contribution_card_new_wrapper">
       <div class="contribution_card_new_form">
         <div class="form_item input_text">
-          <%= label_tag "contribution[title][#{locale}]" do %>
-            <%= f.object.class.human_attribute_name(:title) %>
-            <span class="indication"><%= t('views.forms.max_characters', length: 32) %></span>
-          <% end %>
+          <label>
+            <%= t('.title') %>
+            <span class="indication"><%= t('views.forms.max_characters', length: 140) %></span>
+          </label>
           <%= f.text_field :title, placeholder: t('.placeholders.title') %>
         </div>
 
         <div class="form_item textarea">
-          <%= label_tag "contribution[description][#{locale}]", f.object.class.human_attribute_name(:description) %>
+          <%= label_tag t('.description') %>
           <%= f.text_area :description, placeholder: t('.placeholders.description') %>
         </div>
 

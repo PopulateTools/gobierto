@@ -83,11 +83,23 @@ es:
           one: 1 idea
           other: "%{count} ideas"
         login_signup_idea: Haz login o regístrate para poner ideas
+        login_signup_proposal: Haz login o regístrate para poner propuestas
+        login_signup_question: Haz login o regístrate para poner preguntas
         organize: Organizar
-        put_ideas: "¡Tengo una idea!"
+        proposal:
+          one: 1 propuesta
+          other: "%{count} propuestas"
+        put_idea: "¡Tengo una idea!"
+        put_proposal: "¡Tengo una propuesta!"
+        put_question: "¡Tengo una pregunta!"
+        question:
+          one: 1 pregunta
+          other: "%{count} preguntas"
         recent: Recientes
         self: Tuyas
         show_ideas: Mostrar ideas
+        show_proposals: Mostrar propuestas
+        show_questions: Mostrar preguntas
         term_html: Tienes de plazo hasta el <strong>%{date}</strong>
         user:
           one: Un vecino ha aportado
@@ -104,16 +116,28 @@ es:
         not_like: No me gusta
         sent: enviada por %{author} el %{date}
         values_this_idea: Valora esta idea
+        values_this_proposal: Valora esta propuesta
+        values_this_question: Valora esta pregunta
       flag:
         report: Reportar
         reported: Reportada
       form:
-        description: "¿Quieres dar detalles? Desarrolla los puntos principales de
-          tu idea|pregunta|propuesta"
+        description_idea: "¿Quieres dar detalles? Desarrolla los puntos principales
+          de tu idea"
+        description_proposal: "¿Quieres dar detalles? Desarrolla los puntos principales
+          de tu propuesta"
+        description_question: "¿Quieres dar detalles? Desarrolla los puntos principales
+          de tu pregunta"
         placeholders:
-          description: La nueva piscina ...
-          title: Ej. Una nueva piscina en el polideportivo
-        title: Describe tu idea de forma concisa
+          description_idea: La nueva piscina ...
+          description_proposal: La nueva piscina ...
+          description_question: La nueva piscina ...
+          title_idea: Ej. Una nueva piscina en el polideportivo
+          title_proposal: Ej. Una nueva piscina en el polideportivo
+          title_question: Ej. ¿Una nueva piscina en el polideportivo?
+        title_idea: Describe tu idea de forma concisa
+        title_proposal: Describe tu propuesta de forma concisa
+        title_question: Describe tu pregunta de forma concisa
     processes:
       index:
         groups: Grupos de trabajo

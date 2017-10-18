@@ -83,11 +83,23 @@ en:
           one: 1 idea
           other: "%{count} ideas"
         login_signup_idea: Login or register to post ideas
+        login_signup_proposal: Login or register to post proposals
+        login_signup_question: Login or register to post questions
         organize: Organize
-        put_ideas: Have an idea!
+        proposal:
+          one: 1 proposal
+          other: "%{count} proposals"
+        put_idea: Have an idea!
+        put_proposal: Have a proposal!
+        put_question: Have a question!
+        question:
+          one: 1 question
+          other: "%{count} questions"
         recent: Recent
         self: Self
         show_ideas: Show ideas
+        show_proposals: Show proposals
+        show_questions: Show questions
         term_html: You have of term until <strong>%{date}</strong>
         user:
           one: One neighbor have contributed
@@ -103,17 +115,29 @@ en:
         like: I like
         not_like: I don't like
         sent: sent by %{author} the %{date}
-        values_this_idea: It values the idea
+        values_this_idea: Rate the idea
+        values_this_proposal: Rate the proposal
+        values_this_question: Rate the question
       flag:
         report: Report
         reported: Reported
       form:
-        description: Do you want to give them details? Develop the main points of
-          your idea|question|proposal
+        description_idea: Do you want to give them details? Develop the main points
+          of your idea
+        description_proposal: Do you want to give them details? Develop the main points
+          of your proposal
+        description_question: Do you want to give them details? Develop the main points
+          of your question
         placeholders:
-          description: The new pool ...
-          title: Ex. A new pool in the sports center
-        title: Write your idea concise
+          description_idea: The new pool ...
+          description_proposal: The new pool ...
+          description_question: The new pool ...
+          title_idea: Ex. A new pool in the sports center
+          title_proposal: Ex. A new pool in the sports center
+          title_question: Ex. A new pool in the sports center?
+        title_idea: Write your idea concise
+        title_proposal: Write your proposal concise
+        title_question: Write your question concise
     processes:
       index:
         groups: Work groups

@@ -81,11 +81,23 @@ ca:
           one: 1 idea
           other: "%{count} idees"
         login_signup_idea: Fes login o registreu-vos per posar idees
+        login_signup_proposal: Fes login o registreu-vos per posar propostes
+        login_signup_question: Fes login o registreu-vos per posar preguntes
         organize: Organitzar
-        put_ideas: Teniu una idea!
+        proposal:
+          one: 1 proposal
+          other: "%{count} propostes"
+        put_idea: Teniu una idea!
+        put_proposal: Teniu una proposta!
+        put_question: Teniu una pregunta!
+        question:
+          one: 1 pregunta
+          other: "%{count} preguntes"
         recent: Recent
         self: Teves
         show_ideas: Mostra idees
+        show_proposals: Mostra propostes
+        show_questions: Mostra preguntes
         term_html: Teniu de termini fins a <strong>%{date}</strong>
         user:
           one: 1 veïn ha aportat
@@ -102,16 +114,28 @@ ca:
         not_like: No m'agrada
         sent: enviat per %{author} el %{date}
         values_this_idea: Valora aquesta idea
+        values_this_proposal: Valora aquesta proposta
+        values_this_question: Valora aquesta pregunta
       flag:
         report: Informar
         reported: Informada
       form:
-        description: Vols donar-los detalls? Desarrolla els punts principals de la
-          teva idea|pregunta|proposta
+        description_idea: Vols donar-los detalls? Desarrolla els punts principals
+          de la teva idea
+        description_proposal: Vols donar-los detalls? Desarrolla els punts principals
+          de la teva proposta
+        description_question: Vols donar-los detalls? Desarrolla els punts principals
+          de la teva pregunta
         placeholders:
-          description: La nova piscina ...
-          title: Ex. Una nova piscina al poliesportiu
-        title: Escriviu la vostra idea amb coneixement
+          description_idea: La nova piscina ...
+          description_proposal: La nova piscina ...
+          description_question: La nova piscina ...
+          title_idea: Ex. Una nova piscina al poliesportiu
+          title_proposal: Ex. Una nova piscina al poliesportiu
+          title_question: Ex. Una nova piscina al poliesportiu?
+        title_idea: Escriviu la vostra idea amb coneixement
+        title_proposal: Escriviu la vostra proposta amb coneixement
+        title_question: Escriviu la vostra pregunta amb coneixement
     processes:
       index:
         groups: Grups de treball

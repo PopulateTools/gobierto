@@ -23,9 +23,9 @@
 
         <div class="pure-u-1 pure-u-md-5-24 contribution_action">
           <% if current_user %>
-            <%= link_to t('.put_ideas'), new_gobierto_participation_process_process_contribution_container_process_contribution_path(process_id: current_process.slug, process_contribution_container_id: @contribution_container.slug), class: "button", remote: true %></a>
+            <%= link_to t(".put_#{@contribution_container.contribution_type}"), new_gobierto_participation_process_process_contribution_container_process_contribution_path(process_id: current_process.slug, process_contribution_container_id: @contribution_container.slug), class: "button", remote: true %></a>
           <% else %>
-            <%= link_to t('.login_signup_idea'), new_user_sessions_path(open_modal: true), class: 'button open_remote_modal' %>
+            <%= link_to t(".login_signup_#{@contribution_container.contribution_type}"), new_user_sessions_path(open_modal: true), class: 'button open_remote_modal' %>
           <% end %>
           <p>
             <%= t('.term_html', date: l(@contribution_container.ends, format: :day_month)) %>
@@ -37,7 +37,7 @@
       <div class="pure-g">
         <div class="wrapper">
           <div class="pure-u-1 pure-u-md-12-24 pure-u-lg-15-24">
-            <p><%= t('.show_ideas') %></p>
+            <p><%= t(".show_#{@contribution_container.contribution_type}s") %></p>
 
             <a class="button rounded outline cardControl checked" data-filter="all"><%= t('.all') %></a>
             <a class="button rounded outline cardControl" data-filter="best_ratings"><%= t('.best_ratings') %></a>
@@ -83,24 +83,24 @@
     <% if current_user %>
       var data_self = <%= @contribution_container.contributions.with_user(current_user).javascript_json.html_safe %>;
       var user =  "<%= t('.user',
-                        count: @contribution_container.contributions.with_user(current_user).count(:user_id)) %> <%= t('.idea',
+                        count: @contribution_container.contributions.with_user(current_user).count(:user_id)) %> <%= t(".#{@contribution_container.contribution_type}",
                         count: @contribution_container.contributions.with_user(current_user).count) %>";
     <% end %>
 
     var users_ideas_origin = "<%= t('.user',
-                                  count: @contribution_container.contributions.distinct.count(:user_id)) %> <%= t('.idea',
+                                  count: @contribution_container.contributions.distinct.count(:user_id)) %> <%= t(".#{@contribution_container.contribution_type}",
                                   count: @contribution_container.contributions.count) %>";
 
     var users_best_ratings = "<%= t('.user',
-                                  count: @contribution_container.contributions.loved.distinct.count(:user_id)) %> <%= t('.idea',
+                                  count: @contribution_container.contributions.loved.distinct.count(:user_id)) %> <%= t(".#{@contribution_container.contribution_type}",
                                   count: @contribution_container.contributions.loved.count) %>";
 
     var users_worst_ratings = "<%= t('.user',
-                                   count: @contribution_container.contributions.hated.distinct.count(:user_id)) %> <%= t('.idea',
+                                   count: @contribution_container.contributions.hated.distinct.count(:user_id)) %> <%= t(".#{@contribution_container.contribution_type}",
                                    count: @contribution_container.contributions.hated.count) %>";
 
     var users_recent = "<%= t('.user',
-                                   count: @contribution_container.contributions.created_at_last_week.distinct.count(:user_id)) %> <%= t('.idea',
+                                   count: @contribution_container.contributions.created_at_last_week.distinct.count(:user_id)) %> <%= t(".#{@contribution_container.contribution_type}",
                                    count: @contribution_container.contributions.created_at_last_week.count) %>";
 
     var users_ideas = users_ideas_origin;

@@ -16,15 +16,15 @@
       <div class="contribution_card_new_form">
         <div class="form_item input_text">
           <label>
-            <%= t('.title') %>
+            <%= t(".title_#{@contribution_container.contribution_type}") %>
             <span class="indication"><%= t('views.forms.max_characters', length: 140) %></span>
           </label>
-          <%= f.text_field :title, placeholder: t('.placeholders.title') %>
+          <%= f.text_field :title, placeholder: t(".placeholders.title_#{@contribution_container.contribution_type}") %>
         </div>
 
         <div class="form_item textarea">
-          <%= label_tag t('.description') %>
-          <%= f.text_area :description, placeholder: t('.placeholders.description') %>
+          <%= label_tag t(".description_#{@contribution_container.contribution_type}") %>
+          <%= f.text_area :description, placeholder: t(".placeholders.description_#{@contribution_container.contribution_type}") %>
         </div>
 
         <div class="form_item action_buttons right">
@@ -34,4 +34,5 @@
     </div>
   <% end %>
 </div>
+
 <div class="contribution_tools_overlay"></div>

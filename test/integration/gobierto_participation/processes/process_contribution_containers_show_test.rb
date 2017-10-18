@@ -141,7 +141,7 @@ module GobiertoParticipation
 
             page.find('[data-url="/participacion/p/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")
             assert has_content? "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
-            assert has_content? "It values the idea"
+            assert has_content? "Rate the idea"
             page.find("a.action_button.love").trigger("click")
             assert has_content? "It enchants to me"
 

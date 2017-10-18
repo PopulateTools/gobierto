@@ -24,7 +24,7 @@
       <% if user_signed_in? %>
         <div class="contribution_actions ">
 
-          <h3><%= t('.values_this_idea') %></h3>
+          <h3><%= t(".values_this_#{@contribution_container.contribution_type}") %></h3>
 
           <div class="element_eval_actions">
             <div>

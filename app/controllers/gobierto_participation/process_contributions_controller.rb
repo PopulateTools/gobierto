@@ -25,6 +25,7 @@ module GobiertoParticipation
 
     def show
       @contribution = find_contribution
+      @contribution_container = @contribution.contribution_container
       @process = @contribution.contribution_container.process
       @comment_form = CommentForm.new(site_id: current_site.id)
 

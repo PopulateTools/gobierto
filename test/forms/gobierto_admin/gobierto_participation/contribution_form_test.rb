@@ -41,7 +41,6 @@ module GobiertoAdmin
         invalid_contribution_form.save
 
         assert_equal 1, invalid_contribution_form.errors.messages[:title].size
-        assert_equal 1, invalid_contribution_form.errors.messages[:description].size
       end
     end
   end

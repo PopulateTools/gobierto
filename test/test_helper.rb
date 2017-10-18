@@ -89,6 +89,7 @@ class ActionDispatch::IntegrationTest
   require "support/integration/matcher_helpers"
   require "support/integration/page_helpers"
   require "support/file_uploader_helpers"
+  require "support/permission_helpers"
 
   include Capybara::DSL
   include Integration::AuthenticationHelpers

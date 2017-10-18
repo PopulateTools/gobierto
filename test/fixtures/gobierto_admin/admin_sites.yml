@@ -1,0 +1,11 @@
+tony_on_santander:
+  admin: tony
+  site: santander
+
+tony_on_madrid:
+  admin: tony
+  site: madrid
+
+steve_on_madrid:
+  admin: steve
+  site: madrid

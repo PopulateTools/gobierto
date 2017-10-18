@@ -1,0 +1,4 @@
+---
+es:
+  gobierto_admin:
+    admin_unauthorized: No tienes suficientes permisos para realizar esta acción

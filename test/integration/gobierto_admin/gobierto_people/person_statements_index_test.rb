@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/concerns/gobierto_admin/authorizable_resource_test_module"
 
 module GobiertoAdmin
   module GobiertoPeople
     class PersonStatementsIndexTest < ActionDispatch::IntegrationTest
+
+      include ::GobiertoAdmin::AuthorizableResourceTestModule
+
       def setup
         super
         @path = admin_people_person_statements_path(person)
+        setup_authorizable_resource_test(gobierto_admin_admins(:steve), @path)
       end
 
       def admin

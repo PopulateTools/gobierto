@@ -67,6 +67,13 @@ juana_calendar:
   container: juana (GobiertoPeople::Person)
   item_type: GobiertoCalendars::Event
 
+kali_calendar:
+  site: santander
+  title_translations: <%= {'en' => 'Kali calendar', 'es' => 'Calendario de Kali' }.to_json %>
+  slug: kali-calendar
+  container: kali (GobiertoPeople::Person)
+  item_type: GobiertoCalendars::Event
+
 ## /end
 
 ## Site collections of news

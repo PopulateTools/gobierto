@@ -16,6 +16,7 @@ module GobiertoAdmin
       set_admin_policy
       set_site_modules
       set_sites
+      set_people
       set_authorization_levels
     end
 
@@ -23,12 +24,17 @@ module GobiertoAdmin
       @admin = find_admin
 
       @admin_form = AdminForm.new(
-        @admin.attributes.except(*ignored_admin_attributes)
+        @admin.attributes.except(*ignored_admin_attributes).merge(
+          permitted_sites: @admin.sites.pluck(:id),
+          permitted_modules:  @admin.modules_permissions.pluck(:resource_name),
+          permitted_people: @admin.people_permissions.pluck(:resource_id)
+        )
       )
 
       set_admin_policy
       set_site_modules
       set_sites
+      set_people
       set_authorization_levels
       set_activities
     end
@@ -41,6 +47,7 @@ module GobiertoAdmin
       set_admin_policy
       set_site_modules
       set_sites
+      set_people
       set_authorization_levels
 
       if @admin_form.save
@@ -61,6 +68,7 @@ module GobiertoAdmin
 
       set_site_modules
       set_sites
+      set_people
       set_authorization_levels
       set_activities
 
@@ -85,8 +93,10 @@ module GobiertoAdmin
         :password,
         :password_confirmation,
         :authorization_level,
-        site_modules: [],
-        site_ids: []
+        :all_people_permitted,
+        permitted_sites: [],
+        permitted_modules: [],
+        permitted_people: []
       )
     end
 
@@ -103,17 +113,17 @@ module GobiertoAdmin
     end
 
     def set_site_modules
-      return unless @admin_policy.manage_permissions?
-
       @site_modules = APP_CONFIG["site_modules"].map do |site_module|
         OpenStruct.new(site_module)
       end
     end
 
     def set_sites
-      return unless @admin_policy.manage_sites?
-
       @sites = Site.select(:id, :domain).all
+    end
+
+    def set_people
+      @people = ::GobiertoPeople::Person.order(:site_id)
     end
 
     def set_authorization_levels

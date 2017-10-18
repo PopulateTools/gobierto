@@ -18,11 +18,14 @@ module GobiertoAdmin
             calendar_configuration_params.merge(person_id: @person.id)
           )
 
-          @calendar_configuration_form.save
-          redirect_to(
-            edit_admin_people_person_calendar_configuration_path,
-            notice: t('.success')
-          )
+          if @calendar_configuration_form.save
+            redirect_to(
+              edit_admin_people_person_calendar_configuration_path,
+              notice: t('.success')
+            )
+          else
+            render 'gobierto_admin/gobierto_people/people/person_events/person_calendar_configuration/edit'
+          end
         end
 
         private

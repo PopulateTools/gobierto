@@ -35,25 +35,26 @@ module GobiertoPeople
       end
 
       def sync
-        Rails.logger.info "[SYNC AGENDAS] Syncing Microsoft Exchange events for #{person.name} (id: #{person.id})"
+        Rails.logger.info "#{log_preffix} Syncing events for #{person.name} (id: #{person.id})"
 
-        root_folder   = Exchanger::Folder.find(:calendar)
+        root_folder = Exchanger::Folder.find(:calendar)
+
+        log_missing_folder_error('root') and return if root_folder.nil?
+
         target_folder = root_folder.folders.find { |folder| folder.display_name == TARGET_CALENDAR_NAME }
 
-        if target_folder.nil?
-          Rails.logger.info "[SYNC AGENDAS] Can't find '#{TARGET_CALENDAR_NAME}' calendar folder for #{person.name} (id: #{person.id})"
-          return
-        end
+        log_missing_folder_error(TARGET_CALENDAR_NAME) and return if target_folder.nil?
 
         calendar_items = target_folder.expanded_items(SYNC_RANGE)
 
         mark_unreceived_events_as_drafts(calendar_items)
 
-
         calendar_items.each do |item|
           next if is_private?(item)
           sync_event(item)
         end
+      rescue ::Errno::EADDRNOTAVAIL, ::SocketError, ::ArgumentError, ::Addressable::URI::InvalidURIError
+        Rails.logger.info "#{log_preffix} Invalid endpoint address for #{person.name} (id: #{person.id}): #{Exchanger.config.endpoint}"
       end
 
       def sync_event(item)
@@ -94,6 +95,14 @@ module GobiertoPeople
                                         .where.not(external_id: received_external_ids)
                                         .update_all(state: GobiertoCalendars::Event.states[:pending])
         end
+      end
+
+      def log_preffix
+        "[SYNC AGENDAS][MICROSOFT EXCHANGE]"
+      end
+
+      def log_missing_folder_error(folder_name)
+        Rails.logger.info "#{log_preffix} Can't find #{folder_name} calendar folder for #{person.name} (id: #{person.id}). Wrong username, password or endpoint?"
       end
 
     end

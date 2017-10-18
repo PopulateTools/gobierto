@@ -1,6 +1,7 @@
 module GobiertoAdmin
   module GobiertoPeople
     class PersonCalendarConfigurationForm
+
       include ActiveModel::Model
 
       ENCRYPTED_SETTING_PLACEHOLDER = 'encrypted_setting_placeholder'
@@ -14,6 +15,13 @@ module GobiertoAdmin
         :clear_microsoft_exchange_configuration,
         :clear_google_calendar_configuration,
         :calendars
+      )
+
+      validates(
+        :microsoft_exchange_usr,
+        :microsoft_exchange_pwd,
+        :microsoft_exchange_url,
+        presence: true, if: -> { any_microsoft_exchange_settings? && !clear_microsoft_exchange_configuration? }
       )
 
       def save
@@ -101,7 +109,8 @@ module GobiertoAdmin
       end
 
       def clear_microsoft_exchange_configuration?
-        person_microsoft_exchange_configuration_class == person_calendar_configuration.class && clear_microsoft_exchange_configuration == "1"
+        person_microsoft_exchange_configuration_class == person_calendar_configuration.class &&
+        (clear_microsoft_exchange_configuration == "1" || !any_microsoft_exchange_settings?)
       end
 
       def save_calendar_configuration
@@ -125,7 +134,7 @@ module GobiertoAdmin
           end
 
           if calendar_configuration_attributes.respond_to?(:microsoft_exchange_url)
-            calendar_configuration_attributes.microsoft_exchange_url = microsoft_exchange_url
+            calendar_configuration_attributes.microsoft_exchange_url = microsoft_exchange_url.strip
           end
         end
 
@@ -135,7 +144,7 @@ module GobiertoAdmin
 
             @person_calendar_configuration.destroy
 
-            nil
+            true
           else
             @person_calendar_configuration.save
 
@@ -148,14 +157,6 @@ module GobiertoAdmin
         end
       end
 
-      protected
-
-      def promote_errors(errors_hash)
-        errors_hash.each do |attribute, message|
-          errors.add(attribute, message)
-        end
-      end
-
       private
 
       def encrypted_microsoft_exchange_pwd
@@ -165,6 +166,18 @@ module GobiertoAdmin
           person_calendar_configuration.microsoft_exchange_pwd
         else
           nil
+        end
+      end
+
+      def any_microsoft_exchange_settings?
+        microsoft_exchange_usr.present? || microsoft_exchange_pwd.present? || microsoft_exchange_url.present?
+      end
+
+      protected
+
+      def promote_errors(errors_hash)
+        errors_hash.each do |attribute, message|
+          errors.add(attribute, message)
         end
       end
 

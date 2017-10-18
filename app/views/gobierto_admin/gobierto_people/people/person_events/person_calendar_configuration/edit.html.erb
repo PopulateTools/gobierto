@@ -1,3 +1,5 @@
+<%= render "gobierto_admin/shared/validation_errors", resource: @calendar_configuration_form %>
+
 <%= render 'gobierto_admin/gobierto_people/people/person_events/person_calendar_configuration/navigation' %>
 
 <%= form_for @calendar_configuration_form, as: :calendar_configuration, url: admin_people_person_calendar_configuration_path,  method: :patch do |f| %>

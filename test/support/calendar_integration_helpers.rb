@@ -2,6 +2,12 @@
 
 module CalendarIntegrationHelpers
 
+  ## Common
+
+  def clear_person_calendar_configurations
+    ::GobiertoPeople::PersonCalendarConfiguration.all.destroy_all
+  end
+
   ## IBM Notes
 
   def activate_ibm_notes_calendar_integration(site)
@@ -25,7 +31,7 @@ module CalendarIntegrationHelpers
   end
 
   def set_ibm_notes_calendar_endpoint(person, endpoint)
-    calendar_conf = person.calendar_configuration
+    calendar_conf = person.calendar_configuration || person.build_calendar_configuration
     calendar_conf.data = { endpoint: endpoint }
     calendar_conf.save!
   end
@@ -39,7 +45,7 @@ module CalendarIntegrationHelpers
   end
 
   def configure_google_calendar_integration(person, options)
-    calendar_conf = person.calendar_configuration
+    calendar_conf = person.calendar_configuration || person.build_calendar_configuration
     calendar_conf.data = options
     calendar_conf.save!
   end
@@ -56,7 +62,7 @@ module CalendarIntegrationHelpers
     pwd = options[:microsoft_exchange_pwd]
     options.store(:microsoft_exchange_pwd, ::SecretAttribute.encrypt(pwd)) if pwd && options[:encrypt]
 
-    calendar_conf = person.calendar_configuration
+    calendar_conf = person.calendar_configuration || person.build_calendar_configuration
     calendar_conf.data = options
     calendar_conf.save!
   end

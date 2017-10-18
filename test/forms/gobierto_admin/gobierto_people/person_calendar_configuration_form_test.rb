@@ -24,13 +24,18 @@ module GobiertoAdmin
         }
       end
 
-      def microsoft_exchange_calendar_configuration_attributes
-        @microsoft_exchange_calendar_configuration_attributes ||= {
-          person_id: person.id,
+      def microsoft_exchange_credentials
+        @microsoft_exchange_credentials ||= {
           microsoft_exchange_url: 'http://example.com/ews/exchange.asmx',
           microsoft_exchange_usr: 'me-username',
           microsoft_exchange_pwd: 'me-password'
         }
+      end
+
+      def microsoft_exchange_calendar_configuration_attributes
+        @microsoft_exchange_calendar_configuration_attributes ||= {
+          person_id: person.id
+      }.merge(microsoft_exchange_credentials)
       end
 
       def calendar_conf
@@ -61,6 +66,40 @@ module GobiertoAdmin
         assert_equal 'http://example.com/ews/exchange.asmx', calendar_conf['microsoft_exchange_url']
         assert_equal 'me-username', calendar_conf['microsoft_exchange_usr']
         assert_equal 'me-password', ::SecretAttribute.decrypt(calendar_conf['microsoft_exchange_pwd'])
+      end
+
+      def test_save_incomplete_microsoft_exchange_calendar_configuration
+        activate_microsoft_exchange_calendar_integration(site)
+
+        calendar_configuration_form = PersonCalendarConfigurationForm.new(
+          microsoft_exchange_calendar_configuration_attributes.slice(:person_id, :microsoft_exchange_usr)
+        )
+
+        refute calendar_configuration_form.valid?
+
+        error_keys = calendar_configuration_form.errors.messages.keys
+
+        assert error_keys.include?(:microsoft_exchange_pwd)
+        assert error_keys.include?(:microsoft_exchange_url)
+      end
+
+      def test_autoclear_microsoft_exchange_calendar_configuration
+        clear_person_calendar_configurations
+        activate_microsoft_exchange_calendar_integration(site)
+        configure_microsoft_exchange_integration(person, microsoft_exchange_credentials)
+
+        refute site.people.with_calendar_configuration.empty?
+
+        calendar_configuration_form = PersonCalendarConfigurationForm.new(
+          person_id: person.id,
+          microsoft_exchange_url: '',
+          microsoft_exchange_usr: '',
+          microsoft_exchange_pwd: ''
+        )
+
+        calendar_configuration_form.save
+
+        assert site.people.with_calendar_configuration.empty?
       end
 
       def test_html_dummy_credentials

@@ -61,5 +61,28 @@ module GobiertoCms
       assert_nil process_with_only_current_stage.next_stage
     end
 
+    def test_open?
+      # false when 'ends' date exceeded
+
+      process.update_attributes!(starts: nil, ends: 1.week.ago)
+      refute process.open?
+
+      # false when 'starts' date exceeded
+
+      process.update_attributes!(starts: 1.week.from_now, ends: nil)
+      refute process.open?
+
+      # true in any other case
+
+      process.update_attributes!(starts: nil, ends: nil)
+      assert process.open?
+
+      process.update_attributes!(starts: nil, ends: 1.week.from_now)
+      assert process.open?
+
+      process.update_attributes!(starts: 1.week.ago, ends: nil)
+      assert process.open?
+    end
+
   end
 end

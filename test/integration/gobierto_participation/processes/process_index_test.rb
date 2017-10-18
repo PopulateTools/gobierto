@@ -4,6 +4,7 @@ require "test_helper"
 
 module GobiertoParticipation
   class ProcessIndexTest < ActionDispatch::IntegrationTest
+
     def setup
       super
       @path = gobierto_participation_processes_path
@@ -13,12 +14,24 @@ module GobiertoParticipation
       @site ||= sites(:madrid)
     end
 
-    def processes
-      @processes ||= site.processes.process.open.active
+    def open_and_active_process
+      @open_and_active_process ||= gobierto_participation_processes(:sport_city_process)
     end
 
-    def groups
-      @groups ||= site.processes.group_process.open.active
+    def open_and_active_group
+      @open_and_active_group ||= gobierto_participation_processes(:green_city_group)
+    end
+
+    def draft_group
+      @draft_group ||= gobierto_participation_processes(:cultural_city_group)
+    end
+
+    def future_closed_group
+      @future_closed_group ||= gobierto_participation_processes(:public_debates_group_future)
+    end
+
+    def past_closed_group
+      @past_closed_group ||= gobierto_participation_processes(:dance_studio_group_ended)
     end
 
     def test_breadcrumb_items
@@ -66,14 +79,13 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        processes.each do |process|
-          assert has_link?(process.title)
-        end
-
-        groups.each do |group|
-          assert has_link?(group.title)
-        end
+        assert has_link?(open_and_active_process.title)
+        assert has_link?(open_and_active_group.title)
+        refute has_link?(draft_group.title)
+        assert has_link?(future_closed_group.title)
+        assert has_link?(past_closed_group.title)
       end
     end
+
   end
 end

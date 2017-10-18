@@ -85,11 +85,9 @@ module GobiertoParticipation
     end
 
     def open?
-      if starts.present? && ends.present?
-        Time.zone.now.between?(starts, ends)
-      else
-        false
-      end
+      return false if starts.present? && starts > Time.zone.now
+      return false if ends.present? && ends < Time.zone.now
+      return true
     end
 
     private

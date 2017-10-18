@@ -120,6 +120,7 @@ ca:
     edit: Edita
     forms:
       max_characters: Màx. %{length} caràcters
+      required_and_max_characters: Obligatori i Màx. %{length} caràcters
     pagination:
       next: Següent
       previous: Anterior

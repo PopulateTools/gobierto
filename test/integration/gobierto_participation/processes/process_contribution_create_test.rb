@@ -52,7 +52,7 @@ module GobiertoParticipation
             page.find("a", text: "Have an idea!").trigger("click")
 
             assert has_content? "WRITE YOUR IDEA CONCISE"
-            assert has_content? "DO YOU WANT TO GIVE THEM DETAILS? DEVELOP THE MAIN POINTS OF YOUR IDEA|QUESTION|PROPOSAL"
+            assert has_content? "DO YOU WANT TO GIVE THEM DETAILS? DEVELOP THE MAIN POINTS OF YOUR IDEA"
 
             fill_in :contribution_title, with: "My contribution"
             fill_in :contribution_description, with: "Contribution description"
@@ -79,12 +79,11 @@ module GobiertoParticipation
             page.find("a", text: "Have an idea!").trigger("click")
 
             assert has_content? "WRITE YOUR IDEA CONCISE"
-            assert has_content? "DO YOU WANT TO GIVE THEM DETAILS? DEVELOP THE MAIN POINTS OF YOUR IDEA|QUESTION|PROPOSAL"
+            assert has_content? "DO YOU WANT TO GIVE THEM DETAILS? DEVELOP THE MAIN POINTS OF YOUR IDEA"
 
             click_button "Create"
 
             assert has_alert?("Title can't be blank")
-            assert has_alert?("Description can't be blank")
 
             # Avoids the error of the test that verifies to be logged because it does not have layout
             visit containers_path

@@ -58,3 +58,11 @@ about_site:
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
   collection: site_news
+
+about_participation:
+  title_translations: <%= {'en' => 'About participation' }.to_json %>
+  body_translations: <%= {'en' => 'Sobre participación' }.to_json %>
+  slug: 'about-participation'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+  collection: site_news

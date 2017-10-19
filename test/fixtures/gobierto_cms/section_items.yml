@@ -1,0 +1,6 @@
+participation_items:
+  item: about_participation (GobiertoCms::Page)
+  position: 0
+  parent_id: nil
+  section: participation (GobiertoCms::Section)
+  level: 0

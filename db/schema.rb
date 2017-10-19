@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171012153920) do
+ActiveRecord::Schema.define(version: 20171019074630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -280,6 +280,28 @@ ActiveRecord::Schema.define(version: 20171012153920) do
     t.index ["body_translations"], name: "index_gcms_pages_on_body_translations", using: :gin
     t.index ["site_id"], name: "index_gcms_pages_on_site_id"
     t.index ["title_translations"], name: "index_gcms_pages_on_title_translations", using: :gin
+  end
+
+  create_table "gcms_section_items", force: :cascade do |t|
+    t.string "item_type"
+    t.bigint "item_id"
+    t.integer "position", default: 0, null: false
+    t.integer "parent_id", null: false
+    t.bigint "section_id"
+    t.integer "level", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_type", "item_id"], name: "index_gcms_section_items_on_item_type_and_item_id"
+    t.index ["section_id"], name: "index_gcms_section_items_on_section_id"
+  end
+
+  create_table "gcms_sections", force: :cascade do |t|
+    t.jsonb "title_translations"
+    t.string "slug", default: "", null: false
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_gcms_sections_on_site_id"
   end
 
   create_table "gobierto_calendars_event_attendees", id: :serial, force: :cascade do |t|

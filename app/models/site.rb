@@ -38,6 +38,7 @@ class Site < ApplicationRecord
 
   # Gobierto CMS integration
   has_many :pages, dependent: :destroy, class_name: "GobiertoCms::Page"
+  has_many :sections, dependent: :destroy, class_name: "GobiertoCms::Section"
 
   # Gobierto Attachments integration
   has_many :attachments, dependent: :destroy, class_name: "GobiertoAttachments::Attachment"

@@ -24,9 +24,12 @@ en:
           create:
             success_html: Container of contributions created correctly
           form:
+            idea: Idea
             placeholders:
               description: Ideas for activities for children.
               title: What activities for children can we launch?
+            proposal: Proposal
+            question: Question
           index:
             contributions_votes: Contributions / Votes
             end: Fin

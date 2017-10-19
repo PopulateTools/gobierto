@@ -20,7 +20,7 @@
 
       <div class="form_item select_control">
         <%= f.label :contribution_type %>
-        <%= f.select(:contribution_type, [['Idea', 'idea'], ['Question', 'question'], ['Proposal', 'proposal']], { include_blank: '-' }) %>
+        <%= f.select(:contribution_type, [[t('.idea'), 'idea'], [t('.question'), 'question'], [t('.proposal'), 'proposal']], { include_blank: '-' }) %>
       </div>
 
       <div class="pure-g">

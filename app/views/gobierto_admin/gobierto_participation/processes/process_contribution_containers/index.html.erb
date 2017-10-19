@@ -22,7 +22,7 @@
     <tr>
       <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_participation_process_contribution_container_path(contribution_container.id,process_id: contribution_container.process.id) %></td>
       <td><%= link_to contribution_container.title, admin_participation_process_contribution_container_path(contribution_container.id, process_id: contribution_container.process.id) %></td>
-      <td><%= contribution_container.contributions.size %>/ 1.234</td>
+      <td><%= contribution_container.contributions.size %>/ <%= contribution_container.contributions.sum(:votes_count) %></td>
       <td class="visibility_level">
         <% if contribution_container.draft? %>
           <i class="fa fa-lock"></i>

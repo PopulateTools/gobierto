@@ -31,7 +31,6 @@
           <h2>
             <%= link_to edit_admin_cms_page_path(page, collection_id: page.collection), class: "tipsit", title: t('.page_help') do %>
               <%= page.title %>
-              <% byebug %>
               <span class="secondary"><%= page.collection.title %></span>
             <% end %>
           </h2>

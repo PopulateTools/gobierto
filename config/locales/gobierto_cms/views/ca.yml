@@ -6,6 +6,8 @@ ca:
       gobierto_cms_page_deleted: "%{subject_name}"
       gobierto_cms_page_published: "%{subject_name}"
       gobierto_cms_page_updated: "%{subject_name}"
+      gobierto_cms_section_created: Secció creat
+      gobierto_cms_section_updated: Secció actualitzada
     pages:
       index:
         filter: Filtrar per tema

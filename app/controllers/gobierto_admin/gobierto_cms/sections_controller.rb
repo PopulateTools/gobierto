@@ -33,7 +33,7 @@ module GobiertoAdmin
         @section_form = SectionForm.new(section_params.merge(site_id: current_site.id))
 
         if @section_form.save
-          # track_create_activity
+          track_create_activity
 
           redirect_to(
             admin_cms_section_path(@section_form.section),
@@ -52,7 +52,7 @@ module GobiertoAdmin
         )
 
         if @section_form.save
-          # track_update_activity
+          track_update_activity
 
           redirect_to(
             admin_cms_section_path(@section_form.section),
@@ -67,11 +67,11 @@ module GobiertoAdmin
       private
 
       def track_create_activity
-        Publishers::SectionActivity.broadcast_event("section_created", default_activity_params.merge(subject: @section_form.section))
+        Publishers::GobiertoCmsSectionActivity.broadcast_event("section_created", default_activity_params.merge(subject: @section_form.section))
       end
 
       def track_update_activity
-        Publishers::SectionActivity.broadcast_event("section_updated", default_activity_params.merge(subject: @section))
+        Publishers::GobiertoCmsSectionActivity.broadcast_event("section_updated", default_activity_params.merge(subject: @section))
       end
 
       def default_activity_params

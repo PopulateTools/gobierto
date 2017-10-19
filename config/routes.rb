@@ -265,7 +265,7 @@ Rails.application.routes.draw do
       resources :processes, only: [:index, :show], path: "p" do
         resource :information, only: [:show], controller: "process_information", as: :process_information, path: "informacion"
         resources :contribution_containers, only: [:index, :show], controller: "process_contribution_containers", as: :process_contribution_containers, path: "aportaciones" do
-          resources :contributions, only: [:show], controller: "process_contributions", as: :process_contributions, path: :contributions do
+          resources :contributions, only: [:new, :create, :show], controller: "process_contributions", as: :process_contributions, path: :contributions do
             resource :vote, only: [:create, :destroy]
             resource :flag, only: [:create, :destroy]
             resource :comment, only: [:create, :index]

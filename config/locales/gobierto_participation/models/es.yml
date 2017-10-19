@@ -1,7 +1,15 @@
 ---
 es:
+  activemodel:
+    attributes:
+      gobierto_participation/contribution_form:
+        description: Descripción
+        title: Título
   activerecord:
     attributes:
+      gobierto_participation/contribution:
+        description: Descripción
+        title: Título
       gobierto_participation/poll:
         questions: Preguntas
       gobierto_participation/poll_question:
@@ -38,6 +46,7 @@ es:
       gobierto_participation/process:
         are_not_valid: no son válidas
     models:
+      gobierto_participation/contribution: Aportación
       gobierto_participation/poll: Encuesta
       gobierto_participation/poll_answer_template: Respuesta
       gobierto_participation/poll_question: Pregunta

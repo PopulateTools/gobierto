@@ -21,12 +21,13 @@ en:
         new:
           title: New process / group
         process_contribution_containers:
-          create:
-            success_html: Container of contributions created correctly
           form:
+            idea: Idea
             placeholders:
               description: Ideas for activities for children.
               title: What activities for children can we launch?
+            proposal: Proposal
+            question: Question
           index:
             contributions_votes: Contributions / Votes
             end: Fin
@@ -52,8 +53,6 @@ en:
               moderate: Moderate
               published: Published
             votes: Votes
-          update:
-            success_html: Container of contributions updated correctly
         process_information:
           edit:
             title: Edit process

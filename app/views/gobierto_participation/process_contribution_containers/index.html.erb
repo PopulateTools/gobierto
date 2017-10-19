@@ -31,8 +31,8 @@
           <p><%= contribution_container.description %></p>
 
           <div class="meta right">
-            <div class="ib"><i class="fa fa-comment"></i><%= contribution_container.comments_count %></div>
-            <div class="ib"><i class="fa fa-users"></i><%= contribution_container.participants_count %></div>
+            <div class="ib"><i class="fa fa-comment"></i><%= contribution_container.contributions.size %></div>
+            <div class="ib"><i class="fa fa-users"></i><%= contribution_container.contributions.distinct.pluck(:user_id).size %></div>
           </div>
         <% end %>
       <% end %>

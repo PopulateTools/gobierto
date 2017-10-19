@@ -120,6 +120,7 @@ es:
     edit: Edita
     forms:
       max_characters: Máx. %{length} caracteres
+      required_and_max_characters: Obligatorio y Máx. %{length} caracteres
     pagination:
       next: Siguiente
       previous: Anterior

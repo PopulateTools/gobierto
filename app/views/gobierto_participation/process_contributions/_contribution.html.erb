@@ -12,9 +12,7 @@
         <h1><%= @contribution.title %></h1>
 
         <div>
-          <p>
-            <%= @contribution.description %>
-          </p>
+          <%= simple_format(@contribution.description) %>
           <div class="meta">
             <%= t('.sent', date: l(@contribution.created_at, format: :short), author: @contribution.user.name) %>
           </div>
@@ -26,7 +24,7 @@
       <% if user_signed_in? %>
         <div class="contribution_actions ">
 
-          <h3><%= t('.values_this_idea') %></h3>
+          <h3><%= t(".values_this_#{@contribution_container.contribution_type}") %></h3>
 
           <div class="element_eval_actions">
             <div>

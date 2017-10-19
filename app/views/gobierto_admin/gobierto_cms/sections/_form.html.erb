@@ -1,0 +1,28 @@
+<%= render "gobierto_admin/shared/validation_errors", resource: @section_form %>
+
+<%= form_for(
+  @section_form, as: :section,
+  url: @section_form.persisted? ? admin_cms_section_path(@section_form) : admin_cms_sections_path(@section), data: { "globalized-form-container" => true}) do |f| %>
+
+  <div class="globalized_fields">
+    <%= render "gobierto_admin/shared/form_locale_switchers" %>
+
+    <% current_site.configuration.available_locales.each do |locale| %>
+      <div class="form_item input_text" data-locale="<%= locale %>">
+        <%= label_tag "section[title_translations][#{locale}]", f.object.class.human_attribute_name(:title) %>
+        <%= text_field_tag "section[title_translations][#{locale}]", f.object.title_translations && f.object.title_translations[locale], placeholder: t(".placeholders.title", locale: locale.to_sym) %>
+      </div>
+    <% end %>
+
+      <div class="form_item input_text">
+        <%= f.label :slug %>
+        <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
+      </div>
+
+  </div>
+
+  <div class="actions right">
+    <%= f.submit %>
+  </div>
+
+<% end %>

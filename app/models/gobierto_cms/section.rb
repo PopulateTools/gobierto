@@ -4,6 +4,7 @@ require_dependency "gobierto_cms"
 
 module GobiertoCms
   class Section < ApplicationRecord
+    include GobiertoCommon::Sortable
     include GobiertoCommon::Sluggable
 
     belongs_to :site

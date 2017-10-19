@@ -1,0 +1,47 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= t(".title") %>
+</div>
+
+<h1><%= title t(".title") %></h1>
+
+<div class="admin_tools right">
+  <%= link_to t(".new"), new_admin_cms_section_path, class: 'button open_remote_modal' %>
+</div>
+
+<table>
+  <tr>
+    <th class="icon_col"></th>
+    <th><%= t('.header.title') %></th>
+    <th><%= t('.header.pages') %></th>
+    <th></th>
+  </tr>
+
+  <tbody>
+    <% @sections.each do |section| %>
+      <tr>
+        <td>
+          <%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_cms_section_path(section), title: t('views.edit') %>
+        </td>
+        <td>
+          <%= link_to section.title, admin_cms_section_path(section) %>
+        </td>
+        <td>
+          <%= section.section_items.size %>
+        </td>
+        <td>
+          <%= link_to "gobierto_participation_section_path(section.slug ,host: current_site.domain)", target: "_blank", class: "view_item" do %>
+            <i class="fa fa-eye"></i>
+            <%= t(".view") %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.sections_controller.index();
+  <% end %>
+<% end %>

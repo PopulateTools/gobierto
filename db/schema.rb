@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 20171019074630) do
     t.integer "site_id"
     t.index ["admin_id", "site_id"], name: "index_admin_admin_sites_on_admin_id_and_site_id"
     t.index ["admin_id"], name: "index_admin_admin_sites_on_admin_id"
-    t.index ["site_id", "admin_id"], name: "index_admin_admin_sites_on_site_id_and_admin_id", unique: true
     t.index ["site_id"], name: "index_admin_admin_sites_on_site_id"
   end
 
@@ -84,7 +83,6 @@ ActiveRecord::Schema.define(version: 20171019074630) do
     t.string "namespace", default: "", null: false
     t.string "resource_name", default: "", null: false
     t.string "action_name", default: "", null: false
-    t.bigint "resource_id"
     t.index ["admin_id", "namespace", "resource_name", "action_name"], name: "index_admin_permissions_on_admin_id_and_fields"
     t.index ["admin_id"], name: "index_admin_permissions_on_admin_id"
   end

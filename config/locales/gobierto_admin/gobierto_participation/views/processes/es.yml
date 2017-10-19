@@ -21,8 +21,6 @@ es:
         new:
           title: Nuevo proceso / grupo
         process_contribution_containers:
-          create:
-            success_html: Contenedor de contribuciones creado correctamente
           form:
             idea: Idea
             placeholders:
@@ -55,8 +53,6 @@ es:
               moderate: Moderada
               published: Publicada
             votes: Valoraciones
-          update:
-            success_html: Contenedor de contribuciones actualizado correctamente
         process_information:
           edit:
             title: Editar proceso

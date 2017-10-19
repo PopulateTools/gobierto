@@ -21,8 +21,6 @@ ca:
         new:
           title: Nou procés o grup
         process_contribution_containers:
-          create:
-            success_html: Contenidor de contribucions creat correctament
           form:
             idea: Idea
             placeholders:
@@ -55,8 +53,6 @@ ca:
               moderate: Moderada
               published: Publicada
             votes: Valoracions
-          update:
-            success_html: Contenidor de contribucions actualitzat correctament
         process_information:
           edit:
             title: Edita el procés

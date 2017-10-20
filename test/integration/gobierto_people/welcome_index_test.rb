@@ -59,6 +59,10 @@ module GobiertoPeople
       ]
     end
 
+    def fetch_links_in_scope(scope)
+      page.find(scope).all('a').map(&:text)
+    end
+
     def test_welcome_index
       with_current_site(site) do
         visit @path
@@ -95,51 +99,43 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          within ".people-summary" do
-            assert has_link? government_member.name
-            refute has_link? executive_member.name
-            assert has_link?("View all")
-          end
+          links_text = fetch_links_in_scope(".people-summary")
+          assert_includes links_text, government_member.name
+          refute_includes links_text, executive_member.name
+          assert_includes links_text, "VIEW ALL"
 
-          within ".events-summary" do
-            assert has_link? government_event.title
-            refute has_link? government_past_event.title
-            refute has_link? executive_past_event.title
-          end
+          links_text = fetch_links_in_scope(".events-summary")
+          assert_includes links_text, government_event.title
+          refute_includes links_text, government_past_event.title
+          refute_includes links_text, executive_past_event.title
 
           click_link "Executive"
 
           sleep 1
 
-          within ".people-summary" do
-            refute has_link? government_member.name
-            assert has_link? executive_member.name
-            assert has_link?("View all")
-          end
+          links_text = fetch_links_in_scope(".people-summary")
+          refute_includes links_text, government_member.name
+          assert_includes links_text, executive_member.name
+          assert_includes links_text, "VIEW ALL"
 
-          within ".events-summary" do
-            assert has_content? "There are no future events. Take a look at past ones"
-            refute has_link? government_event.title
-            refute has_link? government_past_event.title
-            assert has_link? executive_past_event.title
-          end
+          links_text = fetch_links_in_scope(".events-summary")
+          assert has_content? "There are no future events. Take a look at past ones"
+          refute_includes links_text, government_event.title
+          assert_includes links_text, executive_past_event.title
 
           click_link "Opposition"
 
           sleep 1
 
-          within ".people-summary" do
-            refute has_link? government_member.name
-            refute has_link? executive_member.name
-            refute has_link?("View all")
-          end
+          links_text = fetch_links_in_scope(".people-summary")
+          refute_includes links_text, government_member.name
+          refute_includes links_text, executive_member.name
+          refute_includes links_text, "VIEW ALL"
 
-          within ".events-summary" do
-            assert has_content? "There are no events"
-            refute has_link? government_event.title
-            refute has_link? government_past_event.title
-            refute has_link? executive_past_event.title
-          end
+          links_text = fetch_links_in_scope(".events-summary")
+          assert has_content? "There are no events"
+          refute_includes links_text, government_event.title
+          refute_includes links_text, executive_past_event.title
 
           click_link "Political groups"
 
@@ -171,32 +167,29 @@ module GobiertoPeople
         with_current_site(site) do
           visit @path
 
-          within ".events-summary" do
-            assert has_content? government_event.title
-            refute has_content? government_past_event.title
-            refute has_content? executive_past_event.title
-          end
+          links_text = fetch_links_in_scope(".events-summary")
+          assert_includes links_text, government_event.title
+          refute_includes links_text, government_past_event.title
+          refute_includes links_text, executive_past_event.title
 
           click_link "Past events"
 
           sleep 1
 
-          within ".events-summary" do
-            refute has_content? government_event.title
-            assert has_content? government_past_event.title
-            refute has_content? executive_past_event.title
-          end
+          links_text = fetch_links_in_scope(".events-summary")
+          refute_includes links_text, government_event.title
+          assert_includes links_text, government_past_event.title
+          refute_includes links_text, executive_past_event.title
 
           click_link "Executive"
 
           sleep 1
 
-          within ".events-summary" do
-            assert has_content? "There are no future events. Take a look at past ones"
-            refute has_content? government_event.title
-            refute has_content? government_past_event.title
-            assert has_content? executive_past_event.title
-          end
+          links_text = fetch_links_in_scope(".events-summary")
+          assert has_content? "There are no future events. Take a look at past ones"
+          refute_includes links_text, government_event.title
+          refute_includes links_text, government_past_event.title
+          assert_includes links_text, executive_past_event.title
         end
       end
     end

@@ -46,17 +46,17 @@ module GobiertoCms
     end
 
     def self.pages_in_collections(site)
-      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCms::Page").pluck(:item_id)
-      where(id: ids, site: site).active
+      ids = GobiertoCommon::CollectionItem.where(item_type: self.name).pluck(:item_id)
+      where(id: ids, site: site)
     end
 
     def self.pages_in_collections_and_container_type(site, container_type)
-      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCms::Page", container_type: container_type).pluck(:item_id)
-      where(id: ids, site: site).active
+      ids = GobiertoCommon::CollectionItem.where(item_type: self.name, container_type: container_type).pluck(:item_id)
+      where(id: ids, site: site)
     end
 
     def self.pages_in_collections_and_container(site, container)
-      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCms::Page", container: container).pluck(:item_id)
+      ids = GobiertoCommon::CollectionItem.where(item_type: self.name, container: container).pluck(:item_id)
       where(id: ids, site: site)
     end
 

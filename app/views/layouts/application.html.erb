@@ -146,11 +146,7 @@
           <nav id="main_nav" class="nav" role="navigation" aria-controls="main_menu" aria-hidden="false">
 
             <%= render "layouts/breadcrumb" %>
-            <% if (current_module == 'gobierto_participation' && controller_name == 'processes' && action_name == 'show') ||
-                  (current_module == 'gobierto_participation' && controller_name == 'process_contribution_containers' && (action_name == 'index' || action_name == 'show')) ||
-                  (current_module == 'gobierto_participation' && controller_name == 'process_information' && action_name == 'show') ||
-                  (current_module == 'gobierto_participation' && controller_name == 'polls' && action_name == 'index' ) ||
-                  (current_module == 'gobierto_cms' && controller_name == 'pages' && (action_name == 'show' || action_name == 'index')) %>
+            <% if try(:current_process).present? %>
               <%= render 'gobierto_participation/layouts/process_menu_subsections' %>
             <% else %>
               <%= content_for?(:module_sub_sections) ? yield(:module_sub_sections) : load_module_sub_sections(current_module) %>

@@ -27,8 +27,8 @@ module GobiertoCommon
       end
 
       def news
-        ids = GobiertoCommon::CollectionItem.where(collection: news_collection).map(&:item_id)
-        GobiertoCms::Page.where(id: ids, site: site)
+        ids = GobiertoCommon::CollectionItem.where(collection: news_collection).pluck(:item_id)
+        GobiertoCms::Page.where(id: ids, site: site).active
       end
 
       def events

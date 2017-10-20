@@ -9,18 +9,10 @@ module GobiertoParticipation
 
       def show
         @page = find_page
-        @groups = current_site.processes.group_process
       end
 
       def index
-        @issues = current_site.issues
-        @issue = find_issue if params[:issue_id]
-        @pages = if @issue
-                   GobiertoCms::Page.pages_in_collections_and_container(current_site, @issue)
-                                    .pages_in_collections_and_container(current_site, current_process).sorted.page(params[:page])
-                 else
-                   find_process_news.sorted.page(params[:page])
-                 end
+        @pages = find_process_news
       end
 
       private
@@ -33,12 +25,8 @@ module GobiertoParticipation
         end
       end
 
-      def find_issue
-        current_site.issues.find_by_slug!(params[:issue_id])
-      end
-
       def find_process_news
-        current_process.news
+        current_process.news.sorted.page(params[:page]).active
       end
 
       def find_page

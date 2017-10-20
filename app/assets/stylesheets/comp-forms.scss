@@ -78,6 +78,10 @@ input[type=text]:focus, input[type=email]:focus, input[type=submit]:focus, input
     border: none;
     height: initial;
   }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 }
 input[type=submit], .button, button {
   @include transition;

@@ -7,7 +7,7 @@
         <% current_site.configuration.available_locales.each do |locale| %>
           <div class="form_item textarea" data-locale="<%= locale %>">
             <%= label_tag "process[information_text_translations][#{locale}]", f.object.class.human_attribute_name(:information_text) %>
-            <%= text_area_tag "process[information_text_translations][#{locale}]", f.object.information_text_translations && f.object.information_text_translations[locale], placeholder: t('.placeholders.information_text', locale: locale) %>
+            <%= rich_text_area_tag "process[information_text_translations][#{locale}]", f.object.information_text_translations && f.object.information_text_translations[locale], placeholder: t('.placeholders.information_text', lang: locale) %>
           </div>
         <% end %>
       </div>
@@ -15,7 +15,7 @@
 
     <div class="pure-u-1 pure-u-md-2-24"></div>
 
-    <%= render partial: 'gobierto_admin/shared/save_widget', locals: { f: f, levels: @process_visibility_levels } %>
+    <%= render partial: 'gobierto_admin/shared/save_widget', locals: { f: f, levels: [] } %>
 
   </div>
 <% end %>

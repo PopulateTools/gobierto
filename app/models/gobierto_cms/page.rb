@@ -71,7 +71,7 @@ module GobiertoCms
         elsif collection.container_type == "GobiertoParticipation"
           url_helpers.gobierto_participation_page_url({ id: slug, host: app_host }.merge(options))
         else
-          url_helpers.gobierto_cms_page_url(parameterize.merge(host: app_host).merge(options))
+          url_helpers.gobierto_cms_page_url({ id: slug }.merge(host: app_host).merge(options))
         end
       end
     end

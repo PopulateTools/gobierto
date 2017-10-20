@@ -1,7 +1,15 @@
 ---
 en:
+  activemodel:
+    attributes:
+      gobierto_participation/contribution_form:
+        description: Description
+        title: Title
   activerecord:
     attributes:
+      gobierto_participation/contribution:
+        description: Description
+        title: Title
       gobierto_participation/poll:
         questions: Questions
       gobierto_participation/poll_question:
@@ -18,6 +26,7 @@ en:
           group_process: Group
           process: Process
       gobierto_participation/process_stage:
+        cta_text: "'Call to action' text"
         description: Description
         ends: Ends
         stage_types:
@@ -37,6 +46,7 @@ en:
       gobierto_participation/process:
         are_not_valid: are not valid
     models:
+      gobierto_participation/contribution: Contribution
       gobierto_participation/poll: Poll
       gobierto_participation/poll_answer_template: Answer
       gobierto_participation/poll_question: Question

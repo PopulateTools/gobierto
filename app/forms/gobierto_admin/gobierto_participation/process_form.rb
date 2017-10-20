@@ -3,6 +3,7 @@ module GobiertoAdmin
     class ProcessForm
 
       include ActiveModel::Model
+      prepend ::GobiertoCommon::Trackable
 
       attr_accessor(
         :id,
@@ -17,6 +18,7 @@ module GobiertoAdmin
         :header_image_url,
         :visibility_level,
         :issue_id,
+        :scope_id,
         :has_duration
       )
 
@@ -26,6 +28,12 @@ module GobiertoAdmin
 
       validates :site, :title_translations, :process_type, presence: true
       validates :process_type, inclusion: { in: ::GobiertoParticipation::Process.process_types }
+
+      trackable_on :process
+
+      # notify_changed :starts
+      # notify_changed :ends
+      notify_changed :visibility_level
 
       def initialize(options = {})
         options = options.to_h.with_indifferent_access
@@ -59,8 +67,16 @@ module GobiertoAdmin
         @visibility_level ||= 'draft'
       end
 
+      def process_type
+        @process_type ||= 'process'
+      end
+
       def issue
         @issue ||= site.issues.find_by(id: issue_id)
+      end
+
+      def scope
+        @scope ||= site.scope.find_by(id: scope_id)
       end
 
       def process
@@ -99,7 +115,7 @@ module GobiertoAdmin
           existing_stage = process.stages.detect { |stage| stage.stage_type == stage_attributes['stage_type'] }
           update_existing_stage_from_attributes(existing_stage, stage_attributes) if existing_stage
         end
-        
+
         stages
       end
 
@@ -108,6 +124,12 @@ module GobiertoAdmin
       def process_stage_class
         ::GobiertoParticipation::ProcessStage
       end
+
+      def notify?
+        process.active?
+      end
+
+      private
 
       def build_process(args = {})
         site.processes.build(args)
@@ -125,6 +147,7 @@ module GobiertoAdmin
         existing_stage.assign_attributes(
           title_translations: attributes['title_translations'],
           description_translations: attributes['description_translations'],
+          cta_text_translations: attributes['cta_text_translations'],
           active: attributes['active'],
           starts: attributes['starts'],
           ends: attributes['ends']
@@ -153,13 +176,17 @@ module GobiertoAdmin
           process_attributes.ends               = has_duration ? ends : nil
           process_attributes.slug               = slug
           process_attributes.issue_id           = issue_id
+          process_attributes.scope_id           = scope_id
           process_attributes.stages             = stages
         end
 
         build_placeholder_stages if process.stages.empty?
 
         if @process.valid?
-          @process.save
+          run_callbacks(:save) do
+            @process.save
+          end
+
           @process
         else
           promote_errors(@process.errors)

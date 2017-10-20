@@ -4,9 +4,16 @@ require "test_helper"
 
 module GobiertoAdmin
   class AdminUpdateTest < ActionDispatch::IntegrationTest
-    def regular_admin
-      @regular_admin ||= gobierto_admin_admins(:tony)
+
+    def tony
+      @tony ||= gobierto_admin_admins(:tony)
     end
+    alias_method :regular_admin, :tony
+
+    def steve
+      @steve ||= gobierto_admin_admins(:steve)
+    end
+    alias_method :regular_admin_on_santander, :steve
 
     def manager_admin
       @manager_admin ||= gobierto_admin_admins(:nick)
@@ -16,9 +23,13 @@ module GobiertoAdmin
       @god_admin ||= gobierto_admin_admins(:natasha)
     end
 
+    def site
+      @site ||= sites(:madrid)
+    end
+
     def test_regular_admin_update
       with_signed_in_admin(manager_admin) do
-        visit edit_admin_admin_path(regular_admin)
+        visit edit_admin_admin_path(regular_admin_on_santander)
 
         within "form.edit_admin" do
           fill_in "admin_name", with: "Admin Name"
@@ -29,6 +40,7 @@ module GobiertoAdmin
           end
 
           within ".site-check-boxes" do
+            uncheck "santander.gobierto.dev"
             check "madrid.gobierto.dev"
           end
 
@@ -51,8 +63,8 @@ module GobiertoAdmin
           end
 
           within ".site-check-boxes" do
-            assert has_checked_field?("madrid.gobierto.dev")
             refute has_checked_field?("santander.gobierto.dev")
+            assert has_checked_field?("madrid.gobierto.dev")
           end
 
           within ".admin-authorization-level-radio-buttons" do
@@ -63,7 +75,7 @@ module GobiertoAdmin
     end
 
     def test_manager_admin_update
-      with_signed_in_admin(manager_admin) do
+      with_signed_in_admin(god_admin) do
         visit edit_admin_admin_path(manager_admin)
 
         within "form.edit_admin" do
@@ -71,15 +83,13 @@ module GobiertoAdmin
           fill_in "admin_password", with: "wadus"
           fill_in "admin_password_confirmation", with: "wadus"
 
-          within ".site-module-check-boxes" do
-            check "Gobierto Development"
-          end
-
           refute has_selector?(".site-check-boxes")
 
           within ".admin-authorization-level-radio-buttons" do
-            choose "Manager"
+            choose "Regular"
           end
+
+          find("label[for='admin_permitted_sites_#{site.id}']", visible: false).click
 
           click_button "Update"
         end
@@ -91,7 +101,7 @@ module GobiertoAdmin
           assert has_field?("admin_email", with: manager_admin.email)
 
           within ".admin-authorization-level-radio-buttons" do
-            assert has_checked_field?("Manager")
+            assert has_checked_field?("Regular")
           end
         end
       end

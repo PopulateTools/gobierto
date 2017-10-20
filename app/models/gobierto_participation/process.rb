@@ -20,7 +20,9 @@ module GobiertoParticipation
 
     belongs_to :site
     belongs_to :issue
-    has_many :stages, -> { order(stage_type: :asc) }, dependent: :destroy, class_name: 'GobiertoParticipation::ProcessStage', autosave: true
+    belongs_to :scope, class_name: 'GobiertoCommon::Scope'
+    has_many :stages, -> { sorted }, dependent: :destroy, class_name: 'GobiertoParticipation::ProcessStage', autosave: true
+    has_many :active_stages, -> { active.sorted }, class_name: 'GobiertoParticipation::ProcessStage'
     has_many :polls
     has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
 
@@ -71,21 +73,21 @@ module GobiertoParticipation
     end
 
     def current_stage
-      process_stages = stages.where("starts <= ? AND ends >= ?", Time.zone.now, Time.zone.now)
-      process_stages.first.to_s
+      active_stages.open.order(ends: :asc).last
     end
 
     def next_stage
-      process_stages = stages.where("starts >= ? AND ends >= ?", Time.zone.now, Time.zone.now)
-      process_stages.first.to_s
+      active_stages.upcoming.order(starts: :asc).first
+    end
+
+    def showcase_stage
+      current_stage || next_stage ||  active_stages.order(ends: :asc).last || active_stages.last
     end
 
     def open?
-      if starts.present? && ends.present?
-        Time.zone.now.between?(starts, ends)
-      else
-        false
-      end
+      return false if starts.present? && starts > Time.zone.now
+      return false if ends.present? && ends < Time.zone.now
+      return true
     end
 
     private

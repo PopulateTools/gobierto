@@ -1,6 +1,10 @@
 ---
 es:
   gobierto_participation:
+    comments:
+      comment:
+        comments_html: "<strong>%{comments}</strong> comentarios"
+        respond: Responder
     events:
       event:
         follow_event: Seguir este evento
@@ -16,6 +20,7 @@ es:
       gobierto_participation_poll_created: Encuesta creada
       gobierto_participation_poll_updated: Encuesta actualizada
       gobierto_participation_process_created: Proceso / grupo creado
+      gobierto_participation_process_published: 'Actualitzación del proceso: %{subject_name}'
       gobierto_participation_process_updated: Proceso / grupo actualizado
       index:
         agenda_for_container: Agenda de %{container_title}
@@ -37,7 +42,7 @@ es:
         work_groups_description: Consulta la actividad de cada grupo y participa.
         work_groups_title: Grupos de trabajo
       participation_latest_info:
-        agenda: Agenda
+        agenda: Agenda Participación
         news: Noticias
         no_events: No hay eventos relacionados
         no_news: No hay noticias relacionadas
@@ -59,7 +64,7 @@ es:
         processes: Procesos
         questions: Pregunta
       process_menu_subsections:
-        contributions: Contribuciones
+        contributions: Aportaciones
         information: Información
         meetings: Reuniones
         polls: Encuestas
@@ -70,6 +75,69 @@ es:
         documents: Documentos
         news: Noticias
     participation_attachments: Ver todos los documentos de Participación
+    process_contribution_containers:
+      show:
+        all: Todas
+        best_ratings: Mejor valoradas
+        idea:
+          one: 1 idea
+          other: "%{count} ideas"
+        login_signup_idea: Haz login o regístrate para poner ideas
+        login_signup_proposal: Haz login o regístrate para poner propuestas
+        login_signup_question: Haz login o regístrate para poner preguntas
+        organize: Organizar
+        proposal:
+          one: 1 propuesta
+          other: "%{count} propuestas"
+        put_idea: "¡Tengo una idea!"
+        put_proposal: "¡Tengo una propuesta!"
+        put_question: "¡Tengo una pregunta!"
+        question:
+          one: 1 pregunta
+          other: "%{count} preguntas"
+        recent: Recientes
+        self: Tuyas
+        show_ideas: Mostrar ideas
+        show_proposals: Mostrar propuestas
+        show_questions: Mostrar preguntas
+        term_html: Tienes de plazo hasta el <strong>%{date}</strong>
+        user:
+          one: Un vecino ha aportado
+          other: "%{count} vecinos han aportado"
+        worst_ratings: Peor valoradas
+    process_contributions:
+      comments:
+        comments_html: "<strong>%{comments}</strong> comentarios"
+        login_signup_comment: Haz login o regístrate para comentar
+      contribution:
+        enchants: Me encanta
+        indifferent: Me es indiferente
+        like: Me gusta
+        not_like: No me gusta
+        sent: enviada por %{author} el %{date}
+        values_this_idea: Valora esta idea
+        values_this_proposal: Valora esta propuesta
+        values_this_question: Valora esta pregunta
+      flag:
+        report: Reportar
+        reported: Reportada
+      form:
+        description_idea: "¿Quieres dar detalles? Desarrolla los puntos principales
+          de tu idea"
+        description_proposal: "¿Quieres dar detalles? Desarrolla los puntos principales
+          de tu propuesta"
+        description_question: "¿Quieres dar detalles? Desarrolla los puntos principales
+          de tu pregunta"
+        placeholders:
+          description_idea: La nueva piscina ...
+          description_proposal: La nueva piscina ...
+          description_question: La nueva piscina ...
+          title_idea: Ej. Una nueva piscina en el polideportivo
+          title_proposal: Ej. Una nueva piscina en el polideportivo
+          title_question: Ej. ¿Una nueva piscina en el polideportivo?
+        title_idea: Describe tu idea de forma concisa
+        title_proposal: Describe tu propuesta de forma concisa
+        title_question: Describe tu pregunta de forma concisa
     processes:
       index:
         groups: Grupos de trabajo
@@ -99,6 +167,9 @@ es:
       process_teaser:
         current_stage_html: "<strong>Fase actual</strong>: %{current_stage}"
         next_stage_html: "<strong>Próxima fase</strong>: %{current_stage}"
+      progress_map:
+        current: Fase actual
+        next_stage: Próxima fase
       show:
         about: Sobre este proceso
         appointments: Citas presenciales
@@ -115,6 +186,7 @@ es:
         no_events: No hay eventos relacionados
         no_news: No hay noticias relacionadas
         process_stages: Fases del proceso
+        scope: Ámbito
       timeline_row:
         past_stage: Fase finalizada
         upcoming_stage: Fase pendiente de inicio
@@ -122,10 +194,10 @@ es:
     shared:
       activities_for: Actividad de %{container}
       agenda: Agenda
-      agenda_participation_p1: Te invitamos a asistir a las siguientes reuniones donde
-        debatiremos en persona sobre los temas de este proceso. Si no puedes asistir,
-        iremos publicando online todo lo que se hable en la reuniones para facilitar
-        el seguimiento y hacer accesibles las conclusiones.
+      agenda_p1: Te invitamos a asistir a las siguientes reuniones donde debatiremos
+        en persona sobre los temas de este proceso. Si no puedes asistir, iremos publicando
+        online todo lo que se hable en la reuniones para facilitar el seguimiento
+        y hacer accesibles las conclusiones.
       all_activities: Ver todas las actualizaciones
       all_attachments: Ver todos los documentos
       all_events: Ver todos los eventos

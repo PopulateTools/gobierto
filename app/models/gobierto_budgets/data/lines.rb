@@ -7,7 +7,7 @@ module GobiertoBudgets
         @year = options[:year]
         @place = options[:place]
         @is_comparison = @place.is_a?(Array)
-        @kind = options[:kind]
+        @kind = options[:kind] || GobiertoBudgets::BudgetLine::EXPENSE
         @code = options[:code]
         @area = options[:area]
         if @code
@@ -34,10 +34,12 @@ module GobiertoBudgets
 
       def mean_province
         filters = [ {term: { province_id: @place.province_id }} ]
+        filters.push({missing: { field: 'functional_code'}})
+        filters.push({missing: { field: 'custom_code'}})
+        filters.push({term: { kind: @kind }})
 
         if @code
           filters.push({term: { code: @code }})
-          filters.push({term: { kind: @kind }})
         end
 
         query = {
@@ -76,6 +78,7 @@ module GobiertoBudgets
 
         result = []
         data.sort_by{|k,_| k }.each do |year, v|
+          next if year > GobiertoBudgets::SearchEngineConfiguration::Year.last
           result.push({
             date: year.to_s,
             value: v,
@@ -88,10 +91,12 @@ module GobiertoBudgets
 
       def mean_autonomy
         filters = [ {term: { autonomy_id: @place.province.autonomous_region.id }} ]
+        filters.push({missing: { field: 'functional_code'}})
+        filters.push({missing: { field: 'custom_code'}})
+        filters.push({term: { kind: @kind }})
 
         if @code
           filters.push({term: { code: @code }})
-          filters.push({term: { kind: @kind }})
         end
 
         query = {
@@ -130,6 +135,7 @@ module GobiertoBudgets
 
         result = []
         data.sort_by{|k,_| k }.each do |year, v|
+          next if year > GobiertoBudgets::SearchEngineConfiguration::Year.last
           result.push({
             date: year.to_s,
             value: v,
@@ -142,10 +148,12 @@ module GobiertoBudgets
 
       def mean_national
         filters = []
+        filters.push({term: { kind: @kind }})
         if @code
           filters.push({term: { code: @code }})
-          filters.push({term: { kind: @kind }})
         end
+        filters.push({missing: { field: 'functional_code'}})
+        filters.push({missing: { field: 'custom_code'}})
 
         query = {
           query: {
@@ -183,6 +191,7 @@ module GobiertoBudgets
 
         result = []
         data.sort_by{|k,_| k }.each do |year, v|
+          next if year > GobiertoBudgets::SearchEngineConfiguration::Year.last
           result.push({
             date: year.to_s,
             value: v,
@@ -196,10 +205,12 @@ module GobiertoBudgets
       def place_values(place = nil)
         place = @place unless place.present?
         filters = [ {term: { ine_code: place.id }} ]
+        filters.push({missing: { field: 'functional_code'}})
+        filters.push({missing: { field: 'custom_code'}})
+        filters.push({term: { kind: @kind }})
 
         if @code
           filters.push({term: { code: @code }})
-          filters.push({term: { kind: @kind }})
         end
 
         query = {
@@ -222,6 +233,7 @@ module GobiertoBudgets
         response = SearchEngine.client.search index: index, type: type, body: query
         values = Hash[response['hits']['hits'].map{|h| h['_source']}.map{|h| [h['year'],h[@variable]] }]
         values.each do |k,v|
+          next if k > GobiertoBudgets::SearchEngineConfiguration::Year.last
           dif = 0
           if old_value = values[k -1]
             dif = delta_percentage(v, old_value)

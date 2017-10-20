@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171003112359) do
+ActiveRecord::Schema.define(version: 20171019074630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20171003112359) do
     t.integer "site_id"
     t.index ["admin_id", "site_id"], name: "index_admin_admin_sites_on_admin_id_and_site_id"
     t.index ["admin_id"], name: "index_admin_admin_sites_on_admin_id"
+    t.index ["site_id", "admin_id"], name: "index_admin_admin_sites_on_site_id_and_admin_id", unique: true
     t.index ["site_id"], name: "index_admin_admin_sites_on_site_id"
   end
 
@@ -83,6 +84,7 @@ ActiveRecord::Schema.define(version: 20171003112359) do
     t.string "namespace", default: "", null: false
     t.string "resource_name", default: "", null: false
     t.string "action_name", default: "", null: false
+    t.bigint "resource_id"
     t.index ["admin_id", "namespace", "resource_name", "action_name"], name: "index_admin_permissions_on_admin_id_and_fields"
     t.index ["admin_id"], name: "index_admin_permissions_on_admin_id"
   end
@@ -280,6 +282,28 @@ ActiveRecord::Schema.define(version: 20171003112359) do
     t.index ["title_translations"], name: "index_gcms_pages_on_title_translations", using: :gin
   end
 
+  create_table "gcms_section_items", force: :cascade do |t|
+    t.string "item_type"
+    t.bigint "item_id"
+    t.integer "position", default: 0, null: false
+    t.integer "parent_id", null: false
+    t.bigint "section_id"
+    t.integer "level", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_type", "item_id"], name: "index_gcms_section_items_on_item_type_and_item_id"
+    t.index ["section_id"], name: "index_gcms_section_items_on_section_id"
+  end
+
+  create_table "gcms_sections", force: :cascade do |t|
+    t.jsonb "title_translations"
+    t.string "slug", default: "", null: false
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_gcms_sections_on_site_id"
+  end
+
   create_table "gobierto_calendars_event_attendees", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "charge"
@@ -443,6 +467,7 @@ ActiveRecord::Schema.define(version: 20171003112359) do
     t.integer "flags_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "comments_count", default: 0
     t.index ["commentable_type", "commentable_id"], name: "index_gpart_comments_on_commentable_type_and_commentable_id"
     t.index ["site_id"], name: "index_gpart_comments_on_site_id"
     t.index ["user_id"], name: "index_gpart_comments_on_user_id"
@@ -460,6 +485,7 @@ ActiveRecord::Schema.define(version: 20171003112359) do
     t.bigint "site_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug", default: "", null: false
     t.index ["admin_id"], name: "index_gpart_contribution_containers_on_admin_id"
     t.index ["process_id"], name: "index_gpart_contribution_containers_on_process_id"
     t.index ["site_id"], name: "index_gpart_contribution_containers_on_site_id"
@@ -476,6 +502,7 @@ ActiveRecord::Schema.define(version: 20171003112359) do
     t.integer "comments_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug", default: "", null: false
     t.index ["contribution_container_id"], name: "index_gpart_contributions_on_contribution_container_id"
     t.index ["description"], name: "index_gpart_contributions_on_description"
     t.index ["site_id"], name: "index_gpart_contributions_on_site_id"
@@ -547,6 +574,7 @@ ActiveRecord::Schema.define(version: 20171003112359) do
     t.integer "stage_type", default: 0, null: false
     t.jsonb "description_translations"
     t.boolean "active", default: false, null: false
+    t.jsonb "cta_text_translations"
     t.index ["process_id", "slug"], name: "index_gpart_process_stages_on_process_id_and_slug", unique: true
     t.index ["process_id"], name: "index_gpart_process_stages_on_process_id"
     t.index ["title_translations"], name: "index_gpart_process_stages_on_title_translations", using: :gin
@@ -566,6 +594,7 @@ ActiveRecord::Schema.define(version: 20171003112359) do
     t.integer "process_type", default: 1, null: false
     t.integer "issue_id"
     t.jsonb "information_text_translations"
+    t.bigint "scope_id"
     t.index ["body_translations"], name: "index_gpart_processes_on_body_translations", using: :gin
     t.index ["site_id"], name: "index_gpart_processes_on_site_id"
     t.index ["slug"], name: "index_gpart_processes_on_slug", unique: true
@@ -600,6 +629,15 @@ ActiveRecord::Schema.define(version: 20171003112359) do
     t.index ["name_translations"], name: "index_issues_on_name_translations", using: :gin
     t.index ["position"], name: "index_issues_on_position"
     t.index ["site_id"], name: "index_issues_on_site_id"
+  end
+
+  create_table "scopes", force: :cascade do |t|
+    t.bigint "site_id", null: false
+    t.jsonb "name_translations", null: false
+    t.jsonb "description_translations", null: false
+    t.integer "position", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sites", id: :serial, force: :cascade do |t|

@@ -77,3 +77,23 @@ juana:
   position: 3
   email: juana@example.com
   google_calendar_token:
+
+kali:
+  site: santander
+  admin: tony
+  name: Kali
+  slug: kali
+  charge_translations: <%= { 'en' => 'Goddess', 'es' => 'Diosa' }.to_json %>
+  bio_translations: <%= {
+    'en' => 'One of the goddesses of Hinduism',
+    'es' => 'Una de las diosas del hinduismo'
+  }.to_json %>
+  bio_url: https://en.wikipedia.org/wiki/Kali
+  avatar_url: https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Kali_by_Raja_Ravi_Varma.jpg/552px-Kali_by_Raja_Ravi_Varma.jpg
+  visibility_level: <%= GobiertoPeople::Person.visibility_levels['active'] %>
+  category: <%= GobiertoPeople::Person.categories['executive'] %>
+  party:
+  political_group:
+  position: 0
+  email: kali@example.com
+  google_calendar_token:

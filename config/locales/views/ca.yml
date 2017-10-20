@@ -34,7 +34,6 @@ ca:
     application:
       disclaimer: Aquesta web es una demostració de Gobierto, un programari de transparència
         i participació
-      follow_process: Segueix aquest procés
       more_information: Més informació en gobierto.es
       search: Cerca...
       session:
@@ -102,6 +101,10 @@ ca:
       powered_by: Gobierto utilitza <a href="https://www.algolia.com" target="_blank">Algolia</a>
         per a buscar
       updated: Actualitat
+  scopes:
+    events:
+      scopes_scope_created: Àmbit creat
+      scopes_scope_updated: Àmbit actualitzat
   sites:
     events:
       sites_site_created: Site creat
@@ -112,9 +115,12 @@ ca:
     events:
       users_user_updated: Usuari actualitzat
   views:
+    delete: Eliminar
     drag_to_sort: Arrastra per a ordenar
+    edit: Edita
     forms:
       max_characters: Màx. %{length} caràcters
+      required_and_max_characters: Obligatori i Màx. %{length} caràcters
     pagination:
       next: Següent
       previous: Anterior

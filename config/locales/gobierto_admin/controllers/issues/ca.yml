@@ -5,6 +5,9 @@ ca:
       create:
         success_html: El tema s'ha creat correctament. <a href="%{link}">Veure el
           tema</a>.
+      destroy:
+        has_items: No pots esborrar un tema mentre tingui elements associats.
+        success: El tema s'ha esborrat correctament.
       update:
         success_html: El tema s'ha actualitzat correctament. <a href="%{link}">Veure
           el tema</a>.

@@ -2,6 +2,6 @@
 es:
   gobierto_attachments:
     events:
-      gobierto_attachments_attachment_created: Nuevo documento
-      gobierto_attachments_attachment_name_changed: 'Nuevo documento: %{subject_name}'
-      gobierto_attachments_attachment_updated: Documento actualizado
+      gobierto_attachments_attachment_created: "%{subject_name}"
+      gobierto_attachments_attachment_name_changed: "%{subject_name}"
+      gobierto_attachments_attachment_updated: "%{subject_name}"

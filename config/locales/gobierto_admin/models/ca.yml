@@ -25,6 +25,8 @@ ca:
       gobierto_admin/issue_form:
         name: Nom
         slug: URL
+      gobierto_admin/scope_form:
+        name: Nom
       gobierto_admin/site_form:
         available_locales: Idiomes disponibles
         default_locale: Idioma per defecte
@@ -54,6 +56,7 @@ ca:
       gobierto_admin/admin_new_password_form: Recuperació de contrasenya
       gobierto_admin/file_attachment_form: Canvi en el fitxer
       gobierto_admin/issue_form: Tema
+      gobierto_admin/scope_form: Àmbit
       gobierto_admin/site_form: Lloc
       gobierto_admin/user_form: Usuari
       gobierto_admin/user_password_form: Canvi de contrasenya

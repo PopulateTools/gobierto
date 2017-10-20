@@ -1,0 +1,11 @@
+---
+es:
+  gobierto_admin:
+    scopes:
+      create:
+        success: El ámbito se ha creado correctamente.
+      destroy:
+        has_items: No puedes borrar un ámbito mientras tenga elementos asociados.
+        success: El ámbito se ha borrado correctamente.
+      update:
+        success: El ámbito se ha actualizado correctamente.

@@ -34,41 +34,19 @@
         </div>
       <% end %>
 
-      <% if @site_modules.present? %>
-        <div class="form_block">
+      <% unless @admin && @admin.god? %>
 
-          <h2><%= t(".permissions_block") %></h2>
-
-          <div class="form_item site-module-check-boxes">
-
-            <div class="options compact">
-              <%= f.collection_check_boxes(:site_modules, Array(@site_modules), :namespace, :name) do |b| %>
-                <div class="option">
-                  <%= b.check_box %>
-                  <%= b.label do %>
-                    <span></span>
-                    <%= b.text %>
-                  <% end %>
-                </div>
-              <% end %>
-            </div>
-
-          </div>
-
-        </div>
-      <% end %>
-
-      <% if @sites.present? %>
-        <div class="form_block">
+        <!-- Site permissions -->
+        <div class="form_block" id="sites_permissions" style="<%= @admin.nil? || @admin.regular? ? '' : 'display: none;' %>">
 
           <h2><%= t(".sites_block") %></h2>
 
           <div class="form_item site-check-boxes">
 
             <div class="options compact">
-              <%= f.collection_check_boxes(:site_ids, Array(@sites), :id, :domain) do |b| %>
+              <%= f.collection_check_boxes(:permitted_sites, Array(@sites), :id, :domain) do |b| %>
                 <div class="option">
-                  <%= b.check_box %>
+                  <%= b.check_box(data: { behavior: 'toggle_site', site_id: b.object.id }) %>
                   <%= b.label do %>
                     <span></span>
                     <%= b.text %>
@@ -80,6 +58,64 @@
           </div>
 
         </div>
+        <!-- ./ Site permissions -->
+
+        <!-- Module permissions -->
+        <div class="form_block" id="modules_permissions" style="<%= @admin.nil? || @admin.regular? ? '' : 'display: none;' %>">
+
+          <h2><%= t(".permissions_block") %></h2>
+
+          <div class="form_item site-module-check-boxes">
+
+            <div class="options compact">
+              <%= f.collection_check_boxes(:permitted_modules, Array(@site_modules), :namespace, :name) do |module_b| %>
+                <div class="option">
+                  <% check_module_permission =  @admin && @admin.permissions.by_namespace("site_module").resource_names.map(&:camelize).include?(module_b.value) %>
+                  <%= module_b.check_box(data: { behavior: "toggle-module-#{module_b.value}" }, checked: check_module_permission) %>
+                  <%= module_b.label do %>
+                    <span></span>
+                    <%= module_b.text %>
+                  <% end %>
+                </div>
+
+                <!-- GobiertoPeople people options -->
+                <% if module_b.text == 'Gobierto People' %>
+
+                  <% module_active = f.object.permitted_modules.include?(module_b.object.namespace.underscore) %>
+                  <% permitted_sites = f.object.permitted_sites %>
+
+                  <div class="option_suboptions" id="people_permissions" style="<%= module_active ? '' : 'display: none;' %>">
+
+                    <div class="option" style="<%= permitted_sites.any? ? '' : 'display: none;' %>">
+                      <input type="checkbox" name="admin[all_people_permitted]" id="admin_all_people_permitted"/>
+                      <label for="admin_all_people_permitted">
+                        <span></span><b><%= 'Todas' %></b>
+                      </label>
+                    </div>
+
+                    <%= f.collection_check_boxes(:permitted_people, Array(@people), :id, :name) do |person_b| %>
+                      <% person_site_id = person_b.object.site_id %>
+                      <% person_site_permitted = permitted_sites.include?(person_site_id) %>
+
+                      <div class="option" data-class="site_person" data-site-id="<%= person_site_id %>" style="<%= person_site_permitted ? '' : 'display: none;' %>">
+                        <%= person_b.check_box(checked: @admin && ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: @admin, person: person_b.object).manage?) %>
+                        <%= person_b.label do %>
+                          <span></span><%= person_b.object.name %>
+                        <% end %>
+                      </div>
+                    <% end %>
+
+                  </div>
+                <% end %>
+                <!-- ./ GobiertoPeople people options -->
+              <% end %>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- ./ Module permissions -->
+
       <% end %>
 
       <% if @admin_form.persisted? %>
@@ -106,7 +142,7 @@
             <div class="options compact">
               <%= f.collection_radio_buttons(:authorization_level, Array(@admin_authorization_levels), :first, :first) do |b| %>
                 <div class="option">
-                  <%= b.radio_button %>
+                  <%= b.radio_button(data: { behavior: "authorization-level-#{b.text}" }) %>
                   <%= b.label do %>
                     <span></span>
                     <%= t(".authorization_level.#{b.text}") %>
@@ -125,4 +161,10 @@
 
   </div>
 
+<% end %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.admins_controller.form();
+  <% end %>
 <% end %>

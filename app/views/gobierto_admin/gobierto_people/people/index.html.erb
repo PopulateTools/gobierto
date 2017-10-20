@@ -29,14 +29,23 @@
   </thead>
   <tbody data-behavior="sortable" data-sortable-target="<%= admin_people_people_sort_path %>">
   <% @people.each do |person| %>
-    <tr id="person-item-<%= person.id %>" data-id="<%= person.id %>" class="<%= cycle("odd", "even") %>">
+    <% person_policy = ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: current_admin, person: person) %>
+    <tr id="person-item-<%= person.id %>" data-id="<%= person.id %>">
       <td>
-        <%= link_to edit_admin_people_person_path(person) do %>
-          <i class="fa fa-edit"></i>
+        <% if person_policy.manage? %>
+          <%= link_to edit_admin_people_person_path(person) do %>
+            <i class="fa fa-edit"></i>
+          <% end %>
+        <% else %>
+          <i class="fa fa-ban tipsit" title="<%= t('.no_permissions') %>"></i>
         <% end %>
       </td>
       <td>
-        <%= link_to edit_admin_people_person_path(person) do %>
+        <% if person_policy.manage? %>
+          <%= link_to edit_admin_people_person_path(person) do %>
+            <%= person.name %>
+          <% end %>
+        <% else %>
           <%= person.name %>
         <% end %>
       </td>
@@ -61,12 +70,21 @@
         <%= t(".visibility_level.#{person.visibility_level}") %>
       </td>
       <td>
-        <%= link_to gobierto_people_person_preview_url(person, host: current_site.domain), target: "_blank", class: "view_item" do %>
+        <% if person_policy.view? %>
+          <%= link_to gobierto_people_person_preview_url(person, host: current_site.domain), target: "_blank", class: "view_item" do %>
+            <i class="fa fa-eye"></i>
+            <%= t(".view_person") %>
+          <% end %>
+        <% else %>
           <i class="fa fa-eye"></i>
           <%= t(".view_person") %>
         <% end %>
       </td>
-      <td><i class="sort-handler fa fa-bars tipsit" title="<%= t('.drag_to_sort') %>"></i></td>
+      <td>
+        <% if @manage_all_people %>
+          <i class="sort-handler fa fa-bars tipsit" title="<%= t('.drag_to_sort') %>"></i>
+        <% end %>
+      </td>
     </tr>
   <% end %>
   </tbody>

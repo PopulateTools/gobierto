@@ -34,7 +34,6 @@ es:
     application:
       disclaimer: Esta web es una demostración de Gobierto, software de transparencia
         y participación
-      follow_process: Sigue este proceso
       more_information: Más información en gobierto.es
       search: Busca...
       session:
@@ -102,6 +101,10 @@ es:
       powered_by: Gobierto utiliza <a href="https://www.algolia.com" target="_blank">Algolia</a>
         para buscar
       updated: Actualizado
+  scopes:
+    events:
+      scopes_scope_created: Ámbito creado
+      scopes_scope_updated: Ámbito actualizado
   sites:
     events:
       sites_site_created: Site creado
@@ -112,9 +115,12 @@ es:
     events:
       users_user_updated: Usuario actualizado
   views:
+    delete: Eliminar
     drag_to_sort: Arrastra para ordenar
+    edit: Edita
     forms:
       max_characters: Máx. %{length} caracteres
+      required_and_max_characters: Obligatorio y Máx. %{length} caracteres
     pagination:
       next: Siguiente
       previous: Anterior

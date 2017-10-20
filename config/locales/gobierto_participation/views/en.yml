@@ -1,6 +1,10 @@
 ---
 en:
   gobierto_participation:
+    comments:
+      comment:
+        comments_html: "<strong>%{comments}</strong> comments"
+        respond: Respond
     events:
       event:
         follow_event: Follow this event
@@ -16,6 +20,7 @@ en:
       gobierto_participation_poll_created: Poll created
       gobierto_participation_poll_updated: Poll updated
       gobierto_participation_process_created: Process / group created
+      gobierto_participation_process_published: 'Update process: %{subject_name}'
       gobierto_participation_process_updated: Process / group updated
       index:
         agenda_for_container: Diary for %{container_title}
@@ -37,7 +42,7 @@ en:
         work_groups_description: Check the activity of each group and participate.
         work_groups_title: Work groups
       participation_latest_info:
-        agenda: Diary
+        agenda: Paritipation Agenda
         news: News
         no_events: There are no related events
         no_news: There are no related news
@@ -66,10 +71,73 @@ en:
         results: Results
       secondary_nav:
         activity: Activity
-        agenda: Diary
+        agenda: Agenda
         documents: Documents
         news: News
     participation_attachments: See all the documents of Participation
+    process_contribution_containers:
+      show:
+        all: All
+        best_ratings: Best ratings
+        idea:
+          one: 1 idea
+          other: "%{count} ideas"
+        login_signup_idea: Login or register to post ideas
+        login_signup_proposal: Login or register to post proposals
+        login_signup_question: Login or register to post questions
+        organize: Organize
+        proposal:
+          one: 1 proposal
+          other: "%{count} proposals"
+        put_idea: Have an idea!
+        put_proposal: Have a proposal!
+        put_question: Have a question!
+        question:
+          one: 1 question
+          other: "%{count} questions"
+        recent: Recent
+        self: Self
+        show_ideas: Show ideas
+        show_proposals: Show proposals
+        show_questions: Show questions
+        term_html: You have of term until <strong>%{date}</strong>
+        user:
+          one: One neighbor have contributed
+          other: "%{count} neighbors have contributed"
+        worst_ratings: Worst ratings
+    process_contributions:
+      comments:
+        comments_html: "<strong>%{comments}</strong> comments"
+        login_signup_comment: Login or register to comment
+      contribution:
+        enchants: It enchants to me
+        indifferent: It is to me indifferent
+        like: I like
+        not_like: I don't like
+        sent: sent by %{author} the %{date}
+        values_this_idea: Rate the idea
+        values_this_proposal: Rate the proposal
+        values_this_question: Rate the question
+      flag:
+        report: Report
+        reported: Reported
+      form:
+        description_idea: Do you want to give them details? Develop the main points
+          of your idea
+        description_proposal: Do you want to give them details? Develop the main points
+          of your proposal
+        description_question: Do you want to give them details? Develop the main points
+          of your question
+        placeholders:
+          description_idea: The new pool ...
+          description_proposal: The new pool ...
+          description_question: The new pool ...
+          title_idea: Ex. A new pool in the sports center
+          title_proposal: Ex. A new pool in the sports center
+          title_question: Ex. A new pool in the sports center?
+        title_idea: Write your idea concise
+        title_proposal: Write your proposal concise
+        title_question: Write your question concise
     processes:
       index:
         groups: Work groups
@@ -98,6 +166,9 @@ en:
       process_teaser:
         current_stage_html: "<strong>Current stage</strong>: %{current_stage}"
         next_stage_html: "<strong>Next stage</strong>: %{current_stage}"
+      progress_map:
+        current: Current stage
+        next_stage: Next fase
       show:
         about: About this process
         appointments: Face-to-face appointments
@@ -114,6 +185,7 @@ en:
         no_events: There are no related events
         no_news: There are no related news
         process_stages: Process stages
+        scope: Scope
       timeline_row:
         past_stage: Stage has ended
         upcoming_stage: Stage not yet started
@@ -121,10 +193,10 @@ en:
     shared:
       activities_for: Updates for %{container}
       agenda: Agenda
-      agenda_participation_p1: We invite you to attend the following meetings where
-        we will discuss in person on the issues of this process. If you can not to
-        attend, we will publish online everything that is said in the meetings to
-        facilitate follow-up and make conclusions accessible.
+      agenda_p1: We invite you to attend the following meetings where we will discuss
+        in person on the issues of this process. If you can not to attend, we will
+        publish online everything that is said in the meetings to facilitate follow-up
+        and make conclusions accessible.
       all_activities: See all updates
       all_attachments: See all documents
       all_events: View all events

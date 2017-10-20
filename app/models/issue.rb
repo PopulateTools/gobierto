@@ -7,7 +7,7 @@ class Issue < ApplicationRecord
   include GobiertoCommon::Sluggable
 
   belongs_to :site
-  has_many :collection_items, as: :container
+  has_many :processes, class_name: 'GobiertoParticipation::Process', dependent: :restrict_with_error
 
   translates :name, :description
 
@@ -31,6 +31,10 @@ class Issue < ApplicationRecord
 
   def attributes_for_slug
     [name]
+  end
+
+  def to_url(options = {})
+    url_helpers.gobierto_participation_issue_url(parameterize.merge(id: self.id, host: app_host).merge(options))
   end
 
   def active_pages(current_site)

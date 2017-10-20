@@ -17,9 +17,14 @@ Rails.application.routes.draw do
 
     resource :sessions, only: [:new, :create, :destroy]
     resources :sites, only: [:index, :new, :create, :edit, :update, :destroy]
-    resources :issues, only: [:index, :show, :new, :create, :edit, :update] do
+    resources :issues do
       collection do
         resource :issue_sort, only: [:create], controller: "issues_sort", path: :issues_sort
+      end
+    end
+    resources :scopes do
+      collection do
+        resource :scope_sort, only: [:create], controller: "scopes_sort", path: :scopes_sort
       end
     end
 
@@ -99,6 +104,7 @@ Rails.application.routes.draw do
 
     namespace :gobierto_cms, as: :cms, path: :cms do
       resources :pages, only: [:index, :new, :edit, :create, :update]
+      resources :sections, only: [:index, :new, :edit, :create, :update, :show]
     end
 
     namespace :gobierto_attachments, as: :attachments, path: :attachments do
@@ -257,9 +263,17 @@ Rails.application.routes.draw do
     constraints GobiertoSiteConstraint.new do
       get "/" => "welcome#index", as: :root
 
-      resources :processes, only: [:index, :show], path: "procesos" do
-        resource :information, only: [:show], controller: "process_information", as: :process_information, path: :information
-        resources :polls, only: [:index], controller: "processes/polls" do
+      resources :processes, only: [:index, :show], path: "p" do
+        resource :information, only: [:show], controller: "process_information", as: :process_information, path: "informacion"
+        resources :contribution_containers, only: [:index, :show], controller: "process_contribution_containers", as: :process_contribution_containers, path: "aportaciones" do
+          resources :contributions, only: [:new, :create, :show], controller: "process_contributions", as: :process_contributions, path: :contributions do
+            resource :vote, only: [:create, :destroy]
+            resource :flag, only: [:create, :destroy]
+            resource :comment, only: [:create, :index]
+          end
+        end
+
+        resources :polls, only: [:index], controller: "processes/polls", path: "encuestas" do
           resources :answers, only: [:new, :create], controller: "processes/poll_answers"
         end
         resources :attachments, only: [:index, :show], controller: "processes/attachments", path: "documentos"

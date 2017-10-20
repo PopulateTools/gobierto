@@ -2,16 +2,15 @@
 es:
   gobierto_cms:
     events:
-      gobierto_cms_page_created: Página creada
-      gobierto_cms_page_deleted: Página eliminada
-      gobierto_cms_page_published: Página publicada
-      gobierto_cms_page_updated: Página actualizada
+      gobierto_cms_page_created: "%{subject_name}"
+      gobierto_cms_page_deleted: "%{subject_name}"
+      gobierto_cms_page_published: "%{subject_name}"
+      gobierto_cms_page_updated: "%{subject_name}"
+      gobierto_cms_section_created: Sección creada
+      gobierto_cms_section_updated: Sección actualizada
     pages:
       index:
         filter: Filtrar por tema
         title: Noticias
       show:
         documents: Documentos
-        filter: Filtrar por grupo
-        published_at: Publicado el %{date} por el %{site}
-        title: Noticias

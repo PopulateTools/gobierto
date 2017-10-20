@@ -1,0 +1,5 @@
+---
+en:
+  issue:
+    events:
+      issue_description_translations_changed: 'Update theme: %{subject_name}'

@@ -1,6 +1,7 @@
 module GobiertoCommon
   class Collection < ApplicationRecord
     include User::Subscribable
+    include GobiertoCommon::Sluggable
 
     belongs_to :site
     belongs_to :container, polymorphic: true
@@ -8,10 +9,10 @@ module GobiertoCommon
 
     translates :title
 
-    validates :site, :title, :slug, :item_type, presence: true
+    validates :site, :title, :item_type, presence: true
     validates :container, presence: true, associated: true
     validates_associated :container
-    validates :slug, uniqueness: true
+    validates :slug, uniqueness: { scope: :site }
 
     attr_reader :container
 
@@ -128,5 +129,12 @@ module GobiertoCommon
       self.class.collector_classes.include?(container.class)
     end
 
+    def parameterize
+      { slug: slug }
+    end
+
+    def attributes_for_slug
+      [ title ]
+    end
   end
 end

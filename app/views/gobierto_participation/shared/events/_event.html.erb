@@ -21,7 +21,7 @@
       <% if (location = event.first_location) %>
         <div class="ib">
           <i class="fa fa-map-marker"></i>
-          <%= link_to_if location.geolocated?, location.name, external_location_service_url(location), target: '_blank' %>
+          <%= location.name %>, <%= link_to_if location.geolocated?, location.address, external_location_service_url(location), target: '_blank' %>
         </div>
       <% end %>
     </div>

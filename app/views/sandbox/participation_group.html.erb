@@ -6,14 +6,73 @@
   <div class="column">
     <div class="pure-g agenda processes_home two_by_two">
       <div class="pure-u-1 pure-u-md-2-3">
+
         <a href="participation_group_info" class="p_1  content_block align_bottom mask_bottom" style="background-image: url(<%= image_url('samples/process.jpg') %>)">
           <div>
             <h2>Pacto social por el fin de la violencia contra la mujer</h2>
           </div>
         </a>
+
+        <h3 class="with_light_separator">Sobre este proceso</h3>
+        <p>¿Qué tiene que ver la Violencia contra las mujeres contigo? ¿y con nuestra ciudad? Es un problema colectivo en el que está implicada toda la sociedad. Es necesario establecer redes de colaboración, cooperación y corresponsabilidad.</p>
+        <a href="participation_group_info.html" class="button outline rounded">Más información</a>
+
       </div>
 
       <div class="pure-u-1 pure-u-md-1-3 center news_teaser">
+
+        <div class="phase_action">
+          <h3 class="agenda_title">Fase actual</h3>
+          <div class="content_block">
+            <div class="p_1 center">
+              <h4>Mesas de diálogo</h4>
+              <a href="" class="button outline rounded checked">Participa en las mesas</a>
+            </div>
+            <div class="p_2 bt">
+              <div class="dots-container">
+                <div class="dots">
+                  <a href="#timeline" class="dot dot-tooltip">
+                    <span class="tooltip-text">Tooltip text 1</span>
+                  </a>
+                  <div class="dot-join"></div>
+                  <a href="#timeline" class="dot dot-tooltip">
+                    <span class="tooltip-text">Tooltip text 2</span>
+                  </a>
+                  <div class="dot-join"></div>
+                  <a href="#timeline" class="dot dot-tooltip">
+                    <div class="dot-current"></div>
+                    <span class="tooltip-text">Tooltip text 3</span>
+                  </a>
+                  <div class="dot-join disabled"></div>
+                  <a href="#timeline" class="dot disabled dot-tooltip">
+                    <span class="tooltip-text">Tooltip text 4</span>
+                  </a>
+                  <div class="dot-join disabled"></div>
+                  <a href="#timeline" class="dot disabled dot-tooltip">
+                    <span class="tooltip-text">Tooltip text 5</span>
+                  </a>
+                  <div class="dot-join disabled"></div>
+                  <a href="#timeline" class="dot disabled dot-tooltip">
+                    <span class="tooltip-text">Tooltip text 6</span>
+                  </a>
+                  <div class="dot-join disabled"></div>
+                  <a href="#timeline" class="dot disabled dot-tooltip">
+                    <span class="tooltip-text">Tooltip text 7</span>
+                  </a>
+                  <div class="dot-join disabled"></div>
+                  <a href="#timeline" class="dot disabled dot-tooltip">
+                    <span class="tooltip-text">Tooltip text 7</span>
+                  </a>
+                  <div class="dot-join disabled"></div>
+                  <a href="#timeline" class="dot disabled dot-tooltip">
+                    <span class="tooltip-text">Tooltip text 7</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <h3 class="agenda_title">Noticias</h3>
         <div class="p_1  content_block">
           <%= render 'place_news', {date: '26 Abr', title: 'Inicio de la campaña de previsión de robos en viviendas'} %>
@@ -23,14 +82,6 @@
         </div>
 
         <a href="participation_news.html">Ver más noticias</a>
-      </div>
-    </div>
-
-    <div class="pure-g">
-      <div class="pure-u-1 pure-u-md-2-3">
-        <h3 class="with_light_separator">Sobre este proceso</h3>
-        <p>¿Qué tiene que ver la Violencia contra las mujeres contigo? ¿y con nuestra ciudad? Es un problema colectivo en el que está implicada toda la sociedad. Es necesario establecer redes de colaboración, cooperación y corresponsabilidad.</p>
-        <a href="participation_group_info.html" class="button outline rounded">Más información</a>
       </div>
     </div>
 
@@ -73,7 +124,7 @@
 
       <div class="pure-u-1 pure-u-md-1-3 center">
         <h3 class="agenda_title">Citas presenciales</h3>
-        <div class="p_1  content_block">
+        <div class="p_1  content_block fixed_height">
           <%= render 'place_event', {date: '26 Abr', hour: '19:30', name: 'Club de lectura intensivo en inglés', place: 'Casa de la Mujer'} %>
           <%= render 'place_event', {date: '15 Jun', hour: '19:30', name: '2º Gala de Cortos', place: 'Espacio Miguel Delibes'} %>
           <%= render 'place_event', {date: '18 Jun', hour: '19:30', name: 'Concierto de música clásica', place: 'Jardín de la Vega'} %>
@@ -85,7 +136,7 @@
 
       <div class="pure-u-1 pure-u-md-1-3 center">
         <h3 class="agenda_title">Lo último</h3>
-        <div class="p_1  content_block">
+        <div class="p_1  content_block fixed_height">
           <%= render 'place_latest', {date: '20 Abr', title: 'Nuevo hilo de debate'} %>
           <%= render 'place_latest', {date: '21 Abr', title: 'Nuevo documento adjunto compartido'} %>
           <%= render 'place_latest', {date: '23 Abr', title: 'Mañana: Cita presencial'} %>
@@ -100,7 +151,7 @@
   </div>
 </div>
 
-<div class="gradient-bg">
+<div class="gradient-bg" id="timeline">
   <div class="column">
     <div class="pure-g">
       <div class="pure-u-1 pure-u-md-1-3">
@@ -123,5 +174,14 @@ $('.toggle_description').click(function() {
 
   $(this).find('.fa').toggleClass('fa-caret-right fa-caret-down');
   $(this).siblings('.description').toggle();
+});
+
+// REVIEW: This snippet would be useful all over the website 
+$('.dots').on('click', 'a', function(event){
+    event.preventDefault();
+
+    $('html, body').animate({
+        scrollTop: $( $.attr(this, 'href') ).offset().top
+    }, 500);
 });
 </script>

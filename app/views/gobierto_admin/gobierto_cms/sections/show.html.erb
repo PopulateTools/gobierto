@@ -1,0 +1,42 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= link_to t(".sections"), admin_cms_sections_path %>
+  <%= link_to @section.title, admin_cms_section_path(@section) %>
+</div>
+
+<h1><%= @section.title %></h1>
+
+<div class="admin_tools right">
+  <%= link_to '<i class="fa fa-cog"></i> Configuración'.html_safe, edit_admin_cms_section_path(@section), class: 'open_remote_modal' %>
+</div>
+
+<div class="pure-g">
+
+  <div class="pure-u-1 pure-u-md-1-2 p_h_r_2">
+    TREE
+  </div>
+
+  <div class="pure-u-1 pure-u-md-1-2">
+
+    <div class="form_item input_text">
+      <label for="name"><%= t('.select_page') %></label>
+      <input type="text" id="name" placeholder="<%= t('.placeholders.search') %>">
+    </div>
+
+    <h3><%= t('.last_edited_pages') %></h3>
+
+    <div class="activity_feed section_editor">
+      <% @pages.each do |page| %>
+        <div class="activity_item">
+          <h2>
+            <%= link_to edit_admin_cms_page_path(page, collection_id: page.collection), class: "tipsit", title: t('.page_help') do %>
+              <%= page.title %>
+              <span class="secondary"><%= page.collection.title %></span>
+            <% end %>
+          </h2>
+          <div class="date"><%= time_ago_in_words(page.created_at) %></div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

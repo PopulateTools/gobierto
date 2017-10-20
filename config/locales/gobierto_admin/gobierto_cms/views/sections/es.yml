@@ -1,0 +1,28 @@
+---
+es:
+  gobierto_admin:
+    gobierto_cms:
+      sections:
+        edit_modal:
+          title: Editar sección
+        form:
+          placeholders:
+            slug: acerca-de-esta-seccion
+            title: Título de la sección
+        index:
+          header:
+            pages: Páginas
+            title: Sección
+          new: Nueva
+          title: Secciones
+          view: Ver sección
+        new_modal:
+          title: Nueva sección
+        show:
+          last_edited_pages: Últimas páginas editadas
+          page_help: Arrastra y suelta en la parte izquierda para colocar esta página
+            en el menú
+          placeholders:
+            search: Escribe el título de la página para buscar
+          sections: Secciones
+          select_page: Selecciona página para incluir en la sección

@@ -136,6 +136,12 @@
             </li>
             <% end %>
 
+            <% if show_module_link?("GobiertoCms") %>
+            <li>
+              <%= link_to t(".sections"), admin_cms_sections_path %>
+            </li>
+            <% end %>
+
             <li class="sep"></li>
 
             <li>

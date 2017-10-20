@@ -1,0 +1,9 @@
+---
+en:
+  gobierto_admin:
+    gobierto_cms:
+      sections:
+        create:
+          success_html: Section created successfully. <a href="%{link}">View the section</a>.
+        update:
+          success_html: Section updated successfully. <a href="%{link}">View the section</a>.

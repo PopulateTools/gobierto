@@ -41,7 +41,7 @@ notice_1:
   slug: 'notice-1'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
-  collection: gender_violence_process_news (GobiertoCommon::Collection)
+  collection: gender_violence_process_news
 
 notice_2:
   title_translations: <%= {'en' => 'Notice 2 title' }.to_json %>
@@ -49,7 +49,7 @@ notice_2:
   slug: 'notice-2'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
-  collection: gender_violence_process_news (GobiertoCommon::Collection)
+  collection: gender_violence_process_news
 
 about_site:
   title_translations: <%= {'en' => 'About site' }.to_json %>

@@ -5,7 +5,7 @@ module GobiertoPeople
     before_action :check_active_submodules
 
     def index
-      @people = current_site.people.active.politician.government.sorted.last(10)
+      @people = current_site.people.active.politician.government.sorted.first(10)
       @posts  = current_site.person_posts.active.sorted.last(10)
       @political_groups = get_political_groups
       @home_text = load_home_text

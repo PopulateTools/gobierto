@@ -107,7 +107,7 @@ ca:
       show:
         party:
           government: Equip de govern
-          oposition: Oposició
+          opposition: Oposició
       subscription_button:
         cancel: Cancelar
         follow: Seguir

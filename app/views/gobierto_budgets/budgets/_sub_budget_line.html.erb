@@ -4,5 +4,5 @@
 <td class="bar <%= class_if("highlight-proposal", @interesting_expenses_previous_year.present?) %>"><div class="bar" style="width:<%= sub_budget_line.percentage_of_total %>%"></div></td>
 <% if @interesting_expenses_previous_year %>
   <% previous_year_budget_line = @interesting_expenses_previous_year.detect{ |l| l.code == sub_budget_line.code } %>
-  <td class="highlight-proposal"><div class="sparkline"><%= delta_percentage(sub_budget_line.amount, previous_year_budget_line.amount, true) %></div></td>
+  <td class="variation highlight-proposal"><div class="sparkline"><%= delta_percentage(sub_budget_line.amount, previous_year_budget_line.amount, true) %></div></td>
 <% end %>

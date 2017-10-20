@@ -52,12 +52,14 @@ tr {
 
 td.bar {
   padding-right: 0;
-
   div.bar {
     background: $color_vis_country;
     height: 18px;
     @include border-radius(3px);
   }
+}
+td.variation {
+  padding-left: 0;
 }
 
 td.visibility_level {

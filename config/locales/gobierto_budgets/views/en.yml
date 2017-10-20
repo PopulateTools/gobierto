@@ -17,7 +17,8 @@ en:
         custom: Areas
         expense_in_what: In what is spent
         expense_to_do_what: For what is spent
-        help: The budget is organized in two categories. Checkout our guide
+        help: We explain how a municipal budget works
+        budget_guide_pitch: Check the Budget Guide
         income_from_what: Where does the income come from
         per_inhabitant: Per inhabitant
         title: Local municipality budgets in %{year}

@@ -17,8 +17,8 @@ es:
         custom: Áreas
         expense_in_what: En qué se gasta
         expense_to_do_what: Para qué se gasta
-        help: El presupuesto organiza los gastos en dos categorías. Consulta nuestra
-          guía
+        help: Te explicamos como funciona un presupuesto municipal
+        budget_guide_pitch: Consulta la Guía del Presupuesto
         income_from_what: En qué se ingresa
         per_inhabitant: Por habitante
         title: Presupuestos municipales en %{year}

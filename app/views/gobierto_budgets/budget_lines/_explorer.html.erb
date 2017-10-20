@@ -38,12 +38,6 @@
     </div>
 
     <div class="pure-u-1 pure-u-md-1-3">
-      <div class="m_v_2">
-        <div class="tip">
-          <%= link_to %Q{<i class="fa fa-info-circle"></i> #{t('.guide')}}.html_safe, gobierto_budgets_budgets_guide_path %>
-        </div>
-      </div>
-
       <h3><%= t('.search_budget_line') %></h3>
       <label class="screen-hidden" for="budget_line_search"><%= t('.search_budget_line') %></label>
       <input id="budget_line_search" type="text" placeholder="<%= t('.search') %>..." data-autocomplete="<%= gobierto_budgets_search_all_categories_path(@place.slug, @year, format: :json) %>">

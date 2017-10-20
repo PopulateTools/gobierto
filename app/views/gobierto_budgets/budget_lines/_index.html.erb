@@ -64,7 +64,8 @@
         )%>
       <% end %>
     <% end %>
-    <%= link_to '?', '', class:'help tipsit', title: t('.help') %>
+    <%= link_to %Q{#{t('.budget_guide_pitch')}}.html_safe, gobierto_budgets_budgets_guide_path, class:'f_right tipsit', title: t('.help') %>
+    <%# link_to  %>
   </div>
 
   <div class="table_cont_round" role="tabpanel" id="<%= area_name %>-<%= kind %>-table" aria-labelledby="<%= area_name %>-<%= kind %>">

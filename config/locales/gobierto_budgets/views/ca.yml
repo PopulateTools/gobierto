@@ -17,8 +17,8 @@ ca:
         custom: Àrees
         expense_in_what: En què es gasta
         expense_to_do_what: Per a què es gasta
-        help: El pressupuest organitza les despeses en dues categories. Consulta la
-          nostra guia.
+        help: T'expliquem com funciona un pressupost municipal
+        budget_guide_pitch: Consulta la Guia del Pressupost
         income_from_what: En què s'ingressa
         per_inhabitant: Per habitant
         title: Pressupostos municipals en %{year}

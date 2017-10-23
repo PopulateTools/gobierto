@@ -318,7 +318,8 @@ en:
         value: Value
         vis:
           absolute: Execution in €
-          empty_lines: There aren't data for this classification and this year. Please, choose another filter.
+          empty_lines: There aren't data for this classification and this year. Please,
+            choose another filter.
           expenses:
             title: Explore the execution of the expenses
           income:

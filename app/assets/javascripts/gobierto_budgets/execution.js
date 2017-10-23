@@ -54,7 +54,7 @@ $( document ).on('turbolinks:load', function() {
   if($('body.budgets_execution_index').length) {
 
     if(window.location.hash === "")
-      window.location.hash = "#economic,economic"
+      window.location.hash = "#functional,economic"
 
     var validValues = ['economic', 'functional', 'custom'];
     var list = window.location.hash.slice(1).split(',');

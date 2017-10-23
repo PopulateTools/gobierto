@@ -53,6 +53,7 @@ $(document).on('turbolinks:load', function() {
   }
 
   function searchCallback(err, content) {
+    console.log(content);
     if (err) {
       console.error(err);
       return;
@@ -66,14 +67,25 @@ $(document).on('turbolinks:load', function() {
     if(sum > 0) {
       content.results.forEach(function(indexResults){
         indexResults.hits.forEach(function(d){
-          var result = '<a class="result" <a href="' + d.resource_path + '">' +
-            '<h2>' + (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) + '</h2>' +
-            '<div class="description">' +
-              '<div>' + itemDescription(d) + '</div>' +
-              '<span class="soft item_type">' + itemType(d) + '</span>' +
-              (itemUpdatedAt(d) ? ' · <span class="soft updated_at">' + itemUpdatedAt(d) + '</span>' : '') +
-            '</div>' +
-          '</a>';
+          console.log(d['title_' + I18n.locale]);
+          if(true == true) {
+            var result = '<div class="activity_item">' +
+              '<h2>' + '<a class="tipsit" <a href="' + d.resource_path + '">' +
+              (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) +
+              '<span class="secondary">' + itemDescription(d) + '</span>'  +
+              '</a>' + '</h2>' +
+              '<div class="date">' + itemUpdatedAt(d) + '</div>' +
+            '</div>';
+          } else {
+            var result = '<a class="result" <a href="' + d.resource_path + '">' +
+              '<h2>' + (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) + '</h2>' +
+              '<div class="description">' +
+                '<div>' + itemDescription(d) + '</div>' +
+                '<span class="soft item_type">' + itemType(d) + '</span>' +
+                (itemUpdatedAt(d) ? ' · <span class="soft updated_at">' + itemUpdatedAt(d) + '</span>' : '') +
+              '</div>' +
+            '</a>';
+          }
 
           var div = $(result);
           div.appendTo($resultsContainer);
@@ -99,9 +111,12 @@ $(document).on('turbolinks:load', function() {
         }
       });
     });
-
     if(q.length > 2){
-      window.searchClient.client.search(queries, searchCallback);
+       if(window.location.href.includes("admin")){
+         window.searchClient.client.search(queries, searchCallback);
+       } else {
+         window.searchClient.client.search(queries, searchCallback);
+       }
     } else {
       $resultsContainer.html('');
     }

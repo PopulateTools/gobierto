@@ -11,11 +11,11 @@ module GobiertoAdmin
 
       def show
         @section = find_section
-        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active
+        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.uniq
       end
 
       def pages
-        @pages = ::GobiertoCms::Page.search(params[:query])
+        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).search(params[:query]).uniq
 
         respond_to do |format|
           format.js {render layout: false}

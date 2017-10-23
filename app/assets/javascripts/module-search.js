@@ -111,11 +111,7 @@ $(document).on('turbolinks:load', function() {
       });
     });
     if(q.length > 2){
-       if(window.location.href.includes("admin")){
-         window.searchClient.client.search(queries, searchCallback);
-       } else {
-         window.searchClient.client.search(queries, searchCallback);
-       }
+      window.searchClient.client.search(queries, searchCallback);
     } else {
       $resultsContainer.html('');
     }

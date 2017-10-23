@@ -53,7 +53,6 @@ $(document).on('turbolinks:load', function() {
   }
 
   function searchCallback(err, content) {
-    console.log(content);
     if (err) {
       console.error(err);
       return;
@@ -67,7 +66,6 @@ $(document).on('turbolinks:load', function() {
     if(sum > 0) {
       content.results.forEach(function(indexResults){
         indexResults.hits.forEach(function(d){
-          console.log(d['title_' + I18n.locale]);
           if(true == true) {
             var result = '<div class="activity_item">' +
               '<h2>' + '<a class="tipsit" <a href="' + d.resource_path + '">' +
@@ -92,7 +90,7 @@ $(document).on('turbolinks:load', function() {
         });
       });
     } else {
-      $('<div class="result"><p>No hay resultados</p></div>').appendTo($resultsContainer);
+      $('<div class="result"><p>'+I18n.t("layouts.search.no_results")+'</p></div>').appendTo($resultsContainer);
     }
 
     $('<div class="result"><small>'+I18n.t("layouts.search.powered_by")+'</small></div>').appendTo($resultsContainer);

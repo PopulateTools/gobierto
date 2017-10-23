@@ -89,6 +89,7 @@ en:
       budget_line_item_expense: Budget line - Expense
       budget_line_item_income: Budget line - Income
       event_item: Event
+      no_results: No results
       page_item: Page
       person_item: Biography
       person_post_item: Post

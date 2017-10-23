@@ -18,6 +18,13 @@ en:
             placeholders:
               description: ex. The objective of this poll is ...
               title: ex. Terrace Ordinance Poll
+            poll_ended_html: Poll has ended. <a href="%{link_url}">Results</a>.
+            poll_has_votes: Poll is already active and has received answers, so you
+              can not edit it.
+            received_answers_html: <strong>%{answers} answers</strong> have been received.
+              At this rate you can expect %{predicted_answers}. <a href="%{link_url}">See
+              the survey</a>.
+            results_info: You will be able to consult the results after it has ended.
           index:
             answers: Answers
             end: End

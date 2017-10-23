@@ -19,6 +19,13 @@ es:
             placeholders:
               description: ej. El objetivo de esta encuesta es...
               title: ej. Encuesta sobre la ordenanza de terrazas
+            poll_ended_html: Encuesta finalizada. <a href="%{link_url}">Resultados</a>.
+            poll_has_votes: La encuesta ya está activa y ha recibido votos, por lo
+              que no puedes editarla.
+            received_answers_html: Se han recibido <strong>%{answers} respuestas</strong>.
+              A este ritmo se pueden esperar %{predicted_answers}. <a href="%{link_url}">Ver
+              encuesta</a>.
+            results_info: Podrás consultar los resultados cuando finalice.
           index:
             answers: Respuestas
             end: Fin

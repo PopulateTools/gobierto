@@ -9,5 +9,9 @@ module GobiertoParticipation
 
     validates :question, :text, :order, presence: true
 
+    def times_chosen
+      ::GobiertoParticipation::PollAnswer.where(answer_template: self).count
+    end
+
   end
 end

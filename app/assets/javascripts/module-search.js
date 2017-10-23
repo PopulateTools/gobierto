@@ -66,9 +66,11 @@ $(document).on('turbolinks:load', function() {
     if(sum > 0) {
       content.results.forEach(function(indexResults){
         indexResults.hits.forEach(function(d){
+
           if(window.searchClient.indexes.length == 1) {
             var result = '<div class="activity_item">' +
-              '<h2>' + '<a class="tipsit" href="' + d.resource_path + '" original-title="Arrastra y suelta en la parte izquierda para colocar esta página en el menú">' +
+              '<h2>' + '<a class="tipsit" href=' + ["/admin/cms/pages/", d['objectID'], "/edit?collection_id=", d['collection_id']].join('') +
+              ' original-title="Arrastra y suelta en la parte izquierda para colocar esta página en el menú">' +
               (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) +
               '<span class="secondary">' + itemDescription(d) + '</span>'  +
               '</a>' + '</h2>' +

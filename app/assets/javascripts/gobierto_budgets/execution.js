@@ -1,41 +1,22 @@
 $( document ).on('turbolinks:load', function() {
   'use strict';
 
-  $('.execution_vs_budget_table tr:nth-of-type(n+6)').hide()
+  function updateExpenses(expensesKind) {
+    $('.expenses_execution').html('');
 
-  $('.execution_vs_budget_table + .more').on('click', function(e) {
-    e.preventDefault();
-    $(this).prev('.execution_vs_budget_table').find('tr:nth-of-type(n+6)').toggle();
-    if ($(this).text() == $(this).data('more-literal'))
-      $(this).text($(this).data('less-literal'));
-    else
-      $(this).text($(this).data('more-literal'));
-  })
+    $('.expenses_switcher').removeClass('active');
+    $('.expenses_switcher[data-toggle="' + expensesKind + '"]').addClass('active');
 
-  if ($('.expenses_execution').length) {
-    // Render economic data by default, let the user switch between datasets
-    var vis_expenses_execution = new VisLinesExecution('.expenses_execution', 'G', 'economic')
+    // Reset every button
+    $('.sort-G').removeClass('active');
+    $('.value-switcher-G').removeClass('active');
+
+    $(".sort-G[data-toggle='highest']").addClass('active');
+    $(".value-switcher-G[data-toggle='pct_executed']").addClass('active');
+
+    // Render the new category
+    var vis_expenses_execution = new VisLinesExecution('.expenses_execution', 'G', expensesKind)
     vis_expenses_execution.render();
-
-    $('.expenses_switcher').on('click', function (e) {
-      var economicKind = $(e.target).attr('data-toggle');
-
-      $('.expenses_execution').html('');
-
-      $('.expenses_switcher').removeClass('active');
-      $(e.target).addClass('active');
-
-      // Reset every button
-      $('.sort-G').removeClass('active');
-      $('.value-switcher-G').removeClass('active');
-
-      $(".sort-G[data-toggle='highest']").addClass('active');
-      $(".value-switcher-G[data-toggle='pct_executed']").addClass('active');
-
-      // Render the new category
-      var vis_expenses_execution = new VisLinesExecution('.expenses_execution', 'G', economicKind)
-      vis_expenses_execution.render();
-    });
 
     $('.expenses_execution .tooltiped').tipsy({
       gravity: 's',
@@ -45,29 +26,22 @@ $( document ).on('turbolinks:load', function() {
     });
   }
 
-  if ($('.income_execution').length) {
-    var vis_income_execution = new VisLinesExecution('.income_execution', 'I', 'economic')
-    vis_income_execution.render();
+  function updateIncome(incomeKind) {
+    $('.income_execution').html('');
 
-    $('.income_switcher').on('click', function (e) {
-      var economicKind = $(e.target).attr('data-toggle');
+    $('.income_switcher').removeClass('active');
+    $('.income_switcher[data-toggle="' + incomeKind + '"]').addClass('active');
 
-      $('.income_execution').html('');
+    // Reset every button
+    $('.sort-I').removeClass('active');
+    $('.value-switcher-I').removeClass('active');
 
-      $('.income_switcher').removeClass('active');
-      $(e.target).addClass('active');
+    $(".sort-I[data-toggle='highest']").addClass('active');
+    $(".value-switcher-I[data-toggle='pct_executed']").addClass('active');
 
-      // Reset every button
-      $('.sort-I').removeClass('active');
-      $('.value-switcher-I').removeClass('active');
-
-      $(".sort-I[data-toggle='highest']").addClass('active');
-      $(".value-switcher-I[data-toggle='pct_executed']").addClass('active');
-
-      // Render the new category
-      var vis_expenses_execution = new VisLinesExecution('.income_execution', 'I', economicKind)
-      vis_expenses_execution.render();
-    });
+    // Render the new category
+    var vis_expenses_execution = new VisLinesExecution('.income_execution', 'I', incomeKind)
+    vis_expenses_execution.render();
 
     $('.income_execution .tooltiped').tipsy({
       gravity: 's',
@@ -76,13 +50,64 @@ $( document ).on('turbolinks:load', function() {
       live: true
     });
   }
+
+  if($('body.budgets_execution_index').length) {
+
+    if(window.location.hash === "")
+      window.location.hash = "#functional,economic"
+
+    var validValues = ['economic', 'functional', 'custom'];
+    var list = window.location.hash.slice(1).split(',');
+    var expensesKind = list[0];
+    var incomeKind = list[1];
+    if(validValues.indexOf(expensesKind) === -1) expensesKind = validValues[0];
+    if(validValues.indexOf(incomeKind) === -1) incomeKind = validValues[0];
+
+
+    $('.execution_vs_budget_table tr:nth-of-type(n+6)').hide()
+
+    $('.execution_vs_budget_table + .more').on('click', function(e) {
+      e.preventDefault();
+      $(this).prev('.execution_vs_budget_table').find('tr:nth-of-type(n+6)').toggle();
+      if ($(this).text() == $(this).data('more-literal'))
+        $(this).text($(this).data('less-literal'));
+      else
+        $(this).text($(this).data('more-literal'));
+    })
+
+    if ($('.expenses_execution').length) {
+      updateExpenses(expensesKind);
+
+      $('.expenses_switcher').on('click', function (e) {
+        expensesKind = $(e.target).attr('data-toggle');
+        var newHash = '#' + [expensesKind, incomeKind].join(',');
+        history.pushState({'expense': expensesKind, 'income': incomeKind}, {kind: 'expense', hash: newHash}, newHash);
+        updateExpenses(expensesKind);
+      });
+    }
+
+    if ($('.income_execution').length) {
+      updateIncome(incomeKind);
+
+      $('.income_switcher').on('click', function (e) {
+        incomeKind = $(e.target).attr('data-toggle');
+        var newHash = '#' + [expensesKind, incomeKind].join(',');
+        history.pushState({'expense': expensesKind, 'income': incomeKind}, {kind: 'income', hash: newHash}, newHash);
+        updateIncome(incomeKind);
+      });
+    }
+
+    window.onpopstate = function(event) {
+      if(event.state !== null && event.state.expense !== undefined) {
+        if(expensesKind !== event.state.expense) {
+          expensesKind = event.state.expense;
+          updateExpenses(expensesKind);
+        }
+        if(incomeKind !== event.state.income) {
+          incomeKind = event.state.income;
+          updateIncome(incomeKind);
+        }
+      }
+    }
+  }
 });
-var vis_evoline = [];
-function render_evo_line($widget_node) {
-  var data = $widget_node.find('.vizz').data('series');
-  var container_id = "#" + $widget_node.find('.vizz').attr('id');
-  var current_year = $('body').data('year');
-  var vis = new VisEvoLine(container_id, data, current_year);
-  vis.render();
-  vis_evoline.push(vis);
-}

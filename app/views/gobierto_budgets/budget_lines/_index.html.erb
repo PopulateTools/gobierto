@@ -4,7 +4,7 @@
   <div class="filter m_2" role="tablist" aria-label="<%= t('.categories') %>">
     <% if kind == GobiertoBudgets::BudgetLine::EXPENSE %>
       <%= link_to(
-            t('.expense_in_what'),
+            t('.expense_to_do_what'),
             gobierto_budgets_budget_lines_path(year: year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::FunctionalArea.area_name),
             data: {remote: true},
             class: class_if('active', area_name == GobiertoBudgets::FunctionalArea.area_name),
@@ -15,7 +15,7 @@
             'aria-controls' => 'functional-G-table'
       )%>
       <%= link_to(
-            t('.expense_to_do_what'),
+            t('.expense_in_what'),
             gobierto_budgets_budget_lines_path(year: year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::EconomicArea.area_name),
             data: {remote: true},
             class: class_if('active', area_name == GobiertoBudgets::EconomicArea.area_name),

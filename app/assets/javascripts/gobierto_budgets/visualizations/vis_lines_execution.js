@@ -116,6 +116,9 @@ var VisLinesExecution = Class.extend({
       return d;
     });
 
+    if (this.data.lines.length === 0)
+      return false;
+
     // Sort by execution
     this.nested.sort(function(a ,b) { return a.group_pct - b.group_pct;});
 

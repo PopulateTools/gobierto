@@ -113,7 +113,11 @@ $(document).on('turbolinks:load', function() {
     if(q.length > 2){
       window.searchClient.client.search(queries, searchCallback);
     } else {
-      $resultsContainer.html('');
+      if(window.location.href.includes("admin")) {
+        window.searchClient.client.search(queries, searchCallback);
+      } else {
+        $resultsContainer.html('');
+      }
     }
   });
 

@@ -68,7 +68,7 @@ $(document).on('turbolinks:load', function() {
         indexResults.hits.forEach(function(d){
           if(window.searchClient.indexes.length == 1) {
             var result = '<div class="activity_item">' +
-              '<h2>' + '<a class="tipsit" <a href="' + d.resource_path + '">' +
+              '<h2>' + '<a class="tipsit" href="' + d.resource_path + '" original-title="Arrastra y suelta en la parte izquierda para colocar esta página en el menú">' +
               (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) +
               '<span class="secondary">' + itemDescription(d) + '</span>'  +
               '</a>' + '</h2>' +
@@ -89,6 +89,7 @@ $(document).on('turbolinks:load', function() {
           div.appendTo($resultsContainer);
         });
       });
+      rebindAll();
     } else {
       $('<div class="result"><p>'+I18n.t("layouts.search.no_results")+'</p></div>').appendTo($resultsContainer);
     }

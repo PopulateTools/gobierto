@@ -66,7 +66,7 @@ $(document).on('turbolinks:load', function() {
     if(sum > 0) {
       content.results.forEach(function(indexResults){
         indexResults.hits.forEach(function(d){
-          if(true == true) {
+          if(window.searchClient.indexes.length == 1) {
             var result = '<div class="activity_item">' +
               '<h2>' + '<a class="tipsit" <a href="' + d.resource_path + '">' +
               (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) +

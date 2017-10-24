@@ -67,7 +67,7 @@ $(document).on('turbolinks:load', function() {
       content.results.forEach(function(indexResults){
         indexResults.hits.forEach(function(d){
 
-          // Search in front
+          // Search in back with only one index
           if(window.searchClient.indexes.length == 1) {
             var result = '<div class="activity_item">' +
               '<h2>' + '<a class="tipsit" href=' + ["/admin/cms/pages/", d['objectID'], "/edit?collection_id=", d['collection_id']].join('') +

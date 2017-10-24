@@ -109,6 +109,8 @@ es:
     format: "%{attribute} %{message}"
     messages:
       accepted: debe ser aceptado
+      already_uploaded_html: no se ha guardado porque ya lo has subido en el pasado.
+        Puedes verlo <a href="%{url}">aquí</a>.
       array_too_short: es demasiado corto (al menos ${count} elemento)
       blank: no puede estar en blanco
       blank_for_modules: tiene que ser un municipio para que los módulos activos funcionen

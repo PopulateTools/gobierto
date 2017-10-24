@@ -51,7 +51,7 @@
                     // Append a link to the jqtree-element div.
                     // The link has an url '#node-[id]' and a data property 'node-id'.
                     $li.find('.jqtree-element').append(
-                        '<a remote=true href="#node-'+ node.id +'" class="edit" data-node-id="'+
+                        '<a remote=true href="#node-'+ node.id +'" class="delete" data-node-id="'+
                         node.id +'"> delete</a>'
                     );
                 }
@@ -61,7 +61,7 @@
 
     // Handle a click on the edit link
     $tree.on(
-        'click', '.edit',
+        'click', '.delete',
         function(e) {
             // Get the id from the 'node-id' data property
             var node_id = $(e.target).data('node-id');
@@ -71,9 +71,19 @@
 
             if (node) {
                 // Display the node name
-                alert(node.name);
                 $tree.tree('removeNode', node);
             }
+
+            $.ajax({
+                type: "POST",
+                url: '/admin/cms/sections/' + <%= params[:id] %> + '/section_items/' + node_id,
+                dataType: "json",
+                data: {"_method":"delete"},
+                complete: function(){
+
+                }
+            });
+
             return false;
         }
     );
@@ -103,7 +113,7 @@
            error:function(data){
 
            }
-       });
+        });
       }
     });
   })

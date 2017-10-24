@@ -23,6 +23,14 @@ module GobiertoAdmin
         )
       end
 
+      def destroy
+        @section_item = find_section_item
+
+        if @section_item.destroy
+          # track_delete_activity
+        end
+      end
+
       private
 
       # def track_create_activity
@@ -47,6 +55,10 @@ module GobiertoAdmin
 
       def find_section
         current_site.sections.find(params[:section_id])
+      end
+
+      def find_section_item
+        ::GobiertoCms::SectionItem.find(params[:id])
       end
     end
   end

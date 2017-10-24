@@ -6,19 +6,18 @@ ca:
         examples: Exemples
         expenses: Despeses
         explore_the_detail: Explora el detall
-        guide: Consulta la Guia sobre el Pressupuest Municipal pera a saber més
         income: Ingressos
         search: Busca
         search_budget_line: Cerca una partida específica
       index:
         amount: Quantitat
+        budget_guide_pitch: Consulta la Guia del Pressupost
         budget_line: Partida
         categories: Categories pressupostàries
         custom: Àrees
         expense_in_what: En què es gasta
         expense_to_do_what: Per a què es gasta
         help: T'expliquem com funciona un pressupost municipal
-        budget_guide_pitch: Consulta la Guia del Pressupost
         income_from_what: En què s'ingressa
         per_inhabitant: Per habitant
         title: Pressupostos municipals en %{year}
@@ -278,7 +277,7 @@ ca:
     budgets_elaboration:
       index:
         at_a_glance: Evolució de la despesa i comparació
-        at_years_end: "* a final del %{year}"
+        auto_funding: Capacitat autofinanciació
         by_custom_category: per àrea
         by_economic_expense: en què es gasta
         by_economic_income: en què s'ingressa
@@ -286,22 +285,15 @@ ca:
         category_percentage: "% s/ Total"
         category_value: Quantitat
         context: Contexte
-        data_of_year: "* dades del %{year}"
-        debt: Deute
+        debt_level: Nivell d'endeudament
         description: L'equip de govern publica el esborrany del pressupost del pròxim
           exercici per a debatir en overt amb l'oposició i els veins. Entre tots podem
           elaborar el pressupost que més convinga a la ciutat.
         diff_previous_year: vs. %{year}
-        executed: Execució
-        executed_percent: "%{percentage}% del pressupost"
-        executed_percent_other_year_html: En %{year} va ser un %{link}
-        executed_tooltip: L'execució és la quantitat que finalment s'ha gastat sobre
-          el pressupostat inicialment.
         expenses_per_inhabitant: Despesa per habitant
         explore_the_detail: Explora el detall
         header: Elaboració del pressupost
         in_total: En total
-        inhabitants: Habitants
         last_update: Dades actualitzades
         main_budget_levels_timeline: Compara despeses i ingressos any per any
         main_budget_lines: Els principals ingressos i despeses del teu ajuntament
@@ -309,9 +301,9 @@ ca:
         main_budget_lines_income: Ingressos
         metric_boxes_data: Les dades
         metric_boxes_data_description: Així canviarà el pressupost del pròxim exercici
+        net_savings: Estalviament net
         next_year_proposal: Proposta pel %{year}
         no_data: Ni ha dades per a aquesta classificació
-        not_available_short: No disp.
         note_about_the_data: Nota sobre les dades
         note_about_the_data_title: La base de dades que utilitzem no inclou dades
           pel 100% dels municipis, axí que les mitjanes estàn calculades només amb

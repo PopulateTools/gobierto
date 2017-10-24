@@ -6,19 +6,18 @@ en:
         examples: Examples
         expenses: Expenses
         explore_the_detail: Explore the detail
-        guide: Check the Budgets guide to learn more
         income: Income
         search: Search
         search_budget_line: Search for a specific budget line
       index:
         amount: Amount
+        budget_guide_pitch: Check the Budget Guide
         budget_line: Budget line
         categories: Categories
         custom: Areas
         expense_in_what: In what is spent
         expense_to_do_what: For what is spent
         help: We explain how a municipal budget works
-        budget_guide_pitch: Check the Budget Guide
         income_from_what: Where does the income come from
         per_inhabitant: Per inhabitant
         title: Local municipality budgets in %{year}
@@ -280,7 +279,7 @@ en:
     budgets_elaboration:
       index:
         at_a_glance: At a glance
-        at_years_end: "* at the end of %{year}"
+        auto_funding: Autofunding capability
         by_custom_category: per area
         by_economic_expense: in what
         by_economic_income: in what
@@ -288,22 +287,15 @@ en:
         category_percentage: "% of Total"
         category_value: Amount
         context: Context
-        data_of_year: "* data from %{year}"
-        debt: Debt
+        debt_level: Debt level
         description: Government team publishes a draft of next year budget to discuss
           with the opposition and the citiziens. All together we can create the best
           budget for the city.
         diff_previous_year: Diff vs current year
-        executed: Execution
-        executed_percent: "%{percentage}% of the budget"
-        executed_percent_other_year_html: In %{year} it was %{link}
-        executed_tooltip: The execution is the quantity that has been spent from the
-          initial budget.
         expenses_per_inhabitant: Expense per person
         explore_the_detail: Explore the details
         header: Budgets elaboration
         in_total: Total
-        inhabitants: Inhabitants
         last_update: Data updated
         main_budget_levels_timeline: Compare income and expenses year by year
         main_budget_lines: Main income and expenses from your council
@@ -311,9 +303,9 @@ en:
         main_budget_lines_income: Income
         metric_boxes_data: Data
         metric_boxes_data_description: This is how it will be the next year
+        net_savings: Net savings
         next_year_proposal: Proposal next %{year}
         no_data: There's no data for this classification
-        not_available_short: Not avail.
         note_about_the_data: Note about the data
         note_about_the_data_title: The database we use doesn't include 100% of the
           municipalities, and the avegages are calculated only with the data that

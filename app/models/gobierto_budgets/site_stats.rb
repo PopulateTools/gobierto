@@ -82,7 +82,7 @@ module GobiertoBudgets
     def debt_level(year = nil)
       year ||= @year
 
-      debt = debt(year) || debt(year - 1)
+      debt = debt(year) || debt(year - 1) || debt(year - 2)
       return nil if debt.nil?
 
       total_income = 0
@@ -94,19 +94,21 @@ module GobiertoBudgets
       return ((debt / total_income)*100).round(2)
     end
 
-    def investment_per_inhabitant(year = nil)
+    def auto_funding(year = nil)
       year ||= @year
 
-      total_expense = 0
-      [6,7].each do |code|
-        total_expense += get_expense_budget_line(year, code)
+      income1 = 0
+      (1..3).each do |code|
+        income1 += get_income_budget_line(year, code)
       end
-      return nil if total_expense == 0
 
-      population = population(year) || population(year - 1)
-      return nil if population.nil?
+      income2 = 0
+      (1..5).each do |code|
+        income2 += get_income_budget_line(year, code)
+      end
+      return 0 if income2 == 0
 
-      return (total_expense / population).round(2)
+      return ((income1/income2)*100).round(2)
     end
 
     def latest_available(variable, year = nil)

@@ -6,19 +6,18 @@ es:
         examples: Ejemplos
         expenses: Gastos
         explore_the_detail: Explora el detalle
-        guide: Consulta la Guía sobre el Presupuesto Municipal para saber más
         income: Ingresos
         search: Busca
         search_budget_line: Busca una partida específica
       index:
         amount: Cantidad
+        budget_guide_pitch: Consulta la Guía del Presupuesto
         budget_line: Partida
         categories: Categorías presupuestarias
         custom: Áreas
         expense_in_what: En qué se gasta
         expense_to_do_what: Para qué se gasta
         help: Te explicamos como funciona un presupuesto municipal
-        budget_guide_pitch: Consulta la Guía del Presupuesto
         income_from_what: En qué se ingresa
         per_inhabitant: Por habitante
         title: Presupuestos municipales en %{year}
@@ -284,7 +283,7 @@ es:
     budgets_elaboration:
       index:
         at_a_glance: Evolución del gasto y comparación
-        at_years_end: "* a cierre del %{year}"
+        auto_funding: Capacidad autofinanciación
         by_custom_category: por área
         by_economic_expense: en qué se gasta
         by_economic_income: en qué se ingresa
@@ -292,22 +291,15 @@ es:
         category_percentage: "% s/ Total"
         category_value: Importe
         context: Contexto
-        data_of_year: "* datos del %{year}"
-        debt: Deuda
+        debt_level: Nivel de endeudamiento
         description: El equipo de gobierno publica el borrador del presupuesto del
           próximo ejercicio para debatir en abierto con oposición y vecinos. Entre
           todos podemos elaborar el presupuesto que más conviene a la ciudad.
         diff_previous_year: vs. %{year}
-        executed: Ejecución
-        executed_percent: "%{percentage}% de lo presupuestado"
-        executed_percent_other_year_html: En %{year} fue un %{link}
-        executed_tooltip: La ejecución es la cantidad que finalmente se ha gastado
-          sobre lo presupuestado inicialmente.
         expenses_per_inhabitant: Gasto por habitante
         explore_the_detail: Explora el detalle
         header: Elaboración del presupuesto
         in_total: En total
-        inhabitants: Habitantes
         last_update: Datos actualizlados
         main_budget_levels_timeline: Compara gastos e ingresos año por año
         main_budget_lines: Los principales ingresos y gastos de tu ayuntamiento
@@ -316,9 +308,9 @@ es:
         metric_boxes_data: Los datos
         metric_boxes_data_description: Así cambiará el presupuesto de cara al próximo
           ejercicio
+        net_savings: Ahorro neto
         next_year_proposal: Propuesta para el %{year}
         no_data: No hay datos para esta clasificación
-        not_available_short: No disp.
         note_about_the_data: Nota sobre los datos
         note_about_the_data_title: La base de datos que utilizamos no incluye datos
           para el 100% de los municipios, por lo que las medias están calculadas solo

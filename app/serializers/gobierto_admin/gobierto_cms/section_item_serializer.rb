@@ -8,7 +8,7 @@ module GobiertoAdmin
       has_many :child_section_items
 
       def name
-        object.section.try(:title)
+        object.item.try(:title)
       end
     end
   end

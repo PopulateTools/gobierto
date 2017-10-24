@@ -71,7 +71,7 @@ $(document).on('turbolinks:load', function() {
           if(window.searchClient.indexes.length == 1) {
             var result = '<div class="activity_item">' +
               '<h2>' + '<a class="tipsit" href=' + ["/admin/cms/pages/", d['objectID'], "/edit?collection_id=", d['collection_id']].join('') +
-              ' original-title="Arrastra y suelta en la parte izquierda para colocar esta página en el menú">' +
+              ' original-title="' + I18n.t("layouts.search.drag_drop_instructions") + '">' +
               (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) +
               '<span class="secondary">' + itemDescription(d) + '</span>'  +
               '</a>' + '</h2>' +

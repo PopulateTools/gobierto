@@ -94,7 +94,8 @@ es:
       budget_line_item_expense: Partida presupuestaria - Gasto
       budget_line_item_income: Partida presupuestaria - Ingreso
       event_item: Evento
-      no_results: No hay resultados
+      no_results: La búsqueda no ha coincidido con ninguna página. Pruebe algo como
+        usando términos más generales o verificando la ortografía.
       page_item: Página
       person_item: Biografía
       person_post_item: Post

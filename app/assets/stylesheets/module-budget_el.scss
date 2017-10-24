@@ -2,17 +2,142 @@
 
 .highlight-proposal {
   background: $color_proposal_bg;
-  margin: .5em 0;
+  margin: 1em 0;
 
   p {
     color: $color_proposal;
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 600;
     padding: .5em;
     font-size: larger;
+    margin: 0;
   }
   span {
-    font-size: x-large;
-    margin-right: .5em;
+    font-size: .9em;
+    margin: 0 .5em 0 .25em;
   }
+}
+
+.metric_boxes .metric_box.cta {
+  text-align: center;
+  padding: 0;
+  .inner {
+    padding: 0;
+    background: #E9AD00;
+    min-height: 100px;
+    @include transition;
+  }
+  .inner:hover {
+    background: darken(#E9AD00, 10%);
+
+  }
+  a {
+    padding: 1.85em .5em ;
+    color: #FFF;
+    display: inline-block;
+    font-size: 1em;
+    text-decoration: none;
+    span.main {
+      text-transform: uppercase;
+    }
+    span.lite {
+      font-weight: 300;
+      font-size: .85rem;
+    }
+  }
+  .fa {
+    background: #FFF;
+    color: $color_logo_yellow;
+    padding: .75em;
+    @include border-radius(3px);
+    margin-left: .5em;
+  }
+}
+.metric_boxes .metric.cta:hover {
+  border: 1px solid red;
+}
+
+/*
+ * Budget Line Feedback
+ *
+ */
+.budget_line_feedback {
+  background: #F5F4F4;
+  text-align: center;
+  padding: 3em;
+  .options {
+    margin: 1.5em 0;
+    .button {
+      margin: 0 .2em;
+      span {
+        display: block;
+        text-transform: uppercase;
+      }
+    }
+  }
+  .reply {
+    max-width: 60em;
+    margin: auto;
+    padding: 2em;
+    background: #FFF;
+    @include border-radius(6px);
+    .inner {
+      margin: 0 20%;
+    }
+  }
+  .options.yes_no {
+    font-size: 1.5em;
+    .button {
+      font-weight: bold;
+    }
+
+  }
+  .form_item {
+    text-align: left;
+    .form_item_cont {
+      label {
+        width: 75px;
+      }
+      .i_text {
+        width: 60%;
+      }
+    }
+  }
+  .submit_item {
+    text-align: left;
+    margin-left: 87px;
+  }
+  .recover_password {
+    font-size: .8em;
+  }
+  .button.empty {
+    color: $color_text;
+  }
+}
+.small_button {
+  background: $color_1;
+  @include border-radius(3px);
+  padding: .1em .75em 0;
+  color: #FFF;
+  display: inline-block;
+  text-decoration: none;
+
+}
+.small_button:hover {
+  background: darken($color_1, 5%);
+  text-decoration: none;
+}
+.button.empty {
+  background: #FFF;
+  border: 1px solid $text_soft;
+  span {
+    display: block;
+    text-transform: uppercase;
+  }
+}
+.sep {
+  border-top: 1px solid $separator;
+  margin: 1em 0;
+  height: 1px;
+  color: #999;
 }

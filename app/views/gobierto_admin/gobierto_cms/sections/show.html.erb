@@ -14,6 +14,7 @@
 
   <div class="pure-u-1 pure-u-md-1-2 p_h_r_2">
     TREE
+    <div id="tree1" ondragover="allowDrop(event)"></div>
   </div>
 
   <div class="pure-u-1 pure-u-md-1-2">
@@ -37,4 +38,54 @@
     indexes: ["<%= GobiertoCms::Page.search_index_name %>"],
     filters: "site_id:<%= algolia_search_client.site.id %>"
   };
+
+  var data = [
+    {
+        name: 'node1',
+        children: [
+            { name: 'child1' },
+            { name: 'child2' }
+        ]
+    },
+    {
+        name: 'node2',
+        children: [
+            { name: 'child3' }
+        ]
+    }
+  ];
+
+  $(function() {
+    $('#tree1').tree({
+        data: data,
+        autoOpen: true,
+        dragAndDrop: true
+    });
+  });
+
+  function allowDrop(event) {
+      event.preventDefault();
+  }
+
+  // function drop(event, ui) {
+  //   console.log(ui);
+  //
+  //   $('#tree1').tree(
+  //     'appendNode',
+  //     {
+  //         name: 'new_node'
+  //     }
+  //   );
+  // }
+
+  $( "#tree1" ).on( "drop", function( event, ui ) {
+      console.log($(this).attr('data_title'));
+
+      $('#tree1').tree(
+        'appendNode',
+        {
+            name: 'new_node'
+        }
+      );
+  } );
 </script>

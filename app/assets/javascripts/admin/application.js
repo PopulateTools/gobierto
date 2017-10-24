@@ -3,6 +3,7 @@
 //= require jquery.autocomplete
 //= require cleave
 //= require tipsy
+//= require tree.jquery
 //= require air-datepicker/datepicker.min
 //= require air-datepicker/i18n/datepicker.es
 //= require air-datepicker/i18n/datepicker.en

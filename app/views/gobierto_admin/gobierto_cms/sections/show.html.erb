@@ -40,27 +40,56 @@
   };
 
   var data = [
-    {
-        name: 'node1',
-        children: [
-            { name: 'child1' },
-            { name: 'child2' }
-        ]
-    },
-    {
-        name: 'node2',
-        children: [
-            { name: 'child3' }
-        ]
-    }
+      {
+          name: 'node1', id: 1,
+          children: [
+              { name: 'child1', id: 2 },
+              { name: 'child2', id: 3 }
+          ]
+      },
+      {
+          name: 'node2', id: 4,
+          children: [
+              { name: 'child3', id: 5 }
+          ]
+      }
   ];
 
   $(function() {
+    var $tree = $('#tree1');
+
     $('#tree1').tree({
         data: data,
         autoOpen: true,
-        dragAndDrop: true
+        dragAndDrop: true,
+        onCreateLi: function(node, $li) {
+            // Append a link to the jqtree-element div.
+            // The link has an url '#node-[id]' and a data property 'node-id'.
+            $li.find('.jqtree-element').append(
+                '<a remote=true href="#node-'+ node.id +'" class="edit" data-node-id="'+
+                node.id +'"> delete</a>'
+            );
+        }
     });
+
+    // Handle a click on the edit link
+    $tree.on(
+        'click', '.edit',
+        function(e) {
+            // Get the id from the 'node-id' data property
+            var node_id = $(e.target).data('node-id');
+
+            // Get the node from the tree
+            var node = $tree.tree('getNodeById', node_id);
+
+            if (node) {
+                // Display the node name
+                alert(node.name);
+                $tree.tree('removeNode', node);
+            }
+            return false;
+        }
+    );
   });
 
   function allowDrop(event) {
@@ -78,13 +107,18 @@
   //   );
   // }
 
+  function uniqId() {
+    return Math.round(new Date().getTime() + (Math.random() * 100));
+  }
+
   $( "#tree1" ).on( "drop", function( event, ui ) {
       console.log($(this).attr('data_title'));
 
       $('#tree1').tree(
         'appendNode',
         {
-            name: 'new_node'
+            name: 'new_node',
+            id: uniqId()
         }
       );
   } );

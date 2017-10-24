@@ -76,7 +76,8 @@ module GobiertoBudgets
 
         values = {}
         values_per_inhabitant = {}
-        GobiertoBudgets::SearchEngineConfiguration::Year.all.reverse.each do |year|
+        years = budget_lines.map(&:year).sort.reverse
+        years.each_with_index do |year, i|
           if budget_line = budget_lines.detect{ |b| b.year == year}
             values.store(year, budget_line.amount)
             values_per_inhabitant.store(year, budget_line.amount_per_inhabitant)
@@ -86,8 +87,8 @@ module GobiertoBudgets
           end
         end
         pct_diff = {}
-        GobiertoBudgets::SearchEngineConfiguration::Year.all.reverse.each_with_index do |year, i|
-          if i > 0
+        years.each_with_index do |year, i|
+          if i < years.length - 1
             previous = values[year - 1].to_f
             current = values[year].to_f
             pct_diff.store(year, (((current - previous)/previous)*100).round(2))

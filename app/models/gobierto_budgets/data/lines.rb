@@ -237,14 +237,13 @@ module GobiertoBudgets
         response = SearchEngine.client.search index: index, type: type, body: query
         values = Hash[response['hits']['hits'].map{|h| h['_source']}.map{|h| [h['year'],h[@variable]] }]
         values.each do |k,v|
-          next if k > GobiertoBudgets::SearchEngineConfiguration::Year.last
           dif = 0
           if old_value = values[k -1]
             dif = delta_percentage(v, old_value)
           end
           if k <= Date.today.year
             result.push({date: k.to_s, value: v, dif: dif})
-          elsif @include_next_year
+          elsif @include_next_year && v > 0
             result.push({date: k.to_s, value: v, dif: dif})
           end
         end

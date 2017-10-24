@@ -32,7 +32,7 @@ class User::SubscriptionPreferencesForm
       update_subscription_to_site(site_to_subscribe)
       update_subscriptions_to_consultations(gobierto_budget_consultations_consultations)
 
-     @user
+      @user
     else
       promote_errors(@user.errors)
 

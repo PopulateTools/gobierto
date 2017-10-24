@@ -41,7 +41,7 @@ module GobiertoAdmin
       return unless current_site
 
       if request.host != current_site.domain
-        if site = managed_sites.find_by(domain: request.host)
+        if managed_sites && (site = managed_sites.find_by(domain: request.host))
           enter_site(site.id)
           redirect_to admin_root_path
         end
@@ -50,7 +50,7 @@ module GobiertoAdmin
 
     def gobierto_cms_page_preview_url(page, options = {})
       options.merge!(preview_token: current_admin.preview_token) unless page.active?
-      gobierto_cms_page_url(page.slug, options)
+      page.to_url(options)
     end
 
     protected

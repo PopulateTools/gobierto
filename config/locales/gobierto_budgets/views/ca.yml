@@ -365,8 +365,8 @@ ca:
         value: Valor
         vis:
           absolute: Execució en €
-          empty_lines: Les categories personalitzades no estan disponibles. Per favor,
-            selecciona un altre any.
+          empty_lines: No hi ha dades disponibles per aquesta classificació en aquest
+            any. Per favor, selecciona un altre filtrat.
           expenses:
             title: L'estat de l'execució de les despeses
           income:

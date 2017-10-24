@@ -18,7 +18,7 @@
     </li>
 
     <li class="<%= class_if("active", controller_name == "process_contribution_containers") %>">
-      <%= link_to t('.contributions'), admin_participation_process_contribution_containers_path(current_process) %>
+      <%= link_to t('.contributions'), admin_participation_process_contribution_containers_path(current_process), data: { turbolinks: false } %>
     </li>
 
     <li><%= link_to t('.votings'), '#', data: {disabled: true}, title: 'TODO: implement' %></li>

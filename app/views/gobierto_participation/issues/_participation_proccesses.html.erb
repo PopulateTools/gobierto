@@ -9,7 +9,7 @@
       <div class="pure-u-1 pure-u-md-2-3 current_processes">
         <div class="pure-g two_by_two" id="processes">
           <% @processes.each do |process| %>
-            <%= render 'current_group', { process: process } %>
+            <%= render 'gobierto_participation/processes/process_teaser', { process: process } %>
           <% end %>
         </div>
       </div>

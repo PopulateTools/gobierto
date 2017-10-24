@@ -10,6 +10,8 @@ module GobiertoCms
       @process = find_process if params[:process]
       @page = find_page
       @groups = current_site.processes.group_process
+      @collection = @page.collection
+      @pages = ::GobiertoCms::Page.where(id: @collection.pages_in_collection)
     end
 
     def index

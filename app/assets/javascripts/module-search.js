@@ -66,24 +66,41 @@ $(document).on('turbolinks:load', function() {
     if(sum > 0) {
       content.results.forEach(function(indexResults){
         indexResults.hits.forEach(function(d){
-          var result = '<a class="result" <a href="' + d.resource_path + '">' +
-            '<h2>' + (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) + '</h2>' +
-            '<div class="description">' +
-              '<div>' + itemDescription(d) + '</div>' +
-              '<span class="soft item_type">' + itemType(d) + '</span>' +
-              (itemUpdatedAt(d) ? ' · <span class="soft updated_at">' + itemUpdatedAt(d) + '</span>' : '') +
-            '</div>' +
-          '</a>';
+
+          // Search in back with only one index
+          if(window.searchClient.indexes.length == 1) {
+            var result = '<div class="activity_item">' +
+              '<h2>' + '<a class="tipsit" href=' + ["/admin/cms/pages/", d['objectID'], "/edit?collection_id=", d['collection_id']].join('') +
+              ' original-title="' + I18n.t("layouts.search.drag_drop_instructions") + '">' +
+              (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) +
+              '<span class="secondary">' + itemDescription(d) + '</span>'  +
+              '</a>' + '</h2>' +
+              '<div class="date">' + itemUpdatedAt(d) + '</div>' +
+            '</div>';
+          } else {
+            var result = '<a class="result" <a href="' + d.resource_path + '">' +
+              '<h2>' + (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) + '</h2>' +
+              '<div class="description">' +
+                '<div>' + itemDescription(d) + '</div>' +
+                '<span class="soft item_type">' + itemType(d) + '</span>' +
+                (itemUpdatedAt(d) ? ' · <span class="soft updated_at">' + itemUpdatedAt(d) + '</span>' : '') +
+              '</div>' +
+            '</a>';
+          }
 
           var div = $(result);
           div.appendTo($resultsContainer);
         });
       });
+      rebindAll();
     } else {
-      $('<div class="result"><p>No hay resultados</p></div>').appendTo($resultsContainer);
+      $('<div class="result"><p>'+I18n.t("layouts.search.no_results")+'</p></div>').appendTo($resultsContainer);
     }
 
-    $('<div class="result"><small>'+I18n.t("layouts.search.powered_by")+'</small></div>').appendTo($resultsContainer);
+    // Search in front
+    if(window.searchClient.indexes.length > 1) {
+      $('<div class="result"><small>'+I18n.t("layouts.search.powered_by")+'</small></div>').appendTo($resultsContainer);
+    }
   }
 
   $input.on('keyup', function(e){
@@ -99,11 +116,14 @@ $(document).on('turbolinks:load', function() {
         }
       });
     });
-
     if(q.length > 2){
       window.searchClient.client.search(queries, searchCallback);
     } else {
-      $resultsContainer.html('');
+      if(window.location.href.includes("admin")) {
+        window.searchClient.client.search(queries, searchCallback);
+      } else {
+        $resultsContainer.html('');
+      }
     }
   });
 

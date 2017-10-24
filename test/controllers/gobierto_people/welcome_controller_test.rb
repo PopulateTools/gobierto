@@ -8,7 +8,7 @@ class GobiertoPeople::WelcomeControllerTest < GobiertoControllerTest
   end
 
   def site_with_module_disabled
-    @site_with_module_disabled ||= sites(:santander)
+    @site_with_module_disabled ||= sites(:huesca)
   end
 
   def test_with_module_enabled

@@ -5,6 +5,7 @@ require_dependency "gobierto_participation"
 module GobiertoParticipation
   class ContributionContainer < ApplicationRecord
     include User::Subscribable
+    include GobiertoCommon::Sluggable
 
     translates :title, :description
 
@@ -17,5 +18,21 @@ module GobiertoParticipation
     enum contribution_type: { idea: 0, question: 1, proposal: 2 }
 
     validates :site, :process, :title, :description, :admin, presence: true
+
+    def parameterize
+      { slug: slug }
+    end
+
+    def attributes_for_slug
+      [title]
+    end
+
+    def comments_count
+      contributions.sum(:comments_count)
+    end
+
+    def participants_count
+      contributions.sum(&:number_participants)
+    end
   end
 end

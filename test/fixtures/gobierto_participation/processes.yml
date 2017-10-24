@@ -1,3 +1,5 @@
+# Groups
+
 green_city_group:
   site: madrid
   title_translations: <%= { 'en' => 'Green city', 'es' => 'Ciudad verde' }.to_json %>
@@ -5,6 +7,7 @@ green_city_group:
   slug: ciudad-verde
   process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
   visibility_level: <%= Site.visibility_levels['active'] %>
+  scope: center
 
 cultural_city_group:
   site: madrid
@@ -14,6 +17,30 @@ cultural_city_group:
   process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
   visibility_level: <%= Site.visibility_levels["draft"] %>
   issue: culture
+
+public_debates_group_future:
+  site: madrid
+  title_translations: <%= { 'en' => 'Public Debates', 'es' => 'Debates Públicos' }.to_json %>
+  body_translations: <%= { 'en' => 'Take part in these interesting debates', 'es' => 'Participa en estos interesantes debates' }.to_json %>
+  slug: public-debates
+  process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
+  visibility_level: <%= Site.visibility_levels['active'] %>
+  starts: <%= 1.week.from_now %>
+  ends:
+  scope: center
+
+dance_studio_group_ended:
+  site: madrid
+  title_translations: <%= { 'en' => 'Dance Studio', 'es' => 'Taller de danza' }.to_json %>
+  body_translations: <%= { 'en' => '', 'es' => '' }.to_json %>
+  slug: dance-studio
+  process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
+  visibility_level: <%= Site.visibility_levels['active'] %>
+  starts:
+  ends: <%= 1.week.ago %>
+  scope: center
+
+# Processes
 
 sport_city_process:
   site: madrid
@@ -26,6 +53,7 @@ sport_city_process:
   starts: <%= 3.days.ago %>
   ends: <%= 30.days.from_now %>
   issue: culture
+  scope: old_town
 
 local_budgets_process:
   site: madrid
@@ -56,6 +84,7 @@ gender_violence_process:
   starts: <%= 3.days.ago %>
   ends: <%= 30.days.from_now %>
   issue: women
+  scope: old_town
   header_image_url: /assets/samples/process-b31e99553977f5da46a9f71d9c37a6ae90e8e3d7980363fa429f1c2a27c9f7ae.jpg
 
 commission_for_carnival_festivities:

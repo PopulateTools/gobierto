@@ -49,7 +49,9 @@ es:
         bio: Biografía y CV
         blog: Blog
         exports: Descarga los datos en formato reutilizable
+        gifts: Obsequios y regalos
         statements: Bienes y Actividades
+        trips: Viajes
       people_filter:
         organigram: Organigrama de %{name}
         political_groups: Grupos políticos de %{name}
@@ -71,9 +73,6 @@ es:
           event_data:
             event_attendees: Asistentes
             event_locations: Lugar
-          subscribable_box:
-            subtitle: Recibe actualizaciones, preguntas y noticias
-            title: Sigue este evento
           title: Agenda de %{person_name}
       person_messages:
         new:
@@ -109,9 +108,7 @@ es:
       show:
         party:
           government: Equipo de gobierno
-          oposition: Oposición
-        subscribable_box:
-          title: Recibe actualizaciones sobre la actividad de %{person_name}
+          opposition: Oposición
       subscription_button:
         cancel: Cancelar
         follow: Seguir

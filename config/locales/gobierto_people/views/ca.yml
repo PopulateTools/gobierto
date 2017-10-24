@@ -49,7 +49,9 @@ ca:
         bio: Biografia i CV
         blog: Blog
         exports: Descarrega les dades en format reutilitzable
+        gifts: Obsequis i regals
         statements: Béns i activitats
+        trips: Viatges
       people_filter:
         organigram: Organigrama de %{name}
         political_groups: Grups polítics de %{name}
@@ -71,9 +73,6 @@ ca:
           event_data:
             event_attendees: Assistents
             event_locations: Lloc
-          subscribable_box:
-            subtitle: Rep actualitzacions, preguntes i notícies
-            title: Segueix aquest esdeveniment
           title: Agenda de %{person_name}
       person_messages:
         new:
@@ -108,9 +107,7 @@ ca:
       show:
         party:
           government: Equip de govern
-          oposition: Oposició
-        subscribable_box:
-          title: Rebeix actualitzacions al teu correu-e sobre %{person_name}
+          opposition: Oposició
       subscription_button:
         cancel: Cancelar
         follow: Seguir

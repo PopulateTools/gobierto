@@ -1,36 +1,32 @@
+# frozen_string_literal: true
+
 module GobiertoParticipation
   class ProcessesController < GobiertoParticipation::ApplicationController
-
     include ::PreviewTokenHelper
 
-    helper_method :current_process
+    helper_method :current_process, :process_stage_path
 
     def index
-      @processes = current_site.processes.process.open
-      @groups = current_site.processes.group_process
+      @processes = current_site.processes.process.active
+      @groups = current_site.processes.group_process.active
     end
 
     def show
-      @process_news   = find_process_news
+      @process = current_process
+      @process_news = find_process_news
       @process_events = find_process_events
-      @activities     = [] # TODO: implementation not yet defined
+      @process_activities = find_process_activities
       @process_stages = current_process.stages.active
     end
 
     private
 
-    def find_person
-      people_scope.find_by!(slug: params[:slug])
-    end
-
     def find_process_news
       current_process.news.sort_by(&:created_at).reverse.first(5)
-      # TODO: rewrite using Rails chainable scopes. Maybe something like this:
-      # @process.news.upcoming.order(created_at: :desc).limit(5)
     end
 
     def find_process_events
-      current_process.events.upcoming.order(starts_at: :asc).limit(5)
+      ::GobiertoCalendars::Event.events_in_collections_and_container(current_site, current_process).first(5)
     end
 
     def current_process
@@ -41,6 +37,14 @@ module GobiertoParticipation
 
     def processes_scope
       valid_preview_token? ? current_site.processes.draft : current_site.processes.active
+    end
+
+    def find_process_activities
+      ActivityCollectionDecorator.new(Activity.in_site(current_site).no_admin.in_container(current_process).sorted.limit(5).includes(:subject, :author, :recipient))
+    end
+
+    def process_stage_path(stage)
+      stage.process_stage_path
     end
 
   end

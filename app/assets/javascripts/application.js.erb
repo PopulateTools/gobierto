@@ -59,6 +59,14 @@ $.fn.extend({
   }
 });
 
+$(document).on("ajax:complete ajaxSuccess", function() {
+  $('.open_remote_modal').magnificPopup({
+    type: 'ajax',
+    removalDelay: 300,
+    mainClass: 'mfp-fade'
+  });
+});
+
 $(document).on('turbolinks:load', function() {
 
   rebindAll();

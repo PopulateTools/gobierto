@@ -13,14 +13,13 @@ module GobiertoParticipation
     end
 
     def process_events_path
-      @process_events_path ||= gobierto_participation_events_path(
-        container_type: process.container_type,
-        container_id: process.id
+      @process_events_path ||= gobierto_participation_process_events_path(
+        process_id: process.slug
       )
     end
 
     def process_events
-      @process_events ||= process.events
+      process.events
     end
 
     def test_breadcrumb_items
@@ -55,7 +54,7 @@ module GobiertoParticipation
 
         within "menu.secondary_nav" do
           assert has_link? "News"
-          assert has_link? "Diary"
+          assert has_link? "Agenda"
           assert has_link? "Documents"
           assert has_link? "Activity"
         end
@@ -73,6 +72,8 @@ module GobiertoParticipation
     end
 
     def test_process_events_index
+      process_events.first.update_attributes!(starts_at: Time.zone.now + 1.hour, ends_at: Time.zone.now)
+
       with_current_site(site) do
         visit process_events_path
 
@@ -80,7 +81,8 @@ module GobiertoParticipation
           assert_equal process_events.size, all(".person_event-item").size
 
           assert has_content? "Swimming lessons for elders"
-          assert has_link? "Instalaciones Deportivas Canal de Isabel II"
+          assert has_content? "Instalaciones Deportivas Canal de Isabel II"
+          assert has_link? "Av. de Filipinas, 54, 28003 Madrid"
 
           assert has_content? "Intensive reading club in english"
         end

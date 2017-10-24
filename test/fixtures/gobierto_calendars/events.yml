@@ -84,6 +84,18 @@ nelson_tomorrow:
   attachment_url: https://bit.ly/67890
   state: <%= GobiertoCalendars::Event.states["published"] %>
 
+nelson_tomorrow_fixed:
+  site: madrid
+  collection: nelson_calendar
+  title_translations: <%= {
+  'en' => 'Nelson tomorrow fixed event',
+  'es' => 'Nelson tomorrow fixed event'
+  }.to_json %>
+  slug: 2016-04-14-nelson-tomorrow-fixed-event
+  starts_at: <%= Time.zone.parse('2014-04-16 8:00') %>
+  ends_at: <%= Time.zone.parse('2014-04-16 9:00') %>
+  state: <%= GobiertoCalendars::Event.states['published'] %>
+
 nelson_yesterday:
   site: madrid
   collection: nelson_calendar
@@ -99,6 +111,18 @@ nelson_yesterday:
   starts_at: <%= 1.day.ago %>
   ends_at: <%= 1.day.ago + 1.hour %>
   attachment_url: https://bit.ly/67890
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+
+nelson_yesterday_fixed:
+  site: madrid
+  collection: nelson_calendar
+  title_translations: <%= {
+  'en' => 'Nelson yesterday fixed event',
+  'es' => 'Nelson yesterday fixed event'
+  }.to_json %>
+  slug: 2014-04-14-nelson-yesterday-fixed-event
+  starts_at: <%= Time.zone.parse('2014-04-14 8:00') %>
+  ends_at: <%= Time.zone.parse('2014-04-14 9:00') %>
   state: <%= GobiertoCalendars::Event.states["published"] %>
 
 tamara_published_past:

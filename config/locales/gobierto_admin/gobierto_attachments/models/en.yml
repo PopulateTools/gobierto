@@ -1,0 +1,6 @@
+---
+en:
+  activemodel:
+    attributes:
+      gobierto_admin/file_attachment_form:
+        file_digest: This file

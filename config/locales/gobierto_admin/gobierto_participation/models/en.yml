@@ -28,12 +28,15 @@ en:
         header_image_url: Header image URL
         issue_id: Theme
         process_type: Group type
+        scope_id: Scope
         slug: Slug
         stages: Stages
         starts: Starts
         title: Title
       gobierto_admin/gobierto_participation/process_form/stages:
         title: The title of a stage
+      gobierto_admin/gobierto_participation/process_information_form:
+        information_text: Information
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Contribution
         container

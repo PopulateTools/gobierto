@@ -15,6 +15,8 @@ class Site < ApplicationRecord
   has_many :content_blocks, dependent: :destroy, class_name: "GobiertoCommon::ContentBlock"
   has_many :custom_user_fields, dependent: :destroy, class_name: "GobiertoCommon::CustomUserField"
 
+  has_many :scopes, dependent: :destroy, class_name: "GobiertoCommon::Scope"
+
   # User integrations
   has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"
   has_many :notifications, dependent: :destroy, class_name: "User::Notification"
@@ -36,6 +38,7 @@ class Site < ApplicationRecord
 
   # Gobierto CMS integration
   has_many :pages, dependent: :destroy, class_name: "GobiertoCms::Page"
+  has_many :sections, dependent: :destroy, class_name: "GobiertoCms::Section"
 
   # Gobierto Attachments integration
   has_many :attachments, dependent: :destroy, class_name: "GobiertoAttachments::Attachment"
@@ -47,6 +50,9 @@ class Site < ApplicationRecord
   has_many :issues, dependent: :destroy, class_name: "Issue"
   has_many :processes, dependent: :destroy, class_name: "GobiertoParticipation::Process"
   has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
+  has_many :contributions, dependent: :destroy, class_name: "GobiertoParticipation::Contribution"
+  has_many :comments, dependent: :destroy, class_name: "GobiertoParticipation::Comment"
+  has_many :flags, dependent: :destroy, class_name: "GobiertoParticipation::Flag"
 
   serialize :configuration_data
 

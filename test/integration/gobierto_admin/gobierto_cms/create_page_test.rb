@@ -32,14 +32,13 @@ module GobiertoAdmin
                 click_link "News"
               end
 
-              assert has_selector?("h1", text: "News")
+              assert has_selector?("h1", text: "Sport city")
 
               click_link "New"
-              assert has_selector?("h1", text: "New page")
+              assert has_selector?("h1", text: "Sport city")
               click_button "Create"
               assert has_alert?("Title can't be blank")
               assert has_alert?("Body can't be blank")
-              assert has_alert?("URL can't be blank")
             end
           end
         end
@@ -55,10 +54,10 @@ module GobiertoAdmin
                 click_link "News"
               end
 
-              assert has_selector?("h1", text: "News")
+              assert has_selector?("h1", text: "Sport city")
 
               click_link "New"
-              assert has_selector?("h1", text: "New page")
+              assert has_selector?("h1", text: "Sport city")
 
               fill_in "page_title_translations_en", with: "My page"
               find("#page_body_translations_en", visible: false).set("The content of the page")
@@ -84,13 +83,6 @@ module GobiertoAdmin
                 "<div>Contenido de la página</div>",
                 find("#page_body_translations_es", visible: false).value
               )
-
-              page = site.pages.last
-              activity = Activity.last
-              assert_equal page, activity.subject
-              assert_equal admin, activity.author
-              assert_equal site.id, activity.site_id
-              assert_equal "gobierto_cms.page_created", activity.action
             end
           end
         end

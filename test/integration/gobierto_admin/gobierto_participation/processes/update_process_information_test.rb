@@ -24,11 +24,9 @@ module GobiertoAdmin
 
             click_on "Information"
 
-            within "form.edit_process" do
-              fill_in "process[information_text_translations][en]", with: "Edited information text"
+            find("#process_information_text_translations_en", visible: false).set("Edited information text")
 
-              click_button "Update"
-            end
+            click_button "Update"
 
             assert has_message? "Process was successfully updated"
 
@@ -36,7 +34,10 @@ module GobiertoAdmin
 
             click_on "Information"
 
-            assert has_content? "Edited information text"
+            assert_equal(
+              "Edited information text",
+              find("#process_information_text_translations_en", visible: false).value
+            )
           end
         end
       end

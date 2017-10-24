@@ -1,11 +1,20 @@
+# frozen_string_literal: true
+
 require_dependency 'gobierto_attachments'
 
 module GobiertoAttachments
   class Attachment < ApplicationRecord
+    paginates_per 8
+
+    attr_accessor :admin_id
+
     include User::Subscribable
     include GobiertoCommon::Searchable
+    include GobiertoCommon::Sluggable
+    include GobiertoCommon::Collectionable
 
-    MAX_FILE_SIZE_IN_BYTES = 10.megabytes
+    MAX_FILE_SIZE_IN_MBYTES = 10
+    MAX_FILE_SIZE_IN_BYTES  = MAX_FILE_SIZE_IN_MBYTES.megabytes
 
     default_scope { order(id: :desc) }
 
@@ -22,8 +31,9 @@ module GobiertoAttachments
 
     attr_accessor :file
 
-    validates :site, presence: true
-
+    validates :site, :url, presence: true
+    # This validation is duplicated in FileAttachmentForm, but since it's still being used
+    # from the API, we can't remove it.
     validates :file_digest, uniqueness: {
       scope: :site_id,
       message: ->(object, data) do
@@ -33,7 +43,9 @@ module GobiertoAttachments
     }
 
     belongs_to :site
+    belongs_to :collection, class_name: "GobiertoCommon::Collection"
 
+    after_create :add_item_to_collection
     before_validation :update_file_attributes
 
     scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
@@ -42,17 +54,28 @@ module GobiertoAttachments
       MIME::Types.type_for(url).first.content_type
     end
 
-    def collection
-      GobiertoCommon::CollectionItem.find_by(item: self, item_type: 'GobiertoAttachments::Attachment').collection
-    end
-
     def self.file_attachments_in_collections(site)
       ids = GobiertoCommon::CollectionItem.where(item_type: 'GobiertoAttachments::Attachment').map(&:item_id)
       where(id: ids, site: site)
     end
 
+    def self.attachments_in_collections_and_container_type(site, container_type)
+      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoAttachments::Attachment", container_type: container_type).pluck(:item_id)
+      where(id: ids, site: site)
+    end
+
+    def self.attachments_in_collections_and_container(site, container)
+      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoAttachments::Attachment", container: container).pluck(:item_id)
+      where(id: ids, site: site)
+    end
+
+    # Assumes file is opened and closed outside this function, since calling 'close'
+    # here may delete the Tempfile
     def self.file_digest(file)
-      Digest::MD5.hexdigest(file.read)
+      file.rewind # just in case upper context left the read pointer at the end
+      digest = Digest::MD5.hexdigest(file.read)
+      file.rewind
+      digest
     end
 
     def extension
@@ -69,16 +92,44 @@ module GobiertoAttachments
       end
     end
 
+    def parameterize
+      { slug: slug }
+    end
+
+    def attributes_for_slug
+      [name]
+    end
+
+    def to_url(options = {})
+      if collection
+        if collection.container_type == "GobiertoParticipation::Process"
+          url_helpers.gobierto_participation_process_attachment_url({ id: slug, process_id: collection.container.slug, host: app_host }.merge(options))
+        elsif collection.container_type == "GobiertoParticipation"
+          url_helpers.gobierto_participation_attachment_url({ id: slug, host: app_host }.merge(options))
+        end
+      end
+    end
+
+    def add_item_to_collection
+      if collection
+        collection.append(self)
+      end
+    end
+
     private
 
+    # This method is error-prone and should be REMOVED.
+    # This logic is duplicated in FileAttachmentForm. The reason why version is not incremented
+    # twice is because the Form Object decomposes file attribute in file_name, file_size, etc.,
+    # so this code is not executed.
     def update_file_attributes
       if file
         if file.size > MAX_FILE_SIZE_IN_BYTES
-          errors.add(:base, "#{I18n.t('activerecord.messages.gobierto_attachments/attachment.file_too_big')} (#{MAX_FILE_SIZE_IN_BYTES/1024} Mb)")
+          errors.add(:base, "#{I18n.t('activerecord.messages.gobierto_attachments/attachment.file_too_big')} (#{MAX_FILE_SIZE_IN_MBYTES} Mb)")
           throw :abort
         end
 
-        self.file_digest = self.class.file_digest(file.open)
+        self.file_digest = self.class.file_digest(file)
 
         if file_digest_changed? && unique_file_digest?
           self.file_name = file.original_filename
@@ -86,8 +137,6 @@ module GobiertoAttachments
           self.current_version += 1
           self.url = ::GobiertoAdmin::FileUploadService.new(site: site, collection: 'attachments', attribute_name: :attachment, file: file).call
         end
-
-        file.close
       end
     end
 

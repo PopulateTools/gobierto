@@ -3,3 +3,9 @@ consultation_faq_xlsx_attachment:
   attachment: xlsx_attachment
   attachable: consultation_faq
   attachable_type: GobiertoCms::Page
+
+about_site_xlsx_attachment:
+  site: madrid
+  attachment: xlsx_attachment
+  attachable: about_site
+  attachable_type: GobiertoCms::Page

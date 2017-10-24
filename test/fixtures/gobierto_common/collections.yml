@@ -1,22 +1,18 @@
-## GobiertoParticipation Process collections of pages
+## GobiertoParticipation Process collections of pages, events and attachments
 
 files:
   site: madrid
   title_translations: <%= {'en' => 'Files', 'es' => 'Ficheros' }.to_json %>
   slug: files
-  container: culture (Issue)
+  container: sport_city_process (GobiertoParticipation::Process)
   item_type: GobiertoAttachments::Attachment
 
 news:
   site: madrid
   title_translations: <%= {'en' => 'News', 'es' => 'Noticias' }.to_json %>
   slug: noticias
-  container: culture (Issue)
+  container: sport_city_process (GobiertoParticipation::Process)
   item_type: GobiertoCms::Page
-
-## /end
-
-## GobiertoParticipation Process collections of pages, events and attachments
 
 gender_violence_process_news:
   site: madrid
@@ -70,5 +66,23 @@ juana_calendar:
   slug: juana-calendar
   container: juana (GobiertoPeople::Person)
   item_type: GobiertoCalendars::Event
+
+kali_calendar:
+  site: santander
+  title_translations: <%= {'en' => 'Kali calendar', 'es' => 'Calendario de Kali' }.to_json %>
+  slug: kali-calendar
+  container: kali (GobiertoPeople::Person)
+  item_type: GobiertoCalendars::Event
+
+## /end
+
+## Site collections of news
+
+site_news:
+  site: madrid
+  title_translations: <%= {'en' => 'Site news', 'es' => 'Noticias del sitio' }.to_json %>
+  slug: site-news
+  container: madrid (Site)
+  item_type: GobiertoCms::Page
 
 ## /end

@@ -21,7 +21,6 @@ class Subscribers::GobiertoCalendarsActivityTest < ActiveSupport::TestCase
 
   def test_event_updated_for_gobierto_calendars_event
     activity_subject = gobierto_calendars_events(:richard_published)
-
     assert_difference "Activity.count" do
       subject.updated Event.new(name: "trackable", payload: {
                                   gid: activity_subject.to_gid, admin_id: admin.id, site_id: site.id

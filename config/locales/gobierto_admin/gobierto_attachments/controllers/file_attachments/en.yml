@@ -4,6 +4,8 @@ en:
     gobierto_attachments:
       file_attachments:
         create:
-          success_html: Attachment created successfully.
+          success_html: Attachment created successfully. <a href="%{link}">View the
+            document</a>.
         update:
-          success_html: Attachment updated successfully.
+          success_html: Attachment updated successfully. <a href="%{link}">View the
+            document</a>.

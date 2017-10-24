@@ -1,6 +1,10 @@
 ---
 en:
   gobierto_participation:
+    comments:
+      comment:
+        comments_html: "<strong>%{comments}</strong> comments"
+        respond: Respond
     events:
       event:
         follow_event: Follow this event
@@ -16,6 +20,7 @@ en:
       gobierto_participation_poll_created: Poll created
       gobierto_participation_poll_updated: Poll updated
       gobierto_participation_process_created: Process / group created
+      gobierto_participation_process_published: 'Update process: %{subject_name}'
       gobierto_participation_process_updated: Process / group updated
       index:
         agenda_for_container: Diary for %{container_title}
@@ -28,18 +33,7 @@ en:
           where we will discuss in person the topics of this process. If you can not
           attend, we will publish online everything that is said in the meetings to
           facilitate the follow-up and make the conclusions accessible.
-    issue_pages:
-      index:
-        filter: Filter by theme
-        title: News
-      show:
-        documents: Documents
-        filter: Filter by group
-        published_at: Posted on %{date} by %{site}
-        title: News
     issues:
-      current_group:
-        current_stage: Current stage
       index:
         intro_html: Your ideas help improve %{location_name} and the lives of all
           that we reside here. Bring your best ideas to our <strong> permanent spaces
@@ -48,7 +42,7 @@ en:
         work_groups_description: Check the activity of each group and participate.
         work_groups_title: Work groups
       participation_latest_info:
-        agenda: Diary
+        agenda: Paritipation Agenda
         news: News
         no_events: There are no related events
         no_news: There are no related news
@@ -56,7 +50,7 @@ en:
         show_more_news: See more news
         show_more_updates: See more updates
         the_last: The last
-        up_to_date: "%{location_name} up to date"
+        up_to_date: "%{site_title} up to date"
       participation_proccesses:
         processes_description: Consultation and participation in specific processes.
         processes_title: Processes in progress
@@ -77,52 +71,79 @@ en:
         results: Results
       secondary_nav:
         activity: Activity
-        agenda: Diary
+        agenda: Agenda
         documents: Documents
         news: News
-    participation_events:
-      event:
-        add_to_calendar: Add calendar
-        download: Download data
-        follow_event: Follow this event
-        neighbors_count_html:
-          one: "<strong>%{neighbors} neighbor</strong> will attend"
-          other: "<strong>%{neighbors} neighbors</strong> will attend"
-          zero: No neighbor will attend
-      event_teaser:
-        add_to_calendar: Add calendar
-        agenda_of: 'Diary of:'
-        neighbors_count_html:
-          one: "<strong>%{neighbors} neighbor</strong> will attend"
-          other: "<strong>%{neighbors} neighbors</strong> will attend"
-          zero: No neighbor will attend
-        want_to_attend: I want to attend
-      index:
-        all_events: View all events
-        events: events
+    participation_attachments: See all the documents of Participation
+    process_contribution_containers:
       show:
-        from_to: "%{starts} to %{ends}"
-    participation_pages:
-      index:
-        all_pages: Show all pages
-        filter: Filter
-        news: News
-        title: News
-      show:
-        documents: Documentos
-        filter: Filtrar por grupo
-        published_at: Publicado el %{date} por el %{site}
-        title: Noticias
-    process_pages:
-      index:
-        filter: Filter by theme
-        title: News
-      show:
-        documents: Documents
-        filter: Filter by group
-        published_at: Posted on %{date} by %{site}
-        title: News
+        all: All
+        best_ratings: Best ratings
+        idea:
+          one: 1 idea
+          other: "%{count} ideas"
+        login_signup_idea: Login or register to post ideas
+        login_signup_proposal: Login or register to post proposals
+        login_signup_question: Login or register to post questions
+        organize: Organize
+        proposal:
+          one: 1 proposal
+          other: "%{count} proposals"
+        put_idea: Have an idea!
+        put_proposal: Have a proposal!
+        put_question: Have a question!
+        question:
+          one: 1 question
+          other: "%{count} questions"
+        recent: Recent
+        self: Self
+        show_ideas: Show ideas
+        show_proposals: Show proposals
+        show_questions: Show questions
+        term_html: You have of term until <strong>%{date}</strong>
+        user:
+          one: One neighbor have contributed
+          other: "%{count} neighbors have contributed"
+        worst_ratings: Worst ratings
+    process_contributions:
+      comments:
+        comments_html: "<strong>%{comments}</strong> comments"
+        login_signup_comment: Login or register to comment
+      contribution:
+        enchants: It enchants to me
+        indifferent: It is to me indifferent
+        like: I like
+        not_like: I don't like
+        sent: sent by %{author} the %{date}
+        values_this_idea: Rate the idea
+        values_this_proposal: Rate the proposal
+        values_this_question: Rate the question
+      flag:
+        report: Report
+        reported: Reported
+      form:
+        description_idea: Do you want to give them details? Develop the main points
+          of your idea
+        description_proposal: Do you want to give them details? Develop the main points
+          of your proposal
+        description_question: Do you want to give them details? Develop the main points
+          of your question
+        placeholders:
+          description_idea: The new pool ...
+          description_proposal: The new pool ...
+          description_question: The new pool ...
+          title_idea: Ex. A new pool in the sports center
+          title_proposal: Ex. A new pool in the sports center
+          title_question: Ex. A new pool in the sports center?
+        title_idea: Write your idea concise
+        title_proposal: Write your proposal concise
+        title_question: Write your question concise
     processes:
+      index:
+        groups: Work groups
+        groups_p: Check the activity of each group and participate.
+        ongoing_processes: Ongoing processes
+        ongoing_processes_p: Consult and participate in specific processes.
       poll_answers:
         new:
           already_answered: You have already participated in this poll
@@ -142,39 +163,86 @@ en:
           already_participated: You have already participated in this poll
           participate: Participate in this poll
           participate_until: Participate until %{date}
+      process_teaser:
+        current_stage_html: "<strong>Current stage</strong>: %{current_stage}"
+        next_stage_html: "<strong>Next stage</strong>: %{current_stage}"
+      progress_map:
+        current: Current stage
+        next_stage: Next fase
       show:
         about: About this process
         appointments: Face-to-face appointments
-        from_to: "%{starts} to %{ends}"
         interesting_information: Interesting information
         issue: Issue
         length: Duration
+        more_activities: More updates
         more_events: More events
         more_information: More information
         more_news: More news
-        more_updates: More updates
         newest: Newest
         news: News
+        no_activities: There are no related updates
         no_events: There are no related events
         no_news: There are no related news
         process_stages: Process stages
+        scope: Scope
       timeline_row:
         past_stage: Stage has ended
         upcoming_stage: Stage not yet started
         view_stage: Access this stage
+    shared:
+      activities_for: Updates for %{container}
+      agenda: Agenda
+      agenda_p1: We invite you to attend the following meetings where we will discuss
+        in person on the issues of this process. If you can not to attend, we will
+        publish online everything that is said in the meetings to facilitate follow-up
+        and make conclusions accessible.
+      all_activities: See all updates
+      all_attachments: See all documents
+      all_events: View all events
+      all_news: Show all news
+      consultation_processes: Consult and participate in specific processes.
+      diary_for: Diary for %{container}
+      documents: Documents
+      documents_for: Documents for %{container}
+      events:
+        event:
+          follow_event: Follow this events
+          from_to: "%{starts} to %{ends}"
+        event_teaser:
+          agenda_for_container: Diary for
+      filter_by_theme: Filter by theme
+      from_to: "%{starts} to %{ends}"
+      new: New
+      news_for: News for %{container}
+      no_activities: No related updates
+      no_documents: No related documents
+      no_events: No related events
+      no_news: No related news
+      ongoing_processes: Ongoing processes
+      participation: Participation
+      published_at: Posted on %{date} by %{site}
     welcome:
       index:
+        ask_the_mayor: Ask the mayor
+        ask_the_mayor_p1: What do you want to know about the mayor? Send him your
+          question.
+        improve_city: Let's improve the city together
+        improve_city_p1: Share your ideas for improving the city. Give your opinion
+          about the others.
         intro: Know the mechanisms of participation that offers you %{location_name}
         intro_p1: Vote every four years? Get involved in the day-to-day life.
       participation_latest_info:
         agenda: Diary
         more_news: More news
+        news: News
+        no_activities: No related updates
         no_events: No related events
         no_news: No related news
         show_more_events: More events
         show_more_updates: More updates
         the_last: The last
-        up_to_date: "%{location_name} up to date"
+        up_to_date: "%{site_title} up to date"
       participation_themes_list_a:
         intro: Bring your best ideas to improve %{location_name} and the life of all
           of us who live here.

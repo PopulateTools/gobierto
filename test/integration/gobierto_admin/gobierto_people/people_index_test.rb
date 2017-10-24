@@ -19,7 +19,7 @@ module GobiertoAdmin
       end
 
       def people
-        @people ||= ::GobiertoPeople::Person.all
+        @people ||= site.people
       end
 
       def test_people_index

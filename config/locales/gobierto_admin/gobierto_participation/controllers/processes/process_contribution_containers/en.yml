@@ -1,0 +1,12 @@
+---
+en:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        process_contribution_containers:
+          create:
+            success_html: Container of contributions created correctly. <a href="%{link}">View
+              the container</a>.
+          update:
+            success_html: Container of contributions updated correctly. <a href="%{link}">View
+              the container</a>.

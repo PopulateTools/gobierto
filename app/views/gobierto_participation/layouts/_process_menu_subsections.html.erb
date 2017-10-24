@@ -1,23 +1,30 @@
-<menu class="sub_sections">
-  <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
-    <ul>
+<% if try(:current_process).present? %>
+  <menu class="sub_sections">
+    <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
+      <ul>
 
-      <% if try(:current_process).present? %>
         <li>
           <%= link_to t('.information'), gobierto_participation_process_process_information_path(process_id: current_process.slug) %>
         </li>
-      <% end %>
 
-      <li><%= todo_link_to { link_to t('.meetings'), '#' } %></li>
-
-      <% if try(:current_process).present? && current_process.polls_stage? %>
         <li>
-          <%= link_to t('.polls'), gobierto_participation_process_polls_path(process_id: current_process.slug) %>
+          <%=link_to t('.meetings'), gobierto_participation_process_events_path(process_id: current_process.slug) %>
         </li>
-      <% end %>
 
-      <li><%= todo_link_to { link_to t('.contributions'), '#' } %></li>
-      <li><%= todo_link_to { link_to t('.results'), '#' } %></li>
-    </ul>
-  </div>
-</menu>
+        <% if current_process.polls_stage? %>
+          <li>
+            <%= link_to t('.polls'), gobierto_participation_process_polls_path(process_id: current_process.slug) %>
+          </li>
+        <% end %>
+
+        <% if current_process.polls_stage? %>
+          <li>
+            <%= link_to t('.contributions'), gobierto_participation_process_process_contribution_containers_path(process_id: current_process.slug) %>
+          </li>
+        <% end %>
+
+        <li><%= todo_link_to { link_to t('.results'), '#' } %></li>
+      </ul>
+    </div>
+  </menu>
+<% end %>

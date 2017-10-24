@@ -372,8 +372,8 @@ es:
         value: Valor
         vis:
           absolute: Ejecución en €
-          empty_lines: Las categorías personalizadas no están disponibles. Por favor,
-            selecciona otro año.
+          empty_lines: No hay datos disponibles para esta clasificación en este año.
+            Por favor, selecciona otro filtro.
           expenses:
             title: Así va la ejecución de los gastos
           income:

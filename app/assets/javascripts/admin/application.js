@@ -1,5 +1,6 @@
 //= require trix
 //= require jquery.geocomplete
+//= require jquery.autocomplete
 //= require cleave
 //= require tipsy
 //= require air-datepicker/datepicker.min
@@ -39,6 +40,17 @@ $(document).on('turbolinks:load', function() {
   $('a[data-disabled]').on('click', function(e){
     e.preventDefault();
   });
+
+  var $autocomplete = $('[data-autocomplete]');
+
+  var searchOptions = {
+    serviceUrl: $autocomplete.data('autocomplete'),
+    onSelect: function(suggestion) {
+      Turbolinks.visit(suggestion.data.url);
+    }
+  };
+
+  $autocomplete.autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS, searchOptions));
 
 });
 

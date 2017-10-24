@@ -11,7 +11,15 @@ module GobiertoAdmin
 
       def show
         @section = find_section
-        @pages = ::GobiertoCms::Page.pages_in_collections(current_site)
+        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.uniq
+      end
+
+      def pages
+        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).search(params[:query]).uniq
+
+        respond_to do |format|
+          format.js {render layout: false}
+        end
       end
 
       def new

@@ -16,7 +16,7 @@ module GobiertoCms
     include GobiertoCommon::Collectionable
 
     algoliasearch_gobierto do
-      attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca
+      attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca, :collection_id
       searchableAttributes %w(title_en title_es title_ca body_en body_es body_ca)
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name

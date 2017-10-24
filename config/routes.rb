@@ -104,7 +104,9 @@ Rails.application.routes.draw do
 
     namespace :gobierto_cms, as: :cms, path: :cms do
       resources :pages, only: [:index, :new, :edit, :create, :update]
-      resources :sections, only: [:index, :new, :edit, :create, :update, :show]
+      resources :sections, only: [:index, :new, :edit, :create, :update, :show] do
+        get :pages
+      end
     end
 
     namespace :gobierto_attachments, as: :attachments, path: :attachments do

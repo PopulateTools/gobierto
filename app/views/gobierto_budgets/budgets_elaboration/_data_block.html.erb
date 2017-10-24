@@ -26,7 +26,7 @@
       <div class="inner" style="margin-left:0;">
         <h3><%= t('gobierto_budgets.budgets_elaboration.index.expenses_per_inhabitant') %></h3>
         <div class="metric"><%= format_currency @site_stats.total_budget_per_inhabitant %></div>
-        <div class="diff">+ 3,45% vs 2017</div>
+        <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_budget_per_inhabitant) %> vs <%= @year - 1 %></div>
       </div>
     </div>
 
@@ -34,61 +34,34 @@
       <div class="inner">
         <h3><%= t('gobierto_budgets.budgets_elaboration.index.total_expenses') %></h3>
         <div class="metric"><%= format_currency @site_stats.total_budget %></div>
-        <div class="diff">+ 3,45% vs 2017</div>
+        <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_budget) %> vs <%= @year - 1 %></div>
       </div>
     </div>
 
     <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
       <div class="inner">
-        <h3><%= t('gobierto_budgets.budgets_elaboration.index.executed') %> (<span class="tooltiped" title="<%= t('gobierto_budgets.budgets_elaboration.index.executed_tooltip') %>">?</span>)</h3>
-        <% if @site_stats.total_budget_executed %>
-          <div class="metric">
-            <%= link_to gobierto_budgets_budgets_elaboration_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last) do %>
-              <%= format_currency @site_stats.total_budget_executed %>
-            <% end %>
-          </div>
-
-          <div class="explanation_bar">
-            <% percentage = @site_stats.total_budget_executed_percentage %>
-            <% percentage_bar_width = percentage > 100 ? 100 : percentage %>
-            <div class="bar"><div class="line" style="width: <%= percentage_bar_width %>%"></div></div>
-            <span><%= t('gobierto_budgets.budgets_elaboration.index.executed_percent', percentage: percentage) %></span>
-          </div>
-        <% else %>
-          <% percentage = @site_stats.total_budget_executed_percentage(@year - 1) %>
-          <div class="metric"><span class="not_av"><%= t('gobierto_budgets.budgets_elaboration.index.not_available_short') %></span></div>
-          <div class="explanation">
-            <%= t('gobierto_budgets.budgets_elaboration.index.executed_percent_other_year_html', year: @year - 1, link: link_to("#{percentage} %", gobierto_budgets_budgets_elaboration_path)) %>
-          </div>
-        <% end %>
+        <h3><%= t('gobierto_budgets.budgets_elaboration.index.net_savings') %></h3>
+        <div class="metric"><%= format_currency @site_stats.net_savings %></div>
+        <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :net_savings) %> vs <%= @year - 1 %></div>
       </div>
     </div>
 
     <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
       <div class="inner">
-        <h3><%= t('gobierto_budgets.budgets_elaboration.index.inhabitants') %></h3>
-        <div class="metric"><%= number_with_precision @site_stats.latest_available(:population, @year)[:value], precision: 0, delimiter: '.' %></div>
-        <% if @site_stats.latest_available(:population, @year)[:year] != @year %>
-          <div class="explanation">
-            <%= t('gobierto_budgets.budgets_elaboration.index.data_of_year', year: @site_stats.latest_available(:population, @year)[:year]) %>
-          </div>
-        <% end %>
+        <h3><%= t('gobierto_budgets.budgets_elaboration.index.debt_level') %></h3>
+        <div class="metric"><%= format_currency @site_stats.debt_level %></div>
+        <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :debt_level) %> vs <%= @year - 1 %></div>
       </div>
     </div>
 
     <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
       <div class="inner">
-        <h3><%= t('gobierto_budgets.budgets_elaboration.index.debt') %></h3>
-        <div class="metric"><%= format_currency @site_stats.latest_available(:debt, @year)[:value] %></div>
-        <% if @site_stats.latest_available(:debt, @year)[:year] != @year %>
-          <div class="explanation">
-            <%= t('gobierto_budgets.budgets_elaboration.index.at_years_end', year: @site_stats.latest_available(:debt, @year)[:year])%>
-          </div>
-        <% end %>
+        <h3><%= t('gobierto_budgets.budgets_elaboration.index.investment_per_inhabitant') %></h3>
+        <div class="metric"><%= format_currency @site_stats.investment_per_inhabitant %></div>
+        <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :investment_per_inhabitant) %> vs <%= @year - 1 %></div>
       </div>
     </div>
   </div>
-
 </div>
 
 <div class="block">

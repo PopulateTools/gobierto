@@ -93,8 +93,8 @@ ca:
     search:
       budget_line_item_expense: Partida pressupostària - Despesa
       budget_line_item_income: Partida pressupostària - Ingrés
-      drag_drop_instructions: Arrossegueu i deixeu anar al costat esquerre per
-        col·locar aquesta pàgina al menú
+      drag_drop_instructions: Arrossegueu i deixeu anar al costat esquerre per col·locar
+        aquesta pàgina al menú
       event_item: Event
       no_results: La cerca no ha coincidit amb cap pàgina. Proveu alguna cosa com
         usant termes més generals o verificant l'ortografia.

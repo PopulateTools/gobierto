@@ -37,10 +37,10 @@
     display: inline-block;
     font-size: 1em;
     text-decoration: none;
-    span.main {
+    .main {
       text-transform: uppercase;
     }
-    span.lite {
+    .lite {
       font-weight: 300;
       font-size: .85rem;
     }
@@ -61,6 +61,14 @@
  * Budget Line Feedback
  *
  */
+.ask_your_entity {
+  .inner {
+    @include min-screen(900) {
+      width: 65%;
+      margin: auto;
+    }
+  }
+}
 .budget_line_feedback {
   background: #F5F4F4;
   text-align: center;

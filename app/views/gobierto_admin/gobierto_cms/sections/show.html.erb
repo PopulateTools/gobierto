@@ -14,7 +14,7 @@
 
   <div class="pure-u-1 pure-u-md-1-2 p_h_r_2">
     TREE
-    <div id="tree1" ondragover="allowDrop(event)"></div>
+    <div id="tree1"></div>
   </div>
 
   <div class="pure-u-1 pure-u-md-1-2">
@@ -92,34 +92,36 @@
     );
   });
 
-  function allowDrop(event) {
-      event.preventDefault();
-  }
+  $(document).ready(function(){
+    //defino los elementos que se pueden arrastrar
+    $(".tipsit").draggable({ revert: true });
 
-  // function drop(event, ui) {
-  //   console.log(ui);
-  //
-  //   $('#tree1').tree(
-  //     'appendNode',
-  //     {
-  //         name: 'new_node'
-  //     }
-  //   );
-  // }
+    $("#tree1").droppable({
+      drop: function( event, ui ) {
+        $('#tree1').tree(
+          'appendNode',
+          {
+              name: ui.draggable.attr("data_title"),
+              id: uniqId()
+          }
+        );
+      }
+    });
+  })
 
   function uniqId() {
     return Math.round(new Date().getTime() + (Math.random() * 100));
   }
 
-  $( "#tree1" ).on( "drop", function( event, ui ) {
-      console.log($(this).attr('data_title'));
-
-      $('#tree1').tree(
-        'appendNode',
-        {
-            name: 'new_node',
-            id: uniqId()
-        }
-      );
-  } );
+  // $( "#tree1" ).on( "drop", function( event, ui ) {
+  //     console.log($(this).attr('data_title'));
+  //
+  //     $('#tree1').tree(
+  //       'appendNode',
+  //       {
+  //           name: 'new_node',
+  //           id: uniqId()
+  //       }
+  //     );
+  // } );
 </script>

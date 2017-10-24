@@ -4,6 +4,14 @@ module GobiertoAdmin
   module GobiertoCms
     class SectionItemsController < BaseController
       def create
+        @section_item_form = SectionItemForm.new(section_id: params[:section_id],
+                                                 item_type: "GobiertoCms::Page",
+                                                 item_id: params[:page_id],
+                                                 parent_id: 0)
+
+        if @section_item_form.save
+          # track_create_activity
+        end
 
       end
 
@@ -16,6 +24,22 @@ module GobiertoAdmin
       end
 
       private
+
+      # def track_create_activity
+      #   Publishers::IssueActivity.broadcast_event("issue_created", default_activity_params.merge(subject: @issue_form.issue))
+      # end
+      #
+      # def track_update_activity
+      #   Publishers::IssueActivity.broadcast_event("issue_updated", default_activity_params.merge(subject: @issue))
+      # end
+
+      def default_activity_params
+        { ip: remote_ip, author: current_admin, site_id: current_site.id }
+      end
+
+      def ignored_issue_attributes
+        %w(position created_at updated_at)
+      end
 
       def default_serializer
         ::GobiertoAdmin::GobiertoCms::SectionItemSerializer

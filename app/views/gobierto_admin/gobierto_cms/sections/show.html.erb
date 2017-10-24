@@ -89,26 +89,22 @@
           'appendNode',
           {
               name: ui.draggable.attr("data_title"),
-              id: uniqId()
+              id: ui.draggable.attr("data_id")
           }
         );
+        $.ajax({
+           url: '/admin/cms/sections/' + <%= params[:id] %> + '/section_items',
+           type: 'POST',
+           dataType: 'json',
+           data: {page_id: ui.draggable.attr("data_id")},
+           success:function(data){
+
+           },
+           error:function(data){
+
+           }
+       });
       }
     });
   })
-
-  function uniqId() {
-    return Math.round(new Date().getTime() + (Math.random() * 100));
-  }
-
-  // $( "#tree1" ).on( "drop", function( event, ui ) {
-  //     console.log($(this).attr('data_title'));
-  //
-  //     $('#tree1').tree(
-  //       'appendNode',
-  //       {
-  //           name: 'new_node',
-  //           id: uniqId()
-  //       }
-  //     );
-  // } );
 </script>

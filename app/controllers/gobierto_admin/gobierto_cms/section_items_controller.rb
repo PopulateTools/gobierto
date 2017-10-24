@@ -3,6 +3,10 @@
 module GobiertoAdmin
   module GobiertoCms
     class SectionItemsController < BaseController
+      def create
+
+      end
+
       def index
         @section = find_section
 

@@ -10,5 +10,4 @@ class GobiertoBudgets::ApplicationController < ApplicationController
 
   before_action { module_enabled!(current_site, "GobiertoBudgets") }
 
-
 end

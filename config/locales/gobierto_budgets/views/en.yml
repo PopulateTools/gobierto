@@ -401,6 +401,33 @@ en:
         show_me_another: Show me another
         title: Some important budget lines
         total: Total expenses
+    feedback:
+      follow:
+        follow: Follow
+        your_email: Your email
+      follow_success:
+        error: Looks like your email is invalid
+        share: Do you want to share this statistics in
+        share_text: Check and opinate about the budget in %{place_name}
+        success: Good! Check your email and click the link
+      step1:
+        answer1_0: 'Yes'
+        answer1_1: 'No'
+        understand: Do you understand this budget line?
+      step2_no:
+        answer_html: "<strong>%{datum}</strong> of the people who voted said that
+          <strong>don't understand this budget line</strong>"
+        ask: You can ask for more information
+      step2_yes:
+        option1_html: I think it's <span>FEW</span>
+        option2_html: I think it's <span>GOOD</span>
+        option3_html: I think it's <span>TOO MUCH</span>
+        question: Do you think the amount is appropiate?
+      step3:
+        option1: Few
+        option2: Good
+        option3: Too much
+        thanks: 'Thanks for your opinion. This is what the rest of the people think:'
     layouts:
       application:
         budgets: Budgets

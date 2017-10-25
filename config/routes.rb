@@ -231,8 +231,12 @@ Rails.application.routes.draw do
       get "presupuestos/elaboracion" => "budgets_elaboration#index", as: :budgets_elaboration
       get "budgets/treemap(/:year)" => "budget_lines#treemap", as: :budget_lines_treemap
 
-      # TODO: move to an API > move to the big indexer
       get "all_categories/:slug/:year" => "search#all_categories", as: :search_all_categories
+
+      get "feedback/step1" => "feedback#step1", as: :feedback_step1
+      get "feedback/step2" => "feedback#step2", as: :feedback_step2
+      get "feedback/step3" => "feedback#step3", as: :feedback_step3
+      post "feedback/follow" => "feedback#follow", as: :feedback_follow
 
       namespace :api do
         get "/categories" => "categories#index"

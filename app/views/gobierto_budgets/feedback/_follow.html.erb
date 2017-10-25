@@ -1,0 +1,13 @@
+<div class="slim_box">
+  <%= form_tag gobierto_budgets_feedback_follow_path, remote: true, class: "new_user" do %>
+    <p><%= t('.follow') %>:</p>
+    <input placeholder="<%= t('.your_email') %>" type="email" name="email">
+    <input type="hidden" name="context" id="context" value="new-user-login-share">
+    <input type="submit" name="commit" value="<%= t('.follow') %>">
+    <p class="small">[AVISO DINAMICO PRIVACIDAD]</p>
+  <% end %>
+</div>
+
+<div class="share_post_submit" id="follow_success">
+</div>
+

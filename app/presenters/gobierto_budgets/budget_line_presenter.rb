@@ -5,6 +5,10 @@ module GobiertoBudgets
       @attributes = attributes.symbolize_keys
     end
 
+    def id
+      (@attributes.values_at(:ine_code, :year, :code, :kind) + [@attributes[:area].area_name]).join('/')
+    end
+
     def category
       @category ||= if @attributes[:site]
                       Category.find_by(site: @attributes[:site], area_name: area_name, kind: kind, code: code)

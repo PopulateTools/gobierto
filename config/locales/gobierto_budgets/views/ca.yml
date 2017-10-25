@@ -401,6 +401,35 @@ ca:
         show_me_another: Mostra'm un altra
         title: Algunes partides destacades
         total: Despesa total
+    feedback:
+      follow:
+        follow: Seguir
+        your_email: El teu correu
+      follow_success:
+        error: Pareix que el correu introduit no es vàlid. Per favor revisa-ho
+        share: Vols compartir aquesta estadística en
+        share_text: Informat i opina sobre el pressupost de %{place_name}
+        success: Molt bé! Revisa el teu correu i fes click en el enllaç que t'hem
+          enviat
+      step1:
+        answer1_0: Si
+        answer1_1: 'No'
+        understand: Entens de què va aquesta partida?
+      step2_no:
+        answer_html: El <strong>%{datum}</strong> de personae han dit que <strong>No
+          entenen de què va aquesta partida</strong>
+        ask: Pots demanar al teu alcalde que amplie l'informació sobre aquesta i altres
+          partides
+      step2_yes:
+        option1_html: Me pareix <span>POC</span>
+        option2_html: Me pareix <span>APROPIAT</span>
+        option3_html: Me pareix <span>MOLT</span>
+        question: Creus que la quantitat de despesa es apropiada?
+      step3:
+        option1: Poco
+        option2: Apropiat
+        option3: Molt
+        thanks: 'Gràcies por la teva opinió. Això es lo que pensa la resta de la gent:'
     layouts:
       application:
         budgets: Pressupostos

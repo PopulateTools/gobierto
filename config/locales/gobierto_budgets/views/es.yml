@@ -409,6 +409,35 @@ es:
         show_me_another: Muéstrame otra
         title: Algunas partidas destacadas
         total: Gasto total
+    feedback:
+      follow:
+        follow: Seguir
+        your_email: Tu correo-e
+      follow_success:
+        error: Parece que el email introducido no es válido. Por favor revísalo
+        share: "¿Quieres compartir esta estadística en"
+        share_text: Informate y opina sobre el presupuesto de %{place_name}
+        success: "¡Genial! Comprueba tu correo y pincha en el enlace que te enviamos"
+      step1:
+        answer1_0: Sí
+        answer1_1: 'No'
+        understand: "¿Entiendes de qué va esta partida?"
+      step2_no:
+        answer_html: El <strong>%{datum}</strong> de personas han respondido que <strong>No
+          entiende de qué va esta partida</strong>
+        ask: Puedes solicitar a tu alcalde que amplie la información sobre esta y
+          otras partidas
+      step2_yes:
+        option1_html: Me parece <span>POCO</span>
+        option2_html: Me parece <span>APROPIADO</span>
+        option3_html: Me parece <span>MUCHO</span>
+        question: "¿Crees que la cantidad de gasto es apropiada?"
+      step3:
+        option1: Poco
+        option2: Apropiado
+        option3: Mucho
+        thanks: 'Gracias por tu opinión. Esto es lo que piensa el resto de la gente
+          que ha opinado:'
     layouts:
       application:
         budgets: Presupuestos

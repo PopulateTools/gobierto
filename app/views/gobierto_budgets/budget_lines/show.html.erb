@@ -119,114 +119,17 @@
       <% if in_elaboration? %>
         <div class="pure-u-1-2 pure-u-md-1-5 metric_box cta open_budget_line_feedback tipsit" title="¿Entiendes de qué va esta partida? ¿Te parece mucho, poco? Opina">
           <div class="inner">
-            <a data-feedback="true" href="javascript:void(0);">
+            <%= link_to gobierto_budgets_feedback_step1_path(year: @year, id: @budget_line.id), remote: true do %>
               <div class="main">Levanta la mano <i class="fa fa-hand-paper-o"></i></div>
               <div class="lite">Opina sobre esta partida</div>
-            </a>
+            <% end %>
           </div>
         </div>
       <% end %>
     </div>
 
     <% if in_elaboration? %>
-      <div class="block budget_line_feedback raise_your_hand_content">
-
-        <div class="blf_question_1">
-          <p>¿Entiendes de qué va esta partida?</p>
-          <div class="options yes_no">
-            <a class="button open_blf_question_2" href="">Sí</a>
-            <a class="button open_reply_no" href="">No</a>
-          </div>
-        </div>
-
-        <div class="blf_question_2">
-          <p>¿Crees que la cantidad de gasto es apropiada?</p>
-          <div class="options ">
-            <a class="button open_reply_yes" href="">Me parece <span>POCO</span></a>
-            <a class="button open_reply_yes" href="">Me parece <span>APROPIADO</span></a>
-            <a class="button open_reply_yes" href="">Me parece <span>MUCHO</span></a>
-          </div>
-        </div>
-
-        <div class="reply reply_yes">
-          <div class="inner">
-            <p>Gracias por tu opinión. Esta es lo que piensa el resto de la gente que ha opinado:</p>
-            <p>
-            </p><div class="button empty">100.0% <span>Poco</span></div>
-            <div class="button empty">0% <span>Apropiado</span></div>
-            <div class="button empty">0% <span>Mucho</span></div>
-            <p></p>
-
-            <div class="sep"></div>
-
-            <div class="slim_box">
-              <form id="new-user-login-share" class="new_user" >
-                <p>Puedes seguir esta partida para recibir noticias ocasionales sobre su evolución y opiniones:</p>
-                <input placeholder="Tu correo-e" type="email" name="user[email]" id="user_email">
-                <input type="hidden" name="context" id="context" value="new-user-login-share">
-                <input type="submit" name="commit" value="Seguir">
-                <p class="small">[AVISO DINAMICO PRIVACIDAD]</p>
-              </form>
-            </div>
-
-            <div class="share_post_submit">
-
-              <div class="sep"></div>
-
-              <p><small>Genial! Comprueba tu correo y pincha en el enlace que te enviamos</small></p>
-
-              <p>
-                ¿Quieres compartir esta estadística en
-                <!-- Texto para share:
-                  Informate y opina sobre el presupuesto de MUNICIPIO URL_PARTIDA
-                -->
-                <a class="small_button popup" data-rel="Twitter" href="https://twitter.com/home?status=En%20%40gobierto%3A%20%C2%BFQu%C3%A9%20opina%20la%20gente%20sobre%20la%20partida%20Servicios%20p%C3%BAblicos%20b%C3%A1sicos%20de%20Santander%3F%20https%3A%2F%2Fpresupuestos.gobierto.es%2Fbudget_lines%2Fsantander%2F2017%2F1%2FG%2Ffunctional%2Ffeedback%2F2">Twitter</a>
-                <a class="small_button popup" data-rel="Facebook" href="http://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpresupuestos.gobierto.es%2Fbudget_lines%2Fsantander%2F2017%2F1%2FG%2Ffunctional%2Ffeedback%2F2">Facebook</a>
-                ?
-              </p>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="reply reply_no">
-          <div class="inner">
-            <p>Puedes solicitar a tu alcalde que amplie la información sobre esta y otras partidas</p>
-
-            <p>
-              El <strong>66.7%</strong> de personas han respondido que <strong>No entiende de qué va esta partida</strong>
-            </p>
-
-            <div class="sep"></div>
-
-            <div class="slim_box">
-              <form id="new-user-login-share" class="new_user" accept-charset="UTF-8" method="post">
-                <p><small>Puedes seguir esta partida para recibir noticias ocasionales sobre su evolución y opiniones:</small></p>
-                <input placeholder="Tu correo-e" type="email" name="user[email]" id="user_email">
-                <input type="hidden" name="context" id="context" value="new-user-login-share">
-                <input type="submit" name="commit" value="Seguir">
-                <p class="small">[AVISO DINAMICO PRIVACIDAD]</p>
-            </div>
-              </form>
-          </div>
-
-          <div class="share_post_submit">
-
-            <div class="sep"></div>
-
-            <p><small>Genial! Comprueba tu correo y pincha en el enlace que te enviamos</small></p>
-
-            <p>
-              ¿Quieres compartir esta estadística en
-              <!-- Texto para share:
-                Informate y opina sobre el presupuesto de MUNICIPIO URL_PARTIDA
-              -->
-              <a class="small_button popup" data-rel="Twitter" href="https://twitter.com/home?status=En%20%40gobierto%3A%20%C2%BFQu%C3%A9%20opina%20la%20gente%20sobre%20la%20partida%20Servicios%20p%C3%BAblicos%20b%C3%A1sicos%20de%20Santander%3F%20https%3A%2F%2Fpresupuestos.gobierto.es%2Fbudget_lines%2Fsantander%2F2017%2F1%2FG%2Ffunctional%2Ffeedback%2F1">Twitter</a>
-              <a class="small_button popup" data-rel="Facebook" href="http://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpresupuestos.gobierto.es%2Fbudget_lines%2Fsantander%2F2017%2F1%2FG%2Ffunctional%2Ffeedback%2F1">Facebook</a>
-              ?
-            </p>
-          </div>
-        </div>
+      <div class="block budget_line_feedback raise_your_hand_content" id="feedback-container">
       </div>
     <% end %>
 

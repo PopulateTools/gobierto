@@ -21,7 +21,7 @@ module GobiertoAdmin
         @section = find_section
 
         render(
-          json: { section_items: @section.section_items.without_parent.map{ |si| default_serializer.new(si) }}
+          json: { section_items: @section.section_items.without_parent.sorted.map{ |si| default_serializer.new(si) }}
         )
       end
 

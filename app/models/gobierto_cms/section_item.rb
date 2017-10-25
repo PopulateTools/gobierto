@@ -12,5 +12,6 @@ module GobiertoCms
     validates :item_id, :item_type, :position, :parent_id, :section_id, :level, presence: true
 
     scope :without_parent, -> { where(parent_id: 0) }
+    scope :sorted, -> { order(position: :asc) }
   end
 end

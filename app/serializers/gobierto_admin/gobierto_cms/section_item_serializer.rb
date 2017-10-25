@@ -5,7 +5,7 @@ module GobiertoAdmin
     class SectionItemSerializer < ActiveModel::Serializer
       attributes :id, :name
 
-      has_many :child_section_items
+      has_many :children, serializer: GobiertoAdmin::GobiertoCms::SectionItemSerializer
 
       def name
         object.item.try(:title)

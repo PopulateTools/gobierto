@@ -133,5 +133,9 @@ module GobiertoBudgets
                            end
       ([year, kind].concat(parent_code_length.downto(1).map{|i| budget_line.parent_code[0..-i]})).concat([budget_line.code]).join('/')
     end
+
+    def in_elaboration?
+      @year && @year > Date.today.year
+    end
   end
 end

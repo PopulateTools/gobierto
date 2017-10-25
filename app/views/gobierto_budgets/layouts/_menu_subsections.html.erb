@@ -1,10 +1,10 @@
 <menu class="sub_sections">
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
     <ul>
-      <li><%= link_to t('.budget'), gobierto_budgets_budgets_path, class: class_if('active', controller_name == 'budgets') %></li>
       <% if budgets_elaboration_active? %>
         <li><%= link_to t('.elaboration'), gobierto_budgets_budgets_elaboration_path, class: class_if('active', controller_name == 'budgets_elaboration')  %></li>
       <% end %>
+      <li><%= link_to t('.budget'), gobierto_budgets_budgets_path, class: class_if('active', controller_name == 'budgets') %></li>
       <li><%= link_to t('.execution'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), class: class_if('active', controller_name == 'budgets_execution')  %></li>
       <li><%= link_to t('.guide'), gobierto_budgets_budgets_guide_path, class: class_if('active', action_name == 'guide')  %></li>
     </ul>

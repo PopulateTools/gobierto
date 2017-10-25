@@ -87,3 +87,20 @@
     }
   }
 }
+.metric_boxes_detailed {
+  .metric_box {
+    .inner {
+      padding: .8em 1em 2em 1em;
+
+      .metric_details {
+        margin: 1em 0;
+        th {
+          text-align: left;
+        }
+        th, td {
+          padding: .25em 0;
+        }
+      }
+    }
+  }
+}

@@ -28,14 +28,65 @@
         </div>
       </div>
 
-      <div class="pure-u-1 pure-u-md-1-2 metric_boxes">
+      <div class="pure-u-1 pure-u-md-1-2 metric_boxes metric_boxes_detailed">
         <div class="pure-g">
+
+          <% if  @budgets_execution_summary[:income_execution_percentage] %>
+            <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
+              <div class="inner">
+                <h3><%= t('.metric.execution.income_title') %></h3>
+                <div class="metric"><%= @budgets_execution_summary[:income_execution_percentage] %> %</div>
+
+                <!-- ToDo: Integrate data -->
+                <div class="metric_details">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th>Ingresos presupuestados</th>
+                        <td>189,8M€</td>
+                      </tr>
+                      <tr>
+                        <th>Ingresos reales</th>
+                        <td>204,6M€</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <% if @budgets_execution_summary[:income_previous_execution_percentage] %>
+                  <div class="explanation desktop_only">
+                    <%= t('.metric.execution.previous_execution_message',
+                          year: @budgets_execution_summary[:previous_year],
+                          percentage: @budgets_execution_summary[:income_previous_execution_percentage]
+                    ) %> %
+                  </div>
+                <% end %>
+
+              </div>
+            </div>
+          <% end %>
 
           <% if  @budgets_execution_summary[:expenses_execution_percentage] %>
             <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
               <div class="inner">
                 <h3><%= t('.metric.execution.expenses_title') %></h3>
                 <div class="metric"><%= @budgets_execution_summary[:expenses_execution_percentage]%> %</div>
+
+                <!-- ToDo: Integrate data -->
+                <div class="metric_details">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th>Gastos presupuestados</th>
+                        <td>189,8M€</td>
+                      </tr>
+                      <tr>
+                        <th>Gastos reales</th>
+                        <td>204,6M€</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
 
                 <% if @budgets_execution_summary[:expenses_previous_execution_percentage] %>
                   <div class="explanation desktop_only">
@@ -50,24 +101,7 @@
             </div>
           <% end %>
 
-          <% if  @budgets_execution_summary[:income_execution_percentage] %>
-            <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
-              <div class="inner">
-                <h3><%= t('.metric.execution.income_title') %></h3>
-                <div class="metric"><%= @budgets_execution_summary[:income_execution_percentage] %> %</div>
 
-                <% if @budgets_execution_summary[:income_previous_execution_percentage] %>
-                  <div class="explanation desktop_only">
-                    <%= t('.metric.execution.previous_execution_message',
-                          year: @budgets_execution_summary[:previous_year],
-                          percentage: @budgets_execution_summary[:income_previous_execution_percentage]
-                    ) %> %
-                  </div>
-                <% end %>
-
-              </div>
-            </div>
-          <% end %>
 
         </div>
       </div>

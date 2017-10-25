@@ -2,7 +2,7 @@
 
 module GobiertoParticipation
   module Issues
-    class EventsController < BaseController
+    class EventsController < GobiertoParticipation::BaseController
       include ::PreviewTokenHelper
 
       def show

@@ -40,7 +40,7 @@ module GobiertoParticipation
     end
 
     def find_event
-      current_site.events.find_by!(slug: params[:id])
+      current_site.events.published.find_by!(slug: params[:id])
     end
 
     def container_events

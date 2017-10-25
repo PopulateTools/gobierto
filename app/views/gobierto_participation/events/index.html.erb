@@ -11,9 +11,11 @@
           <h2 class='with_separator'>
             <%= t('gobierto_participation.shared.diary_for', container: t('gobierto_participation.shared.participation')) %>
           </h2>
-          <div>
-            <small><%= link_to t('gobierto_participation.shared.all_events'), gobierto_participation_events_path %></small>
-          </div>
+          <% if @issue %>
+            <div>
+              <small><%= link_to t('gobierto_participation.shared.all_events'), gobierto_participation_events_path %></small>
+            </div>
+          <% end %>
 
           <%= render 'gobierto_participation/shared/events/calendar_component', events: @events %>
 

@@ -95,8 +95,6 @@ module GobiertoParticipation
         within ".global_breadcrumb" do
           assert has_link? "Participation"
         end
-
-        assert has_link? "View all events"
       end
     end
 
@@ -167,7 +165,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        assert_equal issue.active_pages(site).size, all(".place_news-item").size
+        assert_equal issue.active_pages.size, all(".place_news-item").size
       end
     end
 

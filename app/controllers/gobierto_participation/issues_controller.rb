@@ -22,7 +22,7 @@ module GobiertoParticipation
     end
 
     def find_issue_news
-      @issue.active_pages(current_site).sort_by(&:created_at).reverse.first(5)
+      @issue.active_pages.limit(5)
     end
 
     def find_issue_notifications
@@ -30,7 +30,7 @@ module GobiertoParticipation
     end
 
     def find_issue_events
-      @issue.events.upcoming.order(starts_at: :asc).limit(5)
+      @issue.events.published.upcoming.order(starts_at: :asc).limit(5)
     end
   end
 end

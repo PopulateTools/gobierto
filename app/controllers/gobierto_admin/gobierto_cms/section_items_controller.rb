@@ -27,18 +27,18 @@ module GobiertoAdmin
         @section_item = find_section_item
 
         if @section_item.destroy
-          # track_destroy_activity
+          track_destroy_activity
         end
       end
 
       private
 
       def track_create_activity
-        Publishers::GobiertoCmsSectionItemActivity.broadcast_event("section_item_created", default_activity_params.merge(subject: @section_item_form.section_item))
+        Publishers::GobiertoCmsSectionItemActivity.broadcast_event("section_item_created", default_activity_params.merge(subject: @section_item_form.section_item.item))
       end
 
       def track_destroy_activity
-        Publishers::GobiertoCmsSectionItemActivity.broadcast_event("section_item_deleted", default_activity_params.merge(subject: @section_item, recipient: @section_item))
+        Publishers::GobiertoCmsSectionItemActivity.broadcast_event("section_item_deleted", default_activity_params.merge(subject: @section_item.item))
       end
 
       def default_activity_params

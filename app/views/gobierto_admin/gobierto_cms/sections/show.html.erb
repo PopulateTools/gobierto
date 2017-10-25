@@ -69,7 +69,7 @@
          url: '/admin/cms/sections/' + <%= params[:id] %> + '/section_items/' + node.id,
          type: 'PUT',
          dataType: 'json',
-         data: { parent_id: node.parent.id,
+         data: { parent_id: getNum(node.parent.id),
                  position: node.parent.getChildIndex(node),
                  level: node.getLevel() - 1 },
          success:function(data){
@@ -139,4 +139,11 @@
       }
     });
   })
+
+  function getNum(val) {
+     if (isNaN(val)) {
+       return 0;
+     }
+     return val;
+   }
 </script>

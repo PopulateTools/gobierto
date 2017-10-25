@@ -34,10 +34,6 @@ module GobiertoAdmin
       def update
         @section_item = find_section_item
 
-        # TODO: Check if a page already exists with a parent and a position because it needs to be moved
-        # TODO: Check if a page is no longer parent, you have to remove the parent
-        #       from all your children and take the parent from the parent.
-
         @section_item_form = SectionItemForm.new(id: params[:id],
                                                  section_id: params[:section_id],
                                                  item_type: "GobiertoCms::Page",

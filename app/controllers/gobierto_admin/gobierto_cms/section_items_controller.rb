@@ -13,8 +13,11 @@ module GobiertoAdmin
 
         if @section_item_form.save
           track_create_activity
-        end
 
+          render(
+            json: { id: @section_item_form.section_item.id }
+          )
+        end
       end
 
       def index

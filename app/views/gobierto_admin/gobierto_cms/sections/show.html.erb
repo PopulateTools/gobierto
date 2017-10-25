@@ -61,10 +61,6 @@
     );
 
     function handle_drag_stop(node, event) {
-      console.log("Para de moverse");
-      console.log(node);
-      // debugger;
-
       $.ajax({
          url: '/admin/cms/sections/' + <%= params[:id] %> + '/section_items/' + node.id,
          type: 'PUT',
@@ -117,20 +113,19 @@
 
     $("#tree1").droppable({
       drop: function( event, ui ) {
-        $('#tree1').tree(
-          'appendNode',
-          {
-              name: ui.draggable.attr("data_title"),
-              id: ui.draggable.attr("data_id")
-          }
-        );
         $.ajax({
            url: '/admin/cms/sections/' + <%= params[:id] %> + '/section_items',
            type: 'POST',
            dataType: 'json',
-           data: {page_id: ui.draggable.attr("data_id")},
+           data: {page_id: ui.draggable.attr("data-id")},
            success:function(data){
-
+             $('#tree1').tree(
+               'appendNode',
+               {
+                   name: ui.draggable.attr("data-title"),
+                   id: data.id
+               }
+             );
            },
            error:function(data){
 

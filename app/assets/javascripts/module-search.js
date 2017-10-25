@@ -71,7 +71,9 @@ $(document).on('turbolinks:load', function() {
           if(window.searchClient.indexes.length == 1) {
             var result = '<div class="activity_item">' +
               '<h2>' + '<a class="tipsit" href=' + ["/admin/cms/pages/", d['objectID'], "/edit?collection_id=", d['collection_id']].join('') +
-              ' original-title="' + I18n.t("layouts.search.drag_drop_instructions") + '">' +
+              ' original-title="' + I18n.t("layouts.search.drag_drop_instructions") + '"' +
+              'data-title="' + (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) + '"' +
+              'data-id=' + d['objectID'] + '>' +
               (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) +
               '<span class="secondary">' + itemDescription(d) + '</span>'  +
               '</a>' + '</h2>' +
@@ -92,6 +94,11 @@ $(document).on('turbolinks:load', function() {
           div.appendTo($resultsContainer);
         });
       });
+      // Search in back with only one index
+      if(window.searchClient.indexes.length == 1) {
+        // After reload partial with pages we have to do pages like draggable
+        $(".tipsit").draggable({ revert: true });
+      }
       rebindAll();
     } else {
       $('<div class="result"><p>'+I18n.t("layouts.search.no_results")+'</p></div>').appendTo($resultsContainer);
@@ -120,7 +127,9 @@ $(document).on('turbolinks:load', function() {
       window.searchClient.client.search(queries, searchCallback);
     } else {
       if(window.location.href.includes("admin")) {
-        window.searchClient.client.search(queries, searchCallback);
+        if(q.length > 1){
+          window.searchClient.client.search(queries, searchCallback);
+        }
       } else {
         $resultsContainer.html('');
       }

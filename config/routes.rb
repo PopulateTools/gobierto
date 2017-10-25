@@ -52,6 +52,15 @@ Rails.application.routes.draw do
 
     resources :activities, only: [:index]
 
+    namespace :gobierto_budgets do
+      resources :options, only: [:index] do
+        collection do
+          put :update
+        end
+      end
+      resources :feedback, only: [:index]
+    end
+
     namespace :gobierto_budget_consultations, as: :budget, path: :budgets do
       resources :consultations, only: [:index, :show, :new, :create, :edit, :update] do
         resources :consultation_items, controller: "consultations/consultation_items", path: :items

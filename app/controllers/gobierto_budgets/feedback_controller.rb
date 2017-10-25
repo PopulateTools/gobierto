@@ -9,7 +9,7 @@ class GobiertoBudgets::FeedbackController < GobiertoBudgets::ApplicationControll
   def step2
     if @answer1 == 1
       reply = GobiertoBudgets::BudgetLineFeedback.create! site: current_site, year: @year, budget_line_id: @id, answer1: @answer1
-      @datum = GobiertoBudgets::BudgetLineFeedback.stats(reply)
+      @datum = GobiertoBudgets::BudgetLineFeedback.stats(site: current_site, id: reply.budget_line_id, year: reply.year, answer1: reply.answer1)
     end
   end
 

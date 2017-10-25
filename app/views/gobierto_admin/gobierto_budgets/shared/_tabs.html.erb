@@ -1,0 +1,10 @@
+<h1><%= t('.budgets') %></h1>
+
+<div class="tabs">
+  <ul>
+    <li class="<%= class_if('active', controller_name == 'options') %>"><%= link_to t('.options'), admin_gobierto_budgets_options_path %></li>
+    <!-- TODO: Show this tab only if Micro-participaciones is active -->
+    <li class="<%= class_if('active', controller_name == 'feedback') %>"><%= link_to t('.feedback'), admin_gobierto_budgets_feedback_index_path %></li>
+  </ul>
+</div>
+

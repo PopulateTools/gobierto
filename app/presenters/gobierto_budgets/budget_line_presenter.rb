@@ -1,6 +1,19 @@
 module GobiertoBudgets
   class BudgetLinePresenter
 
+    def self.load(id, site)
+      ine_code, year, code, kind, area_name = id.split('/')
+      area = case area_name
+             when EconomicArea.area_name
+               EconomicArea
+             when FunctionalArea.area_name
+               FunctionalArea
+             when CustomArea.area_name
+               CustomArea
+             end
+      self.new(ine_code: ine_code, year: year, code: code, kind: kind, area: area, site: site)
+    end
+
     def initialize(attributes)
       @attributes = attributes.symbolize_keys
     end

@@ -1,0 +1,21 @@
+---
+en:
+  gobierto_admin:
+    gobierto_budgets:
+      feedback:
+        index:
+          answer1_0: 'Yes'
+          answer1_1: 'No'
+          answer2_0: Few
+          answer2_1: Good
+          answer2_2: Too much
+          budget: Planned
+          last: Last
+          total_feedback: Total opinions
+          understand: Do you understand it?
+          you_think: You think
+      shared:
+        tabs:
+          budgets: Budgets
+          feedback: Opinions
+          options: Options

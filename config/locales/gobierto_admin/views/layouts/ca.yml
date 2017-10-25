@@ -7,6 +7,7 @@ ca:
           account: El teu compte
           sign_out: Tancar sessió
         budget_consultations: Consultes de pressupostos
+        budgets: Pressupostos
         calendars: Agendes
         cms: Gestió de pàgines
         collapse_menu: Colapsar menú

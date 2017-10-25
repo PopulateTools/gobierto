@@ -118,6 +118,12 @@
         <div class="menu_content">
 
           <ul>
+            <% if show_module_link?("GobiertoBudgets") %>
+            <li>
+              <%= link_to t(".budgets"), admin_gobierto_budgets_options_path %>
+            </li>
+            <% end %>
+
             <% if show_module_link?("GobiertoBudgetConsultations") %>
             <li>
               <%= link_to t(".budget_consultations"), admin_budget_consultations_path %>

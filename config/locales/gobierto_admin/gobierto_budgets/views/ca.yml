@@ -1,0 +1,21 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_budgets:
+      feedback:
+        index:
+          answer1_0: Si
+          answer1_1: 'No'
+          answer2_0: Poc
+          answer2_1: Apropiat
+          answer2_2: Molt
+          budget: Pressupostat
+          last: Última
+          total_feedback: Total opinions
+          understand: Ho entens?
+          you_think: Et pareix...
+      shared:
+        tabs:
+          budgets: Pressupost
+          feedback: Opinions
+          options: Opcions

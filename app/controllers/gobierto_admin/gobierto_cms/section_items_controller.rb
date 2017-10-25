@@ -7,7 +7,9 @@ module GobiertoAdmin
         @section_item_form = SectionItemForm.new(section_id: params[:section_id],
                                                  item_type: "GobiertoCms::Page",
                                                  item_id: params[:page_id],
-                                                 parent_id: 0)
+                                                 parent_id: 0,
+                                                 position: 0,
+                                                 level: 0)
 
         if @section_item_form.save
           track_create_activity

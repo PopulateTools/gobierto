@@ -31,6 +31,24 @@ module GobiertoAdmin
         end
       end
 
+      def update
+        @section_item = find_section_item
+
+        # TODO: Check if a page already exists with a parent and a position because it needs to be moved
+        # TODO: Check if a page is no longer parent, you have to remove the parent
+        #       from all your children and take the parent from the parent.
+
+        @section_item_form = SectionItemForm.new(id: params[:id],
+                                                 section_id: params[:section_id],
+                                                 item_type: "GobiertoCms::Page",
+                                                 item_id: @section_item.item.id,
+                                                 parent_id: params[:parent_id],
+                                                 level: params[:level],
+                                                 position: params[:position]
+        )
+        @section_item_form.save
+      end
+
       private
 
       def track_create_activity

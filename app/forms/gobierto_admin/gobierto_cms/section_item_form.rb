@@ -10,7 +10,9 @@ module GobiertoAdmin
         :item_type,
         :item_id,
         :section_id,
-        :parent_id
+        :parent_id,
+        :position,
+        :level
       )
 
       delegate :persisted?, to: :section_item
@@ -39,6 +41,8 @@ module GobiertoAdmin
           section_item_attributes.item_id = item_id
           section_item_attributes.section_id = section_id
           section_item_attributes.parent_id = parent_id
+          section_item_attributes.position = position
+          section_item_attributes.level = level
         end
 
         if @section_item.valid?

@@ -47,6 +47,7 @@
                 data: data['section_items'],
                 autoOpen: true,
                 dragAndDrop: true,
+                onDragStop: handle_drag_stop,
                 onCreateLi: function(node, $li) {
                     // Append a link to the jqtree-element div.
                     // The link has an url '#node-[id]' and a data property 'node-id'.
@@ -58,6 +59,27 @@
             });
         }
     );
+
+    function handle_drag_stop(node, event) {
+      console.log("Para de moverse");
+      console.log(node);
+      // debugger;
+
+      $.ajax({
+         url: '/admin/cms/sections/' + <%= params[:id] %> + '/section_items/' + node.id,
+         type: 'PUT',
+         dataType: 'json',
+         data: { parent_id: node.parent.id,
+                 position: node.parent.getChildIndex(node),
+                 level: node.getLevel() - 1 },
+         success:function(data){
+
+         },
+         error:function(data){
+
+         }
+      });
+    }
 
     // Handle a click on the edit link
     $tree.on(

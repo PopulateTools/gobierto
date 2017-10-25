@@ -63,7 +63,7 @@
               <% end %>
             </div>
 
-            <div class="explanation_bar">
+            <div class="explanation explanation_bar">
               <% percentage = @site_stats.total_budget_executed_percentage %>
               <% percentage_bar_width = percentage > 100 ? 100 : percentage %>
               <div class="bar"><div class="line" style="width: <%= percentage_bar_width %>%"></div></div>

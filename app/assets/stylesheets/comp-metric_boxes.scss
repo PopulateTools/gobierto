@@ -15,7 +15,7 @@
       min-height: 100px;
       position: relative;
     }
-    
+
     h3 {
       color: $color_main;
       margin: 0 0 .75em 0;
@@ -31,7 +31,11 @@
       font-size: .75em;
       opacity: .6;
       position: absolute;
+      line-height: 1.4;
       bottom: .8em;
+      @include screen(768) {
+        display: none;
+      }
     }
     span.not_av {
       font-size: 1em;
@@ -42,11 +46,7 @@
       position: absolute;
       bottom: .8em;
       width: calc(100% - 3em);
-      line-height: 1.4;
 
-      span {
-        opacity: 0.6;
-      }
     }
     .bar {
       display: inline-block;
@@ -67,10 +67,13 @@
       cursor: pointer;
     }
     .diff {
-      position: absolute;
-      bottom: .8em;
       opacity: 0.6;
       font-size: .75em;
+
+      @include min-screen(768) {
+        bottom: .8em;
+        position: absolute;
+      }
     }
   }
   .metric_box:first-child {

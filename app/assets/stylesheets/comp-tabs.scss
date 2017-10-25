@@ -9,7 +9,7 @@
   display: block;
 }
 .tabs {
-  @include tabs;	
+  @include tabs;
   ul {
     border-color: rgba($color_main, .41);
     li {
@@ -19,14 +19,20 @@
         border: none;
         background: rgba($color_main, .1);
         color: $color_text;
-        padding: .75em 3em .25em;
-        margin: 0 1em;
+
         font-weight: 200;
+
+        @include min-screen(768) {
+          padding: .75em 3em .25em;
+          margin: 0 1em;
+        }
+        padding: .75em 1em .25em;
+        margin: 0 .25em;
       }
       a:hover {
         background: rgba($color_main, .3);
       }
-    }	
+    }
     li.active {
       a {
         border: 1px solid rgba($color_main, .41);
@@ -50,7 +56,7 @@
     display: inline-block;
     margin-right: 1em;
     font-weight: normal;
-  }	
+  }
   li.active {
     position: relative;
     font-weight: bold;
@@ -72,7 +78,7 @@
   }
   li:hover a {
     background: transparentize($color_main, .8);
-  } 
+  }
 }
 
 .filter_boxed {

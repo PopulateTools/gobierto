@@ -3,6 +3,10 @@
   box-sizing: border-box;
   margin-bottom: 3rem;
 
+  @include screen(768) {
+    margin-bottom: 0;
+  }
+
   .ticks {
     font-size: 1rem;
     fill: $color_separator;

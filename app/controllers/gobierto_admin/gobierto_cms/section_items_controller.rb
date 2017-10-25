@@ -10,7 +10,7 @@ module GobiertoAdmin
                                                  parent_id: 0)
 
         if @section_item_form.save
-          # track_create_activity
+          track_create_activity
         end
 
       end
@@ -27,19 +27,19 @@ module GobiertoAdmin
         @section_item = find_section_item
 
         if @section_item.destroy
-          # track_delete_activity
+          # track_destroy_activity
         end
       end
 
       private
 
-      # def track_create_activity
-      #   Publishers::IssueActivity.broadcast_event("issue_created", default_activity_params.merge(subject: @issue_form.issue))
-      # end
-      #
-      # def track_update_activity
-      #   Publishers::IssueActivity.broadcast_event("issue_updated", default_activity_params.merge(subject: @issue))
-      # end
+      def track_create_activity
+        Publishers::GobiertoCmsSectionItemActivity.broadcast_event("section_item_created", default_activity_params.merge(subject: @section_item_form.section_item))
+      end
+
+      def track_destroy_activity
+        Publishers::GobiertoCmsSectionItemActivity.broadcast_event("section_item_deleted", default_activity_params.merge(subject: @section_item, recipient: @section_item))
+      end
 
       def default_activity_params
         { ip: remote_ip, author: current_admin, site_id: current_site.id }

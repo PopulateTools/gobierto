@@ -117,8 +117,6 @@ module GobiertoParticipation
         click_link "Agenda"
 
         assert_equal gobierto_participation_process_events_path(process_id: gender_violence_process.slug), current_path
-
-        assert has_link? "View all events"
       end
     end
 

@@ -48,12 +48,20 @@ module GobiertoParticipation
       title
     end
 
+    def information_stage?
+      active_stage?(ProcessStage.stage_types[:information])
+    end
+
     def polls_stage?
       active_stage?(ProcessStage.stage_types[:polls])
     end
 
-    def information_stage?
-      active_stage?(ProcessStage.stage_types[:information])
+    def ideas_stage?
+      active_stage?(ProcessStage.stage_types[:ideas])
+    end
+
+    def results_stage?
+      active_stage?(ProcessStage.stage_types[:results])
     end
 
     def active_stage?(stage_type)

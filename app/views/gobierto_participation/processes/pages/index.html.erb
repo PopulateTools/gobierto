@@ -1,28 +1,13 @@
-<% if current_process %>
-  <% content_for :breadcrumb_current_item do %>
-    <strong>
-      <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path %>
-    </strong>
+<% content_for :breadcrumb_current_item do %>
+  <strong>
+    <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path %>
+  </strong>
 
-    <span role="separator">/</span>
+  <span role="separator">/</span>
 
-    <h1>
-      <%= link_to current_process.title, gobierto_participation_process_path(current_process.slug) %>
-    </h1>
-  <% end %>
-
-<% elsif @issue %>
-  <% content_for :breadcrumb_current_item do %>
-    <strong>
-      <%= link_to t('gobierto_participation.layouts.menu_subsections.issues'), gobierto_participation_issues_path %>
-    </strong>
-
-    <span role="separator">/</span>
-
-    <h1>
-      <%= link_to @issue.name, gobierto_participation_issue_path(@issue.slug) %>
-    </h1>
-  <% end %>
+  <h1>
+    <%= link_to current_process.title, gobierto_participation_process_path(current_process.slug) %>
+  </h1>
 <% end %>
 
 <% content_for :subscribable_button do %>
@@ -37,22 +22,6 @@
           <h2 class='with_separator'>
             <%= t('gobierto_participation.shared.news_for', container: current_process.title) %>
           </h2>
-
-          <% pending do %>
-            <div>
-              <small><%= link_to t('gobierto_participation.shared.all_news'), gobierto_participation_process_pages_path(process_id: current_process.slug) %></small>
-            </div>
-
-            <h4 class="with_light_separator m_t_1"><%= t('gobierto_participation.shared.filter_by_theme') %></h4>
-
-            <ul class="link_list">
-              <% @issues.each do |issue| %>
-                <li>
-                  <%= link_to issue.name , gobierto_participation_process_pages_path(process_id: current_process.slug, issue_id: issue.slug) %>
-                </li>
-              <% end %>
-            </ul>
-          <% end %>
         </div>
       </div>
 

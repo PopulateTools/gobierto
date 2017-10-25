@@ -3,9 +3,13 @@
 module GobiertoAdmin
   module GobiertoCms
     class SectionItemSerializer < ActiveModel::Serializer
-      attributes :id, :name
+      attributes :id, :name, :children
 
-      has_many :children, serializer: GobiertoAdmin::GobiertoCms::SectionItemSerializer
+      def children
+        object.childrens.map do |children|
+          GobiertoAdmin::GobiertoCms::SectionItemSerializer.new(children)
+        end
+      end
 
       def name
         object.item.try(:title)

@@ -8,7 +8,7 @@ module GobiertoAdmin
                                                  item_type: "GobiertoCms::Page",
                                                  item_id: params[:page_id],
                                                  parent_id: 0,
-                                                 position: 0,
+                                                 position: ::GobiertoCms::SectionItem.without_parent.size,
                                                  level: 0)
 
         if @section_item_form.save
@@ -30,6 +30,11 @@ module GobiertoAdmin
 
       def destroy
         @section_item = find_section_item
+
+        section_item_brothers = ::GobiertoCms::SectionItem.where("parent_id = ? AND position > ?", @section_item.parent_id, @section_item.position)
+        section_item_brothers.each do |section_item|
+          section_item.decrement!(:position)
+        end
 
         if @section_item.destroy
           track_destroy_activity

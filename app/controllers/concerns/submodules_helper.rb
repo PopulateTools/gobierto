@@ -4,13 +4,18 @@ module SubmodulesHelper
   included do
     helper_method :active_submodules, :welcome_submodule_active?, :officials_submodule_active?,
                   :agendas_submodule_active?, :blog_submodule_active?, :statements_submodule_active?,
-                  :submodule_path_for, :submodule_title_for, :submodule_controller_for, :budgets_elaboration_active?
+                  :submodule_path_for, :submodule_title_for, :submodule_controller_for, :budgets_elaboration_active?,
+                  :budget_lines_feedback_active?
   end
 
   private
 
   def budgets_elaboration_active?
     current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["budgets_elaboration"]
+  end
+
+  def budget_lines_feedback_active?
+    current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["budget_lines_feedback"]
   end
 
   def available_submodules

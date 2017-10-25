@@ -1,51 +1,39 @@
 <%= render 'gobierto_admin/gobierto_budgets/shared/tabs' %>
 
 <div class="pure-g">
-<%= form_for @options_form, url: admin_gobierto_budgets_options_path do |f| %>
+<%= form_for @options_form, url: admin_gobierto_budgets_options_path, as: :gobierto_budgets_options, method: :put do |f| %>
 
   <div class="pure-u-1 pure-u-md-16-24">
+    <h2>Opciones</h2>
 
-    <div class="notice ">
-      Bien, se ha guardado sin problemas.
-    </div>
-
-
-      <h2>Opciones</h2>
-
-      <div class="form_item">
-
-        <div class="options">
-
-          <div class="option">
-            <input type="hidden" name="permission_1" value="0"/>
-            <input type="checkbox" id="permission_1" name="permission_1" value="1"/>
-            <label for="permission_1">
-              <span></span>
-              Elaboración
-              <div class="inline_help">
-                Habilita la sección de Elaboración del presupuesto.
-                <strong>Importante:</strong> es necesario que se hayan cargado datos de elaboración. Contacta con tu administrador si tienes dudas.
-              </div>
-            </label>
-          </div>
-
-          <div class="option">
-            <input type="hidden" name="permission_1" value="0"/>
-            <input type="checkbox" id="permission_2" name="permission_1" value="1"/>
-            <label for="permission_2">
-              <span></span>
-              Micro-participaciones
-              <div class="inline_help">
-                Habilita la opción para que los visitantes opinen sobre las partidas del presupuesto
-              </div>
-            </label>
-          </div>
-
+    <div class="form_item">
+      <div class="options">
+        <div class="option">
+          <%= f.check_box :elaboration_enabled %>
+          <%= f.label :elaboration_enabled do %>
+            <span></span>
+            Elaboración
+            <div class="inline_help">
+              Habilita la sección de Elaboración del presupuesto.
+              <strong>Importante:</strong> es necesario que se hayan cargado datos de elaboración. Contacta con tu administrador si tienes dudas.
+            </div>
+          <% end %>
         </div>
 
+        <div class="option">
+          <%= f.check_box :budget_lines_feedback_enabled %>
+          <%= f.label :budget_lines_feedback_enabled do %>
+            <span></span>
+            Micro-participaciones
+            <div class="inline_help">
+              Habilita la opción para que los visitantes opinen sobre las partidas del presupuesto
+            </div>
+          <% end %>
+        </div>
       </div>
+    </div>
 
-      <!-- ToDo: only activate this option if Micro-participaciones is choosen -->
+    <% if f.object.budget_lines_feedback_enabled %>
       <div class="form_item input_text">
         <label for="name">Correo-e para recibir participaciones</label>
         <input type="email" id="name" value="info@ayuntamiento.es">
@@ -53,6 +41,7 @@
           Las participaciones (opinión sobre partidas y petición de más información) se enviarán a esta dirección
         </div>
       </div>
+    <% end %>
   </div>
 
   <div class="pure-u-1 pure-u-md-2-24"></div>

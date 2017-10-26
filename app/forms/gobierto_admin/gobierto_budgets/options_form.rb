@@ -11,13 +11,22 @@ module GobiertoAdmin
       )
 
       validates :site, presence: true
+      validates :feedback_emails, presence: true, if: Proc.new{ |of| of.budget_lines_feedback_enabled? }
 
       def elaboration_enabled
         @elaboration_enabled ||= site.gobierto_budgets_settings && site.gobierto_budgets_settings.settings["budgets_elaboration"]
       end
 
+      def elaboration_enabled?
+        elaboration_enabled == true || elaboration_enabled == '1'
+      end
+
       def budget_lines_feedback_enabled
         @budget_lines_feedback_enabled ||= site.gobierto_budgets_settings && site.gobierto_budgets_settings.settings["budget_lines_feedback_enabled"]
+      end
+
+      def budget_lines_feedback_enabled?
+        budget_lines_feedback_enabled == true || budget_lines_feedback_enabled == '1'
       end
 
       def feedback_emails
@@ -32,9 +41,9 @@ module GobiertoAdmin
 
       def save_options
         settings = {}
-        settings[:budgets_elaboration] = elaboration_enabled if elaboration_enabled != '0'
-        settings[:budget_lines_feedback_enabled] = budget_lines_feedback_enabled if budget_lines_feedback_enabled != '0'
-        settings[:feedback_emails] = feedback_emails if feedback_emails.present?
+        settings[:budgets_elaboration] = elaboration_enabled if elaboration_enabled?
+        settings[:budget_lines_feedback_enabled] = budget_lines_feedback_enabled if budget_lines_feedback_enabled?
+        settings[:feedback_emails] = budget_lines_feedback_enabled? ? feedback_emails : nil
 
         if site.gobierto_budgets_settings.nil?
           GobiertoModuleSettings.create! site: site, module_name: "GobiertoBudgets", settings: settings

@@ -81,7 +81,7 @@
         </div>
       </div>
 
-      <% unless in_elaboration? %>
+      <% unless budget_lines_feedback_active? %>
         <% planned_executed = @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_planned, year: @year) %>
         <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
           <div class="inner">
@@ -116,7 +116,7 @@
         </div>
       </div>
 
-      <% if in_elaboration? %>
+      <% if budget_lines_feedback_active? %>
         <div class="pure-u-1-2 pure-u-md-1-5 metric_box cta open_budget_line_feedback tipsit" title="¿Entiendes de qué va esta partida? ¿Te parece mucho, poco? Opina">
           <div class="inner">
             <%= link_to gobierto_budgets_feedback_step1_path(year: @year, id: @budget_line.id), remote: true do %>
@@ -128,7 +128,7 @@
       <% end %>
     </div>
 
-    <% if in_elaboration? %>
+    <% if budget_lines_feedback_active? %>
       <div class="block budget_line_feedback raise_your_hand_content" id="feedback-container">
       </div>
     <% end %>
@@ -222,7 +222,7 @@
       </div>
     </div>
 
-    <% if in_elaboration? %>
+    <% if budget_lines_feedback_active? %>
       <div class="budget_line_feedback ask_your_entity">
 
         <div class="inner">

@@ -15,7 +15,7 @@ module SubmodulesHelper
   end
 
   def budget_lines_feedback_active?
-    current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["budget_lines_feedback"]
+    current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["budget_lines_feedback_enabled"]
   end
 
   def available_submodules

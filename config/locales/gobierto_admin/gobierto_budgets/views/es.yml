@@ -14,6 +14,19 @@ es:
           total_feedback: Total opiniones
           understand: "¿Lo entiendes?"
           you_think: Te parece...
+      options:
+        index:
+          elaboration: Elaboración
+          elaboration_desc1: Habilita la sección de Elaboración del presupuesto.
+          elaboration_desc2_html: "<strong>Importante:</strong> es necesario que se
+            hayan cargado datos de elaboración. Contacta con tu administrador si tienes
+            dudas."
+          feedback: Micro-participaciones
+          feedback_desc: Habilita la opción para que los visitantes opinen sobre las
+            partidas del presupuesto
+          feedback_emails_desc: Las participaciones (opinión sobre partidas y petición
+            de más información) se enviarán a esta dirección
+          options: Opciones
       shared:
         tabs:
           budgets: Presupuestos

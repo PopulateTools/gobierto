@@ -10,7 +10,11 @@ module GobiertoAdmin
 
       def update
         @options_form = GobiertoAdmin::GobiertoBudgets::OptionsForm.new(gobierto_budgets_params.merge(site: current_site))
-        @options_form.save
+        if @options_form.save
+          flash[:notice] = t(".success")
+        else
+          flash[:alert] = t(".error", validation_errors: @options_form.errors.full_messages.to_sentence)
+        end
         redirect_to admin_gobierto_budgets_options_path
       end
 

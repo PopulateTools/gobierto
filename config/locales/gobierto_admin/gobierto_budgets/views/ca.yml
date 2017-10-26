@@ -14,6 +14,19 @@ ca:
           total_feedback: Total opinions
           understand: Ho entens?
           you_think: Et pareix...
+      options:
+        index:
+          elaboration: Elaboració
+          elaboration_desc1: Habilita la secció d'Elaboració del pressupost
+          elaboration_desc2_html: "<strong>Important:</strong> es necessari carregar
+            les dades d'elaboració avans. Contacta amb el teu administrador sin tens
+            dubtes."
+          feedback: Micro-participacions
+          feedback_desc: Habilita la opció per a que els visitants opinen sobre les
+            partides del pressupost
+          feedback_emails_desc: Les participacions (opinió sobre partides i petició
+            de més informació) s'enviaràn a aquesta direcció
+          options: Opcions
       shared:
         tabs:
           budgets: Pressupost

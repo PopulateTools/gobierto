@@ -163,9 +163,7 @@ $(document).on('turbolinks:load', function() {
   // Hide resultsContainer if clicked outside the search input and results
   $('body').click(function(e) {
     if ( !$(e.target).is('#search_results *') && !$(e.target).is('input#gobierto_search') ) {
-      if(!(window.location.href.includes("admin"))) {
-        $resultsContainer.hide();
-      }
+      $resultsContainer.hide();
     }
   });
 });

@@ -2,6 +2,8 @@ $(document).on('turbolinks:load', function() {
   var $input = $('input#gobierto_search');
   var $input_admin = $('input#pages_search');
   var $resultsContainer = $('#search_results');
+  var $resultsContainerAdmin = $('#search_pages');
+
 
   function truncateOnWord(str, limit) {
     var trimmable = '\u0009\u000A\u000B\u000C\u000D\u0020\u00A0\u1680\u180E\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200A\u202F\u205F\u2028\u2029\u3000\uFEFF';
@@ -98,7 +100,7 @@ $(document).on('turbolinks:load', function() {
       return;
     }
 
-    $resultsContainer.html('');
+    $resultsAdminContainer.html('');
     var sum = 0;
     content.results.forEach(function(indexResults){
       sum += indexResults.nbHits;
@@ -120,7 +122,7 @@ $(document).on('turbolinks:load', function() {
           '</div>';
 
           var div = $(result);
-          div.appendTo($resultsContainer);
+          div.appendTo($resultsAdminContainer);
         });
       });
 
@@ -128,7 +130,7 @@ $(document).on('turbolinks:load', function() {
       $(".tipsit").draggable({ revert: true });
       rebindAll();
     } else {
-      $('<div class="result"><p>'+I18n.t("layouts.search.no_results")+'</p></div>').appendTo($resultsContainer);
+      $('<div class="result"><p>'+I18n.t("layouts.search.no_results")+'</p></div>').appendTo($resultsAdminContainer);
     }
   }
 
@@ -175,7 +177,7 @@ $(document).on('turbolinks:load', function() {
   });
 
   $input_admin.focusin(function() {
-    $resultsContainer.show();
+    $resultsContainerAdmin.show();
   });
 
   // Hide resultsContainer if clicked outside the search input and results

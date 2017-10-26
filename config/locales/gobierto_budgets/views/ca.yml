@@ -30,6 +30,9 @@ ca:
         budget_line_value: Quantitat
         budget_lines_distribution: Distribució de les despeses d'aquesta partida
         evolution: Evolució
+        give_your_opinion: Opina sobre aquesta partida
+        give_your_opinion_cta: Entens de què va aquesta partida? Te pareix molt, poc?
+          Opina
         last_year: L'any passat
         no_description: No hi ha una descripció associada a aquesta partida.
         no_distribution: No hi ha distribució associada a aquesta partida.
@@ -38,6 +41,7 @@ ca:
         percentage: "% sobre el total del press."
         planned: pressupostat
         planned_per_inhabitant: pres. / hab.
+        raise_hand: Alça la mà
         real_value: El %{kind} real són %{value}
         real_vs_planned: real vs. pres.
         sub_budget_lines: Dins d'aquesta partida

@@ -30,6 +30,9 @@ es:
         budget_line_value: Cantidad
         budget_lines_distribution: Distribución de los gastos de esta partida
         evolution: Evolución
+        give_your_opinion: Opina sobre esta partida
+        give_your_opinion_cta: "¿Entiendes de qué va esta partida? ¿Te parece mucho,
+          poco? Opina"
         last_year: El año pasado
         no_description: No hay una descripción asociada a esta partida.
         no_distribution: No hay distribución asociada a esta partida.
@@ -38,6 +41,7 @@ es:
         percentage: "% sobre el total del pres."
         planned: presupuestado
         planned_per_inhabitant: pres. / hab.
+        raise_hand: Levanta la mano
         real_value: El %{kind} real son %{value}
         real_vs_planned: real vs. pres.
         sub_budget_lines: Dentro de esta partida

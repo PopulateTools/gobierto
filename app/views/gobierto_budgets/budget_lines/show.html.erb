@@ -117,11 +117,11 @@
       </div>
 
       <% if budget_lines_feedback_active? %>
-        <div class="pure-u-1-2 pure-u-md-1-5 metric_box cta open_budget_line_feedback tipsit" title="¿Entiendes de qué va esta partida? ¿Te parece mucho, poco? Opina">
+        <div class="pure-u-1-2 pure-u-md-1-5 metric_box cta open_budget_line_feedback tipsit" title="<%= t('.give_your_opinion_cta') %>">
           <div class="inner">
             <%= link_to gobierto_budgets_feedback_step1_path(year: @year, id: @budget_line.id), remote: true do %>
-              <div class="main">Levanta la mano <i class="fa fa-hand-paper-o"></i></div>
-              <div class="lite">Opina sobre esta partida</div>
+              <div class="main"><%= t('.raise_hand') %> <i class="fa fa-hand-paper-o"></i></div>
+              <div class="lite"><%= t('.give_your_opinion') %></div>
             <% end %>
           </div>
         </div>
@@ -272,55 +272,3 @@
     <% end %>
   </div>
 </div>
-
-
-<script type="text/javascript">
-
-$(document).on('turbolinks:load', function() {
-
-  // ToDo: Integrate this code
-  $('.raise_your_hand_content, .blf_question_2, .reply, .share_post_submit, .ask_your_entity_form').hide();
-
-  $('.open_budget_line_feedback').on('click', function(e){
-    e.preventDefault();
-    $('.highlight-proposal').velocity('scroll', { offset: -75});
-    // $('.budget_line_feedback').show();
-    $('.budget_line_feedback').velocity("transition.slideDownIn");
-  });
-
-  $('.open_blf_question_2').on('click', function(e){
-    e.preventDefault();
-    // $('.blf_question_2').show();
-    $('.blf_question_2').velocity("transition.slideDownIn");
-  });
-
-  $('.open_reply_yes').on('click', function(e){
-    e.preventDefault();
-    $('.reply_yes').show();
-    // $('.reply').velocity("transition.slideDownIn");
-    $('.reply_yes').velocity('scroll', { offset: -75});
-  });
-
-  $('.open_reply_no').on('click', function(e){
-    e.preventDefault();
-    $('.reply_no').show();
-    $('.reply_no').velocity('scroll', { offset: -75});
-  });
-
-  $('form input[type=submit]').on('click', function(e){
-    e.preventDefault();
-
-    // $('.slim_box').velocity("transition.slideUpOut");
-    $('.share_post_submit').velocity("transition.slideDownIn");
-    // $('.reply_no').velocity('scroll', { offset: -75});
-  });
-
-  $('.open_ask_your_entity_form').on('click', function(e){
-    e.preventDefault();
-
-    $('.ask_your_entity_form').velocity("transition.slideDownIn");
-  });
-
-});
-
-</script>

@@ -1,5 +1,6 @@
 $(document).on('turbolinks:load', function() {
   var $input = $('input#gobierto_search');
+  var $input_admin = $('input#pages_search');
   var $resultsContainer = $('#search_results');
 
   function truncateOnWord(str, limit) {
@@ -145,14 +146,10 @@ $(document).on('turbolinks:load', function() {
       });
     });
 
-    if(window.location.href.includes("admin")) {
-      window.searchClient.client.search(queries, searchBackCallback);
+    if(q.length > 2){
+      window.searchClient.client.search(queries, searchFrontCallback);
     } else {
-      if(q.length > 2){
-        window.searchClient.client.search(queries, searchFrontCallback);
-      } else {
-        $resultsContainer.html('');
-      }
+      $resultsContainer.html('');
     }
   });
 
@@ -160,10 +157,34 @@ $(document).on('turbolinks:load', function() {
     $resultsContainer.show();
   });
 
+  $input_admin.on('keyup', function(e){
+    var q = $(this).val();
+    var queries = [];
+    window.searchClient.indexes.forEach(function(index){
+      queries.push({
+        indexName: index,
+        query: q,
+        params: {
+          hitsPerPage: 10,
+          filters: window.searchClient.filters
+        }
+      });
+    });
+
+    window.searchClient.client.search(queries, searchBackCallback);
+  });
+
+  $input_admin.focusin(function() {
+    $resultsContainer.show();
+  });
+
   // Hide resultsContainer if clicked outside the search input and results
   $('body').click(function(e) {
     if ( !$(e.target).is('#search_results *') && !$(e.target).is('input#gobierto_search') ) {
-      $resultsContainer.hide();
+      console.log($(e.target).context);
+      if ( !$(e.target).context.baseURI.includes("admin/cms/sections") ) {
+        $resultsContainer.hide();
+      }
     }
   });
 });

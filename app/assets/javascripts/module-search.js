@@ -181,10 +181,7 @@ $(document).on('turbolinks:load', function() {
   // Hide resultsContainer if clicked outside the search input and results
   $('body').click(function(e) {
     if ( !$(e.target).is('#search_results *') && !$(e.target).is('input#gobierto_search') ) {
-      console.log($(e.target).context);
-      if ( !$(e.target).context.baseURI.includes("admin/cms/sections") ) {
-        $resultsContainer.hide();
-      }
+      $resultsContainer.hide();
     }
   });
 });

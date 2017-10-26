@@ -100,7 +100,7 @@ $(document).on('turbolinks:load', function() {
       return;
     }
 
-    $resultsAdminContainer.html('');
+    $resultsContainerAdmin.html('');
     var sum = 0;
     content.results.forEach(function(indexResults){
       sum += indexResults.nbHits;
@@ -122,7 +122,7 @@ $(document).on('turbolinks:load', function() {
           '</div>';
 
           var div = $(result);
-          div.appendTo($resultsAdminContainer);
+          div.appendTo($resultsContainerAdmin);
         });
       });
 
@@ -130,7 +130,7 @@ $(document).on('turbolinks:load', function() {
       $(".tipsit").draggable({ revert: true });
       rebindAll();
     } else {
-      $('<div class="result"><p>'+I18n.t("layouts.search.no_results")+'</p></div>').appendTo($resultsAdminContainer);
+      $('<div class="result"><p>'+I18n.t("layouts.search.no_results")+'</p></div>').appendTo($resultsContainerAdmin);
     }
   }
 

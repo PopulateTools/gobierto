@@ -246,6 +246,7 @@ Rails.application.routes.draw do
       get "feedback/step2" => "feedback#step2", as: :feedback_step2
       get "feedback/step3" => "feedback#step3", as: :feedback_step3
       post "feedback/follow" => "feedback#follow", as: :feedback_follow
+      get "feedback/load_follow" => "feedback#load_follow", as: :feedback_load_follow
 
       namespace :api do
         get "/categories" => "categories#index"

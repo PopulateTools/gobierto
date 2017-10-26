@@ -1,0 +1,8 @@
+---
+ca:
+  gobierto_budgets:
+    feedback_mailer:
+      new_feedback_request:
+        body: Has rebut una nova petició d'informació per a la partida %{budget_line_name}
+          (%{year}) d'una persona amb el email %{person_email}
+        subject: Has rebut una nova petició d'informació

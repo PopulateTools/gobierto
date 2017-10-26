@@ -1,0 +1,8 @@
+---
+en:
+  gobierto_budgets:
+    feedback_mailer:
+      new_feedback_request:
+        body: You've received a new information request about the budget line %{budget_line_name}
+          (%{year}) from a person with the email %{person_email}
+        subject: You've received a new information request

@@ -29,6 +29,11 @@ ca:
         budget_line_percentage: Percentatge
         budget_line_value: Quantitat
         budget_lines_distribution: Distribució de les despeses d'aquesta partida
+        enough_information: Suficient informació?
+        enough_information_cta: Demana al teu Ajuntament
+        enough_information_desc: Si considera que s'ha d'incloure més informació d'aquesta
+          partida per tenir una visió més completa de la mateixa o sobre l'ús dels
+          teus impostos, comuniqui-ho i li contestarem
         evolution: Evolució
         give_your_opinion: Opina sobre aquesta partida
         give_your_opinion_cta: Entens de què va aquesta partida? Te pareix molt, poc?

@@ -129,8 +129,7 @@
     </div>
 
     <% if budget_lines_feedback_active? %>
-      <div class="block budget_line_feedback raise_your_hand_content" id="feedback-container">
-      </div>
+      <div class="block budget_line_feedback raise_your_hand_content" id="feedback-container"></div>
     <% end %>
 
     <div class="pure-g block">
@@ -224,50 +223,15 @@
 
     <% if budget_lines_feedback_active? %>
       <div class="budget_line_feedback ask_your_entity">
-
         <div class="inner">
+          <h3><%= t('.enough_information') %></h3>
 
-          <h3>¿Suficiente información?</h3>
+          <p><%= t('.enough_information_desc') %></p>
 
-          <p>Si considera que s’ha d'incloure més informació d'aquesta partida per tenir una visió més complerta de la mateixa o sobre l’ús dels teus impostos, comuniqui-ho i li contestarem</p>
+          <%= link_to t('.enough_information_cta'), gobierto_budgets_feedback_load_follow_path(id: @budget_line.id), remote: true, class: 'button' %>
 
-          <a href="" class="button open_ask_your_entity_form">Pide a tu Ayuntamiento</a>
-
-          <div class="ask_your_entity_form">
-
-            <div class="slim_box">
-              <form id="new-user-login-share" class="new_user" accept-charset="UTF-8" method="post">
-                <div class="sep"></div>
-                <p>Dejanos tu correo-e y te avisamos</p>
-                <input placeholder="Tu correo-e" type="email" name="user[email]" id="user_email">
-                <input type="hidden" name="context" id="context" value="new-user-login-share">
-                <input type="submit" name="commit" value="Enviar">
-                <p class="small">[AVISO DINAMICO PRIVACIDAD]</p>
-              </form>
-            </div>
-
-          </div>
-
-          <div class="share_post_submit">
-
-            <div class="sep"></div>
-
-            <p><small>Genial! Comprueba tu correo y pincha en el enlace que te enviamos</small></p>
-
-            <p>
-              ¿Quieres compartir esta estadística en
-              <!-- Texto para share:
-                Informate y opina sobre el presupuesto de MUNICIPIO URL_PARTIDA
-              -->
-              <a class="small_button popup" data-rel="Twitter" href="https://twitter.com/home?status=En%20%40gobierto%3A%20%C2%BFQu%C3%A9%20opina%20la%20gente%20sobre%20la%20partida%20Servicios%20p%C3%BAblicos%20b%C3%A1sicos%20de%20Santander%3F%20https%3A%2F%2Fpresupuestos.gobierto.es%2Fbudget_lines%2Fsantander%2F2017%2F1%2FG%2Ffunctional%2Ffeedback%2F1">Twitter</a>
-              <a class="small_button popup" data-rel="Facebook" href="http://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fpresupuestos.gobierto.es%2Fbudget_lines%2Fsantander%2F2017%2F1%2FG%2Ffunctional%2Ffeedback%2F1">Facebook</a>
-              ?
-            </p>
-
-          </div>
-
+          <div id="load_follow"></div>
         </div>
-
       </div>
     <% end %>
   </div>

@@ -21,7 +21,7 @@
     <% @sections.each do |section| %>
       <tr>
         <td>
-          <%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_cms_section_path(section), title: t('views.edit') %>
+          <%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_cms_section_path(section), title: t('views.edit'), class: 'open_remote_modal' %>
         </td>
         <td>
           <%= link_to section.title, admin_cms_section_path(section) %>

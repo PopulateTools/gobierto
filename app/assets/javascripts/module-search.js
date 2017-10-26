@@ -144,7 +144,7 @@ $(document).on('turbolinks:load', function() {
         }
       });
     });
-    
+
     if(window.location.href.includes("admin")) {
       window.searchClient.client.search(queries, searchBackCallback);
     } else {
@@ -163,7 +163,9 @@ $(document).on('turbolinks:load', function() {
   // Hide resultsContainer if clicked outside the search input and results
   $('body').click(function(e) {
     if ( !$(e.target).is('#search_results *') && !$(e.target).is('input#gobierto_search') ) {
-      $resultsContainer.hide();
+      if(!(window.location.href.includes("admin"))) {
+        $resultsContainer.hide();
+      }
     }
   });
 });

@@ -32,8 +32,11 @@ module GobiertoAdmin
         @section_item = find_section_item
 
         section_item_brothers = ::GobiertoCms::SectionItem.where("parent_id = ? AND position > ?", @section_item.parent_id, @section_item.position)
-        section_item_brothers.each do |section_item|
-          section_item.decrement!(:position)
+
+        if section_item_brothers
+          section_item_brothers.each do |section_item|
+            section_item.decrement!(:position)
+          end
         end
 
         if @section_item.destroy
@@ -44,18 +47,31 @@ module GobiertoAdmin
       def update
         @section_item = find_section_item
 
-        @section_item_form = SectionItemForm.new(id: params[:id],
-                                                 section_id: params[:section_id],
-                                                 item_type: "GobiertoCms::Page",
-                                                 item_id: @section_item.item.id,
-                                                 parent_id: params[:parent_id],
-                                                 level: params[:level],
-                                                 position: params[:position]
-        )
-        @section_item_form.save
+        tree = JSON.parse(params['tree'])
+
+        position = 0
+        level = 0
+        parent_id = 0
+
+        # Recursive method to update the tree
+        childrens(tree, position, level, parent_id)
       end
 
       private
+
+      def childrens(nodes, position, level, parent_id)
+        nodes.each do |node|
+          section_item = ::GobiertoCms::SectionItem.find(node['id'])
+          section_item.update_attributes(position: position,
+                                         level: level,
+                                         parent_id: parent_id)
+          unless node['children'].nil?
+            level += 1
+            childrens(node['children'], 0, level, node['id'])
+          end
+          position += 1
+        end
+      end
 
       def track_create_activity
         Publishers::GobiertoCmsSectionItemActivity.broadcast_event("section_item_created", default_activity_params.merge(subject: @section_item_form.section_item.item))

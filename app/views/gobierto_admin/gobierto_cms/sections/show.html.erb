@@ -65,9 +65,7 @@
          url: '/admin/cms/sections/' + <%= params[:id] %> + '/section_items/' + node.id,
          type: 'PUT',
          dataType: 'json',
-         data: { parent_id: getNum(node.parent.id),
-                 position: node.parent.getChildIndex(node),
-                 level: node.getLevel() - 1 },
+         data: { tree: $('#tree1').tree('toJson') },
          success:function(data){
 
          },

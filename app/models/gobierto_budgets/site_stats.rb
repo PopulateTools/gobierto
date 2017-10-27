@@ -14,16 +14,17 @@ module GobiertoBudgets
 
     def total_budget_per_inhabitant(year = nil)
       year ||= @year
-      if value = total_budget_per_inhabitant_query(year)
-        if value['_source']
-          value['_source']['total_budget_per_inhabitant'].try(:to_f)
-        end
-      end
+      BudgetTotal.budgeted_for(@place.id, year, BudgetLine::EXPENSE) / (population(year) || population(year-1) || population(year-2)).to_f
     end
 
     def total_income_budget(year = nil)
       year ||= @year
       BudgetTotal.budgeted_for(@place.id, year, BudgetLine::INCOME)
+    end
+
+    def total_income_budget_per_inhabitant(year = nil)
+      year ||= @year
+      BudgetTotal.budgeted_for(@place.id, year, BudgetLine::INCOME) / (population(year) || population(year-1) || population(year-2)).to_f
     end
 
     def total_budget(year = nil)

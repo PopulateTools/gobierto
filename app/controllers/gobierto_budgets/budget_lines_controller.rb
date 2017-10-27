@@ -8,6 +8,7 @@ class GobiertoBudgets::BudgetLinesController < GobiertoBudgets::ApplicationContr
 
     @any_custom_income_budget_lines  = GobiertoBudgets::BudgetLine.any_data?(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, area: GobiertoBudgets::CustomArea)
     @any_custom_expense_budget_lines = GobiertoBudgets::BudgetLine.any_data?(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::CustomArea)
+    @site_stats = GobiertoBudgets::SiteStats.new site: @site, year: @year
 
     respond_to do |format|
       format.html

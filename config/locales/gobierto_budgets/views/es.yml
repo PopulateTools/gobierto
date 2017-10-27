@@ -54,6 +54,7 @@ es:
           para el %{year}'
         twitter_text_income: 'En @gobierto: Ingreso municipal de %{name} en %{budget_line_name}
           para el %{year}'
+        vs_previous_year: vs. ejercicio anterior
     budgets:
       guide:
         budget_execution: La ejecución presupuestaria

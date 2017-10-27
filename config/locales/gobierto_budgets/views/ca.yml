@@ -54,6 +54,7 @@ ca:
           al %{year}'
         twitter_text_income: 'En @gobierto: Ingrés municipal de %{name} en %{budget_line_name}
           al %{year}'
+        vs_previous_year: vs. exercici anterior
     budgets:
       guide:
         budget_execution: L'execució pressupostària

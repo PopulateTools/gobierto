@@ -53,6 +53,7 @@ en:
           for year %{year}'
         twitter_text_income: 'In @gobierto: Municipal income on %{name} in %{budget_line_name}
           for year %{year}'
+        vs_previous_year: vs. previous year
     budgets:
       guide:
         budget_execution: Budget execution

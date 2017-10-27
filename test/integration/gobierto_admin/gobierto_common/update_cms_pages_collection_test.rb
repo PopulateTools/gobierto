@@ -7,7 +7,7 @@ module GobiertoAdmin
     class UpdateCmsPagesCollectionTest < ActionDispatch::IntegrationTest
       def setup
         super
-        @path = admin_cms_pages_path
+        @path = admin_participation_process_pages_path(process.id)
       end
 
       def admin
@@ -18,19 +18,17 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
-      def collection
-        @collection ||= gobierto_common_collections(:news)
+      def process
+        @sport_city_process ||= gobierto_participation_processes(:sport_city_process)
       end
 
-      def test_update_issue
+      def test_update_pages_collection
         with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
 
-              within "tr#collection-item-#{collection.id}" do
-                page.find("a.open_remote_modal").trigger("click")
-              end
+              click_on "Configuration"
 
               within "form.edit_collection" do
                 fill_in "collection_title_translations_en", with: "News updated"

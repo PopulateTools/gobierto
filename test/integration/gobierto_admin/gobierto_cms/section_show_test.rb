@@ -7,7 +7,7 @@ module GobiertoAdmin
     class SectionShowTest < ActionDispatch::IntegrationTest
       def setup
         super
-        @path = admin_cms_sections_path
+        @path = admin_cms_pages_path
       end
 
       def admin
@@ -31,7 +31,7 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            within "table tbody" do
+            within "#sections" do
               click_link participation_section.section.title
             end
 

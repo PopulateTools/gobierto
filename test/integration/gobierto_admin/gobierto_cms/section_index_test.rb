@@ -7,7 +7,7 @@ module GobiertoAdmin
     class SectionIndexTest < ActionDispatch::IntegrationTest
       def setup
         super
-        @path = admin_cms_sections_path
+        @path = admin_cms_pages_path
       end
 
       def admin
@@ -26,8 +26,6 @@ module GobiertoAdmin
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
-
-            assert has_selector?("h1", text: "Sections")
 
             within "table tbody" do
               assert has_selector?("tr", count: sections.size)

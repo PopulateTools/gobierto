@@ -1,6 +1,7 @@
 <div class="admin_breadcrumb">
   <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
-  <%= link_to t(".sections"), admin_cms_sections_path %>
+  <%= link_to t("gobierto_admin.layouts.application.cms"), admin_cms_pages_path %> »
+  <%= link_to t(".sections"), admin_cms_sections_path %> »
   <%= link_to @section.title, admin_cms_section_path(@section) %>
 </div>
 

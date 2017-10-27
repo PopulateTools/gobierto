@@ -53,6 +53,9 @@ en:
               moderate: Moderate
               published: Published
             votes: Votes
+        process_file_attachments:
+          index:
+            configuration: Configuration
         process_information:
           edit:
             title: Edit process
@@ -61,6 +64,9 @@ en:
               information_text: Information
           update:
             success: Process was successfully updated
+        process_pages:
+          index:
+            configuration: Configuration
         process_stages:
           active: Active
           cancel: Cancel

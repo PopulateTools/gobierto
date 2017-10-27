@@ -13,9 +13,9 @@
       </div>
 
       <div class="col" data-level="0">
-        <table  class="med_bg">
+        <table class="med_bg">
           <% GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year| %>
-            <tr >
+            <tr>
               <td data-code="<%= year %>"><%= link_to year, gobierto_budgets_budgets_path %></td>
             </tr>
           <% end %>

@@ -37,17 +37,16 @@
                 <h3><%= t('.metric.execution.income_title') %></h3>
                 <div class="metric"><%= @budgets_execution_summary[:income_execution_percentage] %> %</div>
 
-                <!-- ToDo: Integrate data -->
                 <div class="metric_details">
                   <table>
                     <tbody>
                       <tr>
-                        <th>Ingresos presupuestados</th>
-                        <td>189,8M€</td>
+                        <th><%= t('.income_planned') %></th>
+                        <td><%= format_currency @site_stats.total_income_budget %></td>
                       </tr>
                       <tr>
-                        <th>Ingresos reales</th>
-                        <td>204,6M€</td>
+                        <th><%= t('.real_income') %></th>
+                        <td><%= format_currency @site_stats.total_income_budget_executed %></td>
                       </tr>
                     </tbody>
                   </table>
@@ -72,17 +71,16 @@
                 <h3><%= t('.metric.execution.expenses_title') %></h3>
                 <div class="metric"><%= @budgets_execution_summary[:expenses_execution_percentage]%> %</div>
 
-                <!-- ToDo: Integrate data -->
                 <div class="metric_details">
                   <table>
                     <tbody>
                       <tr>
-                        <th>Gastos presupuestados</th>
-                        <td>189,8M€</td>
+                        <th><%= t('.expenses_planned') %></th>
+                        <td><%= format_currency @site_stats.total_budget %></td>
                       </tr>
                       <tr>
-                        <th>Gastos reales</th>
-                        <td>204,6M€</td>
+                        <th><%= t('.real_expenses') %></th>
+                        <td><%= format_currency @site_stats.total_budget_executed %></td>
                       </tr>
                     </tbody>
                   </table>
@@ -100,9 +98,6 @@
               </div>
             </div>
           <% end %>
-
-
-
         </div>
       </div>
     </div>

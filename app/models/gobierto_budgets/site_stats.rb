@@ -38,6 +38,11 @@ module GobiertoBudgets
       BudgetTotal.execution_for(@place.id, year)
     end
 
+    def total_income_budget_executed(year = nil)
+      year ||= @year
+      BudgetTotal.execution_for(@place.id, year, BudgetLine::INCOME)
+    end
+
     def total_budget_executed_percentage(year = nil)
       execution_percentage(total_budget(year), total_budget_executed(year))
     end

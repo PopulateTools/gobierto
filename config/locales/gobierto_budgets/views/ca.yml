@@ -348,9 +348,11 @@ ca:
           preveure totes les despeses amb precisió absoluta.
         execution_help: L'execució es la quantitat que finalment s'ha gastat sobre
           lo pressupostat inicialment.
+        expenses_planned: Despeses pressupostats
         functional: Funcional
         functional_button: En què es gasta
         higher_execution: Més execució
+        income_planned: Ingresos pressupostats
         last_update: Última actualització
         lower_execution: Menys execució
         metric:
@@ -359,6 +361,8 @@ ca:
             income_title: Execució d'ingressos
             previous_execution_message: El %{year} l'execució va ser del %{percentage}
         percentage: Percentatge
+        real_expenses: Despeses reials
+        real_income: Ingresos reals
         sort: Ordre
         title: Execució pressupostària
         tooltip_disclaimer: "<strong>Aquesta és una aproximació</strong>. <br /> Al

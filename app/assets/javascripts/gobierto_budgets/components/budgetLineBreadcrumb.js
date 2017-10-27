@@ -23,7 +23,7 @@ function limit_length(input, length) {
 
       $.getJSON(this.categoriesUrl, function(categories){
         this.renderLineBreadcrumb(this.$lineBreadcrumb, this.state, categories[this.areaName]);
-        this.renderLevel1();
+        this.renderLevel1(categories);
         this.assignHandlers(0);
 
         this.states.slice(2, this.states.length - 1).forEach(function(code, level){
@@ -58,29 +58,39 @@ function limit_length(input, length) {
       $el.html(html);
     };
 
-    this.renderLevel1 = function(){
+    this.renderLevel1 = function(categories){
       var html = "";
       var $el = $('[data-level="1"] table');
       var selectedItem;
 
-      if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
-      html += '<tr><td data-area-name="economic" data-kind="I" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.I_economic') + '</a></td></tr>';
+      if(categories.economic !== undefined) {
+        if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
+        html += '<tr><td data-area-name="economic" data-kind="I" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.I_economic') + '</a></td></tr>';
+      }
       selectedItem = '';
 
-      if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
-      html += '<tr><td data-area-name="custom" data-kind="I" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.I_custom') + '</a></td></tr>';
+      if(categories.custom !== undefined) {
+        if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
+        html += '<tr><td data-area-name="custom" data-kind="I" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.I_custom') + '</a></td></tr>';
+      }
       selectedItem = '';
 
-      if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
-      html += '<tr><td data-area-name="economic" data-kind="G" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.G_economic') + '</a></td></tr>';
+      if(categories.economic !== undefined) {
+        if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
+        html += '<tr><td data-area-name="economic" data-kind="G" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.G_economic') + '</a></td></tr>';
+      }
       selectedItem = '';
 
-      if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
-      html += '<tr><td data-area-name="functional" data-kind="G" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.G_functional') + '</a></td></tr>';
+      if(categories.functional !== undefined) {
+        if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
+        html += '<tr><td data-area-name="functional" data-kind="G" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.G_functional') + '</a></td></tr>';
+      }
       selectedItem = '';
 
-      if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
-      html += '<tr><td data-area-name="custom" data-kind="G" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.G_custom') + '</a></td></tr>';
+      if(categories.custom !== undefined) {
+        if(this.selectedCategories.indexOf(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName)) !== -1){ selectedItem = 'class="selected"'; }
+        html += '<tr><td data-area-name="custom" data-kind="G" '+selectedItem+'><a href="#">' + I18n.t('gobierto_budgets.visualizations.G_custom') + '</a></td></tr>';
+      }
 
       $el.html(html);
       $el.data('current-code', this.currentKind);

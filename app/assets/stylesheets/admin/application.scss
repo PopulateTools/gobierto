@@ -195,4 +195,45 @@ html.turbolinks-progress-bar::before {
     }
   }
 }
+
+.section_editor_section_canvas {
+  border: 2px dashed $color_1_soft;
+  background: $color_1_soft;
+  padding: 1em;
+  font-size: .85rem;
+
+  .section_canvas_tools {
+    text-align: right;
+    margin: 0 0 1em 0;
+    a {
+      padding: 0 .5em;
+    }
+  }
+}
+
+ul.jqtree-tree {
+  min-height: 500px;
+  margin: 0;
+
+  .jqtree-title {
+    color: $color_text;
+    margin-left: 1em;
+  }
+  .jqtree-element {
+    padding: .25em .5em;
+    border-top: 1px solid darken($color_1_soft, 10%);
+
+    &:hover {
+      background: darken($color_1_soft, 20%);
+    }
+    .fa {
+      float: right;
+      margin-top: 4px;
+    }
+  }
+  .jqtree-toggler {
+    font-size: .65rem;
+  }
+}
+
 @import "responsive";

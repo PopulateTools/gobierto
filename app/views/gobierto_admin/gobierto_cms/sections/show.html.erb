@@ -6,8 +6,11 @@
 
 <h1><%= @section.title %></h1>
 
-<div class="admin_tools right">
-  <%= link_to '<i class="fa fa-cog"></i> Configuración'.html_safe, edit_admin_cms_section_path(@section), class: 'open_remote_modal' %>
+<div class="m_v_2">
+  <div class="admin_tools f_right right">
+    <%= link_to '<i class="fa fa-cog"></i> Configuración'.html_safe, edit_admin_cms_section_path(@section), class: 'open_remote_modal' %>
+  </div>
+  Configura los elementos de tu menú. Arrastra del panel derecho al menú en la izquierda
 </div>
 
 <div class="pure-g">
@@ -20,6 +23,7 @@
         <a href="" class="tipsit" title="Expandir todo"><i class="fa fa-expand"></i></a>
       </div>
       <div id="tree1"></div>
+
     </div>
 
   </div>

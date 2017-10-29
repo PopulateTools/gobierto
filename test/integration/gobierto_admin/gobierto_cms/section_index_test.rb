@@ -7,7 +7,7 @@ module GobiertoAdmin
     class SectionIndexTest < ActionDispatch::IntegrationTest
       def setup
         super
-        @path = admin_cms_pages_path
+        @path = admin_cms_sections_path
       end
 
       def admin

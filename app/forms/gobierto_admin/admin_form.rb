@@ -77,7 +77,7 @@ module GobiertoAdmin
     end
 
     def set_permitted_sites(attributes)
-      if attributes[:authorization_level] != 'regular'
+      if authorization_level != 'regular'
         @permitted_sites = []
         @sites = []
       elsif attributes[:permitted_sites].present?
@@ -93,7 +93,7 @@ module GobiertoAdmin
     end
 
     def set_permitted_modules(attributes)
-      if attributes[:authorization_level] != 'regular'
+      if authorization_level != 'regular'
         @permitted_modules = []
       elsif attributes[:permitted_modules].present?
         @permitted_modules = attributes[:permitted_modules].select{ |m| m.present? }.compact
@@ -105,19 +105,19 @@ module GobiertoAdmin
     end
 
     def set_all_people_permitted(attributes)
-      if attributes[:authorization_level] != 'regular'
+      if authorization_level != 'regular'
         @all_people_permitted = false
       elsif attributes[:all_people_permitted].present?
         @all_people_permitted = (attributes[:all_people_permitted] == '1' || attributes[:all_people_permitted] == true)
       elsif admin.persisted?
         @all_people_permitted = admin.people_permissions.exists?(action_name: 'manage_all')
-      elsif admin
-        @all_people_permitted = true
+      else
+        @all_people_permitted = false
       end
     end
 
     def set_permitted_people(attributes)
-      if attributes[:authorization_level] != 'regular' || @all_people_permitted
+      if authorization_level != 'regular' || @all_people_permitted
         @permitted_people = []
       elsif attributes[:permitted_people].present?
         @permitted_people = attributes[:permitted_people].select{ |m| m.present? }.map{|id| id.to_i }.compact

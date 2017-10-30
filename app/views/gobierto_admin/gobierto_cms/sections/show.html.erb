@@ -64,8 +64,8 @@
                     // Append a link to the jqtree-element div.
                     // The link has an url '#node-[id]' and a data property 'node-id'.
                     $li.find('.jqtree-element').append(
-                        '<a remote=true href="#node-'+ node.id +'" class="delete" data-node-id="'+
-                        node.id +'"><i class="fa fa-trash-o tipsit" title="Eliminar elemento del menú"></i></a>'
+                        '<a remote=true href="#node-'+ node.id +'" class="delete"><i class="fa fa-trash-o tipsit" data-node-id="'+
+                        node.id +'" title="Eliminar elemento del menú"></i></a>'
                     );
                 }
             });

@@ -10,7 +10,7 @@
   <div class="admin_tools f_right right">
     <%= link_to '<i class="fa fa-cog"></i> Configuración'.html_safe, edit_admin_cms_section_path(@section), class: 'open_remote_modal' %>
   </div>
-  Configura los elementos de tu menú. Arrastra del panel derecho al menú en la izquierda
+  <%= t('.help') %>
 </div>
 
 <div class="pure-g">
@@ -19,9 +19,14 @@
 
     <div class="section_editor_section_canvas">
       <div class="section_canvas_tools">
-        <a href="" class="tipsit" title="Colapsar todo"><i class="fa fa-compress"></i></a>
-        <a href="" class="tipsit" title="Expandir todo"><i class="fa fa-expand"></i></a>
+        <%= link_to "", id: "collapse", class: "tipsit", title: t('.collapse'), remote: "true" do %>
+          <i class="fa fa-compress"></i>
+        <% end %>
+        <%= link_to "", id: "expand", class: "tipsit", title: t('.expand'), remote: "true" do %>
+          <i class="fa fa-expand"></i>
+        <% end %>
       </div>
+
       <div id="tree1"></div>
 
     </div>
@@ -119,7 +124,7 @@
 
   $(document).ready(function(){
     //defino los elementos que se pueden arrastrar
-    $(".tipsit").draggable({ revert: true });
+    $(".draggable").draggable({ revert: true });
 
     $("#tree1").droppable({
       drop: function( event, ui ) {
@@ -151,4 +156,28 @@
      }
      return val;
    }
+
+   $('#collapse').click(function() {
+     var $tree = $('#tree1');
+     var tree = $tree.tree('getTree');
+     tree.iterate(function(node) {
+
+       if (node.hasChildren()) {
+         $tree.tree('closeNode', node, true);
+       }
+       return false;
+     });
+   });
+
+   $('#expand').click(function() {
+     var $tree = $('#tree1');
+     var tree = $tree.tree('getTree');
+     tree.iterate(function(node) {
+
+       if (node.hasChildren()) {
+         $tree.tree('openNode', node, true);
+       }
+       return false;
+     });
+   });
 </script>

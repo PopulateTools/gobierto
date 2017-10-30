@@ -21,6 +21,10 @@ en:
         pages_filter:
           page_help: Drag and drop on the left side to place this page in the menu
         show:
+          collapse: Collapse everything
+          expand: Expand all
+          help: Configure the elements in your menu. Drag from the right panel to
+            the menu on the left
           last_edited_pages: Last edited pages
           placeholders:
             search: Enter the title of the page to search

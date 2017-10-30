@@ -3,7 +3,7 @@
     <% @pages.each do |page| %>
       <div class="activity_item">
         <h2>
-          <%= link_to edit_admin_cms_page_path(page, collection_id: page.collection), class: "tipsit", title: t('.page_help'), data: { id: page.id, title: page.title } do %>
+          <%= link_to edit_admin_cms_page_path(page, collection_id: page.collection), class: "tipsit draggable", title: t('.page_help'), data: { id: page.id, title: page.title } do %>
             <%= page.title %>
             <span class="secondary"><%= page.collection.title %></span>
           <% end %>

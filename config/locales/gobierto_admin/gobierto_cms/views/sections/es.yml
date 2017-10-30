@@ -22,6 +22,10 @@ es:
           page_help: Arrastra y suelta en la parte izquierda para colocar esta página
             en el menú
         show:
+          collapse: Colapsar todo
+          expand: Expandir todo
+          help: Configura los elementos de tu menú. Arrastra del panel derecho al
+            menú en la izquierda
           last_edited_pages: Últimas páginas editadas
           placeholders:
             search: Escribe el título de la página para buscar

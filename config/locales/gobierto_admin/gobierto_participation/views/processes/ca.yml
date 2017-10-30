@@ -28,6 +28,8 @@ ca:
               title: Quines activitats per a nens podem posar en marxa?
             proposal: Proposta
             question: Pregunta
+            registered: Registrats
+            verified: Verificats
           index:
             contributions_votes: Aportacions / Valoracions
             end: Fi

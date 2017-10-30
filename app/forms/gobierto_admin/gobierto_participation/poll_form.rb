@@ -11,7 +11,8 @@ module GobiertoAdmin
         :starts_at,
         :ends_at,
         :visibility_level,
-        :questions
+        :questions,
+        :visibility_user_level
       )
 
       delegate(
@@ -48,6 +49,10 @@ module GobiertoAdmin
 
       def visibility_level
         @visibility_level ||= 'draft'
+      end
+
+      def visibility_user_level
+        @visibility_user_level ||= "registered"
       end
 
       def poll
@@ -160,6 +165,7 @@ module GobiertoAdmin
           poll_attributes.starts_at = starts_at
           poll_attributes.ends_at = ends_at
           poll_attributes.visibility_level = visibility_level
+          poll_attributes.visibility_user_level = visibility_user_level
           poll_attributes.questions = questions
         end
 

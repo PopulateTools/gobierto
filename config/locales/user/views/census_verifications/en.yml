@@ -6,11 +6,21 @@ en:
         verify: Verify
       messages:
         already_verified: Your account is already verified
+        comments:
+          not_verified: The contribution in which you want to participate requires
+            to verify your register in %{site_name}. Please, confirm your data to
+            continue (they'll be verified against the register, if you are not registered
+            we won't be abile to verify yourself)
         consultation_responses:
           not_verified: The process in which you want to participate requires to verify
             your register in %{site_name}. Please, confirm your data to continue (they'll
             be verified against the register, if you are not registered we won't be
             abile to verify yourself)
+        flags:
+          not_verified: The contribution in which you want to participate requires
+            to verify your register in %{site_name}. Please, confirm your data to
+            continue (they'll be verified against the register, if you are not registered
+            we won't be abile to verify yourself)
         not_verified: The process in which you want to participate requires to verify
           your register in %{site_name}. Please, confirm your data to continue (they'll
           be verified against the register, if you are not registered we won't be
@@ -20,5 +30,15 @@ en:
             your register in %{site_name}. Please, confirm your data to continue (they'll
             be verified against the register, if you are not registered we won't be
             abile to verify yourself)
+        process_contributions:
+          not_verified: The contribution in which you want to participate requires
+            to verify your register in %{site_name}. Please, confirm your data to
+            continue (they'll be verified against the register, if you are not registered
+            we won't be abile to verify yourself)
+        votes:
+          not_verified: The contribution in which you want to participate requires
+            to verify your register in %{site_name}. Please, confirm your data to
+            continue (they'll be verified against the register, if you are not registered
+            we won't be abile to verify yourself)
       new:
         title: Confirm your identity

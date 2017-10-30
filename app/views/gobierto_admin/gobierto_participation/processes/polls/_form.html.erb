@@ -31,6 +31,10 @@
           </div>
         <% end %>
 
+        <div class="form_item select_control">
+          <%= f.label :visibility_user_level %>
+          <%= f.select(:visibility_user_level, [[t('.registered'), 'registered'], [t('.verified'), 'verified']]) %>
+        </div>
         <%= render 'poll_questions', questions: @poll_form.questions, poll_form_builder: f %>
       </div>
 

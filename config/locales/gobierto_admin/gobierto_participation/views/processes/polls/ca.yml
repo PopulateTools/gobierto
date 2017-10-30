@@ -25,7 +25,9 @@ ca:
             received_answers_html: S'han rebut <strong>%{answers} respostes</strong>.
               A aquest ritme es poden esperar %{predicted_answers}. <a href="%{link_url}">Veure
               enquesta</a>.
+            registered: Registrats
             results_info: Podràs consultar els resultats quan finalitzi.
+            verified: Verificats
           index:
             answers: Respostes
             end: Fi

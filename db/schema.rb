@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171019074630) do
+ActiveRecord::Schema.define(version: 20171030120411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -486,6 +486,7 @@ ActiveRecord::Schema.define(version: 20171019074630) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "slug", default: "", null: false
+    t.integer "visibility_user_level", default: 0, null: false
     t.index ["admin_id"], name: "index_gpart_contribution_containers_on_admin_id"
     t.index ["process_id"], name: "index_gpart_contribution_containers_on_process_id"
     t.index ["site_id"], name: "index_gpart_contribution_containers_on_site_id"
@@ -560,6 +561,7 @@ ActiveRecord::Schema.define(version: 20171019074630) do
     t.integer "visibility_level", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "visibility_user_level", default: 0, null: false
     t.index ["process_id"], name: "index_gpart_polls_on_process_id"
   end
 

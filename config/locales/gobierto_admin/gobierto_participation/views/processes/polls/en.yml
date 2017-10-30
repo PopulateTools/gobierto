@@ -24,7 +24,9 @@ en:
             received_answers_html: <strong>%{answers} answers</strong> have been received.
               At this rate you can expect %{predicted_answers}. <a href="%{link_url}">See
               the survey</a>.
+            registered: Registered
             results_info: You will be able to consult the results after it has ended.
+            verified: Verified
           index:
             answers: Answers
             end: End

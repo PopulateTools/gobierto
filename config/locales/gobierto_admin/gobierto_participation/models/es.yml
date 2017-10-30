@@ -8,12 +8,14 @@ es:
         ends: Final
         starts: Comienzo
         title: Título
+        visibility_user_level: Usuarios
       gobierto_admin/gobierto_participation/poll_form:
         description: Descripción
         ends_at: Termina
         questions: Algunas de las preguntas
         starts_at: Comienza
         title: Título
+        visibility_user_level: Usuarios
       gobierto_admin/gobierto_participation/poll_form/questions:
         answer_templates: Las respuestas
         answer_type: El tipo de pregunta

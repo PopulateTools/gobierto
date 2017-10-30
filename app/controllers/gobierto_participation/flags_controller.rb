@@ -2,6 +2,10 @@
 
 module GobiertoParticipation
   class FlagsController < GobiertoParticipation::ApplicationController
+    include User::VerificationHelper
+
+    before_action(only: [:new, :create, :destroy]) { verify_user_in!(current_site) if current_contribution_container.visibility_user_level == "verified" }
+
     def new
       @flaggable = find_flaggable
       flag_policy = FlagPolicy.new(current_user)
@@ -45,6 +49,10 @@ module GobiertoParticipation
     end
 
     private
+
+    def current_contribution_container
+      current_site.contribution_containers.find_by!(slug: params[:process_contribution_container_id])
+    end
 
     def default_activity_params
       { ip: remote_ip, author: current_admin, site_id: current_site.id }

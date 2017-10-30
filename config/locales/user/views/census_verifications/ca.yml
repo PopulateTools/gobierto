@@ -6,8 +6,18 @@ ca:
         verify: Verificar
       messages:
         already_verified: El teu compte ja està verificat
+        comments:
+          not_verified: La contribució en què vols participar exigeix que verifiquis
+            que estàs empadronat/ada a %{site_name}. Confirma les teves dades per
+            continuar (seran verificades amb el padró, si no estàs empadronat/ada,
+            no et podrem verificar)
         consultation_responses:
           not_verified: El procés en el que vols participar exigeix que verifiquis
+            que estàs empadronat/ada a %{site_name}. Confirma les teves dades per
+            continuar (seran verificades amb el padró, si no estàs empadronat/ada,
+            no et podrem verificar)
+        flags:
+          not_verified: La contribució en què vols participar exigeix que verifiquis
             que estàs empadronat/ada a %{site_name}. Confirma les teves dades per
             continuar (seran verificades amb el padró, si no estàs empadronat/ada,
             no et podrem verificar)
@@ -17,6 +27,16 @@ ca:
           verificar)
         poll_answers:
           not_verified: El procés en el que vols participar exigeix que verifiquis
+            que estàs empadronat/ada a %{site_name}. Confirma les teves dades per
+            continuar (seran verificades amb el padró, si no estàs empadronat/ada,
+            no et podrem verificar)
+        process_contributions:
+          not_verified: La contribució en què vols participar exigeix que verifiquis
+            que estàs empadronat/ada a %{site_name}. Confirma les teves dades per
+            continuar (seran verificades amb el padró, si no estàs empadronat/ada,
+            no et podrem verificar)
+        votes:
+          not_verified: La contribució en què vols participar exigeix que verifiquis
             que estàs empadronat/ada a %{site_name}. Confirma les teves dades per
             continuar (seran verificades amb el padró, si no estàs empadronat/ada,
             no et podrem verificar)

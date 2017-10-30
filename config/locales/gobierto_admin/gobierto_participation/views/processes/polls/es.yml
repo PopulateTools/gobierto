@@ -25,7 +25,9 @@ es:
             received_answers_html: Se han recibido <strong>%{answers} respuestas</strong>.
               A este ritmo se pueden esperar %{predicted_answers}. <a href="%{link_url}">Ver
               encuesta</a>.
+            registered: Registrados
             results_info: Podrás consultar los resultados cuando finalice.
+            verified: Verificados
           index:
             answers: Respuestas
             end: Fin

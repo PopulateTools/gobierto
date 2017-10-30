@@ -2,6 +2,10 @@
 
 module GobiertoParticipation
   class ProcessContributionsController < GobiertoParticipation::Processes::BaseController
+    include User::VerificationHelper
+
+    before_action(only: [:new, :create]) { verify_user_in!(current_site) if current_contribution_container.visibility_user_level == "verified" }
+
     def new
       @contribution_container = find_contribution_container
       @contribution_form = ContributionForm.new(site_id: current_site.id)
@@ -35,6 +39,10 @@ module GobiertoParticipation
     end
 
     private
+
+    def current_contribution_container
+      current_site.contribution_containers.find_by!(slug: params[:process_contribution_container_id])
+    end
 
     def default_activity_params
       { ip: remote_ip, author: current_user, site_id: current_site.id }

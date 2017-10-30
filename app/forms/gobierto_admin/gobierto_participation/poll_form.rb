@@ -14,7 +14,15 @@ module GobiertoAdmin
         :questions
       )
 
-      delegate :persisted?, to: :poll
+      delegate(
+        :persisted?,
+        :editable?,
+        :results_available?,
+        :unique_answers_count,
+        :predicted_unique_answers_count,
+        to: :poll
+      )
+
       validates :process, :title_translations, :starts_at, :ends_at, presence: true
       validate :title_translations_not_blank
       validates :title, length: { maximum: 140 }

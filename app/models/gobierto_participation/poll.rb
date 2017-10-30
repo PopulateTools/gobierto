@@ -7,6 +7,8 @@ module GobiertoParticipation
 
     class PollHasAnswers < StandardError; end
 
+    include PollResultsHelpers
+
     belongs_to :process
     has_many :questions, -> { order(order: :asc) }, class_name: 'GobiertoParticipation::PollQuestion', dependent: :destroy, autosave: true
     has_many :answers, class_name: 'GobiertoParticipation::PollAnswer', autosave: true
@@ -21,15 +23,11 @@ module GobiertoParticipation
 
     translates :title, :description
 
-    before_save :ensure_absence_of_answers
+    before_save :ensure_editable!
 
     accepts_nested_attributes_for :questions, allow_destroy: true
 
     validates_associated :questions, message: I18n.t('activerecord.messages.gobierto_participation/poll.are_not_valid')
-
-    def unique_answers_count
-      answers.select('DISTINCT user_id').count
-    end
 
     def answerable?
       published? && open?
@@ -47,14 +45,26 @@ module GobiertoParticipation
       Time.zone.now.between?(starts_at, ends_at)
     end
 
-    def days_left
-      (ends_at - Date.current ).to_i
+    def closed?
+      !open?
+    end
+
+    def editable?
+      unique_answers_count == 0
+    end
+
+    def upcoming?
+      starts_at > Time.zone.now
+    end
+
+    def past?
+      ends_at < Time.zone.now
     end
 
     private
 
-    def ensure_absence_of_answers
-      raise PollHasAnswers if unique_answers_count != 0
+    def ensure_editable!
+      raise PollHasAnswers if !editable?
     end
 
   end

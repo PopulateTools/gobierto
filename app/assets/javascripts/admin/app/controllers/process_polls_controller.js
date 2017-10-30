@@ -28,6 +28,30 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     _addCancelEditAnswerTemplateBehaviors();
     _addDeleteAnswerTemplateBehaviors();
     _handleSortableAnswerTemplates();
+
+    // ** others **
+
+    if ($('[data-behavior=disable_editable_components]').length > 0) {
+      disableEditableComponents();
+    }
+  };
+
+  function disableEditableComponents() {
+    $('textarea, input, button').prop('disabled', true);
+
+    // poll questions
+    $('.poll_question_summary .ui-sortable-handle').removeClass('custom_handle');
+    $('.poll_question_summary [data-behavior=delete_record]').remove();
+    $('[data-behavior=add_question]').remove();
+    $('[data-behavior=cancel_save_question]').remove();
+    $('[data-behavior=save_question]').remove();
+
+    // answer templates
+    $('.answer_template .ui-sortable-handle').removeClass('custom_handle');
+    $('.answer_template .tools').remove();
+    $('[data-behavior=add_answer]').remove();
+    $('.answer_template .list_item > label').css('margin-right', 0);
+    $('.answer_template .list_item > label').css('width', 'calc(100% - 65px)');
   };
 
   function extractIndex(elementId) {
@@ -88,7 +112,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
     _addDeleteAnswerTemplateBehaviors();
     _handleSortableAnswerTemplates();
 
-    if(deleteLastCreatedQuestionIdx) {  
+    if(deleteLastCreatedQuestionIdx) {
       var splitted = modalId.split('_');
       var $questionSummaryWrapper = $('#question_summary_' + splitted[splitted.length - 1]);
 

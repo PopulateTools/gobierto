@@ -19,6 +19,13 @@ ca:
             placeholders:
               description: ex. L'objectiu d'aquesta enquesta és ...
               title: ex. Enquesta sobre l'ordenança de terrasses
+            poll_ended_html: Enquesta finalitzada. <a href="%{link_url}">Resultats</a>.
+            poll_has_votes: L'enquesta ja està activa i ha rebut vots, pel que no
+              pots editar-la.
+            received_answers_html: S'han rebut <strong>%{answers} respostes</strong>.
+              A aquest ritme es poden esperar %{predicted_answers}. <a href="%{link_url}">Veure
+              enquesta</a>.
+            results_info: Podràs consultar els resultats quan finalitzi.
           index:
             answers: Respostes
             end: Fi

@@ -10,7 +10,9 @@
     <i class="fa fa-cog"></i>
     <%= t(".configuration") %>
   <% end %>
-  <%= link_to t(".new"), new_admin_people_person_path, class: "button" %>
+  <% if @can_create_person %>
+    <%= link_to t(".new"), new_admin_people_person_path, class: "button" %>
+  <% end %>
 </div>
 
 <table class="people-list">

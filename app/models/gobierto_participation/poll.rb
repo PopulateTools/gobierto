@@ -15,6 +15,9 @@ module GobiertoParticipation
 
     scope :open, -> { where("starts_at <= ? AND ends_at >= ?", Time.zone.now, Time.zone.now) }
     scope :answerable, -> { published.open }
+    scope :by_site, -> (site) { joins(process: :site).where("sites.id = ? AND gpart_processes.visibility_level = 1
+                                                             AND gpart_polls.visibility_level = 1 AND gpart_polls.ends_at >= ?",
+                                                             site.id, Time.zone.now) }
 
     translates :title, :description
 
@@ -42,6 +45,10 @@ module GobiertoParticipation
 
     def open?
       Time.zone.now.between?(starts_at, ends_at)
+    end
+
+    def days_left
+      (ends_at - Date.current ).to_i
     end
 
     private

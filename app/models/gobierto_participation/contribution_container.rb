@@ -34,5 +34,9 @@ module GobiertoParticipation
     def participants_count
       contributions.sum(&:number_participants)
     end
+
+    def days_left
+      (ends - Date.current ).to_i
+    end
   end
 end

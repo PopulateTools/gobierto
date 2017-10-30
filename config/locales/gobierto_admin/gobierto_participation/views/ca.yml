@@ -14,4 +14,15 @@ ca:
           votings: Votacions
       welcome:
         index:
+          element: Elemento
+          finishes_in: Acaba de ...
+          group_process: Grup/Process
+          groups_processes: Grups/ Processos
+          last_activity: Última activitat
+          new_process: Nuevo
+          next_elements_to_close: Elements propers a tancar
+          no_activities: No hi ha actualitzacions relacionades
           title: Participació
+          x_days:
+            one: 1 día
+            other: "%{count} dies"

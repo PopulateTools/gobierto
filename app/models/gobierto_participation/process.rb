@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "gobierto_participation"
 
 module GobiertoParticipation
@@ -88,6 +90,18 @@ module GobiertoParticipation
       return false if starts.present? && starts > Time.zone.now
       return false if ends.present? && ends < Time.zone.now
       return true
+    end
+
+    def last_activity
+      Activity.where(subject: self).last
+    end
+
+    def last_activity_at
+      if Activity.where(subject: self).last
+        Activity.where(subject: self).last.created_at
+      else
+        updated_at
+      end
     end
 
     private

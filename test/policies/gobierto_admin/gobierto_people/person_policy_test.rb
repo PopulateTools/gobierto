@@ -40,6 +40,10 @@ module GobiertoAdmin
       end
       alias site madrid
 
+      def santander
+        sites(:santander)
+      end
+
       def test_manager_admin_manage?
         assert PersonPolicy.new(current_admin: manager_admin, person: published_person).manage?
         assert PersonPolicy.new(current_admin: manager_admin, person: draft_person).manage?
@@ -81,9 +85,24 @@ module GobiertoAdmin
       end
 
       def test_create?
-        assert PersonPolicy.new(current_admin: manager_admin).create?
-        refute PersonPolicy.new(current_admin: regular_admin).create?
-        refute PersonPolicy.new(current_admin: disabled_admin).create?
+        assert PersonPolicy.new(current_admin: manager_admin, current_site: site).create?
+        refute PersonPolicy.new(current_admin: disabled_admin, current_site: site).create?
+
+        # with all permissions
+        setup_specific_permissions(regular_admin, site: site, module: 'gobierto_people', all_people: true)
+        assert PersonPolicy.new(current_admin: regular_admin, current_site: site).create?
+
+        # with manage_all permissions, but on other site
+        setup_specific_permissions(regular_admin, site: santander, module: 'gobierto_people', all_people: true)
+        refute PersonPolicy.new(current_admin: regular_admin, current_site: site).create?
+
+        # without module permissions
+        setup_specific_permissions(regular_admin, site: site, all_people: true)
+        refute PersonPolicy.new(current_admin: regular_admin, current_site: site).create?
+
+        # without manage_all permissions
+        setup_specific_permissions(regular_admin, site: site, module: 'gobierto_people')
+        refute PersonPolicy.new(current_admin: regular_admin, current_site: site).create?
       end
 
       def test_manage_all_people_in_site?
@@ -91,12 +110,7 @@ module GobiertoAdmin
         assert PersonPolicy.new(current_admin: manager_admin,  current_site: site).manage_all_people_in_site?
         refute PersonPolicy.new(current_admin: regular_admin,  current_site: site).manage_all_people_in_site?
 
-        # create missing permissions for regular admin
-        regular_admin.people_permissions.create([
-          { resource_id: nelson.id, action_name: 'manage' },
-          { resource_id: juana.id,  action_name: 'manage' }
-        ])
-
+        setup_specific_permissions(regular_admin, site: site, module: 'gobierto_people', all_people: true)
         assert PersonPolicy.new(current_admin: regular_admin, current_site: site).manage_all_people_in_site?
       end
 

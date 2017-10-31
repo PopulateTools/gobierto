@@ -87,18 +87,19 @@
                   <div class="option_suboptions" id="people_permissions" style="<%= module_active ? '' : 'display: none;' %>">
 
                     <div class="option" style="<%= permitted_sites.any? ? '' : 'display: none;' %>">
-                      <input type="checkbox" name="admin[all_people_permitted]" id="admin_all_people_permitted"/>
-                      <label for="admin_all_people_permitted">
-                        <span></span><b><%= 'Todas' %></b>
-                      </label>
+                      <%= f.check_box :all_people_permitted %>
+                      <%= f.label :all_people_permitted do %>
+                        <span></span><b><%= t('.all') %></b>
+                      <% end %>
                     </div>
 
                     <%= f.collection_check_boxes(:permitted_people, Array(@people), :id, :name) do |person_b| %>
                       <% person_site_id = person_b.object.site_id %>
                       <% person_site_permitted = permitted_sites.include?(person_site_id) %>
+                      <% person_policy = ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: @admin, person: person_b.object) %>
 
                       <div class="option" data-class="site_person" data-site-id="<%= person_site_id %>" style="<%= person_site_permitted ? '' : 'display: none;' %>">
-                        <%= person_b.check_box(checked: @admin && ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: @admin, person: person_b.object).manage?) %>
+                        <%= person_b.check_box(checked: @admin && person_policy.manage? && !person_policy.manage_all_people_in_site?) %>
                         <%= person_b.label do %>
                           <span></span><%= person_b.object.name %>
                         <% end %>

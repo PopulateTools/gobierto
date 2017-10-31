@@ -1,8 +1,10 @@
-<div class="blf_question_2">
-  <p><%= t('.question') %></p>
-  <div class="options ">
-    <%= link_to t('.option1_html'), gobierto_budgets_feedback_step3_path(id: @id, year: @year, answer1: @answer1, answer2: 0), remote: true, class: "button open_reply_yes" %></a>
-    <%= link_to t('.option2_html'), gobierto_budgets_feedback_step3_path(id: @id, year: @year, answer1: @answer1, answer2: 1), remote: true, class: "button open_reply_yes" %></a>
-    <%= link_to t('.option3_html'), gobierto_budgets_feedback_step3_path(id: @id, year: @year, answer1: @answer1, answer2: 2), remote: true, class: "button open_reply_yes" %></a>
+<div class="block budget_line_feedback raise_your_hand_content">
+  <div class="blf_question_2">
+    <p><%= t('.question') %></p>
+    <div class="options ">
+      <%= link_to t('.option1_html'), gobierto_budgets_feedback_step3_path(id: @id, year: @year, answer1: @answer1, answer2: 0), remote: true, class: "button open_reply_yes" %></a>
+      <%= link_to t('.option2_html'), gobierto_budgets_feedback_step3_path(id: @id, year: @year, answer1: @answer1, answer2: 1), remote: true, class: "button open_reply_yes" %></a>
+      <%= link_to t('.option3_html'), gobierto_budgets_feedback_step3_path(id: @id, year: @year, answer1: @answer1, answer2: 2), remote: true, class: "button open_reply_yes" %></a>
+    </div>
   </div>
 </div>

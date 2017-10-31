@@ -29,11 +29,6 @@ es:
         budget_line_percentage: Porcentaje
         budget_line_value: Cantidad
         budget_lines_distribution: Distribución de los gastos de esta partida
-        enough_information: "¿Suficiente información?"
-        enough_information_cta: Pide a tu Ayuntamiento
-        enough_information_desc: Si considera que sse tienen que incluir más información
-          de esta partida para tener una visión más completa de la misma o sobre el
-          uso de tus impuestos, comunicánoslo y te contestaremos
         evolution: Evolución
         give_your_opinion: Opina sobre esta partida
         give_your_opinion_cta: "¿Entiendes de qué va esta partida? ¿Te parece mucho,
@@ -429,7 +424,7 @@ es:
         your_email: Tu correo-e
       follow_success:
         error: Parece que el email introducido no es válido. Por favor revísalo
-        share: "¿Quieres compartir esta estadística en"
+        share: "¿Quieres compartir estos datos en"
         share_text: Informate y opina sobre el presupuesto de %{place_name}
         success: "¡Genial! Comprueba tu correo y pincha en el enlace que te enviamos"
       step1:
@@ -461,6 +456,13 @@ es:
         execution: Ejecución
         guide: Guía
         summary: Resumen
+    shared:
+      enough_information:
+        enough_information: "¿Suficiente información?"
+        enough_information_cta: Pide a tu Ayuntamiento
+        enough_information_desc: Si considera que se tienen que incluir más información
+          de estos datos para tener una visión más completa de la misma o sobre el
+          uso de tus impuestos, comunicánoslo y te contestaremos
     visualizations:
       G_custom: Gastos por área
       G_economic: En qué se gasta

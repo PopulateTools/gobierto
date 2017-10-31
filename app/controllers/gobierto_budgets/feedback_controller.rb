@@ -20,10 +20,12 @@ class GobiertoBudgets::FeedbackController < GobiertoBudgets::ApplicationControll
   def follow
     if params[:ask_for_feedback]
       budget_line = GobiertoBudgets::BudgetLinePresenter.load(params[:id], current_site)
+      budget_line_name = budget_line ? budget_line.name : nil
+      year = budget_line ? budget_line.year : Date.today.year
       GobiertoBudgets::FeedbackMailer.new_feedback_request({
         to: gobierto_budgets_feedback_emails,
-        budget_line_name: budget_line.name,
-        year: budget_line.year,
+        budget_line_name: budget_line_name,
+        year: year,
         person_email: params[:email],
         site: current_site
       }).deliver_later
@@ -33,7 +35,6 @@ class GobiertoBudgets::FeedbackController < GobiertoBudgets::ApplicationControll
   end
 
   def load_follow
-    @id = params[:id]
   end
 
   private

@@ -29,10 +29,6 @@ en:
         budget_line_percentage: Percentage
         budget_line_value: Amount
         budget_lines_distribution: Expense budget lines distribution
-        enough_information: Enough information?
-        enough_information_cta: Ask your municipality
-        enough_information_desc: If you think it's necessary to include more information
-          about this budget line or about the usage of your taxes ask your municipality
         evolution: Evolution
         give_your_opinion: Give your opinion about this budget line
         give_your_opinion_cta: Do you understand this budget line? Do you think it's
@@ -450,6 +446,12 @@ en:
         execution: Execution
         guide: Guide
         summary: Summary
+    shared:
+      enough_information:
+        enough_information: Enough information?
+        enough_information_cta: Ask your municipality
+        enough_information_desc: If you think it's necessary to include more information
+          about this data or about the usage of your taxes ask your municipality
     visualizations:
       G_custom: Expenses per area
       G_economic: In what

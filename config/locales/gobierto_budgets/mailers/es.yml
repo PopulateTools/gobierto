@@ -5,4 +5,6 @@ es:
       new_feedback_request:
         body: Has recibido una nueva petición de información para la partida %{budget_line_name}
           (%{year}) de una persona con el email %{person_email}.
+        body_budgets: Has recibido una nueva petición de información para los presupuestos
+          de tu municipio de una persona con el email %{person_email}.
         subject: Has recibido una nueva petición de información

@@ -1,13 +1,14 @@
-<div class="reply reply_yes">
-  <div class="inner">
-    <p><%= t('.thanks') %></p>
-    <div class="button empty"><%= GobiertoBudgets::BudgetLineFeedback.stats(site: current_site, id: @reply.budget_line_id, year: @reply.year, answer1: @reply.answer1, answer2: 0) %> <span><%= t('.option1') %></span></div>
-    <div class="button empty"><%= GobiertoBudgets::BudgetLineFeedback.stats(site: current_site, id: @reply.budget_line_id, year: @reply.year, answer1: @reply.answer1, answer2: 1) %> <span><%= t('.option2') %></span></div>
-    <div class="button empty"><%= GobiertoBudgets::BudgetLineFeedback.stats(site: current_site, id: @reply.budget_line_id, year: @reply.year, answer1: @reply.answer1, answer2: 2) %> <span><%= t('.option3') %></span></div>
+<div class="block budget_line_feedback raise_your_hand_content">
+  <div class="reply reply_yes">
+    <div class="inner">
+      <p><%= t('.thanks') %></p>
+      <div class="button empty"><%= GobiertoBudgets::BudgetLineFeedback.stats(site: current_site, id: @reply.budget_line_id, year: @reply.year, answer1: @reply.answer1, answer2: 0) %> <span><%= t('.option1') %></span></div>
+      <div class="button empty"><%= GobiertoBudgets::BudgetLineFeedback.stats(site: current_site, id: @reply.budget_line_id, year: @reply.year, answer1: @reply.answer1, answer2: 1) %> <span><%= t('.option2') %></span></div>
+      <div class="button empty"><%= GobiertoBudgets::BudgetLineFeedback.stats(site: current_site, id: @reply.budget_line_id, year: @reply.year, answer1: @reply.answer1, answer2: 2) %> <span><%= t('.option3') %></span></div>
 
-    <div class="sep"></div>
+      <div class="sep"></div>
 
-    <%= render 'gobierto_budgets/feedback/follow' %>
+      <%= render 'gobierto_budgets/feedback/follow' %>
+    </div>
   </div>
 </div>
-

@@ -4,5 +4,7 @@ en:
     feedback_mailer:
       new_feedback_request:
         body: You've received a new information request about the budget line %{budget_line_name}
-          (%{year}) from a person with the email %{person_email}
+          (%{year}) from a person with the email %{person_email}.
+        body_budgets: You've received a new information request about your municipality
+          budgets from a person with the email %{person_email}.
         subject: You've received a new information request

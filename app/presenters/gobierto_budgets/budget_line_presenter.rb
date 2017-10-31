@@ -2,6 +2,7 @@ module GobiertoBudgets
   class BudgetLinePresenter
 
     def self.load(id, site)
+      return nil if id.nil?
       ine_code, year, code, kind, area_name = id.split('/')
       area = case area_name
              when EconomicArea.area_name

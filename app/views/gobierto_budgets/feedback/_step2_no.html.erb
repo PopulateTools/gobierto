@@ -1,13 +1,15 @@
-<div class="reply reply_no">
-  <div class="inner">
-    <p><%= t('.ask') %></p>
+<div class="block budget_line_feedback raise_your_hand_content">
+  <div class="reply reply_no">
+    <div class="inner">
+      <p><%= t('.ask') %></p>
 
-    <p>
-      <%= t('.answer_html', datum: @datum) %>
-    </p>
+      <p>
+        <%= t('.answer_html', datum: @datum) %>
+      </p>
 
-    <div class="sep"></div>
+      <div class="sep"></div>
 
-    <%= render 'gobierto_budgets/feedback/follow' %>
+      <%= render 'gobierto_budgets/feedback/follow' %>
+    </div>
   </div>
 </div>

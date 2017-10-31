@@ -29,11 +29,6 @@ ca:
         budget_line_percentage: Percentatge
         budget_line_value: Quantitat
         budget_lines_distribution: Distribució de les despeses d'aquesta partida
-        enough_information: Suficient informació?
-        enough_information_cta: Demana al teu Ajuntament
-        enough_information_desc: Si considera que s'ha d'incloure més informació d'aquesta
-          partida per tenir una visió més completa de la mateixa o sobre l'ús dels
-          teus impostos, comuniqui-ho i li contestarem
         evolution: Evolució
         give_your_opinion: Opina sobre aquesta partida
         give_your_opinion_cta: Entens de què va aquesta partida? Te pareix molt, poc?
@@ -421,7 +416,7 @@ ca:
         your_email: El teu correu
       follow_success:
         error: Pareix que el correu introduit no es vàlid. Per favor revisa-ho
-        share: Vols compartir aquesta estadística en
+        share: Vols compartir aquestes dades en
         share_text: Informat i opina sobre el pressupost de %{place_name}
         success: Molt bé! Revisa el teu correu i fes click en el enllaç que t'hem
           enviat
@@ -453,6 +448,13 @@ ca:
         execution: Execució
         guide: Guia
         summary: Resum
+    shared:
+      enough_information:
+        enough_information: Suficient informació?
+        enough_information_cta: Demana al teu Ajuntament
+        enough_information_desc: Si considera que s'ha d'incloure més informació d'aquestes
+          dades per tenir una visió més completa de la mateixa o sobre l'ús dels teus
+          impostos, comuniqui-ho i li contestarem
     visualizations:
       G_custom: Despeses per àrea
       G_economic: En què es gasta

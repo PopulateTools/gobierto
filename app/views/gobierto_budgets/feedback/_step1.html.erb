@@ -1,8 +1,9 @@
-<div class="blf_question_1">
-  <p><%= t('.understand') %></p>
-  <div class="options yes_no">
-    <%= link_to t('.answer1_0'), gobierto_budgets_feedback_step2_path(answer1: 0, year: @year, id: @id), remote: true, class: "button open_blf_question_2" %>
-    <%= link_to t('.answer1_1'), gobierto_budgets_feedback_step2_path(answer1: 1, year: @year, id: @id), remote: true, class: "button open_reply_no" %>
+<div class="block budget_line_feedback raise_your_hand_content">
+  <div class="blf_question_1">
+    <p><%= t('.understand') %></p>
+    <div class="options yes_no">
+      <%= link_to t('.answer1_0'), gobierto_budgets_feedback_step2_path(answer1: 0, year: @year, id: @id), remote: true, class: "button open_blf_question_2" %>
+      <%= link_to t('.answer1_1'), gobierto_budgets_feedback_step2_path(answer1: 1, year: @year, id: @id), remote: true, class: "button open_reply_no" %>
+    </div>
   </div>
 </div>
-

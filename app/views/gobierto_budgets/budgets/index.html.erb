@@ -302,4 +302,7 @@
 
   <%= render partial: 'gobierto_budgets/budget_lines/explorer' %>
 
+  <% if budget_lines_feedback_active? %>
+    <%= render 'gobierto_budgets/shared/enough_information' %>
+  <% end %>
 </div>

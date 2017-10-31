@@ -18,6 +18,11 @@ class GobiertoBudgets::FeedbackController < GobiertoBudgets::ApplicationControll
   end
 
   def follow
+    if params[:email].blank?
+      @success = false
+      return false
+    end
+
     if params[:ask_for_feedback]
       budget_line = GobiertoBudgets::BudgetLinePresenter.load(params[:id], current_site)
       budget_line_name = budget_line ? budget_line.name : nil
@@ -31,7 +36,8 @@ class GobiertoBudgets::FeedbackController < GobiertoBudgets::ApplicationControll
       }).deliver_later
     end
     user_subscription_form = User::SubscriptionForm.new site: current_site, creation_ip: remote_ip, subscribable_type: "Site", subscribable_id: current_site.id, user_email: params[:email]
-    @success = user_subscription_form.save
+    user_subscription_form.save
+    @success = true
   end
 
   def load_follow

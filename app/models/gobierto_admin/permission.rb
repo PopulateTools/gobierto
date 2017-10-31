@@ -13,6 +13,14 @@ module GobiertoAdmin
     validates :action_name, presence: true
     validates :namespace, uniqueness: { scope: [:admin_id, :resource_name, :resource_id, :action_name] }
 
+    def for_person?
+      (namespace == 'gobierto_people') && (resource_name == 'person')
+    end
+
+    def person_record_permission?
+      for_person? && resource_id.present? && (action_name == 'manage')
+    end
+
     def self.by_namespace(namespace)
       where(namespace: namespace)
     end

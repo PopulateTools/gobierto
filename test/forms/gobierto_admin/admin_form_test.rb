@@ -257,12 +257,15 @@ module GobiertoAdmin
         permitted_modules: ['GobiertoPeople'],
         permitted_sites: [ madrid.id ],
         permitted_people: [],
-        all_people_permitted: 'on'
+        all_people_permitted: '1'
       ))
 
       assert admin_form.save
 
-      assert_equal madrid.people.active.size, madrid_and_santander_admin.people_permissions.size
+      people_permissions = madrid_and_santander_admin.people_permissions
+
+      assert_equal 1, people_permissions.size
+      assert_equal 'manage_all', people_permissions.first.action_name
     end
 
     def test_grant_person_permissions_without_site_permissions
@@ -304,15 +307,13 @@ module GobiertoAdmin
       assert_equal 1, madrid_and_santander_admin.people_permissions.size
     end
 
-    # Using the syntax .where("x NOT IN (?)", collection) may have unintended behavior
-    # for empty collections.
-    # Use this test to make sure .where.not(attribute: collection) syntax is used
     def test_revoke_all_people_permissions
       admin_form = AdminForm.new(admin_params.merge(
         id: madrid_and_santander_admin.id,
         permitted_modules: ['GobiertoPeople'],
         permitted_sites: [ madrid.id, santander.id ],
-        permitted_people: []
+        permitted_people: [],
+        all_people_permitted: '0'
       ))
 
       assert admin_form.save

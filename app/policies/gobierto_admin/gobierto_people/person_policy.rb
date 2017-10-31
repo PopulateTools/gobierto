@@ -11,9 +11,11 @@ module GobiertoAdmin
 
       def manage?
         if current_admin.regular?
-          can_manage_site?(person.site) &&
-          can_manage_module?('GobiertoPeople') &&
-          can_manage_person?(person)
+          manage_all_people_in_site? || (
+            can_manage_site?(person.site) &&
+            can_manage_module?('GobiertoPeople') &&
+            can_manage_person?(person)
+          )
         else
           return super
         end
@@ -24,14 +26,11 @@ module GobiertoAdmin
       end
 
       def create?
-        current_admin.manager?
+        current_admin.manager? || manage_all_people_in_site?
       end
 
       def manage_all_people_in_site?
-        return true if current_admin.manager?
-        site_people_ids = current_site.people.pluck(:id)
-        permitted_site_people_ids = current_admin.people_permissions.where(resource_id: site_people_ids)
-        site_people_ids.size == permitted_site_people_ids.size
+        current_admin.manager? || (has_site_permissions? && can_manage_module?('GobiertoPeople') && manage_all_people?)
       end
 
       private
@@ -40,6 +39,18 @@ module GobiertoAdmin
         current_admin.people_permissions.exists?(
           resource_id: person.id,
           action_name: 'manage'
+        )
+      end
+
+      def has_site_permissions?
+        site_id = person.present? ? person.site.id : current_site.id
+        current_admin.sites.exists?(site_id)
+      end
+
+      def manage_all_people?
+        return true if current_admin.manager?
+        current_admin.people_permissions.exists?(
+          action_name: 'manage_all'
         )
       end
 

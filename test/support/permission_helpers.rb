@@ -35,6 +35,14 @@ module PermissionHelpers
       )
     end
 
+    if options[:all_people]
+      admin_permissions << admin.permissions.build(
+        namespace: 'gobierto_people',
+        resource_name: 'person',
+        action_name: 'manage_all'
+      )
+    end
+
     admin.sites = admin_sites
     admin.permissions = admin_permissions
     admin.save

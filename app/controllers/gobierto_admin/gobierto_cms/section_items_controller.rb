@@ -54,12 +54,12 @@ module GobiertoAdmin
         parent_id = 0
 
         # Recursive method to update the tree
-        childrens(tree, position, level, parent_id)
+        children(tree, position, level, parent_id)
       end
 
       private
 
-      def childrens(nodes, position, level, parent_id)
+      def children(nodes, position, level, parent_id)
         nodes.each do |node|
           section_item = ::GobiertoCms::SectionItem.find(node['id'])
           section_item.update_attributes(position: position,
@@ -67,7 +67,7 @@ module GobiertoAdmin
                                          parent_id: parent_id)
           unless node['children'].nil?
             level += 1
-            childrens(node['children'], 0, level, node['id'])
+            children(node['children'], 0, level, node['id'])
           end
           position += 1
         end

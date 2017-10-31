@@ -23,6 +23,7 @@ es:
             en el menú
         show:
           collapse: Colapsar todo
+          delete_element: Eliminar elemento del menú
           expand: Expandir todo
           help: Configura los elementos de tu menú. Arrastra del panel derecho al
             menú en la izquierda

@@ -22,6 +22,7 @@ en:
           page_help: Drag and drop on the left side to place this page in the menu
         show:
           collapse: Collapse everything
+          delete_element: Remove item from menu
           expand: Expand all
           help: Configure the elements in your menu. Drag from the right panel to
             the menu on the left

@@ -8,8 +8,8 @@ module GobiertoAdmin
       before_action { module_allowed!(current_admin, 'GobiertoParticipation') }
 
       def index
-        active_polls = ::GobiertoParticipation::Poll.by_site(current_site)
-        @next_elements = ( active_polls + current_site.contribution_containers.active ).sort_by(&:days_left)
+        active_polls = ::GobiertoParticipation::Poll.by_site(current_site).open
+        @next_elements = (active_polls + current_site.contribution_containers.active.open).sort_by(&:days_left)
         @processes = current_site.processes.active.sort_by(&:last_activity_at).reverse
         @activities = find_participation_activities
       end

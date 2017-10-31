@@ -18,6 +18,8 @@ module GobiertoParticipation
     enum visibility_user_level: { registered: 0, verified: 1 }
     enum contribution_type: { idea: 0, question: 1, proposal: 2 }
 
+    scope :open, -> { where("starts <= ? AND ends >= ?", Time.zone.now, Time.zone.now) }
+
     validates :site, :process, :title, :description, :admin, :visibility_user_level, presence: true
 
     def parameterize

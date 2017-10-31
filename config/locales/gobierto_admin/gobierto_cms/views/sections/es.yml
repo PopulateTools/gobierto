@@ -18,10 +18,11 @@ es:
           view: Ver sección
         new_modal:
           title: Nueva sección
-        show:
-          last_edited_pages: Últimas páginas editadas
+        pages_filter:
           page_help: Arrastra y suelta en la parte izquierda para colocar esta página
             en el menú
+        show:
+          last_edited_pages: Últimas páginas editadas
           placeholders:
             search: Escribe el título de la página para buscar
           sections: Secciones

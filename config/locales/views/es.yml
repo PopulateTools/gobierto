@@ -93,7 +93,11 @@ es:
     search:
       budget_line_item_expense: Partida presupuestaria - Gasto
       budget_line_item_income: Partida presupuestaria - Ingreso
+      drag_drop_instructions: Arrastra y suelta en la parte izquierda para colocar
+        esta página en el menú
       event_item: Evento
+      no_results: La búsqueda no ha coincidido con ninguna página. Pruebe algo como
+        usando términos más generales o verificando la ortografía.
       page_item: Página
       person_item: Biografía
       person_post_item: Post

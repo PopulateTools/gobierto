@@ -2,7 +2,7 @@
 
 module GobiertoParticipation
   module Issues
-    class AttachmentsController < BaseController
+    class AttachmentsController < GobiertoParticipation::BaseController
       include ::PreviewTokenHelper
 
       def show

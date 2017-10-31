@@ -18,9 +18,10 @@ en:
           view: View section
         new_modal:
           title: New section
+        pages_filter:
+          page_help: Drag and drop on the left side to place this page in the menu
         show:
           last_edited_pages: Last edited pages
-          page_help: Drag and drop on the left side to place this page in the menu
           placeholders:
             search: Enter the title of the page to search
           sections: Sections

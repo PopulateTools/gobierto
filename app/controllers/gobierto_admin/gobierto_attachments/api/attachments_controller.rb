@@ -72,7 +72,7 @@ module GobiertoAdmin
           tmp_file = Tempfile.new('attachment_file')
           tmp_file.binmode
           tmp_file.write(Base64.strict_decode64(attachment_params[:file]))
-          tmp_file.close
+          tmp_file.rewind
           # Mass assignment of file_name attribute is not permitted, it must always come from
           # an UploadedFile instance. Thus, we read it from params instead of attachment_params.
           ActionDispatch::Http::UploadedFile.new(filename: params[:attachment][:file_name], tempfile: tmp_file)

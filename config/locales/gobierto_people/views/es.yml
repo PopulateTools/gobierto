@@ -108,7 +108,7 @@ es:
       show:
         party:
           government: Equipo de gobierno
-          oposition: Oposición
+          opposition: Oposición
       subscription_button:
         cancel: Cancelar
         follow: Seguir

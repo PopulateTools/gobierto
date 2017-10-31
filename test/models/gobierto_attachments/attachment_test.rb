@@ -4,6 +4,7 @@ require "test_helper"
 
 module GobiertoAttachments
   class AttachmentTest < ActiveSupport::TestCase
+
     def setup
       super
       Pathname.any_instance.stubs(:close).returns(nil)
@@ -32,28 +33,28 @@ module GobiertoAttachments
     def uploaded_pdf_file
       @uploaded_pdf_file ||= ActionDispatch::Http::UploadedFile.new(
         filename: "pdf-attachment.pdf",
-        tempfile: file_fixture("gobierto_attachments/attachment/pdf-attachment.pdf")
+        tempfile: file_fixture("gobierto_attachments/attachment/pdf-attachment.pdf").open
       )
     end
 
     def uploaded_new_pdf_file
       @uploaded_new_pdf_file ||= ActionDispatch::Http::UploadedFile.new(
         filename: "new-pdf-attachment.pdf",
-        tempfile: file_fixture("gobierto_attachments/attachment/new-pdf-attachment.pdf")
+        tempfile: file_fixture("gobierto_attachments/attachment/new-pdf-attachment.pdf").open
       )
     end
 
     def uploaded_xlsx_file
       @uploaded_xlsx_file ||= ActionDispatch::Http::UploadedFile.new(
         filename: "xlsx-attachment.xlsx",
-        tempfile: file_fixture("gobierto_attachments/attachment/xlsx-attachment.xlsx")
+        tempfile: file_fixture("gobierto_attachments/attachment/xlsx-attachment.xlsx").open
       )
     end
 
     def uploaded_txt_pdf_file
       @uploaded_txt_pdf_file ||= ActionDispatch::Http::UploadedFile.new(
         filename: "txt-pdf-attachment.txt.pdf",
-        tempfile: file_fixture("gobierto_attachments/attachment/txt-pdf-attachment.txt.pdf")
+        tempfile: file_fixture("gobierto_attachments/attachment/txt-pdf-attachment.txt.pdf").open
       )
     end
 

@@ -1,0 +1,15 @@
+<div id="search_results">
+  <% if @pages %>
+    <% @pages.each do |page| %>
+      <div class="activity_item">
+        <h2>
+          <%= link_to edit_admin_cms_page_path(page, collection_id: page.collection), class: "tipsit", title: t('.page_help') do %>
+            <%= page.title %>
+            <span class="secondary"><%= page.collection.title %></span>
+          <% end %>
+        </h2>
+        <div class="date"><%= time_ago_in_words(page.created_at) %></div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

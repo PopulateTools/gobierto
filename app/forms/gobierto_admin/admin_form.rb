@@ -14,7 +14,7 @@ module GobiertoAdmin
       :last_sign_in_ip
     )
 
-    attr_reader :permissions, :permitted_sites, :permitted_modules, :permitted_people, :sites
+    attr_reader :permissions, :permitted_sites, :permitted_modules, :permitted_people, :all_people_permitted, :sites
 
     delegate :persisted?, to: :admin
 
@@ -38,6 +38,7 @@ module GobiertoAdmin
 
       set_permitted_sites(parsed_attributes)
       set_permitted_modules(parsed_attributes)
+      set_all_people_permitted(parsed_attributes)
       set_permitted_people(parsed_attributes)
     end
 
@@ -76,7 +77,7 @@ module GobiertoAdmin
     end
 
     def set_permitted_sites(attributes)
-      if attributes[:authorization_level] != 'regular'
+      if authorization_level != 'regular'
         @permitted_sites = []
         @sites = []
       elsif attributes[:permitted_sites].present?
@@ -92,7 +93,7 @@ module GobiertoAdmin
     end
 
     def set_permitted_modules(attributes)
-      if attributes[:authorization_level] != 'regular'
+      if authorization_level != 'regular'
         @permitted_modules = []
       elsif attributes[:permitted_modules].present?
         @permitted_modules = attributes[:permitted_modules].select{ |m| m.present? }.compact
@@ -103,11 +104,21 @@ module GobiertoAdmin
       end
     end
 
+    def set_all_people_permitted(attributes)
+      if authorization_level != 'regular'
+        @all_people_permitted = false
+      elsif attributes[:all_people_permitted].present?
+        @all_people_permitted = (attributes[:all_people_permitted] == '1' || attributes[:all_people_permitted] == true)
+      elsif admin.persisted?
+        @all_people_permitted = admin.people_permissions.exists?(action_name: 'manage_all')
+      else
+        @all_people_permitted = false
+      end
+    end
+
     def set_permitted_people(attributes)
-      if attributes[:authorization_level] != 'regular'
+      if authorization_level != 'regular' || @all_people_permitted
         @permitted_people = []
-      elsif attributes[:all_people_permitted] && attributes[:all_people_permitted] == 'on'
-        @permitted_people = ::GobiertoPeople::Person.where(site: sites).active.pluck(:id)
       elsif attributes[:permitted_people].present?
         @permitted_people = attributes[:permitted_people].select{ |m| m.present? }.map{|id| id.to_i }.compact
       elsif @admin
@@ -120,6 +131,7 @@ module GobiertoAdmin
     def build_permissions
       @permissions = admin.permissions
       build_modules_permissions
+      build_all_people_permissions
       build_people_permissions
       @permissions
     end
@@ -143,6 +155,21 @@ module GobiertoAdmin
       end
     end
 
+    def build_all_people_permissions
+      revoked_permissions_ids = []
+      existing_manage_all_people_permissions_ids = admin.people_permissions.where(action_name: 'manage_all').pluck(:id)
+
+      if permitted_people.any? || !@all_people_permitted ||  !permitted_modules_names.include?('gobierto_people')
+        revoked_permissions_ids.concat(existing_manage_all_people_permissions_ids)
+      elsif @all_people_permitted && existing_manage_all_people_permissions_ids.empty?
+        @permissions << build_all_people_permission
+      end
+
+      @permissions.each do |p|
+        p.mark_for_destruction if revoked_permissions_ids.include?(p.id)
+      end
+    end
+
     def build_people_permissions
       existing_people_permissions    = admin.permissions.where(namespace: 'gobierto_people', resource_name: 'person', action_name: 'manage')
       revoked_people_permissions_ids = existing_people_permissions.where.not(resource_id: permitted_people).pluck(:id)
@@ -161,7 +188,7 @@ module GobiertoAdmin
       # if site permissions where revoked, revoke site people permissions
       revoked_people_permissions_ids = []
       @permissions.each do |permission|
-        if permission.resource_name == 'person'
+        if permission.person_record_permission?
           person_site = ::GobiertoPeople::Person.find_by(id: permission.resource_id).site
           if !permitted_sites.include?(person_site.id)
             revoked_people_permissions_ids << permission.id
@@ -205,6 +232,15 @@ module GobiertoAdmin
         resource_name: 'person',
         resource_id: person.id,
         action_name: 'manage'
+      )
+    end
+
+    def build_all_people_permission
+      ::GobiertoAdmin::Permission.new(
+        admin: admin,
+        namespace: 'gobierto_people',
+        resource_name: 'person',
+        action_name: 'manage_all'
       )
     end
 

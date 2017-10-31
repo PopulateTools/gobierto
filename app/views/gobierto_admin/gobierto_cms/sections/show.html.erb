@@ -20,23 +20,21 @@
 
     <div class="form_item input_text">
       <label for="name"><%= t('.select_page') %></label>
-      <input type="text" id="name" placeholder="<%= t('.placeholders.search') %>">
+      <input type="text" placeholder="<%= t('.placeholders.search') %>" name="q" id="gobierto_search" data-autocomplete="<%= admin_cms_section_pages_path(@section, format: :js) %>" element_id="#pages" />
     </div>
 
     <h3><%= t('.last_edited_pages') %></h3>
 
     <div class="activity_feed section_editor">
-      <% @pages.each do |page| %>
-        <div class="activity_item">
-          <h2>
-            <%= link_to edit_admin_cms_page_path(page, collection_id: page.collection), class: "tipsit", title: t('.page_help') do %>
-              <%= page.title %>
-              <span class="secondary"><%= page.collection.title %></span>
-            <% end %>
-          </h2>
-          <div class="date"><%= time_ago_in_words(page.created_at) %></div>
-        </div>
-      <% end %>
+      <%= render 'pages_filter' %>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  window.searchClient = {
+    client: algoliasearch('<%= Rails.application.secrets.algolia_application_id %>', '<%= Rails.application.secrets.algolia_search_api_key %>'),
+    indexes: ["<%= GobiertoCms::Page.search_index_name %>"],
+    filters: "site_id:<%= algolia_search_client.site.id %>"
+  };
+</script>

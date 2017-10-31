@@ -77,8 +77,6 @@ module GobiertoParticipation
         within ".global_breadcrumb" do
           assert has_link? "Participation"
         end
-
-        assert has_link? "View all events"
       end
     end
 

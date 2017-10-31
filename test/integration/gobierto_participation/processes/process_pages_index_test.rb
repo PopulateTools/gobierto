@@ -43,11 +43,17 @@ module GobiertoParticipation
         visit process_pages_path
 
         within "menu.sub_sections" do
-          assert has_link? "About"
-          assert has_link? "Issues"
-          assert has_link? "Processes"
-          assert has_link? "Ask"
-          assert has_link? "Ideas"
+          assert has_link? "Information"
+          assert has_link? "Meetings"
+
+          if process.polls_stage?
+            assert has_link? "Polls"
+          else
+            refute has_link? "Polls"
+          end
+
+          assert has_link? "Contributions"
+          assert has_link? "Results"
         end
       end
     end

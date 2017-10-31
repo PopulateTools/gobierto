@@ -65,12 +65,12 @@ module GobiertoCalendars
 
     def self.events_in_collections_and_container_type(site, container_type)
       ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCalendars::Event", container_type: container_type).pluck(:item_id)
-      where(id: ids, site: site)
+      where(id: ids, site: site).published
     end
 
     def self.events_in_collections_and_container(site, container)
       ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCalendars::Event", container: container).pluck(:item_id)
-      where(id: ids, site: site)
+      where(id: ids, site: site).published
     end
 
     def parameterize

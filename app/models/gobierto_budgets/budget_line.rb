@@ -49,7 +49,7 @@ module GobiertoBudgets
         code_segments.length == 1 ? code_segments.first.chop : code_segments.first
       end
     end
-    
+
     def self.get_population(ine_code, year)
       population = execute_get_population_query(ine_code, year)
 

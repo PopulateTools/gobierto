@@ -10,6 +10,7 @@
 //= require air-datepicker/i18n/datepicker.ca
 //= require ./trix_events
 //= require ./trix_toolbar
+//= require ./module-admin-search
 //= require ./app/init
 //= require sticky-kit.min
 //= require_tree ./app

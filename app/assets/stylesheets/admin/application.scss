@@ -206,7 +206,12 @@ html.turbolinks-progress-bar::before {
     text-align: right;
     margin: 0 0 1em 0;
     a {
-      padding: 0 .5em;
+      padding: .5em .75em;
+      @include border-radius(3px);
+      text-align: center;
+    }
+    a:hover {
+      background: darken($color_1_soft, 20%);
     }
   }
 }

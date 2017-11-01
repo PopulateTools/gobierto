@@ -52,6 +52,15 @@ Rails.application.routes.draw do
 
     resources :activities, only: [:index]
 
+    namespace :gobierto_budgets do
+      resources :options, only: [:index] do
+        collection do
+          put :update
+        end
+      end
+      resources :feedback, only: [:index]
+    end
+
     namespace :gobierto_budget_consultations, as: :budget, path: :budgets do
       resources :consultations, only: [:index, :show, :new, :create, :edit, :update] do
         resources :consultation_items, controller: "consultations/consultation_items", path: :items
@@ -229,10 +238,16 @@ Rails.application.routes.draw do
       get "budget_line_descendants/:year/:area_name/:kind" => "budget_line_descendants#index", as: :budget_line_descendants
       get "presupuestos/ejecucion(/:year)" => "budgets_execution#index", as: :budgets_execution
       get "presupuestos/guia" => "budgets#guide", as: :budgets_guide
+      get "presupuestos/elaboracion" => "budgets_elaboration#index", as: :budgets_elaboration
       get "budgets/treemap(/:year)" => "budget_lines#treemap", as: :budget_lines_treemap
 
-      # TODO: move to an API > move to the big indexer
       get "all_categories/:slug/:year" => "search#all_categories", as: :search_all_categories
+
+      get "feedback/step1" => "feedback#step1", as: :feedback_step1
+      get "feedback/step2" => "feedback#step2", as: :feedback_step2
+      get "feedback/step3" => "feedback#step3", as: :feedback_step3
+      post "feedback/follow" => "feedback#follow", as: :feedback_follow
+      get "feedback/load_follow" => "feedback#load_follow", as: :feedback_load_follow
 
       namespace :api do
         get "/categories" => "categories#index"

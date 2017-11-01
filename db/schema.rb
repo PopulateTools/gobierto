@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171019074630) do
+ActiveRecord::Schema.define(version: 20171025133701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -209,6 +209,17 @@ ActiveRecord::Schema.define(version: 20171019074630) do
     t.datetime "updated_at", null: false
     t.string "slug", default: "", null: false
     t.integer "collection_id"
+  end
+
+  create_table "gb_budget_line_feedbacks", force: :cascade do |t|
+    t.bigint "site_id"
+    t.integer "year"
+    t.string "budget_line_id"
+    t.integer "answer1"
+    t.integer "answer2"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_gb_budget_line_feedbacks_on_site_id"
   end
 
   create_table "gb_categories", force: :cascade do |t|

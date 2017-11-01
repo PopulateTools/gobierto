@@ -48,6 +48,7 @@ var VisLineasJ = Class.extend({
     this.dataYear = null;
     this.dataTitle = null;
     this.lastYear = null;
+    this.maxYear = (new Date()).getFullYear();
 
     // Legend
     this.legendEvolution = d3.legendColor();
@@ -166,6 +167,10 @@ var VisLineasJ = Class.extend({
       this.kind = this.data.kind;
       this.dataYear = this.parseDate(this.data.year);
       this.lastYear = this.parseDate(this.data.year).getFullYear(); // For the mouseover interaction
+      if(this.lastYear > this.maxYear) {
+        this.dataYear = new Date(this.maxYear + "-01-01")
+        this.lastYear = this.maxYear;
+      }
       this.dataTitle = this.data.title;
 
       ////// Complete the dataTable.

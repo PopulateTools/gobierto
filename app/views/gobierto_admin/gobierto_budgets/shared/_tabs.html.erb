@@ -1,0 +1,11 @@
+<h1><%= t('.budgets') %></h1>
+
+<div class="tabs">
+  <ul>
+    <li class="<%= class_if('active', controller_name == 'options') %>"><%= link_to t('.options'), admin_gobierto_budgets_options_path %></li>
+    <% if budget_lines_feedback_active? %>
+      <li class="<%= class_if('active', controller_name == 'feedback') %>"><%= link_to t('.feedback'), admin_gobierto_budgets_feedback_index_path %></li>
+    <% end %>
+  </ul>
+</div>
+

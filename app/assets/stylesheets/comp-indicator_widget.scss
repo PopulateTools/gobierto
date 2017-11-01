@@ -7,7 +7,12 @@
   -ms-perspective: 1000px;
   min-height: 180px;
   border-radius: 8px;
-  
+
+  @include screen(768) {
+    margin-bottom: 1em;
+    min-height: 220px;
+  }
+
   .indicator_widget {
     cursor: pointer;
     transition: 0.6s;

@@ -41,7 +41,11 @@ function limit_length(input, length) {
 
     this.renderLineBreadcrumb = function($el, state, categories){
       var html = "";
-      html += '<a href="/presupuestos/partidas/'+this.currentYear+'/'+this.areaName+'/' + this.states[1] + '">' + this.currentYear + '</a> »';
+      var d = new Date();
+      if(this.currentYear > d.getFullYear())
+        html += '<a href="/presupuestos/elaboracion">' + I18n.t('gobierto_budgets.layouts.menu_subsections.elaboration') + '</a> »';
+      else
+        html += '<a href="/presupuestos/partidas/'+this.currentYear+'/'+this.areaName+'/' + this.states[1] + '">' + this.currentYear + '</a> »';
       this.selectedCategories.push(this.currentYear);
       html += '<a href="/presupuestos/partidas/'+this.currentYear+'/'+this.areaName+'/' + this.states[1] + '">' + I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName) + '</a> »';
       this.selectedCategories.push(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName));

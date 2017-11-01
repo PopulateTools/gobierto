@@ -101,4 +101,13 @@ $(document).on('turbolinks:load', function() {
   $('.close_modal').click(function(e) {
     $.magnificPopup.close();
   });
+
+  function toggleTarget($this){
+    var $target = $('[data-toggle-target="'+$this.data('toggle')+'"]');
+    $this.is(':checked') ? $target.show() : $target.hide();
+  }
+
+  $('[data-toggle-target]').hide();
+  $('[data-toggle]').each(function(){ toggleTarget($(this)) });
+  $('[data-toggle]').click(function(){ toggleTarget($(this)) });
 });

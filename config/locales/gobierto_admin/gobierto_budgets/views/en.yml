@@ -1,0 +1,33 @@
+---
+en:
+  gobierto_admin:
+    gobierto_budgets:
+      feedback:
+        index:
+          answer1_0: 'Yes'
+          answer1_1: 'No'
+          answer2_0: Few
+          answer2_1: Good
+          answer2_2: Too much
+          budget: Planned
+          last: Last
+          total_feedback: Total opinions
+          understand: Do you understand it?
+          you_think: You think
+      options:
+        index:
+          elaboration: Elaboration
+          elaboration_desc1: Enable budgets elaboration section
+          elaboration_desc2_html: "<strong>Important:</strong> it's necessary to load
+            elaboration data previously. Contact your administrator if necessary."
+          feedback: Micro-feedback
+          feedback_desc: Enable the option to allow visitios to give their feedback
+            on budget lines
+          feedback_emails_desc: The feedback (opinions about budget lines) will be
+            sent to this email
+          options: Options
+      shared:
+        tabs:
+          budgets: Budgets
+          feedback: Opinions
+          options: Options

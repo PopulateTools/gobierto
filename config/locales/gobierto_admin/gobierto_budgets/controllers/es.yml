@@ -1,0 +1,8 @@
+---
+es:
+  gobierto_admin:
+    gobierto_budgets:
+      options:
+        update:
+          error: 'No se han podido guardar las opciones: %{validation_errors}'
+          success: Opciones guardadas correctamente

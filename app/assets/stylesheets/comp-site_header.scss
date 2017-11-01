@@ -5,6 +5,9 @@
 header.meta {
   padding: 0;
   margin: 0 0 2em 0;
+  @include screen(740) {
+    margin: 0;
+  }
   .slim_nav_bar {
     text-transform: uppercase;
     font-weight: 200;

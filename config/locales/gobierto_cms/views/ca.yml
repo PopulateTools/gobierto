@@ -7,6 +7,8 @@ ca:
       gobierto_cms_page_published: "%{subject_name}"
       gobierto_cms_page_updated: "%{subject_name}"
       gobierto_cms_section_created: Secció creat
+      gobierto_cms_section_item_created: Pàgina afegida a una secció
+      gobierto_cms_section_item_deleted: Pàgina esborrada de secció
       gobierto_cms_section_updated: Secció actualitzada
     pages:
       index:

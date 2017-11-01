@@ -8,7 +8,7 @@ ca:
           sign_out: Tancar sessió
         budget_consultations: Consultes de pressupostos
         calendars: Agendes
-        cms: Gestió de pàgines
+        cms: CMS
         collapse_menu: Colapsar menú
         dirty_forms:
           message: Hi ha canvis sense desar. Estàs segur de voler continuar?
@@ -21,7 +21,6 @@ ca:
         participation: Participació
         people: Alts càrrecs i Agendes
         scopes: Àmbits
-        sections: Seccions
         site_network: Xarxa
         users: Usuaris
         view_site: Veure site

@@ -22,6 +22,11 @@ ca:
           page_help: Arrossega i deixa anar a la part esquerra per col·locar aquesta
             pàgina al menú
         show:
+          collapse: Colapsar tot
+          delete_element: Eliminar element del menú
+          expand: Expandir tot
+          help: Configureu els elements del vostre menú. Arrossega el tauler dret
+            al menú de la esquerra
           last_edited_pages: Últimes pàgines editades
           placeholders:
             search: Escriu el títol de la pàgina per buscar

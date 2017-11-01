@@ -372,6 +372,9 @@ option, select {
 .option {
 	padding: 0;
   position: relative;
+  .inline_help {
+    margin-left: 2.6em;
+  }
 }
 .option.separate {
   margin-top: 1em;

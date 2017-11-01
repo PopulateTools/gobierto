@@ -7,8 +7,9 @@ es:
           account: Tu cuenta
           sign_out: Cerrar sesión
         budget_consultations: Consultas de presupuestos
+        budgets: Presupuestos
         calendars: Agendas
-        cms: Gestión de páginas
+        cms: CMS
         collapse_menu: Colapsar menú
         dirty_forms:
           message: Hay cambios sin guardar. ¿Estás seguro de querer continuar?
@@ -21,7 +22,6 @@ es:
         participation: Participación
         people: Altos cargos y Agendas
         scopes: Ámbitos
-        sections: Secciones
         site_network: Red
         users: Usuarios
         view_site: Ver site

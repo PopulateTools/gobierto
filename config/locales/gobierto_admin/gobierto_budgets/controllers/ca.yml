@@ -1,0 +1,8 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_budgets:
+      options:
+        update:
+          error: 'No s''han pogut guardar les opcions: %{validation_errors}'
+          success: Opcions desades correctament

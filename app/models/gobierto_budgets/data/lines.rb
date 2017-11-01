@@ -10,6 +10,7 @@ module GobiertoBudgets
         @kind = options[:kind] || GobiertoBudgets::BudgetLine::EXPENSE
         @code = options[:code]
         @area = options[:area]
+        @include_next_year = options[:include_next_year] == 'true'
         if @code
           @variable = @what == 'total_budget' ? 'amount' : 'amount_per_inhabitant'
           areas = BudgetArea.klass_for(@area)
@@ -78,12 +79,13 @@ module GobiertoBudgets
 
         result = []
         data.sort_by{|k,_| k }.each do |year, v|
-          next if year > GobiertoBudgets::SearchEngineConfiguration::Year.last
-          result.push({
-            date: year.to_s,
-            value: v,
-            dif: data[year-1] ? delta_percentage(v, data[year-1]) : 0
-          })
+          if year <= Date.today.year
+            result.push({
+              date: year.to_s,
+              value: v,
+              dif: data[year-1] ? delta_percentage(v, data[year-1]) : 0
+            })
+          end
         end
 
         result.reverse
@@ -135,12 +137,13 @@ module GobiertoBudgets
 
         result = []
         data.sort_by{|k,_| k }.each do |year, v|
-          next if year > GobiertoBudgets::SearchEngineConfiguration::Year.last
-          result.push({
-            date: year.to_s,
-            value: v,
-            dif: data[year-1] ? delta_percentage(v, data[year-1]) : 0
-          })
+          if year <= Date.today.year
+            result.push({
+              date: year.to_s,
+              value: v,
+              dif: data[year-1] ? delta_percentage(v, data[year-1]) : 0
+            })
+          end
         end
 
         result.reverse
@@ -191,12 +194,13 @@ module GobiertoBudgets
 
         result = []
         data.sort_by{|k,_| k }.each do |year, v|
-          next if year > GobiertoBudgets::SearchEngineConfiguration::Year.last
-          result.push({
-            date: year.to_s,
-            value: v,
-            dif: data[year-1] ? delta_percentage(v, data[year-1]) : 0
-          })
+          if year <= Date.today.year
+            result.push({
+              date: year.to_s,
+              value: v,
+              dif: data[year-1] ? delta_percentage(v, data[year-1]) : 0
+            })
+          end
         end
 
         result.reverse
@@ -233,12 +237,15 @@ module GobiertoBudgets
         response = SearchEngine.client.search index: index, type: type, body: query
         values = Hash[response['hits']['hits'].map{|h| h['_source']}.map{|h| [h['year'],h[@variable]] }]
         values.each do |k,v|
-          next if k > GobiertoBudgets::SearchEngineConfiguration::Year.last
           dif = 0
           if old_value = values[k -1]
             dif = delta_percentage(v, old_value)
           end
-          result.push({date: k.to_s, value: v, dif: dif})
+          if k <= Date.today.year
+            result.push({date: k.to_s, value: v, dif: dif})
+          elsif @include_next_year && v > 0
+            result.push({date: k.to_s, value: v, dif: dif})
+          end
         end
         result
       end

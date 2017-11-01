@@ -1,5 +1,6 @@
 <div class="admin_breadcrumb">
   <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= link_to t("gobierto_admin.layouts.application.cms"), admin_cms_pages_path %> »
   <%= t(".title") %>
 </div>
 
@@ -11,7 +12,6 @@
 
     <h3><%= t(".latest_editions") %></h3>
 
-    <%# same markup as in the front end, lets reuse partials? %>
     <div class="activity_feed">
       <% @pages.each do |page| %>
         <div class="activity_item">
@@ -29,22 +29,58 @@
         </div>
       <% end %>
     </div>
-
   </div>
 
   <div class="pure-u-1 pure-u-md-1-2">
+
+    <div class="pure-g">
+
+      <div class="pure-u-1-2">
+        <h3 class="m_t_0">Secciones</h3>
+      </div>
+
+      <div class="pure-u-1-2 admin_tools right" id="new-section">
+        <%= link_to t(".new"), new_admin_cms_section_path, class: 'button open_remote_modal' %>
+      </div>
+
+    </div>
+
+    <table class="m_b_3" id="sections">
+      <tr>
+        <th><%= t('.header.section') %></th>
+        <th><%= t('.header.pages') %></th>
+        <th></th>
+      </tr>
+
+      <% @sections.each do |section| %>
+        <tr>
+          <td>
+            <%= link_to section.title, admin_cms_section_path(section) %>
+          </td>
+          <td>
+            <%= section.section_items.size %>
+          </td>
+          <td>
+            <%= link_to "gobierto_participation_section_path(section.slug ,host: current_site.domain)", target: "_blank", class: "view_item" do %>
+              <i class="fa fa-eye"></i>
+              <%= t(".view_section") %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+
     <div class="pure-g">
       <div class="pure-u-1-2">
         <h3><%= t(".collections") %></h3>
       </div>
-      <div class="pure-u-1-2 admin_tools right">
+      <div class="pure-u-1-2 admin_tools right" id="new-page">
         <%= link_to t(".new"), new_admin_common_collection_path(item_type: 'Page'), class: 'button open_remote_modal' %>
       </div>
     </div>
 
-    <table>
+    <table class="m_b_3">
       <tr>
-        <th></th>
         <th><%= t(".header.collection") %></th>
         <th><%= t(".header.pages") %></th>
         <th></th>
@@ -53,11 +89,6 @@
       <tbody>
         <% @collections.each do |collection| %>
           <tr id="collection-item-<%= collection.id %>">
-            <td>
-              <%= link_to edit_admin_common_collection_path(collection, item_type: 'Page'), class: 'open_remote_modal' do %>
-                <i class="fa fa-edit"></i>
-              <% end %>
-            </td>
             <td><%= link_to collection.title, admin_common_collection_path(collection) %></td>
             <td><%= ::GobiertoCms::Page.where(id: collection.pages_in_collection).size %></td>
             <td>

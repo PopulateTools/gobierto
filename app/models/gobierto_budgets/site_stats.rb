@@ -14,12 +14,17 @@ module GobiertoBudgets
 
     def total_budget_per_inhabitant(year = nil)
       year ||= @year
-      total_budget_per_inhabitant_query(year)['_source']['total_budget_per_inhabitant'].to_f
+      BudgetTotal.budgeted_for(@place.id, year, BudgetLine::EXPENSE) / (population(year) || population(year-1) || population(year-2)).to_f
     end
 
     def total_income_budget(year = nil)
       year ||= @year
       BudgetTotal.budgeted_for(@place.id, year, BudgetLine::INCOME)
+    end
+
+    def total_income_budget_per_inhabitant(year = nil)
+      year ||= @year
+      BudgetTotal.budgeted_for(@place.id, year, BudgetLine::INCOME) / (population(year) || population(year-1) || population(year-2)).to_f
     end
 
     def total_budget(year = nil)
@@ -31,6 +36,11 @@ module GobiertoBudgets
     def total_budget_executed(year = nil)
       year ||= @year
       BudgetTotal.execution_for(@place.id, year)
+    end
+
+    def total_income_budget_executed(year = nil)
+      year ||= @year
+      BudgetTotal.execution_for(@place.id, year, BudgetLine::INCOME)
     end
 
     def total_budget_executed_percentage(year = nil)
@@ -51,8 +61,60 @@ module GobiertoBudgets
       @data[:population][year] ||= SearchEngine.client.get(index: SearchEngineConfiguration::Data.index,
         type: SearchEngineConfiguration::Data.type_population, id: [@place.id, year].join('/'))['_source']['value']
       @data[:population][year]
-      rescue Elasticsearch::Transport::Transport::Errors::NotFound
-        nil
+    rescue Elasticsearch::Transport::Transport::Errors::NotFound
+      nil
+    end
+
+    def net_savings(year = nil)
+      year ||= @year
+
+      total_income = 0
+      (1..5).each do |code|
+        total_income += get_income_budget_line(year, code)
+      end
+      return 0 if total_income == 0
+
+      total_expense = 0
+      (1..4).each do |code|
+        total_expense += get_expense_budget_line(year, code)
+      end
+
+      value = (total_income - total_expense + get_expense_budget_line(year, 9))
+
+      return nil if value == 0
+      return ((value / total_income) * 100).round(2)
+    end
+
+    def debt_level(year = nil)
+      year ||= @year
+
+      debt = debt(year) || debt(year - 1) || debt(year - 2)
+      return nil if debt.nil?
+
+      total_income = 0
+      (1..5).each do |code|
+        total_income += get_income_budget_line(year, code)
+      end
+
+      return 0 if total_income == 0
+      return ((debt / total_income)*100).round(2)
+    end
+
+    def auto_funding(year = nil)
+      year ||= @year
+
+      income1 = 0
+      (1..3).each do |code|
+        income1 += get_income_budget_line(year, code)
+      end
+
+      income2 = 0
+      (1..5).each do |code|
+        income2 += get_income_budget_line(year, code)
+      end
+      return 0 if income2 == 0
+
+      return ((income1/income2)*100).round(2)
     end
 
     def latest_available(variable, year = nil)
@@ -166,5 +228,28 @@ module GobiertoBudgets
       end
     end
 
+    def get_income_budget_line(year, code)
+      kind = BudgetLine::INCOME
+      id = [@place.id,year,code,kind].join("/")
+      index = GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast
+      type = GobiertoBudgets::EconomicArea.area_name
+
+      result = GobiertoBudgets::SearchEngine.client.get index: index, type: type, id: id
+      result['_source']['amount']
+    rescue Elasticsearch::Transport::Transport::Errors::NotFound
+      0
+    end
+
+    def get_expense_budget_line(year, code)
+      kind = BudgetLine::EXPENSE
+      id = [@place.id,year,code,kind].join("/")
+      index = SearchEngineConfiguration::BudgetLine.index_forecast
+      type = GobiertoBudgets::EconomicArea.area_name
+
+      result = GobiertoBudgets::SearchEngine.client.get index: index, type: type, id: id
+      result['_source']['amount']
+    rescue Elasticsearch::Transport::Transport::Errors::NotFound
+      0
+    end
   end
 end

@@ -22,6 +22,7 @@ ca:
         define_content_in_locale: Defineix el contingut en la versió en %{locale_name}
         translate: Traduxir
       save_widget:
+        save: Guardar
         visibility_level:
           active: Públic
           draft: Borrador

@@ -30,8 +30,14 @@ module GobiertoBudgets
       end
     end
 
-    def delta_percentage(current_year_value, old_value)
-      number_with_precision(((current_year_value.to_f - old_value.to_f)/old_value.to_f) * 100, precision: 2).to_s + "%"
+    def delta_percentage(current_year_value, old_value, sign = nil)
+      value = ((current_year_value.to_f - old_value.to_f)/old_value.to_f) * 100
+      formatted_value = number_with_precision(value, precision: 2).to_s + "%"
+      if sign
+        "#{value > 0 ? '+ ' : ''} #{formatted_value}"
+      else
+        formatted_value
+      end
     end
 
     def percentage_of_total(value, total)
@@ -126,6 +132,10 @@ module GobiertoBudgets
                              0
                            end
       ([year, kind].concat(parent_code_length.downto(1).map{|i| budget_line.parent_code[0..-i]})).concat([budget_line.code]).join('/')
+    end
+
+    def in_elaboration?
+      @year && @year > Date.today.year
     end
   end
 end

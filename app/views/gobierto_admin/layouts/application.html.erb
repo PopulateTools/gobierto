@@ -118,6 +118,12 @@
         <div class="menu_content">
 
           <ul>
+            <% if show_module_link?("GobiertoBudgets") %>
+            <li>
+              <%= link_to t(".budgets"), admin_gobierto_budgets_options_path %>
+            </li>
+            <% end %>
+
             <% if show_module_link?("GobiertoBudgetConsultations") %>
             <li>
               <%= link_to t(".budget_consultations"), admin_budget_consultations_path %>
@@ -136,18 +142,12 @@
             </li>
             <% end %>
 
-            <% if show_module_link?("GobiertoCms") %>
-            <li>
-              <%= link_to t(".sections"), admin_cms_sections_path %>
-            </li>
-            <% end %>
-
             <li class="sep"></li>
 
             <li>
               <%= link_to t(".cms"), admin_cms_pages_path %>
-              <%= link_to t(".file_attachments"), admin_attachments_file_attachments_path %>
               <%= link_to t(".calendars"), admin_calendars_collections_path %>
+              <%= link_to t(".file_attachments"), admin_attachments_file_attachments_path %>
             </li>
 
             <li class="sep"></li>

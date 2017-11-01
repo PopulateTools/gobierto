@@ -17,9 +17,11 @@ es:
           header:
             collection: Colección
             pages: Páginas
+            section: Sección
           latest_editions: Últimas ediciones
           new: Nueva
-          title: Páginas
+          title: CMS
           view_collection: Ver colección
+          view_section: Ver sección
         new:
           title: Nueva página

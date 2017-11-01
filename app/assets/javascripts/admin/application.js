@@ -3,12 +3,14 @@
 //= require jquery.autocomplete
 //= require cleave
 //= require tipsy
+//= require tree.jquery
 //= require air-datepicker/datepicker.min
 //= require air-datepicker/i18n/datepicker.es
 //= require air-datepicker/i18n/datepicker.en
 //= require air-datepicker/i18n/datepicker.ca
 //= require ./trix_events
 //= require ./trix_toolbar
+//= require ./module-admin-search
 //= require ./app/init
 //= require sticky-kit.min
 //= require_tree ./app

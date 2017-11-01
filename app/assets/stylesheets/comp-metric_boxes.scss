@@ -15,6 +15,7 @@
       min-height: 100px;
       position: relative;
     }
+
     h3 {
       color: $color_main;
       margin: 0 0 .75em 0;
@@ -30,7 +31,11 @@
       font-size: .75em;
       opacity: .6;
       position: absolute;
+      line-height: 1.4;
       bottom: .8em;
+      @include screen(768) {
+        display: none;
+      }
     }
     span.not_av {
       font-size: 1em;
@@ -41,11 +46,7 @@
       position: absolute;
       bottom: .8em;
       width: calc(100% - 3em);
-      line-height: 1.4;
 
-      span {
-        opacity: 0.6;
-      }
     }
     .bar {
       display: inline-block;
@@ -65,6 +66,15 @@
       text-decoration: underline;
       cursor: pointer;
     }
+    .diff {
+      opacity: 0.6;
+      font-size: .75em;
+
+      @include min-screen(768) {
+        bottom: .8em;
+        position: absolute;
+      }
+    }
   }
   .metric_box:first-child {
     .inner {
@@ -74,6 +84,23 @@
   .metric_box:last-child {
     .inner {
       margin-right: 0;
+    }
+  }
+}
+.metric_boxes_detailed {
+  .metric_box {
+    .inner {
+      padding: .8em 1em 2em 1em;
+
+      .metric_details {
+        margin: 1em 0;
+        th {
+          text-align: left;
+        }
+        th, td {
+          padding: .25em 0;
+        }
+      }
     }
   }
 }

@@ -11,13 +11,13 @@ es:
         search_budget_line: Busca una partida específica
       index:
         amount: Cantidad
+        budget_guide_pitch: Consulta la Guía del Presupuesto
         budget_line: Partida
         categories: Categorías presupuestarias
         custom: Áreas
         expense_in_what: En qué se gasta
         expense_to_do_what: Para qué se gasta
-        help: El presupuesto organiza los gastos en dos categorías. Consulta nuestra
-          guía
+        help: Te explicamos como funciona un presupuesto municipal
         income_from_what: En qué se ingresa
         per_inhabitant: Por habitante
         title: Presupuestos municipales en %{year}
@@ -30,6 +30,9 @@ es:
         budget_line_value: Cantidad
         budget_lines_distribution: Distribución de los gastos de esta partida
         evolution: Evolución
+        give_your_opinion: Opina sobre esta partida
+        give_your_opinion_cta: "¿Entiendes de qué va esta partida? ¿Te parece mucho,
+          poco? Opina"
         last_year: El año pasado
         no_description: No hay una descripción asociada a esta partida.
         no_distribution: No hay distribución asociada a esta partida.
@@ -38,6 +41,7 @@ es:
         percentage: "% sobre el total del pres."
         planned: presupuestado
         planned_per_inhabitant: pres. / hab.
+        raise_hand: Levanta la mano
         real_value: El %{kind} real son %{value}
         real_vs_planned: real vs. pres.
         sub_budget_lines: Dentro de esta partida
@@ -45,6 +49,7 @@ es:
           para el %{year}'
         twitter_text_income: 'En @gobierto: Ingreso municipal de %{name} en %{budget_line_name}
           para el %{year}'
+        vs_previous_year: vs. ejercicio anterior
     budgets:
       guide:
         budget_execution: La ejecución presupuestaria
@@ -231,8 +236,8 @@ es:
         inhabitants: Habitantes
         last_update: Última actualización
         less: menos
+        level_1_category: Categoría nivel 1
         level_2_category: Categoría nivel 2
-        level_3_category: Categoría nivel 3
         main_budget_levels_legend_down: Han bajado
         main_budget_levels_legend_one: Cambio entre este año
         main_budget_levels_legend_two: y el pasado
@@ -280,6 +285,46 @@ es:
         top_income_value: Cantidad
         total_expenses: Gasto total
         visualize: Visualiza los gastos por habitante o el total
+    budgets_elaboration:
+      index:
+        at_a_glance: Evolución del gasto y comparación
+        auto_funding: Capacidad autofinanciación
+        by_custom_category: por área
+        by_economic_expense: en qué se gasta
+        by_economic_income: en qué se ingresa
+        by_functional_expense: para qué
+        category_percentage: "% s/ Total"
+        category_value: Importe
+        context: Contexto
+        debt_level: Nivel de endeudamiento
+        description: El equipo de gobierno publica el borrador del presupuesto del
+          próximo ejercicio para debatir en abierto con oposición y vecinos. Entre
+          todos podemos elaborar el presupuesto que más conviene a la ciudad.
+        diff_previous_year: vs. %{year}
+        expenses_per_inhabitant: Gasto por habitante
+        explore_the_detail: Explora el detalle
+        header: Elaboración del presupuesto
+        in_total: En total
+        last_update: Datos actualizlados
+        main_budget_levels_timeline: Compara gastos e ingresos año por año
+        main_budget_lines: Los principales ingresos y gastos de tu ayuntamiento
+        main_budget_lines_expense: Gastos
+        main_budget_lines_income: Ingresos
+        metric_boxes_data: Los datos
+        metric_boxes_data_description: Así cambiará el presupuesto de cara al próximo
+          ejercicio
+        net_savings: Ahorro neto
+        next_year_proposal: Propuesta para el %{year}
+        no_data: No hay datos para esta clasificación
+        note_about_the_data: Nota sobre los datos
+        note_about_the_data_title: La base de datos que utilizamos no incluye datos
+          para el 100% de los municipios, por lo que las medias están calculadas solo
+          con los datos que existen (que son la gran mayoría). Más información en
+          nuestras preguntas frecuentes
+        per_person: Por habitante
+        proposal: Propuesta
+        total_expenses: Gasto total
+        visualize: Visualiza los gastos por habitante o el total
     budgets_execution:
       execution_table:
         deviation: Desviación
@@ -305,9 +350,11 @@ es:
           preveer todos los gastos con precisión absoluta.
         execution_help: La ejecución es la cantidad que finalmente se ha gastado sobre
           lo presupuestado inicialmente.
+        expenses_planned: Gastos presupuestados
         functional: Functional
         functional_button: En qué se gasta
         higher_execution: Mayor ejecución
+        income_planned: Ingresos presupuestados
         last_update: Última actualización
         lower_execution: Menor ejecución
         metric:
@@ -316,6 +363,8 @@ es:
             income_title: Ejecución de ingresos
             previous_execution_message: En el %{year} la ejecución fue del %{percentage}
         percentage: Porcentaje
+        real_expenses: Gastos reales
+        real_income: Ingresos reales
         sort: Ordenar
         title: Ejecución presupuestaria
         tooltip_disclaimer: "<strong>Esta es una aproximación</strong>. <br /> A lo
@@ -369,14 +418,51 @@ es:
         show_me_another: Muéstrame otra
         title: Algunas partidas destacadas
         total: Gasto total
+    feedback:
+      follow:
+        follow: Seguir
+        your_email: Tu correo-e
+      follow_success:
+        error: Parece que el email introducido no es válido. Por favor revísalo
+        share: "¿Quieres compartir estos datos en"
+        share_text: Informate y opina sobre el presupuesto de %{place_name}
+        success: "¡Genial! Comprueba tu correo y pincha en el enlace que te enviamos"
+      step1:
+        answer1_0: Sí
+        answer1_1: 'No'
+        understand: "¿Entiendes de qué va esta partida?"
+      step2_no:
+        answer_html: El <strong>%{datum}</strong> de personas han respondido que <strong>No
+          entiende de qué va esta partida</strong>
+        ask: Puedes solicitar a tu alcalde que amplie la información sobre esta y
+          otras partidas
+      step2_yes:
+        option1_html: Me parece <span>POCO</span>
+        option2_html: Me parece <span>APROPIADO</span>
+        option3_html: Me parece <span>MUCHO</span>
+        question: "¿Crees que la cantidad de gasto es apropiada?"
+      step3:
+        option1: Poco
+        option2: Apropiado
+        option3: Mucho
+        thanks: 'Gracias por tu opinión. Esto es lo que piensa el resto de la gente
+          que ha opinado:'
     layouts:
       application:
         budgets: Presupuestos
       menu_subsections:
         budget: Presupuesto
+        elaboration: Elaboración
         execution: Ejecución
         guide: Guía
         summary: Resumen
+    shared:
+      enough_information:
+        enough_information: "¿Suficiente información?"
+        enough_information_cta: Pide a tu Ayuntamiento
+        enough_information_desc: Si considera que se tienen que incluir más información
+          de estos datos para tener una visión más completa de la misma o sobre el
+          uso de tus impuestos, comunicánoslo y te contestaremos
     visualizations:
       G_custom: Gastos por área
       G_economic: En qué se gasta

@@ -7,6 +7,8 @@ es:
       gobierto_cms_page_published: "%{subject_name}"
       gobierto_cms_page_updated: "%{subject_name}"
       gobierto_cms_section_created: Sección creada
+      gobierto_cms_section_item_created: Página añadida a sección
+      gobierto_cms_section_item_deleted: Página borrada de sección
       gobierto_cms_section_updated: Sección actualizada
     pages:
       index:

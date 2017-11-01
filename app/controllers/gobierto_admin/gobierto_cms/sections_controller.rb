@@ -15,7 +15,7 @@ module GobiertoAdmin
       end
 
       def pages
-        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).search(params[:query]).uniq
+        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.search(params[:query]).uniq
 
         respond_to do |format|
           format.js {render layout: false}

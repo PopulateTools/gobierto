@@ -104,7 +104,7 @@ var VisLinesExecution = Class.extend({
       .key(function(d) { return d.parent_id;})
       .sortValues(function(a, b) {
         // Parent lines are the first for each group, and then child lines are sorted by execution rate
-        return a.level === 1 || b.level === 1 ? b.level - a.level : a.pct_executed - b.pct_executed;
+        return a.level === 1 || b.level === 1 ? b.level - a.level : b.id - a.id;
       })
       .entries(this.data.lines);
 

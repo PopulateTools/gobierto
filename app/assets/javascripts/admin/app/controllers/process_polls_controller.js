@@ -37,7 +37,7 @@ this.GobiertoAdmin.ProcessPollsController = (function() {
   };
 
   function disableEditableComponents() {
-    $('textarea, input, button').prop('disabled', true);
+    $('textarea, input, button, select').prop('disabled', true);
 
     // poll questions
     $('.poll_question_summary .ui-sortable-handle').removeClass('custom_handle');

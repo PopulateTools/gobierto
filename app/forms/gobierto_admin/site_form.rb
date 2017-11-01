@@ -34,7 +34,8 @@ module GobiertoAdmin
       :available_locales,
       :default_locale,
       :privacy_page_id,
-      :populate_data_api_token
+      :populate_data_api_token,
+      :home_page
     )
 
     attr_reader :logo_url
@@ -51,6 +52,7 @@ module GobiertoAdmin
     validates :name_translations, presence: true
     validates :available_locales, length: { minimum: 1 }
     validates :default_locale, presence: true
+    validates :home_page, presence: true
 
     def save
       save_site if valid?
@@ -94,6 +96,10 @@ module GobiertoAdmin
 
     def default_locale
       @default_locale ||= site.configuration.default_locale
+    end
+
+    def home_page
+      @home_page ||= site.configuration.home_page
     end
 
     def visibility_level
@@ -142,7 +148,8 @@ module GobiertoAdmin
         site_attributes.institution_document_number = institution_document_number
         site_attributes.visibility_level = visibility_level
         site_attributes.creation_ip = creation_ip
-        site_attributes.configuration.modules = site_modules
+        site_attributes.configuration.home_page = home_page
+        site_attributes.configuration.modules = (site_modules.append(home_page)).uniq
         site_attributes.configuration.logo = logo_url
         site_attributes.configuration.head_markup = head_markup
         site_attributes.configuration.foot_markup = foot_markup

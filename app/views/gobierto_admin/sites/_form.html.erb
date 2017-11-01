@@ -83,6 +83,11 @@
         </div>
 
         <div class="form_item input_text">
+          <%= f.label :home_page %>
+          <%= f.select :home_page, @site_modules_with_root_path.map{ |p| [p.namespace, p.namespace] } %>
+        </div>
+
+        <div class="form_item input_text">
           <%= f.label :privacy_page_id %>
           <%= f.select :privacy_page_id, @available_pages.map{ |p| [p.title, p.id] }, { include_blank: true } %>
         </div>

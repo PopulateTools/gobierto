@@ -14,7 +14,8 @@ module GobiertoAdmin
         visibility_level: "active",
         default_locale: "es",
         available_locales: %w(es ca),
-        privacy_page_id: privacy_page.id
+        privacy_page_id: privacy_page.id,
+        home_page: "GobiertoParticipation"
       )
     end
 

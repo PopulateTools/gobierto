@@ -12,14 +12,14 @@ news:
   title_translations: <%= {'en' => 'News', 'es' => 'Noticias' }.to_json %>
   slug: noticias
   container: sport_city_process (GobiertoParticipation::Process)
-  item_type: GobiertoCms::Page
+  item_type: GobiertoCms::New
 
 gender_violence_process_news:
   site: madrid
   title_translations: <%= {'en' => 'News', 'es' => 'Noticias' }.to_json %>
   slug: noticias-violencia-genero
   container: gender_violence_process (GobiertoParticipation::Process)
-  item_type: GobiertoCms::Page
+  item_type: GobiertoCms::New
 
 gender_violence_process_calendar:
   site: madrid
@@ -83,6 +83,6 @@ site_news:
   title_translations: <%= {'en' => 'Site news', 'es' => 'Noticias del sitio' }.to_json %>
   slug: site-news
   container: madrid (Site)
-  item_type: GobiertoCms::Page
+  item_type: GobiertoCms::New
 
 ## /end

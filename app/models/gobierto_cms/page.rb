@@ -45,6 +45,14 @@ module GobiertoCms
       nil
     end
 
+    def process
+      GobiertoCommon::CollectionItem.where(item: self, container_type: "GobiertoParticipation::Process").first.container
+    end
+
+    def template
+      collection.item_type.split('::').last.downcase
+    end
+
     def self.pages_in_collections(site)
       ids = GobiertoCommon::CollectionItem.includes(:collection).where("collections.item_type = 'GobiertoCms::New' AND collection_items.item_type = ? ", self.name).pluck(:item_id)
       where(id: ids, site: site)

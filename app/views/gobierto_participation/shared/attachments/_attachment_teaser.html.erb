@@ -1,8 +1,6 @@
 <div class='news_teaser'>
   <h3>
-    <% if @issue %>
-      <%= link_to attachment.name, gobierto_participation_issue_attachment_path(issue_id: @issue.slug, id: attachment.slug) %>
-    <% elsif try(:current_process).present? %>
+    <% if try(:current_process).present? %>
       <%= link_to attachment.name, gobierto_participation_process_attachment_path(process_id: current_process.slug, id: attachment.slug) %>
     <% elsif current_module == "gobierto_participation" %>
       <%= link_to attachment.name, gobierto_participation_attachment_path(id: attachment.slug) %>

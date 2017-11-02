@@ -14,5 +14,6 @@ en:
       index:
         filter: Filter by theme
         title: News
-      show:
+    templates:
+      page:
         documents: Documents

@@ -49,7 +49,6 @@ module GobiertoCommon
     end
 
     def self.type_classes(item_type)
-      byebug
       if item_type == "Page"
         [[::GobiertoCms::Page.model_name.human, ::GobiertoCms::Page.name],
          [I18n.t('activerecord.models.gobierto_cms/new'), "GobiertoCms::New"]]
@@ -102,7 +101,6 @@ module GobiertoCommon
     end
 
     def gobierto_module_for_container(container)
-      byebug
       if container.is_a?(Module)
         [container.name, nil]
       elsif !container_is_a_collector?(container)

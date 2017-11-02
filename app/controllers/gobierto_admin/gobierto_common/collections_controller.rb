@@ -116,6 +116,7 @@ module GobiertoAdmin
 
       def find_containers
         @containers ||= container_items.map { |item| ["#{item.class.model_name.human}: #{item}", item.to_global_id] }
+        @containers.insert(1, ["GobiertoParticipation", nil])
       end
 
       def type_names

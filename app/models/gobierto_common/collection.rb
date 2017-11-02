@@ -10,8 +10,6 @@ module GobiertoCommon
     translates :title
 
     validates :site, :title, :item_type, presence: true
-    validates :container, presence: true, associated: true
-    validates_associated :container
     validates :slug, uniqueness: { scope: :site }
 
     attr_reader :container
@@ -33,6 +31,8 @@ module GobiertoCommon
     def container
       if container_id.present?
         super
+      else
+        container_type.constantize
       end
     end
 
@@ -100,6 +100,7 @@ module GobiertoCommon
     end
 
     def gobierto_module_for_container(container)
+      byebug
       if container.is_a?(Module)
         [container.name, nil]
       elsif !container_is_a_collector?(container)
@@ -120,7 +121,7 @@ module GobiertoCommon
     end
 
     def gobierto_module_instance_for_container(container)
-      if !container_is_a_collector?(container)
+      if !container.is_a?(Module) && !container_is_a_collector?(container)
         [container.class.name, container.id]
       end
     end

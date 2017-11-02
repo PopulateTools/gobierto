@@ -74,6 +74,9 @@ es:
         agenda: Agenda
         documents: Documentos
         news: Noticias
+    pages:
+      show:
+        news: Noticias
     participation_attachments: Ver todos los documentos de Participación
     process_contribution_containers:
       show:

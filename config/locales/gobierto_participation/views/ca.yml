@@ -72,6 +72,9 @@ ca:
         agenda: Agenda
         documents: Documents
         news: Notícies
+    pages:
+      show:
+        news: Noticias
     participation_attachments: Mostra tots les documents de Participació
     process_contribution_containers:
       show:

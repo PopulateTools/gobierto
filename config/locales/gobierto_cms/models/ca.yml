@@ -7,4 +7,5 @@ ca:
         slug: URL
         title: Títol
     models:
+      gobierto_cms/new: Noticia
       gobierto_cms/page: Pàgina

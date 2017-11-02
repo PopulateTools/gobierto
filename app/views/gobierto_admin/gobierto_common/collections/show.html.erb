@@ -14,7 +14,7 @@
 <h1><%= @collection.title %></h1>
 
 <% case @collection.item_type %>
-  <% when 'GobiertoCms::Page' %>
+  <% when 'GobiertoCms::Page', 'GobiertoCms::New' %>
     <div class="admin_tools right">
       <%= link_to t(".new_page"), @new_item_path, class: 'button' if @new_item_path %>
     </div>

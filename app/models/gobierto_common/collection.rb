@@ -49,8 +49,10 @@ module GobiertoCommon
     end
 
     def self.type_classes(item_type)
+      byebug
       if item_type == "Page"
-        [[::GobiertoCms::Page.model_name.human, ::GobiertoCms::Page.name]]
+        [[::GobiertoCms::Page.model_name.human, ::GobiertoCms::Page.name],
+         [I18n.t('activerecord.models.gobierto_cms/new'), "GobiertoCms::New"]]
       elsif item_type == "Attachment"
         [[::GobiertoAttachments::Attachment.model_name.human, ::GobiertoAttachments::Attachment.name]]
       elsif item_type == "Event"

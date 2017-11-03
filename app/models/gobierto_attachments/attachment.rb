@@ -13,7 +13,8 @@ module GobiertoAttachments
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Collectionable
 
-    MAX_FILE_SIZE_IN_BYTES = 10.megabytes
+    MAX_FILE_SIZE_IN_MBYTES = 10
+    MAX_FILE_SIZE_IN_BYTES  = MAX_FILE_SIZE_IN_MBYTES.megabytes
 
     default_scope { order(id: :desc) }
 
@@ -30,7 +31,9 @@ module GobiertoAttachments
 
     attr_accessor :file
 
-    validates :site, presence: true
+    validates :site, :url, presence: true
+    # This validation is duplicated in FileAttachmentForm, but since it's still being used
+    # from the API, we can't remove it.
     validates :file_digest, uniqueness: {
       scope: :site_id,
       message: ->(object, data) do
@@ -66,8 +69,13 @@ module GobiertoAttachments
       where(id: ids, site: site)
     end
 
+    # Assumes file is opened and closed outside this function, since calling 'close'
+    # here may delete the Tempfile
     def self.file_digest(file)
-      Digest::MD5.hexdigest(file.read)
+      file.rewind # just in case upper context left the read pointer at the end
+      digest = Digest::MD5.hexdigest(file.read)
+      file.rewind
+      digest
     end
 
     def extension
@@ -110,14 +118,18 @@ module GobiertoAttachments
 
     private
 
+    # This method is error-prone and should be REMOVED.
+    # This logic is duplicated in FileAttachmentForm. The reason why version is not incremented
+    # twice is because the Form Object decomposes file attribute in file_name, file_size, etc.,
+    # so this code is not executed.
     def update_file_attributes
       if file
         if file.size > MAX_FILE_SIZE_IN_BYTES
-          errors.add(:base, "#{I18n.t('activerecord.messages.gobierto_attachments/attachment.file_too_big')} (#{MAX_FILE_SIZE_IN_BYTES/1024} Mb)")
+          errors.add(:base, "#{I18n.t('activerecord.messages.gobierto_attachments/attachment.file_too_big')} (#{MAX_FILE_SIZE_IN_MBYTES} Mb)")
           throw :abort
         end
 
-        self.file_digest = self.class.file_digest(file.open)
+        self.file_digest = self.class.file_digest(file)
 
         if file_digest_changed? && unique_file_digest?
           self.file_name = file.original_filename
@@ -125,8 +137,6 @@ module GobiertoAttachments
           self.current_version += 1
           self.url = ::GobiertoAdmin::FileUploadService.new(site: site, collection: 'attachments', attribute_name: :attachment, file: file).call
         end
-
-        file.close
       end
     end
 

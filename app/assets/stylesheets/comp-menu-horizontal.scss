@@ -1,0 +1,41 @@
+/*
+ * Horizontal menu
+ * Extended from pure-menu
+ *
+ */
+.pure-menu-horizontal--custom {
+  &.pure-menu.pure-menu-horizontal {
+    margin-bottom: 50px;
+
+    li {
+      border: 1px solid transparentize($color_main, .85);
+      text-transform: uppercase;
+      font-weight: 200;
+
+      a {
+        text-decoration: none;
+      }
+
+      &.active {
+        font-weight: 400;
+        background: transparentize($color_main, .85);
+        border: none;
+
+        &:hover::after {
+          border-top-color: #eee;
+        }
+
+        &::after {
+          top: 100%;
+          left: 50%;
+          border: solid transparent;
+          content: " ";
+          position: absolute;
+          border-top-color: transparentize($color_main, .85);
+          border-width: 15px;
+          margin-left: -15px;
+        }
+      }
+    }
+  }
+}

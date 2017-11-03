@@ -4,7 +4,7 @@
   <div class="filter m_2" role="tablist" aria-label="<%= t('.categories') %>">
     <% if kind == GobiertoBudgets::BudgetLine::EXPENSE %>
       <%= link_to(
-            t('.expense_in_what'),
+            t('.expense_to_do_what'),
             gobierto_budgets_budget_lines_path(year: year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::FunctionalArea.area_name),
             data: {remote: true},
             class: class_if('active', area_name == GobiertoBudgets::FunctionalArea.area_name),
@@ -15,7 +15,7 @@
             'aria-controls' => 'functional-G-table'
       )%>
       <%= link_to(
-            t('.expense_to_do_what'),
+            t('.expense_in_what'),
             gobierto_budgets_budget_lines_path(year: year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area_name: GobiertoBudgets::EconomicArea.area_name),
             data: {remote: true},
             class: class_if('active', area_name == GobiertoBudgets::EconomicArea.area_name),
@@ -64,7 +64,7 @@
         )%>
       <% end %>
     <% end %>
-    <%= link_to '?', '', class:'help tipsit', title: t('.help') %>
+    <%= link_to %Q{#{t('.budget_guide_pitch')}}.html_safe, gobierto_budgets_budgets_guide_path, class:'f_right tipsit', title: t('.help') %>
   </div>
 
   <div class="table_cont_round" role="tabpanel" id="<%= area_name %>-<%= kind %>-table" aria-labelledby="<%= area_name %>-<%= kind %>">
@@ -78,6 +78,13 @@
       </tr>
 
       <%= render partial: 'gobierto_budgets/budget_lines/budget_line_row', collection: place_budget_lines, as: :budget_line, locals: { year: year, place: place, area_name: area_name, kind: kind } %>
+      <tr>
+        <td class="budget_line"><strong>Total</strong></td>
+        <td class="qty big_qty"><%= number_to_currency(kind == GobiertoBudgets::BudgetLine::INCOME ? @site_stats.total_income_budget : @site_stats.total_budget, precision: 0) %></td>
+        <td class="qty big_qty"><%= number_to_currency(kind == GobiertoBudgets::BudgetLine::INCOME ? @site_stats.total_income_budget_per_inhabitant : @site_stats.total_budget_per_inhabitant, precision: 2) %></td>
+        <td class="qty"></td>
+        <td class="bar"></td>
+      </tr>
     </table>
   </div>
 </div>

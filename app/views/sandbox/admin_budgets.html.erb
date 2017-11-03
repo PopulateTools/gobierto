@@ -1,0 +1,56 @@
+
+<h1>Presupuestos</h1>
+
+<div class="tabs">
+  <ul>
+    <!-- Show this tab only if Micro-participaciones is active -->
+    <li class="active"><a href="">Opiniones</a></li>
+    <li ><a href="admin_budgets_options">Opciones</a></li>
+  </ul>
+</div>
+
+<p>Total opiniones: <strong>123</strong></p>
+<p>Última: <strong>hace 5 minutos</strong></p>
+
+<table class="results_report">
+<% for i in [
+  "Otras actuaciones de carácter económico",
+  "Administración General de la Seguridad y Protección Civil",
+  "Comercio, turismo y pequeñas y medianas empresas",
+  "Servicios públicos básicos",
+  "Producción de bienes públicos de carácter preferente",
+  "Otras actuaciones de carácter económico",
+  "Administración General de la Seguridad y Protección Civil",
+  "Comercio, turismo y pequeñas y medianas empresas",
+  "Servicios públicos básicos",
+  "Producción de bienes públicos de carácter preferente",
+  "Otras actuaciones de carácter económico",
+  "Administración General de la Seguridad y Protección Civil",
+  "Comercio, turismo y pequeñas y medianas empresas",
+  "Servicios públicos básicos",
+  "Producción de bienes públicos de carácter preferente"
+] %>
+<tr>
+  <td rowspan="2" class="budget">
+    <div class="budget"><strong>Presupuesto 2016</strong></div>
+    <div class="budget_line"><%= i %></div>
+    <div class="num_opinions">23 opiniones</div>
+  </td>
+  <td colspan="4">¿Lo entiendes?</td>
+  <td colspan="6">Te parece...</td>
+</tr>
+<tr>
+  <td>Si</td>
+  <td>34%</td>
+  <td>No</td>
+  <td>66%</td>
+
+  <td>Poco</td>
+  <td>33%</td>
+  <td>Apropiado</td>
+  <td>33%</td>
+  <td>Mucho</td>
+  <td>33%</td>
+</tr>
+<% end %>
+</table>

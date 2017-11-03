@@ -1,6 +1,7 @@
 module GobiertoAdmin
   module GobiertoAttachments
     class FileAttachmentsController < BaseController
+
       before_action :load_collection, only: [:new, :edit, :create, :update, :destroy]
 
       def index
@@ -9,13 +10,13 @@ module GobiertoAdmin
       end
 
       def new
-        @file_attachment_form = FileAttachmentForm.new(site_id: current_site.id, collection_id: @collection)
+        @file_attachment_form = FileAttachmentForm.new(site_id: current_site.id, collection_id: collection_id)
       end
 
       def edit
         @file_attachment = find_file_attachment
         @file_attachment_form = FileAttachmentForm.new(
-          @file_attachment.attributes.except(*ignored_file_attachment_attributes).merge(site_id: current_site.id, collection_id: @collection)
+          @file_attachment.attributes.except(*ignored_file_attachment_attributes).merge(site_id: current_site.id, collection_id: collection_id)
         )
       end
 
@@ -23,13 +24,13 @@ module GobiertoAdmin
         @file_attachment_form = FileAttachmentForm.new(
           file_attachment_params.merge(
             site_id: current_site.id,
-            collection_id: @collection,
+            collection_id: collection_id,
             admin_id: current_admin.id
           )
         )
         if @file_attachment_form.save
           redirect_to(
-            edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id, collection_id: @collection.id),
+            edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id, collection_id: collection_id),
             notice: t(".success_html", link: @file_attachment_form.file_attachment.to_url(host: current_site.domain))
           )
         else
@@ -39,23 +40,32 @@ module GobiertoAdmin
 
       def update
         @file_attachment = find_file_attachment
-        @file_attachment_form = FileAttachmentForm.new(file_attachment_params.merge(id: params[:id], admin_id: current_admin.id, site_id: current_site.id, collection_id: @collection.id))
-        if @file_attachment_form.save
 
+        @file_attachment_form = FileAttachmentForm.new(file_attachment_params.merge(
+          id: params[:id],
+          admin_id: current_admin.id,
+          site_id: current_site.id,
+          collection_id: collection_id
+        ))
+
+        if @file_attachment_form.save
           redirect_to(
-            edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id, collection_id: @collection),
+            edit_admin_attachments_file_attachment_path(@file_attachment_form.file_attachment.id, collection_id: collection_id),
             notice: t(".success_html", link: @file_attachment_form.file_attachment.to_url(host: current_site.domain))
           )
         else
-          @collection = @page.file_attachment
-          render :edit, collection_id: @collection.id
+          render :edit, collection_id: collection_id
         end
       end
 
       private
 
       def load_collection
-        @collection = current_site.collections.find(params[:collection_id])
+        @collection = params[:collection_id] ? current_site.collections.find(params[:collection_id]) : nil
+      end
+
+      def collection_id
+        @collection ? @collection.id : nil
       end
 
       def default_activity_params

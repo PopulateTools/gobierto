@@ -17,9 +17,11 @@ ca:
           header:
             collection: Col·lecció
             pages: Pàgines
+            section: Secció
           latest_editions: Últimes edicions
           new: Nova
-          title: Pàgines
+          title: CMS
           view_collection: Veure col·lecció
+          view_section: Veure secció
         new:
           title: Nova pàgina

@@ -1,0 +1,4 @@
+participation:
+  title_translations: <%= { 'en' => 'Participation', 'es' => 'Participación' }.to_json %>
+  slug: 'participacion'
+  site: madrid

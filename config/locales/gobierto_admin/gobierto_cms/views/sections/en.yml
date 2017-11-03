@@ -1,0 +1,33 @@
+---
+en:
+  gobierto_admin:
+    gobierto_cms:
+      sections:
+        edit_modal:
+          title: Edit section
+        form:
+          placeholders:
+            slug: about-this-section
+            title: Section title
+        index:
+          header:
+            pages: Sections
+            title: Section
+          new: New
+          title: Sections
+          view: View section
+        new_modal:
+          title: New section
+        pages_filter:
+          page_help: Drag and drop on the left side to place this page in the menu
+        show:
+          collapse: Collapse everything
+          delete_element: Remove item from menu
+          expand: Expand all
+          help: Configure the elements in your menu. Drag from the right panel to
+            the menu on the left
+          last_edited_pages: Last edited pages
+          placeholders:
+            search: Enter the title of the page to search
+          sections: Sections
+          select_page: Select page to include in the section

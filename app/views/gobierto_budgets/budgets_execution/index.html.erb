@@ -28,33 +28,29 @@
         </div>
       </div>
 
-      <div class="pure-u-1 pure-u-md-1-2 metric_boxes">
+      <div class="pure-u-1 pure-u-md-1-2 metric_boxes metric_boxes_detailed">
         <div class="pure-g">
-
-          <% if  @budgets_execution_summary[:expenses_execution_percentage] %>
-            <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
-              <div class="inner">
-                <h3><%= t('.metric.execution.expenses_title') %></h3>
-                <div class="metric"><%= @budgets_execution_summary[:expenses_execution_percentage]%> %</div>
-
-                <% if @budgets_execution_summary[:expenses_previous_execution_percentage] %>
-                  <div class="explanation desktop_only">
-                    <%= t('.metric.execution.previous_execution_message',
-                          year: @budgets_execution_summary[:previous_year],
-                          percentage: @budgets_execution_summary[:expenses_previous_execution_percentage]
-                    ) %> %
-                  </div>
-                <% end %>
-
-              </div>
-            </div>
-          <% end %>
 
           <% if  @budgets_execution_summary[:income_execution_percentage] %>
             <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
               <div class="inner">
                 <h3><%= t('.metric.execution.income_title') %></h3>
                 <div class="metric"><%= @budgets_execution_summary[:income_execution_percentage] %> %</div>
+
+                <div class="metric_details">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th><%= t('.income_planned') %></th>
+                        <td><%= format_currency @site_stats.total_income_budget %></td>
+                      </tr>
+                      <tr>
+                        <th><%= t('.real_income') %></th>
+                        <td><%= format_currency @site_stats.total_income_budget_executed %></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
 
                 <% if @budgets_execution_summary[:income_previous_execution_percentage] %>
                   <div class="explanation desktop_only">
@@ -69,6 +65,39 @@
             </div>
           <% end %>
 
+          <% if  @budgets_execution_summary[:expenses_execution_percentage] %>
+            <div class="pure-u-1-2 pure-u-md-1-2 metric_box">
+              <div class="inner">
+                <h3><%= t('.metric.execution.expenses_title') %></h3>
+                <div class="metric"><%= @budgets_execution_summary[:expenses_execution_percentage]%> %</div>
+
+                <div class="metric_details">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th><%= t('.expenses_planned') %></th>
+                        <td><%= format_currency @site_stats.total_budget %></td>
+                      </tr>
+                      <tr>
+                        <th><%= t('.real_expenses') %></th>
+                        <td><%= format_currency @site_stats.total_budget_executed %></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <% if @budgets_execution_summary[:expenses_previous_execution_percentage] %>
+                  <div class="explanation desktop_only">
+                    <%= t('.metric.execution.previous_execution_message',
+                          year: @budgets_execution_summary[:previous_year],
+                          percentage: @budgets_execution_summary[:expenses_previous_execution_percentage]
+                    ) %> %
+                  </div>
+                <% end %>
+
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
@@ -98,7 +127,7 @@
               <span class="soft"><%= t('.category') %></span>
               <div class="button-group ib" role="group">
                 <% if @any_economic_expense_budget_lines %>
-                  <button class="button-grouped active expenses_switcher" data-toggle="economic"><%= t('.economic_button') %></button>
+                  <button class="button-grouped expenses_switcher" data-toggle="economic"><%= t('.economic_button') %></button>
                 <% end %>
                 <% if @any_functional_expense_budget_lines %>
                   <button class="button-grouped expenses_switcher" data-toggle="functional"><%= t('.functional_button') %></button>
@@ -139,7 +168,7 @@
               <span class="soft"><%= t('.category') %></span>
               <div class="button-group ib" role="group">
                 <% if @any_economic_income_budget_lines %>
-                  <button class="button-grouped income_switcher active" data-toggle="economic"><%= t('.economic_button') %></button>
+                  <button class="button-grouped income_switcher" data-toggle="economic"><%= t('.economic_button') %></button>
                 <% end %>
                 <% if @any_custom_income_budget_lines %>
                   <button class="button-grouped button-grouped-one income_switcher" data-toggle="custom"><%= t('.custom_button') %></button>

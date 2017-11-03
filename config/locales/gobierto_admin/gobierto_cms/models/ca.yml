@@ -6,5 +6,9 @@ ca:
         body: Contingut
         slug: URL
         title: Títol
+      gobierto_admin/gobierto_cms/section_form:
+        slug: URL
+        title: Títol
     models:
       gobierto_admin/gobierto_cms/page_form: Pàgina
+      gobierto_admin/gobierto_cms/section_form: Secció

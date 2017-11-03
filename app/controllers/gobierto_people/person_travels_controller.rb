@@ -6,7 +6,7 @@ module GobiertoPeople
     def index
       redirect_to travels_service_url and return if travels_service_url.present?
 
-      redirect_to :back, notice: t(".error")
+      redirect_back(fallback_location: root_path, notice: t(".error"))
     end
 
     private
@@ -18,7 +18,8 @@ module GobiertoPeople
     end
 
     def travels_service_url
-      APP_CONFIG.dig("gobierto_people", "travels_service_url")
+      APP_CONFIG.dig("gobierto_people", "travels_service_url_#{I18n.locale}") ||
+        APP_CONFIG.dig("gobierto_people", "travels_service_url")
     end
   end
 end

@@ -34,6 +34,11 @@ news_collection_notice_2:
   item: notice_2 (GobiertoCms::Page)
   container: gender_violence_process (GobiertoParticipation::Process)
 
+site_news_1:
+  collection: site_news (GobiertoCommon::Collection)
+  item: about_site (GobiertoCms::Page)
+  container: madrid (Site)
+
 ## /end Pages collection items
 
 ## Events collection items

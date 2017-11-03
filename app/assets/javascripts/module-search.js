@@ -52,7 +52,7 @@ $(document).on('turbolinks:load', function() {
     }
   }
 
-  function searchCallback(err, content) {
+  function searchFrontCallback(err, content) {
     if (err) {
       console.error(err);
       return;
@@ -63,9 +63,11 @@ $(document).on('turbolinks:load', function() {
     content.results.forEach(function(indexResults){
       sum += indexResults.nbHits;
     });
+
     if(sum > 0) {
       content.results.forEach(function(indexResults){
         indexResults.hits.forEach(function(d){
+
           var result = '<a class="result" <a href="' + d.resource_path + '">' +
             '<h2>' + (d['title'] || d['name'] || d['title_' + I18n.locale] || d['name_' + I18n.locale]) + '</h2>' +
             '<div class="description">' +
@@ -79,11 +81,14 @@ $(document).on('turbolinks:load', function() {
           div.appendTo($resultsContainer);
         });
       });
+      rebindAll();
     } else {
-      $('<div class="result"><p>No hay resultados</p></div>').appendTo($resultsContainer);
+      $('<div class="result"><p>'+I18n.t("layouts.search.no_results")+'</p></div>').appendTo($resultsContainer);
     }
 
-    $('<div class="result"><small>'+I18n.t("layouts.search.powered_by")+'</small></div>').appendTo($resultsContainer);
+    if(window.searchClient.indexes.length > 1) {
+      $('<div class="result"><small>'+I18n.t("layouts.search.powered_by")+'</small></div>').appendTo($resultsContainer);
+    }
   }
 
   $input.on('keyup', function(e){
@@ -101,7 +106,7 @@ $(document).on('turbolinks:load', function() {
     });
 
     if(q.length > 2){
-      window.searchClient.client.search(queries, searchCallback);
+      window.searchClient.client.search(queries, searchFrontCallback);
     } else {
       $resultsContainer.html('');
     }

@@ -23,6 +23,7 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
 
     @budgets_data_updated_at   = current_site.budgets_data_updated_at('execution')
     @budgets_execution_summary = GobiertoBudgets::SiteStats.new(site: current_site, year: @year).budgets_execution_summary
+    @site_stats = GobiertoBudgets::SiteStats.new site: @site, year: @year
   end
 
   private

@@ -4,6 +4,11 @@
  */
 .filter {
   font-size: .75em;
+  @include screen(768) {
+    &.m_2 {
+      margin: 0 0 1em 0;
+    }
+  }
   a {
     display: inline-block;
     padding: .35em 1.25em .25em;
@@ -12,6 +17,10 @@
     background: rgba($color_main, .2);
     text-decoration: none;
     cursor: pointer;
+
+    @include screen(768) {
+      padding: .35em .5em .25em;
+    }
   }
   a:hover {
     background: rgba($color_main, .3);
@@ -33,6 +42,9 @@
   }
   span.label {
     padding: 0 1em;
+  }
+  a:last-child {
+    margin-right: 0;
   }
 }
 

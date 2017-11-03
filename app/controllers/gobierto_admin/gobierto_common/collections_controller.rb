@@ -2,6 +2,7 @@ module GobiertoAdmin
   module GobiertoCommon
     class CollectionsController < BaseController
       helper_method :gobierto_common_page_preview_url
+
       before_action :load_collection, only: [:show, :edit, :update]
       before_action :redirect_to_custom_show, only: [:show]
 
@@ -109,10 +110,6 @@ module GobiertoAdmin
         %w[created_at updated_at container_type container_id]
       end
 
-      def find_collection
-        current_site.collections.find(params[:id])
-      end
-
       def container_items
         [current_site, current_site.people, current_site.processes].flatten
       end
@@ -131,7 +128,7 @@ module GobiertoAdmin
       end
 
       def load_collection
-        @collection = find_collection
+        @collection = current_site.collections.find(params[:id])
       end
 
       def redirect_to_custom_show

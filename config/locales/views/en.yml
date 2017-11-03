@@ -88,7 +88,11 @@ en:
     search:
       budget_line_item_expense: Budget line - Expense
       budget_line_item_income: Budget line - Income
+      drag_drop_instructions: Drag and drop on the left side to place this page in
+        the menu
       event_item: Event
+      no_results: The search did not match any page. Try something like using more
+        general terms or checking spelling.
       page_item: Page
       person_item: Biography
       person_post_item: Post
@@ -114,6 +118,7 @@ en:
     edit: Edit
     forms:
       max_characters: Max. %{length} characters
+      required_and_max_characters: Required and Màx. %{length} caràcters
     pagination:
       next: Next
       previous: Prev

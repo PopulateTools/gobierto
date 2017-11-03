@@ -5,11 +5,11 @@ module GobiertoParticipation
     class PollAnswersController < BaseController
 
       include User::VerificationHelper
-      
+
       before_action :authenticate_user!
       before_action { verify_user_in!(current_site) }
       before_action { check_active_stage(current_process, ProcessStage.stage_types[:polls]) }
-      
+
       def new
         if !current_poll.has_answers_from?(current_user)
           @poll_answer_form = PollAnswerForm.new(poll: current_poll)

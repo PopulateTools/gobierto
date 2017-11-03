@@ -27,12 +27,13 @@
     <!-- if poll has started and received some vote -->
     <div class="flash notice">
       <p>La encuesta ya está activa y ha recibido votos, por lo que no puedes editarla.</p>
-      <p>Se han recibido <strong>123 votos</strong>. A este ritmo se pueden esperar 123. <a href="#front">Ver encuesta</a>.
+      <p>Se han recibido <strong>123 votos</strong>. A este ritmo se pueden esperar 123. <a href="#front">Ver encuesta</a>.</p>
+      <p>Podrás consultar los resultados cuando finalice.</p>
     </div>
 
     <!-- if poll has started and received some vote -->
     <div class="flash notice">
-      MODULO RESULTADOS / ESTANDARIZAR CON LO DE CONSULTAS
+      <p>Encuesta finalizada. <a href="admin_part_group_polls_poll_results">Resultados</a>.</p>
     </div>
 
 
@@ -223,6 +224,36 @@
             <input data-language="es" data-timepicker="true" data-date-format="yyyy-mm-dd" data-time-format="hh:ii" data-startDate="2017-06-23T13:00:00+00:00" class="air-datepicker" readonly="readonly" type="text" value="2017-06-23 13:00" name="person_event[ends_at]" id="person_event_ends_at" />
           </div>
         </div>
+      </div>
+
+      <div class="form_block">
+
+        <div class="form_item">
+
+          <div class="options compact">
+
+            <h3>Pueden participar</h3>
+
+            <div class="option">
+              <input type="radio" value="es" name="can_interact" id="can_interact_1" checked />
+              <label for="can_interact_1">
+                <span></span>
+                Todos los usuarios registrados
+              </label>
+            </div>
+
+            <div class="option">
+              <input type="radio" value="es" name="can_interact" id="can_interact_2" />
+              <label for="can_interact_2">
+                <span></span>
+                Solo usuarios verificados
+              </label>
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
 
     </form>

@@ -11,13 +11,13 @@ ca:
         search_budget_line: Cerca una partida específica
       index:
         amount: Quantitat
+        budget_guide_pitch: Consulta la Guia del Pressupost
         budget_line: Partida
         categories: Categories pressupostàries
         custom: Àrees
         expense_in_what: En què es gasta
         expense_to_do_what: Per a què es gasta
-        help: El pressupuest organitza les despeses en dues categories. Consulta la
-          nostra guia.
+        help: T'expliquem com funciona un pressupost municipal
         income_from_what: En què s'ingressa
         per_inhabitant: Per habitant
         title: Pressupostos municipals en %{year}
@@ -30,6 +30,9 @@ ca:
         budget_line_value: Quantitat
         budget_lines_distribution: Distribució de les despeses d'aquesta partida
         evolution: Evolució
+        give_your_opinion: Opina sobre aquesta partida
+        give_your_opinion_cta: Entens de què va aquesta partida? Te pareix molt, poc?
+          Opina
         last_year: L'any passat
         no_description: No hi ha una descripció associada a aquesta partida.
         no_distribution: No hi ha distribució associada a aquesta partida.
@@ -38,6 +41,7 @@ ca:
         percentage: "% sobre el total del press."
         planned: pressupostat
         planned_per_inhabitant: pres. / hab.
+        raise_hand: Alça la mà
         real_value: El %{kind} real són %{value}
         real_vs_planned: real vs. pres.
         sub_budget_lines: Dins d'aquesta partida
@@ -45,6 +49,7 @@ ca:
           al %{year}'
         twitter_text_income: 'En @gobierto: Ingrés municipal de %{name} en %{budget_line_name}
           al %{year}'
+        vs_previous_year: vs. exercici anterior
     budgets:
       guide:
         budget_execution: L'execució pressupostària
@@ -225,8 +230,8 @@ ca:
         inhabitants: Habitants
         last_update: Última actualització
         less: menys
+        level_1_category: Categoria nivell 1
         level_2_category: Categoria nivell 2
-        level_3_category: Categoria nivell 3
         main_budget_levels_legend_down: Han baixat
         main_budget_levels_legend_one: Canvi entre aquest any
         main_budget_levels_legend_two: i el passat
@@ -274,6 +279,45 @@ ca:
         top_income_value: Quantitat
         total_expenses: Despesa total
         visualize: Visualitza les despeses per habitant o el total
+    budgets_elaboration:
+      index:
+        at_a_glance: Evolució de la despesa i comparació
+        auto_funding: Capacitat autofinanciació
+        by_custom_category: per àrea
+        by_economic_expense: en què es gasta
+        by_economic_income: en què s'ingressa
+        by_functional_expense: per a què
+        category_percentage: "% s/ Total"
+        category_value: Quantitat
+        context: Contexte
+        debt_level: Nivell d'endeudament
+        description: L'equip de govern publica el esborrany del pressupost del pròxim
+          exercici per a debatir en overt amb l'oposició i els veins. Entre tots podem
+          elaborar el pressupost que més convinga a la ciutat.
+        diff_previous_year: vs. %{year}
+        expenses_per_inhabitant: Despesa per habitant
+        explore_the_detail: Explora el detall
+        header: Elaboració del pressupost
+        in_total: En total
+        last_update: Dades actualitzades
+        main_budget_levels_timeline: Compara despeses i ingressos any per any
+        main_budget_lines: Els principals ingressos i despeses del teu ajuntament
+        main_budget_lines_expense: Despeses
+        main_budget_lines_income: Ingressos
+        metric_boxes_data: Les dades
+        metric_boxes_data_description: Així canviarà el pressupost del pròxim exercici
+        net_savings: Estalviament net
+        next_year_proposal: Proposta pel %{year}
+        no_data: Ni ha dades per a aquesta classificació
+        note_about_the_data: Nota sobre les dades
+        note_about_the_data_title: La base de dades que utilitzem no inclou dades
+          pel 100% dels municipis, axí que les mitjanes estàn calculades només amb
+          les dades que existeixen (que són la gran majoria). Més informació a les
+          nostres preguntes frequents
+        per_person: Per habitant
+        proposal: Proposta
+        total_expenses: Despesa total
+        visualize: Visualitza la despesa per habitant o total
     budgets_execution:
       execution_table:
         deviation: Desviació
@@ -299,9 +343,11 @@ ca:
           preveure totes les despeses amb precisió absoluta.
         execution_help: L'execució es la quantitat que finalment s'ha gastat sobre
           lo pressupostat inicialment.
+        expenses_planned: Despeses pressupostats
         functional: Funcional
         functional_button: En què es gasta
         higher_execution: Més execució
+        income_planned: Ingresos pressupostats
         last_update: Última actualització
         lower_execution: Menys execució
         metric:
@@ -310,6 +356,8 @@ ca:
             income_title: Execució d'ingressos
             previous_execution_message: El %{year} l'execució va ser del %{percentage}
         percentage: Percentatge
+        real_expenses: Despeses reials
+        real_income: Ingresos reals
         sort: Ordre
         title: Execució pressupostària
         tooltip_disclaimer: "<strong>Aquesta és una aproximació</strong>. <br /> Al
@@ -318,8 +366,8 @@ ca:
         value: Valor
         vis:
           absolute: Execució en €
-          empty_lines: Les categories personalitzades no estan disponibles. Per favor,
-            selecciona un altre any.
+          empty_lines: No hi ha dades disponibles per aquesta classificació en aquest
+            any. Per favor, selecciona un altre filtrat.
           expenses:
             title: L'estat de l'execució de les despeses
           income:
@@ -362,14 +410,51 @@ ca:
         show_me_another: Mostra'm un altra
         title: Algunes partides destacades
         total: Despesa total
+    feedback:
+      follow:
+        follow: Seguir
+        your_email: El teu correu
+      follow_success:
+        error: Pareix que el correu introduit no es vàlid. Per favor revisa-ho
+        share: Vols compartir aquestes dades en
+        share_text: Informat i opina sobre el pressupost de %{place_name}
+        success: Molt bé! Revisa el teu correu i fes click en el enllaç que t'hem
+          enviat
+      step1:
+        answer1_0: Si
+        answer1_1: 'No'
+        understand: Entens de què va aquesta partida?
+      step2_no:
+        answer_html: El <strong>%{datum}</strong> de personae han dit que <strong>No
+          entenen de què va aquesta partida</strong>
+        ask: Pots demanar al teu alcalde que amplie l'informació sobre aquesta i altres
+          partides
+      step2_yes:
+        option1_html: Me pareix <span>POC</span>
+        option2_html: Me pareix <span>APROPIAT</span>
+        option3_html: Me pareix <span>MOLT</span>
+        question: Creus que la quantitat de despesa es apropiada?
+      step3:
+        option1: Poco
+        option2: Apropiat
+        option3: Molt
+        thanks: 'Gràcies por la teva opinió. Això es lo que pensa la resta de la gent:'
     layouts:
       application:
         budgets: Pressupostos
       menu_subsections:
         budget: Pressupost
+        elaboration: Elaboració
         execution: Execució
         guide: Guia
         summary: Resum
+    shared:
+      enough_information:
+        enough_information: Suficient informació?
+        enough_information_cta: Demana al teu Ajuntament
+        enough_information_desc: Si considera que s'ha d'incloure més informació d'aquestes
+          dades per tenir una visió més completa de la mateixa o sobre l'ús dels teus
+          impostos, comuniqui-ho i li contestarem
     visualizations:
       G_custom: Despeses per àrea
       G_economic: En què es gasta

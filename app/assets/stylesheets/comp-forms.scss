@@ -87,6 +87,10 @@ input[type=text]:focus, input[type=email]:focus, input[type=submit]:focus, input
     border: none;
     height: initial;
   }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 }
 input[type=submit], .button, button {
   @include transition;
@@ -377,10 +381,16 @@ option, select {
 .option {
 	padding: 0;
   position: relative;
+  .inline_help {
+    margin-left: 2.6em;
+  }
 }
 .option.separate {
   margin-top: 1em;
   padding-top: 1em;
+}
+.option_suboptions {
+  padding: 0 0 0 3em;
 }
 .form_item.input_text, .form_item.textarea, .select_control, .file_field {
   position: relative;

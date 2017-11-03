@@ -6,6 +6,7 @@ module GobiertoAdmin
       before_action :load_collection, only: [:new, :edit, :create, :update, :destroy]
 
       def index
+        @sections = current_site.sections
         @collections = current_site.collections.by_item_type("GobiertoCms::Page")
         @pages = ::GobiertoCms::Page.pages_in_collections(current_site).sort_by_updated_at(10)
       end

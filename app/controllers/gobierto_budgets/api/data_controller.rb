@@ -63,7 +63,7 @@ module GobiertoBudgets
 
       def lines
         @place = INE::Places::Place.find(params[:ine_code])
-        data_line = GobiertoBudgets::Data::Lines.new place: @place, year: params[:year], what: params[:what], kind: params[:kind], code: params[:code], area: params[:area]
+        data_line = GobiertoBudgets::Data::Lines.new place: @place, year: params[:year], what: params[:what], kind: params[:kind], code: params[:code], area: params[:area], include_next_year: params[:include_next_year]
 
         respond_lines_to_json data_line
       end

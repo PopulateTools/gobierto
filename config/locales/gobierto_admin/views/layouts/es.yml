@@ -7,8 +7,9 @@ es:
           account: Tu cuenta
           sign_out: Cerrar sesión
         budget_consultations: Consultas de presupuestos
+        budgets: Presupuestos
         calendars: Agendas
-        cms: Gestión de páginas
+        cms: CMS
         collapse_menu: Colapsar menú
         dirty_forms:
           message: Hay cambios sin guardar. ¿Estás seguro de querer continuar?

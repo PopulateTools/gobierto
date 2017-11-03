@@ -16,7 +16,7 @@ module GobiertoCms
     include GobiertoCommon::Collectionable
 
     algoliasearch_gobierto do
-      attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca
+      attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca, :collection_id
       searchableAttributes %w(title_en title_es title_ca body_en body_es body_ca)
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
@@ -46,17 +46,17 @@ module GobiertoCms
     end
 
     def self.pages_in_collections(site)
-      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCms::Page").pluck(:item_id)
-      where(id: ids, site: site).active
+      ids = GobiertoCommon::CollectionItem.where(item_type: self.name).pluck(:item_id)
+      where(id: ids, site: site)
     end
 
     def self.pages_in_collections_and_container_type(site, container_type)
-      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCms::Page", container_type: container_type).pluck(:item_id)
-      where(id: ids, site: site).active
+      ids = GobiertoCommon::CollectionItem.where(item_type: self.name, container_type: container_type).pluck(:item_id)
+      where(id: ids, site: site)
     end
 
     def self.pages_in_collections_and_container(site, container)
-      ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCms::Page", container: container).pluck(:item_id)
+      ids = GobiertoCommon::CollectionItem.where(item_type: self.name, container: container).pluck(:item_id)
       where(id: ids, site: site)
     end
 
@@ -71,7 +71,7 @@ module GobiertoCms
         elsif collection.container_type == "GobiertoParticipation"
           url_helpers.gobierto_participation_page_url({ id: slug, host: app_host }.merge(options))
         else
-          url_helpers.gobierto_cms_page_url(parameterize.merge(host: app_host).merge(options))
+          url_helpers.gobierto_cms_page_url({ id: slug }.merge(host: app_host).merge(options))
         end
       end
     end

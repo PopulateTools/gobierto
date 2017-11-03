@@ -1,0 +1,11 @@
+<div class="budget_line_feedback ask_your_entity">
+  <div class="inner">
+    <h3><%= t('.enough_information') %></h3>
+
+    <p><%= t('.enough_information_desc') %></p>
+
+    <%= link_to t('.enough_information_cta'), gobierto_budgets_feedback_load_follow_path(id: @budget_line.try(:id)), remote: true, class: 'button' %>
+
+    <div id="load_follow"></div>
+  </div>
+</div>

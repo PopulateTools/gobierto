@@ -93,7 +93,11 @@ ca:
     search:
       budget_line_item_expense: Partida pressupostària - Despesa
       budget_line_item_income: Partida pressupostària - Ingrés
+      drag_drop_instructions: Arrossegueu i deixeu anar al costat esquerre per col·locar
+        aquesta pàgina al menú
       event_item: Event
+      no_results: La cerca no ha coincidit amb cap pàgina. Proveu alguna cosa com
+        usant termes més generals o verificant l'ortografia.
       page_item: Pàgina
       person_item: Biografia
       person_post_item: Post
@@ -120,6 +124,7 @@ ca:
     edit: Edita
     forms:
       max_characters: Màx. %{length} caràcters
+      required_and_max_characters: Obligatori i Màx. %{length} caràcters
     pagination:
       next: Següent
       previous: Anterior

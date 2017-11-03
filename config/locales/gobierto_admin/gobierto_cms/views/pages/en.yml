@@ -17,9 +17,11 @@ en:
           header:
             collection: Collection
             pages: Pages
+            section: Section
           latest_editions: Latests editions
           new: New
-          title: Pages
+          title: CMS
           view_collection: View collection
+          view_section: View section
         new:
           title: New page

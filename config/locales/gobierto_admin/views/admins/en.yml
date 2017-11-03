@@ -6,6 +6,7 @@ en:
         title: Edit Admin
       form:
         activity_block: Activity log
+        all: All
         authorization_level:
           disabled: Disabled
           manager: Manager

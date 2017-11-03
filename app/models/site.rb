@@ -38,6 +38,7 @@ class Site < ApplicationRecord
 
   # Gobierto CMS integration
   has_many :pages, dependent: :destroy, class_name: "GobiertoCms::Page"
+  has_many :sections, dependent: :destroy, class_name: "GobiertoCms::Section"
 
   # Gobierto Attachments integration
   has_many :attachments, dependent: :destroy, class_name: "GobiertoAttachments::Attachment"
@@ -103,6 +104,12 @@ class Site < ApplicationRecord
   def gobierto_people_settings
     @gobierto_people_settings ||= if configuration.gobierto_people_enabled?
                                     module_settings.find_by(module_name: "GobiertoPeople")
+                                  end
+  end
+
+  def gobierto_budgets_settings
+    @gobierto_budgets_settings ||= if configuration.gobierto_budgets_enabled?
+                                    module_settings.find_by(module_name: "GobiertoBudgets")
                                   end
   end
 

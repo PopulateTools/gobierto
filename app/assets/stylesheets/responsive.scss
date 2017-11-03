@@ -12,16 +12,18 @@
       margin: 0 0 1em 0;
     }
   }
-  .metric_boxes {	
+  .metric_boxes {
     margin: 0 0 2em 0;
     .metric_box {
       .inner {
-        margin: 0;	
+        margin: 0;
+        min-height: initial;
+        padding: .5em;
       }
       h3 {
-        font-size: 1em;
-        min-height: 2.8em;
-        line-height: 1.2em;
+        font-size: .85em;
+        min-height: initial;
+        line-height: 1em;
       }
       .metric {
         font-size: 1.6em;
@@ -43,6 +45,18 @@
         margin: 0 0 1em .5em;
       }
     }
+    .metric_box:last-child {
+      width: 100%;
+      .inner {
+        margin: 0;
+        min-height: initial;
+      }
+    }
+    .metric_box.cta {
+      a {
+        padding: .5em;
+      }
+    }
   }
   table {
     td, th {
@@ -56,9 +70,6 @@
     }
   }
   table.explore_slow {
-    td.level_1 {
-      display: none;
-    }
     td {
       padding: .5em .5em .5em 0;
       font-size: .7em;
@@ -122,9 +133,10 @@
   }
   .breadcrumb {
     padding: .75em 0;
+    margin: 0 0 .5em 0;
     .bread_links {
       line-height: 1.3em;
       font-size: .75em;
-    }	
+    }
   }
 }

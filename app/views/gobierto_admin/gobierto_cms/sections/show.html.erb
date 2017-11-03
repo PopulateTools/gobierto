@@ -1,0 +1,60 @@
+<div class="admin_breadcrumb">
+  <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
+  <%= link_to t(".sections"), admin_cms_sections_path %> »
+  <%= @section.title %>
+</div>
+
+<h1><%= @section.title %></h1>
+
+<div class="m_v_2">
+  <div class="admin_tools f_right right">
+    <%= link_to '<i class="fa fa-cog"></i> Configuración'.html_safe, edit_admin_cms_section_path(@section), class: 'open_remote_modal' %>
+  </div>
+  <%= t('.help') %>
+</div>
+
+<div class="pure-g">
+
+  <div class="pure-u-1 pure-u-md-1-2 p_h_r_2">
+
+    <div class="section_editor_section_canvas">
+      <div class="section_canvas_tools">
+        <%= link_to "", id: "collapse", class: "tipsit", title: t('.collapse'), remote: "true" do %>
+          <i class="fa fa-compress"></i><% end %>
+        <%= link_to "", id: "expand", class: "tipsit", title: t('.expand'), remote: "true" do %>
+          <i class="fa fa-expand"></i>
+        <% end %>
+      </div>
+
+      <div id="tree1"></div>
+
+    </div>
+
+  </div>
+
+  <div class="pure-u-1 pure-u-md-1-2">
+
+    <div class="form_item input_text">
+      <label for="name"><%= t('.select_page') %></label>
+      <input type="text" placeholder="<%= t('.placeholders.search') %>" name="q" id="pages_search" data-autocomplete="<%= admin_cms_section_pages_path(@section, format: :js) %>" element_id="#pages" />
+    </div>
+
+    <h3><%= t('.last_edited_pages') %></h3>
+
+    <div class="activity_feed section_editor">
+      <%= render 'pages_filter' %>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.searchClient = {
+      client: algoliasearch('<%= Rails.application.secrets.algolia_application_id %>', '<%= Rails.application.secrets.algolia_search_api_key %>'),
+      indexes: ["<%= GobiertoCms::Page.search_index_name %>"],
+      filters: "site_id:<%= algolia_search_client.site.id %>"
+    };
+
+    window.GobiertoAdmin.sections_controller.show();
+  <% end %>
+<% end %>

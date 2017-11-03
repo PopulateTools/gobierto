@@ -12,7 +12,7 @@ module GobiertoParticipation
       end
 
       def index
-        @issues = current_site.issues.alphabetically_sorted
+        @issues = current_site.issues
 
         @issue = find_issue if params[:issue_id]
 

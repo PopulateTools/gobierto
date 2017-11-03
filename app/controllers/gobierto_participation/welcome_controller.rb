@@ -4,7 +4,7 @@ module GobiertoParticipation
   class WelcomeController < GobiertoParticipation::ApplicationController
     def index
       @processes = current_site.processes.process.active
-      @issues = current_site.issues.alphabetically_sorted
+      @issues = current_site.issues
       @events = find_participation_events
       @news = find_participation_news
       @activities = find_participation_activities

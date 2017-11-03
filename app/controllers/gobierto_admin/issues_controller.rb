@@ -5,7 +5,7 @@ module GobiertoAdmin
     helper_method :issue_preview_url
 
     def index
-      @issues = current_site.issues.sorted
+      @issues = current_site.issues
 
       @issue_form = IssueForm.new(site_id: current_site.id)
     end

@@ -3,7 +3,7 @@
 module GobiertoParticipation
   class ActivitiesController < BaseController
     def index
-      @issues = current_site.issues.alphabetically_sorted
+      @issues = current_site.issues
 
       @issue = find_issue if params[:issue_id]
 

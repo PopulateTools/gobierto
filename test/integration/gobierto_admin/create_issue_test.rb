@@ -63,7 +63,7 @@ module GobiertoAdmin
             assert has_field?("issue_name_translations_es", with: "Mi tema")
             assert has_field?("issue_description_translations_es", with: "Descripción de mi tema")
 
-            issue = site.issues.last
+            issue = site.issues.first
             activity = Activity.last
             assert_equal issue, activity.subject
             assert_equal admin, activity.author

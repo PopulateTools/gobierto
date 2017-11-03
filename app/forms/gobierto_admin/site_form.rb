@@ -149,7 +149,7 @@ module GobiertoAdmin
         site_attributes.visibility_level = visibility_level
         site_attributes.creation_ip = creation_ip
         site_attributes.configuration.home_page = home_page
-        site_attributes.configuration.modules = (site_modules.append(home_page)).uniq
+        site_attributes.configuration.modules = site_modules
         site_attributes.configuration.logo = logo_url
         site_attributes.configuration.head_markup = head_markup
         site_attributes.configuration.foot_markup = foot_markup

@@ -29,8 +29,34 @@ this.GobiertoAdmin.SitesController = (function() {
     $.ui.autocomplete(autocompleteOptions, $(locationFieldHandler));
   }
 
-  SitesController.prototype.edit = function(api_token) {
+  function _homePage(site_modules_with_root_path) {
+    $(document).ready(function() {
+        populateHomePage(site_modules_with_root_path);
+    });
+
+    $("input[name='site[site_modules][]']").on('click', function() {
+      populateHomePage(site_modules_with_root_path);
+    });
+  }
+
+  function populateHomePage(site_modules_with_root_path) {
+    var selectedModules = [];
+    $.each($("input[name='site[site_modules][]']:checked"), function(){
+      if(site_modules_with_root_path.includes($(this).val())){
+        selectedModules.push($(this).val());
+      }
+    });
+
+    $('#site_home_page').empty();
+    for (var i=0; i<selectedModules.length; i++){
+       $('<option/>').val(selectedModules[i]).html(selectedModules[i]).appendTo('#site_home_page');
+    }
+  }
+
+
+  SitesController.prototype.edit = function(api_token, site_modules_with_root_path) {
     _handleSiteLocationAutocomplete(api_token);
+    _homePage(site_modules_with_root_path);
   };
 
   return SitesController;

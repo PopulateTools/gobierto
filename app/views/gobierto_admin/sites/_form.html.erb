@@ -83,11 +83,6 @@
         </div>
 
         <div class="form_item input_text">
-          <%= f.label :home_page %>
-          <%= f.select :home_page, @site_modules_with_root_path.map{ |p| [p.namespace, p.namespace] } %>
-        </div>
-
-        <div class="form_item input_text">
           <%= f.label :privacy_page_id %>
           <%= f.select :privacy_page_id, @available_pages.map{ |p| [p.title, p.id] }, { include_blank: true } %>
         </div>
@@ -134,7 +129,6 @@
         <h2><%= t(".modules_enabled") %></h2>
 
         <div class="form_item site-module-check-boxes">
-
           <div class="options compact">
             <%= f.collection_check_boxes(:site_modules, @site_modules, :namespace, :name) do |b| %>
               <div class="option">
@@ -146,7 +140,11 @@
               </div>
             <% end %>
           </div>
+        </div>
 
+        <div class="form_item input_text">
+          <%= f.label :home_page %>
+          <%= f.select :home_page, @site_modules_with_root_path.map{ |p| [p.namespace, p.namespace] } %>
         </div>
 
       </div>
@@ -198,6 +196,6 @@
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
-    window.GobiertoAdmin.sites_controller.edit("<%= current_site.configuration.populate_data_api_token %>");
+    window.GobiertoAdmin.sites_controller.edit("<%= current_site.configuration.populate_data_api_token %>", "<%= APP_CONFIG["site_modules_with_root_path"] %>");
   <% end %>
 <% end %>

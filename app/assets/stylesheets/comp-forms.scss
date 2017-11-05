@@ -414,7 +414,21 @@ option, select {
   border: 1px solid $color_separator;
   @include border-radius(6px);
   select {
-    margin: 1.75rem 0 0 0;
+    margin: 1rem 0 0 0;
+    padding: 20px 0 13px 13px;
+    height: 56px;
+    outline: none;
+  }
+  select::-moz-focus-inner {
+    border: 0;
+    outline: none;
+  }
+  option {
+    display: block;
+    height: initial;
+    padding: 7px 13px;
+    font-size: 14px;
+    outline: none;
   }
 }
 .options_cont {

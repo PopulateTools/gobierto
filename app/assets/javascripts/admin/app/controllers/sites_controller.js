@@ -47,9 +47,13 @@ this.GobiertoAdmin.SitesController = (function() {
       }
     });
 
+    var selected = $('#site_home_page').val();
     $('#site_home_page').empty();
     for (var i=0; i<selectedModules.length; i++){
        $('<option/>').val(selectedModules[i]).html(selectedModules[i]).appendTo('#site_home_page');
+    }
+    if(selected){
+      $('#site_home_page').val(selected);
     }
   }
 

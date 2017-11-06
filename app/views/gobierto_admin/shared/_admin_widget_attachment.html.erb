@@ -115,7 +115,7 @@
 
 <script type="text/x-template" id="file-list-template">
   <small>
-    <a @click.prevent="showFiles = !showFiles" href="#" class="show-files">
+    <a @click.prevent="showFiles = !showFiles" href="#" class="tool_title show-files">
       <i :class="[showFiles ? 'fa-caret-down' : 'fa-caret-right']" class="fa p_h_r_0_25 soft" aria-hidden="true" v-if="attachments.length"></i>
       <strong><%= t('.attachments') %></strong>
     </a>
@@ -133,7 +133,7 @@
 </script>
 
 
-<div id="gobierto-attachment" class="m_v_2" data-attachable-type="<%= attachable_type %>" data-attachable-id="<%= attachable_id %>">
+<div id="gobierto-attachment" class="sidebar_tool m_v_2" data-attachable-type="<%= attachable_type %>" data-attachable-id="<%= attachable_id %>">
   <file-list :attachable-type="attachableType" :attachable-id="attachableId"></file-list>
 
   <button id="show-modal" @click.prevent="loadAttachments" class="small m_v_1"><%= t('.include_file') %></button>

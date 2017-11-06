@@ -13,7 +13,8 @@ module GobiertoAdmin
         :title_translations,
         :body_translations,
         :slug,
-        :attachment_ids
+        :attachment_ids,
+        :section
       )
 
       delegate :persisted?, to: :page

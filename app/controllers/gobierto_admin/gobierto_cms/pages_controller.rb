@@ -14,11 +14,13 @@ module GobiertoAdmin
       def new
         @page_form = PageForm.new(site_id: current_site.id, collection_id: @collection.id)
         @page_visibility_levels = get_page_visibility_levels
+        @sections = current_site.sections
       end
 
       def edit
         @page = find_page
         @page_visibility_levels = get_page_visibility_levels
+        @sections = current_site.sections
         @page_form = PageForm.new(
           @page.attributes.except(*ignored_page_attributes).merge(collection_id: @collection)
         )
@@ -80,6 +82,7 @@ module GobiertoAdmin
           :attachment_ids,
           :collection_id,
           :slug,
+          :section,
           title_translations: [*I18n.available_locales],
           body_translations:  [*I18n.available_locales]
         )

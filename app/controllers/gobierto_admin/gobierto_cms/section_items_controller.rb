@@ -20,6 +20,13 @@ module GobiertoAdmin
         end
       end
 
+      def show
+        @section_item = find_section_item
+        render(
+          json: { section_item: default_serializer.new(@section_item) }
+        )
+      end
+
       def index
         @section = find_section
 

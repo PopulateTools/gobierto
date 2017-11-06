@@ -118,6 +118,24 @@ $lighter_black: rgba($color_headers, .7);
       font-weight: bold;
     }
 
+    svg {
+      text tspan {
+        text-transform: uppercase;
+      }
+
+      a:hover {
+        cursor: pointer;
+
+        .Distritos {
+          fill: $blue;
+        }
+      }
+    }
+
+    h1 {
+      color: $medium_blue;
+    }
+
     h2 {
       color: $green;
     }

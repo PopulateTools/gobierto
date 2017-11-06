@@ -26,6 +26,19 @@ default: &default
     -
       name: Gobierto Participation
       namespace: GobiertoParticipation
+  site_modules_with_root_path:
+    -
+      name: Gobierto Budgets
+      namespace: GobiertoBudgets
+    -
+      name: Gobierto People
+      namespace: GobiertoPeople
+    -
+      name: Gobierto Participation
+      namespace: GobiertoParticipation
+    -
+      name: Gobierto Indicators
+      namespace: GobiertoIndicators
   dns_config:
     cname_record_target: site.gobierto.dev
     a_record_target: 222.111.222.11

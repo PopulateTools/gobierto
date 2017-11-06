@@ -228,7 +228,7 @@ Rails.application.routes.draw do
   # Gobierto Budgets module
   namespace :gobierto_budgets, path: nil do
     constraints GobiertoSiteConstraint.new do
-      get "site" => "sites#show"
+      get "site" => "sites#show", as: :root
 
       resources :featured_budget_lines, only: [:show]
 

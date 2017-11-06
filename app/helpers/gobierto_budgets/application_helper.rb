@@ -24,7 +24,7 @@ module GobiertoBudgets
       n = n.abs if absolute_value
 
       if n.abs > 1_000_000
-        "#{helpers.number_with_precision(n.to_f / 1_000_000.to_f, precision: 1, strip_insignificant_zeros: true)}M€"
+        "#{helpers.number_with_precision(n.to_f / 1_000_000.to_f, precision: 1, strip_insignificant_zeros: true)} M€"
       else
         helpers.number_to_currency(n, precision: 1, strip_insignificant_zeros: true)
       end

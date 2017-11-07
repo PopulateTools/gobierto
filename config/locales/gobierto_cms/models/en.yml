@@ -7,5 +7,5 @@ en:
         slug: URL
         title: Title
     models:
-      gobierto_cms/new: New
+      gobierto_cms/news: News
       gobierto_cms/page: Page

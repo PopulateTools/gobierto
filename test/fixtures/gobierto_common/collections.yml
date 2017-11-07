@@ -12,14 +12,14 @@ news:
   title_translations: <%= {'en' => 'News', 'es' => 'Noticias' }.to_json %>
   slug: noticias
   container: sport_city_process (GobiertoParticipation::Process)
-  item_type: GobiertoCms::New
+  item_type: GobiertoCms::News
 
 gender_violence_process_news:
   site: madrid
   title_translations: <%= {'en' => 'News', 'es' => 'Noticias' }.to_json %>
   slug: noticias-violencia-genero
   container: gender_violence_process (GobiertoParticipation::Process)
-  item_type: GobiertoCms::New
+  item_type: GobiertoCms::News
 
 gender_violence_process_calendar:
   site: madrid

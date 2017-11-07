@@ -51,7 +51,7 @@ module GobiertoCommon
       end
 
       def news_collection
-        @news_collection ||= GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCms::New')
+        @news_collection ||= GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCms::News')
       end
 
       def events_collection

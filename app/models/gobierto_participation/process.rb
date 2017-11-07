@@ -69,7 +69,7 @@ module GobiertoParticipation
     end
 
     def pages_collection
-      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCms::New')
+      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCms::News')
     end
 
     def events_collection

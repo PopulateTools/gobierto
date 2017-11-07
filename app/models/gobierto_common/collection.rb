@@ -51,7 +51,7 @@ module GobiertoCommon
     def self.type_classes(item_type)
       if item_type == "Page"
         [[::GobiertoCms::Page.model_name.human, ::GobiertoCms::Page.name],
-         [I18n.t('activerecord.models.gobierto_cms/new'), "GobiertoCms::New"]]
+         [I18n.t('activerecord.models.gobierto_cms/news'), "GobiertoCms::News"]]
       elsif item_type == "Attachment"
         [[::GobiertoAttachments::Attachment.model_name.human, ::GobiertoAttachments::Attachment.name]]
       elsif item_type == "Event"

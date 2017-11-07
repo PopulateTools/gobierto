@@ -14,7 +14,9 @@ module GobiertoAdmin
         :body_translations,
         :slug,
         :attachment_ids,
-        :section
+        :has_section,
+        :section,
+        :parent
       )
 
       delegate :persisted?, to: :page
@@ -25,6 +27,22 @@ module GobiertoAdmin
 
       notify_changed :visibility_level
 
+      def initialize(options = {})
+        options = options.to_h.with_indifferent_access
+
+        # reorder attributes so site and process get assigned first
+        ordered_options = {
+          site_id: options[:site_id],
+          id: options[:id]
+        }.with_indifferent_access
+        ordered_options.merge!(options)
+
+        # overwritte options[:has_duration]
+        ordered_options.merge!(has_section: page.section.present?)
+
+        super(ordered_options)
+      end
+
       def save
         save_page if valid?
       end
@@ -32,6 +50,14 @@ module GobiertoAdmin
       def admin_id
         @admin_id ||= page.admin_id
       end
+
+      # def section
+      #   @section ||= page.section
+      # end
+      #
+      # def parent
+      #   @parent ||= page.parent
+      # end
 
       def collection
         @collection ||= collection_class.find_by(id: collection_id)
@@ -67,6 +93,20 @@ module GobiertoAdmin
         ::GobiertoCommon::Collection
       end
 
+      def save_section_item(id, section, parent)
+        parent = parent ? parent : 0
+        parent_node = ::GobiertoCms::SectionItem.find_by(id: parent, section: section)
+        position = ::GobiertoCms::SectionItem.where(parent_id: parent, section: section).size
+        section_item = ::GobiertoCms::SectionItem.find_or_initialize_by(item_id: id,
+                                                                        parent_id: parent,
+                                                                        item_type: "GobiertoCms::Page",
+                                                                        section_id: section,
+                                                                        position: position,
+                                                                        level: parent_node ? parent_node.level + 1 : 0)
+        section_item.save
+        byebug
+      end
+
       def save_page
         @page = page.tap do |page_attributes|
           page_attributes.collection = collection
@@ -86,9 +126,11 @@ module GobiertoAdmin
         end
 
         if @page.valid?
+
           run_callbacks(:save) do
             @page.save
           end
+          save_section_item(@page.id, section, parent)
 
           @page
         else

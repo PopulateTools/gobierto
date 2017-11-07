@@ -19,6 +19,13 @@ module GobiertoAdmin
 
       def edit
         @page = find_page
+        @section = @page.section
+        @section_items = if @section
+                           ::GobiertoCms::Section.find(@section).section_items
+                         else
+                           []
+                         end
+        @parent =  @page.parent
         @page_visibility_levels = get_page_visibility_levels
         @sections = current_site.sections
         @page_form = PageForm.new(
@@ -83,6 +90,8 @@ module GobiertoAdmin
           :collection_id,
           :slug,
           :section,
+          :parent,
+          :has_section,
           title_translations: [*I18n.available_locales],
           body_translations:  [*I18n.available_locales]
         )

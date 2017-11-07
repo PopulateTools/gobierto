@@ -14,6 +14,7 @@ module GobiertoCms
     include GobiertoCommon::ActsAsCollectionContainer
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Collectionable
+    include GobiertoCommon::Sectionable
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca, :collection_id

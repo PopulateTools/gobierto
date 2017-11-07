@@ -6,65 +6,62 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
   };
 
   function _sections() {
-    console.log("HOLA");
-
     $('.open_level_1').on('click', function(e){
       e.preventDefault();
 
       // Sections
       $('.level_1').show();
+
+      // parent
+      $('.level_2').show();
+
+      $('#page_parent').empty();
+      populateParent($('#page_section').val());
     });
 
     $('#page_section').change(function(e){
       e.preventDefault();
 
-      // Do whatever you want to do when the select changes
-      var parentId = $(this).val();
-      //alert('You selected option ' + parentId);
-
-      // Remove selects with
-      $(".level_2").remove();
-
-
-      // Get children
-      $.getJSON(
-          '/admin/cms/sections/' + parentId + '/section_items/',
-          function(data) {
-
-            var i, theContainer, theSelect, theOptions, numOptions, anOption;
-            theOptions = data['section_items'];
-
-            if(theOptions.length >= 1){
-              // Create the container <div>
-              theContainer = document.createElement('div');
-              theContainer.className = "form_item select_control select_compact level_2 open_level_3";
-
-              // Create the <select>
-              theSelect = document.createElement('select');
-
-              // Give the <select> some attributes
-
-              theSelect.name =  parentId;
-              theSelect.id =  parentId;
-
-              // Add some <option>s
-              numOptions = theOptions.length;
-              for (i = 0; i < numOptions; i++) {
-                  anOption = document.createElement('option');
-                  anOption.value = theOptions[i]['id'];
-                  anOption.innerHTML = theOptions[i]['name'];
-                  theSelect.appendChild(anOption);
-              }
-
-              // Add the <div> to the DOM, then add the <select> to the <div>
-              document.getElementById("section").appendChild(theContainer);
-              theContainer.appendChild(theSelect);
-            }
-          }
-      );
-
+      $('#page_parent').empty();
+      var section = $(this).val();
+      populateParent(section);
     });
   }
+
+  function populateParent(section) {
+    // Get children
+    $.getJSON(
+        '/admin/cms/sections/' + section + '/section_items/',
+        function(data) {
+          var i, theContainer, theSelect, theOptions, numOptions, anOption;
+          theOptions = data['section_items'];
+
+          $("#page_parent").append('<option value="0">(sin padre)</option>');
+
+          if(theOptions.length >= 1){
+            // Create the container <div>
+            appendSectionItems(theOptions, 0);
+          }
+        }
+    );
+  }
+
+  function appendSectionItems(nodes, level) {
+    // Add some <option>s
+    numOptions = nodes.length;
+    for (i = 0; i < numOptions; i++) {
+        anOption = document.createElement('option');
+        anOption.value = nodes[i]['id'];
+        anOption.innerHTML = ("-".repeat(level)) + " " + nodes[i]['name'];
+
+        $("#page_parent").append(anOption);
+        if(nodes[i].children.length >= 1) {
+          level += 1
+          appendSectionItems(nodes[i].children, level)
+        }
+    }
+  }
+
   return GobiertoCmsController;
 })();
 

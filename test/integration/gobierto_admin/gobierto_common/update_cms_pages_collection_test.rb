@@ -22,7 +22,7 @@ module GobiertoAdmin
         @sport_city_process ||= gobierto_participation_processes(:sport_city_process)
       end
 
-      def test_update_pages_collection
+      def test_update_news_collection
         with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do

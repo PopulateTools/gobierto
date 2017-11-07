@@ -16,6 +16,10 @@ module GobiertoCommon
 
     scope :by_item_type, ->(item_type) { where(item_type: item_type) }
 
+    def news_in_collection
+      collection_items.where(item_type: 'GobiertoCms::News').pluck(:item_id)
+    end
+
     def pages_in_collection
       collection_items.where(item_type: 'GobiertoCms::Page').pluck(:item_id)
     end
@@ -63,7 +67,7 @@ module GobiertoCommon
 
     def append(item)
       containers_hierarchy(container).each do |container_type, container_id|
-        CollectionItem.find_or_create_by! collection_id: id, container_type: container_type, container_id: container_id, item: item
+        CollectionItem.find_or_create_by! collection_id: id, container_type: container_type, container_id: container_id, item_id: item.id, item_type: self.item_type
       end
 
       if container_type == "GobiertoParticipation::Process"

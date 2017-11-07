@@ -68,7 +68,7 @@ module GobiertoParticipation
       stages.exists?(stage_type: stage_type)
     end
 
-    def pages_collection
+    def news_collection
       GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCms::News')
     end
 
@@ -105,8 +105,8 @@ module GobiertoParticipation
       site.collections.create! container: self,  item_type: 'GobiertoCalendars::Event', slug: "calendar-#{self.slug}", title: self.title
       # Attachments
       site.collections.create! container: self,  item_type: 'GobiertoAttachments::Attachment', slug: "attachment-#{self.slug}", title: self.title
-      # News / Pages
-      site.collections.create! container: self,  item_type: 'GobiertoCms::Page', slug: "news-#{self.slug}", title: self.title
+      # News
+      site.collections.create! container: self,  item_type: 'GobiertoCms::News', slug: "news-#{self.slug}", title: self.title
     end
 
     def attributes_for_slug

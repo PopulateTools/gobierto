@@ -1,4 +1,4 @@
 <% if @contribution %>
-  $("#comments-list").html("<%= j render(partial: 'gobierto_participation/process_contributions/comments', locals: { commentable: @contribution }) %>");
+  $("#comments-list").html("<%= j render(partial: 'gobierto_participation/processes/contributions/comments', locals: { commentable: @contribution }) %>");
   $('#text-area-contribution').val('');
 <% end %>

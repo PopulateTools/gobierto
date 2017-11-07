@@ -30,20 +30,6 @@ module GobiertoAdmin
         @cms_page ||= gobierto_cms_pages(:notice_1)
       end
 
-      def test_pages
-        with_signed_in_admin(admin) do
-          with_current_site(site) do
-            visit edit_admin_participation_process_path(process)
-
-            within ".tabs" do
-              click_link "News"
-            end
-
-            assert has_content?(cms_page.title)
-          end
-        end
-      end
-
       def test_create_page
         with_javascript do
           with_signed_in_admin(admin) do
@@ -83,13 +69,7 @@ module GobiertoAdmin
         with_javascript do
           with_signed_in_admin(admin) do
             with_current_site(site) do
-              visit edit_admin_participation_process_path(process)
-
-              within ".tabs" do
-                click_link "News"
-              end
-
-              click_link cms_page.title
+              visit edit_admin_cms_page_path(cms_page, collection_id: process.news_collection)
 
               assert has_selector?("h1", text: process.title)
 

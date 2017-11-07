@@ -17,7 +17,7 @@ module GobiertoParticipation
     end
 
     def container_path
-      @container_path ||= gobierto_participation_process_process_contribution_container_path(
+      @container_path ||= gobierto_participation_process_contribution_container_path(
         process_id: process.slug,
         id: contribution_container.slug
       )

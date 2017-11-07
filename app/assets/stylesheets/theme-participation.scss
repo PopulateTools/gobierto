@@ -59,6 +59,9 @@ $lighter_black: rgba($color_headers, .7);
     a {
       color: $green;
     }
+    .button {
+      color: $color_main_negative;
+    }
   }
 
   header.meta {
@@ -87,13 +90,8 @@ $lighter_black: rgba($color_headers, .7);
           color: white;
         }
       }
-
-
     }
   }
-
-
-
 
   .button.outline.rounded.fat {
     &:active,
@@ -112,32 +110,10 @@ $lighter_black: rgba($color_headers, .7);
   }
   /* content_blocks */
   .content_block {
-    p {
-      text-align: center;
-      font-size: $f5;
-      font-weight: bold;
-    }
-
-    svg {
-      text tspan {
-        text-transform: uppercase;
-      }
-
-      a:hover {
-        cursor: pointer;
-
-        .Distritos {
-          fill: $blue;
-        }
-      }
-    }
-
-    h1 {
-      color: $medium_blue;
-    }
 
     h2 {
       color: $green;
+      margin: 0;
     }
 
     .bt {
@@ -281,13 +257,14 @@ $lighter_black: rgba($color_headers, .7);
     .content_block {
       margin-bottom: 1em;
 
-      a {
-        color: $green;
-      }
+      // a {
+      //   color: $green;
+      // }
+      //
+      // & ~ a {
+      //   color: $lighter_black;
+      // }
 
-      & ~ a {
-        color: $lighter_black;
-      }
     }
 
     .place_event-item,
@@ -1187,4 +1164,23 @@ $lighter_black: rgba($color_headers, .7);
       border-color: $color_main_negative;
     }
   }
+
+  .map_zones {
+    svg {
+      text tspan {
+        text-transform: uppercase;
+      }
+
+      a:hover {
+        cursor: pointer;
+
+        .Distritos {
+          fill: $light_blue;
+        }
+      }
+    }
+  }
+
+
+
 }

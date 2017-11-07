@@ -107,7 +107,7 @@ input[type=submit].button {
 input[type=submit]:hover, .button:hover, button:hover {
   background: darken($color_main, 10%);
 }
-button a, a.button {
+button a, a.button, .button {
   color: #FFF;
   text-decoration: none;
 }

@@ -11,6 +11,7 @@ ignore_missing:
   - 'gobierto_budget_consultations.consultation_statuses.*'
   - 'gobierto_indicators.cards.*'
   - 'gobierto_budgets.budgets.index_old.*'
+  - 'gobierto_budgets.budgets.guide.*'
 
 ignore_unused:
   - 'number.*'

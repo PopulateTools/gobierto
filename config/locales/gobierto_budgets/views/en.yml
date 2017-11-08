@@ -411,6 +411,10 @@ en:
         title: Some important budget lines
         total: Total expenses
     feedback:
+      ask_more_information:
+        ask_for_feedback: Write your email
+        send: Send
+        your_email: Your email
       follow:
         follow: Follow
         your_email: Your email

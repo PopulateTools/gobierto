@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GobiertoParticipation
-  class AttachmentsController < BaseController
+  class AttachmentsController < GobiertoParticipation::ApplicationController
     def show
       @attachment = find_attachment
       @issues = current_site.issues

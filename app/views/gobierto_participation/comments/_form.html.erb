@@ -2,9 +2,9 @@
      style='<%= commentable.class.name == "GobiertoParticipation::Contribution" ? "display: inline;" : "display: none;" %>'>
   <%= form_for(
     @comment_form, as: :comment,
-    url: gobierto_participation_process_process_contribution_container_process_contribution_comment_path(process_contribution_id: commentable.slug,
-                                                                                                         process_contribution_container_id: commentable.contribution_container.slug,
-                                                                                                         process_id: commentable.contribution_container.process.slug), data: { "globalized-form-container" => true }, remote: true ) do |f| %>
+    url: gobierto_participation_process_contribution_container_contribution_comment_path(contribution_id: commentable.slug,
+                                                                                         contribution_container_id: commentable.contribution_container.slug,
+                                                                                         process_id: commentable.contribution_container.process.slug), data: { "globalized-form-container" => true }, remote: true ) do |f| %>
 
    <%= f.hidden_field :commentable_type, value: commentable.class %>
    <%= f.hidden_field :commentable_id, value: commentable.id %>

@@ -41,6 +41,21 @@ class Issue < ApplicationRecord
     GobiertoCms::Page.pages_in_collections_and_container(self.site, self).sorted.active
   end
 
+  def number_contributions
+    contributions.size
+  end
+
+  def number_contributing_neighbours
+    contributions.pluck(:user_id).uniq.size
+  end
+
+  def contributions
+    GobiertoParticipation::Contribution.joins(contribution_container: :process)
+                                       .where("gpart_processes.visibility_level = 1 AND
+                                               gpart_contribution_containers.visibility_level = 1 AND
+                                               gpart_processes.issue_id = ?", id)
+  end
+
   private
 
   def uniqueness_of_name

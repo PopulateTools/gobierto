@@ -15,7 +15,6 @@ this.GobiertoAdmin.AdminsController = (function() {
 
       $siteCheckboxes.click(function() {
         var siteId = $(this).attr('data-site-id');
-        console.log('Clicked on site '+ siteId);
         var $sitePeople = $("[data-class='site_person'][data-site-id='" + siteId + "']");
 
         if (this.checked) {

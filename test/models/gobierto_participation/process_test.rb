@@ -27,6 +27,10 @@ module GobiertoCms
     end
     alias process_with_only_current_stage commission_for_carnival_festivities
 
+    def site
+      @site ||= sites(:madrid)
+    end
+
     def process_news
       [gobierto_cms_pages(:notice_1), gobierto_cms_pages(:notice_2)]
     end
@@ -82,6 +86,14 @@ module GobiertoCms
 
       process.update_attributes!(starts: 1.week.ago, ends: nil)
       assert process.open?
+    end
+
+    def test_create_process_creates_collections
+      process = site.processes.create! title: 'Foo'
+
+      assert process.news_collection.present?
+      assert process.events_collection.present?
+      assert process.attachments_collection.present?
     end
 
   end

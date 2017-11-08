@@ -3,7 +3,7 @@
 module GobiertoParticipation
   class IssuesController < GobiertoParticipation::ApplicationController
     def index
-      @issues = current_site.issues.alphabetically_sorted
+      @issues = current_site.issues
     end
 
     def show

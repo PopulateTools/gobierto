@@ -8,8 +8,8 @@
 
       <% if meta %>
         <div class="meta right">
-          <div class="ib"><i class="fa fa-comment"></i> 30</div>
-          <div class="ib"><i class="fa fa-users"></i> 50</div>
+          <div class="ib"><i class="fa fa-comment"></i><%= issue.number_contributions %></div>
+          <div class="ib"><i class="fa fa-users"></i><%= issue.number_contributing_neighbours %></div>
         </div>
       <% end %>
   <% end %>

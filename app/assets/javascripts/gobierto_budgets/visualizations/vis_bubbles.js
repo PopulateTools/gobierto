@@ -78,6 +78,7 @@ var VisBubbles = Class.extend({
           values: d.values,
           pct_diffs: d.pct_diff,
           id: d.id,
+          values_per_inhabitant: d.values_per_inhabitant,
           radius: this.radiusScale(d.values[year]),
           value: d.values[year],
           name: d['level_2_' + this.locale],

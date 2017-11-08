@@ -14,5 +14,6 @@ es:
       index:
         filter: Filtrar por tema
         title: Noticias
-      show:
+    templates:
+      page:
         documents: Documentos

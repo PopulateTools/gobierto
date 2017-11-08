@@ -3,7 +3,7 @@
 <% end %>
 
 <div class="modal_like_control">
-  <a href="<%= gobierto_participation_process_process_contribution_containers_path(@contribution_container.process.slug) %>" class=" mfp-close">×</a>
+  <a href="<%= gobierto_participation_process_contribution_containers_path(@contribution_container.process.slug) %>" class=" mfp-close">×</a>
 </div>
 
 <div class="contributions_container">
@@ -23,7 +23,7 @@
 
         <div class="pure-u-1 pure-u-md-5-24 contribution_action">
           <% if current_user %>
-            <%= link_to t(".put_#{@contribution_container.contribution_type}"), new_gobierto_participation_process_process_contribution_container_process_contribution_path(process_id: current_process.slug, process_contribution_container_id: @contribution_container.slug), class: "button", remote: true %></a>
+            <%= link_to t(".put_#{@contribution_container.contribution_type}"), new_gobierto_participation_process_contribution_container_contribution_path(process_id: current_process.slug, contribution_container_id: @contribution_container.slug), class: "button", remote: true %></a>
           <% else %>
             <%= link_to t(".login_signup_#{@contribution_container.contribution_type}"), new_user_sessions_path(open_modal: true), class: 'button open_remote_modal' %>
           <% end %>

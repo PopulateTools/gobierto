@@ -230,7 +230,7 @@ Rails.application.routes.draw do
   # Gobierto Budgets module
   namespace :gobierto_budgets, path: nil do
     constraints GobiertoSiteConstraint.new do
-      get "site" => "sites#show"
+      get "site" => "sites#show", as: :root
 
       resources :featured_budget_lines, only: [:show]
 
@@ -284,9 +284,9 @@ Rails.application.routes.draw do
       get "/" => "welcome#index", as: :root
 
       resources :processes, only: [:index, :show], path: "p" do
-        resource :information, only: [:show], controller: "process_information", as: :process_information, path: "informacion"
-        resources :contribution_containers, only: [:index, :show], controller: "process_contribution_containers", as: :process_contribution_containers, path: "aportaciones" do
-          resources :contributions, only: [:new, :create, :show], controller: "process_contributions", as: :process_contributions, path: :contributions do
+        resource :information, only: [:show], controller: "processes/information", path: "informacion"
+        resources :contribution_containers, only: [:index, :show], controller: "processes/contribution_containers", path: "aportaciones" do
+          resources :contributions, only: [:new, :create, :show], controller: "processes/contributions", path: :contributions do
             resource :vote, only: [:create, :destroy]
             resource :flag, only: [:create, :destroy]
             resource :comment, only: [:create, :index]

@@ -30,7 +30,8 @@ module GobiertoAdmin
         location_name: "Madrid",
         municipality_id: 1,
         domain: "test2.gobierto.dev",
-        visibility_level: "active"
+        visibility_level: "active",
+        home_page: "GobiertoParticipation"
       }
     end
 

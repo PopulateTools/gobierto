@@ -4,7 +4,7 @@
       <ul>
 
         <li>
-          <%= link_to t('.information'), gobierto_participation_process_process_information_path(process_id: current_process.slug) %>
+          <%= link_to t('.information'), gobierto_participation_process_information_path(process_id: current_process.slug) %>
         </li>
 
         <li>
@@ -19,7 +19,7 @@
 
         <% if current_process.ideas_stage? %>
           <li>
-            <%= link_to t('.contributions'), gobierto_participation_process_process_contribution_containers_path(process_id: current_process.slug) %>
+            <%= link_to t('.contributions'), gobierto_participation_process_contribution_containers_path(process_id: current_process.slug) %>
           </li>
         <% end %>
 

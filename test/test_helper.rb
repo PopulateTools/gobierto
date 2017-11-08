@@ -48,12 +48,15 @@ require "capybara/email"
 require "minitest/retry"
 require "vcr"
 require "mocha/mini_test"
+require "minitest/test_profile"
 
 I18n.locale = I18n.default_locale = :en
 Time.zone = "Madrid"
 
 Minitest::Retry.use! if ENV["RETRY_FAILING_TEST"]
-Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new(color: true)
+# Incompatible with test profile
+# Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new(color: true)
+Minitest::TestProfile.use!
 
 WebMock.disable_net_connect!(
   allow_localhost: true,

@@ -42,6 +42,7 @@ ca:
         sign_in: Iniciar sessió
         sign_out: Surt
         title: El teu compte
+      start: Inici
     breadcrumb:
       start: Inici
     gobierto_budget_consultations:
@@ -75,6 +76,7 @@ ca:
     mailcheck:
       suggestion_message: Vols dir
     main_menu:
+      collapse_menu: Tanca
       search: Cerca...
     sandbox:
       application:

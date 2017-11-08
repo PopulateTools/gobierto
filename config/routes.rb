@@ -226,19 +226,19 @@ Rails.application.routes.draw do
   end
 
   # Gobierto Budgets module
-  namespace :gobierto_budgets, path: nil do
+  namespace :gobierto_budgets, path: "presupuestos" do
     constraints GobiertoSiteConstraint.new do
-      get "site" => "sites#show", as: :root
+      root "sites#show"
 
       resources :featured_budget_lines, only: [:show]
 
-      get "presupuestos/resumen(/:year)" => "budgets#index", as: :budgets
-      get "presupuestos/partidas/:year/:area_name/:kind" => "budget_lines#index", as: :budget_lines
-      get "presupuestos/partidas/:id/:year/:area_name/:kind" => "budget_lines#show", as: :budget_line
+      get "resumen(/:year)" => "budgets#index", as: :budgets
+      get "partidas/:year/:area_name/:kind" => "budget_lines#index", as: :budget_lines
+      get "partidas/:id/:year/:area_name/:kind" => "budget_lines#show", as: :budget_line
       get "budget_line_descendants/:year/:area_name/:kind" => "budget_line_descendants#index", as: :budget_line_descendants
-      get "presupuestos/ejecucion(/:year)" => "budgets_execution#index", as: :budgets_execution
-      get "presupuestos/guia" => "budgets#guide", as: :budgets_guide
-      get "presupuestos/elaboracion" => "budgets_elaboration#index", as: :budgets_elaboration
+      get "ejecucion(/:year)" => "budgets_execution#index", as: :budgets_execution
+      get "guia" => "budgets#guide", as: :budgets_guide
+      get "elaboracion" => "budgets_elaboration#index", as: :budgets_elaboration
       get "budgets/treemap(/:year)" => "budget_lines#treemap", as: :budget_lines_treemap
 
       get "all_categories/:slug/:year" => "search#all_categories", as: :search_all_categories

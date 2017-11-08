@@ -20,7 +20,11 @@ module Subscribers
       return if author.nil?
       action = subject.class.name.underscore.tr('/', '.') + '.' + action
 
-      recipient = subject.collection.container
+      recipient = unless subject.collection.container.is_a?(Module)
+                    subject.collection.container
+                  else
+                    nil
+                  end
 
       Activity.create! subject: subject,
                        author: author,

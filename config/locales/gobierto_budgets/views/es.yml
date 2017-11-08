@@ -419,6 +419,10 @@ es:
         title: Algunas partidas destacadas
         total: Gasto total
     feedback:
+      ask_more_information:
+        ask_for_feedback: Escribe tu correo para que tu ayuntamiento te pueda contestar
+        send: Enviar
+        your_email: Tu correo-e
       follow:
         follow: Seguir
         your_email: Tu correo-e

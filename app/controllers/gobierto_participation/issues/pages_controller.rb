@@ -2,7 +2,7 @@
 
 module GobiertoParticipation
   module Issues
-    class PagesController < GobiertoParticipation::BaseController
+    class PagesController < GobiertoParticipation::ApplicationController
       include ::PreviewTokenHelper
 
       before_action :find_page_by_id_and_redirect

@@ -2,12 +2,12 @@
 <html lang="<%= I18n.locale %>">
 
 <%= render 'layouts/head' %>
-<% if (current_module_body_class == 'gobierto_participation' && controller_name == 'theme-participation') %>
+<% if (current_module_body_class == 'gobierto_participation theme-participation') %>
   <body class = 'gobierto_participation theme-participation'>
-<% elsif controller_name == "pages" && action_name == "show" %>
-  <body>
 <% elsif (current_module_body_class == 'gobierto_participation theme-participation' && controller_name == 'process_information') %>
   <body class = 'gobierto_participation theme-participation content'>
+<% elsif controller_name == "pages" && action_name == "show" %>
+  <body>
 <% else %>
   <body class="<%= current_module_body_class %> <%= controller_name %> <%= action_name %> <%= controller_name %>_<%= action_name %>" <%= yield(:body_attributes) %>>
 <% end %>

@@ -29,8 +29,7 @@
       <div class="form_item select_control">
         <%= f.label :item_type %>
         <%= f.select :item_type,
-                     options_for_select(@types, selected: @type_selected),
-                     include_blank: true %>
+                     options_for_select(@types, selected: @type_selected) %>
       </div>
     </div>
   </div>

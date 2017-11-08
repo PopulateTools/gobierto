@@ -226,19 +226,19 @@ Rails.application.routes.draw do
   end
 
   # Gobierto Budgets module
-  namespace :gobierto_budgets, path: nil do
+  namespace :gobierto_budgets, path: "presupuestos" do
     constraints GobiertoSiteConstraint.new do
-      get "site" => "sites#show"
+      root "sites#show"
 
       resources :featured_budget_lines, only: [:show]
 
-      get "presupuestos/resumen(/:year)" => "budgets#index", as: :budgets
-      get "presupuestos/partidas/:year/:area_name/:kind" => "budget_lines#index", as: :budget_lines
-      get "presupuestos/partidas/:id/:year/:area_name/:kind" => "budget_lines#show", as: :budget_line
+      get "resumen(/:year)" => "budgets#index", as: :budgets
+      get "partidas/:year/:area_name/:kind" => "budget_lines#index", as: :budget_lines
+      get "partidas/:id/:year/:area_name/:kind" => "budget_lines#show", as: :budget_line
       get "budget_line_descendants/:year/:area_name/:kind" => "budget_line_descendants#index", as: :budget_line_descendants
-      get "presupuestos/ejecucion(/:year)" => "budgets_execution#index", as: :budgets_execution
-      get "presupuestos/guia" => "budgets#guide", as: :budgets_guide
-      get "presupuestos/elaboracion" => "budgets_elaboration#index", as: :budgets_elaboration
+      get "ejecucion(/:year)" => "budgets_execution#index", as: :budgets_execution
+      get "guia" => "budgets#guide", as: :budgets_guide
+      get "elaboracion" => "budgets_elaboration#index", as: :budgets_elaboration
       get "budgets/treemap(/:year)" => "budget_lines#treemap", as: :budget_lines_treemap
 
       get "all_categories/:slug/:year" => "search#all_categories", as: :search_all_categories
@@ -247,7 +247,7 @@ Rails.application.routes.draw do
       get "feedback/step2" => "feedback#step2", as: :feedback_step2
       get "feedback/step3" => "feedback#step3", as: :feedback_step3
       post "feedback/follow" => "feedback#follow", as: :feedback_follow
-      get "feedback/load_follow" => "feedback#load_follow", as: :feedback_load_follow
+      get "feedback/load_ask_more_information" => "feedback#load_ask_more_information", as: :feedback_load_ask_more_information
 
       namespace :api do
         get "/categories" => "categories#index"
@@ -282,9 +282,9 @@ Rails.application.routes.draw do
       get "/" => "welcome#index", as: :root
 
       resources :processes, only: [:index, :show], path: "p" do
-        resource :information, only: [:show], controller: "process_information", as: :process_information, path: "informacion"
-        resources :contribution_containers, only: [:index, :show], controller: "process_contribution_containers", as: :process_contribution_containers, path: "aportaciones" do
-          resources :contributions, only: [:new, :create, :show], controller: "process_contributions", as: :process_contributions, path: :contributions do
+        resource :information, only: [:show], controller: "processes/information", path: "informacion"
+        resources :contribution_containers, only: [:index, :show], controller: "processes/contribution_containers", path: "aportaciones" do
+          resources :contributions, only: [:new, :create, :show], controller: "processes/contributions", path: :contributions do
             resource :vote, only: [:create, :destroy]
             resource :flag, only: [:create, :destroy]
             resource :comment, only: [:create, :index]

@@ -57,9 +57,9 @@ module GobiertoParticipation
     end
 
     def resource_path
-      Rails.application.routes.url_helpers.gobierto_participation_process_process_contribution_container_process_contribution_path(
+      Rails.application.routes.url_helpers.gobierto_participation_process_contribution_container_contribution_path(
         process_id: contribution_container.process.slug,
-        process_contribution_container_id: contribution_container.slug,
+        contribution_container_id: contribution_container.slug,
         id: slug
       )
     end

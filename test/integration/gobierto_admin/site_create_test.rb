@@ -31,6 +31,7 @@ module GobiertoAdmin
           fill_in "site_links_markup", with: "Site Links markup"
           fill_in "site_google_analytics_id", with: "UA-000000-01"
           fill_in "site_populate_data_api_token", with: "APITOKEN"
+          select "GobiertoPeople", from: "site_home_page"
 
           within ".site-check-boxes" do
             check "site_available_locales_es"

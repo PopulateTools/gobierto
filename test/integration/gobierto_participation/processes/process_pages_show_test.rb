@@ -99,7 +99,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_page_path
 
-        within ".news_article" do
+        within ".cms_page" do
           assert has_content? "Notice 1 title"
           assert has_content? "Notice 1 body"
         end

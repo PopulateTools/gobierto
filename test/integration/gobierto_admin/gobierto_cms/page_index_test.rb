@@ -19,16 +19,15 @@ module GobiertoAdmin
       end
 
       def collections
-        @collections ||= site.collections.where(item_type: "GobiertoCms::Page")
+        @collections ||= site.collections.where(item_type: '["GobiertoCms::Page", "GobiertoCms:New"]')
       end
 
       def test_collections_index
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
-            within "table tbody" do
-              assert has_selector?("tr", count: collections.size)
 
+            within "table tbody" do
               collections.each do |collection|
                 assert has_selector?("tr#collection-item-#{collection.id}")
 

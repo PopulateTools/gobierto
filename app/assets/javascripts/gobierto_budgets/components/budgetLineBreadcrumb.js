@@ -181,7 +181,7 @@ function limit_length(input, length) {
     };
 
     this.renderLevel = function(level, currentCode, callback){
-      var url = '/budget_line_descendants/' + this.currentYear + '/' + this.areaName + '/' + this.currentKind + '.json';
+      var url = '/presupuestos/budget_line_descendants/' + this.currentYear + '/' + this.areaName + '/' + this.currentKind + '.json';
       if(level > 2){
         url += '?parent_code=' + currentCode;
       }

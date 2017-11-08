@@ -50,14 +50,14 @@
       <%= f.hidden_field :attachment_ids, id: "attachmentsIdsAfterCreated" %>
 
       <div class="sidebar_tool m_v_2" id="section">
-        <small><strong>Sección</strong></small>
+        <small><strong><%= t(".section") %></strong></small>
         <div class="form_item">
           <div class="options compact">
             <div class="option open_level_1">
               <input type="checkbox" id="permission_1" name="permission_1">
               <label for="permission_1">
                 <span></span>
-                Incluir en secciones
+                <%= t(".include_in_section") %>
               </label>
             </div>
           </div>
@@ -68,7 +68,7 @@
         </div>
 
         <div class="form_item select_control select_compact level_2 open_level_3" style='<%= @parent ? '' : 'display: none;' %>'>
-          <%= f.select :parent, @section_items.map{ |s| [s.item.title, s.id] }, selected: @parent, prompt: "(sin padre)" %>
+          <%= f.select :parent, @section_items.map{ |s| [s.item.title, s.id] }, selected: @parent, prompt: I18n.t('gobierto_admin.gobierto_cms.pages.form.without_parent') %>
         </div>
        </div>
      </div>

@@ -6,12 +6,16 @@ en:
         edit:
           title: Edit page
         form:
+          include_in_section: Include in section
+          new_section: "(New section)"
           placeholders:
             slug: about-this-web
             title: Page title
+          section: Section
           visibility_level:
             active: Published
             draft: Draft
+          without_parent: "(without parent)"
         index:
           collections: Collections
           header:

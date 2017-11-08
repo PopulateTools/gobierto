@@ -6,12 +6,16 @@ es:
         edit:
           title: Editar página
         form:
+          include_in_section: Incluir en sección
+          new_section: "(Nueva sección)"
           placeholders:
             slug: acerca-de-esta-web
             title: Título de la página
+          section: Sección
           visibility_level:
             active: Publicada
             draft: Borrador
+          without_parent: "(sin padre)"
         index:
           collections: Colecciones
           header:

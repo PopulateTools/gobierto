@@ -11,7 +11,7 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
 
       // Sections
       $('.level_1').show();
-      $("#page_section").append('<option value="0">(Nueva sección)</option>');
+      $("#page_section").append('<option value="0">' + I18n.t('gobierto_admin.gobierto_cms.pages.form.new_section') + '</option>');
 
       // parent
       $('.level_2').show();
@@ -65,7 +65,7 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
           var i, theContainer, theSelect, theOptions, numOptions, anOption;
           theOptions = data['section_items'];
 
-          $("#page_parent").append('<option value="0">(sin padre)</option>');
+          $("#page_parent").append('<option value="0">' + I18n.t('gobierto_admin.gobierto_cms.pages.form.without_parent') + '</option>');
 
           if(theOptions.length >= 1){
             // Create the container <div>

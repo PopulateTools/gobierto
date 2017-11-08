@@ -58,7 +58,7 @@ en:
             configuration: Configuration
         process_information:
           edit:
-            title: Edit process
+            information: Information
           form:
             placeholders:
               information_text: Information

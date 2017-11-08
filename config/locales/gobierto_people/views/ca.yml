@@ -131,9 +131,9 @@ ca:
           title: Consulta l'agenda de...
         displaying_events_of: Mostrant esdeveniments del %{date}
         go_back: Tornar
-        no_events: No hi ha events futurs ni passats.
-        no_past_events: No hi ha events passats.
-        no_upcoming_events: No hi ha events futurs. Mira els pròxims events
+        no_events: No hi ha esdeveniments futurs ni passats.
+        no_past_events: No hi ha evenesdeveniments passats.
+        no_upcoming_events: No hi ha evenesdeveniments futurs. Mira els pròxims evesdeveniments
         past_events: Esdeveniments passats
         subscribable_box:
           title: Rep un resum de les agendes dels teus representants
@@ -169,8 +169,8 @@ ca:
     welcome:
       index:
         events_summary:
-          no_events: No hi ha events
-          no_upcoming_events: No hi ha events futurs. Mira els pròxims events
+          no_events: No hi ha evenesdeveniments
+          no_upcoming_events: No hi ha eveesdeveniments futurs. Mira els pròxims evenesdeveniments
           past_events: Esdeveniments passats
           upcoming_events: Agenda
           view_all: Veure tots

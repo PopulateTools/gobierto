@@ -63,11 +63,11 @@
           </div>
         </div>
 
-        <div class="form_item select_control select_compact level_1 open_level_2" style='<%= f.object.has_section ? '' : 'display: none;' %>'>
-          <%= f.select :section, @sections.map{ |s| [s.title, s.id] }, selected: @section, include_blank: true %>
+        <div class="form_item select_control select_compact level_1 open_level_2" style='<%= @section ? '' : 'display: none;' %>'>
+          <%= f.select :section, @sections.map{ |s| [s.title, s.id] }, selected: @section %>
         </div>
 
-        <div class="form_item select_control select_compact level_2 open_level_3" style='<%= f.object.has_section ? '' : 'display: none;' %>'>
+        <div class="form_item select_control select_compact level_2 open_level_3" style='<%= @parent ? '' : 'display: none;' %>'>
           <%= f.select :parent, @section_items.map{ |s| [s.item.title, s.id] }, selected: @parent, prompt: "(sin padre)" %>
         </div>
        </div>

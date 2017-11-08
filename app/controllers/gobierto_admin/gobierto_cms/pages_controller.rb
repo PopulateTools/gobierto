@@ -15,6 +15,9 @@ module GobiertoAdmin
         @page_form = PageForm.new(site_id: current_site.id, collection_id: @collection.id)
         @page_visibility_levels = get_page_visibility_levels
         @sections = current_site.sections
+        @section = nil
+        @parent = nil
+        @section_items = []
       end
 
       def edit
@@ -91,7 +94,6 @@ module GobiertoAdmin
           :slug,
           :section,
           :parent,
-          :has_section,
           title_translations: [*I18n.available_locales],
           body_translations:  [*I18n.available_locales]
         )

@@ -12,6 +12,11 @@ module ApplicationHelper
     render_if_exists("#{module_name.underscore}/layouts/menu_subsections")
   end
 
+  # Example: translate_enum_value(GobiertoParticipation::ProcessStage, :stage_type, :information)
+  def translate_enum_value(object, enum_name, enum_value_name)
+    I18n.t("activerecord.attributes.#{object.model_name.i18n_key}.#{enum_name.to_s.pluralize}.#{enum_value_name}")
+  end
+
   def localized_enum(class_name, enum_name)
     return {} unless class_name.respond_to?(enum_name.to_s.pluralize)
 
@@ -23,11 +28,11 @@ module ApplicationHelper
   end
 
   def privacy_policy_page_link
-    if current_site.configuration.privacy_page?
+    if current_site && current_site.configuration.privacy_page?
       link_to t('layouts.accept_privacy_policy_signup'), current_site.configuration.privacy_page
     end
   end
-  
+
   def tab_attributes(condition)
     {
       role:'tab', 'tabindex' => condition ? 0 : -1, 'aria-selected' => condition

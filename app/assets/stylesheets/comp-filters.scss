@@ -3,37 +3,49 @@
  *
  */
 .filter {
-	font-size: .75em;
-	a {
-		display: inline-block;
-		padding: .35em 1.25em .25em;
-		margin: 0 .75em 0 0;
-		@include border-radius(2em);
-		background: rgba($color_main, .2);
-		text-decoration: none;
-		cursor: pointer;
-	}
-	a:hover {
-		background: rgba($color_main, .3);
+  font-size: .75em;
+  @include screen(768) {
+    &.m_2 {
+      margin: 0 0 1em 0;
+    }
+  }
+  a {
+    display: inline-block;
+    padding: .35em 1.25em .25em;
+    margin: 0 .75em 0 0;
+    @include border-radius(2em);
+    background: rgba($color_main, .2);
     text-decoration: none;
-	}
-	a.active, a.active:hover {
-		border: 1px solid rgba($color_main, .2);
-		background: $color_main_negative;
-	}
-	a.active {
-		cursor: default;
-	}
-	a.help {
-		font-weight: bold;
-		padding: .35em 1em .25em;
-	}
-	.separator_v {
-		margin: -.25em 2em 0 2em;
-	}
-	span.label {
-		padding: 0 1em;
-	}
+    cursor: pointer;
+
+    @include screen(768) {
+      padding: .35em .5em .25em;
+    }
+  }
+  a:hover {
+    background: rgba($color_main, .3);
+    text-decoration: none;
+  }
+  a.active, a.active:hover {
+    border: 1px solid rgba($color_main, .2);
+    background: $color_main_negative;
+  }
+  a.active {
+    cursor: default;
+  }
+  a.help {
+    font-weight: bold;
+    padding: .35em 1em .25em;
+  }
+  .separator_v {
+    margin: -.25em 2em 0 2em;
+  }
+  span.label {
+    padding: 0 1em;
+  }
+  a:last-child {
+    margin-right: 0;
+  }
 }
 
 /* comparator version, pending to unify */

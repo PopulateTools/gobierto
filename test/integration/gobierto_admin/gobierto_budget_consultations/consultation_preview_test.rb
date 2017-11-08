@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoBudgetConsultations
   class ConsultationPreviewTest < ActionDispatch::IntegrationTest
-
     def setup
       super
       @path = admin_budget_consultations_path
@@ -30,7 +31,6 @@ module GobiertoBudgetConsultations
           visit @path
 
           within "tr#consultation-item-#{active_consultation.id}" do
-
             preview_link = find("a", text: "View consultation")
 
             refute preview_link[:href].include?(admin.preview_token)
@@ -71,7 +71,6 @@ module GobiertoBudgetConsultations
 
     def test_preview_draft_page_if_not_admin
       with_current_site(site) do
-
         assert_raises ActiveRecord::RecordNotFound do
           visit gobierto_budget_consultations_consultation_path(draft_consultation)
         end
@@ -80,6 +79,5 @@ module GobiertoBudgetConsultations
         refute has_selector?("h2", text: draft_consultation.title)
       end
     end
-
   end
 end

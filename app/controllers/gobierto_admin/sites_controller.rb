@@ -13,6 +13,7 @@ module GobiertoAdmin
 
       @site_form = SiteForm.new
       @site_modules = get_site_modules
+      @site_modules_with_root_path = site_modules_with_root_path
       @site_visibility_levels = get_site_visibility_levels
       @dns_config = get_dns_config
       @services_config = get_services_config
@@ -30,6 +31,7 @@ module GobiertoAdmin
         @site.attributes.except(*ignored_site_attributes)
       )
       @site_modules = get_site_modules
+      @site_modules_with_root_path = site_modules_with_root_path
       @site_visibility_levels = get_site_visibility_levels
       @dns_config = get_dns_config
       @services_config = get_services_config
@@ -44,6 +46,7 @@ module GobiertoAdmin
       raise Errors::NotAuthorized unless site_policy.create?
 
       @site_modules = get_site_modules
+      @site_modules_with_root_path = site_modules_with_root_path
       @site_visibility_levels = get_site_visibility_levels
       @dns_config = get_dns_config
       @services_config = get_services_config
@@ -66,6 +69,7 @@ module GobiertoAdmin
       raise Errors::NotAuthorized unless site_policy.update?
 
       @site_modules = get_site_modules
+      @site_modules_with_root_path = site_modules_with_root_path
       @site_visibility_levels = get_site_visibility_levels
       @dns_config = get_dns_config
       @services_config = get_services_config
@@ -102,6 +106,10 @@ module GobiertoAdmin
       APP_CONFIG["site_modules"].map { |site_module| OpenStruct.new(site_module) }
     end
 
+    def site_modules_with_root_path
+      APP_CONFIG["site_modules_with_root_path"].map { |site_module| OpenStruct.new(site_module) }
+    end
+
     def get_dns_config
       OpenStruct.new(APP_CONFIG["dns_config"])
     end
@@ -136,6 +144,7 @@ module GobiertoAdmin
         :default_locale,
         :privacy_page_id,
         :populate_data_api_token,
+        :home_page,
         site_modules: [],
         available_locales: [],
         title_translations: [*I18n.available_locales],

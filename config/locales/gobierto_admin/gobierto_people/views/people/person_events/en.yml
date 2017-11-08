@@ -4,43 +4,5 @@ en:
     gobierto_people:
       people:
         person_events:
-          attendees_form:
-            header:
-              charge: Charge
-              name: Name
-              person: Person
-            title: Attendees
-            view_person: View person
-          edit:
-            title: Edit evento
-          form:
-            attachment_file_constraints: Attach file (PDF)
-            placeholders:
-              title: Meeting with neighbors of the center district
-            state:
-              pending: Pending
-              published: Published
           index:
-            all_events: All
-            configuration: Configuration
-            header:
-              date: Date
-              event: Event
-              location: Location
-              status: Status
-            new: New event
-            past_events: Past events
-            pending_events: Moderation pending
-            published_events: Published events
             title: Agenda
-            view_event: View event
-            visibility_level:
-              pending: Draft
-              published: Published
-          locations_form:
-            header:
-              address: Address
-              place: Place
-            title: Place
-          new:
-            title: New evento

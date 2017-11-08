@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class CreateGpartProcesses < ActiveRecord::Migration[5.1]
   def change
     create_table :gpart_processes do |t|
       t.references :site
-      t.string :slug, null: false, default: ''
+      t.string :slug, null: false, default: ""
       t.integer :visibility_level, null: false, default: 0
       t.jsonb :title_translations
       t.jsonb :body_translations

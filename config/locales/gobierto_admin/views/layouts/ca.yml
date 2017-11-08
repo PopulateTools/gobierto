@@ -7,16 +7,21 @@ ca:
           account: El teu compte
           sign_out: Tancar sessió
         budget_consultations: Consultes de pressupostos
-        cms: Gestió de pàgines
+        budgets: Pressupostos
+        calendars: Agendes
+        cms: CMS
         collapse_menu: Colapsar menú
         dirty_forms:
           message: Hi ha canvis sense desar. Estàs segur de voler continuar?
         edit_site: Personalitzar site
+        file_attachments: Documents
         hey_admin: Hola, %{admin_name}
         issues: Temes
         manage_sites: Gestionar sites
         notifications: Notificacions
+        participation: Participació
         people: Alts càrrecs i Agendes
-        site_network: Red
+        scopes: Àmbits
+        site_network: Xarxa
         users: Usuaris
         view_site: Veure site

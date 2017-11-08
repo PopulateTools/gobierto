@@ -63,7 +63,7 @@ module GobiertoBudgets
 
       def lines
         @place = INE::Places::Place.find(params[:ine_code])
-        data_line = GobiertoBudgets::Data::Lines.new place: @place, year: params[:year], what: params[:what], kind: params[:kind], code: params[:code], area: params[:area]
+        data_line = GobiertoBudgets::Data::Lines.new place: @place, year: params[:year], what: params[:what], kind: params[:kind], code: params[:code], area: params[:area], include_next_year: params[:include_next_year]
 
         respond_lines_to_json data_line
       end
@@ -104,10 +104,12 @@ module GobiertoBudgets
         area = params[:area]
 
         lines = GobiertoBudgets::Data::BudgetExecutionComparison.extract_lines(site: current_site, year: year, kind: kind, ine_code: ine_code, area: area)
+        last_update = current_site.budgets_data_updated_at('execution')
 
         respond_to do |format|
           format.json do
             render json: {
+              last_update: last_update ? last_update.strftime('%F') : nil,
               lines: lines
             }
           end

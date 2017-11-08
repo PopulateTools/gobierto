@@ -1,80 +1,107 @@
 <div class="admin_breadcrumb">
   <%= link_to 'Inicio', 'admin' %> »
-  Personas
+  CMS
 </div>
 
-<h1>Personas</h1>
+<h1>CMS</h1>
 
-<div class="admin_tools right">
-  <%= link_to '<i class="fa fa-cog"></i> Configuración'.html_safe, 'admin_people_conf' %>
-  <button class="btn">Nueva</button>
+<div class="pure-g">
+
+  <div class="pure-u-1 pure-u-md-1-2 p_h_r_2">
+
+    <h3>Últimas ediciones</h3>
+
+    <%# same markup as in the front end, lets reuse partials? %>
+    <div class="activity_feed">
+
+      <% for i in [
+        'Nuevo: Arranca la fase de votaciones para decidir los nuevos parques infantiles',
+        'Actualizado: Te explicamos los presupuestos en 5 claves',
+        'Inauguramos el Portal de Transparencia',
+        'Anunciamos la publicación de las agendas de los cargos y directivos del Ayuntamiento',
+        'Comienzan las fiestas de Getafe',
+        'Relación de puestos de trabajo y retribuciones del Ayuntamiento'
+      ] %>
+      <div class="activity_item">
+        <h2>
+          <a href="admin_cms_collection_page">
+            <%= i %>
+            <span class="secondary">Participación/Nombre del proceso que a veces será muy largo/Noticias</span>
+          </a>
+        </h2>
+        <div class="date">02 mar 2017</div>
+      </div>
+      <% end %>
+
+    </div>
+
+  </div>
+
+  <div class="pure-u-1 pure-u-md-1-2">
+
+    <div class="pure-g">
+
+      <div class="pure-u-1-2">
+        <h3 class="m_t_0">Secciones</h3>
+      </div>
+
+      <div class="pure-u-1-2 admin_tools right">
+        <%= link_to 'Nueva', 'admin_cms_sections#section_options', class: 'button' %>
+      </div>
+
+    </div>
+
+    <table class="m_b_3">
+    <tr>
+      <th>Sección</th>
+      <th>Páginas</th>
+      <th></th>
+    </tr>
+
+    <% for i in [
+      'Portal de Transparencia',
+      'Ayuda',
+      'Manual de Participación',
+      'Guía de Participación'
+    ] %>
+    <tr>
+      <td><%= link_to i, 'admin_cms_sections_section' %></td>
+      <td>12</td>
+      <td><%= link_to '<i class="fa fa-eye"></i> Ver sección'.html_safe, '#public_url', class: 'view_item' %></td>
+    </tr>
+    <% end %>
+
+    </table>
+
+    <div class="pure-g">
+
+      <div class="pure-u-1-2">
+        <h3 class="m_t_0">Colecciones</h3>
+      </div>
+
+      <div class="pure-u-1-2 admin_tools right">
+        <%= link_to 'Nueva', 'admin_cms_collection', class: 'button' %>
+      </div>
+
+    </div>
+
+    <table class="m_b_3">
+    <tr>
+      <th>Título</th>
+      <th>Páginas</th>
+      <th></th>
+    </tr>
+
+    <% for i in ['Noticias', 'Presupuestos/Historias', 'Indicadores/Historias', 'Portal de Transparencia', 'Altos Cargos y Agendas/Noticias', 'Participación/Noticias', 'Participación/Proceso con Título que Puede llegar a ser muy largo/Noticias'] %>
+    <tr>
+      <td><%= link_to i, 'admin_cms_collection' %></td>
+      <td>12</td>
+      <td><%= link_to '<i class="fa fa-eye"></i> Ver colección'.html_safe, '#public_url', class: 'view_item' %></td>
+    </tr>
+    <% end %>
+
+    </table>
+
+  </div>
+
 </div>
-
-<table>
-<tr>
-  <th></th>
-  <th>Título</th>
-  <th>Creada</th>
-  <th>Actualizada</th>
-  <th>Pública</th>
-  <th></th>
-  <th></th>
-</tr>
-
-<tr>
-  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_cms_page_text' %></td>
-  <td><%= link_to 'Acerca de esta web', 'admin_cms_page_text' %></td>
-  <td>hace 10 minutos</td>
-  <td>hace 5 minutos</td>
-  <td class="visibility_level">
-    <i class="fa fa-lock"></i>
-    Borrador
-  </td>
-  <td><%= link_to '<i class="fa fa-eye"></i> Ver página'.html_safe, '#', class: 'view_item' %></td>
-</tr>
-<tr>
-  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_cms_page_text' %></td>
-  <td><%= link_to 'Política de Privacidad', 'admin_cms_page_text' %></td>
-  <td>hace 10 minutos</td>
-  <td>hace 5 minutos</td>
-  <td class="visibility_level">
-    <i class="fa fa-check"></i>
-    Publicada
-  </td>
-  <td><%= link_to '<i class="fa fa-eye"></i> Ver página'.html_safe, '#', class: 'view_item' %></td>
-</tr>
-<tr>
-  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_cms_page_text' %></td>
-  <td><%= link_to 'Condiciones de uso', 'admin_cms_page_text' %></td>
-  <td>hace 10 minutos</td>
-  <td>hace 5 minutos</td>
-  <td class="visibility_level">
-    <i class="fa fa-check"></i>
-    Publicada
-  </td>
-  <td><%= link_to '<i class="fa fa-eye"></i> Ver página'.html_safe, '#', class: 'view_item' %></td>
-</tr>
-<tr>
-  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_cms_page_text' %></td>
-  <td><%= link_to 'Accesibilidad', 'admin_cms_page_text' %></td>
-  <td>hace 10 minutos</td>
-  <td>hace 5 minutos</td>
-  <td class="visibility_level">
-    <i class="fa fa-check"></i>
-    Publicada
-  </td>
-  <td><%= link_to '<i class="fa fa-eye"></i> Ver página'.html_safe, '#', class: 'view_item' %></td>
-</tr>
-<tr>
-  <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, 'admin_cms_page_text' %></td>
-  <td><%= link_to 'Preguntas frecuentes', 'admin_cms_page_text' %></td>
-  <td>hace 10 minutos</td>
-  <td>hace 5 minutos</td>
-  <td class="visibility_level">
-    <i class="fa fa-check"></i>
-    Publicada
-  </td>
-  <td><%= link_to '<i class="fa fa-eye"></i> Ver página'.html_safe, '#', class: 'view_item' %></td>
-</tr>
-
-</table>

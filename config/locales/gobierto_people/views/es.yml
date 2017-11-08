@@ -2,9 +2,6 @@
 es:
   gobierto_people:
     events:
-      gobierto_people_person_event_published: 'Agenda actualizada con un nuevo evento:
-        %{subject_name}'
-      gobierto_people_person_event_updated: 'Evento actualizado: %{subject_name}'
       gobierto_people_person_post_published: 'Actualización del blog: %{subject_name}'
       gobierto_people_person_post_updated: 'Actualización del post: %{subject_name}'
       gobierto_people_person_published: 'Creada nueva persona: %{subject_name}'
@@ -52,7 +49,9 @@ es:
         bio: Biografía y CV
         blog: Blog
         exports: Descarga los datos en formato reutilizable
+        gifts: Obsequios y regalos
         statements: Bienes y Actividades
+        trips: Viajes
       people_filter:
         organigram: Organigrama de %{name}
         political_groups: Grupos políticos de %{name}
@@ -74,9 +73,6 @@ es:
           event_data:
             event_attendees: Asistentes
             event_locations: Lugar
-          subscribable_box:
-            subtitle: Recibe actualizaciones, preguntas y noticias
-            title: Sigue este evento
           title: Agenda de %{person_name}
       person_messages:
         new:
@@ -112,9 +108,7 @@ es:
       show:
         party:
           government: Equipo de gobierno
-          oposition: Oposición
-        subscribable_box:
-          title: Recibe actualizaciones sobre la actividad de %{person_name}
+          opposition: Oposición
       subscription_button:
         cancel: Cancelar
         follow: Seguir

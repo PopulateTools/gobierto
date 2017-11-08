@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -7,7 +9,7 @@ module GobiertoAdmin
         @valid_person_statement_form ||= PersonStatementForm.new(
           person_id: person.id,
           site_id: site.id,
-          title_translations: {I18n.locale => person_statement.title},
+          title_translations: { I18n.locale => person_statement.title },
           published_on: person_statement.published_on,
           attachment_url: person_statement.attachment_url,
           attachment_size: person_statement.attachment_size,
@@ -71,7 +73,6 @@ module GobiertoAdmin
 
         assert person_statement_form.valid?
       end
-
     end
   end
 end

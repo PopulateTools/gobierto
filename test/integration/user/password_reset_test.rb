@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class User::PasswordResetTest < ActionDispatch::IntegrationTest
@@ -104,5 +106,4 @@ class User::PasswordResetTest < ActionDispatch::IntegrationTest
       assert has_message?("Please check your inbox to get instructions")
     end
   end
-
 end

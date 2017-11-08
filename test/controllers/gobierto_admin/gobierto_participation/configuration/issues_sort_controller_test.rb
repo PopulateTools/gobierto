@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -9,11 +11,11 @@ module GobiertoAdmin
         end
 
         def issue_1
-          @issue_1 ||= gobierto_participation_issues(:culture)
+          @issue_1 ||= issues(:culture)
         end
 
         def issue_2
-          @issue_2 ||= gobierto_participation_issues(:women)
+          @issue_2 ||= issues(:women)
         end
 
         def setup
@@ -29,8 +31,8 @@ module GobiertoAdmin
         def valid_sort_params
           {
             positions: {
-              '0' => { id: issue_1.id, position: 2 },
-              '1' => { id: issue_2.id, position: 1 }
+              "0" => { id: issue_1.id, position: 2 },
+              "1" => { id: issue_2.id, position: 1 }
             }
           }
         end
@@ -39,7 +41,7 @@ module GobiertoAdmin
           assert_equal 1, issue_1.position
           assert_equal 2, issue_2.position
 
-          post admin_participation_issue_sort_url, params: valid_sort_params
+          post admin_issue_sort_url, params: valid_sort_params
           assert_response :no_content
 
           issue_1.reload

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class Subscribers::AdminActivityTest < ActiveSupport::TestCase
@@ -10,7 +12,7 @@ class Subscribers::AdminActivityTest < ActiveSupport::TestCase
   end
 
   def subject
-    @subject ||= Subscribers::AdminActivity.new('admins')
+    @subject ||= Subscribers::AdminActivity.new("admins")
   end
 
   def admin
@@ -26,10 +28,10 @@ class Subscribers::AdminActivityTest < ActiveSupport::TestCase
   end
 
   def test_invitation_created_event_handling
-    assert_difference 'Activity.count' do
+    assert_difference "Activity.count" do
       subject.invitation_created Event.new(name: "admins/admins.invitation_created", payload: {
-        author: admin, ip: IP
-      })
+                                             author: admin, ip: IP
+                                           })
     end
 
     activity = Activity.last
@@ -42,10 +44,10 @@ class Subscribers::AdminActivityTest < ActiveSupport::TestCase
   end
 
   def test_invitation_accepted_event_handling
-    assert_difference 'Activity.count' do
+    assert_difference "Activity.count" do
       subject.invitation_accepted Event.new(name: "admins/admins.invitation_accepted", payload: {
-        subject: admin, author: admin, ip: IP
-      })
+                                              subject: admin, author: admin, ip: IP
+                                            })
     end
 
     activity = Activity.last
@@ -58,10 +60,10 @@ class Subscribers::AdminActivityTest < ActiveSupport::TestCase
   end
 
   def test_admin_created_event_handling
-    assert_difference 'Activity.count' do
+    assert_difference "Activity.count" do
       subject.admin_created Event.new(name: "admins/admins.admin_created", payload: {
-        subject: admin_subject, author: admin, ip: IP
-      })
+                                        subject: admin_subject, author: admin, ip: IP
+                                      })
     end
 
     activity = Activity.last
@@ -74,20 +76,20 @@ class Subscribers::AdminActivityTest < ActiveSupport::TestCase
   end
 
   def test_admin_updated_event_handling_no_changes
-    assert_no_difference 'Activity.count' do
+    assert_no_difference "Activity.count" do
       subject.admin_updated Event.new(name: "admins/admins.admin_updated", payload: {
-        subject: admin_subject, author: admin, ip: IP,
-        changes: []
-      })
+                                        subject: admin_subject, author: admin, ip: IP,
+                                        changes: []
+                                      })
     end
   end
 
   def test_admin_updated_event_handling
-    assert_difference 'Activity.count' do
+    assert_difference "Activity.count" do
       subject.admin_updated Event.new(name: "admins/admins.admin_updated", payload: {
-        subject: admin_subject, author: admin, ip: IP,
-        changes: ["name" => "Foo"]
-      })
+                                        subject: admin_subject, author: admin, ip: IP,
+                                        changes: ["name" => "Foo"]
+                                      })
     end
 
     activity = Activity.last
@@ -100,11 +102,11 @@ class Subscribers::AdminActivityTest < ActiveSupport::TestCase
   end
 
   def test_admin_updated_event_handling_for_authorization_level_updated
-    assert_difference 'Activity.count' do
+    assert_difference "Activity.count" do
       subject.admin_updated Event.new(name: "admins/admins.admin_authorization_level_updated", payload: {
-        subject: admin_subject, author: admin, ip: IP,
-        changes: {"authorization_level"=>"manager"}
-      })
+                                        subject: admin_subject, author: admin, ip: IP,
+                                        changes: { "authorization_level" => "manager" }
+                                      })
     end
 
     activity = Activity.last

@@ -1,14 +1,215 @@
-green_city_first_stage:
-  process: green_city
+green_city_group_information_stage:
+  process: green_city_group
+  slug: information
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:information] %>
+
+green_city_group_meetings_stage:
+  process: green_city_group
+  slug: meetings
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
+
+green_city_group_polls_stage:
+  process: green_city_group
+  slug: polls
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:polls] %>
+
+green_city_group_ideas_stage:
+  process: green_city_group
+  slug: ideas
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:ideas] %>
+
+green_city_group_results_stage:
+  process: green_city_group
+  slug: results
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:results] %>
+
+cultural_city_group_information_stage:
+  process: cultural_city_group
+  slug: information
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:information] %>
+
+cultural_city_group_meetings_stage:
+  process: cultural_city_group
+  slug: meetings
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
+
+cultural_city_group_polls_stage:
+  process: cultural_city_group
+  slug: polls
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:polls] %>
+
+cultural_city_group_ideas_stage:
+  process: cultural_city_group
+  slug: ideas
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:ideas] %>
+
+cultural_city_group_results_stage:
+  process: cultural_city_group
+  slug: results
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:results] %>
+
+local_budgets_information_stage:
+  process: local_budgets_process
   title_translations: <%= { 'en' => 'Information', 'es' => 'Información' }.to_json %>
-  slug_translations: <%= { 'en' => 'information', 'es' => 'informacion' }.to_json %>
+  description_translations: <%= { 'en' => 'Information description', 'es' => 'Información descripción' }.to_json %>
+  slug: informacion
   starts: <%= 3.days.ago %>
   ends: <%= 2.days.ago %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:information] %>
+  active: true
+  cta_text_translations: <%= { 'en' => 'More details', 'es' => 'Ver detalles' }.to_json %>
 
-green_city_second_stage:
-  process: green_city
-  title_translations: <%= { 'en' => 'Suggest ideas', 'es' => 'Sugiere ideas' }.to_json %>
-  slug_translations: <%= { 'en' => 'suggest-ideas', 'es' => 'sugiere-ideas' }.to_json %>
+local_budgets_meetings_stage:
+  process: local_budgets_process
+  title_translations: <%= { 'en' => 'Meetings stage', 'es' => 'Fase de reuniones' }.to_json %>
+  description_translations: <%= { 'en' => 'Meetings description', 'es' => 'Fase de reuniones descripción' }.to_json %>
+  cta_text_translations: <%= { 'en' => 'Participate', 'es' => 'Participa en las mesas' }.to_json %>
+  slug: organiza-reuniones
   starts: <%= 2.days.ago %>
-  ends: <%= 5.days.from_now %>
+  ends: <%= 4.days.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
+  active: true
 
+local_budgets_polls_stage:
+  process: local_budgets_process
+  slug: polls
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:polls] %>
+
+local_budgets_ideas_stage:
+  process: local_budgets_process
+  title_translations: <%= { 'en' => 'Suggest ideas', 'es' => 'Sugiere ideas' }.to_json %>
+  description_translations: <%= { 'en' => 'Suggest ideas description', 'es' => 'Sugiere ideas descripción' }.to_json %>
+  cta_text_translations: <%= { 'en' => 'Add your idea', 'es' => 'Aportar idea' }.to_json %>
+  slug: sugiere-idea
+  starts: <%= 1.day.from_now %>
+  ends: <%= 10.days.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:ideas] %>
+  active: true
+
+local_budgets_results_stage:
+  process: local_budgets_process
+  slug: results
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:results] %>
+
+gender_violence_process_information_stage:
+  process: gender_violence_process
+  title_translations: <%= { 'es' => 'Presentación del proceso' }.to_json %>
+  description_translations: <%= { 'es' => 'A través de diferentes Mesas de Diálogo Ciudadano recogeremos en los diferentes distritos propuestas vecinales.' }.to_json %>
+  cta_text_translations: <%= { 'en' => 'More details', 'es' => 'Ver detalles' }.to_json %>
+  slug: presentacion
+  starts: <%= 2.months.ago %>
+  ends: <%= 1.month.ago %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:information] %>
+  active: true
+
+gender_violence_process_meetings_stage:
+  process: gender_violence_process
+  title_translations: <%= { 'es' => 'Mesas de diálogo' }.to_json %>
+  description_translations: <%= { 'es' => 'A través de diferentes Mesas de Diálogo Ciudadano recogeremos en los diferentes distritos propuestas vecinales y soluciones concretas que nos permitan elaborar el borrador del “Pacto social por el fin de la violencia contra la mujer”.' }.to_json %>
+  cta_text_translations: <%= { 'en' => 'Participate', 'es' => 'Participa en las mesas' }.to_json %>
+  slug: dialogo
+  starts: <%= 1.month.ago + 1.day %>
+  ends: <%= 5.days.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
+  active: true
+
+gender_violence_process_polls_stage:
+  process: gender_violence_process
+  slug: polls
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:polls] %>
+
+gender_violence_process_ideas_stage:
+  process: gender_violence_process
+  title_translations: <%= { 'en' => 'Draft publication', 'es' => 'Publicación del borrador' }.to_json %>
+  description_translations: <%= { 'es' => 'A través de diferentes Mesas de Diálogo Ciudadano recogeremos en los diferentes distritos propuestas vecinales y soluciones concretas que nos permitan elaborar el borrador del “Pacto social por el fin de la violencia contra la mujer”.' }.to_json %>
+  cta_text_translations: <%= { 'en' => 'Add your idea', 'es' => 'Aportar idea' }.to_json %>
+  slug: borrador
+  starts: <%= 15.days.ago %>
+  ends: <%= 2.months.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:ideas] %>
+  active: true
+
+gender_violence_process_results_stage:
+  process: gender_violence_process
+  title_translations: <%= { 'es' => 'Presentación del pacto' }.to_json %>
+  description_translations: <%= { 'es' => 'A través de diferentes Mesas de Diálogo Ciudadano recogeremos en los diferentes distritos propuestas vecinales y soluciones concretas que nos permitan elaborar el borrador del “Pacto social por el fin de la violencia contra la mujer”.' }.to_json %>
+  cta_text_translations: <%= { 'en' => 'Check results', 'es' => 'Ver resultados' }.to_json %>
+  slug: pacto
+  starts: <%= 40.days.from_now %>
+  ends: <%= 60.days.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:results] %>
+  active: true
+
+commission_for_carnival_festivities_information_stage:
+  process: commission_for_carnival_festivities
+  slug: information
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:information] %>
+
+commission_for_carnival_festivities_meetings_stage:
+  process: commission_for_carnival_festivities
+  slug: meetings
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
+
+commission_for_carnival_festivities_polls_stage:
+  process: commission_for_carnival_festivities
+  title_translations: <%= { 'en' => 'Polls', 'es' => 'Encuestas' }.to_json %>
+  description_translations: <%= { 'es' => 'Encuestas (descripción)' }.to_json %>
+  cta_text_translations: <%= { 'en' => 'Participate', 'es' => 'Participa en las encuestas' }.to_json %>
+  slug: encuestas
+  starts: <%= 1.month.ago %>
+  ends: <%= 1.month.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:polls] %>
+  active: true
+
+commission_for_carnival_festivities_ideas_stage:
+  process: commission_for_carnival_festivities
+  slug: ideas
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:ideas] %>
+
+commission_for_carnival_festivities_results_stage:
+  process: commission_for_carnival_festivities
+  slug: results
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:results] %>
+
+sport_process_information_stage:
+  process: sport_city_process
+  title_translations: <%= { 'es' => 'Presentación de un proceso' }.to_json %>
+  description_translations: <%= { 'es' => 'A través de diferentes Mesas de Diálogo Ciudadano recogeremos en los diferentes distritos propuestas vecinales.' }.to_json %>
+  cta_text_translations: <%= { 'en' => 'More details', 'es' => 'Ver detalles' }.to_json %>
+  slug: presentacion-proceso-deporte
+  starts: <%= 2.months.ago %>
+  ends: <%= 1.month.ago %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:information] %>
+  active: true
+
+sport_meetings_stage:
+  process: sport_city_process
+  title_translations: <%= { 'en' => 'Meetings stage', 'es' => 'Fase de reuniones' }.to_json %>
+  description_translations: <%= { 'en' => 'Meetings description', 'es' => 'Fase de reuniones descripción' }.to_json %>
+  cta_text_translations: <%= { 'en' => 'Participate', 'es' => 'Participa en las mesas' }.to_json %>
+  slug: organiza-reuniones-deporte
+  starts: <%= 2.days.ago %>
+  ends: <%= 4.days.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
+  active: true
+
+sport_polls_stage:
+  process: sport_city_process
+  slug: polls
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:polls] %>
+
+sport_ideas_stage:
+  process: sport_city_process
+  title_translations: <%= { 'en' => 'Suggest ideas', 'es' => 'Sugiere ideas' }.to_json %>
+  description_translations: <%= { 'en' => 'Suggest ideas description', 'es' => 'Sugiere ideas descripción' }.to_json %>
+  cta_text_translations: <%= { 'en' => 'Add your idea', 'es' => 'Aportar idea' }.to_json %>
+  slug: sugiere-idea-deporte
+  starts: <%= 1.day.from_now %>
+  ends: <%= 10.days.from_now %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:ideas] %>
+  active: true
+
+sport_results_stage:
+  process: sport_city_process
+  slug: results
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:results] %>

@@ -6,7 +6,6 @@ tony:
   authorization_level: <%= GobiertoAdmin::Admin.authorization_levels["regular"] %>
   created_at: 2016-11-01 00:00:00
   updated_at: 2016-11-01 00:00:00
-  sites: madrid
   last_sign_in_at: 2016-12-01 00:00:00
   last_sign_in_ip: 0.0.0.0
   preview_token: tony-preview-token
@@ -22,7 +21,6 @@ steve:
   authorization_level: <%= GobiertoAdmin::Admin.authorization_levels["regular"] %>
   created_at: 2016-11-01 00:01:00
   updated_at: 2016-11-01 00:01:00
-  sites: madrid
   preview_token: steve-preview-token
 
 nick:
@@ -33,7 +31,6 @@ nick:
   authorization_level: <%= GobiertoAdmin::Admin.authorization_levels["manager"] %>
   created_at: 2016-11-01 00:02:00
   updated_at: 2016-11-01 00:02:00
-  sites:
   last_sign_in_at: 2016-12-01 00:02:00
   last_sign_in_ip: 0.0.0.0
   preview_token: nick-preview-token
@@ -43,11 +40,22 @@ natasha:
   name: Natasha Romanoff
   password_digest: <%= BCrypt::Password.create("gobierto", cost: 4) %>
   reset_password_token:
-  authorization_level: <%= GobiertoAdmin::Admin.authorization_levels["regular"] %>
+  authorization_level: <%= GobiertoAdmin::Admin.authorization_levels["manager"] %>
   god: true
   created_at: 2016-11-01 00:03:00
   updated_at: 2016-11-01 00:03:00
-  sites:
   last_sign_in_at: 2016-12-01 00:03:00
   last_sign_in_ip: 0.0.0.0
   preview_token: natasha-preview-token
+
+podrick:
+  email: podrick@gobierto.dev
+  name: Podrick
+  password_digest: <%= BCrypt::Password.create("gobierto", cost: 4) %>
+  reset_password_token:
+  authorization_level: <%= GobiertoAdmin::Admin.authorization_levels["disabled"] %>
+  created_at: 2016-11-01 00:03:00
+  updated_at: 2016-11-01 00:03:00
+  last_sign_in_at: 2016-12-01 00:03:00
+  last_sign_in_ip: 0.0.0.0
+  preview_token: podrick-preview-token

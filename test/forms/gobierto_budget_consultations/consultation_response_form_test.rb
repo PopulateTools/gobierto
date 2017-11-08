@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoBudgetConsultations
@@ -22,13 +24,13 @@ module GobiertoBudgetConsultations
 
     def selected_options_params
       @selected_options_params ||= {
-        '0' => {
-          'item_id' => consultation_item_1.id,
-          'selected_option' => -5
+        "0" => {
+          "item_id" => consultation_item_1.id,
+          "selected_option" => -5
         },
-        '1' => {
-          'item_id' => consultation_item_2.id,
-          'selected_option' => 0
+        "1" => {
+          "item_id" => consultation_item_2.id,
+          "selected_option" => 0
         }
       }
     end
@@ -123,8 +125,8 @@ module GobiertoBudgetConsultations
       user_information = valid_consultation_response_form.consultation_response.user_information
       assert_equal "female", user_information["gender"]
       assert_equal "1990-01-01", user_information["date_of_birth"]
-      assert_equal user_information["district"], {"raw_value"=>"randomstring1", "localized_value"=>"Center"}
-      assert_equal user_information["association"], {"raw_value"=>"Asociación amigos perros", "localized_value"=>"Asociación amigos perros"}
+      assert_equal user_information["district"], "raw_value" => "randomstring1", "localized_value" => "Center"
+      assert_equal user_information["association"], "raw_value" => "Asociación amigos perros", "localized_value" => "Asociación amigos perros"
     end
   end
 end

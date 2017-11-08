@@ -18,20 +18,19 @@ ca:
             charge: Alcalde
             email: Correu-e
             name: Rafael García
-          visibility_level:
-            active: Publicada
-            draft: Borrador
         index:
           configuration: Configuració
           drag_to_sort: Arrastra per a ordenar
           header:
             charge: Càrrec
-            events: Events
+            events: Esdeveniments
             person: Persona
             posts: Posts
             statements: Declaracions
             status: Estat
           new: Nova persona
+          no_permissions: No tens permisos per editar aquesta persona. Si la necessites
+            editar, parla amb l'administrador
           title: Persones
           view_person: Veure persona
           visibility_level:

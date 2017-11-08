@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
   module GobiertoCommon
     module ContentBlockRecords
       class ContentBlockRecordTest < ActionDispatch::IntegrationTest
-
         def setup
           super
           @path = edit_admin_people_person_path(gobierto_people_people(:richard))
@@ -69,7 +70,6 @@ module GobiertoAdmin
                   assert has_text? "Accomplishment 2 Title"
                   assert has_content?("document-1.pdf", count: 1)
                 end
-
               end
             end
           end
@@ -106,7 +106,8 @@ module GobiertoAdmin
 
                   # Remove attachment for third record
                   edit_links[2].trigger(:click)
-                  find("#person_content_block_records_attributes_3_remove_attachment", visible: false).trigger(:click)
+                  # WARNING: it's third record inside accomplishments, but fifth record in total
+                  find("#person_content_block_records_attributes_5_remove_attachment", visible: false).trigger(:click)
                 end
 
                 FileUploader::S3.any_instance.stubs(:call).returns("http://www.madrid.es/assets/documents/document-1.pdf", "http://www.madrid.es/assets/documents/document-2.pdf")
@@ -125,7 +126,6 @@ module GobiertoAdmin
                   assert has_content? "Ate 33 meatballs in 45 minutes"
                   refute has_content? "meatballs_photo.png"
                 end
-
               end
             end
           end
@@ -155,12 +155,10 @@ module GobiertoAdmin
 
                   assert has_content? "Ate 33 meatballs in 45 minutes"
                 end
-
               end
             end
           end
         end
-
       end
     end
   end

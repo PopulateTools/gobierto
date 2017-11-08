@@ -52,6 +52,21 @@ function isMobile() {
   return !isDesktop();
 }
 
+/* Toggle text method */
+$.fn.extend({
+  toggleText: function(a, b){
+    return this.text(this.text() == b ? a : b);
+  }
+});
+
+$(document).on("ajax:complete ajaxSuccess", function() {
+  $('.open_remote_modal').magnificPopup({
+    type: 'ajax',
+    removalDelay: 300,
+    mainClass: 'mfp-fade'
+  });
+});
+
 $(document).on('turbolinks:load', function() {
 
   rebindAll();
@@ -77,7 +92,22 @@ $(document).on('turbolinks:load', function() {
     mainClass: 'mfp-fade'
   });
 
+  $('.open_remote_modal').magnificPopup({
+    type: 'ajax',
+    removalDelay: 300,
+    mainClass: 'mfp-fade'
+  });
+
   $('.close_modal').click(function(e) {
     $.magnificPopup.close();
   });
+
+  function toggleTarget($this){
+    var $target = $('[data-toggle-target="'+$this.data('toggle')+'"]');
+    $this.is(':checked') ? $target.show() : $target.hide();
+  }
+
+  $('[data-toggle-target]').hide();
+  $('[data-toggle]').each(function(){ toggleTarget($(this)) });
+  $('[data-toggle]').click(function(){ toggleTarget($(this)) });
 });

@@ -1,8 +1,20 @@
-<div class="global_breadcrumb">
-  <%= link_to "#", class: "nav_control" do %>
-    <i class="fa fa-bars"></i>
-    Inicio
-  <% end %>
-  <span role="separator">/</span>
-  <%= yield(:breadcrumb_items) %>
-</div>
+<% if current_module == 'gobierto_participation' || current_module == 'gobierto_cms' %>
+  <div class="global_breadcrumb">
+    <%= link_to "#", class: "nav_control" do %>
+      <i class="fa fa-bars"></i>
+      <%= yield(:breadcrumb_items) %>
+    <% end %>
+  </div>
+  <%= render 'gobierto_participation/layouts/secondary_nav' %>
+<% else %>
+  <div class="global_breadcrumb">
+    <%= link_to "#", class: "nav_control" do %>
+      <i class="fa fa-bars"></i>
+      <%= t('.start') %>
+    <% end %>
+
+    <span role="separator">/</span>
+
+    <%= yield(:breadcrumb_items) %>
+  </div>
+<% end %>

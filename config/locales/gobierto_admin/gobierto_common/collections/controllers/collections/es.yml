@@ -1,0 +1,9 @@
+---
+es:
+  gobierto_admin:
+    gobierto_common:
+      collections:
+        create:
+          success: La colección se ha creado correctamente.
+        update:
+          success: La colección se ha actualizado correctamente.

@@ -1,0 +1,11 @@
+---
+en:
+  gobierto_common:
+    dynamic_content:
+      table_component:
+        attachment: Attachment
+        download: Download
+        download_attachment: Download attachment
+    events:
+      gobierto_common_collection_created: Collection created
+      gobierto_common_collection_updated: Collection updated

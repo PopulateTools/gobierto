@@ -24,6 +24,10 @@ en:
   invisible_captcha:
     sentence_for_humans: If you are human, ignore this field
     timestamp_error_message: Sorry, that was too quick! Please resubmit.
+  issues:
+    events:
+      issues_issue_created: Theme created
+      issues_issue_updated: Theme updated
   layouts:
     accept_privacy_policy_signup: By signing up you agree to the Privacy Policy
     application:
@@ -36,6 +40,8 @@ en:
         sign_in: Sign in
         sign_out: Sign out
         title: Your account
+    breadcrumb:
+      start: Start
     gobierto_budget_consultations:
       application:
         about_the_data: About the data
@@ -82,13 +88,21 @@ en:
     search:
       budget_line_item_expense: Budget line - Expense
       budget_line_item_income: Budget line - Income
+      drag_drop_instructions: Drag and drop on the left side to place this page in
+        the menu
+      event_item: Event
+      no_results: The search did not match any page. Try something like using more
+        general terms or checking spelling.
       page_item: Page
-      person_event_item: Event
       person_item: Biography
       person_post_item: Post
       person_statement_item: Statement
       powered_by: Search powered by <a href="https://www.algolia.com" target="_blank">Algolia</a>
       updated: Updated
+  scopes:
+    events:
+      scopes_scope_created: Scope created
+      scopes_scope_updated: Scope updated
   sites:
     events:
       sites_site_created: Site created
@@ -99,9 +113,13 @@ en:
     events:
       users_user_updated: User updated
   views:
+    delete: Delete
+    drag_to_sort: Drag to sort
+    edit: Edit
+    forms:
+      max_characters: Max. %{length} characters
+      required_and_max_characters: Required and Màx. %{length} caràcters
     pagination:
-      first: "&laquo; First"
-      last: Last &raquo;
-      next: Next &rsaquo;
-      previous: "&lsaquo; Prev"
+      next: Next
+      previous: Prev
       truncate: "&hellip;"

@@ -4,6 +4,11 @@ module GobiertoHelper
     yield if controller_name == 'sandbox'
   end
 
+  def todo_link_to(&block)
+    anchor_text = yield
+    "#{anchor_text} 🛠".html_safe
+  end
+
   def markdown(text)
     return if text.blank?
 

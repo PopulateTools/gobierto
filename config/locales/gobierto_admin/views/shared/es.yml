@@ -4,7 +4,7 @@ es:
     shared:
       admin_widget_attachment:
         add_new_document: Añade nuevo documento
-        attachments: Adjuntos
+        attachments: Documentos
         description: Descripción
         document: Documento
         document_title: Título del documento
@@ -21,3 +21,9 @@ es:
       form_locale_switchers:
         define_content_in_locale: Define el contenido en su versión %{locale_name}
         translate: Traducir
+      save_widget:
+        save: Guardar
+        visibility_level:
+          active: Público
+          draft: Borrador
+          published: Público

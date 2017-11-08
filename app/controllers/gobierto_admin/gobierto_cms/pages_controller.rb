@@ -1,18 +1,18 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoCms
     class PagesController < BaseController
-
-      before_action { module_enabled!(current_site, "GobiertoCms") }
-      before_action { module_allowed!(current_admin, "GobiertoCms") }
-
-      helper_method :gobierto_cms_page_preview_url
+      before_action :load_collection, only: [:new, :edit, :create, :update, :destroy]
 
       def index
-        @pages = current_site.pages.sorted
+        @sections = current_site.sections
+        @collections = current_site.collections.by_item_type(["GobiertoCms::Page", "GobiertoCms::News"])
+        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).sort_by_updated_at(10)
       end
 
       def new
-        @page_form = PageForm.new(site_id: current_site.id)
+        @page_form = PageForm.new(site_id: current_site.id, collection_id: @collection.id)
         @page_visibility_levels = get_page_visibility_levels
       end
 
@@ -20,35 +20,31 @@ module GobiertoAdmin
         @page = find_page
         @page_visibility_levels = get_page_visibility_levels
         @page_form = PageForm.new(
-          @page.attributes.except(*ignored_page_attributes)
+          @page.attributes.except(*ignored_page_attributes).merge(collection_id: @collection)
         )
       end
 
       def create
-        @page_form = PageForm.new(page_params.merge(site_id: current_site.id))
+        @page_form = PageForm.new(page_params.merge(site_id: current_site.id, admin_id: current_admin.id, collection_id: @collection))
 
         if @page_form.save
-          track_create_activity
-
           redirect_to(
-            edit_admin_cms_page_path(@page_form.page.id),
+            edit_admin_cms_page_path(@page_form.page.id, collection_id: @collection.id),
             notice: t(".success_html", link: gobierto_cms_page_preview_url(@page_form.page, host: current_site.domain))
           )
         else
           @page_visibility_levels = get_page_visibility_levels
-          render :new
+          render :edit
         end
       end
 
       def update
         @page = find_page
-        @page_form = PageForm.new(page_params.merge(id: @page.id, site_id: current_site.id))
+        @page_form = PageForm.new(page_params.merge(id: @page.id, admin_id: current_admin.id, site_id: current_site.id, collection_id: @collection.id))
 
         if @page_form.save
-          track_update_activity
-
           redirect_to(
-            edit_admin_cms_page_path(@page_form.page.id),
+            edit_admin_cms_page_path(@page_form.page.id, collection_id: @collection),
             notice: t(".success_html", link: gobierto_cms_page_preview_url(@page_form.page, host: current_site.domain))
           )
         else
@@ -60,23 +56,14 @@ module GobiertoAdmin
       def destroy
         @page = find_page
         @page.destroy
-        track_destroy_activity
 
         redirect_to admin_cms_pages_path, notice: t(".success")
       end
 
       private
 
-      def track_create_activity
-        Publishers::GobiertoCmsPageActivity.broadcast_event("page_created", default_activity_params.merge({subject: @page_form.page}))
-      end
-
-      def track_update_activity
-        Publishers::GobiertoCmsPageActivity.broadcast_event("page_updated", default_activity_params.merge({subject: @page}))
-      end
-
-      def track_destroy_activity
-        Publishers::GobiertoCmsPageActivity.broadcast_event("page_deleted", default_activity_params.merge({subject: @page}))
+      def load_collection
+        @collection = current_site.collections.find(params[:collection_id])
       end
 
       def default_activity_params
@@ -91,23 +78,23 @@ module GobiertoAdmin
         params.require(:page).permit(
           :visibility_level,
           :attachment_ids,
+          :collection_id,
+          :slug,
           title_translations: [*I18n.available_locales],
-          body_translations:  [*I18n.available_locales],
-          slug_translations:  [*I18n.available_locales],
+          body_translations:  [*I18n.available_locales]
         )
       end
 
       def ignored_page_attributes
-        %w( created_at updated_at title body slug )
+        %w(created_at updated_at title body collection_id)
       end
 
       def find_page
         current_site.pages.find(params[:id])
       end
 
-      def gobierto_cms_page_preview_url(page, options = {})
-        options.merge!(preview_token: current_admin.preview_token) unless page.active?
-        gobierto_cms_page_url(page.slug, options)
+      def find_collection(collection_id)
+        ::GobiertoCommon::Collection.find_by(id: collection_id)
       end
     end
   end

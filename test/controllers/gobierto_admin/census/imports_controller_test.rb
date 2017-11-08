@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -26,7 +28,7 @@ module GobiertoAdmin
     def valid_census_params
       {
         census_import: {
-          file: Rack::Test::UploadedFile.new(File.open(Rails.root.join('test/fixtures/files/census.csv')))
+          file: Rack::Test::UploadedFile.new(File.open(Rails.root.join("test/fixtures/files/census.csv")))
         }
       }
     end

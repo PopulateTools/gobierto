@@ -25,6 +25,10 @@ ca:
     sentence_for_humans: Si ets humà, per favor, ignora aquest camp.
     timestamp_error_message: Disculpa, això ha sigut molt rapid. Torna a enviar el
       formulari.
+  issues:
+    events:
+      issues_issue_created: Tema creat
+      issues_issue_updated: Tema actualitzat
   layouts:
     accept_privacy_policy_signup: Al registrar-te estàs acceptant la Política de Privacitat
     application:
@@ -38,6 +42,8 @@ ca:
         sign_in: Iniciar sessió
         sign_out: Surt
         title: El teu compte
+    breadcrumb:
+      start: Inici
     gobierto_budget_consultations:
       application:
         about_the_data: Sobre les dades
@@ -87,14 +93,22 @@ ca:
     search:
       budget_line_item_expense: Partida pressupostària - Despesa
       budget_line_item_income: Partida pressupostària - Ingrés
+      drag_drop_instructions: Arrossegueu i deixeu anar al costat esquerre per col·locar
+        aquesta pàgina al menú
+      event_item: Event
+      no_results: La cerca no ha coincidit amb cap pàgina. Proveu alguna cosa com
+        usant termes més generals o verificant l'ortografia.
       page_item: Pàgina
-      person_event_item: Event
       person_item: Biografia
       person_post_item: Post
       person_statement_item: Declaració
       powered_by: Gobierto utilitza <a href="https://www.algolia.com" target="_blank">Algolia</a>
         per a buscar
       updated: Actualitat
+  scopes:
+    events:
+      scopes_scope_created: Àmbit creat
+      scopes_scope_updated: Àmbit actualitzat
   sites:
     events:
       sites_site_created: Site creat
@@ -105,9 +119,13 @@ ca:
     events:
       users_user_updated: Usuari actualitzat
   views:
+    delete: Eliminar
+    drag_to_sort: Arrastra per a ordenar
+    edit: Edita
+    forms:
+      max_characters: Màx. %{length} caràcters
+      required_and_max_characters: Obligatori i Màx. %{length} caràcters
     pagination:
-      first: "&laquo; Primera"
-      last: Última &raquo;
-      next: Següent &rsaquo;
-      previous: "&lsaquo; Anterior"
+      next: Següent
+      previous: Anterior
       truncate: "&hellip;"

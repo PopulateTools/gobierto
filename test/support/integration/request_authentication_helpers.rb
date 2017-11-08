@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module Integration
   module RequestAuthenticationHelpers
-    DEFAULT_ADMIN_PASSWORD = "gobierto".freeze
-    DEFAULT_USER_PASSWORD  = "gobierto".freeze
+    DEFAULT_ADMIN_PASSWORD = "gobierto"
+    DEFAULT_USER_PASSWORD = "gobierto"
 
     def with_signed_in_admin(admin)
       sign_in_admin(admin)

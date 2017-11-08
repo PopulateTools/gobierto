@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require_relative "people/base"
 
@@ -12,6 +14,10 @@ module GobiertoPeople
 
     def site
       @site ||= sites(:madrid)
+    end
+
+    def user
+      @user ||= users(:peter)
     end
 
     def person
@@ -57,6 +63,26 @@ module GobiertoPeople
 
         within ".subscribable-box", match: :first do
           assert has_button?("Subscribe")
+        end
+      end
+    end
+
+    def test_subscription_block
+      with_javascript do
+        with_current_site(site) do
+          with_signed_in_user(user) do
+            visit @path
+
+            within ".site_header" do
+              assert has_link? "Follow person"
+            end
+
+            click_on "Follow person"
+            assert has_link? "Person followed!"
+
+            click_on "Person followed!"
+            assert has_link? "Follow person"
+          end
         end
       end
     end

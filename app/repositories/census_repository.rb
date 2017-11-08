@@ -85,13 +85,10 @@ class CensusRepository
   end
 
   def parse_document_number(document_number)
-    parsed_document_number = document_number
-
-    parsed_document_number.delete!(' ')
-    parsed_document_number.gsub!(/\W/, '')
-    parsed_document_number.upcase!
-
-    parsed_document_number
+    document_number.
+      gsub(/\s+/, '').
+      gsub(/\W/, '').
+      upcase
   end
 
   def build_alternatives(document_number)

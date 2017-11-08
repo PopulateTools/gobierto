@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
   module GobiertoCms
     class PagePreviewTest < ActionDispatch::IntegrationTest
-      
       def setup
         super
         @path = admin_cms_pages_path
@@ -18,17 +19,29 @@ module GobiertoAdmin
       end
 
       def published_page
-        @published_page ||= site.pages.active.first
+        @published_page ||= gobierto_cms_pages(:consultation_faq)
       end
 
       def draft_page
         @draft_page ||= site.pages.draft.first
       end
 
+      def collection
+        @collection ||= gobierto_common_collections(:news)
+      end
+
+      def sport_city_process
+        @sport_city_process ||= gobierto_participation_processes(:sport_city_process)
+      end
+
       def test_preview_published_page
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
+
+            within "tr#collection-item-#{collection.id}" do
+              click_link "News"
+            end
 
             within "tr#page-item-#{published_page.id}" do
               preview_link = find("a", text: "View page")
@@ -38,7 +51,7 @@ module GobiertoAdmin
               preview_link.click
             end
 
-            assert_equal gobierto_cms_page_path(published_page.slug), current_path
+            assert_equal gobierto_participation_process_page_path(published_page.slug, process_id: sport_city_process.slug), current_path
             assert has_selector?("h1", text: published_page.title)
           end
         end
@@ -49,6 +62,10 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
+            within "tr#collection-item-#{collection.id}" do
+              click_link "News"
+            end
+
             within "tr#page-item-#{draft_page.id}" do
               preview_link = find("a", text: "View page")
 
@@ -57,7 +74,7 @@ module GobiertoAdmin
               preview_link.click
             end
 
-            assert_equal gobierto_cms_page_path(draft_page.slug), current_path
+            assert_equal gobierto_participation_process_page_path(draft_page.slug, process_id: sport_city_process.slug), current_path
             assert has_selector?("h1", text: draft_page.title)
           end
         end
@@ -65,7 +82,6 @@ module GobiertoAdmin
 
       def test_preview_draft_page_if_not_admin
         with_current_site(site) do
-
           assert_raises ActiveRecord::RecordNotFound do
             visit gobierto_cms_page_path(draft_page.slug)
           end
@@ -74,7 +90,6 @@ module GobiertoAdmin
           refute has_selector?("h1", text: draft_page.title)
         end
       end
-
     end
   end
 end

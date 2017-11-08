@@ -19,6 +19,14 @@ en:
         site_ids: Sites
       gobierto_admin/admin_new_password_form:
         email: Email
+      gobierto_admin/file_attachment_form:
+        description: Description
+        name: Name
+      gobierto_admin/issue_form:
+        name: Name
+        slug: URL
+      gobierto_admin/scope_form:
+        name: Name
       gobierto_admin/site_form:
         available_locales: Available locales
         default_locale: Default locale
@@ -26,6 +34,7 @@ en:
         foot_markup: Foot HTML
         google_analytics_id: Google Analytics code
         head_markup: Head HTML
+        home_page: Home page
         links_markup: Links HTML
         location_name: Municipality
         logo_file: Logo
@@ -46,6 +55,9 @@ en:
       gobierto_admin/admin_form: Admin
       gobierto_admin/admin_invitation_form: Invitation
       gobierto_admin/admin_new_password_form: Password recovery
+      gobierto_admin/file_attachment_form: Document change
+      gobierto_admin/issue_form: Issue
+      gobierto_admin/scope_form: Scope
       gobierto_admin/site_form: Site
       gobierto_admin/user_form: User
       gobierto_admin/user_password_form: Password change

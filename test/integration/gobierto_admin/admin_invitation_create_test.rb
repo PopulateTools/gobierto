@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -38,6 +40,5 @@ module GobiertoAdmin
         assert has_content?("There was a problem sending the invitations")
       end
     end
-
   end
 end

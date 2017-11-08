@@ -7,7 +7,6 @@ module GobiertoPeople
     before_action :check_active_submodules, except: :show
 
     def index
-
       @political_groups = get_political_groups
 
       set_people
@@ -22,13 +21,25 @@ module GobiertoPeople
     end
 
     def show
-      @person = PersonDecorator.new(find_person)
+
+      if valid_preview_token?
+        redirect_to(
+          gobierto_people_root_path,
+          alert: t('gobierto_admin.admin_unauthorized')
+        ) and return if !admin_permissions_for_person?
+
+        people_scope = current_site.people
+      else
+        people_scope = current_site.people.active
+      end
+
+      @person = PersonDecorator.new(people_scope.find_by!(slug: params[:slug]))
 
       if active_submodules.size == 1 && agendas_submodule_active?
         redirect_to gobierto_people_person_events_path(@person.slug)
       end
 
-      @upcoming_events = @person.events.upcoming.sorted.first(3)
+      @upcoming_events = @person.attending_events.upcoming.sorted.first(3)
       @latest_activity = ActivityCollectionDecorator.new(Activity.for_recipient(@person).limit(30).sorted.page(params[:page]))
     end
 
@@ -40,14 +51,6 @@ module GobiertoPeople
       end
     end
 
-    def find_person
-      people_scope.find_by!(slug: params[:slug])
-    end
-
-    def people_scope
-      valid_preview_token? ? current_site.people.draft : current_site.people.active
-    end
-
     def set_people
       @people = current_site.people.active.sorted
       @people = @people.send(Person.categories.key(@person_category)) if @person_category
@@ -55,7 +58,7 @@ module GobiertoPeople
     end
 
     def set_events
-      @events = current_site.person_events
+      @events = GobiertoCalendars::Event.by_site(current_site).person_events
       @events = @events.by_person_category(@person_category) if @person_category
       @events = @events.by_person_party(@person_party) if @person_party
 
@@ -64,6 +67,18 @@ module GobiertoPeople
         @events = @events.past.sorted_backwards.first(10)
       else
         @events = @events.upcoming.sorted.first(10)
+      end
+    end
+
+    def admin_permissions_for_person?
+      person = current_site.people.find_by(slug: params[:slug])
+      if person && current_admin
+        ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(
+          current_admin: current_admin,
+          person: person
+        ).view?
+      else
+        false
       end
     end
 

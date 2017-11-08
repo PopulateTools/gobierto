@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require "support/concerns/authentication/authenticable_test"
 require "support/concerns/authentication/confirmable_test"
@@ -76,7 +78,7 @@ module GobiertoAdmin
 
     # -- Authorization levels
     def test_sites_for_regular_authorization_level
-      assert_equal 1, admin.sites.count
+      assert_equal 2, admin.sites.count
     end
 
     def test_sites_bypass_for_manager_authorization_level
@@ -93,7 +95,7 @@ module GobiertoAdmin
       refute admin.managing_user?
     end
 
-    def module_allowed?(module_namespace)
+    def module_allowed?(_module_namespace)
       refute admin.module_allowed?("GobiertoCms")
       assert admin.module_allowed?("GobiertoBudgetConsultations")
     end

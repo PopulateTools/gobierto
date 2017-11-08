@@ -5,6 +5,8 @@ ca:
       people:
         person_statements:
           create:
-            success_html: "La declaració s'ha creat correctament. <a href=\"%{link}\">Veure la declaració</a>."
+            success_html: La declaració s'ha creat correctament. <a href="%{link}">Veure
+              la declaració</a>.
           update:
-            success_html: "La declaració s'ha actualitzat correctament. <a href=\"%{link}\">Veure la declaració</a>."
+            success_html: La declaració s'ha actualitzat correctament. <a href="%{link}">Veure
+              la declaració</a>.

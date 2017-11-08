@@ -1,0 +1,24 @@
+---
+en:
+  gobierto_admin:
+    gobierto_attachments:
+      file_attachments:
+        edit:
+          title: Edit document
+        form:
+          file_constraints: Attach document
+          placeholders:
+            description: Document description
+            name: File name
+            slug: file-name
+        index:
+          collections: Collections
+          header:
+            collection: Collection
+            file_attachments: Documents
+          latest_editions: Latests editions
+          new: New
+          title: Attachments
+          view_collection: View collection
+        new:
+          title: New document

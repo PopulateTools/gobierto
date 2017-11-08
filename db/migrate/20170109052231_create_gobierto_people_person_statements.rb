@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGobiertoPeoplePersonStatements < ActiveRecord::Migration[5.0]
   def change
     create_table :gp_person_statements do |t|

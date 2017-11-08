@@ -14,6 +14,7 @@ class SiteConfiguration
     :default_locale,
     :privacy_page_id,
     :populate_data_api_token,
+    :home_page
   ].freeze
 
   DEFAULT_LOGO_PATH = "sites/logo-default.png".freeze
@@ -62,6 +63,10 @@ class SiteConfiguration
 
   def modules_with_notifications
     modules & MODULES_WITH_NOTIFICATONS
+  end
+
+  def default_modules
+    [ 'GobiertoCms', 'GobiertoCalendars', 'GobiertoAttachments' ]
   end
 
   # Define question mark instance methods for each property.

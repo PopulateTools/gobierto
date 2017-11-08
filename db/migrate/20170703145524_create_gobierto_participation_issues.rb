@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateGobiertoParticipationIssues < ActiveRecord::Migration[5.1]
   def change
     create_table :gpart_issues do |t|

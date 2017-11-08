@@ -10,9 +10,6 @@ ca:
             placeholders:
               tags: personal, la meva carrera, sobre mi
               title: Sobre mi
-            visibility_level:
-              active: Publicat
-              draft: Borrador
           index:
             header:
               date: Data

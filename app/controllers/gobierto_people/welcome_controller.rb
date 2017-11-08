@@ -5,7 +5,7 @@ module GobiertoPeople
     before_action :check_active_submodules
 
     def index
-      @people = current_site.people.active.politician.government.last(10)
+      @people = current_site.people.active.politician.government.sorted.first(10)
       @posts  = current_site.person_posts.active.sorted.last(10)
       @political_groups = get_political_groups
       @home_text = load_home_text
@@ -21,13 +21,12 @@ module GobiertoPeople
     end
 
     def set_events
-      @events = current_site.person_events.by_person_party(Person.parties[:government]).limit(10)
+      @events = GobiertoCalendars::Event.by_site(current_site).person_events.by_person_party(Person.parties[:government]).limit(10)
 
-      if @events.upcoming.empty?
+      @events = @events.upcoming.sorted
+      if @events.empty?
         @no_upcoming_events = true
         @events = @events.past.sorted_backwards
-      else
-        @events = @events.upcoming.sorted
       end
     end
 

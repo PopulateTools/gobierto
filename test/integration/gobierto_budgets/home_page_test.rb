@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class GobiertoBudgets::HomePageTest < ActionDispatch::IntegrationTest
   def setup
     super
-    @path = gobierto_budgets_site_path(last_year)
+    @path = gobierto_budgets_root_path(last_year)
   end
 
   def site
@@ -32,7 +34,7 @@ class GobiertoBudgets::HomePageTest < ActionDispatch::IntegrationTest
       assert has_css?(".metric_box h3", text: "Executed")
       assert has_css?(".metric_box h3", text: "Inhabitants")
       assert has_css?(".metric_box h3", text: "Debt")
-      assert page.all(".metric_box .metric").all?{ |e| e.text =~ /\d{2}/}
+      assert page.all(".metric_box .metric").all? { |e| e.text =~ /(\d+)|Not avail./ }
     end
   end
 end

@@ -1,0 +1,37 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_common:
+      collections:
+        edit_modal:
+          title: Edita col·lecció
+        form:
+          placeholders:
+            slug: sobre-aquesta-colleccio
+            title: Nom de la col·lecció
+        index:
+          collections: Col·leccions
+          header:
+            collection: Títol
+            pages: Páginas
+          latest_editions: Últimes edicions
+          new: Nou
+          title: CMS
+          view_collection: Veure col·lecció
+        new_modal:
+          title: Nova col·lecció
+        show:
+          file_attachments:
+            created_at: Creat
+            file_name: Nom del fitxer
+            view: Veure fitxer
+          new_attachment: Nou
+          new_page: Nova
+          pages:
+            created_at: Creada
+            public: Pública
+            updated_at: Actualitzada
+            view: Veure pàgina
+            visibility_level:
+              active: Publicada
+              draft: Borrador

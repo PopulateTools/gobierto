@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -33,8 +35,8 @@ module GobiertoAdmin
           name: admin.name,
           email: admin.email,
           password: "wadus",
-          site_modules: ["GobiertoBudgetConsultations", "GobiertoPeople"],
-          site_ids: ['', site.id]
+          site_modules: %w(GobiertoBudgetConsultations GobiertoPeople),
+          site_ids: ["", site.id]
         }
       }
     end
@@ -46,8 +48,8 @@ module GobiertoAdmin
           email: "newadmin@example.com",
           password: "wadus",
           password_confirmation: "wadus",
-          site_modules: ["GobiertoBudgetConsultations", "GobiertoPeople"],
-          site_ids: ['', site.id]
+          site_modules: %w(GobiertoBudgetConsultations GobiertoPeople),
+          site_ids: ["", site.id]
         }
       }
     end

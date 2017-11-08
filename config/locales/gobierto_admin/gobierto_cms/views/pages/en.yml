@@ -4,7 +4,7 @@ en:
     gobierto_cms:
       pages:
         edit:
-          title: Edita page
+          title: Edit page
         form:
           placeholders:
             slug: about-this-web
@@ -13,14 +13,15 @@ en:
             active: Published
             draft: Draft
         index:
-          created_at: Created at
+          collections: Collections
+          header:
+            collection: Collection
+            pages: Pages
+            section: Section
+          latest_editions: Latests editions
           new: New
-          public: Public
-          title: Pages
-          updated_at: Updated at
-          view: View page
-          visibility_level:
-            active: Published
-            draft: Draft
+          title: CMS
+          view_collection: View collection
+          view_section: View section
         new:
           title: New page

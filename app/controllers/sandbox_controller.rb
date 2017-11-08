@@ -21,6 +21,7 @@ class SandboxController < ApplicationController
   end
 
   def show
+    @sub_section = sub_section
     if params[:template].index('.') # CVE-2014-0130
       render :action => "index"
     elsif lookup_context.exists?("sandbox/#{params[:template]}")
@@ -37,7 +38,17 @@ class SandboxController < ApplicationController
     end
   end
 
+
+
   private
+
+  def sub_section
+    if params[:template].split("_").second
+      return params[:template].split("_").first + '_' + params[:template].split("_").second
+    elsif params[:template].split("_").first
+      return params[:template].split("_").first
+    end
+  end
 
   def set_layout
     return "sandbox/application" unless params[:template]

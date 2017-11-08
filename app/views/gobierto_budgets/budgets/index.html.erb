@@ -7,7 +7,7 @@
 <% end %>
 
 <% content_for :body_attributes do %>
-  <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}"} %>
+  <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}" data-max-year="#{Date.today.year}"} %>
 <% end %>
 
 <div class="column">
@@ -63,7 +63,7 @@
               <% end %>
             </div>
 
-            <div class="explanation_bar">
+            <div class="explanation explanation_bar">
               <% percentage = @site_stats.total_budget_executed_percentage %>
               <% percentage_bar_width = percentage > 100 ? 100 : percentage %>
               <div class="bar"><div class="line" style="width: <%= percentage_bar_width %>%"></div></div>
@@ -195,19 +195,6 @@
     </div>
   <% end %>
 
-  <% pending do %>
-    <div class="block">
-      <h2 class="with_description"><%= t('.budget_lines_block.title') %></h2>
-      <p class="description"><%= t('.budget_lines_block.intro') %></p>
-
-      <div class="pure-g line_boxes">
-        <% @main_budget_lines_summary.each do |budget_line_summary| %>
-          <%= render 'line_box', budget_line_summary: budget_line_summary %>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-
   <div class="block">
     <h2 class="with_description"><%= t('.most_interesting_budget_lines') %></h2>
     <p class="description"><%= t('.most_interesting_budget_lines_description') %></p>
@@ -220,8 +207,8 @@
     <table class="explore_slow">
       <thead class="screen-hidden">
         <tr>
+          <th><%= t('.level_1_category') %></th>
           <th><%= t('.level_2_category') %></th>
-          <th><%= t('.level_3_category') %></th>
           <th><%= t('.category_value') %></th>
           <th><%= t('.category_percentage') %></th>
           <th></th>
@@ -229,18 +216,18 @@
       </thead>
 
       <tbody>
-        <% @interesting_expenses.group_by(&:parent_code).each do |parent_code, bls| %>
+        <% @interesting_expenses.group_by(&:parent_code).each do |parent_code, budget_lines| %>
             <tr class="group">
-              <td class="level_1" rowspan="<%= bls.count %>">
+              <td class="level_1" rowspan="<%= budget_lines.count %>">
                 <%= budget_line_denomination @interesting_area, parent_code, GobiertoBudgets::BudgetLine::EXPENSE %>
               </td>
               <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
-                    locals: {sub_budget_line: bls.first } %>
+                    locals: {sub_budget_line: budget_lines.first, last_item: false } %>
             </tr>
-            <% bls[1..-1].each do |bl| %>
+            <% budget_lines[1..-1].each_with_index do |budget_line, i| %>
               <tr>
                 <%= render partial: "gobierto_budgets/budgets/sub_budget_line",
-                    locals: {sub_budget_line: bl } %>
+                    locals: {sub_budget_line: budget_line, last_item: (i == budget_lines.length - 2) } %>
               </tr>
           <% end %>
         </tbody>
@@ -291,7 +278,7 @@
 
       <div id="lines_tooltip"></div>
       <div class="help">
-        <%= link_to t('.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], target: '_blank', title: t('.note_about_the_data_title'), class: 'tipsit' %>
+        <%= link_to t('.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], target: '_blank', title: t('.note_about_the_data_title'), class: 'tipsit-n' %>
       </div>
     </div>
 
@@ -315,4 +302,7 @@
 
   <%= render partial: 'gobierto_budgets/budget_lines/explorer' %>
 
+  <% if budget_lines_feedback_active? %>
+    <%= render 'gobierto_budgets/shared/enough_information' %>
+  <% end %>
 </div>

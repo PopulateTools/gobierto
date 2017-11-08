@@ -2,9 +2,6 @@
 en:
   gobierto_people:
     events:
-      gobierto_people_person_event_published: 'Calendar updated with a new event:
-        %{subject_name}'
-      gobierto_people_person_event_updated: 'Event updated: %{subject_name}'
       gobierto_people_person_post_published: 'Blog updated: %{subject_name}'
       gobierto_people_person_post_updated: 'Post updated: %{subject_name}'
       gobierto_people_person_published: 'New person published: %{subject_name}'
@@ -51,7 +48,9 @@ en:
         bio: Biography and CV
         blog: Blog
         exports: Download data in a reusable format
+        gifts: Gifts
         statements: Goods and Activities
+        trips: Trips
       people_filter:
         organigram: "%{name} organigram"
         political_groups: "%{name} political groups"
@@ -73,9 +72,6 @@ en:
           event_data:
             event_attendees: Attendees
             event_locations: Location
-          subscribable_box:
-            subtitle: Get updates, questions and news
-            title: Follow this event
           title: "%{person_name}'s agenda"
       person_messages:
         new:
@@ -110,12 +106,10 @@ en:
       show:
         party:
           government: Government
-          oposition: Oposition
-        subscribable_box:
-          title: Receive %{person_name}'s updates in your inbox
+          opposition: Oposition
       subscription_button:
         cancel: Cancel
-        follow: Follow
+        follow: Folloe
       upcoming_events:
         no_upcoming_events: Ther eare no upcoming events
         title: Agenda

@@ -9,8 +9,13 @@ class Site < ApplicationRecord
   has_many :census_imports, dependent: :destroy, class_name: "GobiertoAdmin::CensusImport"
 
   # GobiertoCommon integration
+  has_many :collections, dependent: :destroy, class_name: "GobiertoCommon::Collection"
+  has_many :collection_items, as: :container, class_name: "GobiertoCommon::CollectionItem", dependent: :destroy
+
   has_many :content_blocks, dependent: :destroy, class_name: "GobiertoCommon::ContentBlock"
   has_many :custom_user_fields, dependent: :destroy, class_name: "GobiertoCommon::CustomUserField"
+
+  has_many :scopes, dependent: :destroy, class_name: "GobiertoCommon::Scope"
 
   # User integrations
   has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"
@@ -25,13 +30,15 @@ class Site < ApplicationRecord
 
   # GobiertoPeople integration
   has_many :people, dependent: :destroy, class_name: "GobiertoPeople::Person"
-  has_many :person_events, through: :people, source: :events, class_name: "GobiertoPeople::PersonEvent"
-  has_many :person_attendee_events, class_name: "GobiertoPeople::PersonEvent", dependent: :destroy
   has_many :person_posts, through: :people, source: :posts, class_name: "GobiertoPeople::PersonPost"
   has_many :person_statements, through: :people, source: :statements, class_name: "GobiertoPeople::PersonStatement"
 
+  # GobiertoCalendars integration
+  has_many :events, class_name: "GobiertoCalendars::Event", dependent: :destroy
+
   # Gobierto CMS integration
   has_many :pages, dependent: :destroy, class_name: "GobiertoCms::Page"
+  has_many :sections, dependent: :destroy, class_name: "GobiertoCms::Section"
 
   # Gobierto Attachments integration
   has_many :attachments, dependent: :destroy, class_name: "GobiertoAttachments::Attachment"
@@ -40,7 +47,12 @@ class Site < ApplicationRecord
   has_many :module_settings, dependent: :destroy, class_name: "GobiertoModuleSettings"
 
   # Gobierto Participation integration
-  has_many :issues, dependent: :destroy, class_name: "GobiertoParticipation::Issue"
+  has_many :issues, -> { sorted }, dependent: :destroy, class_name: "Issue"
+  has_many :processes, dependent: :destroy, class_name: "GobiertoParticipation::Process"
+  has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
+  has_many :contributions, dependent: :destroy, class_name: "GobiertoParticipation::Contribution"
+  has_many :comments, dependent: :destroy, class_name: "GobiertoParticipation::Comment"
+  has_many :flags, dependent: :destroy, class_name: "GobiertoParticipation::Flag"
 
   serialize :configuration_data
 
@@ -49,7 +61,6 @@ class Site < ApplicationRecord
   after_save :run_seeder
 
   validates :title, presence: true
-  validates :name, presence: true
   validates :domain, presence: true, uniqueness: true, domain: true
   validate :location_required
 
@@ -75,6 +86,10 @@ class Site < ApplicationRecord
     end
   end
 
+  def name
+    name_translations[I18n.locale.to_s].presence || title
+  end
+
   def calendar_integration
     if gobierto_people_settings
       case gobierto_people_settings.calendar_integration
@@ -89,6 +104,12 @@ class Site < ApplicationRecord
   def gobierto_people_settings
     @gobierto_people_settings ||= if configuration.gobierto_people_enabled?
                                     module_settings.find_by(module_name: "GobiertoPeople")
+                                  end
+  end
+
+  def gobierto_budgets_settings
+    @gobierto_budgets_settings ||= if configuration.gobierto_budgets_enabled?
+                                    module_settings.find_by(module_name: "GobiertoBudgets")
                                   end
   end
 
@@ -111,6 +132,10 @@ class Site < ApplicationRecord
               .order(created_at: :asc)
               .pluck(:created_at)
               .last
+  end
+
+  def to_s
+    self.name
   end
 
   private

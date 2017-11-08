@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddConfigurationFlagsToGobiertoBudgetsConsultations < ActiveRecord::Migration[5.0]
   def change
     add_column :gbc_consultations, :show_figures, :boolean, default: true

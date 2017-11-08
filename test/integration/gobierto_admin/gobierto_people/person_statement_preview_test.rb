@@ -1,12 +1,23 @@
+# frozen_string_literal: true
+
 require "test_helper"
+require "support/concerns/gobierto_admin/authorizable_resource_preview_test_module"
 
 module GobiertoAdmin
   module GobiertoPeople
     class PersonStatementPreviewTest < ActionDispatch::IntegrationTest
 
+      include ::GobiertoAdmin::AuthorizableResourcePreviewTestModule
+
       def setup
         super
         @path = admin_people_person_statements_path(richard)
+        setup_authorizable_resource_preview_test(
+          gobierto_admin_admins(:steve),
+          gobierto_people_person_statement_path(richard.slug, active_statement.slug),
+          gobierto_people_person_statement_path(richard.slug, draft_statement.slug),
+          richard
+        )
       end
 
       def admin
@@ -35,7 +46,6 @@ module GobiertoAdmin
             visit @path
 
             within "tr#person-statement-item-#{active_statement.id}" do
-
               preview_link = find("a", text: "View statement")
 
               refute preview_link[:href].include?(admin.preview_token)
@@ -76,7 +86,6 @@ module GobiertoAdmin
             visit @path
 
             within "tr#person-statement-item-#{active_statement.id}" do
-
               preview_link = find("a", text: "View statement")
 
               assert preview_link[:href].include?(admin.preview_token)
@@ -113,7 +122,6 @@ module GobiertoAdmin
 
       def test_preview_draft_statement_if_not_admin
         with_current_site(site) do
-
           assert_raises ActiveRecord::RecordNotFound do
             visit gobierto_people_person_statement_path(draft_statement.person.slug, draft_statement.slug)
           end
@@ -129,7 +137,6 @@ module GobiertoAdmin
           refute has_selector?("h3", text: draft_statement.title)
         end
       end
-
     end
   end
 end

@@ -1,0 +1,90 @@
+<div class="contribution_tools_overlay">
+  <div class="contribution_card_expanded">
+
+    <div class="contribution_card_expanded_wrapper">
+
+      <div class="modal_like_control">
+        <button title="Close (Esc)" type="button" class="mfp-close">×</button>
+      </div>
+
+      <div class="contribution_card_expanded_main_col">
+
+        <h1><%= @contribution.title %></h1>
+
+        <div>
+          <%= simple_format(@contribution.description) %>
+          <div class="meta">
+            <%= t('.sent', date: l(@contribution.created_at, format: :short), author: @contribution.user.name) %>
+          </div>
+        </div>
+
+        <%= render partial: 'gobierto_participation/processes/contributions/comments', locals: { commentable: @contribution } %>
+      </div>
+
+      <% if user_signed_in? %>
+        <div class="contribution_actions ">
+
+          <h3><%= t(".values_this_#{@contribution_container.contribution_type}") %></h3>
+
+          <div class="element_eval_actions">
+            <div>
+              <%= link_to gobierto_participation_process_contribution_container_contribution_vote_path(contribution_id: @contribution.slug,
+                                                                                                       contribution_container_id: @contribution.contribution_container.slug,
+                                                                                                       process_id: @process.slug,
+                                                                                                       vote_weight: 2,
+                                                                                                       votable_id: @contribution.id,
+                                                                                                       votable_type: @contribution.class),
+                          class: "action_button love #{ 'selected' if (@contribution.voted_with_weight_by_user?(current_user, 2)) }",
+                          method: :post,
+                          remote: true do %>
+                <div class="action_description"><%= t('.enchants') %></div>
+              <% end %>
+            </div>
+
+            <div>
+              <%= link_to gobierto_participation_process_contribution_container_contribution_vote_path(contribution_id: @contribution.slug,
+                                                                                                       contribution_container_id: @contribution.contribution_container.slug,
+                                                                                                       process_id: @process.slug,
+                                                                                                       vote_weight: 1,
+                                                                                                       votable_id: @contribution.id,
+                                                                                                       votable_type: @contribution.class),
+                          class: "action_button like #{ 'selected' if (@contribution.voted_with_weight_by_user?(current_user, 1)) }",
+                          method: :post,
+                          remote: true do %>
+                <div class="action_description"><%= t('.like') %></div>
+              <% end %>
+            </div>
+
+            <div>
+              <%= link_to gobierto_participation_process_contribution_container_contribution_vote_path(contribution_id: @contribution.slug,
+                                                                                                       contribution_container_id: @contribution.contribution_container.slug,
+                                                                                                       process_id: @process.slug,
+                                                                                                       vote_weight: 0,
+                                                                                                       votable_id: @contribution.id,
+                                                                                                       votable_type: @contribution.class),
+                          class: "action_button pse #{ 'selected' if (@contribution.voted_with_weight_by_user?(current_user, 0)) }",
+                          method: :post,
+                          remote: true do %>
+                <div class="action_description"><%= t('.indifferent') %></div>
+              <% end %>
+            </div>
+
+            <div>
+              <%= link_to gobierto_participation_process_contribution_container_contribution_vote_path(contribution_id: @contribution.slug,
+                                                                                                       contribution_container_id: @contribution.contribution_container.slug,
+                                                                                                       process_id: @process.slug,
+                                                                                                       vote_weight: -1,
+                                                                                                       votable_id: @contribution.id,
+                                                                                                       votable_type: @contribution.class),
+                          class: "action_button reject #{ 'selected' if (@contribution.voted_with_weight_by_user?(current_user, -1)) }",
+                          method: :post,
+                          remote: true do %>
+                <div class="action_description"><%= t('.not_like') %></div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

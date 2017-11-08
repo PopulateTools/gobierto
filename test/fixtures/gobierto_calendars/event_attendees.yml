@@ -1,0 +1,65 @@
+richard_richard_pending:
+  event: richard_pending
+  person: richard
+  name:
+  charge:
+
+richard_richard_published:
+  event: richard_published
+  person: richard
+  name:
+  charge:
+
+richard_richard_published_just_attending:
+  event: richard_published_just_attending
+  person: richard
+  name:
+  charge:
+
+tamara_richard_published:
+  event: richard_published
+  person: tamara
+  name:
+  charge:
+
+custom:
+  event: richard_published
+  person:
+  name: John Custom
+  charge: President
+
+richard_richard_published_past:
+  event: richard_published_past
+  person: richard
+  name:
+  charge:
+
+nelson_nelson_tomorrow:
+  event: nelson_tomorrow
+  person: nelson
+  name:
+  charge:
+
+nelson_nelson_tomorrow_fixed:
+  event: nelson_tomorrow_fixed
+  person: nelson
+  name:
+  charge:
+
+nelson_nelson_yesterday:
+  event: nelson_yesterday
+  person: nelson
+  name:
+  charge:
+
+nelson_nelson_yesterday_fixed:
+  event: nelson_yesterday_fixed
+  person: nelson
+  name:
+  charge:
+
+tamara_tamara_published_past:
+  event: tamara_published_past
+  person: tamara
+  name:
+  charge:

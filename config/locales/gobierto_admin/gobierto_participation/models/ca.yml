@@ -1,0 +1,44 @@
+---
+ca:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_participation/contribution_container_form:
+        contribution_type: Tipus de contribucion
+        description: Descripció
+        ends: Final
+        starts: Començament
+        title: Títol
+      gobierto_admin/gobierto_participation/poll_form:
+        description: Descripció
+        ends_at: Final
+        questions: Algunes de les preguntes
+        starts_at: Començament
+        title: Títol
+      gobierto_admin/gobierto_participation/poll_form/questions:
+        answer_templates: Les respostes
+        answer_type: El tipus de pregunta
+        poll: La enquesta
+        title: El títol de les preguntes
+      gobierto_admin/gobierto_participation/poll_form/questions/answer_templates:
+        text: El text d'una resposta
+      gobierto_admin/gobierto_participation/process_form:
+        body: Descripció
+        ends: Final
+        header_image: Imatge de capçalera
+        header_image_url: URL d'imatge de capçalera
+        issue_id: Tema
+        process_type: Tipus de grup
+        scope_id: Àmbit
+        slug: Slug
+        stages: Les fases
+        starts: Començament
+        title: Títol
+      gobierto_admin/gobierto_participation/process_form/stages:
+        title: El títol d'una fase
+      gobierto_admin/gobierto_participation/process_information_form:
+        information_text: Informació
+    models:
+      gobierto_admin/gobierto_participation/contribution_container_form: Grup d'aportacions
+      gobierto_admin/gobierto_participation/poll_form: Enquesta
+      gobierto_admin/gobierto_participation/poll_form/questions: Les preguntes
+      gobierto_admin/gobierto_participation/process_form: Procés

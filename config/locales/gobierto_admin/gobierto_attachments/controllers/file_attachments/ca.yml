@@ -1,0 +1,11 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_attachments:
+      file_attachments:
+        create:
+          success_html: El document s'ha creat correctament. <a href="%{link}">Veure
+            el document</a>.
+        update:
+          success_html: El document s'ha actualitzat correctament. <a href="%{link}">Veure
+            el document</a>.

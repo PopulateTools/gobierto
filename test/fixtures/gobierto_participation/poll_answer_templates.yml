@@ -1,0 +1,59 @@
+ordinance_of_terraces_single_choice_answer_template_yes:
+  question: ordinance_of_terraces_single_choice
+  text: Si
+  order: 0
+
+ordinance_of_terraces_single_choice_answer_template_no:
+  question: ordinance_of_terraces_single_choice
+  text: 'No'
+  order: 1
+
+ordinance_of_terraces_multiple_choice_answer_template_schedules:
+  question: ordinance_of_terraces_multiple_choice
+  text: Horarios
+  order: 0
+
+ordinance_of_terraces_multiple_choice_answer_template_space:
+  question: ordinance_of_terraces_multiple_choice
+  text: Espacio que ocupan las terrazas
+  order: 1
+
+ordinance_of_terraces_multiple_choice_answer_template_taxes:
+  question: ordinance_of_terraces_multiple_choice
+  text: Tasas
+  order: 2
+
+ordinance_of_terraces_multiple_choice_answer_template_characteristics:
+  question: ordinance_of_terraces_multiple_choice
+  text: Características de los cenadores
+  order: 3
+
+public_space_single_choice_answer_template_yes:
+  question: public_spaces_single_choice
+  text: Si
+  order: 0
+
+public_space_single_choice_answer_template_no:
+  question: public_spaces_single_choice
+  text: 'No'
+  order: 1
+
+public_space_single_choice_answer_template_maybe:
+  question: public_spaces_single_choice
+  text: Maybe
+  order: 2
+
+public_space_multiple_choice_answer_template_yes:
+  question: public_spaces_multiple_choice
+  text: Si
+  order: 0
+
+public_space_multiple_choice_answer_template_no:
+  question: public_spaces_multiple_choice
+  text: 'No'
+  order: 1
+
+public_space_multiple_choice_answer_template_maybe:
+  question: public_spaces_multiple_choice
+  text: Maybe
+  order: 2

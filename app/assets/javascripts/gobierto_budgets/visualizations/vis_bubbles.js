@@ -58,7 +58,7 @@ var VisBubbles = Class.extend({
     if(this.locale === 'en') this.locale = 'es';
 
     this.maxAmount = d3.max(data, function (d) { return d.values[year] }.bind(this));
-    this.filtered = data.filter(function(d) { return d.budget_category === this.budget_category; }.bind(this));
+    this.filtered = data.filter(function(d) { return d.budget_category === this.budget_category && d.values_per_inhabitant[year] > 1; }.bind(this));
 
     this.radiusScale = d3.scaleSqrt()
       .range(this.isMobile ? [0, 80] : [0, 120])
@@ -77,8 +77,8 @@ var VisBubbles = Class.extend({
         return {
           values: d.values,
           pct_diffs: d.pct_diff,
-          values_per_inhabitant: d.values_per_inhabitant,
           id: d.id,
+          values_per_inhabitant: d.values_per_inhabitant,
           radius: this.radiusScale(d.values[year]),
           value: d.values[year],
           name: d['level_2_' + this.locale],
@@ -96,7 +96,6 @@ var VisBubbles = Class.extend({
         d.pct_diff = d.pct_diffs[year]
         d.per_inhabitant = d.values_per_inhabitant[year]
         d.year = year
-        // d.y = this.nodeScale(d.pct_diffs[year])
       }.bind(this))
     }
 

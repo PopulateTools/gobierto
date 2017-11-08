@@ -13,9 +13,9 @@
       </div>
 
       <div class="col" data-level="0">
-        <table  class="med_bg">
+        <table class="med_bg">
           <% GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year| %>
-            <tr >
+            <tr>
               <td data-code="<%= year %>"><%= link_to year, gobierto_budgets_budgets_path %></td>
             </tr>
           <% end %>
@@ -53,6 +53,14 @@
 <div class="column">
   <div class="budget_line">
 
+    <% if in_elaboration? %>
+      <div class="pure-u-1-1 metric_box">
+        <div class="highlight-proposal">
+          <p><span>&#9632;</span><%= t('gobierto_budgets.budgets_elaboration.index.next_year_proposal', year: @year) %></p>
+        </div>
+      </div>
+    <% end %>
+
     <header>
       <h1><%= title @budget_line.name %></h1>
     </header>
@@ -73,24 +81,35 @@
         </div>
       </div>
 
-      <% planned_executed = @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_planned, year: @year) %>
-      <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
-        <div class="inner">
-          <h3><%= kind_literal(@kind, false).capitalize %> <%= t('.real_vs_planned') %></h3>
-          <% if planned_executed %>
-            <div class="metric"><%= planned_executed %></div>
-            <div class="explanation">
-              <%= t('.real_value', kind: kind_literal(@kind, false), value: format_currency(@budget_line_stats.amount_executed)) %>
+      <% unless budget_lines_feedback_active? %>
+        <% if !in_elaboration? %>
+          <% planned_executed = @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_planned, year: @year) %>
+          <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
+            <div class="inner">
+              <h3><%= kind_literal(@kind, false).capitalize %> <%= t('.real_vs_planned') %></h3>
+              <% if planned_executed %>
+                <div class="metric"><%= planned_executed %></div>
+                <div class="explanation">
+                  <%= t('.real_value', kind: kind_literal(@kind, false), value: format_currency(@budget_line_stats.amount_executed)) %>
+                </div>
+              <% else %>
+                <% planned_executed = @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_planned, year: @year-1) %>
+                <div class="metric"><span class="not_av"><%= t('.not_available') %></span></div>
+                <div class="explanation">
+                  <%= t('.last_year', year: @year - 1, value: planned_executed) %>
+                </div>
+              <% end %>
             </div>
-          <% else %>
-            <% planned_executed = @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_planned, year: @year-1) %>
-            <div class="metric"><span class="not_av"><%= t('.not_available') %></span></div>
-            <div class="explanation">
-              <%= t('.last_year', year: @year - 1, value: planned_executed) %>
+          </div>
+        <% else %>
+          <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
+            <div class="inner">
+              <h3><%= kind_literal(@kind, false).capitalize %> <%= t('.vs_previous_year') %></h3>
+              <div class="metric"><%= @budget_line_stats.percentage_difference(variable1: :amount, year1: @year, year2: @year-1) %></div>
             </div>
-          <% end %>
-        </div>
-      </div>
+          </div>
+        <% end %>
+      <% end %>
 
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
         <div class="inner">
@@ -105,7 +124,22 @@
           <div class="metric"><%= format_currency @budget_line_stats.mean_province %></div>
         </div>
       </div>
+
+      <% if budget_lines_feedback_active? %>
+        <div class="pure-u-1-2 pure-u-md-1-5 metric_box cta open_budget_line_feedback tipsit" title="<%= t('.give_your_opinion_cta') %>">
+          <div class="inner">
+            <%= link_to gobierto_budgets_feedback_step1_path(year: @year, id: @budget_line.id), remote: true do %>
+              <div class="main"><%= t('.raise_hand') %> <i class="fa fa-hand-paper-o"></i></div>
+              <div class="lite"><%= t('.give_your_opinion') %></div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     </div>
+
+    <% if budget_lines_feedback_active? %>
+      <div id="feedback-container"></div>
+    <% end %>
 
     <div class="pure-g block">
 
@@ -183,7 +217,7 @@
           <h2><%= t('gobierto_budgets.budgets.index.context') %></h2>
           <div id="lines_tooltip"></div>
           <div class="help">
-            <%= link_to t('gobierto_budgets.budgets.index.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], title: t('gobierto_budgets.budgets.index.note_about_the_data_title'), class: 'tipsit' %>
+            <%= link_to t('gobierto_budgets.budgets.index.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], title: t('gobierto_budgets.budgets.index.note_about_the_data_title'), class: 'tipsit-n' %>
           </div>
         </div>
       <% end %>
@@ -195,5 +229,9 @@
         </div>
       </div>
     </div>
+
+    <% if budget_lines_feedback_active? %>
+      <%= render 'gobierto_budgets/shared/enough_information' %>
+    <% end %>
   </div>
 </div>

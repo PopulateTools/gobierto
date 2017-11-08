@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoBudgetConsultations
@@ -11,7 +13,7 @@ module GobiertoBudgetConsultations
       @active_consultations ||= begin
         [
           gobierto_budget_consultations_consultations(:madrid_open),
-          gobierto_budget_consultations_consultations(:madrid_open_attached),
+          gobierto_budget_consultations_consultations(:madrid_open_attached)
         ]
       end
     end

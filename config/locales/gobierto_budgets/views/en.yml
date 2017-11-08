@@ -11,12 +11,13 @@ en:
         search_budget_line: Search for a specific budget line
       index:
         amount: Amount
+        budget_guide_pitch: Check the Budget Guide
         budget_line: Budget line
         categories: Categories
         custom: Areas
         expense_in_what: In what is spent
         expense_to_do_what: For what is spent
-        help: The budget is organized in two categories. Checkout our guide
+        help: We explain how a municipal budget works
         income_from_what: Where does the income come from
         per_inhabitant: Per inhabitant
         title: Local municipality budgets in %{year}
@@ -29,6 +30,9 @@ en:
         budget_line_value: Amount
         budget_lines_distribution: Expense budget lines distribution
         evolution: Evolution
+        give_your_opinion: Give your opinion about this budget line
+        give_your_opinion_cta: Do you understand this budget line? Do you think it's
+          enough, too much? Give your opinion
         last_year: Last year
         no_description: There's no description for this budget line.
         no_distribution: There aren't any related budget lines.
@@ -37,6 +41,7 @@ en:
         percentage: "% over the total"
         planned: planned
         planned_per_inhabitant: plan. / inh.
+        raise_hand: Raise your hand
         real_value: Real %{kind} is %{value}
         real_vs_planned: real vs. plan.
         sub_budget_lines: In this budget line
@@ -44,6 +49,7 @@ en:
           for year %{year}'
         twitter_text_income: 'In @gobierto: Municipal income on %{name} in %{budget_line_name}
           for year %{year}'
+        vs_previous_year: vs. previous year
     budgets:
       guide:
         budget_execution: Budget execution
@@ -227,8 +233,8 @@ en:
         inhabitants: Inhabitants
         last_update: Last update
         less: less
-        level_2_category: Level 2 Category
-        level_3_category: Level 3 Category
+        level_1_category: Level 1 category
+        level_2_category: Level 2 category
         main_budget_levels_legend_down: Has decreased
         main_budget_levels_legend_one: Change since last year
         main_budget_levels_legend_two: ''
@@ -275,6 +281,44 @@ en:
         top_income_value: Amount
         total_expenses: Total expenses
         visualize: Visualize expenses per inhabitant or the total
+    budgets_elaboration:
+      index:
+        at_a_glance: At a glance
+        auto_funding: Autofunding capability
+        by_custom_category: per area
+        by_economic_expense: in what
+        by_economic_income: in what
+        by_functional_expense: for what
+        category_percentage: "% of Total"
+        category_value: Amount
+        context: Context
+        debt_level: Debt level
+        description: Government team publishes a draft of next year budget to discuss
+          with the opposition and the citiziens. All together we can create the best
+          budget for the city.
+        diff_previous_year: Diff vs current year
+        expenses_per_inhabitant: Expense per person
+        explore_the_detail: Explore the details
+        header: Budgets elaboration
+        in_total: Total
+        last_update: Data updated
+        main_budget_levels_timeline: Compare income and expenses year by year
+        main_budget_lines: Main income and expenses from your council
+        main_budget_lines_expense: Expense
+        main_budget_lines_income: Income
+        metric_boxes_data: Data
+        metric_boxes_data_description: This is how it will be the next year
+        net_savings: Net savings
+        next_year_proposal: Proposal next %{year}
+        no_data: There's no data for this classification
+        note_about_the_data: Note about the data
+        note_about_the_data_title: The database we use doesn't include 100% of the
+          municipalities, and the avegages are calculated only with the data that
+          exists (which is most of it). More information in our FAQ
+        per_person: Per inhabitant
+        proposal: Proposal
+        total_expenses: Total expenses
+        visualize: Visualize expenses per inhabitant
     budgets_execution:
       execution_table:
         deviation: Diff
@@ -299,9 +343,11 @@ en:
         execution_disclaimer: It's very common to have deviatiatons, due to the difficulty
           of foreseeing the expenses.
         execution_help: The execution is the amount spent based on the planned budget.
+        expenses_planned: Planned expenses
         functional: functional
         functional_button: In what is spent
         higher_execution: Higher execution
+        income_planned: Planned income
         last_update: Last update
         lower_execution: Lower execution
         metric:
@@ -310,6 +356,8 @@ en:
             income_title: Execution of income
             previous_execution_message: In %{year} execution reached %{percentage}
         percentage: Percentage
+        real_expenses: Real expenses
+        real_income: Real income
         sort: Sort
         title: Budget execution
         tooltip_disclaimer: "<strong>This is approximate</strong>. <br /> Throughout
@@ -318,7 +366,8 @@ en:
         value: Value
         vis:
           absolute: Execution in €
-          empty_lines: Custom lines are not available, please select another year.
+          empty_lines: There aren't data for this classification and this year. Please,
+            choose another filter.
           expenses:
             title: Explore the execution of the expenses
           income:
@@ -361,14 +410,52 @@ en:
         show_me_another: Show me another
         title: Some important budget lines
         total: Total expenses
+    feedback:
+      ask_more_information:
+        ask_for_feedback: Write your email
+        send: Send
+        your_email: Your email
+      follow:
+        follow: Follow
+        your_email: Your email
+      follow_success:
+        error: Looks like your email is invalid
+        share: Do you want to share this statistics in
+        share_text: Check and opinate about the budget in %{place_name}
+        success: Good! Check your email and click the link
+      step1:
+        answer1_0: 'Yes'
+        answer1_1: 'No'
+        understand: Do you understand this budget line?
+      step2_no:
+        answer_html: "<strong>%{datum}</strong> of the people who voted said that
+          <strong>don't understand this budget line</strong>"
+        ask: You can ask for more information
+      step2_yes:
+        option1_html: I think it's <span>FEW</span>
+        option2_html: I think it's <span>GOOD</span>
+        option3_html: I think it's <span>TOO MUCH</span>
+        question: Do you think the amount is appropiate?
+      step3:
+        option1: Few
+        option2: Good
+        option3: Too much
+        thanks: 'Thanks for your opinion. This is what the rest of the people think:'
     layouts:
       application:
         budgets: Budgets
       menu_subsections:
         budget: Budget
+        elaboration: Elaboration
         execution: Execution
         guide: Guide
         summary: Summary
+    shared:
+      enough_information:
+        enough_information: Enough information?
+        enough_information_cta: Ask your municipality
+        enough_information_desc: If you think it's necessary to include more information
+          about this data or about the usage of your taxes ask your municipality
     visualizations:
       G_custom: Expenses per area
       G_economic: In what

@@ -1,11 +1,18 @@
+# frozen_string_literal: true
+
 require "test_helper"
+require "support/concerns/gobierto_admin/authorizable_resource_test_module"
 
 module GobiertoAdmin
   module GobiertoPeople
     class PersonPostUpdateTest < ActionDispatch::IntegrationTest
+
+      include ::GobiertoAdmin::AuthorizableResourceTestModule
+
       def setup
         super
         @path = edit_admin_people_person_post_path(person, person_post)
+        setup_authorizable_resource_test(gobierto_admin_admins(:steve), @path)
       end
 
       def person_post
@@ -38,7 +45,7 @@ module GobiertoAdmin
 
                 fill_in "person_post_tags", with: "one, two, three"
 
-                within ".person-post-visibility-level-radio-buttons" do
+                within ".widget_save" do
                   find("label", text: "Draft").click
                 end
 
@@ -57,7 +64,7 @@ module GobiertoAdmin
 
                 assert has_field?("person_post_tags", with: "one, two, three")
 
-                within ".person-post-visibility-level-radio-buttons" do
+                within ".widget_save" do
                   with_hidden_elements do
                     assert has_checked_field?("Draft")
                   end

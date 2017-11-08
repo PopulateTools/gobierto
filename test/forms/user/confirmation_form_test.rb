@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class User::ConfirmationFormTest < ActiveSupport::TestCase
@@ -15,7 +17,7 @@ class User::ConfirmationFormTest < ActiveSupport::TestCase
         madrid_custom_user_field_district.name => { "custom_user_field_id" => madrid_custom_user_field_district.id, "value" => madrid_custom_user_field_district.options.keys.first },
         madrid_custom_user_field_association.name => { "custom_user_field_id" => madrid_custom_user_field_association.id, "value" => "Foo" }
       },
-      document_number: '00000000A'
+      document_number: "00000000A"
     )
   end
 

@@ -1,0 +1,8 @@
+---
+en:
+  activemodel:
+    attributes:
+      gobierto_admin/gobierto_budgets/options_form:
+        feedback_emails: Email to receive particpations
+    models:
+      gobierto_admin/gobierto_budgets/options_form: Options

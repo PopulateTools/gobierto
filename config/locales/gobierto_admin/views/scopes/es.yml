@@ -1,0 +1,16 @@
+---
+es:
+  gobierto_admin:
+    scopes:
+      edit_modal:
+        title: Editar ámbito
+      form:
+        placeholders:
+          name: ej. Casco urbano
+      index:
+        created_at: Creado
+        name: Ámbito
+        new: Nuevo
+        title: Ámbitos
+      new_modal:
+        title: Nuevo ámbito

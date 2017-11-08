@@ -1,0 +1,82 @@
+---
+en:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        create:
+          add_stages: Now you can add stages
+          success_html: Process was successfully created. <a href="%{link}">View process</a>.
+        edit:
+          title: Edit process
+        form:
+          duration: Duration
+          placeholders:
+            body: ex. This committee will discuss issues related to ...
+            slug: ex. carnival-party-commission
+            title: ex. Carnival Party Commission
+          set_duration: Set duration
+        index:
+          new_process: New process / group
+          title: Processes and Groups
+        new:
+          title: New process / group
+        process_contribution_containers:
+          form:
+            idea: Idea
+            placeholders:
+              description: Ideas for activities for children.
+              title: What activities for children can we launch?
+            proposal: Proposal
+            question: Question
+          index:
+            contributions_votes: Contributions / Votes
+            end: Fin
+            new: New
+            request_ideas: Request of ideas
+            see_ideas: See ideas
+            start: Inicio
+            status: Estado
+            title: Contributions
+            visibility_level:
+              active: Published
+              draft: Draft
+          show:
+            comments: Comments
+            config: Config
+            contribution: Contribution
+            marked: Marked
+            new: New
+            participants: Participants
+            see_contribution: See contribution
+            status: Status
+            status_level:
+              moderate: Moderate
+              published: Published
+            votes: Votes
+        process_file_attachments:
+          index:
+            configuration: Configuration
+        process_information:
+          edit:
+            title: Edit process
+          form:
+            placeholders:
+              information_text: Information
+          update:
+            success: Process was successfully updated
+        process_pages:
+          index:
+            configuration: Configuration
+        process_stages:
+          active: Active
+          cancel: Cancel
+          edit: Edit
+          edit_stage: Edit stage
+          placeholders:
+            body: ex. In this stage we intend ...
+            cta_text: ex. Add your idea
+            title: ex. Main stage
+          save: Save
+          stages_and_tools: Stages and tools
+        update:
+          success_html: Process was successfully updated. <a href="%{link}">View process</a>.

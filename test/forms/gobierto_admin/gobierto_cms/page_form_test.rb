@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -6,9 +8,10 @@ module GobiertoAdmin
       def valid_page_form
         @valid_page_form ||= PageForm.new(
           site_id: site.id,
-          title_translations: {I18n.locale => page.title},
-          body_translations: {I18n.locale => page.body},
-          slug_translations: {I18n.locale => page.slug},
+          title_translations: { I18n.locale => page.title },
+          body_translations: { I18n.locale => page.body },
+          slug: "page-form-slug",
+          collection_id: collection.id,
           visibility_level: page.visibility_level
         )
       end
@@ -18,7 +21,7 @@ module GobiertoAdmin
           site_id: nil,
           title_translations: nil,
           body_translations: nil,
-          slug_translations: nil,
+          slug: nil,
           visibility_level: nil
         )
       end
@@ -29,6 +32,10 @@ module GobiertoAdmin
 
       def site
         @site ||= sites(:santander)
+      end
+
+      def collection
+        @collection ||= gobierto_common_collections(:gender_violence_process_news)
       end
 
       def test_save_with_valid_attributes

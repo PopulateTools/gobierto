@@ -1,0 +1,82 @@
+---
+es:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        create:
+          add_stages: Ahora puedes añadir fases
+          success_html: Proceso creado correctamente. <a href="%{link}">Ver proceso</a>.
+        edit:
+          title: Editar proceso
+        form:
+          duration: Duración
+          placeholders:
+            body: ej. En esta comisión se tratarán temas relacionados con...
+            slug: ej. comision-de-fiestas-de-carnaval
+            title: ej. Comisión de Fiestas de Carnaval
+          set_duration: Establecer duración
+        index:
+          new_process: Nuevo proceso / grupo
+          title: Procesos y Grupos
+        new:
+          title: Nuevo proceso / grupo
+        process_contribution_containers:
+          form:
+            idea: Idea
+            placeholders:
+              description: Ideas para actividades para niños.
+              title: "¿Qué actividades para niños podemos poner en marcha?"
+            proposal: Propuesta
+            question: Pregunta
+          index:
+            contributions_votes: Aportaciones / Valoraciones
+            end: Fin
+            new: Nueva
+            request_ideas: Petición de ideas
+            see_ideas: Ver ideas
+            start: Inicio
+            status: Estato
+            title: Aportaciones
+            visibility_level:
+              active: Publicada
+              draft: Borrador
+          show:
+            comments: Comentarios
+            config: Configuración
+            contribution: Aportación
+            marked: Marcada
+            new: Nueva
+            participants: Participantes
+            see_contribution: Ver aportación
+            status: Estado
+            status_level:
+              moderate: Moderada
+              published: Publicada
+            votes: Valoraciones
+        process_file_attachments:
+          index:
+            configuration: Configuración
+        process_information:
+          edit:
+            title: Editar proceso
+          form:
+            placeholders:
+              information_text: Información
+          update:
+            success: Proceso actualizado correctamente
+        process_pages:
+          index:
+            configuration: Configuración
+        process_stages:
+          active: Activa
+          cancel: Cancelar
+          edit: Editar
+          edit_stage: Editar fase
+          placeholders:
+            body: ej. En esta fase se pretende...
+            cta_text: ej. Aportar idea
+            title: ej. Fase principal
+          save: Guardar
+          stages_and_tools: Fases y herramientas
+        update:
+          success_html: Proceso actualizado correctamente. <a href="%{link}">Ver proceso</a>.

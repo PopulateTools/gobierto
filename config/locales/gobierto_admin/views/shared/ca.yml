@@ -4,7 +4,7 @@ ca:
     shared:
       admin_widget_attachment:
         add_new_document: Afegeix nou document
-        attachments: Adjunts
+        attachments: Documents
         description: Descripció
         document: Document
         document_title: Títol del document
@@ -21,3 +21,9 @@ ca:
       form_locale_switchers:
         define_content_in_locale: Defineix el contingut en la versió en %{locale_name}
         translate: Traduxir
+      save_widget:
+        save: Guardar
+        visibility_level:
+          active: Públic
+          draft: Borrador
+          published: Públic

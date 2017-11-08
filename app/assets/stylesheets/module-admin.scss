@@ -214,8 +214,8 @@ body.gobierto_admin {
     ul {
       li {
         a {
-          padding: .45em 1.25em .25em;
-          margin: 0 .45em;
+          padding: .45em 1em .25em;
+          margin: 0 .25em;
           font-weight: normal;
           text-transform: none;
           font-size: .9em;
@@ -340,21 +340,27 @@ pre {
   }
 }
 
-.custom_fields_field {
+
+.list_item, .list_item_with_editable_content {
   margin: 0 0 .5em 0;
   .fa-bars {
-    margin: 0 1em 0 0;
+    padding: .75em;
+    cursor: pointer;
+  }
+  .fa-bars:hover {
+    background: $color_neutral_soft;
+    @include border-radius(3px);
   }
   label.main {
     display: inline-block;
     background: $color_secondary;
     padding: 4px 10px;
     @include border-radius(4px);
-    margin: 0 1em 0 0;
-    width: 300px;
+    margin: 0 20px 0 0;
+    width: calc(100% - 200px);
     font-weight: 600;
   }
-  .mandatory, .inline_notice, .tools {
+  .mandatory, .inline_notice {
     display: inline-block;
     margin: 0 1em 0 0;
   }
@@ -363,6 +369,8 @@ pre {
     opacity: .5;
   }
   .tools {
+    display: inline-block;
+    width: 70px;
     .fa {
       margin: 0 1em 0 0;
     }
@@ -372,12 +380,26 @@ pre {
     margin-right: .5em;
   }
 }
-.custom_fields_field.disabled {
+.list_item.with_mandatory_column, .list_item_with_editable_content.with_mandatory_column {
+  label.main {
+    width: 50%;
+  }
+}
+.list_item.disabled {
   .fa-bars {
     opacity: .25;
   }
   .mandatory {
     opacity: .5;
+  }
+}
+.list_item_with_editable_content {
+  input[type=text] {
+    height: initial;
+    padding: 4px 10px;
+    margin: 0 1em 0 0;
+    box-sizing: initial;
+    width: 75%;
   }
 }
 
@@ -444,7 +466,7 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
     @include min-screen(1400) {
       font-size: 2rem;
     }
-	}
+  }
 }
 
 .globalized_fields {
@@ -493,6 +515,52 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
   }
 }
 
+.nav_back {
+  background: lighten($color_logo_yellow, 40%);
+  padding: .5em 1em;
+  @include border-radius(5px);
+  font-size: .85em;
+  margin: 0 0 1em 0;
+  display: inline-block;
+}
+
+
+/*
+ * Activities
+ *
+ */
+.activity_feed {
+  .activity_item {
+    margin: 0 0 1.5em 0;
+    h2 {
+      text-transform: none;
+      margin: 0;
+      font-size: .85em;
+      line-height: 1.4;
+      font-weight: normal;
+      a {
+        display: block;
+        @include border-radius(3px);
+        text-decoration: initial;
+        span.secondary {
+          color: $text_soft;
+          display: block;
+          font-weight: normal;
+        }
+      }
+      a:hover {
+        background: $color_1_soft;
+      }
+    }
+    .date {
+      font-size: .85em;
+      color: $text_soft;
+      font-weight: normal;
+      opacity: .5;
+    }
+  }
+}
+
 /* Gobierto Attachments */
 #gobierto-attachment {
   .show-files {
@@ -524,7 +592,6 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
       border-radius: 4px;
       z-index: 1;
       padding: 0.75rem 1.25rem;
-      // border: 1px solid rgba($color_text, .4);
 
       a {
         font-weight: 700;

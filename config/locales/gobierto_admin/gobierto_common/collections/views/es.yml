@@ -1,0 +1,37 @@
+---
+es:
+  gobierto_admin:
+    gobierto_common:
+      collections:
+        edit_modal:
+          title: Editar colección
+        form:
+          placeholders:
+            slug: acerca-de-esta-coleccion
+            title: Nombre de la colección
+        index:
+          collections: Colecciones
+          header:
+            collection: Título
+            pages: Páginas
+          latest_editions: Últimas ediciones
+          new: Nueva
+          title: CMS
+          view_collection: Ver colección
+        new_modal:
+          title: Nueva colección
+        show:
+          file_attachments:
+            created_at: Creado
+            file_name: Nombre del documento
+            view: Ver documento
+          new_attachment: Nuevo
+          new_page: Nueva
+          pages:
+            created_at: Creada
+            public: Estado
+            updated_at: Actualizada
+            view: Ver página
+            visibility_level:
+              active: Publicada
+              draft: Borrador

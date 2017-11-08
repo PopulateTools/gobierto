@@ -1,0 +1,82 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        create:
+          add_stages: Ara pots afegir fases
+          success_html: Procés creat correctament. <a href="%{link}">Veure procés</a>.
+        edit:
+          title: Edita el procés
+        form:
+          duration: Durada
+          placeholders:
+            body: ex. En aquesta comissió es tractaran temes relacionats amb ...
+            slug: ex. comissio-de-festes-de-carnaval
+            title: ex. Comissió de Festes de Carnaval
+          set_duration: Establir durada
+        index:
+          new_process: Nou procés o grup
+          title: Processos i Grups
+        new:
+          title: Nou procés o grup
+        process_contribution_containers:
+          form:
+            idea: Idea
+            placeholders:
+              description: Idees for activities for children.
+              title: Quines activitats per a nens podem posar en marxa?
+            proposal: Proposta
+            question: Pregunta
+          index:
+            contributions_votes: Aportacions / Valoracions
+            end: Fi
+            new: Nova
+            request_ideas: Petició d'idees
+            see_ideas: Veure idees
+            start: Inici
+            status: Estat
+            title: Aportacions
+            visibility_level:
+              active: Publicada
+              draft: Esborrany
+          show:
+            comments: Comentaris
+            config: Configuració
+            contribution: Aportació
+            marked: Marcada
+            new: Nova
+            participants: Participants
+            see_contribution: Veure aportació
+            status: Estat
+            status_level:
+              moderate: Moderada
+              published: Publicada
+            votes: Valoracions
+        process_file_attachments:
+          index:
+            configuration: Configuració
+        process_information:
+          edit:
+            title: Edita el procés
+          form:
+            placeholders:
+              information_text: Informació
+          update:
+            success: Procés actualitzat correctament
+        process_pages:
+          index:
+            configuration: Configuració
+        process_stages:
+          active: Activa
+          cancel: Cancel·lar
+          edit: Edita
+          edit_stage: Edita fase
+          placeholders:
+            body: ex. En aquesta fase es pretén ...
+            cta_text: ex. Aportar idea
+            title: ex. Fase principal
+          save: Guardar
+          stages_and_tools: Fases i eines
+        update:
+          success_html: Procés actualitzat correctament. <a href="%{link}">Veure procés</a>.

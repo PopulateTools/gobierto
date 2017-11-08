@@ -1,11 +1,14 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
   module GobiertoPeople
     module People
       class PeopleSortControllerTest < GobiertoControllerTest
+
         def admin
-          @admin ||= gobierto_admin_admins(:tony)
+          @admin ||= gobierto_admin_admins(:natasha)
         end
 
         def person1
@@ -29,8 +32,8 @@ module GobiertoAdmin
         def valid_sort_params
           {
             positions: {
-              '0' => { id: person1.id, position: 2 },
-              '1' => { id: person2.id, position: 1 }
+              "0" => { id: person1.id, position: 2 },
+              "1" => { id: person2.id, position: 1 }
             }
           }
         end
@@ -47,6 +50,7 @@ module GobiertoAdmin
           assert_equal 1, person2.position
           assert_equal 2, person1.position
         end
+
       end
     end
   end

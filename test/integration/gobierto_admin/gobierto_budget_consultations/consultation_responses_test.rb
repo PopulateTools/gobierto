@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 module GobiertoAdmin
@@ -102,19 +104,19 @@ module GobiertoAdmin
               select "1992", from: :consultation_response_date_of_birth_1i
               select "January", from: :consultation_response_date_of_birth_2i
               select "1", from: :consultation_response_date_of_birth_3i
-              page.find("#consultation_response_gender_male", visible: false).trigger('click')
+              page.find("#consultation_response_gender_male", visible: false).trigger("click")
               select "Center", from: "Districts"
               fill_in "Association", with: "Asociación Vecinos Arganzuela"
               fill_in "Bio", with: "My short bio"
 
-              page.find("#consultation_response_selected_options_#{item1.id}_5", visible: false).trigger('click')
-              page.find("#consultation_response_selected_options_#{item2.id}_5", visible: false).trigger('click')
+              page.find("#consultation_response_selected_options_#{item1.id}_5", visible: false).trigger("click")
+              page.find("#consultation_response_selected_options_#{item2.id}_5", visible: false).trigger("click")
               click_button "Create"
 
               assert has_alert?("Consultation couldn't be saved. Please, review the responses and try again")
 
-              page.find("#consultation_response_selected_options_#{item1.id}_0", visible: false).trigger('click')
-              page.find("#consultation_response_selected_options_#{item2.id}_-5", visible: false).trigger('click')
+              page.find("#consultation_response_selected_options_#{item1.id}_0", visible: false).trigger("click")
+              page.find("#consultation_response_selected_options_#{item2.id}_-5", visible: false).trigger("click")
               select "Center", from: "Districts"
               fill_in "Association", with: "Asociación Vecinos Arganzuela"
               fill_in "Bio", with: "My short bio"
@@ -157,14 +159,14 @@ module GobiertoAdmin
 
               # Don't fill user custom fields
 
-              page.find("#consultation_response_selected_options_#{item1.id}_5", visible: false).trigger('click')
-              page.find("#consultation_response_selected_options_#{item2.id}_5", visible: false).trigger('click')
+              page.find("#consultation_response_selected_options_#{item1.id}_5", visible: false).trigger("click")
+              page.find("#consultation_response_selected_options_#{item2.id}_5", visible: false).trigger("click")
               click_button "Create"
 
               assert has_alert?("Consultation couldn't be saved. Please, review the responses and try again")
 
-              page.find("#consultation_response_selected_options_#{item1.id}_0", visible: false).trigger('click')
-              page.find("#consultation_response_selected_options_#{item2.id}_-5", visible: false).trigger('click')
+              page.find("#consultation_response_selected_options_#{item1.id}_0", visible: false).trigger("click")
+              page.find("#consultation_response_selected_options_#{item2.id}_-5", visible: false).trigger("click")
               select "Center", from: "Districts"
               fill_in "Association", with: "Asociación Vecinos Arganzuela"
               fill_in "Bio", with: "My short bio"
@@ -185,7 +187,6 @@ module GobiertoAdmin
           end
         end
       end
-
     end
   end
 end

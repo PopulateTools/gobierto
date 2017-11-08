@@ -6,5 +6,9 @@ es:
         body: Contenido
         slug: URL
         title: Título
+      gobierto_admin/gobierto_cms/section_form:
+        slug: URL
+        title: Título
     models:
       gobierto_admin/gobierto_cms/page_form: Página
+      gobierto_admin/gobierto_cms/section_form: Sección

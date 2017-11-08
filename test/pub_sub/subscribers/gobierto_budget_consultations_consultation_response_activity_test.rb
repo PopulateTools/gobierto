@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class Subscribers::GobiertoBudgetConsultationsConsultationResponseActivityTest < ActiveSupport::TestCase
@@ -18,7 +20,7 @@ class Subscribers::GobiertoBudgetConsultationsConsultationResponseActivityTest <
   end
 
   def subject
-    @subject ||= Subscribers::GobiertoBudgetConsultationsConsultationResponseActivity.new('activities/gobierto_budget_consultations_consultation_response')
+    @subject ||= Subscribers::GobiertoBudgetConsultationsConsultationResponseActivity.new("activities/gobierto_budget_consultations_consultation_response")
   end
 
   def activity_subject
@@ -26,10 +28,10 @@ class Subscribers::GobiertoBudgetConsultationsConsultationResponseActivityTest <
   end
 
   def test_event_created
-    assert_difference 'Activity.count' do
+    assert_difference "Activity.count" do
       subject.consultation_response_created Event.new(name: "consultation_response_created", payload: {
-        author: admin,  site_id: site.id, subject: activity_subject, recipient: consultation, ip: IP
-      })
+                                                        author: admin, site_id: site.id, subject: activity_subject, recipient: consultation, ip: IP
+                                                      })
     end
 
     activity = Activity.last
@@ -39,14 +41,13 @@ class Subscribers::GobiertoBudgetConsultationsConsultationResponseActivityTest <
     assert_equal consultation, activity.recipient
     assert activity.admin_activity
     assert_equal site.id, activity.site_id
-
   end
 
   def test_event_deleted
-    assert_difference 'Activity.count' do
+    assert_difference "Activity.count" do
       subject.consultation_response_deleted Event.new(name: "consultation_response_deleted", payload: {
-        author: admin, site_id: site.id, subject: activity_subject, recipient: consultation, ip: IP
-      })
+                                                        author: admin, site_id: site.id, subject: activity_subject, recipient: consultation, ip: IP
+                                                      })
     end
 
     activity = Activity.last

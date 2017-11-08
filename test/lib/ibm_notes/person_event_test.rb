@@ -1,7 +1,8 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class IbmNotes::PersonEventTest < ActiveSupport::TestCase
-
   def setup
     super
     persisted_ibm_notes_event_gobierto_event.save!
@@ -18,19 +19,18 @@ class IbmNotes::PersonEventTest < ActiveSupport::TestCase
 
   def response_data(params = {})
     {
-      'id'       => params[:id] || 'Ibm Notes event ID',
-      'summary'  => params[:summary] || 'Ibm Notes event title',
-      'location' => params.has_key?(:location) ? params[:location] : 'Ibm Notes event location',
-      'start'    => params[:start] || { 'date' => '2017-04-11', 'time' => '10:00:00', 'utc' => true },
-      'end'      => params[:end] || { 'date' => '2017-04-11', 'time' => '11:00:00', 'utc' => true }
+      "id"       => params[:id] || "Ibm Notes event ID",
+      "summary"  => params[:summary] || "Ibm Notes event title",
+      "location" => params.has_key?(:location) ? params[:location] : "Ibm Notes event location",
+      "start"    => params[:start] || { "date" => "2017-04-11", "time" => "10:00:00", "utc" => true },
+      "end"      => params[:end] || { "date" => "2017-04-11", "time" => "11:00:00", "utc" => true }
     }
   end
 
-
   def persisted_ibm_notes_event_response_data
     @persisted_ibm_notes_event_response_data ||= response_data(
-      id: 'Ibm Notes persisted event ID',
-      summary: 'Ibm Notes persisted event title'
+      id: "Ibm Notes persisted event ID",
+      summary: "Ibm Notes persisted event title"
     )
   end
 
@@ -39,20 +39,20 @@ class IbmNotes::PersonEventTest < ActiveSupport::TestCase
   end
 
   def persisted_ibm_notes_event_gobierto_event
-    @persisted_ibm_notes_event_gobierto_event ||= GobiertoPeople::PersonEvent.new(
-      id: 'Ibm Notes persisted event ID',
-      title: 'Ibm Notes persisted event title',
+    @persisted_ibm_notes_event_gobierto_event ||= GobiertoCalendars::Event.new(
+      id: "Ibm Notes persisted event ID",
+      title: "Ibm Notes persisted event title",
       starts_at: utc_time("2017-04-11 10:00:00"),
       ends_at:   utc_time("2017-04-11 11:00:00"),
-      person: person,
+      collection: person.events_collection,
       site: person.site
     )
   end
 
   def new_ibm_notes_event_response_data
     @new_ibm_notes_event_response_data ||= response_data(
-      id: 'Ibm Notes new event ID',
-      summary: 'Ibm Notes new event title'
+      id: "Ibm Notes new event ID",
+      summary: "Ibm Notes new event title"
     )
   end
 
@@ -61,11 +61,11 @@ class IbmNotes::PersonEventTest < ActiveSupport::TestCase
   end
 
   def test_initialize
-    assert_equal 'Ibm Notes persisted event ID', persisted_ibm_notes_event.id
-    assert_equal 'Ibm Notes persisted event title', persisted_ibm_notes_event.title
+    assert_equal "Ibm Notes persisted event ID", persisted_ibm_notes_event.id
+    assert_equal "Ibm Notes persisted event title", persisted_ibm_notes_event.title
     assert_equal person, persisted_ibm_notes_event.person
-    assert_equal utc_time('2017-04-11 10:00:00'), persisted_ibm_notes_event.starts_at
-    assert_equal utc_time('2017-04-11 11:00:00'), persisted_ibm_notes_event.ends_at
+    assert_equal utc_time("2017-04-11 10:00:00"), persisted_ibm_notes_event.starts_at
+    assert_equal utc_time("2017-04-11 11:00:00"), persisted_ibm_notes_event.ends_at
   end
 
   def test_initialize_event_location
@@ -73,13 +73,12 @@ class IbmNotes::PersonEventTest < ActiveSupport::TestCase
 
     assert_nil ibm_notes_event.location
 
-    ibm_notes_event = IbmNotes::PersonEvent.new(person, response_data(location: ''))
+    ibm_notes_event = IbmNotes::PersonEvent.new(person, response_data(location: ""))
 
     assert_nil ibm_notes_event.location
 
-    ibm_notes_event = IbmNotes::PersonEvent.new(person, response_data(location: 'valid location name'))
+    ibm_notes_event = IbmNotes::PersonEvent.new(person, response_data(location: "valid location name"))
 
-    assert_equal 'valid location name', ibm_notes_event.location
+    assert_equal "valid location name", ibm_notes_event.location
   end
-
 end

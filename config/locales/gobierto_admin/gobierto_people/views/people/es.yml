@@ -18,9 +18,6 @@ es:
             charge: Alcalde
             email: Correo-e
             name: Rafael García
-          visibility_level:
-            active: Publicada
-            draft: Borrador
         index:
           configuration: Configuración
           drag_to_sort: Arrastra para ordenar
@@ -32,6 +29,8 @@ es:
             statements: Declaraciones
             status: Estado
           new: Nueva persona
+          no_permissions: No tienes permisos para editar esta persona. Si la necesitas
+            editar, habla con tu administrador
           title: Personas
           view_person: Ver persona
           visibility_level:

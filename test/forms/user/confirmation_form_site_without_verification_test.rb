@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class User::ConfirmationFormSiteWithoutVerificationTest < ActiveSupport::TestCase
@@ -23,7 +25,7 @@ class User::ConfirmationFormSiteWithoutVerificationTest < ActiveSupport::TestCas
       date_of_birth_year: nil,
       date_of_birth_month: nil,
       date_of_birth_day: nil,
-      gender: nil,
+      gender: nil
     )
   end
 

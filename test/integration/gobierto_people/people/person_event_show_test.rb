@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require_relative "base"
 
@@ -15,12 +17,16 @@ module GobiertoPeople
         @site ||= sites(:madrid)
       end
 
+      def user
+        @user ||= users(:peter)
+      end
+
       def person
         @person ||= gobierto_people_people(:richard)
       end
 
       def event
-        @event ||= gobierto_people_person_events(:richard_published)
+        @event ||= gobierto_calendars_events(:richard_published)
       end
 
       def test_person_event_show
@@ -62,11 +68,21 @@ module GobiertoPeople
       end
 
       def test_subscription_block
-        with_current_site(site) do
-          visit @path
+        with_javascript do
+          with_current_site(site) do
+            with_signed_in_user(user) do
+              visit @path
 
-          within ".subscribable-box", match: :first do
-            assert has_button?("Subscribe")
+              within ".site_header" do
+                assert has_link? "Follow event"
+              end
+
+              click_on "Follow event"
+              assert has_link? "Event followed!"
+
+              click_on "Event followed!"
+              assert has_link? "Follow event"
+            end
           end
         end
       end

@@ -1,16 +1,20 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require "support/integration/dynamic_content_helpers"
-require "support/file_uploader_helpers"
+require "support/concerns/gobierto_admin/authorizable_resource_test_module"
 
 module GobiertoAdmin
   module GobiertoPeople
     class PersonUpdateTest < ActionDispatch::IntegrationTest
+
       include Integration::DynamicContentHelpers
-      include FileUploaderHelpers
+      include ::GobiertoAdmin::AuthorizableResourceTestModule
 
       def setup
         super
         @path = edit_admin_people_person_path(person)
+        setup_authorizable_resource_test(gobierto_admin_admins(:steve), @path)
       end
 
       def person
@@ -61,7 +65,7 @@ module GobiertoAdmin
                   attach_file "person_bio_file", "test/fixtures/files/gobierto_people/people/bio.pdf"
                 end
 
-                within ".person-visibility-level-radio-buttons" do
+                within ".widget_save" do
                   find("label", text: "Draft").click
                 end
 
@@ -110,7 +114,7 @@ module GobiertoAdmin
                   assert has_selector?("a")
                 end
 
-                within ".person-visibility-level-radio-buttons" do
+                within ".widget_save" do
                   with_hidden_elements do
                     assert has_checked_field?("Draft")
                   end

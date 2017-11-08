@@ -1,0 +1,12 @@
+---
+en:
+  gobierto_calendars:
+    events:
+      gobierto_calendars_event_published: "%{subject_name}"
+      gobierto_calendars_event_updated: "%{subject_name}"
+    fullcalendar:
+      day: Day
+      list: List
+      month: Month
+      today: Today
+      week: Week

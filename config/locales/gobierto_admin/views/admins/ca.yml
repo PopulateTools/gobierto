@@ -6,6 +6,7 @@ ca:
         title: Editar Administrador
       form:
         activity_block: Log d'actividad
+        all: Totes
         authorization_level:
           disabled: Deshabilitat
           manager: Manager

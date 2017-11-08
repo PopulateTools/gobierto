@@ -7,16 +7,21 @@ en:
           account: Account
           sign_out: Sign out
         budget_consultations: Budget consultations
+        budgets: Budgets
+        calendars: Calendars
         cms: CMS
         collapse_menu: Collapse menu
         dirty_forms:
           message: You have unsaved changes. Are you sure you want to leave this page?
         edit_site: Customize site
+        file_attachments: Documents
         hey_admin: Hey, %{admin_name}
         issues: Themes
         manage_sites: Manage sites
         notifications: Notifications
+        participation: Participation
         people: Officers and Agendas
+        scopes: Scopes
         site_network: Network
         users: Users
         view_site: View site

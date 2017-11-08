@@ -1,10 +1,9 @@
+# frozen_string_literal: true
+
 require "test_helper"
-require "support/file_uploader_helpers"
 
 module GobiertoAdmin
   class SiteUpdateTest < ActionDispatch::IntegrationTest
-    include FileUploaderHelpers
-
     def setup
       super
       @path = edit_admin_site_path(site)
@@ -47,11 +46,12 @@ module GobiertoAdmin
             check "Gobierto Development"
           end
 
-          within ".site-visibility-level-radio-buttons" do
+          within ".widget_save" do
             choose "Published"
           end
 
           select privacy_page.title, from: "site_privacy_page_id"
+          select "GobiertoParticipation", from: "site_home_page"
 
           with_stubbed_s3_file_upload do
             click_button "Update"
@@ -70,13 +70,14 @@ module GobiertoAdmin
           assert has_field?("site_links_markup", with: "Site Links markup")
           assert has_field?("site_google_analytics_id", with: "UA-000000-01")
           assert has_select?("Privacy page", selected: privacy_page.title)
+          assert has_select?("site_home_page", selected: "GobiertoParticipation")
           assert has_field?("site_populate_data_api_token", with: "APITOKEN")
 
           within ".site-module-check-boxes" do
             assert has_checked_field?("Gobierto Development")
           end
 
-          within ".site-visibility-level-radio-buttons" do
+          within ".widget_save" do
             assert has_checked_field?("Published")
           end
         end
@@ -94,7 +95,7 @@ module GobiertoAdmin
         visit @path
 
         within "form.edit_site" do
-          within ".site-visibility-level-radio-buttons" do
+          within ".widget_save" do
             choose "Draft"
             fill_in "site_username", with: "wadus"
             fill_in "site_password", with: "wadus"
@@ -106,7 +107,7 @@ module GobiertoAdmin
         assert has_message?("Site was successfully updated")
 
         within "form.edit_site" do
-          within ".site-visibility-level-radio-buttons" do
+          within ".widget_save" do
             assert has_checked_field?("Draft")
           end
 
@@ -129,7 +130,7 @@ module GobiertoAdmin
         visit @path
 
         within "form.edit_site" do
-          within ".site-visibility-level-radio-buttons" do
+          within ".widget_save" do
             choose "Draft"
           end
 

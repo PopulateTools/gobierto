@@ -1,0 +1,9 @@
+---
+en:
+  gobierto_admin:
+    gobierto_common:
+      collections:
+        create:
+          success: Collection was successfully created.
+        update:
+          success: Collection was successfully updated.

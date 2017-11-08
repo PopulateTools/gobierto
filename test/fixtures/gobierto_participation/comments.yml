@@ -1,0 +1,18 @@
+cinema_reed_comment:
+  body: "Una gran propuesta"
+  commentable: cinema (GobiertoParticipation::Contribution)
+  user: reed
+  site: madrid
+
+park_susan_comment:
+  body: ":D"
+  commentable: park (GobiertoParticipation::Contribution)
+  user: susan
+  site: madrid
+
+park_reed_comment:
+  body: "¡¡Qué bien!!"
+  commentable: park (GobiertoParticipation::Contribution)
+  user: reed
+  site: madrid
+  votes_count: 1

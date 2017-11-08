@@ -1,41 +1,41 @@
 /* Widget */
 .card_container {
-	position: relative;
-	perspective: 1000px;
-	-webkit-perspective: 1000px;
-	-moz-perspective: 1000px;
-	-ms-perspective: 1000px;
-	min-height: 180px;
-	border-radius: 8px;
-	margin-bottom: 4rem;
-  
-  @media (min-width: 768px) {
-    margin-bottom: 1rem;
+  position: relative;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  -ms-perspective: 1000px;
+  min-height: 180px;
+  border-radius: 8px;
+
+  @include screen(768) {
+    margin-bottom: 1em;
+    min-height: 220px;
   }
-  
+
   .indicator_widget {
-  	cursor: pointer;
-  	transition: 0.6s;
-  	-webkit-transform-style: preserve-3d;
-  	-moz-transform-style: preserve-3d;
-  	-ms-transform-style: preserve-3d;
-  	transform-style: preserve-3d;
-  	position: relative;
+    cursor: pointer;
+    transition: 0.6s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    position: relative;
   }
   .front,
   .back {
-  	border-radius: 8px;
-  	background: #f0f9f9;
-  	width: 100%;
-  	height: auto;
-  	-webkit-backface-visibility: hidden;
-  	-moz-backface-visibility: hidden;
-  	-ms-backface-visibility: hidden;
-  	backface-visibility: hidden;
-  	position: absolute;
-  	top: 0;
-  	left: 0;
-  	transition: 0.2s all;
+    border-radius: 8px;
+    background: #f0f9f9;
+    width: 100%;
+    height: auto;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.2s all;
   }
   .front:hover,
   .front:active,
@@ -43,10 +43,10 @@
   .back:hover,
   .back:active,
   .back:focus {
-  	box-shadow: 0 2px 5px rgba(0,0,0,0.2);	 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   }
   .widget_headline {
-  	font-weight: 600;
+    font-weight: 600;
     padding: 1rem;
   }
   .widget_body {
@@ -70,7 +70,7 @@
       top: 0;
       line-height: 0;
       width: calc(100% - 2rem);
-      
+
       path {
         fill: none;
         stroke-linejoin: round;
@@ -82,11 +82,11 @@
         fill-opacity: 0.15;
       }
     }
-    
+
     .widget_table {
       .sparktable {
         width: 25%;
-        
+
         path {
           fill: none;
           stroke-linejoin: round;
@@ -104,7 +104,7 @@
         border-bottom: 1px solid rgba(0, 0, 0, 0.2);
         margin-bottom: 0.5rem;
         padding-bottom: 0.5rem;
-        
+
         &:last-child {
           margin-bottom: 0;
           padding-bottom: 0;
@@ -121,7 +121,7 @@
           display: inline-block;
           height: 10px;
           background: $color_main;
-          
+
           @media (min-width: 768px) {
             height: 20px;
           }
@@ -138,13 +138,13 @@
   }
   .widget_body.widget_comparison {
     line-height: 37px;
-    
+
     .first {
       border-bottom: 1px solid rgba(0,0,0,0.2);
       margin-bottom: 0.5rem;
       padding-bottom: 0.5rem;
     }
-    
+
     .first,
     .second {
       span:not(.figure) {
@@ -158,76 +158,76 @@
     font-size: 0.85rem;
   }
   .widget_headline i {
-  	color: #b1b8b8;
-  	margin: 0.25em .25em 0 0;
-  	transition: all 0.25s;
-  	cursor: pointer;
+    color: #b1b8b8;
+    margin: 0.25em .25em 0 0;
+    transition: all 0.25s;
+    cursor: pointer;
   }
   .indicator_widget:focus .widget_headline i,
   .indicator_widget:active .widget_headline i,
   .indicator_widget:hover .widget_headline i, {
-  	color: $color_text;
+    color: $color_text;
   }
   .widget_headline .fa-times {
-  	color: $color_text;
+    color: $color_text;
   }
   .back .fa-facebook,
   .back .fa-twitter {
-  	color: $color_text;
+    color: $color_text;
   }
   .front .fa-facebook,
   .front .fa-twitter {
-  	opacity: 0;
-  	transition: 0.25s;
+    opacity: 0;
+    transition: 0.25s;
   }
   .front:hover .fa-facebook,
   .front:hover .fa-twitter {
-  	opacity: 1;
+    opacity: 1;
   }
 
   .widget_figure {
-  	font-weight: 300;
-  	font-size: 1.75rem;
-  	color: $color_1;
+    font-weight: 300;
+    font-size: 1.75rem;
+    color: $color_1;
   }
   .widget_pct {
-  	font-weight: 300;
+    font-weight: 300;
   }
   .widget_pct i {
-  	margin-left: 0.25rem;
+    margin-left: 0.25rem;
   }
   .widget_pct .fa-caret-up {
-  	color: $color_vis_com;
+    color: $color_vis_com;
   }
   .widget_pct .fa-caret-down {
-  	color: $color_warn;
+    color: $color_warn;
   }
 
   // Widget additional info screen
   .widget_info {
-  	min-height: 80px;
+    min-height: 80px;
     padding: 0 1rem;
   }
 
   // Widget metadata
   .widget_meta {
     padding: 1rem;
-    
+
     .fa {
-    	font-size: 70%;
-    	color: #9c9c9c;
+      font-size: 70%;
+      color: #9c9c9c;
     }
     .widget_src {
-    	vertical-align: middle;
-    	display: inline-block;
-    	font-size: 70%;
-    	width: 20%;
-    	white-space: nowrap;
-    	overflow: hidden;
-    	text-overflow: ellipsis;
-    	color: #7F7F7F;
+      vertical-align: middle;
+      display: inline-block;
+      font-size: 70%;
+      width: 20%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #7F7F7F;
       font-weight: 300;
-      
+
       a {
         font-weight: 300;
         color: #7F7F7F;
@@ -236,9 +236,9 @@
     }
     small,
     .widget-sep {
-    	font-weight: 300;
-    	color: #7F7F7F;
-    	font-size: 70%;
+      font-weight: 300;
+      color: #7F7F7F;
+      font-size: 70%;
     }
     .widget-sep {
       margin: 0 0.15rem;
@@ -248,28 +248,28 @@
   /* Card flip */
   .card_container.hover {
     .indicator_widget {
-    	-webkit-transform: rotateY(180deg);
-    	-moz-transform: rotateY(180deg);
-    	-ms-transform: rotateY(180deg);
-    	transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
+      -moz-transform: rotateY(180deg);
+      -ms-transform: rotateY(180deg);
+      transform: rotateY(180deg);
     }
     .front,
     .back {
-    	box-shadow: 0 2px 5px rgba(0,0,0,0.2);	 
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
   }
   .front {
-  	z-index: 2;
-  	-webkit-transform: rotateY(0deg);
-  	-moz-transform: rotateY(0deg);
-  	-ms-transform: rotateY(0deg);
-  	transform: rotateY(0deg);
+    z-index: 2;
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    transform: rotateY(0deg);
   }
   .back {
-  	-webkit-transform: rotateY(180deg);
-  	-moz-transform: rotateY(180deg);
-  	-ms-transform: rotateY(180deg);
-  	transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    transform: rotateY(180deg);
   }
   .figure-row {
     padding-bottom: 0.25rem;

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require "test_helper"
-require "support/concerns/gobierto_people/sluggable_test"
+require "support/concerns/gobierto_common/sluggable_test"
 
 module GobiertoPeople
   class PoliticalGroupTest < ActiveSupport::TestCase
-    include ::GobiertoPeople::SluggableTestModule
+    include GobiertoCommon::SluggableTestModule
 
     def political_group
       @political_group ||= gobierto_people_political_groups(:marvel)
@@ -12,7 +14,7 @@ module GobiertoPeople
 
     def new_political_group
       ::GobiertoPeople::PoliticalGroup.create!(
-        name: 'Political Group Name',
+        name: "Political Group Name",
         site: sites(:madrid)
       )
     end

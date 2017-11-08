@@ -46,7 +46,7 @@ module GobiertoCommon
 
     def perform_notifications
       unless notify?
-        Rails.logger.debug("Skipping notifications for #{trackable.to_gid}")
+        Rails.logger.debug("Skipping notifications for #{trackable.class.name} #{trackable.id}")
         return true
       end
 
@@ -78,7 +78,7 @@ module GobiertoCommon
     end
 
     def event_payload
-      { gid: trackable.to_gid, site_id: trackable.site_id, admin_id: trackable.admin_id }
+      { gid: trackable.to_gid, site_id: trackable.site_id, admin_id: (trackable.admin_id if trackable.respond_to?(:admin_id)) }
     end
 
     def store_changes

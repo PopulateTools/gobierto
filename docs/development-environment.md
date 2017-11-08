@@ -6,12 +6,24 @@
 
 ### Overview
 
-* This gide assumes you are using macOS and have [Homebrew](https://brew.sh/) installed.
+* This guide assumes you are using macOS and have [Homebrew](https://brew.sh/) installed.
 * Some of these steps might be incompatible with the [Docker setup approach](development-environment-docker.md).
 * The main dependencies are:
  * *postgres*
  * *redis*
  * *elasticsearch*
+
+### Ruby
+
+Gobierto is a [Ruby on Rails application](http://rubyonrails.org) so you need to install Ruby first.
+You can check [here](https://github.com/PopulateTools/gobierto/blob/master/.ruby-version) which
+version of Ruby is the current one.
+
+To install Ruby we recommend a Ruby version manager, such as [rvm](http://rvm.io) or
+[Rbenv](https://github.com/rbenv/rbenv) (our preferred choice).
+
+After installing the Ruby version manager, install the gem bundler: `gem install bundler` and you
+are ready for the next steps.
 
 ### Postgres
 
@@ -67,6 +79,8 @@ default: &default
   username: gobierto
   password: gobierto
 ```
+
+You can remove: `host` and `url`.
 
 Now run:
 
@@ -178,6 +192,10 @@ The application server should be queried through the top-level domain `.gobierto
 * [http://madrid.gobierto.dev](http://madrid.gobierto.dev)
 * [http://santander.gobierto.dev](http://santander.gobierto.dev)
 
+### PhantomJS
+
+PhantomJS is a headless browser to run end to end tests. Install it with your package manager. I.e: `brew install phantomjs`.
+
 ### Run the tests!
 
 Now you can run the tests with:
@@ -202,4 +220,14 @@ Just follow the following steps:
 2. Log into your Gobierto instance and edit the site you want to expose, by updating the domain to something like `madrid.gobierto.dev.192.168.1.41.xip.io`
 3. Stop the rails server and start it again with a new parameter to bind it to any address: `rails s -b 0.0.0.0`
 4. That's all, now you can visit http://madrid.gobierto.dev.192.168.1.41.xip.io:3000/ in any device
+
+### Open Gobierto
+
+Now you can start using Gobierto:
+
+1. Start the server with `bin/rails s`
+2. Go to http://madrid.gobierto.dev to see a demo site
+3. Go to the administrator: http://madrid.gobierto.dev/admin
+4. See [admin namespace](docs/admin-namespace.md) for some admin credentials
+5. See [user namespace](docs/user-namespace.md) for some user credentials
 

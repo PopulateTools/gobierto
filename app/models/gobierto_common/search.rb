@@ -17,7 +17,7 @@ module GobiertoCommon
     private
 
     def modules_to_search
-      @modules_to_search ||= site.configuration.modules.map(&:constantize)
+      @modules_to_search ||= (site.configuration.modules + site.configuration.default_modules).map(&:constantize)
     end
 
     def models_to_search

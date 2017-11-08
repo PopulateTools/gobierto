@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 namespace :gobierto_budgets do
   namespace :algolia do
-
-    desc 'Reindex records'
-    task :reindex, [:site_domain, :year] => [:environment] do |t, args|
+    desc "Reindex records"
+    task :reindex, [:site_domain, :year] => [:environment] do |_t, args|
       site = Site.find_by!(domain: args[:site_domain])
       year = args[:year].to_i
       ine_code = site.place.id
@@ -14,7 +15,6 @@ namespace :gobierto_budgets do
 
       GobiertoBudgets::BudgetArea.all_areas.each do |area|
         area.available_kinds.each do |kind|
-
           puts "\n[INFO] area = '#{area.area_name}' kind = '#{kind}'"
           puts "---------------------------------------------------"
 
@@ -28,24 +28,23 @@ namespace :gobierto_budgets do
           puts "[INFO] Found #{forecast_hits.size} forecast #{area.area_name} #{kind} BudgetLine records"
 
           forecast_budget_lines = forecast_hits.map do |h|
-            create_budget_line(site, 'index_forecast', h)
+            create_budget_line(site, "index_forecast", h)
           end
 
           GobiertoBudgets::BudgetLine.algolia_reindex_collection(forecast_budget_lines)
         end
       end
-
     end
 
     def create_budget_line(site, index, elasticsearch_hit)
       GobiertoBudgets::BudgetLine.new(
-             site: site,
-            index: index,
-        area_name: elasticsearch_hit['_type'],
-             kind: elasticsearch_hit['_source']['kind'],
-             code: elasticsearch_hit['_source']['code'],
-             year: elasticsearch_hit['_source']['year'],
-           amount: elasticsearch_hit['_source']['amount']
+        site: site,
+        index: index,
+        area_name: elasticsearch_hit["_type"],
+        kind: elasticsearch_hit["_source"]["kind"],
+        code: elasticsearch_hit["_source"]["code"],
+        year: elasticsearch_hit["_source"]["year"],
+        amount: elasticsearch_hit["_source"]["amount"]
       )
     end
 
@@ -70,8 +69,7 @@ namespace :gobierto_budgets do
         index: index,
         type: area.area_name,
         body: query
-      )['hits']['hits']
+      )["hits"]["hits"]
     end
-
   end
 end

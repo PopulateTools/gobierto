@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require "test_helper"
-require "support/person_event_helpers"
+require "support/event_helpers"
 
 module GobiertoPeople
   class PersonEventsIndexTest < ActionDispatch::IntegrationTest
-    include ::PersonEventHelpers
+    include ::EventHelpers
 
     def setup
       super
@@ -44,17 +46,17 @@ module GobiertoPeople
 
     def upcoming_events
       @upcoming_events ||= [
-        gobierto_people_person_events(:nelson_tomorrow),
-        gobierto_people_person_events(:richard_published),
-        gobierto_people_person_events(:richard_published_just_attending)
+        gobierto_calendars_events(:nelson_tomorrow),
+        gobierto_calendars_events(:richard_published),
+        gobierto_calendars_events(:richard_published_just_attending)
       ]
     end
 
     def past_events
       @past_events ||= [
-        gobierto_people_person_events(:richard_published_past),
-        gobierto_people_person_events(:nelson_yesterday),
-        gobierto_people_person_events(:tamara_published_past)
+        gobierto_calendars_events(:richard_published_past),
+        gobierto_calendars_events(:nelson_yesterday),
+        gobierto_calendars_events(:tamara_published_past)
       ]
     end
 
@@ -125,16 +127,15 @@ module GobiertoPeople
           refute has_link? government_member.name
           refute has_link? executive_member.name
         end
-
       end
     end
 
     def test_person_events_filter_for_calendar_widget
       government_event = create_event(person: government_member, starts_at: "2014-03-16")
-      executive_event  = create_event(person: executive_member,  starts_at: "2014-03-17")
+      executive_event = create_event(person: executive_member, starts_at: "2014-03-17")
 
       government_event_day = government_event.starts_at.day
-      executive_event_day  = executive_event.starts_at.day
+      executive_event_day = executive_event.starts_at.day
 
       Timecop.freeze(Time.zone.parse("2014-03-15")) do
         with_current_site(site) do
@@ -160,14 +161,13 @@ module GobiertoPeople
             refute has_link? government_event_day
             refute has_link? executive_event_day
           end
-
         end
       end
     end
 
     def test_person_events_filter_for_events_list
       government_event = create_event(person: government_member, title: "Government event", starts_at: "2014-03-16")
-      executive_event  = create_event(person: executive_member,  title: "Executive event",  starts_at: "2014-03-16")
+      executive_event = create_event(person: executive_member, title: "Executive event", starts_at: "2014-03-16")
 
       Timecop.freeze(Time.zone.parse("2014-03-15")) do
         with_current_site(site) do
@@ -206,7 +206,7 @@ module GobiertoPeople
           assert has_link?("Past events")
 
           upcoming_events.each do |event|
-            next if event.person.nil?
+            next if event.collection.container.nil?
 
             assert has_selector?(".person_event-item", text: event.title)
             assert has_link?(event.title)
@@ -216,14 +216,14 @@ module GobiertoPeople
     end
 
     def test_events_summary_with_no_upcoming_events
-      past_event = create_event(starts_at: "2014-03-14")
+      past_event = gobierto_calendars_events(:richard_published_just_attending)
 
       Timecop.freeze(10.years.from_now) do
         with_current_site(site) do
           visit @path
 
-          within ".events-summary" do
-            assert_text("There are no future events. Take a look at past ones")
+          within '.events-summary' do
+            assert_text('There are no future events. Take a look at past ones')
             assert has_link?(past_event.title)
           end
         end
@@ -243,21 +243,20 @@ module GobiertoPeople
     end
 
     def test_events_summary_with_no_events
-      (upcoming_events + past_events).each { |event| event.update_columns(state: :pending) }
+      ::GobiertoCalendars::Event.update_all(state: :pending)
 
       with_current_site(site) do
         visit @path
-
+        
         assert_text("There are no future or past events.")
       end
     end
 
     def test_future_and_past_events_filter
-      past_event   = create_event(title: "Past event title",   starts_at: "2014-02-15")
+      past_event = create_event(title: "Past event title", starts_at: "2014-02-15")
       future_event = create_event(title: "Future event title", starts_at: "2014-04-15")
 
       Timecop.freeze(Time.zone.parse("2014-03-15")) do
-
         with_current_site(site) do
           visit @path
 
@@ -273,7 +272,6 @@ module GobiertoPeople
             refute has_content?(future_event.title)
           end
         end
-
       end
     end
 
@@ -319,11 +317,10 @@ module GobiertoPeople
     end
 
     def test_calendar_navigation_arrows
-      past_event   = create_event(starts_at: "2014-02-15")
+      past_event = create_event(starts_at: "2014-02-15")
       future_event = create_event(starts_at: "2014-04-15")
 
       Timecop.freeze(Time.zone.parse("2014-03-15")) do
-
         with_current_site(site) do
           visit gobierto_people_events_path
 
@@ -341,7 +338,6 @@ module GobiertoPeople
             assert has_link?(past_event.starts_at.day)
           end
         end
-
       end
     end
 
@@ -351,7 +347,6 @@ module GobiertoPeople
       end
 
       Timecop.freeze(Time.zone.parse("2014-03-15")) do
-
         with_current_site(site) do
           visit gobierto_people_events_path
 
@@ -360,18 +355,15 @@ module GobiertoPeople
               assert has_link?(event.starts_at.day)
             end
           end
-
         end
-
       end
     end
 
     def test_filter_events_by_calendar_date_link
-      past_event    = create_event(title: "Past event title", starts_at: "2014-03-10 11:00")
-      future_event  = create_event(title: "Future event title", starts_at: "2014-03-20 11:00")
+      past_event = create_event(title: "Past event title", starts_at: "2014-03-10 11:00")
+      future_event = create_event(title: "Future event title", starts_at: "2014-03-20 11:00")
 
       Timecop.freeze(Time.zone.parse("2014-03-15")) do
-
         with_current_site(site) do
           visit @path
 
@@ -421,9 +413,10 @@ module GobiertoPeople
         get @path_for_json
 
         json_response = JSON.parse(response.body)
-        assert_equal json_response.first["person_name"], upcoming_events.first.person.name
-        assert_equal json_response.first["title"], upcoming_events.first.title
-        assert_equal json_response.first["description"], upcoming_events.first.description
+        assert_equal upcoming_events.first.collection.container.name, json_response.first["creator_name"]
+        assert_equal upcoming_events.first.collection.container.id, json_response.first["creator_id"]
+        assert_equal upcoming_events.first.title, json_response.first["title"]
+        assert_equal upcoming_events.first.description, json_response.first["description"]
       end
     end
 
@@ -432,7 +425,7 @@ module GobiertoPeople
         get @path_for_csv
 
         csv_response = CSV.parse(response.body, headers: true)
-        assert_equal csv_response.by_row[0]["person_name"], upcoming_events.first.person.name
+        assert_equal csv_response.by_row[0]["creator_name"], upcoming_events.first.collection.container.name
         assert_equal csv_response.by_row[0]["title"], upcoming_events.first.title
         assert_equal csv_response.by_row[0]["description"], upcoming_events.first.description
       end

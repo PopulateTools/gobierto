@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Authentication::RecoverableTest
   def test_recoverable_scope
     subject = recoverable_user.class.recoverable

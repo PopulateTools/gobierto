@@ -24,18 +24,18 @@ ca:
         title: Les teves alertes
         whole_site: Tot el site
       subscribable_box:
-        cancel: Ja estàs subscrit. cancel·lar?
+        cancel: Ja estàs subscrit, cancel·lar?
         form:
           placeholders:
             user_email: El teu correu-e
-          submit: Subscriu-m'hi
-        subscribe: Subscriu-m'hi
+          submit: Subscriu-me
+        subscribe: Subscriu-me
       subscribable_button:
-        event_followed: "¡Esdeveniment seguit!"
+        event_followed: Esdeveniment seguit!
         follow_event: Segueix l'esdeveniment
         follow_issue: Segueix el tema
         follow_person: Segueix la persona
         follow_process: Segueix el procés
-        issue_followed: "¡Tema seguit!"
-        person_followed: "¡Persona seguida!"
-        process_followed: "¡Procés seguit!"
+        issue_followed: Tema seguit!
+        person_followed: Persona seguida!
+        process_followed: Procés seguit!

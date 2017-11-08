@@ -4,7 +4,7 @@ ca:
     sessions:
       new:
         password_title: 'No recordes la teva contrasenya? T''ajudem:'
-        registration_title: 'Nou per aquí? Crea un compte gratis:'
+        registration_title: 'Nou per ací? Crea un compte:'
         session_title: Ja tens compte? Fes login
       new_password_form:
         session_section: Te'n recordes de la contrasenya? Fes login
@@ -13,4 +13,4 @@ ca:
         submit: Anem
       session_form:
         password_section: Contrasenya?
-        submit: Conectar-se
+        submit: Connectar-se

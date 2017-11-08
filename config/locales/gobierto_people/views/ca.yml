@@ -39,7 +39,7 @@ ca:
         send_email: Envia un correu-e
       index:
         subscribable_box:
-          title: Rebeix una alerta al tu correu-e
+          title: Rebeix una alerta al teu correu-e
         title: Organigrama de %{site_name}
       latest_activity:
         no_activity: Aquest perfil encara no ha registrat cap activitat.
@@ -118,12 +118,12 @@ ca:
     people_filter:
       all: tots
       categories:
-        executive: Directiu
+        executive: Directius
       parties:
         government: Equip de Govern
         opposition: Oposició
       political_groups:
-        title: Grup polític
+        title: Grups polítics
     person_events:
       index:
         agenda_switcher:
@@ -147,11 +147,11 @@ ca:
         filtering_by_tag: Filtrant per "%{tag}"
         go_back: Tornar
         subscribable_box:
-          title: Rebeix una alerta al tu correu-e
+          title: Rebeix una alerta al teu correu-e
     person_posts:
       index:
         subscribable_box:
-          title: Rebeix una alerta al tu correu-e
+          title: Rebeix una alerta al teu correu-e
         switcher:
           subtitle: Filtra per membres de la comunitat
           title: Consulta els blogs de...
@@ -161,7 +161,7 @@ ca:
     person_statements:
       index:
         subscribable_box:
-          title: Rebeix una alerta al tu correu-e
+          title: Rebeix una alerta al teu correu-e
         switcher:
           subtitle: Filtra per membres de la comunitat
           title: Consulta les declaracions de...

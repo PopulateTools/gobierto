@@ -388,7 +388,7 @@ var VisLineasJ = Class.extend({
           .selectAll("th")
           .data(columns)
           .enter()
-        .append("th")
+          .append("th")
           .attr('title', function(column) { return column; })
           .attr('class', function(column) {
             if (column == 'dif') {

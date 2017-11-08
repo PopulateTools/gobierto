@@ -1,7 +1,7 @@
 <nav id="main_menu" class="menu complete color_bg_main" role="navigation" aria-hidden="true" aria-expanded="false" role="group" aria-controlledby="main_nav">
   <div class="column">
     <div class="close">
-      <%= link_to "#", class: "color_bg_main" do %>
+      <%= link_to "#", class: "color_bg_main", 'aria-label' => t('.collapse_menu') do %>
         <i class="fa fa-close"></i>
       <% end %>
     </div>
@@ -48,7 +48,7 @@
         </div>
 
         <div class="search_box slim_search mobile_only">
-          <input type="text" placeholder="<%= t('.search') %>" name="q" id="gobierto_search" />
+          <input type="text" placeholder="<%= t('.search') %>" name="q" id="gobierto_search" aria-label="<%= t('.search') %>" />
         </div>
 
       </div>

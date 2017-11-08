@@ -5,7 +5,7 @@ module GobiertoAdmin
         def index
           @collection = current_process.events_collection
           @events_presenter = GobiertoAdmin::GobiertoCalendars::EventsPresenter.new(@collection)
-          @events = ::GobiertoCalendars::Event.where(id: @collection.events_in_collection)
+          @events = ::GobiertoCalendars::Event.where(id: @collection.events_in_collection).sorted_backwards
         end
       end
     end

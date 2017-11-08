@@ -79,6 +79,6 @@
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
     window.GobiertoAdmin.gobierto_attachments_controller.index();
-    window.GobiertoAdmin.gobierto_cms_controller.edit();
+    window.GobiertoAdmin.gobierto_cms_controller.edit("<%= @section_id.nil? ? 'null' : @section_id %>", "<%= @parent_id.nil? ? 'null' : @parent_id %>");
   <% end %>
 <% end %>

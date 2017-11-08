@@ -15,20 +15,21 @@ module GobiertoAdmin
         @page_form = PageForm.new(site_id: current_site.id, collection_id: @collection.id)
         @page_visibility_levels = get_page_visibility_levels
         @sections = current_site.sections
-        @section = nil
-        @parent = nil
+        @section_id = nil
+        @parent_id = nil
         @section_items = []
       end
 
       def edit
         @page = find_page
-        @section = @page.section
+        @section_id = @page.section_id
         @section_items = if @section
                            ::GobiertoCms::Section.find(@section).section_items
                          else
                            []
                          end
-        @parent =  @page.parent
+
+        @parent_id =  @page.parent_id
         @page_visibility_levels = get_page_visibility_levels
         @sections = current_site.sections
         @page_form = PageForm.new(

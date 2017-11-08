@@ -1,0 +1,5 @@
+<% if params[:from_page_widget] %>
+  window.GobiertoAdmin.gobierto_cms_controller.loadSections(<%= @section_form.section.id %>);
+
+  $.magnificPopup.close();
+<% end %>

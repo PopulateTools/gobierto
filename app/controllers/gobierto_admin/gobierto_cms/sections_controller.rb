@@ -11,6 +11,11 @@ module GobiertoAdmin
         respond_to do |format|
           format.html
           format.js
+          format.json do
+            render(
+              json: { sections: @sections.map{ |si| default_serializer.new(si) }}
+            )
+          end
         end
       end
 
@@ -106,6 +111,10 @@ module GobiertoAdmin
 
       def find_section
         current_site.sections.find(params[:id])
+      end
+
+      def default_serializer
+        ::GobiertoAdmin::GobiertoCms::SectionSerializer
       end
     end
   end

@@ -21,6 +21,7 @@ ca:
         new_modal:
           title: Nova col·lecció
         show:
+          configuration: Configuració
           file_attachments:
             created_at: Creat
             file_name: Nom del fitxer

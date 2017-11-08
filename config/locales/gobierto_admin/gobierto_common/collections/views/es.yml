@@ -21,6 +21,7 @@ es:
         new_modal:
           title: Nueva colección
         show:
+          configuration: Configuración
           file_attachments:
             created_at: Creado
             file_name: Nombre del documento

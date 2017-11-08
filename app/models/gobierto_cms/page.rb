@@ -65,7 +65,7 @@ module GobiertoCms
     end
 
     def self.pages_in_collections_and_container(site, container)
-      ids = GobiertoCommon::CollectionItem.where(item_type: %W(GobiertoCms::News GobiertoCms::Page), container_type: container_type, container_id: container.id).pluck(:item_id)
+      ids = GobiertoCommon::CollectionItem.where(item_type: %W(GobiertoCms::News GobiertoCms::Page), container_type: container.class.name, container_id: container.id).pluck(:item_id)
       where(id: ids, site: site)
     end
 

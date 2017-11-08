@@ -1,0 +1,13 @@
+<% id = nil unless defined?(id) %>
+<div class="slim_box">
+  <%= form_tag gobierto_budgets_feedback_follow_path(ask_for_feedback: true, id: id), remote: true, class: "new_user" do %>
+    <p><%= t('.ask_for_feedback') %>:</p>
+    <input placeholder="<%= t('.your_email') %>" type="email" name="email">
+    <input type="submit" name="commit" value="<%= t('.send') %>">
+    <p class="small"><%= privacy_policy_page_link %></p>
+  <% end %>
+</div>
+
+<div class="share_post_submit" id="ask_success">
+</div>
+

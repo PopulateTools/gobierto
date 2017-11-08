@@ -40,7 +40,7 @@ class GobiertoBudgets::FeedbackController < GobiertoBudgets::ApplicationControll
     @success = true
   end
 
-  def load_follow
+  def load_ask_more_information
   end
 
   private

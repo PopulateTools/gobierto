@@ -11,6 +11,7 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
 
       // Sections
       $('.level_1').show();
+      $("#page_section").append('<option value="0">(Nueva sección)</option>');
 
       // parent
       $('.level_2').show();
@@ -22,9 +23,36 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
     $('#page_section').change(function(e){
       e.preventDefault();
 
-      $('#page_parent').empty();
       var section = $(this).val();
-      populateParent(section);
+
+      if(section == 0) {
+        $('.level_2').hide();
+
+        // open the new ajax popup
+        $.magnificPopup.open({
+          closeOnBgClick: false,
+          closeBtnInside: true,
+          enableEscapeKey: true,
+          removalDelay: 65,
+          mainClass: 'mfp-fade',
+          items: {
+          },
+          callbacks: {
+
+          },
+          type: 'ajax',
+          ajax: {
+            settings: {
+              url: '/admin/cms/sections/new',
+              type: 'GET'
+            }
+          }
+        });
+      } else {
+        $('.level_2').show();
+        $('#page_parent').empty();
+        populateParent(section);
+      }
     });
   }
 

@@ -8,4 +8,5 @@ en:
         title: Title
     models:
       gobierto_cms/news: News
+      gobierto_cms/news_plural: News
       gobierto_cms/page: Page

@@ -47,7 +47,7 @@ module GobiertoParticipation
 
     def process_stage_path
       if information?
-        url_helpers.gobierto_participation_process_process_information_path(process.slug)
+        url_helpers.gobierto_participation_process_information_path(process.slug)
       elsif meetings?
         url_helpers.gobierto_participation_process_events_path(process.slug)
       elsif polls?

@@ -9,7 +9,7 @@
   </div>
   <div class="comment_actions">
 
-    <%= render partial: 'gobierto_participation/process_contributions/comment_votes', locals: { comment: comment } %>
+    <%= render partial: 'gobierto_participation/processes/contributions/comment_votes', locals: { comment: comment } %>
 
     <% if user_signed_in? %>
       <div class="action">
@@ -19,7 +19,7 @@
       </div>
     <% end %>
 
-    <%= render partial: 'gobierto_participation/process_contributions/flag', locals: { item: comment } %>
+    <%= render partial: 'gobierto_participation/processes/contributions/flag', locals: { item: comment } %>
 
   </div>
 

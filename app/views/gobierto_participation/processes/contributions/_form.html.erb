@@ -10,8 +10,8 @@
 
   <%= form_for(
     @contribution_form, as: :contribution,
-    url: gobierto_participation_process_process_contribution_container_process_contributions_path(process_id: current_process.slug,
-                                                                                                  process_contribution_container_id: @contribution_container.slug), remote: true) do |f| %>
+    url: gobierto_participation_process_contribution_container_contributions_path(process_id: current_process.slug,
+                                                                                  contribution_container_id: @contribution_container.slug), remote: true) do |f| %>
     <div class="contribution_card_new_wrapper">
       <div class="contribution_card_new_form">
         <div class="form_item input_text">

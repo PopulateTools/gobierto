@@ -8,7 +8,7 @@ module GobiertoAdmin
 
       def show
         @new_item_path = case @collection.item_type
-                         when 'GobiertoCms::Page'
+                         when 'GobiertoCms::Page', 'GobiertoCms::News'
                            @pages = ::GobiertoCms::Page.where(id: @collection.pages_in_collection)
                            new_admin_cms_page_path(collection_id: @collection)
                          when 'GobiertoAttachments::Attachment'
@@ -116,6 +116,7 @@ module GobiertoAdmin
 
       def find_containers
         @containers ||= container_items.map { |item| ["#{item.class.model_name.human}: #{item}", item.to_global_id] }
+        @containers.insert(1, ["GobiertoParticipation", nil])
       end
 
       def type_names

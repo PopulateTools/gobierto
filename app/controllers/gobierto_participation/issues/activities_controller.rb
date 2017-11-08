@@ -2,7 +2,7 @@
 
 module GobiertoParticipation
   module Issues
-    class ActivitiesController < GobiertoParticipation::BaseController
+    class ActivitiesController < GobiertoParticipation::ApplicationController
       include ::PreviewTokenHelper
 
       def index

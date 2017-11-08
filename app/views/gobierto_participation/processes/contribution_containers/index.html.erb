@@ -25,7 +25,7 @@
 
     <div class="flex_container">
       <% @contribution_containers.each do |contribution_container| %>
-        <%= link_to gobierto_participation_process_process_contribution_container_path(contribution_container.slug, process_id: @process.slug), class: "content_block themed light" do %>
+        <%= link_to gobierto_participation_process_contribution_container_path(contribution_container.slug, process_id: @process.slug), class: "content_block themed light" do %>
 
           <h3><%= contribution_container.title %></h3>
           <p><%= contribution_container.description %></p>

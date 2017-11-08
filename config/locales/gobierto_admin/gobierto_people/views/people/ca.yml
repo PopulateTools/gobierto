@@ -23,7 +23,7 @@ ca:
           drag_to_sort: Arrastra per a ordenar
           header:
             charge: Càrrec
-            events: Events
+            events: Esdeveniments
             person: Persona
             posts: Posts
             statements: Declaracions

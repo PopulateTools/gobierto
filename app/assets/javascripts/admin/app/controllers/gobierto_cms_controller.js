@@ -38,12 +38,13 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
           items: {
           },
           callbacks: {
-
+            // TODO: Call sections, select last, and append (Nueva sección)
+            //   $.magnificPopup.close();
           },
           type: 'ajax',
           ajax: {
             settings: {
-              url: '/admin/cms/sections/new',
+              url: '/admin/cms/sections/new?remote=true',
               type: 'GET'
             }
           }

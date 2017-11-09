@@ -431,6 +431,11 @@ ca:
         title: Algunes partides destacades
         total: Despesa total
     feedback:
+      ask_more_information:
+        ask_for_feedback: Escriu el teu email per a que el teu ajuntament et puga
+          contestar
+        send: Enviar
+        your_email: El teu correu
       follow:
         follow: Seguir
         your_email: El teu correu

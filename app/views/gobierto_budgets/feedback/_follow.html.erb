@@ -1,7 +1,5 @@
-<% ask_for_feedback = false unless defined?(ask_for_feedback) %>
-<% id = nil unless defined?(id) %>
 <div class="slim_box">
-  <%= form_tag gobierto_budgets_feedback_follow_path(ask_for_feedback: ask_for_feedback, id: id), remote: true, class: "new_user" do %>
+  <%= form_tag gobierto_budgets_feedback_follow_path, remote: true, class: "new_user" do %>
     <p><%= t('.follow') %>:</p>
     <input placeholder="<%= t('.your_email') %>" type="email" name="email">
     <input type="submit" name="commit" value="<%= t('.follow') %>">

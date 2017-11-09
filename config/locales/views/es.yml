@@ -42,6 +42,7 @@ es:
         sign_in: Iniciar sesión
         sign_out: Cerrar sesión
         title: Tu cuenta
+      start: Inicio
     breadcrumb:
       start: Inicio
     gobierto_budget_consultations:
@@ -75,6 +76,7 @@ es:
     mailcheck:
       suggestion_message: "¿Quieres decir"
     main_menu:
+      collapse_menu: Cierra
       search: Busca...
     sandbox:
       application:

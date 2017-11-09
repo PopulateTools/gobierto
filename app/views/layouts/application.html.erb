@@ -100,7 +100,7 @@
           </div>
           <div class="mobile_only right">
             <%= link_to "#", class: "nav_control" do %>
-              <i class="fa fa-bars"></i>
+              <i class="fa fa-bars" aria-label="<%= t('.start') %>"></i>
             <% end %>
           </div>
         </div>
@@ -123,15 +123,15 @@
 
             <div class="social_links_container" data-share>
               <% if show_social_links? %>
-                <a href="#" class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
-                <a href="#" class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
+                <a class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
+                <a class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
               <% end %>
 
-              <a href="#" class="search_icon"><i class="fa fa-search"></i></a>
+              <a class="search_icon"><i class="fa fa-search"></i></a>
 
               <div class="search_control ">
                 <i class="fa fa-search"></i>
-                <input type="text" placeholder="<%= t('.search') %>" name="q" id="gobierto_search" >
+                <input type="text" placeholder="<%= t('.search') %>" name="q" id="gobierto_search" aria-label="<%= t('.search') %>">
               </div>
 
               <!-- TODO: lo del position:absolute es una ñapa -->

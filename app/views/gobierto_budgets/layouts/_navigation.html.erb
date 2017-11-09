@@ -1,5 +1,5 @@
 <div class="pure-u-1 pure-u-md-1-4 section">
-  <h2><%= link_to t("gobierto_budgets.layouts.application.budgets"), gobierto_budgets_budgets_path, data: { turbolinks: false } %></h2>
+  <h2><%= link_to t("gobierto_budgets.layouts.application.budgets"), gobierto_budgets_root_path, data: { turbolinks: false } %></h2>
   <% if budgets_elaboration_active? %>
     <%= link_to t('gobierto_budgets.layouts.menu_subsections.elaboration'), gobierto_budgets_budgets_elaboration_path, data: { turbolinks: false }  %></li>
   <% end %>

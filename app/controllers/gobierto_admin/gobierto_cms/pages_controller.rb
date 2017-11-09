@@ -22,6 +22,7 @@ module GobiertoAdmin
         @page = find_page
         @section_id = @page.section_id
         @parent_id =  @page.parent_id
+        @page_section_item_id = ::GobiertoCms::SectionItem.find_by(item_id: @page.id).try(:id)
 
         @page_visibility_levels = get_page_visibility_levels
         @page_form = PageForm.new(

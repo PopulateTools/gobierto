@@ -1,8 +1,8 @@
 this.GobiertoAdmin.GobiertoCmsController = (function() {
   function GobiertoCmsController() {}
 
-  GobiertoCmsController.prototype.edit = function(sectionId, parentId) {
-    _sections(sectionId, parentId);
+  GobiertoCmsController.prototype.edit = function(sectionId, parentId, sectionItemId) {
+    _sections(sectionId, parentId, sectionItemId);
   };
 
   GobiertoCmsController.prototype.loadSections = function(sectionSelected) {
@@ -12,7 +12,7 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
     populateParent(sectionSelected, null);
   };
 
-  function _sections(sectionId, parentId) {
+  function _sections(sectionId, parentId, sectionItemId) {
     var $level1 = $('.level_1')
     var $level2 = $('.level_2')
     var $section = $('#page_section')
@@ -38,7 +38,7 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
         $level2.hide();
       }
       $parent.empty();
-      populateParent(sectionId, parentId);
+      populateParent(sectionId, parentId, sectionItemId);
 
     });
 
@@ -114,10 +114,11 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
     }
   }
 
-  function populateParent(section, parentId) {
+  function populateParent(section, parentId, sectionItemId) {
     var $parent = $('#page_parent')
 
-    if(section) {
+    if(!(section=="null")) {
+
       // Get children
       $.getJSON(
         '/admin/cms/sections/' + section + '/section_items/',
@@ -136,7 +137,7 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
               if(parentId == "0") {
                 $("#page_parent option:last").attr("disabled","disabled");
               } else {
-                $('#page_parent option:selected').next().attr("disabled","disabled");
+                $('#page_parent option[value="' + sectionItemId + '"]').attr("disabled","disabled");
               }
             } else {
               $parent.val($("#page_parent option:first").val());

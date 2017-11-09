@@ -40,6 +40,7 @@ en:
         sign_in: Sign in
         sign_out: Sign out
         title: Your account
+      start: Home
     breadcrumb:
       start: Start
     gobierto_budget_consultations:
@@ -71,6 +72,7 @@ en:
     mailcheck:
       suggestion_message: Did you mean
     main_menu:
+      collapse_menu: Close
       search: Search...
     sandbox:
       application:

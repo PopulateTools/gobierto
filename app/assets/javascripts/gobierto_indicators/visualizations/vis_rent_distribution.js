@@ -92,8 +92,6 @@ var VisRentDistribution = Class.extend({
     }
   },
   updateRender: function(callback) {
-    console.log(this.data);
-
     this.xScale
       .rangeRound([0, this.width])
       .domain(d3.extent(this.data, function(d) { return d.value; }));

@@ -310,7 +310,7 @@ ca:
         category_value: Quantitat
         context: Context
         debt_level: Nivell d'endeutament
-        description: L'equip de govern publica l’esborrany del pressupost del proper
+        description: L'equip de govern publica l’esborrany del pressupost del pròxim
           exercici per compartir en obert amb l'oposició i els veïns i veïnes. Entre
           tots i totes podem elaborar el pressupost més adient per a %{place_name}.
         diff_previous_year: vs. %{year}

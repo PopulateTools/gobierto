@@ -74,7 +74,7 @@ module GobiertoAdmin
         position = ::GobiertoCms::SectionItem.where(parent_id: parent, section: section).size
         section_item = ::GobiertoCms::SectionItem.find_or_initialize_by(item_id: id,
                                                                         item_type: "GobiertoCms::Page")
-        if(section == "" && parent == "0" && section_item.present?)
+        if (section == "" && section_item.present?)
           section_item.destroy
         else
           section_item.update_attributes(parent_id: parent,

@@ -1,5 +1,5 @@
 <div class="column">
-  <div class="block">
+  <div id="taxes_receipt" class="block">
     <div class="pure-g header_block_inline m_b_1">
       <div class="pure-u-1 pure-u-md-12-24">
         <h2 class="with_description">¿Cuál es tu contribución al presupuesto del Ayuntamiento de Mataró?</h2>
@@ -16,20 +16,18 @@
         <div class="receipt">
           <div class="padding">
 
-            <div id="taxes_receipt">
-              <div class="pure-g m_b_1" v-for="(row, index) in data">
-                <div class="pure-u-1 pure-u-md-5-24 receipt_item">{{ row.name }}</div>
-                <div class="pure-u-1 pure-u-md-10-24 receipt_dropdown">
-                  <select name="select" v-model="selected[index]">
-                    <option :value="parseFloat(opt.value)" v-for="opt in row.options">{{ opt.name }}</option>
-                  </select>
-                </div>
-                <div class="pure-u-1 pure-u-md-2-24 receipt_separator"></div>
-                <div class="pure-u-1 pure-u-md-7-24 receipt_calc">
-                  <div class="bg">
-                    <small>Selecciona para calcular</small>
-                    <span>{{ selected[index] }} €</span>
-                  </div>
+            <div class="pure-g m_b_1" v-for="(row, index) in data">
+              <div class="pure-u-1 pure-u-md-5-24 receipt_item">{{ row.name }}</div>
+              <div class="pure-u-1 pure-u-md-10-24 receipt_dropdown">
+                <select name="select" v-model="selected[index]">
+                  <option :value="parseFloat(opt.value)" v-for="opt in row.options">{{ opt.name }}</option>
+                </select>
+              </div>
+              <div class="pure-u-1 pure-u-md-2-24 receipt_separator"></div>
+              <div class="pure-u-1 pure-u-md-7-24 receipt_calc">
+                <div class="bg">
+                  <small>Selecciona para calcular</small>
+                  <span>{{ (selected[index] || '').toLocaleString() }} €</span>
                 </div>
               </div>
             </div>
@@ -40,7 +38,7 @@
             <div class="pure-g">
               <div class="pure-u-1 pure-u-md-15-24"><h3>Tu contribución a los presupuestos del Ayuntamiento de Valencia</h3></div>
               <div class="pure-u-1 pure-u-md-6-24 receipt_separator soft"></div>
-              <div class="pure-u-1 pure-u-md-3-24 receipt_result_number">225,71€</div>
+              <div class="pure-u-1 pure-u-md-3-24 receipt_result_number">{{ total.toLocaleString() }} €</div>
             </div>
           </div>
 
@@ -79,7 +77,8 @@
             <div class="bill_row">
               <div class="toggle"><i class="fa fa-plus"></i></div>
               <div class="line"><%= i %></div>
-              <div class="figure">79,18€</div>
+              <%# TODO: Replace Math.random by percentage %>
+              <div class="figure">{{ ratio(Math.random()).toLocaleString() }} €</div>
 
               <div class="hidden children">
 
@@ -100,7 +99,8 @@
                 ] %>
                   <div class="bill_row_child">
                     <div class="line"><%= i %></div>
-                    <div class="figure">32,99€</div>
+                    <%# TODO: Replace Math.random by percentage %>
+                    <div class="figure">{{ ratio(Math.random()).toLocaleString() }} €</div>
                   </div>
                 <% end %>
 
@@ -172,7 +172,7 @@
       {
         "name": "Vado de vehículos",
         "options": [{
-            "name": "Garage comunitario",
+            "name": "Garaje comunitario",
             "value": "4€"
           },
           {
@@ -191,6 +191,17 @@
       return {
         data: data.budgets_simulation_sections || [],
         selected: []
+      }
+    },
+    computed: {
+      total () {
+        return _.sum(this.selected)
+      }
+    },
+    methods: {
+      ratio (percentage) {
+        // REVIEW: parseFloat and toFixed are no longer necessary when the percentage is a two-decimal number
+        return parseFloat((this.total * percentage).toFixed(2))
       }
     }
   })

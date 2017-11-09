@@ -67,6 +67,8 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
         });
       } else if (section == "") {
         $level2.hide();
+        $section.removeAttr("selected");
+        $parent.removeAttr("selected");
       } else {
         $level2.show();
         $parent.empty();

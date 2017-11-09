@@ -30,7 +30,7 @@ ca:
       issues_issue_created: Tema creat
       issues_issue_updated: Tema actualitzat
   layouts:
-    accept_privacy_policy_signup: Al registrar-te estàs acceptant la Política de Privacitat
+    accept_privacy_policy_signup: En registrar-se, accepta la Política de Privacitat
     application:
       disclaimer: Aquesta web es una demostració de Gobierto, un programari de transparència
         i participació
@@ -105,7 +105,7 @@ ca:
       person_post_item: Post
       person_statement_item: Declaració
       powered_by: Gobierto utilitza <a href="https://www.algolia.com" target="_blank">Algolia</a>
-        per a buscar
+        per a cercar
       updated: Actualitat
   scopes:
     events:

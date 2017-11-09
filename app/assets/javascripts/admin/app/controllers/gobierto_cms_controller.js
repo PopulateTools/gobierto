@@ -22,7 +22,7 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
       if(sectionId != "null") {
         $('.open_level_1').trigger('click');
         $level1.show();
-        $level1.show();
+        $level2.show();
       }
     });
 
@@ -34,15 +34,12 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
       getSections(sectionId)
 
       // parent
-      $level2.show();
-
-      $parent.empty();
-
-      if($section.val() == null) {
-        populateParent($section.val(), "null");
-      } else {
-        populateParent($section.val(), parentId);
+      if($('#page_section').val() == "") {
+        $level2.hide();
       }
+      $parent.empty();
+      populateParent(sectionId, parentId);
+
     });
 
     $('#page_section').change(function(e){
@@ -50,9 +47,7 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
 
       var section = $(this).val();
 
-      if(section == 0) {
-        $level2.hide();
-
+      if(section == "0") {
         // open the new ajax popup
         $.magnificPopup.open({
           closeOnBgClick: false,
@@ -70,6 +65,8 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
             }
           }
         });
+      } else if (section == "") {
+        $level2.hide();
       } else {
         $level2.show();
         $parent.empty();
@@ -98,6 +95,7 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
 
     $section.empty();
     numOptions = sections.length;
+    $section.prepend("<option value='' selected='selected'></option>");
     for (i = 0; i < numOptions; i++) {
         anOption = document.createElement('option');
         anOption.value = sections[i]['id'];
@@ -105,7 +103,7 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
 
         $section.append(anOption);
     }
-    $("#page_section").append('<option value="0">' + I18n.t('gobierto_admin.gobierto_cms.pages.form.new_section') + '</option>');
+    $section.append('<option value="0">' + I18n.t('gobierto_admin.gobierto_cms.pages.form.new_section') + '</option>');
 
     if ("null" != sectionSelected) {
       $section.val(sectionSelected);
@@ -117,8 +115,9 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
   function populateParent(section, parentId) {
     var $parent = $('#page_parent')
 
-    // Get children
-    $.getJSON(
+    if(section) {
+      // Get children
+      $.getJSON(
         '/admin/cms/sections/' + section + '/section_items/',
         function(data) {
           var i, theContainer, theSelect, theOptions, numOptions, anOption;
@@ -145,7 +144,10 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
             }
           }
         }
-    );
+      );
+    } else {
+      $parent.append('<option value="0">' + I18n.t('gobierto_admin.gobierto_cms.pages.form.without_parent') + '</option>');
+    }
   }
 
   function appendParents(nodes, level) {

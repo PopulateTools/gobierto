@@ -13,6 +13,15 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
   };
 
   function _sections(sectionId, parentId) {
+
+    $( document ).ready(function() {
+      if(sectionId != "null") {
+        $('.open_level_1').trigger('click');
+        $('.level_1').show();
+        $('.level_2').show();
+      }
+    });
+
     $('.open_level_1').on('click', function(e){
       e.preventDefault();
 
@@ -89,7 +98,6 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
           if(theOptions.length >= 1){
             // Create the container <div>
             appendSectionItems(theOptions, 0);
-            debugger;
             if (typeof parentId != "undefined" && parentId != "null") {
               $("#page_parent").val(parentId);
               $('#page_parent option:selected').next().attr("disabled","disabled");

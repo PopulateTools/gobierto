@@ -30,6 +30,7 @@ module GobiertoAdmin
                          end
 
         @parent_id =  @page.parent_id
+
         @page_visibility_levels = get_page_visibility_levels
         @sections = current_site.sections
         @page_form = PageForm.new(

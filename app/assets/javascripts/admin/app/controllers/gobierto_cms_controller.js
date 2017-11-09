@@ -25,8 +25,7 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
 
       $('#page_parent').empty();
 
-
-      populateParent($('#page_section').val(), parentId == "null" ? "0" : parentId);
+      populateParent($('#page_section').val(), parentId);
     });
 
     $('#page_section').change(function(e){
@@ -90,7 +89,16 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
           if(theOptions.length >= 1){
             // Create the container <div>
             appendSectionItems(theOptions, 0);
-            $("#page_parent").val(parentId);
+            debugger;
+            if (typeof parentId != "undefined" && parentId != "null") {
+              $("#page_parent").val(parentId);
+              $('#page_parent option:selected').next().attr("disabled","disabled");
+            } else {
+              $("#page_parent").val($("#page_parent option:first").val());
+              if(parentId) {
+                $('#page_parent option:selected').next().attr("disabled","disabled");
+              }
+            }
           }
         }
     );
@@ -108,7 +116,11 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
     }
     $("#page_section").append('<option value="0">' + I18n.t('gobierto_admin.gobierto_cms.pages.form.new_section') + '</option>');
 
-    $("#page_section").val(sectionSelected);
+    if ("null" != sectionSelected) {
+      $("#page_section").val(sectionSelected);
+    } else {
+      $("#page_section").val($("#page_section option:first").val());
+    }
   }
 
   function appendSectionItems(nodes, level) {

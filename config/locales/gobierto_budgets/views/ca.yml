@@ -7,7 +7,7 @@ ca:
         expenses: Despeses
         explore_the_detail: Explora el detall
         income: Ingressos
-        search: Busca
+        search: Cercar
         search_budget_line: Cerca una partida específica
       index:
         amount: Quantitat
@@ -31,7 +31,7 @@ ca:
         budget_lines_distribution: Distribució de les despeses d'aquesta partida
         evolution: Evolució
         give_your_opinion: Opina sobre aquesta partida
-        give_your_opinion_cta: Entens de què va aquesta partida? Te pareix molt, poc?
+        give_your_opinion_cta: Entens de què va aquesta partida? Et sembla molt, poc?
           Opina
         last_year: L'any passat
         no_description: No hi ha una descripció associada a aquesta partida.
@@ -58,8 +58,8 @@ ca:
           o la finalitat de les despeses. Aquests canvis són els que s’anomenen l’<a
           href=/presupuestos/ejecucion/%{year}">execució pressupostària</a>.
         budget_execution_p2: 'Per saber si l’Ajuntament ha planificat bé els comptes
-          només hem de comparar el pressupost i l''execució: ha gastat més del pressupostat?,
-          li han sobrat diners? o s''ha ajustat al que preveia?'
+          només hem de comparar el pressupost i l''execució: ha gastat més del pressupostat?
+          Li han sobrat diners? O s''ha ajustat al que preveia?'
         capital_income: Ingressos de capital
         capital_income_p1: Procedeixen de la venda de propietats municipals com solars
           o finques. També poden procedir de transferències d’altres administracions
@@ -124,7 +124,7 @@ ca:
           programa (en què es gasta) i econòmic (com es gasta). Des del punt de vista
           de programa, els diners es poden destinar a pagar deute públic, serveis
           públics o actuacions de promoció social, entre d''altres. I des del punt
-          de vista econòmic, s''utilitza per pagar despeses de personal, manteniment
+          de vista econòmic, s''utilitzen per pagar despeses de personal, manteniment
           d''equipaments i serveis, despeses financeres o transferències a les entitats
           de la ciutat (subvencions) i a d''altres administracions.'
         expenses_per_inhabitant: La despesa per habitant va ser de ...
@@ -148,7 +148,7 @@ ca:
         how_much_debt: Quant deu el municipi?
         how_much_debt_p1: El deute viu d'un municipi indica el que deu l'Ajuntament
           a bancs i altres entitats financeres. Cal no confondre’l amb el total del
-          dèficit del municipi (la diferència entre els ingressos i les despeses).
+          dèficit del municipi (la diferència entre els ingressos i les despeses)
         how_much_debt_p2: 
         how_much_debt_p3: 
         how_to_read: Com es llegeix?
@@ -221,15 +221,14 @@ ca:
           title: El rebut dels meus impostos
         budget_slides:
           slide_1: Gasto en asistencia social por habitante
-          title: Els pressuposts d'un cop d'ull
+          title: Els pressupostos d'un cop d'ull
         category_percentage: Percentatge
         category_value: Quantitat
-        context: Contexte
+        context: Context
         data_of_year: "* dades del %{year}"
         debt: Deute
-        description: En aquesta pàgina pots aprendre sobre la distribució dels pressuposts,
-          l'estat d'execució de cada partida, amb quins proveïdors treballem i com
-          ha evolucionat la despesa per habitant.
+        description: En aquesta pàgina pots aprendre sobre la distribució del pressupost,
+          l'estat d'execució de cada partida i com ha evolucionat la despesa per habitant
         executed: Execució
         executed_percent: "%{percentage}% del pressupost"
         executed_percent_other_year_html: En %{year} va ser un %{link}
@@ -244,7 +243,7 @@ ca:
           title: Execució
         expenses: Despeses
         expenses_per_inhabitant: Despesa per habitant
-        header: Pressuposts
+        header: Pressupostos
         in_total: En total
         income: Ingressos
         inhabitants: Habitants
@@ -266,18 +265,18 @@ ca:
         main_budget_lines_income: Ingressos
         more: més
         most_interesting_budget_lines: Partides que més t'interessen
-        most_interesting_budget_lines_description: Te mostrem algunes de les partides
-          que més ens afecten directament en el nostre dia a dia com a ciutadans.
-          També pots consultar l'explorador complet.
+        most_interesting_budget_lines_description: Et mostrem algunes de les partides
+          que més afecten en el dia a dia de la ciutadania. També pots consultar l'explorador
+          complet.
         not_available_short: No disp.
         note_about_the_data: Nota sobre les dades
         note_about_the_data_title: La base de dades que utilitzem no inclou dades
-          pel 100% dels municipis, axí que les mitjanes estàn calculades només amb
-          les dades que existeixen (que són la gran majoria). Més informació a les
-          nostres preguntes frequents
+          per al 100% dels municipis, així que les mitjanes estan calculades amb les
+          dades que existeixen (que són la gran majoria). Més informació a les nostres
+          preguntes freqüents.
         per_person: Per habitant
         planned_vs_executed_other_year_html: En %{year} va ser un %{link}
-        search_for_a_budget_line: Busca una partida
+        search_for_a_budget_line: Cerca una partida
         see_all: Veure tots
         stories_header: T'expliquem el pressupost
         story_1:
@@ -287,7 +286,7 @@ ca:
         story_2:
           lede: Et contem quines són les prioritats pressupuestàries per al 2017 segons
             les quals hem articulat el pla econòmic.
-          title: Pressuposts i medi ambient
+          title: Pressupostos i medi ambient
         story_3:
           lede: Et contem quines són les prioritats pressupuestàries per al 2017 segons
             les quals hem articulat el pla econòmic.
@@ -302,18 +301,18 @@ ca:
     budgets_elaboration:
       index:
         at_a_glance: Evolució de la despesa i comparació
-        auto_funding: Capacitat autofinanciació
+        auto_funding: Capacitat d'autofinançament
         by_custom_category: per àrea
         by_economic_expense: en què es gasta
         by_economic_income: en què s'ingressa
         by_functional_expense: per a què
         category_percentage: "% s/ Total"
         category_value: Quantitat
-        context: Contexte
-        debt_level: Nivell d'endeudament
-        description: L'equip de govern publica el esborrany del pressupost del pròxim
-          exercici per a debatir en overt amb l'oposició i els veins. Entre tots podem
-          elaborar el pressupost que més convinga a la ciutat.
+        context: Context
+        debt_level: Nivell d'endeutament
+        description: L'equip de govern publica l’esborrany del pressupost del proper
+          exercici per compartir en obert amb l'oposició i els veïns i veïnes. Entre
+          tots i totes podem elaborar el pressupost més adient per a %{place_name}.
         diff_previous_year: vs. %{year}
         expenses_per_inhabitant: Despesa per habitant
         explore_the_detail: Explora el detall
@@ -325,15 +324,15 @@ ca:
         main_budget_lines_expense: Despeses
         main_budget_lines_income: Ingressos
         metric_boxes_data: Les dades
-        metric_boxes_data_description: Així canviarà el pressupost del pròxim exercici
+        metric_boxes_data_description: Així canviarà el pressupost del proper exercici
         net_savings: Estalviament net
-        next_year_proposal: Proposta pel %{year}
+        next_year_proposal: Proposta per al %{year}
         no_data: Ni ha dades per a aquesta classificació
         note_about_the_data: Nota sobre les dades
         note_about_the_data_title: La base de dades que utilitzem no inclou dades
-          pel 100% dels municipis, axí que les mitjanes estàn calculades només amb
-          les dades que existeixen (que són la gran majoria). Més informació a les
-          nostres preguntes frequents
+          per al 100% dels municipis, així que les mitjanes estan calculades amb les
+          dades que existeixen (que són la gran majoria). Més informació a les nostres
+          preguntes freqüents.
         per_person: Per habitant
         proposal: Proposta
         total_expenses: Despesa total
@@ -353,9 +352,9 @@ ca:
         budget_lines_income_lower: Partides d'ingressos molt inferiors al pressupost
         category: Categoria
         custom_button: Personalitzada
-        description: L'execució són les despeses comparades amb el pressupost inicial.
-          És normal trobar desviacions, ja què és impossible preveure totes les despeses
-          amb precisió absoluta
+        description: L'execució fa referència a les despeses finals comparades amb
+          el pressupost inicial. Hi poden haver canvis, perquè és impossible preveure
+          totes les despeses amb precisió absoluta
         economic: Econòmica
         economic_button: Per a què es gasta
         euros: En euros
@@ -367,7 +366,7 @@ ca:
         functional: Funcional
         functional_button: En què es gasta
         higher_execution: Més execució
-        income_planned: Ingresos pressupostats
+        income_planned: Ingressos pressupostats
         last_update: Última actualització
         lower_execution: Menys execució
         metric:
@@ -376,8 +375,8 @@ ca:
             income_title: Execució d'ingressos
             previous_execution_message: El %{year} l'execució va ser del %{percentage}
         percentage: Percentatge
-        real_expenses: Despeses reials
-        real_income: Ingresos reals
+        real_expenses: Despeses reals
+        real_income: Ingressos reals
         sort: Ordre
         title: Execució pressupostària
         tooltip_disclaimer: "<strong>Aquesta és una aproximació</strong>. <br /> Al
@@ -392,7 +391,7 @@ ca:
             title: L'estat de l'execució de les despeses
           income:
             title: L'estat de l'execució dels ingressos
-          lines_title: Partides pressupuestàries
+          lines_title: Partides pressupostàries
           percent: "% de progrés"
           percent_log: "% de progrés (log)"
           tooltip: S'ha executat un
@@ -403,7 +402,7 @@ ca:
         planned: pressupostat
         real: reals
     common:
-      budget_line_description_html: 'Aquesta partida comprén les %{kind_what} en %{description}.
+      budget_line_description_html: 'Aquesta partida comprèn les %{kind_what} en %{description}.
         Si vols saber més sobre aquesta partida pots consultar la partida pare: %{link}'
       expense: despesa
       expenses: despeses
@@ -425,7 +424,7 @@ ca:
     featured_budget_lines:
       gobierto_site_template:
         how_much_place_in: Quant es gasta %{place} en...
-        last_year: L'any passat gastàrem
+        last_year: L'any passat vam gastar
         per_person: Per habitant
         show_me_another: Mostra'm un altra
         title: Algunes partides destacades
@@ -450,14 +449,14 @@ ca:
         answer1_1: 'No'
         understand: Entens de què va aquesta partida?
       step2_no:
-        answer_html: El <strong>%{datum}</strong> de personae han dit que <strong>No
+        answer_html: El <strong>%{datum}</strong> de persones han dit que <strong>No
           entenen de què va aquesta partida</strong>
         ask: Pots demanar al teu alcalde que amplie l'informació sobre aquesta i altres
           partides
       step2_yes:
-        option1_html: Me pareix <span>POC</span>
-        option2_html: Me pareix <span>APROPIAT</span>
-        option3_html: Me pareix <span>MOLT</span>
+        option1_html: Em sembla <span>POC</span>
+        option2_html: Em sembla <span>APROPIAT</span>
+        option3_html: Em sembla <span>MOLT</span>
         question: Creus que la quantitat de despesa es apropiada?
       step3:
         option1: Poco
@@ -478,7 +477,7 @@ ca:
         enough_information: Suficient informació?
         enough_information_cta: Demana al teu Ajuntament
         enough_information_desc: Si considera que s'ha d'incloure més informació d'aquestes
-          dades per tenir una visió més completa de la mateixa o sobre l'ús dels teus
+          dades per tenir una visió més completa de la mateixa o sobre l'ús dels seus
           impostos, comuniqui-ho i li contestarem
     visualizations:
       G_custom: Despeses per àrea

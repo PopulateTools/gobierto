@@ -1,14 +1,15 @@
 'use strict';
 
 var VisRentDistribution = Class.extend({
-  init: function(divId, city_id, current_year) {
+  init: function(divId, city_id, province_id, current_year) {
     this.container = divId;
     this.cityId = city_id;
+    this.provinceId = province_id;
     this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null;
     this.data = null;
     this.tbiToken = window.populateData.token;
-    this.rentUrl = window.populateData.endpoint + '/datasets/ds-renta-bruta-media-municipal.json?include=municipality&filter_by_province_id=' + this.cityId.slice(0, 2);
-    this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal.json?filter_by_year=' + this.currentYear + '&filter_by_province_id=' + this.cityId.slice(0, 2);
+    this.rentUrl = window.populateData.endpoint + '/datasets/ds-renta-bruta-media-municipal.json?include=municipality&filter_by_province_id=' + this.provinceId;
+    this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal.json?filter_by_year=' + this.currentYear + '&filter_by_province_id=' + this.provinceId;
     this.formatThousand = d3.format(',.0f');
     this.isMobile = window.innerWidth <= 768;
 

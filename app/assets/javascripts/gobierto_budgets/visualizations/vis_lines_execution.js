@@ -40,7 +40,7 @@ var VisLinesExecution = Class.extend({
       .attr('class', 'tooltip');
   },
   getData: function() {
-    this.dataUrl = '/api/data/widget/budget_execution_comparison/' + this.placeId + '/' + this.budgetYear + '/' + this.executionKind + '/' + this.budgetCategory + '.json';
+    this.dataUrl = '/presupuestos/api/data/widget/budget_execution_comparison/' + this.placeId + '/' + this.budgetYear + '/' + this.executionKind + '/' + this.budgetCategory + '.json';
 
     d3.json(this.dataUrl, function(error, jsonData) {
       if (error) throw error;

@@ -21,6 +21,7 @@ en:
         new_modal:
           title: New theme
         show:
+          configuration: Configuration
           file_attachments:
             created_at: Created at
             file_name: Filename

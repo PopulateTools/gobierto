@@ -35,6 +35,7 @@ module GobiertoCms
     validates :site, :title, :body, presence: true
     validates :slug, uniqueness: { scope: :site }
 
+    scope :inverse_sorted, -> { order(id: :asc) }
     scope :sorted, -> { order(id: :desc) }
     scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
 

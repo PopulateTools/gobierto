@@ -41,8 +41,8 @@ ca:
           base_budget: Pressupost base
           explain_balance_html: "<h4 class='tip-headline'>Equilibri</h4><p>Fantàstic!
             Amb les teves decisions el pressupost quedaria equilibrat: els ingressos
-            de l'Ajuntament serien iguals a les despeses, pel qual gastaríem el que
-            tenim i no generaríem deute.</p>"
+            de l'Ajuntament serien iguals a les despeses, per al qual gastaríem el
+            que tenim i no generaríem deute.</p>"
           explain_deficit_html: "<h4 class='tip-headline'>Dèficit</h4><p>Amb les teves
             decisions estaríem gastant més del que ingressem, pel qual estaríem generant
             deute. Això no ha de ser necessariament un problema, sempre que siga una

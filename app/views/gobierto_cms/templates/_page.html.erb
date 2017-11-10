@@ -3,23 +3,34 @@
     <div class="pure-g">
       <div class="pure-u-1 pure-u-md-1-4">
         <menu class="side_navigation">
-          <ul>
-            <li><a href="#"><%= @collection.title %></a>
-              <ul>
-                <% @pages.each do |page| %>
-                  <li><%= link_to page.title, gobierto_cms_page_path(page.slug) %></li>
-                <% end %>
-              </ul>
-            </li>
-          </ul>
+          <% if @collection && !@section %>
+            <ul>
+              <li><a href="#"><%= @collection.title %></a>
+                <ul>
+                  <% @pages.each do |page| %>
+                    <li><%= link_to page.title, gobierto_cms_page_path(page.slug) %></li>
+                  <% end %>
+                </ul>
+              </li>
+            </ul>
+          <% elsif @section %>
+              <%= section_tag(@section.section_items.without_parent.sorted, @section_item.hierarchy_and_children) %>
+          <% end %>
         </menu>
       </div>
 
       <div class="pure-u-1 pure-u-md-3-4">
         <article>
           <div class="breadcrumb">
-            <%= @collection.title %> /
-            <%= @page.title %>
+            <% if @collection && !@section %>
+              <%= @collection.title %> /
+              <%= @page.title %>
+            <% elsif @section %>
+              <%= link_to(@section.title, gobierto_cms_path(@first_page_in_section.slug, slug_section: @section.slug)) %>
+              <% @section_item.all_parents.each do |parent| %>
+                / <%= link_to(parent.item.title, gobierto_cms_path(parent.item.slug, slug_section: parent.section.slug)) %>
+              <% end %>
+            <% end %>
           </div>
 
           <h1><%= @page.title %></h1>

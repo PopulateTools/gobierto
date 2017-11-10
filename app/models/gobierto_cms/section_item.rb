@@ -13,5 +13,19 @@ module GobiertoCms
 
     scope :without_parent, -> { where(parent_id: 0) }
     scope :sorted, -> { order(position: :asc) }
+
+    def all_parents(parent_array = [])
+      if parent_id != 0
+        parent_array.unshift(parent)
+        parent.all_parents(parent_array)
+      end
+      parent_array
+    end
+
+    def hierarchy_and_children
+      hierarchy = all_parents
+      hierarchy.push(self)
+      hierarchy.push(self.children)
+    end
   end
 end

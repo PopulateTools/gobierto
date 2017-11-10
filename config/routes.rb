@@ -270,9 +270,10 @@ Rails.application.routes.draw do
   end
 
   # Gobierto CMS module
-  namespace :gobierto_cms, path: "paginas" do
+  namespace :gobierto_cms, path: "" do
     constraints GobiertoSiteConstraint.new do
-      resources :pages, only: [:index, :show], path: ""
+      resources :pages, only: [:index, :show], path: "paginas"
+      get "/s/:slug_section/:id" => "pages#show"
     end
   end
 

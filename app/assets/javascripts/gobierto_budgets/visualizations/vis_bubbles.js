@@ -156,7 +156,7 @@ var VisBubbles = Class.extend({
       .attr('text-anchor', 'middle')
       .attr('y', -15)
       .attr('fill', function(d) { return d.pct_diff > 30 || d.pct_diff < -10 ? 'white' : 'black'; })
-      .tspans(function(d) { return d.radius > 50 ? d3.wordwrap(d.name, 15) : d3.wordwrap('', 15); }, function(d) { return this.fontSize(d.radius);}.bind(this));
+      .tspans(function(d) { return d.radius > 40 ? d3.wordwrap(d.name, 15) : d3.wordwrap('', 15); }, function(d) { return this.fontSize(d.radius);}.bind(this));
 
     this.simulation.nodes(this.nodes);
     this.simulation.alpha(1).restart();

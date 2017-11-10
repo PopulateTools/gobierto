@@ -6,6 +6,6 @@ ca:
         create_success: S'ha realitzat la suscripció
         delete_success: S'ha cancel·lat aquesta suscripció
         error: 'Ha ocorregut un problema en subscriure''t: %{details}. Si ja estàs
-          registrat, identifica''t <a href="%{sign_in_path}">açí</a>.'
+          registrat, identifica''t <a href="%{sign_in_path}">ací</a>.'
       destroy:
         success: S'ha cancel·lat aquesta suscripció

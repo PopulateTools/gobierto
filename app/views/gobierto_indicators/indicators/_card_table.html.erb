@@ -1,8 +1,19 @@
 <div class="pure-u-1 pure-u-md-1-3 card_container <%= card_class %>" data-type-one="<%= data_type_one %>" data-type-two="<%= data_type_two %>"  data-freq="<%= data_freq %>">
   <div class="indicator_widget padded">
     <div class="front">
-      <div class="widget_headline"><h3 class="widget_title"></h3> <i class="fa fa-question-circle pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
-      <div class="widget_body"><table class="widget_table"></table></div>
+      <div class="widget_headline">
+      	<h3 class="widget_title"></h3>
+      	<i class="fa fa-question-circle pull-right" aria-hidden="true"></i>
+      	<a class="fb-sharer" aria-label="facebook">
+      		<i class="fa fa-facebook pull-right" aria-hidden="true"></i>
+      	</a>
+      	<a class="tw-sharer" aria-label="twitter">
+      		<i class="fa fa-twitter pull-right" aria-hidden="true"></i>
+      	</a>
+      </div>
+      <div class="widget_body">
+      	<table class="widget_table"></table>
+      </div>
 
       <div class="widget_meta">
         <i class="fa fa-university" aria-hidden="true"></i>
@@ -16,9 +27,18 @@
         </div>
       </div>
     </div>
-    
+
     <div class="back">
-      <div class="widget_headline"><h3 class="widget_title"></h3> <i class="fa fa-times pull-right" aria-hidden="true"></i> <a class="fb-sharer"><i class="fa fa-facebook pull-right" aria-hidden="true"></i></a> <a class="tw-sharer"><i class="fa fa-twitter pull-right" aria-hidden="true"></i></a></div>
+      <div class="widget_headline">
+      	<h3 class="widget_title"></h3>
+      	<i class="fa fa-times pull-right" aria-hidden="true"></i>
+      	<a class="fb-sharer" aria-label="facebook">
+      		<i class="fa fa-facebook pull-right" aria-hidden="true"></i>
+      	</a>
+      	<a class="tw-sharer" aria-label="twitter">
+      		<i class="fa fa-twitter pull-right" aria-hidden="true"></i>
+      	</a>
+      </div>
 
       <div class="widget_info">
         <span class="js-data-desc"></span>. <%= t("gobierto_indicators.cards.updated") %> <span class="js-data-freq"></span>.

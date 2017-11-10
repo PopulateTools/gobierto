@@ -33,7 +33,7 @@ ca:
             description: Et recomanem descriure clarament el tipus de consulta.
             title: Et recomanem escriure un títol concret i que identifiqui la consulta
               de l'any en cuestió.
-          how_to_add: per afegir una nova participació, busca si l'ID ha participat
+          how_to_add: per afegir una nova participació, cerca si l'ID ha participat
           no_response_html: Encara no s'ha rebut cap participació. <a href="%{url}"
             target="_blank">Promociona la consulta</a>.
           placeholders:

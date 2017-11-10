@@ -7,8 +7,8 @@ ca:
           collections: Calendaris
           header:
             collection: Calendari
-            events: Events
-          latest_editions: Últims events editats
+            events: Esdeveniments
+          latest_editions: Últims esdeveniments editats
           new: Nou
           title: Agendas
           view_collection: Veure col·lecció

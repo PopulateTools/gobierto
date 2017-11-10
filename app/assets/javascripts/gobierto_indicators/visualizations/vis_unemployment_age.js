@@ -7,7 +7,7 @@ var VisUnemploymentAge = Class.extend({
     this.parseTime = d3.timeParse('%Y-%m');
     this.pctFormat = d3.format('.1%');
     this.isMobile = window.innerWidth <= 768;
-    
+
     // Chart dimensions
     this.margin = {top: 25, right: 50, bottom: 25, left: 0};
     this.width = this._width() - this.margin.left - this.margin.right;
@@ -86,19 +86,19 @@ var VisUnemploymentAge = Class.extend({
     linesGroup.append('path')
       .attr('d', function(d) { d.line = this; return this.line(d.values); }.bind(this))
       .attr('stroke', function(d) { return this.color(d.key); }.bind(this));
-      
+
     linesGroup.append('circle')
      .attr('cx', function(d) { return this.xScale(d.values.map(function(d) { return d.date; }).slice(-1)[0]); }.bind(this))
      .attr('cy', function(d) { return this.yScale(d.values.map(function(d) { return d.pct; }).slice(-1)[0]); }.bind(this))
      .attr('r', 5)
      .attr('fill', function(d) { return this.color(d.key); }.bind(this));
-     
+
     var linesText = d3.select(this.container).append('div')
       .attr('class', 'lines-labels')
       .selectAll('p')
       .data(this.nest, function(d) { return d.key; })
       .enter();
-      
+
     linesText.append('div')
       .style('right', 0)
       .style('top', function(d) { return this.yScale(d.values.map(function(d) { return d.pct; }).slice(-1)[0]) + 'px'; }.bind(this))
@@ -164,15 +164,15 @@ var VisUnemploymentAge = Class.extend({
     // X axis
     this.svg.select('.x.axis')
       .attr('transform', 'translate(0,' + this.height + ')');
-      
+
     this.xAxis
-      .ticks(2)
+      .ticks(4)
       .tickPadding(10)
       .tickSize(0, 0)
       .scale(this.xScale);
-    
+
     this.yAxis
-      .ticks(2, '%')
+      .ticks(3, '%')
       .tickSize(-this.width)
       .scale(this.yScale);
 
@@ -202,12 +202,12 @@ var VisUnemploymentAge = Class.extend({
   },
   _resize: function() {
     this.isMobile = window.innerWidth <= 768;
-    
+
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
     this.updateRender();
-    
+
     d3.select(this.container + ' svg')
       .attr('width', this.width + this.margin.left + this.margin.right)
       .attr('height', this.height + this.margin.top + this.margin.bottom);
@@ -217,11 +217,11 @@ var VisUnemploymentAge = Class.extend({
 
     this.svg.selectAll('.lines path')
       .attr('d', function(d) { d.line = this; return this.line(d.values); }.bind(this));
-      
+
     this.svg.selectAll('.lines circle')
       .attr('cx', function(d) { return this.xScale(d.values.map(function(d) { return d.date; }).slice(-1)[0]); }.bind(this))
       .attr('cy', function(d) { return this.yScale(d.values.map(function(d) { return d.pct; }).slice(-1)[0]); }.bind(this));
-      
+
     d3.selectAll(this.container + ' .lines-labels div')
       .style('top', function(d) { return this.yScale(d.values.map(function(d) { return d.pct; }).slice(-1)[0]) + 'px'; }.bind(this));
 

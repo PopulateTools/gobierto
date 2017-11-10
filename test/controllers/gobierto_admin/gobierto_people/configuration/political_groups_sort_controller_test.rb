@@ -7,7 +7,7 @@ module GobiertoAdmin
     module Configuration
       class PoliticalGroupsSortControllerTest < GobiertoControllerTest
         def admin
-          @admin ||= gobierto_admin_admins(:tony)
+          @admin ||= gobierto_admin_admins(:natasha)
         end
 
         def political_group_1

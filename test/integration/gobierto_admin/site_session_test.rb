@@ -25,10 +25,6 @@ module GobiertoAdmin
       with_signed_in_admin(admin) do
         visit @path
 
-        within "#current-site-name" do
-          assert has_content?(santander_site.name)
-        end
-
         within "#managed-sites-list" do
           click_on madrid_site.name
         end

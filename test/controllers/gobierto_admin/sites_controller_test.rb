@@ -16,7 +16,7 @@ module GobiertoAdmin
     end
 
     def regular_admin
-      @regular_admin ||= gobierto_admin_admins(:tony)
+      @regular_admin ||= gobierto_admin_admins(:natasha)
     end
 
     def site

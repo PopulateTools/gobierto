@@ -203,7 +203,7 @@ ca:
           EHA / 3565/2008</a> i ens hem inspirat en altres documents com <a href="http://www.ocmcartagena.org/files/archive/Entendiendo-un-presupuesto-municipal.pdf">Entenent
           un pressupost municipal</a> i <a href="https://docs.google.com/presentation/d/1oysDrJvlFxP0sKlzBalxvrV3lzSE5OCSKY7qd5yYpcA/pub?start=false&loop=false&delayms=3000&slide=id.p">Guia
           d'introducció als pressupostos municipals</a> .
-        title: Còm funciona un pressupost municipal
+        title: Com funciona un pressupost municipal
         types_income: Tipus d'ingrés
         types_income_p1: 'Els ingressos tal com estableix la llei es divideixen en
           tres apartats:'
@@ -459,10 +459,10 @@ ca:
         option3_html: Em sembla <span>MOLT</span>
         question: Creus que la quantitat de despesa es apropiada?
       step3:
-        option1: Poco
+        option1: Poc
         option2: Apropiat
         option3: Molt
-        thanks: 'Gràcies por la teva opinió. Això es lo que pensa la resta de la gent:'
+        thanks: 'Gràcies por la teva opinió. Això es el que pensa la resta de la gent:'
     layouts:
       application:
         budgets: Pressupostos

@@ -53,16 +53,15 @@ $( document ).on('turbolinks:load', function() {
 
   if($('body.budgets_execution_index').length) {
 
-    if(window.location.hash === "")
-      window.location.hash = "#functional,economic"
-
     var validValues = ['economic', 'functional', 'custom'];
-    var list = window.location.hash.slice(1).split(',');
-    var expensesKind = list[0];
-    var incomeKind = list[1];
+    if(window.location.hash === "") {
+      var expensesKind = $('.expenses_switcher').data('toggle');
+      var incomeKind = $('.income_switcher').data('toggle');
+      window.location.hash = "#" + expensesKind + "," + incomeKind;
+    }
+
     if(validValues.indexOf(expensesKind) === -1) expensesKind = validValues[0];
     if(validValues.indexOf(incomeKind) === -1) incomeKind = validValues[0];
-
 
     $('.execution_vs_budget_table tr:nth-of-type(n+6)').hide()
 

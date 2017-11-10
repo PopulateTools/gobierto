@@ -121,6 +121,7 @@ en:
     forms:
       max_characters: Max. %{length} characters
       required_and_max_characters: Required and Màx. %{length} caràcters
+    of: of
     pagination:
       next: Next
       previous: Prev

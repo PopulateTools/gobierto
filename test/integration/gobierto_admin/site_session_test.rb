@@ -13,18 +13,12 @@ module GobiertoAdmin
       @admin ||= gobierto_admin_admins(:tony)
     end
 
-    def site
-      @site ||= sites(:madrid)
+    def madrid_site
+      @madrid_site ||= sites(:madrid)
     end
 
-    def test_site_initialization
-      with_signed_in_admin(admin) do
-        visit @path
-
-        within "#current-site-name" do
-          assert has_content?(site.name)
-        end
-      end
+    def santander_site
+      @santander_site ||= sites(:santander)
     end
 
     def test_site_switch
@@ -32,11 +26,11 @@ module GobiertoAdmin
         visit @path
 
         within "#managed-sites-list" do
-          click_on site.name
+          click_on madrid_site.name
         end
 
         within "#current-site-name" do
-          assert has_content?(site.name)
+          assert has_content?(madrid_site.name)
         end
       end
     end

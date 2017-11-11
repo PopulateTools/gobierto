@@ -1,12 +1,9 @@
 module GobiertoAdmin
   module GobiertoParticipation
     module Processes
-      class PollsController < BaseController
+      class PollsController < Processes::BaseController
 
-        before_action { module_enabled!(current_site,  'GobiertoParticipation') }
-        before_action { module_allowed!(current_admin, 'GobiertoParticipation') }
-
-        helper_method :current_process, :poll_visibility_levels, :gobierto_participation_process_poll_preview_url
+        helper_method :poll_visibility_levels, :gobierto_participation_process_poll_preview_url
 
         def index
           @polls = current_process.polls
@@ -63,10 +60,6 @@ module GobiertoAdmin
           current_process.polls.find(params[:id])
         end
 
-        def current_process
-          @current_process ||= current_site.processes.find(params[:process_id])
-        end
-
         def poll_params
           params.require(:poll).permit(
             :starts_at,
@@ -109,7 +102,7 @@ module GobiertoAdmin
         def default_activity_params
           { ip: remote_ip, author: current_admin, site_id: current_site.id }
         end
-        
+
         def track_create_poll
           Publishers::GobiertoParticipationPollActivity.broadcast_event('poll_created', default_activity_params.merge(subject: @poll_form.poll))
         end

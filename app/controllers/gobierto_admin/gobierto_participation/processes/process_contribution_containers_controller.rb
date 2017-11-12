@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoParticipation
     module Processes
-      class ProcessContributionContainersController < BaseController
+      class ProcessContributionContainersController < Processes::BaseController
         def index
           @contribution_containers = find_process.contribution_containers
         end

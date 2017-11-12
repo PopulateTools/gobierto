@@ -132,9 +132,11 @@ GEM
       elasticsearch-transport (= 5.0.4)
     elasticsearch-api (5.0.4)
       multi_json
-    elasticsearch-extensions (0.0.26)
+    elasticsearch-extensions (0.0.27)
       ansi
       elasticsearch
+      oj
+      patron
       ruby-prof
     elasticsearch-transport (5.0.4)
       faraday
@@ -289,6 +291,7 @@ GEM
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
     ntlm-http (0.1.1)
+    oj (3.3.9)
     os (0.9.6)
     paper_trail (8.0.1)
       activerecord (>= 4.2, < 5.2)
@@ -296,6 +299,7 @@ GEM
     parallel (1.12.0)
     parser (2.4.0.0)
       ast (~> 2.2)
+    patron (0.10.0)
     pg (0.21.0)
     poltergeist (1.16.0)
       capybara (~> 2.1)

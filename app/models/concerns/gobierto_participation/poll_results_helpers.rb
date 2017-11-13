@@ -18,7 +18,7 @@ module GobiertoParticipation
       end
 
       def men_participation_percentage
-        ((men_unique_answers_count * 100) / unique_answers_count).round
+        ((men_unique_answers_count * 100) / (unique_answers_count.nonzero? || 1)).round
       end
 
       def women_participation_percentage

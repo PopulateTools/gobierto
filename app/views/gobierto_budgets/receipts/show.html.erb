@@ -1,0 +1,96 @@
+<div class="column">
+  <div id="taxes_receipt" class="block">
+    <div class="pure-g header_block_inline m_b_1">
+      <div class="pure-u-1 pure-u-md-12-24">
+        <h2 class="with_description"><%= t('.title', site_name: current_site.name) %></h2>
+        <p><%= t('.description') %></p>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-12-24 right">
+        <%= image_tag('illustrations/presupuestos.jpg', class: 'medium_img') %>
+      </div>
+    </div>
+
+    <div class="pure-g m_b_4">
+      <div class="pure-u-1">
+        <div class="receipt">
+          <div class="padding">
+
+            <div class="pure-g m_b_1" v-for="(row, index) in data">
+              <div class="pure-u-1 pure-u-md-5-24 receipt_item">{{ localizedName(row) }}</div>
+              <div class="pure-u-1 pure-u-md-10-24 receipt_dropdown">
+                <select name="select" v-model="selected[index]">
+                  <option :value="0.0"><%= t('.pick_to_calculate') %></option>
+                  <option :value="option.value" v-for="option in row.options">{{ localizedName(option) }}</option>
+                </select>
+              </div>
+              <div class="pure-u-1 pure-u-md-2-24 receipt_separator"></div>
+              <div class="pure-u-1 pure-u-md-7-24 receipt_calc">
+                <div class="bg">
+                  <span>{{ formatMoney(selected[index] || 0) }}</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="padding receipt_result">
+            <div class="pure-g">
+              <div class="pure-u-1 pure-u-md-15-24"><h3><%= t('.your_contribution', site_name: current_site.name) %></h3></div>
+              <div class="pure-u-1 pure-u-md-6-24 receipt_separator soft"></div>
+              <div class="pure-u-1 pure-u-md-3-24 receipt_result_number">{{ formatMoney(total) }}</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-1-3">
+        <h2 class="m_v_1"><%= t('.detail') %></h2>
+
+        <div class="desktop_only">
+          <p class="ib m_v_0 p_h_r_0_5"><%= t('.share') %></p>
+
+          <div class="social_links_container ib" data-share>
+            <a href="#" class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-2-3">
+        <div class="receipt_bill">
+          <% @interesting_expenses.group_by(&:parent_code).each do |parent_code, budget_lines| %>
+            <% parent = @parents.detect{ |p| p.code == parent_code } %>
+            <div class="bill_row">
+              <div class="toggle"><i class="fa fa-plus"></i></div>
+              <div class="line"><%= parent.name %></div>
+              <div class="figure">{{ formatMoney(ratio(<%= parent.percentage_of_total %>)) }}</div>
+
+              <div class="hidden children">
+                <% budget_lines.each do |budget_line| %>
+                  <div class="bill_row_child">
+                    <div class="line"><%= budget_line.name %></div>
+                    <div class="figure">{{ formatMoney(ratio(<%= budget_line.percentage_of_total %>)) }}</div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    var receiptConfigurationData = <%== budgets_receipt_configuration %>;
+    window.GobiertoBudgets.receipt_controller.show({
+      receiptConfiguration: receiptConfigurationData,
+    });
+  <% end %>
+<% end %>

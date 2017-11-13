@@ -4,8 +4,10 @@ module SubmodulesHelper
   included do
     helper_method :active_submodules, :welcome_submodule_active?, :officials_submodule_active?,
                   :agendas_submodule_active?, :blog_submodule_active?, :statements_submodule_active?,
-                  :submodule_path_for, :submodule_title_for, :submodule_controller_for, :budgets_elaboration_active?,
-                  :budget_lines_feedback_active?, :gobierto_budgets_feedback_emails
+                  :submodule_path_for, :submodule_title_for, :submodule_controller_for,
+                  :budgets_elaboration_active?,
+                  :budget_lines_feedback_active?, :gobierto_budgets_feedback_emails,
+                  :budgets_receipt_active?, :budgets_receipt_configuration
   end
 
   private
@@ -20,6 +22,14 @@ module SubmodulesHelper
 
   def gobierto_budgets_feedback_emails
     current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["feedback_emails"]
+  end
+
+  def budgets_receipt_active?
+    current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["budgets_receipt_enabled"]
+  end
+
+  def budgets_receipt_configuration
+    current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["budgets_receipt_configuration"]
   end
 
   def available_submodules

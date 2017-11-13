@@ -459,7 +459,18 @@ es:
         elaboration: Elaboración
         execution: Ejecución
         guide: Guía
+        receipt: Recibo
         summary: Resumen
+    receipts:
+      show:
+        description: Parte del presupuesto de tu municipio se financia directamente
+          de impuestos y tasas locales. Calcula cuánto aportas tú al presupuesto de
+          acuerdo a tu vivienda, vehículos...
+        detail: Detalle de tu contribución
+        pick_to_calculate: Selecciona para calcular
+        share: Compártelo
+        title: "¿Cuál es tu contribución al presupuesto del %{site_name}?"
+        your_contribution: Tu contribución a los presupuestos del %{site_name}
     shared:
       enough_information:
         enough_information: "¿Suficiente información?"

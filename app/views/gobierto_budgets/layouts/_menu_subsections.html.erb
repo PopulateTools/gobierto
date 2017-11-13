@@ -7,6 +7,9 @@
       <li><%= link_to t('.budget'), gobierto_budgets_budgets_path, class: class_if('active', action_name != 'guide' && controller_name != 'budgets_elaboration' && !in_elaboration? && controller_name != 'budgets_execution') %></li>
       <li><%= link_to t('.execution'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), class: class_if('active', controller_name == 'budgets_execution')  %></li>
       <li><%= link_to t('.guide'), gobierto_budgets_budgets_guide_path, class: class_if('active', action_name == 'guide')  %></li>
+      <% if budgets_receipt_active? %>
+        <li><%= link_to t('.receipt'), gobierto_budgets_receipt_path, class: class_if('active', controller_name == 'receipts')  %></li>
+      <% end %>
     </ul>
   </div>
 </menu>

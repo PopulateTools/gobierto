@@ -21,7 +21,7 @@ module GobiertoAdmin
       private
 
       def gobierto_budgets_params
-        params.require(:gobierto_budgets_options).permit(:elaboration_enabled, :budget_lines_feedback_enabled, :feedback_emails)
+        params.require(:gobierto_budgets_options).permit(:elaboration_enabled, :budget_lines_feedback_enabled, :feedback_emails, :receipt_enabled, :receipt_configuration)
       end
     end
   end

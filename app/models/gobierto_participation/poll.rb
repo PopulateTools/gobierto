@@ -1,17 +1,16 @@
 # frozen_string_literal: true
 
-require_dependency 'gobierto_participation'
+require_dependency "gobierto_participation"
 
 module GobiertoParticipation
   class Poll < ApplicationRecord
-
     class PollHasAnswers < StandardError; end
 
     include PollResultsHelpers
 
     belongs_to :process
-    has_many :questions, -> { order(order: :asc) }, class_name: 'GobiertoParticipation::PollQuestion', dependent: :destroy, autosave: true
-    has_many :answers, class_name: 'GobiertoParticipation::PollAnswer', autosave: true
+    has_many :questions, -> { order(order: :asc) }, class_name: "GobiertoParticipation::PollQuestion", dependent: :destroy, autosave: true
+    has_many :answers, class_name: "GobiertoParticipation::PollAnswer", autosave: true
 
     enum visibility_level: { draft: 0, published: 1 }
     enum visibility_user_level: { registered: 0, verified: 1 }
@@ -28,7 +27,7 @@ module GobiertoParticipation
 
     accepts_nested_attributes_for :questions, allow_destroy: true
 
-    validates_associated :questions, message: I18n.t('activerecord.messages.gobierto_participation/poll.are_not_valid')
+    validates_associated :questions, message: I18n.t("activerecord.messages.gobierto_participation/poll.are_not_valid")
 
     def answerable?
       published? && open?
@@ -43,7 +42,8 @@ module GobiertoParticipation
     end
 
     def open?
-      Time.zone.now.between?(starts_at, ends_at)
+      date = Time.zone.now.to_date
+      starts_at <= date && ends_at >= date
     end
 
     def closed?
@@ -51,7 +51,7 @@ module GobiertoParticipation
     end
 
     def editable?
-      unique_answers_count == 0
+      unique_answers_count.zero?
     end
 
     def upcoming?
@@ -65,8 +65,7 @@ module GobiertoParticipation
     private
 
     def ensure_editable!
-      raise PollHasAnswers if !editable?
+      raise PollHasAnswers unless editable?
     end
-
   end
 end

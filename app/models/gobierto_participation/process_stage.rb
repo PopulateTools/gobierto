@@ -22,7 +22,8 @@ module GobiertoParticipation
     scope :upcoming, -> { where('starts > ?', Time.zone.now) }
 
     def open?
-      Time.zone.now.between?(starts, ends)
+      date = Time.zone.now.to_date
+      starts_at <= date && ends_at >= date
     end
 
     def active?

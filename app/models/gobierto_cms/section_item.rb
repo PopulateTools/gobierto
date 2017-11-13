@@ -25,7 +25,11 @@ module GobiertoCms
     def hierarchy_and_children
       hierarchy = all_parents
       hierarchy.push(self)
-      hierarchy.push(self.children)
+      children.each do |child|
+        hierarchy.push(child)
+      end
+
+      hierarchy
     end
   end
 end

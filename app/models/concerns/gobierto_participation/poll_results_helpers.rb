@@ -17,7 +17,7 @@ module GobiertoParticipation
 
       def men_participation_percentage
         if men_unique_answers_count.nonzero?
-          ((men_unique_answers_count * 100) / unique_answers_count).round
+          (men_unique_answers_count * 100).fdiv(unique_answers_count).round
         else
           0
         end
@@ -25,7 +25,7 @@ module GobiertoParticipation
 
       def women_participation_percentage
         if women_unique_answers_count.nonzero?
-          ((women_unique_answers_count * 100) / unique_answers_count).round
+          (women_unique_answers_count * 100).fdiv(unique_answers_count).round
         else
           0
         end

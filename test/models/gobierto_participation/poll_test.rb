@@ -1,8 +1,9 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 module GobiertoCms
   class ProcessTest < ActiveSupport::TestCase
-
     def published_poll
       @published_poll ||= gobierto_participation_polls(:ordinance_of_terraces_published)
     end
@@ -31,7 +32,7 @@ module GobiertoCms
 
     def test_prohibit_editing_poll_with_answers
       assert_raises GobiertoParticipation::Poll::PollHasAnswers do
-        published_poll.update_attributes(title: 'wadus')
+        published_poll.update_attributes(title: "wadus")
       end
     end
 
@@ -60,8 +61,8 @@ module GobiertoCms
     end
 
     def test_participation_percentage_by_gender
-      assert_equal 66, finished_poll_with_answers.men_participation_percentage
-      assert_equal 34, finished_poll_with_answers.women_participation_percentage
+      assert_equal 67, finished_poll_with_answers.men_participation_percentage
+      assert_equal 33, finished_poll_with_answers.women_participation_percentage
     end
 
     def test_predicted_unique_answers_count
@@ -110,6 +111,5 @@ module GobiertoCms
 
       assert_equal 2.3, poll.average_answers_per_day
     end
-
   end
 end

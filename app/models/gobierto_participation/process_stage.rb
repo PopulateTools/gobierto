@@ -23,7 +23,7 @@ module GobiertoParticipation
 
     def open?
       date = Time.zone.now.to_date
-      starts_at <= date && ends_at >= date
+      starts <= date && ends >= date
     end
 
     def active?

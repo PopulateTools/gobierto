@@ -36,6 +36,9 @@ ca:
             start: Inici
             view_poll: Veure enquesta
             visibility: Estat
+            visibility_level:
+              draft: Esborrany
+              published: Publicada
           new:
             title: Nova enquesta
           poll_question_modal:

@@ -36,6 +36,9 @@ es:
             start: Inicio
             view_poll: Ver encuesta
             visibility: Estado
+            visibility_level:
+              draft: Borrador
+              published: Publicada
           new:
             title: Nueva encuesta
           poll_question_modal:

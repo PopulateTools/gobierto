@@ -35,6 +35,9 @@ en:
             start: Start
             view_poll: View poll
             visibility: Status
+            visibility_level:
+              draft: Draft
+              published: Published
           new:
             title: New poll
           poll_question_modal:

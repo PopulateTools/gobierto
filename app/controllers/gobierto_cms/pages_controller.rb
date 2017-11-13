@@ -10,11 +10,16 @@ module GobiertoCms
       @section = find_section if params[:slug_section]
       @page = find_page
       @first_page_in_section = find_first_page_in_section if params[:slug_section]
-      @section_item = find_section_item if params[:slug_section]
       @process = find_process if params[:process]
       @groups = current_site.processes.group_process
-      @collection = @page.collection
-      @pages = ::GobiertoCms::Page.where(id: @collection.pages_in_collection).active
+
+      if @page
+        @section_item = find_section_item if params[:slug_section]
+        @collection = @page.collection
+        @pages = ::GobiertoCms::Page.where(id: @collection.pages_in_collection).active
+      else
+        redirect_to gobierto_cms_path(@first_page_in_section.slug, slug_section: @section.slug)
+      end
     end
 
     def index
@@ -59,7 +64,9 @@ module GobiertoCms
     end
 
     def find_page
-      pages_scope.find_by!(slug: params[:id])
+      if params[:id]
+        pages_scope.find_by!(slug: params[:id])
+      end
     end
 
     def pages_scope

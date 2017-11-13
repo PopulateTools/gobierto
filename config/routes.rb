@@ -274,6 +274,7 @@ Rails.application.routes.draw do
     constraints GobiertoSiteConstraint.new do
       resources :pages, only: [:index, :show], path: "paginas"
       get "/s/:slug_section/:id" => "pages#show"
+      get "/s/:slug_section" => "pages#show"
     end
   end
 

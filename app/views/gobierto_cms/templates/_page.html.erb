@@ -26,9 +26,11 @@
               <%= @collection.title %> /
               <%= @page.title %>
             <% elsif @section %>
-              <%= link_to(@section.title, gobierto_cms_path(@first_page_in_section.slug, slug_section: @section.slug)) %>
               <% @section_item.all_parents.each do |parent| %>
-                / <%= link_to(parent.item.title, gobierto_cms_path(parent.item.slug, slug_section: parent.section.slug)) %>
+                <%= link_to(parent.item.title, gobierto_cms_path(parent.item.slug, slug_section: parent.section.slug)) %>
+                <% unless parent.equal?(@section_item.all_parents.last) %>
+                  /
+                <% end %>
               <% end %>
             <% end %>
           </div>

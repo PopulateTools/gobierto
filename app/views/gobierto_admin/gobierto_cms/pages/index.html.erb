@@ -36,7 +36,7 @@
     <div class="pure-g">
 
       <div class="pure-u-1-2">
-        <h3 class="m_t_0">Secciones</h3>
+        <h3 class="m_t_0"><%= t('.sections') %></h3>
       </div>
 
       <div class="pure-u-1-2 admin_tools right" id="new-section">
@@ -61,9 +61,11 @@
             <%= section.section_items.size %>
           </td>
           <td>
-            <%= link_to "gobierto_participation_section_path(section.slug ,host: current_site.domain)", target: "_blank", class: "view_item" do %>
-              <i class="fa fa-eye"></i>
-              <%= t(".view_section") %>
+            <% unless section.section_items.size.zero? %>
+              <%= link_to gobierto_cms_path(::GobiertoCms::Page.first_page_in_section(section).slug, slug_section: section.slug), target: "_blank", class: "view_item" do %>
+                <i class="fa fa-eye"></i>
+                <%= t(".view_section") %>
+              <% end %>
             <% end %>
           </td>
         </tr>

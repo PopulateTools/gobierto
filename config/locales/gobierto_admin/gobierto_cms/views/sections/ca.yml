@@ -23,6 +23,7 @@ ca:
             pàgina al menú
         show:
           collapse: Colapsar tot
+          configuration: Configuració
           delete_element: Eliminar element del menú
           expand: Expandir tot
           help: Configureu els elements del vostre menú. Arrossega el tauler dret
@@ -32,3 +33,4 @@ ca:
             search: Escriu el títol de la pàgina per cercar
           sections: Seccions
           select_page: Selecciona pàgina per incloure en la secció
+          view: Ver sección

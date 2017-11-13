@@ -8,7 +8,16 @@
 
 <div class="m_v_2">
   <div class="admin_tools f_right right">
-    <%= link_to '<i class="fa fa-cog"></i> Configuración'.html_safe, edit_admin_cms_section_path(@section), class: 'open_remote_modal' %>
+    <%= link_to edit_admin_cms_section_path(@section), class: 'open_remote_modal' do %>
+      <i class="fa fa-cog"></i>
+      <%= t(".configuration") %>
+    <% end %>
+    <% if @first_page_in_section %>
+      <%= link_to gobierto_cms_path(@first_page_in_section.slug, slug_section: @section.slug), target: "_blank" do %>
+        <i class="fa fa-link"></i>
+        <%= t(".view") %>
+      <% end %>
+    <% end %>
   </div>
   <%= t('.help') %>
 </div>

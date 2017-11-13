@@ -11,7 +11,7 @@ module GobiertoAdmin
         end
 
         def admin
-          @admin ||= gobierto_admin_admins(:tony)
+          @admin ||= gobierto_admin_admins(:natasha)
         end
 
         def setup

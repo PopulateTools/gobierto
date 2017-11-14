@@ -13,7 +13,8 @@
       <%= link_to t('.agenda'), admin_participation_process_events_path(current_process) %>
     </li>
 
-    <li class="<%= "#{class_if('active', controller_name.include?('polls'))} #{class_if('disabled', !current_process.polls_stage?)}" %>">
+    <!-- shared for polls and poll_answers -->
+    <li class="<%= "#{class_if('active', controller_name.include?('poll'))} #{class_if('disabled', !current_process.polls_stage?)}" %>">
       <%= link_to t('.polls'), admin_participation_process_polls_path(current_process) %>
     </li>
 

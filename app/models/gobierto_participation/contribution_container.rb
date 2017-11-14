@@ -15,9 +15,12 @@ module GobiertoParticipation
     has_many :contributions
 
     enum visibility_level: { draft: 0, active: 1 }
+    enum visibility_user_level: { registered: 0, verified: 1 }
     enum contribution_type: { idea: 0, question: 1, proposal: 2 }
 
-    validates :site, :process, :title, :description, :admin, presence: true
+    scope :open, -> { where("starts <= ? AND ends >= ?", Time.zone.now, Time.zone.now) }
+
+    validates :site, :process, :title, :description, :admin, :visibility_user_level, presence: true
 
     def parameterize
       { slug: slug }
@@ -33,6 +36,10 @@ module GobiertoParticipation
 
     def participants_count
       contributions.sum(&:number_participants)
+    end
+
+    def days_left
+      (ends - Date.current ).to_i
     end
   end
 end

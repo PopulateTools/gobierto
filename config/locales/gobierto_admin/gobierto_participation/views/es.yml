@@ -14,4 +14,15 @@ es:
           votings: Votaciones
       welcome:
         index:
+          element: Elemento
+          finishes_in: Termina en...
+          group_process: Grupo/Proceso
+          groups_processes: Grupos/Procesos
+          last_activity: Última actividad
+          new_process: Nuevo
+          next_elements_to_close: Elementos próximos a cerrar
+          no_activities: No hay actualizaciones relacionadas
           title: Participación
+          x_days:
+            one: 1 día
+            other: "%{count} días"

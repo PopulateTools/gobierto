@@ -28,6 +28,8 @@ es:
               title: "¿Qué actividades para niños podemos poner en marcha?"
             proposal: Propuesta
             question: Pregunta
+            registered: Registrados
+            verified: Verificados
           index:
             contributions_votes: Aportaciones / Valoraciones
             end: Fin

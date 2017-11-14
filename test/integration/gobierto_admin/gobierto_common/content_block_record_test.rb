@@ -107,7 +107,7 @@ module GobiertoAdmin
                   # Remove attachment for third record
                   edit_links[2].trigger(:click)
                   # WARNING: it's third record inside accomplishments, but fifth record in total
-                  find("#person_content_block_records_attributes_5_remove_attachment", visible: false).trigger(:click)
+                  find("#person_content_block_records_attributes_8_remove_attachment", visible: false).trigger(:click)
                 end
 
                 FileUploader::S3.any_instance.stubs(:call).returns("http://www.madrid.es/assets/documents/document-1.pdf", "http://www.madrid.es/assets/documents/document-2.pdf")

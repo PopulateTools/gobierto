@@ -61,7 +61,10 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
           ajax: {
             settings: {
               url: '/admin/cms/sections/new?remote=true&from_page_widget=true',
-              type: 'GET'
+              type: 'GET',
+              data: {
+                'globalized-form-container': 'true'
+              }
             }
           }
         });

@@ -40,7 +40,7 @@
       </div>
 
       <div class="pure-u-1-2 admin_tools right" id="new-section">
-        <%= link_to t(".new"), new_admin_cms_section_path, class: 'button open_remote_modal' %>
+        <%= link_to t(".new"), new_admin_cms_section_path, class: 'button open_remote_modal', data: { "globalized-form-container" => true } %>
       </div>
 
     </div>
@@ -75,7 +75,7 @@
         <h3><%= t(".collections") %></h3>
       </div>
       <div class="pure-u-1-2 admin_tools right" id="new-page">
-        <%= link_to t(".new"), new_admin_common_collection_path(item_type: 'Page'), class: 'button open_remote_modal' %>
+        <%= link_to t(".new"), new_admin_common_collection_path(item_type: 'Page'), class: 'button open_remote_modal', data: { "globalized-form-container" => true } %>
       </div>
     </div>
 

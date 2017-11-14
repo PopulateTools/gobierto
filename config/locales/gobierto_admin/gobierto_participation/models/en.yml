@@ -8,12 +8,14 @@ en:
         ends: Ends
         starts: Starts
         title: Title
+        visibility_user_level: Users
       gobierto_admin/gobierto_participation/poll_form:
         description: Description
         ends_at: Ends at
         questions: Some of the questions
         starts_at: Starts at
         title: Title
+        visibility_user_level: Users
       gobierto_admin/gobierto_participation/poll_form/questions:
         answer_templates: The answers
         answer_type: Answer types

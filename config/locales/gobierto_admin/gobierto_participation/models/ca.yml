@@ -8,12 +8,14 @@ ca:
         ends: Final
         starts: Començament
         title: Títol
+        visibility_user_level: Usuaris
       gobierto_admin/gobierto_participation/poll_form:
         description: Descripció
         ends_at: Final
         questions: Algunes de les preguntes
         starts_at: Començament
         title: Títol
+        visibility_user_level: Usuaris
       gobierto_admin/gobierto_participation/poll_form/questions:
         answer_templates: Les respostes
         answer_type: El tipus de pregunta

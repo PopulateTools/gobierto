@@ -95,6 +95,7 @@ module GobiertoAdmin
         def contribution_container_params
           params.require(:contribution_container).permit(
             :visibility_level,
+            :visibility_user_level,
             :contribution_type,
             :starts,
             :ends,

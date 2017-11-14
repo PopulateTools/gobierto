@@ -77,14 +77,12 @@
   <div class="pure-u-1 pure-u-md-8-24">
     <h3 class="m_t_0"><%= t(".last_activity") %></h3>
     <div class="activity_feed">
-      <% @activities.each do |activity| %>
       <% if @activities.any? %>
         <% @activities.each do |activity| %>
           <%= render 'gobierto_participation/shared/activities/activity_teaser', { activity: activity } %>
-          <% end %>
-        <% else %>
-          <%= t(".no_activities") %>
         <% end %>
+      <% else %>
+        <%= t(".no_activities") %>
       <% end %>
     </div>
   </div>

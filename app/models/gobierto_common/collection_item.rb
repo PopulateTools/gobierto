@@ -6,7 +6,7 @@ module GobiertoCommon
     belongs_to :item, polymorphic: true
     belongs_to :container, polymorphic: true
 
-    after_commit :reindex_page
+    after_commit :reindex_page, on: [:create, :update]
 
     def container
       if container_id.present?
@@ -17,7 +17,8 @@ module GobiertoCommon
     private
 
     def reindex_page
-      if item.class_name == "GobiertoCms::Page"
+      if item_type == "GobiertoCms::News" || item_type == "GobiertoCms::Page"
+        item = ::GobiertoCms::Page.find(item_id)
         ::GobiertoCms::Page.trigger_reindex_job(item, false)
       end
     end

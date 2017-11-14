@@ -4,7 +4,7 @@ module GobiertoCms
       html = ""
       nodes.each do |node|
         html << "<ul>"
-        html << "<li>" + link_to(node.item.title, gobierto_cms_path(node.item.slug, slug_section: node.section.slug))
+        html << "<li>" + link_to(node.item.title, node.item.to_url(section: true))
         if node.children.any? && !(viewables & node.children).empty?
           html << section_tag(node.children, viewables)
         end

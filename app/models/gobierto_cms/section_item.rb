@@ -9,7 +9,7 @@ module GobiertoCms
     belongs_to :parent, class_name: "GobiertoCms::SectionItem", foreign_key: "parent_id"
     has_many :children, dependent: :destroy, class_name: "GobiertoCms::SectionItem", foreign_key: "parent_id"
 
-    after_commit :reindex_page
+    after_commit :reindex_page, on: [:create, :update]
 
     validates :item_id, :item_type, :position, :parent_id, :section_id, :level, presence: true
 

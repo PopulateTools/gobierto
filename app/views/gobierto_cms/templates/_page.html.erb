@@ -8,7 +8,7 @@
               <li><a href="#"><%= @collection.title %></a>
                 <ul>
                   <% @pages.each do |page| %>
-                    <li><%= link_to page.title, gobierto_cms_page_path(page.slug) %></li>
+                    <li><%= link_to page.title, page.to_url %></li>
                   <% end %>
                 </ul>
               </li>
@@ -27,7 +27,7 @@
               <%= @page.title %>
             <% elsif @section %>
               <% @section_item.all_parents.each do |parent| %>
-                <%= link_to(parent.item.title, gobierto_cms_path(parent.item.slug, slug_section: parent.section.slug)) %>
+                <%= link_to(parent.item.title, parent.item.to_url(section: true)) %>
                 <% unless parent.equal?(@section_item.all_parents.last) %>
                   /
                 <% end %>

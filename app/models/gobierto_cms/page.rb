@@ -94,7 +94,8 @@ module GobiertoCms
           url_helpers.gobierto_participation_process_page_url({ id: slug, process_id: collection.container.slug, host: app_host }.merge(options))
         elsif collection.container_type == "GobiertoParticipation"
           url_helpers.gobierto_participation_page_url({ id: slug, host: app_host }.merge(options))
-        elsif section.present?
+        elsif section.present? || options[:section]
+          options.delete(:section)
           url_helpers.gobierto_cms_url({ id: slug, slug_section: section.slug }.merge(host: app_host).merge(options))
         else
           url_helpers.gobierto_cms_page_url({ id: slug }.merge(host: app_host).merge(options))

@@ -54,6 +54,10 @@ I18n.locale = I18n.default_locale = :en
 Time.zone = "Madrid"
 
 Minitest::Retry.use! if ENV["RETRY_FAILING_TEST"]
+Minitest::Retry.on_failure do |klass, test_name|
+  Capybara.reset_session!
+end
+
 # Incompatible with test profile
 # Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new(color: true)
 Minitest::TestProfile.use!

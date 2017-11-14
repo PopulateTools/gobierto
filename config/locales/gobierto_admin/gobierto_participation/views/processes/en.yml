@@ -28,6 +28,8 @@ en:
               title: What activities for children can we launch?
             proposal: Proposal
             question: Question
+            registered: Registered
+            verified: Verified
           index:
             contributions_votes: Contributions / Votes
             end: Fin

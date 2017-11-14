@@ -9,6 +9,10 @@ class User::CensusVerificationsController < User::BaseController
       date_of_birth_month: current_user.date_of_birth.month,
       date_of_birth_day: current_user.date_of_birth.day
     )
+    respond_to do |format|
+      format.html
+      format.js { render js: "window.location='/user/verifications/new'" }
+    end
   end
 
   def create

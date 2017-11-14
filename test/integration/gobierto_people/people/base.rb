@@ -22,6 +22,9 @@ module GobiertoPeople
 
           within ".contact-methods" do
             assert has_link?("@richard", href: "https://twitter.com/richard")
+            assert has_link?("@richard", href: "https://facebook.com/richard")
+            assert has_link?("@richard", href: "https://linkedin.com/richard")
+            assert has_link?("@richard", href: "https://instagram.com/richard")
           end
         end
       end

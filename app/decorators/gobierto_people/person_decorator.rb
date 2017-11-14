@@ -32,6 +32,14 @@ module GobiertoPeople
       person_contact_method_for("LinkedIn", "service_url")
     end
 
+    def instagram_handle
+      person_contact_method_for("Instagram", "service_handle")
+    end
+
+    def instagram_url
+      person_contact_method_for("Instagram", "service_url")
+    end
+
     def trips_url
       person_custom_link_for('Viajes')
     end

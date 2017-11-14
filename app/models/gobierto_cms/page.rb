@@ -89,16 +89,17 @@ module GobiertoCms
     end
 
     def to_url(options = {})
+      host = options[:host] || app_host
       if collection
         if collection.container_type == "GobiertoParticipation::Process"
-          url_helpers.gobierto_participation_process_page_url({ id: slug, process_id: collection.container.slug, host: app_host }.merge(options))
+          url_helpers.gobierto_participation_process_page_url({ id: slug, process_id: collection.container.slug, host: host }.merge(options))
         elsif collection.container_type == "GobiertoParticipation"
-          url_helpers.gobierto_participation_page_url({ id: slug, host: app_host }.merge(options))
+          url_helpers.gobierto_participation_page_url({ id: slug, host: host }.merge(options))
         elsif section.present? || options[:section]
           options.delete(:section)
-          url_helpers.gobierto_cms_url({ id: slug, slug_section: section.slug }.merge(host: app_host).merge(options))
+          url_helpers.gobierto_cms_url({ id: slug, slug_section: section.slug, host: host }.merge(options))
         else
-          url_helpers.gobierto_cms_page_url({ id: slug }.merge(host: app_host).merge(options))
+          url_helpers.gobierto_cms_page_url({ id: slug }.merge(host: host).merge(options))
         end
       end
     end

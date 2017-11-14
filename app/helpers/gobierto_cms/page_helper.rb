@@ -2,14 +2,15 @@ module GobiertoCms
   module PageHelper
     def section_tag(nodes, viewables)
       html = ""
+      html << "<ul>"
       nodes.each do |node|
-        html << "<ul>"
-        html << "<li>" + link_to(node.item.title, node.item.to_url(section: true))
+        html << "<li>" + link_to(node.item.title, node.item.to_url(section: true, host: current_site.domain))
         if node.children.any? && !(viewables & node.children).empty?
           html << section_tag(node.children, viewables)
         end
-        html << "</li></ul>"
+        html << "</li>"
       end
+      html << "</ul>"
       html.html_safe
     end
   end

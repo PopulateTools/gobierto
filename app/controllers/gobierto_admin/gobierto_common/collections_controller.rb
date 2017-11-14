@@ -8,15 +8,15 @@ module GobiertoAdmin
 
       def show
         @new_item_path = case @collection.item_type
-                         when 'GobiertoCms::Page'
-                           @pages = ::GobiertoCms::Page.where(id: @collection.pages_in_collection)
+                         when 'GobiertoCms::Page', 'GobiertoCms::News'
+                           @pages = ::GobiertoCms::Page.where(id: @collection.pages_in_collection).sorted
                            new_admin_cms_page_path(collection_id: @collection)
                          when 'GobiertoAttachments::Attachment'
-                           @file_attachments = ::GobiertoAttachments::Attachment.where(id: @collection.file_attachments_in_collection)
+                           @file_attachments = ::GobiertoAttachments::Attachment.where(id: @collection.file_attachments_in_collection).sorted
                            new_admin_attachments_file_attachment_path(collection_id: @collection)
                          when 'GobiertoCalendars::Event'
                            @events_presenter = GobiertoAdmin::GobiertoCalendars::EventsPresenter.new(@collection)
-                           @events = ::GobiertoCalendars::Event.by_collection(@collection)
+                           @events = ::GobiertoCalendars::Event.by_collection(@collection).sorted
                            nil
                          end
       end
@@ -116,6 +116,7 @@ module GobiertoAdmin
 
       def find_containers
         @containers ||= container_items.map { |item| ["#{item.class.model_name.human}: #{item}", item.to_global_id] }
+        @containers.insert(1, ["GobiertoParticipation", nil])
       end
 
       def type_names

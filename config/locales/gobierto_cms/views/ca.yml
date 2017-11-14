@@ -14,5 +14,6 @@ ca:
       index:
         filter: Filtrar per tema
         title: Notícies
-      show:
+    templates:
+      page:
         documents: Documents

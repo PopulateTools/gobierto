@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module GobiertoParticipation
-  class ActivitiesController < BaseController
+  class ActivitiesController < GobiertoParticipation::ApplicationController
     def index
       @issues = current_site.issues
 

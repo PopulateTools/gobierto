@@ -26,17 +26,20 @@ collection_item_themes:
 
 news_collection_notice_1:
   collection: gender_violence_process_news
-  item: notice_1 (GobiertoCms::Page)
+  item_id: <%= ActiveRecord::FixtureSet.identify(:notice_1) %>
+  item_type: 'GobiertoCms::News'
   container: gender_violence_process (GobiertoParticipation::Process)
 
 news_collection_notice_2:
   collection: gender_violence_process_news
-  item: notice_2 (GobiertoCms::Page)
+  item_id: <%= ActiveRecord::FixtureSet.identify(:notice_2) %>
+  item_type: 'GobiertoCms::News'
   container: gender_violence_process (GobiertoParticipation::Process)
 
 site_news_1:
   collection: site_news (GobiertoCommon::Collection)
-  item: about_site (GobiertoCms::Page)
+  item_id: <%= ActiveRecord::FixtureSet.identify(:about_site) %>
+  item_type: 'GobiertoCms::News'
   container: madrid (Site)
 
 ## /end Pages collection items

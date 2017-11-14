@@ -4,7 +4,7 @@ es:
     sessions:
       new:
         password_title: "¿No recuerdas tu contraseña? Te ayudamos:"
-        registration_title: "¿Nuevo por aquí? Crea una cuenta gratis:"
+        registration_title: "¿Nuevo por aquí? Create una cuenta:"
         session_title: "¿Ya tienes cuenta? Haz login"
       new_password_form:
         session_section: "¿Te acuerdas de la contraseña? Haz login"

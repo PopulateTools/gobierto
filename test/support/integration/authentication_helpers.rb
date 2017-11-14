@@ -50,6 +50,7 @@ module Integration
 
         click_button "Log in"
       end
+    rescue Capybara::ElementNotFound
     end
 
     def sign_out_user
@@ -60,6 +61,7 @@ module Integration
           find_link("Sign out", visible: false).click
         end
       end
+    rescue Capybara::ElementNotFound
     end
   end
 end

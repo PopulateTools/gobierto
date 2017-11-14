@@ -1,0 +1,19 @@
+<% if user_signed_in? %>
+  <div id="flag-link-<%= item.id %>">
+    <%= link_to gobierto_participation_process_contribution_container_contribution_flag_path(contribution_id: item.commentable.slug,
+                                                                                             contribution_container_id: item.commentable.contribution_container.slug,
+                                                                                             process_id: item.commentable.contribution_container.process.slug,
+                                                                                             flaggable_id: item.id,
+                                                                                             flaggable_type: item.class),
+                class: (item.flagged_by_user?(current_user) ? 'action active' : 'action'),
+                method: (item.flagged_by_user?(current_user) ? :delete : :post),
+                remote: true do %>
+      <i class="fa fa-flag"></i>
+      <% if item.flagged_by_user?(current_user) %>
+        <%= t('.reported') %>
+      <% else %>
+        <%= t('.report') %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

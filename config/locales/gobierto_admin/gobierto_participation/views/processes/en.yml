@@ -15,9 +15,6 @@ en:
             slug: ex. carnival-party-commission
             title: ex. Carnival Party Commission
           set_duration: Set duration
-        index:
-          new_process: New process / group
-          title: Processes and Groups
         new:
           title: New process / group
         process_contribution_containers:
@@ -28,6 +25,8 @@ en:
               title: What activities for children can we launch?
             proposal: Proposal
             question: Question
+            registered: Registered
+            verified: Verified
           index:
             contributions_votes: Contributions / Votes
             end: Fin
@@ -58,7 +57,7 @@ en:
             configuration: Configuration
         process_information:
           edit:
-            title: Edit process
+            information: Information
           form:
             placeholders:
               information_text: Information

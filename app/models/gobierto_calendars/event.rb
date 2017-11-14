@@ -37,6 +37,8 @@ module GobiertoCalendars
     scope :synchronized, -> { where("external_id IS NOT NULL") }
     scope :by_date,  ->(date) { where("starts_at::date = ?", date) }
     scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
+    scope :inverse_sorted_by_id, -> { order(id: :asc) }
+    scope :sorted_by_id, -> { order(id: :desc) }
 
     scope :by_collection, ->(collection) do
       where(collection_id: collection.id)

@@ -15,9 +15,6 @@ es:
             slug: ej. comision-de-fiestas-de-carnaval
             title: ej. Comisión de Fiestas de Carnaval
           set_duration: Establecer duración
-        index:
-          new_process: Nuevo proceso / grupo
-          title: Procesos y Grupos
         new:
           title: Nuevo proceso / grupo
         process_contribution_containers:
@@ -28,6 +25,8 @@ es:
               title: "¿Qué actividades para niños podemos poner en marcha?"
             proposal: Propuesta
             question: Pregunta
+            registered: Registrados
+            verified: Verificados
           index:
             contributions_votes: Aportaciones / Valoraciones
             end: Fin
@@ -58,7 +57,7 @@ es:
             configuration: Configuración
         process_information:
           edit:
-            title: Editar proceso
+            information: Información
           form:
             placeholders:
               information_text: Información

@@ -74,7 +74,7 @@
         <th class="qty big_qty"><%= t('.amount') %></th>
         <th class="qty"><%= t('.per_inhabitant') %></th>
         <th class="qty">%</th>
-        <th class="qty bar"></th>
+        <th class="qty bar"><span style="display:none" aria-hidden="true">WCAG 2.0 AA</span></th>
       </tr>
 
       <%= render partial: 'gobierto_budgets/budget_lines/budget_line_row', collection: place_budget_lines, as: :budget_line, locals: { year: year, place: place, area_name: area_name, kind: kind } %>

@@ -1,3 +1,7 @@
-$('#follow_success').html('<%=j render('gobierto_budgets/feedback/follow_success') %>');
+<% if params[:ask_for_feedback] %>
+  $('#ask_success').html('<%=j render('gobierto_budgets/feedback/follow_success') %>');
+<% else %>
+  $('#follow_success').html('<%=j render('gobierto_budgets/feedback/follow_success') %>');
+<% end %>
 window.shareContent.attachTo('[data-share]');
 

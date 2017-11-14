@@ -15,9 +15,6 @@ ca:
             slug: ex. comissio-de-festes-de-carnaval
             title: ex. Comissió de Festes de Carnaval
           set_duration: Establir durada
-        index:
-          new_process: Nou procés o grup
-          title: Processos i Grups
         new:
           title: Nou procés o grup
         process_contribution_containers:
@@ -28,6 +25,8 @@ ca:
               title: Quines activitats per a nens podem posar en marxa?
             proposal: Proposta
             question: Pregunta
+            registered: Registrats
+            verified: Verificats
           index:
             contributions_votes: Aportacions / Valoracions
             end: Fi
@@ -58,7 +57,7 @@ ca:
             configuration: Configuració
         process_information:
           edit:
-            title: Edita el procés
+            information: Informació
           form:
             placeholders:
               information_text: Informació

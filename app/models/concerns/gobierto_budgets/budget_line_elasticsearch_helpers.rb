@@ -410,21 +410,16 @@ module GobiertoBudgets
 
         indexes.each do |index|
           areas.each do |area|
-            break if any_data
-            begin
-              response = SearchEngine.client.search(
-                index: index,
-                type: area.area_name,
-                body: query
-              )
-              any_data ||= response['hits']['hits'].any?
-            rescue
-              nil
-            end
+            response = SearchEngine.client.search(
+              index: index,
+              type: area.area_name,
+              body: query
+            )
+            return true if response['hits']['hits'].any?
           end
         end
 
-        any_data
+        return false
       end
 
     end

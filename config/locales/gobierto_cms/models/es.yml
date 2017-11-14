@@ -7,4 +7,6 @@ es:
         slug: URL
         title: Título
     models:
+      gobierto_cms/news: Noticia
+      gobierto_cms/news_plural: Noticias
       gobierto_cms/page: Página

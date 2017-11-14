@@ -10,10 +10,6 @@
   </h1>
 <% end %>
 
-<%= content_for :body_attributes do %>
-  class="theme-participation gobierto_participation"
-<% end %>
-
 <% content_for :subscribable_button do %>
   <%= render 'user/subscriptions/subscribable_button', subscribable: @issue %>
 <% end %>

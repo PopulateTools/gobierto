@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "gobierto_participation"
 
 module GobiertoParticipation
@@ -68,8 +70,8 @@ module GobiertoParticipation
       stages.exists?(stage_type: stage_type)
     end
 
-    def pages_collection
-      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCms::Page')
+    def news_collection
+      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCms::News')
     end
 
     def events_collection
@@ -98,6 +100,18 @@ module GobiertoParticipation
       return true
     end
 
+    def last_activity
+      Activity.where(subject: self).last
+    end
+
+    def last_activity_at
+      if Activity.where(subject: self).last
+        Activity.where(subject: self).last.created_at
+      else
+        updated_at
+      end
+    end
+
     private
 
     def create_collections
@@ -105,8 +119,8 @@ module GobiertoParticipation
       site.collections.create! container: self,  item_type: 'GobiertoCalendars::Event', slug: "calendar-#{self.slug}", title: self.title
       # Attachments
       site.collections.create! container: self,  item_type: 'GobiertoAttachments::Attachment', slug: "attachment-#{self.slug}", title: self.title
-      # News / Pages
-      site.collections.create! container: self,  item_type: 'GobiertoCms::Page', slug: "news-#{self.slug}", title: self.title
+      # News
+      site.collections.create! container: self,  item_type: 'GobiertoCms::News', slug: "news-#{self.slug}", title: self.title
     end
 
     def attributes_for_slug

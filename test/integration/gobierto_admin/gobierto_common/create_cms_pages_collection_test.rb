@@ -31,8 +31,6 @@ module GobiertoAdmin
               click_button "Create"
 
               assert has_alert?("Title can't be blank")
-              assert has_alert?("Type can't be blank")
-              assert has_alert?("Container can't be blank")
             end
           end
         end
@@ -47,7 +45,7 @@ module GobiertoAdmin
               within "#new-page" do
                 click_link "New"
               end
-              
+
               fill_in "collection_title_translations_en", with: "My collection"
               fill_in "collection_slug", with: "my-collection"
               find("select#collection_container_global_id").find("option[value='#{site.to_global_id}']").select_option

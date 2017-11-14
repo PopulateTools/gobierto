@@ -41,9 +41,8 @@ module GobiertoParticipation
     private
 
     def current_contribution_container
-      current_site.contribution_containers.find_by!(slug: params[:process_contribution_container_id])
+      current_site.contribution_containers.find_by!(slug: params[:contribution_container_id])
     end
-
 
     def default_activity_params
       { ip: remote_ip, author: current_admin, site_id: current_site.id }

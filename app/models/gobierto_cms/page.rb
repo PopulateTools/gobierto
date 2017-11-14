@@ -89,7 +89,7 @@ module GobiertoCms
     end
 
     def to_url(options = {})
-      host = options[:host] || app_host
+      host = site.domain
       if collection
         if collection.container_type == "GobiertoParticipation::Process"
           url_helpers.gobierto_participation_process_page_url({ id: slug, process_id: collection.container.slug, host: host }.merge(options))

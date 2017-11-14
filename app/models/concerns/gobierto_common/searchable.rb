@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   module Searchable
     extend ActiveSupport::Concern
@@ -6,7 +8,7 @@ module GobiertoCommon
       include AlgoliaSearch
 
       def self.search_index_name
-        "#{APP_CONFIG["site"]["name"]}_#{Rails.env}_#{self.name}"
+        "#{APP_CONFIG["site"]["name"]}_#{Rails.env}_#{name}"
       end
 
       def self.algoliasearch_gobierto(&block)

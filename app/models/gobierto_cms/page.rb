@@ -84,6 +84,10 @@ module GobiertoCms
       [title]
     end
 
+    def resource_path
+      to_url
+    end
+
     def to_url(options = {})
       if collection
         if collection.container_type == "GobiertoParticipation::Process"

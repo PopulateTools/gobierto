@@ -9,6 +9,8 @@ module GobiertoCms
     belongs_to :parent, class_name: "GobiertoCms::SectionItem", foreign_key: "parent_id"
     has_many :children, dependent: :destroy, class_name: "GobiertoCms::SectionItem", foreign_key: "parent_id"
 
+    after_commit :reindex_page
+
     validates :item_id, :item_type, :position, :parent_id, :section_id, :level, presence: true
 
     scope :without_parent, -> { where(parent_id: 0) }
@@ -30,6 +32,14 @@ module GobiertoCms
       end
 
       hierarchy
+    end
+
+    private
+
+    def reindex_page
+      if item.class_name == "GobiertoCms::Page"
+        ::GobiertoCms::Page.trigger_reindex_job(item, false)
+      end
     end
   end
 end

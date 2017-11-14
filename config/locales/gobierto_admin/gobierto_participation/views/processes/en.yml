@@ -15,9 +15,6 @@ en:
             slug: ex. carnival-party-commission
             title: ex. Carnival Party Commission
           set_duration: Set duration
-        index:
-          new_process: New process / group
-          title: Processes and Groups
         new:
           title: New process / group
         process_contribution_containers:

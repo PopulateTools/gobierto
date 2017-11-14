@@ -15,9 +15,6 @@ ca:
             slug: ex. comissio-de-festes-de-carnaval
             title: ex. Comissió de Festes de Carnaval
           set_duration: Establir durada
-        index:
-          new_process: Nou procés o grup
-          title: Processos i Grups
         new:
           title: Nou procés o grup
         process_contribution_containers:

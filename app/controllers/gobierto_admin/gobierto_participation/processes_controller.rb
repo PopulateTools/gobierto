@@ -7,11 +7,6 @@ module GobiertoAdmin
 
       helper_method :gobierto_participation_process_preview_url
 
-      def index
-        @processes = current_site.processes.process
-        @groups    = current_site.processes.group_process
-      end
-
       def new
         @process_form = ProcessForm.new(site_id: current_site.id)
         @process_visibility_levels = get_process_visibility_levels

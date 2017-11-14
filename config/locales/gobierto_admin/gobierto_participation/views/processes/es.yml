@@ -15,9 +15,6 @@ es:
             slug: ej. comision-de-fiestas-de-carnaval
             title: ej. Comisión de Fiestas de Carnaval
           set_duration: Establecer duración
-        index:
-          new_process: Nuevo proceso / grupo
-          title: Procesos y Grupos
         new:
           title: Nuevo proceso / grupo
         process_contribution_containers:

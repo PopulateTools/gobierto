@@ -9,16 +9,17 @@ module GobiertoCms
     def show
       @section = find_section if params[:slug_section]
       @page = find_page
-      @first_page_in_section = find_first_page_in_section if params[:slug_section]
-      @process = find_process if params[:process]
-      @groups = current_site.processes.group_process
+      if params[:process]
+        @process = find_process
+        @groups = current_site.processes.group_process
+      end
 
       if @page
         @section_item = find_section_item if params[:slug_section]
         @collection = @page.collection
         @pages = ::GobiertoCms::Page.where(id: @collection.pages_in_collection).active
-      else
-        redirect_to gobierto_cms_path(@first_page_in_section.slug, slug_section: @section.slug)
+      elsif @section
+        redirect_to gobierto_cms_section_item_path(find_first_page_in_section.slug, slug_section: @section.slug)
       end
     end
 

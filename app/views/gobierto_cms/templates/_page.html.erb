@@ -26,7 +26,7 @@
               <%= @collection.title %> /
               <%= @page.title %>
             <% elsif @section %>
-              <%= link_to @section.title, gobierto_cms_path(@section.slug) %>
+              <%= link_to @section.title, gobierto_cms_section_path(@section.slug) %>
               <% @section_item.all_parents.each do |parent| %>
                 / <%= link_to(parent.item.title, parent.item.to_url(section: true, host: current_site.domain)) %>
               <% end %>

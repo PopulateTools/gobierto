@@ -61,7 +61,7 @@
           </td>
           <td>
             <% unless section.section_items.size.zero? %>
-              <%= link_to gobierto_cms_path(::GobiertoCms::Page.first_page_in_section(section).slug, slug_section: section.slug), target: "_blank", class: "view_item" do %>
+              <%= link_to gobierto_cms_section_item_path(::GobiertoCms::Page.first_page_in_section(section).slug, slug_section: section.slug), target: "_blank", class: "view_item" do %>
                 <i class="fa fa-eye"></i>
                 <%= t(".view_section") %>
               <% end %>

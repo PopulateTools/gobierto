@@ -3,10 +3,10 @@
 
 <% content_for :breadcrumb_current_item do %>
   <strong>
-    <% if @collection && !@section %>
+    <% if @section %>
+      <%= link_to @section.title, gobierto_cms_section_path(@section.slug) %>
+    <% else %>
       <%= @collection.title %>
-    <% elsif @section %>
-      <%= link_to @section.title, gobierto_cms_path(@section.slug) %>
     <% end %>
   </strong>
 <% end %>

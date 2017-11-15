@@ -5,14 +5,10 @@ require "test_helper"
 module GobiertoCms
   class PageShowTest < ActionDispatch::IntegrationTest
     def page_path
-      @page_path ||= gobierto_cms_path(
+      @page_path ||= gobierto_cms_section_path(
         id: cms_page.slug,
         slug_section: section.slug
       )
-    end
-
-    def admin
-      @admin ||= gobierto_admin_admins(:nick)
     end
 
     def site

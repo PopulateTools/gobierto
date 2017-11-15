@@ -97,7 +97,7 @@ module GobiertoCms
           url_helpers.gobierto_participation_page_url({ id: slug, host: host }.merge(options))
         elsif section.present? || options[:section]
           options.delete(:section)
-          url_helpers.gobierto_cms_url({ id: slug, slug_section: section.slug, host: host }.merge(options))
+          url_helpers.gobierto_cms_section_item_url({ id: slug, slug_section: section.slug, host: host }.merge(options))
         else
           url_helpers.gobierto_cms_page_url({ id: slug }.merge(host: host).merge(options))
         end

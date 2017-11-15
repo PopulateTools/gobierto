@@ -13,7 +13,7 @@
       <%= t(".configuration") %>
     <% end %>
     <% if @first_page_in_section %>
-      <%= link_to gobierto_cms_path(@first_page_in_section.slug, slug_section: @section.slug), target: "_blank" do %>
+      <%= link_to gobierto_cms_section_item_path(@first_page_in_section.slug, slug_section: @section.slug), target: "_blank" do %>
         <i class="fa fa-link"></i>
         <%= t(".view") %>
       <% end %>

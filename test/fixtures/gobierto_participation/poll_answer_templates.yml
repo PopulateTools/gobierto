@@ -1,3 +1,5 @@
+## ordinance_of_terraces poll answers
+
 ordinance_of_terraces_single_choice_answer_template_yes:
   question: ordinance_of_terraces_single_choice
   text: Si
@@ -28,6 +30,8 @@ ordinance_of_terraces_multiple_choice_answer_template_characteristics:
   text: Características de los cenadores
   order: 3
 
+## public_space poll answers
+
 public_space_single_choice_answer_template_yes:
   question: public_spaces_single_choice
   text: Si
@@ -56,4 +60,31 @@ public_space_multiple_choice_answer_template_no:
 public_space_multiple_choice_answer_template_maybe:
   question: public_spaces_multiple_choice
   text: Maybe
+  order: 2
+
+## noise_problems poll answers
+
+noise_problems_single_choice_answer_template_yes:
+  question: noise_problems_single_choice
+  text: Si
+  order: 0
+
+noise_problems_single_choice_answer_template_no:
+  question: noise_problems_single_choice
+  text: 'No'
+  order: 1
+
+noise_problems_multiple_choice_answer_template_windows:
+  question: noise_problems_multiple_choice
+  text: Cierro las ventanas
+  order: 0
+
+noise_problems_multiple_choice_answer_template_earplugs:
+  question: noise_problems_multiple_choice
+  text: Uso tapones
+  order: 1
+
+noise_problems_multiple_choice_answer_template_fancy_headphones:
+  question: noise_problems_multiple_choice
+  text: Uso los cascos insonorizados que están de moda en la ofi
   order: 2

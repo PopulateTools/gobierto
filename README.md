@@ -65,6 +65,7 @@ Estas son algunas de las organizaciones que usan Gobierto:
 * [Diputación de Valencia](https://gobierto.es/blog/20161215-diputacion-de-valencia-gobierto.html)
 * [Sencelles](https://gobierto.es/blog/20170314-sencelles-consultas.html)
 * [Generalitat de Catalunya](https://gobierto.es/blog/20170126-generalitat-catalunya.html)
+* [Sant Feliu de Llobregat](https://pressupost.santfeliu.cat/)
 
 ## Quiénes somos
 
@@ -74,14 +75,13 @@ Gobierto es un producto de Populate, un estudio de diseño y tecnología en torn
 ## Comienza a usarlo
 
 * Puedes instalar Gobierto y personalizarlo para tu organización: [Instalación](#instalación) (inglés). Si te encuetras con alguna dificultad, [crea una _issue_](issues/new).
-* Populate ofrece servicios comerciales para la implementación de Gobierto. Si nos necesitas, [dános un toque](https://populate.tools/es/about/#como-trabajamos).
+* Populate ofrece servicios comerciales para la implementación de Gobierto. Si nos necesitas, [danos un toque](https://populate.tools/es/about/#como-trabajamos).
 
 
 ## Síguenos
 
-- Twitter: [@gobierto](https://twitter.com/gobierto) & [@populatetools](https://twitter.com/populatetools)
-- Web + Blog: [populate.tools/gobierto](http://populate.tools/gobierto)
-- Suscríbete: Puedes suscribirte a la [newsletter de Populate](http://links.populate.tools/) donde vamos contando casos de uso de Gobierto y las novedades más relevantes.
+- Twitter: [@gobierto](https://twitter.com/gobierto) & [@populate_](https://twitter.com/populate_)
+- Web + Blog: [gobierto.es(https://gobierto.es)
 
 ### Manuales
 

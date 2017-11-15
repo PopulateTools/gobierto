@@ -133,7 +133,7 @@ ca:
         go_back: Tornar
         no_events: No hi ha esdeveniments futurs ni passats.
         no_past_events: No hi ha evenesdeveniments passats.
-        no_upcoming_events: No hi ha evenesdeveniments futurs. Mira els pròxims evesdeveniments
+        no_upcoming_events: No hi ha evenesdeveniments futurs. Mira els propers evesdeveniments
         past_events: Esdeveniments passats
         subscribable_box:
           title: Rep un resum de les agendes dels teus representants
@@ -170,7 +170,7 @@ ca:
       index:
         events_summary:
           no_events: No hi ha evenesdeveniments
-          no_upcoming_events: No hi ha eveesdeveniments futurs. Mira els pròxims evenesdeveniments
+          no_upcoming_events: No hi ha eveesdeveniments futurs. Mira els propers evenesdeveniments
           past_events: Esdeveniments passats
           upcoming_events: Agenda
           view_all: Veure tots

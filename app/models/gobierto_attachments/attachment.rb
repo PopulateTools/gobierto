@@ -48,6 +48,8 @@ module GobiertoAttachments
     after_create :add_item_to_collection
     before_validation :update_file_attributes
 
+    scope :inverse_sorted, -> { order(id: :asc) }
+    scope :sorted, -> { order(id: :desc) }
     scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
 
     def content_type

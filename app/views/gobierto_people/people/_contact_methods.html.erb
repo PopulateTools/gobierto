@@ -32,6 +32,14 @@
       </li>
     <% end %>
 
+    <% if @person.instagram_url %>
+      <li>
+        <%= link_to @person.instagram_url, target: 'blank' do %>
+          <i class="fa fa-instagram"></i> <span><%= @person.instagram_handle %></span>
+        <% end %>
+      </li>
+    <% end %>
+
     <% if @person.email? %>
       <li>
         <%= link_to new_gobierto_people_person_messages_path(@person.slug), title: t('.send_email') do %>

@@ -13,7 +13,7 @@ ca:
           last: Última
           total_feedback: Total opinions
           understand: Ho entens?
-          you_think: Et pareix...
+          you_think: Et sembla...
       options:
         index:
           elaboration: Elaboració

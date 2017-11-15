@@ -8,4 +8,5 @@ ca:
         title: Títol
     models:
       gobierto_cms/news: Noticia
+      gobierto_cms/news_plural: Noticies
       gobierto_cms/page: Pàgina

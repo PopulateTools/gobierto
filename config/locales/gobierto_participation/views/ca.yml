@@ -223,7 +223,7 @@ ca:
       no_news: No hi ha notícies relacionades
       ongoing_processes: Processos en marxa
       participation: Participació
-      published_at: Publicat el %{date} pel %{site}
+      published_at: Publicat el %{date} per %{site}
     welcome:
       index:
         ask_the_mayor: Pregunta a l'alcalde

@@ -1,7 +1,6 @@
 <div class='admin_breadcrumb'>
   <%= link_to t('gobierto_admin.welcome.index.title'), admin_root_path %> »
   <%= link_to t('gobierto_admin.gobierto_participation.welcome.index.title'), admin_participation_path %> »
-  <%= link_to t('gobierto_admin.gobierto_participation.processes.index.title'), admin_participation_processes_path %> »
   <% if process %>
     <%= link_to process.title, edit_admin_participation_process_path(process) %> »
   <% end %>

@@ -19,8 +19,13 @@
       </div>
 
       <div class="form_item select_control">
+        <%= f.label :visibility_user_level %>
+        <%= f.select(:visibility_user_level, [[t('.registered'), 'registered'], [t('.verified'), 'verified']]) %>
+      </div>
+
+      <div class="form_item select_control">
         <%= f.label :contribution_type %>
-        <%= f.select(:contribution_type, [[t('.idea'), 'idea'], [t('.question'), 'question'], [t('.proposal'), 'proposal']], { include_blank: '-' }) %>
+        <%= f.select(:contribution_type, [[t('.idea'), 'idea'], [t('.question'), 'question'], [t('.proposal'), 'proposal']]) %>
       </div>
 
       <div class="pure-g">

@@ -299,7 +299,7 @@ es:
         debt_level: Nivel de endeudamiento
         description: El equipo de gobierno publica el borrador del presupuesto del
           próximo ejercicio para debatir en abierto con oposición y vecinos. Entre
-          todos podemos elaborar el presupuesto que más conviene a la ciudad.
+          todos podemos elaborar el presupuesto que más conviene a %{place_name}.
         diff_previous_year: vs. %{year}
         expenses_per_inhabitant: Gasto por habitante
         explore_the_detail: Explora el detalle

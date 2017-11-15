@@ -3,6 +3,10 @@
 module GobiertoParticipation
   module Processes
     class ContributionsController < BaseController
+      include User::VerificationHelper
+
+      before_action(only: [:new, :create]) { verify_user_in!(current_site) if find_contribution_container.visibility_user_level == "verified" }
+
       def new
         @contribution_container = find_contribution_container
         @contribution_form = ContributionForm.new(site_id: current_site.id)
@@ -50,10 +54,6 @@ module GobiertoParticipation
 
       def ignored_contribution_attributes
         %w(slug created_at updated_at)
-      end
-
-      def find_process
-        ::GobiertoParticipation::Process.find_by_slug!(params[:process_id])
       end
 
       def find_contribution

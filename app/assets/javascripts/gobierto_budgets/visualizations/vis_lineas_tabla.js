@@ -388,7 +388,7 @@ var VisLineasJ = Class.extend({
           .selectAll("th")
           .data(columns)
           .enter()
-        .append("th")
+          .append("th")
           .attr('title', function(column) { return column; })
           .attr('class', function(column) {
             if (column == 'dif') {
@@ -397,13 +397,13 @@ var VisLineasJ = Class.extend({
               return 'right year_header'
             }
           }.bind(this))
-          .text(function(column) {
-            if (column == 'dif') {
+          .html(function(column) {
+            if ((column == 'color') || (column == 'name')) {
+              return '<span style="display:none" aria-hidden="true">WCAG 2.0 AA</span>';
+            } else if (column == 'dif') {
               return I18n.t("gobierto_budgets.visualizations.previous_year_diff");
             } else if (column == 'value') {
               return this.dataYear.getFullYear();
-            } else {
-              return '';
             }
           }.bind(this));
 

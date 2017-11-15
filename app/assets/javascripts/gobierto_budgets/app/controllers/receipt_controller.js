@@ -33,7 +33,7 @@ this.GobiertoBudgets.ReceiptController = (function() {
         this.selected = Array(this.data.length).fill(0);
       },
       computed: {
-        total () {
+        total: function() {
           return _.sum(this.selected);
         }
       },

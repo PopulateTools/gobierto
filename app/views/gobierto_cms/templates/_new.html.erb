@@ -7,8 +7,8 @@
 
         <h4 class='with_light_separator m_t_1'><%= t('gobierto_participation.shared.documents') %></h4>
         <div class='document_list m_b_2'>
-          <% if page.attachments && page.attachments.any? %>
-            <% page.attachments.each do |attachment| %>
+          <% if @page.attachments && @page.attachments.any? %>
+            <% @page.attachments.each do |attachment| %>
               <div class='document'>
                 <%= link_to attachment.name , attachment.url, target: '_blank' %>
                 <div class='soft'>
@@ -26,15 +26,15 @@
 
       <div class='pure-u-1 pure-u-lg-2-3'>
         <article>
-          <h1><%= page.title %></h1>
+          <h1><%= @page.title %></h1>
           <div class='meta'>
             <time>
-              <%= l(page.updated_at, format: :long) %>
+              <%= l(@page.updated_at, format: :long) %>
             </time>
           </div>
-          <%= raw page.body %>
+          <%= raw @page.body %>
           <div class='note'>
-            <%= t('gobierto_participation.shared.published_at', date: l(page.updated_at, format: :long), site: current_site.name) %>
+            <%= t('gobierto_participation.shared.published_at', date: l(@page.updated_at, format: :long), site: current_site.name) %>
           </div>
         </article>
       </div>

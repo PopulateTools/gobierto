@@ -46,6 +46,12 @@ module GobiertoCms
       nil
     end
 
+    def section
+      if GobiertoCms::SectionItem.where(item: self).first
+        GobiertoCms::SectionItem.where(item: self).first.section
+      end
+    end
+
     def process
       GobiertoCommon::CollectionItem.where(item_id: id, item_type: %W(GobiertoCms::News GobiertoCms::Page), container_type: "GobiertoParticipation::Process").first.container
     end
@@ -70,18 +76,30 @@ module GobiertoCms
       where(id: ids, site: site)
     end
 
+    def self.first_page_in_section(section)
+      GobiertoCms::SectionItem.find_by!(section: section, position: 0, level: 0).item
+    end
+
     def attributes_for_slug
       [title]
     end
 
+    def resource_path
+      to_url
+    end
+
     def to_url(options = {})
+      host = site.domain
       if collection
         if collection.container_type == "GobiertoParticipation::Process"
-          url_helpers.gobierto_participation_process_page_url({ id: slug, process_id: collection.container.slug, host: app_host }.merge(options))
+          url_helpers.gobierto_participation_process_page_url({ id: slug, process_id: collection.container.slug, host: host }.merge(options))
         elsif collection.container_type == "GobiertoParticipation"
-          url_helpers.gobierto_participation_page_url({ id: slug, host: app_host }.merge(options))
+          url_helpers.gobierto_participation_page_url({ id: slug, host: host }.merge(options))
+        elsif section.present? || options[:section]
+          options.delete(:section)
+          url_helpers.gobierto_cms_section_item_url({ id: slug, slug_section: section.slug, host: host }.merge(options))
         else
-          url_helpers.gobierto_cms_page_url({ id: slug }.merge(host: app_host).merge(options))
+          url_helpers.gobierto_cms_page_url({ id: slug }.merge(host: host).merge(options))
         end
       end
     end

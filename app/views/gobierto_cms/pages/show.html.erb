@@ -3,8 +3,12 @@
 
 <% content_for :breadcrumb_current_item do %>
   <strong>
-    <%= @collection.title %>
+    <% if @section %>
+      <%= link_to @section.title, gobierto_cms_section_path(@section.slug) %>
+    <% else %>
+      <%= @collection.title %>
+    <% end %>
   </strong>
 <% end %>
 
-<%= render "gobierto_cms/templates/#{@page.template}", { page: @page } %>
+<%= render "gobierto_cms/templates/#{@page.template}" %>

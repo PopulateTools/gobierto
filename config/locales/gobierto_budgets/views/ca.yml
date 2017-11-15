@@ -247,7 +247,6 @@ ca:
         in_total: En total
         income: Ingressos
         inhabitants: Habitants
-        last_update: Última actualització
         less: menys
         level_1_category: Categoria nivell 1
         level_2_category: Categoria nivell 2
@@ -318,7 +317,6 @@ ca:
         explore_the_detail: Explora el detall
         header: Elaboració del pressupost
         in_total: En total
-        last_update: Dades actualitzades
         main_budget_levels_timeline: Compara despeses i ingressos any per any
         main_budget_lines: Els principals ingressos i despeses del teu ajuntament
         main_budget_lines_expense: Despeses
@@ -367,7 +365,6 @@ ca:
         functional_button: En què es gasta
         higher_execution: Més execució
         income_planned: Ingressos pressupostats
-        last_update: Última actualització
         lower_execution: Menys execució
         metric:
           execution:
@@ -473,6 +470,8 @@ ca:
         guide: Guia
         summary: Resum
     shared:
+      data_updated_at:
+        last_update: Última actualització
       enough_information:
         enough_information: Suficient informació?
         enough_information_cta: Demana al teu Ajuntament

@@ -24,7 +24,7 @@ module GobiertoAdmin
       end
 
       def person
-        @person ||= gobierto_people_people(:richard)
+        @person ||= gobierto_people_people(:hercules)
       end
 
       def test_list_of_collections
@@ -76,7 +76,6 @@ module GobiertoAdmin
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
-
               click_link "New"
 
               fill_in "collection_title_translations_en", with: "My collection"

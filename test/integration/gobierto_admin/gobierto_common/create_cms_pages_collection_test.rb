@@ -18,6 +18,10 @@ module GobiertoAdmin
         @site ||= sites(:madrid)
       end
 
+      def person
+        @person ||= gobierto_people_people(:hercules)
+      end
+
       def test_create_collection_errors
         with_javascript do
           with_signed_in_admin(admin) do
@@ -48,7 +52,7 @@ module GobiertoAdmin
 
               fill_in "collection_title_translations_en", with: "My collection"
               fill_in "collection_slug", with: "my-collection"
-              find("select#collection_container_global_id").find("option[value='#{site.to_global_id}']").select_option
+              find("select#collection_container_global_id").find("option[value='#{person.to_global_id}']").select_option
               find("select#collection_item_type").find("option[value='GobiertoCms::Page']").select_option
 
               click_link "ES"

@@ -461,6 +461,8 @@ es:
         guide: Guía
         summary: Resumen
     shared:
+      data_updated_at:
+        last_update: Datos actualizados
       enough_information:
         enough_information: "¿Suficiente información?"
         enough_information_cta: Pide a tu Ayuntamiento

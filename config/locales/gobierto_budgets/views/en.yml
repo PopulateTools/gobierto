@@ -451,6 +451,8 @@ en:
         guide: Guide
         summary: Summary
     shared:
+      data_updated_at:
+        last_update: Last update
       enough_information:
         enough_information: Enough information?
         enough_information_cta: Ask your municipality

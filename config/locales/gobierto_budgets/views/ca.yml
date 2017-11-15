@@ -473,6 +473,8 @@ ca:
         guide: Guia
         summary: Resum
     shared:
+      data_updated_at:
+        last_update: Última actualització
       enough_information:
         enough_information: Suficient informació?
         enough_information_cta: Demana al teu Ajuntament

@@ -22,14 +22,14 @@ this.GobiertoBudgets.ReceiptController = (function() {
     var app = new Vue({
       el: '#taxes_receipt',
       name: 'taxes-receipt',
-      data() {
+      data: function() {
         return {
           locale: I18n.locale,
           data: options.receiptConfiguration.budgets_simulation_sections || [],
           selected: []
         }
       },
-      mounted () {
+      mounted: function() {
         this.selected = Array(this.data.length).fill(0);
       },
       computed: {
@@ -42,7 +42,6 @@ this.GobiertoBudgets.ReceiptController = (function() {
           return attr['name_' + this.locale] || attr['name'];
         },
         ratio: function(percentage) {
-          console.log(percentage);
           return this.total * (percentage/100.0);
         },
         formatMoney: function(m) {

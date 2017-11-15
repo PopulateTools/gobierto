@@ -32,5 +32,5 @@ ca:
           placeholders:
             search: Escriu el títol de la pàgina per cercar
           sections: Seccions
-          select_page: Selecciona pàgina per incloure en la secció
-          view: Ver sección
+          select_page: Selecciona una pàgina per incloure en la secció
+          view: Veure secció

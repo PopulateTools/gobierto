@@ -81,6 +81,7 @@
 
     <table class="m_b_3">
       <tr>
+        <th></th>
         <th><%= t(".header.collection") %></th>
         <th><%= t(".header.pages") %></th>
         <th></th>
@@ -89,7 +90,12 @@
       <tbody>
         <% @collections.each do |collection| %>
           <tr id="collection-item-<%= collection.id %>">
-            <td><%= link_to collection.title, admin_common_collection_path(collection) %></td>
+            <td>
+              <%= link_to edit_admin_common_collection_path(collection, item_type: 'Page'), class: 'open_remote_modal' do %>
+                <i class="fa fa-edit"></i>
+              <% end %>
+            </td>
+            <td><%= link_to collection.title, admin_common_collection_path(collection) %> (<%= collection_context(collection) %>)</td>
             <td><%= ::GobiertoCms::Page.where(id: collection.pages_in_collection).size %></td>
             <td>
               <%= link_to admin_common_collection_path(collection), target: "_blank", class: "view_item" do %>

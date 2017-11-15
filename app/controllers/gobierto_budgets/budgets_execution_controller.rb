@@ -12,14 +12,14 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
     @top_possitive_difference_expending_economic, @top_negative_difference_expending_economic = GobiertoBudgets::BudgetLine.top_differences(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, type: 'economic')
     @top_possitive_difference_expending_functional, @top_negative_difference_expending_functional = GobiertoBudgets::BudgetLine.top_differences(ine_code: @place.id, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, type: 'functional')
 
-    @any_economic_income_budget_lines    = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::INCOME,  area: GobiertoBudgets::EconomicArea,   index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed)
-    @any_economic_expense_budget_lines   = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::EconomicArea,   index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed)
-    @any_functional_expense_budget_lines = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::FunctionalArea, index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed)
-    @any_custom_income_budget_lines      = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::INCOME,  area: GobiertoBudgets::CustomArea,     index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed)
-    @any_custom_expense_budget_lines     = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::CustomArea,     index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed)
+    @any_economic_income_budget_lines    = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::INCOME,  area: GobiertoBudgets::EconomicArea,   index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, year: @year)
+    @any_economic_expense_budget_lines   = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::EconomicArea,   index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, year: @year)
+    @any_functional_expense_budget_lines = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::FunctionalArea, index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, year: @year)
+    @any_custom_income_budget_lines      = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::INCOME,  area: GobiertoBudgets::CustomArea,     index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, year: @year)
+    @any_custom_expense_budget_lines     = GobiertoBudgets::BudgetLine.any_data?(site: current_site, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::CustomArea,     index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_executed, year: @year)
 
-    @several_expenses_filters = [@any_economic_expense_budget_lines, @any_functional_expense_budget_lines, @any_custom_expense_budget_lines].select{ |e| e }.size > 1
-    @several_income_filters   = [@any_economic_income_budget_lines, @any_custom_income_budget_lines].select{ |e| e }.size > 1
+    @several_expenses_filters = [@any_economic_expense_budget_lines, @any_functional_expense_budget_lines, @any_custom_expense_budget_lines].any?{ |e| e == true }
+    @several_income_filters   = [@any_economic_income_budget_lines, @any_custom_income_budget_lines].any?{ |e| e == true }
 
     @budgets_data_updated_at   = current_site.budgets_data_updated_at('execution')
     @budgets_execution_summary = GobiertoBudgets::SiteStats.new(site: current_site, year: @year).budgets_execution_summary

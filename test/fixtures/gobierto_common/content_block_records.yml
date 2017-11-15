@@ -3,6 +3,21 @@ contact_method_twitter:
   content_block: contact_methods
   payload: <%= { "service_name" => "Twitter", "service_handle" => "@richard", "service_url" => "https://twitter.com/richard", "service_notes" => "Richard's Twitter account" }.to_json %>
 
+contact_method_facebook:
+  content_context: richard (GobiertoPeople::Person)
+  content_block: contact_methods
+  payload: <%= { "service_name" => "Facebook", "service_handle" => "@richard", "service_url" => "https://facebook.com/richard", "service_notes" => "Richard's Facebook account" }.to_json %>
+
+contact_method_linkedin:
+  content_context: richard (GobiertoPeople::Person)
+  content_block: contact_methods
+  payload: <%= { "service_name" => "LinkedIn", "service_handle" => "@richard", "service_url" => "https://linkedin.com/richard", "service_notes" => "Richard's LinkedIn account" }.to_json %>
+
+contact_method_instagram:
+  content_context: richard (GobiertoPeople::Person)
+  content_block: contact_methods
+  payload: <%= { "service_name" => "Instagram", "service_handle" => "@richard", "service_url" => "https://instagram.com/richard", "service_notes" => "Richard's Instagram account" }.to_json %>
+
 contact_method_twitter_alternative:
   content_context: tamara (GobiertoPeople::Person)
   content_block: contact_methods

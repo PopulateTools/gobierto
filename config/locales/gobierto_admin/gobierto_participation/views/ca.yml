@@ -8,10 +8,21 @@ ca:
           contributions: Aportacions
           documents: Documents
           information: Informació
-          news: Notícies
+          news: Noticies
           polls: Enquestes
           stage: Procés
           votings: Votacions
       welcome:
         index:
+          element: Element
+          finishes_in: Acaba ...
+          group_process: Grup/Procés
+          groups_processes: Grups/ Processos
+          last_activity: Última activitat
+          new_process: Nou
+          next_elements_to_close: Elements propers a tancar
+          no_activities: No hi ha actualitzacions relacionades
           title: Participació
+          x_days:
+            one: 1 dia
+            other: "%{count} dies"

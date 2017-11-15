@@ -3,11 +3,10 @@
 module GobiertoParticipation
   module Processes
     class PollAnswersController < BaseController
-
       include User::VerificationHelper
 
       before_action :authenticate_user!
-      before_action { verify_user_in!(current_site) }
+      before_action { verify_user_in!(current_site) if current_poll.visibility_user_level == "verified" }
       before_action { check_active_stage(current_process, ProcessStage.stage_types[:polls]) }
 
       def new

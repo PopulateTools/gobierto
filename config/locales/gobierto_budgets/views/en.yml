@@ -295,7 +295,7 @@ en:
         debt_level: Debt level
         description: Government team publishes a draft of next year budget to discuss
           with the opposition and the citiziens. All together we can create the best
-          budget for the city.
+          budget for %{place_name}.
         diff_previous_year: Diff vs current year
         expenses_per_inhabitant: Expense per person
         explore_the_detail: Explore the details

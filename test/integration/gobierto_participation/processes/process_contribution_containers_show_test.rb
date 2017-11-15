@@ -130,12 +130,6 @@ module GobiertoParticipation
       with_javascript do
         with_current_site(site) do
           with_signed_in_user(user) do
-            visit process_path(process)
-
-            within ".container" do
-              assert has_content? process.title
-            end
-
             visit container_path
             assert has_content? "What activities for children we can start up?"
 
@@ -155,7 +149,6 @@ module GobiertoParticipation
       with_javascript do
         with_current_site(site) do
           with_signed_in_user(user) do
-            visit process_path(process)
             visit container_path
 
             page.find('[data-url="/participacion/p/ciudad-deportiva/aportaciones/children-contributions/contributions/carril-bici"]', visible: false).trigger("click")

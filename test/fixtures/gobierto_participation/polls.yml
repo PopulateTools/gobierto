@@ -11,6 +11,7 @@ ordinance_of_terraces_published:
   starts_at: <%= 2.days.ago %>
   ends_at: <%= 1.month.from_now %>
   visibility_level: <%= GobiertoParticipation::Poll.visibility_levels['published'] %>
+  visibility_user_level: <%= GobiertoParticipation::Poll.visibility_user_levels['registered'] %>
 
 pedestrianization_published:
   process: commission_for_carnival_festivities
@@ -25,6 +26,7 @@ pedestrianization_published:
   starts_at: <%= Time.zone.now %>
   ends_at: <%= 1.day.from_now %>
   visibility_level: <%= GobiertoParticipation::Poll.visibility_levels['published'] %>
+  visibility_user_level: <%= GobiertoParticipation::Poll.visibility_user_levels['registered'] %>
 
 schedules_draft:
   process: commission_for_carnival_festivities
@@ -39,6 +41,7 @@ schedules_draft:
   starts_at: <%= 3.days.ago %>
   ends_at: <%= 1.week.from_now %>
   visibility_level: <%= GobiertoParticipation::Poll.visibility_levels['draft'] %>
+  visibility_user_level: <%= GobiertoParticipation::Poll.visibility_user_levels['registered'] %>
 
 public_spaces_future:
   process: commission_for_carnival_festivities
@@ -53,6 +56,7 @@ public_spaces_future:
   starts_at: <%= 10.days.from_now %>
   ends_at: <%= 1.months.from_now %>
   visibility_level: <%= GobiertoParticipation::Poll.visibility_levels['published'] %>
+  visibility_user_level: <%= GobiertoParticipation::Poll.visibility_user_levels['registered'] %>
 
 noise_problems_past:
   process: commission_for_carnival_festivities
@@ -67,3 +71,4 @@ noise_problems_past:
   starts_at: <%= 2.months.ago %>
   ends_at: <%= 1.months.ago %>
   visibility_level: <%= GobiertoParticipation::Poll.visibility_levels['published'] %>
+  visibility_user_level: <%= GobiertoParticipation::Poll.visibility_user_levels['registered'] %>

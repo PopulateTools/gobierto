@@ -5,12 +5,12 @@ module GobiertoAdmin
     module Processes
       class ProcessInformationController < Processes::BaseController
         def edit
-          @process = find_process
+          @process = current_process
           @process_information_form = ProcessInformationForm.new(@process.attributes.except(*ignored_process_attributes).merge(site_id: current_site.id))
         end
 
         def update
-          @process = find_process
+          @process = current_process
           @process_information_form = ProcessInformationForm.new(process_params.merge(id: params[:id], site_id: current_site.id))
 
           if @process_information_form.save
@@ -25,15 +25,6 @@ module GobiertoAdmin
         end
 
         private
-
-        def find_process
-          current_site.processes.find(params[:process_id])
-        end
-
-        def current_process
-          @process
-        end
-        helper_method :current_process
 
         def process_params
           params.require(:process).permit(

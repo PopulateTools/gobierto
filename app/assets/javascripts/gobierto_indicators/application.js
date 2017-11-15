@@ -44,7 +44,7 @@ $(document).on('turbolinks:load', function() {
   var vis_unemplR = new VisUnemploymentRate('#unemployment_rate', window.populateData.municipalityId, window.populateData.ccaaId);
   vis_unemplR.render();
 
-  var vis_rent = new VisRentDistribution('#rent_distribution', window.populateData.municipalityId, window.populateData.year - 1);
+  var vis_rent = new VisRentDistribution('#rent_distribution', window.populateData.municipalityId, window.populateData.provinceId, window.populateData.year - 1);
   vis_rent.render();
 
   var popCard = new PopulationCard('.population_card', populateData.municipalityId);

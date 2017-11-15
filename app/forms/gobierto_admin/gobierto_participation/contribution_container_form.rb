@@ -15,7 +15,8 @@ module GobiertoAdmin
         :starts,
         :ends,
         :contribution_type,
-        :visibility_level
+        :visibility_level,
+        :visibility_user_level
       )
 
       delegate :persisted?, to: :contribution_container
@@ -43,6 +44,10 @@ module GobiertoAdmin
         @visibility_level ||= "draft"
       end
 
+      def visibility_user_level
+        @visibility_user_level ||= "registered"
+      end
+
       def contribution_type
         @contribution_type ||= "idea"
       end
@@ -68,6 +73,7 @@ module GobiertoAdmin
           contribution_container_attributes.ends = ends
           contribution_container_attributes.contribution_type = contribution_type
           contribution_container_attributes.visibility_level = visibility_level
+          contribution_container_attributes.visibility_user_level = visibility_user_level
         end
 
         if @contribution_container.valid?

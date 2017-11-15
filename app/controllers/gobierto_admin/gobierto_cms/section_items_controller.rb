@@ -73,8 +73,7 @@ module GobiertoAdmin
                                          level: level,
                                          parent_id: parent_id)
           unless node['children'].nil?
-            level += 1
-            children(node['children'], 0, level, node['id'])
+            children(node['children'], 0, level + 1, node['id'])
           end
           position += 1
         end

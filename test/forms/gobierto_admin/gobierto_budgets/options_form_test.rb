@@ -75,7 +75,8 @@ JSON
           site: site,
           elaboration_enabled: '1',
           budget_lines_feedback_enabled: '1',
-          receipt_enabled: '1'
+          receipt_enabled: '1',
+          receipt_configuration: ''
         )
       end
 

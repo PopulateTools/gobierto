@@ -71,10 +71,11 @@ module GobiertoAdmin
       end
 
       def receipt_configuration_format
-        return if receipt_configuration.blank?
+        return if receipt_configuration.blank? || receipt_configuration.is_a?(Hash)
+
         JSON.parse(receipt_configuration)
       rescue JSON::ParserError
-        errors.add :receipt_configuration, :invalid
+        errors.add :receipt_configuration, I18n.t('errors.messages.invalid')
       end
     end
   end

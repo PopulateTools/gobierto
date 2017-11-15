@@ -3,6 +3,11 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
 
   GobiertoCmsController.prototype.edit = function(sectionId, parentId, sectionItemId) {
     _sections(sectionId, parentId, sectionItemId);
+
+    if(sectionId != "null") {
+      $('.open_level_1').trigger('click');
+      $('#page_section').val(sectionId);
+    }
   };
 
   GobiertoCmsController.prototype.loadSections = function(sectionSelected) {
@@ -13,38 +18,36 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
   };
 
   function _sections(sectionId, parentId, sectionItemId) {
-    var $level1 = $('.level_1')
-    var $level2 = $('.level_2')
-    var $section = $('#page_section')
-    var $parent = $('#page_parent')
-
-    $( document ).ready(function() {
-      if(sectionId != "null") {
-        $('.open_level_1').trigger('click');
-        $level1.show();
-        $level2.show();
-      }
-    });
+    var $level1 = $('.level_1');
+    var $level2 = $('.level_2');
+    var $section = $('#page_section');
+    var $parent = $('#page_parent');
 
     $('.open_level_1').on('click', function(e){
       e.preventDefault();
+      if(sectionId != "null") {
+        getSections(sectionId)
+        $level1.show();
+        $level2.show();
+        populateParent(sectionId, parentId, sectionItemId);
 
-      // Sections
-      $level1.show();
-      getSections(sectionId)
-
-      // parent
-      if($('#page_section').val() == "") {
-        $level2.hide();
+      } else {
+        // Sections
+        $level1.show();
+        getSections(sectionId)
+        // parent
+        if($('#page_section').val() == "") {
+          $level2.hide();
+        } else {
+          $parent.empty();
+          $level2.show();
+          populateParent(sectionId, parentId, sectionItemId);
+        }
       }
-      $parent.empty();
-      populateParent(sectionId, parentId, sectionItemId);
-
     });
 
     $('#page_section').change(function(e){
       e.preventDefault();
-
       var section = $(this).val();
 
       if(section == "0") {
@@ -133,15 +136,11 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
 
           if(theOptions.length >= 1){
             // Create the container <div>
-            appendParents(theOptions, 0);
+            appendParents($parent, theOptions, 0);
 
             if (typeof parentId != "undefined" && parentId != "null") {
               $parent.val(parentId);
-              if(parentId == "0") {
-                $("#page_parent option:last").attr("disabled","disabled");
-              } else {
-                $('#page_parent option[value="' + sectionItemId + '"]').attr("disabled","disabled");
-              }
+              $('#page_parent option[value="' + sectionItemId + '"]').attr("disabled","disabled");
             } else {
               $parent.val($("#page_parent option:first").val());
               if (typeof parentId != "undefined" && parentId != "null") {
@@ -151,25 +150,21 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
           }
         }
       );
-    } else {
-      $parent.append('<option value="0">' + I18n.t('gobierto_admin.gobierto_cms.pages.form.without_parent') + '</option>');
     }
   }
 
-  function appendParents(nodes, level) {
-    var $parent = $('#page_parent')
-
+  function appendParents(parent, nodes, level) {
     // Add some <option>s
     numOptions = nodes.length;
     for (i = 0; i < numOptions; i++) {
         anOption = document.createElement('option');
         anOption.value = nodes[i]['id'];
         anOption.innerHTML = ("-".repeat(level)) + " " + nodes[i]['name'];
-
-        $parent.append(anOption);
+        parent.append(anOption);
         if(nodes[i].children.length >= 1) {
-          level += 1
-          appendParents(nodes[i].children, level)
+          var saveI = i;
+          appendParents(parent, nodes[i].children, level + 1)
+          i = saveI;
         }
     }
   }

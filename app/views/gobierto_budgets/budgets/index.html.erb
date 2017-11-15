@@ -23,11 +23,9 @@
 
         <p>
           <%= t('.description') %>
-
-          <% if @budgets_data_updated_at %>
-            <%= t('.last_update') %>: <%= l(@budgets_data_updated_at, format: '%d %B %Y') %>.
-          <% end %>
         </p>
+
+        <%= render('gobierto_budgets/shared/data_updated_at') %>
 
         <p class="m_v_0_25"><%= link_to t('.budget_guide'), gobierto_budgets_budgets_guide_path %>.</p>
       </div>

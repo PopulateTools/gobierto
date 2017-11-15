@@ -24,11 +24,7 @@
           <%= t('.description', place_name: current_site.place.name) %>
         </p>
 
-        <p>
-          <% if @budgets_data_updated_at %>
-            <strong><%= t('.last_update') %></strong>: <%= l(@budgets_data_updated_at, format: '%d %B %Y') %>.
-          <% end %>
-        </p>
+        <%= render('gobierto_budgets/shared/data_updated_at') %>
       </div>
 
       <div class="pure-u-1 pure-u-md-12-24 right">

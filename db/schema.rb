@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030120411) do
+ActiveRecord::Schema.define(version: 20171115151744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,7 +123,7 @@ ActiveRecord::Schema.define(version: 20171030120411) do
     t.bigint "container_id"
     t.string "item_type"
     t.string "slug", default: "", null: false
-    t.index ["container_type", "container_id"], name: "index_collections_on_container_type_and_container_id"
+    t.index ["container_id", "container_type", "item_type"], name: "index_collections_on_container_and_item_type", unique: true
     t.index ["site_id"], name: "index_collections_on_site_id"
   end
 

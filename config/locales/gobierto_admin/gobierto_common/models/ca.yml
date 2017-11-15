@@ -4,6 +4,7 @@ ca:
     attributes:
       gobierto_admin/gobierto_common/collection_form:
         container_global_id: Contenidor
+        container_id: Contenidor
         item_type: Tipus
         slug: URL
         title: Títol

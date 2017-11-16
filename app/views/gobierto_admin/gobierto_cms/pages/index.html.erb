@@ -86,6 +86,7 @@
         <th><%= t(".header.collection") %></th>
         <th><%= t(".header.pages") %></th>
         <th></th>
+        <th></th>
       </tr>
 
       <tbody>
@@ -97,7 +98,12 @@
               <% end %>
             </td>
             <td><%= link_to collection.title, admin_common_collection_path(collection) %> (<%= collection_context(collection) %>)</td>
-            <td><%= ::GobiertoCms::Page.where(id: collection.pages_in_collection).size %></td>
+            <td><%= ::GobiertoCms::Page.where(id: collection.pages_or_news_in_collection).size %></td>
+            <td>
+              <%= link_to new_admin_cms_page_path(collection_id: collection.id), target: "_blank", class: "view_item" do %>
+                <i class='fa fa-plus-circle'></i><%= t('.add_new') %> <%= collection.item_type.include?("News") ? t('activerecord.models.gobierto_cms/news') : t('activerecord.models.gobierto_cms/page') %>
+              <% end %>
+            </td>
             <td>
               <%= link_to admin_common_collection_path(collection), target: "_blank", class: "view_item" do %>
                 <i class="fa fa-eye"></i>

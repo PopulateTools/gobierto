@@ -17,6 +17,7 @@ es:
             draft: Borrador
           without_parent: "(sin padre)"
         index:
+          add_new: Añadir nueva
           collections: Colecciones
           header:
             collection: Colección

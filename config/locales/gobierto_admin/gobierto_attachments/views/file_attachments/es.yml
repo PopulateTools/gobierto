@@ -12,6 +12,7 @@ es:
             name: Nombre del documento
             slug: nombre-del-documento
         index:
+          add_new_attachment: Añadir nuevo documento
           collections: Colecciones
           header:
             collection: Colección

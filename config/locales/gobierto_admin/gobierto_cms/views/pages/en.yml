@@ -17,6 +17,7 @@ en:
             draft: Draft
           without_parent: "(without parent)"
         index:
+          add_new: Afegir nova
           collections: Collections
           header:
             collection: Collection

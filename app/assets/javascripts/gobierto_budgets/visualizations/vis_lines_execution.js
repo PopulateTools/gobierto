@@ -46,7 +46,6 @@ var VisLinesExecution = Class.extend({
       if (error) throw error;
 
       this.data = jsonData;
-      this.updated = this.parseTime(this.data.last_update);
 
       // Setting scales in a separate step, as we need the lines to set the height
       this.setScales();
@@ -254,78 +253,6 @@ var VisLinesExecution = Class.extend({
     legend.append('text')
       .attr('class', 'legend-value')
       .text(this.bigDeviation ? I18n.t('gobierto_budgets.budgets_execution.index.vis.percent_log') : I18n.t('gobierto_budgets.budgets_execution.index.vis.percent'));
-
-    /* Year progress line */
-    if (this.budgetYear == this.currentYear) {
-      var yearProgress = this.svg.append('g')
-        .attr('class', 'year_progress')
-        .attr('transform', 'translate(' + this.z(this.updated) + ',' + 0 + ')');
-
-      var yearArrow = yearProgress.append('g')
-        .attr('class', 'swoopy_arrow desktop_only')
-        .attr('fill', 'none')
-        .attr('transform', 'translate(-5, -40)');
-
-      yearArrow.append('path')
-        .attr('stroke', '#979797')
-        .attr('d', 'M6.12890625,30.7975072 C6.12890625,13.9746951 12.1289062,4.02519777 24.1289062,0.949015299');
-
-      yearArrow.append('polygon')
-        .attr('fill', '#979797')
-        .attr('points', '8.366 24.01 10.271 32.463 2.518 29.857')
-        .attr('transform', 'rotate(45 6.395 28.236)');
-
-      yearProgress.append('line')
-        .attr('y2', this.height + this.margin.bottom)
-        .attr('stroke', 'black');
-
-      // Tooltip group
-      var hovered = yearProgress.append('g')
-        .attr('class', 'tooltiped')
-        .attr('original-title', I18n.t('gobierto_budgets.budgets_execution.index.tooltip_disclaimer'))
-        .style('cursor', 'pointer');
-
-      hovered.append('text')
-        .attr('class', 'legend-text')
-        .attr('dx', this.isMobile ? 0 : 25)
-        .attr('dy', this.isMobile ? -25 : -38)
-        .attr('text-anchor', function() {
-          // If on a phone, adjust the alignment when we are closer to the end of the year
-          if (this.isMobile) {
-            return this.updated >= this.parseTime(this.currentYear + '-10-01') ? 'end' : 'middle';
-          }
-        }.bind(this))
-        .text(this.monthFormat(this.updated));
-
-      // Info icon
-      var info = hovered.append('g')
-        .attr('fill-rule', 'evenodd')
-        .attr('transform', function() {
-          var labelWidth = d3.select('.legend-text').node().getBoundingClientRect().width;
-
-          if (this.isMobile) {
-            return this.updated >= this.parseTime(this.currentYear + '-10-01') ? 'translate(' + (labelWidth - 58) + ',' + -36 + ')' : 'translate(' + (labelWidth - 26) + ',' + -36 + ')';
-          } else {
-            return 'translate(' + (labelWidth + 30) + ',' + -50 + ')';
-          }
-        }.bind(this));
-
-      info.append('path')
-        .attr('fill', '#00909E')
-        .attr('d', 'M8.5 9.7V8.5s0-.3-.2-.3h-.8v-4s0-.2-.2-.2H4.8c-.2 0-.3 0-.3.2v1.3s0 .2.3.2h.7v2.5h-.7c-.2 0-.3.2-.3.3v1.2c0 .2 0 .3.3.3h3.5s.2 0 .2-.3zm-1-7V1.5s0-.3-.2-.3H5.8c-.2 0-.3.2-.3.3v1.2c0 .2 0 .3.3.3h1.5s.2 0 .2-.3zm5 3.3c0 3.3-2.7 6-6 6s-6-2.7-6-6 2.7-6 6-6 6 2.7 6 6z');
-
-      info.append('path')
-        .attr('fill', '#fff')
-        .attr('d', 'M7.3 3H5.7s-.2 0-.2-.2V1.4s0-.2.2-.2h1.6s.2 0 .2.2v1.4s0 .2-.2.2zM7.3 5.7H4.7s-.2 0-.2-.2V4.2s0-.2.2-.2h2.6s.2 0 .2.2v1.3s0 .2-.2.2z');
-
-      info.append('path')
-        .attr('fill', '#fff')
-        .attr('d', 'M5.7 10h1.6s.2 0 .2-.2V5.6s0-.2-.2-.2H5.7s-.2 0-.2.2v4.2s0 .2.2.2z');
-
-      info.append('path')
-        .attr('fill', '#fff')
-        .attr('d', 'M8.6 9.8V8.4s0-.2-.2-.2H4.7s-.2 0-.2.2v1.4s0 .2.2.2h3.7s.2 0 .2-.2');
-    }
 
     /* Remove first tick */
     d3.selectAll('.x.axis .tick')

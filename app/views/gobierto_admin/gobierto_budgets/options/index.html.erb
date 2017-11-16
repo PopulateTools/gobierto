@@ -8,6 +8,7 @@
 
     <div class="form_item">
       <div class="options">
+
         <div class="option">
           <%= f.check_box :elaboration_enabled %>
           <%= f.label :elaboration_enabled do %>
@@ -30,14 +31,32 @@
             </div>
           <% end %>
         </div>
-      </div>
-    </div>
 
-    <div class="form_item input_text" data-toggle-target="feedback_enabled">
-      <%= f.label :feedback_emails %>
-      <%= f.text_field :feedback_emails %>
-      <div class="inline_help">
-        <%= t('.feedback_emails_desc') %>
+        <div class="form_item input_text" data-toggle-target="feedback_enabled">
+          <%= f.label :feedback_emails %>
+          <%= f.text_field :feedback_emails %>
+          <div class="inline_help">
+            <%= t('.feedback_emails_desc') %>
+          </div>
+        </div>
+
+        <div class="option">
+          <%= f.check_box :receipt_enabled, data: { toggle: "receipt_enabled" } %>
+          <%= f.label :receipt_enabled do %>
+            <span></span>
+            <%= t('.receipt') %>
+            <div class="inline_help">
+              <%= t('.receipt_desc1') %>
+              <%= t('.receipt_desc2_html') %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="form_item input_text" data-toggle-target="receipt_enabled">
+          <%= f.label :receipt_configuration %>
+          <%= f.text_area :receipt_configuration %>
+        </div>
+
       </div>
     </div>
   </div>

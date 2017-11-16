@@ -27,6 +27,10 @@ ca:
           feedback_emails_desc: Les participacions (opinió sobre partides i petició
             de més informació) s'enviaràn a aquesta direcció
           options: Opcions
+          receipt: Recibo de tus impuestos
+          receipt_desc1: Habilita la sección El recibo de tus impuestos
+          receipt_desc2_html: "<strong>Importante:</strong> debes de rellenar el JSON
+            con los datos."
       shared:
         tabs:
           budgets: Pressupost

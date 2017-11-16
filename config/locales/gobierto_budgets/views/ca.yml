@@ -148,7 +148,7 @@ ca:
         how_much_debt: Quant deu el municipi?
         how_much_debt_p1: El deute viu d'un municipi indica el que deu l'Ajuntament
           a bancs i altres entitats financeres. Cal no confondre’l amb el total del
-          dèficit del municipi (la diferència entre els ingressos i les despeses)
+          dèficit del municipi (la diferència entre els ingressos i les despeses).
         how_much_debt_p2: 
         how_much_debt_p3: 
         how_to_read: Com es llegeix?
@@ -468,7 +468,19 @@ ca:
         elaboration: Elaboració
         execution: Execució
         guide: Guia
+        receipt: Rebut
         summary: Resum
+    receipts:
+      show:
+        description: Part del pressupost del teu municipi se financia directament
+          d'impostos i taxes locals. Calcula quant aportes tu al pressupost d'acord
+          a la teva casa, vehicles...
+        detail: Detall de la teva contribució
+        pick_to_calculate: Selecciona per a calcular
+        share: Comparteix-ho
+        share_text: Comprova com és la teva aportació al pressupost de
+        title: Quina es la teva contribució al pressupost de l'%{site_name}?
+        your_contribution: La teva contribució als pressupostos de l'%{site_name}
     shared:
       data_updated_at:
         last_update: Última actualització

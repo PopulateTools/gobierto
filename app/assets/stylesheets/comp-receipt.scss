@@ -1,0 +1,216 @@
+.receipt {
+  background: #e5f3f5;
+  border-radius: 4px;
+
+  .padding {
+    padding: 1em;
+
+    @include min-screen(740) {
+      padding: 3em 3em 1em 3em;
+    }
+  }
+
+  .pure-u-1 {
+    padding: 0.5em;
+    box-sizing: border-box;
+  }
+
+  .receipt_item {
+    font-size: 1.25em;
+    background: #f2f9fa;
+    font-weight: 600;
+  }
+  .receipt_dropdown {
+    padding: 0.5em 0;
+    position: relative;
+    display: inline-block;
+    color: $color_main;
+
+    @include min-screen(740) {
+      padding: 0 0.5em;
+    }
+
+    select {
+      color: $color_text;
+      display: inline-block;
+      height: 44px;
+      width: 100%;
+      margin: 0;
+      padding: 0.5em 2.25em 0.5em 1em;
+      line-height: 1.5;
+      background-color: white;
+      border: 0;
+      border-radius: 4px;
+      cursor: pointer;
+      outline: 0;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border: 1px solid #aeaeae;
+    }
+
+    &:after {
+        position: absolute;
+        top: 50%;
+        right: 1.25rem;
+        display: inline-block;
+        content: "";
+        width: 0;
+        height: 0;
+        margin-top: -0.15em;
+        pointer-events: none;
+        border-top: 0.5em solid;
+        border-right: 0.5em solid transparent;
+        border-bottom: 0.5em solid transparent;
+        border-left: 0.5em solid transparent;
+      }
+  }
+  .receipt_separator {
+    display: none;
+
+    @include min-screen(740) {
+      display: block;
+      background-image: linear-gradient(to right, $color_main 33%, rgba(255,255,255,0) 0%);
+      background-position: bottom;
+      background-size: 7px 2px;
+      background-repeat: repeat-x;
+    }
+  }
+  .receipt_calc {
+    display: flex;
+    padding: 0.5em 0;
+
+    @include min-screen(740) {
+      padding: 0 0.5em;
+    }
+
+    .bg {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: flex-end;
+      background: #f2f9fa;
+      padding: 0 0.5em;
+
+      span {
+        font-size: 1.15em;
+      }
+    }
+  }
+
+  .receipt_result {
+    border-top: 1px solid #d7e2e4;
+    padding-top: 2em;
+    padding-bottom: 2em;
+
+    .pure-u-1 {
+      padding: 0;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.45em;
+      color: $color_headers;
+    }
+
+    .receipt_result_number {
+      margin-top: 0.5em;
+      font-size: 2em;
+
+      @include min-screen(740) {
+        margin-top: 0;
+        text-align: right;
+      }
+      // font-weight: 600;
+    }
+  }
+}
+
+.receipt_bill {
+  background: #e5f3f5;
+  border-radius: 4px;
+  padding: 1em;
+
+  @include min-screen(740) {
+    padding: 3em;
+  }
+
+  .bill_row {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-top: 1px solid #d7e2e4;
+    padding: 0.5em 0;
+    cursor: pointer;
+
+    &:hover > .line,
+    &:focus > .line,
+    &:active > .line {
+      text-decoration: underline;
+    }
+
+    &.toggled > .line {
+      text-decoration: underline;
+    }
+
+    .toggle {
+      left: -1.5em;
+      top: 0.85em;
+      border-radius: 50%;
+      height: 16px;
+      width: 16px;
+      background: $color_main;
+      color: white;
+      line-height: 13px;
+      text-align: center;
+      cursor: pointer;
+      margin-top: 0.35em;
+
+      @include min-screen(740) {
+        position: absolute;
+        margin-top: 0;
+      }
+
+      .fa {
+        font-size: 10px;
+        margin: 0;
+      }
+    }
+    .line {
+      font-weight: 600;
+      font-size: 1.15em;
+      flex-basis: 70%;
+    }
+    .figure {
+      opacity: 0.7;
+      font-size: 1.15em;
+    }
+    .children {
+      flex-basis: 100%;
+      margin-top: 0.5em;
+      cursor: auto;
+
+      .bill_row_child {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.75em;
+
+        @include min-screen(740) {
+          margin-bottom: 0.25em;
+        }
+
+        .line {
+          font-weight: 400;
+          text-transform: uppercase;
+          font-size: 1em;
+          opacity: 0.5;
+        }
+        .figure {
+          font-size: 1em;
+        }
+      }
+    }
+  }
+
+}

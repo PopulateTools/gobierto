@@ -446,7 +446,18 @@ en:
         elaboration: Elaboration
         execution: Execution
         guide: Guide
+        receipt: Receipt
         summary: Summary
+    receipts:
+      show:
+        description: Part of your municipality budget is obtained via taxes. Calculate
+          the amount depending on your house, car...
+        detail: Your contribution detail
+        pick_to_calculate: Pick to calculate
+        share: Share it
+        share_text: Check how much do you contribute to the budget of
+        title: Which is your contribution to %{site_name} budget?
+        your_contribution: Your contribution to %{site_name}
     shared:
       data_updated_at:
         last_update: Last update

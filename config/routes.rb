@@ -250,6 +250,7 @@ Rails.application.routes.draw do
       get "feedback/step3" => "feedback#step3", as: :feedback_step3
       post "feedback/follow" => "feedback#follow", as: :feedback_follow
       get "feedback/load_ask_more_information" => "feedback#load_ask_more_information", as: :feedback_load_ask_more_information
+      get "recibo" => "receipts#show", as: :receipt
 
       namespace :api do
         get "/categories" => "categories#index"

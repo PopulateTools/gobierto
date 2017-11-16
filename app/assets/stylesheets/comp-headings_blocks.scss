@@ -172,6 +172,15 @@ p.intro {
     margin-right: 1em;
   }
 }
+.medium_img {
+  height: auto;
+  max-width: 100%;
+
+  @include min-screen(1120) {
+    padding: 2em 0;
+    max-width: 500px;
+  }
+}    
 .content_block {
   text-align: left;
   position: relative;

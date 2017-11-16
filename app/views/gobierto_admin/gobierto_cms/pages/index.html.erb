@@ -1,6 +1,5 @@
 <div class="admin_breadcrumb">
   <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
-  <%= link_to t("gobierto_admin.layouts.application.cms"), admin_cms_pages_path %> »
   <%= t(".title") %>
 </div>
 
@@ -36,7 +35,7 @@
     <div class="pure-g">
 
       <div class="pure-u-1-2">
-        <h3 class="m_t_0">Secciones</h3>
+        <h3 class="m_t_0"><%= t('.sections') %></h3>
       </div>
 
       <div class="pure-u-1-2 admin_tools right" id="new-section">
@@ -61,9 +60,11 @@
             <%= section.section_items.size %>
           </td>
           <td>
-            <%= link_to "gobierto_participation_section_path(section.slug ,host: current_site.domain)", target: "_blank", class: "view_item" do %>
-              <i class="fa fa-eye"></i>
-              <%= t(".view_section") %>
+            <% unless section.section_items.size.zero? %>
+              <%= link_to gobierto_cms_section_item_path(::GobiertoCms::Page.first_page_in_section(section).slug, slug_section: section.slug), target: "_blank", class: "view_item" do %>
+                <i class="fa fa-eye"></i>
+                <%= t(".view_section") %>
+              <% end %>
             <% end %>
           </td>
         </tr>

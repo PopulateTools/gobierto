@@ -148,7 +148,7 @@ ca:
         how_much_debt: Quant deu el municipi?
         how_much_debt_p1: El deute viu d'un municipi indica el que deu l'Ajuntament
           a bancs i altres entitats financeres. Cal no confondre’l amb el total del
-          dèficit del municipi (la diferència entre els ingressos i les despeses)
+          dèficit del municipi (la diferència entre els ingressos i les despeses).
         how_much_debt_p2: 
         how_much_debt_p3: 
         how_to_read: Com es llegeix?
@@ -247,7 +247,6 @@ ca:
         in_total: En total
         income: Ingressos
         inhabitants: Habitants
-        last_update: Última actualització
         less: menys
         level_1_category: Categoria nivell 1
         level_2_category: Categoria nivell 2
@@ -318,7 +317,6 @@ ca:
         explore_the_detail: Explora el detall
         header: Elaboració del pressupost
         in_total: En total
-        last_update: Dades actualitzades
         main_budget_levels_timeline: Compara despeses i ingressos any per any
         main_budget_lines: Els principals ingressos i despeses del teu ajuntament
         main_budget_lines_expense: Despeses
@@ -367,7 +365,6 @@ ca:
         functional_button: En què es gasta
         higher_execution: Més execució
         income_planned: Ingressos pressupostats
-        last_update: Última actualització
         lower_execution: Menys execució
         metric:
           execution:
@@ -471,8 +468,22 @@ ca:
         elaboration: Elaboració
         execution: Execució
         guide: Guia
+        receipt: Rebut
         summary: Resum
+    receipts:
+      show:
+        description: Part del pressupost del teu municipi se financia directament
+          d'impostos i taxes locals. Calcula quant aportes tu al pressupost d'acord
+          a la teva casa, vehicles...
+        detail: Detall de la teva contribució
+        pick_to_calculate: Selecciona per a calcular
+        share: Comparteix-ho
+        share_text: Comprova com és la teva aportació al pressupost de
+        title: Quina es la teva contribució al pressupost de l'%{site_name}?
+        your_contribution: La teva contribució als pressupostos de l'%{site_name}
     shared:
+      data_updated_at:
+        last_update: Última actualització
       enough_information:
         enough_information: Suficient informació?
         enough_information_cta: Demana al teu Ajuntament

@@ -234,7 +234,6 @@ es:
         in_total: En total
         income: Ingresos
         inhabitants: Habitantes
-        last_update: Última actualización
         less: menos
         level_1_category: Categoría nivel 1
         level_2_category: Categoría nivel 2
@@ -305,7 +304,6 @@ es:
         explore_the_detail: Explora el detalle
         header: Elaboración del presupuesto
         in_total: En total
-        last_update: Datos actualizlados
         main_budget_levels_timeline: Compara gastos e ingresos año por año
         main_budget_lines: Los principales ingresos y gastos de tu ayuntamiento
         main_budget_lines_expense: Gastos
@@ -355,7 +353,6 @@ es:
         functional_button: En qué se gasta
         higher_execution: Mayor ejecución
         income_planned: Ingresos presupuestados
-        last_update: Última actualización
         lower_execution: Menor ejecución
         metric:
           execution:
@@ -459,8 +456,22 @@ es:
         elaboration: Elaboración
         execution: Ejecución
         guide: Guía
+        receipt: Recibo
         summary: Resumen
+    receipts:
+      show:
+        description: Parte del presupuesto de tu municipio se financia directamente
+          de impuestos y tasas locales. Calcula cuánto aportas tú al presupuesto de
+          acuerdo a tu vivienda, vehículos...
+        detail: Detalle de tu contribución
+        pick_to_calculate: Selecciona para calcular
+        share: Compártelo
+        share_text: Comprueba cual es tu aportación al presupuesto de
+        title: "¿Cuál es tu contribución al presupuesto del %{site_name}?"
+        your_contribution: Tu contribución a los presupuestos del %{site_name}
     shared:
+      data_updated_at:
+        last_update: Datos actualizados
       enough_information:
         enough_information: "¿Suficiente información?"
         enough_information_cta: Pide a tu Ayuntamiento

@@ -23,6 +23,7 @@ es:
             en el menú
         show:
           collapse: Colapsar todo
+          configuration: Configuración
           delete_element: Eliminar elemento del menú
           expand: Expandir todo
           help: Configura los elementos de tu menú. Arrastra del panel derecho al
@@ -32,3 +33,4 @@ es:
             search: Escribe el título de la página para buscar
           sections: Secciones
           select_page: Selecciona página para incluir en la sección
+          view: Ver sección

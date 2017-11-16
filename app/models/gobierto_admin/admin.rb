@@ -21,7 +21,6 @@ module GobiertoAdmin
     has_many :gobierto_budgets_permissions, class_name: 'Permission::GobiertoBudgets'
     has_many :gobierto_budget_consultations_permissions, class_name: 'Permission::GobiertoBudgetConsultations'
     has_many :gobierto_people_permissions, class_name: 'Permission::GobiertoPeople'
-    has_many :gobierto_cms_permissions, class_name: 'Permission::GobiertoCms'
     has_many :gobierto_indicators_permissions, class_name: 'Permission::GobiertoIndicators'
     has_many :gobierto_participation_permissions, class_name: 'Permission::GobiertoParticipation'
     has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"

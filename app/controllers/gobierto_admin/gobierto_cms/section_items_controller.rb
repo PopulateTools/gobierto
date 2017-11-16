@@ -8,7 +8,7 @@ module GobiertoAdmin
                                                  item_type: "GobiertoCms::Page",
                                                  item_id: params[:page_id],
                                                  parent_id: 0,
-                                                 position: ::GobiertoCms::SectionItem.without_parent.size,
+                                                 position: ::GobiertoCms::SectionItem.where(section_id: params[:section_id]).without_parent.size,
                                                  level: 0)
 
         if @section_item_form.save

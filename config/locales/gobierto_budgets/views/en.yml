@@ -231,7 +231,6 @@ en:
         in_total: Total
         income: Income
         inhabitants: Inhabitants
-        last_update: Last update
         less: less
         level_1_category: Level 1 category
         level_2_category: Level 2 category
@@ -301,7 +300,6 @@ en:
         explore_the_detail: Explore the details
         header: Budgets elaboration
         in_total: Total
-        last_update: Data updated
         main_budget_levels_timeline: Compare income and expenses year by year
         main_budget_lines: Main income and expenses from your council
         main_budget_lines_expense: Expense
@@ -348,7 +346,6 @@ en:
         functional_button: In what is spent
         higher_execution: Higher execution
         income_planned: Planned income
-        last_update: Last update
         lower_execution: Lower execution
         metric:
           execution:
@@ -449,8 +446,21 @@ en:
         elaboration: Elaboration
         execution: Execution
         guide: Guide
+        receipt: Receipt
         summary: Summary
+    receipts:
+      show:
+        description: Part of your municipality budget is obtained via taxes. Calculate
+          the amount depending on your house, car...
+        detail: Your contribution detail
+        pick_to_calculate: Pick to calculate
+        share: Share it
+        share_text: Check how much do you contribute to the budget of
+        title: Which is your contribution to %{site_name} budget?
+        your_contribution: Your contribution to %{site_name}
     shared:
+      data_updated_at:
+        last_update: Last update
       enough_information:
         enough_information: Enough information?
         enough_information_cta: Ask your municipality

@@ -26,6 +26,10 @@ en:
           feedback_emails_desc: The feedback (opinions about budget lines) will be
             sent to this email
           options: Options
+          receipt: Taxes receipt
+          receipt_desc1: Enable budgets taxes receipt section
+          receipt_desc2_html: "<strong>Important:</strong> it's necessary to fill
+            the JSON with the data."
       shared:
         tabs:
           budgets: Budgets

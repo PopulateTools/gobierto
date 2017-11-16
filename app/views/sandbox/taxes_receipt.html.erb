@@ -1,0 +1,223 @@
+<div class="column">
+  <div id="taxes_receipt" class="block">
+    <div class="pure-g header_block_inline m_b_1">
+      <div class="pure-u-1 pure-u-md-12-24">
+        <h2 class="with_description">¿Cuál es tu contribución al presupuesto del Ayuntamiento de Mataró?</h2>
+        <p>Parte del presupuesto de tu municipio se financia directamente de impuestos y tasas locales. Calcula cuánto aportas tú al presupuesto de acuerdo a tu vivienda, vehículos...</p>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-12-24 right">
+        <%= image_tag('illustrations/presupuestos.jpg', class: 'medium_img') %>
+      </div>
+    </div>
+
+    <div class="pure-g m_b_4">
+      <div class="pure-u-1">
+        <div class="receipt">
+          <div class="padding">
+
+            <div class="pure-g m_b_1" v-for="(row, index) in data">
+              <div class="pure-u-1 pure-u-md-5-24 receipt_item">{{ row.name }}</div>
+              <div class="pure-u-1 pure-u-md-10-24 receipt_dropdown">
+                <select name="select" v-model="selected[index]">
+                  <option :value="parseFloat(0)">Selecciona para calcular</option>
+                  <option :value="parseFloat(opt.value)" v-for="opt in row.options">{{ opt.name }}</option>
+                </select>
+              </div>
+              <div class="pure-u-1 pure-u-md-2-24 receipt_separator"></div>
+              <div class="pure-u-1 pure-u-md-7-24 receipt_calc">
+                <div class="bg">
+                  <span>{{ (selected[index] || 0).toLocaleString() }} €</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="padding receipt_result">
+            <div class="pure-g">
+              <div class="pure-u-1 pure-u-md-15-24"><h3>Tu contribución a los presupuestos del Ayuntamiento de Valencia</h3></div>
+              <div class="pure-u-1 pure-u-md-6-24 receipt_separator soft"></div>
+              <div class="pure-u-1 pure-u-md-3-24 receipt_result_number">{{ total.toLocaleString() }} €</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-1-3">
+        <h2 class="m_v_1">Detalle de tu contribución</h2>
+
+        <div class="desktop_only">
+          <p class="ib m_v_0 p_h_r_0_5">Compártelo</p>
+
+          <div class="social_links_container ib" data-share>
+            <a href="#" class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
+            <a href="#" class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
+            <% pending do %>
+              <a href="#embed-graph-code" class="code open_modal"><i class="fa fa-code"></i></a>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-2-3">
+        <div class="receipt_bill">
+          <% for i in [
+            'Bienestar comunitario',
+            'Seguridad y movilidad ciudadana',
+            'Deuda pública',
+            'Servicios de carácter general',
+            'Vivienda y urbanismo',
+            'Cultura'
+          ] %>
+            <div class="bill_row">
+              <div class="toggle"><i class="fa fa-plus"></i></div>
+              <div class="line"><%= i %></div>
+              <%# TODO: Replace Math.random by percentage %>
+              <div class="figure">{{ ratio(Math.random()).toLocaleString() }} €</div>
+
+              <div class="hidden children">
+
+                <% for i in [
+                  'Servicios sociales y promoción social',
+                  'Medio ambiente',
+                  'Transporte público',
+                  'Administración financiera y tributaria',
+                  'Educación',
+                  'Deporte',
+                  'Comercio, turismo y pequeñas y medianas empresas',
+                  'Órganos de gobierno',
+                  'Fomento del empleo',
+                  'Transferencias a otras administraciones públicas',
+                  'Infraestructuras',
+                  'Otras actuaciones de carácter económico',
+                  'Sanidad'
+                ] %>
+                  <div class="bill_row_child">
+                    <div class="line"><%= i %></div>
+                    <%# TODO: Replace Math.random by percentage %>
+                    <div class="figure">{{ ratio(Math.random()).toLocaleString() }} €</div>
+                  </div>
+                <% end %>
+
+              </div>
+            </div>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%# TODO: ESTE ES EL JSON DINAMICO %>
+<script type="text/javascript">
+  let data = {
+    "budgets_simulation_sections": [{
+        "name": "IBI",
+        "options": [{
+            "name": "Vivienda 80m2 en el centro",
+            "value": "377.29€"
+          },
+          {
+            "name": "Vivienda 130m2 en el centro",
+            "value": "582.13€"
+          },
+          {
+            "name": "Adosado en centro urbano",
+            "value": " 749.15€"
+          },
+          {
+            "name": "Vivienda unifamiliar en urbanización",
+            "value": "680.94€"
+          }
+        ]
+      },
+      {
+        "name": "Vehículo",
+        "options": [{
+            "name": "Coche pequeño",
+            "value": "59.81€"
+          },
+          {
+            "name": "Coche mediano",
+            "value": "128.92€"
+          },
+          {
+            "name": "Coche grande",
+            "value": "179.22€"
+          }
+        ]
+      },
+      {
+        "name": "Vehículo adicional",
+        "options": [{
+            "name": "Coche pequeño",
+            "value": "59.81€"
+          },
+          {
+            "name": "Coche mediano",
+            "value": "128.92€"
+          },
+          {
+            "name": "Coche grande",
+            "value": "179.22€"
+          }
+        ]
+      },
+      {
+        "name": "Vado de vehículos",
+        "options": [{
+            "name": "Garaje comunitario",
+            "value": "4€"
+          },
+          {
+            "name": "Vivienda individual",
+            "value": "40€"
+          }
+        ]
+      }
+    ]
+  }
+
+  var app = new Vue({
+    el: '#taxes_receipt',
+    name: 'taxes-receipt',
+    data() {
+      return {
+        data: data.budgets_simulation_sections || [],
+        selected: []
+      }
+    },
+    mounted () {
+      // Initialize array
+      this.selected = Array(this.data.length).fill(0)
+    },
+    computed: {
+      total () {
+        return _.sum(this.selected)
+      }
+    },
+    methods: {
+      ratio (percentage) {
+        // REVIEW: parseFloat and toFixed are no longer necessary when the percentage is a two-decimal number
+        return parseFloat((this.total * percentage).toFixed(2))
+      }
+    }
+  })
+</script>
+
+<script type="text/javascript">
+$('.bill_row').on('click', function() {
+  $(this)
+    .toggleClass('toggled')
+    .find('.fa').toggleClass('fa-plus fa-minus')
+    .parent().siblings('.children').toggleClass('hidden');
+}).find('.children').click(function(e) {
+  return false;
+});
+</script>

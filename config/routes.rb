@@ -250,6 +250,7 @@ Rails.application.routes.draw do
       get "feedback/step3" => "feedback#step3", as: :feedback_step3
       post "feedback/follow" => "feedback#follow", as: :feedback_follow
       get "feedback/load_ask_more_information" => "feedback#load_ask_more_information", as: :feedback_load_ask_more_information
+      get "recibo" => "receipts#show", as: :receipt
 
       namespace :api do
         get "/categories" => "categories#index"
@@ -272,9 +273,11 @@ Rails.application.routes.draw do
   end
 
   # Gobierto CMS module
-  namespace :gobierto_cms, path: "paginas" do
+  namespace :gobierto_cms, path: "" do
     constraints GobiertoSiteConstraint.new do
-      resources :pages, only: [:index, :show], path: ""
+      resources :pages, only: [:index, :show], path: "paginas"
+      get "/s/:slug_section/:id" => "pages#show", as: :section_item
+      get "/s/:slug_section" => "pages#show", as: :section
     end
   end
 

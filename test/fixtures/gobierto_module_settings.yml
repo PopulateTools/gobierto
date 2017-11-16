@@ -12,3 +12,11 @@ gobierto_people_settings_madrid:
     "ibm_notes_usr": SecretAttribute.encrypt("ibm-notes-usr"),
     "ibm_notes_pwd": SecretAttribute.encrypt("ibm-notes-pwd")
   }.to_json %>
+
+gobierto_budgets_settings_madrid:
+  site: madrid
+  module_name: "GobiertoBudgets"
+  settings: <%= {
+    "budgets_receipt_enabled": true,
+    "budgets_receipt_configuration": {"budgets_simulation_sections"=>[{"name"=>"IBI", "options"=>[{"name_en"=>"House 80m2 center", "name_ca"=>"Habitatge 80m2 al centre", "value"=>377.29}, {"name"=>"Vivienda 130m2 en el centro", "value"=>582.13}, {"name"=>"Adosado en centro urbano", "value"=>749.15}, {"name"=>"Vivienda unifamiliar en urbanización", "value"=>680.94}]}, {"name"=>"Vehículo", "options"=>[{"name"=>"Coche pequeño", "value"=>59.81}, {"name"=>"Coche mediano", "value"=>128.92}, {"name"=>"Coche grande", "value"=>179.22}]}, {"name"=>"Vehículo adicional", "options"=>[{"name"=>"Coche pequeño", "value"=>59.81}, {"name"=>"Coche mediano", "value"=>128.92}, {"name"=>"Coche grande", "value"=>179.22}]}, {"name"=>"Vado de vehículos", "options"=>[{"name"=>"Garaje comunitario", "value"=>5}, {"name"=>"Vivienda individual", "value"=>40}]}]}
+  }.to_json %>

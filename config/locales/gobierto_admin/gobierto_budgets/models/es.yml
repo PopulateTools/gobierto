@@ -4,5 +4,6 @@ es:
     attributes:
       gobierto_admin/gobierto_budgets/options_form:
         feedback_emails: Correo-e para recibir participaciones
+        receipt_configuration: Configuración del recibo
     models:
       gobierto_admin/gobierto_budgets/options_form: Opciones

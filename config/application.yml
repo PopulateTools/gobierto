@@ -21,9 +21,6 @@ default: &default
       name: Gobierto Indicators
       namespace: GobiertoIndicators
     -
-      name: Gobierto CMS
-      namespace: GobiertoCms
-    -
       name: Gobierto Participation
       namespace: GobiertoParticipation
   site_modules_with_root_path:

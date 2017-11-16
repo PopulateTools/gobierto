@@ -86,10 +86,6 @@ class Site < ApplicationRecord
     end
   end
 
-  def name
-    name_translations[I18n.locale.to_s].presence || title
-  end
-
   def calendar_integration
     if gobierto_people_settings
       case gobierto_people_settings.calendar_integration

@@ -73,6 +73,11 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
                 'globalized-form-container': 'true'
               }
             }
+          },
+          callbacks: {
+            ajaxContentAdded: function() {
+              window.GobiertoAdmin.globalized_forms_component.handleGlobalizedForm();
+            }
           }
         });
       } else if (section == "") {

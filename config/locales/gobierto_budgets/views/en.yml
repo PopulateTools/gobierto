@@ -458,6 +458,7 @@ en:
         detail: Your contribution detail
         pick_to_calculate: Pick to calculate
         share: Share it
+        share_text: Check how much do you contribute to the budget of
         title: Which is your contribution to %{site_name} budget?
         your_contribution: Your contribution to %{site_name}
     shared:

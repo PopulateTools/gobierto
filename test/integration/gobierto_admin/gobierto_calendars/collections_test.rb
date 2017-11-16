@@ -70,6 +70,42 @@ module GobiertoAdmin
           end
         end
       end
+
+      def test_person_events_collection
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+              visit @path
+              click_link "Richard calendar"
+
+              assert has_selector?("h1", text: person.name)
+              assert has_link?("< Back to agendas")
+
+              within ".sub_filter ul", match: :first do
+                assert has_selector?(
+                  ".all-events-filter",
+                  text: "All (#{person.events.count})"
+                )
+
+                assert has_selector?(
+                  ".pending-events-filter",
+                  text: "Moderation pending (#{person.events.pending.count})"
+                )
+
+                assert has_selector?(
+                  ".published-events-filter",
+                  text: "Published events (#{person.events.published.count})"
+                )
+
+                assert has_selector?(
+                  ".past-events-filter",
+                  text: "Past events (#{person.events.past.count})"
+                )
+              end
+            end
+          end
+        end
+      end
     end
   end
 end

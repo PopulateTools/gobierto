@@ -25,6 +25,10 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
 
     $('.open_level_1').on('click', function(e){
       e.preventDefault();
+
+      var checkbox = $(this).find('input:checkbox');
+      checkbox.prop('checked', !checkbox.prop('checked'));
+
       if(sectionId != "null") {
         getSections(sectionId)
         $level1.show();
@@ -99,7 +103,7 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
   }
 
   function appendSections(sections, sectionSelected) {
-    var $section = $('#page_section')
+    var $section = $('#page_section');
 
     $section.empty();
     numOptions = sections.length;

@@ -78,26 +78,6 @@ juana:
   email: juana@example.com
   google_calendar_token:
 
-hercules:
-  site: madrid
-  admin: tony
-  name: Hercules
-  slug: hercules
-  charge_translations: <%= { 'en' => 'Hero of Greece', 'es' => 'Héroe de Grecia' }.to_json %>
-  bio_translations: <%= {
-    'en' => 'Hero of Greece',
-    'es' => 'Héroe de Grecia'
-  }.to_json %>
-  bio_url: https://es.wikipedia.org/wiki/Heracles
-  avatar_url: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Hercules_Farnese_3637104088_9c95d7fe3c_b.jpg
-  visibility_level: <%= GobiertoPeople::Person.visibility_levels["active"] %>
-  category: <%= GobiertoPeople::Person.categories["executive"] %>
-  party:
-  political_group:
-  position: 5
-  email: hercules@example.com
-  google_calendar_token:
-
 kali:
   site: santander
   admin: tony

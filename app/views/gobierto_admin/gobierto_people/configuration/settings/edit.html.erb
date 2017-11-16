@@ -42,7 +42,7 @@
 
       <div class="form_item input_text ibm_notes_setting">
         <%= f.label :ibm_notes_usr, t(".ibm_notes_usr") %>
-        <%= f.text_field :ibm_notes_usr, value: @settings_form.dummy_ibm_notes_usr, placeholder: t(".placeholders.ibm_notes_usr"), autocomplete: "off" %>
+        <%= f.password_field :ibm_notes_usr, value: @settings_form.dummy_ibm_notes_usr, autocomplete: "off" %>
       </div>
 
       <div class="form_item input_text ibm_notes_setting">

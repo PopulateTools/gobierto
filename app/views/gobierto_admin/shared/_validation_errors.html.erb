@@ -2,7 +2,7 @@
   <div id="error_explanation" class="alert alert-danger">
     <ul>
       <% resource.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <li><%= message.html_safe %></li>
       <% end %>
     </ul>
   </div>

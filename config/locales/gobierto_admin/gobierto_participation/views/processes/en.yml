@@ -15,18 +15,18 @@ en:
             slug: ex. carnival-party-commission
             title: ex. Carnival Party Commission
           set_duration: Set duration
-        index:
-          new_process: New process / group
-          title: Processes and Groups
         new:
           title: New process / group
         process_contribution_containers:
-          create:
-            success_html: Container of contributions created correctly
           form:
+            idea: Idea
             placeholders:
               description: Ideas for activities for children.
               title: What activities for children can we launch?
+            proposal: Proposal
+            question: Question
+            registered: Registered
+            verified: Verified
           index:
             contributions_votes: Contributions / Votes
             end: Fin
@@ -52,16 +52,20 @@ en:
               moderate: Moderate
               published: Published
             votes: Votes
-          update:
-            success_html: Container of contributions updated correctly
+        process_file_attachments:
+          index:
+            configuration: Configuration
         process_information:
           edit:
-            title: Edit process
+            information: Information
           form:
             placeholders:
               information_text: Information
           update:
             success: Process was successfully updated
+        process_pages:
+          index:
+            configuration: Configuration
         process_stages:
           active: Active
           cancel: Cancel
@@ -69,6 +73,7 @@ en:
           edit_stage: Edit stage
           placeholders:
             body: ex. In this stage we intend ...
+            cta_text: ex. Add your idea
             title: ex. Main stage
           save: Save
           stages_and_tools: Stages and tools

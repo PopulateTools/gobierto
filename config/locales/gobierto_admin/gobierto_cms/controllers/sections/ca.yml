@@ -1,0 +1,11 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_cms:
+      sections:
+        create:
+          success_html: La secció ha estat creada correctament. <a href="%{link}">Veure
+            la secció</a>.
+        update:
+          success_html: La secció ha estat actualitzada correctament. <a href="%{link}">Veure
+            la secció</a>.

@@ -40,7 +40,7 @@ var VisLinesExecution = Class.extend({
       .attr('class', 'tooltip');
   },
   getData: function() {
-    this.dataUrl = '/api/data/widget/budget_execution_comparison/' + this.placeId + '/' + this.budgetYear + '/' + this.executionKind + '/' + this.budgetCategory + '.json';
+    this.dataUrl = '/presupuestos/api/data/widget/budget_execution_comparison/' + this.placeId + '/' + this.budgetYear + '/' + this.executionKind + '/' + this.budgetCategory + '.json';
 
     d3.json(this.dataUrl, function(error, jsonData) {
       if (error) throw error;
@@ -104,7 +104,7 @@ var VisLinesExecution = Class.extend({
       .key(function(d) { return d.parent_id;})
       .sortValues(function(a, b) {
         // Parent lines are the first for each group, and then child lines are sorted by execution rate
-        return a.level === 1 || b.level === 1 ? b.level - a.level : a.pct_executed - b.pct_executed;
+        return a.level === 1 || b.level === 1 ? b.level - a.level : b.id - a.id;
       })
       .entries(this.data.lines);
 
@@ -115,6 +115,9 @@ var VisLinesExecution = Class.extend({
 
       return d;
     });
+
+    if (this.data.lines.length === 0)
+      return false;
 
     // Sort by execution
     this.nested.sort(function(a ,b) { return a.group_pct - b.group_pct;});

@@ -51,7 +51,7 @@ var VisUnemploymentRate = Class.extend({
 
     var autonomousRegion = d3.json(this.autonomousRegionUrl)
       .header('authorization', 'Bearer ' + this.tbiToken)
-      
+
     var country = d3.json(this.countryUrl)
       .header('authorization', 'Bearer ' + this.tbiToken)
 
@@ -61,24 +61,24 @@ var VisUnemploymentRate = Class.extend({
       .defer(country.get)
       .await(function (error, jsonPlace, jsonAutonomousRegion, jsonCountry) {
         if (error) throw error;
-        
+
         jsonPlace.forEach(function(d) {
           d.location_type = 'place';
           d.date = this.parseTime(d.date);
         }.bind(this));
-        
+
         jsonAutonomousRegion.forEach(function(d) {
           d.location_type = 'autonomous_region';
           d.date = this.parseTime(d.date.slice(0, 7));
         }.bind(this));
-        
+
         jsonCountry.forEach(function(d) {
           d.location_type = 'country';
           d.date = this.parseTime(d.date.slice(0, 7));
         }.bind(this));
-        
+
         this.data = jsonPlace.concat(jsonAutonomousRegion, jsonCountry);
-        
+
         this.nest = d3.nest()
           .key(function(d) { return d.location_type; })
           .entries(this.data);
@@ -100,7 +100,7 @@ var VisUnemploymentRate = Class.extend({
     this.xScale
       .rangeRound([0, this.width])
       .domain([this.parseTime('2011-01'), d3.max(this.data, function(d) { return d.date; })]);
-    
+
     this.yScale
       .rangeRound([this.height, 0])
       .domain([4, d3.max(this.data, function(d) { return d.value; })]);
@@ -129,19 +129,19 @@ var VisUnemploymentRate = Class.extend({
     linesGroup.append('path')
       .attr('d', function(d) { d.line = this; return this.line(d.values); }.bind(this))
       .attr('stroke', function(d) { return this.color(d.key); }.bind(this));
-      
+
     linesGroup.append('circle')
      .attr('cx', function(d) { return this.xScale(d.values.map(function(d) { return d.date; }).slice(-1)[0]); }.bind(this))
      .attr('cy', function(d) { return this.yScale(d.values.map(function(d) { return d.value; }).slice(-1)[0]); }.bind(this))
      .attr('r', 5)
      .attr('fill', function(d) { return this.color(d.key); }.bind(this));
-     
+
     var linesText = d3.select(this.container).append('div')
       .attr('class', 'lines-labels')
       .selectAll('p')
       .data(this.nest, function(d) { return d.key; })
       .enter();
-      
+
     linesText.append('div')
       .style('right', '10px')
       .style('top', function(d) { return this.yScale(d.values.map(function(d) { return d.value; }).slice(-1)[0]) + 'px'; }.bind(this))
@@ -194,15 +194,15 @@ var VisUnemploymentRate = Class.extend({
     // X axis
     this.svg.select('.x.axis')
       .attr('transform', 'translate(0,' + this.height + ')');
-      
+
     this.xAxis
-      .ticks(2)
+      .ticks(4)
       .tickPadding(10)
       .tickSize(0, 0)
       .scale(this.xScale);
-    
+
     this.yAxis
-      .ticks(2)
+      .ticks(3)
       .tickSize(-this.width)
       .tickFormat(function(d) { return d + '%'; })
       .scale(this.yScale);
@@ -241,12 +241,12 @@ var VisUnemploymentRate = Class.extend({
   },
   _resize: function() {
     this.isMobile = window.innerWidth <= 768;
-    
+
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
     this.updateRender();
-    
+
     d3.select(this.container + ' svg')
       .attr('width', this.width + this.margin.left + this.margin.right)
       .attr('height', this.height + this.margin.top + this.margin.bottom);
@@ -256,11 +256,11 @@ var VisUnemploymentRate = Class.extend({
 
     this.svg.selectAll('.lines path')
       .attr('d', function(d) { d.line = this; return this.line(d.values); }.bind(this));
-      
+
     this.svg.selectAll('.lines circle')
       .attr('cx', function(d) { return this.xScale(d.values.map(function(d) { return d.date; }).slice(-1)[0]); }.bind(this))
       .attr('cy', function(d) { return this.yScale(d.values.map(function(d) { return d.value; }).slice(-1)[0]); }.bind(this));
-      
+
     d3.selectAll(this.container + ' .lines-labels div')
       .style('top', function(d) { return this.yScale(d.values.map(function(d) { return d.value; }).slice(-1)[0]) + 'px'; }.bind(this));
 

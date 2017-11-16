@@ -9,6 +9,10 @@ module GobiertoParticipation
       @path = gobierto_participation_issue_path(:culture)
     end
 
+    def user
+      @user ||= users(:peter)
+    end
+
     def site
       @site ||= sites(:madrid)
     end
@@ -57,7 +61,7 @@ module GobiertoParticipation
 
         within "menu.secondary_nav" do
           assert has_link? "News"
-          assert has_link? "Participation Agenda"
+          assert has_link? "Agenda"
           assert has_link? "Documents"
           assert has_link? "Activity"
         end
@@ -84,15 +88,13 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        click_link "Participation Agenda"
+        click_link "Agenda"
 
         assert_equal gobierto_participation_issue_events_path(issue_id: issue.slug), current_path
 
         within ".global_breadcrumb" do
           assert has_link? "Participation"
         end
-
-        assert has_link? "View all events"
       end
     end
 
@@ -129,11 +131,21 @@ module GobiertoParticipation
     end
 
     def test_subscription_block
-      with_current_site(site) do
-        visit @path
+      with_javascript do
+        with_current_site(site) do
+          with_signed_in_user(user) do
+            visit @path
 
-        within ".site_header" do
-          assert has_content? "Follow this process"
+            within ".site_header" do
+              assert has_link? "Follow theme"
+            end
+
+            click_on "Follow theme"
+            assert has_link? "Theme followed!"
+
+            click_on "Theme followed!"
+            assert has_link? "Follow theme"
+          end
         end
       end
     end
@@ -153,7 +165,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        assert_equal issue.active_pages(site).size, all(".place_news-item").size
+        assert_equal issue.active_pages.size, all(".place_news-item").size
       end
     end
 

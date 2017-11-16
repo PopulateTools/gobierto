@@ -32,6 +32,14 @@ module GobiertoPeople
       person_contact_method_for("LinkedIn", "service_url")
     end
 
+    def instagram_handle
+      person_contact_method_for("Instagram", "service_handle")
+    end
+
+    def instagram_url
+      person_contact_method_for("Instagram", "service_url")
+    end
+
     def trips_url
       person_custom_link_for('Viajes')
     end
@@ -54,14 +62,14 @@ module GobiertoPeople
 
     def person_custom_link_for(service_name)
       content_block = object.content_blocks.find_by(internal_id: GobiertoCommon::DynamicContent::CUSTOM_LINKS_BLOCK_ID)
-      payloads = content_block.records.pluck(:payload)
-      service_payload = payloads.detect { |payload| payload['service_name'] == service_name }
-      
-      if service_payload && valid_url?(service_payload['service_url'])
-        service_payload['service_url']
-      else
-        nil
+
+      if content_block
+        payloads = content_block.records.pluck(:payload)
+        service_payload = payloads.detect { |payload| payload['service_name'] == service_name }
+        return service_payload['service_url'] if service_payload && valid_url?(service_payload['service_url'])
       end
+
+      nil
     end
 
     def valid_url?(url)

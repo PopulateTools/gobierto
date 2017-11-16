@@ -8,3 +8,5 @@ children_contributions:
   contribution_type: <%= GobiertoParticipation::ContributionContainer.contribution_types[:idea] %>
   starts: <%= 3.days.ago %>
   ends: <%= 30.days.from_now %>
+  slug: children-contributions
+  visibility_user_level: <%= GobiertoParticipation::ContributionContainer.visibility_user_levels['registered'] %>

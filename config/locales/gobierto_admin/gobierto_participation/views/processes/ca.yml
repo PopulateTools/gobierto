@@ -15,18 +15,18 @@ ca:
             slug: ex. comissio-de-festes-de-carnaval
             title: ex. Comissió de Festes de Carnaval
           set_duration: Establir durada
-        index:
-          new_process: Nou procés o grup
-          title: Processos i Grups
         new:
           title: Nou procés o grup
         process_contribution_containers:
-          create:
-            success_html: Contenidor de contribucions creat correctament
           form:
+            idea: Idea
             placeholders:
               description: Idees for activities for children.
               title: Quines activitats per a nens podem posar en marxa?
+            proposal: Proposta
+            question: Pregunta
+            registered: Registrats
+            verified: Verificats
           index:
             contributions_votes: Aportacions / Valoracions
             end: Fi
@@ -52,16 +52,20 @@ ca:
               moderate: Moderada
               published: Publicada
             votes: Valoracions
-          update:
-            success_html: Contenidor de contribucions actualitzat correctament
+        process_file_attachments:
+          index:
+            configuration: Configuració
         process_information:
           edit:
-            title: Edita el procés
+            information: Informació
           form:
             placeholders:
               information_text: Informació
           update:
             success: Procés actualitzat correctament
+        process_pages:
+          index:
+            configuration: Configuració
         process_stages:
           active: Activa
           cancel: Cancel·lar
@@ -69,6 +73,7 @@ ca:
           edit_stage: Edita fase
           placeholders:
             body: ex. En aquesta fase es pretén ...
+            cta_text: ex. Aportar idea
             title: ex. Fase principal
           save: Guardar
           stages_and_tools: Fases i eines

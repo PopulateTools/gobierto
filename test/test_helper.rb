@@ -48,12 +48,19 @@ require "capybara/email"
 require "minitest/retry"
 require "vcr"
 require "mocha/mini_test"
+require "minitest/test_profile"
 
 I18n.locale = I18n.default_locale = :en
 Time.zone = "Madrid"
 
 Minitest::Retry.use! if ENV["RETRY_FAILING_TEST"]
-Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new(color: true)
+Minitest::Retry.on_failure do |klass, test_name|
+  Capybara.reset_session!
+end
+
+# Incompatible with test profile
+# Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new(color: true)
+Minitest::TestProfile.use!
 
 WebMock.disable_net_connect!(
   allow_localhost: true,
@@ -89,6 +96,7 @@ class ActionDispatch::IntegrationTest
   require "support/integration/matcher_helpers"
   require "support/integration/page_helpers"
   require "support/file_uploader_helpers"
+  require "support/permission_helpers"
 
   include Capybara::DSL
   include Integration::AuthenticationHelpers

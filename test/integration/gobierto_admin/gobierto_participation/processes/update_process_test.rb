@@ -37,7 +37,7 @@ module GobiertoAdmin
 
             assert has_message? 'Process was successfully updated'
 
-            visit admin_participation_processes_path
+            visit admin_participation_path
 
             assert has_content? 'Edited process title'
 
@@ -65,7 +65,7 @@ module GobiertoAdmin
 
             assert has_message? 'Process was successfully updated'
 
-            visit admin_participation_processes_path
+            visit admin_participation_path
 
             assert has_content? 'Edited group title'
 
@@ -89,6 +89,7 @@ module GobiertoAdmin
 
               within '#edit_stage_2' do
                 fill_in 'process_stages_attributes_2_title_translations_en', with: 'Polls stage title'
+                fill_in 'process_stages_attributes_2_cta_text_translations_en', with: 'Participate in polls!'
                 fill_in 'process_stages_attributes_2_starts', with: '2017-01-02'
                 fill_in 'process_stages_attributes_2_ends',   with: '2017-01-14'
               end
@@ -98,9 +99,10 @@ module GobiertoAdmin
 
             assert has_message? 'Process was successfully updated'
 
-            visit admin_participation_processes_path
+            visit admin_participation_path
 
             assert array_match %w(information meetings polls ideas results), process.stages.pluck(:stage_type)
+            assert_equal 'Participate in polls!', process.stages.polls.first.cta_text
           end
         end
       end
@@ -117,7 +119,7 @@ module GobiertoAdmin
 
             assert has_message? 'Process was successfully updated'
 
-            visit admin_participation_processes_path
+            visit admin_participation_path
 
             assert array_match %w(meetings ideas results), process.stages.active.pluck(:stage_type)
           end
@@ -149,7 +151,7 @@ module GobiertoAdmin
 
             assert has_message? 'Process was successfully updated'
 
-            visit admin_participation_processes_path
+            visit admin_participation_path
 
             information_stage = process.stages.find_by(stage_type: 'information')
             meetings_stage = process.stages.find_by(stage_type: 'meetings')

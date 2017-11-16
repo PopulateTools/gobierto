@@ -13,7 +13,7 @@ var TableCard = Class.extend({
     var parseDate = freq === 'daily' ? d3.timeParse('%Y-%m-%d') : freq === 'monthly' ? d3.timeParse('%Y-%m') : d3.timeParse('%Y');
     var parsedDate = parseDate(json.data[0].date);
     var formatDate = d3.timeFormat("%b %Y");
-    
+
     this.div.selectAll('.tw-sharer')
       .attr('target', '_blank')
       .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_indicators.cards.meta.where') + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(I18n.t('gobierto_indicators.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_indicators.cards.meta.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(nest[0].value.valueOne))  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
@@ -39,11 +39,11 @@ var TableCard = Class.extend({
     this.div.selectAll('.widget_title')
       .attr('title', I18n.t('gobierto_indicators.cards.' + cardName + '.title'))
       .text(I18n.t('gobierto_indicators.cards.' + cardName + '.title'));
-      
+
     var header = nest.map(function(d) {
       return I18n.t('gobierto_indicators.cards.' + cardName + '.' + this._normalize(d.value.column));
     }.bind(this));
-      
+
     var rows = nest.map(function(d) {
       return '<td>' + d.value.key + '</td> \
         <td class="right">' + this._printData(d.value.valueOne, this.dataTypeOne) + '</td> \
@@ -51,15 +51,17 @@ var TableCard = Class.extend({
     }.bind(this));
 
     var table = this.div.select('.widget_table');
-    
+
     table
       .selectAll('th')
       .data(header)
       .enter()
       .append('th')
       .attr('class', 'right')
-      .html(function(d) { return d; });
-    
+      .html(function(d) {
+        if (d === "") d = '<span style="display:none" aria-hidden="true">WCAG 2.0 AA</span>';
+        return d; });
+
     table
       .selectAll('tr')
       .data(rows)

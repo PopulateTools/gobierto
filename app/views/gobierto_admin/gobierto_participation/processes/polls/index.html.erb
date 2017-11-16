@@ -27,13 +27,14 @@
 
   <% @polls.each do |poll| %>
     <tr id="<%="poll-item-#{poll.id}"%>">
+      <% edit_poll_link_path = poll.results_available? ? admin_participation_process_poll_answers_path(current_process, poll) : edit_admin_participation_process_poll_path(current_process, poll) %>
       <td>
-        <%= link_to edit_admin_participation_process_poll_path(current_process, poll), data: { turbolinks: false } do %>
+        <%= link_to edit_poll_link_path, data: { turbolinks: false } do %>
           <i class='fa fa-edit'></i>
         <% end %>
       </td>
       <td>
-        <%= link_to poll.title, edit_admin_participation_process_poll_path(current_process, poll), data: { turbolinks: false } %>
+        <%= link_to poll.title, edit_poll_link_path, data: { turbolinks: false } %>
       </td>
       <td>
         <%= poll.unique_answers_count %>

@@ -7,9 +7,20 @@ module GobiertoCms
     before_action :find_page_by_id_and_redirect
 
     def show
-      @process = find_process if params[:process]
+      @section = find_section if params[:slug_section]
       @page = find_page
-      @groups = current_site.processes.group_process
+      if params[:process]
+        @process = find_process
+        @groups = current_site.processes.group_process
+      end
+
+      if @page
+        @section_item = find_section_item if params[:slug_section]
+        @collection = @page.collection
+        @pages = ::GobiertoCms::Page.where(id: @collection.pages_in_collection).active
+      elsif @section
+        redirect_to gobierto_cms_section_item_path(find_first_page_in_section.slug, slug_section: @section.slug)
+      end
     end
 
     def index
@@ -37,12 +48,26 @@ module GobiertoCms
       ::GobiertoParticipation::Process.find_by_slug!(params[:process])
     end
 
+    def find_section
+      current_site.sections.find_by!(slug: params[:slug_section])
+    end
+
+    def find_section_item
+      ::GobiertoCms::SectionItem.find_by!(item: @page, section: @section)
+    end
+
+    def find_first_page_in_section
+      ::GobiertoCms::Page.first_page_in_section(@section)
+    end
+
     def find_process_news
       @process.news.sort_by_updated_at(5)
     end
 
     def find_page
-      pages_scope.find_by!(slug: params[:id])
+      if params[:id]
+        pages_scope.find_by!(slug: params[:id])
+      end
     end
 
     def pages_scope

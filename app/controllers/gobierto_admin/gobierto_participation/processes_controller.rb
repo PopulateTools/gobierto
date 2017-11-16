@@ -1,16 +1,11 @@
 module GobiertoAdmin
   module GobiertoParticipation
-    class ProcessesController < BaseController
-      
+    class ProcessesController < GobiertoAdmin::BaseController
+
       before_action { module_enabled!(current_site,  'GobiertoParticipation') }
       before_action { module_allowed!(current_admin, 'GobiertoParticipation') }
 
       helper_method :gobierto_participation_process_preview_url
-
-      def index
-        @processes = current_site.processes.process
-        @groups    = current_site.processes.group_process
-      end
 
       def new
         @process_form = ProcessForm.new(site_id: current_site.id)
@@ -108,7 +103,8 @@ module GobiertoAdmin
             :ends,
             :active,
             title_translations: [*I18n.available_locales],
-            description_translations: [*I18n.available_locales]
+            description_translations: [*I18n.available_locales],
+            cta_text_translations: [*I18n.available_locales]
           ]
         )
       end

@@ -24,13 +24,13 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
 
-              click_link "New"
+              within "#new-page" do
+                click_link "New"
+              end
+
               click_button "Create"
 
               assert has_alert?("Title can't be blank")
-              assert has_alert?("URL can't be blank")
-              assert has_alert?("Type can't be blank")
-              assert has_alert?("Container can't be blank")
             end
           end
         end
@@ -42,7 +42,9 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
 
-              click_link "New"
+              within "#new-page" do
+                click_link "New"
+              end
 
               fill_in "collection_title_translations_en", with: "My collection"
               fill_in "collection_slug", with: "my-collection"

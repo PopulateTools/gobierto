@@ -14,7 +14,7 @@
         <% if @google_calendar_configuration.nil? %>
           <div class="form_item input_text">
             <p><%= t('.share_link') %></p>
-            <p><input type="text" name="google_calendar_invitation_url" value="<%= new_gobierto_people_google_calendar_authorization_url(token: @person.google_calendar_token) %>"/></p>
+            <p><input type="text" name="google_calendar_invitation_url" value="<%= new_gobierto_people_google_calendar_authorization_url(token: @person.google_calendar_token, host: ENV['BASE_HOST']) %>"/></p>
           </div>
         <% else %>
           <p><%= t('.calendar_configured') %>:</p>

@@ -9,4 +9,5 @@ class GobiertoBudgets::ApplicationController < ApplicationController
   layout "gobierto_budgets/layouts/application"
 
   before_action { module_enabled!(current_site, "GobiertoBudgets") }
+
 end

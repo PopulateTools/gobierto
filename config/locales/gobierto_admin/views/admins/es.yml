@@ -6,6 +6,7 @@ es:
         title: Editar Administrador
       form:
         activity_block: Log de actividad
+        all: Todas
         authorization_level:
           disabled: Deshabilitado
           manager: Manager

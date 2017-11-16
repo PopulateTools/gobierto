@@ -8,7 +8,7 @@ module GobiertoAdmin
 
       def setup
         super
-        @path = admin_participation_processes_path
+        @path = admin_participation_path
       end
 
       def admin
@@ -25,7 +25,7 @@ module GobiertoAdmin
             with_current_site(site) do
               visit @path
 
-              click_link 'New process / group'
+              click_link 'New'
 
               fill_in 'process_title_translations_en', with: 'New process title'
               fill_in 'process_body_translations_en', with: 'New process body'
@@ -50,10 +50,6 @@ module GobiertoAdmin
 
               assert has_message? 'Process was successfully created'
 
-              visit @path
-
-              assert has_content? 'New process title'
-
               process = site.processes.process.last
 
               assert_equal 'New process title', process.title
@@ -65,14 +61,13 @@ module GobiertoAdmin
 
               # check slug gets auto-filled in server
               assert_equal 'new-process-title', process.slug
-              
+
               # check empty stages are created
               assert_equal ::GobiertoParticipation::ProcessStage.stage_types.keys.size, process.stages.size
             end
           end
         end
       end
-
     end
   end
 end

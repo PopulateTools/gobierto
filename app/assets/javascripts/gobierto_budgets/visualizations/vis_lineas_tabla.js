@@ -48,6 +48,7 @@ var VisLineasJ = Class.extend({
     this.dataYear = null;
     this.dataTitle = null;
     this.lastYear = null;
+    this.maxYear = (new Date()).getFullYear();
 
     // Legend
     this.legendEvolution = d3.legendColor();
@@ -166,6 +167,10 @@ var VisLineasJ = Class.extend({
       this.kind = this.data.kind;
       this.dataYear = this.parseDate(this.data.year);
       this.lastYear = this.parseDate(this.data.year).getFullYear(); // For the mouseover interaction
+      if(this.lastYear > this.maxYear) {
+        this.dataYear = new Date(this.maxYear + "-01-01")
+        this.lastYear = this.maxYear;
+      }
       this.dataTitle = this.data.title;
 
       ////// Complete the dataTable.
@@ -383,7 +388,7 @@ var VisLineasJ = Class.extend({
           .selectAll("th")
           .data(columns)
           .enter()
-        .append("th")
+          .append("th")
           .attr('title', function(column) { return column; })
           .attr('class', function(column) {
             if (column == 'dif') {
@@ -392,13 +397,13 @@ var VisLineasJ = Class.extend({
               return 'right year_header'
             }
           }.bind(this))
-          .text(function(column) {
-            if (column == 'dif') {
+          .html(function(column) {
+            if ((column == 'color') || (column == 'name')) {
+              return '<span style="display:none" aria-hidden="true">WCAG 2.0 AA</span>';
+            } else if (column == 'dif') {
               return I18n.t("gobierto_budgets.visualizations.previous_year_diff");
             } else if (column == 'value') {
               return this.dataYear.getFullYear();
-            } else {
-              return '';
             }
           }.bind(this));
 

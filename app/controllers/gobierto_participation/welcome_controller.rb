@@ -4,7 +4,7 @@ module GobiertoParticipation
   class WelcomeController < GobiertoParticipation::ApplicationController
     def index
       @processes = current_site.processes.process.active
-      @issues = current_site.issues.alphabetically_sorted
+      @issues = current_site.issues
       @events = find_participation_events
       @news = find_participation_news
       @activities = find_participation_activities
@@ -13,11 +13,11 @@ module GobiertoParticipation
     private
 
     def find_participation_events
-      ::GobiertoCalendars::Event.events_in_collections_and_container_type(current_site, "GobiertoParticipation").sorted.upcoming.published.limit(4)
+      ::GobiertoCalendars::Event.events_in_collections_and_container_type(current_site, "GobiertoParticipation").sorted.upcoming.limit(4)
     end
 
     def find_participation_news
-      ::GobiertoCms::Page.pages_in_collections_and_container_type(current_site, "GobiertoParticipation").sorted.active.limit(5)
+      ::GobiertoCms::Page.pages_in_collections_and_container_type(current_site, "GobiertoParticipation").active.sorted.limit(5)
     end
 
     def find_participation_activities

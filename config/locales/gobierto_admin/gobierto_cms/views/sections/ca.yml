@@ -1,0 +1,36 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_cms:
+      sections:
+        edit_modal:
+          title: Editar secció
+        form:
+          placeholders:
+            slug: sobre-aquesta-seccio
+            title: Títol de la secció
+        index:
+          header:
+            pages: Pàgines
+            title: Secció
+          new: Nova
+          title: Seccions
+          view: Veure secció
+        new_modal:
+          title: Nova secció
+        pages_filter:
+          page_help: Arrossega i deixa anar a la part esquerra per col·locar aquesta
+            pàgina al menú
+        show:
+          collapse: Colapsar tot
+          configuration: Configuració
+          delete_element: Eliminar element del menú
+          expand: Expandir tot
+          help: Configureu els elements del vostre menú. Arrossega el tauler dret
+            al menú de la esquerra
+          last_edited_pages: Últimes pàgines editades
+          placeholders:
+            search: Escriu el títol de la pàgina per cercar
+          sections: Seccions
+          select_page: Selecciona una pàgina per incloure en la secció
+          view: Veure secció

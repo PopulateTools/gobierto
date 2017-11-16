@@ -1,0 +1,32 @@
+<%= render 'gobierto_admin/gobierto_budgets/shared/tabs' %>
+
+<p><%= t('.total_feedback') %>: <strong><%= @total %></strong></p>
+<p><%= t('.last') %>: <strong><%= time_ago_in_words @last_feedback.created_at %></strong></p>
+
+<table class="results_report">
+  <% @site_feedback.each do |year, values| %>
+    <% values.group_by(&:budget_line_id).each do |id, items| %>
+      <tr>
+        <td rowspan="2" class="budget">
+          <div class="budget"><strong><%= t('.budget') %> <%= year %></strong></div>
+          <div class="budget_line"><%= GobiertoBudgets::BudgetLinePresenter.load(id, current_site).name %></div>
+          <div class="num_opinions"><%= items.length %> opiniones</div>
+        </td>
+        <td colspan="4"><%= t('.understand') %></td>
+        <td colspan="6"><%= t('.you_think') %></td>
+      </tr>
+      <tr>
+        <td><%= t('.answer1_0') %></td>
+        <td><%= GobiertoBudgets::BudgetLineFeedback.stats(site: current_site, answer1: 0, id: id, year: year) %></td>
+        <td><%= t('.answer1_1') %></td>
+        <td><%= GobiertoBudgets::BudgetLineFeedback.stats(site: current_site, answer1: 1, id: id, year: year) %></td>
+        <td><%= t('.answer2_0') %></td>
+        <td><%= GobiertoBudgets::BudgetLineFeedback.stats(site: current_site, answer1: 0, answer2: 0, id: id, year: year) %></td>
+        <td><%= t('.answer2_1') %></td>
+        <td><%= GobiertoBudgets::BudgetLineFeedback.stats(site: current_site, answer1: 0, answer2: 1, id: id, year: year) %></td>
+        <td><%= t('.answer2_2') %></td>
+        <td><%= GobiertoBudgets::BudgetLineFeedback.stats(site: current_site, answer1: 0, answer2: 2, id: id, year: year) %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>

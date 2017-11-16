@@ -1,0 +1,131 @@
+<div class="block">
+  <h2 class="with_description"><%= t('gobierto_budgets.budgets_elaboration.index.metric_boxes_data') %></h2>
+  <p><%= t('gobierto_budgets.budgets_elaboration.index.metric_boxes_data_description') %></p>
+
+  <div class="tabs m_v_2">
+    <ul role="tablist" aria-label="<%= t('gobierto_budgets.budgets_elaboration.index.explore_the_detail') %>">
+      <li role="presentation" class="<%= class_if("active", @kind == GobiertoBudgets::BudgetLine::INCOME) %>">
+        <%= link_to(t('gobierto_budgets.budget_lines.explorer.income'), gobierto_budgets_budgets_elaboration_path(kind: GobiertoBudgets::BudgetLine::INCOME), remote: true) %>
+      </li>
+      <li role="presentation" class="<%= class_if("active", @kind == GobiertoBudgets::BudgetLine::EXPENSE) %>">
+        <%= link_to(t('gobierto_budgets.budget_lines.explorer.expenses'), gobierto_budgets_budgets_elaboration_path(kind: GobiertoBudgets::BudgetLine::EXPENSE), remote: true) %>
+      </li>
+    </ul>
+  </div>
+
+  <div class="highlight-proposal">
+    <p><span>&#9632;</span><%= t('gobierto_budgets.budgets_elaboration.index.next_year_proposal', year: @year) %></p>
+  </div>
+
+  <div class="pure-g metric_boxes">
+
+    <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
+      <!--  metric_box should be flexbox -->
+      <div class="inner">
+        <h3><%= t('gobierto_budgets.budgets_elaboration.index.expenses_per_inhabitant') %></h3>
+        <div class="metric"><%= format_currency @site_stats.total_budget_per_inhabitant %></div>
+        <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_budget_per_inhabitant) %> vs <%= @year - 1 %></div>
+      </div>
+    </div>
+
+    <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
+      <div class="inner">
+        <h3><%= t('gobierto_budgets.budgets_elaboration.index.total_expenses') %></h3>
+        <div class="metric"><%= format_currency @site_stats.total_budget %></div>
+        <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :total_budget) %> vs <%= @year - 1 %></div>
+      </div>
+    </div>
+
+    <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
+      <div class="inner">
+        <h3><%= t('gobierto_budgets.budgets_elaboration.index.net_savings') %></h3>
+        <div class="metric"><%= format_currency @site_stats.net_savings %></div>
+        <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :net_savings) %> vs <%= @year - 1 %></div>
+      </div>
+    </div>
+
+    <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
+      <div class="inner">
+        <h3><%= t('gobierto_budgets.budgets_elaboration.index.debt_level') %></h3>
+        <div class="metric"><%= format_currency @site_stats.debt_level %></div>
+        <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :debt_level) %> vs <%= @year - 1 %></div>
+      </div>
+    </div>
+
+    <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
+      <div class="inner">
+        <h3><%= t('gobierto_budgets.budgets_elaboration.index.auto_funding') %></h3>
+        <div class="metric"><%= format_currency @site_stats.auto_funding %></div>
+        <div class="diff"><%= @site_stats.percentage_difference(year1: @year, year2: @year - 1, variable1: :auto_funding) %> vs <%= @year - 1 %></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="block">
+
+  <div class="pure-menu pure-menu-horizontal pure-menu-horizontal--custom">
+    <ul class="pure-menu-list">
+      <% pending do %>
+        <li class="pure-menu-item <%= class_if("active", @area_name == GobiertoBudgets::CustomArea.area_name) %>">
+          <%= link_to(t('gobierto_budgets.budgets_elaboration.index.by_custom_category'), gobierto_budgets_budgets_elaboration_path(kind: @kind, area_name: GobiertoBudgets::CustomArea.area_name), remote: true, class: 'pure-menu-link') %>
+        </li>
+      <% end %>
+      <% if @kind == GobiertoBudgets::BudgetLine::EXPENSE %>
+        <li class="pure-menu-item <%= class_if("active", @area_name == GobiertoBudgets::EconomicArea.area_name) %>">
+          <%= link_to(t('gobierto_budgets.budgets_elaboration.index.by_economic_expense'), gobierto_budgets_budgets_elaboration_path(kind: @kind, area_name: GobiertoBudgets::EconomicArea.area_name), remote: true, class: 'pure-menu-link') %>
+        </li>
+        <li class="pure-menu-item <%= class_if("active", @area_name == GobiertoBudgets::FunctionalArea.area_name) %>">
+          <%= link_to(t('gobierto_budgets.budgets_elaboration.index.by_functional_expense'), gobierto_budgets_budgets_elaboration_path(kind: @kind, area_name: GobiertoBudgets::FunctionalArea.area_name), remote: true, class: 'pure-menu-link') %>
+        </li>
+      <% else %>
+        <li class="pure-menu-item <%= class_if("active", @area_name == GobiertoBudgets::EconomicArea.area_name) %>">
+          <%= link_to(t('gobierto_budgets.budgets_elaboration.index.by_economic_income'), gobierto_budgets_budgets_elaboration_path(kind: @kind, area_name: GobiertoBudgets::EconomicArea.area_name), remote: true, class: 'pure-menu-link') %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <% if @interesting_expenses.any? %>
+    <div class="graph" id="treemap" data-url="<%= gobierto_budgets_budget_lines_treemap_path(@year, kind: @kind, area_name: @area_name, level: 2, format: :json) %>"></div>
+  <% end %>
+
+  <% if @interesting_expenses.any? %>
+    <table class="explore_slow">
+      <thead>
+        <tr>
+          <th><span style="display:none" aria-hidden="true">WCAG 2.0 AA</span></th>
+          <th><span style="display:none" aria-hidden="true">WCAG 2.0 AA</span></th>
+          <th class="highlight-proposal" colspan="4">
+            <p class="left"><span>&#9632;</span><%= t('gobierto_budgets.budgets_elaboration.index.next_year_proposal', year: @year) %></p>
+          </th>
+        </tr>
+        <tr>
+          <th><span style="display:none" aria-hidden="true">WCAG 2.0 AA</span></th>
+          <th><span style="display:none" aria-hidden="true">WCAG 2.0 AA</span></th>
+          <th class="highlight-proposal"><%= t('gobierto_budgets.budgets_elaboration.index.category_value') %></th>
+          <th class="highlight-proposal"><%= t('gobierto_budgets.budgets_elaboration.index.category_percentage') %></th>
+          <th class="highlight-proposal"><%= t('gobierto_budgets.budgets_elaboration.index.diff_previous_year', year: @year - 1) %></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @interesting_expenses.group_by(&:parent_code).each do |parent_code, budget_lines| %>
+          <tr class="group">
+            <td class="level_1" rowspan="<%= budget_lines.count %>">
+              <%= budget_line_denomination @area_name, parent_code, @kind %>
+            </td>
+            <%= render partial: "gobierto_budgets/budgets/sub_budget_line", locals: {sub_budget_line: budget_lines.first, last_item: false} %>
+          </tr>
+          <% budget_lines[1..-1].each_with_index do |budget_line, i| %>
+            <tr>
+              <%= render partial: "gobierto_budgets/budgets/sub_budget_line", locals: {sub_budget_line: budget_line, last_item: (i == budget_lines.length - 2)} %>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p><%= t('gobierto_budgets.budgets_elaboration.index.no_data') %></p>
+  <% end %>
+</div>

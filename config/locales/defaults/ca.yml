@@ -37,6 +37,7 @@ ca:
     - Divendres
     - Dissabte
     formats:
+      day_month: "%d/%m"
       default: "%d-%m-%Y"
       long: "%d de %B de %Y"
       short: "%d de %b"
@@ -108,6 +109,8 @@ ca:
     format: "%{attribute} %{message}"
     messages:
       accepted: ha de ser acceptat
+      already_uploaded_html: has not been saved because it has already been uploaded
+        in the past. You can see it <a href="%{url}">here</a>.
       array_too_short: és massa curt (al menys %{count} element)
       blank: no pot estar en blanc
       blank_for_modules: ha de ser un municipi per que els moduls actius funcionin

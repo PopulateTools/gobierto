@@ -37,6 +37,8 @@ module GobiertoCalendars
     scope :synchronized, -> { where("external_id IS NOT NULL") }
     scope :by_date,  ->(date) { where("starts_at::date = ?", date) }
     scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
+    scope :inverse_sorted_by_id, -> { order(id: :asc) }
+    scope :sorted_by_id, -> { order(id: :desc) }
 
     scope :by_collection, ->(collection) do
       where(collection_id: collection.id)
@@ -65,12 +67,12 @@ module GobiertoCalendars
 
     def self.events_in_collections_and_container_type(site, container_type)
       ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCalendars::Event", container_type: container_type).pluck(:item_id)
-      where(id: ids, site: site)
+      where(id: ids, site: site).published
     end
 
     def self.events_in_collections_and_container(site, container)
       ids = GobiertoCommon::CollectionItem.where(item_type: "GobiertoCalendars::Event", container: container).pluck(:item_id)
-      where(id: ids, site: site)
+      where(id: ids, site: site).published
     end
 
     def parameterize

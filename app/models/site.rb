@@ -38,6 +38,7 @@ class Site < ApplicationRecord
 
   # Gobierto CMS integration
   has_many :pages, dependent: :destroy, class_name: "GobiertoCms::Page"
+  has_many :sections, dependent: :destroy, class_name: "GobiertoCms::Section"
 
   # Gobierto Attachments integration
   has_many :attachments, dependent: :destroy, class_name: "GobiertoAttachments::Attachment"
@@ -46,9 +47,12 @@ class Site < ApplicationRecord
   has_many :module_settings, dependent: :destroy, class_name: "GobiertoModuleSettings"
 
   # Gobierto Participation integration
-  has_many :issues, dependent: :destroy, class_name: "Issue"
+  has_many :issues, -> { sorted }, dependent: :destroy, class_name: "Issue"
   has_many :processes, dependent: :destroy, class_name: "GobiertoParticipation::Process"
   has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
+  has_many :contributions, dependent: :destroy, class_name: "GobiertoParticipation::Contribution"
+  has_many :comments, dependent: :destroy, class_name: "GobiertoParticipation::Comment"
+  has_many :flags, dependent: :destroy, class_name: "GobiertoParticipation::Flag"
 
   serialize :configuration_data
 
@@ -102,6 +106,12 @@ class Site < ApplicationRecord
   def gobierto_people_settings
     @gobierto_people_settings ||= if configuration.gobierto_people_enabled?
                                     module_settings.find_by(module_name: "GobiertoPeople")
+                                  end
+  end
+
+  def gobierto_budgets_settings
+    @gobierto_budgets_settings ||= if configuration.gobierto_budgets_enabled?
+                                    module_settings.find_by(module_name: "GobiertoBudgets")
                                   end
   end
 

@@ -98,6 +98,7 @@ module GobiertoPeople
           site_id: person.site_id,
           external_id: event.id,
           title: event.summary,
+          description: event.description,
           starts_at: event.start.date_time || DateTime.parse(event.start.date),
           ends_at: event.end.date_time || DateTime.parse(event.end.date),
           state: GobiertoCalendars::Event.states[:published],

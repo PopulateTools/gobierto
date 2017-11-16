@@ -26,19 +26,27 @@ module GobiertoPeople
     end
 
     def test_facebook_handle
-      assert_nil @subject.facebook_handle
+      assert_equal "@richard", @subject.facebook_handle
     end
 
     def test_facebook_url
-      assert_nil @subject.facebook_url
+      assert_equal "https://facebook.com/richard", @subject.facebook_url
     end
 
     def test_linkedin_handle
-      assert_nil @subject.linkedin_handle
+      assert_equal "@richard", @subject.linkedin_handle
     end
 
     def test_linkedin_url
-      assert_nil @subject.linkedin_url
+      assert_equal "https://linkedin.com/richard", @subject.linkedin_url
+    end
+
+    def test_instagram_handle
+      assert_equal "@richard", @subject.instagram_handle
+    end
+
+    def test_instagram_url
+      assert_equal "https://instagram.com/richard", @subject.instagram_url
     end
   end
 end

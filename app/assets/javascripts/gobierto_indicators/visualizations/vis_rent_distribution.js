@@ -1,14 +1,15 @@
 'use strict';
 
 var VisRentDistribution = Class.extend({
-  init: function(divId, city_id, current_year) {
+  init: function(divId, city_id, province_id, current_year) {
     this.container = divId;
     this.cityId = city_id;
+    this.provinceId = province_id;
     this.currentYear = (current_year !== undefined) ? parseInt(current_year) : null;
     this.data = null;
     this.tbiToken = window.populateData.token;
-    this.rentUrl = window.populateData.endpoint + '/datasets/ds-renta-bruta-media-municipal.json?include=municipality&filter_by_province_id=' + this.cityId.slice(0, 2);
-    this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal.json?filter_by_year=' + this.currentYear + '&filter_by_province_id=' + this.cityId.slice(0, 2);
+    this.rentUrl = window.populateData.endpoint + '/datasets/ds-renta-bruta-media-municipal.json?include=municipality&filter_by_province_id=' + this.provinceId;
+    this.popUrl = window.populateData.endpoint + '/datasets/ds-poblacion-municipal.json?filter_by_year=' + this.currentYear + '&filter_by_province_id=' + this.provinceId;
     this.formatThousand = d3.format(',.0f');
     this.isMobile = window.innerWidth <= 768;
 
@@ -123,9 +124,9 @@ var VisRentDistribution = Class.extend({
     // Add name of the current city
     var cityLabel = this.svg.append('g')
       .attr('class', 'text-label');
-      
+
     // cityLabel.append()
-    
+
     cityLabel.selectAll('text')
       .data(this.data)
       .enter()
@@ -137,7 +138,7 @@ var VisRentDistribution = Class.extend({
       .attr('dx', -15)
       .attr('text-anchor', 'end')
       .text(function(d) { return d.municipality_name });
-    
+
   },
   _renderVoronoi: function() {
     // Create voronoi
@@ -199,9 +200,9 @@ var VisRentDistribution = Class.extend({
     } else {
       var coords = d3.mouse(d3.select(this.container)._groups[0][0]);
       var x = coords[0], y = coords[1];
-      
+
       this.tooltip.style('top', (y + 23) + 'px');
-      
+
       if (x > 900) {
         // Move tooltip to the left side
         return this.tooltip.style('left', (x - 200) + 'px');
@@ -229,7 +230,7 @@ var VisRentDistribution = Class.extend({
       .tickSize(-this.height)
       .scale(this.xScale)
       .tickFormat(this._formatNumberX.bind(this));
-    
+
     this.svg.select('.x.axis').call(this.xAxis);
 
     // Y axis
@@ -241,7 +242,7 @@ var VisRentDistribution = Class.extend({
       .ticks(this.isMobile ? 3 : 4)
       .tickSize(-this.width)
       .tickFormat(this._formatNumberY.bind(this));
-    
+
     this.svg.select('.y.axis').call(this.yAxis);
 
     // Place y axis labels on top of ticks
@@ -299,10 +300,10 @@ var VisRentDistribution = Class.extend({
     this.svg.select('.text-label text')
       .attr('x', function(d) { return this.xScale(d.value); }.bind(this))
       .attr('y', function(d) { return this.yScale(d.rent); }.bind(this));
-    
+
     this.svg.selectAll('.rent-anno')
       .attr('x', this.width - 65);
-    
+
     if (this.voronoi) {
       this.voronoi
         .extent([[0, 0], [this.width, this.height]]);

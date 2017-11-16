@@ -6,7 +6,6 @@ module GobiertoAdmin
 
     def index
       @issues = current_site.issues.sorted
-
       @issue_form = IssueForm.new(site_id: current_site.id)
     end
 

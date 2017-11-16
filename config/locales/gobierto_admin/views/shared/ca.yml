@@ -16,12 +16,13 @@ ca:
         no_docs: No hi ha documents
         or: o
         save: Desar
-        search: Buscar
+        search: Cercar
         select_file: Tria un arxiu del disc dur
       form_locale_switchers:
         define_content_in_locale: Defineix el contingut en la versió en %{locale_name}
         translate: Traduxir
       save_widget:
+        save: Guardar
         visibility_level:
           active: Públic
           draft: Borrador

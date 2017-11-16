@@ -17,6 +17,11 @@ $(document).on('turbolinks:load', function() {
     window.expenseTreemap.render($('#expense-treemap').data('functional-url'));
   }
 
+  if($('#treemap').length && !$('#treemap svg').length){
+    window.expenseTreemap = new TreemapVis('#treemap', 'big', true);
+    window.expenseTreemap.render($('#treemap').data('url'));
+  }
+
   if($('.vis-bubbles-expense').length && $('.vis-bubbles-income').length && !$('.vis-bubbles-expense svg').length && !$('.vis-bubbles-income svg').length) {
     var getBubbleData = new getBudgetLevelData();
 

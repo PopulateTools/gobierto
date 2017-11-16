@@ -1,0 +1,8 @@
+---
+en:
+  gobierto_admin:
+    gobierto_budgets:
+      options:
+        update:
+          error: 'Settings couldn''t be saved: %{validation_errors}'
+          success: Settings saved successfully

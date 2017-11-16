@@ -90,16 +90,6 @@ module GobiertoPeople
         end
       end
 
-      def test_subscription_block
-        with_current_site(site) do
-          visit @path
-
-          within ".subscribable-box", match: :first do
-            assert has_button?("Subscribe")
-          end
-        end
-      end
-
       def test_person_events_index_pagination
         # SKIP: with_javascript is causing concurrency problems with the create_event() helper, since this
         # events are not visible form the test. A solution is to use fixtures as in other test in this file,

@@ -1,11 +1,10 @@
 <div class='news_teaser'>
   <h3>
-    <% if @issue %>
-    <%= link_to page.title , gobierto_participation_issue_page_path(id: page.slug, issue_id: @issue.slug) %>
-    <% elsif try(:current_process).present? %>
-      <%= link_to page.title , gobierto_participation_process_page_path(id: page.slug, process_id: current_process.slug) %>
+    <% if try(:current_process).present? || page.process %>
+      <% current_process ||= page.process %>
+      <%= link_to page.title, gobierto_participation_process_page_path(id: page.slug, process_id: current_process.slug) %>
     <% elsif current_module == "gobierto_participation" %>
-      <%= link_to page.title , gobierto_participation_page_path(id: page.slug) %>
+      <%= link_to page.title, gobierto_participation_page_path(id: page.slug) %>
     <% end %>
   </h3>
 

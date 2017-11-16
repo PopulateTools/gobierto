@@ -1,13 +1,16 @@
 //= require trix
 //= require jquery.geocomplete
+//= require jquery.autocomplete
 //= require cleave
 //= require tipsy
+//= require tree.jquery
 //= require air-datepicker/datepicker.min
 //= require air-datepicker/i18n/datepicker.es
 //= require air-datepicker/i18n/datepicker.en
 //= require air-datepicker/i18n/datepicker.ca
 //= require ./trix_events
 //= require ./trix_toolbar
+//= require ./module-admin-search
 //= require ./app/init
 //= require sticky-kit.min
 //= require_tree ./app
@@ -39,6 +42,17 @@ $(document).on('turbolinks:load', function() {
   $('a[data-disabled]').on('click', function(e){
     e.preventDefault();
   });
+
+  var $autocomplete = $('[data-autocomplete]');
+
+  var searchOptions = {
+    serviceUrl: $autocomplete.data('autocomplete'),
+    onSelect: function(suggestion) {
+      Turbolinks.visit(suggestion.data.url);
+    }
+  };
+
+  $autocomplete.autocomplete($.extend({}, AUTOCOMPLETE_DEFAULTS, searchOptions));
 
 });
 

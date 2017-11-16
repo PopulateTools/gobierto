@@ -78,6 +78,10 @@ input[type=text]:focus, input[type=email]:focus, input[type=submit]:focus, input
     border: none;
     height: initial;
   }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 }
 input[type=submit], .button, button {
   @include transition;
@@ -103,7 +107,7 @@ input[type=submit].button {
 input[type=submit]:hover, .button:hover, button:hover {
   background: darken($color_main, 10%);
 }
-button a, a.button {
+button a, a.button, .button {
   color: #FFF;
   text-decoration: none;
 }
@@ -368,10 +372,16 @@ option, select {
 .option {
 	padding: 0;
   position: relative;
+  .inline_help {
+    margin-left: 2.6em;
+  }
 }
 .option.separate {
   margin-top: 1em;
   padding-top: 1em;
+}
+.option_suboptions {
+  padding: 0 0 0 3em;
 }
 .form_item.input_text, .form_item.textarea, .select_control, .file_field {
   position: relative;
@@ -404,7 +414,21 @@ option, select {
   border: 1px solid $color_separator;
   @include border-radius(6px);
   select {
-    margin: 1.75rem 0 0 0;
+    margin: 1rem 0 0 0;
+    padding: 20px 0 13px 13px;
+    height: 56px;
+    outline: none;
+  }
+  select::-moz-focus-inner {
+    border: 0;
+    outline: none;
+  }
+  option {
+    display: block;
+    height: initial;
+    padding: 7px 13px;
+    font-size: 14px;
+    outline: none;
   }
 }
 .options_cont {

@@ -1,10 +1,6 @@
 .vis-bubbles {
   position: relative;
-  margin-bottom: 1em;
-
-  @include min-screen(740) {
-    margin-bottom: 0;
-  }
+  margin-bottom: 0;
 
   svg {
     overflow: visible;

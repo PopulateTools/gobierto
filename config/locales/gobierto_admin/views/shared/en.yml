@@ -22,6 +22,7 @@ en:
         define_content_in_locale: Define the content in %{locale_name} version
         translate: Translate
       save_widget:
+        save: Save
         visibility_level:
           active: Published
           draft: Draft

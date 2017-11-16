@@ -52,6 +52,15 @@ Rails.application.routes.draw do
 
     resources :activities, only: [:index]
 
+    namespace :gobierto_budgets do
+      resources :options, only: [:index] do
+        collection do
+          put :update
+        end
+      end
+      resources :feedback, only: [:index]
+    end
+
     namespace :gobierto_budget_consultations, as: :budget, path: :budgets do
       resources :consultations, only: [:index, :show, :new, :create, :edit, :update] do
         resources :consultation_items, controller: "consultations/consultation_items", path: :items
@@ -91,7 +100,9 @@ Rails.application.routes.draw do
         resources :file_attachments, only: [:index], controller: "processes/process_file_attachments", as: :file_attachments, path: :file_attachments
         resources :events, only: [:index], controller: "processes/process_events", as: :events, path: :events
         resources :pages, only: [:index], controller: "processes/process_pages", as: :pages, path: :pages
-        resources :polls, only: [:index, :new, :edit, :create, :update], controller: "processes/polls"
+        resources :polls, only: [:index, :new, :edit, :create, :update], controller: "processes/polls" do
+          resources :answers, only: [:index], controller: "processes/poll_answers"
+        end
         resources :contribution_containers, only: [:new, :edit, :create, :update, :index, :show], controller: "processes/process_contribution_containers", as: :contribution_containers, path: :contribution_containers
         resources :information, only: [:edit, :update], controller: "processes/process_information", as: :process_information, path: :process_information
       end
@@ -104,6 +115,10 @@ Rails.application.routes.draw do
 
     namespace :gobierto_cms, as: :cms, path: :cms do
       resources :pages, only: [:index, :new, :edit, :create, :update]
+      resources :sections, only: [:index, :new, :edit, :create, :update, :show] do
+        resources :section_items, only: [:index, :create, :destroy, :update]
+        get :pages
+      end
     end
 
     namespace :gobierto_attachments, as: :attachments, path: :attachments do
@@ -213,22 +228,28 @@ Rails.application.routes.draw do
   end
 
   # Gobierto Budgets module
-  namespace :gobierto_budgets, path: nil do
+  namespace :gobierto_budgets, path: "presupuestos" do
     constraints GobiertoSiteConstraint.new do
-      get "site" => "sites#show"
+      root "sites#show"
 
       resources :featured_budget_lines, only: [:show]
 
-      get "presupuestos/resumen(/:year)" => "budgets#index", as: :budgets
-      get "presupuestos/partidas/:year/:area_name/:kind" => "budget_lines#index", as: :budget_lines
-      get "presupuestos/partidas/:id/:year/:area_name/:kind" => "budget_lines#show", as: :budget_line
+      get "resumen(/:year)" => "budgets#index", as: :budgets
+      get "partidas/:year/:area_name/:kind" => "budget_lines#index", as: :budget_lines
+      get "partidas/:id/:year/:area_name/:kind" => "budget_lines#show", as: :budget_line
       get "budget_line_descendants/:year/:area_name/:kind" => "budget_line_descendants#index", as: :budget_line_descendants
-      get "presupuestos/ejecucion(/:year)" => "budgets_execution#index", as: :budgets_execution
-      get "presupuestos/guia" => "budgets#guide", as: :budgets_guide
+      get "ejecucion(/:year)" => "budgets_execution#index", as: :budgets_execution
+      get "guia" => "budgets#guide", as: :budgets_guide
+      get "elaboracion" => "budgets_elaboration#index", as: :budgets_elaboration
       get "budgets/treemap(/:year)" => "budget_lines#treemap", as: :budget_lines_treemap
 
-      # TODO: move to an API > move to the big indexer
       get "all_categories/:slug/:year" => "search#all_categories", as: :search_all_categories
+
+      get "feedback/step1" => "feedback#step1", as: :feedback_step1
+      get "feedback/step2" => "feedback#step2", as: :feedback_step2
+      get "feedback/step3" => "feedback#step3", as: :feedback_step3
+      post "feedback/follow" => "feedback#follow", as: :feedback_follow
+      get "feedback/load_ask_more_information" => "feedback#load_ask_more_information", as: :feedback_load_ask_more_information
 
       namespace :api do
         get "/categories" => "categories#index"
@@ -251,9 +272,11 @@ Rails.application.routes.draw do
   end
 
   # Gobierto CMS module
-  namespace :gobierto_cms, path: "paginas" do
+  namespace :gobierto_cms, path: "" do
     constraints GobiertoSiteConstraint.new do
-      resources :pages, only: [:index, :show], path: ""
+      resources :pages, only: [:index, :show], path: "paginas"
+      get "/s/:slug_section/:id" => "pages#show", as: :section_item
+      get "/s/:slug_section" => "pages#show", as: :section
     end
   end
 
@@ -263,27 +286,35 @@ Rails.application.routes.draw do
       get "/" => "welcome#index", as: :root
 
       resources :processes, only: [:index, :show], path: "p" do
-        resource :information, only: [:show], controller: "process_information", as: :process_information, path: :informacion
+        resource :information, only: [:show], controller: "processes/information", path: "informacion"
+        resources :contribution_containers, only: [:index, :show], controller: "processes/contribution_containers", path: "aportaciones" do
+          resources :contributions, only: [:new, :create, :show], controller: "processes/contributions", path: :contributions do
+            resource :vote, only: [:create, :destroy]
+            resource :flag, only: [:create, :destroy]
+            resource :comment, only: [:create, :index]
+          end
+        end
+
         resources :polls, only: [:index], controller: "processes/polls", path: "encuestas" do
           resources :answers, only: [:new, :create], controller: "processes/poll_answers"
         end
         resources :attachments, only: [:index, :show], controller: "processes/attachments", path: "documentos"
         resources :events, only: [:index, :show], controller: "processes/events", path: "agendas"
         resources :pages, only: [:index, :show], controller: "processes/pages", path: "noticias"
-        resources :activities, only: [:index], controller: "processes/activities"
+        resources :activities, only: [:index], controller: "processes/activities", path: "actividad"
       end
 
       resources :issues, only: [:index, :show], path: "temas" do
         resources :attachments, only: [:index, :show], controller: "issues/attachments", path: "documentos"
         resources :events, only: [:index, :show], controller: "issues/events", path: "agendas"
         resources :pages, only: [:index, :show], controller: "issues/pages", path: "noticias"
-        resources :activities, only: [:index], controller: "issues/activities"
+        resources :activities, only: [:index], controller: "issues/activities", path: "actividad"
       end
 
       resources :attachments, only: [:index, :show], controller: "attachments", path: "documentos"
       resources :events, only: [:index, :show], controller: "events", path: "agendas"
       resources :pages, only: [:index, :show], controller: "pages", path: "noticias"
-      resources :activities, only: [:index], controller: "activities"
+      resources :activities, only: [:index], controller: "activities", path: "actividad"
     end
   end
 

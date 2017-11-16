@@ -32,7 +32,6 @@ en:
     accept_privacy_policy_signup: By signing up you agree to the Privacy Policy
     application:
       disclaimer: This is a demo of Gobierto, transparency and participation software
-      follow_process: Follow this process
       more_information: More info in gobierto.es
       search: Search...
       session:
@@ -41,6 +40,7 @@ en:
         sign_in: Sign in
         sign_out: Sign out
         title: Your account
+      start: Home
     breadcrumb:
       start: Start
     gobierto_budget_consultations:
@@ -72,6 +72,7 @@ en:
     mailcheck:
       suggestion_message: Did you mean
     main_menu:
+      collapse_menu: Close
       search: Search...
     sandbox:
       application:
@@ -89,7 +90,11 @@ en:
     search:
       budget_line_item_expense: Budget line - Expense
       budget_line_item_income: Budget line - Income
+      drag_drop_instructions: Drag and drop on the left side to place this page in
+        the menu
       event_item: Event
+      no_results: The search did not match any page. Try something like using more
+        general terms or checking spelling.
       page_item: Page
       person_item: Biography
       person_post_item: Post
@@ -115,6 +120,8 @@ en:
     edit: Edit
     forms:
       max_characters: Max. %{length} characters
+      required_and_max_characters: Required and Màx. %{length} caràcters
+    of: of
     pagination:
       next: Next
       previous: Prev

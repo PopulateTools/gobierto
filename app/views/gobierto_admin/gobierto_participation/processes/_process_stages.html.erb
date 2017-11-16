@@ -40,6 +40,14 @@
               <%= label_tag "process[stages_attributes][#{stage_form.index}][description_translations][#{locale}]", stage_form.object.class.human_attribute_name(:description) %>
               <%= text_area_tag "process[stages_attributes][#{stage_form.index}][description_translations][#{locale}]", stage_form.object.description_translations && stage_form.object.description_translations[locale], placeholder: t('.placeholders.body', locale: locale) %>
             </div>
+
+            <div class="form_item input_text" data-locale="<%= locale %>">
+              <%= label_tag "process[stages_attributes][#{stage_form.index}][cta_text_translations][#{locale}]" do %>
+                <%= stage_form.object.class.human_attribute_name(:cta_text) %>
+                <span class="indication"><%= t('views.forms.max_characters', length: 32) %></span>
+              <% end %>
+              <%= text_field_tag "process[stages_attributes][#{stage_form.index}][cta_text_translations][#{locale}]", stage_form.object.cta_text_translations && stage_form.object.cta_text_translations[locale], placeholder: t('.placeholders.cta_text', locale: locale) %>
+            </div>
           <% end %>
 
           <div class="pure-g">

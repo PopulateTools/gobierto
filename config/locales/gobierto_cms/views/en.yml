@@ -6,12 +6,14 @@ en:
       gobierto_cms_page_deleted: "%{subject_name}"
       gobierto_cms_page_published: "%{subject_name}"
       gobierto_cms_page_updated: "%{subject_name}"
+      gobierto_cms_section_created: Section created
+      gobierto_cms_section_item_created: Page added to section
+      gobierto_cms_section_item_deleted: Page deleted from section
+      gobierto_cms_section_updated: Section updated
     pages:
       index:
         filter: Filter by theme
         title: News
-      show:
+    templates:
+      page:
         documents: Documents
-        filter: Filter by group
-        published_at: Posted on %{date} by %{site}
-        title: News

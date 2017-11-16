@@ -1,3 +1,5 @@
+# Groups
+
 green_city_group:
   site: madrid
   title_translations: <%= { 'en' => 'Green city', 'es' => 'Ciudad verde' }.to_json %>
@@ -15,6 +17,30 @@ cultural_city_group:
   process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
   visibility_level: <%= Site.visibility_levels["draft"] %>
   issue: culture
+
+public_debates_group_future:
+  site: madrid
+  title_translations: <%= { 'en' => 'Public Debates', 'es' => 'Debates Públicos' }.to_json %>
+  body_translations: <%= { 'en' => 'Take part in these interesting debates', 'es' => 'Participa en estos interesantes debates' }.to_json %>
+  slug: public-debates
+  process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
+  visibility_level: <%= Site.visibility_levels['active'] %>
+  starts: <%= 1.week.from_now %>
+  ends:
+  scope: center
+
+dance_studio_group_ended:
+  site: madrid
+  title_translations: <%= { 'en' => 'Dance Studio', 'es' => 'Taller de danza' }.to_json %>
+  body_translations: <%= { 'en' => '', 'es' => '' }.to_json %>
+  slug: dance-studio
+  process_type: <%= GobiertoParticipation::Process.process_types[:group_process] %>
+  visibility_level: <%= Site.visibility_levels['active'] %>
+  starts:
+  ends: <%= 1.week.ago %>
+  scope: center
+
+# Processes
 
 sport_city_process:
   site: madrid

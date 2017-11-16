@@ -7,6 +7,10 @@
       <%= yield(:breadcrumb_current_item) %>
     <% end %>
   <% end %>
+<% else %>
+  <% content_for :breadcrumb_items do %>
+    <%= yield(:breadcrumb_current_item) %>
+  <% end %>
 <% end %>
 
 <%= render template: 'layouts/application' %>

@@ -16,6 +16,7 @@ class HomePageTest < ActionDispatch::IntegrationTest
     with_current_site(site) do
       visit @path
 
+      assert has_content?("Participation")
       assert_equal 200, page.status_code
     end
   end

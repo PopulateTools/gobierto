@@ -16,7 +16,7 @@ module GobiertoParticipation
       @pages = if @issue
                  GobiertoCms::Page.pages_in_collections_and_container(current_site, @issue).sorted.page(params[:page]).active
                else
-                 find_participation_news.page(params[:page]).sorted.page params[:page]
+                 find_participation_news.page(params[:page]).sorted.active
                end
     end
 
@@ -35,7 +35,7 @@ module GobiertoParticipation
     end
 
     def find_participation_news
-      ::GobiertoCms::Page.pages_in_collections_and_container_type(current_site, "GobiertoParticipation").active
+      ::GobiertoCms::Page.pages_in_collections_and_container_type(current_site, "GobiertoParticipation")
     end
 
     def find_page

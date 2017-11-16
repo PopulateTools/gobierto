@@ -13,7 +13,7 @@ module GobiertoAdmin
           format.js
           format.json do
             render(
-              json: { sections: @sections.map{ |si| default_serializer.new(si) }}
+              json: { sections: @sections.map { |si| default_serializer.new(si) } }
             )
           end
         end
@@ -32,7 +32,7 @@ module GobiertoAdmin
         @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.search(params[:query]).uniq
 
         respond_to do |format|
-          format.js {render layout: false}
+          format.js { render layout: false }
         end
       end
 
@@ -60,7 +60,7 @@ module GobiertoAdmin
           unless params[:remote] == "true"
             redirect_to(
               admin_cms_section_path(@section_form.section),
-              notice: t(".success_html", link: "gobierto_participation_section_url(@section_form.section.slug, host: current_site.domain)")
+              notice: t(".success")
             )
           end
         else
@@ -80,7 +80,7 @@ module GobiertoAdmin
 
           redirect_to(
             admin_cms_section_path(@section_form.section),
-            notice: t(".success_html", link: "gobierto_participation_section_url(@section_form.section.slug, host: current_site.domain)")
+            notice: t(".success")
           )
         else
           render(:edit_modal, layout: false) && return if request.xhr?

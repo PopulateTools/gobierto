@@ -121,24 +121,21 @@ module GobiertoPeople
       private_class_method :has_instances_link?
 
       def self.request_params_for_events(person)
-        gobierto_people_settings = person.site.gobierto_people_settings
-
         {
           endpoint: person_calendar_endpoint(person),
-          username: gobierto_people_settings.ibm_notes_usr,
-          password: gobierto_people_settings.ibm_notes_pwd
+          username: plain_text_username(person),
+          password: plain_text_password(person)
         }
       end
       private_class_method :request_params_for_events
 
       def self.request_params_for_event_request(person, event_path)
-        gobierto_people_settings = person.site.gobierto_people_settings
         uri = URI.parse person_calendar_endpoint(person)
 
         {
           endpoint: "#{uri.scheme}://#{uri.host}#{event_path}",
-          username: gobierto_people_settings.ibm_notes_usr,
-          password: gobierto_people_settings.ibm_notes_pwd
+          username: plain_text_username(person),
+          password: plain_text_password(person)
         }
       end
       private_class_method :request_params_for_event_request
@@ -147,6 +144,16 @@ module GobiertoPeople
         PersonIbmNotesCalendarConfiguration.find_by(person_id: person.id).endpoint
       end
       private_class_method :person_calendar_endpoint
+
+      def self.plain_text_username(person)
+        SecretAttribute.decrypt(person.site.gobierto_people_settings.ibm_notes_usr)
+      end
+      private_class_method :plain_text_username
+
+      def self.plain_text_password(person)
+        SecretAttribute.decrypt(person.site.gobierto_people_settings.ibm_notes_pwd)
+      end
+      private_class_method :plain_text_password
 
     end
   end

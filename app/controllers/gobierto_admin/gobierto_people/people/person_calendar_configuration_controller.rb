@@ -18,17 +18,28 @@ module GobiertoAdmin
             calendar_configuration_params.merge(person_id: @person.id)
           )
 
-          @calendar_configuration_form.save
-          redirect_to(
-            edit_admin_people_person_calendar_configuration_path,
-            notice: t('.success')
-          )
+          if @calendar_configuration_form.save
+            redirect_to(
+              edit_admin_people_person_calendar_configuration_path,
+              notice: t('.success')
+            )
+          else
+            render 'gobierto_admin/gobierto_people/people/person_events/person_calendar_configuration/edit'
+          end
         end
 
         private
 
         def calendar_configuration_params
-          params.require(:calendar_configuration).permit(:ibm_notes_url, :clear_google_calendar_configuration, calendars: [])
+          params.require(:calendar_configuration).permit(
+            :ibm_notes_url,
+            :microsoft_exchange_usr,
+            :microsoft_exchange_pwd,
+            :microsoft_exchange_url,
+            :clear_google_calendar_configuration,
+            :clear_microsoft_exchange_configuration,
+            calendars: []
+          )
         end
 
         def find_google_calendar_configuration

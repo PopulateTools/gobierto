@@ -3,6 +3,8 @@ module GobiertoAdmin
     class SettingsForm
       include ActiveModel::Model
 
+      ENCRYPTED_SETTING_PLACEHOLDER = 'encrypted_setting_placeholder'
+
       attr_accessor(
         :site_id,
         :home_text_es,
@@ -59,6 +61,14 @@ module GobiertoAdmin
         @ibm_notes_pwd ||= gobierto_module_settings.ibm_notes_pwd
       end
 
+      def dummy_ibm_notes_usr
+        html_dummy_for_encrypted_setting(ibm_notes_usr)
+      end
+
+      def dummy_ibm_notes_pwd
+        html_dummy_for_encrypted_setting(ibm_notes_pwd)
+      end
+
       private
 
       def gobierto_module_settings_class
@@ -106,11 +116,39 @@ module GobiertoAdmin
 
       def set_ibm_notes_integration_settings(settings_attributes)
         if ibm_notes_integration_selected?
-          settings_attributes.ibm_notes_usr = ibm_notes_usr
-          settings_attributes.ibm_notes_pwd = ibm_notes_pwd
+          settings_attributes.ibm_notes_usr = encrypted_ibm_notes_usr
+          settings_attributes.ibm_notes_pwd = encrypted_ibm_notes_pwd
         else
           settings_attributes.ibm_notes_usr = nil
           settings_attributes.ibm_notes_pwd = nil
+        end
+      end
+
+      def encrypted_ibm_notes_usr
+        if ibm_notes_usr.present? && ibm_notes_usr != ENCRYPTED_SETTING_PLACEHOLDER
+          ::SecretAttribute.encrypt(ibm_notes_usr)
+        elsif ibm_notes_usr == ENCRYPTED_SETTING_PLACEHOLDER
+          gobierto_module_settings.ibm_notes_usr
+        else
+          nil
+        end
+      end
+
+      def encrypted_ibm_notes_pwd
+        if ibm_notes_pwd.present? && ibm_notes_pwd != ENCRYPTED_SETTING_PLACEHOLDER
+          ::SecretAttribute.encrypt(ibm_notes_pwd)
+        elsif ibm_notes_pwd == ENCRYPTED_SETTING_PLACEHOLDER
+          gobierto_module_settings.ibm_notes_pwd
+        else
+          nil
+        end
+      end
+
+      def html_dummy_for_encrypted_setting(plain_text_setting)
+        if plain_text_setting.present? && plain_text_setting != ENCRYPTED_SETTING_PLACEHOLDER
+          ENCRYPTED_SETTING_PLACEHOLDER
+        else
+          plain_text_setting
         end
       end
 

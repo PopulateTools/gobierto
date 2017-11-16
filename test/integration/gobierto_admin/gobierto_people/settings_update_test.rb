@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/calendar_integration_helpers"
 
 module GobiertoAdmin
   module GobiertoPeople
     class SettingsUpdateTest < ActionDispatch::IntegrationTest
+
+      include ::CalendarIntegrationHelpers
+
       def setup
         super
         @path = edit_admin_people_configuration_settings_path
@@ -51,6 +55,24 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
+            ## clear IBM Notes calendar integration
+            select "", from: "gobierto_people_settings_calendar_integration"
+            fill_in "gobierto_people_settings_ibm_notes_usr", with: ''
+            fill_in "gobierto_people_settings_ibm_notes_pwd", with: ''
+
+            click_button "Update"
+
+            assert has_message?("Settings updated successfully")
+
+            madrid = Site.find(site.id)
+
+            # assert encrypted credentials were destroyed
+            assert_nil madrid.gobierto_people_settings.ibm_notes_usr
+            assert_nil madrid.gobierto_people_settings.ibm_notes_pwd
+            assert_nil find_field('gobierto_people_settings_ibm_notes_usr').value
+            assert_nil find_field('gobierto_people_settings_ibm_notes_pwd').value
+
+            ## setup IBM Notes calendar integration
             select "IBM Notes", from: "gobierto_people_settings_calendar_integration"
             fill_in "gobierto_people_settings_ibm_notes_usr", with: "IBM Notes user"
             fill_in "gobierto_people_settings_ibm_notes_pwd", with: "IBM Notes password"
@@ -59,24 +81,20 @@ module GobiertoAdmin
 
             assert has_message?("Settings updated successfully")
 
-            assert has_field?("gobierto_people_settings_ibm_notes_usr", with: "IBM Notes user")
-            assert has_field?("gobierto_people_settings_ibm_notes_pwd", with: "IBM Notes password")
+            # assert encrypted credentials were stored in the DB
+            assert_equal 'IBM Notes user', ::SecretAttribute.decrypt(site.gobierto_people_settings.ibm_notes_usr)
+            assert_equal 'IBM Notes password', ::SecretAttribute.decrypt(site.gobierto_people_settings.ibm_notes_pwd)
 
-            select "", from: "gobierto_people_settings_calendar_integration"
-            fill_in "gobierto_people_settings_ibm_notes_usr", with: nil
-            fill_in "gobierto_people_settings_ibm_notes_pwd", with: nil
-
-            click_button "Update"
-
-            assert has_message?("Settings updated successfully")
-
-            refute has_field?("gobierto_people_settings_ibm_notes_usr", with: "IBM Notes user")
-            refute has_field?("gobierto_people_settings_ibm_notes_pwd", with: "IBM Notes password")
+            # assert dummy placeholders are displayed in the UI
+            assert has_field?("gobierto_people_settings_ibm_notes_usr", with: SettingsForm::ENCRYPTED_SETTING_PLACEHOLDER)
+            assert has_field?("gobierto_people_settings_ibm_notes_pwd", with: SettingsForm::ENCRYPTED_SETTING_PLACEHOLDER)
           end
         end
       end
 
       def test_prohibit_saving_erroneous_calendar_configuration_settings
+        remove_ibm_notes_calendar_integration(site)
+
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path

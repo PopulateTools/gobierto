@@ -21,7 +21,7 @@ module GobiertoAdmin
 
       def show
         @section = find_section
-        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.uniq
+        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.sort_by_updated_at.uniq
 
         unless @section.section_items.empty?
           @first_page_in_section = find_first_page_in_section
@@ -29,7 +29,7 @@ module GobiertoAdmin
       end
 
       def pages
-        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.search(params[:query]).uniq
+        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.search(params[:query]).sort_by_updated_at.uniq
 
         respond_to do |format|
           format.js { render layout: false }

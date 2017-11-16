@@ -38,7 +38,7 @@ module GobiertoCms
 
     scope :inverse_sorted, -> { order(id: :asc) }
     scope :sorted, -> { order(id: :desc) }
-    scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
+    scope :sort_by_updated_at, -> { order(updated_at: :desc) }
 
     def main_image
       attachments.each do |attachment|

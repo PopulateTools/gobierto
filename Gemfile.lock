@@ -141,17 +141,13 @@ GEM
     elasticsearch-transport (6.0.0)
       faraday
       multi_json
-<<<<<<< HEAD
-    erubi (1.6.1)
+    erubi (1.7.0)
     exchanger (0.2.1)
       activesupport (>= 2.2.2)
       httpclient (>= 2.1.5.2)
       nokogiri (>= 1.3.0)
       rubyntlm (>= 0.1.1)
       tzinfo (>= 0.3.33)
-=======
-    erubi (1.7.0)
->>>>>>> master
     execjs (2.7.0)
     faraday (0.13.1)
       multipart-post (>= 1.2, < 3)

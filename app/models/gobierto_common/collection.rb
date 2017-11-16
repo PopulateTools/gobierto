@@ -11,6 +11,9 @@ module GobiertoCommon
 
     validates :site, :title, :item_type, presence: true
     validates :slug, uniqueness: { scope: :site }
+    validates :container_id, uniqueness: {
+        scope: [:container_id, :container_type, :item_type]
+    }
 
     attr_reader :container
 
@@ -55,13 +58,16 @@ module GobiertoCommon
     def self.type_classes(item_type)
       if item_type == "Page"
         [[::GobiertoCms::Page.model_name.human, ::GobiertoCms::Page.name],
-         [I18n.t('activerecord.models.gobierto_cms/news'), "GobiertoCms::News"]]
+         [I18n.t("activerecord.models.gobierto_cms/news"), "GobiertoCms::News"]]
       elsif item_type == "Attachment"
         [[::GobiertoAttachments::Attachment.model_name.human, ::GobiertoAttachments::Attachment.name]]
       elsif item_type == "Event"
         [[::GobiertoCalendars::Event.model_name.human, ::GobiertoCalendars::Event.name]]
       else
-        [GobiertoCms::Page, GobiertoAttachments::Attachment, GobiertoCalendars::Event]
+        [[::GobiertoCms::Page.model_name.human, ::GobiertoCms::Page.name],
+         [I18n.t("activerecord.models.gobierto_cms/news"), "GobiertoCms::News"],
+         [::GobiertoAttachments::Attachment.model_name.human, ::GobiertoAttachments::Attachment.name],
+         [::GobiertoCalendars::Event.model_name.human, ::GobiertoCalendars::Event.name]]
       end
     end
 

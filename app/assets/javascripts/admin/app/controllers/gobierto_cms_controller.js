@@ -155,16 +155,13 @@ this.GobiertoAdmin.GobiertoCmsController = (function() {
 
   function appendParents(parent, nodes, level) {
     // Add some <option>s
-    numOptions = nodes.length;
-    for (i = 0; i < numOptions; i++) {
+    for (var i in nodes) {
         anOption = document.createElement('option');
         anOption.value = nodes[i]['id'];
         anOption.innerHTML = ("-".repeat(level)) + " " + nodes[i]['name'];
         parent.append(anOption);
         if(nodes[i].children.length >= 1) {
-          var saveI = i;
           appendParents(parent, nodes[i].children, level + 1)
-          i = saveI;
         }
     }
   }

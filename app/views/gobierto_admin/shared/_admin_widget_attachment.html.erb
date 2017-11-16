@@ -36,7 +36,7 @@
 </script>
 
 <script type="text/x-template" id="site-attachments">
-  <div class="modal modal-attachments" ref="modal">
+  <div :class="{ 'modal modal-attachments': showModal }" ref="modal">
     <div class="pure-g" v-if="showModal">
       <div class="pure-u-2-3">
         <div class="p_2">
@@ -74,7 +74,7 @@
 </script>
 
 <script type="text/x-template" id="edit-attachment">
-  <div class="modal modal-attachments" :class="{ 'bg-highlight': showModal }" ref="modal">
+  <div :class="{ 'modal bg-highlight modal-attachments': showModal }" ref="modal">
     <div class="p_2 drag-section" v-if="showModal">
       <h1><%= t('.edit_document') %></h1>
 

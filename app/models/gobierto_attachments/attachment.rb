@@ -50,7 +50,7 @@ module GobiertoAttachments
 
     scope :inverse_sorted, -> { order(id: :asc) }
     scope :sorted, -> { order(id: :desc) }
-    scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
+    scope :sort_by_updated_at, ->{ order(updated_at: :desc) }
 
     def content_type
       MIME::Types.type_for(url).first.content_type

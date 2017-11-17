@@ -46,6 +46,30 @@
         <%= f.submit class: "button" %>
       </div>
 
+      <div class="sidebar_tool m_v_2" id="section">
+
+        <small><strong><%= t(".section") %></strong></small>
+        <div class="form_item">
+          <div class="options compact">
+            <div class="option open_level_1">
+              <input type="checkbox" id="permission_1" name="permission_1">
+              <label for="permission_1">
+                <span></span>
+                <%= t(".include_in_section") %>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form_item select_control select_compact level_1 open_level_2" style='<%= @section ? '' : 'display: none;' %>'>
+          <%= f.select :section, [], {:include_blank => true}%>
+        </div>
+
+        <div class="form_item select_control select_compact level_2 open_level_3" style='<%= @parent ? '' : 'display: none;' %>'>
+          <%= f.select :parent, [] %>
+        </div>
+      </div>
+
       <%= render "gobierto_admin/shared/admin_widget_attachment", {attachable_type: @page_form.page.class.name, attachable_id: @page_form.page.id} %>
       <%= f.hidden_field :attachment_ids, id: "attachmentsIdsAfterCreated" %>
     </div>
@@ -55,5 +79,6 @@
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
     window.GobiertoAdmin.gobierto_attachments_controller.index();
+    window.GobiertoAdmin.gobierto_cms_controller.edit("<%= @section_id.nil? ? 'null' : @section_id %>", "<%= @parent_id.nil? ? 'null' : @parent_id %>", "<%= @page_section_item_id %>");
   <% end %>
 <% end %>

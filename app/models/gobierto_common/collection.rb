@@ -27,6 +27,10 @@ module GobiertoCommon
       collection_items.where(item_type: 'GobiertoCms::Page').pluck(:item_id)
     end
 
+    def pages_or_news_in_collection
+      collection_items.where(item_type: %W(GobiertoCms::News GobiertoCms::Page)).pluck(:item_id)
+    end
+
     def file_attachments_in_collection
       collection_items.where(item_type: 'GobiertoAttachments::Attachment').pluck(:item_id)
     end

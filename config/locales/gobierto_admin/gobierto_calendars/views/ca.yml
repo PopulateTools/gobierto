@@ -4,6 +4,7 @@ ca:
     gobierto_calendars:
       collections:
         index:
+          add_new_event: Afegeix nou esdeveniment
           collections: Calendaris
           header:
             collection: Calendari

@@ -4,8 +4,6 @@ es:
     gobierto_cms:
       sections:
         create:
-          success_html: La sección ha sido creada correctamente. <a href="%{link}">Ver
-            la sección</a>.
+          success: La sección ha sido creada correctamente.
         update:
-          success_html: La sección ha sido actualizada correctamente. <a href="%{link}">Ver
-            la sección</a>.
+          success: La sección ha sido actualizada correctamente.

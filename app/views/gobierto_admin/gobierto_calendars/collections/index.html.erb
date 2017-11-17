@@ -44,6 +44,7 @@
         <th><%= t(".header.collection") %></th>
         <th><%= t(".header.events") %></th>
         <th></th>
+        <th></th>
       </tr>
 
       <tbody>
@@ -56,6 +57,11 @@
             </td>
             <td><%= link_to collection.title, admin_common_collection_path(collection) %> (<%= collection_context(collection) %>)</td>
             <td><%= GobiertoCalendars::Event.by_collection(collection).count %></td>
+            <td>
+              <%= link_to new_admin_calendars_event_path(collection_id: collection.id), target: "_blank", class: "view_item" do %>
+                <i class='fa fa-plus-circle'></i><%= t('.add_new_event') %>
+              <% end %>
+            </td>
             <td>
               <%= link_to admin_common_collection_path(collection), target: "_blank", class: "view_item" do %>
                 <i class="fa fa-eye"></i>

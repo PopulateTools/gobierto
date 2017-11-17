@@ -14,6 +14,7 @@ module GobiertoCms
     include GobiertoCommon::ActsAsCollectionContainer
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Collectionable
+    include GobiertoCommon::Sectionable
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca, :collection_id
@@ -37,7 +38,7 @@ module GobiertoCms
 
     scope :inverse_sorted, -> { order(id: :asc) }
     scope :sorted, -> { order(id: :desc) }
-    scope :sort_by_updated_at, ->(num) { order(updated_at: :desc).limit(num) }
+    scope :sort_by_updated_at, -> { order(updated_at: :desc) }
 
     def main_image
       attachments.each do |attachment|

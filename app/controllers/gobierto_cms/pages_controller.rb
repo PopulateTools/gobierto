@@ -61,7 +61,7 @@ module GobiertoCms
     end
 
     def find_process_news
-      @process.news.sort_by_updated_at(5)
+      @process.news.sort_by_updated_at.limit(5)
     end
 
     def find_page

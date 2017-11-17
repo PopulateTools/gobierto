@@ -8,16 +8,22 @@ module GobiertoAdmin
       def index
         @sections = current_site.sections
         @collections = current_site.collections.by_item_type(["GobiertoCms::Page", "GobiertoCms::News"])
-        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).sort_by_updated_at(10)
+        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).sort_by_updated_at.limit(10)
       end
 
       def new
         @page_form = PageForm.new(site_id: current_site.id, collection_id: @collection.id)
         @page_visibility_levels = get_page_visibility_levels
+        @section_id = nil
+        @parent_id = nil
       end
 
       def edit
         @page = find_page
+        @section_id = @page.section_id
+        @parent_id =  @page.parent_id
+        @page_section_item_id = ::GobiertoCms::SectionItem.find_by(item_id: @page.id).try(:id)
+
         @page_visibility_levels = get_page_visibility_levels
         @page_form = PageForm.new(
           @page.attributes.except(*ignored_page_attributes).merge(collection_id: @collection)
@@ -80,6 +86,8 @@ module GobiertoAdmin
           :attachment_ids,
           :collection_id,
           :slug,
+          :section,
+          :parent,
           title_translations: [*I18n.available_locales],
           body_translations:  [*I18n.available_locales]
         )

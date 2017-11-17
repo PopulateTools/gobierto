@@ -9,7 +9,7 @@ module GobiertoAdmin
       def show
         @new_item_path = case @collection.item_type
                          when 'GobiertoCms::Page', 'GobiertoCms::News'
-                           @pages = ::GobiertoCms::Page.where(id: @collection.pages_in_collection).sorted
+                           @pages = ::GobiertoCms::Page.where(id: @collection.pages_or_news_in_collection).sorted
                            new_admin_cms_page_path(collection_id: @collection)
                          when 'GobiertoAttachments::Attachment'
                            @file_attachments = ::GobiertoAttachments::Attachment.where(id: @collection.file_attachments_in_collection).sorted

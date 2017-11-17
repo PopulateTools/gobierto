@@ -20,6 +20,13 @@ module GobiertoAdmin
         end
       end
 
+      def show
+        @section_item = find_section_item
+        render(
+          json: { section_item: default_serializer.new(@section_item) }
+        )
+      end
+
       def index
         @section = find_section
 
@@ -66,8 +73,7 @@ module GobiertoAdmin
                                          level: level,
                                          parent_id: parent_id)
           unless node['children'].nil?
-            level += 1
-            children(node['children'], 0, level, node['id'])
+            children(node['children'], 0, level + 1, node['id'])
           end
           position += 1
         end

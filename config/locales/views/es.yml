@@ -95,6 +95,7 @@ es:
     search:
       budget_line_item_expense: Partida presupuestaria - Gasto
       budget_line_item_income: Partida presupuestaria - Ingreso
+      contribution_item: Aportación
       drag_drop_instructions: Arrastra y suelta en la parte izquierda para colocar
         esta página en el menú
       event_item: Evento
@@ -106,6 +107,7 @@ es:
       person_statement_item: Declaración
       powered_by: Gobierto utiliza <a href="https://www.algolia.com" target="_blank">Algolia</a>
         para buscar
+      process_item: Proceso
       updated: Actualizado
   scopes:
     events:

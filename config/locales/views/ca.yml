@@ -95,6 +95,7 @@ ca:
     search:
       budget_line_item_expense: Partida pressupostària - Despesa
       budget_line_item_income: Partida pressupostària - Ingrés
+      contribution_item: Aportacions
       drag_drop_instructions: Arrossegueu i deixeu anar al costat esquerre per col·locar
         aquesta pàgina al menú
       event_item: Event
@@ -106,6 +107,7 @@ ca:
       person_statement_item: Declaració
       powered_by: Gobierto utilitza <a href="https://www.algolia.com" target="_blank">Algolia</a>
         per a cercar
+      process_item: Procés
       updated: Actualitat
   scopes:
     events:

@@ -508,7 +508,7 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
         .enter()
         .append('div')
         .attr('class', 'card')
-        .attr('data-url', function(d) { return d.name['resource_path']; });
+        .attr('data-url', function(d) { return d.name['to_path']; });
 
       card
         .append('div')

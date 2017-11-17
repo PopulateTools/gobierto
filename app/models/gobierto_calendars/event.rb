@@ -112,7 +112,13 @@ module GobiertoCalendars
     end
 
     def to_path
-      url_helpers.gobierto_people_person_event_path(parameterize)
+      if collection.container_type == "GobiertoParticipation::Process"
+        url_helpers.gobierto_participation_process_event_path({ id: slug, process_id: collection.container.slug })
+      elsif collection.container_type == "GobiertoParticipation"
+        url_helpers.gobierto_participation_event_path({ id: slug })
+      else
+        url_helpers.gobierto_people_person_event_path(parameterize)
+      end
     end
     alias_method :resource_path, :to_path
 

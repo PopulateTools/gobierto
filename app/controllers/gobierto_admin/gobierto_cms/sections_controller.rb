@@ -29,7 +29,7 @@ module GobiertoAdmin
       end
 
       def pages
-        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.search(params[:query]).sort_by_updated_at.uniq
+        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.sort_by_updated_at.search(params[:query]).uniq
 
         respond_to do |format|
           format.js { render layout: false }

@@ -41,6 +41,7 @@ ca:
         percentage: "% sobre el total del press."
         planned: pressupostat
         planned_per_inhabitant: pres. / hab.
+        planned_per_inhabitant_updated: pres act. / hab.
         raise_hand: Alça la mà
         real_value: El %{kind} real són %{value}
         real_vs_planned: real vs. pres.
@@ -49,6 +50,7 @@ ca:
           al %{year}'
         twitter_text_income: 'En @gobierto: Ingrés municipal de %{name} en %{budget_line_name}
           al %{year}'
+        updated: actualitzat
         vs_previous_year: vs. exercici anterior
     budgets:
       guide:
@@ -392,7 +394,8 @@ ca:
           percent: "% de progrés"
           percent_log: "% de progrés (log)"
           tooltip: S'ha executat un
-          tooltip_budgeted: Pressupostat
+          tooltip_budgeted: Pressupostat inicial
+          tooltip_budgeted_updated: Pressupostat actualitzat
       widget_template_deviation:
         expense: Despeses
         income: Ingressos

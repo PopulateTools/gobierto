@@ -6,6 +6,11 @@ module GobiertoBudgets
     PER_INHABITANT_FILTER_MAX = 20000
     BUDGETED = 'B'
     EXECUTED = 'E'
+    BUDGETED_UPDATED = 'BU'
+
+    def self.budgeted_updated_for(ine_code, year, kind = BudgetLine::EXPENSE)
+      return BudgetTotal.for(ine_code, year, BudgetTotal::BUDGETED_UPDATED, kind)
+    end
 
     def self.budgeted_for(ine_code, year, kind = BudgetLine::EXPENSE)
       return BudgetTotal.for(ine_code, year, BudgetTotal::BUDGETED, kind)
@@ -15,17 +20,22 @@ module GobiertoBudgets
       return BudgetTotal.for(ine_code, year, BudgetTotal::EXECUTED, kind)
     end
 
-    def self.for(ine_code, year, b_or_e = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
+    def self.for(ine_code, year, index = BudgetTotal::BUDGETED, kind = BudgetLine::EXPENSE)
       return for_places(ine_code, year) if ine_code.is_a?(Array)
-      index = (b_or_e == BudgetTotal::EXECUTED) ? SearchEngineConfiguration::TotalBudget.index_executed : SearchEngineConfiguration::TotalBudget.index_forecast
+      index = case index
+              when BudgetTotal::EXECUTED
+                SearchEngineConfiguration::TotalBudget.index_executed
+              when BudgetTotal::BUDGETED
+                SearchEngineConfiguration::TotalBudget.index_forecast
+              when BudgetTotal::BUDGETED_UPDATED
+                SearchEngineConfiguration::TotalBudget.index_forecast_updated
+              end
 
-      result = SearchEngine.client.get(
-        index: index,
-        type: SearchEngineConfiguration::TotalBudget.type,
-        id: [ine_code, year, kind].join('/')
-      )
-      
-      result['_source']['total_budget'].to_f
+
+      result = SearchEngine.client.get( index: index, type: SearchEngineConfiguration::TotalBudget.type, id: [ine_code, year, kind].join('/'))
+
+      result = result['_source']['total_budget'].to_f
+      result == 0.0 ? nil : result
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
     end

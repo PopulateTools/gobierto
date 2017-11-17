@@ -41,6 +41,7 @@ en:
         percentage: "% over the total"
         planned: planned
         planned_per_inhabitant: plan. / inh.
+        planned_per_inhabitant_updated: plan. upd. / inh.
         raise_hand: Raise your hand
         real_value: Real %{kind} is %{value}
         real_vs_planned: real vs. plan.
@@ -49,6 +50,7 @@ en:
           for year %{year}'
         twitter_text_income: 'In @gobierto: Municipal income on %{name} in %{budget_line_name}
           for year %{year}'
+        updated: updated
         vs_previous_year: vs. previous year
     budgets:
       guide:
@@ -373,7 +375,8 @@ en:
           percent: "% of progress"
           percent_log: "% of progress (log)"
           tooltip: It has been executed by a
-          tooltip_budgeted: Budget
+          tooltip_budgeted: Initial budget
+          tooltip_budgeted_updated: Updated budget
       widget_template_deviation:
         expense: Expense
         income: Income

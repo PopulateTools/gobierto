@@ -22,6 +22,11 @@ module GobiertoBudgets
       BudgetTotal.budgeted_for(@place.id, year, BudgetLine::INCOME)
     end
 
+    def total_income_budget_updated(year = nil)
+      year ||= @year
+      BudgetTotal.budgeted_updated_for(@place.id, year, BudgetLine::INCOME)
+    end
+
     def total_income_budget_per_inhabitant(year = nil)
       year ||= @year
       BudgetTotal.budgeted_for(@place.id, year, BudgetLine::INCOME) / (population(year) || population(year-1) || population(year-2)).to_f
@@ -30,6 +35,12 @@ module GobiertoBudgets
     def total_budget(year = nil)
       year ||= @year
       BudgetTotal.budgeted_for(@place.id, year)
+    end
+    alias_method :total_budget_planned, :total_budget
+
+    def total_budget_updated(year = nil)
+      year ||= @year
+      BudgetTotal.budgeted_updated_for(@place.id, year)
     end
     alias_method :total_budget_planned, :total_budget
 
@@ -187,14 +198,18 @@ module GobiertoBudgets
 
     def budgets_execution_summary
       ine_code = @place.id
-
       year = @year
       previous_year = year - 1
 
-      last_expenses_budgeted      = BudgetTotal.budgeted_for(ine_code, year)
-      last_income_budgeted        = BudgetTotal.budgeted_for(ine_code, year, BudgetLine::INCOME)
-      previous_expenses_budgeted  = BudgetTotal.budgeted_for(ine_code, previous_year)
-      previous_income_budgeted    = BudgetTotal.budgeted_for(ine_code, previous_year, BudgetLine::INCOME)
+      last_expenses_budgeted      = BudgetTotal.budgeted_updated_for(ine_code, year)
+      last_income_budgeted        = BudgetTotal.budgeted_updated_for(ine_code, year, BudgetLine::INCOME)
+      previous_expenses_budgeted  = BudgetTotal.budgeted_updated_for(ine_code, previous_year)
+      previous_income_budgeted    = BudgetTotal.budgeted_updated_for(ine_code, previous_year, BudgetLine::INCOME)
+
+      last_expenses_budgeted      ||= BudgetTotal.budgeted_for(ine_code, year)
+      last_income_budgeted        ||= BudgetTotal.budgeted_for(ine_code, year, BudgetLine::INCOME)
+      previous_expenses_budgeted  ||= BudgetTotal.budgeted_for(ine_code, previous_year)
+      previous_income_budgeted    ||= BudgetTotal.budgeted_for(ine_code, previous_year, BudgetLine::INCOME)
 
       last_expenses_execution     = BudgetTotal.execution_for(ine_code, year)
       last_income_execution       = BudgetTotal.execution_for(ine_code, year, BudgetLine::INCOME)
@@ -202,6 +217,10 @@ module GobiertoBudgets
       previous_income_execution   = BudgetTotal.execution_for(ine_code, previous_year, BudgetLine::INCOME)
 
       {
+        last_income_budgeted:                   last_income_budgeted,
+        last_income_execution:                  last_income_execution,
+        last_expenses_budgeted:                 last_expenses_budgeted,
+        last_expenses_execution:                last_expenses_execution,
         expenses_execution_percentage:          execution_percentage(last_expenses_budgeted, last_expenses_execution),
         expenses_previous_execution_percentage: execution_percentage(previous_expenses_budgeted, previous_expenses_execution),
         income_execution_percentage:            execution_percentage(last_income_budgeted, last_income_execution),

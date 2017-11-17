@@ -2,6 +2,10 @@
 es:
   activemodel:
     attributes:
+      gobierto_admin/gobierto_people/person_calendar_configuration_form:
+        microsoft_exchange_pwd: Constraseña
+        microsoft_exchange_url: URL
+        microsoft_exchange_usr: Cuenta
       gobierto_admin/gobierto_people/person_form:
         avatar_file: Avatar
         avatar_url: Avatar

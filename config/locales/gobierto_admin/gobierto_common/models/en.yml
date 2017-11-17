@@ -4,6 +4,7 @@ en:
     attributes:
       gobierto_admin/gobierto_common/collection_form:
         container_global_id: Container
+        container_id: Container
         item_type: Type
         slug: URL
         title: Title

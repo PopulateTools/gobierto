@@ -6,7 +6,7 @@ ca:
         edit:
           title: Editar pàgina
         form:
-          include_in_section: Incluir a la secció
+          include_in_section: Incloure a la secció
           new_section: "(Nova secció)"
           placeholders:
             slug: sobre-aquesta-web
@@ -15,7 +15,7 @@ ca:
           visibility_level:
             active: Publicada
             draft: Borrador
-          without_parent: "(pecat pare)"
+          without_parent: "(sense pare)"
         index:
           add_new: Afegir nova
           collections: Col·leccions

@@ -112,6 +112,10 @@ module GobiertoParticipation
       end
     end
 
+    def resource_path
+      url_helpers.gobierto_participation_process_url({ id: slug }.merge(host: site.domain))
+    end
+
     private
 
     def create_collections

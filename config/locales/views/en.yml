@@ -90,6 +90,7 @@ en:
     search:
       budget_line_item_expense: Budget line - Expense
       budget_line_item_income: Budget line - Income
+      contribution_item: Contribution
       drag_drop_instructions: Drag and drop on the left side to place this page in
         the menu
       event_item: Event
@@ -100,6 +101,7 @@ en:
       person_post_item: Post
       person_statement_item: Statement
       powered_by: Search powered by <a href="https://www.algolia.com" target="_blank">Algolia</a>
+      process_item: Process
       updated: Updated
   scopes:
     events:

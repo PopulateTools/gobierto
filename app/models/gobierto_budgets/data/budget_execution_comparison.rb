@@ -36,16 +36,14 @@ module GobiertoBudgets
 
         budget_lines_forecast.each do |budget_line_forecast|
           budget_line_execution = budget_lines_execution.detect{ |bl| bl.code == budget_line_forecast.code }
-          next if budget_line_execution.nil?
           budget_line_forecast_updated = budget_lines_forecast_updated.detect{ |bl| bl.code == budget_line_forecast.code }
+          execution_amount = budget_line_execution.try(:amount) || 0
+          forecast_amount = budget_line_forecast_updated ? budget_line_forecast_updated.amount : budget_line_forecast.amount
 
           category = kind == GobiertoBudgets::BudgetLine::EXPENSE ? "expense_" : "income_"
           category += area
-          pct_executed = if budget_line_forecast_updated
-                           ((budget_line_execution.amount / budget_line_forecast_updated.amount) * 100).round(2)
-                         else
-                           ((budget_line_execution.amount / budget_line_forecast.amount) * 100).round(2)
-                         end
+          pct_executed = ((execution_amount / forecast_amount) * 100).round(2)
+
           lines.push({
             "parent_id": budget_line_forecast.level == 1 ? budget_line_forecast.code : budget_line_forecast.parent_code,
             "id": budget_line_forecast.code,
@@ -55,7 +53,7 @@ module GobiertoBudgets
             "level": budget_line_forecast.level,
             "budget": budget_line_forecast.amount,
             "budget_updated": budget_line_forecast_updated.try(:amount),
-            "executed": budget_line_execution.amount,
+            "executed": execution_amount,
             "pct_executed": pct_executed,
           })
         end

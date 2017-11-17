@@ -361,9 +361,15 @@ var VisLinesExecution = Class.extend({
       .style('left', (x - 110) + 'px')
       .style('top', (y + 40) + 'px');
 
-    this.tooltip.html('<div class="line-name"><strong>' + d['name_' + this.localeFallback] + '</strong></div> \
-                       <div class="line-name">' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip_budgeted')  + ': ' + accounting.formatMoney(d.budget, "€", 0, ".", ",") + '</div> \
-                       <div>' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip') + ' ' + this.pctFormat(d.pct_executed) + '%</div>');
+    var tooltipHtml = '<div class="line-name"><strong>' + d['name_' + this.localeFallback] + '</strong></div>' +
+                      '<div class="line-name">' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip_budgeted')  + ': ' + accounting.formatMoney(d.budget, "€", 0, ".", ",") + '</div>';
+
+    if(d.budget_updated !== null)
+      tooltipHtml += '<div class="line-name">' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip_budgeted_updated')  + ': ' + accounting.formatMoney(d.budget_updated, "€", 0, ".", ",") + '</div>';
+
+    tooltipHtml += '<div>' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip') + ' ' + this.pctFormat(d.pct_executed) + '%</div>';
+
+    this.tooltip.html(tooltipHtml);
   },
   _mouseleft: function(d) {
     d3.selectAll('.tooltip').style('display', 'none');

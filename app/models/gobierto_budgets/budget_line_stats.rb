@@ -15,12 +15,20 @@ module GobiertoBudgets
     end
     alias_method :amount_planned, :amount
 
+    def amount_updated(year = nil)
+      budget_line_planned_updated_query(year, 'amount')
+    end
+
     def amount_executed(year = nil)
       budget_line_executed_query(year, 'amount')
     end
 
     def amount_per_inhabitant(year = nil)
       budget_line_planned_query(year, 'amount_per_inhabitant')
+    end
+
+    def amount_per_inhabitant_updated(year = nil)
+      budget_line_planned_updated_query(year, 'amount_per_inhabitant')
     end
 
     def percentage_of_total(year = nil)
@@ -85,6 +93,14 @@ module GobiertoBudgets
     def budget_line_planned_query(year, attribute)
       year ||= @year
       result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast, type: @area_name, id: [@place.id, year, @code, @kind].join('/')
+      result['_source'][attribute]
+    rescue Elasticsearch::Transport::Transport::Errors::NotFound
+      nil
+    end
+
+    def budget_line_planned_updated_query(year, attribute)
+      year ||= @year
+      result = GobiertoBudgets::SearchEngine.client.get index: GobiertoBudgets::SearchEngineConfiguration::BudgetLine.index_forecast_updated, type: @area_name, id: [@place.id, year, @code, @kind].join('/')
       result['_source'][attribute]
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil

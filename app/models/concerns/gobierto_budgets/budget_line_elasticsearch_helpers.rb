@@ -168,6 +168,8 @@ module GobiertoBudgets
             total_budget_per_inhabitant: response['aggregations']['total_budget_per_inhabitant']['value']
           ))
         end
+      rescue Elasticsearch::Transport::Transport::Errors::NotFound
+        return []
       end
 
       def search(options)

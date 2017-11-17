@@ -34,7 +34,8 @@ module GobiertoBudgets
 
       result = SearchEngine.client.get( index: index, type: SearchEngineConfiguration::TotalBudget.type, id: [ine_code, year, kind].join('/'))
 
-      result['_source']['total_budget'].to_f
+      result = result['_source']['total_budget'].to_f
+      result == 0.0 ? nil : result
     rescue Elasticsearch::Transport::Transport::Errors::NotFound
       nil
     end

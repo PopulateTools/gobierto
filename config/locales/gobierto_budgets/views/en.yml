@@ -391,17 +391,7 @@ en:
       income: income
       incomes: incomes
     events:
-      gobierto_budgets_budgets_execution_custom_updated: 'Budgets execution updated:
-        custom area'
-      gobierto_budgets_budgets_execution_economic_updated: 'Budgets execution updated:
-        economic area'
-      gobierto_budgets_budgets_execution_functional_updated: 'Budgets execution updated:
-        functional area'
-      gobierto_budgets_budgets_forecast_custom_updated: 'Budgets updated: custom area'
-      gobierto_budgets_budgets_forecast_economic_updated: 'Budgets updated: economic
-        area'
-      gobierto_budgets_budgets_forecast_functional_updated: 'Budgets updated: functional
-        area'
+      gobierto_budgets_budgets_updated: Budgets updated
     featured_budget_lines:
       gobierto_site_template:
         how_much_place_in: How much does %{place} expend on...

@@ -3,28 +3,8 @@
 module Subscribers
   class GobiertoBudgetsBudgetLineActivity < ::Subscribers::Base
 
-    def budgets_forecast_economic_updated(event)
-      create_activity_from_event(event, action_name_for('forecast', GobiertoBudgets::EconomicArea))
-    end
-
-    def budgets_forecast_functional_updated(event)
-      create_activity_from_event(event, action_name_for('forecast', GobiertoBudgets::FunctionalArea))
-    end
-
-    def budgets_forecast_custom_updated(event)
-      create_activity_from_event(event, action_name_for('forecast', GobiertoBudgets::CustomArea))
-    end
-
-    def budgets_execution_economic_updated(event)
-      create_activity_from_event(event, action_name_for('execution', GobiertoBudgets::EconomicArea))
-    end
-
-    def budgets_execution_functional_updated(event)
-      create_activity_from_event(event, action_name_for('execution', GobiertoBudgets::FunctionalArea))
-    end
-
-    def budgets_execution_custom_updated(event)
-      create_activity_from_event(event, action_name_for('execution', GobiertoBudgets::CustomArea))
+    def budgets_updated(event)
+      create_activity_from_event(event, "gobierto_budgets.budgets_updated")
     end
 
     private
@@ -40,10 +20,5 @@ module Subscribers
         site_id: site.id
       )
     end
-
-    def action_name_for(index, area)
-      "gobierto_budgets.budgets_#{index}_#{area.area_name}_updated"
-    end
-
   end
 end

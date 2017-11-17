@@ -19,8 +19,8 @@ class Subscribers::GobiertoBudgetsBudgetLineActivityTest < ActiveSupport::TestCa
     @ip_address ||= IPAddr.new(LOCALHOST)
   end
 
-  def create_event(index, area)
-    Event.new(name: "gobierto_budgets.budgets_#{index}_#{area.area_name}_updated",
+  def create_event
+    Event.new(name: "gobierto_budgets.budgets_updated",
               payload: {
                 subject: site,
                 ip: LOCALHOST,
@@ -28,10 +28,10 @@ class Subscribers::GobiertoBudgetsBudgetLineActivityTest < ActiveSupport::TestCa
               })
   end
 
-  def test_budgets_forecast_economic_updated_handling
+  def test_budgets_updated
     assert_difference "Activity.count" do
-      subject.budgets_forecast_economic_updated(
-        create_event("forecast", GobiertoBudgets::EconomicArea)
+      subject.budgets_updated(
+        create_event
       )
     end
 
@@ -39,73 +39,8 @@ class Subscribers::GobiertoBudgetsBudgetLineActivityTest < ActiveSupport::TestCa
 
     assert_equal site, activity.subject
     assert_equal ip_address, activity.subject_ip
-    assert_equal "gobierto_budgets.budgets_forecast_economic_updated", activity.action
+    assert_equal "gobierto_budgets.budgets_updated", activity.action
     assert_equal site.id, activity.site_id
     refute activity.admin_activity
-  end
-
-  def test_budgets_forecast_functional_updated_handling
-    assert_difference "Activity.count" do
-      subject.budgets_forecast_functional_updated(
-        create_event("forecast", GobiertoBudgets::FunctionalArea)
-      )
-    end
-
-    activity = Activity.last
-
-    assert_equal site, activity.subject
-    assert_equal "gobierto_budgets.budgets_forecast_functional_updated", activity.action
-  end
-
-  def test_budgets_forecast_custom_updated_handling
-    assert_difference "Activity.count" do
-      subject.budgets_forecast_custom_updated(
-        create_event("forecast", GobiertoBudgets::CustomArea)
-      )
-    end
-
-    activity = Activity.last
-
-    assert_equal site, activity.subject
-    assert_equal "gobierto_budgets.budgets_forecast_custom_updated", activity.action
-  end
-
-  def test_budgets_execution_economic_updated_handling
-    assert_difference "Activity.count" do
-      subject.budgets_execution_economic_updated(
-        create_event("execution", GobiertoBudgets::EconomicArea)
-      )
-    end
-
-    activity = Activity.last
-
-    assert_equal site, activity.subject
-    assert_equal "gobierto_budgets.budgets_execution_economic_updated", activity.action
-  end
-
-  def test_budgets_execution_functional_updated_handling
-    assert_difference "Activity.count" do
-      subject.budgets_execution_functional_updated(
-        create_event("execution", GobiertoBudgets::FunctionalArea)
-      )
-    end
-
-    activity = Activity.last
-
-    assert_equal site, activity.subject
-    assert_equal "gobierto_budgets.budgets_execution_functional_updated", activity.action
-  end
-
-  def test_budgets_execution_custom_updated_handling
-    assert_difference "Activity.count" do
-      subject.budgets_execution_custom_updated(
-        create_event("execution", GobiertoBudgets::CustomArea)
-      )
-    end
-
-    activity = Activity.last
-
-    assert_equal site, activity.subject
-    assert_equal "gobierto_budgets.budgets_execution_custom_updated", activity.action
   end
 end

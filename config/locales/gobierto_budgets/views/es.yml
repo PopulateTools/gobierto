@@ -398,18 +398,7 @@ es:
       income: ingreso
       incomes: ingresos
     events:
-      gobierto_budgets_budgets_execution_custom_updated: 'Ejecución presupuestaria
-        actualizada: área personalizada'
-      gobierto_budgets_budgets_execution_economic_updated: 'Ejecución presupuestaria
-        actualizada: área económica'
-      gobierto_budgets_budgets_execution_functional_updated: 'Ejecución presupuestaria
-        actualizada: área funcional'
-      gobierto_budgets_budgets_forecast_custom_updated: 'Presupuestos actualizados:
-        área personalizada'
-      gobierto_budgets_budgets_forecast_economic_updated: 'Presupuestos actualizados:
-        área económica'
-      gobierto_budgets_budgets_forecast_functional_updated: 'Presupuestos actualizados:
-        área funcional'
+      gobierto_budgets_budgets_updated: Presupuestos actualizados
     featured_budget_lines:
       gobierto_site_template:
         how_much_place_in: "¿Cuánto se gasta %{place} en..."

@@ -16,8 +16,9 @@ class GobiertoBudgets::BudgetsExecutionController < GobiertoBudgets::Application
     @several_expenses_filters = @any_economic_expense_budget_lines || @any_functional_expense_budget_lines || @any_custom_expense_budget_lines
     @several_income_filters   = @any_economic_income_budget_lines || @any_custom_income_budget_lines
 
-    @budgets_data_updated_at   = current_site.budgets_data_updated_at('execution')
-    @budgets_execution_summary = GobiertoBudgets::SiteStats.new(site: @site, year: @year).budgets_execution_summary
+    site_stats = GobiertoBudgets::SiteStats.new(site: @site, year: @year)
+    @budgets_execution_summary = site_stats.budgets_execution_summary
+    @budgets_data_updated_at   = site_stats.budgets_data_updated_at
   end
 
   private

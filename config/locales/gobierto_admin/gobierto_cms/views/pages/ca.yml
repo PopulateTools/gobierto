@@ -17,7 +17,7 @@ ca:
             draft: Borrador
           without_parent: "(pecat pare)"
         index:
-          add_new: Add new
+          add_new: Afegir nova
           collections: Col·leccions
           header:
             collection: Col·lecció

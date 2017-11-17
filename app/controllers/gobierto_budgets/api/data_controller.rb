@@ -104,7 +104,8 @@ module GobiertoBudgets
         area = params[:area]
 
         lines = GobiertoBudgets::Data::BudgetExecutionComparison.extract_lines(site: current_site, year: year, kind: kind, ine_code: ine_code, area: area)
-        last_update = current_site.budgets_data_updated_at('execution')
+        site_stats = GobiertoBudgets::SiteStats.new site: current_site, year: year
+        last_update = site_stats.budgets_data_updated_at
 
         respond_to do |format|
           format.json do

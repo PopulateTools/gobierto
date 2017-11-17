@@ -7,6 +7,13 @@ module GobiertoBudgets
       @data = {debt: {},population: {}}
     end
 
+    def budgets_data_updated_at
+      @site.activities.where('action ~* ?', "gobierto_budgets.budgets_updated")
+        .order(created_at: :asc)
+        .pluck(:created_at)
+        .last
+    end
+
     def has_data?(variable, year)
       r = send(variable, year)
       r.present? && r != 0

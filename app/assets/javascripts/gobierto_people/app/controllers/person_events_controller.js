@@ -1,98 +1,99 @@
 this.GobiertoPeople.PersonEventsController = (function() {
-  
-    function PersonEventsController() {}
-  
-    PersonEventsController.prototype.index = function(){
-      _initializeFullCalendar(_reorganizeHTML);
-    };
 
-    function _initializeFullCalendar(nextStep) {
+  function PersonEventsController() {}
 
-      var currentPath = window.location.pathname.split('/');
-      var eventsEndpoint = '/agendas/'+ currentPath[currentPath.length - 1] + '.json';
+  PersonEventsController.prototype.index = function(){
+    _initializeFullCalendar(_reorganizeHTML);
+  };
 
-      $('#calendar').fullCalendar({
-        locale: I18n.locale,
-        events: function(start, end, timezone, callback) {
-          $.ajax({
-            url: eventsEndpoint,
-            dataType: 'json',
-            accepts: {
-              text: 'application/json'
-            },
-            data: {
-              start: start.format(),
-              end: end.format()
-            },
-            success: function(doc) {
-              callback(doc.events);
-            }
-          });
-        },
-        header: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'month,agendaWeek,agendaDay'
-        },
-        eventLimit: true,
-        navLinks: true,
-        buttonText: {
-            today: I18n.t('gobierto_calendars.fullcalendar.today'),
-            month: I18n.t('gobierto_calendars.fullcalendar.month'),
-            week:  I18n.t('gobierto_calendars.fullcalendar.week'),
-            day:   I18n.t('gobierto_calendars.fullcalendar.day')
-        },
-        defaultView: 'agendaWeek',
-        height: 600,
-        contentHeight: 600,
-        firstDay: 1
-      });
-      nextStep();
-    };
+  function _initializeFullCalendar(nextStep) {
 
-    function _reorganizeHTML() {
-      // move list view inside calendar component
-      $('#calendar').append($('.person_event-list'));
+    var currentPath = window.location.pathname.split('/');
+    var eventsEndpoint = '/agendas/'+ currentPath[currentPath.length - 1] + '.json';
 
-      // create a button to toggle the list view
-      var $lastButton = $('.fc-right').find('.fc-corner-right');
-      $lastButton.after("<button type='button' class='fc-state-default' data-behavior='show_list_view'>" + I18n.t('gobierto_calendars.fullcalendar.list') + "</button>");
+    $('#calendar').fullCalendar({
+      locale: I18n.locale,
+      events: function(start, end, timezone, callback) {
+        $.ajax({
+          url: eventsEndpoint,
+          dataType: 'json',
+          accepts: {
+            text: 'application/json'
+          },
+          data: {
+            start: start.format(),
+            end: end.format()
+          },
+          success: function(doc) {
+            callback(doc.events);
+          }
+        });
+      },
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
+      },
+      eventLimit: true,
+      navLinks: true,
+      buttonText: {
+          today: I18n.t('gobierto_calendars.fullcalendar.today'),
+          month: I18n.t('gobierto_calendars.fullcalendar.month'),
+          week:  I18n.t('gobierto_calendars.fullcalendar.week'),
+          day:   I18n.t('gobierto_calendars.fullcalendar.day')
+      },
+      defaultView: 'agendaWeek',
+      height: 600,
+      contentHeight: 600,
+      firstDay: 1,
+      timeFormat: 'H:mm'
+    });
+    nextStep();
+  };
 
-      _addSwitchViewBehaviors();
+  function _reorganizeHTML() {
+    // move list view inside calendar component
+    $('#calendar').append($('.person_event-list'));
 
-      if ($('.person_event-list').is(':visible')) {
-        hideFullcalendarViewItems();
-      }
-    };
+    // create a button to toggle the list view
+    var $lastButton = $('.fc-right').find('.fc-corner-right');
+    $lastButton.after("<button type='button' class='fc-state-default' data-behavior='show_list_view'>" + I18n.t('gobierto_calendars.fullcalendar.list') + "</button>");
 
-    function _addSwitchViewBehaviors() {
-      $('.fc-right > .fc-button-group > .fc-state-default').not('[data-behavior="show_list_view"]').click(function() {
-        $('.person_event-list').hide();
-        showFullCalendarViewItems();
-      });
+    _addSwitchViewBehaviors();
 
-      $('[data-behavior="show_list_view"]').click(function() {
-        $('.person_event-list').show();
-        hideFullcalendarViewItems();
-      });
-    };
-
-    function hideFullcalendarViewItems() {
-      $('.fc-view-container').hide();
-      $('.fc-left').hide();
-      $('.fc-center').hide();
-      $('.fc-button').removeClass('fc-state-active');
-      $('[data-behavior="show_list_view"]').addClass('fc-state-active');
+    if ($('.person_event-list').is(':visible')) {
+      hideFullcalendarViewItems();
     }
+  };
 
-    function showFullCalendarViewItems() {
-      $('.fc-view-container').show();
-      $('.fc-left').show();
-      $('.fc-center').show();
-      $('[data-behavior="show_list_view"]').removeClass('fc-state-active');
-    }
+  function _addSwitchViewBehaviors() {
+    $('.fc-right > .fc-button-group > .fc-state-default').not('[data-behavior="show_list_view"]').click(function() {
+      $('.person_event-list').hide();
+      showFullCalendarViewItems();
+    });
 
-    return PersonEventsController;
-  })();
-  
-  this.GobiertoPeople.person_events_controller = new GobiertoPeople.PersonEventsController;
+    $('[data-behavior="show_list_view"]').click(function() {
+      $('.person_event-list').show();
+      hideFullcalendarViewItems();
+    });
+  };
+
+  function hideFullcalendarViewItems() {
+    $('.fc-view-container').hide();
+    $('.fc-left').hide();
+    $('.fc-center').hide();
+    $('.fc-button').removeClass('fc-state-active');
+    $('[data-behavior="show_list_view"]').addClass('fc-state-active');
+  }
+
+  function showFullCalendarViewItems() {
+    $('.fc-view-container').show();
+    $('.fc-left').show();
+    $('.fc-center').show();
+    $('[data-behavior="show_list_view"]').removeClass('fc-state-active');
+  }
+
+  return PersonEventsController;
+})();
+
+this.GobiertoPeople.person_events_controller = new GobiertoPeople.PersonEventsController;

@@ -14,7 +14,7 @@
               </li>
             </ul>
           <% elsif @section %>
-              <%= section_tag(@section.section_items.without_parent.sorted, @section_item.hierarchy_and_children) %>
+              <%= section_tag(@section.section_items.first_level, @section_item.hierarchy_and_children) %>
           <% end %>
         </menu>
       </div>

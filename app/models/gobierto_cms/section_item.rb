@@ -9,12 +9,22 @@ module GobiertoCms
     belongs_to :parent, class_name: "GobiertoCms::SectionItem", foreign_key: "parent_id"
     has_many :children, dependent: :destroy, class_name: "GobiertoCms::SectionItem", foreign_key: "parent_id"
 
-    after_commit :reindex_page, on: [:create, :update]
+    after_commit :reindex_item, on: [:create, :update]
 
     validates :item_id, :item_type, :position, :parent_id, :section_id, :level, presence: true
 
     scope :without_parent, -> { where(parent_id: 0) }
     scope :sorted, -> { order(position: :asc) }
+    scope :first_level, -> { without_parent.sorted }
+
+    def item
+      case item_type
+        when "GobiertoModule"
+          item_id.constantize
+        else
+          item_type.constantize.find(item_id)
+      end
+    end
 
     def all_parents(parent_array = [])
       if parent_id != 0
@@ -25,19 +35,13 @@ module GobiertoCms
     end
 
     def hierarchy_and_children
-      hierarchy = all_parents
-      hierarchy.push(self)
-      children.each do |child|
-        hierarchy.push(child)
-      end
-
-      hierarchy
+      all_parents + [self] + children
     end
 
     private
 
-    def reindex_page
-      if item.class_name == "GobiertoCms::Page"
+    def reindex_item
+      if item.is_a?(GobiertoCms::Page)
         ::GobiertoCms::Page.trigger_reindex_job(item, false)
       end
     end

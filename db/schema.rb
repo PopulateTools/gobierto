@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171115151744) do
+ActiveRecord::Schema.define(version: 20171119160858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -295,7 +295,7 @@ ActiveRecord::Schema.define(version: 20171115151744) do
 
   create_table "gcms_section_items", force: :cascade do |t|
     t.string "item_type"
-    t.bigint "item_id"
+    t.string "item_id"
     t.integer "position", default: 0, null: false
     t.integer "parent_id", null: false
     t.bigint "section_id"

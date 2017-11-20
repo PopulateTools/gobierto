@@ -84,7 +84,7 @@ module GobiertoPeople
       end
 
       def test_sync_events_v9
-        VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true) do
+        VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
           CalendarIntegration.sync_person_events(richard)
         end
 
@@ -105,7 +105,7 @@ module GobiertoPeople
       end
 
       def test_sync_events_updates_event_attributes
-        VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true) do
+        VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
           CalendarIntegration.sync_person_events(richard)
         end
 
@@ -122,7 +122,7 @@ module GobiertoPeople
         recurrent_event_instance.locations.first.update_attributes!(name: "Old location")
         recurrent_event_instance.save!
 
-        VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true) do
+        VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
           CalendarIntegration.sync_person_events(richard)
         end
 
@@ -138,7 +138,7 @@ module GobiertoPeople
       end
 
       def test_sync_events_removes_deleted_event_attributes
-        VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true) do
+        VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
           CalendarIntegration.sync_person_events(richard)
         end
 
@@ -148,7 +148,7 @@ module GobiertoPeople
 
         assert 1, event.locations.size
 
-        VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true) do
+        VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
           CalendarIntegration.sync_person_events(richard)
         end
 
@@ -159,7 +159,7 @@ module GobiertoPeople
       # Se piden eventos en el intervalo [1,3], 1 y 3 son recurrentes y son el mismo, el 2 es uno no recurrente
       # De las 9 instancias del evento recurrente, la que tiene recurrenceId=20170407T113000Z (la segunda) da 404
       def test_sync_events_v8
-        VCR.use_cassette("ibm_notes/person_events_collection_v8", decode_compressed_response: true) do
+        VCR.use_cassette("ibm_notes/person_events_collection_v8", decode_compressed_response: true, match_requests_on: [:host, :path]) do
           CalendarIntegration.sync_person_events(richard)
         end
 
@@ -185,7 +185,7 @@ module GobiertoPeople
       # Only v8 will return past events instances, but use v9 cassette for simplicity
       def test_sync_events_marks_unreceived_upcoming_events_as_pending
         Timecop.freeze(Time.zone.parse("2017-05-03")) do
-          VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true) do
+          VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
             # Returns 3 events, all of them upcoming
             CalendarIntegration.sync_person_events(richard)
           end
@@ -197,7 +197,7 @@ module GobiertoPeople
         end
 
         Timecop.freeze(Time.zone.parse("2017-05-05 01:00:00")) do
-          VCR.use_cassette("ibm_notes/person_events_collection_v9_mark_as_pending", decode_compressed_response: true) do
+          VCR.use_cassette("ibm_notes/person_events_collection_v9_mark_as_pending", decode_compressed_response: true, match_requests_on: [:host, :path]) do
             # Returns first event from the previous set, which is now past
             CalendarIntegration.sync_person_events(richard)
           end
@@ -281,7 +281,7 @@ module GobiertoPeople
 
       def test_sync_attendees
         # Cassette contains one confirmed attendee and two requested participants.
-        VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true) do
+        VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
           CalendarIntegration.sync_person_events(richard)
         end
 
@@ -299,7 +299,7 @@ module GobiertoPeople
 
         event.attendees.second.delete
 
-        VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true) do
+        VCR.use_cassette("ibm_notes/person_events_collection_v9", decode_compressed_response: true, match_requests_on: [:host, :path]) do
           CalendarIntegration.sync_person_events(richard)
         end
 

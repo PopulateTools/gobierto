@@ -51,7 +51,7 @@ module GobiertoPeople
       end
 
       def sync_calendar_events( calendar)
-        response = service.list_events(calendar.id, always_include_email: true, time_min: Time.now.iso8601)
+        response = service.list_events(calendar.id, always_include_email: true, time_min: 2.days.ago.iso8601)
         response.items.each do |event|
           next if is_private?(event) || (!is_creator?(event) && !is_attendee?(event))
 

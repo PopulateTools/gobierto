@@ -77,7 +77,7 @@ module GobiertoCommon
 
     def append(item)
       item_type = if item.class_name == "GobiertoAttachments::Attachment"
-                    "GobiertoAttachments::Atachment"
+                    "GobiertoAttachments::Attachment"
                   else
                     self.item_type
                   end

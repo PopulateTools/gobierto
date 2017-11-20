@@ -1,6 +1,7 @@
 <table class="pages-list">
   <tr>
     <th></th>
+    <th></th>
     <th><%= t('.file_name') %></th>
     <th><%= GobiertoCms::Page.human_attribute_name(:title) %></th>
     <th><%= t('.created_at') %></th>
@@ -11,6 +12,7 @@
     <% @file_attachments.each do |file_attachment| %>
       <tr id="file_attachment-item-<%= file_attachment.id %>">
         <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_attachments_file_attachment_path(file_attachment.id, collection_id: @collection.id) %></td>
+        <td><%= filetype_icon(file_attachment) %></td>
         <td><%= file_attachment.file_name %></td>
         <td><%= link_to file_attachment.name, edit_admin_attachments_file_attachment_path(file_attachment.id, collection_id: @collection.id) %></td>
         <td><%= time_ago_in_words(file_attachment.created_at) %></td>

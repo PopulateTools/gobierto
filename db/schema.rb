@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171030120411) do
+ActiveRecord::Schema.define(version: 20171116124801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -288,6 +288,8 @@ ActiveRecord::Schema.define(version: 20171030120411) do
     t.jsonb "body_translations"
     t.string "slug", default: "", null: false
     t.integer "collection_id"
+    t.jsonb "body_source_translations"
+    t.index ["body_source_translations"], name: "index_gcms_pages_on_body_source_translations", using: :gin
     t.index ["body_translations"], name: "index_gcms_pages_on_body_translations", using: :gin
     t.index ["site_id"], name: "index_gcms_pages_on_site_id"
     t.index ["title_translations"], name: "index_gcms_pages_on_title_translations", using: :gin

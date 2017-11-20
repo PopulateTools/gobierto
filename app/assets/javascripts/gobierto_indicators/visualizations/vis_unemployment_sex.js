@@ -13,7 +13,7 @@ var VisUnemploymentSex = Class.extend({
     this.isMobile = window.innerWidth <= 768;
 
     // Chart dimensions
-    this.margin = {top: 25, right: 70, bottom: 25, left: 0};
+    this.margin = {top: 25, right: 50, bottom: 25, left: 20};
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
 
@@ -113,7 +113,7 @@ var VisUnemploymentSex = Class.extend({
 
     this.yScale
       .rangeRound([this.height, 0])
-      .domain([0.04, d3.max(this.unemplAgeData, function(d) { return d.pct; })]);
+      .domain([0.0, d3.max(this.unemplAgeData, function(d) { return d.pct; })]);
 
     this.color
       .domain(['M', 'H'])
@@ -245,7 +245,7 @@ var VisUnemploymentSex = Class.extend({
     return parseInt(d3.select(this.container).style('width'));
   },
   _height: function() {
-    return this.isMobile ? 200 : this._width() * 1.4;
+    return this.isMobile ? 200 : 250;
   },
   _resize: function() {
     this.isMobile = window.innerWidth <= 768;

@@ -152,7 +152,7 @@ var VisUnemploymentSex = Class.extend({
         .enter();
 
       linesText.append('div')
-        .style('right', '20px')
+        .style('right', '1px')
         .style('top', function(d) { return this.yScale(d.values.map(function(d) { return d.pct; }).slice(-1)[0]) + 'px'; }.bind(this))
         .text(function(d) {
           return this._getLabel(d.key);

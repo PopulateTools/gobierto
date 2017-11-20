@@ -100,7 +100,7 @@ var VisUnemploymentAge = Class.extend({
       .enter();
 
     linesText.append('div')
-      .style('right', 0)
+      .style('right', '-25px')
       .style('top', function(d) { return this.yScale(d.values.map(function(d) { return d.pct; }).slice(-1)[0]) + 'px'; }.bind(this))
       .text(function(d) {
         return this._getAgeRange(d.key);

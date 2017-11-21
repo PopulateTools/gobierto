@@ -7,7 +7,7 @@ module SubmodulesHelper
                   :submodule_path_for, :submodule_title_for, :submodule_controller_for,
                   :budgets_elaboration_active?,
                   :budget_lines_feedback_active?, :gobierto_budgets_feedback_emails,
-                  :budgets_receipt_active?, :budgets_receipt_configuration
+                  :budgets_receipt_active?, :budgets_receipt_configuration, :submodule_has_content?
   end
 
   private
@@ -95,5 +95,12 @@ module SubmodulesHelper
 
   def submodule_controller_for(submodule)
     available_submodules[submodule.to_sym][:controller_name]
+  end
+
+  def submodule_has_content?(submodule)
+    if submodule == 'blogs'
+      return current_site.person_posts.active.any?
+    end
+    return true
   end
 end

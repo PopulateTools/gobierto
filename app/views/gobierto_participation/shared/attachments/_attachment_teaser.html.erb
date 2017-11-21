@@ -5,7 +5,9 @@
         <%= filetype_icon(attachment) %><%= attachment.name %>
       <% end %>
     <% elsif current_module == "gobierto_participation" %>
-      <%= link_to attachment.name, gobierto_participation_attachment_path(id: attachment.slug) %>
+      <%= link_to gobierto_participation_attachment_path(id: attachment.slug) do %>
+        <%= filetype_icon(attachment) %><%= attachment.name %>
+      <% end %>
     <% end %>
   </h3>
 

@@ -46,7 +46,7 @@
                     <div class="icon"><%= filetype_icon(attachment) %></div>
                     <h4><%= attachment.name %></h4>
                     <div class="meta">
-                      <%= filetype_icon(attachment) %> · <%= attachment.extension.upcase %> · <%= number_to_human_size(attachment.file_size, precision: 2, separator: ',') %> · <%= attachment.file_name %>
+                      <%= attachment.extension.upcase %> · <%= number_to_human_size(attachment.file_size, precision: 2, separator: ',') %> · <%= attachment.file_name %>
                     </div>
                   <% end %>
                 </div>

@@ -293,9 +293,12 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
         },
         addToEditor: function(attachment) {
           var locale = $('[data-toggle-edit-locale].selected').data('toggle-edit-locale');
-          var element = document.querySelector("trix-editor[lang="+locale+"]");
+          var localeSuffix = "";
+          if(locale !== undefined)
+            localeSuffix = "[lang="+locale+"]";
+          var element = document.querySelector("trix-editor" + localeSuffix);
           if(element === null || element.editor === null) {
-            element = $('[data-wysiwyg][lang='+locale+']');
+            element = $('[data-wysiwyg]' + localeSuffix);
             if(element.length) {
               var html = '<a href="'+attachment.url+'" target="_blank">'+attachment.file_name+' <span class="size">('+ this.bytesToSize(attachment.file_size) +')</span></a>' + "\n";
               var editor = element.data('editor');

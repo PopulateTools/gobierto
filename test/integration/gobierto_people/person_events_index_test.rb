@@ -269,7 +269,7 @@ module GobiertoPeople
 
       with_current_site(site) do
         visit @path
-        
+
         assert_text("There are no future or past events.")
         within '.filter_boxed' do
           refute has_link? 'Government Team'

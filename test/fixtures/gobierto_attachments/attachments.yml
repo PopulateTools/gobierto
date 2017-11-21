@@ -7,6 +7,7 @@ pdf_attachment:
   description: Description of a PDF attachment
   current_version: 1
   site: madrid
+  slug: pdf-attachment-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
@@ -33,6 +34,7 @@ xlsx_attachment:
   description: Description of a XLSX attachment
   current_version: 2
   site: madrid
+  slug: xlsx-attachment-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
@@ -45,6 +47,7 @@ attachment:
   description: Description of attachment without extension
   current_version: 3
   site: madrid
+  slug: attachment-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
@@ -57,6 +60,7 @@ txt_pdf_attachment:
   description: Description of attachment with two extensions in name
   current_version: 4
   site: madrid
+  slug: txt-pdf-attachment-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
@@ -69,5 +73,6 @@ santander_attachment:
   description: An attachment belonging to other site
   current_version: 1
   site: santander
+  slug: santander-attachment-slug
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>

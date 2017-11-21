@@ -46,4 +46,20 @@ module ApplicationHelper
   def full_layout?
     !((controller_name == "contribution_containers") && (action_name == "show"))
   end
+
+  def filetype_icon(attachment)
+    extension = if attachment.class == String
+                  attachment.split(".").last
+                else
+                  attachment.extension
+                end
+
+    fontawesome_filetype = if ::GobiertoAttachments::Attachment.extension_fontawesome_matching.has_key?(extension.to_sym)
+                             "-" + ::GobiertoAttachments::Attachment.extension_fontawesome_matching[extension.to_sym]
+                           else
+                             ""
+                           end
+    html = "<i class='fa fa-file" + fontawesome_filetype + "-o'></i>"
+    html.html_safe
+  end
 end

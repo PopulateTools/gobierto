@@ -5,7 +5,7 @@ module GobiertoPeople
       attr_reader :person, :site
 
       SYNC_RANGE = {
-        start_date: DateTime.now - 2.months,
+        start_date: DateTime.now - 2.days,
         end_date:   DateTime.now + 1.year
       }
 

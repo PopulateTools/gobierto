@@ -20,7 +20,7 @@ pdf_collection_attachment:
   current_version: 1
   site: madrid
   slug: pdf-collection-attachment-slug
-  collection: files
+  collection: gender_violence_process_documents
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 

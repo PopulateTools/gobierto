@@ -76,22 +76,35 @@ module GobiertoCommon
     end
 
     def append(item)
+      item_type = if item.class_name == "GobiertoAttachments::Attachment"
+                    "GobiertoAttachments::Attachment"
+                  else
+                    self.item_type
+                  end
+
       containers_hierarchy(container).each do |container_type, container_id|
-        CollectionItem.find_or_create_by! collection_id: id, container_type: container_type, container_id: container_id, item_id: item.id, item_type: self.item_type
+        CollectionItem.find_or_create_by! collection_id: id,
+                                          container_type: container_type,
+                                          container_id: container_id,
+                                          item_id: item.id,
+                                          item_type: item_type
       end
 
       if container_type == "GobiertoParticipation::Process"
         process = GobiertoParticipation::Process.find(container_id)
+
         if process.issue
-          CollectionItem.find_or_create_by! collection_id: id, container: process.issue, item: item
+          CollectionItem.find_or_create_by! collection_id: id,
+                                            container: process.issue,
+                                            item_id: item.id,
+                                            item_type: item_type
         end
-      elsif container_type == "Issue"
-        issue = Issue.find(container_id)
-        relation_processes = GobiertoParticipation::Process.where(issue: issue)
-        if relation_processes.any?
-          relation_processes.each do |process|
-            CollectionItem.find_or_create_by! collection_id: id, container: process, item: item
-          end
+
+        if process.scope
+          CollectionItem.find_or_create_by! collection_id: id,
+                                            container: process.scope,
+                                            item_id: item.id,
+                                            item_type: item_type
         end
       end
     end

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require_relative "base"
+require_relative "base_index"
 require "support/event_helpers"
 
 module GobiertoPeople
   module People
     class PersonEventsIndexTest < ActionDispatch::IntegrationTest
-      include Base
+      include BaseIndex
       include ::EventHelpers
 
       def setup

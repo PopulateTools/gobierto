@@ -24,13 +24,15 @@ module GobiertoAdmin
 
         def uploaded_file
           @uploaded_file ||= Rack::Test::UploadedFile.new(
-            Rails.root.join('test/fixtures/files/sites/logo-madrid.png')
+            File.open(Rails.root.join('test/fixtures/files/sites/logo-madrid.png')),
+            original_filename: 'logo-madrid.png'
           )
         end
 
         def existing_attachment_file
           @existing_attachment_file ||= Rack::Test::UploadedFile.new(
-            Rails.root.join('test/fixtures/files/gobierto_attachments/attachment/pdf-attachment.pdf')
+            File.open(Rails.root.join('test/fixtures/files/gobierto_attachments/attachment/pdf-attachment.pdf')),
+            original_filename: 'pdf-attachment.pdf'
           )
         end
 

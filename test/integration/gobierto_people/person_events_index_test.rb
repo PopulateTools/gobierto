@@ -48,6 +48,7 @@ module GobiertoPeople
       @upcoming_events ||= [
         gobierto_calendars_events(:nelson_tomorrow),
         gobierto_calendars_events(:richard_published),
+        gobierto_calendars_events(:neil_published),
         gobierto_calendars_events(:richard_published_just_attending)
       ]
     end

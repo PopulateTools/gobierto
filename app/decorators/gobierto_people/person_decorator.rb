@@ -52,6 +52,26 @@ module GobiertoPeople
       object.content_blocks(site_id).where.not(internal_id:  GobiertoCommon::DynamicContent::CONTACT_BLOCK_ID)
     end
 
+    def has_bio_or_cv?
+      bio.present? || bio_url.present?
+    end
+
+    def has_biographic_blocks?
+      content_blocks_for_bio(site_id).any? { |block| block.records.any? }
+    end
+
+    def has_biographic_data?
+     has_bio_or_cv? || has_biographic_blocks?
+    end
+
+    def has_posts?
+      posts.active.any?
+    end
+
+    def has_statements?
+      statements.active.any?
+    end
+
     private
 
     def person_contact_method_for(service_name, attribute_name)

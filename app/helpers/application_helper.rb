@@ -43,4 +43,7 @@ module ApplicationHelper
     !params[:controller].include?('user/')
   end
 
+  def full_layout?
+    !((controller_name == "contribution_containers") && (action_name == "show"))
+  end
 end

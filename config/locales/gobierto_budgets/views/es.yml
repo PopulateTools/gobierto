@@ -41,6 +41,7 @@ es:
         percentage: "% sobre el total del pres."
         planned: presupuestado
         planned_per_inhabitant: pres. / hab.
+        planned_per_inhabitant_updated: pres. act. / hab.
         raise_hand: Levanta la mano
         real_value: El %{kind} real son %{value}
         real_vs_planned: real vs. pres.
@@ -49,6 +50,7 @@ es:
           para el %{year}'
         twitter_text_income: 'En @gobierto: Ingreso municipal de %{name} en %{budget_line_name}
           para el %{year}'
+        updated: actualizado
         vs_previous_year: vs. ejercicio anterior
     budgets:
       guide:
@@ -380,7 +382,8 @@ es:
           percent: "% de progreso"
           percent_log: "% de progreso (log)"
           tooltip: Se ha ejecutado un
-          tooltip_budgeted: Presupuestado
+          tooltip_budgeted: Presupuestado inicial
+          tooltip_budgeted_updated: Presupuestado actualizado
       widget_template_deviation:
         expense: Gastos
         income: Ingresos
@@ -395,18 +398,7 @@ es:
       income: ingreso
       incomes: ingresos
     events:
-      gobierto_budgets_budgets_execution_custom_updated: 'Ejecución presupuestaria
-        actualizada: área personalizada'
-      gobierto_budgets_budgets_execution_economic_updated: 'Ejecución presupuestaria
-        actualizada: área económica'
-      gobierto_budgets_budgets_execution_functional_updated: 'Ejecución presupuestaria
-        actualizada: área funcional'
-      gobierto_budgets_budgets_forecast_custom_updated: 'Presupuestos actualizados:
-        área personalizada'
-      gobierto_budgets_budgets_forecast_economic_updated: 'Presupuestos actualizados:
-        área económica'
-      gobierto_budgets_budgets_forecast_functional_updated: 'Presupuestos actualizados:
-        área funcional'
+      gobierto_budgets_budgets_updated: Presupuestos actualizados
     featured_budget_lines:
       gobierto_site_template:
         how_much_place_in: "¿Cuánto se gasta %{place} en..."

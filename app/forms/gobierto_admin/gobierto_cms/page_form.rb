@@ -14,7 +14,9 @@ module GobiertoAdmin
         :body_translations,
         :body_source_translations,
         :slug,
-        :attachment_ids
+        :attachment_ids,
+        :section,
+        :parent
       )
 
       delegate :persisted?, to: :page
@@ -67,6 +69,22 @@ module GobiertoAdmin
         ::GobiertoCommon::Collection
       end
 
+      def save_section_item(id, section, parent)
+        parent = parent ? parent : 0
+        parent_node = ::GobiertoCms::SectionItem.find_by(id: parent, section: section)
+        position = ::GobiertoCms::SectionItem.where(parent_id: parent, section: section).size
+        section_item = ::GobiertoCms::SectionItem.find_or_initialize_by(item_id: id,
+                                                                        item_type: "GobiertoCms::Page")
+        if (section == "" && section_item.present?)
+          section_item.destroy
+        else
+          section_item.update_attributes(parent_id: parent,
+                                         section_id: section,
+                                         position: position,
+                                         level: parent_node ? parent_node.level + 1 : 0)
+        end
+      end
+
       def save_page
         @page = page.tap do |page_attributes|
           page_attributes.collection = collection
@@ -87,9 +105,11 @@ module GobiertoAdmin
         end
 
         if @page.valid?
+
           run_callbacks(:save) do
             @page.save
           end
+          save_section_item(@page.id, section, parent)
 
           @page
         else

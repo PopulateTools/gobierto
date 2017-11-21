@@ -93,6 +93,8 @@ class Site < ApplicationRecord
         GobiertoPeople::IbmNotes::CalendarIntegration
       when 'google_calendar'
         GobiertoPeople::GoogleCalendar::CalendarIntegration
+      when 'microsoft_exchange'
+        GobiertoPeople::MicrosoftExchange::CalendarIntegration
       end
     end
   end
@@ -121,13 +123,6 @@ class Site < ApplicationRecord
 
   def password_protected?
     draft?
-  end
-
-  def budgets_data_updated_at(index)
-    activities.where('action ~* ?', "gobierto_budgets.budgets_#{index}_.*_updated")
-              .order(created_at: :asc)
-              .pluck(:created_at)
-              .last
   end
 
   def to_s

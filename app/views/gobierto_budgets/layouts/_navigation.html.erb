@@ -5,8 +5,8 @@
     <%= link_to t('gobierto_budgets.layouts.menu_subsections.elaboration'), gobierto_budgets_budgets_elaboration_path, data: { turbolinks: false }  %></li>
   <% end %>
   <%= link_to t('gobierto_budgets.layouts.menu_subsections.execution'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false } %>
-  <%= link_to t('gobierto_budgets.layouts.menu_subsections.guide'), gobierto_budgets_budgets_guide_path %></li>
+  <%= link_to t('gobierto_budgets.layouts.menu_subsections.guide'), gobierto_budgets_budgets_guide_path, data: { turbolinks: false } %></li>
   <% if budgets_receipt_active? %>
-    <%= link_to t('gobierto_budgets.layouts.menu_subsections.receipt'), gobierto_budgets_receipt_path, class: class_if('active', controller_name == 'receipts')  %>
+    <%= link_to t('gobierto_budgets.layouts.menu_subsections.receipt'), gobierto_budgets_receipt_path, class: class_if('active', controller_name == 'receipts'), data: { turbolinks: false }  %>
   <% end %>
 </div>

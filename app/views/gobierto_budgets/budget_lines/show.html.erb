@@ -71,6 +71,11 @@
         <div class="inner">
           <h3><%= kind_literal(@kind, false).capitalize %> <%= t('.planned_per_inhabitant') %></h3>
           <div class="metric"><%= number_to_currency @budget_line_stats.amount_per_inhabitant, precision: 2 %></div>
+          <% if @budget_line_stats.amount_per_inhabitant_updated.present? %>
+            <div class="explanation">
+              <%= kind_literal(@kind, false).capitalize %> <%= t('.planned_per_inhabitant_updated') %>: <%= number_to_currency(@budget_line_stats.amount_per_inhabitant_updated, precision: 2) %>
+            </div>
+          <% end %>
         </div>
       </div>
 
@@ -78,6 +83,11 @@
         <div class="inner">
           <h3><%= kind_literal(@kind, false).capitalize %> <%= t('.planned') %> </h3>
           <div class="metric"><%= format_currency @budget_line_stats.amount %></div>
+          <% if @budget_line_stats.amount_updated.present? %>
+            <div class="explanation">
+              <%= kind_literal(@kind, false).capitalize %> <%= t('.updated') %>: <%= format_currency(@budget_line_stats.amount_updated) %>
+            </div>
+          <% end %>
         </div>
       </div>
 

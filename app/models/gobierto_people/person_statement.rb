@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "gobierto_people"
 
 module GobiertoPeople
@@ -44,8 +46,11 @@ module GobiertoPeople
     end
 
     def attributes_for_slug
-      [published_on.strftime('%F'), title]
+      [published_on.strftime("%F"), title]
     end
 
+    def resource_path
+      url_helpers.gobierto_people_person_statement_url({ person_slug: person.slug, slug: slug }.merge(host: site.domain))
+    end
   end
 end

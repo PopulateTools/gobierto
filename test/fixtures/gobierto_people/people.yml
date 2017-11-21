@@ -74,7 +74,7 @@ juana:
   category: <%= GobiertoPeople::Person.categories["executive"] %>
   party:
   political_group:
-  position: 3
+  position: 4
   email: juana@example.com
   google_calendar_token:
 

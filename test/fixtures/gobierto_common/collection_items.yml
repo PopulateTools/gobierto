@@ -1,9 +1,9 @@
 ## Attachments collection items
 
 collection_item_attachment:
-  collection: files
+  collection: gender_violence_process_documents
   item: pdf_collection_attachment (GobiertoAttachments::Attachment)
-  container: sport_city_process (GobiertoParticipation::Process)
+  container: gender_violence_process (GobiertoParticipation::Process)
 
 ## /end Attachments collection items
 

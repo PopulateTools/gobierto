@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     root "meta_welcome#index"
   end
 
-  if Rails.env.development?
+  unless Rails.env.production?
     get "/sandbox" => "sandbox#index"
     get "/sandbox/*template" => "sandbox#show"
   end
@@ -116,7 +116,7 @@ Rails.application.routes.draw do
     namespace :gobierto_cms, as: :cms, path: :cms do
       resources :pages, only: [:index, :new, :edit, :create, :update]
       resources :sections, only: [:index, :new, :edit, :create, :update, :show] do
-        resources :section_items, only: [:index, :create, :destroy, :update]
+        resources :section_items, only: [:index, :create, :destroy, :update, :show]
         get :pages
       end
     end

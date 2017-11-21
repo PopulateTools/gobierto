@@ -12,7 +12,7 @@ var BarsCard = Class.extend({
     var parsedDate = parseDate(json.data[0].date);
     var formatDate = d3.timeFormat("%b %Y");
     var isMobile = innerWidth <= 768;
-    
+
     this.div.selectAll('.tw-sharer')
       .attr('target', '_blank')
       .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_indicators.cards.meta.where') + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(I18n.t('gobierto_indicators.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_indicators.cards.meta.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(data[0].figure))  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
@@ -29,7 +29,7 @@ var BarsCard = Class.extend({
     // Append date of last data point
     this.div.selectAll('.widget_updated')
       .text(formatDate(parsedDate));
-  
+
     // Append update frequency
     this.div.selectAll('.widget_freq')
       .text(this._printFreq(json.metadata.frequency_type));
@@ -38,27 +38,27 @@ var BarsCard = Class.extend({
     this.div.selectAll('.widget_title')
       .attr('title', I18n.t('gobierto_indicators.cards.' + cardName + '.title'))
       .text(I18n.t('gobierto_indicators.cards.' + cardName + '.title'));
-    
+
     // Paint bars
     var x = d3.scaleLinear()
-      .range([0, isMobile ? 40 : 45])
+      .range([0, isMobile ? 30 : 35])
       .domain([0, d3.max(data, function(d) { return d.figure; })]);
-      
+
     var row = this.div.select('.bars')
       .selectAll('div')
       .data(data)
       .enter()
       .append('div')
       .attr('class', 'row');
-      
+
     row.append('div')
       .attr('class', 'key')
       .text(function(d) { return d.key });
-      
+
     row.append('div')
       .attr('class', 'bar')
       .style('width', function(d) { return x(d.figure) + '%'; });
-      
+
     row.append('div')
       .attr('class', 'qty')
       .text(function(d) { return this._printData(d.figure); }.bind(this));

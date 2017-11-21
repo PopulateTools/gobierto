@@ -41,6 +41,7 @@ en:
         percentage: "% over the total"
         planned: planned
         planned_per_inhabitant: plan. / inh.
+        planned_per_inhabitant_updated: plan. upd. / inh.
         raise_hand: Raise your hand
         real_value: Real %{kind} is %{value}
         real_vs_planned: real vs. plan.
@@ -49,6 +50,7 @@ en:
           for year %{year}'
         twitter_text_income: 'In @gobierto: Municipal income on %{name} in %{budget_line_name}
           for year %{year}'
+        updated: updated
         vs_previous_year: vs. previous year
     budgets:
       guide:
@@ -373,7 +375,8 @@ en:
           percent: "% of progress"
           percent_log: "% of progress (log)"
           tooltip: It has been executed by a
-          tooltip_budgeted: Budget
+          tooltip_budgeted: Initial budget
+          tooltip_budgeted_updated: Updated budget
       widget_template_deviation:
         expense: Expense
         income: Income
@@ -388,17 +391,7 @@ en:
       income: income
       incomes: incomes
     events:
-      gobierto_budgets_budgets_execution_custom_updated: 'Budgets execution updated:
-        custom area'
-      gobierto_budgets_budgets_execution_economic_updated: 'Budgets execution updated:
-        economic area'
-      gobierto_budgets_budgets_execution_functional_updated: 'Budgets execution updated:
-        functional area'
-      gobierto_budgets_budgets_forecast_custom_updated: 'Budgets updated: custom area'
-      gobierto_budgets_budgets_forecast_economic_updated: 'Budgets updated: economic
-        area'
-      gobierto_budgets_budgets_forecast_functional_updated: 'Budgets updated: functional
-        area'
+      gobierto_budgets_budgets_updated: Budgets updated
     featured_budget_lines:
       gobierto_site_template:
         how_much_place_in: How much does %{place} expend on...

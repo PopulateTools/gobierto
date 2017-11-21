@@ -41,11 +41,11 @@
                     <tbody>
                       <tr>
                         <th><%= t('.income_planned') %></th>
-                        <td><%= format_currency @site_stats.total_income_budget %></td>
+                        <td><%= format_currency @budgets_execution_summary[:last_income_budgeted] %></td>
                       </tr>
                       <tr>
                         <th><%= t('.real_income') %></th>
-                        <td><%= format_currency @site_stats.total_income_budget_executed %></td>
+                        <td><%= format_currency @budgets_execution_summary[:last_income_execution] %></td>
                       </tr>
                     </tbody>
                   </table>
@@ -75,11 +75,11 @@
                     <tbody>
                       <tr>
                         <th><%= t('.expenses_planned') %></th>
-                        <td><%= format_currency @site_stats.total_budget %></td>
+                        <td><%= format_currency @budgets_execution_summary[:last_expenses_budgeted] %></td>
                       </tr>
                       <tr>
                         <th><%= t('.real_expenses') %></th>
-                        <td><%= format_currency @site_stats.total_budget_executed %></td>
+                        <td><%= format_currency @budgets_execution_summary[:last_expenses_execution] %></td>
                       </tr>
                     </tbody>
                   </table>

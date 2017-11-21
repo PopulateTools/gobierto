@@ -27,7 +27,7 @@ module GobiertoAdmin
       end
 
       def attachment
-        @attachment ||= gobierto_attachments_attachments(:pdf_attachment)
+        @attachment ||= gobierto_attachments_attachments(:pdf_collection_attachment)
       end
 
       def test_attachments
@@ -59,12 +59,11 @@ module GobiertoAdmin
 
             fill_in "file_attachment_name", with: "My file_attachment"
             fill_in "file_attachment_description", with: "My file_attachment description"
-            attach_file("file_attachment_file", "test/fixtures/files/gobierto_attachments/attachment/pdf-collection-update-attachment.pdf")
+            attach_file("file_attachment_file", "test/fixtures/files/gobierto_attachments/attachment/pdf-collection-gender-attachment.pdf")
 
             with_stubbed_s3_file_upload do
               click_button "Create"
             end
-
             assert has_message?("Attachment created successfully.")
 
             assert has_selector?("h1", text: process.title)

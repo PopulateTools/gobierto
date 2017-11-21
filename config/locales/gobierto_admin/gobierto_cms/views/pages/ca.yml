@@ -6,13 +6,18 @@ ca:
         edit:
           title: Editar pàgina
         form:
+          include_in_section: Incloure a la secció
+          new_section: "(Nova secció)"
           placeholders:
             slug: sobre-aquesta-web
             title: Títol de la pàgina
+          section: Secció
           visibility_level:
             active: Publicada
             draft: Borrador
+          without_parent: "(sense pare)"
         index:
+          add_new: Afegir nova
           collections: Col·leccions
           header:
             collection: Col·lecció

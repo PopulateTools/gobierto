@@ -55,7 +55,7 @@ module GobiertoPeople
         event2.stubs(visibility: nil, location: nil, creator: creator_event2, recurrence: nil, id: "event2",
                      summary: "Event 2", start: date1, end: date2, attendees: [attendee1, attendee2], description: "Event 2 description")
 
-        # Single event, organized by other, Richard is invited
+        # Single event, organized by other, calendar shared with Richard
         event3 = mock
         event3.stubs(visibility: nil, location: "Patio de mi casa 1, 28005, Madrid", creator: creator_event3, recurrence: nil, id: "event3",
                      summary: "Event 3", start: date1, end: date2, attendees: [attendee1, attendee2], description: "")
@@ -125,6 +125,7 @@ module GobiertoPeople
         # Event 2 checks
         event = richard.events.find_by external_id: "event2"
         assert_equal "Event 2", event.title
+        assert_equal richard, event.collection.container
         assert_empty event.locations
         assert_equal 2, event.attendees.size
         assert_equal richard, event.attendees.first.person
@@ -135,6 +136,7 @@ module GobiertoPeople
         # Event 3 checks
         event = site.events.find_by external_id: "event3"
         assert_equal "Event 3", event.title
+        assert_equal richard, event.collection.container
         assert_equal "Patio de mi casa 1, 28005, Madrid", event.locations.first.name
         assert_equal 2, event.attendees.size
         assert_equal richard, event.attendees.first.person
@@ -143,6 +145,7 @@ module GobiertoPeople
         # Event 5 checks
         event = site.events.find_by external_id: "event4_instance_1"
         assert_equal "Event 5", event.title
+        assert_equal richard, event.collection.container
         assert_empty event.locations
         assert_equal 2, event.attendees.size
         assert_equal richard, event.attendees.first.person
@@ -151,6 +154,7 @@ module GobiertoPeople
         # Event 6 checks
         event = site.events.find_by external_id: "event4_instance_2"
         assert_equal "Event 6", event.title
+        assert_equal richard, event.collection.container
         assert_empty event.locations
         assert_equal 2, event.attendees.size
         assert_equal richard, event.attendees.first.person

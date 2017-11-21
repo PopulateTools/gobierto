@@ -57,6 +57,13 @@ module GobiertoParticipation
     end
 
     def resource_path
+      Rails.application.routes.url_helpers.gobierto_participation_process_contribution_container_path(
+        process_id: contribution_container.process.slug,
+        id: contribution_container.slug
+      )
+    end
+
+    def to_path
       Rails.application.routes.url_helpers.gobierto_participation_process_contribution_container_contribution_path(
         process_id: contribution_container.process.slug,
         contribution_container_id: contribution_container.slug,
@@ -133,7 +140,7 @@ module GobiertoParticipation
     end
 
     def self.javascript_json
-      all.to_json(only: [:title, :votes_count, :user_id], methods: [:resource_path, :love_pct, :like_pct, :neutral_pct, :hate_pct, :created_at_ymd])
+      all.to_json(only: [:title, :votes_count, :user_id], methods: [:to_path, :love_pct, :like_pct, :neutral_pct, :hate_pct, :created_at_ymd])
     end
   end
 end

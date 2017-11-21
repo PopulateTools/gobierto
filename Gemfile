@@ -72,6 +72,9 @@ gem "liquid", "~> 4.0"
 # Google API
 gem "google-api-client"
 
+# Microsoft Exchange calendars
+gem "exchanger"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"

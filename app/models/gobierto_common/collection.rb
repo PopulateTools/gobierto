@@ -11,6 +11,9 @@ module GobiertoCommon
 
     validates :site, :title, :item_type, presence: true
     validates :slug, uniqueness: { scope: :site }
+    validates :container_id, uniqueness: {
+        scope: [:container_id, :container_type, :item_type]
+    }
 
     attr_reader :container
 
@@ -22,6 +25,10 @@ module GobiertoCommon
 
     def pages_in_collection
       collection_items.where(item_type: 'GobiertoCms::Page').pluck(:item_id)
+    end
+
+    def pages_or_news_in_collection
+      collection_items.where(item_type: %W(GobiertoCms::News GobiertoCms::Page)).pluck(:item_id)
     end
 
     def file_attachments_in_collection
@@ -55,33 +62,49 @@ module GobiertoCommon
     def self.type_classes(item_type)
       if item_type == "Page"
         [[::GobiertoCms::Page.model_name.human, ::GobiertoCms::Page.name],
-         [I18n.t('activerecord.models.gobierto_cms/news'), "GobiertoCms::News"]]
+         [I18n.t("activerecord.models.gobierto_cms/news"), "GobiertoCms::News"]]
       elsif item_type == "Attachment"
         [[::GobiertoAttachments::Attachment.model_name.human, ::GobiertoAttachments::Attachment.name]]
       elsif item_type == "Event"
         [[::GobiertoCalendars::Event.model_name.human, ::GobiertoCalendars::Event.name]]
       else
-        [GobiertoCms::Page, GobiertoAttachments::Attachment, GobiertoCalendars::Event]
+        [[::GobiertoCms::Page.model_name.human, ::GobiertoCms::Page.name],
+         [I18n.t("activerecord.models.gobierto_cms/news"), "GobiertoCms::News"],
+         [::GobiertoAttachments::Attachment.model_name.human, ::GobiertoAttachments::Attachment.name],
+         [::GobiertoCalendars::Event.model_name.human, ::GobiertoCalendars::Event.name]]
       end
     end
 
     def append(item)
+      item_type = if item.class_name == "GobiertoAttachments::Attachment"
+                    "GobiertoAttachments::Attachment"
+                  else
+                    self.item_type
+                  end
+
       containers_hierarchy(container).each do |container_type, container_id|
-        CollectionItem.find_or_create_by! collection_id: id, container_type: container_type, container_id: container_id, item_id: item.id, item_type: self.item_type
+        CollectionItem.find_or_create_by! collection_id: id,
+                                          container_type: container_type,
+                                          container_id: container_id,
+                                          item_id: item.id,
+                                          item_type: item_type
       end
 
       if container_type == "GobiertoParticipation::Process"
         process = GobiertoParticipation::Process.find(container_id)
+
         if process.issue
-          CollectionItem.find_or_create_by! collection_id: id, container: process.issue, item: item
+          CollectionItem.find_or_create_by! collection_id: id,
+                                            container: process.issue,
+                                            item_id: item.id,
+                                            item_type: item_type
         end
-      elsif container_type == "Issue"
-        issue = Issue.find(container_id)
-        relation_processes = GobiertoParticipation::Process.where(issue: issue)
-        if relation_processes.any?
-          relation_processes.each do |process|
-            CollectionItem.find_or_create_by! collection_id: id, container: process, item: item
-          end
+
+        if process.scope
+          CollectionItem.find_or_create_by! collection_id: id,
+                                            container: process.scope,
+                                            item_id: item.id,
+                                            item_type: item_type
         end
       end
     end

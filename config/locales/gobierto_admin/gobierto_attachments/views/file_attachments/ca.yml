@@ -12,6 +12,7 @@ ca:
             name: Nom del document
             slug: nom-del-document
         index:
+          add_new_attachment: Afegeix nou document
           collections: Col·leccions
           header:
             collection: Col·lecció

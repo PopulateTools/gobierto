@@ -12,6 +12,7 @@ en:
             name: File name
             slug: file-name
         index:
+          add_new_attachment: Add new document
           collections: Collections
           header:
             collection: Collection

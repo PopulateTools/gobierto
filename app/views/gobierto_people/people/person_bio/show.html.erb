@@ -10,10 +10,9 @@
 <div class="separator"></div>
 
 <div class="section_header">
-
   <% if @person.bio_url.present? %>
     <div class="download_file f_right">
-      <i class="fa fa-file-pdf-o"></i>
+      <%= filetype_icon(@person.bio_url) %>
       <strong><%= link_to t(".download"), @person.bio_url, download: "" %></strong>
     </div>
   <% end %>

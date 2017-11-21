@@ -7,11 +7,21 @@ module GobiertoAdmin
         @sections = current_site.sections
 
         @section_form = SectionForm.new(site_id: current_site.id)
+
+        respond_to do |format|
+          format.html
+          format.js
+          format.json do
+            render(
+              json: { sections: @sections.map { |si| default_serializer.new(si) } }
+            )
+          end
+        end
       end
 
       def show
         @section = find_section
-        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.uniq
+        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.sort_by_updated_at.uniq
 
         unless @section.section_items.empty?
           @first_page_in_section = find_first_page_in_section
@@ -19,10 +29,10 @@ module GobiertoAdmin
       end
 
       def pages
-        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.search(params[:query]).uniq
+        @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.sort_by_updated_at.search(params[:query]).uniq
 
         respond_to do |format|
-          format.js {render layout: false}
+          format.js { render layout: false }
         end
       end
 
@@ -47,10 +57,12 @@ module GobiertoAdmin
         if @section_form.save
           track_create_activity
 
-          redirect_to(
-            admin_cms_section_path(@section_form.section),
-            notice: t(".success_html", link: "gobierto_participation_section_url(@section_form.section.slug, host: current_site.domain)")
-          )
+          unless params[:remote] == "true"
+            redirect_to(
+              admin_cms_section_path(@section_form.section),
+              notice: t(".success")
+            )
+          end
         else
           render(:new_modal, layout: false) && return if request.xhr?
           render :new
@@ -68,7 +80,7 @@ module GobiertoAdmin
 
           redirect_to(
             admin_cms_section_path(@section_form.section),
-            notice: t(".success_html", link: "gobierto_participation_section_url(@section_form.section.slug, host: current_site.domain)")
+            notice: t(".success")
           )
         else
           render(:edit_modal, layout: false) && return if request.xhr?
@@ -103,6 +115,10 @@ module GobiertoAdmin
 
       def find_section
         current_site.sections.find(params[:id])
+      end
+
+      def default_serializer
+        ::GobiertoAdmin::GobiertoCms::SectionSerializer
       end
 
       def find_first_page_in_section

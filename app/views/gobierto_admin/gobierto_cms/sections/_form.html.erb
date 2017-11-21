@@ -2,7 +2,7 @@
 
 <%= form_for(
   @section_form, as: :section,
-  url: @section_form.persisted? ? admin_cms_section_path(@section_form) : admin_cms_sections_path(@section), data: { "globalized-form-container" => true}) do |f| %>
+  url: @section_form.persisted? ? admin_cms_section_path(@section_form) : admin_cms_sections_path(@section, remote: params[:remote], from_page_widget: params[:from_page_widget]), data: { "globalized-form-container" => true}, remote: params[:remote] == "true") do |f| %>
 
   <div class="globalized_fields">
     <%= render "gobierto_admin/shared/form_locale_switchers" %>

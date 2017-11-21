@@ -4,6 +4,7 @@ es:
     gobierto_calendars:
       collections:
         index:
+          add_new_event: Añadir nuevo evento
           collections: Calendarios
           header:
             collection: Calendario

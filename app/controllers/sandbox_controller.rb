@@ -14,7 +14,7 @@ class SandboxController < ApplicationController
   )
 
   def index
-    @templates = Dir.glob(Rails.root.join('app/views/sandbox/*.html.erb').to_s).map do |filename|
+    @templates = Dir.glob(Rails.root.join('app/views/sandbox/*.html.erb').to_s).sort.map do |filename|
       filename = File.basename(filename, File.extname(filename))
       filename unless filename.starts_with?('_') || filename == 'index.html'
     end.compact
@@ -37,8 +37,6 @@ class SandboxController < ApplicationController
       render :action => "index"
     end
   end
-
-
 
   private
 

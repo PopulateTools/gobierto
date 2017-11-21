@@ -11,6 +11,7 @@ es:
         from_to: "%{starts} al %{ends}"
       event_teaser:
         agenda_for_container: Agenda de
+      gobierto_participation_contribution_created: Aportación creada
       gobierto_participation_contribution_container_created: Grupo de aportaciones
         creado
       gobierto_participation_contribution_container_updated: Grupo de aportaciones

@@ -1,7 +1,7 @@
 <div class='admin_breadcrumb'>
   <%= link_to t('gobierto_admin.welcome.index.title'), admin_root_path %> »
   <%= link_to t('gobierto_admin.gobierto_participation.welcome.index.title'), admin_participation_path %> »
-  <%= link_to current_process.title, edit_admin_participation_process_path(current_process) %>
+  <%= link_to current_process.title, edit_admin_participation_process_path(current_process), data: { turbolinks: false } %>
 </div>
 
 <h1>

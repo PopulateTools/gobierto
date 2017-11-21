@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require_relative "navigation_items"
 
 module GobiertoPeople
   class PeopleIndexTest < ActionDispatch::IntegrationTest
+    include NavigationItems
     def setup
       super
       @path = gobierto_people_people_path

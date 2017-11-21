@@ -198,6 +198,27 @@ module GobiertoPeople
       end
     end
 
+    def test_person_events_filter_for_groups_with_no_events
+      with_current_site(site) do
+        visit @path
+        within '.filter_boxed' do
+          assert has_link? 'Government Team'
+          assert has_link? 'Opposition'
+          assert has_link? 'Executive'
+          assert has_link? 'All'
+        end
+
+        GobiertoCalendars::Event.person_events.destroy_all
+        visit @path
+        within '.filter_boxed' do
+          refute has_link? 'Government Team'
+          refute has_link? 'Opposition'
+          refute has_link? 'Executive'
+          assert has_link? 'All'
+        end
+      end
+    end
+
     def test_events_summary
       with_current_site(site) do
         visit @path
@@ -250,6 +271,12 @@ module GobiertoPeople
         visit @path
         
         assert_text("There are no future or past events.")
+        within '.filter_boxed' do
+          refute has_link? 'Government Team'
+          refute has_link? 'Opposition'
+          refute has_link? 'Executive'
+          assert has_link? 'All'
+        end
       end
     end
 

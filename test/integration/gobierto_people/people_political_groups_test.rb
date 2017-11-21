@@ -24,6 +24,9 @@ module GobiertoPeople
       gobierto_people_people(:neil)
     end
 
+    def other_site_member
+      gobierto_people_people(:kali)
+    end
 
     def test_absence_of_empty_political_group
       with_current_site(site) do
@@ -34,6 +37,7 @@ module GobiertoPeople
           assert has_link?('DC')
         end
         dc_member.delete
+        other_site_member.update(political_group: political_groups.last)
 
         click_link 'Political groups'
         sleep 1

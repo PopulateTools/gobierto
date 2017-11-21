@@ -290,6 +290,8 @@ ActiveRecord::Schema.define(version: 20171120133657) do
     t.jsonb "body_translations"
     t.string "slug", default: "", null: false
     t.integer "collection_id"
+    t.jsonb "body_source_translations"
+    t.index ["body_source_translations"], name: "index_gcms_pages_on_body_source_translations", using: :gin
     t.index ["body_translations"], name: "index_gcms_pages_on_body_translations", using: :gin
     t.index ["site_id", "slug"], name: "index_gcms_pages_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_gcms_pages_on_site_id"

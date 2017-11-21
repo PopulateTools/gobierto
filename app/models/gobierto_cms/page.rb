@@ -23,7 +23,7 @@ module GobiertoCms
       add_attribute :resource_path, :class_name
     end
 
-    translates :title, :body
+    translates :title, :body, :body_source
 
     belongs_to :site
     belongs_to :collection, class_name: "GobiertoCommon::Collection"

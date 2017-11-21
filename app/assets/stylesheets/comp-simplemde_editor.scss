@@ -1,0 +1,29 @@
+/*
+ * SimpleMDE Editor Overwrites
+ *
+ */
+.form_item {
+  .editor-toolbar {
+    padding: 25px 10px 0 6px;
+    .fa {
+      margin: 0;
+    }
+    .fa-question-circle {
+      bottom: .5rem;
+      right: .5rem;
+    }
+    &.fullscreen {
+      height: 60px;
+      top: 20px;
+      z-index: 100;
+
+      .fa-question-circle {
+        top: 1.5em;
+      }
+    }
+  }
+  .CodeMirror-fullscreen,
+  .editor-preview-side {
+    top: 80px;
+  }
+}

@@ -89,7 +89,8 @@ module GobiertoAdmin
           :section,
           :parent,
           title_translations: [*I18n.available_locales],
-          body_translations:  [*I18n.available_locales]
+          body_translations:  [*I18n.available_locales],
+          body_source_translations:  [*I18n.available_locales]
         )
       end
 

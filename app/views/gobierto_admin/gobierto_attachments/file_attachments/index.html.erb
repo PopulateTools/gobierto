@@ -17,6 +17,7 @@
         <div class="activity_item">
           <h2>
             <%= link_to edit_admin_attachments_file_attachment_path(file_attachment.id, collection_id: file_attachment.collection) do %>
+              <%= filetype_icon(file_attachment) %>
               <%= file_attachment.name %>
             <% end %>
           </h2>

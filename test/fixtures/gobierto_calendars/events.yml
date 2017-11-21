@@ -32,6 +32,23 @@ richard_published:
   attachment_url: https://bit.ly/67890
   state: <%= GobiertoCalendars::Event.states["published"] %>
 
+neil_published:
+  site: madrid
+  collection: neil_calendar
+  title_translations: <%= {
+    'en' => 'Future opposition event',
+    'es' => 'Próximo evento de la oposición',
+  }.to_json %>
+  slug: <%= "#{1.month.from_now.strftime('%F')}-future-opposition-event" %>
+  description_translations: <%= {
+    'en' => 'Winter is coming.',
+    'es' => 'Se acerca el invierno..',
+  }.to_json %>
+  starts_at: <%= 1.month.from_now %>
+  ends_at: <%= 1.month.from_now + 1.hour %>
+  attachment_url: https://bit.ly/010101
+  state: <%= GobiertoCalendars::Event.states["published"] %>
+
 richard_published_just_attending:
   site: madrid
   collection: nelson_calendar

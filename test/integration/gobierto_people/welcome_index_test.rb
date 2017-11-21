@@ -101,6 +101,23 @@ module GobiertoPeople
       end
     end
 
+    def test_blog_block
+      with_current_site(site) do
+        visit @path
+
+        within '.container' do
+          assert has_content? 'Blogs'
+        end
+
+        PersonPost.all.destroy_all
+        visit @path
+
+        within '.container' do
+          refute has_content? 'Blogs'
+        end
+      end
+    end
+
     def test_people_summary_filters
       with_javascript do
         with_current_site(site) do

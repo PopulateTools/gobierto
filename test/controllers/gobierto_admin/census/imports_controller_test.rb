@@ -28,7 +28,7 @@ module GobiertoAdmin
     def valid_census_params
       {
         census_import: {
-          file: Rack::Test::UploadedFile.new(File.open(Rails.root.join("test/fixtures/files/census.csv")), original_filename: "census.csv")
+          file: Rack::Test::UploadedFile.new(File.open(Rails.root.join("test/fixtures/files/census.csv")))
         }
       }
     end

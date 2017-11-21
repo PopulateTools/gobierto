@@ -22,13 +22,10 @@ module GobiertoAdmin
 
     def file
       @file ||= Rack::Test::UploadedFile.new(
-        File.open(
-          File.join(
-            ActionDispatch::IntegrationTest.fixture_path,
-            "files/gobierto_people/people/avatar.jpg"
-          )
-        ),
-        original_filename: "avatar.jpg"
+        File.join(
+          ActionDispatch::IntegrationTest.fixture_path,
+          "files/gobierto_people/people/avatar.jpg"
+        )
       )
     end
 

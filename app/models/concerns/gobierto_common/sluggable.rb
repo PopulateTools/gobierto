@@ -11,10 +11,13 @@ module GobiertoCommon
     private
 
     def set_slug
-      return if self.slug.present?
+      if slug.present?
+        self.slug = self.slug.tr("_", " ").parameterize
+        return
+      end
 
-      base_slug = attributes_for_slug.join('-').gsub('_', ' ').parameterize
-      new_slug  = base_slug
+      base_slug = attributes_for_slug.join("-").tr("_", " ").parameterize
+      new_slug = base_slug
 
       count = 2
       while self.class.exists?(site: site, slug: new_slug)

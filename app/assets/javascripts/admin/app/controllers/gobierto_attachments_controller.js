@@ -224,7 +224,8 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
       data: function(){
         return {
           show: false,
-          attachment: null
+          attachment: null,
+          copySuccessful: false,
         }
       },
       mounted: function() {
@@ -232,6 +233,16 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
         bus.$on('file-popover:load', function(data){
           self.fetchData(data.id);
         });
+      },
+      watch: {
+        copySuccessful: function(newValue){
+          if(newValue === true){
+            var that = this;
+            setTimeout(function(){
+              that.copySuccessful = false;
+            }, 2000);
+          }
+        }
       },
       methods: {
         closePopover: function(){
@@ -283,10 +294,32 @@ this.GobiertoAdmin.GobiertoAttachmentsController = (function() {
         addToEditor: function(attachment) {
           var locale = $('[data-toggle-edit-locale].selected').data('toggle-edit-locale');
           var element = document.querySelector("trix-editor[lang="+locale+"]");
-          if(element === null || element.editor === null) return;
+          if(element === null || element.editor === null) {
+            element = $('[data-wysiwyg][lang='+locale+']');
+            if(element.length) {
+              var html = '<a href="'+attachment.url+'" target="_blank">'+attachment.file_name+' <span class="size">('+ this.bytesToSize(attachment.file_size) +')</span></a>' + "\n";
+              var editor = element.data('editor');
+              var doc = doc = editor.codemirror.getDoc();
+              var cursor = doc.getCursor();
+              doc.replaceRange(html, cursor);
+            }
+          } else {
+            var html = '<div><a href="'+attachment.url+'" target="_blank" data-trix-content-type="application/'+this.fileExtension(attachment.file_name)+'"><figure class="attachment attachment-file '+this.fileExtension(attachment.file_name)+'"><figcaption class="caption">'+attachment.file_name+' <span class="size">('+ this.bytesToSize(attachment.file_size) +')</span></figcaption></figure></a></div>';
+            element.editor.insertHTML(html);
+          }
+        },
+        copyUrlToClipboard: function(attachment) {
+          var textArea = document.createElement("textarea");
+          textArea.value = attachment.url;
+          document.body.appendChild(textArea);
+          textArea.select();
 
-          var html = '<div><a href="'+attachment.url+'" target="_blank" data-trix-content-type="application/'+this.fileExtension(attachment.file_name)+'"><figure class="attachment attachment-file '+this.fileExtension(attachment.file_name)+'"><figcaption class="caption">'+attachment.file_name+' <span class="size">('+ this.bytesToSize(attachment.file_size) +')</span></figcaption></figure></a></div>';
-          element.editor.insertHTML(html);
+          try {
+            this.copySuccessful = document.execCommand('copy');
+          } catch (err) {
+            this.copySuccessful = false;
+          }
+          document.body.removeChild(textArea);
         },
       },
     });

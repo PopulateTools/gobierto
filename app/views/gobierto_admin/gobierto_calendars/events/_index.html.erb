@@ -65,6 +65,9 @@
             <%= l(event.starts_at, format: :short) %>
           </td>
           <td>
+            <% if event.first_location %>
+              <%= event.first_location.name %>
+            <% end %>
           </td>
           <td>
             <% if event.pending? %>

@@ -1,9 +1,9 @@
 <div class="pure-u-1 pure-u-md-1-4 section">
-  <h2><%= link_to t("gobierto_participation.layouts.application.title"), gobierto_participation_root_path %></h2>
+  <h2><%= link_to t("gobierto_participation.layouts.application.title"), gobierto_participation_root_path, data: { turbolinks: false } %></h2>
 
   <%= link_to t('gobierto_participation.layouts.menu_subsections.about'), '#' %>
-  <%= link_to t('gobierto_participation.layouts.menu_subsections.issues'), gobierto_participation_issues_path %>
-  <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path %>
+  <%= link_to t('gobierto_participation.layouts.menu_subsections.issues'), gobierto_participation_issues_path, data: { turbolinks: false } %>
+  <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path, data: { turbolinks: false } %>
   <%= link_to t('gobierto_participation.layouts.menu_subsections.questions'), '#' %>
   <%= link_to t('gobierto_participation.layouts.menu_subsections.ideas'), '#' %>
 </div>

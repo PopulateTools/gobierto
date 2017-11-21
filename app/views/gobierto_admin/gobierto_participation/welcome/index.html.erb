@@ -57,11 +57,11 @@
     <% @processes.each do |process| %>
       <tr class="odd">
         <td>
-          <%= link_to edit_admin_participation_process_path(process) do %>
+          <%= link_to edit_admin_participation_process_path(process), data: { turbolinks: false } do %>
             <i class="fa fa-edit"></i>
           <% end %>
         </td>
-        <td><%= link_to process.title, edit_admin_participation_process_path(process) %></td>
+        <td><%= link_to process.title, edit_admin_participation_process_path(process), data: { turbolinks: false } %></td>
         <td>
           <%= time_ago_in_words(process.last_activity_at) %>
           <% if process.last_activity %>

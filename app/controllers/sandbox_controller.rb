@@ -66,7 +66,7 @@ class SandboxController < ApplicationController
   end
 
   def current_site
-    SiteDecorator.new(Site.find_by(domain: "madrid.gobierto.dev"))
+    SiteDecorator.new(Site.first)
   end
 
   def user_signed_in?

@@ -1,6 +1,7 @@
 module GobiertoPeople
   class PersonEventsController < GobiertoPeople::ApplicationController
     include PoliticalGroupsHelper
+    include PeopleClassificationHelper
 
     before_action :check_active_submodules
 
@@ -10,6 +11,7 @@ module GobiertoPeople
       set_events
       set_calendar_events
       set_people
+      set_present_groups_with_published_activities
 
       respond_to do |format|
         format.html

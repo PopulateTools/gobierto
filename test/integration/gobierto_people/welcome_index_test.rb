@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require_relative "navigation_items"
 
 module GobiertoPeople
   class WelcomeIndexTest < ActionDispatch::IntegrationTest
+    include NavigationItems
+
     def setup
       super
       @path = gobierto_people_root_path
@@ -40,8 +43,16 @@ module GobiertoPeople
       gobierto_people_people(:tamara)
     end
 
+    def opposition_member
+      gobierto_people_people(:neil)
+    end
+
     def government_event
       gobierto_calendars_events(:richard_published)
+    end
+
+    def opposition_event
+      gobierto_calendars_events(:neil_published)
     end
 
     def government_past_event
@@ -90,6 +101,23 @@ module GobiertoPeople
       end
     end
 
+    def test_blog_block
+      with_current_site(site) do
+        visit @path
+
+        within '.container' do
+          assert has_content? 'Blogs'
+        end
+
+        PersonPost.all.destroy_all
+        visit @path
+
+        within '.container' do
+          refute has_content? 'Blogs'
+        end
+      end
+    end
+
     def test_people_summary_filters
       with_javascript do
         with_current_site(site) do
@@ -97,6 +125,7 @@ module GobiertoPeople
 
           within ".people-summary" do
             assert has_link? government_member.name
+            refute has_link? opposition_member.name
             refute has_link? executive_member.name
             assert has_link?("View all")
           end
@@ -104,6 +133,7 @@ module GobiertoPeople
           within ".events-summary" do
             assert has_link? government_event.title
             refute has_link? government_past_event.title
+            refute has_link? opposition_event.title
             refute has_link? executive_past_event.title
           end
 
@@ -113,6 +143,7 @@ module GobiertoPeople
 
           within ".people-summary" do
             refute has_link? government_member.name
+            refute has_link? opposition_member.name
             assert has_link? executive_member.name
             assert has_link?("View all")
           end
@@ -121,6 +152,7 @@ module GobiertoPeople
             assert has_content? "There are no future events. Take a look at past ones"
             refute has_link? government_event.title
             refute has_link? government_past_event.title
+            refute has_link? opposition_event.title
             assert has_link? executive_past_event.title
           end
 
@@ -130,14 +162,15 @@ module GobiertoPeople
 
           within ".people-summary" do
             refute has_link? government_member.name
+            assert has_link? opposition_member.name
             refute has_link? executive_member.name
-            refute has_link?("View all")
+            assert has_link?("View all")
           end
 
           within ".events-summary" do
-            assert has_content? "There are no events"
             refute has_link? government_event.title
             refute has_link? government_past_event.title
+            assert has_link? opposition_event.title
             refute has_link? executive_past_event.title
           end
 

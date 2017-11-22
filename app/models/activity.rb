@@ -30,8 +30,7 @@ class Activity < ApplicationRecord
   end
 
   def self.in_participation
-    Activity.no_admin.joins("LEFT JOIN collection_items ON collection_items.item_type = activities.subject_type AND
-                             collection_items.item_id = activities.subject_id AND collection_items.container_type = 'GobiertoParticipation%'")
+    Activity.no_admin.where(recipient_type: "GobiertoParticipation::Process")
   end
 
   def self.in_process(process)

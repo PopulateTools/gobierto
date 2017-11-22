@@ -23,7 +23,9 @@
     <th><%= t('.votes') %></th>
     <th><%= t('.comments') %></th>
     <th><%= t('.marked') %></th>
-    <th><%= t('.status') %></th>
+    <% if false #TODO: Publicada/Moderada %>
+      <th><%= t('.status') %></th>
+    <% end %>
     <th></th>
   </tr>
 
@@ -35,15 +37,16 @@
       <td><%= contribution.votes_count %></td>
       <td><%= contribution.comments_count %></td>
       <td><!-- TODO: Marcada --></td>
-      <td>
-        <!-- TODO: Publicada/Moderada -->
-        <% if true %>
-          <i class="fa fa-lock"></i>
-          <%= t(".status_level.published") %>
-        <% else %>
-          <%= t(".status_level.moderate") %>
-        <% end %>
-      </td>
+      <% if false #TODO: Publicada/Moderada %>
+        <td>
+          <% if true %>
+            <i class="fa fa-lock"></i>
+            <%= t(".status_level.published") %>
+          <% else %>
+            <%= t(".status_level.moderate") %>
+          <% end %>
+        </td>
+      <% end %>
       <td>
         <%= link_to '#public_view', target: "_blank", class: "view_item" do %>
           <i class="fa fa-eye"></i>

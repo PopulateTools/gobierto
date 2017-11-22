@@ -11,6 +11,7 @@ module GobiertoAdmin
         def show
           @contribution_container = find_contribution_container
           @process = @contribution_container.process
+          @votes_headers = ::GobiertoParticipation::ContributionDecorator.headings
         end
 
         def new

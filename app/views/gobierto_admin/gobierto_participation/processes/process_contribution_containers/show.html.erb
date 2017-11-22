@@ -21,6 +21,9 @@
     <th><%= t('.contribution') %></th>
     <th><%= t('.participants') %></th>
     <th><%= t('.votes') %></th>
+    <% @votes_headers.each do |weight, values| %>
+      <th title="<%= t(values[:label]) %>"><%= values[:short_form] %></th>
+    <% end %>
     <th><%= t('.comments') %></th>
     <th><%= t('.marked') %></th>
     <% if false #TODO: Publicada/Moderada %>
@@ -30,11 +33,15 @@
   </tr>
 
   <% @contribution_container.contributions.each do |contribution| %>
+    <% contribution = GobiertoParticipation::ContributionDecorator.new(contribution) %>
     <tr>
       <!-- TODO: Edit <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, '' %></td> -->
       <td><%= contribution.title %></td>
       <td><%= contribution.number_participants %></td>
       <td><%= contribution.votes_count %></td>
+      <% @votes_headers.each do |weight, values| %>
+        <td><%= contribution.votes_distribution[weight] %></td>
+      <% end %>
       <td><%= contribution.comments_count %></td>
       <td><!-- TODO: Marcada --></td>
       <% if false #TODO: Publicada/Moderada %>

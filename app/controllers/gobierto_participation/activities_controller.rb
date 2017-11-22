@@ -23,7 +23,7 @@ module GobiertoParticipation
     def find_participation_activities_issue(issue)
       ActivityCollectionDecorator.new(Activity.no_admin
                                               .in_site(current_site)
-                                              .in_container(issue)
+                                              .in_process(issue.processes)
                                               .sorted.includes(:subject, :author, :recipient).page(params[:page]))
     end
 

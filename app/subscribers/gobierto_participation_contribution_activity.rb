@@ -13,6 +13,7 @@ module Subscribers
                        author: event.payload[:author],
                        subject_ip: event.payload[:ip],
                        action: action,
+                       recipient: event.payload[:subject].contribution_container.process,
                        site_id: event.payload[:site_id],
                        admin_activity: false
     end

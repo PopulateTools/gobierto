@@ -59,7 +59,7 @@
         </td>
       <% end %>
       <td>
-        <%= link_to '#public_view', target: "_blank", class: "view_item" do %>
+        <%= link_to gobierto_participation_process_contribution_container_url(@contribution_container.slug, process_id: @process.slug, host: current_site.domain, anchor: contribution.slug), target: "_blank", class: "view_item" do %>
           <i class="fa fa-eye"></i>
           <%= t(".see_contribution") %>
         <% end %>

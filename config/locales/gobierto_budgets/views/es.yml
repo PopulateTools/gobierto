@@ -459,8 +459,8 @@ es:
         pick_to_calculate: Selecciona para calcular
         share: Compártelo
         share_text: Comprueba cual es tu aportación al presupuesto de
-        title: "¿Cuál es tu contribución al presupuesto del %{site_name}?"
-        your_contribution: Tu contribución a los presupuestos del %{site_name}
+        title: "¿Cuál es tu contribución al presupuesto de %{site_name}?"
+        your_contribution: Tu contribución a los presupuestos de %{site_name}
     shared:
       data_updated_at:
         last_update: Datos actualizados

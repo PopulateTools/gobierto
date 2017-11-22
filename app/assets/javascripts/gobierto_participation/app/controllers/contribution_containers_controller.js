@@ -78,6 +78,15 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
 
       createCards(nodes);
 
+      var urlHash = window.location.hash;
+      if (urlHash && $(urlHash).length){
+        $.ajax({
+          type: "GET",
+          dataType: "script",
+          url: $(urlHash).attr("data-url")
+        });
+      }
+
     $('#next').click(function() {
         page++;
         viewdata = data.slice((page-1)*cardnumber,page*cardnumber);
@@ -508,7 +517,8 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
         .enter()
         .append('div')
         .attr('class', 'card')
-        .attr('data-url', function(d) { return d.name['to_path']; });
+        .attr('data-url', function(d) { return d.name['to_path']; })
+        .attr('id', function(d) { return d.name['slug']; });
 
       card
         .append('div')

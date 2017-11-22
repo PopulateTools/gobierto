@@ -40,7 +40,7 @@ module GobiertoParticipation
     end
 
     def find_process_activities
-      ActivityCollectionDecorator.new(Activity.in_site(current_site).no_admin.in_container(current_process).sorted.limit(5).includes(:subject, :author, :recipient))
+      ActivityCollectionDecorator.new(Activity.in_site(current_site).no_admin.in_process(current_process).sorted.limit(5).includes(:subject, :author, :recipient))
     end
 
     def process_stage_path(stage)

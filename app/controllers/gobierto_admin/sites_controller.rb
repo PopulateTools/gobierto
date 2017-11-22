@@ -19,6 +19,7 @@ module GobiertoAdmin
       @services_config = get_services_config
       @available_locales_for_site = get_available_locales
       @available_pages = get_available_pages
+      @home_page_items = home_page_items
     end
 
     def edit
@@ -37,6 +38,7 @@ module GobiertoAdmin
       @services_config = get_services_config
       @available_locales_for_site = get_available_locales
       @available_pages = get_available_pages
+      @home_page_items = home_page_items
     end
 
     def create
@@ -52,6 +54,7 @@ module GobiertoAdmin
       @services_config = get_services_config
       @available_locales_for_site = get_available_locales
       @available_pages = get_available_pages
+      @home_page_items = home_page_items
 
       if @site_form.save
         track_create_activity
@@ -75,6 +78,7 @@ module GobiertoAdmin
       @services_config = get_services_config
       @available_locales_for_site = get_available_locales
       @available_pages = get_available_pages
+      @home_page_items = home_page_items
 
       if @site_form.save
         track_update_activity
@@ -107,7 +111,13 @@ module GobiertoAdmin
     end
 
     def site_modules_with_root_path
-      APP_CONFIG["site_modules_with_root_path"].map { |site_module| OpenStruct.new(site_module) }
+      modules_with_root_path = APP_CONFIG["site_modules_with_root_path"].map { |site_module| OpenStruct.new(site_module) }
+      modules_with_root_path = modules_with_root_path.push(OpenStruct.new(name: "GobiertoCms", namespace: "GobiertoCms"))
+      modules_with_root_path
+    end
+
+    def home_page_items
+      get_available_pages + ::GobiertoCms::Section.has_section_item
     end
 
     def get_dns_config
@@ -145,6 +155,7 @@ module GobiertoAdmin
         :privacy_page_id,
         :populate_data_api_token,
         :home_page,
+        :home_page_item_id,
         site_modules: [],
         available_locales: [],
         title_translations: [*I18n.available_locales],

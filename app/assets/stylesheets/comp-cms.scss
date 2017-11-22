@@ -1,0 +1,130 @@
+// Colors
+$white: #ffffff;
+$black: #000000;
+$gray: #9B9B9B;
+$darkgray: #767168;
+$blue: #0067BA;
+
+// font-sizes (root: 16px)
+$fXS: 0.875rem; //14px
+$fS: 1.125rem; //18px
+$fM: 1.5rem; //24px
+$fL: 2rem; //32px
+$fXL: 3rem; //48px
+
+@mixin flexbox($gap: 0, $dir: row) {
+  display: flex;
+  flex-direction: $dir;
+  @if $dir == row {
+    & > * {
+      margin: 0 $gap/2;
+    }
+
+    & > :first-child {
+      margin-left: 0;
+    }
+
+    & > :last-child {
+      margin-right: 0;
+    }
+  } @else
+  if $dir == column {
+    & > * {
+      margin: $gap/2 0;
+    }
+
+    & > :first-child {
+      margin-top: 0;
+    }
+
+    & > :last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.home-cms {
+
+  #transparency .block-title {
+    background-size: cover;
+    background-position-y: 40%;
+    background-image: linear-gradient(-180deg, rgba($black, 0) 40px, $black 100%), url(asset_path('illustrations/transparency-bg.png'));
+  }
+  #participation .block-title {
+    background-size: cover;
+    background-position-y: 55%;
+    background-image: linear-gradient(-180deg, rgba($black, 0) 48px, $black 100%), url(asset_path('illustrations/participation-bg.png'));
+  }
+
+  .header {
+    margin: 70px 0;
+    width: 50%;
+
+    h1 {
+      color: $blue;
+      font-size: $fXL;
+      font-weight: 300;
+    }
+
+    small {
+      color: $darkgray;
+      font-size: $fM;
+      font-weight: 300;
+    }
+  }
+
+  .block {
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba($black, 0.14);
+    border-radius: 6px;
+
+    &.flexbox {
+      @include flexbox(0, column);
+    }
+
+    .block-title {
+      height: 122px;
+      display: flex;
+      align-items: flex-end;
+
+      h2 {
+        font-size: $fL;
+        color: $white;
+        text-transform: capitalize;
+        font-weight: 700;
+      }
+    }
+
+    .block-content {
+      padding: 32px 0;
+
+      .flexbox {
+        @include flexbox(32px, column);
+      }
+
+      h3 {
+        color: $blue;
+        font-size: $fS;
+        font-weight: 700;
+        margin: 0 auto auto;
+      }
+
+      ul {
+        list-style-type: none;
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 0;
+
+        li {
+          flex: 0 0 33%;
+
+          a {
+            color: $gray;
+            font-size: $fXS;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}

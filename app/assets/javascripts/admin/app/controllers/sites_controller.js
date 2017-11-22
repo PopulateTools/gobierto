@@ -31,9 +31,10 @@ this.GobiertoAdmin.SitesController = (function() {
 
   function _homePage(site_modules_with_root_path) {
     $(document).ready(function() {
-        populateHomePage(site_modules_with_root_path);
-
-        $("select#site_home_page_item_id").select2();
+      populateHomePage(site_modules_with_root_path);
+      $("select#site_home_page_item_id").select2({
+        width: '100%'
+      });
     });
 
     $("input[name='site[site_modules][]']").on('click', function() {
@@ -42,7 +43,6 @@ this.GobiertoAdmin.SitesController = (function() {
 
     $('#site_home_page').on('change', function(e){
       e.preventDefault();
-
       selectHomePageItem();
     });
   }

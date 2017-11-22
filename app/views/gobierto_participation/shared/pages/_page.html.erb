@@ -10,6 +10,8 @@
             <%= link_to attachment.name , attachment.url, target: '_blank' %>
             <div class='soft'>
               <small>
+                <%= filetype_icon(attachment) %>
+                 ·
                 <%= attachment.extension.upcase %>
                  ·
                 <%= number_to_human_size(attachment.file_size, precision: 2, separator: ',') %>

@@ -1,4 +1,4 @@
-Connects to #N
+Closes #N
 
 ### What does this PR do?
 

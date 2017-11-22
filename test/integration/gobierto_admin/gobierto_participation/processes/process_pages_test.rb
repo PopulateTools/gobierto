@@ -47,7 +47,7 @@ module GobiertoAdmin
               assert has_selector?("h1", text: process.title)
 
               fill_in "page_title_translations_en", with: "News Title"
-              find("#page_body_translations_en", visible: false).set("The content of the page")
+              find("#body_translations_en", visible: false).set("The content of the page")
 
               click_button "Create"
 

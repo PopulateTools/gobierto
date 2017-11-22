@@ -110,6 +110,7 @@
     </div>
 
     <button class="small" @click.prevent="addToEditor(attachment)"><%= t('.include_in_text') %></button>
+    <button class="small" @click.prevent="copyUrlToClipboard(attachment)"><%= t('.copy_to_clipboard') %> <span v-if="copySuccessful" style="font-size:1.5em">✔︎</span></button>
   </div>
 </script>
 

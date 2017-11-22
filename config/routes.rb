@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     root "meta_welcome#index"
   end
 
-  if Rails.env.development?
+  unless Rails.env.production?
     get "/sandbox" => "sandbox#index"
     get "/sandbox/*template" => "sandbox#show"
   end

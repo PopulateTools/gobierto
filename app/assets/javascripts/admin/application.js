@@ -13,6 +13,7 @@
 //= require ./module-admin-search
 //= require ./app/init
 //= require sticky-kit.min
+//= require simplemde.min
 //= require_tree ./app
 
 //= require module-admin

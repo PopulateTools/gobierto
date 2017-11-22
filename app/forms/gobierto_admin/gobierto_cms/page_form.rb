@@ -12,6 +12,7 @@ module GobiertoAdmin
         :visibility_level,
         :title_translations,
         :body_translations,
+        :body_source_translations,
         :slug,
         :attachment_ids,
         :section,
@@ -91,6 +92,7 @@ module GobiertoAdmin
           page_attributes.admin_id = admin_id
           page_attributes.title_translations = title_translations
           page_attributes.body_translations = body_translations
+          page_attributes.body_source_translations = body_source_translations
           page_attributes.slug = slug
           page_attributes.visibility_level = visibility_level
           if page.new_record? && attachment_ids.present?

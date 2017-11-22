@@ -48,8 +48,8 @@ module GobiertoAdmin
               assert has_field?("page_slug", with: "consultation-faq-updated")
 
               assert_equal(
-                "<div>This is the body of the page</div>",
-                find("#page_body_translations_en", visible: false).value
+                "This is the body of the page",
+                find("#body_translations_en", visible: false).value
               )
             end
           end

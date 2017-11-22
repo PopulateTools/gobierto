@@ -122,7 +122,7 @@ module GobiertoPeople
 
       def self.request_params_for_events(person)
         {
-          endpoint: person_calendar_endpoint(person),
+          endpoint: person_calendar_endpoint(person).concat("?since=#{sync_range_start}"),
           username: plain_text_username(person),
           password: plain_text_password(person)
         }
@@ -154,6 +154,11 @@ module GobiertoPeople
         SecretAttribute.decrypt(person.site.gobierto_people_settings.ibm_notes_pwd)
       end
       private_class_method :plain_text_password
+
+      def self.sync_range_start
+        5.days.ago.iso8601.split('+')[0].concat('Z')
+      end
+      private_class_method :sync_range_start
 
     end
   end

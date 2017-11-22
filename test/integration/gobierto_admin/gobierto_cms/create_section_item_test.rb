@@ -43,7 +43,7 @@ module GobiertoAdmin
               click_link "New"
 
               fill_in "page_title_translations_en", with: "My page with section"
-              find("#page_body_translations_en", visible: false).set("The content of the page")
+              find("#body_translations_en", visible: false).set("The content of the page")
               fill_in "page_slug", with: "new-page-with-section"
 
               find("#permission_1", visible: false).trigger("click")
@@ -55,8 +55,8 @@ module GobiertoAdmin
               assert has_field?("page_slug", with: "new-page-with-section")
 
               assert_equal(
-                "<div>The content of the page</div>",
-                find("#page_body_translations_en", visible: false).value
+                "The content of the page",
+                find("#body_translations_en", visible: false).value
               )
 
               assert find("select#page_parent").value, section.title

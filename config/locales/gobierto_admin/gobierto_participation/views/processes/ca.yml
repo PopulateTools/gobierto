@@ -44,8 +44,8 @@ ca:
             config: Configuració
             contribution: Aportació
             marked: Marcada
-            new: Nova
             participants: Participants
+            see_container: Veure
             see_contribution: Veure aportació
             status: Estat
             status_level:

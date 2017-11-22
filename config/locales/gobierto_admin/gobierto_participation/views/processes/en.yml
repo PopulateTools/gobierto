@@ -44,8 +44,8 @@ en:
             config: Config
             contribution: Contribution
             marked: Marked
-            new: New
             participants: Participants
+            see_container: See
             see_contribution: See contribution
             status: Status
             status_level:

@@ -9,8 +9,14 @@
     <strong><%= @contribution_container.title  %></strong> » Aportaciones
   </div>
   <div class="pure-u-1-4 admin_tools right">
-    <%= link_to t('.config'), edit_admin_participation_process_contribution_container_path(@contribution_container.id, process_id: @contribution_container.process.id) %>
-    <%= link_to t('.new'), new_admin_participation_process_contribution_container_path, class: 'button' %>
+    <%= link_to edit_admin_participation_process_contribution_container_path(@contribution_container.id, process_id: @contribution_container.process.id) do %>
+      <i class="fa fa-cog"></i>
+      <%= t('.config') %>
+    <% end %>
+    <%= link_to gobierto_participation_process_contribution_container_url(@contribution_container.slug, process_id: @process.slug, host: current_site.domain), target: '_blank' do %>
+      <i class="fa fa-eye"></i>
+      <%= t('.see_container') %>
+    <% end %>
   </div>
 </div>
 

@@ -3,7 +3,9 @@ this.GobiertoPeople.PersonEventsController = (function() {
   function PersonEventsController() {}
 
   PersonEventsController.prototype.index = function(){
-    _initializeFullCalendar(_reorganizeHTML);
+    if ($('#calendar').length) {
+      _initializeFullCalendar(_reorganizeHTML);
+    }
   };
 
   function _initializeFullCalendar(nextStep) {

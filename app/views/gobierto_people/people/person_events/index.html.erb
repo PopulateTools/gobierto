@@ -26,20 +26,26 @@
       <div class="pure-u-1 pure-u-md-1-2">
 
         <h3 class="filter-option <%= class_if("active", controller_name == "person_events") %>">
-          <%= link_to_unless_current t(".upcoming_events"), gobierto_people_person_events_path(@person.slug) %>
+          <% if request.path != gobierto_people_person_events_path(@person.slug) %>
+            <%= link_to t('.upcoming_events'), gobierto_people_person_events_path(@person.slug, list_view: true) %>
+          <% else %>
+            <%= t('.upcoming_events') %>
+          <% end %>
         </h3>
 
       </div>
 
-      <% pending do %>
-        <div class="pure-u-1 pure-u-md-1-2 right">
+      <div class="pure-u-1 pure-u-md-1-2 right">
 
-          <h3 class="filter-option <%= class_if("active", controller_name == "past_person_events") %>">
-            <%= link_to_unless_current t(".past_events"), gobierto_people_person_past_events_path(@person.slug) %>
-          </h3>
+        <h3 class="filter-option <%= class_if("active", controller_name == "past_person_events") %>">
+          <% if request.path != gobierto_people_person_past_events_path(@person.slug) %>
+            <%= link_to t(".past_events"), gobierto_people_person_past_events_path(@person.slug, list_view: true) %>
+          <% else %>
+            <%= t(".past_events") %>
+          <% end %>
+        </h3>
 
-        </div>
-      <% end %>
+      </div>
 
     </div>
 
@@ -56,8 +62,10 @@
 
 </div>
 
-<div id='calendar'>
-</div>
+<% if request.path == gobierto_people_person_events_path(@person.slug) %>
+  <div id='calendar'>
+  </div>
+<% end %>
 
 <% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>
 

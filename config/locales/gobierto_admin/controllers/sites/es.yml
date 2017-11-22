@@ -6,5 +6,7 @@ es:
         success: El site se ha creado correctamente
       destroy:
         success: El site se ha eliminado correctamente
+      pages: Páginas
+      sections: Secciones
       update:
         success: El site se ha actualizado correctamente

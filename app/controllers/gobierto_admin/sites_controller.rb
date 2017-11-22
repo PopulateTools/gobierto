@@ -20,6 +20,7 @@ module GobiertoAdmin
       @available_locales_for_site = get_available_locales
       @available_pages = get_available_pages
       @home_page_items = home_page_items
+      @home_page_selected = nil
     end
 
     def edit
@@ -39,6 +40,7 @@ module GobiertoAdmin
       @available_locales_for_site = get_available_locales
       @available_pages = get_available_pages
       @home_page_items = home_page_items
+      @home_page_selected = @site.configuration.home_page_item_id
     end
 
     def create
@@ -55,6 +57,7 @@ module GobiertoAdmin
       @available_locales_for_site = get_available_locales
       @available_pages = get_available_pages
       @home_page_items = home_page_items
+      @home_page_selected = @site_form.site.configuration.home_page_item_id
 
       if @site_form.save
         track_create_activity
@@ -79,6 +82,7 @@ module GobiertoAdmin
       @available_locales_for_site = get_available_locales
       @available_pages = get_available_pages
       @home_page_items = home_page_items
+      @home_page_selected = @site_form.site.configuration.home_page_item_id
 
       if @site_form.save
         track_update_activity
@@ -117,7 +121,8 @@ module GobiertoAdmin
     end
 
     def home_page_items
-      get_available_pages + ::GobiertoCms::Section.has_section_item
+      [[I18n.t("gobierto_admin.sites.pages"), get_available_pages.map { |p| [p.title, p.to_global_id] }],
+        [I18n.t("gobierto_admin.sites.sections"), ::GobiertoCms::Section.has_section_item.map { |s| [s.title, s.to_global_id] }]]
     end
 
     def get_dns_config

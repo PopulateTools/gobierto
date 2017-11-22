@@ -6,5 +6,7 @@ ca:
         success: El site s'ha creat correctament
       destroy:
         success: El site s'ha eliminat correctament
+      pages: Pàgines
+      sections: Seccions
       update:
         success: El site s'ha actualizat correctament

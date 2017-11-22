@@ -32,6 +32,8 @@ this.GobiertoAdmin.SitesController = (function() {
   function _homePage(site_modules_with_root_path) {
     $(document).ready(function() {
         populateHomePage(site_modules_with_root_path);
+
+        $("select#site_home_page_item_id").select2();
     });
 
     $("input[name='site[site_modules][]']").on('click', function() {

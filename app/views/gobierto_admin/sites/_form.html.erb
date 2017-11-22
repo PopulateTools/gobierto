@@ -149,7 +149,7 @@
 
         <div class="form_item select_control" id="home_page_item">
           <%= f.label :home_page_item_id %>
-          <%= f.select :home_page_item_id, @home_page_items.map{ |p| [p.title, p.to_global_id] } %>
+          <%= f.select :home_page_item_id, grouped_options_for_select(@home_page_items, selected: @home_page_selected) %>
         </div>
 
       </div>

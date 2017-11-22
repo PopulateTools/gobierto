@@ -25,6 +25,10 @@ module GobiertoAdmin
       @privacy_page ||= gobierto_cms_pages(:privacy)
     end
 
+    def participation_section
+      @participation_section ||= gobierto_cms_sections(:participation)
+    end
+
     def test_site_update
       with_signed_in_admin(admin) do
         visit @path
@@ -80,6 +84,28 @@ module GobiertoAdmin
           within ".widget_save" do
             assert has_checked_field?("Published")
           end
+        end
+      end
+    end
+
+    def test_change_site_home_page
+      with_signed_in_admin(admin) do
+        visit @path
+
+        within "form.edit_site" do
+          select "GobiertoCms", from: "site_home_page"
+          select participation_section.title, from: "site_home_page_item_id"
+
+          with_stubbed_s3_file_upload do
+            click_button "Update"
+          end
+        end
+
+        assert has_message?("Site was successfully updated")
+
+        within "form.edit_site" do
+          assert has_select?("site_home_page", selected: "GobiertoCms")
+          assert has_select?("Home page", selected: participation_section.title)
         end
       end
     end

@@ -5,7 +5,8 @@ module GobiertoPeople
     private
 
     def get_political_groups
-      PoliticalGroup.includes(:people).where.not(gp_people: {political_group_id: nil}).where(gp_people:{site_id: current_site.id, visibility_level: 1}).all
+      person_table = Person.table_name
+      PoliticalGroup.includes(:people).where.not(person_table => { political_group_id: nil }).where(person_table => { site_id: current_site.id, visibility_level: 1 }).all
     end
   end
 end

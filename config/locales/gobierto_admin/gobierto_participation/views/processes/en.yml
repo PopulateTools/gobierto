@@ -51,7 +51,6 @@ en:
             status_level:
               moderate: Moderate
               published: Published
-            votes: Votes
         process_file_attachments:
           index:
             configuration: Configuration

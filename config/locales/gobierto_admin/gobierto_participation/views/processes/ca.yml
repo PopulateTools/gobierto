@@ -51,7 +51,6 @@ ca:
             status_level:
               moderate: Moderada
               published: Publicada
-            votes: Valoracions
         process_file_attachments:
           index:
             configuration: Configuració

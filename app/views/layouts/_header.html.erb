@@ -85,28 +85,28 @@
   <% end %>
 
   <div class="site_header">
-    <div class="column site_header_logo">
-      <div class="logo">
+    <div class="column site_header_block">
+
+      <div class="site_header_logo">
         <%= link_to(image_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
       </div>
 
-      <div>
+      <div class="site_header_social">
+
         <span id="subscribable_button">
           <%= yield(:subscribable_button) %>
         </span>
+
+        <div class="search-box">
+          <i class="fa fa-search"></i>
+          <input id="gobierto_search" name="q" class="search_box_input" type="text" placeholder="<%= t('layouts.application.search') %>" aria-label="<%= t('layouts.application.search') %>">
+        </div>
 
         <div class="social_links_container" data-share>
           <% if show_social_links? %>
             <a class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
             <a class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
           <% end %>
-
-          <a class="search_icon"><i class="fa fa-search"></i></a>
-
-          <div class="search_control ">
-            <i class="fa fa-search"></i>
-            <input type="text" placeholder="<%= t('.search') %>" name="q" id="gobierto_search" aria-label="<%= t('.search') %>">
-          </div>
 
           <!-- TODO: lo del position:absolute es una ñapa -->
           <div id="search_results" class="search_result_list" style="position:absolute;"></div>
@@ -130,49 +130,4 @@
     </nav>
 
   </div>
-
-  <!-- <div class="site_header">
-    <div class="column site_header_logo">
-      <div class="logo">
-        <%= link_to(image_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
-      </div>
-
-      <div>
-        <span id="subscribable_button">
-          <%= yield(:subscribable_button) %>
-        </span>
-
-        <div class="social_links_container" data-share>
-          <% if show_social_links? %>
-            <a class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
-            <a class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
-          <% end %>
-
-          <a class="search_icon"><i class="fa fa-search"></i></a>
-
-          <div class="search_control ">
-            <i class="fa fa-search"></i>
-            <input type="text" placeholder="<%= t('.search') %>" name="q" id="gobierto_search" aria-label="<%= t('.search') %>">
-          </div>
-
-          /* TODO: lo del position:absolute es una ñapa */
-          <div id="search_results" class="search_result_list" style="position:absolute;"></div>
-        </div>
-      </div>
-    </div>
-
-    <%= render "layouts/main_menu" %>
-
-    <div class="column">
-      <nav id="main_nav" class="nav" role="navigation" aria-controls="main_menu" aria-hidden="false">
-
-        <%= render "layouts/breadcrumb" %>
-        <% if try(:current_process).present? %>
-          <%= render 'gobierto_participation/layouts/process_menu_subsections' %>
-        <% else %>
-          <%= content_for?(:module_sub_sections) ? yield(:module_sub_sections) : load_module_sub_sections(current_module) %>
-        <% end %>
-      </nav>
-    </div>
-  </div> -->
 </header>

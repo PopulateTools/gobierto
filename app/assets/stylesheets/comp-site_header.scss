@@ -562,6 +562,45 @@ header.section {
   }
 
   .site_header {
+    .site_header_block {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      height: 120px;
+      padding: 16px 0;
+      box-sizing: border-box;
+
+      .site_header_logo {
+        img {
+          max-height: 100px;
+        }
+      }
+
+      .site_header_social {
+        display: flex;
+
+        .search-box {
+          position: relative;
+
+          i {
+            position: absolute;
+            opacity: 0.3;
+            top: 20%;
+            left: 5px;
+            font-size: $f7;
+          }
+
+          .search_box_input {
+            border: 1px solid rgba($cBlue, 0.3);
+            border-radius: 100px;
+            width: 170px;
+            height: 26px;
+            text-indent: 5px;
+          }
+        }
+      }
+    }
+
     .main-nav {
       background-color: $cLightBlue;
       cursor: pointer;
@@ -603,11 +642,6 @@ header.section {
         text-transform: uppercase;
         @include font(15px, $cBlue, $fExtraLight);
       }
-    }
-
-    .main-nav ,
-    .sub-nav .sub-nav-item {
-
     }
   }
 }

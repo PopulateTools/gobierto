@@ -79,12 +79,16 @@ this.GobiertoParticipation.ContributionContainersController = (function() {
       createCards(nodes);
 
       var urlHash = window.location.hash;
-      if (urlHash && $(urlHash).length){
-        $.ajax({
-          type: "GET",
-          dataType: "script",
-          url: $(urlHash).attr("data-url")
-        });
+      if (urlHash.length) {
+
+        var selected_cards = data.filter(function(c) { return c.slug == urlHash.substr(1); });
+        if (selected_cards.length > 0) {
+          $.ajax({
+            type: "GET",
+            dataType: "script",
+            url: selected_cards[0].to_path
+          });
+        }
       }
 
     $('#next').click(function() {

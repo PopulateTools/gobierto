@@ -511,7 +511,6 @@ header.section {
   }
 }
 
-
 @include screen(740) {
   header.meta {
     menu.sub_sections {
@@ -539,4 +538,11 @@ header.section {
   .pure-menu-horizontal.pure-menu-scrollable {
     padding: 0;
   }
+}
+
+
+// NEW HEADER DESIGN
+// NOTE: REMOVE FIRST WRAPPER TO APPLY ALL AROUND
+.home-cms {
+
 }

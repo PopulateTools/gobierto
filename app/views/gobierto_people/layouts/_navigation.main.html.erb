@@ -1,0 +1,5 @@
+<% if welcome_submodule_active? %>
+  <div class="main-nav-item<%= class_if(' active', current_module == 'gobierto_people') %>">
+    <%= link_to t("gobierto_people.layouts.application.title"), gobierto_people_root_path, data: { turbolinks: false }  %>
+  </div>
+<% end %>

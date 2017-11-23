@@ -1,4 +1,4 @@
-<header class="meta">
+<header class="meta home-cms">
 
   <div class="slim_nav_bar">
 
@@ -114,6 +114,53 @@
       </div>
     </div>
 
+    <nav class="main-nav" role="navigation" aria-hidden="false">
+      <div class="column">
+        <% current_site.configuration.modules.each do |site_module| %>
+          <%= render_if_exists "#{site_module.underscore}/layouts/navigation.main" %>
+        <% end %>
+      </div>
+    </nav>
+    <nav class="sub-nav" role="navigation" aria-hidden="false">
+      <div class="column">
+        <% current_site.configuration.modules.each do |site_module| %>
+          <%= render_if_exists "#{site_module.underscore}/layouts/navigation.sub" %>
+        <% end %>
+      </div>
+    </nav>
+
+  </div>
+
+  <!-- <div class="site_header">
+    <div class="column site_header_logo">
+      <div class="logo">
+        <%= link_to(image_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
+      </div>
+
+      <div>
+        <span id="subscribable_button">
+          <%= yield(:subscribable_button) %>
+        </span>
+
+        <div class="social_links_container" data-share>
+          <% if show_social_links? %>
+            <a class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
+            <a class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
+          <% end %>
+
+          <a class="search_icon"><i class="fa fa-search"></i></a>
+
+          <div class="search_control ">
+            <i class="fa fa-search"></i>
+            <input type="text" placeholder="<%= t('.search') %>" name="q" id="gobierto_search" aria-label="<%= t('.search') %>">
+          </div>
+
+          /* TODO: lo del position:absolute es una ñapa */
+          <div id="search_results" class="search_result_list" style="position:absolute;"></div>
+        </div>
+      </div>
+    </div>
+
     <%= render "layouts/main_menu" %>
 
     <div class="column">
@@ -127,5 +174,5 @@
         <% end %>
       </nav>
     </div>
-  </div>
+  </div> -->
 </header>

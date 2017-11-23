@@ -1,0 +1,18 @@
+<% if (current_module == 'gobierto_budgets') %>
+  <% if budgets_elaboration_active? %>
+    <div class="sub-nav-item">
+      <%= link_to t('gobierto_budgets.layouts.menu_subsections.elaboration'), gobierto_budgets_budgets_elaboration_path, data: { turbolinks: false }  %></li>
+    </div>
+  <% end %>
+  <div class="sub-nav-item">
+    <%= link_to t('gobierto_budgets.layouts.menu_subsections.execution'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false } %>
+  </div>
+  <div class="sub-nav-item">
+    <%= link_to t('gobierto_budgets.layouts.menu_subsections.guide'), gobierto_budgets_budgets_guide_path, data: { turbolinks: false } %></li>
+  </div>
+  <% if budgets_receipt_active? %>
+    <div class="sub-nav-item">
+      <%= link_to t('gobierto_budgets.layouts.menu_subsections.receipt'), gobierto_budgets_receipt_path, class: class_if('active', controller_name == 'receipts'), data: { turbolinks: false }  %>
+    </div>
+  <% end %>
+<% end %>

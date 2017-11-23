@@ -1,0 +1,7 @@
+<% if (current_module == 'gobierto_people') %>
+  <% active_submodules.each do |submodule| %>
+    <div class="sub-nav-item">
+      <%= link_to submodule_title_for(submodule), submodule_path_for(submodule), class: class_if('active', controller_name == submodule_controller_for(submodule)), data: { turbolinks: false } %>
+    </div>
+  <% end %>
+<% end %>

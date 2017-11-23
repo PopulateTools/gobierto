@@ -540,9 +540,72 @@ header.section {
   }
 }
 
-
-// NEW HEADER DESIGN
-// NOTE: REMOVE FIRST WRAPPER TO APPLY ALL AROUND
+// NEW HEADER DESIGN - NOTE: REMOVE FIRST WRAPPER (ALSO IN _HEADER.HTML.ERB) TO APPLY ALL AROUND
 .home-cms {
 
+  // Header colors
+  $cBlue: #0065C8;
+  $cLightBlue: rgba($cBlue, 0.1);
+
+  // Header weights
+  $fExtraLight: 200;
+  $fRegular: 400;
+  $fSemibold: 600;
+  $fBold: 700;
+
+  // Header Mixins
+  @mixin font($size: $f6, $color: $cBlue, $weight: $fRegular, $style: normal) {
+    font-size: $size;
+    font-weight: $weight;
+    font-style: $style;
+    color: $color;
+  }
+
+  .site_header {
+    .main-nav {
+      background-color: $cLightBlue;
+      cursor: pointer;
+
+      .main-nav-item {
+        display: inline-block;
+        margin: 0 32px 0 0;
+        padding: 8px 0 12px;
+
+        &.active {
+          border-top: 5px solid $cBlue;
+
+          a {
+            font-weight: $fBold;
+          }
+        }
+      }
+
+      a {
+        text-transform: uppercase;
+        @include font($f5, $cBlue, $fExtraLight);
+      }
+    }
+
+    .sub-nav {
+      .sub-nav-item {
+        display: inline-block;
+        margin: 0 32px 0 0;
+        padding: 10px 0;
+      }
+
+      a {
+        text-transform: uppercase;
+        @include font(15px, $cBlue, $fExtraLight);
+
+        &:hover {
+          // font-weight: $fRegular;
+        }
+      }
+    }
+
+    .main-nav ,
+    .sub-nav .sub-nav-item {
+
+    }
+  }
 }

@@ -25,8 +25,8 @@ module GobiertoAdmin
       @privacy_page ||= gobierto_cms_pages(:privacy)
     end
 
-    def participation_section
-      @participation_section ||= gobierto_cms_sections(:participation)
+    def about_site
+      @about_site ||= gobierto_cms_pages(:about_site)
     end
 
     def test_site_update
@@ -94,7 +94,7 @@ module GobiertoAdmin
 
         within "form.edit_site" do
           select "GobiertoCms", from: "site_home_page"
-          select participation_section.title, from: "site_home_page_item_id"
+          select about_site.title, from: "site_home_page_item_id"
 
           with_stubbed_s3_file_upload do
             click_button "Update"
@@ -105,7 +105,7 @@ module GobiertoAdmin
 
         within "form.edit_site" do
           assert has_select?("site_home_page", selected: "GobiertoCms")
-          assert has_select?("Home page", selected: participation_section.title)
+          assert has_select?("Home page", selected: about_site.title)
         end
       end
     end

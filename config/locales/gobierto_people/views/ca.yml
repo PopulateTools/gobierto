@@ -71,6 +71,7 @@ ca:
           view_more: Veure més
         show:
           event_data:
+            event_attachments: Documents
             event_attendees: Assistents
             event_locations: Lloc
           title: Agenda de %{person_name}

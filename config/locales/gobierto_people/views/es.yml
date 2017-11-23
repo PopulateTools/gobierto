@@ -71,6 +71,7 @@ es:
           view_more: Ver más
         show:
           event_data:
+            event_attachments: Documentos
             event_attendees: Asistentes
             event_locations: Lugar
           title: Agenda de %{person_name}

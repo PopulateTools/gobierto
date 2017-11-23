@@ -10,6 +10,7 @@ module GobiertoCalendars
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Collectionable
+    include GobiertoAttachments::Attachable
 
     validates :site, :collection, presence: true
 

@@ -70,6 +70,7 @@ en:
           view_more: View more
         show:
           event_data:
+            event_attachments: Documents
             event_attendees: Attendees
             event_locations: Location
           title: "%{person_name}'s agenda"

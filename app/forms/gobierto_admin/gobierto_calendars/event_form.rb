@@ -13,8 +13,7 @@ module GobiertoAdmin
         :description_translations,
         :starts_at,
         :ends_at,
-        :attachment_file,
-        :attachment_url,
+        :attachment_ids,
         :state,
         :locations,
         :attendees,
@@ -58,20 +57,6 @@ module GobiertoAdmin
         @person ||= if collection.container.is_a?(person_class)
                       collection.container
                     end
-      end
-
-      def attachment_url
-        @attachment_url ||= begin
-          return event.attachment_url unless attachment_file.present?
-
-          FileUploadService.new(
-            site: site,
-            collection: event.model_name.collection,
-            attribute_name: :attachment,
-            file: attachment_file,
-            content_disposition: "attachment"
-          ).call
-        end
       end
 
       def locations
@@ -198,10 +183,17 @@ module GobiertoAdmin
           event_attributes.starts_at = starts_at
           event_attributes.ends_at = ends_at
           event_attributes.admin_id = admin_id
-          event_attributes.attachment_url = attachment_url
           event_attributes.locations = locations
           event_attributes.attendees = attendees
           event_attributes.slug = slug
+
+          if event.new_record? && attachment_ids.present?
+            if attachment_ids.is_a?(String)
+              event_attributes.attachment_ids = attachment_ids.split(",")
+            else
+              event_attributes.attachment_ids = attachment_ids
+            end
+          end
         end
 
         if @event.valid?

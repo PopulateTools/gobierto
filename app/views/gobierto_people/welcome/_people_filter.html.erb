@@ -1,26 +1,34 @@
 <menu id="people-filter" class="filter_boxed">
   <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
     <ul role="tablist" aria-label="<%= t('gobierto_people.people.people_filter.organigram', name: @site.name) %>">
-      <li role="presentation" class="active">
-        <%= link_to t("gobierto_people.people_filter.parties.government"),
-                    gobierto_people_government_party_people_path,
-                    tab_attributes(true).merge(remote: true, 'aria-controls' => 'people-list') %>
-      </li>
-      <li role="presentation">
-        <%= link_to t("gobierto_people.people_filter.parties.opposition"),
-                    gobierto_people_opposition_party_people_path,
-                    tab_attributes(false).merge(remote: true, 'aria-controls' => 'people-list')%>
-      </li>
-      <li role="presentation">
-        <%= link_to t("gobierto_people.people_filter.categories.executive"),
-                    gobierto_people_executive_category_people_path,
-                    tab_attributes(false).merge(remote: true, 'aria-controls' => 'people-list') %>
-      </li>
-      <li role="presentation">
-        <%= link_to t("gobierto_people.people_filter.political_groups.title"),
-                    gobierto_people_political_group_people_path(@political_groups.first.slug),
-                    tab_attributes(false).merge('aria-controls' => 'people-list') %>
-      </li>
+      <% if @present_groups["government"] %>
+        <li role="presentation" class="active">
+          <%= link_to t("gobierto_people.people_filter.parties.government"),
+                      gobierto_people_government_party_people_path,
+                      tab_attributes(true).merge(remote: true, 'aria-controls' => 'people-list') %>
+        </li>
+      <% end %>
+      <% if @present_groups["opposition"] %>
+        <li role="presentation">
+          <%= link_to t("gobierto_people.people_filter.parties.opposition"),
+                      gobierto_people_opposition_party_people_path,
+                      tab_attributes(false).merge(remote: true, 'aria-controls' => 'people-list')%>
+        </li>
+      <% end %>
+      <% if @present_groups["executive"] %>
+        <li role="presentation">
+          <%= link_to t("gobierto_people.people_filter.categories.executive"),
+                      gobierto_people_executive_category_people_path,
+                      tab_attributes(false).merge(remote: true, 'aria-controls' => 'people-list') %>
+        </li>
+      <% end %>
+      <% if @political_groups.present? %>
+        <li role="presentation">
+          <%= link_to t("gobierto_people.people_filter.political_groups.title"),
+                      gobierto_people_political_group_people_path(@political_groups.first.slug),
+                      tab_attributes(false).merge('aria-controls' => 'people-list') %>
+        </li>
+      <% end %>
     </ul>
   </div>
 </menu>

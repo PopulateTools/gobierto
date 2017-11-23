@@ -1,6 +1,7 @@
 module GobiertoPeople
   class WelcomeController < GobiertoPeople::ApplicationController
     include PoliticalGroupsHelper
+    include PeopleClassificationHelper
 
     before_action :check_active_submodules
 
@@ -10,6 +11,7 @@ module GobiertoPeople
       @political_groups = get_political_groups
       @home_text = load_home_text
       set_events
+      set_present_groups
     end
 
     private

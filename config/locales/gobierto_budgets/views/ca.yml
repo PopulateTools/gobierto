@@ -471,8 +471,8 @@ ca:
         pick_to_calculate: Selecciona per a calcular
         share: Comparteix-ho
         share_text: Comprova com és la teva aportació al pressupost de
-        title: Quina es la teva contribució al pressupost de l'%{site_name}?
-        your_contribution: La teva contribució als pressupostos de l'%{site_name}
+        title: Quina es la teva contribució al pressupost de %{site_name}?
+        your_contribution: La teva contribució als pressupostos de %{site_name}
     shared:
       data_updated_at:
         last_update: Última actualització

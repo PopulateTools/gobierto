@@ -3,6 +3,7 @@ module GobiertoPeople
 
     include PoliticalGroupsHelper
     include PreviewTokenHelper
+    include PeopleClassificationHelper
 
     before_action :check_active_submodules, except: :show
 
@@ -11,6 +12,7 @@ module GobiertoPeople
 
       set_people
       set_events
+      set_present_groups
 
       respond_to do |format|
         format.html

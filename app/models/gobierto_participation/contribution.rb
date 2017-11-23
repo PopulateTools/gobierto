@@ -71,6 +71,15 @@ module GobiertoParticipation
       )
     end
 
+    def to_url(options = {})
+      host = site.domain
+      Rails.application.routes.url_helpers.gobierto_participation_process_contribution_container_path(
+        process_id: contribution_container.process.slug,
+        id: contribution_container.slug,
+        host: host
+      )
+    end
+
     def votes_fdiv(numerator, denominator, args = {})
       fallback = args.fetch(:fallback) { 0 }
       round = args.fetch(:round) { 2 }

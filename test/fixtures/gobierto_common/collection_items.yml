@@ -114,6 +114,23 @@ richard_published_past_site:
   item: richard_published_past (GobiertoCalendars::Event)
   container: madrid (Site)
 
+# neil_published
+
+neil_published_person:
+  collection: neil_calendar
+  item: neil_published (GobiertoCalendars::Event)
+  container: neil (GobiertoPeople::Person)
+
+neil_published_people:
+  collection: neil_calendar
+  item: neil_published (GobiertoCalendars::Event)
+  container_type: GobiertoPeople
+
+neil_published_site:
+  collection: neil_calendar
+  item: neil_published (GobiertoCalendars::Event)
+  container: madrid (Site)
+
 # nelson_tomorrow
 
 nelson_tomorrow_person:

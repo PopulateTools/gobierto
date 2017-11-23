@@ -12,7 +12,6 @@ richard_pending:
   }.to_json %>
   starts_at: <%= 1.month.from_now %>
   ends_at: <%= 1.month.from_now + 1.hour %>
-  attachment_url: https://bit.ly/12345
   state: <%= GobiertoCalendars::Event.states["pending"] %>
 
 richard_published:
@@ -29,7 +28,6 @@ richard_published:
   }.to_json %>
   starts_at: <%= 1.month.from_now %>
   ends_at: <%= 1.month.from_now + 1.hour %>
-  attachment_url: https://bit.ly/67890
   state: <%= GobiertoCalendars::Event.states["published"] %>
 
 neil_published:
@@ -46,7 +44,6 @@ neil_published:
   }.to_json %>
   starts_at: <%= 1.month.from_now %>
   ends_at: <%= 1.month.from_now + 1.hour %>
-  attachment_url: https://bit.ly/010101
   state: <%= GobiertoCalendars::Event.states["published"] %>
 
 richard_published_just_attending:
@@ -64,7 +61,6 @@ richard_published_just_attending:
   }.to_json %>
   starts_at: <%= 1.month.from_now %>
   ends_at: <%= 1.month.from_now + 1.hour %>
-  attachment_url: https://bit.ly/67890
   state: <%= GobiertoCalendars::Event.states["published"] %>
 
 richard_published_past:
@@ -81,7 +77,6 @@ richard_published_past:
   }.to_json %>
   starts_at: <%= 1.month.ago %>
   ends_at: <%= 1.month.ago + 1.hour %>
-  attachment_url: https://bit.ly/67890
   state: <%= GobiertoCalendars::Event.states["published"] %>
 
 nelson_tomorrow:
@@ -98,7 +93,6 @@ nelson_tomorrow:
   }.to_json %>
   starts_at: <%= 1.day.from_now %>
   ends_at: <%= 1.day.from_now + 1.hour %>
-  attachment_url: https://bit.ly/67890
   state: <%= GobiertoCalendars::Event.states["published"] %>
 
 nelson_tomorrow_fixed:
@@ -127,7 +121,6 @@ nelson_yesterday:
   }.to_json %>
   starts_at: <%= 1.day.ago %>
   ends_at: <%= 1.day.ago + 1.hour %>
-  attachment_url: https://bit.ly/67890
   state: <%= GobiertoCalendars::Event.states["published"] %>
 
 nelson_yesterday_fixed:
@@ -156,7 +149,6 @@ tamara_published_past:
   }.to_json %>
   starts_at: <%= 15.days.ago %>
   ends_at: <%= 15.days.ago + 1.hour %>
-  attachment_url: https://bit.ly/67890
   state: <%= GobiertoCalendars::Event.states["published"] %>
 
 reading_club:
@@ -173,7 +165,6 @@ reading_club:
   }.to_json %>
   starts_at: <%= 7.days.from_now %>
   ends_at: <%= 7.days.from_now + 1.hour %>
-  attachment_url: https://bit.ly/67890
   state: <%= GobiertoCalendars::Event.states["published"] %>
 
 swimming_lessons:
@@ -190,5 +181,4 @@ swimming_lessons:
   }.to_json %>
   starts_at: <%= 2.days.from_now %>
   ends_at: <%= 2.days.from_now + 1.hour %>
-  attachment_url: https://bit.ly/67890
   state: <%= GobiertoCalendars::Event.states["published"] %>

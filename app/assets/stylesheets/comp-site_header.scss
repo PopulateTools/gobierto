@@ -591,15 +591,17 @@ header.section {
         display: inline-block;
         margin: 0 32px 0 0;
         padding: 10px 0;
+
+        &.active {
+          a {
+            font-weight: $fSemibold;
+          }
+        }
       }
 
       a {
         text-transform: uppercase;
         @include font(15px, $cBlue, $fExtraLight);
-
-        &:hover {
-          // font-weight: $fRegular;
-        }
       }
     }
 

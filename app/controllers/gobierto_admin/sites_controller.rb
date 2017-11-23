@@ -122,7 +122,7 @@ module GobiertoAdmin
 
     def home_page_items
       [[I18n.t("gobierto_admin.sites.pages"), get_available_pages.map { |p| [p.title, p.to_global_id] }],
-        [I18n.t("gobierto_admin.sites.sections"), ::GobiertoCms::Section.has_section_item.map { |s| [s.title, s.to_global_id] }]]
+        [I18n.t("gobierto_admin.sites.sections"), current_site.sections.has_section_item.map { |s| [s.title, s.to_global_id] }]]
     end
 
     def get_dns_config

@@ -72,9 +72,10 @@
 
         </div>
       </div>
+
       <div class="mobile_only right">
         <%= link_to "#", class: "nav_control" do %>
-          <i class="fa fa-bars" aria-label="<%= t('.start') %>"></i>
+          <i class="fa fa-bars" aria-label="<%= t('layouts.application.start') %>"></i>
         <% end %>
       </div>
     </div>
@@ -89,6 +90,9 @@
 
       <div class="site_header_logo">
         <%= link_to(image_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
+        <div class="site_header_slogan">
+          Gobierno<br>Abierto
+        </div>
       </div>
 
       <div class="site_header_social">
@@ -99,7 +103,9 @@
 
         <div class="search-box">
           <i class="fa fa-search"></i>
-          <input id="gobierto_search" name="q" class="search_box_input" type="text" placeholder="<%= t('layouts.application.search') %>" aria-label="<%= t('layouts.application.search') %>">
+          <input id="gobierto_search" name="q" class="search-box_input" type="text" placeholder="<%= t('layouts.application.search') %>" aria-label="<%= t('layouts.application.search') %>">
+
+          <div id="search_results" class="search_result_list"></div>
         </div>
 
         <div class="social_links_container" data-share>
@@ -107,9 +113,6 @@
             <a class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
             <a class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
           <% end %>
-
-          <!-- TODO: lo del position:absolute es una ñapa -->
-          <div id="search_results" class="search_result_list" style="position:absolute;"></div>
         </div>
       </div>
     </div>

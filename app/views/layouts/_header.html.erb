@@ -1,51 +1,56 @@
-<header class="meta home-cms">
+<header class="meta">
 
   <div class="slim_nav_bar">
 
     <div class="column pure-g">
+
       <div class="desktop_only">
 
         <div class="pure-u-md-1-2">
           <% if @site.configuration.links_markup.present? %>
             <%= raw @site.configuration.links_markup %>
           <% end %>
+
+          <%# TODO: This links are static %>
+          <a href="#">SEDE ELECTRÓNICA</a>
         </div>
 
         <div class="pure-u-md-1-2 right">
+          <%# TODO: This links are static %>
+          <a href="#">NOVEDADES</a>
 
           <div class="user_links">
-
             <div class="pure-menu pure-menu-horizontal">
 
               <% if user_signed_in? %>
                 <ul class="pure-menu-list left">
                   <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
                     <a href="#" class="pure-menu-link">
-                      <%= t(".session.title") %>
+                      <%= t("layouts.application.session.title") %>
                     </a>
                     <ul class="pure-menu-children">
                       <li class="pure-menu-item">
                         <%= link_to user_settings_path, class: "pure-menu-link" do %>
                           <i class="fa fa-ship"></i>
-                          <%= t(".session.title") %>
+                          <%= t("layouts.application.session.title") %>
                         <% end %>
                       </li>
                       <li class="pure-menu-item">
                         <%= link_to user_notifications_path, class: "pure-menu-link" do %>
                           <i class="fa fa-th"></i>
-                          <%= t(".session.notifications") %>
+                          <%= t("layouts.application.session.notifications") %>
                         <% end %>
                       </li>
                       <li class="pure-menu-item">
                         <%= link_to user_subscriptions_path, class: "pure-menu-link" do %>
                           <i class="fa fa-envelope-o"></i>
-                          <%= t(".session.alerts") %>
+                          <%= t("layouts.application.session.alerts") %>
                         <% end %>
                       </li>
                       <li class="pure-menu-item">
                         <%= link_to user_sessions_path, method: :delete, class: "pure-menu-link" do %>
                           <i class="fa fa-sign-out"></i>
-                          <%= t(".session.sign_out") %>
+                          <%= t("layouts.application.session.sign_out") %>
                         <% end %>
                       </li>
                     </ul>
@@ -56,15 +61,20 @@
                   <li class="pure-menu-item">
                     <%= link_to new_user_sessions_path, class: "pure-menu-link" do %>
                       <i class="fa fa-sign-in"></i>
-                      <%= t(".session.sign_in") %>
+                      <%= t("layouts.application.session.sign_in") %>
                     <% end %>
                   </li>
                 </ul>
               <% end %>
 
             </div>
-
           </div>
+
+          <%# TODO: This links are static %>
+          <button type="button" class="button-feed">
+            <i class="fa fa-rss" aria-label="<%=  %>"></i>
+            Sigue este proceso
+          </button>
 
           <div class="language_selector">
             <%= render "layouts/locale_selector" %>
@@ -78,6 +88,7 @@
           <i class="fa fa-bars" aria-label="<%= t('layouts.application.start') %>"></i>
         <% end %>
       </div>
+
     </div>
   </div>
 

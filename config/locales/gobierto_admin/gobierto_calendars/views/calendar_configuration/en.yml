@@ -13,7 +13,7 @@ en:
             microsoft_exchange_url: Calendar URL
             microsoft_exchange_usr: Microsoft Exchange account
           placeholders:
-            ibm_notes_url: IBM Notes calendar URL
+            ibm_notes_url: ex. https://example.com/mail/abc.nsf/api/calendar/events
             microsoft_exchange_url: ex. https://example.com/ews/exchange.asmx
             username: ex. someone85
           remove_configuration: Remove calendar configuration

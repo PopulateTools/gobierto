@@ -2,8 +2,9 @@ module GobiertoPeople
   class RemoteCalendars
 
     def self.sync
-      ::GobiertoCalendars::CalendarConfiguration.each do |calendar_configuration|
+      ::GobiertoCalendars::CalendarConfiguration.all.each do |calendar_configuration|
         collection = calendar_configuration.collection
+        container = collection.container
         site = collection.site
         calendar_integration = collection.calendar_integration
 
@@ -15,13 +16,13 @@ module GobiertoPeople
       end
     end
 
-    def log_agenda_synchronization(collection, container, site)
+    def self.log_agenda_synchronization(collection, container, site)
       message = %Q(
         ------------------------------ [SYNC CALENDAR] ------------------------------
         Site: #{site.domain}
         Integration service: #{collection.calendar_integration}
         Container class: #{container.class}
-        Container identifier: #{container.printable_name}
+        Container identifier: #{collection.container_printable_name}
         -----------------------------------------------------------------------------
       )
       Rails.logger.info(message)

@@ -2,14 +2,29 @@ module GobiertoPeople
   class RemoteCalendars
 
     def self.sync
-      Site.with_agendas_integration_enabled.each do |site|
+      ::GobiertoCalendars::CalendarConfiguration.each do |calendar_configuration|
+        collection = calendar_configuration.collection
+        site = collection.site
+        calendar_integration = collection.calendar_integration
+
         I18n.locale = site.configuration.default_locale
-        calendar_integration = site.calendar_integration
-        Rails.logger.info "[SYNC AGENDAS] Site: #{site.domain} Service: #{calendar_integration}"
-        site.people.with_calendar_configuration.each do |person|
-          calendar_integration.sync_person_events(person)
-        end
+
+        log_agenda_synchronization(collection, container, site)
+
+        calendar_integration.sync_person_events(container)
       end
+    end
+
+    def log_agenda_synchronization(collection, container, site)
+      message = %Q(
+        ------------------------------ [SYNC CALENDAR] ------------------------------
+        Site: #{site.domain}
+        Integration service: #{collection.calendar_integration}
+        Container class: #{container.class}
+        Container identifier: #{container.printable_name}
+        -----------------------------------------------------------------------------
+      )
+      Rails.logger.info(message)
     end
 
   end

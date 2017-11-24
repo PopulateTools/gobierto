@@ -42,7 +42,7 @@ module GobiertoPeople
         end
 
         def load_google_calendar_configuration
-          @configuration = ::GobiertoPeople::PersonGoogleCalendarConfiguration.find_or_initialize_by person_id: @person.id
+          @configuration = ::GobiertoCalendars::GoogleCalendarConfiguration.find_or_initialize_by(collection_id: @person.calendar.id)
         end
 
         def client_secret_path

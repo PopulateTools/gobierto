@@ -9,7 +9,7 @@ module GobiertoPeople
       SCOPE = Google::Apis::CalendarV3::AUTH_CALENDAR_READONLY
 
       def self.person_calendar_configuration_class
-        ::GobiertoPeople::PersonGoogleCalendarConfiguration
+        ::GobiertoCalendars::GoogleCalendarConfiguration
       end
 
       def self.sync_person_events(person)
@@ -18,7 +18,7 @@ module GobiertoPeople
 
       def initialize(person)
         @person = person
-        @configuration = GobiertoPeople::PersonGoogleCalendarConfiguration.find_by person_id: person.id
+        @configuration = GobiertoCalendars::GoogleCalendarConfiguration.find_by(collection_id: person.calendar.id)
 
         @service = Google::Apis::CalendarV3::CalendarService.new
         @service.client_options.application_name = person.site.name
@@ -50,7 +50,7 @@ module GobiertoPeople
         end
       end
 
-      def sync_calendar_events( calendar)
+      def sync_calendar_events(calendar)
         response = service.list_events(calendar.id, always_include_email: true, time_min: Time.now.iso8601)
         response.items.each do |event|
           next if is_private?(event) || (!is_creator?(event) && !is_attendee?(event))

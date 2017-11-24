@@ -1,16 +1,21 @@
 # frozen_string_literal: true
 
 class RemovePersonIdFromGobiertoCalendarsEvents < ActiveRecord::Migration[5.1]
+
+  class MigrationEvent < ActiveRecord::Base
+    self.table_name = :gobierto_calendars_events
+  end
+
   def up
     add_column :gobierto_calendars_events, :collection_id, :integer
 
-    GobiertoCalendars::Event.reset_column_information
+    MigrationEvent.reset_column_information
 
     GobiertoPeople::Person.all.each do |p|
       p.send :create_events_collection
     end.size
 
-    GobiertoCalendars::Event.all.each do |e|
+    MigrationEvent.all.each do |e|
       next unless p = GobiertoPeople::Person.find_by(id: e.person_id)
       collection = p.events_collection
       e.collection = collection
@@ -28,4 +33,5 @@ class RemovePersonIdFromGobiertoCalendarsEvents < ActiveRecord::Migration[5.1]
     remove_column :gobierto_calendars_events, :collection_id
     add_column :gobierto_calendars_events, :person_id, :integer, null: false
   end
+
 end

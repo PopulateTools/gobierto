@@ -1,0 +1,32 @@
+<div class="pure-u-1 pure-u-md-16-24">
+
+  <% if @google_calendar_configuration.nil? %>
+
+    <div class="form_item input_text">
+      <p><%= t('.share_link') %></p>
+      <p><input type="text" name="google_calendar_invitation_url" value="<%= new_gobierto_people_google_calendar_authorization_url(token: @collection.container.google_calendar_token, host: ENV['BASE_HOST']) %>"/></p>
+    </div>
+
+  <% else %>
+
+    <p><%= t('.calendar_configured') %>:</p>
+
+    <div class="form_block ">
+      <div class="form_item site-check-boxes">
+        <div class="options compact">
+          <%= f.collection_check_boxes(:calendars, @calendars, :id, :summary) do |b| %>
+            <div class="option">
+              <%= b.check_box %>
+              <%= b.label do %>
+                <span></span>
+                <%= b.text %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+
+</div>

@@ -78,7 +78,6 @@ Rails.application.routes.draw do
         resources :person_events, only: [:index, :new, :create, :edit, :update], controller: "people/person_events", as: :events, path: :events
         resources :person_statements, only: [:index, :new, :create, :edit, :update], controller: "people/person_statements", as: :statements, path: :statements
         resources :person_posts, only: [:index, :new, :create, :edit, :update], controller: "people/person_posts", as: :posts, path: :blog
-        resource :person_calendar_configuration, only: [:edit, :update], controller: "people/person_calendar_configuration", as: :calendar_configuration, path: :calendar_configuration
       end
 
       namespace :configuration do
@@ -133,6 +132,7 @@ Rails.application.routes.draw do
     namespace :gobierto_calendars, as: :calendars do
       resources :events
       resources :collections, only: [:index]
+      resources :calendar_configurations, only: [:edit, :update], controller: "calendar_configuration", as: :configurations, path: :configurations
     end
   end
 

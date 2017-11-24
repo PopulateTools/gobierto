@@ -16,13 +16,13 @@ module GobiertoPeople
       end
 
       def self.person_calendar_configuration_class
-        ::GobiertoPeople::PersonMicrosoftExchangeCalendarConfiguration
+        ::GobiertoCalendars::MicrosoftExchangeCalendarConfiguration
       end
 
       def initialize(person)
         @person = person
         @site = person.site
-        configuration = GobiertoPeople::PersonMicrosoftExchangeCalendarConfiguration.find_by(person_id: person.id)
+        configuration = ::GobiertoCalendars::MicrosoftExchangeCalendarConfiguration.find_by(collection_id: person.calendar.id)
 
         Exchanger.configure do |config|
           config.endpoint = configuration.microsoft_exchange_url

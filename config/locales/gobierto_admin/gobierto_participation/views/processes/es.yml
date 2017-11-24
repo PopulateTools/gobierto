@@ -44,14 +44,13 @@ es:
             config: Configuración
             contribution: Aportación
             marked: Marcada
-            new: Nueva
             participants: Participantes
+            see_container: Ver
             see_contribution: Ver aportación
             status: Estado
             status_level:
               moderate: Moderada
               published: Publicada
-            votes: Valoraciones
         process_file_attachments:
           index:
             configuration: Configuración

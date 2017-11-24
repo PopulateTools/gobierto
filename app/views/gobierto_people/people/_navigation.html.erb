@@ -4,16 +4,16 @@
   <div class="people-navigation">
 
     <ul>
-      <% if officials_submodule_active? %>
+      <% if officials_submodule_active? && @person.has_biographic_data? %>
         <li><h3><%= link_to t(".bio"), gobierto_people_person_bio_path(@person.slug), class: class_if("active", controller_name == "person_bio") %></h3></li>
       <% end %>
       <% if agendas_submodule_active? %>
         <li><h3><%= link_to t(".agenda"), gobierto_people_person_events_path(@person.slug), class: class_if("active", controller_name == "person_events")  %></h3></li>
       <% end %>
-      <% if blog_submodule_active? %>
+      <% if blog_submodule_active? && @person.has_posts? %>
         <li><h3><%= link_to t(".blog"), gobierto_people_person_posts_path(@person.slug), class: class_if("active", controller_name == "person_posts")  %></h3></li>
       <% end %>
-      <% if statements_submodule_active? %>
+      <% if statements_submodule_active? && @person.has_statements? %>
         <li><h3><%= link_to t(".statements"), gobierto_people_person_statements_path(@person.slug), class: class_if("active", controller_name == "person_statements")  %></h3></li>
       <% end %>
       <% if @person.trips_url %>

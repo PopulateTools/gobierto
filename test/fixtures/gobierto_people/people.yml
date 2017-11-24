@@ -97,3 +97,23 @@ kali:
   position: 0
   email: kali@example.com
   google_calendar_token:
+
+neil:
+  site: madrid
+  admin: tony
+  name: Neil Patrick
+  slug: neil-patrick
+  charge_translations: <%= { 'en' => 'Opposition', 'es' => 'Opposition' }.to_json %>
+  bio_translations: <%= {
+    'en' => 'Opposition Head',
+    'es' => 'Jefe de la Oposición'
+  }.to_json %>
+  bio_url: https://es.wikipedia.org/wiki/Neil_Patrick_Harris
+  avatar_url: https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png
+  visibility_level: <%= GobiertoPeople::Person.visibility_levels["active"] %>
+  category: <%= GobiertoPeople::Person.categories["politician"] %>
+  party: <%= GobiertoPeople::Person.parties["opposition"] %>
+  political_group: dc
+  position: 5
+  email: neil@example.com
+  google_calendar_token: gct5

@@ -23,6 +23,14 @@ module GobiertoParticipation
       )
     end
 
+    def contribution_path
+      @contribution_path ||= gobierto_participation_process_contribution_container_path(
+        process_id: process.slug,
+        id: contribution_container.slug,
+        anchor: contribution.slug
+      )
+    end
+
     def process
       @process ||= gobierto_participation_processes(:sport_city_process)
     end
@@ -53,6 +61,15 @@ module GobiertoParticipation
 
     def contribution_comments
       @contribution_comments ||= contribution.comments
+    end
+
+    def test_contribution_path
+      with_javascript do
+        with_current_site(site) do
+          visit contribution_path
+          assert has_content? "Carril bici para que los niños puedan llegar al parque desde cualquier punto de Barajas."
+        end
+      end
     end
 
     def test_all_contributions_show

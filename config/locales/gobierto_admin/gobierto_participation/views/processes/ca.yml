@@ -44,14 +44,13 @@ ca:
             config: Configuració
             contribution: Aportació
             marked: Marcada
-            new: Nova
             participants: Participants
+            see_container: Veure
             see_contribution: Veure aportació
             status: Estat
             status_level:
               moderate: Moderada
               published: Publicada
-            votes: Valoracions
         process_file_attachments:
           index:
             configuration: Configuració

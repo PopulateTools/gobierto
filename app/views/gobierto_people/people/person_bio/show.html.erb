@@ -7,23 +7,25 @@
 
 </div>
 
-<div class="separator"></div>
+<% if @person.has_bio_or_cv? %>
+  <div class="separator"></div>
 
-<div class="section_header">
-  <% if @person.bio_url.present? %>
-    <div class="download_file f_right">
-      <%= filetype_icon(@person.bio_url) %>
-      <strong><%= link_to t(".download"), @person.bio_url, download: "" %></strong>
-    </div>
-  <% end %>
+  <div class="section_header">
+    <% if @person.bio_url.present? %>
+      <div class="download_file f_right">
+        <%= filetype_icon(@person.bio_url) %>
+        <strong><%= link_to t(".download"), @person.bio_url, download: "" %></strong>
+      </div>
+    <% end %>
 
-  <h3 class="bio-subtitle"><%= t(".subtitle") %></h3>
+    <h3 class="bio-subtitle"><%= t(".subtitle") %></h3>
 
-</div>
+  </div>
 
-<div class="article">
-  <%= raw @person.bio %>
-</div>
+  <div class="article">
+    <%= raw @person.bio %>
+  </div>
+<% end %>
 
 <div class="separator"></div>
 

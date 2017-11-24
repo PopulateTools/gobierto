@@ -74,6 +74,13 @@ kali_calendar:
   container: kali (GobiertoPeople::Person)
   item_type: GobiertoCalendars::Event
 
+neil_calendar:
+  site: madrid
+  title_translations: <%= {'en' => 'Neil calendar', 'es' => 'Calendario de Neil' }.to_json %>
+  slug: neil-calendar
+  container: neil (GobiertoPeople::Person)
+  item_type: GobiertoCalendars::Event
+
 ## /end
 
 ## Site collections of news

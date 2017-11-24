@@ -3,7 +3,7 @@
     <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
       <ul>
         <li><%= link_to t('gobierto_people.layouts.menu_subsections.home'), gobierto_people_root_path, class: class_if('active', controller_name == 'welcome') %></li>
-        <% active_submodules.each do |submodule| %>
+        <% active_submodules.select { |submodule| submodule_has_content? submodule  }.each do |submodule| %>
           <li><%= link_to submodule_title_for(submodule), submodule_path_for(submodule), class: class_if('active', controller_name == submodule_controller_for(submodule)) %></li>
         <% end %>
       </ul>

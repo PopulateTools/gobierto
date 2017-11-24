@@ -17,7 +17,7 @@ module GobiertoParticipation
       end
 
       def find_issue_activities
-        ActivityCollectionDecorator.new(Activity.in_site(current_site).no_admin.in_container(@issue).sorted.includes(:subject, :author, :recipient).page(params[:page]))
+        ActivityCollectionDecorator.new(Activity.in_site(current_site).no_admin.in_process(@issue.processes).sorted.includes(:subject, :author, :recipient).page(params[:page]))
       end
     end
   end

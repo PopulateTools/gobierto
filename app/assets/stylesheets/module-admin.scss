@@ -567,7 +567,7 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
     color: $color_text;
     text-decoration: none;
   }
-  
+
 }
 
 
@@ -623,5 +623,49 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
         }
       }
     }
+  }
+}
+
+.file_browser {
+  background: $color_1_soft;
+  font-size: .85em;
+  box-sizing: border-box;
+  padding: 1em;
+  margin-right: 5px;
+  ul {
+    padding: 0;
+    margin: 0 0 0 -4px;
+    ul {
+      padding: 0 0 0 20px;
+    }
+  }
+  li {
+    padding: 1px 7px;
+  }
+  li:hover {
+    border-radius: 3px;
+    background: darken($color_1_soft, 5%);
+    cursor: pointer;
+  }
+  ul, li {
+    list-style-type: none;
+  }
+}
+.template_editor {
+  .template_editor_main_pane {
+    background: $color_1_soft;
+  }
+  .action_buttons {
+    box-sizing: border-box;
+    padding: 1em;
+    text-align: right;
+    border-bottom: 5px solid #FFF;
+    margin: 0;
+  }
+  .code_editor {
+    background: $color_1_soft;
+    box-sizing: border-box;
+    padding: 1em;
+    min-height: 600px;
   }
 }

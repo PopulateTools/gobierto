@@ -111,8 +111,10 @@ module GobiertoPeople
         ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:authorization=).returns(true)
 
         ## Configure site and person
-        activate_google_calendar_calendar_integration(sites(:madrid))
-        configure_google_calendar_integration(richard, calendars: [calendar1.id, calendar2.id])
+        configure_google_calendar_integration(
+          collection: richard.calendar,
+          data: { calendars: [calendar1.id, calendar2.id] }
+        )
       end
 
       def test_sync_events

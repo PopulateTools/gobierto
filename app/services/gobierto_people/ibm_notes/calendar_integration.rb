@@ -27,7 +27,7 @@ module GobiertoPeople
       end
 
       def self.person_calendar_configuration_class
-        ::GobiertoPeople::PersonIbmNotesCalendarConfiguration
+        ::GobiertoCalendars::IbmNotesCalendarConfiguration
       end
 
       def self.sync_event(ibm_notes_event)
@@ -122,43 +122,38 @@ module GobiertoPeople
 
       def self.request_params_for_events(person)
         {
-          endpoint: person_calendar_endpoint(person).concat("?since=#{sync_range_start}"),
-          username: plain_text_username(person),
+          endpoint: person_calendar_configuration(person).ibm_notes_url.concat("?since=#{sync_range_start}"),
+          username: person_calendar_configuration(person).ibm_notes_usr,
           password: plain_text_password(person)
         }
       end
       private_class_method :request_params_for_events
 
       def self.request_params_for_event_request(person, event_path)
-        uri = URI.parse person_calendar_endpoint(person)
+        uri = URI.parse person_calendar_configuration(person).ibm_notes_url
 
         {
           endpoint: "#{uri.scheme}://#{uri.host}#{event_path}",
-          username: plain_text_username(person),
+          username: person_calendar_configuration(person).ibm_notes_usr,
           password: plain_text_password(person)
         }
       end
       private_class_method :request_params_for_event_request
 
-      def self.person_calendar_endpoint(person)
-        PersonIbmNotesCalendarConfiguration.find_by(person_id: person.id).endpoint
-      end
-      private_class_method :person_calendar_endpoint
-
-      def self.plain_text_username(person)
-        SecretAttribute.decrypt(person.site.gobierto_people_settings.ibm_notes_usr)
-      end
-      private_class_method :plain_text_username
-
       def self.plain_text_password(person)
-        SecretAttribute.decrypt(person.site.gobierto_people_settings.ibm_notes_pwd)
+        SecretAttribute.decrypt(person_calendar_configuration(person).ibm_notes_pwd)
       end
       private_class_method :plain_text_password
 
       def self.sync_range_start
-        5.days.ago.iso8601.split('+')[0].concat('Z')
+        2.days.ago.iso8601.split('+')[0].concat('Z')
       end
       private_class_method :sync_range_start
+
+      def self.person_calendar_configuration(person)
+        person_calendar_configuration_class.find_by(collection_id: person.calendar.id)
+      end
+      private_class_method :person_calendar_configuration
 
     end
   end

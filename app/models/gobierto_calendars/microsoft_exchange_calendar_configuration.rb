@@ -1,5 +1,5 @@
-module GobiertoPeople
-  class PersonMicrosoftExchangeCalendarConfiguration < PersonCalendarConfiguration
+module GobiertoCalendars
+  class MicrosoftExchangeCalendarConfiguration < CalendarConfiguration
 
     def microsoft_exchange_usr
       data['microsoft_exchange_usr']

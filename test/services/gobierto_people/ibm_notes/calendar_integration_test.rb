@@ -8,6 +8,14 @@ module GobiertoPeople
     class CalendarIntegrationTest < ActiveSupport::TestCase
       include ::CalendarIntegrationHelpers
 
+      def ibm_notes_configuration
+        @ibm_notes_configuration ||= {
+          ibm_notes_usr: 'ibm-notes-usr',
+          ibm_notes_pwd: 'ibm-notes-pwd',
+          ibm_notes_url: 'https://host.wadus.com/mail/foo.nsf/api/calendar/events'
+        }
+      end
+
       def richard
         @richard ||= gobierto_people_people(:richard)
       end
@@ -31,8 +39,10 @@ module GobiertoPeople
 
       def setup
         super
-        activate_ibm_notes_calendar_integration(sites(:madrid))
-        set_ibm_notes_calendar_endpoint(richard, "https://host.wadus.com/mail/foo.nsf/api/calendar/events")
+        configure_ibm_notes_calendar_integration(
+          collection: richard.calendar,
+          data: ibm_notes_configuration
+        )
       end
 
       def create_ibm_notes_event(params = {})

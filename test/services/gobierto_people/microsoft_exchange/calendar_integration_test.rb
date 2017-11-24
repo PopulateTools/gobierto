@@ -17,8 +17,8 @@ module GobiertoPeople
         @site ||= sites(:madrid)
       end
 
-      def microsoft_exchange_settings
-        @microsoft_exchange_settings ||= {
+      def microsoft_exchange_configuration
+        @microsoft_exchange_configuration ||= {
           microsoft_exchange_url: 'http://example.com/ews/exchange.asmx',
           microsoft_exchange_usr: 'richard-me-username',
           microsoft_exchange_pwd: 'richard-me-password'
@@ -50,10 +50,10 @@ module GobiertoPeople
 
       def setup
         super
-
-        # configure site and person
-        activate_microsoft_exchange_calendar_integration(sites(:madrid))
-        configure_microsoft_exchange_integration(richard, microsoft_exchange_settings.merge(encrypt: true))
+        configure_microsoft_exchange_calendar_integration(
+          collection: richard.calendar,
+          data: microsoft_exchange_configuration
+        )
       end
 
       def event_attributes

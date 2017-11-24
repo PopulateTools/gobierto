@@ -30,7 +30,7 @@ class GobiertoPeople::People::GoogleCalendar::AuthorizationControllerTest < Acti
     get :new, params: { code: "foo" }, session: { google_calendar_person_id: person.id }
     assert_response :redirect
 
-    configuration = GobiertoPeople::PersonGoogleCalendarConfiguration.find_by person_id: person.id
+    configuration = GobiertoCalendars::GoogleCalendarConfiguration.find_by(collection: person.calendar)
     assert configuration.data["google_calendar_credentials"].present?
   end
 end

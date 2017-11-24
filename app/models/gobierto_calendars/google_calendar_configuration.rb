@@ -1,5 +1,6 @@
-module GobiertoPeople
-  class PersonGoogleCalendarConfiguration < PersonCalendarConfiguration
+module GobiertoCalendars
+  class GoogleCalendarConfiguration < CalendarConfiguration
+
     def google_calendar_credentials
       data['google_calendar_credentials']
     end
@@ -23,5 +24,6 @@ module GobiertoPeople
     def calendars
       data['calendars']
     end
+
   end
 end

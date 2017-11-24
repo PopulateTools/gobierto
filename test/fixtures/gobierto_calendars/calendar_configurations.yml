@@ -1,0 +1,17 @@
+richard_calendar_configuration:
+    collection: richard_calendar
+    integration_name: ibm_notes
+    data: <%= {
+        ibm_notes_usr: "ibm-notes-usr",
+        ibm_notes_pwd: SecretAttribute.encrypt("ibm-notes-pwd"),
+        ibm_notes_url: "http://calendar/richard"
+    }.to_json %>
+
+tamara_calendar_configuration:
+    collection: tamara_calendar
+    integration_name: microsoft_exchange
+    data: <%= {
+        microsoft_exchange_usr: "microsoft-exchange-usr",
+        microsoft_exchange_pwd: SecretAttribute.encrypt("microsoft-exchange-pwd"),
+        microsoft_exchange_url: "http://calendar/tamara"
+    }.to_json %>

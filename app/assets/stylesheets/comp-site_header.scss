@@ -1,5 +1,4 @@
 header {
-
   // Header colors
   $cBlue: #0065C8;
   $cLightBlue: rgba($cBlue, 0.1);
@@ -10,12 +9,40 @@ header {
   $fSemibold: 600;
   $fBold: 700;
 
+  // Header media breakpoints, from purecss.io
+  $wSmall: 568px;
+  $wMedium: 768px;
+  $wLarge: 1024px;
+  $wExtraLarge: 1280px;
+
   // Header Mixins
   @mixin font($size: $f6, $color: $cBlue, $weight: $fRegular, $style: normal) {
     font-size: $size;
     font-weight: $weight;
     font-style: $style;
     color: $color;
+  }
+  @mixin breakpoint($point) {
+    @if $point == sm {
+      @media (max-width: $wSmall) {
+        @content;
+      }
+    } @else
+    if $point == md {
+      @media (max-width: $wMedium) {
+        @content;
+      }
+    } @else
+    if $point == lg {
+      @media (max-width: $wLarge) {
+        @content;
+      }
+    } @else
+    if $point == xl {
+      @media (max-width: $wExtraLarge) {
+        @content;
+      }
+    }
   }
 
   .slim_nav_bar {
@@ -103,13 +130,18 @@ header {
         justify-content: space-between;
         align-items: center;
 
-        a {
+        .site_header_image {
           height: 100%;
-          display: flex;
-          align-items: center;
 
-          img {
-            max-height: calc(100% - (2 * 16px));
+          a {
+            height: 100%;
+            display: inline-flex;
+            align-items: center;
+
+            img {
+              max-height: calc(100% - (2 * 16px));
+              display: inline-block;
+            }
           }
         }
 
@@ -119,6 +151,11 @@ header {
           border-left: 1px solid $cLightBlue;
 
           @include font($f5, $cBlue, $fExtraLight);
+
+          span::before {
+            content: "\A";
+            white-space: pre;
+          }
         }
       }
 
@@ -131,7 +168,7 @@ header {
           i {
             position: absolute;
             opacity: 0.3;
-            top: 20%;
+            top: 6px;
             left: 5px;
             font-size: $f7;
           }
@@ -205,7 +242,7 @@ header {
 
       .main-nav-item {
         display: inline-block;
-        margin: 0 32px 0 0;
+        margin: 0;
         border-top: 5px solid transparent;
 
         &:hover {
@@ -224,7 +261,7 @@ header {
 
       a {
         display: block;
-        padding: 8px;
+        padding: 8px 12px;
         height: 100%;
         width: 100%;
         text-transform: uppercase;
@@ -237,7 +274,7 @@ header {
 
       .sub-nav-item {
         display: inline-block;
-        margin: 0 32px 0 0;
+        margin: 0;
 
         &:hover {
           background-color: darken($cLightBlue, 10%);
@@ -252,12 +289,81 @@ header {
 
       a {
         display: block;
-        padding: 8px;
+        padding: 8px 12px;
         height: 100%;
         width: 100%;
         text-transform: uppercase;
         @include font(15px, $cBlue, $fExtraLight);
       }
+    }
+  }
+
+  // Media queries
+  @include breakpoint(md) {
+    .button-feed {
+      display: none;
+    }
+  }
+
+  @include breakpoint(sm) {
+    .site_header {
+      .site_header_block {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+
+        > * {
+          width: 100%;
+        }
+
+        .site_header_logo {
+          .site_header_image {
+            a {
+              width: 100%;
+            }
+          }
+
+          .site_header_slogan {
+            margin: 0;
+          }
+
+          .site_header_image,
+          .site_header_slogan {
+            max-width: 50%;
+          }
+        }
+
+        .site_header_social .search-box {
+          width: 100%;
+
+          .search-box_input {
+            width: 100%;
+
+            &:focus {
+              width: 100%;
+            }
+          }
+
+          .search_result_list {
+            bottom: initial;
+          }
+        }
+      }
+
+      .main-nav {
+        display: none;
+
+        .main-nav-item {
+          display: block;
+          text-align: center;
+        }
+      }
+
+      .sub-nav {
+        display: none;
+        text-align: center;
+      }
+
     }
   }
 }

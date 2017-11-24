@@ -100,9 +100,11 @@
     <div class="column site_header_block">
 
       <div class="site_header_logo">
-        <%= link_to(image_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
+        <div class="site_header_image">
+          <%= link_to(image_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
+        </div>
         <div class="site_header_slogan">
-          Gobierno<br>Abierto
+          Gobierno <span>Abierto</span>
         </div>
       </div>
 
@@ -126,6 +128,7 @@
           <% end %>
         </div>
       </div>
+
     </div>
 
     <nav class="main-nav" role="navigation" aria-hidden="false">

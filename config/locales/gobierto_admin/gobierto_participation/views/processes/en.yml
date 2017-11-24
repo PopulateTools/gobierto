@@ -44,14 +44,13 @@ en:
             config: Config
             contribution: Contribution
             marked: Marked
-            new: New
             participants: Participants
+            see_container: See
             see_contribution: See contribution
             status: Status
             status_level:
               moderate: Moderate
               published: Published
-            votes: Votes
         process_file_attachments:
           index:
             configuration: Configuration

@@ -1,7 +1,7 @@
 this.GobiertoAdmin.SitesController = (function() {
   function SitesController() {}
 
-  function _handleSiteLocationAutocomplete(api_token) {
+  function _handleSiteLocationAutocomplete() {
     var locationFieldHandler = "#site_location_name";
     var municipalityFieldHandler = "#site_municipality_id";
     var autocompleteOptions = {
@@ -9,7 +9,6 @@ this.GobiertoAdmin.SitesController = (function() {
         var element = $(this)[0].element;
         $.ajax({
           url: element.data("autocompleteUrl"),
-          headers: { "authorization": "Bearer " + api_token },
           crossDomain: true,
           dataType: "json",
           method: "GET",
@@ -77,8 +76,8 @@ this.GobiertoAdmin.SitesController = (function() {
     }
   }
 
-  SitesController.prototype.edit = function(api_token, site_modules_with_root_path) {
-    _handleSiteLocationAutocomplete(api_token);
+  SitesController.prototype.edit = function(site_modules_with_root_path) {
+    _handleSiteLocationAutocomplete();
     _homePage(site_modules_with_root_path);
   };
 

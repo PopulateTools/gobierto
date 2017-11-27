@@ -1,8 +1,8 @@
 <div class="p_1 filled_block content_block" style="background-image: url(<%= image_url("illustrations/emojis.svg") %>)">
+  <h2><%= t("shared.polls.opinion") %></h2>
   <% if next_poll.is_a?(::GobiertoParticipation::Poll) %>
     <%= render "shared/poll_teaser", { poll: next_poll(poll_id) }  %>
   <% else %>
-    <h2><%= t("shared.polls.polls") %></h2>
     <p class="lead"><%= t("shared.polls.no_unanswered_polls") %></p>
   <% end %>
 </div>

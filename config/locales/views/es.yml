@@ -116,8 +116,8 @@ es:
   shared:
     polls:
       no_unanswered_polls: No hay encuestas pendientes de contestar.
+      opinion: Opina
       participate: Participa en esta encuesta
-      polls: Encuestas
   sites:
     events:
       sites_site_created: Site creado

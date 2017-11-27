@@ -110,8 +110,8 @@ en:
   shared:
     polls:
       no_unanswered_polls: There are no polls to answer.
+      opinion: Opinion
       participate: Participate in this poll
-      polls: Polls
   sites:
     events:
       sites_site_created: Site created

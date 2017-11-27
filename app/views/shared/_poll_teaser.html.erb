@@ -1,5 +1,4 @@
-<h2><%= poll.title %></h2>
-<p class="lead"><%= poll.questions.first.title %></p>
+<p class="lead"><%= poll.title %></p>
 <div class="center">
   <% if user_signed_in? %>
     <%= link_to t("shared.polls.participate"), new_gobierto_participation_process_poll_answer_path(poll.process.slug, poll), class: "button outline rounded fat" %>

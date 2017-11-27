@@ -124,7 +124,6 @@ module GobiertoParticipation
         poll = answerable_polls.first
 
         assert has_content? poll.title
-        assert has_content? poll.questions.first.title
         assert has_link? "Participate in this poll"
       end
     end

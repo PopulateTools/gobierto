@@ -10,6 +10,7 @@ module GobiertoCalendars
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Collectionable
+    include GobiertoAttachments::Attachable
 
     validates :site, :collection, presence: true
 
@@ -96,11 +97,11 @@ module GobiertoCalendars
     end
 
     def self.csv_columns
-      [:id, :collection_title, :creator_type, :creator_id, :creator_name, :title, :description, :starts_at, :ends_at, :attachment_url, :created_at, :updated_at]
+      [:id, :collection_title, :creator_type, :creator_id, :creator_name, :title, :description, :starts_at, :ends_at, :created_at, :updated_at]
     end
 
     def as_csv
-      [id, collection.title, collection.container.class.name, collection.container.id, collection.container.name, title, description, starts_at, ends_at, attachment_url, created_at, updated_at]
+      [id, collection.title, collection.container.class.name, collection.container.id, collection.container.name, title, description, starts_at, ends_at, created_at, updated_at]
     end
 
     def attributes_for_slug

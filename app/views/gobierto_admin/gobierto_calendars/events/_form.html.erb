@@ -60,29 +60,15 @@
         </div>
       </div>
 
-      <div class="form_item file_field attachment_file_field">
-        <%= f.label :attachment_file, t(".attachment_file_constraints") %>
-
-        <% if f.object.attachment_url.present? %>
-          <%= link_to f.object.attachment_url, f.object.attachment_url, download: "" %>
-        <% end %>
-
-        <%= f.file_field :attachment_file %>
-      </div>
-
       <%= render "locations_form", form_builder: f %>
       <%= render "attendees_form", form_builder: f %>
-
     </div>
 
     <div class="pure-u-1 pure-u-md-2-24"></div>
 
     <div class="pure-u-1 pure-u-md-1-4 ">
-
       <div class="widget_save stick_in_parent">
-
         <div class="form_item person-event-state-radio-buttons">
-
           <div class="options compact">
             <%= f.collection_radio_buttons(:state, @event_states, :first, :first) do |b| %>
               <div class="option">
@@ -94,15 +80,18 @@
               </div>
             <% end %>
           </div>
-
         </div>
-
         <%= f.submit class: "button" %>
-
       </div>
 
+      <%= render "gobierto_admin/shared/admin_widget_attachment", {attachable_type: @event_form.event.class.name, attachable_id: @event_form.event.id} %>
+      <%= f.hidden_field :attachment_ids, id: "attachmentsIdsAfterCreated" %>
     </div>
-
   </div>
+<% end %>
 
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.gobierto_attachments_controller.index();
+  <% end %>
 <% end %>

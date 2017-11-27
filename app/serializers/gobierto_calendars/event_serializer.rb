@@ -1,5 +1,5 @@
 class GobiertoCalendars::EventSerializer < ActiveModel::Serializer
-  attributes :id, :creator_id, :creator_name, :title, :description, :starts_at, :ends_at, :attachment_url, :created_at, :updated_at
+  attributes :id, :creator_id, :creator_name, :title, :description, :starts_at, :ends_at, :created_at, :updated_at
 
   has_many :locations
   has_many :attendees

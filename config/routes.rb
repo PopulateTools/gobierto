@@ -275,9 +275,14 @@ Rails.application.routes.draw do
   # Gobierto CMS module
   namespace :gobierto_cms, path: "" do
     constraints GobiertoSiteConstraint.new do
-      resources :pages, only: [:index, :show], path: "paginas"
-      get "/s/:slug_section/:id" => "pages#show", as: :section_item
-      get "/s/:slug_section" => "pages#show", as: :section
+      get "/paginas/:id" => "pages#index", as: "pages"
+      get "/pagina/:id" => "pages#show", as: "page"
+
+      get "/noticias/:id" => "pages#index", as: "news"
+      get "/noticia/:id" => "pages#show", as: "news_item"
+
+      get "/s/:slug_section" => "pages#index", as: "section"
+      get "/s/:slug_section/:id" => "pages#show", as: "section_item"
     end
   end
 
@@ -301,6 +306,7 @@ Rails.application.routes.draw do
         end
         resources :attachments, only: [:index, :show], controller: "processes/attachments", path: "documentos"
         resources :events, only: [:index, :show], controller: "processes/events", path: "agendas"
+        # TODO: remove
         resources :pages, only: [:index, :show], controller: "processes/pages", path: "noticias"
         resources :activities, only: [:index], controller: "processes/activities", path: "actividad"
       end
@@ -308,12 +314,14 @@ Rails.application.routes.draw do
       resources :issues, only: [:index, :show], path: "temas" do
         resources :attachments, only: [:index, :show], controller: "issues/attachments", path: "documentos"
         resources :events, only: [:index, :show], controller: "issues/events", path: "agendas"
+        # TODO: remove
         resources :pages, only: [:index, :show], controller: "issues/pages", path: "noticias"
         resources :activities, only: [:index], controller: "issues/activities", path: "actividad"
       end
 
       resources :attachments, only: [:index, :show], controller: "attachments", path: "documentos"
       resources :events, only: [:index, :show], controller: "events", path: "agendas"
+        # TODO: remove
       resources :pages, only: [:index, :show], controller: "pages", path: "noticias"
       resources :activities, only: [:index], controller: "activities", path: "actividad"
     end

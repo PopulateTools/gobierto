@@ -14,6 +14,12 @@ consultation_faq_on_site:
   item: consultation_faq (GobiertoCms::Page)
   container: madrid (Site)
 
+site_page_1:
+  collection: site_pages
+  item_id: <%= ActiveRecord::FixtureSet.identify(:about_site) %>
+  item_type: 'GobiertoCms::Page'
+  container: madrid (Site)
+
 collection_item_themes:
   collection: news
   item: themes (GobiertoCms::Page)
@@ -24,22 +30,28 @@ collection_item_themes_draft:
   item: themes_draft (GobiertoCms::Page)
   container: sport_city_process (GobiertoParticipation::Process)
 
-news_collection_notice_1:
+news_collection_news_1:
   collection: gender_violence_process_news
-  item_id: <%= ActiveRecord::FixtureSet.identify(:notice_1) %>
+  item_id: <%= ActiveRecord::FixtureSet.identify(:news_1) %>
   item_type: 'GobiertoCms::News'
   container: gender_violence_process (GobiertoParticipation::Process)
 
-news_collection_notice_2:
+news_collection_news_2:
   collection: gender_violence_process_news
-  item_id: <%= ActiveRecord::FixtureSet.identify(:notice_2) %>
+  item_id: <%= ActiveRecord::FixtureSet.identify(:news_2) %>
   item_type: 'GobiertoCms::News'
   container: gender_violence_process (GobiertoParticipation::Process)
 
-site_page_1:
-  collection: site_pages (GobiertoCommon::Collection)
-  item_id: <%= ActiveRecord::FixtureSet.identify(:about_site) %>
-  item_type: 'GobiertoCms::Page'
+site_news_1:
+  collection: site_news
+  item_id: <%= ActiveRecord::FixtureSet.identify(:site_news_1) %>
+  item_type: 'GobiertoCms::News'
+  container: madrid (Site)
+
+site_news_2:
+  collection: site_news
+  item_id: <%= ActiveRecord::FixtureSet.identify(:site_news_2) %>
+  item_type: 'GobiertoCms::News'
   container: madrid (Site)
 
 ## /end Pages collection items

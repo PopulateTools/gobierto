@@ -24,14 +24,13 @@ module GobiertoCms
     end
 
     def index
-      # TODO: params['from'] == 'participation' Add to process layout hidden_field
-      @issues = current_site.issues
-      @process = find_process if params[:process]
-      @pages = if params[:process]
-                 find_process_news.page(params[:page])
-               else
-                 current_site.pages.active.page(params[:page])
-               end
+      if params[:slug_section]
+        @section = find_section
+        redirect_to gobierto_cms_section_item_path(find_first_page_in_section.slug, slug_section: @section.slug)
+      else
+        @collection = current_site.collections.find_by!(slug: params[:id])
+        @pages = ::GobiertoCms::Page.where(id: @collection.pages_in_collection).active
+      end
     end
 
     private

@@ -4,7 +4,7 @@ require "test_helper"
 
 class SectionItemTest < ActiveSupport::TestCase
   def section_item
-    @section_item ||= gobierto_cms_section_items(:participation_items)
+    @section_item ||= gobierto_cms_section_items(:about_participation_section_item)
   end
 
   def test_valid

@@ -23,7 +23,7 @@ module GobiertoAdmin
       end
 
       def participation_section
-        @participation_section ||= gobierto_cms_section_items(:participation_items)
+        @participation_section ||= gobierto_cms_section_items(:about_participation_section_item)
       end
 
       def test_sections_show

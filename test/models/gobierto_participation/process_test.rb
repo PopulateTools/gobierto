@@ -32,7 +32,7 @@ module GobiertoCms
     end
 
     def process_news
-      [gobierto_cms_pages(:notice_1), gobierto_cms_pages(:notice_2)]
+      [gobierto_cms_pages(:news_1), gobierto_cms_pages(:news_2)]
     end
 
     def process_events

@@ -17,7 +17,7 @@ module GobiertoParticipation
     end
 
     def process_page
-      @process_page ||= gobierto_cms_pages(:notice_1)
+      @process_page ||= gobierto_cms_pages(:news_1)
     end
 
     def process_page_path

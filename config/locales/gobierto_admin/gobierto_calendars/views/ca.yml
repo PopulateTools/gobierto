@@ -24,7 +24,6 @@ ca:
         edit:
           title: Editar event
         form:
-          attachment_file_constraints: adjuntar fitxer (PDF)
           placeholders:
             slug: event
             title: Títol del event

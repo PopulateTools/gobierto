@@ -6,5 +6,7 @@ en:
         success: Site was successfully created
       destroy:
         success: Site was successfully deleted
+      pages: Pages
+      sections: Sections
       update:
         success: Site was successfully updated

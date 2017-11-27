@@ -147,6 +147,11 @@
           <%= f.select :home_page, @site_modules_with_root_path.map{ |p| [p.namespace, p.namespace] } %>
         </div>
 
+        <div class="form_item select_control" id="home_page_item">
+          <%= f.label :home_page_item_id %>
+          <%= f.select :home_page_item_id, grouped_options_for_select(@home_page_items, selected: @home_page_selected) %>
+        </div>
+
       </div>
 
     </div>

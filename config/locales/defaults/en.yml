@@ -132,6 +132,8 @@ en:
       not_an_integer: must be an integer
       odd: must be odd
       other_than: must be other than %{count}
+      page_as_homepage: The changes to the page could not be saved because You can't
+        change the vibility of a page that is used as a homepage.
       present: must be blank
       record_invalid: 'Validation failed: %{errors}'
       restrict_dependent_destroy:

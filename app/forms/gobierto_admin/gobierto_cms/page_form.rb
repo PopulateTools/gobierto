@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoCms
     class PageForm
@@ -22,6 +24,7 @@ module GobiertoAdmin
       delegate :persisted?, to: :page
 
       validates :site, :visibility_level, :collection_id, presence: true
+      validate :confirm_presence_of_homepage
 
       trackable_on :page
 
@@ -75,7 +78,7 @@ module GobiertoAdmin
         position = ::GobiertoCms::SectionItem.where(parent_id: parent, section: section).size
         section_item = ::GobiertoCms::SectionItem.find_or_initialize_by(item_id: id,
                                                                         item_type: "GobiertoCms::Page")
-        if (section == "" && section_item.present?)
+        if section == "" && section_item.present?
           section_item.destroy
         else
           section_item.update_attributes(parent_id: parent,
@@ -97,7 +100,7 @@ module GobiertoAdmin
           page_attributes.visibility_level = visibility_level
           if page.new_record? && attachment_ids.present?
             if attachment_ids.is_a?(String)
-              page_attributes.attachment_ids = attachment_ids.split(',')
+              page_attributes.attachment_ids = attachment_ids.split(",")
             else
               page_attributes.attachment_ids = attachment_ids
             end
@@ -116,6 +119,14 @@ module GobiertoAdmin
           promote_errors(@page.errors)
 
           false
+        end
+      end
+
+      def confirm_presence_of_homepage
+        if site.try(:configuration)
+          if page == GlobalID::Locator.locate(site.configuration.try(:home_page_item_id)) && visibility_level == "draft"
+            errors[:base] << I18n.t("errors.messages.page_as_homepage")
+          end
         end
       end
 

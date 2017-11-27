@@ -567,7 +567,7 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
     color: $color_text;
     text-decoration: none;
   }
-  
+
 }
 
 
@@ -623,5 +623,27 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
         }
       }
     }
+  }
+}
+
+.gobierto_admin {
+  .select2-container {
+
+  }
+  .select2-container--default .select2-selection--single {
+    background-color: initial;
+    padding: 32px 0 9px 7px;
+    border: initial;
+  }
+  .select2-container .select2-selection--single {
+    height: initial;
+  }
+  .select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: initial;
+    bottom: 10px;
+    right: 10px;
+  }
+  .select2-container--default .select2-results > .select2-results__options {
+    border-bottom: 1px solid #CDCDCD;
   }
 }

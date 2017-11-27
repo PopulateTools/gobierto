@@ -24,7 +24,6 @@ es:
         edit:
           title: Editar evento
         form:
-          attachment_file_constraints: Adjuntar fichero (PDF)
           placeholders:
             slug: acerca-de-esta-web
             title: Título del evento

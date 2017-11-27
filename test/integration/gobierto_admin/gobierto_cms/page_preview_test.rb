@@ -19,11 +19,11 @@ module GobiertoAdmin
       end
 
       def published_page
-        @published_page ||= gobierto_cms_pages(:consultation_faq)
+        @published_page ||= gobierto_cms_pages(:themes)
       end
 
       def draft_page
-        @draft_page ||= site.pages.draft.first
+        @draft_page ||= gobierto_cms_pages(:themes_draft)
       end
 
       def collection

@@ -15,7 +15,7 @@
       </div>
 
       <div class="ib p_h_r_0_5">
-        <i class="fa fa-clock-o"></i> <%= l(event.starts_at, format: '%H:%M') %>
+        <i class="fa fa-clock-o"></i> <%= l(event.starts_at, format: '%H:%M') %> - <%= l(event.ends_at, format: '%H:%M') %>
       </div>
 
       <% if (location = event.first_location) %>
@@ -28,6 +28,8 @@
   </div>
 
   <p><%== event.description %></p>
+
+  <%= render 'gobierto_participation/shared/attachments/attachments_list', attachable: @event %>
 
   <div class="extra_info">
 

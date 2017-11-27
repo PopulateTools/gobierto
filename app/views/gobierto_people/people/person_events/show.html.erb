@@ -46,53 +46,73 @@
         <div class="pure-g">
 
           <% if @event.attendees.any? %>
-          <div class="pure-u-1 pure-u-md-1-2 event-attendees">
+            <div class="pure-u-1 pure-u-md-1-2 event-attendees">
 
-            <h3 class="block_section"><%= t(".event_data.event_attendees") %></h3>
+              <h3 class="block_section"><%= t(".event_data.event_attendees") %></h3>
 
-            <% @event.attendees.each do |attendee| %>
-              <% if attendee.person.present? %>
-                <%= render attendee.person %>
-              <% else %>
-                <div class="person-item pure-g">
-                  <div class="pure-u-1 pure-u-md-4-5 person-name">
-                    <h4><%= attendee.name %></h4>
-                    <div class="soft"><%= attendee.charge %></div>
+              <% @event.attendees.each do |attendee| %>
+                <% if attendee.person.present? %>
+                  <%= render attendee.person %>
+                <% else %>
+                  <div class="person-item pure-g">
+                    <div class="pure-u-1 pure-u-md-4-5 person-name">
+                      <h4><%= attendee.name %></h4>
+                      <div class="soft"><%= attendee.charge %></div>
+                    </div>
                   </div>
-                </div>
+                <% end %>
               <% end %>
-            <% end %>
 
-          </div>
+            </div>
           <% end %>
 
           <% if @event.locations.any? %>
-          <div class="pure-u-1 pure-u-md-1-2 event-locations">
+            <div class="pure-u-1 pure-u-md-1-2 event-locations">
 
-            <h3 class="block_section"><%= t(".event_data.event_locations") %></h3>
+              <h3 class="block_section"><%= t(".event_data.event_locations") %></h3>
 
-            <% @event.locations.each do |location| %>
-              <div>
-                <strong><%= link_to_if location.address?, location.name, external_location_service_url(location) %></strong>
-              </div>
-              <% if location.address? %>
+              <% @event.locations.each do |location| %>
                 <div>
-                  <%= location.address %>
+                  <strong><%= link_to_if location.address?, location.name, external_location_service_url(location) %></strong>
                 </div>
+                <% if location.address? %>
+                  <div>
+                    <%= location.address %>
+                  </div>
+                <% end %>
               <% end %>
-            <% end %>
 
-          </div>
+            </div>
           <% end %>
-
         </div>
 
+        <div class="pure-g">
+
+          <% if @event.attachments.any? %>
+            <div class="pure-u-1 pure-u-md-1-2">
+
+              <h3 class="block_section"><%= t(".event_data.event_attachments") %></h3>
+
+              <% @event.attachments.each do |attachment| %>
+                <div class='document'>
+                  <%= link_to attachment.name , attachment.url, target: '_blank' %>
+                  <div class='soft'>
+                    <small>
+                      <%= filetype_icon(attachment) %>
+                       ·
+                      <%= attachment.extension.upcase %>
+                       ·
+                      <%= number_to_human_size(attachment.file_size, precision: 2, separator: ',') %>
+                    </small>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
       </div>
-
     </div>
-
   </div>
-
 </div>
 
 <% description([title, t("gobierto_people.layouts.application.title"), @site.title].compact.join('. ')) %>

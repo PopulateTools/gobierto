@@ -46,11 +46,6 @@ module GobiertoAdmin
                 fill_in "event_title_translations_es", with: "Título Evento"
                 find("#event_description_translations_es", visible: false).set("Descripción Evento")
 
-                within ".attachment_file_field" do
-                  assert has_selector?("a")
-                  attach_file "event_attachment_file", "test/fixtures/files/gobierto_calendars/events/attachment.pdf"
-                end
-
                 within "#person-event-locations" do
                   event.locations.each do |location|
                     within ".dynamic-content-record-wrapper.content-block-record-#{location.id}" do
@@ -105,10 +100,6 @@ module GobiertoAdmin
                   "<div>Event Description</div>",
                   find("#event_description_translations_en", visible: false).value
                 )
-
-                within ".attachment_file_field" do
-                  assert has_selector?("a")
-                end
 
                 within "#person-event-locations .dynamic-content-record-view", match: :first do
                   assert has_selector?(".content-block-record-value", text: "Location Place")

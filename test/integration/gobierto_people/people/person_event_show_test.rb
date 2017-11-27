@@ -67,6 +67,19 @@ module GobiertoPeople
         end
       end
 
+      def test_event_documents
+        with_current_site(site) do
+          visit @path
+
+          within ".person_event-item" do
+            assert has_content?("Documents")
+            event.attachments.each do |attachment|
+              assert has_content?(attachment.name)
+            end
+          end
+        end
+      end
+
       def test_subscription_block
         with_javascript do
           with_current_site(site) do

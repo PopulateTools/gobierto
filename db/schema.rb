@@ -313,7 +313,6 @@ ActiveRecord::Schema.define(version: 20171127130258) do
   create_table "gc_events", id: :serial, force: :cascade do |t|
     t.datetime "starts_at", null: false
     t.datetime "ends_at", null: false
-    t.string "attachment_url"
     t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -324,7 +323,7 @@ ActiveRecord::Schema.define(version: 20171127130258) do
     t.string "slug", null: false
     t.integer "collection_id"
     t.index ["description_translations"], name: "index_gc_events_on_description_translations", using: :gin
-    t.index ["slug"], name: "index_gc_events_on_slug", unique: true
+    t.index ["site_id", "slug"], name: "index_gc_events_on_site_id_and_slug", unique: true
     t.index ["title_translations"], name: "index_gc_events_on_title_translations", using: :gin
   end
 

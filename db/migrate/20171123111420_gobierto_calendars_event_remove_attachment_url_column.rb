@@ -2,6 +2,6 @@
 
 class GobiertoCalendarsEventRemoveAttachmentUrlColumn < ActiveRecord::Migration[5.1]
   def change
-    remove_column :gobierto_calendars_events, :attachment_url
+    remove_column :gc_events, :attachment_url
   end
 end

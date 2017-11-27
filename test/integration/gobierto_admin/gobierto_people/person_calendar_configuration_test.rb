@@ -75,14 +75,22 @@ module GobiertoAdmin
         ::GobiertoAdmin::GobiertoCalendars::CalendarConfigurationForm::ENCRYPTED_SETTING_PLACEHOLDER
       end
 
-      def test_update_person_calendar_configuration_for_ibm_notes
+      def test_configure_ibm_notes_integration
+        configure_ibm_notes_calendar_integration(
+          collection: person.calendar,
+          data: ibm_notes_configuration
+        )
+
         with_signed_in_admin(admin) do
           with_current_site(site) do
-
             visit @person_events_path
 
             click_link 'Agenda'
             click_link 'Configuration'
+
+            assert has_field?('calendar_configuration[ibm_notes_usr]', with: 'ibm-notes-usr')
+            assert has_field?('calendar_configuration[ibm_notes_pwd]', with: encrypted_setting_placeholder)
+            assert has_field?('calendar_configuration[ibm_notes_url]', with: 'http://ibm-calendar/richard')
 
             # set calendar configuration
             select 'IBM Notes', from: 'calendar_configuration_calendar_integration'
@@ -114,9 +122,9 @@ module GobiertoAdmin
             end
 
             # assert data is not displayed in the UI
-            assert_nil find_field('calendar_configuration_ibm_notes_usr').value
-            assert_nil find_field('calendar_configuration_ibm_notes_pwd').value
-            assert_nil find_field('calendar_configuration_ibm_notes_url').value
+            assert_nil find_field('calendar_configuration_ibm_notes_usr', visible: false).value
+            assert_nil find_field('calendar_configuration_ibm_notes_pwd', visible: false).value
+            assert_nil find_field('calendar_configuration_ibm_notes_url', visible: false).value
 
             # assert data was removed from the DB
             calendar = person.calendar.reload
@@ -126,28 +134,31 @@ module GobiertoAdmin
         end
       end
 
-      def test_person_calendar_configuration_for_google_calendar
-        with_signed_in_admin(admin) do
-          with_current_site(site) do
-            visit @person_events_path
+      def test_configure_new_google_calendar_integration
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site) do
+              visit @person_events_path
 
-            click_link 'Agenda'
-            click_link 'Configuration'
+              click_link 'Agenda'
+              click_link 'Configuration'
 
-            assert has_field?('google_calendar_invitation_url')
+              select 'Google Calendar', from: 'calendar_configuration_calendar_integration'
+
+              assert has_field?('google_calendar_invitation_url')
+            end
           end
         end
       end
 
-      def test_person_calendar_configuration_for_google_calendar_configured_account
+      def test_reconfigure_existing_google_calendar_integration
+        configure_google_calendar_integration(
+          collection: person.calendar,
+          data: google_calendar_configuration
+        )
+
         with_signed_in_admin(admin) do
           with_current_site(site) do
-
-            configure_google_calendar_integration(
-              collection: person.calendar,
-              data: google_calendar_configuration
-            )
-
             visit @person_events_path
 
             click_link 'Agenda'
@@ -173,20 +184,24 @@ module GobiertoAdmin
               click_button 'Update'
             end
 
-            assert has_field?('google_calendar_invitation_url')
+            # assert invitation URL is displayed again
+            assert has_field?('google_calendar_invitation_url', visible: false)
+
+            # assert data was removed from the DB
+            calendar = person.calendar.reload
+            assert_nil calendar.calendar_configuration
           end
         end
       end
 
-      def test_person_calendar_configuration_for_microsoft_exchange
+      def test_configure_microsoft_exchange_integration
+        configure_microsoft_exchange_calendar_integration(
+          collection: person.calendar,
+          data: microsoft_exchange_configuration
+        )
+
         with_signed_in_admin(admin) do
           with_current_site(site) do
-
-            configure_microsoft_exchange_calendar_integration(
-              collection: person.calendar,
-              data: microsoft_exchange_configuration
-            )
-
             visit @person_events_path
 
             click_link 'Agenda'
@@ -197,7 +212,6 @@ module GobiertoAdmin
             assert has_field?('calendar_configuration[microsoft_exchange_url]', with: 'http://me-calendar/richard')
 
             # set calendar configuration
-
             fill_in 'calendar_configuration_microsoft_exchange_usr', with: 'new-microsoft-exchange-usr'
             fill_in 'calendar_configuration_microsoft_exchange_pwd', with: 'new-microsoft-exchange-pwd'
             fill_in 'calendar_configuration_microsoft_exchange_url', with: 'http://me-calendar/richard/new'
@@ -215,16 +229,17 @@ module GobiertoAdmin
             assert_equal 'http://me-calendar/richard/new', calendar_configuration.data['microsoft_exchange_url']
 
             # clear calendar configuration
-
             assert_enqueued_with(job: ::GobiertoPeople::ClearImportedPersonEventsJob, args: [person], queue: 'default') do
               check 'calendar_configuration[clear_calendar_configuration]'
               click_button 'Update'
             end
 
-            assert_nil find_field('calendar_configuration_microsoft_exchange_url').value
-            assert_nil find_field('calendar_configuration_microsoft_exchange_usr').value
-            assert_nil find_field('calendar_configuration_microsoft_exchange_pwd').value
+            # assert data is not displayed in the UI
+            assert_nil find_field('calendar_configuration_microsoft_exchange_url', visible: false).value
+            assert_nil find_field('calendar_configuration_microsoft_exchange_usr', visible: false).value
+            assert_nil find_field('calendar_configuration_microsoft_exchange_pwd', visible: false).value
 
+            # assert data was removed from the DB
             calendar = person.calendar.reload
 
             assert_nil calendar.calendar_configuration

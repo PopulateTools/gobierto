@@ -2,9 +2,8 @@ module GobiertoAdmin
   module GobiertoCalendars
     class CalendarConfigurationController < GobiertoAdmin::BaseController
 
-      # TODO
-      # before_action { module_enabled!(current_site, 'GobiertoPeople') }
-      # before_action { module_allowed!(current_admin, "GobiertoPeople") }
+      before_action { module_enabled!(current_site, 'GobiertoPeople') }
+      before_action { module_allowed!(current_admin, 'GobiertoPeople') }
 
       def edit
         load_collection
@@ -17,8 +16,6 @@ module GobiertoAdmin
       end
 
       def update
-        puts JSON.pretty_generate(JSON.parse calendar_configuration_params.to_json)
-
         load_collection
 
         @calendar_configuration_form = CalendarConfigurationForm.new(

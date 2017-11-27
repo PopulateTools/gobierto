@@ -290,6 +290,7 @@ en:
         by_economic_expense: in what
         by_economic_income: in what
         by_functional_expense: for what
+        budgets_comparision: Compare the %{site} budget with some others councils from
         category_percentage: "% of Total"
         category_value: Amount
         context: Context

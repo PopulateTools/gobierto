@@ -452,3 +452,35 @@
     padding: 0;
   }
 }
+
+/* Vis lines */
+#lines_chart_wrapper {
+  .flex {
+    display: flex;
+    flex-direction: column;
+
+    @include min-screen(640) {
+      flex-direction: row;
+    }
+  }
+
+  .img-container {
+    display: flex;
+    justify-content: center;
+
+    @include min-screen(640) {
+      img {
+        max-width: 50%;
+      }
+    }
+  }
+
+  .compare-text {
+    font-size: large;
+    margin-right: 1em;
+
+    a {
+      text-decoration: none;
+    }
+  }
+}

@@ -4,7 +4,7 @@ consultation_faq:
   slug: 'consultation-faq'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
-  collection: news
+  collection: site_pages
 
 privacy:
   title_translations: <%= {'en' => 'Privacy', 'es' => 'Privacidad' }.to_json %>
@@ -28,9 +28,17 @@ about:
   site: santander
 
 themes:
-  title_translations: <%= {'en' => 'Themes' }.to_json %>
+  title_translations: <%= {'en' => 'Themes in the site' }.to_json %>
   body_translations: <%= {'en' => 'These are the themes' }.to_json %>
   slug: 'themes'
+  visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
+  site: madrid
+  collection: news
+
+themes_draft:
+  title_translations: <%= {'en' => 'Themes draft' }.to_json %>
+  body_translations: <%= {'en' => 'These are the themes (draft)' }.to_json %>
+  slug: 'themes-draft'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:draft] %>
   site: madrid
   collection: news
@@ -57,7 +65,7 @@ about_site:
   slug: 'about-site'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
-  collection: site_news
+  collection: site_pages
 
 about_participation:
   title_translations: <%= {'en' => 'About participation' }.to_json %>
@@ -65,4 +73,4 @@ about_participation:
   slug: 'about-participation'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
-  collection: site_news
+  collection: site_pages

@@ -35,7 +35,8 @@ module GobiertoAdmin
       :default_locale,
       :privacy_page_id,
       :populate_data_api_token,
-      :home_page
+      :home_page,
+      :home_page_item_id
     )
 
     attr_reader :logo_url
@@ -102,6 +103,10 @@ module GobiertoAdmin
       @home_page ||= site.configuration.home_page
     end
 
+    def home_page_item_id
+      @home_page_item_id ||= site.configuration.home_page_item_id
+    end
+
     def visibility_level
       @visibility_level ||= "draft"
     end
@@ -149,6 +154,7 @@ module GobiertoAdmin
         site_attributes.visibility_level = visibility_level
         site_attributes.creation_ip = creation_ip
         site_attributes.configuration.home_page = home_page
+        site_attributes.configuration.home_page_item_id = home_page_item_id
         site_attributes.configuration.modules = site_modules
         site_attributes.configuration.logo = logo_url
         site_attributes.configuration.head_markup = head_markup

@@ -14,7 +14,8 @@ class SiteConfiguration
     :default_locale,
     :privacy_page_id,
     :populate_data_api_token,
-    :home_page
+    :home_page,
+    :home_page_item_id
   ].freeze
 
   DEFAULT_LOGO_PATH = "sites/logo-default.png".freeze

@@ -85,10 +85,10 @@ neil_calendar:
 
 ## Site collections of news
 
-site_news:
+site_pages:
   site: madrid
-  title_translations: <%= {'en' => 'Site news', 'es' => 'Noticias del sitio' }.to_json %>
-  slug: site-news
+  title_translations: <%= {'en' => 'Site pages', 'es' => 'Páginas del sitio' }.to_json %>
+  slug: site-pages
   container: madrid (Site)
   item_type: GobiertoCms::Page
 

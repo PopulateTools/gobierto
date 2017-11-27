@@ -34,7 +34,8 @@ es:
         foot_markup: HTML de Pie
         google_analytics_id: Código de Google Analytics
         head_markup: HTML de Cabecera
-        home_page: Página de inicio
+        home_page: Módulo de inicio
+        home_page_item_id: Página de inicio
         links_markup: HTML de Enlaces
         location_name: Municipio
         logo_file: Logotipo

@@ -1,8 +1,8 @@
 <div class="admin_breadcrumb">
   <%= link_to t("gobierto_admin.welcome.index.title"), admin_root_path %> »
   <%= link_to t("gobierto_admin.gobierto_people.people.index.title"), admin_people_people_path %> »
-  <%= link_to @person.name, edit_admin_people_person_path(@person) %> »
-  <%= link_to t("gobierto_admin.gobierto_people.people.person_events.index.title"), admin_people_person_events_path(@person) %> »
+  <%= link_to collection_container.name, edit_admin_people_person_path(collection_container) %> »
+  <%= link_to t("gobierto_admin.gobierto_people.people.person_events.index.title"), admin_people_person_events_path(collection_container) %> »
   <%= t(".calendar_configuration") %>
 </div>
 

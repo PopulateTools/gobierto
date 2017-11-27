@@ -115,6 +115,14 @@ module GobiertoAdmin
         end
       end
 
+      def collection_container
+        collection ? collection.container : nil
+      end
+
+      def collection_container_identifier
+        collection_container ? collection_container.class.to_s.underscore.gsub('/', '_') : nil
+      end
+
       private
 
       def google_calendar_configuration_class

@@ -13,6 +13,10 @@ module GobiertoParticipation
       @site ||= sites(:madrid)
     end
 
+    def user
+      @user ||= users(:peter)
+    end
+
     def test_breadcrumb_items
       with_current_site(site) do
         visit @path
@@ -109,6 +113,19 @@ module GobiertoParticipation
         end
 
         assert has_selector?("h2", text: "Updates")
+      end
+    end
+
+    def test_show_poll
+      with_current_site(site) do
+        visit @path
+
+        answerable_polls = GobiertoParticipation::Poll.by_site(site).answerable.order(ends_at: :asc)
+        poll = answerable_polls.first
+
+        assert has_content? poll.title
+        assert has_content? poll.questions.first.title
+        assert has_link? "Participate in this poll"
       end
     end
   end

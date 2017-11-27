@@ -62,4 +62,32 @@ module ApplicationHelper
     html = "<i class='fa fa-file" + fontawesome_filetype + "-o'></i>"
     html.html_safe
   end
+
+  def show_poll(poll_id = nil)
+    render partial: "shared/polls", locals: { poll_id: poll_id }
+  end
+
+  def next_poll(poll_id = nil)
+    poll = GobiertoParticipation::Poll.find(poll_id) if poll_id
+    answerable_polls = GobiertoParticipation::Poll.by_site(current_site).answerable.order(ends_at: :asc)
+    answerable_polls_by_user = answerable_polls.select { |p| p.answerable_by?(current_user) } if current_user
+
+    if current_user
+      if poll
+        if poll.answerable_by?(current_user)
+          poll
+        else
+          if answerable_polls_by_user
+            answerable_polls_by_user.first
+          end
+        end
+      else
+        if answerable_polls_by_user
+          answerable_polls_by_user.first
+        end
+      end
+    else
+      answerable_polls.first
+    end
+  end
 end

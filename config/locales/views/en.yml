@@ -107,6 +107,11 @@ en:
     events:
       scopes_scope_created: Scope created
       scopes_scope_updated: Scope updated
+  shared:
+    polls:
+      no_unanswered_polls: There are no polls to answer.
+      participate: Participate in this poll
+      polls: Polls
   sites:
     events:
       sites_site_created: Site created

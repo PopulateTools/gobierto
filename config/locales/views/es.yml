@@ -113,6 +113,11 @@ es:
     events:
       scopes_scope_created: Ámbito creado
       scopes_scope_updated: Ámbito actualizado
+  shared:
+    polls:
+      no_unanswered_polls: No hay encuestas pendientes de contestar.
+      participate: Participa en esta encuesta
+      polls: Encuestas
   sites:
     events:
       sites_site_created: Site creado

@@ -9,33 +9,7 @@
       </div>
 
       <div class="pure-u-1 pure-u-md-8-24">
-        <div class="p_1 filled_block content_block" style="background-image: url(<%= image_url('illustrations/emojis.svg') %>)">
-          <!-- TODO: Pending to be iterated / defined: -->
-          <h2>Opina</h2>
-          <p class="lead">¿Crees que habría que modificar la ordenanza sobre terrazas?</p>
-
-          <div class="center">
-            <div class="questions">
-              <label class="control radio open_modal" href="#signin_register">
-                <input id="radio1" name="radio" type="radio">
-                <span class="control-indicator"></span>
-                <strong>Sí</strong>, toca actualizarla.
-              </label>
-              <label class="control radio open_modal" href="#signin_register">
-                <input id="radio2" name="radio" type="radio">
-                <span class="control-indicator"></span>
-                <strong>No</strong>, está bien como está.
-              </label>
-              <label class="control radio button_toggle">
-                <input id="radio3" name="radio" type="radio">
-                <span class="control-indicator"></span>
-                <strong>No sé</strong>, cuéntame más.
-              </label>
-            </div>
-
-            <a href="" class="button outline rounded fat hidden">Enviar</a>
-          </div>
-        </div>
+        <%= show_poll() %>
       </div>
 
       <div class="pure-u-1 pure-u-md-8-24">

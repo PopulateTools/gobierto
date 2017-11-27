@@ -1,0 +1,9 @@
+<h2><%= poll.title %></h2>
+<p class="lead"><%= poll.questions.first.title %></p>
+<div class="center">
+  <% if user_signed_in? %>
+    <%= link_to t("shared.polls.participate"), new_gobierto_participation_process_poll_answer_path(poll.process.slug, poll), class: "button outline rounded fat" %>
+  <% else %>
+    <%= link_to t("shared.polls.participate"), new_user_sessions_path(open_modal: true), class: "button outline rounded fat open_remote_modal" %>
+  <% end %>
+</div>

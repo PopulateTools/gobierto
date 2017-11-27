@@ -113,6 +113,11 @@ ca:
     events:
       scopes_scope_created: Àmbit creat
       scopes_scope_updated: Àmbit actualitzat
+  shared:
+    polls:
+      no_unanswered_polls: No hi ha enquestes pendents de contestar.
+      participate: Participa en aquesta enquesta
+      polls: Enquestes
   sites:
     events:
       sites_site_created: Site creat

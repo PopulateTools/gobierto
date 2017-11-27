@@ -1,17 +1,3 @@
-// Colors
-$white: #ffffff;
-$black: #000000;
-$gray: #9B9B9B;
-$darkgray: #767168;
-$blue: #0067BA;
-
-// font-sizes (root: 16px)
-$fXS: 0.875rem; //14px
-$fS: 1.125rem; //18px
-$fM: 1.5rem; //24px
-$fL: 2rem; //32px
-$fXL: 3rem; //48px
-
 @mixin flexbox($gap: 0, $dir: row) {
   display: flex;
   flex-direction: $dir;
@@ -48,12 +34,12 @@ $fXL: 3rem; //48px
   #transparency .block-title {
     background-size: cover;
     background-position-y: 40%;
-    background-image: linear-gradient(-180deg, rgba($black, 0) 40px, $black 100%), url(asset_path('illustrations/transparency-bg.png'));
+    background-image: linear-gradient(-180deg, rgba(#000, 0) 40px, #000 100%), url(asset_path('illustrations/transparency-bg.png'));
   }
   #participation .block-title {
     background-size: cover;
     background-position-y: 55%;
-    background-image: linear-gradient(-180deg, rgba($black, 0) 48px, $black 100%), url(asset_path('illustrations/participation-bg.png'));
+    background-image: linear-gradient(-180deg, rgba(#000, 0) 48px, #000 100%), url(asset_path('illustrations/participation-bg.png'));
   }
 
   .header {
@@ -61,21 +47,19 @@ $fXL: 3rem; //48px
     width: 50%;
 
     h1 {
-      color: $blue;
-      font-size: $fXL;
+      font-size: $f1;
       font-weight: 300;
     }
 
     small {
-      color: $darkgray;
-      font-size: $fM;
+      font-size: $f3;
       font-weight: 300;
     }
   }
 
   .block {
     overflow: hidden;
-    box-shadow: 0 0 15px rgba($black, 0.14);
+    box-shadow: 0 0 15px rgba(#000, 0.14);
     border-radius: 6px;
 
     &.flexbox {
@@ -88,8 +72,8 @@ $fXL: 3rem; //48px
       align-items: flex-end;
 
       h2 {
-        font-size: $fL;
-        color: $white;
+        font-size: $f2;
+        color: $color_main_negative;
         text-transform: capitalize;
         font-weight: 700;
       }
@@ -103,8 +87,7 @@ $fXL: 3rem; //48px
       }
 
       h3 {
-        color: $blue;
-        font-size: $fS;
+        font-size: $f5;
         font-weight: 700;
         margin: 0 auto auto;
       }
@@ -119,8 +102,8 @@ $fXL: 3rem; //48px
           flex: 0 0 33%;
 
           a {
-            color: $gray;
-            font-size: $fXS;
+            color: $color_meta_text;
+            font-size: $f7;
             text-decoration: underline;
           }
         }

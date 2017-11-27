@@ -123,8 +123,10 @@ module GobiertoAdmin
       end
 
       def confirm_presence_of_homepage
-        if page == GlobalID::Locator.locate(site.configuration.home_page_item_id) && visibility_level == "draft"
-          errors[:base] << I18n.t("errors.messages.page_as_homepage")
+        if site.try(:configuration)
+          if page == GlobalID::Locator.locate(site.configuration.try(:home_page_item_id)) && visibility_level == "draft"
+            errors[:base] << I18n.t("errors.messages.page_as_homepage")
+          end
         end
       end
 

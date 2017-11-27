@@ -259,15 +259,17 @@ module GobiertoAdmin
 
             click_button "Update"
 
-            assert has_text?("Ibm notes url can't be blank")
+            assert has_text?("Account can't be blank")
+            assert has_text?("Password can't be blank")
+            assert has_text?("URL can't be blank")
 
-            select "IBM Notes", from: 'calendar_configuration_calendar_integration'
-            fill_in "calendar_configuration_ibm_notes_usr", with: "IBM Notes user"
-            fill_in "calendar_configuration_ibm_notes_pwd", with: "IBM Notes password"
+            select "Microsoft Exchange", from: 'calendar_configuration_calendar_integration'
 
             click_button "Update"
 
-            assert has_text?("Ibm notes url can't be blank")
+            assert has_text?("Account can't be blank")
+            assert has_text?("Password can't be blank")
+            assert has_text?("URL can't be blank")
           end
         end
       end

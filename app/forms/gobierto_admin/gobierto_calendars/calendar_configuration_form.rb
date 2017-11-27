@@ -39,7 +39,13 @@ module GobiertoAdmin
       )
 
       def save
-        save_calendar_configuration if valid?
+        if clear_calendar_configuration?
+          ::GobiertoPeople::ClearImportedPersonEventsJob.perform_later(collection.container)
+          calendar_configuration.destroy
+          true
+        elsif valid?
+          save_calendar_configuration
+        end
       end
 
       def calendar_configuration
@@ -158,7 +164,7 @@ module GobiertoAdmin
       end
 
       def clear_calendar_configuration?
-        clear_calendar_configuration == '1'
+        clear_calendar_configuration == '1' || calendar_integration.blank?
       end
 
       def save_calendar_configuration
@@ -169,20 +175,10 @@ module GobiertoAdmin
         end
 
         if @calendar_configuration.valid?
-          if clear_calendar_configuration?
-            ::GobiertoPeople::ClearImportedPersonEventsJob.perform_later(collection.container)
-
-            @calendar_configuration.destroy
-
-            true
-          else
             @calendar_configuration.save
-
             @calendar_configuration
-          end
         else
           promote_errors(@calendar_configuration.errors)
-
           false
         end
       end

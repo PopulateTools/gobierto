@@ -90,7 +90,7 @@ module GobiertoAdmin
       def find_calendar_integrations
         ::GobiertoPeople.remote_calendar_integrations.map do |integration_name|
           [
-            I18n.t("gobierto_admin.gobierto_people.configuration.settings.edit.#{integration_name}"),
+            I18n.t("gobierto_admin.gobierto_calendars.calendar_configuration.edit.#{integration_name}"),
             integration_name
           ]
         end

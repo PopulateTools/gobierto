@@ -14,6 +14,12 @@ this.GobiertoAdmin.GobiertoCalendarsCalendarConfigurationsController = (function
       if (integrationNames().indexOf(selectedIntegration) >= 0) {
         $('#' +  selectedIntegration + '_fields').show('slow');
       }
+
+      if (selectedIntegration === 'google_calendar' && $("[name='google_calendar_invitation_url']").length) {
+        $('#update_button').hide('fast');
+      } else {
+        $('#update_button').show('fast');
+      }
     });
   }
 

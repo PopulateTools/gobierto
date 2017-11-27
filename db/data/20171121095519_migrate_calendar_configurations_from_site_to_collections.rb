@@ -40,7 +40,8 @@ class MigrateCalendarConfigurationsFromSiteToCollections < ActiveRecord::Migrati
       restore_site_calendar_configuration(site, cc) unless site.gobierto_people_settings.settings['calendar_integration'].present?
 
       person_calendar_configuration_attributes = {
-        collection_id: person.id,
+        person_id: person.id,
+        collection_id: nil,
         data: old_calendar_configuration_data(site.gobierto_people_settings.settings['calendar_integration'], cc)
       }
 
@@ -48,6 +49,8 @@ class MigrateCalendarConfigurationsFromSiteToCollections < ActiveRecord::Migrati
 
       MigrationCalendarConfiguration.create!(person_calendar_configuration_attributes)
     end
+
+    MigrationCalendarConfiguration.where(person_id: nil).destroy_all
   end
 
   def new_calendar_configuration_data(person_calendar_configuration, gobierto_module_settings)

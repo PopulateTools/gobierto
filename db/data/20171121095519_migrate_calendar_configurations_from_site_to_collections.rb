@@ -6,22 +6,29 @@ class MigrateCalendarConfigurationsFromSiteToCollections < ActiveRecord::Migrati
 
   def up
     MigrationCalendarConfiguration.all.each do |calendar_configuration|
-      person_id = configuration.collection_id
-      person = ::GobiertoPeople::Person.find(person_id)
+      person = ::GobiertoPeople::Person.find(calendar_configuration.person_id)
       site = person.site
       calendar_integration_name = site.gobierto_people_settings.settings['calendar_integration']
 
-      validate_calendar_integration_name!(calendar_integration_name)
+      if !valid_calendar_integration_name?(calendar_integration_name)
+        puts "[SKIPPING CONFIGURATION] Site #{site.domain} has invalid integration name: #{calendar_integration_name}"
+        next
+      end
 
       calendar_configuration_attributes = {
         integration_name: calendar_integration_name,
         collection_id: person.calendar.id,
-        data: new_calendar_configuration_data(person.calendar_configuration, site.gobierto_people_settings)
+        person_id: nil,
+        data: new_calendar_configuration_data(calendar_configuration, site.gobierto_people_settings)
       }
 
-      print_created_configuration_info(person, site, person_calendar_configuration_params)
+      print_created_configuration_info(person, site, calendar_configuration_attributes)
 
-      MigrationCalendarConfiguration.create!(person_calendar_configuration_params)
+      MigrationCalendarConfiguration.create!(calendar_configuration_attributes)
+
+      MigrationCalendarConfiguration.where(collection_id: nil).destroy_all
+
+      clear_residual_calendar_settings_from_sites
     end
   end
 
@@ -58,12 +65,12 @@ class MigrateCalendarConfigurationsFromSiteToCollections < ActiveRecord::Migrati
       invalid_configuration = (data['microsoft_exchange_usr'].blank? || data['microsoft_exchange_pwd'].blank? || data['microsoft_exchange_url'].blank?)
     elsif integration_name == 'ibm_notes'
       data = {
-        'ibm_notes_usr' => gobierto_module_settings.ibm_notes_usr,
+        'ibm_notes_usr' => ::SecretAttribute.decrypt(gobierto_module_settings.ibm_notes_usr),
         'ibm_notes_pwd' => gobierto_module_settings.ibm_notes_pwd,
-        'endpoint'      => person_calendar_configuration.data['endpoint']
+        'ibm_notes_url' => person_calendar_configuration.data['endpoint']
       }
 
-      invalid_configuration = (data['ibm_notes_usr'].blank? || data['ibm_notes_pwd'].blank? || data['endpoint'].blank?)
+      invalid_configuration = (data['ibm_notes_usr'].blank? || data['ibm_notes_pwd'].blank? || data['ibm_notes_url'].blank?)
     elsif integration_name == 'google_calendar'
       data = {
         'calendars'                   => person_calendar_configuration.data['calendars'],
@@ -83,7 +90,7 @@ class MigrateCalendarConfigurationsFromSiteToCollections < ActiveRecord::Migrati
     if (site_calendar_integration == 'microsoft_exchange') || (site_calendar_integration == 'google_calendar')
       person_calendar_configuration.data
     elsif site_calendar_integration == 'ibm_notes'
-      { 'endpoint' => person_calendar_configuration.data['endpoint'] }
+      { 'endpoint' => person_calendar_configuration.data['ibm_notes_url'] }
     else
       raise Exception
     end
@@ -97,7 +104,7 @@ class MigrateCalendarConfigurationsFromSiteToCollections < ActiveRecord::Migrati
 
     if person_calendar_integration_name == 'ibm_notes'
       gp_settings.settings.merge!(
-        'ibm_notes_usr' => person_calendar_configuration.data['ibm_notes_usr'],
+        'ibm_notes_usr' => ::SecretAttribute.encrypt(person_calendar_configuration.data['ibm_notes_usr']),
         'ibm_notes_pwd' => person_calendar_configuration.data['ibm_notes_pwd']
       )
     end
@@ -107,8 +114,8 @@ class MigrateCalendarConfigurationsFromSiteToCollections < ActiveRecord::Migrati
     gp_settings.save!
   end
 
-  def validate_calendar_integration_name!(calendar_integration_name)
-    raise(Exception, "Invalid integration_name: #{calendar_integration_name}") unless ['ibm_notes', 'microsoft_exchange', 'google_calendar'].include?(calendar_integration_name)
+  def valid_calendar_integration_name?(calendar_integration_name)
+    ['ibm_notes', 'microsoft_exchange', 'google_calendar'].include?(calendar_integration_name)
   end
 
   def clear_residual_calendar_settings_from_sites
@@ -132,6 +139,7 @@ class MigrateCalendarConfigurationsFromSiteToCollections < ActiveRecord::Migrati
     puts "#{'='*60}"
     puts " * Creating new calendar configuration for #{person.name} from #{site.domain}:\n\n"
     puts JSON.pretty_generate(person_calendar_configuration_params)
+    puts "\n\nCalendar ID of #{person.name} is:  #{person.calendar.id}\n\n"
     puts "\n#{'='*60}\n"
   end
 

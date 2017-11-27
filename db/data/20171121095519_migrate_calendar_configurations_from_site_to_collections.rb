@@ -25,11 +25,10 @@ class MigrateCalendarConfigurationsFromSiteToCollections < ActiveRecord::Migrati
       print_created_configuration_info(person, site, calendar_configuration_attributes)
 
       MigrationCalendarConfiguration.create!(calendar_configuration_attributes)
-
-      MigrationCalendarConfiguration.where(collection_id: nil).destroy_all
-
-      clear_residual_calendar_settings_from_sites
     end
+
+    MigrationCalendarConfiguration.where(collection_id: nil).destroy_all
+    clear_residual_calendar_settings_from_sites
   end
 
   def down

@@ -2,6 +2,7 @@ module GobiertoAdmin
   module GobiertoCalendars
     class CalendarConfigurationController < GobiertoAdmin::BaseController
 
+      # TODO: will need to adapt to process calendar synchronization
       before_action { module_enabled!(current_site, 'GobiertoPeople') }
       before_action { module_allowed!(current_admin, 'GobiertoPeople') }
 
@@ -77,8 +78,13 @@ module GobiertoAdmin
 
       def calendar_service
         @calendar_service ||= if @google_calendar_configuration
-                                ::GobiertoPeople::GoogleCalendar::CalendarIntegration.new(@person)
+                                ::GobiertoPeople::GoogleCalendar::CalendarIntegration.new(person)
                               end
+      end
+
+      # TODO: will need to adapt to process calendar synchronization
+      def person
+        @collection.container
       end
 
       def find_calendar_integrations

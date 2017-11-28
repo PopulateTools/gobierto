@@ -57,12 +57,12 @@
           <% if @site_stats.total_budget_executed %>
             <div class="metric">
               <%= link_to gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last) do %>
-                <%= format_currency @site_stats.total_budget_executed %>
+                <%= format_currency @budgets_execution_summary[:last_expenses_execution] %>
               <% end %>
             </div>
 
             <div class="explanation explanation_bar">
-              <% percentage = @site_stats.total_budget_executed_percentage %>
+              <% percentage = @budgets_execution_summary[:expenses_execution_percentage] %>
               <% percentage_bar_width = percentage > 100 ? 100 : percentage %>
               <div class="bar"><div class="line" style="width: <%= percentage_bar_width %>%"></div></div>
               <span><%= t('.executed_percent', percentage: percentage) %></span>
@@ -233,7 +233,7 @@
     </table>
   </div>
 
-  <% if @site_stats.budgets_execution_summary[:income_execution_percentage] && @site_stats.budgets_execution_summary[:expenses_execution_percentage] %>
+  <% if @budgets_execution_summary[:income_execution_percentage] && @budgets_execution_summary[:expenses_execution_percentage] %>
     <div class="block">
       <h2 class="with_description"><%= t('.execution_block.title') %></h2>
       <div class="pure-g half_description">
@@ -249,8 +249,8 @@
       </div>
 
       <div class="pure-g mega_bars m_v_1">
-        <%= render 'mega_bar', {className: 'income', percentage: @site_stats.budgets_execution_summary[:income_execution_percentage] } %>
-        <%= render 'mega_bar', {className: 'expense', percentage: @site_stats.budgets_execution_summary[:expenses_execution_percentage] } %>
+        <%= render 'mega_bar', {className: 'income', percentage: @budgets_execution_summary[:income_execution_percentage] } %>
+        <%= render 'mega_bar', {className: 'expense', percentage: @budgets_execution_summary[:expenses_execution_percentage] } %>
 
         <div class="pure-u-1 center m_v_1">
           <%= link_to t('.execution_block.button'), gobierto_budgets_budgets_execution_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false }, class: "button" %>

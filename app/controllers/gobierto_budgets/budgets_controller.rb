@@ -17,6 +17,7 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
     @sample_budget_lines = (@top_income_budget_lines + @top_expense_budget_lines).sample(3)
 
     @budgets_data_updated_at = @site_stats.budgets_data_updated_at
+    @budgets_execution_summary = @site_stats.budgets_execution_summary
   end
 
   def guide

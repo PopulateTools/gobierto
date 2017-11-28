@@ -64,7 +64,7 @@ module GobiertoBudgets
 
       return nil if diff == Float::INFINITY
 
-      diff = (100 - diff.abs)
+      diff += 100
 
       "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)}%"
     end

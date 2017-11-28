@@ -93,7 +93,7 @@
 
       <% unless budget_lines_feedback_active? %>
         <% if !in_elaboration? %>
-          <% planned_executed = @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_planned, year: @year) %>
+          <% planned_executed = @budget_line_stats.amount_updated.present? ? @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_updated, year: @year) : @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_planned, year: @year) %>
           <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.real_vs_planned_tooltip') %>">
             <div class="inner">
               <h3><%= t('.real_vs_planned') %></h3>
@@ -103,7 +103,7 @@
                   <%= t('.real_value', kind: kind_literal(@kind, false), value: format_currency(@budget_line_stats.amount_executed)) %>
                 </div>
               <% else %>
-                <% planned_executed = @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_planned, year: @year-1) %>
+                <% planned_executed = @budget_line_stats.amount_updated.present? ? @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_updated, year: @year - 1) : @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_planned, year: @year - 1) %>
                 <div class="metric"><span class="not_av"><%= t('.not_available') %></span></div>
                 <div class="explanation">
                   <%= t('.last_year', year: @year - 1, value: planned_executed) %>
@@ -115,7 +115,7 @@
           <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.vs_previous_year_tooltip') %>">
             <div class="inner">
               <h3><%= kind_literal(@kind, false).capitalize %> <%= t('.vs_previous_year') %></h3>
-              <div class="metric"><%= @budget_line_stats.percentage_difference(variable1: :amount, year1: @year, year2: @year-1) %></div>
+              <div class="metric"><%= @budget_line_stats.percentage_difference(variable1: :amount_planned, year1: @year, year2: @year-1) %></div>
             </div>
           </div>
         <% end %>

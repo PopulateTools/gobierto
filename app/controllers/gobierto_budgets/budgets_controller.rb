@@ -18,6 +18,9 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
 
     @budgets_data_updated_at = @site_stats.budgets_data_updated_at
     @budgets_execution_summary = @site_stats.budgets_execution_summary
+
+    @any_custom_income_budget_lines  = GobiertoBudgets::BudgetLine.any_data?(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, area: GobiertoBudgets::CustomArea)
+    @any_custom_expense_budget_lines = GobiertoBudgets::BudgetLine.any_data?(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::CustomArea)
   end
 
   def guide

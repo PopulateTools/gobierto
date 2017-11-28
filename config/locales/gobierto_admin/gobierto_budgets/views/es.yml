@@ -16,6 +16,14 @@ es:
           you_think: Te parece...
       options:
         index:
+          comparison_compare_municipalities_desc: Muestra una tabla con municipios
+            específicos (y cuyos datos estén disponibles en presupuestos.gobierto.es
+            - haz la comprobación allí antes de incluirlos)
+          comparison_context_table_enabled_desc: Muestra la tabla que ofrece contexto
+            con medias provinciales, autonómicas o estatales
+          comparison_show_widget_desc: 'Facilita el acceso a la herramienta de comparación
+            de presupuestos de Gobierto: presupuestos.gobierto.es'
+          comparison_tool_enabled_desc: Habilita herramientas de comparación
           elaboration: Elaboración
           elaboration_desc1: Habilita la sección de Elaboración del presupuesto.
           elaboration_desc2_html: "<strong>Importante:</strong> es necesario que se

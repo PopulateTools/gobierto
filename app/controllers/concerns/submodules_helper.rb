@@ -7,7 +7,8 @@ module SubmodulesHelper
                   :submodule_path_for, :submodule_title_for, :submodule_controller_for,
                   :budgets_elaboration_active?,
                   :budget_lines_feedback_active?, :gobierto_budgets_feedback_emails,
-                  :budgets_receipt_active?, :budgets_receipt_configuration, :submodule_has_content?
+                  :budgets_receipt_active?, :budgets_receipt_configuration, :submodule_has_content?,
+                  :budgets_comparison_context_table_enabled, :budgets_comparison_compare_municipalities, :budgets_comparison_show_widget
   end
 
   private
@@ -30,6 +31,18 @@ module SubmodulesHelper
 
   def budgets_receipt_configuration
     current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["budgets_receipt_configuration"]
+  end
+
+  def budgets_comparison_context_table_enabled
+    current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["comparison_context_table_enabled"]
+  end
+
+  def budgets_comparison_compare_municipalities
+    current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["comparison_compare_municipalities"]
+  end
+
+  def budgets_comparison_show_widget
+    current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["comparison_show_widget"]
   end
 
   def available_submodules

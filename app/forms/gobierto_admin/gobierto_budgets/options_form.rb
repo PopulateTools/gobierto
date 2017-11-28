@@ -9,7 +9,12 @@ module GobiertoAdmin
         :budget_lines_feedback_enabled,
         :feedback_emails,
         :receipt_enabled,
-        :receipt_configuration
+        :receipt_configuration,
+        :comparison_tool_enabled,
+        :comparison_context_table_enabled,
+        :comparison_compare_municipalities_enabled,
+        :comparison_compare_municipalities,
+        :comparison_show_widget
       )
 
       validates :site, presence: true
@@ -49,6 +54,44 @@ module GobiertoAdmin
         @receipt_configuration ||= site.gobierto_budgets_settings && site.gobierto_budgets_settings.settings["budgets_receipt_configuration"]
       end
 
+      def comparison_tool_enabled
+        comparison_context_table_enabled? || comparison_compare_municipalities_enabled || comparison_show_widget?
+      end
+
+      def comparison_context_table_enabled?
+        comparison_context_table_enabled == true || comparison_context_table_enabled == '1'
+      end
+
+      def comparison_context_table_enabled
+        @comparison_context_table_enabled ||= site.gobierto_budgets_settings && site.gobierto_budgets_settings.settings["comparison_context_table_enabled"]
+      end
+
+      def comparison_compare_municipalities_enabled
+        comparison_compare_municipalities.present?
+      end
+
+      def comparison_compare_municipalities
+        @comparison_compare_municipalities ||= site.gobierto_budgets_settings && site.gobierto_budgets_settings.settings["comparison_compare_municipalities"] || []
+      end
+
+      def comparison_compare_municipalities_text
+        if comparison_compare_municipalities.any?
+          comparison_compare_municipalities.map do |place_id|
+            [INE::Places::Place.find(place_id).name, place_id]
+          end
+        else
+          []
+        end
+      end
+
+      def comparison_show_widget?
+        comparison_show_widget == '1' || comparison_show_widget == true
+      end
+
+      def comparison_show_widget
+        @comparison_show_widget ||= site.gobierto_budgets_settings && site.gobierto_budgets_settings.settings["comparison_show_widget"]
+      end
+
       def save
         save_options if valid?
       end
@@ -62,6 +105,9 @@ module GobiertoAdmin
         settings[:feedback_emails] = budget_lines_feedback_enabled? ? feedback_emails : nil
         settings[:budgets_receipt_enabled] = receipt_enabled if receipt_enabled?
         settings[:budgets_receipt_configuration] = receipt_enabled? ? receipt_configuration : nil
+        settings[:comparison_context_table_enabled] = comparison_context_table_enabled? ? comparison_context_table_enabled : nil
+        settings[:comparison_compare_municipalities] = comparison_compare_municipalities_enabled ? comparison_compare_municipalities.map(&:to_i).select{ |i| i > 0 } : nil
+        settings[:comparison_show_widget] = comparison_show_widget? ? comparison_show_widget : nil
 
         if site.gobierto_budgets_settings.nil?
           GobiertoModuleSettings.create! site: site, module_name: "GobiertoBudgets", settings: settings

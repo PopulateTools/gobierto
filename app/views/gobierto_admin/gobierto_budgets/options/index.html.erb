@@ -57,6 +57,54 @@
           <%= f.text_area :receipt_configuration %>
         </div>
 
+        <div class="option">
+          <%= f.check_box :comparison_tool_enabled, data: { toggle: "comparison" } %>
+          <%= f.label :comparison_tool_enabled  do %>
+            <span></span>
+            <%= f.object.class.human_attribute_name(:comparison_tool_enabled) %>
+            <div class="inline_help">
+              <%= t('.comparison_tool_enabled_desc') %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="option" data-toggle-target="comparison">
+          <%= f.check_box :comparison_context_table_enabled %>
+          <%= f.label :comparison_context_table_enabled do %>
+            <span></span>
+            <%= f.object.class.human_attribute_name(:comparison_context_table_enabled) %>
+            <div class="inline_help">
+              <%= t('.comparison_context_table_enabled_desc') %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="option" data-toggle-target="comparison">
+          <%= f.check_box :comparison_compare_municipalities_enabled, data: { toggle: "municipalities" } %>
+          <%= f.label :comparison_compare_municipalities_enabled do %>
+            <span></span>
+            <%= f.object.class.human_attribute_name(:comparison_compare_municipalities) %>
+            <div class="inline_help">
+              <%= t('.comparison_compare_municipalities_desc') %>
+            </div>
+          <% end %>
+
+          <div class="form_item select_control" data-toggle-target="municipalities">
+            <%= f.select :comparison_compare_municipalities, f.object.comparison_compare_municipalities_text, {}, {multiple: true} %>
+          </div>
+        </div>
+
+        <div class="option" data-toggle-target="comparison">
+          <%= f.check_box :comparison_show_widget %>
+          <%= f.label :comparison_show_widget do %>
+            <span></span>
+            <%= f.object.class.human_attribute_name(:comparison_show_widget) %>
+            <div class="inline_help">
+              <%= t('.comparison_show_widget_desc') %>
+            </div>
+          <% end %>
+        </div>
+
       </div>
     </div>
   </div>
@@ -67,3 +115,11 @@
 
 <% end %>
 </div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.gobierto_budgets_controller.options({
+    municipalities_suggestion_url: '<%= @services_config.municipalities_suggestions_endpoint %>'
+    });
+  <% end %>
+<% end %>

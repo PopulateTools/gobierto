@@ -271,43 +271,27 @@
       <div id="lines_chart"></div>
     </div>
 
-    <div class="pure-u-1 pure-u-md-1-2 block">
-      <h2><%= t('.context') %></h2>
+    <% if budgets_comparison_context_table_enabled %>
+      <div class="pure-u-1 pure-u-md-1-2 block">
+        <h2><%= t('.context') %></h2>
 
-      <div id="lines_tooltip"></div>
-      <div class="help">
-        <%= link_to t('.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], target: '_blank', title: t('.note_about_the_data_title'), class: 'tipsit-n' %>
+        <div id="lines_tooltip"></div>
+        <div class="help">
+          <%= link_to t('.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], target: '_blank', title: t('.note_about_the_data_title'), class: 'tipsit-n' %>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <div class="pure-u-1 pure-u-md-1-2">
       <div class="filter m_v_2" role="tablist" aria-label="<%= t('.visualize') %>">
         <%= link_to t('.per_person'), '#', class:'active',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_path(ine_code: @place.id, year: @year, what: 'per_person', format: :json), "line-widget-type" => "per_person" }, role:'tab', tabindex:0, 'aria-selected' => 'true', id:'per_person', 'aria-controls' => 'lines_chart_wrapper' %>
         <%= link_to t('.in_total'), '#', class:'',  data: {"line-widget-series" => "means", "line-widget-url" => gobierto_budgets_api_data_lines_path(ine_code: @place.id, year: @year, what: 'total_budget', format: :json), "line-widget-type" => "total_budget" }, role:'tab', tabindex:-1, 'aria-selected' => 'false', id:'total_budget', 'aria-controls' => 'lines_chart_wrapper' %>
-
-        <% pending do %>
-          <span class="separator_v"></span>
-          <span class="label">Visualizar:</span>
-
-          <%= link_to 'Evolución', '#', class:'active', data: { "switch_viz_to" => "lines" } %>
-          <%= link_to 'Distribución', '#', class: '', data: { "switch_viz_to" => "treemap" } %>
-        <% end %>
       </div>
     </div>
 
-    <div class="pure-u-1 pure-u-md-1-2">
-      <div class="img-container">
-        <%= image_tag('illustrations/integra.jpg', class: 'img-fluid') %>
-      </div>
-      <div class="box p_1 flex" aria-label="<%= t('.budgets_comparision.text', site: @site) %> presupuestos.gobierto.es">
-        <div class="compare-text">
-          <%= t('.budgets_comparision.text', site: @site) %>&nbsp;<strong><%= link_to 'presupuestos.gobierto.es' %></strong>
-        </div>
-        <button>
-          <%= t('.budgets_comparision.button') %>
-        </button>
-      </div>
-    </div>
+    <% if budgets_comparison_show_widget %>
+      <%= render 'gobierto_budgets/shared/compare' %>
+    <% end %>
   </div>
 
   <div class="separator"></div>

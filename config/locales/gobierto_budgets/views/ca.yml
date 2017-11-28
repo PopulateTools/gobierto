@@ -44,7 +44,7 @@ ca:
         planned_per_inhabitant_updated: pres act. / hab.
         raise_hand: Alça la mà
         real_value: El %{kind} real són %{value}
-        real_vs_planned: real vs. pres.
+        real_vs_planned: "% execució"
         sub_budget_lines: Dins d'aquesta partida
         twitter_text_expense: 'En @gobierto: Despesa municipal de %{name} en %{budget_line_name}
           al %{year}'

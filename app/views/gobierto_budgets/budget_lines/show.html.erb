@@ -96,7 +96,7 @@
           <% planned_executed = @budget_line_stats.percentage_difference(variable1: :amount_executed, variable2: :amount_planned, year: @year) %>
           <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
             <div class="inner">
-              <h3><%= kind_literal(@kind, false).capitalize %> <%= t('.real_vs_planned') %></h3>
+              <h3><%= t('.real_vs_planned') %></h3>
               <% if planned_executed %>
                 <div class="metric"><%= planned_executed %></div>
                 <div class="explanation">

@@ -49,35 +49,24 @@ module GobiertoBudgets
       variable1 = options.fetch(:variable1)
       variable2 = options.fetch(:variable2, options.fetch(:variable1))
 
-      diff = if variable1 == variable2
-               year1 = options.fetch(:year1)
-               year2 = options.fetch(:year2)
+      if variable1 == variable2
+        year1 = options.fetch(:year1)
+        year2 = options.fetch(:year2)
 
-               v1 = self.send(variable1, year1)
-               v2 = self.send(variable1, year2)
-               return nil if v1.nil? || v2.nil?
-
-               ((v1.to_f - v2.to_f)/v2.to_f) * 100
-             else
-               v1 = self.send(variable1, year)
-               v2 = self.send(variable2, year)
-               return nil if v1.nil? || v2.nil?
-
-               ((v1.to_f - v2.to_f)/v2.to_f) * 100
-             end
-
-      if(diff < 0)
-        direction = I18n.t('gobierto_budgets.budgets.index.less')
-        diff = diff*-1
+        v1 = self.send(variable1, year1)
+        v2 = self.send(variable1, year2)
       else
-        direction = I18n.t('gobierto_budgets.budgets.index.more')
+        v1 = self.send(variable1, year)
+        v2 = self.send(variable2, year)
       end
+      return nil if v1.nil? || v2.nil?
+      diff = ((v1.to_f - v2.to_f)/v2.to_f) * 100
 
-      if diff == Float::INFINITY
-        return nil
-      else
-        "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)}% #{direction}"
-      end
+      return nil if diff == Float::INFINITY
+
+      diff = (100 - diff.abs)
+
+      "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)}%"
     end
 
     def mean_province

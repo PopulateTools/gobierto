@@ -44,7 +44,7 @@ en:
         planned_per_inhabitant_updated: plan. upd. / inh.
         raise_hand: Raise your hand
         real_value: Real %{kind} is %{value}
-        real_vs_planned: real vs. plan.
+        real_vs_planned: "% execution"
         sub_budget_lines: In this budget line
         twitter_text_expense: 'In @gobierto: Municipal expense on %{name} in %{budget_line_name}
           for year %{year}'

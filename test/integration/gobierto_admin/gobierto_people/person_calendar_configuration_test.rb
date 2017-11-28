@@ -67,6 +67,16 @@ module GobiertoAdmin
         @admin ||= gobierto_admin_admins(:nick)
       end
 
+      def tony
+        @tony ||= gobierto_admin_admins(:tony)
+      end
+      alias regular_admin_with_permissions tony
+
+      def steve
+        @steve ||= gobierto_admin_admins(:steve)
+      end
+      alias regular_admin_without_permissions steve
+
       def site
         @site ||= sites(:madrid)
       end
@@ -270,6 +280,26 @@ module GobiertoAdmin
             assert has_text?("Account can't be blank")
             assert has_text?("Password can't be blank")
             assert has_text?("URL can't be blank")
+          end
+        end
+      end
+
+      def test_regular_admin_manage_without_permissions
+        with_signed_in_admin(regular_admin_without_permissions) do
+          with_current_site(site) do
+            visit edit_admin_calendars_configuration_path(person.calendar)
+
+            assert has_content?('You do not have enough permissions to perform this action')
+          end
+        end
+      end
+
+      def test_regular_admin_manage_with_permissions
+        with_signed_in_admin(regular_admin_with_permissions) do
+          with_current_site(site) do
+            visit edit_admin_calendars_configuration_path(person.calendar)
+
+            refute has_content?('You do not have enough permissions to perform this action')
           end
         end
       end

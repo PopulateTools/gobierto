@@ -6,8 +6,9 @@ module GobiertoAdmin
       before_action { module_enabled!(current_site, 'GobiertoPeople') }
       before_action { module_allowed!(current_admin, 'GobiertoPeople') }
 
+      before_action :load_collection, :collection_container_allowed!
+
       def edit
-        load_collection
         @calendar_configuration_form = CalendarConfigurationForm.new(collection_id: @collection.id)
         load_calendar_integrations
         @google_calendar_configuration = find_google_calendar_configuration
@@ -17,8 +18,6 @@ module GobiertoAdmin
       end
 
       def update
-        load_collection
-
         @calendar_configuration_form = CalendarConfigurationForm.new(
           calendar_configuration_params.merge(collection_id: @collection.id)
         )
@@ -42,6 +41,10 @@ module GobiertoAdmin
 
       def load_calendar_integrations
         @calendar_integrations_options = find_calendar_integrations
+      end
+
+      def collection_container
+        @collection.container
       end
 
       def calendar_configuration_params
@@ -78,13 +81,8 @@ module GobiertoAdmin
 
       def calendar_service
         @calendar_service ||= if @google_calendar_configuration
-                                ::GobiertoPeople::GoogleCalendar::CalendarIntegration.new(person)
+                                ::GobiertoPeople::GoogleCalendar::CalendarIntegration.new(collection_container)
                               end
-      end
-
-      # TODO: will need to adapt to process calendar synchronization
-      def person
-        @collection.container
       end
 
       def find_calendar_integrations
@@ -94,6 +92,18 @@ module GobiertoAdmin
             integration_name
           ]
         end
+      end
+
+      def collection_container_allowed!
+        if collection_container.class == ::GobiertoPeople::Person
+          if !can_manage_person?(collection_container)
+            redirect_to admin_people_people_path, alert: t('gobierto_admin.admin_unauthorized')
+          end
+        end
+      end
+
+      def can_manage_person?(person)
+        ::GobiertoAdmin::GobiertoPeople::PersonPolicy.new(current_admin: current_admin, person: person).manage?
       end
 
     end

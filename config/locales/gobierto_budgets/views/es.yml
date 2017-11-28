@@ -210,7 +210,9 @@ es:
         budget_slides:
           slide_1: Gasto en asistencia social por habitante
           title: Los presupuestos de un vistazo
-        budgets_comparision: Compara el presupuesto del %{site} con el de otros municipios desde
+        budgets_comparision:
+          text: Compara el presupuesto del %{site} con el de otros municipios desde
+          button: Comparar
         category_percentage: Porcentaje
         category_value: Cantidad
         context: Contexto

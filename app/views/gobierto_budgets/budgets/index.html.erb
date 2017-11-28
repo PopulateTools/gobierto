@@ -294,16 +294,17 @@
         <% end %>
       </div>
     </div>
+
     <div class="pure-u-1 pure-u-md-1-2">
       <div class="img-container">
         <%= image_tag('illustrations/integra.jpg', class: 'img-fluid') %>
       </div>
-      <div class="box p_1 flex" aria-label="<%= t('.budgets_comparision', site: @site) %> presupuestos.gobierto.es">
+      <div class="box p_1 flex" aria-label="<%= t('.budgets_comparision.text', site: @site) %> presupuestos.gobierto.es">
         <div class="compare-text">
-          <%= t('.budgets_comparision', site: @site) %>&nbsp;<strong><%= link_to 'presupuestos.gobierto.es' %></strong>
+          <%= t('.budgets_comparision.text', site: @site) %>&nbsp;<strong><%= link_to 'presupuestos.gobierto.es' %></strong>
         </div>
         <button>
-          Comparar
+          <%= t('.budgets_comparision.button') %>
         </button>
       </div>
     </div>

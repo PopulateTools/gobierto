@@ -24,6 +24,7 @@ es:
       show:
         about_this_line: Acerca de esta partida
         avg_province: Media %{kind} provincial
+        avg_province_tooltip: Media de esta partida en los municipios de la provincia
         back_to_parent: Volver a la partida padre
         budget_line_category: Categoría
         budget_line_percentage: Porcentaje
@@ -39,12 +40,17 @@ es:
         no_more_descendants: No hay más sub-partidas
         not_available: No disp.
         percentage: "% sobre el total del pres."
+        percentage_tooltip: Porcentaje del presupuesto total que supone esta partida
         planned: presupuestado
         planned_per_inhabitant: pres. / hab.
+        planned_per_inhabitant_tooltip: Cantidad presupuestada dividida por el número
+          de habitantes
         planned_per_inhabitant_updated: pres. act. / hab.
+        planned_tooltip: Cantidad presupuestada
         raise_hand: Levanta la mano
         real_value: El %{kind} real son %{value}
         real_vs_planned: "% ejecución"
+        real_vs_planned_tooltip: Porcentaje de la partida que se ha ejecutado
         sub_budget_lines: Dentro de esta partida
         twitter_text_expense: 'En @gobierto: Gasto municipal de %{name} en %{budget_line_name}
           para el %{year}'
@@ -52,6 +58,7 @@ es:
           para el %{year}'
         updated: actualizado
         vs_previous_year: vs. ejercicio anterior
+        vs_previous_year_tooltip: Comparación con los datos del ejercicio anterior
     budgets:
       guide:
         budget_execution: La ejecución presupuestaria
@@ -215,14 +222,15 @@ es:
         context: Contexto
         data_of_year: "* datos del %{year}"
         debt: Deuda
+        debt_tooltip: Deuda del sector de las administraciones públicas del Ayuntamiento
         description: En esta página te contamos cúal es la distribución de los presupuestos,
           cuál es el estado de ejecución de cada partida, quiénes son los proveedores
           con los que trabajamos, y cómo ha evolucionado el gasto por habitante.
         executed: Ejecución
         executed_percent: "%{percentage}% de lo presupuestado"
         executed_percent_other_year_html: En %{year} fue un %{link}
-        executed_tooltip: La ejecución es la cantidad que finalmente se ha gastado
-          sobre lo presupuestado inicialmente.
+        executed_tooltip: Cantidad ejecutada respecto al presupuesto actual (presupuesto
+          inicial más modificaciones)
         execution_block:
           button: Consulta la ejecución completa
           expense: Gastos
@@ -232,10 +240,13 @@ es:
           title: Ejecución
         expenses: Gastos
         expenses_per_inhabitant: Gasto por habitante
+        expenses_per_inhabitant_tooltip: Presupuesto inicial dividido por el número
+          de habitantes
         header: Presupuestos
         in_total: En total
         income: Ingresos
         inhabitants: Habitantes
+        inhabitants_tooltip: Número de habitantes
         less: menos
         level_1_category: Categoría nivel 1
         level_2_category: Categoría nivel 2
@@ -285,11 +296,14 @@ es:
         top_income_category: Categoría
         top_income_value: Cantidad
         total_expenses: Gasto total
+        total_expenses_tooltip: Presupuesto inicial
         visualize: Visualiza los gastos por habitante o el total
     budgets_elaboration:
       index:
         at_a_glance: Evolución del gasto y comparación
         auto_funding: Capacidad autofinanciación
+        auto_funding_tooltip: Porcentaje que suponen los ingresos fiscales respecto
+          de los ingresos corrientes
         by_custom_category: por área
         by_economic_expense: en qué se gasta
         by_economic_income: en qué se ingresa
@@ -298,11 +312,16 @@ es:
         category_value: Importe
         context: Contexto
         debt_level: Nivel de endeudamiento
+        debt_level_tooltip: Necesidad de financiación externa para poder hacer frente
+          a sus gastos, una vez utilizados los recursos tributarios y las subvenciones
+          y transferencias
         description: El equipo de gobierno publica el borrador del presupuesto del
           próximo ejercicio para debatir en abierto con oposición y vecinos. Entre
           todos podemos elaborar el presupuesto que más conviene a %{place_name}.
         diff_previous_year: vs. %{year}
         expenses_per_inhabitant: Gasto por habitante
+        expenses_per_inhabitant_tooltip: Presupuesto inicial dividido por el número
+          de habitantes
         explore_the_detail: Explora el detalle
         header: Elaboración del presupuesto
         in_total: En total
@@ -314,6 +333,8 @@ es:
         metric_boxes_data_description: Así cambiará el presupuesto de cara al próximo
           ejercicio
         net_savings: Ahorro neto
+        net_savings_tooltip: Ingresos corrientes menos gastos corrientes y gastos
+          financieros
         next_year_proposal: Propuesta para el %{year}
         no_data: No hay datos para esta clasificación
         note_about_the_data: Nota sobre los datos
@@ -324,6 +345,7 @@ es:
         per_person: Por habitante
         proposal: Propuesta
         total_expenses: Gasto total
+        total_expenses_tooltip: Presupuesto inicial
         visualize: Visualiza los gastos por habitante o el total
     budgets_execution:
       execution_table:

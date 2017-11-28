@@ -24,6 +24,7 @@ ca:
       show:
         about_this_line: Sobre aquesta partida
         avg_province: Mitjana %{kind} provincial
+        avg_province_tooltip: Mitjana d'aquesta partida en els municipis de la província
         back_to_parent: Tornar a la partida pare
         budget_line_category: Categoria
         budget_line_percentage: Percentatge
@@ -39,12 +40,17 @@ ca:
         no_more_descendants: No hi ha més sub-partides
         not_available: No disp.
         percentage: "% sobre el total del press."
+        percentage_tooltip: Percentage del pressupost total que suposa aquesta partida
         planned: pressupostat
         planned_per_inhabitant: pres. / hab.
+        planned_per_inhabitant_tooltip: Quantitat pressupostada dividida pel nombre
+          d'habitants
         planned_per_inhabitant_updated: pres act. / hab.
+        planned_tooltip: Quantitat pressupostada
         raise_hand: Alça la mà
         real_value: El %{kind} real són %{value}
         real_vs_planned: "% execució"
+        real_vs_planned_tooltip: Percentage de la partida que ha sigut executat
         sub_budget_lines: Dins d'aquesta partida
         twitter_text_expense: 'En @gobierto: Despesa municipal de %{name} en %{budget_line_name}
           al %{year}'
@@ -52,6 +58,7 @@ ca:
           al %{year}'
         updated: actualitzat
         vs_previous_year: vs. exercici anterior
+        vs_previous_year_tooltip: Comparació amb les dades de l'exercici anterior
     budgets:
       guide:
         budget_execution: L'execució pressupostària
@@ -229,13 +236,14 @@ ca:
         context: Context
         data_of_year: "* dades del %{year}"
         debt: Deute
+        debt_tooltip: Deute del sector d’administracions públiques de l’Ajuntament
         description: En aquesta pàgina pots aprendre sobre la distribució del pressupost,
           l'estat d'execució de cada partida i com ha evolucionat la despesa per habitant
         executed: Execució
         executed_percent: "%{percentage}% del pressupost"
         executed_percent_other_year_html: En %{year} va ser un %{link}
-        executed_tooltip: L'execució és la quantitat que finalment s'ha gastat sobre
-          el pressupostat inicialment.
+        executed_tooltip: Despesa executada respecte el pressupost actual (pressupost
+          inicial més modificacions)
         execution_block:
           button: Consulta l'execució al complet
           expense: Despesa
@@ -245,10 +253,12 @@ ca:
           title: Execució
         expenses: Despeses
         expenses_per_inhabitant: Despesa per habitant
+        expenses_per_inhabitant_tooltip: Pressupost inicial dividit pel nombre d’habitants
         header: Pressupostos
         in_total: En total
         income: Ingressos
         inhabitants: Habitants
+        inhabitants_tooltip: Nombre d’habitants
         less: menys
         level_1_category: Categoria nivell 1
         level_2_category: Categoria nivell 2
@@ -298,11 +308,14 @@ ca:
         top_income_category: Categoria
         top_income_value: Quantitat
         total_expenses: Despesa total
+        total_expenses_tooltip: Pressupost inicial de despesa
         visualize: Visualitza les despeses per habitant o el total
     budgets_elaboration:
       index:
         at_a_glance: Evolució de la despesa i comparació
         auto_funding: Capacitat d'autofinançament
+        auto_funding_tooltip: Percentatge dels ingressos fiscals respecte als ingressos
+          corrents
         by_custom_category: per àrea
         by_economic_expense: en què es gasta
         by_economic_income: en què s'ingressa
@@ -311,11 +324,14 @@ ca:
         category_value: Quantitat
         context: Context
         debt_level: Nivell d'endeutament
+        debt_level_tooltip: Necessitat de financiació external pera a poder pagar
+          despeses, una vegada utilizats els recursos tributaris i subvencions i transferències
         description: L'equip de govern publica l’esborrany del pressupost del pròxim
           exercici per compartir en obert amb l'oposició i els veïns i veïnes. Entre
           tots i totes podem elaborar el pressupost més adient per a %{place_name}.
         diff_previous_year: vs. %{year}
         expenses_per_inhabitant: Despesa per habitant
+        expenses_per_inhabitant_tooltip: Pressupost inicial dividit pel nombre d'habitants
         explore_the_detail: Explora el detall
         header: Elaboració del pressupost
         in_total: En total
@@ -326,6 +342,8 @@ ca:
         metric_boxes_data: Les dades
         metric_boxes_data_description: Així canviarà el pressupost del proper exercici
         net_savings: Estalviament net
+        net_savings_tooltip: Ingressos corrents menys despeses corrents i despeses
+          financieres
         next_year_proposal: Proposta per al %{year}
         no_data: Ni ha dades per a aquesta classificació
         note_about_the_data: Nota sobre les dades
@@ -336,6 +354,7 @@ ca:
         per_person: Per habitant
         proposal: Proposta
         total_expenses: Despesa total
+        total_expenses_tooltip: Pressupost inicial
         visualize: Visualitza la despesa per habitant o total
     budgets_execution:
       execution_table:

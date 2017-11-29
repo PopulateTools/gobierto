@@ -68,41 +68,45 @@
           <% end %>
         </div>
 
-        <div class="option" data-toggle-target="comparison">
-          <%= f.check_box :comparison_context_table_enabled %>
-          <%= f.label :comparison_context_table_enabled do %>
-            <span></span>
-            <%= f.object.class.human_attribute_name(:comparison_context_table_enabled) %>
-            <div class="inline_help">
-              <%= t('.comparison_context_table_enabled_desc') %>
-            </div>
-          <% end %>
-        </div>
+        <div class="option_suboptions">
 
-        <div class="option" data-toggle-target="comparison">
-          <%= f.check_box :comparison_compare_municipalities_enabled, data: { toggle: "municipalities" } %>
-          <%= f.label :comparison_compare_municipalities_enabled do %>
-            <span></span>
-            <%= f.object.class.human_attribute_name(:comparison_compare_municipalities) %>
-            <div class="inline_help">
-              <%= t('.comparison_compare_municipalities_desc') %>
-            </div>
-          <% end %>
-
-          <div class="form_item select_control" data-toggle-target="municipalities">
-            <%= f.select :comparison_compare_municipalities, f.object.comparison_compare_municipalities_text, {}, {multiple: true} %>
+          <div class="option" data-toggle-target="comparison">
+            <%= f.check_box :comparison_context_table_enabled %>
+            <%= f.label :comparison_context_table_enabled do %>
+              <span></span>
+              <%= f.object.class.human_attribute_name(:comparison_context_table_enabled) %>
+              <div class="inline_help">
+                <%= t('.comparison_context_table_enabled_desc') %>
+              </div>
+            <% end %>
           </div>
-        </div>
 
-        <div class="option" data-toggle-target="comparison">
-          <%= f.check_box :comparison_show_widget %>
-          <%= f.label :comparison_show_widget do %>
-            <span></span>
-            <%= f.object.class.human_attribute_name(:comparison_show_widget) %>
-            <div class="inline_help">
-              <%= t('.comparison_show_widget_desc') %>
+          <div class="option" data-toggle-target="comparison">
+            <%= f.check_box :comparison_compare_municipalities_enabled, data: { toggle: "municipalities" } %>
+            <%= f.label :comparison_compare_municipalities_enabled do %>
+              <span></span>
+              <%= f.object.class.human_attribute_name(:comparison_compare_municipalities) %>
+              <div class="inline_help">
+                <%= t('.comparison_compare_municipalities_desc') %>
+              </div>
+            <% end %>
+
+            <div class="form_item select_control p_1" data-toggle-target="municipalities">
+              <%= f.select :comparison_compare_municipalities, f.object.comparison_compare_municipalities_text, { class: 'form_item' }, {multiple: true} %>
             </div>
-          <% end %>
+          </div>
+
+          <div class="option" data-toggle-target="comparison">
+            <%= f.check_box :comparison_show_widget %>
+            <%= f.label :comparison_show_widget do %>
+              <span></span>
+              <%= f.object.class.human_attribute_name(:comparison_show_widget) %>
+              <div class="inline_help">
+                <%= t('.comparison_show_widget_desc') %>
+              </div>
+            <% end %>
+          </div>
+
         </div>
 
       </div>

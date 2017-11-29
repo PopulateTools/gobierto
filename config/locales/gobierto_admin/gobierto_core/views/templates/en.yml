@@ -1,0 +1,13 @@
+---
+en:
+  gobierto_admin:
+    gobierto_core:
+      templates:
+        index:
+          edit_templates: Edit templates
+          preview: Preview
+          reset: Reset
+          reset_title: Discard saved changes, and return to the original template
+            (be careful, you will not be able to recover the template that you have
+            customized)
+          save: Save

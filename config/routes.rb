@@ -17,6 +17,9 @@ Rails.application.routes.draw do
 
     resource :sessions, only: [:new, :create, :destroy]
     resources :sites, only: [:index, :new, :create, :edit, :update, :destroy]
+    namespace :gobierto_core do
+      resources :templates, only: [:index]
+    end
     resources :issues do
       collection do
         resource :issue_sort, only: [:create], controller: "issues_sort", path: :issues_sort

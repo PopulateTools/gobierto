@@ -106,4 +106,12 @@ class ApplicationController < ActionController::Base
     page.to_url(options)
   end
 
+  def current_site_has_custom_template?(template_path)
+    current_site_custom_template(template_path).any?
+  end
+
+  def current_site_custom_template(template_path)
+    GobiertoCore::SiteTemplate.joins(:template).where("site_templates.site_id = ? AND templates.template_path = ?",
+                                                      current_site, template_path)
+  end
 end

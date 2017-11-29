@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171120133657) do
+ActiveRecord::Schema.define(version: 20171128100636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -662,6 +662,16 @@ ActiveRecord::Schema.define(version: 20171120133657) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "site_templates", force: :cascade do |t|
+    t.text "markup"
+    t.bigint "template_id"
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_site_templates_on_site_id"
+    t.index ["template_id"], name: "index_site_templates_on_template_id"
+  end
+
   create_table "sites", id: :serial, force: :cascade do |t|
     t.string "external_id"
     t.string "domain"
@@ -682,6 +692,12 @@ ActiveRecord::Schema.define(version: 20171120133657) do
     t.jsonb "title_translations"
     t.index ["name_translations"], name: "index_sites_on_name_translations", using: :gin
     t.index ["title_translations"], name: "index_sites_on_title_translations", using: :gin
+  end
+
+  create_table "templates", force: :cascade do |t|
+    t.string "template_path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "translations", id: :serial, force: :cascade do |t|
@@ -784,4 +800,6 @@ ActiveRecord::Schema.define(version: 20171120133657) do
   add_foreign_key "gobierto_calendars_events", "sites"
   add_foreign_key "gp_person_posts", "sites"
   add_foreign_key "gp_person_statements", "sites"
+  add_foreign_key "site_templates", "sites"
+  add_foreign_key "site_templates", "templates"
 end

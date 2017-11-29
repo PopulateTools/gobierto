@@ -4,7 +4,7 @@
 
 [Liquid](https://github.com/Shopify/liquid) is very popular template engine written to be simple and secure.
 
-Gobierto implements a few Liquid tags to embed dynamic content in the site HTML blocks. In the future, all Gobierto templates will be fully customizable using Liquid and the administrator UI.
+Gobierto implements a few Liquid tags to embed dynamic content in the site HTML blocks and templates will be fully customizable using Liquid and the administrator UI.
 
 ## Available liquid tags
 
@@ -29,3 +29,9 @@ Renders the path of a page (an instance of`GobiertoCms::Page`)
 - Usage: `{% page_url about %}`
 
 - Returns: "/paginas/about"
+
+## Available templates
+
+### GobiertoParticipation home
+
+It is available as template GobiertoParticipation home (gobierto_participation/welcome/index.liquid)

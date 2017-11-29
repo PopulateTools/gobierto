@@ -10,15 +10,9 @@
           <% if @site.configuration.links_markup.present? %>
             <%= raw @site.configuration.links_markup %>
           <% end %>
-
-          <%# TODO: This links are static %>
-          <a href="#">SEDE ELECTRÓNICA</a>
         </div>
 
         <div class="pure-u-md-1-2 right">
-          <%# TODO: This links are static %>
-          <a href="#">NOVEDADES</a>
-
           <div class="user_links">
             <div class="pure-menu pure-menu-horizontal">
 
@@ -70,11 +64,14 @@
             </div>
           </div>
 
-          <%# TODO: This links are static %>
-          <button type="button" class="button-feed">
-            <i class="fa fa-rss" aria-label="<%=  %>"></i>
-            Sigue este proceso
-          </button>
+          <% if false %>
+            <button type="button" class="button-feed">
+              <i class="fa fa-rss" aria-label="<%=  %>"></i>
+              Sigue este proceso
+            </button>
+          <% end %>
+
+          <%= yield(:subscribable_button) %>
 
           <div class="language_selector">
             <%= render "layouts/locale_selector" %>
@@ -104,15 +101,11 @@
           <%= link_to(image_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
         </div>
         <div class="site_header_slogan">
-          Gobierno <span>Abierto</span>
+          <%= current_site.name %>
         </div>
       </div>
 
       <div class="site_header_social">
-
-        <span id="subscribable_button">
-          <%= yield(:subscribable_button) %>
-        </span>
 
         <div class="search-box">
           <i class="fa fa-search"></i>
@@ -133,16 +126,18 @@
 
     <nav class="main-nav" role="navigation" aria-hidden="false">
       <div class="column">
-        <% current_site.configuration.modules.each do |site_module| %>
-          <%= render_if_exists "#{site_module.underscore}/layouts/navigation.main" %>
+        <% if try(:current_process).nil? %>
+          <% current_site.configuration.modules.each do |site_module| %>
+            <%= render_if_exists "#{site_module.underscore}/layouts/navigation.main" %>
+          <% end %>
+        <% else %>
+          <%= render partial: "gobierto_participation/layouts/process_breadcrumb" %>
         <% end %>
       </div>
     </nav>
     <nav class="sub-nav" role="navigation" aria-hidden="false">
       <div class="column">
-        <% current_site.configuration.modules.each do |site_module| %>
-          <%= render_if_exists "#{site_module.underscore}/layouts/navigation.sub" %>
-        <% end %>
+        <%= render_if_exists "#{current_module}/layouts/navigation.sub" %>
       </div>
     </nav>
 

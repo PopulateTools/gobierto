@@ -6,12 +6,6 @@ module ApplicationHelper
     render(partial_path, partial_params) if lookup_context.exists?(partial_file_name)
   end
 
-  def load_module_sub_sections(module_name = nil)
-    return unless module_name
-
-    render_if_exists("#{module_name.underscore}/layouts/menu_subsections")
-  end
-
   # Example: translate_enum_value(GobiertoParticipation::ProcessStage, :stage_type, :information)
   def translate_enum_value(object, enum_name, enum_value_name)
     I18n.t("activerecord.attributes.#{object.model_name.i18n_key}.#{enum_name.to_s.pluralize}.#{enum_value_name}")

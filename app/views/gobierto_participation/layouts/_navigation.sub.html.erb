@@ -1,4 +1,4 @@
-<% if (current_module == 'gobierto_participation') %>
+<% if current_process.nil? %>
   <div class="sub-nav-item">
     <%= link_to t('gobierto_participation.layouts.menu_subsections.about'), '#' %>
   </div>
@@ -14,4 +14,6 @@
   <div class="sub-nav-item">
     <%= link_to t('gobierto_participation.layouts.menu_subsections.ideas'), '#' %>
   </div>
+<% else %>
+  <%= render partial: "gobierto_participation/layouts/process_menu_subsections" %>
 <% end %>

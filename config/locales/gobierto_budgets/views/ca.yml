@@ -14,7 +14,7 @@ ca:
         budget_guide_pitch: Consulta la Guia del Pressupost
         budget_line: Partida
         categories: Categories pressupostàries
-        custom: Àrees
+        custom: Personalitzada
         expense_in_what: En què es gasta
         expense_to_do_what: Per a què es gasta
         help: T'expliquem com funciona un pressupost municipal
@@ -48,7 +48,7 @@ ca:
         planned_per_inhabitant_updated: pres act. / hab.
         planned_tooltip: Quantitat pressupostada
         raise_hand: Alça la mà
-        real_value: El %{kind} real són %{value}
+        real_value: "%{kind} real són %{value}"
         real_vs_planned: "% execució"
         real_vs_planned_tooltip: Percentage de la partida que ha sigut executat
         sub_budget_lines: Dins d'aquesta partida
@@ -372,15 +372,15 @@ ca:
         category: Categoria
         custom_button: Personalitzada
         description: L'execució fa referència a les despeses finals comparades amb
-          el pressupost inicial. Hi poden haver canvis, perquè és impossible preveure
-          totes les despeses amb precisió absoluta
+          el pressupost inicial actualitzat. Hi poden haver canvis, perquè és impossible
+          preveure totes les despeses amb precisió absoluta
         economic: Econòmica
         economic_button: Per a què es gasta
         euros: En euros
         execution_disclaimer: Es normal que hi haja desviacions ja que és impossible
           preveure totes les despeses amb precisió absoluta.
         execution_help: L'execució es la quantitat que finalment s'ha gastat sobre
-          lo pressupostat inicialment.
+          el pressupost inicial actualitzat.
         expenses_planned: Despeses pressupostats
         functional: Funcional
         functional_button: En què es gasta

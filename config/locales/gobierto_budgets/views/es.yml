@@ -14,7 +14,7 @@ es:
         budget_guide_pitch: Consulta la Guía del Presupuesto
         budget_line: Partida
         categories: Categorías presupuestarias
-        custom: Áreas
+        custom: Personalizada
         expense_in_what: En qué se gasta
         expense_to_do_what: Para qué se gasta
         help: Te explicamos como funciona un presupuesto municipal
@@ -363,15 +363,15 @@ es:
         category: Categoría
         custom_button: Personalizada
         description: La ejecución es la cantidad que finalmente se ha gastado sobre
-          lo presupuestado inicialmente. Es normal que haya desviaciones ya que es
-          imposible preveer todos los gastos con precisión absoluta
+          el presupuesto inicial modificado. Es normal que haya desviaciones ya que
+          es imposible preveer todos los gastos con precisión absoluta
         economic: Económica
         economic_button: Para qué se gasta
         euros: En euros
         execution_disclaimer: Es normal que haya desviaciones ya que es imposible
           preveer todos los gastos con precisión absoluta.
         execution_help: La ejecución es la cantidad que finalmente se ha gastado sobre
-          lo presupuestado inicialmente.
+          el presupuesto inicial actualizado.
         expenses_planned: Gastos presupuestados
         functional: Functional
         functional_button: En qué se gasta

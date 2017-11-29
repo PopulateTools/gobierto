@@ -21,15 +21,16 @@
   </div>
 
   <div class="pure-u-1 pure-u-md-18-24 template_editor_main_pane">
-
     <%= form_for(
       @site_template_form, as: :site_template,
-      url: @site_template_form.persisted? ? admin_gobierto_core_templates_path(@site_template_form) : admin_gobierto_core_templates_path(@site_template_form)) do |f| %>
+      url: @site_template_form.persisted? ? admin_gobierto_core_site_template_path(@site_template_form) : admin_gobierto_core_site_templates_path(), remote: true) do |f| %>
 
       <div class="action_buttons admin_tools">
         <button class="rounded outline tipsit" title="<%= t(".reset_title") %>"><%= t(".reset") %></button>
         <button class="rounded"><%= t(".preview") %></button>
-        <button class="rounded"><%= t(".save") %></button>
+        <%= button_tag(class: "rounded") do %>
+          <%= t(".save") %>
+        <% end %>
       </div>
 
       <div class="code_editor">

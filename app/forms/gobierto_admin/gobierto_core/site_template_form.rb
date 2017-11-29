@@ -14,7 +14,7 @@ module GobiertoAdmin
 
       delegate :persisted?, to: :site_template
 
-      validates :site, presence: true
+      validates :site_id, presence: true
 
       def save
         save_site_template if valid?
@@ -22,10 +22,6 @@ module GobiertoAdmin
 
       def site_template
         @site_template ||= site_template_class.find_by(id: id).presence || build_site_template
-      end
-
-      def site_id
-        @site_id ||= site_template.site_id
       end
 
       def site
@@ -50,11 +46,7 @@ module GobiertoAdmin
         end
 
         if @site_template.valid?
-          run_callbacks(:save) do
-            @site_template.save
-          end
-
-          @site_template
+          @site_template.save
         else
           promote_errors(@site_template.errors)
 

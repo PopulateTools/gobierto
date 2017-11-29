@@ -800,6 +800,4 @@ ActiveRecord::Schema.define(version: 20171128100636) do
   add_foreign_key "gobierto_calendars_events", "sites"
   add_foreign_key "gp_person_posts", "sites"
   add_foreign_key "gp_person_statements", "sites"
-  add_foreign_key "site_templates", "sites"
-  add_foreign_key "site_templates", "templates"
 end

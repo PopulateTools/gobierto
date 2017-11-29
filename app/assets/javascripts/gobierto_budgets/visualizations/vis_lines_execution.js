@@ -80,7 +80,8 @@ var VisLinesExecution = Class.extend({
     this.svg = d3.select(this.container)
       .append('svg')
       .attr('width', this.width + this.margin.left + this.margin.right)
-      .attr('height', this.height + this.margin.top + this.margin.bottom)
+      // NOTE: Height is set later, after elements rendered
+      // .attr('height', this.height + this.margin.top + this.margin.bottom)
       .append('g')
       .attr('class', 'chart-container')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
@@ -286,6 +287,9 @@ var VisLinesExecution = Class.extend({
     }.bind(this));
 
     d3.select('body:not(' + this.container +')').on('touchstart', this._mouseleft.bind(this));
+
+    // NOTE: resize container once all data has been displayed
+    d3.select(this.container + ' svg').attr('height', this.svg.node().getBoundingClientRect().height + this.margin.top);
   },
   _update: function(valueKind, symbol) {
     this.xAxis.tickFormat(function(d) { return d === 0 ? '' : this.pctFormat(d) + symbol}.bind(this));

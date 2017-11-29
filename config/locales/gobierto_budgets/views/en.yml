@@ -14,7 +14,7 @@ en:
         budget_guide_pitch: Check the Budget Guide
         budget_line: Budget line
         categories: Categories
-        custom: Areas
+        custom: Custom
         expense_in_what: In what is spent
         expense_to_do_what: For what is spent
         help: We explain how a municipal budget works
@@ -24,6 +24,7 @@ en:
       show:
         about_this_line: About this budget line
         avg_province: Avg. %{kind} in the province
+        avg_province_tooltip: Mean value in the other municipalities of the province
         back_to_parent: Back to parent budget line
         budget_line_category: Category
         budget_line_percentage: Percentage
@@ -33,18 +34,22 @@ en:
         give_your_opinion: Give your opinion about this budget line
         give_your_opinion_cta: Do you understand this budget line? Do you think it's
           enough, too much? Give your opinion
-        last_year: Last year
+        last_year: Last year %{value}
         no_description: There's no description for this budget line.
         no_distribution: There aren't any related budget lines.
         no_more_descendants: There are no more descendants
         not_available: Not avail.
         percentage: "% over the total"
+        percentage_tooltip: Percentage of the total budget this budget line implies
         planned: planned
         planned_per_inhabitant: plan. / inh.
+        planned_per_inhabitant_tooltip: Budgeted amount divided by the inhabitants
         planned_per_inhabitant_updated: plan. upd. / inh.
+        planned_tooltip: Budgeted amount
         raise_hand: Raise your hand
         real_value: Real %{kind} is %{value}
-        real_vs_planned: real vs. plan.
+        real_vs_planned: "% execution"
+        real_vs_planned_tooltip: Percentage executed
         sub_budget_lines: In this budget line
         twitter_text_expense: 'In @gobierto: Municipal expense on %{name} in %{budget_line_name}
           for year %{year}'
@@ -52,6 +57,7 @@ en:
           for year %{year}'
         updated: updated
         vs_previous_year: vs. previous year
+        vs_previous_year_tooltip: Comparision with the data of the previous year
     budgets:
       guide:
         budget_execution: Budget execution
@@ -212,6 +218,7 @@ en:
         context: Context
         data_of_year: "* as of %{year}"
         debt: Debt
+        debt_tooltip: Debt of the local administration with the City council
         description: In this site you can learn about the budget's income and expenses,
           the status of the execution, the different providers we work with and the
           evolution of the expense per inhabitant.
@@ -229,10 +236,12 @@ en:
           title: Budget execution
         expenses: Expenses
         expenses_per_inhabitant: Expenses per inhabitant
+        expenses_per_inhabitant_tooltip: Starting budget divided by the inhabitants
         header: Budgets
         in_total: Total
         income: Income
         inhabitants: Inhabitants
+        inhabitants_tooltip: Number of inhabitantes
         less: less
         level_1_category: Level 1 category
         level_2_category: Level 2 category
@@ -281,11 +290,13 @@ en:
         top_income_category: Category
         top_income_value: Amount
         total_expenses: Total expenses
+        total_expenses_tooltip: Starting budget
         visualize: Visualize expenses per inhabitant or the total
     budgets_elaboration:
       index:
         at_a_glance: At a glance
         auto_funding: Autofunding capability
+        auto_funding_tooltip: Percentage of fiscal income versus regular income
         by_custom_category: per area
         by_economic_expense: in what
         by_economic_income: in what
@@ -294,11 +305,15 @@ en:
         category_value: Amount
         context: Context
         debt_level: Debt level
+        debt_level_tooltip: External funding need to pay expenses once used local
+          resources
         description: Government team publishes a draft of next year budget to discuss
           with the opposition and the citiziens. All together we can create the best
           budget for %{place_name}.
         diff_previous_year: Diff vs current year
         expenses_per_inhabitant: Expense per person
+        expenses_per_inhabitant_tooltip: Starting budget divided by the amount of
+          inhabitants
         explore_the_detail: Explore the details
         header: Budgets elaboration
         in_total: Total
@@ -309,6 +324,7 @@ en:
         metric_boxes_data: Data
         metric_boxes_data_description: This is how it will be the next year
         net_savings: Net savings
+        net_savings_tooltip: Regular income minus regular expenses and fiscal expenses
         next_year_proposal: Proposal next %{year}
         no_data: There's no data for this classification
         note_about_the_data: Note about the data
@@ -318,6 +334,7 @@ en:
         per_person: Per inhabitant
         proposal: Proposal
         total_expenses: Total expenses
+        total_expenses_tooltip: Starting budget
         visualize: Visualize expenses per inhabitant
     budgets_execution:
       execution_table:

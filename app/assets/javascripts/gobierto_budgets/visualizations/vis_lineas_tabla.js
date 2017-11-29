@@ -239,9 +239,16 @@ var VisLineasJ = Class.extend({
         .domain([min, max])
         .range([this.height, this.margin.top]);
 
-      this.colorScale
-        .range(this.series == 'means' ? this.meanColorRange : this.comparatorColorRange)
-        .domain(this.dataChart.map(function(d) { return d.name; }));
+
+      if(this.dataChart.length > 4) {
+        this.colorScale
+          .range(this.comparatorColorRange)
+          .domain(this.dataChart.map(function(d) { return d.name; }));
+      } else {
+        this.colorScale
+          .range(this.series == 'means' ? this.meanColorRange : this.comparatorColorRange)
+          .domain(this.dataChart.map(function(d) { return d.name; }));
+      }
 
       // Define the axis
       this.xAxis
@@ -463,15 +470,20 @@ var VisLineasJ = Class.extend({
           .attr('class', function(d) { return d.classed ; })
           .html(function(d, i) {return i != 0 ? d.value : '<i class="' + d.value + '"></i>'; }.bind(this));
 
-
+          var bulletsColors = this.colorScale.range();
+          console.log(bulletsColors);
 
           // Replace bullets colors
-
-          var bulletsColors = this.colorScale.range();
-
           $('.le').each(function(i, v){
-            $(v).css('background', this.series == 'means' ? bulletsColors[(bulletsColors.length - 1) - i] : bulletsColors[i]);
+            var color = bulletsColors[i];
+            $(v).css('background', color);
+
+            var $parent = $(v).parent();
+            var cssClass = $parent.attr('class');
+            $('path.' + cssClass).css('stroke', color);
+            $('circle.' + cssClass).css('fill', color);
           }.bind(this));
+
 
     }.bind(this)); // end load data
   }, // end render

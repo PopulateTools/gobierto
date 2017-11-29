@@ -6,7 +6,6 @@ module GobiertoBudgets
         @variable = @what == 'total_budget' ? 'total_budget' : 'total_budget_per_inhabitant'
         @year = options[:year]
         @place = options[:place]
-        @is_comparison = @place.is_a?(Array)
         @kind = options[:kind] || GobiertoBudgets::BudgetLine::EXPENSE
         @code = options[:code]
         @area = options[:area]
@@ -16,6 +15,7 @@ module GobiertoBudgets
           areas = BudgetArea.klass_for(@area)
           @category_name = areas.all_items[@kind][@code]
         end
+        @comparison = options[:comparison]
       end
 
       def generate_json
@@ -251,8 +251,7 @@ module GobiertoBudgets
       end
 
       def budget_values
-        return comparison_values if @is_comparison
-        [
+        values = [
           {
             "name":"mean_province",
             "values": mean_province
@@ -270,15 +269,18 @@ module GobiertoBudgets
             "values": place_values
           }
         ]
-      end
 
-      def comparison_values
-        @place.map do |place|
-          {
-            "name": place.name,
-            "values": place_values(place)
-          }
+        if @comparison
+          @comparison.each do |place_id|
+            place = INE::Places::Place.find(place_id)
+            values.push({
+              name: place.name,
+              values: place_values(place)
+            })
+          end
         end
+
+        values
       end
 
       def lines_title

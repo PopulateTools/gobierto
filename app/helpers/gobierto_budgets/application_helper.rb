@@ -1,6 +1,19 @@
 module GobiertoBudgets
   module ApplicationHelper
 
+    def external_comparison_link
+      municipalities = budgets_comparison_compare_municipalities.map{ |place_id| INE::Places::Place.find(place_id) }
+      year = @year || GobiertoBudgets::SearchEngineConfiguration::Year.last
+
+      budget_line_path = if params[:id]
+        [params[:kind], params[:area_name]].join('/') + "?parent_code=#{params[:id]}"
+      else
+        "G/economic"
+      end
+
+      "https://presupuestos.gobierto.es/compare/#{municipalities.map(&:slug).join(':')}/#{year}/#{budget_line_path}"
+    end
+
     def current_parameters_with_year(year)
       params.except(:host, :port, :protocol).merge(year: year).permit!
     end

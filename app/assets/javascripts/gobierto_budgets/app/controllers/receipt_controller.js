@@ -45,7 +45,7 @@ this.GobiertoBudgets.ReceiptController = (function() {
           return this.total * (percentage/100.0);
         },
         formatMoney: function(m) {
-          return accounting.formatMoney(m, "€", 0, ".", ",")
+          return accounting.formatMoney(m, "€", 2, ".", ",").replace(/,0+ €$/, ' €')
         }
       }
     });

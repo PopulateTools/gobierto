@@ -14,12 +14,14 @@ en:
         index:
           add_new_attachment: Add new document
           collections: Collections
+          created_at: Updated at
           header:
             collection: Collection
             file_attachments: Documents
           latest_editions: Latests editions
           new: New
           title: Documents
+          updated_at: Created at
           view_collection: View collection
         new:
           title: New document

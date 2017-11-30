@@ -173,10 +173,6 @@ module GobiertoPeople
             assert has_link? opposition_event.title
             refute has_link? executive_past_event.title
           end
-
-          click_link "Political groups"
-
-          assert has_content? "Officials"
         end
       end
     end

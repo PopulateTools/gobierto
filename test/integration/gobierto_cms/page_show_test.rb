@@ -28,10 +28,6 @@ module GobiertoCms
         with_current_site(site) do
           visit page_path
 
-          within ".global_breadcrumb" do
-            assert has_link? section.title
-          end
-
           within ".breadcrumb" do
             assert has_link? section.title
           end

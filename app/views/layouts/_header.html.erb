@@ -71,7 +71,9 @@
             </button>
           <% end %>
 
-          <%= yield(:subscribable_button) %>
+          <span id="subscribable_button">
+            <%= yield(:subscribable_button) %>
+          </span>
 
           <div class="language_selector">
             <%= render "layouts/locale_selector" %>

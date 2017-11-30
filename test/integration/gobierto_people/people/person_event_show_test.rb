@@ -86,7 +86,7 @@ module GobiertoPeople
             with_signed_in_user(user) do
               visit @path
 
-              within ".site_header" do
+              within ".slim_nav_bar" do
                 assert has_link? "Follow event"
               end
 

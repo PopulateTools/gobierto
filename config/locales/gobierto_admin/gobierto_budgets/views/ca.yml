@@ -16,6 +16,14 @@ ca:
           you_think: Et sembla...
       options:
         index:
+          comparison_compare_municipalities_desc: Mostra una taula amb municipis específics
+            (amb dades disponbiles en presupuestos.gobierto.es - fes allí la comparació
+            avanç d'incluir-los)
+          comparison_context_table_enabled_desc: Mostra la taula que ofereix context
+            amb mitjanes provincials, autonòmiques o estatals
+          comparison_show_widget_desc: 'Facilita l''accés a la ferramenta de comparació
+            de pressupostos de Gobierto: presupuestos.gobierto.es'
+          comparison_tool_enabled_desc: Habilita ferramentes de comparació
           elaboration: Elaboració
           elaboration_desc1: Habilita la secció d'Elaboració del pressupost
           elaboration_desc2_html: "<strong>Important:</strong> es necessari carregar

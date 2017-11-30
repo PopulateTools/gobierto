@@ -239,6 +239,7 @@ var VisLineasJ = Class.extend({
         .domain([min, max])
         .range([this.height, this.margin.top]);
 
+
       this.colorScale
         .range(this.series == 'means' ? this.meanColorRange : this.comparatorColorRange)
         .domain(this.dataChart.map(function(d) { return d.name; }));
@@ -317,11 +318,7 @@ var VisLineasJ = Class.extend({
           .attr('d', function(d) { return this.line(d.values.filter(function(v) { return v.value != null; })); }.bind(this))
           .style('stroke', function(d) { return this.colorScale(d.name); }.bind(this))
           .style('stroke-width', function(d, i) {
-            if (this.series == 'means') {
-              return i == 3 ? this.heavyLine : this.lightLine;
-            } else {
-              return this.mediumLine;
-            }
+            return i == 3 ? this.heavyLine : this.lightLine;
           }.bind(this))
 
 
@@ -413,7 +410,7 @@ var VisLineasJ = Class.extend({
 
       // create a row for each object in the data
       var rows = tbody.selectAll("tr")
-          .data(this.series == 'means' ? this.dataChart.reverse() : this.dataChart)
+          .data(this.dataChart.reverse())
           // .data(this.dataChart)
           .enter()
         .append("tr")
@@ -463,16 +460,18 @@ var VisLineasJ = Class.extend({
           .attr('class', function(d) { return d.classed ; })
           .html(function(d, i) {return i != 0 ? d.value : '<i class="' + d.value + '"></i>'; }.bind(this));
 
-
-
-          // Replace bullets colors
-
           var bulletsColors = this.colorScale.range();
 
-          $('.le').each(function(i, v){
-            $(v).css('background', this.series == 'means' ? bulletsColors[(bulletsColors.length - 1) - i] : bulletsColors[i]);
-          }.bind(this));
+          // Replace bullets colors
+          $(this.container + '_wrapper .le').each(function(i, v){
+            var color = bulletsColors[i];
+            $(v).css('background', color);
 
+            var $parent = $(v).parent();
+            var cssClass = $parent.attr('class');
+            $(this.container + '_wrapper path.' + cssClass).css('stroke', color);
+            $(this.container + '_wrapper circle.' + cssClass).css('fill', color);
+          }.bind(this));
     }.bind(this)); // end load data
   }, // end render
 

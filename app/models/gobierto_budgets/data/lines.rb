@@ -251,36 +251,36 @@ module GobiertoBudgets
       end
 
       def budget_values
-        values = [
-          {
-            "name":"mean_province",
-            "values": mean_province
-          },
-          {
-            "name":"mean_autonomy",
-            "values": mean_autonomy
-          },
-          {
-            "name":"mean_national",
-            "values": mean_national
-          },
-          {
-            name: @code ? @category_name : @place.name,
-            "values": place_values
-          }
-        ]
-
         if @comparison
-          @comparison.each do |place_id|
-            place = INE::Places::Place.find(place_id)
-            values.push({
-              name: place.name,
-              values: place_values(place)
-            })
-          end
+          place_value = [{
+            name: @place.name,
+            "values": place_values
+          }]
+          @comparison.map do |place_id|
+            if place = INE::Places::Place.find(place_id)
+              { name: place.name, values: place_values(place) }
+            end
+          end.compact + place_value
+        else
+          [
+            {
+              "name":"mean_province",
+              "values": mean_province
+            },
+            {
+              "name":"mean_autonomy",
+              "values": mean_autonomy
+            },
+            {
+              "name":"mean_national",
+              "values": mean_national
+            },
+            {
+              name: @code ? @category_name : @place.name,
+              "values": place_values
+            }
+          ]
         end
-
-        values
       end
 
       def lines_title

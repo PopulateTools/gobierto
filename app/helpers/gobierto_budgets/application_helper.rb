@@ -2,7 +2,7 @@ module GobiertoBudgets
   module ApplicationHelper
 
     def external_comparison_link
-      municipalities = budgets_comparison_compare_municipalities.map{ |place_id| INE::Places::Place.find(place_id) }
+      municipalities = budgets_comparison_compare_municipalities.map{ |place_id| INE::Places::Place.find(place_id) } + [current_site.place]
       year = @year || GobiertoBudgets::SearchEngineConfiguration::Year.last
 
       budget_line_path = if params[:id]

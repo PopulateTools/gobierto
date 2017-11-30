@@ -38,7 +38,7 @@ module SubmodulesHelper
   end
 
   def budgets_comparison_compare_municipalities
-    current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["comparison_compare_municipalities"]
+    current_site.gobierto_budgets_settings && current_site.gobierto_budgets_settings.settings["comparison_compare_municipalities"] || []
   end
 
   def budgets_comparison_show_widget

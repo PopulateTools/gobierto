@@ -240,15 +240,9 @@ var VisLineasJ = Class.extend({
         .range([this.height, this.margin.top]);
 
 
-      if(this.dataChart.length > 4) {
-        this.colorScale
-          .range(this.comparatorColorRange)
-          .domain(this.dataChart.map(function(d) { return d.name; }));
-      } else {
-        this.colorScale
-          .range(this.series == 'means' ? this.meanColorRange : this.comparatorColorRange)
-          .domain(this.dataChart.map(function(d) { return d.name; }));
-      }
+      this.colorScale
+        .range(this.series == 'means' ? this.meanColorRange : this.comparatorColorRange)
+        .domain(this.dataChart.map(function(d) { return d.name; }));
 
       // Define the axis
       this.xAxis
@@ -324,11 +318,7 @@ var VisLineasJ = Class.extend({
           .attr('d', function(d) { return this.line(d.values.filter(function(v) { return v.value != null; })); }.bind(this))
           .style('stroke', function(d) { return this.colorScale(d.name); }.bind(this))
           .style('stroke-width', function(d, i) {
-            if (this.series == 'means') {
-              return i == 3 ? this.heavyLine : this.lightLine;
-            } else {
-              return this.mediumLine;
-            }
+            return i == 3 ? this.heavyLine : this.lightLine;
           }.bind(this))
 
 
@@ -420,7 +410,7 @@ var VisLineasJ = Class.extend({
 
       // create a row for each object in the data
       var rows = tbody.selectAll("tr")
-          .data(this.series == 'means' ? this.dataChart.reverse() : this.dataChart)
+          .data(this.dataChart.reverse())
           // .data(this.dataChart)
           .enter()
         .append("tr")
@@ -471,20 +461,17 @@ var VisLineasJ = Class.extend({
           .html(function(d, i) {return i != 0 ? d.value : '<i class="' + d.value + '"></i>'; }.bind(this));
 
           var bulletsColors = this.colorScale.range();
-          console.log(bulletsColors);
 
           // Replace bullets colors
-          $('.le').each(function(i, v){
+          $(this.container + '_wrapper .le').each(function(i, v){
             var color = bulletsColors[i];
             $(v).css('background', color);
 
             var $parent = $(v).parent();
             var cssClass = $parent.attr('class');
-            $('path.' + cssClass).css('stroke', color);
-            $('circle.' + cssClass).css('fill', color);
+            $(this.container + '_wrapper path.' + cssClass).css('stroke', color);
+            $(this.container + '_wrapper circle.' + cssClass).css('fill', color);
           }.bind(this));
-
-
     }.bind(this)); // end load data
   }, // end render
 

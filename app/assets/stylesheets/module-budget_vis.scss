@@ -454,7 +454,7 @@
 }
 
 /* Vis lines */
-#lines_chart_wrapper {
+#lines_chart_comparison_wrapper {
   .flex {
     display: flex;
     flex-direction: column;
@@ -470,7 +470,7 @@
 
     @include min-screen(640) {
       img {
-        max-width: 50%;
+        max-width: 75%;
       }
     }
   }
@@ -483,4 +483,9 @@
       text-decoration: none;
     }
   }
+
+  #comparison_widget_wrapper {
+    margin-top: 20px;
+  }
 }
+

@@ -24,7 +24,8 @@ module GobiertoAdmin
 
       def gobierto_budgets_params
         params.require(:gobierto_budgets_options).permit(:elaboration_enabled, :budget_lines_feedback_enabled, :feedback_emails, :receipt_enabled, :receipt_configuration,
-                                                         :comparison_tool_enabled, :comparison_context_table_enabled, :comparison_show_widget, comparison_compare_municipalities: [])
+                                                         :comparison_tool_enabled, :comparison_context_table_enabled, :comparison_show_widget, :comparison_compare_municipalities_enabled,
+                                                         comparison_compare_municipalities: [])
       end
 
       def get_services_config

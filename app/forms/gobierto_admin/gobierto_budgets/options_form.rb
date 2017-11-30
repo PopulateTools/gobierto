@@ -67,7 +67,7 @@ module GobiertoAdmin
       end
 
       def comparison_compare_municipalities_enabled
-        comparison_compare_municipalities.present?
+        @comparison_compare_municipalities_enabled.present? ? @comparison_compare_municipalities_enabled != '0' : comparison_compare_municipalities.present?
       end
 
       def comparison_compare_municipalities

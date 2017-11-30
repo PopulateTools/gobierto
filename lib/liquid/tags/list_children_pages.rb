@@ -5,7 +5,11 @@ class ListChildrenPages < Liquid::Tag
     super
 
     @page_slug = params.split("|").first.strip
-    @level = params.split("|").last.split(":").last.strip.to_i
+    @level = if params.include?("level")
+               params.split("|").last.split(":").last.strip.to_i
+             else
+               1
+             end
   end
 
   def render(context)

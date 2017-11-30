@@ -27,7 +27,7 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            within "table tbody" do
+            within "#file_attachments_in_collection" do
               assert has_selector?("tr", count: collections.size)
 
               collections.each do |collection|

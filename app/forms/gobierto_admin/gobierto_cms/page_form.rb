@@ -75,7 +75,7 @@ module GobiertoAdmin
       def save_section_item(id, section, parent)
         parent = parent ? parent : 0
         parent_node = ::GobiertoCms::SectionItem.find_by(id: parent, section: section)
-        position = ::GobiertoCms::SectionItem.where(parent_id: parent, section: section).size
+        position = ::GobiertoCms::SectionItem.where(parent_id: parent, section: section).size - 1
         section_item = ::GobiertoCms::SectionItem.find_or_initialize_by(item_id: id,
                                                                         item_type: "GobiertoCms::Page")
         if section == "" && section_item.present?

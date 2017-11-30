@@ -14,14 +14,14 @@ ca:
         index:
           add_new_attachment: Afegeix nou document
           collections: Col·leccions
-          created_at: Actualitzat
+          created_at: Creat
           header:
             collection: Col·lecció
             file_attachments: Documents
           latest_editions: Últimes edicions
           new: Nova
           title: Documents
-          updated_at: Creat
+          updated_at: Actualitzat
           view_collection: Veure col·lecció
         new:
           title: Nou document

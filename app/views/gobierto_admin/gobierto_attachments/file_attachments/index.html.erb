@@ -95,7 +95,13 @@
             <i class="fa fa-edit"></i>
           <% end %>
         </td>
-        <td><%= link_to file_attachment.name, file_attachment.url, target: '_blank' %></td>
+        <td>
+          <% if file_attachment.name != file_attachment.file_name %>
+            <%= file_attachment.try(:name) %>
+            <br>
+          <% end %>
+          <%= link_to file_attachment.file_name, file_attachment.url, target: '_blank' %>
+        </td>
         <td><%= time_ago_in_words(file_attachment.created_at) %></td>
         <td><%= time_ago_in_words(file_attachment.updated_at) %></td>
       </tr>

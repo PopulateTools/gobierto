@@ -14,14 +14,14 @@ es:
         index:
           add_new_attachment: Añadir nuevo documento
           collections: Colecciones
-          created_at: Actualizado
+          created_at: Creado
           header:
             collection: Colección
             file_attachments: Documentos
           latest_editions: Últimas ediciones
           new: Nueva
           title: Documentos
-          updated_at: Creado
+          updated_at: Actualizado
           view_collection: Ver colección
         new:
           title: Nuevo documento

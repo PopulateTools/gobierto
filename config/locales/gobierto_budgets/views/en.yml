@@ -213,6 +213,9 @@ en:
         budget_slides:
           slide_1: Gasto en asistencia social por habitante
           title: A peek into the budget
+        budgets_comparision:
+          button: Compare
+          text: Compare the %{site} budget with some others councils from
         category_percentage: Percentage
         category_value: Amount
         context: Context

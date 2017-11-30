@@ -231,6 +231,10 @@ ca:
         budget_slides:
           slide_1: Gasto en asistencia social por habitante
           title: Els pressupostos d'un cop d'ull
+        budgets_comparision:
+          button: Comparar
+          text: Compara el pressupost del %{site} amb el dels altres municipis des
+            de
         category_percentage: Percentatge
         category_value: Quantitat
         context: Context

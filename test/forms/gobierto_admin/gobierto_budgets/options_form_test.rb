@@ -46,7 +46,10 @@ JSON
           budget_lines_feedback_enabled: '1',
           feedback_emails: 'email1@example.com',
           receipt_enabled: '1',
-          receipt_configuration: receipt_configuration
+          receipt_configuration: receipt_configuration,
+          comparison_context_table_enabled: '1',
+          comparison_compare_municipalities: [28065, 28001],
+          comparison_show_widget: '1'
         )
       end
 
@@ -56,12 +59,15 @@ JSON
           elaboration_enabled: '1',
           budget_lines_feedback_enabled: '0',
           receipt_enabled: '1',
-          receipt_configuration: receipt_configuration
+          receipt_configuration: receipt_configuration,
+          comparison_context_table_enabled: '1',
+          comparison_compare_municipalities: [28065, 28001],
+          comparison_show_widget: '1'
         )
       end
 
       def invalid_form_receipt_configuration_wrong
-        @valid_form ||= OptionsForm.new(
+        @invalid_form_receipt_configuration_wrong ||= OptionsForm.new(
           site: site,
           elaboration_enabled: '1',
           budget_lines_feedback_enabled: '0',
@@ -71,12 +77,15 @@ JSON
       end
 
       def invalid_form
-        @valid_form ||= OptionsForm.new(
+        @invalid_form ||= OptionsForm.new(
           site: site,
           elaboration_enabled: '1',
           budget_lines_feedback_enabled: '1',
           receipt_enabled: '1',
-          receipt_configuration: ''
+          receipt_configuration: '',
+          comparison_context_table_enabled: '0',
+          comparison_compare_municipalities: [],
+          comparison_show_widget: '0'
         )
       end
 
@@ -111,7 +120,17 @@ JSON
       def test_error_messages_with_invalid_json
         invalid_form_receipt_configuration_wrong.save
 
-        assert_equal 1, invalid_form.errors.messages[:receipt_configuration].size
+        assert_equal 1, invalid_form_receipt_configuration_wrong.errors.messages[:receipt_configuration].size
+      end
+
+      def test_comparison_tool_enabled
+        assert valid_form.comparison_tool_enabled
+        refute invalid_form.comparison_tool_enabled
+      end
+
+      def test_comparison_compare_municipalities_enabled
+        assert valid_form.comparison_compare_municipalities_enabled
+        refute invalid_form.comparison_compare_municipalities_enabled
       end
     end
   end

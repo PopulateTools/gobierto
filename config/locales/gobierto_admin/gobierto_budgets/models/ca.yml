@@ -3,6 +3,10 @@ ca:
   activemodel:
     attributes:
       gobierto_admin/gobierto_budgets/options_form:
+        comparison_compare_municipalities: Mostrar municipis específics
+        comparison_context_table_enabled: Mostrar taula de contexte
+        comparison_show_widget: Mostrar widget comparació
+        comparison_tool_enabled: Comparació
         feedback_emails: Correu-e per a rebre participacions
         receipt_configuration: Configuració del rebut
     models:

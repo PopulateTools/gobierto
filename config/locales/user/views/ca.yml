@@ -2,8 +2,6 @@
 ca:
   user:
     layouts:
-      application:
-        account: El teu compte
       menu_subsections:
         admin: Configuració
         alerts: Las teves alertes

@@ -24,6 +24,7 @@ figure.png, figure.jpg, figure.gif {
 }
 
 .cms_page {
+  padding-top: 2em;
   menu.side_navigation {
     @include reset_ul_li;
     line-height: 1.4;

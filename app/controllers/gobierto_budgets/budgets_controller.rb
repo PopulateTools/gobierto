@@ -56,7 +56,7 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
 
     respond_to do |format|
       format.json { render json: place_budget_lines }
-      format.csv { render json: GobiertoExports::CSVRenderer.new(place_budget_lines).to_csv, filename: 'budgets_execution' }
+      format.csv { render csv: GobiertoExports::CSVRenderer.new(place_budget_lines).to_csv, filename: "budget_lines_#{year}" }
     end
   end
 

@@ -405,4 +405,12 @@ html.turbolinks-progress-bar::before {
   }
 }
 
+body.sessions_new {
+  @include min-screen(768) {
+    .container {
+      padding: 3em 0;
+    }
+  }
+}
+
 @import "responsive";

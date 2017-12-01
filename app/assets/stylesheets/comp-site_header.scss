@@ -1,8 +1,4 @@
 header {
-  // Header colors
-  $cBlue: #0065C8;
-  $cLightBlue: rgba($cBlue, 0.1);
-
   // Header weights
   $fExtraLight: 200;
   $fRegular: 400;
@@ -16,7 +12,7 @@ header {
   $wExtraLarge: 1280px;
 
   // Header Mixins
-  @mixin font($size: $f6, $color: $cBlue, $weight: $fRegular, $style: normal) {
+  @mixin font($size: $f6, $color: $color_1, $weight: $fRegular, $style: normal) {
     font-size: $size;
     font-weight: $weight;
     font-style: $style;
@@ -94,14 +90,14 @@ header {
       -moz-appearance: none;
       appearance: none;
       padding: 0 6px;
-      background: $cLightBlue;
+      background: $color_1_soft;
       text-transform: initial;
       border: 1px solid transparent;
-      @include font($f7, $cBlue, $fBold);
+      @include font($f7, $color_1, $fBold);
       @include border-radius(75px);
 
       &:hover {
-        background: darken($cLightBlue, 25%);;
+        background: darken($color_1_soft, 25%);;
       }
 
       i {
@@ -139,7 +135,8 @@ header {
             align-items: center;
 
             img {
-              max-height: calc(100% - (2 * 16px));
+              // max-height: calc(100% - (2 * 16px));
+              max-height: 100px;
               display: inline-block;
             }
           }
@@ -148,9 +145,9 @@ header {
         .site_header_slogan {
           padding: 0 0 0 2em;
           margin: 0 0 0 2em;
-          border-left: 1px solid $cLightBlue;
+          border-left: 1px solid $color_1_soft;
 
-          @include font($f5, $cBlue, $fExtraLight);
+          @include font($f5, $color_1, $fExtraLight);
 
           span::before {
             content: "\A";
@@ -174,7 +171,7 @@ header {
           }
 
           .search-box_input {
-            border: 1px solid rgba($cBlue, 0.3);
+            border: 1px solid rgba($color_1, 0.3);
             border-radius: 100px;
             width: 170px;
             height: 26px;
@@ -225,7 +222,6 @@ header {
           text-align: center;
           font-size: .85em;
           display: inline;
-          margin-right: 0.5em;
 
           .social_share {
             padding: 0;
@@ -237,21 +233,22 @@ header {
     }
 
     .main-nav {
-      background-color: $cLightBlue;
+      background-color: $color_1_soft;
       cursor: pointer;
 
       .main-nav-item {
         display: inline-block;
-        margin: 0;
+        margin: 0 1.5em 0 0;
         border-top: 5px solid transparent;
 
         &:hover {
-          background-color: darken($cLightBlue, 10%);
-          border-top: 5px solid $cLightBlue;
+          // background-color: darken($color_1_soft, 10%);
+          border-top: 5px solid transparentize($color_1, .5);
+          @include transition;
         }
 
         &.active {
-          border-top: 5px solid $cBlue;
+          border-top: 5px solid $color_1;
 
           a {
             font-weight: $fBold;
@@ -261,12 +258,17 @@ header {
 
       a {
         display: block;
-        padding: 8px 12px;
+        padding: 8px 0 10px;
         height: 100%;
         width: 100%;
         text-transform: uppercase;
-        @include font($f5, $cBlue, $fExtraLight);
+        @include font($f5, $color_1, $fExtraLight);
       }
+    }
+    .particle {
+      color: $color_1;
+      margin: 0 1em 0 0;
+      display: inline-block;
     }
 
     .sub-nav {
@@ -274,10 +276,12 @@ header {
 
       .sub-nav-item {
         display: inline-block;
-        margin: 0;
+        margin: 0 1.5em 0 0;
+        border-bottom: 2px solid transparent;
 
         &:hover {
-          background-color: darken($cLightBlue, 10%);
+          border-bottom: 2px solid transparentize($color_1, .5);
+          @include transition;
         }
 
         &.active {
@@ -289,11 +293,38 @@ header {
 
       a {
         display: block;
-        padding: 8px 12px;
+        padding: 8px 0 4px;
         height: 100%;
         width: 100%;
         text-transform: uppercase;
-        @include font(15px, $cBlue, $fExtraLight);
+        @include font(1em, $color_1, $fExtraLight);
+      }
+    }
+    .secondary_nav {
+      float: right;
+      margin: 0;
+      padding: 0;
+      ul, li {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+      }
+      li {
+        display: inline-block;
+        padding: 0 0 0 1em;
+        a {
+          padding: 6px 0;
+          font-size: $f7;
+          text-transform: none;
+          font-weight: normal;
+          color: $color_meta_text;
+          line-height: 1.2;
+          border-bottom: 2px solid transparent;
+        }
+        a:hover {
+          border-bottom: 2px solid transparentize($color_1, .5);
+          @include transition;
+        }
       }
     }
   }

@@ -16,7 +16,7 @@
   } @else
   if $dir == column {
     & > * {
-      margin: $gap/2 0;
+      margin-bottom: $gap/2;
     }
 
     & > :first-child {
@@ -43,8 +43,10 @@
   }
 
   .header {
-    margin: 70px 0;
-    width: 50%;
+    margin: 1em 0 3em 0;
+    @include min-screen(768){
+      width: 75%;
+    }
 
     h1 {
       font-size: $f1;
@@ -76,6 +78,7 @@
         color: $color_main_negative;
         text-transform: capitalize;
         font-weight: 700;
+        margin: 1.5em 0;
       }
     }
 
@@ -97,9 +100,12 @@
         display: flex;
         flex-wrap: wrap;
         padding-left: 0;
+        margin: .5em 0;
 
         li {
           flex: 0 0 33%;
+          margin-bottom: 1em;
+          line-height: 1;
 
           a {
             color: $color_meta_text;

@@ -27,7 +27,7 @@ module GobiertoAdmin
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
-              click_link "Files"
+              click_link "Documents Gender Violence"
 
               click_link "PDF Collection Attachment Name"
 
@@ -51,7 +51,7 @@ module GobiertoAdmin
           with_signed_in_admin(admin) do
             with_current_site(site) do
               visit @path
-              click_link "Files"
+              click_link "Documents Gender Violence"
 
               click_link "PDF Collection Attachment Name"
 

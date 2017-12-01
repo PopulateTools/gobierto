@@ -149,7 +149,7 @@ module GobiertoParticipation
     end
 
     def self.javascript_json
-      all.to_json(only: [:title, :votes_count, :user_id], methods: [:to_path, :love_pct, :like_pct, :neutral_pct, :hate_pct, :created_at_ymd])
+      all.to_json(only: [:title, :votes_count, :user_id, :slug], methods: [:to_path, :love_pct, :like_pct, :neutral_pct, :hate_pct, :created_at_ymd])
     end
   end
 end

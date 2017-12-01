@@ -389,9 +389,6 @@ option, select {
   margin-top: 1em;
   padding-top: 1em;
 }
-.option_suboptions {
-  padding: 0 0 0 3em;
-}
 .form_item.input_text, .form_item.textarea, .select_control, .file_field {
   position: relative;
   margin: 0 0 2em 0;
@@ -462,6 +459,12 @@ option, select {
     .option {
       display: block;
       margin: 0 0 1em 0;
+    }
+    .option_suboptions {
+      padding: 0 0 0 3em;
+      .option {
+        
+      }
     }
   }
   .options.options_cont {

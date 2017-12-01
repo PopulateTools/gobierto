@@ -35,7 +35,7 @@
 
           <h1><%= @page.title %></h1>
 
-          <%= raw @page.body %>
+          <%= raw render_liquid(@page.body) %>
 
           <% if @page.attachments && @page.attachments.any? %>
             <div class="page_attachments">

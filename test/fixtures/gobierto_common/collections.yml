@@ -30,7 +30,7 @@ gender_violence_process_calendar:
 
 gender_violence_process_documents:
   site: madrid
-  title_translations: <%= {'en' => 'Documents', 'es' => 'Documentos' }.to_json %>
+  title_translations: <%= {'en' => 'Documents Gender Violence', 'es' => 'Documentos' }.to_json %>
   slug: documentos-violencia-genero
   container: gender_violence_process (GobiertoParticipation::Process)
   item_type: GobiertoAttachments::Attachment
@@ -85,10 +85,10 @@ neil_calendar:
 
 ## Site collections of news
 
-site_news:
+site_pages:
   site: madrid
-  title_translations: <%= {'en' => 'Site news', 'es' => 'Noticias del sitio' }.to_json %>
-  slug: site-news
+  title_translations: <%= {'en' => 'Site pages', 'es' => 'Páginas del sitio' }.to_json %>
+  slug: site-pages
   container: madrid (Site)
   item_type: GobiertoCms::Page
 

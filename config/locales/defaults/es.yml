@@ -131,6 +131,8 @@ es:
       not_an_integer: debe ser un entero
       odd: debe ser impar
       other_than: debe ser distinto de %{count}
+      page_as_homepage: No se ha podido guardar los cambios en la página porque no
+        se puede cambiar la visibilidad de una página que se utiliza como homepage.
       present: debe estar en blanco
       record_invalid: 'La validación falló: %{errors}'
       restrict_dependent_destroy:

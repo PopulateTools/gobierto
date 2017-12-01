@@ -147,6 +147,11 @@
           <%= f.select :home_page, @site_modules_with_root_path.map{ |p| [p.namespace, p.namespace] } %>
         </div>
 
+        <div class="form_item select_control" id="home_page_item">
+          <%= f.label :home_page_item_id %>
+          <%= f.select :home_page_item_id, grouped_options_for_select(@home_page_items, selected: @home_page_selected) %>
+        </div>
+
       </div>
 
     </div>
@@ -196,7 +201,6 @@
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
-    window.GobiertoAdmin.sites_controller.edit("<%= current_site.configuration.populate_data_api_token %>",
-                                               "<%= APP_CONFIG["site_modules_with_root_path"] %>");
+    window.GobiertoAdmin.sites_controller.edit("<%= APP_CONFIG["site_modules_with_root_path"] %>");
   <% end %>
 <% end %>

@@ -16,6 +16,14 @@ en:
           you_think: You think
       options:
         index:
+          comparison_compare_municipalities_desc: Shows a table with specific municpalities
+            (with data from presupuestos.gobierto.es - compare them there before including
+            them)
+          comparison_context_table_enabled_desc: Show a table with context information
+            with province, atuonomies and the state
+          comparison_show_widget_desc: 'Enable the acces to the Gobierto budgets comparison
+            tool: presupuestos.gobierto.es'
+          comparison_tool_enabled_desc: Enable comparison tools
           elaboration: Elaboration
           elaboration_desc1: Enable budgets elaboration section
           elaboration_desc2_html: "<strong>Important:</strong> it's necessary to load

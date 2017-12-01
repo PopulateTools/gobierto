@@ -75,7 +75,9 @@ figure.png, figure.jpg, figure.gif {
     }
   }
   article {
-    padding-left: 6em;
+    @include min-screen(740) {
+      padding-left: 6em;
+    }
     .breadcrumb {
       margin-top: 0;
       padding-top: 0;
@@ -125,6 +127,46 @@ figure.png, figure.jpg, figure.gif {
         .meta {
           opacity: .65;
           font-size: $f7;
+        }
+      }
+    }
+  }
+}
+
+.page_children {
+  display: flex;
+  flex-wrap: wrap;
+  line-height: 1.2;
+  .page_child {
+    background: $color_1_soft;
+    border-radius: 6px;
+    margin: .5em;
+    font-size: $f5;
+    font-weight: 600;
+    box-sizing: border-box;
+    width: 40%;
+    flex: 2 1 auto;
+    a {
+      display: block;
+      padding: 1em;
+    }
+    a:hover {
+      background: darken($color_1_soft, 5%);
+    }
+    .page_children {
+      padding: 0 1em 1em 1em;
+      display: block;
+      .page_child {
+        font-weight: normal;
+        font-size: .85rem;
+        margin: 0;
+        display: inline;
+        background: none;
+        padding: 0;
+        margin: 0;
+        a {
+          padding: 0;
+          margin: 0 0 .5em 0;
         }
       }
     }

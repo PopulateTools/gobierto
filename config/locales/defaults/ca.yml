@@ -131,6 +131,8 @@ ca:
       not_an_integer: ha de ser un enter
       odd: ha de ser senar
       other_than: ha de ser diferent de %{count}
+      page_as_homepage: No s'ha pogut desar els canvis en la pàgina perquè no es pot
+        canviar la vibilidad d'una pàgina que s'utilitza com pàgina principal.
       present: ha de ser blanc
       record_invalid: 'La validació va fallar: %{errors}'
       restrict_dependent_destroy:

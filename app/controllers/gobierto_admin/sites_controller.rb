@@ -19,6 +19,8 @@ module GobiertoAdmin
       @services_config = get_services_config
       @available_locales_for_site = get_available_locales
       @available_pages = get_available_pages
+      @home_page_items = home_page_items
+      @home_page_selected = nil
     end
 
     def edit
@@ -37,6 +39,8 @@ module GobiertoAdmin
       @services_config = get_services_config
       @available_locales_for_site = get_available_locales
       @available_pages = get_available_pages
+      @home_page_items = home_page_items
+      @home_page_selected = @site.configuration.home_page_item_id
     end
 
     def create
@@ -52,6 +56,8 @@ module GobiertoAdmin
       @services_config = get_services_config
       @available_locales_for_site = get_available_locales
       @available_pages = get_available_pages
+      @home_page_items = home_page_items
+      @home_page_selected = @site_form.site.configuration.home_page_item_id
 
       if @site_form.save
         track_create_activity
@@ -75,6 +81,8 @@ module GobiertoAdmin
       @services_config = get_services_config
       @available_locales_for_site = get_available_locales
       @available_pages = get_available_pages
+      @home_page_items = home_page_items
+      @home_page_selected = @site_form.site.configuration.home_page_item_id
 
       if @site_form.save
         track_update_activity
@@ -107,7 +115,14 @@ module GobiertoAdmin
     end
 
     def site_modules_with_root_path
-      APP_CONFIG["site_modules_with_root_path"].map { |site_module| OpenStruct.new(site_module) }
+      modules_with_root_path = APP_CONFIG["site_modules_with_root_path"].map { |site_module| OpenStruct.new(site_module) }
+      modules_with_root_path = modules_with_root_path.push(OpenStruct.new(name: "GobiertoCms", namespace: "GobiertoCms"))
+      modules_with_root_path
+    end
+
+    def home_page_items
+      [[I18n.t("gobierto_admin.sites.pages"), get_available_pages.map { |p| [p.title, p.to_global_id] }],
+        [I18n.t("gobierto_admin.sites.sections"), current_site.sections.has_section_item.map { |s| [s.title, s.to_global_id] }]]
     end
 
     def get_dns_config
@@ -145,6 +160,7 @@ module GobiertoAdmin
         :privacy_page_id,
         :populate_data_api_token,
         :home_page,
+        :home_page_item_id,
         site_modules: [],
         available_locales: [],
         title_translations: [*I18n.available_locales],

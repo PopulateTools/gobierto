@@ -34,7 +34,8 @@ ca:
         foot_markup: HTML de Peu
         google_analytics_id: Codi de Google Analytics
         head_markup: HTML de Capçalera
-        home_page: Pàgina d'inici
+        home_page: Mòdul d'inici
+        home_page_item_id: Pàgina d'inici
         links_markup: HTML de Enllaços
         location_name: Municipi
         logo_file: Logotip

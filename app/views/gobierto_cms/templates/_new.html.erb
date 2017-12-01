@@ -34,7 +34,7 @@
               <%= l(@page.updated_at, format: :long) %>
             </time>
           </div>
-          <%= raw @page.body %>
+          <%= raw render_liquid(@page.body) %>
           <div class='note'>
             <%= t('gobierto_participation.shared.published_at', date: l(@page.updated_at, format: :long), site: current_site.name) %>
           </div>

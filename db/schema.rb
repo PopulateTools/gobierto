@@ -362,7 +362,6 @@ ActiveRecord::Schema.define(version: 20171128100636) do
   create_table "gobierto_calendars_events", id: :serial, force: :cascade do |t|
     t.datetime "starts_at", null: false
     t.datetime "ends_at", null: false
-    t.string "attachment_url"
     t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

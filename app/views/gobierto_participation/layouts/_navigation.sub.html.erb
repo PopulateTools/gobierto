@@ -1,0 +1,41 @@
+<% if try(:current_process).nil? %>
+  <div class="sub-nav-item">
+    <%= link_to t('gobierto_participation.layouts.menu_subsections.about'), '#' %>
+  </div>
+  <div class="sub-nav-item<%= class_if(' active', controller_name == 'issues') %>">
+    <%= link_to t('gobierto_participation.layouts.menu_subsections.issues'), gobierto_participation_issues_path, data: { turbolinks: false } %>
+  </div>
+  <div class="sub-nav-item<%= class_if(' active', controller_name == 'processes') %>">
+    <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path, data: { turbolinks: false } %>
+  </div>
+  <div class="sub-nav-item">
+    <%= link_to t('gobierto_participation.layouts.menu_subsections.questions'), '#' %>
+  </div>
+  <div class="sub-nav-item">
+    <%= link_to t('gobierto_participation.layouts.menu_subsections.ideas'), '#' %>
+  </div>
+<% else %>
+  <div class="sub-nav-item">
+    <%= link_to t('gobierto_participation.layouts.process_menu_subsections.information'), gobierto_participation_process_information_path(process_id: current_process.slug) %>
+  </div>
+  <div class="sub-nav-item">
+    <%=link_to t('gobierto_participation.layouts.process_menu_subsections.meetings'), gobierto_participation_process_events_path(process_id: current_process.slug) %>
+  </div>
+  <% if current_process.polls_stage? %>
+    <div class="sub-nav-item">
+      <%= link_to t('gobierto_participation.layouts.process_menu_subsections.polls'), gobierto_participation_process_polls_path(process_id: current_process.slug) %>
+    </div>
+  <% end %>
+  <% if current_process.ideas_stage? %>
+    <div class="sub-nav-item">
+      <%= link_to t('gobierto_participation.layouts.process_menu_subsections.contributions'), gobierto_participation_process_contribution_containers_path(process_id: current_process.slug) %>
+    </div>
+  <% end %>
+  <% if current_process.results_stage? %>
+    <div class="sub-nav-item">
+      <%= link_to t('gobierto_participation.layouts.process_menu_subsections.results'), '#TODO' %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= render "gobierto_participation/layouts/secondary_nav" %>

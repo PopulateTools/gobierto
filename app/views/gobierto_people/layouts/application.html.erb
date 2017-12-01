@@ -2,22 +2,4 @@
   <%= javascript_include_tag 'gobierto_people/application', 'data-turbolinks-track' => true %>
 <% end %>
 
-<% content_for :breadcrumb_items do %>
-  <% if content_for?(:breadcrumb_current_item) %>
-    <% if welcome_submodule_active? %>
-      <strong>
-        <%= link_to t('gobierto_people.layouts.application.title'), gobierto_people_root_path %>
-      </strong>
-      <span role="separator">/</span>
-    <% end %>
-    <%= yield(:breadcrumb_current_item) %>
-  <% else %>
-    <% if welcome_submodule_active? %>
-      <h1>
-        <%= link_to t('gobierto_people.layouts.application.title'), gobierto_people_root_path %>
-      </h1>
-    <% end %>
-  <% end %>
-<% end %>
-
 <%= render template: "layouts/application" %>

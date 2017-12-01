@@ -18,18 +18,10 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within '.sub_sections' do
+        within '.sub-nav' do
           assert has_link? 'Blogs'
-        end
-
-        PersonPost.all.each(&:delete)
-        visit @path
-
-        within '.sub_sections' do
-          refute has_link? 'Blogs'
         end
       end
     end
-
   end
 end

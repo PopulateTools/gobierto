@@ -2,10 +2,4 @@
   <%= javascript_include_tag 'gobierto_budget_consultations/application', 'data-turbolinks-track' => true %>
 <% end %>
 
-<% content_for :breadcrumb_items do %>
-  <h1>
-    <%= link_to t('gobierto_budget_consultations.layouts.menu_subsections.consultations'), gobierto_budget_consultations_consultations_path %>
-  </h1>
-<% end %>
-
 <%= render template: "layouts/application" %>

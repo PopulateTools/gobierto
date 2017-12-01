@@ -3,7 +3,7 @@ module SubmodulesHelper
 
   included do
     helper_method :active_submodules, :welcome_submodule_active?, :officials_submodule_active?,
-                  :agendas_submodule_active?, :blog_submodule_active?, :statements_submodule_active?,
+                  :agendas_submodule_active?, :blogs_submodule_active?, :statements_submodule_active?,
                   :submodule_path_for, :submodule_title_for, :submodule_controller_for,
                   :budgets_elaboration_active?,
                   :budget_lines_feedback_active?, :gobierto_budgets_feedback_emails,
@@ -90,7 +90,7 @@ module SubmodulesHelper
     active_submodules.include?('agendas')
   end
 
-  def blog_submodule_active?
+  def blogs_submodule_active?
     active_submodules.include?('blogs')
   end
 

@@ -10,7 +10,7 @@
       <% if agendas_submodule_active? %>
         <li><h3><%= link_to t(".agenda"), gobierto_people_person_events_path(@person.slug), class: class_if("active", controller_name == "person_events")  %></h3></li>
       <% end %>
-      <% if blog_submodule_active? && @person.has_posts? %>
+      <% if blogs_submodule_active? && @person.has_posts? %>
         <li><h3><%= link_to t(".blog"), gobierto_people_person_posts_path(@person.slug), class: class_if("active", controller_name == "person_posts")  %></h3></li>
       <% end %>
       <% if statements_submodule_active? && @person.has_statements? %>

@@ -7,6 +7,3 @@ es:
         subtitle: Desde esta página puedes descargar en formato reutilizable el contenido
           de este site.
         title: Descarga datos
-    layouts:
-      application:
-        exports: Descarga datos

@@ -15,11 +15,4 @@
   <%= javascript_include_tag 'gobierto_indicators/application', 'data-turbolinks-track' => true %>
 <% end %>
 
-<% content_for :breadcrumb_items do %>
-  <h1>
-    <%= link_to title(t('.indicators')), gobierto_indicators_root_path %>
-  </h1>
-  <strong data-breadcrumb-sub-item></strong>
-<% end %>
-
 <%= render template: "layouts/application" %>

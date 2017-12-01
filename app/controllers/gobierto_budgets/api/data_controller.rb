@@ -3,7 +3,7 @@ module GobiertoBudgets
     class DataController < ApplicationController
       include GobiertoBudgets::ApplicationHelper
 
-      caches_action :total_budget, :total_budget_execution, :population, :total_budget_per_inhabitant, :lines,
+      caches_action :total_budget, :total_budget_execution, :population, :total_budget_per_inhabitant,
                     :budget, :budget_execution, :budget_per_inhabitant, :budget_percentage_over_total, :debt
 
       def budget
@@ -63,7 +63,9 @@ module GobiertoBudgets
 
       def lines
         @place = INE::Places::Place.find(params[:ine_code])
-        data_line = GobiertoBudgets::Data::Lines.new place: @place, year: params[:year], what: params[:what], kind: params[:kind], code: params[:code], area: params[:area], include_next_year: params[:include_next_year]
+        data_line = GobiertoBudgets::Data::Lines.new place: @place, year: params[:year], what: params[:what], kind: params[:kind],
+          code: params[:code], area: params[:area], include_next_year: params[:include_next_year],
+          comparison: params[:comparison]
 
         respond_lines_to_json data_line
       end

@@ -46,6 +46,13 @@ module GobiertoPeople
       [:id, :name, :email, :charge, :bio, :bio_url, :avatar_url, :category, :political_group, :party, :created_at, :updated_at]
     end
 
+    def self.presence_by_group_type
+      [:visibility_levels, :categories, :parties].reduce({}) do |groups, key|
+        enum_groups = send(key)
+        groups.merge enum_groups.merge(enum_groups) { |group| self.send(group).any? }
+      end
+    end
+
     def as_csv
       political_group_name = political_group.try(:name)
 

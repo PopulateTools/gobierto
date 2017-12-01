@@ -4,6 +4,7 @@
 //= require cleave
 //= require tipsy
 //= require tree.jquery
+//= require select2.min
 //= require air-datepicker/datepicker.min
 //= require air-datepicker/i18n/datepicker.es
 //= require air-datepicker/i18n/datepicker.en
@@ -13,6 +14,7 @@
 //= require ./module-admin-search
 //= require ./app/init
 //= require sticky-kit.min
+//= require simplemde.min
 //= require_tree ./app
 
 //= require module-admin

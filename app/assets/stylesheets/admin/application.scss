@@ -20,8 +20,10 @@
 @import "jquery-ui";
 @import "datepicker.min";
 @import "trix";
+@import "simplemde.min";
 @import "tipsy";
 @import "jqtree";
+@import "select2.min";
 
 /*
  * Gobierto libraries
@@ -52,6 +54,8 @@
 @import "comp-sortable";
 @import "comp-dyna_block";
 @import "comp-indicator_widget";
+@import "comp-simplemde_editor";
+
 
 @import "module-admin";
 @import "module-consultations";

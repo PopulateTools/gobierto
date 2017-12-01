@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require_relative "base"
+require_relative "base_index"
 require "support/event_helpers"
 
 module GobiertoPeople
   module People
     class PersonEventsIndexTest < ActionDispatch::IntegrationTest
-      include Base
+      include BaseIndex
       include ::EventHelpers
 
       def setup
@@ -52,7 +52,7 @@ module GobiertoPeople
             within ".events-summary" do
               assert has_content?("Agenda")
               refute has_link?("View more")
-              # PENDING: assert has_link?("Past events")
+              assert has_link?("Past events")
 
               upcoming_events.each do |event|
                 assert has_selector?(".person_event-item", text: event.title)
@@ -79,13 +79,12 @@ module GobiertoPeople
               assert has_content?(future_event.title)
             end
 
-            # PENDING
-            # click_link "Past events"
+            click_link "Past events"
 
-            # within ".events-summary" do
-            #   assert has_content?(past_event.title)
-            #   refute has_content?(future_event.title)
-            # end
+            within ".events-summary" do
+              assert has_content?(past_event.title)
+              refute has_content?(future_event.title)
+            end
           end
         end
       end

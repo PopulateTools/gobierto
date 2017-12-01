@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171119160858) do
+ActiveRecord::Schema.define(version: 20171123111420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20171119160858) do
     t.string "item_type"
     t.string "slug", default: "", null: false
     t.index ["container_id", "container_type", "item_type"], name: "index_collections_on_container_and_item_type", unique: true
+    t.index ["site_id", "slug"], name: "index_collections_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_collections_on_site_id"
   end
 
@@ -209,6 +210,7 @@ ActiveRecord::Schema.define(version: 20171119160858) do
     t.datetime "updated_at", null: false
     t.string "slug", default: "", null: false
     t.integer "collection_id"
+    t.index ["site_id", "slug"], name: "index_ga_attachments_on_site_id_and_slug", unique: true
   end
 
   create_table "gb_budget_line_feedbacks", force: :cascade do |t|
@@ -288,7 +290,10 @@ ActiveRecord::Schema.define(version: 20171119160858) do
     t.jsonb "body_translations"
     t.string "slug", default: "", null: false
     t.integer "collection_id"
+    t.jsonb "body_source_translations"
+    t.index ["body_source_translations"], name: "index_gcms_pages_on_body_source_translations", using: :gin
     t.index ["body_translations"], name: "index_gcms_pages_on_body_translations", using: :gin
+    t.index ["site_id", "slug"], name: "index_gcms_pages_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_gcms_pages_on_site_id"
     t.index ["title_translations"], name: "index_gcms_pages_on_title_translations", using: :gin
   end
@@ -312,6 +317,7 @@ ActiveRecord::Schema.define(version: 20171119160858) do
     t.bigint "site_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["site_id", "slug"], name: "index_gcms_sections_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_gcms_sections_on_site_id"
   end
 
@@ -340,7 +346,6 @@ ActiveRecord::Schema.define(version: 20171119160858) do
   create_table "gobierto_calendars_events", id: :serial, force: :cascade do |t|
     t.datetime "starts_at", null: false
     t.datetime "ends_at", null: false
-    t.string "attachment_url"
     t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -351,7 +356,7 @@ ActiveRecord::Schema.define(version: 20171119160858) do
     t.string "slug", null: false
     t.integer "collection_id"
     t.index ["description_translations"], name: "index_gobierto_calendars_events_on_description_translations", using: :gin
-    t.index ["slug"], name: "index_gobierto_calendars_events_on_slug", unique: true
+    t.index ["site_id", "slug"], name: "index_gobierto_calendars_events_on_site_id_and_slug", unique: true
     t.index ["title_translations"], name: "index_gobierto_calendars_events_on_title_translations", using: :gin
   end
 
@@ -393,8 +398,8 @@ ActiveRecord::Schema.define(version: 20171119160858) do
     t.index ["google_calendar_token"], name: "index_gp_people_on_google_calendar_token", unique: true
     t.index ["party"], name: "index_gp_people_on_party"
     t.index ["political_group_id"], name: "index_gp_people_on_political_group_id"
+    t.index ["site_id", "slug"], name: "index_gp_people_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_gp_people_on_site_id"
-    t.index ["slug"], name: "index_gp_people_on_slug", unique: true
   end
 
   create_table "gp_person_calendar_configurations", id: :serial, force: :cascade do |t|
@@ -414,7 +419,7 @@ ActiveRecord::Schema.define(version: 20171119160858) do
     t.integer "site_id", null: false
     t.string "slug", null: false
     t.index ["person_id"], name: "index_gp_person_posts_on_person_id"
-    t.index ["slug"], name: "index_gp_person_posts_on_slug", unique: true
+    t.index ["site_id", "slug"], name: "index_gp_person_posts_on_site_id_and_slug", unique: true
     t.index ["tags"], name: "index_gp_person_posts_on_tags", using: :gin
   end
 
@@ -430,7 +435,7 @@ ActiveRecord::Schema.define(version: 20171119160858) do
     t.integer "site_id", null: false
     t.string "slug", null: false
     t.index ["person_id"], name: "index_gp_person_statements_on_person_id"
-    t.index ["slug"], name: "index_gp_person_statements_on_slug", unique: true
+    t.index ["site_id", "slug"], name: "index_gp_person_statements_on_site_id_and_slug", unique: true
     t.index ["title_translations"], name: "index_gp_person_statements_on_title_translations", using: :gin
   end
 
@@ -500,6 +505,7 @@ ActiveRecord::Schema.define(version: 20171119160858) do
     t.integer "visibility_user_level", default: 0, null: false
     t.index ["admin_id"], name: "index_gpart_contribution_containers_on_admin_id"
     t.index ["process_id"], name: "index_gpart_contribution_containers_on_process_id"
+    t.index ["site_id", "slug"], name: "index_gpart_contribution_containers_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_gpart_contribution_containers_on_site_id"
   end
 
@@ -517,6 +523,7 @@ ActiveRecord::Schema.define(version: 20171119160858) do
     t.string "slug", default: "", null: false
     t.index ["contribution_container_id"], name: "index_gpart_contributions_on_contribution_container_id"
     t.index ["description"], name: "index_gpart_contributions_on_description"
+    t.index ["site_id", "slug"], name: "index_gpart_contributions_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_gpart_contributions_on_site_id"
     t.index ["title"], name: "index_gpart_contributions_on_title"
     t.index ["user_id"], name: "index_gpart_contributions_on_user_id"
@@ -609,8 +616,8 @@ ActiveRecord::Schema.define(version: 20171119160858) do
     t.jsonb "information_text_translations"
     t.bigint "scope_id"
     t.index ["body_translations"], name: "index_gpart_processes_on_body_translations", using: :gin
+    t.index ["site_id", "slug"], name: "index_gpart_processes_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_gpart_processes_on_site_id"
-    t.index ["slug"], name: "index_gpart_processes_on_slug", unique: true
     t.index ["title_translations"], name: "index_gpart_processes_on_title_translations", using: :gin
   end
 
@@ -641,6 +648,7 @@ ActiveRecord::Schema.define(version: 20171119160858) do
     t.string "slug", default: "", null: false
     t.index ["name_translations"], name: "index_issues_on_name_translations", using: :gin
     t.index ["position"], name: "index_issues_on_position"
+    t.index ["site_id", "slug"], name: "index_issues_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_issues_on_site_id"
   end
 

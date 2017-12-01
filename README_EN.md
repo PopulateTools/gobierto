@@ -23,8 +23,8 @@ Gobierto is being built in the open by [Populate](http://populate.tools), a prod
 
 More info:
 
-* Main site (spanish): [gobierto.es](http://gobierto.es)
-* Blog (spanish): [gobierto.es/blog](http://gobierto.es/blog)
+* Main site (spanish): [gobierto.es](https://gobierto.es)
+* Blog (spanish): [gobierto.es/blog](https://gobierto.es/blog)
 * #todo public broadcast channel to report updates
 
 ## Feature requests

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 require "test_helper"
-require_relative "base"
+require_relative "base_index"
 
 module GobiertoPeople
   module People
     class PersonPostsIndexTest < ActionDispatch::IntegrationTest
-      include Base
+      include BaseIndex
 
       def setup
         super

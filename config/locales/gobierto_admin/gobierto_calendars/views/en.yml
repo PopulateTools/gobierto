@@ -24,7 +24,6 @@ en:
         edit:
           title: Edit event
         form:
-          attachment_file_constraints: Attach file (PDF)
           placeholders:
             slug: event
             title: Event title

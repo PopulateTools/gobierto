@@ -5,3 +5,7 @@ richard_calendar_configuration:
 tamara_calendar_configuration:
     person: tamara
     data: <%= { endpoint: "http://calendar/tamara" }.to_json %>
+
+neil_calendar_configuration:
+    person: neil
+    data: <%= { endpoint: "http://calendar/neil" }.to_json %>

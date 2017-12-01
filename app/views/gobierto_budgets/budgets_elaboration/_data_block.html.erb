@@ -19,7 +19,7 @@
 
   <div class="pure-g metric_boxes">
 
-    <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
+    <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.expenses_per_inhabitant_tooltip') %>">
       <!--  metric_box should be flexbox -->
       <div class="inner">
         <h3><%= t('gobierto_budgets.budgets_elaboration.index.expenses_per_inhabitant') %></h3>
@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
+    <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.total_expenses_tooltip') %>">
       <div class="inner">
         <h3><%= t('gobierto_budgets.budgets_elaboration.index.total_expenses') %></h3>
         <div class="metric"><%= format_currency @site_stats.total_budget %></div>
@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
+    <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.net_savings_tooltip') %>">
       <div class="inner">
         <h3><%= t('gobierto_budgets.budgets_elaboration.index.net_savings') %></h3>
         <div class="metric"><%= format_currency @site_stats.net_savings %></div>
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
+    <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.debt_level_tooltip') %>">
       <div class="inner">
         <h3><%= t('gobierto_budgets.budgets_elaboration.index.debt_level') %></h3>
         <div class="metric"><%= format_currency @site_stats.debt_level %></div>
@@ -52,7 +52,7 @@
       </div>
     </div>
 
-    <div class="pure-u-1-2 pure-u-md-1-5 metric_box">
+    <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('gobierto_budgets.budgets_elaboration.index.auto_funding_tooltip') %>">
       <div class="inner">
         <h3><%= t('gobierto_budgets.budgets_elaboration.index.auto_funding') %></h3>
         <div class="metric"><%= format_currency @site_stats.auto_funding %></div>

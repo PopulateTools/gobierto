@@ -5,6 +5,7 @@ es:
       admin_widget_attachment:
         add_new_document: Añade nuevo documento
         attachments: Documentos
+        copy_to_clipboard: Copiar URL
         description: Descripción
         document: Documento
         document_title: Título del documento

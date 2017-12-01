@@ -19,6 +19,8 @@ module GobiertoParticipation
                                                                             user_id: current_user.id))
 
         if @contribution_form.save
+          track_create_activity
+
           redirect_to(
             gobierto_participation_process_contribution_container_path(@contribution_container.slug, process_id: current_process.slug)
           )
@@ -40,6 +42,10 @@ module GobiertoParticipation
       end
 
       private
+
+      def track_create_activity
+        Publishers::GobiertoParticipationContributionActivity.broadcast_event("contribution_created", default_activity_params.merge(subject: @contribution_form.contribution))
+      end
 
       def default_activity_params
         { ip: remote_ip, author: current_user, site_id: current_site.id }

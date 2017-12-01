@@ -3,21 +3,27 @@
     <div class="pure-menu pure-menu-horizontal pure-menu-scrollable">
 
       <ul role="tablist" aria-label="<%= t('.agenda', name: @site.name) %>">
-        <li role="presentation" class="<%= class_if('active', controller_name.in?(%w(government_party_person_events government_party_past_person_events))) %>">
-          <%= link_to t("gobierto_people.people_filter.parties.government"),
-                      (@past_events ? gobierto_people_government_party_past_events_path : gobierto_people_government_party_events_path),
-                      tab_attributes(controller_name.in?(%w(government_party_person_events government_party_past_person_events))).merge('aria-controls' => 'person-agenda') %>
-        </li>
-        <li role="presentation" class="<%= class_if('active', controller_name.in?(%w(opposition_party_person_events opposition_party_past_person_events))) %>">
-          <%= link_to t("gobierto_people.people_filter.parties.opposition"),
-                      (@past_events ? gobierto_people_opposition_party_past_events_path : gobierto_people_opposition_party_events_path),
-                      tab_attributes(controller_name.in?(%w(opposition_party_person_events opposition_party_past_person_events))).merge('aria-controls' => 'person-agenda') %>
-        </li>
-        <li role="presentation" class="<%= class_if('active', controller_name.in?(%w(executive_category_person_events executive_category_past_person_events))) %>">
-          <%= link_to t("gobierto_people.people_filter.categories.executive"),
-                      (@past_events ? gobierto_people_executive_category_past_events_path : gobierto_people_executive_category_events_path),
-                      tab_attributes(controller_name.in?(%w(executive_category_person_events executive_category_past_person_events))).merge('aria-controls' => 'person-agenda') %>
-        </li>
+        <% if @present_groups ['government'] %>
+          <li role="presentation" class="<%= class_if('active', controller_name.in?(%w(government_party_person_events government_party_past_person_events))) %>">
+            <%= link_to t("gobierto_people.people_filter.parties.government"),
+                        (@past_events ? gobierto_people_government_party_past_events_path : gobierto_people_government_party_events_path),
+                        tab_attributes(controller_name.in?(%w(government_party_person_events government_party_past_person_events))).merge('aria-controls' => 'person-agenda') %>
+          </li>
+        <% end %>
+        <% if @present_groups ['opposition'] %>
+          <li role="presentation" class="<%= class_if('active', controller_name.in?(%w(opposition_party_person_events opposition_party_past_person_events))) %>">
+            <%= link_to t("gobierto_people.people_filter.parties.opposition"),
+                        (@past_events ? gobierto_people_opposition_party_past_events_path : gobierto_people_opposition_party_events_path),
+                        tab_attributes(controller_name.in?(%w(opposition_party_person_events opposition_party_past_person_events))).merge('aria-controls' => 'person-agenda') %>
+          </li>
+        <% end %>
+        <% if @present_groups ['executive'] %>
+          <li role="presentation" class="<%= class_if('active', controller_name.in?(%w(executive_category_person_events executive_category_past_person_events))) %>">
+            <%= link_to t("gobierto_people.people_filter.categories.executive"),
+                        (@past_events ? gobierto_people_executive_category_past_events_path : gobierto_people_executive_category_events_path),
+                        tab_attributes(controller_name.in?(%w(executive_category_person_events executive_category_past_person_events))).merge('aria-controls' => 'person-agenda') %>
+          </li>
+        <% end %>
         <li role="presentation" class="<%= class_if('active', controller_name.in?(%w(person_events past_person_events))) %>">
           <%= link_to t("gobierto_people.people_filter.all"),
                       (@past_events ? gobierto_people_past_events_path : gobierto_people_events_path),

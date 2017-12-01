@@ -5,6 +5,7 @@ ca:
       admin_widget_attachment:
         add_new_document: Afegeix nou document
         attachments: Documents
+        copy_to_clipboard: Copia URL
         description: Descripció
         document: Document
         document_title: Títol del document

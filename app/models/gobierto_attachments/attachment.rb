@@ -56,6 +56,16 @@ module GobiertoAttachments
       MIME::Types.type_for(url).first.content_type
     end
 
+    def self.extension_fontawesome_matching
+      { "doc": "word", "docx": "word",
+        "xls": "excel", "xlsx": "excel",
+        "ppt": "powerpoint", "pptx": "powerpoint",
+        "zip": "zip", "gzip": "zip", "tar": "zip",
+        "pdf": "pdf",
+        "jpg": "image", "gif": "image", "bmp": "image", "jpeg": "image", "png": "image",
+        "avi": "video", "mp4": "video", "wmv": "video", "mpg": "video", "mov": "video" }
+    end
+
     def self.file_attachments_in_collections(site)
       ids = GobiertoCommon::CollectionItem.where(item_type: 'GobiertoAttachments::Attachment').map(&:item_id)
       where(id: ids, site: site)

@@ -50,10 +50,10 @@ module GobiertoPeople
         end
       end
 
-      def sync_calendar_events( calendar)
-        response = service.list_events(calendar.id, always_include_email: true, time_min: Time.now.iso8601)
+      def sync_calendar_events(calendar)
+        response = service.list_events(calendar.id, always_include_email: true, time_min: 2.days.ago.iso8601)
         response.items.each do |event|
-          next if is_private?(event) || (!is_creator?(event) && !is_attendee?(event))
+          next if is_private?(event)
 
           if is_recurring?(event)
             service.list_event_instances(calendar.id, event.id).items.each_with_index do |event, i|
@@ -67,14 +67,6 @@ module GobiertoPeople
 
       def is_private?(event)
         %w( private confidential ).include?(event.visibility)
-      end
-
-      def is_creator?(event)
-        event.creator.email == configuration.google_calendar_id
-      end
-
-      def is_attendee?(event)
-        Array(event.attendees).any?{ |a| a.email == configuration.google_calendar_id }
       end
 
       def is_recurring?(event)
@@ -97,19 +89,15 @@ module GobiertoPeople
         person_event_params = {
           site_id: person.site_id,
           external_id: event.id,
+          person_id: person.id,
           title: event.summary,
           description: event.description,
-          starts_at: event.start.date_time || DateTime.parse(event.start.date),
-          ends_at: event.end.date_time || DateTime.parse(event.end.date),
+          starts_at: parse_date(event.start),
+          ends_at: parse_date(event.end),
           state: GobiertoCalendars::Event.states[:published],
           attendees: event_attendees(event),
           notify: i.nil? || i == 0
         }
-        if is_creator?(event)
-          person_event_params.merge!(person_id: person.id)
-        else
-          person_event_params.merge!(person_id: 0)
-        end
 
         if event.location.present?
           person_event_params.merge!(locations_attributes: {"0" => {name: event.location} })
@@ -118,7 +106,9 @@ module GobiertoPeople
         end
 
         event = GobiertoPeople::PersonEventForm.new(person_event_params)
-        event.save
+        unless event.save
+          Rails.logger.info "[Google Calendar Integration] Invalid event: #{person_event_params}"
+        end
       end
 
       def authorize(person)
@@ -130,6 +120,12 @@ module GobiertoPeople
         token_store = Google::Auth::Stores::FileTokenStore.new(file: file.path)
         authorizer = Google::Auth::UserAuthorizer.new(client_id, SCOPE, token_store)
         authorizer.get_credentials(USERNAME)
+      end
+
+      def parse_date(time_attribute)
+        if time_attribute
+          time_attribute.date_time || DateTime.parse(time_attribute.date)
+        end
       end
     end
   end

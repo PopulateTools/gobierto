@@ -31,7 +31,7 @@ class GobiertoBudgets::BudgetLineIntegrationTest < ActionDispatch::IntegrationTe
 
       assert has_css?(".metric_box h3", text: "Expense plan. / inh.")
       assert has_css?(".metric_box h3", text: "Expense planned")
-      assert has_css?(".metric_box h3", text: "Expense real vs. plan.")
+      assert has_css?(".metric_box h3", text: "% execution")
       assert has_css?(".metric_box h3", text: "% over the total")
       assert has_css?(".metric_box h3", text: "Avg. expense in the province")
       assert page.all(".metric_box .metric").all? { |e| e.text =~ /(\d+)|Not avail./ }

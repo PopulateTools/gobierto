@@ -30,25 +30,26 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
     indexes = presenter::INDEX_KEYS
 
     place_budget_lines = []
-    indexes.each do |index, attribute|
-      index_budget_lines = []
+    GobiertoBudgets::BudgetLine.all_kinds. each do |kind|
       GobiertoBudgets::BudgetArea.all_areas.each do |area|
-        area.available_kinds.each do |kind|
-          index_budget_lines.concat(GobiertoBudgets::BudgetLine.all(where: { year: year,
-                                                                             site: current_site,
-                                                                             place: @place,
-                                                                             area_name: area.area_name,
-                                                                             kind: kind,
-                                                                             index: index },
-                                                                    include: [:index],
-                                                                    presenter: presenter))
-        end
-      end
-      index_budget_lines.each do |line|
-        if idx = place_budget_lines.index { |global_line| global_line.id == line.id }
-          place_budget_lines[idx].merge!(line)
-        else
-          place_budget_lines << line
+        indexes.each do |index, attribute|
+          if area.available_kinds.include?(kind)
+            index_budget_lines = GobiertoBudgets::BudgetLine.all(where: { year: year,
+                                                                          site: current_site,
+                                                                          place: @place,
+                                                                          area_name: area.area_name,
+                                                                          kind: kind,
+                                                                          index: index },
+                                                                 include: [:index],
+                                                                 presenter: presenter)
+            index_budget_lines.each do |line|
+              if idx = place_budget_lines.index { |global_line| global_line.id == line.id }
+                place_budget_lines[idx].merge!(line)
+              else
+                place_budget_lines << line
+              end
+            end
+          end
         end
       end
     end

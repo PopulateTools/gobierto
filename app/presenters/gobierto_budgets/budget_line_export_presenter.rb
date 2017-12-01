@@ -8,7 +8,7 @@ module GobiertoBudgets
     def initialize(attributes)
       super
       @attributes[:index_values] = Hash[INDEX_KEYS.values.product([nil])].tap do |attrs|
-        attrs[INDEX_KEYS[@attributes[:index]]] = @attributes[:total] if @attributes[:index].present?
+        attrs[INDEX_KEYS[@attributes[:index]]] = @attributes[:amount] if @attributes[:index].present?
       end
     end
 

@@ -28,9 +28,7 @@ module ApplicationHelper
   end
 
   def tab_attributes(condition)
-    {
-      role:'tab', 'tabindex' => condition ? 0 : -1, 'aria-selected' => condition
-    }
+    { role:'tab', 'tabindex' => condition ? 0 : -1, 'aria-selected' => condition }
   end
 
   def show_social_links?
@@ -38,7 +36,7 @@ module ApplicationHelper
   end
 
   def full_layout?
-    !((controller_name == "contribution_containers") && (action_name == "show"))
+    controller_name == "contribution_containers" && action_name == "show"
   end
 
   def filetype_icon(attachment)

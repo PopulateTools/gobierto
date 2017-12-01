@@ -34,7 +34,7 @@
   </div>
 <% end %>
 
-<% if full_layout? %>
+<% unless full_layout? %>
   <%= render 'layouts/header' %>
 <% end %>
 
@@ -45,12 +45,8 @@
 
 </div>
 
-<% if full_layout? %>
+<% unless full_layout? %>
   <%= render 'layouts/footer' %>
-<% end %>
-
-<% if Rails.env.production? %>
-  <%= render 'layouts/analytics_footer_site' %>
 <% end %>
 
 <%= yield :javascript_hook %>

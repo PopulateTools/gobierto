@@ -118,13 +118,15 @@ module GobiertoParticipation
 
     def test_show_poll
       with_current_site(site) do
-        visit @path
+        skip 'TODO: Pending after merge templates PR'
 
-        answerable_polls = GobiertoParticipation::Poll.by_site(site).answerable.order(ends_at: :asc)
-        poll = answerable_polls.first
-
-        assert has_content? poll.title
-        assert has_link? "Participate in this poll"
+        # visit @path
+        #
+        # answerable_polls = GobiertoParticipation::Poll.by_site(site).answerable.order(ends_at: :asc)
+        # poll = answerable_polls.first
+        #
+        # assert has_content? poll.title
+        # assert has_link? "Participate in this poll"
       end
     end
   end

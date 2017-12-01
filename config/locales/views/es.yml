@@ -43,8 +43,6 @@ es:
         sign_out: Cerrar sesión
         title: Tu cuenta
       start: Inicio
-    breadcrumb:
-      start: Inicio
     gobierto_budget_consultations:
       application:
         about_the_data: Sobre los datos

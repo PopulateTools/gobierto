@@ -62,6 +62,8 @@ ca:
         issues: Temes
         processes: Processos
         questions: Pregunta
+      process_breadcrumb:
+        root: Inici
       process_menu_subsections:
         contributions: Contribucions
         information: Informació

@@ -60,6 +60,7 @@
 @import "comp-timeline";
 @import "comp-contributions";
 @import "comp-menu-horizontal";
+@import "comp-cms";
 
 @import "comp-graph-treemap";
 @import "comp-graph-vis_lines_table";
@@ -400,6 +401,14 @@ html.turbolinks-progress-bar::before {
   .inner_cols {
     a {
       display: block;
+    }
+  }
+}
+
+body.sessions_new {
+  @include min-screen(768) {
+    .container {
+      padding: 3em 0;
     }
   }
 }

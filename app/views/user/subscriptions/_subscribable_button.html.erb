@@ -9,7 +9,7 @@
     <%= link_to(user_subscription_path(user_subscription),
       remote: true,
       method: :delete,
-      class: "button outline rounded desktop_only follow_process checked") do %>
+      class: "button button-feed") do %>
         <i class="fa fa-star"></i>
         <%= t(".#{subscribable.class.name.demodulize.downcase}_followed") %>
     <% end %>
@@ -23,7 +23,7 @@
       ),
       remote: true,
       method: :post,
-      class: "button outline rounded desktop_only follow_process") do %>
+      class: "button button-feed") do %>
         <i class="fa fa-rss"></i>
         <%= t(".follow_#{subscribable.class.name.demodulize.downcase}") %>
     <% end %>
@@ -31,7 +31,7 @@
 <% else %>
   <%= link_to(
     new_user_sessions_path(open_modal: true),
-    class: "button outline rounded desktop_only open_remote_modal") do %>
+    class: "button button-feed") do %>
       <i class="fa fa-rss"></i>
     <%= t(".follow_#{subscribable.class.name.demodulize.downcase}") %>
   <% end %>

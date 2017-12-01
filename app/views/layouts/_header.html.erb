@@ -1,0 +1,89 @@
+<header class="meta">
+
+  <div class="slim_nav_bar">
+
+    <div class="column pure-g">
+
+      <div class="desktop_only">
+
+        <div class="pure-u-md-1-2">
+          <% if @site.configuration.links_markup.present? %>
+            <%== @site.configuration.links_markup %>
+          <% end %>
+        </div>
+
+        <div class="pure-u-md-1-2 right">
+          <%= render "layouts/user_links" %>
+
+          <span id="subscribable_button">
+            <%= yield(:subscribable_button) %>
+          </span>
+
+          <div class="language_selector">
+            <%= render "layouts/locale_selector" %>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="mobile_only right">
+        <%= link_to "#", class: "nav_control" do %>
+          <i class="fa fa-bars" aria-label="<%= t('layouts.application.start') %>"></i>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+
+  <% if @site.configuration.head_markup.present? %>
+    <%= render_liquid @site.configuration.head_markup %>
+  <% end %>
+
+  <div class="site_header">
+    <div class="column site_header_block">
+
+      <div class="site_header_logo">
+        <div class="site_header_image">
+          <%= link_to(image_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
+        </div>
+      </div>
+
+      <div class="site_header_social">
+
+        <div class="search-box">
+          <i class="fa fa-search"></i>
+          <input id="gobierto_search" name="q" class="search-box_input" type="text" placeholder="<%= t('layouts.application.search') %>" aria-label="<%= t('layouts.application.search') %>">
+
+          <div id="search_results" class="search_result_list"></div>
+        </div>
+
+        <div class="social_links_container" data-share>
+          <% if show_social_links? %>
+            <a class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
+            <a class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+
+    <nav class="main-nav" role="navigation" aria-hidden="false">
+      <div class="column">
+        <% if try(:current_process).nil? %>
+          <% current_site.configuration.modules.each do |site_module| %>
+            <%= render_if_exists "#{site_module.underscore}/layouts/navigation.main" %>
+          <% end %>
+        <% else %>
+          <%= render "gobierto_participation/layouts/process_breadcrumb" %>
+        <% end %>
+      </div>
+    </nav>
+
+    <nav class="sub-nav" role="navigation" aria-hidden="false">
+      <div class="column">
+        <%= render_if_exists "#{current_module}/layouts/navigation.sub" %>
+      </div>
+    </nav>
+
+  </div>
+</header>

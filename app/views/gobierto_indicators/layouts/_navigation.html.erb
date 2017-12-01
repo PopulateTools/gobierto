@@ -1,7 +1,0 @@
-<div class="pure-u-1 pure-u-md-1-4 section">
-  <h2><%= link_to t("gobierto_indicators.layouts.application.indicators"), gobierto_indicators_root_path, data: { turbolinks: false } %></h2>
-
-  <% %W{ poblacion empleo economia }.each do |subsection| %>
-    <%= link_to t("gobierto_indicators.layouts.menu_subsections.#{subsection}"), gobierto_indicators_root_path(anchor: subsection), data: { turbolinks: false } %>
-  <% end %>
-</div>

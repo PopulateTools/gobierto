@@ -1,0 +1,29 @@
+<%= form_for(
+  @site_template_form, as: :site_template,
+  url: @site_template_form.persisted? ? admin_gobierto_core_site_template_path(@site_template_form) : admin_gobierto_core_site_templates_path(template_id: @site_template_form.template_id), remote: true) do |f| %>
+
+  <div class="action_buttons admin_tools">
+    <% if @site_template_form.persisted? %>
+      <%= link_to(admin_gobierto_core_site_template_path(@site_template_form), method: :delete, remote: true) do %>
+        <%= button_tag t(".reset"), class: "rounded outline tipsit", title: t(".reset_title")  %>
+      <% end %>
+    <% else %>
+      <%= button_tag t(".reset"), class: "rounded outline tipsit", title: t(".reset_title")  %>
+    <% end %>
+
+    <button class="rounded"><%= t(".preview") %></button>
+    <%= button_tag(class: "rounded") do %>
+      <%= t(".save") %>
+    <% end %>
+  </div>
+
+  <div class="code_editor">
+    <code>
+      <div class="form_item input_text">
+        <%= f.label :markup %>
+        <%= f.text_area :markup, value: @site_template_form.persisted? ?
+                                        @site_template_form.site_template.markup : @default_template %>
+      </div>
+    </code>
+  </div>
+<% end %>

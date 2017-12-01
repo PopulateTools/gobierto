@@ -18,8 +18,10 @@ Rails.application.routes.draw do
     resource :sessions, only: [:new, :create, :destroy]
     resources :sites, only: [:index, :new, :create, :edit, :update, :destroy]
     namespace :gobierto_core do
-      resources :templates, only: [:index]
-      resources :site_templates, only: [:create, :update]
+      resources :templates, only: [:index] do
+        get :form
+      end
+      resources :site_templates, only: [:create, :update, :destroy]
     end
     resources :issues do
       collection do

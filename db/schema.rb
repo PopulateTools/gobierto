@@ -321,6 +321,22 @@ ActiveRecord::Schema.define(version: 20171128100636) do
     t.index ["site_id"], name: "index_gcms_sections_on_site_id"
   end
 
+  create_table "gcore_site_templates", force: :cascade do |t|
+    t.text "markup"
+    t.bigint "template_id"
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_gcore_site_templates_on_site_id"
+    t.index ["template_id"], name: "index_gcore_site_templates_on_template_id"
+  end
+
+  create_table "gcore_templates", force: :cascade do |t|
+    t.string "template_path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "gobierto_calendars_event_attendees", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "charge"
@@ -662,16 +678,6 @@ ActiveRecord::Schema.define(version: 20171128100636) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "site_templates", force: :cascade do |t|
-    t.text "markup"
-    t.bigint "template_id"
-    t.bigint "site_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["site_id"], name: "index_site_templates_on_site_id"
-    t.index ["template_id"], name: "index_site_templates_on_template_id"
-  end
-
   create_table "sites", id: :serial, force: :cascade do |t|
     t.string "external_id"
     t.string "domain"
@@ -692,12 +698,6 @@ ActiveRecord::Schema.define(version: 20171128100636) do
     t.jsonb "title_translations"
     t.index ["name_translations"], name: "index_sites_on_name_translations", using: :gin
     t.index ["title_translations"], name: "index_sites_on_title_translations", using: :gin
-  end
-
-  create_table "templates", force: :cascade do |t|
-    t.string "template_path"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "translations", id: :serial, force: :cascade do |t|

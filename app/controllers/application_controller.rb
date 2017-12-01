@@ -111,7 +111,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_site_custom_template(template_path)
-    GobiertoCore::SiteTemplate.joins(:template).where("site_templates.site_id = ? AND templates.template_path = ?",
+    GobiertoCore::SiteTemplate.joins(:template).where("gcore_site_templates.site_id = ? AND gcore_templates.template_path = ?",
                                                       current_site.id, template_path)
   end
 end

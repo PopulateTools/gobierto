@@ -2,10 +2,11 @@
 <html lang="<%= I18n.locale %>">
 
 <%= render 'layouts/head' %>
+
 <% if (current_module_body_class == 'gobierto_participation theme-participation') %>
-  <body class = 'gobierto_participation theme-participation'>
+  <body class="gobierto_participation theme-participation">
 <% elsif (current_module_body_class == 'gobierto_participation theme-participation' && controller_name == 'process_information') %>
-  <body class = 'gobierto_participation theme-participation content'>
+  <body class="gobierto_participation theme-participation content">
 <% elsif controller_name == "pages" && action_name == "show" %>
   <body>
 <% else %>

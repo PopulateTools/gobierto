@@ -8,68 +8,12 @@
 
         <div class="pure-u-md-1-2">
           <% if @site.configuration.links_markup.present? %>
-            <%= raw @site.configuration.links_markup %>
+            <%== @site.configuration.links_markup %>
           <% end %>
         </div>
 
         <div class="pure-u-md-1-2 right">
-          <div class="user_links">
-            <div class="pure-menu pure-menu-horizontal">
-
-              <% if user_signed_in? %>
-                <ul class="pure-menu-list left">
-                  <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                    <a href="#" class="pure-menu-link">
-                      <%= t("layouts.application.session.title") %>
-                    </a>
-                    <ul class="pure-menu-children">
-                      <li class="pure-menu-item">
-                        <%= link_to user_settings_path, class: "pure-menu-link" do %>
-                          <i class="fa fa-ship"></i>
-                          <%= t("layouts.application.session.title") %>
-                        <% end %>
-                      </li>
-                      <li class="pure-menu-item">
-                        <%= link_to user_notifications_path, class: "pure-menu-link" do %>
-                          <i class="fa fa-th"></i>
-                          <%= t("layouts.application.session.notifications") %>
-                        <% end %>
-                      </li>
-                      <li class="pure-menu-item">
-                        <%= link_to user_subscriptions_path, class: "pure-menu-link" do %>
-                          <i class="fa fa-envelope-o"></i>
-                          <%= t("layouts.application.session.alerts") %>
-                        <% end %>
-                      </li>
-                      <li class="pure-menu-item">
-                        <%= link_to user_sessions_path, method: :delete, class: "pure-menu-link" do %>
-                          <i class="fa fa-sign-out"></i>
-                          <%= t("layouts.application.session.sign_out") %>
-                        <% end %>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              <% else %>
-                <ul class="pure-menu-list left">
-                  <li class="pure-menu-item">
-                    <%= link_to new_user_sessions_path, class: "pure-menu-link" do %>
-                      <i class="fa fa-sign-in"></i>
-                      <%= t("layouts.application.session.sign_in") %>
-                    <% end %>
-                  </li>
-                </ul>
-              <% end %>
-
-            </div>
-          </div>
-
-          <% if false %>
-            <button type="button" class="button-feed">
-              <i class="fa fa-rss" aria-label="<%=  %>"></i>
-              Sigue este proceso
-            </button>
-          <% end %>
+          <%= render "layouts/user_links" %>
 
           <span id="subscribable_button">
             <%= yield(:subscribable_button) %>
@@ -133,10 +77,11 @@
             <%= render_if_exists "#{site_module.underscore}/layouts/navigation.main" %>
           <% end %>
         <% else %>
-          <%= render partial: "gobierto_participation/layouts/process_breadcrumb" %>
+          <%= render "gobierto_participation/layouts/process_breadcrumb" %>
         <% end %>
       </div>
     </nav>
+
     <nav class="sub-nav" role="navigation" aria-hidden="false">
       <div class="column">
         <%= render_if_exists "#{current_module}/layouts/navigation.sub" %>

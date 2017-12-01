@@ -21,26 +21,18 @@
     <% end %>
   </div>
 
-  <div class="code_editor">
-    <div class="form_item input_text">
-      <%= f.label :markup %>
-      <%= f.text_area :markup, value: @site_template_form.persisted? ?
-                                      @site_template_form.site_template.markup : @default_template, id: "code" %>
-    </div>
-
-    <script>
-      var te_html = document.getElementById("code");
-
-      window.editor_html = CodeMirror.fromTextArea(te_html, {
-        mode: "text/html",
-        lineNumbers: true,
-        lineWrapping: true,
-        extraKeys: {"Ctrl-Q": function(cm){ cm.foldCode(cm.getCursor()); }},
-        foldGutter: true,
-        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
-      });
-      editor_html.foldCode(CodeMirror.Pos(0, 0));
-      editor_html.foldCode(CodeMirror.Pos(34, 0));
-    </script>
+  <div class="form_item input_text">
+    <%= f.label :markup %>
+    <%= f.text_area :markup,
+                    value: @site_template_form.persisted? ?
+                           @site_template_form.site_template.markup : @default_template,
+                    id: "code" %>
   </div>
+
+<% end %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.gobierto_core_controller.index();
+  <% end %>
 <% end %>

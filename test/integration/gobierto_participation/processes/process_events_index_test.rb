@@ -18,6 +18,10 @@ module GobiertoParticipation
       )
     end
 
+    def user
+      @user ||= users(:peter)
+    end
+
     def process_events
       process.events
     end
@@ -26,9 +30,8 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_events_path
 
-        within ".global_breadcrumb" do
+        within ".main-nav" do
           assert has_link? "Participation"
-          assert has_link? "Processes"
           assert has_link? process.title
         end
       end
@@ -38,7 +41,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_events_path
 
-        within "menu.sub_sections" do
+        within ".sub-nav" do
           assert has_link? "Information"
           assert has_link? "Meetings"
 
@@ -68,11 +71,21 @@ module GobiertoParticipation
     end
 
     def test_subscription_block
-      with_current_site(site) do
-        visit process_events_path
+      with_javascript do
+        with_current_site(site) do
+          with_signed_in_user(user) do
+            visit process_events_path
 
-        within ".site_header" do
-          skip "Not yet defined"
+            within ".slim_nav_bar" do
+              assert has_link? "Follow process"
+            end
+
+            click_on "Follow process"
+            assert has_link? "Process followed!"
+
+            click_on "Process followed!"
+            assert has_link? "Follow process"
+          end
         end
       end
     end

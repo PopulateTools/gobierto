@@ -26,9 +26,8 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_contribution_containers_path
 
-        within ".global_breadcrumb" do
+        within ".main-nav" do
           assert has_link? "Participation"
-          assert has_link? "Processes"
           assert has_link? process.title
         end
       end
@@ -38,7 +37,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_contribution_containers_path
 
-        within "menu.sub_sections" do
+        within ".sub-nav" do
           assert has_link? "Information"
           assert has_link? "Meetings"
           assert has_link? "Polls"
@@ -65,7 +64,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_contribution_containers_path
 
-        within ".site_header" do
+        within ".slim_nav_bar" do
           assert has_content? "Follow process"
         end
       end

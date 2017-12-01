@@ -21,9 +21,8 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within ".global_breadcrumb" do
+        within ".main-nav" do
           assert has_link? "Participation"
-          assert has_link? "Issues"
         end
       end
     end
@@ -32,7 +31,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within "menu.sub_sections" do
+        within ".sub-nav" do
           assert has_content? "About"
           assert has_content? "Issues"
           assert has_content? "Processes"

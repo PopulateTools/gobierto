@@ -7,7 +7,14 @@ module GobiertoAdmin
         @template = find_template
         @site_template_form = SiteTemplateForm.new(site_template_params.merge(site_id: current_site.id,
                                                                               template_id: @template.id))
-        @site_template_form.save
+        if @site_template_form.save
+          @site_template_form = SiteTemplateForm.new(
+            @site_template_form.site_template.attributes.except(*ignored_site_templates_attributes)
+          )
+          respond_to do |format|
+            format.js { flash.now[:notice] = t(".success") }
+          end
+        end
       end
 
       def update
@@ -19,7 +26,11 @@ module GobiertoAdmin
                                      template_id: @site_template.template_id)
         )
 
-        @site_template_form.save
+        if @site_template_form.save
+          respond_to do |format|
+            format.js { flash.now[:notice] = t(".success") }
+          end
+        end
       end
 
       def destroy
@@ -29,10 +40,10 @@ module GobiertoAdmin
 
         @default_template = File.read("app/views/" + @site_template.template.template_path)
 
-        @site_template.destroy
-
-        respond_to do |format|
-          format.js { render layout: false }
+        if @site_template.destroy
+          respond_to do |format|
+            format.js { flash.now[:notice] = t(".success") }
+          end
         end
       end
 
@@ -44,6 +55,10 @@ module GobiertoAdmin
           :site_id,
           :template_id
         )
+      end
+
+      def ignored_site_templates_attributes
+        %w(created_at updated_at)
       end
 
       def find_site_template

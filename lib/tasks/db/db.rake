@@ -25,10 +25,11 @@ namespace :db do
         puts "Anonymizing all Admins in the #{ENV["RAILS_ENV"]} database."
 
         GobiertoAdmin::Admin.all.each do |admin|
-          seed = Digest::SHA1.hexdigest("#{Time.current}#{rand(100)}#{admin.id}")[0..19]
-
-          admin.name = "admin #{seed}" unless admin.email.include?("populate.tools")
-          admin.email = "admin-#{seed}@gobierto.tools" unless admin.email.include?("populate.tools")
+          unless admin.god?
+            seed = Digest::SHA1.hexdigest("#{Time.current}#{rand(100)}#{admin.id}")[0..19]
+            admin.name = "admin #{seed}" unless admin.email.include?("populate.tools")
+            admin.email = "admin-#{seed}@gobierto.tools" unless admin.email.include?("populate.tools")
+          end
           admin.password = "gobierto"
           admin.password_confirmation = "gobierto"
           puts "Saving #{admin.name} (#{admin.email})"
@@ -50,7 +51,8 @@ namespace :db do
         puts "Changing all Sites to gobierto.dev in the #{ENV["RAILS_ENV"]} database."
 
         Site.all.each do |site|
-          site.domain = site.domain.gsub("gobify.net", "gobierto.dev")
+          subdomain = site.domain.split('.').first
+          site.domain = subdomain + ".gobierto.dev"
           site.save
         end
 

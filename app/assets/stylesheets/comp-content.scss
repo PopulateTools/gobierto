@@ -36,7 +36,7 @@
 }
 .content {
   .inner,
-  // article:not(.news_article) 
+  // article:not(.news_article)
   {
     max-width: 650px;
     margin: 0 auto;
@@ -82,9 +82,15 @@
     }
 
     h2 {
-      font-size: 1.875em;
+      font-size: $f4;
       padding-bottom: 0.5em;
       border-bottom: 1px solid #DEEFF1;
+    }
+    h3 {
+      font-size: $f5;
+    }
+    h4 {
+      font-size: $f6;
     }
 
     h3 {

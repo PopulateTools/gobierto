@@ -1,6 +1,0 @@
-<div class="pure-u-1 pure-u-md-1-4 section">
-  <h2><%= link_to section.title , gobierto_cms_section_path(section.slug) %></h2>
-  <% section.section_items.first_level.each do |section_item| %>
-    <%= link_to section_item.item.title , section_item.item.to_url %>
-  <% end %>
-</div>

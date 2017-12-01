@@ -1,0 +1,3 @@
+<div class="main-nav-item<%= class_if(' active', @section && @section == section) %>">
+  <%= link_to section.title , gobierto_cms_section_path(section.slug), data: { turbolinks: false } %>
+</div>

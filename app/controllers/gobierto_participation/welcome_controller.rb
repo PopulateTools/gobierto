@@ -14,7 +14,7 @@ module GobiertoParticipation
       liquid_str = if current_site_has_custom_template?(liquid_path)
                      current_site_custom_template(liquid_path).first.markup
                    else
-                     liquid_str = File.read("app/views/" + liquid_path)
+                     File.read("app/views/" + liquid_path)
                    end
 
       liquid = Liquid::Template.parse(liquid_str)

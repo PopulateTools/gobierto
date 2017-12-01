@@ -5,13 +5,17 @@
   <div class="action_buttons admin_tools">
     <% if @site_template_form.persisted? %>
       <%= link_to(admin_gobierto_core_site_template_path(@site_template_form), method: :delete, remote: true) do %>
-        <%= button_tag t(".reset"), class: "rounded outline tipsit", title: t(".reset_title")  %>
+        <%= button_tag t(".reset"), class: "rounded outline tipsit", title: t(".reset_title") %>
       <% end %>
     <% else %>
-      <%= button_tag t(".reset"), class: "rounded outline tipsit", title: t(".reset_title")  %>
+      <%= button_tag t(".reset"), class: "rounded outline tipsit", title: t(".reset_title") %>
     <% end %>
 
-    <button class="rounded"><%= t(".preview") %></button>
+    <!-- TODO: Preview -->
+    <!--%= todo_link_to do %-->
+      <!--%= button_tag t(".preview"), class: "rounded" %-->
+    <!--% end %-->
+
     <%= button_tag(class: "rounded") do %>
       <%= t(".save") %>
     <% end %>

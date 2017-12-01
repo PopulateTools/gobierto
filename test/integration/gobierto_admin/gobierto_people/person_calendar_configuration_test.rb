@@ -269,7 +269,7 @@ module GobiertoAdmin
 
             click_button "Update"
 
-            assert has_text?("Account can't be blank")
+            assert has_text?("Username can't be blank")
             assert has_text?("Password can't be blank")
             assert has_text?("URL can't be blank")
 
@@ -277,7 +277,7 @@ module GobiertoAdmin
 
             click_button "Update"
 
-            assert has_text?("Account can't be blank")
+            assert has_text?("Username can't be blank")
             assert has_text?("Password can't be blank")
             assert has_text?("URL can't be blank")
           end

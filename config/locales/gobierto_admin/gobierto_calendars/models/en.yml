@@ -5,10 +5,10 @@ en:
       gobierto_admin/gobierto_calendars/calendar_configuration_form:
         ibm_notes_pwd: Password
         ibm_notes_url: URL
-        ibm_notes_usr: Account
+        ibm_notes_usr: Username
         microsoft_exchange_pwd: Password
         microsoft_exchange_url: URL
-        microsoft_exchange_usr: Account
+        microsoft_exchange_usr: Username
       gobierto_admin/gobierto_calendars/event_form:
         attachment_file: Attached file
         description: Description

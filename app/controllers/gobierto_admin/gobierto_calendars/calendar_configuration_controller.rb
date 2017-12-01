@@ -9,7 +9,7 @@ module GobiertoAdmin
       before_action :load_collection, :collection_container_allowed!
 
       def edit
-        @calendar_configuration_form = CalendarConfigurationForm.new(collection_id: @collection.id)
+        @calendar_configuration_form = CalendarConfigurationForm.new(current_site: current_site, collection_id: @collection.id)
         load_calendar_integrations
         @google_calendar_configuration = find_google_calendar_configuration
         load_calendars
@@ -19,7 +19,7 @@ module GobiertoAdmin
 
       def update
         @calendar_configuration_form = CalendarConfigurationForm.new(
-          calendar_configuration_params.merge(collection_id: @collection.id)
+          calendar_configuration_params.merge(current_site: current_site, collection_id: @collection.id)
         )
 
         if @calendar_configuration_form.save
@@ -36,7 +36,7 @@ module GobiertoAdmin
       private
 
       def load_collection
-        @collection = ::GobiertoCommon::Collection.find(params[:id])
+        @collection = current_site.collections.find(params[:id])
       end
 
       def load_calendar_integrations

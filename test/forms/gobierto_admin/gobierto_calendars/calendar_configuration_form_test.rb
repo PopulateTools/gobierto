@@ -19,6 +19,7 @@ module GobiertoAdmin
 
       def ibm_notes_calendar_configuration_attributes
         @calendar_configuration_attributes ||= {
+          current_site: site,
           collection_id: collection.id,
           calendar_integration: 'ibm_notes',
           ibm_notes_usr: 'ibm-username',
@@ -37,6 +38,7 @@ module GobiertoAdmin
 
       def microsoft_exchange_calendar_configuration_attributes
         @microsoft_exchange_credentials ||= {
+          current_site: site,
           collection_id: collection.id,
           calendar_integration: 'microsoft_exchange'
         }.merge(microsfot_exchange_configuration)

@@ -7,6 +7,7 @@ module GobiertoAdmin
       ENCRYPTED_SETTING_PLACEHOLDER = 'encrypted_setting_placeholder'
 
       attr_accessor(
+        :current_site,
         :calendar_integration,
         :collection_id,
         :ibm_notes_usr,
@@ -144,7 +145,7 @@ module GobiertoAdmin
       end
 
       def collection
-        @collection ||= ::GobiertoCommon::Collection.find_by(id: collection_id)
+        @collection ||= current_site.collections.find_by(id: collection_id)
       end
 
       def base_calendar_configuration_class

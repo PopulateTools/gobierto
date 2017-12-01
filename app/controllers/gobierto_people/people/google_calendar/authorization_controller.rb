@@ -42,8 +42,16 @@ module GobiertoPeople
         end
 
         def load_google_calendar_configuration
-          @configuration = ::GobiertoCalendars::GoogleCalendarConfiguration.find_by(collection_id: @person.calendar.id)
+          @configuration = ::GobiertoCalendars::GoogleCalendarConfiguration.find_by(collection_id: @person.calendar.id) || build_google_calendar_configuration
           @configuration.integration_name = 'google_calendar'
+        end
+
+        def build_google_calendar_configuration
+          ::GobiertoCalendars::GoogleCalendarConfiguration.new(
+            collection: @person.calendar,
+            integration_name: 'google_calendar',
+            data: {}
+          )
         end
 
         def client_secret_path

@@ -5,10 +5,10 @@ ca:
       gobierto_admin/gobierto_calendars/calendar_configuration_form:
         ibm_notes_pwd: La contrasenya
         ibm_notes_url: La URL
-        ibm_notes_usr: La compte
+        ibm_notes_usr: El nom d'usuari
         microsoft_exchange_pwd: La contrasenya
         microsoft_exchange_url: La URL
-        microsoft_exchange_usr: La compte
+        microsoft_exchange_usr: El nom d'usuari
       gobierto_admin/gobierto_calendars/event_form:
         attachment_file: Fitxer adjunt
         description: Descripció

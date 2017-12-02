@@ -64,6 +64,8 @@ es:
         issues: Temas
         processes: Procesos
         questions: Pregunta
+      process_breadcrumb:
+        root: Inicio
       process_menu_subsections:
         contributions: Aportaciones
         information: Información

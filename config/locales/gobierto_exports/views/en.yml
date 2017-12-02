@@ -6,6 +6,3 @@ en:
         no_submodules: There aren't any active submodules
         subtitle: In this page you can download the site data in a reusable format.
         title: Download data
-    layouts:
-      application:
-        exports: Download data

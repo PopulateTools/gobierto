@@ -29,23 +29,11 @@ module GobiertoParticipation
       @groups ||= site.processes.group_process.where(issue: issue)
     end
 
-    def test_breadcrumb_items
-      with_current_site(site) do
-        visit @path
-
-        within ".global_breadcrumb" do
-          assert has_link? "Participation"
-          assert has_link? "Issues"
-          assert has_link? issue.name
-        end
-      end
-    end
-
     def test_menu_subsections
       with_current_site(site) do
         visit @path
 
-        within "menu.sub_sections" do
+        within ".sub-nav" do
           assert has_link? "About"
           assert has_link? "Issues"
           assert has_link? "Processes"
@@ -76,7 +64,7 @@ module GobiertoParticipation
 
         assert_equal gobierto_participation_issue_pages_path(issue_id: issue.slug), current_path
 
-        within ".global_breadcrumb" do
+        within ".main-nav" do
           assert has_link? "Participation"
         end
 
@@ -92,7 +80,7 @@ module GobiertoParticipation
 
         assert_equal gobierto_participation_issue_events_path(issue_id: issue.slug), current_path
 
-        within ".global_breadcrumb" do
+        within ".main-nav" do
           assert has_link? "Participation"
         end
       end
@@ -106,7 +94,7 @@ module GobiertoParticipation
 
         assert_equal gobierto_participation_issue_attachments_path(issue_id: issue.slug), current_path
 
-        within ".global_breadcrumb" do
+        within ".main-nav" do
           assert has_link? "Participation"
         end
 
@@ -122,7 +110,7 @@ module GobiertoParticipation
 
         assert_equal gobierto_participation_issue_activities_path(issue_id: issue.slug), current_path
 
-        within ".global_breadcrumb" do
+        within ".main-nav" do
           assert has_link? "Participation"
         end
 
@@ -136,7 +124,7 @@ module GobiertoParticipation
           with_signed_in_user(user) do
             visit @path
 
-            within ".site_header" do
+            within ".slim_nav_bar" do
               assert has_link? "Follow theme"
             end
 

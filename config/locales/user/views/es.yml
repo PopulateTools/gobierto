@@ -2,8 +2,6 @@
 es:
   user:
     layouts:
-      application:
-        account: Tu cuenta
       menu_subsections:
         admin: Ajustes
         alerts: Alertas

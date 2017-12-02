@@ -7,6 +7,3 @@ ca:
         subtitle: Des d'aquesta pàgina pots descarregar en format reutilitzable el
           contingut d'aquesta web
         title: Descarrega dades
-    layouts:
-      application:
-        exports: Descarrega dades

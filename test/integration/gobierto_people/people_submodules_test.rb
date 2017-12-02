@@ -32,8 +32,7 @@ module GobiertoPeople
       with_current_site(site) do
         visit @path
 
-        within "#main_menu" do
-          assert has_selector? "h2", text: "Officials and Agendas"
+        within ".sub-nav" do
           assert has_content? "Agendas"
           assert has_content? "Officials"
           assert has_content? "Statements"
@@ -44,8 +43,7 @@ module GobiertoPeople
 
         visit @path
 
-        within "#main_menu" do
-          assert has_selector? "h2", text: "Officials and Agendas"
+        within ".sub-nav" do
           assert has_content? "Agendas"
           assert has_content? "Officials"
           assert has_content? "Statements"
@@ -57,9 +55,8 @@ module GobiertoPeople
 
         visit @path
 
-        within "#main_menu" do
-          refute has_content? "Officials and Agendas"
-          assert has_selector? "h2", text: "Agendas"
+        within ".sub-nav" do
+          assert has_content? "Agendas"
           refute has_content? "Officials"
           refute has_content? "Statements"
           refute has_content? "Blogs"

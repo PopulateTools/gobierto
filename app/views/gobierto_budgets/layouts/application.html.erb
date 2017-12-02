@@ -6,12 +6,4 @@
   <%= data_attributes %>
 <% end %>
 
-<% content_for :breadcrumb_items do %>
-  <strong>
-    <%= link_to t('.budgets'), gobierto_budgets_budgets_path %>
-  </strong>
-  <span role="separator">/</span>
-  <%= yield(:breadcrumb_current_item) %>
-<% end %>
-
 <%= render template: "layouts/application" %>

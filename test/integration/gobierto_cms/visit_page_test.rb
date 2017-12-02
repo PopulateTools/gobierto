@@ -21,16 +21,6 @@ module GobiertoCms
       @attachments ||= cms_page.attachments
     end
 
-    def test_breadcrumb_items
-      with_current_site(site) do
-        visit @path
-
-        within ".global_breadcrumb" do
-          assert has_link? cms_page.collection.title
-        end
-      end
-    end
-
     def test_breadcrumb_page
       with_current_site(site) do
         visit @path

@@ -2,12 +2,4 @@
   <%= javascript_include_tag 'user/application', 'data-turbolinks-track' => true %>
 <% end %>
 
-<% content_for :breadcrumb_items do %>
-  <strong>
-    <%= link_to t('.account'), user_root_path %>
-  </strong>
-  <span role="separator">/</span>
-  <%= yield(:breadcrumb_current_item) %>
-<% end %>
-
 <%= render template: "layouts/application" %>

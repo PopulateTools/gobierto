@@ -15,7 +15,7 @@ module GobiertoPeople
     private
 
     def check_active_submodules
-      if !blog_submodule_active?
+      if !blogs_submodule_active?
         redirect_to gobierto_people_root_path
       end
     end

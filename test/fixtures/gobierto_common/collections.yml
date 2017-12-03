@@ -90,6 +90,6 @@ site_pages:
   title_translations: <%= {'en' => 'Site pages', 'es' => 'Páginas del sitio' }.to_json %>
   slug: site-pages
   container: madrid (Site)
-  item_type: GobiertoCms::News
+  item_type: GobiertoCms::Page
 
 ## /end

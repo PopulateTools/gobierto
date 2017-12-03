@@ -5,7 +5,6 @@ module GobiertoCommon
     extend ActiveSupport::Concern
 
     included do
-
       def section_id
         unless GobiertoCms::SectionItem.where(item: self).empty?
           GobiertoCms::SectionItem.where(item: self).first.section.id
@@ -21,6 +20,14 @@ module GobiertoCommon
           else
             GobiertoCms::SectionItem.where(item: self).first.parent.try(:id)
           end
+        else
+          nil
+        end
+      end
+
+      def position
+        unless GobiertoCms::SectionItem.where(item: self).empty?
+          GobiertoCms::SectionItem.where(item: self).first.position
         else
           nil
         end

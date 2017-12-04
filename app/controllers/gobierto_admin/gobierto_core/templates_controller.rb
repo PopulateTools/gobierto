@@ -24,7 +24,7 @@ module GobiertoAdmin
         end
       end
 
-      def form
+      def edit
         template = find_template
         @default_template = File.read("app/views/" + template.template_path)
 

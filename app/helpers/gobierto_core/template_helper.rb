@@ -11,7 +11,7 @@ module GobiertoCore
           html << template_tree_tag(v)
         else
           html << "<li><i class='fa fa-file-o'></i>" +
-                  link_to(k, admin_gobierto_core_template_form_path(::GobiertoCore::Template.where("template_path LIKE ?", "%" + k).first), remote: true) + "</li>"
+                  link_to(k, admin_gobierto_core_template_edit_path(::GobiertoCore::Template.where("template_path LIKE ?", "%" + k).first), remote: true) + "</li>"
         end
       end
       html << "</ul>"

@@ -52,6 +52,19 @@ h1, h2, h3, h4 {
       }
     }
   }
+  .common-links {
+    text-transform: uppercase;
+    font-weight: 200;
+
+    > span::after {
+      content: "\00b7";
+      margin: 0 14px;
+    }
+
+    > span:last-child::after {
+      content: none;
+    }
+  }
 }
 .with_separator {
   font-size: 1.25em;
@@ -180,7 +193,7 @@ p.intro {
     padding: 2em 0;
     max-width: 500px;
   }
-}    
+}
 .content_block {
   text-align: left;
   position: relative;

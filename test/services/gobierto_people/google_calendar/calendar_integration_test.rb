@@ -28,6 +28,8 @@ module GobiertoPeople
         date1.stubs(date_time: Time.now)
         date2 = mock
         date2.stubs(date_time: 1.hour.from_now)
+        invalid_date = mock
+        invalid_date.stubs(date_time: Time.now + 4.months)
 
         # Private event, ignored
         event1 = mock
@@ -81,6 +83,11 @@ module GobiertoPeople
         event6.stubs(visibility: nil, location: nil, creator: creator_event3, recurrence: nil, id: "event4_instance_2",
                      summary: "Event 6", start: date1, end: date2, attendees: [attendee1, attendee2], description: "")
 
+        # Instance 3 of recurring event event4
+        event8 = mock
+        event8.stubs(visibility: nil, location: nil, creator: creator_event3, recurrence: nil, id: "event4_instance_3",
+                     summary: "Event 8", start: invalid_date, end: invalid_date, attendees: [], description: "")
+
         calendar1 = mock
         calendar1.stubs(id: google_calendar_id, primary?: true)
 
@@ -100,7 +107,7 @@ module GobiertoPeople
         calendar_3_items_response.stubs(:items).returns([event7])
 
         event_4_instances_response = mock
-        event_4_instances_response.stubs(:items).returns([event5, event6])
+        event_4_instances_response.stubs(:items).returns([event5, event6, event8])
 
         calendar_items_response = mock
         calendar_items_response.stubs(:items).returns([calendar1, calendar2, calendar3])

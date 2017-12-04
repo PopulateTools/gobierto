@@ -53,6 +53,14 @@ module GobiertoPeople
                                              "end"      => { "date" => "2017-04-11", "time" => "11:00:00", "utc" => true })
       end
 
+      def create_ibm_notes_event_recurring_invalid_event(params = {})
+        ::IbmNotes::PersonEvent.new(richard, "id" => params[:id] || "Ibm Notes event ID",
+                                             "summary"  => params[:summary] || "Ibm Notes event summary",
+                                             "location" => params.has_key?(:location) ? params[:location] : "Ibm Notes event location",
+                                             "start"    => { "date" => "2037-04-11", "time" => "10:00:00", "utc" => true },
+                                             "end"      => { "date" => "2037-04-11", "time" => "11:00:00", "utc" => true })
+      end
+
       def new_ibm_notes_event
         @new_ibm_notes_event ||= create_ibm_notes_event(
           id: "Ibm Notes new event ID",
@@ -66,6 +74,18 @@ module GobiertoPeople
           id: "Ibm Notes outdated event ID",
           summary: "Ibm Notes outdated event title - THIS HAS CHANGED",
           location: "Ibm Notes outdated event location - THIS HAS CHANGED"
+        )
+      end
+
+      def ibm_notes_curring_future_event
+        @ibm_notes_event_gobierto_event ||= GobiertoCalendars::Event.new(
+          site: site,
+          external_id: "Ibm Notes event future ID",
+          title: "Ibm Notes event future title",
+          starts_at: utc_time("2037-04-11 10:00:00"),
+          ends_at:   utc_time("2037-04-11 11:00:00"),
+          state: GobiertoCalendars::Event.states["published"],
+          collection: richard.events_collection
         )
       end
 
@@ -314,6 +334,20 @@ module GobiertoPeople
         end
 
         assert_equal 4, attendees.reload.size
+      end
+
+      def test_sync_invalid_recurring_event
+        ibm_notes_event = create_ibm_notes_event_recurring_invalid_event(location: nil)
+
+        CalendarIntegration.sync_event(ibm_notes_event, true)
+
+        gobierto_event = GobiertoCalendars::Event.find_by(external_id: ibm_notes_event.id)
+        assert gobierto_event.nil?
+
+        CalendarIntegration.sync_event(ibm_notes_event, false)
+
+        gobierto_event = GobiertoCalendars::Event.find_by(external_id: ibm_notes_event.id)
+        assert gobierto_event.present?
       end
     end
   end

@@ -77,10 +77,6 @@ module GobiertoCms
       where(id: ids, site: site)
     end
 
-    def self.first_page_in_section(section)
-      GobiertoCms::SectionItem.find_by!(section: section, position: 0, level: 0).item
-    end
-
     def attributes_for_slug
       [title]
     end

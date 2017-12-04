@@ -910,6 +910,26 @@ $lighter_black: rgba($color_headers, .7);
         padding: 2em 4em 8em;
         text-align: center;
 
+        .poll_question.with_media {
+          .poll_option {
+            display: flex;
+            border-top: 1px solid $color_separator;
+            padding: 1em 0 0 0;
+
+            .button {
+              align-self: flex-start;
+              min-width: 35%;
+            }
+            .media {
+              margin: 0 0 0 1em;
+              img {
+                height: auto;
+                max-width: 100%;
+              }
+            }
+          }
+        }
+
         .poll_option {
           margin: 0 0 1em;
         }

@@ -7,7 +7,7 @@ module GobiertoCms
     belongs_to :item, polymorphic: true
     belongs_to :section
     belongs_to :parent, class_name: "GobiertoCms::SectionItem", foreign_key: "parent_id"
-    has_many :children, dependent: :destroy, class_name: "GobiertoCms::SectionItem", foreign_key: "parent_id"
+    has_many :children, -> { sorted }, dependent: :destroy, class_name: "GobiertoCms::SectionItem", foreign_key: "parent_id"
 
     after_commit :reindex_item, on: [:create, :update]
 

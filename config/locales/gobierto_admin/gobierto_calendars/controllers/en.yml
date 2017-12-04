@@ -2,6 +2,9 @@
 en:
   gobierto_admin:
     gobierto_calendars:
+      calendar_configuration:
+        update:
+          success: Settings updated successfully
       events:
         create:
           success_html: Event was successfully created. <a href="%{link}">See the

@@ -22,6 +22,7 @@ fixtures_to_load = [
   "gobierto_calendars/events",
   "gobierto_calendars/event_locations",
   "gobierto_calendars/event_attendees",
+  "gobierto_calendars/calendar_configurations",
   "gobierto_cms/pages",
   "gobierto_cms/sections",
   "gobierto_cms/section_items",

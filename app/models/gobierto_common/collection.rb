@@ -6,6 +6,7 @@ module GobiertoCommon
     belongs_to :site
     belongs_to :container, polymorphic: true
     has_many :collection_items, dependent: :destroy
+    has_one :calendar_configuration, class_name: 'GobiertoCalendars::CalendarConfiguration'
 
     translates :title
 
@@ -107,6 +108,23 @@ module GobiertoCommon
                                             item_type: item_type
         end
       end
+    end
+
+    def calendar_integration
+      if calendar_configuration
+        case calendar_configuration.integration_name
+        when 'ibm_notes'
+          GobiertoPeople::IbmNotes::CalendarIntegration
+        when 'google_calendar'
+          GobiertoPeople::GoogleCalendar::CalendarIntegration
+        when 'microsoft_exchange'
+          GobiertoPeople::MicrosoftExchange::CalendarIntegration
+        end
+      end
+    end
+
+    def container_printable_name
+      container.try(:name) || container.try(:title)
     end
 
     private

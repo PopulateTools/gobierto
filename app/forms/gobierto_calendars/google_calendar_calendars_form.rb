@@ -1,5 +1,5 @@
-module GobiertoPeople
-  class PersonGoogleCalendarCalendarsForm
+module GobiertoCalendars
+  class GoogleCalendarCalendarsForm
     include ActiveModel::Model
 
     attr_accessor(
@@ -25,7 +25,7 @@ module GobiertoPeople
     end
 
     def google_calendar_configuration
-      @google_calendar_configuration ||= person_google_calendar_configuration_class.find_by(person_id: person.id)
+      @google_calendar_configuration ||= google_calendar_configuration_class.find_by(collection: person.calendar)
     end
 
     private
@@ -34,8 +34,8 @@ module GobiertoPeople
       ::GobiertoPeople::Person
     end
 
-    def person_google_calendar_configuration_class
-      ::GobiertoPeople::PersonGoogleCalendarConfiguration
+    def google_calendar_configuration_class
+      ::GobiertoCalendars::GoogleCalendarConfiguration
     end
 
     def save_google_calendar_configuration

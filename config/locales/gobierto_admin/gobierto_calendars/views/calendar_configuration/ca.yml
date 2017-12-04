@@ -1,0 +1,28 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_calendars:
+      calendar_configuration:
+        edit:
+          calendar_integration: Integració de calendari
+          google_calendar: Google Calendar
+          ibm_notes: IBM Notes
+          labels:
+            ibm_notes_pwd: Contrasenya
+            ibm_notes_url: URL del calendari d'IBM Notes
+            ibm_notes_usr: Compte de IBM Notes
+            microsoft_exchange_pwd: Contrasenya
+            microsoft_exchange_url: URL del calendari
+            microsoft_exchange_usr: Compte de Microsoft Exchange
+          microsoft_exchange: Microsoft Exchange
+          placeholders:
+            ibm_notes_url: ex. https://example.com/mail/abc.nsf/api/calendar/events
+            microsoft_exchange_url: ex. https://example.com/ews/exchange.asmx
+            username: ex. perico85
+          remove_configuration: Eliminar configuració
+        gobierto_people_person_navigation:
+          calendar_configuration: Configuració del calendari
+        google_calendar_fields:
+          calendar_configured: Actualment esta persona té aquestos calendaris configurats
+          share_link: 'Comparteix aquest enllaç amb el alt càrrec per a permetre a
+            Gobierto llegir els seus esdeveniments de Google Calendar:'

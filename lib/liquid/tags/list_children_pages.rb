@@ -28,18 +28,19 @@ class ListChildrenPages < Liquid::Tag
 
   def children_pages(nodes, level)
     html = []
-    if nodes.any?
-      html << "<div class='page_children'>"
-      nodes.each do |node|
-        html << "<div class='page_child'>"
-        html << "<a href='" + node.item.to_url + "'>" + node.item.title + "</a>"
-        level -= 1
-        if node.children.any? && level != 0
-          html << children_pages(node.children, level)
+    if level.positive?
+      if nodes.any?
+        html << "<div class='page_children'>"
+        nodes.each do |node|
+          html << "<div class='page_child'>"
+          html << "<a href='" + node.item.to_path + "'>" + node.item.title + "</a>"
+          if node.children.any? && level.positive?
+            html << children_pages(node.children, level - 1)
+          end
+          html << "</div>"
         end
         html << "</div>"
       end
-      html << "</div>"
     end
     html.join.html_safe
   end

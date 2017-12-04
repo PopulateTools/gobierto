@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include SubmodulesHelper
   include ::GobiertoCommon::ModuleHelper
   include ::GobiertoCommon::FileUploadHelper
+  include ::GobiertoCms::GlobalNavigation
 
   protect_from_forgery with: :exception
 

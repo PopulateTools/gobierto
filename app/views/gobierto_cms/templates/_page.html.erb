@@ -1,60 +1,60 @@
-  <div class="column cms_page">
-    <main class="content">
-      <div class="pure-g">
-        <div class="pure-u-1 pure-u-md-1-4" data-sidebar>
-          <menu class="side_navigation">
-            <% if @collection && !@section %>
-              <ul>
-                <li><a href="#"><%= @collection.title %></a>
-                  <ul>
-                    <% @pages.each do |page| %>
-                      <li><%= link_to page.title, page.to_url(host: current_site.domain) %></li>
-                    <% end %>
-                  </ul>
-                </li>
-              </ul>
-            <% elsif @section %>
-                <%= section_tag(@section.section_items.without_parent.sorted, @section_item.hierarchy_and_children) %>
-            <% end %>
-          </menu>
-        </div>
+<div class="column cms_page">
+  <main class="content">
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-1-4" data-sidebar>
+        <menu class="side_navigation">
+          <% if @collection && !@section %>
+            <ul>
+              <li><a href="#"><%= @collection.title %></a>
+                <ul>
+                  <% @pages.each do |page| %>
+                    <li><%= link_to page.title, page.to_url(host: current_site.domain) %></li>
+                  <% end %>
+                </ul>
+              </li>
+            </ul>
+          <% elsif @section %>
+            <%= section_tag(@section.section_items.first_level, @section_item.hierarchy_and_children) %>
+          <% end %>
+        </menu>
+      </div>
 
-        <div class="pure-u-1 pure-u-md-3-4" data-main>
-          <article>
-            <div class="breadcrumb">
-              <% if @collection && !@section %>
-                <%= @collection.title %> /
-                <%= @page.title %>
-              <% elsif @section %>
-                <%= link_to @section.title, gobierto_cms_section_path(@section.slug) %>
-                <% @section_item.all_parents.each do |parent| %>
-                  / <%= link_to(parent.item.title, parent.item.to_url(section: true, host: current_site.domain)) %>
-                <% end %>
+      <div class="pure-u-1 pure-u-md-3-4" data-main>
+        <article>
+          <div class="breadcrumb">
+            <% if @collection && !@section %>
+              <%= @collection.title %> /
+              <%= @page.title %>
+            <% elsif @section %>
+              <%= link_to @section.title, gobierto_cms_section_path(@section.slug) %>
+              <% @section_item.all_parents.each do |parent| %>
+                / <%= link_to(parent.item.title, parent.item.to_url(section: true, host: current_site.domain)) %>
+            <% end %>
+          <% end %>
+          </div>
+
+          <h1><%= @page.title %></h1>
+
+          <%= raw render_liquid(@page.body) %>
+
+          <% if @page.attachments && @page.attachments.any? %>
+            <div class="page_attachments">
+              <h3><%= t('.documents') %></h3>
+              <% @page.attachments.each do |attachment| %>
+                <div class="file">
+                  <%= link_to attachment.url do %>
+                    <div class="icon"><%= filetype_icon(attachment) %></div>
+                    <h4><%= attachment.name %></h4>
+                    <div class="meta">
+                      <%= attachment.extension.upcase %> · <%= number_to_human_size(attachment.file_size, precision: 2, separator: ',') %> · <%= attachment.file_name %>
+                    </div>
+                  <% end %>
+                </div>
               <% end %>
             </div>
-
-            <h1><%= @page.title %></h1>
-
-            <%= raw render_liquid(@page.body) %>
-
-            <% if @page.attachments && @page.attachments.any? %>
-              <div class="page_attachments">
-                <h3><%= t('.documents') %></h3>
-                <% @page.attachments.each do |attachment| %>
-                  <div class="file">
-                    <%= link_to attachment.url do %>
-                      <div class="icon"><%= filetype_icon(attachment) %></div>
-                      <h4><%= attachment.name %></h4>
-                      <div class="meta">
-                        <%= attachment.extension.upcase %> · <%= number_to_human_size(attachment.file_size, precision: 2, separator: ',') %> · <%= attachment.file_name %>
-                      </div>
-                    <% end %>
-                  </div>
-                <% end %>
-              </div>
-            <% end %>
-          </article>
-        </div>
+          <% end %>
+        </article>
       </div>
-    </main>
-  </div>
+    </div>
+  </main>
+</div>

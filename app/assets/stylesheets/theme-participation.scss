@@ -119,7 +119,7 @@ $lighter_black: rgba($color_headers, .7);
       color: $green;
       margin: 0 0 1em 0;
     }
-    
+
     .bt {
       border-top: 1px solid transparentize($green, .7);
     }
@@ -916,21 +916,39 @@ $lighter_black: rgba($color_headers, .7);
         text-align: center;
 
         .poll_question.with_media {
-          .poll_option {
-            display: flex;
-            border-top: 1px solid $color_separator;
-            padding: 1em 0 0 0;
+          @include min-screen(768) {
+            .poll_option {
+              display: flex;
+              border-top: 1px solid $color_separator;
+              padding: 1em 0 0 0;
 
-            .button {
-              align-self: flex-start;
-              min-width: 35%;
+              .button {
+                align-self: flex-start;
+                min-width: 35%;
+              }
+              .media {
+                margin: 0 0 0 1em;
+                img {
+                  height: auto;
+                  max-width: 100%;
+                }
+              }
             }
+          }
+          .poll_option {
             .media {
-              margin: 0 0 0 1em;
               img {
                 height: auto;
                 max-width: 100%;
               }
+            }
+          }
+          @include screen(768) {
+            .poll_option {
+              border-radius: 6px;
+              padding: 1em;
+              margin: 0 0 1em 0;
+              border: 1px solid $color_separator;
             }
           }
         }

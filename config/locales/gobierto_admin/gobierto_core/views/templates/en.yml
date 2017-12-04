@@ -3,7 +3,7 @@ en:
   gobierto_admin:
     gobierto_core:
       templates:
-        form:
+        edit:
           preview: Preview
           reset: Reset
           reset_title: Discard saved changes, and return to the original template

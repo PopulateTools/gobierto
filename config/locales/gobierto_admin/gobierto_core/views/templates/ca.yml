@@ -3,7 +3,7 @@ ca:
   gobierto_admin:
     gobierto_core:
       templates:
-        form:
+        edit:
           preview: Previsualitzar
           reset: Resetejar
           reset_title: Descarta els canvis guardats, i tornar a la plantilla original

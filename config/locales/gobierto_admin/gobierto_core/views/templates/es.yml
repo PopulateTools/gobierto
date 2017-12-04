@@ -3,7 +3,7 @@ es:
   gobierto_admin:
     gobierto_core:
       templates:
-        form:
+        edit:
           preview: Previsualizar
           reset: Resetear
           reset_title: Descartar cambios guardados, y volver a la plantilla original

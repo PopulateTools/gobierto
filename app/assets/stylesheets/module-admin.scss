@@ -343,8 +343,9 @@ pre {
 
 .list_item, .list_item_with_editable_content {
   margin: 0 0 .5em 0;
+  display: flex;
   .fa-bars {
-    padding: .75em;
+    padding: .5em;
     cursor: pointer;
   }
   .fa-bars:hover {
@@ -352,12 +353,11 @@ pre {
     @include border-radius(3px);
   }
   label.main {
-    display: inline-block;
+    flex-grow: 1;
     background: $color_secondary;
     padding: 4px 10px;
     @include border-radius(4px);
     margin: 0 20px 0 0;
-    width: calc(100% - 200px);
     font-weight: 600;
   }
   .mandatory, .inline_notice {
@@ -369,8 +369,6 @@ pre {
     opacity: .5;
   }
   .tools {
-    display: inline-block;
-    width: 70px;
     .fa {
       margin: 0 1em 0 0;
     }
@@ -378,6 +376,12 @@ pre {
   input[type="checkbox"], input[type="radio"] {
     display: initial;
     margin-right: .5em;
+  }
+  .media {
+    img {
+      max-width: 100%;
+      height: auto;
+    }
   }
 }
 .list_item.with_mandatory_column, .list_item_with_editable_content.with_mandatory_column {
@@ -399,7 +403,7 @@ pre {
     padding: 4px 10px;
     margin: 0 1em 0 0;
     box-sizing: initial;
-    width: 75%;
+    flex-grow: 1;
   }
 }
 

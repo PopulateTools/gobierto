@@ -180,24 +180,14 @@ At least include:
   <%= javascript_include_tag 'gobierto_people/application', 'data-turbolinks-track' => true %>
 <% end %>
 
-<% content_for :breadcrumb_items do %>
-  <strong>
-    <%= link_to t('gobierto_people.layouts.application.title'), gobierto_people_root_path %>
-  </strong>
-  <% if content_for?(:breadcrumb_current_item) %>
-    <span>/</span>
-    <%= yield(:breadcrumb_current_item) %>
-  <% end %>
-<% end %>
-
 <%= render template: "layouts/application" %>
 ```
 
 Also, you need to define a couple of files for the menus:
 
-- `_menu_subsections.html.erb`
+- `_navigation.main.html.erb`
 
-- `_navigation.html.erb`
+- `_navigation.sub.html.erb`
 
 ### Admin menu
 

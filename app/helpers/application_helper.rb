@@ -6,12 +6,6 @@ module ApplicationHelper
     render(partial_path, partial_params) if lookup_context.exists?(partial_file_name)
   end
 
-  def load_module_sub_sections(module_name = nil)
-    return unless module_name
-
-    render_if_exists("#{module_name.underscore}/layouts/menu_subsections")
-  end
-
   # Example: translate_enum_value(GobiertoParticipation::ProcessStage, :stage_type, :information)
   def translate_enum_value(object, enum_name, enum_value_name)
     I18n.t("activerecord.attributes.#{object.model_name.i18n_key}.#{enum_name.to_s.pluralize}.#{enum_value_name}")
@@ -34,9 +28,7 @@ module ApplicationHelper
   end
 
   def tab_attributes(condition)
-    {
-      role:'tab', 'tabindex' => condition ? 0 : -1, 'aria-selected' => condition
-    }
+    { role:'tab', 'tabindex' => condition ? 0 : -1, 'aria-selected' => condition }
   end
 
   def show_social_links?
@@ -44,7 +36,7 @@ module ApplicationHelper
   end
 
   def full_layout?
-    !((controller_name == "contribution_containers") && (action_name == "show"))
+    controller_name == "contribution_containers" && action_name == "show"
   end
 
   def filetype_icon(attachment)

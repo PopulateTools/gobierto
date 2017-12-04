@@ -38,7 +38,7 @@
       </div>
     <% end %>
 
-    <% if blog_submodule_active? %>
+    <% if blogs_submodule_active? %>
       <div class="data_item">
         <h3><%= t("gobierto_people.exports.index.posts.title") %></h3>
         <%= link_to 'RSS', gobierto_people_posts_path(format: :rss), class: 'button small', role: "button" %>

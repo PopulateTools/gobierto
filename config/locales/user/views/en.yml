@@ -2,8 +2,6 @@
 en:
   user:
     layouts:
-      application:
-        account: Your account
       menu_subsections:
         admin: Settings
         alerts: Alerts

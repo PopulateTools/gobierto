@@ -9,7 +9,7 @@ module GobiertoPeople
       SCOPE = Google::Apis::CalendarV3::AUTH_CALENDAR_READONLY
 
       def self.person_calendar_configuration_class
-        ::GobiertoPeople::PersonGoogleCalendarConfiguration
+        ::GobiertoCalendars::GoogleCalendarConfiguration
       end
 
       def self.sync_person_events(person)
@@ -18,7 +18,7 @@ module GobiertoPeople
 
       def initialize(person)
         @person = person
-        @configuration = GobiertoPeople::PersonGoogleCalendarConfiguration.find_by person_id: person.id
+        @configuration = GobiertoCalendars::GoogleCalendarConfiguration.find_by(collection_id: person.calendar.id)
 
         @service = Google::Apis::CalendarV3::CalendarService.new
         @service.client_options.application_name = person.site.name
@@ -92,8 +92,8 @@ module GobiertoPeople
           person_id: person.id,
           title: event.summary,
           description: event.description,
-          starts_at: event.start.date_time || DateTime.parse(event.start.date),
-          ends_at: event.end.date_time || DateTime.parse(event.end.date),
+          starts_at: parse_date(event.start),
+          ends_at: parse_date(event.end),
           state: GobiertoCalendars::Event.states[:published],
           attendees: event_attendees(event),
           notify: i.nil? || i == 0
@@ -106,7 +106,9 @@ module GobiertoPeople
         end
 
         event = GobiertoPeople::PersonEventForm.new(person_event_params)
-        event.save
+        unless event.save
+          Rails.logger.info "[Google Calendar Integration] Invalid event: #{person_event_params}"
+        end
       end
 
       def authorize(person)
@@ -118,6 +120,12 @@ module GobiertoPeople
         token_store = Google::Auth::Stores::FileTokenStore.new(file: file.path)
         authorizer = Google::Auth::UserAuthorizer.new(client_id, SCOPE, token_store)
         authorizer.get_credentials(USERNAME)
+      end
+
+      def parse_date(time_attribute)
+        if time_attribute
+          time_attribute.date_time || DateTime.parse(time_attribute.date)
+        end
       end
     end
   end

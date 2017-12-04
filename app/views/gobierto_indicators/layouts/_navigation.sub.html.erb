@@ -1,0 +1,5 @@
+<% %W{ poblacion empleo economia }.each do |subsection| %>
+  <div class="sub-nav-item">
+    <%= link_to t("gobierto_indicators.layouts.menu_subsections.#{subsection}"), gobierto_indicators_root_path(anchor: subsection), data: { turbolinks: false } %>
+  </div>
+<% end %>

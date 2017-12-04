@@ -41,8 +41,6 @@ en:
         sign_out: Sign out
         title: Your account
       start: Home
-    breadcrumb:
-      start: Start
     gobierto_budget_consultations:
       application:
         about_the_data: About the data

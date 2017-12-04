@@ -1,0 +1,28 @@
+---
+en:
+  gobierto_admin:
+    gobierto_calendars:
+      calendar_configuration:
+        edit:
+          calendar_integration: Calendar integration
+          google_calendar: Google Calendar
+          ibm_notes: IBM Notes
+          labels:
+            ibm_notes_pwd: Password
+            ibm_notes_url: Calendar URL
+            ibm_notes_usr: IBM Notes account
+            microsoft_exchange_pwd: Password
+            microsoft_exchange_url: Calendar URL
+            microsoft_exchange_usr: Microsoft Exchange account
+          microsoft_exchange: Microsoft Exchange
+          placeholders:
+            ibm_notes_url: ex. https://example.com/mail/abc.nsf/api/calendar/events
+            microsoft_exchange_url: ex. https://example.com/ews/exchange.asmx
+            username: ex. someone85
+          remove_configuration: Remove calendar configuration
+        gobierto_people_person_navigation:
+          calendar_configuration: Calendar configuration
+        google_calendar_fields:
+          calendar_configured: Currently this person has the following calendars integrated
+          share_link: 'Share this link with the person to allow Gobierto to read her
+            public events from Google Calendar:'

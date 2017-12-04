@@ -64,6 +64,8 @@ en:
         issues: Issues
         processes: Processes
         questions: Ask
+      process_breadcrumb:
+        root: Home
       process_menu_subsections:
         contributions: Contributions
         information: Information

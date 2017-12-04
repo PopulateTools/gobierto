@@ -43,9 +43,8 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        within '.global_breadcrumb' do
+        within '.main-nav' do
           assert has_link? 'Participation'
-          assert has_link? 'Processes'
           assert has_link? gender_violence_process.title
         end
       end
@@ -56,7 +55,7 @@ module GobiertoParticipation
         processes.each do |process|
           visit process_path(process)
 
-          within 'menu.sub_sections' do
+          within '.sub-nav' do
             assert has_link? 'Information'
             assert has_link? 'Meetings'
 
@@ -90,9 +89,8 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        within ".global_breadcrumb" do
+        within ".main-nav" do
           assert has_link? "Participation"
-          assert has_link? "Processes"
           assert has_link? gender_violence_process.title
         end
 
@@ -108,12 +106,6 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        within ".global_breadcrumb" do
-          assert has_link? "Participation"
-          assert has_link? "Processes"
-          assert has_link? gender_violence_process.title
-        end
-
         click_link "Agenda"
 
         assert_equal gobierto_participation_process_events_path(process_id: gender_violence_process.slug), current_path
@@ -123,12 +115,6 @@ module GobiertoParticipation
     def test_secondary_nav_documents
       with_current_site(site) do
         visit process_path(gender_violence_process)
-
-        within ".global_breadcrumb" do
-          assert has_link? "Participation"
-          assert has_link? "Processes"
-          assert has_link? gender_violence_process.title
-        end
 
         click_link "Documents"
 
@@ -141,12 +127,6 @@ module GobiertoParticipation
     def test_secondary_nav_activity
       with_current_site(site) do
         visit process_path(gender_violence_process)
-
-        within ".global_breadcrumb" do
-          assert has_link? "Participation"
-          assert has_link? "Processes"
-          assert has_link? gender_violence_process.title
-        end
 
         click_link "Activity"
 
@@ -161,7 +141,7 @@ module GobiertoParticipation
         with_current_site(site) do
           with_signed_in_user(user) do
             visit process_path(gender_violence_process)
-            within ".site_header" do
+            within ".slim_nav_bar" do
               assert has_link? "Follow process"
             end
 

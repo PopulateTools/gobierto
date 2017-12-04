@@ -6,7 +6,6 @@ module GobiertoBudgets
         @variable = @what == 'total_budget' ? 'total_budget' : 'total_budget_per_inhabitant'
         @year = options[:year]
         @place = options[:place]
-        @is_comparison = @place.is_a?(Array)
         @kind = options[:kind] || GobiertoBudgets::BudgetLine::EXPENSE
         @code = options[:code]
         @area = options[:area]
@@ -16,6 +15,7 @@ module GobiertoBudgets
           areas = BudgetArea.klass_for(@area)
           @category_name = areas.all_items[@kind][@code]
         end
+        @comparison = options[:comparison]
       end
 
       def generate_json
@@ -251,33 +251,35 @@ module GobiertoBudgets
       end
 
       def budget_values
-        return comparison_values if @is_comparison
-        [
-          {
-            "name":"mean_province",
-            "values": mean_province
-          },
-          {
-            "name":"mean_autonomy",
-            "values": mean_autonomy
-          },
-          {
-            "name":"mean_national",
-            "values": mean_national
-          },
-          {
-            name: @code ? @category_name : @place.name,
+        if @comparison
+          place_value = [{
+            name: @place.name,
             "values": place_values
-          }
-        ]
-      end
-
-      def comparison_values
-        @place.map do |place|
-          {
-            "name": place.name,
-            "values": place_values(place)
-          }
+          }]
+          @comparison.map do |place_id|
+            if place = INE::Places::Place.find(place_id)
+              { name: place.name, values: place_values(place) }
+            end
+          end.compact + place_value
+        else
+          [
+            {
+              "name":"mean_province",
+              "values": mean_province
+            },
+            {
+              "name":"mean_autonomy",
+              "values": mean_autonomy
+            },
+            {
+              "name":"mean_national",
+              "values": mean_national
+            },
+            {
+              name: @code ? @category_name : @place.name,
+              "values": place_values
+            }
+          ]
         end
       end
 

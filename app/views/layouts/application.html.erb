@@ -2,10 +2,11 @@
 <html lang="<%= I18n.locale %>">
 
 <%= render 'layouts/head' %>
+
 <% if (current_module_body_class == 'gobierto_participation theme-participation') %>
-  <body class = 'gobierto_participation theme-participation'>
+  <body class="gobierto_participation theme-participation">
 <% elsif (current_module_body_class == 'gobierto_participation theme-participation' && controller_name == 'process_information') %>
-  <body class = 'gobierto_participation theme-participation content'>
+  <body class="gobierto_participation theme-participation content">
 <% elsif controller_name == "pages" && action_name == "show" %>
   <body>
 <% else %>
@@ -23,138 +24,8 @@
     </div>
   <% end %>
 
-  <% if full_layout? %>
-    <header class="meta">
-
-      <div class="slim_nav_bar">
-
-        <div class="column pure-g">
-          <div class="desktop_only">
-
-            <div class="pure-u-md-1-2">
-              <% if @site.configuration.links_markup.present? %>
-                <%= raw @site.configuration.links_markup %>
-              <% end %>
-            </div>
-
-            <div class="pure-u-md-1-2 right">
-
-              <div class="user_links">
-
-                <div class="pure-menu pure-menu-horizontal">
-
-                  <% if user_signed_in? %>
-                    <ul class="pure-menu-list left">
-                      <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-                        <a href="#" class="pure-menu-link">
-                          <%= t(".session.title") %>
-                        </a>
-                        <ul class="pure-menu-children">
-                          <li class="pure-menu-item">
-                            <%= link_to user_settings_path, class: "pure-menu-link" do %>
-                              <i class="fa fa-ship"></i>
-                              <%= t(".session.title") %>
-                            <% end %>
-                          </li>
-                          <li class="pure-menu-item">
-                            <%= link_to user_notifications_path, class: "pure-menu-link" do %>
-                              <i class="fa fa-th"></i>
-                              <%= t(".session.notifications") %>
-                            <% end %>
-                          </li>
-                          <li class="pure-menu-item">
-                            <%= link_to user_subscriptions_path, class: "pure-menu-link" do %>
-                              <i class="fa fa-envelope-o"></i>
-                              <%= t(".session.alerts") %>
-                            <% end %>
-                          </li>
-                          <li class="pure-menu-item">
-                            <%= link_to user_sessions_path, method: :delete, class: "pure-menu-link" do %>
-                              <i class="fa fa-sign-out"></i>
-                              <%= t(".session.sign_out") %>
-                            <% end %>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  <% else %>
-                    <ul class="pure-menu-list left">
-                      <li class="pure-menu-item">
-                        <%= link_to new_user_sessions_path, class: "pure-menu-link" do %>
-                          <i class="fa fa-sign-in"></i>
-                          <%= t(".session.sign_in") %>
-                        <% end %>
-                      </li>
-                    </ul>
-                  <% end %>
-
-                </div>
-
-              </div>
-
-              <div class="language_selector">
-                <%= render "layouts/locale_selector" %>
-              </div>
-
-            </div>
-          </div>
-          <div class="mobile_only right">
-            <%= link_to "#", class: "nav_control" do %>
-              <i class="fa fa-bars" aria-label="<%= t('.start') %>"></i>
-            <% end %>
-          </div>
-        </div>
-      </div>
-
-      <% if @site.configuration.head_markup.present? %>
-        <%= render_liquid @site.configuration.head_markup %>
-      <% end %>
-
-      <div class="site_header">
-        <div class="column site_header_logo">
-          <div class="logo">
-            <%= link_to(image_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
-          </div>
-
-          <div>
-            <span id="subscribable_button">
-              <%= yield(:subscribable_button) %>
-            </span>
-
-            <div class="social_links_container" data-share>
-              <% if show_social_links? %>
-                <a class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
-                <a class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
-              <% end %>
-
-              <a class="search_icon"><i class="fa fa-search"></i></a>
-
-              <div class="search_control ">
-                <i class="fa fa-search"></i>
-                <input type="text" placeholder="<%= t('.search') %>" name="q" id="gobierto_search" aria-label="<%= t('.search') %>">
-              </div>
-
-              <!-- TODO: lo del position:absolute es una ñapa -->
-              <div id="search_results" class="search_result_list" style="position:absolute;"></div>
-            </div>
-          </div>
-        </div>
-
-        <%= render "layouts/main_menu" %>
-
-        <div class="column">
-          <nav id="main_nav" class="nav" role="navigation" aria-controls="main_menu" aria-hidden="false">
-
-            <%= render "layouts/breadcrumb" %>
-            <% if try(:current_process).present? %>
-              <%= render 'gobierto_participation/layouts/process_menu_subsections' %>
-            <% else %>
-              <%= content_for?(:module_sub_sections) ? yield(:module_sub_sections) : load_module_sub_sections(current_module) %>
-            <% end %>
-          </nav>
-        </div>
-      </div>
-    </header>
+  <% unless full_layout? %>
+    <%= render 'layouts/header' %>
   <% end %>
 
   <div class="container">
@@ -164,51 +35,8 @@
 
   </div>
 
-  <% if full_layout? %>
-    <footer>
-
-      <div class="column pure-g">
-
-        <div class="pure-u-1 mobile_only">
-          <%= link_to "#", class: "nav_control" do %>
-            <i class="fa fa-bars"></i> Menú
-          <% end %>
-        </div>
-
-        <div class="pure-u-1 pure-u-md-9-24">
-          <%= link_to_unless_current(image_tag(@site.configuration.logo_with_fallback, class: 'logo'), root_url) %>
-        </div>
-
-        <div class="pure-u-1 pure-u-md-15-24 custom_html_footer">
-        <% if @site.configuration.foot_markup.present? %>
-          <%= render_liquid @site.configuration.foot_markup %>
-        <% end %>
-        </div>
-
-      </div>
-
-      <div class="column pure-g footer_tools">
-
-        <div class="pure-u-1 pure-u-md-9-24 copyright_notice">
-          © <%= Date.today.year %> <%= @site.name %>
-        </div>
-
-        <div class="pure-u-1 pure-u-md-5-12">
-          <%= render("user/subscriptions/subscribable_box",
-                   subscribable: current_site,
-                   title: t("gobierto_people.people.index.subscribable_box.title")) %>
-        </div>
-
-        <div class="pure-u-1 pure-u-md-5-24">
-        </div>
-
-      </div>
-
-      <div class="center gobierto_notice">
-        <p><small><%= t('based_on') %> <%= link_to 'Gobierto', 'https://gobierto.es' %></small></p>
-      </div>
-
-    </footer>
+  <% unless full_layout? %>
+    <%= render 'layouts/footer' %>
   <% end %>
 
   <% if Rails.env.production? %>

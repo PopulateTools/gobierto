@@ -1,0 +1,5 @@
+<% active_submodules.each do |submodule| %>
+  <div class="sub-nav-item<%= class_if(' active', controller_name == submodule_controller_for(submodule)) %>">
+    <%= link_to submodule_title_for(submodule), submodule_path_for(submodule), data: { turbolinks: false } %>
+  </div>
+<% end %>

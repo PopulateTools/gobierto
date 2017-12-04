@@ -43,8 +43,6 @@ ca:
         sign_out: Surt
         title: El teu compte
       start: Inici
-    breadcrumb:
-      start: Inici
     gobierto_budget_consultations:
       application:
         about_the_data: Sobre les dades

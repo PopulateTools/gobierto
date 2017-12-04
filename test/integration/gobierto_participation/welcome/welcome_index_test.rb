@@ -21,7 +21,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within ".global_breadcrumb" do
+        within ".main-nav" do
           assert has_link? "Participation"
         end
       end
@@ -31,7 +31,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within "menu.sub_sections" do
+        within ".sub-nav" do
           assert has_link? "About"
           assert has_link? "Issues"
           assert has_link? "Processes"
@@ -62,7 +62,7 @@ module GobiertoParticipation
 
         assert_equal gobierto_participation_pages_path, current_path
 
-        within ".global_breadcrumb" do
+        within ".main-nav" do
           assert has_link? "Participation"
         end
 
@@ -78,7 +78,7 @@ module GobiertoParticipation
 
         assert_equal gobierto_participation_events_path, current_path
 
-        within ".global_breadcrumb" do
+        within ".main-nav" do
           assert has_link? "Participation"
         end
       end
@@ -92,7 +92,7 @@ module GobiertoParticipation
 
         assert_equal gobierto_participation_attachments_path, current_path
 
-        within ".global_breadcrumb" do
+        within ".main-nav" do
           assert has_link? "Participation"
         end
 
@@ -108,7 +108,7 @@ module GobiertoParticipation
 
         assert_equal gobierto_participation_activities_path, current_path
 
-        within ".global_breadcrumb" do
+        within ".main-nav" do
           assert has_link? "Participation"
         end
 

@@ -49,7 +49,7 @@
         <th></th>
       </tr>
 
-      <tbody>
+      <tbody id="file_attachments_in_collection">
         <% @collections.each do |collection| %>
           <tr id="collection-item-<%= collection.id %>">
             <td>
@@ -77,3 +77,34 @@
   </div>
 
 </div>
+
+<table class="pages-list">
+  <tr>
+    <th></th>
+    <th><%= GobiertoCms::Page.human_attribute_name(:title) %></th>
+    <th><%= t('.created_at') %></th>
+    <th><%= t('.updated_at') %></th>
+  </tr>
+
+  <tbody>
+    <% @site_file_attachments.each do |file_attachment| %>
+      <tr>
+        <td>
+          <%= link_to file_attachment.collection ? edit_admin_attachments_file_attachment_path(file_attachment.id, collection_id: file_attachment.collection_id) :
+                                                   edit_admin_attachments_file_attachment_path(file_attachment.id) do %>
+            <i class="fa fa-edit"></i>
+          <% end %>
+        </td>
+        <td>
+          <% if file_attachment.name != file_attachment.file_name %>
+            <%= file_attachment.try(:name) %>
+            <br>
+          <% end %>
+          <%= link_to file_attachment.file_name, file_attachment.url, target: '_blank' %>
+        </td>
+        <td><%= time_ago_in_words(file_attachment.created_at) %></td>
+        <td><%= time_ago_in_words(file_attachment.updated_at) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -65,6 +65,12 @@ module GobiertoPeople
         event4.stubs(visibility: nil, location: nil, creator: creator_event3, recurrence: ["WEEK=1"], id: "event4",
                      summary: "Event 4", start: date1, end: date2, attendees: [attendee1, attendee2], description: "")
 
+
+        # Event no start
+        event_no_start = mock
+        event_no_start.stubs(visibility: nil, location: nil, creator: creator_event3, recurrence: nil, id: "event-no-start",
+                             summary: "Event no start", start: nil, end: nil, attendees: [], description: "")
+
         # Instance 1 of recurring event event4
         event5 = mock
         event5.stubs(visibility: nil, location: nil, creator: creator_event3, recurrence: nil, id: "event4_instance_1",
@@ -88,7 +94,7 @@ module GobiertoPeople
         calendar_1_items_response.stubs(:items).returns([event1, event2])
 
         calendar_2_items_response = mock
-        calendar_2_items_response.stubs(:items).returns([event3, event4])
+        calendar_2_items_response.stubs(:items).returns([event3, event4, event_no_start])
 
         calendar_3_items_response = mock
         calendar_3_items_response.stubs(:items).returns([event7])
@@ -111,8 +117,10 @@ module GobiertoPeople
         ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:authorization=).returns(true)
 
         ## Configure site and person
-        activate_google_calendar_calendar_integration(sites(:madrid))
-        configure_google_calendar_integration(richard, calendars: [calendar1.id, calendar2.id])
+        configure_google_calendar_integration(
+          collection: richard.calendar,
+          data: { calendars: [calendar1.id, calendar2.id] }
+        )
       end
 
       def test_sync_events

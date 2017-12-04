@@ -30,7 +30,7 @@ gender_violence_process_calendar:
 
 gender_violence_process_documents:
   site: madrid
-  title_translations: <%= {'en' => 'Documents', 'es' => 'Documentos' }.to_json %>
+  title_translations: <%= {'en' => 'Documents Gender Violence', 'es' => 'Documentos' }.to_json %>
   slug: documentos-violencia-genero
   container: gender_violence_process (GobiertoParticipation::Process)
   item_type: GobiertoAttachments::Attachment

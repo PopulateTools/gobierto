@@ -1,4 +1,4 @@
-<div <%= kind == GobiertoBudgets::BudgetLine::INCOME ? 'aria-labelledby="ingresos" id="ingresos-tab"'.html_safe : 'aria-labelledby="gastos" id="gastos-tab"'.html_safe %> >
+<div <%== kind == GobiertoBudgets::BudgetLine::INCOME ? 'aria-labelledby="ingresos" id="ingresos-tab"' : 'aria-labelledby="gastos" id="gastos-tab"' %> >
   <p class="m_2"></p>
 
   <div class="filter m_2" role="tablist" aria-label="<%= t('.categories') %>">

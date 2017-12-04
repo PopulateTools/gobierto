@@ -27,11 +27,8 @@ module GobiertoPeople
     has_many :statements, class_name: "PersonStatement", dependent: :destroy
     has_many :posts, class_name: "PersonPost", dependent: :destroy
 
-    has_one :calendar_configuration, class_name: "PersonCalendarConfiguration", dependent: :destroy
-
     scope :sorted, -> { order(position: :asc, created_at: :desc) }
     scope :by_site, ->(site) { where(site_id: site.id) }
-    scope :with_calendar_configuration, -> { where('id IN (SELECT person_id FROM gp_person_calendar_configurations)') }
 
     enum visibility_level: { draft: 0, active: 1 }
     enum category: { politician: 0, executive: 1 }
@@ -69,6 +66,11 @@ module GobiertoPeople
 
     def events_collection
       @events_collection ||= GobiertoCommon::Collection.find_by container: self, item_type: 'GobiertoCalendars::Event'
+    end
+    alias calendar events_collection
+
+    def calendar_configuration
+      calendar.calendar_configuration
     end
 
     def events

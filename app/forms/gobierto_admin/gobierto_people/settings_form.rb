@@ -10,10 +10,7 @@ module GobiertoAdmin
         :home_text_es,
         :home_text_ca,
         :home_text_en,
-        :submodules_enabled,
-        :calendar_integration,
-        :ibm_notes_usr,
-        :ibm_notes_pwd
+        :submodules_enabled
       )
 
       delegate :persisted?, to: :gobierto_module_settings

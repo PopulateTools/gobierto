@@ -4,66 +4,52 @@ module CalendarIntegrationHelpers
 
   ## Common
 
-  def clear_person_calendar_configurations
-    ::GobiertoPeople::PersonCalendarConfiguration.all.destroy_all
+  def clear_calendar_configurations
+    ::GobiertoCalendars::CalendarConfiguration.all.destroy_all
   end
 
   ## IBM Notes
 
-  def activate_ibm_notes_calendar_integration(site)
-    gp_module_settings = site.gobierto_people_settings
+  def configure_ibm_notes_calendar_integration(params)
+    collection = params[:collection]
+    data = params[:data]
+    calendar_conf = collection.calendar_configuration || collection.build_calendar_configuration
 
-    gp_module_settings.calendar_integration = 'ibm_notes'
-    gp_module_settings.ibm_notes_usr = ::SecretAttribute.encrypt('username')
-    gp_module_settings.ibm_notes_pwd = ::SecretAttribute.encrypt('password')
-
-    gp_module_settings.save!
-  end
-
-  def remove_ibm_notes_calendar_integration(site)
-    gp_module_settings = site.gobierto_people_settings
-
-    gp_module_settings.calendar_integration = nil
-    gp_module_settings.ibm_notes_usr = nil
-    gp_module_settings.ibm_notes_pwd = nil
-
-    gp_module_settings.save!
-  end
-
-  def set_ibm_notes_calendar_endpoint(person, endpoint)
-    calendar_conf = person.calendar_configuration || person.build_calendar_configuration
-    calendar_conf.data = { endpoint: endpoint }
+    calendar_conf.data = {
+      ibm_notes_usr: data[:ibm_notes_usr],
+      ibm_notes_pwd: SecretAttribute.encrypt(data[:ibm_notes_pwd]),
+      ibm_notes_url: data[:ibm_notes_url]
+    }
+    calendar_conf.integration_name = 'ibm_notes'
     calendar_conf.save!
   end
 
   ## Google Calendar
 
-  def activate_google_calendar_calendar_integration(site)
-    gp_module_settings = site.gobierto_people_settings
-    gp_module_settings.calendar_integration = 'google_calendar'
-    gp_module_settings.save!
-  end
+  def configure_google_calendar_integration(params)
+    collection = params[:collection]
+    data = params[:data]
+    calendar_conf = collection.calendar_configuration || collection.build_calendar_configuration
 
-  def configure_google_calendar_integration(person, options)
-    calendar_conf = person.calendar_configuration || person.build_calendar_configuration
-    calendar_conf.data = options
+    calendar_conf.data = params[:data]
+
+    calendar_conf.integration_name = 'google_calendar'
     calendar_conf.save!
   end
 
   # Microsoft Exchange
 
-  def activate_microsoft_exchange_calendar_integration(site)
-    gp_module_settings = site.gobierto_people_settings
-    gp_module_settings.calendar_integration = 'microsoft_exchange'
-    gp_module_settings.save!
-  end
+  def configure_microsoft_exchange_calendar_integration(params)
+    collection = params[:collection]
+    data = params[:data]
+    calendar_conf = collection.calendar_configuration || collection.build_calendar_configuration
 
-  def configure_microsoft_exchange_integration(person, options)
-    pwd = options[:microsoft_exchange_pwd]
-    options.store(:microsoft_exchange_pwd, ::SecretAttribute.encrypt(pwd)) if pwd && options[:encrypt]
-
-    calendar_conf = person.calendar_configuration || person.build_calendar_configuration
-    calendar_conf.data = options
+    calendar_conf.data = {
+      microsoft_exchange_usr: data[:microsoft_exchange_usr],
+      microsoft_exchange_pwd: SecretAttribute.encrypt(data[:microsoft_exchange_pwd]),
+      microsoft_exchange_url: data[:microsoft_exchange_url]
+    }
+    calendar_conf.integration_name = 'microsoft_exchange'
     calendar_conf.save!
   end
 

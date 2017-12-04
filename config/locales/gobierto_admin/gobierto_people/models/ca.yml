@@ -2,10 +2,6 @@
 ca:
   activemodel:
     attributes:
-      gobierto_admin/gobierto_people/person_calendar_configuration_form:
-        microsoft_exchange_pwd: Contrasenya
-        microsoft_exchange_url: URL
-        microsoft_exchange_usr: Compte
       gobierto_admin/gobierto_people/person_form:
         avatar_file: Avatar
         avatar_url: Avatar

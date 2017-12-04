@@ -3,7 +3,7 @@
     <%= link_to t('gobierto_budgets.layouts.menu_subsections.elaboration'), gobierto_budgets_budgets_elaboration_path, data: { turbolinks: false }  %></li>
   </div>
 <% end %>
-<div class="sub-nav-item<%= class_if(' active', controller_name == 'budgets' && action_name == 'index') %>">
+<div class="sub-nav-item<%= class_if(' active', (controller_name == 'budgets' && action_name == 'index') || controller_name == 'budget_lines') %>">
   <%= link_to t('gobierto_budgets.layouts.application.budgets'), gobierto_budgets_budgets_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false } %>
 </div>
 <div class="sub-nav-item<%= class_if(' active', controller_name == 'budgets_execution') %>">

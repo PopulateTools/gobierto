@@ -20,6 +20,10 @@ $lighter_black: rgba($color_headers, .7);
       background: transparentize($green, .9);
     }
   }
+  .button.outline.rounded.checked {
+    background: #FFF;
+    color: $green;
+  }
 
   .button.submit:hover,
   .button:hover,
@@ -98,6 +102,7 @@ $lighter_black: rgba($color_headers, .7);
     &:focus,
     &:hover {
       background: white;
+      color: $green;
     }
   }
 
@@ -112,9 +117,9 @@ $lighter_black: rgba($color_headers, .7);
   .content_block {
     h2 {
       color: $green;
-      margin: 0;
+      margin: 0 0 1em 0;
     }
-
+    
     .bt {
       border-top: 1px solid transparentize($green, .7);
     }

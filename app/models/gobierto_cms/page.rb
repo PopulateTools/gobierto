@@ -77,16 +77,27 @@ module GobiertoCms
       where(id: ids, site: site)
     end
 
-    def self.first_page_in_section(section)
-      GobiertoCms::SectionItem.find_by!(section: section, position: 0, level: 0).item
-    end
-
     def attributes_for_slug
       [title]
     end
 
     def resource_path
       to_url
+    end
+
+    def to_path(options = {})
+      if collection
+        if collection.container_type == "GobiertoParticipation::Process"
+          url_helpers.gobierto_participation_process_page_path({ id: slug, process_id: collection.container.slug }.merge(options))
+        elsif collection.container_type == "GobiertoParticipation"
+          url_helpers.gobierto_participation_page_path({ id: slug }.merge(options))
+        elsif section.present? || options[:section]
+          options.delete(:section)
+          url_helpers.gobierto_cms_section_item_path({ id: slug, slug_section: section.slug }.merge(options))
+        else
+          url_helpers.gobierto_cms_page_path({ id: slug }.merge(options))
+        end
+      end
     end
 
     def to_url(options = {})

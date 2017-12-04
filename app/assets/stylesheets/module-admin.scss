@@ -252,7 +252,7 @@ body.gobierto_admin {
     border-radius: 2em;
   }
   a {
-    margin-right: 1em;
+    margin-right: .25em;
     text-decoration: none;
     .fa {
       margin: 0 .25em 0 0;
@@ -261,7 +261,7 @@ body.gobierto_admin {
 }
 .admin_tools.right {
   .button, button {
-    margin-left: 1em;
+    margin-left: .25em;
   }
 }
 
@@ -567,9 +567,16 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
     color: $color_text;
     text-decoration: none;
   }
-
 }
 
+.global_menu, a .global_menu {
+  border-radius: 3px;
+  font-size: 1em;
+  background: $color_logo_blue;
+  color: #FFF;
+  padding: 3px 6px;
+  text-decoration: none;
+}
 
 /* Gobierto Attachments */
 #gobierto-attachment {

@@ -1,0 +1,7 @@
+<% global_navigation_section.section_items.first_level.each do |section_item| %>
+  <% if section_item.item_type == "GobiertoCms::Section" %>
+    <%= render partial: "gobierto_cms/layouts/navigation.main", locals: { section: section_item.item } %>
+  <% elsif section_item.item_type == "GobiertoModule" %>
+    <%= render_if_exists "#{section_item.item_id.underscore}/layouts/navigation.main" %>
+  <% end %>
+<% end %>

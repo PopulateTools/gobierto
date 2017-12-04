@@ -346,7 +346,7 @@ ActiveRecord::Schema.define(version: 20171128100636) do
 
   create_table "gcms_section_items", force: :cascade do |t|
     t.string "item_type"
-    t.bigint "item_id"
+    t.string "item_id"
     t.integer "position", default: 0, null: false
     t.integer "parent_id", null: false
     t.bigint "section_id"

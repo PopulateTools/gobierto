@@ -15,7 +15,7 @@ class MetaWelcomeController < ApplicationController
 
       if item.is_a?(GobiertoCms::Section)
         @section = item
-        @page = GobiertoCms::Page.first_page_in_section(item)
+        @page = @section.first_item
       else
         @page = item
       end

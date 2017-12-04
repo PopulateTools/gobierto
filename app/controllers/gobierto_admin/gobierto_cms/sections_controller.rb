@@ -22,10 +22,6 @@ module GobiertoAdmin
       def show
         @section = find_section
         @pages = ::GobiertoCms::Page.pages_in_collections(current_site).active.sort_by_updated_at.uniq
-
-        unless @section.section_items.empty?
-          @first_page_in_section = find_first_page_in_section
-        end
       end
 
       def pages
@@ -119,10 +115,6 @@ module GobiertoAdmin
 
       def default_serializer
         ::GobiertoAdmin::GobiertoCms::SectionSerializer
-      end
-
-      def find_first_page_in_section
-        ::GobiertoCms::Page.first_page_in_section(@section)
       end
     end
   end

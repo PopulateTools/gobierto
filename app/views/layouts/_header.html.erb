@@ -70,8 +70,12 @@
     <nav class="main-nav" role="navigation" aria-hidden="false">
       <div class="column">
         <% if try(:current_process).nil? %>
-          <% current_site.configuration.modules.each do |site_module| %>
-            <%= render_if_exists "#{site_module.underscore}/layouts/navigation.main" %>
+          <% if global_navigation_section? %>
+            <%= render "layouts/global_navigation" %>
+          <% else %>
+            <% current_site.configuration.modules.each do |site_module| %>
+              <%= render_if_exists "#{site_module.underscore}/layouts/navigation.main" %>
+            <% end %>
           <% end %>
         <% else %>
           <%= render "gobierto_participation/layouts/process_breadcrumb" %>

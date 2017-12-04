@@ -151,7 +151,7 @@ module GobiertoPeople
 
     def recurring_event_in_window
       if recurring?
-        errors.add(:starts_at) if starts_at > 3.months.from_now
+        errors.add(:starts_at) if starts_at > 3.months.from_now || starts_at < 1.year.ago
       end
     end
 

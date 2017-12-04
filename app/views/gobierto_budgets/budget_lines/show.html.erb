@@ -131,7 +131,13 @@
       <div class="pure-u-1-2 pure-u-md-1-5 metric_box tipsit" title="<%= t('.avg_province_tooltip') %>">
         <div class="inner">
           <h3><%= t('.avg_province', kind: kind_literal(@kind, false)) %></h3>
-          <div class="metric"><%= format_currency @budget_line_stats.mean_province %></div>
+          <div class="metric">
+            <% if params[:area_name] != GobiertoBudgets::CustomArea.area_name %>
+              <%= format_currency @budget_line_stats.mean_province %>
+            <% else %>
+              <span class="not_av"><%= t('.not_available') %></span>
+            <% end %>
+          </div>
         </div>
       </div>
 
@@ -216,22 +222,20 @@
 
     <div id="lines_chart_wrapper_separator" class="separator"></div>
 
-    <% if budgets_comparison_context_table_enabled %>
+    <% if params[:area_name] != GobiertoBudgets::CustomArea.area_name && budgets_comparison_context_table_enabled %>
       <div id="lines_chart_wrapper" class="pure-g block" data-vis-lines role="tabpanel" aria-controlledby="per_person, total_budget">
         <div class="pure-u-1 pure-u-md-1-2 p_h_l_1">
           <h2><%= t('.evolution') %></h2>
           <div id="lines_chart"></div>
         </div>
 
-        <% if params[:area_name] != GobiertoBudgets::CustomArea.area_name %>
-          <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
-            <h2><%= t('gobierto_budgets.budgets.index.context') %></h2>
-            <div id="lines_tooltip"></div>
-            <div class="help">
-              <%= link_to t('gobierto_budgets.budgets.index.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], title: t('gobierto_budgets.budgets.index.note_about_the_data_title'), class: 'tipsit-n' %>
-            </div>
+        <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
+          <h2><%= t('gobierto_budgets.budgets.index.context') %></h2>
+          <div id="lines_tooltip"></div>
+          <div class="help">
+            <%= link_to t('gobierto_budgets.budgets.index.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], title: t('gobierto_budgets.budgets.index.note_about_the_data_title'), class: 'tipsit-n' %>
           </div>
-        <% end %>
+        </div>
 
         <div class="pure-u-1 pure-u-md-1-2">
           <div class="filter m_v_2" role="tablist" aria-label="<%= t('gobierto_budgets.budgets.index.visualize') %>">
@@ -242,26 +246,24 @@
       </div>
     <% end %>
 
-    <% if budgets_comparison_compare_municipalities.any? %>
+    <% if params[:area_name] != GobiertoBudgets::CustomArea.area_name && budgets_comparison_compare_municipalities.any? %>
       <div id="lines_chart_comparison_wrapper" class="pure-g block" data-vis-lines role="tabpanel" aria-controlledby="per_person, total_budget">
         <div class="pure-u-1 pure-u-md-1-2 p_h_l_1">
           <h2><%= t('.evolution') %></h2>
           <div id="lines_chart_comparison"></div>
         </div>
 
-        <% if params[:area_name] != GobiertoBudgets::CustomArea.area_name %>
-          <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
-            <h2><%= t('gobierto_budgets.budgets.index.context') %></h2>
-            <div id="lines_tooltip_comparison"></div>
-            <div class="help">
-              <%= link_to t('gobierto_budgets.budgets.index.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], title: t('gobierto_budgets.budgets.index.note_about_the_data_title'), class: 'tipsit-n' %>
-            </div>
-
-            <% if budgets_comparison_show_widget %>
-              <%= render 'gobierto_budgets/shared/compare' %>
-            <% end %>
+        <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
+          <h2><%= t('gobierto_budgets.budgets.index.context') %></h2>
+          <div id="lines_tooltip_comparison"></div>
+          <div class="help">
+            <%= link_to t('gobierto_budgets.budgets.index.note_about_the_data'), APP_CONFIG["gobierto_budgets"]["data_note_url"], title: t('gobierto_budgets.budgets.index.note_about_the_data_title'), class: 'tipsit-n' %>
           </div>
-        <% end %>
+
+          <% if budgets_comparison_show_widget %>
+            <%= render 'gobierto_budgets/shared/compare' %>
+          <% end %>
+        </div>
 
         <div class="pure-u-1 pure-u-md-1-2">
           <div class="filter m_v_2" role="tablist" aria-label="<%= t('gobierto_budgets.budgets.index.visualize') %>">

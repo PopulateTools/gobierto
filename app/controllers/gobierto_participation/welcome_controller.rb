@@ -17,6 +17,7 @@ module GobiertoParticipation
                      File.read("app/views/" + liquid_path)
                    end
 
+      liquid_str = liquid_str.gsub(/<%.*%>/, "")
       liquid = Liquid::Template.parse(liquid_str)
       liquid.assigns["current_site"] = current_site
       liquid_rendered = liquid.render({ "location_name" => current_site.location_name },

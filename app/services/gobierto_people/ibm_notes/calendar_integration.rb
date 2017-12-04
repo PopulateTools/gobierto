@@ -88,7 +88,8 @@ module GobiertoPeople
       def self.get_person_events_urls(person)
         response_events = ::IbmNotes::Api.get_person_events(request_params_for_events(person))
 
-        if response_events && response_events['events'].present?
+        # some APIs return an empty array when no events instead of a hash
+        if response_events && response_events.is_a?(Hash) && response_events['events'].present?
           response_events['events'].map { |event_data| event_data['href'] }
         else
           []

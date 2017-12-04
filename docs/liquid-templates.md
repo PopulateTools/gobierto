@@ -58,6 +58,23 @@ Renders the path of a page (an instance of`GobiertoCms::Page`)
 
 - Returns: "/paginas/about"
 
+## image_filter
+
+Renders the path of an image
+
+- Usage: `{{ 'Gobierto-Avatar@2x.png' | image_url }}`
+
+- Returns: "/assets/Gobierto-Avatar@2x-3b3e639a0e0ee13213cef48aa336b233072d17689b95887788c48f529e16ddf6.png"
+
+## liquid_i18n
+
+Renders i18n key translation
+
+- Usage `{{ 'gobierto_participation.shared.no_events' | t }}`
+
+- Returns: "No related events"
+
+
 ## Available templates
 
 ### GobiertoParticipation home

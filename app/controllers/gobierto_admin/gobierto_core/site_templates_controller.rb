@@ -62,7 +62,7 @@ module GobiertoAdmin
       end
 
       def find_site_template
-        ::GobiertoCore::SiteTemplate.find(params[:id])
+        current_site.site_templates.find(params[:id])
       end
 
       def find_template

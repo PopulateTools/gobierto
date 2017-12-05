@@ -3,3 +3,11 @@
   border-bottom: 2px solid $color_main_soft;
   padding-bottom: 0.5em;
 }
+
+//bars
+//hbars1
+//hbars2
+.dc-chart g.row rect,
+.dc-chart rect.bar {
+  fill: $color_main;
+}

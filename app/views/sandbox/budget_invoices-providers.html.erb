@@ -122,183 +122,227 @@
         </div>
         <div class="pure-u-1">
           <h3 class="m_v_0 mt1 graph-title">Todas las facturas</h3>
-          
+
         </div>
       </div>
 
-      <pre id="data" style="display:none">
-        Expt,Run,Speed
-        1,1,850
-        1,2,740
-        1,3,900
-        1,4,1070
-        1,5,930
-        1,6,850
-        1,7,950
-        1,8,980
-        1,9,980
-        1,10,880
-        1,11,1000
-        1,12,980
-        1,13,930
-        1,14,650
-        1,15,760
-        1,16,810
-        1,17,1000
-        1,18,1000
-        1,19,960
-        1,20,960
-        2,1,960
-        2,2,940
-        2,3,960
-        2,4,940
-        2,5,880
-        2,6,800
-        2,7,850
-        2,8,880
-        2,9,900
-        2,10,840
-        2,11,830
-        2,12,790
-        2,13,810
-        2,14,880
-        2,15,880
-        2,16,830
-        2,17,800
-        2,18,790
-        2,19,760
-        2,20,800
-        3,1,880
-        3,2,880
-        3,3,880
-        3,4,860
-        3,5,720
-        3,6,720
-        3,7,620
-        3,8,860
-        3,9,970
-        3,10,950
-        3,11,880
-        3,12,910
-        3,13,850
-        3,14,870
-        3,15,840
-        3,16,840
-        3,17,850
-        3,18,840
-        3,19,840
-        3,20,840
-        4,1,890
-        4,2,810
-        4,3,810
-        4,4,820
-        4,5,800
-        4,6,770
-        4,7,760
-        4,8,740
-        4,9,750
-        4,10,760
-        4,11,910
-        4,12,920
-        4,13,890
-        4,14,860
-        4,15,880
-        4,16,720
-        4,17,840
-        4,18,850
-        4,19,850
-        4,20,780
-        5,1,890
-        5,2,840
-        5,3,780
-        5,4,810
-        5,5,760
-        5,6,810
-        5,7,790
-        5,8,810
-        5,9,820
-        5,10,850
-        5,11,870
-        5,12,870
-        5,13,810
-        5,14,740
-        5,15,810
-        5,16,940
-        5,17,950
-        5,18,800
-        5,19,810
-        5,20,870
-      </pre>
-      <link rel="stylesheet" type="text/css" href="https://dc-js.github.io/dc.js/css/dc.css" />
-      <script src="https://dc-js.github.io/dc.js/js/d3.js"></script>
-      <script src="https://dc-js.github.io/dc.js/js/crossfilter.js"></script>
-      <script src="https://dc-js.github.io/dc.js/js/dc.js"></script>
-      <script src="https://rawgit.com/crossfilter/reductio/master/reductio.js"></script>
-      <script src="https://npmcdn.com/universe@latest/universe.js"></script>
-      <script>
-        var bars = dc.barChart("#bars");
-        var hbars1 = dc.rowChart("#hbars1");
-        var hbars2 = dc.rowChart("#hbars2");
+      <pre id="data" style="display:none">nif,name,date,payed,amount,concept
+        06-1515275,Dynabox,2017/10/11,false,7379.79,Burmese black mountain tortoise
+        96-8721358,Jetpulse,2016/12/06,true,5867.39,Savannah deer
+        92-3740085,Skyble,2017/07/25,false,3022.77,Tyrant flycatcher
+        64-0336736,Zoomzone,2017/09/11,true,6461.44,Greater rhea
+        82-4115180,Zazio,2016/12/10,true,2454.32,Moose
+        31-9546108,Edgeclub,2017/04/12,true,7468.41,African porcupine
+        93-3854302,Linklinks,2017/04/14,false,7987.94,White rhinoceros
+        07-6070581,Meevee,2017/07/07,true,3674.79,Gray duiker
+        94-9162746,Mycat,2017/02/15,true,7963.95,Wattled crane
+        19-0468774,Realpoint,2017/02/18,false,5393.98,"Francolin, swainson's"
+        95-0519541,Jamia,2017/04/10,true,8282.42,Australian brush turkey
+        05-0129891,Jayo,2017/04/18,false,8340.0,Common melba finch
+        34-0559709,Zoombox,2017/07/02,true,7195.07,Bald eagle
+        89-7873700,Cogilith,2017/02/25,false,5493.26,Bare-faced go away bird
+        65-1033400,Voonte,2017/09/06,true,2575.24,Gray heron
+        29-8402966,Aivee,2017/06/07,false,4829.83,Scottish highland cow
+        13-0388689,Mymm,2017/03/10,true,2022.61,"Shrike, southern white-crowned"
+        61-6245355,Twinte,2016/12/06,true,3461.5,White-tailed jackrabbit
+        58-0534877,Tagopia,2017/04/30,false,4284.82,Vervet monkey
+        30-4533859,Vimbo,2017/07/01,true,6836.34,Western patch-nosed snake
+        22-4453740,Voomm,2017/02/06,false,4537.98,Black-backed jackal
+        42-6976970,Babbleset,2017/07/06,true,6072.49,Harbor seal
+        80-7444246,Viva,2017/01/06,true,9661.37,Tyrant flycatcher
+        84-4974121,Camido,2017/03/02,false,8770.24,"Coot, red-knobbed"
+        83-6982820,Pixonyx,2017/10/03,false,6142.22,"Cat, tiger"
+        35-4919686,Yodoo,2017/01/05,false,4921.28,"Goose, spur-winged"
+        50-5264445,Chatterbridge,2017/07/31,false,7382.2,"Hartebeest, coke's"
+        69-4578967,Tavu,2016/12/31,false,6181.16,Carpet python
+        01-7526983,Ailane,2017/11/20,true,8467.43,"Beaver, eurasian"
+        49-1601605,Trupe,2017/06/08,false,8937.16,"Bulbul, african red-eyed"
+        04-4402640,Avamm,2017/10/12,true,6003.9,Aardwolf
+        31-0089156,Demivee,2017/09/26,true,8566.15,Black-eyed bulbul
+        61-3311193,Linkbridge,2017/05/01,false,8724.08,Desert spiny lizard
+        64-3106582,Thoughtbridge,2017/04/13,true,6517.16,"Penguin, galapagos"
+        60-7123717,Bubblebox,2017/05/08,true,1621.03,River wallaby
+        28-8605549,Yakijo,2017/09/02,true,2147.96,"Loris, slender"
+        46-9353889,Twinte,2017/06/07,false,3379.72,"Wallaby, agile"
+        08-3017869,Mynte,2017/01/22,false,2504.57,Plains zebra
+        46-7548151,Quinu,2017/03/09,true,3171.9,Indian star tortoise
+        52-6060297,Viva,2017/05/11,true,7548.16,Galapagos dove
+        82-4314179,Oyondu,2017/01/06,false,9564.37,Galapagos tortoise
+        31-3804742,Voonte,2017/10/29,true,7354.28,American badger
+        02-3211591,Camido,2017/08/18,true,6354.42,Gerbil (unidentified)
+        42-0008165,Feedspan,2016/12/10,true,1107.74,Asian red fox
+        74-1283691,Fadeo,2017/06/17,false,8371.46,Yellow-necked spurfowl
+        01-0797804,Browsetype,2017/03/30,false,2437.01,Sally lightfoot crab
+        27-7944423,Leexo,2017/09/18,true,5293.66,"Squirrel, pine"
+        77-0819720,Demivee,2017/05/06,false,2020.52,Prehensile-tailed porcupine
+        60-2272238,Youtags,2017/06/15,true,931.93,"Tortoise, burmese brown mountain"
+        13-2016889,Realmix,2017/10/04,true,2197.88,Ring-tailed gecko
+        46-0092907,Agimba,2016/12/10,true,4947.94,"Dik, kirk's dik"
+        27-9921562,Eamia,2017/08/26,false,9662.6,Red meerkat
+        42-2538506,Digitube,2017/07/30,false,3130.42,"Dove, galapagos"
+        68-2389566,Jetpulse,2017/01/15,false,9390.78,Western pygmy possum
+        70-5230385,Skivee,2017/01/12,true,5553.76,"Dove, mourning collared"
+        37-5398817,Camido,2017/09/09,false,6596.05,"Weaver, lesser masked"
+        19-7011558,Flashspan,2017/03/16,false,9446.98,Southern right whale
+        18-8090870,Quamba,2017/04/12,false,4737.21,"Cat, civet"
+        11-0810838,Yamia,2017/07/24,false,8257.74,Red-breasted cockatoo
+        75-7958395,Divanoodle,2017/10/05,true,151.37,Golden brush-tailed possum
+        48-9064891,Leexo,2017/04/16,false,6715.79,Greylag goose
+        45-4228792,Zoomzone,2016/12/05,true,6229.91,Carpet python
+        37-4712671,Browsezoom,2017/05/24,false,845.57,"Glider, squirrel"
+        89-9206772,Zava,2017/07/24,true,2957.67,Reindeer
+        50-1723962,Topdrive,2017/03/13,false,9416.33,Andean goose
+        17-9839226,Divape,2017/02/22,false,4130.64,"Gull, kelp"
+        36-3929819,Realbridge,2017/02/26,false,3123.96,"Lion, australian sea"
+        26-9822408,Devify,2017/06/20,false,8152.62,Pale white-eye
+        80-1048206,Edgetag,2017/04/08,false,4348.0,"Fox, asian red"
+        64-7860843,Realblab,2017/07/10,true,5974.28,Black-capped capuchin
+        21-4862776,Gigazoom,2017/02/24,true,174.48,"Goose, cereopsis"
+        28-8632497,Twimbo,2017/01/25,false,3260.84,Civet (unidentified)
+        78-9869666,Dabvine,2017/10/02,true,2985.53,"Wolf, timber"
+        25-1006281,Npath,2017/02/17,false,3767.77,Red-billed buffalo weaver
+        97-3722385,Trupe,2016/12/10,false,3594.13,"Lemming, collared"
+        63-3365525,Bubblebox,2017/10/31,false,6927.39,"Pigeon, feral rock"
+        82-7749767,Buzzdog,2017/01/18,false,5973.7,Red-capped cardinal
+        22-0498492,Babblestorm,2017/04/24,true,6662.64,"Zebra, plains"
+        37-3255886,Jabbertype,2017/04/20,true,780.12,"Meerkat, red"
+        71-9450256,Realbridge,2017/07/05,false,7381.8,"Spurfowl, yellow-necked"
+        77-5153401,Yata,2017/10/19,true,160.31,"Tortoise, radiated"
+        21-3673187,Yozio,2017/03/13,true,861.76,"Cat, miner's"
+        75-6598597,Einti,2017/01/03,true,511.97,Great cormorant
+        28-8076768,Quinu,2017/07/14,true,4567.33,African lion
+        42-6195939,Oyoloo,2017/06/28,true,5079.29,Black-capped chickadee
+        11-8592287,Aimbu,2017/10/11,true,5057.32,"Crow, pied"
+        46-3708042,Zoomcast,2017/09/22,false,4764.43,Lilac-breasted roller
+        28-6872142,Realblab,2017/11/15,false,3825.1,Osprey
+        96-1588258,Zoombeat,2017/01/18,false,3213.95,Black-cheeked waxbill
+        27-8035818,Digitube,2017/06/06,false,2182.88,"Monkey, red howler"
+        07-6707197,Skivee,2017/03/12,false,8382.81,African lynx
+        21-7979061,Divanoodle,2017/02/19,false,1653.97,Little heron
+        56-8718069,Jabbertype,2017/01/14,false,395.59,"Eland, common"
+        09-2714683,Midel,2017/01/19,false,7593.54,Gulls (unidentified)
+        55-2056854,Youopia,2017/02/01,true,3422.82,"Bandicoot, short-nosed"
+        74-2723773,Roombo,2017/09/20,true,284.76,Red-legged pademelon
+        89-2903811,Brainlounge,2017/02/05,false,4352.32,Chimpanzee
+        21-7333166,Youbridge,2017/06/11,false,2989.43,Short-nosed bandicoot
+        87-4723009,Jaloo,2017/10/31,true,2844.53,"Kangaroo, brush-tailed rat"
+        66-6994287,Edgeclub,2017/09/28,true,8672.23,"Lemur, grey mouse"</pre>
 
-        var experiments = d3.csv.parse(d3.select('pre#data').text());
-        experiments.forEach(function(x) {
-          x.Speed = +x.Speed;
-        });
-
-        var ndx = crossfilter(experiments);
-        var runDimension = ndx.dimension(function(d) {
-            return +d.Run;
-          });
-        var speedSumGroup = runDimension.group().reduceSum(function(d) {
-            return d.Speed * d.Run / 1000;
-          });
-
-        bars
-          .x(d3.scale.linear().domain([6, 20]))
-          .renderHorizontalGridLines(true)
-          .dimension(runDimension)
-          .group(speedSumGroup)
-          .gap(30)
-          .on('renderlet', function(bars) {
-            bars.selectAll('rect').on("click", function(d) {
-              console.log("click!", d);
-            });
-          });
-
-        hbars1
-          .x(d3.scale.linear().domain([6, 20]))
-          .dimension(runDimension)
-          .group(speedSumGroup)
-          .elasticX(true)
-          .colors('#1f77b4')
-          .labelOffsetX(-20)
-          // .xAxis().tickFormat(function (v) {return v + '€';})
-          .on('renderlet', function(hbars1) {
-            hbars1.selectAll('rect').on("click", function(d) {
-              console.log("click!", d);
-            });
-          });
-
-        hbars2
-          .x(d3.scale.linear().domain([6, 20]))
-          .dimension(runDimension)
-          .group(speedSumGroup)
-          .elasticX(true)
-          .colors('#1f77b4')
-          .labelOffsetX(-20)
-          // .xAxis().tickFormat(function (v) {return v + '€';})
-          .on('renderlet', function(hbars2) {
-            hbars2.selectAll('rect').on("click", function(d) {
-              console.log("click!", d);
-            });
-          });
-
-        bars.render();
-        hbars1.render();
-        hbars2.render();
-      </script>
     </div>
 
   </main>
 
 </div>
+
+
+<%# NOTE: DC %>
+<link rel="stylesheet" type="text/css" href="https://dc-js.github.io/dc.js/css/dc.css" />
+<script src="https://dc-js.github.io/dc.js/js/d3.js"></script>
+<script src="https://dc-js.github.io/dc.js/js/crossfilter.js"></script>
+<script src="https://dc-js.github.io/dc.js/js/dc.js"></script>
+<script src="https://rawgit.com/crossfilter/reductio/master/reductio.js"></script>
+<script src="https://npmcdn.com/universe@latest/universe.js"></script>
+<script>
+  var bars = dc.barChart("#bars", "group");
+  var hbars1 = dc.rowChart("#hbars1", "group");
+  // var hbars2 = dc.rowChart("#hbars2", "group");
+
+  var data = d3.csv.parse(d3.select('pre#data').text().trim());
+  // d3.csv('budget_invoices-providers.mock.csv', function (data) {
+
+  // Since its a csv file we need to format the data a bit.
+  var dateFormat = d3.time.format('%Y/%m/%d');
+  data.forEach(function (d) {
+    d.dd = dateFormat.parse(d.date);
+    d.month = d3.time.month(d.dd); // pre-calculate month for better performance
+  });
+
+  // See the [crossfilter API](https://github.com/square/crossfilter/wiki/API-Reference) for reference.
+  var ndx = crossfilter(data);
+
+  var months = ndx.dimension(function(d) {
+    return d.month
+  });
+
+  var budgetMonthly = months.group().reduceSum(function(d) {
+    return +d.amount;
+  });
+
+  bars
+    .dimension(months)
+    .group(budgetMonthly)
+    .x(d3.time.scale())
+    .round(d3.time.month.round)
+    .xUnits(d3.time.months)
+    .elasticX(true)
+    .elasticY(true)
+    .alwaysUseRounding(false)
+    .renderHorizontalGridLines(true)
+    .centerBar(true)
+    .barPadding(0.5)
+    .on('renderlet', function(bars) {
+      // bars.selectAll('rect').on("click", function(d) {
+      //   console.log("click!", d);
+      // });
+    });
+
+  // Customize
+  bars.xAxis().tickFormat(d3.time.format('%b'));
+  bars.yAxis().ticks(5);
+  bars.yAxis().tickFormat(
+    function(v) {
+      return v.toLocaleString() + '€';
+    });
+  bars.margins().left = 60;
+
+  bars.render();
+
+  var amount = ndx.dimension(function(d) {
+    return d.amount
+  });
+
+  var provider = amount.group().reduce(function(d) {
+    return d.name
+  })
+
+  // var provider = ndx.dimension(function(d) {
+  //   return d.name
+  // });
+  //
+  // var providerAmount = provider.group().reduceSum(function(d) {
+  //   return +d.amount;
+  // });
+
+  hbars1
+    .x(d3.scale.linear())
+    .dimension(amount)
+    .group(provider)
+    .elasticX(true)
+    .labelOffsetX(-20)
+    .on('renderlet', function(hbars1) {
+      // hbars1.selectAll('rect').on("click", function(d) {
+      //   console.log("click!", d);
+      // });
+    });
+
+  hbars1.xAxis().tickFormat(function (v) {return v + '€';});
+  hbars1.render();
+  //
+  // hbars2
+  //   .x(d3.scale.linear().domain([6, 20]))
+  //   .dimension(runDimension)
+  //   .group(speedSumGroup)
+  //   .elasticX(true)
+  //   .labelOffsetX(-20)
+  //   // .xAxis().tickFormat(function (v) {return v + '€';})
+  //   .on('renderlet', function(hbars2) {
+  //     hbars2.selectAll('rect').on("click", function(d) {
+  //       console.log("click!", d);
+  //     });
+  //   });
+
+  // hbars1.render();
+  // hbars2.render();
+
+  // });
+</script>

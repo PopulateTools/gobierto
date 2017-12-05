@@ -1,0 +1,16 @@
+<h1><%= t(".edit_templates") %></h1>
+
+<div class="pure-g template_editor">
+
+  <div class="pure-u-1 pure-u-md-6-24 template_editor_side_pane">
+
+    <div class="file_browser">
+      <%= template_tree_tag(@dir) %>
+    </div>
+
+  </div>
+
+  <div class="pure-u-1 pure-u-md-18-24 template_editor_main_pane" id="template_editor">
+    <%= render 'edit' %>
+  </div>
+</div>

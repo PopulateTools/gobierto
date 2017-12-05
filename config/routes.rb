@@ -17,6 +17,12 @@ Rails.application.routes.draw do
 
     resource :sessions, only: [:new, :create, :destroy]
     resources :sites, only: [:index, :new, :create, :edit, :update, :destroy]
+    namespace :gobierto_core do
+      resources :templates, only: [:index] do
+        get :edit
+      end
+      resources :site_templates, only: [:create, :update, :destroy]
+    end
     resources :issues do
       collection do
         resource :issue_sort, only: [:create], controller: "issues_sort", path: :issues_sort
@@ -277,7 +283,7 @@ Rails.application.routes.draw do
     constraints GobiertoSiteConstraint.new do
       resources :pages, only: [:index, :show], path: "paginas"
       get "/s/:slug_section/:id" => "pages#show", as: :section_item
-      get "/s/:slug_section" => "pages#show", as: :section
+      get "/s/:slug_section" => "sections#show", as: :section
     end
   end
 

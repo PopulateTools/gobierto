@@ -20,5 +20,16 @@ module GobiertoCms
     def test_valid
       assert page.valid?
     end
+
+    def test_searchable_body
+      assert page.searchable_body.include?("This is the body of the page")
+      assert page.searchable_body.include?("Cuerpo página consultas")
+    end
+
+    def test_searchable_body_on_empty_page
+      new_page = GobiertoCms::Page.new
+      assert_equal "", new_page.searchable_body
+      assert_equal "", new_page.searchable_body
+    end
   end
 end

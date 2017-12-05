@@ -8,10 +8,6 @@
 
     <div class="pure-g">
 
-      <% current_site.configuration.modules.each do |site_module| %>
-        <%= render_if_exists "#{site_module.underscore}/layouts/navigation" %>
-      <% end %>
-
       <div class="pure-u-1 pure-u-md-1-4 section personal_menu mobile_only">
         <% if user_signed_in? %>
           <h2>

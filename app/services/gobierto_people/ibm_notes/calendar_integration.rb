@@ -30,7 +30,7 @@ module GobiertoPeople
         ::GobiertoCalendars::IbmNotesCalendarConfiguration
       end
 
-      def self.sync_event(ibm_notes_event)
+      def self.sync_event(ibm_notes_event,recurring = false)
         locations_attributes = if ibm_notes_event.location.present?
                                  { name: ibm_notes_event.location }
                                else
@@ -48,7 +48,8 @@ module GobiertoPeople
           state: GobiertoCalendars::Event.states[:published],
           attendees: ibm_notes_event.attendees,
           locations_attributes: {"0" => locations_attributes },
-          notify: true
+          notify: true,
+          recurring: recurring
         }
 
         event = GobiertoPeople::PersonEventForm.new(person_event_params)
@@ -58,9 +59,9 @@ module GobiertoPeople
 
       # Private methods
 
-      def self.create_and_sync_ibm_notes_event(person, event_data)
+      def self.create_and_sync_ibm_notes_event(person, event_data, recurring)
         event = ::IbmNotes::PersonEvent.new(person, event_data)
-        created_event_external_id = sync_event(event)
+        created_event_external_id = sync_event(event, recurring)
         return created_event_external_id
       end
       private_class_method :create_and_sync_ibm_notes_event
@@ -74,11 +75,11 @@ module GobiertoPeople
             response_event = ::IbmNotes::Api.get_event(request_params_for_event_request(person, event_url))
 
             if response_event && response_event['events'].present?
-              processed_events_ids << create_and_sync_ibm_notes_event(person, response_event['events'][0])
+              processed_events_ids << create_and_sync_ibm_notes_event(person, response_event['events'][0], true)
             end
           end
         else
-          processed_events_ids << create_and_sync_ibm_notes_event(person, event_data)
+          processed_events_ids << create_and_sync_ibm_notes_event(person, event_data, false)
         end
 
         processed_events_ids

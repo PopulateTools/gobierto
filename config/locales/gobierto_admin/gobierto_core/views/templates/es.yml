@@ -1,0 +1,13 @@
+---
+es:
+  gobierto_admin:
+    gobierto_core:
+      templates:
+        edit:
+          preview: Previsualizar
+          reset: Resetear
+          reset_title: Descartar cambios guardados, y volver a la plantilla original
+            (ojo, no podrás recuperar la plantilla que hayas personalizado)
+          save: Guardar
+        index:
+          edit_templates: Editar plantillas

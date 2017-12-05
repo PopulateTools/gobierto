@@ -57,20 +57,6 @@ module ApplicationHelper
     html.html_safe
   end
 
-  def show_poll(poll_id = nil)
-    poll = if poll_id
-             GobiertoParticipation::Poll.by_site(current_site).find(poll_id)
-           else
-             next_poll
-           end
-
-    if poll_id && !poll
-      render body: nil
-    else
-      render partial: "shared/polls", locals: { poll_id: poll ? poll_id : nil }
-    end
-  end
-
   def next_poll(poll_id = nil)
     poll = GobiertoParticipation::Poll.by_site(current_site).find(poll_id) if poll_id
     answerable_polls = GobiertoParticipation::Poll.by_site(current_site).answerable.order(ends_at: :asc)

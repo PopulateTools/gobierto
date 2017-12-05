@@ -74,6 +74,13 @@ Renders i18n key translation
 
 - Returns: "No related events"
 
+## show_poll
+
+Renders a poll
+
+- Usage `{% show_poll(poll_id: 62047248) %}`
+
+- Returns: Poll with options
 
 ## Available templates
 

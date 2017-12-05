@@ -15,10 +15,11 @@ module GobiertoCms
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Collectionable
     include GobiertoCommon::Sectionable
+    include ActionView::Helpers::SanitizeHelper
 
     algoliasearch_gobierto do
-      attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca, :collection_id
-      searchableAttributes %w(title_en title_es title_ca body_en body_es body_ca)
+      attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :searchable_body, :collection_id
+      searchableAttributes %w(title_en title_es title_ca searchable_body)
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end
@@ -120,6 +121,13 @@ module GobiertoCms
       if collection
         collection.append(self)
       end
+    end
+
+    def searchable_body
+      return "" if body_translations.nil?
+      body = body_translations.values.join(" ").tr("\n\r", " ").gsub(/\s+/, " ")
+      body = strip_tags(body)
+      body[0..9300]
     end
   end
 end

@@ -301,17 +301,21 @@
     return d.amount
   });
 
-  var provider = amount.group().reduce(function(d) {
-    return d.name
-  })
+  // TODO: El provider, filtra solo los 10 mayores del periodo
+  // Hay q agregar las funciones initial, add y remove
+  var provider = amount.group().reduce(
+    function (p, v) {
 
-  // var provider = ndx.dimension(function(d) {
-  //   return d.name
-  // });
-  //
-  // var providerAmount = provider.group().reduceSum(function(d) {
-  //   return +d.amount;
-  // });
+            return p;
+        },
+        function (p, v) {
+
+            return p;
+        },
+        function () {
+            return {};
+        }
+  );
 
   hbars1
     .x(d3.scale.linear())

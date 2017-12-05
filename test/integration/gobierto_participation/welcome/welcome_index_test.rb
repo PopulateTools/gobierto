@@ -111,5 +111,15 @@ module GobiertoParticipation
         assert has_selector?("h2", text: "Updates")
       end
     end
+
+    def test_welcome_index_template
+      with_current_site(site) do
+        visit @path
+
+        assert has_content?("My Template")
+        refute has_content?("Ongoing processes")
+        refute has_content?("Themes")
+      end
+    end
   end
 end

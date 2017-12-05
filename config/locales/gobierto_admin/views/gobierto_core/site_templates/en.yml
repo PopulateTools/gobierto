@@ -1,0 +1,11 @@
+---
+en:
+  gobierto_admin:
+    gobierto_core:
+      site_templates:
+        create:
+          success: Template was successfully created.
+        destroy:
+          success: Template was successfully deleted.
+        update:
+          success: Template was successfully updated.

@@ -1,0 +1,4 @@
+madrid_participation_index:
+  markup: <div class="gradient-bg">My Template</div>
+  template: participation_index
+  site: madrid

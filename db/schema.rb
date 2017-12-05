@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171127130258) do
+ActiveRecord::Schema.define(version: 20171128100636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -365,6 +365,22 @@ ActiveRecord::Schema.define(version: 20171127130258) do
     t.datetime "updated_at", null: false
     t.index ["site_id", "slug"], name: "index_gcms_sections_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_gcms_sections_on_site_id"
+  end
+
+  create_table "gcore_site_templates", force: :cascade do |t|
+    t.text "markup"
+    t.bigint "template_id"
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_gcore_site_templates_on_site_id"
+    t.index ["template_id"], name: "index_gcore_site_templates_on_template_id"
+  end
+
+  create_table "gcore_templates", force: :cascade do |t|
+    t.string "template_path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "gobierto_module_settings", id: :serial, force: :cascade do |t|

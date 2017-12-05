@@ -44,6 +44,7 @@ ignore_unused:
   - 'helpers.page_entries_info.*'
   - 'gobierto_indicators.cards.*'
   - 'user.subscriptions.subscribable_button.*'
+  - 'gobierto_participation.welcome.index.*'
   - 'gobierto_participation.processes.contribution_containers.show.login_signup_idea'
   - 'gobierto_participation.processes.contribution_containers.show.login_signup_proposal'
   - 'gobierto_participation.processes.contribution_containers.show.login_signup_question'

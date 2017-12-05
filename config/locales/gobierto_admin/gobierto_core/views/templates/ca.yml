@@ -1,0 +1,13 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_core:
+      templates:
+        edit:
+          preview: Previsualitzar
+          reset: Resetejar
+          reset_title: Descarta els canvis guardats, i tornar a la plantilla original
+            (ull, no podràs recuperar la plantilla que hagis personalitzat)
+          save: Desar
+        index:
+          edit_templates: Edita plantilles

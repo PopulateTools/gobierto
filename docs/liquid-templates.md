@@ -4,7 +4,6 @@
 
 This is a work in progress, we'll be implementing more tags and the possibility of editing a template through the admin UI.
 
-Tags: 
 
 ## list_children_pages
 
@@ -16,9 +15,9 @@ In the context of a CMS section, it renders the children pages of the given page
 
 - Usage: `{% list_children_pages page-slug | levels: 1 %}`
 
-- Returns: 
+- Returns:
 
-``` 
+```
 <div class="page_children">
   <div class="page_child">
     <a href="http://madrid.gobierto.dev/s/participacion/sobre">Sobre Nosotros</a>
@@ -58,3 +57,26 @@ Renders the path of a page (an instance of`GobiertoCms::Page`)
 - Usage: `{% page_url about %}`
 
 - Returns: "/paginas/about"
+
+## image_filter
+
+Renders the path of an image
+
+- Usage: `{{ 'Gobierto-Avatar@2x.png' | image_url }}`
+
+- Returns: "/assets/Gobierto-Avatar@2x-3b3e639a0e0ee13213cef48aa336b233072d17689b95887788c48f529e16ddf6.png"
+
+## liquid_i18n
+
+Renders i18n key translation
+
+- Usage `{{ 'gobierto_participation.shared.no_events' | t }}`
+
+- Returns: "No related events"
+
+
+## Available templates
+
+### GobiertoParticipation home
+
+It is available as template GobiertoParticipation home (gobierto_participation/welcome/index.liquid)

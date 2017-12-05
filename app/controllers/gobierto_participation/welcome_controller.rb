@@ -2,6 +2,8 @@
 
 module GobiertoParticipation
   class WelcomeController < GobiertoParticipation::ApplicationController
+    include LiquidHelper
+
     def index
       @processes = current_site.processes.process.active
       @issues = current_site.issues
@@ -17,9 +19,7 @@ module GobiertoParticipation
                      File.read("app/views/" + liquid_path)
                    end
 
-      liquid_str = liquid_str.gsub(/<%.*%>/, "")
-      liquid = Liquid::Template.parse(liquid_str)
-      liquid.assigns["current_site"] = current_site
+      liquid = to_liquid(liquid_str)
       liquid_rendered = liquid.render({ "location_name" => current_site.location_name },
                                       registers: { controller: self })
 

@@ -96,7 +96,8 @@ module GobiertoPeople
           ends_at: parse_date(event.end),
           state: GobiertoCalendars::Event.states[:published],
           attendees: event_attendees(event),
-          notify: i.nil? || i == 0
+          notify: i.nil? || i == 0,
+          recurring: i.present?
         }
 
         if event.location.present?

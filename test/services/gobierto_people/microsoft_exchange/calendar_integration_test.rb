@@ -2,15 +2,21 @@
 
 require 'test_helper'
 require 'support/calendar_integration_helpers'
+require 'support/event_helpers'
 
 module GobiertoPeople
   module MicrosoftExchange
     class CalendarIntegrationTest < ActiveSupport::TestCase
 
       include ::CalendarIntegrationHelpers
+      include ::EventHelpers
 
       def richard
         @richard ||= gobierto_people_people(:richard)
+      end
+
+      def tamara
+        @tamara ||= gobierto_people_people(:tamara)
       end
 
       def site
@@ -114,6 +120,7 @@ module GobiertoPeople
       end
 
       def test_unreceived_events_are_drafted
+        other_person_event = create_event(person: tamara, external_id: 'Tamara synced event')
 
         # sync two events
 
@@ -136,6 +143,10 @@ module GobiertoPeople
 
         event.reload
         refute event.published?
+
+        # check other people's events are not unpublished
+
+        assert other_person_event.reload.published?
       end
 
       def test_sync_events_removes_deleted_locations

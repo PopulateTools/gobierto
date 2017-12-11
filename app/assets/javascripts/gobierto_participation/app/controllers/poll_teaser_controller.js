@@ -12,15 +12,28 @@ this.GobiertoParticipation.PollTeaserController = (function() {
         var selected = [];
 
         $('input[type=radio][name=radio]').change(function() {
+            selected = [];
             selected.push($('input[name=radio]:checked').val());
             var newUrl = submit.attr('href').split("?")[0] + "?answers=" + selected;
             submit.attr('href', newUrl);
+
+            if (selected.length >= 1) {
+              submit.removeClass("hidden");
+            } else {
+              submit.addClass("hidden");
+            }
         });
 
         $('.questions :checkbox').change(function() {
-            selected.push($(this).val());
+            selected = $("input:checked").map(function() {return this.value}).get().join(',');
             var newUrl = submit.attr('href').split("?")[0] + "?answers=" + selected;
             submit.attr('href', newUrl);
+
+            if ($("input:checked").length >= 1) {
+              submit.removeClass("hidden");
+            } else {
+              submit.addClass("hidden");
+            }
         });
     });
   }

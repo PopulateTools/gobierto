@@ -13,6 +13,7 @@ module GobiertoPeople
         log_agenda_synchronization(collection, container, site)
 
         calendar_integration.sync_person_events(container)
+        Publishers::AdminGobiertoCalendarsActivity.broadcast_event('calendars_synchronized', { ip: '127.0.0.1',  subject: container, site_id: site.id })
       end
     end
 

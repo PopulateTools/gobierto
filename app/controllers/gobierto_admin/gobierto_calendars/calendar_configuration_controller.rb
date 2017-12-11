@@ -37,11 +37,16 @@ module GobiertoAdmin
         @calendar_configuration_form = CalendarConfigurationForm.new(current_site: current_site, collection_id: @collection.id)
         if (calendar_integration = @calendar_configuration_form.calendar_integration_class).present?
           calendar_integration.sync_person_events(@calendar_configuration_form.collection_container)
+          publish_calendar_sync_activity(@calendar_configuration_form)
         end
         redirect_to edit_admin_calendars_configuration_path(@collection)
       end
 
       private
+
+      def publish_calendar_sync_activity(calendar_configuration_form)
+        Publishers::AdminGobiertoCalendarsActivity.broadcast_event('calendars_synchronized', { ip: remote_ip, author: current_admin, subject: calendar_configuration_form.collection_container, site_id: current_site.id })
+      end
 
       def load_collection
         @collection = current_site.collections.find(params[:id])

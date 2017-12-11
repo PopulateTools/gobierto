@@ -1,3 +1,5 @@
+<% poll_id = GobiertoParticipation::Poll.by_site(current_site).where(id: "353021530").try(:first).id %>
+
 <div class="p_1 filled_block content_block" style="background-image: url(<%= image_url("illustrations/emojis.svg") %>)">
   <h2><%= t("shared.polls.opinion") %></h2>
   <% poll = next_poll(poll_id) %>

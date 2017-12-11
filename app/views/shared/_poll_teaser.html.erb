@@ -1,8 +1,50 @@
-<p class="lead"><%= poll.title %></p>
+<% @poll_answer_form = GobiertoParticipation::Processes::PollAnswerForm.new(poll: poll) %>
+<% current_process = poll.process %>
+<% question = @poll_answer_form.poll.questions.first %>
+
+<p class="lead"><%= question.title %></p>
 <div class="center">
-  <% if user_signed_in? %>
-    <%= link_to t("shared.polls.participate"), new_gobierto_participation_process_poll_answer_path(poll.process.slug, poll), class: "button outline rounded fat" %>
-  <% else %>
-    <%= link_to t("shared.polls.participate"), new_user_sessions_path(open_modal: true), class: "button outline rounded fat open_remote_modal" %>
+  <%= form_for(@poll_answer_form, as: :poll, method: :post, url: gobierto_participation_process_poll_answers_path(current_process.slug, @poll_answer_form.poll), remote: true) do |fb| %>
+    <% unless question.open_answer? %>
+      <%= render 'shared/poll_question', question: @poll_answer_form.poll.questions.first %>
+    <% end %>
+
+    <% submit_button_text = if question.open_answer?
+                              t('.answer')
+                            else
+                              @poll_answer_form.questions_count == 1 ? t('.submit') : t('.next_question')
+                            end
+    %>
+
+    <%= link_to submit_button_text,
+                new_gobierto_participation_process_poll_answer_path(poll.process.slug,
+                                                                    poll),
+                class: "button outline rounded fat",
+                data: { behavior: 'next_question' } %>
   <% end %>
 </div>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    $(document).ready(function() {
+        var submit = $("#new_poll a");
+
+        var answers = [];
+        $('input[type=radio][name=radio]').change(function() {
+            answers.push($('input[name=radio]:checked').val());
+
+            var newUrl = submit.attr('href').split("?")[0] + "?answers=" + answers;
+            submit.attr('href', newUrl);
+
+        });
+
+        var selected = [];
+        $('.questions :checkbox').change(function() {
+            selected.push($(this).val());
+
+            var newUrl = submit.attr('href').split("?")[0] + "?answers=" + selected;
+            submit.attr('href', newUrl);
+        });
+    });
+  <% end %>
+<% end %>

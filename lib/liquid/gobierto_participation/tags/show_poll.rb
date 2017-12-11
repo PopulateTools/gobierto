@@ -15,11 +15,9 @@ class ShowPoll < Liquid::Tag
              next_poll
            end
 
-    if @poll_id && !poll
-      context.registers[:controller].dup.render(body: nil)
-    else
+    if poll
       context.registers[:controller].dup.render(partial: "shared/polls",
-                                                locals: { poll_id: poll ? @poll_id : nil })
+                                                locals: { poll_id: poll.id ? @poll_id : nil })
     end
   end
 end

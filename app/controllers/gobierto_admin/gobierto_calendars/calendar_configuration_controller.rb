@@ -33,6 +33,14 @@ module GobiertoAdmin
         end
       end
 
+      def sync_calendars
+        @calendar_configuration_form = CalendarConfigurationForm.new(current_site: current_site, collection_id: @collection.id)
+        if (calendar_integration = @calendar_configuration_form.calendar_integration_class).present?
+          calendar_integration.sync_person_events(@calendar_configuration_form.collection_container)
+        end
+        redirect_to edit_admin_calendars_configuration_path(@collection)
+      end
+
       private
 
       def load_collection

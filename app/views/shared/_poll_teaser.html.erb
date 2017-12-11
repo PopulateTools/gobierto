@@ -23,28 +23,3 @@
                 data: { behavior: 'next_question' } %>
   <% end %>
 </div>
-
-<% content_for :javascript_hook do %>
-  <%= javascript_tag do %>
-    $(document).ready(function() {
-        var submit = $("#new_poll a");
-
-        var answers = [];
-        $('input[type=radio][name=radio]').change(function() {
-            answers.push($('input[name=radio]:checked').val());
-
-            var newUrl = submit.attr('href').split("?")[0] + "?answers=" + answers;
-            submit.attr('href', newUrl);
-
-        });
-
-        var selected = [];
-        $('.questions :checkbox').change(function() {
-            selected.push($(this).val());
-
-            var newUrl = submit.attr('href').split("?")[0] + "?answers=" + selected;
-            submit.attr('href', newUrl);
-        });
-    });
-  <% end %>
-<% end %>

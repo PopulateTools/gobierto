@@ -20,6 +20,7 @@ en:
             microsoft_exchange_url: ex. https://example.com/ews/exchange.asmx
             username: ex. someone85
           remove_configuration: Remove calendar configuration
+          sync: Sync now
         gobierto_people_person_navigation:
           calendar_configuration: Calendar configuration
         google_calendar_fields:

@@ -20,6 +20,7 @@ ca:
             microsoft_exchange_url: ex. https://example.com/ews/exchange.asmx
             username: ex. perico85
           remove_configuration: Eliminar configuració
+          sync: Sincronitzar ara
         gobierto_people_person_navigation:
           calendar_configuration: Configuració del calendari
         google_calendar_fields:

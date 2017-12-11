@@ -16,10 +16,16 @@
                             end
     %>
 
+    <% submit_button_url = if current_user.present?
+                             new_gobierto_participation_process_poll_answer_path(poll.process.slug, poll)
+                           else
+                             new_user_sessions_path(open_modal: true)
+                           end
+    %>
+
     <%= link_to submit_button_text,
-                new_gobierto_participation_process_poll_answer_path(poll.process.slug,
-                                                                    poll),
-                class: "button outline rounded fat",
+                submit_button_url,
+                class: "button outline rounded fat #{ class_if('open_remote_modal', !current_user.present?) }",
                 data: { behavior: 'next_question' } %>
   <% end %>
 </div>

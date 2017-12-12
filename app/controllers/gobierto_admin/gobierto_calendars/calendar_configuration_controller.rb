@@ -13,6 +13,7 @@ module GobiertoAdmin
         load_calendar_integrations
         @google_calendar_configuration = find_google_calendar_configuration
         load_calendars
+        set_last_sync
 
         render 'gobierto_admin/gobierto_calendars/calendar_configuration/edit'
       end
@@ -46,6 +47,17 @@ module GobiertoAdmin
 
       def publish_calendar_sync_activity(calendar_configuration_form)
         Publishers::AdminGobiertoCalendarsActivity.broadcast_event('calendars_synchronized', { ip: remote_ip, author: current_admin, subject: calendar_configuration_form.collection_container, site_id: current_site.id })
+      end
+
+      def set_last_sync
+        @last_sync = if collection_container = @calendar_configuration_form.try(:collection_container)
+                       current_site.activities.where(action: 'admin_gobierto_calendars.calendars_synchronized', subject: collection_container)
+                         .order(created_at: :asc)
+                         .last.try(:created_at)
+                     else
+                       nil
+                     end
+
       end
 
       def load_collection

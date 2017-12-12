@@ -14,6 +14,7 @@ en:
             microsoft_exchange_pwd: Password
             microsoft_exchange_url: Calendar URL
             microsoft_exchange_usr: Microsoft Exchange account
+          last_sync: Last sync
           microsoft_exchange: Microsoft Exchange
           placeholders:
             ibm_notes_url: ex. https://example.com/mail/abc.nsf/api/calendar/events

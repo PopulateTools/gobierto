@@ -14,6 +14,7 @@ ca:
             microsoft_exchange_pwd: Contrasenya
             microsoft_exchange_url: URL del calendari
             microsoft_exchange_usr: Compte de Microsoft Exchange
+          last_sync: Darrera sincronització
           microsoft_exchange: Microsoft Exchange
           placeholders:
             ibm_notes_url: ex. https://example.com/mail/abc.nsf/api/calendar/events

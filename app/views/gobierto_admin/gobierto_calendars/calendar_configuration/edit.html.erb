@@ -4,6 +4,10 @@
 
 <% if @calendar_configuration_form.calendar_integration.present? %>
   <div class="admin_tools">
+    <% if @last_sync.present? %>
+      <%= t('.last_sync') %>: <%= time_ago_in_words @last_sync %> -
+    <% end %>
+
     <%= link_to sync_calendars_admin_calendars_configuration_path(@calendar_configuration_form.collection_id), method: :put, data: { confirm: "Are you sure?" } do %>
       <i class="fa fa-refresh"></i>
       <%= t('.sync') %>

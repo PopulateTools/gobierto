@@ -16,8 +16,10 @@
                             end
     %>
 
-    <% submit_button_url = if current_user.present?
-                             new_gobierto_participation_process_poll_answer_path(poll.process.slug, poll)
+    <% poll_url = new_gobierto_participation_process_poll_answer_path(poll.process.slug, poll)
+
+       submit_button_url = if current_user.present?
+                             poll_url
                            else
                              new_user_sessions_path(open_modal: true)
                            end

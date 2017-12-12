@@ -14,8 +14,9 @@ this.GobiertoParticipation.PollTeaserController = (function() {
         $('input[type=radio][name=radio]').change(function() {
             selected = [];
             selected.push($('input[name=radio]:checked').val());
-            var newUrl = submit.attr('href').split("?")[0] + "?answers=" + selected;
-            submit.attr('href', newUrl);
+
+            var url = refreshLinkButton(selected, submit.attr('href'));
+            submit.attr('href', url);
 
             if (selected.length >= 1) {
               submit.removeClass("hidden");
@@ -26,8 +27,9 @@ this.GobiertoParticipation.PollTeaserController = (function() {
 
         $('.questions :checkbox').change(function() {
             selected = $("input:checked").map(function() {return this.value}).get().join(',');
-            var newUrl = submit.attr('href').split("?")[0] + "?answers=" + selected;
-            submit.attr('href', newUrl);
+
+            var url = refreshLinkButton(selected, submit.attr('href'));
+            submit.attr('href', url);
 
             if ($("input:checked").length >= 1) {
               submit.removeClass("hidden");
@@ -36,6 +38,16 @@ this.GobiertoParticipation.PollTeaserController = (function() {
             }
         });
     });
+  }
+
+  function refreshLinkButton(selected, url) {
+    var newUrl = url.split("?")[0] + "?answers=" + selected;
+
+    if (newUrl.includes("/user/sessions/new")) {
+      newUrl += "&" + "open_modal=true";
+    }
+
+    return newUrl
   }
 
   return PollTeaserController;

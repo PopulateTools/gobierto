@@ -65,9 +65,13 @@ class User::SessionsController < User::BaseController
   end
 
   def define_referrer_url
-    @referrer_url = if params[:answers].present?
-                      answer_id = params[:answers].split(",").first
-                      poll = GobiertoParticipation::PollAnswerTemplate.find(answer_id).question.poll
+    @referrer_url = if params[:answers].present? || params[:poll_id].present?
+                      poll = if params[:answers].present?
+                               answer_id = params[:answers].split(",").first
+                               GobiertoParticipation::PollAnswerTemplate.find(answer_id).question.poll
+                             elsif params[:poll_id].present?
+                               GobiertoParticipation::Poll.find(params[:poll_id])
+                             end
                       process = poll.process
                       new_gobierto_participation_process_poll_answer_url(process_id: process.slug,
                                                                          poll_id: poll.id,

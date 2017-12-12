@@ -21,7 +21,11 @@
        submit_button_url = if current_user.present?
                              poll_url
                            else
-                             new_user_sessions_path(open_modal: true)
+                             if question.open_answer?
+                               new_user_sessions_path(open_modal: true, poll_id: question.poll.id)
+                             else
+                               new_user_sessions_path(open_modal: true)
+                             end
                            end
     %>
 

@@ -116,7 +116,7 @@ es:
       multiple_choice_msg: Puedes elegir varias opciones
     poll_teaser:
       answer: Responder
-      next_question: Següent pregunta
+      next_question: Siguiente pregunta
       submit: Enviar
     polls:
       no_unanswered_polls: No hay encuestas pendientes de contestar.

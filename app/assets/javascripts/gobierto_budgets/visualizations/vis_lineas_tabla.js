@@ -438,7 +438,7 @@ var VisLineasJ = Class.extend({
                   var classed = 'value right ' + this._normalize(dataChartFiltered[0].name)
                 } else if (column == 'dif') {
                   if (dataChartFiltered[0][column] != null) {
-                    var value = dataChartFiltered[0][column] > 0 ? '+' +dataChartFiltered[0][column] + '%' : dataChartFiltered[0][column] + '%'
+                    var value = dataChartFiltered[0][column] > 0 ? '+' +dataChartFiltered[0][column] + ' %' : dataChartFiltered[0][column] + ' %'
                   } else {
                     var value = '--%'
                   }
@@ -537,7 +537,7 @@ var VisLineasJ = Class.extend({
             if (d.dif != null) {
               return d.dif <= 0 ? d.dif + '%' : '+' + d.dif + '%';
             } else {
-              return '--%'
+              return '-- %'
             }
 
             })

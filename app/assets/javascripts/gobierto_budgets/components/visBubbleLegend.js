@@ -60,7 +60,7 @@ var VisBubbleLegend = Class.extend({
       .enter()
       .append('stop')
       .attr('stop-color', function(d) { return d;})
-      .attr('offset', function(d) { return scale(d) + '%'; });
+      .attr('offset', function(d) { return scale(d) + ' %'; });
 
     svg.append('line')
       .attr('transform', 'translate(' + width / 2 + ',' + 0 + ')')

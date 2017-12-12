@@ -82,7 +82,7 @@
             this.formatMoney(d.amount_year_from) + '</td><td>' +
             this.formatMoney(d.amount_year_to) + '</td>' +
             '<td class="'+(d.difference > 0 ? 'positive' : 'negative')+'">' +
-            accounting.formatNumber(d.difference) + '%</td></tr>');
+            accounting.formatNumber(d.difference) + ' %</td></tr>');
         i++;
       }.bind(this));
     }

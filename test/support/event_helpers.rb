@@ -14,6 +14,7 @@ module EventHelpers
       ends_at: parse_end_date(options),
       state: GobiertoCalendars::Event.states["published"],
       collection: collection,
+      external_id: options[:external_id].presence,
       site: site
     )
 

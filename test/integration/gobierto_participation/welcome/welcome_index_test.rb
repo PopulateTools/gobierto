@@ -17,6 +17,10 @@ module GobiertoParticipation
       @user ||= users(:peter)
     end
 
+    def poll
+      @poll ||= gobierto_participation_polls(:ordinance_of_terraces_published)
+    end
+
     def test_breadcrumb_items
       with_current_site(site) do
         visit @path
@@ -117,16 +121,14 @@ module GobiertoParticipation
     end
 
     def test_show_poll
-      with_current_site(site) do
-        skip 'TODO: Pending after merge templates PR'
+      with_javascript do
+        with_current_site(site) do
+          with_signed_in_user(user) do
+            visit @path
 
-        # visit @path
-        #
-        # answerable_polls = GobiertoParticipation::Poll.by_site(site).answerable.order(ends_at: :asc)
-        # poll = answerable_polls.first
-        #
-        # assert has_content? poll.title
-        # assert has_link? "Participate in this poll"
+            assert has_content? poll.questions.first.title
+          end
+        end
       end
     end
 

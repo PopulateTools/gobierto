@@ -371,7 +371,7 @@ var VisLinesExecution = Class.extend({
     if(d.budget_updated !== null)
       tooltipHtml += '<div class="line-name">' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip_budgeted_updated')  + ': ' + accounting.formatMoney(d.budget_updated, "€", 0, ".", ",") + '</div>';
 
-    tooltipHtml += '<div>' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip') + ' ' + this.pctFormat(d.pct_executed) + '%</div>';
+    tooltipHtml += '<div>' + I18n.t('gobierto_budgets.budgets_execution.index.vis.tooltip') + ' ' + this.pctFormat(d.pct_executed) + ' %</div>';
 
     this.tooltip.html(tooltipHtml);
   },

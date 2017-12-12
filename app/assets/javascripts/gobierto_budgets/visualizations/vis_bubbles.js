@@ -180,7 +180,7 @@ var VisBubbles = Class.extend({
     this.tooltip.html('<div class="line-name"><strong>' + d.name + '</strong></div> \
                        <div>' + accounting.formatMoney(d.value, "€", 0, ".", ",") + '</div> \
                        <div class="clear_b">' + accounting.formatMoney(d.per_inhabitant, "€", 0, ".", ",") + ' ' + I18n.t('gobierto_budgets.budgets.index.main_budget_levels_per_inhabitant') + '</div> \
-                       <div class="line-pct">' + getString(d.pct_diff) + ' ' + accounting.formatNumber(d.pct_diff, 1) + '%</span> ' + I18n.t('gobierto_budgets.budgets.index.main_budget_levels_tooltip_article') + ' ' + (d.year - 1) + '</div>');
+                       <div class="line-pct">' + getString(d.pct_diff) + ' ' + accounting.formatNumber(d.pct_diff, 1) + ' %</span> ' + I18n.t('gobierto_budgets.budgets.index.main_budget_levels_tooltip_article') + ' ' + (d.year - 1) + '</div>');
   },
   _mouseleft: function() {
     this.tooltip.style('display', 'none');

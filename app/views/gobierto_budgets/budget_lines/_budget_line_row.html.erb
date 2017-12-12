@@ -10,6 +10,6 @@
   </td>
   <td class="qty big_qty"><%= number_to_currency budget_line.amount, precision: 0 %></td>
   <td class="qty"><%= number_to_currency budget_line.amount_per_inhabitant, precision: 0 %></td>
-  <td class="qty"><%= number_with_precision(budget_line.percentage_of_total, precision: 2) + '%' %></td>
+  <td class="qty"><%= number_with_precision(budget_line.percentage_of_total, precision: 2) + ' %' %></td>
   <td class="bar"><div class="bar" style="width:<%= budget_line.percentage_of_total %>%"></div></td>
 </tr>

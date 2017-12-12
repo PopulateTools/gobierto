@@ -11,3 +11,7 @@
 .dc-chart rect.bar {
   fill: $color_main;
 }
+
+.dc-chart g.row text {
+  fill: $color_main !important;
+}

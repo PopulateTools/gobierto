@@ -353,18 +353,25 @@ pre {
     @include border-radius(3px);
   }
   div.main, label.main {
+    display: flex;
     flex-grow: 10;
     background: $color_secondary;
-    padding: 4px 10px;
+    padding: 6px 12px;
     @include border-radius(4px);
     // width: calc(100% - 200px);
 
     label {
       font-weight: 600;
       display: block;
+      .interaction_tool {
+        display: block;
+        opacity: .75;
+      }
     }
-    span {
-      margin: 0 1em 0 0;
+    .group {
+      flex-grow: 1;
+    }
+    .secondary {
       font-size: .85em;
       .fa {
         opacity: .5;
@@ -381,12 +388,9 @@ pre {
   }
   .tools {
     display: flex;
+    padding: 4px 0;
     // width: 70px;
     .fa {
-      margin: 0 0 0 1em;
-    }
-    label {
-      font-size: .85em;
       margin: 0 0 0 1em;
     }
   }

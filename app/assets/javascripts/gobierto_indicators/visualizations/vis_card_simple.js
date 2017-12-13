@@ -13,7 +13,7 @@ var SimpleCard = Class.extend({
     var parseDate = freq === 'daily' ? d3.timeParse('%Y-%m-%d') : freq === 'monthly' ? d3.timeParse('%Y-%m') : d3.timeParse('%Y');
     var parsedDate = parseDate(json.data[0].date);
     var formatDate = d3.timeFormat("%b %Y");
-    
+
     this.div.selectAll('.tw-sharer')
       .attr('target', '_blank')
       .attr('href', 'https://twitter.com/intent/tweet?text=' + I18n.t('gobierto_indicators.cards.meta.where') + encodeURI(window.populateData.municipalityName) + ': ' +  encodeURI(I18n.t('gobierto_indicators.cards.' + cardName + '.title')).toLowerCase() + I18n.t('gobierto_indicators.cards.meta.time') + encodeURI(formatDate(parsedDate).toLowerCase()) + ', ' + encodeURI(this._printData(value))  + '&url=' + window.location.href + '&via=gobierto&source=webclient');
@@ -42,7 +42,7 @@ var SimpleCard = Class.extend({
     this.div.selectAll('.widget_title')
       .attr('title', I18n.t('gobierto_indicators.cards.' + cardName + '.title'))
       .text(I18n.t('gobierto_indicators.cards.' + cardName + '.title'));
-    
+
     if (typeof json.data[1] !== 'undefined') {
       var spark = new Sparkline(divClass + ' .sparkline', json.data, trend, freq);
       spark.render();

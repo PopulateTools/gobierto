@@ -22,15 +22,14 @@
 
 .dc-chart g.row text {
   font-size: 0.875em;
-  fill: $color_main !important;
+  fill: $color_text !important;
 }
 
 //jsGrid
 .jsgrid {
   .jsgrid-filter-row {
     input {
-      border-radius: 0;
-      height: auto;
+      height: 30px;
     }
   }
 

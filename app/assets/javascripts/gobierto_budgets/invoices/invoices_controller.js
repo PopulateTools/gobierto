@@ -1,3 +1,6 @@
+//
+// NOTE: THIS CONTROLLER LOADS D3.V3 TO ALLOW DC RUN
+//
 this.GobiertoBudgets.InvoicesController = (function() {
 
   function InvoicesController() {}
@@ -21,13 +24,14 @@ this.GobiertoBudgets.InvoicesController = (function() {
     }
 
     document.getElementById("numberOfInvoices").innerText = data.length.toLocaleString();
-    document.getElementById("meanBudget").innerText = _.mean(_.map(data, 'amount').map(Number)).toLocaleString(navigator.language, { style: 'currency', currency: 'EUR' });
-    document.getElementById("medianBudget").innerText = median(_.map(data, 'amount').map(Number)).toLocaleString(navigator.language, { style: 'currency', currency: 'EUR' });
+    document.getElementById("meanBudget").innerText = _.mean(_.map(data, 'amount').map(Number)).toLocaleString(I18n.locale, { style: 'currency', currency: 'EUR' });
+    document.getElementById("medianBudget").innerText = median(_.map(data, 'amount').map(Number)).toLocaleString(I18n.locale, { style: 'currency', currency: 'EUR' });
 
     var dateFormat = d3.time.format('%Y/%m/%d');
     var _r = {
       domain: [501, 1001, 5001, 10001, 15001],
-      range: ["1€ - 500€", "501€ - 1000€", "1001€ - 5000€", "5001€ - 10000€", "10001€ - 15000€", "+15000€"]
+      // range: [0, "501€ - 1000€", "1001€ - 5000€", "5001€ - 10000€", "10001€ - 15000€", "+15000€"]
+      range: [0, 1, 2, 3, 4, 5]
     };
     var rangeFormat = d3.scale.threshold().domain(_r.domain).range(_r.range);
     // pre-calculate for better performance
@@ -70,11 +74,14 @@ this.GobiertoBudgets.InvoicesController = (function() {
       .barPadding(0.5);
 
     // Customize
-    bars.xAxis().tickFormat(d3.time.format('%b')); //TODO: Set locales
+    bars.xAxis().tickFormat(function(d) {
+      var _mf = d3.locale(eval(I18n.locale)).timeFormat('%b');
+      return _mf(d).toUpperCase();
+    });
     bars.yAxis().ticks(5);
     bars.yAxis().tickFormat(
       function(v) {
-        return v.toLocaleString() + '€';
+        return v.toLocaleString(I18n.locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 });
       });
     bars.margins().left = 60;
 
@@ -112,7 +119,9 @@ this.GobiertoBudgets.InvoicesController = (function() {
       .elasticX(true);
 
     // Customize
-    hbars1.xAxis().tickFormat(function (v) {return v + '€';});
+    hbars1.xAxis().tickFormat(function (v) {
+      return v.toLocaleString(I18n.locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 });
+    });
     hbars1.xAxis().ticks(5);
     hbars1.margins().left = 100;
 
@@ -143,8 +152,20 @@ this.GobiertoBudgets.InvoicesController = (function() {
       .x(d3.scale.threshold())
       .dimension(amounts)
       .group(amountByInvoices)
-      .ordering(function(d) { return _r.range.indexOf(d.key) })
+      // .ordering(function(d) { return _r.range.indexOf(d.key) })
+      .ordering(function(d) {
+        return d.key
+      })
       .labelOffsetX(-100)
+      .label(function(d) {
+        // Helper
+        function intervalFormat(n) {
+          let _s = Number(_r.domain[d.key - 1]) || 1;
+          let _l = Number(n - 1);
+          return [_s,_l].map(n => n.toLocaleString(I18n.locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 })).join('\t') //TODO: No pinta el tabulador
+        }
+
+        return intervalFormat(Number(_r.domain[d.key]))})
       .elasticX(true);
 
     // Customize
@@ -164,7 +185,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
       filtering: true,
       sorting: true,
       autoload: true,
-      // paging: true,
+      paging: true,
       data: data,
       fields: [{
           name: "nif",

@@ -26,7 +26,7 @@ module GobiertoBudgets
     def get_suggestions_from_custom_categories(query, year)
       suggestions = { suggestions: [], selected_budget_lines: [] }
 
-      Category.all.each do |category|
+      GobiertoBudgets::Category.where(site: current_site).each do |category|
         next if category.custom_name_translations.nil?
 
         names = category.custom_name_translations.values.compact

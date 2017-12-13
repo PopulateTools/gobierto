@@ -1,6 +1,6 @@
 <div class="p_1 filled_block content_block" style="background-image: url(<%= image_url("illustrations/emojis.svg") %>)">
   <h2><%= t("shared.polls.opinion") %></h2>
-  <% poll = next_poll(poll_id) %>
+
   <% if poll.present? %>
     <%= render "shared/poll_teaser", { poll: poll }  %>
   <% else %>

@@ -78,7 +78,7 @@ Renders i18n key translation
 
 Renders a poll
 
-- Usage `{% show_poll(poll_id: 62047248) %}`
+- Usage `{% show_poll(poll_id: 62047248) %}` or `{% show_poll() %}`
 
 - Returns: Poll with options
 

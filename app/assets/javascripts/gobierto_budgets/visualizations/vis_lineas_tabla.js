@@ -318,7 +318,10 @@ var VisLineasJ = Class.extend({
           .attr('d', function(d) { return this.line(d.values.filter(function(v) { return v.value != null; })); }.bind(this))
           .style('stroke', function(d) { return this.colorScale(d.name); }.bind(this))
           .style('stroke-width', function(d, i) {
-            return i == 3 ? this.heavyLine : this.lightLine;
+            if(this.series == 'means')
+              return i == 3 ? this.heavyLine : this.lightLine;
+            else
+              return this.lightLine;
           }.bind(this))
 
 

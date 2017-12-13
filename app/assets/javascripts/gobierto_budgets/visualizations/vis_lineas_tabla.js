@@ -506,7 +506,7 @@ var VisLineasJ = Class.extend({
     if (this.lastYear != selectedData.date.getFullYear()) {
         // Hide table figures and update text
         // Year header
-        d3.selectAll('.year_header')
+        d3.selectAll(this.tableContainer + ' .year_header')
           .transition()
             .duration(this.duration / 2)
             .style('opacity', 0)
@@ -516,7 +516,7 @@ var VisLineasJ = Class.extend({
             .style('opacity', 1);
 
         // Values
-        d3.selectAll('.value')
+        d3.selectAll(this.tableContainer + ' .value')
           .transition()
             .duration(this.duration / 2)
             .style('opacity', 0)
@@ -530,7 +530,7 @@ var VisLineasJ = Class.extend({
             .style('opacity', 1);
 
         // Difs
-        d3.selectAll('.dif')
+        d3.selectAll(this.tableContainer + ' .dif')
           .transition()
             .duration(this.duration / 2)
             .style('opacity', 0)
@@ -538,7 +538,7 @@ var VisLineasJ = Class.extend({
             var newValue = dataChartFiltered.filter(function(dif) { return dif.name == d.name; })
             d.dif = newValue[0].dif
             if (d.dif != null) {
-              return d.dif <= 0 ? d.dif + '%' : '+' + d.dif + '%';
+              return d.dif <= 0 ? d.dif + ' %' : '+' + d.dif + ' %';
             } else {
               return '-- %'
             }

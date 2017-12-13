@@ -4,6 +4,10 @@
   padding-bottom: 0.5em;
 }
 
+.as-block {
+  display: block;
+}
+
 //bars
 //hbars1
 //hbars2
@@ -17,5 +21,20 @@
 }
 
 .dc-chart g.row text {
+  font-size: 0.875em;
   fill: $color_main !important;
+}
+
+//jsGrid
+.jsgrid {
+  .jsgrid-filter-row {
+    input {
+      border-radius: 0;
+      height: auto;
+    }
+  }
+
+  input[type="checkbox"]:disabled {
+    display: inline-block;
+  }
 }

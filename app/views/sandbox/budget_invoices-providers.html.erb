@@ -35,6 +35,7 @@
 
     <div class="separator"></div>
 
+    <!-- Filters -->
     <div class="m_b_2">
       <div class="inline_filter">
         <span class="soft">Ver datos de:</span>
@@ -47,12 +48,13 @@
       </div>
     </div>
 
+    <!-- Boxes-->
     <div class="pure-g metric_boxes">
 
       <div class="pure-u-1 pure-u-md-11-24 metric_box">
         <div class="inner nomargin">
           <h3>Facturas</h3>
-          <div class="metric">50.000 facturas</div>
+          <div class="metric"><span id="numberOfInvoices"></span> facturas</div>
           <div class="metric_details flex">
             <label>De los cuales:</label>
             <div>
@@ -69,12 +71,12 @@
           <div class="pure-g">
             <div class="pure-u-1-2">
               <div class="metric">
-                9.876€ <small>importe medio</small>
+                <span id="meanBudget"></span>&nbsp;<small>importe medio</small>
               </div>
             </div>
             <div class="pure-u-1-2">
               <div class="metric">
-                7.876€ <small>importe mediano</small>
+                <span id="medianBudget"></span>&nbsp;<small>importe mediano</small>
               </div>
               <div class="explanation explanation--relative">
                 Es decir, la mitad de las facturas son de este importe o inferior
@@ -86,6 +88,7 @@
 
     </div>
 
+    <!-- Charts -->
     <div class="block">
       <h2 class="with_description">Todos los proveedores de un vistazo</h2>
 
@@ -111,18 +114,27 @@
           <h3 class="m_v_0 mt1 graph-title">Distribución por meses</h3>
           <div id="bars"></div>
         </div>
-        <div class="pure-u-1 pure-u-md-11-24">
+        <div class="pure-u-1 pure-u-md-11-24 m_v_1">
           <h3 class="m_v_0 mt1 graph-title">Principales proveedores</h3>
           <div id="hbars1"></div>
         </div>
-        <div class="pure-u-1 pure-u-md-1-12"></div>
-        <div class="pure-u-1 pure-u-md-11-24">
-          <h3 class="m_v_0 mt1 graph-title">Distribución por importes</h3>
-          <div id="hbars2"></div>
+        <div class="pure-u-1 pure-u-md-1-12 m_v_1"></div>
+        <div class="pure-u-1 pure-u-md-11-24 m_v_1">
+          <div class="pure-g">
+            <div class="pure-u-1">
+              <h3 class="m_v_0 mt1 graph-title">Distribución por importes</h3>
+              <div id="hbars2"></div>
+            </div>
+            <div class="pure-u-1">
+              <a href="#providers-table" class="box p_0_5 mt1 center as-block">
+                ...y 123 proveedores más - <strong>Consulta el detalle</strong>
+              </a>
+            </div>
+          </div>
         </div>
         <div class="pure-u-1">
           <h3 class="m_v_0 mt1 graph-title">Todas las facturas</h3>
-
+          <div id="providers-table"></div>
         </div>
       </div>
 
@@ -218,6 +230,181 @@
         96-1588258,Zoombeat,2017/01/18,false,3213.95,Black-cheeked waxbill
         27-8035818,Digitube,2017/06/06,false,2182.88,"Monkey, red howler"
         07-6707197,Skivee,2017/03/12,false,8382.81,African lynx
+        36-3929819,Realbridge,2017/02/26,false,3123.96,"Lion, australian sea"
+        26-9822408,Devify,2017/06/20,false,8152.62,Pale white-eye
+        80-1048206,Edgetag,2017/04/08,false,4348.0,"Fox, asian red"
+        64-7860843,Realblab,2017/07/10,true,5974.28,Black-capped capuchin
+        21-4862776,Gigazoom,2017/02/24,true,174.48,"Goose, cereopsis"
+        28-8632497,Twimbo,2017/01/25,false,3260.84,Civet (unidentified)
+        78-9869666,Dabvine,2017/10/02,true,2985.53,"Wolf, timber"
+        25-1006281,Npath,2017/02/17,false,3767.77,Red-billed buffalo weaver
+        97-3722385,Trupe,2017/12/10,false,3594.13,"Lemming, collared"
+        63-3365525,Bubblebox,2017/10/31,false,6927.39,"Pigeon, feral rock"
+        82-7749767,Buzzdog,2017/01/18,false,5973.7,Red-capped cardinal
+        22-0498492,Babblestorm,2017/04/24,true,6662.64,"Zebra, plains"
+        37-3255886,Jabbertype,2017/04/20,true,780.12,"Meerkat, red"
+        71-9450256,Realbridge,2017/07/05,false,7381.8,"Spurfowl, yellow-necked"
+        77-5153401,Yata,2017/10/19,true,160.31,"Tortoise, radiated"
+        21-3673187,Yozio,2017/03/13,true,861.76,"Cat, miner's"
+        75-6598597,Einti,2017/01/03,true,511.97,Great cormorant
+        28-8076768,Quinu,2017/07/14,true,4567.33,African lion
+        42-6195939,Oyoloo,2017/06/28,true,5079.29,Black-capped chickadee
+        11-8592287,Aimbu,2017/10/11,true,5057.32,"Crow, pied"
+        46-3708042,Zoomcast,2017/09/22,false,4764.43,Lilac-breasted roller
+        28-6872142,Realblab,2017/11/15,false,3825.1,Osprey
+        96-1588258,Zoombeat,2017/01/18,false,3213.95,Black-cheeked waxbill
+        27-8035818,Digitube,2017/06/06,false,2182.88,"Monkey, red howler"
+        07-6707197,Skivee,2017/03/12,false,8382.81,African lynx
+        36-3929819,Realbridge,2017/02/26,false,3123.96,"Lion, australian sea"
+        26-9822408,Devify,2017/06/20,false,8152.62,Pale white-eye
+        80-1048206,Edgetag,2017/04/08,false,4348.0,"Fox, asian red"
+        64-7860843,Realblab,2017/07/10,true,5974.28,Black-capped capuchin
+        21-4862776,Gigazoom,2017/02/24,true,174.48,"Goose, cereopsis"
+        28-8632497,Twimbo,2017/01/25,false,3260.84,Civet (unidentified)
+        78-9869666,Dabvine,2017/10/02,true,2985.53,"Wolf, timber"
+        25-1006281,Npath,2017/02/17,false,3767.77,Red-billed buffalo weaver
+        97-3722385,Trupe,2017/12/10,false,3594.13,"Lemming, collared"
+        63-3365525,Bubblebox,2017/10/31,false,6927.39,"Pigeon, feral rock"
+        82-7749767,Buzzdog,2017/01/18,false,5973.7,Red-capped cardinal
+        22-0498492,Babblestorm,2017/04/24,true,6662.64,"Zebra, plains"
+        37-3255886,Jabbertype,2017/04/20,true,780.12,"Meerkat, red"
+        71-9450256,Realbridge,2017/07/05,false,7381.8,"Spurfowl, yellow-necked"
+        77-5153401,Yata,2017/10/19,true,160.31,"Tortoise, radiated"
+        21-3673187,Yozio,2017/03/13,true,861.76,"Cat, miner's"
+        75-6598597,Einti,2017/01/03,true,511.97,Great cormorant
+        28-8076768,Quinu,2017/07/14,true,4567.33,African lion
+        42-6195939,Oyoloo,2017/06/28,true,5079.29,Black-capped chickadee
+        11-8592287,Aimbu,2017/10/11,true,5057.32,"Crow, pied"
+        46-3708042,Zoomcast,2017/09/22,false,4764.43,Lilac-breasted roller
+        28-6872142,Realblab,2017/11/15,false,3825.1,Osprey
+        96-1588258,Zoombeat,2017/01/18,false,3213.95,Black-cheeked waxbill
+        27-8035818,Digitube,2017/06/06,false,2182.88,"Monkey, red howler"
+        07-6707197,Skivee,2017/03/12,false,8382.81,African lynx
+        36-3929819,Realbridge,2017/02/26,false,3123.96,"Lion, australian sea"
+        26-9822408,Devify,2017/06/20,false,8152.62,Pale white-eye
+        80-1048206,Edgetag,2017/04/08,false,4348.0,"Fox, asian red"
+        64-7860843,Realblab,2017/07/10,true,5974.28,Black-capped capuchin
+        21-4862776,Gigazoom,2017/02/24,true,174.48,"Goose, cereopsis"
+        28-8632497,Twimbo,2017/01/25,false,3260.84,Civet (unidentified)
+        78-9869666,Dabvine,2017/10/02,true,2985.53,"Wolf, timber"
+        25-1006281,Npath,2017/02/17,false,3767.77,Red-billed buffalo weaver
+        97-3722385,Trupe,2017/12/10,false,3594.13,"Lemming, collared"
+        63-3365525,Bubblebox,2017/10/31,false,6927.39,"Pigeon, feral rock"
+        82-7749767,Buzzdog,2017/01/18,false,5973.7,Red-capped cardinal
+        22-0498492,Babblestorm,2017/04/24,true,6662.64,"Zebra, plains"
+        37-3255886,Jabbertype,2017/04/20,true,780.12,"Meerkat, red"
+        71-9450256,Realbridge,2017/07/05,false,7381.8,"Spurfowl, yellow-necked"
+        77-5153401,Yata,2017/10/19,true,160.31,"Tortoise, radiated"
+        21-3673187,Yozio,2017/03/13,true,861.76,"Cat, miner's"
+        75-6598597,Einti,2017/01/03,true,511.97,Great cormorant
+        28-8076768,Quinu,2017/07/14,true,4567.33,African lion
+        42-6195939,Oyoloo,2017/06/28,true,5079.29,Black-capped chickadee
+        11-8592287,Aimbu,2017/10/11,true,5057.32,"Crow, pied"
+        46-3708042,Zoomcast,2017/09/22,false,4764.43,Lilac-breasted roller
+        28-6872142,Realblab,2017/11/15,false,3825.1,Osprey
+        96-1588258,Zoombeat,2017/01/18,false,3213.95,Black-cheeked waxbill
+        27-8035818,Digitube,2017/06/06,false,2182.88,"Monkey, red howler"
+        07-6707197,Skivee,2017/03/12,false,8382.81,African lynx
+        36-3929819,Realbridge,2017/02/26,false,3123.96,"Lion, australian sea"
+        26-9822408,Devify,2017/06/20,false,8152.62,Pale white-eye
+        80-1048206,Edgetag,2017/04/08,false,4348.0,"Fox, asian red"
+        64-7860843,Realblab,2017/07/10,true,5974.28,Black-capped capuchin
+        21-4862776,Gigazoom,2017/02/24,true,174.48,"Goose, cereopsis"
+        28-8632497,Twimbo,2017/01/25,false,3260.84,Civet (unidentified)
+        78-9869666,Dabvine,2017/10/02,true,2985.53,"Wolf, timber"
+        25-1006281,Npath,2017/02/17,false,3767.77,Red-billed buffalo weaver
+        97-3722385,Trupe,2017/12/10,false,3594.13,"Lemming, collared"
+        63-3365525,Bubblebox,2017/10/31,false,6927.39,"Pigeon, feral rock"
+        82-7749767,Buzzdog,2017/01/18,false,5973.7,Red-capped cardinal
+        22-0498492,Babblestorm,2017/04/24,true,6662.64,"Zebra, plains"
+        37-3255886,Jabbertype,2017/04/20,true,780.12,"Meerkat, red"
+        71-9450256,Realbridge,2017/07/05,false,7381.8,"Spurfowl, yellow-necked"
+        77-5153401,Yata,2017/10/19,true,160.31,"Tortoise, radiated"
+        21-3673187,Yozio,2017/03/13,true,861.76,"Cat, miner's"
+        75-6598597,Einti,2017/01/03,true,511.97,Great cormorant
+        28-8076768,Quinu,2017/07/14,true,4567.33,African lion
+        42-6195939,Oyoloo,2017/06/28,true,5079.29,Black-capped chickadee
+        11-8592287,Aimbu,2017/10/11,true,5057.32,"Crow, pied"
+        46-3708042,Zoomcast,2017/09/22,false,4764.43,Lilac-breasted roller
+        28-6872142,Realblab,2017/11/15,false,3825.1,Osprey
+        96-1588258,Zoombeat,2017/01/18,false,3213.95,Black-cheeked waxbill
+        27-8035818,Digitube,2017/06/06,false,2182.88,"Monkey, red howler"
+        07-6707197,Skivee,2017/03/12,false,8382.81,African lynx
+        36-3929819,Realbridge,2017/02/26,false,3123.96,"Lion, australian sea"
+        26-9822408,Devify,2017/06/20,false,8152.62,Pale white-eye
+        80-1048206,Edgetag,2017/04/08,false,4348.0,"Fox, asian red"
+        64-7860843,Realblab,2017/07/10,true,5974.28,Black-capped capuchin
+        21-4862776,Gigazoom,2017/02/24,true,174.48,"Goose, cereopsis"
+        28-8632497,Twimbo,2017/01/25,false,3260.84,Civet (unidentified)
+        78-9869666,Dabvine,2017/10/02,true,2985.53,"Wolf, timber"
+        25-1006281,Npath,2017/02/17,false,3767.77,Red-billed buffalo weaver
+        97-3722385,Trupe,2017/12/10,false,3594.13,"Lemming, collared"
+        63-3365525,Bubblebox,2017/10/31,false,6927.39,"Pigeon, feral rock"
+        82-7749767,Buzzdog,2017/01/18,false,5973.7,Red-capped cardinal
+        22-0498492,Babblestorm,2017/04/24,true,6662.64,"Zebra, plains"
+        37-3255886,Jabbertype,2017/04/20,true,780.12,"Meerkat, red"
+        71-9450256,Realbridge,2017/07/05,false,7381.8,"Spurfowl, yellow-necked"
+        77-5153401,Yata,2017/10/19,true,160.31,"Tortoise, radiated"
+        21-3673187,Yozio,2017/03/13,true,861.76,"Cat, miner's"
+        75-6598597,Einti,2017/01/03,true,511.97,Great cormorant
+        28-8076768,Quinu,2017/07/14,true,4567.33,African lion
+        42-6195939,Oyoloo,2017/06/28,true,5079.29,Black-capped chickadee
+        11-8592287,Aimbu,2017/10/11,true,5057.32,"Crow, pied"
+        46-3708042,Zoomcast,2017/09/22,false,4764.43,Lilac-breasted roller
+        28-6872142,Realblab,2017/11/15,false,3825.1,Osprey
+        96-1588258,Zoombeat,2017/01/18,false,3213.95,Black-cheeked waxbill
+        27-8035818,Digitube,2017/06/06,false,2182.88,"Monkey, red howler"
+        07-6707197,Skivee,2017/03/12,false,8382.81,African lynx
+        36-3929819,Realbridge,2017/02/26,false,3123.96,"Lion, australian sea"
+        26-9822408,Devify,2017/06/20,false,8152.62,Pale white-eye
+        80-1048206,Edgetag,2017/04/08,false,4348.0,"Fox, asian red"
+        64-7860843,Realblab,2017/07/10,true,5974.28,Black-capped capuchin
+        21-4862776,Gigazoom,2017/02/24,true,174.48,"Goose, cereopsis"
+        28-8632497,Twimbo,2017/01/25,false,3260.84,Civet (unidentified)
+        78-9869666,Dabvine,2017/10/02,true,2985.53,"Wolf, timber"
+        25-1006281,Npath,2017/02/17,false,3767.77,Red-billed buffalo weaver
+        97-3722385,Trupe,2017/12/10,false,3594.13,"Lemming, collared"
+        63-3365525,Bubblebox,2017/10/31,false,6927.39,"Pigeon, feral rock"
+        82-7749767,Buzzdog,2017/01/18,false,5973.7,Red-capped cardinal
+        22-0498492,Babblestorm,2017/04/24,true,6662.64,"Zebra, plains"
+        37-3255886,Jabbertype,2017/04/20,true,780.12,"Meerkat, red"
+        71-9450256,Realbridge,2017/07/05,false,7381.8,"Spurfowl, yellow-necked"
+        77-5153401,Yata,2017/10/19,true,160.31,"Tortoise, radiated"
+        21-3673187,Yozio,2017/03/13,true,861.76,"Cat, miner's"
+        75-6598597,Einti,2017/01/03,true,511.97,Great cormorant
+        28-8076768,Quinu,2017/07/14,true,4567.33,African lion
+        42-6195939,Oyoloo,2017/06/28,true,5079.29,Black-capped chickadee
+        11-8592287,Aimbu,2017/10/11,true,5057.32,"Crow, pied"
+        46-3708042,Zoomcast,2017/09/22,false,4764.43,Lilac-breasted roller
+        28-6872142,Realblab,2017/11/15,false,3825.1,Osprey
+        96-1588258,Zoombeat,2017/01/18,false,3213.95,Black-cheeked waxbill
+        27-8035818,Digitube,2017/06/06,false,2182.88,"Monkey, red howler"
+        07-6707197,Skivee,2017/03/12,false,8382.81,African lynx
+        36-3929819,Realbridge,2017/02/26,false,3123.96,"Lion, australian sea"
+        26-9822408,Devify,2017/06/20,false,8152.62,Pale white-eye
+        80-1048206,Edgetag,2017/04/08,false,4348.0,"Fox, asian red"
+        64-7860843,Realblab,2017/07/10,true,5974.28,Black-capped capuchin
+        21-4862776,Gigazoom,2017/02/24,true,174.48,"Goose, cereopsis"
+        28-8632497,Twimbo,2017/01/25,false,3260.84,Civet (unidentified)
+        78-9869666,Dabvine,2017/10/02,true,2985.53,"Wolf, timber"
+        25-1006281,Npath,2017/02/17,false,3767.77,Red-billed buffalo weaver
+        97-3722385,Trupe,2017/12/10,false,3594.13,"Lemming, collared"
+        63-3365525,Bubblebox,2017/10/31,false,6927.39,"Pigeon, feral rock"
+        82-7749767,Buzzdog,2017/01/18,false,5973.7,Red-capped cardinal
+        22-0498492,Babblestorm,2017/04/24,true,6662.64,"Zebra, plains"
+        37-3255886,Jabbertype,2017/04/20,true,780.12,"Meerkat, red"
+        71-9450256,Realbridge,2017/07/05,false,7381.8,"Spurfowl, yellow-necked"
+        77-5153401,Yata,2017/10/19,true,160.31,"Tortoise, radiated"
+        21-3673187,Yozio,2017/03/13,true,861.76,"Cat, miner's"
+        75-6598597,Einti,2017/01/03,true,511.97,Great cormorant
+        28-8076768,Quinu,2017/07/14,true,4567.33,African lion
+        42-6195939,Oyoloo,2017/06/28,true,5079.29,Black-capped chickadee
+        11-8592287,Aimbu,2017/10/11,true,5057.32,"Crow, pied"
+        46-3708042,Zoomcast,2017/09/22,false,4764.43,Lilac-breasted roller
+        28-6872142,Realblab,2017/11/15,false,3825.1,Osprey
+        96-1588258,Zoombeat,2017/01/18,false,3213.95,Black-cheeked waxbill
+        27-8035818,Digitube,2017/06/06,false,2182.88,"Monkey, red howler"
+        07-6707197,Skivee,2017/03/12,false,8382.81,African lynx
         21-7979061,Divanoodle,2017/02/19,false,1653.97,Little heron
         56-8718069,Jabbertype,2017/01/14,false,395.59,"Eland, common"
         09-2714683,Midel,2017/01/19,false,7593.54,Gulls (unidentified)
@@ -227,18 +414,6 @@
         21-7333166,Youbridge,2017/06/11,false,2989.43,Short-nosed bandicoot
         87-4723009,Jaloo,2017/10/31,true,2844.53,"Kangaroo, brush-tailed rat"
         66-6994287,Edgeclub,2017/09/28,true,8672.23,"Lemur, grey mouse"</pre>
-      <pre id="data2" style="display:none">nif,name,date,payed,amount,concept
-        06-1515275,Jetpulse,2017/10/11,false,17379.79,Burmese black mountain tortoise
-        96-8721358,Jetpulse,2017/12/06,true,586.39,Savannah deer
-        92-3740085,Skyble,2017/07/25,false,302.77,Tyrant flycatcher
-        64-0336736,Zoomzone,2017/09/11,true,6461.44,Greater rhea
-        82-4115180,Zazio,2017/12/10,true,2454.32,Moose
-        31-9546108,Zoomzone,2017/04/12,true,748.41,African porcupine
-        93-3854302,Zoomzone,2017/04/14,false,7987.94,White rhinoceros
-        07-6070581,Zoomzone,2017/07/07,true,3674.79,Gray duiker
-        94-9162746,Mycat,2017/02/15,true,1763.95,Wattled crane
-        19-0468774,Jetpulse,2017/02/18,false,12393.98,"Francolin, swainson's"
-      </pre>
 
     </div>
 
@@ -246,152 +421,9 @@
 
 </div>
 
-
-<%# NOTE: DC %>
-<link rel="stylesheet" type="text/css" href="https://dc-js.github.io/dc.js/css/dc.css" />
-<script src="https://dc-js.github.io/dc.js/js/d3.js"></script>
-<script src="https://dc-js.github.io/dc.js/js/crossfilter.js"></script>
-<script src="https://dc-js.github.io/dc.js/js/dc.js"></script>
-<script src="https://rawgit.com/crossfilter/reductio/master/reductio.js"></script>
-<script src="https://npmcdn.com/universe@latest/universe.js"></script>
-<script>
-  var data = d3.csv.parse(d3.select('pre#data').text().trim());
-  // d3.csv('budget_invoices-providers.mock.csv', function (data) {
-
-  var dateFormat = d3.time.format('%Y/%m/%d');
-  var _r = {
-    domain: [501, 1001, 5001, 10001, 15001],
-    range: ["1€ - 500€", "501€ - 1000€", "1001€ - 5000€", "5001€ - 10000€", "10001€ - 15000€", "+15000€"]
-  };
-  var rangeFormat = d3.scale.threshold().domain(_r.domain).range(_r.range);
-  // pre-calculate for better performance
-  data.forEach(function (d) {
-    d.dd = dateFormat.parse(d.date);
-    d.month = d3.time.month(d.dd);
-    d.range = rangeFormat(+d.amount);
-  });
-
-  // See the [crossfilter API](https://github.com/square/crossfilter/wiki/API-Reference) for reference.
-  var ndx = crossfilter(data);
-
-  /*
-    BARS CHART - BY DATE
-  */
-
-  // Declaration
-  var bars = dc.barChart("#bars", "group");
-
-  // Dimensions
-  var months = ndx.dimension(function(d) {
-      return d.month
-    }),
-    budgetMonthly = months.group().reduceSum(function(d) {
-      return +d.amount;
-    });
-
-  bars
-    .dimension(months)
-    .group(budgetMonthly)
-    .x(d3.scale.ordinal())
-    .xUnits(dc.units.ordinal)
-    .round(d3.time.month.round)
-    .elasticX(true)
-    .elasticY(true)
-    .alwaysUseRounding(true)
-    .renderHorizontalGridLines(true)
-    .barPadding(0.5);
-
-  // Customize
-  bars.xAxis().tickFormat(d3.time.format('%b')); //TODO: Set locales
-  bars.yAxis().ticks(5);
-  bars.yAxis().tickFormat(
-    function(v) {
-      return v.toLocaleString() + '€';
-    });
-  bars.margins().left = 60;
-
-  // Render
-  bars.render();
-
-  /*
-    ROW CHART - MAIN PROVIDERS
-  */
-
-  // Declaration
-  var hbars1 = dc.rowChart("#hbars1", "group");
-
-  // Dimensions
-  var providers = ndx.dimension(function(d) {
-      return d.name
-    }),
-    providerByAmount = providers.group().reduceSum(function(d) {
-      return +d.amount;
-    });
-
-  // Styling
-  var _count = 10,
-    _gap = 5, // DC default
-    _barHeight = 20;
-
-  hbars1
-    .height(hbars1.margins().top + hbars1.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // NOTE: Margins top/bottom + bars + gaps (space between)
-    .fixedBarHeight(_barHeight)
-    .cap(_count).othersGrouper(null) // NOTE: Show only a couple of results, and hide Others groups
-    .x(d3.scale.ordinal())
-    .dimension(providers)
-    .group(providerByAmount)
-    .labelOffsetX(-95)
-    .elasticX(true);
-
-  // Customize
-  hbars1.xAxis().tickFormat(function (v) {return v + '€';});
-  hbars1.xAxis().ticks(5);
-  hbars1.margins().left = 100;
-  // hbars1.xAxis().orient('top');
-  // hbars1.margins().top = 50;
-
-  // Render
-  hbars1.render();
-
-  /*
-    ROW CHART - BY AMOUNT
-  */
-
-  // Declaration
-  var hbars2 = dc.rowChart("#hbars2", "group");
-
-  // Dimensions
-  // var amounts = ndx.dimension(function(d) {
-  //     return +d.amount
-  //   }),
-  var amounts = ndx.dimension(function(d) {
-      return d.range
-    }),
-    amountByInvoices = amounts.group().reduceCount();
-
-  // Styling
-  var _count = amountByInvoices.size(),
-    _gap = 5, // DC default
-    _barHeight = 20;
-
-  hbars2
-    .height(hbars2.margins().top + hbars2.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // NOTE: Margins top/bottom + bars + gaps (space between)
-    .fixedBarHeight(_barHeight)
-    .x(d3.scale.threshold())
-    .dimension(amounts)
-    .group(amountByInvoices)
-    .ordering(function(d) { console.log(_r.range.indexOf(d.key)); return _r.range.indexOf(d.key) })
-    .labelOffsetX(-100)
-    .elasticX(true);
-
-  // Customize
-  hbars2.xAxis().ticks(5);
-  hbars2.margins().left = 100;
-  // hbars2.xAxis().orient('top');
-  // hbars2.margins().top = 50;
-
-  // Render
-  hbars2.render();
-
-  // });
-</script>
+<% content_for :javascript_hook do %>
+  <%= javascript_include_tag 'gobierto_budgets/invoices/application', 'data-turbolinks-track' => true %>
+  <%= javascript_tag do %>
+    window.GobiertoBudgets.invoices_controller.show();
+  <% end %>
+<% end %>

@@ -31,7 +31,11 @@ class ShowPoll < Liquid::Tag
         answerable_polls_by_user
       end
     else
-      answerable_polls.first
+      if poll
+        poll
+      else
+        answerable_polls.first
+      end
     end
   rescue ActiveRecord::RecordNotFound
     return ""

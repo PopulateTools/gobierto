@@ -486,6 +486,23 @@ es:
         share_text: Comprueba cual es tu aportación al presupuesto de
         title: "¿Cuál es tu contribución al presupuesto de %{site_name}?"
         your_contribution: Tu contribución a los presupuestos de %{site_name}
+    invoices:
+      show:
+        more: Más de
+        table:
+          fields:
+            amount: Cantidad
+            concept: Concepto
+            date: Fecha
+            name: Proveedor
+            nif: NIF
+            payed: Pagado
+          pager:
+            format: Páginas %{tpl} de %{tpl2}
+            next: Siguiente
+            prev: Anterior
+            first: Primero
+            last: Último
     shared:
       data_updated_at:
         last_update: Datos actualizados

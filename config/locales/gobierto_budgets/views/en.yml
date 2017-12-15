@@ -471,6 +471,23 @@ en:
         share_text: Check how much do you contribute to the budget of
         title: Which is your contribution to %{site_name} budget?
         your_contribution: Your contribution to %{site_name}
+    invoices:
+      show:
+        more: More than
+        table:
+          fields:
+            amount: Charge
+            concept: Reason
+            date: Date
+            name: Supplier
+            nif: NIF (SSN)
+            payed: Payed
+          pager:
+            format: Pages %{tpl} of %{tpl2}
+            next: Next
+            prev: Prev
+            first: First
+            last: Last
     shared:
       data_updated_at:
         last_update: Last update

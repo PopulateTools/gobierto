@@ -158,8 +158,8 @@ ca:
         how_much_debt_p1: El deute viu d'un municipi indica el que deu l'Ajuntament
           a bancs i altres entitats financeres. Cal no confondre’l amb el total del
           dèficit del municipi (la diferència entre els ingressos i les despeses).
-        how_much_debt_p2: 
-        how_much_debt_p3: 
+        how_much_debt_p2:
+        how_much_debt_p3:
         how_to_read: Com es llegeix?
         how_to_read_p1_html: 'Tots els pressupostos municipals tenen la mateixa estructura,
           definida legalment en l''<a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2008-19916">Ordre
@@ -496,6 +496,23 @@ ca:
         share_text: Comprova com és la teva aportació al pressupost de
         title: Quina es la teva contribució al pressupost de %{site_name}?
         your_contribution: La teva contribució als pressupostos de %{site_name}
+    invoices:
+      show:
+        more: Més de
+        table:
+          fields:
+            amount: Quantitat
+            concept: Concepte
+            date: Data
+            name: Proveïdor
+            nif: NIF
+            payed: Pagat
+          pager:
+            format: Pàgines %{tpl} de %{tpl2}
+            next: Següent
+            prev: Anterior
+            first: Primer
+            last: Últim
     shared:
       data_updated_at:
         last_update: Última actualització

@@ -208,7 +208,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
           // Last value is not a range
           if (d.key === _r.domain.length) {
-            return "más de " + (_s - 1).toLocaleString(I18n.locale, {
+            return I18n.t('gobierto_budgets.invoices.show.more') + " " + (_s - 1).toLocaleString(I18n.locale, {
               style: 'currency',
               currency: 'EUR',
               minimumFractionDigits: 0
@@ -249,6 +249,11 @@ this.GobiertoBudgets.InvoicesController = (function() {
       sorting: true,
       autoload: true,
       paging: true,
+      pagerFormat: I18n.t('gobierto_budgets.invoices.show.table.pager.format', { tpl: '{first} {prev} {pages} {next} {last} &nbsp;&nbsp; {pageIndex}', tpl2: '{pageCount}' }),
+      pageNextText: I18n.t('gobierto_budgets.invoices.show.table.pager.next'),
+      pagePrevText: I18n.t('gobierto_budgets.invoices.show.table.pager.prev'),
+      pageFirstText: I18n.t('gobierto_budgets.invoices.show.table.pager.first'),
+      pageLastText: I18n.t('gobierto_budgets.invoices.show.table.pager.last'),
       controller: {
         loadData: function(filter) {
           return $.grep(data, function(row) {
@@ -263,6 +268,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
       },
       fields: [{
           name: "nif",
+          title: I18n.t('gobierto_budgets.invoices.show.table.fields.nif'),
           type: "text",
           autosearch: true,
           align: "center",
@@ -270,12 +276,14 @@ this.GobiertoBudgets.InvoicesController = (function() {
         },
         {
           name: "name",
+          title: I18n.t('gobierto_budgets.invoices.show.table.fields.name'),
           type: "text",
           autosearch: true,
           width: 50
         },
         {
           name: "date",
+          title: I18n.t('gobierto_budgets.invoices.show.table.fields.date'),
           type: "text",
           align: "center",
           width: 30,
@@ -285,12 +293,14 @@ this.GobiertoBudgets.InvoicesController = (function() {
         },
         {
           name: "payed",
+          title: I18n.t('gobierto_budgets.invoices.show.table.fields.payed'),
           type: "checkbox",
           align: "center",
           width: 20
         },
         {
           name: "amount",
+          title: I18n.t('gobierto_budgets.invoices.show.table.fields.amount'),
           type: "number",
           width: 20,
           itemTemplate: function(value, item) {
@@ -303,6 +313,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
         },
         {
           name: "concept",
+          title: I18n.t('gobierto_budgets.invoices.show.table.fields.concept'),
           type: "text",
           autosearch: true
         }

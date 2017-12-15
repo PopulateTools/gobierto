@@ -5,37 +5,26 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
   function InvoicesController() {}
 
-  InvoicesController.prototype.show = function(options){
+  InvoicesController.prototype.show = function(options) {
+    getData();
+  };
 
-    var data = d3.csv.parse(d3.select('pre#data').text().trim());
+  // Global variables
+  var data, ndx, _r;
+
+  function getData() {
+    data = d3.csv.parse(d3.select('pre#data').text().trim());
     // d3.csv('budget_invoices-providers.mock.csv', function (data) {
 
-    // Boxes calculations
-    function median(values){
-    	values.sort(function(a,b){
-      	return a-b;
-      });
-      var half = Math.floor(values.length / 2);
-
-      if (values.length % 2)
-      	return values[half];
-      else
-      	return (values[half - 1] + values[half]) / 2.0;
-    }
-
-    document.getElementById("numberOfInvoices").innerText = data.length.toLocaleString();
-    document.getElementById("meanBudget").innerText = _.mean(_.map(data, 'amount').map(Number)).toLocaleString(I18n.locale, { style: 'currency', currency: 'EUR' });
-    document.getElementById("medianBudget").innerText = median(_.map(data, 'amount').map(Number)).toLocaleString(I18n.locale, { style: 'currency', currency: 'EUR' });
-
-    var dateFormat = d3.time.format('%Y/%m/%d');
-    var _r = {
+    _r = {
       domain: [501, 1001, 5001, 10001, 15001],
-      // range: [0, "501€ - 1000€", "1001€ - 5000€", "5001€ - 10000€", "10001€ - 15000€", "+15000€"]
       range: [0, 1, 2, 3, 4, 5]
     };
     var rangeFormat = d3.scale.threshold().domain(_r.domain).range(_r.range);
+    var dateFormat = d3.time.format('%Y/%m/%d');
+
     // pre-calculate for better performance
-    data.forEach(function (d) {
+    data.forEach(function(d) {
       d.dd = dateFormat.parse(d.date);
       d.month = d3.time.month(d.dd);
       d.range = rangeFormat(+d.amount);
@@ -44,12 +33,51 @@ this.GobiertoBudgets.InvoicesController = (function() {
     });
 
     // See the [crossfilter API](https://github.com/square/crossfilter/wiki/API-Reference) for reference.
-    var ndx = crossfilter(data);
+    ndx = crossfilter(data);
 
-    /*
-      BARS CHART - BY DATE
-    */
+    _boxesCalculations();
 
+    // BARS CHART - BY DATE
+    _renderByMonthsChart();
+
+    // ROW CHART - MAIN PROVIDERS
+    _renderMainProvidersChart();
+
+    // ROW CHART - BY AMOUNT
+    _renderByAmountsChart();
+
+    // TABLE FILTER - FULL PROVIDERS
+    _renderTableFilter();
+
+    // });
+  }
+
+  function _boxesCalculations() {
+    // Boxes calculations
+    function median(values) {
+      values.sort(function(a, b) {
+        return a - b;
+      });
+      var half = Math.floor(values.length / 2);
+
+      if (values.length % 2)
+        return values[half];
+      else
+        return (values[half - 1] + values[half]) / 2.0;
+    }
+
+    document.getElementById("numberOfInvoices").innerText = data.length.toLocaleString();
+    document.getElementById("meanBudget").innerText = _.mean(_.map(data, 'amount').map(Number)).toLocaleString(I18n.locale, {
+      style: 'currency',
+      currency: 'EUR'
+    });
+    document.getElementById("medianBudget").innerText = median(_.map(data, 'amount').map(Number)).toLocaleString(I18n.locale, {
+      style: 'currency',
+      currency: 'EUR'
+    });
+  }
+
+  function _renderByMonthsChart() {
     // Declaration
     var bars = dc.barChart("#bars", "group");
 
@@ -81,17 +109,19 @@ this.GobiertoBudgets.InvoicesController = (function() {
     bars.yAxis().ticks(5);
     bars.yAxis().tickFormat(
       function(v) {
-        return v.toLocaleString(I18n.locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 });
+        return v.toLocaleString(I18n.locale, {
+          style: 'currency',
+          currency: 'EUR',
+          minimumFractionDigits: 0
+        });
       });
     bars.margins().left = 60;
 
     // Render
     bars.render();
+  }
 
-    /*
-      ROW CHART - MAIN PROVIDERS
-    */
-
+  function _renderMainProvidersChart() {
     // Declaration
     var hbars1 = dc.rowChart("#hbars1", "group");
 
@@ -119,8 +149,12 @@ this.GobiertoBudgets.InvoicesController = (function() {
       .elasticX(true);
 
     // Customize
-    hbars1.xAxis().tickFormat(function (v) {
-      return v.toLocaleString(I18n.locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 });
+    hbars1.xAxis().tickFormat(function(v) {
+      return v.toLocaleString(I18n.locale, {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: 0
+      });
     });
     hbars1.xAxis().ticks(5);
     hbars1.margins().left = 100;
@@ -128,10 +162,9 @@ this.GobiertoBudgets.InvoicesController = (function() {
     // Render
     hbars1.render();
 
-    /*
-      ROW CHART - BY AMOUNT
-    */
+  }
 
+  function _renderByAmountsChart() {
     // Declaration
     var hbars2 = dc.rowChart("#hbars2", "group");
 
@@ -162,10 +195,15 @@ this.GobiertoBudgets.InvoicesController = (function() {
         function intervalFormat(n) {
           let _s = Number(_r.domain[d.key - 1]) || 1;
           let _l = Number(n - 1);
-          return [_s,_l].map(n => n.toLocaleString(I18n.locale, { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 })).join('\t') //TODO: No pinta el tabulador
+          return [_s, _l].map(n => n.toLocaleString(I18n.locale, {
+            style: 'currency',
+            currency: 'EUR',
+            minimumFractionDigits: 0
+          })).join('\t') //TODO: No pinta el tabulador
         }
 
-        return intervalFormat(Number(_r.domain[d.key]))})
+        return intervalFormat(Number(_r.domain[d.key]))
+      })
       .elasticX(true);
 
     // Customize
@@ -174,11 +212,9 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
     // Render
     hbars2.render();
+  }
 
-    /*
-      TABLE FILTER - FULL PROVIDERS
-    */
-
+  function _renderTableFilter() {
     $("#providers-table").jsGrid({
       width: "100%",
       height: "auto",
@@ -186,7 +222,18 @@ this.GobiertoBudgets.InvoicesController = (function() {
       sorting: true,
       autoload: true,
       paging: true,
-      data: data,
+      controller: {
+        loadData: function(filter) {
+          return $.grep(data, function(row) {
+            return (!filter.name.toLowerCase() || row.name.toLowerCase().indexOf(filter.name.toLowerCase()) > -1) &&
+              (!filter.nif.toLowerCase().toLowerCase() || row.nif.toLowerCase().indexOf(filter.nif.toLowerCase()) > -1) &&
+              (!filter.date || row.date.indexOf(filter.date) > -1) &&
+              (filter.payed === undefined || row.payed === filter.payed) &&
+              (!filter.amount || row.amount === filter.amount) &&
+              (!filter.concept.toLowerCase() || row.concept.toLowerCase().indexOf(filter.concept.toLowerCase()) > -1);
+          });
+        },
+      },
       fields: [{
           name: "nif",
           type: "text",
@@ -224,9 +271,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
         }
       ]
     });
-
-    // });
-  };
+  }
 
   return InvoicesController;
 })();

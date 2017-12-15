@@ -16,7 +16,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
     // data = d3.csv.parse(d3.select('pre#data').text().trim());
     d3.csv('/data.csv', function(csv) {
 
-      data = csv;
+      data = csv; //TODO: setFilters
 
       _r = {
         domain: [501, 1001, 5001, 10001, 15001],

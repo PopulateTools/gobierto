@@ -99,7 +99,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
       .elasticY(true)
       .alwaysUseRounding(true)
       .renderHorizontalGridLines(true)
-      .barPadding(0.5);
+      .barPadding(0.45);
 
     // Customize
     bars.xAxis().tickFormat(function(d) {
@@ -115,10 +115,14 @@ this.GobiertoBudgets.InvoicesController = (function() {
           minimumFractionDigits: 0
         });
       });
-    bars.margins().left = 60;
+    bars.margins().left = 75;
+    bars.margins().right = 0;
 
     // Render
     bars.render();
+
+    // Apply rounded corners AFTER render, otherwise they don't exist
+    bars.selectAll('rect').attr("rx", 4).attr("ry", 4);
   }
 
   function _renderMainProvidersChart() {
@@ -135,8 +139,8 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
     // Styling
     var _count = 10,
-      _gap = 5, // DC default
-      _barHeight = 20;
+      _gap = 10, // DC default
+      _barHeight = 15;
 
     hbars1
       .height(hbars1.margins().top + hbars1.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // NOTE: Margins top/bottom + bars + gaps (space between)
@@ -145,7 +149,8 @@ this.GobiertoBudgets.InvoicesController = (function() {
       .x(d3.scale.ordinal())
       .dimension(providers)
       .group(providerByAmount)
-      .labelOffsetX(-95)
+      .gap(_gap)
+      .labelOffsetX(-195)
       .elasticX(true);
 
     // Customize
@@ -156,12 +161,15 @@ this.GobiertoBudgets.InvoicesController = (function() {
         minimumFractionDigits: 0
       });
     });
-    hbars1.xAxis().ticks(5);
-    hbars1.margins().left = 100;
+    hbars1.xAxis().ticks(3);
+    hbars1.margins().left = 200;
+    hbars1.margins().right = 10;
 
     // Render
     hbars1.render();
 
+    // Apply rounded corners AFTER render, otherwise they don't exist
+    hbars1.selectAll('rect').attr("rx", 4).attr("ry", 4);
   }
 
   function _renderByAmountsChart() {
@@ -176,8 +184,8 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
     // Styling
     var _count = amountByInvoices.size(),
-      _gap = 5, // DC default
-      _barHeight = 20;
+      _gap = 10, // DC default
+      _barHeight = 15;
 
     hbars2
       .height(hbars2.margins().top + hbars2.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // NOTE: Margins top/bottom + bars + gaps (space between)
@@ -189,17 +197,29 @@ this.GobiertoBudgets.InvoicesController = (function() {
       .ordering(function(d) {
         return d.key
       })
-      .labelOffsetX(-100)
+      .labelOffsetX(-195)
+      .gap(_gap)
       .label(function(d) {
         // Helper
         function intervalFormat(n) {
           let _s = Number(_r.domain[d.key - 1]) || 1;
+
+          // Last value is not a range
+          if (d.key === _r.domain.length) {
+            return "más de " + (_s - 1).toLocaleString(I18n.locale, {
+              style: 'currency',
+              currency: 'EUR',
+              minimumFractionDigits: 0
+            })
+          }
+
           let _l = Number(n - 1);
+
           return [_s, _l].map(n => n.toLocaleString(I18n.locale, {
             style: 'currency',
             currency: 'EUR',
             minimumFractionDigits: 0
-          })).join('\t') //TODO: No pinta el tabulador
+          })).join((d.key === 0) ? '\t\t\t\t\t' : (d.key > 3) ? '\t\t\t' : '\t\t\t\t')
         }
 
         return intervalFormat(Number(_r.domain[d.key]))
@@ -208,13 +228,53 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
     // Customize
     hbars2.xAxis().ticks(5);
-    hbars2.margins().left = 100;
+    hbars2.margins().left = 200;
+    hbars2.margins().right = 0;
 
     // Render
     hbars2.render();
+
+    // Apply rounded corners AFTER render, otherwise they don't exist
+    hbars2.selectAll('rect').attr("rx", 4).attr("ry", 4);
   }
 
   function _renderTableFilter() {
+
+    var MyDateField = function(config) {
+      jsGrid.Field.call(this, config);
+    };
+
+    MyDateField.prototype = new jsGrid.Field({
+
+      // myCustomProperty: "date", // custom property
+
+      sorter: function(date1, date2) {
+        return new Date(date1) - new Date(date2);
+      },
+      itemTemplate: function(value) {
+        return new Date(value).toLocaleDateString(I18n.locale);
+      },
+      insertTemplate: function(value) {
+        return this._insertPicker = $("<input>").datepicker({
+          defaultDate: new Date()
+        });
+      },
+
+      editTemplate: function(value) {
+        return this._editPicker = $("<input>").datepicker().datepicker("setDate", new Date(value));
+      },
+
+      insertValue: function() {
+        return this._insertPicker.datepicker("getDate").toISOString();
+      },
+
+      editValue: function() {
+        return this._editPicker.datepicker("getDate").toISOString();
+      }
+    });
+
+    jsGrid.fields.date = MyDateField;
+
     $("#providers-table").jsGrid({
       width: "100%",
       height: "auto",
@@ -249,7 +309,8 @@ this.GobiertoBudgets.InvoicesController = (function() {
         },
         {
           name: "date",
-          type: "text",
+          type: "date",
+          // myCustomProperty: "date",
           align: "center",
           width: 30
         },

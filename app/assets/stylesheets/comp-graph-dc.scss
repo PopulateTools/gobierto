@@ -20,9 +20,17 @@
   }
 }
 
-.dc-chart g.row text {
+.dc-chart g.row text,
+.dc-chart .axis,
+.dc-chart .axis text {
   font-size: 0.875em;
   fill: $color_text !important;
+  white-space: pre;
+}
+
+.dc-chart .axis path,
+.dc-chart .axis line {
+  stroke: $color_text;
 }
 
 //jsGrid

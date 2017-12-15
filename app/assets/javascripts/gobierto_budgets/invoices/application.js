@@ -2,4 +2,8 @@
 //= require crossfilter
 //= require dc
 //= require jsgrid.min
+//= require air-datepicker/datepicker.min
+//= require air-datepicker/i18n/datepicker.es
+//= require air-datepicker/i18n/datepicker.en
+//= require air-datepicker/i18n/datepicker.ca
 //= require ./invoices_controller

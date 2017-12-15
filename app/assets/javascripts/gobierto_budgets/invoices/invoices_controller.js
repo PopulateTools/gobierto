@@ -13,43 +13,45 @@ this.GobiertoBudgets.InvoicesController = (function() {
   var data, ndx, _r;
 
   function getData() {
-    data = d3.csv.parse(d3.select('pre#data').text().trim());
-    // d3.csv('budget_invoices-providers.mock.csv', function (data) {
+    // data = d3.csv.parse(d3.select('pre#data').text().trim());
+    d3.csv('/data.csv', function(csv) {
 
-    _r = {
-      domain: [501, 1001, 5001, 10001, 15001],
-      range: [0, 1, 2, 3, 4, 5]
-    };
-    var rangeFormat = d3.scale.threshold().domain(_r.domain).range(_r.range);
-    var dateFormat = d3.time.format('%Y/%m/%d');
+      data = csv;
 
-    // pre-calculate for better performance
-    data.forEach(function(d) {
-      d.dd = dateFormat.parse(d.date);
-      d.month = d3.time.month(d.dd);
-      d.range = rangeFormat(+d.amount);
-      d.payed = (d.payed == 'true');
-      d.amount = Number(d.amount);
+      _r = {
+        domain: [501, 1001, 5001, 10001, 15001],
+        range: [0, 1, 2, 3, 4, 5]
+      };
+      var rangeFormat = d3.scale.threshold().domain(_r.domain).range(_r.range);
+      var dateFormat = d3.time.format('%Y/%m/%d');
+
+      // pre-calculate for better performance
+      data.forEach(function(d) {
+        d.dd = dateFormat.parse(d.date);
+        d.month = d3.time.month(d.dd);
+        d.range = rangeFormat(+d.amount);
+        d.payed = (d.payed == 'true');
+        d.amount = Number(d.amount);
+      });
+
+      // See the [crossfilter API](https://github.com/square/crossfilter/wiki/API-Reference) for reference.
+      ndx = crossfilter(data);
+
+      _boxesCalculations();
+
+      // BARS CHART - BY DATE
+      _renderByMonthsChart();
+
+      // ROW CHART - MAIN PROVIDERS
+      _renderMainProvidersChart();
+
+      // ROW CHART - BY AMOUNT
+      _renderByAmountsChart();
+
+      // TABLE FILTER - FULL PROVIDERS
+      _renderTableFilter();
+
     });
-
-    // See the [crossfilter API](https://github.com/square/crossfilter/wiki/API-Reference) for reference.
-    ndx = crossfilter(data);
-
-    _boxesCalculations();
-
-    // BARS CHART - BY DATE
-    _renderByMonthsChart();
-
-    // ROW CHART - MAIN PROVIDERS
-    _renderMainProvidersChart();
-
-    // ROW CHART - BY AMOUNT
-    _renderByAmountsChart();
-
-    // TABLE FILTER - FULL PROVIDERS
-    _renderTableFilter();
-
-    // });
   }
 
   function _boxesCalculations() {
@@ -115,7 +117,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
           minimumFractionDigits: 0
         });
       });
-    bars.margins().left = 75;
+    bars.margins().left = 80;
     bars.margins().right = 0;
 
     // Render
@@ -240,41 +242,6 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
   function _renderTableFilter() {
 
-    var MyDateField = function(config) {
-      jsGrid.Field.call(this, config);
-    };
-
-    MyDateField.prototype = new jsGrid.Field({
-
-      // myCustomProperty: "date", // custom property
-
-      sorter: function(date1, date2) {
-        return new Date(date1) - new Date(date2);
-      },
-      itemTemplate: function(value) {
-        return new Date(value).toLocaleDateString(I18n.locale);
-      },
-      insertTemplate: function(value) {
-        return this._insertPicker = $("<input>").datepicker({
-          defaultDate: new Date()
-        });
-      },
-
-      editTemplate: function(value) {
-        return this._editPicker = $("<input>").datepicker().datepicker("setDate", new Date(value));
-      },
-
-      insertValue: function() {
-        return this._insertPicker.datepicker("getDate").toISOString();
-      },
-
-      editValue: function() {
-        return this._editPicker.datepicker("getDate").toISOString();
-      }
-    });
-
-    jsGrid.fields.date = MyDateField;
-
     $("#providers-table").jsGrid({
       width: "100%",
       height: "auto",
@@ -305,14 +272,16 @@ this.GobiertoBudgets.InvoicesController = (function() {
           name: "name",
           type: "text",
           autosearch: true,
-          width: 80
+          width: 50
         },
         {
           name: "date",
-          type: "date",
-          // myCustomProperty: "date",
+          type: "text",
           align: "center",
-          width: 30
+          width: 30,
+          itemTemplate: function(value, item) {
+            return new Date(value).toLocaleDateString(I18n.locale)
+          }
         },
         {
           name: "payed",
@@ -323,7 +292,14 @@ this.GobiertoBudgets.InvoicesController = (function() {
         {
           name: "amount",
           type: "number",
-          width: 30
+          width: 20,
+          itemTemplate: function(value, item) {
+            return value.toLocaleString(I18n.locale, {
+              style: 'currency',
+              currency: 'EUR',
+              minimumFractionDigits: 0
+            })
+          }
         },
         {
           name: "concept",

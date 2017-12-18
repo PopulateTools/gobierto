@@ -2,6 +2,11 @@
   text-transform: uppercase;
   border-bottom: 2px solid $color_main_soft;
   padding-bottom: 0.5em;
+
+  + p {
+    font-size: 0.875em;
+    opacity: 0.5;
+  }
 }
 
 .as-block {
@@ -23,14 +28,24 @@
 .dc-chart g.row text,
 .dc-chart .axis,
 .dc-chart .axis text {
-  font-size: 0.875em;
+  font: inherit;
+  font-size: 0.875rem;
   fill: $color_text !important;
   white-space: pre;
 }
 
-.dc-chart .axis path,
+.dc-chart .axis .axis-title {
+    opacity: 0.5;
+    text-transform: uppercase;
+}
+
 .dc-chart .axis line {
   stroke: $color_text;
+}
+
+.dc-chart .axis path,
+.dc-chart .axis .tick line:not(.grid-line) {
+  display: none;
 }
 
 //jsGrid

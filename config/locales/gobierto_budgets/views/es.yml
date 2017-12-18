@@ -488,6 +488,8 @@ es:
         your_contribution: Tu contribución a los presupuestos de %{site_name}
     invoices:
       show:
+        invoiced: Importe facturado
+        fromto: De A Nº Fact.
         more: Más de
         table:
           fields:

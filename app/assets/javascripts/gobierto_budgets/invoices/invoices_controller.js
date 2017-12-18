@@ -6,6 +6,18 @@ this.GobiertoBudgets.InvoicesController = (function() {
   function InvoicesController() {}
 
   InvoicesController.prototype.show = function(options) {
+
+    $('#invoices-filters button').on('click', function (e) {
+      var filter = $(e.target).attr('data-toggle');
+
+      // Reset all buttons
+      $('.sort-G').removeClass('active');
+
+      $(".sort-G[data-toggle=" + filter + "]").addClass('active');
+
+      getData(filter);
+    });
+
     getData(options);
   };
 
@@ -139,7 +151,11 @@ this.GobiertoBudgets.InvoicesController = (function() {
       .elasticY(true)
       .alwaysUseRounding(true)
       .renderHorizontalGridLines(true)
-      .barPadding(0.45);
+      .barPadding(0.45)
+      .on('renderlet', function(chart){
+        // Apply rounded corners AFTER render, otherwise they don't exist
+        chart.selectAll('rect').attr("rx", 4).attr("ry", 4);
+      });
 
     // Customize
     bars.xAxis().tickFormat(function(d) {
@@ -160,9 +176,6 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
     // Render
     bars.render();
-
-    // Apply rounded corners AFTER render, otherwise they don't exist
-    bars.selectAll('rect').attr("rx", 4).attr("ry", 4);
   }
 
   function _renderMainProvidersChart() {
@@ -180,7 +193,8 @@ this.GobiertoBudgets.InvoicesController = (function() {
     // Styling
     var _count = 10,
       _gap = 10,
-      _barHeight = 15;
+      _barHeight = 15,
+      _labelOffset = 195;
 
     hbars1
       .height(hbars1.margins().top + hbars1.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // NOTE: Margins top/bottom + bars + gaps (space between)
@@ -190,8 +204,25 @@ this.GobiertoBudgets.InvoicesController = (function() {
       .dimension(providers)
       .group(providerByAmount)
       .gap(_gap)
-      .labelOffsetX(-195)
-      .elasticX(true);
+      .labelOffsetX(-_labelOffset)
+      .elasticX(true)
+      .on('renderlet', function(chart){
+        // Apply rounded corners AFTER render, otherwise they don't exist
+        chart.selectAll('rect').attr("rx", 4).attr("ry", 4);
+
+        chart.select('g.axis')
+          .attr("transform", "translate(0,0)")
+          .append('text')
+          .text(I18n.t('gobierto_budgets.invoices.show.invoiced'))
+          .attr("x", -9 * 3)
+          .attr("y", -9) // Default
+          .attr("class", "axis-title")
+          .attr("text-anchor","end");
+
+        chart.selectAll('g.axis line.grid-line').attr("y2", function() {
+          return Math.abs(+d3.select(this).attr("y2")) + (chart.margins().top / 2)
+        });
+      });
 
     // Customize
     hbars1.xAxis().tickFormat(function(v) {
@@ -201,15 +232,13 @@ this.GobiertoBudgets.InvoicesController = (function() {
         minimumFractionDigits: 0
       });
     });
-    hbars1.xAxis().ticks(3);
-    hbars1.margins().left = 200;
+    hbars1.xAxis().ticks(3).orient('top');
+    hbars1.margins().top = 20;
+    hbars1.margins().left = _labelOffset + 5;
     hbars1.margins().right = 10;
 
     // Render
     hbars1.render();
-
-    // Apply rounded corners AFTER render, otherwise they don't exist
-    hbars1.selectAll('rect').attr("rx", 4).attr("ry", 4);
   }
 
   function _renderByAmountsChart() {
@@ -225,7 +254,8 @@ this.GobiertoBudgets.InvoicesController = (function() {
     // Styling
     var _count = amountByInvoices.size(),
       _gap = 10,
-      _barHeight = 18;
+      _barHeight = 18,
+      _labelOffset = 195;
 
     hbars2
       .height(hbars2.margins().top + hbars2.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // NOTE: Margins top/bottom + bars + gaps (space between)
@@ -233,12 +263,12 @@ this.GobiertoBudgets.InvoicesController = (function() {
       .x(d3.scale.threshold())
       .dimension(amounts)
       .group(amountByInvoices)
-      // .ordering(function(d) { return _r.range.indexOf(d.key) })
       .ordering(function(d) {
         return d.key
       })
-      .labelOffsetX(-195)
+      .labelOffsetX(-_labelOffset)
       .gap(_gap)
+      .elasticX(true)
       .label(function(d) {
         // Helper
         function intervalFormat(n) {
@@ -264,18 +294,44 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
         return intervalFormat(Number(_r.domain[d.key]))
       })
-      .elasticX(true);
+      .on('renderlet', function(chart){
+        // Apply rounded corners AFTER render, otherwise they don't exist
+        chart.selectAll('rect').attr("rx", 4).attr("ry", 4);
+
+        chart.select('g.axis')
+          .attr("transform", "translate(0,0)")
+          .append('text')
+          .html(function() {
+            // Helper
+            function titleFormat(str) {
+              var tabs = "&ensp;&emsp;";
+              return str.replace(" ", tabs.repeat(6) + "&nbsp;").replace(" ", tabs.repeat(3) + "&nbsp;")
+            }
+
+            return titleFormat(I18n.t('gobierto_budgets.invoices.show.fromto'));
+          })
+          .attr("x", -_labelOffset)
+          .attr("y", -9) // Default
+          .attr("class", "axis-title");
+
+        chart.selectAll('g.axis line.grid-line').attr("y2", function() {
+          return Math.abs(+d3.select(this).attr("y2")) + (chart.margins().top / 2)
+        });
+      });
 
     // Customize
-    hbars2.xAxis().ticks(5);
-    hbars2.margins().left = 200;
+    hbars2.xAxis().ticks(5).orient('top');
+    hbars2.xAxis().tickFormat(
+      function(tick, pos) {
+        if (pos === 0) return null
+        return tick
+      });
+    hbars2.margins().top = 20;
+    hbars2.margins().left = _labelOffset + 5;
     hbars2.margins().right = 0;
 
     // Render
     hbars2.render();
-
-    // Apply rounded corners AFTER render, otherwise they don't exist
-    hbars2.selectAll('rect').attr("rx", 4).attr("ry", 4);
   }
 
   function _renderTableFilter() {

@@ -498,6 +498,8 @@ ca:
         your_contribution: La teva contribució als pressupostos de %{site_name}
     invoices:
       show:
+        invoiced: Import facturat
+        fromto: De a Nº Fact.
         more: Més de
         table:
           fields:

@@ -473,6 +473,8 @@ en:
         your_contribution: Your contribution to %{site_name}
     invoices:
       show:
+        invoiced: Budget invoiced
+        fromto: From To No. Inv.
         more: More than
         table:
           fields:

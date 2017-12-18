@@ -177,7 +177,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
     // Styling
     var _count = 10,
-      _gap = 10, // DC default
+      _gap = 10,
       _barHeight = 15;
 
     hbars1
@@ -222,8 +222,8 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
     // Styling
     var _count = amountByInvoices.size(),
-      _gap = 10, // DC default
-      _barHeight = 15;
+      _gap = 10,
+      _barHeight = 18;
 
     hbars2
       .height(hbars2.margins().top + hbars2.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // NOTE: Margins top/bottom + bars + gaps (space between)

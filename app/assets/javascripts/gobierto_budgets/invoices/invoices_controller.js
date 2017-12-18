@@ -6,17 +6,16 @@ this.GobiertoBudgets.InvoicesController = (function() {
   function InvoicesController() {}
 
   InvoicesController.prototype.show = function(options) {
-    getData();
+    getData(options);
   };
 
   // Global variables
   var data, ndx, _r;
 
-  function getData() {
-    // data = d3.csv.parse(d3.select('pre#data').text().trim());
+  function getData(f = '12m') {
     d3.csv('/data.csv', function(csv) {
 
-      data = csv; //TODO: setFilters
+      data = _.filter(csv, _callback(f));
 
       _r = {
         domain: [501, 1001, 5001, 10001, 15001],
@@ -32,6 +31,9 @@ this.GobiertoBudgets.InvoicesController = (function() {
         d.range = rangeFormat(+d.amount);
         d.payed = (d.payed == 'true');
         d.amount = Number(d.amount);
+
+        // TODO: Columna falsa para autónomos
+        d.freelance = (Math.random() >= 0.25);
       });
 
       // See the [crossfilter API](https://github.com/square/crossfilter/wiki/API-Reference) for reference.
@@ -52,6 +54,30 @@ this.GobiertoBudgets.InvoicesController = (function() {
       _renderTableFilter();
 
     });
+  }
+
+  function _callback(f) {
+    var cb = function () {};
+
+    // Return the filter callback function based on filter selected
+    switch (f) {
+      case '12m':
+        cb = function (o) {
+          return moment(new Date(o.date)) > moment().subtract(12, 'months')
+        }
+        break;
+      case 'current':
+        cb = function (o) {
+          return moment(new Date(o.date)).year() === moment().year()
+        }
+        break;
+      default: // Filter is the year itself
+        cb = function (o) {
+          return moment(new Date(o.date)).year() === Number(f)
+        }
+    }
+
+    return cb;
   }
 
   function _boxesCalculations() {
@@ -77,6 +103,16 @@ this.GobiertoBudgets.InvoicesController = (function() {
       style: 'currency',
       currency: 'EUR'
     });
+
+    var _n = _.countBy(data, 'freelance');
+    $('#providerType .number:first').text(_n.true.toLocaleString());
+    $('#providerType .number:last').text(_n.false.toLocaleString());
+    $('#providerType .percent:first').text((_n.true/data.length).toLocaleString(I18n.locale, {
+      style: 'percent'
+    }));
+    $('#providerType .percent:last').text((_n.false/data.length).toLocaleString(I18n.locale, {
+      style: 'percent'
+    }));
   }
 
   function _renderByMonthsChart() {

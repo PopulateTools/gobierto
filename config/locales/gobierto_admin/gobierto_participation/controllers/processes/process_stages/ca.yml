@@ -1,0 +1,9 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        process_stages:
+          destroy:
+            default: No es pot eliminar una fase/eina mentre està activa.
+            success: La fase/eina s'ha esborrat correctament.

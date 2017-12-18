@@ -1,7 +1,12 @@
+# frozen_string_literal: true
+
 require_dependency "gobierto_participation"
 
 module GobiertoParticipation
   class ProcessStage < ApplicationRecord
+    include GobiertoCommon::Sortable
+
+    before_destroy :check_stage_active
 
     belongs_to :process
 
@@ -16,10 +21,13 @@ module GobiertoParticipation
     validates :stage_type, inclusion: { in: stage_types }
     validates :stage_type, uniqueness: { scope: [:process_id] }
 
-    scope :sorted,   -> { order(stage_type: :asc) }
-    scope :open,     -> { where('starts <= ? AND ends >= ?', Time.zone.now, Time.zone.now) }
-    scope :active,   -> { where(active: true) }
-    scope :upcoming, -> { where('starts > ?', Time.zone.now) }
+    scope :sorted, -> { order(position: :asc, created_at: :desc) }
+    scope :open, -> { where("starts <= ? AND ends >= ?", Time.zone.now, Time.zone.now) }
+    scope :active, -> { where(active: true) }
+    scope :upcoming, -> { where("starts > ?", Time.zone.now) }
+    scope :by_site, ->(site) { joins(process: :site).where("sites.id = ?
+                                                            AND gpart_polls.visibility_level = 1 AND gpart_polls.ends_at >= ?",
+                                                            site.id, Time.zone.now) }
 
     def open?
       date = Time.zone.now.to_date
@@ -62,6 +70,12 @@ module GobiertoParticipation
 
     private
 
+    def check_stage_active
+      return true unless active?
+      false
+      throw(:abort)
+    end
+
     def cta_text_maximum_length
       if cta_text_translations
         cta_text_translations.each do |cta_text_translation|
@@ -73,6 +87,5 @@ module GobiertoParticipation
     def url_helpers
       Rails.application.routes.url_helpers
     end
-
   end
 end

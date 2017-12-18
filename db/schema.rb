@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171128100636) do
+ActiveRecord::Schema.define(version: 20171218082804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -612,6 +612,8 @@ ActiveRecord::Schema.define(version: 20171128100636) do
     t.jsonb "description_translations"
     t.boolean "active", default: false, null: false
     t.jsonb "cta_text_translations"
+    t.integer "position", default: 0, null: false
+    t.index ["position"], name: "index_gpart_process_stages_on_position"
     t.index ["process_id", "slug"], name: "index_gpart_process_stages_on_process_id_and_slug", unique: true
     t.index ["process_id"], name: "index_gpart_process_stages_on_process_id"
     t.index ["title_translations"], name: "index_gpart_process_stages_on_title_translations", using: :gin

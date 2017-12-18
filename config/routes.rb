@@ -102,6 +102,11 @@ Rails.application.routes.draw do
       get "/" => "welcome#index"
 
       resources :processes, only: [:index, :new, :edit, :create, :update] do
+        resources :process_stages, only: [:create, :update, :destroy], controller: "processes/process_stages", as: :process_stages, path: :process_stages do
+          collection do
+            resource :process_stage_sort, only: [:create], controller: "processes/process_stages_sort", path: :process_stages_sort
+          end
+        end
         resources :file_attachments, only: [:index], controller: "processes/process_file_attachments", as: :file_attachments, path: :file_attachments
         resources :events, only: [:index], controller: "processes/process_events", as: :events, path: :events
         resources :pages, only: [:index], controller: "processes/process_pages", as: :pages, path: :pages

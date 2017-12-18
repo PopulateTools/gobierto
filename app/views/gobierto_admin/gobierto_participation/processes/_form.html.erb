@@ -24,6 +24,10 @@
         <%= f.text_field :slug, placeholder: t('.placeholders.slug') %>
       </div>
 
+      <% if @process_form.persisted? %>
+        <%= render 'process_stages', process_fb: f %>
+      <% end %>
+
       <div class="form_item file_field">
         <%= f.label :header_image %>
 
@@ -123,10 +127,6 @@
         </div>
 
       </div>
-
-      <% if @process_form.persisted? %>
-        <%= render 'process_stages', process_fb: f %>
-      <% end %>
 
     </div>
 

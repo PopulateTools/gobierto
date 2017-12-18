@@ -101,7 +101,6 @@ module GobiertoAdmin
             :slug,
             :starts,
             :ends,
-            :active,
             title_translations: [*I18n.available_locales],
             description_translations: [*I18n.available_locales],
             cta_text_translations: [*I18n.available_locales]

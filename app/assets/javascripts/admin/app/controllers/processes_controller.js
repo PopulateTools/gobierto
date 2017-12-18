@@ -10,8 +10,8 @@ this.GobiertoAdmin.ProcessesController = (function() {
     _addMagnificPopupBehaviors();
     _addEditStageBehaviors();
     _addCloseModalBehaviors();
-
     _addSetProcessDurationBehavior();
+    _handleSortableList();
   };
 
   function _addMagnificPopupBehaviors() {
@@ -67,11 +67,11 @@ this.GobiertoAdmin.ProcessesController = (function() {
 
   function _addEditStageBehaviors() {
     var $links = $('[data-behavior=edit_stage]');
-    
+
     $links.unbind('click', saveStageModalState).click(saveStageModalState);
   };
 
-  function saveStageModalState(e) {    
+  function saveStageModalState(e) {
     $stageModalBackup = $($(this).attr('href')).clone();
   };
 
@@ -87,6 +87,52 @@ this.GobiertoAdmin.ProcessesController = (function() {
     });
   };
 
+  function _handleSortableList() {
+    var wrapper = "ul[data-behavior=sortable]";
+    var positions = [];
+
+    $(wrapper).sortable({
+      update: function(e, ui) {
+        _refreshPositions(wrapper);
+        _requestUpdate(wrapper, _buildPositions(wrapper));
+      },
+      helper: _fixWidthHelper
+    });
+  }
+
+  function _fixWidthHelper(e, ui) {
+    ui.children().each(function() {
+      $(this).width($(this).width());
+    });
+    return ui;
+  }
+
+  function _refreshPositions(wrapper) {
+    $(wrapper).find("div.list_item").each(function(index) {
+      $(this).attr("data-pos", index + 1);
+    });
+  };
+
+  function _buildPositions(wrapper) {
+    var positions = [];
+
+    $(wrapper).find("div.list_item").each(function(index) {
+      positions.push({
+        id: $(this).data("id"),
+        position: index + 1
+      });
+    });
+
+    return positions;
+  };
+
+  function _requestUpdate(wrapper, positions) {
+    $.ajax({
+      url: $(wrapper).data("sortable-target"),
+      method: "POST",
+      data: { positions: positions }
+    });
+  };
   return ProcessesController;
 })();
 

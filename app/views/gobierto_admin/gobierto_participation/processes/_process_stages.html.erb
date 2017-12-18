@@ -1,23 +1,68 @@
 <div class="form_block">
   <h3><%= t('.stages_and_tools') %></h3>
 
-  <ul class="block_list">
-    <%= process_fb.fields_for :stages do |stage_form| %>
+  <ul class="block_list" data-behavior="sortable" data-sortable-target="<%= admin_participation_process_process_stage_sort_path(process_id: @process_form.process.id) %>">
+  <%= process_fb.fields_for :stages do |stage_form| %>
+    <div id="process-stage-item-<%= stage_form.object.id %>" data-id="<%= stage_form.object.id %>" class="list_item">
 
-      <!-- Edit popup trigger -->
-      <div class="list_item">
-        <label class="main"><%= translate_enum_value(GobiertoParticipation::ProcessStage, :stage_type, stage_form.object.stage_type) %></label>
+      <i class="sort-handler fa fa-bars tipsit custom_handle" title="<%= t('.drag_to_sort') %>"></i>
 
-        <div class="mandatory">
-          <%= stage_form.label :active do %>
-            <%= stage_form.check_box :active %> <%= t('.active') %>
-          <% end %>
+      <div class="main">
+
+        <div class="group">
+          <label>
+            <%= stage_form.object.title %>
+            <span class="interaction_tool">
+              <i class="fa fa-stethoscope"></i>
+              <%= translate_enum_value(GobiertoParticipation::ProcessStage, :stage_type, stage_form.object.stage_type) %>
+            </span>
+          </label>
         </div>
-        <div class="tools">
-          <%= link_to '<i class="fa fa-edit"></i>'.html_safe, "#edit_stage_#{stage_form.index}", title: t('.edit'), class: 'tipsit', data: { behavior: 'edit_stage' } %>
+
+        <div class="group secondary">
+          <div class="date">
+            <% if stage_form.object.starts && stage_form.object.ends %>
+              <i class="fa fa-clock-o"></i>
+              <%= t("time.formats.from_to", starts: l(stage_form.object.starts, format: :long),
+                                            ends: l(stage_form.object.ends, format: :long)) %>
+            <% end %>
+          </div>
+          <div class="">
+            <i class="fa fa-cog"></i>
+            <%= link_to t('.manage'), phase_url(stage_form.object), data: { turbolinks: false } %>
+          </div>
         </div>
+
+        <div class="group secondary right">
+          <label>
+            <%= stage_form.label :active do %>
+              <% if stage_form.object.active %>
+                <input type="radio" name=process[stages_attributes][active] id='<%= "process_stages_attributes_#{stage_form.index}_active" %>' checked>
+              <% else %>
+              <input type="radio" name=process[stages_attributes][active] id='<%= "process_stages_attributes_#{stage_form.index}_active" %>'>
+              <% end %>
+            <% end %>
+          </label>
+          <span>
+            <% if stage_form.object.active? %>
+              <i class="fa fa-check"></i>
+              <%= t('.published') %>
+            <% else %>
+              <i class="fa fa-lock"></i>
+              <%= t('.draft') %>
+            <% end %>
+          </span>
+        </div>
+
       </div>
-      <!-- ./ Edit popup trigger -->
+
+      <div class="tools">
+        <!-- Edit popup trigger -->
+        <%= link_to '<i class="fa fa-edit"></i>'.html_safe, "#edit_stage_#{stage_form.index}", title: t('.edit'), class: 'tipsit open_modal', data: { behavior: 'edit_stage' } %>
+        <!-- ./ Edit popup trigger -->
+
+        <%= link_to "<i class='fa fa-trash'></i>".html_safe, admin_participation_process_process_stage_path(stage_form.object.id, process_id: stage_form.object.process.id), method: :delete, title: t('views.delete'), class: 'tipsit' %>
+      </div>
 
       <!-- Edit popup -->
       <div class="modal mfp-hide" id="<%= "edit_stage_#{stage_form.index}" %>">
@@ -89,8 +134,14 @@
 
       </div>
       <!-- ./ Edit popup -->
-    <% end %>
 
-  </ul>
+    </div>
+
+  <% end %>
+
+  <div class="m_1 p_h_2" >
+    <!-- it generates another .list_item_with_editable_content element -->
+    <%= link_to '<i class="fa fa-plus-circle"></i>'.html_safe + t('.add_new_phase'), '#edit_phase_0', class: 'open_modal', data: { behavior: 'edit_stage' }  %>
+  </div>
 
 </div>

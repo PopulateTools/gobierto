@@ -1,0 +1,9 @@
+---
+es:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        process_stages:
+          destroy:
+            default: No puedes borrar una fase/herramienta mientras esté activa.
+            success: La fase/herramienta se ha borrado correctamente.

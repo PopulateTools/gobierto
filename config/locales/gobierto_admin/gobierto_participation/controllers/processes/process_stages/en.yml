@@ -1,0 +1,9 @@
+---
+en:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        process_stages:
+          destroy:
+            default: You can not delete a phase/tool while it is active.
+            success: The phase/tool has been deleted correctly.

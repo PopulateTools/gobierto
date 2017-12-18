@@ -5,26 +5,9 @@
       <%= link_to t('.stage'), edit_admin_participation_process_path(current_process), data: { turbolinks: false } %>
     </li>
 
-    <li class="<%= class_if("active", controller_name.include?('process_information')) %>">
-      <%= link_to t('.information'), edit_admin_participation_process_process_information_path(id: current_process, process_id: current_process) %>
-    </li>
-
     <li class="<%= class_if('active', controller_name.include?('events')) %>">
       <%= link_to t('.agenda'), admin_participation_process_events_path(current_process) %>
     </li>
-
-    <!-- shared for polls and poll_answers -->
-    <li class="<%= "#{class_if('active', controller_name.include?('poll'))} #{class_if('disabled', !current_process.polls_stage?)}" %>">
-      <%= link_to t('.polls'), admin_participation_process_polls_path(current_process) %>
-    </li>
-
-    <li class="<%= class_if("active", controller_name == "process_contribution_containers") %>">
-      <%= link_to t('.contributions'), admin_participation_process_contribution_containers_path(current_process), data: { turbolinks: false } %>
-    </li>
-
-    <% if current_admin.god? %>
-      <li><%= link_to t('.votings'), '#', data: {disabled: true}, title: 'TODO: implement' %></li>
-    <% end %>
 
     <li class="<%= class_if('active', controller_name.include?('pages')) %>">
       <%= link_to t('.news'), admin_participation_process_pages_path(current_process) %>
@@ -33,6 +16,5 @@
     <li class="<%= class_if('active', controller_name.include?('file_attachments')) %>">
       <%= link_to t('.documents'), admin_participation_process_file_attachments_path(current_process) %>
     </li>
-
   </ul>
 </div>

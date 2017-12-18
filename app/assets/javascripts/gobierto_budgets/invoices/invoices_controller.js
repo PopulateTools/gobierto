@@ -94,23 +94,25 @@ this.GobiertoBudgets.InvoicesController = (function() {
         return (values[half - 1] + values[half]) / 2.0;
     }
 
+    var amount = _.isEmpty(_.map(data, 'amount').map(Number)) ? [0] : _.map(data, 'amount').map(Number);
+
     document.getElementById("numberOfInvoices").innerText = data.length.toLocaleString();
-    document.getElementById("meanBudget").innerText = _.mean(_.map(data, 'amount').map(Number)).toLocaleString(I18n.locale, {
+    document.getElementById("meanBudget").innerText = _.mean(amount).toLocaleString(I18n.locale, {
       style: 'currency',
       currency: 'EUR'
     });
-    document.getElementById("medianBudget").innerText = median(_.map(data, 'amount').map(Number)).toLocaleString(I18n.locale, {
+    document.getElementById("medianBudget").innerText = median(amount).toLocaleString(I18n.locale, {
       style: 'currency',
       currency: 'EUR'
     });
 
     var _n = _.countBy(data, 'freelance');
-    $('#providerType .number:first').text(_n.true.toLocaleString());
-    $('#providerType .number:last').text(_n.false.toLocaleString());
-    $('#providerType .percent:first').text((_n.true/data.length).toLocaleString(I18n.locale, {
+    $('#providerType .number:first').text((_n.true || 0).toLocaleString());
+    $('#providerType .number:last').text((_n.false || 0).toLocaleString());
+    $('#providerType .percent:first').text((_n.true/data.length || 0).toLocaleString(I18n.locale, {
       style: 'percent'
     }));
-    $('#providerType .percent:last').text((_n.false/data.length).toLocaleString(I18n.locale, {
+    $('#providerType .percent:last').text((_n.false/data.length || 0).toLocaleString(I18n.locale, {
       style: 'percent'
     }));
   }

@@ -65,7 +65,7 @@ ca:
       process_breadcrumb:
         root: Inici
       process_menu_subsections:
-        contributions: Contribucions
+        ideas: Contribucions
         information: Informació
         meetings: Reunions
         polls: Enquestes

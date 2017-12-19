@@ -14,7 +14,7 @@ module GobiertoAdmin
       end
 
       def process
-        site.processes.process.first
+        @process ||= gobierto_participation_processes(:commission_for_carnival_festivities)
       end
 
       def test_update_process_information
@@ -22,7 +22,7 @@ module GobiertoAdmin
           with_current_site(site) do
             visit edit_admin_participation_process_path(process)
 
-            click_on "Information"
+            all("a", text: "Manage")[1].click
 
             find("#process_information_text_translations_en", visible: false).set("Edited information text")
 
@@ -32,7 +32,7 @@ module GobiertoAdmin
 
             visit edit_admin_participation_process_path(process)
 
-            click_on "Information"
+            all("a", text: "Manage")[1].click
 
             assert_equal(
               "Edited information text",

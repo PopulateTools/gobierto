@@ -67,7 +67,7 @@ es:
       process_breadcrumb:
         root: Inicio
       process_menu_subsections:
-        contributions: Aportaciones
+        ideas: Aportaciones
         information: Información
         meetings: Reuniones
         polls: Encuestas

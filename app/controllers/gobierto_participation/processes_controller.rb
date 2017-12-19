@@ -46,6 +46,5 @@ module GobiertoParticipation
     def process_stage_path(stage)
       stage.process_stage_path
     end
-
   end
 end

@@ -10,9 +10,10 @@ module GobiertoParticipation
 
     belongs_to :process
 
-    translates :title, :description, :cta_text
+    translates :title, :description, :cta_text, :cta_description
 
     enum stage_type: { information: 0, meetings: 1, polls: 2, ideas: 3, results: 4 }
+    enum visibility_level: { draft: 0, active: 1 }
 
     validates :slug, uniqueness: { scope: [:process_id] }
     validates :title, :starts, :ends, presence: true, if: -> { active? }
@@ -24,6 +25,7 @@ module GobiertoParticipation
     scope :sorted, -> { order(position: :asc, created_at: :desc) }
     scope :open, -> { where("starts <= ? AND ends >= ?", Time.zone.now, Time.zone.now) }
     scope :active, -> { where(active: true) }
+    scope :active_visibility, -> { where(visibility_level: "active") }
     scope :upcoming, -> { where("starts > ?", Time.zone.now) }
     scope :by_site, ->(site) { joins(process: :site).where("sites.id = ?
                                                             AND gpart_polls.visibility_level = 1 AND gpart_polls.ends_at >= ?",

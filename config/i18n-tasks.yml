@@ -27,6 +27,7 @@ ignore_unused:
   - 'layouts.*.application.*'
   - 'user.subscriptions.create.*_success'
   - 'gobierto_admin.gobierto_budget_consultations.consultations.consultation_items.*_modal.*'
+  - 'gobierto_admin.gobierto_participation.shared.navigation.*'
   - 'gobierto_budgets.budget_lines.show.twitter_text_*'
   - 'gobierto_budgets.visualizations.G_custom'
   - 'gobierto_budgets.visualizations.I_custom'

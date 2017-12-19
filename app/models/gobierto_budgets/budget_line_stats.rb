@@ -38,7 +38,7 @@ module GobiertoBudgets
       if diff
         diff = diff.to_f * 100
 
-        "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)}%"
+        "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)} %"
       else
         ""
       end
@@ -66,7 +66,7 @@ module GobiertoBudgets
 
       diff += 100
 
-      "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)}%"
+      "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)} %"
     end
 
     def mean_province

@@ -276,7 +276,7 @@ module GobiertoBudgets
               "values": mean_national
             },
             {
-              name: @code ? @category_name : @place.name,
+              name: @place.name,
               "values": place_values
             }
           ]

@@ -174,7 +174,7 @@ module GobiertoBudgets
         direction = I18n.t('gobierto_budgets.budgets.index.more')
       end
 
-      "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)}% #{direction}"
+      "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)} % #{direction}"
     end
 
     def main_budget_lines_summary

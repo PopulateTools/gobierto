@@ -183,17 +183,6 @@ var VisSlider = Class.extend({
     function endDrag() {
       var year = x.invert(d3.mouse(this)[0]);
       $(document).trigger('visSlider:yearChanged', year);
-
-      // Hide legend when we drag outside of the last year
-      if (year !== currentYear) {
-        d3.select('.bubble_legend')
-          .transition()
-          .style('opacity', 0);
-      } else {
-        d3.select('.bubble_legend')
-          .transition()
-          .style('opacity', 1);
-      }
     }
   },
 });

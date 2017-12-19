@@ -47,7 +47,7 @@ var VisAgeDistribution = Class.extend({
     // Append axes containers
     this.svg.append('g').attr('class','x axis');
     this.svg.append('g').attr('class','y axis');
-    
+
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
   },
   getData: function() {
@@ -92,10 +92,10 @@ var VisAgeDistribution = Class.extend({
     this.yScale
       .rangeRound([this.height, 0])
       .domain([0, d3.max(this.data, function(d) {return d.value})]);
-      
+
     this.color
       .domain([0, d3.max(this.data, function(d) {return d.value})]);
-      
+
     this._renderAxis();
   },
   _renderBars: function() {
@@ -114,11 +114,11 @@ var VisAgeDistribution = Class.extend({
       .attr('fill', function(d) { return this.color(d.value); }.bind(this))
       .on('mousemove', this._mousemove.bind(this))
       .on('mouseout', this._mouseout.bind(this));
-    
+
     // Append tooltip group & children
     var focusG = this.svg.append('g')
       .attr('class', 'focus');
-      
+
     focusG.append('text').attr('class', 'focus-halo');
     focusG.append('text').attr('class', 'focus-text');
   },
@@ -133,7 +133,7 @@ var VisAgeDistribution = Class.extend({
       .attr('stroke', 'white')
       .attr('stroke-width', '2px')
       .text(accounting.formatNumber(d.value, 0) + ' ' + I18n.t('gobierto_indicators.graphics.age_distribution.label'));
-      
+
     this.svg.select('.focus-text')
       .text(accounting.formatNumber(d.value, 0) + ' ' + I18n.t('gobierto_indicators.graphics.age_distribution.label'));
   },

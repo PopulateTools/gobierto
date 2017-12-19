@@ -26,7 +26,7 @@ var Sparkline = Class.extend({
       .append('g')
       .attr('class', 'chart-container')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
-      
+
     d3.select(window).on('resize.' + this.container, this._resize.bind(this));
   },
   render: function() {
@@ -49,12 +49,12 @@ var Sparkline = Class.extend({
       .y(function(d) { return this.yScale(d.value); }.bind(this));
 
     this.isPositive = this.data[0].value - this.data.slice(-1)[0].value > 0 ? true : false;
-    
+
     this.svg.append('path')
       .datum(this.data)
       .attr('stroke', this._getColor())
       .attr('d', this.line);
-      
+
     this.svg.append('circle')
       .attr('cx', function(d) { return this.xScale(this.data[0].date); }.bind(this))
       .attr('cy', function(d) { return this.yScale(this.data[0].value); }.bind(this))
@@ -82,19 +82,19 @@ var Sparkline = Class.extend({
   _resize: function() {
     this.width = this._width() - this.margin.left - this.margin.right;
     this.height = this._height() - this.margin.top - this.margin.bottom;
-    
+
     this.updateRender();
-    
+
     d3.select(this.container + ' svg')
       .attr('width', this.width + this.margin.left + this.margin.right)
       .attr('height', this.height + this.margin.top + this.margin.bottom)
-    
+
     this.svg.select('.chart-container')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
-    
+
     this.svg.select('path')
       .attr('d', this.line);
-      
+
     this.svg.select('circle')
       .attr('cx', function(d) { return this.xScale(this.data[0].date); }.bind(this))
       .attr('cy', function(d) { return this.yScale(this.data[0].value); }.bind(this))

@@ -89,11 +89,11 @@ module GobiertoPeople
       def mark_unreceived_events_as_drafts(calendar_items)
         if calendar_items.any?
           received_external_ids = calendar_items.map { |item| item.id }
-          unreceived_external_ids = site.events
-                                        .where(starts_at: SYNC_RANGE[:start_date]..SYNC_RANGE[:end_date])
-                                        .where.not(external_id: nil)
-                                        .where.not(external_id: received_external_ids)
-                                        .update_all(state: GobiertoCalendars::Event.states[:pending])
+          person.events
+                .where(starts_at: SYNC_RANGE[:start_date]..SYNC_RANGE[:end_date])
+                .where.not(external_id: nil)
+                .where.not(external_id: received_external_ids)
+                .update_all(state: GobiertoCalendars::Event.states[:pending])
         end
       end
 

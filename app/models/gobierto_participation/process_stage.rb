@@ -20,7 +20,6 @@ module GobiertoParticipation
     validate :cta_text_maximum_length
     validates :stage_type, presence: true
     validates :stage_type, inclusion: { in: stage_types }
-    validates :stage_type, uniqueness: { scope: [:process_id] }
 
     scope :sorted, -> { order(position: :asc, created_at: :desc) }
     scope :open, -> { where("starts <= ? AND ends >= ?", Time.zone.now, Time.zone.now) }

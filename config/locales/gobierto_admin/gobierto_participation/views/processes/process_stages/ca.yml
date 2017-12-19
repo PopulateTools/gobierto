@@ -1,0 +1,20 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        process_stages:
+          active: Activa
+          edit_modal:
+            title: 'Editar fase: {phase}'
+          form:
+            placeholders:
+              cta_description: ex. Descripció de la idea
+              cta_text: ex. Aportar idea
+              description: ex. En aquesta fase es pretén ...
+              menu: Ex. Fase
+              title: ex. Fase principal
+            stage_types_prompt: "-- seleccionar --"
+            visibility_level: Estat
+          new_modal:
+            title: Crear fase

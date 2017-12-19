@@ -4,6 +4,17 @@ en:
     gobierto_participation:
       processes:
         process_stages:
+          create:
+            success: The phase/tool has been created correctly.
           destroy:
             default: You can not delete a phase/tool while it is active.
             success: The phase/tool has been deleted correctly.
+          form:
+            stage_type:
+              ideas: Ideas
+              information: Information
+              meetings: Meetings
+              polls: Pools
+              results: Results
+          update:
+            success: The phase/tool has been updated correctly.

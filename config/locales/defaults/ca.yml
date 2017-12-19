@@ -15,7 +15,7 @@ ca:
     - Dv
     - Ds
     abbr_month_names:
-    - 
+    -
     - Gen
     - Feb
     - Mar
@@ -41,8 +41,9 @@ ca:
       default: "%d-%m-%Y"
       long: "%d de %B de %Y"
       short: "%d de %b"
+      shortest: "%d %b %y"
     month_names:
-    - 
+    -
     - Gener
     - Febrer
     - Març

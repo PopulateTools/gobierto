@@ -67,18 +67,11 @@ en:
             configuration: Configuration
         process_stages:
           add_new_phase: Add new phase
-          cancel: Cancel
           draft: Draft
           drag_to_sort: Drag to sort
           edit: Edit
-          edit_stage: Edit stage
           manage: Manage
-          placeholders:
-            body: ex. In this stage we intend ...
-            cta_text: ex. Add your idea
-            title: ex. Main stage
           published: Published
-          save: Save
           stages_and_tools: Stages and tools
         update:
           success_html: Process was successfully updated. <a href="%{link}">View process</a>.

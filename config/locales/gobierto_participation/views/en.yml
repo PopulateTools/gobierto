@@ -193,8 +193,6 @@ en:
         process_stages: Process stages
         scope: Scope
       timeline_row:
-        past_stage: Stage has ended
-        upcoming_stage: Stage not yet started
         view_stage: Access this stage
     shared:
       activities_for: Updates for %{container}

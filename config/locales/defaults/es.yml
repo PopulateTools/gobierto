@@ -15,7 +15,7 @@ es:
     - vie
     - sáb
     abbr_month_names:
-    - 
+    -
     - ene
     - feb
     - mar
@@ -41,8 +41,9 @@ es:
       default: "%d/%m/%Y"
       long: "%d de %B de %Y"
       short: "%d %b %Y"
+      shortest: "%d %b %y"
     month_names:
-    - 
+    -
     - enero
     - febrero
     - marzo

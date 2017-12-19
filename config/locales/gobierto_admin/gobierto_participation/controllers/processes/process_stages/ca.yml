@@ -4,6 +4,17 @@ ca:
     gobierto_participation:
       processes:
         process_stages:
+          create:
+            success: La fase/eina s'ha creat correctament.
           destroy:
             default: No es pot eliminar una fase/eina mentre està activa.
             success: La fase/eina s'ha esborrat correctament.
+          form:
+            stage_type:
+              ideas: Idees
+              information: Informació
+              meetings: Reunions
+              polls: Encuestas
+              results: Resultats
+          update:
+            success: La fase/eina s'ha actualizat correctament.

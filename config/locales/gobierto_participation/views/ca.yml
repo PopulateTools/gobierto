@@ -192,8 +192,6 @@ ca:
         process_stages: Fases del procés
         scope: Àmbit
       timeline_row:
-        past_stage: Fase finalitzada
-        upcoming_stage: Fase pendent d'inici
         view_stage: Acceder a aquesta fase
     shared:
       activities_for: Activitat de %{container}

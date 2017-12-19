@@ -55,7 +55,7 @@ module GobiertoPeople
         # Single event, organized by richard, with two attendees
         event2 = mock
         event2.stubs(visibility: nil, location: nil, creator: creator_event2, recurrence: nil, id: "event2",
-                     summary: "Event 2", start: date1, end: date2, attendees: [attendee1, attendee2], description: "Event 2 description")
+                     summary: "@ Event 2", start: date1, end: date2, attendees: [attendee1, attendee2], description: "Event 2 description")
 
         # Single event, organized by other, calendar shared with Richard
         event3 = mock
@@ -139,7 +139,7 @@ module GobiertoPeople
 
         # Event 2 checks
         event = richard.events.find_by external_id: "event2"
-        assert_equal "Event 2", event.title
+        assert_equal "@ Event 2", event.title
         assert_equal richard, event.collection.container
         assert_empty event.locations
         assert_equal 2, event.attendees.size
@@ -186,7 +186,7 @@ module GobiertoPeople
         CalendarIntegration.sync_person_events(richard)
 
         event.reload
-        assert_equal "Event 2", event.title
+        assert_equal "@ Event 2", event.title
       end
 
       def test_sync_events_removes_deleted_event_attributes
@@ -211,6 +211,33 @@ module GobiertoPeople
 
         event.reload
         assert_equal 2, event.attendees.reload.size
+      end
+
+      def test_filter_events
+        configure_google_calendar_integration(
+          collection: richard.calendar,
+          data: {
+            calendars: [google_calendar_id, 2],
+            filters: {
+              subject: '@'
+            }
+          }
+        )
+
+        assert_difference "GobiertoCalendars::Event.count", 1 do
+          CalendarIntegration.sync_person_events(richard)
+        end
+
+        # Event 2 checks
+        event = richard.events.find_by external_id: "event2"
+        assert_equal "@ Event 2", event.title
+        assert_equal richard, event.collection.container
+        assert_empty event.locations
+        assert_equal 2, event.attendees.size
+        assert_equal richard, event.attendees.first.person
+        assert_nil event.attendees.second.person
+        assert_equal "Wadus person", event.attendees.second.name
+        assert_equal "Event 2 description", event.description
       end
     end
   end

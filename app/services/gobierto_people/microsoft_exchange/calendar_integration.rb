@@ -2,7 +2,7 @@ module GobiertoPeople
   module MicrosoftExchange
     class CalendarIntegration
 
-      attr_reader :person, :site
+      attr_reader :person, :site, :configuration
 
       SYNC_RANGE = {
         start_date: DateTime.now - 2.days,
@@ -22,7 +22,7 @@ module GobiertoPeople
       def initialize(person)
         @person = person
         @site = person.site
-        configuration = ::GobiertoCalendars::MicrosoftExchangeCalendarConfiguration.find_by(collection_id: person.calendar.id)
+        @configuration = ::GobiertoCalendars::MicrosoftExchangeCalendarConfiguration.find_by(collection_id: person.calendar.id)
 
         Exchanger.configure do |config|
           config.endpoint = configuration.microsoft_exchange_url
@@ -50,7 +50,6 @@ module GobiertoPeople
         mark_unreceived_events_as_drafts(calendar_items)
 
         calendar_items.each do |item|
-          next if is_private?(item)
           sync_event(item)
         end
       rescue ::Errno::EADDRNOTAVAIL, ::SocketError, ::ArgumentError, ::Addressable::URI::InvalidURIError
@@ -58,6 +57,8 @@ module GobiertoPeople
       end
 
       def sync_event(item)
+        return if discard_event?(item)
+
         event_params = {
           starts_at: item.start,
           ends_at: item.end,
@@ -82,8 +83,17 @@ module GobiertoPeople
 
       private
 
+      def discard_event?(calendar_item)
+        is_private?(calendar_item) || !fullfills_filters?(calendar_item)
+      end
+
       def is_private?(calendar_item)
         %w( Private ).include?(calendar_item.sensitivity)
+      end
+
+      def fullfills_filters?(calendar_item)
+        configuration.subject_filter.nil? ||
+          (calendar_item.subject.present? && calendar_item.subject.include?(configuration.subject_filter))
       end
 
       def mark_unreceived_events_as_drafts(calendar_items)

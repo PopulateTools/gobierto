@@ -67,7 +67,9 @@ module GobiertoPeople
       private_class_method :create_and_sync_ibm_notes_event
 
       def self.process_event(event_data, event_url, person)
+        return [] if discard_event?(event_data, person)
         processed_events_ids = []
+
         if recurring_event?(event_data)
           instances_urls = get_person_event_instances_urls(person, event_url)
 
@@ -85,6 +87,13 @@ module GobiertoPeople
         processed_events_ids
       end
       private_class_method :process_event
+
+      def self.discard_event?(event_data, person)
+        configuration = person_calendar_configuration(person)
+
+        configuration.subject_filter.present? && event_data['summary'].present? && !event_data['summary'].include?(configuration.subject_filter)
+      end
+      private_class_method :discard_event?
 
       def self.get_person_events_urls(person)
         response_events = ::IbmNotes::Api.get_person_events(request_params_for_events(person))
@@ -123,20 +132,22 @@ module GobiertoPeople
       private_class_method :has_instances_link?
 
       def self.request_params_for_events(person)
+        configuration = person_calendar_configuration(person)
         {
-          endpoint: person_calendar_configuration(person).ibm_notes_url.concat("?since=#{sync_range_start}"),
-          username: person_calendar_configuration(person).ibm_notes_usr,
+          endpoint: configuration.ibm_notes_url.concat("?since=#{sync_range_start}"),
+          username: configuration.ibm_notes_usr,
           password: plain_text_password(person)
         }
       end
       private_class_method :request_params_for_events
 
       def self.request_params_for_event_request(person, event_path)
-        uri = URI.parse person_calendar_configuration(person).ibm_notes_url
+        configuration = person_calendar_configuration(person)
+        uri = URI.parse(configuration.ibm_notes_url)
 
         {
           endpoint: "#{uri.scheme}://#{uri.host}#{event_path}",
-          username: person_calendar_configuration(person).ibm_notes_usr,
+          username: configuration.ibm_notes_usr,
           password: plain_text_password(person)
         }
       end

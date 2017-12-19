@@ -199,15 +199,15 @@ module GobiertoPeople
         assert_equal 1, non_recurrent_events.count
         assert_equal 8, recurrent_events_instances.count
 
-        assert_equal "rom", non_recurrent_events.first.title
+        assert_equal "@ rom evento", non_recurrent_events.first.title
         assert_equal "CD1B539AEB0D44D7C1258110003BB81E-Lotus_Notes_Generated", non_recurrent_events.first.external_id
         assert_equal rst_to_utc("2017-05-05 16:00:00"), non_recurrent_events.first.starts_at
 
-        assert_equal "Coordinació Política Igualtat + dinar", recurrent_events_instances.first.title
+        assert_equal "@ Coordinació Política Igualtat + dinar", recurrent_events_instances.first.title
         assert_equal "EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated/20170303T110000Z", recurrent_events_instances.first.external_id
         assert_equal rst_to_utc("2017-03-03 12:00:00"), recurrent_events_instances.first.starts_at
 
-        assert_equal "Coordinació Política Igualtat + dinar", recurrent_events_instances.second.title
+        assert_equal "@ Coordinació Política Igualtat + dinar", recurrent_events_instances.second.title
         assert_equal "EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated/20170505T100000Z", recurrent_events_instances.second.external_id
         assert_equal rst_to_utc("2017-05-05 12:00:00"), recurrent_events_instances.second.starts_at
       end
@@ -349,6 +349,32 @@ module GobiertoPeople
         gobierto_event = GobiertoCalendars::Event.find_by(external_id: ibm_notes_event.id)
         assert gobierto_event.present?
       end
+
+      def test_filter_events
+        configure_ibm_notes_calendar_integration(
+          collection: richard.calendar,
+          data: ibm_notes_configuration.merge({
+            filters: {
+              subject: '@'
+            }
+          })
+        )
+
+        VCR.use_cassette("ibm_notes/person_events_collection_v8", decode_compressed_response: true, match_requests_on: [:host, :path]) do
+          CalendarIntegration.sync_person_events(richard)
+        end
+
+        non_recurrent_events = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated$")
+        recurrent_events_instances = richard.events.where("external_id ~* ?", "-Lotus_Notes_Generated/\\d{8}T\\d{6}Z$").order(:external_id)
+
+        assert_equal 1, non_recurrent_events.count
+        assert_equal 8, recurrent_events_instances.count
+
+        assert_equal "@ rom evento", non_recurrent_events.first.title
+        assert_equal "CD1B539AEB0D44D7C1258110003BB81E-Lotus_Notes_Generated", non_recurrent_events.first.external_id
+        assert_equal rst_to_utc("2017-05-05 16:00:00"), non_recurrent_events.first.starts_at
+      end
+
     end
   end
 end

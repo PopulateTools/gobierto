@@ -172,6 +172,47 @@ module GobiertoPeople
         assert event.locations.empty?
       end
 
+      def test_filter_events
+        configure_microsoft_exchange_calendar_integration(
+          collection: richard.calendar,
+          data: microsoft_exchange_configuration.merge({
+            filters: {
+              subject: '@'
+            }
+          })
+        )
+
+        event_1 = {
+          start: 1.hour.from_now,
+          end: 2.hours.from_now,
+          id: 'external-id-1',
+          subject: '@ Event 1',
+          sensitivity: 'Normal',
+          location: 'Location 1'
+        }
+
+        event_2 = {
+          start: 1.hour.from_now,
+          end: 2.hours.from_now,
+          id: 'external-id-2',
+          subject: 'Event 2',
+          sensitivity: 'Normal',
+          location: 'Location 2'
+        }
+
+        setup_mocks_for_synchronization([event_1, event_2])
+
+        assert_difference 'GobiertoCalendars::Event.count', 1 do
+          CalendarIntegration.sync_person_events(richard)
+        end
+
+        # event 1 checks
+        event = richard.events.find_by(external_id: 'external-id-1')
+        assert_equal '@ Event 1', event.title
+        assert_equal 1, event.locations.size
+        assert_equal 'Location 1', event.first_location.name
+      end
+
     end
   end
 end

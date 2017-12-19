@@ -414,7 +414,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '8759'
+      - '8763'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -446,7 +446,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-02-03",
                 "time":"12:00:00",
@@ -661,7 +661,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170407T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-04-07",
                 "time":"13:30:00",
@@ -1107,7 +1107,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '3179'
+      - '3181'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -1139,7 +1139,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170303T110000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-03-03",
                 "time":"12:00:00",
@@ -1553,7 +1553,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '3179'
+      - '3181'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -1585,7 +1585,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170505T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-05-05",
                 "time":"12:00:00",
@@ -1823,7 +1823,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '3179'
+      - '3181'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -1855,7 +1855,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170602T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-06-02",
                 "time":"12:00:00",
@@ -2093,7 +2093,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '3179'
+      - '3181'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -2125,7 +2125,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170707T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-07-07",
                 "time":"12:00:00",
@@ -2363,7 +2363,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '3179'
+      - '3181'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -2395,7 +2395,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170908T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-09-08",
                 "time":"12:00:00",
@@ -2633,7 +2633,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '3179'
+      - '3181'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -2665,7 +2665,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171006T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-10-06",
                 "time":"12:00:00",
@@ -2903,7 +2903,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '3179'
+      - '3181'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -2935,7 +2935,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171103T110000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-11-03",
                 "time":"12:00:00",
@@ -3173,7 +3173,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '3179'
+      - '3181'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -3205,7 +3205,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171201T110000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-12-01",
                 "time":"12:00:00",
@@ -3443,7 +3443,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '8759'
+      - '8763'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -3475,7 +3475,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-02-03",
                 "time":"12:00:00",
@@ -3690,7 +3690,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170407T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-04-07",
                 "time":"13:30:00",
@@ -4130,7 +4130,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '3179'
+      - '3181'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -4162,7 +4162,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170303T110000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-03-03",
                 "time":"12:00:00",
@@ -4576,7 +4576,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '3179'
+      - '3181'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -4608,7 +4608,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170505T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-05-05",
                 "time":"12:00:00",
@@ -4849,7 +4849,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '3179'
+      - '3181'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -4881,7 +4881,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170602T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-06-02",
                 "time":"12:00:00",
@@ -5122,7 +5122,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '3179'
+      - '3181'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -5154,7 +5154,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170707T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-07-07",
                 "time":"12:00:00",
@@ -5395,7 +5395,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '3179'
+      - '3181'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -5427,7 +5427,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20170908T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-09-08",
                 "time":"12:00:00",
@@ -5668,7 +5668,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '3179'
+      - '3181'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -5700,7 +5700,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171006T100000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-10-06",
                 "time":"12:00:00",
@@ -5941,7 +5941,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '3179'
+      - '3181'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -5973,7 +5973,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171103T110000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-11-03",
                 "time":"12:00:00",
@@ -6214,7 +6214,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '3179'
+      - '3181'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -6246,7 +6246,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated\/20171201T110000Z",
               "id":"EE3C4CEA30187126C12580A300468AEF-Lotus_Notes_Generated",
-              "summary":"Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
+              "summary":"@ Coordinaci\u00F3 Pol\u00EDtica Igualtat + dinar",
               "start": {
                 "date":"2017-12-01",
                 "time":"12:00:00",
@@ -6487,7 +6487,7 @@ http_interactions:
       Content-Type:
       - application/json
       Content-Length:
-      - '1785'
+      - '1794'
     body:
       encoding: ASCII-8BIT
       string: |-
@@ -6519,7 +6519,7 @@ http_interactions:
             {
               "href":"\/mail\/foo.nsf\/api\/calendar\/events\/CD1B539AEB0D44D7C1258110003BB81E-Lotus_Notes_Generated",
               "id":"CD1B539AEB0D44D7C1258110003BB81E-Lotus_Notes_Generated",
-              "summary":"rom",
+              "summary":"@ rom evento",
               "location":"sala de juntes",
               "start": {
                 "date":"2017-05-05",

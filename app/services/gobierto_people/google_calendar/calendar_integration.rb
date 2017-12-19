@@ -53,7 +53,7 @@ module GobiertoPeople
       def sync_calendar_events(calendar)
         response = service.list_events(calendar.id, always_include_email: true, time_min: 2.days.ago.iso8601)
         response.items.each do |event|
-          next if is_private?(event)
+          next if discard_event?(event)
 
           if is_recurring?(event)
             service.list_event_instances(calendar.id, event.id).items.each_with_index do |event, i|
@@ -63,6 +63,15 @@ module GobiertoPeople
             sync_event(event)
           end
         end
+      end
+
+      def discard_event?(event)
+        is_private?(event) || !fullfills_filters?(event)
+      end
+
+      def fullfills_filters?(event)
+        configuration.subject_filter.nil? ||
+          (event.summary.present? && event.summary.include?(configuration.subject_filter))
       end
 
       def is_private?(event)

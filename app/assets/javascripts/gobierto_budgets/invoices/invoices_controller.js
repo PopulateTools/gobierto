@@ -465,7 +465,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
     return (num > 1000000) ? num.toLocaleString(I18n.locale, _.extend(_obj, {
       maximumSignificantDigits: 3 //Math.log10(pow) / 2 + 1
-    })).split('').reverse().join('').replace('000.', 'M').split('').reverse().join('') : num.toLocaleString(I18n.locale, _.extend(_obj, props));
+    })).split('').reverse().join('').replace(/000(.|,)/, 'M').split('').reverse().join('') : num.toLocaleString(I18n.locale, _.extend(_obj, props));
   }
 
   return InvoicesController;

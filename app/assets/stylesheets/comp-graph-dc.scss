@@ -16,6 +16,10 @@
 //bars
 //hbars1
 //hbars2
+.dc-chart svg {
+  overflow: visible;
+}
+
 .dc-chart g.row rect,
 .dc-chart rect.bar {
   fill: $color_main;

@@ -25,7 +25,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
   var data, ndx, _r;
 
   function getData(f = '12m') {
-    d3.csv('/data.csv', function(csv) {
+    d3.csv('/data.big.csv', function(csv) {
 
       data = _.filter(csv, _callback(f));
 
@@ -91,20 +91,13 @@ this.GobiertoBudgets.InvoicesController = (function() {
   }
 
   function _boxesCalculations() {
-    // Boxes calculations
-    function median(values) {
-      values.sort(function(a, b) {
-        return a - b;
-      });
-      var half = Math.floor(values.length / 2);
-
-      if (values.length % 2)
-        return values[half];
-      else
-        return (values[half - 1] + values[half]) / 2.0;
-    }
 
     // Totals box
+    var totalAmount = _.sumBy(data, 'amount');
+
+    document.getElementById("numberOfInvoices").innerText = data.length.toLocaleString();
+    document.getElementById("totalAmount").innerText = _abbrevLargeCurrency(totalAmount);
+
     var _cc = _.countBy(_.uniqBy(data, 'name'), 'freelance');
     $('#providerType .number:first').text((_cc.true || 0).toLocaleString());
     $('#providerType .number:last').text((_cc.false || 0).toLocaleString());
@@ -118,9 +111,20 @@ this.GobiertoBudgets.InvoicesController = (function() {
     }));
 
     // Math results box
+    function median(values) {
+      values.sort(function(a, b) {
+        return a - b;
+      });
+      var half = Math.floor(values.length / 2);
+
+      if (values.length % 2)
+        return values[half];
+      else
+        return (values[half - 1] + values[half]) / 2.0;
+    }
+
     var amount = _.isEmpty(_.map(data, 'amount').map(Number)) ? [0] : _.map(data, 'amount').map(Number);
 
-    document.getElementById("numberOfInvoices").innerText = data.length.toLocaleString();
     document.getElementById("meanBudget").innerText = _.mean(amount).toLocaleString(I18n.locale, {
       style: 'currency',
       currency: 'EUR'
@@ -130,28 +134,42 @@ this.GobiertoBudgets.InvoicesController = (function() {
       currency: 'EUR'
     });
 
-    // Text calculations
-    var lt1M = (_.filter(data, o => o.amount <= 1000).length || 0) / data.length || 0;
-    document.getElementById("lessThan1000").innerText = lt1M.toLocaleString(I18n.locale, {
-      style: 'percent'
-    });
+    // Text info calculations
+    function percentileAgg(arr, p) {
+      if (arr.length === 0) return 0;
 
-    function halfBudget(data) {
-      var byAmount = _.sortBy(data, 'amount').reverse();
-      var fb50 = _.sumBy(data, 'amount') * 0.5;
+      arr.sort(function(a, b) {
+        return a - b;
+      }).reverse();
+
+      var percentile = _.sum(arr) * p;
       var accumulate = 0;
       var i = 0;
 
-      while (accumulate < fb50) {
-        accumulate += +byAmount[i].amount
+      while (accumulate < percentile) {
+        accumulate += +arr[i]
         i++;
       }
 
-      return i / data.length || 0;
+      return i / arr.length || 0;
     }
-    document.getElementById("halfBudget").innerText = halfBudget(data).toLocaleString(I18n.locale, {
+
+    var lt1000 = _.filter(amount, o => o <= 1000).length / data.length || 0; // Filter those amounts less than 1000
+    var lgProvider = _.max(_.map(_.groupBy(data, 'name'), group => _.sumBy(group, 'amount'))) / totalAmount || 0; // Max amount group by provider amount
+
+    document.getElementById("lessThan1000").innerText = lt1000.toLocaleString(I18n.locale, {
       style: 'percent'
     });
+    document.getElementById("largestProvider").innerText = lgProvider.toLocaleString(I18n.locale, {
+      style: 'percent'
+    });
+    document.getElementById("percentile50").innerText = percentileAgg(amount, 0.5).toLocaleString(I18n.locale, {
+      style: 'percent'
+    });
+    document.getElementById("percentile10").innerText = percentileAgg(amount, 0.1).toLocaleString(I18n.locale, {
+      style: 'percent'
+    });
+
   }
 
   function _renderByMonthsChart() {
@@ -190,11 +208,9 @@ this.GobiertoBudgets.InvoicesController = (function() {
     bars.yAxis().ticks(5);
     bars.yAxis().tickFormat(
       function(v) {
-        return v.toLocaleString(I18n.locale, {
-          style: 'currency',
-          currency: 'EUR',
+        return _abbrevLargeCurrency(v, {
           minimumFractionDigits: 0
-        });
+        })
       });
     bars.margins().left = 80;
     bars.margins().right = 0;
@@ -251,9 +267,8 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
     // Customize
     hbars1.xAxis().tickFormat(function(v) {
-      return v.toLocaleString(I18n.locale, {
-        style: 'currency',
-        currency: 'EUR',
+      console.log(v);
+      return _abbrevLargeCurrency(v, {
         minimumFractionDigits: 0
       });
     });
@@ -438,6 +453,17 @@ this.GobiertoBudgets.InvoicesController = (function() {
         }
       ]
     });
+  }
+
+  function _abbrevLargeCurrency(num, props = {}, currency = 'EUR') {
+    let _obj = {
+      style: 'currency',
+      currency: currency
+    };
+
+    return (num > 1000000) ? num.toLocaleString(I18n.locale, _.extend(_obj, {
+      maximumSignificantDigits: 3 //Math.log10(pow) / 2 + 1
+    })).split('').reverse().join('').replace('000.', 'M').split('').reverse().join('') : num.toLocaleString(I18n.locale, _.extend(_obj, props));
   }
 
   return InvoicesController;

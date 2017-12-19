@@ -25,7 +25,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
   var data, ndx, _r;
 
   function getData(f = '12m') {
-    d3.csv('/data.big.csv', function(csv) {
+    d3.csv('/data.csv', function(csv) {
 
       data = _.filter(csv, _callback(f));
 
@@ -195,6 +195,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
       .alwaysUseRounding(true)
       .renderHorizontalGridLines(true)
       .barPadding(0.45)
+      .title(function(d) { return _abbrevLargeCurrency(d.value, { minimumFractionDigits: 0 }); })
       .on('renderlet', function(chart){
         // Apply rounded corners AFTER render, otherwise they don't exist
         chart.selectAll('rect').attr("rx", 4).attr("ry", 4);
@@ -246,6 +247,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
       .group(providerByAmount)
       .gap(_gap)
       .labelOffsetX(-_labelOffset)
+      .title(function(d) { return _abbrevLargeCurrency(d.value, { minimumFractionDigits: 0 }); })
       .elasticX(true)
       .on('renderlet', function(chart){
         // Apply rounded corners AFTER render, otherwise they don't exist
@@ -267,7 +269,6 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
     // Customize
     hbars1.xAxis().tickFormat(function(v) {
-      console.log(v);
       return _abbrevLargeCurrency(v, {
         minimumFractionDigits: 0
       });
@@ -309,6 +310,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
       .labelOffsetX(-_labelOffset)
       .gap(_gap)
       .elasticX(true)
+      .title(function(d) { return d.value })
       .label(function(d) {
         // Helper
         function intervalFormat(n) {

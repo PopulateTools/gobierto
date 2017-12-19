@@ -43,9 +43,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
         d.range = rangeFormat(+d.amount);
         d.payed = (d.payed == 'true');
         d.amount = Number(d.amount);
-
-        // TODO: Columna falsa para autónomos
-        d.freelance = (Math.random() >= 0.25);
+        d.freelance = (d.freelance == 'true');
       });
 
       // See the [crossfilter API](https://github.com/square/crossfilter/wiki/API-Reference) for reference.
@@ -106,6 +104,20 @@ this.GobiertoBudgets.InvoicesController = (function() {
         return (values[half - 1] + values[half]) / 2.0;
     }
 
+    // Totals box
+    var _cc = _.countBy(_.uniqBy(data, 'name'), 'freelance');
+    $('#providerType .number:first').text((_cc.true || 0).toLocaleString());
+    $('#providerType .number:last').text((_cc.false || 0).toLocaleString());
+
+    var _n = _.countBy(data, 'freelance');
+    $('#providerType .percent:first').text((_n.true/data.length || 0).toLocaleString(I18n.locale, {
+      style: 'percent'
+    }));
+    $('#providerType .percent:last').text((_n.false/data.length || 0).toLocaleString(I18n.locale, {
+      style: 'percent'
+    }));
+
+    // Math results box
     var amount = _.isEmpty(_.map(data, 'amount').map(Number)) ? [0] : _.map(data, 'amount').map(Number);
 
     document.getElementById("numberOfInvoices").innerText = data.length.toLocaleString();
@@ -118,15 +130,28 @@ this.GobiertoBudgets.InvoicesController = (function() {
       currency: 'EUR'
     });
 
-    var _n = _.countBy(data, 'freelance');
-    $('#providerType .number:first').text((_n.true || 0).toLocaleString());
-    $('#providerType .number:last').text((_n.false || 0).toLocaleString());
-    $('#providerType .percent:first').text((_n.true/data.length || 0).toLocaleString(I18n.locale, {
+    // Text calculations
+    var lt1M = (_.filter(data, o => o.amount <= 1000).length || 0) / data.length || 0;
+    document.getElementById("lessThan1000").innerText = lt1M.toLocaleString(I18n.locale, {
       style: 'percent'
-    }));
-    $('#providerType .percent:last').text((_n.false/data.length || 0).toLocaleString(I18n.locale, {
+    });
+
+    function halfBudget(data) {
+      var byAmount = _.sortBy(data, 'amount').reverse();
+      var fb50 = _.sumBy(data, 'amount') * 0.5;
+      var accumulate = 0;
+      var i = 0;
+
+      while (accumulate < fb50) {
+        accumulate += +byAmount[i].amount
+        i++;
+      }
+
+      return i / data.length || 0;
+    }
+    document.getElementById("halfBudget").innerText = halfBudget(data).toLocaleString(I18n.locale, {
       style: 'percent'
-    }));
+    });
   }
 
   function _renderByMonthsChart() {

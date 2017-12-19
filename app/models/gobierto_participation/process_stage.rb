@@ -10,7 +10,7 @@ module GobiertoParticipation
 
     belongs_to :process
 
-    translates :title, :description, :cta_text, :cta_description
+    translates :title, :description, :cta_text, :cta_description, :menu
 
     enum stage_type: { information: 0, meetings: 1, polls: 2, ideas: 3, results: 4 }
     enum visibility_level: { draft: 0, active: 1 }

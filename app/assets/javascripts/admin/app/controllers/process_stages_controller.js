@@ -7,9 +7,8 @@ this.GobiertoAdmin.ProcessStagesController = (function() {
   };
 
   function _restoreModalContent() {
-    debugger;
     addDatepickerBehaviors();
-  };
+  }
 
   return ProcessStagesController;
 })();

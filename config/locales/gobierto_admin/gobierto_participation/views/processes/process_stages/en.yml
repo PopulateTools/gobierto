@@ -6,13 +6,14 @@ en:
         process_stages:
           active: Active
           edit_modal:
-            title: 'Edit phase: {phase}'
+            title: 'Edit phase: %{phase}'
           form:
             placeholders:
               cta_description: ex. Idea description
               cta_text: ex. Add your idea
               description: ex. In this stage we intend ...
               menu: ex. Stage
+              slug: url
               title: ex. Main stage
             stage_types_prompt: "-- select --"
             visibility_level: Status

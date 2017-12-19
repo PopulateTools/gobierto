@@ -38,11 +38,15 @@ ca:
       gobierto_admin/gobierto_participation/process_information_form:
         information_text: Informació
       gobierto_admin/gobierto_participation/process_stage_form:
-        description: Descripció d'una fase
-        ends: Final
+        cta_description: Caja CTA / Botó / Text
+        cta_text: Caja CTA / Descripció corta
+        description: Descripció
+        ends: Data de finalització
+        menu: Menu / Literal
         stage_type: Eina
-        starts: Començament
-        title: El títol d'una fase
+        starts: Data de començament
+        title: Títol d'una fase
+        slug: Url
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Grup d'aportacions
       gobierto_admin/gobierto_participation/poll_form: Enquesta

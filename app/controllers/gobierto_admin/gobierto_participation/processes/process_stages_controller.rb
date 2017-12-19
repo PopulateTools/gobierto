@@ -16,7 +16,7 @@ module GobiertoAdmin
         def edit
           @process_stage = find_process_stage
           @stage_types = find_stage_types
-          @stage_type_selected = @process_stage.stage_type
+          @stage_type_selected = stage_type_selected
           @visibility_levels = find_visibility_levels
 
           @process_stage_form = ProcessStageForm.new(
@@ -31,7 +31,7 @@ module GobiertoAdmin
 
           if @process_stage_form.save
             redirect_to(
-              edit_admin_participation_process_path(@process_stage.process),
+              edit_admin_participation_process_path(current_process),
               notice: t(".success",)
             )
           else
@@ -42,13 +42,16 @@ module GobiertoAdmin
 
         def update
           @process_stage = find_process_stage
+          @stage_types = find_stage_types
+          @stage_type_selected = stage_type_selected
+          @visibility_levels = find_visibility_levels
           @process_stage_form = ProcessStageForm.new(
             process_stage_params.merge(id: params[:id])
           )
 
           if @process_stage_form.save
             redirect_to(
-              edit_admin_participation_process_path(@process_stage.process),
+              edit_admin_participation_process_path(current_process),
               notice: t(".success")
             )
           else
@@ -61,9 +64,9 @@ module GobiertoAdmin
           @process_stage = find_process_stage
 
           if @process_stage.destroy
-            redirect_to edit_admin_participation_process_path(@process_stage.process), notice: t(".success")
+            redirect_to edit_admin_participation_process_path(current_process), notice: t(".success")
           else
-            redirect_to edit_admin_participation_process_path(@process_stage.process), alert: t(".default")
+            redirect_to edit_admin_participation_process_path(current_process), alert: t(".default")
           end
         end
 
@@ -72,6 +75,10 @@ module GobiertoAdmin
         def find_stage_types
           stage_types = ::GobiertoParticipation::ProcessStage.stage_types
           stage_types.map { |stage_type| [I18n.t("gobierto_admin.gobierto_participation.processes.process_stages.form.stage_type.#{stage_type.first}"), stage_type.last] }
+        end
+
+        def stage_type_selected
+          ::GobiertoParticipation::ProcessStage.stage_types[@process_stage.stage_type]
         end
 
         def find_visibility_levels
@@ -85,9 +92,10 @@ module GobiertoAdmin
             :ends,
             :stage_type,
             :active,
-            :cta_text_translations,
-            :menu_translations,
             :visibility_level,
+            menu_translations: [*I18n.available_locales],
+            cta_text_translations: [*I18n.available_locales],
+            cta_description_translations: [*I18n.available_locales],
             title_translations: [*I18n.available_locales],
             description_translations: [*I18n.available_locales]
           )

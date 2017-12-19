@@ -41,6 +41,14 @@
       </div>
     <% end %>
 
+    <div class="form_item input_text">
+      <%= label_tag "process_stage[slug]" do %>
+        <%= f.object.class.human_attribute_name(:slug) %>
+        <span class="indication"><%= t('views.forms.max_characters', length: 80) %></span>
+      <% end %>
+      <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
+    </div>
+
     <% current_site.configuration.available_locales.each do |locale| %>
       <div class="form_item input_text" data-locale="<%= locale %>">
         <%= label_tag "process_stage[cta_description_translations][#{locale}]" do %>

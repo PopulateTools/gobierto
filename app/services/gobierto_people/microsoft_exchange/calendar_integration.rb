@@ -15,25 +15,6 @@ module GobiertoPeople
         new(person).sync
       end
 
-      def self.person_calendar_configuration_class
-        ::GobiertoCalendars::MicrosoftExchangeCalendarConfiguration
-      end
-
-      def initialize(person)
-        @person = person
-        @site = person.site
-        @configuration = ::GobiertoCalendars::MicrosoftExchangeCalendarConfiguration.find_by(collection_id: person.calendar.id)
-
-        Exchanger.configure do |config|
-          config.endpoint = configuration.microsoft_exchange_url
-          config.username = configuration.microsoft_exchange_usr
-          config.password = ::SecretAttribute.decrypt(configuration.microsoft_exchange_pwd)
-          config.debug    = false
-          config.insecure_ssl = true
-          config.ssl_version  = :TLSv1
-        end
-      end
-
       def sync
         Rails.logger.info "#{log_preffix} Syncing events for #{person.name} (id: #{person.id})"
 
@@ -56,6 +37,23 @@ module GobiertoPeople
         Rails.logger.info "#{log_preffix} Invalid endpoint address for #{person.name} (id: #{person.id}): #{Exchanger.config.endpoint}"
       end
 
+      private
+
+      def initialize(person)
+        @person = person
+        @site = person.site
+        @configuration = ::GobiertoCalendars::MicrosoftExchangeCalendarConfiguration.find_by(collection_id: person.calendar.id)
+
+        Exchanger.configure do |config|
+          config.endpoint = configuration.microsoft_exchange_url
+          config.username = configuration.microsoft_exchange_usr
+          config.password = ::SecretAttribute.decrypt(configuration.microsoft_exchange_pwd)
+          config.debug    = false
+          config.insecure_ssl = true
+          config.ssl_version  = :TLSv1
+        end
+      end
+
       def sync_event(item)
         return if discard_event?(item)
 
@@ -76,12 +74,8 @@ module GobiertoPeople
           event_params.merge!(locations_attributes: { "0" => { "_destroy" => "1" } })
         end
 
-        event = GobiertoPeople::PersonEventForm.new(event_params)
-
-        event.save
+        GobiertoPeople::PersonEventForm.new(event_params).save
       end
-
-      private
 
       def discard_event?(calendar_item)
         is_private?(calendar_item) || !fullfills_filters?(calendar_item)
@@ -98,7 +92,7 @@ module GobiertoPeople
 
       def mark_unreceived_events_as_drafts(calendar_items)
         if calendar_items.any?
-          received_external_ids = calendar_items.map { |item| item.id }
+          received_external_ids = calendar_items.map(&:id)
           person.events
                 .where(starts_at: SYNC_RANGE[:start_date]..SYNC_RANGE[:end_date])
                 .where.not(external_id: nil)

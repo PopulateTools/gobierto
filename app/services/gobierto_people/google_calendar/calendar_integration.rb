@@ -8,21 +8,8 @@ module GobiertoPeople
       USERNAME = 'default'
       SCOPE = Google::Apis::CalendarV3::AUTH_CALENDAR_READONLY
 
-      def self.person_calendar_configuration_class
-        ::GobiertoCalendars::GoogleCalendarConfiguration
-      end
-
       def self.sync_person_events(person)
         new(person).sync!
-      end
-
-      def initialize(person)
-        @person = person
-        @configuration = GobiertoCalendars::GoogleCalendarConfiguration.find_by(collection_id: person.calendar.id)
-
-        @service = Google::Apis::CalendarV3::CalendarService.new
-        @service.client_options.application_name = person.site.name
-        @service.authorization = authorize(person)
       end
 
       def sync!
@@ -35,11 +22,20 @@ module GobiertoPeople
         end
       end
 
+      private
+
+      def initialize(person)
+        @person = person
+        @configuration = GobiertoCalendars::GoogleCalendarConfiguration.find_by(collection_id: person.calendar.id)
+
+        @service = Google::Apis::CalendarV3::CalendarService.new
+        @service.client_options.application_name = person.site.name
+        @service.authorization = authorize(person)
+      end
+
       def calendars
         @calendars ||= service.list_calendar_lists(max_results: 100).items
       end
-
-      private
 
       attr_reader :person, :configuration, :service
 

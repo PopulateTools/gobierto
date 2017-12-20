@@ -26,10 +26,6 @@ module GobiertoPeople
         Rails.logger.info "[#{person.site.name} calendar integration] JSON parser error"
       end
 
-      def self.person_calendar_configuration_class
-        ::GobiertoCalendars::IbmNotesCalendarConfiguration
-      end
-
       def self.sync_event(ibm_notes_event,recurring = false)
         locations_attributes = if ibm_notes_event.location.present?
                                  { name: ibm_notes_event.location }
@@ -164,7 +160,7 @@ module GobiertoPeople
       private_class_method :sync_range_start
 
       def self.person_calendar_configuration(person)
-        person_calendar_configuration_class.find_by(collection_id: person.calendar.id)
+        ::GobiertoCalendars::IbmNotesCalendarConfiguration.find_by(collection_id: person.calendar.id)
       end
       private_class_method :person_calendar_configuration
 

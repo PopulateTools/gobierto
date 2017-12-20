@@ -110,6 +110,7 @@ gender_violence_process_information_stage:
   active: false
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
   position: 1
+  menu_translations: <%= { 'en' => 'Information', 'es' => 'Información' }.to_json %>
 
 gender_violence_process_meetings_stage:
   process: gender_violence_process
@@ -123,6 +124,7 @@ gender_violence_process_meetings_stage:
   active: true
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
   position: 2
+  menu_translations: <%= { 'en' => 'Meetings', 'es' => 'Reuniones' }.to_json %>
 
 gender_violence_process_polls_stage:
   process: gender_violence_process
@@ -131,6 +133,7 @@ gender_violence_process_polls_stage:
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
   position: 3
   active: false
+  menu_translations: <%= { 'en' => 'Polls', 'es' => 'Encuestas' }.to_json %>
 
 gender_violence_process_ideas_stage:
   process: gender_violence_process
@@ -144,6 +147,7 @@ gender_violence_process_ideas_stage:
   active: false
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
   position: 4
+  menu_translations: <%= { 'en' => 'Contributions', 'es' => 'Ideas' }.to_json %>
 
 gender_violence_process_results_stage:
   process: gender_violence_process
@@ -157,6 +161,7 @@ gender_violence_process_results_stage:
   active: false
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
   position: 5
+  menu_translations: <%= { 'en' => 'Results', 'es' => 'Resultados' }.to_json %>
 
 commission_for_carnival_festivities_information_stage:
   process: commission_for_carnival_festivities
@@ -199,6 +204,7 @@ commission_for_carnival_festivities_results_stage:
 sport_process_information_stage:
   process: sport_city_process
   title_translations: <%= { 'es' => 'Presentación de un proceso' }.to_json %>
+  menu_translations: <%= { 'en' => 'Information', 'es' => 'Información' }.to_json %>
   description_translations: <%= { 'es' => 'A través de diferentes Mesas de Diálogo Ciudadano recogeremos en los diferentes distritos propuestas vecinales.' }.to_json %>
   cta_text_translations: <%= { 'en' => 'More details', 'es' => 'Ver detalles' }.to_json %>
   slug: presentacion-proceso-deporte
@@ -212,6 +218,7 @@ sport_meetings_stage:
   process: sport_city_process
   title_translations: <%= { 'en' => 'Meetings stage', 'es' => 'Fase de reuniones' }.to_json %>
   description_translations: <%= { 'en' => 'Meetings description', 'es' => 'Fase de reuniones descripción' }.to_json %>
+  menu_translations: <%= { 'en' => 'Meetings', 'es' => 'Reuniones' }.to_json %>
   cta_text_translations: <%= { 'en' => 'Participate', 'es' => 'Participa en las mesas' }.to_json %>
   slug: organiza-reuniones-deporte
   starts: <%= 2.days.ago %>
@@ -225,6 +232,7 @@ sport_polls_stage:
   slug: polls
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:polls] %>
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
+  menu_translations: <%= { 'en' => 'Polls', 'es' => 'Encuestas' }.to_json %>
 
 sport_ideas_stage:
   process: sport_city_process
@@ -237,9 +245,11 @@ sport_ideas_stage:
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:ideas] %>
   active: true
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
+  menu_translations: <%= { 'en' => 'Contributions', 'es' => 'Ideas' }.to_json %>
 
 sport_results_stage:
   process: sport_city_process
   slug: results
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:results] %>
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
+  menu_translations: <%= { 'en' => 'Results', 'es' => 'Resultados' }.to_json %>

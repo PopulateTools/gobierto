@@ -22,7 +22,7 @@ module GobiertoAdmin
           with_current_site(site) do
             visit edit_admin_participation_process_path(process)
 
-            all("a", text: "Manage")[1].click
+            all("a", text: "Manage")[5].click
 
             find("#process_information_text_translations_en", visible: false).set("Edited information text")
 
@@ -32,7 +32,7 @@ module GobiertoAdmin
 
             visit edit_admin_participation_process_path(process)
 
-            all("a", text: "Manage")[1].click
+            all("a", text: "Manage")[5].click
 
             assert_equal(
               "Edited information text",

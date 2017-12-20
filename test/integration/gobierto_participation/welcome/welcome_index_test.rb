@@ -13,6 +13,14 @@ module GobiertoParticipation
       @site ||= sites(:madrid)
     end
 
+    def user
+      @user ||= users(:peter)
+    end
+
+    def poll
+      @poll ||= gobierto_participation_polls(:ordinance_of_terraces_published)
+    end
+
     def test_breadcrumb_items
       with_current_site(site) do
         visit @path
@@ -109,6 +117,18 @@ module GobiertoParticipation
         end
 
         assert has_selector?("h2", text: "Updates")
+      end
+    end
+
+    def test_show_poll
+      with_javascript do
+        with_current_site(site) do
+          with_signed_in_user(user) do
+            visit @path
+
+            assert has_content? poll.questions.first.title
+          end
+        end
       end
     end
 

@@ -43,6 +43,12 @@ var SimpleCard = Class.extend({
       .attr('title', I18n.t('gobierto_indicators.cards.' + cardName + '.title'))
       .text(I18n.t('gobierto_indicators.cards.' + cardName + '.title'));
 
+    // Append backface info
+    this.div.selectAll('.js-data-desc')
+      .text(json.metadata.indicator.description);
+    this.div.selectAll('.js-data-freq')
+      .text(formatDate(parsedDate));
+
     if (typeof json.data[1] !== 'undefined') {
       var spark = new Sparkline(divClass + ' .sparkline', json.data, trend, freq);
       spark.render();
@@ -100,4 +106,3 @@ var SimpleCard = Class.extend({
     }
   }
 });
-

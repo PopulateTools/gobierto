@@ -20,7 +20,8 @@ module GobiertoParticipation
                    end
 
       liquid = to_liquid(liquid_str)
-      liquid_rendered = liquid.render({ "location_name" => current_site.location_name },
+      liquid_rendered = liquid.render({ "location_name" => current_site.location_name,
+                                        "current_user" => current_user },
                                       registers: { controller: self })
 
       render inline: liquid_rendered.html_safe, layout: "gobierto_participation/layouts/application"

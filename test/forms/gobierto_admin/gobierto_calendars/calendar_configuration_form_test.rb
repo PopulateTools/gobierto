@@ -136,6 +136,11 @@ module GobiertoAdmin
         assert_nil form.dummy_microsoft_exchange_pwd
       end
 
+      def test_calendar_integration_class_get_data_from_collection
+        calendar_configuration_form = CalendarConfigurationForm.new(ibm_notes_calendar_configuration_attributes)
+        assert_equal ::GobiertoPeople::IbmNotes::CalendarIntegration, calendar_configuration_form.calendar_integration_class
+      end
+
     end
   end
 end

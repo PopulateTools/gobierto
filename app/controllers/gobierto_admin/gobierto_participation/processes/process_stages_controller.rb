@@ -28,6 +28,8 @@ module GobiertoAdmin
 
         def create
           @process_stage_form = ProcessStageForm.new(process_stage_params.merge(process_id: current_process.id))
+          @stage_types = find_stage_types
+          @visibility_levels = find_visibility_levels
 
           if @process_stage_form.save
             redirect_to(

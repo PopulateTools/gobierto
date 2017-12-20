@@ -16,8 +16,10 @@ module GobiertoParticipation
     enum visibility_level: { draft: 0, published: 1 }
 
     validates :slug, uniqueness: { scope: [:process_id] }
-    validates :title, :starts, :ends, presence: true, if: -> { published? }
+    validates :title, :description, :cta_text, :cta_description, :starts, :ends, :menu, presence: true, if: -> { published? }
     validate :cta_text_maximum_length
+    validate :cta_description_maximum_length
+    validate :menu_maximum_length
     validates :stage_type, presence: true
     validates :stage_type, inclusion: { in: stage_types }
 
@@ -108,6 +110,22 @@ module GobiertoParticipation
       if cta_text_translations
         cta_text_translations.each do |cta_text_translation|
           errors.add(:cta_text, "Is too long") if cta_text_translation.length > 32
+        end
+      end
+    end
+
+    def menu_maximum_length
+      if menu_translations
+        menu_translations.each do |menu_translation|
+          errors.add(:menu, "Is too long") if menu_translation.length > 20
+        end
+      end
+    end
+
+    def cta_description_maximum_length
+      if cta_description_translations
+        cta_description_translations.each do |cta_description_translation|
+          errors.add(:cta_description, "Is too long") if cta_description_translation.length > 50
         end
       end
     end

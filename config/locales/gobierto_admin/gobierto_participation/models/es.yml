@@ -57,5 +57,5 @@ es:
     attributes:
       gobierto_participation/process_stage:
         visibility_levels:
-          active: Publicada
+          published: Publicada
           draft: Borrador

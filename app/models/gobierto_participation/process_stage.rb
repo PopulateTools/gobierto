@@ -13,26 +13,36 @@ module GobiertoParticipation
     translates :title, :description, :cta_text, :cta_description, :menu
 
     enum stage_type: { information: 0, meetings: 1, polls: 2, ideas: 3, results: 4 }
-    enum visibility_level: { draft: 0, active: 1 }
+    enum visibility_level: { draft: 0, published: 1 }
 
     validates :slug, uniqueness: { scope: [:process_id] }
-    validates :title, :starts, :ends, presence: true, if: -> { active? }
+    validates :title, :starts, :ends, presence: true, if: -> { published? }
     validate :cta_text_maximum_length
     validates :stage_type, presence: true
     validates :stage_type, inclusion: { in: stage_types }
 
-    scope :sorted, -> { order(position: :asc, created_at: :desc) }
-    scope :open, -> { where("starts <= ? AND ends >= ?", Time.zone.now, Time.zone.now) }
+    scope :sorted, -> { order(position: :asc, id: :asc) }
     scope :active, -> { where(active: true) }
-    scope :active_visibility, -> { where(visibility_level: "active") }
-    scope :upcoming, -> { where("starts > ?", Time.zone.now) }
+    scope :published, -> { where(visibility_level: "published") }
     scope :by_site, ->(site) { joins(process: :site).where("sites.id = ?
                                                             AND gpart_polls.visibility_level = 1 AND gpart_polls.ends_at >= ?",
                                                             site.id, Time.zone.now) }
 
-    def open?
-      date = Time.zone.now.to_date
-      starts <= date && ends >= date
+    def self.upcoming
+      unless published.select(&:upcoming?).empty?
+        stages_id = published.select(&:upcoming?).pluck(:id)
+        GobiertoParticipation::ProcessStage.where(id: stages_id)
+      else
+        GobiertoParticipation::ProcessStage.none
+      end
+    end
+
+    def published?
+      visibility_level == "published"
+    end
+
+    def current_stage
+      process.current_stage
     end
 
     def active?
@@ -40,11 +50,28 @@ module GobiertoParticipation
     end
 
     def past?
-      ends && (ends < Time.zone.now)
+      # ends && (ends < Time.zone.now)
+      if position < current_stage.position
+        true
+      elsif id < current_stage.id
+        true
+      else
+        false
+      end
     end
 
     def upcoming?
-      starts && (starts > Time.zone.now)
+      if current_stage
+        if position > current_stage.position
+          true
+        elsif id > current_stage.id
+          true
+        else
+          false
+        end
+      else
+        false
+      end
     end
 
     def current?

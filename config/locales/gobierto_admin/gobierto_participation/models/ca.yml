@@ -43,10 +43,10 @@ ca:
         description: Descripció
         ends: Data de finalització
         menu: Menu / Literal
+        slug: Url
         stage_type: Eina
         starts: Data de començament
         title: Títol d'una fase
-        slug: Url
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Grup d'aportacions
       gobierto_admin/gobierto_participation/poll_form: Enquesta

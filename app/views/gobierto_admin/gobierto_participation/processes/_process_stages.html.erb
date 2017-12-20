@@ -34,7 +34,7 @@
 
         <div class="group secondary right">
           <label>
-            <% if stage.active %>
+            <% if stage.active? %>
               <input type="radio" name=process[stages_attributes][active] id='<%= "process_stages_attributes_#{index}_active" %>' checked>
             <% else %>
               <input type="radio" name=process[stages_attributes][active] id='<%= "process_stages_attributes_#{index}_active" %>'>
@@ -42,7 +42,7 @@
             <%= t('.active') %>
           </label>
           <span>
-            <% if stage.active? %>
+            <% if stage.published? %>
               <i class="fa fa-check"></i>
               <%= t('.published') %>
             <% else %>

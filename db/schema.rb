@@ -612,7 +612,7 @@ ActiveRecord::Schema.define(version: 20171218152031) do
     t.jsonb "description_translations"
     t.boolean "active", default: false, null: false
     t.jsonb "cta_text_translations"
-    t.integer "position", default: 0, null: false
+    t.integer "position", default: 999999, null: false
     t.jsonb "menu_translations"
     t.jsonb "cta_description_translations"
     t.integer "visibility_level", default: 0, null: false

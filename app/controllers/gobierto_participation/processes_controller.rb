@@ -16,7 +16,7 @@ module GobiertoParticipation
       @process_news = find_process_news
       @process_events = find_process_events
       @process_activities = find_process_activities
-      @process_stages = current_process.stages.active
+      @process_stages = current_process.stages.published
     end
 
     private

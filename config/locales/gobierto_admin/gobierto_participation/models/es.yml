@@ -43,10 +43,10 @@ es:
         description: Descripción de una fase
         ends: Fecha de final
         menu: Menú / Literal
+        slug: Url
         stage_type: Herramienta
         starts: Fecha de comienzo
         title: Título de una fase
-        slug: Url
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Grupo de
         aportaciones

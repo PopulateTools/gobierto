@@ -56,13 +56,10 @@ module GobiertoParticipation
           visit process_path(process)
 
           within ".sub-nav" do
-            process.stages.each do |stage|
-              if stage.visibility_level == "active"
-                assert has_link? stage.stage_type.capitalize
-              else
-                refute has_link? stage.stage_type.capitalize
-              end
-            end
+            assert has_link? "Information"
+            assert has_link? "Meetings"
+            refute has_link? "Ideas"
+            refute has_link? "Polls"
           end
         end
       end
@@ -224,7 +221,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        skip 'Not yet defined'
+        assert has_content? 'There are no related updates'
       end
     end
 
@@ -233,7 +230,7 @@ module GobiertoParticipation
         visit process_path(gender_violence_process)
 
         within ".timeline" do
-          assert_equal gender_violence_process.stages.active.size, all(".timeline_row").size
+          assert_equal gender_violence_process.published_stages.size, all(".timeline_row").size
         end
       end
     end
@@ -246,8 +243,8 @@ module GobiertoParticipation
       end
     end
 
-    def test_progress_map_with_many_active_stages
-      active_stages = gender_violence_process.active_stages
+    def test_progress_map_with_many_published_stages
+       published_stages = gender_violence_process.published_stages
 
       with_current_site(site) do
         visit process_path(gender_violence_process)
@@ -256,13 +253,11 @@ module GobiertoParticipation
 
           # current stage title and CTA, and a dot for each active stage
           assert has_content? 'Current stage'
-          assert has_content? 'Draft publication'
-          assert has_link? 'Add your idea'
-          assert_equal active_stages.size, all('.dot').size
+          assert_equal published_stages.size, all('.dot').size
 
           # check current stage is marked, and upcoming stages dots are grayed out
           assert has_selector?("##{gender_violence_process.current_stage.slug}_stage_dot > .dot-current")
-          assert_equal active_stages.upcoming.size, all('.dot.disabled').size
+          assert_equal published_stages.upcoming.size, all('.dot.disabled').size
         end
       end
     end
@@ -274,7 +269,6 @@ module GobiertoParticipation
         within '#progress_map' do
           # just title  and CTA of current stage
           assert has_content? 'Current stage'
-          assert has_content? 'Polls'
           assert has_link? 'Participate'
           refute has_selector? '.dots-container'
         end
@@ -282,7 +276,7 @@ module GobiertoParticipation
       end
     end
 
-    def test_progress_map_with_no_active_stages
+    def test_progress_map_with_no_published_stages
       with_current_site(site) do
         visit process_path(green_city_group)
 
@@ -290,26 +284,5 @@ module GobiertoParticipation
         refute has_selector? '#progress_map'
       end
     end
-
-    def test_progress_map_shows_next_stage_when_no_current_stage
-      commission_for_carnival_festivities.stages.polls.first.update_attributes!(
-        starts: 1.week.from_now,
-        ends: 2.weeks.from_now
-      )
-
-      with_current_site(site) do
-        visit process_path(commission_for_carnival_festivities)
-
-        within '#progress_map' do
-          refute has_content? 'Current stage'
-          refute has_content? 'Next stage'
-
-          assert has_content? 'Polls'
-          assert has_link? 'Participate'
-        end
-
-      end
-    end
-
   end
 end

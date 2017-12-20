@@ -43,10 +43,10 @@ en:
         description: Description of a phase
         ends: End date
         menu: Menu / Literal
+        slug: Url
         stage_type: Tool
         starts: Start date
         title: The title of a stage
-        slug: Url
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Contribution
         container

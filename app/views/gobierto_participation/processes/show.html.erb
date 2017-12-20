@@ -31,7 +31,7 @@
       <div class="pure-u-1 pure-u-md-1-3 center news_teaser">
 
 
-        <% if current_process.active_stages.any? %>
+        <% if current_process.published_stages.any? %>
           <%= render 'progress_map', { process: current_process } %>
         <% end %>
 

@@ -101,7 +101,7 @@ gender_violence_process_information_stage:
   ends: <%= 1.month.ago %>
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:information] %>
   active: true
-  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:active] %>
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
 
 gender_violence_process_meetings_stage:
   process: gender_violence_process
@@ -113,7 +113,7 @@ gender_violence_process_meetings_stage:
   ends: <%= 5.days.from_now %>
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
   active: true
-  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:active] %>
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
 
 gender_violence_process_polls_stage:
   process: gender_violence_process
@@ -167,13 +167,15 @@ commission_for_carnival_festivities_polls_stage:
   ends: <%= 1.month.from_now %>
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:polls] %>
   active: true
-  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
 
 commission_for_carnival_festivities_ideas_stage:
   process: commission_for_carnival_festivities
   slug: ideas
+  starts: <%= 1.month.ago %>
+  ends: <%= 1.month.from_now %>
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:ideas] %>
-  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:active] %>
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
 
 commission_for_carnival_festivities_results_stage:
   process: commission_for_carnival_festivities
@@ -191,7 +193,7 @@ sport_process_information_stage:
   ends: <%= 1.month.ago %>
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:information] %>
   active: true
-  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:active] %>
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
 
 sport_meetings_stage:
   process: sport_city_process
@@ -203,7 +205,7 @@ sport_meetings_stage:
   ends: <%= 4.days.from_now %>
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
   active: true
-  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:active] %>
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
 
 sport_polls_stage:
   process: sport_city_process
@@ -221,7 +223,7 @@ sport_ideas_stage:
   ends: <%= 10.days.from_now %>
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:ideas] %>
   active: true
-  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:active] %>
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
 
 sport_results_stage:
   process: sport_city_process

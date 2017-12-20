@@ -40,7 +40,10 @@ module GobiertoAdmin
           calendar_integration.sync_person_events(@calendar_configuration_form.collection_container)
           publish_calendar_sync_activity(@calendar_configuration_form)
         end
-        redirect_to edit_admin_calendars_configuration_path(@collection)
+        redirect_to(
+          edit_admin_calendars_configuration_path(@collection),
+          notice: t('.success')
+        )
       end
 
       private

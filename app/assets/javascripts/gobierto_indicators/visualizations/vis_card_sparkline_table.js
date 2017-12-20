@@ -40,6 +40,12 @@ var SparklineTableCard = Class.extend({
       .attr('title', I18n.t('gobierto_indicators.cards.' + cardName + '.title'))
       .text(I18n.t('gobierto_indicators.cards.' + cardName + '.title'));
 
+    // Append backface info
+    this.div.selectAll('.js-data-desc')
+      .text(json.metadata.indicator.description);
+    this.div.selectAll('.js-data-freq')
+      .text(formatDate(parsedDate));
+
     var rows = value.map(function(d) {
       return '<td>' + I18n.t('gobierto_indicators.cards.' + cardName + '.' + this._normalize(d.key), {place: window.populateData.municipalityName, province: window.populateData.provinceName }) + '</td> \
         <td class="sparktable sparkline-' + this._normalize(d.key) + '"></td> \

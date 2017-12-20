@@ -57,10 +57,7 @@ module GobiertoAdmin
                        current_site.activities.where(action: 'admin_gobierto_calendars.calendars_synchronized', subject: collection_container)
                          .order(created_at: :asc)
                          .last.try(:created_at)
-                     else
-                       nil
                      end
-
       end
 
       def load_collection

@@ -36,9 +36,7 @@ module GobiertoParticipation
     validates_associated :stages, message: I18n.t('activerecord.messages.gobierto_participation/process.are_not_valid')
 
     scope :sorted, -> { order(id: :desc) }
-
-    accepts_nested_attributes_for :stages
-
+    
     after_create :create_collections
 
     def self.open

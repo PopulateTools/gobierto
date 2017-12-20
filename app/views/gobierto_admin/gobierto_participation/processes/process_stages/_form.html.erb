@@ -19,7 +19,7 @@
       <div class="form_item input_text" data-locale="<%= locale %>">
         <%= label_tag "process_stage[menu_translations][#{locale}]" do %>
           <%= f.object.class.human_attribute_name(:menu) %>
-          <span class="indication"><%= t('views.forms.max_characters', length: 20) %></span>
+          <span class="indication"><%= t('views.forms.max_characters', length: 50) %></span>
         <% end %>
         <%= text_field_tag "process_stage[menu_translations][#{locale}]", f.object.menu_translations && f.object.menu_translations[locale], placeholder: t(".placeholders.menu", locale: locale.to_sym) %>
       </div>

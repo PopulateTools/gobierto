@@ -117,7 +117,7 @@ module GobiertoParticipation
     def menu_maximum_length
       if menu_translations
         menu_translations.each do |menu_translation|
-          errors.add(:menu, "Is too long") if menu_translation.length > 20
+          errors.add(:menu, "Is too long") if menu_translation.length > 50
         end
       end
     end

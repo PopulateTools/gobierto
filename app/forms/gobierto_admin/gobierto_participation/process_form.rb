@@ -110,15 +110,6 @@ module GobiertoAdmin
         process.stages
       end
 
-      def stages_attributes=(attributes)
-        attributes.each do |_, stage_attributes|
-          existing_stage = process.stages.detect { |stage| stage.stage_type == stage_attributes['stage_type'] }
-          update_existing_stage_from_attributes(existing_stage, stage_attributes) if existing_stage
-        end
-
-        stages
-      end
-
       private
 
       def process_stage_class
@@ -143,30 +134,26 @@ module GobiertoAdmin
         end
       end
 
-      def update_existing_stage_from_attributes(existing_stage, attributes)
-        existing_stage.assign_attributes(
-          title_translations: attributes['title_translations'],
-          description_translations: attributes['description_translations'],
-          cta_text_translations: attributes['cta_text_translations'],
-          active: attributes['active'],
-          starts: attributes['starts'],
-          ends: attributes['ends']
+      def build_information_stage
+        process.stages.build(
+          process: process,
+          title_translations: { 'en' => 'Information', 'es' => 'Información' },
+          description_translations:{ 'en' => 'Information', 'es' => 'Información' },
+          menu_translations: { 'en' => 'Information', 'es' => 'Información' },
+          cta_text_translations: { 'en' => 'Information', 'es' => 'Información' },
+          cta_description_translations: { 'en' => 'Information', 'es' => 'Información' },
+          stage_type: 0,
+          slug: "information",
+          active: true,
+          starts: 4.days.from_now,
+          ends: 10.days.from_now
         )
-      end
-
-      def build_placeholder_stages
-        process_stage_class.stage_types.each do |stage_type_name, stage_type_number|
-          process.stages.build(
-            process: process,
-            stage_type: stage_type_number,
-            slug: stage_type_name
-          )
-        end
       end
 
       def save_process
         @process = process.tap do |process_attributes|
           process_attributes.site_id            = site_id
+          byebug
           process_attributes.title_translations = title_translations
           process_attributes.body_translations  = body_translations
           process_attributes.header_image_url   = header_image_url
@@ -177,10 +164,9 @@ module GobiertoAdmin
           process_attributes.slug               = slug
           process_attributes.issue_id           = issue_id
           process_attributes.scope_id           = scope_id
-          process_attributes.stages             = stages
         end
 
-        build_placeholder_stages if process.stages.empty?
+        build_information_stage if process.stages.empty?
 
         if @process.valid?
           run_callbacks(:save) do

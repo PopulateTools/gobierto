@@ -53,7 +53,7 @@
 
       <div class="site_header_social">
 
-        <div class="search-box">
+        <div class="search-box desktop_only">
           <i class="fa fa-search"></i>
           <input id="gobierto_search" name="q" class="search-box_input" type="text" placeholder="<%= t('layouts.application.search') %>" aria-label="<%= t('layouts.application.search') %>">
 
@@ -80,7 +80,29 @@
 
     </div>
 
-    <nav class="main-nav" role="navigation" aria-hidden="false">
+    <div class="mobile_only site_header_menu--mobile">
+      <div class="main-nav">
+        <div class="column">
+          <div class="main-nav-item">
+            <%= link_to t("gobierto_budgets.layouts.application.budgets"), gobierto_budgets_root_path, data: { turbolinks: false } %>
+          </div>
+        </div>
+      </div>
+      <div class="sub-nav">
+        <div class="column sub-nav-flex">
+          <div class="sub-nav-item">
+            <%= link_to t('gobierto_budgets.layouts.application.budgets'), gobierto_budgets_budgets_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false } %>
+          </div>
+          <div class="submenu-dropdown">
+            <div class="dropdown-container">
+              <i class="fa fa-caret-down"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav main-nav" role="navigation" aria-hidden="false">
       <div class="column">
         <% if try(:current_process).nil? %>
           <% if global_navigation_section? %>
@@ -96,7 +118,7 @@
       </div>
     </nav>
 
-    <nav class="sub-nav" role="navigation" aria-hidden="false">
+    <nav class="nav sub-nav" role="navigation" aria-hidden="false">
       <div class="column">
         <%= render_if_exists "#{current_module}/layouts/navigation.sub" %>
       </div>

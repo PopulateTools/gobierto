@@ -40,6 +40,15 @@ header {
       }
     }
   }
+  @mixin flex-align($horizontal: center, $vertical: center) {
+    display: flex;
+    justify-content: $horizontal;
+    align-items: $vertical;
+
+    > * {
+      margin: 0;
+    }
+  }
 
   .slim_nav_bar {
     margin: 0;
@@ -298,6 +307,7 @@ header {
         @include font($f5, $color_1, $fExtraLight);
       }
     }
+
     .particle {
       color: $color_1;
       margin: 0 1em 0 0;
@@ -333,6 +343,7 @@ header {
         @include font(1em, $color_1, $fExtraLight);
       }
     }
+
     .secondary_nav {
       float: right;
       margin: 0;
@@ -360,6 +371,28 @@ header {
         }
       }
     }
+
+    .site_header_menu--mobile {
+      .sub-nav-flex {
+        @include flex-align(space-between);
+      }
+      .submenu-dropdown {
+        display: inline-block;
+        padding: 5px 0;
+        float: right;
+        cursor: pointer;
+
+        .dropdown-container {
+          background-color: transparentize($color_1, .88);
+          color: $color_1;
+          width: 19px;
+          height: 15px;
+          @include border-radius(1px);
+          @include flex-align();
+        }
+
+      }
+    }
   }
 
   // Media queries
@@ -372,6 +405,7 @@ header {
   @include breakpoint(sm) {
     .site_header {
       .site_header_block {
+        height: 90px;
         flex-direction: column;
         align-items: flex-start;
         padding: 0;
@@ -415,17 +449,44 @@ header {
       }
 
       .main-nav {
-        display: none;
+        border-top: 1px solid transparentize($color_1, .5);
+
+        &.nav {
+          display: none;
+        }
 
         .main-nav-item {
           display: block;
-          text-align: center;
+          text-align: left;
+
+          &, &:hover {
+            border-top: 0;
+          }
+
+          a {
+            font-weight: $fBold;
+            padding: 5px 0;
+          }
         }
       }
 
       .sub-nav {
-        display: none;
-        text-align: center;
+        text-align: left;
+
+        &.nav {
+          display: none;
+        }
+
+        .sub-nav-item {
+
+          &, &:hover {
+            border-bottom: 0;
+          }
+
+          a {
+            padding: 5px 0;
+          }
+        }
       }
 
     }

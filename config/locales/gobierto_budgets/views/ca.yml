@@ -37,7 +37,7 @@ ca:
         last_year: L'any passat %{value}
         no_description: No hi ha una descripció associada a aquesta partida.
         no_distribution: No hi ha distribució associada a aquesta partida.
-        no_more_descendants: No hi ha més sub-partides
+        no_more_descendants: No hi ha més subpartides
         not_available: No disp.
         percentage: "% sobre el total del press."
         percentage_tooltip: Percentage del pressupost total que suposa aquesta partida
@@ -89,9 +89,7 @@ ca:
         economic: Despesa econòmica
         economic_p1: És la classificació que indica la naturalesa de la despesa. Per
           exemple, "despeses de personal", que engloba els sous de tots els treballadors
-          i treballadores de l’Ajuntament. En un pressupost oficial, els apartats
-          principals es diuen capítols. I al seu torn, cada capítol es divideix en
-          articles, conceptes i subconceptes.
+          i treballadores de l’Ajuntament.
         economic_p2: En un pressupost oficial, els apartats principals es diuen capítols.
           I al seu torn, cada capítol es divideix en articles, conceptes i subconceptes.
         execution: Execució pressupostària
@@ -158,8 +156,8 @@ ca:
         how_much_debt_p1: El deute viu d'un municipi indica el que deu l'Ajuntament
           a bancs i altres entitats financeres. Cal no confondre’l amb el total del
           dèficit del municipi (la diferència entre els ingressos i les despeses).
-        how_much_debt_p2: 
-        how_much_debt_p3: 
+        how_much_debt_p2: ''
+        how_much_debt_p3: ''
         how_to_read: Com es llegeix?
         how_to_read_p1_html: 'Tots els pressupostos municipals tenen la mateixa estructura,
           definida legalment en l''<a href="https://www.boe.es/buscar/doc.php?id=BOE-A-2008-19916">Ordre
@@ -187,7 +185,7 @@ ca:
         income_8_desc: Són fiances o dipòsits.
         income_9_desc: Crèdits sol·licitats a bancs o a d’altres entitats privades.
         income_p1: 'Els ingressos es divideixen segons la seva naturalesa econòmica,
-          és a dir, d''on vénen els diners: a través d''impostos, transferències d''altres
+          és a dir, d''on venen els diners: a través d''impostos, transferències d''altres
           administracions, taxes i preus públics o bé de la gestió per tercers del
           patrimoni municipal. I també es divideixen segons la forma, és a dir, si
           és un crèdit bancari, una propietat municipal que s''ha venut o un impost.'
@@ -200,7 +198,7 @@ ca:
           ciutadania i els grups municipals facin al·legacions. Tot seguit, si no
           es produeixen al·legacions, queda aprovat definitivament.
         intro_p3: Perquè el pressupost estigui vigent l’1 de gener ha de quedar aprovat
-          definitivament abans del 31 de desembre de l'any anterior, sinó es prorroga
+          definitivament abans del 31 de desembre de l'any anterior, si no es prorroga
           de forma automàtica el de l’any anterior.
         regular_income: Ingressos corrents
         regular_income_p1: Els impostos, els diners que les administracions transfereixen
@@ -491,7 +489,7 @@ ca:
           d'impostos i taxes locals. Calcula quant aportes tu al pressupost d'acord
           a la teva casa, vehicles...
         detail: Detall de la teva contribució
-        pick_to_calculate: Selecciona per a calcular
+        pick_to_calculate: Selecciona per calcular
         share: Comparteix-ho
         share_text: Comprova com és la teva aportació al pressupost de
         title: Quina es la teva contribució al pressupost de %{site_name}?

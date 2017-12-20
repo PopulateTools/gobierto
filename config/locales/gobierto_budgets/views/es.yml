@@ -37,7 +37,7 @@ es:
         last_year: El año pasado %{value}
         no_description: No hay una descripción asociada a esta partida.
         no_distribution: No hay distribución asociada a esta partida.
-        no_more_descendants: No hay más sub-partidas
+        no_more_descendants: No hay más subpartidas
         not_available: No disp.
         percentage: "% sobre el total del pres."
         percentage_tooltip: Porcentaje del presupuesto total que supone esta partida

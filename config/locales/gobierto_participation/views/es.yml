@@ -66,12 +66,6 @@ es:
         questions: Pregunta
       process_breadcrumb:
         root: Inicio
-      process_menu_subsections:
-        ideas: Aportaciones
-        information: Información
-        meetings: Reuniones
-        polls: Encuestas
-        results: Resultados
       secondary_nav:
         activity: Actividad
         agenda: Agenda

@@ -18,7 +18,7 @@
   <% current_process.published_stages.each do |stage| %>
     <div class="sub-nav-item">
       <%= link_to phase_url(stage) do %>
-        <%= t("gobierto_participation.layouts.process_menu_subsections.#{stage.stage_type}") %>
+        <%= stage.menu %>
       <% end %>
     </div>
   <% end %>

@@ -27,7 +27,7 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            all("a", text: "Manage")[4].click
+            all("a", text: "Manage")[1].click
 
             click_on "New"
             click_button "Create"
@@ -45,7 +45,7 @@ module GobiertoAdmin
           with_current_site(site) do
             visit @path
 
-            all("a", text: "Manage")[4].click
+            all("a", text: "Manage")[1].click
 
             click_on "New"
 

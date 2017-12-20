@@ -56,8 +56,9 @@ local_budgets_information_stage:
   starts: <%= 3.days.ago %>
   ends: <%= 2.days.ago %>
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:information] %>
-  active: true
+  active: false
   cta_text_translations: <%= { 'en' => 'More details', 'es' => 'Ver detalles' }.to_json %>
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
 
 local_budgets_meetings_stage:
   process: local_budgets_process
@@ -69,11 +70,14 @@ local_budgets_meetings_stage:
   ends: <%= 4.days.from_now %>
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
   active: true
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
 
 local_budgets_polls_stage:
   process: local_budgets_process
   slug: polls
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:polls] %>
+  active: false
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
 
 local_budgets_ideas_stage:
   process: local_budgets_process
@@ -85,11 +89,14 @@ local_budgets_ideas_stage:
   ends: <%= 10.days.from_now %>
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:ideas] %>
   active: true
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
 
 local_budgets_results_stage:
   process: local_budgets_process
   slug: results
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:results] %>
+  active: true
+  visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
 
 gender_violence_process_information_stage:
   process: gender_violence_process
@@ -100,8 +107,9 @@ gender_violence_process_information_stage:
   starts: <%= 2.months.ago %>
   ends: <%= 1.month.ago %>
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:information] %>
-  active: true
+  active: false
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
+  position: 1
 
 gender_violence_process_meetings_stage:
   process: gender_violence_process
@@ -114,12 +122,15 @@ gender_violence_process_meetings_stage:
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
   active: true
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
+  position: 2
 
 gender_violence_process_polls_stage:
   process: gender_violence_process
   slug: polls
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:polls] %>
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
+  position: 3
+  active: false
 
 gender_violence_process_ideas_stage:
   process: gender_violence_process
@@ -130,8 +141,9 @@ gender_violence_process_ideas_stage:
   starts: <%= 15.days.ago %>
   ends: <%= 2.months.from_now %>
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:ideas] %>
-  active: true
+  active: false
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
+  position: 4
 
 gender_violence_process_results_stage:
   process: gender_violence_process
@@ -142,8 +154,9 @@ gender_violence_process_results_stage:
   starts: <%= 40.days.from_now %>
   ends: <%= 60.days.from_now %>
   stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:results] %>
-  active: true
+  active: false
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
+  position: 5
 
 commission_for_carnival_festivities_information_stage:
   process: commission_for_carnival_festivities

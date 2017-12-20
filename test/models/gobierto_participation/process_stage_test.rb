@@ -17,7 +17,8 @@ module GobiertoParticipation
         information: process.stages.find_by!(stage_type: ProcessStage.stage_types[:information]),
         meetings: process.stages.find_by!(stage_type: ProcessStage.stage_types[:meetings]),
         ideas: process.stages.find_by!(stage_type: ProcessStage.stage_types[:ideas]),
-        results: process.stages.find_by!(stage_type: ProcessStage.stage_types[:results])
+        results: process.stages.find_by!(stage_type: ProcessStage.stage_types[:results]),
+        polls: process.stages.find_by!(stage_type: ProcessStage.stage_types[:polls])
       }
     end
 
@@ -25,28 +26,25 @@ module GobiertoParticipation
       assert process_stage.valid?
     end
 
-    def test_open
-      refute stages[:information].open?
-      assert stages[:meetings].open?
-      refute stages[:results].open?
-    end
-
-    def test_past
-      assert stages[:information].past?
-      refute stages[:meetings].past?
+    def test_published
+      assert stages[:information].published?
+      assert stages[:meetings].published?
+      refute stages[:ideas].published?
+      refute stages[:results].published?
+      refute stages[:polls].published?
     end
 
     def test_upcoming
-      refute stages[:information].upcoming?
+      assert stages[:information].upcoming?
       refute stages[:meetings].upcoming?
-      assert stages[:results].upcoming?
     end
 
     def test_current
       refute stages[:information].current?
-      refute stages[:meetings].current?
-      assert stages[:ideas].current?
+      assert stages[:meetings].current?
+      refute stages[:ideas].current?
       refute stages[:results].current?
+      refute stages[:polls].current?
     end
   end
 end

@@ -64,12 +64,6 @@ ca:
         questions: Pregunta
       process_breadcrumb:
         root: Inici
-      process_menu_subsections:
-        ideas: Contribucions
-        information: Informació
-        meetings: Reunions
-        polls: Enquestes
-        results: Resultats
       secondary_nav:
         activity: Activitat
         agenda: Agenda

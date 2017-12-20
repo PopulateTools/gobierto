@@ -45,6 +45,12 @@ var ComparisonCard = Class.extend({
     this.div.selectAll('.widget_title')
       .attr('title', I18n.t('gobierto_indicators.cards.' + cardName + '.title'))
       .text(I18n.t('gobierto_indicators.cards.' + cardName + '.title'));
+
+    // Append backface info
+    this.div.selectAll('.js-data-desc')
+      .text(json.metadata.indicator.description);
+    this.div.selectAll('.js-data-freq')
+      .text(formatDate(parsedDate));
   },
   _printFreq: function(json) {
     // Switch between different figure types

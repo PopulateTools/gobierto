@@ -5,6 +5,7 @@ en:
       calendar_configuration:
         edit:
           calendar_integration: Calendar integration
+          confirm_sync: Are you sure?
           google_calendar: Google Calendar
           ibm_notes: IBM Notes
           labels:

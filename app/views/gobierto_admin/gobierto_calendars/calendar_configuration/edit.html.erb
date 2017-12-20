@@ -8,7 +8,7 @@
       <%= t('.last_sync') %>: <%= time_ago_in_words @last_sync %> -
     <% end %>
 
-    <%= link_to sync_calendars_admin_calendars_configuration_path(@calendar_configuration_form.collection_id), method: :put, data: { confirm: "Are you sure?" } do %>
+    <%= link_to sync_calendars_admin_calendars_configuration_path(@calendar_configuration_form.collection_id), method: :put, data: { confirm: t(".confirm_sync") } do %>
       <i class="fa fa-refresh"></i>
       <%= t('.sync') %>
     <% end %>

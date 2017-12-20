@@ -126,6 +126,27 @@ header {
         justify-content: space-between;
         align-items: center;
 
+        .hamburger_container {
+          background-color: $color_1_soft;
+          float: right;
+          width: 38px;
+          height: 38px;
+
+          @include border-radius(3px);
+
+          a.nav_control {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+
+            i.fa {
+              align-self: center;
+              margin: 0;
+            }
+          }
+        }
+
         .site_header_image {
           height: 100%;
 

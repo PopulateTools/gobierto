@@ -1,9 +1,7 @@
 <header class="meta">
 
   <div class="slim_nav_bar">
-
     <div class="column pure-g">
-
       <div class="desktop_only">
 
         <div class="pure-u-md-1-2">
@@ -24,14 +22,8 @@
           </div>
 
         </div>
-      </div>
 
-      <div class="mobile_only right">
-        <%= link_to "#", class: "nav_control" do %>
-          <i class="fa fa-bars" aria-label="<%= t('layouts.application.start') %>"></i>
-        <% end %>
       </div>
-
     </div>
   </div>
 
@@ -40,12 +32,23 @@
   <% end %>
 
   <div class="site_header">
+
     <div class="column site_header_block">
 
       <div class="site_header_logo">
+
         <div class="site_header_image">
           <%= link_to(image_tag(@site.configuration.logo_with_fallback, alt: @site.name), root_url) %>
         </div>
+
+        <div class="mobile_only right">
+          <div class="hamburger_container">
+            <%= link_to "#", class: "nav_control" do %>
+              <i class="fa fa-bars" aria-label="<%= t('layouts.application.start') %>"></i>
+            <% end %>
+          </div>
+        </div>
+
       </div>
 
       <div class="site_header_social">
@@ -90,4 +93,5 @@
     </nav>
 
   </div>
+
 </header>

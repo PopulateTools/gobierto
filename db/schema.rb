@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171128100636) do
+ActiveRecord::Schema.define(version: 20171220101924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -325,6 +325,17 @@ ActiveRecord::Schema.define(version: 20171128100636) do
     t.index ["description_translations"], name: "index_gc_events_on_description_translations", using: :gin
     t.index ["site_id", "slug"], name: "index_gc_events_on_site_id_and_slug", unique: true
     t.index ["title_translations"], name: "index_gc_events_on_title_translations", using: :gin
+  end
+
+  create_table "gc_filtering_rules", force: :cascade do |t|
+    t.bigint "calendar_configuration_id"
+    t.integer "field", null: false
+    t.integer "condition", null: false
+    t.string "value", null: false
+    t.integer "action", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["calendar_configuration_id"], name: "index_gc_filtering_rules_on_calendar_configuration_id"
   end
 
   create_table "gcms_pages", id: :serial, force: :cascade do |t|

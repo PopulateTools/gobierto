@@ -20,6 +20,10 @@ module GobiertoPeople
         "richard@google-calendar.com"
       end
 
+      def filtering_rule
+        @filtering_rule ||= gobierto_calendars_filtering_rules(:richard_calendar_configuration_filter)
+      end
+
       def setup
         super
 
@@ -214,15 +218,10 @@ module GobiertoPeople
       end
 
       def test_filter_events
-        configure_google_calendar_integration(
-          collection: richard.calendar,
-          data: {
-            calendars: [google_calendar_id, 2],
-            filters: {
-              subject: '@'
-            }
-          }
-        )
+        # Create a rule with contains condition
+        filtering_rule.condition = :contains
+        filtering_rule.value = "@"
+        filtering_rule.save!
 
         assert_difference "GobiertoCalendars::Event.count", 1 do
           CalendarIntegration.sync_person_events(richard)

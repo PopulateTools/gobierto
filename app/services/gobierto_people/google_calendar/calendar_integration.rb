@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'tempfile'
 require 'fileutils'
 
@@ -49,7 +51,7 @@ module GobiertoPeople
       def sync_calendar_events(calendar)
         response = service.list_events(calendar.id, always_include_email: true, time_min: 2.days.ago.iso8601)
         response.items.each do |event|
-          next if discard_event?(event)
+          next if is_private?(event)
 
           if is_recurring?(event)
             service.list_event_instances(calendar.id, event.id).items.each_with_index do |event, i|
@@ -59,15 +61,6 @@ module GobiertoPeople
             sync_event(event)
           end
         end
-      end
-
-      def discard_event?(event)
-        is_private?(event) || !fullfills_filters?(event)
-      end
-
-      def fullfills_filters?(event)
-        configuration.subject_filter.nil? ||
-          (event.summary.present? && event.summary.include?(configuration.subject_filter))
       end
 
       def is_private?(event)
@@ -91,6 +84,17 @@ module GobiertoPeople
       end
 
       def sync_event(event, i = nil)
+        filter_result = GobiertoCalendars::FilteringRuleApplier.filter({
+          title: event.summary,
+          description: event.description
+        }, configuration.filtering_rules)
+
+        filter_result = GobiertoCalendars::FilteringRuleApplier::REMOVE if is_private?(event)
+
+        state = filter_result == GobiertoCalendars::FilteringRuleApplier::CREATE_PENDING ?
+          GobiertoCalendars::Event.states[:pending] :
+          GobiertoCalendars::Event.states[:published]
+
         person_event_params = {
           site_id: person.site_id,
           external_id: event.id,
@@ -99,7 +103,7 @@ module GobiertoPeople
           description: event.description,
           starts_at: parse_date(event.start),
           ends_at: parse_date(event.end),
-          state: GobiertoCalendars::Event.states[:published],
+          state: state,
           attendees: event_attendees(event),
           notify: i.nil? || i == 0,
           recurring: i.present?
@@ -112,8 +116,10 @@ module GobiertoPeople
         end
 
         event = GobiertoPeople::PersonEventForm.new(person_event_params)
-        unless event.save
-          Rails.logger.info "[Google Calendar Integration] Invalid event: #{person_event_params}"
+        if filter_result != GobiertoCalendars::FilteringRuleApplier::REMOVE
+          unless event.save
+            Rails.logger.info "[Google Calendar Integration] Invalid event: #{person_event_params}"
+          end
         end
       end
 

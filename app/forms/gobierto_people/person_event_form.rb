@@ -27,6 +27,12 @@ module GobiertoPeople
 
     notify_changed :state
 
+    def destroy
+      unless person_event.new_record?
+        person_event.destroy
+      end
+    end
+
     def save
       save_person_event if valid?
     end

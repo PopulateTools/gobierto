@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+#
 module GobiertoPeople
   module MicrosoftExchange
     class CalendarIntegration
@@ -18,15 +20,7 @@ module GobiertoPeople
       def sync
         Rails.logger.info "#{log_preffix} Syncing events for #{person.name} (id: #{person.id})"
 
-        root_folder = Exchanger::Folder.find(:calendar)
-
-        log_missing_folder_error('root') and return if root_folder.nil?
-
-        target_folder = root_folder.folders.find { |folder| folder.display_name == TARGET_CALENDAR_NAME }
-
-        log_missing_folder_error(TARGET_CALENDAR_NAME) and return if target_folder.nil?
-
-        calendar_items = target_folder.expanded_items(SYNC_RANGE)
+        calendar_items = get_calendar_items
 
         mark_unreceived_events_as_drafts(calendar_items)
 
@@ -54,19 +48,39 @@ module GobiertoPeople
         end
       end
 
+      def get_calendar_items
+        root_folder = Exchanger::Folder.find(:calendar)
+
+        log_missing_folder_error('root') and return if root_folder.nil?
+
+        target_folder = root_folder.folders.find { |folder| folder.display_name == TARGET_CALENDAR_NAME }
+
+        log_missing_folder_error(TARGET_CALENDAR_NAME) and return if target_folder.nil?
+
+        target_folder.expanded_items(SYNC_RANGE)
+      end
+
       def sync_event(item)
-        return if discard_event?(item)
+        filter_result = GobiertoCalendars::FilteringRuleApplier.filter({
+          title: item.subject,
+          description: "" # TODO: https://github.com/PopulateTools/gobierto/issues/1127
+        }, configuration.filtering_rules)
+
+        filter_result = GobiertoCalendars::FilteringRuleApplier::REMOVE if is_private?(item)
+
+        state = filter_result == GobiertoCalendars::FilteringRuleApplier::CREATE_PENDING ?
+          GobiertoCalendars::Event.states[:pending] :
+          GobiertoCalendars::Event.states[:published]
 
         event_params = {
           starts_at: item.start,
           ends_at: item.end,
-          state: GobiertoCalendars::Event.states[:published],
+          state: state,
           external_id: item.id,
           title: item.subject,
-          site_id: site.id
+          site_id: site.id,
+          person_id: person.id
         }
-
-        event_params.merge!(person_id: person.id)
 
         if item.location.present?
           event_params.merge!(locations_attributes: { "0" => { name: item.location } })
@@ -74,20 +88,15 @@ module GobiertoPeople
           event_params.merge!(locations_attributes: { "0" => { "_destroy" => "1" } })
         end
 
-        GobiertoPeople::PersonEventForm.new(event_params).save
-      end
-
-      def discard_event?(calendar_item)
-        is_private?(calendar_item) || !fullfills_filters?(calendar_item)
+        if filter_result == GobiertoCalendars::FilteringRuleApplier::REMOVE
+          GobiertoPeople::PersonEventForm.new(event_params).destroy
+        else
+          GobiertoPeople::PersonEventForm.new(event_params).save
+        end
       end
 
       def is_private?(calendar_item)
         %w( Private ).include?(calendar_item.sensitivity)
-      end
-
-      def fullfills_filters?(calendar_item)
-        configuration.subject_filter.nil? ||
-          (calendar_item.subject.present? && calendar_item.subject.include?(configuration.subject_filter))
       end
 
       def mark_unreceived_events_as_drafts(calendar_items)

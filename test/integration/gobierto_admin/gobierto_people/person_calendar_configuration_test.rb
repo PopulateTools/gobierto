@@ -7,7 +7,6 @@ require "support/concerns/gobierto_admin/authorizable_resource_test_module"
 module GobiertoAdmin
   module GobiertoPeople
     class PersonCalendarConfigurationTest < ActionDispatch::IntegrationTest
-
       include ::CalendarIntegrationHelpers
       include ::GobiertoAdmin::AuthorizableResourceTestModule
 

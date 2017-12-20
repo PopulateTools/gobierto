@@ -135,14 +135,6 @@ module GobiertoPeople
       ::GobiertoCalendars::Event
     end
 
-    def build_person_event_location
-      person_event.locations.build
-    end
-
-    def build_person_event_attendee
-      person_event.attendees.build
-    end
-
     def person_event_location_class
       ::GobiertoCalendars::EventLocation
     end

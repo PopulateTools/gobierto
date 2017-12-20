@@ -1,7 +1,6 @@
 module GobiertoAdmin
   module GobiertoCalendars
     class CalendarConfigurationForm
-
       include ActiveModel::Model
 
       ENCRYPTED_SETTING_PLACEHOLDER = 'encrypted_setting_placeholder'
@@ -9,7 +8,7 @@ module GobiertoAdmin
       attr_accessor(
         :current_site,
         :calendar_integration,
-        :collection_id,
+        :collection,
         :ibm_notes_usr,
         :ibm_notes_pwd,
         :ibm_notes_url,
@@ -17,7 +16,8 @@ module GobiertoAdmin
         :microsoft_exchange_pwd,
         :microsoft_exchange_url,
         :clear_calendar_configuration,
-        :calendars
+        :calendars,
+        :filtering_rules
       )
 
       validates(
@@ -39,6 +39,15 @@ module GobiertoAdmin
         presence: true, if: -> { calendar_integration == 'google_calendar' && !clear_calendar_configuration? }
       )
 
+      validates :collection, presence: true
+
+      def initialize(attributes)
+        # FIXME: manually assigning collection
+        # I don't know why collection is not assigned in the initializer to @collection
+        @collection = attributes[:collection]
+        super(attributes)
+      end
+
       def save
         if clear_calendar_configuration?
           ::GobiertoPeople::ClearImportedPersonEventsJob.perform_later(collection.container)
@@ -49,12 +58,25 @@ module GobiertoAdmin
         end
       end
 
-      def calendar_configuration
-        @calendar_configuration ||= calendar_configuration_class.find_by(collection_id: collection_id) || calendar_configuration_class.new
+      def filtering_rules
+        @filtering_rules ||= calendar_configuration.filtering_rules.presence || [calendar_configuration.filtering_rules.build]
       end
 
-      def collection_id
-        @collection_id ||= calendar_configuration.collection_id
+      def filtering_rules_attributes=(attributes)
+        @filtering_rules = []
+
+        attributes.each do |_, filtering_rule_attributes|
+          next if filtering_rule_attributes["_destroy"] == "1"
+
+          filtering_rule = calendar_configuration.filtering_rules.find_or_initialize_by(id: filtering_rule_attributes[:id])
+          filtering_rule.attributes = filtering_rule_attributes.except(:_destroy)
+
+          @filtering_rules.push(filtering_rule) if filtering_rule.valid?
+        end
+      end
+
+      def calendar_configuration
+        @calendar_configuration ||= calendar_configuration_class.find_by(collection_id: collection.id) || calendar_configuration_class.new
       end
 
       def ibm_notes_usr
@@ -117,7 +139,7 @@ module GobiertoAdmin
 
       def calendar_integration
         @calendar_integration ||= begin
-          conf = base_calendar_configuration_class.find_by(collection_id: collection_id)
+          conf = base_calendar_configuration_class.find_by(collection_id: collection.id)
           conf ? conf.integration_name : nil
         end
       end
@@ -144,12 +166,12 @@ module GobiertoAdmin
         ::GobiertoCalendars::MicrosoftExchangeCalendarConfiguration
       end
 
-      def collection
-        @collection ||= current_site.collections.find_by(id: collection_id)
-      end
-
       def base_calendar_configuration_class
         ::GobiertoCalendars::CalendarConfiguration
+      end
+
+      def filtering_rule_class
+        ::GobiertoCalendars::FilteringRule
       end
 
       def calendar_configuration_class
@@ -170,9 +192,10 @@ module GobiertoAdmin
 
       def save_calendar_configuration
         @calendar_configuration = calendar_configuration.tap do |calendar_configuration_attributes|
-          calendar_configuration_attributes.collection_id = collection_id
+          calendar_configuration_attributes.collection_id = collection.id
           calendar_configuration_attributes.integration_name = calendar_integration
           calendar_configuration_attributes.data = calendar_configuration_data
+          calendar_configuration_attributes.filtering_rules = filtering_rules
         end
 
         if @calendar_configuration.valid?

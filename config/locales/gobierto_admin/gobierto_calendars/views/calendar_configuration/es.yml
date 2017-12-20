@@ -4,7 +4,10 @@ es:
     gobierto_calendars:
       calendar_configuration:
         edit:
+          add_rule: Crear regla
           calendar_integration: Integración de calendario
+          filter_events: Filtrado de eventos
+          filter_events_desc: Cuando se importa un evento...
           google_calendar: Google Calendar
           ibm_notes: IBM Notes
           labels:

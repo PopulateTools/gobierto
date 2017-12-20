@@ -6,11 +6,10 @@ require "support/calendar_integration_helpers"
 module GobiertoAdmin
   module GobiertoCalendars
     class CalendarConfigurationFormTest < ActiveSupport::TestCase
-
       include ::CalendarIntegrationHelpers
 
       def collection
-        gobierto_common_collections(:richard_calendar)
+        @collection ||= gobierto_common_collections(:richard_calendar)
       end
 
       def site
@@ -20,7 +19,7 @@ module GobiertoAdmin
       def ibm_notes_calendar_configuration_attributes
         @calendar_configuration_attributes ||= {
           current_site: site,
-          collection_id: collection.id,
+          collection: collection,
           calendar_integration: 'ibm_notes',
           ibm_notes_usr: 'ibm-username',
           ibm_notes_pwd: 'ibm-password',
@@ -39,7 +38,7 @@ module GobiertoAdmin
       def microsoft_exchange_calendar_configuration_attributes
         @microsoft_exchange_credentials ||= {
           current_site: site,
-          collection_id: collection.id,
+          collection: collection,
           calendar_integration: 'microsoft_exchange'
         }.merge(microsfot_exchange_configuration)
       end
@@ -112,7 +111,7 @@ module GobiertoAdmin
           data: microsfot_exchange_configuration
         )
 
-        form = CalendarConfigurationForm.new(collection_id: collection.id)
+        form = CalendarConfigurationForm.new(collection: collection)
 
         assert_equal CalendarConfigurationForm::ENCRYPTED_SETTING_PLACEHOLDER, form.dummy_microsoft_exchange_pwd
 
@@ -120,7 +119,7 @@ module GobiertoAdmin
 
         clear_calendar_configurations
 
-        form = CalendarConfigurationForm.new(collection_id: collection.id)
+        form = CalendarConfigurationForm.new(collection: collection)
 
         assert_nil form.dummy_microsoft_exchange_pwd
 
@@ -131,7 +130,7 @@ module GobiertoAdmin
           data: { microsoft_exchange_pwd: '' }
         )
 
-        form = CalendarConfigurationForm.new(collection_id: collection.id)
+        form = CalendarConfigurationForm.new(collection: collection)
 
         assert_nil form.dummy_microsoft_exchange_pwd
       end

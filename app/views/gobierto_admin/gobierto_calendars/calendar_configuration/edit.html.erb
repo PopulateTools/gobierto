@@ -28,6 +28,63 @@
           <% end %>
         </div>
       <% end %>
+
+      <h3><%= t('.filter_events') %></h3>
+
+      <p><%= t('.filter_events_desc') %></p>
+
+      <table class="med_bg dynamic-content-wrapper" id="filtering-rules">
+        <%= f.fields_for :filtering_rules do |filtering_rule_form| %>
+          <tbody class="dynamic-content-record-wrapper content-block-record-<%= filtering_rule_form.object.id || "new" %>">
+            <tr class="dynamic-content-record-form">
+              <td>
+                <div class="inline p_0_5">Si el</div>
+                <div class="select_control select_compact inline">
+                  <%= filtering_rule_form.select :field, options_for_enum(filtering_rule_form.object, :field), prompt: true %>
+                </div>
+              </td>
+              <td>
+                <div class="p_0_5">
+                  <div class="select_control select_compact ">
+                    <%= filtering_rule_form.select :condition, options_for_enum(filtering_rule_form.object, :condition), prompt: true %>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="p_0_5">
+                  <%= filtering_rule_form.text_field :value, class: "slim" %>
+                </div>
+              </td>
+              <td>
+                <div class="p_0_5">
+                  <div class="select_control select_compact">
+                    <%= filtering_rule_form.select :action, options_for_enum(filtering_rule_form.object, :action), prompt: true %>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="p_0_5">
+                  <%= filtering_rule_form.check_box :_destroy, class: "hidden destroy-content-block-record" %>
+
+                  <%= link_to "#", data: { behavior: "delete_record" } do %>
+                    <i class="fa fa-trash"></i>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        <% end %>
+
+        <tr>
+          <td colspan="5">
+            <div class="p_1">
+              <%= link_to "#", data: { behavior: "add_child" } do %>
+                <%== %Q{<i class="fa fa-plus-circle"></i> #{t('.add_rule')}} %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
 
     <div class="pure-u-1 pure-u-md-2-24"></div>
@@ -43,6 +100,6 @@
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>
-    window.GobiertoAdmin.gobierto_calendars_calendar_configurations_controller.edit();
+    window.GobiertoAdmin.gobierto_calendars_calendar_configurations_controller.edit("#filtering-rules", "filtering_rules_attributes");
   <% end %>
 <% end %>

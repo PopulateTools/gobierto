@@ -250,6 +250,18 @@ header {
             cursor: pointer;
           }
         }
+
+        .scroll-up {
+          position: fixed;
+          bottom: 1em;
+          right: 1em;
+          text-align: center;
+          font-size: .85em;
+          display: inline;
+          z-index: 1;
+          color: $color_1;
+          cursor: pointer;
+        }
       }
     }
 

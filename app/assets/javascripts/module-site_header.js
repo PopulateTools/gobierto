@@ -38,4 +38,12 @@ $(document).on('turbolinks:load', function() {
       .toggleText('Sigue este proceso', '¡Proceso seguido!');
   });
 
+  $('.scroll-up').on('click', function() {
+    $('body').velocity('scroll', {
+      duration: 500,
+      offset: -40,
+      easing: 'ease-in-out'
+    });
+  });
+
 });

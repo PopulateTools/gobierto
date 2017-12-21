@@ -53,7 +53,7 @@
 
       <div class="site_header_social">
 
-        <div class="search-box desktop_only">
+        <div class="search-box">
           <i class="fa fa-search"></i>
           <input id="gobierto_search" name="q" class="search-box_input" type="text" placeholder="<%= t('layouts.application.search') %>" aria-label="<%= t('layouts.application.search') %>">
 
@@ -107,6 +107,8 @@
           <div class="submenu-dropdown-container">
             <div class="submenu-dropdown js-slider">
               <div class="column">
+                <%# TODO: Mirar alternativa listas %>
+                <!-- <%= render_if_exists "#{current_module}/layouts/navigation.sub" %> -->
               <ul>
                 <li><a href="">Presupuesto</a></li>
                 <li><a href="">Presupuesto</a></li>

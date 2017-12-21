@@ -140,8 +140,11 @@ header {
           float: right;
           width: 38px;
           height: 38px;
-
           @include border-radius(3px);
+
+          &.hamburger_container--transparent {
+            background-color: transparent;
+          }
 
           a.nav_control {
             display: flex;
@@ -480,19 +483,20 @@ header {
         }
 
         .site_header_social .search-box {
-          width: 100%;
-
-          .search-box_input {
-            width: 100%;
-
-            &:focus {
-              width: 100%;
-            }
-          }
-
-          .search_result_list {
-            bottom: initial;
-          }
+          display: none;
+          // width: 100%;
+          //
+          // .search-box_input {
+          //   width: 100%;
+          //
+          //   &:focus {
+          //     width: 100%;
+          //   }
+          // }
+          //
+          // .search_result_list {
+          //   bottom: initial;
+          // }
         }
       }
 

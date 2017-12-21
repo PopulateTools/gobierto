@@ -45,9 +45,17 @@ module User::SessionHelper
     root_path
   end
 
+  def auth_modules_present?
+    current_site.configuration.auth_modules.any?
+  end
+
+  def auth_path
+    auth_modules_present? ? new_user_custom_session_path : new_user_sessions_path
+  end
+
   def raise_user_not_signed_in
     redirect_to(
-      new_user_sessions_path,
+      auth_path,
       alert: I18n.t(i18n_key('user_not_signed_in_html'), place_name: current_site.location_name, default: t('user.sessions.user_not_signed_in'))
     )
   end

@@ -1,0 +1,13 @@
+---
+en:
+  user:
+    custom_sessions:
+      create:
+        email_taken: That email is already registered
+        error: Complete your signup
+        invalid_data: Invalid data received. The session could not be created
+        not_confirmed: Please check your inbox and follow the confirmation link to
+          access the service
+        success: Signed in successfully
+      destroy:
+        success: Signed out successfully

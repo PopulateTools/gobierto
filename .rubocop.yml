@@ -522,7 +522,8 @@ Style/HashSyntax:
   PreferHashRocketsForNonAlnumEndingSymbols: false
 
 Style/IfUnlessModifier:
-  MaxLineLength: 80
+  Metrics/LineLength:
+    Max: 80
 
 Layout/IndentationConsistency:
   # The difference between `rails` and `normal` is that the `rails` style
@@ -1025,7 +1026,8 @@ Naming/VariableNumber:
     - non_integer
 
 Style/WhileUntilModifier:
-  MaxLineLength: 80
+  Metrics/LineLength:
+    Max: 80
 
 # WordArray enforces how array literals of word-like strings should be expressed.
 Style/WordArray:

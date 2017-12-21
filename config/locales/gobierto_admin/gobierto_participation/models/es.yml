@@ -38,8 +38,8 @@ es:
       gobierto_admin/gobierto_participation/process_information_form:
         information_text: Información
       gobierto_admin/gobierto_participation/process_stage_form:
-        cta_description: Caja CTA / Botón / Texto
-        cta_text: Caja CTA / Descripción corta
+        cta_description: Caja CTA / Descripción corta
+        cta_text: Caja CTA / Botón / Texto
         description: Descripción de una fase
         ends: Fecha de final
         menu: Menú / Literal

@@ -55,7 +55,7 @@
           <%= f.object.class.human_attribute_name(:cta_description) %>
           <span class="indication"><%= t('views.forms.max_characters', length: 50) %></span>
         <% end %>
-        <%= text_area_tag "process_stage[cta_description_translations][#{locale}]", f.object.cta_description_translations && f.object.cta_description_translations[locale], placeholder: t(".placeholders.cta_description", locale: locale.to_sym) %>
+        <%= text_field_tag "process_stage[cta_description_translations][#{locale}]", f.object.cta_description_translations && f.object.cta_description_translations[locale], placeholder: t(".placeholders.cta_description", locale: locale.to_sym) %>
       </div>
 
       <div class="form_item input_text" data-locale="<%= locale %>">

@@ -38,8 +38,8 @@ en:
       gobierto_admin/gobierto_participation/process_information_form:
         information_text: Information
       gobierto_admin/gobierto_participation/process_stage_form:
-        cta_description: CTA Box / Button / Text
-        cta_text: CTA Box / Short description
+        cta_description: CTA Box / Short description
+        cta_text: CTA Box / Button / Text
         description: Description of a phase
         ends: End date
         menu: Menu / Literal

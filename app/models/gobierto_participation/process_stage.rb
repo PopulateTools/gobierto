@@ -5,6 +5,7 @@ require_dependency "gobierto_participation"
 module GobiertoParticipation
   class ProcessStage < ApplicationRecord
     include GobiertoCommon::Sortable
+    include GobiertoCommon::Sluggable
 
     before_destroy :check_stage_active
 

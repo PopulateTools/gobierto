@@ -4,6 +4,8 @@ data:
   read:
     - config/locales/**/%{locale}.yml
     - config/locales/**/*/%{locale}.yml
+    - vendor/auth_strategies/**/config/locales/**/%{locale}.yml
+    - vendor/auth_strategies/**/config/locales/**/*/%{locale}.yml
 ignore_missing:
   - 'gobierto_budgets.visualizations.*'
   - 'layouts.sandbox.*'

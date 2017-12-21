@@ -56,5 +56,5 @@ ca:
     attributes:
       gobierto_participation/process_stage:
         visibility_levels:
-          published: Publicada
           draft: Esborrany
+          published: Publicada

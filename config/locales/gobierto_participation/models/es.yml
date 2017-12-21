@@ -43,8 +43,6 @@ es:
       gobierto_participation/poll_question:
         not_enough_alternatives: a preguntas de respuesta fija deben ofrecer al menos
           dos alternativas
-      gobierto_participation/process:
-        are_not_valid: no son válidas
     models:
       gobierto_participation/contribution: Aportación
       gobierto_participation/poll: Encuesta

@@ -106,16 +106,7 @@ module GobiertoAdmin
           :has_duration,
           title_translations: [*I18n.available_locales],
           body_translations:  [*I18n.available_locales],
-          information_text_translations: [*I18n.available_locales],
-          stages_attributes: [
-            :stage_type,
-            :slug,
-            :starts,
-            :ends,
-            title_translations: [*I18n.available_locales],
-            description_translations: [*I18n.available_locales],
-            cta_text_translations: [*I18n.available_locales]
-          ]
+          information_text_translations: [*I18n.available_locales]
         )
       end
 

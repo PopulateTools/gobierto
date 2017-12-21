@@ -4,9 +4,9 @@ en:
     gobierto_participation:
       processes:
         process_stages:
-          edit: Edit phase
-          delete: Delete phase
           active: Active
+          delete: Delete phase
+          edit: Edit phase
           edit_modal:
             title: 'Edit phase: %{phase}'
           form:

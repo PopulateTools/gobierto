@@ -81,6 +81,7 @@
     </div>
 
     <div class="mobile_only site_header_menu--mobile">
+
       <div class="main-nav">
         <div class="column">
           <div class="main-nav-item">
@@ -88,18 +89,39 @@
           </div>
         </div>
       </div>
+
       <div class="sub-nav">
-        <div class="column sub-nav-flex">
-          <div class="sub-nav-item">
-            <%= link_to t('gobierto_budgets.layouts.application.budgets'), gobierto_budgets_budgets_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false } %>
+        <div class="submenu-container">
+
+          <div class="column sub-nav-flex">
+            <div class="sub-nav-item">
+              <%= link_to t('gobierto_budgets.layouts.application.budgets'), gobierto_budgets_budgets_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false } %>
+            </div>
+            <div class="dropdown-button js-submenu-toggle">
+              <div class="button-container">
+                <i class="fa fa-caret-down"></i>
+              </div>
+            </div>
           </div>
+
           <div class="submenu-dropdown">
-            <div class="dropdown-container">
-              <i class="fa fa-caret-down"></i>
+            <div class="slider">
+              <div class="column">
+              <ul>
+                <li><a href="">Presupuesto</a></li>
+                <li><a href="">Presupuesto</a></li>
+                <li><a href="">Presupuesto</a></li>
+                <li><a href="">Presupuesto</a></li>
+                <div class="dropdown-button js-submenu-toggle">
+                  <i class="fa fa-close"></i>
+                </div>
+              </ul>
+            </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
 
     <nav class="nav main-nav" role="navigation" aria-hidden="false">

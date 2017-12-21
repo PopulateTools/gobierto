@@ -24,6 +24,8 @@ Bundler.require(*Rails.groups)
 module Gobierto
   class Application < Rails::Application
     config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}").to_s]
+    config.i18n.load_path += Dir[Rails.root.join('vendor', 'auth_strategies', '**', 'config', 'locales', '**', '*.{rb,yml}')]
+
     config.i18n.default_locale = :es
     config.i18n.available_locales = [:es, :en, :ca]
 
@@ -46,6 +48,19 @@ module Gobierto
     ]
     config.autoload_paths += required_paths
     config.eager_load_paths += required_paths
+
+    # Auth Strategies
+    base_strategies_path = %w(vendor auth_strategies)
+    available_strategies = Dir.chdir(config.root.join(*base_strategies_path)) do
+      Dir.glob('*').select{ |file| File.directory?(file) }
+    end
+
+    available_strategies.each do |strategy|
+      config.paths['app/views'].unshift(Rails.root.join(*base_strategies_path).join(strategy, 'app', 'views'))
+    end
+    config.autoload_paths += Dir[config.root.join(*base_strategies_path).join('**').join('lib', 'validators')]
+    config.autoload_paths += Dir[config.root.join(*base_strategies_path).join('**').join('app', '*')]
+
 
     # Do not add wrapper .field_with_errors around form fields with validation errors
     config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag }

@@ -158,6 +158,25 @@
 
       </div>
 
+      <% if @auth_modules.present? %>
+        <div class="form_block">
+          <h2><%= t(".authentication_modules") %></h2>
+          <div class="form_item auth-module-check-boxes">
+            <div class="options compact">
+              <%= f.collection_check_boxes(:auth_modules, @auth_modules, :name, :description) do |b| %>
+                <div class="option">
+                  <%= b.check_box %>
+                  <%= b.label do %>
+                    <span></span>
+                    <%= b.text %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
     </div>
 
     <div class="pure-u-1 pure-u-md-2-24"></div>

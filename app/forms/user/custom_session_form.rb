@@ -29,4 +29,8 @@ class User::CustomSessionForm
     false
   end
 
+  def redirect_new_url
+    nil
+  end
+
 end

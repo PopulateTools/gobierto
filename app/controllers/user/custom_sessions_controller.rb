@@ -92,7 +92,7 @@ class User::CustomSessionsController < User::BaseController
   def redirect_to_provider_if_required
     if @user_session_forms.keys.count == 1
       custom_session_form = @user_session_forms.values.first
-      redirect_to custom_session_form.redirect_new_url if custom_session_form.try(:redirect_new_url).present?
+      redirect_to custom_session_form.redirect_new_url if custom_session_form.redirect_new_url.present?
     end
   end
 

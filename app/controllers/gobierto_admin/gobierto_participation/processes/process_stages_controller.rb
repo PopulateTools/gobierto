@@ -65,10 +65,12 @@ module GobiertoAdmin
         def destroy
           @process_stage = find_process_stage
 
-          if @process_stage.destroy
-            redirect_to edit_admin_participation_process_path(current_process), notice: t(".success")
-          else
-            redirect_to edit_admin_participation_process_path(current_process), alert: t(".default")
+          respond_to do |format|
+            if @process_stage.destroy
+              format.js { flash.now[:notice] = t(".success") }
+            else
+              format.js { flash.now[:alert] = t(".default") }
+            end
           end
         end
 
@@ -93,7 +95,6 @@ module GobiertoAdmin
             :starts,
             :ends,
             :stage_type,
-            :active,
             :visibility_level,
             menu_translations: [*I18n.available_locales],
             cta_text_translations: [*I18n.available_locales],
@@ -104,7 +105,7 @@ module GobiertoAdmin
         end
 
         def ignored_process_stage_attributes
-          %w(position created_at updated_at)
+          %w(active position created_at updated_at)
         end
 
         def find_process_stage

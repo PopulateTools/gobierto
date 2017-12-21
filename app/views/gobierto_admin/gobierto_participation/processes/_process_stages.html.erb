@@ -1,7 +1,7 @@
-<div class="form_block">
+<div id="stages" class="form_block">
   <h3><%= t('.stages_and_tools') %></h3>
 
-  <ul class="block_list" data-behavior="sortable" data-sortable-target="<%= admin_participation_process_process_stage_sort_path(process_id: @process_form.process.id) %>">
+  <ul class="block_list" data-behavior="sortable" data-sortable-target="<%= admin_participation_process_process_stage_sort_path(process_id: current_process.id) %>">
 
   <% current_process.stages.each_with_index do |stage, index| %>
     <div id="process-stage-item-<%= stage.id %>" data-id="<%= stage.id %>" class="list_item">
@@ -35,9 +35,9 @@
         <div class="group secondary right">
           <label>
             <% if stage.active? %>
-              <input type="radio" name=process[stages_attributes][active] id='<%= "process_stages_attributes_#{index}_active" %>' checked>
+              <input type="radio" value='<%= stage.id %>' name=process[stages_attributes][active] id='<%= "process_stages_attributes_#{index}_active" %>' checked>
             <% else %>
-              <input type="radio" name=process[stages_attributes][active] id='<%= "process_stages_attributes_#{index}_active" %>'>
+              <input type="radio" value='<%= stage.id %>' name=process[stages_attributes][active] id='<%= "process_stages_attributes_#{index}_active" %>'>
             <% end %>
             <%= t('.active') %>
           </label>
@@ -60,9 +60,11 @@
                     class: 'open_remote_modal',
                     remote: true,
                     data: { turbolinks: false } %>
+
         <%= link_to "<i class='fa fa-trash'></i>".html_safe,
-                    admin_participation_process_process_stage_path(stage.id, process_id: stage.process.id),
+                    admin_participation_process_process_stage_path(stage.id, process_id: current_process.id),
                     method: :delete,
+                    remote: true,
                     title: t('views.delete'),
                     class: 'tipsit' %>
       </div>

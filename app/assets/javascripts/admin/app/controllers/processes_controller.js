@@ -12,6 +12,19 @@ this.GobiertoAdmin.ProcessesController = (function() {
     _addCloseModalBehaviors();
     _addSetProcessDurationBehavior();
     _handleSortableList();
+    _modifyActiveStage();
+  };
+
+  function _modifyActiveStage() {
+    $("input[name='process[stages_attributes][active]']").click(function(){
+        $.ajax({
+            type: "POST",
+            url: '/admin/participation/processes/983482508/update_current_stage',
+            type: 'POST',
+            dataType: 'json',
+            data: { active_stage_id: $("input[name='process[stages_attributes][active]']:checked").val() }
+        });
+    });
   };
 
   function _addMagnificPopupBehaviors() {

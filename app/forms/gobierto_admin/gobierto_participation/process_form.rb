@@ -153,7 +153,6 @@ module GobiertoAdmin
       def save_process
         @process = process.tap do |process_attributes|
           process_attributes.site_id            = site_id
-          byebug
           process_attributes.title_translations = title_translations
           process_attributes.body_translations  = body_translations
           process_attributes.header_image_url   = header_image_url

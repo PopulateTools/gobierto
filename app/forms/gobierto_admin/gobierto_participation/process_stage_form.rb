@@ -15,7 +15,6 @@ module GobiertoAdmin
         :slug,
         :stage_type,
         :cta_text_translations,
-        :active,
         :menu_translations,
         :cta_description_translations,
         :visibility_level
@@ -43,10 +42,6 @@ module GobiertoAdmin
         @visibility_level ||= "draft"
       end
 
-      def active
-        @active ||= "draft"
-      end
-
       private
 
       def build_process_stage
@@ -67,7 +62,6 @@ module GobiertoAdmin
           process_stage_attributes.ends = ends
           process_stage_attributes.stage_type = stage_type.to_i
           process_stage_attributes.cta_text_translations = cta_text_translations
-          process_stage_attributes.active = active
           process_stage_attributes.menu_translations = menu_translations
           process_stage_attributes.cta_description_translations = cta_description_translations
           process_stage_attributes.visibility_level = visibility_level

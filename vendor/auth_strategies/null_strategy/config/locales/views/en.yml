@@ -1,0 +1,13 @@
+---
+en:
+  user:
+    custom_sessions:
+      null_strategy:
+        edit_form:
+          edit: Add some fields to this form
+          session_title: Please, fill in the missing fields (Null strategy)
+          submit: Submit
+        new_form:
+          edit: Add some fields to this form
+          session_title: Sign in (Null strategy)
+          submit: Submit

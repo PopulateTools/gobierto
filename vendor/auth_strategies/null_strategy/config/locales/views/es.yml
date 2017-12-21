@@ -1,0 +1,13 @@
+---
+es:
+  user:
+    custom_sessions:
+      null_strategy:
+        edit_form:
+          edit: Añade algún campo a este formulario
+          session_title: Por favor, rellena los campos que faltan (Null strategy)
+          submit: Enviar
+        new_form:
+          edit: Añade algún campo a este formulario
+          session_title: Iniciar sesión (Null strategy)
+          submit: Enviar

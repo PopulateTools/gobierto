@@ -16,10 +16,12 @@ this.GobiertoAdmin.ProcessesController = (function() {
   };
 
   function _modifyActiveStage() {
+    var str = window.location.href;
+    var subStr= str.match("(.*)/processes/(.*)/edit");
     $("input[name='process[stages_attributes][active]']").click(function(){
         $.ajax({
             type: "POST",
-            url: '/admin/participation/processes/983482508/update_current_stage',
+            url: '/admin/participation/processes/' + subStr[2] + '/update_current_stage',
             type: 'POST',
             dataType: 'json',
             data: { active_stage_id: $("input[name='process[stages_attributes][active]']:checked").val() }

@@ -57,15 +57,16 @@
       <div class="tools">
         <%= link_to '<i class="fa fa-edit"></i>'.html_safe,
                     edit_admin_participation_process_process_stage_path(stage.id, process_id: current_process.id),
-                    class: 'open_remote_modal',
+                    class: 'tipsit open_remote_modal',
                     remote: true,
-                    data: { turbolinks: false } %>
+                    data: { turbolinks: false },
+                    title: t('.edit') %>
 
         <%= link_to "<i class='fa fa-trash'></i>".html_safe,
                     admin_participation_process_process_stage_path(stage.id, process_id: current_process.id),
                     method: :delete,
                     remote: true,
-                    title: t('views.delete'),
+                    title: t('.delete'),
                     class: 'tipsit' %>
       </div>
 

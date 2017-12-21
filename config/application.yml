@@ -56,6 +56,7 @@ default: &default
   gobierto_observatory:
     year: 2015
   file_uploads_adapter: s3
+  auth_modules: []
 
 development:
   <<: *default

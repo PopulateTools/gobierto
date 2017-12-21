@@ -85,6 +85,7 @@
       <div class="main-nav">
         <div class="column">
           <div class="main-nav-item">
+            <%# TODO: Linkar al nombre verdadero del módulo actual %>
             <%= link_to t("gobierto_budgets.layouts.application.budgets"), gobierto_budgets_root_path, data: { turbolinks: false } %>
           </div>
         </div>
@@ -95,6 +96,7 @@
 
           <div class="column sub-nav-flex">
             <div class="sub-nav-item">
+              <%# TODO: Linkar al nombre verdadero del submódulo actual %>
               <%= link_to t('gobierto_budgets.layouts.application.budgets'), gobierto_budgets_budgets_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false } %>
             </div>
             <div class="dropdown-button js-submenu-toggle">
@@ -106,18 +108,11 @@
 
           <div class="submenu-dropdown-container">
             <div class="submenu-dropdown js-slider">
-              <div class="column">
-                <%# TODO: Mirar alternativa listas %>
-                <!-- <%= render_if_exists "#{current_module}/layouts/navigation.sub" %> -->
-              <ul>
-                <li><a href="">Presupuesto</a></li>
-                <li><a href="">Presupuesto</a></li>
-                <li><a href="">Presupuesto</a></li>
-                <li><a href="">Presupuesto</a></li>
+              <div class="column dropdown-items">
+                <%= render_if_exists "#{current_module}/layouts/navigation.sub" %>
                 <div class="dropdown-button js-submenu-toggle">
                   <i class="fa fa-close"></i>
                 </div>
-              </ul>
             </div>
             </div>
           </div>

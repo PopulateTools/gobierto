@@ -413,13 +413,19 @@ header {
             border-top: 1px solid rgba($color_1, .2);
             box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.5);
             @include border-radius(1px);
-          }
 
-          ul {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-            position: relative;
+            .dropdown-items {
+              position: relative;
+            }
+
+            .sub-nav-item {
+              display: block;
+              margin: 0;
+            }
+
+            menu.secondary_nav {
+              display: none;
+            }
           }
 
           .dropdown-button {
@@ -455,6 +461,7 @@ header {
 
   @include breakpoint(sm) {
     .site_header {
+
       .site_header_block {
         height: 90px;
         flex-direction: column;

@@ -398,25 +398,18 @@ header {
       .submenu-container {
         position: relative;
 
-        .submenu-dropdown {
+        .submenu-dropdown-container {
           position: absolute;
           width: 100%;
           top: 0;
           z-index: 2;
-          box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.5);
-          border-top: 1px solid rgba($color_1, .2);
-
-          // double background
           background-color: #fff;
-          & > div {
+
+          .submenu-dropdown {
             background-color: rgba($color_1, .04);
-          }
-
-          @include border-radius(1px);
-
-          &.is-open {
-            width: 100%;
-            z-index: 1;
+            border-top: 1px solid rgba($color_1, .2);
+            box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.5);
+            @include border-radius(1px);
           }
 
           ul {
@@ -433,7 +426,7 @@ header {
           }
 
           // Slider effect
-          .slider {
+          .js-slider {
             max-height: 0;
             opacity: 0;
             transition: max-height 300ms ease-in-out, opacity 300ms ease-in-out;

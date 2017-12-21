@@ -4,8 +4,12 @@ $(document).on('turbolinks:load', function() {
   $('.nav_control, .close').click(function(e) {
     e.preventDefault();
 
+    // Style itself
     $(this).find('i').toggleClass('fa-bars fa-close');
     $(this).parent().toggleClass('hamburger_container--transparent');
+
+    $('.js-mobile-header').toggle();
+    $('.js-mobile-nav').toggle();
 
     // var nav = $('.main-nav');
     // var subnav = $('.sub-nav');

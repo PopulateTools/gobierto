@@ -30,8 +30,11 @@ ca:
         description: Descripció
         ends: Final
         stage_types:
+          agenda: Agenda
+          documents: Documents
           ideas: Idees
           information: Informació
+          pages: Pàgines
           polls: Enquestes
           results: Resultats
         starts: Començament

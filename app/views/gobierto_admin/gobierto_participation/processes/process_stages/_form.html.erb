@@ -49,54 +49,55 @@
       <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
     </div>
 
-    <% current_site.configuration.available_locales.each do |locale| %>
-      <div class="form_item input_text" data-locale="<%= locale %>">
-        <%= label_tag "process_stage[cta_description_translations][#{locale}]" do %>
-          <%= f.object.class.human_attribute_name(:cta_description) %>
-          <span class="indication"><%= t('views.forms.max_characters', length: 50) %></span>
-        <% end %>
-        <%= text_field_tag "process_stage[cta_description_translations][#{locale}]", f.object.cta_description_translations && f.object.cta_description_translations[locale], placeholder: t(".placeholders.cta_description", locale: locale.to_sym) %>
-      </div>
+    <% if current_process.process? %>
+      <% current_site.configuration.available_locales.each do |locale| %>
+        <div class="form_item input_text" data-locale="<%= locale %>">
+          <%= label_tag "process_stage[cta_description_translations][#{locale}]" do %>
+            <%= f.object.class.human_attribute_name(:cta_description) %>
+            <span class="indication"><%= t('views.forms.max_characters', length: 50) %></span>
+          <% end %>
+          <%= text_field_tag "process_stage[cta_description_translations][#{locale}]", f.object.cta_description_translations && f.object.cta_description_translations[locale], placeholder: t(".placeholders.cta_description", locale: locale.to_sym) %>
+        </div>
 
-      <div class="form_item input_text" data-locale="<%= locale %>">
-        <%= label_tag "process_stage[cta_text_translations][#{locale}]" do %>
-          <%= f.object.class.human_attribute_name(:cta_text) %>
-          <span class="indication"><%= t('views.forms.max_characters', length: 32) %></span>
-        <% end %>
-        <%= text_field_tag "process_stage[cta_text_translations][#{locale}]", f.object.cta_text_translations && f.object.cta_text_translations[locale], placeholder: t(".placeholders.cta_text", locale: locale.to_sym) %>
+        <div class="form_item input_text" data-locale="<%= locale %>">
+          <%= label_tag "process_stage[cta_text_translations][#{locale}]" do %>
+            <%= f.object.class.human_attribute_name(:cta_text) %>
+            <span class="indication"><%= t('views.forms.max_characters', length: 32) %></span>
+          <% end %>
+          <%= text_field_tag "process_stage[cta_text_translations][#{locale}]", f.object.cta_text_translations && f.object.cta_text_translations[locale], placeholder: t(".placeholders.cta_text", locale: locale.to_sym) %>
+        </div>
+      <% end %>
+
+      <div class="pure-g">
+        <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
+          <div class="form_item input_text">
+            <%= f.label :starts %>
+            <%= f.text_field :starts, data: {
+                "language": I18n.locale,
+                "date-format": "yyyy-mm-dd",
+                "startDate": format_time(f, :starts)
+              },
+              class: "air-datepicker",
+              readonly: !Rails.env.test?
+            %>
+          </div>
+        </div>
+
+        <div class="pure-u-1 pure-u-md-1-2">
+          <div class="form_item input_text">
+            <%= f.label :ends %>
+            <%= f.text_field :ends, data: {
+                "language": I18n.locale,
+                "date-format": "yyyy-mm-dd",
+                "startDate": format_time(f, :ends)
+              },
+              class: "air-datepicker",
+              readonly: !Rails.env.test?
+            %>
+          </div>
+        </div>
       </div>
     <% end %>
-
-    <div class="pure-g">
-      <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
-        <div class="form_item input_text">
-          <%= f.label :starts %>
-          <%= f.text_field :starts, data: {
-              "language": I18n.locale,
-              "date-format": "yyyy-mm-dd",
-              "startDate": format_time(f, :starts)
-            },
-            class: "air-datepicker",
-            readonly: !Rails.env.test?
-          %>
-        </div>
-      </div>
-
-      <div class="pure-u-1 pure-u-md-1-2">
-        <div class="form_item input_text">
-          <%= f.label :ends %>
-          <%= f.text_field :ends, data: {
-              "language": I18n.locale,
-              "date-format": "yyyy-mm-dd",
-              "startDate": format_time(f, :ends)
-            },
-            class: "air-datepicker",
-            readonly: !Rails.env.test?
-          %>
-        </div>
-      </div>
-    </div>
-
   </div>
 
   <div class="form_block">

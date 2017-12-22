@@ -31,7 +31,7 @@
       <div class="pure-u-1 pure-u-md-1-3 center news_teaser">
 
 
-        <% if current_process.published_stages.any? %>
+        <% if current_process.process? && @process_stages.any? %>
           <%= render 'progress_map', { process: current_process } %>
         <% end %>
 
@@ -146,7 +146,7 @@
   </div>
 </div>
 
-<% if @process_stages.any? %>
+<% if current_process.process? && @process_stages.any? %>
   <div class="gradient-bg" id="timeline">
     <div class="column">
       <div class="pure-g">

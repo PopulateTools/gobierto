@@ -5,7 +5,6 @@ require_dependency "gobierto_participation"
 module GobiertoParticipation
   class ProcessStage < ApplicationRecord
     include GobiertoCommon::Sortable
-    include GobiertoCommon::Sluggable
 
     before_destroy :check_stage_active
 
@@ -13,17 +12,16 @@ module GobiertoParticipation
 
     translates :title, :description, :cta_text, :cta_description, :menu
 
-    enum stage_type: { information: 0, agenda: 1, polls: 2, ideas: 3, results: 4,
-                       documents: 5, pages: 6 }
+    enum stage_type: { information: 0, agenda: 1, polls: 2, ideas: 3, documents: 4, pages: 5 }
     enum visibility_level: { draft: 0, published: 1 }
 
     validates :slug, uniqueness: { scope: [:process_id] }
-    validates :title, :description, :cta_text, :cta_description, :starts, :ends, :menu, presence: true, if: -> { published? }
-    validate :cta_text_maximum_length
-    validate :cta_description_maximum_length
+    validates :title, :description, :menu, presence: true, if: -> { published? }
+    validates :cta_text, :cta_description, :starts, :ends, presence: true, if: -> { published? && process.process? }
+    validate :cta_text_maximum_length, if: -> { published? && process.process? }
+    validate :cta_description_maximum_length, if: -> { published? && process.process? }
     validate :menu_maximum_length
     validates :stage_type, presence: true
-    validates :stage_type, inclusion: { in: stage_types }
 
     scope :sorted, -> { order(position: :asc, id: :asc) }
     scope :active, -> { where(active: true) }
@@ -134,6 +132,10 @@ module GobiertoParticipation
 
     def url_helpers
       Rails.application.routes.url_helpers
+    end
+
+    def attributes_for_slug
+      [title]
     end
   end
 end

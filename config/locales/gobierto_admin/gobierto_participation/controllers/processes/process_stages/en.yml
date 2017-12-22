@@ -17,6 +17,5 @@ en:
               information: Information
               pages: Pages
               polls: Pools
-              results: Results
           update:
             success: The stage/tool has been updated correctly.

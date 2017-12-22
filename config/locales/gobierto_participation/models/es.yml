@@ -30,8 +30,11 @@ es:
         description: Descripción
         ends: Final
         stage_types:
+          agenda: Agenda
+          documents: Documentos
           ideas: Ideas
           information: Información
+          pages: Páginas
           polls: Encuestas
           results: Resultados
         starts: Comienzo

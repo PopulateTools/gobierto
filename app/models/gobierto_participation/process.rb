@@ -4,7 +4,6 @@ require_dependency "gobierto_participation"
 
 module GobiertoParticipation
   class Process < ApplicationRecord
-
     include User::Subscribable
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Searchable
@@ -130,8 +129,7 @@ module GobiertoParticipation
     end
 
     def attributes_for_slug
-      [ title ]
+      [title]
     end
-
   end
 end

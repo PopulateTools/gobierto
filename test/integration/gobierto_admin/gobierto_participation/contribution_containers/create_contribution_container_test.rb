@@ -26,6 +26,7 @@ module GobiertoAdmin
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
+            click_on "Stages"
 
             all("a", text: "Manage")[1].click
 
@@ -44,6 +45,7 @@ module GobiertoAdmin
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
+            click_on "Stages"
 
             all("a", text: "Manage")[1].click
 

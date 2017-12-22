@@ -17,7 +17,6 @@ module GobiertoParticipation
         information: process.stages.find_by!(stage_type: ProcessStage.stage_types[:information]),
         agenda: process.stages.find_by!(stage_type: ProcessStage.stage_types[:agenda]),
         ideas: process.stages.find_by!(stage_type: ProcessStage.stage_types[:ideas]),
-        results: process.stages.find_by!(stage_type: ProcessStage.stage_types[:results]),
         polls: process.stages.find_by!(stage_type: ProcessStage.stage_types[:polls])
       }
     end
@@ -30,7 +29,6 @@ module GobiertoParticipation
       assert stages[:information].published?
       assert stages[:agenda].published?
       refute stages[:ideas].published?
-      refute stages[:results].published?
       refute stages[:polls].published?
     end
 
@@ -43,7 +41,6 @@ module GobiertoParticipation
       refute stages[:information].current?
       assert stages[:agenda].current?
       refute stages[:ideas].current?
-      refute stages[:results].current?
       refute stages[:polls].current?
     end
   end

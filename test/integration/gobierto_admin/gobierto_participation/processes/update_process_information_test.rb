@@ -21,6 +21,7 @@ module GobiertoAdmin
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit edit_admin_participation_process_path(process)
+            click_on "Stages"
 
             all("a", text: "Manage")[5].click
 
@@ -31,6 +32,7 @@ module GobiertoAdmin
             assert has_message? "Process was successfully updated"
 
             visit edit_admin_participation_process_path(process)
+            click_on "Stages"
 
             all("a", text: "Manage")[5].click
 

@@ -41,7 +41,7 @@ module GobiertoParticipation
           visit process_path(process)
 
           within ".sub-nav" do
-            process.stages.each do |stage|
+            process.published_stages.each do |stage|
               if stage.visibility_level == "published"
                 assert has_link? stage.stage_type.capitalize
               else

@@ -40,13 +40,13 @@ es:
       gobierto_admin/gobierto_participation/process_stage_form:
         cta_description: Caja CTA / Descripción corta
         cta_text: Caja CTA / Botón / Texto
-        description: Descripción de una fase
+        description: Descripción de fase
         ends: Fecha de final
         menu: Menú / Literal
         slug: Url
         stage_type: Herramienta
         starts: Fecha de comienzo
-        title: Título de una fase
+        title: Título de fase
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Grupo de
         aportaciones

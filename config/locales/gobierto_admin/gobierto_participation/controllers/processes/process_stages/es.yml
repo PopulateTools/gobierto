@@ -11,9 +11,11 @@ es:
             success: La fase/herramienta se ha borrado correctamente.
           form:
             stage_type:
+              agenda: Agenda
+              documents: Documentos
               ideas: Ideas
               information: Información
-              meetings: Reuniones
+              pages: Págines
               polls: Encuestas
               results: Resultados
           update:

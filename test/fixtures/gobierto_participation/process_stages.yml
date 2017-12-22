@@ -6,7 +6,7 @@ green_city_group_information_stage:
 green_city_group_meetings_stage:
   process: green_city_group
   slug: meetings
-  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:agenda] %>
 
 green_city_group_polls_stage:
   process: green_city_group
@@ -31,7 +31,7 @@ cultural_city_group_information_stage:
 cultural_city_group_meetings_stage:
   process: cultural_city_group
   slug: meetings
-  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:agenda] %>
 
 cultural_city_group_polls_stage:
   process: cultural_city_group
@@ -68,7 +68,7 @@ local_budgets_meetings_stage:
   slug: organiza-reuniones
   starts: <%= 2.days.ago %>
   ends: <%= 4.days.from_now %>
-  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:agenda] %>
   active: true
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
 
@@ -120,7 +120,7 @@ gender_violence_process_meetings_stage:
   slug: dialogo
   starts: <%= 1.month.ago + 1.day %>
   ends: <%= 5.days.from_now %>
-  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:agenda] %>
   active: true
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
   position: 2
@@ -172,7 +172,7 @@ commission_for_carnival_festivities_information_stage:
 commission_for_carnival_festivities_meetings_stage:
   process: commission_for_carnival_festivities
   slug: meetings
-  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:agenda] %>
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:draft] %>
 
 commission_for_carnival_festivities_polls_stage:
@@ -223,7 +223,7 @@ sport_meetings_stage:
   slug: organiza-reuniones-deporte
   starts: <%= 2.days.ago %>
   ends: <%= 4.days.from_now %>
-  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:meetings] %>
+  stage_type: <%= GobiertoParticipation::ProcessStage.stage_types[:agenda] %>
   active: true
   visibility_level: <%= GobiertoParticipation::ProcessStage.visibility_levels[:published] %>
 

@@ -8,7 +8,7 @@ ca:
           delete: Eliminar fase
           edit: Editar fase
           edit_modal:
-            title: 'Editar fase: %{phase}'
+            title: 'Editar fase: %{stage}'
           form:
             placeholders:
               cta_description: ex. Descripció de la idea

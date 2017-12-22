@@ -17,7 +17,7 @@
 <% else %>
   <% current_process.published_stages.each do |stage| %>
     <div class="sub-nav-item">
-      <%= link_to phase_url(stage) do %>
+      <%= link_to stage_url(stage) do %>
         <%= stage.menu %>
       <% end %>
     </div>

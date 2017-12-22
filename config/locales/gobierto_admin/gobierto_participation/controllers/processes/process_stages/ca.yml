@@ -11,9 +11,11 @@ ca:
             success: La fase/eina s'ha esborrat correctament.
           form:
             stage_type:
+              agenda: Agenda
+              documents: Documents
               ideas: Idees
               information: Informació
-              meetings: Reunions
+              pages: Pàgines
               polls: Encuestas
               results: Resultats
           update:

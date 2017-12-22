@@ -5,16 +5,18 @@ en:
       processes:
         process_stages:
           create:
-            success: The phase/tool has been created correctly.
+            success: The stage/tool has been created correctly.
           destroy:
-            default: You can not delete a phase/tool while it is active.
-            success: The phase/tool has been deleted correctly.
+            default: You can not delete a stage/tool while it is active.
+            success: The stage/tool has been deleted correctly.
           form:
             stage_type:
+              agenda: Agenda
+              documents: Documents
               ideas: Ideas
               information: Information
-              meetings: Meetings
+              pages: Pages
               polls: Pools
               results: Results
           update:
-            success: The phase/tool has been updated correctly.
+            success: The stage/tool has been updated correctly.

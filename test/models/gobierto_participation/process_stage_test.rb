@@ -15,7 +15,7 @@ module GobiertoParticipation
     def stages
       {
         information: process.stages.find_by!(stage_type: ProcessStage.stage_types[:information]),
-        meetings: process.stages.find_by!(stage_type: ProcessStage.stage_types[:meetings]),
+        agenda: process.stages.find_by!(stage_type: ProcessStage.stage_types[:agenda]),
         ideas: process.stages.find_by!(stage_type: ProcessStage.stage_types[:ideas]),
         results: process.stages.find_by!(stage_type: ProcessStage.stage_types[:results]),
         polls: process.stages.find_by!(stage_type: ProcessStage.stage_types[:polls])
@@ -28,7 +28,7 @@ module GobiertoParticipation
 
     def test_published
       assert stages[:information].published?
-      assert stages[:meetings].published?
+      assert stages[:agenda].published?
       refute stages[:ideas].published?
       refute stages[:results].published?
       refute stages[:polls].published?
@@ -36,12 +36,12 @@ module GobiertoParticipation
 
     def test_upcoming
       assert stages[:information].upcoming?
-      refute stages[:meetings].upcoming?
+      refute stages[:agenda].upcoming?
     end
 
     def test_current
       refute stages[:information].current?
-      assert stages[:meetings].current?
+      assert stages[:agenda].current?
       refute stages[:ideas].current?
       refute stages[:results].current?
       refute stages[:polls].current?

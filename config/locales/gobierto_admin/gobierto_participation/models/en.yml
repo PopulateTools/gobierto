@@ -40,13 +40,13 @@ en:
       gobierto_admin/gobierto_participation/process_stage_form:
         cta_description: CTA Box / Short description
         cta_text: CTA Box / Button / Text
-        description: Description of a phase
+        description: Description of stage
         ends: End date
         menu: Menu / Literal
         slug: Url
         stage_type: Tool
-        starts: Start date
-        title: The title of a stage
+        starts: Start stage
+        title: The title of stage
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Contribution
         container

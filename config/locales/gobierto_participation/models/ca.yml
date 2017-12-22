@@ -32,7 +32,6 @@ ca:
         stage_types:
           ideas: Idees
           information: Informació
-          meetings: Reunions
           polls: Enquestes
           results: Resultats
         starts: Començament

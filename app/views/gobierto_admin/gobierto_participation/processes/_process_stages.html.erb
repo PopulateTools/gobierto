@@ -28,7 +28,7 @@
           </div>
           <div class="">
             <i class="fa fa-cog"></i>
-            <%= link_to t('.manage'), admin_phase_url(stage), data: { turbolinks: false } %>
+            <%= link_to t('.manage'), admin_stage_url(stage), data: { turbolinks: false } %>
           </div>
         </div>
 
@@ -75,7 +75,7 @@
   <% end %>
 
   <div class="m_1 p_h_2" >
-    <%= link_to '<i class="fa fa-plus-circle"></i>'.html_safe + t('.add_new_phase'),
+    <%= link_to '<i class="fa fa-plus-circle"></i>'.html_safe + t('.add_new_stage'),
                 new_admin_participation_process_process_stage_path(current_process.id),
                 class: 'open_remote_modal',
                 remote: true,

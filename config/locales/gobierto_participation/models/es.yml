@@ -32,7 +32,6 @@ es:
         stage_types:
           ideas: Ideas
           information: Información
-          meetings: Reuniones
           polls: Encuestas
           results: Resultados
         starts: Comienzo

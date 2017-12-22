@@ -66,7 +66,7 @@ en:
           index:
             configuration: Configuration
         process_stages:
-          add_new_phase: Add new phase
+          add_new_stage: Add new stage
           draft: Draft
           drag_to_sort: Drag to sort
           manage: Manage

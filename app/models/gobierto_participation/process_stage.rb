@@ -13,7 +13,8 @@ module GobiertoParticipation
 
     translates :title, :description, :cta_text, :cta_description, :menu
 
-    enum stage_type: { information: 0, meetings: 1, polls: 2, ideas: 3, results: 4 }
+    enum stage_type: { information: 0, agenda: 1, polls: 2, ideas: 3, results: 4,
+                       documents: 5, pages: 6 }
     enum visibility_level: { draft: 0, published: 1 }
 
     validates :slug, uniqueness: { scope: [:process_id] }
@@ -88,7 +89,7 @@ module GobiertoParticipation
     def process_stage_path
       if information?
         url_helpers.gobierto_participation_process_information_path(process.slug)
-      elsif meetings?
+      elsif agenda?
         url_helpers.gobierto_participation_process_events_path(process.slug)
       elsif polls?
         url_helpers.gobierto_participation_process_polls_path(process.slug)

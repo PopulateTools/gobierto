@@ -5,10 +5,10 @@ en:
       processes:
         process_stages:
           active: Active
-          delete: Delete phase
-          edit: Edit phase
+          delete: Delete stage
+          edit: Edit stage
           edit_modal:
-            title: 'Edit phase: %{phase}'
+            title: 'Edit stage: %{stage}'
           form:
             placeholders:
               cta_description: ex. Idea description
@@ -20,4 +20,4 @@ en:
             stage_types_prompt: "-- select --"
             visibility_level: Status
           new_modal:
-            title: Create phase
+            title: Create stage

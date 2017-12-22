@@ -60,7 +60,11 @@ module GobiertoAdmin
       end
 
       def filtering_rules
-        @filtering_rules ||= calendar_configuration.filtering_rules.presence || [calendar_configuration.filtering_rules.build]
+        @filtering_rules ||= if calendar_configuration.persisted?
+                               calendar_configuration.filtering_rules.presence || [calendar_configuration.filtering_rules.build]
+                             else
+                               []
+                             end
       end
 
       def filtering_rules_attributes=(attributes)

@@ -4,5 +4,10 @@
 
 <%= render 'gobierto_admin/gobierto_participation/shared/navigation' %>
 
-<h2><%= t(".title") %></h2>
-<%= render "form" %>
+<%= render 'gobierto_admin/gobierto_participation/processes/process_stages/process_stages' %>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoAdmin.process_stages_controller.index();
+  <% end %>
+<% end %>

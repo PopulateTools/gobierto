@@ -4,10 +4,7 @@ en:
     gobierto_participation:
       processes:
         process_stages:
-          active: Active
-          delete: Delete stage
-          edit: Edit stage
-          edit_modal:
+          edit:
             title: 'Edit stage: %{stage}'
           form:
             placeholders:
@@ -19,5 +16,9 @@ en:
               title: ex. Main stage
             stage_types_prompt: "-- select --"
             visibility_level: Status
-          new_modal:
+          new:
             title: Create stage
+          process_stages:
+            active: Active
+            delete: Delete stage
+            edit: Edit stage

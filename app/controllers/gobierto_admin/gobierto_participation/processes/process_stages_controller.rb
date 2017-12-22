@@ -22,8 +22,6 @@ module GobiertoAdmin
           @process_stage_form = ProcessStageForm.new(
             @process_stage.attributes.except(*ignored_process_stage_attributes)
           )
-
-          render(:edit_modal, layout: false) && return if request.xhr?
         end
 
         def create
@@ -33,11 +31,10 @@ module GobiertoAdmin
 
           if @process_stage_form.save
             redirect_to(
-              edit_admin_participation_process_path(current_process),
-              notice: t(".success",)
+              admin_participation_process_process_stages_path(current_process),
+              notice: t(".success")
             )
           else
-            render(:new_modal, layout: false) && return if request.xhr?
             render :new
           end
         end
@@ -53,11 +50,10 @@ module GobiertoAdmin
 
           if @process_stage_form.save
             redirect_to(
-              edit_admin_participation_process_path(current_process),
+              admin_participation_process_process_stages_path(current_process),
               notice: t(".success")
             )
           else
-            render(:edit_modal, layout: false) && return if request.xhr?
             render :edit
           end
         end

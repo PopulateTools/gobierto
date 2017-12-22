@@ -1,6 +1,4 @@
 <div id="stages" class="form_block">
-  <h3><%= t('.stages_and_tools') %></h3>
-
   <ul class="block_list" data-behavior="sortable" data-sortable-target="<%= admin_participation_process_process_stage_sort_path(process_id: current_process.id) %>">
 
   <% current_process.stages.each_with_index do |stage, index| %>
@@ -57,8 +55,7 @@
       <div class="tools">
         <%= link_to '<i class="fa fa-edit"></i>'.html_safe,
                     edit_admin_participation_process_process_stage_path(stage.id, process_id: current_process.id),
-                    class: 'tipsit open_remote_modal',
-                    remote: true,
+                    class: 'tipsit',
                     data: { turbolinks: false },
                     title: t('.edit') %>
 
@@ -77,8 +74,6 @@
   <div class="m_1 p_h_2" >
     <%= link_to '<i class="fa fa-plus-circle"></i>'.html_safe + t('.add_new_stage'),
                 new_admin_participation_process_process_stage_path(current_process.id),
-                class: 'open_remote_modal',
-                remote: true,
                 data: { turbolinks: false } %>
   </div>
 </div>

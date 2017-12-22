@@ -4,10 +4,7 @@ es:
     gobierto_participation:
       processes:
         process_stages:
-          active: Activa
-          delete: Eliminar fase
-          edit: Editar fase
-          edit_modal:
+          edit:
             title: 'Editar fase: %{stage}'
           form:
             placeholders:
@@ -19,5 +16,9 @@ es:
               title: ej. Fase principal
             stage_types_prompt: "-- seleccionar --"
             visibility_level: Estado
-          new_modal:
+          new:
             title: Crear fase
+          process_stages:
+            active: Activa
+            delete: Eliminar fase
+            edit: Editar fase

@@ -66,11 +66,11 @@ en:
           index:
             configuration: Configuration
         process_stages:
-          add_new_stage: Add new stage
-          draft: Draft
-          drag_to_sort: Drag to sort
-          manage: Manage
-          published: Published
-          stages_and_tools: Stages and tools
+          process_stages:
+            add_new_stage: Add new stage
+            draft: Draft
+            drag_to_sort: Drag to sort
+            manage: Manage
+            published: Published
         update:
           success_html: Process was successfully updated. <a href="%{link}">View process</a>.

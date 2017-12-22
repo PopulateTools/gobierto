@@ -5,6 +5,10 @@
       <%= link_to t('.stage'), edit_admin_participation_process_path(current_process), data: { turbolinks: false } %>
     </li>
 
+    <li class="<%= class_if('active', controller_name.include?('stages')) %>">
+      <%= link_to t('.stages'), admin_participation_process_process_stages_path(current_process) %>
+    </li>
+
     <li class="<%= class_if('active', controller_name.include?('events')) %>">
       <%= link_to t('.agenda'), admin_participation_process_events_path(current_process) %>
     </li>

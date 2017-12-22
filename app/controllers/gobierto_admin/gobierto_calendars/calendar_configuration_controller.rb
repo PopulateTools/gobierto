@@ -9,7 +9,7 @@ module GobiertoAdmin
       before_action :load_collection, :collection_container_allowed!
 
       def edit
-        @calendar_configuration_form = CalendarConfigurationForm.new(current_site: current_site, collection_id: @collection.id)
+        @calendar_configuration_form = CalendarConfigurationForm.new(current_site: current_site, collection: @collection)
         load_calendar_integrations
         @google_calendar_configuration = find_google_calendar_configuration
         load_calendars
@@ -20,7 +20,7 @@ module GobiertoAdmin
 
       def update
         @calendar_configuration_form = CalendarConfigurationForm.new(
-          calendar_configuration_params.merge(current_site: current_site, collection_id: @collection.id)
+          calendar_configuration_params.merge(current_site: current_site, collection: @collection)
         )
 
         if @calendar_configuration_form.save
@@ -35,7 +35,7 @@ module GobiertoAdmin
       end
 
       def sync_calendars
-        @calendar_configuration_form = CalendarConfigurationForm.new(current_site: current_site, collection_id: @collection.id)
+        @calendar_configuration_form = CalendarConfigurationForm.new(current_site: current_site, collection: @collection)
         if (calendar_integration = @calendar_configuration_form.calendar_integration_class).present?
           calendar_integration.sync_person_events(@calendar_configuration_form.collection_container)
           publish_calendar_sync_activity(@calendar_configuration_form)
@@ -82,12 +82,13 @@ module GobiertoAdmin
           :microsoft_exchange_pwd,
           :microsoft_exchange_url,
           :clear_calendar_configuration,
+          filtering_rules_attributes: [:id, :field, :condition, :value, :action, :_destroy],
           calendars: []
         )
       end
 
       def find_google_calendar_configuration
-        if configuration = ::GobiertoCalendars::GoogleCalendarConfiguration.find_by(collection_id: @collection.id)
+        if configuration = ::GobiertoCalendars::GoogleCalendarConfiguration.find_by(collection: @collection)
           if configuration.google_calendar_credentials.blank?
             nil
           else

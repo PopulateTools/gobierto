@@ -81,5 +81,13 @@ module GobiertoPeople
 
       assert_equal 1, invalid_recurring_event_form.errors.messages[:starts_at].size
     end
+
+    def test_destroy
+      valid_event_form.save
+
+      assert_difference "GobiertoCalendars::Event.count", -1 do
+        valid_event_form.destroy
+      end
+    end
   end
 end

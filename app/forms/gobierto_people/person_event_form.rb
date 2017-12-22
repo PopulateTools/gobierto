@@ -27,6 +27,12 @@ module GobiertoPeople
 
     notify_changed :state
 
+    def destroy
+      unless person_event.new_record?
+        person_event.destroy
+      end
+    end
+
     def save
       save_person_event if valid?
     end
@@ -127,14 +133,6 @@ module GobiertoPeople
 
     def event_class
       ::GobiertoCalendars::Event
-    end
-
-    def build_person_event_location
-      person_event.locations.build
-    end
-
-    def build_person_event_attendee
-      person_event.attendees.build
     end
 
     def person_event_location_class

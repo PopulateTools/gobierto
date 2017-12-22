@@ -7,7 +7,6 @@ require 'support/event_helpers'
 module GobiertoPeople
   module MicrosoftExchange
     class CalendarIntegrationTest < ActiveSupport::TestCase
-
       include ::CalendarIntegrationHelpers
       include ::EventHelpers
 
@@ -23,6 +22,10 @@ module GobiertoPeople
         @site ||= sites(:madrid)
       end
 
+      def filtering_rule
+        @filtering_rule ||= gobierto_calendars_filtering_rules(:richard_calendar_configuration_filter)
+      end
+
       def microsoft_exchange_configuration
         @microsoft_exchange_configuration ||= {
           microsoft_exchange_url: 'http://example.com/ews/exchange.asmx',
@@ -32,7 +35,6 @@ module GobiertoPeople
       end
 
       def setup_mocks_for_synchronization(canned_responses)
-
         # mock event items
         mock_event_items = []
 
@@ -74,11 +76,14 @@ module GobiertoPeople
       end
 
       def test_sync_events
-
         event_1 = event_attributes
         event_2 = {
           id: 'external-id-2',
-          sensitivity: 'Private'
+          subject: 'Event 2',
+          sensitivity: 'Private',
+          start: 1.hour.from_now,
+          end: 2.hours.from_now,
+          location: nil
         }
 
         setup_mocks_for_synchronization([event_1, event_2])
@@ -96,7 +101,6 @@ module GobiertoPeople
       end
 
       def test_sync_events_updates_event_attributes
-
         setup_mocks_for_synchronization([event_attributes])
         CalendarIntegration.sync_person_events(richard)
 
@@ -117,6 +121,26 @@ module GobiertoPeople
         assert_equal 'Updated event', event.title
         assert_equal 'Updated location', event.first_location.name
         assert_equal 1, event.locations.size
+      end
+
+      def test_sync_events_after_being_unpublished
+        setup_mocks_for_synchronization([event_attributes])
+        CalendarIntegration.sync_person_events(richard)
+
+        event_1 = event_attributes.merge(
+          subject: 'Updated event',
+          location: 'Updated location',
+          sensitivity: 'Private'
+        )
+
+        setup_mocks_for_synchronization([event_1])
+        assert_difference 'GobiertoCalendars::Event.count', -1 do
+          CalendarIntegration.sync_person_events(richard)
+        end
+
+        # assert attributes get updated in Gobierto
+
+        assert_nil richard.events.find_by(external_id: 'external-id-1')
       end
 
       def test_unreceived_events_are_drafted
@@ -150,9 +174,7 @@ module GobiertoPeople
       end
 
       def test_sync_events_removes_deleted_locations
-
         # syncrhonize event with location
-
         setup_mocks_for_synchronization([event_attributes])
         CalendarIntegration.sync_person_events(richard)
 
@@ -172,6 +194,42 @@ module GobiertoPeople
         assert event.locations.empty?
       end
 
+      def test_filter_events
+        # Create a rule with contains condition
+        filtering_rule.condition = :contains
+        filtering_rule.value = "@"
+        filtering_rule.save!
+
+        event_1 = {
+          start: 1.hour.from_now,
+          end: 2.hours.from_now,
+          id: 'external-id-1',
+          subject: '@ Event 1',
+          sensitivity: 'Normal',
+          location: 'Location 1'
+        }
+
+        event_2 = {
+          start: 1.hour.from_now,
+          end: 2.hours.from_now,
+          id: 'external-id-2',
+          subject: 'Event 2',
+          sensitivity: 'Normal',
+          location: 'Location 2'
+        }
+
+        setup_mocks_for_synchronization([event_1, event_2])
+
+        assert_difference 'GobiertoCalendars::Event.count', 1 do
+          CalendarIntegration.sync_person_events(richard)
+        end
+
+        # event 1 checks
+        event = richard.events.find_by(external_id: 'external-id-1')
+        assert_equal '@ Event 1', event.title
+        assert_equal 1, event.locations.size
+        assert_equal 'Location 1', event.first_location.name
+      end
     end
   end
 end

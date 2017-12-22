@@ -9,6 +9,20 @@ ca:
       gobierto_calendars/event_location:
         address: Adreça
         name: Nom
+    enums:
+      gobierto_calendars/filtering_rule:
+        action:
+          ignore: Ignorar
+          import: Importar
+          import_as_draft: Importar como esborrany
+        condition:
+          contains: Conté
+          ends_with: Termina per
+          not_contains: No conté
+          starts_with: Comença per
+        field:
+          description: Cos
+          title: Títol
     models:
       gobierto_calendars/event: Esdeveniment
       gobierto_calendars/event_attendee: Assistent

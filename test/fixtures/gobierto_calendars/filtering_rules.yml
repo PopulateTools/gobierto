@@ -1,0 +1,7 @@
+richard_calendar_configuration_filter:
+  calendar_configuration: richard_calendar_configuration
+  field: 'title'
+  condition: 'not_contains'
+  value: '[test]'
+  action: 'import'
+

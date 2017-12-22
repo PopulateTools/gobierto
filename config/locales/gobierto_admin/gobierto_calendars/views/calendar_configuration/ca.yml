@@ -4,8 +4,11 @@ ca:
     gobierto_calendars:
       calendar_configuration:
         edit:
+          add_rule: Crear regla
           calendar_integration: Integració de calendari
           confirm_sync: Estàs segur?
+          filter_events: Filtrat d'esdeveniments
+          filter_events_desc: Quan s'importa un esdeveniment...
           google_calendar: Google Calendar
           ibm_notes: IBM Notes
           labels:

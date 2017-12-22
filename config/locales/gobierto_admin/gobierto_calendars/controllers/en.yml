@@ -3,6 +3,8 @@ en:
   gobierto_admin:
     gobierto_calendars:
       calendar_configuration:
+        sync_calendars:
+          success: Synchronization done
         update:
           success: Settings updated successfully
       events:

@@ -1,5 +1,8 @@
 ---
 ca:
+  admin_gobierto_calendars:
+    events:
+      admin_gobierto_calendars_calendars_synchronized: Calendaris sincronitzats
   admins:
     events:
       admins_admin_authorization_level_updated: Nivel autorització admin actualitzat
@@ -111,6 +114,16 @@ ca:
     events:
       scopes_scope_created: Àmbit creat
       scopes_scope_updated: Àmbit actualitzat
+  shared:
+    poll_question:
+      multiple_choice_msg: Pots triar diverses opcions
+    poll_teaser:
+      answer: Respondre
+      next_question: Següent pregunta
+      submit: Enviar
+    polls:
+      no_unanswered_polls: No hi ha enquestes pendents de contestar.
+      opinion: Opina
   sites:
     events:
       sites_site_created: Site creat

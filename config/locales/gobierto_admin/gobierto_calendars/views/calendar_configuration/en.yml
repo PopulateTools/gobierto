@@ -6,6 +6,7 @@ en:
         edit:
           add_rule: Create rule
           calendar_integration: Calendar integration
+          confirm_sync: Are you sure?
           filter_events: Filter events
           filter_events_desc: When an event is imported...
           google_calendar: Google Calendar
@@ -17,12 +18,14 @@ en:
             microsoft_exchange_pwd: Password
             microsoft_exchange_url: Calendar URL
             microsoft_exchange_usr: Microsoft Exchange account
+          last_sync: Last sync
           microsoft_exchange: Microsoft Exchange
           placeholders:
             ibm_notes_url: ex. https://example.com/mail/abc.nsf/api/calendar/events
             microsoft_exchange_url: ex. https://example.com/ews/exchange.asmx
             username: ex. someone85
           remove_configuration: Remove calendar configuration
+          sync: Sync now
         gobierto_people_person_navigation:
           calendar_configuration: Calendar configuration
         google_calendar_fields:

@@ -9,6 +9,7 @@ module GobiertoAdmin
         :current_site,
         :calendar_integration,
         :collection,
+        :calendar_integration_class,
         :ibm_notes_usr,
         :ibm_notes_pwd,
         :ibm_notes_url,
@@ -142,6 +143,10 @@ module GobiertoAdmin
           conf = base_calendar_configuration_class.find_by(collection_id: collection.id)
           conf ? conf.integration_name : nil
         end
+      end
+
+      def calendar_integration_class
+        @calendar_integration_class ||= collection ? collection.calendar_integration : nil
       end
 
       def collection_container

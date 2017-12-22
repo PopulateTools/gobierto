@@ -138,7 +138,11 @@ Rails.application.routes.draw do
     namespace :gobierto_calendars, as: :calendars do
       resources :events
       resources :collections, only: [:index]
-      resources :calendar_configurations, only: [:edit, :update], controller: "calendar_configuration", as: :configurations, path: :configurations
+      resources :calendar_configurations, only: [:edit, :update], controller: "calendar_configuration", as: :configurations, path: :configurations do
+        member do
+          put 'sync_calendars'
+        end
+      end
     end
   end
 

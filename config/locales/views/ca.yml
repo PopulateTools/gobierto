@@ -1,5 +1,8 @@
 ---
 ca:
+  admin_gobierto_calendars:
+    events:
+      admin_gobierto_calendars_calendars_synchronized: Calendaris sincronitzats
   admins:
     events:
       admins_admin_authorization_level_updated: Nivel autorització admin actualitzat

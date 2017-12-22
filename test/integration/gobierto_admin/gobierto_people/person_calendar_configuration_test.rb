@@ -52,9 +52,10 @@ module GobiertoAdmin
         calendar3 = mock
         calendar3.stubs(id: 3, primary?: false, summary: 'Calendar 3')
 
-        calendars_mock = mock
-        calendars_mock.stubs(:calendars).returns([calendar1, calendar2, calendar3])
-        ::GobiertoPeople::GoogleCalendar::CalendarIntegration.stubs(:new).returns(calendars_mock)
+        @calendars_mock = mock
+        @calendars_mock.stubs(:calendars).returns([calendar1, calendar2, calendar3])
+        @calendars_mock.stubs(:sync!).returns(nil)
+        ::GobiertoPeople::GoogleCalendar::CalendarIntegration.stubs(:new).returns(@calendars_mock)
 
         setup_authorizable_resource_test(gobierto_admin_admins(:steve), @person_events_path)
        end
@@ -140,6 +141,33 @@ module GobiertoAdmin
             calendar = person.calendar.reload
 
             assert_nil calendar.calendar_configuration
+          end
+        end
+      end
+
+      def test_sync_calendars_generates_a_site_activity
+        Activity.where(subject: person, action:  "admin_gobierto_calendars.calendars_synchronized").destroy_all
+        configure_google_calendar_integration(
+          collection: person.calendar,
+          data: google_calendar_configuration
+        )
+
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            @calendars_mock.expects(:sync!).at_least_once
+
+            visit @person_events_path
+
+            click_link 'Agenda'
+            click_link 'Configuration'
+
+            assert has_link?('Sync now')
+            refute has_text? 'Last sync:'
+            assert_difference 'Activity.where(subject: person, action: "admin_gobierto_calendars.calendars_synchronized").count' do
+              click_link 'Sync now'
+            end
+
+            assert has_text? 'Last sync: less than a minute ago'
           end
         end
       end

@@ -18,6 +18,11 @@ module GobiertoCalendars
         title: "@ Foo",
         description: "Bar"
       })
+
+      assert_equal "import", filtering_rule.apply({
+        title: nil,
+        description: "Bar"
+      })
     end
 
     def test_conditions

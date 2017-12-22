@@ -14,6 +14,8 @@ module GobiertoCalendars
 
     def apply(event_attributes)
       event_value = event_attributes.symbolize_keys[field.to_sym]
+      return "import" if event_value.nil?
+
       fullfills = case condition
         when "contains"
           event_value.include?(value)

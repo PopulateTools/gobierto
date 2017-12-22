@@ -24,6 +24,10 @@ module GobiertoPeople
         end
       end
 
+      def calendars
+        @calendars ||= service.list_calendar_lists(max_results: 100).items
+      end
+
       private
 
       def initialize(person)
@@ -33,10 +37,6 @@ module GobiertoPeople
         @service = Google::Apis::CalendarV3::CalendarService.new
         @service.client_options.application_name = person.site.name
         @service.authorization = authorize(person)
-      end
-
-      def calendars
-        @calendars ||= service.list_calendar_lists(max_results: 100).items
       end
 
       attr_reader :person, :configuration, :service

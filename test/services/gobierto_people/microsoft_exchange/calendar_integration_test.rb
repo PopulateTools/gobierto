@@ -75,6 +75,20 @@ module GobiertoPeople
         }
       end
 
+      def test_sync_returns_nil
+        target_folder = mock
+        target_folder.stubs(:expanded_items).returns(nil)
+        target_folder.stubs(:display_name).returns(CalendarIntegration::TARGET_CALENDAR_NAME)
+
+        root_folder = mock
+        root_folder.stubs(:folders).returns([target_folder])
+        Exchanger::Folder.stubs(:find).returns(root_folder)
+
+        assert_difference 'GobiertoCalendars::Event.count', 0 do
+          CalendarIntegration.sync_person_events(richard)
+        end
+      end
+
       def test_sync_events
         event_1 = event_attributes
         event_2 = {

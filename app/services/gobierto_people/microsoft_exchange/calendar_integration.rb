@@ -24,7 +24,7 @@ module GobiertoPeople
 
         mark_unreceived_events_as_drafts(calendar_items)
 
-        calendar_items.each do |item|
+        Array(calendar_items).each do |item|
           sync_event(item)
         end
       rescue ::Errno::EADDRNOTAVAIL, ::SocketError, ::ArgumentError, ::Addressable::URI::InvalidURIError
@@ -100,7 +100,7 @@ module GobiertoPeople
       end
 
       def mark_unreceived_events_as_drafts(calendar_items)
-        if calendar_items.any?
+        if calendar_items && calendar_items.any?
           received_external_ids = calendar_items.map(&:id)
           person.events
                 .where(starts_at: SYNC_RANGE[:start_date]..SYNC_RANGE[:end_date])

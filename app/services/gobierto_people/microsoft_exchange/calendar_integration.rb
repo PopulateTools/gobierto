@@ -29,6 +29,8 @@ module GobiertoPeople
         end
       rescue ::Errno::EADDRNOTAVAIL, ::SocketError, ::ArgumentError, ::Addressable::URI::InvalidURIError
         Rails.logger.info "#{log_preffix} Invalid endpoint address for #{person.name} (id: #{person.id}): #{Exchanger.config.endpoint}"
+      rescue ::HTTPClient::ConnectTimeoutError
+        Rails.logger.info "#{log_preffix} Timeout error for #{person.name} (id: #{person.id}): #{Exchanger.config.endpoint}"
       end
 
       private

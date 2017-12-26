@@ -12,7 +12,8 @@ module GobiertoParticipation
 
     translates :title, :description, :cta_text, :cta_description, :menu
 
-    enum stage_type: { information: 0, agenda: 1, polls: 2, ideas: 3, documents: 4, pages: 5 }
+    enum stage_type: { information: 0, agenda: 1, polls: 2, ideas: 3, documents: 4,
+                       pages: 5, results: 6 }
     enum visibility_level: { draft: 0, published: 1 }
 
     validates :slug, uniqueness: { scope: [:process_id] }
@@ -31,7 +32,7 @@ module GobiertoParticipation
                                                             site.id, Time.zone.now) }
 
     def self.upcoming
-      unless published.select(&:upcoming?).empty?
+      if published.select(&:upcoming?).any?
         stages_id = published.select(&:upcoming?).pluck(:id)
         GobiertoParticipation::ProcessStage.where(id: stages_id)
       else

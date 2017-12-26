@@ -17,5 +17,6 @@ es:
               information: Información
               pages: Págines
               polls: Encuestas
+              results: Votaciones
           update:
             success: La fase/herramienta se ha actualizado correctamente.

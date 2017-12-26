@@ -17,5 +17,6 @@ ca:
               information: Informació
               pages: Pàgines
               polls: Encuestas
+              results: Votacions
           update:
             success: La fase/eina s'ha actualizat correctament.

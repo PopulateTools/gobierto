@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171218152031) do
+ActiveRecord::Schema.define(version: 20171226112800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -598,6 +598,15 @@ ActiveRecord::Schema.define(version: 20171218152031) do
     t.datetime "updated_at", null: false
     t.integer "visibility_user_level", default: 0, null: false
     t.index ["process_id"], name: "index_gpart_polls_on_process_id"
+  end
+
+  create_table "gpart_process_stage_pages", force: :cascade do |t|
+    t.bigint "process_stage_id", null: false
+    t.bigint "page_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id"], name: "index_gpart_process_stage_pages_on_page_id"
+    t.index ["process_stage_id"], name: "index_gpart_process_stage_pages_on_process_stage_id"
   end
 
   create_table "gpart_process_stages", force: :cascade do |t|

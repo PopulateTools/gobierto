@@ -4,10 +4,17 @@ module GobiertoAdmin
   module GobiertoParticipation
     module ProcessStagesHelper
       def admin_stage_url(stage)
+
         case stage.stage_type
-        when "information"
-          edit_admin_participation_process_process_information_path(id: current_process,
-                                                                    process_id: current_process)
+        when "information" || "results"
+          if stage.process_stage_page.present?
+            edit_admin_participation_process_process_stage_process_stage_page_path(stage.process_stage_page,
+                                                                                   process_id: current_process,
+                                                                                   process_stage_id: stage.id)
+          else
+            new_admin_participation_process_process_stage_process_stage_page_path(process_id: current_process,
+                                                                                  process_stage_id: stage.id)
+          end
         when "agenda"
           admin_participation_process_events_path(stage.process)
         when "polls"

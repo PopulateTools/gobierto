@@ -17,7 +17,7 @@ this.GobiertoAdmin.ProcessStagesController = (function() {
 
   function _modifyActiveStage() {
     var str = window.location.href;
-    var subStr= str.match("(.*)/processes/(.*)/edit");
+    var subStr= str.match("(.*)/processes/(.*)/process_stages");
     $("input[name='process[stages_attributes][active]']").click(function(){
         $.ajax({
             type: "POST",

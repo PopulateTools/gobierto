@@ -1,0 +1,12 @@
+---
+ca:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        process_stage_pages:
+          edit:
+            stages: Fases
+            title: 'Edita pàgina associada a: %{stage}'
+          new:
+            stages: Fases
+            title: 'Associar pàgina a: %{stage}'

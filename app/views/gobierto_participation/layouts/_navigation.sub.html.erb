@@ -17,8 +17,10 @@
 <% else %>
   <% current_process.published_stages.each do |stage| %>
     <div class="sub-nav-item">
-      <%= link_to stage_url(stage) do %>
-        <%= stage.menu %>
+      <% if !["information", "results"].include?(stage.stage_type) || (["information", "results"].include?(stage.stage_type) && stage.process_stage_page.present?) %>
+        <%= link_to stage_url(stage) do %>
+          <%= stage.menu %>
+        <% end %>
       <% end %>
     </div>
   <% end %>

@@ -104,6 +104,7 @@ Rails.application.routes.draw do
       resources :processes, only: [:index, :new, :edit, :create, :update] do
         post :update_current_stage
         resources :process_stages, only: [:create, :destroy, :edit, :index, :new, :update], controller: "processes/process_stages", as: :process_stages, path: :process_stages do
+          resources :pages, only: [:new, :create, :edit, :update], controller: "processes/process_stage_pages", as: :process_stage_page, path: :process_stage_page
           collection do
             resource :process_stage_sort, only: [:create], controller: "processes/process_stages_sort", path: :process_stages_sort
           end

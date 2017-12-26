@@ -9,6 +9,7 @@ module GobiertoParticipation
     before_destroy :check_stage_active
 
     belongs_to :process
+    has_one :process_stage_page, class_name: "GobiertoParticipation::ProcessStagePage", dependent: :destroy
 
     translates :title, :description, :cta_text, :cta_description, :menu
 

@@ -4,8 +4,10 @@ module GobiertoParticipation
   module ProcessHelper
     def stage_url(stage)
       case stage.stage_type
-      when "information"
-        gobierto_participation_process_information_path(process_id: stage.process.slug)
+      when "information" || "results"
+        if stage.process_stage_page.present?
+          stage.process_stage_page.page.to_url(host: current_site.domain)
+        end
       when "agenda"
         gobierto_participation_process_events_path(process_id: stage.process.slug)
       when "polls"

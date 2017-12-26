@@ -412,6 +412,9 @@ en:
       incomes: incomes
     events:
       gobierto_budgets_budgets_updated: Budgets updated
+    exports:
+      description: Compare income and expenses year by year
+      title: Budget lines
     featured_budget_lines:
       gobierto_site_template:
         how_much_place_in: How much does %{place} expend on...

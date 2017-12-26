@@ -16,7 +16,7 @@ module GobiertoCalendars
       end
 
       rules_results.delete_if{ |r| r == false }
-      return REMOVE if rules_results.empty? || rules_results.include?("ignore")
+      return REMOVE if rules_results.include?("ignore")
       return CREATE_PENDING if rules_results.include?("import_as_draft")
       return CREATE
     end

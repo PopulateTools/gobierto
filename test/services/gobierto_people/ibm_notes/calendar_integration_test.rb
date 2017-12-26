@@ -356,8 +356,9 @@ module GobiertoPeople
 
       def test_filter_events
         # Create a rule with contains condition
-        filtering_rule.condition = :contains
+        filtering_rule.condition = :not_contains
         filtering_rule.value = "@"
+        filtering_rule.action = :ignore
         filtering_rule.save!
 
         VCR.use_cassette("ibm_notes/person_events_collection_v8", decode_compressed_response: true, match_requests_on: [:host, :path]) do

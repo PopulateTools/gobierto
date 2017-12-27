@@ -4,7 +4,7 @@ module GobiertoParticipation
   class VotesController < GobiertoParticipation::ApplicationController
     include User::VerificationHelper
 
-    before_action(only: [:new, :create, :destroy]) { verify_user_in!(current_site) if current_contribution_container.visibility_user_level == "verified" }
+    before_action(only: [:new, :create, :destroy]) { check_visibility_level(current_contribution_container, current_user) }
 
     def new
       @votable = find_votable

@@ -6,7 +6,7 @@ module GobiertoParticipation
       include User::VerificationHelper
 
       before_action :authenticate_user!
-      before_action { verify_user_in!(current_site) if current_poll.visibility_user_level == "verified" }
+      before_action { check_visibility_level(current_poll, current_user) }
       before_action { check_active_stage(current_process, ProcessStage.stage_types[:polls]) }
       before_action(only: [:new]) { current_poll.answerable_by?(current_user) }
 

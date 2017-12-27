@@ -511,6 +511,7 @@ header {
             .subitem-container {
               columns: 2;
               text-transform: uppercase;
+              padding: .5em 0;
               @include font(0.85em, $color_text, $fExtraLight);
 
               .secondary_nav {
@@ -526,8 +527,16 @@ header {
 
         .navigation-footer {
           width: 100%;
+          position: fixed;
+          bottom: 0;
 
           .footer-top {
+            display: none;
+
+            &.is-open {
+              display: block;
+            }
+
             a {
               text-decoration: underline;
               @include font(0.85em, $color_1, $fRegular);

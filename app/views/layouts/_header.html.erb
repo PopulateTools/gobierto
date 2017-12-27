@@ -177,11 +177,11 @@
           </div>
         <% end %>
 
-        <div class="navigation-footer mt4">
+        <div class="navigation-footer">
 
-          <div class="footer-top">
+          <div class="footer-top js-secondary_nav">
             <% if current_site.configuration.modules.include?("GobiertoParticipation") %>
-            <%= render "gobierto_participation/layouts/secondary_nav" %>
+              <%= render "gobierto_participation/layouts/secondary_nav" %>
             <% end %>
           </div>
 

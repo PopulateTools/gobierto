@@ -61,8 +61,16 @@ $(document).on('turbolinks:load', function() {
 
   $('.js-item-toggle').on('click', function() {
     var parent = $(this).parent();
+    // Closes all menus
     parent.parent().find('.is-open').removeClass('is-open');
+    // Open sibling menu
     parent.next().find('.js-slider').toggleClass('is-open');
+
+    if ($(this).prev().find('a').attr('href') === "/participacion") {
+      $('.js-secondary_nav').addClass('is-open');
+    } else {
+      $('.js-secondary_nav').removeClass('is-open');
+    }
   });
 
 });

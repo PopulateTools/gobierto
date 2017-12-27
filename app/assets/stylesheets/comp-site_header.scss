@@ -482,6 +482,34 @@ header {
         .submenu {
           display: none;
         }
+
+        .secondary_nav {
+          float: inherit;
+        }
+
+        .navigation-footer {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+
+          .footer-top {
+            background-color: $color_1_soft;
+
+            a {
+              text-decoration: underline;
+              @include font(0.85em, $color_1, $fRegular);
+            }
+          }
+
+          .footer-bottom {
+            background-color: $color_secondary;
+
+            a {
+              text-decoration: underline;
+              @include font(0.85em, $color_text, $fRegular);
+            }
+          }
+        }
       }
     }
   }

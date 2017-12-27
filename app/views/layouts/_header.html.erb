@@ -104,6 +104,7 @@
 
     <div class="mobile_only site_header--mobile">
 
+      <!-- static menu -->
       <div class="header js-mobile-header">
 
         <div class="main-nav">
@@ -145,8 +146,8 @@
 
       </div>
 
+      <!-- hamburger menu -->
       <nav class="navigation js-mobile-nav">
-
         <div class="main-nav-item">
           <div class="search-box">
             <i class="fa fa-search"></i>
@@ -162,6 +163,23 @@
           </div>
         <% end %>
 
+        <div class="navigation-footer">
+          
+          <div class="footer-top">
+            <% if current_site.configuration.modules.include?("GobiertoParticipation") %>
+            <%= render "gobierto_participation/layouts/secondary_nav" %>
+            <% end %>
+          </div>
+
+          <div class="footer-bottom p_v_1">
+            <div class="column">
+              <% if @site.configuration.links_markup.present? %>
+              <%== @site.configuration.links_markup %>
+              <% end %>
+            </div>
+          </div>
+
+        </div>
 
       </nav>
 

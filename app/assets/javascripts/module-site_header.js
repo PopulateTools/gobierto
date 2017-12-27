@@ -60,7 +60,9 @@ $(document).on('turbolinks:load', function() {
   });
 
   $('.js-item-toggle').on('click', function() {
-    $('.js-item-slider').toggleClass('is-open');
+    var parent = $(this).parent();
+    parent.parent().find('.is-open').removeClass('is-open');
+    parent.next().find('.js-slider').toggleClass('is-open');
   });
 
 });

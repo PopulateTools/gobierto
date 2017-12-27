@@ -204,10 +204,18 @@ header {
       opacity: 0;
       transition: max-height 300ms ease-in-out, opacity 300ms ease-in-out;
 
+      > * {
+        visibility: hidden;
+      }
+
       &.is-open {
         overflow-y: hidden;
         opacity: 1;
         max-height: 100vh;
+
+        > * {
+          visibility: visible;
+        }
       }
     }
 
@@ -467,8 +475,7 @@ header {
             border-top: 1px solid rgba($color_1, .2);
 
             > * {
-              // search-box hack
-              width: 100%;
+              width: 100%; // search-box hack
             }
           }
 
@@ -496,7 +503,6 @@ header {
 
           .navigation-subitem {
             background-color: rgba($color_main, .04);
-            display: none;
 
             &.is-open {
               display: block;

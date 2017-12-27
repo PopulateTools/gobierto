@@ -11,7 +11,7 @@ module GobiertoParticipation
         end
 
         def registered_level_user
-          @registrered_level_user ||= users(:susan)
+          @registered_level_user ||= users(:susan)
         end
 
         def verified_level_user

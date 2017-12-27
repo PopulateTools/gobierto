@@ -9,6 +9,7 @@ module GobiertoParticipation
     include PollResultsHelpers
 
     belongs_to :process
+    delegate :site, to: :process, allow_nil: true
     has_many :questions, -> { order(order: :asc) }, class_name: "GobiertoParticipation::PollQuestion", dependent: :destroy, autosave: true
     has_many :answers, class_name: "GobiertoParticipation::PollAnswer", autosave: true
 

@@ -1,7 +1,8 @@
 this.GobiertoAdmin.GobiertoCalendarsCalendarConfigurationsController = (function() {
   function GobiertoCalendarsCalendarConfigurationsController() {}
 
-  GobiertoCalendarsCalendarConfigurationsController.prototype.edit = function() {
+  GobiertoCalendarsCalendarConfigurationsController.prototype.edit = function(wrapper, namespace) {
+    GobiertoAdmin.dynamic_content_component.handle(wrapper, namespace);
     _updateVisibleFields();
   };
 

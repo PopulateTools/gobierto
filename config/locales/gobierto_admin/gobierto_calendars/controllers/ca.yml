@@ -3,6 +3,8 @@ ca:
   gobierto_admin:
     gobierto_calendars:
       calendar_configuration:
+        sync_calendars:
+          success: Sincronització realitzada
         update:
           success: Preferències actualitzades correctament
       events:

@@ -9,6 +9,20 @@ en:
       gobierto_calendars/event_location:
         address: Address
         name: Name
+    enums:
+      gobierto_calendars/filtering_rule:
+        action:
+          ignore: Ignore
+          import: Import
+          import_as_draft: Import as draft
+        condition:
+          contains: Contains
+          ends_with: Ends with
+          not_contains: Not contains
+          starts_with: Starts with
+        field:
+          description: Description
+          title: Title
     models:
       gobierto_calendars/event: Event
       gobierto_calendars/event_attendee: Attendee

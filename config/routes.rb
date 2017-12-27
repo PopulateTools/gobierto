@@ -144,7 +144,11 @@ Rails.application.routes.draw do
     namespace :gobierto_calendars, as: :calendars do
       resources :events
       resources :collections, only: [:index]
-      resources :calendar_configurations, only: [:edit, :update], controller: "calendar_configuration", as: :configurations, path: :configurations
+      resources :calendar_configurations, only: [:edit, :update], controller: "calendar_configuration", as: :configurations, path: :configurations do
+        member do
+          put 'sync_calendars'
+        end
+      end
     end
   end
 
@@ -247,6 +251,7 @@ Rails.application.routes.draw do
       resources :featured_budget_lines, only: [:show]
 
       get "resumen(/:year)" => "budgets#index", as: :budgets
+      get "datos(/:year)" => "budgets#export", as: :budgets_export
       get "partidas/:year/:area_name/:kind" => "budget_lines#index", as: :budget_lines
       get "partidas/:id/:year/:area_name/:kind" => "budget_lines#show", as: :budget_line
       get "budget_line_descendants/:year/:area_name/:kind" => "budget_line_descendants#index", as: :budget_line_descendants

@@ -9,17 +9,18 @@ module GobiertoAdmin
       before_action :load_collection, :collection_container_allowed!
 
       def edit
-        @calendar_configuration_form = CalendarConfigurationForm.new(current_site: current_site, collection_id: @collection.id)
+        @calendar_configuration_form = CalendarConfigurationForm.new(current_site: current_site, collection: @collection)
         load_calendar_integrations
         @google_calendar_configuration = find_google_calendar_configuration
         load_calendars
+        set_last_sync
 
         render 'gobierto_admin/gobierto_calendars/calendar_configuration/edit'
       end
 
       def update
         @calendar_configuration_form = CalendarConfigurationForm.new(
-          calendar_configuration_params.merge(current_site: current_site, collection_id: @collection.id)
+          calendar_configuration_params.merge(current_site: current_site, collection: @collection)
         )
 
         if @calendar_configuration_form.save
@@ -33,7 +34,31 @@ module GobiertoAdmin
         end
       end
 
+      def sync_calendars
+        @calendar_configuration_form = CalendarConfigurationForm.new(current_site: current_site, collection: @collection)
+        if (calendar_integration = @calendar_configuration_form.calendar_integration_class).present?
+          calendar_integration.sync_person_events(@calendar_configuration_form.collection_container)
+          publish_calendar_sync_activity(@calendar_configuration_form)
+        end
+        redirect_to(
+          edit_admin_calendars_configuration_path(@collection),
+          notice: t('.success')
+        )
+      end
+
       private
+
+      def publish_calendar_sync_activity(calendar_configuration_form)
+        Publishers::AdminGobiertoCalendarsActivity.broadcast_event('calendars_synchronized', { ip: remote_ip, author: current_admin, subject: calendar_configuration_form.collection_container, site_id: current_site.id })
+      end
+
+      def set_last_sync
+        @last_sync = if collection_container = @calendar_configuration_form.try(:collection_container)
+                       current_site.activities.where(action: 'admin_gobierto_calendars.calendars_synchronized', subject: collection_container)
+                         .order(created_at: :asc)
+                         .last.try(:created_at)
+                     end
+      end
 
       def load_collection
         @collection = current_site.collections.find(params[:id])
@@ -57,12 +82,13 @@ module GobiertoAdmin
           :microsoft_exchange_pwd,
           :microsoft_exchange_url,
           :clear_calendar_configuration,
+          filtering_rules_attributes: [:id, :field, :condition, :value, :action, :_destroy],
           calendars: []
         )
       end
 
       def find_google_calendar_configuration
-        if configuration = ::GobiertoCalendars::GoogleCalendarConfiguration.find_by(collection_id: @collection.id)
+        if configuration = ::GobiertoCalendars::GoogleCalendarConfiguration.find_by(collection: @collection)
           if configuration.google_calendar_credentials.blank?
             nil
           else

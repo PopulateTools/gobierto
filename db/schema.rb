@@ -327,6 +327,17 @@ ActiveRecord::Schema.define(version: 20171227094848) do
     t.index ["title_translations"], name: "index_gc_events_on_title_translations", using: :gin
   end
 
+  create_table "gc_filtering_rules", force: :cascade do |t|
+    t.bigint "calendar_configuration_id"
+    t.integer "field", null: false
+    t.integer "condition", null: false
+    t.string "value", null: false
+    t.integer "action", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["calendar_configuration_id"], name: "index_gc_filtering_rules_on_calendar_configuration_id"
+  end
+
   create_table "gcms_pages", id: :serial, force: :cascade do |t|
     t.integer "site_id"
     t.integer "visibility_level", default: 0, null: false

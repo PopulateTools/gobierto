@@ -424,6 +424,9 @@ es:
       incomes: ingresos
     events:
       gobierto_budgets_budgets_updated: Presupuestos actualizados
+    exports:
+      description: Compara gastos e ingresos año por año
+      title: Partidas presupuestarias
     featured_budget_lines:
       gobierto_site_template:
         how_much_place_in: "¿Cuánto se gasta %{place} en..."

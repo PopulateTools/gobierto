@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171226112800) do
+ActiveRecord::Schema.define(version: 20171227094848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -644,7 +644,6 @@ ActiveRecord::Schema.define(version: 20171226112800) do
     t.string "header_image_url"
     t.integer "process_type", default: 1, null: false
     t.integer "issue_id"
-    t.jsonb "information_text_translations"
     t.bigint "scope_id"
     t.index ["body_translations"], name: "index_gpart_processes_on_body_translations", using: :gin
     t.index ["site_id", "slug"], name: "index_gpart_processes_on_site_id_and_slug", unique: true

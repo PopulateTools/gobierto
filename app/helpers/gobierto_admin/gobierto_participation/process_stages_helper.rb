@@ -4,7 +4,6 @@ module GobiertoAdmin
   module GobiertoParticipation
     module ProcessStagesHelper
       def admin_stage_url(stage)
-
         case stage.stage_type
         when "information"
           if stage.process_stage_page.present?

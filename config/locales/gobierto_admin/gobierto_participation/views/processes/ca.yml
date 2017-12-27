@@ -54,14 +54,6 @@ ca:
         process_file_attachments:
           index:
             configuration: Configuració
-        process_information:
-          edit:
-            information: Informació
-          form:
-            placeholders:
-              information_text: Informació
-          update:
-            success: Procés actualitzat correctament
         process_pages:
           index:
             configuration: Configuració

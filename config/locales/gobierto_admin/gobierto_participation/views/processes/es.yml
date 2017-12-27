@@ -54,14 +54,6 @@ es:
         process_file_attachments:
           index:
             configuration: Configuración
-        process_information:
-          edit:
-            information: Información
-          form:
-            placeholders:
-              information_text: Información
-          update:
-            success: Proceso actualizado correctamente
         process_pages:
           index:
             configuration: Configuración

@@ -54,14 +54,6 @@ en:
         process_file_attachments:
           index:
             configuration: Configuration
-        process_information:
-          edit:
-            information: Information
-          form:
-            placeholders:
-              information_text: Information
-          update:
-            success: Process was successfully updated
         process_pages:
           index:
             configuration: Configuration

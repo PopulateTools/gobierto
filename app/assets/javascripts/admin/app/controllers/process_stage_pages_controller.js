@@ -8,7 +8,7 @@ this.GobiertoAdmin.ProcessStagePagesController = (function() {
 
   function _selectPage() {
     $(document).ready(function() {
-      $("select#process_page_id").select2({
+      $("select#process_stage_page_page_id").select2({
         width: '100%'
       });
     });
@@ -17,4 +17,4 @@ this.GobiertoAdmin.ProcessStagePagesController = (function() {
   return ProcessStagePagesController;
 })();
 
-this.GobiertoAdmin.process_stages_controller = new GobiertoAdmin.ProcessStagePagesController;
+this.GobiertoAdmin.process_stage_pages_controller = new GobiertoAdmin.ProcessStagePagesController;

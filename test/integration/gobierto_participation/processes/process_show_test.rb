@@ -16,13 +16,6 @@ module GobiertoParticipation
       @process_path ||= gobierto_participation_process_path(process.slug)
     end
 
-    def process_information_path
-      @process_information_path ||= edit_admin_participation_process_process_information_path(
-        id: gender_violence_process,
-        process_id: gender_violence_process
-      )
-    end
-
     def gender_violence_process
       @gender_violence_process ||= gobierto_participation_processes(:gender_violence_process)
     end
@@ -270,6 +263,15 @@ module GobiertoParticipation
 
         # hide progress map
         refute has_selector? "#progress_map"
+      end
+    end
+
+    def test_process_information_stage
+      with_current_site(site) do
+        visit process_path(gender_violence_process)
+        click_link "Information"
+
+        assert has_selector?("h2", text: "Social agreement against gender violence")
       end
     end
   end

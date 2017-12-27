@@ -29,6 +29,10 @@ module GobiertoAdmin
         @group ||= gobierto_participation_processes(:green_city_group)
       end
 
+      def cms_page
+        @cms_page ||= gobierto_cms_pages(:consultation_faq)
+      end
+
       def test_update_process
         with_signed_in_admin(admin) do
           with_current_site(site) do
@@ -140,6 +144,29 @@ module GobiertoAdmin
 
             within "#stages" do
               assert has_content? "Modified title"
+            end
+          end
+        end
+      end
+
+      def test_update_process_page_in_process_stage
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            visit edit_process_stage_path
+
+            click_on "Stages"
+            all("a", text: "Manage")[1].click
+
+            within "form.edit_process_stage_page" do
+              select cms_page.title, from: "process_stage_page_page_id"
+
+              click_button "Update"
+            end
+
+            assert has_message?("The page has been associated correctly.")
+
+            within "form.edit_process_stage_page" do
+              assert has_select?("process_stage_page_page_id", selected: cms_page.title)
             end
           end
         end

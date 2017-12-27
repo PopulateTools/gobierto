@@ -121,7 +121,7 @@ header {
       text-decoration: none;
     }
 
-    // @component
+    // @component: Input search
     .search-box {
       position: relative;
 
@@ -181,7 +181,7 @@ header {
       }
     }
 
-    // @component
+    // @component: Dropdown
     .dropdown-button {
       display: inline-block;
       padding: 5px 0;
@@ -195,6 +195,19 @@ header {
         height: 15px;
         @include border-radius(1px);
         @include flex-align();
+      }
+    }
+
+    // @component: Slider effect
+    .js-slider {
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 300ms ease-in-out, opacity 300ms ease-in-out;
+
+      &.is-open {
+        overflow-y: hidden;
+        opacity: 1;
+        max-height: 100vh;
       }
     }
 
@@ -436,19 +449,6 @@ header {
               right: 0;
               top: 0;
             }
-
-            // Slider effect
-            .js-slider {
-              max-height: 0;
-              opacity: 0;
-              transition: max-height 300ms ease-in-out, opacity 300ms ease-in-out;
-
-              &.is-open {
-                overflow-y: hidden;
-                opacity: 1;
-                max-height: 100vh;
-              }
-            }
           }
         }
 
@@ -460,13 +460,20 @@ header {
         background-color: $color_1_soft;
 
         .navigation-item {
-          margin: 5px 0;
-          border-bottom: 5px solid #fff;
           padding: .5em 1em;
           @include flex-align(space-between);
 
           &:first-child {
             border-top: 1px solid rgba($color_1, .2);
+
+            > * {
+              // search-box hack
+              width: 100%;
+            }
+          }
+
+          &:not(first-child) {
+            border-top: 5px solid #fff;
           }
 
           .main-nav-item {
@@ -484,9 +491,27 @@ header {
 
         }
 
-        // FIXME: Temporal
-        .navigation-subitem {
-          display: none;
+        .navigation-subitem-container {
+          background-color: #fff;
+
+          .navigation-subitem {
+            background-color: rgba($color_main, .04);
+            display: none;
+
+            &.is-open {
+              display: block;
+            }
+
+            .subitem-container {
+              columns: 2;
+              text-transform: uppercase;
+              @include font(0.85em, $color_text, $fExtraLight);
+
+              .secondary_nav {
+                display: none;
+              }
+            }
+          }
         }
 
         .secondary_nav {
@@ -494,13 +519,9 @@ header {
         }
 
         .navigation-footer {
-          position: absolute;
-          bottom: 0;
           width: 100%;
 
           .footer-top {
-            //background-color: $color_1_soft;
-
             a {
               text-decoration: underline;
               @include font(0.85em, $color_1, $fRegular);

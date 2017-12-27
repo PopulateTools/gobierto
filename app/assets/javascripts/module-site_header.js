@@ -59,4 +59,8 @@ $(document).on('turbolinks:load', function() {
     $('.js-slider').toggleClass('is-open');
   });
 
+  $('.js-item-toggle').on('click', function() {
+    $('.js-item-slider').toggleClass('is-open');
+  });
+
 });

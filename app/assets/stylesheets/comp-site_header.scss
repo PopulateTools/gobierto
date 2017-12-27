@@ -181,6 +181,23 @@ header {
       }
     }
 
+    // @component
+    .dropdown-button {
+      display: inline-block;
+      padding: 5px 0;
+      float: right;
+      cursor: pointer;
+
+      .button-container {
+        background-color: transparentize($color_1, .88);
+        color: $color_1;
+        width: 19px;
+        height: 15px;
+        @include border-radius(1px);
+        @include flex-align();
+      }
+    }
+
     .site_header_block {
       display: flex;
       justify-content: space-between;
@@ -384,23 +401,6 @@ header {
           @include flex-align(space-between);
         }
 
-        .dropdown-button {
-          display: inline-block;
-          padding: 5px 0;
-          float: right;
-          cursor: pointer;
-
-          .button-container {
-            background-color: transparentize($color_1, .88);
-            color: $color_1;
-            width: 19px;
-            height: 15px;
-            @include border-radius(1px);
-            @include flex-align();
-          }
-
-        }
-
         .submenu-container {
           position: relative;
 
@@ -426,7 +426,6 @@ header {
                 margin: 0;
               }
 
-              // FIXME: Temporal, se tiene que mostrar
               menu.secondary_nav {
                 display: none;
               }
@@ -458,28 +457,35 @@ header {
       .navigation {
         display: none;
         min-height: 100vh;
+        background-color: $color_1_soft;
 
-        .main-nav-item {
+        .navigation-item {
           margin: 5px 0;
+          border-bottom: 5px solid #fff;
           padding: .5em 1em;
-          background-color: $color_1_soft;
-          text-transform: uppercase;
-
-          &:first-child,
-          &:last-child, {
-            margin: 0;
-          }
+          @include flex-align(space-between);
 
           &:first-child {
             border-top: 1px solid rgba($color_1, .2);
           }
 
-          a {
-            @include font($f5, $color_1, $fBold);
+          .main-nav-item {
+            text-transform: uppercase;
+
+            &:first-child,
+            &:last-child, {
+              margin: 0;
+            }
+
+            a {
+              @include font($f5, $color_1, $fBold);
+            }
           }
+
         }
 
-        .submenu {
+        // FIXME: Temporal
+        .navigation-subitem {
           display: none;
         }
 
@@ -493,7 +499,7 @@ header {
           width: 100%;
 
           .footer-top {
-            background-color: $color_1_soft;
+            //background-color: $color_1_soft;
 
             a {
               text-decoration: underline;

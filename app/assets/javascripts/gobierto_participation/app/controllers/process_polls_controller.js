@@ -13,6 +13,7 @@ this.GobiertoParticipation.ProcessPollsController = (function() {
     $('form').bind('ajax:error', showCannotSavePollPage);
   };
 
+  // Checks if a question is answered to show the Next or Send button.
   function refreshNextQuestionButtonState() {
     var $submitInput = $("input[data-behavior='next_question']");
     var $currentQuestion = getCurrentQuestion();
@@ -111,7 +112,6 @@ this.GobiertoParticipation.ProcessPollsController = (function() {
   };
 
   function _addNextQuestionButtonBehaviors() {
-
     var $submitInput = $("input[data-behavior='next_question']");
 
     $submitInput.click(function(e) {
@@ -122,10 +122,10 @@ this.GobiertoParticipation.ProcessPollsController = (function() {
       if (currentQuestionIndex !== $questions.length - 1) {
 
         e.preventDefault();
-        
+
         var nextQuestionIndex = currentQuestionIndex + 1;
         var $nextQuestion = $('#poll_question_' + nextQuestionIndex);
-        
+
         hidePollContentItem($currentQuestion);
         showPollContentItem($nextQuestion);
 

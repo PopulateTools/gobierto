@@ -1,4 +1,4 @@
 madrid_participation_index:
-  markup: <div class="gradient-bg">My Template</div>
+  markup: "<div class='gradient-bg'>My Template {% show_poll(poll_id: 353021530) %}</div>"
   template: participation_index
   site: madrid

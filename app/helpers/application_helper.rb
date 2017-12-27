@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def render_if_exists(partial_path, partial_params = {}, format = "html.erb")
     partial_path_name = Pathname.new(partial_path)
@@ -16,23 +18,23 @@ module ApplicationHelper
 
     class_name.send(enum_name.to_s.pluralize).reduce({}) do |enum_options, (key, _)|
       enum_options.merge!(
-        { I18n.t("activerecord.attributes.#{class_name.model_name.i18n_key}.#{enum_name.to_s.pluralize}.#{key}", default: key.capitalize) => key }
+        I18n.t("activerecord.attributes.#{class_name.model_name.i18n_key}.#{enum_name.to_s.pluralize}.#{key}", default: key.capitalize) => key
       )
     end
   end
 
   def privacy_policy_page_link
     if current_site && current_site.configuration.privacy_page?
-      link_to t('layouts.accept_privacy_policy_signup'), current_site.configuration.privacy_page
+      link_to t("layouts.accept_privacy_policy_signup"), current_site.configuration.privacy_page
     end
   end
 
   def tab_attributes(condition)
-    { role:'tab', 'tabindex' => condition ? 0 : -1, 'aria-selected' => condition }
+    { role: "tab", "tabindex" => condition ? 0 : -1, "aria-selected" => condition }
   end
 
   def show_social_links?
-    !params[:controller].include?('user/')
+    !params[:controller].include?("user/")
   end
 
   def full_layout?
@@ -53,5 +55,21 @@ module ApplicationHelper
                            end
     html = "<i class='fa fa-file" + fontawesome_filetype + "-o'></i>"
     html.html_safe
+  end
+
+  def next_poll(poll_id = nil)
+    poll = GobiertoParticipation::Poll.by_site(current_site).find(poll_id) if poll_id
+    answerable_polls = GobiertoParticipation::Poll.by_site(current_site).answerable.order(ends_at: :asc)
+    answerable_polls_by_user = answerable_polls.detect { |p| p.answerable_by?(current_user) } if current_user
+
+    if current_user
+      if poll && poll.answerable_by?(current_user)
+        poll
+      elsif answerable_polls_by_user
+        answerable_polls_by_user
+      end
+    else
+      answerable_polls.first
+    end
   end
 end

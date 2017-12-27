@@ -34,12 +34,16 @@
       <div class='poll_progress_map'>
         <ul>
           <li class='active'><span></span></li>
-          <% @poll_answer_form.questions_count.times do %>
+          <% if params[:answers].present? %>
+            <li class='active'><span></span></li>
+          <% end %>
+          <% pending_questions = params[:answers].present? ? @poll_answer_form.questions_count - 1 : @poll_answer_form.questions_count %>
+          <% pending_questions.times do %>
             <li><span></span></li>
           <% end %>
         </ul>
         <div class='poll_page'>
-          <%= t('.page_counter', current: 1, total: @poll_answer_form.questions_count + 1) %>
+          <%= t('.page_counter', current: params[:answers].present? ? 2 : 1, total: @poll_answer_form.questions_count + 1) %>
         </div>
       </div>
 

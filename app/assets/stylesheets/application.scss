@@ -370,6 +370,19 @@ html.turbolinks-progress-bar::before {
         margin: .5em 0;
       }
     }
+    .subblock {
+    border-top: none;
+    padding: 0 0 2em 0;
+    margin: 0 0 2em 0;
+    }
+    .data_subitem {
+      margin: 0 0 .5em 0;
+      h3 {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
+      }
+    }
     h3 {
       display: inline-block;
       vertical-align: middle;

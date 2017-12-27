@@ -149,7 +149,7 @@ es:
         other: No se pudo guardar este/a %{model} porque se encontraron %{count} errores
   helpers:
     select:
-      prompt: Por favor seleccione
+      prompt: "-- selecciona --"
     submit:
       create: Crear
       submit: Guardar

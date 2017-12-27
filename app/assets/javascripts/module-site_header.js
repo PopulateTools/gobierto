@@ -10,6 +10,7 @@ $(document).on('turbolinks:load', function() {
 
     $('.js-mobile-header').toggle();
     $('.js-mobile-nav').toggle();
+    $('.js-mobile-buttons').toggle();
 
     // var nav = $('.main-nav');
     // var subnav = $('.sub-nav');

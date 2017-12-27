@@ -60,14 +60,14 @@
           <div id="search_results" class="search_result_list"></div>
         </div>
 
-        <div class="social_links_container" data-share>
+        <div class="social_links_container js-mobile-buttons" data-share>
           <% if show_social_links? %>
             <a class="social_share twitter" data-share-network="twitter" data-track-event="Social Share|Click Twitter|Header"><i class="fa fa-twitter"></i></a>
             <a class="social_share facebook" data-share-network="facebook" data-track-event="Social Share|Click Facebook|Header"><i class="fa fa-facebook"></i></a>
           <% end %>
         </div>
 
-        <div class="mobile_only">
+        <div class="mobile_only js-mobile-buttons">
           <div class="scroll-up">
             <span class="fa-stack">
               <i class="fa fa-circle fa-stack-2x"></i>
@@ -149,11 +149,10 @@
 
         <div class="main-nav-item">
           <div class="search-box">
-                  <i class="fa fa-search"></i>
-                  <input id="gobierto_search" name="q" class="search-box_input" type="text" placeholder="<%= t('layouts.application.search') %>" aria-label="<%= t('layouts.application.search') %>">
-
-                  <div id="search_results" class="search_result_list"></div>
-                </div>
+            <i class="fa fa-search"></i>
+            <input id="gobierto_search" name="q" class="search-box_input" type="text" placeholder="<%= t('layouts.application.search') %>" aria-label="<%= t('layouts.application.search') %>">
+            <div id="search_results" class="search_result_list"></div>
+          </div>
         </div>
 
         <% current_site.configuration.modules.each do |site_module| %>
@@ -162,6 +161,8 @@
             <%= render_if_exists "#{site_module.underscore}/layouts/navigation.sub" %>
           </div>
         <% end %>
+
+
       </nav>
 
     </div>

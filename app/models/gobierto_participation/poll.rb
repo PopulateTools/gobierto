@@ -5,6 +5,7 @@ require_dependency "gobierto_participation"
 module GobiertoParticipation
   class Poll < ApplicationRecord
     class PollHasAnswers < StandardError; end
+    include GobiertoCommon::HasVisibilityUserLevels
 
     include PollResultsHelpers
 
@@ -14,7 +15,6 @@ module GobiertoParticipation
     has_many :answers, class_name: "GobiertoParticipation::PollAnswer", autosave: true
 
     enum visibility_level: { draft: 0, published: 1 }
-    enum visibility_user_level: { registered: 0, verified: 1 }
 
     scope :open, -> { where("starts_at <= ? AND ends_at >= ?", Time.zone.now, Time.zone.now) }
     scope :answerable, -> { published.open }

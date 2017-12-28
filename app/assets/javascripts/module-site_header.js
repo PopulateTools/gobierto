@@ -51,6 +51,13 @@ $(document).on('turbolinks:load', function() {
 
   $('.js-item-toggle').on('click', function() {
     var parent = $(this).parent();
+
+    // If open same menu-item, just close it.
+    if (parent.next().find('.is-open').length) {
+      parent.next().find('.is-open').removeClass('is-open');
+      return;
+    }
+    
     // Closes all menus
     parent.parent().find('.is-open').removeClass('is-open');
 

@@ -46,7 +46,7 @@ $(document).on('turbolinks:load', function() {
   });
 
   $('.js-submenu-toggle').on('click', function() {
-    $('.js-slider').toggleClass('is-open');
+    $('.js-slider:visible').toggleClass('is-open');
   });
 
   $('.js-item-toggle').on('click', function() {

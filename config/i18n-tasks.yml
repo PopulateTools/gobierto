@@ -6,6 +6,17 @@ data:
     - config/locales/**/*/%{locale}.yml
     - vendor/auth_strategies/**/config/locales/**/%{locale}.yml
     - vendor/auth_strategies/**/config/locales/**/*/%{locale}.yml
+search:
+  paths:
+    - app/
+    - vendor/auth_strategies/
+  relative_roots:
+    - app/controllers
+    - app/helpers
+    - app/mailers
+    - app/presenters
+    - app/views
+    - vendor/auth_strategies/null_strategy/app/views
 ignore_missing:
   - 'gobierto_budgets.visualizations.*'
   - 'layouts.sandbox.*'

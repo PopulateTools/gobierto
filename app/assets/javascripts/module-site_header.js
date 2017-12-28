@@ -53,13 +53,13 @@ $(document).on('turbolinks:load', function() {
     var parent = $(this).parent();
 
     // If open same menu-item, just close it.
-    if (parent.next().find('.is-open').length) {
-      parent.next().find('.is-open').removeClass('is-open');
+    if (parent.next().find('.js-slider').hasClass('is-open')) {
+      parent.next().find('.js-slider').removeClass('is-open');
       return;
     }
-    
+
     // Closes all menus
-    parent.parent().find('.is-open').removeClass('is-open');
+    parent.closest('.js-mobile-nav').find('.is-open').removeClass('is-open');
 
     // Delayed to get accordion effect
     setTimeout(function () {

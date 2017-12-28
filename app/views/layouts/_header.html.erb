@@ -182,54 +182,41 @@
         <% end %>
 
         <div class="navigation-wrap">
-          <div class="navigation-item">
-            <% if user_signed_in? %>
+          <% if user_signed_in? %>
+            <div class="navigation-item">
               <div class="main-nav-item">
                 <a href="#">
                   Hola, <%= t("layouts.application.session.title") %>
                 </a>
-                <div>
-                  <ul class="pure-menu-children">
-                    <li class="pure-menu-item">
-                      <%= link_to user_settings_path, class: "pure-menu-link" do %>
-                      <i class="fa fa-ship"></i>
-                      <%= t("layouts.application.session.title") %>
-                      <% end %>
-                    </li>
-                    <li class="pure-menu-item">
-                      <%= link_to user_notifications_path, class: "pure-menu-link" do %>
-                      <i class="fa fa-th"></i>
-                      <%= t("layouts.application.session.notifications") %>
-                      <% end %>
-                    </li>
-                    <li class="pure-menu-item">
-                      <%= link_to user_subscriptions_path, class: "pure-menu-link" do %>
-                      <i class="fa fa-envelope-o"></i>
-                      <%= t("layouts.application.session.alerts") %>
-                      <% end %>
-                    </li>
-                    <li class="pure-menu-item">
-                      <%= link_to user_sessions_path, method: :delete, class: "pure-menu-link" do %>
-                      <i class="fa fa-sign-out"></i>
-                      <%= t("layouts.application.session.sign_out") %>
-                      <% end %>
-                    </li>
-                  </ul>
+              </div>
+              <div class="dropdown-button js-item-toggle">
+                <div class="button-container">
+                  <i class="fa fa-caret-down"></i>
                 </div>
               </div>
-            <% else %>
+            </div>
+            <div class="navigation-subitem-container">
+              <div class="navigation-subitem js-slider">
+                <div class="column subitem-container">
+                  Homeboys
+                </div>
+              </div>
+            </div>
+          <% else %>
+            <div class="navigation-item">
               <div class="main-nav-item">
                 <%= link_to t('layouts.application.session.login'), new_user_sessions_path, data: { turbolinks: false } %>
               </div>
-            <% end %>
-            <div class="dropdown-button js-item-toggle">
-              <div class="button-container">
-                <i class="fa fa-caret-down"></i>
+              <div class="dropdown-button js-item-toggle">
+                <div class="button-container">
+                  <i class="fa fa-caret-down"></i>
+                </div>
               </div>
             </div>
-          </div>
+          <% end %>
         </div>
 
+        <!-- nav-footer -->
         <div class="navigation-wrap">
           <div class="navigation-footer">
 

@@ -464,8 +464,9 @@ header {
 
       .navigation {
         display: none;
-        min-height: 100vh;
+        min-height: calc(100vh - 90px);
         background-color: $color_1_soft;
+        position: relative;
 
         .navigation-item {
           padding: .5em 1em;
@@ -523,11 +524,19 @@ header {
 
         .secondary_nav {
           float: inherit;
+
+          ul {
+            @include flex-align(space-around);
+
+            li {
+              padding: 0;
+            }
+          }
         }
 
         .navigation-footer {
           width: 100%;
-          position: fixed;
+          position: absolute;
           bottom: 0;
 
           .footer-top {

@@ -63,9 +63,14 @@ $(document).on('turbolinks:load', function() {
     var parent = $(this).parent();
     // Closes all menus
     parent.parent().find('.is-open').removeClass('is-open');
-    // Open sibling menu
-    parent.next().find('.js-slider').toggleClass('is-open');
 
+    // Delayed to get accordion effect
+    setTimeout(function () {
+      // Open sibling menu
+      parent.next().find('.js-slider').toggleClass('is-open');
+    }, 200);
+
+    // REVIEW: 
     if ($(this).prev().find('a').attr('href') === "/participacion") {
       $('.js-secondary_nav').addClass('is-open');
     } else {

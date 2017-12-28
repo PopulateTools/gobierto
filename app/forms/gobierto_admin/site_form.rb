@@ -70,7 +70,7 @@ module GobiertoAdmin
     end
 
     def auth_modules
-      @auth_modules = (@auth_modules.present?) ? @auth_modules & AUTH_MODULES.map(&:name) : site.configuration.auth_modules
+      @auth_modules = @auth_modules ? @auth_modules & AUTH_MODULES.map(&:name) : site.configuration.auth_modules
     end
 
     def head_markup

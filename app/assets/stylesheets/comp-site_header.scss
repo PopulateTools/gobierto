@@ -492,7 +492,7 @@ header {
               margin: 0;
             }
 
-            a {
+            a:not(.result) {
               @include font($f5, $color_1, $fBold);
             }
           }
@@ -586,6 +586,15 @@ header {
             width: 100%;
           }
         }
+
+        .search_result_list {
+          bottom: initial;
+          width: 100%;
+
+          .result {
+            text-transform: initial;
+          }
+        }
       }
 
       .site_header_block {
@@ -617,19 +626,6 @@ header {
 
         .site_header_social .search-box {
           display: none;
-          // width: 100%;
-          //
-          // .search-box_input {
-          //   width: 100%;
-          //
-          //   &:focus {
-          //     width: 100%;
-          //   }
-          // }
-          //
-          // .search_result_list {
-          //   bottom: initial;
-          // }
         }
       }
 

@@ -21,7 +21,7 @@ module GobiertoBudgets
 
     def total_budget_per_inhabitant(year = nil)
       year ||= @year
-      BudgetTotal.budgeted_for(@place.id, year, BudgetLine::EXPENSE) / (population(year) || population(year-1) || population(year-2)).to_f
+      BudgetTotal.budgeted_for(@place.id, year, BudgetLine::EXPENSE).to_f / (population(year) || population(year-1) || population(year-2)).to_f
     end
 
     def total_income_budget(year = nil)
@@ -36,7 +36,7 @@ module GobiertoBudgets
 
     def total_income_budget_per_inhabitant(year = nil)
       year ||= @year
-      BudgetTotal.budgeted_for(@place.id, year, BudgetLine::INCOME) / (population(year) || population(year-1) || population(year-2)).to_f
+      BudgetTotal.budgeted_for(@place.id, year, BudgetLine::INCOME).to_f / (population(year) || population(year-1) || population(year-2)).to_f
     end
 
     def total_budget(year = nil)
@@ -174,12 +174,12 @@ module GobiertoBudgets
         direction = I18n.t('gobierto_budgets.budgets.index.more')
       end
 
-      "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)}% #{direction}"
+      "#{ActionController::Base.helpers.number_with_precision(diff, precision: 2)} % #{direction}"
     end
 
     def main_budget_lines_summary
-      main_budget_lines_forecast  = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, place: @site.place, year: @year, area_name: EconomicArea.area_name })
-      main_budget_lines_execution = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, place: @site.place, year: @year, area_name: EconomicArea.area_name, index: SearchEngineConfiguration::BudgetLine.index_executed })
+      main_budget_lines_forecast  = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, place: @place, year: @year, area_name: EconomicArea.area_name })
+      main_budget_lines_execution = BudgetLine.all(where: { kind: BudgetLine::EXPENSE, level: 1, place: @place, year: @year, area_name: EconomicArea.area_name, index: SearchEngineConfiguration::BudgetLine.index_executed })
 
       main_budget_lines_summary = {}
 

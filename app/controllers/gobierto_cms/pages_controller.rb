@@ -2,24 +2,18 @@
 
 module GobiertoCms
   class PagesController < GobiertoCms::ApplicationController
-    include ::PreviewTokenHelper
-
     before_action :find_page_by_id_and_redirect
 
     def show
       @section = find_section if params[:slug_section]
       @page = find_page
+      @section_item = find_section_item if params[:slug_section]
+      @collection = @page.collection
+      @pages = ::GobiertoCms::Page.where(id: @collection.pages_in_collection).active
+
       if params[:process]
         @process = find_process
         @groups = current_site.processes.group_process
-      end
-
-      if @page
-        @section_item = find_section_item if params[:slug_section]
-        @collection = @page.collection
-        @pages = ::GobiertoCms::Page.where(id: @collection.pages_in_collection).active
-      elsif @section
-        redirect_to gobierto_cms_section_item_path(find_first_page_in_section.slug, slug_section: @section.slug)
       end
     end
 
@@ -56,18 +50,12 @@ module GobiertoCms
       ::GobiertoCms::SectionItem.find_by!(item: @page, section: @section)
     end
 
-    def find_first_page_in_section
-      ::GobiertoCms::Page.first_page_in_section(@section)
-    end
-
     def find_process_news
       @process.news.sort_by_updated_at.limit(5)
     end
 
     def find_page
-      if params[:id]
-        pages_scope.find_by!(slug: params[:id])
-      end
+      pages_scope.find_by!(slug: params[:id])
     end
 
     def pages_scope

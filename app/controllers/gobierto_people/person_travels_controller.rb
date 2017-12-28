@@ -16,10 +16,5 @@ module GobiertoPeople
         redirect_to gobierto_people_root_path
       end
     end
-
-    def travels_service_url
-      APP_CONFIG.dig("gobierto_people", "travels_service_url_#{I18n.locale}") ||
-        APP_CONFIG.dig("gobierto_people", "travels_service_url")
-    end
   end
 end

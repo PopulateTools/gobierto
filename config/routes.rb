@@ -17,6 +17,12 @@ Rails.application.routes.draw do
 
     resource :sessions, only: [:new, :create, :destroy]
     resources :sites, only: [:index, :new, :create, :edit, :update, :destroy]
+    namespace :gobierto_core do
+      resources :templates, only: [:index] do
+        get :edit
+      end
+      resources :site_templates, only: [:create, :update, :destroy]
+    end
     resources :issues do
       collection do
         resource :issue_sort, only: [:create], controller: "issues_sort", path: :issues_sort
@@ -78,7 +84,6 @@ Rails.application.routes.draw do
         resources :person_events, only: [:index, :new, :create, :edit, :update], controller: "people/person_events", as: :events, path: :events
         resources :person_statements, only: [:index, :new, :create, :edit, :update], controller: "people/person_statements", as: :statements, path: :statements
         resources :person_posts, only: [:index, :new, :create, :edit, :update], controller: "people/person_posts", as: :posts, path: :blog
-        resource :person_calendar_configuration, only: [:edit, :update], controller: "people/person_calendar_configuration", as: :calendar_configuration, path: :calendar_configuration
       end
 
       namespace :configuration do
@@ -97,6 +102,13 @@ Rails.application.routes.draw do
       get "/" => "welcome#index"
 
       resources :processes, only: [:index, :new, :edit, :create, :update] do
+        post :update_current_stage
+        resources :process_stages, only: [:create, :destroy, :edit, :index, :new, :update], controller: "processes/process_stages", as: :process_stages, path: :process_stages do
+          resources :pages, only: [:new, :create, :edit, :update], controller: "processes/process_stage_pages", as: :process_stage_page, path: :process_stage_page
+          collection do
+            resource :process_stage_sort, only: [:create], controller: "processes/process_stages_sort", path: :process_stages_sort
+          end
+        end
         resources :file_attachments, only: [:index], controller: "processes/process_file_attachments", as: :file_attachments, path: :file_attachments
         resources :events, only: [:index], controller: "processes/process_events", as: :events, path: :events
         resources :pages, only: [:index], controller: "processes/process_pages", as: :pages, path: :pages
@@ -104,7 +116,6 @@ Rails.application.routes.draw do
           resources :answers, only: [:index], controller: "processes/poll_answers"
         end
         resources :contribution_containers, only: [:new, :edit, :create, :update, :index, :show], controller: "processes/process_contribution_containers", as: :contribution_containers, path: :contribution_containers
-        resources :information, only: [:edit, :update], controller: "processes/process_information", as: :process_information, path: :process_information
       end
     end
 
@@ -133,6 +144,11 @@ Rails.application.routes.draw do
     namespace :gobierto_calendars, as: :calendars do
       resources :events
       resources :collections, only: [:index]
+      resources :calendar_configurations, only: [:edit, :update], controller: "calendar_configuration", as: :configurations, path: :configurations do
+        member do
+          put 'sync_calendars'
+        end
+      end
     end
   end
 
@@ -235,6 +251,7 @@ Rails.application.routes.draw do
       resources :featured_budget_lines, only: [:show]
 
       get "resumen(/:year)" => "budgets#index", as: :budgets
+      get "datos(/:year)" => "budgets#export", as: :budgets_export
       get "partidas/:year/:area_name/:kind" => "budget_lines#index", as: :budget_lines
       get "partidas/:id/:year/:area_name/:kind" => "budget_lines#show", as: :budget_line
       get "budget_line_descendants/:year/:area_name/:kind" => "budget_line_descendants#index", as: :budget_line_descendants
@@ -277,7 +294,7 @@ Rails.application.routes.draw do
     constraints GobiertoSiteConstraint.new do
       resources :pages, only: [:index, :show], path: "paginas"
       get "/s/:slug_section/:id" => "pages#show", as: :section_item
-      get "/s/:slug_section" => "pages#show", as: :section
+      get "/s/:slug_section" => "sections#show", as: :section
     end
   end
 
@@ -287,7 +304,6 @@ Rails.application.routes.draw do
       get "/" => "welcome#index", as: :root
 
       resources :processes, only: [:index, :show], path: "p" do
-        resource :information, only: [:show], controller: "processes/information", path: "informacion"
         resources :contribution_containers, only: [:index, :show], controller: "processes/contribution_containers", path: "aportaciones" do
           resources :contributions, only: [:new, :create, :show], controller: "processes/contributions", path: :contributions do
             resource :vote, only: [:create, :destroy]

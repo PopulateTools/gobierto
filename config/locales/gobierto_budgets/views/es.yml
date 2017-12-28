@@ -37,7 +37,7 @@ es:
         last_year: El año pasado %{value}
         no_description: No hay una descripción asociada a esta partida.
         no_distribution: No hay distribución asociada a esta partida.
-        no_more_descendants: No hay más sub-partidas
+        no_more_descendants: No hay más subpartidas
         not_available: No disp.
         percentage: "% sobre el total del pres."
         percentage_tooltip: Porcentaje del presupuesto total que supone esta partida
@@ -424,6 +424,9 @@ es:
       incomes: ingresos
     events:
       gobierto_budgets_budgets_updated: Presupuestos actualizados
+    exports:
+      description: Compara gastos e ingresos año por año
+      title: Partidas presupuestarias
     featured_budget_lines:
       gobierto_site_template:
         how_much_place_in: "¿Cuánto se gasta %{place} en..."
@@ -524,7 +527,7 @@ es:
       expenses_per_inhabitant: Gasto por habitante
       inhabitant_short: hab
       mean_autonomy: Media autonómica
-      mean_national: Media nacional
+      mean_national: Media estatal
       mean_province: Media provincial
       previous_year_diff: Cambio año anterior
       total_expenses: Gasto total

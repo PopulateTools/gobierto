@@ -252,7 +252,7 @@ body.gobierto_admin {
     border-radius: 2em;
   }
   a {
-    margin-right: 1em;
+    margin-right: .25em;
     text-decoration: none;
     .fa {
       margin: 0 .25em 0 0;
@@ -261,7 +261,7 @@ body.gobierto_admin {
 }
 .admin_tools.right {
   .button, button {
-    margin-left: 1em;
+    margin-left: .25em;
   }
 }
 
@@ -343,6 +343,7 @@ pre {
 
 .list_item, .list_item_with_editable_content {
   margin: 0 0 .5em 0;
+  display: flex;
   .fa-bars {
     padding: .75em;
     cursor: pointer;
@@ -351,17 +352,34 @@ pre {
     background: $color_neutral_soft;
     @include border-radius(3px);
   }
-  label.main {
-    display: inline-block;
+  div.main, label.main {
+    display: flex;
+    flex-grow: 10;
     background: $color_secondary;
-    padding: 4px 10px;
+    padding: 6px 12px;
     @include border-radius(4px);
-    margin: 0 20px 0 0;
-    width: calc(100% - 200px);
-    font-weight: 600;
+    // width: calc(100% - 200px);
+
+    label {
+      font-weight: 600;
+      display: block;
+      .interaction_tool {
+        display: block;
+        opacity: .75;
+      }
+    }
+    .group {
+      flex-grow: 1;
+    }
+    .secondary {
+      font-size: .85em;
+      .fa {
+        opacity: .5;
+      }
+    }
   }
   .mandatory, .inline_notice {
-    display: inline-block;
+    display: flex;
     margin: 0 1em 0 0;
   }
   .inline_notice {
@@ -369,10 +387,11 @@ pre {
     opacity: .5;
   }
   .tools {
-    display: inline-block;
-    width: 70px;
+    display: flex;
+    padding: 4px 0;
+    // width: 70px;
     .fa {
-      margin: 0 1em 0 0;
+      margin: 0 0 0 1em;
     }
   }
   input[type="checkbox"], input[type="radio"] {
@@ -567,9 +586,16 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
     color: $color_text;
     text-decoration: none;
   }
-
 }
 
+.global_menu, a .global_menu {
+  border-radius: 3px;
+  font-size: 1em;
+  background: $color_logo_blue;
+  color: #FFF;
+  padding: 3px 6px;
+  text-decoration: none;
+}
 
 /* Gobierto Attachments */
 #gobierto-attachment {
@@ -626,24 +652,68 @@ trix-toolbar .button_group button.icon, trix-toolbar .button_group input[type=bu
   }
 }
 
-.gobierto_admin {
-  .select2-container {
+.file_browser {
+  background: $color_1_soft;
+  font-size: .85em;
+  box-sizing: border-box;
+  padding: 1em;
+  margin-right: 5px;
+  ul {
+    padding: 0;
+    margin: 0 0 0 -4px;
+    ul {
+      padding: 0 0 0 20px;
+    }
+  }
+  li {
+    padding: 1px 7px;
+  }
+  li:hover {
+    border-radius: 3px;
+    background: darken($color_1_soft, 5%);
+    cursor: pointer;
+  }
+  ul, li {
+    list-style-type: none;
+  }
+}
+.template_editor {
+  .template_editor_main_pane {
+    background: $color_1_soft;
+  }
+  .action_buttons {
+    box-sizing: border-box;
+    padding: 1em;
+    text-align: right;
+    border-bottom: 5px solid #FFF;
+    margin: 0;
+  }
+  .code_editor {
+    background: $color_1_soft;
+    box-sizing: border-box;
+    padding: 1em;
+    min-height: 600px;
+  }
 
-  }
-  .select2-container--default .select2-selection--single {
-    background-color: initial;
-    padding: 32px 0 9px 7px;
-    border: initial;
-  }
-  .select2-container .select2-selection--single {
-    height: initial;
-  }
-  .select2-container--default .select2-selection--single .select2-selection__arrow {
-    top: initial;
-    bottom: 10px;
-    right: 10px;
-  }
-  .select2-container--default .select2-results > .select2-results__options {
-    border-bottom: 1px solid #CDCDCD;
+  .gobierto_admin {
+    .select2-container {
+
+    }
+    .select2-container--default .select2-selection--single {
+      background-color: initial;
+      padding: 32px 0 9px 7px;
+      border: initial;
+    }
+    .select2-container .select2-selection--single {
+      height: initial;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+      top: initial;
+      bottom: 10px;
+      right: 10px;
+    }
+    .select2-container--default .select2-results > .select2-results__options {
+      border-bottom: 1px solid #CDCDCD;
+    }
   }
 }

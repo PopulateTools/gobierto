@@ -1,6 +1,6 @@
 consultation_faq:
   title_translations: <%= { 'en' => 'Consultation page FAQ', 'es' => 'FAQ consultas' }.to_json %>
-  body_translations: <%= { 'en' => 'This is the body of the page', 'es' => 'Cuerpo página consultas' }.to_json %>
+  body_translations: <%= { 'en' => 'This is the <strong>body</strong> of the page', 'es' => 'Cuerpo <strong>página</strong> consultas' }.to_json %>
   slug: 'consultation-faq'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid

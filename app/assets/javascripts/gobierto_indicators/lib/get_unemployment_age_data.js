@@ -57,11 +57,11 @@ var GetUnemploymentAgeData = Class.extend({
 
         // Filtering values to start from the first data points
         this.data = unemployed.filter(function(d) { return d.date >=this.parseTime('2011-01') }.bind(this));
-        
+
         window.unemplAgeData = this.data;
-        
+
         if (callback) callback();
       }.bind(this));
   }
 });
-  
+

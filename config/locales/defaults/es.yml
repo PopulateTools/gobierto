@@ -41,6 +41,7 @@ es:
       default: "%d/%m/%Y"
       long: "%d de %B de %Y"
       short: "%d %b %Y"
+      shortest: "%d %b %y"
     month_names:
     - 
     - enero
@@ -149,7 +150,7 @@ es:
         other: No se pudo guardar este/a %{model} porque se encontraron %{count} errores
   helpers:
     select:
-      prompt: Por favor seleccione
+      prompt: "-- selecciona --"
     submit:
       create: Crear
       submit: Guardar
@@ -218,6 +219,7 @@ es:
     am: am
     formats:
       default: "%A, %d de %B de %Y %H:%M:%S %z"
+      from_to: Del %{starts} al %{ends}
       long: "%d de %B de %Y %H:%M"
       short: "%d de %b %H:%M"
     pm: pm

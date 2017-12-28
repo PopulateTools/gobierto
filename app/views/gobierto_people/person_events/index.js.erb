@@ -1,6 +1,8 @@
 <% if params[:page] && params[:page].to_i > 1 %>
   $('.see_more').remove();
-  $('<%=j render(partial: 'gobierto_people/person_events/person_event', collection: @events)%>').appendTo('#events');
+  <% @events.each do |event| %>
+    $('<%=j render partial: "gobierto_people/person_events/person_event", locals: { person: event.collection.container, person_event: event } %>').appendTo('#events');
+  <% end %>
 <% else %>
   $("#person-events-list").html('<%=j render(partial: "gobierto_people/people/person_events", locals: { person_events: @events, no_upcoming_events: @no_upcoming_events, people_filter: GobiertoPeople::Person.parties.key(@person_party) || GobiertoPeople::Person.categories.key(@person_category) } ) %>');
 <% end %>

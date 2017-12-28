@@ -18,14 +18,6 @@ ca:
           edit:
             agendas: Agendes
             blogs: Blogs
-            calendar_integration: Integració de calendari
-            google_calendar: Google Calendar
-            ibm_notes: IBM Notes
-            ibm_notes_pwd: Contrasenya d'IBM Notes
-            ibm_notes_usr: Usuari d'IBM Notes
-            microsoft_exchange: Microsoft Exchange
-            microsoft_exchange_pwd: Contrasenya de Microsoft Exchange
-            microsoft_exchange_usr: Usuari de Microsoft Exchange
             officials: Persones
             placeholders:
               home_text_ca: Text home català

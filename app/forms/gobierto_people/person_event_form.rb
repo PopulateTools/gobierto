@@ -14,16 +14,24 @@ module GobiertoPeople
       :state,
       :notify,
       :locations,
-      :attendees
+      :attendees,
+      :recurring
     )
 
     delegate :persisted?, to: :person_event
 
     validates :external_id, :title, :starts_at, :ends_at, :site, :collection, presence: true
+    validate :recurring_event_in_window
 
     trackable_on :person_event
 
     notify_changed :state
+
+    def destroy
+      unless person_event.new_record?
+        person_event.destroy
+      end
+    end
 
     def save
       save_person_event if valid?
@@ -31,6 +39,10 @@ module GobiertoPeople
 
     def site
       @site ||= Site.find_by(id: site_id)
+    end
+
+    def recurring?
+      @recurring ||= false
     end
 
     def person_event
@@ -123,14 +135,6 @@ module GobiertoPeople
       ::GobiertoCalendars::Event
     end
 
-    def build_person_event_location
-      person_event.locations.build
-    end
-
-    def build_person_event_attendee
-      person_event.attendees.build
-    end
-
     def person_event_location_class
       ::GobiertoCalendars::EventLocation
     end
@@ -141,6 +145,12 @@ module GobiertoPeople
 
     def person_class
       ::GobiertoPeople::Person
+    end
+
+    def recurring_event_in_window
+      if recurring?
+        errors.add(:starts_at) if starts_at > 3.months.from_now || starts_at < 1.year.ago
+      end
     end
 
     def save_person_event

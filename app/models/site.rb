@@ -40,6 +40,9 @@ class Site < ApplicationRecord
   has_many :pages, dependent: :destroy, class_name: "GobiertoCms::Page"
   has_many :sections, dependent: :destroy, class_name: "GobiertoCms::Section"
 
+  # Gobierto Core integration
+  has_many :site_templates, dependent: :destroy, class_name: "GobiertoCore::SiteTemplate"
+
   # Gobierto Attachments integration
   has_many :attachments, dependent: :destroy, class_name: "GobiertoAttachments::Attachment"
 
@@ -77,25 +80,6 @@ class Site < ApplicationRecord
   def self.find_by_allowed_domain(domain)
     unless reserved_domains.include?(domain)
       find_by(domain: domain)
-    end
-  end
-
-  def self.with_agendas_integration_enabled
-    @with_agendas_integration_enabled ||= Site.all.select do |site|
-      site.calendar_integration.present?
-    end
-  end
-
-  def calendar_integration
-    if gobierto_people_settings
-      case gobierto_people_settings.calendar_integration
-      when 'ibm_notes'
-        GobiertoPeople::IbmNotes::CalendarIntegration
-      when 'google_calendar'
-        GobiertoPeople::GoogleCalendar::CalendarIntegration
-      when 'microsoft_exchange'
-        GobiertoPeople::MicrosoftExchange::CalendarIntegration
-      end
     end
   end
 

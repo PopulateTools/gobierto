@@ -101,6 +101,8 @@ module GobiertoBudgets
 
       def all(params = {})
         conditions = params[:where]
+        includes = params[:include]
+        presenter = params[:presenter] || BudgetLinePresenter
         validate_conditions(conditions)
 
         terms = [
@@ -159,14 +161,21 @@ module GobiertoBudgets
 
         response = SearchEngine.client.search(index: index, type: area.area_name, body: query)
 
+        included_attrs = {}
+        if includes.present?
+          included_attrs[:index] = index if includes.include? :index
+        end
+
+        merge_includes = included_attrs.present? ? ->(row) { row.merge(included_attrs) } : ->(row) { row }
+
         response['hits']['hits'].map{ |h| h['_source'] }.map do |row|
-          BudgetLinePresenter.new(row.merge(
+          presenter.new(merge_includes.call(row.merge(
             site: conditions[:site],
             kind: conditions[:kind],
             area: area,
             total: response['aggregations']['total_budget']['value'],
             total_budget_per_inhabitant: response['aggregations']['total_budget_per_inhabitant']['value']
-          ))
+          )))
         end
       rescue Elasticsearch::Transport::Transport::Errors::NotFound
         return []

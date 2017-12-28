@@ -22,7 +22,7 @@ module GobiertoParticipation
     end
 
     def processes
-      @processes ||= site.processes.process.where(issue: issue).open
+      @processes ||= site.processes.process.where(issue: issue).active
     end
 
     def groups

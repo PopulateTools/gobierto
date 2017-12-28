@@ -43,6 +43,7 @@ en:
         name: Entity ame
         populate_data_api_token: API token Populate Data
         privacy_page_id: Privacy page
+        raw_configuration_variables: Other configuration variables
         title: Site name
       gobierto_admin/user_form:
         email: Email

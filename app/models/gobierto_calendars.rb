@@ -1,8 +1,11 @@
 module GobiertoCalendars
+
   def self.table_name_prefix
-    'gobierto_calendars_'
+    'gc_'
   end
+
   def self.searchable_models
     [ GobiertoCalendars::Event ]
   end
+
 end

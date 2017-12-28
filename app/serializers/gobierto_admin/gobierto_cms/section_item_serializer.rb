@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoCms
     class SectionItemSerializer < ActiveModel::Serializer
-      attributes :id, :name, :children
+      attributes :id, :name, :children, :item_type
 
       def children
         object.children.sorted.map do |children|
@@ -12,7 +12,12 @@ module GobiertoAdmin
       end
 
       def name
-        object.item.try(:title)
+        case object.item_type
+          when "GobiertoModule"
+            object.item_id
+          else
+            object.item.try(:title)
+        end
       end
     end
   end

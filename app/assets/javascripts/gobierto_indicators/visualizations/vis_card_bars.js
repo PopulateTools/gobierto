@@ -39,6 +39,12 @@ var BarsCard = Class.extend({
       .attr('title', I18n.t('gobierto_indicators.cards.' + cardName + '.title'))
       .text(I18n.t('gobierto_indicators.cards.' + cardName + '.title'));
 
+    // Append backface info
+    this.div.selectAll('.js-data-desc')
+      .text(json.metadata.indicator.description);
+    this.div.selectAll('.js-data-freq')
+      .text(formatDate(parsedDate));
+
     // Paint bars
     var x = d3.scaleLinear()
       .range([0, isMobile ? 30 : 35])

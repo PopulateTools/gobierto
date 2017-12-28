@@ -2,12 +2,29 @@
 
 module GobiertoParticipation
   class WelcomeController < GobiertoParticipation::ApplicationController
+    include LiquidHelper
+
     def index
       @processes = current_site.processes.process.active
       @issues = current_site.issues
       @events = find_participation_events
       @news = find_participation_news
       @activities = find_participation_activities
+
+      liquid_path = params[:controller] + "/" + action_name + ".liquid"
+
+      liquid_str = if current_site_has_custom_template?(liquid_path)
+                     current_site_custom_template(liquid_path).first.markup
+                   else
+                     File.read("app/views/" + liquid_path)
+                   end
+
+      liquid = to_liquid(liquid_str)
+      liquid_rendered = liquid.render({ "location_name" => current_site.location_name,
+                                        "current_user" => current_user },
+                                      registers: { controller: self })
+
+      render inline: liquid_rendered.html_safe, layout: "gobierto_participation/layouts/application"
     end
 
     private

@@ -40,6 +40,12 @@ var TableCard = Class.extend({
       .attr('title', I18n.t('gobierto_indicators.cards.' + cardName + '.title'))
       .text(I18n.t('gobierto_indicators.cards.' + cardName + '.title'));
 
+    // Append backface info
+    this.div.selectAll('.js-data-desc')
+      .text(json.metadata.indicator.description);
+    this.div.selectAll('.js-data-freq')
+      .text(formatDate(parsedDate));
+
     var header = nest.map(function(d) {
       return I18n.t('gobierto_indicators.cards.' + cardName + '.' + this._normalize(d.value.column));
     }.bind(this));

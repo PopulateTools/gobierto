@@ -9,11 +9,11 @@
 <div class="tabs">
   <ul>
     <li class="active"><%= link_to 'Grupo', '' %></li>
-    <li><%= link_to 'Información', 'admin_part_group_info' %></li>
+    <!-- <li><%= link_to 'Información', 'admin_part_group_info' %></li> -->
+    <!-- <li><%= link_to 'Encuestas', 'admin_part_group_polls' %></li> -->
+    <!-- <li><%= link_to 'Aportaciones', 'admin_part_group_contributions' %></li> -->
+    <!-- <li><%= link_to 'Votaciones', 'admin_part_group_votaciones' %></li> -->
     <li><%= link_to 'Agenda', 'admin_part_group_agenda' %></li>
-    <li><%= link_to 'Encuestas', 'admin_part_group_polls' %></li>
-    <li><%= link_to 'Aportaciones', 'admin_part_group_contributions' %></li>
-    <li><%= link_to 'Votaciones', 'admin_part_group_votaciones' %></li>
     <li><%= link_to 'Noticias', 'admin_part_group_news' %></li>
     <li><%= link_to 'Documentos', 'admin_part_group_docs' %></li>
   </ul>
@@ -56,6 +56,206 @@
         </div>
 
       </div>
+
+      <div class="form_block">
+
+        <h3>Fases - Herramientas</h3>
+
+        <ul class="block_list">
+
+        <% for i in ['Información', 'Reuniones', 'Encuestas', 'Ideas', 'Resultados'] %>
+
+          <div class="list_item">
+
+            <i class="fa fa-bars"></i>
+            <div class="main">
+
+              <div class="group">
+                <label>
+                  <%= i %>
+                  <span class="interaction_tool">
+                    <i class="fa fa-stethoscope"></i>
+                    Encuestas
+                  </span>
+                </label>
+              </div>
+
+              <div class="group secondary">
+                <div class="date">
+                  <i class="fa fa-clock-o"></i>
+                  Del 1 ene 18 al 5 feb 18
+                </div>
+                <div class="">
+                  <i class="fa fa-cog"></i>
+                  <a href="admin_part_group_polls">Gestionar</a>
+                </div>
+              </div>
+
+              <div class="group secondary right">
+                <label><input type="radio" name="active_phase"> Activa</label>
+                <span>
+                  <i class="fa fa-check"></i>
+                  Publicada
+
+                  <!--
+                  <i class="fa fa-lock"></i>
+                  Borrador
+                  -->
+                </span>
+              </div>
+
+            </div>
+
+            <div class="tools">
+              <%= link_to '<i class="fa fa-edit"></i>'.html_safe, '#edit_phase_1', title: 'Editar fase', class: 'tipsit open_modal' %>
+              <%= link_to '<i class="fa fa-trash"></i>'.html_safe, '', title: 'Eliminar fase', class: 'tipsit' %>
+            </div>
+
+          </div>
+
+          <!-- modal -->
+          <div class="modal mfp-hide" id="edit_phase_1">
+
+            <h2>Editar fase: <%= i %></h2>
+
+            <div class="form_item select_control">
+              <label for="entity">Herramienta</label>
+              <select>
+                <option disabled selected value> -- seleccionar -- </option>
+                <option>Encuestas</option>
+                <option>Aportaciones</option>
+                <option>Votaciones</option>
+                <option>Información</option>
+                <option>Agenda</option>
+                <option>Noticias</option>
+                <option>Documentos</option>
+              </select>
+            </div>
+
+            <div class="globalized_fields">
+
+              <div class="globalize_tool">
+                <label>Traducir</label>
+                <a href="#" class="locale_option selected completed tipsit" title="Define el contenido en su versión en Español">
+                  <span class="locale">ES</span>
+                  <span class="status"></span>
+                </a>
+                <a href="#" class="locale_option completed tipsit" title="Define el contenido en su versión en Catalán">
+                  <span class="locale">CA</span>
+                  <span class="status"></span>
+                </a>
+                <a href="#" class="locale_option tipsit" title="Define el contenido en su versión en Inglés">
+                  <span class="locale">EN</span>
+                  <span class="status"></span>
+                </a>
+              </div>
+
+              <div class="form_item input_text">
+                <label for="name">
+                  Menú / Literal
+                  <span class="indication">Máx 140 caracteres</span>
+                </label>
+                <input type="text" id="name" value="Encuesta">
+              </div>
+
+              <div class="form_item input_text">
+                <label for="name">
+                  Título de la fase
+                  <span class="indication">Máx 140 caracteres</span>
+                </label>
+                <input type="text" id="name" value="Encuesta previa sobre las Fiestas de Carnaval">
+              </div>
+
+              <!-- warning, this is not code, do not add the code class to the .form_item -->
+              <div class="form_item textarea">
+                <label for="entity">
+                  Descripción
+                  <span class="indication">Máx 480 caracteres</span>
+                </label>
+                <textarea>Ponemos en marcha una encuesta para conocer la opinión inicial de los vecinos sobre algunos aspectos generales de las fiestas de carnaval. El objetivo es comenzar a recopilar información de cara al diseño de las fiestas.</textarea>
+                <div class="inline_help"></div>
+              </div>
+
+              <div class="form_item input_text">
+                <label for="name">
+                  Caja CTA / Descripción corta
+                  <span class="indication">Máx 140 caracteres</span>
+                </label>
+                <input type="text" id="name" value="Opina sobre cómo deberían ser las fiestas de carnaval">
+              </div>
+
+              <div class="form_item input_text">
+                <label for="name">
+                  Caja CTA / Botón / Texto
+                  <span class="indication">Máx 140 caracteres</span>
+                </label>
+                <input type="text" id="name" value="Contesta la encuesta">
+              </div>
+
+              <div class="pure-g">
+
+                <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
+                  <div class="form_item input_text">
+                    <label for="phase_1_starts_at">Fecha de comienzo</label>
+                    <input data-language="es" data-timepicker="true" data-date-format="yyyy-mm-dd" data-time-format="hh:ii" data-startDate="2017-06-23T12:00:00+00:00" class="air-datepicker" readonly="readonly" type="text" value="2017-06-23 12:00" name="phase_1[starts_at]" id="phase_1_starts_at" />
+                  </div>
+                </div>
+
+                <div class="pure-u-1 pure-u-md-1-2">
+                  <div class="form_item input_text">
+                    <label for="phase_1_starts_at">Fecha de fin</label>
+                    <input data-language="es" data-timepicker="true" data-date-format="yyyy-mm-dd" data-time-format="hh:ii" data-startDate="2017-06-23T12:00:00+00:00" class="air-datepicker" readonly="readonly" type="text" value="2017-06-23 12:00" name="phase_1[starts_at]" id="phase_1_starts_at" />
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="form_block">
+
+                <div class="form_item">
+
+                  <div class="options compact">
+
+                    <h3>Estado</h3>
+
+                    <input type="hidden" name="site[default_locale]" value="" />
+
+                    <div class="option">
+                      <input type="radio" value="es" name="phase_status" id="phase_status" />
+                      <label for="phase_status">
+                        <span></span>
+                        Borrador
+                      </label>
+                    </div>
+
+                    <div class="option">
+                      <input type="radio" value="es" name="phase_status" id="phase_status" />
+                      <label for="phase_status">
+                        <span></span>
+                        Publicada
+                      </label>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        <% end %>
+
+        <div class="m_1 p_h_2" >
+          <!-- it generates another .list_item_with_editable_content element -->
+          <%= link_to '<i class="fa fa-plus-circle"></i> Añadir nueva fase'.html_safe, '#edit_phase_1', class: 'open_modal'  %>
+        </div>
+
+      </div>
+
+
 
       <div class="form_item file_field">
         <img src="https://pbs.twimg.com/profile_images/305246290/Foto_2_400x400.jpg" width="150" height="150">
@@ -144,96 +344,6 @@
           </div>
 
         </div>
-
-      </div>
-
-      <div class="form_block">
-
-        <h3>Fases - Herramientas</h3>
-
-        <ul class="block_list">
-
-        <% for i in ['Información', 'Reuniones', 'Encuestas', 'Ideas', 'Resultados'] %>
-
-          <div class="list_item">
-
-            <!-- <i class="fa fa-bars"></i> -->
-            <label class="main"><%= i %></label>
-            <div class="mandatory">
-              <label><input type="checkbox"> Activa</label>
-            </div>
-            <div class="tools">
-              <%= link_to '<i class="fa fa-edit"></i>'.html_safe, '#edit_phase_1', title: 'Editar', class: 'tipsit open_modal' %>
-              <!-- <%= link_to '<i class="fa fa-trash"></i>'.html_safe, '', title: 'Eliminar', class: 'tipsit' %> -->
-            </div>
-
-          </div>
-
-          <!-- modal -->
-          <div class="modal mfp-hide" id="edit_phase_1">
-
-            <h2>Editar fase: <%= i %></h2>
-
-            <div class="globalized_fields">
-
-              <div class="globalize_tool">
-                <label>Traducir</label>
-                <a href="#" class="locale_option selected completed tipsit" title="Define el contenido en su versión en Español">
-                  <span class="locale">ES</span>
-                  <span class="status"></span>
-                </a>
-                <a href="#" class="locale_option completed tipsit" title="Define el contenido en su versión en Catalán">
-                  <span class="locale">CA</span>
-                  <span class="status"></span>
-                </a>
-                <a href="#" class="locale_option tipsit" title="Define el contenido en su versión en Inglés">
-                  <span class="locale">EN</span>
-                  <span class="status"></span>
-                </a>
-              </div>
-
-              <div class="form_item input_text">
-                <label for="name">
-                  Subtítulo
-                  <span class="indication">Máx 140 caracteres</span>
-                </label>
-                <input type="text" id="name" value="Comisión de Fiestas de Carnaval">
-              </div>
-
-              <!-- warning, this is not code, do not add the code class to the .form_item -->
-              <div class="form_item textarea">
-                <label for="entity">
-                  Descripción
-                  <span class="indication">Máx 480 caracteres</span>
-                </label>
-                <textarea>¿Qué tiene que ver la violencia contra las mujeres contigo? ¿y con nuestra ciudad? es un problema colectivo en el que está implicada toda la sociedad. Es necesario establecer redes de colaboración, cooperación y corresponsabilidad.</textarea>
-                <div class="inline_help"></div>
-              </div>
-
-              <div class="pure-g">
-
-                <div class="pure-u-1 pure-u-md-1-2 p_h_r_1">
-                  <div class="form_item input_text">
-                    <label for="phase_1_starts_at">Fecha de comienzo</label>
-                    <input data-language="es" data-timepicker="true" data-date-format="yyyy-mm-dd" data-time-format="hh:ii" data-startDate="2017-06-23T12:00:00+00:00" class="air-datepicker" readonly="readonly" type="text" value="2017-06-23 12:00" name="phase_1[starts_at]" id="phase_1_starts_at" />
-                  </div>
-                </div>
-
-                <div class="pure-u-1 pure-u-md-1-2">
-                  <div class="form_item input_text">
-                    <label for="phase_1_starts_at">Fecha de fin</label>
-                    <input data-language="es" data-timepicker="true" data-date-format="yyyy-mm-dd" data-time-format="hh:ii" data-startDate="2017-06-23T12:00:00+00:00" class="air-datepicker" readonly="readonly" type="text" value="2017-06-23 12:00" name="phase_1[starts_at]" id="phase_1_starts_at" />
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-        <% end %>
 
       </div>
 

@@ -13,7 +13,7 @@ module GobiertoAttachments
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Collectionable
 
-    MAX_FILE_SIZE_IN_MBYTES = 10
+    MAX_FILE_SIZE_IN_MBYTES = 50
     MAX_FILE_SIZE_IN_BYTES  = MAX_FILE_SIZE_IN_MBYTES.megabytes
 
     default_scope { order(id: :desc) }

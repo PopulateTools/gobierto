@@ -11,6 +11,7 @@ es:
           news: Noticias
           polls: Encuestas
           stage: Proceso
+          stages: Fases
           votings: Votaciones
       welcome:
         index:

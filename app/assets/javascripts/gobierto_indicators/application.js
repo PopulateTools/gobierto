@@ -128,9 +128,9 @@ $(document).on('turbolinks:load', function() {
   });
 
   // Show dataset info on click
-  // $('.card_container').click(function() {
-  //   $(this).toggleClass('hover');
-  // });
+  $('.card_container .widget_headline > i.fa').click(function() {
+    $(this).closest('.card_container').toggleClass('hover');
+  });
 
   if(window.location.hash !== ""){
     selectSection();

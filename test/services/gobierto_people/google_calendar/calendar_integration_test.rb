@@ -20,6 +20,10 @@ module GobiertoPeople
         "richard@google-calendar.com"
       end
 
+      def filtering_rule
+        @filtering_rule ||= gobierto_calendars_filtering_rules(:richard_calendar_configuration_filter)
+      end
+
       def setup
         super
 
@@ -28,6 +32,8 @@ module GobiertoPeople
         date1.stubs(date_time: Time.now)
         date2 = mock
         date2.stubs(date_time: 1.hour.from_now)
+        invalid_date = mock
+        invalid_date.stubs(date_time: Time.now + 4.months)
 
         # Private event, ignored
         event1 = mock
@@ -53,7 +59,7 @@ module GobiertoPeople
         # Single event, organized by richard, with two attendees
         event2 = mock
         event2.stubs(visibility: nil, location: nil, creator: creator_event2, recurrence: nil, id: "event2",
-                     summary: "Event 2", start: date1, end: date2, attendees: [attendee1, attendee2], description: "Event 2 description")
+                     summary: "@ Event 2", start: date1, end: date2, attendees: [attendee1, attendee2], description: "Event 2 description")
 
         # Single event, organized by other, calendar shared with Richard
         event3 = mock
@@ -81,6 +87,11 @@ module GobiertoPeople
         event6.stubs(visibility: nil, location: nil, creator: creator_event3, recurrence: nil, id: "event4_instance_2",
                      summary: "Event 6", start: date1, end: date2, attendees: [attendee1, attendee2], description: "")
 
+        # Instance 3 of recurring event event4
+        event8 = mock
+        event8.stubs(visibility: nil, location: nil, creator: creator_event3, recurrence: nil, id: "event4_instance_3",
+                     summary: "Event 8", start: invalid_date, end: invalid_date, attendees: [], description: "")
+
         calendar1 = mock
         calendar1.stubs(id: google_calendar_id, primary?: true)
 
@@ -100,7 +111,7 @@ module GobiertoPeople
         calendar_3_items_response.stubs(:items).returns([event7])
 
         event_4_instances_response = mock
-        event_4_instances_response.stubs(:items).returns([event5, event6])
+        event_4_instances_response.stubs(:items).returns([event5, event6, event8])
 
         calendar_items_response = mock
         calendar_items_response.stubs(:items).returns([calendar1, calendar2, calendar3])
@@ -117,8 +128,10 @@ module GobiertoPeople
         ::Google::Apis::CalendarV3::CalendarService.any_instance.stubs(:authorization=).returns(true)
 
         ## Configure site and person
-        activate_google_calendar_calendar_integration(sites(:madrid))
-        configure_google_calendar_integration(richard, calendars: [calendar1.id, calendar2.id])
+        configure_google_calendar_integration(
+          collection: richard.calendar,
+          data: { calendars: [calendar1.id, calendar2.id] }
+        )
       end
 
       def test_sync_events
@@ -130,7 +143,7 @@ module GobiertoPeople
 
         # Event 2 checks
         event = richard.events.find_by external_id: "event2"
-        assert_equal "Event 2", event.title
+        assert_equal "@ Event 2", event.title
         assert_equal richard, event.collection.container
         assert_empty event.locations
         assert_equal 2, event.attendees.size
@@ -177,7 +190,7 @@ module GobiertoPeople
         CalendarIntegration.sync_person_events(richard)
 
         event.reload
-        assert_equal "Event 2", event.title
+        assert_equal "@ Event 2", event.title
       end
 
       def test_sync_events_removes_deleted_event_attributes
@@ -202,6 +215,29 @@ module GobiertoPeople
 
         event.reload
         assert_equal 2, event.attendees.reload.size
+      end
+
+      def test_filter_events
+        # Create a rule with contains condition
+        filtering_rule.condition = :not_contains
+        filtering_rule.action = :ignore
+        filtering_rule.value = "@"
+        filtering_rule.save!
+
+        assert_difference "GobiertoCalendars::Event.count", 1 do
+          CalendarIntegration.sync_person_events(richard)
+        end
+
+        # Event 2 checks
+        event = richard.events.find_by external_id: "event2"
+        assert_equal "@ Event 2", event.title
+        assert_equal richard, event.collection.container
+        assert_empty event.locations
+        assert_equal 2, event.attendees.size
+        assert_equal richard, event.attendees.first.person
+        assert_nil event.attendees.second.person
+        assert_equal "Wadus person", event.attendees.second.name
+        assert_equal "Event 2 description", event.description
       end
     end
   end

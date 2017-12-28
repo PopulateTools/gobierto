@@ -15,10 +15,11 @@ module GobiertoCms
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Collectionable
     include GobiertoCommon::Sectionable
+    include ActionView::Helpers::SanitizeHelper
 
     algoliasearch_gobierto do
-      attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca, :collection_id
-      searchableAttributes %w(title_en title_es title_ca body_en body_es body_ca)
+      attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :searchable_body, :collection_id
+      searchableAttributes %w(title_en title_es title_ca searchable_body)
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end
@@ -28,6 +29,7 @@ module GobiertoCms
     belongs_to :site
     belongs_to :collection, class_name: "GobiertoCommon::Collection"
     has_many :collection_items, as: :item
+    has_many :process_stage_pages, class_name: "GobiertoParticipation::ProcessStagePage"
 
     after_create :add_item_to_collection
 
@@ -77,16 +79,27 @@ module GobiertoCms
       where(id: ids, site: site)
     end
 
-    def self.first_page_in_section(section)
-      GobiertoCms::SectionItem.find_by!(section: section, position: 0, level: 0).item
-    end
-
     def attributes_for_slug
       [title]
     end
 
     def resource_path
       to_url
+    end
+
+    def to_path(options = {})
+      if collection
+        if collection.container_type == "GobiertoParticipation::Process"
+          url_helpers.gobierto_participation_process_page_path({ id: slug, process_id: collection.container.slug }.merge(options))
+        elsif collection.container_type == "GobiertoParticipation"
+          url_helpers.gobierto_participation_page_path({ id: slug }.merge(options))
+        elsif section.present? || options[:section]
+          options.delete(:section)
+          url_helpers.gobierto_cms_section_item_path({ id: slug, slug_section: section.slug }.merge(options))
+        else
+          url_helpers.gobierto_cms_page_path({ id: slug }.merge(options))
+        end
+      end
     end
 
     def to_url(options = {})
@@ -109,6 +122,13 @@ module GobiertoCms
       if collection
         collection.append(self)
       end
+    end
+
+    def searchable_body
+      return "" if body_translations.nil?
+      body = body_translations.values.join(" ").tr("\n\r", " ").gsub(/\s+/, " ")
+      body = strip_tags(body)
+      body[0..9300]
     end
   end
 end

@@ -159,6 +159,7 @@ module GobiertoAdmin
         :default_locale,
         :privacy_page_id,
         :populate_data_api_token,
+        :raw_configuration_variables,
         :home_page,
         :home_page_item_id,
         site_modules: [],

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171123111420) do
+ActiveRecord::Schema.define(version: 20171227094848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -281,6 +281,63 @@ ActiveRecord::Schema.define(version: 20171123111420) do
     t.index ["site_id"], name: "index_gbc_consultations_on_site_id"
   end
 
+  create_table "gc_calendar_configurations", id: :serial, force: :cascade do |t|
+    t.jsonb "data", default: {}, null: false
+    t.bigint "collection_id", null: false
+    t.string "integration_name", null: false
+    t.index ["collection_id"], name: "index_gc_calendar_configurations_on_collection_id", unique: true
+  end
+
+  create_table "gc_event_attendees", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "charge"
+    t.integer "person_id"
+    t.integer "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_gc_event_attendees_on_event_id"
+    t.index ["person_id"], name: "index_gc_event_attendees_on_person_id"
+  end
+
+  create_table "gc_event_locations", id: :serial, force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.string "address"
+    t.decimal "lat", precision: 10, scale: 6
+    t.decimal "lng", precision: 10, scale: 6
+    t.integer "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_gc_event_locations_on_event_id"
+  end
+
+  create_table "gc_events", id: :serial, force: :cascade do |t|
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.integer "state", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "external_id"
+    t.jsonb "title_translations"
+    t.jsonb "description_translations"
+    t.integer "site_id", null: false
+    t.string "slug", null: false
+    t.integer "collection_id"
+    t.index ["description_translations"], name: "index_gc_events_on_description_translations", using: :gin
+    t.index ["site_id", "slug"], name: "index_gc_events_on_site_id_and_slug", unique: true
+    t.index ["title_translations"], name: "index_gc_events_on_title_translations", using: :gin
+  end
+
+  create_table "gc_filtering_rules", force: :cascade do |t|
+    t.bigint "calendar_configuration_id"
+    t.integer "field", null: false
+    t.integer "condition", null: false
+    t.string "value", null: false
+    t.integer "action", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["calendar_configuration_id"], name: "index_gc_filtering_rules_on_calendar_configuration_id"
+  end
+
   create_table "gcms_pages", id: :serial, force: :cascade do |t|
     t.integer "site_id"
     t.integer "visibility_level", default: 0, null: false
@@ -300,7 +357,7 @@ ActiveRecord::Schema.define(version: 20171123111420) do
 
   create_table "gcms_section_items", force: :cascade do |t|
     t.string "item_type"
-    t.bigint "item_id"
+    t.string "item_id"
     t.integer "position", default: 0, null: false
     t.integer "parent_id", null: false
     t.bigint "section_id"
@@ -321,43 +378,20 @@ ActiveRecord::Schema.define(version: 20171123111420) do
     t.index ["site_id"], name: "index_gcms_sections_on_site_id"
   end
 
-  create_table "gobierto_calendars_event_attendees", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.string "charge"
-    t.integer "person_id"
-    t.integer "event_id", null: false
+  create_table "gcore_site_templates", force: :cascade do |t|
+    t.text "markup"
+    t.bigint "template_id"
+    t.bigint "site_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_gobierto_calendars_event_attendees_on_event_id"
-    t.index ["person_id"], name: "index_gobierto_calendars_event_attendees_on_person_id"
+    t.index ["site_id"], name: "index_gcore_site_templates_on_site_id"
+    t.index ["template_id"], name: "index_gcore_site_templates_on_template_id"
   end
 
-  create_table "gobierto_calendars_event_locations", id: :serial, force: :cascade do |t|
-    t.string "name", default: "", null: false
-    t.string "address"
-    t.decimal "lat", precision: 10, scale: 6
-    t.decimal "lng", precision: 10, scale: 6
-    t.integer "event_id", null: false
+  create_table "gcore_templates", force: :cascade do |t|
+    t.string "template_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["event_id"], name: "index_gobierto_calendars_event_locations_on_event_id"
-  end
-
-  create_table "gobierto_calendars_events", id: :serial, force: :cascade do |t|
-    t.datetime "starts_at", null: false
-    t.datetime "ends_at", null: false
-    t.integer "state", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "external_id"
-    t.jsonb "title_translations"
-    t.jsonb "description_translations"
-    t.integer "site_id", null: false
-    t.string "slug", null: false
-    t.integer "collection_id"
-    t.index ["description_translations"], name: "index_gobierto_calendars_events_on_description_translations", using: :gin
-    t.index ["site_id", "slug"], name: "index_gobierto_calendars_events_on_site_id_and_slug", unique: true
-    t.index ["title_translations"], name: "index_gobierto_calendars_events_on_title_translations", using: :gin
   end
 
   create_table "gobierto_module_settings", id: :serial, force: :cascade do |t|
@@ -400,12 +434,6 @@ ActiveRecord::Schema.define(version: 20171123111420) do
     t.index ["political_group_id"], name: "index_gp_people_on_political_group_id"
     t.index ["site_id", "slug"], name: "index_gp_people_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_gp_people_on_site_id"
-  end
-
-  create_table "gp_person_calendar_configurations", id: :serial, force: :cascade do |t|
-    t.integer "person_id", null: false
-    t.jsonb "data", default: {}, null: false
-    t.index ["person_id"], name: "index_gp_person_calendar_configurations_on_person_id", unique: true
   end
 
   create_table "gp_person_posts", id: :serial, force: :cascade do |t|
@@ -583,6 +611,15 @@ ActiveRecord::Schema.define(version: 20171123111420) do
     t.index ["process_id"], name: "index_gpart_polls_on_process_id"
   end
 
+  create_table "gpart_process_stage_pages", force: :cascade do |t|
+    t.bigint "process_stage_id", null: false
+    t.bigint "page_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id"], name: "index_gpart_process_stage_pages_on_page_id"
+    t.index ["process_stage_id"], name: "index_gpart_process_stage_pages_on_process_stage_id"
+  end
+
   create_table "gpart_process_stages", force: :cascade do |t|
     t.bigint "process_id"
     t.jsonb "title_translations"
@@ -595,6 +632,11 @@ ActiveRecord::Schema.define(version: 20171123111420) do
     t.jsonb "description_translations"
     t.boolean "active", default: false, null: false
     t.jsonb "cta_text_translations"
+    t.integer "position", default: 999999, null: false
+    t.jsonb "menu_translations"
+    t.jsonb "cta_description_translations"
+    t.integer "visibility_level", default: 0, null: false
+    t.index ["position"], name: "index_gpart_process_stages_on_position"
     t.index ["process_id", "slug"], name: "index_gpart_process_stages_on_process_id_and_slug", unique: true
     t.index ["process_id"], name: "index_gpart_process_stages_on_process_id"
     t.index ["title_translations"], name: "index_gpart_process_stages_on_title_translations", using: :gin
@@ -613,7 +655,6 @@ ActiveRecord::Schema.define(version: 20171123111420) do
     t.string "header_image_url"
     t.integer "process_type", default: 1, null: false
     t.integer "issue_id"
-    t.jsonb "information_text_translations"
     t.bigint "scope_id"
     t.index ["body_translations"], name: "index_gpart_processes_on_body_translations", using: :gin
     t.index ["site_id", "slug"], name: "index_gpart_processes_on_site_id_and_slug", unique: true
@@ -779,8 +820,8 @@ ActiveRecord::Schema.define(version: 20171123111420) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
-  add_foreign_key "gobierto_calendars_events", "collections", on_delete: :cascade
-  add_foreign_key "gobierto_calendars_events", "sites"
+  add_foreign_key "gc_events", "collections", on_delete: :cascade
+  add_foreign_key "gc_events", "sites"
   add_foreign_key "gp_person_posts", "sites"
   add_foreign_key "gp_person_statements", "sites"
 end

@@ -11,6 +11,7 @@ ca:
           news: Noticies
           polls: Enquestes
           stage: Procés
+          stages: Fases
           votings: Votacions
       welcome:
         index:

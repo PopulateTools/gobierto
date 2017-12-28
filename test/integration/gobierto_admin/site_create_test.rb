@@ -51,6 +51,10 @@ YAML
             check "Gobierto Development"
           end
 
+          within ".auth-module-check-boxes" do
+            check "Null Strategy"
+          end
+
           within ".widget_save" do
             choose "Published"
           end

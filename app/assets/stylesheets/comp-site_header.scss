@@ -266,8 +266,8 @@ header {
             align-items: center;
 
             img {
-              // max-height: calc(100% - (2 * 16px));
-              max-height: 100px;
+              max-height: 100%;
+              max-width: 100%;
               display: inline-block;
             }
           }

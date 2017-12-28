@@ -12,16 +12,6 @@ $(document).on('turbolinks:load', function() {
     $('.js-mobile-nav').toggle();
     $('.js-mobile-buttons').toggle();
 
-    // var nav = $('.main-nav');
-    // var subnav = $('.sub-nav');
-    //
-    // if( nav.css('display') == 'none' ) {
-    //   nav.velocity("transition.slideDownIn");
-    //   subnav.velocity("transition.slideDownIn", { delay: 150 });
-    // } else {
-    //   nav.velocity("transition.slideUpOut");
-    //   subnav.velocity("transition.slideUpOut");
-    // }
   });
 
   $('.site_header_logo .search_icon').click(function(e) {
@@ -70,7 +60,7 @@ $(document).on('turbolinks:load', function() {
       parent.next().find('.js-slider').toggleClass('is-open');
     }, 200);
 
-    // REVIEW: 
+    // REVIEW:
     if ($(this).prev().find('a').attr('href') === "/participacion") {
       $('.js-secondary_nav').addClass('is-open');
     } else {

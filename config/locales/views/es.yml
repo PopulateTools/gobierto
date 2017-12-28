@@ -40,6 +40,7 @@ es:
       more_information: Más información en gobierto.es
       search: Busca...
       session:
+        login: Haz login o regístrate
         alerts: Tus alertas
         notifications: Notificaciones
         sign_in: Iniciar sesión

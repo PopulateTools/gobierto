@@ -38,6 +38,7 @@ en:
       more_information: More info in gobierto.es
       search: Search...
       session:
+        login: Login or sign up
         alerts: Your alerts
         notifications: Notifications
         sign_in: Sign in

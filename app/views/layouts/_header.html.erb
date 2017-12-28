@@ -110,7 +110,7 @@
           <div class="column">
             <div class="main-nav-item">
               <%# TODO: Linkar al nombre verdadero del módulo actual %>
-              <%= link_to t("gobierto_budgets.layouts.application.budgets"), gobierto_budgets_root_path, data: { turbolinks: false } %>
+              <%= link_to "nombre_modulo", "#", data: { turbolinks: false } %>
             </div>
           </div>
         </div>
@@ -121,7 +121,7 @@
             <div class="column sub-nav-flex">
               <div class="sub-nav-item">
                 <%# TODO: Linkar al nombre verdadero del submódulo actual %>
-                <%= link_to t('gobierto_budgets.layouts.application.budgets'), gobierto_budgets_budgets_path(year: GobiertoBudgets::SearchEngineConfiguration::Year.last), data: { turbolinks: false } %>
+                <%= link_to "submodulo", "#", data: { turbolinks: false } %>
               </div>
               <div class="dropdown-button js-submenu-toggle">
                 <div class="button-container">
@@ -176,12 +176,16 @@
           </div>
         <% end %>
 
+        <div class="navigation-item">
+          <div class="main-nav-item">
+            <%= link_to t('layouts.application.session.login'), new_user_sessions_path, data: { turbolinks: false } %>
+          </div>
+        </div>
+
         <div class="navigation-footer">
 
           <div class="footer-top js-secondary_nav">
-            <% if current_site.configuration.modules.include?("GobiertoParticipation") %>
-              <%= render "gobierto_participation/layouts/secondary_nav" %>
-            <% end %>
+            <%= render "gobierto_participation/layouts/secondary_nav" %>
           </div>
 
           <div class="footer-bottom p_v_1">

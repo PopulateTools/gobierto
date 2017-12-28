@@ -40,6 +40,7 @@ ca:
       more_information: Més informació en gobierto.es
       search: Cerca...
       session:
+        login: Fes login o registra't
         alerts: Les teves alertes
         notifications: Notificacions
         sign_in: Iniciar sessió

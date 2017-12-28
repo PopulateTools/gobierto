@@ -171,7 +171,7 @@
                 </div>
               </div>
             </div>
-            <div class="navigation-subitem-container column">
+            <div class="navigation-subitem-container">
               <div class="navigation-subitem js-slider">
                 <div class="subitem-container">
                   <%= render_if_exists "#{site_module.underscore}/layouts/navigation.sub" %>
@@ -195,10 +195,26 @@
                 </div>
               </div>
             </div>
-            <div class="navigation-subitem-container column">
+            <div class="navigation-subitem-container">
               <div class="navigation-subitem js-slider">
-                <div class="column subitem-container">
-                  Homeboys
+                <div class="subitem-account">
+                  <div class="account-out">
+                    <%= link_to user_sessions_path, method: :delete do %>
+                      <i class="fa fa-sign-out"></i>
+                      <%= t("layouts.application.session.sign_out") %>
+                    <% end %>
+                  </div>
+                  <div class="account-details">
+                    <%= link_to user_settings_path do %>
+                      <%= t("layouts.application.session.title") %>
+                    <% end %>
+                    <%= link_to user_notifications_path do %>
+                      <%= t("layouts.application.session.notifications") %>
+                    <% end %>
+                    <%= link_to user_subscriptions_path do %>
+                      <%= t("layouts.application.session.alerts") %>
+                    <% end %>
+                  </div>
                 </div>
               </div>
             </div>

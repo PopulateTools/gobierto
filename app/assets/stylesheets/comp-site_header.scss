@@ -519,10 +519,36 @@ header {
                 columns: 2;
                 text-transform: uppercase;
                 padding: .5em 0;
+                margin: 0 1rem;
                 @include font(0.85em, $color_text, $fExtraLight);
 
                 .secondary_nav {
                   display: none;
+                }
+              }
+
+              .subitem-account {
+                display: flex;
+                margin: 0 1rem;
+                padding: .5em 0;
+
+                > * {
+                  flex: 1;
+                }
+
+                .account-out {
+                  text-decoration: underline;
+                  @include font(0.85em, $color_1, $fRegular);
+                }
+
+                .account-details {
+                  a {
+                    @include font(1.125em, $color_1, $fSemibold);
+                  }
+
+                  > * {
+                    display: block;
+                  }
                 }
               }
             }
@@ -543,6 +569,10 @@ header {
               a {
                 text-decoration: underline;
                 @include font(0.85em, $color_1, $fRegular);
+
+                &:hover {
+                  border-bottom: 0;
+                }
               }
             }
 

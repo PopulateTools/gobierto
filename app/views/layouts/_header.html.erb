@@ -149,7 +149,7 @@
       <nav class="navigation js-mobile-nav">
 
         <div class="navigation-wrap">
-          <div class="navigation-item">
+          <div class="navigation-item column">
             <div class="main-nav-item">
               <div class="search-box">
                 <i class="fa fa-search"></i>
@@ -163,7 +163,7 @@
         <!-- Modules loop -->
         <% current_site.configuration.modules.each do |site_module| %>
           <div class="navigation-wrap">
-            <div class="navigation-item">
+            <div class="navigation-item column">
               <%= render_if_exists "#{site_module.underscore}/layouts/navigation.main" %>
               <div class="dropdown-button js-item-toggle">
                 <div class="button-container">
@@ -171,9 +171,9 @@
                 </div>
               </div>
             </div>
-            <div class="navigation-subitem-container">
+            <div class="navigation-subitem-container column">
               <div class="navigation-subitem js-slider">
-                <div class="column subitem-container">
+                <div class="subitem-container">
                   <%= render_if_exists "#{site_module.underscore}/layouts/navigation.sub" %>
                 </div>
               </div>
@@ -183,7 +183,7 @@
 
         <div class="navigation-wrap">
           <% if user_signed_in? %>
-            <div class="navigation-item">
+            <div class="navigation-item column">
               <div class="main-nav-item">
                 <a href="#">
                   Hola, <%= t("layouts.application.session.title") %>
@@ -195,7 +195,7 @@
                 </div>
               </div>
             </div>
-            <div class="navigation-subitem-container">
+            <div class="navigation-subitem-container column">
               <div class="navigation-subitem js-slider">
                 <div class="column subitem-container">
                   Homeboys
@@ -203,7 +203,7 @@
               </div>
             </div>
           <% else %>
-            <div class="navigation-item">
+            <div class="navigation-item column">
               <div class="main-nav-item">
                 <%= link_to t('layouts.application.session.login'), new_user_sessions_path, data: { turbolinks: false } %>
               </div>

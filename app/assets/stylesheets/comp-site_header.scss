@@ -326,7 +326,6 @@ header {
         border-top: 5px solid transparent;
 
         &:hover {
-          // background-color: darken($color_1_soft, 10%);
           border-top: 5px solid rgba($color_1, .5);
           @include transition;
         }
@@ -468,15 +467,14 @@ header {
         background-color: $color_1_soft;
         position: relative;
 
-        .navigation-item {
-          padding: .5em 1em;
-          @include flex-align(space-between);
+        .navigation-wrap {
 
           &:first-child {
             border-top: 1px solid rgba($color_1, .2);
+            width: 100%;
 
-            > * {
-              width: 100%; // search-box hack
+            .main-nav-item {
+              width: 100%;
             }
           }
 
@@ -484,42 +482,80 @@ header {
             border-top: 5px solid #fff;
           }
 
-          .main-nav-item {
-            text-transform: uppercase;
-
-            &:first-child,
-            &:last-child, {
-              margin: 0;
-            }
-
-            a:not(.result) {
-              @include font($f5, $color_1, $fBold);
-            }
+          &:nth-last-child(2) {
+            // border-bottom: 5px solid #fff;
           }
 
-        }
+          .navigation-item {
+            padding: .5em 1em;
+            @include flex-align(space-between);
 
-        .navigation-subitem-container {
-          background-color: #fff;
+            .main-nav-item {
+              text-transform: uppercase;
 
-          .navigation-subitem {
-            background-color: rgba($color_main, .04);
+              &:first-child,
+              &:last-child, {
+                margin: 0;
+              }
 
-            &.is-open {
-              display: block;
+              a:not(.result) {
+                @include font($f5, $color_1, $fBold);
+              }
             }
 
-            .subitem-container {
-              columns: 2;
-              text-transform: uppercase;
-              padding: .5em 0;
-              @include font(0.85em, $color_text, $fExtraLight);
+          }
 
-              .secondary_nav {
-                display: none;
+          .navigation-subitem-container {
+            background-color: #fff;
+
+            .navigation-subitem {
+              background-color: rgba($color_main, .04);
+
+              &.is-open {
+                display: block;
+              }
+
+              .subitem-container {
+                columns: 2;
+                text-transform: uppercase;
+                padding: .5em 0;
+                @include font(0.85em, $color_text, $fExtraLight);
+
+                .secondary_nav {
+                  display: none;
+                }
               }
             }
           }
+
+          .navigation-footer {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+
+            .footer-top {
+              display: none;
+
+              &.is-open {
+                display: block;
+              }
+
+              a {
+                text-decoration: underline;
+                @include font(0.85em, $color_1, $fRegular);
+              }
+            }
+
+            .footer-bottom {
+              background-color: $color_secondary;
+
+              a {
+                text-decoration: underline;
+                @include font(0.85em, $color_text, $fRegular);
+              }
+            }
+          }
+
         }
 
         .secondary_nav {
@@ -534,33 +570,6 @@ header {
           }
         }
 
-        .navigation-footer {
-          width: 100%;
-          position: absolute;
-          bottom: 0;
-
-          .footer-top {
-            display: none;
-
-            &.is-open {
-              display: block;
-            }
-
-            a {
-              text-decoration: underline;
-              @include font(0.85em, $color_1, $fRegular);
-            }
-          }
-
-          .footer-bottom {
-            background-color: $color_secondary;
-
-            a {
-              text-decoration: underline;
-              @include font(0.85em, $color_text, $fRegular);
-            }
-          }
-        }
       }
     }
   }

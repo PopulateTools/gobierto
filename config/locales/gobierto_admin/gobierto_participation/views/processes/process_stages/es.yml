@@ -5,6 +5,7 @@ es:
       processes:
         process_stages:
           edit:
+            stages: Fases
             title: 'Editar fase: %{stage}'
           form:
             placeholders:
@@ -16,7 +17,10 @@ es:
               title: ej. Fase principal
             stage_types_prompt: "-- seleccionar --"
             visibility_level: Estado
+          index:
+            stages: Fases
           new:
+            stages: Fases
             title: Crear fase
           process_stages:
             active: Activa

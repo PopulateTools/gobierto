@@ -5,6 +5,7 @@ en:
       processes:
         process_stages:
           edit:
+            stages: Stages
             title: 'Edit stage: %{stage}'
           form:
             placeholders:
@@ -16,7 +17,10 @@ en:
               title: ex. Main stage
             stage_types_prompt: "-- select --"
             visibility_level: Status
+          index:
+            stages: Stages
           new:
+            stages: Stages
             title: Create stage
           process_stages:
             active: Active

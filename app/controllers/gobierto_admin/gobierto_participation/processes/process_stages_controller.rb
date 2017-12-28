@@ -105,7 +105,7 @@ module GobiertoAdmin
         end
 
         def find_process_stage
-          ::GobiertoParticipation::ProcessStage.find(params[:id])
+          current_process.stages.find(params[:id])
         end
       end
     end

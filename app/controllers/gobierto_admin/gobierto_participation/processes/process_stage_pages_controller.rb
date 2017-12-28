@@ -35,7 +35,6 @@ module GobiertoAdmin
           @process_stage_pages = page_items
 
           @process_stage_page_selected = @process_stage_page_form.process_stage_page.page_id
-
         end
 
         def update
@@ -56,11 +55,11 @@ module GobiertoAdmin
         private
 
         def find_process_stage
-          ::GobiertoParticipation::ProcessStage.find(params[:process_stage_id])
+          current_process.stages.find(params[:process_stage_id])
         end
 
         def find_process_stage_page
-          ::GobiertoParticipation::ProcessStagePage.find(params[:id])
+          @process_stage.process_stage_page
         end
 
         def process_stage_page_params

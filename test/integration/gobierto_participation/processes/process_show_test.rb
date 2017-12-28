@@ -271,7 +271,7 @@ module GobiertoParticipation
         visit process_path(gender_violence_process)
         click_link "Information"
 
-        assert has_selector?("h2", text: "Social agreement against gender violence")
+        assert has_selector?("h1", text: "Privacy")
       end
     end
   end

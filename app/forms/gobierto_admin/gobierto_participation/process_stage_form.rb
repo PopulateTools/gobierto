@@ -35,7 +35,7 @@ module GobiertoAdmin
       end
 
       def process
-        @process ||= GobiertoParticipation::Process.find_by(id: process_id)
+        @process ||= current_site.processes.find_by(id: process_id)
       end
 
       def visibility_level

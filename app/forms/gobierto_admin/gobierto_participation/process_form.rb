@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   module GobiertoParticipation
     class ProcessForm
-
       include ActiveModel::Model
       prepend ::GobiertoCommon::Trackable
 
@@ -64,11 +65,11 @@ module GobiertoAdmin
       end
 
       def visibility_level
-        @visibility_level ||= 'draft'
+        @visibility_level ||= "draft"
       end
 
       def process_type
-        @process_type ||= 'process'
+        @process_type ||= "process"
       end
 
       def issue
@@ -128,7 +129,7 @@ module GobiertoAdmin
 
       def calculate_has_duration(options)
         if options[:has_duration].present?
-          options[:has_duration] == '1'
+          options[:has_duration] == "1"
         else
           (options[:starts] || options[:ends]).present?
         end
@@ -137,16 +138,20 @@ module GobiertoAdmin
       def build_information_stage
         process.stages.build(
           process: process,
-          title_translations: { 'en' => 'Information', 'es' => 'Información' },
-          description_translations:{ 'en' => 'Information', 'es' => 'Información' },
-          menu_translations: { 'en' => 'Information', 'es' => 'Información' },
-          cta_text_translations: { 'en' => 'Information', 'es' => 'Información' },
-          cta_description_translations: { 'en' => 'Information', 'es' => 'Información' },
+          title_translations: { "en" => "Information", "es" => "Información", "ca" => "Informació" },
+          description_translations: { "en" => "Description for the information phase of this process. Customize this description and add other phases from the administration of this process / group.",
+                                      "es" => "Descripción para la fase de información de este proceso. Personaliza esta descripción y añade otras fases desde la administración de este proceso/grupo.",
+                                      "ca" => "Descripció per a la fase d'informació d'aquest procés. Personalitza aquesta descripció i afegeix altres fases des de l'administració d'aquest procés / grup." },
+          menu_translations: { "en" => "Information", "es" => "Información", "ca" => "Informació" },
+          cta_text_translations: { "en" => "More information", "es" => "Más información", "ca" => "Més informació" },
+          cta_description_translations: { "en" => "Learn about this participation process.",
+                                          "es" => "Informate sobre este proceso de participación.",
+                                          "ca" => "Informeu-vos sobre aquest procés de participació." },
           stage_type: 0,
           slug: "information",
           active: true,
-          starts: 4.days.from_now,
-          ends: 10.days.from_now
+          starts: 0.days.from_now,
+          ends: 30.days.from_now
         )
       end
 
@@ -186,7 +191,6 @@ module GobiertoAdmin
           errors.add(attribute, message)
         end
       end
-
     end
   end
 end

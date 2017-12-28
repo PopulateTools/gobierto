@@ -12,7 +12,7 @@ module GobiertoParticipation
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :body_en, :body_es, :body_ca
-      searchableAttributes ['title_en', 'title_es', 'title_ca', 'body_en', 'body_es', 'body_ca']
+      searchableAttributes %w(title_en title_es title_ca body_en body_es body_ca)
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end
@@ -21,9 +21,9 @@ module GobiertoParticipation
 
     belongs_to :site
     belongs_to :issue
-    belongs_to :scope, class_name: 'GobiertoCommon::Scope'
-    has_many :stages, -> { sorted }, dependent: :delete_all, class_name: 'GobiertoParticipation::ProcessStage', autosave: true
-    has_many :published_stages, -> { published.sorted }, class_name: 'GobiertoParticipation::ProcessStage'
+    belongs_to :scope, class_name: "GobiertoCommon::Scope"
+    has_many :stages, -> { sorted }, dependent: :delete_all, class_name: "GobiertoParticipation::ProcessStage", autosave: true
+    has_many :published_stages, -> { published.sorted }, class_name: "GobiertoParticipation::ProcessStage"
     has_many :polls
     has_many :contribution_containers, dependent: :destroy, class_name: "GobiertoParticipation::ContributionContainer"
 
@@ -36,11 +36,6 @@ module GobiertoParticipation
     scope :sorted, -> { order(id: :desc) }
 
     after_create :create_collections
-
-    def self.open
-      ids = GobiertoParticipation::Process.select(&:open?).pluck(:id)
-      where(id: ids)
-    end
 
     def to_s
       title
@@ -67,19 +62,18 @@ module GobiertoParticipation
     end
 
     def news_collection
-      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCms::News')
+      GobiertoCommon::Collection.find_by(container: self, item_type: "GobiertoCms::News")
     end
 
     def events_collection
-      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoCalendars::Event')
+      GobiertoCommon::Collection.find_by(container: self, item_type: "GobiertoCalendars::Event")
     end
 
     def attachments_collection
-      GobiertoCommon::Collection.find_by(container: self, item_type: 'GobiertoAttachments::Attachment')
+      GobiertoCommon::Collection.find_by(container: self, item_type: "GobiertoAttachments::Attachment")
     end
 
     def current_stage
-      # published_stages.open.order(ends: :asc).last
       published_stages.find_by(active: true)
     end
 
@@ -98,7 +92,7 @@ module GobiertoParticipation
     def open?
       return false if starts.present? && starts > Time.zone.now
       return false if ends.present? && ends < Time.zone.now
-      return true
+      true
     end
 
     def last_activity
@@ -121,11 +115,11 @@ module GobiertoParticipation
 
     def create_collections
       # Events
-      site.collections.create! container: self,  item_type: 'GobiertoCalendars::Event', slug: "calendar-#{self.slug}", title: self.title
+      site.collections.create! container: self, item_type: "GobiertoCalendars::Event", slug: "calendar-#{slug}", title: title
       # Attachments
-      site.collections.create! container: self,  item_type: 'GobiertoAttachments::Attachment', slug: "attachment-#{self.slug}", title: self.title
+      site.collections.create! container: self, item_type: "GobiertoAttachments::Attachment", slug: "attachment-#{slug}", title: title
       # News
-      site.collections.create! container: self,  item_type: 'GobiertoCms::News', slug: "news-#{self.slug}", title: self.title
+      site.collections.create! container: self, item_type: "GobiertoCms::News", slug: "news-#{slug}", title: title
     end
 
     def attributes_for_slug

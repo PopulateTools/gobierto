@@ -9,26 +9,34 @@
 <div class="tabs">
   <ul>
     <li ><%= link_to 'Grupo', 'admin_part_group' %></li>
-    <li class="active"><%= link_to 'Información', 'admin_part_group_info' %></li>
     <li><%= link_to 'Agenda', 'admin_part_group_agenda' %></li>
-    <li><%= link_to 'Encuestas', 'admin_part_group_polls' %></li>
-    <li><%= link_to 'Aportaciones', 'admin_part_group_contributions' %></li>
-    <li><%= link_to 'Votaciones', 'admin_part_group_votaciones' %></li>
     <li><%= link_to 'Noticias', 'admin_part_group_news' %></li>
     <li><%= link_to 'Documentos', 'admin_part_group_docs' %></li>
   </ul>
 </div>
 
+<!-- <div class="pure-g m_v_2">
+  <div class="pure-u-3-4">
+    <strong>Página de información asociada</strong>
+  </div>
+  <div class="pure-u-1-4 admin_tools right">
+
+  </div>
+</div> -->
+
 <div class="pure-g">
 
   <div class="pure-u-1 pure-u-md-16-24">
 
+    <h3>Página de información asociada</h3>
+
     <form>
 
-      <div class="form_item textarea">
-        <label for="entity">Contenido</label>
-        <textarea></textarea>
-      </div>
+      <p>Selecciona la página que se mostrará cuando se acceda a esta fase (<a href="/admin/cms/pages">o crea una nueva</a>):</p>
+
+      [SELECT 2 as in Start Module/CMS]
+
+      <p><a href="#">Edita esta página</a></p>
 
     </form>
 
@@ -38,7 +46,6 @@
 
   <div class="pure-u-1 pure-u-md-1-4 stick_in_parent" id="stick_in_parent">
 
-    <%= render partial: "admin_widget_save"  %>
 
   </div>
 

@@ -66,12 +66,6 @@ es:
         questions: Pregunta
       process_breadcrumb:
         root: Inicio
-      process_menu_subsections:
-        contributions: Aportaciones
-        information: Información
-        meetings: Reuniones
-        polls: Encuestas
-        results: Resultados
       secondary_nav:
         activity: Actividad
         agenda: Agenda
@@ -194,8 +188,6 @@ es:
         process_stages: Fases del proceso
         scope: Ámbito
       timeline_row:
-        past_stage: Fase finalizada
-        upcoming_stage: Fase pendiente de inicio
         view_stage: Acceder a esta fase
     shared:
       activities_for: Actividad de %{container}

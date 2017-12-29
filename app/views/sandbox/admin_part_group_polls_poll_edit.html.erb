@@ -9,16 +9,21 @@
 <div class="tabs">
   <ul>
     <li ><%= link_to 'Grupo', 'admin_part_group' %></li>
-    <li ><%= link_to 'Información', 'admin_part_group_info' %></li>
     <li><%= link_to 'Agenda', 'admin_part_group_agenda' %></li>
-    <li class="active"><%= link_to 'Encuestas', 'admin_part_group_polls' %></li>
-    <li><%= link_to 'Aportaciones', 'admin_part_group_contributions' %></li>
-    <li><%= link_to 'Votaciones', 'admin_part_group_votaciones' %></li>
     <li><%= link_to 'Noticias', 'admin_part_group_news' %></li>
     <li><%= link_to 'Documentos', 'admin_part_group_docs' %></li>
   </ul>
 </div>
 
+<div class="pure-g">
+  <div class="pure-u-3-4">
+    <strong><a href="admin_part_group_polls">Encuestas</a></strong> » ¿Crees que habría que modificar la ordenanza sobre terrazas?
+  </div>
+  <div class="pure-u-1-4 admin_tools right">
+    <%= link_to '<i class="fa fa-cog"></i> Configuración'.html_safe, 'admin_people_conf' %>
+    <button class="btn">Nueva</button>
+  </div>
+</div>
 <div class="pure-g">
 
   <div class="pure-u-1 pure-u-md-16-24">

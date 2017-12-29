@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171220101924) do
+ActiveRecord::Schema.define(version: 20171227094848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -611,6 +611,15 @@ ActiveRecord::Schema.define(version: 20171220101924) do
     t.index ["process_id"], name: "index_gpart_polls_on_process_id"
   end
 
+  create_table "gpart_process_stage_pages", force: :cascade do |t|
+    t.bigint "process_stage_id", null: false
+    t.bigint "page_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id"], name: "index_gpart_process_stage_pages_on_page_id"
+    t.index ["process_stage_id"], name: "index_gpart_process_stage_pages_on_process_stage_id"
+  end
+
   create_table "gpart_process_stages", force: :cascade do |t|
     t.bigint "process_id"
     t.jsonb "title_translations"
@@ -623,6 +632,11 @@ ActiveRecord::Schema.define(version: 20171220101924) do
     t.jsonb "description_translations"
     t.boolean "active", default: false, null: false
     t.jsonb "cta_text_translations"
+    t.integer "position", default: 999999, null: false
+    t.jsonb "menu_translations"
+    t.jsonb "cta_description_translations"
+    t.integer "visibility_level", default: 0, null: false
+    t.index ["position"], name: "index_gpart_process_stages_on_position"
     t.index ["process_id", "slug"], name: "index_gpart_process_stages_on_process_id_and_slug", unique: true
     t.index ["process_id"], name: "index_gpart_process_stages_on_process_id"
     t.index ["title_translations"], name: "index_gpart_process_stages_on_title_translations", using: :gin
@@ -641,7 +655,6 @@ ActiveRecord::Schema.define(version: 20171220101924) do
     t.string "header_image_url"
     t.integer "process_type", default: 1, null: false
     t.integer "issue_id"
-    t.jsonb "information_text_translations"
     t.bigint "scope_id"
     t.index ["body_translations"], name: "index_gpart_processes_on_body_translations", using: :gin
     t.index ["site_id", "slug"], name: "index_gpart_processes_on_site_id_and_slug", unique: true

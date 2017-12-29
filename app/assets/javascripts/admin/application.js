@@ -40,6 +40,7 @@ $(document).on('turbolinks:load', function() {
     mainClass: 'mfp-fade',
     callbacks: {
       ajaxContentAdded: function() {
+        window.GobiertoAdmin.process_stages_controller.form();
         window.GobiertoAdmin.globalized_forms_component.handleGlobalizedForm();
       }
     }

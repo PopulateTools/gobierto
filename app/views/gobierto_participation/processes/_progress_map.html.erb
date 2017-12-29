@@ -35,7 +35,7 @@
 
               <% @process_stages.each_with_index do |stage, idx| %>
 
-                <div id='<%= "#{stage.slug}_stage_dot" %>' class='dot dot-tooltip <%= stage.upcoming? ? 'disabled' : '' %>'>
+                <div id='<%= "#{stage.slug}_stage_dot" %>' class='dot dot-tooltip <%= stage!=process.current_stage ? 'disabled' : '' %>'>
                   <% if stage.current? %>
                     <div class='dot-current'></div>
                   <% end %>
@@ -44,7 +44,7 @@
 
                 <% if idx < stages_size - 1 %>
                   <% next_stage_upcoming = process.published_stages[idx+1].upcoming? %>
-                  <div class='dot-join <%= next_stage_upcoming ? 'disabled' : '' %>'></div>
+                  <div class='dot-join <%= stage!=process.current_stage ? 'disabled' : '' %>'></div>
                 <% end %>
 
               <% end %>

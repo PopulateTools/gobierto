@@ -27,7 +27,11 @@ module GobiertoParticipation
 
     scope :sorted, -> { order(position: :asc, id: :asc) }
     scope :active, -> { where(active: true) }
-    scope :published, -> { where(visibility_level: "published") }
+    scope :published, -> { where("gpart_process_stages.visibility_level=1 AND
+                                  (gpart_process_stages.stage_type NOT IN (0,6) OR
+                                  (gpart_process_stages.stage_type IN (0,6) AND
+                                  gpart_process_stages.id IN (SELECT gpart_process_stage_pages.process_stage_id
+                                  FROM gpart_process_stage_pages)))") }
     scope :by_site, ->(site) { joins(process: :site).where("sites.id = ?
                                                             AND gpart_polls.visibility_level = 1 AND gpart_polls.ends_at >= ?",
                                                             site.id, Time.zone.now) }

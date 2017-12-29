@@ -35,9 +35,64 @@
 
   <div class="block">
     <div class="indicators-tree">
+
+      <ul class="item-root item-root--notree">
+        <li class="item item-lvl-1">
+          <div class="item-title">
+            <div class="item-toggle p_h_r_1">
+              <div class="toggle-container">
+                <i class="fa fa-caret-left"></i>
+              </div>
+            </div>
+            <div class="item-text">
+              quis nulla reprehenderit amet esse
+            </div>
+          </div>
+          <ul>
+            <li class="item item-lvl-1">
+              <div class="item-title">
+                <div class="item-toggle p_h_r_1">
+                  <div class="toggle-container">
+                    <i class="fa fa-caret-left"></i>
+                  </div>
+                </div>
+                <div class="item-text">
+                  veniam tempor proident exercitation consequat
+                </div>
+              </div>
+              <ul>
+                <li class="item item-lvl-2">
+                  <div class="item-title">
+                    <div class="item-id p_h_r_1">1</div>
+                    <div class="item-text">
+                      Es publica de forma completa la relació de llocs de treball o plantilles de personal dels organismes descentralitzats, ens instrumentals i societats municipals, indicant de forma expressa els càrrecs de confiança existents en ells?
+                    </div>
+                    <div class="item-check">
+                      <div class="check-container check-container--true">
+                        <i class="fa fa-check"></i>
+                      </div>
+                      <div class="check-container check-container--false">
+                        <i class="fa fa-times"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item-extrainfo p_1">
+                    Más información
+                    <a href="#">Plantilla del consejo <i class="fa fa-share-square-o"></i></a>
+                    <a href="#">Catàleg de llocs de treball de personal funcionari i laboral, amb indicació de les retribucions <i class="fa fa-share-square-o"></i></a>
+                    <a href="#">Retribucions dels càrrecs polítics de l'alcalde, regidors i regidores<i class="fa fa-share-square-o"></i></a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+<hr>
       <ul v-for="model in json" class="item-root">
         <item class="item" :model="model"></item>
       </ul>
+
     </div>
   </div>
 </div>
@@ -52,7 +107,14 @@
         </div>
       </div>
       <div class="item-id p_h_r_1" v-else>{{model.id + 1}}</div>
-      <div class="item-text">{{model.name}}</div>
+
+      <div class="item-text" v-if="hasChildren">
+        {{model.name}}
+      </div>
+      <div class="item-text" v-else>
+        <a href="#">{{model.name}}</a>
+      </div>
+
       <div class="item-check" v-if="!hasChildren">
         <div class="check-container" :class="(model.attributes.checked) ? 'check-container--true' : 'check-container--false'">
           <i class="fa fa-check" v-if="model.attributes.checked"></i>

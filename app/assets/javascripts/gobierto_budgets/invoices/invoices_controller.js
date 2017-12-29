@@ -18,51 +18,62 @@ this.GobiertoBudgets.InvoicesController = (function() {
       getData(filter);
     });
 
-    getData(options);
+    getData('12m');
   };
 
   // Global variables
   var data, ndx, _r;
 
-  function getData(f = '12m') {
-    d3.csv('/data.csv', function(csv) {
+  function getData(filter) {
+    var dateRange;
+    if (filter === '12m'){
+      dateRange = moment().subtract(1, 'year').format('YYYYMMDD') + '-' + moment().format('YYYYMMDD');
+    } else {
+      var d1 = new Date(filter, 0, 1);
+      var d2 = new Date(filter, 11, 31);
+      dateRange = moment(d1).format('YYYYMMDD') + '-' + moment(d2).format('YYYYMMDD');
+    }
+    var municipalityId = window.populateData.municipalityId;
+    var url = window.populateData.endpoint + '/datasets/ds-facturas-municipio.csv?filter_by_location_id='+municipalityId+'&date_date_range='+dateRange+'&sort_asc_by=date';
+    d3.csv(url)
+      .header('authorization', 'Bearer ' + window.populateData.token)
+      .get(function(error, csv) {
+        if (error) throw error;
 
-      data = _.filter(csv, _callback(f));
+        data = _.filter(csv, _callback(filter));
 
-      _r = {
-        domain: [501, 1001, 5001, 10001, 15001],
-        range: [0, 1, 2, 3, 4, 5]
-      };
-      var rangeFormat = d3.scale.threshold().domain(_r.domain).range(_r.range);
-      var dateFormat = d3.time.format('%Y/%m/%d');
+        _r = {
+          domain: [501, 1001, 5001, 10001, 15001],
+          range: [0, 1, 2, 3, 4, 5]
+        };
+        var rangeFormat = d3.scale.threshold().domain(_r.domain).range(_r.range);
 
-      // pre-calculate for better performance
-      data.forEach(function(d) {
-        d.dd = dateFormat.parse(d.date);
-        d.month = d3.time.month(d.dd);
-        d.range = rangeFormat(+d.amount);
-        d.payed = (d.payed == 'true');
-        d.amount = Number(d.amount);
-        d.freelance = (d.freelance == 'true');
-      });
+        // pre-calculate for better performance
+        data.forEach(function(d) {
+          d.dd = new Date(d.date);
+          d.month = moment(d.dd).endOf('month')._d;
+          d.range = rangeFormat(+d.value);
+          d.paid = (d.paid == 'true');
+          d.value = Number(d.value);
+          d.freelance = (d.freelance == 'true');
+        });
 
-      // See the [crossfilter API](https://github.com/square/crossfilter/wiki/API-Reference) for reference.
-      ndx = crossfilter(data);
+        // See the [crossfilter API](https://github.com/square/crossfilter/wiki/API-Reference) for reference.
+        ndx = crossfilter(data);
 
-      _boxesCalculations();
+        _boxesCalculations();
 
-      // BARS CHART - BY DATE
-      _renderByMonthsChart();
+        // BARS CHART - BY DATE
+        _renderByMonthsChart();
 
-      // ROW CHART - MAIN PROVIDERS
-      _renderMainProvidersChart();
+        // ROW CHART - MAIN PROVIDERS
+        _renderMainProvidersChart();
 
-      // ROW CHART - BY AMOUNT
-      _renderByAmountsChart();
+        // ROW CHART - BY AMOUNT
+        _renderByAmountsChart();
 
-      // TABLE FILTER - FULL PROVIDERS
-      _renderTableFilter();
-
+        // TABLE FILTER - FULL PROVIDERS
+        _renderTableFilter();
     });
   }
 
@@ -74,11 +85,6 @@ this.GobiertoBudgets.InvoicesController = (function() {
       case '12m':
         cb = function (o) {
           return moment(new Date(o.date)) > moment().subtract(12, 'months')
-        }
-        break;
-      case 'current':
-        cb = function (o) {
-          return moment(new Date(o.date)).year() === moment().year()
         }
         break;
       default: // Filter is the year itself
@@ -93,12 +99,12 @@ this.GobiertoBudgets.InvoicesController = (function() {
   function _boxesCalculations() {
 
     // Totals box
-    var totalAmount = _.sumBy(data, 'amount');
+    var totalAmount = _.sumBy(data, 'value');
 
     document.getElementById("numberOfInvoices").innerText = data.length.toLocaleString();
     document.getElementById("totalAmount").innerText = _abbrevLargeCurrency(totalAmount);
 
-    var _cc = _.countBy(_.uniqBy(data, 'name'), 'freelance');
+    var _cc = _.countBy(_.uniqBy(data, 'provider_name'), 'freelance');
     $('#providerType .number:first').text((_cc.true || 0).toLocaleString());
     $('#providerType .number:last').text((_cc.false || 0).toLocaleString());
 
@@ -123,7 +129,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
         return (values[half - 1] + values[half]) / 2.0;
     }
 
-    var amount = _.isEmpty(_.map(data, 'amount').map(Number)) ? [0] : _.map(data, 'amount').map(Number);
+    var amount = _.isEmpty(_.map(data, 'value').map(Number)) ? [0] : _.map(data, 'value').map(Number);
 
     document.getElementById("meanBudget").innerText = _.mean(amount).toLocaleString(I18n.locale, {
       style: 'currency',
@@ -155,7 +161,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
     }
 
     var lt1000 = _.filter(amount, o => o <= 1000).length / data.length || 0; // Filter those amounts less than 1000
-    var lgProvider = _.max(_.map(_.groupBy(data, 'name'), group => _.sumBy(group, 'amount'))) / totalAmount || 0; // Max amount group by provider amount
+    var lgProvider = _.max(_.map(_.groupBy(data, 'provider_name'), group => _.sumBy(group, 'value'))) / totalAmount || 0; // Max amount group by provider amount
 
     document.getElementById("lessThan1000").innerText = lt1000.toLocaleString(I18n.locale, {
       style: 'percent'
@@ -178,10 +184,10 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
     // Dimensions
     var months = ndx.dimension(function(d) {
-        return d.month
+        return d.month;
       }),
       budgetMonthly = months.group().reduceSum(function(d) {
-        return +d.amount;
+        return +d.value;
       });
 
     bars
@@ -226,10 +232,10 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
     // Dimensions
     var providers = ndx.dimension(function(d) {
-        return d.name
+        return d.provider_name
       }),
       providerByAmount = providers.group().reduceSum(function(d) {
-        return +d.amount;
+        return +d.value;
       });
 
     // Styling
@@ -247,7 +253,10 @@ this.GobiertoBudgets.InvoicesController = (function() {
       .group(providerByAmount)
       .gap(_gap)
       .labelOffsetX(-_labelOffset)
-      .title(function(d) { return _abbrevLargeCurrency(d.value, { minimumFractionDigits: 0 }); })
+      .label(function (d) {
+        return((d.key.length > 24) ? d.key.slice(0, 24) + "..." : d.key);
+      })
+      .title(function(d) { return d.key + " - " + _abbrevLargeCurrency(d.value, { minimumFractionDigits: 0 }); })
       .elasticX(true)
       .on('renderlet', function(chart){
         // Apply rounded corners AFTER render, otherwise they don't exist
@@ -265,6 +274,8 @@ this.GobiertoBudgets.InvoicesController = (function() {
         chart.selectAll('g.axis line.grid-line').attr("y2", function() {
           return Math.abs(+d3.select(this).attr("y2")) + (chart.margins().top / 2)
         });
+
+        $('#providers-number').html(providers.group().all().length - _count);
       });
 
     // Customize
@@ -314,7 +325,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
       .label(function(d) {
         // Helper
         function intervalFormat(n) {
-          let _s = Number(_r.domain[d.key - 1]) || 1;
+          var _s = Number(_r.domain[d.key - 1]) || 1;
 
           // Last value is not a range
           if (d.key === _r.domain.length) {
@@ -325,7 +336,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
             })
           }
 
-          let _l = Number(n - 1);
+          var _l = Number(n - 1);
 
           return [_s, _l].map(n => n.toLocaleString(I18n.locale, {
             style: 'currency',
@@ -393,26 +404,26 @@ this.GobiertoBudgets.InvoicesController = (function() {
       controller: {
         loadData: function(filter) {
           return $.grep(data, function(row) {
-            return (!filter.name.toLowerCase() || row.name.toLowerCase().indexOf(filter.name.toLowerCase()) > -1) &&
-              (!filter.nif.toLowerCase().toLowerCase() || row.nif.toLowerCase().indexOf(filter.nif.toLowerCase()) > -1) &&
+            return (!filter.provider_name.toLowerCase() || row.provider_name.toLowerCase().indexOf(filter.provider_name.toLowerCase()) > -1) &&
+              (!filter.provider_id.toLowerCase().toLowerCase() || row.provider_id.toLowerCase().indexOf(filter.provider_id.toLowerCase()) > -1) &&
               (!filter.date || row.date.indexOf(filter.date) > -1) &&
-              (filter.payed === undefined || row.payed === filter.payed) &&
-              (!filter.amount || row.amount === filter.amount) &&
-              (!filter.concept.toLowerCase() || row.concept.toLowerCase().indexOf(filter.concept.toLowerCase()) > -1);
+              (filter.paid === undefined || row.paid === filter.paid) &&
+              (!filter.value || row.value === filter.value) &&
+              (!filter.subject.toLowerCase() || row.subject.toLowerCase().indexOf(filter.subject.toLowerCase()) > -1);
           });
         },
       },
       fields: [{
-          name: "nif",
-          title: I18n.t('gobierto_budgets.invoices.show.table.fields.nif'),
+          name: "provider_id",
+          title: I18n.t('gobierto_budgets.invoices.show.table.fields.provider_id'),
           type: "text",
           autosearch: true,
           align: "center",
           width: 30
         },
         {
-          name: "name",
-          title: I18n.t('gobierto_budgets.invoices.show.table.fields.name'),
+          name: "provider_name",
+          title: I18n.t('gobierto_budgets.invoices.show.table.fields.provider_name'),
           type: "text",
           autosearch: true,
           width: 50
@@ -428,15 +439,15 @@ this.GobiertoBudgets.InvoicesController = (function() {
           }
         },
         {
-          name: "payed",
-          title: I18n.t('gobierto_budgets.invoices.show.table.fields.payed'),
+          name: "paid",
+          title: I18n.t('gobierto_budgets.invoices.show.table.fields.paid'),
           type: "checkbox",
           align: "center",
           width: 20
         },
         {
-          name: "amount",
-          title: I18n.t('gobierto_budgets.invoices.show.table.fields.amount'),
+          name: "value",
+          title: I18n.t('gobierto_budgets.invoices.show.table.fields.value'),
           type: "number",
           width: 20,
           itemTemplate: function(value, item) {
@@ -448,8 +459,8 @@ this.GobiertoBudgets.InvoicesController = (function() {
           }
         },
         {
-          name: "concept",
-          title: I18n.t('gobierto_budgets.invoices.show.table.fields.concept'),
+          name: "subject",
+          title: I18n.t('gobierto_budgets.invoices.show.table.fields.subject'),
           type: "text",
           autosearch: true
         }
@@ -458,14 +469,14 @@ this.GobiertoBudgets.InvoicesController = (function() {
   }
 
   function _abbrevLargeCurrency(num, props = {}, currency = 'EUR') {
-    let _obj = {
+    var _obj = {
       style: 'currency',
       currency: currency
     };
 
     return (num > 1000000) ? num.toLocaleString(I18n.locale, _.extend(_obj, {
       maximumSignificantDigits: 3 //Math.log10(pow) / 2 + 1
-    })).split('').reverse().join('').replace(/000(.|,)/, 'M').split('').reverse().join('') : num.toLocaleString(I18n.locale, _.extend(_obj, props));
+    })).split('').reverse().join('').replace(/000000(.|,)/, 'M').split('').reverse().join('') : num.toLocaleString(I18n.locale, _.extend(_obj, props));
   }
 
   return InvoicesController;

@@ -268,6 +268,7 @@ Rails.application.routes.draw do
       post "feedback/follow" => "feedback#follow", as: :feedback_follow
       get "feedback/load_ask_more_information" => "feedback#load_ask_more_information", as: :feedback_load_ask_more_information
       get "recibo" => "receipts#show", as: :receipt
+      get "proveedores-facturas" => "providers#index", as: :providers
 
       namespace :api do
         get "/categories" => "categories#index"

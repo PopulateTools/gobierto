@@ -12,6 +12,21 @@
     font-size: $f7;
     color: $color_main;
 
+    &.item-lvl-0 {
+      > .item-title {
+        @include border-radius(4px);
+        background-color: $color_main;
+        color: $color_main_negative;
+
+        .item-toggle {
+          .toggle-container {
+            background-color: $color_main_negative;
+            color: $color_1;
+          }
+        }
+      }
+    }
+
     &.item-lvl-1 {
       width: 90%;
     }
@@ -21,20 +36,6 @@
       font-size: $f5;
 
       > .item-title {
-
-        &:hover {
-          @include border-radius(4px);
-          background-color: $color_main;
-          color: $color_main_negative;
-
-          .item-toggle {
-            .toggle-container {
-              background-color: $color_main_negative;
-              color: $color_1;
-            }
-          }
-        }
-
         .item-text {
           text-decoration: none;
           font-weight: bold;

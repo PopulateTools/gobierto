@@ -35,4 +35,5 @@ en:
             view: View page
             visibility_level:
               active: Published
+              archived: Archived
               draft: Draft

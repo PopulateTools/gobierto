@@ -8,6 +8,8 @@ ca:
             la pàgina</a>.
         destroy:
           success: La pàgina ha estat eliminada correctament
+        recover:
+          success: La pàgina ha estat recuperada correctament
         update:
           success_html: La pàgina ha estat actualitzada correctament. <a href="%{link}">Veure
             la pàgina</a>.

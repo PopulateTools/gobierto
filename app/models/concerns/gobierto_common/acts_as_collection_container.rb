@@ -3,7 +3,6 @@ module GobiertoCommon
     extend ActiveSupport::Concern
 
     class_methods do
-
       def container_type_name
         to_s.underscore
       end
@@ -69,8 +68,7 @@ module GobiertoCommon
     private
 
     def clean_collection_items
-      GobiertoCommon::CleanCollectionItemsJob.perform_later(self.site_id, self.class.name, self.id)
+      GobiertoCommon::CleanCollectionItemsJob.perform_later(self.class.name, self.id)
     end
-
   end
 end

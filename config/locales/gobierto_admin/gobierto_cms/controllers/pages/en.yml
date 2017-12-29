@@ -7,5 +7,7 @@ en:
           success_html: Page created successfully. <a href="%{link}">View the page</a>.
         destroy:
           success: Page deleted successfully
+        recover:
+          success: The page has been successfully recovered
         update:
           success_html: Page updated successfully. <a href="%{link}">View the page</a>.

@@ -125,7 +125,9 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_cms, as: :cms, path: :cms do
-      resources :pages, only: [:index, :new, :edit, :create, :update]
+      resources :pages, only: [:index, :new, :edit, :create, :update, :destroy] do
+        put :recover
+      end
       resources :sections, only: [:index, :new, :edit, :create, :update, :show] do
         resources :section_items, only: [:index, :create, :destroy, :update, :show]
         get :pages

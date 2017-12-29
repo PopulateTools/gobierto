@@ -134,6 +134,10 @@ module GobiertoAdmin
 
       def redirect_to_custom_show
         case @collection.item_type
+        when 'GobiertoCms::News'
+            if @collection.container.is_a?(::GobiertoParticipation::Process)
+              redirect_to admin_participation_process_pages_path(@collection.container) and return false
+            end
           when 'GobiertoCms::Page'
             if @collection.container.is_a?(::GobiertoParticipation::Process)
               redirect_to admin_participation_process_pages_path(@collection.container) and return false

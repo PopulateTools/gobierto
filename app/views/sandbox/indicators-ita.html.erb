@@ -1,0 +1,141 @@
+<% title t('.title', year: @year) %>
+
+<% content_for :breadcrumb_current_item do %>
+  <h1>
+    <%= link_to t('gobierto_budgets.layouts.menu_subsections.summary'), gobierto_budgets_budgets_path %>
+  </h1>
+<% end %>
+
+<% content_for :body_attributes do %>
+  <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}" data-max-year="#{Date.today.year}"} %>
+<% end %>
+
+<div class="column">
+
+  <div class="block">
+
+    <div class="pure-g header_block_inline">
+      <div class="pure-u-1 pure-u-md-12-24">
+        <div class="inline_header">
+          <h2 class="with_description p_h_r_1">INDICADORES ITA</h2>
+          <%= render partial: 'gobierto_budgets/budgets/year_breadcrumb', locals: {path_calculation_method: :gobierto_budgets_budgets_path} %>
+        </div>
+
+        <p>
+          Els indicadors ITA (Índex de Transparència dels Ajuntaments) són una eina que l'organització no governamental Transparència Internacional posa a disposició dels ajuntaments espanyols per mesurar el seu nivell de transparència. Avaluen la gestió realitzada per l’ajuntament d’una ciutat a través d'un conjunt integrat de 80 indicadors agrupat en diverses àrees.
+        </p>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-12-24 right">
+        <%= image_tag('illustrations/personaliza.jpg', class: 'img_header m_v_4') %>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="block">
+    <div id="indicators-tree">
+      <ul v-for="model in json" class="item-root">
+        <item class="item" :model="model"></item>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- item template -->
+<script type="text/x-template" id="item-template">
+  <li :class="getLevelClass(model.level)">
+    <div @click="toggle" class="item-title">
+    <!-- <div @click="toggle" class="item-title p_v_1" :class="getLevelClass(model.level)"> -->
+      <span class="item-toggle" v-if="hasChildren">[{{open ? '-' : '+'}}]</span>
+      <span class="item-id" v-else>{{model.id}}</span>
+      {{model.name}}
+      <span class="item-check" v-if="!hasChildren">
+        {{model.attributes.checked}}
+        <span class="fa-stack" v-if="model.attributes.checked">
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+        </span>
+        <span class="fa-stack" v-else>
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-times fa-stack-1x fa-inverse"></i>
+        </span>
+      </span>
+    </div>
+    <ul v-show="open" v-if="hasChildren">
+      <item class="item" v-for="model in model.children" :model="model"></item>
+    </ul>
+  </li>
+</script>
+
+<script type="text/javascript">
+// define the item component
+Vue.component('item', {
+  template: '#item-template',
+  props: ['model'],
+  data() {
+    return {
+      open: true
+    }
+  },
+  computed: {
+    hasChildren() {
+      return this.model.children &&
+        this.model.children.length
+    }
+  },
+  methods: {
+    toggle() {
+      if (this.isFolder) {
+        this.open = !this.open
+      }
+    },
+    getLevelClass(lvl) {
+      return "item-lvl-" + lvl
+    }
+  }
+});
+
+var app = new Vue({
+  el: '#indicators-tree',
+  name: 'indicators-tree',
+  data() {
+    return {
+      json: {}
+    }
+  },
+  mounted() {},
+  computed: {},
+  created: function() {
+    this.getJson();
+  },
+  methods: {
+    getJson: function() {
+      $.getJSON('/generated.json', function(json) {
+        this.json = json;
+      }.bind(this));
+    }
+  }
+});
+</script>
+
+<style media="screen">
+.item-lvl-0 {
+  font-size: 32px;
+}
+.item-lvl-1 {
+  font-size: 24px;
+  width: 90%;
+}
+.item-lvl-2 {
+  font-size: 16px;
+  text-decoration: underline;
+}
+.item-title {
+  border-bottom: 1px solid blue;
+  padding: .5em 0;
+}
+.item-check {
+  float: right;
+}
+</style>

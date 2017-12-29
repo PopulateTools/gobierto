@@ -1,0 +1,266 @@
+[
+  {
+    "id": 0,
+    "level": 0,
+    "name": "quis nulla reprehenderit amet esse",
+    "attributes": {},
+    "children": [
+      {
+        "id": 0,
+        "level": 1,
+        "name": "officia nulla adipisicing consequat veniam",
+        "attributes": {},
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "name": "labore labore nostrud exercitation occaecat",
+            "attributes": {
+              "checked": false
+            }
+          },
+          {
+            "id": 1,
+            "level": 2,
+            "name": "minim dolor ipsum duis commodo",
+            "attributes": {
+              "checked": true
+            }
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "level": 1,
+        "name": "veniam tempor proident exercitation consequat",
+        "attributes": {},
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "name": "velit pariatur incididunt occaecat ut",
+            "attributes": {
+              "checked": false
+            }
+          },
+          {
+            "id": 1,
+            "level": 2,
+            "name": "excepteur nostrud duis ut voluptate",
+            "attributes": {
+              "checked": false
+            }
+          },
+          {
+            "id": 2,
+            "level": 2,
+            "name": "ut elit fugiat reprehenderit sit",
+            "attributes": {
+              "checked": true
+            }
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "level": 1,
+        "name": "sint nisi ipsum ullamco non",
+        "attributes": {},
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "name": "occaecat enim reprehenderit et enim",
+            "attributes": {
+              "checked": false
+            }
+          },
+          {
+            "id": 1,
+            "level": 2,
+            "name": "occaecat reprehenderit pariatur elit fugiat",
+            "attributes": {
+              "checked": true
+            }
+          },
+          {
+            "id": 2,
+            "level": 2,
+            "name": "nostrud officia ut consectetur duis",
+            "attributes": {
+              "checked": true
+            }
+          },
+          {
+            "id": 3,
+            "level": 2,
+            "name": "excepteur incididunt nostrud ad ad",
+            "attributes": {
+              "checked": true
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "level": 0,
+    "name": "sint cupidatat veniam velit et",
+    "attributes": {},
+    "children": [
+      {
+        "id": 0,
+        "level": 1,
+        "name": "ex anim labore consectetur dolor",
+        "attributes": {},
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "name": "cupidatat non aliqua ullamco non",
+            "attributes": {
+              "checked": true
+            }
+          },
+          {
+            "id": 1,
+            "level": 2,
+            "name": "aliqua consectetur commodo aliqua sint",
+            "attributes": {
+              "checked": false
+            }
+          },
+          {
+            "id": 2,
+            "level": 2,
+            "name": "proident quis qui officia excepteur",
+            "attributes": {
+              "checked": false
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "level": 0,
+    "name": "nostrud et excepteur mollit sit",
+    "attributes": {},
+    "children": [
+      {
+        "id": 0,
+        "level": 1,
+        "name": "tempor eiusmod fugiat reprehenderit irure",
+        "attributes": {},
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "name": "aliqua laboris minim ad reprehenderit",
+            "attributes": {
+              "checked": false
+            }
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "level": 1,
+        "name": "est do deserunt id do",
+        "attributes": {},
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "name": "non ea reprehenderit sint eiusmod",
+            "attributes": {
+              "checked": false
+            }
+          },
+          {
+            "id": 1,
+            "level": 2,
+            "name": "voluptate non mollit culpa enim",
+            "attributes": {
+              "checked": false
+            }
+          },
+          {
+            "id": 2,
+            "level": 2,
+            "name": "dolor culpa magna consectetur consequat",
+            "attributes": {
+              "checked": true
+            }
+          },
+          {
+            "id": 3,
+            "level": 2,
+            "name": "elit consequat dolore tempor enim",
+            "attributes": {
+              "checked": true
+            }
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "level": 1,
+        "name": "magna eiusmod esse aliquip ullamco",
+        "attributes": {},
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "name": "tempor voluptate cupidatat pariatur ea",
+            "attributes": {
+              "checked": true
+            }
+          },
+          {
+            "id": 1,
+            "level": 2,
+            "name": "voluptate do do duis tempor",
+            "attributes": {
+              "checked": true
+            }
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "level": 1,
+        "name": "sint non labore dolore duis",
+        "attributes": {},
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "name": "commodo adipisicing proident do tempor",
+            "attributes": {
+              "checked": false
+            }
+          },
+          {
+            "id": 1,
+            "level": 2,
+            "name": "deserunt ullamco dolor in tempor",
+            "attributes": {
+              "checked": true
+            }
+          },
+          {
+            "id": 2,
+            "level": 2,
+            "name": "laboris fugiat Lorem in aliquip",
+            "attributes": {
+              "checked": false
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

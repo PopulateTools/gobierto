@@ -44,6 +44,7 @@ require "support/session_helpers"
 require "support/site_session_helpers"
 require "support/message_delivery_helpers"
 require "support/gobierto_site_constraint_helpers"
+require "support/asymmetric_encryptor_helpers"
 require "capybara/email"
 require "minitest/retry"
 require "vcr"
@@ -138,6 +139,7 @@ class ActionDispatch::IntegrationTest
   def with_javascript
     Capybara.current_driver = Capybara.javascript_driver
     yield
+    Capybara.reset_session!
   ensure
     Capybara.current_driver = Capybara.default_driver
   end

@@ -21,7 +21,7 @@ module GobiertoBudgets
 
     def total_budget_per_inhabitant(year = nil)
       year ||= @year
-      BudgetTotal.budgeted_for(@place.id, year, BudgetLine::EXPENSE) / (population(year) || population(year-1) || population(year-2)).to_f
+      BudgetTotal.budgeted_for(@place.id, year, BudgetLine::EXPENSE).to_f / (population(year) || population(year-1) || population(year-2)).to_f
     end
 
     def total_income_budget(year = nil)
@@ -36,7 +36,7 @@ module GobiertoBudgets
 
     def total_income_budget_per_inhabitant(year = nil)
       year ||= @year
-      BudgetTotal.budgeted_for(@place.id, year, BudgetLine::INCOME) / (population(year) || population(year-1) || population(year-2)).to_f
+      BudgetTotal.budgeted_for(@place.id, year, BudgetLine::INCOME).to_f / (population(year) || population(year-1) || population(year-2)).to_f
     end
 
     def total_budget(year = nil)

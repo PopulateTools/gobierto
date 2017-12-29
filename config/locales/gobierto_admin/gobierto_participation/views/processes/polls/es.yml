@@ -37,6 +37,7 @@ es:
             view_poll: Ver encuesta
             visibility: Estado
             visibility_level:
+              archived: Archivada
               draft: Borrador
               published: Publicada
           new:

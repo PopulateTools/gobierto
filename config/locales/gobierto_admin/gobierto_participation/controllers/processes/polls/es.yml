@@ -1,0 +1,10 @@
+---
+es:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        polls:
+          destroy:
+            success: La encuesta ha sido archivada correctamente
+          recover:
+            success: La encuesta ha sido recuperada correctamente

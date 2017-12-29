@@ -16,7 +16,7 @@ module GobiertoParticipation
       when "ideas"
         gobierto_participation_process_contribution_containers_path(process_id: current_process.slug)
       when "documents"
-        gobierto_participation_process_file_attachments_path(process_id: stage.process.slug)
+        gobierto_participation_process_attachments_path(process_id: stage.process.slug)
       when "pages"
         gobierto_participation_process_pages_path(process_id: stage.process.slug)
       when "results"

@@ -44,7 +44,7 @@
 
                 <% if idx < stages_size - 1 %>
                   <% next_stage_upcoming = process.published_stages[idx+1].upcoming? %>
-                  <div class='dot-join <%= stage!=process.current_stage ? 'disabled' : '' %>'></div>
+                  <div class='dot-join disabled'></div>
                 <% end %>
 
               <% end %>

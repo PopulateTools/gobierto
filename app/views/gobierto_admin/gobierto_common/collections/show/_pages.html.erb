@@ -32,7 +32,7 @@
         </td>
         <td>
           <%= link_to "<i class='fa fa-trash'></i>".html_safe,
-                      admin_cms_page_path(page, process_id: current_process.id),
+                      admin_cms_page_path(page, process_id: (current_process.id if !defined?(current_process).nil?)),
                       title: t("gobierto_admin.shared.archive.element"),
                       method: :delete,
                       data: { confirm: t("gobierto_admin.shared.archive.confirm") } %>
@@ -72,7 +72,7 @@
             <td></td>
             <td>
               <%= link_to t("gobierto_admin.shared.recover.element"),
-                          admin_cms_page_recover_path(page, process_id: current_process.id),
+                          admin_cms_page_recover_path(page, process_id: (current_process.id if !defined?(current_process).nil?)),
                           title: t("gobierto_admin.shared.recover.element"),
                           method: :put,
                           data: { confirm: t("gobierto_admin.shared.recover.confirm") } %>

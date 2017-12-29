@@ -13,7 +13,17 @@ module ActsAsParanoidAliases
         deleted?
       end
 
-      def after_archive
+      def restore(opts = {})
+        return false unless archived?
+        super(opts)
+        update_attribute(:archived_at, nil)
+        after_restore
+      end
+
+      def after_restore
+        if collection
+          add_item_to_collection
+        end
       end
     end
   end

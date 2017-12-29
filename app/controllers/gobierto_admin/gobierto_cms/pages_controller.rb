@@ -62,15 +62,26 @@ module GobiertoAdmin
       def destroy
         @page = find_page
         @page.destroy
+        process = find_process if params[:process_id]
 
-        redirect_to admin_participation_process_pages_path(process_id: find_process), notice: t(".success")
+        if process
+          redirect_to admin_participation_process_pages_path(process_id: process), notice: t(".success")
+        else
+          redirect_to admin_common_collection_path(@page.collection), notice: t(".success")
+        end
       end
 
       def recover
         @page = find_hidden_page
         @page.restore
 
-        redirect_to admin_participation_process_pages_path(process_id: find_process), notice: t(".success")
+        process = find_process if params[:process_id]
+
+        if process
+          redirect_to admin_participation_process_pages_path(process_id: process), notice: t(".success")
+        else
+          redirect_to admin_common_collection_path(@page.collection), notice: t(".success")
+        end
       end
 
       private

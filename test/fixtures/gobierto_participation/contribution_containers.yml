@@ -10,3 +10,15 @@ children_contributions:
   ends: <%= 30.days.from_now %>
   slug: children-contributions
   visibility_user_level: <%= GobiertoParticipation::ContributionContainer.visibility_user_levels['registered'] %>
+neighbors_contributions:
+  site: madrid
+  admin: tony
+  process: sport_city_process
+  title_translations: <%= { 'en' => 'What sport facilities can be created for the neighbors?', 'es' => '¿Qué instalaciones deportivas pueden ser instaladas para los vecinos?' }.to_json %>
+  description_translations: <%= { 'en' => 'Ideas sport facilities.', 'es' => 'Ideas para instalaciones deportivas.' }.to_json %>
+  visibility_level: <%= GobiertoParticipation::ContributionContainer.visibility_levels[:active] %>
+  contribution_type: <%= GobiertoParticipation::ContributionContainer.contribution_types[:idea] %>
+  starts: <%= 1.month.ago %>
+  ends: <%= 1.month.from_now %>
+  slug: sport-facilities-contributions
+  visibility_user_level: <%= GobiertoParticipation::ContributionContainer.visibility_user_levels['verified'] %>

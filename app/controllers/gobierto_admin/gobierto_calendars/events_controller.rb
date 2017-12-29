@@ -155,15 +155,14 @@ module GobiertoAdmin
       end
 
       def manage_event_allowed!
-        byebug
         event_policy = GobiertoCalendars::EventPolicy.new(
                          current_site: current_site,
                          current_admin: current_admin,
                          event: try(:@event),
-                         collection_id: try(:@event).collection_id
+                         collection_id: try(:@collection) ? @collection.id : nil
                        )
 
-        if try(:@event).collection.container.nil? || !event_policy.manage?
+        if !event_policy.manage? || (try(:@collection).container.nil? if try(:@collection))
           redirect_to(admin_root_path, alert: t('gobierto_admin.admin_unauthorized')) and return false
         end
       end

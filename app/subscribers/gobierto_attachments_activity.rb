@@ -3,11 +3,11 @@
 module Subscribers
   class GobiertoAttachmentsActivity < ::Subscribers::Base
     def updated(event)
-      create_activity_from_event(event, 'updated')
+      create_activity_from_event(event, "updated")
     end
 
     def name_changed(event)
-      create_activity_from_event(event, 'created')
+      create_activity_from_event(event, "created")
     end
 
     private
@@ -18,9 +18,9 @@ module Subscribers
       author = GobiertoAdmin::Admin.find_by id: event.payload[:admin_id]
       # When the author is nil, we can asume the action has been performed by an integration
       return if author.nil?
-      action = subject.class.name.underscore.tr('/', '.') + '.' + action
+      action = subject.class.name.underscore.tr("/", ".") + "." + action
 
-      recipient = subject.collection.container if subject.collection
+      recipient = (subject.collection.container unless subject.collection.container.is_a?(Module))
 
       Activity.create! subject: subject,
                        author: author,

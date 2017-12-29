@@ -113,6 +113,10 @@ class Site < ApplicationRecord
     self.name
   end
 
+  def slug
+    location_name.tr("_", " ").parameterize
+  end
+
   private
 
   def site_configuration_attributes

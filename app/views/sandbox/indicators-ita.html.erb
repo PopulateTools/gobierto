@@ -52,9 +52,9 @@
         </div>
       </div>
       <div class="item-id p_h_r_1" v-else>{{model.id + 1}}</div>
-      <div class="item-text"><span v-if="hasChildren"></span>{{model.name}}</div>
+      <div class="item-text">{{model.name}}</div>
       <div class="item-check" v-if="!hasChildren">
-        <div class="check-container">
+        <div class="check-container" :class="(model.attributes.checked) ? 'check-container--true' : 'check-container--false'">
           <i class="fa fa-check" v-if="model.attributes.checked"></i>
           <i class="fa fa-times" v-else></i>
         </div>

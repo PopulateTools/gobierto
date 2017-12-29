@@ -1,5 +1,8 @@
 .indicators-tree {
 
+  $checked: #73D600;
+  $unchecked: #D6003B;
+
   ul, li {
     list-style: none;
   }
@@ -9,17 +12,14 @@
     font-size: $f7;
     color: $color_main;
 
-    &.item-lvl-0 {
-      font-size: $f3;
-    }
-
     &.item-lvl-1 {
-      font-size: $f5;
       width: 90%;
     }
 
     &.item-lvl-0,
     &.item-lvl-1 {
+      font-size: $f5;
+
       > .item-title {
 
         &:hover {
@@ -87,11 +87,19 @@
         .check-container {
           width: 18px;
           height: 18px;
-          background-color: transparentize($color_1, .88);
           @include border-radius(50%);
           display: flex;
           justify-content: center;
           align-items: center;
+
+          &.check-container--true {
+            color: $checked;
+            background-color: rgba($checked, .3);
+          }
+          &.check-container--false {
+            color: $unchecked;
+            background-color: rgba($unchecked, .1);
+          }
 
           > * {
             margin: 0;

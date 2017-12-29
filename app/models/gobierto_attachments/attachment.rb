@@ -4,10 +4,13 @@ require_dependency 'gobierto_attachments'
 
 module GobiertoAttachments
   class Attachment < ApplicationRecord
+    acts_as_paranoid column: :archived_at
+
     paginates_per 8
 
     attr_accessor :admin_id
 
+    include ActsAsParanoidAliases
     include User::Subscribable
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable

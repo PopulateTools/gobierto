@@ -61,7 +61,7 @@ module GobiertoAdmin
 
       def destroy
         @page = find_page
-        @page.destroy
+        @page.archive
         process = find_process if params[:process_id]
 
         if process
@@ -72,7 +72,7 @@ module GobiertoAdmin
       end
 
       def recover
-        @page = find_hidden_page
+        @page = find_archived_page
         @page.restore
 
         process = find_process if params[:process_id]
@@ -124,8 +124,8 @@ module GobiertoAdmin
         current_site.processes.find(params[:process_id])
       end
 
-      def find_hidden_page
-        current_site.pages.with_deleted.find(params[:page_id])
+      def find_archived_page
+        current_site.pages.with_archived.find(params[:page_id])
       end
 
       def find_collection(collection_id)

@@ -59,6 +59,31 @@ module GobiertoAdmin
         end
       end
 
+      def destroy
+        @file_attachment = find_file_attachment
+        @file_attachment.archive
+        process = find_process if params[:process_id]
+
+        if process
+          redirect_to admin_participation_process_file_attachments_path(process_id: process), notice: t(".success")
+        else
+          redirect_to admin_common_collection_path(@file_attachment.collection), notice: t(".success")
+        end
+      end
+
+      def recover
+        @file_attachment = find_archived_file_attachment
+        @file_attachment.restore
+
+        process = find_process if params[:process_id]
+
+        if process
+          redirect_to admin_participation_process_file_attachments_path(process_id: process), notice: t(".success")
+        else
+          redirect_to admin_common_collection_path(@file_attachment.collection), notice: t(".success")
+        end
+      end
+
       private
 
       def load_collection
@@ -75,6 +100,18 @@ module GobiertoAdmin
 
       def find_file_attachment
         current_site.attachments.find(params[:id])
+      end
+
+      def find_file_attachment
+        current_site.attachments.find(params[:id])
+      end
+
+      def find_archived_file_attachment
+        current_site.attachments.with_archived.find(params[:file_attachment_id])
+      end
+
+      def find_process
+        current_site.processes.find(params[:process_id])
       end
 
       def find_collection(collection_id)

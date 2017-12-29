@@ -18,9 +18,11 @@ module GobiertoAdmin
                            new_admin_cms_page_path(collection_id: @collection)
                          when "GobiertoAttachments::Attachment"
                            @file_attachments = ::GobiertoAttachments::Attachment.where(id: @collection.file_attachments_in_collection).sorted
+                           @archived_file_attachments = ::GobiertoAttachments::Attachment.only_archived.where(collection_id: @collection.id).sorted
                            new_admin_attachments_file_attachment_path(collection_id: @collection)
                          when "GobiertoCalendars::Event"
                            @events_presenter = GobiertoAdmin::GobiertoCalendars::EventsPresenter.new(@collection)
+                           @archived_events = ::GobiertoCalendars::Event.only_archived.where(collection_id: @collection.id).sorted
                            @events = ::GobiertoCalendars::Event.by_collection(@collection).sorted
                            nil
                          end

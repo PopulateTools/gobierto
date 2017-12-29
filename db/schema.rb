@@ -210,6 +210,8 @@ ActiveRecord::Schema.define(version: 20171227134634) do
     t.datetime "updated_at", null: false
     t.string "slug", default: "", null: false
     t.integer "collection_id"
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_ga_attachments_on_archived_at"
     t.index ["site_id", "slug"], name: "index_ga_attachments_on_site_id_and_slug", unique: true
   end
 
@@ -322,6 +324,8 @@ ActiveRecord::Schema.define(version: 20171227134634) do
     t.integer "site_id", null: false
     t.string "slug", null: false
     t.integer "collection_id"
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_gc_events_on_archived_at"
     t.index ["description_translations"], name: "index_gc_events_on_description_translations", using: :gin
     t.index ["site_id", "slug"], name: "index_gc_events_on_site_id_and_slug", unique: true
     t.index ["title_translations"], name: "index_gc_events_on_title_translations", using: :gin

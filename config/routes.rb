@@ -146,7 +146,9 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_calendars, as: :calendars do
-      resources :events
+      resources :events do
+        put :recover
+      end
       resources :collections, only: [:index]
       resources :calendar_configurations, only: [:edit, :update], controller: "calendar_configuration", as: :configurations, path: :configurations do
         member do

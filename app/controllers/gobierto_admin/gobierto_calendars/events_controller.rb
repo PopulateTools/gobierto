@@ -1,12 +1,13 @@
 module GobiertoAdmin
   module GobiertoCalendars
     class EventsController < BaseController
-
-      before_action :load_collection, :load_person, :manage_event_allowed!
-
+      before_action :load_collection, only: [:new, :edit, :create, :update]
+      before_action :load_person, only: [:new, :edit, :create, :update]
+      before_action :manage_event_allowed!, only: [:new, :edit, :create, :update]
       def index
         @events_presenter = GobiertoAdmin::GobiertoCalendars::EventsPresenter.new(@collection)
         @events = ::GobiertoCalendars::Event.by_collection(@collection).sorted
+        @archived_events = ::GobiertoCalendars::Event.only_archived.where(collection_id: @collection.id).sorted
 
         case params[:scope]
         when "pending"
@@ -69,6 +70,31 @@ module GobiertoAdmin
         end
       end
 
+      def destroy
+        @event = find_event
+        @event.archive
+        process = find_process if params[:process_id]
+
+        if process
+          redirect_to admin_participation_process_events_path(process_id: process), notice: t(".success")
+        else
+          redirect_to admin_common_collection_path(@event.collection), notice: t(".success")
+        end
+      end
+
+      def recover
+        @event = find_archived_event
+        @event.restore
+
+        process = find_process if params[:process_id]
+
+        if process
+          redirect_to admin_participation_process_events_path(process_id: process), notice: t(".success")
+        else
+          redirect_to admin_common_collection_path(@event.collection), notice: t(".success")
+        end
+      end
+
       private
 
       def load_collection
@@ -81,8 +107,16 @@ module GobiertoAdmin
         end
       end
 
+      def find_process
+        current_site.processes.find(params[:process_id])
+      end
+
       def find_event
         current_site.events.find params[:id]
+      end
+
+      def find_archived_event
+        current_site.events.with_archived.find(params[:event_id])
       end
 
       def get_attendees
@@ -116,18 +150,20 @@ module GobiertoAdmin
       end
 
       def ignored_event_attributes
-        %w( created_at updated_at title description external_id site_id collection_id )
+        %w(created_at updated_at title description external_id site_id collection_id
+           archived_at)
       end
 
       def manage_event_allowed!
+        byebug
         event_policy = GobiertoCalendars::EventPolicy.new(
                          current_site: current_site,
                          current_admin: current_admin,
                          event: try(:@event),
-                         collection_id: @collection.id
+                         collection_id: try(:@event).collection_id
                        )
 
-        if @collection.container.nil? || !event_policy.manage?
+        if try(:@event).collection.container.nil? || !event_policy.manage?
           redirect_to(admin_root_path, alert: t('gobierto_admin.admin_unauthorized')) and return false
         end
       end

@@ -11,5 +11,9 @@ es:
         create:
           success_html: El evento ha sido creado correctamente. <a href="%{link}">Ver
             el evento</a>.
+        destroy:
+          success: El evento se ha eliminado correctamente
+        recover:
+          success: El evento se ha recuperado correctamente
         update:
           success_html: El evento ha sido actualizado. <a href="%{link}">Ver el evento</a>.

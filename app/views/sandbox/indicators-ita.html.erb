@@ -34,7 +34,7 @@
   </div>
 
   <div class="block">
-    <div id="indicators-tree">
+    <div class="indicators-tree">
       <ul v-for="model in json" class="item-root">
         <item class="item" :model="model"></item>
       </ul>
@@ -46,21 +46,19 @@
 <script type="text/x-template" id="item-template">
   <li :class="getLevelClass(model.level)">
     <div @click="toggle" class="item-title">
-    <!-- <div @click="toggle" class="item-title p_v_1" :class="getLevelClass(model.level)"> -->
-      <span class="item-toggle" v-if="hasChildren">[{{open ? '-' : '+'}}]</span>
-      <span class="item-id" v-else>{{model.id}}</span>
-      {{model.name}}
-      <span class="item-check" v-if="!hasChildren">
-        {{model.attributes.checked}}
-        <span class="fa-stack" v-if="model.attributes.checked">
-          <i class="fa fa-circle fa-stack-2x"></i>
-          <i class="fa fa-check fa-stack-1x fa-inverse"></i>
-        </span>
-        <span class="fa-stack" v-else>
-          <i class="fa fa-circle fa-stack-2x"></i>
-          <i class="fa fa-times fa-stack-1x fa-inverse"></i>
-        </span>
-      </span>
+      <div class="item-toggle p_h_r_1" v-if="hasChildren">
+        <div class="toggle-container">
+          <i class="fa fa-caret-down"></i>
+        </div>
+      </div>
+      <div class="item-id p_h_r_1" v-else>{{model.id + 1}}</div>
+      <div class="item-text"><span v-if="hasChildren"></span>{{model.name}}</div>
+      <div class="item-check" v-if="!hasChildren">
+        <div class="check-container">
+          <i class="fa fa-check" v-if="model.attributes.checked"></i>
+          <i class="fa fa-times" v-else></i>
+        </div>
+      </div>
     </div>
     <ul v-show="open" v-if="hasChildren">
       <item class="item" v-for="model in model.children" :model="model"></item>
@@ -86,7 +84,7 @@ Vue.component('item', {
   },
   methods: {
     toggle() {
-      if (this.isFolder) {
+      if (this.hasChildren) {
         this.open = !this.open
       }
     },
@@ -97,7 +95,7 @@ Vue.component('item', {
 });
 
 var app = new Vue({
-  el: '#indicators-tree',
+  el: '.indicators-tree',
   name: 'indicators-tree',
   data() {
     return {
@@ -118,24 +116,3 @@ var app = new Vue({
   }
 });
 </script>
-
-<style media="screen">
-.item-lvl-0 {
-  font-size: 32px;
-}
-.item-lvl-1 {
-  font-size: 24px;
-  width: 90%;
-}
-.item-lvl-2 {
-  font-size: 16px;
-  text-decoration: underline;
-}
-.item-title {
-  border-bottom: 1px solid blue;
-  padding: .5em 0;
-}
-.item-check {
-  float: right;
-}
-</style>

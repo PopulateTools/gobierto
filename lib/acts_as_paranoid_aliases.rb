@@ -21,7 +21,7 @@ module ActsAsParanoidAliases
       end
 
       def after_restore
-        if collection
+        if try(:collection)
           add_item_to_collection
         end
       end

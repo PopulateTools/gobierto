@@ -8,5 +8,9 @@ class AddArchivedAtToModels < ActiveRecord::Migration[5.1]
     add_index :gc_events, :archived_at
     add_column :ga_attachments, :archived_at, :datetime
     add_index :ga_attachments, :archived_at
+    add_column :gpart_contribution_containers, :archived_at, :datetime
+    add_index :gpart_contribution_containers, :archived_at
+    add_column :gpart_polls, :archived_at, :datetime
+    add_index :gpart_polls, :archived_at
   end
 end

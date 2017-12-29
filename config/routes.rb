@@ -115,7 +115,9 @@ Rails.application.routes.draw do
         resources :polls, only: [:index, :new, :edit, :create, :update], controller: "processes/polls" do
           resources :answers, only: [:index], controller: "processes/poll_answers"
         end
-        resources :contribution_containers, only: [:new, :edit, :create, :update, :index, :show], controller: "processes/process_contribution_containers", as: :contribution_containers, path: :contribution_containers
+        resources :contribution_containers, only: [:new, :edit, :create, :update, :index, :show, :destroy], controller: "processes/process_contribution_containers", as: :contribution_containers, path: :contribution_containers do
+          put :recover
+        end
       end
     end
 

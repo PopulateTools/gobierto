@@ -38,6 +38,7 @@ es:
             title: Aportaciones
             visibility_level:
               active: Publicada
+              archived: Archivado
               draft: Borrador
           show:
             comments: Comentarios

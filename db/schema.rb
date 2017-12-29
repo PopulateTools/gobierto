@@ -537,7 +537,9 @@ ActiveRecord::Schema.define(version: 20171227134634) do
     t.datetime "updated_at", null: false
     t.string "slug", default: "", null: false
     t.integer "visibility_user_level", default: 0, null: false
+    t.datetime "archived_at"
     t.index ["admin_id"], name: "index_gpart_contribution_containers_on_admin_id"
+    t.index ["archived_at"], name: "index_gpart_contribution_containers_on_archived_at"
     t.index ["process_id"], name: "index_gpart_contribution_containers_on_process_id"
     t.index ["site_id", "slug"], name: "index_gpart_contribution_containers_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_gpart_contribution_containers_on_site_id"
@@ -614,6 +616,8 @@ ActiveRecord::Schema.define(version: 20171227134634) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "visibility_user_level", default: 0, null: false
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_gpart_polls_on_archived_at"
     t.index ["process_id"], name: "index_gpart_polls_on_process_id"
   end
 

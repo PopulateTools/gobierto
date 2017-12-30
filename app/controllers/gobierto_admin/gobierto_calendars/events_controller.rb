@@ -1,9 +1,9 @@
 module GobiertoAdmin
   module GobiertoCalendars
     class EventsController < BaseController
-      before_action :load_collection, only: [:new, :edit, :create, :update]
-      before_action :load_person, only: [:new, :edit, :create, :update]
-      before_action :manage_event_allowed!, only: [:new, :edit, :create, :update]
+      before_action :load_collection, only: [:new, :edit, :create, :update, :index]
+      before_action :load_person, only: [:new, :edit, :create, :update, :index]
+      before_action :manage_event_allowed!, only: [:new, :edit, :create, :update, :index]
       def index
         @events_presenter = GobiertoAdmin::GobiertoCalendars::EventsPresenter.new(@collection)
         @events = ::GobiertoCalendars::Event.by_collection(@collection).sorted

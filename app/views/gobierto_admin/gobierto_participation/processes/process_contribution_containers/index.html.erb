@@ -20,7 +20,7 @@
     <th></th>
   </tr>
   <% @contribution_containers.each do |contribution_container| %>
-    <tr>
+    <tr id="contribution_container-item-<%= contribution_container.id %>" data-id="<%= contribution_container.id %>">
       <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_participation_process_contribution_container_path(contribution_container.id,process_id: contribution_container.process.id) %></td>
       <td><%= link_to contribution_container.title, admin_participation_process_contribution_container_path(contribution_container.id, process_id: contribution_container.process.id) %></td>
       <td><%= contribution_container.contributions.size %>/ <%= contribution_container.contributions.sum(:votes_count) %></td>
@@ -68,7 +68,7 @@
         <th></th>
       </tr>
       <% @archived_contribution_containers.each do |contribution_container| %>
-        <tr>
+        <tr id="contribution_container-item-<%= contribution_container.id %>" data-id="<%= contribution_container.id %>">
           <td><%= link_to '<i class="fa fa-edit"></i>'.html_safe, edit_admin_participation_process_contribution_container_path(contribution_container.id,process_id: contribution_container.process.id) %></td>
           <td><%= contribution_container.title %></td>
           <td><%= contribution_container.contributions.size %>/ <%= contribution_container.contributions.sum(:votes_count) %></td>

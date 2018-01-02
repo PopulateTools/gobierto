@@ -43,6 +43,7 @@ es:
         name: Nombre de la entidad
         populate_data_api_token: API token Populate Data
         privacy_page_id: Página de privacidad
+        raw_configuration_variables: Otras variables de configuración
         title: Nombre del site
       gobierto_admin/user_form:
         email: Email

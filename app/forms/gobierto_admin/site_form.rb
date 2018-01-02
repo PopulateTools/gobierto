@@ -36,7 +36,8 @@ module GobiertoAdmin
       :privacy_page_id,
       :populate_data_api_token,
       :home_page,
-      :home_page_item_id
+      :home_page_item_id,
+      :raw_configuration_variables
     )
 
     attr_reader :logo_url
@@ -119,6 +120,10 @@ module GobiertoAdmin
       @populate_data_api_token ||= site.configuration.populate_data_api_token
     end
 
+    def raw_configuration_variables
+      @raw_configuration_variables ||= site.configuration.raw_configuration_variables
+    end
+
     def logo_url
       @logo_url ||= begin
         return site.configuration.logo unless logo_file.present?
@@ -167,6 +172,7 @@ module GobiertoAdmin
         site_attributes.configuration.available_locales = (available_locales.select{ |l| l.present? } + [default_locale]).uniq
         site_attributes.configuration.privacy_page_id = privacy_page_id
         site_attributes.configuration.populate_data_api_token = populate_data_api_token
+        site_attributes.configuration.raw_configuration_variables = raw_configuration_variables
       end
 
       if @site.valid?

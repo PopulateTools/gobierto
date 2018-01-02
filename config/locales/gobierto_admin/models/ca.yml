@@ -43,6 +43,7 @@ ca:
         name: Nom de l'entitat
         populate_data_api_token: API token Populate Data
         privacy_page_id: Pàgina privacitat
+        raw_configuration_variables: Altres variables configuració
         title: Nom del site
       gobierto_admin/user_form:
         email: Email

@@ -78,24 +78,27 @@
           <% end %>
         </div>
 
-        <div class="box fully_linked">
-          <%= link_to gobierto_people_gifts_path, role: "button" do %>
-            <h2 class="linked_headline">
-              <i class="fa fa-gift"></i>
-              <%= t(".gifts") %>
-            </h2>
-          <% end %>
-        </div>
+        <% if gifts_service_url.present? %>
+          <div class="box fully_linked">
+            <%= link_to gobierto_people_gifts_path, role: "button" do %>
+              <h2 class="linked_headline">
+                <i class="fa fa-gift"></i>
+                <%= t(".gifts") %>
+              </h2>
+            <% end %>
+          </div>
+        <% end %>
 
-        <div class="box fully_linked">
-          <%= link_to gobierto_people_travels_path, role: "button" do %>
-            <h2 class="linked_headline">
-              <i class="fa fa-plane"></i>
-              <%= t(".travels") %>
-            </h2>
-          <% end %>
-        </div>
-
+        <% if travels_service_url.present? %>
+          <div class="box fully_linked">
+            <%= link_to gobierto_people_travels_path, role: "button" do %>
+              <h2 class="linked_headline">
+                <i class="fa fa-plane"></i>
+                <%= t(".travels") %>
+              </h2>
+            <% end %>
+          </div>
+        <% end %>
       </div>
 
     <% end %>

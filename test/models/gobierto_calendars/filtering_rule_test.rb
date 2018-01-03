@@ -41,6 +41,10 @@ module GobiertoCalendars
       filtering_rule.condition = :ends_with
       assert_equal "ignore", filtering_rule.apply({title: "Foo Bar @"})
       assert_equal false, filtering_rule.apply({title: "Foo @ Bar"})
+
+      filtering_rule.condition = :not_starts_with
+      assert_equal false, filtering_rule.apply({title: "@ Foo Bar"})
+      assert_equal "ignore", filtering_rule.apply({title: "Foo @ Bar"})
     end
   end
 end

@@ -19,6 +19,7 @@ en:
           contains: Contains
           ends_with: Ends with
           not_contains: Not contains
+          not_starts_with: Not starts with
           starts_with: Starts with
         field:
           description: Description

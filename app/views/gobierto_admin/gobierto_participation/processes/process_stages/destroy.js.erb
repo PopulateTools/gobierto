@@ -1,0 +1,4 @@
+$("div.flash-message").remove();
+$("div.admin_content").prepend("<%= j render(partial: 'gobierto_admin/shared/flash_messages') %>");
+$("#stages").html("<%= j render(partial: 'gobierto_admin/gobierto_participation/processes/process_stages/process_stages') %>");
+window.GobiertoAdmin.process_stages_controller.index();

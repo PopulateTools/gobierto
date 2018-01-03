@@ -10,7 +10,8 @@ en:
           information: Information
           news: News
           polls: Polls
-          stage: Stage
+          stage: Process
+          stages: Stages
           votings: Votings
       welcome:
         index:

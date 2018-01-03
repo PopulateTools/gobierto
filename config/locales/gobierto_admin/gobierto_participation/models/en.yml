@@ -35,13 +35,27 @@ en:
         stages: Stages
         starts: Starts
         title: Title
-      gobierto_admin/gobierto_participation/process_form/stages:
-        title: The title of a stage
       gobierto_admin/gobierto_participation/process_information_form:
         information_text: Information
+      gobierto_admin/gobierto_participation/process_stage_form:
+        cta_description: CTA Box / Short description
+        cta_text: CTA Box / Button / Text
+        description: Description of stage
+        ends: End date
+        menu: Menu / Literal
+        slug: Url
+        stage_type: Tool
+        starts: Start stage
+        title: The title of stage
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Contribution
         container
       gobierto_admin/gobierto_participation/poll_form: Poll
       gobierto_admin/gobierto_participation/poll_form/questions: Questions
       gobierto_admin/gobierto_participation/process_form: Process
+  activerecord:
+    attributes:
+      gobierto_participation/process_stage:
+        visibility_levels:
+          draft: Draft
+          published: Published

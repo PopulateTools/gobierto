@@ -4,7 +4,6 @@ require "test_helper"
 
 module GobiertoParticipation
   class PageShowTest < ActionDispatch::IntegrationTest
-
     def process_path(process)
       gobierto_participation_process_path(process.slug)
     end
@@ -40,19 +39,14 @@ module GobiertoParticipation
       with_current_site(site) do
         processes.each do |process|
           visit process_path(process)
-
-          within '.sub-nav' do
-            assert has_link? 'Information'
-            assert has_link? 'Meetings'
-
-            if process.polls_stage?
-              assert has_link? 'Polls'
-            else
-              refute has_link? 'Polls'
+          within ".sub-nav" do
+            process.published_stages.each do |stage|
+              if stage.visibility_level == "published"
+                assert has_link? stage.stage_type.capitalize
+              else
+                refute has_link? stage.stage_type.capitalize
+              end
             end
-
-            assert has_link? 'Contributions'
-            assert has_link? 'Results'
           end
         end
       end

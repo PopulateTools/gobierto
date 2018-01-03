@@ -62,8 +62,8 @@ module GobiertoAdmin
               # check slug gets auto-filled in server
               assert_equal 'new-process-title', process.slug
 
-              # check empty stages are created
-              assert_equal ::GobiertoParticipation::ProcessStage.stage_types.keys.size, process.stages.size
+              # check information stage are created
+              assert_equal 1, process.stages.size
             end
           end
         end

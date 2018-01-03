@@ -35,12 +35,26 @@ ca:
         stages: Les fases
         starts: Començament
         title: Títol
-      gobierto_admin/gobierto_participation/process_form/stages:
-        title: El títol d'una fase
       gobierto_admin/gobierto_participation/process_information_form:
         information_text: Informació
+      gobierto_admin/gobierto_participation/process_stage_form:
+        cta_description: Caja CTA / Descripció corta
+        cta_text: Caja CTA / Botó / Text
+        description: Títol de descripció
+        ends: Data de finalització
+        menu: Menu / Literal
+        slug: Url
+        stage_type: Eina
+        starts: Data de començament
+        title: Títol de fase
     models:
       gobierto_admin/gobierto_participation/contribution_container_form: Grup d'aportacions
       gobierto_admin/gobierto_participation/poll_form: Enquesta
       gobierto_admin/gobierto_participation/poll_form/questions: Les preguntes
       gobierto_admin/gobierto_participation/process_form: Procés
+  activerecord:
+    attributes:
+      gobierto_participation/process_stage:
+        visibility_levels:
+          draft: Esborrany
+          published: Publicada

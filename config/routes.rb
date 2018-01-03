@@ -102,6 +102,13 @@ Rails.application.routes.draw do
       get "/" => "welcome#index"
 
       resources :processes, only: [:index, :new, :edit, :create, :update] do
+        post :update_current_stage
+        resources :process_stages, only: [:create, :destroy, :edit, :index, :new, :update], controller: "processes/process_stages", as: :process_stages, path: :process_stages do
+          resources :pages, only: [:new, :create, :edit, :update], controller: "processes/process_stage_pages", as: :process_stage_page, path: :process_stage_page
+          collection do
+            resource :process_stage_sort, only: [:create], controller: "processes/process_stages_sort", path: :process_stages_sort
+          end
+        end
         resources :file_attachments, only: [:index], controller: "processes/process_file_attachments", as: :file_attachments, path: :file_attachments
         resources :events, only: [:index], controller: "processes/process_events", as: :events, path: :events
         resources :pages, only: [:index], controller: "processes/process_pages", as: :pages, path: :pages
@@ -109,7 +116,6 @@ Rails.application.routes.draw do
           resources :answers, only: [:index], controller: "processes/poll_answers"
         end
         resources :contribution_containers, only: [:new, :edit, :create, :update, :index, :show], controller: "processes/process_contribution_containers", as: :contribution_containers, path: :contribution_containers
-        resources :information, only: [:edit, :update], controller: "processes/process_information", as: :process_information, path: :process_information
       end
     end
 
@@ -298,7 +304,6 @@ Rails.application.routes.draw do
       get "/" => "welcome#index", as: :root
 
       resources :processes, only: [:index, :show], path: "p" do
-        resource :information, only: [:show], controller: "processes/information", path: "informacion"
         resources :contribution_containers, only: [:index, :show], controller: "processes/contribution_containers", path: "aportaciones" do
           resources :contributions, only: [:new, :create, :show], controller: "processes/contributions", path: :contributions do
             resource :vote, only: [:create, :destroy]

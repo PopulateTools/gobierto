@@ -39,10 +39,10 @@ module GobiertoParticipation
 
         within ".sub-nav" do
           assert has_link? "Information"
-          assert has_link? "Meetings"
-          assert has_link? "Polls"
+          assert has_link? "Agenda"
+          refute has_link? "Polls"
           assert has_link? "Contributions"
-          assert has_link? "Results"
+          refute has_link? "Results"
         end
       end
     end

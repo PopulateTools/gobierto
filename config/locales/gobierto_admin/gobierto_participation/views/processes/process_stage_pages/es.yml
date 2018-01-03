@@ -1,0 +1,12 @@
+---
+es:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        process_stage_pages:
+          edit:
+            stages: Fases
+            title: 'Editar página asociada a: %{stage}'
+          new:
+            stages: Fases
+            title: 'Asociar página a: %{stage}'

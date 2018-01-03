@@ -81,6 +81,10 @@ class SiteConfigurationTest < ActiveSupport::TestCase
     assert site_configuration.privacy_page?
   end
 
+  def test_configuration_variables
+    assert_equal "bar", site_configuration.configuration_variables["foo"]
+  end
+
   private
 
   def site_configuration_params
@@ -94,7 +98,10 @@ class SiteConfigurationTest < ActiveSupport::TestCase
         "default_locale"    => "ca",
         "available_locales" => %w(ca es),
         "site_id"           => site.id,
-        "privacy_page_id"   => page.id
+        "privacy_page_id"   => page.id,
+        "raw_configuration_variables" => <<-YAML
+foo: bar
+YAML
       }
     end
   end

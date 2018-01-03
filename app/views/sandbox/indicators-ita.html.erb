@@ -34,73 +34,14 @@
   </div>
 
   <div class="block">
-    <div class="indicators-tree">
+    <div id="indicators-tree" class="indicators-tree p_v_1">
 
-      <ul class="item-root item-root--notree">
-        <li class="item item-lvl-1">
-          <div class="item-title">
-            <div class="item-toggle p_h_r_1">
-              <div class="toggle-container">
-                <i class="fa fa-caret-left"></i>
-              </div>
-            </div>
-            <div class="item-text">
-              quis nulla reprehenderit amet esse
-            </div>
-          </div>
-          <ul>
-            <li class="item item-lvl-1">
-              <div class="item-title">
-                <div class="item-toggle p_h_r_1">
-                  <div class="toggle-container">
-                    <i class="fa fa-caret-left"></i>
-                  </div>
-                </div>
-                <div class="item-text">
-                  veniam tempor proident exercitation consequat
-                </div>
-              </div>
-              <ul>
-                <li class="item item-lvl-2">
-                  <div class="item-title">
-                    <div class="item-id p_h_r_1">1</div>
-                    <div class="item-text">
-                      Es publica de forma completa la relació de llocs de treball o plantilles de personal dels organismes descentralitzats, ens instrumentals i societats municipals, indicant de forma expressa els càrrecs de confiança existents en ells?
-                    </div>
-                    <div class="item-check">
-                      <div class="row">
-                        <div class="check-container check-container--true">
-                          <i class="fa fa-check"></i>
-                        </div>
-                        <div class="check-container check-container--false">
-                          <i class="fa fa-times"></i>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="check-container">
-                          se cumple
-                        </div>
-                        <div class="check-container">
-                          no se cumple
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item-extrainfo p_h_2 mt3">
-                    Más información
-                    <a href="#">Plantilla del consejo <i class="fa fa-share-square-o"></i></a>
-                    <a href="#">Catàleg de llocs de treball de personal funcionari i laboral, amb indicació de les retribucions <i class="fa fa-share-square-o"></i></a>
-                    <a href="#">Retribucions dels càrrecs polítics de l'alcalde, regidors i regidores<i class="fa fa-share-square-o"></i></a>
-                  </div>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
+      <ul class="item-root item-root--notree" v-if="selected">
+        <item-view-wrap :model="selected"></item-view-wrap>
       </ul>
-<hr>
-      <ul v-for="model in json" class="item-root">
-        <item class="item" :model="model"></item>
+
+      <ul v-for="model in json" class="item-root" v-else>
+        <item-tree class="item" :model="model"></item-tree>
       </ul>
 
     </div>
@@ -108,7 +49,7 @@
 </div>
 
 <!-- item template -->
-<script type="text/x-template" id="item-template">
+<script type="text/x-template" id="item-tree-template">
   <li :class="getLevelClass(model.level)">
     <div @click="toggle" class="item-title">
       <div class="item-toggle p_h_r_1" v-if="hasChildren">
@@ -119,10 +60,12 @@
       <div class="item-id p_h_r_1" v-else>{{model.id + 1}}</div>
 
       <div class="item-text" v-if="hasChildren">
-        {{model.name}}
+        {{model.attributes.title}}
       </div>
-      <div class="item-text" v-else>
-        <a href="#">{{model.name}}</a>
+      <div class="item-text" @click="viewDetail" v-else>
+        <a href="#indicators-tree">
+          {{model.attributes.title}}
+        </a>
       </div>
 
       <div class="item-check" v-if="!hasChildren">
@@ -133,15 +76,71 @@
       </div>
     </div>
     <ul v-show="open" v-if="hasChildren">
-      <item class="item" v-for="model in model.children" :model="model"></item>
+      <item-tree class="item" v-for="model in model.children" :model="model" :key="model.id"></item-tree>
+    </ul>
+  </li>
+</script>
+
+<!-- item view template -->
+<script type="text/x-template" id="item-view-template">
+  <li class="item item-lvl-2">
+    <div class="item-title">
+      <div class="item-id p_h_r_1">{{ model.id + 1 }}</div>
+      <div class="item-text">
+        {{ model.attributes.desc }}
+      </div>
+      <div class="item-check">
+        <div class="row">
+          <div class="check-container check-container--true" :class="{ 'check-container--unchecked' : !model.attributes.checked }">
+            <i class="fa fa-check"></i>
+          </div>
+          <div class="check-container check-container--false" :class="{ 'check-container--unchecked' : model.attributes.checked }">
+            <i class="fa fa-times"></i>
+          </div>
+        </div>
+        <div class="row">
+          <div class="check-container" :class="{ 'check-container--unchecked' : !model.attributes.checked }">
+            se cumple
+          </div>
+          <div class="check-container" :class="{ 'check-container--unchecked' : model.attributes.checked }">
+            no se cumple
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="item-extrainfo p_h_2 mt3">
+      Más información
+      <a href="#">Plantilla del consejo <i class="fa fa-share-square-o"></i></a>
+      <a href="#">Catàleg de llocs de treball de personal funcionari i laboral, amb indicació de les retribucions <i class="fa fa-share-square-o"></i></a>
+      <a href="#">Retribucions dels càrrecs polítics de l'alcalde, regidors i regidores<i class="fa fa-share-square-o"></i></a>
+    </div>
+  </li>
+</script>
+
+<!-- item view wrap template -->
+<script type="text/x-template" id="item-view-wrap-template">
+  <li @click="unselect" class="item item-lvl-1">
+    <div class="item-title">
+      <div class="item-toggle p_h_r_1">
+        <div class="toggle-container">
+          <i class="fa fa-caret-left"></i>
+        </div>
+      </div>
+      <div class="item-text">
+        {{ title }}
+      </div>
+    </div>
+    <ul>
+      <item-view :model="model" v-if="!hasAncestors"></item-view>
+      <item-view-wrap :model="model" v-else></item-view-wrap>
     </ul>
   </li>
 </script>
 
 <script type="text/javascript">
 // define the item component
-Vue.component('item', {
-  template: '#item-template',
+Vue.component('item-tree', {
+  template: '#item-tree-template',
   props: ['model'],
   data() {
     return {
@@ -160,8 +159,57 @@ Vue.component('item', {
         this.open = !this.open
       }
     },
+    viewDetail() {
+      let ancestors = [];
+      let parent = this.$parent;
+      // get all my parents models
+      while (parent.model !== undefined) {
+        ancestors.push(parent.model);
+        parent = parent.$parent;
+      }
+      this.$root.selected = _.extend(this.model, { ancestors: ancestors.reverse() });
+    },
     getLevelClass(lvl) {
       return "item-lvl-" + lvl
+    }
+  }
+});
+
+// define the item view component
+Vue.component('item-view', {
+  template: '#item-view-template',
+  props: ['model'],
+  data() {
+    return {}
+  },
+  methods: {
+    getLevelClass(lvl) {
+      return "item-lvl-" + lvl
+    }
+  }
+});
+
+// define the item view wrap component
+Vue.component('item-view-wrap', {
+  template: '#item-view-wrap-template',
+  props: ['model'],
+  data() {
+    return {}
+  },
+  computed: {
+    title() {
+      let title = this.model.ancestors[0].attributes.title || '';
+      if (this.model.ancestors.length > 0) this.model.ancestors.shift();
+      return title;
+    },
+    hasAncestors() {
+      return this.model.ancestors &&
+        this.model.ancestors.length
+    }
+  },
+  methods: {
+    unselect() {
+      return this.$root.selected = null;
     }
   }
 });
@@ -171,11 +219,10 @@ var app = new Vue({
   name: 'indicators-tree',
   data() {
     return {
-      json: {}
+      json: {},
+      selected: null
     }
   },
-  mounted() {},
-  computed: {},
   created: function() {
     this.getJson();
   },

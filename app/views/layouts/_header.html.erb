@@ -86,7 +86,7 @@
             <%= render "layouts/global_navigation" %>
           <% else %>
             <% current_site.configuration.modules.each do |site_module| %>
-              <%= render_if_exists "#{site_module.underscore}/layouts/navigation.main" %>
+              <%= render_if_exists "#{site_module.underscore}/layouts/navigation.main", { show_active: true } %>
             <% end %>
           <% end %>
         <% else %>
@@ -108,10 +108,7 @@
 
         <div class="main-nav">
           <div class="column">
-            <div class="main-nav-item">
-              <%# TODO: Linkar al nombre verdadero del módulo actual %>
-              <%= link_to "nombre_modulo", "#", data: { turbolinks: false } %>
-            </div>
+            <%= render_if_exists "#{current_module}/layouts/navigation.main", { show_active: false } %>
           </div>
         </div>
 
@@ -164,7 +161,7 @@
         <% current_site.configuration.modules.each do |site_module| %>
           <div class="navigation-wrap">
             <div class="navigation-item column">
-              <%= render_if_exists "#{site_module.underscore}/layouts/navigation.main" %>
+              <%= render_if_exists "#{site_module.underscore}/layouts/navigation.main", { show_active: false } %>
               <div class="dropdown-button js-item-toggle">
                 <div class="button-container">
                   <i class="fa fa-caret-down"></i>
@@ -174,7 +171,7 @@
             <div class="navigation-subitem-container">
               <div class="navigation-subitem js-slider">
                 <div class="subitem-container">
-                  <%= render_if_exists "#{site_module.underscore}/layouts/navigation.sub" %>
+                  <%= render "#{site_module.underscore}/layouts/navigation.sub" %>
                 </div>
               </div>
             </div>
@@ -186,7 +183,7 @@
             <div class="navigation-item column">
               <div class="main-nav-item">
                 <a href="#">
-                  Hola, <%= t("layouts.application.session.title") %>
+                  Hola, <%= current_user.name %>
                 </a>
               </div>
               <div class="dropdown-button js-item-toggle">
@@ -237,13 +234,14 @@
           <div class="navigation-footer">
 
             <div class="footer-top js-secondary_nav">
+              <%# TODO: revisar %>
               <%= render "gobierto_participation/layouts/secondary_nav" %>
             </div>
 
             <div class="footer-bottom p_v_1">
               <div class="column">
                 <% if @site.configuration.links_markup.present? %>
-                <%== @site.configuration.links_markup %>
+                  <%== @site.configuration.links_markup %>
                 <% end %>
               </div>
             </div>

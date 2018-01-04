@@ -19,6 +19,7 @@ es:
           contains: Contiene
           ends_with: Termina por
           not_contains: No contiene
+          not_starts_with: No empieza por
           starts_with: Empieza por
         field:
           description: Cuerpo

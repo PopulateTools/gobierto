@@ -64,12 +64,6 @@ ca:
         questions: Pregunta
       process_breadcrumb:
         root: Inici
-      process_menu_subsections:
-        contributions: Contribucions
-        information: Informació
-        meetings: Reunions
-        polls: Enquestes
-        results: Resultats
       secondary_nav:
         activity: Activitat
         agenda: Agenda
@@ -192,8 +186,6 @@ ca:
         process_stages: Fases del procés
         scope: Àmbit
       timeline_row:
-        past_stage: Fase finalitzada
-        upcoming_stage: Fase pendent d'inici
         view_stage: Acceder a aquesta fase
     shared:
       activities_for: Activitat de %{container}

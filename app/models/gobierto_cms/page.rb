@@ -29,6 +29,7 @@ module GobiertoCms
     belongs_to :site
     belongs_to :collection, class_name: "GobiertoCommon::Collection"
     has_many :collection_items, as: :item
+    has_many :process_stage_pages, class_name: "GobiertoParticipation::ProcessStagePage"
 
     after_create :add_item_to_collection
 

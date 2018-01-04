@@ -46,7 +46,6 @@ sport_city_process:
   site: madrid
   title_translations: <%= { 'en' => 'Sport city', 'es' => 'Ciudad deportiva' }.to_json %>
   body_translations: <%= { 'en' => 'Make Madrid a sport city', 'es' => 'Hacer de Madrid una ciudad deportiva' }.to_json %>
-  information_text_translations: <%= { 'en' => 'Information text', 'es' => 'Texto de la información' }.to_json %>
   slug: ciudad-deportiva
   process_type: <%= GobiertoParticipation::Process.process_types[:process] %>
   visibility_level: <%= Site.visibility_levels["active"] %>
@@ -59,7 +58,6 @@ local_budgets_process:
   site: madrid
   title_translations: <%= { 'en' => 'Local budgets', 'es' => 'Presupuestos participativos' }.to_json %>
   body_translations: <%= { 'en' => 'Local budgets in Madrid', 'es' => 'Presupuestos participativos Madrid' }.to_json %>
-  information_text_translations: <%= { 'en' => 'Information stage text', 'es' => 'Texto de la fase de información' }.to_json %>
   slug: presupuestos-participativos
   process_type: <%= GobiertoParticipation::Process.process_types[:process] %>
   visibility_level: <%= Site.visibility_levels['active'] %>
@@ -77,7 +75,6 @@ gender_violence_process:
     'en' => '¿Qué tiene que ver la Violencia contra las mujeres contigo? ¿y con nuestra ciudad? Es un problema colectivo en el que está implicada toda la sociedad. Es necesario establecer redes de colaboración, cooperación y corresponsabilidad.',
     'es' => '¿Qué tiene que ver la Violencia contra las mujeres contigo? ¿y con nuestra ciudad? Es un problema colectivo en el que está implicada toda la sociedad. Es necesario establecer redes de colaboración, cooperación y corresponsabilidad.'
   }.to_json %>
-  information_text_translations: <%= { 'en' => 'Information stage text', 'es' => 'Texto de la fase de información' }.to_json %>
   slug: pacto-social-fin-vilencia-de-genero
   process_type: <%= GobiertoParticipation::Process.process_types[:process] %>
   visibility_level: <%= Site.visibility_levels['active'] %>
@@ -97,7 +94,6 @@ commission_for_carnival_festivities:
     'en' => 'Hail to the wine',
     'es' => 'Viva el vino'
   }.to_json %>
-  information_text_translations:
   slug: comision-fiestas-carnaval
   process_type: <%= GobiertoParticipation::Process.process_types[:process] %>
   visibility_level: <%= Site.visibility_levels['active'] %>

@@ -95,3 +95,14 @@ noise_problems_open:
   }.to_json %>
   answer_type: <%= GobiertoParticipation::PollQuestion.answer_types[:open] %>
   order: 2
+
+## neighbor_opinion_poll
+
+neighbor_opinion_poll_single_choice:
+  poll: neighbor_opinion_poll
+  title_translations: <%= {
+    'en' => 'Do you mind if the carnival parade takes place next to your house?',
+    'es' => '¿Te importa si la cabalgata del carnaval transcurre cerca de tu casa?'
+  }.to_json %>
+  answer_type: <%= GobiertoParticipation::PollQuestion.answer_types[:single_choice] %>
+  order: 0

@@ -7,7 +7,7 @@ class User::Verification < ApplicationRecord
   scope :sorted, -> { order(created_at: :desc) }
   scope :by_site, ->(site) { where(site: site) }
 
-  enum verification_type: { census: 0 }
+  enum verification_type: { census: 0, id_number: 1 }
 
   def self.current_by_site(site)
     by_site(site).sorted.first

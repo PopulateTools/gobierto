@@ -19,6 +19,7 @@ ca:
           contains: Conté
           ends_with: Termina per
           not_contains: No conté
+          not_starts_with: No comença per
           starts_with: Comença per
         field:
           description: Cos

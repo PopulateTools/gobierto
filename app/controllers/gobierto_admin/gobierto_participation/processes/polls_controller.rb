@@ -64,6 +64,7 @@ module GobiertoAdmin
             :starts_at,
             :ends_at,
             :visibility_level,
+            :visibility_user_level,
             title_translations: [*I18n.available_locales],
             description_translations: [*I18n.available_locales],
             questions_attributes: [

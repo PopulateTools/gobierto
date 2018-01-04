@@ -53,39 +53,16 @@ module GobiertoCms
 
     def test_current_stage
       assert_nil group_without_stages.current_stage
-      assert_equal 'organiza-reuniones', process_with_one_open_stage.current_stage.slug
-      assert_equal 'borrador', process_with_several_open_stages.current_stage.slug  # within active and open stages, the one which finishes the latest
+      assert_equal 'sugiere-idea', process_with_one_open_stage.current_stage.slug
+      assert_equal 'dialogo', process_with_several_open_stages.current_stage.slug  # within active and open stages, the one which finishes the latest
       assert_equal 'encuestas', process_with_only_current_stage.current_stage.slug
     end
 
     def test_next_stage
       assert_nil group_without_stages.next_stage
-      assert_equal 'sugiere-idea', process_with_one_open_stage.next_stage.slug
-      assert_equal 'pacto', process_with_several_open_stages.next_stage.slug
+      assert_nil process_with_one_open_stage.next_stage
+      assert_equal 'presentacion', process_with_several_open_stages.next_stage.slug
       assert_nil process_with_only_current_stage.next_stage
-    end
-
-    def test_open?
-      # false when 'ends' date exceeded
-
-      process.update_attributes!(starts: nil, ends: 1.week.ago)
-      refute process.open?
-
-      # false when 'starts' date exceeded
-
-      process.update_attributes!(starts: 1.week.from_now, ends: nil)
-      refute process.open?
-
-      # true in any other case
-
-      process.update_attributes!(starts: nil, ends: nil)
-      assert process.open?
-
-      process.update_attributes!(starts: nil, ends: 1.week.from_now)
-      assert process.open?
-
-      process.update_attributes!(starts: 1.week.ago, ends: nil)
-      assert process.open?
     end
 
     def test_create_process_creates_collections

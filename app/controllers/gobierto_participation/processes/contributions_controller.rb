@@ -5,7 +5,7 @@ module GobiertoParticipation
     class ContributionsController < BaseController
       include User::VerificationHelper
 
-      before_action(only: [:new, :create]) { verify_user_in!(current_site) if find_contribution_container.visibility_user_level == "verified" }
+      before_action(only: [:new, :create]) { check_visibility_level(find_contribution_container, current_user) }
 
       def new
         @contribution_container = find_contribution_container

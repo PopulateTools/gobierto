@@ -3,10 +3,14 @@
     <%= link_to t('gobierto_participation.layouts.menu_subsections.about'), '#' %>
   </div>
   <div class="sub-nav-item<%= class_if(' active', controller_name == 'issues') %>">
-    <%= link_to t('gobierto_participation.layouts.menu_subsections.issues'), gobierto_participation_issues_path, data: { turbolinks: false } %>
+    <% content_for_if(:current_submodule_link, controller_name == 'issues') do %>
+      <%= link_to t('gobierto_participation.layouts.menu_subsections.issues'), gobierto_participation_issues_path, data: { turbolinks: false } %>
+    <% end %>
   </div>
   <div class="sub-nav-item<%= class_if(' active', controller_name == 'processes') %>">
-    <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path, data: { turbolinks: false } %>
+    <% content_for_if(:current_submodule_link, controller_name == 'processes') do %>
+      <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path, data: { turbolinks: false } %>
+    <% end %>
   </div>
   <div class="sub-nav-item">
     <%= link_to t('gobierto_participation.layouts.menu_subsections.questions'), '#' %>
@@ -15,6 +19,10 @@
     <%= link_to t('gobierto_participation.layouts.menu_subsections.ideas'), '#' %>
   </div>
 <% else %>
+  <% content_for(:current_submodule_link) do %>
+    <%= link_to current_process.title, gobierto_participation_process_path(current_process.slug), data: { turbolinks: false } %>
+  <% end %>
+
   <% current_process.published_stages.each do |stage| %>
     <div class="sub-nav-item">
       <% if !["information", "results"].include?(stage.stage_type) || (["information", "results"].include?(stage.stage_type) && stage.process_stage_page.present?) %>

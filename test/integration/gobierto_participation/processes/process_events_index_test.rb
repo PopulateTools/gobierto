@@ -30,7 +30,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_events_path
 
-        within ".main-nav" do
+        within "nav.main-nav" do
           assert has_link? "Participation"
           assert has_link? process.title
         end
@@ -41,7 +41,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_events_path
 
-        within ".sub-nav" do
+        within "nav.sub-nav" do
           assert has_link? "Information"
           assert has_link? "Agenda"
 
@@ -56,7 +56,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_events_path
 
-        within "menu.secondary_nav" do
+        within "nav.sub-nav menu.secondary_nav" do
           assert has_link? "News"
           assert has_link? "Agenda"
           assert has_link? "Documents"

@@ -88,10 +88,11 @@
   <div class="navigation-wrap">
     <div class="navigation-footer">
 
-      <div class="footer-top js-secondary_nav">
-        <%# TODO: revisar %>
-        <%= render "gobierto_participation/layouts/secondary_nav" %>
-      </div>
+      <% if current_module == "gobierto_participation" %>
+        <div class="footer-top js-secondary_nav">
+          <%= render "gobierto_participation/layouts/secondary_nav" %>
+        </div>
+      <% end %>
 
       <div class="footer-bottom p_v_1">
         <div class="column">

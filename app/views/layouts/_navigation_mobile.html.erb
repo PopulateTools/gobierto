@@ -11,8 +11,7 @@
 
       <div class="column sub-nav-flex">
         <div class="sub-nav-item">
-          <%# TODO: Linkar al nombre verdadero del submódulo actual %>
-          <%= link_to "submodulo", "#", data: { turbolinks: false } %>
+          <%= yield(:current_submodule_link) %>
         </div>
         <div class="dropdown-button js-submenu-toggle">
           <div class="button-container">

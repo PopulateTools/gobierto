@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency 'asymmetric_encryptor'
+
 class User::Verification::IdNumber < User::Verification
   before_save :encrypt_id_number
 

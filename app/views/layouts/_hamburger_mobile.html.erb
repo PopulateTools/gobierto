@@ -26,7 +26,7 @@
       <div class="navigation-subitem-container">
         <div class="navigation-subitem js-slider">
           <div class="subitem-container">
-            <%= render "#{site_module.underscore}/layouts/navigation.sub" %>
+            <%= render_if_exists "#{site_module.underscore}/layouts/navigation.sub" %>
           </div>
         </div>
       </div>
@@ -57,15 +57,9 @@
               <% end %>
             </div>
             <div class="account-details">
-              <%= link_to user_settings_path do %>
-                <%= t("layouts.application.session.title") %>
-              <% end %>
-              <%= link_to user_notifications_path do %>
-                <%= t("layouts.application.session.notifications") %>
-              <% end %>
-              <%= link_to user_subscriptions_path do %>
-                <%= t("layouts.application.session.alerts") %>
-              <% end %>
+              <%= link_to t("layouts.application.session.title"), user_settings_path %>
+              <%= link_to t("layouts.application.session.notifications"), user_notifications_path %>
+              <%= link_to t("layouts.application.session.alerts"), user_subscriptions_path %>
             </div>
           </div>
         </div>
@@ -83,17 +77,13 @@
   <div class="navigation-wrap">
     <div class="navigation-footer">
 
-      <% if current_module == "gobierto_participation" %>
-        <div class="footer-top js-secondary_nav">
-          <%= render "gobierto_participation/layouts/secondary_nav" %>
-        </div>
-      <% end %>
+      <div class="footer-top js-secondary_nav">
+        <%= render "gobierto_participation/layouts/secondary_nav" %>
+      </div>
 
       <div class="footer-bottom p_v_1">
         <div class="column">
-          <% if @site.configuration.links_markup.present? %>
-            <%== @site.configuration.links_markup %>
-          <% end %>
+          <%== @site.configuration.links_markup %>
         </div>
       </div>
 

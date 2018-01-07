@@ -7,7 +7,7 @@ es:
           success_html: El documento ha sido creado correctamente. <a href="%{link}">Ver
             el documento</a>.
         destroy:
-          success: El documento se ha eliminado correctamente
+          success: El documento se ha archivado correctamente
         recover:
           success: El documento se ha recuperado correctamente
         update:

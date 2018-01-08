@@ -282,10 +282,10 @@ Rails.application.routes.draw do
     end
   end
 
-  # Gobierto Indicators module
-  namespace :gobierto_indicators, path: "indicadores" do
+  # Gobierto Observatory module
+  namespace :gobierto_observatory, path: "observatory" do
     constraints GobiertoSiteConstraint.new do
-      root "indicators#index"
+      root "observatory#index"
     end
   end
 

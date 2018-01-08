@@ -12,7 +12,7 @@ Gobierto modules implement well defined and isolated features of the application
 
 - Gobierto Budgets: municipalities budgets visualization.
 - Gobierto Officials: senior officials official information and agenda publication.
-- Gobierto Indicators: indicators and statics of a municipality.
+- Gobierto Observatory: indicators and statics of a municipality.
 - Gobierto CMS: small CMS system.
 - Gobierto Participation: participation in phased processes.
 
@@ -45,7 +45,7 @@ When you create a module, you must define the root_path in config/routes.rb
 
 ```
 
-Nowadays, we have 4 modules (Gobierto Budgets, Gobierto People, Gobierto Participation, Gobierto Indicators) that have root_path to be the home page.
+Nowadays, we have 4 modules (Gobierto Budgets, Gobierto People, Gobierto Participation, Gobierto Observatory) that have root_path to be the home page.
 
 ```yml
 default: &default
@@ -60,8 +60,8 @@ default: &default
       name: Gobierto Participation
       namespace: GobiertoParticipation
     -
-      name: Gobierto Indicators
-      namespace: GobiertoIndicators
+      name: Gobierto Observatory
+      namespace: GobiertoObservatory
 ```
 
 This namespace is applied to models, assets, helpers, controllers, views, I18n keys, tests, and the routes. This guide covers the steps you need to follow on each of those resources to enable the new module.

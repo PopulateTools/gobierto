@@ -75,6 +75,19 @@ class User::ConfirmationFormTest < ActiveSupport::TestCase
     assert unconfirmed_user.census_verified?
   end
 
+  def test_false_password_enabled_attribute
+    invalid_user_confirmation_form.password_enabled = false
+
+    valid_user_confirmation_form.password_enabled = false
+    valid_user_confirmation_form.password = nil
+    valid_user_confirmation_form.password_confirmation = nil
+
+    refute invalid_user_confirmation_form.save
+    assert_empty invalid_user_confirmation_form.errors.messages[:password]
+
+    assert valid_user_confirmation_form.save
+  end
+
   def test_user_notifications_set_up
     assert unconfirmed_user.disabled_notifications?
 

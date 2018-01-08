@@ -13,6 +13,7 @@ gem "jbuilder", "~> 2.5"
 gem "mechanize"
 gem "meta-tags"
 gem "paper_trail"
+gem "paranoia"
 gem "pg", "~> 0.19"
 gem "rails", "~> 5.1.1"
 gem "redcarpet", require: true

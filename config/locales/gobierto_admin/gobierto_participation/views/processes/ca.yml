@@ -38,6 +38,7 @@ ca:
             title: Aportacions
             visibility_level:
               active: Publicada
+              archived: Arxivada
               draft: Esborrany
           show:
             comments: Comentaris

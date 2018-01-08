@@ -5,6 +5,7 @@ class User::ConfirmationForm
   attr_accessor(
     :confirmation_token,
     :name,
+    :password_enabled,
     :password,
     :password_confirmation,
     :date_of_birth_year,
@@ -19,7 +20,7 @@ class User::ConfirmationForm
   attr_reader :user
 
   validates :name, :date_of_birth, :gender, :user, presence: true
-  validates :password, presence: true, confirmation: true
+  validates :password, presence: true, confirmation: true, if: :password_enabled
   validate :user_verification
 
   def initialize(options = {})
@@ -68,7 +69,7 @@ class User::ConfirmationForm
   def save_user
     @user = user.tap do |user_attributes|
       user_attributes.name = name
-      user_attributes.password = password
+      user_attributes.password = password if password_enabled
       user_attributes.date_of_birth = date_of_birth
       user_attributes.gender = gender
       user_attributes.custom_records = custom_records

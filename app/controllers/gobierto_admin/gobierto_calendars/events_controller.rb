@@ -7,7 +7,7 @@ module GobiertoAdmin
       def index
         @events_presenter = GobiertoAdmin::GobiertoCalendars::EventsPresenter.new(@collection)
         @events = ::GobiertoCalendars::Event.by_collection(@collection).sorted
-        @archived_events = ::GobiertoCalendars::Event.only_archived.where(collection_id: @collection.id).sorted
+        @archived_events = current_site.events.only_archived.where(collection_id: @collection.id).sorted
 
         case params[:scope]
         when "pending"

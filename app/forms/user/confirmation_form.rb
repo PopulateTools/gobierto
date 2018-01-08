@@ -44,8 +44,24 @@ class User::ConfirmationForm
     @user ||= User.find_by(confirmation_token: confirmation_token, site: site)
   end
 
+  def name
+    @name ||= user.name if user
+  end
+
   def email
     @email ||= user.email
+  end
+
+  def date_of_birth_year
+    @date_of_birth_year ||= user.date_of_birth.try(:year) if user
+  end
+
+  def date_of_birth_month
+    @date_of_birth_month ||= user.date_of_birth.try(:month) if user
+  end
+
+  def date_of_birth_day
+    @date_of_birth_day ||= user.date_of_birth.try(:day) if user
   end
 
   def date_of_birth

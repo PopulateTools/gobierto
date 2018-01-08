@@ -283,7 +283,7 @@ Rails.application.routes.draw do
   end
 
   # Gobierto Observatory module
-  namespace :gobierto_observatory, path: "observatory" do
+  namespace :gobierto_observatory, path: "observatorio" do
     constraints GobiertoSiteConstraint.new do
       root "observatory#index"
     end

@@ -40,6 +40,11 @@ class User::ConfirmationForm
     confirm_user if save_user
   end
 
+  def password_enabled
+    @password_enabled = true if @password_enabled.nil?
+    @password_enabled
+  end
+
   def user
     @user ||= User.find_by(confirmation_token: confirmation_token, site: site)
   end

@@ -24,6 +24,11 @@ class User::SettingsForm
     save_user_settings if valid?
   end
 
+  def password_enabled
+    @password_enabled = true if @password_enabled.nil?
+    @password_enabled
+  end
+
   def user
     @user ||= User.find_by(id: user_id)
   end

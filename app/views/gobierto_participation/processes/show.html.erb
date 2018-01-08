@@ -63,7 +63,7 @@
 
         <% information_stage = current_process.stages.where(stage_type: 0).try(:first) %>
 
-        <% if information_stage.process_stage_page %>
+        <% if information_stage && information_stage.process_stage_page %>
           <%= link_to t('.more_information'), stage_url(information_stage), class: "button outline rounded" %>
         <% end %>
       </div>

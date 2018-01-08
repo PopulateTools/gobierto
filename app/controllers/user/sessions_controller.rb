@@ -8,7 +8,7 @@ class User::SessionsController < User::BaseController
   layout "user/layouts/sessions"
 
   def new
-    redirect_to auth_path and return if auth_modules_present?
+    redirect_to auth_path(request.parameters) and return if auth_modules_present?
     @user_session_form = User::SessionForm.new(referrer_url: @referrer_url, site: @site)
     @user_registration_form = User::RegistrationForm.new(referrer_url: @referrer_url, referrer_entity: referrer_entity)
     @user_password_form = User::NewPasswordForm.new

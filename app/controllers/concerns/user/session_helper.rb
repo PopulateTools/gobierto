@@ -49,8 +49,8 @@ module User::SessionHelper
     current_site.configuration.auth_modules.any?
   end
 
-  def auth_path
-    auth_modules_present? ? new_user_custom_session_path : new_user_sessions_path
+  def auth_path(args = {})
+    auth_modules_present? ? new_user_custom_session_path(args) : new_user_sessions_path(args)
   end
 
   def raise_user_not_signed_in

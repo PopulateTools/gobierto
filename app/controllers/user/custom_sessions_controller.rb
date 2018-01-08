@@ -10,11 +10,12 @@ class User::CustomSessionsController < User::BaseController
   def new
     redirect_to auth_path and return if !auth_modules_present?
     set_user_session_forms
-    redirect_to_provider_if_required
 
     if params[:open_modal]
       @modal = true
       render(:new, layout: false) && return if request.xhr?
+    else
+      redirect_to_provider_if_required
     end
   end
 

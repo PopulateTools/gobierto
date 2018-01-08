@@ -303,6 +303,8 @@ GEM
       activerecord (>= 4.2, < 5.2)
       request_store (~> 1.1)
     parallel (1.12.1)
+    paranoia (2.4.0)
+      activerecord (>= 4.0, < 5.2)
     parser (2.4.0.2)
       ast (~> 2.3)
     patron (0.10.0)
@@ -507,6 +509,7 @@ DEPENDENCIES
   minitest-test_profile
   mocha
   paper_trail
+  paranoia
   pg (~> 0.19)
   poltergeist
   puma

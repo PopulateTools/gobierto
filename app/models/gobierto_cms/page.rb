@@ -4,10 +4,13 @@ require_dependency "gobierto_cms"
 
 module GobiertoCms
   class Page < ApplicationRecord
+    acts_as_paranoid column: :archived_at
+
     paginates_per 10
 
     attr_accessor :admin_id
 
+    include ActsAsParanoidAliases
     include User::Subscribable
     include GobiertoCommon::Searchable
     include GobiertoAttachments::Attachable

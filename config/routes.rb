@@ -112,10 +112,13 @@ Rails.application.routes.draw do
         resources :file_attachments, only: [:index], controller: "processes/process_file_attachments", as: :file_attachments, path: :file_attachments
         resources :events, only: [:index], controller: "processes/process_events", as: :events, path: :events
         resources :pages, only: [:index], controller: "processes/process_pages", as: :pages, path: :pages
-        resources :polls, only: [:index, :new, :edit, :create, :update], controller: "processes/polls" do
+        resources :polls, only: [:index, :new, :edit, :create, :update, :destroy], controller: "processes/polls" do
           resources :answers, only: [:index], controller: "processes/poll_answers"
+          put :recover
         end
-        resources :contribution_containers, only: [:new, :edit, :create, :update, :index, :show], controller: "processes/process_contribution_containers", as: :contribution_containers, path: :contribution_containers
+        resources :contribution_containers, only: [:new, :edit, :create, :update, :index, :show, :destroy], controller: "processes/process_contribution_containers", as: :contribution_containers, path: :contribution_containers do
+          put :recover
+        end
       end
     end
 
@@ -125,7 +128,9 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_cms, as: :cms, path: :cms do
-      resources :pages, only: [:index, :new, :edit, :create, :update]
+      resources :pages, only: [:index, :new, :edit, :create, :update, :destroy] do
+        put :recover
+      end
       resources :sections, only: [:index, :new, :edit, :create, :update, :show] do
         resources :section_items, only: [:index, :create, :destroy, :update, :show]
         get :pages
@@ -133,7 +138,9 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_attachments, as: :attachments, path: :attachments do
-      resources :file_attachments, only: [:index, :create, :new, :edit, :update]
+      resources :file_attachments, only: [:index, :create, :new, :edit, :update, :destroy] do
+        put :recover
+      end
       namespace :api do
         resources :attachments, only: [:index, :show, :create, :update, :destroy]
         post "/attachings" => "attachings#create"
@@ -142,7 +149,9 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_calendars, as: :calendars do
-      resources :events
+      resources :events do
+        put :recover
+      end
       resources :collections, only: [:index]
       resources :calendar_configurations, only: [:edit, :update], controller: "calendar_configuration", as: :configurations, path: :configurations do
         member do

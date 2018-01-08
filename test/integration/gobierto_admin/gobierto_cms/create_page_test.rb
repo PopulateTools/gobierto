@@ -32,7 +32,7 @@ module GobiertoAdmin
                 click_link "News"
               end
 
-              assert has_selector?("h1", text: collection.title)
+              assert has_selector?("h1", text: "CMS")
 
               click_link "New"
               assert has_selector?("h1", text: "Sport city")
@@ -54,7 +54,7 @@ module GobiertoAdmin
                 click_link "News"
               end
 
-              assert has_selector?("h1", text: collection.title)
+              assert has_selector?("h1", text: "CMS")
 
               click_link "New"
               assert has_selector?("h1", text: "Sport city")

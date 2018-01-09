@@ -73,7 +73,7 @@ class User::CustomSessionsController < User::BaseController
     else
       redirect_to(
         after_sign_out_path,
-        alert: t('user.custom_sessions.create.not_confirmed')
+        notice: t('user.custom_sessions.create.not_confirmed')
       ) and return
     end
   end

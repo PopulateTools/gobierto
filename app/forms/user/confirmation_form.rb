@@ -57,6 +57,10 @@ class User::ConfirmationForm
     @email ||= user.email
   end
 
+  def gender
+    @gender ||= user.gender if user
+  end
+
   def date_of_birth_year
     @date_of_birth_year ||= user.date_of_birth.try(:year) if user
   end

@@ -21,7 +21,9 @@ module GobiertoAdmin
 
       def find_next_elements_to_close
         active_polls = ::GobiertoParticipation::Poll.by_site(current_site).open
-        (active_polls + current_site.contribution_containers.active.open).sort_by(&:days_left)
+        contribution_containers = ::GobiertoParticipation::ContributionContainer.by_site(current_site).active.open
+
+        (active_polls + contribution_containers).sort_by(&:days_left)
       end
     end
   end

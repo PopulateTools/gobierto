@@ -56,7 +56,7 @@
       <th></th>
     </tr>
     <% @processes.each do |process| %>
-      <tr class="odd">
+      <tr id="process-item-<%= process.id %>" class="odd">
         <td>
           <%= link_to edit_admin_participation_process_path(process), data: { turbolinks: false } do %>
             <i class="fa fa-edit"></i>
@@ -94,7 +94,7 @@
             <th></th>
           </tr>
           <% @archived_processes.each do |process| %>
-            <tr class="odd">
+            <tr id="process-item-<%= process.id %>" class="odd">
               <td>
                 <%= link_to edit_admin_participation_process_path(process), data: { turbolinks: false } do %>
                   <i class="fa fa-edit"></i>

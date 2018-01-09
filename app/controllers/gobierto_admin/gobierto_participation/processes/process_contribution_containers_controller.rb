@@ -6,6 +6,7 @@ module GobiertoAdmin
       class ProcessContributionContainersController < Processes::BaseController
         def index
           @contribution_containers = find_process.contribution_containers
+          @archived_contribution_containers = find_process.contribution_containers.only_archived
         end
 
         def show
@@ -75,6 +76,23 @@ module GobiertoAdmin
           end
         end
 
+        def destroy
+          @contribution_container = find_contribution_container
+          @contribution_container.archive
+          process = find_process if params[:process_id]
+
+          redirect_to admin_participation_process_contribution_containers_path(process_id: process), notice: t(".success")
+        end
+
+        def recover
+          @contribution_container = find_archived_contribution_container
+          @contribution_container.restore
+
+          process = find_process if params[:process_id]
+
+          redirect_to admin_participation_process_contribution_containers_path(process_id: process), notice: t(".success")
+        end
+
         private
 
         def track_create_activity
@@ -106,11 +124,15 @@ module GobiertoAdmin
         end
 
         def ignored_contribution_container_attributes
-          %w(slug created_at updated_at)
+          %w(slug created_at updated_at archived_at)
         end
 
         def find_contribution_container
           current_site.contribution_containers.find(params[:id])
+        end
+
+        def find_archived_contribution_container
+          current_site.contribution_containers.with_archived.find(params[:contribution_container_id])
         end
 
         def find_process

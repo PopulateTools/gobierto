@@ -5,6 +5,10 @@ require_dependency "gobierto_participation"
 module GobiertoParticipation
   class Poll < ApplicationRecord
     class PollHasAnswers < StandardError; end
+
+    acts_as_paranoid column: :archived_at
+
+    include ActsAsParanoidAliases
     include GobiertoCommon::HasVisibilityUserLevels
 
     include PollResultsHelpers

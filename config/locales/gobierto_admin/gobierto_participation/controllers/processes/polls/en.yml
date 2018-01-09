@@ -1,0 +1,10 @@
+---
+en:
+  gobierto_admin:
+    gobierto_participation:
+      processes:
+        polls:
+          destroy:
+            success: Poll archived successfully
+          recover:
+            success: Poll recovered successfully

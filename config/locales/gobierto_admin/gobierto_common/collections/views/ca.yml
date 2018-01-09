@@ -35,4 +35,5 @@ ca:
             view: Veure pàgina
             visibility_level:
               active: Publicada
+              archived: Arxivada
               draft: Borrador

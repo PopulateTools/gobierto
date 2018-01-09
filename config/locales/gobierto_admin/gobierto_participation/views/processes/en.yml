@@ -38,6 +38,7 @@ en:
             title: Contributions
             visibility_level:
               active: Published
+              archived: Archived
               draft: Draft
           show:
             comments: Comments

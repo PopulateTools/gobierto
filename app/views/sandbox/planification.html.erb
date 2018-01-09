@@ -1,0 +1,231 @@
+<style>
+.demo_bar,
+header.meta,
+footer {
+  display: none;
+}
+</style>
+
+<div class="column">
+
+  <div class="gobierto_planification">
+
+    <header>
+
+      <div class="execution_resume">
+
+        <h2>Estado de ejecución global</h2>
+        <div class="execution_number">
+          38%
+        </div>
+
+      </div>
+
+      <div class="plan_detail">
+
+        <div>5 ejes</div>
+        <div>24 líneas de actuación</div>
+        <div>123 actuaciones</div>
+        <div>1.234 proyectos</div>
+
+      </div>
+
+    </header>
+
+    <div class="plan_content">
+
+      <section class="level_1">
+
+        <div class="node cat_1">
+          <a href="#">
+            <div class="illustration"></div>
+            <div class="container">
+              <div class="progress" style="width: 26%"></div>
+              <div class="content">
+                <h2>Personas y familias</h2>
+                <div class="execution_number">
+                  26%
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="node cat_2">
+          <a href="#">
+            <div class="illustration"></div>
+            <div class="container">
+              <div class="progress" style="width: 56%"></div>
+              <div class="content">
+                <h2>Buen gobierno</h2>
+                <div class="execution_number">
+                  56%
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="node cat_3">
+          <a href="#">
+            <div class="illustration"></div>
+            <div class="container">
+              <div class="progress" style="width: 66%"></div>
+              <div class="content">
+                <h2>Ciudad</h2>
+                <div class="execution_number">
+                  66%
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="node cat_4">
+          <a href="#">
+            <div class="illustration"></div>
+            <div class="container">
+              <div class="progress" style="width: 36%"></div>
+              <div class="content">
+                <h2>Economía</h2>
+                <div class="execution_number">
+                  36%
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="node cat_5">
+          <a href="#">
+            <div class="illustration"></div>
+            <div class="container">
+              <div class="progress" style="width: 96%"></div>
+              <div class="content">
+                <h2>Ciudadanía</h2>
+                <div class="execution_number">
+                  96%
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+
+      </section>
+
+      <section class="level_2 cat_1">
+
+        <header>
+          <div class="">24 lineas de actuación</div>
+          <div class="">progress</div>
+        </header>
+
+        <div class="node">
+          <h3><a href="">
+            <i class="fa fa-caret-right"></i>
+            Completar la xarxa bàsica sanitària d'Esplugues
+          </a></h3>
+          <div class="sub_elements">5 actuaciones</div>
+          <div class="progress">35%</div>
+        </div>
+
+        <div class="node">
+          <h3><a href="">
+            <i class="fa fa-caret-right"></i>
+            Continuar desenvolupant el Pacte contra la pobresa amb la implicació del teixit social
+          </a></h3>
+          <div class="sub_elements">5 actuaciones</div>
+          <div class="progress">35%</div>
+        </div>
+
+        <div class="node">
+          <h3><a href="">
+            <i class="fa fa-caret-right"></i>
+            Facilitar ajuts socials a les persones i famílies que ho necessitin per manca de recursos
+          </a></h3>
+          <div class="sub_elements">5 actuaciones</div>
+          <div class="progress">35%</div>
+        </div>
+
+        <div class="node">
+          <h3><a href="">
+            <i class="fa fa-caret-right"></i>
+            Promoure polítiques que afavoreixin la qualitat de vida de la gent gran
+          </a></h3>
+          <div class="sub_elements">5 actuaciones</div>
+          <div class="progress">35%</div>
+        </div>
+
+      </section>
+
+      <section class="level_3 cat_1">
+
+        <div class="breadcrumb">
+          <a href="">
+            <i class="fa fa-caret-left"></i>
+            Ver todo en Personas y familias
+          </a>
+        </div>
+
+        <div class="node header">
+          <h3><a href="">
+            <i class="fa fa-caret-right"></i>
+            Promoure polítiques que afavoreixin la qualitat de vida de la gent gran
+          </a></h3>
+          <div class="sub_elements">5 actuaciones</div>
+          <div class="progress">35%</div>
+        </div>
+
+        <div class="">
+
+          Cobrir les necessitats bàsiques a famílies amb manca de recursos suficients.
+
+          Garantir els subministraments d’aigua, llum i gas a les famílies sense recursos.
+
+          Optimitzar l’accessibilitat i la qualitat dels serveis socials bàsics.
+
+          Establir les accions que afavoreixin la protecció de la família i la infància.
+
+          Garantir ajuts socials malgrat les retallades d’altres administracions.
+
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script type="text/javascript">
+
+// init
+$('section.level_2, section.level_3').hide();
+
+$('section .node a').click(function() {
+  event.preventDefault();
+
+  $('section.level_1 .illustration').velocity({width: "0"});
+  $('section.level_1').velocity({width: "25%"});
+  $('section.level_1 .content').velocity({padding: "1.5em", height: "150px"});
+  $('section.level_1 .content h2, section.level_1 .content .execution_number').velocity({"font-size": "1.25rem" });
+
+  $('section.level_2').velocity("transition.slideRightBigIn");
+  $('section.level_2').css("display: flex");
+
+  // transition.expandIn
+  // .slideRightBigIn
+
+
+
+
+  $(this).parents('.timeline_row').toggleClass('toggled');
+
+  $(this).find('.fa').toggleClass('fa-caret-right fa-caret-down');
+  $(this).siblings('.description').toggle();
+});
+
+
+</script>

@@ -39,8 +39,6 @@ class User::CustomSessionsController < User::BaseController
     else
       if @user_session_forms.values.any? { |session_form| session_form.respond_to?(:email) && session_form.errors.added?(:email, :taken) }
         flash[:alert] = t('user.custom_sessions.create.email_taken')
-      else
-        flash[:notice] = t('user.custom_sessions.create.error')
       end
 
       @strategy_name, @user_session_form = @user_session_forms.find do |key, form|

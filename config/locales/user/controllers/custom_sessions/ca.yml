@@ -4,7 +4,6 @@ ca:
     custom_sessions:
       create:
         email_taken: El correu-e ja està en ús
-        error: Completa el teu registre
         invalid_data: Les dades rebudes no són vàlids. No s'ha pogut crear la sessió
         not_confirmed: Revisa el teu correu-e i fes click en l'enllaç de confirmació
           per poder accedir al servei

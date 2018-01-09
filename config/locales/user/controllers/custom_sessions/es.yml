@@ -4,7 +4,6 @@ es:
     custom_sessions:
       create:
         email_taken: El email ya está en uso
-        error: Completa tu registro
         invalid_data: Los datos recibidos no son válidos, no se ha podido crear la
           sesión
         not_confirmed: Revisa tu correo-e y haz click en el enlace de confirmación

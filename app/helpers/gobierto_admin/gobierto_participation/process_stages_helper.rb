@@ -18,7 +18,7 @@ module GobiertoAdmin
           admin_participation_process_events_path(stage.process)
         when "polls"
           admin_participation_process_polls_path(stage.process)
-        when "ideas"
+        when "contributions"
           admin_participation_process_contribution_containers_path(stage.process)
         when "documents"
           admin_participation_process_file_attachments_path(stage.process)

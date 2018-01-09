@@ -31,8 +31,8 @@ ca:
         ends: Final
         stage_types:
           agenda: Agenda
+          contributions: Contribucions
           documents: Documents
-          ideas: Idees
           information: Informació
           pages: Pàgines
           polls: Enquestes

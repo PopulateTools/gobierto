@@ -12,8 +12,8 @@ en:
           form:
             stage_type:
               agenda: Agenda
+              contributions: Contributions
               documents: Documents
-              ideas: Ideas
               information: Information
               pages: Pages
               polls: Polls

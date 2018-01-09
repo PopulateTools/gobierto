@@ -485,8 +485,8 @@ ca:
           fields:
             date: Data
             paid: Pagat
-            proivder_name: Proveïdor
             provider_id: NIF
+            provider_name: Proveïdor
             subject: Concepte
             value: Quantitat
           pager:

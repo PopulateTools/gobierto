@@ -33,7 +33,7 @@ module GobiertoBudgets
     def publish_event
       action = 'budgets_updated'
 
-      Publishers::GobiertoBudgetsBudgetLineActivity.broadcast_event(action, {
+      Publishers::GobiertoBudgetsActivity.broadcast_event(action, {
         action: action,
         site_id: site.id
       })

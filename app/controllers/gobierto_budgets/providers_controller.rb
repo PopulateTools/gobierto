@@ -4,6 +4,8 @@ class GobiertoBudgets::ProvidersController < GobiertoBudgets::ApplicationControl
 
   def index
     @year = Date.today.year
+    site_stats = GobiertoBudgets::SiteStats.new(site: @site, year: @year)
+    @budgets_data_updated_at = site_stats.providers_data_updated_at
   end
 
   private

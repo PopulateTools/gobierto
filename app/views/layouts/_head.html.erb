@@ -38,12 +38,14 @@
     };
     window.populateData = {
       token: "<%= current_site.configuration.populate_data_api_token %>",
-      municipalityId: "<%= current_site.place.id %>",
-      municipalityName: "<%= current_site.place.name %>",
-      provinceId: "<%= current_site.place.province.id %>",
-      provinceName: "<%= current_site.place.province.name %>",
-      ccaaId: "<%= current_site.place.province.autonomous_region.id %>",
-      ccaaName: "<%= current_site.place.province.autonomous_region.name %>",
+      <% if current_site.place %>
+        municipalityId: "<%= current_site.place.id %>",
+        municipalityName: "<%= current_site.place.name %>",
+        provinceId: "<%= current_site.place.province.id %>",
+        provinceName: "<%= current_site.place.province.name %>",
+        ccaaId: "<%= current_site.place.province.autonomous_region.id %>",
+        ccaaName: "<%= current_site.place.province.autonomous_region.name %>",
+      <% end %>
       year: <%= APP_CONFIG["gobierto_observatory"]["year"] %>,
       endpoint: "<%= APP_CONFIG["populate_data"]["endpoint"] %>"
     }

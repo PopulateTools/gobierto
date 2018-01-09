@@ -76,6 +76,9 @@ gem "google-api-client"
 # Microsoft Exchange calendars
 gem "exchanger"
 
+# Web Services
+gem 'savon', '~> 2.11.1'
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"

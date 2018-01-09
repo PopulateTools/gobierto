@@ -110,6 +110,7 @@ $lighter_black: rgba($color_headers, .7);
   }
   /* content_blocks */
   .content_block {
+
     h2 {
       color: $green;
       margin: 0;
@@ -1163,4 +1164,23 @@ $lighter_black: rgba($color_headers, .7);
       border-color: $color_main_negative;
     }
   }
+
+  .map_zones {
+    svg {
+      text tspan {
+        text-transform: uppercase;
+      }
+
+      a:hover {
+        cursor: pointer;
+
+        .Distritos {
+          fill: $light_blue;
+        }
+      }
+    }
+  }
+
+
+
 }

@@ -9,7 +9,7 @@ ca:
         modules:
           gobierto_budget_consultations: Consultes de pressupostos
           gobierto_budgets: Pressupostos
-          gobierto_indicators: Indicadors
+          gobierto_observatory: Observatori
           gobierto_participation: Participació
           gobierto_people: Persones
         notification_frequency:

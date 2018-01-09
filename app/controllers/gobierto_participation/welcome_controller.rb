@@ -38,7 +38,7 @@ module GobiertoParticipation
     end
 
     def find_participation_activities
-      ActivityCollectionDecorator.new(Activity.in_site(current_site).no_admin.in_participation.sorted.limit(5).includes(:subject, :author, :recipient))
+      ActivityCollectionDecorator.new(Activity.in_site(current_site).no_admin.in_participation(current_site).sorted.limit(5).includes(:subject, :author, :recipient))
     end
   end
 end

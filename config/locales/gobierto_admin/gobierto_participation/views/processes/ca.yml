@@ -6,6 +6,8 @@ ca:
         create:
           add_stages: Ara pots afegir fases
           success_html: Procés creat correctament. <a href="%{link}">Veure procés</a>.
+        destroy:
+          success: El procés ha estat arxivat correctament
         edit:
           title: Edita el procés
         form:
@@ -65,5 +67,7 @@ ca:
             drag_to_sort: Arrastra per a ordenar
             manage: Gestionar
             published: Publicada
+        recover:
+          success: El procés ha estat recuperat correctament
         update:
           success_html: Procés actualitzat correctament. <a href="%{link}">Veure procés</a>.

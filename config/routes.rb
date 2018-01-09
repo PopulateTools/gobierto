@@ -101,7 +101,8 @@ Rails.application.routes.draw do
     namespace :gobierto_participation, as: :participation, path: :participation do
       get "/" => "welcome#index"
 
-      resources :processes, only: [:index, :new, :edit, :create, :update] do
+      resources :processes, only: [:index, :new, :edit, :create, :update, :destroy] do
+        put :recover
         post :update_current_stage
         resources :process_stages, only: [:create, :destroy, :edit, :index, :new, :update], controller: "processes/process_stages", as: :process_stages, path: :process_stages do
           resources :pages, only: [:new, :create, :edit, :update], controller: "processes/process_stage_pages", as: :process_stage_page, path: :process_stage_page

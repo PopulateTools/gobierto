@@ -6,6 +6,8 @@ en:
         create:
           add_stages: Now you can add stages
           success_html: Process was successfully created. <a href="%{link}">View process</a>.
+        destroy:
+          success: The process has been archived correctly
         edit:
           title: Edit process
         form:
@@ -65,5 +67,7 @@ en:
             drag_to_sort: Drag to sort
             manage: Manage
             published: Published
+        recover:
+          success: The process has been recovered correctly
         update:
           success_html: Process was successfully updated. <a href="%{link}">View process</a>.

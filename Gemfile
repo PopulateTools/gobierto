@@ -97,6 +97,7 @@ group :test do
   gem "minitest-reporters"
   gem "minitest-retry"
   gem "minitest-stub_any_instance"
+  gem "minitest-stub-const"
   gem "mocha"
   gem "poltergeist"
   gem "spy"

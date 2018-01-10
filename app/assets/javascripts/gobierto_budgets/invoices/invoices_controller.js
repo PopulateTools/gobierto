@@ -191,6 +191,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
       });
 
     bars
+      .width(bars.root().node().parentNode.getBoundingClientRect().width) // NOTE: webkit doesn't recalculate dynamic width. it has to be set by parentNode
       .dimension(months)
       .group(budgetMonthly)
       .x(d3.scale.ordinal())
@@ -245,6 +246,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
       _labelOffset = 195;
 
     hbars1
+      .width(hbars1.root().node().parentNode.getBoundingClientRect().width) // NOTE: webkit doesn't recalculate dynamic width. it has to be set by parentNode
       .height(hbars1.margins().top + hbars1.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // NOTE: Margins top/bottom + bars + gaps (space between)
       .fixedBarHeight(_barHeight)
       .cap(_count).othersGrouper(null) // NOTE: Show only a couple of results, and hide Others groups
@@ -310,6 +312,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
       _labelOffset = 195;
 
     hbars2
+      .width(hbars2.root().node().parentNode.getBoundingClientRect().width) // NOTE: webkit doesn't recalculate dynamic width. it has to be set by parentNode
       .height(hbars2.margins().top + hbars2.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // NOTE: Margins top/bottom + bars + gaps (space between)
       .fixedBarHeight(_barHeight)
       .x(d3.scale.threshold())

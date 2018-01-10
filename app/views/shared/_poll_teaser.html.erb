@@ -2,7 +2,7 @@
 <% current_process = poll.process %>
 <% question = @poll_answer_form.poll.questions.first %>
 
-<strong><%= link_to poll.title, new_gobierto_participation_process_poll_answer_path(poll.process.slug, poll) %></strong>
+<p class="lead"><strong><%= link_to poll.title, new_gobierto_participation_process_poll_answer_path(poll.process.slug, poll) %></strong></p>
 <p class="lead"><%= question.title %></p>
 <div class="center">
   <%= form_for(@poll_answer_form, as: :poll, method: :post, url: gobierto_participation_process_poll_answers_path(current_process.slug, @poll_answer_form.poll), remote: true) do |fb| %>

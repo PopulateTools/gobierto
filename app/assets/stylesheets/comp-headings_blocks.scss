@@ -180,7 +180,7 @@ p.intro {
     padding: 2em 0;
     max-width: 500px;
   }
-}    
+}
 .content_block {
   text-align: left;
   position: relative;
@@ -202,6 +202,9 @@ p.intro {
   .lead {
     color: $color_text;
     font-size: 1.25em;
+    a {
+
+    }
   }
 
   .circle_teaser {
@@ -255,9 +258,10 @@ a.content_block {
     color: white;
     text-shadow: 0 1px 1px rgba(0,0,0,0.20);
   }
-  p {
+  p, a {
     color: white;
     text-shadow: 0 1px 1px rgba(0,0,0,0.20);
+    text-decoration: none;
   }
 }
 .content_block.align_right {

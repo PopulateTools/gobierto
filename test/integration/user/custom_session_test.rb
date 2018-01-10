@@ -3,6 +3,7 @@
 require "test_helper"
 
 class User::CustomSessionTest < ActionDispatch::IntegrationTest
+  include SiteConfigHelpers
 
   def site_without_auth_strategy
     @site ||= sites('madrid')
@@ -21,16 +22,18 @@ class User::CustomSessionTest < ActionDispatch::IntegrationTest
   end
 
   def activate_null_strategy_for_site(site)
-    with_signed_in_admin(admin) do
-      visit edit_admin_site_path(site)
-      within ".auth-module-check-boxes" do
-        check "Null Strategy"
-      end
+    with_auth_modules_for_domains(nil) do
+      with_signed_in_admin(admin) do
+        visit edit_admin_site_path(site)
+        within ".auth-module-check-boxes" do
+          check "Null Strategy"
+        end
 
-      within ".widget_save" do
-        choose "Published"
+        within ".widget_save" do
+          choose "Published"
+        end
+        click_button "Update"
       end
-      click_button "Update"
     end
   end
 

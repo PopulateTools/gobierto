@@ -11,139 +11,162 @@ $cNode5: #00529E;
 
 $nodeLevel1IllustrationWidth: 33%;
 
-.execution_number {
-  font-size: $f2;
-}
+// styles only concern this module
+.gobierto_planification {
 
-.plan_content {
-  display: flex;
-}
-section.level_1 {
-  flex-grow: 1;
-  .node {
-    position: relative;
+  .planification-header {
+    border-top: 1px solid $color_1_soft;
+    border-bottom: 1px solid $color_1_soft;
+    padding: 1rem;
     display: flex;
-    a {
-      display: flex;
-      width: 100%;
-      color: #FFF;
-      text-decoration: none;
-    }
-    &:hover {
-      opacity: .9;
-      //@include transition;
-    }
-    h2 {
-      color: #FFF;
-      margin: 0 0 .25em 0;
-      font-size: $f3;
-    }
-    .execution_number {
-      font-size: $f3;
-      font-weight: 200;
-    }
 
-    .container {
-      position: relative;
-      width: 100%;
-    }
-    .illustration {
-      width: $nodeLevel1IllustrationWidth;
+    .header-resume{
+      flex-basis: $nodeLevel1IllustrationWidth;
 
-    }
-    .progress {
-      top: 0;
-      left: 0;
-      position: absolute;
-      height: 100%;
-      z-index: 1;
-    }
-    .content {
-      position: relative;
-      z-index: 2;
-      box-sizing: border-box;
-      padding: 2em;
-      color: #FFF;
-    }
-  }
-}
-section.level_2 {
-  display: flex;
-  flex-grow: 10;
-  padding: 2em 3em;
-
-  &.cat_1 {
-    background: transparentize($cNode1, .9);
-    color: $cNode1;
-    h3, h3 a {
-      color: $cNode1;
-    }
-    .node {
-      border-top-color: transparentize($cNode1, .25);
-    }
-    .fa {
-      background: transparentize($cNode1, .9);
-    }
-  }
-  .node {
-    margin: 0 0 2em 0;
-    padding: 1em 0 0 0;
-    border-top: 1px solid;
-    display: flex;
-    h3 {
-      margin: 0 0 .5em;
-      flex-grow: 5;
-      a {
-        text-decoration: none;
+      h3 {
+        margin-top: 0;
+      }
+      
+      span {
+        font-size: $f1;
       }
     }
-    h3:hover {
-      opacity: .75;
+
+    .header-detail{
+
     }
-    .sub_elements {
-      text-align: right;
-      padding: 0 0 0 1em;
-      white-space: nowrap;
+  }
+
+  .plan_content {
+    display: flex;
+  }
+  section.level_1 {
+    flex-grow: 1;
+    .node {
+      position: relative;
+      display: flex;
+      a {
+        display: flex;
+        width: 100%;
+        color: #FFF;
+        text-decoration: none;
+      }
+      &:hover {
+        opacity: .9;
+        //@include transition;
+      }
+      h2 {
+        color: #FFF;
+        margin: 0 0 .25em 0;
+        font-size: $f3;
+      }
+      .execution_number {
+        font-size: $f3;
+        font-weight: 200;
+      }
+
+      .container {
+        position: relative;
+        width: 100%;
+      }
+      .illustration {
+        width: $nodeLevel1IllustrationWidth;
+
+      }
+      .progress {
+        top: 0;
+        left: 0;
+        position: absolute;
+        height: 100%;
+        z-index: 1;
+      }
+      .content {
+        position: relative;
+        z-index: 2;
+        box-sizing: border-box;
+        padding: 2em;
+        color: #FFF;
+      }
     }
+  }
+  section.level_2 {
+    display: flex;
+    flex-grow: 10;
+    padding: 2em 3em;
+
+    &.cat_1 {
+      background: transparentize($cNode1, .9);
+      color: $cNode1;
+      h3, h3 a {
+        color: $cNode1;
+      }
+      .node {
+        border-top-color: transparentize($cNode1, .25);
+      }
+      .fa {
+        background: transparentize($cNode1, .9);
+      }
+    }
+    .node {
+      margin: 0 0 2em 0;
+      padding: 1em 0 0 0;
+      border-top: 1px solid;
+      display: flex;
+      h3 {
+        margin: 0 0 .5em;
+        flex-grow: 5;
+        a {
+          text-decoration: none;
+        }
+      }
+      h3:hover {
+        opacity: .75;
+      }
+      .sub_elements {
+        text-align: right;
+        padding: 0 0 0 1em;
+        white-space: nowrap;
+      }
+      .progress {
+        text-align: right;
+        padding: 0 0 0 1em;
+        white-space: nowrap;
+      }
+    }
+    .fa {
+      padding: .15em .45em;
+      line-height: 1;
+      border-radius: 3px;
+    }
+  }
+  .node.cat_1 {
+    background: transparentize($cNode1, .05);
     .progress {
-      text-align: right;
-      padding: 0 0 0 1em;
-      white-space: nowrap;
+      background: $cNode1;
     }
   }
-  .fa {
-    padding: .15em .45em;
-    line-height: 1;
-    border-radius: 3px;
+  .node.cat_2 {
+    background: transparentize($cNode2, .1);
+    .progress {
+      background: $cNode2;
+    }
   }
-}
-.node.cat_1 {
-  background: transparentize($cNode1, .05);
-  .progress {
-    background: $cNode1;
+  .node.cat_3 {
+    background: transparentize($cNode3, .1);
+    .progress {
+      background: $cNode3;
+    }
   }
-}
-.node.cat_2 {
-  background: transparentize($cNode2, .1);
-  .progress {
-    background: $cNode2;
+  .node.cat_4 {
+    background: transparentize($cNode4, .1);
+    .progress {
+      background: $cNode4;
+    }
   }
-}
-.node.cat_3 {
-  background: transparentize($cNode3, .1);
-  .progress {
-    background: $cNode3;
-  }
-}
-.node.cat_4 {
-  background: transparentize($cNode4, .1);
-  .progress {
-    background: $cNode4;
-  }
-}
-.node.cat_5 {
-  background: transparentize($cNode5, .1);
-  .progress {
-    background: $cNode5;
+  .node.cat_5 {
+    background: transparentize($cNode5, .1);
+    .progress {
+      background: $cNode5;
+    }
   }
 }

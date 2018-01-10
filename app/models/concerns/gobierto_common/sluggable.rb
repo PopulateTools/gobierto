@@ -20,12 +20,13 @@ module GobiertoCommon
       new_slug = base_slug
 
       count = 2
-      if self.class.validators_on(:slug).first.options[:scope].first == :site
+
+      if try(:site_id).present?
         while self.class.exists?(site: site, slug: new_slug)
           new_slug = "#{base_slug}-#{count}"
           count += 1
         end
-      elsif self.class.validators_on(:slug).first.options[:scope].first == :process_id
+      elsif try(:process_id).present?
         while self.class.exists?(process: process, slug: new_slug)
           new_slug = "#{base_slug}-#{count}"
           count += 1

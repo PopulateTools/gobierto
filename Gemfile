@@ -14,7 +14,7 @@ gem "mechanize"
 gem "meta-tags"
 gem "paper_trail"
 gem "paranoia"
-gem "pg", "~> 0.19"
+gem "pg", "~> 1.0"
 gem "rails", "~> 5.1.1"
 gem "redcarpet", require: true
 gem "responders"

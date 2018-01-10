@@ -10,8 +10,13 @@
 
 <%= render 'gobierto_admin/gobierto_participation/shared/navigation' %>
 
-<div class='admin_tools right'>
-  <%= link_to t('.new'), new_admin_participation_process_poll_path(current_process), class: 'button', data: { turbolinks: false } %>
+<div class="pure-g">
+  <div class="pure-u-3-4">
+    <strong><%= t('.polls') %></strong>
+  </div>
+  <div class="pure-u-1-4 admin_tools right">
+    <%= link_to t('.new'), new_admin_participation_process_poll_path(current_process), class: 'button', data: { turbolinks: false } %>
+  </div>
 </div>
 
 <table>

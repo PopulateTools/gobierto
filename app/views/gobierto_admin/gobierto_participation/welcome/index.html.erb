@@ -53,9 +53,10 @@
       <th></th>
       <th><%= t('.group_process') %></th>
       <th><%= t('.last_activity') %></th>
+      <th></th>
     </tr>
     <% @processes.each do |process| %>
-      <tr class="odd">
+      <tr id="process-item-<%= process.id %>" class="odd">
         <td>
           <%= link_to edit_admin_participation_process_path(process), data: { turbolinks: false } do %>
             <i class="fa fa-edit"></i>
@@ -68,10 +69,56 @@
             <span class="soft ip"><%= process.last_activity.subject_ip %></span>
           <% end %>
         </td>
+        <td>
+          <%= link_to "<i class='fa fa-trash'></i>".html_safe,
+                      admin_participation_process_path(process.id),
+                      title: t("gobierto_admin.shared.archive.element"),
+                      method: :delete,
+                      data: { confirm: t("gobierto_admin.shared.archive.confirm") } %>
+        </td>
       </tr>
     <% end %>
     </table>
 
+    <% unless @archived_processes.empty? %>
+      <div class="m_v_1 right">
+        <%= link_to t("gobierto_admin.shared.archive.elements"), 'javascript:;', data: { toggle: true} %>
+      </div>
+
+      <div id="archived-list" style="display:none">
+        <table class="pages-list">
+          <tr>
+            <th></th>
+            <th><%= t('.group_process') %></th>
+            <th><%= t('.last_activity') %></th>
+            <th></th>
+          </tr>
+          <% @archived_processes.each do |process| %>
+            <tr id="process-item-<%= process.id %>" class="odd">
+              <td>
+                <%= link_to edit_admin_participation_process_path(process), data: { turbolinks: false } do %>
+                  <i class="fa fa-edit"></i>
+                <% end %>
+              </td>
+              <td><%= process.title %></td>
+              <td>
+                <%= time_ago_in_words(process.last_activity_at) %>
+                <% if process.last_activity %>
+                  <span class="soft ip"><%= process.last_activity.subject_ip %></span>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to t("gobierto_admin.shared.recover.element"),
+                            admin_participation_process_recover_path(process.id),
+                            title: t("gobierto_admin.shared.recover.element"),
+                            method: :put,
+                            data: { confirm: t("gobierto_admin.shared.recover.confirm") } %>
+              </td>
+            </tr>
+          <% end %>
+          </table>
+        </div>
+    <% end %>
   </div>
 
   <div class="pure-u-1 pure-u-md-8-24">
@@ -87,3 +134,9 @@
     </div>
   </div>
 </div>
+
+<%= javascript_tag do %>
+  $('a[data-toggle]').on('click', function(e){
+     $("div#archived-list").toggle();
+  });
+<% end %>

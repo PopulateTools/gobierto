@@ -4,6 +4,9 @@ require_dependency "gobierto_participation"
 
 module GobiertoParticipation
   class Process < ApplicationRecord
+    acts_as_paranoid column: :archived_at
+
+    include ActsAsParanoidAliases
     include User::Subscribable
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Searchable

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171227134634) do
+ActiveRecord::Schema.define(version: 20180109103354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -260,8 +260,8 @@ ActiveRecord::Schema.define(version: 20171227134634) do
     t.string "sharing_token"
     t.string "document_number_digest"
     t.jsonb "user_information"
-    t.index ["consultation_id", "document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["consultation_id"], name: "index_gbc_consultation_responses_on_consultation_id"
+    t.index ["document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["sharing_token"], name: "index_gbc_consultation_responses_on_sharing_token", unique: true
     t.index ["user_information"], name: "index_gbc_consultation_responses_on_user_information", using: :gin
   end
@@ -318,9 +318,9 @@ ActiveRecord::Schema.define(version: 20171227134634) do
     t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "external_id"
     t.jsonb "title_translations"
     t.jsonb "description_translations"
+    t.string "external_id"
     t.integer "site_id", null: false
     t.string "slug", null: false
     t.integer "collection_id"
@@ -666,6 +666,8 @@ ActiveRecord::Schema.define(version: 20171227134634) do
     t.integer "process_type", default: 1, null: false
     t.integer "issue_id"
     t.bigint "scope_id"
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_gpart_processes_on_archived_at"
     t.index ["body_translations"], name: "index_gpart_processes_on_body_translations", using: :gin
     t.index ["site_id", "slug"], name: "index_gpart_processes_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_gpart_processes_on_site_id"

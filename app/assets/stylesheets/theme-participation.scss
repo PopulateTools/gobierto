@@ -2,12 +2,31 @@ $blue: #0072bc;
 $medium_blue: #22A3D8;
 $light_blue: #92D1EB;
 $lighter_blue: #E5F3F5;
+$light_bg: #ECFAFC;
 $green: #00b585;
 $black: #333;
 $light_black: #4A4A4A;
 $lighter_black: rgba($color_headers, .7);
 
 .theme-participation {
+  header .site_header .main-nav {
+    background-color: $light_bg;
+  }
+  header .site_header .main-nav .main-nav-item:hover,
+  header .site_header .sub-nav .sub-nav-item:hover {
+    border-color: transparentize(#22A3D8, .5);
+  }
+  header .site_header .main-nav a,
+  header .site_header .sub-nav a {
+    color: $medium_blue;
+  }
+  header .site_header .main-nav .main-nav-item.active {
+    border-color: $medium_blue;
+  }
+  header .site_header .secondary_nav li a {
+    color: #A5A5A5;
+  }
+
   .button,
   .button.submit,
   .contributions_container .inline_login_cta a,
@@ -57,11 +76,12 @@ $lighter_black: rgba($color_headers, .7);
     }
 
     a {
-      color: $green;
+      // color: $green;
     }
     .button {
       color: $color_main_negative;
     }
+
   }
 
   header.meta {
@@ -157,6 +177,12 @@ $lighter_black: rgba($color_headers, .7);
 
   .content_block.simple_big_header.emoji_block {
     border-top: none;
+  }
+
+  .content_block.featured_poll {
+    p.lead {
+      margin: 0;
+    }
   }
 
   .questions {

@@ -4,7 +4,7 @@
     "level": 0,
     "attributes": {
       "complete": "26%",
-      "img": "https://images.freeimages.com/images/large-previews/0cf/tulips-1-1377350.jpg",
+      "img": "https://images.freeimages.com/images/small-previews/0cf/tulips-1-1377350.jpg",
       "title": "Personas y familias"
     },
     "children": [
@@ -150,12 +150,48 @@
     "level": 0,
     "attributes": {
       "title": "Ciudadanía",
-      "img": "https://images.freeimages.com/images/large-previews/9d6/philippine-coins-1483943.jpg",
+      "img": "https://images.freeimages.com/images/small-previews/9d6/philippine-coins-1483943.jpg",
       "complete": "74%"
     },
     "children": [
       {
         "id": 0,
+        "level": 1,
+        "attributes": {
+          "title": "proident amet velit culpa adipisicing anim quis quis laborum enim"
+        },
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "attributes": {
+              "title": "cupidatat aute cupidatat anim aliquip dolor sint aliqua ut occaecat",
+              "desc": "Lorem culpa occaecat deserunt laborum laboris commodo ut officia sunt aliqua ullamco ea nulla voluptate consectetur tempor dolor cillum ex laborum reprehenderit tempor irure laborum amet quis sunt eu sit sunt in ea ex reprehenderit dolore duis id incididunt cillum",
+              "checked": true
+            }
+          },
+          {
+            "id": 1,
+            "level": 2,
+            "attributes": {
+              "title": "incididunt duis magna adipisicing velit anim tempor cupidatat cupidatat incididunt",
+              "desc": "qui culpa consequat magna cupidatat ea labore proident et esse Lorem aute ullamco elit ad deserunt in ut cupidatat commodo culpa consequat ea ipsum esse irure ex quis sit sit elit magna elit culpa sit reprehenderit laboris cillum esse dolore",
+              "checked": false
+            }
+          },
+          {
+            "id": 2,
+            "level": 2,
+            "attributes": {
+              "title": "consectetur aliquip dolor Lorem laboris sint velit reprehenderit sit velit",
+              "desc": "aute laboris dolore consequat ut officia tempor exercitation fugiat culpa velit id esse reprehenderit non nisi velit non non non anim excepteur qui veniam quis qui adipisicing enim fugiat officia laboris cupidatat duis magna voluptate irure pariatur pariatur nulla qui",
+              "checked": false
+            }
+          }
+        ]
+      },
+      {
+        "id": 1,
         "level": 1,
         "attributes": {
           "title": "proident amet velit culpa adipisicing anim quis quis laborum enim"
@@ -197,8 +233,354 @@
     "level": 0,
     "attributes": {
       "title": "Tu ciudad",
-      "img": "https://images.freeimages.com/images/large-previews/e17/city-bird-1-1213305.jpg",
-      "complete": "54%"
+      "img": "https://images.freeimages.com/images/small-previews/e17/city-bird-1-1213305.jpg",
+      "complete": "81%"
+    },
+    "children": [
+      {
+        "id": 0,
+        "level": 1,
+        "attributes": {
+          "title": "proident amet velit culpa adipisicing anim quis quis laborum enim"
+        },
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "attributes": {
+              "title": "cupidatat aute cupidatat anim aliquip dolor sint aliqua ut occaecat",
+              "desc": "Lorem culpa occaecat deserunt laborum laboris commodo ut officia sunt aliqua ullamco ea nulla voluptate consectetur tempor dolor cillum ex laborum reprehenderit tempor irure laborum amet quis sunt eu sit sunt in ea ex reprehenderit dolore duis id incididunt cillum",
+              "checked": true
+            }
+          },
+          {
+            "id": 1,
+            "level": 2,
+            "attributes": {
+              "title": "incididunt duis magna adipisicing velit anim tempor cupidatat cupidatat incididunt",
+              "desc": "qui culpa consequat magna cupidatat ea labore proident et esse Lorem aute ullamco elit ad deserunt in ut cupidatat commodo culpa consequat ea ipsum esse irure ex quis sit sit elit magna elit culpa sit reprehenderit laboris cillum esse dolore",
+              "checked": false
+            }
+          },
+          {
+            "id": 2,
+            "level": 2,
+            "attributes": {
+              "title": "consectetur aliquip dolor Lorem laboris sint velit reprehenderit sit velit",
+              "desc": "aute laboris dolore consequat ut officia tempor exercitation fugiat culpa velit id esse reprehenderit non nisi velit non non non anim excepteur qui veniam quis qui adipisicing enim fugiat officia laboris cupidatat duis magna voluptate irure pariatur pariatur nulla qui",
+              "checked": false
+            }
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "level": 1,
+        "attributes": {
+          "title": "proident amet velit culpa adipisicing anim quis quis laborum enim"
+        },
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "attributes": {
+              "title": "cupidatat aute cupidatat anim aliquip dolor sint aliqua ut occaecat",
+              "desc": "Lorem culpa occaecat deserunt laborum laboris commodo ut officia sunt aliqua ullamco ea nulla voluptate consectetur tempor dolor cillum ex laborum reprehenderit tempor irure laborum amet quis sunt eu sit sunt in ea ex reprehenderit dolore duis id incididunt cillum",
+              "checked": true
+            }
+          },
+          {
+            "id": 1,
+            "level": 2,
+            "attributes": {
+              "title": "incididunt duis magna adipisicing velit anim tempor cupidatat cupidatat incididunt",
+              "desc": "qui culpa consequat magna cupidatat ea labore proident et esse Lorem aute ullamco elit ad deserunt in ut cupidatat commodo culpa consequat ea ipsum esse irure ex quis sit sit elit magna elit culpa sit reprehenderit laboris cillum esse dolore",
+              "checked": false
+            }
+          },
+          {
+            "id": 2,
+            "level": 2,
+            "attributes": {
+              "title": "consectetur aliquip dolor Lorem laboris sint velit reprehenderit sit velit",
+              "desc": "aute laboris dolore consequat ut officia tempor exercitation fugiat culpa velit id esse reprehenderit non nisi velit non non non anim excepteur qui veniam quis qui adipisicing enim fugiat officia laboris cupidatat duis magna voluptate irure pariatur pariatur nulla qui",
+              "checked": false
+            }
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "level": 1,
+        "attributes": {
+          "title": "proident amet velit culpa adipisicing anim quis quis laborum enim"
+        },
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "attributes": {
+              "title": "cupidatat aute cupidatat anim aliquip dolor sint aliqua ut occaecat",
+              "desc": "Lorem culpa occaecat deserunt laborum laboris commodo ut officia sunt aliqua ullamco ea nulla voluptate consectetur tempor dolor cillum ex laborum reprehenderit tempor irure laborum amet quis sunt eu sit sunt in ea ex reprehenderit dolore duis id incididunt cillum",
+              "checked": true
+            }
+          },
+          {
+            "id": 1,
+            "level": 2,
+            "attributes": {
+              "title": "incididunt duis magna adipisicing velit anim tempor cupidatat cupidatat incididunt",
+              "desc": "qui culpa consequat magna cupidatat ea labore proident et esse Lorem aute ullamco elit ad deserunt in ut cupidatat commodo culpa consequat ea ipsum esse irure ex quis sit sit elit magna elit culpa sit reprehenderit laboris cillum esse dolore",
+              "checked": false
+            }
+          },
+          {
+            "id": 2,
+            "level": 2,
+            "attributes": {
+              "title": "consectetur aliquip dolor Lorem laboris sint velit reprehenderit sit velit",
+              "desc": "aute laboris dolore consequat ut officia tempor exercitation fugiat culpa velit id esse reprehenderit non nisi velit non non non anim excepteur qui veniam quis qui adipisicing enim fugiat officia laboris cupidatat duis magna voluptate irure pariatur pariatur nulla qui",
+              "checked": false
+            }
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "level": 1,
+        "attributes": {
+          "title": "proident amet velit culpa adipisicing anim quis quis laborum enim"
+        },
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "attributes": {
+              "title": "cupidatat aute cupidatat anim aliquip dolor sint aliqua ut occaecat",
+              "desc": "Lorem culpa occaecat deserunt laborum laboris commodo ut officia sunt aliqua ullamco ea nulla voluptate consectetur tempor dolor cillum ex laborum reprehenderit tempor irure laborum amet quis sunt eu sit sunt in ea ex reprehenderit dolore duis id incididunt cillum",
+              "checked": true
+            }
+          },
+          {
+            "id": 1,
+            "level": 2,
+            "attributes": {
+              "title": "incididunt duis magna adipisicing velit anim tempor cupidatat cupidatat incididunt",
+              "desc": "qui culpa consequat magna cupidatat ea labore proident et esse Lorem aute ullamco elit ad deserunt in ut cupidatat commodo culpa consequat ea ipsum esse irure ex quis sit sit elit magna elit culpa sit reprehenderit laboris cillum esse dolore",
+              "checked": false
+            }
+          },
+          {
+            "id": 2,
+            "level": 2,
+            "attributes": {
+              "title": "consectetur aliquip dolor Lorem laboris sint velit reprehenderit sit velit",
+              "desc": "aute laboris dolore consequat ut officia tempor exercitation fugiat culpa velit id esse reprehenderit non nisi velit non non non anim excepteur qui veniam quis qui adipisicing enim fugiat officia laboris cupidatat duis magna voluptate irure pariatur pariatur nulla qui",
+              "checked": false
+            }
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "level": 1,
+        "attributes": {
+          "title": "proident amet velit culpa adipisicing anim quis quis laborum enim"
+        },
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "attributes": {
+              "title": "cupidatat aute cupidatat anim aliquip dolor sint aliqua ut occaecat",
+              "desc": "Lorem culpa occaecat deserunt laborum laboris commodo ut officia sunt aliqua ullamco ea nulla voluptate consectetur tempor dolor cillum ex laborum reprehenderit tempor irure laborum amet quis sunt eu sit sunt in ea ex reprehenderit dolore duis id incididunt cillum",
+              "checked": true
+            }
+          },
+          {
+            "id": 1,
+            "level": 2,
+            "attributes": {
+              "title": "incididunt duis magna adipisicing velit anim tempor cupidatat cupidatat incididunt",
+              "desc": "qui culpa consequat magna cupidatat ea labore proident et esse Lorem aute ullamco elit ad deserunt in ut cupidatat commodo culpa consequat ea ipsum esse irure ex quis sit sit elit magna elit culpa sit reprehenderit laboris cillum esse dolore",
+              "checked": false
+            }
+          },
+          {
+            "id": 2,
+            "level": 2,
+            "attributes": {
+              "title": "consectetur aliquip dolor Lorem laboris sint velit reprehenderit sit velit",
+              "desc": "aute laboris dolore consequat ut officia tempor exercitation fugiat culpa velit id esse reprehenderit non nisi velit non non non anim excepteur qui veniam quis qui adipisicing enim fugiat officia laboris cupidatat duis magna voluptate irure pariatur pariatur nulla qui",
+              "checked": false
+            }
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "level": 1,
+        "attributes": {
+          "title": "proident amet velit culpa adipisicing anim quis quis laborum enim"
+        },
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "attributes": {
+              "title": "cupidatat aute cupidatat anim aliquip dolor sint aliqua ut occaecat",
+              "desc": "Lorem culpa occaecat deserunt laborum laboris commodo ut officia sunt aliqua ullamco ea nulla voluptate consectetur tempor dolor cillum ex laborum reprehenderit tempor irure laborum amet quis sunt eu sit sunt in ea ex reprehenderit dolore duis id incididunt cillum",
+              "checked": true
+            }
+          },
+          {
+            "id": 1,
+            "level": 2,
+            "attributes": {
+              "title": "incididunt duis magna adipisicing velit anim tempor cupidatat cupidatat incididunt",
+              "desc": "qui culpa consequat magna cupidatat ea labore proident et esse Lorem aute ullamco elit ad deserunt in ut cupidatat commodo culpa consequat ea ipsum esse irure ex quis sit sit elit magna elit culpa sit reprehenderit laboris cillum esse dolore",
+              "checked": false
+            }
+          },
+          {
+            "id": 2,
+            "level": 2,
+            "attributes": {
+              "title": "consectetur aliquip dolor Lorem laboris sint velit reprehenderit sit velit",
+              "desc": "aute laboris dolore consequat ut officia tempor exercitation fugiat culpa velit id esse reprehenderit non nisi velit non non non anim excepteur qui veniam quis qui adipisicing enim fugiat officia laboris cupidatat duis magna voluptate irure pariatur pariatur nulla qui",
+              "checked": false
+            }
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "level": 1,
+        "attributes": {
+          "title": "proident amet velit culpa adipisicing anim quis quis laborum enim"
+        },
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "attributes": {
+              "title": "cupidatat aute cupidatat anim aliquip dolor sint aliqua ut occaecat",
+              "desc": "Lorem culpa occaecat deserunt laborum laboris commodo ut officia sunt aliqua ullamco ea nulla voluptate consectetur tempor dolor cillum ex laborum reprehenderit tempor irure laborum amet quis sunt eu sit sunt in ea ex reprehenderit dolore duis id incididunt cillum",
+              "checked": true
+            }
+          },
+          {
+            "id": 1,
+            "level": 2,
+            "attributes": {
+              "title": "incididunt duis magna adipisicing velit anim tempor cupidatat cupidatat incididunt",
+              "desc": "qui culpa consequat magna cupidatat ea labore proident et esse Lorem aute ullamco elit ad deserunt in ut cupidatat commodo culpa consequat ea ipsum esse irure ex quis sit sit elit magna elit culpa sit reprehenderit laboris cillum esse dolore",
+              "checked": false
+            }
+          },
+          {
+            "id": 2,
+            "level": 2,
+            "attributes": {
+              "title": "consectetur aliquip dolor Lorem laboris sint velit reprehenderit sit velit",
+              "desc": "aute laboris dolore consequat ut officia tempor exercitation fugiat culpa velit id esse reprehenderit non nisi velit non non non anim excepteur qui veniam quis qui adipisicing enim fugiat officia laboris cupidatat duis magna voluptate irure pariatur pariatur nulla qui",
+              "checked": false
+            }
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "level": 1,
+        "attributes": {
+          "title": "proident amet velit culpa adipisicing anim quis quis laborum enim"
+        },
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "attributes": {
+              "title": "cupidatat aute cupidatat anim aliquip dolor sint aliqua ut occaecat",
+              "desc": "Lorem culpa occaecat deserunt laborum laboris commodo ut officia sunt aliqua ullamco ea nulla voluptate consectetur tempor dolor cillum ex laborum reprehenderit tempor irure laborum amet quis sunt eu sit sunt in ea ex reprehenderit dolore duis id incididunt cillum",
+              "checked": true
+            }
+          },
+          {
+            "id": 1,
+            "level": 2,
+            "attributes": {
+              "title": "incididunt duis magna adipisicing velit anim tempor cupidatat cupidatat incididunt",
+              "desc": "qui culpa consequat magna cupidatat ea labore proident et esse Lorem aute ullamco elit ad deserunt in ut cupidatat commodo culpa consequat ea ipsum esse irure ex quis sit sit elit magna elit culpa sit reprehenderit laboris cillum esse dolore",
+              "checked": false
+            }
+          },
+          {
+            "id": 2,
+            "level": 2,
+            "attributes": {
+              "title": "consectetur aliquip dolor Lorem laboris sint velit reprehenderit sit velit",
+              "desc": "aute laboris dolore consequat ut officia tempor exercitation fugiat culpa velit id esse reprehenderit non nisi velit non non non anim excepteur qui veniam quis qui adipisicing enim fugiat officia laboris cupidatat duis magna voluptate irure pariatur pariatur nulla qui",
+              "checked": false
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "level": 0,
+    "attributes": {
+      "title": "Economía",
+      "img": "https://images.freeimages.com/images/small-previews/ca1/scsi-hd-1626366.jpg",
+      "complete": "12%"
+    },
+    "children": [
+      {
+        "id": 0,
+        "level": 1,
+        "attributes": {
+          "title": "proident amet velit culpa adipisicing anim quis quis laborum enim"
+        },
+        "children": [
+          {
+            "id": 0,
+            "level": 2,
+            "attributes": {
+              "title": "cupidatat aute cupidatat anim aliquip dolor sint aliqua ut occaecat",
+              "desc": "Lorem culpa occaecat deserunt laborum laboris commodo ut officia sunt aliqua ullamco ea nulla voluptate consectetur tempor dolor cillum ex laborum reprehenderit tempor irure laborum amet quis sunt eu sit sunt in ea ex reprehenderit dolore duis id incididunt cillum",
+              "checked": true
+            }
+          },
+          {
+            "id": 1,
+            "level": 2,
+            "attributes": {
+              "title": "incididunt duis magna adipisicing velit anim tempor cupidatat cupidatat incididunt",
+              "desc": "qui culpa consequat magna cupidatat ea labore proident et esse Lorem aute ullamco elit ad deserunt in ut cupidatat commodo culpa consequat ea ipsum esse irure ex quis sit sit elit magna elit culpa sit reprehenderit laboris cillum esse dolore",
+              "checked": false
+            }
+          },
+          {
+            "id": 2,
+            "level": 2,
+            "attributes": {
+              "title": "consectetur aliquip dolor Lorem laboris sint velit reprehenderit sit velit",
+              "desc": "aute laboris dolore consequat ut officia tempor exercitation fugiat culpa velit id esse reprehenderit non nisi velit non non non anim excepteur qui veniam quis qui adipisicing enim fugiat officia laboris cupidatat duis magna voluptate irure pariatur pariatur nulla qui",
+              "checked": false
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "level": 0,
+    "attributes": {
+      "title": "Gobierno",
+      "img": "https://images.freeimages.com/images/small-previews/ad5/escalante-2-1391686.jpg",
+      "complete": "32%"
     },
     "children": [
       {

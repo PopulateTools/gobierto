@@ -14,7 +14,7 @@
 
     <div id="gobierto-planification" class="gobierto_planification">
 
-      <div class="planification-header m_v_3">
+      <div class="planification-header m_v_3" v-if="json.length">
 
         <div class="header-resume">
           <h3>Estado de ejecución global</h3>
@@ -22,10 +22,10 @@
         </div>
 
         <div class="header-detail">
-          <div>5 ejes</div>
-          <div>24 líneas de actuación</div>
-          <div>123 actuaciones</div>
-          <div>1.234 proyectos</div>
+          <div>{{ detailed.roots }} ejes</div>
+          <div>{{ detailed.lines }} líneas de actuación</div>
+          <div>{{ detailed.acts }} actuaciones</div>
+          <div>{{ detailed.projects }} proyectos</div>
         </div>
 
       </div>
@@ -33,54 +33,27 @@
       <div class="planification-content">
 
         <section class="level_1">
-          <div class="node node-root" v-for="(model, index) in json" :class="['cat_' + (index + 1)]">
+          <div class="node-root" v-for="(model, index) in json" :class="['cat_' + (index + 1)]">
             <node-root :model="model"></node-root>
           </div>
         </section>
 
-        <section class="level_2 cat_1">
-
-          <header>
-            <div class="">24 lineas de actuación</div>
-            <div class="">progress</div>
-          </header>
-
-          <div class="node">
-            <h3><a href="">
-              <i class="fa fa-caret-right"></i>
-              Completar la xarxa bàsica sanitària d'Esplugues
-            </a></h3>
-            <div class="sub_elements">5 actuaciones</div>
-            <div class="progress">35%</div>
+        <section class="level_2" :class="['cat_' + (selected.id + 1)]">
+          <div class="lines-header">
+            <div>{{ selected.children.length }} lineas de actuación</div>
+            <div>% progress</div>
           </div>
 
-          <div class="node">
-            <h3><a href="">
-              <i class="fa fa-caret-right"></i>
-              Continuar desenvolupant el Pacte contra la pobresa amb la implicació del teixit social
-            </a></h3>
-            <div class="sub_elements">5 actuaciones</div>
-            <div class="progress">35%</div>
-          </div>
-
-          <div class="node">
-            <h3><a href="">
-              <i class="fa fa-caret-right"></i>
-              Facilitar ajuts socials a les persones i famílies que ho necessitin per manca de recursos
-            </a></h3>
-            <div class="sub_elements">5 actuaciones</div>
-            <div class="progress">35%</div>
-          </div>
-
-          <div class="node">
-            <h3><a href="">
-              <i class="fa fa-caret-right"></i>
-              Promoure polítiques que afavoreixin la qualitat de vida de la gent gran
-            </a></h3>
-            <div class="sub_elements">5 actuaciones</div>
-            <div class="progress">35%</div>
-          </div>
-
+          <ul class="lines-list">
+            <li class="node-list mb2" v-for="(model, index) in selected.children">
+              <h3><a href="">
+                <i class="fa fa-caret-right"></i>
+                {{ model.attributes.title }}
+              </a></h3>
+              <div>{{ model.children.length }} actuaciones</div>
+              <div>{{ model.attributes.percent || 0 }}%</div>
+            </li>
+          </ul>
         </section>
 
         <section class="level_3 cat_1">
@@ -125,7 +98,7 @@
   </div>
 </div>
 
-<!-- item view template -->
+<!-- node root template -->
 <script type="text/x-template" id="node-root-template">
   <a href="#" @click="open">
     <div class="node-img js-img">
@@ -141,9 +114,14 @@
   </a>
 </script>
 
-<script type="text/javascript">
+<!-- node lines template -->
 
-  // define the item view component
+
+<script type="text/javascript">
+// init
+$('section.level_2, section.level_3').hide();
+
+  // define the node root component
   Vue.component('node-root', {
     template: '#node-root-template',
     props: ['model'],
@@ -152,7 +130,9 @@
     },
     methods: {
       open() {
-        // TODO: Revisar esto
+        this.$root.selected = this.model;
+
+        // TODO: Revisar esto...
         $('section.level_1').velocity({flex: "0 0 25%"});
         $('section.level_1 .js-img').velocity({flex: "0"});
         $('section.level_1 .js-info').velocity({padding: "1.5em"});
@@ -173,25 +153,40 @@
     name: 'gobierto-planification',
     data() {
       return {
-        json: {}
+        json: {},
+        selected: null
       }
     },
     created: function() {
       this.getJson();
     },
+    computed: {
+      detailed() {
+        if (!this.json.length) return {}
+        let detail = {};
+        detail = {
+          roots: this.json.length,
+          lines: _.flatten(_.map(this.json, 'children')).length,
+          acts: this.json.length,
+          projects: this.json.length
+        };
+        return detail
+      }
+    },
     methods: {
       getJson: function() {
         $.getJSON('/planification.json', function(json) {
           this.json = json;
+          if (json.length) this.selected = json[0] // fallback
         }.bind(this));
       }
     }
   });
 </script>
+
 <script type="text/javascript">
 
-  // init
-  $('section.level_2, section.level_3').hide();
+
 
   //close everything
   $(document).click(function (e) {

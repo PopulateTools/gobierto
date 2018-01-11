@@ -51,10 +51,23 @@ $node-colors: (
 
   .planification-content {
     display: flex;
+
+    .lines-header {
+      display: flex;
+      justify-content: space-between;
+      margin: 0 0 20px;
+      color: $color_text;
+      font-size: $f7;
+    }
+
+    .lines-list {
+      margin: 0;
+      padding: 0;
+    }
   }
 
-  // @component node
-  .node {
+  // @component node-root
+  .node-root {
     position: relative;
     display: flex;
 
@@ -130,58 +143,57 @@ $node-colors: (
     }
   }
 
-// static content
+  .node-list {
+      padding: 1em 0 0;
+      border-top: 1px solid;
+      display: flex;
+      justify-content: space-between;
+
+      h3 {
+        margin: 0 0 0.5em;
+
+        a {
+          text-decoration: none;
+        }
+
+        &:hover {
+          opacity: 0.75;
+        }
+      }
+
+      .fa {
+        padding: .15em .45em;
+        line-height: 1;
+        border-radius: 3px;
+      }
+    }
+
   section.level_1 {
     flex: 1 1 0%;
   }
+
   section.level_2 {
     display: flex;
     flex: 10;
     padding: 2em 3em;
 
-    &.cat_1 {
-      background: transparentize(getColor(cNode1), .9);
-      color: getColor(cNode1);
-      h3, h3 a {
-        color: getColor(cNode1);
-      }
-      .node {
-        border-top-color: transparentize(getColor(cNode1), .25);
-      }
-      .fa {
-        background: transparentize(getColor(cNode1), .9);
-      }
-    }
-    .node {
-      margin: 0 0 2em 0;
-      padding: 1em 0 0 0;
-      border-top: 1px solid;
-      display: flex;
-      h3 {
-        margin: 0 0 .5em;
-        flex-grow: 5;
-        a {
-          text-decoration: none;
+    @for $i from 1 through length($node-colors) {
+      // Get color from position `i` of `node-colors` array keys
+      $color: getColor(nth(map-keys($node-colors), $i));
+
+      &.cat_#{$i} {
+        background: transparentize($color, .9);
+        color: $color;
+        h3, h3 a {
+          color: $color;
+        }
+        .node {
+          border-top-color: transparentize($color, .25);
+        }
+        .fa {
+          background: transparentize($color, .9);
         }
       }
-      h3:hover {
-        opacity: .75;
-      }
-      .sub_elements {
-        text-align: right;
-        padding: 0 0 0 1em;
-        white-space: nowrap;
-      }
-      .progress {
-        text-align: right;
-        padding: 0 0 0 1em;
-        white-space: nowrap;
-      }
-    }
-    .fa {
-      padding: .15em .45em;
-      line-height: 1;
-      border-radius: 3px;
     }
   }
 }

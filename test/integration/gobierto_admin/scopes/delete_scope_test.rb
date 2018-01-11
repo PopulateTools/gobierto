@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module GobiertoAdmin
   class DeleteScopeTest < ActionDispatch::IntegrationTest
-    
     def setup
       super
       @path = admin_scopes_path
@@ -36,7 +35,7 @@ module GobiertoAdmin
             find("a[data-method='delete']").click
           end
 
-          assert has_message?('Scope was successfully destroyed.')
+          assert has_message?("Scope was successfully destroyed.")
 
           refute site.scopes.exists?(id: scope.id)
         end
@@ -58,6 +57,5 @@ module GobiertoAdmin
         end
       end
     end
-
   end
 end

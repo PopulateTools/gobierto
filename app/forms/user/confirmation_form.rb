@@ -40,7 +40,7 @@ class User::ConfirmationForm
   end
 
   def site
-    @site ||= user.source_site if user
+    @site ||= user.site if user
   end
 
   def date_of_birth
@@ -133,7 +133,7 @@ class User::ConfirmationForm
 
   def deliver_welcome_email
     if user
-      User::UserMailer.welcome(user, user.source_site).deliver_later
+      User::UserMailer.welcome(user, user.site).deliver_later
     end
   end
 

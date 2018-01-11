@@ -53,7 +53,7 @@ module GobiertoAdmin
       confirmation_token reset_password_token
       creation_ip last_sign_in_ip
       last_sign_in_at
-      source_site_id
+      site_id
       census_verified
       date_of_birth
       gender

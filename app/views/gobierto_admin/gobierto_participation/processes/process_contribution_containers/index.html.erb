@@ -1,11 +1,16 @@
-<%= render 'gobierto_admin/gobierto_participation/shared/breadcrumb', last_breadcrumb_item: t('gobierto_admin.gobierto_participation.processes.process_contribution_containers.index.title'), process: current_process %>
+<%= render 'gobierto_admin/gobierto_participation/shared/breadcrumb', last_breadcrumb_item: nil, process: current_process %>
 
 <h1><%= current_process.title %></h1>
 
 <%= render 'gobierto_admin/gobierto_participation/shared/navigation' %>
 
-<div class="admin_tools right">
-  <%= link_to t('.new'), new_admin_participation_process_contribution_container_path, class: 'button' %>
+<div class="pure-g">
+  <div class="pure-u-3-4">
+    <strong><%= t('.title') %></strong>
+  </div>
+  <div class="pure-u-1-4 admin_tools right">
+    <%= link_to t('.new'), new_admin_participation_process_contribution_container_path, class: 'button' %>
+  </div>
 </div>
 
 <table>

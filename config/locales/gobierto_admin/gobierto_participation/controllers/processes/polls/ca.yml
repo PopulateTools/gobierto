@@ -6,5 +6,9 @@ ca:
         polls:
           destroy:
             success: L'enquesta ha estat arxivada correctament
+          edit:
+            polls: Enquestes
+          index:
+            polls: Enquestes
           recover:
             success: L'enquesta ha estat recuperada correctament

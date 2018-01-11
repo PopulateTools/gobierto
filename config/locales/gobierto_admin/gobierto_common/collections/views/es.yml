@@ -35,4 +35,5 @@ es:
             view: Ver página
             visibility_level:
               active: Publicada
+              archived: Archivada
               draft: Borrador

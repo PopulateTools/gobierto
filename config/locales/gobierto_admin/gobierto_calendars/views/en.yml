@@ -44,6 +44,7 @@ en:
           published_events: Published events
           view_event: View event
           visibility_level:
+            archived: Archived
             pending: Draft
             published: Published
         locations_form:

@@ -16,7 +16,7 @@ module GobiertoAdmin
           @file_attachment_attributes ||= {
             site_id: site.id,
             admin_id: admin.id,
-            collection_id: nil,
+            collection_id: collection.id,
             name: 'New attachment name',
             description: 'New attachment description',
             file: uploaded_file,

@@ -11,6 +11,10 @@ en:
         create:
           success_html: Event was successfully created. <a href="%{link}">See the
             event</a>.
+        destroy:
+          success: Event was successfully archived
+        recover:
+          success: Event was successfully recovered
         update:
           success_html: Event was successfully updated. <a href="%{link}">See the
             event</a>.

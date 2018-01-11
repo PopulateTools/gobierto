@@ -4,6 +4,9 @@ require_dependency "gobierto_participation"
 
 module GobiertoParticipation
   class ContributionContainer < ApplicationRecord
+    acts_as_paranoid column: :archived_at
+
+    include ActsAsParanoidAliases
     include User::Subscribable
     include GobiertoCommon::Sluggable
     include GobiertoCommon::HasVisibilityUserLevels
@@ -18,7 +21,12 @@ module GobiertoParticipation
     enum visibility_level: { draft: 0, active: 1 }
     enum contribution_type: { idea: 0, question: 1, proposal: 2 }
 
-    scope :open, -> { where("starts <= ? AND ends >= ?", Time.zone.now, Time.zone.now) }
+    scope :open, -> { where("gpart_contribution_containers.starts <= ?
+                             AND gpart_contribution_containers.ends >= ?", Time.zone.now, Time.zone.now) }
+    scope :by_site, -> (site) { joins(process: :site).where("sites.id = ? AND gpart_processes.visibility_level = 1
+                                                             AND gpart_contribution_containers.visibility_level = 1
+                                                             AND gpart_contribution_containers.ends >= ?",
+                                                             site.id, Time.zone.now) }
 
     validates :site, :process, :title, :description, :admin, presence: true
 
@@ -39,7 +47,7 @@ module GobiertoParticipation
     end
 
     def days_left
-      (ends - Date.current ).to_i
+      (ends - Date.current).to_i
     end
   end
 end

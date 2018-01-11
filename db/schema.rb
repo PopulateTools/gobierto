@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171227094848) do
+ActiveRecord::Schema.define(version: 20180109103354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -210,6 +210,8 @@ ActiveRecord::Schema.define(version: 20171227094848) do
     t.datetime "updated_at", null: false
     t.string "slug", default: "", null: false
     t.integer "collection_id"
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_ga_attachments_on_archived_at"
     t.index ["site_id", "slug"], name: "index_ga_attachments_on_site_id_and_slug", unique: true
   end
 
@@ -258,8 +260,8 @@ ActiveRecord::Schema.define(version: 20171227094848) do
     t.string "sharing_token"
     t.string "document_number_digest"
     t.jsonb "user_information"
-    t.index ["consultation_id", "document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["consultation_id"], name: "index_gbc_consultation_responses_on_consultation_id"
+    t.index ["document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["sharing_token"], name: "index_gbc_consultation_responses_on_sharing_token", unique: true
     t.index ["user_information"], name: "index_gbc_consultation_responses_on_user_information", using: :gin
   end
@@ -316,12 +318,14 @@ ActiveRecord::Schema.define(version: 20171227094848) do
     t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "external_id"
     t.jsonb "title_translations"
     t.jsonb "description_translations"
+    t.string "external_id"
     t.integer "site_id", null: false
     t.string "slug", null: false
     t.integer "collection_id"
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_gc_events_on_archived_at"
     t.index ["description_translations"], name: "index_gc_events_on_description_translations", using: :gin
     t.index ["site_id", "slug"], name: "index_gc_events_on_site_id_and_slug", unique: true
     t.index ["title_translations"], name: "index_gc_events_on_title_translations", using: :gin
@@ -348,6 +352,8 @@ ActiveRecord::Schema.define(version: 20171227094848) do
     t.string "slug", default: "", null: false
     t.integer "collection_id"
     t.jsonb "body_source_translations"
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_gcms_pages_on_archived_at"
     t.index ["body_source_translations"], name: "index_gcms_pages_on_body_source_translations", using: :gin
     t.index ["body_translations"], name: "index_gcms_pages_on_body_translations", using: :gin
     t.index ["site_id", "slug"], name: "index_gcms_pages_on_site_id_and_slug", unique: true
@@ -531,7 +537,9 @@ ActiveRecord::Schema.define(version: 20171227094848) do
     t.datetime "updated_at", null: false
     t.string "slug", default: "", null: false
     t.integer "visibility_user_level", default: 0, null: false
+    t.datetime "archived_at"
     t.index ["admin_id"], name: "index_gpart_contribution_containers_on_admin_id"
+    t.index ["archived_at"], name: "index_gpart_contribution_containers_on_archived_at"
     t.index ["process_id"], name: "index_gpart_contribution_containers_on_process_id"
     t.index ["site_id", "slug"], name: "index_gpart_contribution_containers_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_gpart_contribution_containers_on_site_id"
@@ -608,6 +616,8 @@ ActiveRecord::Schema.define(version: 20171227094848) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "visibility_user_level", default: 0, null: false
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_gpart_polls_on_archived_at"
     t.index ["process_id"], name: "index_gpart_polls_on_process_id"
   end
 
@@ -656,6 +666,8 @@ ActiveRecord::Schema.define(version: 20171227094848) do
     t.integer "process_type", default: 1, null: false
     t.integer "issue_id"
     t.bigint "scope_id"
+    t.datetime "archived_at"
+    t.index ["archived_at"], name: "index_gpart_processes_on_archived_at"
     t.index ["body_translations"], name: "index_gpart_processes_on_body_translations", using: :gin
     t.index ["site_id", "slug"], name: "index_gpart_processes_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_gpart_processes_on_site_id"

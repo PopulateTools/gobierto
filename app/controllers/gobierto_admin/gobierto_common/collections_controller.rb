@@ -8,14 +8,21 @@ module GobiertoAdmin
 
       def show
         @new_item_path = case @collection.item_type
-                         when 'GobiertoCms::Page', 'GobiertoCms::News'
+                         when "GobiertoCms::Page"
                            @pages = ::GobiertoCms::Page.where(id: @collection.pages_or_news_in_collection).sorted
+                           @archived_pages = current_site.pages.only_archived.where(collection_id: @collection.id).sorted
                            new_admin_cms_page_path(collection_id: @collection)
-                         when 'GobiertoAttachments::Attachment'
+                         when "GobiertoCms::News"
+                           @pages = ::GobiertoCms::Page.where(id: @collection.pages_or_news_in_collection).sorted
+                           @archived_pages = current_site.pages.only_archived.where(id: @collection.pages_or_news_in_collection).sorted
+                           new_admin_cms_page_path(collection_id: @collection)
+                         when "GobiertoAttachments::Attachment"
                            @file_attachments = ::GobiertoAttachments::Attachment.where(id: @collection.file_attachments_in_collection).sorted
+                           @archived_file_attachments = current_site.attachments.only_archived.where(collection_id: @collection.id).sorted
                            new_admin_attachments_file_attachment_path(collection_id: @collection)
-                         when 'GobiertoCalendars::Event'
+                         when "GobiertoCalendars::Event"
                            @events_presenter = GobiertoAdmin::GobiertoCalendars::EventsPresenter.new(@collection)
+                           @archived_events = current_site.events.only_archived.where(collection_id: @collection.id).sorted
                            @events = ::GobiertoCalendars::Event.by_collection(@collection).sorted
                            nil
                          end
@@ -32,12 +39,13 @@ module GobiertoAdmin
 
       def edit
         @containers = find_containers
-        @container_selected = @collection.container.to_global_id
+
+        @container_selected = @collection.container.is_a?(Module) ? @collection.container : @collection.container.to_global_id
         @types = type_names
         @type_selected = @collection.item_type
 
         @collection_form = CollectionForm.new(
-          @collection.attributes.except(*ignored_collection_attributes).merge(container_global_id: @collection.container.to_global_id)
+          @collection.attributes.except(*ignored_collection_attributes).merge(container_global_id: @container_selected)
         )
 
         render :edit_modal, layout: false and return if request.xhr?
@@ -54,7 +62,7 @@ module GobiertoAdmin
 
           redirect_to(
             admin_common_collection_path(@collection_form.collection),
-            notice: t('.success')
+            notice: t(".success")
           )
         else
           render :new_modal, layout: false and return if request.xhr?
@@ -75,7 +83,7 @@ module GobiertoAdmin
 
           redirect_to(
             admin_common_collection_path(@collection),
-            notice: t('.success')
+            notice: t(".success")
           )
         else
           render :edit_modal, layout: false and return if request.xhr?
@@ -86,11 +94,11 @@ module GobiertoAdmin
       private
 
       def track_create_activity
-        Publishers::GobiertoCommonCollectionActivity.broadcast_event('collection_created', default_activity_params.merge(subject: @collection_form.collection))
+        Publishers::GobiertoCommonCollectionActivity.broadcast_event("collection_created", default_activity_params.merge(subject: @collection_form.collection))
       end
 
       def track_update_activity
-        Publishers::GobiertoCommonCollectionActivity.broadcast_event('collection_updated', default_activity_params.merge(subject: @collection))
+        Publishers::GobiertoCommonCollectionActivity.broadcast_event("collection_updated", default_activity_params.merge(subject: @collection))
       end
 
       def default_activity_params
@@ -107,7 +115,7 @@ module GobiertoAdmin
       end
 
       def ignored_collection_attributes
-        %w[created_at updated_at container_type container_id]
+        %w(created_at updated_at container_type container_id)
       end
 
       def container_items
@@ -116,7 +124,7 @@ module GobiertoAdmin
 
       def find_containers
         @containers ||= container_items.map { |item| ["#{item.class.model_name.human}: #{item}", item.to_global_id] }
-        @containers.insert(1, ["GobiertoParticipation", nil])
+        @containers.insert(1, %w(GobiertoParticipation GobiertoParticipation))
       end
 
       def type_names
@@ -134,20 +142,24 @@ module GobiertoAdmin
 
       def redirect_to_custom_show
         case @collection.item_type
-          when 'GobiertoCms::Page'
-            if @collection.container.is_a?(::GobiertoParticipation::Process)
-              redirect_to admin_participation_process_pages_path(@collection.container) and return false
-            end
-          when 'GobiertoAttachments::Attachment'
-            if @collection.container.is_a?(::GobiertoParticipation::Process)
-              redirect_to admin_participation_process_file_attachments_path(@collection.container) and return false
-            end
-          when 'GobiertoCalendars::Event'
-            if @collection.container.is_a?(::GobiertoPeople::Person)
-              redirect_to admin_people_person_events_path(@collection.container) and return false
-            elsif @collection.container.is_a?(::GobiertoParticipation::Process)
-              redirect_to admin_participation_process_events_path(@collection.container) and return false
-            end
+        when "GobiertoCms::News"
+          if @collection.container.is_a?(::GobiertoParticipation::Process)
+            redirect_to admin_participation_process_pages_path(@collection.container) and return false
+          end
+        when "GobiertoCms::Page"
+          if @collection.container.is_a?(::GobiertoParticipation::Process)
+            redirect_to admin_participation_process_pages_path(@collection.container) and return false
+          end
+        when "GobiertoAttachments::Attachment"
+          if @collection.container.is_a?(::GobiertoParticipation::Process)
+            redirect_to admin_participation_process_file_attachments_path(@collection.container) and return false
+          end
+        when "GobiertoCalendars::Event"
+          if @collection.container.is_a?(::GobiertoPeople::Person)
+            redirect_to admin_people_person_events_path(@collection.container) and return false
+          elsif @collection.container.is_a?(::GobiertoParticipation::Process)
+            redirect_to admin_participation_process_events_path(@collection.container) and return false
+          end
         end
       end
     end

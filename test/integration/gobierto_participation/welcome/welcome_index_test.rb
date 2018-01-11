@@ -134,6 +134,7 @@ module GobiertoParticipation
           with_signed_in_user(user) do
             visit @path
 
+            assert has_link? poll.title
             assert has_content? poll.questions.first.title
           end
         end

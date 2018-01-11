@@ -44,6 +44,7 @@ es:
           published_events: Eventos publicados
           view_event: Ver evento
           visibility_level:
+            archived: Archivado
             pending: Borrador
             published: Publicado
         locations_form:

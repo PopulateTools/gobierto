@@ -32,8 +32,8 @@ module GobiertoBudgetConsultations
       @user ||= users(:peter)
     end
 
-    def unverified_user
-      @unverified_user ||= users(:susan)
+    def site_unverified_user
+      @site_unverified_user ||= users(:janet)
     end
 
     def test_consultation_response_creation_when_not_signed_in
@@ -45,7 +45,7 @@ module GobiertoBudgetConsultations
     end
 
     def test_consultation_response_creation_when_user_is_not_verified
-      with_signed_in_user(unverified_user) do
+      with_signed_in_user(site_unverified_user) do
         # Force referer detection
         Capybara.current_session.driver.header "Referer", @path
         visit @path

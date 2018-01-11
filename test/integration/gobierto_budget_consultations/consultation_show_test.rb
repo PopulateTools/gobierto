@@ -37,8 +37,8 @@ module GobiertoBudgetConsultations
       @user_verified ||= users(:peter)
     end
 
-    def user_no_verified
-      @user_no_verified ||= users(:susan)
+    def site_unverified_user
+      @site_unverified_user ||= users(:janet)
     end
 
     def test_consultation_show
@@ -109,7 +109,7 @@ module GobiertoBudgetConsultations
     end
 
     def test_show_summary_and_items_with_session_no_verified
-      with_signed_in_user(user_no_verified) do
+      with_signed_in_user(site_unverified_user) do
         visit @path
 
         assert has_link?("Do you want to opinate?")

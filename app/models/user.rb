@@ -22,7 +22,7 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :custom_records
 
-  validates :email, uniqueness: true
+  validates :email, uniqueness: { scope: :site }
 
   scope :census_verified, -> { where(census_verified: true) }
   scope :sorted, -> { order(created_at: :desc) }

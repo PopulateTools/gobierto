@@ -36,12 +36,10 @@ module GobiertoParticipation
 
         def with_js_session_of_user(user)
           with_javascript do
-            with_current_site(site) do
-              visit root_path
-              sign_out_user unless has_content? "Sign in"
-              with_signed_in_user(user) do
-                yield
-              end
+            visit root_path
+            sign_out_user unless has_content? "Sign in"
+            with_signed_in_user(user) do
+              yield
             end
           end
         end

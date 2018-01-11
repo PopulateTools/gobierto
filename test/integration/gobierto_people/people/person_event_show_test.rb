@@ -82,20 +82,18 @@ module GobiertoPeople
 
       def test_subscription_block
         with_javascript do
-          with_current_site(site) do
-            with_signed_in_user(user) do
-              visit @path
+          with_signed_in_user(user) do
+            visit @path
 
-              within ".slim_nav_bar" do
-                assert has_link? "Follow event"
-              end
-
-              click_on "Follow event"
-              assert has_link? "Event followed!"
-
-              click_on "Event followed!"
+            within ".slim_nav_bar" do
               assert has_link? "Follow event"
             end
+
+            click_on "Follow event"
+            assert has_link? "Event followed!"
+
+            click_on "Event followed!"
+            assert has_link? "Follow event"
           end
         end
       end

@@ -5,6 +5,7 @@ require_dependency "gobierto_participation"
 module GobiertoParticipation
   class ProcessStage < ApplicationRecord
     include GobiertoCommon::Sortable
+    include GobiertoCommon::Sluggable
 
     before_destroy :check_stage_active
 
@@ -102,6 +103,10 @@ module GobiertoParticipation
       elsif results?
         '#' # TODO
       end
+    end
+
+    def attributes_for_slug
+      [title]
     end
 
     private

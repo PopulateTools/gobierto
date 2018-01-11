@@ -20,9 +20,17 @@ module GobiertoCommon
       new_slug = base_slug
 
       count = 2
-      while self.class.exists?(site: site, slug: new_slug)
-        new_slug = "#{base_slug}-#{count}"
-        count += 1
+
+      if try(:site_id).present?
+        while self.class.exists?(site: site, slug: new_slug)
+          new_slug = "#{base_slug}-#{count}"
+          count += 1
+        end
+      elsif try(:process_id).present?
+        while self.class.exists?(process: process, slug: new_slug)
+          new_slug = "#{base_slug}-#{count}"
+          count += 1
+        end
       end
 
       self.slug = new_slug

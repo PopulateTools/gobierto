@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   EMAIL_ADDRESS_REGEXP = /\A(.+)@(.+\..+)\z/
 
-  belongs_to :source_site, class_name: "Site"
+  belongs_to :site
 
   has_many :verifications, class_name: "User::Verification", dependent: :destroy
   has_many :census_verifications, class_name: "User::Verification::CensusVerification"

@@ -22,96 +22,20 @@
         </div>
 
         <div class="header-detail">
-
           <div>5 ejes</div>
           <div>24 líneas de actuación</div>
           <div>123 actuaciones</div>
           <div>1.234 proyectos</div>
-
         </div>
 
       </div>
 
-
-      <div class="plan_content">
+      <div class="planification-content">
 
         <section class="level_1">
-
-          <div class="node cat_1">
-            <a href="#">
-              <div class="illustration"></div>
-              <div class="container">
-                <div class="progress" style="width: 26%"></div>
-                <div class="content">
-                  <h2>Personas y familias</h2>
-                  <div class="execution_number">
-                    26%
-                  </div>
-                </div>
-              </div>
-            </a>
+          <div class="node node-root" v-for="(model, index) in json" :class="['cat_' + (index + 1)]">
+            <node-root :model="model"></node-root>
           </div>
-
-          <div class="node cat_2">
-            <a href="#">
-              <div class="illustration"></div>
-              <div class="container">
-                <div class="progress" style="width: 56%"></div>
-                <div class="content">
-                  <h2>Buen gobierno</h2>
-                  <div class="execution_number">
-                    56%
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="node cat_3">
-            <a href="#">
-              <div class="illustration"></div>
-              <div class="container">
-                <div class="progress" style="width: 66%"></div>
-                <div class="content">
-                  <h2>Ciudad</h2>
-                  <div class="execution_number">
-                    66%
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="node cat_4">
-            <a href="#">
-              <div class="illustration"></div>
-              <div class="container">
-                <div class="progress" style="width: 36%"></div>
-                <div class="content">
-                  <h2>Economía</h2>
-                  <div class="execution_number">
-                    36%
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div class="node cat_5">
-            <a href="#">
-              <div class="illustration"></div>
-              <div class="container">
-                <div class="progress" style="width: 96%"></div>
-                <div class="content">
-                  <h2>Ciudadanía</h2>
-                  <div class="execution_number">
-                    96%
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
-
         </section>
 
         <section class="level_2 cat_1">
@@ -201,33 +125,90 @@
   </div>
 </div>
 
+<!-- item view template -->
+<script type="text/x-template" id="node-root-template">
+  <a href="#" @click="open">
+    <div class="node-img js-img">
+      <img :src="model.attributes.img" alt="">
+    </div>
+    <div class="node-info js-info">
+      <div class="info-progress progress" :style="{ width: model.attributes.complete }"></div>
+      <div class="info-content">
+        <h3>{{ model.attributes.title }}</h3>
+        <span>{{ model.attributes.complete }}</span>
+      </div>
+    </div>
+  </a>
+</script>
+
+<script type="text/javascript">
+
+  // define the item view component
+  Vue.component('node-root', {
+    template: '#node-root-template',
+    props: ['model'],
+    data() {
+      return {}
+    },
+    methods: {
+      open() {
+        // TODO: Revisar esto
+        $('section.level_1').velocity({flex: "0 0 25%"});
+        $('section.level_1 .js-img').velocity({flex: "0"});
+        $('section.level_1 .js-info').velocity({padding: "1.5em"});
+        $('section.level_1 .js-info h3, section.level_1 .js-info span').velocity({"font-size": "1.25rem" });
+
+        $('section.level_2').velocity("transition.slideRightBigIn");
+        $('section.level_2').css("display: flex");
+        $(this).parents('.timeline_row').toggleClass('toggled');
+
+        $(this).find('.fa').toggleClass('fa-caret-right fa-caret-down');
+        $(this).siblings('.description').toggle();
+      }
+    }
+  });
+
+  var app = new Vue({
+    el: '#gobierto-planification',
+    name: 'gobierto-planification',
+    data() {
+      return {
+        json: {}
+      }
+    },
+    created: function() {
+      this.getJson();
+    },
+    methods: {
+      getJson: function() {
+        $.getJSON('/planification.json', function(json) {
+          this.json = json;
+        }.bind(this));
+      }
+    }
+  });
+</script>
 <script type="text/javascript">
 
   // init
   $('section.level_2, section.level_3').hide();
-  //
-  // $('section .node a').click(function() {
-  //   event.preventDefault();
-  //
-  //   $('section.level_1 .illustration').velocity({width: "0"});
-  //   $('section.level_1').velocity({width: "25%"});
-  //   $('section.level_1 .content').velocity({padding: "1.5em", height: "150px"});
-  //   $('section.level_1 .content h2, section.level_1 .content .execution_number').velocity({"font-size": "1.25rem" });
-  //
-  //   $('section.level_2').velocity("transition.slideRightBigIn");
-  //   $('section.level_2').css("display: flex");
-  //
-  //   // transition.expandIn
-  //   // .slideRightBigIn
-  //
-  //
-  //
-  //
-  //   $(this).parents('.timeline_row').toggleClass('toggled');
-  //
-  //   $(this).find('.fa').toggleClass('fa-caret-right fa-caret-down');
-  //   $(this).siblings('.description').toggle();
-  // });
 
+  //close everything
+  $(document).click(function (e) {
+    e.preventDefault();
+
+    var container = $(".planification-content");
+
+    // if the target of the click isn't the container nor a descendant of the container
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+      $('section.level_2, section.level_3').hide();
+
+      $('section.level_1').removeAttr('style');
+      $('section.level_1 .js-img').removeAttr('style');
+      $('section.level_1 .js-info').removeAttr('style');
+      $('section.level_1 .js-info h3, section.level_1 .js-info span').removeAttr('style');
+
+    }
+  })
 
 </script>

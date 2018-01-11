@@ -3,13 +3,27 @@
  *
  */
 
-$cNode1: #DB524B;
-$cNode2: #00909E;
-$cNode3: #F1AD44;
-$cNode4: #85A81C;
-$cNode5: #00529E;
-
+// Vars
 $nodeLevel1IllustrationWidth: 33%;
+$nodeLevel1Height:150px;
+
+$node-colors: (
+  cNode1: #DB524B,
+  cNode2: #00909E,
+  cNode3: #F1AD44,
+  cNode4: #85A81C,
+  cNode5: #00529E
+);
+
+// Functions
+@function getColor($key) {
+  @if map-has-key($node-colors, $key) {
+    @return map-get($node-colors, $key);
+  }
+
+  @warn "Unknown `#{$key}` in module-planification/$node-colors.";
+  @return null;
+}
 
 // styles only concern this module
 .gobierto_planification {
@@ -26,85 +40,116 @@ $nodeLevel1IllustrationWidth: 33%;
       h3 {
         margin-top: 0;
       }
-      
+
       span {
         font-size: $f1;
       }
     }
 
-    .header-detail{
-
-    }
+    .header-detail{}
   }
 
-  .plan_content {
+  .planification-content {
     display: flex;
   }
-  section.level_1 {
-    flex-grow: 1;
-    .node {
-      position: relative;
+
+  // @component node
+  .node {
+    position: relative;
+    display: flex;
+
+    &:hover {
+      opacity: .9;
+    }
+
+    a {
       display: flex;
-      a {
-        display: flex;
-        width: 100%;
-        color: #FFF;
-        text-decoration: none;
-      }
-      &:hover {
-        opacity: .9;
-        //@include transition;
-      }
-      h2 {
-        color: #FFF;
-        margin: 0 0 .25em 0;
-        font-size: $f3;
-      }
-      .execution_number {
-        font-size: $f3;
-        font-weight: 200;
-      }
+      width: 100%;
+      color: #FFF;
+      text-decoration: none;
+      max-height: $nodeLevel1Height;
+    }
 
-      .container {
-        position: relative;
-        width: 100%;
-      }
-      .illustration {
-        width: $nodeLevel1IllustrationWidth;
+    .node-img {
+      flex: 0 0 $nodeLevel1IllustrationWidth;
+      mix-blend-mode: multiply;
 
+      img {
+        max-height: $nodeLevel1Height;
+        width: 100%;
+        object-fit: cover;
       }
-      .progress {
+    }
+
+    .node-info {
+      position: relative;
+      flex: 1;
+
+      .info-progress {
         top: 0;
         left: 0;
         position: absolute;
         height: 100%;
         z-index: 1;
       }
-      .content {
+
+      .info-content {
         position: relative;
         z-index: 2;
         box-sizing: border-box;
         padding: 2em;
         color: #FFF;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        h3 {
+          color: #FFF;
+          margin: 0 0 .25em 0;
+          font-size: $f3;
+        }
+
+        span {
+          font-size: $f3;
+          font-weight: 200;
+        }
+      }
+    }
+
+    @for $i from 1 through length($node-colors) {
+      // Get color from position `i` of `node-colors` array keys
+      $color: getColor(nth(map-keys($node-colors), $i));
+
+      &.cat_#{$i} {
+        background-color: transparentize($color, .05);
+        .progress {
+          background-color: $color;
+        }
       }
     }
   }
+
+// static content
+  section.level_1 {
+    flex: 1 1 0%;
+  }
   section.level_2 {
     display: flex;
-    flex-grow: 10;
+    flex: 10;
     padding: 2em 3em;
 
     &.cat_1 {
-      background: transparentize($cNode1, .9);
-      color: $cNode1;
+      background: transparentize(getColor(cNode1), .9);
+      color: getColor(cNode1);
       h3, h3 a {
-        color: $cNode1;
+        color: getColor(cNode1);
       }
       .node {
-        border-top-color: transparentize($cNode1, .25);
+        border-top-color: transparentize(getColor(cNode1), .25);
       }
       .fa {
-        background: transparentize($cNode1, .9);
+        background: transparentize(getColor(cNode1), .9);
       }
     }
     .node {
@@ -137,36 +182,6 @@ $nodeLevel1IllustrationWidth: 33%;
       padding: .15em .45em;
       line-height: 1;
       border-radius: 3px;
-    }
-  }
-  .node.cat_1 {
-    background: transparentize($cNode1, .05);
-    .progress {
-      background: $cNode1;
-    }
-  }
-  .node.cat_2 {
-    background: transparentize($cNode2, .1);
-    .progress {
-      background: $cNode2;
-    }
-  }
-  .node.cat_3 {
-    background: transparentize($cNode3, .1);
-    .progress {
-      background: $cNode3;
-    }
-  }
-  .node.cat_4 {
-    background: transparentize($cNode4, .1);
-    .progress {
-      background: $cNode4;
-    }
-  }
-  .node.cat_5 {
-    background: transparentize($cNode5, .1);
-    .progress {
-      background: $cNode5;
     }
   }
 }

@@ -10,7 +10,7 @@ class User::SessionForm
 
   attr_reader :user
 
-  validates :email, :password, presence: true
+  validates :email, :password, :site, presence: true
 
   def save
     user.try(:authenticate, password) if valid?

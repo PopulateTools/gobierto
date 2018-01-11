@@ -44,7 +44,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   def test_by_user_site_scope
-    subject = User.by_source_site(madrid_site)
+    subject = User.by_site(madrid_site)
 
     assert_includes subject, madrid_user
     refute_includes subject, santander_user

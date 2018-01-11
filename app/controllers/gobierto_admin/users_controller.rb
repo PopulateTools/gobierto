@@ -31,7 +31,7 @@ module GobiertoAdmin
     private
 
     def get_users_in_current_site
-      User.by_source_site(current_site)
+      User.by_site(current_site)
     end
 
     def find_user

@@ -22,7 +22,7 @@ module GobiertoAdmin
     end
 
     def users_in_site
-      @users_in_site ||= User.by_source_site(site)
+      @users_in_site ||= User.by_site(site)
     end
 
     def test_user_list

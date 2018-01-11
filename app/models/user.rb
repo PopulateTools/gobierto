@@ -26,7 +26,7 @@ class User < ApplicationRecord
 
   scope :census_verified, -> { where(census_verified: true) }
   scope :sorted, -> { order(created_at: :desc) }
-  scope :by_source_site, ->(source_site) { where(source_site: source_site) }
+  scope :by_site, ->(site) { where(site: site) }
 
   enum gender: { male: 0, female: 1 }
   enum notification_frequency: {

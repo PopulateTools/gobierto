@@ -3,6 +3,7 @@ class User::SessionForm
 
   attr_accessor(
     :email,
+    :site,
     :password,
     :referrer_url
   )
@@ -16,6 +17,6 @@ class User::SessionForm
   end
 
   def user
-    @user ||= User.confirmed.find_by(email: email.downcase)
+    @user ||= User.confirmed.find_by(email: email.downcase, site: site)
   end
 end

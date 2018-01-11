@@ -142,6 +142,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
+        sleep 2
         within ".container" do
           assert has_content? issue.name
           assert has_content? issue.description

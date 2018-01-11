@@ -3,7 +3,7 @@
 require "test_helper"
 
 module GobiertoParticipation
-  class ProcessEventsShowTest < ActionDispatch::IntegrationTest
+  class ScopeShowTest < ActionDispatch::IntegrationTest
     def setup
       super
       @path = gobierto_participation_scope_path(:center)

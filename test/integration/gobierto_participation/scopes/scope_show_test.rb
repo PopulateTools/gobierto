@@ -6,7 +6,7 @@ module GobiertoParticipation
   class ScopeShowTest < ActionDispatch::IntegrationTest
     def setup
       super
-      @path = gobierto_participation_scope_path(:center)
+      @path = gobierto_participation_scope_path(scope_center.slug)
     end
 
     def user
@@ -17,16 +17,16 @@ module GobiertoParticipation
       @site ||= sites(:madrid)
     end
 
-    def scope
-      @scope ||= gobierto_common_scopes(:center)
+    def scope_center
+      @scope_center ||= gobierto_common_scopes(:center)
     end
 
     def processes
-      @processes ||= site.processes.process.where(scope: scope).active
+      @processes ||= site.processes.process.where(scope: scope_center).active
     end
 
     def groups
-      @groups ||= site.processes.group_process.where(scope: scope)
+      @groups ||= site.processes.group_process.where(scope: scope_center)
     end
 
     def test_menu_subsections
@@ -62,7 +62,7 @@ module GobiertoParticipation
 
         click_link "News"
 
-        assert_equal gobierto_participation_scope_pages_path(scope_id: scope.slug), current_path
+        assert_equal gobierto_participation_scope_pages_path(scope_id: scope_center.slug), current_path
 
         within ".main-nav" do
           assert has_link? "Participation"
@@ -78,7 +78,7 @@ module GobiertoParticipation
 
         click_link "Agenda"
 
-        assert_equal gobierto_participation_scope_events_path(scope_id: scope.slug), current_path
+        assert_equal gobierto_participation_scope_events_path(scope_id: scope_center.slug), current_path
 
         within ".main-nav" do
           assert has_link? "Participation"
@@ -92,7 +92,7 @@ module GobiertoParticipation
 
         click_link "Documents"
 
-        assert_equal gobierto_participation_scope_attachments_path(scope_id: scope.slug), current_path
+        assert_equal gobierto_participation_scope_attachments_path(scope_id: scope_center.slug), current_path
 
         within ".main-nav" do
           assert has_link? "Participation"
@@ -108,7 +108,7 @@ module GobiertoParticipation
 
         click_link "Activity"
 
-        assert_equal gobierto_participation_scope_activities_path(scope_id: scope.slug), current_path
+        assert_equal gobierto_participation_scope_activities_path(scope_id: scope_center.slug), current_path
 
         within ".main-nav" do
           assert has_link? "Participation"
@@ -142,7 +142,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        assert_equal scope.active_pages.size, all(".place_news-item").size
+        assert_equal scope_center.active_pages.size, all(".place_news-item").size
       end
     end
 
@@ -150,7 +150,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        assert_equal scope.events.size, all(".place_events-item").size
+        assert_equal scope_center.events.size, all(".place_events-item").size
       end
     end
 

@@ -33,12 +33,12 @@
       <div class="planification-content">
 
         <section class="level_1">
-          <div class="node-root" v-for="(model, index) in json" :class="['cat_' + (index + 1)]">
+          <div class="node-root" v-for="(model, index) in json" :class="['cat_' + (index % 5 + 1)]">
             <node-root :model="model"></node-root>
           </div>
         </section>
 
-        <section class="level_2" :class="['cat_' + (selected.id + 1)]">
+        <section class="level_2" :class="['cat_' + (selected.id % 5 + 1)]">
           <div class="lines-header">
             <div>{{ selected.children.length }} lineas de actuación</div>
             <div>% progress</div>

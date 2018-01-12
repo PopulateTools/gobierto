@@ -14,7 +14,7 @@ module GobiertoParticipation
     end
 
     def issues
-      @issues ||= site.issues.alphabetically_sorted
+      @issues ||= site.issues.sorted
     end
 
     def test_breadcrumb_items

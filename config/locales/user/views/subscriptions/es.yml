@@ -36,6 +36,8 @@ es:
         follow_issue: Seguir tema
         follow_person: Seguir persona
         follow_process: Seguir proceso
+        follow_scope: Seguir ámbito
         issue_followed: "¡Tema seguido!"
         person_followed: "¡Persona seguida!"
         process_followed: "¡Proceso seguido!"
+        scope_followed: "¡Ámbito seguido!"

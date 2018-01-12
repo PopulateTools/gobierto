@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoCommon
   class Collection < ApplicationRecord
     include User::Subscribable
@@ -6,7 +8,7 @@ module GobiertoCommon
     belongs_to :site
     belongs_to :container, polymorphic: true
     has_many :collection_items, dependent: :destroy
-    has_one :calendar_configuration, class_name: 'GobiertoCalendars::CalendarConfiguration'
+    has_one :calendar_configuration, class_name: "GobiertoCalendars::CalendarConfiguration"
 
     translates :title
 
@@ -19,23 +21,23 @@ module GobiertoCommon
     scope :by_item_type, ->(item_type) { where(item_type: item_type) }
 
     def news_in_collection
-      collection_items.where(item_type: 'GobiertoCms::News').pluck(:item_id)
+      collection_items.where(item_type: "GobiertoCms::News").pluck(:item_id)
     end
 
     def pages_in_collection
-      collection_items.where(item_type: 'GobiertoCms::Page').pluck(:item_id)
+      collection_items.where(item_type: "GobiertoCms::Page").pluck(:item_id)
     end
 
     def pages_or_news_in_collection
-      collection_items.where(item_type: %W(GobiertoCms::News GobiertoCms::Page)).pluck(:item_id)
+      collection_items.where(item_type: %w(GobiertoCms::News GobiertoCms::Page)).pluck(:item_id)
     end
 
     def file_attachments_in_collection
-      collection_items.where(item_type: 'GobiertoAttachments::Attachment').pluck(:item_id)
+      collection_items.where(item_type: "GobiertoAttachments::Attachment").pluck(:item_id)
     end
 
     def events_in_collection
-      collection_items.where(item_type: 'GobiertoCalendars::Event').pluck(:item_id)
+      collection_items.where(item_type: "GobiertoCalendars::Event").pluck(:item_id)
     end
 
     def container
@@ -111,11 +113,11 @@ module GobiertoCommon
     def calendar_integration
       if calendar_configuration
         case calendar_configuration.integration_name
-        when 'ibm_notes'
+        when "ibm_notes"
           GobiertoPeople::IbmNotes::CalendarIntegration
-        when 'google_calendar'
+        when "google_calendar"
           GobiertoPeople::GoogleCalendar::CalendarIntegration
-        when 'microsoft_exchange'
+        when "microsoft_exchange"
           GobiertoPeople::MicrosoftExchange::CalendarIntegration
         end
       end
@@ -131,6 +133,7 @@ module GobiertoCommon
       [
         site_for_container(container), gobierto_module_for_container(container),
         area_for_container(container), issue_for_container(container),
+        scope_for_container(container),
         gobierto_module_instance_for_container(container)
       ].compact.uniq
     end
@@ -163,6 +166,12 @@ module GobiertoCommon
       end
     end
 
+    def scope_for_container(container)
+      if container.is_a?(GobiertoCommon::Scope)
+        [container.class.name, container.id]
+      end
+    end
+
     def gobierto_module_instance_for_container(container)
       if !container.is_a?(Module) && !container_is_a_collector?(container)
         [container.class.name, container.id]
@@ -178,7 +187,7 @@ module GobiertoCommon
     end
 
     def attributes_for_slug
-      [ title ]
+      [title]
     end
   end
 end

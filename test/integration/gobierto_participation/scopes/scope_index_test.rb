@@ -14,7 +14,7 @@ module GobiertoParticipation
     end
 
     def scopes
-      @scopes ||= site.scopes.alphabetically_sorted
+      @scopes ||= site.scopes.sorted
     end
 
     def test_breadcrumb_items

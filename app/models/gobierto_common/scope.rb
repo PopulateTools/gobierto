@@ -17,10 +17,6 @@ module GobiertoCommon
 
     scope :sorted, -> { order(position: :asc, created_at: :desc) }
 
-    def self.alphabetically_sorted
-      all.sort_by(&:name)
-    end
-
     def parameterize
       { slug: slug }
     end

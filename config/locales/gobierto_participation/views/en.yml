@@ -71,9 +71,12 @@ en:
         agenda: Agenda
         documents: Documents
         news: News
+    news:
+      show:
+        news: News
     pages:
       show:
-        news: Noticias
+        pages: Pages
     participation_attachments: See all the documents of Participation
     processes:
       contribution_containers:

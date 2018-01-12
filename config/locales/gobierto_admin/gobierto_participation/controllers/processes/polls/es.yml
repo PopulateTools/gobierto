@@ -6,5 +6,9 @@ es:
         polls:
           destroy:
             success: La encuesta ha sido archivada correctamente
+          edit:
+            polls: Encuestas
+          index:
+            polls: Encuestas
           recover:
             success: La encuesta ha sido recuperada correctamente

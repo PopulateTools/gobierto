@@ -7,6 +7,7 @@ ca:
       form:
         placeholders:
           name: ex. casc urbà
+          slug: sobre-aquest-ambit
       index:
         created_at: Creat
         name: Àmbit

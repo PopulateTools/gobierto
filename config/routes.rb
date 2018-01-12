@@ -338,6 +338,13 @@ Rails.application.routes.draw do
         resources :activities, only: [:index], controller: "issues/activities", path: "actividad"
       end
 
+      resources :scopes, only: [:index, :show], path: "ambitos" do
+        resources :attachments, only: [:index, :show], controller: "scopes/attachments", path: "documentos"
+        resources :events, only: [:index, :show], controller: "scopes/events", path: "agendas"
+        resources :pages, only: [:index, :show], controller: "scopes/pages", path: "noticias"
+        resources :activities, only: [:index], controller: "scopes/activities", path: "actividad"
+      end
+
       resources :attachments, only: [:index, :show], controller: "attachments", path: "documentos"
       resources :events, only: [:index, :show], controller: "events", path: "agendas"
       resources :pages, only: [:show], controller: "pages", path: "paginas"

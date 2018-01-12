@@ -64,6 +64,7 @@ en:
         issues: Issues
         processes: Processes
         questions: Ask
+        scopes: Scopes
       process_breadcrumb:
         root: Home
       secondary_nav:
@@ -191,6 +192,27 @@ en:
         scope: Scope
       timeline_row:
         view_stage: Access this stage
+    scopes:
+      index:
+        intro_html: Your ideas help improve %{location_name} and the lives of all
+          that we reside here. Bring your best ideas to our <strong> permanent spaces
+          participation </ strong>
+      participation_groups:
+        work_groups_description: Check the activity of each group and participate.
+        work_groups_title: Work groups
+      participation_latest_info:
+        agenda: Paritipation Agenda
+        news: News
+        no_events: There are no related events
+        no_news: There are no related news
+        show_more_events: See more events
+        show_more_news: See more news
+        show_more_updates: See more updates
+        the_last: The last
+        up_to_date: "%{site_title} up to date"
+      participation_proccesses:
+        processes_description: Consultation and participation in specific processes.
+        processes_title: Processes in progress
     shared:
       activities_for: Updates for %{container}
       agenda: Agenda

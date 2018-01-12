@@ -17,10 +17,6 @@ class Issue < ApplicationRecord
 
   scope :sorted, -> { order(position: :asc, created_at: :desc) }
 
-  def self.alphabetically_sorted
-    all.sort_by(&:name)
-  end
-
   def to_s
     self.name
   end

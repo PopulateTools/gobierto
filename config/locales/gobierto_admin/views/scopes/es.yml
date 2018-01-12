@@ -7,6 +7,7 @@ es:
       form:
         placeholders:
           name: ej. Casco urbano
+          slug: acerca-de-este-ambito
       index:
         created_at: Creado
         name: Ámbito

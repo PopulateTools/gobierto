@@ -14,7 +14,7 @@ module GobiertoCommon
 
     validates :site, :title, :item_type, presence: true
     validates :slug, uniqueness: { scope: :site }
-    validates :container_id, uniqueness: { scope: [:container_type, :item_type] }
+    validates :container_id, uniqueness: { scope: [:site, :container_type, :item_type] }
 
     attr_reader :container
 

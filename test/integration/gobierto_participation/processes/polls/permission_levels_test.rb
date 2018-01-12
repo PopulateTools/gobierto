@@ -48,8 +48,10 @@ module GobiertoParticipation
         end
 
         def test_polls_not_registered_index
-          sign_out_user
-          assert_both_levels_appear_in_index
+          with_current_site(site) do
+            sign_out_user
+            assert_both_levels_appear_in_index
+          end
         end
 
         def test_polls_registered_index

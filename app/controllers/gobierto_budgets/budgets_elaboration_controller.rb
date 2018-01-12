@@ -33,7 +33,7 @@ class GobiertoBudgets::BudgetsElaborationController < GobiertoBudgets::Applicati
   end
 
   def load_year
-    @year = Date.today.year + 1
+    @year = GobiertoBudgets::SearchEngineConfiguration::Year.last + 1
   end
 
 end

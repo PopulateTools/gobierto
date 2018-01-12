@@ -7,7 +7,8 @@ module GobiertoParticipation
       when "information"
         if stage.process_stage_page.present?
           gobierto_participation_process_page_path(id: stage.process_stage_page.page.slug,
-                                                   process_id: stage.process.slug)
+                                                   process_id: stage.process.slug,
+                                                   page: "stage")
         end
       when "agenda"
         gobierto_participation_process_events_path(process_id: stage.process.slug)
@@ -22,7 +23,8 @@ module GobiertoParticipation
       when "results"
         if stage.process_stage_page.present?
           gobierto_participation_process_page_path(id: stage.process_stage_page.page.slug,
-                                                   process_id: stage.process.slug)
+                                                   process_id: stage.process.slug,
+                                                   page: "stage")
         end
       end
     end

@@ -7,6 +7,9 @@ module GobiertoAdmin
   module GobiertoAttachments
     module FileAttachmentFormTests
       class UpdateTest < BaseTest
+        def collection
+          @collection ||= gobierto_common_collections(:gender_violence_process_documents)
+        end
 
         def existing_attachment
           @existing_attachment ||= gobierto_attachments_attachments(:pdf_attachment)
@@ -17,7 +20,7 @@ module GobiertoAdmin
             id: existing_attachment.id,
             site_id: site.id,
             admin_id: admin.id,
-            collection_id: nil,
+            collection_id: collection.id,
             name: 'Edited name',
             description: 'Edited description',
             slug: 'edited-slug'

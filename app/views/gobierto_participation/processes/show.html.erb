@@ -106,7 +106,7 @@
               <span class="accent"><i class="fa fa-folder"></i><%= t('.scope') %></span>
             </div>
             <div class="pure-u-1 pure-u-md-1-2">
-                <%= current_process.scope.name %>
+                <%= link_to current_process.scope.name, gobierto_participation_scope_path(current_process.scope.slug) %>
             </div>
           </div>
         <% end %>

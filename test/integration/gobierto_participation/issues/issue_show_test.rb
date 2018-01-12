@@ -3,10 +3,10 @@
 require "test_helper"
 
 module GobiertoParticipation
-  class ProcessEventsShowTest < ActionDispatch::IntegrationTest
+  class IssueShowTest < ActionDispatch::IntegrationTest
     def setup
       super
-      @path = gobierto_participation_issue_path(:culture)
+      @path = gobierto_participation_issue_path(:women)
     end
 
     def user
@@ -18,7 +18,7 @@ module GobiertoParticipation
     end
 
     def issue
-      @issue ||= issues(:culture)
+      @issue ||= issues(:women)
     end
 
     def processes

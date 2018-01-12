@@ -5,6 +5,9 @@
   <div class="sub-nav-item<%= class_if(' active', controller_name == 'issues') %>">
     <%= link_to t('gobierto_participation.layouts.menu_subsections.issues'), gobierto_participation_issues_path, data: { turbolinks: false } %>
   </div>
+  <div class="sub-nav-item<%= class_if(' active', controller_name == 'scopes') %>">
+    <%= link_to t('gobierto_participation.layouts.menu_subsections.scopes'), gobierto_participation_scopes_path, data: { turbolinks: false } %>
+  </div>
   <div class="sub-nav-item<%= class_if(' active', controller_name == 'processes') %>">
     <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path, data: { turbolinks: false } %>
   </div>

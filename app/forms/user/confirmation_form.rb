@@ -13,6 +13,7 @@ class User::ConfirmationForm
     :date_of_birth,
     :gender,
     :creation_ip,
+    :site,
     :document_number
   )
   attr_reader :user
@@ -32,15 +33,11 @@ class User::ConfirmationForm
   end
 
   def user
-    @user ||= User.find_by_confirmation_token(confirmation_token)
+    @user ||= User.find_by(confirmation_token: confirmation_token, site: site)
   end
 
   def email
     @email ||= user.email
-  end
-
-  def site
-    @site ||= user.site if user
   end
 
   def date_of_birth

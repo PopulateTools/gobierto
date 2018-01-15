@@ -19,8 +19,10 @@ module GobiertoCore
     def self.liquid_str(site, liquid_path)
       if GobiertoCore::SiteTemplate.current_site_has_custom_template?(site, liquid_path)
         GobiertoCore::SiteTemplate.current_site_custom_template(site, liquid_path).first.markup
-      else
+      elsif File.exist?("app/views/" + liquid_path + ".liquid")
         File.read("app/views/" + liquid_path + ".liquid")
+      else
+        liquid_path
       end
     end
   end

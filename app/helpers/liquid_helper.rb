@@ -2,7 +2,9 @@
 
 module LiquidHelper
   def render_liquid(template_content)
-    if liquid_str = GobiertoCore::SiteTemplate.liquid_str(current_site, template_content)
+    liquid_str = GobiertoCore::SiteTemplate.liquid_str(current_site, template_content)
+
+    if liquid_str
       template_content = liquid_str
     end
 

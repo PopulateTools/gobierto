@@ -11,4 +11,12 @@ module SiteSessionHelpers
       end
     end
   end
+
+  def with_current_site_with_host(site)
+    with_current_site(site) do
+      with_site_host(site) do
+        yield
+      end
+    end
+  end
 end

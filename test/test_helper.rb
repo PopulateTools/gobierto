@@ -42,6 +42,7 @@ require "webmock/minitest"
 require "support/common_helpers"
 require "support/session_helpers"
 require "support/site_session_helpers"
+require "support/app_host_helpers"
 require "support/message_delivery_helpers"
 require "support/gobierto_site_constraint_helpers"
 require "support/asymmetric_encryptor_helpers"
@@ -79,6 +80,7 @@ ActiveRecord::Migration.maintain_test_schema!
 class ActiveSupport::TestCase
   include CommonHelpers
   include SessionHelpers
+  include AppHostHelpers
   include SiteSessionHelpers
   include ActiveJob::TestHelper
 

@@ -7,6 +7,7 @@ this.GobiertoAdmin.ProcessStagePagesController = (function() {
   };
 
   function _selectPage() {
+    Turbolinks.clearCache();
     $(document).ready(function() {
       $("select#process_stage_page_page_id").select2({
         width: '100%'

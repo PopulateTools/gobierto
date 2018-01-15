@@ -120,7 +120,6 @@ GEM
     dalli (2.7.6)
     data_migrate (3.3.0)
       rails (>= 4.0)
-    database_cleaner (1.6.2)
     declarative (0.0.10)
     declarative-option (0.1.0)
     docile (1.1.5)
@@ -503,7 +502,6 @@ DEPENDENCIES
   d3-rails (~> 4.8)
   dalli
   data_migrate
-  database_cleaner
   elasticsearch
   elasticsearch-extensions
   exchanger

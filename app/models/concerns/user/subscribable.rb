@@ -34,7 +34,7 @@ module User::Subscribable
   end
 
   def app_host
-    @app_host ||= ENV.fetch("HOST") { "gobierto.dev" }
+    @app_host ||= ENV.fetch("HOST") { "gobierto.test" }
   end
 
   protected

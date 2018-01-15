@@ -12,8 +12,8 @@ SECRET_KEY_BASE=
 RACK_ENV=development
 RAILS_ENV=development
 TLD_LENGTH=2
-HOST=gobierto.dev
-BASE_HOST=gobierto.dev
+HOST=gobierto.test
+BASE_HOST=gobierto.test
 PORT=3000
 RAILS_MAX_THREADS=5
 

@@ -23,8 +23,8 @@ richard_published:
   }.to_json %>
   slug: <%= "#{1.month.from_now.strftime('%F')}-future-government-event" %>
   description_translations: <%= {
-    'en' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
-    'es' => 'El Presidente analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
+    'en' => 'The <strong>President</strong> will analyze the progress of the measures adopted in the first days of the Government.',
+    'es' => 'El <strong>Presidente</strong> analizará la marcha de las medidas adoptadas en los primeros días de Gobierno.',
   }.to_json %>
   starts_at: <%= 1.month.from_now %>
   ends_at: <%= 1.month.from_now + 1.hour %>

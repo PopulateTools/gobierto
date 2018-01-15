@@ -44,6 +44,20 @@ class User::SessionsControllerTest < GobiertoControllerTest
     end
   end
 
+  def test_create_and_change_of_site
+    with_current_site(confirmed_user.site) do
+      post(
+        user_sessions_url,
+        params: { user_session: valid_session_params }
+      )
+    end
+    with_current_site(other_site) do
+      get(user_settings_url)
+      assert_equal "Register or sign in if you have an account to continue.",
+        flash[:alert]
+    end
+  end
+
   def test_create_with_referrer
     with_current_site(confirmed_user.site) do
       post(

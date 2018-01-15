@@ -38,7 +38,7 @@ module GobiertoAdmin
         @site_template_form = SiteTemplateForm.new(site_id: current_site.id,
                                                    template_id: @site_template.template_id)
 
-        @default_template = File.read("app/views/" + @site_template.template.template_path)
+        @default_template = File.read("app/views/" + @site_template.template.template_path + ".liquid")
 
         if @site_template.destroy
           respond_to do |format|

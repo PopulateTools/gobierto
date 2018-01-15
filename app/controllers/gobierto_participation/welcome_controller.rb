@@ -11,7 +11,7 @@ module GobiertoParticipation
       @news = find_participation_news
       @activities = find_participation_activities
 
-      liquid_path = params[:controller] + "/" + action_name + ".liquid"
+      liquid_path = params[:controller] + "/" + action_name
       liquid_str = ::GobiertoCore::SiteTemplate.liquid_str(current_site, liquid_path)
       liquid = to_liquid(liquid_str)
       liquid_rendered = liquid.render({ "location_name" => current_site.location_name,

@@ -12,7 +12,7 @@ module GobiertoCore
     end
 
     def self.current_site_custom_template(site, template_path)
-      GobiertoCore::SiteTemplate.joins(:template).where("gcore_site_templates.site_id = ? AND gcore_templates.template_path = ?",
+      GobiertoCore::SiteTemplate.joins(:template).where("#{table_name}.site_id = ? AND gcore_templates.template_path = ?",
                                                         site.id, template_path)
     end
 
@@ -20,7 +20,7 @@ module GobiertoCore
       if GobiertoCore::SiteTemplate.current_site_has_custom_template?(site, liquid_path)
         GobiertoCore::SiteTemplate.current_site_custom_template(site, liquid_path).first.markup
       else
-        File.read("app/views/" + liquid_path)
+        File.read("app/views/" + liquid_path + ".liquid")
       end
     end
   end

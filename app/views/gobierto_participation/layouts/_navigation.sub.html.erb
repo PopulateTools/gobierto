@@ -1,8 +1,5 @@
 <% if try(:current_process).nil? %>
-  <% liquid_path = "gobierto_participation/layouts/navigation_process.liquid" %>
-  <% liquid_str = GobiertoCore::SiteTemplate.liquid_str(current_site, liquid_path) %>
-
-  <%= raw render_liquid(liquid_str) %>
+  <%= raw render_liquid("gobierto_participation/layouts/navigation_process") %>
 <% else %>
   <% current_process.published_stages.each do |stage| %>
     <div class="sub-nav-item">

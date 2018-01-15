@@ -45,5 +45,5 @@ Rails.application.configure do
   # Increase log level to speed up the test suite
   config.log_level = ENV["CI"] ? :fatal : :debug
 
-  config.action_mailer.default_url_options = { host: "gobierto.dev" }
+  config.action_mailer.default_url_options = { host: "gobierto.test" }
 end

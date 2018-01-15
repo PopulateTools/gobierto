@@ -40,8 +40,8 @@ module GobiertoAdmin
           end
 
           within ".site-check-boxes" do
-            uncheck "santander.gobierto.dev"
-            check "madrid.gobierto.dev"
+            uncheck "santander.gobierto.test"
+            check "madrid.gobierto.test"
           end
 
           within ".admin-authorization-level-radio-buttons" do
@@ -63,8 +63,8 @@ module GobiertoAdmin
           end
 
           within ".site-check-boxes" do
-            refute has_checked_field?("santander.gobierto.dev")
-            assert has_checked_field?("madrid.gobierto.dev")
+            refute has_checked_field?("santander.gobierto.test")
+            assert has_checked_field?("madrid.gobierto.test")
           end
 
           within ".admin-authorization-level-radio-buttons" do
@@ -139,7 +139,7 @@ module GobiertoAdmin
           end
 
           within ".site-check-boxes" do
-            check "madrid.gobierto.dev"
+            check "madrid.gobierto.test"
           end
 
           within ".admin-authorization-level-radio-buttons" do
@@ -167,7 +167,7 @@ module GobiertoAdmin
           end
 
           within ".site-check-boxes" do
-            check "madrid.gobierto.dev"
+            check "madrid.gobierto.test"
           end
 
           within ".admin-authorization-level-radio-buttons" do

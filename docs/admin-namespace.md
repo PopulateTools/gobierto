@@ -4,7 +4,7 @@
 
 ## Accessing the Admin namespace
 
-URL: http://gobierto.dev/admin/
+URL: http://gobierto.test/admin/
 
 Available admins:
 
@@ -19,5 +19,5 @@ Available sites:
 
 | Domain                 | Title                        | Name                      | Notes                    | Modules                      |
 | ---                    | ---                          | ---                       | ---                      | ---                          |
-| madrid.gobierto.dev    | Transparencia y Participción | Ayuntamiento de Madrid    | visibility level: active | Budgets, BudgetConsultations |
-| santander.gobierto.dev | Transparencia Ciudadana      | Ayuntamiento de Santander | visibility level: draft  | Budgets                      |
+| madrid.gobierto.test   | Transparencia y Participción | Ayuntamiento de Madrid    | visibility level: active | Budgets, BudgetConsultations |
+| santander.gobierto.test| Transparencia Ciudadana      | Ayuntamiento de Santander | visibility level: draft  | Budgets                      |

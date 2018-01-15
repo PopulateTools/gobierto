@@ -58,7 +58,7 @@ class SiteTest < ActiveSupport::TestCase
   end
 
   def test_seeder_called_after_create
-    site = Site.new title: "Transparencia", name: "Albacete", domain: "albacete.gobierto.dev",
+    site = Site.new title: "Transparencia", name: "Albacete", domain: "albacete.gobierto.test",
                     location_name: "Albacete", municipality_id: INE::Places::Place.find_by_slug("albacete").id,
                     location_type: INE::Places::Place, external_id: INE::Places::Place.find_by_slug("albacete").id
 

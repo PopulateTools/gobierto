@@ -22,6 +22,13 @@ class User::ConfirmationForm
   validates :password, presence: true, confirmation: true
   validate :user_verification
 
+  def initialize(options = {})
+    options = options.to_h.with_indifferent_access
+    ordered_options = options.slice(:site, :confirmation_token).merge!(options)
+
+    super(ordered_options)
+  end
+
   def require_user_verification?
     user.present? && user.referrer_entity == "GobiertoBudgetConsultations::Consultation"
   end

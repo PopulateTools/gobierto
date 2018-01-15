@@ -12,7 +12,8 @@ class User::ConfirmationFormSiteWithoutVerificationTest < ActiveSupport::TestCas
       date_of_birth_year: 1992,
       date_of_birth_month: 1,
       date_of_birth_day: 1,
-      gender: unconfirmed_user.gender
+      gender: unconfirmed_user.gender,
+      site: unconfirmed_user.site
     )
   end
 
@@ -25,7 +26,8 @@ class User::ConfirmationFormSiteWithoutVerificationTest < ActiveSupport::TestCas
       date_of_birth_year: nil,
       date_of_birth_month: nil,
       date_of_birth_day: nil,
-      gender: nil
+      gender: nil,
+      site: nil
     )
   end
 

@@ -36,14 +36,16 @@ module Gobierto
 
     config.active_job.queue_adapter = :async
 
-    # Autoloading
-    config.autoload_paths += [
+    # Required code paths
+    required_paths = [
       "#{config.root}/lib",
       "#{config.root}/lib/validators",
       "#{config.root}/lib/constraints",
       "#{config.root}/lib/errors",
       "#{config.root}/lib/ibm_notes"
     ]
+    config.autoload_paths += required_paths
+    config.eager_load_paths += required_paths
 
     # Do not add wrapper .field_with_errors around form fields with validation errors
     config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag }

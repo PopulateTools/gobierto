@@ -168,7 +168,7 @@ export INTEGRATION_INSPECTOR='false'
 export TEST_LOG_LEVEL='debug'
 export RACK_ENV='development'
 export RAILS_ENV='development'
-export HOST='gobierto.dev'
+export HOST='gobierto.test'
 ...
 ```
 
@@ -187,10 +187,10 @@ echo 3000 > ~/.pow/gobierto
 
 The seeds provided for development, as explained [here](user-namespace.md), have two available tenants: one for the city of Madrid and one for Santander.
 
-The application server should be queried through the top-level domain `.gobierto.dev`. Each of the tenants are accessible on their corresponding subdomais:
+The application server should be queried through the top-level domain `.gobierto.test`. Each of the tenants are accessible on their corresponding subdomais:
 
-* [http://madrid.gobierto.dev](http://madrid.gobierto.dev)
-* [http://santander.gobierto.dev](http://santander.gobierto.dev)
+* [http://madrid.gobierto.test](http://madrid.gobierto.test)
+* [http://santander.gobierto.test](http://santander.gobierto.test)
 
 ### PhantomJS
 
@@ -217,17 +217,16 @@ To use `MailCatcher`, just run `$ mailcatcher` command and follow the instructio
 Just follow the following steps:
 
 1. Figure out your LAN IP, in your _Network preferences_ or just by doing in the shell: `ifconfig | grep 192`.  Let's say it's `192.168.1.41`, it means that Gobierto will be visible in `*.192.168.1.41.xip.io`
-2. Log into your Gobierto instance and edit the site you want to expose, by updating the domain to something like `madrid.gobierto.dev.192.168.1.41.xip.io`
+2. Log into your Gobierto instance and edit the site you want to expose, by updating the domain to something like `madrid.gobierto.test.192.168.1.41.xip.io`
 3. Stop the rails server and start it again with a new parameter to bind it to any address: `rails s -b 0.0.0.0`
-4. That's all, now you can visit http://madrid.gobierto.dev.192.168.1.41.xip.io:3000/ in any device
+4. That's all, now you can visit http://madrid.gobierto.test.192.168.1.41.xip.io:3000/ in any device
 
 ### Open Gobierto
 
 Now you can start using Gobierto:
 
 1. Start the server with `bin/rails s`
-2. Go to http://madrid.gobierto.dev to see a demo site
-3. Go to the administrator: http://madrid.gobierto.dev/admin
+2. Go to http://madrid.gobierto.test to see a demo site
+3. Go to the administrator: http://madrid.gobierto.test/admin
 4. See [admin namespace](docs/admin-namespace.md) for some admin credentials
 5. See [user namespace](docs/user-namespace.md) for some user credentials
-

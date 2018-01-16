@@ -118,7 +118,7 @@ class ActionDispatch::IntegrationTest
   end
 
   Capybara.javascript_driver = :poltergeist_custom
-  Capybara.default_host = "http://gobierto.dev"
+  Capybara.default_host = "http://gobierto.test"
 
   self.use_transactional_tests = false
 

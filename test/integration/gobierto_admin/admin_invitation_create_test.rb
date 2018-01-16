@@ -20,7 +20,7 @@ module GobiertoAdmin
         fill_in :admin_invitation_emails, with: "foo@gobierto.dev, bar@gobierto.dev"
 
         within ".site-check-boxes" do
-          check "madrid.gobierto.dev"
+          check "madrid.gobierto.test"
         end
 
         click_on "Send"

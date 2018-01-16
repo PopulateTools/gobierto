@@ -25,7 +25,7 @@ module GobiertoAdmin
           fill_in "site_name_translations_es", with: "Site Name"
 
           fill_in "site_location_name", with: "Site Location"
-          fill_in "site_domain", with: "test.gobierto.dev"
+          fill_in "site_domain", with: "test.gobierto.test"
           fill_in "site_head_markup", with: "Site Head markup"
           fill_in "site_foot_markup", with: "Site Foot markup"
           fill_in "site_links_markup", with: "Site Links markup"

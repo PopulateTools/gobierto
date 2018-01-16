@@ -14,7 +14,7 @@ module GobiertoParticipation
     end
 
     def issues
-      @issues ||= site.issues.alphabetically_sorted
+      @issues ||= site.issues.sorted
     end
 
     def test_breadcrumb_items
@@ -32,11 +32,8 @@ module GobiertoParticipation
         visit @path
 
         within "nav.sub-nav" do
-          assert has_content? "About"
           assert has_content? "Issues"
           assert has_content? "Processes"
-          assert has_content? "Ask"
-          assert has_content? "Ideas"
         end
       end
     end

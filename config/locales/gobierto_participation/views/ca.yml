@@ -57,11 +57,9 @@ ca:
       application:
         title: Participació
       menu_subsections:
-        about: Sobre
-        ideas: Idees
         issues: Temes
         processes: Processos
-        questions: Pregunta
+        scopes: Àmbits
       process_breadcrumb:
         root: Inici
       secondary_nav:
@@ -187,6 +185,27 @@ ca:
         scope: Àmbit
       timeline_row:
         view_stage: Acceder a aquesta fase
+    scopes:
+      index:
+        intro_html: Las teves idees ajuden a millorar %{location_name} i la vida de
+          tots els que residim aquí. Aporta els teus millors idees en els nostres
+          <strong> espais permanents de participació</strong>.
+      participation_groups:
+        work_groups_description: Consulta l'activitat de cada grup i participa.
+        work_groups_title: Grups de treball
+      participation_latest_info:
+        agenda: Agenda Participació
+        news: Notícies
+        no_events: No hi ha esdeveniments relacionats
+        no_news: No hi ha notícies relacionades
+        show_more_events: Veure més esdeveniments
+        show_more_news: Veure més notícies
+        show_more_updates: Veure més actualitzacions
+        the_last: L'últim
+        up_to_date: "%{site_title} al dia"
+      participation_proccesses:
+        processes_description: Consulta i participa en processos específics.
+        processes_title: Processos en marxa
     shared:
       activities_for: Activitat de %{container}
       agenda: Agenda

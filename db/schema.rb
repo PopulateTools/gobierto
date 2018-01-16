@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180109103354) do
+ActiveRecord::Schema.define(version: 20180115112209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,7 +123,6 @@ ActiveRecord::Schema.define(version: 20180109103354) do
     t.bigint "container_id"
     t.string "item_type"
     t.string "slug", default: "", null: false
-    t.index ["container_id", "container_type", "item_type"], name: "index_collections_on_container_and_item_type", unique: true
     t.index ["site_id", "slug"], name: "index_collections_on_site_id_and_slug", unique: true
     t.index ["site_id"], name: "index_collections_on_site_id"
   end
@@ -260,8 +259,8 @@ ActiveRecord::Schema.define(version: 20180109103354) do
     t.string "sharing_token"
     t.string "document_number_digest"
     t.jsonb "user_information"
+    t.index ["consultation_id", "document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["consultation_id"], name: "index_gbc_consultation_responses_on_consultation_id"
-    t.index ["document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["sharing_token"], name: "index_gbc_consultation_responses_on_sharing_token", unique: true
     t.index ["user_information"], name: "index_gbc_consultation_responses_on_user_information", using: :gin
   end
@@ -318,9 +317,9 @@ ActiveRecord::Schema.define(version: 20180109103354) do
     t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "external_id"
     t.jsonb "title_translations"
     t.jsonb "description_translations"
-    t.string "external_id"
     t.integer "site_id", null: false
     t.string "slug", null: false
     t.integer "collection_id"
@@ -712,6 +711,7 @@ ActiveRecord::Schema.define(version: 20180109103354) do
     t.integer "position", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "slug", default: "", null: false
   end
 
   create_table "sites", id: :serial, force: :cascade do |t|

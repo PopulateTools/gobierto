@@ -5,16 +5,7 @@ module GobiertoAdmin
     class TemplatesController < BaseController
       def index
         template = ::GobiertoCore::Template.first
-        if current_site_has_custom_template?(template.template_path)
-          @site_template = current_site_custom_template(template.template_path).first
-          @site_template_form = SiteTemplateForm.new(
-            @site_template.attributes.except(*ignored_site_template_attributes)
-          )
-        else
-          @site_template_form = SiteTemplateForm.new(site_id: current_site.id, template_id: template.id)
-        end
-
-        @default_template = File.read("app/views/" + template.template_path)
+        load_site_template_variables(template)
 
         templates = ::GobiertoCore::Template.all
         @dir = {}
@@ -26,16 +17,8 @@ module GobiertoAdmin
 
       def edit
         template = find_template
-        @default_template = File.read("app/views/" + template.template_path)
 
-        if current_site_has_custom_template?(template.template_path)
-          @site_template = current_site_custom_template(template.template_path).first
-          @site_template_form = SiteTemplateForm.new(
-            @site_template.attributes.except(*ignored_site_template_attributes)
-          )
-        else
-          @site_template_form = SiteTemplateForm.new(site_id: current_site.id, template_id: template.id)
-        end
+        load_site_template_variables(template)
       end
 
       private
@@ -57,6 +40,19 @@ module GobiertoAdmin
 
       def find_template
         ::GobiertoCore::Template.find(params[:template_id])
+      end
+
+      def load_site_template_variables(template)
+        if ::GobiertoCore::SiteTemplate.current_site_has_custom_template?(current_site, template.template_path)
+          @site_template = ::GobiertoCore::SiteTemplate.current_site_custom_template(current_site, template.template_path).first
+          @site_template_form = SiteTemplateForm.new(
+            @site_template.attributes.except(*ignored_site_template_attributes)
+          )
+        else
+          @site_template_form = SiteTemplateForm.new(site_id: current_site.id, template_id: template.id)
+        end
+
+        @default_template = File.read("app/views/" + template.template_path + ".liquid")
       end
     end
   end

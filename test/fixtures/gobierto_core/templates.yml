@@ -1,2 +1,2 @@
 participation_index:
-  template_path: gobierto_participation/welcome/index.liquid
+  template_path: gobierto_participation/welcome/index

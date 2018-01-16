@@ -29,14 +29,11 @@
       <div class='pure-u-1 pure-u-lg-2-3'>
         <article>
           <h1><%= @page.title %></h1>
-          <div class='meta'>
+          <%= raw render_liquid(@page.body) %>
+          <div class='note'>
             <time>
               <%= l(@page.updated_at, format: :long) %>
             </time>
-          </div>
-          <%= raw render_liquid(@page.body) %>
-          <div class='note'>
-            <%= t('gobierto_participation.shared.published_at', date: l(@page.updated_at, format: :long), site: current_site.name) %>
           </div>
         </article>
       </div>

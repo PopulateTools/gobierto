@@ -56,7 +56,7 @@ module GobiertoAdmin
     end
 
     def new_site_domain
-      "wadus.gobierto.dev"
+      "wadus.gobierto.test"
     end
 
     def test_validation

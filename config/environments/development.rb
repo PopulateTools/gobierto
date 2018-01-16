@@ -64,7 +64,7 @@ Rails.application.configure do
   end
 
   # ActionMailer host options & delivery through Mailcatcher
-  app_host = ENV.fetch("HOST") { "gobierto.dev" }
+  app_host = ENV.fetch("HOST") { "gobierto.test" }
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

@@ -34,11 +34,8 @@ module GobiertoParticipation
         visit @path
 
         within ".sub-nav" do
-          assert has_link? "About"
-          assert has_link? "Issues"
-          assert has_link? "Processes"
-          assert has_link? "Ask"
-          assert has_link? "Ideas"
+          assert has_content? "Issues"
+          assert has_content? "Processes"
         end
       end
     end
@@ -47,7 +44,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        within "menu.secondary_nav" do
+        within "nav.sub-nav menu.secondary_nav" do
           assert has_link? "News"
           assert has_link? "Agenda"
           assert has_link? "Documents"
@@ -60,11 +57,13 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        click_link "News"
+        within "nav.sub-nav menu.secondary_nav" do
+          click_link "News"
+        end
 
         assert_equal gobierto_participation_scope_pages_path(scope_id: scope_center.slug), current_path
 
-        within ".main-nav" do
+        within "nav.main-nav" do
           assert has_link? "Participation"
         end
 
@@ -76,11 +75,13 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        click_link "Agenda"
+        within "nav.sub-nav menu.secondary_nav" do
+          click_link "Agenda"
+        end
 
         assert_equal gobierto_participation_scope_events_path(scope_id: scope_center.slug), current_path
 
-        within ".main-nav" do
+        within "nav.main-nav" do
           assert has_link? "Participation"
         end
       end
@@ -90,11 +91,13 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        click_link "Documents"
+        within "nav.sub-nav menu.secondary_nav" do
+          click_link "Documents"
+        end
 
         assert_equal gobierto_participation_scope_attachments_path(scope_id: scope_center.slug), current_path
 
-        within ".main-nav" do
+        within "nav.main-nav" do
           assert has_link? "Participation"
         end
 
@@ -106,11 +109,13 @@ module GobiertoParticipation
       with_current_site(site) do
         visit @path
 
-        click_link "Activity"
+        within "nav.sub-nav menu.secondary_nav" do
+          click_link "Activity"
+        end
 
         assert_equal gobierto_participation_scope_activities_path(scope_id: scope_center.slug), current_path
 
-        within ".main-nav" do
+        within "nav.main-nav" do
           assert has_link? "Participation"
         end
 

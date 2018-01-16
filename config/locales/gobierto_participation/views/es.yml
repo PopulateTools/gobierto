@@ -59,11 +59,8 @@ es:
       application:
         title: Participación
       menu_subsections:
-        about: Acerca de
-        ideas: Ideas
         issues: Temas
         processes: Procesos
-        questions: Pregunta
         scopes: Ámbitos
       process_breadcrumb:
         root: Inicio

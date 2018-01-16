@@ -29,7 +29,7 @@ module GobiertoAdmin
         name_translations: { I18n.locale => "Foo" },
         location_name: "Madrid",
         municipality_id: 1,
-        domain: "test2.gobierto.dev",
+        domain: "test2.gobierto.test",
         visibility_level: "active",
         home_page: "GobiertoParticipation"
       }

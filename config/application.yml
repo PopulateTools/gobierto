@@ -37,7 +37,7 @@ default: &default
       name: Gobierto Observatory
       namespace: GobiertoObservatory
   dns_config:
-    cname_record_target: site.gobierto.dev
+    cname_record_target: site.gobierto.test
     a_record_target: 222.111.222.11
   admins:
     preset_admin_email: "admin@gobierto.dev"

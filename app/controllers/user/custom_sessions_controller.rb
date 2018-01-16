@@ -110,4 +110,10 @@ class User::CustomSessionsController < User::BaseController
       end
     end
   end
+
+  def require_no_authentication
+    redirect_to(
+      after_sign_in_path,
+    ) if user_signed_in?
+  end
 end

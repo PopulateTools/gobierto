@@ -14,11 +14,21 @@ module GobiertoCommon
 
     validates :site, :title, :item_type, presence: true
     validates :slug, uniqueness: { scope: :site }
-    validates :container_id, uniqueness: { scope: [:container_type, :item_type] }
+    validate :container_id_with_container_type_and_item_type
 
     attr_reader :container
 
     scope :by_item_type, ->(item_type) { where(item_type: item_type) }
+
+    def container_id_with_container_type_and_item_type
+      unless item_type == "GobiertoCms::Page"
+        if !id.present? && GobiertoCommon::Collection.where(container_id: container_id,
+                                                           container_type: container_type,
+                                                           item_type: item_type).any?
+          errors.add(:container_id, I18n.t("errors.messages.collection_taken"))
+        end
+      end
+    end
 
     def news_in_collection
       collection_items.where(item_type: "GobiertoCms::News").pluck(:item_id)

@@ -10,4 +10,8 @@
 
 <% page = @process_stage.process_stage_page.page %>
 
-<p><%= link_to t(".edit_page"), edit_admin_cms_page_path(page.id, collection_id: page.collection.id), data: { turbolinks: false } %>
+<p><%= link_to t(".edit_page"),
+               edit_admin_cms_page_path(page.id,
+                                        collection_id: page.collection.id,
+                                        stage_id: @process_stage.id),
+               data: { turbolinks: false } %>

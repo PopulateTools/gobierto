@@ -124,5 +124,11 @@ module GobiertoCalendars
       new_event = ::GobiertoCalendars::Event.new
       assert_equal "", new_event.searchable_description
     end
+
+    def test_destroy
+      event.destroy
+
+      assert event.slug.include?("-slug-archived")
+    end
   end
 end

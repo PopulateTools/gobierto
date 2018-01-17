@@ -174,5 +174,11 @@ module GobiertoAttachments
       assert_equal "", attachment.extension
       assert_equal "pdf", txt_pdf_attachment.extension
     end
+
+    def test_destroy
+      attachment.destroy
+
+      assert attachment.slug.include?("-slug-archived")
+    end
   end
 end

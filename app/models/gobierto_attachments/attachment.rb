@@ -50,6 +50,7 @@ module GobiertoAttachments
 
     after_create :add_item_to_collection
     before_validation :update_file_attributes
+    after_restore :restore_slug
 
     scope :inverse_sorted, -> { order(id: :asc) }
     scope :sorted, -> { order(id: :desc) }
@@ -129,6 +130,10 @@ module GobiertoAttachments
       if collection
         collection.append(self)
       end
+    end
+
+    def restore_slug
+      send(:set_slug)
     end
 
     private

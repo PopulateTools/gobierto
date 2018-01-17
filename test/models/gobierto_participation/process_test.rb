@@ -4,7 +4,6 @@ require "test_helper"
 
 module GobiertoCms
   class ProcessTest < ActiveSupport::TestCase
-
     def green_city_group
       @green_city_group ||= gobierto_participation_processes(:green_city_group)
     end
@@ -53,25 +52,30 @@ module GobiertoCms
 
     def test_current_stage
       assert_nil group_without_stages.current_stage
-      assert_equal 'sugiere-idea', process_with_one_open_stage.current_stage.slug
-      assert_equal 'dialogo', process_with_several_open_stages.current_stage.slug  # within active and open stages, the one which finishes the latest
-      assert_equal 'encuestas', process_with_only_current_stage.current_stage.slug
+      assert_equal "sugiere-idea", process_with_one_open_stage.current_stage.slug
+      assert_equal "dialogo", process_with_several_open_stages.current_stage.slug # within active and open stages, the one which finishes the latest
+      assert_equal "encuestas", process_with_only_current_stage.current_stage.slug
     end
 
     def test_next_stage
       assert_nil group_without_stages.next_stage
       assert_nil process_with_one_open_stage.next_stage
-      assert_equal 'presentacion', process_with_several_open_stages.next_stage.slug
+      assert_equal "presentacion", process_with_several_open_stages.next_stage.slug
       assert_nil process_with_only_current_stage.next_stage
     end
 
     def test_create_process_creates_collections
-      process = site.processes.create! title: 'Foo'
+      process = site.processes.create! title: "Foo"
 
       assert process.news_collection.present?
       assert process.events_collection.present?
       assert process.attachments_collection.present?
     end
 
+    def test_destroy
+      green_city_group.destroy
+
+      assert green_city_group.slug.include?("-slug-archived")
+    end
   end
 end

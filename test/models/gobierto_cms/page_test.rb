@@ -31,5 +31,11 @@ module GobiertoCms
       assert_equal "", new_page.searchable_body
       assert_equal "", new_page.searchable_body
     end
+
+    def test_destroy
+      page.destroy
+
+      assert page.slug.include?("-slug-archived")
+    end
   end
 end

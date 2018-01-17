@@ -34,6 +34,7 @@ module GobiertoCalendars
     has_many :attendees, class_name: "EventAttendee", dependent: :destroy
 
     after_create :add_item_to_collection
+    after_restore :restore_slug
 
     scope :past,     -> { published.where("starts_at <= ?", Time.zone.now) }
     scope :upcoming, -> { published.where("starts_at > ?", Time.zone.now) }
@@ -115,6 +116,10 @@ module GobiertoCalendars
 
     def add_item_to_collection
       collection.append(self)
+    end
+
+    def restore_slug
+      send(:set_slug)
     end
 
     def to_path

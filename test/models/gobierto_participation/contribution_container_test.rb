@@ -24,5 +24,11 @@ module GobiertoParticipation
     def test_valid
       assert contribution_container.valid?
     end
+
+    def test_destroy
+      contribution_container.destroy
+
+      assert contribution_container.slug.include?("-slug-archived")
+    end
   end
 end

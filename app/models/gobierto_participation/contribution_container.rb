@@ -18,6 +18,8 @@ module GobiertoParticipation
     belongs_to :admin, class_name: "GobiertoAdmin::Admin"
     has_many :contributions
 
+    after_restore :restore_slug
+
     enum visibility_level: { draft: 0, active: 1 }
     enum contribution_type: { idea: 0, question: 1, proposal: 2 }
 
@@ -48,6 +50,10 @@ module GobiertoParticipation
 
     def days_left
       (ends - Date.current).to_i
+    end
+
+    def restore_slug
+      send(:set_slug)
     end
   end
 end

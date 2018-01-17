@@ -39,6 +39,7 @@ module GobiertoParticipation
     scope :sorted, -> { order(id: :desc) }
 
     after_create :create_collections
+    after_restore :restore_slug
 
     def to_s
       title
@@ -112,6 +113,10 @@ module GobiertoParticipation
 
     def resource_path
       url_helpers.gobierto_participation_process_url({ id: slug }.merge(host: site.domain))
+    end
+
+    def restore_slug
+      send(:set_slug)
     end
 
     private

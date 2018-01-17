@@ -6,12 +6,13 @@ module GobiertoCommon
 
     included do
       before_create :set_slug
+      after_destroy :add_archived_to_slug
     end
 
     private
 
     def set_slug
-      if slug.present?
+      if slug.present? && !slug.include?("-slug-archived")
         self.slug = self.slug.tr("_", " ").parameterize
         return
       end
@@ -34,6 +35,12 @@ module GobiertoCommon
       end
 
       self.slug = new_slug
+    end
+
+    def add_archived_to_slug
+      unless destroyed?
+        update_attribute(:slug, slug + "-slug-archived")
+      end
     end
   end
 end

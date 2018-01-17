@@ -12,6 +12,7 @@ privacy:
   slug: 'privacy'
   visibility_level: <%= GobiertoCms::Page.visibility_levels[:active] %>
   site: madrid
+  collection: site_pages
 
 cookies:
   title_translations: <%= {'en' => 'Cookies' }.to_json %>

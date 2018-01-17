@@ -4,6 +4,7 @@ es:
     gobierto_cms:
       pages:
         edit:
+          back_to_process_stages: "< Volver a la edición de fases"
           title: Editar página
         form:
           include_in_section: Incluir en sección

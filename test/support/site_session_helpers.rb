@@ -6,9 +6,7 @@ module SiteSessionHelpers
     GobiertoSiteConstraint.stub_any_instance(:matches?, true) do
       ApplicationController.stub_any_instance(:current_site, site) do
         GobiertoAdmin::BaseController.stub_any_instance(:current_site, SiteDecorator.new(site)) do
-          with_site_host(site) do
-            yield
-          end
+          yield
         end
       end
     end

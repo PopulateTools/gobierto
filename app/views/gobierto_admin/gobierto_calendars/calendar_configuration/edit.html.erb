@@ -76,8 +76,11 @@
                 </td>
                 <td>
                   <div class="p_0_5">
-                    <%= filtering_rule_form.label :remove_filtering_text %>
                     <%= filtering_rule_form.check_box :remove_filtering_text %>
+                    <%= filtering_rule_form.label :remove_filtering_text do %>
+                      <span></span>
+                      <%= filtering_rule_form.object.class.human_attribute_name(:remove_filtering_text) %>
+                    <% end %>
                   </div>
                 </td>
                 <td>

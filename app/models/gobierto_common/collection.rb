@@ -137,6 +137,10 @@ module GobiertoCommon
       container.try(:name) || container.try(:title)
     end
 
+    def is_a_collection_of_participation_news?
+      container.is_a?(::GobiertoParticipation::Process) && item_type == 'GobiertoCms::News'
+    end
+
     private
 
     def containers_hierarchy(container)

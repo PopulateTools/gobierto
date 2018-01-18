@@ -1,4 +1,4 @@
-<% if @collection.container.is_a?(::GobiertoParticipation::Process) && @collection.item_type == 'GobiertoCms::News' %>
+<% if @collection.is_a_collection_of_participation_news? %>
 
   <%= render 'gobierto_admin/gobierto_participation/shared/breadcrumb', last_breadcrumb_item: t('gobierto_admin.gobierto_cms.pages.edit.title'), process: @collection.container %>
 

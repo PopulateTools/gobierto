@@ -104,7 +104,7 @@ class User::SessionTest < ActionDispatch::IntegrationTest
     end
   end
 
-  def test_session_is_mantained_on_each_host
+  def test_session_is_shared_between_hosts
     with_current_site_with_host(site) do
       visit @sign_in_path
 
@@ -113,6 +113,7 @@ class User::SessionTest < ActionDispatch::IntegrationTest
       click_on "Log in"
     end
 
+    # The session is replaced with the new one
     with_current_site_with_host(other_site) do
       visit @sign_in_path
 
@@ -124,7 +125,7 @@ class User::SessionTest < ActionDispatch::IntegrationTest
     with_current_site_with_host(site) do
       visit @sign_in_path
 
-      assert has_message?("You are already signed in.")
+      assert has_content?("Log in")
     end
 
     with_current_site_with_host(other_site) do

@@ -130,9 +130,5 @@ module GobiertoCms
     def searchable_body
       searchable_translated_attribute(body_translations)
     end
-
-    def restore_slug
-      send(:set_slug)
-    end
   end
 end

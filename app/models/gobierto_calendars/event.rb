@@ -118,10 +118,6 @@ module GobiertoCalendars
       collection.append(self)
     end
 
-    def restore_slug
-      send(:set_slug)
-    end
-
     def to_path
       if collection.container_type == "GobiertoParticipation::Process"
         url_helpers.gobierto_participation_process_event_path({ id: slug, process_id: collection.container.slug })

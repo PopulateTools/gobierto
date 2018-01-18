@@ -132,10 +132,6 @@ module GobiertoAttachments
       end
     end
 
-    def restore_slug
-      send(:set_slug)
-    end
-
     private
 
     # This method is error-prone and should be REMOVED.

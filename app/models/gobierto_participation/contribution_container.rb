@@ -51,9 +51,5 @@ module GobiertoParticipation
     def days_left
       (ends - Date.current).to_i
     end
-
-    def restore_slug
-      send(:set_slug)
-    end
   end
 end

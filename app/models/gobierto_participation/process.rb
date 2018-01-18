@@ -115,10 +115,6 @@ module GobiertoParticipation
       url_helpers.gobierto_participation_process_url({ id: slug }.merge(host: site.domain))
     end
 
-    def restore_slug
-      send(:set_slug)
-    end
-
     private
 
     def create_collections

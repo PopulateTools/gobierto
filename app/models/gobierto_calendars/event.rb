@@ -22,8 +22,8 @@ module GobiertoCalendars
     translates :title, :description
 
     algoliasearch_gobierto do
-      attribute :site_id, :title_en, :title_es, :title_ca, :description_en, :description_es, :description_ca, :updated_at
-      searchableAttributes ['title_en', 'title_es', 'title_ca', 'description_en', 'description_es', 'description_ca']
+      attribute :site_id, :title_en, :title_es, :title_ca, :searchable_description, :updated_at
+      searchableAttributes ['title_en', 'title_es', 'title_ca', 'searchable_description']
       attributesForFaceting [:site_id]
       add_attribute :resource_path, :class_name
     end
@@ -34,6 +34,7 @@ module GobiertoCalendars
     has_many :attendees, class_name: "EventAttendee", dependent: :destroy
 
     after_create :add_item_to_collection
+    after_restore :set_slug
 
     scope :past,     -> { published.where("starts_at <= ?", Time.zone.now) }
     scope :upcoming, -> { published.where("starts_at > ?", Time.zone.now) }
@@ -146,6 +147,10 @@ module GobiertoCalendars
       collection_item = GobiertoCommon::CollectionItem.where(item: self, container_type: "Issue").first
 
       collection_item.container if collection_item
+    end
+
+    def searchable_description
+      searchable_translated_attribute(description_translations)
     end
   end
 end

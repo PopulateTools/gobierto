@@ -57,11 +57,8 @@ ca:
       application:
         title: Participació
       menu_subsections:
-        about: Sobre
-        ideas: Idees
         issues: Temes
         processes: Processos
-        questions: Pregunta
         scopes: Àmbits
       process_breadcrumb:
         root: Inici

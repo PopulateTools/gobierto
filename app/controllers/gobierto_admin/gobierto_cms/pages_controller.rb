@@ -61,7 +61,7 @@ module GobiertoAdmin
 
       def destroy
         @page = find_page
-        @page.archive
+        @page.destroy
         process = find_process if params[:process_id]
 
         if process

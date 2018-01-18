@@ -11,14 +11,8 @@ module GobiertoParticipation
       @news = find_participation_news
       @activities = find_participation_activities
 
-      liquid_path = params[:controller] + "/" + action_name + ".liquid"
-
-      liquid_str = if current_site_has_custom_template?(liquid_path)
-                     current_site_custom_template(liquid_path).first.markup
-                   else
-                     File.read("app/views/" + liquid_path)
-                   end
-
+      liquid_path = params[:controller] + "/" + action_name
+      liquid_str = ::GobiertoCore::SiteTemplate.liquid_str(current_site, liquid_path)
       liquid = to_liquid(liquid_str)
       liquid_rendered = liquid.render({ "location_name" => current_site.location_name,
                                         "current_user" => current_user },

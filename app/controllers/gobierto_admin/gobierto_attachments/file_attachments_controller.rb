@@ -61,7 +61,7 @@ module GobiertoAdmin
 
       def destroy
         @file_attachment = find_file_attachment
-        @file_attachment.archive
+        @file_attachment.destroy
         process = find_process if params[:process_id]
 
         if process

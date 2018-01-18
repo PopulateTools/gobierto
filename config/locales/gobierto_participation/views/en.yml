@@ -59,11 +59,8 @@ en:
       application:
         title: Participation
       menu_subsections:
-        about: About
-        ideas: Ideas
         issues: Issues
         processes: Processes
-        questions: Ask
         scopes: Scopes
       process_breadcrumb:
         root: Home

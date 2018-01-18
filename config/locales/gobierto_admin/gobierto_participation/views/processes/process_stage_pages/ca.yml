@@ -5,8 +5,12 @@ ca:
       processes:
         process_stage_pages:
           edit:
+            edit_page: Edita pàgina
             stages: Fases
-            title: 'Edita pàgina associada a: %{stage}'
+            title: Pàgina d'informació associada
+          form:
+            select_page_html: 'Selecciona la pàgina que es mostrarà quan s''accedeixi
+              a aquesta fase (<a href=''/admin/cms/pages''>o crea una nova </a>):'
           new:
             stages: Fases
-            title: 'Associar pàgina a: %{stage}'
+            title: Associar pàgina d'informació

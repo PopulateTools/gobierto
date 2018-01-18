@@ -18,7 +18,6 @@ module GobiertoCms
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Collectionable
     include GobiertoCommon::Sectionable
-    include ActionView::Helpers::SanitizeHelper
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :searchable_body, :collection_id
@@ -35,6 +34,7 @@ module GobiertoCms
     has_many :process_stage_pages, class_name: "GobiertoParticipation::ProcessStagePage"
 
     after_create :add_item_to_collection
+    after_restore :set_slug
 
     enum visibility_level: { draft: 0, active: 1 }
 
@@ -162,10 +162,7 @@ module GobiertoCms
     end
 
     def searchable_body
-      return "" if body_translations.nil?
-      body = body_translations.values.join(" ").tr("\n\r", " ").gsub(/\s+/, " ")
-      body = strip_tags(body)
-      body[0..9300]
+      searchable_translated_attribute(body_translations)
     end
   end
 end

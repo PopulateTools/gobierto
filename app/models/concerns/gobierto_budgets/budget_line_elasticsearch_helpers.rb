@@ -164,6 +164,10 @@ module GobiertoBudgets
         included_attrs = {}
         if includes.present?
           included_attrs[:index] = index if includes.include? :index
+          included_attrs[:updated_at] = if includes.include?(:updated_at) && conditions[:year] && conditions[:site]
+                                          GobiertoBudgets::SiteStats.new(site: conditions[:site], year: conditions[:year]).budgets_data_updated_at ||
+                                            Date.new(conditions[:year])
+                                        end
         end
 
         merge_includes = included_attrs.present? ? ->(row) { row.merge(included_attrs) } : ->(row) { row }

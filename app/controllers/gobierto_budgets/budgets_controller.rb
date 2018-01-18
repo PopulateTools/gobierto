@@ -40,7 +40,7 @@ class GobiertoBudgets::BudgetsController < GobiertoBudgets::ApplicationControlle
                                                                           area_name: area.area_name,
                                                                           kind: kind,
                                                                           index: index },
-                                                                 include: [:index],
+                                                                 include: [:index, :updated_at],
                                                                  presenter: presenter)
             index_budget_lines.each do |line|
               if idx = place_budget_lines.index { |global_line| global_line.id == line.id }

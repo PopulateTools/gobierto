@@ -36,7 +36,7 @@ module GobiertoPeople
           description: ibm_notes_event.description,
         }, configuration.filtering_rules)
 
-        state = filter_result == GobiertoCalendars::FilteringRuleApplier::CREATE_PENDING ?
+        state = filter_result.action == GobiertoCalendars::FilteringRuleApplier::CREATE_PENDING ?
           GobiertoCalendars::Event.states[:pending] :
           GobiertoCalendars::Event.states[:published]
 
@@ -50,8 +50,8 @@ module GobiertoPeople
           site_id: ibm_notes_event.person.site.id,
           external_id: ibm_notes_event.id,
           person_id: ibm_notes_event.person.id,
-          title: ibm_notes_event.title,
-          description: ibm_notes_event.description,
+          title: filter_result.event_attributes[:title],
+          description: filter_result.event_attributes[:description],
           starts_at: ibm_notes_event.starts_at,
           ends_at: ibm_notes_event.ends_at,
           state: state,
@@ -61,7 +61,7 @@ module GobiertoPeople
           recurring: recurring
         }
 
-        if filter_result == GobiertoCalendars::FilteringRuleApplier::REMOVE
+        if filter_result.action == GobiertoCalendars::FilteringRuleApplier::REMOVE
           GobiertoPeople::PersonEventForm.new(person_event_params).destroy
           nil
         else

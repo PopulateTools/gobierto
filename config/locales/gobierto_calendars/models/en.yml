@@ -9,6 +9,7 @@ en:
       gobierto_calendars/event_location:
         address: Address
         name: Name
+      remove_filtering_text: Remove filtering text
     enums:
       gobierto_calendars/filtering_rule:
         action:

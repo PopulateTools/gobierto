@@ -76,6 +76,12 @@
                 </td>
                 <td>
                   <div class="p_0_5">
+                    <%= filtering_rule_form.label :remove_filtering_text %>
+                    <%= filtering_rule_form.check_box :remove_filtering_text %>
+                  </div>
+                </td>
+                <td>
+                  <div class="p_0_5">
                     <%= filtering_rule_form.check_box :_destroy, class: "hidden destroy-content-block-record" %>
 
                     <%= link_to "#", data: { behavior: "delete_record" } do %>

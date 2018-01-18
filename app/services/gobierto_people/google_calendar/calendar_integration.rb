@@ -89,18 +89,18 @@ module GobiertoPeople
           description: event.description
         }, configuration.filtering_rules)
 
-        filter_result = GobiertoCalendars::FilteringRuleApplier::REMOVE if is_private?(event)
+        filter_result.action = GobiertoCalendars::FilteringRuleApplier::REMOVE if is_private?(event)
 
-        state = filter_result == GobiertoCalendars::FilteringRuleApplier::CREATE_PENDING ?
+        state = (filter_result.action == GobiertoCalendars::FilteringRuleApplier::CREATE_PENDING) ?
           GobiertoCalendars::Event.states[:pending] :
           GobiertoCalendars::Event.states[:published]
 
-        person_event_params = {
+        event_params = {
           site_id: person.site_id,
           external_id: event.id,
           person_id: person.id,
-          title: event.summary,
-          description: event.description,
+          title: filter_result.event_attributes[:title],
+          description: filter_result.event_attributes[:description],
           starts_at: parse_date(event.start),
           ends_at: parse_date(event.end),
           state: state,
@@ -110,15 +110,16 @@ module GobiertoPeople
         }
 
         if event.location.present?
-          person_event_params.merge!(locations_attributes: {"0" => {name: event.location} })
+          event_params.merge!(locations_attributes: {"0" => {name: event.location} })
         else
-          person_event_params.merge!(locations_attributes: {"0" => {"_destroy" => "1" }})
+          event_params.merge!(locations_attributes: {"0" => {"_destroy" => "1" }})
         end
 
-        event = GobiertoPeople::PersonEventForm.new(person_event_params)
-        if filter_result != GobiertoCalendars::FilteringRuleApplier::REMOVE
-          unless event.save
-            Rails.logger.info "[Google Calendar Integration] Invalid event: #{person_event_params}"
+        if filter_result.action == GobiertoCalendars::FilteringRuleApplier::REMOVE
+          GobiertoPeople::PersonEventForm.new(event_params).destroy
+        else
+          unless GobiertoPeople::PersonEventForm.new(event_params).save
+            Rails.logger.info "[Google Calendar Integration] Invalid event: #{event_params}"
           end
         end
       end

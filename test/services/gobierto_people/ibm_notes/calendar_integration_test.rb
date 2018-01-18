@@ -359,6 +359,7 @@ module GobiertoPeople
         filtering_rule.condition = :not_contains
         filtering_rule.value = "@"
         filtering_rule.action = :ignore
+        filtering_rule.remove_filtering_text = true
         filtering_rule.save!
 
         VCR.use_cassette("ibm_notes/person_events_collection_v8", decode_compressed_response: true, match_requests_on: [:host, :path]) do
@@ -371,7 +372,7 @@ module GobiertoPeople
         assert_equal 1, non_recurrent_events.count
         assert_equal 8, recurrent_events_instances.count
 
-        assert_equal "@ rom evento", non_recurrent_events.first.title
+        assert_equal "rom evento", non_recurrent_events.first.title
         assert_equal "CD1B539AEB0D44D7C1258110003BB81E-Lotus_Notes_Generated", non_recurrent_events.first.external_id
         assert_equal rst_to_utc("2017-05-05 16:00:00"), non_recurrent_events.first.starts_at
       end

@@ -46,5 +46,10 @@ module GobiertoCalendars
       assert_equal false, filtering_rule.apply({title: "@ Foo Bar"})
       assert_equal "ignore", filtering_rule.apply({title: "Foo @ Bar"})
     end
+
+    def test_update_event_attributes
+      updated_event_attributes = filtering_rule.update_event_attributes({title: "Foo @ Bar"})
+      assert_equal "Foo Bar", updated_event_attributes[:title]
+    end
   end
 end

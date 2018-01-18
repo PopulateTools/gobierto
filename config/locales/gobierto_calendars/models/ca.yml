@@ -9,6 +9,7 @@ ca:
       gobierto_calendars/event_location:
         address: Adreça
         name: Nom
+      remove_filtering_text: Eliminar text filtrat
     enums:
       gobierto_calendars/filtering_rule:
         action:

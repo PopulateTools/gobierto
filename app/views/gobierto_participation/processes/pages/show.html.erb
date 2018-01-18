@@ -18,7 +18,8 @@
   <div class='column'>
     <% if @page.belongs_to_collection_of_news? %>
       <%= render "gobierto_cms/templates/news", { page: @page } %>
-    <% elsif @page.belongs_to_collection_of_pages? %>
+    <!-- user page layout for everything else, since not all pages belong to a collection -->
+    <% else %>
       <%= render 'gobierto_cms/templates/page', { page: @page } %>
     <% end %>
   </div>

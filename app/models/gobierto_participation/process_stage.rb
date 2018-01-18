@@ -5,6 +5,7 @@ require_dependency "gobierto_participation"
 module GobiertoParticipation
   class ProcessStage < ApplicationRecord
     include GobiertoCommon::Sortable
+    include GobiertoCommon::Sluggable
 
     before_destroy :check_stage_active
 
@@ -13,7 +14,7 @@ module GobiertoParticipation
 
     translates :title, :description, :cta_text, :cta_description, :menu
 
-    enum stage_type: { information: 0, agenda: 1, polls: 2, ideas: 3, documents: 4,
+    enum stage_type: { information: 0, agenda: 1, polls: 2, contributions: 3, documents: 4,
                        pages: 5, results: 6 }
     enum visibility_level: { draft: 0, published: 1 }
 
@@ -102,6 +103,10 @@ module GobiertoParticipation
       elsif results?
         '#' # TODO
       end
+    end
+
+    def attributes_for_slug
+      [title]
     end
 
     private

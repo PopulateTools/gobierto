@@ -6,7 +6,7 @@ require "support/extensions/gobierto_common/trackable_test"
 module GobiertoAdmin
   module GobiertoBudgetConsultations
     class ConsultationFormTest < ActiveSupport::TestCase
-      include GobiertoCommon::TrackableTest
+      include ::GobiertoCommon::TrackableTest
 
       def subject_class
         ConsultationForm

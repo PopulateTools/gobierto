@@ -20,13 +20,13 @@ In the context of a CMS section, it renders the children pages of the given page
 ```
 <div class="page_children">
   <div class="page_child">
-    <a href="http://madrid.gobierto.dev/s/participacion/sobre">Sobre Nosotros</a>
+    <a href="http://madrid.gobierto.test/s/participacion/sobre">Sobre Nosotros</a>
     <div class="page_children">
       <div class="page_child">
-        <a href="http://madrid.gobierto.dev/s/participacion/segundo-nivel">Segundo nivel</a>
+        <a href="http://madrid.gobierto.test/s/participacion/segundo-nivel">Segundo nivel</a>
         <div class="page_children">
           <div class="page_child">
-            <a href="http://madrid.gobierto.dev/s/participacion/tercer-nivel">Tercer nivel</a>
+            <a href="http://madrid.gobierto.test/s/participacion/tercer-nivel">Tercer nivel</a>
           </div>
         </div>
       </div>

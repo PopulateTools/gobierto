@@ -4,10 +4,13 @@ require_dependency "gobierto_cms"
 
 module GobiertoCms
   class Page < ApplicationRecord
+    acts_as_paranoid column: :archived_at
+
     paginates_per 10
 
     attr_accessor :admin_id
 
+    include ActsAsParanoidAliases
     include User::Subscribable
     include GobiertoCommon::Searchable
     include GobiertoAttachments::Attachable
@@ -15,7 +18,6 @@ module GobiertoCms
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Collectionable
     include GobiertoCommon::Sectionable
-    include ActionView::Helpers::SanitizeHelper
 
     algoliasearch_gobierto do
       attribute :site_id, :updated_at, :title_en, :title_es, :title_ca, :searchable_body, :collection_id
@@ -125,10 +127,7 @@ module GobiertoCms
     end
 
     def searchable_body
-      return "" if body_translations.nil?
-      body = body_translations.values.join(" ").tr("\n\r", " ").gsub(/\s+/, " ")
-      body = strip_tags(body)
-      body[0..9300]
+      searchable_translated_attribute(body_translations)
     end
   end
 end

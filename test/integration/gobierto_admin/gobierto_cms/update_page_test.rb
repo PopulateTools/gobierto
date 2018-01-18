@@ -35,7 +35,7 @@ module GobiertoAdmin
                 click_link "News"
               end
 
-              assert has_selector?("h1", text: collection.title)
+              assert has_selector?("h1", text: "CMS")
 
               click_link cms_page.title
 

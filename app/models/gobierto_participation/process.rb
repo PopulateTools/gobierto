@@ -4,6 +4,9 @@ require_dependency "gobierto_participation"
 
 module GobiertoParticipation
   class Process < ApplicationRecord
+    acts_as_paranoid column: :archived_at
+
+    include ActsAsParanoidAliases
     include User::Subscribable
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Searchable
@@ -49,8 +52,8 @@ module GobiertoParticipation
       active_stage?(ProcessStage.stage_types[:polls])
     end
 
-    def ideas_stage?
-      active_stage?(ProcessStage.stage_types[:ideas])
+    def contributions_stage?
+      active_stage?(ProcessStage.stage_types[:contributions])
     end
 
     def results_stage?

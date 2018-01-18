@@ -36,11 +36,8 @@ module GobiertoParticipation
         visit @path
 
         within ".sub-nav" do
-          assert has_link? "About"
           assert has_link? "Issues"
           assert has_link? "Processes"
-          assert has_link? "Ask"
-          assert has_link? "Ideas"
         end
       end
     end
@@ -126,6 +123,7 @@ module GobiertoParticipation
           with_signed_in_user(user) do
             visit @path
 
+            assert has_link? poll.title
             assert has_content? poll.questions.first.title
           end
         end

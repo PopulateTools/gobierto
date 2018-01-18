@@ -3,7 +3,7 @@
 module GobiertoAdmin
   module GobiertoCms
     class PagesController < BaseController
-      before_action :load_collection, only: [:new, :edit, :create, :update, :destroy]
+      before_action :load_collection, only: [:new, :edit, :create, :update]
 
       def index
         @sections = current_site.sections
@@ -21,7 +21,7 @@ module GobiertoAdmin
       def edit
         @page = find_page
         @section_id = @page.section_id
-        @parent_id =  @page.parent_id
+        @parent_id = @page.parent_id
         @page_section_item_id = ::GobiertoCms::SectionItem.find_by(item_id: @page.id).try(:id)
 
         @page_visibility_levels = get_page_visibility_levels
@@ -61,9 +61,27 @@ module GobiertoAdmin
 
       def destroy
         @page = find_page
-        @page.destroy
+        @page.archive
+        process = find_process if params[:process_id]
 
-        redirect_to admin_cms_pages_path, notice: t(".success")
+        if process
+          redirect_to admin_participation_process_pages_path(process_id: process), notice: t(".success")
+        else
+          redirect_to admin_common_collection_path(@page.collection), notice: t(".success")
+        end
+      end
+
+      def recover
+        @page = find_archived_page
+        @page.restore
+
+        process = find_process if params[:process_id]
+
+        if process
+          redirect_to admin_participation_process_pages_path(process_id: process), notice: t(".success")
+        else
+          redirect_to admin_common_collection_path(@page.collection), notice: t(".success")
+        end
       end
 
       private
@@ -95,11 +113,19 @@ module GobiertoAdmin
       end
 
       def ignored_page_attributes
-        %w(created_at updated_at title body collection_id)
+        %w(created_at updated_at title body collection_id archived_at)
       end
 
       def find_page
         current_site.pages.find(params[:id])
+      end
+
+      def find_process
+        current_site.processes.find(params[:process_id])
+      end
+
+      def find_archived_page
+        current_site.pages.with_archived.find(params[:page_id])
       end
 
       def find_collection(collection_id)

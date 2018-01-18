@@ -38,7 +38,7 @@ module GobiertoAdmin
 
     def initialize(attributes)
       attributes = attributes.to_h.with_indifferent_access
-      super(attributes.except(:name))
+      super(attributes.except(:name, :archived_at))
       @name = attributes[:name].presence || (file ? file.original_filename : file_attachment.file_name)
     end
 

@@ -44,6 +44,7 @@ ca:
           published_events: Esdeveniments publicats
           view_event: Veure esdeveniment
           visibility_level:
+            archived: Archivat
             pending: Borrador
             published: Publicat
         locations_form:

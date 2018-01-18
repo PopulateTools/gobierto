@@ -63,7 +63,7 @@
 
         <% information_stage = current_process.stages.where(stage_type: 0).try(:first) %>
 
-        <% if information_stage.process_stage_page %>
+        <% if information_stage && information_stage.process_stage_page %>
           <%= link_to t('.more_information'), stage_url(information_stage), class: "button outline rounded" %>
         <% end %>
       </div>
@@ -106,7 +106,7 @@
               <span class="accent"><i class="fa fa-folder"></i><%= t('.scope') %></span>
             </div>
             <div class="pure-u-1 pure-u-md-1-2">
-                <%= current_process.scope.name %>
+                <%= link_to current_process.scope.name, gobierto_participation_scope_path(current_process.scope.slug) %>
             </div>
           </div>
         <% end %>

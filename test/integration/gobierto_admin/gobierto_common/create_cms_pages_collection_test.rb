@@ -75,6 +75,41 @@ module GobiertoAdmin
         end
       end
 
+      def test_create_edit_participation_collection
+        with_javascript do
+          with_signed_in_admin(admin) do
+            with_current_site(site_santander) do
+              visit @path
+
+              within "#new-page" do
+                click_link "New"
+              end
+
+              fill_in "collection_title_translations_en", with: "My collection in GobiertoParticipation"
+              fill_in "collection_slug", with: "my-collection-participation"
+              find("select#collection_container_global_id").find("option[value='GobiertoParticipation']").select_option
+              find("select#collection_item_type").find("option[value='GobiertoCms::News']").select_option
+
+              click_button "Create"
+
+              assert has_message?("Collection was successfully created.")
+
+              assert has_selector?("h1", text: "My collection in GobiertoParticipation")
+
+              click_on "Configuration"
+
+              within "form.edit_collection" do
+                fill_in "collection_title_translations_en", with: "My collection in GobiertoParticipation updated"
+
+                click_button "Update"
+              end
+
+              assert has_message?("Collection was successfully updated.")
+            end
+          end
+        end
+      end
+
       def test_create_collection_with_same_container
         with_javascript do
           with_signed_in_admin(admin) do
@@ -87,11 +122,23 @@ module GobiertoAdmin
 
               fill_in "collection_title_translations_en", with: "My collection"
               find("select#collection_container_global_id").find("option[value='#{site_madrid.to_global_id}']").select_option
-              find("select#collection_item_type").find("option[value='GobiertoCms::Page']").select_option
+              find("select#collection_item_type").find("option[value='GobiertoCms::News']").select_option
 
               click_button "Create"
 
-              assert has_content?("Container has already been taken")
+              visit @path
+
+              within "#new-page" do
+                click_link "New"
+              end
+
+              fill_in "collection_title_translations_en", with: "My collection"
+              find("select#collection_container_global_id").find("option[value='#{site_madrid.to_global_id}']").select_option
+              find("select#collection_item_type").find("option[value='GobiertoCms::News']").select_option
+
+              click_button "Create"
+
+              assert has_content?("Container can't have another collection of this type")
             end
           end
         end

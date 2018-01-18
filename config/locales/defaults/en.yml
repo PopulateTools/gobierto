@@ -116,6 +116,7 @@ en:
         one: is too short (minimum at least %{count} element)
       blank: can't be blank
       blank_for_modules: must be a municipality for the current modules to work
+      collection_taken: can't have another collection of this type.
       confirmation: doesn't match %{attribute}
       empty: can't be empty
       equal_to: must be equal to %{count}

@@ -13,6 +13,11 @@
         <li><%= link_to t('.agenda'), gobierto_participation_issue_events_path(issue_id: @issue.slug) %></li>
         <li><%= link_to t('.documents'), gobierto_participation_issue_attachments_path(issue_id: @issue.slug) %></li>
         <li><%= link_to t('.activity'), gobierto_participation_issue_activities_path(issue_id: @issue.slug) %></li>
+      <% elsif @scope %>
+        <li><%= link_to t('.news'), gobierto_participation_scope_pages_path(scope_id: @scope.slug) %></li>
+        <li><%= link_to t('.agenda'), gobierto_participation_scope_events_path(scope_id: @scope.slug) %></li>
+        <li><%= link_to t('.documents'), gobierto_participation_scope_attachments_path(scope_id: @scope.slug) %></li>
+        <li><%= link_to t('.activity'), gobierto_participation_scope_activities_path(scope_id: @scope.slug) %></li>
       <% elsif current_module == "gobierto_participation" %>
         <li><%= link_to t('.news'), gobierto_participation_pages_path %></li>
         <li><%= link_to t('.agenda'), gobierto_participation_events_path %></li>

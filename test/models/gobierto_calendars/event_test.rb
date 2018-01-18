@@ -128,7 +128,7 @@ module GobiertoCalendars
     def test_destroy
       event.destroy
 
-      assert event.slug.include?("-slug-archived")
+      assert event.slug.include?("archived-")
     end
   end
 end

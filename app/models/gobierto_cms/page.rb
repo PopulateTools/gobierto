@@ -34,7 +34,7 @@ module GobiertoCms
     has_many :process_stage_pages, class_name: "GobiertoParticipation::ProcessStagePage"
 
     after_create :add_item_to_collection
-    after_restore :restore_slug
+    after_restore :set_slug
 
     enum visibility_level: { draft: 0, active: 1 }
 

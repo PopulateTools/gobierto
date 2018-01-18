@@ -39,7 +39,7 @@ module GobiertoParticipation
     scope :sorted, -> { order(id: :desc) }
 
     after_create :create_collections
-    after_restore :restore_slug
+    after_restore :set_slug
 
     def to_s
       title

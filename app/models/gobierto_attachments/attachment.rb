@@ -50,7 +50,7 @@ module GobiertoAttachments
 
     after_create :add_item_to_collection
     before_validation :update_file_attributes
-    after_restore :restore_slug
+    after_restore :set_slug
 
     scope :inverse_sorted, -> { order(id: :asc) }
     scope :sorted, -> { order(id: :desc) }

@@ -75,7 +75,7 @@ module GobiertoCms
     def test_destroy
       green_city_group.destroy
 
-      assert green_city_group.slug.include?("-slug-archived")
+      assert green_city_group.slug.include?("archived-")
     end
   end
 end

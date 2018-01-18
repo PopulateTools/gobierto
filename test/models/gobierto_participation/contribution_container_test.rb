@@ -28,7 +28,7 @@ module GobiertoParticipation
     def test_destroy
       contribution_container.destroy
 
-      assert contribution_container.slug.include?("-slug-archived")
+      assert contribution_container.slug.include?("archived-")
     end
   end
 end

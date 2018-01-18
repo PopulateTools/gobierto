@@ -35,7 +35,7 @@ module GobiertoCms
     def test_destroy
       page.destroy
 
-      assert page.slug.include?("-slug-archived")
+      assert page.slug.include?("archived-")
     end
   end
 end

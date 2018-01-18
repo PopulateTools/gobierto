@@ -178,7 +178,7 @@ module GobiertoAttachments
     def test_destroy
       attachment.destroy
 
-      assert attachment.slug.include?("-slug-archived")
+      assert attachment.slug.include?("archived-")
     end
   end
 end

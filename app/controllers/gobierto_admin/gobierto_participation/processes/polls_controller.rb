@@ -56,7 +56,7 @@ module GobiertoAdmin
 
         def destroy
           @poll = find_poll
-          @poll.archive
+          @poll.destroy
           process = find_process if params[:process_id]
 
           redirect_to admin_participation_process_polls_path(process_id: process), notice: t(".success")

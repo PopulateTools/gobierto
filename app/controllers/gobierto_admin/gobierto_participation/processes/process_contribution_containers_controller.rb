@@ -78,7 +78,7 @@ module GobiertoAdmin
 
         def destroy
           @contribution_container = find_contribution_container
-          @contribution_container.archive
+          @contribution_container.destroy
           process = find_process if params[:process_id]
 
           redirect_to admin_participation_process_contribution_containers_path(process_id: process), notice: t(".success")

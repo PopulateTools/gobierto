@@ -96,7 +96,7 @@ module GobiertoPeople
 
         skip 'see comment inside code'
 
-        10.times do |i|
+        20.times do |i|
           create_event(person: richard, title: "Event #{i}", starts_at: (Time.now.tomorrow + i.days).to_s)
         end
 
@@ -108,6 +108,9 @@ module GobiertoPeople
           click_link "View more"
 
           assert has_link?("Event 8")
+          assert has_link?("View more")
+
+          assert has_link?("Event 18")
           refute has_link?("View more")
         end
       end

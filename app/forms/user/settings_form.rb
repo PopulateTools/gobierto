@@ -28,7 +28,7 @@ class User::SettingsForm
   end
 
   def site
-    @site ||= user.source_site
+    @site ||= user.site
   end
 
   def date_of_birth

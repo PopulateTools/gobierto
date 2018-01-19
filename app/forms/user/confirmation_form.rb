@@ -13,6 +13,7 @@ class User::ConfirmationForm
     :date_of_birth,
     :gender,
     :creation_ip,
+    :site,
     :document_number
   )
   attr_reader :user
@@ -20,6 +21,13 @@ class User::ConfirmationForm
   validates :name, :date_of_birth, :gender, :user, presence: true
   validates :password, presence: true, confirmation: true
   validate :user_verification
+
+  def initialize(options = {})
+    options = options.to_h.with_indifferent_access
+    ordered_options = options.slice(:site, :confirmation_token).merge!(options)
+
+    super(ordered_options)
+  end
 
   def require_user_verification?
     user.present? && user.referrer_entity == "GobiertoBudgetConsultations::Consultation"
@@ -32,15 +40,11 @@ class User::ConfirmationForm
   end
 
   def user
-    @user ||= User.find_by_confirmation_token(confirmation_token)
+    @user ||= User.find_by(confirmation_token: confirmation_token, site: site)
   end
 
   def email
     @email ||= user.email
-  end
-
-  def site
-    @site ||= user.source_site if user
   end
 
   def date_of_birth
@@ -133,7 +137,7 @@ class User::ConfirmationForm
 
   def deliver_welcome_email
     if user
-      User::UserMailer.welcome(user, user.source_site).deliver_later
+      User::UserMailer.welcome(user, user.site).deliver_later
     end
   end
 

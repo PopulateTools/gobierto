@@ -7,6 +7,7 @@ class User::ConfirmationsController < User::BaseController
     @user_confirmation_form = User::ConfirmationForm.new(
       confirmation_token: params[:confirmation_token],
       creation_ip: remote_ip,
+      site: current_site
     )
 
     @user_genders = get_user_genders
@@ -21,7 +22,8 @@ class User::ConfirmationsController < User::BaseController
         date_of_birth_year: user_confirmation_params["date_of_birth(1i)"],
         date_of_birth_month: user_confirmation_params["date_of_birth(2i)"],
         date_of_birth_day: user_confirmation_params["date_of_birth(3i)"],
-        creation_ip: remote_ip
+        creation_ip: remote_ip,
+        site: current_site
       )
     )
 

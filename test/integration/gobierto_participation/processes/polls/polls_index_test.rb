@@ -48,17 +48,15 @@ module GobiertoParticipation
       end
 
       def test_disable_participate_link_for_already_answered_polls
-        with_current_site(site) do
-          with_signed_in_user(user_already_answered) do
+        with_signed_in_user(user_already_answered) do
 
-            visit process_polls_path
+          visit process_polls_path
 
-            within "#poll_#{poll.id}" do
-              assert has_content? 'You have already participated in this poll'
-              refute has_content? 'Participate in this poll'
-            end
-
+          within "#poll_#{poll.id}" do
+            assert has_content? 'You have already participated in this poll'
+            refute has_content? 'Participate in this poll'
           end
+
         end
       end
 

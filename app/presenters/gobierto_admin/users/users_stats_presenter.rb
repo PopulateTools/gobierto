@@ -27,7 +27,7 @@ module GobiertoAdmin
     private
 
     def users_scope
-      User.by_source_site(@site)
+      User.by_site(@site)
     end
   end
 end

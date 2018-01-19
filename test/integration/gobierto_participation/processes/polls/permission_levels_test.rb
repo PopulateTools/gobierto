@@ -12,7 +12,7 @@ module GobiertoParticipation
         end
 
         def registered_level_user
-          @registered_level_user ||= users(:susan)
+          @registered_level_user ||= users(:janet)
         end
 
         def verified_level_user
@@ -42,16 +42,16 @@ module GobiertoParticipation
         end
 
         def assert_both_levels_appear_in_index
-          with_current_site(site) do
-            visit process_polls_path
-            assert has_content? 'General aspects of the ordinance'
-            assert has_content? 'What do the residents of the neighborhood think?'
-          end
+          visit process_polls_path
+          assert has_content? 'General aspects of the ordinance'
+          assert has_content? 'What do the residents of the neighborhood think?'
         end
 
         def test_polls_not_registered_index
-          sign_out_user
-          assert_both_levels_appear_in_index
+          with_current_site(site) do
+            sign_out_user
+            assert_both_levels_appear_in_index
+          end
         end
 
         def test_polls_registered_index
@@ -84,37 +84,33 @@ module GobiertoParticipation
 
         def test_polls_registered_level_tries_to_answer
           with_signed_in_user(registered_level_user) do
-            with_current_site(site) do
-              visit process_polls_path
-              within "#poll_#{ registered_level_poll.id }" do
-                click_link 'Participate in this poll'
-              end
-              assert has_content? 'Do you think that the ordinance should be modified?'
-
-              visit process_polls_path
-              within "#poll_#{ verified_level_poll.id }" do
-                click_link 'Participate in this poll'
-              end
-              refute has_content? 'Do you mind if the carnival parade takes place next to your house?'
+            visit process_polls_path
+            within "#poll_#{ registered_level_poll.id }" do
+              click_link 'Participate in this poll'
             end
+            assert has_content? 'Do you think that the ordinance should be modified?'
+
+            visit process_polls_path
+            within "#poll_#{ verified_level_poll.id }" do
+              click_link 'Participate in this poll'
+            end
+            refute has_content? 'Do you mind if the carnival parade takes place next to your house?'
           end
         end
 
         def test_polls_verified_tries_to_answer
           with_signed_in_user(verified_level_user) do
-            with_current_site(site) do
-              visit process_polls_path
-              within "#poll_#{ registered_level_poll.id }" do
-                click_link 'Participate in this poll'
-              end
-              assert has_content? 'Do you think that the ordinance should be modified?'
-
-              visit process_polls_path
-              within "#poll_#{ verified_level_poll.id }" do
-                click_link 'Participate in this poll'
-              end
-              assert has_content? 'Do you mind if the carnival parade takes place next to your house?'
+            visit process_polls_path
+            within "#poll_#{ registered_level_poll.id }" do
+              click_link 'Participate in this poll'
             end
+            assert has_content? 'Do you think that the ordinance should be modified?'
+
+            visit process_polls_path
+            within "#poll_#{ verified_level_poll.id }" do
+              click_link 'Participate in this poll'
+            end
+            assert has_content? 'Do you mind if the carnival parade takes place next to your house?'
           end
         end
 

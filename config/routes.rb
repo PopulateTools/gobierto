@@ -168,6 +168,11 @@ Rails.application.routes.draw do
       get "/" => "welcome#index", as: :root
 
       resource :sessions, only: [:new, :create, :destroy]
+      resource :custom_session, only: [:new, :create, :destroy] do
+        collection do
+          post :auth_callback
+        end
+      end
       resource :registrations, only: [:create]
       resource :confirmations, only: [:new, :create]
       resource :passwords, only: [:create, :edit, :update]

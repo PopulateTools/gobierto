@@ -5,6 +5,7 @@ class User::ConfirmationForm
   attr_accessor(
     :confirmation_token,
     :name,
+    :password_enabled,
     :password,
     :password_confirmation,
     :date_of_birth_year,
@@ -19,7 +20,7 @@ class User::ConfirmationForm
   attr_reader :user
 
   validates :name, :date_of_birth, :gender, :user, presence: true
-  validates :password, presence: true, confirmation: true
+  validates :password, presence: true, confirmation: true, if: :password_enabled
   validate :user_verification
 
   def initialize(options = {})
@@ -39,12 +40,37 @@ class User::ConfirmationForm
     confirm_user if save_user
   end
 
+  def password_enabled
+    @password_enabled = true if @password_enabled.nil?
+    @password_enabled
+  end
+
   def user
     @user ||= User.find_by(confirmation_token: confirmation_token, site: site)
   end
 
+  def name
+    @name ||= user.name if user
+  end
+
   def email
     @email ||= user.email
+  end
+
+  def gender
+    @gender ||= user.gender if user
+  end
+
+  def date_of_birth_year
+    @date_of_birth_year ||= user.date_of_birth.try(:year) if user
+  end
+
+  def date_of_birth_month
+    @date_of_birth_month ||= user.date_of_birth.try(:month) if user
+  end
+
+  def date_of_birth_day
+    @date_of_birth_day ||= user.date_of_birth.try(:day) if user
   end
 
   def date_of_birth
@@ -68,7 +94,7 @@ class User::ConfirmationForm
   def save_user
     @user = user.tap do |user_attributes|
       user_attributes.name = name
-      user_attributes.password = password
+      user_attributes.password = password if password_enabled
       user_attributes.date_of_birth = date_of_birth
       user_attributes.gender = gender
       user_attributes.custom_records = custom_records

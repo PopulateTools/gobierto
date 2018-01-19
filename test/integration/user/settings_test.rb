@@ -16,6 +16,16 @@ class User::SettingsTest < ActionDispatch::IntegrationTest
     @site ||= sites(:madrid)
   end
 
+  def auth_strategy_site
+    @auth_strategy_site ||= sites(:cortegada)
+  end
+
+  def auth_strategy_site_user
+    @auth_strategy_site_user ||= users(:martin).tap do |user|
+      user.update(confirmation_token: nil)
+    end
+  end
+
   def test_settings_page
     with_signed_in_user(user) do
       visit @path
@@ -28,6 +38,27 @@ class User::SettingsTest < ActionDispatch::IntegrationTest
 
       click_on "Save"
       assert has_message?("Settings saved successfully")
+    end
+  end
+
+  def test_settings_page_with_password_disabled
+    with_current_site(auth_strategy_site) do
+
+      with_current_user(auth_strategy_site_user) do
+        visit @path
+
+        refute has_field? :user_confirmation_password
+        refute has_field? :user_confirmation_password_confirmation
+
+        fill_in :user_settings_name, with: "New name"
+        select "1992", from: :user_settings_date_of_birth_1i
+        select "January", from: :user_settings_date_of_birth_2i
+        select "1", from: :user_settings_date_of_birth_3i
+        choose "Male"
+
+        click_on "Save"
+        assert has_message?("Settings saved successfully")
+      end
     end
   end
 

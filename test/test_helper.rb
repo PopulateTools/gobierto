@@ -36,7 +36,6 @@ require "rails/test_help"
 require "minitest/rails"
 require "minitest/mock"
 require "minitest/reporters"
-require "database_cleaner"
 require "spy/integration"
 require "webmock/minitest"
 require "support/common_helpers"
@@ -123,19 +122,14 @@ class ActionDispatch::IntegrationTest
   Capybara.javascript_driver = :poltergeist_custom
   Capybara.default_host = "http://gobierto.test"
 
-  self.use_transactional_tests = false
-
-  DatabaseCleaner.strategy = :transaction
-  DatabaseCleaner.clean_with :truncation
+  self.use_transactional_tests = true
 
   def setup
     $redis.flushdb
-    DatabaseCleaner.start
     Capybara.current_driver = Capybara.default_driver
   end
 
   def teardown
-    DatabaseCleaner.clean
     Capybara.reset_session!
   end
 

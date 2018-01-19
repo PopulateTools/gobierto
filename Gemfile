@@ -90,7 +90,6 @@ group :test do
   gem "capybara"
   gem "capybara-email"
   gem "codecov", "~> 0.1.9", require: false
-  gem "database_cleaner"
   gem "launchy"
   gem "minitest-rails"
   gem "minitest-rails-capybara"

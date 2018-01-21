@@ -118,7 +118,7 @@ GEM
     d3-rails (4.10.2)
       railties (>= 3.1)
     dalli (2.7.6)
-    data_migrate (3.3.0)
+    data_migrate (3.3.1)
       rails (>= 4.0)
     declarative (0.0.10)
     declarative-option (0.1.0)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180115112209) do
+ActiveRecord::Schema.define(version: 20180119184713) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -397,6 +397,16 @@ ActiveRecord::Schema.define(version: 20180115112209) do
     t.string "template_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "gi_indicators", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.date "year"
+    t.jsonb "indicator_response"
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_gi_indicators_on_site_id"
   end
 
   create_table "gobierto_module_settings", id: :serial, force: :cascade do |t|

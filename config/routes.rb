@@ -299,6 +299,19 @@ Rails.application.routes.draw do
     end
   end
 
+  # Gobierto Indicators module
+  namespace :gobierto_indicators, path: "indicadores" do
+    constraints GobiertoSiteConstraint.new do
+      root "indicators#index"
+      # get "ita(/:year)" => "indicators#ita"
+      # get "ip(/:year)" => "indicators#ip"
+      # get "gci" => "indicators#gci"
+      get "ita" => "indicators#ita"
+      get "ip" => "indicators#ip"
+      get "gci" => "indicators#gci"
+    end
+  end
+
   # Gobierto CMS module
   namespace :gobierto_cms, path: "" do
     constraints GobiertoSiteConstraint.new do

@@ -76,6 +76,9 @@ gem "google-api-client"
 # Microsoft Exchange calendars
 gem "exchanger"
 
+# SOAP client for Populate Data
+gem "savon"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "i18n-tasks"

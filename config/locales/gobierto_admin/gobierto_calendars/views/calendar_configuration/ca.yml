@@ -22,10 +22,10 @@ ca:
           last_sync: Darrera sincronització
           microsoft_exchange: Microsoft Exchange
           placeholders:
+            filter_text: Text pel qual filtrar
             ibm_notes_url: ex. https://example.com/mail/abc.nsf/api/calendar/events
             microsoft_exchange_url: ex. https://example.com/ews/exchange.asmx
             username: ex. perico85
-            filter_text: Text pel qual filtrar
           remove_configuration: Eliminar configuració
           sync: Sincronitzar ara
         gobierto_people_person_navigation:

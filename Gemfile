@@ -22,7 +22,7 @@ gem "rollbar"
 gem "ruby_px"
 
 # Frontend
-gem "bourbon"
+gem "bourbon", "~> 4.3.4"
 gem "cocoon"
 gem "d3-rails", "~> 4.8"
 gem "flight-for-rails"

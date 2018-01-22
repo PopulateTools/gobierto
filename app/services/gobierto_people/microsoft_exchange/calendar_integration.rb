@@ -6,11 +6,6 @@ module GobiertoPeople
 
       attr_reader :person, :site, :configuration
 
-      SYNC_RANGE = {
-        start_date: DateTime.now - 2.days,
-        end_date:   DateTime.now + 1.year
-      }
-
       TARGET_CALENDAR_NAME = 'gobierto'
 
       def self.sync_person_events(person)
@@ -59,7 +54,7 @@ module GobiertoPeople
 
         log_missing_folder_error(TARGET_CALENDAR_NAME) and return if target_folder.nil?
 
-        target_folder.expanded_items(SYNC_RANGE)
+        target_folder.expanded_items(start_date: GobiertoCalendars.sync_range_start, end_date: GobiertoCalendars.sync_range_end)
       end
 
       def sync_event(event)
@@ -108,7 +103,7 @@ module GobiertoPeople
         if calendar_items && calendar_items.any?
           received_external_ids = calendar_items.map(&:id)
           person.events
-                .where(starts_at: SYNC_RANGE[:start_date]..SYNC_RANGE[:end_date])
+                .where(starts_at: GobiertoCalendars.sync_range)
                 .where.not(external_id: nil)
                 .where.not(external_id: received_external_ids)
                 .update_all(state: GobiertoCalendars::Event.states[:pending])

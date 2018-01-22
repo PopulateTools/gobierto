@@ -32,7 +32,7 @@ class User::Verification::CensusVerification < User::Verification
   def verify!
     ActiveRecord::Base.transaction do
       update_columns(verified: will_verify?)
-      user.update_columns(source_site_id: site_id) if will_verify?
+      user.update_columns(site_id: site_id) if will_verify?
       user.update_columns(census_verified: will_verify?)
     end
   end

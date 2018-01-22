@@ -16,6 +16,14 @@ class User::SessionTest < ActionDispatch::IntegrationTest
     @site ||= sites(:madrid)
   end
 
+  def other_site
+    @other_site ||= sites(:santander)
+  end
+
+  def other_site_user
+    @other_site_user ||= users(:susan)
+  end
+
   def privacy_page
     @privacy_page ||= gobierto_cms_pages(:privacy)
   end
@@ -67,6 +75,63 @@ class User::SessionTest < ActionDispatch::IntegrationTest
 
         assert has_message?("You are already signed in.")
       end
+    end
+  end
+
+  def test_sign_in_when_signed_in_in_other_site
+    with_current_site(site) do
+      visit @sign_in_path
+
+      fill_in :user_session_email, with: user.email
+      fill_in :user_session_password, with: "gobierto"
+      click_on "Log in"
+    end
+
+    with_current_site(other_site) do
+      visit @sign_in_path
+
+      fill_in :user_session_email, with: user.email
+      fill_in :user_session_password, with: "gobierto"
+      click_on "Log in"
+
+      assert has_message?("The data you entered doesn't seem to be valid. Please try again.")
+    end
+
+    with_current_site(site) do
+      visit @sign_in_path
+
+      assert has_message?("You are already signed in.")
+    end
+  end
+
+  def test_session_is_shared_between_hosts
+    with_current_site_with_host(site) do
+      visit @sign_in_path
+
+      fill_in :user_session_email, with: user.email
+      fill_in :user_session_password, with: "gobierto"
+      click_on "Log in"
+    end
+
+    # The session is replaced with the new one
+    with_current_site_with_host(other_site) do
+      visit @sign_in_path
+
+      fill_in :user_session_email, with: other_site_user.email
+      fill_in :user_session_password, with: "gobierto"
+      click_on "Log in"
+    end
+
+    with_current_site_with_host(site) do
+      visit @sign_in_path
+
+      assert has_content?("Log in")
+    end
+
+    with_current_site_with_host(other_site) do
+      visit @sign_in_path
+
+      assert has_message?("You are already signed in.")
     end
   end
 end

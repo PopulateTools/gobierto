@@ -13,7 +13,7 @@ module GobiertoAdmin
     end
 
     def site
-      @site ||= user.source_site
+      @site ||= user.site
     end
 
     def test_user_update

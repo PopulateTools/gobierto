@@ -32,3 +32,7 @@ es:
           one: "%{count}% verificado"
           other: "%{count}% verificados"
         view_user: Ver Usuario
+      session_information:
+        created_at: Creado
+        last_sign_in: Último login
+        site: Sitio

@@ -1,16 +1,16 @@
 <p>
-  <strong>Último login</strong>:
+  <strong><%= t('.last_sign_in') %></strong>:
   <%= time_ago_in_words(user.last_sign_in_at) if user.last_sign_in_at %>
   <span class="soft ip"><%= user.last_sign_in_ip %></span>
 </p>
 
 <p>
-  <strong>Creado</strong>:
+  <strong><%= t('.created_at') %></strong>:
   <%= l(user.created_at, format: :short) if user.created_at %>
   <span class="soft ip"><%= user.creation_ip %></span>
 </p>
 
 <p>
-  <strong>Sitio de origen</strong>:
-  <%= link_to user.source_site.name, user.source_site.domain %>
+  <strong><%= t('.site') %></strong>:
+  <%= link_to user.site.name, user.site.domain %>
 </p>

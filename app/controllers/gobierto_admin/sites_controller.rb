@@ -21,6 +21,7 @@ module GobiertoAdmin
       @available_pages = get_available_pages
       @home_page_items = home_page_items
       @home_page_selected = nil
+      set_auth_modules
     end
 
     def edit
@@ -41,6 +42,7 @@ module GobiertoAdmin
       @available_pages = get_available_pages
       @home_page_items = home_page_items
       @home_page_selected = @site.configuration.home_page_item_id
+      set_auth_modules
     end
 
     def create
@@ -58,6 +60,7 @@ module GobiertoAdmin
       @available_pages = get_available_pages
       @home_page_items = home_page_items
       @home_page_selected = @site_form.site.configuration.home_page_item_id
+      set_auth_modules
 
       if @site_form.save
         track_create_activity
@@ -83,6 +86,7 @@ module GobiertoAdmin
       @available_pages = get_available_pages
       @home_page_items = home_page_items
       @home_page_selected = @site_form.site.configuration.home_page_item_id
+      set_auth_modules
 
       if @site_form.save
         track_update_activity
@@ -112,6 +116,15 @@ module GobiertoAdmin
 
     def get_site_modules
       APP_CONFIG["site_modules"].map { |site_module| OpenStruct.new(site_module) }
+    end
+
+    def set_auth_modules
+      site = params[:id] ? find_site : Site.new
+
+      @auth_modules ||= AUTH_MODULES.select do |auth_module|
+        domains = auth_module.domains
+        !domains || domains.include?(site.domain)
+      end
     end
 
     def site_modules_with_root_path
@@ -165,7 +178,8 @@ module GobiertoAdmin
         site_modules: [],
         available_locales: [],
         title_translations: [*I18n.available_locales],
-        name_translations: [*I18n.available_locales]
+        name_translations: [*I18n.available_locales],
+        auth_modules: []
       )
     end
 

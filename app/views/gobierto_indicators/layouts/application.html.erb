@@ -12,6 +12,7 @@
       endpoint: "<%= APP_CONFIG["populate_data"]["endpoint"] %>"
     }
   <% end %>
+  <%= javascript_include_tag 'gobierto_indicators/application', 'data-turbolinks-track' => true %>
 <% end %>
 
 <%= render template: "layouts/application" %>

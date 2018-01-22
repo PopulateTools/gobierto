@@ -49,7 +49,7 @@ module GobiertoPeople
       end
 
       def sync_calendar_events(calendar)
-        response = service.list_events(calendar.id, always_include_email: true, time_min: 2.days.ago.iso8601)
+        response = service.list_events(calendar.id, always_include_email: true, time_min: GobiertoCalendars.sync_range_start.iso8601)
         response.items.each do |event|
           next if is_private?(event)
 
@@ -105,8 +105,7 @@ module GobiertoPeople
           ends_at: parse_date(event.end),
           state: state,
           attendees: event_attendees(event),
-          notify: i.nil? || i == 0,
-          recurring: i.present?
+          notify: i.nil? || i == 0
         }
 
         if event.location.present?

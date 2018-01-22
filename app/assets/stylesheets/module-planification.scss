@@ -172,6 +172,10 @@ $node-colors: (
     flex: 1 1 0%;
   }
 
+  section:not(.level_1) {
+    display: none;
+  }
+
   section.level_2 {
     display: flex;
     flex: 10;

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180115112209) do
+ActiveRecord::Schema.define(version: 20180118103147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -338,6 +338,7 @@ ActiveRecord::Schema.define(version: 20180115112209) do
     t.integer "action", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "remove_filtering_text", default: false
     t.index ["calendar_configuration_id"], name: "index_gc_filtering_rules_on_calendar_configuration_id"
   end
 

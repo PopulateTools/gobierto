@@ -213,6 +213,7 @@ module GobiertoPeople
         filtering_rule.condition = :not_contains
         filtering_rule.action = :ignore
         filtering_rule.value = "@"
+        filtering_rule.remove_filtering_text = true
         filtering_rule.save!
 
         event_1 = {
@@ -241,7 +242,7 @@ module GobiertoPeople
 
         # event 1 checks
         event = richard.events.find_by(external_id: 'external-id-1')
-        assert_equal '@ Event 1', event.title
+        assert_equal 'Event 1', event.title
         assert_equal 1, event.locations.size
         assert_equal 'Location 1', event.first_location.name
       end

@@ -9,16 +9,24 @@ module GobiertoCalendars
     CREATE_PENDING = :create_pending
 
     def self.filter(event_attributes, rules)
-      return CREATE if rules.empty?
+      filtering_result = GobiertoCalendars::FilteringResult.new event_attributes, CREATE
+      return filtering_result if rules.empty?
 
       rules_results = rules.map do |rule|
-        rule.apply(event_attributes)
+        result = rule.apply(event_attributes)
+        if rule.remove_filtering_text?
+          filtering_result.event_attributes = rule.update_event_attributes(event_attributes)
+        end
+        result
       end
 
       rules_results.delete_if{ |r| r == false }
-      return REMOVE if rules_results.include?("ignore")
-      return CREATE_PENDING if rules_results.include?("import_as_draft")
-      return CREATE
+      if rules_results.include?("ignore")
+        filtering_result.action = REMOVE
+      elsif rules_results.include?("import_as_draft")
+        filtering_result.action = CREATE_PENDING
+      end
+      filtering_result
     end
   end
 end

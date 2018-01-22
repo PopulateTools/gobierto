@@ -9,6 +9,7 @@ en:
           confirm_sync: Are you sure?
           filter_events: Filter events
           filter_events_desc: When an event is imported...
+          filter_events_label: If the
           google_calendar: Google Calendar
           ibm_notes: IBM Notes
           labels:
@@ -24,6 +25,7 @@ en:
             ibm_notes_url: ex. https://example.com/mail/abc.nsf/api/calendar/events
             microsoft_exchange_url: ex. https://example.com/ews/exchange.asmx
             username: ex. someone85
+            filter_text: Text to be filtered
           remove_configuration: Remove calendar configuration
           sync: Sync now
         gobierto_people_person_navigation:

@@ -338,6 +338,7 @@ ActiveRecord::Schema.define(version: 20180119184713) do
     t.integer "action", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "remove_filtering_text", default: false
     t.index ["calendar_configuration_id"], name: "index_gc_filtering_rules_on_calendar_configuration_id"
   end
 
@@ -818,7 +819,7 @@ ActiveRecord::Schema.define(version: 20180119184713) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "source_site_id"
+    t.integer "site_id"
     t.boolean "census_verified", default: false, null: false
     t.integer "gender"
     t.integer "notification_frequency", default: 0, null: false
@@ -826,10 +827,10 @@ ActiveRecord::Schema.define(version: 20180119184713) do
     t.string "referrer_url"
     t.string "referrer_entity"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email", "site_id"], name: "index_users_on_email_and_site_id", unique: true
     t.index ["notification_frequency"], name: "index_users_on_notification_frequency"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["source_site_id"], name: "index_users_on_source_site_id"
+    t.index ["site_id"], name: "index_users_on_site_id"
   end
 
   create_table "versions", force: :cascade do |t|

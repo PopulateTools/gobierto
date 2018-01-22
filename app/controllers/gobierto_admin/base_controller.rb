@@ -43,7 +43,6 @@ module GobiertoAdmin
       if request.host != current_site.domain
         if managed_sites && (site = managed_sites.find_by(domain: request.host))
           enter_site(site.id)
-          redirect_to admin_root_path
         end
       end
     end

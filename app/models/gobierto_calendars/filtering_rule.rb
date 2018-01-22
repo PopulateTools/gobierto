@@ -31,5 +31,11 @@ module GobiertoCalendars
 
       fullfills ? action : false
     end
+
+    def update_event_attributes(event_attributes)
+      event_attributes.symbolize_keys!
+      event_attributes[field.to_sym] = event_attributes[field.to_sym].gsub(value, "").gsub(/\s+/, " ").strip if event_attributes[field.to_sym].present?
+      event_attributes
+    end
   end
 end

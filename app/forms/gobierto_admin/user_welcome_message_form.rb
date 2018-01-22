@@ -19,7 +19,7 @@ module GobiertoAdmin
     end
 
     def site
-      user.source_site
+      user.site
     end
 
     private

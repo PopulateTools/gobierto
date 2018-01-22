@@ -76,8 +76,8 @@ gem "google-api-client"
 # Microsoft Exchange calendars
 gem "exchanger"
 
-# SOAP client for Populate Data
-gem "savon"
+# Web Services
+gem "savon", "~> 2.11.1"
 
 group :development, :test do
   gem "byebug", platform: :mri
@@ -90,13 +90,13 @@ group :test do
   gem "capybara"
   gem "capybara-email"
   gem "codecov", "~> 0.1.9", require: false
-  gem "database_cleaner"
   gem "launchy"
   gem "minitest-rails"
   gem "minitest-rails-capybara"
   gem "minitest-reporters"
   gem "minitest-retry"
   gem "minitest-stub_any_instance"
+  gem "minitest-stub-const"
   gem "mocha"
   gem "poltergeist"
   gem "spy"

@@ -66,7 +66,7 @@ module GobiertoAdmin
 
       def destroy
         @process = find_process
-        @process.archive
+        @process.destroy
 
         redirect_to admin_participation_path, notice: t(".success")
       end

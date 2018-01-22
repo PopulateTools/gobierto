@@ -9,6 +9,8 @@ es:
       gobierto_calendars/event_location:
         address: Dirección
         name: Nombre
+      gobierto_calendars/filtering_rule:
+        remove_filtering_text: Eliminar texto filtrado
     enums:
       gobierto_calendars/filtering_rule:
         action:

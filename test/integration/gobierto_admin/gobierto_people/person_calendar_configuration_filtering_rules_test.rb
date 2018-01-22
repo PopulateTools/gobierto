@@ -49,6 +49,7 @@ module GobiertoAdmin
               select "Contains", from: "calendar_configuration_filtering_rules_attributes_0_condition"
               fill_in "calendar_configuration_filtering_rules_attributes_0_value", with: "@"
               select "Ignore", from: "calendar_configuration_filtering_rules_attributes_0_action"
+              check "calendar_configuration_filtering_rules_attributes_0_remove_filtering_text"
 
               click_link "Create rule"
 
@@ -58,6 +59,7 @@ module GobiertoAdmin
               select "Contains", from: "calendar_configuration_filtering_rules_attributes_#{new_node_id}_condition"
               fill_in "calendar_configuration_filtering_rules_attributes_#{new_node_id}_value", with: "[draft]"
               select "Ignore", from: "calendar_configuration_filtering_rules_attributes_#{new_node_id}_action"
+              check "calendar_configuration_filtering_rules_attributes_#{new_node_id}_remove_filtering_text"
 
               click_button "Update"
 

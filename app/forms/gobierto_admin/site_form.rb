@@ -37,7 +37,8 @@ module GobiertoAdmin
       :populate_data_api_token,
       :home_page,
       :home_page_item_id,
-      :raw_configuration_variables
+      :raw_configuration_variables,
+      :auth_modules
     )
 
     attr_reader :logo_url
@@ -66,6 +67,17 @@ module GobiertoAdmin
 
     def site_modules
       @site_modules ||= site.configuration.modules
+    end
+
+    def auth_modules
+      @auth_modules = if @auth_modules
+                        @auth_modules & AUTH_MODULES.select do |auth_module|
+                          domains = auth_module.domains
+                          !domains || domains.include?(site.domain)
+                        end.map(&:name)
+                      else
+                        site.configuration.auth_modules
+                      end
     end
 
     def head_markup
@@ -173,6 +185,7 @@ module GobiertoAdmin
         site_attributes.configuration.privacy_page_id = privacy_page_id
         site_attributes.configuration.populate_data_api_token = populate_data_api_token
         site_attributes.configuration.raw_configuration_variables = raw_configuration_variables
+        site_attributes.configuration.auth_modules = auth_modules
       end
 
       if @site.valid?

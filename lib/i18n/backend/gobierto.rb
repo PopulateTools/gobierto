@@ -3,8 +3,6 @@ require 'i18n/backend/base'
 module I18n
   module Backend
     class Gobierto
-      autoload :Missing,       'i18n/backend/gobierto/missing'
-      autoload :StoreProcs,    'i18n/backend/gobierto/store_procs'
       autoload :Translation,   'i18n/backend/gobierto/translation'
       autoload :Configuration, 'i18n/backend/gobierto/configuration'
 

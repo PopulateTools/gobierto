@@ -3,9 +3,11 @@ class GobiertoBudgets::GenerateAnnualLinesJob < ActiveJob::Base
 
   def perform(*sites)
     sites.each do |site|
-      GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year|
-        data = GobiertoBudgets::Data::Annual.new(site: site, year: year)
-        data.generate_files if data.any_data?
+      if site.place
+        GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year|
+          data = GobiertoBudgets::Data::Annual.new(site: site, year: year)
+          data.generate_files if data.any_data?
+        end
       end
     end
   end

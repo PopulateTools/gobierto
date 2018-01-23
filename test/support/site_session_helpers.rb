@@ -6,7 +6,9 @@ module SiteSessionHelpers
     GobiertoSiteConstraint.stub_any_instance(:matches?, true) do
       ApplicationController.stub_any_instance(:current_site, site) do
         GobiertoAdmin::BaseController.stub_any_instance(:current_site, SiteDecorator.new(site)) do
+          ::GobiertoCore::CurrentScope.current_site = site
           yield
+          ::GobiertoCore::CurrentScope.current_site = nil
         end
       end
     end

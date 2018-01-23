@@ -2,6 +2,10 @@
 es:
   gobierto_indicators:
     indicators:
+      boolean_template:
+        'false': no se cumple
+        more: Más información
+        'true': se cumple
       gci:
         gci_description: Los indicadores GCI (Global City Indicators), que reflejan
           la calidad de vida de la ciudad, los define el Banco Mundial, asociación

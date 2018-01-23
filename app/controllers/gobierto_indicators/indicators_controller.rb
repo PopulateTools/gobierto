@@ -26,13 +26,13 @@ module GobiertoIndicators
       if params[:year].nil?
         @indicator_json = current_site.indicators.where(name: params[:action]).first.indicator_response
         if params[:action] == "ita"
-          redirect_to gobierto_indicators_ita_path(year: current_site.indicators.where(name: params[:action]).first.year.year)
+          redirect_to gobierto_indicators_ita_path(year: current_site.indicators.where(name: params[:action]).last.year.year)
         elsif params[:action] == "ip"
-          redirect_to gobierto_indicators_ip_path(year: current_site.indicators.where(name: params[:action]).first.year.year)
+          redirect_to gobierto_indicators_ip_path(year: current_site.indicators.where(name: params[:action]).last.year.year)
         end
       else
         @year = params[:year].to_i
-        @indicator_json = current_site.indicators.where("name LIKE ? AND extract(year from year) = ?", params[:action], @year).first.indicator_response
+        @indicator_json = current_site.indicators.where("name LIKE ? AND extract(year from year) = ?", params[:action], @year).last.indicator_response
       end
     end
   end

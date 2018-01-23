@@ -66,7 +66,7 @@ $node-colors: (
     }
   }
 
-  // @component node-root
+  // @component node-root (ejes)
   .node-root {
     position: relative;
     display: flex;
@@ -149,6 +149,10 @@ $node-colors: (
       display: flex;
       justify-content: space-between;
 
+      :first-child {
+        flex-basis: 75%;
+      }
+
       h3 {
         margin: 0 0 0.5em;
 
@@ -164,23 +168,97 @@ $node-colors: (
       .fa {
         padding: .15em .45em;
         line-height: 1;
-        border-radius: 3px;
+        @include border-radius(3px);
       }
     }
+
+  .node-breadcrumb {
+    display: inline-block;
+    @include border-radius(6px);
+
+    .fa {
+      padding: .15em .45em;
+      line-height: 1;
+      @include border-radius(3px);
+    }
+
+    a {
+      text-decoration: none;
+      font-size: $f7;
+      font-weight: 700;
+      padding: .25em;
+    }
+  }
+
+  .node-action-line {
+    background-color: $color_main_negative;
+    @include border-radius(6px);
+
+    .action-line--header {
+      padding: 1em 1em 0.25em;
+      border-top: 0;
+      @include border-radius($top:6px);
+    }
+
+    .action-line--list {
+      padding: 1em 2em;
+      color: $color_text;
+      @include border-radius($bottom:6px);
+
+      li {
+        list-style: none;
+      }
+
+      .node-list {
+        padding: 1em 0;
+        border-color: rgba($color_text, .35);
+      }
+
+      a {
+        color: $color_text;
+        font-size: $f5;
+        text-decoration: none;
+
+        &::first-letter {
+          text-transform: uppercase;
+        }
+      }
+
+      table {
+        th:not(:first-child),
+        td:not(:first-child) {
+          text-align: center;
+        }
+
+        thead {
+          color: rgba($color_text, .35);
+          text-transform: uppercase;
+          border-top: 1px solid rgba($color_text, .35);
+          border-bottom: 1px solid rgba($color_text, .35);
+          padding: .25em 0;
+        }
+      }
+    }
+
+  }
+
+  /* SECTIONS DISPLAYS */
 
   section.level_1 {
     flex: 1 1 0%;
   }
 
   section:not(.level_1) {
-    display: none;
+    display: none; // TODO: Fix refresh issue (flex se pierde)
   }
 
-  section.level_2 {
-    display: flex;
+  // IDEA: Dinamizar niveles de manera automática
+  section.level_2, section.level_3 {
     flex: 10;
     padding: 2em 3em;
 
+    /* COLOR MANAGER */
+    // IDEA: Quizá sea buena idea crear un mixin, y aplicar las modificaciones en función de la section (pero las volvería státicas)
     @for $i from 1 through length($node-colors) {
       // Get color from position `i` of `node-colors` array keys
       $color: getColor(nth(map-keys($node-colors), $i));
@@ -188,14 +266,41 @@ $node-colors: (
       &.cat_#{$i} {
         background: transparentize($color, .9);
         color: $color;
+
         h3, h3 a {
           color: $color;
         }
+
         .node {
           border-top-color: transparentize($color, .25);
         }
+
+        .node-breadcrumb {
+          border: 1px solid transparentize($color, .25);
+          color: $color;
+
+          a {
+            color: $color;
+          }
+        }
+
         .fa {
           background: transparentize($color, .9);
+        }
+
+        // Negative version nodes
+        .cat--negative {
+          background: $color;
+          color: $color_main_negative;
+
+          h3, h3 a {
+            color: $color_main_negative;
+          }
+
+          .fa {
+            background: $color_main_negative;
+            color: $color;
+          }
         }
       }
     }

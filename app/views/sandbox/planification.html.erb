@@ -22,10 +22,10 @@
         </div>
 
         <div class="header-detail">
-          <div>{{ detailed.roots }} ejes</div>
-          <div>{{ detailed.lines }} líneas de actuación</div>
-          <div>{{ detailed.acts }} actuaciones</div>
-          <div>{{ detailed.projects }} proyectos</div>
+          <div>{{ detail.roots }} ejes</div>
+          <div>{{ detail.lines }} líneas de actuación</div>
+          <div>{{ detail.actions }} actuaciones</div>
+          <div>{{ detail.projects }} proyectos</div>
         </div>
 
       </div>
@@ -47,8 +47,9 @@
           <ul class="lines-list">
             <%# TODO: Puede ser un componente, para encapsular el metodo de mostrar hijo (expand) %>
             <li class="node-list mb2" v-for="(model, index) in selected.children">
+              <%# TODO: Sacar el caret del h3, para textos largos %>
               <h3><a href="" @click="expand">
-                <i class="fa fa-caret-right"></i>
+                <i class="fa fa-caret-right"></i> <%# REVIEW: Revisar el tamaño %>
                 {{ model.attributes.title }}
               </a></h3>
               <div>{{ model.children.length }} actuaciones</div>
@@ -57,37 +58,86 @@
           </ul>
         </section>
 
-        <section class="level_3 cat_1">
+        <section class="level_3" :class="['cat_' + (selected.id % 5 + 1)]">
 
-          <div class="breadcrumb">
+          <div class="node-breadcrumb mb2">
             <a href="">
               <i class="fa fa-caret-left"></i>
               Ver todo en Personas y familias
             </a>
           </div>
 
-          <div class="node header">
-            <h3><a href="">
-              <i class="fa fa-caret-right"></i>
-              Promoure polítiques que afavoreixin la qualitat de vida de la gent gran
-            </a></h3>
-            <div class="sub_elements">5 actuaciones</div>
-            <div class="progress">35%</div>
-          </div>
+          <div class="node-action-line">
 
-          <div class="">
+            <div class="action-line--header node-list cat--negative">
+              <h3>
+                <i class="fa fa-caret-down"></i>
+                Promoure polítiques que afavoreixin la qualitat de vida de la gent gran
+              </h3>
+              <div>5 actuaciones</div>
+              <div>35%</div>
+            </div>
 
-            Cobrir les necessitats bàsiques a famílies amb manca de recursos suficients.
-
-            Garantir els subministraments d’aigua, llum i gas a les famílies sense recursos.
-
-            Optimitzar l’accessibilitat i la qualitat dels serveis socials bàsics.
-
-            Establir les accions que afavoreixin la protecció de la família i la infància.
-
-            Garantir ajuts socials malgrat les retallades d’altres administracions.
-
-
+            <ul class="action-line--list">
+              <li v-for="(model, index) in selected.children">
+                <div class="node-list">
+                  <div>
+                    <a href="" @click="showTable = !showTable">
+                      <i class="fa fa-caret-right"></i>
+                      {{ model.attributes.title }}
+                    </a>
+                  </div>
+                  <div>{{ model.children.length }} actuaciones</div>
+                  <div>{{ model.attributes.percent || 0 }}%</div>
+                </div>
+                <table v-if="showTable">
+                  <thead>
+                    <th>cap1</th>
+                    <th>cap2</th>
+                    <th>cap3</th>
+                    <th>cap4</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>dade01</td>
+                      <td>dade02</td>
+                      <td>dade03</td>
+                      <td>dade04</td>
+                    </tr>
+                    <tr>
+                      <td>dade01</td>
+                      <td>dade02</td>
+                      <td>dade03</td>
+                      <td>dade04</td>
+                    </tr>
+                    <tr>
+                      <td>dade01</td>
+                      <td>dade02</td>
+                      <td>dade03</td>
+                      <td>dade04</td>
+                    </tr>
+                    <tr>
+                      <td>dade01</td>
+                      <td>dade02</td>
+                      <td>dade03</td>
+                      <td>dade04</td>
+                    </tr>
+                    <tr>
+                      <td>dade01</td>
+                      <td>dade02</td>
+                      <td>dade03</td>
+                      <td>dade04</td>
+                    </tr>
+                    <tr>
+                      <td>dade01</td>
+                      <td>dade02</td>
+                      <td>dade03</td>
+                      <td>dade04</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </li>
+            </ul>
           </div>
 
         </section>
@@ -130,8 +180,8 @@
     methods: {
       open() {
         this.$root.selected = this.model;
-
-        // TODO: Revisar esto...
+$('section.level_2, section.level_3').hide();
+        // REVIEW: Revisar esto...
         $('section.level_1').velocity({flex: "0 0 25%"});
         $('section.level_1 .js-img').velocity({flex: "0"});
         $('section.level_1 .js-info').velocity({padding: "1.5em"});
@@ -153,20 +203,21 @@
     data() {
       return {
         json: {},
-        selected: null
+        selected: null,
+        showTable: false
       }
     },
     created: function() {
       this.getJson();
     },
     computed: {
-      detailed() {
+      detail() {
         if (!this.json.length) return {}
         let detail = {};
         detail = {
           roots: this.json.length,
           lines: _.flatten(_.map(this.json, 'children')).length,
-          acts: this.json.length,
+          actions: this.json.length,
           projects: this.json.length
         };
         return detail
@@ -180,7 +231,9 @@
         }.bind(this));
       },
       expand: function() {
-
+        $('section.level_2').hide();
+        $('section.level_3').velocity("transition.slideRightBigIn");
+        $('section.level_3').css("display: flex");
       }
     }
   });

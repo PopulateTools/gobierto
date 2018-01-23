@@ -45,8 +45,9 @@
           </div>
 
           <ul class="lines-list">
+            <%# TODO: Puede ser un componente, para encapsular el metodo de mostrar hijo (expand) %>
             <li class="node-list mb2" v-for="(model, index) in selected.children">
-              <h3><a href="">
+              <h3><a href="" @click="expand">
                 <i class="fa fa-caret-right"></i>
                 {{ model.attributes.title }}
               </a></h3>
@@ -177,6 +178,9 @@
           this.json = json;
           if (json.length) this.selected = json[0] // fallback
         }.bind(this));
+      },
+      expand: function() {
+
       }
     }
   });
@@ -194,6 +198,7 @@
 
     // if the target of the click isn't the container nor a descendant of the container
     if (!container.is(e.target) && container.has(e.target).length === 0) {
+      // TODO: Dinamizar para que no sea exclusivo de un nivel
       $('section.level_2, section.level_3').hide();
 
       $('section.level_1').removeAttr('style');

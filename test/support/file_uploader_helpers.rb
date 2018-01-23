@@ -3,7 +3,9 @@
 module FileUploaderHelpers
   def with_stubbed_s3_file_upload
     FileUploader::S3.stub_any_instance(:call, public_url) do
-      yield
+      FileUploader::S3.stub_any_instance(:uploaded_file_exists?, true) do
+        yield
+      end
     end
   end
 

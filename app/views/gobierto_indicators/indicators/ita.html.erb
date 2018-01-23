@@ -59,9 +59,7 @@
         {{model.attributes.title}}
       </div>
       <div class="item-text" @click="viewDetail" v-else>
-        <a href="#indicators-tree">
-          {{model.attributes.title}}
-        </a>
+        {{model.attributes.title}}
       </div>
 
       <div class="item-check" v-if="!hasChildren">
@@ -83,7 +81,7 @@
     <div class="item-title">
       <div class="item-id p_h_r_1">{{ model.id }}</div>
       <div class="item-text">
-        {{ model.attributes.desc }}
+        <span>{{ model.attributes.title }}</span>
       </div>
       <div class="item-check">
         <div class="row">

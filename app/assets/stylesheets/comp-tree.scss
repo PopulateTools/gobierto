@@ -38,6 +38,10 @@
             font-size: $f5;
             text-decoration: none;
             flex-basis: 75%;
+            span {
+              font-size: $f3;
+              color: $color_meta_text;
+            }
           }
 
           .item-check {
@@ -153,16 +157,21 @@
           }
         }
       }
+
       .item-id {
-        color: $color_meta_text;
+        float: left;
+        color: rgba($color_meta_text, .5);
       }
+
       .item-text {
         text-decoration: underline;
+        max-width: 90%;
 
         &::first-letter {
           text-transform: uppercase;
         }
       }
+      
       .item-check {
         float: right;
 

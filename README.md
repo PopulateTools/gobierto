@@ -81,7 +81,7 @@ Gobierto es un producto de Populate, un estudio de diseño y tecnología en torn
 ## Síguenos
 
 - Twitter: [@gobierto](https://twitter.com/gobierto) & [@populate_](https://twitter.com/populate_)
-- Web + Blog: [gobierto.es(https://gobierto.es)
+- Web + Blog: [gobierto.es](https://gobierto.es)
 
 ### Manuales
 

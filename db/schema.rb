@@ -338,6 +338,7 @@ ActiveRecord::Schema.define(version: 20180123093747) do
     t.integer "action", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "remove_filtering_text", default: false
     t.index ["calendar_configuration_id"], name: "index_gc_filtering_rules_on_calendar_configuration_id"
   end
 

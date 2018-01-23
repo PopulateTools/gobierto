@@ -216,6 +216,7 @@ module GobiertoPeople
         filtering_rule.condition = :not_contains
         filtering_rule.action = :ignore
         filtering_rule.value = "@"
+        filtering_rule.remove_filtering_text = true
         filtering_rule.save!
 
         assert_difference "GobiertoCalendars::Event.count", 1 do
@@ -224,7 +225,7 @@ module GobiertoPeople
 
         # Event 2 checks
         event = richard.events.find_by external_id: "event2"
-        assert_equal "@ Event 2", event.title
+        assert_equal "Event 2", event.title
         assert_equal richard, event.collection.container
         assert_empty event.locations
         assert_equal 2, event.attendees.size

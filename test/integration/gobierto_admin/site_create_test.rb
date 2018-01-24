@@ -63,7 +63,9 @@ YAML
             end
 
             with_stubbed_s3_file_upload do
-              click_button "Create"
+              with_stubbed_s3_upload! do
+                click_button "Create"
+              end
             end
           end
 

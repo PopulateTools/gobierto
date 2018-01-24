@@ -45,15 +45,8 @@
           </div>
 
           <ul class="lines-list">
-            <%# TODO: Puede ser un componente, para encapsular el metodo de mostrar hijo (expand) %>
-            <li class="node-list mb2" v-for="(model, index) in selected.children">
-              <%# TODO: Sacar el caret del h3, para textos largos %>
-              <h3><a href="" @click="expand">
-                <i class="fa fa-caret-right"></i> <%# REVIEW: Revisar el tamaño %>
-                {{ model.attributes.title }}
-              </a></h3>
-              <div>{{ model.children.length }} actuaciones</div>
-              <div>{{ model.attributes.percent || 0 }}%</div>
+            <li class="mb2" v-for="(model, index) in selected.children">
+              <node-list :model="model" :key="index"></node-list>
             </li>
           </ul>
         </section>
@@ -139,7 +132,6 @@
               </li>
             </ul>
           </div>
-
         </section>
 
       </div>
@@ -165,8 +157,17 @@
   </a>
 </script>
 
-<!-- node lines template -->
-
+<!-- node list template -->
+<script type="text/x-template" id="node-list-template">
+  <div class="node-list">
+    <div class="node-title">
+      <div><i class="fa fa-caret-right"></i></div>
+      <h3><a href="" @click="expand">{{ model.attributes.title }}</a></h3>
+    </div>
+    <div>{{ model.children.length }} actuaciones</div>
+    <div>{{ model.attributes.percent || 0 }}%</div>
+  </div>
+</script>
 
 <script type="text/javascript">
 
@@ -180,8 +181,11 @@
     methods: {
       open() {
         this.$root.selected = this.model;
-$('section.level_2, section.level_3').hide();
-        // REVIEW: Revisar esto...
+
+
+        // REVIEW: Revisar este bloque
+        $('section.level_2, section.level_3').hide();
+
         $('section.level_1').velocity({flex: "0 0 25%"});
         $('section.level_1 .js-img').velocity({flex: "0"});
         $('section.level_1 .js-info').velocity({padding: "1.5em"});
@@ -193,6 +197,22 @@ $('section.level_2, section.level_3').hide();
 
         $(this).find('.fa').toggleClass('fa-caret-right fa-caret-down');
         $(this).siblings('.description').toggle();
+      }
+    }
+  });
+
+  // define the node list component
+  Vue.component('node-list', {
+    template: '#node-list-template',
+    props: ['model'],
+    data() {
+      return {}
+    },
+    methods: {
+      expand: function() {
+        $('section.level_2').hide();
+        $('section.level_3').velocity("transition.slideRightBigIn");
+        $('section.level_3').css("display: flex");
       }
     }
   });
@@ -229,11 +249,6 @@ $('section.level_2, section.level_3').hide();
           this.json = json;
           if (json.length) this.selected = json[0] // fallback
         }.bind(this));
-      },
-      expand: function() {
-        $('section.level_2').hide();
-        $('section.level_3').velocity("transition.slideRightBigIn");
-        $('section.level_3').css("display: flex");
       }
     }
   });

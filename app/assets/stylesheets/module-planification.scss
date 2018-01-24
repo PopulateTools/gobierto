@@ -7,12 +7,13 @@
 $nodeLevel1IllustrationWidth: 33%;
 $nodeLevel1Height:150px;
 
+// Colors (might be set somewhere else)
 $node-colors: (
-  cNode1: #DB524B,
-  cNode2: #00909E,
-  cNode3: #F1AD44,
-  cNode4: #85A81C,
-  cNode5: #00529E
+  1: #DB524B,
+  2: #00909E,
+  3: #F1AD44,
+  4: #85A81C,
+  5: #00529E
 );
 
 // Functions
@@ -45,8 +46,6 @@ $node-colors: (
         font-size: $f1;
       }
     }
-
-    .header-detail{}
   }
 
   .planification-content {
@@ -63,10 +62,14 @@ $node-colors: (
     .lines-list {
       margin: 0;
       padding: 0;
+
+      li {
+        list-style: none;
+      }
     }
   }
 
-  // @component node-root (ejes)
+  // @component node-root (main axis)
   .node-root {
     position: relative;
     display: flex;
@@ -130,6 +133,7 @@ $node-colors: (
       }
     }
 
+    // node-root styles color-dependents
     @for $i from 1 through length($node-colors) {
       // Get color from position `i` of `node-colors` array keys
       $color: getColor(nth(map-keys($node-colors), $i));
@@ -149,15 +153,25 @@ $node-colors: (
       display: flex;
       justify-content: space-between;
 
-      :first-child {
+      .node-title {
         flex-basis: 75%;
+        display: flex;
+
+        :first-child {
+          flex: 0;
+        }
       }
 
       h3 {
         margin: 0 0 0.5em;
 
         a {
+          display: block;
           text-decoration: none;
+
+          &::first-letter {
+            text-transform: uppercase;
+          }
         }
 
         &:hover {
@@ -225,6 +239,8 @@ $node-colors: (
       }
 
       table {
+        margin: 1em 0;
+
         th:not(:first-child),
         td:not(:first-child) {
           text-align: center;
@@ -236,6 +252,16 @@ $node-colors: (
           border-top: 1px solid rgba($color_text, .35);
           border-bottom: 1px solid rgba($color_text, .35);
           padding: .25em 0;
+
+          th {
+            font-weight: normal;
+          }
+        }
+
+        tbody {
+          td {
+            border: 0;
+          }
         }
       }
     }
@@ -258,7 +284,6 @@ $node-colors: (
     padding: 2em 3em;
 
     /* COLOR MANAGER */
-    // IDEA: Quizá sea buena idea crear un mixin, y aplicar las modificaciones en función de la section (pero las volvería státicas)
     @for $i from 1 through length($node-colors) {
       // Get color from position `i` of `node-colors` array keys
       $color: getColor(nth(map-keys($node-colors), $i));
@@ -275,6 +300,7 @@ $node-colors: (
           border-top-color: transparentize($color, .25);
         }
 
+        // TODO: Mover a adecuado lugar
         .node-breadcrumb {
           border: 1px solid transparentize($color, .25);
           color: $color;

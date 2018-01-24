@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "support/event_helpers"
 
 module GobiertoPeople
   class PersonEventFormTest < ActiveSupport::TestCase
+
+    include ::EventHelpers
 
     def site
       @site ||= sites(:madrid)
@@ -13,8 +16,17 @@ module GobiertoPeople
       @event ||= gobierto_calendars_events(:richard_published)
     end
 
-    def person
-      @person ||= gobierto_people_people(:richard)
+    def richard
+      @richard ||= gobierto_people_people(:richard)
+    end
+    alias person richard
+
+    def tamara
+      @tamara ||= gobierto_people_people(:tamara)
+    end
+
+    def nelson
+      @nelson ||= gobierto_people_people(:nelson)
     end
 
     def event_attributes
@@ -39,7 +51,7 @@ module GobiertoPeople
     def invalid_event_form
       @invalid_event_form ||= PersonEventForm.new(
         external_id: nil,
-        site_id: nil,
+        site_id: site.id,
         person_id: nil,
         title: nil,
         description: nil,
@@ -59,7 +71,6 @@ module GobiertoPeople
       invalid_event_form.save
 
       assert_equal 1, invalid_event_form.errors.messages[:collection].size
-      assert_equal 1, invalid_event_form.errors.messages[:site].size
       assert_equal 1, invalid_event_form.errors.messages[:external_id].size
       assert_equal 1, invalid_event_form.errors.messages[:title].size
       assert_equal 1, invalid_event_form.errors.messages[:ends_at].size
@@ -83,5 +94,21 @@ module GobiertoPeople
         valid_event_form.destroy
       end
     end
+
+    def test_scopes_event_search_on_person_when_external_id_collides
+      event_1 = create_event(person: richard, title: 'Richard event', external_id: '123')
+      event_2 = create_event(person: tamara,  title: 'Tamara event',  external_id: '123')
+      event_3 = create_event(person: nelson,  title: 'Nelson event',  external_id: '123')
+
+      # permutate order of all three events so test never passes by accident
+      event_3_form = PersonEventForm.new(site_id: site.id, person_id: nelson.id,  external_id: '123')
+      event_1_form = PersonEventForm.new(site_id: site.id, person_id: richard.id, external_id: '123')
+      event_2_form = PersonEventForm.new(site_id: site.id, person_id: tamara.id,  external_id: '123')
+
+      assert_equal 'Richard event', event_1_form.person_event.title
+      assert_equal 'Tamara event',  event_2_form.person_event.title
+      assert_equal 'Nelson event',  event_3_form.person_event.title
+    end
+
   end
 end

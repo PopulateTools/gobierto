@@ -56,24 +56,24 @@ module I18n
           result = []
           if ::GobiertoCore::CurrentScope.current_site.present?
             result = if key == ''
-              Translation.locale(locale).with_site(::GobiertoCore::CurrentScope.current_site)
+              Translation.find_entry(locale: locale, site: ::GobiertoCore::CurrentScope.current_site)
             else
-              Translation.locale(locale).lookup(key).with_site(::GobiertoCore::CurrentScope.current_site)
+              Translation.find_entry(locale: locale, site: ::GobiertoCore::CurrentScope.current_site, key: key)
             end
           end
 
           if result.empty?
             result = if key == ''
-              Translation.locale(locale).global
+              Translation.find_entry(locale: locale)
             else
-              Translation.locale(locale).lookup(key).global
+              Translation.find_entry(locale: locale, key: key)
             end
           end
 
           if result.empty?
             nil
-          elsif result.first.key == key
-            result.first.value
+          elsif result.has_key?(key)
+            result[key]
           else
             result = result.inject({}) do |hash, translation|
               hash.deep_merge build_translation_hash_by_key(key, translation)

@@ -46,6 +46,7 @@ module I18n
       class Translation < ::ActiveRecord::Base
         TRUTHY_CHAR = "\001"
         FALSY_CHAR = "\002"
+        GLOBAL_SCOPE = 0
 
         self.table_name = 'translations'
 
@@ -54,7 +55,7 @@ module I18n
 
         class << self
           def locale(locale)
-            where(:locale => locale.to_s)
+            where(locale: locale.to_s)
           end
 
           def with_site(site)
@@ -78,8 +79,46 @@ module I18n
             where("#{column_name} IN (?) OR #{column_name} LIKE ?", keys, namespace)
           end
 
+          def find_entry(options)
+            locale  = options.fetch(:locale).to_sym
+            site    = options.fetch(:site, nil)
+            key     = options.fetch(:key, nil)
+            site_id = site.try(:id) || GLOBAL_SCOPE
+
+            if cached_entries[locale].nil? || cached_entries[locale][site_id].nil?
+              reset_cached_entries!
+            end
+
+            if cached_entries[locale][site_id].has_key?(key)
+              cached_entries[locale][site_id]
+            elsif cached_entries[locale][GLOBAL_SCOPE].has_key?(key)
+              cached_entries[locale][GLOBAL_SCOPE]
+            else
+              {}
+            end
+          end
+
           def available_locales
             Translation.select('DISTINCT locale').to_a.map { |t| t.locale.to_sym }
+          end
+
+          def reset_cached_entries!
+            @cached_entries = nil
+          end
+
+          def cached_entries
+            @cached_entries ||= begin
+              cached_entries = {}
+              I18n.available_locales.each do |locale|
+                locale = locale.to_sym
+                cached_entries[locale] ||= {}
+                Site.all.each do |site|
+                  cached_entries[locale][site.id] = Hash[self.locale(locale).with_site(site).pluck(:key, :value)]
+                end
+                cached_entries[locale][0] = Hash[self.locale(locale).global.pluck(:key, :value)]
+              end
+              cached_entries
+            end
           end
         end
 

@@ -24,9 +24,9 @@ module FileUploader
     def call
       if !uploaded_file_exists? && @file
         upload
+      else
+        object.public_url
       end
-
-      object.public_url
     end
 
     def upload
@@ -43,6 +43,7 @@ module FileUploader
       if @tmp_file
         @tmp_file.unlink
       end
+      object.public_url
     end
 
     def uploaded_file_exists?

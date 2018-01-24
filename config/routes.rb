@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       resources :options, only: [:index] do
         collection do
           put :update
+          put :update_annual_data
         end
       end
       resources :feedback, only: [:index]

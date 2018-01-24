@@ -27,15 +27,17 @@ module GobiertoBudgets
       end
 
       def generate_files
+        file_urls = []
         return file_urls unless any_data?
         calculate_place_budget_lines
 
         FORMATS.each do |format_key, configuration|
-          FileUploader::S3.new(
+          file_urls << FileUploader::S3.new(
             file_name: filename(format_key),
             content: configuration[:serializer].call(@place_budget_lines)
           ).upload!
         end
+        file_urls
       end
 
       protected

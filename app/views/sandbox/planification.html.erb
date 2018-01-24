@@ -34,56 +34,47 @@
 
         <section class="level_1">
           <div class="node-root" v-for="(model, index) in json" :class="['cat_' + (index % 5 + 1)]">
-            <node-root :model="model"></node-root>
+            <node-root :model="model" :key="model.id" v-on:increment="setSelection"></node-root>
           </div>
         </section>
 
-        <section class="level_2" :class="['cat_' + (selected.id % 5 + 1)]">
+        <section class="level_2" v-show="roots" :class="['cat_' + color(0) ]">
           <div class="lines-header">
-            <div>{{ selected.children.length }} lineas de actuación</div>
+            <div>{{ (activeNode.children || []).length }} lineas de actuación</div>
             <div>% progress</div>
           </div>
 
           <ul class="lines-list">
-            <li class="mb2" v-for="(model, index) in selected.children">
-              <node-list :model="model" :key="index"></node-list>
+            <li class="mb2" v-for="(model, index) in activeNode.children">
+              <node-list :model="model" :key="model.id"></node-list>
             </li>
           </ul>
         </section>
 
-        <section class="level_3" :class="['cat_' + (selected.id % 5 + 1)]">
-
-          <div class="node-breadcrumb mb2">
-            <a href="">
-              <i class="fa fa-caret-left"></i>
-              Ver todo en Personas y familias
-            </a>
-          </div>
-
-          <div class="node-action-line">
-
-            <div class="action-line--header node-list cat--negative">
-              <h3>
-                <i class="fa fa-caret-down"></i>
-                Promoure polítiques que afavoreixin la qualitat de vida de la gent gran
-              </h3>
-              <div>5 actuaciones</div>
-              <div>35%</div>
+        <section class="level_3" v-show="lines">
+          <div :class="['cat_' + color(1) ]">
+            <div class="node-breadcrumb mb2">
+              <a href="">
+                <i class="fa fa-caret-left"></i>
+                Ver todo en {{ (activeNode.attributes || {}).title }}
+              </a>
             </div>
 
-            <ul class="action-line--list">
-              <li v-for="(model, index) in selected.children">
-                <div class="node-list">
-                  <div>
-                    <a href="" @click="showTable = !showTable">
-                      <i class="fa fa-caret-right"></i>
-                      {{ model.attributes.title }}
-                    </a>
-                  </div>
-                  <div>{{ model.children.length }} actuaciones</div>
-                  <div>{{ model.attributes.percent || 0 }}%</div>
-                </div>
-                <table v-if="showTable">
+            <div class="node-action-line">
+
+              <div class="action-line--header node-list cat--negative">
+                <h3>
+                  <i class="fa fa-caret-down"></i>
+                  {{ (activeNode.attributes || {}).title }}
+                </h3>
+                <div>{{ (activeNode.children || []).length }} actuaciones</div>
+                <div>{{ (activeNode.attributes || {}).percent }}</div>
+              </div>
+
+              <ul class="action-line--list">
+                <li v-for="(model, index) in activeNode.children">
+                  <node-list :model="model" :key="model.id"></node-list>
+                  <table v-if="model.showTable">
                   <thead>
                     <th>cap1</th>
                     <th>cap2</th>
@@ -129,8 +120,9 @@
                     </tr>
                   </tbody>
                 </table>
-              </li>
-            </ul>
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -164,117 +156,9 @@
       <div><i class="fa fa-caret-right"></i></div>
       <h3><a href="" @click="expand">{{ model.attributes.title }}</a></h3>
     </div>
-    <div>{{ model.children.length }} actuaciones</div>
+    <div>{{ (model.children || []).length }} actuaciones</div>
     <div>{{ model.attributes.percent || 0 }}%</div>
   </div>
 </script>
 
-<script type="text/javascript">
-
-  // define the node root component
-  Vue.component('node-root', {
-    template: '#node-root-template',
-    props: ['model'],
-    data() {
-      return {}
-    },
-    methods: {
-      open() {
-        this.$root.selected = this.model;
-
-
-        // REVIEW: Revisar este bloque
-        $('section.level_2, section.level_3').hide();
-
-        $('section.level_1').velocity({flex: "0 0 25%"});
-        $('section.level_1 .js-img').velocity({flex: "0"});
-        $('section.level_1 .js-info').velocity({padding: "1.5em"});
-        $('section.level_1 .js-info h3, section.level_1 .js-info span').velocity({"font-size": "1.25rem" });
-
-        $('section.level_2').velocity("transition.slideRightBigIn");
-        $('section.level_2').css("display: flex");
-        $(this).parents('.timeline_row').toggleClass('toggled');
-
-        $(this).find('.fa').toggleClass('fa-caret-right fa-caret-down');
-        $(this).siblings('.description').toggle();
-      }
-    }
-  });
-
-  // define the node list component
-  Vue.component('node-list', {
-    template: '#node-list-template',
-    props: ['model'],
-    data() {
-      return {}
-    },
-    methods: {
-      expand: function() {
-        $('section.level_2').hide();
-        $('section.level_3').velocity("transition.slideRightBigIn");
-        $('section.level_3').css("display: flex");
-      }
-    }
-  });
-
-  var app = new Vue({
-    el: '#gobierto-planification',
-    name: 'gobierto-planification',
-    data() {
-      return {
-        json: {},
-        selected: null,
-        showTable: false
-      }
-    },
-    created: function() {
-      this.getJson();
-    },
-    computed: {
-      detail() {
-        if (!this.json.length) return {}
-        let detail = {};
-        detail = {
-          roots: this.json.length,
-          lines: _.flatten(_.map(this.json, 'children')).length,
-          actions: this.json.length,
-          projects: this.json.length
-        };
-        return detail
-      }
-    },
-    methods: {
-      getJson: function() {
-        $.getJSON('/planification.json', function(json) {
-          this.json = json;
-          if (json.length) this.selected = json[0] // fallback
-        }.bind(this));
-      }
-    }
-  });
-</script>
-
-<script type="text/javascript">
-
-
-
-  //close everything
-  $(document).click(function (e) {
-    e.preventDefault();
-
-    var container = $(".planification-content");
-
-    // if the target of the click isn't the container nor a descendant of the container
-    if (!container.is(e.target) && container.has(e.target).length === 0) {
-      // TODO: Dinamizar para que no sea exclusivo de un nivel
-      $('section.level_2, section.level_3').hide();
-
-      $('section.level_1').removeAttr('style');
-      $('section.level_1 .js-img').removeAttr('style');
-      $('section.level_1 .js-info').removeAttr('style');
-      $('section.level_1 .js-info h3, section.level_1 .js-info span').removeAttr('style');
-
-    }
-  })
-
-</script>
+<script src="/planification.js" charset="utf-8"></script>

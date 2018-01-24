@@ -30,14 +30,15 @@
         "id": 1,
         "level": 1,
         "attributes": {
-          "title": "cupidatat aute occaecat dolore commodo dolor amet labore eu ipsum"
+          "title": "Contenido de la segunda pantalla. Segundo hijo",
+          "complete": "45%"
         },
         "children": [
           {
             "id": 0,
             "level": 2,
             "attributes": {
-              "title": "do officia laboris dolore nostrud amet fugiat pariatur labore occaecat",
+              "title": "Contenido de la tercera pantalla. Tercer hijo",
               "desc": "sint aliquip sit commodo consequat consectetur irure ullamco anim occaecat fugiat nostrud irure magna ullamco quis ipsum Lorem ex dolore cillum cillum occaecat enim tempor consequat minim qui cupidatat nulla ex eu anim aliqua adipisicing laborum pariatur veniam esse nulla",
               "checked": true
             }

@@ -73,6 +73,7 @@ $node-colors: (
   .node-root {
     position: relative;
     display: flex;
+    min-height: $nodeLevel1Height;
 
     &:hover {
       opacity: .9;
@@ -272,10 +273,6 @@ $node-colors: (
 
   section.level_1 {
     flex: 1 1 0%;
-  }
-
-  section:not(.level_1) {
-    display: none; // TODO: Fix refresh issue (flex se pierde)
   }
 
   // IDEA: Dinamizar niveles de manera automática

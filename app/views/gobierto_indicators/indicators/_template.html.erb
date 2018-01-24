@@ -16,11 +16,15 @@
         {{model.attributes.title}}
       </div>
 
-      <div class="item-check" v-if="!hasChildren">
+      <div class="item-check" v-if="!hasChildren && type=='boolean'">
         <div class="check-container" :class="(model.attributes.checked) ? 'check-container--true' : 'check-container--false'">
           <i class="fa fa-check" v-if="model.attributes.checked"></i>
           <i class="fa fa-times" v-else></i>
         </div>
+      </div>
+      <div class="item-check" v-if="!hasChildren && type=='numeric'">
+        <!-- TODO: value from values array
+        <!-- {{model.attributes.values[0][2012]}} -->
       </div>
     </div>
     <ul v-show="open" v-if="hasChildren">

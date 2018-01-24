@@ -2,10 +2,6 @@
 ca:
   gobierto_indicators:
     indicators:
-      boolean_template:
-        'false': no es compleix
-        more: Més informació
-        'true': es compleix
       gci:
         gci_description: Els indicadors GCI (Global City Indicators), que reflecteixen
           la qualitat de vida de la ciutat, els defineix el Banc Mundial , associació
@@ -28,6 +24,10 @@ ca:
           a través d'un conjunt integrat de 80 indicadors agrupat en diverses àrees.
         ita_title: Indicadors ITA
         title: Indicadors
+      template:
+        'false': no es compleix
+        more: Més informació
+        'true': es compleix
     layouts:
       application:
         indicators: Indicadors

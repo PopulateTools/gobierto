@@ -91,7 +91,8 @@ this.GobiertoIndicators.IndicatorsController = (function() {
         data: function() {
           return {
             json: {},
-            selected: null
+            selected: null,
+            type: element.dataset.type
           }
         },
         created: function() {

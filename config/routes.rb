@@ -310,7 +310,7 @@ Rails.application.routes.draw do
       root "indicators#index"
       get "ita(/:year)" => "indicators#ita", as: :indicators_ita
       get "ip(/:year)" => "indicators#ip", as: :indicators_ip
-      get "gci" => "indicators#gci", as: :indicators_gci
+      get "gci(/:year)" => "indicators#gci", as: :indicators_gci
     end
   end
 

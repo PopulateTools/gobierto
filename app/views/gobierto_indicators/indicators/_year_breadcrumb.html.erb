@@ -13,10 +13,10 @@
 
       <div class="col" data-level="0">
         <table  class="med_bg">
-          <% @indicators.each do |indicator_date| %>
+          <% @years.each do |year| %>
             <tr role="presentation" >
-              <td data-code="<%= indicator_date.year %>">
-                <%= link_to indicator_date.year, url_for(current_parameters_with_year(indicator_date.year)) %>
+              <td data-code="<%= year %>">
+                <%= link_to year, url_for(current_parameters_with_year(year)) %>
               </td>
             </tr>
           <% end %>

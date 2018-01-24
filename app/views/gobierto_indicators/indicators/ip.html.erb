@@ -1,6 +1,6 @@
 <% title t('.title', year: @year) %>
 
-<div id="indicator-form" data-indicator="<%= @indicator_json %>"></div>
+<div id="indicator-form" data-indicator="<%= @indicator_json %>" data-type="boolean"></div>
 
 <div class="column indicators-tree">
 
@@ -40,7 +40,7 @@
   </div>
 </div>
 
-<%= render partial: 'gobierto_indicators/indicators/boolean_template' %>
+<%= render partial: 'gobierto_indicators/indicators/template' %>
 
 <% content_for :javascript_hook do %>
   <%= javascript_tag do %>

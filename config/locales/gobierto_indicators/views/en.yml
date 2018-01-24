@@ -2,10 +2,6 @@
 en:
   gobierto_indicators:
     indicators:
-      boolean_template:
-        'false': it's not true
-        more: More information
-        'true': is fulfilled
       gci:
         gci_description: The GCI indicators (Global City Indicators), which reflect
           The quality of life of the city is defined by the World Bank, association
@@ -29,6 +25,10 @@ en:
           areas.
         ita_title: ITA indicators
         title: Indicators
+      template:
+        'false': it's not true
+        more: More information
+        'true': is fulfilled
     layouts:
       application:
         indicators: Indicators

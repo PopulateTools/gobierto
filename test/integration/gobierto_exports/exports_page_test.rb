@@ -24,6 +24,10 @@ module GobiertoExports
 
           assert has_selector?("h1", text: "Download data")
           assert has_selector?("h2", text: "Officials and Agendas")
+          assert has_selector?("h2", text: "Budget lines")
+          GobiertoBudgets::SearchEngineConfiguration::Year.all.each do |year|
+            assert has_selector?("h3", text: year)
+          end
         end
       end
     end

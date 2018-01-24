@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180119184713) do
+ActiveRecord::Schema.define(version: 20180124102833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -402,11 +402,11 @@ ActiveRecord::Schema.define(version: 20180119184713) do
 
   create_table "gi_indicators", force: :cascade do |t|
     t.string "name", default: "", null: false
-    t.date "year"
     t.jsonb "indicator_response"
     t.bigint "site_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "year"
     t.index ["site_id"], name: "index_gi_indicators_on_site_id"
   end
 

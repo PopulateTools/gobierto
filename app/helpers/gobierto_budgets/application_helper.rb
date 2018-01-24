@@ -14,10 +14,6 @@ module GobiertoBudgets
       "https://presupuestos.gobierto.es/compare/#{municipalities.map(&:slug).join(':')}/#{year}/#{budget_line_path}"
     end
 
-    def current_parameters_with_year(year)
-      params.except(:host, :port, :protocol).merge(year: year).permit!
-    end
-
     def sign(v1, v2 = nil)
       return 'sign-neutral' if v1.blank? || v2.blank?
       diff = v1 - v2

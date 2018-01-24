@@ -11,26 +11,26 @@ this.GobiertoIndicators.IndicatorsController = (function() {
       Vue.component('item-tree', {
         template: '#item-tree-template',
         props: ['model'],
-        data() {
+        data: function() {
           return {
             open: true
           }
         },
         computed: {
-          hasChildren() {
+          hasChildren: function() {
             return this.model.children &&
               this.model.children.length
           }
         },
         methods: {
-          toggle() {
+          toggle: function() {
             if (this.hasChildren) {
               this.open = !this.open
             }
           },
-          viewDetail() {
-            let ancestors = [];
-            let parent = this.$parent;
+          viewDetail: function() {
+            var ancestors = [];
+            var parent = this.$parent;
             // get all my parents models
             while (parent.model !== undefined) {
               ancestors.push(parent.model);
@@ -38,7 +38,7 @@ this.GobiertoIndicators.IndicatorsController = (function() {
             }
             this.$root.selected = _.extend(this.model, { ancestors: ancestors.reverse() });
           },
-          getLevelClass(lvl) {
+          getLevelClass: function(lvl) {
             return "item-lvl-" + lvl
           }
         }
@@ -48,11 +48,11 @@ this.GobiertoIndicators.IndicatorsController = (function() {
       Vue.component('item-view', {
         template: '#item-view-template',
         props: ['model'],
-        data() {
+        data: function() {
           return {}
         },
         methods: {
-          getLevelClass(lvl) {
+          getLevelClass: function(lvl) {
             return "item-lvl-" + lvl
           }
         }
@@ -62,22 +62,22 @@ this.GobiertoIndicators.IndicatorsController = (function() {
       Vue.component('item-view-wrap', {
         template: '#item-view-wrap-template',
         props: ['model'],
-        data() {
+        data: function() {
           return {}
         },
         computed: {
-          title() {
-            let title = this.model.ancestors[0].attributes.title || '';
+          title: function() {
+            var title = this.model.ancestors[0].attributes.title || '';
             if (this.model.ancestors.length > 0) this.model.ancestors.shift();
             return title;
           },
-          hasAncestors() {
+          hasAncestors: function() {
             return this.model.ancestors &&
               this.model.ancestors.length
           }
         },
         methods: {
-          unselect() {
+          unselect: function() {
             return this.$root.selected = null;
           }
         }
@@ -88,7 +88,7 @@ this.GobiertoIndicators.IndicatorsController = (function() {
       var app = new Vue({
         el: '.indicators-tree',
         name: 'indicators-tree',
-        data() {
+        data: function() {
           return {
             json: {},
             selected: null

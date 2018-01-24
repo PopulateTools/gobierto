@@ -308,12 +308,9 @@ Rails.application.routes.draw do
   namespace :gobierto_indicators, path: "indicadores" do
     constraints GobiertoSiteConstraint.new do
       root "indicators#index"
-      # get "ita(/:year)" => "indicators#ita"
-      # get "ip(/:year)" => "indicators#ip"
-      # get "gci" => "indicators#gci"
-      get "ita" => "indicators#ita"
-      get "ip" => "indicators#ip"
-      get "gci" => "indicators#gci"
+      get "ita(/:year)" => "indicators#ita", as: :indicators_ita
+      get "ip(/:year)" => "indicators#ip", as: :indicators_ip
+      get "gci" => "indicators#gci", as: :indicators_gci
     end
   end
 

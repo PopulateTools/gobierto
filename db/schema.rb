@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180118103147) do
+ActiveRecord::Schema.define(version: 20180123093747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -745,6 +745,7 @@ ActiveRecord::Schema.define(version: 20180118103147) do
     t.boolean "is_proc", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "site_id"
     t.index ["key"], name: "index_translations_on_key"
     t.index ["locale"], name: "index_translations_on_locale"
   end
@@ -837,4 +838,5 @@ ActiveRecord::Schema.define(version: 20180118103147) do
   add_foreign_key "gc_events", "sites"
   add_foreign_key "gp_person_posts", "sites"
   add_foreign_key "gp_person_statements", "sites"
+  add_foreign_key "translations", "sites"
 end

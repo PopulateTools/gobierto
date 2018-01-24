@@ -27,6 +27,7 @@ module GobiertoBudgets
       end
 
       def generate_files
+        return file_urls unless any_data?
         calculate_place_budget_lines
 
         FORMATS.each do |format_key, configuration|

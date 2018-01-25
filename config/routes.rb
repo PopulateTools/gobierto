@@ -352,7 +352,8 @@ Rails.application.routes.draw do
 
       resources :attachments, only: [:index, :show], controller: "attachments", path: "documentos"
       resources :events, only: [:index, :show], controller: "events", path: "agendas"
-      resources :pages, only: [:index, :show], controller: "pages", path: "noticias"
+      resources :pages, only: [:show], controller: "pages", path: "paginas"
+      resources :news, only: [:index, :show], controller: "news", path: "noticias"
       resources :activities, only: [:index], controller: "activities", path: "actividad"
     end
   end

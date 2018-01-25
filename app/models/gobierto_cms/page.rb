@@ -59,24 +59,42 @@ module GobiertoCms
     end
 
     def process
-      GobiertoCommon::CollectionItem.where(item_id: id, item_type: %W(GobiertoCms::News GobiertoCms::Page), container_type: "GobiertoParticipation::Process").first.container
+      collection_item = GobiertoCommon::CollectionItem.where(item_id: id, item_type: %W(GobiertoCms::News GobiertoCms::Page), container_type: "GobiertoParticipation::Process").first
+      collection_item.present? ? collection_item.container : nil
     end
 
     def template
       collection.item_type.split('::').last.downcase
     end
 
-    # TODO: split methods to fetch news or pages
+    # returns pages belonging to site pages collection
     def self.pages_in_collections(site)
-      ids = GobiertoCommon::CollectionItem.where(item_type: %W(GobiertoCms::News GobiertoCms::Page)).pluck(:item_id)
-      where(id: ids, site: site)
+      pages_ids = GobiertoCommon::CollectionItem.where(item_type: 'GobiertoCms::Page').pluck(:item_id)
+      where(id: pages_ids, site: site)
     end
 
+    # returns news belonging to site news collection
+    def self.news_in_collections(site)
+      news_ids = GobiertoCommon::CollectionItem.where(item_type: 'GobiertoCms::News').pluck(:item_id)
+      where(id: news_ids, site: site)
+    end
+
+    # returns pages belonging to module pages collection
+    # sample call: *.pages_in_collections_and_container_type(current_site, 'GobiertoParticipation')
     def self.pages_in_collections_and_container_type(site, container_type)
-      ids = GobiertoCommon::CollectionItem.where(item_type: %W(GobiertoCms::News GobiertoCms::Page), container_type: container_type).pluck(:item_id)
+      ids = GobiertoCommon::CollectionItem.where(item_type: 'GobiertoCms::Page', container_type: container_type).pluck(:item_id)
       where(id: ids, site: site)
     end
 
+    # returns news belonging to module news collection
+    # sample call: *.news_in_collections_and_container_type(current_site, 'GobiertoParticipation')
+    def self.news_in_collections_and_container_type(site, container_type)
+      ids = GobiertoCommon::CollectionItem.where(item_type: 'GobiertoCms::News', container_type: container_type).pluck(:item_id)
+      where(id: ids, site: site)
+    end
+
+    ## Methods to find items belonging to process, issue, etc.
+    # sample call: *.pages_in_collections_and_container(current_site, @issue)
     def self.pages_in_collections_and_container(site, container)
       ids = GobiertoCommon::CollectionItem.where(item_type: %W(GobiertoCms::News GobiertoCms::Page), container_type: container.class.name, container_id: container.id).pluck(:item_id)
       where(id: ids, site: site)
@@ -90,12 +108,24 @@ module GobiertoCms
       to_url
     end
 
+    def belongs_to_collection_of_news?
+      collection && collection.item_type == 'GobiertoCms::News'
+    end
+
+    def belongs_to_collection_of_pages?
+      collection && collection.item_type == 'GobiertoCms::Page'
+    end
+
     def to_path(options = {})
       if collection
         if collection.container_type == "GobiertoParticipation::Process"
           url_helpers.gobierto_participation_process_page_path({ id: slug, process_id: collection.container.slug }.merge(options))
         elsif collection.container_type == "GobiertoParticipation"
-          url_helpers.gobierto_participation_page_path({ id: slug }.merge(options))
+          if  belongs_to_collection_of_news?
+            url_helpers.gobierto_participation_news_path({ id: slug }.merge(options))
+          elsif belongs_to_collection_of_pages?
+            url_helpers.gobierto_participation_page_path({ id: slug }.merge(options))
+          end
         elsif section.present? || options[:section]
           options.delete(:section)
           url_helpers.gobierto_cms_section_item_path({ id: slug, slug_section: section.slug }.merge(options))
@@ -111,7 +141,11 @@ module GobiertoCms
         if collection.container_type == "GobiertoParticipation::Process"
           url_helpers.gobierto_participation_process_page_url({ id: slug, process_id: collection.container.slug, host: host }.merge(options))
         elsif collection.container_type == "GobiertoParticipation"
-          url_helpers.gobierto_participation_page_url({ id: slug, host: host }.merge(options))
+          if  belongs_to_collection_of_news?
+            url_helpers.gobierto_participation_news_url({ id: slug, host: host }.merge(options))
+          elsif belongs_to_collection_of_pages?
+            url_helpers.gobierto_participation_page_url({ id: slug, host: host }.merge(options))
+          end
         elsif section.present? || options[:section]
           options.delete(:section)
           url_helpers.gobierto_cms_section_item_url({ id: slug, slug_section: section.slug, host: host }.merge(options))

@@ -22,9 +22,9 @@ module GobiertoCommon
 
     def container_id_with_container_type_and_item_type
       unless item_type == "GobiertoCms::Page"
-        if !id.present? && GobiertoCommon::Collection.where(container_id: container_id,
-                                                           container_type: container_type,
-                                                           item_type: item_type).any?
+        if new_record? && site.collections.where(container_id: container_id,
+                                                 container_type: container_type,
+                                                 item_type: item_type).any?
           errors.add(:container_id, I18n.t("errors.messages.collection_taken"))
         end
       end
@@ -135,6 +135,10 @@ module GobiertoCommon
 
     def container_printable_name
       container.try(:name) || container.try(:title)
+    end
+
+    def is_a_collection_of_participation_news?
+      container.is_a?(::GobiertoParticipation::Process) && item_type == 'GobiertoCms::News'
     end
 
     private

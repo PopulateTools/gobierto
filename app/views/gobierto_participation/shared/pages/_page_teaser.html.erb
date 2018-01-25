@@ -4,7 +4,11 @@
       <% current_process ||= page.process %>
       <%= link_to page.title, gobierto_participation_process_page_path(id: page.slug, process_id: current_process.slug) %>
     <% elsif current_module == "gobierto_participation" %>
-      <%= link_to page.title, gobierto_participation_page_path(id: page.slug) %>
+      <% if page.belongs_to_collection_of_news? %>
+        <%= link_to page.title, gobierto_participation_news_path(id: page.slug) %>
+      <% elsif page.belongs_to_collection_of_pages? %>
+        <%= link_to page.title, gobierto_participation_page_path(id: page.slug) %>
+      <% end %>
     <% end %>
   </h3>
 

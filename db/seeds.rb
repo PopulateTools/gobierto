@@ -31,6 +31,7 @@ fixtures_to_load = [
   "versions",
   "gobierto_participation/processes",
   "gobierto_participation/process_stages",
+  "gobierto_participation/process_stage_pages",
   "gobierto_participation/polls",
   "gobierto_participation/poll_questions",
   "gobierto_participation/poll_answer_templates",

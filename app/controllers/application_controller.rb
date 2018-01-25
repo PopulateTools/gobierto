@@ -110,7 +110,9 @@ class ApplicationController < ActionController::Base
   end
 
   def page_preview_url(page, options = {})
-    options.merge!(preview_token: current_admin.preview_token) unless page.active?
+    if page.draft? || (page.process && page.process.draft?)
+      options.merge!(preview_token: current_admin.preview_token)
+    end
     page.to_url(options)
   end
 end

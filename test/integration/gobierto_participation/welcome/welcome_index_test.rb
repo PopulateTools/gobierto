@@ -61,7 +61,7 @@ module GobiertoParticipation
 
         click_link "News"
 
-        assert_equal gobierto_participation_pages_path, current_path
+        assert_equal gobierto_participation_news_index_path, current_path
 
         within ".main-nav" do
           assert has_link? "Participation"

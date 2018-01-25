@@ -82,7 +82,7 @@ module GobiertoAdmin
           :microsoft_exchange_pwd,
           :microsoft_exchange_url,
           :clear_calendar_configuration,
-          filtering_rules_attributes: [:id, :field, :condition, :value, :action, :_destroy],
+          filtering_rules_attributes: [:id, :field, :condition, :value, :action, :_destroy, :remove_filtering_text],
           calendars: []
         )
       end

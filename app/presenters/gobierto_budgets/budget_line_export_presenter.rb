@@ -40,8 +40,12 @@ module GobiertoBudgets
     end
 
     def updated_at
-      SiteStats.new(site: @attributes[:site], year: @attributes[:year]).budgets_data_updated_at ||
-        Date.new(@attributes[:year])
+      @updated_at ||=
+        begin
+          @attributes[:updated_at] ||
+            SiteStats.new(site: @attributes[:site], year: @attributes[:year]).budgets_data_updated_at ||
+            Date.new(@attributes[:year])
+        end
     end
 
     def index

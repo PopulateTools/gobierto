@@ -6,3 +6,6 @@ es:
         update:
           error: 'No se han podido guardar las opciones: %{validation_errors}'
           success: Opciones guardadas correctamente
+        update_annual_data:
+          success: Se ha lanzado un proceso para generar los ficheros de partidas
+            presupuestarias por año

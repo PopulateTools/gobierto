@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180115112209) do
+ActiveRecord::Schema.define(version: 20180123093747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -259,8 +259,8 @@ ActiveRecord::Schema.define(version: 20180115112209) do
     t.string "sharing_token"
     t.string "document_number_digest"
     t.jsonb "user_information"
-    t.index ["consultation_id", "document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["consultation_id"], name: "index_gbc_consultation_responses_on_consultation_id"
+    t.index ["document_number_digest"], name: "index_gbc_consultation_responses_on_document_number_digest", unique: true
     t.index ["sharing_token"], name: "index_gbc_consultation_responses_on_sharing_token", unique: true
     t.index ["user_information"], name: "index_gbc_consultation_responses_on_user_information", using: :gin
   end
@@ -317,9 +317,9 @@ ActiveRecord::Schema.define(version: 20180115112209) do
     t.integer "state", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "external_id"
     t.jsonb "title_translations"
     t.jsonb "description_translations"
+    t.string "external_id"
     t.integer "site_id", null: false
     t.string "slug", null: false
     t.integer "collection_id"
@@ -338,6 +338,7 @@ ActiveRecord::Schema.define(version: 20180115112209) do
     t.integer "action", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "remove_filtering_text", default: false
     t.index ["calendar_configuration_id"], name: "index_gc_filtering_rules_on_calendar_configuration_id"
   end
 
@@ -744,6 +745,7 @@ ActiveRecord::Schema.define(version: 20180115112209) do
     t.boolean "is_proc", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "site_id"
     t.index ["key"], name: "index_translations_on_key"
     t.index ["locale"], name: "index_translations_on_locale"
   end
@@ -808,7 +810,7 @@ ActiveRecord::Schema.define(version: 20180115112209) do
     t.inet "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "source_site_id"
+    t.integer "site_id"
     t.boolean "census_verified", default: false, null: false
     t.integer "gender"
     t.integer "notification_frequency", default: 0, null: false
@@ -816,10 +818,10 @@ ActiveRecord::Schema.define(version: 20180115112209) do
     t.string "referrer_url"
     t.string "referrer_entity"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email", "site_id"], name: "index_users_on_email_and_site_id", unique: true
     t.index ["notification_frequency"], name: "index_users_on_notification_frequency"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["source_site_id"], name: "index_users_on_source_site_id"
+    t.index ["site_id"], name: "index_users_on_site_id"
   end
 
   create_table "versions", force: :cascade do |t|
@@ -836,4 +838,5 @@ ActiveRecord::Schema.define(version: 20180115112209) do
   add_foreign_key "gc_events", "sites"
   add_foreign_key "gp_person_posts", "sites"
   add_foreign_key "gp_person_statements", "sites"
+  add_foreign_key "translations", "sites"
 end

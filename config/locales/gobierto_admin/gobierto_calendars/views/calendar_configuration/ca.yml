@@ -9,6 +9,7 @@ ca:
           confirm_sync: Estàs segur?
           filter_events: Filtrat d'esdeveniments
           filter_events_desc: Quan s'importa un esdeveniment...
+          filter_events_label: Si el
           google_calendar: Google Calendar
           ibm_notes: IBM Notes
           labels:
@@ -21,6 +22,7 @@ ca:
           last_sync: Darrera sincronització
           microsoft_exchange: Microsoft Exchange
           placeholders:
+            filter_text: Text pel qual filtrar
             ibm_notes_url: ex. https://example.com/mail/abc.nsf/api/calendar/events
             microsoft_exchange_url: ex. https://example.com/ews/exchange.asmx
             username: ex. perico85

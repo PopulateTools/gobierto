@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       resources :options, only: [:index] do
         collection do
           put :update
+          put :update_annual_data
         end
       end
       resources :feedback, only: [:index]
@@ -168,6 +169,11 @@ Rails.application.routes.draw do
       get "/" => "welcome#index", as: :root
 
       resource :sessions, only: [:new, :create, :destroy]
+      resource :custom_session, only: [:new, :create, :destroy] do
+        collection do
+          post :auth_callback
+        end
+      end
       resource :registrations, only: [:create]
       resource :confirmations, only: [:new, :create]
       resource :passwords, only: [:create, :edit, :update]
@@ -261,7 +267,6 @@ Rails.application.routes.draw do
       resources :featured_budget_lines, only: [:show]
 
       get "resumen(/:year)" => "budgets#index", as: :budgets
-      get "datos(/:year)" => "budgets#export", as: :budgets_export
       get "partidas/:year/:area_name/:kind" => "budget_lines#index", as: :budget_lines
       get "partidas/:id/:year/:area_name/:kind" => "budget_lines#show", as: :budget_line
       get "budget_line_descendants/:year/:area_name/:kind" => "budget_line_descendants#index", as: :budget_line_descendants

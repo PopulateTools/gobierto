@@ -17,7 +17,13 @@
             <% Array(content_block.records).each do |content_block_record| %>
               <tr>
                 <% Array(content_block_record.fields).each do |content_block_record_field| %>
-                  <td><%= content_block_record_field.value %></td>
+                  <td>
+                    <% if content_block_record_field.url? %>
+                      <%= link_to t('.view_content'), content_block_record_field.value %>
+                    <% else %>
+                      <%= content_block_record_field.value %>
+                    <% end %>
+                  </td>
                 <% end %>
                 <td>
                   <% if content_block_record.attachment_url.present? %>

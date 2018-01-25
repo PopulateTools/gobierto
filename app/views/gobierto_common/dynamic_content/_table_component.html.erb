@@ -17,11 +17,12 @@
             <% Array(content_block.records).each do |content_block_record| %>
               <tr>
                 <% Array(content_block_record.fields).each do |content_block_record_field| %>
+                  <% field_value = content_block_record_field.value %>
                   <td>
-                    <% if content_block_record_field.url? %>
-                      <%= link_to t('.view_content'), content_block_record_field.value %>
+                    <% if content_block_record_field.url? && field_value %>
+                      <%= link_to t('.view_content'), field_value %>
                     <% else %>
-                      <%= content_block_record_field.value %>
+                      <%= field_value %>
                     <% end %>
                   </td>
                 <% end %>

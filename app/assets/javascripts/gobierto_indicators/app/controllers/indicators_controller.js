@@ -142,8 +142,10 @@ this.GobiertoIndicators.IndicatorsController = (function() {
         },
         methods: {
           getJson: function() {
-            this.json = JSON.parse(element.dataset.indicator);
-          }
+            $.getJSON(window.location.href, function(json) {
+                this.json = JSON.parse(json["indicator"]);
+              }.bind(this));
+            }
         }
       });
     };

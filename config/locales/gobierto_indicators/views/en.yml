@@ -8,14 +8,14 @@ en:
           with the purpose of fighting poverty and supporting development. The indicators
           may vary according to the selected year.
         gci_title: GCI Indicators
-        title: Indicators
+        title: Indicators %{year}
       ip:
         ip_description: Infoparticipa és un projecte desenvolupat per el LPCCP, des
           de l'any 2012, l'objectiu és avaluar la informació que es publica als webs
           de les administracions públiques per promoure que millori la seva transparència
           i qualitat.
         ip_title: Infoparticipa Indicators
-        title: Indicators
+        title: Indicators %{year}
       ita:
         ita_description: The indicators ITA (Index of Transparency of the City councils)
           They are a tool that the non-governmental organization Transparency The
@@ -24,7 +24,7 @@ en:
           hall of a city through an integrated set of 80 clustered indicators in various
           areas.
         ita_title: ITA indicators
-        title: Indicators
+        title: Indicators %{year}
       template:
         calculation: Calculation
         'false': it's not true

@@ -8,14 +8,14 @@ es:
           con el propósito de combatir la pobreza y apoyar el desarrollo. Los indicadores
           pueden variar según el año seleccionado.
         gci_title: Indicadores GCI
-        title: Indicadores
+        title: Indicadores %{year}
       ip:
         ip_description: Infoparticipa es un proyecto desarrollado por el LPCCP, desde
           el año 2012, cuyo objetivo es evaluar la información que se publica en las
           webs de las administraciones públicas para promover que mejore su transparencia
           y calidad.
         ip_title: Indicadores Infoparticipa
-        title: Indicadores
+        title: Indicadores %{year}
       ita:
         ita_description: Los indicadores ITA (Índice de Transparencia de los Ayuntamientos)
           son una herramienta que la organización no gubernamental Transparencia Internacional
@@ -24,7 +24,7 @@ es:
           a través de un conjunto integrado de 80 indicadores agrupados en diversas
           áreas.
         ita_title: Indicadores ITA
-        title: Indicadores
+        title: Indicadores %{year}
       template:
         calculation: Cálculo
         'false': no se cumple

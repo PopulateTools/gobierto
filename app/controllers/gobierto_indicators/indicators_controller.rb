@@ -7,19 +7,57 @@ module GobiertoIndicators
     before_action :load_indicators, only: [:ita, :ip, :gci]
     before_action :load_years, only: [:ita, :ip, :gci]
     before_action :load_year, only: [:ita, :ip, :gci]
-    before_action :load_indicator_json, only: [:ita, :ip, :gci]
 
     def index
       redirect_to gobierto_indicators_indicators_ita_path
     end
 
     def ip
+      load_boolean_indicator
+
+      respond_to do |format|
+        format.html
+        format.json do
+          render(
+            json: { indicator: @indicator }
+          )
+        end
+      end
     end
 
     def ita
+      load_boolean_indicator
+
+      respond_to do |format|
+        format.html
+        format.json do
+          render(
+            json: { indicator: @indicator }
+          )
+        end
+      end
     end
 
     def gci
+      @indicator = JSON.parse(load_indicators.last.indicator_response)
+
+      @indicator.each do |letter|
+        letter["children"].each do |section|
+          section["children"].delete_if { |indicator| indicator["attributes"]["values"].none? { |h| h.keys[0] == params[:year] } }
+        end
+        letter["children"].delete_if { |section| section["children"] == [] }
+      end
+
+      @indicator.delete_if { |letter| letter["children"] == [] }
+
+      respond_to do |format|
+        format.html
+        format.json do
+          render(
+            json: { indicator: @indicator.to_json }
+          )
+        end
+      end
     end
 
     private
@@ -68,12 +106,8 @@ module GobiertoIndicators
       end
     end
 
-    def load_indicator_json
-      @indicator_json = if params[:action] == "gci"
-                          load_indicators.last.indicator_response
-                        else
-                          current_site.indicators.where("name = ? AND year = ?", params[:action], @year).last.indicator_response
-                        end
+    def load_boolean_indicator
+      @indicator = current_site.indicators.where("name = ? AND year = ?", params[:action], @year).last.indicator_response
     end
   end
 end

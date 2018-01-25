@@ -1,6 +1,6 @@
 <% title t('.title', year: @year) %>
 
-<div id="indicator-form" data-indicator="<%= @indicator_json %>" data-type="boolean"></div>
+<div id="indicator-form" data-indicator="<%= @indicator_json %>" data-type="numeric"></div>
 
 <div class="column indicators-tree">
 
@@ -26,7 +26,7 @@
   </div>
 
   <div class="block">
-    <div id="indicators-tree" class="p_v_1">
+    <div id="indicators-tree" class="p_v_1" data-year="<%= @year %>">
 
       <ul class="item-root item-root--notree" v-if="selected">
         <item-view-wrap :model="selected"></item-view-wrap>

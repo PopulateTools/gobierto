@@ -27,6 +27,9 @@ ca:
       template:
         'false': no es compleix
         more: Més informació
+        calculation: Càlcul
+        methodology: Metodologia
+        source: Font
         'true': es compleix
     layouts:
       application:

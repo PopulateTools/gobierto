@@ -28,6 +28,9 @@ es:
       template:
         'false': no se cumple
         more: Más información
+        calculation: Cálculo
+        methodology: Metodología
+        source: Fuente
         'true': se cumple
     layouts:
       application:

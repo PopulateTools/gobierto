@@ -67,6 +67,10 @@
                   -webkit-text-stroke-width: 1px;
                 }
               }
+
+              .check-value {
+                font-size: 3rem;
+              }
             }
           }
         }
@@ -78,6 +82,34 @@
         .item-extrainfo {
           font-size: $f5;
           font-weight: bold;
+
+          .extrainfo-content {
+            display:flex;
+            width: 100%;
+
+            .extrainfo-block {
+              flex-basis: 50%;
+
+              &:first-child {
+                margin-right: 1em;
+              }
+              &:last-child {
+                margin-left: 1em;
+              }
+            }
+
+            .extrainfo-title {
+              padding: 0 0 .5em;
+              border-bottom: 1px solid $color_main;
+            }
+
+            .extrainfo-value {
+              margin: .5em 0;
+              color: $color_text;
+              font-size: $f7;
+              font-weight: normal;
+            }
+          }
 
           a {
             display: block;
@@ -171,7 +203,7 @@
           text-transform: uppercase;
         }
       }
-      
+
       .item-check {
         float: right;
 

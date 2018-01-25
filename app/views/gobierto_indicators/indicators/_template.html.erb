@@ -16,15 +16,14 @@
         {{model.attributes.title}}
       </div>
 
-      <div class="item-check" v-if="!hasChildren && type=='boolean'">
+      <div class="item-check" v-if="!hasChildren && type == 'boolean'">
         <div class="check-container" :class="(model.attributes.checked) ? 'check-container--true' : 'check-container--false'">
           <i class="fa fa-check" v-if="model.attributes.checked"></i>
           <i class="fa fa-times" v-else></i>
         </div>
       </div>
-      <div class="item-check" v-if="!hasChildren && type=='numeric'">
-        <!-- TODO: value from values array
-        <!-- {{model.attributes.values[0][2012]}} -->
+      <div class="item-check" v-if="!hasChildren && type == 'numeric'">
+        {{ value }}
       </div>
     </div>
     <ul v-show="open" v-if="hasChildren">
@@ -41,7 +40,7 @@
       <div class="item-text">
         <span>{{ model.attributes.title }}</span>
       </div>
-      <div class="item-check">
+      <div class="item-check" v-if="type == 'boolean'">
         <div class="row">
           <div class="check-container check-container--true" :class="{ 'check-container--unchecked' : !model.attributes.checked }">
             <i class="fa fa-check"></i>
@@ -59,12 +58,35 @@
           </div>
         </div>
       </div>
+      <div class="item-check" v-if="type == 'numeric'">
+        <div class="row">
+          <strong class="check-value">{{ value }}</strong>
+        </div>
+      </div>
     </div>
-    <div class="item-extrainfo p_h_2 mt3" v-if="model.attributes.links.length > 0">
+    <div class="item-extrainfo p_h_2 mt3" v-if="type == 'boolean' && model.attributes.links.length > 0">
       <%= t(".more") %>
       <a v-for="item in model.attributes.links" :href="item.link.url" target="_blank">
         {{ item.link.title }} <i class="fa fa-share-square-o"></i>
       </a>
+    </div>
+    <div class="item-extrainfo p_h_2 mt3" v-if="type == 'numeric'">
+      <div class="extrainfo-content">
+        <div class="extrainfo-block">
+          <div class="extrainfo-title"><%= t(".calculation") %></div>
+          <div class="extrainfo-value">{{ model.attributes.calculation }}</div>
+        </div>
+        <div class="extrainfo-block">
+          <div>
+            <div class="extrainfo-title"><%= t(".methodology") %></div>
+            <div class="extrainfo-value">{{ model.attributes.methodology }}</div>
+          </div>
+          <div>
+            <div class="extrainfo-title"><%= t(".source") %></div>
+            <div class="extrainfo-value">{{ model.attributes.source }}</div>
+          </div>
+        </div>
+      </div>
     </div>
   </li>
 </script>

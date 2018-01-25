@@ -7,19 +7,29 @@ this.GobiertoIndicators.IndicatorsController = (function() {
     };
 
     function _loadIndicator() {
+
       // define the item component
       Vue.component('item-tree', {
         template: '#item-tree-template',
         props: ['model'],
         data: function() {
           return {
-            open: true
+            open: true,
+            type: this.$root.type,
+            year: this.$root.year
           }
         },
         computed: {
           hasChildren: function() {
             return this.model.children &&
               this.model.children.length
+          },
+          value: function (i) {
+            let p = 0;
+            if (!this.hasChildren) {
+              p = (_.find(i.model.attributes.values, o => o[this.year]) || {})[this.year] || 0
+            }
+            return p.toLocaleString();
           }
         },
         methods: {
@@ -49,7 +59,17 @@ this.GobiertoIndicators.IndicatorsController = (function() {
         template: '#item-view-template',
         props: ['model'],
         data: function() {
-          return {}
+          return {
+            type: this.$root.type,
+            year: this.$root.year
+          }
+        },
+        computed: {
+          value: function (i) {
+            let p = 0;
+            p = (_.find(i.model.attributes.values, o => o[this.year]) || {})[this.year] || 0
+            return p.toLocaleString();
+          }
         },
         methods: {
           getLevelClass: function(lvl) {
@@ -84,6 +104,7 @@ this.GobiertoIndicators.IndicatorsController = (function() {
       });
 
       var element = document.getElementById("indicator-form");
+      var year = parseInt(document.getElementById("indicators-tree").dataset.year);
 
       var app = new Vue({
         el: '.indicators-tree',
@@ -92,7 +113,8 @@ this.GobiertoIndicators.IndicatorsController = (function() {
           return {
             json: {},
             selected: null,
-            type: element.dataset.type
+            type: element.dataset.type,
+            year: year
           }
         },
         created: function() {

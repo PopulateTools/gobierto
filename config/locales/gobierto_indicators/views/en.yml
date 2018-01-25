@@ -28,6 +28,9 @@ en:
       template:
         'false': it's not true
         more: More information
+        calculation: Calculation
+        methodology: Methodology
+        source: Source
         'true': is fulfilled
     layouts:
       application:

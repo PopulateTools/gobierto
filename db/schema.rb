@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180123093747) do
+ActiveRecord::Schema.define(version: 20180125152553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -733,6 +733,7 @@ ActiveRecord::Schema.define(version: 20180123093747) do
     t.integer "municipality_id"
     t.jsonb "name_translations"
     t.jsonb "title_translations"
+    t.index ["domain"], name: "index_sites_on_domain", unique: true
     t.index ["name_translations"], name: "index_sites_on_name_translations", using: :gin
     t.index ["title_translations"], name: "index_sites_on_title_translations", using: :gin
   end

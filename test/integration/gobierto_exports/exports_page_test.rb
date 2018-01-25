@@ -19,10 +19,14 @@ module GobiertoExports
 
     def test_index
       with_current_site(site) do
-        visit @path
+        with_stubbed_s3_file_upload do
+          visit @path
 
-        assert has_selector?("h1", text: "Download data")
-        assert has_selector?("h2", text: "Officials and Agendas")
+          assert has_selector?("h1", text: "Download data")
+          assert has_selector?("h2", text: "Officials and Agendas")
+          assert has_selector?("h2", text: "Budget lines")
+          assert has_selector?("h3", text: GobiertoBudgets::SearchEngineConfiguration::Year.last)
+        end
       end
     end
 
@@ -30,10 +34,12 @@ module GobiertoExports
       gp_enabled_submodules.delete("statements")
 
       with_current_site(site) do
-        visit @path
+        with_stubbed_s3_file_upload do
+          visit @path
 
-        assert has_selector?("h3", text: "Agendas")
-        refute has_selector?("h3", text: "Statements")
+          assert has_selector?("h3", text: "Agendas")
+          refute has_selector?("h3", text: "Statements")
+        end
       end
     end
 
@@ -44,8 +50,10 @@ module GobiertoExports
       gp_enabled_submodules.delete("statements")
 
       with_current_site(site) do
-        visit @path
-        assert has_content? "There aren't any active submodules"
+        with_stubbed_s3_file_upload do
+          visit @path
+          assert has_content? "There aren't any active submodules"
+        end
       end
     end
   end

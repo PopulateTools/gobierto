@@ -26,6 +26,12 @@ module GobiertoPeople
 
     notify_changed :state
 
+    def initialize(options = {})
+        ordered_options = HashWithIndifferentAccess.new(site_id: options[:site_id], person_id: options[:person_id])
+        ordered_options.merge!(options)
+        super(ordered_options)
+      end
+
     def destroy
       unless person_event.new_record?
         person_event.destroy
@@ -41,12 +47,11 @@ module GobiertoPeople
     end
 
     def person_event
-      @person_event ||= event_class.by_site(site).
-        find_by(external_id: external_id).presence || build_person_event
+      @person_event ||= person.events.find_by(external_id: external_id).presence || build_person_event
     end
 
     def person
-      @person ||= person_class.find_by(id: person_id)
+      @person ||= site.people.find_by(id: person_id)
     end
 
     def collection
@@ -136,10 +141,6 @@ module GobiertoPeople
 
     def person_event_attendee_class
       ::GobiertoCalendars::EventAttendee
-    end
-
-    def person_class
-      ::GobiertoPeople::Person
     end
 
     def event_in_sync_range_window

@@ -35,7 +35,6 @@ function limit_length(input, length) {
           }
           this.renderLevel(level + 2, currentCode);
         }.bind(this));
-
       }.bind(this));
     });
 
@@ -51,11 +50,13 @@ function limit_length(input, length) {
       this.selectedCategories.push(I18n.t('gobierto_budgets.visualizations.' + this.currentKind + '_' + this.areaName));
 
       this.states.slice(2, this.states.length - 1).forEach(function(segment){
-        if(segment.indexOf('-') === -1 || segment.length == 6) {
-          var categoryName = categories[this.states[1]][segment];
-          if(categoryName !== undefined) {
-            this.selectedCategories.push(categoryName);
-            html += '<a href="/presupuestos/partidas/'+segment+'/'+this.currentYear+'/'+this.areaName+'/' + this.states[1] + '">' + categoryName + '</a> »';
+        if(this.areaName != 'custom' || segment.length > 2) {
+          if(segment.indexOf('-') === -1 || segment.length == 6) {
+            var categoryName = categories[this.states[1]][segment];
+            if(categoryName !== undefined) {
+              this.selectedCategories.push(categoryName);
+              html += '<a href="/presupuestos/partidas/'+segment+'/'+this.currentYear+'/'+this.areaName+'/' + this.states[1] + '">' + categoryName + '</a> »';
+            }
           }
         }
       }.bind(this));
@@ -185,7 +186,6 @@ function limit_length(input, length) {
       if(level > 2){
         url += '?parent_code=' + currentCode;
       }
-
 
       var that = this;
       var $el = $('[data-level="'+level+'"] table');

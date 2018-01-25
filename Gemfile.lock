@@ -106,12 +106,6 @@ GEM
     connection_pool (2.2.1)
     cookies_eu (1.6.3)
       js_cookie_rails
-    coveralls (0.7.1)
-      multi_json (~> 1.3)
-      rest-client
-      simplecov (>= 0.7)
-      term-ansicolor
-      thor
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.3)
@@ -185,8 +179,6 @@ GEM
       socksify
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
-    i18n-active_record (0.2.2)
-      i18n (>= 0.5.0)
     i18n-js (3.0.3)
       i18n (~> 0.6, >= 0.6.6)
     i18n-tasks (0.9.20)
@@ -266,7 +258,7 @@ GEM
     mime-types-data (3.2016.0521)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
-    minitest (5.11.1)
+    minitest (5.10.3)
     minitest-capybara (0.8.2)
       capybara (~> 2.2)
       minitest (~> 5.0)
@@ -290,16 +282,12 @@ GEM
       minitest (>= 5.0)
     minitest-stub-const (0.6)
     minitest-stub_any_instance (1.0.2)
-    minitest-test_profile (0.2.1)
-      coveralls
-      minitest
     mocha (1.3.0)
       metaclass (~> 0.0.1)
     multi_json (1.13.1)
     multipart-post (2.0.0)
     net-http-digest_auth (1.4.1)
     net-http-persistent (2.9.4)
-    netrc (0.11.0)
     nio4r (2.2.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
@@ -370,10 +358,6 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
-    rest-client (2.0.2)
-      http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 4.0)
-      netrc (~> 0.8)
     retriable (3.1.1)
     rollbar (2.15.5)
       multi_json
@@ -441,8 +425,6 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     spy (0.4.5)
-    term-ansicolor (1.6.0)
-      tins (~> 1.0)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
     therubyracer (0.12.3)
@@ -453,14 +435,13 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.8)
     timecop (0.9.1)
-    tins (1.16.3)
     turbolinks (5.1.0)
       turbolinks-source (~> 5.1)
     turbolinks-source (5.1.0)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
     uber (0.1.0)
-    uglifier (4.1.3)
+    uglifier (4.1.4)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext
@@ -508,7 +489,6 @@ DEPENDENCIES
   exchanger
   flight-for-rails
   google-api-client
-  i18n-active_record
   i18n-js (>= 3.0.0.rc11)
   i18n-tasks
   ine-places (= 0.2.0)
@@ -521,13 +501,13 @@ DEPENDENCIES
   liquid (~> 4.0)
   mechanize
   meta-tags
+  minitest (= 5.10.3)
   minitest-rails
   minitest-rails-capybara
   minitest-reporters
   minitest-retry
   minitest-stub-const
   minitest-stub_any_instance
-  minitest-test_profile
   mocha
   paper_trail
   paranoia

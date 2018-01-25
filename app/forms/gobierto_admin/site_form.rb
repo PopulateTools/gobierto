@@ -58,7 +58,10 @@ module GobiertoAdmin
     validates :home_page, presence: true
 
     def save
-      save_site if valid?
+      if valid? && save_site
+        after_save_callback
+        return site
+      end
     end
 
     def site
@@ -188,6 +191,8 @@ module GobiertoAdmin
         site_attributes.configuration.auth_modules = auth_modules
       end
 
+      @municipality_id_changed = @site.municipality_id_changed?
+
       if @site.valid?
         @site.save
       else
@@ -201,7 +206,15 @@ module GobiertoAdmin
       visibility_level == "draft"
     end
 
+    def municipality_id_changed?
+      @municipality_id_changed
+    end
+
     protected
+
+    def after_save_callback
+      ::GobiertoBudgets::GenerateAnnualLinesJob.perform_later(@site) if municipality_id_changed?
+    end
 
     def promote_errors(errors_hash)
       errors_hash.each do |attribute, message|

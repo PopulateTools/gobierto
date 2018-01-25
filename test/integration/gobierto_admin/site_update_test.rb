@@ -69,7 +69,9 @@ YAML
             select "GobiertoParticipation", from: "site_home_page"
 
             with_stubbed_s3_file_upload do
-              click_button "Update"
+              with_stubbed_s3_upload! do
+                click_button "Update"
+              end
             end
           end
 
@@ -114,7 +116,9 @@ YAML
           select about_site.title, from: "site_home_page_item_id"
 
           with_stubbed_s3_file_upload do
-            click_button "Update"
+            with_stubbed_s3_upload! do
+              click_button "Update"
+            end
           end
         end
 

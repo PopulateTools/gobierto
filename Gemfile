@@ -64,7 +64,6 @@ gem "invisible_captcha"
 gem "redis", "~> 3.3"
 
 # Translations
-gem "i18n-active_record", require: "i18n/active_record"
 gem "json_translate", "~> 3.0"
 
 # Liquid
@@ -91,6 +90,7 @@ group :test do
   gem "capybara-email"
   gem "codecov", "~> 0.1.9", require: false
   gem "launchy"
+  gem "minitest", "5.10.3"
   gem "minitest-rails"
   gem "minitest-rails-capybara"
   gem "minitest-reporters"
@@ -103,7 +103,6 @@ group :test do
   gem "timecop"
   gem "vcr"
   gem "webmock"
-  gem "minitest-test_profile"
 end
 
 group :development do

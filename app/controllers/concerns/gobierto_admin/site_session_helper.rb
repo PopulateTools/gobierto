@@ -6,11 +6,16 @@ module GobiertoAdmin
 
     def current_site
       @current_site ||= begin
-        if session[:admin_site_id] && (matched_site = Site.find_by(id: session[:admin_site_id]))
+        site = if session[:admin_site_id] && (matched_site = Site.find_by(id: session[:admin_site_id]))
           SiteDecorator.new(matched_site)
         elsif managed_sites.present?
           SiteDecorator.new(managed_sites.include?(site_from_domain) ? site_from_domain : managed_sites.first)
         end
+        ::GobiertoCore::CurrentScope.current_site = site
+        Rails.logger.info "[ADMIN] ====================================================="
+        Rails.logger.info ::GobiertoCore::CurrentScope.current_site.try(:domain)
+        Rails.logger.info "[ADMIN] ====================================================="
+        site
       end
     end
 

@@ -25,11 +25,11 @@ this.GobiertoIndicators.IndicatorsController = (function() {
               this.model.children.length
           },
           value: function (i) {
-            let p = 0;
-            if (!this.hasChildren) {
-              p = (_.find(i.model.attributes.values, o => o[this.year]) || {})[this.year] || 0
-            }
-            return p.toLocaleString();
+            var p = 0;
+            p = (_.find(i.model.attributes.values, function (o) {
+              return o[this.year]
+            }.bind(this)) || {})[this.year] || 0
+            return parseValue(p);
           }
         },
         methods: {
@@ -66,9 +66,11 @@ this.GobiertoIndicators.IndicatorsController = (function() {
         },
         computed: {
           value: function (i) {
-            let p = 0;
-            p = (_.find(i.model.attributes.values, o => o[this.year]) || {})[this.year] || 0
-            return p.toLocaleString();
+            var p = 0;
+            p = (_.find(i.model.attributes.values, function (o) {
+              return o[this.year]
+            }.bind(this)) || {})[this.year] || 0
+            return parseValue(p);
           }
         },
         methods: {
@@ -102,6 +104,24 @@ this.GobiertoIndicators.IndicatorsController = (function() {
           }
         }
       });
+
+      // Helper to format values
+      function parseValue(val) {
+        if (_.isNumber(parseFloat(val)) && val.toString().includes("%")) {
+          // percent
+          val = (parseFloat(val) / 100).toLocaleString(I18n.locale, { style: "percent", minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        } else if (_.isNumber(parseFloat(val)) && val.toString().includes("€")) {
+          // currency
+          val = parseFloat(val).toLocaleString(I18n.locale, { style: "currency", currency: "EUR", minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        } else if (!_.isNaN(parseFloat(val))) {
+          // float
+          val = parseFloat(val).toLocaleString();
+        } else {
+          // string
+          val = val.toLocaleString();
+        }
+        return val
+      }
 
       var element = document.getElementById("indicator-form");
       var year = parseInt(document.getElementById("indicators-tree").dataset.year);

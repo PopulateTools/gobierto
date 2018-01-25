@@ -25,10 +25,10 @@ ca:
         ita_title: Indicadors ITA
         title: Indicadors
       template:
-        'false': no es compleix
-        more: Més informació
         calculation: Càlcul
+        'false': no es compleix
         methodology: Metodologia
+        more: Més informació
         source: Font
         'true': es compleix
     layouts:

@@ -26,10 +26,10 @@ en:
         ita_title: ITA indicators
         title: Indicators
       template:
-        'false': it's not true
-        more: More information
         calculation: Calculation
+        'false': it's not true
         methodology: Methodology
+        more: More information
         source: Source
         'true': is fulfilled
     layouts:

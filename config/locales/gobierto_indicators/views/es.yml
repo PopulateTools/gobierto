@@ -26,10 +26,10 @@ es:
         ita_title: Indicadores ITA
         title: Indicadores
       template:
-        'false': no se cumple
-        more: Más información
         calculation: Cálculo
+        'false': no se cumple
         methodology: Metodología
+        more: Más información
         source: Fuente
         'true': se cumple
     layouts:

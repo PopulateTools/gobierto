@@ -505,6 +505,7 @@ en:
         last_12_months: Last 12 months
         less_than_1000_html: The <span id="lessThan1000"></span> of the invoices are
           smaller than 1,000 €
+        loading: Loading...
         main_providers: Main providers
         mean_amount: mean amount
         mean_and_median: Mean and median

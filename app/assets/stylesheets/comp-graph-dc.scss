@@ -64,3 +64,33 @@
     display: inline-block;
   }
 }
+
+//Overlays
+.overlay-container {
+  position: relative;
+
+  .overlay {
+    position: absolute;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.3);
+    box-shadow: inset 0px 0px 20px 20px $color_main_negative;
+    z-index: 2;
+    cursor: pointer;
+
+    .overlay-content {
+      position: absolute;
+      top: 15rem;
+      margin: 0 auto;
+      font-size: $f2;
+      color: $color_main_negative;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}

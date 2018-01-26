@@ -519,6 +519,7 @@ es:
         last_12_months: Últimos 12 meses
         less_than_1000_html: El <span id="lessThan1000"></span> de las facturas son
           menores de 1.000 €
+        loading: Cargando...
         main_providers: Principales proveedores
         mean_amount: importe medio
         mean_and_median: Media y mediana

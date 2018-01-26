@@ -527,6 +527,7 @@ ca:
         last_12_months: Últims 12 mesos
         less_than_1000_html: El <span id="lessThan1000"></span> de les factures són
           menors de 1.000 €
+        loading: Carregant...
         main_providers: Principals proveïdors
         mean_amount: import mitjà
         mean_and_median: Mitja i mitjana

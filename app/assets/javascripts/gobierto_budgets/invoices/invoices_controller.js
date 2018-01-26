@@ -24,6 +24,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
   function getData(filter) {
     var dateRange;
+
     if (filter === '12m'){
       dateRange = moment().subtract(1, 'year').format('YYYYMMDD') + '-' + moment().format('YYYYMMDD');
     } else {
@@ -31,12 +32,18 @@ this.GobiertoBudgets.InvoicesController = (function() {
       var d2 = new Date(filter, 11, 31);
       dateRange = moment(d1).format('YYYYMMDD') + '-' + moment(d2).format('YYYYMMDD');
     }
+
     var municipalityId = window.populateData.municipalityId;
     var url = window.populateData.endpoint + '/datasets/ds-facturas-municipio.csv?filter_by_location_id='+municipalityId+'&date_date_range='+dateRange+'&sort_asc_by=date';
+
+    $(".js-toggle-overlay").show();
+
     d3.csv(url)
       .header('authorization', 'Bearer ' + window.populateData.token)
       .get(function(error, csv) {
         if (error) throw error;
+
+        $(".js-toggle-overlay").hide();
 
         data = _.filter(csv, _callback(filter));
 

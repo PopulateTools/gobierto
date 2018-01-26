@@ -58,14 +58,6 @@ module GobiertoCommon
       end
     end
 
-    def global_container
-      container.to_global_id if container.present?
-    end
-
-    def global_container=(container)
-      self.container = GlobalID::Locator.locate container
-    end
-
     def self.collector_classes
       [Site, Issue, GobiertoParticipation::Area]
     end
@@ -87,12 +79,6 @@ module GobiertoCommon
     end
 
     def append(item)
-      item_type = if item.class_name == "GobiertoAttachments::Attachment"
-                    "GobiertoAttachments::Attachment"
-                  else
-                    self.item_type
-                  end
-
       containers_hierarchy(container).each do |container_type, container_id|
         CollectionItem.find_or_create_by! collection_id: id,
                                           container_type: container_type,

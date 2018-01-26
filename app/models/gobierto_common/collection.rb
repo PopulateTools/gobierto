@@ -20,6 +20,8 @@ module GobiertoCommon
 
     scope :by_item_type, ->(item_type) { where(item_type: item_type) }
 
+    after_update :update_collection_items
+
     def container_id_with_container_type_and_item_type
       unless item_type == "GobiertoCms::Page"
         if new_record? && site.collections.where(container_id: container_id,
@@ -58,14 +60,6 @@ module GobiertoCommon
       end
     end
 
-    def global_container
-      container.to_global_id if container.present?
-    end
-
-    def global_container=(container)
-      self.container = GlobalID::Locator.locate container
-    end
-
     def self.collector_classes
       [Site, Issue, GobiertoParticipation::Area]
     end
@@ -87,37 +81,7 @@ module GobiertoCommon
     end
 
     def append(item)
-      item_type = if item.class_name == "GobiertoAttachments::Attachment"
-                    "GobiertoAttachments::Attachment"
-                  else
-                    self.item_type
-                  end
-
-      containers_hierarchy(container).each do |container_type, container_id|
-        CollectionItem.find_or_create_by! collection_id: id,
-                                          container_type: container_type,
-                                          container_id: container_id,
-                                          item_id: item.id,
-                                          item_type: item_type
-      end
-
-      if container_type == "GobiertoParticipation::Process"
-        process = GobiertoParticipation::Process.find(container_id)
-
-        if process.issue
-          CollectionItem.find_or_create_by! collection_id: id,
-                                            container: process.issue,
-                                            item_id: item.id,
-                                            item_type: item_type
-        end
-
-        if process.scope
-          CollectionItem.find_or_create_by! collection_id: id,
-                                            container: process.scope,
-                                            item_id: item.id,
-                                            item_type: item_type
-        end
-      end
+      create_collection_items(item)
     end
 
     def calendar_integration
@@ -202,6 +166,48 @@ module GobiertoCommon
 
     def attributes_for_slug
       [title]
+    end
+
+    def update_collection_items
+      if (saved_changes.keys & %W(container_id container_type)).any?
+        items = collection_items.pluck(:item_type, :item_id)
+        collection_items.clear
+        items.each do |item_type, item_id|
+          item_type = "GobiertoCms::Page" if item_type == "GobiertoCms::News"
+          create_collection_items(item_type.constantize.find(item_id))
+        end
+      end
+      if saved_changes.keys.include?("item_type")
+        collection_items.update_all(item_type: self.item_type)
+      end
+    end
+
+    def create_collection_items(item)
+      containers_hierarchy(container).each do |container_type, container_id|
+        CollectionItem.find_or_create_by! collection_id: id,
+                                          container_type: container_type,
+                                          container_id: container_id,
+                                          item_id: item.id,
+                                          item_type: item_type
+      end
+
+      if container_type == "GobiertoParticipation::Process"
+        process = GobiertoParticipation::Process.find(container_id)
+
+        if process.issue
+          CollectionItem.find_or_create_by! collection_id: id,
+                                            container: process.issue,
+                                            item_id: item.id,
+                                            item_type: item_type
+        end
+
+        if process.scope
+          CollectionItem.find_or_create_by! collection_id: id,
+                                            container: process.scope,
+                                            item_id: item.id,
+                                            item_type: item_type
+        end
+      end
     end
   end
 end

@@ -64,7 +64,7 @@ gem "invisible_captcha"
 gem "redis", "~> 3.3"
 
 # Translations
-gem "json_translate", "~> 3.0"
+gem "json_translate", "~> 4.0"
 
 # Liquid
 gem "liquid", "~> 4.0"

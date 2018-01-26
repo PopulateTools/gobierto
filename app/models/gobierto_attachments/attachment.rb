@@ -4,10 +4,13 @@ require_dependency 'gobierto_attachments'
 
 module GobiertoAttachments
   class Attachment < ApplicationRecord
+    acts_as_paranoid column: :archived_at
+
     paginates_per 8
 
     attr_accessor :admin_id
 
+    include ActsAsParanoidAliases
     include User::Subscribable
     include GobiertoCommon::Searchable
     include GobiertoCommon::Sluggable
@@ -47,6 +50,7 @@ module GobiertoAttachments
 
     after_create :add_item_to_collection
     before_validation :update_file_attributes
+    after_restore :set_slug
 
     scope :inverse_sorted, -> { order(id: :asc) }
     scope :sorted, -> { order(id: :desc) }

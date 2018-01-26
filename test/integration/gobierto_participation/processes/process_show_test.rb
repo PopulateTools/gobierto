@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module GobiertoParticipation
   class ProcessShowTest < ActionDispatch::IntegrationTest
@@ -14,13 +14,6 @@ module GobiertoParticipation
 
     def process_path(process)
       @process_path ||= gobierto_participation_process_path(process.slug)
-    end
-
-    def process_information_path
-      @process_information_path ||= edit_admin_participation_process_process_information_path(
-        id: gender_violence_process,
-        process_id: gender_violence_process
-      )
     end
 
     def gender_violence_process
@@ -43,8 +36,8 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        within '.main-nav' do
-          assert has_link? 'Participation'
+        within ".main-nav" do
+          assert has_link? "Participation"
           assert has_link? gender_violence_process.title
         end
       end
@@ -55,18 +48,11 @@ module GobiertoParticipation
         processes.each do |process|
           visit process_path(process)
 
-          within '.sub-nav' do
-            assert has_link? 'Information'
-            assert has_link? 'Meetings'
-
-            if process.polls_stage?
-              assert has_link? 'Polls'
-            else
-              refute has_link? 'Polls'
-            end
-
-            assert has_link? 'Contributions'
-            assert has_link? 'Results'
+          within ".sub-nav" do
+            assert has_link? "Information"
+            assert has_link? "Agenda"
+            refute has_link? "Ideas"
+            refute has_link? "Polls"
           end
         end
       end
@@ -138,19 +124,17 @@ module GobiertoParticipation
 
     def test_subscription_block
       with_javascript do
-        with_current_site(site) do
-          with_signed_in_user(user) do
-            visit process_path(gender_violence_process)
-            within ".slim_nav_bar" do
-              assert has_link? "Follow process"
-            end
-
-            click_on "Follow process"
-            assert has_link? "Process followed!"
-
-            click_on "Process followed!"
+        with_signed_in_user(user) do
+          visit process_path(gender_violence_process)
+          within ".slim_nav_bar" do
             assert has_link? "Follow process"
           end
+
+          click_on "Follow process"
+          assert has_link? "Process followed!"
+
+          click_on "Process followed!"
+          assert has_link? "Follow process"
         end
       end
     end
@@ -159,17 +143,17 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        within '.container' do
+        within ".container" do
           assert has_content? gender_violence_process.title
           assert has_content? gender_violence_process.body
 
-          assert has_content? 'Interesting information'
+          assert has_content? "Interesting information"
 
-          process_duration_text = "#{gender_violence_process.starts.strftime('%e/%m/%y')} to #{gender_violence_process.ends.strftime('%e/%m/%y')}"
+          process_duration_text = "#{gender_violence_process.starts.strftime("%e/%m/%y")} to #{gender_violence_process.ends.strftime("%e/%m/%y")}"
 
           assert has_content? process_duration_text
-          assert has_content? 'Women'
-          assert has_content? 'Old town'
+          assert has_content? "Women"
+          assert has_content? "Old town"
         end
       end
     end
@@ -178,11 +162,11 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        assert_equal gender_violence_process.news.size, all('.place_news-item').size
+        assert_equal gender_violence_process.news.size, all(".place_news-item").size
 
         news_titles = gender_violence_process.news.map(&:title)
 
-        assert array_match ['Notice 1 title', 'Notice 2 title'], news_titles
+        assert array_match ["Notice 1 title", "Notice 2 title"], news_titles
       end
     end
 
@@ -190,7 +174,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit gobierto_participation_process_path(green_city_group.slug)
 
-        assert has_content? 'There are no related news'
+        assert has_content? "There are no related news"
       end
     end
 
@@ -198,21 +182,11 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        assert_equal gender_violence_process.events.size, all('.place_event-item').size
+        assert_equal gender_violence_process.events.size, all(".place_event-item").size
 
         events_titles = gender_violence_process.events.map(&:title)
 
-        assert array_match ['Intensive reading club in english', 'Swimming lessons for elders'], events_titles
-      end
-    end
-
-    def test_process_information
-      with_current_site(site) do
-        visit process_path(gender_violence_process)
-
-        click_on 'Information'
-
-        assert has_content? gender_violence_process.information_text
+        assert array_match ["Intensive reading club in english", "Swimming lessons for elders"], events_titles
       end
     end
 
@@ -220,7 +194,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit gobierto_participation_process_path(green_city_group.slug)
 
-        assert has_content? 'There are no related events'
+        assert has_content? "There are no related events"
       end
     end
 
@@ -228,7 +202,7 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        skip 'Not yet defined'
+        assert has_content? "There are no related updates"
       end
     end
 
@@ -237,7 +211,7 @@ module GobiertoParticipation
         visit process_path(gender_violence_process)
 
         within ".timeline" do
-          assert_equal gender_violence_process.stages.active.size, all(".timeline_row").size
+          assert_equal gender_violence_process.published_stages.size, all(".timeline_row").size
         end
       end
     end
@@ -246,27 +220,24 @@ module GobiertoParticipation
       with_current_site(site) do
         visit gobierto_participation_process_path(green_city_group.slug)
 
-        refute has_content? 'Process stages'
+        refute has_content? "Process stages"
       end
     end
 
-    def test_progress_map_with_many_active_stages
-      active_stages = gender_violence_process.active_stages
+    def test_progress_map_with_many_published_stages
+      published_stages = gender_violence_process.published_stages
 
       with_current_site(site) do
         visit process_path(gender_violence_process)
 
-        within '#progress_map' do
-
+        within "#progress_map" do
           # current stage title and CTA, and a dot for each active stage
-          assert has_content? 'Current stage'
-          assert has_content? 'Draft publication'
-          assert has_link? 'Add your idea'
-          assert_equal active_stages.size, all('.dot').size
+          assert has_content? "Current stage"
+          assert_equal published_stages.size, all(".dot").size
 
           # check current stage is marked, and upcoming stages dots are grayed out
           assert has_selector?("##{gender_violence_process.current_stage.slug}_stage_dot > .dot-current")
-          assert_equal active_stages.upcoming.size, all('.dot.disabled').size
+          assert_equal published_stages.upcoming.size, all(".dot.disabled").size
         end
       end
     end
@@ -275,45 +246,31 @@ module GobiertoParticipation
       with_current_site(site) do
         visit process_path(commission_for_carnival_festivities)
 
-        within '#progress_map' do
+        within "#progress_map" do
           # just title  and CTA of current stage
-          assert has_content? 'Current stage'
-          assert has_content? 'Polls'
-          assert has_link? 'Participate'
-          refute has_selector? '.dots-container'
+          assert has_content? "Current stage"
+          assert has_link? "Participate"
+          refute has_selector? ".dots-container"
         end
-
       end
     end
 
-    def test_progress_map_with_no_active_stages
+    def test_progress_map_with_no_published_stages
       with_current_site(site) do
         visit process_path(green_city_group)
 
         # hide progress map
-        refute has_selector? '#progress_map'
+        refute has_selector? "#progress_map"
       end
     end
 
-    def test_progress_map_shows_next_stage_when_no_current_stage
-      commission_for_carnival_festivities.stages.polls.first.update_attributes!(
-        starts: 1.week.from_now,
-        ends: 2.weeks.from_now
-      )
-
+    def test_process_information_stage
       with_current_site(site) do
-        visit process_path(commission_for_carnival_festivities)
+        visit process_path(gender_violence_process)
+        click_link "Information"
 
-        within '#progress_map' do
-          refute has_content? 'Current stage'
-          refute has_content? 'Next stage'
-
-          assert has_content? 'Polls'
-          assert has_link? 'Participate'
-        end
-
+        assert has_selector?("h1", text: "Privacy")
       end
     end
-
   end
 end

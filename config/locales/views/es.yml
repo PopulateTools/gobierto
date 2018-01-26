@@ -1,5 +1,8 @@
 ---
 es:
+  admin_gobierto_calendars:
+    events:
+      admin_gobierto_calendars_calendars_synchronized: Calendarios sincronizados
   admins:
     events:
       admins_admin_authorization_level_updated: Nivel autorización admin actualizado
@@ -111,6 +114,16 @@ es:
     events:
       scopes_scope_created: Ámbito creado
       scopes_scope_updated: Ámbito actualizado
+  shared:
+    poll_question:
+      multiple_choice_msg: Puedes elegir varias opciones
+    poll_teaser:
+      answer: Responder
+      next_question: Siguiente pregunta
+      submit: Enviar
+    polls:
+      no_unanswered_polls: No hay encuestas pendientes de contestar.
+      opinion: Opina
   sites:
     events:
       sites_site_created: Site creado

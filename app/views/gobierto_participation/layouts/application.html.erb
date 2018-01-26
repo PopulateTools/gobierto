@@ -2,4 +2,10 @@
   <%= javascript_include_tag 'gobierto_participation/application', 'data-turbolinks-track' => true %>
 <% end %>
 
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoParticipation.poll_teaser_controller.show();
+  <% end %>
+<% end %>
+
 <%= render template: 'layouts/application' %>

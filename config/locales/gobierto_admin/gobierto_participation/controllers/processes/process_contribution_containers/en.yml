@@ -7,6 +7,10 @@ en:
           create:
             success_html: Container of contributions created correctly. <a href="%{link}">View
               the container</a>.
+          destroy:
+            success: Container of contributions archived correctly
+          recover:
+            success: Container of contributions recovered correctly
           update:
             success_html: Container of contributions updated correctly. <a href="%{link}">View
               the container</a>.

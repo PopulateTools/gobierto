@@ -15,6 +15,9 @@ class GobiertoBudgets::BudgetsElaborationController < GobiertoBudgets::Applicati
     @interesting_expenses_previous_year = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, level: 2, year: @year - 1, kind: @kind, area_name: @area_name })
     @place_budget_lines = GobiertoBudgets::BudgetLine.all(where: { site: current_site, place: @place, level: 1, year: @year, kind: @kind, area_name: @area_name })
 
+    @any_custom_income_budget_lines  = GobiertoBudgets::BudgetLine.any_data?(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::INCOME, area: GobiertoBudgets::CustomArea)
+    @any_custom_expense_budget_lines = GobiertoBudgets::BudgetLine.any_data?(site: current_site, year: @year, kind: GobiertoBudgets::BudgetLine::EXPENSE, area: GobiertoBudgets::CustomArea)
+
     respond_to do |format|
       format.html
       format.js
@@ -33,7 +36,7 @@ class GobiertoBudgets::BudgetsElaborationController < GobiertoBudgets::Applicati
   end
 
   def load_year
-    @year = Date.today.year + 1
+    @year = GobiertoBudgets::SearchEngineConfiguration::Year.last + 1
   end
 
 end

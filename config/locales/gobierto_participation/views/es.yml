@@ -59,27 +59,22 @@ es:
       application:
         title: Participación
       menu_subsections:
-        about: Acerca de
-        ideas: Ideas
         issues: Temas
         processes: Procesos
-        questions: Pregunta
+        scopes: Ámbitos
       process_breadcrumb:
         root: Inicio
-      process_menu_subsections:
-        contributions: Aportaciones
-        information: Información
-        meetings: Reuniones
-        polls: Encuestas
-        results: Resultados
       secondary_nav:
         activity: Actividad
         agenda: Agenda
         documents: Documentos
         news: Noticias
-    pages:
+    news:
       show:
         news: Noticias
+    pages:
+      show:
+        pages: Páginas
     participation_attachments: Ver todos los documentos de Participación
     processes:
       contribution_containers:
@@ -194,9 +189,28 @@ es:
         process_stages: Fases del proceso
         scope: Ámbito
       timeline_row:
-        past_stage: Fase finalizada
-        upcoming_stage: Fase pendiente de inicio
         view_stage: Acceder a esta fase
+    scopes:
+      index:
+        intro_html: Tus ideas ayudan a mejorar %{location_name} y la vida de todos
+          los que residimos aquí. Aporta tus mejores ideas en nuestros <strong>espacios
+          permanentes de participación</strong>.
+      participation_groups:
+        work_groups_description: Consulta la actividad de cada grupo y participa.
+        work_groups_title: Grupos de trabajo
+      participation_latest_info:
+        agenda: Agenda Participación
+        news: Noticias
+        no_events: No hay eventos relacionados
+        no_news: No hay noticias relacionadas
+        show_more_events: Ver más eventos
+        show_more_news: Ver más noticias
+        show_more_updates: Ver más actualizaciones
+        the_last: Lo último
+        up_to_date: "%{site_title} al día"
+      participation_proccesses:
+        processes_description: Consulta y participa en procesos específicos.
+        processes_title: Procesos en marcha
     shared:
       activities_for: Actividad de %{container}
       agenda: Agenda

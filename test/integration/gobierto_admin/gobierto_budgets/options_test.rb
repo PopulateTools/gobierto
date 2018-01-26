@@ -44,6 +44,20 @@ module GobiertoAdmin
           end
         end
       end
+
+      def test_update_annual_budgets_data
+        with_signed_in_admin(admin) do
+          with_current_site(site) do
+            with_stubbed_s3_upload! do
+              visit @path
+
+              click_link("Generate budget lines by year files")
+
+              assert has_message?("Process to generate files of budget lines by year launched")
+            end
+          end
+        end
+      end
     end
   end
 end

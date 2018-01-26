@@ -36,19 +36,20 @@ require "rails/test_help"
 require "minitest/rails"
 require "minitest/mock"
 require "minitest/reporters"
-require "database_cleaner"
 require "spy/integration"
 require "webmock/minitest"
 require "support/common_helpers"
 require "support/session_helpers"
 require "support/site_session_helpers"
+require "support/app_host_helpers"
 require "support/message_delivery_helpers"
 require "support/gobierto_site_constraint_helpers"
+require "support/asymmetric_encryptor_helpers"
+require "support/site_config_helpers"
 require "capybara/email"
 require "minitest/retry"
 require "vcr"
 require "mocha/mini_test"
-require "minitest/test_profile"
 
 I18n.locale = I18n.default_locale = :en
 Time.zone = "Madrid"
@@ -58,9 +59,7 @@ Minitest::Retry.on_failure do |klass, test_name|
   Capybara.reset_session!
 end
 
-# Incompatible with test profile
-# Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new(color: true)
-Minitest::TestProfile.use!
+Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new(color: true)
 
 WebMock.disable_net_connect!(
   allow_localhost: true,
@@ -78,6 +77,7 @@ ActiveRecord::Migration.maintain_test_schema!
 class ActiveSupport::TestCase
   include CommonHelpers
   include SessionHelpers
+  include AppHostHelpers
   include SiteSessionHelpers
   include ActiveJob::TestHelper
 
@@ -117,27 +117,23 @@ class ActionDispatch::IntegrationTest
   end
 
   Capybara.javascript_driver = :poltergeist_custom
-  Capybara.default_host = "http://gobierto.dev"
+  Capybara.default_host = "http://gobierto.test"
 
-  self.use_transactional_tests = false
-
-  DatabaseCleaner.strategy = :transaction
-  DatabaseCleaner.clean_with :truncation
+  self.use_transactional_tests = true
 
   def setup
     $redis.flushdb
-    DatabaseCleaner.start
     Capybara.current_driver = Capybara.default_driver
   end
 
   def teardown
-    DatabaseCleaner.clean
     Capybara.reset_session!
   end
 
   def with_javascript
     Capybara.current_driver = Capybara.javascript_driver
     yield
+    Capybara.reset_session!
   ensure
     Capybara.current_driver = Capybara.default_driver
   end

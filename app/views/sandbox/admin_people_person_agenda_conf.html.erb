@@ -1,0 +1,77 @@
+<div class="admin_breadcrumb">
+  <%= link_to 'Inicio', 'admin' %> »
+  <%= link_to 'Personas', 'admin_people' %> »
+  <%= link_to 'Rafa García García', 'admin_people_person' %> »
+  Agenda
+</div>
+
+<h1>Rafa García García</h1>
+
+<div class="tabs">
+  <ul>
+    <li><%= link_to 'Persona', 'admin_people_person' %></li>
+    <li class="active"><%= link_to 'Agenda', 'admin_people_person_agenda' %></li>
+    <li><%= link_to 'Declaraciones', 'admin_people_person_declarations' %></li>
+    <li><%= link_to 'Blog', 'admin_people_person_blog' %></li>
+  </ul>
+</div>
+
+<p>[OPCIONES ACTUALES]</p>
+
+<h3>Filtrado de eventos</h3>
+
+<p>Cuando se importe un evento...</p>
+
+<table class="med_bg">
+<tr>
+  <td>
+    <div class="inline p_0_5">Si el</div>
+    <div class="select_control select_compact inline">
+      <select >
+        <option disabled selected value> -- seleccionar --</option>
+        <option>Título</option>
+        <option>Cuerpo</option>
+      </select>
+    </div>
+  </td>
+  <td>
+    <div class="p_0_5">
+      <div class="select_control select_compact ">
+        <select >
+          <option disabled selected value> -- seleccionar --</option>
+          <option>Contiene</option>
+          <option>No contiene</option>
+          <option>Empieza por</option>
+          <option>Acaba por</option>
+        </select>
+      </div>
+    </div>
+  </td>
+  <td>
+    <div class="p_0_5">
+      <input type="text" class="slim">
+    </div>
+  </td>
+  <td>
+    <div class="p_0_5">
+      <div class="select_control select_compact">
+        <select >
+          <option disabled selected value> -- seleccionar --</option>
+          <option>Ignorar (no importar)</option>
+          <option>Importar y publicar</option>
+          <option>Importar como borrador</option>
+        </select>
+      </div>
+    </div>
+  </td>
+  <td>
+    <div class="p_0_5">
+      <%= link_to '<i class="fa fa-trash tipsit" title="Eliminar regla"></i>'.html_safe, '' %>
+    </div>
+  </td>
+</tr>
+</table>
+
+<div class="p_1">
+  <%= link_to '<i class="fa fa-plus-circle"></i> Crear regla'.html_safe, '' %>
+</div>

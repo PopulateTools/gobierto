@@ -20,6 +20,7 @@ class Site < ApplicationRecord
   # User integrations
   has_many :subscriptions, dependent: :destroy, class_name: "User::Subscription"
   has_many :notifications, dependent: :destroy, class_name: "User::Notification"
+  has_many :users, dependent: :nullify
 
   # GobiertoBudgets integration
   has_many :custom_budget_lines_categories, dependent: :destroy, class_name: "GobiertoBudgets::Category"
@@ -92,7 +93,7 @@ class Site < ApplicationRecord
   def gobierto_budgets_settings
     @gobierto_budgets_settings ||= if configuration.gobierto_budgets_enabled?
                                     module_settings.find_by(module_name: "GobiertoBudgets")
-                                  end
+                                   end
   end
 
   def place
@@ -111,6 +112,10 @@ class Site < ApplicationRecord
 
   def to_s
     self.name
+  end
+
+  def slug
+    location_name.tr("_", " ").parameterize
   end
 
   private
@@ -163,7 +168,7 @@ class Site < ApplicationRecord
   end
 
   def location_required
-    if (self.configuration.modules & %W{ GobiertoBudgetConsultations GobiertoBudgets GobiertoIndicators} ).any?
+    if (self.configuration.modules & %W{ GobiertoBudgetConsultations GobiertoBudgets GobiertoObservatory} ).any?
       if municipality_id.blank? || location_name.blank?
         errors.add(:location_name, I18n.t('errors.messages.blank_for_modules'))
       end

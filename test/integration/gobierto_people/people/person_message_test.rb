@@ -48,24 +48,22 @@ module GobiertoPeople
       end
 
       def test_send_message_as_logged_user
-        with_current_site(site) do
-          with_signed_in_user(user) do
-            visit @path
+        with_signed_in_user(user) do
+          visit @path
 
-            click_link "Send an email"
-            fill_in "gobierto_people_person_message_body", with: "This is my message"
-            click_button "Send"
+          click_link "Send an email"
+          fill_in "gobierto_people_person_message_body", with: "This is my message"
+          click_button "Send"
 
-            assert has_message?("Message sent successfully")
+          assert has_message?("Message sent successfully")
 
-            refute ActionMailer::Base.deliveries.empty?
-            email = ActionMailer::Base.deliveries.last
+          refute ActionMailer::Base.deliveries.empty?
+          email = ActionMailer::Base.deliveries.last
 
-            assert_equal ["admin@gobierto.dev"], email.from
-            assert_equal [user.email], email.reply_to
-            assert_equal [person.email], email.to
-            assert_equal "You have received a new message from Transparencia y Participción", email.subject
-          end
+          assert_equal ["admin@gobierto.dev"], email.from
+          assert_equal [user.email], email.reply_to
+          assert_equal [person.email], email.to
+          assert_equal "You have received a new message from Transparencia y Participción", email.subject
         end
       end
     end

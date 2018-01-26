@@ -58,7 +58,7 @@ class SiteTest < ActiveSupport::TestCase
   end
 
   def test_seeder_called_after_create
-    site = Site.new title: "Transparencia", name: "Albacete", domain: "albacete.gobierto.dev",
+    site = Site.new title: "Transparencia", name: "Albacete", domain: "albacete.gobierto.test",
                     location_name: "Albacete", municipality_id: INE::Places::Place.find_by_slug("albacete").id,
                     location_type: INE::Places::Place, external_id: INE::Places::Place.find_by_slug("albacete").id
 
@@ -78,13 +78,13 @@ class SiteTest < ActiveSupport::TestCase
 
   def test_seeder_called_after_modules_updated
     configuration_data = site.configuration_data
-    configuration_data["modules"].push "GobiertoIndicators"
+    configuration_data["modules"].push "GobiertoObservatory"
     site.configuration_data = configuration_data
     site.save!
     assert module_seeder_spy.has_been_called?
     assert module_site_seeder_spy.has_been_called?
-    assert_equal ["GobiertoIndicators", site], module_seeder_spy.calls.first.args
-    assert_equal ["gobierto_populate", "GobiertoIndicators", site], module_site_seeder_spy.calls.first.args
+    assert_equal ["GobiertoObservatory", site], module_seeder_spy.calls.first.args
+    assert_equal ["gobierto_populate", "GobiertoObservatory", site], module_site_seeder_spy.calls.first.args
   end
 
   def test_invalid_if_municipality_blank

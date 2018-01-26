@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module GobiertoPeople
   module IbmNotes
     class CalendarIntegration
@@ -26,11 +28,18 @@ module GobiertoPeople
         Rails.logger.info "[#{person.site.name} calendar integration] JSON parser error"
       end
 
-      def self.person_calendar_configuration_class
-        ::GobiertoCalendars::IbmNotesCalendarConfiguration
-      end
+      def self.sync_event(ibm_notes_event, person)
+        configuration = person_calendar_configuration(person)
 
-      def self.sync_event(ibm_notes_event,recurring = false)
+        filter_result = GobiertoCalendars::FilteringRuleApplier.filter({
+          title: ibm_notes_event.title,
+          description: ibm_notes_event.description,
+        }, configuration.filtering_rules)
+
+        state = filter_result.action == GobiertoCalendars::FilteringRuleApplier::CREATE_PENDING ?
+          GobiertoCalendars::Event.states[:pending] :
+          GobiertoCalendars::Event.states[:published]
+
         locations_attributes = if ibm_notes_event.location.present?
                                  { name: ibm_notes_event.location }
                                else
@@ -41,33 +50,37 @@ module GobiertoPeople
           site_id: ibm_notes_event.person.site.id,
           external_id: ibm_notes_event.id,
           person_id: ibm_notes_event.person.id,
-          title: ibm_notes_event.title,
-          description: ibm_notes_event.description,
+          title: filter_result.event_attributes[:title],
+          description: filter_result.event_attributes[:description],
           starts_at: ibm_notes_event.starts_at,
           ends_at: ibm_notes_event.ends_at,
-          state: GobiertoCalendars::Event.states[:published],
+          state: state,
           attendees: ibm_notes_event.attendees,
           locations_attributes: {"0" => locations_attributes },
-          notify: true,
-          recurring: recurring
+          notify: true
         }
 
-        event = GobiertoPeople::PersonEventForm.new(person_event_params)
-        event.save
-        event.external_id
+        if filter_result.action == GobiertoCalendars::FilteringRuleApplier::REMOVE
+          GobiertoPeople::PersonEventForm.new(person_event_params).destroy
+          nil
+        else
+          event = GobiertoPeople::PersonEventForm.new(person_event_params)
+          event.save
+          event.external_id
+        end
       end
 
       # Private methods
 
-      def self.create_and_sync_ibm_notes_event(person, event_data, recurring)
+      def self.create_and_sync_ibm_notes_event(person, event_data)
         event = ::IbmNotes::PersonEvent.new(person, event_data)
-        created_event_external_id = sync_event(event, recurring)
-        return created_event_external_id
+        sync_event(event, person)
       end
       private_class_method :create_and_sync_ibm_notes_event
 
       def self.process_event(event_data, event_url, person)
         processed_events_ids = []
+
         if recurring_event?(event_data)
           instances_urls = get_person_event_instances_urls(person, event_url)
 
@@ -75,11 +88,11 @@ module GobiertoPeople
             response_event = ::IbmNotes::Api.get_event(request_params_for_event_request(person, event_url))
 
             if response_event && response_event['events'].present?
-              processed_events_ids << create_and_sync_ibm_notes_event(person, response_event['events'][0], true)
+              processed_events_ids << create_and_sync_ibm_notes_event(person, response_event['events'][0])
             end
           end
         else
-          processed_events_ids << create_and_sync_ibm_notes_event(person, event_data, false)
+          processed_events_ids << create_and_sync_ibm_notes_event(person, event_data)
         end
 
         processed_events_ids
@@ -123,20 +136,22 @@ module GobiertoPeople
       private_class_method :has_instances_link?
 
       def self.request_params_for_events(person)
+        configuration = person_calendar_configuration(person)
         {
-          endpoint: person_calendar_configuration(person).ibm_notes_url.concat("?since=#{sync_range_start}"),
-          username: person_calendar_configuration(person).ibm_notes_usr,
+          endpoint: configuration.ibm_notes_url.concat("?since=#{sync_range_start}"),
+          username: configuration.ibm_notes_usr,
           password: plain_text_password(person)
         }
       end
       private_class_method :request_params_for_events
 
       def self.request_params_for_event_request(person, event_path)
-        uri = URI.parse person_calendar_configuration(person).ibm_notes_url
+        configuration = person_calendar_configuration(person)
+        uri = URI.parse(configuration.ibm_notes_url)
 
         {
           endpoint: "#{uri.scheme}://#{uri.host}#{event_path}",
-          username: person_calendar_configuration(person).ibm_notes_usr,
+          username: configuration.ibm_notes_usr,
           password: plain_text_password(person)
         }
       end
@@ -148,12 +163,12 @@ module GobiertoPeople
       private_class_method :plain_text_password
 
       def self.sync_range_start
-        2.days.ago.iso8601.split('+')[0].concat('Z')
+        GobiertoCalendars.sync_range_start.iso8601.split('+')[0].concat('Z')
       end
       private_class_method :sync_range_start
 
       def self.person_calendar_configuration(person)
-        person_calendar_configuration_class.find_by(collection_id: person.calendar.id)
+        ::GobiertoCalendars::IbmNotesCalendarConfiguration.find_by(collection_id: person.calendar.id)
       end
       private_class_method :person_calendar_configuration
 

@@ -31,7 +31,7 @@
       <div class="pure-u-1 pure-u-md-1-3 center news_teaser">
 
 
-        <% if current_process.active_stages.any? %>
+        <% if current_process.process? && @process_stages.any? %>
           <%= render 'progress_map', { process: current_process } %>
         <% end %>
 
@@ -61,7 +61,11 @@
         <h3 class="with_light_separator"><%= t('.about') %></h3>
         <p><%= current_process.body %></p>
 
-        <%= link_to t('.more_information'), gobierto_participation_process_information_path(process_id: @process.slug), class: "button outline rounded" %>
+        <% information_stage = current_process.stages.where(stage_type: 0).try(:first) %>
+
+        <% if information_stage && information_stage.process_stage_page %>
+          <%= link_to t('.more_information'), stage_url(information_stage), class: "button outline rounded" %>
+        <% end %>
       </div>
     </div>
 
@@ -102,7 +106,7 @@
               <span class="accent"><i class="fa fa-folder"></i><%= t('.scope') %></span>
             </div>
             <div class="pure-u-1 pure-u-md-1-2">
-                <%= current_process.scope.name %>
+                <%= link_to current_process.scope.name, gobierto_participation_scope_path(current_process.scope.slug) %>
             </div>
           </div>
         <% end %>
@@ -146,7 +150,7 @@
   </div>
 </div>
 
-<% if @process_stages.any? %>
+<% if current_process.process? && @process_stages.any? %>
   <div class="gradient-bg" id="timeline">
     <div class="column">
       <div class="pure-g">

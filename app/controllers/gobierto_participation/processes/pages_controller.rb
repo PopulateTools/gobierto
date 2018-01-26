@@ -34,7 +34,7 @@ module GobiertoParticipation
       end
 
       def pages_scope
-        valid_preview_token? ? current_site.pages.draft : current_site.pages.active
+        valid_preview_token? ? current_site.pages : current_site.pages.active
       end
     end
   end

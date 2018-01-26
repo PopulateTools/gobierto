@@ -3,10 +3,10 @@ machine:
     - redis
   environment:
     CI: true
-    HOST: gobierto.dev
+    HOST: gobierto.test
     RETRY_FAILING_TEST: true
   ruby:
-    version: 2.4.1
+    version: 2.5.0
 
 dependencies:
   cache_directories:

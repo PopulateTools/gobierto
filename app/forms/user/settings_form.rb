@@ -5,6 +5,7 @@ class User::SettingsForm
   attr_accessor(
     :user_id,
     :name,
+    :password_enabled,
     :password,
     :password_confirmation,
     :date_of_birth_year,
@@ -17,10 +18,15 @@ class User::SettingsForm
   attr_reader :user
 
   validates :name, :date_of_birth, :gender, :user, presence: true
-  validates :password, confirmation: true
+  validates :password, confirmation: true, if: :password_enabled
 
   def save
     save_user_settings if valid?
+  end
+
+  def password_enabled
+    @password_enabled = true if @password_enabled.nil?
+    @password_enabled
   end
 
   def user
@@ -28,7 +34,7 @@ class User::SettingsForm
   end
 
   def site
-    @site ||= user.source_site
+    @site ||= user.site
   end
 
   def date_of_birth
@@ -44,7 +50,7 @@ class User::SettingsForm
   def save_user_settings
     @user = user.tap do |user_attributes|
       user_attributes.name = name
-      user_attributes.password = password if password
+      user_attributes.password = password if password && password_enabled
       user_attributes.date_of_birth = date_of_birth
       user_attributes.gender = gender
       user_attributes.custom_records = custom_records

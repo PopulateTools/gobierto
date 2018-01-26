@@ -343,6 +343,7 @@ pre {
 
 .list_item, .list_item_with_editable_content {
   margin: 0 0 .5em 0;
+  display: flex;
   .fa-bars {
     padding: .75em;
     cursor: pointer;
@@ -351,17 +352,34 @@ pre {
     background: $color_neutral_soft;
     @include border-radius(3px);
   }
-  label.main {
-    display: inline-block;
+  div.main, label.main {
+    display: flex;
+    flex-grow: 10;
     background: $color_secondary;
-    padding: 4px 10px;
+    padding: 6px 12px;
     @include border-radius(4px);
-    margin: 0 20px 0 0;
-    width: calc(100% - 200px);
-    font-weight: 600;
+    // width: calc(100% - 200px);
+
+    label {
+      font-weight: 600;
+      display: block;
+      .interaction_tool {
+        display: block;
+        opacity: .75;
+      }
+    }
+    .group {
+      flex-grow: 1;
+    }
+    .secondary {
+      font-size: .85em;
+      .fa {
+        opacity: .5;
+      }
+    }
   }
   .mandatory, .inline_notice {
-    display: inline-block;
+    display: flex;
     margin: 0 1em 0 0;
   }
   .inline_notice {
@@ -369,10 +387,11 @@ pre {
     opacity: .5;
   }
   .tools {
-    display: inline-block;
-    width: 70px;
+    display: flex;
+    padding: 4px 0;
+    // width: 70px;
     .fa {
-      margin: 0 1em 0 0;
+      margin: 0 0 0 1em;
     }
   }
   input[type="checkbox"], input[type="radio"] {

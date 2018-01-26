@@ -11,17 +11,20 @@ collection_item_attachment:
 
 consultation_faq_on_site:
   collection: site_pages
-  item: consultation_faq (GobiertoCms::Page)
+  item: consultation_faq
+  item_type: 'GobiertoCms::Page'
   container: madrid (Site)
 
 collection_item_themes:
   collection: news
-  item: themes (GobiertoCms::Page)
+  item: themes
+  item_type: 'GobiertoCms::News'
   container: sport_city_process (GobiertoParticipation::Process)
 
 collection_item_themes_draft:
   collection: news
-  item: themes_draft (GobiertoCms::Page)
+  item: themes_draft
+  item_type: 'GobiertoCms::News'
   container: sport_city_process (GobiertoParticipation::Process)
 
 news_collection_notice_1:

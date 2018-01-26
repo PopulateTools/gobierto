@@ -88,3 +88,15 @@ noise_problems_multiple_choice_answer_template_fancy_headphones:
   question: noise_problems_multiple_choice
   text: Uso los cascos insonorizados que están de moda en la ofi
   order: 2
+
+## neighbor_opinion_poll answers
+
+neighbor_opinion_poll_single_choice_yes:
+  question: neighbor_opinion_poll_single_choice
+  text: 'Yes'
+  order: 0
+
+neighbor_opinion_poll_single_choice_no:
+  question: neighbor_opinion_poll_single_choice
+  text: 'No'
+  order: 1

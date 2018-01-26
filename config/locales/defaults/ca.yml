@@ -41,6 +41,7 @@ ca:
       default: "%d-%m-%Y"
       long: "%d de %B de %Y"
       short: "%d de %b"
+      shortest: "%d %b %y"
     month_names:
     - 
     - Gener
@@ -114,6 +115,7 @@ ca:
       array_too_short: és massa curt (al menys %{count} element)
       blank: no pot estar en blanc
       blank_for_modules: ha de ser un municipi per que els moduls actius funcionin
+      collection_taken: no pot tenir una altra col·lecció d'aquest tipus.
       confirmation: no coincideix
       empty: no pot estar buit
       equal_to: ha de ser igual a %{count}
@@ -218,6 +220,7 @@ ca:
     am: am
     formats:
       default: "%A, %d de %B de %Y %H:%M:%S %z"
+      from_to: De l'%{starts} a %{ends}
       long: "%d de %B de %Y %H:%M"
       short: "%d de %b %H:%M"
     pm: pm

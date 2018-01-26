@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       resources :options, only: [:index] do
         collection do
           put :update
+          put :update_annual_data
         end
       end
       resources :feedback, only: [:index]
@@ -101,15 +102,25 @@ Rails.application.routes.draw do
     namespace :gobierto_participation, as: :participation, path: :participation do
       get "/" => "welcome#index"
 
-      resources :processes, only: [:index, :new, :edit, :create, :update] do
+      resources :processes, only: [:index, :new, :edit, :create, :update, :destroy] do
+        put :recover
+        post :update_current_stage
+        resources :process_stages, only: [:create, :destroy, :edit, :index, :new, :update], controller: "processes/process_stages", as: :process_stages, path: :process_stages do
+          resources :pages, only: [:new, :create, :edit, :update], controller: "processes/process_stage_pages", as: :process_stage_page, path: :process_stage_page
+          collection do
+            resource :process_stage_sort, only: [:create], controller: "processes/process_stages_sort", path: :process_stages_sort
+          end
+        end
         resources :file_attachments, only: [:index], controller: "processes/process_file_attachments", as: :file_attachments, path: :file_attachments
         resources :events, only: [:index], controller: "processes/process_events", as: :events, path: :events
         resources :pages, only: [:index], controller: "processes/process_pages", as: :pages, path: :pages
-        resources :polls, only: [:index, :new, :edit, :create, :update], controller: "processes/polls" do
+        resources :polls, only: [:index, :new, :edit, :create, :update, :destroy], controller: "processes/polls" do
           resources :answers, only: [:index], controller: "processes/poll_answers"
+          put :recover
         end
-        resources :contribution_containers, only: [:new, :edit, :create, :update, :index, :show], controller: "processes/process_contribution_containers", as: :contribution_containers, path: :contribution_containers
-        resources :information, only: [:edit, :update], controller: "processes/process_information", as: :process_information, path: :process_information
+        resources :contribution_containers, only: [:new, :edit, :create, :update, :index, :show, :destroy], controller: "processes/process_contribution_containers", as: :contribution_containers, path: :contribution_containers do
+          put :recover
+        end
       end
     end
 
@@ -119,7 +130,9 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_cms, as: :cms, path: :cms do
-      resources :pages, only: [:index, :new, :edit, :create, :update]
+      resources :pages, only: [:index, :new, :edit, :create, :update, :destroy] do
+        put :recover
+      end
       resources :sections, only: [:index, :new, :edit, :create, :update, :show] do
         resources :section_items, only: [:index, :create, :destroy, :update, :show]
         get :pages
@@ -127,7 +140,9 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_attachments, as: :attachments, path: :attachments do
-      resources :file_attachments, only: [:index, :create, :new, :edit, :update]
+      resources :file_attachments, only: [:index, :create, :new, :edit, :update, :destroy] do
+        put :recover
+      end
       namespace :api do
         resources :attachments, only: [:index, :show, :create, :update, :destroy]
         post "/attachings" => "attachings#create"
@@ -136,9 +151,15 @@ Rails.application.routes.draw do
     end
 
     namespace :gobierto_calendars, as: :calendars do
-      resources :events
+      resources :events do
+        put :recover
+      end
       resources :collections, only: [:index]
-      resources :calendar_configurations, only: [:edit, :update], controller: "calendar_configuration", as: :configurations, path: :configurations
+      resources :calendar_configurations, only: [:edit, :update], controller: "calendar_configuration", as: :configurations, path: :configurations do
+        member do
+          put 'sync_calendars'
+        end
+      end
     end
   end
 
@@ -148,6 +169,11 @@ Rails.application.routes.draw do
       get "/" => "welcome#index", as: :root
 
       resource :sessions, only: [:new, :create, :destroy]
+      resource :custom_session, only: [:new, :create, :destroy] do
+        collection do
+          post :auth_callback
+        end
+      end
       resource :registrations, only: [:create]
       resource :confirmations, only: [:new, :create]
       resource :passwords, only: [:create, :edit, :update]
@@ -271,10 +297,10 @@ Rails.application.routes.draw do
     end
   end
 
-  # Gobierto Indicators module
-  namespace :gobierto_indicators, path: "indicadores" do
+  # Gobierto Observatory module
+  namespace :gobierto_observatory, path: "observatorio" do
     constraints GobiertoSiteConstraint.new do
-      root "indicators#index"
+      root "observatory#index"
     end
   end
 
@@ -293,7 +319,6 @@ Rails.application.routes.draw do
       get "/" => "welcome#index", as: :root
 
       resources :processes, only: [:index, :show], path: "p" do
-        resource :information, only: [:show], controller: "processes/information", path: "informacion"
         resources :contribution_containers, only: [:index, :show], controller: "processes/contribution_containers", path: "aportaciones" do
           resources :contributions, only: [:new, :create, :show], controller: "processes/contributions", path: :contributions do
             resource :vote, only: [:create, :destroy]
@@ -318,9 +343,17 @@ Rails.application.routes.draw do
         resources :activities, only: [:index], controller: "issues/activities", path: "actividad"
       end
 
+      resources :scopes, only: [:index, :show], path: "ambitos" do
+        resources :attachments, only: [:index, :show], controller: "scopes/attachments", path: "documentos"
+        resources :events, only: [:index, :show], controller: "scopes/events", path: "agendas"
+        resources :pages, only: [:index, :show], controller: "scopes/pages", path: "noticias"
+        resources :activities, only: [:index], controller: "scopes/activities", path: "actividad"
+      end
+
       resources :attachments, only: [:index, :show], controller: "attachments", path: "documentos"
       resources :events, only: [:index, :show], controller: "events", path: "agendas"
-      resources :pages, only: [:index, :show], controller: "pages", path: "noticias"
+      resources :pages, only: [:show], controller: "pages", path: "paginas"
+      resources :news, only: [:index, :show], controller: "news", path: "noticias"
       resources :activities, only: [:index], controller: "activities", path: "actividad"
     end
   end

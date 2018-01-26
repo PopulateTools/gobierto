@@ -8,7 +8,7 @@
   * [Gestión de páginas](#gestión-de-páginas)
   * [Presupuestos](#presupuestos)
   * [Consultas sobre presupuestos](#consultas-sobre-presupuestos)
-  * [Indicadores](#indicadores)
+  * [Observatorio](#observatorio)
 * Preguntas frecuentes
 
 ***
@@ -366,9 +366,9 @@ ToDo
 
 ToDo
 
-### Indicadores
+### Observatorio
 
-Los datos del módulo de Indicadores se cargan y se visualizan automáticamente.
+Los datos del módulo de Observatorio se cargan y se visualizan automáticamente.
 
 
 ## Preguntas frecuentes

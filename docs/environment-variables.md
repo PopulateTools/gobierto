@@ -12,8 +12,8 @@ SECRET_KEY_BASE=
 RACK_ENV=development
 RAILS_ENV=development
 TLD_LENGTH=2
-HOST=gobierto.dev
-BASE_HOST=gobierto.dev
+HOST=gobierto.test
+BASE_HOST=gobierto.test
 PORT=3000
 RAILS_MAX_THREADS=5
 
@@ -55,6 +55,9 @@ MAILER_DELIVERY_METHOD=
 MAILER_SMTP_ADDRESS=
 MAILER_SMTP_USER_NAME=
 MAILER_SMTP_PASSWORD=
+
+# AsymmetricEncryptor
+ASYMMETRIC_ENCRYPTION_KEY=
 ```
 
 ### Rails configuration variables
@@ -93,3 +96,10 @@ Gobierto uses ElasticSearch and Redis.
 - `GOOGLE_PLACES_API_KEY`: Google Places API key
 - `ALGOLIA_SEARCH_API_KEY`, `ALGOLIA_APPLICATION_ID`, `ALGOLIA_API_KEY`: Algolia API keys
 
+### Asymmetric encryption
+
+The `AsymmetricEncryptor` defined in lib/ looks for a RSA public key defined in config/secrets.yml.
+The instances of `AsymmetricEncryptor` must be initialized with the name of the key in secrets.yml.
+To create a valid key use, for example: `OpenSSL::PKey::RSA.new(2048).public_key.to_pem`
+
+- `ASYMMETRIC_ENCRYPTION_KEY`

@@ -19,17 +19,16 @@ module GobiertoAdmin
       end
 
       def process
-        site.processes.process.first
+        @process ||= gobierto_participation_processes(:commission_for_carnival_festivities)
       end
 
       def test_create_contribution_container_errors
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
+            click_on "Stages"
 
-            within ".tabs" do
-              click_link "Contributions"
-            end
+            all("a", text: "Manage")[1].click
 
             click_on "New"
             click_button "Create"
@@ -42,15 +41,13 @@ module GobiertoAdmin
         end
       end
 
-
       def test_create_contribution_container
         with_signed_in_admin(admin) do
           with_current_site(site) do
             visit @path
+            click_on "Stages"
 
-            within ".tabs" do
-              click_link "Contributions"
-            end
+            all("a", text: "Manage")[1].click
 
             click_on "New"
 

@@ -72,7 +72,7 @@
 @import "module-budget_el";
 @import "module-consultations";
 @import "module-people";
-@import "module-indicators";
+@import "module-observatory";
 @import "module-participation";
 @import "module-planification";
 @import "module-people";
@@ -369,6 +369,19 @@ html.turbolinks-progress-bar::before {
       margin: 0 0 3em 0;
       p {
         margin: .5em 0;
+      }
+    }
+    .subblock {
+    border-top: none;
+    padding: 0 0 2em 0;
+    margin: 0 0 2em 0;
+    }
+    .data_subitem {
+      margin: 0 0 .5em 0;
+      h3 {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0;
       }
     }
     h3 {

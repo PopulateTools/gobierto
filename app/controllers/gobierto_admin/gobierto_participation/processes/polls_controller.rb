@@ -8,6 +8,7 @@ module GobiertoAdmin
 
         def index
           @polls = current_process.polls
+          @archived_polls = current_process.polls.only_archived
         end
 
         def new
@@ -53,10 +54,35 @@ module GobiertoAdmin
           end
         end
 
+        def destroy
+          @poll = find_poll
+          @poll.destroy
+          process = find_process if params[:process_id]
+
+          redirect_to admin_participation_process_polls_path(process_id: process), notice: t(".success")
+        end
+
+        def recover
+          @poll = find_archived_poll
+          @poll.restore
+
+          process = find_process if params[:process_id]
+
+          redirect_to admin_participation_process_polls_path(process_id: process), notice: t(".success")
+        end
+
         private
 
         def find_poll
           current_process.polls.find(params[:id])
+        end
+
+        def find_archived_poll
+          ::GobiertoParticipation::Poll.by_site(current_site).with_archived.find(params[:poll_id])
+        end
+
+        def find_process
+          current_site.processes.find(params[:process_id])
         end
 
         def poll_params
@@ -64,6 +90,7 @@ module GobiertoAdmin
             :starts_at,
             :ends_at,
             :visibility_level,
+            :visibility_user_level,
             title_translations: [*I18n.available_locales],
             description_translations: [*I18n.available_locales],
             questions_attributes: [
@@ -91,7 +118,7 @@ module GobiertoAdmin
         end
 
         def ignored_poll_attributes
-          %w(process_id title description created_at updated_at)
+          %w(process_id title description created_at updated_at archived_at)
         end
 
         def poll_visibility_levels

@@ -3,10 +3,10 @@
 require "test_helper"
 
 module GobiertoParticipation
-  class ProcessEventsShowTest < ActionDispatch::IntegrationTest
+  class IssueShowTest < ActionDispatch::IntegrationTest
     def setup
       super
-      @path = gobierto_participation_issue_path(:culture)
+      @path = gobierto_participation_issue_path(:women)
     end
 
     def user
@@ -18,11 +18,11 @@ module GobiertoParticipation
     end
 
     def issue
-      @issue ||= issues(:culture)
+      @issue ||= issues(:women)
     end
 
     def processes
-      @processes ||= site.processes.process.where(issue: issue).open
+      @processes ||= site.processes.process.where(issue: issue).active
     end
 
     def groups
@@ -34,11 +34,8 @@ module GobiertoParticipation
         visit @path
 
         within ".sub-nav" do
-          assert has_link? "About"
           assert has_link? "Issues"
           assert has_link? "Processes"
-          assert has_link? "Ask"
-          assert has_link? "Ideas"
         end
       end
     end
@@ -120,20 +117,18 @@ module GobiertoParticipation
 
     def test_subscription_block
       with_javascript do
-        with_current_site(site) do
-          with_signed_in_user(user) do
-            visit @path
+        with_signed_in_user(user) do
+          visit @path
 
-            within ".slim_nav_bar" do
-              assert has_link? "Follow theme"
-            end
-
-            click_on "Follow theme"
-            assert has_link? "Theme followed!"
-
-            click_on "Theme followed!"
+          within ".slim_nav_bar" do
             assert has_link? "Follow theme"
           end
+
+          click_on "Follow theme"
+          assert has_link? "Theme followed!"
+
+          click_on "Theme followed!"
+          assert has_link? "Follow theme"
         end
       end
     end

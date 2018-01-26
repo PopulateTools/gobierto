@@ -247,7 +247,7 @@
   }
 
   /* Card flip */
-  .card_container.hover {
+  &.hover {
     .indicator_widget {
       -webkit-transform: rotateY(180deg);
       -moz-transform: rotateY(180deg);

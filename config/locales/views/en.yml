@@ -1,5 +1,8 @@
 ---
 en:
+  admin_gobierto_calendars:
+    events:
+      admin_gobierto_calendars_calendars_synchronized: Synchronized calendars
   admins:
     events:
       admins_admin_authorization_level_updated: Admin authorization level updated
@@ -105,6 +108,16 @@ en:
     events:
       scopes_scope_created: Scope created
       scopes_scope_updated: Scope updated
+  shared:
+    poll_question:
+      multiple_choice_msg: You can choose several options
+    poll_teaser:
+      answer: Answer
+      next_question: Next question
+      submit: Send
+    polls:
+      no_unanswered_polls: There are no polls to answer.
+      opinion: Opinion
   sites:
     events:
       sites_site_created: Site created

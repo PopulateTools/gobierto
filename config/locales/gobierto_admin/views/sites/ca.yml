@@ -5,6 +5,7 @@ ca:
       edit:
         title: Personalitzar site
       form:
+        authentication_modules: Estratègies d'autenticació
         hints:
           domain:
             a_record: Entrada A a %{target}

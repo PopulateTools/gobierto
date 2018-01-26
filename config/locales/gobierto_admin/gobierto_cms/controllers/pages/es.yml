@@ -8,6 +8,8 @@ es:
             la página</a>.
         destroy:
           success: La página ha sido eliminada correctamente
+        recover:
+          success: La página ha sido recuperada correctamente
         update:
           success_html: La página ha sido actualizada correctamente. <a href="%{link}">Ver
             la página</a>.

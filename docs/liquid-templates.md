@@ -20,13 +20,13 @@ In the context of a CMS section, it renders the children pages of the given page
 ```
 <div class="page_children">
   <div class="page_child">
-    <a href="http://madrid.gobierto.dev/s/participacion/sobre">Sobre Nosotros</a>
+    <a href="http://madrid.gobierto.test/s/participacion/sobre">Sobre Nosotros</a>
     <div class="page_children">
       <div class="page_child">
-        <a href="http://madrid.gobierto.dev/s/participacion/segundo-nivel">Segundo nivel</a>
+        <a href="http://madrid.gobierto.test/s/participacion/segundo-nivel">Segundo nivel</a>
         <div class="page_children">
           <div class="page_child">
-            <a href="http://madrid.gobierto.dev/s/participacion/tercer-nivel">Tercer nivel</a>
+            <a href="http://madrid.gobierto.test/s/participacion/tercer-nivel">Tercer nivel</a>
           </div>
         </div>
       </div>
@@ -74,6 +74,13 @@ Renders i18n key translation
 
 - Returns: "No related events"
 
+## show_poll
+
+Renders a poll
+
+- Usage `{% show_poll(poll_id: 62047248) %}` or `{% show_poll() %}`
+
+- Returns: Poll with options
 
 ## Available templates
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'tempfile'
 require 'fileutils'
 
@@ -8,21 +10,8 @@ module GobiertoPeople
       USERNAME = 'default'
       SCOPE = Google::Apis::CalendarV3::AUTH_CALENDAR_READONLY
 
-      def self.person_calendar_configuration_class
-        ::GobiertoCalendars::GoogleCalendarConfiguration
-      end
-
       def self.sync_person_events(person)
         new(person).sync!
-      end
-
-      def initialize(person)
-        @person = person
-        @configuration = GobiertoCalendars::GoogleCalendarConfiguration.find_by(collection_id: person.calendar.id)
-
-        @service = Google::Apis::CalendarV3::CalendarService.new
-        @service.client_options.application_name = person.site.name
-        @service.authorization = authorize(person)
       end
 
       def sync!
@@ -41,6 +30,15 @@ module GobiertoPeople
 
       private
 
+      def initialize(person)
+        @person = person
+        @configuration = GobiertoCalendars::GoogleCalendarConfiguration.find_by(collection_id: person.calendar.id)
+
+        @service = Google::Apis::CalendarV3::CalendarService.new
+        @service.client_options.application_name = person.site.name
+        @service.authorization = authorize(person)
+      end
+
       attr_reader :person, :configuration, :service
 
       def set_google_calendar_id!
@@ -51,7 +49,7 @@ module GobiertoPeople
       end
 
       def sync_calendar_events(calendar)
-        response = service.list_events(calendar.id, always_include_email: true, time_min: 2.days.ago.iso8601)
+        response = service.list_events(calendar.id, always_include_email: true, time_min: GobiertoCalendars.sync_range_start.iso8601)
         response.items.each do |event|
           next if is_private?(event)
 
@@ -86,29 +84,42 @@ module GobiertoPeople
       end
 
       def sync_event(event, i = nil)
-        person_event_params = {
+        filter_result = GobiertoCalendars::FilteringRuleApplier.filter({
+          title: event.summary,
+          description: event.description
+        }, configuration.filtering_rules)
+
+        filter_result.action = GobiertoCalendars::FilteringRuleApplier::REMOVE if is_private?(event)
+
+        state = (filter_result.action == GobiertoCalendars::FilteringRuleApplier::CREATE_PENDING) ?
+          GobiertoCalendars::Event.states[:pending] :
+          GobiertoCalendars::Event.states[:published]
+
+        event_params = {
           site_id: person.site_id,
           external_id: event.id,
           person_id: person.id,
-          title: event.summary,
-          description: event.description,
+          title: filter_result.event_attributes[:title],
+          description: filter_result.event_attributes[:description],
           starts_at: parse_date(event.start),
           ends_at: parse_date(event.end),
-          state: GobiertoCalendars::Event.states[:published],
+          state: state,
           attendees: event_attendees(event),
-          notify: i.nil? || i == 0,
-          recurring: i.present?
+          notify: i.nil? || i == 0
         }
 
         if event.location.present?
-          person_event_params.merge!(locations_attributes: {"0" => {name: event.location} })
+          event_params.merge!(locations_attributes: {"0" => {name: event.location} })
         else
-          person_event_params.merge!(locations_attributes: {"0" => {"_destroy" => "1" }})
+          event_params.merge!(locations_attributes: {"0" => {"_destroy" => "1" }})
         end
 
-        event = GobiertoPeople::PersonEventForm.new(person_event_params)
-        unless event.save
-          Rails.logger.info "[Google Calendar Integration] Invalid event: #{person_event_params}"
+        if filter_result.action == GobiertoCalendars::FilteringRuleApplier::REMOVE
+          GobiertoPeople::PersonEventForm.new(event_params).destroy
+        else
+          unless GobiertoPeople::PersonEventForm.new(event_params).save
+            Rails.logger.info "[Google Calendar Integration] Invalid event: #{event_params}"
+          end
         end
       end
 

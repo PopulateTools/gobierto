@@ -13,6 +13,14 @@ module GobiertoParticipation
       @site ||= sites(:madrid)
     end
 
+    def user
+      @user ||= users(:peter)
+    end
+
+    def poll
+      @poll ||= gobierto_participation_polls(:ordinance_of_terraces_published)
+    end
+
     def test_breadcrumb_items
       with_current_site(site) do
         visit @path
@@ -28,11 +36,8 @@ module GobiertoParticipation
         visit @path
 
         within ".sub-nav" do
-          assert has_link? "About"
           assert has_link? "Issues"
           assert has_link? "Processes"
-          assert has_link? "Ask"
-          assert has_link? "Ideas"
         end
       end
     end
@@ -56,7 +61,7 @@ module GobiertoParticipation
 
         click_link "News"
 
-        assert_equal gobierto_participation_pages_path, current_path
+        assert_equal gobierto_participation_news_index_path, current_path
 
         within ".main-nav" do
           assert has_link? "Participation"
@@ -109,6 +114,17 @@ module GobiertoParticipation
         end
 
         assert has_selector?("h2", text: "Updates")
+      end
+    end
+
+    def test_show_poll
+      with_javascript do
+        with_signed_in_user(user) do
+          visit @path
+
+          assert has_link? poll.title
+          assert has_content? poll.questions.first.title
+        end
       end
     end
 

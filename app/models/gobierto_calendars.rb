@@ -8,4 +8,16 @@ module GobiertoCalendars
     [ GobiertoCalendars::Event ]
   end
 
+  def self.sync_range_start
+    DateTime.now - 5.days
+  end
+
+  def self.sync_range_end
+    DateTime.now + 1.year
+  end
+
+  def self.sync_range
+    sync_range_start..sync_range_end
+  end
+
 end

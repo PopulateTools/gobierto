@@ -20,7 +20,9 @@
                   <% field_value = content_block_record_field.value.presence %>
                   <td>
                     <% if content_block_record_field.url? && field_value %>
-                      <%= link_to t('.view_content'), field_value %>
+                      <%= link_to field_value, target: '_blank' do %>
+                        <button class="small"><i class="fa fa-external-link"></i> <%= t('.view_content') %></button>
+                      <% end %>
                     <% else %>
                       <%= field_value %>
                     <% end %>

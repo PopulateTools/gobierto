@@ -22,7 +22,7 @@ gem "rollbar"
 gem "ruby_px"
 
 # Frontend
-gem "bourbon"
+gem "bourbon", "~> 4.3.4"
 gem "cocoon"
 gem "d3-rails", "~> 4.8"
 gem "flight-for-rails"
@@ -76,7 +76,7 @@ gem "google-api-client"
 gem "exchanger"
 
 # Web Services
-gem 'savon', '~> 2.11.1'
+gem "savon", "~> 2.11.1"
 
 group :development, :test do
   gem "byebug", platform: :mri

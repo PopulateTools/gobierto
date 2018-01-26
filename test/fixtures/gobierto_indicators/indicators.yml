@@ -1,0 +1,11 @@
+ita12:
+  name: "ita"
+  year: "2012"
+  site: madrid
+  indicator_response: "[{\"id\":0,\"level\":0,\"attributes\":{\"title\":\"A - Informació sobre la Corporació Municipal 2012\"},\"children\":[{\"id\":0,\"level\":1,\"attributes\":{\"title\":\"A.1.- Informació sobre els càrrecs electes i el personal\"},\"children\":[{\"id\":1,\"level\":2,\"attributes\":{\"title\":\"S'especifiquen dades biogràfiques de l'Alcalde/ssa i dels regidors/ores de l'Ajuntament?\",\"checked\":true,\"links\":[{\"link\":{\"title\":\"Dades biogràfiques de l'alcalde\",\"url\":\"https://www.gobierto.es\"}},{\"link\":{\"title\":\"Competències de l'alcalde\",\"url\":\"https://www.gobierto.es\"}},{\"link\":{\"title\":\"Dades biogràfiques i competències delegades de regidors i regidores\",\"url\":\"https://www.gobierto.es\"}}]}}]}]}]"
+
+ita14:
+  name: "ita"
+  year: "2014"
+  site: madrid
+  indicator_response: "[{\"id\":0,\"level\":0,\"attributes\":{\"title\":\"A - Informació sobre la Corporació Municipal 2014\"},\"children\":[{\"id\":0,\"level\":1,\"attributes\":{\"title\":\"A.1.- Informació sobre els càrrecs electes i el personal\"},\"children\":[{\"id\":1,\"level\":2,\"attributes\":{\"title\":\"S'especifiquen dades biogràfiques de l'Alcalde/ssa i dels regidors/ores de l'Ajuntament?\",\"checked\":true,\"links\":[{\"link\":{\"title\":\"Dades biogràfiques de l'alcalde\",\"url\":\"https://www.gobierto.es\"}},{\"link\":{\"title\":\"Competències de l'alcalde\",\"url\":\"https://www.gobierto.es\"}},{\"link\":{\"title\":\"Dades biogràfiques i competències delegades de regidors i regidores\",\"url\":\"https://www.gobierto.es\"}}]}}]}]}]"

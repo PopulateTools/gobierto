@@ -133,8 +133,8 @@ module GobiertoParticipation
         visit @path
 
         assert has_content?("My Template")
-        refute has_content?("Ongoing processes")
-        refute has_content?("Themes")
+        assert has_no_content?("Ongoing processes")
+        assert has_no_content?("Themes")
       end
     end
   end

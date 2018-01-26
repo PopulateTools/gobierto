@@ -72,13 +72,13 @@ module GobiertoParticipation
             within "#poll_#{ registered_level_poll.id }" do
               click_link 'Participate in this poll'
             end
-            refute has_content? 'Do you think that the ordinance should be modified?'
+            assert has_no_content? 'Do you think that the ordinance should be modified?'
 
             visit process_polls_path
             within "#poll_#{ verified_level_poll.id }" do
               click_link 'Participate in this poll'
             end
-            refute has_content? 'Do you mind if the carnival parade takes place next to your house?'
+            assert has_no_content? 'Do you mind if the carnival parade takes place next to your house?'
           end
         end
 
@@ -94,7 +94,7 @@ module GobiertoParticipation
             within "#poll_#{ verified_level_poll.id }" do
               click_link 'Participate in this poll'
             end
-            refute has_content? 'Do you mind if the carnival parade takes place next to your house?'
+            assert has_no_content? 'Do you mind if the carnival parade takes place next to your house?'
           end
         end
 

@@ -75,7 +75,7 @@ module GobiertoPeople
             click_button 'List'
 
             within ".events-summary" do
-              refute has_content?(past_event.title)
+              assert has_no_content?(past_event.title)
               assert has_content?(future_event.title)
             end
 
@@ -83,7 +83,7 @@ module GobiertoPeople
 
             within ".events-summary" do
               assert has_content?(past_event.title)
-              refute has_content?(future_event.title)
+              assert has_no_content?(future_event.title)
             end
           end
         end
@@ -157,7 +157,7 @@ module GobiertoPeople
               click_button 'List'
 
               within ".events-summary" do
-                refute has_content?(yesterday_event.title)
+                assert has_no_content?(yesterday_event.title)
                 assert has_content?(tomorrow_event.title)
               end
 
@@ -169,7 +169,7 @@ module GobiertoPeople
 
               within ".events-summary" do
                 assert has_content?(yesterday_event.title)
-                refute has_content?(tomorrow_event.title)
+                assert has_no_content?(tomorrow_event.title)
               end
             end
           end

@@ -260,7 +260,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
       })
       .title(function(d) { return d.key + " - " + _abbrevLargeCurrency(d.value, { minimumFractionDigits: 0 }); })
       .elasticX(true)
-      .on('renderlet', function(chart){
+      .on('pretransition', function(chart){
         // Apply rounded corners AFTER render, otherwise they don't exist
         chart.selectAll('rect').attr("rx", 4).attr("ry", 4);
 
@@ -350,7 +350,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
         return intervalFormat(Number(_r.domain[d.key]))
       })
-      .on('renderlet', function(chart){
+      .on('pretransition', function(chart){
         // Apply rounded corners AFTER render, otherwise they don't exist
         chart.selectAll('rect').attr("rx", 4).attr("ry", 4);
 

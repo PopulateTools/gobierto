@@ -169,12 +169,16 @@ module GobiertoCommon
     end
 
     def update_collection_items
-      return if (saved_changes.keys & %W(container_id container_type)).empty?
-      items = collection_items.pluck(:item_type, :item_id)
-      collection_items.clear
-      items.each do |item_type, item_id|
-        item_type = "GobiertoCms::Page" if item_type == "GobiertoCms::News"
-        create_collection_items(item_type.constantize.find(item_id))
+      if (saved_changes.keys & %W(container_id container_type)).any?
+        items = collection_items.pluck(:item_type, :item_id)
+        collection_items.clear
+        items.each do |item_type, item_id|
+          item_type = "GobiertoCms::Page" if item_type == "GobiertoCms::News"
+          create_collection_items(item_type.constantize.find(item_id))
+        end
+      end
+      if saved_changes.keys.include?("item_type")
+        collection_items.update_all(item_type: self.item_type)
       end
     end
 

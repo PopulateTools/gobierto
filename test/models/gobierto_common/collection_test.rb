@@ -49,5 +49,19 @@ module GobiertoCommon
       refute GobiertoCommon::CollectionItem.exists?(item_id: page.id, item_type: process_collection.item_type, collection: process_collection, container: process_collection_container.scope)
       refute GobiertoCommon::CollectionItem.exists?(item_id: page.id, item_type: process_collection.item_type, collection: process_collection, container: process_collection_container.issue)
     end
+
+    def test_update_collection_item_type
+      process_collection.append(page)
+
+      process_collection.item_type = "GobiertoCms::Page"
+      process_collection.save!
+
+      refute GobiertoCommon::CollectionItem.exists?(item_id: page.id, item_type: "GobiertoCms::News", collection: process_collection, container: site)
+      assert GobiertoCommon::CollectionItem.exists?(item_id: page.id, item_type: "GobiertoCms::Page", collection: process_collection, container: site)
+      refute GobiertoCommon::CollectionItem.exists?(item_id: page.id, item_type: "GobiertoCms::News", collection: process_collection, container_type: "GobiertoParticipation")
+      assert GobiertoCommon::CollectionItem.exists?(item_id: page.id, item_type: "GobiertoCms::Page", collection: process_collection, container_type: "GobiertoParticipation")
+      refute GobiertoCommon::CollectionItem.exists?(item_id: page.id, item_type: "GobiertoCms::News", collection: process_collection, container: process_collection_container)
+      assert GobiertoCommon::CollectionItem.exists?(item_id: page.id, item_type: "GobiertoCms::Page", collection: process_collection, container: process_collection_container)
+    end
   end
 end

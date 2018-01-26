@@ -103,28 +103,39 @@ this.GobiertoBudgets.InvoicesController = (function() {
   }
 
   // Spread data object updates
-  function _refreshStatics() {
-    _boxesCalculations();
-    _renderTableFilter();
+  function _refreshFromCharts(_data) {
+    _boxesCalculations(_data);
+    _renderTableFilter(_data);
   }
 
-  function _boxesCalculations() {
+  function _refreshFromTable(_data) {
+    _boxesCalculations(_data);
+
+    ndx = crossfilter(_data);
+    _renderByMonthsChart();
+    _renderMainProvidersChart();
+    _renderByAmountsChart();
+  }
+
+  function _boxesCalculations(reduced) {
+
+    var _data = reduced || data;
 
     // Totals box
-    var totalAmount = _.sumBy(data, 'value');
+    var totalAmount = _.sumBy(_data, 'value');
 
-    document.getElementById("numberOfInvoices").innerText = data.length.toLocaleString();
+    document.getElementById("numberOfInvoices").innerText = _data.length.toLocaleString();
     document.getElementById("totalAmount").innerText = _abbrevLargeCurrency(totalAmount);
 
-    var _cc = _.countBy(_.uniqBy(data, 'provider_name'), 'freelance');
+    var _cc = _.countBy(_.uniqBy(_data, 'provider_name'), 'freelance');
     $('#providerType .number:first').text((_cc.true || 0).toLocaleString());
     $('#providerType .number:last').text((_cc.false || 0).toLocaleString());
 
-    var _n = _.countBy(data, 'freelance');
-    $('#providerType .percent:first').text((_n.true/data.length || 0).toLocaleString(I18n.locale, {
+    var _n = _.countBy(_data, 'freelance');
+    $('#providerType .percent:first').text((_n.true/_data.length || 0).toLocaleString(I18n.locale, {
       style: 'percent'
     }));
-    $('#providerType .percent:last').text((_n.false/data.length || 0).toLocaleString(I18n.locale, {
+    $('#providerType .percent:last').text((_n.false/_data.length || 0).toLocaleString(I18n.locale, {
       style: 'percent'
     }));
 
@@ -141,7 +152,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
         return (values[half - 1] + values[half]) / 2.0;
     }
 
-    var amount = _.isEmpty(_.map(data, 'value').map(Number)) ? [0] : _.map(data, 'value').map(Number);
+    var amount = _.isEmpty(_.map(_data, 'value').map(Number)) ? [0] : _.map(_data, 'value').map(Number);
 
     document.getElementById("meanBudget").innerText = _.mean(amount).toLocaleString(I18n.locale, {
       style: 'currency',
@@ -172,8 +183,8 @@ this.GobiertoBudgets.InvoicesController = (function() {
       return i / arr.length || 0;
     }
 
-    var lt1000 = _.filter(amount, o => o <= 1000).length / data.length || 0; // Filter those amounts less than 1000
-    var lgProvider = _.max(_.map(_.groupBy(data, 'provider_name'), group => _.sumBy(group, 'value'))) / totalAmount || 0; // Max amount group by provider amount
+    var lt1000 = _.filter(amount, o => o <= 1000).length / _data.length || 0; // Filter those amounts less than 1000
+    var lgProvider = _.max(_.map(_.groupBy(_data, 'provider_name'), group => _.sumBy(group, 'value'))) / totalAmount || 0; // Max amount group by provider amount
 
     document.getElementById("lessThan1000").innerText = lt1000.toLocaleString(I18n.locale, {
       style: 'percent'
@@ -219,10 +230,8 @@ this.GobiertoBudgets.InvoicesController = (function() {
         // Apply rounded corners AFTER render, otherwise they don't exist
         chart.selectAll('rect').attr("rx", 4).attr("ry", 4);
       })
-      .on('filtered', function(chart, filter){
-        data = months.top(Infinity);
-
-        _refreshStatics();
+      .on('filtered', function(chart, filter) {
+        _refreshFromCharts(months.top(Infinity));
       });
 
     // Customize
@@ -297,9 +306,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
         $('#providers-number').html(providers.group().all().length - _count);
       })
       .on('filtered', function(chart, filter){
-        data = providers.top(Infinity);
-
-        _refreshStatics();
+        _refreshFromCharts(providers.top(Infinity));
       });
 
     // Customize
@@ -397,9 +404,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
         });
       })
       .on('filtered', function(chart, filter){
-        data = amounts.top(Infinity);
-
-        _refreshStatics();
+        _refreshFromCharts(amounts.top(Infinity));
       });
 
     // Customize
@@ -417,21 +422,13 @@ this.GobiertoBudgets.InvoicesController = (function() {
     hbars2.render();
   }
 
-  function _renderTableFilter() {
+  function _renderTableFilter(reduced) {
 
-    // NOTE: To change the number of items displayed, it would require:
-    //
-    // html:
-    // <select id="pager">
-    //   <option>10</option>
-    //   ...
-    // </select>
-    //
-    // js:
-    // $("#pager").on("change", function() {
-    //     var items = parseInt($(this).val(), 20); // 20 is default
-    //     $("#providers-table").jsGrid("option", "pageSize", items);
-    // });
+    var _data = reduced || data;
+
+    $(".jsgrid-filter-row input").on("change", function() {
+        console.log('filtra');
+    });
 
     $("#providers-table").jsGrid({
       width: "100%",
@@ -448,7 +445,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
       pageLastText: I18n.t('gobierto_budgets.invoices.show.table.pager.last'),
       controller: {
         loadData: function(filter) {
-          return $.grep(data, function(row) {
+          return $.grep(_data, function(row) {
             return (!filter.provider_name.toLowerCase() || row.provider_name.toLowerCase().indexOf(filter.provider_name.toLowerCase()) > -1) &&
               (!filter.provider_id.toLowerCase() || row.provider_id.toLowerCase().indexOf(filter.provider_id.toLowerCase()) > -1) &&
               (!filter.date || row.datel10n.indexOf(filter.date) > -1) &&
@@ -457,6 +454,9 @@ this.GobiertoBudgets.InvoicesController = (function() {
               (!filter.subject.toLowerCase() || row.subject.toLowerCase().indexOf(filter.subject.toLowerCase()) > -1);
           });
         },
+      },
+      onDataLoaded: function (f) {
+        if (reduced === undefined) _refreshFromTable(f.data);
       },
       fields: [{
           name: "provider_id",
@@ -511,6 +511,20 @@ this.GobiertoBudgets.InvoicesController = (function() {
         }
       ]
     });
+
+    // NOTE: To change the number of items displayed, it would require:
+    //
+    // html:
+    // <select id="pager">
+    //   <option>10</option>
+    //   ...
+    // </select>
+    //
+    // js:
+    // $("#pager").on("change", function() {
+    //     var items = parseInt($(this).val(), 20); // 20 is default
+    //     $("#providers-table").jsGrid("option", "pageSize", items);
+    // });
   }
 
   function _abbrevLargeCurrency(num, props = {}, currency = 'EUR') {

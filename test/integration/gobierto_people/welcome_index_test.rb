@@ -113,7 +113,7 @@ module GobiertoPeople
         visit @path
 
         within '.container' do
-          refute has_content? 'Blogs'
+          assert has_no_content? 'Blogs'
         end
       end
     end
@@ -202,8 +202,8 @@ module GobiertoPeople
 
           within ".events-summary" do
             assert has_content? government_event.title
-            refute has_content? government_past_event.title
-            refute has_content? executive_past_event.title
+            assert has_no_content? government_past_event.title
+            assert has_no_content? executive_past_event.title
           end
 
           click_link "Past events"
@@ -211,9 +211,9 @@ module GobiertoPeople
           sleep 1
 
           within ".events-summary" do
-            refute has_content? government_event.title
+            assert has_no_content? government_event.title
             assert has_content? government_past_event.title
-            refute has_content? executive_past_event.title
+            assert has_no_content? executive_past_event.title
           end
 
           click_link "Executive"
@@ -222,8 +222,8 @@ module GobiertoPeople
 
           within ".events-summary" do
             assert has_content? "There are no future events. Take a look at past ones"
-            refute has_content? government_event.title
-            refute has_content? government_past_event.title
+            assert has_no_content? government_event.title
+            assert has_no_content? government_past_event.title
             assert has_content? executive_past_event.title
           end
         end

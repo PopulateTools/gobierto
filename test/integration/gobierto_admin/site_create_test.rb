@@ -85,7 +85,7 @@ YAML
         with_signed_in_admin(admin) do
           visit @path
 
-          refute has_content?("Null Strategy")
+          assert has_no_content?("Null Strategy")
         end
       end
     end

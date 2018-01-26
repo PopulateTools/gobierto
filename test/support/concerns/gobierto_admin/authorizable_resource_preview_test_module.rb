@@ -18,7 +18,7 @@ module GobiertoAdmin
     def test_preview_resource
       with_current_site(site) do
         visit "#{@authorized_resource_path}?preview_token=#{@authorizable_admin.preview_token}"
-        refute has_content?('You do not have enough permissions to perform this action')
+        assert has_no_content?('You do not have enough permissions to perform this action')
       end
     end
 

@@ -49,6 +49,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
         // pre-calculate for better performance
         data.forEach(function(d) {
           d.dd = new Date(d.date);
+          d.datel10n = new Date(d.date).toLocaleDateString(I18n.locale)
           d.month = moment(d.dd).endOf('month')._d;
           d.range = rangeFormat(+d.value);
           d.paid = (d.paid == 'true');
@@ -92,6 +93,12 @@ this.GobiertoBudgets.InvoicesController = (function() {
     }
 
     return cb;
+  }
+
+  // Spread data object updates
+  function _refreshStatics() {
+    _boxesCalculations();
+    _renderTableFilter();
   }
 
   function _boxesCalculations() {
@@ -201,9 +208,14 @@ this.GobiertoBudgets.InvoicesController = (function() {
       .renderHorizontalGridLines(true)
       .barPadding(0.45)
       .title(function(d) { return _abbrevLargeCurrency(d.value, { minimumFractionDigits: 0 }); })
-      .on('renderlet', function(chart){
+      .on('pretransition', function(chart){
         // Apply rounded corners AFTER render, otherwise they don't exist
         chart.selectAll('rect').attr("rx", 4).attr("ry", 4);
+      })
+      .on('filtered', function(chart, filter){
+        data = months.top(Infinity);
+
+        _refreshStatics();
       });
 
     // Customize
@@ -276,6 +288,11 @@ this.GobiertoBudgets.InvoicesController = (function() {
         });
 
         $('#providers-number').html(providers.group().all().length - _count);
+      })
+      .on('filtered', function(chart, filter){
+        data = providers.top(Infinity);
+
+        _refreshStatics();
       });
 
     // Customize
@@ -371,6 +388,11 @@ this.GobiertoBudgets.InvoicesController = (function() {
         chart.selectAll('g.axis line.grid-line').attr("y2", function() {
           return Math.abs(+d3.select(this).attr("y2")) + (chart.margins().top / 2)
         });
+      })
+      .on('filtered', function(chart, filter){
+        data = amounts.top(Infinity);
+
+        _refreshStatics();
       });
 
     // Customize
@@ -390,11 +412,19 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
   function _renderTableFilter() {
 
-    // Turn all dates into locale format to speed up filter function
-    data = _.map(data, function (r) {
-      r.datel10n = new Date(r.date).toLocaleDateString(I18n.locale)
-      return r
-    });
+    // NOTE: To change the number of items displayed, it would require:
+    //
+    // html:
+    // <select id="pager">
+    //   <option>10</option>
+    //   ...
+    // </select>
+    //
+    // js:
+    // $("#pager").on("change", function() {
+    //     var items = parseInt($(this).val(), 20); // 20 is default
+    //     $("#providers-table").jsGrid("option", "pageSize", items);
+    // });
 
     $("#providers-table").jsGrid({
       width: "100%",
@@ -403,11 +433,16 @@ this.GobiertoBudgets.InvoicesController = (function() {
       sorting: true,
       autoload: true,
       paging: true,
+      pageSize: 50,
       pagerFormat: I18n.t('gobierto_budgets.invoices.show.table.pager.format', { tpl: '{first} {prev} {pages} {next} {last} &nbsp;&nbsp; {pageIndex}', tpl2: '{pageCount}' }),
       pageNextText: I18n.t('gobierto_budgets.invoices.show.table.pager.next'),
       pagePrevText: I18n.t('gobierto_budgets.invoices.show.table.pager.prev'),
       pageFirstText: I18n.t('gobierto_budgets.invoices.show.table.pager.first'),
       pageLastText: I18n.t('gobierto_budgets.invoices.show.table.pager.last'),
+      loadIndication: true,
+      loadIndicationDelay: 500,
+      loadMessage: "Please, wait...",
+      loadShading: true,
       controller: {
         loadData: function(filter) {
           return $.grep(data, function(row) {
@@ -419,6 +454,9 @@ this.GobiertoBudgets.InvoicesController = (function() {
               (!filter.subject.toLowerCase() || row.subject.toLowerCase().indexOf(filter.subject.toLowerCase()) > -1);
           });
         },
+      },
+      onRefreshing: function (grid) {
+        console.log(grid.grid.data.length);
       },
       fields: [{
           name: "provider_id",

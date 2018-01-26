@@ -439,10 +439,6 @@ this.GobiertoBudgets.InvoicesController = (function() {
       pagePrevText: I18n.t('gobierto_budgets.invoices.show.table.pager.prev'),
       pageFirstText: I18n.t('gobierto_budgets.invoices.show.table.pager.first'),
       pageLastText: I18n.t('gobierto_budgets.invoices.show.table.pager.last'),
-      loadIndication: true,
-      loadIndicationDelay: 500,
-      loadMessage: "Please, wait...",
-      loadShading: true,
       controller: {
         loadData: function(filter) {
           return $.grep(data, function(row) {
@@ -454,9 +450,6 @@ this.GobiertoBudgets.InvoicesController = (function() {
               (!filter.subject.toLowerCase() || row.subject.toLowerCase().indexOf(filter.subject.toLowerCase()) > -1);
           });
         },
-      },
-      onRefreshing: function (grid) {
-        console.log(grid.grid.data.length);
       },
       fields: [{
           name: "provider_id",

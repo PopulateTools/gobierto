@@ -1,6 +1,4 @@
-//
-// NOTE: THIS CONTROLLER LOADS D3.V3 TO ALLOW DC RUN
-//
+// THIS CONTROLLER LOADS D3.V3 TO ALLOW DC RUN
 this.GobiertoBudgets.InvoicesController = (function() {
 
   function InvoicesController() {}
@@ -191,7 +189,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
       });
 
     bars
-      .width(bars.root().node().parentNode.getBoundingClientRect().width) // NOTE: webkit doesn't recalculate dynamic width. it has to be set by parentNode
+      .width(bars.root().node().parentNode.getBoundingClientRect().width) // webkit doesn't recalculate dynamic width. it has to be set by parentNode
       .dimension(months)
       .group(budgetMonthly)
       .x(d3.scale.ordinal())
@@ -246,10 +244,10 @@ this.GobiertoBudgets.InvoicesController = (function() {
       _labelOffset = 195;
 
     hbars1
-      .width(hbars1.root().node().parentNode.getBoundingClientRect().width) // NOTE: webkit doesn't recalculate dynamic width. it has to be set by parentNode
-      .height(hbars1.margins().top + hbars1.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // NOTE: Margins top/bottom + bars + gaps (space between)
+      .width(hbars1.root().node().parentNode.getBoundingClientRect().width) // webkit doesn't recalculate dynamic width. it has to be set by parentNode
+      .height(hbars1.margins().top + hbars1.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // Margins top/bottom + bars + gaps (space between)
       .fixedBarHeight(_barHeight)
-      .cap(_count).othersGrouper(null) // NOTE: Show only a couple of results, and hide Others groups
+      .cap(_count).othersGrouper(null) // Show only a couple of results, and hide Others groups
       .x(d3.scale.ordinal())
       .dimension(providers)
       .group(providerByAmount)
@@ -312,8 +310,8 @@ this.GobiertoBudgets.InvoicesController = (function() {
       _labelOffset = 195;
 
     hbars2
-      .width(hbars2.root().node().parentNode.getBoundingClientRect().width) // NOTE: webkit doesn't recalculate dynamic width. it has to be set by parentNode
-      .height(hbars2.margins().top + hbars2.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // NOTE: Margins top/bottom + bars + gaps (space between)
+      .width(hbars2.root().node().parentNode.getBoundingClientRect().width) // webkit doesn't recalculate dynamic width. it has to be set by parentNode
+      .height(hbars2.margins().top + hbars2.margins().bottom + (_count * _barHeight) + ((_count + 1) * _gap)) // Margins top/bottom + bars + gaps (space between)
       .fixedBarHeight(_barHeight)
       .x(d3.scale.threshold())
       .dimension(amounts)
@@ -392,6 +390,12 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
   function _renderTableFilter() {
 
+    // Turn all dates into locale format to speed up filter function
+    data = _.map(data, function (r) {
+      r.datel10n = new Date(r.date).toLocaleDateString(I18n.locale)
+      return r
+    });
+
     $("#providers-table").jsGrid({
       width: "100%",
       height: "auto",
@@ -408,8 +412,8 @@ this.GobiertoBudgets.InvoicesController = (function() {
         loadData: function(filter) {
           return $.grep(data, function(row) {
             return (!filter.provider_name.toLowerCase() || row.provider_name.toLowerCase().indexOf(filter.provider_name.toLowerCase()) > -1) &&
-              (!filter.provider_id.toLowerCase().toLowerCase() || row.provider_id.toLowerCase().indexOf(filter.provider_id.toLowerCase()) > -1) &&
-              (!filter.date || row.date.indexOf(filter.date) > -1) &&
+              (!filter.provider_id.toLowerCase() || row.provider_id.toLowerCase().indexOf(filter.provider_id.toLowerCase()) > -1) &&
+              (!filter.date || row.datel10n.indexOf(filter.date) > -1) &&
               (filter.paid === undefined || row.paid === filter.paid) &&
               (!filter.value || row.value === filter.value) &&
               (!filter.subject.toLowerCase() || row.subject.toLowerCase().indexOf(filter.subject.toLowerCase()) > -1);

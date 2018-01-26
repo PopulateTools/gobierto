@@ -1,11 +1,11 @@
 module User::Subscriber
   extend ActiveSupport::Concern
 
-  def subscribed_to?(subscribable, site)
+  def subscribed_to?(subscribable, site, finder_method = :user_subscribed_to?)
     if subscribable.is_a?(Class) || subscribable.is_a?(Module)
-      User::Subscription::Finder.user_subscribed_to?(self, subscribable.name, nil, site.id)
+      User::Subscription::Finder.send(finder_method, self, subscribable.name, nil, site.id)
     else
-      User::Subscription::Finder.user_subscribed_to?(self, subscribable.class.name, subscribable.id, site.id)
+      User::Subscription::Finder.send(finder_method, self, subscribable.class.name, subscribable.id, site.id)
     end
   end
 

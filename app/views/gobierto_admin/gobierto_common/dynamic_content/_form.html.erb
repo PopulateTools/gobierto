@@ -35,7 +35,10 @@
         <tbody id="content-block-record-<%= content_block_record_form.object.id %>" class="dynamic-content-record-wrapper content-block-record-<%= content_block_record_form.object.id || "new" %>">
           <tr class="dynamic-content-record-view <%= cycle("odd", "even") %>">
             <% content_block_record_form.object.fields.each do |record_field| %>
-              <td class="content-block-record-value"><%= record_field.value %></td>
+              <% field_value = record_field.value %>
+              <td class="content-block-record-value">
+                <%= link_to_if (field_value && record_field.url?), field_value, field_value %>
+              </td>
             <% end %>
 
             <td>

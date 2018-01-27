@@ -6,6 +6,7 @@ es:
         attachment: Documento
         download: Descargar
         download_attachment: Descargar documento
+        view_content: Ver contenido
     events:
       gobierto_common_collection_created: Colección creada
       gobierto_common_collection_updated: Colección actualizada

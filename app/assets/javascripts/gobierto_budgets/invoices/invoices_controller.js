@@ -41,8 +41,6 @@ this.GobiertoBudgets.InvoicesController = (function() {
     var municipalityId = window.populateData.municipalityId;
     var url = window.populateData.endpoint + '/datasets/ds-facturas-municipio.csv?filter_by_location_id='+municipalityId+'&date_date_range='+dateRange+'&sort_asc_by=date';
 
-    url += '&limit=1000'; // DEBUG: Eliminar
-
     // Show spinner
     $(".js-toggle-overlay").show();
 

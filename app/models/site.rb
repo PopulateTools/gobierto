@@ -47,6 +47,9 @@ class Site < ApplicationRecord
   # Gobierto Plans integration
   has_many :plans, dependent: :destroy, class_name: "GobiertoPlans::Plan"
 
+  # Gobierto Indicators
+  has_many :indicators, dependent: :destroy, class_name: "GobiertoIndicators::Indicator"
+
   # Gobierto Attachments integration
   has_many :attachments, dependent: :destroy, class_name: "GobiertoAttachments::Attachment"
 

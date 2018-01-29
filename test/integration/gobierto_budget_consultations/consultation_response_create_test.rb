@@ -111,7 +111,7 @@ module GobiertoBudgetConsultations
           assert page.find("a.budget-next i")["class"].include?("fa-times")
           page.find("a.budget-next").trigger("click")
 
-          refute has_content?("Estupendo, muchas gracias por tu aportación")
+          assert has_no_content?("Estupendo, muchas gracias por tu aportación")
         end
       end
     end

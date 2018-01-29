@@ -42,8 +42,8 @@ module GobiertoAdmin
                   assert has_content? "Nobel Prize in Chemistry"
                   assert has_content? "nobel_prize.pdf"
 
-                  refute has_content? "Ran New York marathon"
-                  refute has_content? "marathon_certificate.pdf"
+                  assert has_no_content? "Ran New York marathon"
+                  assert has_no_content? "marathon_certificate.pdf"
 
                   assert has_content? "Ate 33 meatballs in 45 minutes"
                 end

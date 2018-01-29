@@ -85,7 +85,7 @@ module GobiertoAdmin
               end
 
               assert has_content?("My page updated")
-              refute has_content?(cms_page.title)
+              assert has_no_content?(cms_page.title)
             end
           end
         end

@@ -205,7 +205,7 @@ YAML
       with_auth_modules_for_domains([sites(:cortegada).domain]) do
         with_signed_in_admin(admin) do
           visit @path
-          refute has_content?("Null Strategy")
+          assert has_no_content?("Null Strategy")
 
           visit edit_admin_site_path(sites(:cortegada))
           assert has_content?("Null Strategy")

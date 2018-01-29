@@ -22,6 +22,6 @@ Available sites:
 
 | Domain                  | Title                        | Name                      | Notes                    | Modules                                                                                          |
 | ---                     | ---                          | ---                       | ---                      | ---                                                                                              |
-| madrid.gobierto.test    | Transparencia y Participción | Ayuntamiento de Madrid    | visibility level: active | GobiertoBudgets, GobiertoBudgetConsultations, GobiertoPeople, GobiertoCms, GobiertoParticipation |
+| madrid.gobierto.test    | Transparencia y Participción | Ayuntamiento de Madrid    | visibility level: active | GobiertoBudgets, GobiertoBudgetConsultations, GobiertoPeople, GobiertoCms, GobiertoParticipation, GobiertoIndicators |
 | santander.gobierto.test | Transparencia Ciudadana      | Ayuntamiento de Santander | visibility level: draft  | GobiertoBudgets, GobiertoCms, GobiertoPeople                                                     |
 | huesca.gobierto.test    | Transparencia Ciudadana      | Ayuntamiento de Huesca    | visibility level: draft  | GobiertoBudgets                                                                                  |

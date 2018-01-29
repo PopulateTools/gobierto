@@ -400,6 +400,16 @@ ActiveRecord::Schema.define(version: 20180126082636) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "gi_indicators", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.jsonb "indicator_response"
+    t.bigint "site_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "year"
+    t.index ["site_id"], name: "index_gi_indicators_on_site_id"
+  end
+
   create_table "gobierto_module_settings", id: :serial, force: :cascade do |t|
     t.integer "site_id"
     t.string "module_name"

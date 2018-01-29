@@ -57,6 +57,10 @@ module ApplicationHelper
     html.html_safe
   end
 
+  def current_parameters_with_year(year)
+    params.except(:host, :port, :protocol).merge(year: year).permit!
+  end
+
   def next_poll(poll_id = nil)
     poll = GobiertoParticipation::Poll.by_site(current_site).find(poll_id) if poll_id
     answerable_polls = GobiertoParticipation::Poll.by_site(current_site).answerable.order(ends_at: :asc)

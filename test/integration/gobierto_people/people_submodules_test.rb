@@ -47,7 +47,7 @@ module GobiertoPeople
           assert has_content? "Agendas"
           assert has_content? "Officials"
           assert has_content? "Statements"
-          refute has_content? "Blogs"
+          assert has_no_content? "Blogs"
         end
 
         disable_submodule("officials")
@@ -57,9 +57,9 @@ module GobiertoPeople
 
         within ".sub-nav" do
           assert has_content? "Agendas"
-          refute has_content? "Officials"
-          refute has_content? "Statements"
-          refute has_content? "Blogs"
+          assert has_no_content? "Officials"
+          assert has_no_content? "Statements"
+          assert has_no_content? "Blogs"
         end
       end
     end

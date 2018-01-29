@@ -41,9 +41,9 @@ module GobiertoParticipation
           assert has_content? 'General aspects of the ordinance'
 
           # draft, future and past polls are hidden
-          refute has_content? 'Schedules'
-          refute has_content? 'Public spaces'
-          refute has_content? 'Noise'
+          assert has_no_content? 'Schedules'
+          assert has_no_content? 'Public spaces'
+          assert has_no_content? 'Noise'
         end
       end
 
@@ -54,7 +54,7 @@ module GobiertoParticipation
 
           within "#poll_#{poll.id}" do
             assert has_content? 'You have already participated in this poll'
-            refute has_content? 'Participate in this poll'
+            assert has_no_content? 'Participate in this poll'
           end
 
         end

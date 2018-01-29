@@ -21,6 +21,9 @@ default: &default
       name: Gobierto Observatory
       namespace: GobiertoObservatory
     -
+      name: Gobierto Indicators
+      namespace: GobiertoIndicators
+    -
       name: Gobierto Participation
       namespace: GobiertoParticipation
     -
@@ -42,6 +45,9 @@ default: &default
     -
       name: Gobierto Plans
       namespace: GobiertoPlans
+    -
+      name: Gobierto Indicators
+      namespace: GobiertoIndicators
   dns_config:
     cname_record_target: site.gobierto.test
     a_record_target: 222.111.222.11

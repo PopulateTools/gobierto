@@ -246,7 +246,14 @@ this.GobiertoAdmin.DynamicContentComponent = (function() {
     });
 
     wrapper.find(".dynamic-content-record-view .content-block-record-value").each(function(index) {
-      $(this).html(formState[index]);
+      var fieldText = formState[index];
+      var urlPattern = new RegExp('^https?:\/\/.*$')
+
+      if (urlPattern.test(fieldText)) {
+        $(this).html('<a href="' + fieldText + '">' + fieldText + '</a>');
+      } else {
+        $(this).html(fieldText);
+      }
     });
   }
 

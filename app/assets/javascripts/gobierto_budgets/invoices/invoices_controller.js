@@ -42,7 +42,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
     var url = window.populateData.endpoint + '/datasets/ds-facturas-municipio.csv?filter_by_location_id='+municipalityId+'&date_date_range='+dateRange+'&sort_asc_by=date';
 
     // Show spinner
-    $(".js-toggle-overlay").show();
+    $(".js-toggle-overlay").addClass('is-active');
 
     d3.csv(url)
       .header('authorization', 'Bearer ' + window.populateData.token)
@@ -50,7 +50,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
         if (error) throw error;
 
         // Hide spinner
-        $(".js-toggle-overlay").hide();
+        $(".js-toggle-overlay").removeClass('is-active');
 
         data = _.filter(csv, _callback(filter));
 

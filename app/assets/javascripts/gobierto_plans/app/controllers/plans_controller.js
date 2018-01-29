@@ -111,7 +111,6 @@ this.GobiertoPlans.PlansController = (function() {
         methods: {
           getJson: function() {
             $.getJSON('/sandbox/data/planification.json', function(json) {
-              debugger;
               this.json = json;
             }.bind(this));
           },

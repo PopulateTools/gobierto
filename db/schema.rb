@@ -703,8 +703,10 @@ ActiveRecord::Schema.define(version: 20180126082636) do
 
   create_table "gplan_categories", force: :cascade do |t|
     t.jsonb "name_translations"
+    t.integer "level", default: 0, null: false
     t.integer "parent_id", null: false
     t.bigint "plan_id"
+    t.string "slug", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name_translations"], name: "index_gplan_categories_on_name_translations", using: :gin
@@ -730,16 +732,23 @@ ActiveRecord::Schema.define(version: 20180126082636) do
     t.index ["name_translations"], name: "index_gplan_nodes_on_name_translations", using: :gin
   end
 
+  create_table "gplan_plan_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "gplan_plans", force: :cascade do |t|
     t.jsonb "title_translations"
     t.jsonb "description_translations"
-    t.date "starts_at"
-    t.date "ends_at"
+    t.integer "year"
     t.jsonb "configuration_data"
+    t.bigint "plan_type_id"
     t.bigint "site_id"
     t.string "slug", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["plan_type_id"], name: "index_gplan_plans_on_plan_type_id"
     t.index ["site_id"], name: "index_gplan_plans_on_site_id"
     t.index ["title_translations"], name: "index_gplan_plans_on_title_translations", using: :gin
   end

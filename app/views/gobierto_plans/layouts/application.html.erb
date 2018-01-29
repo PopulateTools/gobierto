@@ -2,10 +2,4 @@
   <%= javascript_include_tag 'gobierto_plans/application', 'data-turbolinks-track' => true %>
 <% end %>
 
-<% content_for :javascript_hook do %>
-  <%= javascript_tag do %>
-    window.GobiertoPlans.plans_controller.show();
-  <% end %>
-<% end %>
-
 <%= render template: "layouts/application" %>

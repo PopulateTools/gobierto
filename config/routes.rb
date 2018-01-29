@@ -309,7 +309,7 @@ Rails.application.routes.draw do
     constraints GobiertoSiteConstraint.new do
       get "/" => "plans#index", as: :root
 
-      resources :plans, only: [:show], path: "plans"
+      resources :plans, only: [:show], path: ""
     end
   end
 

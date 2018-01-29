@@ -1,0 +1,173 @@
+<div class="column">
+  <div class="block">
+
+    <div class="pure-g header_block_inline m_b_1">
+      <div class="pure-u-1 pure-u-md-12-24">
+        <h2 class="with_description">
+          <%= @plan.title %>
+        </h2>
+        <p>
+          <%= @plan.description %>
+        </p>
+      </div>
+
+      <div class="pure-u-1 pure-u-md-12-24 right">
+        <%= image_tag('illustrations/presupuestos.jpg', class: 'medium_img') %>
+      </div>
+    </div>
+
+    <div id="gobierto-planification" class="gobierto_planification">
+
+      <div class="planification-header m_v_3" v-if="json.length">
+
+        <div class="header-resume">
+          <h3>Estado de ejecución global</h3>
+          <span>38%</span>
+        </div>
+
+        <div class="header-detail">
+          <% for i in 0..@levels %>
+            <div>
+              <%= @plan.categories.where(level: i).size %> <%= @plan.configuration_data["level" + i.to_s] %>
+            </div>
+          <% end %>
+        </div>
+
+      </div>
+
+      <div class="planification-content">
+
+        <section class="level_1">
+          <div class="node-root" v-for="(model, index) in json" :class="['cat_' + (index % 5 + 1)]">
+            <node-root :model="model" :key="model.id" v-on:increment="setSelection"></node-root>
+          </div>
+        </section>
+
+        <section class="level_2" v-show="roots" :class="['cat_' + color(0) ]">
+          <div class="lines-header">
+            <div>{{ (activeNode.children || []).length }} lineas de actuación</div>
+            <div>% progress</div>
+          </div>
+
+          <ul class="lines-list">
+            <li class="mb2" v-for="(model, index) in activeNode.children">
+              <node-list :model="model" :key="model.id"></node-list>
+            </li>
+          </ul>
+        </section>
+
+        <section class="level_3" v-show="lines">
+          <div :class="['cat_' + color(1) ]">
+            <div class="node-breadcrumb mb2">
+              <a href="">
+                <i class="fa fa-caret-left"></i>
+                Ver todo en {{ (activeNode.attributes || {}).title }}
+              </a>
+            </div>
+
+            <div class="node-action-line">
+
+              <div class="action-line--header node-list cat--negative">
+                <h3>
+                  <i class="fa fa-caret-down"></i>
+                  {{ (activeNode.attributes || {}).title }}
+                </h3>
+                <div>{{ (activeNode.children || []).length }} actuaciones</div>
+                <div>{{ (activeNode.attributes || {}).percent }}</div>
+              </div>
+
+              <ul class="action-line--list">
+                <li v-for="(model, index) in activeNode.children">
+                  <node-list :model="model" :key="model.id"></node-list>
+                  <table v-if="model.showTable">
+                  <thead>
+                    <th>cap1</th>
+                    <th>cap2</th>
+                    <th>cap3</th>
+                    <th>cap4</th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>dade01</td>
+                      <td>dade02</td>
+                      <td>dade03</td>
+                      <td>dade04</td>
+                    </tr>
+                    <tr>
+                      <td>dade01</td>
+                      <td>dade02</td>
+                      <td>dade03</td>
+                      <td>dade04</td>
+                    </tr>
+                    <tr>
+                      <td>dade01</td>
+                      <td>dade02</td>
+                      <td>dade03</td>
+                      <td>dade04</td>
+                    </tr>
+                    <tr>
+                      <td>dade01</td>
+                      <td>dade02</td>
+                      <td>dade03</td>
+                      <td>dade04</td>
+                    </tr>
+                    <tr>
+                      <td>dade01</td>
+                      <td>dade02</td>
+                      <td>dade03</td>
+                      <td>dade04</td>
+                    </tr>
+                    <tr>
+                      <td>dade01</td>
+                      <td>dade02</td>
+                      <td>dade03</td>
+                      <td>dade04</td>
+                    </tr>
+                  </tbody>
+                </table>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- node root template -->
+<script type="text/x-template" id="node-root-template">
+  <a href="#" @click="open">
+    <div class="node-img js-img">
+      <img :src="model.attributes.img" alt="">
+    </div>
+    <div class="node-info js-info">
+      <div class="info-progress progress" :style="{ width: model.attributes.complete }"></div>
+      <div class="info-content">
+        <h3>{{ model.attributes.title }}</h3>
+        <span>{{ model.attributes.complete }}</span>
+      </div>
+    </div>
+  </a>
+</script>
+
+<!-- node list template -->
+<script type="text/x-template" id="node-list-template">
+  <div class="node-list">
+    <div class="node-title">
+      <div><i class="fa fa-caret-right"></i></div>
+      <h3><a href="" @click="expand">{{ model.attributes.title }}</a></h3>
+    </div>
+    <div>{{ (model.children || []).length }} actuaciones</div>
+    <div>{{ model.attributes.percent || 0 }}%</div>
+  </div>
+</script>
+
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoPlans.plans_controller.show();
+  <% end %>
+<% end %>

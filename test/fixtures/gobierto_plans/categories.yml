@@ -1,0 +1,39 @@
+city:
+  name_translations: <%= { 'en' => 'City',
+                            'es' => 'Ciudad' }.to_json %>
+  parent_id: nil
+  plan: strategic_plan
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+economy:
+  name_translations: <%= { 'en' => 'Economy',
+                            'es' => 'Economía' }.to_json %>
+  parent_id: nil
+  plan: strategic_plan
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+people_and_families:
+  name_translations: <%= { 'en' => 'People and families',
+                            'es' => 'Personas y familias' }.to_json %>
+  parent_id: nil
+  plan: strategic_plan
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+welfare_payments:
+  name_translations: <%= { 'en' => 'Provide social assistance to individuals and families who need it for lack of resources',
+                            'es' => 'Proporcionar asistencia social a las personas y familias que la necesiten por falta de recursos' }.to_json %>
+  parent_id: <%= ActiveRecord::FixtureSet.identify(:people_and_families) %>
+  plan: strategic_plan
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+
+basic_needs:
+  name_translations: <%= { 'en' => 'Cubrir las necesidades básicas de las familias a las familias',
+                            'es' => 'To cover the basic needs of families to families' }.to_json %>
+  parent_id: <%= ActiveRecord::FixtureSet.identify(:welfare_payments) %>
+  plan: strategic_plan
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00

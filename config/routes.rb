@@ -304,6 +304,15 @@ Rails.application.routes.draw do
     end
   end
 
+  # Gobierto Plans module
+  namespace :gobierto_plans, path: "planes" do
+    constraints GobiertoSiteConstraint.new do
+      get "/" => "plans#index", as: :root
+
+      resources :plans, only: [:show], path: "plans"
+    end
+  end
+
   # Gobierto CMS module
   namespace :gobierto_cms, path: "" do
     constraints GobiertoSiteConstraint.new do

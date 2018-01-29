@@ -1,3 +1,5 @@
+<%= javascript_include_tag 'gobierto_plans/application', 'data-turbolinks-track' => true %>
+
 <div class="column">
   <div class="block">
 
@@ -161,4 +163,8 @@
   </div>
 </script>
 
-<script src="/planification.js" charset="utf-8"></script>
+<% content_for :javascript_hook do %>
+  <%= javascript_tag do %>
+    window.GobiertoPlans.plans_controller.show();
+  <% end %>
+<% end %>

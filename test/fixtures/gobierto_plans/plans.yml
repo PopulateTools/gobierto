@@ -1,0 +1,24 @@
+strategic_plan:
+  title_translations: <%= { 'en' => 'Strategic Plan 2014-2018',
+                            'es' => 'Plan Estratégico 2014-2018' }.to_json %>
+  description_translations: <%= { 'en' => 'Strategic Plan description',
+                                  'es' => 'Plan Estratégico descripción' }.to_json %>
+  starts_at: <%= 1.month.ago %>
+  ends_at: <%= 4.year.from_now - 1.month %>
+  slug: strategic-plan
+  site: madrid
+  created_at: 2016-11-01 00:02:00
+  updated_at: 2016-11-01 00:02:00
+  configuration_data: <%= {
+    "level1" => "axle",
+    "level2" => "line_of_actuation",
+    "level3" => "actuation",
+    "level1_options" => [ { "slug" => "people_and_families",
+                            "colour" => "#FF0000",
+                            "logo" => "http://santander.es/sites/default/themes/custom/ayuntamiento/img/logo-ayto-santander.png" },
+                          { "slug" => "city",
+                            "colour" => "#00FF00",
+                            "logo" => "http://santander.es/sites/default/themes/custom/ayuntamiento/img/logo-ayto-santander.png" },
+                          { "slug" => "economy",
+                            "colour" => "#FFFF00",
+                            "logo" => "http://santander.es/sites/default/themes/custom/ayuntamiento/img/logo-ayto-santander.png" }]}.to_yaml.inspect %>

@@ -1,0 +1,6 @@
+---
+ca:
+  gobierto_plans:
+    layouts:
+      application:
+        plans: Planes

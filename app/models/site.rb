@@ -44,6 +44,9 @@ class Site < ApplicationRecord
   # Gobierto Core integration
   has_many :site_templates, dependent: :destroy, class_name: "GobiertoCore::SiteTemplate"
 
+  # Gobierto Plans integration
+  has_many :plans, dependent: :destroy, class_name: "GobiertoPlans::Plan"
+
   # Gobierto Attachments integration
   has_many :attachments, dependent: :destroy, class_name: "GobiertoAttachments::Attachment"
 

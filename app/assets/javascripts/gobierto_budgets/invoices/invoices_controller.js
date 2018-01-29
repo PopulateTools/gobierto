@@ -20,7 +20,10 @@ this.GobiertoBudgets.InvoicesController = (function() {
   };
 
   // Global variables
-  var data, ndx, _r;
+  var data, ndx, _r, _tabledata, _empty;
+
+  // Markup object shorteners
+  var tableHTML = $("#providers-table");
 
   function getData(filter) {
     var dateRange;
@@ -36,6 +39,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
     var municipalityId = window.populateData.municipalityId;
     var url = window.populateData.endpoint + '/datasets/ds-facturas-municipio.csv?filter_by_location_id='+municipalityId+'&date_date_range='+dateRange+'&sort_asc_by=date';
 
+    // Show spinner
     $(".js-toggle-overlay").show();
 
     d3.csv(url)
@@ -43,6 +47,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
       .get(function(error, csv) {
         if (error) throw error;
 
+        // Hide spinner
         $(".js-toggle-overlay").hide();
 
         data = _.filter(csv, _callback(filter));
@@ -105,7 +110,10 @@ this.GobiertoBudgets.InvoicesController = (function() {
   // Spread data object updates
   function _refreshFromCharts(_data) {
     _boxesCalculations(_data);
-    _renderTableFilter(_data);
+
+    // If the data filtered is the same as the data total, tabledata = undefined
+    _tabledata = (_.isEqual(data, _data)) ? undefined : _data;
+    tableHTML.jsGrid("search");
   }
 
   function _refreshFromTable(_data) {
@@ -422,15 +430,11 @@ this.GobiertoBudgets.InvoicesController = (function() {
     hbars2.render();
   }
 
-  function _renderTableFilter(reduced) {
+  function _renderTableFilter() {
 
-    var _data = reduced || data;
+    var resetFilters = false;
 
-    $(".jsgrid-filter-row input").on("change", function() {
-        console.log('filtra');
-    });
-
-    $("#providers-table").jsGrid({
+    tableHTML.jsGrid({
       width: "100%",
       height: "auto",
       filtering: true,
@@ -445,7 +449,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
       pageLastText: I18n.t('gobierto_budgets.invoices.show.table.pager.last'),
       controller: {
         loadData: function(filter) {
-          return $.grep(_data, function(row) {
+          return $.grep(_tabledata || data, function(row) {
             return (!filter.provider_name.toLowerCase() || row.provider_name.toLowerCase().indexOf(filter.provider_name.toLowerCase()) > -1) &&
               (!filter.provider_id.toLowerCase() || row.provider_id.toLowerCase().indexOf(filter.provider_id.toLowerCase()) > -1) &&
               (!filter.date || row.datel10n.indexOf(filter.date) > -1) &&
@@ -453,11 +457,27 @@ this.GobiertoBudgets.InvoicesController = (function() {
               (!filter.value || row.value === filter.value) &&
               (!filter.subject.toLowerCase() || row.subject.toLowerCase().indexOf(filter.subject.toLowerCase()) > -1);
           });
-        },
+
+        }.bind(this),
       },
+      onDataLoading: function (f) {
+        // Initialize table filter
+        if (_empty === undefined) {
+          _empty = f.filter;
+          return
+        }
+      }.bind(this),
       onDataLoaded: function (f) {
-        if (reduced === undefined) _refreshFromTable(f.data);
-      },
+        if (_tabledata !== undefined) {
+          if (f.data.length !== _tabledata.length) {
+            _refreshFromTable(f.data);
+          } else if (resetFilters) {
+            resetFilters = false;
+            tableHTML.jsGrid("search");
+            _refreshFromTable(data); // BUG: Se pierde el filtro que hubiese del DC
+          }
+        }
+      }.bind(this),
       fields: [{
           name: "provider_id",
           title: I18n.t('gobierto_budgets.invoices.show.table.fields.provider_id'),
@@ -512,19 +532,9 @@ this.GobiertoBudgets.InvoicesController = (function() {
       ]
     });
 
-    // NOTE: To change the number of items displayed, it would require:
-    //
-    // html:
-    // <select id="pager">
-    //   <option>10</option>
-    //   ...
-    // </select>
-    //
-    // js:
-    // $("#pager").on("change", function() {
-    //     var items = parseInt($(this).val(), 20); // 20 is default
-    //     $("#providers-table").jsGrid("option", "pageSize", items);
-    // });
+    $(".jsgrid-filter-row input").on('input', function(e) {
+      resetFilters = (_.isEqual(_empty, tableHTML.jsGrid("getFilter")));
+    }.bind(this));
   }
 
   function _abbrevLargeCurrency(num, props = {}, currency = 'EUR') {

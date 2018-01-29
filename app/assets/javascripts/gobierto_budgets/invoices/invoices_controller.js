@@ -20,10 +20,12 @@ this.GobiertoBudgets.InvoicesController = (function() {
   };
 
   // Global variables
-  var data, ndx, _r, _tabledata, _empty;
+  var data, ndx, _r, _tabledata, _empty, _chartdata = {};
 
   // Markup object shorteners
   var tableHTML = $("#providers-table");
+  // Declaration
+  var bars = dc.barChart("#bars", "group");
 
   function getData(filter) {
     var dateRange;
@@ -38,6 +40,8 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
     var municipalityId = window.populateData.municipalityId;
     var url = window.populateData.endpoint + '/datasets/ds-facturas-municipio.csv?filter_by_location_id='+municipalityId+'&date_date_range='+dateRange+'&sort_asc_by=date';
+
+    url += '&limit=1000'; // DEBUG: Eliminar
 
     // Show spinner
     $(".js-toggle-overlay").show();
@@ -210,8 +214,6 @@ this.GobiertoBudgets.InvoicesController = (function() {
   }
 
   function _renderByMonthsChart() {
-    // Declaration
-    var bars = dc.barChart("#bars", "group");
 
     // Dimensions
     var months = ndx.dimension(function(d) {
@@ -239,6 +241,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
         chart.selectAll('rect').attr("rx", 4).attr("ry", 4);
       })
       .on('filtered', function(chart, filter) {
+        _chartdata[chart.anchorName()] = chart.filters();
         _refreshFromCharts(months.top(Infinity));
       });
 
@@ -472,9 +475,12 @@ this.GobiertoBudgets.InvoicesController = (function() {
           if (f.data.length !== _tabledata.length) {
             _refreshFromTable(f.data);
           } else if (resetFilters) {
+            // reset defaults
             resetFilters = false;
+            _tabledata = undefined;
+
             tableHTML.jsGrid("search");
-            _refreshFromTable(data); // BUG: Se pierde el filtro que hubiese del DC
+            _refreshFromTable(data);
           }
         }
       }.bind(this),

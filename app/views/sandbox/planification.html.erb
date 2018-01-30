@@ -35,7 +35,7 @@
       <div class="planification-content">
 
         <section class="level_1">
-          <div class="node-root" v-for="(model, index) in json" :class="['cat_' + (index % 5 + 1)]">
+          <div class="node-root" v-for="(model, index) in json" :class="['cat_' + (index % 5 + 1)]"> <%# TODO: reemplazar index % 5 por numero precalculado %>
             <node-root :model="model" :key="model.id" @selection="setSelection"></node-root>
           </div>
         </section>
@@ -57,7 +57,7 @@
           <div class="node-breadcrumb mb2">
             <a data-turbolinks="false">
               <i class="fa fa-caret-left"></i>
-              Ver todo en {{ (activeNode.attributes || {}).title }}
+              Ver todo en {{ t((activeNode.attributes || {}).title) }} <%# TODO: coger nombre del nodo raiz %>
             </a>
           </div>
           <div class="node-action-line">
@@ -65,7 +65,7 @@
               <div class="action-line--header node-list cat--negative">
                 <h3>
                   <i class="fa fa-caret-down"></i>
-                  {{ (activeNode.attributes || {}).title }}
+                  {{ t((activeNode.attributes || {}).title) }}
                 </h3>
                 <div>{{ (activeNode.children || []).length }} actuaciones</div>
                 <div>{{ (activeNode.attributes || {}).percent }}</div>
@@ -76,47 +76,17 @@
                   <node-list :model="model" :key="model.id" @toggle="toggle(index)"></node-list>
                   <table v-if="showTable[index]">
                     <thead>
-                      <th>cap1</th>
-                      <th>cap2</th>
-                      <th>cap3</th>
-                      <th>cap4</th>
+                      <th>Proyecto</th>
+                      <th>Inicio</th>
+                      <th>Estado</th>
+                      <th>Progreso</th>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>dade01</td>
-                        <td>dade02</td>
-                        <td>dade03</td>
-                        <td>dade04</td>
-                      </tr>
-                      <tr>
-                        <td>dade01</td>
-                        <td>dade02</td>
-                        <td>dade03</td>
-                        <td>dade04</td>
-                      </tr>
-                      <tr>
-                        <td>dade01</td>
-                        <td>dade02</td>
-                        <td>dade03</td>
-                        <td>dade04</td>
-                      </tr>
-                      <tr>
-                        <td>dade01</td>
-                        <td>dade02</td>
-                        <td>dade03</td>
-                        <td>dade04</td>
-                      </tr>
-                      <tr>
-                        <td>dade01</td>
-                        <td>dade02</td>
-                        <td>dade03</td>
-                        <td>dade04</td>
-                      </tr>
-                      <tr>
-                        <td>dade01</td>
-                        <td>dade02</td>
-                        <td>dade03</td>
-                        <td>dade04</td>
+                      <tr v-for="row in model.children">
+                        <td>{{ t(row.attributes.title) }}</td>
+                        <td>{{ row.attributes.starts_at }}</td>
+                        <td>{{ t(row.attributes.status) }}</td>
+                        <td>{{ row.attributes.progress }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -141,7 +111,7 @@
     <div class="node-info js-info">
       <div class="info-progress progress" :style="{ width: model.attributes.complete }"></div>
       <div class="info-content">
-        <h3>{{ model.attributes.title }}</h3>
+        <h3>{{ t(model.attributes.title) }}</h3>
         <span>{{ model.attributes.complete }}</span>
       </div>
     </div>
@@ -153,7 +123,7 @@
   <div class="node-list">
     <div class="node-title">
       <div><i class="fa fa-caret-right"></i></div>
-      <h3><a @click="expand" data-turbolinks="false">{{ model.attributes.title }}</a></h3>
+      <h3><a @click="expand" data-turbolinks="false">{{ t(model.attributes.title) }}</a></h3>
     </div>
     <div>{{ (model.children || []).length }} actuaciones</div>
     <div>{{ model.attributes.percent || 0 }}%</div>

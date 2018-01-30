@@ -16,6 +16,9 @@ this.GobiertoPlans.PlansController = (function() {
           return {}
         },
         methods: {
+          t(key) {
+            return this.$root.t(key)
+          },
           open() {
             // Trigger event
             this.$emit('selection', { ...this.model });
@@ -41,6 +44,9 @@ this.GobiertoPlans.PlansController = (function() {
           return {}
         },
         methods: {
+          t(key) {
+            return this.$root.t(key)
+          },
           expand: function() {
             let l = this.model.level;
 
@@ -107,13 +113,16 @@ this.GobiertoPlans.PlansController = (function() {
               projects: this.json.length
             };
             return detail
-          }
+          },
         },
         methods: {
           getJson: function() {
             $.getJSON('/sandbox/data/planification.json', function(json) {
               this.json = json;
             }.bind(this));
+          },
+          t(key) {
+            return key[I18n.locale]
           },
           color(o) {
             if (this.isEmpty()) return 1;

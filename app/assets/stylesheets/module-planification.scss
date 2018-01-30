@@ -149,6 +149,7 @@ $node-colors: (
     }
   }
 
+  // @component node-list (action lines)
   .node-list {
       padding: 1em 0 0;
       border-top: 1px solid;
@@ -264,6 +265,14 @@ $node-colors: (
         }
 
         tbody {
+          tr {
+            @include border-radius(6px);
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+          
           td {
             border: 0;
           }
@@ -274,12 +283,10 @@ $node-colors: (
   }
 
   /* SECTIONS DISPLAYS */
-
   section.level_1 {
     flex: 1 1 0%;
   }
 
-  // IDEA: Dinamizar niveles de manera automática
   section.level_2, section.level_3 {
     flex: 10;
     padding: 2em 3em;
@@ -293,15 +300,18 @@ $node-colors: (
         background: transparentize($color, .9);
         color: $color;
 
-        h3, h3 a {
-          color: $color;
+        .node-list {
+          .node-title {
+            h3, h3 a {
+              color: $color;
+            }
+
+            .fa {
+              background: transparentize($color, .9);
+            }
+          }
         }
 
-        .node {
-          border-top-color: transparentize($color, .25);
-        }
-
-        // TODO: Mover a adecuado lugar
         .node-breadcrumb {
           border: 1px solid transparentize($color, .25);
           color: $color;
@@ -311,8 +321,16 @@ $node-colors: (
           }
         }
 
-        .fa {
-          background: transparentize($color, .9);
+        .node-action-line {
+          table {
+            tbody {
+              tr {
+                &:hover {
+                  background-color: rgba($color, .2);
+                }
+              }
+            }
+          }
         }
 
         // Negative version nodes

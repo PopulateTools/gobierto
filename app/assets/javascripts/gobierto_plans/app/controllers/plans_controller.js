@@ -64,7 +64,7 @@ this.GobiertoPlans.PlansController = (function() {
         data: {
           json: {},
           activeNode: {},
-          toggle: false
+          showTable: {}
         },
         created: function() {
           this.getJson();
@@ -126,6 +126,9 @@ this.GobiertoPlans.PlansController = (function() {
           },
           isEmpty() {
             return _.isEmpty(this.activeNode);
+          },
+          toggle(i) {
+            Vue.set(this.showTable, i, !(this.showTable[i]));
           }
         }
       });

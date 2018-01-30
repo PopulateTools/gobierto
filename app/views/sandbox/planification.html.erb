@@ -16,8 +16,6 @@
 
     <div id="gobierto-planification" class="gobierto_planification">
 
-      <pre>nivel: {{ $data.activeNode.level }}, nodo: {{ $data.activeNode.id }}</pre>
-
       <div class="planification-header m_v_3" v-show="json.length">
 
         <div class="header-resume">
@@ -75,8 +73,8 @@
 
               <ul class="action-line--list">
                 <li v-for="(model, index) in activeNode.children">
-                  <node-list :model="model" :key="model.id" @toggle="toggle=!toggle"></node-list>
-                  <table v-show="toggle">
+                  <node-list :model="model" :key="model.id" @toggle="toggle(index)"></node-list>
+                  <table v-if="showTable[index]">
                     <thead>
                       <th>cap1</th>
                       <th>cap2</th>

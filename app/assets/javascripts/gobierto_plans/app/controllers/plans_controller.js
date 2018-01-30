@@ -90,6 +90,7 @@ this.GobiertoPlans.PlansController = (function() {
         watch: {
           activeNode: {
             handler: function(node) {
+              this.showTable = {};
               this.isOpen(node.level);
             },
             deep: true

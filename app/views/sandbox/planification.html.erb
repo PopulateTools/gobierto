@@ -16,7 +16,9 @@
 
     <div id="gobierto-planification" class="gobierto_planification">
 
-      <div class="planification-header m_v_3" v-if="json.length">
+      <pre>nivel: {{ $data.activeNode.level }}, nodo: {{ $data.activeNode.id }}</pre>
+
+      <div class="planification-header m_v_3" v-show="json.length">
 
         <div class="header-resume">
           <h3>Estado de ejecución global</h3>
@@ -36,11 +38,11 @@
 
         <section class="level_1">
           <div class="node-root" v-for="(model, index) in json" :class="['cat_' + (index % 5 + 1)]">
-            <node-root :model="model" :key="model.id" v-on:increment="setSelection"></node-root>
+            <node-root :model="model" :key="model.id" @selection="setSelection"></node-root>
           </div>
         </section>
 
-        <section class="level_2" v-show="roots" :class="['cat_' + color(0) ]">
+        <section class="level_2" v-if="isOpen(0)" :class="['cat_' + color(0) ]">
           <div class="lines-header">
             <div>{{ (activeNode.children || []).length }} lineas de actuación</div>
             <div>% progress</div>
@@ -48,21 +50,19 @@
 
           <ul class="lines-list">
             <li class="mb2" v-for="(model, index) in activeNode.children">
-              <node-list :model="model" :key="model.id"></node-list>
+              <node-list :model="model" :key="model.id" @selection="setSelection"></node-list>
             </li>
           </ul>
         </section>
 
-        <section class="level_3" v-show="lines">
-          <div :class="['cat_' + color(1) ]">
-            <div class="node-breadcrumb mb2">
-              <a href="">
-                <i class="fa fa-caret-left"></i>
-                Ver todo en {{ (activeNode.attributes || {}).title }}
-              </a>
-            </div>
-
-            <div class="node-action-line">
+        <section class="level_3" v-if="isOpen(1)" :class="['cat_' + color(1) ]">
+          <div class="node-breadcrumb mb2">
+            <a data-turbolinks="false">
+              <i class="fa fa-caret-left"></i>
+              Ver todo en {{ (activeNode.attributes || {}).title }}
+            </a>
+          </div>
+          <div class="node-action-line">
 
               <div class="action-line--header node-list cat--negative">
                 <h3>
@@ -75,57 +75,56 @@
 
               <ul class="action-line--list">
                 <li v-for="(model, index) in activeNode.children">
-                  <node-list :model="model" :key="model.id"></node-list>
-                  <table v-if="model.showTable">
-                  <thead>
-                    <th>cap1</th>
-                    <th>cap2</th>
-                    <th>cap3</th>
-                    <th>cap4</th>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>dade01</td>
-                      <td>dade02</td>
-                      <td>dade03</td>
-                      <td>dade04</td>
-                    </tr>
-                    <tr>
-                      <td>dade01</td>
-                      <td>dade02</td>
-                      <td>dade03</td>
-                      <td>dade04</td>
-                    </tr>
-                    <tr>
-                      <td>dade01</td>
-                      <td>dade02</td>
-                      <td>dade03</td>
-                      <td>dade04</td>
-                    </tr>
-                    <tr>
-                      <td>dade01</td>
-                      <td>dade02</td>
-                      <td>dade03</td>
-                      <td>dade04</td>
-                    </tr>
-                    <tr>
-                      <td>dade01</td>
-                      <td>dade02</td>
-                      <td>dade03</td>
-                      <td>dade04</td>
-                    </tr>
-                    <tr>
-                      <td>dade01</td>
-                      <td>dade02</td>
-                      <td>dade03</td>
-                      <td>dade04</td>
-                    </tr>
-                  </tbody>
-                </table>
+                  <node-list :model="model" :key="model.id" @toggle="toggle=!toggle"></node-list>
+                  <table v-show="toggle">
+                    <thead>
+                      <th>cap1</th>
+                      <th>cap2</th>
+                      <th>cap3</th>
+                      <th>cap4</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>dade01</td>
+                        <td>dade02</td>
+                        <td>dade03</td>
+                        <td>dade04</td>
+                      </tr>
+                      <tr>
+                        <td>dade01</td>
+                        <td>dade02</td>
+                        <td>dade03</td>
+                        <td>dade04</td>
+                      </tr>
+                      <tr>
+                        <td>dade01</td>
+                        <td>dade02</td>
+                        <td>dade03</td>
+                        <td>dade04</td>
+                      </tr>
+                      <tr>
+                        <td>dade01</td>
+                        <td>dade02</td>
+                        <td>dade03</td>
+                        <td>dade04</td>
+                      </tr>
+                      <tr>
+                        <td>dade01</td>
+                        <td>dade02</td>
+                        <td>dade03</td>
+                        <td>dade04</td>
+                      </tr>
+                      <tr>
+                        <td>dade01</td>
+                        <td>dade02</td>
+                        <td>dade03</td>
+                        <td>dade04</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </li>
               </ul>
             </div>
-          </div>
         </section>
 
       </div>
@@ -137,7 +136,7 @@
 
 <!-- node root template -->
 <script type="text/x-template" id="node-root-template">
-  <a href="#" @click="open">
+  <a @click="open" data-turbolinks="false">
     <div class="node-img js-img">
       <img :src="model.attributes.img" alt="">
     </div>
@@ -156,7 +155,7 @@
   <div class="node-list">
     <div class="node-title">
       <div><i class="fa fa-caret-right"></i></div>
-      <h3><a href="" @click="expand">{{ model.attributes.title }}</a></h3>
+      <h3><a @click="expand" data-turbolinks="false">{{ model.attributes.title }}</a></h3>
     </div>
     <div>{{ (model.children || []).length }} actuaciones</div>
     <div>{{ model.attributes.percent || 0 }}%</div>

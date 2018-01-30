@@ -85,6 +85,7 @@ $node-colors: (
       color: #FFF;
       text-decoration: none;
       max-height: $nodeLevel1Height;
+      cursor: pointer;
     }
 
     .node-img {
@@ -169,6 +170,7 @@ $node-colors: (
         a {
           display: block;
           text-decoration: none;
+          cursor: pointer;
 
           &::first-letter {
             text-transform: uppercase;
@@ -202,6 +204,7 @@ $node-colors: (
       font-size: $f7;
       font-weight: 700;
       padding: .25em;
+      cursor: pointer;
     }
   }
 
@@ -233,6 +236,7 @@ $node-colors: (
         color: $color_text;
         font-size: $f5;
         text-decoration: none;
+        cursor: pointer;
 
         &::first-letter {
           text-transform: uppercase;

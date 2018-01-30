@@ -70,7 +70,8 @@ this.GobiertoPlans.PlansController = (function() {
         data: {
           json: {},
           activeNode: {},
-          showTable: {}
+          showTable: {},
+          rootid: 0
         },
         created: function() {
           this.getJson();
@@ -98,6 +99,7 @@ this.GobiertoPlans.PlansController = (function() {
             handler: function(node) {
               this.showTable = {};
               this.isOpen(node.level);
+              // TODO: Necesito saber quién es el nodo raiz del nodo activo
             },
             deep: true
           }
@@ -126,10 +128,16 @@ this.GobiertoPlans.PlansController = (function() {
           },
           color(o) {
             if (this.isEmpty()) return 1;
-            return this.activeNode.id % 5 + 1;
+            return this.rootid % 5 + 1;
+            // return this.activeNode.id % 5 + 1;
           },
           setSelection(model) {
             this.activeNode = model;
+
+            // To know the root node
+            if (this.activeNode.level === 0) {
+              this.rootid = this.activeNode.id
+            }
           },
           isOpen(level) {
             return level <= this.activeNode.level;

@@ -245,36 +245,50 @@ $node-colors: (
       }
 
       table {
-        margin: 1em 0;
+        padding: 0 0 0 1.5rem;
+        border-spacing: 0 .5em;
+        border-collapse: separate;
 
         th:not(:first-child),
         td:not(:first-child) {
           text-align: center;
         }
 
+        td {
+          border-top: 0;
+        }
+
         thead {
           color: rgba($color_text, .35);
           text-transform: uppercase;
-          border-top: 1px solid rgba($color_text, .35);
-          border-bottom: 1px solid rgba($color_text, .35);
           padding: .25em 0;
 
           th {
             font-weight: normal;
+            border-top: 1px solid rgba($color_text, .35);
+            border-bottom: 1px solid rgba($color_text, .35);
           }
         }
 
         tbody {
-          tr {
-            @include border-radius(6px);
+          margin: 1em 0;
 
+          tr {
             &:hover {
               cursor: pointer;
+
+              td:first-child {
+                @include border-radius($left:6px);
+              }
+
+              td:last-child {
+                @include border-radius($right:6px);
+              }
             }
-          }
-          
-          td {
-            border: 0;
+
+            td {
+              margin: 1em 0;
+            }
           }
         }
       }
@@ -326,7 +340,9 @@ $node-colors: (
             tbody {
               tr {
                 &:hover {
-                  background-color: rgba($color, .2);
+                  td {
+                    background-color: rgba($color, .2);
+                  }
                 }
               }
             }

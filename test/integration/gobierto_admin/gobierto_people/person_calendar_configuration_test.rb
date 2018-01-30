@@ -326,7 +326,7 @@ module GobiertoAdmin
           with_current_site(site) do
             visit edit_admin_calendars_configuration_path(person.calendar)
 
-            refute has_content?('You do not have enough permissions to perform this action')
+            assert has_no_content?('You do not have enough permissions to perform this action')
           end
         end
       end

@@ -1,11 +1,11 @@
 madrid:
   title_translations: <%= { 'en' => 'Transparencia y Participción', 'es' => 'Transparencia y Participción' }.to_json %>
   name_translations: <%= { 'en' => 'Ayuntamiento de Madrid', 'es' => 'Ayuntamiento de Madrid' }.to_json %>
-  domain: madrid.gobierto.dev
+  domain: madrid.gobierto.test
   configuration_data: <%= {
     "links_markup" => %Q{<a href="http://madrid.es">Ayuntamiento de Madrid</a>},
     "logo" => "http://www.madrid.es/assets/images/logo-madrid.png",
-    "modules" => ["GobiertoBudgets", "GobiertoBudgetConsultations", "GobiertoPeople", "GobiertoCms", "GobiertoParticipation"],
+    "modules" => ["GobiertoBudgets", "GobiertoBudgetConsultations", "GobiertoPeople", "GobiertoCms", "GobiertoParticipation", "GobiertoIndicators"],
     "default_locale" => "en",
     "available_locales" => ["en", "es"],
     "home_page" => "GobiertoParticipation",
@@ -24,7 +24,7 @@ madrid:
 santander:
   title_translations: <%= { 'en' => 'Transparencia Ciudadana', 'es' => 'Transparencia Ciudadana' }.to_json %>
   name_translations: <%= { 'en' => 'Ayuntamiento de Santander', 'es' => 'Ayuntamiento de Santander' }.to_json %>
-  domain: santander.gobierto.dev
+  domain: santander.gobierto.test
   configuration_data: <%= {
     "links_markup" => %Q{<a href="http://santander.es">Ayuntamiento de Santander</a>},
     "logo" => "http://santander.es/sites/default/themes/custom/ayuntamiento/img/logo-ayto-santander.png",
@@ -47,7 +47,7 @@ santander:
 huesca:
   title_translations: <%= { 'en' => 'Transparencia Ciudadana', 'es' => 'Transparencia Ciudadana' }.to_json %>
   name_translations: <%= { 'en' => 'Ayuntamiento de Huesca', 'es' => 'Ayuntamiento de Huesca' }.to_json %>
-  domain: huesca.gobierto.dev
+  domain: huesca.gobierto.test
   configuration_data: <%= {
     "links_markup" => %Q{<a href="http://www.huesca.es">Ayuntamiento de Huesca</a>},
     "logo" => "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Flag_of_Huesca.svg/500px-Flag_of_Huesca.svg.png",
@@ -66,3 +66,27 @@ huesca:
   institution_address: Fake St., 123
   institution_document_number: 0123456789A
   visibility_level: <%= Site.visibility_levels["draft"] %>
+
+cortegada:
+  title_translations: <%= { 'en' => 'Transparencia Ciudadana', 'es' => 'Transparencia Ciudadana' }.to_json %>
+  name_translations: <%= { 'en' => 'Ayuntamiento de Cortegada', 'es' => 'Ayuntamiento de Cortegada' }.to_json %>
+  domain: cortegada.gobierto.dev
+  configuration_data: <%= {
+    "links_markup" => %Q{<a href="http://www.cortegada.es">Ayuntamiento de Cortegada</a>},
+    "logo" => "http://www.cortegada.es/imagenes/Principal/logo_principal.PNG",
+    "modules" => ["GobiertoBudgets", "GobiertoParticipation"],
+    "default_locale" => "en",
+    "available_locales" => ["en", "es"],
+    "home_page" => "GobiertoParticipation",
+    "google_analytics_id" => "UA-000000-04",
+    "auth_modules" => ["null_strategy"] }.to_yaml.inspect %>
+  location_name: Cortegada
+  municipality_id: <%= INE::Places::Place.find_by_slug("cortegada").id %>
+  location_type: INE::Places::Place
+  external_id: <%= INE::Places::Place.find_by_slug("cortegada").id %>
+  institution_url: http://www.cortegada.es
+  institution_type: Ayuntamiento
+  institution_email: contact@cortegada.test
+  institution_address: Fake St., 123
+  institution_document_number: 0123456789A
+  visibility_level: <%= Site.visibility_levels["active"] %>

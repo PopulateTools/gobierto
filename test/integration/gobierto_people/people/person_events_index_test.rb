@@ -75,7 +75,7 @@ module GobiertoPeople
             click_button 'List'
 
             within ".events-summary" do
-              refute has_content?(past_event.title)
+              assert has_no_content?(past_event.title)
               assert has_content?(future_event.title)
             end
 
@@ -83,7 +83,7 @@ module GobiertoPeople
 
             within ".events-summary" do
               assert has_content?(past_event.title)
-              refute has_content?(future_event.title)
+              assert has_no_content?(future_event.title)
             end
           end
         end
@@ -96,7 +96,7 @@ module GobiertoPeople
 
         skip 'see comment inside code'
 
-        10.times do |i|
+        20.times do |i|
           create_event(person: richard, title: "Event #{i}", starts_at: (Time.now.tomorrow + i.days).to_s)
         end
 
@@ -108,6 +108,9 @@ module GobiertoPeople
           click_link "View more"
 
           assert has_link?("Event 8")
+          assert has_link?("View more")
+
+          assert has_link?("Event 18")
           refute has_link?("View more")
         end
       end
@@ -154,7 +157,7 @@ module GobiertoPeople
               click_button 'List'
 
               within ".events-summary" do
-                refute has_content?(yesterday_event.title)
+                assert has_no_content?(yesterday_event.title)
                 assert has_content?(tomorrow_event.title)
               end
 
@@ -166,7 +169,7 @@ module GobiertoPeople
 
               within ".events-summary" do
                 assert has_content?(yesterday_event.title)
-                refute has_content?(tomorrow_event.title)
+                assert has_no_content?(tomorrow_event.title)
               end
             end
           end

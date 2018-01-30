@@ -14,11 +14,18 @@ module GobiertoCommon
       end
     end
 
+    def item
+      if item_type == "GobiertoCms::News"
+        ::GobiertoCms::Page.find(item_id)
+      else
+        super
+      end
+    end
+
     private
 
     def reindex_page
       if item_type == "GobiertoCms::News" || item_type == "GobiertoCms::Page"
-        item = ::GobiertoCms::Page.find(item_id)
         ::GobiertoCms::Page.trigger_reindex_job(item, false)
       end
     end

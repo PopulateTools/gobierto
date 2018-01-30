@@ -48,7 +48,10 @@ this.GobiertoPeople.PersonEventsController = (function() {
       height: 600,
       contentHeight: 600,
       firstDay: 1,
-      timeFormat: 'H:mm'
+      timeFormat: 'H:mm',
+      views: {
+        week: { columnFormat: 'ddd D/M' }
+      }
     });
     nextStep();
   };

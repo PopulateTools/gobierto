@@ -36,11 +36,8 @@ module GobiertoParticipation
         visit @path
 
         within ".sub-nav" do
-          assert has_link? "About"
           assert has_link? "Issues"
           assert has_link? "Processes"
-          assert has_link? "Ask"
-          assert has_link? "Ideas"
         end
       end
     end
@@ -64,7 +61,7 @@ module GobiertoParticipation
 
         click_link "News"
 
-        assert_equal gobierto_participation_pages_path, current_path
+        assert_equal gobierto_participation_news_index_path, current_path
 
         within ".main-nav" do
           assert has_link? "Participation"
@@ -122,12 +119,11 @@ module GobiertoParticipation
 
     def test_show_poll
       with_javascript do
-        with_current_site(site) do
-          with_signed_in_user(user) do
-            visit @path
+        with_signed_in_user(user) do
+          visit @path
 
-            assert has_content? poll.questions.first.title
-          end
+          assert has_link? poll.title
+          assert has_content? poll.questions.first.title
         end
       end
     end
@@ -137,8 +133,8 @@ module GobiertoParticipation
         visit @path
 
         assert has_content?("My Template")
-        refute has_content?("Ongoing processes")
-        refute has_content?("Themes")
+        assert has_no_content?("Ongoing processes")
+        assert has_no_content?("Themes")
       end
     end
   end

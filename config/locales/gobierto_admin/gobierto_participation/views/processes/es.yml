@@ -6,6 +6,8 @@ es:
         create:
           add_stages: Ahora puedes añadir fases
           success_html: Proceso creado correctamente. <a href="%{link}">Ver proceso</a>.
+        destroy:
+          success: El proceso ha sido archivado correctamente
         edit:
           title: Editar proceso
         form:
@@ -65,5 +67,7 @@ es:
             drag_to_sort: Arrastra para ordenar
             manage: Gestionar
             published: Publicada
+        recover:
+          success: El proceso ha sido recuperado correctamente
         update:
           success_html: Proceso actualizado correctamente. <a href="%{link}">Ver proceso</a>.

@@ -1,19 +1,5 @@
 <% if try(:current_process).nil? %>
-  <div class="sub-nav-item">
-    <%= link_to t('gobierto_participation.layouts.menu_subsections.about'), '#' %>
-  </div>
-  <div class="sub-nav-item<%= class_if(' active', controller_name == 'issues') %>">
-    <%= link_to t('gobierto_participation.layouts.menu_subsections.issues'), gobierto_participation_issues_path, data: { turbolinks: false } %>
-  </div>
-  <div class="sub-nav-item<%= class_if(' active', controller_name == 'processes') %>">
-    <%= link_to t('gobierto_participation.layouts.menu_subsections.processes'), gobierto_participation_processes_path, data: { turbolinks: false } %>
-  </div>
-  <div class="sub-nav-item">
-    <%= link_to t('gobierto_participation.layouts.menu_subsections.questions'), '#' %>
-  </div>
-  <div class="sub-nav-item">
-    <%= link_to t('gobierto_participation.layouts.menu_subsections.ideas'), '#' %>
-  </div>
+  <%= raw render_liquid("gobierto_participation/layouts/navigation_process") %>
 <% else %>
   <% current_process.published_stages.each do |stage| %>
     <div class="sub-nav-item">

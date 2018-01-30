@@ -10,6 +10,7 @@ module GobiertoBudgets
     def import!
       calculate_totals
       calculate_bubbles
+      calculate_annual_data
       reset_cache
       publish_event
     end
@@ -24,6 +25,10 @@ module GobiertoBudgets
 
     def calculate_bubbles
       GobiertoBudgets::Data::Bubbles.dump(site.place)
+    end
+
+    def calculate_annual_data
+      GobiertoBudgets::Data::Annual.new(site: site, year: year).generate_files
     end
 
     def reset_cache

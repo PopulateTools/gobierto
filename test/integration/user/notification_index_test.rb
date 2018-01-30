@@ -17,11 +17,9 @@ class User::NotificationIndexTest < ActionDispatch::IntegrationTest
   end
 
   def test_notification_index
-    with_current_site(site) do
-      with_signed_in_user(user) do
-        notifications = user.notifications
-        visit @path
-      end
+    with_signed_in_user(user) do
+      notifications = user.notifications
+      visit @path
     end
   end
 end

@@ -4,6 +4,9 @@ require_dependency "gobierto_participation"
 
 module GobiertoParticipation
   class Process < ApplicationRecord
+    acts_as_paranoid column: :archived_at
+
+    include ActsAsParanoidAliases
     include User::Subscribable
     include GobiertoCommon::Sluggable
     include GobiertoCommon::Searchable
@@ -36,6 +39,7 @@ module GobiertoParticipation
     scope :sorted, -> { order(id: :desc) }
 
     after_create :create_collections
+    after_restore :set_slug
 
     def to_s
       title
@@ -62,15 +66,15 @@ module GobiertoParticipation
     end
 
     def news_collection
-      GobiertoCommon::Collection.find_by(container: self, item_type: "GobiertoCms::News")
+      find_collection_of_items("GobiertoCms::News")
     end
 
     def events_collection
-      GobiertoCommon::Collection.find_by(container: self, item_type: "GobiertoCalendars::Event")
+      find_collection_of_items("GobiertoCalendars::Event")
     end
 
     def attachments_collection
-      GobiertoCommon::Collection.find_by(container: self, item_type: "GobiertoAttachments::Attachment")
+      find_collection_of_items("GobiertoAttachments::Attachment")
     end
 
     def current_stage
@@ -124,6 +128,10 @@ module GobiertoParticipation
 
     def attributes_for_slug
       [title]
+    end
+
+    def find_collection_of_items(item_type)
+      GobiertoCommon::Collection.find_by(container: self, item_type: item_type)
     end
   end
 end

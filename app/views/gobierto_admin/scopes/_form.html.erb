@@ -20,8 +20,13 @@
     <% end %>
   </div>
 
+  <div class="form_item input_text">
+    <%= f.label :slug %>
+    <%= f.text_field :slug, placeholder: t(".placeholders.slug") %>
+  </div>
+
   <div class="actions right">
     <%= f.submit %>
   </div>
-  
+
 <% end %>

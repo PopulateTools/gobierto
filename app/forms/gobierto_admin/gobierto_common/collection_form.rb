@@ -55,6 +55,7 @@ module GobiertoAdmin
             collection_attributes.container = container
           else
             collection_attributes.container_type = "GobiertoParticipation"
+            collection_attributes.container_id = nil
           end
           collection_attributes.item_type = item_type
         end

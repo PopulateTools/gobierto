@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module GobiertoAdmin
   class ScopeForm
-
     include ActiveModel::Model
 
     attr_accessor(
       :id,
       :site_id,
       :name_translations,
-      :description_translations
+      :description_translations,
+      :slug
     )
 
     delegate :persisted?, to: :scope
@@ -51,9 +53,10 @@ module GobiertoAdmin
 
     def save_scope
       @scope = scope.tap do |scope_attributes|
-        scope_attributes.site_id                  = site_id
-        scope_attributes.name_translations        = name_translations
+        scope_attributes.site_id = site_id
+        scope_attributes.name_translations = name_translations
         scope_attributes.description_translations = description_translations
+        scope_attributes.slug = slug
       end
 
       if @scope.valid?

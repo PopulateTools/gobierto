@@ -1,0 +1,42 @@
+---
+es:
+  gobierto_indicators:
+    indicators:
+      gci:
+        gci_description: Los indicadores GCI (Global City Indicators), que reflejan
+          la calidad de vida de la ciudad, los define el Banco Mundial, asociación
+          con el propósito de combatir la pobreza y apoyar el desarrollo. Los indicadores
+          pueden variar según el año seleccionado.
+        gci_title: Indicadores GCI
+        title: Indicadores %{year}
+      ip:
+        ip_description: Infoparticipa es un proyecto desarrollado por el LPCCP, desde
+          el año 2012, cuyo objetivo es evaluar la información que se publica en las
+          webs de las administraciones públicas para promover que mejore su transparencia
+          y calidad.
+        ip_title: Indicadores Infoparticipa
+        title: Indicadores %{year}
+      ita:
+        ita_description: Los indicadores ITA (Índice de Transparencia de los Ayuntamientos)
+          son una herramienta que la organización no gubernamental Transparencia Internacional
+          pone a disposición de los ayuntamientos españoles para medir su nivel de
+          transparencia. Evalúan la gestión realizada por el ayuntamiento de una ciudad
+          a través de un conjunto integrado de 80 indicadores agrupados en diversas
+          áreas.
+        ita_title: Indicadores ITA
+        title: Indicadores %{year}
+      template:
+        calculation: Cálculo
+        'false': no se cumple
+        methodology: Metodología
+        more: Más información
+        source: Fuente
+        'true': se cumple
+    layouts:
+      application:
+        indicators: Indicadores
+      navigation:
+        sub:
+          gci: Indicadores GCI
+          ip: Indicadores Infoparticipa
+          ita: Indicadores ITA

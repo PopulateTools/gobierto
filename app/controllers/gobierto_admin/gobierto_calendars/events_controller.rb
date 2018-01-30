@@ -72,7 +72,7 @@ module GobiertoAdmin
 
       def destroy
         @event = find_event
-        @event.archive
+        @event.destroy
         process = find_process if params[:process_id]
 
         if process

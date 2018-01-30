@@ -21,6 +21,9 @@ default: &default
       name: Gobierto Observatory
       namespace: GobiertoObservatory
     -
+      name: Gobierto Indicators
+      namespace: GobiertoIndicators
+    -
       name: Gobierto Participation
       namespace: GobiertoParticipation
   site_modules_with_root_path:
@@ -36,8 +39,11 @@ default: &default
     -
       name: Gobierto Observatory
       namespace: GobiertoObservatory
+    -
+      name: Gobierto Indicators
+      namespace: GobiertoIndicators
   dns_config:
-    cname_record_target: site.gobierto.dev
+    cname_record_target: site.gobierto.test
     a_record_target: 222.111.222.11
   admins:
     preset_admin_email: "admin@gobierto.dev"
@@ -56,6 +62,12 @@ default: &default
   gobierto_observatory:
     year: 2015
   file_uploads_adapter: s3
+  auth_modules:
+    -
+      name: null_strategy
+      description: Null Strategy
+      session_form: NullStrategySessionForm
+      default: false
 
 development:
   <<: *default

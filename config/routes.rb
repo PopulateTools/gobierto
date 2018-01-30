@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       resources :options, only: [:index] do
         collection do
           put :update
+          put :update_annual_data
         end
       end
       resources :feedback, only: [:index]
@@ -101,7 +102,8 @@ Rails.application.routes.draw do
     namespace :gobierto_participation, as: :participation, path: :participation do
       get "/" => "welcome#index"
 
-      resources :processes, only: [:index, :new, :edit, :create, :update] do
+      resources :processes, only: [:index, :new, :edit, :create, :update, :destroy] do
+        put :recover
         post :update_current_stage
         resources :process_stages, only: [:create, :destroy, :edit, :index, :new, :update], controller: "processes/process_stages", as: :process_stages, path: :process_stages do
           resources :pages, only: [:new, :create, :edit, :update], controller: "processes/process_stage_pages", as: :process_stage_page, path: :process_stage_page
@@ -167,6 +169,11 @@ Rails.application.routes.draw do
       get "/" => "welcome#index", as: :root
 
       resource :sessions, only: [:new, :create, :destroy]
+      resource :custom_session, only: [:new, :create, :destroy] do
+        collection do
+          post :auth_callback
+        end
+      end
       resource :registrations, only: [:create]
       resource :confirmations, only: [:new, :create]
       resource :passwords, only: [:create, :edit, :update]
@@ -260,7 +267,6 @@ Rails.application.routes.draw do
       resources :featured_budget_lines, only: [:show]
 
       get "resumen(/:year)" => "budgets#index", as: :budgets
-      get "datos(/:year)" => "budgets#export", as: :budgets_export
       get "partidas/:year/:area_name/:kind" => "budget_lines#index", as: :budget_lines
       get "partidas/:id/:year/:area_name/:kind" => "budget_lines#show", as: :budget_line
       get "budget_line_descendants/:year/:area_name/:kind" => "budget_line_descendants#index", as: :budget_line_descendants
@@ -296,6 +302,16 @@ Rails.application.routes.draw do
   namespace :gobierto_observatory, path: "observatorio" do
     constraints GobiertoSiteConstraint.new do
       root "observatory#index"
+    end
+  end
+
+  # Gobierto Indicators module
+  namespace :gobierto_indicators, path: "indicadores" do
+    constraints GobiertoSiteConstraint.new do
+      root "indicators#index"
+      get "ita(/:year)" => "indicators#ita", as: :indicators_ita
+      get "ip(/:year)" => "indicators#ip", as: :indicators_ip
+      get "gci(/:year)" => "indicators#gci", as: :indicators_gci
     end
   end
 
@@ -338,9 +354,17 @@ Rails.application.routes.draw do
         resources :activities, only: [:index], controller: "issues/activities", path: "actividad"
       end
 
+      resources :scopes, only: [:index, :show], path: "ambitos" do
+        resources :attachments, only: [:index, :show], controller: "scopes/attachments", path: "documentos"
+        resources :events, only: [:index, :show], controller: "scopes/events", path: "agendas"
+        resources :pages, only: [:index, :show], controller: "scopes/pages", path: "noticias"
+        resources :activities, only: [:index], controller: "scopes/activities", path: "actividad"
+      end
+
       resources :attachments, only: [:index, :show], controller: "attachments", path: "documentos"
       resources :events, only: [:index, :show], controller: "events", path: "agendas"
-      resources :pages, only: [:index, :show], controller: "pages", path: "noticias"
+      resources :pages, only: [:show], controller: "pages", path: "paginas"
+      resources :news, only: [:index, :show], controller: "news", path: "noticias"
       resources :activities, only: [:index], controller: "activities", path: "actividad"
     end
   end

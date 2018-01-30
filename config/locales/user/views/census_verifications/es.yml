@@ -16,6 +16,11 @@ es:
             que estás empadronado/a en %{site_name}. Confirma tus datos para continuar
             (serán verificados contra el padrón, si no estás empadronado/a, no te
             podremos verificar)
+        contributions:
+          not_verified: La contribución en la que deseas participar exige que verifiques
+            que estás empadronado/a en %{site_name}. Confirma tus datos para continuar
+            (serán verificados contra el padrón, si no estás empadronado/a, no te
+            podremos verificar)
         flags:
           not_verified: La contribución en la que deseas participar exige que verifiques
             que estás empadronado/a en %{site_name}. Confirma tus datos para continuar

@@ -3,13 +3,17 @@ class User::Subscription::Finder
     find_user_subscriptions_for(subscribable_type, subscribable_id, site_id).include?(user.id)
   end
 
+  def self.user_subscribed_by_broader_subscription_to?(user, subscribable_type, subscribable_id, site_id)
+    find_broader_user_subscriptions_for(subscribable_type, subscribable_id, site_id).include?(user.id)
+  end
+
   def self.subscriptions_for(subscribable_type, subscribable_id, site_id)
     find_user_subscriptions_for(subscribable_type, subscribable_id, site_id)
   end
 
   private
 
-  def self.find_user_subscriptions_for(subject_type, subject_id, site_id)
+  def self.subscriptions_scope_for(subject_type, subject_id, site_id)
     conditions = [{subscribable_type: subject_type, subscribable_id: subject_id, site_id: site_id}]
 
     if subject_id.present?
@@ -33,7 +37,17 @@ class User::Subscription::Finder
     while conditions.any?
       scoped = scoped.or(User::Subscription.where(conditions.pop))
     end
-    scoped.pluck(:user_id).uniq
+    scoped
+  end
+  private_class_method :subscriptions_scope_for
+
+  def self.find_broader_user_subscriptions_for(subject_type, subject_id, site_id)
+    subscriptions_scope_for(subject_type, subject_id, site_id).where(site_id: site_id).where.not(subscribable_type: subject_type, subscribable_id: subject_id).pluck(:user_id).uniq
+  end
+  private_class_method :find_broader_user_subscriptions_for
+
+  def self.find_user_subscriptions_for(subject_type, subject_id, site_id)
+    subscriptions_scope_for(subject_type, subject_id, site_id).pluck(:user_id).uniq
   end
   private_class_method :find_user_subscriptions_for
 

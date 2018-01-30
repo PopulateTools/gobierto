@@ -68,16 +68,14 @@ module GobiertoBudgetConsultations
     end
 
     def test_see_participated_consultations
-      with_current_site(site) do
-        with_signed_in_user(user) do
-          visit @path
+      with_signed_in_user(user) do
+        visit @path
 
-          assert has_selector?("h2", text: "Active consultations")
+        assert has_selector?("h2", text: "Active consultations")
 
-          within ".active-consultations" do
-            assert has_link?("Consulta sobre los presupuestos de Madrid (You already responded)")
-            assert has_link?("Consulta adjunta sobre los presupuestos de Madrid")
-          end
+        within ".active-consultations" do
+          assert has_link?("Consulta sobre los presupuestos de Madrid (You already responded)")
+          assert has_link?("Consulta adjunta sobre los presupuestos de Madrid")
         end
       end
     end

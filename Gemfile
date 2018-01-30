@@ -22,7 +22,7 @@ gem "rollbar"
 gem "ruby_px"
 
 # Frontend
-gem "bourbon"
+gem "bourbon", "~> 4.3.4"
 gem "cocoon"
 gem "d3-rails", "~> 4.8"
 gem "flight-for-rails"
@@ -64,8 +64,7 @@ gem "invisible_captcha"
 gem "redis", "~> 3.3"
 
 # Translations
-gem "i18n-active_record", require: "i18n/active_record"
-gem "json_translate", "~> 3.0"
+gem "json_translate", "~> 4.0"
 
 # Liquid
 gem "liquid", "~> 4.0"
@@ -75,6 +74,9 @@ gem "google-api-client"
 
 # Microsoft Exchange calendars
 gem "exchanger"
+
+# Web Services
+gem "savon", "~> 2.11.1"
 
 group :development, :test do
   gem "byebug", platform: :mri
@@ -87,20 +89,20 @@ group :test do
   gem "capybara"
   gem "capybara-email"
   gem "codecov", "~> 0.1.9", require: false
-  gem "database_cleaner"
   gem "launchy"
+  gem "minitest", "5.11.3"
   gem "minitest-rails"
   gem "minitest-rails-capybara"
   gem "minitest-reporters"
   gem "minitest-retry"
   gem "minitest-stub_any_instance"
+  gem "minitest-stub-const"
   gem "mocha"
   gem "poltergeist"
   gem "spy"
   gem "timecop"
   gem "vcr"
   gem "webmock"
-  gem "minitest-test_profile"
 end
 
 group :development do

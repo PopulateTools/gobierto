@@ -20,6 +20,13 @@ module GobiertoAdmin
         redirect_to admin_gobierto_budgets_options_path
       end
 
+      def update_annual_data
+        site = Site.find(current_site.id)
+        ::GobiertoBudgets::GenerateAnnualLinesJob.perform_later(@site.object)
+        flash[:notice] = t(".success")
+        redirect_to admin_gobierto_budgets_options_path
+      end
+
       private
 
       def gobierto_budgets_params

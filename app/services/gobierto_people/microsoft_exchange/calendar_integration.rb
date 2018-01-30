@@ -54,13 +54,21 @@ module GobiertoPeople
 
         log_missing_folder_error(TARGET_CALENDAR_NAME) and return if target_folder.nil?
 
-        target_folder.expanded_items(start_date: GobiertoCalendars.sync_range_start, end_date: GobiertoCalendars.sync_range_end)
+        # summarized events does not include events description
+        sumarized_events = target_folder.expanded_items(start_date: GobiertoCalendars.sync_range_start, end_date: GobiertoCalendars.sync_range_end)
+
+        if sumarized_events.present?
+          items_ids = sumarized_events.map { |i| i.id }
+          ::Exchanger::GetItem.run(item_ids: items_ids).items
+        else
+          nil
+        end
       end
 
       def sync_event(event)
         filter_result = GobiertoCalendars::FilteringRuleApplier.filter({
           title: event.subject,
-          description: "" # TODO: https://github.com/PopulateTools/gobierto/issues/1127
+          description: event.body.text
         }, configuration.filtering_rules)
 
         filter_result.action = GobiertoCalendars::FilteringRuleApplier::REMOVE if is_private?(event)

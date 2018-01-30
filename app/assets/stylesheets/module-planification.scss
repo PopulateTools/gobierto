@@ -293,15 +293,69 @@ $node-colors: (
         }
       }
     }
-
   }
+
+  .node-project-detail {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    color: $color_text;
+
+    > :first-child {
+      margin-right: 1em;
+    }
+
+    > :last-child {
+      margin-left: 1em;
+    }
+
+    .project-optional {
+      flex: 1 1 0;
+
+      .row {
+        width: 100%;
+        padding: 1em 0;
+        display: flex;
+        justify-content: left;
+      }
+
+      .optional-title {
+        font-weight: bold;
+        text-transform: uppercase;
+        flex-basis: 25%;
+      }
+    }
+
+    .project-mandatory {
+      padding: 1em;
+      flex-basis: 33%;
+      @include border-radius(3px);
+
+      .mandatory-title {
+        font-weight: 200;
+        text-transform: uppercase;
+        color: rgba($color_text, .5);
+      }
+
+      .mandatory-desc {
+        color: $color_text;
+        margin: 0 0 1em;
+
+        &.mandatory-desc--large {
+          font-size: $f2;
+        }
+      }
+    }
+  }
+
+
 
   /* SECTIONS DISPLAYS */
   section.level_1 {
     flex: 1 1 0%;
   }
 
-  section.level_2, section.level_3 {
+  section.level_2, section.level_3, section.level_4 {
     flex: 10;
     padding: 2em 3em;
 
@@ -333,6 +387,10 @@ $node-colors: (
           a {
             color: $color;
           }
+
+          .fa {
+            background: transparentize($color, .9);
+          }
         }
 
         .node-action-line {
@@ -346,6 +404,17 @@ $node-colors: (
                 }
               }
             }
+          }
+        }
+
+        .node-project-detail {
+          .project-optional {
+            .row {
+              border-top: 1px solid rgba($color, .2);
+            }
+          }
+          .project-mandatory {
+            background-color: rgba($color, .2);
           }
         }
 

@@ -41,13 +41,15 @@ this.GobiertoPlans.PlansController = (function() {
         template: '#node-list-template',
         props: ['model'],
         data() {
-          return {}
+          return {
+            open: false
+          }
         },
         methods: {
           t(key) {
             return this.$root.t(key)
           },
-          expand: function() {
+          setActive: function() {
             let l = this.model.level;
 
             if (l === 1) {
@@ -59,7 +61,33 @@ this.GobiertoPlans.PlansController = (function() {
               $('section.level_' + (l + 2)).css("display: flex");
             }
 
-            if (l === 2) this.$emit("toggle");
+            if (l === 2) {
+              this.$emit("toggle");
+              this.open = !this.open;
+            }
+          }
+        }
+      });
+
+      // define the table view component
+      Vue.component('table-view', {
+        template: '#table-view-template',
+        props: ['model'],
+        data() {
+          return {}
+        },
+        methods: {
+          t(key) {
+            return this.$root.t(key)
+          },
+          getProject: function(project) {
+            let l = this.model.level;
+            this.$emit('selection', { ...this.model });
+
+            // hacky
+            $('section.level_' + (l + 1)).hide();
+            $('section.level_' + (l + 2)).velocity("transition.slideRightBigIn");
+            $('section.level_' + (l + 2)).css("display: flex");
           }
         }
       });
@@ -145,10 +173,14 @@ this.GobiertoPlans.PlansController = (function() {
           },
           toggle(i) {
             Vue.set(this.showTable, i, !(this.showTable[i]));
+          },
+          getParent() {
+            this.activeNode = this.json[this.rootid].children[this.activeNode.parent];
           }
         }
       });
     };
+
 
     return PlansController;
   })();

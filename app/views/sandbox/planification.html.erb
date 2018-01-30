@@ -55,9 +55,9 @@
 
         <section class="level_3" v-if="isOpen(1)" :class="['cat_' + color(1) ]">
           <div class="node-breadcrumb mb2">
-            <a data-turbolinks="false">
+            <a data-turbolinks="false" @click="getParent">
               <i class="fa fa-caret-left"></i>
-              Ver todo en {{ t((activeNode.attributes || {}).title) }} <%# TODO: coger nombre del nodo raiz %>
+              Ver todo en {{ t(((json[rootid] || {}).attributes || {}).title) }}
             </a>
           </div>
           <div class="node-action-line">
@@ -74,24 +74,56 @@
               <ul class="action-line--list">
                 <li v-for="(model, index) in activeNode.children">
                   <node-list :model="model" :key="model.id" @toggle="toggle(index)"></node-list>
-                  <table v-if="showTable[index]">
-                    <thead>
-                      <th>Proyecto</th>
-                      <th>Inicio</th>
-                      <th>Estado</th>
-                      <th>Progreso</th>
-                    </thead>
-                    <tbody>
-                      <tr v-for="row in model.children">
-                        <td>{{ t(row.attributes.title) }}</td>
-                        <td>{{ row.attributes.starts_at }}</td>
-                        <td>{{ t(row.attributes.status) }}</td>
-                        <td>{{ row.attributes.progress }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <table-view :model="model" :key="model.id" @selection="setSelection" v-if="showTable[index]"></table-view>
                 </li>
               </ul>
+            </div>
+        </section>
+
+        <section class="level_4" v-if="isOpen(2)" :class="['cat_' + color(2) ]">
+          <div class="node-breadcrumb mb2">
+            <a data-turbolinks="false" @click="getParent">
+              <i class="fa fa-caret-left"></i>
+              Ver todo en {{ t(((json[rootid] || {}).attributes || {}).title) }}
+            </a>
+          </div>
+          <div class="node-action-line">
+
+              <div class="action-line--header node-list cat--negative">
+                <h3>
+                  <i class="fa fa-caret-down"></i>
+                  {{ t((activeNode.attributes || {}).title) }}
+                </h3>
+                <div>{{ (activeNode.children || []).length }} actuaciones</div>
+                <div>{{ (activeNode.attributes || {}).percent }}</div>
+              </div>
+
+              <div class="node-project-detail">
+                <div class="project-optional">
+                  <div class="row">
+                    <div class="optional-title">Objetivos</div>
+                    <div class="optional-desc">Millorar la seguretat dels vianants</div>
+                  </div>
+                  <div class="row">
+                    <div class="optional-title">Temporalidad</div>
+                    <div class="optional-desc">Anual</div>
+                  </div>
+                </div>
+                <div class="project-mandatory">
+                  <div class="row">
+                    <div class="mandatory-title">Progreso</div>
+                    <div class="mandatory-desc mandatory-desc--large">50%</div>
+                  </div>
+                  <div class="row">
+                    <div class="mandatory-title">Inicio</div>
+                    <div class="mandatory-desc">50%</div>
+                  </div>
+                  <div class="row">
+                    <div class="mandatory-title">Estado</div>
+                    <div class="mandatory-desc">50%</div>
+                  </div>
+                </div>
+              </div>
             </div>
         </section>
 
@@ -122,12 +154,32 @@
 <script type="text/x-template" id="node-list-template">
   <div class="node-list">
     <div class="node-title">
-      <div><i class="fa fa-caret-right"></i></div>
-      <h3><a @click="expand" data-turbolinks="false">{{ t(model.attributes.title) }}</a></h3>
+      <div><i class="fa" :class="[(open) ? 'fa-caret-down' : 'fa-caret-right']"></i></div>
+      <h3><a @click="setActive" data-turbolinks="false">{{ t(model.attributes.title) }}</a></h3>
     </div>
     <div>{{ (model.children || []).length }} actuaciones</div>
     <div>{{ model.attributes.percent || 0 }}%</div>
   </div>
+</script>
+
+<!-- table view template -->
+<script type="text/x-template" id="table-view-template">
+  <table>
+    <thead>
+      <th>Proyecto</th>
+      <th>Inicio</th>
+      <th>Estado</th>
+      <th>Progreso</th>
+    </thead>
+    <tbody>
+      <tr v-for="row in model.children" @click="getProject(row)">
+        <td>{{ t(row.attributes.title) }}</td>
+        <td>{{ row.attributes.starts_at }}</td>
+        <td>{{ t(row.attributes.status) }}</td>
+        <td>{{ row.attributes.progress }}</td>
+      </tr>
+    </tbody>
+  </table>
 </script>
 
 <% content_for :javascript_hook do %>

@@ -197,10 +197,12 @@ this.GobiertoBudgets.InvoicesController = (function() {
       style: 'percent'
     });
     document.getElementById("percentile50").innerText = percentileAgg(amount, 0.5).toLocaleString(I18n.locale, {
-      style: 'percent'
+      style: 'percent',
+      minimumFractionDigits: 2
     });
     document.getElementById("percentile10").innerText = percentileAgg(amount, 0.1).toLocaleString(I18n.locale, {
-      style: 'percent'
+      style: 'percent',
+      minimumFractionDigits: 2
     });
 
   }

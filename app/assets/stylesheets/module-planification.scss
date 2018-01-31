@@ -245,6 +245,7 @@ $node-colors: (
       }
 
       table {
+        margin: .5em 0 1em;
         padding: 0 0 0 1.5rem;
         border-spacing: 0 .5em;
         border-collapse: separate;
@@ -327,7 +328,6 @@ $node-colors: (
         font-weight: bold;
         text-transform: uppercase;
         flex-basis: 25%;
-        // min-width: 25%;
       }
 
       .optional-desc {
@@ -381,13 +381,11 @@ $node-colors: (
   }
 
 
-
-  /* SECTIONS DISPLAYS */
-  section.level_1 {
+  section.level_0 {
     flex: 1 1 0%;
   }
 
-  section.level_2, section.level_3, section.level_4 {
+  section:not(.level_0) {
     flex: 10;
     padding: 2em 3em;
 
@@ -408,6 +406,20 @@ $node-colors: (
 
             .fa {
               background: transparentize($color, .9);
+            }
+          }
+
+          // Negative version nodes
+          &.cat--negative {
+            .node-title {
+              h3, h3 a {
+                color: $color_main_negative;
+              }
+
+              .fa {
+                background: $color_main_negative;
+                color: $color;
+              }
             }
           }
         }

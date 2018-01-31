@@ -24,13 +24,13 @@ this.GobiertoPlans.PlansController = (function() {
             this.$emit('selection', { ...this.model });
 
             // REVIEW: Revisar este bloque
-            $('section.level_1 .js-img').velocity({flex: "0"});
-            $('section.level_1 .js-info').velocity({padding: "1.5em"});
-            $('section.level_1 .js-info h3, section.level_1 .js-info span').velocity({"font-size": "1.25rem" });
+            $('section.level_0 .js-img').velocity({flex: "0"});
+            $('section.level_0 .js-info').velocity({padding: "1.5em"});
+            $('section.level_0 .js-info h3, section.level_1 .js-info span').velocity({"font-size": "1.25rem" });
 
-            $('section.level_1').velocity({flex: "0 0 25%"});
-            $('section.level_2').velocity("transition.slideRightBigIn");
-            $('section.level_2').css("display: flex");
+            $('section.level_0').velocity({flex: "0 0 25%"});
+            $('section.level_1').velocity("transition.slideRightBigIn");
+            $('section.level_1').css("display: flex");
 
           }
         }
@@ -42,7 +42,7 @@ this.GobiertoPlans.PlansController = (function() {
         props: ['model'],
         data() {
           return {
-            open: false
+            isOpen: false
           }
         },
         methods: {
@@ -56,14 +56,14 @@ this.GobiertoPlans.PlansController = (function() {
               this.$emit('selection', { ...this.model });
 
               // hacky
-              $('section.level_' + (l + 1)).hide();
-              $('section.level_' + (l + 2)).velocity("transition.slideRightBigIn");
-              $('section.level_' + (l + 2)).css("display: flex");
+              $('section.level_' + l).hide();
+              $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
+              $('section.level_' + (l + 1)).css("display: flex");
             }
 
             if (l === 2) {
               this.$emit("toggle");
-              this.open = !this.open;
+              this.isOpen = !this.isOpen;
             }
           }
         }
@@ -80,14 +80,20 @@ this.GobiertoPlans.PlansController = (function() {
           t(key) {
             return this.$root.t(key)
           },
+          percentFmt(key) {
+            return this.$root.percentFmt(key)
+          },
+          dateFmt(key) {
+            return this.$root.dateFmt(key)
+          },
           getProject: function(project) {
             let l = this.model.level;
             this.$emit('selection', { ...project });
 
             // hacky
-            $('section.level_' + (l + 1)).hide();
-            $('section.level_' + (l + 2)).velocity("transition.slideRightBigIn");
-            $('section.level_' + (l + 2)).css("display: flex");
+            $('section.level_' + l).hide();
+            $('section.level_' + (l + 1)).velocity("transition.slideRightBigIn");
+            $('section.level_' + (l + 1)).css("display: flex");
           }
         }
       });

@@ -34,13 +34,13 @@
 
       <div class="planification-content">
 
-        <section class="level_1">
+        <section class="level_0">
           <div class="node-root" v-for="(model, index) in json" :class="['cat_' + (index % 5 + 1)]"> <%# TODO: reemplazar index % 5 por numero precalculado %>
             <node-root :model="model" :key="model.id" @selection="setSelection"></node-root>
           </div>
         </section>
 
-        <section class="level_2" v-if="isOpen(0)" :class="['cat_' + color(0) ]">
+        <section class="level_1" v-if="isOpen(0)" :class="['cat_' + color(0) ]">
           <div class="lines-header">
             <div>{{ (activeNode.children || []).length }} lineas de actuación</div>
             <div>% progress</div>
@@ -53,7 +53,7 @@
           </ul>
         </section>
 
-        <section class="level_3" v-if="isOpen(1)" :class="['cat_' + color(1) ]">
+        <section class="level_2" v-if="isOpen(1)" :class="['cat_' + color(1) ]">
 
           <%# FIXME: breadcrumb hidden TEMPORARILY %>
           <div class="node-breadcrumb mb2" v-if="false">
@@ -66,12 +66,12 @@
           <div class="node-action-line">
 
               <div class="action-line--header node-list cat--negative">
-                <h3>
-                  <i class="fa fa-caret-down"></i>
-                  {{ t((activeNode.attributes || {}).title) }}
-                </h3>
+                <div class="node-title">
+                  <div><i class="fa fa-caret-down"></i></div>
+                  <h3>{{ t((activeNode.attributes || {}).title) }}</h3>
+                </div>
                 <div>{{ (activeNode.children || []).length }} actuaciones</div>
-                <div>{{ (activeNode.attributes || {}).percent }}</div>
+                <div>{{ percentFmt((activeNode.attributes || {}).percent || 0) }}</div>
               </div>
 
               <ul class="action-line--list">
@@ -83,7 +83,7 @@
             </div>
         </section>
 
-        <section class="level_4" v-if="isOpen(2)" :class="['cat_' + color(2) ]">
+        <section class="level_3" v-if="isOpen(2)" :class="['cat_' + color(2) ]">
 
           <%# FIXME: breadcrumb hidden TEMPORARILY %>
           <div class="node-breadcrumb mb2" v-if="false">
@@ -95,12 +95,7 @@
 
           <div class="node-action-line">
               <div class="action-line--header node-list cat--negative">
-                <h3>
-                  <i class="fa fa-caret-down"></i>
-                  {{ t((activeNode.attributes || {}).title) }}
-                </h3>
-                <div>{{ (activeNode.children || []).length }} actuaciones</div>
-                <div>{{ (activeNode.attributes || {}).percent }}</div>
+                <h3>{{ t((activeNode.attributes || {}).title) }}</h3>
               </div>
 
               <div class="node-project-detail">
@@ -178,7 +173,7 @@
 <script type="text/x-template" id="node-list-template">
   <div class="node-list">
     <div class="node-title">
-      <div><i class="fa" :class="[(open) ? 'fa-caret-down' : 'fa-caret-right']"></i></div>
+      <div><i class="fa" :class="[(isOpen) ? 'fa-caret-down' : 'fa-caret-right']"></i></div>
       <h3><a @click="setActive" data-turbolinks="false">{{ t(model.attributes.title) }}</a></h3>
     </div>
     <div>{{ (model.children || []).length }} actuaciones</div>
@@ -198,9 +193,9 @@
     <tbody>
       <tr v-for="row in model.children" @click="getProject(row)">
         <td>{{ t(row.attributes.title) }}</td>
-        <td>{{ row.attributes.starts_at }}</td>
+        <td>{{ dateFmt(row.attributes.starts_at) }}</td>
         <td>{{ t(row.attributes.status) }}</td>
-        <td>{{ row.attributes.progress }}</td>
+        <td>{{ percentFmt(row.attributes.progress) }}</td>
       </tr>
     </tbody>
   </table>

@@ -151,9 +151,6 @@ this.GobiertoBudgets.InvoicesController = (function() {
 
     // Math results box
     function median(values) {
-      values.sort(function(a, b) {
-        return a - b;
-      });
       var half = Math.floor(values.length / 2);
 
       if (values.length % 2)
@@ -163,6 +160,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
     }
 
     var amount = _.isEmpty(_.map(_data, 'value').map(Number)) ? [0] : _.map(_data, 'value').map(Number);
+    amount.sort(function(b, a) { return a - b; });
 
     document.getElementById("meanBudget").innerText = _.mean(amount).toLocaleString(I18n.locale, {
       style: 'currency',
@@ -177,20 +175,16 @@ this.GobiertoBudgets.InvoicesController = (function() {
     function percentileAgg(arr, p) {
       if (arr.length === 0) return 0;
 
-      arr.sort(function(a, b) {
-        return a - b;
-      }).reverse();
-
       var percentile = _.sum(arr) * p;
       var accumulate = 0;
       var i = 0;
 
       while (accumulate < percentile) {
-        accumulate += +arr[i]
+        accumulate += +arr[i];
         i++;
       }
 
-      return i / arr.length || 0;
+      return (i / arr.length) || 0;
     }
 
     var lt1000 = _.filter(amount, o => o <= 1000).length / _data.length || 0; // Filter those amounts less than 1000
@@ -203,6 +197,9 @@ this.GobiertoBudgets.InvoicesController = (function() {
       style: 'percent'
     });
     document.getElementById("percentile50").innerText = percentileAgg(amount, 0.5).toLocaleString(I18n.locale, {
+      style: 'percent'
+    });
+    document.getElementById("percentile10").innerText = percentileAgg(amount, 0.1).toLocaleString(I18n.locale, {
       style: 'percent'
     });
 

@@ -525,6 +525,8 @@ es:
         mean_and_median: Media y mediana
         mean_and_median_summary: Es decir, la mitad de las facturas son de este importe
           o inferior
+        mean_summary: Importe resultante de sumar los importes de todas las facturas
+          y dividirlo por el número de facturas
         median_amount: importe mediano
         months_distribution: Distribución por meses
         percentile_10_html: El <span id="percentile10"></span> de las facturas concentran

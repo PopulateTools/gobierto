@@ -521,7 +521,7 @@ ca:
         freelances: autònoms
         invoices: Factures
         invoices_from_which: De les quals
-        invoices_sum: factuess sumen un total de
+        invoices_sum: factures sumen un total de
         largest_provider_html: El major proveïdor suposa un <span id="largestProvider"></span>
           de tota la facturació
         last_12_months: Últims 12 mesos
@@ -529,11 +529,13 @@ ca:
           menors de 1.000 €
         loading: Carregant...
         main_providers: Principals proveïdors
-        mean_amount: import mitjà
-        mean_and_median: Mitja i mitjana
+        mean_amount: import mig
+        mean_and_median: Mitjana y mediana
         mean_and_median_summary: És a dir, la meitat de les factures són d'aquest
           import o inferior
-        median_amount: import mitjà
+        mean_summary: Import resultant de sumar els imports de totes les factures
+          dividit pel número de factures
+        median_amount: mediana dels imports
         months_distribution: Distribució per mesos
         percentile_10_html: El <span id="percentile10"></span> de les factures concentren
           el 10 % de la facturació

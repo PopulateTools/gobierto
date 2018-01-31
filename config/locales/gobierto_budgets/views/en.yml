@@ -509,8 +509,10 @@ en:
         main_providers: Main providers
         mean_amount: mean amount
         mean_and_median: Mean and median
-        mean_and_median_summary: It is, half of the invoices are from this amount
+        mean_and_median_summary: That is, half of the invoices are from this amount
           or less
+        mean_summary: Amount resulting from adding the amounts of all the invoices
+          and dividing it by the number of invoices
         median_amount: median amount
         months_distribution: Months distribution
         percentile_10_html: The <span id="percentile10"></span> of the invoices mean

@@ -72,19 +72,30 @@
           <div class="inner nomargin">
             <h3><%= t('.mean_and_median') %></h3>
             <div class="pure-g">
+
               <div class="pure-u-1-2">
+
                 <div class="metric">
                   <span id="meanBudget"></span>&nbsp;<small><%= t('.mean_amount') %></small>
                 </div>
+
+                <div class="explanation explanation--relative">
+                  <%= t('.mean_summary') %>
+                </div>
               </div>
+
               <div class="pure-u-1-2">
+
                 <div class="metric">
                   <span id="medianBudget"></span>&nbsp;<small><%= t('.median_amount') %></small>
                 </div>
+
                 <div class="explanation explanation--relative">
                   <%= t('.mean_and_median_summary') %>
                 </div>
+
               </div>
+
             </div>
           </div>
         </div>

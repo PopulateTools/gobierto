@@ -2,14 +2,14 @@ require "file_uploader"
 
 module GobiertoAdmin
   class FileUploadService
-    attr_reader :file, :site, :collection
+    attr_reader :file, :site, :collection, :x, :y, :w, :h
 
-    def initialize(site:, collection:, attribute_name:, file:, content_disposition: nil, add_suffix: true)
+    def initialize(site:, collection:, attribute_name:, file:, x:, y:, w:, h:, content_disposition: nil, add_suffix: true)
       @adapter = APP_CONFIG['file_uploads_adapter'].presence.try(:to_sym) || :s3
       @site = site
       @collection = collection
       @attribute_name = attribute_name
-      @file = file
+      @file = crop_image(x, y, w, h, file)
       @content_disposition = content_disposition
       @add_suffix = add_suffix
     end
@@ -24,6 +24,22 @@ module GobiertoAdmin
       case @adapter
       when :s3 then FileUploader::S3.new(file: file, file_name: file_name, content_disposition: @content_disposition)
       when :filesystem then FileUploader::Local.new(file: file, file_name: file_name)
+      end
+    end
+
+    def crop_image(x, y, w, h, file)
+      unless x.blank?
+        # manipulate! do |file|
+
+          x = x.to_f
+          y = y.to_f
+          w = w.to_f
+          h = h.to_f
+          #img.crop "#{w}x#{h}+#{x}+#{y}"
+          #image.crop "20x30+10+5"
+
+          #file.crop([[w, h].join('x'), [x, y].join('+')].join('+'))
+        # end
       end
     end
 

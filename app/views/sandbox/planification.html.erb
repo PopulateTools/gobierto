@@ -35,12 +35,12 @@
       <div class="planification-content">
 
         <section class="level_0">
-          <div class="node-root" v-for="(model, index) in json" :class="['cat_' + (index % 5 + 1)]"> <%# TODO: reemplazar index % 5 por numero precalculado %>
+          <div class="node-root" v-for="(model, index) in json" :class="['cat_' + setRootColor(index) ]">
             <node-root :model="model" :key="model.id" @selection="setSelection"></node-root>
           </div>
         </section>
 
-        <section class="level_1" v-if="isOpen(0)" :class="['cat_' + color(0) ]">
+        <section class="level_1" v-if="isOpen(1)" :class="['cat_' + color() ]">
           <div class="lines-header">
             <div>{{ (activeNode.children || []).length }} lineas de actuación</div>
             <div>% progress</div>
@@ -53,7 +53,7 @@
           </ul>
         </section>
 
-        <section class="level_2" v-if="isOpen(1)" :class="['cat_' + color(1) ]">
+        <section class="level_2" v-if="isOpen(2)" :class="['cat_' + color() ]">
 
           <%# FIXME: breadcrumb hidden TEMPORARILY %>
           <div class="node-breadcrumb mb2" v-if="false">
@@ -85,7 +85,7 @@
             </div>
         </section>
 
-        <section class="level_3" v-if="isOpen(2)" :class="['cat_' + color(2) ]">
+        <section class="level_3" v-if="isOpen(3)" :class="['cat_' + color() ]">
 
           <%# FIXME: breadcrumb hidden TEMPORARILY %>
           <div class="node-breadcrumb mb2" v-if="false">

@@ -147,9 +147,11 @@ this.GobiertoPlans.PlansController = (function() {
           dateFmt(date) {
             return new Date(date).toLocaleString(I18n.locale, { year: 'numeric', month: 'short', day: 'numeric' })
           },
-          color(o) {
-            if (this.isEmpty()) return 1;
-            return this.rootid % 5 + 1;
+          color() {
+            return this.rootid % this.json.length + 1; // TODO: el mod no debe ser la longitud del array, sino, la de la variable de colores
+          },
+          setRootColor(index) {
+            return index % this.json.length + 1;
           },
           setSelection(model) {
             this.activeNode = model;
@@ -161,10 +163,7 @@ this.GobiertoPlans.PlansController = (function() {
             }
           },
           isOpen(level) {
-            return level <= this.activeNode.level;
-          },
-          isEmpty() {
-            return _.isEmpty(this.activeNode);
+            return (level - 1) <= this.activeNode.level;
           },
           typeOf(val) {
             if (_.isString(val)) {
@@ -195,7 +194,7 @@ this.GobiertoPlans.PlansController = (function() {
           $('section.level_0').removeAttr('style');
           $('section.level_0 .js-img').removeAttr('style');
           $('section.level_0 .js-info').removeAttr('style');
-          $('section.level_0 .js-info h3, section.level_0 .js-info span').removeAttr('style');
+          $('section.level_0 .js-info h3, section.level_1 .js-info span').removeAttr('style');
         }
       });
     };

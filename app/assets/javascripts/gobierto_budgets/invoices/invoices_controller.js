@@ -138,14 +138,14 @@ this.GobiertoBudgets.InvoicesController = (function() {
     document.getElementById("totalAmount").innerText = _abbrevLargeCurrency(totalAmount);
 
     var _cc = _.countBy(_.uniqBy(_data, 'provider_name'), 'freelance');
-    $('#providerType .number:first').text((_cc.true || 0).toLocaleString());
-    $('#providerType .number:last').text((_cc.false || 0).toLocaleString());
+    $('#providerType .number:first').text((_cc.false || 0).toLocaleString());
+    $('#providerType .number:last').text((_cc.true || 0).toLocaleString());
 
     var _n = _.countBy(_data, 'freelance');
-    $('#providerType .percent:first').text((_n.true/_data.length || 0).toLocaleString(I18n.locale, {
+    $('#providerType .percent:first').text((_n.false/_data.length || 0).toLocaleString(I18n.locale, {
       style: 'percent'
     }));
-    $('#providerType .percent:last').text((_n.false/_data.length || 0).toLocaleString(I18n.locale, {
+    $('#providerType .percent:last').text((_n.true/_data.length || 0).toLocaleString(I18n.locale, {
       style: 'percent'
     }));
 

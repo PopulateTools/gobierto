@@ -327,9 +327,12 @@ $node-colors: (
         font-weight: bold;
         text-transform: uppercase;
         flex-basis: 25%;
+        // min-width: 25%;
       }
 
       .optional-desc {
+        flex-basis: 75%;
+
         &:first-letter {
           text-transform: uppercase;
         }

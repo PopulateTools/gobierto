@@ -82,7 +82,7 @@ this.GobiertoPlans.PlansController = (function() {
           },
           getProject: function(project) {
             let l = this.model.level;
-            this.$emit('selection', { ...this.model });
+            this.$emit('selection', { ...project });
 
             // hacky
             $('section.level_' + (l + 1)).hide();
@@ -142,7 +142,7 @@ this.GobiertoPlans.PlansController = (function() {
               projects: this.json.length
             };
             return detail
-          },
+          }
         },
         methods: {
           getJson: function() {
@@ -151,7 +151,13 @@ this.GobiertoPlans.PlansController = (function() {
             }.bind(this));
           },
           t(key) {
-            return key[I18n.locale]
+            return key[I18n.locale] || key["es"] || key["en"] // fallback translations
+          },
+          percentFmt(value) {
+            return (value / 100).toLocaleString(I18n.locale, { style: 'percent', maximumSignificantDigits: 4 })
+          },
+          dateFmt(date) {
+            return new Date(date).toLocaleString(I18n.locale, { year: 'numeric', month: 'short', day: 'numeric' })
           },
           color(o) {
             if (this.isEmpty()) return 1;
@@ -162,7 +168,8 @@ this.GobiertoPlans.PlansController = (function() {
 
             // To know the root node
             if (this.activeNode.level === 0) {
-              this.rootid = this.activeNode.id
+              // parse first position
+              this.rootid = this.activeNode.uid.toString().charAt(0);
             }
           },
           isOpen(level) {
@@ -170,6 +177,14 @@ this.GobiertoPlans.PlansController = (function() {
           },
           isEmpty() {
             return _.isEmpty(this.activeNode);
+          },
+          typeOf(val) {
+            if (_.isString(val)) {
+              return "string"
+            } else if (_.isArray(val)) {
+              return "array"
+            }
+            return "object";
           },
           toggle(i) {
             Vue.set(this.showTable, i, !(this.showTable[i]));

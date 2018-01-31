@@ -319,11 +319,40 @@ $node-colors: (
         justify-content: left;
       }
 
+      .optional-container {
+        width: 100%;
+      }
+
       .optional-title {
         font-weight: bold;
         text-transform: uppercase;
         flex-basis: 25%;
       }
+
+      .optional-desc {
+        &:first-letter {
+          text-transform: uppercase;
+        }
+
+        > div {
+          margin: 0 0 .5em;
+        }
+      }
+
+      .optional-obj {
+        display: flex;
+        margin: 0 0 1em;
+
+        .optional-title {
+          font-weight: normal;
+          text-transform: none;
+
+          &:first-letter {
+            text-transform: uppercase;
+          }
+        }
+      }
+
     }
 
     .project-mandatory {

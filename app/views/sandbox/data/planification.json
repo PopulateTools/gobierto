@@ -66,8 +66,8 @@
             "level": 2,
             "attributes": {
               "title": {
-                "en": "Necesidades b\u00e1sicas de las familias del Distrito Centro",
-                "es": "Basic needs of District Center families"
+                "es": "Necesidades b\u00e1sicas de las familias del Distrito Centro",
+                "en": "Basic needs of District Center families"
               }
             },
             "children": [
@@ -78,8 +78,8 @@
                 "level": 3,
                 "attributes": {
                   "title": {
-                    "en": "Cubrir las necesidades b\u00e1sicas de las familias a las familias",
-                    "es": "To cover the basic needs of families to families"
+                    "es": "Cubrir las necesidades b\u00e1sicas de las familias a las familias",
+                    "en": "To cover the basic needs of families to families"
                   },
                   "progress": 50.25,
                   "starts_at": "2017-10-31",
@@ -90,7 +90,11 @@
                   },
                   "options": {
                     "objetivos": "Improve pedestrian and vehicle safety",
-                    "temporality": "annual"
+                    "temporality": "annual",
+                    "actividades": {
+                      "previstas": ["Avaluen la gestió realitzada per l’ajuntament d’una ciutat a través d'un conjunt integrat de 80 indicadors agrupat en diverses àrees.", "Pla"],
+                      "realizadas": "Elaboració"
+                    }
                   }
                 },
                 "children": [

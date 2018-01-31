@@ -245,7 +245,7 @@ $node-colors: (
       }
 
       table {
-        margin: .5em 0 1em;
+        margin: 0 0 1em;
         padding: 0 0 0 1.5rem;
         border-spacing: 0 .5em;
         border-collapse: separate;
@@ -257,6 +257,10 @@ $node-colors: (
 
         td {
           border-top: 0;
+
+          &:first-child {
+            width: 60%;
+          }
         }
 
         thead {
@@ -380,6 +384,15 @@ $node-colors: (
     }
   }
 
+  // Animations
+  .slide-fade-enter-active,
+  .slide-fade-leave-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-enter, .slide-fade-leave-to {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
 
   section.level_0 {
     flex: 1 1 0%;

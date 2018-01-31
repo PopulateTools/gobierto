@@ -77,7 +77,9 @@
               <ul class="action-line--list">
                 <li v-for="(model, index) in activeNode.children">
                   <node-list :model="model" :key="model.id" @toggle="toggle(index)"></node-list>
-                  <table-view :model="model" :key="model.id" @selection="setSelection" v-if="showTable[index]"></table-view>
+                  <transition name="slide-fade">
+                    <table-view :model="model" :key="model.id" @selection="setSelection" v-if="showTable[index]"></table-view>
+                  </transition>
                 </li>
               </ul>
             </div>

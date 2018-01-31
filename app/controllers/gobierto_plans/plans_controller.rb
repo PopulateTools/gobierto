@@ -37,6 +37,22 @@ module GobiertoPlans
       @plans = current_site.plans
     end
 
+    def uid(category)
+      uid = ""
+      categories = category.plan.categories
+
+      for i in 0..category.level
+        index = categories.where(level: category.level).index(category)
+        uid = index.to_s + uid
+        if category.parent_id != 0
+          category = categories.where(id: category.parent_id).first
+          uid = "." + uid
+        end
+      end
+
+      uid
+    end
+
     def plan_tree(categories, tree = [])
       categories.each do |category|
         categories = @plan.categories.where(parent_id: category.id)
@@ -51,6 +67,8 @@ module GobiertoPlans
 
         data = if category.level.zero?
                  { id: category.id,
+                   uid: uid(category),
+                   parent_id: category.parent_id,
                    level: category.level,
                    attributes: { title: category.name_translations,
                                  colour: @plan.configuration_data["level0_options"].find { |option| option["slug"] == category.slug }["colour"],
@@ -58,6 +76,8 @@ module GobiertoPlans
                    children: children }
                elsif category_node.present?
                  { id: category.id,
+                   uid: uid(category),
+                   parent_id: category.parent_id,
                    level: category.level,
                    attributes: { title: category.name_translations,
                                  progress: category_node.progress,
@@ -68,6 +88,8 @@ module GobiertoPlans
                    children: children }
                else
                  { id: category.id,
+                   uid: uid(category),
+                   parent_id: category.parent_id,
                    level: category.level,
                    attributes: { title: category.name_translations },
                    children: children }

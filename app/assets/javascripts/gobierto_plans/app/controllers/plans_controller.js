@@ -98,7 +98,7 @@ this.GobiertoPlans.PlansController = (function() {
         }
       });
 
-      new Vue({
+      var app = new Vue({
         el: '#gobierto-planification',
         name: 'gobierto-planification',
         data: {
@@ -109,24 +109,6 @@ this.GobiertoPlans.PlansController = (function() {
         },
         created: function() {
           this.getJson();
-        },
-        mounted: function () {
-          //close everything
-          // REVIEW: provoca error
-          // $(document).click(function (e) {
-          //   e.preventDefault();
-          //
-          //   // if the target of the click isn't the container nor a descendant of the container REVIEW
-          //   var container = $(".planification-content");
-          //   if (!container.is(e.target) && container.has(e.target).length === 0) {
-          //     this.activeNode = {};
-          //
-          //     $('section.level_1').removeAttr('style');
-          //     $('section.level_1 .js-img').removeAttr('style');
-          //     $('section.level_1 .js-info').removeAttr('style');
-          //     $('section.level_1 .js-info h3, section.level_1 .js-info span').removeAttr('style');
-          //   }
-          // }).bind(this);
         },
         watch: {
           activeNode: {
@@ -198,6 +180,22 @@ this.GobiertoPlans.PlansController = (function() {
           getParent() {
             this.activeNode = this.json[this.rootid].children[this.activeNode.parent];
           }
+        }
+      });
+
+      //close everything
+      $(document).click(function (e) {
+        e.preventDefault();
+
+        // if the target of the click isn't the container nor a descendant of the container REVIEW
+        var container = $(".planification-content");
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+          app.activeNode = {};
+
+          $('section.level_0').removeAttr('style');
+          $('section.level_0 .js-img').removeAttr('style');
+          $('section.level_0 .js-info').removeAttr('style');
+          $('section.level_0 .js-info h3, section.level_0 .js-info span').removeAttr('style');
         }
       });
     };

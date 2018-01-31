@@ -11,12 +11,12 @@
           <img id="image" width="100%" src="" alt="Logo">
 
           <div class="actions right">
-            <input type="button" id="btnCrop" value="Crop">
+            <input type="submit" id="btnCrop" value="Crop">
           </div>
         </div>
 
         <% if f.object.avatar_url.present? %>
-          <%= image_tag f.object.avatar_url, height: 150 %>
+          <%= image_tag f.object.avatar_url, height: 150, id: :saved_image %>
         <% end %>
 
         <%= f.file_field :avatar_file, id: :person_avatar_image %>

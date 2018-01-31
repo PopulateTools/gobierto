@@ -29,17 +29,22 @@ module GobiertoAdmin
 
     def crop_image(x, y, w, h, file)
       unless x.blank?
-        # manipulate! do |file|
+        x = x.to_i
+        y = y.to_i
+        width = w.to_i
+        height = h.to_i
+        image_response = Cloudinary::Uploader.upload(file.tempfile.path, :width => width, :height => height, :x  => x, :y => y, :crop => :crop, :format => 'png')
+        url = image_response["url"]
 
-          x = x.to_f
-          y = y.to_f
-          w = w.to_f
-          h = h.to_f
-          #img.crop "#{w}x#{h}+#{x}+#{y}"
-          #image.crop "20x30+10+5"
+        tmp_file = Tempfile.new
+        tmp_file.binmode
+        tmp_file.write(open(url).read)
 
-          #file.crop([[w, h].join('x'), [x, y].join('+')].join('+'))
-        # end
+        uploaded_file = ActionDispatch::Http::UploadedFile.new(:tempfile => tmp_file, :original_filename => file.original_filename)
+        uploaded_file.original_filename = file.original_filename
+        uploaded_file.content_type = file.content_type
+        uploaded_file.headers = file.headers
+        uploaded_file
       end
     end
 

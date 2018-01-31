@@ -18,8 +18,6 @@ this.GobiertoAdmin.PersonController = (function() {
         },
         callbacks: {
           open: function() {
-            console.log('Popup is opened');
-
             if ($loaded_image.files && $loaded_image.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function () {
@@ -29,12 +27,9 @@ this.GobiertoAdmin.PersonController = (function() {
 
                   var cropper = new Cropper(output, {
                       aspectRatio: 1 / 1,
-                      crop: function(e) {
-                          console.log('"crop" event has fired.');
-                      }
+                      minCropBoxWidth: 500,
+                      minCropBoxHeight: 500
                   });
-
-
                 }
                 reader.readAsDataURL($loaded_image.files[0]);
             }
@@ -52,22 +47,13 @@ this.GobiertoAdmin.PersonController = (function() {
         var imgurl =  output.cropper.getCroppedCanvas().toDataURL("image/png");
 
         $.magnificPopup.close();
-        var file = document.getElementById('person_avatar_image');
-        //file.val = output.cropper.getCroppedCanvas().toDataURL("image/png");
-        image = new Image();
-        image = imgurl;
-        file.val = "";
-        file.val = image;
 
+        $('#saved_image').hide();
 
         $crop_x.val(output.cropper.getData()["x"]);
         $crop_y.val(output.cropper.getData()["y"]);
         $crop_w.val(output.cropper.getData()["width"]);
         $crop_h.val(output.cropper.getData()["height"]);
-        //image.src = imgurl;
-        // Get a string base 64 data url
-        //var croppedImageDataURL = output.cropper('getCroppedCanvas').toDataURL("image/png");
-        //$result.append( $('<img>').attr('src', croppedImageDataURL) );
     });
 
   }

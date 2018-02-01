@@ -3,7 +3,7 @@
   <% if attachable.attachments && attachable.attachments.any? %>
     <% attachable.attachments.each do |attachment| %>
       <div class='document'>
-        <%= link_to attachment.name , attachment.url, target: '_blank' %>
+        <%= link_to attachment.name , attachment.human_readable_path, target: '_blank' %>
         <div class='soft'>
           <small>
             <%= filetype_icon(attachment) %>

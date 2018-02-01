@@ -52,7 +52,7 @@ module GobiertoAdmin
         assert array_match(attachment_attributes, attachment.keys)
 
         assert_equal "PDF Attachment Name", attachment["name"]
-        assert_equal "http://host.com/attachments/pdf-attachment.pdf", attachment["url"]
+        assert_equal "http://host.com/attachments/super-long-and-ugly-aws-id/pdf-attachment.pdf", attachment["url"]
         assert_equal 2, cms_page.reload.attachments.count
       end
 

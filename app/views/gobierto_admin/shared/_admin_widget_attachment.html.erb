@@ -124,7 +124,7 @@
     <div class="file-list" v-if="showFiles">
       <ul>
         <li v-for="attachment in attachments" :key="attachment.id">
-          <a @mouseover="popover" :href="attachment.url" target="_blank" :data-attachment-id="attachment.id">{{attachment.name || attachment.file_name}}</a>
+          <a @mouseover="popover" :href="attachment.human_readable_path" target="_blank" :data-attachment-id="attachment.id">{{attachment.name || attachment.file_name}}</a>
         </li>
       </ul>
 

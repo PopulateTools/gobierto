@@ -1,4 +1,4 @@
-<h1><%= link_to attachment.name, attachment.url, target: '_blank' %></h1>
+<h1><%= link_to attachment.name, attachment.human_readable_path, target: '_blank' %></h1>
 <div class='meta'>
   <time>
     <%= l(attachment.updated_at, format: :long) %>

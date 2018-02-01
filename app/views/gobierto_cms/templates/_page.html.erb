@@ -42,7 +42,7 @@
               <h3><%= t('.documents') %></h3>
               <% @page.attachments.each do |attachment| %>
                 <div class="file">
-                  <%= link_to attachment.url do %>
+                  <%= link_to attachment.human_readable_path do %>
                     <div class="icon"><%= filetype_icon(attachment) %></div>
                     <h4><%= attachment.name %></h4>
                     <div class="meta">

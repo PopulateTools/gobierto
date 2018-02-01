@@ -21,11 +21,6 @@ module GobiertoBudgets
         .last
     end
 
-    def has_data?(variable, year)
-      r = send(variable, year)
-      r.present? && r != 0
-    end
-
     def total_budget_per_inhabitant(year = nil)
       year ||= @year
       BudgetTotal.budgeted_for(@place.id, year, BudgetLine::EXPENSE).to_f / (population(year) || population(year-1) || population(year-2)).to_f
@@ -140,18 +135,6 @@ module GobiertoBudgets
       return 0 if income2 == 0
 
       return ((income1/income2)*100).round(2)
-    end
-
-    def latest_available(variable, year = nil)
-      year ||= @year
-      value = []
-      year.downto(2010).each do |y|
-        if has_data?(variable, y)
-          value = {value: send(variable,y), year: y}
-          break
-        end
-      end
-      value
     end
 
     def percentage_difference(options)

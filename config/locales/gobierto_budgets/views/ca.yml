@@ -530,7 +530,7 @@ ca:
         loading: Carregant...
         main_providers: Principals proveïdors
         mean_amount: import mig
-        mean_and_median: Mitjana y mediana
+        mean_and_median: Mitjana i mediana
         mean_and_median_summary: És a dir, la meitat de les factures són d'aquest
           import o inferior
         mean_summary: Import resultant de sumar els imports de totes les factures

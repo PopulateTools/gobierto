@@ -49,6 +49,23 @@ class User::Subscription::FinderTest < ActiveSupport::TestCase
       assert subject.user_subscribed_to?(user, subscribable_type, subscribable_id, site.id)
       refute subject.user_subscribed_to?(other_user, subscribable_type, subscribable_id, site.id)
     end
+
+    [
+      ["GobiertoCalendars::Event", person_event.id],
+      ["GobiertoCalendars::Event", nil],
+      ["GobiertoPeople::Person", person.id],
+      ["GobiertoPeople::Person", nil],
+      ["GobiertoPeople", nil]
+    ].each do |subscribable_type, subscribable_id|
+      assert subject.user_subscribed_by_broader_subscription_to?(user, subscribable_type, subscribable_id, site.id)
+    end
+
+    [
+      ["Site", site.id]
+    ].each do |subscribable_type, subscribable_id|
+      refute subject.user_subscribed_by_broader_subscription_to?(user, subscribable_type, subscribable_id, site.id)
+    end
+
   end
 
   def test_user_subscribed_to_when_subscribed_to_module
@@ -98,6 +115,7 @@ class User::Subscription::FinderTest < ActiveSupport::TestCase
       ["GobiertoPeople::Person", person.id]
     ].each do |subscribable_type, subscribable_id|
       assert subject.user_subscribed_to?(user, subscribable_type, subscribable_id, site.id)
+      refute subject.user_subscribed_by_broader_subscription_to?(user, subscribable_type, subscribable_id, site.id)
       refute subject.user_subscribed_to?(other_user, subscribable_type, subscribable_id, site.id)
     end
 

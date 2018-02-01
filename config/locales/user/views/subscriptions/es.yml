@@ -38,6 +38,7 @@ es:
         follow_process: Seguir proceso
         follow_scope: Seguir ámbito
         issue_followed: "¡Tema seguido!"
+        manage_subscriptions: Gestionar tus alertas
         person_followed: "¡Persona seguida!"
         process_followed: "¡Proceso seguido!"
         scope_followed: "¡Ámbito seguido!"

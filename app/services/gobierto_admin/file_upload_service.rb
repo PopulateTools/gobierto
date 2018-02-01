@@ -33,7 +33,7 @@ module GobiertoAdmin
         y = y.to_i
         width = w.to_i
         height = h.to_i
-        image_response = Cloudinary::Uploader.upload(file.tempfile.path, :width => width, :height => height, :x  => x, :y => y, :crop => :crop, :format => 'png')
+        image_response = ::Cloudinary::Uploader.upload(file.tempfile.path, :width => width, :height => height, :x  => x, :y => y, :crop => :crop, :format => 'png')
         url = image_response["url"]
 
         tmp_file = Tempfile.new

@@ -8,6 +8,19 @@ this.GobiertoPlans.PlansController = (function() {
 
     function _loadPlan() {
 
+      // filters
+      Vue.filter('translate', function (key) {
+        return key[I18n.locale] || key["es"] || key["en"] // fallback translations
+      });
+
+      Vue.filter('percent', function (value) {
+        return (value / 100).toLocaleString(I18n.locale, { style: 'percent', maximumSignificantDigits: 4 })
+      });
+
+      Vue.filter('date', function (date) {
+        return new Date(date).toLocaleString(I18n.locale, { year: 'numeric', month: 'short', day: 'numeric' })
+      });
+
       // define the node root component
       Vue.component('node-root', {
         template: '#node-root-template',
@@ -16,9 +29,6 @@ this.GobiertoPlans.PlansController = (function() {
           return {}
         },
         methods: {
-          t(key) {
-            return this.$root.t(key)
-          },
           open() {
             // Trigger event
             this.$emit('selection', { ...this.model });
@@ -46,9 +56,6 @@ this.GobiertoPlans.PlansController = (function() {
           }
         },
         methods: {
-          t(key) {
-            return this.$root.t(key)
-          },
           setActive: function() {
             let l = this.model.level;
 
@@ -77,15 +84,6 @@ this.GobiertoPlans.PlansController = (function() {
           return {}
         },
         methods: {
-          t(key) {
-            return this.$root.t(key)
-          },
-          percentFmt(key) {
-            return this.$root.percentFmt(key)
-          },
-          dateFmt(key) {
-            return this.$root.dateFmt(key)
-          },
           getProject: function(project) {
             let l = this.model.level;
             this.$emit('selection', { ...project });
@@ -137,15 +135,6 @@ this.GobiertoPlans.PlansController = (function() {
             $.getJSON('/sandbox/data/planification.json', function(json) {
               this.json = json;
             }.bind(this));
-          },
-          t(key) {
-            return key[I18n.locale] || key["es"] || key["en"] // fallback translations
-          },
-          percentFmt(value) {
-            return (value / 100).toLocaleString(I18n.locale, { style: 'percent', maximumSignificantDigits: 4 })
-          },
-          dateFmt(date) {
-            return new Date(date).toLocaleString(I18n.locale, { year: 'numeric', month: 'short', day: 'numeric' })
           },
           color() {
             return this.rootid % this.json.length + 1; // TODO: el mod no debe ser la longitud del array, sino, la de la variable de colores

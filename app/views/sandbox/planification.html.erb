@@ -59,7 +59,7 @@
           <div class="node-breadcrumb mb2" v-if="false">
             <a data-turbolinks="false" @click="getParent">
               <i class="fa fa-caret-left"></i>
-              Ver todo en {{ t(((json[rootid] || {}).attributes || {}).title) }}
+              Ver todo en {{ ((json[rootid] || {}).attributes || {}).title | translate }}
             </a>
           </div>
 
@@ -68,10 +68,10 @@
               <div class="action-line--header node-list cat--negative">
                 <div class="node-title">
                   <div><i class="fa fa-caret-down"></i></div>
-                  <h3>{{ t((activeNode.attributes || {}).title) }}</h3>
+                  <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
                 </div>
                 <div>{{ (activeNode.children || []).length }} actuaciones</div>
-                <div>{{ percentFmt((activeNode.attributes || {}).percent || 0) }}</div>
+                <div>{{ (activeNode.attributes || {}).percent || 0 | percent }}</div>
               </div>
 
               <ul class="action-line--list">
@@ -91,13 +91,13 @@
           <div class="node-breadcrumb mb2" v-if="false">
             <a data-turbolinks="false" @click="getParent">
               <i class="fa fa-caret-left"></i>
-              Ver todo en {{ t(((json[rootid] || {}).attributes || {}).title) }}
+              Ver todo en {{ ((json[rootid] || {}).attributes || {}).title | translate }}
             </a>
           </div>
 
           <div class="node-action-line">
               <div class="action-line--header node-list cat--negative">
-                <h3>{{ t((activeNode.attributes || {}).title) }}</h3>
+                <h3>{{ (activeNode.attributes || {}).title | translate }}</h3>
               </div>
 
               <div class="node-project-detail">
@@ -128,19 +128,19 @@
                 <div class="project-mandatory">
                   <div class="row">
                     <div class="mandatory-title">Progreso</div>
-                    <div class="mandatory-desc mandatory-desc--large">{{ percentFmt(activeNode.attributes.progress) }}</div>
+                    <div class="mandatory-desc mandatory-desc--large">{{ activeNode.attributes.progress | percent }}</div>
                   </div>
                   <div class="row">
                     <div class="mandatory-title">Inicio</div>
-                    <div class="mandatory-desc">{{ dateFmt(activeNode.attributes.starts_at) }}</div>
+                    <div class="mandatory-desc">{{ activeNode.attributes.starts_at | date }}</div>
                   </div>
                   <div class="row">
                     <div class="mandatory-title">Fin</div>
-                    <div class="mandatory-desc">{{ dateFmt(activeNode.attributes.ends_at) }}</div>
+                    <div class="mandatory-desc">{{ activeNode.attributes.ends_at | date }}</div>
                   </div>
                   <div class="row">
                     <div class="mandatory-title">Estado</div>
-                    <div class="mandatory-desc">{{ t(activeNode.attributes.status) }}</div>
+                    <div class="mandatory-desc">{{ activeNode.attributes.status | translate }}</div>
                   </div>
                 </div>
               </div>
@@ -164,7 +164,7 @@
     <div class="node-info js-info">
       <div class="info-progress progress" :style="{ width: model.attributes.complete }"></div>
       <div class="info-content">
-        <h3>{{ t(model.attributes.title) }}</h3>
+        <h3>{{ model.attributes.title | translate }}</h3>
         <span>{{ model.attributes.complete }}</span>
       </div>
     </div>
@@ -176,10 +176,10 @@
   <div class="node-list">
     <div class="node-title">
       <div><i class="fa" :class="[(isOpen) ? 'fa-caret-down' : 'fa-caret-right']"></i></div>
-      <h3><a @click="setActive" data-turbolinks="false">{{ t(model.attributes.title) }}</a></h3>
+      <h3><a @click="setActive" data-turbolinks="false">{{ model.attributes.title | translate }}</a></h3>
     </div>
     <div>{{ (model.children || []).length }} actuaciones</div>
-    <div>{{ model.attributes.percent || 0 }}%</div>
+    <div>{{ model.attributes.percent || 0 | percent }}</div>
   </div>
 </script>
 
@@ -194,10 +194,10 @@
     </thead>
     <tbody>
       <tr v-for="row in model.children" @click="getProject(row)">
-        <td>{{ t(row.attributes.title) }}</td>
-        <td>{{ dateFmt(row.attributes.starts_at) }}</td>
-        <td>{{ t(row.attributes.status) }}</td>
-        <td>{{ percentFmt(row.attributes.progress) }}</td>
+        <td>{{ row.attributes.title | translate }}</td>
+        <td>{{ row.attributes.starts_at | date }}</td>
+        <td>{{ row.attributes.status | translate }}</td>
+        <td>{{ row.attributes.progress | percent }}</td>
       </tr>
     </tbody>
   </table>

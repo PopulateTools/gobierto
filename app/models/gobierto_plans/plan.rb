@@ -7,6 +7,7 @@ module GobiertoPlans
     belongs_to :site
     belongs_to :plan_type
     has_many :categories
+    has_many :nodes, through: :categories
 
     serialize :configuration_data
 

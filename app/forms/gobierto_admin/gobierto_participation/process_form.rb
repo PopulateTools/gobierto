@@ -32,8 +32,6 @@ module GobiertoAdmin
 
       trackable_on :process
 
-      # notify_changed :starts
-      # notify_changed :ends
       notify_changed :visibility_level
 
       def initialize(options = {})
@@ -118,7 +116,7 @@ module GobiertoAdmin
       end
 
       def notify?
-        process.active?
+        process.created_at == process.updated_at
       end
 
       private

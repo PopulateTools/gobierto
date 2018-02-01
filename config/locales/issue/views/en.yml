@@ -2,4 +2,4 @@
 en:
   issue:
     events:
-      issue_description_translations_changed: 'Update theme: %{subject_name}'
+      issue_description_translations_changed: New theme created

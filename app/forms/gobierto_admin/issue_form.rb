@@ -35,6 +35,10 @@ module GobiertoAdmin
       @site ||= Site.find_by(id: site_id)
     end
 
+    def notify?
+      issue.created_at == issue.updated_at
+    end
+
     private
 
     def build_issue

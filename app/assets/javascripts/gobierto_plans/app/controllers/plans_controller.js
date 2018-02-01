@@ -25,13 +25,24 @@ this.GobiertoPlans.PlansController = (function() {
       Vue.component('node-root', {
         template: '#node-root-template',
         props: ['model'],
-        data() {
+        data: function() {
           return {}
         },
         methods: {
-          open() {
+          open: function() {
+            // { ...this.model } conversion to ES5
+            var _extends =
+              Object.assign ||
+              function(a) {
+                for (var c, b = 1; b < arguments.length; b++)
+                  for (var d in ((c = arguments[b]), c))
+                    Object.prototype.hasOwnProperty.call(c, d) && (a[d] = c[d]);
+                return a;
+              },
+              model = _extends({}, (void 0).model);
+
             // Trigger event
-            this.$emit('selection', { ...this.model });
+            this.$emit('selection', model);
 
             // REVIEW: Revisar este bloque
             $('section.level_0 .js-img').velocity({flex: "0"});
@@ -50,17 +61,28 @@ this.GobiertoPlans.PlansController = (function() {
       Vue.component('node-list', {
         template: '#node-list-template',
         props: ['model'],
-        data() {
+        data: function() {
           return {
             isOpen: false
           }
         },
         methods: {
           setActive: function() {
-            let l = this.model.level;
+            var l = this.model.level;
 
             if (l === 1) {
-              this.$emit('selection', { ...this.model });
+              // { ...this.model } conversion to ES5
+              var _extends =
+                Object.assign ||
+                function(a) {
+                  for (var c, b = 1; b < arguments.length; b++)
+                    for (var d in ((c = arguments[b]), c))
+                      Object.prototype.hasOwnProperty.call(c, d) && (a[d] = c[d]);
+                  return a;
+                },
+                model = _extends({}, (void 0).model);
+
+              this.$emit('selection', model);
 
               // hacky
               $('section.level_' + l).hide();
@@ -80,13 +102,25 @@ this.GobiertoPlans.PlansController = (function() {
       Vue.component('table-view', {
         template: '#table-view-template',
         props: ['model'],
-        data() {
+        data: function() {
           return {}
         },
         methods: {
           getProject: function(project) {
-            let l = this.model.level;
-            this.$emit('selection', { ...project });
+            // { ...this.model } conversion to ES5
+            var l = this.model.level;
+
+            var _extends =
+              Object.assign ||
+              function(a) {
+                for (var c, b = 1; b < arguments.length; b++)
+                  for (var d in ((c = arguments[b]), c))
+                    Object.prototype.hasOwnProperty.call(c, d) && (a[d] = c[d]);
+                return a;
+              },
+              project = _extends({}, (void 0).project);
+
+            this.$emit('selection', project);
 
             // hacky
             $('section.level_' + l).hide();
@@ -118,9 +152,9 @@ this.GobiertoPlans.PlansController = (function() {
           }
         },
         computed: {
-          detail() {
+          detail: function() {
             if (!this.json.length) return {}
-            let detail = {};
+            var detail = {};
             detail = {
               roots: this.json.length,
               lines: _.flatten(_.map(this.json, 'children')).length,
@@ -136,13 +170,13 @@ this.GobiertoPlans.PlansController = (function() {
               this.json = json;
             }.bind(this));
           },
-          color() {
+          color: function() {
             return this.rootid % this.json.length + 1; // TODO: el mod no debe ser la longitud del array, sino, la de la variable de colores
           },
-          setRootColor(index) {
+          setRootColor: function(index) {
             return index % this.json.length + 1;
           },
-          setSelection(model) {
+          setSelection: function(model) {
             this.activeNode = model;
 
             // To know the root node
@@ -151,10 +185,10 @@ this.GobiertoPlans.PlansController = (function() {
               this.rootid = this.activeNode.uid.toString().charAt(0);
             }
           },
-          isOpen(level) {
+          isOpen: function(level) {
             return (level - 1) <= this.activeNode.level;
           },
-          typeOf(val) {
+          typeOf: function(val) {
             if (_.isString(val)) {
               return "string"
             } else if (_.isArray(val)) {
@@ -162,10 +196,10 @@ this.GobiertoPlans.PlansController = (function() {
             }
             return "object";
           },
-          toggle(i) {
+          toggle: function(i) {
             Vue.set(this.showTable, i, !(this.showTable[i]));
           },
-          getParent() {
+          getParent: function() {
             this.activeNode = this.json[this.rootid].children[this.activeNode.parent];
           }
         }

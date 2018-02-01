@@ -53,6 +53,54 @@ module GobiertoPlans
       uid
     end
 
+    def children_progress(category)
+      descendants_array = category.descendants
+      descendants = GobiertoPlans::Category.where(id: descendants_array.map(&:id))
+      max_level = descendants.maximum(:level)
+
+      descendants_leaves = descendants.where(level: max_level)
+      if descendants_leaves.any?
+        descendants_leaves_id = descendants_leaves.pluck(:id)
+        node_ids = GobiertoPlans::CategoriesNode.where(category_id: descendants_leaves_id).pluck(:node_id)
+        nodes = GobiertoPlans::Node.where(id: node_ids)
+        progress_sum = nodes.sum(:progress)/node_ids.length
+      else
+        0
+      end
+    end
+
+    def children_levels(category)
+      childrens = {}
+
+      descendants_array = category.descendants
+
+      unless descendants_array.empty?
+        descendants = GobiertoPlans::Category.where(id: descendants_array.map(&:id))
+        max_level = descendants.maximum(:level)
+        min_level = descendants.minimum(:level)
+
+        for i in min_level..max_level
+          level_children = descendants.where(level: i)
+          childrens["level_#{i.to_s}"] = level_children.size
+
+          if i == max_level
+            child_leave = level_children.first
+            node_ids = GobiertoPlans::CategoriesNode.where(category_id: child_leave.id).pluck(:node_id)
+            nodes = GobiertoPlans::Node.where(id: node_ids)
+            childrens["level_#{(i + 1).to_s}"] = nodes.size
+          end
+        end
+      else
+        node_ids = GobiertoPlans::CategoriesNode.where(category_id: category.id).pluck(:node_id)
+        nodes = GobiertoPlans::Node.where(id: node_ids)
+        if nodes.any?
+          childrens["level_#{(category.level + 1).to_s}"] = nodes.size
+        end
+      end
+
+      childrens
+    end
+
     def plan_tree(categories, tree = [])
       categories.each do |category|
         categories = @plan.categories.where(parent_id: category.id)
@@ -69,15 +117,18 @@ module GobiertoPlans
                  { id: category.id,
                    uid: uid(category),
                    parent_id: category.parent_id,
+                   children_progress: children_progress(category),
+                   children_levels: children_levels(category),
                    level: category.level,
                    attributes: { title: category.name_translations,
-                                 colour: @plan.configuration_data["level0_options"].find { |option| option["slug"] == category.slug }["colour"],
                                  img: @plan.configuration_data["level0_options"].find { |option| option["slug"] == category.slug }["logo"] },
                    children: children }
                elsif category_node.present?
                  { id: category.id,
                    uid: uid(category),
                    parent_id: category.parent_id,
+                   children_progress: children_progress(category),
+                   children_levels: children_levels(category),
                    level: category.level,
                    attributes: { title: category.name_translations,
                                  progress: category_node.progress,
@@ -90,6 +141,8 @@ module GobiertoPlans
                  { id: category.id,
                    uid: uid(category),
                    parent_id: category.parent_id,
+                   children_progress: children_progress(category),
+                   children_levels: children_levels(category),
                    level: category.level,
                    attributes: { title: category.name_translations },
                    children: children }

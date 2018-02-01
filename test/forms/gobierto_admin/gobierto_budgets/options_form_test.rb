@@ -49,7 +49,8 @@ JSON
           receipt_configuration: receipt_configuration,
           comparison_context_table_enabled: '1',
           comparison_compare_municipalities: [28065, 28001],
-          comparison_show_widget: '1'
+          comparison_show_widget: '1',
+          providers_enabled: '1'
         )
       end
 
@@ -62,7 +63,8 @@ JSON
           receipt_configuration: receipt_configuration,
           comparison_context_table_enabled: '1',
           comparison_compare_municipalities: [28065, 28001],
-          comparison_show_widget: '1'
+          comparison_show_widget: '1',
+          providers_enabled: '1'
         )
       end
 
@@ -72,7 +74,8 @@ JSON
           elaboration_enabled: '1',
           budget_lines_feedback_enabled: '0',
           receipt_enabled: '1',
-          receipt_configuration: 'invalid_json'
+          receipt_configuration: 'invalid_json',
+          providers_enabled: '1'
         )
       end
 
@@ -85,7 +88,8 @@ JSON
           receipt_configuration: '',
           comparison_context_table_enabled: '0',
           comparison_compare_municipalities: [],
-          comparison_show_widget: '0'
+          comparison_show_widget: '0',
+          providers_enabled: '1'
         )
       end
 
@@ -98,6 +102,7 @@ JSON
         assert_equal "email1@example.com", site.gobierto_budgets_settings.settings["feedback_emails"]
         assert site.gobierto_budgets_settings.settings["budgets_receipt_enabled"]
         assert_equal receipt_configuration, site.gobierto_budgets_settings.settings["budgets_receipt_configuration"]
+        assert site.gobierto_budgets_settings.settings["budgets_providers_enabled"]
       end
 
       def test_save_valid_form_feedback_disabled
@@ -108,6 +113,7 @@ JSON
         assert site.gobierto_budgets_settings.settings["budgets_elaboration"]
         refute site.gobierto_budgets_settings.settings["budget_lines_feedback_enabled"]
         assert site.gobierto_budgets_settings.settings["budgets_receipt_enabled"]
+        assert site.gobierto_budgets_settings.settings["budgets_providers_enabled"]
       end
 
       def test_error_messages_with_invalid_attributes

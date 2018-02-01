@@ -66,7 +66,7 @@ module PopulateData
 
       def setup_http_client
         http_client = Net::HTTP.new(request_uri.host, request_uri.port)
-        http_client.use_ssl = true
+        # http_client.use_ssl = true
 
         http_client
       end

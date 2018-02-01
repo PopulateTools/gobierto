@@ -17,14 +17,38 @@ module GobiertoPlans
       @plan ||= gobierto_plans_plans(:strategic_plan)
     end
 
+    def axes
+      @axes ||= plan.categories.where(level: 0)
+    end
+
+    def action_lines
+      @action_lines ||= plan.categories.where(level: 1)
+    end
+
+    def actions
+      @actions ||= plan.categories.where(level: 2)
+    end
+
+    def projects
+      @projects ||= plan.categories.where(level: 3)
+    end
+
     def test_indicator
       with_javascript do
         with_current_site(site) do
           visit @path
-          byebug
-          # assert has_content? plan.title
-          # assert has_content? plan.description
 
+          assert has_content? "Strategic Plan description"
+          assert has_content? "#{axes.size} eixos"
+          assert has_content? "#{action_lines.size} línies d'actuació"
+          assert has_content? "#{actions.size} actuacions"
+          assert has_content? "#{projects.size} projectes"
+
+          within ".planification-content" do
+            axes.each do |axe|
+              assert has_content? axe.name
+            end
+          end
         end
       end
     end

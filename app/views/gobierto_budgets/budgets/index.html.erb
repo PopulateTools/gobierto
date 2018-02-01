@@ -7,7 +7,7 @@
 <% end %>
 
 <% content_for :body_attributes do %>
-  <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}" data-max-year="#{Date.today.year}"} %>
+  <%== %Q{data-bubbles-data="#{bubbles_data_path(current_site)}" data-max-year="#{GobiertoBudgets::SearchEngineConfiguration::Year.last}"} %>
 <% end %>
 
 <div class="column">

@@ -2,9 +2,9 @@ module GobiertoAttachments
   class AttachmentsController < GobiertoAttachments::ApplicationController
 
     before_action :load_attachment
+    layout false
 
     def show
-      redirect_to @attachment.url
     end
 
     private

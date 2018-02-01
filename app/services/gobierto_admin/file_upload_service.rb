@@ -4,7 +4,7 @@ module GobiertoAdmin
   class FileUploadService
     attr_reader :file, :site, :collection, :x, :y, :w, :h
 
-    def initialize(site:, collection:, attribute_name:, file:, x:, y:, w:, h:, content_disposition: nil, add_suffix: true)
+    def initialize(site:, collection:, attribute_name:, file:, x: nil, y: nil, w: nil, h: nil, content_disposition: nil, add_suffix: true)
       @adapter = APP_CONFIG['file_uploads_adapter'].presence.try(:to_sym) || :s3
       @site = site
       @collection = collection
@@ -28,23 +28,32 @@ module GobiertoAdmin
     end
 
     def crop_image(x, y, w, h, file)
-      unless x.blank?
+      if x.present? && x.positive?
         x = x.to_i
         y = y.to_i
         width = w.to_i
         height = h.to_i
-        image_response = ::Cloudinary::Uploader.upload(file.tempfile.path, :width => width, :height => height, :x  => x, :y => y, :crop => :crop, :format => 'png')
+        image_response = ::Cloudinary::Uploader.upload(file.tempfile.path,
+                                                       width: width,
+                                                       height: height,
+                                                       x: x,
+                                                       y: y,
+                                                       crop: :crop,
+                                                       format: "png")
         url = image_response["url"]
 
         tmp_file = Tempfile.new
         tmp_file.binmode
         tmp_file.write(open(url).read)
 
-        uploaded_file = ActionDispatch::Http::UploadedFile.new(:tempfile => tmp_file, :original_filename => file.original_filename)
+        uploaded_file = ActionDispatch::Http::UploadedFile.new(tempfile: tmp_file,
+                                                               original_filename: file.original_filename)
         uploaded_file.original_filename = file.original_filename
         uploaded_file.content_type = file.content_type
         uploaded_file.headers = file.headers
         uploaded_file
+      else
+        file
       end
     end
 

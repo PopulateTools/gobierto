@@ -171,8 +171,7 @@ this.GobiertoPlans.PlansController = (function() {
         methods: {
           getJson: function() {
             $.getJSON(window.location.href, function(json) {
-              var data = JSON.parse(json["plan_tree"]);
-              // data = _.sortBy(data, 'attributes.title')
+              var data = json["plan_tree"];
               this.json = data;
             }.bind(this));
           },

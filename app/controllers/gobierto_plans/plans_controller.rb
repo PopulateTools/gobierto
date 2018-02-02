@@ -23,7 +23,7 @@ module GobiertoPlans
         format.html
         format.json do
           render(
-            json: { plan_tree: plan_tree.to_json }
+            json: { plan_tree: plan_tree }
           )
         end
       end

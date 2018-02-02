@@ -484,6 +484,7 @@ this.GobiertoBudgets.InvoicesController = (function() {
           type: "text",
           autosearch: true,
           align: "center",
+          css: "break",
           width: 30
         },
         {
@@ -508,7 +509,8 @@ this.GobiertoBudgets.InvoicesController = (function() {
           title: I18n.t('gobierto_budgets.invoices.show.table.fields.paid'),
           type: "checkbox",
           align: "center",
-          width: 20
+          width: 20,
+          visible: false
         },
         {
           name: "value",

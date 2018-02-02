@@ -52,7 +52,7 @@ this.GobiertoPlans.PlansController = (function() {
             this.$emit('selection', model);
 
             // REVIEW: Revisar este bloque
-            $('section.level_0 .js-img').velocity({flex: "0"});
+            $('section.level_0 .js-img').hide();
             $('section.level_0 .js-info').velocity({padding: "1.5em"});
             $('section.level_0 .js-info h3, section.level_1 .js-info span').velocity({"font-size": "1.25rem" });
 
@@ -226,8 +226,9 @@ this.GobiertoPlans.PlansController = (function() {
       //close everything
       $(document).click(function (e) {
         // if the target of the click isn't the container nor a descendant of the container REVIEW
-        var container = $(".planification-content");
-        if (!container.is(e.target) && container.has(e.target).length === 0) {
+        // var container = $(".planification-content");
+        if (!$(e.target).closest('.planification-content').length) {
+        // if (!container.is(e.target) && container.has(e.target).length === 0) {
           app.activeNode = {};
 
           $('section.level_0').removeAttr('style');

@@ -75,7 +75,7 @@
 
           <%# FIXME: breadcrumb hidden TEMPORARILY %>
           <div class="node-breadcrumb mb2" v-if="false">
-            <a data-turbolinks="false" @click="getParent">
+            <a data-turbolinks="false" @click.stop="getParent">
               <i class="fa fa-caret-left"></i>
               Ver todo en {{ ((json[rootid] || {}).attributes || {}).title | translate }}
             </a>
@@ -107,7 +107,7 @@
 
           <%# FIXME: breadcrumb hidden TEMPORARILY %>
           <div class="node-breadcrumb mb2" v-if="false">
-            <a data-turbolinks="false" @click="getParent">
+            <a data-turbolinks="false" @click.stop="getParent">
               <i class="fa fa-caret-left"></i>
               Ver todo en {{ ((json[rootid] || {}).attributes || {}).title | translate }}
             </a>
@@ -196,7 +196,7 @@
   <div class="node-list">
     <div class="node-title">
       <div><i class="fa" :class="[(isOpen) ? 'fa-caret-down' : 'fa-caret-right']"></i></div>
-      <h3><a @click="setActive" data-turbolinks="false">{{ model.attributes.title | translate }}</a></h3>
+      <h3><a @click.stop="setActive" data-turbolinks="false">{{ model.attributes.title | translate }}</a></h3>
     </div>
     <div>{{ (model.children || []).length }} <%= @plan.configuration_data["level" + @levels.to_s][I18n.locale.to_s] %></div>
     <div>{{ (model.attributes || {}).progress || 0 | percent }}</div>
@@ -213,7 +213,7 @@
       <th><%= t(".progress") %></th>
     </thead>
     <tbody>
-      <tr v-for="row in model.children" @click="getProject(row)">
+      <tr v-for="row in model.children" @click.stop="getProject(row)">
         <td>{{ row.attributes.title | translate }}</td>
         <td>{{ row.attributes.starts_at | date }}</td>
         <td>{{ row.attributes.status | translate }}</td>

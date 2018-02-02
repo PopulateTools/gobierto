@@ -60,6 +60,12 @@
     }
   }
 
+  .jsgrid-cell {
+    &.break {
+      word-break: break-all;
+    }
+  }
+
   input[type="checkbox"] {
     display: inline-block;
   }

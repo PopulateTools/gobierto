@@ -394,7 +394,7 @@ GEM
       nokogiri (>= 1.4.0)
       nori (~> 2.4)
       wasabi (~> 3.4)
-    sidekiq (5.0.5)
+    sidekiq (5.1.0)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
@@ -524,7 +524,7 @@ DEPENDENCIES
   ruby_px
   sass-rails (~> 5.0.0)
   savon (~> 2.11.1)
-  sidekiq (~> 5.0.4)
+  sidekiq (~> 5.1.0)
   simple_calendar (~> 2.2)
   spring
   spring-watcher-listen (~> 2.0.0)
